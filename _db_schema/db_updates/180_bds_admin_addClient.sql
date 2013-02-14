@@ -1,0 +1,24 @@
+USE `bds_admin`;
+DROP procedure IF EXISTS `client_AddClient`;
+
+DELIMITER $$
+USE `bds_admin`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `client_AddClient`(
+IN `DBNAME` VARCHAR(100),
+IN `DIR_REC_ID` INT(11),
+IN `YEAR` VARCHAR(4),
+IN `CLIENTNAME` VARCHAR(255),
+IN `USERNAME` VARCHAR(64),
+IN `PASSWORD` VARCHAR(64),
+IN `FIRSTNAME` VARCHAR(45), 
+IN `LASTNAME` VARCHAR(45), 
+IN `EMAIL` VARCHAR(100)
+)
+BEGIN
+  SET @s = CONCAT("CALL ",DBNAME,".do_createClient('",DIR_REC_ID,"','",YEAR,"','",CLIENTNAME,"','",USERNAME,"','",PASSWORD,"','",FIRSTNAME,"','",LASTNAME,"','",EMAIL,"')");
+  PREPARE stmt FROM @s;
+  EXECUTE stmt;
+END$$
+
+DELIMITER ;
+

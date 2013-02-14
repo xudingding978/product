@@ -1,0 +1,129 @@
+/* 
+    Document   : register.css
+    Created on : 26/02/2012, 3:22:42 PM
+    Author     : devbox
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+.registration #submitform {
+            width:  507px;
+            height: 560px;
+            margin-top: 30px;
+            background-color: #E8F1FF; 
+            border: 1px solid #828282; 
+            padding: 8px; 
+            border-radius: 8px;  
+            box-shadow: 2px 2px 3px #CCCCCC;
+            /* IE10 */ 
+            background-image: -ms-linear-gradient(top, #ECF5FD 50%, #DFEFFC 0%, #ECF5FD 100%);
+
+            /* Mozilla Firefox */ 
+            background-image: -moz-linear-gradient(top, #ECF5FD 50%, #DFEFFC 0%, #ECF5FD 100%);
+
+            /* Opera */ 
+            background-image: -o-linear-gradient(top, #ECF5FD 50%, #DFEFFC 0%, #ECF5FD 100%);
+
+            /* Webkit (Safari/Chrome 10) */ 
+            background-image: -webkit-gradient(linear, left top, left bottom, color-stop(.5, #ECF5FD), color-stop(0, #DFEFFC), color-stop(1, #ECF5FD));
+
+            /* Webkit (Chrome 11+) */ 
+            background-image: -webkit-linear-gradient(top, #ECF5FD 50%, #DFEFFC 0%, #ECF5FD 100%);
+
+            /* Proposed W3C Markup */ 
+            background-image: linear-gradient(top, #ECF5FD 50%, #DFEFFC 0%, #ECF5FD 100%);
+}
+
+.registration h2{
+    font-family: tahoma, verdana, sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+}
+.register_input{
+    outline: 0 none;
+    -moz-appearance: none;
+    border: 1px solid #3c3c3c;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4) inset, 0 2px 0 #FFFFFF;	
+    width: 265px; 
+    position: relative;
+    font-family: arial,sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 16px;
+    vertical-align: middle;
+    padding: 5px 7px;
+    border-radius:5px;
+    margin:0 25px 0 0; 
+}
+.firstname, .lastname { 
+    width: 200px;
+}
+.email {
+    width:265px;
+    margin-right: 0;
+}
+.emailinfo {
+    width:200px;
+    height:25px; 
+    border: 1px;
+}
+
+.imgVerfication{
+    float: left;    
+}
+
+.linkLogin:link{
+    text-decoration: underline !important;
+    color: blue;
+}
+
+.selectCountry{
+    padding: 5px 7px;
+    width: 400px;
+}
+
+.labelVerification{
+    width:200px;
+    height: auto;
+}
+.password {
+    width:265px;
+}
+
+.div_emailinfo
+{
+    width: 265px; 
+    height: 40px;
+}
+.recaptcha_input_area{
+    left: -7px !important;
+    top: 2px !important;
+}
+
+.recaptchatable #recaptcha_response_field{
+   outline: 0 none;
+    -moz-appearance: none;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4) inset, 0 2px 0 #FFFFFF;	
+    width: 265px; 
+    position: relative;
+    font-family: arial,sans-serif;
+    font-size: 16px !important; 
+    font-weight: normal;
+    line-height: 16px;
+    vertical-align: middle;
+    padding: 5px 7px;
+    border-radius:5px;
+    margin:0 25px 0 0;
+}
+
+.recaptchatable .recaptcha_image_cell{
+    background-color: transparent !important;
+}
+.btnRegister {
+    width:  200px;
+    height: 44px;
+}

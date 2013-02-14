@@ -1,0 +1,6 @@
+<?PHP
+
+	class SearchItemView {
+	
+	}
+?>

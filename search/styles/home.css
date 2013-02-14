@@ -1,0 +1,208 @@
+#slider{
+    width:590px;
+    height:241px;
+}
+#slide-wrapper{
+    background-color: #F1F1F1;
+    height: 280px;
+    width: 590px;
+    border:1px solid #EBEBEB;
+    margin-top: 18px;
+}
+.frontpage-slider{
+    width:590px;
+    height:241px;
+}
+.frontpage-slider-left{
+    width:70%;
+    height:100%;
+    float:left;
+}
+.frontpage-slider-right{
+    background-color: #E7E7E7;
+    border: 3px solid #E9E9E9;
+    float: right;
+    height: 100%;
+    padding: 10px 2px 2px;
+    width: 164px;
+}
+#featured-listing-wrapper{
+    border:1px solid #E9E9E9;
+    clear: both;
+    overflow: auto;
+    padding-top: 10px;
+    width: 590px;
+}
+#featured-listing{
+    width:560px;
+    margin:10px auto;
+    height:100%;
+}
+#featured-listing-thumb-wrapper{
+    width:560px;
+    height:auto;
+    min-height:90px;
+    border-top:1px solid #E7E7E7;
+    margin-top:5px;
+}
+.featured-listing-thumb{
+    float: left;
+    height: auto;
+    margin: 5px;
+    min-height: 50px;
+    width: 170px;    
+}
+.featured-listing-thumb-image{
+    border: 2px solid #7B94A4;
+    height: 110px;
+    margin: 0 auto 3px;
+    overflow: hidden;
+    width: 168px;
+}
+.featured-listing-thumb-content{
+    color: gray;
+    font-family: arial;
+    font-size: 10px;
+    line-height: 16px;
+}
+#featured-deals h2{
+    border-bottom: 1px solid #E7E7E7;
+    height: auto;
+    line-height: 28px;
+    margin-top: 60px;
+    width: 100%;
+}
+#featured-deals-large_thumb{
+    width:240px;
+    height:auto;
+    float:left;
+    margin-top:10px;
+}
+.dc-amount-wrapper{
+    background-color: #E7E7E7;
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 3px;
+    text-align: center;
+    text-indent: -8px;
+    width: 75px;
+}
+.dc-amount-arrow{
+    border-bottom: 15px solid transparent;
+    border-right: 10px solid #E7E7E7;
+    border-top: 14px solid transparent;
+    float: left;
+    height: 0;
+    position: relative;
+    right: 0px;
+    width: 0;
+}
+#featured-deals-large-thumb-img{
+    border: 2px solid #7B94A4;
+    height: 75px;
+    overflow: hidden;
+    width: 130px;
+}
+#featured-deals-large-thumb-content{
+    float: right;
+    font-family: arial;
+    font-size: 10px;
+    margin-top: 5px;
+    width: 152px;
+}
+.featured-deals-right{
+    border-bottom: 1px solid #E7E7E7;
+    float: right;
+    height: auto;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    width: 300px;
+}
+.featured-deals-large-thumb-content{
+    float: left;
+    font-family: arial;
+    font-size: 11px;
+    height: auto;
+    margin-left: 10px;
+    width: 190px;
+}
+.view-all{
+    float:right;
+    font-size:10px;
+}
+/* Easy Slider */
+
+#slider ul, #slider li,
+#slider2 ul, #slider2 li{
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+#slider2{margin-top:1em;}
+#slider li, #slider2 li{ 
+    /* 
+            define width and height of list item (slide)
+            entire slider area will adjust according to the parameters provided here
+    */ 
+    width:590px;
+    height:241px;
+    /*overflow:hidden;*/ 
+}	
+#prevBtn, #nextBtn,
+#slider1next, #slider1prev{ 
+    display:block;
+    width:30px;
+    height:77px;
+    position:absolute;
+    left:-30px;
+    top:71px;
+    z-index:1000;
+}	
+#nextBtn, #slider1next{ 
+    left:696px;
+}														
+#prevBtn a, #nextBtn a,
+#slider1next a, #slider1prev a{  
+    display:block;
+    position:relative;
+    width:30px;
+    height:77px;
+    background:url(../images/btn_prev.gif) no-repeat 0 0;	
+}	
+#nextBtn a, #slider1next a{ 
+    background:url(../images/btn_next.gif) no-repeat 0 0;	
+}	
+
+/* numeric controls */	
+
+ol#controls{
+    margin:1em 0;
+    padding:0;
+    height:28px;	
+}
+ol#controls li{
+    margin:0 0px 0 0; 
+    padding:0;
+    float:left;
+    list-style:none;
+    height:28px;
+    line-height:28px;
+}
+ol#controls li a{
+    float:left;
+    height:8px;
+    line-height:28px;
+    border:1px solid #ccc;
+    background:gray;
+    color:#F1F1F1;
+    text-decoration:none;
+    margin-left:10px;
+}
+ol#controls li.current a{
+    background:#E7E7E7;
+    color:#F1F1F1;
+}
+ol#controls li a:focus, #prevBtn a:focus, #nextBtn a:focus{outline:none;}
+
+/* // Easy Slider */

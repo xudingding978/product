@@ -1,0 +1,1 @@
+ALTER TABLE `db_live`.`tpl_directory_period_additional_offering` ADD COLUMN `PERIOD_TYPE_COST_EXCL_GST` DOUBLE(15,3) ZEROFILL UNSIGNED NOT NULL  AFTER `COST_EXCL_GST` ;

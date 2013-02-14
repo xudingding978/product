@@ -1,0 +1,264 @@
+/* 
+Title:		Screen styles and ie/win patches
+Author: 	jason@the-ebusiness-company.com
+*/
+
+body {
+	margin: 0px 0px;
+	padding: 0px;
+}
+
+#container {
+	border:solid 0px gray;
+	margin: 0px auto;
+	text-align: left;
+	width:960px;
+	color:#000000;
+	font-family:tahoma,verdana,sans-serif;
+	font-size:11px;
+	font-size-adjust:none;
+	font-style:normal;
+	font-variant:normal;
+	font-weight:normal;
+	line-height:1.273em;
+	padding-left:2px;
+	padding-right:2px;		
+}
+
+#content_container {
+	border:solid 0px gray;
+	margin: 0px auto;
+	text-align: left;
+	font-family:tahoma,verdana,sans-serif;
+	font-size:11px;
+	font-size-adjust:none;
+	line-height:1.273em;
+	padding-left:2px;
+}
+
+#page_header	{
+	border:0px;
+	width:960px;
+	height:110px;
+}
+
+#menuholder	{
+	border: 0px;
+	top:148px;
+}
+
+#menubar	{
+	border: 0px;
+	width:960px;
+	height:25px;
+}
+#leaderboard {
+	border: 0px;
+	width:728px;
+	height:90px;
+}
+#promopage
+{
+	margin: 2px 0 0 2px;
+	height:90px;
+}
+#announcement {
+	border: 0px;
+	height: 150px;
+	width: 500px;
+}
+/*#skyscraper{
+	border:solid 0px gray;
+	position:relative;
+	top:1px;
+	margin-bottom:2px;
+	left:800px;
+	width:160px;
+	height:600px;
+}
+*/
+#skyscraper{
+	border:solid 0px gray;
+	position:relative;
+	/*top:1px;*/
+	margin: 0 0 0 0;
+	/*left:800px;*/
+	width:160px;
+	height:600px;
+}
+#mainbody	{
+	border:solid 0px gray;
+	width:960px;
+	/*height:760px;*/
+	height:830px;
+	/*controlling the length of the body as skyscraper is in absolute position*/
+}
+#dynamic_content{
+	border:solid 0px gray;
+	position:absolute;
+	top:230px;
+}
+#search	{
+	width:265px;
+	height:40px;
+	border-top-width:medium;
+	padding-left:7px;
+}
+#treeview{
+	border:solid 0px gray;
+	width:210px;
+	min-height:200px;
+}
+#content_zone	{
+	/*position:relative;*/
+	left:0px;
+	top: 0px;
+	border:solid 0px gray;
+}
+#footer_ads{
+	position:relative;
+	width:960px;
+	height: 65px;
+	top: 0px;
+}
+#page_footer	{
+	width:960px;
+	height:20px;
+	color:#000000;
+	font-family:tahoma,verdana,sans-serif;
+	font-size:11px;
+	font-size-adjust:none;
+	font-style:normal;
+	font-variant:normal;
+	font-weight:normal;
+	line-height:1.273em;
+}
+.footer_link {
+	font-family:tahoma,verdana,sans-serif;
+	font-size:11px;
+	font-size-adjust:none;
+	font-style:normal;
+	font-variant:normal;
+	font-weight:normal;
+	line-height:1.273em;
+}
+
+/* menu */
+.menu_item{
+	margin:5px 20px 2px 20px;
+}
+/* */
+#content_target {
+	width:685px;
+	/*height:655px;*/
+	height:728px;
+	padding:2px 0 2px 0;
+	border:solid 0px gray;
+}
+
+#search_target{
+	width:535px;
+	height:680px;
+	padding:2px 0 2px 0;
+	border:solid 0px gray;
+}
+/*homepage blocks */
+#home_banner_ad{
+	border:solid 0px gray;
+	position:absolute;
+	top:0px;
+	right:0px;
+	width: 490px;
+	height: 100px;
+}
+#recently_added{
+	border:solid 0px gray;
+	position:absolute;
+	top:360px;
+	left:5px;
+	width: 340px;
+	height: 125px;
+}
+#most_popular{
+	border:solid 0px gray;
+	position:absolute;
+	top:185px;
+	left:5px;
+	width: 490px;
+	height: 220px;
+}
+
+#popular_tags{
+	border:solid 0px gray;
+	position:absolute;
+	top: 165px;
+	left: 350px;
+	width: 169px;
+	height: 310px;
+	padding: 10px 0px 10px 10px;
+/*	margin:0px 0px 0px 10px; */
+}
+#popular_tag_padding {
+	 padding:10px;
+}
+
+.popular_tag_link{
+	text-decoration:none;
+	color:#000000;
+}
+/* SEARCH styles */
+#search_results{
+	border:solid 0px gray;
+position:relative;
+height:300px;
+width: inherit;
+}
+#search_navigation{
+	border:solid 0px gray;
+position:absolute;
+top:400px;
+left: 10px;
+}
+#search_nav_link{
+	text-decoration:none;
+	color:#000000;
+}
+
+.search_product_category{
+	margin:10px 5px 0px 10px;
+}
+
+.search_product{
+	margin:10px 5px 0px 10px;
+}
+
+.search_supplier{
+	margin:10px 5px 0px 10px;
+}
+.search_brand{
+	margin:10px 5px 0px 10px;
+}
+
+.search_link{
+	text-decoration:underline;
+	font-weight:bold;
+}
+.search_display{
+	font-size:10px;
+}
+.view_name {
+	font-weight:bold;
+}
+ul
+{
+	list-style-type: none;
+	padding: 0px;
+	margin: 0px;
+	font-family:sans-serif;
+	font-size:12px;
+}
+li
+{
+	background-position: 0px 5px;
+	padding-left: 14px;
+}

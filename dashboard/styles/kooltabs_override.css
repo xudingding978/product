@@ -1,0 +1,29 @@
+/* 
+    Document   : kooltabs_override
+    Created on : 3/04/2012, 7:21:04 AM
+    Author     : devbox
+    Description:
+        Overrides the silver.css styling for the KoolTabs Control.
+*/
+
+
+.silverKTS .ktsLevel1 {
+    background-color: #CCCCCC !important;
+    line-height:20px;
+    border-left: 1px solid #828282;
+    border-right: 1px solid #828282;
+}
+
+.silverKTS .ktsLevel2 {
+    background-color: #FFFFFF !important;
+    line-height:20px;
+    border-left: 1px solid #828282;
+    border-right: 1px solid #828282;
+}
+.silverKTS .ktsLevel
+{
+	width:99.8% !important;
+	overflow:hidden;
+	clear:both;
+	position:relative;
+}

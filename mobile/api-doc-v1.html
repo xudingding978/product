@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>API DOC V1</title>
+</head>
+<body>
+<div style="width: 1080px; margin: 0 auto;">
+    <h1>API Documentation for Business Directory Environment</h1>
+    
+    <h2>WebService Search Parameter Defitions</h2>
+    
+    There are essentially 3 different types of searches that can be performed via this API.
+    
+    Each of the types are shown in the examples below with their valid parameters 
+    
+    
+    <h3>Search Types</h3>
+    
+    stype = search type, this defines the correct set of parameters to pass<br/>
+    valid search types are: 
+    <ul>
+        <li>loc</li>
+         location based search, requires lat and lng (number)
+         <li>reg</li> 
+        region based search, requires a region string (string)
+        <li>cat</li> 
+        category based search, requires a starting category id (number)
+        <li>sup</li> list information on suppliers, requires a supplier id (number)
+    </ul>
+    
+    
+    
+    <h3>Example of Search By Near Me</h3>
+    <h3><a href="http://m.tonz.co.nz/v1/?stype=loc&lat=-36.847385&lng=174.765735&rad=100&drec=6&maxr=10">http://m.tonz.co.nz/v1/?stype=loc&lat=-36.847385&lng=174.765735&rad=100&drec=6&maxr=10</a></h3>
+    <br />
+    stype = loc
+    <br />
+    lat = should be the latitude of the users loction
+    <br />
+    lng = should be the longitude of the users loction
+    <br />
+    rad = radius to be used to show the radius in which to show
+    <br />
+    drec = the directory ID for the query to enquire into ( 6 = TONZ directory)
+    <br />
+    maxr = maximum number of results to return for any query
+    <br />
+    page = the page of records to return
+    <br />
+    <br />
+    Example Location we are using is 8 Wyndham St, Auckland<br/>
+    -36.847385, 174.765735
+    <br />
+    <br />
+    
+    <h3>Example of Search By Category</h3>
+    <h3><a href="http://m.tonz.co.nz/?stype=reg&crec=3595&drec=6&maxr=10&page=1">http://m.tonz.co.nz/?stype=reg&crec=3595&drec=6&maxr=10&page=1</a></h3>
+    <br />
+    stype = cat
+    <br />
+    drec = the directory ID for the query enquire into
+    <br />
+    maxr = maximum number of results to return for any query
+    <br />
+    page = the page of records to return
+    <br />
+    <br />
+    <br />
+    
+    <h3>Example of Search By Region</h3>
+    <h3><a href="http://m.tonz.co.nz/v1/?stype=reg&drec=6&maxr=10&page=3&sreg=auckland">http://m.tonz.co.nz/v1/?stype=reg&drec=6&maxr=10&page=3&sreg=auckland</a></h3>
+    <br />
+    stype = reg
+    <br />
+    drec = the directory ID for the query enquire into
+    <br />
+    maxr = maximum number of results to return for any query
+    <br />
+    page = the page of records to return for a page or show more
+    <br />
+    sreg = string of the region that search will query for
+    <br />
+    <br />
+    <br />
+    
+    <h3>Example of Listing Information About Supplier</h3>
+    <h3><a href="http://m.tonz.co.nz/v1/?stype=sup">http://m.tonz.co.nz/v1/?stype=sup&srec=2246</a></h3>
+    <br />
+    stype = sup
+    <br />
+    srec = rec_id of supplier
+    <br />
+    <br />
+    <br />
+    <br />
+    
+
+</div>
+
+</body>
+</html>

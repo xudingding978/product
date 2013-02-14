@@ -1,0 +1,60 @@
+CREATE DATABASE  IF NOT EXISTS `db_live` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `db_live`;
+-- MySQL dump 10.13  Distrib 5.6.6-m9, for linux2.6 (i686)
+--
+-- Host: localhost    Database: db_live
+-- ------------------------------------------------------
+-- Server version	5.6.6-m9-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `tpl_directory_period_order_items`
+--
+
+DROP TABLE IF EXISTS `tpl_directory_period_order_items`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tpl_directory_period_order_items` (
+  `REC_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `REC_DATETIME` datetime DEFAULT NULL,
+  `REC_TIMESTAMP` datetime DEFAULT NULL,
+  `DIRECTORY_PERIOD_ORDER_REC_ID` int(11) NOT NULL,
+  `SHADOW_DIR_PER_OFF_REC_ID` int(11) NOT NULL,
+  `SHADOW_DIR_PER_ADD_OFF_REC_ID` int(11) NOT NULL DEFAULT '0',
+  `EXCL_TAX_TOTAL` float DEFAULT NULL,
+  `TAX_RATE` float DEFAULT NULL,
+  `LINE_TOTAL` float DEFAULT NULL,
+  `PAYMENT_TERMS` varchar(45) DEFAULT 'one-off',
+  `PACKAGE` varchar(45) DEFAULT NULL,
+  `STATUS` int(11) DEFAULT NULL,
+  PRIMARY KEY (`REC_ID`),
+  KEY `fssad` (`SHADOW_DIR_PER_ADD_OFF_REC_ID`),
+  KEY `fk_tpl_qq` (`SHADOW_DIR_PER_OFF_REC_ID`),
+  KEY `fk_tpl_order_items_1_idx` (`DIRECTORY_PERIOD_ORDER_REC_ID`),
+  KEY `fk_tpl_directory_period_order_items_1_idx` (`DIRECTORY_PERIOD_ORDER_REC_ID`),
+  CONSTRAINT `fk_dir_per_orders` FOREIGN KEY (`DIRECTORY_PERIOD_ORDER_REC_ID`) REFERENCES `tpl_directory_period_orders` (`REC_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_shadow_dir_per_add_offer` FOREIGN KEY (`SHADOW_DIR_PER_ADD_OFF_REC_ID`) REFERENCES `tpl_shadow_directory_period_additional_offering` (`REC_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_shadow_dir_per_offer` FOREIGN KEY (`SHADOW_DIR_PER_OFF_REC_ID`) REFERENCES `tpl_shadow_directory_period_offering` (`REC_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2012-10-05 15:54:53

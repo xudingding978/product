@@ -1,0 +1,4 @@
+ALTER TABLE `db_live`.`tpl_supplier_media` 
+ADD COLUMN `IS_FEATURED` TINYINT(1) NULL  AFTER `IS_EMBED_SOURCE` ;
+
+

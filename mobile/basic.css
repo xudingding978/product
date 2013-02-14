@@ -1,0 +1,123 @@
+.site_container {
+	width: 20%;
+	text-align: center;
+}
+
+.head_banner {
+	width: 100%;
+	height: 40px;
+	color: white;
+	font-size: xx-large;
+	background-color: #093;
+	text-align: center;
+}
+
+.tab_container {
+	width: 100%;
+	color: white;
+	text-align: center;	
+	font-size: x-large;
+}
+
+.tab_item {
+	width: 33%;
+	color: white;
+	text-align: center;
+	font-size: x-large;
+	background-color: blue;
+}
+
+.regions_selector {
+	width: 100%;
+	color: white;
+	background-color: grey;
+	text-align: left;
+	font-size: medium;
+	
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0.41, rgb(36,36,36)),
+		color-stop(0.63, rgb(51,51,51)),
+		color-stop(0.86, rgb(106,107,107))
+	);
+	background-image: -moz-linear-gradient(
+		center bottom,
+		rgb(36,36,36) 41%,
+		rgb(51,51,51) 63%,
+		rgb(106,107,107) 86%
+	);
+}
+
+.dir_item {
+	width: 100;
+	padding: 3px;
+	color: black;
+	background-color: white;
+	text-align: left;
+	font-size: large;
+}
+
+.footer {
+	width: 100%;
+	color: white;
+	background-color: grey;
+	text-align: right;
+	font-size: medium;
+	
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0.41, rgb(36,36,36)),
+		color-stop(0.63, rgb(51,51,51)),
+		color-stop(0.86, rgb(106,107,107))
+	);
+	background-image: -moz-linear-gradient(
+		center bottom,
+		rgb(36,36,36) 41%,
+		rgb(51,51,51) 63%,
+		rgb(106,107,107) 86%
+	);
+}
+
+.root_category {
+	font-size: x-large;
+	font-weight: 500;
+}
+
+.general_category {
+	font-size: x-large;
+	font-weight: 500;
+}
+
+//-------------------------------
+//XML Stuff
+
+supplier {
+	font-size: large;
+	font-weight: bold;
+}
+
+.supplier_name {
+	font-size: large;
+	font-weight: bold;
+}
+
+.supplier_street_address {
+	font-size: small;
+}
+
+.supplier_phone_no {
+	font-size: medium;
+}
+
+.supplier_website_address {
+	font-size: medium;
+}
+
+.supplier_email_address {
+	font-size: medium;
+}
+//-------------------------------

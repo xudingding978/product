@@ -1,0 +1,1 @@
+ALTER TABLE `db_live`.`tpl_directory_period` ADD COLUMN `IS_MULTI_PAYMENT` VARCHAR(4) NULL DEFAULT '0'  AFTER `IS_DEFAULT` ;

@@ -37,6 +37,10 @@ return array(
             'class' => 'ext.bootstrap.components.Bootstrap',
             'responsiveCss' => true,
         ),
+        'clientScript' => array(
+            'class' => 'ext.minScript.components.ExtMinScript',
+            'optionName' => 'optionValue',
+        ),
         // uncomment the following to enable URLs in path-format
         /*
           'urlManager'=>array(
@@ -79,6 +83,13 @@ return array(
               ),
              */
             ),
+        ),
+    ),
+    //Reference the minScript controller inside Yii's application configuration
+    'controllerMap' => array(
+        'min' => array(
+            'class' => 'ext.minScript.controllers.ExtMinScriptController',
+            'optionName' => 'optionValue',
         ),
     ),
     // application-level parameters that can be accessed

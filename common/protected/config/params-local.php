@@ -1,4 +1,5 @@
 <?php
+
 /**
  * params-local.php
  *
@@ -23,17 +24,22 @@
  * {DATABASE-PASSWORD} -> Test user password
  */
 return array(
-	'env.code' => 'private',
-	// DB connection configurations
-//	'db.name' => '',
-//	'db.connectionString' => 'mysql:host={DATABASE-HOST};dbname={DATABASE-NAME}',
-//	'db.username' => '{DATABASE-USERNAME}',
-//	'db.password' => '{DATABASE-PASSWORD}',
+    'env.code' => 'private',
+    // DB connection configurations
+    // live database
+    'db_live.name' => 'db_live',
+    'db_live.connectionString' => 'mysql:host=localhost;dbname=db_live',
+    'db_live.username' => 'tplweb',
+    'db_live.password' => 'S3cr3t!',
+    // admin database
+    'db_admin.name' => 'db_admin',
+    'db_admin.connectionString' => 'mysql:host=localhost;dbname=db_admin',
+    'db_admin.username' => 'tplweb',
+    'db_admin.password' => 'S3cr3t!',
 //
 //	// test database {
 //	'testdb.name' => '',
 //	'testdb.connectionString' => 'mysql:host={DATABASE-HOST};dbname={DATABASE-NAME}_test',
 //	'testdb.username' => '{DATABASE-USERNAME}',
 //	'testdb.password' => '{DATABASE-PASSWORD}',
-
 );

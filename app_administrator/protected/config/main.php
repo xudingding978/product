@@ -1,100 +1,120 @@
 <?php
+/**
+ *  Administration Control Panel Application Configuration
+ *
+ * @author: Jason Liddiard <jason@the-ebusiness-company.com>
+ * Date: 24/02/13
+ * Time: 4:15 PM
+ *
+ * This file holds the configuration settings of the Administration Control Panel application.
+ * */
 
-$backendConfigDir = dirname(__FILE__);
+$app_administratorConfigDir = dirname(__FILE__);
 //
-$root = $backendConfigDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..';
-//
-//$params = require_once($backendConfigDir . DIRECTORY_SEPARATOR . 'params.php');
+$root = $app_administratorConfigDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..';
 //
 //// Setup some default path aliases. These alias may vary from projects.
 Yii::setPathOfAlias('root', $root);
 Yii::setPathOfAlias('common', $root . DIRECTORY_SEPARATOR . 'common' . DIRECTORY_SEPARATOR . 'protected');
-// uncomment the following to define a path alias
-//Yii::setPathOfAlias('bootstrap', $root.'/common/protected/extensions/bootstrap');
+Yii::setPathOfAlias('app_administrator', $root . DIRECTORY_SEPARATOR . 'app_administrator');
+Yii::setPathOfAlias('app_dashboard', $root . DIRECTORY_SEPARATOR . 'app_dashboard');
+Yii::setPathOfAlias('app_searchengine', $root . DIRECTORY_SEPARATOR . 'app_searchengine');
+Yii::setPathOfAlias('app_useraccount', $root . DIRECTORY_SEPARATOR . 'app_useraccount');
+
+// The configuation tree overides in the following way...
+// local settings below > environment specific > main configuration
+
+$params = require_once($app_administratorConfigDir . DIRECTORY_SEPARATOR . 'params.php');
+
+$mainLocalFile = $app_administratorConfigDir . DIRECTORY_SEPARATOR . 'main-local.php';
+$mainLocalConfiguration = file_exists($mainLocalFile) ? require($mainLocalFile) : array();
+
+$mainEnvFile = $app_administratorConfigDir . DIRECTORY_SEPARATOR . 'main-env.php';
+$mainEnvConfiguration = file_exists($mainEnvFile) ? require($mainEnvFile) : array();
+
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
-return array(
-    'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
-    'name' => 'Administration Control Panel',
-    // preloading 'log' component
-    'preload' => array('log','bootstrap'),
-    // autoloading model and component classes
-    'import' => array(
-        'common.components.*',
-        'common.extensions.*',
-        'common.models.*',
-        'application.models.*',
-        'application.components.*',
-    ),
-    'modules' => array(
-// uncomment the following to enable the Gii tool
-    /*
-      'gii'=>array(
-      'class'=>'system.gii.GiiModule',
-      'password'=>'Enter Your Password Here',
-      // If removed, Gii defaults to localhost only. Edit carefully to taste.
-      'ipFilters'=>array('127.0.0.1','::1'),
-      ),
-     */
-    ),
-    // application components
-    'components' => array(
-        'user' => array(
-// enable cookie-based authentication
-            'allowAutoLogin' => true,
-        ),
-        'bootstrap' => array(
-            'class' => 'common.extensions.bootstrap.components.Bootstrap',
-            'responsiveCss' => true,
-        ),
-        // uncomment the following to enable URLs in path-format
-// uncomment the following to enable URLs in path-format
-        'urlManager' => array(
-            'urlFormat' => 'path',
-            'showScriptName' => false,
-            'rules' => array(
-                '<controller:\w+>/<id:\d+>' => '<controller>/view',
-                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
-                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
-            ),
-        ),
-        'db' => array(
-            'connectionString' => 'sqlite:' . dirname(__FILE__) . '/../data/testdrive.db',
-        ),
-        // uncomment the following to use a MySQL database
-        /*
-          'db'=>array(
-          'connectionString' => 'mysql:host=localhost;dbname=testdrive',
-          'emulatePrepare' => true,
-          'username' => 'root',
-          'password' => '',
-          'charset' => 'utf8',
-          ),
-         */
-        'errorHandler' => array(
-// use 'site/error' action to display errors
-            'errorAction' => 'site/error',
-        ),
-        'log' => array(
-            'class' => 'CLogRouter',
-            'routes' => array(
+
+return CMap::mergeArray(
                 array(
-                    'class' => 'CFileLogRoute',
-                    'levels' => 'error, warning',
-                ),
-            // uncomment the following to show log messages on web pages
-            /*
-              array(
-              'class'=>'CWebLogRoute',
-              ),
-             */
+            'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
+            // set parameters
+            'params' => $params,
+            'name' => 'Administration Control Panel',
+            // preloading 'log' component
+            'preload' => array('log', 'bootstrap'),
+            // @see http://www.yiiframework.com/doc/api/1.1/CApplication#language-detail
+            'language' => 'en',
+            // autoloading model and component classes
+            'import' => array(
+                'common.components.*',
+                'common.extensions.*',
+                'common.models.*',
+                'application.models.*',
+                'application.components.*',
             ),
-        ),
-    ),
-    // application-level parameters that can be accessed
-// using Yii::app()->params['paramName']
-    'params' => array(
-// this is used in contact page
-        'adminEmail' => 'webmaster@example.com',
-    ),
+            'modules' => array(
+            ),
+            // application components
+            'components' => array(
+                'user' => array(
+            // enable cookie-based authentication
+                    'allowAutoLogin' => true,
+                ),
+                'bootstrap' => array(
+                    'class' => 'common.extensions.bootstrap.components.Bootstrap',
+                    'responsiveCss' => true,
+                ),
+                // Url Manager from YiiBoilerPlate
+                'urlManager' => array(
+                    'urlFormat' => 'path',
+                    'showScriptName' => false,
+                    'urlSuffix' => '/',
+                    'rules' => $params['url.rules']
+                ),
+                'db_admin' => array(
+                    'class' => 'CDbConnection',
+                    'connectionString' => $params['db_admin.connectionString'],
+                    'username' => $params['db_admin.username'],
+                    'password' => $params['db_admin.password'],
+                    'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
+                    'enableParamLogging' => YII_DEBUG,
+                    'charset' => 'utf8'
+                ),
+                'db_live' => array(
+                    'class' => 'CDbConnection',
+                    'connectionString' => $params['db_live.connectionString'],
+                    'username' => $params['db_live.username'],
+                    'password' => $params['db_live.password'],
+                    'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
+                    'enableParamLogging' => YII_DEBUG,
+                    'charset' => 'utf8'
+                ),
+                'errorHandler' => array(
+            // use 'site/error' action to display errors
+                    'errorAction' => 'site/error',
+                ),
+                'log' => array(
+                    'class' => 'CLogRouter',
+                    'routes' => array(
+                        array(
+                            'class' => 'CFileLogRoute',
+                            'levels' => 'error, warning',
+                        ),
+                    // uncomment the following to show log messages on web pages
+                    ///*
+                      array(
+                      'class'=>'CWebLogRoute',
+                      ),
+                     //*/
+                    ),
+                ),
+            ),
+            // application-level parameters that can be accessed
+            // using Yii::app()->params['paramName']
+            'params' => array(
+            // this is used in contact page
+                'adminEmail' => 'webmaster@example.com',
+            ),
+                ), CMap::mergeArray($mainEnvConfiguration, $mainLocalConfiguration)
 );

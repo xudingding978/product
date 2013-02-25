@@ -151,3 +151,21 @@ Stack trace:
 #12 {main}
 REQUEST_URI=/
 ---
+2013/02/15 10:21:31 [error] [exception.CException] exception 'CException' with message 'Property "ExtMinScript.optionName" is not defined.' in /home/devbox/NetBeansProjects/yii/yiiframework-1.1.13/base/CComponent.php:173
+Stack trace:
+#0 /home/devbox/NetBeansProjects/yii/yiiframework-1.1.13/YiiBase.php(220): CComponent->__set('optionName', 'optionValue')
+#1 /home/devbox/NetBeansProjects/yii/yiiframework-1.1.13/base/CModule.php(386): YiiBase::createComponent(Array)
+#2 /home/devbox/NetBeansProjects/yii/yiiframework-1.1.13/web/CWebApplication.php(230): CModule->getComponent('clientScript')
+#3 /home/devbox/NetBeansProjects/bds-v3.1/_yii_app/protected/extensions/bootstrap/components/Bootstrap.php(163): CWebApplication->getClientScript()
+#4 /home/devbox/NetBeansProjects/bds-v3.1/_yii_app/protected/extensions/bootstrap/components/Bootstrap.php(124): Bootstrap->registerAssetCss('bootstrap.css')
+#5 /home/devbox/NetBeansProjects/bds-v3.1/_yii_app/protected/extensions/bootstrap/components/Bootstrap.php(102): Bootstrap->registerCoreCss()
+#6 /home/devbox/NetBeansProjects/yii/yiiframework-1.1.13/base/CModule.php(387): Bootstrap->init()
+#7 /home/devbox/NetBeansProjects/yii/yiiframework-1.1.13/base/CModule.php(523): CModule->getComponent('bootstrap')
+#8 /home/devbox/NetBeansProjects/yii/yiiframework-1.1.13/base/CApplication.php(152): CModule->preloadComponents()
+#9 /home/devbox/NetBeansProjects/yii/yiiframework-1.1.13/YiiBase.php(125): CApplication->__construct('/home/devbox/Ne...')
+#10 /home/devbox/NetBeansProjects/yii/yiiframework-1.1.13/YiiBase.php(98): YiiBase::createApplication('CWebApplication', '/home/devbox/Ne...')
+#11 /home/devbox/NetBeansProjects/bds-v3.1/_yii_app/index.php(13): YiiBase::createWebApplication('/home/devbox/Ne...')
+#12 {main}
+REQUEST_URI=/index.php?r=site/index
+HTTP_REFERER=http://develop.devbox5/index.php?r=site/index
+---

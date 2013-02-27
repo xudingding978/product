@@ -27,7 +27,7 @@
             </div><!-- header -->
             <?php
             $this->widget('bootstrap.widgets.TbNavbar', array(
-                'brand' => 'User Account',
+                'brand' => 'Seach Engine',
                 'brandOptions' => array('style' => 'width:auto;margin-left: 0px;'),
                 'fixed' => 'top',
                 'htmlOptions' => array('style' => 'position:absolute'),

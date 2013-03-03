@@ -1,4 +1,5 @@
 <?php
+
 /**
  *  Administration Control Panel Application Configuration
  *
@@ -8,7 +9,6 @@
  *
  * This file holds the configuration settings of the Administration Control Panel application.
  * */
-
 $app_administratorConfigDir = dirname(__FILE__);
 //
 $root = $app_administratorConfigDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..';
@@ -58,7 +58,7 @@ return CMap::mergeArray(
             // application components
             'components' => array(
                 'user' => array(
-            // enable cookie-based authentication
+                    // enable cookie-based authentication
                     'allowAutoLogin' => true,
                 ),
                 'bootstrap' => array(
@@ -91,7 +91,7 @@ return CMap::mergeArray(
                     'charset' => 'utf8'
                 ),
                 'errorHandler' => array(
-            // use 'site/error' action to display errors
+                    // use 'site/error' action to display errors
                     'errorAction' => 'site/error',
                 ),
                 'log' => array(
@@ -101,20 +101,14 @@ return CMap::mergeArray(
                             'class' => 'CFileLogRoute',
                             'levels' => 'error, warning',
                         ),
-                    // uncomment the following to show log messages on web pages
-                    ///*
-                      array(
-                      'class'=>'CWebLogRoute',
-                      ),
-                     //*/
+                        // uncomment the following to show log messages on web pages
+                        ///*
+                        array(
+                            'class' => 'CWebLogRoute',
+                        ),
+                    //*/
                     ),
                 ),
-            ),
-            // application-level parameters that can be accessed
-            // using Yii::app()->params['paramName']
-            'params' => array(
-            // this is used in contact page
-                'adminEmail' => 'webmaster@example.com',
             ),
                 ), CMap::mergeArray($mainEnvConfiguration, $mainLocalConfiguration)
 );

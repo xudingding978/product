@@ -56,6 +56,9 @@
                 ));
                 ?>
             </div><!-- mainmenu -->
+            <div><?php echo Yii::app()->session->getSessionID() ?>
+            </div>   
+
             <?php if (isset($this->breadcrumbs)): ?>
                 <?php
                 $this->widget('zii.widgets.CBreadcrumbs', array(

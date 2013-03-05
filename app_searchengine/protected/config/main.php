@@ -41,6 +41,7 @@ return CMap::mergeArray(
             // set parameters
             'params' => $params,
             'name' => 'Trends Search Engine',
+            'id' => 'develop.devbox3',
             // preloading 'log' component
             'preload' => array('log', 'bootstrap'),
             // @see http://www.yiiframework.com/doc/api/1.1/CApplication#language-detail
@@ -60,15 +61,19 @@ return CMap::mergeArray(
                 'user' => array(
                     // enable cookie-based authentication
                     'allowAutoLogin' => true,
-          'class'=>'WebUser',
+                    'class' => 'MyWebUser',
+                    'identityCookie' => array(
+                        'domain' => '.develop.devbox3',
+                    ),
                 ),
                 'session' => array(
-                    'sessionName' => 'Site Session',
+                    'sessionName' => 'Session',
                     'class' => 'CDbHttpSession',
-                    'autoCreateSessionTable' => true,
+                    //   'autoCreateSessionTable' => true,
                     'connectionID' => 'db',
                     'sessionTableName' => 'MySessionTable',
-                    'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
+                    //   'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
+                    'useTransparentSessionID' => true,
                     'autoStart' => 'true',
                     'cookieMode' => 'only',
                     'cookieParams' => array(
@@ -87,7 +92,7 @@ return CMap::mergeArray(
                     'urlFormat' => 'path',
                     'showScriptName' => false,
                     'urlSuffix' => '/',
-                    'rules' => $params['url.rules']
+                    'rules' => $params['url.rules'],
                 ),
                 'db' => array(
                     'class' => 'CDbConnection',

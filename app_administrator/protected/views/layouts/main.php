@@ -26,6 +26,12 @@
                 <div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
             </div><!-- header -->
             <?php
+       //   include './common/protected/modules/hybridauth/widgets/renderProviders.php';
+        //    $this->widget('common/protected/modules/hybridauth/widgets/renderProviders'); ?>
+            
+
+
+            <?php
             $this->widget('bootstrap.widgets.TbNavbar', array(
                 'brand' => CHtml::encode(Yii::app()->name),
                 'brandOptions' => array('style' => 'width:auto;margin-left: 0px;'),
@@ -57,8 +63,7 @@
                 ?>
             </div><!-- mainmenu -->
 
-            <div><?php echo Yii::app()->session->getSessionID() ?>
-            </div>   
+           
             <?php if (isset($this->breadcrumbs)): ?>
                 <?php
                 $this->widget('zii.widgets.CBreadcrumbs', array(

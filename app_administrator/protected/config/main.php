@@ -7,6 +7,8 @@
  * Date: 24/02/13
  * Time: 4:15 PM
  *
+ *         <?php $this->widget('common.modules.hybridauth.widgets.renderProviders'); ?>
+ * 
  * This file holds the configuration settings of the Administration Control Panel application.
  * */
 $app_administratorConfigDir = dirname(__FILE__);
@@ -25,10 +27,8 @@ Yii::setPathOfAlias('app_useraccount', $root . DIRECTORY_SEPARATOR . 'app_userac
 // local settings below > environment specific > main configuration
 
 $params = require_once($app_administratorConfigDir . DIRECTORY_SEPARATOR . 'params.php');
-
 $mainLocalFile = $app_administratorConfigDir . DIRECTORY_SEPARATOR . 'main-local.php';
 $mainLocalConfiguration = file_exists($mainLocalFile) ? require($mainLocalFile) : array();
-
 $mainEnvFile = $app_administratorConfigDir . DIRECTORY_SEPARATOR . 'main-env.php';
 $mainEnvConfiguration = file_exists($mainEnvFile) ? require($mainEnvFile) : array();
 
@@ -41,7 +41,7 @@ return CMap::mergeArray(
             // set parameters
             'params' => $params,
             'name' => 'Administration Control Panel',
-            'id' => 'develop',
+            'id' => 'develop.devbox3',
             // preloading 'log' component
             'preload' => array('log', 'bootstrap'),
             // @see http://www.yiiframework.com/doc/api/1.1/CApplication#language-detail
@@ -51,6 +51,7 @@ return CMap::mergeArray(
                 'common.components.*',
                 'common.extensions.*',
                 'common.models.*',
+                'common.modules.*',
                 'application.models.*',
                 'application.components.*',
             ),
@@ -61,44 +62,26 @@ return CMap::mergeArray(
                     // If removed, Gii defaults to localhost only. Edit carefully to taste.
                     'ipFilters' => array('127.0.0.1', '::1'),
                 ),
+
             ),
             // application components
             'components' => array(
                 'user' => array(
-                    'class' => 'WebUser',
 // enable cookie-based authentication
                     'allowAutoLogin' => true,
+                    'class' => 'MyWebUser',
+                    'identityCookie' => array(
+                        'domain' => '.develop.devbox3',
+                    ),
                 ),
-//                'session' => array(
-//                    'savePath' => 'common',
-//                    'cookieMode' => 'allow',
-//                    'cookieParams' => array(
-//                        'path' => '/',
-//                        'domain' => '.develop.com',
-//                        'httpOnly' => true,
-//                    ),
-//                ),
-//                'session' => array(
-//                    'sessionName' => 'Site Session',
-//                    'class' => 'CHttpSession',
-//                    'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
-//                    'autoStart' => 'true',
-//                    'cookieMode' => 'only',
-//                    'cookieParams' => array(
-//                        'path' => '/',
-//                        'domain' => '.develop.com',
-//                        'httpOnly' => true,
-//                    ),
-//                    'savePath' => 'common',
-//                    'timeout' => 300,
-//                ),
                 'session' => array(
-                    'sessionName' => 'Site Session',
+                    'sessionName' => 'Session',
                     'class' => 'CDbHttpSession',
-                    'autoCreateSessionTable' => true,
+                    //  'autoCreateSessionTable' => true,
                     'connectionID' => 'db',
                     'sessionTableName' => 'MySessionTable',
-                    'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
+                    //    'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
+                    'useTransparentSessionID' => true,
                     'autoStart' => 'true',
                     'cookieMode' => 'only',
                     'cookieParams' => array(

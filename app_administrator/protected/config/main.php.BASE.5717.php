@@ -1,17 +1,17 @@
 <?php
-
 /**
- *  User Account Application Configuration
+ *  Administration Control Panel Application Configuration
  *
  * @author: Jason Liddiard <jason@the-ebusiness-company.com>
  * Date: 24/02/13
  * Time: 4:15 PM
  *
- * This file holds the configuration settings of the User Account application.
+ * This file holds the configuration settings of the Administration Control Panel application.
  * */
-$app_useraccountConfigDir = dirname(__FILE__);
+
+$app_administratorConfigDir = dirname(__FILE__);
 //
-$root = $app_useraccountConfigDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..';
+$root = $app_administratorConfigDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..';
 //
 //// Setup some default path aliases. These alias may vary from projects.
 Yii::setPathOfAlias('root', $root);
@@ -24,12 +24,12 @@ Yii::setPathOfAlias('app_useraccount', $root . DIRECTORY_SEPARATOR . 'app_userac
 // The configuation tree overides in the following way...
 // local settings below > environment specific > main configuration
 
-$params = require_once($app_useraccountConfigDir . DIRECTORY_SEPARATOR . 'params.php');
+$params = require_once($app_administratorConfigDir . DIRECTORY_SEPARATOR . 'params.php');
 
-$mainLocalFile = $app_useraccountConfigDir . DIRECTORY_SEPARATOR . 'main-local.php';
+$mainLocalFile = $app_administratorConfigDir . DIRECTORY_SEPARATOR . 'main-local.php';
 $mainLocalConfiguration = file_exists($mainLocalFile) ? require($mainLocalFile) : array();
 
-$mainEnvFile = $app_useraccountConfigDir . DIRECTORY_SEPARATOR . 'main-env.php';
+$mainEnvFile = $app_administratorConfigDir . DIRECTORY_SEPARATOR . 'main-env.php';
 $mainEnvConfiguration = file_exists($mainEnvFile) ? require($mainEnvFile) : array();
 
 // This is the main Web application configuration. Any writable
@@ -40,8 +40,7 @@ return CMap::mergeArray(
             'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
             // set parameters
             'params' => $params,
-            'name' => 'User Account',
-            'id' => 'develop.devbox3',
+            'name' => 'Administration Control Panel',
             // preloading 'log' component
             'preload' => array('log', 'bootstrap'),
             // @see http://www.yiiframework.com/doc/api/1.1/CApplication#language-detail
@@ -59,29 +58,8 @@ return CMap::mergeArray(
             // application components
             'components' => array(
                 'user' => array(
-                    // enable cookie-based authentication
+            // enable cookie-based authentication
                     'allowAutoLogin' => true,
-                    'class' => 'MyWebUser',
-                    'identityCookie' => array(
-                        'domain' => '.develop.devbox3',
-                    ),
-                ),
-                'session' => array(
-                    'sessionName' => 'Session',
-                    'class' => 'CDbHttpSession',
-                    //  'autoCreateSessionTable' => true,
-                    'connectionID' => 'db',
-                    'sessionTableName' => 'MySessionTable',
-                    //    'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
-                    'useTransparentSessionID' => true,
-                    'autoStart' => 'true',
-                    'cookieMode' => 'only',
-                    'cookieParams' => array(
-                        'path' => '/',
-                        'domain' => '.develop.devbox3',
-                        'httpOnly' => true,
-                    ),
-                    'timeout' => 300,
                 ),
                 'bootstrap' => array(
                     'class' => 'common.extensions.bootstrap.components.Bootstrap',
@@ -94,11 +72,11 @@ return CMap::mergeArray(
                     'urlSuffix' => '/',
                     'rules' => $params['url.rules']
                 ),
-                'db' => array(
+                'db_admin' => array(
                     'class' => 'CDbConnection',
-                    'connectionString' => 'mysql:host=127.0.0.1;dbname=test',
-                    'username' => 'root',
-                    'password' => 'Pa55word',
+                    'connectionString' => $params['db_admin.connectionString'],
+                    'username' => $params['db_admin.username'],
+                    'password' => $params['db_admin.password'],
                     'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
                     'enableParamLogging' => YII_DEBUG,
                     'charset' => 'utf8'
@@ -113,7 +91,7 @@ return CMap::mergeArray(
                     'charset' => 'utf8'
                 ),
                 'errorHandler' => array(
-                    // use 'site/error' action to display errors
+            // use 'site/error' action to display errors
                     'errorAction' => 'site/error',
                 ),
                 'log' => array(
@@ -123,23 +101,20 @@ return CMap::mergeArray(
                             'class' => 'CFileLogRoute',
                             'levels' => 'error, warning',
                         ),
-                        // uncomment the following to show log messages on web pages
-                        ///*
-                        array(
-                            'class' => 'CWebLogRoute',
-                        ),
-                    //*/
+                    // uncomment the following to show log messages on web pages
+                    ///*
+                      array(
+                      'class'=>'CWebLogRoute',
+                      ),
+                     //*/
                     ),
                 ),
             ),
-<<<<<<< HEAD
-=======
             // application-level parameters that can be accessed
             // using Yii::app()->params['paramName']
             'params' => array(
-                // this is used in contact page
+            // this is used in contact page
                 'adminEmail' => 'webmaster@example.com',
             ),
->>>>>>> yii_sso
                 ), CMap::mergeArray($mainEnvConfiguration, $mainLocalConfiguration)
 );

@@ -1,17 +1,19 @@
 <?php
 
 /**
- *  User Account Application Configuration
+ *  Administration Control Panel Application Configuration
  *
  * @author: Jason Liddiard <jason@the-ebusiness-company.com>
  * Date: 24/02/13
  * Time: 4:15 PM
  *
- * This file holds the configuration settings of the User Account application.
+ *         <?php $this->widget('common.modules.hybridauth.widgets.renderProviders'); ?>
+ * 
+ * This file holds the configuration settings of the Administration Control Panel application.
  * */
-$app_useraccountConfigDir = dirname(__FILE__);
+$app_administratorConfigDir = dirname(__FILE__);
 //
-$root = $app_useraccountConfigDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..';
+$root = $app_administratorConfigDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..';
 //
 //// Setup some default path aliases. These alias may vary from projects.
 Yii::setPathOfAlias('root', $root);
@@ -24,12 +26,10 @@ Yii::setPathOfAlias('app_useraccount', $root . DIRECTORY_SEPARATOR . 'app_userac
 // The configuation tree overides in the following way...
 // local settings below > environment specific > main configuration
 
-$params = require_once($app_useraccountConfigDir . DIRECTORY_SEPARATOR . 'params.php');
-
-$mainLocalFile = $app_useraccountConfigDir . DIRECTORY_SEPARATOR . 'main-local.php';
+$params = require_once($app_administratorConfigDir . DIRECTORY_SEPARATOR . 'params.php');
+$mainLocalFile = $app_administratorConfigDir . DIRECTORY_SEPARATOR . 'main-local.php';
 $mainLocalConfiguration = file_exists($mainLocalFile) ? require($mainLocalFile) : array();
-
-$mainEnvFile = $app_useraccountConfigDir . DIRECTORY_SEPARATOR . 'main-env.php';
+$mainEnvFile = $app_administratorConfigDir . DIRECTORY_SEPARATOR . 'main-env.php';
 $mainEnvConfiguration = file_exists($mainEnvFile) ? require($mainEnvFile) : array();
 
 // This is the main Web application configuration. Any writable
@@ -40,7 +40,7 @@ return CMap::mergeArray(
             'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
             // set parameters
             'params' => $params,
-            'name' => 'User Account',
+            'name' => 'Administration Control Panel',
             'id' => 'develop.devbox3',
             // preloading 'log' component
             'preload' => array('log', 'bootstrap'),
@@ -51,15 +51,23 @@ return CMap::mergeArray(
                 'common.components.*',
                 'common.extensions.*',
                 'common.models.*',
+                'common.modules.*',
                 'application.models.*',
                 'application.components.*',
             ),
             'modules' => array(
+                'gii' => array(
+                    'class' => 'system.gii.GiiModule',
+                    'password' => 'Pa55word',
+                    // If removed, Gii defaults to localhost only. Edit carefully to taste.
+                    'ipFilters' => array('127.0.0.1', '::1'),
+                ),
+
             ),
             // application components
             'components' => array(
                 'user' => array(
-                    // enable cookie-based authentication
+// enable cookie-based authentication
                     'allowAutoLogin' => true,
                     'class' => 'MyWebUser',
                     'identityCookie' => array(
@@ -113,7 +121,7 @@ return CMap::mergeArray(
                     'charset' => 'utf8'
                 ),
                 'errorHandler' => array(
-                    // use 'site/error' action to display errors
+// use 'site/error' action to display errors
                     'errorAction' => 'site/error',
                 ),
                 'log' => array(
@@ -124,7 +132,7 @@ return CMap::mergeArray(
                             'levels' => 'error, warning',
                         ),
                         // uncomment the following to show log messages on web pages
-                        ///*
+///*
                         array(
                             'class' => 'CWebLogRoute',
                         ),
@@ -132,14 +140,11 @@ return CMap::mergeArray(
                     ),
                 ),
             ),
-<<<<<<< HEAD
-=======
             // application-level parameters that can be accessed
-            // using Yii::app()->params['paramName']
+// using Yii::app()->params['paramName']
             'params' => array(
-                // this is used in contact page
+// this is used in contact page
                 'adminEmail' => 'webmaster@example.com',
             ),
->>>>>>> yii_sso
                 ), CMap::mergeArray($mainEnvConfiguration, $mainLocalConfiguration)
 );

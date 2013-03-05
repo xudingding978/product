@@ -62,16 +62,10 @@ return CMap::mergeArray(
                     // If removed, Gii defaults to localhost only. Edit carefully to taste.
                     'ipFilters' => array('127.0.0.1', '::1'),
                 ),
-
             ),
             // application components
             'components' => array(
                 'user' => array(
-<<<<<<< HEAD
-                    // enable cookie-based authentication
-=======
-// enable cookie-based authentication
->>>>>>> yii_sso
                     'allowAutoLogin' => true,
                     'class' => 'MyWebUser',
                     'identityCookie' => array(
@@ -125,11 +119,6 @@ return CMap::mergeArray(
                     'charset' => 'utf8'
                 ),
                 'errorHandler' => array(
-<<<<<<< HEAD
-                    // use 'site/error' action to display errors
-=======
-// use 'site/error' action to display errors
->>>>>>> yii_sso
                     'errorAction' => 'site/error',
                 ),
                 'log' => array(
@@ -140,11 +129,6 @@ return CMap::mergeArray(
                             'levels' => 'error, warning',
                         ),
                         // uncomment the following to show log messages on web pages
-<<<<<<< HEAD
-                        ///*
-=======
-///*
->>>>>>> yii_sso
                         array(
                             'class' => 'CWebLogRoute',
                         ),
@@ -152,14 +136,5 @@ return CMap::mergeArray(
                     ),
                 ),
             ),
-<<<<<<< HEAD
-=======
-            // application-level parameters that can be accessed
-// using Yii::app()->params['paramName']
-            'params' => array(
-// this is used in contact page
-                'adminEmail' => 'webmaster@example.com',
-            ),
->>>>>>> yii_sso
                 ), CMap::mergeArray($mainEnvConfiguration, $mainLocalConfiguration)
 );

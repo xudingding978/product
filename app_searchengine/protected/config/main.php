@@ -17,6 +17,7 @@ $root = $app_searchengineConfigDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPA
 Yii::setPathOfAlias('root', $root);
 Yii::setPathOfAlias('common', $root . DIRECTORY_SEPARATOR . 'common' . DIRECTORY_SEPARATOR . 'protected');
 Yii::setPathOfAlias('app_administrator', $root . DIRECTORY_SEPARATOR . 'app_administrator');
+Yii::setPathOfAlias('app_authority', $root . DIRECTORY_SEPARATOR . 'app_authority');
 Yii::setPathOfAlias('app_dashboard', $root . DIRECTORY_SEPARATOR . 'app_dashboard');
 Yii::setPathOfAlias('app_searchengine', $root . DIRECTORY_SEPARATOR . 'app_searchengine');
 Yii::setPathOfAlias('app_useraccount', $root . DIRECTORY_SEPARATOR . 'app_useraccount');
@@ -132,14 +133,9 @@ return CMap::mergeArray(
                     ),
                 ),
             ),
-<<<<<<< HEAD
-=======
+
             // application-level parameters that can be accessed
             // using Yii::app()->params['paramName']
-            'params' => array(
-                // this is used in contact page
-                'adminEmail' => 'webmaster@example.com',
-            ),
->>>>>>> yii_sso
+
                 ), CMap::mergeArray($mainEnvConfiguration, $mainLocalConfiguration)
 );

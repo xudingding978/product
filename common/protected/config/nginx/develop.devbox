@@ -1,11 +1,14 @@
 server {
 	set $app_directory	/home/devbox/NetBeansProjects/bds-v3.1/app_searchengine;
-	# set $host_path 	"/home/devbox/NetBeansProjects/bds-v3.1/app_searchengine";
+	# set $host_path 		"/home/devbox/NetBeansProjects/bds-v3.1/app_searchengine";
 	set 			$yii_bootstrap "index.php";
 
 	if ($host ~* admin\.(.*)){
 	  set $app_directory	"/home/devbox/NetBeansProjects/bds-v3.1/app_administrator";	
-	} 
+	}
+	if ($host ~* admin\.(.*)){
+	  set $app_directory	"/home/devbox/NetBeansProjects/bds-v3.1/app_authority";	
+	}  
 	if ($host ~* dashboard\.(.*)) {
 	  set $app_directory	"/home/devbox/NetBeansProjects/bds-v3.1/app_dashboard";
 	}

@@ -1,4 +1,5 @@
 <?php
+
 /**
  *  Client Dashboard Application Configuration
  *
@@ -8,7 +9,6 @@
  *
  * This file holds the configuration settings of the Client Dashboard application.
  * */
-
 $app_dashboardConfigDir = dirname(__FILE__);
 //
 $root = $app_dashboardConfigDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..';
@@ -109,12 +109,6 @@ return CMap::mergeArray(
                     //*/
                     ),
                 ),
-            ),
-            // application-level parameters that can be accessed
-            // using Yii::app()->params['paramName']
-            'params' => array(
-                // this is used in contact page
-                'adminEmail' => 'webmaster@example.com',
             ),
                 ), CMap::mergeArray($mainEnvConfiguration, $mainLocalConfiguration)
 );

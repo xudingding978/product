@@ -62,9 +62,18 @@ return CMap::mergeArray(
                 'user' => array(
                     // enable cookie-based authentication
                     'allowAutoLogin' => true,
-                    'class' => 'MyWebUser',
+                    'class' => 'AuthWebUser',
                     'identityCookie' => array(
                         'domain' => '.develop.devbox3',
+                    ),
+                ),
+                'authManager' => array(
+                    'class' => 'CDbAuthManager',
+                    'behaviors' => array(
+                        'auth' => array(
+                            'class' => 'AuthBehavior',
+                            'admins' => array('', '', ''), // users with full access
+                        ),
                     ),
                 ),
                 'session' => array(
@@ -83,6 +92,14 @@ return CMap::mergeArray(
                         'httpOnly' => true,
                     ),
                     'timeout' => 300,
+                ),
+                'authManager' => array(
+                    'behaviors' => array(
+                        'auth' => array(
+                            'class' => 'AuthBehavior',
+                            'admins' => '', // users with full access
+                        ),
+                    ),
                 ),
                 'bootstrap' => array(
                     'class' => 'common.extensions.bootstrap.components.Bootstrap',
@@ -133,9 +150,7 @@ return CMap::mergeArray(
                     ),
                 ),
             ),
-
-            // application-level parameters that can be accessed
-            // using Yii::app()->params['paramName']
-
+                // application-level parameters that can be accessed
+                // using Yii::app()->params['paramName']
                 ), CMap::mergeArray($mainEnvConfiguration, $mainLocalConfiguration)
 );

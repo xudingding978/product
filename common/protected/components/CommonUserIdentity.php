@@ -16,18 +16,31 @@ class CommonUserIdentity extends CUserIdentity {
      * @return boolean whether authentication succeeds.
      */
     public function authenticate() {
-        $users = array(
-            // username => password
-            'demo' => 'demo',
-            'admin' => 'admin',
-            'test' => 'admin',
-        );
-        if (!isset($users[$this->username]))
+//        $users = array(
+//            // username => password
+//            'demo' => 'demo',
+//            'admin' => 'admin',
+//            'test' => 'admin',
+//        );
+//        if (!isset($users[$this->username]))
+//            $this->errorCode = self::ERROR_USERNAME_INVALID;
+//        elseif ($users[$this->username] !== $this->password)
+//            $this->errorCode = self::ERROR_PASSWORD_INVALID;
+//        else
+//            $this->errorCode = self::ERROR_NONE;
+//        return !$this->errorCode;
+        $user = User::model()
+                ->findByAttributes(array(
+            'username' => $this->username
+        ));
+        if ($user === null)
             $this->errorCode = self::ERROR_USERNAME_INVALID;
-        elseif ($users[$this->username] !== $this->password)
-            $this->errorCode = self::ERROR_PASSWORD_INVALID;
         else
+        if ($user->check($this->password)) {
             $this->errorCode = self::ERROR_NONE;
+        }
+        else
+            $this->errorCode = self::ERROR_PASSWORD_INVALID;
         return !$this->errorCode;
     }
 

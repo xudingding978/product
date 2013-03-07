@@ -42,6 +42,7 @@ return CMap::mergeArray(
             // set parameters
             'params' => $params,
             'name' => 'Authority Application',
+            'id' => 'develop.devbox3',
             // preloading 'log' component
             'preload' => array('log', 'bootstrap'),
             // @see http://www.yiiframework.com/doc/api/1.1/CApplication#language-detail
@@ -53,14 +54,65 @@ return CMap::mergeArray(
                 'common.models.*',
                 'application.models.*',
                 'application.components.*',
+                'application.modules.auth.*',
+                'application.modules.auth.components.*',
             ),
             'modules' => array(
+                'auth' => array(
+                    'strictMode' => true, // when enabled authorization items cannot be assigned children of the same type.
+                    'userClass' => 'User', // the name of the user model class.
+                    'userIdColumn' => 'id', // the name of the user id column.
+                    'userNameColumn' => 'username', // the name of the user name column.
+                    'appLayout' => 'application.views.layouts.main', // the layout used by the module.
+                    'viewDir' => null, // the path to view files to use with this module.  
+                ),
+                'gii' => array(
+                    'class' => 'system.gii.GiiModule',
+                    'password' => 'Pa55word',
+                    // If removed, Gii defaults to localhost only. Edit carefully to taste.
+                    'ipFilters' => array('127.0.0.1', '::1'),
+                    'generatorPaths' => array(
+                        'bootstrap.gii'
+                    ),
+                ),
             ),
             // application components
             'components' => array(
                 'user' => array(
-                    // enable cookie-based authentication
+                    'class' => 'AuthWebUser',
+                    'identityCookie' => array(
+                        'domain' => '.develop.devbox3',
+                    ),
                     'allowAutoLogin' => true,
+                ),
+                'session' => array(
+                    'sessionName' => 'Session',
+                    'class' => 'CDbHttpSession',
+                    'connectionID' => 'db',
+                    'sessionTableName' => 'MySessionTable',
+                    //    'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
+                    'useTransparentSessionID' => true,
+                    'autoStart' => 'true',
+                    'cookieMode' => 'only',
+                    'cookieParams' => array(
+                        'path' => '/',
+                        'domain' => '.develop.devbox3',
+                        'httpOnly' => true,
+                    ),
+                    'timeout' => 300,
+                ),
+                'authManager' => array(
+                    'class' => 'CDbAuthManager',
+                    'connectionID' => 'db',
+                    'itemTable' => 'auth_item',
+                    'itemChildTable' => 'auth_item_child',
+                    'assignmentTable' => 'auth_assignment',
+                    'behaviors' => array(
+                        'auth' => array(
+                            'class' => 'AuthBehavior',
+                            'admins' => array('test', 'foo', 'bar'), // users with full access
+                        ),
+                    ),
                 ),
                 'bootstrap' => array(
                     'class' => 'common.extensions.bootstrap.components.Bootstrap',
@@ -73,11 +125,11 @@ return CMap::mergeArray(
                     'urlSuffix' => '/',
                     'rules' => $params['url.rules']
                 ),
-                'db_admin' => array(
+                'db' => array(
                     'class' => 'CDbConnection',
-                    'connectionString' => $params['db_admin.connectionString'],
-                    'username' => $params['db_admin.username'],
-                    'password' => $params['db_admin.password'],
+                    'connectionString' => 'mysql:host=127.0.0.1;dbname=test',
+                    'username' => 'root',
+                    'password' => 'Pa55word',
                     'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
                     'enableParamLogging' => YII_DEBUG,
                     'charset' => 'utf8'

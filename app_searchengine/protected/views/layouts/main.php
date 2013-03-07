@@ -56,8 +56,7 @@
                 ));
                 ?>
             </div><!-- mainmenu -->
-            <div><?php echo Yii::app()->session->getSessionID() ?>
-            </div>   
+        
 
             <?php if (isset($this->breadcrumbs)): ?>
                 <?php

@@ -31,7 +31,7 @@ class CommonUserIdentity extends CUserIdentity {
 //        return !$this->errorCode;
         $user = User::model()
                 ->findByAttributes(array(
-            'username' => $this->username
+            'USER_NAME' => $this->username
         ));
         if ($user === null)
             $this->errorCode = self::ERROR_USERNAME_INVALID;

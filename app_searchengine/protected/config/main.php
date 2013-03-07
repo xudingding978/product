@@ -114,9 +114,9 @@ return CMap::mergeArray(
                 ),
                 'db' => array(
                     'class' => 'CDbConnection',
-                    'connectionString' => 'mysql:host=127.0.0.1;dbname=test',
-                    'username' => 'root',
-                    'password' => 'Pa55word',
+                    'connectionString' => $params['db_admin.connectionString'],
+                    'username' => $params['db_admin.username'],
+                    'password' => $params['db_admin.password'],
                     'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
                     'enableParamLogging' => YII_DEBUG,
                     'charset' => 'utf8'
@@ -141,16 +141,11 @@ return CMap::mergeArray(
                             'class' => 'CFileLogRoute',
                             'levels' => 'error, warning',
                         ),
-                        // uncomment the following to show log messages on web pages
-                        ///*
                         array(
                             'class' => 'CWebLogRoute',
                         ),
-                    //*/
                     ),
                 ),
             ),
-                // application-level parameters that can be accessed
-                // using Yii::app()->params['paramName']
                 ), CMap::mergeArray($mainEnvConfiguration, $mainLocalConfiguration)
 );

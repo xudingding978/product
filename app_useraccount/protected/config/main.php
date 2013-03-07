@@ -56,15 +56,26 @@ return CMap::mergeArray(
                 'application.components.*',
             ),
             'modules' => array(
+
             ),
             // application components
             'components' => array(
                 'user' => array(
                     // enable cookie-based authentication
                     'allowAutoLogin' => true,
-                    'class' => 'MyWebUser',
+                    //        'class' => 'MyWebUser',
+                    'class' => 'AuthWebUser',
                     'identityCookie' => array(
                         'domain' => '.develop.devbox3',
+                    ),
+                ),
+                'authManager' => array(
+                    'class' => 'CDbAuthManager',
+                    'behaviors' => array(
+                        'auth' => array(
+                            'class' => 'AuthBehavior',
+                            'admins' => array('', '', ''), // users with full access
+                        ),
                     ),
                 ),
                 'session' => array(
@@ -133,6 +144,5 @@ return CMap::mergeArray(
                     ),
                 ),
             ),
-
                 ), CMap::mergeArray($mainEnvConfiguration, $mainLocalConfiguration)
 );

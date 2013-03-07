@@ -67,9 +67,18 @@ return CMap::mergeArray(
             'components' => array(
                 'user' => array(
                     'allowAutoLogin' => true,
-                    'class' => 'MyWebUser',
+                    'class' => 'AuthWebUser',
                     'identityCookie' => array(
                         'domain' => '.develop.devbox3',
+                    ),
+                ),
+                'authManager' => array(
+                    'class' => 'CDbAuthManager',
+                    'behaviors' => array(
+                        'auth' => array(
+                            'class' => 'AuthBehavior',
+                            'admins' => array('', '', ''), // users with full access
+                        ),
                     ),
                 ),
                 'session' => array(

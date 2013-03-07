@@ -42,7 +42,7 @@ return CMap::mergeArray(
             // set parameters
             'params' => $params,
             'name' => 'Trends Search Engine',
-            'id' => 'develop.devbox3',
+            'id' => 'develop.devbox5',
             // preloading 'log' component
             'preload' => array('log', 'bootstrap'),
             // @see http://www.yiiframework.com/doc/api/1.1/CApplication#language-detail
@@ -88,7 +88,7 @@ return CMap::mergeArray(
                     'cookieMode' => 'only',
                     'cookieParams' => array(
                         'path' => '/',
-                        'domain' => '.develop.devbox3',
+                        'domain' => '.develop.devbox5',
                         'httpOnly' => true,
                     ),
                     'timeout' => 300,

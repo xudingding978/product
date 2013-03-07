@@ -70,7 +70,7 @@ class SiteController extends Controller {
      */
     public function actionLogin() {
         Yii::app()->user->setReturnUrl($_SERVER['HTTP_REFERER']);
-        $this->redirect('http://account.develop.devbox3/site/login/');
+        $this->redirect('http://account.develop.devbox5/site/login/');
     }
 
     /**

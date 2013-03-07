@@ -29,10 +29,9 @@ class CommonUserIdentity extends CUserIdentity {
 //        else
 //            $this->errorCode = self::ERROR_NONE;
 //        return !$this->errorCode;
-        Yii::app()->db->setActive(false);
-
-        $user = User::model()->findByAttributes(array(
-            'username' => $this->username
+        $user = User::model()
+                ->findByAttributes(array(
+            'USER_NAME' => $this->username
         ));
         if ($user === null)
             $this->errorCode = self::ERROR_USERNAME_INVALID;

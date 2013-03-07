@@ -105,10 +105,9 @@ return CMap::mergeArray(
                 ),
                 'db' => array(
                     'class' => 'CDbConnection',
-                   'connectionString' => 'mysql:host=db.business-software.co.nz;dbname=db_play',
-                    'emulatePrepare' => true,
-                    'username' => 'db_user',
-                    'password' => 'Pa55word',
+                    'connectionString' => $params['db_admin.connectionString'],
+                    'username' => $params['db_admin.username'],
+                    'password' => $params['db_admin.password'],
                     'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
                     'enableParamLogging' => YII_DEBUG,
                     'charset' => 'utf8'
@@ -138,7 +137,6 @@ return CMap::mergeArray(
                         array(
                             'class' => 'CWebLogRoute',
                         ),
-                    //*/
                     ),
                 ),
             ),

@@ -1,4 +1,5 @@
 <?php
+
 /**
  *  Administration Control Panel Application Configuration
  *
@@ -6,9 +7,10 @@
  * Date: 24/02/13
  * Time: 4:15 PM
  *
+ *         <?php $this->widget('common.modules.hybridauth.widgets.renderProviders'); ?>
+ * 
  * This file holds the configuration settings of the Administration Control Panel application.
  * */
-
 $app_administratorConfigDir = dirname(__FILE__);
 //
 $root = $app_administratorConfigDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..';
@@ -25,10 +27,8 @@ Yii::setPathOfAlias('app_useraccount', $root . DIRECTORY_SEPARATOR . 'app_userac
 // local settings below > environment specific > main configuration
 
 $params = require_once($app_administratorConfigDir . DIRECTORY_SEPARATOR . 'params.php');
-
 $mainLocalFile = $app_administratorConfigDir . DIRECTORY_SEPARATOR . 'main-local.php';
 $mainLocalConfiguration = file_exists($mainLocalFile) ? require($mainLocalFile) : array();
-
 $mainEnvFile = $app_administratorConfigDir . DIRECTORY_SEPARATOR . 'main-env.php';
 $mainEnvConfiguration = file_exists($mainEnvFile) ? require($mainEnvFile) : array();
 
@@ -41,6 +41,7 @@ return CMap::mergeArray(
             // set parameters
             'params' => $params,
             'name' => 'Administration Control Panel',
+            'id' => 'develop.devbox5',
             // preloading 'log' component
             'preload' => array('log', 'bootstrap'),
             // @see http://www.yiiframework.com/doc/api/1.1/CApplication#language-detail
@@ -50,16 +51,52 @@ return CMap::mergeArray(
                 'common.components.*',
                 'common.extensions.*',
                 'common.models.*',
+                'common.modules.*',
                 'application.models.*',
                 'application.components.*',
             ),
             'modules' => array(
+                'gii' => array(
+                    'class' => 'system.gii.GiiModule',
+                    'password' => 'Pa55word',
+                    // If removed, Gii defaults to localhost only. Edit carefully to taste.
+                    'ipFilters' => array('127.0.0.1', '::1'),
+                ),
             ),
             // application components
             'components' => array(
                 'user' => array(
-            // enable cookie-based authentication
                     'allowAutoLogin' => true,
+                    'class' => 'AuthWebUser',
+                    'identityCookie' => array(
+                        'domain' => '.develop.devbox5',
+                    ),
+                ),
+                'authManager' => array(
+                    'class' => 'CDbAuthManager',
+                    'behaviors' => array(
+                        'auth' => array(
+                            'class' => 'AuthBehavior',
+                            'admins' => array('', '', ''), // users with full access
+                        ),
+                    ),
+                ),
+                'session' => array(
+                    'sessionName' => 'Session',
+                    'class' => 'CDbHttpSession',
+                    //  'autoCreateSessionTable' => true,
+                    'connectionID' => 'db',
+                    'sessionTableName' => 'MySessionTable',
+                    //    'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
+                    'useTransparentSessionID' => true,
+                    'autoStart' => 'true',
+                    'cookieMode' => 'only',
+                    'cookieParams' => array(
+                        'path' => '/',
+                        'domain' => '.develop.devbox3',
+                        'httpOnly' => true,
+                    ),
+                    'timeout' => 300,
                 ),
                 'bootstrap' => array(
                     'class' => 'common.extensions.bootstrap.components.Bootstrap',
@@ -72,11 +109,11 @@ return CMap::mergeArray(
                     'urlSuffix' => '/',
                     'rules' => $params['url.rules']
                 ),
-                'db_admin' => array(
+                'db' => array(
                     'class' => 'CDbConnection',
-                    'connectionString' => $params['db_admin.connectionString'],
-                    'username' => $params['db_admin.username'],
-                    'password' => $params['db_admin.password'],
+                    'connectionString' => 'mysql:host=127.0.0.1;dbname=test',
+                    'username' => 'root',
+                    'password' => 'Pa55word',
                     'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
                     'enableParamLogging' => YII_DEBUG,
                     'charset' => 'utf8'
@@ -91,7 +128,6 @@ return CMap::mergeArray(
                     'charset' => 'utf8'
                 ),
                 'errorHandler' => array(
-            // use 'site/error' action to display errors
                     'errorAction' => 'site/error',
                 ),
                 'log' => array(
@@ -101,20 +137,13 @@ return CMap::mergeArray(
                             'class' => 'CFileLogRoute',
                             'levels' => 'error, warning',
                         ),
-                    // uncomment the following to show log messages on web pages
-                    ///*
-                      array(
-                      'class'=>'CWebLogRoute',
-                      ),
-                     //*/
+                        // uncomment the following to show log messages on web pages
+                        array(
+                            'class' => 'CWebLogRoute',
+                        ),
+                    //*/
                     ),
                 ),
-            ),
-            // application-level parameters that can be accessed
-            // using Yii::app()->params['paramName']
-            'params' => array(
-            // this is used in contact page
-                'adminEmail' => 'webmaster@example.com',
             ),
                 ), CMap::mergeArray($mainEnvConfiguration, $mainLocalConfiguration)
 );

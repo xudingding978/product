@@ -1,4 +1,5 @@
 <?php
+
 /**
  *  Client Dashboard Application Configuration
  *
@@ -8,7 +9,6 @@
  *
  * This file holds the configuration settings of the Client Dashboard application.
  * */
-
 $app_dashboardConfigDir = dirname(__FILE__);
 //
 $root = $app_dashboardConfigDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..';
@@ -41,6 +41,7 @@ return CMap::mergeArray(
             // set parameters
             'params' => $params,
             'name' => 'Client Dashboard',
+            'id' => 'develop.devbox5',
             // preloading 'log' component
             'preload' => array('log', 'bootstrap'),
             // @see http://www.yiiframework.com/doc/api/1.1/CApplication#language-detail
@@ -60,6 +61,36 @@ return CMap::mergeArray(
                 'user' => array(
                     // enable cookie-based authentication
                     'allowAutoLogin' => true,
+                    'class' => 'AuthWebUser',
+                    'identityCookie' => array(
+                        'domain' => '.develop.devbox5',
+                    ),
+                ),
+                'authManager' => array(
+                    'class' => 'CDbAuthManager',
+                    'behaviors' => array(
+                        'auth' => array(
+                            'class' => 'AuthBehavior',
+                            'admins' => array('', '', ''), // users with full access
+                        ),
+                    ),
+                ),
+                'session' => array(
+                    'sessionName' => 'Session',
+                    'class' => 'CDbHttpSession',
+                    //  'autoCreateSessionTable' => true,
+                    'connectionID' => 'db',
+                    'sessionTableName' => 'MySessionTable',
+                    //    'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
+                    'useTransparentSessionID' => true,
+                    'autoStart' => 'true',
+                    'cookieMode' => 'only',
+                    'cookieParams' => array(
+                        'path' => '/',
+                        'domain' => '.develop.devbox3',
+                        'httpOnly' => true,
+                    ),
+                    'timeout' => 300,
                 ),
                 'bootstrap' => array(
                     'class' => 'common.extensions.bootstrap.components.Bootstrap',
@@ -72,11 +103,12 @@ return CMap::mergeArray(
                     'urlSuffix' => '/',
                     'rules' => $params['url.rules']
                 ),
-                'db_admin' => array(
+                'db' => array(
                     'class' => 'CDbConnection',
-                    'connectionString' => $params['db_admin.connectionString'],
-                    'username' => $params['db_admin.username'],
-                    'password' => $params['db_admin.password'],
+                   'connectionString' => 'mysql:host=db.business-software.co.nz;dbname=db_play',
+                    'emulatePrepare' => true,
+                    'username' => 'db_user',
+                    'password' => 'Pa55word',
                     'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
                     'enableParamLogging' => YII_DEBUG,
                     'charset' => 'utf8'
@@ -109,12 +141,6 @@ return CMap::mergeArray(
                     //*/
                     ),
                 ),
-            ),
-            // application-level parameters that can be accessed
-            // using Yii::app()->params['paramName']
-            'params' => array(
-                // this is used in contact page
-                'adminEmail' => 'webmaster@example.com',
             ),
                 ), CMap::mergeArray($mainEnvConfiguration, $mainLocalConfiguration)
 );

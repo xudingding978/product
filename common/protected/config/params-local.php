@@ -36,10 +36,5 @@ return array(
     'db_admin.connectionString' => 'mysql:host=localhost;dbname=db_admin',
     'db_admin.username' => 'tplweb',
     'db_admin.password' => 'S3cr3t!',
-//
-//	// test database {
-//	'testdb.name' => '',
-//	'testdb.connectionString' => 'mysql:host={DATABASE-HOST};dbname={DATABASE-NAME}_test',
-//	'testdb.username' => '{DATABASE-USERNAME}',
-//	'testdb.password' => '{DATABASE-PASSWORD}',
+     'adminEmail' => 'localwebmaster@example.com',
 );

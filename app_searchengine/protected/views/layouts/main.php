@@ -27,7 +27,7 @@
             </div><!-- header -->
             <?php
             $this->widget('bootstrap.widgets.TbNavbar', array(
-                'brand' => 'User Account',
+                'brand' => 'Seach Engine - Develop Branch',
                 'brandOptions' => array('style' => 'width:auto;margin-left: 0px;'),
                 'fixed' => 'top',
                 'htmlOptions' => array('style' => 'position:absolute'),
@@ -56,6 +56,8 @@
                 ));
                 ?>
             </div><!-- mainmenu -->
+        
+
             <?php if (isset($this->breadcrumbs)): ?>
                 <?php
                 $this->widget('zii.widgets.CBreadcrumbs', array(

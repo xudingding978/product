@@ -34,7 +34,7 @@ class SiteController extends Controller {
      * This is the action to handle external exceptions.
      */
     public function actionError() {
-        if ($error = Yii::app()->errorHandler->error) {
+        if ($error == Yii::app()->errorHandler->error) {
             if (Yii::app()->request->isAjaxRequest)
                 echo $error['message'];
             else
@@ -85,7 +85,11 @@ class SiteController extends Controller {
                 $this->redirect(Yii::app()->user->returnUrl);
         }
         // display the login form
-        $this->render('login', array('model' => $model));
+        //    $this->render('login', array('model' => $model));
+        //    $url = $this->createAbsoluteUrl('http://account.develop.devbox3/site/login/');
+        //   $this->redirect('http://www.yiiframework.com');
+        Yii::app()->user->setReturnUrl($_SERVER['HTTP_REFERER']);
+        $this->redirect('http://account.develop.devbox3/site/login/');
     }
 
     /**

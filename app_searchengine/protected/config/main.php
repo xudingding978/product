@@ -42,6 +42,7 @@ return CMap::mergeArray(
             // set parameters
             'params' => $params,
             'name' => 'Trends Search Engine',
+            'id' => 'develop.devbox3',
             // preloading 'log' component
             'preload' => array('log', 'bootstrap'),
             // @see http://www.yiiframework.com/doc/api/1.1/CApplication#language-detail
@@ -61,6 +62,27 @@ return CMap::mergeArray(
                 'user' => array(
                     // enable cookie-based authentication
                     'allowAutoLogin' => true,
+                    'class' => 'MyWebUser',
+                    'identityCookie' => array(
+                        'domain' => '.develop.devbox3',
+                    ),
+                ),
+                'session' => array(
+                    'sessionName' => 'Session',
+                    'class' => 'CDbHttpSession',
+                    //   'autoCreateSessionTable' => true,
+                    'connectionID' => 'db',
+                    'sessionTableName' => 'MySessionTable',
+                    //   'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
+                    'useTransparentSessionID' => true,
+                    'autoStart' => 'true',
+                    'cookieMode' => 'only',
+                    'cookieParams' => array(
+                        'path' => '/',
+                        'domain' => '.develop.devbox3',
+                        'httpOnly' => true,
+                    ),
+                    'timeout' => 300,
                 ),
                 'bootstrap' => array(
                     'class' => 'common.extensions.bootstrap.components.Bootstrap',
@@ -71,13 +93,13 @@ return CMap::mergeArray(
                     'urlFormat' => 'path',
                     'showScriptName' => false,
                     'urlSuffix' => '/',
-                    'rules' => $params['url.rules']
+                    'rules' => $params['url.rules'],
                 ),
-                'db_admin' => array(
+                'db' => array(
                     'class' => 'CDbConnection',
-                    'connectionString' => $params['db_admin.connectionString'],
-                    'username' => $params['db_admin.username'],
-                    'password' => $params['db_admin.password'],
+                    'connectionString' => 'mysql:host=127.0.0.1;dbname=test',
+                    'username' => 'root',
+                    'password' => 'Pa55word',
                     'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
                     'enableParamLogging' => YII_DEBUG,
                     'charset' => 'utf8'
@@ -111,5 +133,9 @@ return CMap::mergeArray(
                     ),
                 ),
             ),
+
+            // application-level parameters that can be accessed
+            // using Yii::app()->params['paramName']
+
                 ), CMap::mergeArray($mainEnvConfiguration, $mainLocalConfiguration)
 );

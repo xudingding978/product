@@ -26,6 +26,9 @@
                 <div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
             </div><!-- header -->
             <?php
+            
+            
+            
             $this->widget('bootstrap.widgets.TbNavbar', array(
                 'brand' => CHtml::encode(Yii::app()->name),
                 'brandOptions' => array('style' => 'width:auto;margin-left: 0px;'),
@@ -36,7 +39,8 @@
                         'class' => 'bootstrap.widgets.TbMenu',
                         'items' => array(
                             array('label' => 'Home', 'url' => '#', 'active' => true),
-                            array('label' => 'Link', 'url' => '#'),
+                           // array('label' => 'My Account', 'url' => 'http://'.$_SERVER['HTTP_HOST']),
+                            array('label' => 'My Account', 'url' => 'http://account.develop.devbox5'),
                             array('label' => 'Link', 'url' => '#'),
                         )
                     )

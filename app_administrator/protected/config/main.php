@@ -41,7 +41,7 @@ return CMap::mergeArray(
             // set parameters
             'params' => $params,
             'name' => 'Administration Control Panel',
-            'id' => 'develop.devbox3',
+            'id' => 'develop.devbox5',
             // preloading 'log' component
             'preload' => array('log', 'bootstrap'),
             // @see http://www.yiiframework.com/doc/api/1.1/CApplication#language-detail
@@ -69,7 +69,7 @@ return CMap::mergeArray(
                     'allowAutoLogin' => true,
                     'class' => 'AuthWebUser',
                     'identityCookie' => array(
-                        'domain' => '.develop.devbox3',
+                        'domain' => '.develop.devbox5',
                     ),
                 ),
                 'authManager' => array(

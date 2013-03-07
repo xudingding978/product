@@ -42,7 +42,7 @@ return CMap::mergeArray(
             // set parameters
             'params' => $params,
             'name' => 'Authority Application',
-            'id' => 'develop.devbox3',
+            'id' => 'develop.devbox5',
             // preloading 'log' component
             'preload' => array('log', 'bootstrap'),
             // @see http://www.yiiframework.com/doc/api/1.1/CApplication#language-detail
@@ -81,10 +81,11 @@ return CMap::mergeArray(
                 'user' => array(
                     'class' => 'AuthWebUser',
                     'identityCookie' => array(
-                        'domain' => '.develop.devbox3',
+                        'domain' => '.develop.devbox5',
                     ),
                     'allowAutoLogin' => true,
                 ),
+                //  un-comment when using gii
                 'session' => array(
                     'sessionName' => 'Session',
                     'class' => 'CDbHttpSession',
@@ -96,7 +97,7 @@ return CMap::mergeArray(
                     'cookieMode' => 'only',
                     'cookieParams' => array(
                         'path' => '/',
-                        'domain' => '.develop.devbox3',
+                        'domain' => '.develop.devbox5',
                         'httpOnly' => true,
                     ),
                     'timeout' => 300,

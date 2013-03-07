@@ -7,6 +7,14 @@
  * @property string $id
  * @property string $USER_NAME
  * @property string $pwd_hash
+ * @property string $person_id
+ * @property string $email
+ *
+ * The followings are the available model relations:
+ * @property Book[] $books
+ * @property Payment[] $payments
+ * @property Book[] $books1
+ * @property Wish[] $wishes
  */
 class User extends CActiveRecord {
 
@@ -22,7 +30,6 @@ class User extends CActiveRecord {
     /**
      * @return string the associated database table name
      */
-
     public function tableName() {
         return 'tpl_user';
     }
@@ -50,6 +57,10 @@ class User extends CActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
+            'books' => array(self::HAS_MANY, 'Book', 'borrower_id'),
+            'payments' => array(self::HAS_MANY, 'Payment', 'user_id'),
+            'books1' => array(self::MANY_MANY, 'Book', 'request(requester_id, book_id)'),
+            'wishes' => array(self::HAS_MANY, 'Wish', 'got_it'),
         );
     }
 
@@ -61,6 +72,8 @@ class User extends CActiveRecord {
             'id' => 'ID',
             'USER_NAME' => 'Username',
             'pwd_hash' => 'Pwd Hash',
+            'person_id' => 'Person',
+            'email' => 'Email',
         );
     }
 
@@ -77,6 +90,8 @@ class User extends CActiveRecord {
         $criteria->compare('id', $this->id, true);
         $criteria->compare('USER_NAME', $this->USER_NAME, true);
         $criteria->compare('pwd_hash', $this->pwd_hash, true);
+        $criteria->compare('person_id', $this->person_id, true);
+        $criteria->compare('email', $this->email, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -84,7 +99,7 @@ class User extends CActiveRecord {
     }
 
     public function check($value) {
-        //   $new_hash = crypt($value, $this->pwd_hash);
+          $new_hash = crypt($value, $this->pwd_hash);
         if ($value == $this->pwd_hash) {
             return true;
         }

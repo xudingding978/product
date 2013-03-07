@@ -56,7 +56,6 @@ return CMap::mergeArray(
                 'application.components.*',
             ),
             'modules' => array(
-
             ),
             // application components
             'components' => array(

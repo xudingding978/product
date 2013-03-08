@@ -6,7 +6,7 @@
  * The followings are the available columns in table 'user':
  * @property string $id
  * @property string $USER_NAME
- * @property string $pwd_hash
+ * @property string $PWD_HASH
  * @property string $person_id
  * @property string $email
  *
@@ -41,12 +41,12 @@ class User extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('USER_NAME, pwd_hash', 'required'),
+            array('USER_NAME, PWD_HASH', 'required'),
             array('USER_NAME', 'length', 'max' => 20),
-            array('pwd_hash', 'length', 'max' => 34),
+            array('PWD_HASH', 'length', 'max' => 34),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, USER_NAME, pwd_hash', 'safe', 'on' => 'search'),
+            array('id, USER_NAME, PWD_HASH', 'safe', 'on' => 'search'),
         );
     }
 
@@ -71,7 +71,7 @@ class User extends CActiveRecord {
         return array(
             'id' => 'ID',
             'USER_NAME' => 'Username',
-            'pwd_hash' => 'Pwd Hash',
+            'PWD_HASH' => 'Pwd Hash',
             'person_id' => 'Person',
             'email' => 'Email',
         );
@@ -89,7 +89,7 @@ class User extends CActiveRecord {
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('USER_NAME', $this->USER_NAME, true);
-        $criteria->compare('pwd_hash', $this->pwd_hash, true);
+        $criteria->compare('PWD_HASH', $this->PWD_HASH, true);
         $criteria->compare('person_id', $this->person_id, true);
         $criteria->compare('email', $this->email, true);
 
@@ -99,8 +99,8 @@ class User extends CActiveRecord {
     }
 
     public function check($value) {
-          $new_hash = crypt($value, $this->pwd_hash);
-        if ($value == $this->pwd_hash) {
+          $new_hash = crypt($value, $this->PWD_HASH);
+        if ($value == $this->PWD_HASH) {
             return true;
         }
         return false;

@@ -23,10 +23,10 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
      * IDp wrappers initializer 
      */
     function initialize() {
-        $hoauthTenant = new HoauthTenant;
-
-
-        $hoauthTenant = HoauthTenant::model()->findByPk(1);
+//        $tplUserProfile = new TplUserProfile;
+//
+//
+//        $tplUserProfile = TplUserProfile::model()->findByPk(1);
 
 //        if (!$this->config["keys"]["id"] || !$this->config["keys"]["secret"]) {
 //            throw new Exception("Your application id and secret are required in order to connect to {$this->providerId}.", 4);
@@ -47,9 +47,9 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
             require_once Hybrid_Auth::$config["path_libraries"] . "Facebook/facebook.php";
         }
 
-        $this->api = new Facebook(ARRAY('appId' => $hoauthTenant->facebook_id, 'secret' => $hoauthTenant->facebook_secret));
+       // $this->api = new Facebook(ARRAY('appId' => $tplUserProfile->facebook_id, 'secret' => $tplUserProfile->facebook_secret));
         
-        //    $this->api = new Facebook(ARRAY('appId' => $this->config["keys"]["id"], 'secret' => $this->config["keys"]["secret"]));
+           $this->api = new Facebook(ARRAY('appId' => $this->config["keys"]["id"], 'secret' => $this->config["keys"]["secret"]));
 
         $this->api->getUser();
     }

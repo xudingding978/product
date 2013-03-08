@@ -99,7 +99,7 @@ return CMap::mergeArray(
 //                    'cookieMode' => 'only',
 //                    'cookieParams' => array(
 //                        'path' => '/',
-//                        'domain' => '.develop.devbox3',
+//                        'domain' => '$domain',
 //                        'httpOnly' => true,
 //                    ),
 //                    'timeout' => 300,

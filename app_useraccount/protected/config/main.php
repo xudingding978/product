@@ -36,13 +36,20 @@ $mainEnvConfiguration = file_exists($mainEnvFile) ? require($mainEnvFile) : arra
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 
+$dot_positon=strpos($_SERVER['HTTP_HOST'],".");
+
+$domain=substr($_SERVER['HTTP_HOST'],$dot_positon);
+
+
+
+
 return CMap::mergeArray(
                 array(
             'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
             // set parameters
             'params' => $params,
             'name' => 'User Account',
-            'id' => 'develop.devbox3',
+            'id' => $domain,
             // preloading 'log' component
             'preload' => array('log', 'bootstrap'),
             // @see http://www.yiiframework.com/doc/api/1.1/CApplication#language-detail
@@ -56,6 +63,45 @@ return CMap::mergeArray(
                 'application.components.*',
             ),
             'modules' => array(
+                'hybridauth' => array(
+                    'baseUrl' => 'http://' . $_SERVER['HTTP_HOST'] . '/hybridauth',
+                    'withYiiUser' => false, // Set to true if using yii-user
+                    "providers" => array(
+                        "OpenID" => array(
+                            "enabled" => true
+                        ),
+                        "Yahoo" => array(
+                            "enabled" => true
+                        ),
+                        "Google" => array(
+                            "enabled" => true,
+                            "keys" => array("id" => "229536460581.apps.googleusercontent.com", "secret" => "P5ewnNOsUD4a6chOsf-V7C6n"),
+                            "scope" => ""
+                        ),
+                        "Live" => array(
+                            "enabled" => true,
+                            "keys" => array("id" => "00000000400ED656", "secret" => "mM8x15UDeuXNbjlBCTFapZfr7G8fizh4"),
+                        ),
+                        "Facebook" => array(
+                            "enabled" => true,
+                            "keys" => array("id" => "", "secret" => ""),
+                            "scope" => "publish_stream",
+                            "display" => "page"
+                        ),
+                        "Twitter" => array(
+                            "enabled" => true,
+                            "keys" => array("key" => "T8gsComi9Nt391cKHMJcw", "secret" => "D5jSS3jC7n4kxOdUwYPebgoXqrckbEcFikUppUNA0")
+                        ),
+                        "QQ" => array(
+                            "enabled" => true,
+                            "keys" => array("key" => "801323043", "secret" => "619b9dbc531ebfea8c674d0eb8c03478")
+                        ),
+                        "Sina" => array(
+                            "enabled" => true,
+                            "keys" => array("key" => "1988690508", "secret" => "bd472b4386849450e9287521ba4dd889")
+                        ),
+                    )
+                ),
             ),
             // application components
             'components' => array(
@@ -65,7 +111,7 @@ return CMap::mergeArray(
                     //        'class' => 'MyWebUser',
                     'class' => 'AuthWebUser',
                     'identityCookie' => array(
-                        'domain' => '.develop.devbox3',
+                        'domain' =>$domain
                     ),
                 ),
                 'authManager' => array(
@@ -77,23 +123,23 @@ return CMap::mergeArray(
                         ),
                     ),
                 ),
-                'session' => array(
-                    'sessionName' => 'Session',
-                    'class' => 'CDbHttpSession',
-                    //  'autoCreateSessionTable' => true,
-                    'connectionID' => 'db',
-                    'sessionTableName' => 'MySessionTable',
-                    //    'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
-                    'useTransparentSessionID' => true,
-                    'autoStart' => 'true',
-                    'cookieMode' => 'only',
-                    'cookieParams' => array(
-                        'path' => '/',
-                        'domain' => '.develop.devbox3',
-                        'httpOnly' => true,
-                    ),
-                    'timeout' => 300,
-                ),
+//                'session' => array(
+//                    'sessionName' => 'Session',
+//                    'class' => 'CDbHttpSession',
+//                    //  'autoCreateSessionTable' => true,
+//                    'connectionID' => 'db',
+//                    'sessionTableName' => 'tpl_user_session',
+//                    //    'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
+//                    'useTransparentSessionID' => true,
+//                    'autoStart' => 'true',
+//                    'cookieMode' => 'only',
+//                    'cookieParams' => array(
+//                        'path' => '/',
+//                        'domain' => $domain,
+//                        'httpOnly' => true,
+//                    ),
+//                    'timeout' => 300,
+//                ),
                 'bootstrap' => array(
                     'class' => 'common.extensions.bootstrap.components.Bootstrap',
                     'responsiveCss' => true,

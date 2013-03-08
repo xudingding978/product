@@ -33,7 +33,8 @@
 
 
             <?php
-
+        $dot_positon = strpos($_SERVER['HTTP_HOST'], ".");
+        $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
             $this->widget('bootstrap.widgets.TbNavbar', array(
                 'brand' => CHtml::encode(Yii::app()->name),
                 'brandOptions' => array('style' => 'width:auto;margin-left: 0px;'),
@@ -45,7 +46,7 @@
                         'items' => array(
                             array('label' => 'Home', 'url' => '#', 'active' => true),
                            // array('label' => 'My Account', 'url' => 'http://'.$_SERVER['HTTP_HOST']),
-                            array('label' => 'My Account', 'url' => 'http://account.develop.devbox5'),
+                            array('label' => 'My Account', 'url' => 'http://account'.$domain),
                             array('label' => 'Link', 'url' => '#'),
                         )
                     )

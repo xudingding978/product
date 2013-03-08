@@ -35,13 +35,19 @@ $mainEnvConfiguration = file_exists($mainEnvFile) ? require($mainEnvFile) : arra
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 
+$dot_positon=strpos($_SERVER['HTTP_HOST'],".");
+
+$domain=substr($_SERVER['HTTP_HOST'],$dot_positon);
+//require_once  ('/home/devbox/NetBeansProjects/bds-v3.1/common/protected/config/domainSetting.php');
+//$domainSetting = new DomainSetting();
+
 return CMap::mergeArray(
                 array(
             'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
             // set parameters
             'params' => $params,
             'name' => 'Administration Control Panel',
-            'id' => 'develop.devbox5',
+            'id' => $domain,
             // preloading 'log' component
             'preload' => array('log', 'bootstrap'),
             // @see http://www.yiiframework.com/doc/api/1.1/CApplication#language-detail
@@ -69,7 +75,7 @@ return CMap::mergeArray(
                     'allowAutoLogin' => true,
                     'class' => 'AuthWebUser',
                     'identityCookie' => array(
-                        'domain' => '.develop.devbox5',
+                        'domain' => $domain,
                     ),
                 ),
                 'authManager' => array(
@@ -81,23 +87,23 @@ return CMap::mergeArray(
                         ),
                     ),
                 ),
-                'session' => array(
-                    'sessionName' => 'Session',
-                    'class' => 'CDbHttpSession',
-                    //  'autoCreateSessionTable' => true,
-                    'connectionID' => 'db',
-                    'sessionTableName' => 'MySessionTable',
-                    //    'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
-                    'useTransparentSessionID' => true,
-                    'autoStart' => 'true',
-                    'cookieMode' => 'only',
-                    'cookieParams' => array(
-                        'path' => '/',
-                        'domain' => '.develop.devbox3',
-                        'httpOnly' => true,
-                    ),
-                    'timeout' => 300,
-                ),
+//                'session' => array(
+//                    'sessionName' => 'Session',
+//                    'class' => 'CDbHttpSession',
+//                    //  'autoCreateSessionTable' => true,
+//                    'connectionID' => 'db',
+//                    'sessionTableName' => 'MySessionTable',
+//                    //    'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
+//                    'useTransparentSessionID' => true,
+//                    'autoStart' => 'true',
+//                    'cookieMode' => 'only',
+//                    'cookieParams' => array(
+//                        'path' => '/',
+//                        'domain' => '.develop.devbox3',
+//                        'httpOnly' => true,
+//                    ),
+//                    'timeout' => 300,
+//                ),
                 'bootstrap' => array(
                     'class' => 'common.extensions.bootstrap.components.Bootstrap',
                     'responsiveCss' => true,

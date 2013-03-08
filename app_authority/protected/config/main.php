@@ -36,13 +36,18 @@ $mainEnvConfiguration = file_exists($mainEnvFile) ? require($mainEnvFile) : arra
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 
+$dot_positon=strpos($_SERVER['HTTP_HOST'],".");
+
+$domain=substr($_SERVER['HTTP_HOST'],$dot_positon);
+
+
 return CMap::mergeArray(
                 array(
             'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
             // set parameters
             'params' => $params,
             'name' => 'Authority Application',
-            'id' => 'develop.devbox5',
+            'id' => $domain,
             // preloading 'log' component
             'preload' => array('log', 'bootstrap'),
             // @see http://www.yiiframework.com/doc/api/1.1/CApplication#language-detail
@@ -81,27 +86,27 @@ return CMap::mergeArray(
                 'user' => array(
                     'class' => 'AuthWebUser',
                     'identityCookie' => array(
-                        'domain' => '.develop.devbox5',
+                        'domain' =>$domain,
                     ),
                     'allowAutoLogin' => true,
                 ),
                 //  un-comment when using gii
-                'session' => array(
-                    'sessionName' => 'Session',
-                    'class' => 'CDbHttpSession',
-                    'connectionID' => 'db',
-                    'sessionTableName' => 'MySessionTable',
-                    //    'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
-                    'useTransparentSessionID' => true,
-                    'autoStart' => 'true',
-                    'cookieMode' => 'only',
-                    'cookieParams' => array(
-                        'path' => '/',
-                        'domain' => '.develop.devbox5',
-                        'httpOnly' => true,
-                    ),
-                    'timeout' => 300,
-                ),
+//                'session' => array(
+//                    'sessionName' => 'Session',
+//                    'class' => 'CDbHttpSession',
+//                    'connectionID' => 'db',
+//                    'sessionTableName' => 'MySessionTable',
+//                    //    'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
+//                    'useTransparentSessionID' => true,
+//                    'autoStart' => 'true',
+//                    'cookieMode' => 'only',
+//                    'cookieParams' => array(
+//                        'path' => '/',
+//                        'domain' =>$domain,
+//                        'httpOnly' => true,
+//                    ),
+//                    'timeout' => 300,
+//                ),
                 'authManager' => array(
                     'class' => 'CDbAuthManager',
                     'connectionID' => 'db',

@@ -69,11 +69,10 @@ class SiteController extends Controller {
      * Displays the login page
      */
     public function actionLogin() {
-  
-        $dot_positon = strpos($_SERVER['HTTP_HOST'], ".");
-        $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
+        // require_once  ('/home/devbox/NetBeansProjects/bds-v3.1/common/protected/config/domainSetting.php');
+        $domainSetting = new DomainSetting();
         Yii::app()->user->setReturnUrl($_SERVER['HTTP_REFERER']);
-        $this->redirect('http://account' . $domain . '/site/login/');
+        $this->redirect('http://account' . $domainSetting->getDomain() . '/site/login/');
     }
 
     /**

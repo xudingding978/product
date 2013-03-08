@@ -81,23 +81,23 @@ return CMap::mergeArray(
                         ),
                     ),
                 ),
-                'session' => array(
-                    'sessionName' => 'Session',
-                    'class' => 'CDbHttpSession',
-                    //   'autoCreateSessionTable' => true,
-                    'connectionID' => 'db',
-                    'sessionTableName' => 'MySessionTable',
-                    //   'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
-                    'useTransparentSessionID' => true,
-                    'autoStart' => 'true',
-                    'cookieMode' => 'only',
-                    'cookieParams' => array(
-                        'path' => '/',
-                        'domain' => $domain,
-                        'httpOnly' => true,
-                    ),
-                    'timeout' => 300,
-                ),
+//                'session' => array(
+//                    'sessionName' => 'Session',
+//                    'class' => 'CDbHttpSession',
+//                    //   'autoCreateSessionTable' => true,
+//                    'connectionID' => 'db',
+//                    'sessionTableName' => 'MySessionTable',
+//                    //   'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
+//                    'useTransparentSessionID' => true,
+//                    'autoStart' => 'true',
+//                    'cookieMode' => 'only',
+//                    'cookieParams' => array(
+//                        'path' => '/',
+//                        'domain' => $domain,
+//                        'httpOnly' => true,
+//                    ),
+//                    'timeout' => 300,
+//                ),
                 'authManager' => array(
                     'behaviors' => array(
                         'auth' => array(

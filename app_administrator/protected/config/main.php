@@ -92,7 +92,7 @@ return CMap::mergeArray(
 //                    'class' => 'CDbHttpSession',
 //                    //  'autoCreateSessionTable' => true,
 //                    'connectionID' => 'db',
-//                    'sessionTableName' => 'MySessionTable',
+//                    'sessionTableName' => 'tpl_user_session',
 //                    //    'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
 //                    'useTransparentSessionID' => true,
 //                    'autoStart' => 'true',

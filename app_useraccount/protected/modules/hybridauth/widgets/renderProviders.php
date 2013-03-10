@@ -27,7 +27,7 @@ class renderProviders extends CWidget {
 			$provider['active']=false;
 		}
 		if (!Yii::app()->user->isGuest) {
-			foreach (HaLogin::getLogins(Yii::app()->user->id) as $login) {
+			foreach (TplUserProfile::getLogins(Yii::app()->user->id) as $login) {
 				$providers[$login->loginProvider]['active']=true;
 			}
 		}

@@ -99,8 +99,8 @@ class User extends CActiveRecord {
     }
 
     public function check($value) {
-          $new_hash = crypt($value, $this->pwd_hash);
-        if ($value == $this->pwd_hash) {
+     //     $new_hash = crypt($value, $this->pwd_hash);
+        if ($value == $this->PWD_HASH) {
             return true;
         }
         return false;

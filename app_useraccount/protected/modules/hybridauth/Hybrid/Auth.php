@@ -36,7 +36,7 @@ class Hybrid_Auth
 	*/
 	function __construct( $config )
 	{
-		if ( ! session_id() ){
+		if ( ! Yii::app()->session->getSessionID() ){
 			if( ! session_start() ){
 				throw new Exception( "Hybridauth requires the use of 'session_start()' at the start of your script, which appears to be disabled.", 1 );
 			}
@@ -69,7 +69,7 @@ class Hybrid_Auth
 	*/
 	public static function initialize( $config )
 	{
-		if ( ! session_id() ){
+		if ( ! Yii::app()->session->getSessionID() ){
 			throw new Exception( "Hybriauth require the use of 'session_start()' at the start of your script.", 1 );
 		}
 

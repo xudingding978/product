@@ -176,4 +176,49 @@ class TplUserProfile extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+        
+        
+        
+        
+        public static function getUser($loginProvider,$loginProviderIdentity) {
+		$criteria=new CDbCriteria;
+		$criteria->compare('LOGIN_PROVIDER',$loginProvider,true);
+		$criteria->compare('LOGIN_PROVIDER_IDENTIFIER',$loginProviderIdentity,true);
+
+		$login = new CActiveDataProvider('TplUserProfile', array(
+			'criteria'=>$criteria,
+		));
+		
+		if ($login->itemCount == 0) {
+			return null;
+		} else {
+			// TODO - Can't seem to get this to work with relations properly....
+			$tmp = $login->getData();
+			$user = new User();
+			return $user->findByPk($tmp[0]->userId);
+		}
+		
+	}
+	
+	public static function getLogins($userId) {
+		$criteria=new CDbCriteria;
+		$criteria->compare('USER_REC_ID',$userId,true);
+		$data= new CActiveDataProvider('TplUserProfile', array(
+			'criteria'=>$criteria,
+		));
+		return $data->getData();
+	}
+	
+	public static function getLogin($userId,$provider) {
+		$criteria=new CDbCriteria;
+		$criteria->compare('USER_REC_ID',$userId,true);
+		$criteria->compare('LOGIN_PROVIDER',$provider,true);
+		$data= new CActiveDataProvider('TplUserProfile', array(
+			'criteria'=>$criteria,
+		));
+		$tmp = $data->getData();
+		return $tmp[0];
+	}
+        
+        
 }

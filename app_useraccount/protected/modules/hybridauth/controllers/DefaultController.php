@@ -71,11 +71,11 @@ class DefaultController extends CController {
                             $profile = new Profile();
                             $profile->first_name = 'firstname';
                             $profile->last_name = 'lastname';
-                            $profile->user_id = $user->id;
+                            $profile->user_id = $user->REC_ID;
                             $profile->save();
                         }
 
-                        $identity->id = $user->id;
+                        $identity->id = $user->REC_ID;
                         $identity->username = $user->username;
                         $this->_linkProvider($identity);
                         $this->_loginUser($identity);

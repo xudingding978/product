@@ -96,7 +96,7 @@ return CMap::mergeArray(
                         'domain' => $domain,
                         'httpOnly' => true,
                     ),
-                    'timeout' => 300,
+            //        'timeout' => 1800,
                 ),
                 'authManager' => array(
                     'behaviors' => array(

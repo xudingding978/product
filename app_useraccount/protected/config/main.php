@@ -139,7 +139,7 @@ return CMap::mergeArray(
                         'domain' => $domain,
                         'httpOnly' => true,
                     ),
-                    'timeout' => 300,
+            //        'timeout' => 1800,
                 ),
                 'bootstrap' => array(
                     'class' => 'common.extensions.bootstrap.components.Bootstrap',

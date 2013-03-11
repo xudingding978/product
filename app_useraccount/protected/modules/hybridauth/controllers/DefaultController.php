@@ -83,7 +83,7 @@ class DefaultController extends CController {
                 } else {
                     //Display the form with some entries prefilled if we have the info.
                     if (isset($identity->userData->email)) {
-                        $user->email = $identity->userData->email;
+                        $user->EMAIL_ADDRESS = $identity->userData->email;
                         $email = explode('@', $user->email);
                         $user->username = $email[0];
                     }
@@ -103,11 +103,11 @@ class DefaultController extends CController {
     }
 
     private function _linkProvider($identity) {
-        $haLogin = new HaLogin();
-        $haLogin->loginProviderIdentifier = $identity->loginProviderIdentifier;
-        $haLogin->loginProvider = $identity->loginProvider;
-        $haLogin->userId = $identity->id;
-        $haLogin->save();
+        $tplUserProfile = new TplUserProfile();
+        $tplUserProfile->LOGIN_PROVIDER_IDENTIFIER = $identity->LOGIN_PROVIDER_IDENTIFIER;
+        $tplUserProfile->LOGIN_PROVIDER = $identity->LOGIN_PROVIDER;
+        $tplUserProfile->USER_REC_ID = $identity->id;
+        $tplUserProfile->save();
     }
 
     private function _loginUser($identity) {

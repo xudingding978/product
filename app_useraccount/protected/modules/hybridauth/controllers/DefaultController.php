@@ -76,7 +76,7 @@ class DefaultController extends CController {
                         }
 
                         $identity->id = $user->REC_ID;
-                        $identity->username = $user->username;
+                        $identity->username = $user->USER_NAME;
                         $this->_linkProvider($identity);
                         $this->_loginUser($identity);
                     } // } else { do nothing } => the form will get redisplayed

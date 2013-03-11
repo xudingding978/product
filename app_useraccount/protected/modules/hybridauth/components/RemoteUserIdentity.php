@@ -15,7 +15,7 @@ class RemoteUserIdentity extends CBaseUserIdentity {
 	 * @param Hybrid_Auth An instance of Hybrid_Auth 
 	 */
 	public function __construct($provider,Hybrid_Auth $hybridAuth) {
-		$this->LOGIN_PROVIDER = $provider;
+		$this->loginProvider = $provider;
 		$this->_hybridAuth = $hybridAuth;
 	}
 
@@ -24,7 +24,7 @@ class RemoteUserIdentity extends CBaseUserIdentity {
 	 * @return boolean whether authentication succeeds.
 	 */
 	public function authenticate() {
-		if (strtolower($this->LOGIN_PROVIDER) == 'openid') {
+		if (strtolower($this->loginProvider) == 'openid') {
 			if (!isset($_GET['openid-identity'])) {
 				throw new Exception('You chose OpenID but didn\'t provide an OpenID identifier');
 			} else {
@@ -34,10 +34,10 @@ class RemoteUserIdentity extends CBaseUserIdentity {
 			$params = array();
 		}
 		
-		$adapter = $this->_hybridAuth->authenticate($this->LOGIN_PROVIDER,$params);
+		$adapter = $this->_hybridAuth->authenticate($this->loginProvider,$params);
 		if ($adapter->isUserConnected()) {
 			$this->_adapter = $adapter;
-			$this->LOGIN_PROVIDER_IDENTIFIER = $this->_adapter->getUserProfile()->identifier;
+			$this->loginProviderIdentifier = $this->_adapter->getUserProfile()->identifier;
 
 			$user = TplUserProfile::getUser($this->LOGIN_PROVIDER, $this->LOGIN_PROVIDER_IDENTIFIER);
 			

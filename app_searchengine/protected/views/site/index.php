@@ -17,7 +17,7 @@ $this->pageTitle=Yii::app()->name;
     $this->widget('bootstrap.widgets.TbButtonGroup', array(
     'buttons'=>array(
 	    array('label'=>'Left', 'url'=>'#'),
-	    array('label'=>'Middel', 'url'=>'#'),
+	    array('label'=>'Middleeeeeee', 'url'=>'#'),
 	    array('label'=>'Right', 'url'=>'#')
     ),
 ));

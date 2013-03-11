@@ -16,15 +16,15 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'username'); ?>
-		<?php echo $form->textField($model,'username',array('size'=>20,'maxlength'=>20)); ?>
-		<?php echo $form->error($model,'username'); ?>
+		<?php echo $form->labelEx($model,'USER_NAME'); ?>
+		<?php echo $form->textField($model,'USER_NAME',array('size'=>20,'maxlength'=>20)); ?>
+		<?php echo $form->error($model,'USER_NAME'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'pwd_hash'); ?>
-		<?php echo $form->textField($model,'pwd_hash',array('size'=>34,'maxlength'=>34)); ?>
-		<?php echo $form->error($model,'pwd_hash'); ?>
+		<?php echo $form->labelEx($model,'PWD_HASH'); ?>
+		<?php echo $form->textField($model,'PWD_HASH',array('size'=>34,'maxlength'=>34)); ?>
+		<?php echo $form->error($model,'PWD_HASH'); ?>
 	</div>
 
 	<div class="row buttons">

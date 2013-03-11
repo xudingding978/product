@@ -1,26 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "user".
+ * This is the model class for table "tpl_user".
  *
- * The followings are the available columns in table 'user':
- * @property string $id
+ * The followings are the available columns in table 'tpl_user':
+ * @property integer $REC_ID
+ * @property string $REC_DATETIME
+ * @property string $REC_TIMESTAMP
+ * @property integer $TENANT_REC_ID
  * @property string $USER_NAME
- * @property string $pwd_hash
- * @property string $person_id
- * @property string $email
- *
- * The followings are the available model relations:
- * @property Book[] $books
- * @property Payment[] $payments
- * @property Book[] $books1
- * @property Wish[] $wishes
+ * @property string $PWD_HASH
+ * @property string $EMAIL_ADDRESS
  */
 class User extends CActiveRecord {
 
     /**
      * Returns the static model of the specified AR class.
-     * @param string $className active record class name.
      * @return User the static model class
      */
     public static function model($className = __CLASS__) {
@@ -41,12 +36,13 @@ class User extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('USER_NAME, pwd_hash', 'required'),
-            array('USER_NAME', 'length', 'max' => 20),
-            array('pwd_hash', 'length', 'max' => 34),
+            array('TENANT_REC_ID', 'numerical', 'integerOnly' => true),
+            array('USER_NAME, EMAIL_ADDRESS', 'length', 'max' => 255),
+            array('PWD_HASH', 'length', 'max' => 512),
+            array('REC_DATETIME, REC_TIMESTAMP', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, USER_NAME, pwd_hash', 'safe', 'on' => 'search'),
+            array('REC_ID, REC_DATETIME, REC_TIMESTAMP, TENANT_REC_ID, USER_NAME, PWD_HASH, EMAIL_ADDRESS', 'safe', 'on' => 'search'),
         );
     }
 
@@ -57,10 +53,8 @@ class User extends CActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'books' => array(self::HAS_MANY, 'Book', 'borrower_id'),
-            'payments' => array(self::HAS_MANY, 'Payment', 'user_id'),
-            'books1' => array(self::MANY_MANY, 'Book', 'request(requester_id, book_id)'),
-            'wishes' => array(self::HAS_MANY, 'Wish', 'got_it'),
+            'rEC' => array(self::BELONGS_TO, 'TplTenant', 'REC_ID'),
+            'tpl_user_profiles' => array(self::HAS_MANY, 'TplUserProfile', 'USER_REC_ID'),
         );
     }
 
@@ -69,11 +63,13 @@ class User extends CActiveRecord {
      */
     public function attributeLabels() {
         return array(
-            'id' => 'ID',
-            'USER_NAME' => 'Username',
-            'pwd_hash' => 'Pwd Hash',
-            'person_id' => 'Person',
-            'email' => 'Email',
+            'REC_ID' => 'Rec',
+            'REC_DATETIME' => 'Rec Datetime',
+            'REC_TIMESTAMP' => 'Rec Timestamp',
+            'TENANT_REC_ID' => 'Tenant Rec',
+            'USER_NAME' => 'User Name',
+            'PWD_HASH' => 'Pwd Hash',
+            'EMAIL_ADDRESS' => 'Email Address',
         );
     }
 
@@ -87,19 +83,27 @@ class User extends CActiveRecord {
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
-        $criteria->compare('USER_NAME', $this->USER_NAME, true);
-        $criteria->compare('pwd_hash', $this->pwd_hash, true);
-        $criteria->compare('person_id', $this->person_id, true);
-        $criteria->compare('email', $this->email, true);
+        $criteria->compare('REC_ID', $this->REC_ID);
 
-        return new CActiveDataProvider($this, array(
+        $criteria->compare('REC_DATETIME', $this->REC_DATETIME, true);
+
+        $criteria->compare('REC_TIMESTAMP', $this->REC_TIMESTAMP, true);
+
+        $criteria->compare('TENANT_REC_ID', $this->TENANT_REC_ID);
+
+        $criteria->compare('USER_NAME', $this->USER_NAME, true);
+
+        $criteria->compare('PWD_HASH', $this->PWD_HASH, true);
+
+        $criteria->compare('EMAIL_ADDRESS', $this->EMAIL_ADDRESS, true);
+
+        return new CActiveDataProvider('User', array(
             'criteria' => $criteria,
         ));
     }
 
     public function check($value) {
-     //     $new_hash = crypt($value, $this->pwd_hash);
+        //     $new_hash = crypt($value, $this->pwd_hash);
         if ($value == $this->PWD_HASH) {
             return true;
         }

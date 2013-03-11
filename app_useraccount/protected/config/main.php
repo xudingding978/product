@@ -65,7 +65,7 @@ return CMap::mergeArray(
             'modules' => array(
                 'hybridauth' => array(
                     // 'baseUrl' => 'http://' . $_SERVER['SERVER_NAME'] . '/hybridauth',
-                    'baseUrl' => 'http://account'.$domain.'hybridauth',
+                    'baseUrl' => 'http://account'.$domain.'/hybridauth',
                     'withYiiUser' => false, // Set to true if using yii-user
                     "providers" => array(
                         "OpenID" => array(

@@ -84,7 +84,7 @@ return CMap::mergeArray(
                         ),
                         "Facebook" => array(
                             "enabled" => true,
-                            "keys" => array("id" => "", "secret" => ""),
+                            "keys" => array("id" => "351417541640384", "secret" => "545a09525ae4bd0769174d12f6986f7c"),
                             "scope" => "publish_stream",
                             "display" => "page"
                         ),

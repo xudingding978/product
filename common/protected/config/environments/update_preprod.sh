@@ -6,7 +6,7 @@ cd /home/devbox/NetBeansProjects/bds-v3.1/
 git add .
 git commit -m "${c}$input_commit${c}"
 git checkout develop
-git merge hybridoauth-develop
+git merge hybridoauth-develop -m "${c}$input_commit${c}"
 git push origin develop
  
 # cd /home/devbox/

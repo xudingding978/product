@@ -104,8 +104,8 @@ class DefaultController extends CController {
 
     private function _linkProvider($identity) {
         $tplUserProfile = new TplUserProfile();
-        $tplUserProfile->LOGIN_PROVIDER_IDENTIFIER = $identity->LOGIN_PROVIDER_IDENTIFIER;
-        $tplUserProfile->LOGIN_PROVIDER = $identity->LOGIN_PROVIDER;
+        $tplUserProfile->LOGIN_PROVIDER_IDENTIFIER = $identity->loginProviderIdentifier;
+        $tplUserProfile->LOGIN_PROVIDER = $identity->loginProvider;
         $tplUserProfile->USER_REC_ID = $identity->id;
         $tplUserProfile->save();
     }

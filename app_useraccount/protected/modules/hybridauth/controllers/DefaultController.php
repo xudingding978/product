@@ -65,7 +65,7 @@ class DefaultController extends CController {
                 if (isset($_POST['User'])) {
                     //Save the form
                     $user->attributes = $_POST['User'];
-
+// $user->TENANT_REC_ID='1';
                     if ($user->validate() && $user->save()) {
                         if ($this->module->withYiiUser == true) {
                             $profile = new Profile();
@@ -94,7 +94,7 @@ class DefaultController extends CController {
                 ));
             } else {
                 // They are already logged in, link their user account with new provider
-                $identity->id = Yii::app()->user->id;
+                $identity->id = Yii::app()->user->REC_ID;
                 $this->_linkProvider($identity);
                 $this->redirect(Yii::app()->session['hybridauth-ref']);
                 unset(Yii::app()->session['hybridauth-ref']);

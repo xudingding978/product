@@ -12,18 +12,18 @@
 )); ?>
 
 	<div class="row">
-		<?php echo $form->label($model,'id'); ?>
-		<?php echo $form->textField($model,'id',array('size'=>10,'maxlength'=>10)); ?>
+		<?php echo $form->label($model,'REC_ID'); ?>
+		<?php echo $form->textField($model,'REC_ID',array('size'=>10,'maxlength'=>10)); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'username'); ?>
-		<?php echo $form->textField($model,'username',array('size'=>20,'maxlength'=>20)); ?>
+		<?php echo $form->label($model,'USER_NAME'); ?>
+		<?php echo $form->textField($model,'USER_NAME',array('size'=>20,'maxlength'=>20)); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'pwd_hash'); ?>
-		<?php echo $form->textField($model,'pwd_hash',array('size'=>34,'maxlength'=>34)); ?>
+		<?php echo $form->label($model,'PWD_HASH'); ?>
+		<?php echo $form->textField($model,'PWD_HASH',array('size'=>34,'maxlength'=>34)); ?>
 	</div>
 
 	<div class="row buttons">

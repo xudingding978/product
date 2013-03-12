@@ -14,7 +14,7 @@
 
 return
         array(
-            'baseUrl' => 'http://'.$_SERVER['HTTP_HOST'].'/hybridauth',
+            "base_url" =>  'http://'.$_SERVER['HTTP_HOST'].'/hybridauth',
             "providers" => array(
                 "OpenID" => array(
                     "enabled" => true

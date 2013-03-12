@@ -102,7 +102,7 @@ class Hybrid_Provider_Adapter
 		}
 
 		// clear all unneeded params
-		foreach( Hybrid_Auth::$config["providers"] as $idpid => $params ){
+		foreach( Hybrid_Auth::$config["modules"]["providers"] as $idpid => $params ){
 			Hybrid_Auth::storage()->delete( "hauth_session.{$idpid}.hauth_return_to"    );
 			Hybrid_Auth::storage()->delete( "hauth_session.{$idpid}.hauth_endpoint"     );
 			Hybrid_Auth::storage()->delete( "hauth_session.{$idpid}.id_provider_params" );
@@ -258,8 +258,8 @@ class Hybrid_Provider_Adapter
 	*/
 	function getConfigById( $id )
 	{ 
-		if( isset( Hybrid_Auth::$config["providers"][$id] ) ){
-			return Hybrid_Auth::$config["providers"][$id];
+		if( isset( Hybrid_Auth::$config["modules"]["providers"][$id] ) ){
+			return Hybrid_Auth::$config["modules"]["providers"][$id];
 		}
 
 		return NULL;
@@ -272,7 +272,7 @@ class Hybrid_Provider_Adapter
 	*/
 	function getProviderCiId( $id )
 	{
-		foreach( Hybrid_Auth::$config["providers"] as $idpid => $params ){
+		foreach( Hybrid_Auth::$config["modules"]["providers"] as $idpid => $params ){
 			if( strtolower( $idpid ) == strtolower( $id ) ){
 				return $idpid;
 			}

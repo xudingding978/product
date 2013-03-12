@@ -4,7 +4,8 @@
 $this->pageTitle='User Account | '.Yii::app()->name;
 ?>
 
-<h1>User Account | Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
+
+<h1>User Account | Welcome to <i><?php echo CHtml::encode(Yii::app()->name) .'|'. $_SERVER['HTTP_REFERER']; ?> </i></h1>
 
 <p>User Account | Congratulations! You have successfully created your Yii application.</p>
 

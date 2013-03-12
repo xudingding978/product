@@ -116,7 +116,7 @@ return CMap::mergeArray(
                     'behaviors' => array(
                         'auth' => array(
                             'class' => 'AuthBehavior',
-                            'admins' => array('test', 'foo', 'bar'), // users with full access
+                            'admins' => array('admin','jason', 'foo', 'bar'), // users with full access
                         ),
                     ),
                 ),

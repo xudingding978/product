@@ -388,7 +388,7 @@ class Hybrid_Auth
 			$protocol = 'http://';
 		}
 
-		$url = $protocol . $_SERVER['SERVER_NAME'];
+		$url = $protocol . $_SERVER['SERVER_NAME'].'11111';
 
 		// use port if non default
 		$url .= 

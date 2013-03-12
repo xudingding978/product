@@ -1,5 +1,4 @@
-<?php
-/* @var $this SiteController */
+<?php /* @var $this SiteController */
 
 $this->pageTitle='User Account | '.Yii::app()->name;
 ?>

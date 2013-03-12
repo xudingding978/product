@@ -17,7 +17,7 @@ class DefaultController extends CController {
         $this->_doLogin();
         //} catch (Exception $e) {
         //	Yii::app()->user->setFlash('hybridauth-error', "Something went wrong, did you cancel?");
-        //y	$this->redirect(Yii::app()->session['hybridauth-ref'], true);
+        //	$this->redirect(Yii::app()->session['hybridauth-ref'], true);
         //}
     }
 
@@ -112,7 +112,8 @@ class DefaultController extends CController {
 
     private function _loginUser($identity) {
         Yii::app()->user->login($identity, 0);
-        $this->redirect(Yii::app()->user->returnUrl);
+      //  $this->redirect(Yii::app()->user->returnUrl);
+         $this->redirect('http://admin.business-software.co.nz/');
     }
 
     /**

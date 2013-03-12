@@ -43,7 +43,7 @@ class User extends CActiveRecord {
             array('EMAIL_ADDRESS', 'unique'),
              array('EMAIL_ADDRESS','required'),
             
-      //     array('EMAIL_ADDRESS','email','allowEmpty'=>true,'fullPattern'=>'^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$'),
+           array('EMAIL_ADDRESS','email','allowEmpty'=>true,'fullPattern'=>'^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$'),
             array('PWD_HASH', 'length', 'max' => 512),
             array('REC_DATETIME, REC_TIMESTAMP', 'safe'),
             // The following rule is used by search().

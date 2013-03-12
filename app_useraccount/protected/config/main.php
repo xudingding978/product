@@ -36,9 +36,9 @@ $mainEnvConfiguration = file_exists($mainEnvFile) ? require($mainEnvFile) : arra
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 
-$dot_positon = strpos($_SERVER['HTTP_HOST'], ".");
+$dot_positon = strpos($_SERVER['SERVER_NAME'], ".");
 
-$domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
+$domain = substr($_SERVER['SERVER_NAME'], $dot_positon);
 
 
 

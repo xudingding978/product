@@ -14,17 +14,17 @@
 
 
     <div class="row">
-        <?php echo $form->labelEx($user, 'username'); ?>
-        <?php echo $form->textField($user, 'username'); ?>
-        <?php echo $form->error($user, 'username'); ?>
+        <?php echo $form->labelEx($user, 'USER_NAME'); ?>
+        <?php echo $form->textField($user, 'USER_NAME'); ?>
+        <?php echo $form->error($user, 'USER_NAME'); ?>
     </div>
 
 
 
     <div class="row">
-        <?php echo $form->labelEx($user, 'email'); ?>
-        <?php echo $form->textField($user, 'email'); ?>
-        <?php echo $form->error($user, 'email'); ?>
+        <?php echo $form->labelEx($user, 'EMAIL_ADDRESS'); ?>
+        <?php echo $form->textField($user, 'EMAIL_ADDRESS'); ?>
+        <?php echo $form->error($user, 'EMAIL_ADDRESS'); ?>
     </div>
 
 

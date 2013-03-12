@@ -36,9 +36,9 @@ $mainEnvConfiguration = file_exists($mainEnvFile) ? require($mainEnvFile) : arra
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 
-$dot_positon=strpos($_SERVER['HTTP_HOST'],".");
+$dot_positon = strpos($_SERVER['HTTP_HOST'], ".");
 
-$domain=substr($_SERVER['HTTP_HOST'],$dot_positon);
+$domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 
 
 
@@ -64,7 +64,8 @@ return CMap::mergeArray(
             ),
             'modules' => array(
                 'hybridauth' => array(
-                    'baseUrl' => 'http://' . $_SERVER['HTTP_HOST'] . '/hybridauth',
+                  //   'baseUrl' => 'http://account.business-software.co.nz/hybridauth',
+                    'baseUrl' => 'http://'.$_SERVER['HTTP_HOST'].'/hybridauth',
                     'withYiiUser' => false, // Set to true if using yii-user
                     "providers" => array(
                         "OpenID" => array(
@@ -84,7 +85,7 @@ return CMap::mergeArray(
                         ),
                         "Facebook" => array(
                             "enabled" => true,
-                            "keys" => array("id" => "", "secret" => ""),
+                            "keys" => array("id" => "351417541640384", "secret" => "545a09525ae4bd0769174d12f6986f7c"),
                             "scope" => "publish_stream",
                             "display" => "page"
                         ),
@@ -111,7 +112,7 @@ return CMap::mergeArray(
                     //        'class' => 'MyWebUser',
                     'class' => 'AuthWebUser',
                     'identityCookie' => array(
-                        'domain' =>$domain
+                        'domain' => $domain
                     ),
                 ),
                 'authManager' => array(
@@ -138,7 +139,7 @@ return CMap::mergeArray(
                         'domain' => $domain,
                         'httpOnly' => true,
                     ),
-                    'timeout' => 300,
+            //        'timeout' => 1800,
                 ),
                 'bootstrap' => array(
                     'class' => 'common.extensions.bootstrap.components.Bootstrap',

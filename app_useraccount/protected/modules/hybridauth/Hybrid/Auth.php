@@ -126,7 +126,7 @@ class Hybrid_Auth
 		Hybrid_Auth::$logger = new Hybrid_Logger();
 
 		// store php session and version..
-		$_SESSION["HA::PHP_SESSION_ID"] = session_id(); 
+		$_SESSION["HA::PHP_SESSION_ID"] = Yii::app()->session->getSessionID();
 		$_SESSION["HA::VERSION"]        = Hybrid_Auth::$version; 
 
 		// almost done, check for errors then move on
@@ -388,7 +388,8 @@ class Hybrid_Auth
 			$protocol = 'http://';
 		}
 
-		$url = $protocol . $_SERVER['SERVER_NAME'];
+	//	$url = $protocol . $_SERVER['SERVER_NAME'].
+                                    $url = $protocol . $_SERVER['HTTP_HOST'];
 
 		// use port if non default
 		$url .= 

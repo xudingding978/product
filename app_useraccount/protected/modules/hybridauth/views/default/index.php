@@ -10,7 +10,7 @@
 //$config = dirname(__FILE__) . '/library/config.php';
 $config = '../../../../config/main.php';
 echo dirname(__FILE__);
-require_once( '/../../Hybrid/Auth.php' );
+require_once( './../../Hybrid/Auth.php' );
 try {
     // create an instance for Hybridauth with the configuration file path as parameter
     $hybridauth = new Hybrid_Auth($config);

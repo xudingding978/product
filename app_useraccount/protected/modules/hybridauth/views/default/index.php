@@ -5,7 +5,7 @@
 <?php
 
 // start a new session (required for Hybridauth)
-session_start();
+//session_start();
 // change the following paths if necessary
 $config = dirname(__FILE__) . '/library/config.php';
 require_once( "library/Hybrid/Auth.php" );

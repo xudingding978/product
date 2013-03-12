@@ -6,9 +6,9 @@
 
 // start a new session (required for Hybridauth)
 //session_start();
-// change the following paths if necessary
-//$config = dirname(__FILE__) . '/library/config.php';
-$config = '/home/ubuntu/platform/hubstar/app_useraccount/protected/config/main_bk.php';
+ 
+//$config = '/home/ubuntu/platform/hubstar/app_useraccount/protected/config/main_bk.php';
+$config = '/home/ubuntu/platform/hubstar/app_useraccount/protected/config/main.php';
 echo dirname(__FILE__);
 require_once( '/home/ubuntu/platform/hubstar/app_useraccount/protected/modules/hybridauth/Hybrid/Auth.php' );
 

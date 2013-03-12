@@ -125,7 +125,7 @@ class DefaultController extends CController {
     }
 
     public function actionUnlink() {
-        $login = HaLogin::getLogin(Yii::app()->user->getid(), $_POST['hybridauth-unlinkprovider']);
+        $login = TplUserProfile::getLogin(Yii::app()->user->getid(), $_POST['hybridauth-unlinkprovider']);
         $login->delete();
         $this->redirect(Yii::app()->getRequest()->urlReferrer);
     }

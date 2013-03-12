@@ -112,9 +112,9 @@ class DefaultController extends CController {
 
     private function _loginUser($identity) {
         Yii::app()->user->login($identity, 0);
-        $this->redirect(Yii::app()->user->returnUrl);
+  //      $this->redirect(Yii::app()->user->returnUrl);
    //   error_log(Yii::app()->user->returnUrl);
-   //      $this->redirect('http://admin.business-software.co.nz/');
+         $this->redirect('http://'.$_SERVER['SERVER_NAME'].'/hybridauth');
     }
 
     /**

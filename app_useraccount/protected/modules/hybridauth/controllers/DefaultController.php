@@ -94,7 +94,7 @@ class DefaultController extends CController {
                 ));
             } else {
                 // They are already logged in, link their user account with new provider
-                $identity->id = Yii::app()->user->REC_ID;
+                $identity->id = Yii::app()->user->id;
                 $this->_linkProvider($identity);
                 $this->redirect(Yii::app()->session['hybridauth-ref']);
                 unset(Yii::app()->session['hybridauth-ref']);

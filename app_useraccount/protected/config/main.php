@@ -36,9 +36,9 @@ $mainEnvConfiguration = file_exists($mainEnvFile) ? require($mainEnvFile) : arra
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 
-$dot_positon = strpos($_SERVER['SERVER_NAME'], ".");
+$dot_positon = strpos($_SERVER['HTTP_HOST'], ".");
 
-$domain = substr($_SERVER['SERVER_NAME'], $dot_positon);
+$domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 
 
 
@@ -65,7 +65,7 @@ return CMap::mergeArray(
             'modules' => array(
                 'hybridauth' => array(
                     // 'baseUrl' => 'http://' . $_SERVER['SERVER_NAME'] . '/hybridauth',
-                    'baseUrl' => 'http://account'.$domain.'/hybridauth',
+                    'baseUrl' => 'http://'.$_SERVER['HTTP_HOST'].'/hybridauth',
                     'withYiiUser' => false, // Set to true if using yii-user
                     "providers" => array(
                         "OpenID" => array(

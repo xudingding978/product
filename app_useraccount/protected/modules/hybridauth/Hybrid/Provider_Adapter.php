@@ -102,7 +102,7 @@ class Hybrid_Provider_Adapter
 		}
 
 		// clear all unneeded params
-		foreach( Hybrid_Auth::$config["modules"]["providers"] as $idpid => $params ){
+		foreach( Hybrid_Auth::$config["modules"]["hybridauth"]["providers"] as $idpid => $params ){
 			Hybrid_Auth::storage()->delete( "hauth_session.{$idpid}.hauth_return_to"    );
 			Hybrid_Auth::storage()->delete( "hauth_session.{$idpid}.hauth_endpoint"     );
 			Hybrid_Auth::storage()->delete( "hauth_session.{$idpid}.id_provider_params" );

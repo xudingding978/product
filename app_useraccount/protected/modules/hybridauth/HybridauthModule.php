@@ -2,7 +2,7 @@
 
 class HybridauthModule extends CWebModule {
 
-    public $baseUrl;
+  //  public $baseUrl;
     public $base_url;
     public $providers;
     public $withYiiUser;

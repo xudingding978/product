@@ -63,6 +63,8 @@ class TplUserProfile extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('REC_ID', 'required'),
+            array('USER_REC_ID, LOGIN_PROVIDER, LOGIN_PROVIDER_IDENTIFIER', 'required'),
+              array('USER_REC_ID', 'numerical', 'integerOnly'=>true),
             array('REC_ID, TENANT_REC_ID, USER_REC_ID, AGE, BIRTH_DAY, BIRTH_MONTH, BIRTH_YEAR, ZIP', 'numerical', 'integerOnly' => true),
             array('LOGIN_PROVIDER', 'length', 'max' => 80),
             array('LOGIN_PROVIDER_IDENTIFIER', 'length', 'max' => 100),

@@ -258,8 +258,8 @@ class Hybrid_Provider_Adapter
 	*/
 	function getConfigById( $id )
 	{ 
-		if( isset( Hybrid_Auth::$config["modules"]["providers"][$id] ) ){
-			return Hybrid_Auth::$config["modules"]["providers"][$id];
+		if( isset( Hybrid_Auth::$config["modules"]["hybridauth"]["providers"][$id] ) ){
+			return Hybrid_Auth::$config["modules"]["hybridauth"]["providers"][$id];
 		}
 
 		return NULL;

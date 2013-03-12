@@ -8,9 +8,9 @@
 //session_start();
 // change the following paths if necessary
 //$config = dirname(__FILE__) . '/library/config.php';
-$config = '../../../../config/main.php';
+$config = 'main.php';
 echo dirname(__FILE__);
-require_once( $config);
+include_once( 'Auth.php' );
 try {
     // create an instance for Hybridauth with the configuration file path as parameter
     $hybridauth = new Hybrid_Auth($config);

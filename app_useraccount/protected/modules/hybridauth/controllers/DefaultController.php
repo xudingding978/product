@@ -65,7 +65,6 @@ class DefaultController extends CController {
                 if (isset($_POST['User'])) {
                     //Save the form
                     $user->attributes = $_POST['User'];
-// $user->TENANT_REC_ID='1';
                     if ($user->validate() && $user->save()) {
                         if ($this->module->withYiiUser == true) {
                             $profile = new Profile();

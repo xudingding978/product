@@ -36,8 +36,8 @@
                         'class' => 'bootstrap.widgets.TbMenu',
                         'items' => array(
                             array('label' => 'Home', 'url' => '#', 'active' => true),
-                            array('label' => 'Link', 'url' => '#'),
-                            array('label' => 'Link', 'url' => '#'),
+                            array('label' => 'Search', 'url' => '#'),
+                            array('label' => 'Authority', 'url' => '/auth'),
                         )
                     )
                 )

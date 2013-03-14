@@ -66,8 +66,8 @@ return CMap::mergeArray(
                 'auth' => array(
                     'strictMode' => true, // when enabled authorization items cannot be assigned children of the same type.
                     'userClass' => 'User', // the name of the user model class.
-                    'userIdColumn' => 'id', // the name of the user id column.
-                    'userNameColumn' => 'username', // the name of the user name column.
+                    'userIdColumn' => 'REC_ID', // the name of the user id column.
+                    'userNameColumn' => 'USER_NAME', // the name of the user name column.
                     'appLayout' => 'application.views.layouts.main', // the layout used by the module.
                     'viewDir' => null, // the path to view files to use with this module.  
                 ),
@@ -110,13 +110,13 @@ return CMap::mergeArray(
                 'authManager' => array(
                     'class' => 'CDbAuthManager',
                     'connectionID' => 'db',
-                    'itemTable' => 'auth_item',
-                    'itemChildTable' => 'auth_item_child',
-                    'assignmentTable' => 'auth_assignment',
+                    'itemTable' => 'tpl_auth_item',
+                    'itemChildTable' => 'tpl_auth_item_child',
+                    'assignmentTable' => 'tpl_auth_assignment',
                     'behaviors' => array(
                         'auth' => array(
                             'class' => 'AuthBehavior',
-                            'admins' => array('test', 'foo', 'bar'), // users with full access
+                            'admins' => array('admin','jason', 'foo', 'bar'), // users with full access
                         ),
                     ),
                 ),

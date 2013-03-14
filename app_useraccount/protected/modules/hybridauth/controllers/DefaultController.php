@@ -111,11 +111,11 @@ class DefaultController extends CController {
     }
 
     private function _linkProvider($identity) {
-//        $config = Yii::app()->getBasePath() . '/config/provider_config.php';
- //       require_once( Yii::app()->getBasePath() . '/modules/hybridauth/Hybrid/Auth.php');
+        $config = Yii::app()->getBasePath() . '/config/provider_config.php';
+        require_once( Yii::app()->getBasePath() . '/modules/hybridauth/Hybrid/Auth.php');
         
-       $config = '/home/ubuntu/platform/hubstar/app_useraccount/protected/config/provider_config.php';
-        require_once( '/home/ubuntu/platform/hubstar/app_useraccount/protected/modules/hybridauth/Hybrid/Auth.php' );
+ //      $config = '/home/ubuntu/platform/hubstar/app_useraccount/protected/config/provider_config.php';
+ //       require_once( '/home/ubuntu/platform/hubstar/app_useraccount/protected/modules/hybridauth/Hybrid/Auth.php' );
         
         $hybridauth = new Hybrid_Auth($config);
         $adapter = $hybridauth->authenticate($_GET['provider']);

@@ -33,16 +33,13 @@
  * @property string $CITY
  * @property integer $ZIP
  * @property string $POST_CODE
- *
- * The followings are the available model relations:
- * @property TplUser $uSERREC
  */
-class TplUserProfile extends CActiveRecord {
+class UserProfile extends CActiveRecord {
 
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
-     * @return TplUserProfile the static model class
+     * @return UserProfile the static model class
      */
     public static function model($className = __CLASS__) {
         return parent::model($className);
@@ -62,10 +59,7 @@ class TplUserProfile extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('REC_ID', 'required'),
-            array('USER_REC_ID, LOGIN_PROVIDER, LOGIN_PROVIDER_IDENTIFIER', 'required'),
-              array('USER_REC_ID', 'numerical', 'integerOnly'=>true),
-            array('REC_ID, TENANT_REC_ID, USER_REC_ID, AGE, BIRTH_DAY, BIRTH_MONTH, BIRTH_YEAR, ZIP', 'numerical', 'integerOnly' => true),
+            array('TENANT_REC_ID, USER_REC_ID, AGE, BIRTH_DAY, BIRTH_MONTH, BIRTH_YEAR, ZIP', 'numerical', 'integerOnly' => true),
             array('LOGIN_PROVIDER', 'length', 'max' => 80),
             array('LOGIN_PROVIDER_IDENTIFIER', 'length', 'max' => 100),
             array('IDENTIFIER, DISPLAY_NAME, EMAIL, EMAIL_VERIFIED, COUNTRY, REGION, CITY', 'length', 'max' => 255),
@@ -87,7 +81,6 @@ class TplUserProfile extends CActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'uSERREC' => array(self::BELONGS_TO, 'TplUser', 'USER_REC_ID'),
         );
     }
 

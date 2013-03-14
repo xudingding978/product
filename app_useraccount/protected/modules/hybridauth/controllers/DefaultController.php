@@ -64,9 +64,7 @@ class DefaultController extends CController {
 
                 $user = new User;
 
-                $test = new test;
-                $test->test2 = 'ddddd';
-                $test->save();
+
 
 
 

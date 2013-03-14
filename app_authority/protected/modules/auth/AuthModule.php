@@ -27,7 +27,8 @@ class AuthModule extends CWebModule
 	 * @var string name of the user id column.
 	 * Change this if the id column in your user table is different than the default value.
 	 */
-	public $userIdColumn = 'id';
+                  //public $userIdColumn = 'id';
+	public $userIdColumn = 'REC_ID';
 	/**
 	 * @var string name of the user name column.
 	 * Change this if the name column in your user table is different than the default value.

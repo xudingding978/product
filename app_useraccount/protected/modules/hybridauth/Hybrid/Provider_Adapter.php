@@ -103,6 +103,7 @@ class Hybrid_Provider_Adapter
 
 		// clear all unneeded params
 		foreach( Hybrid_Auth::$config["providers"] as $idpid => $params ){
+                                //   foreach( Hybrid_Auth::$config["modules"]["hybridauth"]["providers"] as $idpid => $params ){
 			Hybrid_Auth::storage()->delete( "hauth_session.{$idpid}.hauth_return_to"    );
 			Hybrid_Auth::storage()->delete( "hauth_session.{$idpid}.hauth_endpoint"     );
 			Hybrid_Auth::storage()->delete( "hauth_session.{$idpid}.id_provider_params" );
@@ -113,6 +114,7 @@ class Hybrid_Provider_Adapter
 
 		# get hybridauth base url
 		$HYBRID_AUTH_URL_BASE = Hybrid_Auth::$config["base_url"];
+                                  //   $HYBRID_AUTH_URL_BASE = Hybrid_Auth::$config["modules"]["hybridauth"]["base_url"];
 
 		# we make use of session_id() as storage hash to identify the current user
 		# using session_regenerate_id() will be a problem, but ..
@@ -261,6 +263,10 @@ class Hybrid_Provider_Adapter
 		if( isset( Hybrid_Auth::$config["providers"][$id] ) ){
 			return Hybrid_Auth::$config["providers"][$id];
 		}
+                
+//                	if( isset( Hybrid_Auth::$config["modules"]["hybridauth"]["providers"][$id] ) ){
+//			return Hybrid_Auth::$config["modules"]["hybridauth"]["providers"][$id];
+//		}
 
 		return NULL;
 	}
@@ -272,6 +278,7 @@ class Hybrid_Provider_Adapter
 	*/
 	function getProviderCiId( $id )
 	{
+                //                    foreach( Hybrid_Auth::$config["modules"]["hybridauth"]["providers"] as $idpid => $params ){
 		foreach( Hybrid_Auth::$config["providers"] as $idpid => $params ){
 			if( strtolower( $idpid ) == strtolower( $id ) ){
 				return $idpid;

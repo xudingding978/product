@@ -23,7 +23,7 @@ class AuthItemForm extends CFormModel
 	/**
 	 * @var string business rule associated with the item.
 	 */
-	public $bizrule;
+	public $biz_rule;
 	/**
 	 * @var string additional data for the item.
 	 */
@@ -40,11 +40,11 @@ class AuthItemForm extends CFormModel
 	public function attributeLabels()
 	{
 		return array(
-			'name' => Yii::t('AuthModule.main', 'System name'),
-			'description' => Yii::t('AuthModule.main', 'Description'),
-			'bizrule' => Yii::t('AuthModule.main', 'Business rule'),
-			'data' => Yii::t('AuthModule.main', 'Data'),
-			'type' => Yii::t('AuthModule.main', 'Type'),
+			'NAME' => Yii::t('AuthModule.main', 'System name'),
+			'DESCRIPTION' => Yii::t('AuthModule.main', 'Description'),
+			'BIZ_RULE' => Yii::t('AuthModule.main', 'Business rule'),
+			'DATA' => Yii::t('AuthModule.main', 'Data'),
+			'TYPE' => Yii::t('AuthModule.main', 'Type'),
 		);
 	}
 

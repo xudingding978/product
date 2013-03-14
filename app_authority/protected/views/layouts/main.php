@@ -20,15 +20,25 @@
 
     <body>
 
-        <div class="container" id="page">
+        <div class="container" id="page" style="margin-top: 50px;" >
 
             <div id="header">
                 <div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
             </div><!-- header -->
             <?php
+            // build out login/logout string
+            if (Yii::app()->user->isGuest) {
+                $user_state = '';
+            } else {
+                $user_state = '';
+            }
+
+
             $this->widget('bootstrap.widgets.TbNavbar', array(
                 'brand' => 'Authority',
                 'brandOptions' => array('style' => 'width:auto;margin-left: 0px;'),
+                'brandUrl' => '#',
+                'collapse' => true,
                 'fixed' => 'top',
                 'htmlOptions' => array('style' => 'position:absolute'),
                 'items' => array(
@@ -36,8 +46,17 @@
                         'class' => 'bootstrap.widgets.TbMenu',
                         'items' => array(
                             array('label' => 'Home', 'url' => '#', 'active' => true),
-                            array('label' => 'Link', 'url' => '#'),
-                            array('label' => 'Link', 'url' => '#'),
+                            array('label' => 'Search', 'url' => '#'),
+                            array('label' => 'Authority', 'url' => '/auth', 'items' => array(
+                                    array('label' =>'Actions'),
+                                    '---',
+                                    array('label' => 'Assignments', 'url' => '/auth/assignment'),
+                                    array('label' => 'Roles', 'url' => '/auth/role'),
+                                    array('label' => 'Tasks', 'url' => '/auth/task'),
+                                    array('label' => 'Operations', 'url' => '/auth/operation'),
+                                )),
+                            array('label' => 'Login', 'url' => array('/site/login'), 'active' => Yii::app()->user->isGuest),
+                            array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'active' => !Yii::app()->user->isGuest)
                         )
                     )
                 )
@@ -55,10 +74,10 @@
                     ),
                 ));
                 ?>
-            </div><!-- mainmenu -->
+            </div><!-- mainmenu  -->
             <?php if (isset($this->breadcrumbs)): ?>
                 <?php
-                $this->widget('zii.widgets.CBreadcrumbs', array(
+                $this->widget('bootstrap.widgets.TbBreadcrumbs', array(
                     'links' => $this->breadcrumbs,
                 ));
                 ?><!-- breadcrumbs -->

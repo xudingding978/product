@@ -4,6 +4,7 @@
  * This is the model class for table "tpl_user".
  *
  * The followings are the available columns in table 'tpl_user':
+
  * @property integer $REC_ID
  * @property string $REC_DATETIME
  * @property string $REC_TIMESTAMP
@@ -13,7 +14,6 @@
  * @property string $EMAIL_ADDRESS
  */
 class User extends CActiveRecord {
-
     /**
      * Returns the static model of the specified AR class.
      * @return User the static model class
@@ -82,6 +82,8 @@ class User extends CActiveRecord {
         // should not be searched.
 
         $criteria = new CDbCriteria;
+        
+        $criteria->compare('id', $this->REC_ID);
 
         $criteria->compare('REC_ID', $this->REC_ID);
 

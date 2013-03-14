@@ -264,7 +264,7 @@ class Hybrid_Provider_Adapter
 			return Hybrid_Auth::$config["providers"][$id];
 		}
                 
-//                		if( isset( Hybrid_Auth::$config["modules"]["hybridauth"]["providers"][$id] ) ){
+//                	if( isset( Hybrid_Auth::$config["modules"]["hybridauth"]["providers"][$id] ) ){
 //			return Hybrid_Auth::$config["modules"]["hybridauth"]["providers"][$id];
 //		}
 

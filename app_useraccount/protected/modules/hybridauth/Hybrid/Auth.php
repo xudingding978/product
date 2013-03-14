@@ -220,6 +220,7 @@ class Hybrid_Auth
 			$provider_adapter = Hybrid_Auth::setup( $providerId, $params );
 
 			$provider_adapter->login();
+                                                   // echo 'noe login';
 		}
 
 		// else, then return the adapter instance for the given provider

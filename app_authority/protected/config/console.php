@@ -13,53 +13,31 @@ return array(
 //			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
 //		),
         // uncomment the following to use a MySQL database
-
-<<<<<<< HEAD
-	// preloading 'log' component
-	'preload'=>array('log'),
-
-	// application components
-	'components'=>array(
+        // preloading 'log' component
+        'preload' => array('log'),
+        // application components
+        'components' => array(
 //		'db'=>array(
 //			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
 //		),
-		// uncomment the following to use a MySQL database
-		
-		'db'=>array(
-			'connectionString' => 'mysql:host=db.business-software.co.nz;dbname=db_v3.1_admin',
-			'emulatePrepare' => true,
-			'username' =>  'db_user',
-			'password' => 'Pa55word',
-			'charset' => 'utf8',
-		),
-		
-		'log'=>array(
-			'class'=>'CLogRouter',
-			'routes'=>array(
-				array(
-					'class'=>'CFileLogRoute',
-					'levels'=>'error, warning',
-				),
-			),
-		),
-	),
-=======
-        'db' => array(
-            'connectionString' => 'mysql:host=db.business-software.co.nz;dbname=db_v3.1_admin',
-            'emulatePrepare' => true,
-            'username' => 'db_user',
-            'password' => 'Pa55word',
-            'charset' => 'utf8',
-        ),
-        'log' => array(
-            'class' => 'CLogRouter',
-            'routes' => array(
-                array(
-                    'class' => 'CFileLogRoute',
-                    'levels' => 'error, warning',
+            // uncomment the following to use a MySQL database
+
+            'db' => array(
+                'connectionString' => 'mysql:host=db.business-software.co.nz;dbname=db_v3.1_admin',
+                'emulatePrepare' => true,
+                'username' => 'db_user',
+                'password' => 'Pa55word',
+                'charset' => 'utf8',
+            ),
+            'log' => array(
+                'class' => 'CLogRouter',
+                'routes' => array(
+                    array(
+                        'class' => 'CFileLogRoute',
+                        'levels' => 'error, warning',
+                    ),
                 ),
             ),
         ),
-    ),
->>>>>>> 94e9264becec6db81afbcc5dfa20352866877046
+    )
 );

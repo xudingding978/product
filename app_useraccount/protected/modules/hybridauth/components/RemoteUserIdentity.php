@@ -39,13 +39,13 @@ class RemoteUserIdentity extends CBaseUserIdentity {
             $this->_adapter = $adapter;
             $this->loginProviderIdentifier = $this->_adapter->getUserProfile()->identifier;
 
-            $user = UserProfile::getUser($this->loginProvider, $this->loginProviderIdentifier);
+            $user = TplUserProfile::getUser($this->loginProvider, $this->loginProviderIdentifier);
 
             if ($user == null) {
                 $this->errorCode = self::ERROR_USERNAME_INVALID;
             } else {
-                $this->id = $user->REC_ID;
-                $this->username = $user->USER_NAME;
+                $this->id = $user->id;
+                $this->username = $user->username;
                 $this->errorCode = self::ERROR_NONE;
             }
             return $this->errorCode == self::ERROR_NONE;

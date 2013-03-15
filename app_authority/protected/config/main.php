@@ -36,9 +36,9 @@ $mainEnvConfiguration = file_exists($mainEnvFile) ? require($mainEnvFile) : arra
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 
-$dot_positon=strpos($_SERVER['HTTP_HOST'],".");
+$dot_positon = strpos($_SERVER['HTTP_HOST'], ".");
 
-$domain=substr($_SERVER['HTTP_HOST'],$dot_positon);
+$domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 
 
 return CMap::mergeArray(
@@ -55,6 +55,7 @@ return CMap::mergeArray(
             // autoloading model and component classes
             'import' => array(
                 'common.components.*',
+                'common.components.auth.*',
                 'common.extensions.*',
                 'common.models.*',
                 'application.models.*',
@@ -86,7 +87,7 @@ return CMap::mergeArray(
                 'user' => array(
                     'class' => 'AuthWebUser',
                     'identityCookie' => array(
-                        'domain' =>$domain,
+                        'domain' => $domain,
                     ),
                     'allowAutoLogin' => true,
                 ),
@@ -102,10 +103,10 @@ return CMap::mergeArray(
                     'cookieMode' => 'only',
                     'cookieParams' => array(
                         'path' => '/',
-                        'domain' =>$domain,
+                        'domain' => $domain,
                         'httpOnly' => true,
                     ),
-                  //  'timeout' => 1800,
+                //  'timeout' => 1800,
                 ),
                 'authManager' => array(
                     'class' => 'CDbAuthManager',
@@ -116,7 +117,7 @@ return CMap::mergeArray(
                     'behaviors' => array(
                         'auth' => array(
                             'class' => 'AuthBehavior',
-                            'admins' => array('admin','jason', 'foo', 'bar'), // users with full access
+                            'admins' => array('admin', 'jason', 'foo', 'bar'), // users with full access
                         ),
                     ),
                 ),

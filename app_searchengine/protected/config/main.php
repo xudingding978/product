@@ -47,7 +47,10 @@ return CMap::mergeArray(
             // set parameters
             'params' => $params,
             'name' => 'Trends Search Engine',
+<<<<<<< HEAD
        //     'image' => '',
+=======
+>>>>>>> 45cbdefc16c9b0312a642c3c8397930b3f63cdc2
             'id' => $domain,
             // preloading 'log' component
             'preload' => array('log', 'bootstrap'),
@@ -57,6 +60,7 @@ return CMap::mergeArray(
             'import' => array(
                 'common.components.*',
                 'common.extensions.*',
+                'common.components.auth.*',
                 'common.models.*',
                 'application.models.*',
                 'application.components.*',
@@ -149,6 +153,16 @@ return CMap::mergeArray(
                         ),
                         array(
                             'class' => 'CWebLogRoute',
+                        ),
+                    ),
+                ),
+                'cache' => array(
+                    'class' => 'CMemCache',
+                    'servers' => array(
+                        array(
+                            'host' => '127.0.0.1',
+                            'port' => 11211,
+                            'weight' => 100,
                         ),
                     ),
                 ),

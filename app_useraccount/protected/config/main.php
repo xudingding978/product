@@ -57,6 +57,7 @@ return CMap::mergeArray(
             // autoloading model and component classes
             'import' => array(
                 'common.components.*',
+                'common.components.auth.*',
                 'common.extensions.*',
                 'common.models.*',
                 'application.models.*',
@@ -64,8 +65,8 @@ return CMap::mergeArray(
             ),
             'modules' => array(
                 'hybridauth' => array(
-                  //   'baseUrl' => 'http://account.business-software.co.nz/hybridauth',
-                    'baseUrl' => 'http://'.$_SERVER['HTTP_HOST'].'/hybridauth',
+                    //   'baseUrl' => 'http://account.business-software.co.nz/hybridauth',
+                    'baseUrl' => 'http://' . $_SERVER['HTTP_HOST'] . '/hybridauth',
                     'withYiiUser' => false, // Set to true if using yii-user
                     "providers" => array(
                         "OpenID" => array(
@@ -139,7 +140,7 @@ return CMap::mergeArray(
                         'domain' => $domain,
                         'httpOnly' => true,
                     ),
-            //        'timeout' => 1800,
+                //        'timeout' => 1800,
                 ),
                 'bootstrap' => array(
                     'class' => 'common.extensions.bootstrap.components.Bootstrap',

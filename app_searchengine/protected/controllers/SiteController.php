@@ -83,4 +83,29 @@ class SiteController extends Controller {
         $this->redirect(Yii::app()->homeUrl);
     }
 
+    public function actionSet() {
+        $class = new A();
+        Yii::app()->cache->set('set', $class, 30);
+    }
+
+    public function actionGet() {
+        $value = Yii::app()->cache->get('set');
+
+        echo CJSON::encode($value);
+    }
+
+    public function actionGetDataFromItemtable() {
+        $dataProvider =
+                Listing::model()->findAll();
+
+        echo CJSON::encode($dataProvider);
+    }
+
+}
+
+class A {
+
+    public $test = "test";
+    public $test2 = '2';
+
 }

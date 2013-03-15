@@ -47,10 +47,6 @@ return CMap::mergeArray(
             // set parameters
             'params' => $params,
             'name' => 'Trends Search Engine',
-<<<<<<< HEAD
-       //     'image' => '',
-=======
->>>>>>> 45cbdefc16c9b0312a642c3c8397930b3f63cdc2
             'id' => $domain,
             // preloading 'log' component
             'preload' => array('log', 'bootstrap'),

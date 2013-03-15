@@ -14,7 +14,63 @@
 
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
+        <script>
 
+            window.onload = function() {
+
+
+
+
+                $('#test').html('ddddddddddddddd');
+            };
+
+
+            function set()
+            {
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'json',
+                    url: '<?php echo CController::createUrl('Site/Set'); ?>',
+                    success: function() {
+                        alert('value is set');
+                    }
+                });
+            }
+
+            function get()
+            {
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: '<?php echo CController::createUrl('Site/Get'); ?>',
+                    success: function(data) {
+                        updateT(data['test2']);
+                    }
+                });
+            }
+
+            function getDataFromItemTable()
+            {
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: '<?php echo CController::createUrl('Site/GetDataFromItemtable'); ?>',
+                    success: function(data) {
+                        updateT(data);
+                    }
+                });
+
+
+            }
+
+            function updateT(var1)
+            {
+
+                $('#test').html(var1);
+            }
+
+
+        </script>
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     </head>
 
@@ -27,7 +83,6 @@
             </div><!-- header -->
             <?php
             $this->widget('bootstrap.widgets.TbNavbar', array(
-                'brand' => 'Seach Engine - Develop Branch',
                 'brandOptions' => array('style' => 'width:auto;margin-left: 0px;'),
                 'fixed' => 'top',
                 'htmlOptions' => array('style' => 'position:absolute'),
@@ -54,9 +109,34 @@
                         array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
                     ),
                 ));
+
+                $this->widget('bootstrap.widgets.TbButton', array(
+                    'label' => 'Primary',
+                    'type' => 'primary',
+                    'size' => 'large',
+                    'htmlOptions' => array(
+                        'onclick' => 'set();'
+                    ),
+                ));
+                $this->widget('bootstrap.widgets.TbButton', array(
+                    'label' => 'Secondary',
+                    'size' => 'large',
+                    'htmlOptions' => array(
+                        'onclick' => 'get();'
+                    ),
+                ));
+
+                $this->widget('bootstrap.widgets.TbButton', array(
+                    'label' => 'getDataFromItemTable',
+                    'size' => 'large',
+                    'htmlOptions' => array(
+                        'onclick' => 'getDataFromItemTable();'
+                    ),
+                ));
                 ?>
             </div><!-- mainmenu -->
-        
+            <div id='test'>
+            </div>
 
             <?php if (isset($this->breadcrumbs)): ?>
                 <?php

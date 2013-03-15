@@ -36,9 +36,9 @@ $mainEnvConfiguration = file_exists($mainEnvFile) ? require($mainEnvFile) : arra
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 
-$dot_positon=strpos($_SERVER['HTTP_HOST'],".");
+$dot_positon = strpos($_SERVER['HTTP_HOST'], ".");
 
-$domain=substr($_SERVER['HTTP_HOST'],$dot_positon);
+$domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 
 
 return CMap::mergeArray(
@@ -47,7 +47,7 @@ return CMap::mergeArray(
             // set parameters
             'params' => $params,
             'name' => 'Trends Search Engine',
-            'id' =>$domain,
+            'id' => $domain,
             // preloading 'log' component
             'preload' => array('log', 'bootstrap'),
             // @see http://www.yiiframework.com/doc/api/1.1/CApplication#language-detail
@@ -56,6 +56,7 @@ return CMap::mergeArray(
             'import' => array(
                 'common.components.*',
                 'common.extensions.*',
+                'common.components.auth.*',
                 'common.models.*',
                 'application.models.*',
                 'application.components.*',
@@ -69,7 +70,7 @@ return CMap::mergeArray(
                     'allowAutoLogin' => true,
                     'class' => 'AuthWebUser',
                     'identityCookie' => array(
-                        'domain' =>$domain,
+                        'domain' => $domain,
                     ),
                 ),
                 'authManager' => array(
@@ -96,7 +97,7 @@ return CMap::mergeArray(
                         'domain' => $domain,
                         'httpOnly' => true,
                     ),
-            //        'timeout' => 1800,
+                //        'timeout' => 1800,
                 ),
                 'authManager' => array(
                     'behaviors' => array(
@@ -148,6 +149,16 @@ return CMap::mergeArray(
                         ),
                         array(
                             'class' => 'CWebLogRoute',
+                        ),
+                    ),
+                ),
+                'cache' => array(
+                    'class' => 'CMemCache',
+                    'servers' => array(
+                        array(
+                            'host' => '127.0.0.1',
+                            'port' => 11211,
+                            'weight' => 100,
                         ),
                     ),
                 ),

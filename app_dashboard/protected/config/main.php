@@ -35,9 +35,9 @@ $mainEnvConfiguration = file_exists($mainEnvFile) ? require($mainEnvFile) : arra
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 
-$dot_positon=strpos($_SERVER['HTTP_HOST'],".");
+$dot_positon = strpos($_SERVER['HTTP_HOST'], ".");
 
-$domain=substr($_SERVER['HTTP_HOST'],$dot_positon);
+$domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 
 return CMap::mergeArray(
                 array(
@@ -45,7 +45,7 @@ return CMap::mergeArray(
             // set parameters
             'params' => $params,
             'name' => 'Client Dashboard',
-            'id' =>$domain,
+            'id' => $domain,
             // preloading 'log' component
             'preload' => array('log', 'bootstrap'),
             // @see http://www.yiiframework.com/doc/api/1.1/CApplication#language-detail
@@ -53,6 +53,7 @@ return CMap::mergeArray(
             // autoloading model and component classes
             'import' => array(
                 'common.components.*',
+                'common.components.auth.*',
                 'common.extensions.*',
                 'common.models.*',
                 'application.models.*',
@@ -67,7 +68,7 @@ return CMap::mergeArray(
                     'allowAutoLogin' => true,
                     'class' => 'AuthWebUser',
                     'identityCookie' => array(
-                        'domain' =>$domain,
+                        'domain' => $domain,
                     ),
                 ),
                 'authManager' => array(
@@ -94,7 +95,7 @@ return CMap::mergeArray(
                         'domain' => $domain,
                         'httpOnly' => true,
                     ),
-                 //   'timeout' => 1800,
+                //   'timeout' => 1800,
                 ),
                 'bootstrap' => array(
                     'class' => 'common.extensions.bootstrap.components.Bootstrap',

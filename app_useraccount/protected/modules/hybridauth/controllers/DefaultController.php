@@ -31,6 +31,7 @@ class DefaultController extends CController {
      * @throws Exception if a provider isn't supplied, or it has non-alpha characters
      */
     private function _doLogin() {
+
         if (!isset($_GET['provider']))
             throw new Exception("You haven't supplied a provider");
 
@@ -62,17 +63,25 @@ class DefaultController extends CController {
                 }
 
                 $user = new User;
+
+
+
+
+
                 if (isset($_POST['User'])) {
                     //Save the form
                     $user->attributes = $_POST['User'];
+
+
+
                     if ($user->validate() && $user->save()) {
                         if ($this->module->withYiiUser == true) {
-                            $profile = new Profile();
-                            $profile->first_name = 'firstname';
-                            $profile->last_name = 'lastname';
-                            $profile->user_id = $user->REC_ID;
-                            $profile->save();
+//                            $userProfile = new UserProfile;
+//                            $userProfile->FIRST_NAME = 'firstname';
+//                            $userProfile->GENDER = 'firstname';
+//                            $userProfile->save();
                         }
+
 
                         $identity->id = $user->REC_ID;
                         $identity->username = $user->USER_NAME;
@@ -102,11 +111,43 @@ class DefaultController extends CController {
     }
 
     private function _linkProvider($identity) {
-        $tplUserProfile = new TplUserProfile();
-        $tplUserProfile->LOGIN_PROVIDER_IDENTIFIER = $identity->loginProviderIdentifier;
-        $tplUserProfile->LOGIN_PROVIDER = $identity->loginProvider;
-        $tplUserProfile->USER_REC_ID = $identity->id;
-        $tplUserProfile->save();
+        $config = Yii::app()->getBasePath() . '/config/provider_config.php';
+        require_once( Yii::app()->getBasePath() . '/modules/hybridauth/Hybrid/Auth.php');
+        
+ //      $config = '/home/ubuntu/platform/hubstar/app_useraccount/protected/config/provider_config.php';
+ //       require_once( '/home/ubuntu/platform/hubstar/app_useraccount/protected/modules/hybridauth/Hybrid/Auth.php' );
+        
+        $hybridauth = new Hybrid_Auth($config);
+        $adapter = $hybridauth->authenticate($_GET['provider']);
+        $user_profile = $adapter->getUserProfile();
+
+        $userProfile = new UserProfile;
+        $userProfile->LOGIN_PROVIDER_IDENTIFIER = $identity->loginProviderIdentifier;
+        $userProfile->LOGIN_PROVIDER = $identity->loginProvider;
+        $userProfile->USER_REC_ID = $identity->id;
+        $userProfile->IDENTIFIER = $user_profile->identifier;
+        $userProfile->PROFILE_URL = $user_profile->profileURL;
+        $userProfile->WEBSITE_URL = $user_profile->webSiteURL;
+        $userProfile->PHOTO_URL = $user_profile->photoURL;
+        $userProfile->DISPLAY_NAME = $user_profile->displayName;
+        $userProfile->DESCRIPTION = $user_profile->description;
+        $userProfile->FIRST_NAME = $user_profile->firstName;
+        $userProfile->LAST_NAME = $user_profile->lastName;
+        $userProfile->GENDER = $user_profile->gender;
+        $userProfile->LANGUAGE = $user_profile->language;
+        $userProfile->AGE = $user_profile->age;
+        $userProfile->BIRTH_DAY = $user_profile->birthDay;
+        $userProfile->BIRTH_MONTH = $user_profile->birthMonth;
+        $userProfile->BIRTH_YEAR = $user_profile->birthYear;
+        $userProfile->EMAIL = $user_profile->email;
+        $userProfile->EMAIL_VERIFIED = $user_profile->emailVerified;
+        $userProfile->PHONE = $user_profile->phone;
+        $userProfile->COUNTRY = $user_profile->country;
+        $userProfile->REGION = $user_profile->region;
+        $userProfile->CITY = $user_profile->city;
+        $userProfile->ZIP = $user_profile->zip;
+        $userProfile->POST_CODE = '';
+        $userProfile->save();
     }
 
     private function _loginUser($identity) {
@@ -127,7 +168,7 @@ class DefaultController extends CController {
     }
 
     public function actionUnlink() {
-        $login = TplUserProfile::getLogin(Yii::app()->user->getid(), $_POST['hybridauth-unlinkprovider']);
+        $login = UserProfile::getLogin(Yii::app()->user->getid(), $_POST['hybridauth-unlinkprovider']);
         $login->delete();
         $this->redirect(Yii::app()->getRequest()->urlReferrer);
     }

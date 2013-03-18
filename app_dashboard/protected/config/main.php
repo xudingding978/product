@@ -1,4 +1,5 @@
 <?php
+
 /**
  *  Client Dashboard Application Configuration
  *
@@ -8,7 +9,6 @@
  *
  * This file holds the configuration settings of the Client Dashboard application.
  * */
-
 $app_dashboardConfigDir = dirname(__FILE__);
 //
 $root = $app_dashboardConfigDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..';
@@ -35,12 +35,17 @@ $mainEnvConfiguration = file_exists($mainEnvFile) ? require($mainEnvFile) : arra
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 
+$dot_positon = strpos($_SERVER['HTTP_HOST'], ".");
+
+$domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
+
 return CMap::mergeArray(
                 array(
             'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
             // set parameters
             'params' => $params,
             'name' => 'Client Dashboard',
+            'id' => $domain,
             // preloading 'log' component
             'preload' => array('log', 'bootstrap'),
             // @see http://www.yiiframework.com/doc/api/1.1/CApplication#language-detail
@@ -48,6 +53,7 @@ return CMap::mergeArray(
             // autoloading model and component classes
             'import' => array(
                 'common.components.*',
+                'common.components.auth.*',
                 'common.extensions.*',
                 'common.models.*',
                 'application.models.*',
@@ -60,6 +66,36 @@ return CMap::mergeArray(
                 'user' => array(
                     // enable cookie-based authentication
                     'allowAutoLogin' => true,
+                    'class' => 'AuthWebUser',
+                    'identityCookie' => array(
+                        'domain' => $domain,
+                    ),
+                ),
+                'authManager' => array(
+                    'class' => 'CDbAuthManager',
+                    'behaviors' => array(
+                        'auth' => array(
+                            'class' => 'AuthBehavior',
+                            'admins' => array('', '', ''), // users with full access
+                        ),
+                    ),
+                ),
+                'session' => array(
+                    'sessionName' => 'Session',
+                    'class' => 'CDbHttpSession',
+                    //  'autoCreateSessionTable' => true,
+                    'connectionID' => 'db',
+                    'sessionTableName' => 'tpl_user_session',
+                    //    'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
+                    'useTransparentSessionID' => true,
+                    'autoStart' => 'true',
+                    'cookieMode' => 'only',
+                    'cookieParams' => array(
+                        'path' => '/',
+                        'domain' => $domain,
+                        'httpOnly' => true,
+                    ),
+                //   'timeout' => 1800,
                 ),
                 'bootstrap' => array(
                     'class' => 'common.extensions.bootstrap.components.Bootstrap',
@@ -72,7 +108,7 @@ return CMap::mergeArray(
                     'urlSuffix' => '/',
                     'rules' => $params['url.rules']
                 ),
-                'db_admin' => array(
+                'db' => array(
                     'class' => 'CDbConnection',
                     'connectionString' => $params['db_admin.connectionString'],
                     'username' => $params['db_admin.username'],
@@ -106,15 +142,8 @@ return CMap::mergeArray(
                         array(
                             'class' => 'CWebLogRoute',
                         ),
-                    //*/
                     ),
                 ),
-            ),
-            // application-level parameters that can be accessed
-            // using Yii::app()->params['paramName']
-            'params' => array(
-                // this is used in contact page
-                'adminEmail' => 'webmaster@example.com',
             ),
                 ), CMap::mergeArray($mainEnvConfiguration, $mainLocalConfiguration)
 );

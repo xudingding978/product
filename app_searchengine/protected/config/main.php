@@ -1,4 +1,5 @@
 <?php
+
 /**
  *  Search Engine Application Configuration
  *
@@ -8,7 +9,6 @@
  *
  * This file holds the configuration settings of the Search Engine application.
  * */
-
 $app_searchengineConfigDir = dirname(__FILE__);
 //
 $root = $app_searchengineConfigDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..';
@@ -17,6 +17,7 @@ $root = $app_searchengineConfigDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPA
 Yii::setPathOfAlias('root', $root);
 Yii::setPathOfAlias('common', $root . DIRECTORY_SEPARATOR . 'common' . DIRECTORY_SEPARATOR . 'protected');
 Yii::setPathOfAlias('app_administrator', $root . DIRECTORY_SEPARATOR . 'app_administrator');
+Yii::setPathOfAlias('app_authority', $root . DIRECTORY_SEPARATOR . 'app_authority');
 Yii::setPathOfAlias('app_dashboard', $root . DIRECTORY_SEPARATOR . 'app_dashboard');
 Yii::setPathOfAlias('app_searchengine', $root . DIRECTORY_SEPARATOR . 'app_searchengine');
 Yii::setPathOfAlias('app_useraccount', $root . DIRECTORY_SEPARATOR . 'app_useraccount');
@@ -35,12 +36,18 @@ $mainEnvConfiguration = file_exists($mainEnvFile) ? require($mainEnvFile) : arra
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 
+$dot_positon = strpos($_SERVER['HTTP_HOST'], ".");
+
+$domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
+
+
 return CMap::mergeArray(
                 array(
             'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
             // set parameters
             'params' => $params,
             'name' => 'Trends Search Engine',
+            'id' => $domain,
             // preloading 'log' component
             'preload' => array('log', 'bootstrap'),
             // @see http://www.yiiframework.com/doc/api/1.1/CApplication#language-detail
@@ -49,6 +56,7 @@ return CMap::mergeArray(
             'import' => array(
                 'common.components.*',
                 'common.extensions.*',
+                'common.components.auth.*',
                 'common.models.*',
                 'application.models.*',
                 'application.components.*',
@@ -58,8 +66,46 @@ return CMap::mergeArray(
             // application components
             'components' => array(
                 'user' => array(
-            // enable cookie-based authentication
+                    // enable cookie-based authentication
                     'allowAutoLogin' => true,
+                    'class' => 'AuthWebUser',
+                    'identityCookie' => array(
+                        'domain' => $domain,
+                    ),
+                ),
+                'authManager' => array(
+                    'class' => 'CDbAuthManager',
+                    'behaviors' => array(
+                        'auth' => array(
+                            'class' => 'AuthBehavior',
+                            'admins' => array('', '', ''), // users with full access
+                        ),
+                    ),
+                ),
+                'session' => array(
+                    'sessionName' => 'Session',
+                    'class' => 'CDbHttpSession',
+                    //   'autoCreateSessionTable' => true,
+                    'connectionID' => 'db',
+                    'sessionTableName' => 'tpl_user_session',
+                    //   'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
+                    'useTransparentSessionID' => true,
+                    'autoStart' => 'true',
+                    'cookieMode' => 'only',
+                    'cookieParams' => array(
+                        'path' => '/',
+                        'domain' => $domain,
+                        'httpOnly' => true,
+                    ),
+                //        'timeout' => 1800,
+                ),
+                'authManager' => array(
+                    'behaviors' => array(
+                        'auth' => array(
+                            'class' => 'AuthBehavior',
+                            'admins' => '', // users with full access
+                        ),
+                    ),
                 ),
                 'bootstrap' => array(
                     'class' => 'common.extensions.bootstrap.components.Bootstrap',
@@ -70,9 +116,9 @@ return CMap::mergeArray(
                     'urlFormat' => 'path',
                     'showScriptName' => false,
                     'urlSuffix' => '/',
-                    'rules' => $params['url.rules']
+                    'rules' => $params['url.rules'],
                 ),
-                'db_admin' => array(
+                'db' => array(
                     'class' => 'CDbConnection',
                     'connectionString' => $params['db_admin.connectionString'],
                     'username' => $params['db_admin.username'],
@@ -91,7 +137,7 @@ return CMap::mergeArray(
                     'charset' => 'utf8'
                 ),
                 'errorHandler' => array(
-            // use 'site/error' action to display errors
+                    // use 'site/error' action to display errors
                     'errorAction' => 'site/error',
                 ),
                 'log' => array(
@@ -101,20 +147,21 @@ return CMap::mergeArray(
                             'class' => 'CFileLogRoute',
                             'levels' => 'error, warning',
                         ),
-                    // uncomment the following to show log messages on web pages
-                    ///*
-                      array(
-                      'class'=>'CWebLogRoute',
-                      ),
-                     //*/
+                        array(
+                            'class' => 'CWebLogRoute',
+                        ),
                     ),
                 ),
-            ),
-            // application-level parameters that can be accessed
-            // using Yii::app()->params['paramName']
-            'params' => array(
-            // this is used in contact page
-                'adminEmail' => 'webmaster@example.com',
+                'cache' => array(
+                    'class' => 'CMemCache',
+                    'servers' => array(
+                        array(
+                            'host' => '127.0.0.1',
+                            'port' => 11211,
+                            'weight' => 100,
+                        ),
+                    ),
+                ),
             ),
                 ), CMap::mergeArray($mainEnvConfiguration, $mainLocalConfiguration)
 );

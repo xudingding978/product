@@ -28,18 +28,13 @@ return array(
     // DB connection configurations
     // live database
     'db_live.name' => 'db_live',
-    'db_live.connectionString' => 'mysql:host=localhost;dbname=db_live',
-    'db_live.username' => 'tplweb',
-    'db_live.password' => 'S3cr3t!',
+    'db_live.connectionString' => 'mysql:host=db.business-software.co.nz;dbname=db_v3.1_live',
+    'db_live.username' => 'db_user',
+    'db_live.password' => 'Pa55word',
     // admin database
     'db_admin.name' => 'db_admin',
-    'db_admin.connectionString' => 'mysql:host=localhost;dbname=db_admin',
-    'db_admin.username' => 'tplweb',
-    'db_admin.password' => 'S3cr3t!',
-//
-//	// test database {
-//	'testdb.name' => '',
-//	'testdb.connectionString' => 'mysql:host={DATABASE-HOST};dbname={DATABASE-NAME}_test',
-//	'testdb.username' => '{DATABASE-USERNAME}',
-//	'testdb.password' => '{DATABASE-PASSWORD}',
+    'db_admin.connectionString' => 'mysql:host=db.business-software.co.nz;dbname=db_v3.1_admin',
+    'db_admin.username' => 'db_user',
+    'db_admin.password' => 'Pa55word',
+     'adminEmail' => 'localwebmaster@example.com',
 );

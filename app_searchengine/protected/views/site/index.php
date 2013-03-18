@@ -40,7 +40,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
 
                         </div>
                         <div class="comment_title_bronze">
-                            <a href="#"><k class="icon-comment" ></k> 5 comments ssssssssssssssssss </a>
+                            <a href="#"><k class="icon-comment" ></k> 5 comment</a>
 
                         </div>
                     </div>

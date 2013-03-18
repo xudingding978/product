@@ -206,8 +206,8 @@ root {
 .element {
     width: 213px;
     height: 110px;
-    margin: 5px 12px 13px 0px;
-    float: left;
+    margin: 5px;
+    float:left;
     overflow: hidden;
     position: relative;
     background: linear-gradient(to bottom, rgb(241, 241, 241) 0%, gainsboro 100%) repeat scroll 0% 0% transparent;
@@ -272,7 +272,7 @@ root {
 
 .variable-sizes .element.height2 { height: 230px; }
 
-.variable-sizes .element.width3 { width: 470px; }
+.variable-sizes .element.width3 { width: 213px; }
 
 .variable-sizes .element.height3 { height: 470px; }
 
@@ -310,7 +310,7 @@ root {
 
 
     padding: 10px;
-    margin: 5px 18px 5px 1px;
+
     float: right;
     background: none repeat scroll 0% 0% white;
     color: white;
@@ -330,9 +330,9 @@ body {
 
 #container {
   
-    min-width: 678px;
+    min-width: 769px;
     border: none;
-    padding: 65px;
+  
 
 }
 

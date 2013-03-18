@@ -73,7 +73,8 @@ return CMap::mergeArray(
                             "enabled" => true
                         ),
                         "Yahoo" => array(
-                            "enabled" => true
+                            "enabled" => true,
+                             "keys" => array("Key" => "dj0yJmk9U2FlYXZIelpuQTNoJmQ9WVdrOVpqVlJVakpQTXpZbWNHbzlNVFUyTURVM01qVTJNZy0tJnM9Y29uc3VtZXJzZWNyZXQmeD1mOQ--", "secret" => "0ad41773d20dc1208bfdb54204a3e5bba043c073"),
                         ),
                         "Google" => array(
                             "enabled" => true,

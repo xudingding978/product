@@ -171,7 +171,7 @@ class UserProfile extends CActiveRecord {
         $criteria->compare('LOGIN_PROVIDER', $loginProvider, true);
         $criteria->compare('LOGIN_PROVIDER_IDENTIFIER', $loginProviderIdentity, true);
 
-        $login = new CActiveDataProvider('TplUserProfile', array(
+        $login = new CActiveDataProvider('UserProfile', array(
             'criteria' => $criteria,
         ));
 
@@ -188,7 +188,7 @@ class UserProfile extends CActiveRecord {
     public static function getLogins($userId) {
         $criteria = new CDbCriteria;
         $criteria->compare('USER_REC_ID', $userId, true);
-        $data = new CActiveDataProvider('TplUserProfile', array(
+        $data = new CActiveDataProvider('UserProfile', array(
             'criteria' => $criteria,
         ));
         return $data->getData();
@@ -198,7 +198,7 @@ class UserProfile extends CActiveRecord {
         $criteria = new CDbCriteria;
         $criteria->compare('USER_REC_ID', $userId, true);
         $criteria->compare('LOGIN_PROVIDER', $provider, true);
-        $data = new CActiveDataProvider('TplUserProfile', array(
+        $data = new CActiveDataProvider('UserProfile', array(
             'criteria' => $criteria,
         ));
         $tmp = $data->getData();

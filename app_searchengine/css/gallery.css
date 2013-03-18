@@ -204,9 +204,9 @@ root {
 
 
 .element {
-    width: 230px;
+    width: 225px;
     height: 110px;
-    margin: 5px;
+    margin: 5px 15px 13px 0px;
     float: left;
     overflow: hidden;
     position: relative;
@@ -268,7 +268,7 @@ root {
 }
 
 
-.variable-sizes .element.width2 { width: 230px; }
+.variable-sizes .element.width2 { width: 225px; }
 
 .variable-sizes .element.height2 { height: 230px; }
 
@@ -332,9 +332,8 @@ body {
     width: 100%;
     min-width: 678px;
     border: none;
-    padding: 5px;
-    margin-bottom: 20px;
-    margin-top:70px;
+    padding: 75px;
+
 }
 
 .item{

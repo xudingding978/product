@@ -124,104 +124,104 @@ $(function() {
         return false;
     });
 
-    var check;
-    $element.click(function(){
-        var p=$(this).offset();
-        var $this = $(this);
-        // nothing to change if this already has large class
-        if ( $this.hasClass('large') ) {
-            $this.removeClass('large');
-            
-            $this.attr('.gold img').animate({
-                
-                top:'+=-25',
-
-                left:'+=-20',
-                height:"365px"
-            }, "fast");
-
-            $('.description_title_gold').animate({
-
-                opacity: 1
-            },1);
-            $('.comment_title_gold').animate({
-
-                opacity: 1
-            },1);
-            $('.description_title_bronze').animate({
-
-                opacity: 1
-            },1);
-            $('.comment_title_bronze').animate({
-
-                opacity: 1
-            },1);
-            $container.isotope('reLayout');
-            if(check==="true"){
-                $("html, body").animate({
-                    scrollTop: 0
-                }, 600);
-            
-                check="false";
-            }else{
-                $("html, body").animate({
-                    scrollTop: Math.round(p.top)-150
-                }, 600);
-                check="true";
-            }    
-            return;
-        }
-        var $previousLargeItem = $element.filter('.large');
-    
-        $previousLargeItem.removeClass('large');
-
-        
-        $this.addClass('large');
-        $('.gold img').animate({
-            height:"380px",
-            top:'+=25',
-            width:"500px",
-            left:'+=20'
-        },1);
-
-
-        $('.description_title_gold').animate({
-
-            opacity: 0
-        },10);
-        $('.comment_title_gold').animate({
-
-            opacity: 0
-        },10);
-        
-        $('.description_title_bronze').animate({
-
-            opacity: 0
-        },10);
-        $('.comment_title_bronze').animate({
-
-            opacity: 0
-        },10);
- 
-        if(check==="true"){
-            $("html, body").animate({
-                scrollTop: 0
-            }, 600);
-            
-            check="false";
-        }else{
-            $("html, body").animate({
-                scrollTop: Math.round(p.top)-150
-            }, 600);
-            check="true";
-        }    
-        $container
-        // update sort data on changed items
-        .isotope('updateSortData', $this )
-        .isotope('updateSortData', $previousLargeItem )
-        // trigger layout and sort
-        .isotope();
-    });
+//    var check;
+//    $element.click(function(){
+//        var p=$(this).offset();
+//        var $this = $(this);
+//        // nothing to change if this already has large class
+//        if ( $this.hasClass('large') ) {
+//            $this.removeClass('large');
+//            
+//            $this.attr('.gold img').animate({
+//                
+//                top:'+=-25',
+//
+//                left:'+=-20',
+//                height:"365px"
+//            }, "fast");
+//
+//            $('.description_title_gold').animate({
+//
+//                opacity: 1
+//            },1);
+//            $('.comment_title_gold').animate({
+//
+//                opacity: 1
+//            },1);
+//            $('.description_title_bronze').animate({
+//
+//                opacity: 1
+//            },1);
+//            $('.comment_title_bronze').animate({
+//
+//                opacity: 1
+//            },1);
+//            $container.isotope('reLayout');
+//            if(check==="true"){
+//                $("html, body").animate({
+//                    scrollTop: 0
+//                }, 600);
+//            
+//                check="false";
+//            }else{
+//                $("html, body").animate({
+//                    scrollTop: Math.round(p.top)-150
+//                }, 600);
+//                check="true";
+//            }    
+//            return;
+//        }
+//        var $previousLargeItem = $element.filter('.large');
+//    
+//        $previousLargeItem.removeClass('large');
+//
+//        
+//        $this.addClass('large');
+//        $('.gold img').animate({
+//            height:"380px",
+//            top:'+=25',
+//            width:"500px",
+//            left:'+=20'
+//        },1);
+//
+//
+//        $('.description_title_gold').animate({
+//
+//            opacity: 0
+//        },10);
+//        $('.comment_title_gold').animate({
+//
+//            opacity: 0
+//        },10);
+//        
+//        $('.description_title_bronze').animate({
+//
+//            opacity: 0
+//        },10);
+//        $('.comment_title_bronze').animate({
+//
+//            opacity: 0
+//        },10);
+// 
+//        if(check==="true"){
+//            $("html, body").animate({
+//                scrollTop: 0
+//            }, 600);
+//            
+//            check="false";
+//        }else{
+//            $("html, body").animate({
+//                scrollTop: Math.round(p.top)-150
+//            }, 600);
+//            check="true";
+//        }    
+//        $container
+//        // update sort data on changed items
+//        .isotope('updateSortData', $this )
+//        .isotope('updateSortData', $previousLargeItem )
+//        // trigger layout and sort
+//        .isotope();
+//    });
 
 
 

@@ -30,7 +30,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
             <div id="container" class="variable-sizes clearfix isotope">
 
                 <div class="element alkali metal  height2 isotope-item">
-                    <div class="squire_title"><h2>Kitchen2</h2></div>
+                     
                     <div class="bronze">
                         <div class="image_load_bronze">
                             <img src="../../../images/photo_gallery/kit_1.jpg" />
@@ -47,7 +47,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                 </div>
                 <div class="element alkaline-earth metal  height2 isotope-item" data-category="alkali-earth" data-symbol="Li">
 
-                    <div class="squire_title"><h2>Kitchen2</h2></div>
+                     
                     <div class="bronze">
                         <div class="image_load_bronze">
                             <img src="../../../images/photo_gallery/kit_2.jpg" />
@@ -63,7 +63,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element noble-gas width2 height3 metal isotope-item " >
-                    <div class="squire_title"><h2>Kitchen2</h2></div>
+                     
                     <div class="gold" >
                         <div class="image_load_gold">
                             <img src="../../../images/photo_gallery/kit_3.jpg" />
@@ -81,7 +81,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                 </div>
                 <div class="element alkaline-earth metal  height2 isotope-item" data-category="alkali-earth" data-symbol="Li">
 
-                    <div class="squire_title"><h2>Kitchen2</h2></div>
+                     
                     <div class="bronze">
                         <div class="image_load_bronze">
                             <img src="../../../images/photo_gallery/kit_4.jpg" />
@@ -97,7 +97,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element noble-gas width2 height3 metal isotope-item " >
-                    <div class="squire_title"><h2>Kitchen3</h2></div>
+                     
                     <div class="gold" >
                         <div class="image_load_gold">
                             <img src="../../../images/photo_gallery/kit_5.jpg" />
@@ -114,7 +114,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
 
                 </div>
                 <div class="element alkali metal  height2 isotope-item">
-                    <div class="squire_title"><h2>Kitchen3</h2></div>
+                     
                     <div class="bronze">
                         <div class="image_load_bronze">
                             <img src="../../../images/photo_gallery/kit_6.jpg" />
@@ -130,7 +130,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element halogen metal  width2 height2 isotope-item">
-                    <div class="squire_title"><h2>Kitchen3</h2></div>
+                     
                     <div class="silvier" >
                         <div class="image_load_silvier">
                             <img src="../../../images/photo_gallery/kit_5.jpg" />
@@ -146,7 +146,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element metalloid metal width2 height3 isotope-item">
-                    <div class="squire_title"><h2>Kitchen3</h2></div>
+                     
                     <div class="gold" >
                         <div class="image_load_gold">
                             <img src="../../../images/photo_gallery/kit_8.jpg" />
@@ -162,7 +162,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element alkali metal  width2 height2 isotope-item">
-                    <div class="squire_title"><h2>Kitchen3</h2></div>
+                     
                     <div class="silvier" >
                         <div class="image_load_silvier">
                             <img src="../../../images/photo_gallery/kit_4.jpg" />
@@ -178,7 +178,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element alkali metal width2 height3 isotope-item">
-                    <div class="squire_title"><h2>Kitchen3</h2></div>
+                     
                     <div class="gold" >
                         <div class="image_load_gold">
                             <img src="../../../images/photo_gallery/kit_10.jpg" />
@@ -194,7 +194,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element noble-gas metal  height2 isotope-item">
-                    <div class="squire_title"><h2>Kitchen5</h2></div>
+                     
                     <div class="bronze">
                         <div class="image_load_bronze">
                             <img src="../../../images/photo_gallery/kit_2.jpg" />
@@ -211,7 +211,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                 </div>
                 <div class="element alkaline-earth metal  height2 isotope-item" data-category="alkali-earth" data-symbol="Li">
 
-                    <div class="squire_title"><h2>Kitchen5</h2></div>
+                     
                     <div class="bronze">
                         <div class="image_load_bronze">
                             <img src="../../../images/photo_gallery/kit_1.jpg" />
@@ -227,7 +227,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element noble-gas width2 height3 metal isotope-item " >
-                    <div class="squire_title"><h2>Kitchen5</h2></div>
+                     
                     <div class="gold" >
                         <div class="image_load_gold">
                             <img src="../../../images/photo_gallery/kit_1.jpg" />
@@ -244,7 +244,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
 
                 </div>
                 <div class="element alkali metal  height2 isotope-item">
-                    <div class="squire_title"><h2>Kitchen5</h2></div>
+                     
                     <div class="bronze">
                         <div class="image_load_bronze">
                             <img src="../../../images/photo_gallery/kit_2.jpg" />
@@ -260,7 +260,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element halogen metal  width2 height2 isotope-item">
-                    <div class="squire_title"><h2>Kitchen5</h2></div>
+                     
                     <div class="silvier" >
                         <div class="image_load_silvier">
                             <img src="../../../images/photo_gallery/kit_6.jpg" />
@@ -276,7 +276,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element metalloid metal width2 height3 isotope-item">
-                    <div class="squire_title"><h2>Kitchen5</h2></div>
+                     
                     <div class="gold" >
                         <div class="image_load_gold">
                             <img src="../../../images/photo_gallery/kit_5.jpg" />
@@ -292,7 +292,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element alkali metal  width2 height2 isotope-item">
-                    <div class="squire_title"><h2>Kitchen5</h2></div>
+                     
                     <div class="silvier" >
                         <div class="image_load_silvier">
                             <img src="../../../images/photo_gallery/kit_4.jpg" />
@@ -308,7 +308,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element alkali metal width2 height3 isotope-item">
-                    <div class="squire_title"><h2>Kitchen5</h2></div>
+                     
                     <div class="gold" >
                         <div class="image_load_gold">
                             <img src="../../../images/photo_gallery/kit_7.jpg" />
@@ -324,7 +324,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element noble-gas metal  height2 isotope-item">
-                    <div class="squire_title"><h2>Kitchen5</h2></div>
+                     
                     <div class="bronze">
                         <div class="image_load_bronze">
                             <img src="../../../images/photo_gallery/kit_4.jpg" />
@@ -340,7 +340,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element alkali metal  height2 isotope-item">
-                    <div class="squire_title"><h2>Kitchen5</h2></div>
+                     
                     <div class="bronze">
                         <div class="image_load_bronze">
                             <img src="../../../images/photo_gallery/kit_6.jpg" />
@@ -356,7 +356,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element halogen metal  width2 height2 isotope-item">
-                    <div class="squire_title"><h2>Kitchen4</h2></div>
+                     
                     <div class="silvier" >
                         <div class="image_load_silvier">
                             <img src="../../../images/photo_gallery/kit_10.jpg" />
@@ -372,7 +372,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element metalloid metal width2 height3 isotope-item">
-                    <div class="squire_title"><h2>Kitchen4</h2></div>
+                     
                     <div class="gold" >
                         <div class="image_load_gold">
                             <img src="../../../images/photo_gallery/kit_8.jpg" />
@@ -388,7 +388,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element alkali metal  width2 height2 isotope-item">
-                    <div class="squire_title"><h2>Kitchen4</h2></div>
+                     
                     <div class="silvier" >
                         <div class="image_load_silvier">
                             <img src="../../../images/photo_gallery/kit_1.jpg" />
@@ -404,7 +404,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element alkali metal width2 height3 isotope-item">
-                    <div class="squire_title"><h2>Kitchen4</h2></div>
+                     
                     <div class="gold" >
                         <div class="image_load_gold">
                             <img src="../../../images/photo_gallery/kit_3.jpg" />
@@ -420,7 +420,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element noble-gas metal  height2 isotope-item">
-                    <div class="squire_title"><h2>Kitchen4</h2></div>
+                     
                     <div class="bronze">
                         <div class="image_load_bronze">
                             <img src="../../../images/photo_gallery/kit_4.jpg" />
@@ -436,7 +436,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element alkaline-earth metal  height2 isotope-item" data-category="alkali-earth" data-symbol="Li">
-                    <div class="squire_title"><h2>Kitchen4</h2></div>
+                     
                     <div class="bronze">
                         <div class="image_load_bronze">
                             <img src="../../../images/photo_gallery/kit_2.jpg" />
@@ -452,7 +452,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element noble-gas width2 height3 metal isotope-item " >
-                    <div class="squire_title"><h2>Kitchen4</h2></div>
+                     
                     <div class="gold" >
                         <div class="image_load_gold">
                             <img src="../../../images/photo_gallery/kit_10.jpg" />
@@ -469,7 +469,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
 
                 </div>
                 <div class="element alkali metal  height2 isotope-item">
-                    <div class="squire_title"><h2>Kitchen4</h2></div>
+                     
                     <div class="bronze">
                         <div class="image_load_bronze">
                             <img src="../../../images/photo_gallery/kit_10.jpg" />
@@ -485,7 +485,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element halogen metal  width2 height2 isotope-item">
-                    <div class="squire_title"><h2>Kitchen4</h2></div>
+                     
                     <div class="silvier" >
                         <div class="image_load_silvier">
                             <img src="../../../images/photo_gallery/kit_6.jpg" />
@@ -501,7 +501,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element metalloid metal width2 height3 isotope-item">
-                    <div class="squire_title"><h2>Kitchen4</h2></div>
+                     
                     <div class="gold" >
                         <div class="image_load_gold">
                             <img src="../../../images/photo_gallery/kit_7.jpg" />
@@ -517,7 +517,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element alkali metal  width2 height2 isotope-item">
-                    <div class="squire_title"><h2>Kitchen4</h2></div>
+                     
                     <div class="silvier" >
                         <div class="image_load_silvier">
                             <img src="../../../images/photo_gallery/kit_1.jpg" />
@@ -533,7 +533,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element alkali metal width2 height3 isotope-item">
-                    <div class="squire_title"><h2>Kitchen4</h2></div>
+                     
                     <div class="gold" >
                         <div class="image_load_gold">
                             <img src="../../../images/photo_gallery/kit_2.jpg" />
@@ -549,7 +549,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element noble-gas metal  height2 isotope-item">
-                    <div class="squire_title"><h2>Kitchen4</h2></div>
+                     
                     <div class="bronze">
                         <div class="image_load_bronze">
                             <img src="../../../images/photo_gallery/kit_3.jpg" />
@@ -565,7 +565,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element alkaline-earth metal  height2 isotope-item" data-category="alkali-earth" data-symbol="Li">
-                    <div class="squire_title"><h2>Kitchen4</h2></div>
+                     
                     <div class="bronze">
                         <div class="image_load_bronze">
                             <img src="../../../images/photo_gallery/kit_6.jpg" />
@@ -581,7 +581,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element noble-gas width2 height3 metal isotope-item " >
-                    <div class="squire_title"><h2>Kitchen4</h2></div>
+                     
                     <div class="gold" >
                         <div class="image_load_gold">
                             <img src="../../../images/photo_gallery/kit_4.jpg" />
@@ -598,7 +598,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
 
                 </div>
                 <div class="element alkali metal  height2 isotope-item">
-                    <div class="squire_title"><h2>Kitchen6</h2></div>
+                     
                     <div class="bronze">
                         <div class="image_load_bronze">
                             <img src="../../../images/photo_gallery/kit_3.jpg" />
@@ -614,7 +614,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element halogen metal  width2 height2 isotope-item">
-                    <div class="squire_title"><h2>Kitchen6</h2></div>
+                     
                     <div class="silvier" >
                         <div class="image_load_silvier">
                             <img src="../../../images/photo_gallery/kit_5.jpg" />
@@ -630,7 +630,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element metalloid metal width2 height3 isotope-item">
-                    <div class="squire_title"><h2>Kitchen6</h2></div>
+                     
                     <div class="gold" >
                         <div class="image_load_gold">
                             <img src="../../../images/photo_gallery/kit_2.jpg" />
@@ -646,7 +646,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element alkali metal  width2 height2 isotope-item">
-                    <div class="squire_title"><h2>Kitchen6</h2></div>
+                     
                     <div class="silvier" >
                         <div class="image_load_silvier">
                             <img src="../../../images/photo_gallery/kit_4.jpg" />
@@ -662,7 +662,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element alkali metal width2 height3 isotope-item">
-                    <div class="squire_title"><h2>Kitchen6</h2></div>
+                     
                     <div class="gold" >
                         <div class="image_load_gold">
                             <img src="../../../images/photo_gallery/kit_10.jpg" />
@@ -678,7 +678,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element noble-gas metal  height2 isotope-item">
-                    <div class="squire_title"><h2>Kitchen6</h2></div>
+                     
                     <div class="bronze">
                         <div class="image_load_bronze">
                             <img src="../../../images/photo_gallery/kit_10.jpg" />
@@ -694,7 +694,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element alkaline-earth metal  height2 isotope-item" data-category="alkali-earth" data-symbol="Li">
-                    <div class="squire_title"><h2>Kitchen6</h2></div>
+                     
                     <div class="bronze">
                         <div class="image_load_bronze">
                             <img src="../../../images/photo_gallery/kit_1.jpg" />
@@ -710,7 +710,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element noble-gas width2 height3 metal isotope-item " >
-                    <div class="squire_title"><h2>Kitchen1</h2></div>
+                     
                     <div class="gold" >
                         <div class="image_load_gold">
                             <img src="../../../images/photo_gallery/kit_2.jpg" />
@@ -727,7 +727,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
 
                 </div>
                 <div class="element alkali metal  height2 isotope-item">
-                    <div class="squire_title"><h2>Kitchen1</h2></div>
+                     
                     <div class="bronze">
                         <div class="image_load_bronze">
                             <img src="../../../images/photo_gallery/kit_3.jpg" />
@@ -743,7 +743,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element halogen metal  width2 height2 isotope-item">
-                    <div class="squire_title"><h2>Kitchen1</h2></div>
+                     
                     <div class="silvier" >
                         <div class="image_load_silvier">
                             <img src="../../../images/photo_gallery/kit_2.jpg" />
@@ -759,7 +759,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element metalloid metal width2 height3 isotope-item">
-                    <div class="squire_title"><h2>Kitchen1</h2></div>
+                     
                     <div class="gold" >
                         <div class="image_load_gold">
                             <img src="../../../images/photo_gallery/kit_1.jpg" />
@@ -775,7 +775,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element alkali metal  width2 height2 isotope-item">
-                    <div class="squire_title"><h2>Kitchen1</h2></div>
+                     
                     <div class="silvier" >
                         <div class="image_load_silvier">
                             <img src="../../../images/photo_gallery/kit_2.jpg" />
@@ -791,7 +791,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element alkali metal width2 height3 isotope-item">
-                    <div class="squire_title"><h2>Kitchen1</h2></div>
+                     
                     <div class="gold" >
                         <div class="image_load_gold">
                             <img src="../../../images/photo_gallery/kit_3.jpg" />
@@ -807,7 +807,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                     </div>
                 </div>
                 <div class="element noble-gas metal  height2 isotope-item">
-                    <div class="squire_title"><h2>Kitchen2</h2></div>
+                     
                     <div class="bronze">
                         <div class="image_load_bronze">
                             <img src="../../../images/photo_gallery/kit_5.jpg" />

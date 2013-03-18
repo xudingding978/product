@@ -27,12 +27,14 @@
             </div><!-- header -->
             <?php
             // build out login/logout string
-            if (Yii::app()->user->isGuest) {
-                $user_state = '';
-            } else {
-                $user_state = '';
-            }
 
+            if (Yii::app()->user->isGuest) {
+                $_user_label = 'Login'; 
+                $_user_url = '/site/login'; 
+            } else {
+                $_user_label = 'Logout (' . Yii::app()->user->name . ')'; 
+                $_user_url = '/site/logout';
+            }
 
             $this->widget('bootstrap.widgets.TbNavbar', array(
                 'brand' => 'Authority',
@@ -45,18 +47,17 @@
                     array(
                         'class' => 'bootstrap.widgets.TbMenu',
                         'items' => array(
-                            array('label' => 'Home', 'url' => '#', 'active' => true),
-                            array('label' => 'Search', 'url' => '#'),
+                            array('label' => 'Home', 'url' => '/', 'active' => true),
+                            array('label' => 'Tenants', 'url' => '/tenants'),
                             array('label' => 'Authority', 'url' => '/auth', 'items' => array(
-                                    array('label' =>'Actions'),
+                                    array('label' => 'Actions'),
                                     '---',
                                     array('label' => 'Assignments', 'url' => '/auth/assignment'),
                                     array('label' => 'Roles', 'url' => '/auth/role'),
                                     array('label' => 'Tasks', 'url' => '/auth/task'),
                                     array('label' => 'Operations', 'url' => '/auth/operation'),
                                 )),
-                            array('label' => 'Login', 'url' => array('/site/login'), 'active' => Yii::app()->user->isGuest),
-                            array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'active' => !Yii::app()->user->isGuest)
+                            array('label'=>$_user_label, 'url' =>$_user_url)
                         )
                     )
                 )

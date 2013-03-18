@@ -204,7 +204,7 @@ root {
 
 
 .element {
-    width: 210px;
+    width: 220px;
     height: 110px;
     margin: 5px 15px 13px 0px;
     float: left;
@@ -268,7 +268,7 @@ root {
 }
 
 
-.variable-sizes .element.width2 { width: 210px; }
+.variable-sizes .element.width2 { width: 220px; }
 
 .variable-sizes .element.height2 { height: 230px; }
 
@@ -329,7 +329,7 @@ body {
 }
 
 #container {
-    width: 100%;
+  
     min-width: 678px;
     border: none;
     padding: 75px;

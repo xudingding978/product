@@ -204,7 +204,7 @@ root {
 
 
 .element {
-    width: 225px;
+    width: 220px;
     height: 110px;
     margin: 5px 15px 13px 0px;
     float: left;
@@ -268,7 +268,7 @@ root {
 }
 
 
-.variable-sizes .element.width2 { width: 225px; }
+.variable-sizes .element.width2 { width: 220px; }
 
 .variable-sizes .element.height2 { height: 230px; }
 

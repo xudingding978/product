@@ -204,9 +204,9 @@ root {
 
 
 .element {
-    width: 220px;
+    width: 216px;
     height: 110px;
-    margin: 5px 15px 13px 0px;
+    margin: 5px 12px 13px 0px;
     float: left;
     overflow: hidden;
     position: relative;
@@ -268,7 +268,7 @@ root {
 }
 
 
-.variable-sizes .element.width2 { width: 220px; }
+.variable-sizes .element.width2 { width: 216px; }
 
 .variable-sizes .element.height2 { height: 230px; }
 

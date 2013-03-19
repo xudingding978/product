@@ -273,7 +273,16 @@ h2 {
 
 
 
+.carousel {
+    position: relative;
+    margin-bottom: 20px;
+    line-height: 1;
+    min-width:769px;
+}
 
+.navbar-fixed-top {
+    margin-bottom: 0px;
+}
 
 
 

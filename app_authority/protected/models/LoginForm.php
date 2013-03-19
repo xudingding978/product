@@ -59,8 +59,8 @@ class LoginForm extends CFormModel
 	 * @return boolean whether login is successful
 	 */
 	public function login()
-	{
-		if($this->_identity===null)
+	{    
+                                    if($this->_identity===null)
 		{
 			$this->_identity=new CommonUserIdentity($this->username,$this->password);
 			$this->_identity->authenticate();

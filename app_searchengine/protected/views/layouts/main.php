@@ -101,7 +101,7 @@
                                 'brand' => '<img class="logonew"  height="29px" src ="../../../images/landing-trends.png"/>',
                                 //    'collapse' => 'true',
                                 'items' => array(
-                                    '<p class="titleText">  Global  recommendations from </p>',
+                                    '<p class="titleText"> Global  recommendations from </p>',
                                     array(
                                         'class' => 'bootstrap.widgets.TbMenu',
                                         'htmlOptions' => array('class' => 'dropdown_region'),

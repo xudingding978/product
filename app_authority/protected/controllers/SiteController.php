@@ -47,6 +47,7 @@ class SiteController extends Controller {
      */
     public function actionContact() {
         $model = new ContactForm;
+       
         if (isset($_POST['ContactForm'])) {
             $model->attributes = $_POST['ContactForm'];
             if ($model->validate()) {
@@ -70,7 +71,7 @@ class SiteController extends Controller {
      */
     public function actionLogin() {
 
-            $domainSetting = new DomainSetting();
+            $domainSetting = new DomainSetting(); 
         Yii::app()->user->setReturnUrl($_SERVER['HTTP_REFERER']);
         $this->redirect('http://account' . $domainSetting->getDomain() . '/site/login/');
     }
@@ -79,6 +80,7 @@ class SiteController extends Controller {
      * Logs out the current user and redirect to homepage.
      */
     public function actionLogout() {
+        // echo CHtml::listData(Tpl::model()->findAll(), 'IMAGE_URL', 'DESCRIPTION'); 
         Yii::app()->user->logout();
         $this->redirect(Yii::app()->homeUrl);
     }

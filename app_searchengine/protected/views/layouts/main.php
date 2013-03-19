@@ -164,11 +164,11 @@
                         }
                         ?>
 
-                        <div class="smallIcon">
+<!--                        <div class="smallIcon">
                             <a class="icon_a" href='javascript:content_panel.update("/search/index-gallery.php")'><i class="icon-th icon-2x" ></i></a>
                             <a class="icon_b" href='javascript:content_panel.update("/search/index-list.php")'><i class="icon-list-ul  icon-2x" ></i></a>
                             <a href="#" class="icon_c" ><i class="icon-search icon-2x" ></i></a>
-                        </div>
+                        </div>-->
                     </div><!-- mainmenu -->
 
 

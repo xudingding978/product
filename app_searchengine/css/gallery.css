@@ -204,7 +204,7 @@ root {
 
 
 .element {
-    width: 213px;
+    width: 212px;
     height: 110px;
     margin: 5px;
     float:left;
@@ -217,9 +217,9 @@ root {
     background: -o-linear-gradient(top,  rgb(241, 241, 241)  0%,gainsboro 100%);                                                                               /* Opera 11.10+ */
     background: -ms-linear-gradient(top,  rgb(241, 241, 241)  0%,gainsboro 100%);                                                                             /* IE10+ */    
     color: #222;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
     box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.4), 0px 0px 2px rgba(0, 0, 0, 0.4);
     -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.4), 0px -2px 2px rgba(0, 0, 0, 0.4);
     -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.4), 0px -2px 2px rgba(0, 0, 0, 0.4);
@@ -268,11 +268,11 @@ root {
 }
 
 
-.variable-sizes .element.width2 { width: 213px; }
+.variable-sizes .element.width2 { width: 212px; }
 
 .variable-sizes .element.height2 { height: 230px; }
 
-.variable-sizes .element.width3 { width: 213px; }
+.variable-sizes .element.width3 { width: 212px; }
 
 .variable-sizes .element.height3 { height: 470px; }
 
@@ -332,7 +332,7 @@ body {
   
     min-width: 769px;
     border: none;
-  
+  padding:0px 0px 0px 10px;
 
 }
 

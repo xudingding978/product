@@ -280,6 +280,9 @@ h2 {
     min-width:769px;
 }
 
+.navbar-fixed-top {
+    margin-bottom: 0px;
+}
 
 
 

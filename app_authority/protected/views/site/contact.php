@@ -78,13 +78,7 @@ $this->breadcrumbs = array(
 
         <div class="row buttons">
             <?php
-            echo '<pre>';
-            print_r(CHtml::listData(Tpl::model()->findAll(), 'IMAGE_URL', 'DESCRIPTION'));
-            $url_picker = new UrlPicker();
-            
-            echo $url_picker->shortenURL($_SERVER['HTTP_HOST']);
-            // echo $url_picker ;  
-
+          
             echo CHtml::submitButton('Submit');
             ?>
         </div>

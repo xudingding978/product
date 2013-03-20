@@ -30,21 +30,20 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
         <div id='categories'>
 
             <div id="container" class="variable-sizes clearfix isotope">
-                <?php $userProfile = UserProfile::model()->findByAttributes(array('USER_REC_ID' => Yii::app()->user->id)); ?>
+           
 
                 
                 
                 
                 
-                
-                
+                          
                 
                 <div class="element alkali metal  height2 isotope-item">
                     <div class="image_load_bronze">
                         <img src="../../../images/photo_gallery/kit_1.jpg" />
                     </div>
                     <div class='comments'>
-                          <img  class='user_profile' height="29px" src ="<?php echo $userProfile->PHOTO_URL ?>"/>
+                        
                     </div>
                 </div>
 

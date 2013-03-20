@@ -12,7 +12,7 @@
  * @property string $IMAGE_URL
  * @property string $DESCRIPTION
  */
-class Tpl extends CActiveRecord
+class Listing extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -56,7 +56,10 @@ class Tpl extends CActiveRecord
 	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
+
 		return array(
+                                            
+                    
 		);
 	}
 
@@ -99,4 +102,23 @@ class Tpl extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+        
+       /**
+        * 
+        * @param type $domain: a string as a domain name from database. 
+        * @return type array of listing
+        */
+
+        
+            public function getListingByDomain($domain) 
+            {
+                   $rows = Yii::app()->db->createCommand('SELECT * FROM tpl_listing l 
+                    INNER JOIN tpl_domain_directory dd 
+                    ON l.DIRECTORY_ID = dd.DIRECTORY_ID 
+                    INNER JOIN tpl_domains d 
+                    ON dd.DOMAIN_ID = d.REC_ID 
+                    WHERE d.DOMAIN_NAME =:domain')->bindValue('domain', $domain)->queryAll();  
+                   
+                     return  $rows;  
+            }
 }

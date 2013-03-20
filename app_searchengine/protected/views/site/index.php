@@ -30,7 +30,11 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
         <div id='categories'>
 
             <div id="container" class="variable-sizes clearfix isotope">
+<<<<<<< HEAD
            
+=======
+
+>>>>>>> 009be790e306fdc1f1f9ac0f62751f09943a4f84
 
                 
                 
@@ -38,6 +42,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                 
                           
                 
+<<<<<<< HEAD
                 <div class="element alkali metal  height2 isotope-item">
                     <div class="image_load_bronze">
                         <img src="../../../images/photo_gallery/kit_1.jpg" />
@@ -46,6 +51,9 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                         
                     </div>
                 </div>
+=======
+   
+>>>>>>> 009be790e306fdc1f1f9ac0f62751f09943a4f84
 
                 
                 

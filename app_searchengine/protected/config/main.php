@@ -58,6 +58,7 @@ return CMap::mergeArray(
                 'common.extensions.*',
                 'common.components.auth.*',
                 'common.models.*',
+                'common.tests.*',
                 'application.models.*',
                 'application.components.*',
             ),

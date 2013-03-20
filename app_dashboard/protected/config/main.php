@@ -60,6 +60,15 @@ return CMap::mergeArray(
                 'application.components.*',
             ),
             'modules' => array(
+                 'gii' => array(
+                    'class' => 'system.gii.GiiModule',
+                    'password' => 'Pa55word',
+                    // If removed, Gii defaults to localhost only. Edit carefully to taste.
+                    'ipFilters' => array('127.0.0.1', '::1'),
+                    'generatorPaths' => array(
+                        'bootstrap.gii'
+                    ),
+                ),
             ),
             // application components
             'components' => array(

@@ -76,45 +76,45 @@ root {
 
 .gold img{
 
-    -webkit-border-radius: .5em;
-    -moz-border-radius: .5em;
-    border-radius: .5em;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
     cursor: pointer;
-    height:365px;
+    width:100%;
 
     overflow: hidden;
 }
 .image_load_gold{
-    left:5px;
+    left:15px;
     height:365px;
-    width:220px;
+    width:180px;
     overflow: hidden;
-    -webkit-border-radius: .5em;
-    -moz-border-radius: .5em;
-    border-radius: .5em;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
     position:absolute;
     top:30px;
 }
 .image_load_bronze{
-    left:5px;
+    left:15px;
     height:135px;
-    width:100px;
+    width:180px;
     overflow: hidden;
-    -webkit-border-radius: .5em;
-    -moz-border-radius: .5em;
-    border-radius: .5em;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
     top:30px;
     position:absolute;
 
 }
 .image_load_silvier{
-    left:5px;
+    left:15px;
     height:155px;
-    width:220px;
+    width:180px;
     overflow: hidden;
-    -webkit-border-radius: .5em;
-    -moz-border-radius: .5em;
-    border-radius: .5em;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
 
     top:30px;
     position:absolute;
@@ -123,10 +123,10 @@ root {
 .bronze img{
     cursor: pointer;
 
-    -webkit-border-radius: .5em;
-    -moz-border-radius: .5em;
-    border-radius: .5em;
-    height:140px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    width:100%;
 
 
     overflow: hidden;
@@ -134,60 +134,42 @@ root {
 }
 .silvier img{
     cursor: pointer;
-    -webkit-border-radius: .5em;
-    -moz-border-radius: .5em;
-    border-radius: .5em;
-    height:150px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    width:100%;
 
 
     overflow: hidden;
 }
-.description_title_silvier{
-    white-space: nowrap;
-    width:100px;
-    height:10px;
-    top:200px;
-    left:24px;
+
+.loading{
+    width:100%;
+    height:50px;
+    background-color: black;
+    opacity: 0;
+    
+    
 }
-.comment_title_silvier{
-    white-space: nowrap;
-    width:100px;
-    height:10px;
-    top:200px;
-    left:108px;
+.comments{
+    width:212px;
+    bottom:0px;
+
+    height:45px;
+    color: #222;
+    background: linear-gradient(to bottom, rgb(241, 241, 241) 0%, gainsboro 100%) repeat scroll 0% 0% transparent;
+    background: -moz-linear-gradient(top,  rgb(241, 241, 241)  0%, gainsboro 100%);                                                                        /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb(241, 241, 241)), color-stop(100%,gainsboro));       /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgb(241, 241, 241)  0%,rgainsboro 100%);                                                                      /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgb(241, 241, 241)  0%,gainsboro 100%);                                                                               /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgb(241, 241, 241)  0%,gainsboro 100%);    
+}
+.user_profile{
+    bottom:5px;
+    left:7px;
+    
 }
 
-.description_title_bronze{
-    white-space: nowrap;
-    width:100px;
-    height:10px;
-    top:180px;
-    left:20px;
-
-}
-.comment_title_bronze{
-    white-space: nowrap;
-    width:100px;
-    height:10px;
-    top:200px;
-    left:13px;
-}
-.description_title_gold{
-    white-space: nowrap;
-    width:100px;
-    height:20px;
-    top:420px;
-    left:24px;
-
-}
-.comment_title_gold{
-
-    white-space: nowrap;
-    width:100px;
-    height:20px;
-    top:420px;
-    left:108px;
-}
 .squire_title{
     white-space: nowrap;
     top:5px;
@@ -204,28 +186,21 @@ root {
 
 
 .element {
-    width: 110px;
+    width: 212px;
     height: 110px;
     margin: 5px;
-    float: left;
+    float:left;
     overflow: hidden;
     position: relative;
-    background: linear-gradient(to bottom, rgb(241, 241, 241) 0%, gainsboro 100%) repeat scroll 0% 0% transparent;
-    background: -moz-linear-gradient(top,  rgb(241, 241, 241)  0%, gainsboro 100%);                                                                        /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb(241, 241, 241)), color-stop(100%,gainsboro));       /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  rgb(241, 241, 241)  0%,rgainsboro 100%);                                                                      /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  rgb(241, 241, 241)  0%,gainsboro 100%);                                                                               /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  rgb(241, 241, 241)  0%,gainsboro 100%);                                                                             /* IE10+ */    
-    color: #222;
-    -webkit-border-radius: .5em;
-    -moz-border-radius: .5em;
-    border-radius: .5em;
+    /* IE10+ */    
+    background-color: white;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
     box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.4), 0px 0px 2px rgba(0, 0, 0, 0.4);
     -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.4), 0px -2px 2px rgba(0, 0, 0, 0.4);
     -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.4), 0px -2px 2px rgba(0, 0, 0, 0.4);
 }
-
-
 
 
 .element * {
@@ -270,11 +245,11 @@ root {
 }
 
 
-.variable-sizes .element.width2 { width: 230px; }
+.variable-sizes .element.width2 { width: 212px; }
 
 .variable-sizes .element.height2 { height: 230px; }
 
-.variable-sizes .element.width3 { width: 470px; }
+.variable-sizes .element.width3 { width: 212px; }
 
 .variable-sizes .element.height3 { height: 470px; }
 
@@ -312,7 +287,7 @@ root {
 
 
     padding: 10px;
-    margin: 5px 18px 5px 1px;
+
     float: right;
     background: none repeat scroll 0% 0% white;
     color: white;
@@ -331,11 +306,11 @@ body {
 }
 
 #container {
-    width: 100%;
-    min-width: 678px;
+
+    min-width: 769px;
     border: none;
-    padding: 5px;
-    margin-bottom: 20px;
+    margin:70px 0px 0px 10px;
+
 }
 
 .item{

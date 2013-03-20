@@ -30,6 +30,12 @@ class SiteController extends Controller {
         $this->render('index');
     }
 
+    public function actionTest() {
+        // renders the view file 'protected/views/site/index.php'
+        // using the default layout 'protected/views/layouts/main.php'
+        $this->render('test');
+    }
+
     /**
      * This is the action to handle external exceptions.
      */
@@ -95,17 +101,44 @@ class SiteController extends Controller {
     }
 
     public function actionGetDataFromItemtable() {
-        $dataProvider =
-                Listing::model()->findAll();
+        $dataProvider =Listing::model()->findAll();
+                
 
         echo CJSON::encode($dataProvider);
     }
 
-}
 
-class A {
 
-    public $test = "test";
-    public $test2 = '2';
 
 }
+
+class ListingCast {
+
+    public $REC_ID;
+    public $REC_DATETIME;
+    public $REC_TIMESTAMP;
+    public $LISTING_TYPE_REC_ID;
+    public $ITEM_ID;
+    public $listingDetail;
+
+    function __construct($rec_id, $recDataTime, $recTimeStamp, $listing_type_rec_id, $item_id) {
+
+        $this->REC_ID = $rec_id;
+        $this->REC_DATETIME = $recDataTime;
+        $this->REC_TIMESTAMP = $recTimeStamp;
+        $this->LISTING_TYPE_REC_ID = $listing_type_rec_id;
+        $this->ITEM_ID = $item_id;
+    }
+
+    public function setListDetail() {
+        if ($this->LISTING_TYPE_REC_ID == 2) {
+            $supplier = Supplier::model()->findByPk($this->ITEM_ID);
+            $this->listingDetail = $supplier->NAME;
+        } else {
+            $this->listingDetail = 'something wrong';
+        }
+    }
+}
+
+
+

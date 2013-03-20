@@ -7,6 +7,11 @@ $bootstrap_widget_header_color = '#111';
 $text_color = '#rgb(222,222,222)';
 ?>
 
+<?php   
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// header and title parts  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+?>
+
 
 body {
 
@@ -55,6 +60,7 @@ color:white;
 -webkit-box-shadow: 0px 0px 15px rgb(0, 0, 0);
 -moz-box-shadow: 0px 0px 15px rgb(0, 0, 0);
 box-shadow: 0px 0px 15px rgb(0, 0, 0);
+
 }
 
 
@@ -70,7 +76,7 @@ text-shadow: none;
 display: block;
 float: left;
 padding: 5px 10px;
-margin-left: -20px;
+margin-left: 0px;
 font-size: 20px;
 font-weight: 200;
 color: rgb(119, 119, 119);
@@ -157,10 +163,6 @@ margin-left: 110px;
 }
 
 
-.dropdown{
-
-border: 1px solid rgba(0, 0, 0, 0.15);
-}
 
 .dropdown-menu li > a {
 display: block;
@@ -241,3 +243,62 @@ margin-left: 180px;
     margin: 0 0 0 24px;
 
 }
+
+
+.navbar .nav li.dropdown > .dropdown-toggle .caret {
+    border-top-color: white;
+    border-bottom-color:white;
+}
+
+
+.carousel .active {
+    left: 0px;
+    height: 650px;
+}
+
+
+
+.carousel .item > img {
+    display: block;
+    line-height: 1;
+    width: 1980px;
+}
+
+
+h2 {
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+
+.carousel {
+    position: relative;
+    margin-bottom: 20px;
+    line-height: 1;
+    min-width:769px;
+}
+
+.navbar-fixed-top {
+    margin-bottom: 0px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php   
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// isotope parts   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+?>

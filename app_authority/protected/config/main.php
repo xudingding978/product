@@ -132,15 +132,25 @@ return CMap::mergeArray(
                     'urlSuffix' => '/',
                     'rules' => $params['url.rules']
                 ),
+                // Gii Connection String
                 'db' => array(
                     'class' => 'CDbConnection',
-                    'connectionString' => $params['db_admin.connectionString'],
-                    'username' => $params['db_admin.username'],
-                    'password' => $params['db_admin.password'],
+                    'connectionString' => 'mysql:host=db.business-software.co.nz;dbname=db_v3.1_live',
+                    'username' => 'db_user',
+                    'password' => 'Pa55word',
                     'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
                     'enableParamLogging' => YII_DEBUG,
                     'charset' => 'utf8'
                 ),
+//                'db' => array(
+//                    'class' => 'CDbConnection',
+//                    'connectionString' => $params['db_admin.connectionString'],
+//                    'username' => $params['db_admin.username'],
+//                    'password' => $params['db_admin.password'],
+//                    'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
+//                    'enableParamLogging' => YII_DEBUG,
+//                    'charset' => 'utf8'
+//                ),
                 'db_live' => array(
                     'class' => 'CDbConnection',
                     'connectionString' => $params['db_live.connectionString'],

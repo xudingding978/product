@@ -26,6 +26,15 @@
                 <div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
             </div><!-- header -->
             <?php
+
+       //   include './common/protected/modules/hybridauth/widgets/renderProviders.php';
+        //    $this->widget('common/protected/modules/hybridauth/widgets/renderProviders'); ?>
+            
+
+
+            <?php
+        $dot_positon = strpos($_SERVER['HTTP_HOST'], ".");
+        $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
             $this->widget('bootstrap.widgets.TbNavbar', array(
                 'brand' => CHtml::encode(Yii::app()->name),
                 'brandOptions' => array('style' => 'width:auto;margin-left: 0px;'),
@@ -36,7 +45,8 @@
                         'class' => 'bootstrap.widgets.TbMenu',
                         'items' => array(
                             array('label' => 'Home', 'url' => '#', 'active' => true),
-                            array('label' => 'Link', 'url' => '#'),
+                           // array('label' => 'My Account', 'url' => 'http://'.$_SERVER['HTTP_HOST']),
+                            array('label' => 'My Account', 'url' => 'http://account'.$domain),
                             array('label' => 'Link', 'url' => '#'),
                         )
                     )
@@ -56,22 +66,24 @@
                 ));
                 ?>
             </div><!-- mainmenu -->
+
+           
             <?php if (isset($this->breadcrumbs)): ?>
                 <?php
                 $this->widget('zii.widgets.CBreadcrumbs', array(
                     'links' => $this->breadcrumbs,
                 ));
                 ?><!-- breadcrumbs -->
-<?php endif ?>
+            <?php endif ?>
 
-<?php echo $content; ?>
+            <?php echo $content; ?>
 
             <div class="clear"></div>
 
             <div id="footer">
                 Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
                 All Rights Reserved.<br/>
-<?php echo Yii::powered(); ?>
+                <?php echo Yii::powered(); ?>
             </div><!-- footer -->
 
         </div><!-- page -->

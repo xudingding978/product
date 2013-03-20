@@ -1,0 +1,54 @@
+server {
+	listen 80;
+	root /home/devbox/NetBeansProjects/bds-v1/;
+	index index.php index.html index.htm;
+	server_name standard.devbox1;
+
+	location / {
+		try_files $uri $uri/ /index.php?$args;
+	}
+
+	location ~ \.php$ {
+		fastcgi_split_path_info ^(.+\.php)(/.+)$;
+		fastcgi_pass unix:/var/run/php5-fpm.sock;
+		fastcgi_index index.php;
+		include fastcgi_params;
+	}
+
+}
+server {
+	listen 80;
+	root /home/devbox/NetBeansProjects/bds-v2/;
+	index index.php index.html index.htm;
+	server_name advanced.devbox1;
+
+	location / {
+		try_files $uri $uri/ /index.php?$args;
+	}
+
+	location ~ \.php$ {
+		fastcgi_split_path_info ^(.+\.php)(/.+)$;
+		fastcgi_pass unix:/var/run/php5-fpm.sock;
+		fastcgi_index index.php;
+		include fastcgi_params;
+	}
+
+}
+server {
+	listen 80;
+	root /home/devbox/NetBeansProjects/bds-v3/;
+	index index.php index.html index.htm;
+	server_name premium.devbox1;
+
+	location / {
+		try_files $uri $uri/ /index.php?$args;
+	}
+
+	location ~ \.php$ {
+		fastcgi_split_path_info ^(.+\.php)(/.+)$;
+		fastcgi_pass unix:/var/run/php5-fpm.sock;
+		fastcgi_index index.php;
+		include fastcgi_params;
+	}
+
+}

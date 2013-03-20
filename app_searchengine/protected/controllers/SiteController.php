@@ -30,11 +30,17 @@ class SiteController extends Controller {
         $this->render('index');
     }
 
+    public function actionTest() {
+        // renders the view file 'protected/views/site/index.php'
+        // using the default layout 'protected/views/layouts/main.php'
+        $this->render('test');
+    }
+
     /**
      * This is the action to handle external exceptions.
      */
     public function actionError() {
-        if ($error = Yii::app()->errorHandler->error) {
+        if ($error == Yii::app()->errorHandler->error) {
             if (Yii::app()->request->isAjaxRequest)
                 echo $error['message'];
             else
@@ -69,23 +75,10 @@ class SiteController extends Controller {
      * Displays the login page
      */
     public function actionLogin() {
-        $model = new LoginForm;
-
-        // if it is ajax validation request
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'login-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
-
-        // collect user input data
-        if (isset($_POST['LoginForm'])) {
-            $model->attributes = $_POST['LoginForm'];
-            // validate user input and redirect to the previous page if valid
-            if ($model->validate() && $model->login())
-                $this->redirect(Yii::app()->user->returnUrl);
-        }
-        // display the login form
-        $this->render('login', array('model' => $model));
+        // require_once  ('/home/devbox/NetBeansProjects/bds-v3.1/common/protected/config/domainSetting.php');
+        $domainSetting = new DomainSetting();
+        Yii::app()->user->setReturnUrl($_SERVER['HTTP_REFERER']);
+        $this->redirect('http://account' . $domainSetting->getDomain() . '/site/login/');
     }
 
     /**
@@ -95,5 +88,30 @@ class SiteController extends Controller {
         Yii::app()->user->logout();
         $this->redirect(Yii::app()->homeUrl);
     }
+
+    public function actionSet() {
+        $class = new A();
+        Yii::app()->cache->set('set', $class, 30);
+    }
+
+    public function actionGet() {
+        $value = Yii::app()->cache->get('set');
+
+        echo CJSON::encode($value);
+    }
+
+    public function actionGetDataFromItemtable() {
+        $dataProvider =
+                Listing::model()->findAll();
+
+        echo CJSON::encode($dataProvider);
+    }
+
+}
+
+class A {
+
+    public $test = "test";
+    public $test2 = '2';
 
 }

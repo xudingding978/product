@@ -23,7 +23,15 @@ $this->pageTitle='Administrator | '.Yii::app()->name;
     ),
 ));
     ?>
+<hr/>
+<?php
 
+echo 'para config';
+
+echo print_r(Yii::app()->params);
+
+?>
+<hr/>
 <p>For more details on how to further develop this application, please read
 the <a href="http://www.yiiframework.com/doc/">documentation</a>.
 Feel free to ask in the <a href="http://www.yiiframework.com/forum/">forum</a>,

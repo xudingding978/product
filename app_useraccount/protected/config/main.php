@@ -1,4 +1,5 @@
 <?php
+
 /**
  *  User Account Application Configuration
  *
@@ -8,7 +9,6 @@
  *
  * This file holds the configuration settings of the User Account application.
  * */
-
 $app_useraccountConfigDir = dirname(__FILE__);
 //
 $root = $app_useraccountConfigDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..';
@@ -17,6 +17,7 @@ $root = $app_useraccountConfigDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPAR
 Yii::setPathOfAlias('root', $root);
 Yii::setPathOfAlias('common', $root . DIRECTORY_SEPARATOR . 'common' . DIRECTORY_SEPARATOR . 'protected');
 Yii::setPathOfAlias('app_administrator', $root . DIRECTORY_SEPARATOR . 'app_administrator');
+Yii::setPathOfAlias('app_authority', $root . DIRECTORY_SEPARATOR . 'app_authority');
 Yii::setPathOfAlias('app_dashboard', $root . DIRECTORY_SEPARATOR . 'app_dashboard');
 Yii::setPathOfAlias('app_searchengine', $root . DIRECTORY_SEPARATOR . 'app_searchengine');
 Yii::setPathOfAlias('app_useraccount', $root . DIRECTORY_SEPARATOR . 'app_useraccount');
@@ -35,12 +36,20 @@ $mainEnvConfiguration = file_exists($mainEnvFile) ? require($mainEnvFile) : arra
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 
+$dot_positon = strpos($_SERVER['HTTP_HOST'], ".");
+
+$domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
+
+
+
+
 return CMap::mergeArray(
                 array(
             'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
             // set parameters
             'params' => $params,
             'name' => 'User Account',
+            'id' => $domain,
             // preloading 'log' component
             'preload' => array('log', 'bootstrap'),
             // @see http://www.yiiframework.com/doc/api/1.1/CApplication#language-detail
@@ -48,18 +57,91 @@ return CMap::mergeArray(
             // autoloading model and component classes
             'import' => array(
                 'common.components.*',
+                'common.components.auth.*',
                 'common.extensions.*',
                 'common.models.*',
                 'application.models.*',
                 'application.components.*',
             ),
             'modules' => array(
+                'hybridauth' => array(
+                    //   'baseUrl' => 'http://account.business-software.co.nz/hybridauth',
+                    'baseUrl' => 'http://' . $_SERVER['HTTP_HOST'] . '/hybridauth',
+                    'withYiiUser' => false, // Set to true if using yii-user
+                    "providers" => array(
+                        "OpenID" => array(
+                            "enabled" => true
+                        ),
+                        "Yahoo" => array(
+                            "enabled" => true,
+                             "keys" => array("Key" => "dj0yJmk9U2FlYXZIelpuQTNoJmQ9WVdrOVpqVlJVakpQTXpZbWNHbzlNVFUyTURVM01qVTJNZy0tJnM9Y29uc3VtZXJzZWNyZXQmeD1mOQ--", "secret" => "0ad41773d20dc1208bfdb54204a3e5bba043c073"),
+                        ),
+                        "Google" => array(
+                            "enabled" => true,
+                            "keys" => array("id" => "229536460581.apps.googleusercontent.com", "secret" => "P5ewnNOsUD4a6chOsf-V7C6n"),
+                            "scope" => ""
+                        ),
+                        "Live" => array(
+                            "enabled" => true,
+                            "keys" => array("id" => "00000000400ED656", "secret" => "mM8x15UDeuXNbjlBCTFapZfr7G8fizh4"),
+                        ),
+                        "Facebook" => array(
+                            "enabled" => true,
+                            "keys" => array("id" => "351417541640384", "secret" => "545a09525ae4bd0769174d12f6986f7c"),
+                            "scope" => "publish_stream",
+                            "display" => "page"
+                        ),
+                        "Twitter" => array(
+                            "enabled" => true,
+                            "keys" => array("key" => "T8gsComi9Nt391cKHMJcw", "secret" => "D5jSS3jC7n4kxOdUwYPebgoXqrckbEcFikUppUNA0")
+                        ),
+                        "QQ" => array(
+                            "enabled" => true,
+                            "keys" => array("key" => "801323043", "secret" => "619b9dbc531ebfea8c674d0eb8c03478")
+                        ),
+                        "Sina" => array(
+                            "enabled" => true,
+                            "keys" => array("key" => "1988690508", "secret" => "bd472b4386849450e9287521ba4dd889")
+                        ),
+                    )
+                ),
             ),
             // application components
             'components' => array(
                 'user' => array(
-            // enable cookie-based authentication
+                    // enable cookie-based authentication
                     'allowAutoLogin' => true,
+                    //        'class' => 'MyWebUser',
+                    'class' => 'AuthWebUser',
+                    'identityCookie' => array(
+                        'domain' => $domain
+                    ),
+                ),
+                'authManager' => array(
+                    'class' => 'CDbAuthManager',
+                    'behaviors' => array(
+                        'auth' => array(
+                            'class' => 'AuthBehavior',
+                            'admins' => array('', '', ''), // users with full access
+                        ),
+                    ),
+                ),
+                'session' => array(
+                    'sessionName' => 'Session',
+                    'class' => 'CDbHttpSession',
+                    //  'autoCreateSessionTable' => true,
+                    'connectionID' => 'db',
+                    'sessionTableName' => 'tpl_user_session',
+                    //    'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
+                    'useTransparentSessionID' => true,
+                    'autoStart' => 'true',
+                    'cookieMode' => 'only',
+                    'cookieParams' => array(
+                        'path' => '/',
+                        'domain' => $domain,
+                        'httpOnly' => true,
+                    ),
+                //        'timeout' => 1800,
                 ),
                 'bootstrap' => array(
                     'class' => 'common.extensions.bootstrap.components.Bootstrap',
@@ -72,7 +154,7 @@ return CMap::mergeArray(
                     'urlSuffix' => '/',
                     'rules' => $params['url.rules']
                 ),
-                'db_admin' => array(
+                'db' => array(
                     'class' => 'CDbConnection',
                     'connectionString' => $params['db_admin.connectionString'],
                     'username' => $params['db_admin.username'],
@@ -91,7 +173,7 @@ return CMap::mergeArray(
                     'charset' => 'utf8'
                 ),
                 'errorHandler' => array(
-            // use 'site/error' action to display errors
+                    // use 'site/error' action to display errors
                     'errorAction' => 'site/error',
                 ),
                 'log' => array(
@@ -101,20 +183,14 @@ return CMap::mergeArray(
                             'class' => 'CFileLogRoute',
                             'levels' => 'error, warning',
                         ),
-                    // uncomment the following to show log messages on web pages
-                    ///*
-                      array(
-                      'class'=>'CWebLogRoute',
-                      ),
-                     //*/
+                        // uncomment the following to show log messages on web pages
+                        ///*
+                        array(
+                            'class' => 'CWebLogRoute',
+                        ),
+                    //*/
                     ),
                 ),
-            ),
-            // application-level parameters that can be accessed
-            // using Yii::app()->params['paramName']
-            'params' => array(
-            // this is used in contact page
-                'adminEmail' => 'webmaster@example.com',
             ),
                 ), CMap::mergeArray($mainEnvConfiguration, $mainLocalConfiguration)
 );

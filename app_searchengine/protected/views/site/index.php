@@ -1,28 +1,594 @@
 <?php
 /* @var $this SiteController */
 
-$this->pageTitle=Yii::app()->name;
+$this->pageTitle = Yii::app()->name;
+
 ?>
 
-<h1>Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
-
-<p>Congratulations! You have successfully created your Yii application.</p>
-
-<p>You may change the content of this page by modifying the following two files:</p>
-<ul>
-	<li>View file: <code><?php echo __FILE__; ?></code></li>
-	<li>Layout file: <code><?php echo $this->getLayoutFile('main'); ?></code></li>
-</ul>
-    <?php
-    $this->widget('bootstrap.widgets.TbButtonGroup', array(
-    'buttons'=>array(
-	    array('label'=>'Left', 'url'=>'#'),
-	    array('label'=>'Middel', 'url'=>'#'),
-	    array('label'=>'Right', 'url'=>'#')
+<?php
+$this->widget('bootstrap.widgets.TbCarousel', array(
+    'items' => array(
+        array('image' => '../../../images/kichen_a.jpg'),
+        array('image' => '../../../images/kichen_b.jpg'),
+        array('image' => '../../../images/kichen_c.jpg'),
+        array('image' => '../../../images/kichen_d.jpg'),
+        array('image' => '../../../images/kichen_e.jpg'),
+        array('image' => '../../../images/kichen_c.jpg'),
+        array('image' => '../../../images/kichen_f.jpg'),
+        array('image' => '../../../images/kichen_g.jpg'),
+        array('image' => '../../../images/kichen_h.jpg'),
+        array('image' => '../../../images/kichen_i.jpg'),
+        array('image' => '../../../images/kichen_j.jpg'),
+        array('image' => '../../../images/kichen_k.jpg'),
     ),
 ));
-    ?>
-<p>For more details on how to further develop this application, please read
-the <a href="http://www.yiiframework.com/doc/">documentation</a>.
-Feel free to ask in the <a href="http://www.yiiframework.com/forum/">forum</a>,
-should you have any questions.</p>
+
+?>
+
+<div id="" class="group">
+    <div class="group"> 
+        <div id='categories'>
+
+            <div id="container" class="variable-sizes clearfix isotope">
+
+
+                
+                
+                
+                
+                
+                
+                
+   
+
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <div class="element alkaline-earth metal  height2 isotope-item" data-category="alkali-earth" data-symbol="Li">
+
+                    <div class="image_load_bronze">
+                        <img src="../../../images/photo_gallery/kit_2.jpg" />
+                    </div>
+                    <div class='comments'>
+
+                    </div>
+
+                </div>
+                <div class="element noble-gas width2 height3 metal isotope-item " >
+
+
+                    <div class="image_load_gold">
+                        <img src="../../../images/photo_gallery/kit_3.jpg" />
+                    </div>
+                    <div class='comments'>
+                        
+                    </div>
+
+
+                </div>
+                <div class="element alkaline-earth metal  height2 isotope-item" data-category="alkali-earth" data-symbol="Li">
+
+
+
+                    <div class="image_load_bronze">
+                        <img src="../../../images/photo_gallery/kit_4.jpg" />
+                    </div>
+                    <div class='comments'>
+
+                    </div>
+
+                </div>
+                <div class="element noble-gas width2 height3 metal isotope-item " >
+
+
+                    <div class="image_load_gold">
+                        <img src="../../../images/photo_gallery/kit_5.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+
+                </div>
+                <div class="element alkali metal  height2 isotope-item">
+
+                    
+                    
+                    <div class="image_load_bronze">
+                        <img src="../../../images/photo_gallery/kit_6.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element halogen metal  width2 height2 isotope-item">
+
+
+                    <div class="image_load_silvier">
+                        <img src="../../../images/photo_gallery/kit_5.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element metalloid metal width2 height3 isotope-item">
+
+
+                    <div class="image_load_gold">
+                        <img src="../../../images/photo_gallery/kit_8.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element alkali metal  width2 height2 isotope-item">
+
+
+                    <div class="image_load_silvier">
+                        <img src="../../../images/photo_gallery/kit_4.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element alkali metal width2 height3 isotope-item">
+
+
+                    <div class="image_load_gold">
+                        <img src="../../../images/photo_gallery/kit_10.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element noble-gas metal  height2 isotope-item">
+
+
+                    <div class="image_load_bronze">
+                        <img src="../../../images/photo_gallery/kit_2.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element alkaline-earth metal  height2 isotope-item" data-category="alkali-earth" data-symbol="Li">
+
+
+
+                    <div class="image_load_bronze">
+                        <img src="../../../images/photo_gallery/kit_1.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element noble-gas width2 height3 metal isotope-item " >
+
+
+                    <div class="image_load_gold">
+                        <img src="../../../images/photo_gallery/kit_1.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element alkali metal  height2 isotope-item">
+
+
+                    <div class="image_load_bronze">
+                        <img src="../../../images/photo_gallery/kit_2.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element halogen metal  width2 height2 isotope-item">
+
+
+                    <div class="image_load_silvier">
+                        <img src="../../../images/photo_gallery/kit_6.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element metalloid metal width2 height3 isotope-item">
+
+
+                    <div class="image_load_gold">
+                        <img src="../../../images/photo_gallery/kit_5.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element alkali metal  width2 height2 isotope-item">
+
+
+                    <div class="image_load_silvier">
+                        <img src="../../../images/photo_gallery/kit_4.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element alkali metal width2 height3 isotope-item">
+
+
+                    <div class="image_load_gold">
+                        <img src="../../../images/photo_gallery/kit_7.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element noble-gas metal  height2 isotope-item">
+
+
+                    <div class="image_load_bronze">
+                        <img src="../../../images/photo_gallery/kit_4.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element alkali metal  height2 isotope-item">
+
+
+                    <div class="image_load_bronze">
+                        <img src="../../../images/photo_gallery/kit_6.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element halogen metal  width2 height2 isotope-item">
+
+
+                    <div class="image_load_silvier">
+                        <img src="../../../images/photo_gallery/kit_10.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element metalloid metal width2 height3 isotope-item">
+
+
+                    <div class="image_load_gold">
+                        <img src="../../../images/photo_gallery/kit_8.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element alkali metal  width2 height2 isotope-item">
+
+
+                    <div class="image_load_silvier">
+                        <img src="../../../images/photo_gallery/kit_1.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element alkali metal width2 height3 isotope-item">
+
+
+                    <div class="image_load_gold">
+                        <img src="../../../images/photo_gallery/kit_3.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element noble-gas metal  height2 isotope-item">
+
+
+                    <div class="image_load_bronze">
+                        <img src="../../../images/photo_gallery/kit_4.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element alkaline-earth metal  height2 isotope-item" data-category="alkali-earth" data-symbol="Li">
+
+
+                    <div class="image_load_bronze">
+                        <img src="../../../images/photo_gallery/kit_2.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element noble-gas width2 height3 metal isotope-item " >
+
+
+                    <div class="image_load_gold">
+                        <img src="../../../images/photo_gallery/kit_10.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+
+                </div>
+                <div class="element alkali metal  height2 isotope-item">
+
+
+                    <div class="image_load_bronze">
+                        <img src="../../../images/photo_gallery/kit_10.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element halogen metal  width2 height2 isotope-item">
+
+
+                    <div class="image_load_silvier">
+                        <img src="../../../images/photo_gallery/kit_6.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element metalloid metal width2 height3 isotope-item">
+
+
+                    <div class="image_load_gold">
+                        <img src="../../../images/photo_gallery/kit_7.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element alkali metal  width2 height2 isotope-item">
+
+
+                    <div class="image_load_silvier">
+                        <img src="../../../images/photo_gallery/kit_1.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element alkali metal width2 height3 isotope-item">
+
+
+                    <div class="image_load_gold">
+                        <img src="../../../images/photo_gallery/kit_2.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element noble-gas metal  height2 isotope-item">
+
+
+                    <div class="image_load_bronze">
+                        <img src="../../../images/photo_gallery/kit_3.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element alkaline-earth metal  height2 isotope-item" data-category="alkali-earth" data-symbol="Li">
+
+
+                    <div class="image_load_bronze">
+                        <img src="../../../images/photo_gallery/kit_6.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element noble-gas width2 height3 metal isotope-item " >
+
+
+                    <div class="image_load_gold">
+                        <img src="../../../images/photo_gallery/kit_4.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+
+                </div>
+                <div class="element alkali metal  height2 isotope-item">
+
+
+                    <div class="image_load_bronze">
+                        <img src="../../../images/photo_gallery/kit_3.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element halogen metal  width2 height2 isotope-item">
+
+
+                    <div class="image_load_silvier">
+                        <img src="../../../images/photo_gallery/kit_5.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element metalloid metal width2 height3 isotope-item">
+
+
+                    <div class="image_load_gold">
+                        <img src="../../../images/photo_gallery/kit_2.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element alkali metal  width2 height2 isotope-item">
+
+
+                    <div class="image_load_silvier">
+                        <img src="../../../images/photo_gallery/kit_4.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element alkali metal width2 height3 isotope-item">
+
+
+                    <div class="image_load_gold">
+                        <img src="../../../images/photo_gallery/kit_10.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element noble-gas metal  height2 isotope-item">
+
+
+                    <div class="image_load_bronze">
+                        <img src="../../../images/photo_gallery/kit_10.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element alkaline-earth metal  height2 isotope-item" data-category="alkali-earth" data-symbol="Li">
+
+
+                    <div class="image_load_bronze">
+                        <img src="../../../images/photo_gallery/kit_1.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element noble-gas width2 height3 metal isotope-item " >
+
+
+                    <div class="image_load_gold">
+                        <img src="../../../images/photo_gallery/kit_2.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+
+                </div>
+                <div class="element alkali metal  height2 isotope-item">
+
+
+                    <div class="image_load_bronze">
+                        <img src="../../../images/photo_gallery/kit_3.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element halogen metal  width2 height2 isotope-item">
+
+
+                    <div class="image_load_silvier">
+                        <img src="../../../images/photo_gallery/kit_2.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element metalloid metal width2 height3 isotope-item">
+
+
+                    <div class="image_load_gold">
+                        <img src="../../../images/photo_gallery/kit_1.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element alkali metal  width2 height2 isotope-item">
+
+
+                    <div class="image_load_silvier">
+                        <img src="../../../images/photo_gallery/kit_2.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element alkali metal width2 height3 isotope-item">
+
+
+                    <div class="image_load_gold">
+                        <img src="../../../images/photo_gallery/kit_3.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+                <div class="element noble-gas metal  height2 isotope-item">
+
+
+                    <div class="image_load_bronze">
+                        <img src="../../../images/photo_gallery/kit_5.jpg" />
+                    </div>
+
+                    <div class='comments'>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" language="JavaScript" src="../../../js/search.js"></script>
+<script type="text/javascript" language="JavaScript" src="../../../js/home.js"></script>

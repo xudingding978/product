@@ -1,0 +1,62 @@
+server {
+	set $app_directory	/home/devbox/NetBeansProjects/bds-v3.1/app_searchengine;
+	# set $host_path 		"/home/devbox/NetBeansProjects/bds-v3.1/app_searchengine";
+	set 			$yii_bootstrap "index.php";
+
+	if ($host ~* admin\.(.*)){
+	  set $app_directory	"/home/devbox/NetBeansProjects/bds-v3.1/app_administrator";	
+	}
+	if ($host ~* admin\.(.*)){
+	  set $app_directory	"/home/devbox/NetBeansProjects/bds-v3.1/app_authority";	
+	}  
+	if ($host ~* dashboard\.(.*)) {
+	  set $app_directory	"/home/devbox/NetBeansProjects/bds-v3.1/app_dashboard";
+	}
+	if ($host ~* www\.(.*)) {
+	  set $app_directory	"/home/devbox/NetBeansProjects/bds-v3.1/app_searchengine";
+	}
+	if ($host ~* account\.(.*)) {
+	  set $app_directory	"/home/devbox/NetBeansProjects/bds-v3.1/app_useraccount";
+	}
+	
+	listen			80;
+	server_name 		_;
+	charset 		utf-8;
+	root 			$app_directory;
+
+	location / {
+	      index  		index.html $yii_bootstrap;
+	      try_files 	$uri $uri/ /$yii_bootstrap?$args;
+	}
+
+	location ~ ^/(protected|framework|themes/\w+/views) {
+	      deny  all;
+	}
+
+	location ~ \.(js|css|png|jpg|gif|swf|ico|pdf|mov|fla|zip|rar)$ {
+	      try_files 	$uri =404;
+	}
+
+	location ~ \.php$ {
+		fastcgi_split_path_info ^(.+\.php)(/.+)$;
+
+		#let yii catch the calls to unexising PHP files
+
+		set $fsn /$yii_bootstrap;
+		if (-f $document_root$fastcgi_script_name){
+		    set $fsn $fastcgi_script_name;
+		}
+
+		fastcgi_pass unix:/var/run/php5-fpm.sock;
+		include fastcgi_params;
+
+		#PATH_INFO and PATH_TRANSLATED can be omitted, but RFC 3875 specifies them for CGI
+
+		fastcgi_param  PATH_INFO        $fastcgi_path_info;
+		fastcgi_param  PATH_TRANSLATED  $document_root$fsn;
+	}
+	
+	location ~ /\.ht {
+		deny  all;
+	}
+}

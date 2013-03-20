@@ -61,7 +61,7 @@ return CMap::mergeArray(
                 'application.models.*',
                 'application.components.*',
                 'application.modules.auth.*',
-                'application.modules.auth.components.*',
+       
             ),
             'modules' => array(
                 'auth' => array(

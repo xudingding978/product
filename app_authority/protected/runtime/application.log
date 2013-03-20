@@ -150,3 +150,18 @@ Stack trace:
 REQUEST_URI=/tenant/view/
 HTTP_REFERER=http://authority.develop.devbox1/tenant/index/
 ---
+2013/03/21 08:51:01 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_v3.1_admin' doesn't exist. The SQL statement executed was: SHOW FULL COLUMNS FROM `db_v3`.`1_admin`.
+in /home/devbox/NetBeansProjects/bds-v3.1/app_authority/index.php (13)
+2013/03/21 08:51:01 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_v3.1_admin' doesn't exist. The SQL statement executed was: SHOW FULL COLUMNS FROM `db_v3`.`1_admin`.
+in /home/devbox/NetBeansProjects/bds-v3.1/app_authority/index.php (13)
+2013/03/21 11:44:10 [error] [exception.CHttpException.401] exception 'CHttpException' with message 'Access denied.' in /home/devbox/NetBeansProjects/bds-v3.1/app_authority/protected/modules/auth/AuthModule.php:123
+Stack trace:
+#0 /home/devbox/NetBeansProjects/bds-v3.1/common/protected/lib/Yii/web/CController.php(263): AuthModule->beforeControllerAction(Object(AssignmentController), Object(CInlineAction))
+#1 /home/devbox/NetBeansProjects/bds-v3.1/common/protected/lib/Yii/web/CWebApplication.php(282): CController->run('')
+#2 /home/devbox/NetBeansProjects/bds-v3.1/common/protected/lib/Yii/web/CWebApplication.php(141): CWebApplication->runController('auth/assignment')
+#3 /home/devbox/NetBeansProjects/bds-v3.1/common/protected/lib/Yii/base/CApplication.php(169): CWebApplication->processRequest()
+#4 /home/devbox/NetBeansProjects/bds-v3.1/app_authority/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/auth/assignment
+HTTP_REFERER=http://authority.develop.devbox1/
+---

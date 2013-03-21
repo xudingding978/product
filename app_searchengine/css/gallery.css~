@@ -183,7 +183,7 @@ root {
 
     /*set the padding, so that the content
       of the div is centered vertically*/
-    padding-top:15%;
+    padding-bottom:15%;
   }
 
   

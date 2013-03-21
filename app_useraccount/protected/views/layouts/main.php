@@ -27,7 +27,7 @@
             </div><!-- header -->
             <?php
             $this->widget('bootstrap.widgets.TbNavbar', array(
-                'brand' => 'Title',
+                'brand' => 'My Account',
                 'brandOptions' => array('style' => 'width:auto;margin-left: 0px;'),
                 'fixed' => 'top',
                 'htmlOptions' => array('style' => 'position:absolute'),

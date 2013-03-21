@@ -58,10 +58,11 @@ return CMap::mergeArray(
                 'common.components.auth.*',
                 'common.extensions.*',
                 'common.models.*',
+                'common.tests.*',
                 'application.models.*',
                 'application.components.*',
                 'application.modules.auth.*',
-                'application.modules.auth.components.*',
+       
             ),
             'modules' => array(
                 'auth' => array(
@@ -76,7 +77,7 @@ return CMap::mergeArray(
                     'class' => 'system.gii.GiiModule',
                     'password' => 'Pa55word',
                     // If removed, Gii defaults to localhost only. Edit carefully to taste.
-                    'ipFilters' => array('127.0.0.1', '::1'),
+                    'ipFilters' => array('127.0.0.1', '::1', '192.168.1.36'),
                     'generatorPaths' => array(
                         'bootstrap.gii'
                     ),
@@ -133,15 +134,7 @@ return CMap::mergeArray(
                     'rules' => $params['url.rules']
                 ),
                 // Gii Connection String
- //               'db' => array(
- //                   'class' => 'CDbConnection',
- //                   'connectionString' => 'mysql:host=db.business-software.co.nz;dbname=db_v3.1_live',
-  //                  'username' => 'db_user',
-  //                  'password' => 'Pa55word',
- //                   'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
- //                   'enableParamLogging' => YII_DEBUG,
- //                   'charset' => 'utf8'
- //               ),
+
                 'db' => array(
                     'class' => 'CDbConnection',
                     'connectionString' => $params['db_admin.connectionString'],

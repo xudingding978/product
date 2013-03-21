@@ -20,7 +20,7 @@
 
     <body>
 
-        <div class="container" id="page" style="margin-top: 50px;" >
+        <div class="container-old" id="page" style="margin-top: 50px; width:100%" >
 
             <div id="header">
                 <div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
@@ -29,10 +29,10 @@
             // build out login/logout string
 
             if (Yii::app()->user->isGuest) {
-                $_user_label = 'Login'; 
-                $_user_url = '/site/login'; 
+                $_user_label = 'Login';
+                $_user_url = '/site/login';
             } else {
-                $_user_label = 'Logout (' . Yii::app()->user->name . ')'; 
+                $_user_label = 'Logout (' . Yii::app()->user->name . ')';
                 $_user_url = '/site/logout';
             }
 
@@ -48,7 +48,21 @@
                         'class' => 'bootstrap.widgets.TbMenu',
                         'items' => array(
                             array('label' => 'Home', 'url' => '/', 'active' => true),
-                            array('label' => 'Tenants', 'url' => '/tenants'),
+                            array('label' => 'Users', 'url' => '/user/admin', 'items' => array(
+                                    array('label' => 'Actions'),
+                                    '---',
+                                    array('label' => 'View Users', 'url' => '/user/'),
+                                    array('label' => 'Create Users', 'url' => '/user/create'),
+                                    array('label' => 'Manage Users', 'url' => '/user/admin'),
+                                    array('label' => 'Manage User Profiles', 'url' => '/userProfile/admin'),
+                                )),
+                            array('label' => 'Tenants', 'url' => '/tenant', 'items' => array(
+                                    array('label' => 'Actions'),
+                                    '---',
+                                    array('label' => 'View Tenants', 'url' => '/tenant/'),
+                                    array('label' => 'Create Tenants', 'url' => '/tenant/create'),
+                                    array('label' => 'Manage Tenants', 'url' => '/tenant/admin'),
+                                )),
                             array('label' => 'Authority', 'url' => '/auth', 'items' => array(
                                     array('label' => 'Actions'),
                                     '---',
@@ -57,7 +71,7 @@
                                     array('label' => 'Tasks', 'url' => '/auth/task'),
                                     array('label' => 'Operations', 'url' => '/auth/operation'),
                                 )),
-                            array('label'=>$_user_label, 'url' =>$_user_url)
+                            array('label' => $_user_label, 'url' => $_user_url)
                         )
                     )
                 )
@@ -83,8 +97,9 @@
                 ));
                 ?><!-- breadcrumbs -->
             <?php endif ?>
-
-            <?php echo $content; ?>
+            <div class="row-fluid">
+                <?php echo $content; ?>
+            </div>
 
             <div class="clear"></div>
 

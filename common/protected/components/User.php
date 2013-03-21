@@ -14,6 +14,8 @@
  */
 class User extends CActiveRecord {
 
+    public $repeatPassword;
+
     /**
      * Returns the static model of the specified AR class.
      * @return User the static model class
@@ -38,8 +40,11 @@ class User extends CActiveRecord {
         return array(
             array('TENANT_REC_ID', 'numerical', 'integerOnly' => true),
             array('USER_NAME, EMAIL_ADDRESS', 'length', 'max' => 255),
+            array('USER_NAME', 'unique'),
             array('PWD_HASH', 'length', 'max' => 512),
             array('REC_DATETIME, REC_TIMESTAMP', 'safe'),
+            array('PWD_HASH', 'compare', 'compareAttribute' => 'repeatPassword'),
+            array('repeatPassword', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('REC_ID, REC_DATETIME, REC_TIMESTAMP, TENANT_REC_ID, USER_NAME, PWD_HASH, EMAIL_ADDRESS', 'safe', 'on' => 'search'),
@@ -53,8 +58,7 @@ class User extends CActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'tenant' => array(self::BELONGS_TO, 'Tenant', 'REC_ID'),
-            'userprofiles' => array(self::HAS_MANY, 'UserProfile', 'USER_REC_ID'),
+            'tENANT_REC' => array(self::BELONGS_TO, 'TplTenant', 'TENANT_REC_ID'),
         );
     }
 

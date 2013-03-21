@@ -7,18 +7,18 @@ $this->pageTitle = Yii::app()->name;
 <?php
 $this->widget('bootstrap.widgets.TbCarousel', array(
     'items' => array(
-        array('image' => '../../../images/kichen_a.jpg'),
-        array('image' => '../../../images/kichen_b.jpg'),
-        array('image' => '../../../images/kichen_c.jpg'),
-        array('image' => '../../../images/kichen_d.jpg'),
-        array('image' => '../../../images/kichen_e.jpg'),
-        array('image' => '../../../images/kichen_c.jpg'),
-        array('image' => '../../../images/kichen_f.jpg'),
-        array('image' => '../../../images/kichen_g.jpg'),
-        array('image' => '../../../images/kichen_h.jpg'),
-        array('image' => '../../../images/kichen_i.jpg'),
-        array('image' => '../../../images/kichen_j.jpg'),
-        array('image' => '../../../images/kichen_k.jpg'),
+        array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_a.jpg'),
+        array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_b.jpg'),
+        array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_c.jpg'),
+        array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_d.jpg'),
+        array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_e.jpg'),
+        array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_f.jpg'),
+        array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_g.jpg'),
+        array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_h.jpg'),
+        array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_i.jpg'),
+        array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_j.jpg'),
+        array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_c.jpg'),
+        array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_k.jpg'),
     ),
 ));
 ?>
@@ -27,21 +27,22 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
 <script>
 
 
-
+    var data_value = null;
     function Set()
     {
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             url: '<?php echo CController::createUrl('Site/GetDataFromItemtable'); ?>',
             dataType: 'json',
             success: function(data) {
+        //        data_value = data;
                 getValue(data);
             }
         });
     }
     function getValue(data) {
 
-        for (var key in data) {
+    //    if (data_value !== null) {
 
 
             var image_src = data[key]['IMAGE_URL'];
@@ -77,11 +78,12 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
     }
 
 
+  
 
 
     window.onload = Set();
     $(document).ready(function() {
-
+	Set();
         $(window).scroll(function() {
             console.log($(this).scrollTop());
             if ($(this).scrollTop() >= ($(document).height() - $(window).height() - 100)) {
@@ -95,6 +97,10 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
         });
     });
 
+
+
+
+  
 </script>
 
 
@@ -120,5 +126,17 @@ $this->widget('bootstrap.widgets.TbButton', array(
         </div>
     </div>
 </div>
+
+ <div id="loading" class="loading-invisible">
+  <p> <img src="../../../images/loader.gif" /></p>
+</div>
+
+<script type="text/javascript">
+  document.getElementById("loading").className = "loading-visible";
+  var hideDiv = function(){document.getElementById("loading").className = "loading-invisible";};
+  var oldLoad = window.onload;
+  var newLoad = oldLoad ? function(){hideDiv.call(this);oldLoad.call(this);} : hideDiv;
+  window.onload = newLoad;
+</script>
 
 <script type="text/javascript" language="JavaScript" src="../../../js/search.js"></script>

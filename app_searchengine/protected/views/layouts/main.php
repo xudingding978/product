@@ -21,7 +21,7 @@
             <title><?php echo 'search engine' ?></title>
             <link rel="stylesheet" type="text/css" href="../../../css/customstyle.php" /> 
             <link rel="stylesheet" href="../../../css/font-awesome.min.css">
-            <script type="text/javascript" language="JavaScript" src="../../../js/jquery-latest.min.js"></script>
+            <script type="text/javascript" language="JavaScript" src="../../../js/jquery-1.7.1.min.js"></script>
             <script type="text/javascript" language="JavaScript" src="../../../js/jquery.isotope.min.js"></script>
 
                 <script type="text/javascript">
@@ -172,6 +172,7 @@
                     </div><!-- mainmenu -->
 
 
+                    
                     <?php if (isset($this->breadcrumbs)): ?>
                         <?php
                         $this->widget('zii.widgets.CBreadcrumbs', array(

@@ -53,8 +53,8 @@ class User extends CActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'rEC' => array(self::BELONGS_TO, 'TplTenant', 'REC_ID'),
-            'tpl_user_profiles' => array(self::HAS_MANY, 'TplUserProfile', 'USER_REC_ID'),
+            'tenant' => array(self::BELONGS_TO, 'Tenant', 'REC_ID'),
+            'userprofile' => array(self::HAS_MANY, 'UserProfile', 'USER_REC_ID'),
         );
     }
 

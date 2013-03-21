@@ -1,32 +1,43 @@
 <?php
 
 /**
- * This is the model class for table "tpl_user".
+ * This is the model class for table "tpl_listing".
  *
- * The followings are the available columns in table 'tpl_user':
+ * The followings are the available columns in table 'tpl_listing':
  * @property integer $REC_ID
  * @property string $REC_DATETIME
  * @property string $REC_TIMESTAMP
- * @property integer $TENANT_REC_ID
- * @property string $USER_NAME
- * @property string $PWD_HASH
- * @property string $EMAIL_ADDRESS
+ * @property integer $LISTING_TYPE_REC_ID
+ * @property integer $ITEM_ID
+ *
+ * The followings are the available model relations:
+ * @property ListingType $lISTINGTYPEREC
  */
-class User extends CActiveRecord {
+class Listing extends CActiveRecord {
+
+    public $listingType;
 
     /**
      * Returns the static model of the specified AR class.
-     * @return User the static model class
+     * @param string $className active record class name.
+     * @return Listing the static model class
      */
     public static function model($className = __CLASS__) {
         return parent::model($className);
     }
 
     /**
+     * @return CDbConnection database connection
+     */
+    public function getDbConnection() {
+        return Yii::app()->db_live;
+    }
+
+    /**
      * @return string the associated database table name
      */
     public function tableName() {
-        return 'tpl_user';
+        return 'tpl_listing';
     }
 
     /**
@@ -36,13 +47,12 @@ class User extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('TENANT_REC_ID', 'numerical', 'integerOnly' => true),
-            array('USER_NAME, EMAIL_ADDRESS', 'length', 'max' => 255),
-            array('PWD_HASH', 'length', 'max' => 512),
+            array('REC_ID', 'required'),
+            array('REC_ID, LISTING_TYPE_REC_ID, ITEM_ID', 'numerical', 'integerOnly' => true),
             array('REC_DATETIME, REC_TIMESTAMP', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('REC_ID, REC_DATETIME, REC_TIMESTAMP, TENANT_REC_ID, USER_NAME, PWD_HASH, EMAIL_ADDRESS', 'safe', 'on' => 'search'),
+            array('REC_ID, REC_DATETIME, REC_TIMESTAMP, LISTING_TYPE_REC_ID, ITEM_ID', 'safe', 'on' => 'search'),
         );
     }
 
@@ -53,8 +63,7 @@ class User extends CActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'tenant' => array(self::BELONGS_TO, 'Tenant', 'REC_ID'),
-            'userprofiles' => array(self::HAS_MANY, 'UserProfile', 'USER_REC_ID'),
+            'lISTINGTYPEREC' => array(self::BELONGS_TO, 'ListingType', 'LISTING_TYPE_REC_ID'),
         );
     }
 
@@ -66,10 +75,8 @@ class User extends CActiveRecord {
             'REC_ID' => 'Rec',
             'REC_DATETIME' => 'Rec Datetime',
             'REC_TIMESTAMP' => 'Rec Timestamp',
-            'TENANT_REC_ID' => 'Tenant Rec',
-            'USER_NAME' => 'User Name',
-            'PWD_HASH' => 'Pwd Hash',
-            'EMAIL_ADDRESS' => 'Email Address',
+            'LISTING_TYPE_REC_ID' => 'Listing Type Rec',
+            'ITEM_ID' => 'Item',
         );
     }
 
@@ -82,32 +89,14 @@ class User extends CActiveRecord {
         // should not be searched.
 
         $criteria = new CDbCriteria;
-
         $criteria->compare('REC_ID', $this->REC_ID);
-
         $criteria->compare('REC_DATETIME', $this->REC_DATETIME, true);
-
         $criteria->compare('REC_TIMESTAMP', $this->REC_TIMESTAMP, true);
-
-        $criteria->compare('TENANT_REC_ID', $this->TENANT_REC_ID);
-
-        $criteria->compare('USER_NAME', $this->USER_NAME, true);
-
-        $criteria->compare('PWD_HASH', $this->PWD_HASH, true);
-
-        $criteria->compare('EMAIL_ADDRESS', $this->EMAIL_ADDRESS, true);
-
-        return new CActiveDataProvider('User', array(
+        $criteria->compare('LISTING_TYPE_REC_ID', $this->LISTING_TYPE_REC_ID);
+        $criteria->compare('ITEM_ID', $this->ITEM_ID);
+        return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
-    }
-
-    public function check($value) {
-        //     $new_hash = crypt($value, $this->pwd_hash);
-        if ($value == $this->PWD_HASH) {
-            return true;
-        }
-        return false;
     }
 
 }

@@ -55,6 +55,7 @@ return CMap::mergeArray(
             // autoloading model and component classes
             'import' => array(
                 'common.components.*',
+                'common.components.auth.*',
                 'common.extensions.*',
                 'common.models.*',
                 'common.modules.*',

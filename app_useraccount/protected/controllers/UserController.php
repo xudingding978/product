@@ -52,9 +52,13 @@ class UserController extends Controller {
      * @param integer $id the ID of the model to be displayed
      */
     public function actionView($id) {
-        $this->render('view', array(
-            'model' => $this->loadModel($id),
-        ));
+        if (Yii::app()->user->id == $id) {
+            $this->render('view', array(
+                'model' => $this->loadModel($id),
+            ));
+        } else {
+            $this->redirect(Yii::app()->user->id);
+        }
     }
 
     /**
@@ -71,8 +75,12 @@ class UserController extends Controller {
             $model->attributes = $_POST['User'];
             $model->REC_DATETIME = new CDbExpression('NOW()');
             $model->REC_TIMESTAMP = new CDbExpression('NOW()');
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->REC_ID));
+            if ($model->save()) {
+                $identity = new CommonUserIdentity($model->USER_NAME, $model->PWD_HASH);
+                $identity->authenticate();
+                Yii::app()->user->login($identity, 0);
+                //    $this->redirect(array('view', 'id' => $model->REC_ID));
+            }
         }
 
         $this->render('create', array(
@@ -86,7 +94,15 @@ class UserController extends Controller {
      * @param integer $id the ID of the model to be updated
      */
     public function actionUpdate($id) {
-        $model = $this->loadModel($id);
+
+        if (Yii::app()->user->id == $id) {
+            $model = $this->loadModel($id);
+            $this->render('update', array(
+                'model' => $model,
+            ));
+        } else {
+            $this->redirect(Yii::app()->user->id);
+        }
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -96,10 +112,6 @@ class UserController extends Controller {
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->REC_ID));
         }
-
-        $this->render('update', array(
-            'model' => $model,
-        ));
     }
 
     /**

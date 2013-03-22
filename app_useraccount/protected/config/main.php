@@ -59,13 +59,16 @@ return CMap::mergeArray(
                 'common.components.*',
                 'common.components.auth.*',
                 'common.extensions.*',
+                'common.modules.*',
+                'common.modules.hybridauth.*',
                 'common.models.*',
                 'application.models.*',
                 'application.components.*',
             ),
             'modules' => array(
                 'hybridauth' => array(
-                    //   'baseUrl' => 'http://account.business-software.co.nz/hybridauth',
+//   'baseUrl' => 'http://account.business-software.co.nz/hybridauth',
+                //    'class' => 'common.modules.hybridauth.*',
                     'baseUrl' => 'http://' . $_SERVER['HTTP_HOST'] . '/hybridauth',
                     'withYiiUser' => false, // Set to true if using yii-user
                     "providers" => array(
@@ -74,7 +77,7 @@ return CMap::mergeArray(
                         ),
                         "Yahoo" => array(
                             "enabled" => true,
-                             "keys" => array("Key" => "dj0yJmk9U2FlYXZIelpuQTNoJmQ9WVdrOVpqVlJVakpQTXpZbWNHbzlNVFUyTURVM01qVTJNZy0tJnM9Y29uc3VtZXJzZWNyZXQmeD1mOQ--", "secret" => "0ad41773d20dc1208bfdb54204a3e5bba043c073"),
+                            "keys" => array("Key" => "dj0yJmk9U2FlYXZIelpuQTNoJmQ9WVdrOVpqVlJVakpQTXpZbWNHbzlNVFUyTURVM01qVTJNZy0tJnM9Y29uc3VtZXJzZWNyZXQmeD1mOQ--", "secret" => "0ad41773d20dc1208bfdb54204a3e5bba043c073"),
                         ),
                         "Google" => array(
                             "enabled" => true,
@@ -109,7 +112,7 @@ return CMap::mergeArray(
             // application components
             'components' => array(
                 'user' => array(
-                    // enable cookie-based authentication
+// enable cookie-based authentication
                     'allowAutoLogin' => true,
                     //        'class' => 'MyWebUser',
                     'class' => 'AuthWebUser',
@@ -173,7 +176,7 @@ return CMap::mergeArray(
                     'charset' => 'utf8'
                 ),
                 'errorHandler' => array(
-                    // use 'site/error' action to display errors
+// use 'site/error' action to display errors
                     'errorAction' => 'site/error',
                 ),
                 'log' => array(
@@ -184,7 +187,7 @@ return CMap::mergeArray(
                             'levels' => 'error, warning',
                         ),
                         // uncomment the following to show log messages on web pages
-                        ///*
+///*
                         array(
                             'class' => 'CWebLogRoute',
                         ),

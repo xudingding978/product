@@ -7,6 +7,7 @@
  */
 class CommonUserIdentity extends CUserIdentity {
 
+    private $_id;
     /**
      * Authenticates a user.
      * The example implementation makes sure if the username and password
@@ -16,19 +17,7 @@ class CommonUserIdentity extends CUserIdentity {
      * @return boolean whether authentication succeeds.
      */
     public function authenticate() {
-//        $users = array(
-//            // username => password
-//            'demo' => 'demo',
-//            'admin' => 'admin',
-//            'test' => 'admin',
-//        );
-//        if (!isset($users[$this->username]))
-//            $this->errorCode = self::ERROR_USERNAME_INVALID;
-//        elseif ($users[$this->username] !== $this->password)
-//            $this->errorCode = self::ERROR_PASSWORD_INVALID;
-//        else
-//            $this->errorCode = self::ERROR_NONE;
-//        return !$this->errorCode;
+
         $user = User::model()
                 ->findByAttributes(array(
             'USER_NAME' => $this->username
@@ -37,11 +26,22 @@ class CommonUserIdentity extends CUserIdentity {
             $this->errorCode = self::ERROR_USERNAME_INVALID;
         else
         if ($user->check($this->password)) {
+            $this->_id = $user->REC_ID;
+
             $this->errorCode = self::ERROR_NONE;
-        }
-        else
+        } else {
+
+
+
+            //         $_SESSION['user_REC_ID'] = $user->REC_ID;
             $this->errorCode = self::ERROR_PASSWORD_INVALID;
+        }
+
         return !$this->errorCode;
+    }
+
+    public function getId() {
+        return $this->_id;
     }
 
 }

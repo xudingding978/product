@@ -75,5 +75,26 @@ $this->widget('zii.widgets.grid.CGridView', array(
         ),
     ),
 ));
+
+    $this->widget('bootstrap.widgets.TbExtendedGridView', array(
+    'filter'=>$model,
+    'fixedHeader' => true,
+    'headerOffset' => 40, // 40px is the height of the main navigation at bootstrap
+    'type'=>'striped bordered',
+    'dataProvider' => $model->search(),
+    'template' => "{items}",
+    'columns' =>array(
+        'REC_ID',
+        'REC_DATETIME',
+        'REC_TIMESTAMP',
+        'NAME',
+        'DESCRIPTION',
+        'LAST_INVOICE_ID',
+        'LAST_ORDER_ID',
+        'LAST_TRANSACTION_ID',
+        array(
+            'class' => 'CButtonColumn',
+        ))
+    ));
 $this->endWidget();
 ?>

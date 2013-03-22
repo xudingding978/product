@@ -25,11 +25,15 @@ class SiteController extends Controller {
      * when an action is not explicitly requested by users.
      */
     public function actionIndex() {
-        
+
         // renders the view file 'protected/views/site/index.php'
         // using the default layout 'protected/views/layouts/main.php'
-       $this->render('index');
-    //   $this->defaultLogin();
+        if (!Yii::app()->user->isGuest) {
+            $this->redirect('user/view/'.Yii::app()->user->id);
+        } else {
+            $this->render('index');
+        }
+        //   $this->defaultLogin();
     }
 
     /**
@@ -43,7 +47,6 @@ class SiteController extends Controller {
                 $this->render('error', $error);
         }
     }
-
 
     /**
      * Displays the login page

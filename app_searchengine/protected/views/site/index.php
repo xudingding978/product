@@ -26,94 +26,10 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
 
 <script>
 
-
-    var data_value = null;
-    function Set()
-    {
-        $.ajax({
-            type: 'GET',
-            url: '<?php echo CController::createUrl('Site/GetDataFromItemtable'); ?>',
-            dataType: 'json',
-            success: function(data) {
-                
-                getValue(data);
-            }
-        });
-    }
-
-    function loading()
-    {
-        document.getElementById('display_loading').style.display = 'block';
-        document.getElementById('loading_img').style.display = 'none';
-
-
-            var image_src = data[key]['IMAGE_URL'];
-            var des_src = data[key]['DESCRIPTION'];
-            //     var img = new getNewImg(image_src);
- 
-
-
-
-            d = document.createElement('div');
-            $(d).html('text');
-            $("#container").append($(d));
-        }
-    }
-
-
-    function getNewImg(src)
-
-    {
-        var img = new Image();
-        img.onload = function() {
-            console.log(this.width + 'x' + this.height);
-        };
-        img.src = src;
-        return img;
-
-    }
-
-    function findHHandWW() {
-        imgHeight = this.height;
-        imgWidth = this.width;
-        return true;
-    }
-
-
-
-
-
-    window.onload = Set();
-    $(document).ready(function() {
-        Set();
-        $(window).scroll(function() {
-            console.log($(this).scrollTop());
-            if ($(this).scrollTop() >= ($(document).height() - $(window).height() - 100)) {
-                var body_tag_css = {
-                    "opacity": "1"
-                }
-                $(".loading").css(body_tag_css).fadeIn("slow");
-                Set();
-            }
-            //   $(".loading").removeClass(body_tag_css).fadeOut("slow"); 
-        });
-    });
-
-
-
-
-
 </script>
 
 
-<?php
-$this->widget('bootstrap.widgets.TbButton', array(
-    'label' => 'Primary',
-    'type' => 'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size' => 'large', // null, 'large', 'small' or 'mini'
-    'htmlOptions' => array('onclick' => 'Set();'),
-));
-?>
+
 <div class="loading"></div>
 
 

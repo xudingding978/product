@@ -35,14 +35,16 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
             url: '<?php echo CController::createUrl('Site/GetDataFromItemtable'); ?>',
             dataType: 'json',
             success: function(data) {
-        //        data_value = data;
+                
                 getValue(data);
             }
         });
     }
-    function getValue(data) {
 
-    //    if (data_value !== null) {
+    function loading()
+    {
+        document.getElementById('display_loading').style.display = 'block';
+        document.getElementById('loading_img').style.display = 'none';
 
 
             var image_src = data[key]['IMAGE_URL'];
@@ -78,12 +80,12 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
     }
 
 
-  
+
 
 
     window.onload = Set();
     $(document).ready(function() {
-	Set();
+        Set();
         $(window).scroll(function() {
             console.log($(this).scrollTop());
             if ($(this).scrollTop() >= ($(document).height() - $(window).height() - 100)) {
@@ -100,9 +102,8 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
 
 
 
-  
-</script>
 
+</script>
 
 
 <?php
@@ -115,28 +116,34 @@ $this->widget('bootstrap.widgets.TbButton', array(
 ?>
 <div class="loading"></div>
 
-<div id="" class="group">
-    <div class="group"> 
-        <div id='categories'>
 
-            <div id="container" class="variable-sizes clearfix isotope">
 
             </div>
 
+            </div>
+            <div id='loading_img'  class='loading_img' >
+                <img class='loading_img_position' src="../../../images/loader.gif" />
+            </div>
         </div>
     </div>
+
 </div>
 
- <div id="loading" class="loading-invisible">
-  <p> <img src="../../../images/loader.gif" /></p>
+<div id="loading" class="loading-invisible">
+    <p> <img src="../../../images/loader.gif" /></p>
 </div>
 
 <script type="text/javascript">
-  document.getElementById("loading").className = "loading-visible";
-  var hideDiv = function(){document.getElementById("loading").className = "loading-invisible";};
-  var oldLoad = window.onload;
-  var newLoad = oldLoad ? function(){hideDiv.call(this);oldLoad.call(this);} : hideDiv;
-  window.onload = newLoad;
+    document.getElementById("loading").className = "loading-visible";
+    var hideDiv = function() {
+        document.getElementById("loading").className = "loading-invisible";
+    };
+    var oldLoad = window.onload;
+    var newLoad = oldLoad ? function() {
+        hideDiv.call(this);
+        oldLoad.call(this);
+    } : hideDiv;
+    window.onload = newLoad;
 </script>
 
 <script type="text/javascript" language="JavaScript" src="../../../js/search.js"></script>

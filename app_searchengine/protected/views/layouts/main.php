@@ -102,7 +102,8 @@
                             <h4>TRENDS</h4>
                         </div>
 
-                        <div class="modal-body">
+                        <div class="modal-body" style='word-wrap:break-word' >
+                            <p>description_description_description_description_description_description_description_description_description_description</p>
                             <?PHP
                             $this->widget('bootstrap.widgets.TbButtonGroup', array(
                                 'size' => 'large',

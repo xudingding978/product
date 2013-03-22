@@ -304,6 +304,7 @@ top:50%;
     height: 1100px;
     padding: 15px;
     overflow-y: auto;
+
 }
 
 

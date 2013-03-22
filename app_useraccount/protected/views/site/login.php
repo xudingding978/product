@@ -11,8 +11,7 @@ $this->breadcrumbs = array(
 
 
 
-<?php $this->widget('common.modules.hybridauth.widgets.renderProviders'); ?>
-
+<?php $this->widget('app_useraccount.protected.modules.hybridauth.widgets.renderProviders');  ?>
 <h1>Login</h1>
 
 <p>Please fill out the following form with your login credentials:</p>

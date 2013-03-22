@@ -5,11 +5,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="language" content="en" />
         <link href='http://fonts.googleapis.com/css?family=Archivo+Narrow' rel='stylesheet' type='text/css'>
-            
+
             <link media="screen, projection" rel="stylesheet" href="../../../css/reset-new.css"/>
-            
-           
-          
+
+
+
 
 
             <link media="screen, projection" rel="stylesheet" href="../../../css/gallery.css"/>
@@ -21,8 +21,8 @@
             <title><?php echo 'search engine' ?></title>
             <link rel="stylesheet" type="text/css" href="../../../css/customstyle.php" /> 
             <link rel="stylesheet" href="../../../css/font-awesome.min.css">
-            <script type="text/javascript" language="JavaScript" src="../../../js/jquery-1.7.1.min.js"></script>
-            <script type="text/javascript" language="JavaScript" src="../../../js/jquery.isotope.min.js"></script>
+                <script type="text/javascript" language="JavaScript" src="../../../js/jquery-1.7.1.min.js"></script>
+                <script type="text/javascript" language="JavaScript" src="../../../js/jquery.isotope.min.js"></script>
 
                 <script type="text/javascript">
 
@@ -94,9 +94,40 @@
 
 
                     <div id="mainmenu">
+
+                        <?php $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModal')); ?>
+
+                        <div class="modal-header">
+                            <a class="close" data-dismiss="modal">×</a>
+                            <h4>TRENDS</h4>
+                        </div>
+
+                        <div class="modal-body" style='word-wrap:break-word' >
+                            <p>description_description_description_description_description_description_description_description_description_description</p>
+                            <?PHP
+                            $this->widget('bootstrap.widgets.TbButtonGroup', array(
+                                'size' => 'large',
+                                'type' => 'inverse', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+                                'buttons' => array(
+                                    array('label' => 'Facebook', 'items' => array(
+                                            array('label' => 'Google', 'url' => '#'),
+                                            array('label' => 'Yahool', 'url' => '#'),
+                                            array('label' => 'QQ', 'url' => '#'),
+                                            array('label' => 'Twitter', 'url' => '#'),
+                                            array('label' => 'Sina', 'url' => '#'),
+                                        )),
+                                ),
+                            ));
+                            ?>
+                        </div>
+
+                        <div class="modal-footer">
+
+                        </div>
+                        <?php $this->endWidget(); ?>
+
                         <?php
                         if (Yii::app()->user->isGuest) {
-
                             $this->widget('bootstrap.widgets.TbNavbar', array(
                                 'brand' => '<img class="logonew"  height="29px" src ="../../../images/landing-trends.png"/>',
                                 //    'collapse' => 'true',
@@ -115,12 +146,27 @@
                                                 )),
                                         )
                                     ),
+//                                    array(
+//                                        'class' => 'bootstrap.widgets.TbButton',
+//                                        'label' => 'Login',
+//                                        'type' => 'primary',
+//                                        'size' => 'large',
+//                                        'htmlOptions' => array(
+//                                            'class' => 'pull-right',
+//                                            'data-toggle' => 'modal',
+//                                            'data-target' => '#myModal',
+//                                        ),
+//                                    )
                                     array(
                                         'class' => 'bootstrap.widgets.TbMenu',
-                                        'htmlOptions' => array('class' => 'pull-right'),
+                                        'htmlOptions' => array(
+                                            'class' => 'pull-right',
+                                            'data-toggle' => 'modal',
+                                            'data-target' => '#myModal',
+                                        ),
                                         'items' => array(
                                             array('label' => 'Login',
-                                                'url' => array('/site/login')),
+                                                'url' => array('#')),
                                         )
                                     )
                                 )
@@ -164,15 +210,15 @@
                         }
                         ?>
 
-<!--                        <div class="smallIcon">
-                            <a class="icon_a" href='javascript:content_panel.update("/search/index-gallery.php")'><i class="icon-th icon-2x" ></i></a>
-                            <a class="icon_b" href='javascript:content_panel.update("/search/index-list.php")'><i class="icon-list-ul  icon-2x" ></i></a>
-                            <a href="#" class="icon_c" ><i class="icon-search icon-2x" ></i></a>
-                        </div>-->
+                        <!--                        <div class="smallIcon">
+                                                    <a class="icon_a" href='javascript:content_panel.update("/search/index-gallery.php")'><i class="icon-th icon-2x" ></i></a>
+                                                    <a class="icon_b" href='javascript:content_panel.update("/search/index-list.php")'><i class="icon-list-ul  icon-2x" ></i></a>
+                                                    <a href="#" class="icon_c" ><i class="icon-search icon-2x" ></i></a>
+                                                </div>-->
                     </div><!-- mainmenu -->
 
 
-                    
+
                     <?php if (isset($this->breadcrumbs)): ?>
                         <?php
                         $this->widget('zii.widgets.CBreadcrumbs', array(

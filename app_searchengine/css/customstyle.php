@@ -7,8 +7,7 @@ $bootstrap_widget_header_color = '#111';
 $text_color = '#rgb(222,222,222)';
 ?>
 
-<?php   
-
+<?php
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// header and title parts  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ?>
 
@@ -194,8 +193,8 @@ margin: -40px 0px 0px 1050px;
 }
 
 .navbar .nav.loging_table {
-    float: right;
-    margin: -26px 0px 0px 0px;
+float: right;
+margin: -26px 0px 0px 0px;
 }
 .loging_table >.dropdown>.dropdown-toggle>.caret {
 positison:absolute;
@@ -206,26 +205,26 @@ margin-left: 180px;
 
 .dropdown-menu li > a:hover, .dropdown-menu li > a:focus, .dropdown-submenu:hover > a {
 
-    background-image: linear-gradient(to bottom, rgb(0, 136, 204), rgb(0, 119, 179));
-    background-repeat: repeat-x;
+background-image: linear-gradient(to bottom, rgb(0, 136, 204), rgb(0, 119, 179));
+background-repeat: repeat-x;
 }
 
 
 .dropdown-menu .active > a {
-    color: rgb(51, 51, 51);
-    text-decoration: none;
-    background-color: rgb(0, 129, 194);
-    background-image:none;
-    background-repeat: repeat-x;
-    outline: 0px none;
+color: rgb(51, 51, 51);
+text-decoration: none;
+background-color: rgb(0, 129, 194);
+background-image:none;
+background-repeat: repeat-x;
+outline: 0px none;
 }
 
 
 .smallIcon{
-    position:absolute;
-    margin: 0px 0 0 1030px;
-    display:none;
-    width:200px;
+position:absolute;
+margin: 0px 0 0 1030px;
+display:none;
+width:200px;
 }
 
 .smallIcon a, .smallIcon a:visited, .smallIcon a:active {color:rgb(235,235,235); ; text-decoration:none;}
@@ -236,69 +235,81 @@ margin-left: 180px;
 
 }
 .icon_b{
-    margin: 0 0 0 22px;
+margin: 0 0 0 22px;
 
 }
 .icon_c{
-    margin: 0 0 0 24px;
+margin: 0 0 0 24px;
 
 }
 
 
 .navbar .nav li.dropdown > .dropdown-toggle .caret {
-    border-top-color: white;
-    border-bottom-color:white;
+border-top-color: white;
+border-bottom-color:white;
 }
 
 
 .carousel .active {
-    left: 0px;
-    height: 650px;
+left: 0px;
+height: 650px;
 }
 
 
 
 .carousel .item > img {
-    display: block;
-    line-height: 1;
-    width: 1980px;
+display: block;
+line-height: 1;
+width: 1980px;
 }
 
 
 h2 {
-    font-family: Arial,Helvetica,sans-serif;
-    font-size: 14px;
-    font-weight: bold;
+font-family: Arial,Helvetica,sans-serif;
+font-size: 14px;
+font-weight: bold;
 }
 
 
 
 .carousel {
-    position: relative;
-    margin-bottom: 20px;
-    line-height: 1;
-    min-width:769px;
+position: relative;
+margin-bottom: 20px;
+line-height: 1;
+min-width:769px;
 }
 
 .navbar-fixed-top {
-    margin-bottom: 0px;
+margin-bottom: 0px;
+}
+
+
+.navbar .btn, .navbar .btn-group {
+margin-top: -30px;
+}
+
+.modal.fade {
+top:50%;
+
+}
+
+
+.modal-backdrop {
+
+    background-color: rgba(255, 255, 255,0.8);
+}
+
+
+.modal-body {
+    height: 1100px;
+    padding: 15px;
+    overflow-y: auto;
 }
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-<?php   
-
+<?php
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// isotope parts   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ?>

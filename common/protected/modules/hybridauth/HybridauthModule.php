@@ -38,7 +38,8 @@ class HybridauthModule extends CWebModule {
     public function getAssetsUrl() {
         if ($this->_assetsUrl === null) {
             $this->_assetsUrl = Yii::app()->getAssetManager()->publish(
-                    Yii::getPathOfAlias('application.modules.hybridauth.assets')
+                    //Yii::getPathOfAlias('application.modules.hybridauth.assets')
+                    Yii::getPathOfAlias('common.modules.hybridauth.assets')
             );
         }
         return $this->_assetsUrl;

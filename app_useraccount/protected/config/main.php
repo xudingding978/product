@@ -65,6 +65,7 @@ return CMap::mergeArray(
             ),
             'modules' => array(
                 'hybridauth' => array(
+                    'class' => 'common.modules.hybridauth.HybridauthModule',
                     //   'baseUrl' => 'http://account.business-software.co.nz/hybridauth',
                     'baseUrl' => 'http://' . $_SERVER['HTTP_HOST'] . '/hybridauth',
                     'withYiiUser' => false, // Set to true if using yii-user

@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "tpl_directory".
+ * This is the model class for table "{{directory}}".
  *
- * The followings are the available columns in table 'tpl_directory':
+ * The followings are the available columns in table '{{directory}}':
  * @property integer $REC_ID
  * @property integer $TENANT_ID
  * @property string $REC_DATETIME
@@ -14,19 +14,19 @@
  * @property integer $IS_DEFAULT
  *
  * The followings are the available model relations:
- * @property TplBrandDirectory[] $tplBrandDirectories
- * @property TplDirectoryPeriod[] $tplDirectoryPeriods
- * @property TplDomainDirectory[] $tplDomainDirectories
- * @property TplListing[] $tplListings
- * @property TplShadowSupplierCategoryProduct[] $tplShadowSupplierCategoryProducts
- * @property TplSupplierCategoryProduct[] $tplSupplierCategoryProducts
+ * @property BrandDirectory[] $brandDirectories
+ * @property DirectoryPeriod[] $directoryPeriods
+ * @property DomainDirectory[] $domainDirectories
+ * @property Listing[] $listings
+ * @property ShadowSupplierCategoryProduct[] $shadowSupplierCategoryProducts
+ * @property SupplierCategoryProduct[] $supplierCategoryProducts
  */
-class TplDirectory extends CActiveRecord
+class Directory extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return TplDirectory the static model class
+	 * @return Directory the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -34,11 +34,19 @@ class TplDirectory extends CActiveRecord
 	}
 
 	/**
+	 * @return CDbConnection database connection
+	 */
+	public function getDbConnection()
+	{
+		return Yii::app()->db_live;
+	}
+
+	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'tpl_directory';
+		return '{{directory}}';
 	}
 
 	/**
@@ -67,12 +75,12 @@ class TplDirectory extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'tplBrandDirectories' => array(self::HAS_MANY, 'TplBrandDirectory', 'DIRECTORY_REC_ID'),
-			'tplDirectoryPeriods' => array(self::HAS_MANY, 'TplDirectoryPeriod', 'DIRECTORY_REC_ID'),
-			'tplDomainDirectories' => array(self::HAS_MANY, 'TplDomainDirectory', 'DIRECTORY_ID'),
-			'tplListings' => array(self::HAS_MANY, 'TplListing', 'DIRECTORY_ID'),
-			'tplShadowSupplierCategoryProducts' => array(self::HAS_MANY, 'TplShadowSupplierCategoryProduct', 'DIRECTORY_REC_ID'),
-			'tplSupplierCategoryProducts' => array(self::HAS_MANY, 'TplSupplierCategoryProduct', 'DIRECTORY_REC_ID'),
+			'brandDirectories' => array(self::HAS_MANY, 'BrandDirectory', 'DIRECTORY_REC_ID'),
+			'directoryPeriods' => array(self::HAS_MANY, 'DirectoryPeriod', 'DIRECTORY_REC_ID'),
+			'domainDirectories' => array(self::HAS_MANY, 'DomainDirectory', 'DIRECTORY_ID'),
+			'listings' => array(self::HAS_MANY, 'Listing', 'DIRECTORY_ID'),
+			'shadowSupplierCategoryProducts' => array(self::HAS_MANY, 'ShadowSupplierCategoryProduct', 'DIRECTORY_REC_ID'),
+			'supplierCategoryProducts' => array(self::HAS_MANY, 'SupplierCategoryProduct', 'DIRECTORY_REC_ID'),
 		);
 	}
 

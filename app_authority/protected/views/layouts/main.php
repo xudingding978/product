@@ -32,11 +32,16 @@
                 $_user_label = 'Login';
                 $_user_url = '/site/login';
             } else {
-                $_user_label = 'Logout (' . Yii::app()->user->name . ')';
+                $_user_label = 'Logout (' . Yii::app()->user->name . ') (uid:'.Yii::app()->user->id.')';
                 $_user_url = '/site/logout';
             }
-
-            $this->widget('bootstrap.widgets.TbNavbar', array(
+            function checkTest(){
+                return $test = true;
+            }
+            
+            //build the menu array
+            
+            $menu_top= array(
                 'brand' => 'Authority',
                 'brandOptions' => array('style' => 'width:auto;margin-left: 0px;'),
                 'brandUrl' => '#',
@@ -47,7 +52,15 @@
                     array(
                         'class' => 'bootstrap.widgets.TbMenu',
                         'items' => array(
-                            array('label' => 'Home', 'url' => '/', 'active' => true),
+                            array('label' => 'Apps', 'url' => '/', 'active' => true, 'items'=>array(
+                                array('label' => 'Applications'),
+                                    '---',
+                                    array('label' => Yii::app()->user->checkAccess('userUpdate') ? Yii::app()->user->checkAccess('user') : 'FalseTest', 'url' => '/text'),
+                                    array('label' => 'User Account', 'url' => 'http://account.' . $_SERVER['REQUEST_URI']),
+                                    array('label' => 'Search Engine', 'url' => 'http://www.' . $_SERVER['HTTP_HOST']),
+                                    array('label' => 'Dashboard', 'url' => 'http://dashboard.' . $_SERVER['HTTP_HOST']),
+                                    array('label' => 'Administrator', 'url' => 'http://admin.' . $_SERVER['HTTP_HOST']),
+                            )),
                             array('label' => 'Users', 'url' => '/user/admin', 'items' => array(
                                     array('label' => 'Actions'),
                                     '---',
@@ -73,9 +86,9 @@
                                 )),
                             array('label' => $_user_label, 'url' => $_user_url)
                         )
-                    )
-                )
-            ));
+                    )));
+
+            $this->widget('bootstrap.widgets.TbNavbar', $menu_top );
             ?>
             <div id="mainmenu">
                 <?php
@@ -85,7 +98,7 @@
                         array('label' => 'About', 'url' => array('/site/page', 'view' => 'about')),
                         array('label' => 'Contact', 'url' => array('/site/contact')),
                         array('label' => 'Login', 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
-                        array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
+                        array('label' => 'Logout (' . Yii::app()->user->name . ') (uid:'.Yii::app()->user->id.')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
                     ),
                 ));
                 ?>

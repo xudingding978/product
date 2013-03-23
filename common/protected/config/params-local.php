@@ -26,6 +26,7 @@
 return array(
     'env.code' => 'private',
     // DB connection configurations
+    'tablePrefix' => 'tpl_',
     // live database
     'db_live.name' => 'db_live',
     'db_live.connectionString' => 'mysql:host=db.business-software.co.nz;dbname=db_v3.1_live',

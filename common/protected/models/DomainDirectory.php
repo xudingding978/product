@@ -12,7 +12,7 @@
  * @property TplDomains $dOMAIN
  * @property TplDirectory $dIRECTORY
  */
-class TplDomainDirectory extends CActiveRecord
+class DomainDirectory extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

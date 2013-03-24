@@ -57,7 +57,8 @@ class UserController extends Controller {
                 'model' => $this->loadModel($id),
             ));
         } else {
-            $this->redirect(Yii::app()->user->id);
+
+            $this->redirect(array('view', 'id' => Yii::app()->user->id));
         }
     }
 
@@ -96,10 +97,6 @@ class UserController extends Controller {
     public function actionUpdate($id) {
 
 
-
-
-
-
         $model = $this->loadModel($id);
 
         if (isset($_POST['User'])) {
@@ -114,7 +111,7 @@ class UserController extends Controller {
                 'model' => $model,
             ));
         } else {
-            $this->redirect(Yii::app()->user->id);
+            $this->redirect(array('update', 'id' => Yii::app()->user->id));
         }
 
         // Uncomment the following line if AJAX validation is needed

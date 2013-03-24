@@ -37,18 +37,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'BUSINESS_NAME'); ?>
-		<?php echo $form->textField($model,'BUSINESS_NAME',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'USERNAME'); ?>
-		<?php echo $form->textField($model,'USERNAME',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'TRADING_AS_NAME'); ?>
-		<?php echo $form->textField($model,'TRADING_AS_NAME',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->label($model,'CLIENT_NAME'); ?>
+		<?php echo $form->textField($model,'CLIENT_NAME',array('size'=>60,'maxlength'=>255)); ?>
 	</div>
 
 	<div class="row">
@@ -67,8 +57,18 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->label($model,'LAST_LOGIN_DATETIME'); ?>
+		<?php echo $form->textField($model,'LAST_LOGIN_DATETIME'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->label($model,'ACTIVATION_CODE'); ?>
 		<?php echo $form->textField($model,'ACTIVATION_CODE',array('size'=>45,'maxlength'=>45)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'TRADING_AS_NAME'); ?>
+		<?php echo $form->textField($model,'TRADING_AS_NAME',array('size'=>60,'maxlength'=>255)); ?>
 	</div>
 
 	<div class="row">

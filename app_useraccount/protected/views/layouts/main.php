@@ -44,12 +44,33 @@
             ));
             ?>
             <div id="mainmenu">
+
                 <?php
+                if (!Yii::app()->user->isGuest) {
+                    $clients = Client::model()->findAllByAttributes(array('USER_ID' => Yii::app()->user->getID()));
+                    $items = array();
+                    foreach ($clients as $c) {
+                        array_push($items, array('label' => $c->CLIENT_NAME, 'url' => '/client/view/' . $c->REC_ID));
+                    }
+                }
+                $this->widget('bootstrap.widgets.TbButtonGroup', array(
+                    'size' => 'large',
+                    'type' => 'inverse', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+                    'buttons' => array(
+                        array('label' => 'Manage Client',
+                            'visible' => !Yii::app()->user->isGuest,
+                            'items' => array(
+                                array('label' => 'Create a New Client Profile', 'url' => '/client/create'),
+                                array('label' => 'Login your Client',
+                                    'items' => $items)
+                            )),
+                    ),
+                ));
                 $this->widget('zii.widgets.CMenu', array(
                     'items' => array(
                         array('label' => 'Login', 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
                         array('label' => 'register', 'url' => array('/user/create'), 'visible' => Yii::app()->user->isGuest),
-                        array('label' => 'to be a client', 'url' => array('/user/create'), 'visible' => !Yii::app()->user->isGuest),
+                        // array('label' => 'to be a client', 'url' => array('/client/create'), 'visible' => !Yii::app()->user->isGuest),
                         array('label' => 'Edit Your Profile', 'url' => array('/user/update/' . Yii::app()->user->id), 'visible' => !Yii::app()->user->isGuest),
                         array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
                     ),

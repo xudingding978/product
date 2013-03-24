@@ -51,23 +51,20 @@ class LoadAuthCommand extends CConsoleCommand {
         $auth->createOperation('DirectoryPeriodDelete', 'delete a directory periods');
         
 // directory period offers actions
-        $auth->createOperation('PublisherAdmin', 'admin access to publishers');
-        $auth->createOperation('PublisherIndex', 'index of publishers');
-        $auth->createOperation('PublisherCreate', 'create a publisher');
-        $auth->createOperation('PublisherView', 'read a publisher');
-        $auth->createOperation('PublisherUpdate', 'update a publisher');
-        $auth->createOperation('PublisherDelete', 'delete a publisher');
+        $auth->createOperation('DirectoryPeriodAdmin', 'admin access to directory period offers');
+        $auth->createOperation('DirectoryPeriodIndex', 'index of directory period offers');
+        $auth->createOperation('DirectoryPeriodCreate', 'create a directory period offers');
+        $auth->createOperation('DirectoryPeriodView', 'read a directory period offers');
+        $auth->createOperation('DirectoryPeriodUpdate', 'update a directory period offers');
+        $auth->createOperation('DirectoryPeriodDelete', 'delete a directory period offers');
 
-        // wish actions
-        $auth->createOperation('WishAdmin', 'admin access to wishes');
-        $auth->createOperation('WishIndex', 'index of wishes');
-        $auth->createOperation('WishCreate', 'create a wish');
-        $auth->createOperation('WishView', 'read a wish');
-        $auth->createOperation('WishUpdate', 'update a wish');
-        $auth->createOperation('WishDelete', 'delete a wish');
-        $auth->createOperation('WishClaim', 'claim a wish');
-        $auth->createOperation('WishRemoveAuthor', 'remove an author from a wish');
-        $auth->createOperation('WishCreateAuthor', 'create an author for a wish');
+// directory domains actions
+        $auth->createOperation('DirectoryDomainAdmin', 'admin access to directory domains');
+        $auth->createOperation('DirectoryDomainIndex', 'index of directory domains');
+        $auth->createOperation('DirectoryDomainCreate', 'create a directory domains');
+        $auth->createOperation('DirectoryDomainView', 'read a directory domains');
+        $auth->createOperation('DirectoryDomainUpdate', 'update a directory domains');
+        $auth->createOperation('DirectoryDomainDelete', 'delete a directory domains');
 
         // library actions
         $auth->createOperation('LibraryIndex', 'index of library');

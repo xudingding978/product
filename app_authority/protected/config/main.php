@@ -62,7 +62,6 @@ return CMap::mergeArray(
                 'application.models.*',
                 'application.components.*',
                 'application.modules.auth.*',
-       
             ),
             'modules' => array(
                 'auth' => array(
@@ -77,7 +76,7 @@ return CMap::mergeArray(
                     'class' => 'system.gii.GiiModule',
                     'password' => 'Pa55word',
                     // If removed, Gii defaults to localhost only. Edit carefully to taste.
-                    'ipFilters' => array('127.0.0.1', '::1', '192.168.1.36'),
+                    'ipFilters' => array('127.0.0.1', '::1', '192.168.1.35'),
                     'generatorPaths' => array(
                         'bootstrap.gii'
                     ),
@@ -134,7 +133,6 @@ return CMap::mergeArray(
                     'rules' => $params['url.rules']
                 ),
                 // Gii Connection String
-
                 'db' => array(
                     'class' => 'CDbConnection',
                     'connectionString' => $params['db_admin.connectionString'],
@@ -142,7 +140,9 @@ return CMap::mergeArray(
                     'password' => $params['db_admin.password'],
                     'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
                     'enableParamLogging' => YII_DEBUG,
-                    'charset' => 'utf8'
+                    'charset' => 'utf8',
+                    'tablePrefix' => $params['tablePrefix']
+                    
                 ),
                 'db_live' => array(
                     'class' => 'CDbConnection',
@@ -151,7 +151,8 @@ return CMap::mergeArray(
                     'password' => $params['db_live.password'],
                     'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
                     'enableParamLogging' => YII_DEBUG,
-                    'charset' => 'utf8'
+                    'charset' => 'utf8',
+                    'tablePrefix' => $params['tablePrefix']
                 ),
                 'errorHandler' => array(
                     // use 'site/error' action to display errors

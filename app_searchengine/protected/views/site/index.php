@@ -110,7 +110,7 @@ var des_src;
              img.user_photo="";
              img.like="";
              img.onload = loading;
-           //  loading();
+ //            loading();
            
          
             console.log("imgHeight : "+imgHeight+" "+"this.height : "+this.height+" "+image_src);

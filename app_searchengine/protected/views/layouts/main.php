@@ -9,9 +9,6 @@
             <link media="screen, projection" rel="stylesheet" href="../../../css/reset-new.css"/>
 
 
-
-
-
             <link media="screen, projection" rel="stylesheet" href="../../../css/gallery.css"/>
             <link rel="stylesheet" type="text/css" href="../../../css/main.css" />    
 
@@ -195,8 +192,8 @@
                                                 )),
                                         )
                                     ),
-                                    '<img id="asdas" class="loging_image"  height="29px" src ="' . $userProfile->PHOTO_URL . '"/>',
-                                    '<p class="loging_text">Hi!!   ' . $userProfile->DISPLAY_NAME . ' </p>',
+//                                    '<img id="asdas" class="loging_image"  height="29px" src ="' . $userProfile->PHOTO_URL . '"/>',
+//                                    '<p class="loging_text">Hi!!   ' . $userProfile->DISPLAY_NAME . ' </p>',
                                     array(
                                         'class' => 'bootstrap.widgets.TbMenu',
                                         'htmlOptions' => array('class' => 'loging_table'),

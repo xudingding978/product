@@ -39,9 +39,8 @@ class UrlPickerTest{
         $result = ""; 
         
         for ($i = 0; $i < sizeof($inputArrary); $i++) {       
- 
-            
-             $urlPicker = new UrlPicker;   
+             
+            $urlPicker = new UrlPicker;   
             $result = $urlPicker->shortenURL($inputArrary[$i]);  
             $testResult['ActurlOutput'] = $result; 
             $testResult['ExpectedOutput'] = $expectedOutputArray[$i];    
@@ -52,7 +51,6 @@ class UrlPickerTest{
             }
             array_push($resultList, $testResult); 
         }  
-
         
         if (count($resultList)>0) { 
             echo'<pre>'; 

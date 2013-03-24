@@ -16,15 +16,39 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'REC_DATETIME'); ?>
+		<?php echo $form->textField($model,'REC_DATETIME'); ?>
+		<?php echo $form->error($model,'REC_DATETIME'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'REC_TIMESTAMP'); ?>
+		<?php echo $form->textField($model,'REC_TIMESTAMP'); ?>
+		<?php echo $form->error($model,'REC_TIMESTAMP'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'TENANT_REC_ID'); ?>
+		<?php echo $form->textField($model,'TENANT_REC_ID'); ?>
+		<?php echo $form->error($model,'TENANT_REC_ID'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'USER_NAME'); ?>
-		<?php echo $form->textField($model,'USER_NAME',array('size'=>20,'maxlength'=>20)); ?>
+		<?php echo $form->textField($model,'USER_NAME',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'USER_NAME'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'PWD_HASH'); ?>
-		<?php echo $form->textField($model,'PWD_HASH',array('size'=>34,'maxlength'=>34)); ?>
+		<?php echo $form->textField($model,'PWD_HASH',array('size'=>60,'maxlength'=>512)); ?>
 		<?php echo $form->error($model,'PWD_HASH'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'EMAIL_ADDRESS'); ?>
+		<?php echo $form->textField($model,'EMAIL_ADDRESS',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'EMAIL_ADDRESS'); ?>
 	</div>
 
 	<div class="row buttons">

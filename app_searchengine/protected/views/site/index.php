@@ -1,4 +1,3 @@
-
 <?php
 /* @var $this SiteController */
 
@@ -26,9 +25,11 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
 
 
 <script>
-
-
-    var data_value = null;
+var imgHeight;
+var imgWidth;
+var image_src;
+var des_src;
+ var des_src_array = new Array();
     function Set()
     {
         $.ajax({
@@ -46,39 +47,31 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
     {
         document.getElementById('display_loading').style.display = 'block';
         document.getElementById('loading_img').style.display = 'none';
-
-    }
-        function switch_loading()
-    {
-        document.getElementById('display_loading').style.display = 'none';
-        document.getElementById('loading_img').style.display = 'block';
-
-    }
-    function getValue(data) {
-
-        //    if (data_value !== null) {
-
-        for (var key in data) {
-
-            var img = new Image();
-
-            var image_src = data[key]['IMAGE_URL'];
-            var des_src = data[key]['DESCRIPTION'];
-            img.onload = loading;
-            img.src = image_src;
-//            var temp = img.height;
-
-            var image_height = img.height / img.width * 180;
+        
+        
+         imgHeight = this.height;
+         imgWidth = this.width;
+         console.log("this.height : "+this.height+" "+imgHeight+" "+image_src);
+         
+                   <?PHP
+    $dependency = new CDbCacheDependency('SELECT * FROM `tpl_user_profile` `t` WHERE `t`.`USER_REC_ID`=93 LIMIT 1');
+    $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(array('USER_REC_ID' => 93));
+?>
+         
+         
+         
+           var image_height =  this.height /  this.width * 180;
 
             var element_height = image_height + 160;
-            console.log(key + ' ' + img.height);
-            console.log(element_height);
-<?PHP $userProfile = UserProfile::model()->findByAttributes(array('USER_REC_ID' => 93)); ?>
+//            console.log(key + ' ' + img.height);
+//            console.log(element_height);
+
+
             var $newItems = $('<div class="element alkali metal   isotope-item"  style="height:' + element_height + 'px"> \n\
             <div id="image_container"  style="left: 15px;  top: 30px; width: 180px;height:' + image_height + 'px"> \n\
-                    <img src=' + image_src + ' />\n\
+                    <img src=' + this.src + ' />\n\
             </div>\n\
-            <p style="left: 15px;  bottom: 100px;">' + des_src + '</p>\n\
+            <p style="left: 15px;  bottom: 100px;">' + this.description + '</p>\n\
             <a href="#" style="left: 15px;  bottom: 78px; width:55px;white-space: nowrap;"><k class="icon-heart-empty"></k> <p style="left: 20px; ">12</p></a>\n\
             <a href="#" style="left: 75px;  bottom: 78px;width:55px;white-space: nowrap;"><k class="icon-comment-alt"></k> <p style="left: 20px; ">6</p></a>\n\
             <a href="#" style="left: 135px;  bottom: 78px;width:55px;white-space: nowrap;"><k class="icon-save"></k><p style="left: 20px; ">66</p></a>\n\
@@ -89,13 +82,43 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
             </div>');
 
             $('#container').append($newItems).isotope('insert', $newItems);
+         
+         
+         
+         return true;
+
+    }
+    function switch_loading()
+    {
+        document.getElementById('display_loading').style.display = 'none';
+        document.getElementById('loading_img').style.display = 'block';
+
+    }
+
+    function getValue(data) {
+
+
+
+        for (var key in data) {
+            var img = new Image();
+
+
+            image_src = data[key]['IMAGE_URL'];
+            des_src = data[key]['DESCRIPTION'];
+             img.src = image_src;
+             img.description=des_src;
+             img.user_photo="";
+             img.like="";
+             img.onload = loading;
+ //            loading();
+           
+         
+            console.log("imgHeight : "+imgHeight+" "+"this.height : "+this.height+" "+image_src);
+
+
 
         }
-//        }else{
-//
-//             document.write("no data avaleble!!");
-//
-//        }
+
 
     }
 
@@ -144,7 +167,7 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
 
 
 <div id="" class="group">
-    <div class="group">
+    <div class="group"> 
         <div id='categories'>
 
             <div id="container" class="variable-sizes clearfix isotope">
@@ -155,12 +178,12 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                                        <img src="../../../images/photo_gallery/kit_1.jpg" />
                                    </div>
                                    <div id="test2" class='comments'>
-
+               
                                    </div>
                                </div>
-
-
-
+               
+               
+              
                               </div>
                 -->
 
@@ -208,6 +231,3 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
 </script>
 
 <script type="text/javascript" language="JavaScript" src="../../../js/search.js"></script>
- 
-
- 

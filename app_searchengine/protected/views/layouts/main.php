@@ -7,13 +7,7 @@
         <link href='http://fonts.googleapis.com/css?family=Archivo+Narrow' rel='stylesheet' type='text/css'>
 
             <link media="screen, projection" rel="stylesheet" href="../../../css/reset-new.css"/>
-<<<<<<< HEAD
-=======
 
-
-
-
->>>>>>> ee0e124ea988e29354ff65ae66c7eb02563bc9d3
 
             <link media="screen, projection" rel="stylesheet" href="../../../css/gallery.css"/>
             <link rel="stylesheet" type="text/css" href="../../../css/main.css" />    
@@ -84,9 +78,14 @@
                                 $('.smallIcon').fadeOut();
                             }
                         });
-
-
+                             $('#myModal').attr( 'aria-hidden', 'false' );
+                             $('#myModal').attr("style", "display:none");
+                       //      document.getElementById('myModal').style.display = 'none';
                     });
+                    
+                  
+                    
+                    
                 </script>
                 </head>
 
@@ -101,7 +100,7 @@
                         <?php $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModal')); ?>
 
                         <div class="modal-header">
-                            <a class="close" data-dismiss="modal">×</a>
+                            <a class="close" data-dismiss="modal">X</a>
                             <h4>TRENDS</h4>
                         </div>
 

@@ -81,9 +81,14 @@
                                 $('.smallIcon').fadeOut();
                             }
                         });
-
-
+                             $('#myModal').attr( 'aria-hidden', 'false' );
+                             $('#myModal').attr("style", "display:none");
+                       //      document.getElementById('myModal').style.display = 'none';
                     });
+                    
+                  
+                    
+                    
                 </script>
                 </head>
 
@@ -98,7 +103,7 @@
                         <?php $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModal')); ?>
 
                         <div class="modal-header">
-                            <a class="close" data-dismiss="modal">×</a>
+                            <a class="close" data-dismiss="modal">X</a>
                             <h4>TRENDS</h4>
                         </div>
 

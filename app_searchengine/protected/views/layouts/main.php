@@ -222,7 +222,7 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                                             <li  onclick="Sina();" ><a style="color:rgb(138,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Sina</a></li>
                                             <li  onclick="Google();" ><a style="color:rgb(138,23,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Google+</a></li>
                                             <li  onclick="Twitter();" ><a style="color:rgb(55,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Twitter</a></li>
-                                            <li  onclick="Email();" ><a style="color:rgb(90,168,32)" href="#"><i class="icon-plane icon-large"></i>Sign in with Email</a></li>
+                                            <li  onclick="dismiss_modal();" ><a style="color:rgb(90,168,32)" href="#"><i class="icon-plane icon-large"></i>Sign in with Email</a></li>
                                         </ul>
                                     </div>
 
@@ -255,7 +255,7 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                                             <li  onclick="Sina();" ><a style="color:rgb(138,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Sina</a></li>
                                             <li  onclick="Google();" ><a style="color:rgb(138,23,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Google+</a></li>
                                             <li  onclick="Twitter();" ><a style="color:rgb(55,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Twitter</a></li>
-                                            <li  onclick="Email();" ><a style="color:rgb(90,168,32)" href="#"><i class="icon-plane icon-large"></i>Sign in with Email</a></li>
+
                                         </ul>
                                     </div>
                                     <p style="margin-left:350px;">Don't have an account yet?</p>
@@ -389,7 +389,7 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                                             <li  onclick="Sina();" ><a style="color:rgb(138,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Sina</a></li>
                                             <li  onclick="Google();" ><a style="color:rgb(138,23,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Google+</a></li>
                                             <li  onclick="Twitter();" ><a style="color:rgb(55,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Twitter</a></li>
-                                            <li  onclick="Email();" ><a style="color:rgb(90,168,32)" href="#"><i class="icon-plane icon-large"></i>Sign in with Email</a></li>
+  
                                         </ul>
                                     </div>
                                     <p>Don't worry , we'll never post without your permission.</p>

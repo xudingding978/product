@@ -11,9 +11,11 @@
         <!--[if lt IE 8]>
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
         <![endif]-->
+            <link rel="stylesheet" href="../../../css/font-awesome.min.css">
 
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
+        
 
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     </head>
@@ -46,9 +48,9 @@
             <div id="mainmenu">
 
                 <?php
+                $items = array();
                 if (!Yii::app()->user->isGuest) {
                     $clients = Client::model()->findAllByAttributes(array('USER_ID' => Yii::app()->user->getID()));
-                    $items = array();
                     foreach ($clients as $c) {
                         array_push($items, array('label' => $c->CLIENT_NAME, 'url' => '/client/view/' . $c->REC_ID));
                     }

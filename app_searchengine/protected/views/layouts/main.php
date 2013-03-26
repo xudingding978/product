@@ -8,12 +8,8 @@
 
             <link media="screen, projection" rel="stylesheet" href="../../../css/reset-new.css"/>
 
-
             <link media="screen, projection" rel="stylesheet" href="../../../css/gallery.css"/>
             <link rel="stylesheet" type="text/css" href="../../../css/main.css" />    
-
-
-
 
             <title><?php echo 'search engine' ?></title>
             <link rel="stylesheet" type="text/css" href="../../../css/customstyle.php" /> 
@@ -78,14 +74,14 @@
                                 $('.smallIcon').fadeOut();
                             }
                         });
-                             $('#myModal').attr( 'aria-hidden', 'false' );
-                             $('#myModal').attr("style", "display:none");
-                       //      document.getElementById('myModal').style.display = 'none';
+                        $('#myModal').attr('aria-hidden', 'false');
+                        $('#myModal').attr("style", "display:none");
+                        //      document.getElementById('myModal').style.display = 'none';
                     });
-                    
-                  
-                    
-                    
+
+
+
+
                 </script>
                 </head>
 
@@ -148,17 +144,7 @@
                                                 )),
                                         )
                                     ),
-//                                    array(
-//                                        'class' => 'bootstrap.widgets.TbButton',
-//                                        'label' => 'Login',
-//                                        'type' => 'primary',
-//                                        'size' => 'large',
-//                                        'htmlOptions' => array(
-//                                            'class' => 'pull-right',
-//                                            'data-toggle' => 'modal',
-//                                            'data-target' => '#myModal',
-//                                        ),
-//                                    )
+
                                     array(
                                         'class' => 'bootstrap.widgets.TbMenu',
                                         'htmlOptions' => array(

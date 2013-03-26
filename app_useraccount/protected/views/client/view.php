@@ -6,18 +6,26 @@ $this->breadcrumbs = array(
     'Clients' => array('index'),
     $model->REC_ID,
 );
+$items = array();
+if (!Yii::app()->user->isGuest) {
+    $listings = ShadowListing::model()->findAllByAttributes(array('CLIENT_REC_ID' => $model->REC_ID));
+    foreach ($listings as $c) {
+        array_push($items, array('label' => $c->DESCRIPTION, 'url' => '#' . $c->REC_ID));
+    }
+}
 
 $this->menu = array(
-    //array('label'=>'List Client', 'url'=>array('index')),
-    //array('label'=>'Create Client', 'url'=>array('create')),
+//array('label'=>'List Client', 'url'=>array('index')),
+//array('label'=>'Create Client', 'url'=>array('create')),
     array('label' => 'Update Client', 'url' => array('update', 'id' => $model->REC_ID)),
-    //array('label'=>'Delete Client', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->REC_ID),'confirm'=>'Are you sure you want to delete this item?')),
-    //array('label'=>'Manage Client', 'url'=>array('admin')),
-    array('label' => 'Manage Your Listing', 'url' => '#'),
+    array('label' => 'Manage Your Listings', 'url' => array('ShadowListing/admin', 'id' => $model->REC_ID))
 );
+
+//array('label'=>'Delete Client', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->REC_ID),'confirm'=>'Are you sure you want to delete this item?')),
+//array('label'=>'Manage Client', 'url'=>array('admin')),
 ?>
 
-<h1>View Client #<?php echo $model->REC_ID; ?></h1>
+<h1>View Client <?php echo $model->REC_ID; ?></h1>
 
 <?php
 $this->widget('zii.widgets.CDetailView', array(

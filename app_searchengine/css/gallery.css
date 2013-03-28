@@ -584,7 +584,7 @@ body {
 
 
 .tile_img {
-    margin: -550px 0px 0px 34%;
+    margin: -370px 0px 0px 34%;
     position: absolute;
     color:white;
 }
@@ -623,7 +623,9 @@ a {
     left: 20px;
     top: 400px;
     color: black;
-    font-size: 32px; }
+    font-size: 32px; 
+    z-index:500;
+}
 
 .page-wrap {
     position: fixed;

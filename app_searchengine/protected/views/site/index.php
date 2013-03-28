@@ -23,6 +23,34 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
         array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_k.jpg'),
     ),
 ));
+?>
+
+
+<div class="tile_img" >
+    <div id="dd3" class="wrapper-dropdown-3" tabindex="1" style="margin-left:76%;">
+        <span>Select to login</span>
+        <ul class="dropdown" style="width:220px">
+            <li  onclick="Facebook();" ><a style="color:rgb(138,168,1)" href="#"><i class="icon-envelope icon-large"></i>Sign in with FaceBook</a></li>
+            <li  onclick="Yahoo();" ><a style="color:rgb(138,32,50)" href="#"><i class="icon-truck icon-large"></i>Sign in with Yahoo</a></li>
+            <li  onclick="QQ();" ><a style="color:rgb(32,168,34)" href="#"><i class="icon-plane icon-large"></i>Sign in with QQ</a></li>
+            <li  onclick="Sina();" ><a style="color:rgb(138,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Sina</a></li>
+            <li  onclick="Google();" ><a style="color:rgb(138,23,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Google+</a></li>
+            <li  onclick="Twitter();" ><a style="color:rgb(55,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Twitter</a></li>
+            <li  onclick="dismiss_modal_test();" ><a style="color:rgb(90,168,32)" href="#myModal"><i class="icon-plane icon-large"></i>Sign in with Email</a></li>
+        </ul>
+    </div>
+    <div class="title_text" >
+        <h1 >COLLECT YOUR ONLINE RESOURCE FOR KITCHENS,</h1>
+        <h1 >PRODUCTS, SERVICES & IDEAS</h1>
+        <p >Hundreds of videos, thousands of articles and tens of thousands of high quality images</p>
+        <p >from around the world showcasing: Architecture, Kitchen Design, Bathroom Design,</p>
+        <p >Interiors, Landscape Design and Commercial Design.</p>
+    </div>
+</div>
+
+
+
+<?php
     }else{
 ?>
 
@@ -246,27 +274,7 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
 if (Yii::app()->user->isGuest) {
     ?>
 
-<div class="tile_img" >
-    <div id="dd3" class="wrapper-dropdown-3" tabindex="1" style="margin-left:76%;">
-        <span>Select to login</span>
-        <ul class="dropdown" style="width:220px">
-            <li  onclick="Facebook();" ><a style="color:rgb(138,168,1)" href="#"><i class="icon-envelope icon-large"></i>Sign in with FaceBook</a></li>
-            <li  onclick="Yahoo();" ><a style="color:rgb(138,32,50)" href="#"><i class="icon-truck icon-large"></i>Sign in with Yahoo</a></li>
-            <li  onclick="QQ();" ><a style="color:rgb(32,168,34)" href="#"><i class="icon-plane icon-large"></i>Sign in with QQ</a></li>
-            <li  onclick="Sina();" ><a style="color:rgb(138,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Sina</a></li>
-            <li  onclick="Google();" ><a style="color:rgb(138,23,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Google+</a></li>
-            <li  onclick="Twitter();" ><a style="color:rgb(55,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Twitter</a></li>
-            <li  onclick="dismiss_modal_test();" ><a style="color:rgb(90,168,32)" href="#myModal"><i class="icon-plane icon-large"></i>Sign in with Email</a></li>
-        </ul>
-    </div>
-    <div class="title_text" >
-        <h1 >COLLECT YOUR ONLINE RESOURCE FOR KITCHENS,</h1>
-        <h1 >PRODUCTS, SERVICES & IDEAS</h1>
-        <p >Hundreds of videos, thousands of articles and tens of thousands of high quality images</p>
-        <p >from around the world showcasing: Architecture, Kitchen Design, Bathroom Design,</p>
-        <p >Interiors, Landscape Design and Commercial Design.</p>
-    </div>
-</div>
+
 
 <?php
 }

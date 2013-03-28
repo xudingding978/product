@@ -12,8 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="language" content="en" />
         <link href='http://fonts.googleapis.com/css?family=Archivo+Narrow' rel='stylesheet' type='text/css'>
-            <script type="text/javascript" language="JavaScript" src="../../../js/jquery-1.7.1.min.js"></script>
-            <script type="text/javascript" language="JavaScript" src="../../../js/jquery.isotope.min.js"></script>  
+
             <link media="screen, projection" rel="stylesheet" href="../../../css/reset-new.css"/>
 
 
@@ -24,7 +23,9 @@
 
 
             <title><?php echo 'search engine' ?></title>
-
+            <script type="text/javascript" language="JavaScript" src="../../../js/jquery-1.7.1.min.js"></script>
+            <script type="text/javascript" language="JavaScript" src="../../../js/jquery.isotope.min.js"></script>  
+            
             <link media="screen, projection" rel="stylesheet" type="text/css" href="../../../css/gallery.css"/>
 
             <link rel="stylesheet" type="text/css" href="../../../css/customstyle.php" /> 

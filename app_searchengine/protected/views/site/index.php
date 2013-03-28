@@ -298,7 +298,7 @@ if (Yii::app()->user->isGuest) {
     $this->widget('bootstrap.widgets.TbMenu', array(
         'htmlOptions' => array(
             'onclick' => 'testing2();',
-        //    'id'=>'dropdown_left',
+            'class'=>'dropdown_left',
         ),
         'items' => array(
             array('icon' => 'icon-eye-open icon-2x', 'url' => '#',  'htmlOptions' => array( 'class'=>'dropdown_123',), 'items' => array(
@@ -400,7 +400,7 @@ if (Yii::app()->user->isGuest) {
     }
     function testing2() {
 
-     //   $('.dropdown_left').attr("style", "margin:-170px 0px 0px 90px");
+        $('.dropdown_left >li:first-child>ul ').attr("style", "margin:-170px 0px 0px 90px");
 
     }
 

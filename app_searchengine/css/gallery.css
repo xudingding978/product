@@ -640,7 +640,7 @@ a {
     width: 10px;
     height: 70%;
     background: black;
-    overflow: hidden;
+  
     transition: width 0.3s ease; 
     opacity:0.4;
     -webkit-border-top-right-radius: 30px;

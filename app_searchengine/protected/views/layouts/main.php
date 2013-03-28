@@ -12,7 +12,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="language" content="en" />
         <link href='http://fonts.googleapis.com/css?family=Archivo+Narrow' rel='stylesheet' type='text/css'>
-
+            <script type="text/javascript" language="JavaScript" src="../../../js/jquery-1.7.1.min.js"></script>
+            <script type="text/javascript" language="JavaScript" src="../../../js/jquery.isotope.min.js"></script>  
             <link media="screen, projection" rel="stylesheet" href="../../../css/reset-new.css"/>
 
 
@@ -28,10 +29,10 @@
 
             <link rel="stylesheet" type="text/css" href="../../../css/customstyle.php" /> 
             <link rel="stylesheet" href="../../../css/font-awesome.min.css">
-                <script type="text/javascript" language="JavaScript" src="../../../js/jquery-1.7.1.min.js"></script>
-                <script type="text/javascript" language="JavaScript" src="../../../js/jquery.isotope.min.js"></script>
+
 
                 <script type="text/javascript">
+
 
                     function DropDown(el) {
                         this.dd = el;
@@ -98,15 +99,7 @@
                 </script>
                 <script type="text/javascript">
                     $(document).ready(function() {
-
-                        $(window).scroll(function() {
-
-                            if ($(this).scrollTop() > 150) {
-                                $('.smallIcon').fadeIn();
-                            } else {
-                                $('.smallIcon').fadeOut();
-                            }
-                        });
+                        $('#yw3 span').removeClass('caret');
                         $('#myModal').attr('aria-hidden', 'false');
                         $('#myModal').attr("style", "display:none");
 
@@ -120,8 +113,27 @@
                         $('#email_register').attr('aria-hidden', 'true');
                         $('#email_register').attr("style", "display:none");
 
+                        $(window).scroll(function() {
+                             if ($(this).scrollTop() == 0) {
+                            $('#discovery_search_bar_wrapper').attr('style', 'position:relative;margin-top: 40px;');
+                        }
+                          
+                            if ($(this).scrollTop() > 150) {
+                                $('.smallIcon').fadeIn();
+                            } else {
+                                $('.smallIcon').fadeOut();
+                            }
+                        });
+
                     });
                     function dismiss_modal() {
+                        $('#social_login').attr('aria-hidden', 'true');
+                        $('#social_login').attr("style", "display:none");
+                        $('#email_login').attr('aria-hidden', 'false');
+                        $('#email_login').attr("style", "display:block");
+
+                    }
+                    function dismiss_modal_test() {
                         $('#social_login').attr('aria-hidden', 'true');
                         $('#social_login').attr("style", "display:none");
                         $('#email_login').attr('aria-hidden', 'false');
@@ -147,7 +159,12 @@
                         $('#email_register').attr("style", "display:none");
 
                     }
+                    function show_search_bar() {
 
+
+                        $('#discovery_search_bar_wrapper').attr('style', 'position:fixed;margin-top: -30px;');
+
+                    }
 
 
 
@@ -389,10 +406,17 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                                             <li  onclick="Sina();" ><a style="color:rgb(138,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Sina</a></li>
                                             <li  onclick="Google();" ><a style="color:rgb(138,23,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Google+</a></li>
                                             <li  onclick="Twitter();" ><a style="color:rgb(55,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Twitter</a></li>
-  
+
                                         </ul>
                                     </div>
                                     <p>Don't worry , we'll never post without your permission.</p>
+                                    <?php
+                                    $this->widget('bootstrap.widgets.TbButton', array(
+                                        'label' => 'Bottom popover',
+                                        'type' => 'success',
+                                        'htmlOptions' => array('data-title' => 'A Title', 'data-placement' => 'bottom', 'data-content' => 'And here\'s some amazing content. It\'s very engaging. right?', 'rel' => 'popover'),
+                                    ));
+                                    ?>
 
                                     <span>Sign Up with your Email Address:</span>
 
@@ -539,6 +563,11 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                                                 )),
                                         )
                                     ),
+                                    '<div class="smallIcon">
+                                        <a class="icon_a" href="#"><i class="icon-th icon-2x" ></i></a>
+                                            <a class="icon_b" href="#")><i class="icon-list-ul  icon-2x" ></i></a>
+                                                <a href="#" class="icon_c" ><i class="icon-search icon-2x" ></i></a>
+                                                </div>',
                                     array(
                                         'class' => 'bootstrap.widgets.TbMenu',
                                         'htmlOptions' => array(
@@ -581,6 +610,11 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                                     ),
                                     '<img id="asdas" class="loging_image"  height="29px" src ="' . $user_img . '"/>',
                                     '<p class="loging_text">Hi!!   ' . $name . ' </p>',
+                                    '<div class="smallIcon">
+                                        <a class="icon_a" href="#"><i class="icon-th icon-2x" ></i></a>
+                                            <a class="icon_b" href="#")><i class="icon-list-ul  icon-2x" ></i></a>
+                                                <a class="icon_c" onclick="show_search_bar();"><i class="icon-search icon-2x" ></i></a>
+                                                </div>',
                                     array(
                                         'class' => 'bootstrap.widgets.TbMenu',
                                         'htmlOptions' => array('class' => 'loging_table'),
@@ -599,11 +633,7 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                         }
                         ?>
 
-                        <!--                        <div class="smallIcon">
-                                                    <a class="icon_a" href='javascript:content_panel.update("/search/index-gallery.php")'><i class="icon-th icon-2x" ></i></a>
-                                                    <a class="icon_b" href='javascript:content_panel.update("/search/index-list.php")'><i class="icon-list-ul  icon-2x" ></i></a>
-                                                    <a href="#" class="icon_c" ><i class="icon-search icon-2x" ></i></a>
-                                                </div>-->
+
                     </div><!-- mainmenu -->
 
 
@@ -624,6 +654,10 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                         Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
                         All Rights Reserved.<br/>
                         <?php echo Yii::powered(); ?>
+
+
+
+
                     </div><!-- footer -->
 
 

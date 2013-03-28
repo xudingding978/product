@@ -182,7 +182,7 @@ div.loading-visible{
     display:block;
 
     /*position it at the very top-left corner*/
-    position:absolute;
+    position:fixed;
     top:0;
     left:0;
     width:100%;
@@ -202,7 +202,38 @@ div.loading-visible{
     padding-top:15%;
 }
 
+div.search-loading-invisible{
+    /*make invisible*/
+    display:none;
+}
 
+/*this is what we want the div to look like
+  when it IS showing*/
+div.search-loading-visible{
+    /*make visible*/
+    z-index:999999;
+    display:block;
+
+    /*position it at the very top-left corner*/
+    position:fixed;
+    top:200px;
+    left:0;
+    width:100%;
+    height:100%;
+    text-align:center;
+
+    /*in supporting browsers, make it
+      a little transparent*/
+    background:#fff;
+    _background:none; /*this line removes the background in IE*/
+    opacity:.95;
+    border-top:1px solid #ddd;
+    border-bottom:1px solid #ddd;
+
+    /*set the padding, so that the content
+      of the div is centered vertically*/
+    padding-top:15%;
+}
 
 
 
@@ -595,7 +626,7 @@ a {
     font-size: 32px; }
 
 .page-wrap {
-   position: fixed;
+    position: fixed;
     width: 100%;
     transition: width 0.3s ease; 
     margin: 200px 0px 0px;
@@ -617,7 +648,7 @@ a {
     -webkit-border-bottom-right-radius: 30px;
     -moz-border-bottom-right-radius: 30px;
     border-bottom-right-radius: 30px;
-    z-index: 20000;
+    z-index:10000;
 }
 .main-nav a {
     display: block;
@@ -697,7 +728,7 @@ a {
 
 
 #discovery_search_bar_wrapper {
-  
+
     z-index: 500;
     margin-top: 36px;
     height: 160px;
@@ -707,7 +738,7 @@ a {
     border-bottom: 1px solid #AFAFAF; 
 }
 #discovery_search_bar_wrapper_moving {
-  
+
     z-index: 500;
     margin-top: 36px;
     height: 160px;
@@ -933,11 +964,11 @@ a {
 }
 
 .search_input	{
-width:300px;
+    width:300px;
 }
 .search_business{
     width:690px;
-    
+
 }
 .fieldsetting{
     min-width:800px;
@@ -997,8 +1028,8 @@ width:300px;
 }
 .logonew{
     height:25px;
-    
-    
+
+
 }
 
 

@@ -114,10 +114,11 @@
                         $('#email_register').attr("style", "display:none");
 
                         $(window).scroll(function() {
-                             if ($(this).scrollTop() == 0) {
-                            $('#discovery_search_bar_wrapper').attr('style', 'position:relative;margin-top: 40px;');
-                        }
-                          
+                            if ($(this).scrollTop() == 0) {
+                                $('#discovery_search_bar_wrapper').attr('style', 'position:relative;margin-top: 40px;');
+                                document.getElementById("search-loading").className = "search-loading-invisible";
+                            }
+
                             if ($(this).scrollTop() > 150) {
                                 $('.smallIcon').fadeIn();
                             } else {
@@ -162,8 +163,13 @@
                     function show_search_bar() {
 
 
-                        $('#discovery_search_bar_wrapper').attr('style', 'position:fixed;margin-top: -30px;');
+                        $('#discovery_search_bar_wrapper').attr('style', 'position:fixed;margin-top: -30px;z-index: 50000;');
+                        document.getElementById("search-loading").className = "search-loading-visible";
 
+                    }
+                    function dismiss_search() {
+                        $('#discovery_search_bar_wrapper').attr('style', 'position:relative;margin-top: 40px;z-index: 500;');
+                        document.getElementById("search-loading").className = "search-loading-invisible";
                     }
 
 

@@ -239,6 +239,9 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
 <div id="loading" class="loading-invisible">
     <p> <img src="../../../images/loader.gif" /></p>
 </div>
+<div id="search-loading" class="search-loading-invisible" onclick='dismiss_search();'>
+  <p></p>
+</div>
 <?PHP
 if (Yii::app()->user->isGuest) {
     ?>

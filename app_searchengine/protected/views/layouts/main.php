@@ -99,7 +99,7 @@
                 </script>
                 <script type="text/javascript">
                     $(document).ready(function() {
-                        $('#yw3 span').removeClass('caret');
+                        $('#main-nav span').removeClass('caret');
                         $('#myModal').attr('aria-hidden', 'false');
                         $('#myModal').attr("style", "display:none");
 

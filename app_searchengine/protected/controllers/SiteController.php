@@ -149,7 +149,7 @@ class SiteController extends Controller {
     }
 
     public function actionGetDataFromItemtable() {
-        $dataProvider = Listing::model()->findAll();
+        $dataProvider = ShadowListing::model()->findAll();
 
 
         echo CJSON::encode($dataProvider);

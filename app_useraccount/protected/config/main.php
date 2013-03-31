@@ -197,3 +197,4 @@ return CMap::mergeArray(
             ),
                 ), CMap::mergeArray($mainEnvConfiguration, $mainLocalConfiguration)
 );
+?>

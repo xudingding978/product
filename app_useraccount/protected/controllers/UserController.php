@@ -95,8 +95,21 @@ class UserController extends Controller {
      */
     public function actionUpdate($id) {
 
+
+
+
+
+
+        $model = $this->loadModel($id);
+
+        if (isset($_POST['User'])) {
+            $model->attributes = $_POST['User'];
+            $model->REC_TIMESTAMP = new CDbExpression('NOW()');
+            if ($model->save()) {
+                $this->redirect(array('view', 'id' => $model->REC_ID));
+            }
+        }
         if (Yii::app()->user->id == $id) {
-            $model = $this->loadModel($id);
             $this->render('update', array(
                 'model' => $model,
             ));
@@ -106,12 +119,6 @@ class UserController extends Controller {
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
-
-        if (isset($_POST['User'])) {
-            $model->attributes = $_POST['User'];
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->REC_ID));
-        }
     }
 
     /**

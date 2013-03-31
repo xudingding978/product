@@ -1,4 +1,3 @@
-
 <?php
 /* @var $this SiteController */
 
@@ -6,6 +5,8 @@ $this->pageTitle = Yii::app()->name;
 ?>
 
 <?php
+
+    if (Yii::app()->user->isGuest) {
 $this->widget('bootstrap.widgets.TbCarousel', array(
     'items' => array(
         array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_a.jpg'),
@@ -25,10 +26,72 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
 ?>
 
 
+<div class="tile_img" >
+    <div id="dd3" class="wrapper-dropdown-3" tabindex="1" style="margin-left:76%;">
+        <span>Select to login</span>
+        <ul class="dropdown" style="width:220px">
+            <li  onclick="Facebook();" ><a style="color:rgb(138,168,1)" href="#"><i class="icon-envelope icon-large"></i>Sign in with FaceBook</a></li>
+            <li  onclick="Yahoo();" ><a style="color:rgb(138,32,50)" href="#"><i class="icon-truck icon-large"></i>Sign in with Yahoo</a></li>
+            <li  onclick="QQ();" ><a style="color:rgb(32,168,34)" href="#"><i class="icon-plane icon-large"></i>Sign in with QQ</a></li>
+            <li  onclick="Sina();" ><a style="color:rgb(138,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Sina</a></li>
+            <li  onclick="Google();" ><a style="color:rgb(138,23,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Google+</a></li>
+            <li  onclick="Twitter();" ><a style="color:rgb(55,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Twitter</a></li>
+            <li  onclick="dismiss_modal_test();" ><a style="color:rgb(90,168,32)" href="#myModal"><i class="icon-plane icon-large"></i>Sign in with Email</a></li>
+        </ul>
+    </div>
+    <div class="title_text" >
+        <h1 >COLLECT YOUR ONLINE RESOURCE FOR KITCHENS,</h1>
+        <h1 >PRODUCTS, SERVICES & IDEAS</h1>
+        <p >Hundreds of videos, thousands of articles and tens of thousands of high quality images</p>
+        <p >from around the world showcasing: Architecture, Kitchen Design, Bathroom Design,</p>
+        <p >Interiors, Landscape Design and Commercial Design.</p>
+    </div>
+</div>
+
+
+
+<?php
+    }else{
+?>
+
+        <div id="discovery_search_bar_wrapper">
+            <div class="select_container_left">
+                <ul class="discovery_select_left">
+                    <li>
+                        <a href="#" >PRODUCTS</a>
+                    </li>
+                    <li>
+                        <a href="#" >SERVICES</a>
+                    </li>
+                    <li>
+                        <a href="#" >BRANDS</a>
+                    </li>
+                    <li>
+                        <a href="#" >SUPPLIERS</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="discovery_search_bar">
+                
+                        <input id="search_key" class="search_input" placeholder="All region in New Zealand" name="search_key" type="text"  />
+                        <input id="search_business" class="search_business" placeholder="Search by Business and keyword" type="text" />
+                        <a class="search_button" href="#"><i class="icon-book" ></i></a>
+                        <a class="view_control_list" href='#'><i class="icon-eye-open" ></i></a>
+                        <a class="view_control_gal"  href='#")'><i class="icon-film" ></i></a>
+                        <a  class="cancleIcon"  href="#" ><i class="icon-remove-sign" ></i></a>
+    
+            </div>
+        </div>
+
+    <?PHP } ?>
+
 <script>
-
-
-    var data_value = null;
+    var imgHeight;
+    var imgWidth;
+    var image_src;
+    var des_src;
+    var des_src_array = new Array();
     function Set()
     {
         $.ajax({
@@ -47,38 +110,30 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
         document.getElementById('display_loading').style.display = 'block';
         document.getElementById('loading_img').style.display = 'none';
 
-    }
-        function switch_loading()
-    {
-        document.getElementById('display_loading').style.display = 'none';
-        document.getElementById('loading_img').style.display = 'block';
 
-    }
-    function getValue(data) {
+        imgHeight = this.height;
+        imgWidth = this.width;
+        console.log("this.height : " + this.height + " " + imgHeight + " " + image_src);
 
-        //    if (data_value !== null) {
+<?PHP
+$dependency = new CDbCacheDependency('SELECT * FROM `tpl_user_profile` `t` WHERE `t`.`USER_REC_ID`=93 LIMIT 1');
+$userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(array('USER_REC_ID' => 93));
+?>
 
-        for (var key in data) {
 
-            var img = new Image();
 
-            var image_src = data[key]['IMAGE_URL'];
-            var des_src = data[key]['DESCRIPTION'];
-            img.onload = loading;
-            img.src = image_src;
-//            var temp = img.height;
+        var image_height = this.height / this.width * 180;
 
-            var image_height = img.height / img.width * 180;
+        var element_height = image_height + 160;
+//            console.log(key + ' ' + img.height);
+//            console.log(element_height);
 
-            var element_height = image_height + 160;
-            console.log(key + ' ' + img.height);
-            console.log(element_height);
-<?PHP $userProfile = UserProfile::model()->findByAttributes(array('USER_REC_ID' => 93)); ?>
-            var $newItems = $('<div class="element alkali metal   isotope-item"  style="height:' + element_height + 'px"> \n\
+
+        var $newItems = $('<div class="element alkali metal   isotope-item"  style="height:' + element_height + 'px"> \n\
             <div id="image_container"  style="left: 15px;  top: 30px; width: 180px;height:' + image_height + 'px"> \n\
-                    <img src=' + image_src + ' />\n\
+                    <img src=' + this.src + ' />\n\
             </div>\n\
-            <p style="left: 15px;  bottom: 100px;">' + des_src + '</p>\n\
+            <p style="left: 15px;  bottom: 100px;">' + this.description + '</p>\n\
             <a href="#" style="left: 15px;  bottom: 78px; width:55px;white-space: nowrap;"><k class="icon-heart-empty"></k> <p style="left: 20px; ">12</p></a>\n\
             <a href="#" style="left: 75px;  bottom: 78px;width:55px;white-space: nowrap;"><k class="icon-comment-alt"></k> <p style="left: 20px; ">6</p></a>\n\
             <a href="#" style="left: 135px;  bottom: 78px;width:55px;white-space: nowrap;"><k class="icon-save"></k><p style="left: 20px; ">66</p></a>\n\
@@ -88,14 +143,44 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
                 </div>\n\
             </div>');
 
-            $('#container').append($newItems).isotope('insert', $newItems);
+        $('#container').append($newItems).isotope('insert', $newItems);
+
+
+
+        return true;
+
+    }
+    function switch_loading()
+    {
+        document.getElementById('display_loading').style.display = 'none';
+        document.getElementById('loading_img').style.display = 'block';
+
+    }
+
+    function getValue(data) {
+
+
+
+        for (var key in data) {
+            var img = new Image();
+
+
+            image_src = data[key]['IMAGE_URL'];
+            des_src = data[key]['DESCRIPTION'];
+            img.src = image_src;
+            img.description = des_src;
+            img.user_photo = "";
+            img.like = "";
+            img.onload = loading;
+            //            loading();
+
+
+            console.log("imgHeight : " + imgHeight + " " + "this.height : " + this.height + " " + image_src);
+
+
 
         }
-//        }else{
-//
-//             document.write("no data avaleble!!");
-//
-//        }
+
 
     }
 
@@ -144,25 +229,14 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
 
 
 <div id="" class="group">
-    <div class="group">
+    <div class="group"> 
         <div id='categories'>
 
             <div id="container" class="variable-sizes clearfix isotope">
 
-                <!--
-                               <div id="element" class="element alkali metal  height2 isotope-item">
-                                   <div id="test1" class="image_load_bronze">
-                                       <img src="../../../images/photo_gallery/kit_1.jpg" />
-                                   </div>
-                                   <div id="test2" class='comments'>
 
-                                   </div>
-                               </div>
+ 
 
-
-
-                              </div>
-                -->
 
 
             </div>
@@ -193,6 +267,103 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
 <div id="loading" class="loading-invisible">
     <p> <img src="../../../images/loader.gif" /></p>
 </div>
+<div id="search-loading" class="search-loading-invisible" onclick='dismiss_search();'>
+  <p></p>
+</div>
+<?PHP
+if (Yii::app()->user->isGuest) {
+    ?>
+
+
+
+<?php
+}
+?>
+<nav class="main-nav" id="main-nav">
+
+    <?php
+    if (Yii::app()->user->isGuest) {
+        ?>
+        <a href="#"><i class="icon-user icon-2x"></i></a>
+        <?php
+    } else {
+        $userProfile = UserProfile::model()->findByAttributes(array('USER_REC_ID' => Yii::app()->user->id));
+        ?>
+        <a href="#"><img src="<?PHP echo $userProfile->PHOTO_URL ?>"/></a>
+
+        <?php
+    }
+    ?>
+    <?php
+    $this->widget('bootstrap.widgets.TbMenu', array(
+        'htmlOptions' => array(
+            'onclick' => 'testing2();',
+            'class'=>'dropdown_left',
+        ),
+        'items' => array(
+            array('icon' => 'icon-eye-open icon-2x', 'url' => '#',  'htmlOptions' => array( 'class'=>'dropdown_123',), 'items' => array(
+                    array('label' => 'All Room &amp; Stlyes', 'url' => array('#')),
+                    array('label' => 'Kitchen', 'url' => array('/site/index')),
+                    array('label' => 'Bath', 'url' => array('/site/index')),
+                    array('label' => 'Bedroom','items' => array(
+                            array('label' => 'Bedroom Photos &gt;'),
+                            array('label' => 'Browse all Bedroom Photos', 'url' => '#'),
+                            array('label' => 'Bedroom Products'),
+                            array('label' => 'Beds and Headboards', 'url' => '#'),
+                            array('label' => 'Bedroom Benchess', 'url' => '#'),
+                            array('label' => 'Dressers Chests and Bedroom Armories', 'url' => '#'),
+                            array('label' => 'Makeup Mirrors', 'url' => '#'),
+                            array('label' => 'Nightstands and Bedside Tables', 'url' => '#'),
+                            array('label' => 'Sofa Beds', 'url' => '#'),
+                            array('label' => 'Bedding', 'url' => '#'),
+                            array('label' => 'Upholstery Fabric', 'url' => '#'),
+                        ),),
+                    array('label' => 'Living', 'url' => array('/site/index')),
+                    array('label' => 'Dinging', 'url' => array('/site/index')),
+                    array('label' => 'Outdoor', 'url' => array('/site/index')),
+                    array('label' => 'Kids', 'url' => array('/site/index')),
+                    array('label' => 'Home Office', 'url' => array('/site/index')),
+                    array('label' => 'Storage & Closets', 'url' => array('/site/index')),
+                    array('label' => 'Exterior', 'url' => array('/site/index')),
+                    array('label' => 'More Rooms', 'url' => array('/site/index')),
+                    array('label' => 'Lighting', 'url' => array('/site/index')),
+                    array('label' => 'Accessories & Decor', 'url' => array('/site/index')),
+                    array('label' => 'Windows & Doors', 'tabindex' => '-1', 'items' => array(
+                            array('label' => 'Action', 'url' => '#'),
+                        ),
+                    ),
+                )
+            ),
+        )
+    ));
+    ?> 
+
+
+    <a href="#"><i class="icon-folder-open-alt icon-2x"></i></a>
+    <a href="#"><i class="icon-camera-retro icon-2x"></i></a>
+    <a href="#"><i class="icon-desktop icon-2x"></i></a>
+    <a href="#"><i class="icon-umbrella icon-2x"></i></a>
+    <a href="#"><i class="icon-envelope icon-2x"></i></a>
+</nav>
+
+<div class="page-wrap">
+
+    <header class="main-header">
+        <a href="#main-nav" class="open-menu" >
+            <i class="icon-circle-arrow-right"></i>
+        </a>
+        <a href="#" class="close-menu" >
+            <i class="icon-circle-arrow-left" ></i>
+        </a>
+
+
+    </header>
+
+
+
+</div>
+
+
 
 <script type="text/javascript">
     document.getElementById("loading").className = "loading-visible";
@@ -205,9 +376,70 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
         oldLoad.call(this);
     } : hideDiv;
     window.onload = newLoad;
+
+
+
 </script>
 
 <script type="text/javascript" language="JavaScript" src="../../../js/search.js"></script>
- 
+<script type="text/javascript">
+    function hidding_menu() {
 
- 
+
+        $('#main-nav ').attr("style", "overflow:hidden");
+
+
+    }
+
+    function showing_menu() {
+
+        $('#main-nav ').attr("style", "overflow:visible");
+
+
+
+    }
+    function testing2() {
+
+        $('.dropdown_left >li:first-child>ul ').attr("style", "margin:-170px 0px 0px 90px");
+
+    }
+
+
+
+
+
+    //  hover testing
+//    $(".open-menu").mouseover(function() {
+//        $(".main-nav").animate({
+//            width: "80px",
+//            opacity: 0.9,
+//        }, 10);
+//    });
+//    $("nav.main-nav").mouseover(function() {
+//        $("nav.main-nav").animate({
+//            width: "80px",
+//            opacity: 0.9,
+//        }, 200);
+//    }).mouseout(function() {
+//        $("nav.main-nav").animate({
+//            width: '10px',
+//            opacity: 0.4,
+//        }, 200);
+//    });
+
+//        $(".page-wrap").animate({
+//            opacity: 0,
+//            left: '+=500',
+//        }, 10);
+
+
+//    $("nav.main-nav").mouseout(function() {
+//        $("nav.main-nav").animate({
+//            width: '10px',
+//            opacity: 0.4,
+//        }, 10);
+////         $(".page-wrap").animate({
+////            opacity: 0.4,
+////        }, 10);
+//    });
+</script>

@@ -222,9 +222,11 @@ outline: 0px none;
 
 .smallIcon{
 position:absolute;
-margin: 0px 0 0 1030px;
+margin: -24px 0px 0px 770px;
 display:none;
 width:200px;
+z-index:10000;
+cursor:pointer;
 }
 
 .smallIcon a, .smallIcon a:visited, .smallIcon a:active {color:rgb(235,235,235); ; text-decoration:none;}
@@ -292,19 +294,87 @@ margin-top: -30px;
 top:50%;
 
 }
-
+.modal{
+width:auto;
+}
 
 .modal-backdrop {
 
-    background-color: rgba(255, 255, 255,0.8);
+background-color: rgba(255, 255, 255,0.8);
 }
 
 
 .modal-body {
-    height: 1100px;
-    padding: 15px;
-    overflow-y: auto;
+height: 100%;
+padding: 15px;
+overflow-y: hidden;
+max-height:100%;
 
+}
+
+
+.modal-backdrop {
+
+top: 40px;
+
+}
+
+
+
+.social_modal {
+position: relative;
+
+z-index: 1050;
+width:500px;
+background-color: rgb(255, 255, 255);
+outline: medium none;
+background-clip: padding-box;
+}
+
+.email_modal {
+position: relative;
+
+z-index: 1050;
+width: 900px;
+
+height: 350px;
+}
+
+.register_modal{
+position: relative;
+
+z-index: 1050;
+width: 600px;
+
+height: 550px;
+
+}
+
+
+
+.fade{
+opacity:1;
+}
+
+.row{
+margin-left:0;
+}
+
+.carousel-control {
+
+    top: 50%;
+
+}
+
+
+
+.dropdown-submenu > .dropdown-menu {
+
+top: 0px;
+left: 100%;
+margin-top: -110px;
+margin-left: 15px;
+border-radius: 0px 6px 6px 6px;
 }
 
 

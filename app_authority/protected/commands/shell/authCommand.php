@@ -1,36 +1,34 @@
 <?php
-
 class LoadAuthCommand extends CConsoleCommand {
 
     public function run($args) {
         $auth = Yii::app()->authManager;
-
         $auth->clearAll();
 
 // user actions
+        $auth->createOperation('UserAdmin', 'admin of users');
         $auth->createOperation('UserIndex', 'index of users');
         $auth->createOperation('UserCreate', 'create a user');
         $auth->createOperation('UserView', 'read a user');
         $auth->createOperation('UserUpdate', 'update a user');
         $auth->createOperation('UserDelete', 'delete a user');
-        $auth->createOperation('UserAclist', 'autocomplete list for user');
-        
+//        $auth->createOperation('UserAclist', 'autocomplete list for user');
 // user profile actions
         $auth->createOperation('UserProfileAdmin', 'admin of user profiles');
         $auth->createOperation('UserProfileCreate', 'create a user profiles');
-        $auth->createOperation('UserProfileDelete', 'delete a user profiles');   
+        $auth->createOperation('UserProfileDelete', 'delete a user profiles');
         $auth->createOperation('UserProfileIndex', 'index of user profiles');
         $auth->createOperation('UserProfileUpdate', 'update a user profiles');
         $auth->createOperation('UserProfileView', 'read a user profiles');
-        
+
 //tenant actions
-        $auth->createOperation('TenantAdmin','admin of tenants');
+        $auth->createOperation('TenantAdmin', 'admin of tenants');
         $auth->createOperation('TenantCreate', 'create a tenants');
         $auth->createOperation('TenantDelete', 'delete a tenants');
         $auth->createOperation('TenantIndex', 'index of tenants');
         $auth->createOperation('TenantUpdate', 'update a tenants');
         $auth->createOperation('TenantView', 'read a tenants');
-        
+
 // directory actions
         $auth->createOperation('DirectoryAdmin', 'admin access to directory');
         $auth->createOperation('DirectoryCreate', 'create a directory');
@@ -39,9 +37,6 @@ class LoadAuthCommand extends CConsoleCommand {
         $auth->createOperation('DirectoryUpdate', 'update a directory');
         $auth->createOperation('DirectoryView', 'read a directory');
 
-        //$auth->createOperation('BookRemoveAuthor','remove an author from a book');
-        //$auth->createOperation('BookCreateAuthor','create an author for a book');
-        
 // directory period actions
         $auth->createOperation('DirectoryPeriodAdmin', 'admin access to directory periods');
         $auth->createOperation('DirectoryPeriodIndex', 'index of directory periods');
@@ -49,93 +44,102 @@ class LoadAuthCommand extends CConsoleCommand {
         $auth->createOperation('DirectoryPeriodView', 'read a directory periods');
         $auth->createOperation('DirectoryPeriodUpdate', 'update a directory periods');
         $auth->createOperation('DirectoryPeriodDelete', 'delete a directory periods');
-        
+
 // directory period offers actions
-        $auth->createOperation('DirectoryPeriodAdmin', 'admin access to directory period offers');
-        $auth->createOperation('DirectoryPeriodIndex', 'index of directory period offers');
-        $auth->createOperation('DirectoryPeriodCreate', 'create a directory period offers');
-        $auth->createOperation('DirectoryPeriodView', 'read a directory period offers');
-        $auth->createOperation('DirectoryPeriodUpdate', 'update a directory period offers');
-        $auth->createOperation('DirectoryPeriodDelete', 'delete a directory period offers');
+        $auth->createOperation('DirectoryPeriodOffersAdmin', 'admin access to directory period offers');
+        $auth->createOperation('DirectoryPeriodOffersIndex', 'index of directory period offers');
+        $auth->createOperation('DirectoryPeriodOffersCreate', 'create a directory period offers');
+        $auth->createOperation('DirectoryPeriodOffersView', 'read a directory period offers');
+        $auth->createOperation('DirectoryPeriodOffersUpdate', 'update a directory period offers');
+        $auth->createOperation('DirectoryPeriodOffersDelete', 'delete a directory period offers');
 
-// directory domains actions
-        $auth->createOperation('DirectoryDomainAdmin', 'admin access to directory domains');
-        $auth->createOperation('DirectoryDomainIndex', 'index of directory domains');
-        $auth->createOperation('DirectoryDomainCreate', 'create a directory domains');
-        $auth->createOperation('DirectoryDomainView', 'read a directory domains');
-        $auth->createOperation('DirectoryDomainUpdate', 'update a directory domains');
-        $auth->createOperation('DirectoryDomainDelete', 'delete a directory domains');
+// client actions
+        $auth->createOperation('ClientAdmin', 'admin of clients');
+        $auth->createOperation('ClientCreate', 'create a clients');
+        $auth->createOperation('ClientDelete', 'delete a clients');
+        $auth->createOperation('ClientIndex', 'index of clients');
+        $auth->createOperation('ClientUpdate', 'update a clients');
+        $auth->createOperation('ClientView', 'read a clients');
 
-        // library actions
-        $auth->createOperation('LibraryIndex', 'index of library');
-        $auth->createOperation('LibraryRequest', 'request item from library');
-        $auth->createOperation('LibraryLend', 'lend item from library, and remove request');
-
-        // user task of updating own entry
+// user task of updating own entry
         $bizRule = 'return (Yii::app()->user->id==Yii::app()->getRequest()->getQuery(\'id\') || Yii::app()->user->id == $params[\'id\']);';
         $task = $auth->createTask('UpdateOwnUser', 'update own user entry', $bizRule);
         $task->addChild('UserUpdate');
 
-        $role = $auth->createRole('wishlistAccess');
-        $role->addChild('WishIndex');
-        $role->addChild('WishView');
-        $role->addChild('WishClaim');
-        $role->addChild('UpdateOwnUser');
+// Users access to view and manage their own data
+        $role_uA = $auth->createRole('userlistAccess');
+        $role_uA->addChild('UserIndex');
+        $role_uA->addChild('UserView');
+        $role_uA->addChild('UserUpdate');
+        $role_uA->addChild('UpdateOwnUser');
 
-        $role = $auth->createRole('viewer');
-        $role->addChild('wishlistAccess');
-        $role->addChild('BookIndex');
-        $role->addChild('BookView');
 
-        $role = $auth->createRole('borrower');
-        $role->addChild('viewer');
-        $role->addChild('LibraryIndex');
-        $role->addChild('LibraryRequest');
+// *** Directory Authorisations ***
+        $role_dV = $auth->createRole('directoryViewer');
+        $role_dV->addChild('DirectoryIndex');
+        $role_dV->addChild('DirectoryView');
 
-        $role = $auth->createRole('admin');
-        $role->addChild('borrower');
-        $role->addChild('LibraryLend');
+        $role_dE = $auth->createRole('directoryEditor');
+        $role_dE->addChild('directoryViewer');
+        $role_dE->addChild('DirectoryUpdate');
 
-        $task = $auth->createTask('manageWish', 'manage wish entries');
-        $task->addChild('WishCreate');
-        $task->addChild('WishUpdate');
-        $task->addChild('WishDelete');
-        $task->addChild('WishAdmin');
-        $task->addChild('WishCreateAuthor');
-        $task->addChild('WishRemoveAuthor');
-        $role->addChild('manageWish');
+        $role_dO = $auth->createRole('directoryOwner');
+        $role_dO->addChild('directoryEditor');
+        $role_dO->addChild('DirectoryDelete');
 
-        $task = $auth->createTask('manageUser', 'manage user entries');
-        $task->addChild('UserIndex');
-        $task->addChild('UserCreate');
-        $task->addChild('UserView');
-        $task->addChild('UserUpdate');
-        $task->addChild('UserDelete');
-        $task->addChild('UserAclist');
-        $role->addChild('manageUser');
+        $role_dA = $auth->createRole('directoryAdministrator');
+        $role_dA->addChild('directoryOwner');
+        $role_dA->addClild('DirectoryAdmin');
 
-        $task = $auth->createTask('manageBook', 'manage book entries');
-        $task->addChild('BookAdmin');
-        $task->addChild('BookCreate');
-        $task->addChild('BookUpdate');
-        $task->addChild('BookDelete');
-        $task->addChild('BookCreateAuthor');
-        $task->addChild('BookRemoveAuthor');
-        $role->addChild('manageBook');
+// *** Client Authorisations ***
+        $role_cV = $auth->createRole('clientViewer');
+        $role_cV->addChild('ClientIndex');
+        $role_cV->addChild('ClientView');
 
-        $task = $auth->createTask('managePublisher', 'manage publisher entries');
-        $task->addChild('PublisherAdmin');
-        $task->addChild('PublisherIndex');
-        $task->addChild('PublisherView');
-        $task->addChild('PublisherCreate');
-        $task->addChild('PublisherUpdate');
-        $task->addChild('PublisherDelete');
-        $role->addChild('managePublisher');
+        $role_cE = $auth->createRole('clientEditor');
+        $role_cE->addChild('clientViewer');
+        $role_cE->addChild('ClientUpdate');
 
-        $auth->assign('wishlistAccess', 54);
-        $auth->assign('viewer', 53);
-        $auth->assign('borrower', 52);
-        $auth->assign('admin', 1);
+        $role_cO = $auth->createRole('clientOwner');
+        $role_cO->addChild('clientEditor');
+        $role_cO->addChild('ClientDelete');
+
+        $role_cA = $auth->createRole('clientAdministrator');
+        $role_cA->addChild('clientOwner');
+        $role_cA->addClild('ClientAdmin');
+
+        $role_tA = $auth->createRole('tenantAdministrator');
+        $role_tA->addChild('clientAdministrator');
+        $role_tA->addChild('directoryAdministrator');
+
+        $role_aA = $auth->createRole('authorityAdministrator');
+        $role_aA->addChild('tenantAdministrator');
+
+        $task_mU = $auth->createTask('manageUser', 'manage user entries');
+        $task_mU->addChild('UserCreate');
+        $task_mU->addChild('UserUpdate');
+        $task_mU->addChild('UserDelete');
+        $task_mU->addChild('UserAdmin');
+        $role_tA->addChild('manageUser');
+
+        // Manage Client Tasks and Role
+        $task_mC = $auth->createTask('manageClient', 'manage client entries');
+        $task_mC->addChild('ClientIndex');
+        $task_mC->addChild('ClientCreate');
+        $task_mC->addChild('ClientView');
+        $task_mC->addChild('ClientUpdate');
+        $task_mC->addChild('ClientDelete');
+        $task_mC->addChild('ClientAclist');
+        $role_tA->addChild('manageClient');
+
+        $task_mD = $auth->createTask('manageDirectory', 'manage directory entries');
+        $task_mD->addChild('DirectoriesAdmin');
+        $task_mD->addChild('DirectoriesCreate');
+        $task_mD->addChild('DirectoriesUpdate');
+        $task_mD->addChild('DirectoriesDelete');
+        $task_mD->addChild('DirectoriesCreateAuthor');
+        $task_mD->addChild('DirectoriesRemoveAuthor');
+        $role_tA->addChild('manageDirectories');
 
         echo "Authorisation Module Initialized.\n";
     }

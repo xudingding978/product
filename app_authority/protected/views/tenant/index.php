@@ -21,11 +21,11 @@ $this->beginwidget('bootstrap.widgets.TbBox', array(
             'type' => 'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
             'buttons' => array(
                 array('label' => 'Actions', 'items' => array(
-                    array('label' => 'View Tenant', 'url' => array('index')),
+                        array('label' => 'View Tenant', 'url' => array('index')),
                         array('label' => 'Create Tenant', 'url' => array('create')),
                         array('label' => 'Manage Tenant', 'url' => array('admin')),
                     )))
-        ))));
+))));
 
 $this->widget('zii.widgets.CListView', array(
     'dataProvider' => $dataProvider,

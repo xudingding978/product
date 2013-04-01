@@ -11,7 +11,7 @@ $this->breadcrumbs = array(
 
 
 
-<?php $this->widget('common.modules.hybridauth.widgets.renderProviders');  ?>
+<?php $this->widget('common.modules.hybridauth.widgets.renderProviders'); ?>
 <h1>Login</h1>
 
 <p>Please fill out the following form with your login credentials:</p>
@@ -31,14 +31,14 @@ $this->breadcrumbs = array(
 
     <div class="row">
         <?php echo $form->labelEx($model, 'username'); ?>
-<?php echo $form->textField($model, 'username'); ?>
-<?php echo $form->error($model, 'username'); ?>
+        <?php echo $form->textField($model, 'username'); ?>
+        <?php echo $form->error($model, 'username'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($model, 'password'); ?>
-<?php echo $form->passwordField($model, 'password'); ?>
-<?php echo $form->error($model, 'password'); ?>
+        <?php echo $form->passwordField($model, 'password'); ?>
+        <?php echo $form->error($model, 'password'); ?>
         <p class="hint">
             Hint: You may login with <kbd>demo</kbd>/<kbd>demo</kbd> or <kbd>admin</kbd>/<kbd>admin</kbd>.
         </p>
@@ -46,13 +46,13 @@ $this->breadcrumbs = array(
 
     <div class="row rememberMe">
         <?php echo $form->checkBox($model, 'rememberMe'); ?>
-<?php echo $form->label($model, 'rememberMe'); ?>
-<?php echo $form->error($model, 'rememberMe'); ?>
+        <?php echo $form->label($model, 'rememberMe'); ?>
+        <?php echo $form->error($model, 'rememberMe'); ?>
     </div>
 
     <div class="row buttons">
-    <?php echo CHtml::submitButton('Login'); ?>
+        <?php echo CHtml::submitButton('Login'); ?>
     </div>
 
-<?php $this->endWidget(); ?>
+    <?php $this->endWidget(); ?>
 </div><!-- form -->

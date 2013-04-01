@@ -1,21 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "tpl_client".
+ * This is the model class for table "{{client}}".
  *
- * The followings are the available columns in table 'tpl_client':
+ * The followings are the available columns in table '{{client}}':
  * @property integer $REC_ID
  * @property string $REC_DATETIME
  * @property string $REC_TIMESTAMP
  * @property integer $CLIENT_STATUS_REC_ID
  * @property integer $USER_ID
- * @property string $BUSINESS_NAME
- * @property string $USERNAME
- * @property string $TRADING_AS_NAME
+ * @property string $CLIENT_NAME
  * @property integer $IS_DELETED
  * @property string $DELETED_BY
  * @property string $DELETED_DATE
+ * @property string $LAST_LOGIN_DATETIME
  * @property string $ACTIVATION_CODE
+ * @property string $TRADING_AS_NAME
  * @property string $TELEPHONE_NO
  * @property string $FREE_TELEPHONE_NO
  * @property string $FAX_NO
@@ -85,17 +85,18 @@ class Client extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('REC_DATETIME, REC_TIMESTAMP,CLIENT_STATUS_REC_ID, USER_ID, BUSINESS_NAME, USERNAME', 'required'),
+            array('REC_DATETIME, REC_TIMESTAMP, USER_ID,CLIENT_NAME', 'required'),
             array('CLIENT_STATUS_REC_ID, USER_ID, IS_DELETED, PHYSICAL_ADDRESS_HEIGHT', 'numerical', 'integerOnly' => true),
             array('PHYSICAL_ADDRESS_LATITUDE, PHYSICAL_ADDRESS_LONGITUDE', 'numerical'),
-            array('BUSINESS_NAME, USERNAME, TRADING_AS_NAME, EMAIL_ADDRESS, WEBSITE_ADDRESS, PHYSICAL_ADDRESS_BUILDING_ADDRESS, PHYSICAL_ADDRESS_STREET_ADDRESS, PHYSICAL_ADDRESS_SUBURB, PHYSICAL_ADDRESS_CITY, PHYSICAL_ADDRESS_STATE, PHYSICAL_ADDRESS_COUNTRY, POSTAL_ADDRESS_BUILDING_ADDRESS, POSTAL_ADDRESS_STREET_ADDRESS, POSTAL_ADDRESS_CITY, POSTAL_ADDRESS_SUBURB, POSTAL_ADDRESS_STATE, POSTAL_ADDRESS_COUNTRY', 'length', 'max' => 255),
+            array('CLIENT_NAME, TRADING_AS_NAME, EMAIL_ADDRESS, WEBSITE_ADDRESS, PHYSICAL_ADDRESS_BUILDING_ADDRESS, PHYSICAL_ADDRESS_STREET_ADDRESS, PHYSICAL_ADDRESS_SUBURB, PHYSICAL_ADDRESS_CITY, PHYSICAL_ADDRESS_STATE, PHYSICAL_ADDRESS_COUNTRY, POSTAL_ADDRESS_BUILDING_ADDRESS, POSTAL_ADDRESS_STREET_ADDRESS, POSTAL_ADDRESS_CITY, POSTAL_ADDRESS_SUBURB, POSTAL_ADDRESS_STATE, POSTAL_ADDRESS_COUNTRY', 'length', 'max' => 255),
             array('DELETED_BY, DELETED_DATE, ACTIVATION_CODE, PHYSICAL_ADDRESS_DPID, PHYSICAL_ADDRESS_PXID', 'length', 'max' => 45),
             array('TELEPHONE_NO, FREE_TELEPHONE_NO, FAX_NO, FREE_FAX_NO', 'length', 'max' => 48),
             array('PHYSICAL_ADDRESS_POST_CODE, POSTAL_ADDRESS_POST_CODE', 'length', 'max' => 12),
             array('PHYSICAL_ADDRESS_COMPLETE', 'length', 'max' => 1024),
+            array('LAST_LOGIN_DATETIME', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('REC_ID, REC_DATETIME, REC_TIMESTAMP, CLIENT_STATUS_REC_ID, USER_ID, BUSINESS_NAME, USERNAME, TRADING_AS_NAME, IS_DELETED, DELETED_BY, DELETED_DATE, ACTIVATION_CODE, TELEPHONE_NO, FREE_TELEPHONE_NO, FAX_NO, FREE_FAX_NO, EMAIL_ADDRESS, WEBSITE_ADDRESS, PHYSICAL_ADDRESS_BUILDING_ADDRESS, PHYSICAL_ADDRESS_STREET_ADDRESS, PHYSICAL_ADDRESS_SUBURB, PHYSICAL_ADDRESS_CITY, PHYSICAL_ADDRESS_STATE, PHYSICAL_ADDRESS_COUNTRY, PHYSICAL_ADDRESS_POST_CODE, PHYSICAL_ADDRESS_DPID, PHYSICAL_ADDRESS_PXID, PHYSICAL_ADDRESS_LATITUDE, PHYSICAL_ADDRESS_LONGITUDE, PHYSICAL_ADDRESS_HEIGHT, PHYSICAL_ADDRESS_COMPLETE, POSTAL_ADDRESS_BUILDING_ADDRESS, POSTAL_ADDRESS_STREET_ADDRESS, POSTAL_ADDRESS_CITY, POSTAL_ADDRESS_SUBURB, POSTAL_ADDRESS_STATE, POSTAL_ADDRESS_COUNTRY, POSTAL_ADDRESS_POST_CODE', 'safe', 'on' => 'search'),
+            array('REC_ID, REC_DATETIME, REC_TIMESTAMP, CLIENT_STATUS_REC_ID, USER_ID, CLIENT_NAME, IS_DELETED, DELETED_BY, DELETED_DATE, LAST_LOGIN_DATETIME, ACTIVATION_CODE, TRADING_AS_NAME, TELEPHONE_NO, FREE_TELEPHONE_NO, FAX_NO, FREE_FAX_NO, EMAIL_ADDRESS, WEBSITE_ADDRESS, PHYSICAL_ADDRESS_BUILDING_ADDRESS, PHYSICAL_ADDRESS_STREET_ADDRESS, PHYSICAL_ADDRESS_SUBURB, PHYSICAL_ADDRESS_CITY, PHYSICAL_ADDRESS_STATE, PHYSICAL_ADDRESS_COUNTRY, PHYSICAL_ADDRESS_POST_CODE, PHYSICAL_ADDRESS_DPID, PHYSICAL_ADDRESS_PXID, PHYSICAL_ADDRESS_LATITUDE, PHYSICAL_ADDRESS_LONGITUDE, PHYSICAL_ADDRESS_HEIGHT, PHYSICAL_ADDRESS_COMPLETE, POSTAL_ADDRESS_BUILDING_ADDRESS, POSTAL_ADDRESS_STREET_ADDRESS, POSTAL_ADDRESS_CITY, POSTAL_ADDRESS_SUBURB, POSTAL_ADDRESS_STATE, POSTAL_ADDRESS_COUNTRY, POSTAL_ADDRESS_POST_CODE', 'safe', 'on' => 'search'),
         );
     }
 
@@ -127,13 +128,13 @@ class Client extends CActiveRecord {
             'REC_TIMESTAMP' => 'Rec Timestamp',
             'CLIENT_STATUS_REC_ID' => 'Client Status Rec',
             'USER_ID' => 'User',
-            'BUSINESS_NAME' => 'Business Name',
-            'USERNAME' => 'Username',
-            'TRADING_AS_NAME' => 'Trading As Name',
+            'CLIENT_NAME' => 'Client Name',
             'IS_DELETED' => 'Is Deleted',
             'DELETED_BY' => 'Deleted By',
             'DELETED_DATE' => 'Deleted Date',
+            'LAST_LOGIN_DATETIME' => 'Last Login Datetime',
             'ACTIVATION_CODE' => 'Activation Code',
+            'TRADING_AS_NAME' => 'Trading As Name',
             'TELEPHONE_NO' => 'Telephone No',
             'FREE_TELEPHONE_NO' => 'Free Telephone No',
             'FAX_NO' => 'Fax No',
@@ -178,13 +179,13 @@ class Client extends CActiveRecord {
         $criteria->compare('REC_TIMESTAMP', $this->REC_TIMESTAMP, true);
         $criteria->compare('CLIENT_STATUS_REC_ID', $this->CLIENT_STATUS_REC_ID);
         $criteria->compare('USER_ID', $this->USER_ID);
-        $criteria->compare('BUSINESS_NAME', $this->BUSINESS_NAME, true);
-        $criteria->compare('USERNAME', $this->USERNAME, true);
-        $criteria->compare('TRADING_AS_NAME', $this->TRADING_AS_NAME, true);
+        $criteria->compare('CLIENT_NAME', $this->CLIENT_NAME, true);
         $criteria->compare('IS_DELETED', $this->IS_DELETED);
         $criteria->compare('DELETED_BY', $this->DELETED_BY, true);
         $criteria->compare('DELETED_DATE', $this->DELETED_DATE, true);
+        $criteria->compare('LAST_LOGIN_DATETIME', $this->LAST_LOGIN_DATETIME, true);
         $criteria->compare('ACTIVATION_CODE', $this->ACTIVATION_CODE, true);
+        $criteria->compare('TRADING_AS_NAME', $this->TRADING_AS_NAME, true);
         $criteria->compare('TELEPHONE_NO', $this->TELEPHONE_NO, true);
         $criteria->compare('FREE_TELEPHONE_NO', $this->FREE_TELEPHONE_NO, true);
         $criteria->compare('FAX_NO', $this->FAX_NO, true);

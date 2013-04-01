@@ -25,33 +25,18 @@
 	<?php echo CHtml::encode($data->USER_ID); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('BUSINESS_NAME')); ?>:</b>
-	<?php echo CHtml::encode($data->BUSINESS_NAME); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('USERNAME')); ?>:</b>
-	<?php echo CHtml::encode($data->USERNAME); ?>
-	<br />
-
-	<?php /*
-	<b><?php echo CHtml::encode($data->getAttributeLabel('TRADING_AS_NAME')); ?>:</b>
-	<?php echo CHtml::encode($data->TRADING_AS_NAME); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('CLIENT_NAME')); ?>:</b>
+	<?php echo CHtml::encode($data->CLIENT_NAME); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('IS_DELETED')); ?>:</b>
 	<?php echo CHtml::encode($data->IS_DELETED); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('DELETED_BY')); ?>:</b>
-	<?php echo CHtml::encode($data->DELETED_BY); ?>
-	<br />
+	<?php /*
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('DELETED_DATE')); ?>:</b>
-	<?php echo CHtml::encode($data->DELETED_DATE); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('ACTIVATION_CODE')); ?>:</b>
-	<?php echo CHtml::encode($data->ACTIVATION_CODE); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('TRADING_AS_NAME')); ?>:</b>
+	<?php echo CHtml::encode($data->TRADING_AS_NAME); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('TELEPHONE_NO')); ?>:</b>

@@ -349,7 +349,7 @@ if (Yii::app()->user->isGuest) {
 <div class="page-wrap">
 
     <header class="main-header">
-        <a href="#main-nav" class="open-menu" >
+        <a href="#main-nav" class="open-menu" onclick="showing_menu();">
             <i class="icon-circle-arrow-right"></i>
         </a>
         <a href="#" class="close-menu" >
@@ -386,14 +386,14 @@ if (Yii::app()->user->isGuest) {
     function hidding_menu() {
 
 
-        $('#main-nav ').attr("style", "overflow:hidden");
+        $('.main-nav ').attr("style", "overflow:hidden");
 
 
     }
 
     function showing_menu() {
 
-        $('#main-nav ').attr("style", "overflow:visible");
+        $('.main-nav ').attr("style", "overflow:visible");
 
 
 

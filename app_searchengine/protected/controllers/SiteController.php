@@ -71,14 +71,62 @@ class SiteController extends Controller {
         $this->render('contact', array('model' => $model));
     }
 
-    /**
-     * Displays the login page
-     */
+//    /**
+//     * Displays the login page
+//     */
+//    public function actionLogin() {
+//        // require_once  ('/home/devbox/NetBeansProjects/bds-v3.1/common/protected/config/domainSetting.php');
+//        $domainSetting = new DomainSetting();
+//        Yii::app()->user->setReturnUrl($_SERVER['HTTP_REFERER']);
+//        $this->redirect('http://account' . $domainSetting->getDomain() . '/site/login/');
+//    }
+
     public function actionLogin() {
-        // require_once  ('/home/devbox/NetBeansProjects/bds-v3.1/common/protected/config/domainSetting.php');
-        $domainSetting = new DomainSetting();
-        Yii::app()->user->setReturnUrl($_SERVER['HTTP_REFERER']);
-        $this->redirect('http://account' . $domainSetting->getDomain() . '/site/login/');
+
+        $model = new LoginForm;
+
+        // if it is ajax validation request
+        if (!Yii::app()->user->isGuest) {
+            $this->redirect(Yii::app()->user->returnUrl);
+        }
+
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'login-form') {
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
+        }
+
+        // collect user input data
+        if (isset($_POST['LoginForm'])) {
+            $model->attributes = $_POST['LoginForm'];
+            // validate user input and redirect to the previous page if valid
+            if ($model->validate() && $model->login())
+                $this->redirect('index');
+        }
+    }
+
+    public function actionAjax() {
+        $model = new LoginForm;
+
+        // uncomment the following code to enable ajax-based validation
+//        if (isset($_POST['ajax']) && $_POST['ajax'] === 'login-form') {
+//            echo CActiveForm::validate($model);
+//            Yii::app()->end();
+//        }
+
+
+
+        if (isset($_POST['LoginForm'])) {
+            $model->attributes = $_POST['LoginForm'];
+
+            if ($model->validate() && $model->login()) {
+
+                    return;
+
+            } else {
+                echo CActiveForm::validate($model);
+                return;
+            }
+        }
     }
 
     /**
@@ -104,9 +152,6 @@ class SiteController extends Controller {
         $dataProvider =  ShadowListing::model()->findAll();
         echo CJSON::encode($dataProvider);
     }
-
-
-
 
 }
 
@@ -136,7 +181,6 @@ class ListingCast {
             $this->listingDetail = 'something wrong';
         }
     }
+
 }
-
-
 

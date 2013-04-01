@@ -76,6 +76,7 @@ class UserController extends Controller {
             $model->attributes = $_POST['User'];
             $model->REC_DATETIME = new CDbExpression('NOW()');
             $model->REC_TIMESTAMP = new CDbExpression('NOW()');
+            $model->TENANT_REC_ID = "2";
             if ($model->save()) {
                 $identity = new CommonUserIdentity($model->USER_NAME, $model->PWD_HASH);
                 $identity->authenticate();

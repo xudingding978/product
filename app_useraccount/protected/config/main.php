@@ -62,6 +62,7 @@ return CMap::mergeArray(
                 'common.modules.*',
                 'common.modules.hybridauth.*',
                 'common.models.*',
+                'common.redbean.*',
                 'application.models.*',
                 'application.components.*',
             ),

@@ -25,11 +25,11 @@ $this->widget('bootstrap.widgets.TbCarousel', array(
 
 
 <script>
-var imgHeight;
-var imgWidth;
-var image_src;
-var des_src;
- var des_src_array = new Array();
+    var imgHeight;
+    var imgWidth;
+    var image_src;
+    var des_src;
+    var des_src_array = new Array();
     function Set()
     {
         $.ajax({
@@ -47,27 +47,27 @@ var des_src;
     {
         document.getElementById('display_loading').style.display = 'block';
         document.getElementById('loading_img').style.display = 'none';
-        
-        
-         imgHeight = this.height;
-         imgWidth = this.width;
-         console.log("this.height : "+this.height+" "+imgHeight+" "+image_src);
-         
-                   <?PHP
-    $dependency = new CDbCacheDependency('SELECT * FROM `tpl_user_profile` `t` WHERE `t`.`USER_REC_ID`=93 LIMIT 1');
-    $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(array('USER_REC_ID' => 93));
-?>
-         
-         
-         
-           var image_height =  this.height /  this.width * 180;
 
-            var element_height = image_height + 160;
+
+        imgHeight = this.height;
+        imgWidth = this.width;
+        console.log("this.height : " + this.height + " " + imgHeight + " " + image_src);
+
+<?PHP
+$dependency = new CDbCacheDependency('SELECT * FROM `tpl_user_profile` `t` WHERE `t`.`USER_REC_ID`=93 LIMIT 1');
+$userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(array('USER_REC_ID' => 93));
+?>
+
+
+
+        var image_height = this.height / this.width * 180;
+
+        var element_height = image_height + 160;
 //            console.log(key + ' ' + img.height);
 //            console.log(element_height);
 
 
-            var $newItems = $('<div class="element alkali metal   isotope-item"  style="height:' + element_height + 'px"> \n\
+        var $newItems = $('<div class="element alkali metal   isotope-item"  style="height:' + element_height + 'px"> \n\
             <div id="image_container"  style="left: 15px;  top: 30px; width: 180px;height:' + image_height + 'px"> \n\
                     <img src=' + this.src + ' />\n\
             </div>\n\
@@ -81,11 +81,11 @@ var des_src;
                 </div>\n\
             </div>');
 
-            $('#container').append($newItems).isotope('insert', $newItems);
-         
-         
-         
-         return true;
+        $('#container').append($newItems).isotope('insert', $newItems);
+
+
+
+        return true;
 
     }
     function switch_loading()
@@ -105,15 +105,15 @@ var des_src;
 
             image_src = data[key]['IMAGE_URL'];
             des_src = data[key]['DESCRIPTION'];
-             img.src = image_src;
-             img.description=des_src;
-             img.user_photo="";
-             img.like="";
-             img.onload = loading;
- //            loading();
-           
-         
-            console.log("imgHeight : "+imgHeight+" "+"this.height : "+this.height+" "+image_src);
+            img.src = image_src;
+            img.description = des_src;
+            img.user_photo = "";
+            img.like = "";
+            img.onload = loading;
+            //            loading();
+
+
+            console.log("imgHeight : " + imgHeight + " " + "this.height : " + this.height + " " + image_src);
 
 
 
@@ -216,6 +216,50 @@ var des_src;
 <div id="loading" class="loading-invisible">
     <p> <img src="../../../images/loader.gif" /></p>
 </div>
+<div class="tile_img" >
+    <div id="dd3" class="wrapper-dropdown-3" tabindex="1" style="margin-left:76%;">
+        <span>Select to login</span>
+        <ul class="dropdown" style="width:220px">
+            <li  onclick="Facebook();" ><a style="color:rgb(138,168,1)" href="#"><i class="icon-envelope icon-large"></i>Sign in with FaceBook</a></li>
+            <li  onclick="Yahoo();" ><a style="color:rgb(138,32,50)" href="#"><i class="icon-truck icon-large"></i>Sign in with Yahoo</a></li>
+            <li  onclick="QQ();" ><a style="color:rgb(32,168,34)" href="#"><i class="icon-plane icon-large"></i>Sign in with QQ</a></li>
+            <li  onclick="Sina();" ><a style="color:rgb(138,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Sina</a></li>
+            <li  onclick="Google();" ><a style="color:rgb(138,23,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Google+</a></li>
+            <li  onclick="Twitter();" ><a style="color:rgb(55,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Twitter</a></li>
+            <li  onclick="Email();" ><a style="color:rgb(90,168,32)" href="#"><i class="icon-plane icon-large"></i>Sign in with Email</a></li>
+        </ul>
+    </div>
+    <div class="title_text" >
+        <h1 >COLLECT YOUR ONLINE RESOURCE FOR KITCHENS,</h1>
+        <h1 >PRODUCTS, SERVICES & IDEAS</h1>
+        <p >Hundreds of videos, thousands of articles and tens of thousands of high quality images</p>
+        <p >from around the world showcasing: Architecture, Kitchen Design, Bathroom Design,</p>
+        <p >Interiors, Landscape Design and Commercial Design.</p>
+    </div>
+</div>
+
+<a href="#" class="button" onclick="javascript:showElement('v-menu')">
+<span>Click Here</span>
+</a>
+<ul id="v-menu" class="v-menu" style="display:none;">
+<li><a href="p1.html">Technology</a></li>
+<li><a href="p2.html">Design</a></li>
+<li><a href="p3.html">Css Gallery</a></li>
+<li><a href="p4.html">Entertainment</a></li>
+<li><a href="p5.html">Programming</a></li>
+</ul>
+
+<script type="text/javascript">
+function showElement(layer){
+var myLayer = document.getElementById(layer);
+if(myLayer.style.display=="none"){
+myLayer.style.display="block";
+myLayer.backgroundPosition="top";
+} else {
+myLayer.style.display="none";
+}
+}
+</script>
 
 <script type="text/javascript">
     document.getElementById("loading").className = "loading-visible";
@@ -228,6 +272,9 @@ var des_src;
         oldLoad.call(this);
     } : hideDiv;
     window.onload = newLoad;
+
+
+
 </script>
 
 <script type="text/javascript" language="JavaScript" src="../../../js/search.js"></script>

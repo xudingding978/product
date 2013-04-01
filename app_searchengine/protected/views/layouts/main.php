@@ -1,4 +1,11 @@
-<?php /* @var $this Controller */ ?>
+<?php
+/*
+ * @var $this Controller
+ * @var $this SiteController 
+ * @var $model LoginForm 
+ * @var $form CActiveForm  
+ */
+?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
@@ -12,6 +19,9 @@
             <link rel="stylesheet" type="text/css" href="../../../css/main.css" />    
 
             <title><?php echo 'search engine' ?></title>
+
+            <link media="screen, projection" rel="stylesheet" type="text/css" href="../../../css/gallery.css"/>
+
             <link rel="stylesheet" type="text/css" href="../../../css/customstyle.php" /> 
             <link rel="stylesheet" href="../../../css/font-awesome.min.css">
                 <script type="text/javascript" language="JavaScript" src="../../../js/jquery-1.7.1.min.js"></script>
@@ -36,6 +46,7 @@
                                 return false;
                             });
 
+
                             obj.opts.on('click', function() {
                                 var opt = $(this);
                                 obj.val = opt.text();
@@ -54,6 +65,24 @@
                     $(function() {
 
                         var dd = new DropDown($('#dd'));
+
+                        $(document).click(function() {
+                            // all dropdowns
+                            $('.wrapper-dropdown-3').removeClass('active');
+                        });
+                        var dd1 = new DropDown($('#dd1'));
+
+                        $(document).click(function() {
+                            // all dropdowns
+                            $('.wrapper-dropdown-3').removeClass('active');
+                        });
+                        var dd2 = new DropDown($('#dd2'));
+
+                        $(document).click(function() {
+                            // all dropdowns
+                            $('.wrapper-dropdown-3').removeClass('active');
+                        });
+                        var dd3 = new DropDown($('#dd3'));
 
                         $(document).click(function() {
                             // all dropdowns
@@ -88,41 +117,328 @@
                 <body>
 
 
-
-
-
                     <div id="mainmenu">
 
                         <?php $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModal')); ?>
 
                         <div class="modal-header">
-                            <a class="close" data-dismiss="modal">X</a>
+                            <a class="close" onclick="reset_login();" data-dismiss="modal" x>X</a>
                             <h4>TRENDS</h4>
                         </div>
 
                         <div class="modal-body" style='word-wrap:break-word' >
-                            <p>description_description_description_description_description_description_description_description_description_description</p>
-                            <?PHP
-                            $this->widget('bootstrap.widgets.TbButtonGroup', array(
-                                'size' => 'large',
-                                'type' => 'inverse', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-                                'buttons' => array(
-                                    array('label' => 'Facebook', 'items' => array(
-                                            array('label' => 'Google', 'url' => '#'),
-                                            array('label' => 'Yahool', 'url' => '#'),
-                                            array('label' => 'QQ', 'url' => '#'),
-                                            array('label' => 'Twitter', 'url' => '#'),
-                                            array('label' => 'Sina', 'url' => '#'),
-                                        )),
-                                ),
-                            ));
-                            ?>
+
+                            <!-- Modal -->
+                            <div id="social_login" class="social_modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+                                <div class="modal-body">
+                                    <p>description_description_description_description_description_description_description_description_description_description</p>
+
+                                    <div id="dd" class="wrapper-dropdown-3" tabindex="1">
+                                        <span>Select to login</span>
+                                        <ul class="dropdown" style="width:220px">
+                                            <li  onclick="Facebook();" ><a style="color:rgb(138,168,1)" href="#"><i class="icon-envelope icon-large"></i>Sign in with FaceBook</a></li>
+                                            <li  onclick="Yahoo();" ><a style="color:rgb(138,32,50)" href="#"><i class="icon-truck icon-large"></i>Sign in with Yahoo</a></li>
+                                            <li  onclick="QQ();" ><a style="color:rgb(32,168,34)" href="#"><i class="icon-plane icon-large"></i>Sign in with QQ</a></li>
+                                            <li  onclick="Sina();" ><a style="color:rgb(138,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Sina</a></li>
+                                            <li  onclick="Google();" ><a style="color:rgb(138,23,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Google+</a></li>
+                                            <li  onclick="Twitter();" ><a style="color:rgb(55,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Twitter</a></li>
+                                            <li  onclick="dismiss_modal();" ><a style="color:rgb(90,168,32)" href="#"><i class="icon-plane icon-large"></i>Sign in with Email</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div style="top:200px;margin-top:250px;">
+                                        <a  href="http://account.business-software.co.nz/hybridauth/default/login/?provider=Google" >Google+</a>
+                                        <a  href="http://account.business-software.co.nz/hybridauth/default/login/?provider=FaceBook">FaceBook</a>
+                                        <a  href="http://account.business-software.co.nz/hybridauth/default/login/?provider=QQ">QQ</a>
+                                        <a  href="http://account.business-software.co.nz/hybridauth/default/login/?provider=Sina">Sina</a>
+                                        <a  href="http://account.business-software.co.nz/hybridauth/default/login/?provider=Twitter">Twitter</a>
+                                        <a  href="http://account.business-software.co.nz/hybridauth/default/login/?provider=Yahoo">Yahoo</a>
+                                        <a  href="#email_login" onclick="dismiss_modal();">Email</a>
+                                        <a href="#email_login" role="button" class="btn" onclick="dismiss_modal();">Email</a>
+
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- Modal -->
+                            <div id="email_login" class="email_modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+                                <div class="modal-body">
+                                    <div id="dd1" class="wrapper-dropdown-3" tabindex="1">
+                                        <span>Select to login</span>
+                                        <ul class="dropdown" style="width:220px">
+                                            <li  onclick="Facebook();" ><a style="color:rgb(138,168,1)" href="#"><i class="icon-envelope icon-large"></i>Sign in with FaceBook</a></li>
+                                            <li  onclick="Yahoo();" ><a style="color:rgb(138,32,50)" href="#"><i class="icon-truck icon-large"></i>Sign in with Yahoo</a></li>
+                                            <li  onclick="QQ();" ><a style="color:rgb(32,168,34)" href="#"><i class="icon-plane icon-large"></i>Sign in with QQ</a></li>
+                                            <li  onclick="Sina();" ><a style="color:rgb(138,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Sina</a></li>
+                                            <li  onclick="Google();" ><a style="color:rgb(138,23,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Google+</a></li>
+                                            <li  onclick="Twitter();" ><a style="color:rgb(55,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Twitter</a></li>
+
+                                        </ul>
+                                    </div>
+                                    <p style="margin-left:350px;">Don't have an account yet?</p>
+                                    <a style="margin-left:350px;" href="#email_register" onclick="dismiss_Join();">Join Now</a>
+
+
+                                    <?PHP
+                                    $model = new LoginForm;
+                                    ?>
+
+                                    <div class="form">
+
+                                        <?php
+                                        $form = $this->beginWidget('CActiveForm', array(
+                                            'id' => 'login-form',
+                                            'enableAjaxValidation' => true,
+                                            'enableClientValidation' => true,
+                                            'clientOptions' => array(
+                                                'validateOnSubmit' => true
+                                            ),
+                                            'htmlOptions' => array(
+                                                'onsubmit' => "return false;", /* Disable normal form submit */
+                                                'onkeypress' => " if(event.keyCode == 13){ send(); } " /* Do ajax call when user presses enter key */
+                                            ),
+                                        ));
+                                        ?>
+
+
+
+
+                                        <div class="row">
+                                            <?php echo $form->labelEx($model, 'username'); ?>
+                                            <?php echo $form->textField($model, 'username'); ?>
+                                            <?php echo $form->error($model, 'username'); ?>    
+                                            <p id='user_blank' style="display:none">* Username cannot be blank.</p>
+                                        </div>
+                                        <div class="row">
+                                            <?php echo $form->labelEx($model, 'password'); ?>
+                                            <?php echo $form->passwordField($model, 'password'); ?>
+                                            <?php echo $form->error($model, 'password'); ?>
+                                            <p  id='password_blank'  style='display:none;' >* Password cannot be blank.</p>
+                                            <p  id='password_incorrect'  style='display:none' >* Incorrect username or password.</p>
+                                        </div>
+                                        <div class="row rememberMe">
+                                            <?php echo $form->checkBox($model, 'rememberMe'); ?>
+                                            <?php echo $form->label($model, 'keep me signed in'); ?>
+                                            <?php echo $form->error($model, 'rememberMe'); ?>
+                                        </div>
+
+
+                                        <div class="row buttons">
+
+                                            <a href="#" role="button" class="btn" onclick="send();">Login</a>
+                                        </div>
+
+                                        <?php $this->endWidget(); ?>
+
+                                    </div><!-- form -->
+                                    <a href='#'>Forgot your username or password?</a>
+                                    <script type="text/javascript">
+
+                    function send()
+                    {
+
+                        var data = $("#login-form").serialize();
+
+
+                        $.ajax({
+                            type: 'POST',
+                            url: '<?php echo CController::createUrl('Site/Ajax'); ?>',
+                            data: data,
+                            success: function(data) {
+                                if (data !== "") {
+                                    //       alert(data);
+                                    if (data.indexOf('Username cannot be blank') !== -1) {
+                                        $('#user_blank').attr("style", "display:block; color:red");
+
+                                    } else {
+                                        $('#user_blank').attr("style", "display:none");
+                                    }
+                                    if (data.indexOf('Password cannot be blank') !== -1) {
+
+                                        $('#password_blank').attr("style", "display:block; color:red");
+                                    } else {
+                                        $('#password_blank').attr("style", "display:none");
+                                    }
+                                    if (data.indexOf('Incorrect username or password') !== -1) {
+
+                                        $('#password_incorrect').attr("style", "display:block ;color:red");
+                                    } else {
+                                        $('#password_incorrect').attr("style", "display:none");
+                                    }
+
+
+                                } else {
+                                    window.location = "<?php echo CController::createUrl('Site/index'); ?>";
+                                }
+
+                            },
+                            error: function(data) { // if error occured
+                                alert("Error occured.please try again");
+                                alert(data);
+                            },
+                            dataType: 'html'
+                        });
+
+                    }
+
+                                    </script>
+
+
+
+
+                                </div>
+
+                            </div>
+
+                            <!-- Modal -->
+                            <div id="email_register" class="register_modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+                                <div class="modal-body">
+
+                                    <h2>Sign Up for your Free Account!</h2>
+
+                                    <div id="dd2" class="wrapper-dropdown-3" tabindex="1">
+                                        <span>Select to login</span>
+                                        <ul class="dropdown" style="width:220px">
+                                            <li  onclick="Facebook();" ><a style="color:rgb(138,168,1)"c><i class="icon-envelope icon-large"></i>Sign in with FaceBook</a></li>
+                                            <li  onclick="Yahoo();" ><a style="color:rgb(138,32,50)" href="#"><i class="icon-truck icon-large"></i>Sign in with Yahoo</a></li>
+                                            <li  onclick="QQ();" ><a style="color:rgb(32,168,34)" href="#"><i class="icon-plane icon-large"></i>Sign in with QQ</a></li>
+                                            <li  onclick="Sina();" ><a style="color:rgb(138,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Sina</a></li>
+                                            <li  onclick="Google();" ><a style="color:rgb(138,23,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Google+</a></li>
+                                            <li  onclick="Twitter();" ><a style="color:rgb(55,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Twitter</a></li>
+  
+                                        </ul>
+                                    </div>
+                                    <p>Don't worry , we'll never post without your permission.</p>
+
+                                    <span>Sign Up with your Email Address:</span>
+
+                                    <?PHP
+                                    $model = new User;
+                                    ?>
+
+                                    <div class="form">
+
+                                        <?php
+                                        $form = $this->beginWidget('CActiveForm', array(
+                                            'id' => 'login-form-register',
+                                            'enableAjaxValidation' => true,
+                                            'enableClientValidation' => true,
+                                            'clientOptions' => array(
+                                                'validateOnSubmit' => true
+                                            ),
+                                            'htmlOptions' => array(
+                                                'onsubmit' => "return false;", /* Disable normal form submit */
+                                                'onkeypress' => " if(event.keyCode == 13){ send_register(); } " /* Do ajax call when user presses enter key */
+                                            ),
+                                        ));
+                                        ?>
+
+
+                                        <div class="row">
+
+                                            <?php echo $form->textField($model, 'EMAIL_ADDRESS', array('size' => 60, 'placeholder' => "Email Address", 'maxlength' => 255)); ?>
+                                            <?php echo $form->error($model, 'EMAIL_ADDRESS'); ?>
+                                            <p id='email_taken' style="display:none">* E-mail has already been taken.</p>
+                                        </div>
+
+                                        <div class="row">
+
+                                            <?php echo $form->textField($model, 'USER_NAME', array('size' => 60, 'placeholder' => "Username", 'maxlength' => 255)); ?>
+                                            <?php echo $form->error($model, 'USER_NAME'); ?>
+                                            <p id='username_taken' style="display:none">* Username has already been taken.</p>
+                                        </div>
+                                        <div class="row">
+
+                                            <?php echo $form->passwordField($model, 'PWD_HASH', array('size' => 60, 'placeholder' => "Password", 'maxlength' => 512)); ?>
+                                            <?php echo $form->error($model, 'PWD_HASH'); ?>
+
+                                        </div>
+
+                                        <div class="row">
+
+                                            <?php echo $form->passwordField($model, 'repeatPassword', array('size' => 60, 'placeholder' => "Confirm Password", 'maxlength' => 512)); ?>
+                                            <?php echo $form->error($model, 'repeatPassword'); ?>
+                                            <p id='password_repeat' style="display:none">* Password must be repeated exactly.</p>
+                                        </div>
+                                        <div class="row buttons">
+
+                                            <a href="#" role="button" class="btn" onclick="send_register();">Sign Up</a>
+                                        </div>
+
+                                        <?php $this->endWidget(); ?>
+
+                                    </div><!-- form -->
+
+                                    <script type="text/javascript">
+
+                    function send_register()
+                    {
+
+                        var data = $("#login-form-register").serialize();
+
+
+                        $.ajax({
+                            type: 'POST',
+                            url: '<?php echo CController::createUrl('User/create'); ?>',
+                            data: data,
+                            success: function(data) {
+                                //     alert(data);
+
+                                if (data !== "") {
+
+                                    if (data.indexOf('must be repeated exactly') !== -1) {
+
+                                        $('#password_repeat').attr("style", "display:block ;color:red");
+                                    } else {
+                                        $('#password_repeat').attr("style", "display:none");
+                                    }
+                                    if (data.indexOf('has already been taken') !== -1) {
+
+                                        $('#username_taken').attr("style", "display:block ;color:red");
+                                    } else {
+                                        $('#username_taken').attr("style", "display:none");
+                                    }
+                                    if (data.indexOf('emailll;lllll') !== -1) {
+
+                                        $('#email_taken').attr("style", "display:block ;color:red");
+                                    } else {
+                                        $('#email_taken').attr("style", "display:none");
+                                    }
+
+                                } else {
+                                    window.location = "<?php echo CController::createUrl('Site/index'); ?>";
+                                }
+
+                            },
+                            error: function(data) { // if error occured
+                                alert("Error occured.please try again");
+                                alert(data);
+                            },
+                            dataType: 'html'
+                        });
+
+                    }
+
+                                    </script>
+
+
+                                    <p>By clicking Sign Up you indicate that you have read and agreed to the <a href='#'>Terms of Use</a> and <a href='#'>Privacy Policy </a>.</p>
+
+
+                                </div>
+
+                            </div>
+
                         </div>
 
-                        <div class="modal-footer">
 
-                        </div>
                         <?php $this->endWidget(); ?>
+
 
                         <?php
                         if (Yii::app()->user->isGuest) {
@@ -161,6 +477,13 @@
                             ));
                         } else {
                             $userProfile = UserProfile::model()->findByAttributes(array('USER_REC_ID' => Yii::app()->user->id));
+                            if ($userProfile === null) {
+                                $name = Yii::app()->user->name;
+                                $user_img = "";
+                            } else {
+                                $name = $userProfile->DISPLAY_NAME;
+                                $user_img = $userProfile->PHOTO_URL;
+                            }
                             $this->widget('bootstrap.widgets.TbNavbar', array(
                                 'brand' => '<img class="logonew"  height="29px" src ="../../../images/landing-trends.png"/>',
                                 'items' => array(
@@ -178,8 +501,8 @@
                                                 )),
                                         )
                                     ),
-//                                    '<img id="asdas" class="loging_image"  height="29px" src ="' . $userProfile->PHOTO_URL . '"/>',
-//                                    '<p class="loging_text">Hi!!   ' . $userProfile->DISPLAY_NAME . ' </p>',
+                                    '<img id="asdas" class="loging_image"  height="29px" src ="' . $user_img . '"/>',
+                                    '<p class="loging_text">Hi!!   ' . $name . ' </p>',
                                     array(
                                         'class' => 'bootstrap.widgets.TbMenu',
                                         'htmlOptions' => array('class' => 'loging_table'),

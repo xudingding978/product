@@ -18,12 +18,6 @@
     <?php echo $form->errorSummary($model); ?>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'TENANT_REC_ID'); ?>
-        <?php echo $form->textField($model, 'TENANT_REC_ID'); ?>
-        <?php echo $form->error($model, 'TENANT_REC_ID'); ?>
-    </div>
-
-    <div class="row">
         <?php echo $form->labelEx($model, 'USER_NAME'); ?>
         <?php echo $form->textField($model, 'USER_NAME', array('size' => 60, 'maxlength' => 255)); ?>
         <?php echo $form->error($model, 'USER_NAME'); ?>

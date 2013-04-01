@@ -56,8 +56,9 @@ body
 #mainmenu ul
 {
 
-
+z-index:1000;
 }
+
 
 #mainmenu ul li
 {
@@ -74,15 +75,11 @@ body
     text-decoration:none;
     padding:5px 8px;
 
-    color: rgb(255, 255, 255);
-}
-
 }
 
 #mainmenu ul li a:hover, #mainmenu ul li.active a
 {
-    color: #6399cd;
-    background-color:#EFF4FA;
+
     text-decoration:none;
 }
 

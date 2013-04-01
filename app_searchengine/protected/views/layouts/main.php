@@ -25,7 +25,7 @@
             <title><?php echo 'search engine' ?></title>
             <script type="text/javascript" language="JavaScript" src="../../../js/jquery-1.7.1.min.js"></script>
             <script type="text/javascript" language="JavaScript" src="../../../js/jquery.isotope.min.js"></script>  
-            
+
             <link media="screen, projection" rel="stylesheet" type="text/css" href="../../../css/gallery.css"/>
 
             <link rel="stylesheet" type="text/css" href="../../../css/customstyle.php" /> 
@@ -114,6 +114,9 @@
                         $('#email_register').attr('aria-hidden', 'true');
                         $('#email_register').attr("style", "display:none");
 
+                        // left hiding menu bar
+    
+                        $('.main-nav ').attr("style", "opacity:0.4;width:10px;overflow:hidden");
                         $(window).scroll(function() {
                             if ($(this).scrollTop() == 0) {
                                 $('#discovery_search_bar_wrapper').attr('style', 'position:relative;margin-top: 40px;');

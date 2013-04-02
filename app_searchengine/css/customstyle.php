@@ -26,7 +26,7 @@ margin:11px 0 0 17%;
 }
 
 .navbar-fixed-bottom .navbar-inner {
-box-shadow: 0px -1px 10px rgba(0, 0, 0, 0.1);
+
 background-color: <?php echo $color_1; ?>;
 background-image: -moz-linear-gradient(top,<?php echo $color_1; ?> , <?php echo $color_2; ?>);
 background-image: -ms-linear-gradient(top, <?php echo $color_1; ?> , <?php echo $color_2; ?> );
@@ -34,7 +34,8 @@ background-image: -webkit-gradient(linear, 0 0, 0 100%, from(<?php echo $color_1
 background-image: -webkit-linear-gradient(top, <?php echo $color_1; ?> ,  <?php echo $color_2; ?>);
 background-image: -o-linear-gradient(top, <?php echo $color_1; ?> ,  <?php echo $color_2; ?>);
 background-image: linear-gradient(top, <?php echo $color_1; ?> ,  <?php echo $color_2; ?>);
-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='<?php echo $color_1; ?> ', endColorstr=' <?php echo $color_2; ?>', GradientType=0);
+
+box-shadow: 0px -1px 10px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -46,7 +47,7 @@ background-image: -webkit-gradient(linear, 0 0, 0 100%, from(<?php echo $color_1
 background-image: -webkit-linear-gradient(top, <?php echo $color_1; ?> ,  <?php echo $color_2; ?>);
 background-image: -o-linear-gradient(top, <?php echo $color_1; ?> ,  <?php echo $color_2; ?>);
 background-image: linear-gradient(top, <?php echo $color_1; ?> ,  <?php echo $color_2; ?>);
-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='<?php echo $color_1; ?> ', endColorstr=' <?php echo $color_2; ?>', GradientType=0);
+
 -webkit-box-shadow: 0px 0px 15px rgb(0, 0, 0);
 -moz-box-shadow: 0px 0px 15px rgb(0, 0, 0);
 box-shadow: 0px 0px 15px rgb(0, 0, 0);

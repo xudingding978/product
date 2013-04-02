@@ -129,13 +129,13 @@ display: none;
 float: left;
 min-width: 190px;
 min-height: 200px;
-padding: 5px 0px;
+padding: 0px 0px 0px 30px;
 margin: 14px 0px 0px -1px;
 list-style: none outside none;
-background-color: rgb(0, 0, 0);
-border: 1px solid rgba(0, 0, 0, 0.2);
+background-color: rgba(0, 0, 0,0);
+border: none;
 border-radius: 6px 6px 6px 6px;
-box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+box-shadow: none;
 background-clip: padding-box;
 }
 
@@ -373,10 +373,18 @@ margin-left:0;
 top: 0px;
 left: 100%;
 margin-top: -110px;
-margin-left: 15px;
+margin-left: 0px;
 border-radius: 0px 6px 6px 6px;
 }
 
+.main-nav .nav a:hover{
+background-color:black;
+color:rgba(255,255,255,1);
+}
+
+.nav li + .nav-header {
+    margin-top: 0px;
+}
 
 
 

@@ -117,6 +117,7 @@
                         // left hiding menu bar
     
                         $('.main-nav ').attr("style", "opacity:0.4;width:10px;overflow:hidden");
+                        
                         $(window).scroll(function() {
                             if ($(this).scrollTop() == 0) {
                                 $('#discovery_search_bar_wrapper').attr('style', 'position:relative;margin-top: 40px;');

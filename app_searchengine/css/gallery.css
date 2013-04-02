@@ -636,9 +636,9 @@ a {
 
 .main-nav {
     position: fixed;
-    top: 140px;
+    top: 20%;
     width: 10px;
-    height: 70%;
+    height: 530px;
     background: black;
   
     transition: width 0.3s ease; 
@@ -655,15 +655,17 @@ a {
 .main-nav a {
     display: block;
 
-    color: white;
-    padding-top: 30px; 
+    color: rgba(255,255,255,0.8);
+    padding-top: 20px; 
     padding-left: 13px; 
-    padding-bottom: 16px; 
+    padding-bottom: 10px; 
 
 
 }
 .main-nav a:hover, .main-nav a:focus {
-    background: linear-gradient(#484848, #383838); }
+    color: rgba(255,255,255,1);
+    text-decoration:none;
+}
 .main-nav:after {
     content: "";
     position: absolute;
@@ -671,7 +673,9 @@ a {
     right: 0;
     height: 100%;
     width: 34px;
-    background: linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)); }
+    background: linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)); 
+
+}
 
 .content {
     padding: 100px 20px 20px 20px; }
@@ -686,26 +690,40 @@ a {
 
 }
 
-#main-nav:target {
-    width: 4%; 
-    opacity:0.9;
+
+
+.dropdown_left >li>ul>li{
+    
+    background-color:black;
+}
+.dropdown_left >li>ul>li:first-child{
+    
+    border-radius: 6px 6px 0px 0px;
+}
+.dropdown_left >li>ul>li:last-child{
+    
+    border-radius: 0px 0px 6px 6px;
 }
 
-#main-nav:target + .page-wrap {
-    width: 80%; }
-#main-nav:target + .page-wrap .open-menu {
-    display: none; }
-#main-nav:target + .page-wrap .close-menu {
-    display: block; }
-#main-nav:target + .page-wrap .main-header {
+.dropdown_left >li>ul>li>ul>li{
+    
+    background-color:black;
+}
 
-    left: 4%; }
+.dropdown_left >li>ul>li>ul>li:first-child{
+    
+    border-radius: 6px 6px 0px 0px;
+}
+.dropdown_left >li>ul>li>ul>li:last-child{
+    
+    border-radius: 0px 0px 6px 6px;
+}
 
-
-
-
-
-
+.main-header >a:hover{
+    text-decoration: none;
+    cursor:default;
+    
+}
 
 
 

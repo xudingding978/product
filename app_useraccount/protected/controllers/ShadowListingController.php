@@ -1,6 +1,6 @@
 <?php
 
-class ClientController extends Controller {
+class ShadowListingController extends Controller {
 
     /**
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -58,19 +58,13 @@ class ClientController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate() {
-        $model = new Client;
-
-
+        $model = new ShadowListing;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['Client'])) {
-            $model->attributes = $_POST['Client'];
-            $model->REC_DATETIME = new CDbExpression('NOW()');
-            $model->REC_TIMESTAMP = new CDbExpression('NOW()');
-            $model->USER_ID = Yii::app()->user->id;
-            $model->REC_TIMESTAMP = new CDbExpression('NOW()');
+        if (isset($_POST['ShadowListing'])) {
+            $model->attributes = $_POST['ShadowListing'];
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->REC_ID));
         }
@@ -91,8 +85,8 @@ class ClientController extends Controller {
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['Client'])) {
-            $model->attributes = $_POST['Client'];
+        if (isset($_POST['ShadowListing'])) {
+            $model->attributes = $_POST['ShadowListing'];
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->REC_ID));
         }
@@ -119,7 +113,7 @@ class ClientController extends Controller {
      * Lists all models.
      */
     public function actionIndex() {
-        $dataProvider = new CActiveDataProvider('Client');
+        $dataProvider = new CActiveDataProvider('ShadowListing');
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));
@@ -128,14 +122,19 @@ class ClientController extends Controller {
     /**
      * Manages all models.
      */
-    public function actionAdmin() {
-        $model = new Client('search');
-        $model->unsetAttributes();  // clear any default values
-        if (isset($_GET['Client']))
-            $model->attributes = $_GET['Client'];
+    public function actionAdmin($id) {
+
+        //     $listings = ShadowListing::model()->findAllByAttributes(array('CLIENT_REC_ID' => $model->REC_ID));
+        //    $model = ShadowListing::model()->findAllByAttributes(array('CLIENT_REC_ID' => 96));
+
+        $model = new ShadowListing;
+        //      $model->unsetAttributes();  // clear any default values
+        if (isset($_GET['ShadowListing']))
+            $model->attributes = $_GET['ShadowListing'];
 
         $this->render('admin', array(
             'model' => $model,
+            'id' => $id,
         ));
     }
 
@@ -143,11 +142,11 @@ class ClientController extends Controller {
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
      * @param integer $id the ID of the model to be loaded
-     * @return Client the loaded model
+     * @return ShadowListing the loaded model
      * @throws CHttpException
      */
     public function loadModel($id) {
-        $model = Client::model()->findByPk($id);
+        $model = ShadowListing::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
@@ -155,10 +154,10 @@ class ClientController extends Controller {
 
     /**
      * Performs the AJAX validation.
-     * @param Client $model the model to be validated
+     * @param ShadowListing $model the model to be validated
      */
     protected function performAjaxValidation($model) {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'client-form') {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'shadow-listing-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

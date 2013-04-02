@@ -111,9 +111,9 @@ return CMap::mergeArray(
                 'authManager' => array(
                     'class' => 'CDbAuthManager',
                     'connectionID' => 'db',
-                    'itemTable' => 'tpl_auth_item',
-                    'itemChildTable' => 'tpl_auth_item_child',
-                    'assignmentTable' => 'tpl_auth_assignment',
+                    'itemTable' => 'auth_item',
+                    'itemChildTable' => 'auth_item_child',
+                    'assignmentTable' => 'auth_assignment',
                     'behaviors' => array(
                         'auth' => array(
                             'class' => 'AuthBehavior',

@@ -16,69 +16,15 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'REC_DATETIME'); ?>
-		<?php echo $form->textField($model,'REC_DATETIME'); ?>
-		<?php echo $form->error($model,'REC_DATETIME'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'REC_TIMESTAMP'); ?>
-		<?php echo $form->textField($model,'REC_TIMESTAMP'); ?>
-		<?php echo $form->error($model,'REC_TIMESTAMP'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'CLIENT_STATUS_REC_ID'); ?>
-		<?php echo $form->textField($model,'CLIENT_STATUS_REC_ID'); ?>
-		<?php echo $form->error($model,'CLIENT_STATUS_REC_ID'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'USER_ID'); ?>
-		<?php echo $form->textField($model,'USER_ID'); ?>
-		<?php echo $form->error($model,'USER_ID'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'BUSINESS_NAME'); ?>
-		<?php echo $form->textField($model,'BUSINESS_NAME',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'BUSINESS_NAME'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'USERNAME'); ?>
-		<?php echo $form->textField($model,'USERNAME',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'USERNAME'); ?>
+		<?php echo $form->labelEx($model,'CLIENT_NAME'); ?>
+		<?php echo $form->textField($model,'CLIENT_NAME',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'CLIENT_NAME'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'TRADING_AS_NAME'); ?>
 		<?php echo $form->textField($model,'TRADING_AS_NAME',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'TRADING_AS_NAME'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'IS_DELETED'); ?>
-		<?php echo $form->textField($model,'IS_DELETED'); ?>
-		<?php echo $form->error($model,'IS_DELETED'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'DELETED_BY'); ?>
-		<?php echo $form->textField($model,'DELETED_BY',array('size'=>45,'maxlength'=>45)); ?>
-		<?php echo $form->error($model,'DELETED_BY'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'DELETED_DATE'); ?>
-		<?php echo $form->textField($model,'DELETED_DATE',array('size'=>45,'maxlength'=>45)); ?>
-		<?php echo $form->error($model,'DELETED_DATE'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'ACTIVATION_CODE'); ?>
-		<?php echo $form->textField($model,'ACTIVATION_CODE',array('size'=>45,'maxlength'=>45)); ?>
-		<?php echo $form->error($model,'ACTIVATION_CODE'); ?>
 	</div>
 
 	<div class="row">

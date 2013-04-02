@@ -522,6 +522,7 @@ body {
     opacity: 0;
     pointer-events: none;
     z-index:10000;
+    display:none;
 }
 
 .wrapper-dropdown-3 .dropdown li a {
@@ -579,6 +580,8 @@ body {
 .wrapper-dropdown-3.active .dropdown {
     opacity: 1;
     pointer-events: auto;
+    display:block;
+    transition: all 0.5s ease-in 0s;
 }
 
 

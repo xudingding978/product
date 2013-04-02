@@ -636,9 +636,9 @@ a {
 
 .main-nav {
     position: fixed;
-    top: 20%;
+    top: 18%;
     width: 10px;
-    height: 500px;
+    height: 490px;
     background: black;
   
     transition: width 0.3s ease; 

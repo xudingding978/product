@@ -592,7 +592,8 @@ body {
     position:relative;
     text-align: right;
     margin-top:40px ;
-    text-shadow: 0 0 0.5em #000
+    text-shadow: 0 0 0.5em #000;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#000000,direction=135,strength=2);
 
 
 }
@@ -641,7 +642,7 @@ a {
     width: 10px;
     height: 490px;
     background: black;
-  
+
     transition: width 0.3s ease; 
     opacity:0.4;
     -webkit-border-top-right-radius: 30px;
@@ -688,42 +689,42 @@ a {
 
 .open-menu {
     opacity:0.4;
-     transition: width 0.3s ease; 
+    transition: width 0.3s ease; 
 }
 
 
 
 .dropdown_left >li>ul>li{
-    
+
     background-color:black;
 }
 .dropdown_left >li>ul>li:first-child{
-    
+
     border-radius: 6px 6px 0px 0px;
 }
 .dropdown_left >li>ul>li:last-child{
-    
+
     border-radius: 0px 0px 6px 6px;
 }
 
 .dropdown_left >li>ul>li>ul>li{
-    
+
     background-color:black;
 }
 
 .dropdown_left >li>ul>li>ul>li:first-child{
-    
+
     border-radius: 6px 6px 0px 0px;
 }
 .dropdown_left >li>ul>li>ul>li:last-child{
-    
+
     border-radius: 0px 0px 6px 6px;
 }
 
 .main-header >a:hover{
     text-decoration: none;
     cursor:default;
-    
+
 }
 
 

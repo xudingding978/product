@@ -15,8 +15,12 @@
 
             <link media="screen, projection" rel="stylesheet" href="../../../css/reset-new.css"/>
 
-            <link media="screen, projection" rel="stylesheet" href="../../../css/gallery.css"/>
+
+
             <link rel="stylesheet" type="text/css" href="../../../css/main.css" />    
+
+
+
 
             <title><?php echo 'search engine' ?></title>
             <script type="text/javascript" language="JavaScript" src="../../../js/jquery-1.7.1.min.js"></script>
@@ -128,7 +132,86 @@
                         });
 
                     });
+                    function dismiss_modal() {
+                        $('#social_login').attr('aria-hidden', 'true');
+                        $('#social_login').attr("style", "display:none");
+                        $('#email_login').attr('aria-hidden', 'false');
+                        $('#email_login').attr("style", "display:block");
 
+                    }
+                    function dismiss_modal_test() {
+                        $('#social_login').attr('aria-hidden', 'true');
+                        $('#social_login').attr("style", "display:none");
+                        $('#email_login').attr('aria-hidden', 'false');
+                        $('#email_login').attr("style", "display:block");
+
+                    }
+                    function dismiss_Join() {
+                        $('#email_login').attr('aria-hidden', 'true');
+                        $('#email_login').attr("style", "display:none");
+                        $('#email_register').attr('aria-hidden', 'false');
+                        $('#email_register').attr("style", "display:block");
+
+                    }
+
+
+                    function reset_login() {
+                        $('#email_login').attr('aria-hidden', 'true');
+                        $('#email_login').attr("style", "display:none");
+                        $('#social_login').attr('aria-hidden', 'false');
+                        $('#social_login').attr("style", "display:block");
+
+                        $('#email_register').attr('aria-hidden', 'true');
+                        $('#email_register').attr("style", "display:none");
+
+                    }
+                    function show_search_bar() {
+
+
+                        $('#discovery_search_bar_wrapper').attr('style', 'position:fixed;margin-top: -30px;z-index: 50000;');
+                        document.getElementById("search-loading").className = "search-loading-visible";
+
+                    }
+                    function dismiss_search() {
+                        $('#discovery_search_bar_wrapper').attr('style', 'position:relative;margin-top: 40px;z-index: 500;');
+                        document.getElementById("search-loading").className = "search-loading-invisible";
+                    }
+
+
+
+
+                    function detDomain() {
+<?PHP
+$dot_positon = strpos($_SERVER['HTTP_HOST'], ".");
+
+$domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
+?>
+                    }
+                    function Facebook() {
+                        detDomain();
+                        window.location.href = "http://account" + "<?php echo $domain ?>" + "/hybridauth/default/login/?provider=Facebook";
+                    }
+                    function Yahoo() {
+                        detDomain();
+                        window.location.href = "http://account" + "<?php echo $domain ?>" + "/hybridauth/default/login/?provider=Yahoo";
+                    }
+                    function QQ() {
+                        detDomain();
+                        window.location.href = "http://account" + "<?php echo $domain ?>" + "/hybridauth/default/login/?provider=QQ";
+                    }
+                    function Sina() {
+                        detDomain();
+                        window.location.href = "http://account" + "<?php echo $domain ?>" + "/hybridauth/default/login/?provider=Sina";
+                    }
+                    function Twitter() {
+                        detDomain();
+                        window.location.href = "http://account" + "<?php echo $domain ?>" + "/hybridauth/default/login/?provider=Twitter";
+                    }
+                    function Google() {
+                        detDomain();
+                        //      alert("<?php echo $domain ?>");
+                        window.location.href = "http://account" + "<?php echo $domain ?>" + "/hybridauth/default/login/?provider=Google";
+                    }
 
 
 
@@ -136,6 +219,9 @@
                 </head>
 
                 <body>
+
+
+
 
 
                     <div id="mainmenu">
@@ -488,7 +574,11 @@
                                                 )),
                                         )
                                     ),
-
+                                    '<div class="smallIcon">
+                                        <a class="icon_a" href="#"><i class="icon-th icon-2x" ></i></a>
+                                            <a class="icon_b" href="#")><i class="icon-list-ul  icon-2x" ></i></a>
+                                                <a href="#" class="icon_c" ><i class="icon-search icon-2x" ></i></a>
+                                                </div>',
                                     array(
                                         'class' => 'bootstrap.widgets.TbMenu',
                                         'htmlOptions' => array(

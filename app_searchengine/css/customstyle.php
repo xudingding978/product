@@ -1,8 +1,8 @@
 <?php
 header("Content-type: text/css; charset: UTF-8");
 $back_gound_color = '#999';
-$color_1 = 'rgb(7,183,234)';
-$color_2 = 'rgb(2,166,220)';
+$color_1 = '#07b7ea';
+$color_2 = '#02a6dc';
 $bootstrap_widget_header_color = '#111';
 $text_color = '#rgb(222,222,222)';
 ?>

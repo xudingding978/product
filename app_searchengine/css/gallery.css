@@ -625,6 +625,7 @@ a {
     color: black;
     font-size: 32px; 
     z-index:500;
+    transition: width 0.3s ease; 
 }
 
 .page-wrap {
@@ -687,7 +688,7 @@ a {
 
 .open-menu {
     opacity:0.4;
-
+     transition: width 0.3s ease; 
 }
 
 

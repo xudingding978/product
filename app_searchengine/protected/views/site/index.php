@@ -26,7 +26,7 @@ if (Yii::app()->user->isGuest) {
 
 
     <div class="tile_img" >
-        <div id="dd3" class="wrapper-dropdown-3" tabindex="1" style="margin-left:76%;">
+        <div id="dd3" class="wrapper-dropdown-3" tabindex="1" style="margin-left:73%;">
             <span>Select to login</span>
             <ul class="dropdown" style="width:220px">
                 <li  onclick="Facebook();" ><a style="color:rgb(138,168,1)" href="#"><i class="icon-envelope icon-large"></i>Sign in with FaceBook</a></li>

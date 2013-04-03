@@ -130,7 +130,7 @@
                                 $('#discovery_search_bar_wrapper').attr('style', 'position:relative;margin-top: 40px;');
                                 document.getElementById("search-loading").className = "search-loading-invisible";
                             }
-                            if ($(this).scrollTop() > 100) {
+                            if ($(this).scrollTop() > 150) {
                                 $('#back-top').fadeIn();
                             } else {
                                 $('#back-top').fadeOut();

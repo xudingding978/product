@@ -126,7 +126,7 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
 
                     var $newItems = $('<div class="element alkali metal   isotope-item"  style="height:' + element_height + 'px"> \n\
             <div id="image_container"  style="left: 15px;  top: 30px; width: 180px;height:' + image_height + 'px"> \n\
-                    <img src=' + this.src + ' />\n\
+                    <a href="#item_detail" data-toggle="modal"><img src=' + this.src + ' ></a>\n\
             </div>\n\
             <p style="left: 15px;  bottom: 100px;">' + this.description + '</p>\n\
             <a href="#" style="left: 15px;  bottom: 78px; width:55px;white-space: nowrap;"><k class="icon-heart-empty"></k> <p style="left: 20px; ">12</p></a>\n\
@@ -210,7 +210,14 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
 
             <div id="container" class="variable-sizes clearfix isotope">
 
+<!-- Modal -->
+<div id="item_detail" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
+<div class="modal-body">
+<p>One fine body…</p>
+</div>
+
+</div>
 
 
 

@@ -123,11 +123,17 @@
                         // left hiding menu bar
 
                         $('.main-nav ').attr("style", "opacity:0.4;width:10px;overflow:hidden");
-
+                        // hide #back-top first
+                        $("#back-top").hide();
                         $(window).scroll(function() {
                             if ($(this).scrollTop() == 0) {
                                 $('#discovery_search_bar_wrapper').attr('style', 'position:relative;margin-top: 40px;');
                                 document.getElementById("search-loading").className = "search-loading-invisible";
+                            }
+                            if ($(this).scrollTop() > 100) {
+                                $('#back-top').fadeIn();
+                            } else {
+                                $('#back-top').fadeOut();
                             }
 
                             if ($(this).scrollTop() > 150) {
@@ -136,6 +142,16 @@
                                 $('.smallIcon').fadeOut();
                             }
                         });
+                        $('#back-top a').click(function() {
+                            $('body,html').animate({
+                                scrollTop: 0
+                            }, 800);
+                            return false;
+                        });
+
+
+
+
 
                     });
                     function dismiss_modal() {
@@ -660,7 +676,9 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                     <?php echo $content; ?>
 
                     <div class="clear"></div>
-
+                    <p id="back-top">
+                        <a href="#top"><span></span>Back to Top</a>
+                    </p>
                     <div id="footer">
                         Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
                         All Rights Reserved.<br/>

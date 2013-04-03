@@ -86,31 +86,31 @@ if (Yii::app()->user->isGuest) {
 <?PHP } ?>
 
 <script>
-                var imgHeight;
-                var imgWidth;
-                var image_src;
-                var des_src;
-                var des_src_array = new Array();
-                function Set()
-                {
-                    $.ajax({
-                        type: 'GET',
-                        url: '<?php echo CController::createUrl('Site/GetDataFromItemtable'); ?>',
-                        dataType: 'json',
-                        success: function(data) {
+                    var imgHeight;
+                    var imgWidth;
+                    var image_src;
+                    var des_src;
+                    var des_src_array = new Array();
+                    function Set()
+                    {
+                        $.ajax({
+                            type: 'GET',
+                            url: '<?php echo CController::createUrl('Site/GetDataFromItemtable'); ?>',
+                            dataType: 'json',
+                            success: function(data) {
 
-                            getValue(data);
-                        }
-                    });
-                }
+                                getValue(data);
+                            }
+                        });
+                    }
 
-                function loading()
-                {
-                    document.getElementById('display_loading').style.display = 'block';
-                    document.getElementById('loading_img').style.display = 'none';
-                    imgHeight = this.height;
-                    imgWidth = this.width;
-                    console.log("this.height : " + this.height + " " + imgHeight + " " + image_src);
+                    function loading()
+                    {
+                        document.getElementById('display_loading').style.display = 'block';
+                        document.getElementById('loading_img').style.display = 'none';
+                        imgHeight = this.height;
+                        imgWidth = this.width;
+                        console.log("this.height : " + this.height + " " + imgHeight + " " + image_src);
 <?PHP
 $dependency = new CDbCacheDependency('SELECT * FROM `tpl_user_profile` `t` WHERE `t`.`USER_REC_ID`=93 LIMIT 1');
 $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(array('USER_REC_ID' => 93));
@@ -118,15 +118,15 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
 
 
 
-                    var image_height = this.height / this.width * 180;
-                    var element_height = image_height + 160;
+                        var image_height = this.height / this.width * 180;
+                        var element_height = image_height + 160;
 //            console.log(key + ' ' + img.height);
 //            console.log(element_height);
 
 
-                    var $newItems = $('<div class="element alkali metal   isotope-item"  style="height:' + element_height + 'px"> \n\
+                        var $newItems = $('<div class="element alkali metal   isotope-item"  style="height:' + element_height + 'px"> \n\
             <div id="image_container"  style="left: 15px;  top: 30px; width: 180px;height:' + image_height + 'px"> \n\
-                    <a href="#item_detail" data-toggle="modal"><img src=' + this.src + ' ></a>\n\
+                    <a href="#" onclick="popup_items('+this.id+');" ><img src=' + this.src + ' ></a>\n\
             </div>\n\
             <p style="left: 15px;  bottom: 100px;">' + this.description + '</p>\n\
             <a href="#" style="left: 15px;  bottom: 78px; width:55px;white-space: nowrap;"><k class="icon-heart-empty"></k> <p style="left: 20px; ">12</p></a>\n\
@@ -137,64 +137,73 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                     <p style="left: 50px;  bottom: 20px;white-space: nowrap;">by  <a href="#" > Trends ideas</a></p>\n\
                 </div>\n\
             </div>');
-                    $('#container').append($newItems).isotope('insert', $newItems);
-                    return true;
-                }
-                function switch_loading()
-                {
-                    document.getElementById('display_loading').style.display = 'none';
-                    document.getElementById('loading_img').style.display = 'block';
-                }
+                        $('#container').append($newItems).isotope('insert', $newItems);
+                        return true;
+                    }
+                    function switch_loading()
+                    {
+                        document.getElementById('display_loading').style.display = 'none';
+                        document.getElementById('loading_img').style.display = 'block';
+                    }
 
-                function getValue(data) {
-
-
-
-                    for (var key in data) {
-                        var img = new Image();
-                        image_src = data[key]['IMAGE_URL'];
-                        des_src = data[key]['DESCRIPTION'];
-                        img.src = image_src;
-                        img.description = des_src;
-                        img.user_photo = "";
-                        img.like = "";
-                        img.onload = loading;
-                        //            loading();
+                    function getValue(data) {
 
 
-                        console.log("imgHeight : " + imgHeight + " " + "this.height : " + this.height + " " + image_src);
+
+                        for (var key in data) {
+                            var img = new Image();
+                            image_src = data[key]['IMAGE_URL'];
+                            des_src = data[key]['DESCRIPTION'];
+                           client_id = data[key]['CLIENT_REC_ID'];
+                            img.src = image_src;
+                            img.description = des_src;
+                            img.user_photo = "";
+                            img.id = client_id;
+                            img.onload = loading;
+                            //            loading();
+
+
+                            console.log("imgHeight : " + imgHeight + " " + "this.height : " + this.height + " " + image_src);
+                        }
+
+
                     }
 
 
-                }
 
 
 
 
+                    $(document).ready(function() {
+                        Set();
+                        $(window).scroll(function() {
+                            //  console.log($(this).scrollTop());
 
-
-                $(document).ready(function() {
-                    Set();
-                    $(window).scroll(function() {
-                        //  console.log($(this).scrollTop());
-
-                        var oldLoad = function() {
-                            document.getElementById("loading").className = "loading-visible";
-                        };
-                        var hideDiv = function() {
-                            document.getElementById("loading").className = "loading-invisible";
-                        };
-                        if ($(this).scrollTop() >= ($(document).height() - $(window).height() - 250)) {
+                            var oldLoad = function() {
+                                document.getElementById("loading").className = "loading-visible";
+                            };
+                            var hideDiv = function() {
+                                document.getElementById("loading").className = "loading-invisible";
+                            };
+                            if ($(this).scrollTop() >= ($(document).height() - $(window).height() - 250)) {
 
 
 
-                            //   oldLoad.call(this);
+                                //   oldLoad.call(this);
 
-                            //  Set();
-                        }
-                        // hideDiv.call(this);
+                                //  Set();
+                            }
+                            // hideDiv.call(this);
+                        });
                     });
-                });</script>
+
+                    function popup_items(id) {
+
+                        alert("client id : "+id);
+
+
+                    }
+</script>
 
 
 
@@ -210,14 +219,14 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
 
             <div id="container" class="variable-sizes clearfix isotope">
 
-<!-- Modal -->
-<div id="item_detail" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <!-- Modal -->
+                <div id="item_detail" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
-<div class="modal-body">
-<p>One fine body…</p>
-</div>
+                    <div class="modal-body">
+                        <p>One fine body…</p>
+                    </div>
 
-</div>
+                </div>
 
 
 
@@ -313,10 +322,10 @@ if (Yii::app()->user->isGuest) {
                     array('label' => 'Accessories & Decor', 'url' => array('/site/index')),
                     array('label' => 'Windows & Doors', 'tabindex' => '-1', 'items' => array(
                             array('label' => 'Action1', 'url' => '#'),
-                         array('label' => 'Action2', 'url' => '#'),
-                         array('label' => 'Action3', 'url' => '#'),
-                         array('label' => 'Action4', 'url' => '#'),
-                         array('label' => 'Action5', 'url' => '#'),
+                            array('label' => 'Action2', 'url' => '#'),
+                            array('label' => 'Action3', 'url' => '#'),
+                            array('label' => 'Action4', 'url' => '#'),
+                            array('label' => 'Action5', 'url' => '#'),
                         ),
                     ),
                 )
@@ -351,26 +360,26 @@ if (Yii::app()->user->isGuest) {
 
 
 <script type="text/javascript">
-                document.getElementById("loading").className = "loading-visible";
-                var hideDiv = function() {
-                    document.getElementById("loading").className = "loading-invisible";
-                };
-                var oldLoad = window.onload;
-                var newLoad = oldLoad ? function() {
-                    hideDiv.call(this);
-                    oldLoad.call(this);
-                } : hideDiv;
-                window.onload = newLoad;</script>
+                    document.getElementById("loading").className = "loading-visible";
+                    var hideDiv = function() {
+                        document.getElementById("loading").className = "loading-invisible";
+                    };
+                    var oldLoad = window.onload;
+                    var newLoad = oldLoad ? function() {
+                        hideDiv.call(this);
+                        oldLoad.call(this);
+                    } : hideDiv;
+                    window.onload = newLoad;</script>
 
 <script type="text/javascript" language="JavaScript" src="../../../js/search.js"></script>
 <script type="text/javascript">
-  var hasBeenClicked = false;
+    var hasBeenClicked = false;
     function testing2() {
 
         $('.dropdown_left >li:first-child>ul ').attr("style", "margin:-170px 0px 0px 80px");
     }
 
-  
+
 
 
 
@@ -381,7 +390,7 @@ if (Yii::app()->user->isGuest) {
         $('.main-nav').click(function() {
 
             hasBeenClicked = true;
-            console.log("1 "+hasBeenClicked);
+            console.log("1 " + hasBeenClicked);
         });
     });
 
@@ -395,7 +404,7 @@ if (Yii::app()->user->isGuest) {
         } else {
             hasBeenClicked = false;
         }
-          //  hasBeenClicked = false;
+        //  hasBeenClicked = false;
     });
 
 

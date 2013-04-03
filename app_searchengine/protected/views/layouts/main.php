@@ -585,7 +585,7 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                                     array(
                                         'class' => 'bootstrap.widgets.TbMenu',
                                         'htmlOptions' => array(
-                                            'class' => 'pull-right moveTop',
+                                            'class' => 'login_guest',
                                             'data-toggle' => 'modal',
                                             'data-target' => '#myModal',
                                         ),

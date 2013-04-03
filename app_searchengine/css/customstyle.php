@@ -149,9 +149,9 @@ padding: 0px 0px 0px 30px;
 
 .navbar .nav {
 color:white;
-position: relative;
+position: absolute;
 
-left: 0px;
+left: 70%;
 display: block;
 float: left;
 margin: -27px 0px 0px 31%;
@@ -196,19 +196,22 @@ margin: 10px 10px 10px 10px ;
 }
 
 .loging_image{
-margin: -65px 0px 0px 1020px;
+margin-top: -65px;
 position: absolute;
-
+left:72%;
+float: right;
 }
 
 .loging_text{
-margin: -60px 0px 0px 1070px;
+margin-top: -60px;
 position: absolute;
+left:75%;
+float: right;
 }
 
 .navbar .nav.loging_table {
 float: right;
-margin: -26px 0px 0px 0px;
+margin: 48px 0px 0px 0px;
 }
 .loging_table >.dropdown>.dropdown-toggle>.caret {
 positison:absolute;
@@ -236,8 +239,9 @@ outline: 0px none;
 
 .smallIcon{
 position:absolute;
-margin: -66px 0px 0px 770px;
+margin: -66px 0px 0px ;
 display:none;
+left:56%;
 width:200px;
 z-index:10000;
 cursor:pointer;
@@ -381,7 +385,10 @@ top: 50%;
 
 }
 
-
+body{
+padding-right:0px;
+padding-left:0px;
+}
 
 .dropdown-submenu > .dropdown-menu {
 

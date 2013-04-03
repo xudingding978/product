@@ -224,7 +224,7 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                 </script>
                 </head>
 
-                <body>
+                <body style="min-width:900px;">
 
 
 

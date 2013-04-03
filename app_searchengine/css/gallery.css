@@ -490,6 +490,11 @@ body {
     font-weight: bold;
     color: #8AA8BD;
 }
+.container >.wrapper-dropdown-3 {
+    
+    font-weight: normal;
+}
+
 .wrapper-dropdown-3:after {
     content: "";
     width: 0;

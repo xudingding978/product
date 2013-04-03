@@ -126,7 +126,7 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
 
                         var $newItems = $('<div class="element alkali metal   isotope-item"  style="height:' + element_height + 'px"> \n\
             <div id="image_container"  style="left: 15px;  top: 30px; width: 180px;height:' + image_height + 'px"> \n\
-                    <a href="#" onclick="popup_items('+this.id+');" ><img src=' + this.src + ' ></a>\n\
+                    <a href="#item_detail"  data-toggle="modal" onclick="call_items(' + this.src + ');" ><img src=' + this.src + ' ></a>\n\
             </div>\n\
             <p style="left: 15px;  bottom: 100px;">' + this.description + '</p>\n\
             <a href="#" style="left: 15px;  bottom: 78px; width:55px;white-space: nowrap;"><k class="icon-heart-empty"></k> <p style="left: 20px; ">12</p></a>\n\
@@ -154,7 +154,7 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                             var img = new Image();
                             image_src = data[key]['IMAGE_URL'];
                             des_src = data[key]['DESCRIPTION'];
-                           client_id = data[key]['CLIENT_REC_ID'];
+                            client_id = data[key]['CLIENT_REC_ID'];
                             img.src = image_src;
                             img.description = des_src;
                             img.user_photo = "";
@@ -197,12 +197,38 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                         });
                     });
 
-                    function popup_items(id) {
+                    function call_items(img_src)
+                    {
+                        $.ajax({
+                            type: 'GET',
+                            url: '<?php echo CController::createUrl('Site/GetDataFromItemtable'); ?>',
+                            dataType: 'json',
+                            success: function(data) {
 
-                        alert("client id : "+id);
+                                popup_items(data, img_src);
+                            }
+                        });
+                    }
+                    function popup_items(data, img_src) {
+                        var img_array=new Array();
+                        
+                        for (var key in data) {
+                            if (data[key]['IMAGE_URL'] == img_src) {
+                                
+                                img_array [0]= "data[key]['IMAGE_URL']";
+                                 $("#item_detail_modal").data("test", "test" + img_array[0]);
+                            }
 
+                        }
+
+
+
+                       
+                        //     alert( $("#item_detail").data("test")); 
+                        $("#item_detail_modal> p").text($("#item_detail_modal").data("test"));
 
                     }
+
 </script>
 
 
@@ -222,8 +248,8 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                 <!-- Modal -->
                 <div id="item_detail" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
-                    <div class="modal-body">
-                        <p>One fine body…</p>
+                    <div id="item_detail_modal"  class="modal-body">
+                        <p> </p>
                     </div>
 
                 </div>

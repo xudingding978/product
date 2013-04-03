@@ -94,6 +94,12 @@
                             // all dropdowns
                             $('.wrapper-dropdown-3').removeClass('active');
                         });
+                        var dd4 = new DropDown($('#dd4'));
+
+                        $(document).click(function() {
+                            // all dropdowns
+                            $('.wrapper-dropdown-3').removeClass('active');
+                        });
 
                     });
 
@@ -115,9 +121,9 @@
                         $('#email_register').attr("style", "display:none");
 
                         // left hiding menu bar
-    
+
                         $('.main-nav ').attr("style", "opacity:0.4;width:10px;overflow:hidden");
-                        
+
                         $(window).scroll(function() {
                             if ($(this).scrollTop() == 0) {
                                 $('#discovery_search_bar_wrapper').attr('style', 'position:relative;margin-top: 40px;');
@@ -561,19 +567,16 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                                 //    'collapse' => 'true',
                                 'items' => array(
                                     '<p class="titleText"> Global  recommendations from </p>',
-                                    array(
-                                        'class' => 'bootstrap.widgets.TbMenu',
-                                        'htmlOptions' => array('class' => 'dropdown_region'),
-                                        'items' => array(
-                                            array('label' => 'Region', 'url' => '#', 'items' => array(
-                                                    array('label' => 'Australia', 'url' => array('/site/index')),
-                                                    array('label' => 'New Zealand', 'url' => array('/site/index')),
-                                                    array('label' => 'India', 'url' => array('/site/index')),
-                                                    array('label' => 'China', 'url' => array('/site/index')),
-                                                    array('label' => 'America', 'url' => array('/site/index')),
-                                                )),
-                                        )
-                                    ),
+                                    '<div id="dd4" class="wrapper-dropdown-3" tabindex="1" style="top: -30px; background:none;border-radius: none;border: none;color:white;box-shadow: none;">
+                                                <span class="SpanFontSetting">Region</span>
+                                                <ul class="dropdown" style="background: none repeat scroll 0% 0% rgb(45, 45, 45);border: 1px solid rgba(0, 0, 0, 0.17);">
+                                                    <li><a href="#" style="border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>Australia</a></li>
+                                                    <li><a href="#" style="border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>New Zealand</a></li>
+                                                    <li><a href="#" style="border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>India</a></li>
+                                                    <li><a href="#" style="border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>China</a></li>
+                                                    <li><a href="#" style="border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>America</a></li>
+                                                </ul>
+                                            </div>',
                                     '<div class="smallIcon">
                                         <a class="icon_a" href="#"><i class="icon-th icon-2x" ></i></a>
                                             <a class="icon_b" href="#")><i class="icon-list-ul  icon-2x" ></i></a>
@@ -582,7 +585,7 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                                     array(
                                         'class' => 'bootstrap.widgets.TbMenu',
                                         'htmlOptions' => array(
-                                            'class' => 'pull-right',
+                                            'class' => 'pull-right moveTop',
                                             'data-toggle' => 'modal',
                                             'data-target' => '#myModal',
                                         ),
@@ -606,19 +609,16 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                                 'brand' => '<img class="logonew"  height="29px" src ="../../../images/landing-trends.png"/>',
                                 'items' => array(
                                     '<p class="titleText">  Global  recommendations from </p>',
-                                    array(
-                                        'class' => 'bootstrap.widgets.TbMenu',
-                                        'htmlOptions' => array('class' => 'dropdown_region'),
-                                        'items' => array(
-                                            array('label' => 'Region', 'url' => '#', 'items' => array(
-                                                    array('label' => 'Australia', 'url' => array('/site/index')),
-                                                    array('label' => 'New Zealand', 'url' => array('/site/index')),
-                                                    array('label' => 'India', 'url' => array('/site/index')),
-                                                    array('label' => 'China', 'url' => array('/site/index')),
-                                                    array('label' => 'America', 'url' => array('/site/index')),
-                                                )),
-                                        )
-                                    ),
+                                    '<div id="dd4" class="wrapper-dropdown-3" tabindex="1" style="top: -30px; background:none;border-radius: none;border: none;color:white;box-shadow: none;">
+                                                <span class="SpanFontSetting">Region</span>
+                                                <ul class="dropdown" style="background: none repeat scroll 0% 0% rgb(45, 45, 45);border: 1px solid rgba(0, 0, 0, 0.17);">
+                                                    <li><a href="#" style="border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>Australia</a></li>
+                                                    <li><a href="#" style="border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>New Zealand</a></li>
+                                                    <li><a href="#" style="border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>India</a></li>
+                                                    <li><a href="#" style="border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>China</a></li>
+                                                    <li><a href="#" style="border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>America</a></li>
+                                                </ul>
+                                            </div>',
                                     '<img id="asdas" class="loging_image"  height="29px" src ="' . $user_img . '"/>',
                                     '<p class="loging_text">Hi!!   ' . $name . ' </p>',
                                     '<div class="smallIcon">
@@ -628,7 +628,7 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                                                 </div>',
                                     array(
                                         'class' => 'bootstrap.widgets.TbMenu',
-                                        'htmlOptions' => array('class' => 'loging_table'),
+                                        'htmlOptions' => array('class' => 'loging_table moveTop'),
                                         'items' => array(
                                             array('label' => '', 'url' => '#', 'items' => array(
                                                     array('label' => '1', 'url' => array('/site/index')),

@@ -40,6 +40,7 @@ box-shadow: 0px -1px 10px rgba(0, 0, 0, 0.1);
 
 
 .navbar-inner {
+height: 45px;
 background-color: <?php echo $color_1; ?>;
 background-image: -moz-linear-gradient(top,<?php echo $color_1; ?> , <?php echo $color_2; ?>);
 background-image: -ms-linear-gradient(top, <?php echo $color_1; ?> , <?php echo $color_2; ?> );
@@ -223,7 +224,7 @@ outline: 0px none;
 
 .smallIcon{
 position:absolute;
-margin: -24px 0px 0px 770px;
+margin: -66px 0px 0px 770px;
 display:none;
 width:200px;
 z-index:10000;
@@ -284,6 +285,7 @@ min-width:769px;
 
 .navbar-fixed-top {
 margin-bottom: 0px;
+height:45px;
 }
 
 
@@ -316,7 +318,7 @@ max-height:100%;
 
 .modal-backdrop {
 
-top: 40px;
+top: 45px;
 
 }
 
@@ -363,7 +365,7 @@ margin-left:0;
 
 .carousel-control {
 
-    top: 50%;
+top: 50%;
 
 }
 
@@ -384,10 +386,12 @@ color:rgba(255,255,255,1);
 }
 
 .nav li + .nav-header {
-    margin-top: 0px;
+margin-top: 0px;
 }
 
-
+.moveTop{
+top:-40px;
+}
 
 
 <?php

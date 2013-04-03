@@ -565,6 +565,9 @@ body {
     border-style: solid;
     border-color: #fff transparent;   
 }
+.container > .wrapper-dropdown-3 .dropdown:after {
+    border-color: #000 transparent;
+}
 
 .wrapper-dropdown-3 .dropdown:before {
     content: "";

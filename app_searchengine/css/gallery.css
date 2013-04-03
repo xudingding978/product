@@ -1208,7 +1208,7 @@ div.right_panel img {
 #back-top {
     position: fixed;
     bottom: -5px;
-    margin-left: 90%;
+    right: 50px;
     z-index: 100000;
 }
 

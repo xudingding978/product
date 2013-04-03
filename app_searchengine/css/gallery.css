@@ -502,6 +502,11 @@ body {
     border-style: solid;
     border-color: #8aa8bd transparent;
 }
+.container>.wrapper-dropdown-3:after {
+    
+        border-color: #fff transparent;
+    
+}
 .wrapper-dropdown-3 .dropdown {
     /* Size & position */
     position: absolute;

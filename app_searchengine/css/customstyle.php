@@ -129,18 +129,22 @@ left: 0px;
 z-index: 1000;
 display: none;
 float: left;
-min-width: 190px;
+min-width: 170px;
 min-height: 200px;
-padding: 0px 0px 0px 30px;
+padding: 0px 30px;
 margin: 14px 0px 0px -1px;
 list-style: none outside none;
-background-color: rgba(0, 0, 0,0);
+background-color: rgba(0, 0, 0,1);
 border: none;
 border-radius: 6px 6px 6px 6px;
 box-shadow: none;
 background-clip: padding-box;
 }
+.main-nav .dropdown-menu{
 
+background-color: rgba(0, 0, 0,0);
+padding: 0px 0px 0px 30px;
+}
 
 
 .navbar .nav {
@@ -174,6 +178,15 @@ line-height: 30px;
 color: rgb(51, 51, 51);
 white-space: nowrap;
 }
+.open > .dropdown-menu {
+    
+    margin-top: 50px;
+}
+
+.navbar .nav > li {
+    float: none;
+}
+
 .login_icon{
 positison:absolute;
 margin: 10px 10px 10px 10px ;
@@ -183,15 +196,14 @@ margin: 10px 10px 10px 10px ;
 }
 
 .loging_image{
-
-positison:absolute;
-margin: -43px 0px 0px 330px;
+margin: -65px 0px 0px 1020px;
+position: absolute;
 
 }
 
 .loging_text{
-positison:absolute;
-margin: -40px 0px 0px 1050px;
+margin: -60px 0px 0px 1070px;
+position: absolute;
 }
 
 .navbar .nav.loging_table {
@@ -201,7 +213,7 @@ margin: -26px 0px 0px 0px;
 .loging_table >.dropdown>.dropdown-toggle>.caret {
 positison:absolute;
 margin-top: 8px;
-margin-left: 180px;
+margin-left: 10px;
 }
 
 

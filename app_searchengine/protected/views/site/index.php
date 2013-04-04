@@ -126,7 +126,7 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
 
                         var $newItems = $('<div class="element alkali metal   isotope-item"  style="height:' + element_height + 'px"> \n\
             <div id="image_container"  style="left: 15px;  top: 30px; width: 180px;height:' + image_height + 'px"> \n\
-                    <a href="#item_detail"  data-toggle="modal" onclick="call_items(' + this.id + ');" ><img src=' + this.src + ' ></a>\n\
+                    <a href="#item_detail"  data-toggle="modal" onclick="clear_modal(); call_items(' + this.id + '); switch_loading_modal();" ><img src=' + this.src + ' ></a>\n\
             </div>\n\
             <p style="left: 15px;  bottom: 100px;">' + this.description + '</p>\n\
             <a href="#" style="left: 15px;  bottom: 78px; width:55px;white-space: nowrap;"><k class="icon-heart-empty"></k> <p style="left: 20px; ">12</p></a>\n\
@@ -146,6 +146,11 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                         document.getElementById('loading_img').style.display = 'block';
                     }
 
+
+                    function switch_loading_modal()
+                    {
+                        document.getElementById("loading").className = "loading-visible";
+                    }
                     function getValue(data) {
 
 
@@ -169,13 +174,18 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
 
                     }
 
+                    function clear_modal() {
 
+                        $('div').remove('#modol_insert >.item');
+
+                    }
 
 
 
 
                     $(document).ready(function() {
                         Set();
+
                         $(window).scroll(function() {
                             //  console.log($(this).scrollTop());
 
@@ -211,26 +221,31 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                     }
                     function popup_items(data, id) {
 
-                        var id_ary = new Array();
-
+                        //               var id_ary = new Array();
+                        var url_ary = new Array();
+                        var number = 0;
                         for (var key in data) {
                             if (data[key]['CLIENT_REC_ID'] == id) {
 
-                                id_ary [key] = data[key]['IMAGE_URL'];
-                                $("#item_detail_modal").data("test", id_ary[key]);
+                                url_ary[number] = data[key]['IMAGE_URL'];
+                                $("#item_detail_modal").data("url", url_ary[number]);
+
+
+
+//                                document.pic[number].src = $("#item_detail_modal").data("url"); 
+
+
+                                var $album_other = $('<div class=" item"><img src="" name="pic" id="image_id1"/></div>');
+                                $('#modol_insert').append($album_other);
+                                document.pic.src = $("#item_detail_modal").data("url");
+
+                                number = number + 1;
+                                alert(number);
                             }
+                            //          var $album_front = $('<div class= "active item"><img src="" name="pic" id="image_id"/></div>');
 
                         }
-
-
-
-
-
-
-                        document.pic.src = $("#item_detail_modal").data("test");
-                         document.pic1.src = $("#item_detail_modal").data("test");
-                          document.pic2.src = $("#item_detail_modal").data("test");
-
+                        document.getElementById("loading").className = "loading-invisible";
                     }
 
 </script>
@@ -259,26 +274,28 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                             <div id="myCarousel" class="carousel slide" style="width:450px">
 
                                 <!-- Carousel items -->
-                                <div class="carousel-inner" style="top:0px;">
-                                    <div class= "active item"><img src="" name="pic" id="image_id"/></div>
-                                    <div class=" item"><img src="" name="pic1" id="image_id1"/></div>
-                                    <div class=" item"><img src="" name="pic2" id="image_id2"/></div>
+                                <div id="modol_insert" class="carousel-inner" style="top:0px;">
+
+<!--                                    <div class= "active item"><img src="" name="pic" id="image_id"/></div>
+<div class=" item"><img src="" name="pic1" id="image_id1"/></div>
+<div class=" item"><img src="" name="pic2" id="image_id2"/></div>-->
+
                                 </div>
                                 <!-- Carousel nav -->
                                 <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
                                 <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
                             </div>
-                            
-                            
-                            
-                            
-                     <!--       <div style="position:absolute;bottom:0px;left:0px;height: 50px ;background-color: rgba(255, 255, 255, 0.8);">
-                            </div>
-                        -->
-                            
+
+
+
+
+                            <!--       <div style="position:absolute;bottom:0px;left:0px;height: 50px ;background-color: rgba(255, 255, 255, 0.8);">
+                                   </div>
+                            -->
+
                         </div>
-                        
-                        
+
+
                         <div style="float:left;width:400px;overflow-y:scroll; text-align: center;">
                             <h3>Want a Great Bedroom Design? Start With a Stunning Headboard!</h3>
                             <p>A beautiful slab of wood becomes a unique headboard,

@@ -288,9 +288,17 @@ line-height: 1;
 width: 1980px;
 }
 
+#item_detail_modal  .carousel .item {
+
+    background-color: black;
+}
+
+
 #item_detail_modal  .carousel .item > img {
 
     width: auto;
+    margin:auto;
+    height:600px;
 }
 
 

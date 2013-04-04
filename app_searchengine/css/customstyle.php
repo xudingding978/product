@@ -276,11 +276,21 @@ height: 650px;
 }
 
 
+#item_detail_modal .carousel .active {
+
+    height: auto;
+}
+
 
 .carousel .item > img {
 display: block;
 line-height: 1;
 width: 1980px;
+}
+
+#item_detail_modal  .carousel .item > img {
+
+    width: auto;
 }
 
 
@@ -294,10 +304,18 @@ font-weight: bold;
 
 .carousel {
 position: relative;
-margin-bottom: 20px;
+margin-bottom: 0px;
 line-height: 1;
 min-width:769px;
 }
+
+#item_detail_modal  .carousel {
+
+min-width:569px;
+}
+
+
+
 
 .navbar-fixed-top {
 margin-bottom: 0px;

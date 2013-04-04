@@ -126,7 +126,7 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
 
                         var $newItems = $('<div class="element alkali metal   isotope-item"  style="height:' + element_height + 'px"> \n\
             <div id="image_container"  style="left: 15px;  top: 30px; width: 180px;height:' + image_height + 'px"> \n\
-                    <a href="#item_detail"  data-toggle="modal" onclick="call_items(' + this.src + ');" ><img src=' + this.src + ' ></a>\n\
+                    <a href="#item_detail"  data-toggle="modal" onclick="call_items(' + this.id + ');" ><img src=' + this.src + ' ></a>\n\
             </div>\n\
             <p style="left: 15px;  bottom: 100px;">' + this.description + '</p>\n\
             <a href="#" style="left: 15px;  bottom: 78px; width:55px;white-space: nowrap;"><k class="icon-heart-empty"></k> <p style="left: 20px; ">12</p></a>\n\
@@ -197,7 +197,7 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                         });
                     });
 
-                    function call_items(img_src)
+                    function call_items(id)
                     {
                         $.ajax({
                             type: 'GET',
@@ -205,27 +205,31 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                             dataType: 'json',
                             success: function(data) {
 
-                                popup_items(data, img_src);
+                                popup_items(data, id);
                             }
                         });
                     }
-                    function popup_items(data, img_src) {
-                        var img_array=new Array();
-                        
+                    function popup_items(data, id) {
+
+                        var id_ary = new Array();
+
                         for (var key in data) {
-                            if (data[key]['IMAGE_URL'] == img_src) {
-                                
-                                img_array [0]= "data[key]['IMAGE_URL']";
-                                 $("#item_detail_modal").data("test", "test" + img_array[0]);
+                            if (data[key]['CLIENT_REC_ID'] == id) {
+
+                                id_ary [key] = data[key]['IMAGE_URL'];
+                                $("#item_detail_modal").data("test", id_ary[key]);
                             }
 
                         }
 
 
 
-                       
-                        //     alert( $("#item_detail").data("test")); 
-                        $("#item_detail_modal> p").text($("#item_detail_modal").data("test"));
+
+
+
+                        document.pic.src = $("#item_detail_modal").data("test");
+                         document.pic1.src = $("#item_detail_modal").data("test");
+                          document.pic2.src = $("#item_detail_modal").data("test");
 
                     }
 
@@ -246,39 +250,72 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
             <div id="container" class="variable-sizes clearfix isotope">
 
                 <!-- Modal -->
-                <div id="item_detail" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div id="item_detail" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="left:40%;top:40%;">
 
-                    <div id="item_detail_modal"  class="modal-body">
-                        <p> </p>
+                    <div id="item_detail_modal"  class="modal-body" style="padding-left: 0px;padding-top: 0px;padding-bottom: 0px;">
+                        <div style="float:left;">
+                      <!--      <img src="" name="pic" id="image_id"/>     -->
+
+                            <div id="myCarousel" class="carousel slide" style="width:450px">
+
+                                <!-- Carousel items -->
+                                <div class="carousel-inner" style="top:0px;">
+                                    <div class= "active item"><img src="" name="pic" id="image_id"/></div>
+                                    <div class=" item"><img src="" name="pic1" id="image_id1"/></div>
+                                    <div class=" item"><img src="" name="pic2" id="image_id2"/></div>
+                                </div>
+                                <!-- Carousel nav -->
+                                <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+                                <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+                            </div>
+                            
+                            
+                            
+                            
+                     <!--       <div style="position:absolute;bottom:0px;left:0px;height: 50px ;background-color: rgba(255, 255, 255, 0.8);">
+                            </div>
+                        -->
+                            
+                        </div>
+                        
+                        
+                        <div style="float:left;width:400px;overflow-y:scroll; text-align: center;">
+                            <h3>Want a Great Bedroom Design? Start With a Stunning Headboard!</h3>
+                            <p>A beautiful slab of wood becomes a unique headboard,
+                                setting the stage for a naturally elegant and simple bedroom design.</p>
+                        </div>
+
+
                     </div>
-
                 </div>
 
-
-
-
             </div>
-            <div class='place_holder'></div>
-            <div id='display_loading' class='display_btn' style="display: none">
-                <?php
-                $this->widget('bootstrap.widgets.TbButton', array(
-                    'label' => 'DISCOVER MORE',
-                    'type' => 'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-                    'size' => 'large', // null, 'large', 'small' or 'mini'
-                    'htmlOptions' => array(
-                        'class' => 'pull-right',
-                        'onclick' => "Set(); switch_loading();"
-                    ),
-                ));
-                ?>
 
 
-            </div>
-            <div id='loading_img'  class='loading_img' >
-                <img class='loading_img_position' src="../../../images/loader.gif" />
-            </div>
+
+
+        </div>
+        <div class='place_holder'></div>
+        <div id='display_loading' class='display_btn' style="display: none">
+            <?php
+            $this->widget('bootstrap.widgets.TbButton', array(
+                'label' => 'DISCOVER MORE',
+                'type' => 'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+                'size' => 'large', // null, 'large', 'small' or 'mini'
+                'htmlOptions' => array(
+                    'class' => 'pull-right',
+                    'onclick' => "Set(); switch_loading();"
+                ),
+            ));
+            ?>
+
+
+        </div>
+        <div id='loading_img'  class='loading_img' >
+            <img class='loading_img_position' src="../../../images/loader.gif" />
         </div>
     </div>
+</div>
 
 </div>
 

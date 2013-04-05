@@ -15,7 +15,7 @@
 
             <link media="screen, projection" rel="stylesheet" href="../../../css/reset-new.css"/>
 
-            <script type="text/javascript" language="JavaScript" src="../../../js/ember-1.0.0-rc.2.js"></script>  
+<!--            <script type="text/javascript" language="JavaScript" src="../../../js/ember-1.0.0-rc.2.js"></script>  -->
 
             <link rel="stylesheet" type="text/css" href="../../../css/main.css" />    
 

@@ -132,7 +132,7 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
 
                         var $newItems = $('<div class="element alkali metal   isotope-item"  style="height:' + element_height + 'px"> \n\
             <div id="image_container"  style="left: 15px;  top: 30px; width: 180px;height:' + image_height + 'px"> \n\
-                    <a href="#" onclick="popup_items('+this.id+');" ><img src=' + this.src + ' ></a>\n\
+                    <a href="#item_detail"  data-toggle="modal" onclick="clear_modal(); call_items(' + this.id + '); switch_loading_modal();" ><img src=' + this.src + ' ></a>\n\
             </div>\n\
             <p style="left: 15px;  bottom: 100px;">' + this.description + '</p>\n\
             <a href="#" style="left: 15px;  bottom: 78px; width:55px;white-space: nowrap;"><k class="icon-heart-empty"></k> <p style="left: 20px; ">12</p></a>\n\
@@ -152,6 +152,11 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                         document.getElementById('loading_img').style.display = 'block';
                     }
 
+
+                    function switch_loading_modal()
+                    {
+                        document.getElementById("loading").className = "loading-visible";
+                    }
                     function getValue(data) {
 
 
@@ -160,7 +165,7 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                             var img = new Image();
                             image_src = data[key]['IMAGE_URL'];
                             des_src = data[key]['DESCRIPTION'];
-                           client_id = data[key]['CLIENT_REC_ID'];
+                            client_id = data[key]['CLIENT_REC_ID'];
                             img.src = image_src;
                             img.description = des_src;
                             img.user_photo = "";
@@ -175,13 +180,20 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
 
                     }
 
+                    function clear_modal() {
+                        $('#modal_insert .item:last-child').addClass('.active');
 
+                        $('div').remove('#myCarousel');
+
+
+                    }
 
 
 
 
                     $(document).ready(function() {
                         Set();
+
                         $(window).scroll(function() {
                             //  console.log($(this).scrollTop());
 
@@ -203,12 +215,56 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                         });
                     });
 
-                    function popup_items(id) {
+                    function call_items(id)
+                    {
+                        $.ajax({
+                            type: 'GET',
+                            url: '<?php echo CController::createUrl('Site/GetDataFromItemtable'); ?>',
+                            dataType: 'json',
+                            success: function(data) {
 
-                        alert("client id : "+id);
-
-
+                                popup_items(data, id);
+                            }
+                        });
                     }
+                    function popup_items(data, id) {
+
+
+                        var $slide_frame = $('<div id="myCarousel" class="carousel slide" style="width:450px">\n\
+                            <div id="modal_insert" class="carousel-inner" style="top:0px;"></div>\n\
+                            <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>\n\
+                            <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>\n\
+                        </div>');
+                        $('#img_slide').append($slide_frame);
+
+
+
+
+                        var url_ary = new Array();
+                        var img_name_ary = new Array();
+                        var number = 0;
+                        for (var key in data) {
+                            if (data[key]['CLIENT_REC_ID'] == id) {
+
+                                url_ary[number] = data[key]['IMAGE_URL'];
+                                $("#item_detail_modal").data("url", url_ary[number]);
+
+
+                                img_name_ary[number] = "pic" + number;
+                                //                   alert(img_name_ary[number]);
+                                var $album_img = $('<div class=" item"><img src="' + $("#item_detail_modal").data("url") + '" id="pic' + number + '" /></div>');
+                                $('#modal_insert').append($album_img);
+                                //        document.img_name_ary[number].src = $("#item_detail_modal").data("url");
+                                //         $('#modal_insert > .item >img').attr("src", $("#item_detail_modal").data("url"));
+                                number = number + 1;
+
+                            }
+
+                        }
+                        $("#modal_insert .item:first-child").addClass("active");
+                        document.getElementById("loading").className = "loading-invisible";
+                    }
+
 </script>
 
 
@@ -226,39 +282,71 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
             <div id="container" class="variable-sizes clearfix isotope">
 
                 <!-- Modal -->
-                <div id="item_detail" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div id="item_detail" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="left:40%;top:40%;">
 
-                    <div class="modal-body">
-                        <p>One fine body…</p>
+                    <div id="item_detail_modal"  class="modal-body" style="padding-left: 0px;padding-top: 0px;padding-bottom: 0px;">
+                        <div id="img_slide" style="float:left;">
+
+
+                            <!--                            <div id="myCarousel" class="carousel slide" style="width:450px">
+                            
+                                                             Carousel items 
+                                                            <div id="modal_insert" class="carousel-inner" style="top:0px;">
+                            
+                            
+                                                            </div>
+                                                             Carousel nav 
+                                                            <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+                                                            <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+                                                        </div>-->
+
+
+
+
+                            <!--       <div style="position:absolute;bottom:0px;left:0px;height: 50px ;background-color: rgba(255, 255, 255, 0.8);">
+                                   </div>
+                            -->
+
+                        </div>
+
+
+                        <div style="float:left;width:400px;overflow-y:scroll; text-align: center;">
+                            <h3>Want a Great Bedroom Design? Start With a Stunning Headboard!</h3>
+                            <p>A beautiful slab of wood becomes a unique headboard,
+                                setting the stage for a naturally elegant and simple bedroom design.</p>
+                        </div>
+
+
                     </div>
-
                 </div>
 
-
-
-
             </div>
-            <div class='place_holder'></div>
-            <div id='display_loading' class='display_btn' style="display: none">
-                <?php
-                $this->widget('bootstrap.widgets.TbButton', array(
-                    'label' => 'DISCOVER MORE',
-                    'type' => 'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-                    'size' => 'large', // null, 'large', 'small' or 'mini'
-                    'htmlOptions' => array(
-                        'class' => 'pull-right',
-                        'onclick' => "Set(); switch_loading();"
-                    ),
-                ));
-                ?>
 
 
-            </div>
-            <div id='loading_img'  class='loading_img' >
-                <img class='loading_img_position' src="../../../images/loader.gif" />
-            </div>
+
+
+        </div>
+        <div class='place_holder'></div>
+        <div id='display_loading' class='display_btn' style="display: none">
+            <?php
+            $this->widget('bootstrap.widgets.TbButton', array(
+                'label' => 'DISCOVER MORE',
+                'type' => 'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+                'size' => 'large', // null, 'large', 'small' or 'mini'
+                'htmlOptions' => array(
+                    'class' => 'pull-right',
+                    'onclick' => "Set(); switch_loading();"
+                ),
+            ));
+            ?>
+
+
+        </div>
+        <div id='loading_img'  class='loading_img' >
+            <img class='loading_img_position' src="../../../images/loader.gif" />
         </div>
     </div>
+</div>
 
 </div>
 

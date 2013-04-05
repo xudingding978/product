@@ -433,7 +433,7 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                                     <div id="dd2" class="wrapper-dropdown-3" tabindex="1">
                                         <span>Select to login</span>
                                         <ul class="dropdown" style="width:220px">
-                                            <li  onclick="Facebook();" ><a style="color:rgb(138,168,1)"c><i class="icon-envelope icon-large"></i>Sign in with FaceBook</a></li>
+                                            <li  onclick="Facebook();" ><a style="color:rgb(138,168,1)" href="#"><i class="icon-envelope icon-large"></i>Sign in with FaceBook</a></li>
                                             <li  onclick="Yahoo();" ><a style="color:rgb(138,32,50)" href="#"><i class="icon-truck icon-large"></i>Sign in with Yahoo</a></li>
                                             <li  onclick="QQ();" ><a style="color:rgb(32,168,34)" href="#"><i class="icon-plane icon-large"></i>Sign in with QQ</a></li>
                                             <li  onclick="Sina();" ><a style="color:rgb(138,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Sina</a></li>
@@ -595,7 +595,7 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                                             </div>',
                                     '<div class="smallIcon">
                                         <a class="icon_a" href="#"><i class="icon-th icon-2x" ></i></a>
-                                            <a class="icon_b" href="#")><i class="icon-list-ul  icon-2x" ></i></a>
+                                            <a class="icon_b" href="#"><i class="icon-list-ul  icon-2x" ></i></a>
                                                 <a href="#" class="icon_c" ><i class="icon-search icon-2x" ></i></a>
                                                 </div>',
                                     array(

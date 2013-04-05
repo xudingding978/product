@@ -175,9 +175,10 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                     }
 
                     function clear_modal() {
+                        $('#modal_insert .item:last-child').addClass('.active');
 
-                        $('div').remove('#modal_insert >.item');
-                  //      $('.carousel').carousel(0);
+                        $('div').remove('#myCarousel');
+
 
                     }
 
@@ -222,7 +223,17 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                     }
                     function popup_items(data, id) {
 
-                        //               var id_ary = new Array();
+
+                        var $slide_frame = $('<div id="myCarousel" class="carousel slide" style="width:450px">\n\
+                            <div id="modal_insert" class="carousel-inner" style="top:0px;"></div>\n\
+                            <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>\n\
+                            <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>\n\
+                        </div>');
+                        $('#img_slide').append($slide_frame);
+
+
+
+
                         var url_ary = new Array();
                         var img_name_ary = new Array();
                         var number = 0;
@@ -235,8 +246,8 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
 
                                 img_name_ary[number] = "pic" + number;
                                 //                   alert(img_name_ary[number]);
-                                var $album_other = $('<div class=" item"><img src="' + $("#item_detail_modal").data("url") + '" id="pic' + number + '" /></div>');
-                                $('#modal_insert').append($album_other);
+                                var $album_img = $('<div class=" item"><img src="' + $("#item_detail_modal").data("url") + '" id="pic' + number + '" /></div>');
+                                $('#modal_insert').append($album_img);
                                 //        document.img_name_ary[number].src = $("#item_detail_modal").data("url");
                                 //         $('#modal_insert > .item >img').attr("src", $("#item_detail_modal").data("url"));
                                 number = number + 1;
@@ -268,20 +279,20 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                 <div id="item_detail" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="left:40%;top:40%;">
 
                     <div id="item_detail_modal"  class="modal-body" style="padding-left: 0px;padding-top: 0px;padding-bottom: 0px;">
-                        <div style="float:left;">
-                      <!--      <img src="" name="pic" id="image_id"/>     -->
-
-                            <div id="myCarousel" class="carousel slide" style="width:450px">
-
-                                <!-- Carousel items -->
-                                <div id="modal_insert" class="carousel-inner" style="top:0px;">
+                        <div id="img_slide" style="float:left;">
 
 
-                                </div>
-                                <!-- Carousel nav -->
-                                <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-                                <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
-                            </div>
+                            <!--                            <div id="myCarousel" class="carousel slide" style="width:450px">
+                            
+                                                             Carousel items 
+                                                            <div id="modal_insert" class="carousel-inner" style="top:0px;">
+                            
+                            
+                                                            </div>
+                                                             Carousel nav 
+                                                            <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+                                                            <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+                                                        </div>-->
 
 
 

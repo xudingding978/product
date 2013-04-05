@@ -176,7 +176,8 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
 
                     function clear_modal() {
 
-                        $('div').remove('#modol_insert >.item');
+                        $('div').remove('#modal_insert >.item');
+                  //      $('.carousel').carousel(0);
 
                     }
 
@@ -223,6 +224,7 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
 
                         //               var id_ary = new Array();
                         var url_ary = new Array();
+                        var img_name_ary = new Array();
                         var number = 0;
                         for (var key in data) {
                             if (data[key]['CLIENT_REC_ID'] == id) {
@@ -231,20 +233,18 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                                 $("#item_detail_modal").data("url", url_ary[number]);
 
 
-
-//                                document.pic[number].src = $("#item_detail_modal").data("url"); 
-
-
-                                var $album_other = $('<div class=" item"><img src="" name="pic" id="image_id1"/></div>');
-                                $('#modol_insert').append($album_other);
-                                document.pic.src = $("#item_detail_modal").data("url");
-
+                                img_name_ary[number] = "pic" + number;
+                                //                   alert(img_name_ary[number]);
+                                var $album_other = $('<div class=" item"><img src="' + $("#item_detail_modal").data("url") + '" id="pic' + number + '" /></div>');
+                                $('#modal_insert').append($album_other);
+                                //        document.img_name_ary[number].src = $("#item_detail_modal").data("url");
+                                //         $('#modal_insert > .item >img').attr("src", $("#item_detail_modal").data("url"));
                                 number = number + 1;
-                                alert(number);
+
                             }
-                            //          var $album_front = $('<div class= "active item"><img src="" name="pic" id="image_id"/></div>');
 
                         }
+                        $("#modal_insert .item:first-child").addClass("active");
                         document.getElementById("loading").className = "loading-invisible";
                     }
 
@@ -274,11 +274,8 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                             <div id="myCarousel" class="carousel slide" style="width:450px">
 
                                 <!-- Carousel items -->
-                                <div id="modol_insert" class="carousel-inner" style="top:0px;">
+                                <div id="modal_insert" class="carousel-inner" style="top:0px;">
 
-<!--                                    <div class= "active item"><img src="" name="pic" id="image_id"/></div>
-<div class=" item"><img src="" name="pic1" id="image_id1"/></div>
-<div class=" item"><img src="" name="pic2" id="image_id2"/></div>-->
 
                                 </div>
                                 <!-- Carousel nav -->

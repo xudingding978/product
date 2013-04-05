@@ -26,16 +26,22 @@ if (Yii::app()->user->isGuest) {
 
 
     <div class="tile_img" >
-        <div id="dd3" class="wrapper-dropdown-3" tabindex="1" style="margin-left:73%;">
-            <span>Select to login</span>
-            <ul class="dropdown" style="width:220px">
-                <li  onclick="Facebook();" ><a style="color:rgb(138,168,1)" href="#"><i class="icon-envelope icon-large"></i>Sign in with FaceBook</a></li>
-                <li  onclick="Yahoo();" ><a style="color:rgb(138,32,50)" href="#"><i class="icon-truck icon-large"></i>Sign in with Yahoo</a></li>
-                <li  onclick="QQ();" ><a style="color:rgb(32,168,34)" href="#"><i class="icon-plane icon-large"></i>Sign in with QQ</a></li>
-                <li  onclick="Sina();" ><a style="color:rgb(138,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Sina</a></li>
-                <li  onclick="Google();" ><a style="color:rgb(138,23,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Google+</a></li>
-                <li  onclick="Twitter();" ><a style="color:rgb(55,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Twitter</a></li>
-                <li  onclick="dismiss_modal_test();" ><a style="color:rgb(90,168,32)" href="#myModal"><i class="icon-plane icon-large"></i>Sign in with Email</a></li>
+        <div id="dd3" class="wrapper-dropdown-3" tabindex="1" style="margin-left:73%; width:270px;">
+            
+           <span style="width:225px;">
+               <span class="login-icon">
+               <i class="icon-facebook icon-large">
+            </i>
+                    </span>
+            <span class="sign-in-with">Sign In with Facebook</span>
+            </span>
+            <ul class="dropdown" style="width:270px">
+                <li  onclick="Twitter();" ><a style="color:rgb(0,172,237)" href="#"><i class="icon-twitter icon-large"></i>Sign in with Twitter</a></li>
+                <li  onclick="Google();" ><a style="color:rgb(211,72,54)" href="#"><i class="icon-google-plus icon-large"></i>Sign in with Google+</a></li>
+                <li  onclick="Yahoo();" ><a style="color:rgb(123,0,153)" href="#"><img src='../../../images/yahoo.png' style='width: auto; height: 35px; float:left;margin: -3% -5% 0 6%;'>Sign in with Yahoo</a></li>
+                <li  onclick="Sina();" ><a style="color:rgb(245,213,0)" href="#"><img src='../../../images/sina.png' style='width: auto; height: 35px; float:left;margin: -3% -3% 0 6%;'>Sign in with Sina</a></li>
+                <li  onclick="QQ();" ><a style="color:rgb(62,59,62)" href="#"><img src='../../../images/qq.png' style='width: auto; height: 35px; float:left;margin: -3% -2% 0 7%;'>Sign in with QQ</a></li>
+                <li  onclick="dismiss_modal_test();" ><a style="color:rgb(0,153,68)" href="#myModal"><i class="icon-envelope-alt icon-large"></i>Sign in with Email</a></li>
             </ul>
         </div>
         <div class="title_text" >

@@ -26,15 +26,19 @@ if (Yii::app()->user->isGuest) {
 
 
     <div class="tile_img" >
-        <div id="dd3" class="wrapper-dropdown-3" tabindex="1" style="margin-left:73%; width:270px;">
+        <div id="dd3" class="wrapper-dropdown-3" tabindex="1" style="margin-left:73%; width:270px; height:45px;">
             
-           <span style="width:225px;">
-               <span class="login-icon">
+           <div>
+               <div id="dropdown-cover" style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -10.5px; padding-left: 35px;">
+               <div class="login-icon">
                <i class="icon-facebook icon-large">
             </i>
-                    </span>
-            <span class="sign-in-with">Sign In with Facebook</span>
-            </span>
+               </div>   
+               </div>
+               <div  id="dropdown-cover" onclick="Facebook();" style="float: right; bottom: 10px; position: relative; width: 204px; height: 45px; margin-right: -10px;">
+            <div class="sign-in-with" >Sign In with Facebook</div>
+            </div>
+           </div>
             <ul class="dropdown" style="width:270px">
                 <li  onclick="Twitter();" ><a style="color:rgb(0,172,237)" href="#"><i class="icon-twitter icon-large"></i>Sign in with Twitter</a></li>
                 <li  onclick="Google();" ><a style="color:rgb(211,72,54)" href="#"><i class="icon-google-plus icon-large"></i>Sign in with Google+</a></li>

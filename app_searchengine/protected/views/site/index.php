@@ -27,13 +27,13 @@ if (Yii::app()->user->isGuest) {
 
     <div class="tile_img" >
         <div id="dd3" class="wrapper-dropdown-3" tabindex="1" style="margin-left:73%; width:270px;">
-            
-           <span style="width:225px;">
-               <span class="login-icon">
-               <i class="icon-facebook icon-large">
-            </i>
-                    </span>
-            <span class="sign-in-with">Sign In with Facebook</span>
+
+            <span style="width:225px;">
+                <span class="login-icon">
+                    <i class="icon-facebook icon-large">
+                    </i>
+                </span>
+                <span class="sign-in-with">Sign In with Facebook</span>
             </span>
             <ul class="dropdown" style="width:270px">
                 <li  onclick="Twitter();" ><a style="color:rgb(0,172,237)" href="#"><i class="icon-twitter icon-large"></i>Sign in with Twitter</a></li>
@@ -132,7 +132,7 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
 
                         var $newItems = $('<div class="element alkali metal   isotope-item"  style="height:' + element_height + 'px"> \n\
             <div id="image_container"  style="left: 15px;  top: 30px; width: 180px;height:' + image_height + 'px"> \n\
-                    <a href="#item_detail"  data-toggle="modal" onclick="clear_modal(); call_items(' + this.id + '); switch_loading_modal();" ><img src=' + this.src + ' ></a>\n\
+                    <a href="#item_detail"  data-toggle="modal" onclick="clear_modal();   call_items(' + this.id + '); generate_slide_img(' + this.id + '); switch_loading_modal();" ><img src=' + this.src + ' ></a>\n\
             </div>\n\
             <p style="left: 15px;  bottom: 100px;">' + this.description + '</p>\n\
             <a href="#" style="left: 15px;  bottom: 78px; width:55px;white-space: nowrap;"><k class="icon-heart-empty"></k> <p style="left: 20px; ">12</p></a>\n\
@@ -166,10 +166,12 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                             image_src = data[key]['IMAGE_URL'];
                             des_src = data[key]['DESCRIPTION'];
                             client_id = data[key]['CLIENT_REC_ID'];
+
                             img.src = image_src;
                             img.description = des_src;
                             img.user_photo = "";
                             img.id = client_id;
+
                             img.onload = loading;
                             //            loading();
 
@@ -265,12 +267,74 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                         document.getElementById("loading").className = "loading-invisible";
                     }
 
+
+                    function grab_slide_img()
+                    {
+                        $.ajax({
+                            type: 'GET',
+                            url: '<?php echo CController::createUrl('Site/GetDataFromItemtable'); ?>',
+                            dataType: 'json',
+                            success: function(data) {
+
+                                slide_img_items(data);
+                            }
+                        });
+                    }
+                    function slide_img_items(data) {
+
+                        var $slider_photo = $(' <div class="slider_photo" ></div>');
+
+                        $('#new_slide').append($slider_photo);
+                        var client_check;
+                        var client_id_ary = [];
+                        for (var key in data) {
+                            client_check = true;
+                            if (key >= 1) {
+
+                                for (var i = 0; i <= key; i++) {
+
+                                    if (client_id_ary[i] == data[key]['CLIENT_REC_ID']) {
+
+                                        client_check = false;
+
+                                    }
+                                }
+                                if (client_check) {
+                                    client_id_ary[key] = data[key]['CLIENT_REC_ID'];
+
+                                }
+
+                            } else {
+                                client_id_ary[key] = data[key]['CLIENT_REC_ID'];
+                            }
+
+                            if (client_check) {
+                                //      alert("test " + client_id_ary[key] );
+
+                                var $slide_img = $(' <div class="slide" onclick="reload_new_client_albem(' + data[key]['CLIENT_REC_ID'] + ');  switch_loading_modal();"><img  src=' + data[key]['IMAGE_URL'] + '></div>');
+
+                                $('.slider_photo').append($slide_img);
+                            }
+
+                        }
+                    }
+
+                    function reload_new_client_albem(id) {
+
+                        //     alert("test " + id);
+                        clear_modal();
+                        call_items(id);
+
+                    }
+
 </script>
 
 
 
 
-
+<?php
+$user_info = UserProfile::model()->findByAttributes(array('USER_REC_ID' => 84));
+?>
 
 
 
@@ -308,15 +372,98 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                             -->
 
                         </div>
+                        <div  style="float:left ;position:relative;">
+                            <a class="close" onclick="reset_login();" data-dismiss="modal" x>x</a>
+
+                            <div style="width:440px;overflow-y:scroll;margin-top:20px ;">
+
+                                <div style=" text-align: center;background-color: #cbdccc;margin-top:-20px;padding-top:20px;padding-bottom:10px;">
+                                    <h3>Want a Great Bedroom Design? Start With a Stunning Headboard!</h3>
+                                    <p>A beautiful slab of wood becomes a unique headboard,
+                                        setting the stage for a naturally elegant and simple bedroom design.</p>
+                                </div>
+                                <div  style=" text-align: center; margin-top: 20px;">
+
+                                    <div >
+                                        <a href="#"><img src="<?PHP echo $user_info->PHOTO_URL ?>"/></a>
+                                    </div>
+                                    <a href="#" style='margin-top:25%;'><?PHP echo $user_info->FIRST_NAME . " " . $user_info->LAST_NAME ?></a>
+                                    <p><?PHP echo $user_info->DESCRIPTION ?></p>
+                                </div>
+                                <div>
+                                    <button class="btn btn-large" style='margin-left:23%; padding-left:75px; padding-right: 75px;'  >Contact me</button>
+                                </div>  
+
+                                <div id="slide_img" style=" background-color: #cbdccc; margin-top: 20px;height:120px">
+                                    <p style="margin-left:30px;padding-top: 8px;">Other Photos in <a href='#'>Bedroom</a> (547 photos):</p>
+                                    <div id="new_slide" style="margin-left:7px;">
 
 
-                        <div style="float:left;width:400px;overflow-y:scroll; text-align: center;">
-                            <h3>Want a Great Bedroom Design? Start With a Stunning Headboard!</h3>
-                            <p>A beautiful slab of wood becomes a unique headboard,
-                                setting the stage for a naturally elegant and simple bedroom design.</p>
+
+
+                                        <!--                                      <div class="slider_photo" >
+                                                                                <div class="slide"><img onclick="" src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_a.jpg"></div>
+                                                                                 <div class="slide"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_b.jpg"></div>-->
+                                     <!--                                            <div class="slide"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_c.jpg"></div>
+                                                                                 <div class="slide"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_d.jpg"></div>
+                                                                                 <div class="slide"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_e.jpg"></div>
+                                                                                 <div class="slide"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_f.jpg"></div>
+                                                                                 <div class="slide"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_g.jpg"></div>
+                                                                                 <div class="slide"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_h.jpg"></div>
+                                                                                 <div class="slide"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_i.jpg"></div>
+                                                                                 <div class="slide"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_j.jpg"></div>
+                                                                             </div>-->
+                                    </div>
+                                </div>
+                                <script>
+function generate_slide_img(id) {
+
+if ($('div').hasClass('bx-wrapper')) {
+
+} else {
+
+
+grab_slide_img();
+
+$('#new_slide .slider_photo').bxSlider({
+slideWidth: 95,
+minSlides: 1,
+maxSlides: 4,
+slideMargin: 10,
+infiniteLoop: false,
+hideControlOnEnd: true,
+mode: 'horizontal'
+
+});
+
+
+// remove slide_img bullet
+$('div').remove('.bx-pager');
+}
+}
+                                </script> 
+                                <div>
+
+                                    <?php
+                                    $image_example = json_encode(array('questions' => array(
+                                            'question_text' => 'Where is the headboard from?',
+                                            'question_comment_count' => 5,
+                                            'question_likes' => array(
+                                                'user_id' => 1,
+                                                'user_comment' => 'Urban Hardwoods makes headboards like this. Here\'s one that looks very similar to the one above'
+                                            )
+                                    )));
+                                    //                       echo var_dump($image_example, true);
+                                    //                       $decoded = json_decode($image_example);
+                                    //                     echo var_export($decoded);
+                                    //                     print_r  $decoded;
+                                    ?>
+
+                                </div>
+
+
+                            </div>
                         </div>
-
-
                     </div>
                 </div>
 
@@ -487,9 +634,6 @@ if (Yii::app()->user->isGuest) {
             console.log("1 " + hasBeenClicked);
         });
     });
-
-
-
     $(".main-nav").mouseout(function() {
 
         if (!hasBeenClicked) {

@@ -25,10 +25,10 @@
             <title><?php echo 'search engine' ?></title>
             <script type="text/javascript" language="JavaScript" src="../../../js/jquery-1.7.1.min.js"></script>
             <script type="text/javascript" language="JavaScript" src="../../../js/jquery.isotope.min.js"></script>  
-
+            <script type="text/javascript" language="JavaScript" src="../../../js/jquery.bxslider.min.js"></script>  
 
             <link media="screen, projection" rel="stylesheet" type="text/css" href="../../../css/gallery.css"/>
-
+            <link media="screen, projection" rel="stylesheet" type="text/css" href="../../../css/jquery.bxslider.css"/>
             <link rel="stylesheet" type="text/css" href="../../../css/customstyle.php" /> 
             <link rel="stylesheet" href="../../../css/font-awesome.min.css">
 
@@ -106,7 +106,11 @@
 
                 </script>
                 <script type="text/javascript">
+
                     $(document).ready(function() {
+
+
+
                         $('#main-nav span').removeClass('caret');
                         $('#myModal').attr('aria-hidden', 'false');
                         $('#myModal').attr("style", "display:none");
@@ -120,6 +124,10 @@
 
                         $('#email_register').attr('aria-hidden', 'true');
                         $('#email_register').attr("style", "display:none");
+
+
+
+
 
                         // left hiding menu bar
 
@@ -253,7 +261,7 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 
                         <div class="modal-header">
                             <a class="close" onclick="reset_login();" data-dismiss="modal" x>X</a>
-                            <h4>TRENDS</h4>
+
                         </div>
 
                         <div class="modal-body" style='word-wrap:break-word' >

@@ -27,18 +27,18 @@ if (Yii::app()->user->isGuest) {
 
     <div class="tile_img" >
         <div id="dd3" class="wrapper-dropdown-3" tabindex="1" style="margin-left:73%; width:270px; height:45px;">
-            
-           <div>
-               <div id="dropdown-cover" style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -10.5px; padding-left: 35px;">
-               <div class="login-icon">
-               <i class="icon-facebook icon-large">
-            </i>
-               </div>   
-               </div>
-               <div  id="dropdown-cover" onclick="Facebook();" style="float: right; bottom: 10px; position: relative; width: 204px; height: 45px; margin-right: -10px;">
-            <div class="sign-in-with" >Sign In with Facebook</div>
+
+            <div>
+                <div id="dropdown-cover" style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -10.5px; padding-left: 35px;">
+                    <div class="login-icon">
+                        <i class="icon-facebook icon-large">
+                        </i>
+                    </div>   
+                </div>
+                <div  id="dropdown-cover" onclick="Facebook();" style="float: right; bottom: 10px; position: relative; width: 204px; height: 45px; margin-right: -10px;">
+                    <div class="sign-in-with" >Sign In with Facebook</div>
+                </div>
             </div>
-           </div>
             <ul class="dropdown" style="width:270px">
                 <li  onclick="Twitter();" ><a style="color:rgb(0,172,237)" href="#"><i class="icon-twitter icon-large"></i>Sign in with Twitter</a></li>
                 <li  onclick="Google();" ><a style="color:rgb(211,72,54)" href="#"><i class="icon-google-plus icon-large"></i>Sign in with Google+</a></li>
@@ -321,6 +321,22 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                             }
 
                         }
+                        alert("test1");
+                        $('#new_slide .slider_photo').bxSlider({
+                            slideWidth: 95,
+                            minSlides: 1,
+                            maxSlides: 4,
+                            slideMargin: 10,
+                            infiniteLoop: false,
+                            hideControlOnEnd: true,
+                            mode: 'horizontal'
+
+                        });
+
+
+                        // remove slide_img bullet
+                        $('div').remove('.bx-pager');
+                        alert("test2");
                     }
 
                     function reload_new_client_albem(id) {
@@ -328,6 +344,8 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                         //     alert("test " + id);
                         clear_modal();
                         call_items(id);
+
+
 
                     }
 
@@ -420,31 +438,22 @@ $user_info = UserProfile::model()->findByAttributes(array('USER_REC_ID' => 84));
                                     </div>
                                 </div>
                                 <script>
-function generate_slide_img(id) {
+                    function generate_slide_img(id) {
 
-if ($('div').hasClass('bx-wrapper')) {
+                        if ($('div').hasClass('bx-wrapper')) {
 
-} else {
-
-
-grab_slide_img();
-
-$('#new_slide .slider_photo').bxSlider({
-slideWidth: 95,
-minSlides: 1,
-maxSlides: 4,
-slideMargin: 10,
-infiniteLoop: false,
-hideControlOnEnd: true,
-mode: 'horizontal'
-
-});
+                        } else {
 
 
-// remove slide_img bullet
-$('div').remove('.bx-pager');
-}
-}
+//                           var $slide_img = $('<div class="slider_photo" ><div class="slide" ><img  src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_a.jpg"></div></div>');
+//
+//                           $('#new_slide').append($slide_img);
+
+                            grab_slide_img();
+
+
+                        }
+                    }
                                 </script> 
                                 <div>
 

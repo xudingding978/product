@@ -255,35 +255,55 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 
 
 
-                    <div id="mainmenu">
-
+                    <div id="mainmenu" class="sadcasf">
                         <?php $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModal')); ?>
 
-                        <div class="modal-header">
-                            <a class="close" onclick="reset_login();" data-dismiss="modal" x>X</a>
+                        <div class="modal-header" style="background-color: rgb(242,240,240); padding:12px 0px; ">
+                            <a class="close" style="margin:-8px 8px;" onclick="reset_login();" data-dismiss="modal" x>x</a>
 
                         </div>
+                      
 
-                        <div class="modal-body" style='word-wrap:break-word' >
+                        <div class="modal-body" style="margin:-15px;" style='word-wrap:break-word' >
 
                             <!-- Modal -->
                             <div id="social_login" class="social_modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
                                 <div class="modal-body">
-                                    <p>description_description_description_description_description_description_description_description_description_description</p>
 
-                                    <div id="dd" class="wrapper-dropdown-3" tabindex="1">
-                                        <span>Select to login</span>
-                                        <ul class="dropdown" style="width:220px">
-                                            <li  onclick="Facebook();" ><a style="color:rgb(138,168,1)" href="#"><i class="icon-envelope icon-large"></i>Sign in with FaceBook</a></li>
-                                            <li  onclick="Yahoo();" ><a style="color:rgb(138,32,50)" href="#"><i class="icon-truck icon-large"></i>Sign in with Yahoo</a></li>
-                                            <li  onclick="QQ();" ><a style="color:rgb(32,168,34)" href="#"><i class="icon-plane icon-large"></i>Sign in with QQ</a></li>
-                                            <li  onclick="Sina();" ><a style="color:rgb(138,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Sina</a></li>
-                                            <li  onclick="Google();" ><a style="color:rgb(138,23,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Google+</a></li>
-                                            <li  onclick="Twitter();" ><a style="color:rgb(55,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Twitter</a></li>
-                                            <li  onclick="dismiss_modal();" ><a style="color:rgb(90,168,32)" href="#"><i class="icon-plane icon-large"></i>Sign in with Email</a></li>
-                                        </ul>
+                                    <div class="modal-topbox" style="background-color: rgb(242,240,240); padding:10px 0px 45px 0px; margin: -15px; ">
+                                        <img class="logonew"  src="../../../images/trendslogo(black).png"></img>
+                                        <div style="margin:60px 65px;">
+                                            <p style="text-align:center; "><b>COLLECT YOUR ONLINE RESOURCE FOR KITCHENS, PRODUCTS, SERVICES & IDEAS</b></p>
+                                            <p style="font-size: 12px; text-align: center;"><b>Hundreds of videos, thousands of articles and tens of thousands of high quality images from around the world showcasing: Architecture, Kitchen Design, Bathroom Design, Interiors, Landscape Design and Commercial Design. </b></p>
+                                        </div>
+                                        <div id="dd" class="wrapper-dropdown-3" tabindex="1" style=" width:270px; height:45px; margin-top: -45px; margin-bottom: -5px;">
+
+                                            <div>
+                                                <div id="dropdown-cover" style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -11px; padding-left: 35px;">
+                                                    <div class="login-icon">
+                                                        <i class="icon-facebook icon-large">
+                                                        </i>
+                                                    </div>   
+                                                </div>
+                                                <div  id="dropdown-cover" onclick="Facebook();" style="float: right; bottom: 10px; position: relative; width: 204px; height: 45px; margin-right: -9.5px;">
+                                                    <div class="sign-in-with" >Sign In with Facebook</div>
+                                                </div>
+                                            </div>
+                                            <ul class="dropdown" style="width:270px">
+                                                <li  onclick="Twitter();" ><a style="color:rgb(0,172,237)" href="#"><i class="icon-twitter icon-large"></i>Sign in with Twitter</a></li>
+                                                <li  onclick="Google();" ><a style="color:rgb(211,72,54)" href="#"><i class="icon-google-plus icon-large"></i>Sign in with Google+</a></li>
+                                                <li  onclick="Yahoo();" ><a style="color:rgb(123,0,153)" href="#"><img src='../../../images/yahoo.png' style='width: auto; height: 35px; float:left;margin: -3% -5% 0 6%;'>Sign in with Yahoo</a></li>
+                                                <li  onclick="Sina();" ><a style="color:rgb(245,213,0)" href="#"><img src='../../../images/sina.png' style='width: auto; height: 35px; float:left;margin: -3% -3% 0 6%;'>Sign in with Sina</a></li>
+                                                <li  onclick="QQ();" ><a style="color:rgb(62,59,62)" href="#"><img src='../../../images/qq.png' style='width: auto; height: 35px; float:left;margin: -3% -2% 0 7%;'>Sign in with QQ</a></li>
+                                                <li  onclick="dismiss_modal_test();" ><a style="color:rgb(0,153,68)" href="#myModal"><i class="icon-envelope-alt icon-large"></i>Sign in with Email</a></li>
+                                            </ul>
+                                        </div>
+
                                     </div>
+
+
+
 
                                     <div style="top:200px;margin-top:250px;">
                                         <a  href="http://account.business-software.co.nz/hybridauth/default/login/?provider=Google" >Google+</a>

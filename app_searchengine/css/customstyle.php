@@ -342,6 +342,9 @@ top:50%;
 .modal{
 width:auto;
 }
+#mainmenu > #myModal {
+
+}
 
 .modal-backdrop {
 
@@ -368,9 +371,8 @@ top: 45px;
 
 .social_modal {
 position: relative;
-
-z-index: 1050;
 width:500px;
+z-index: 1050;
 background-color: rgb(255, 255, 255);
 outline: medium none;
 background-clip: padding-box;

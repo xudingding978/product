@@ -1577,3 +1577,12 @@ div.right_panel img {
     background-color: rgba(255, 255, 255, 0.698);
 
 }
+.album_status_bar{
+
+    position: absolute;
+    width: 569px;
+    height: 50px;
+    top: 0px;
+    background-color: rgba(255, 255, 255, 0);
+
+}

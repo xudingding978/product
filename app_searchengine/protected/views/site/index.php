@@ -321,7 +321,7 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                             }
 
                         }
-                        alert("test1");
+               //         alert("test1");
                         $('#new_slide .slider_photo').bxSlider({
                             slideWidth: 95,
                             minSlides: 1,
@@ -336,7 +336,7 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
 
                         // remove slide_img bullet
                         $('div').remove('.bx-pager');
-                        alert("test2");
+                      //  alert("test2");
                     }
 
                     function reload_new_client_albem(id) {

@@ -11,13 +11,13 @@
         <!--[if lt IE 8]>
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
         <![endif]-->
-            <link rel="stylesheet" href="../../../css/font-awesome.min.css">
+        <link rel="stylesheet" href="../../../css/font-awesome.min.css">
 
-        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
-        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
-        
+            <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
+            <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
 
-        <title><?php echo CHtml::encode($this->pageTitle); ?></title>
+
+            <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 
 
     </head>
@@ -80,12 +80,12 @@
                     ),
                 ));
                 ?>
-                
-                
-                
-                
+
+
+
+
             </div><!-- mainmenu -->
-            
+
             <?php if (isset($this->breadcrumbs)): ?>
                 <?php
                 $this->widget('zii.widgets.CBreadcrumbs', array(
@@ -102,10 +102,7 @@
                 Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
                 All Rights Reserved.<br/>
                 <?php echo Yii::powered(); ?>
-
-
-
-
+                
 
 
             </div><!-- footer -->

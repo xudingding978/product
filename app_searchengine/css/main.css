@@ -59,10 +59,18 @@ body
 z-index:1000;
 }
 
+#mainmenu .container >.login_guest
+{
+margin: -64px 0px 0px 5%;
+
+}
 
 #mainmenu ul li
 {
     display: inline;
+
+
+
 }
 
 #mainmenu ul li a

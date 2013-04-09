@@ -15,15 +15,20 @@
 
             <link media="screen, projection" rel="stylesheet" href="../../../css/reset-new.css"/>
 
-            <link media="screen, projection" rel="stylesheet" href="../../../css/gallery.css"/>
+<!--            <script type="text/javascript" language="JavaScript" src="../../../js/ember-1.0.0-rc.2.js"></script>  -->
+
             <link rel="stylesheet" type="text/css" href="../../../css/main.css" />    
+
+
+
 
             <title><?php echo 'search engine' ?></title>
             <script type="text/javascript" language="JavaScript" src="../../../js/jquery-1.7.1.min.js"></script>
             <script type="text/javascript" language="JavaScript" src="../../../js/jquery.isotope.min.js"></script>  
+            <script type="text/javascript" language="JavaScript" src="../../../js/jquery.bxslider.min.js"></script>  
 
             <link media="screen, projection" rel="stylesheet" type="text/css" href="../../../css/gallery.css"/>
-
+            <link media="screen, projection" rel="stylesheet" type="text/css" href="../../../css/jquery.bxslider.css"/>
             <link rel="stylesheet" type="text/css" href="../../../css/customstyle.php" /> 
             <link rel="stylesheet" href="../../../css/font-awesome.min.css">
 
@@ -90,56 +95,216 @@
                             // all dropdowns
                             $('.wrapper-dropdown-3').removeClass('active');
                         });
+                        var dd4 = new DropDown($('#dd4'));
+
+                        $(document).click(function() {
+                            // all dropdowns
+                            $('.wrapper-dropdown-3').removeClass('active');
+                        });
 
                     });
 
                 </script>
                 <script type="text/javascript">
+
                     $(document).ready(function() {
+
+
+
                         $('#main-nav span').removeClass('caret');
                         $('#myModal').attr('aria-hidden', 'false');
                         $('#myModal').attr("style", "display:none");
-                        //      document.getElementById('myModal').style.display = 'none';
-                    });
 
+                        $('#social_login').attr('aria-hidden', 'false');
+                        $('#social_login').attr("style", "display:block");
+
+                        $('#email_login').attr('aria-hidden', 'true');
+                        $('#email_login').attr("style", "display:none");
+
+
+                        $('#email_register').attr('aria-hidden', 'true');
+                        $('#email_register').attr("style", "display:none");
+
+
+
+
+
+                        // left hiding menu bar
+
+                        $('.main-nav ').attr("style", "opacity:0.4;width:10px;overflow:hidden");
+                        // hide #back-top first
+                        $("#back-top").hide();
+                        $(window).scroll(function() {
+                            if ($(this).scrollTop() == 0) {
+                                $('#discovery_search_bar_wrapper').attr('style', 'position:relative;margin-top: 40px;');
+                                document.getElementById("search-loading").className = "search-loading-invisible";
+                            }
+                            if ($(this).scrollTop() > 150) {
+                                $('#back-top').fadeIn();
+                            } else {
+                                $('#back-top').fadeOut();
+                            }
+
+                            if ($(this).scrollTop() > 150) {
+                                $('.smallIcon').fadeIn();
+                            } else {
+                                $('.smallIcon').fadeOut();
+                            }
+                        });
+                        $('#back-top a').click(function() {
+                            $('body,html').animate({
+                                scrollTop: 0
+                            }, 800);
+                            return false;
+                        });
+
+
+
+
+
+                    });
+                    function dismiss_modal() {
+                        $('#social_login').attr('aria-hidden', 'true');
+                        $('#social_login').attr("style", "display:none");
+                        $('#email_login').attr('aria-hidden', 'false');
+                        $('#email_login').attr("style", "display:block");
+
+                    }
+                    function dismiss_modal_test() {
+                        $('#social_login').attr('aria-hidden', 'true');
+                        $('#social_login').attr("style", "display:none");
+                        $('#email_login').attr('aria-hidden', 'false');
+                        $('#email_login').attr("style", "display:block");
+
+                    }
+                    function dismiss_Join() {
+                        $('#email_login').attr('aria-hidden', 'true');
+                        $('#email_login').attr("style", "display:none");
+                        $('#email_register').attr('aria-hidden', 'false');
+                        $('#email_register').attr("style", "display:block");
+
+                    }
+
+
+                    function reset_login() {
+                        $('#email_login').attr('aria-hidden', 'true');
+                        $('#email_login').attr("style", "display:none");
+                        $('#social_login').attr('aria-hidden', 'false');
+                        $('#social_login').attr("style", "display:block");
+
+                        $('#email_register').attr('aria-hidden', 'true');
+                        $('#email_register').attr("style", "display:none");
+
+                    }
+                    function show_search_bar() {
+
+
+                        $('#discovery_search_bar_wrapper').attr('style', 'position:fixed;margin-top: -30px;z-index: 50000;');
+                        document.getElementById("search-loading").className = "search-loading-visible";
+
+                    }
+                    function dismiss_search() {
+                        $('#discovery_search_bar_wrapper').attr('style', 'position:relative;margin-top: 40px;z-index: 500;');
+                        document.getElementById("search-loading").className = "search-loading-invisible";
+                    }
+
+
+
+
+                    function detDomain() {
+<?PHP
+$dot_positon = strpos($_SERVER['HTTP_HOST'], ".");
+
+$domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
+?>
+                    }
+                    function Facebook() {
+                        detDomain();
+                        window.location.href = "http://account" + "<?php echo $domain ?>" + "/hybridauth/default/login/?provider=Facebook";
+                    }
+                    function Yahoo() {
+                        detDomain();
+                        window.location.href = "http://account" + "<?php echo $domain ?>" + "/hybridauth/default/login/?provider=Yahoo";
+                    }
+                    function QQ() {
+                        detDomain();
+                        window.location.href = "http://account" + "<?php echo $domain ?>" + "/hybridauth/default/login/?provider=QQ";
+                    }
+                    function Sina() {
+                        detDomain();
+                        window.location.href = "http://account" + "<?php echo $domain ?>" + "/hybridauth/default/login/?provider=Sina";
+                    }
+                    function Twitter() {
+                        detDomain();
+                        window.location.href = "http://account" + "<?php echo $domain ?>" + "/hybridauth/default/login/?provider=Twitter";
+                    }
+                    function Google() {
+                        detDomain();
+                        //      alert("<?php echo $domain ?>");
+                        window.location.href = "http://account" + "<?php echo $domain ?>" + "/hybridauth/default/login/?provider=Google";
+                    }
 
 
 
                 </script>
                 </head>
 
-                <body>
+                <body style="min-width:900px;">
 
 
-                    <div id="mainmenu">
+
+
+
+                    <div id="mainmenu" class="sadcasf">
 
                         <?php $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModal')); ?>
 
-                        <div class="modal-header">
-                            <a class="close" onclick="reset_login();" data-dismiss="modal" x>X</a>
-                            <h4>TRENDS</h4>
+                        <div class="modal-header" style="background-color: rgb(242,240,240); padding:12px 0px; ">
+                            <a class="close" style="margin:-8px 8px;" onclick="reset_login();" data-dismiss="modal" x>x</a>
+
                         </div>
 
-                        <div class="modal-body" style='word-wrap:break-word' >
+
+                        <div class="modal-body" style="margin:-15px;" style='word-wrap:break-word' >
 
                             <!-- Modal -->
                             <div id="social_login" class="social_modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
                                 <div class="modal-body">
-                                    <p>description_description_description_description_description_description_description_description_description_description</p>
 
-                                    <div id="dd" class="wrapper-dropdown-3" tabindex="1">
-                                        <span>Select to login</span>
-                                        <ul class="dropdown" style="width:220px">
-                                            <li  onclick="Facebook();" ><a style="color:rgb(138,168,1)" href="#"><i class="icon-envelope icon-large"></i>Sign in with FaceBook</a></li>
-                                            <li  onclick="Yahoo();" ><a style="color:rgb(138,32,50)" href="#"><i class="icon-truck icon-large"></i>Sign in with Yahoo</a></li>
-                                            <li  onclick="QQ();" ><a style="color:rgb(32,168,34)" href="#"><i class="icon-plane icon-large"></i>Sign in with QQ</a></li>
-                                            <li  onclick="Sina();" ><a style="color:rgb(138,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Sina</a></li>
-                                            <li  onclick="Google();" ><a style="color:rgb(138,23,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Google+</a></li>
-                                            <li  onclick="Twitter();" ><a style="color:rgb(55,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Twitter</a></li>
-                                            <li  onclick="dismiss_modal();" ><a style="color:rgb(90,168,32)" href="#"><i class="icon-plane icon-large"></i>Sign in with Email</a></li>
-                                        </ul>
+                                    <div class="modal-topbox" style="background-color: rgb(242,240,240); padding:10px 0px 45px 0px; margin: -15px; ">
+                                        <img class="logonew"  src="../../../images/trendslogo(black).png"></img>
+                                        <div style="margin:60px 65px;">
+                                            <p style="text-align:center; "><b>COLLECT YOUR ONLINE RESOURCE FOR KITCHENS, PRODUCTS, SERVICES & IDEAS</b></p>
+                                            <p style="font-size: 12px; text-align: center;"><b>Hundreds of videos, thousands of articles and tens of thousands of high quality images from around the world showcasing: Architecture, Kitchen Design, Bathroom Design, Interiors, Landscape Design and Commercial Design. </b></p>
+                                        </div>
+                                        <div id="dd" class="wrapper-dropdown-3" tabindex="1" style=" width:270px; height:45px; margin-top: -45px; margin-bottom: -5px;">
+
+                                            <div>
+                                                <div id="dropdown-cover" style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -11px; padding-left: 35px;">
+                                                    <div class="login-icon">
+                                                        <i class="icon-facebook icon-large">
+                                                        </i>
+                                                    </div>   
+                                                </div>
+                                                <div  id="dropdown-cover" onclick="Facebook();" style="float: right; bottom: 10px; position: relative; width: 204px; height: 45px; margin-right: -9.5px;">
+                                                    <div class="sign-in-with" >Sign In with Facebook</div>
+                                                </div>
+                                            </div>
+                                            <ul class="dropdown" style="width:270px">
+                                                <li  onclick="Twitter();" ><a style="color:rgb(0,172,237)" href="#"><i class="icon-twitter icon-large"></i>Sign in with Twitter</a></li>
+                                                <li  onclick="Google();" ><a style="color:rgb(211,72,54)" href="#"><i class="icon-google-plus icon-large"></i>Sign in with Google+</a></li>
+                                                <li  onclick="Yahoo();" ><a style="color:rgb(123,0,153)" href="#"><img src='../../../images/yahoo.png' style='width: auto; height: 35px; float:left;margin: -3% -5% 0 6%;'>Sign in with Yahoo</a></li>
+                                                <li  onclick="Sina();" ><a style="color:rgb(245,213,0)" href="#"><img src='../../../images/sina.png' style='width: auto; height: 35px; float:left;margin: -3% -3% 0 6%;'>Sign in with Sina</a></li>
+                                                <li  onclick="QQ();" ><a style="color:rgb(62,59,62)" href="#"><img src='../../../images/qq.png' style='width: auto; height: 35px; float:left;margin: -3% -2% 0 7%;'>Sign in with QQ</a></li>
+                                                <li  onclick="dismiss_modal_test();" ><a style="color:rgb(0,153,68)" href="#myModal"><i class="icon-envelope-alt icon-large"></i>Sign in with Email</a></li>
+                                            </ul>
+                                        </div>
+
                                     </div>
+
+
+
 
                                     <div style="top:200px;margin-top:250px;">
                                         <a  href="http://account.business-software.co.nz/hybridauth/default/login/?provider=Google" >Google+</a>
@@ -298,7 +463,7 @@
                                     <div id="dd2" class="wrapper-dropdown-3" tabindex="1">
                                         <span>Select to login</span>
                                         <ul class="dropdown" style="width:220px">
-                                            <li  onclick="Facebook();" ><a style="color:rgb(138,168,1)"c><i class="icon-envelope icon-large"></i>Sign in with FaceBook</a></li>
+                                            <li  onclick="Facebook();" ><a style="color:rgb(138,168,1)" href="#"><i class="icon-envelope icon-large"></i>Sign in with FaceBook</a></li>
                                             <li  onclick="Yahoo();" ><a style="color:rgb(138,32,50)" href="#"><i class="icon-truck icon-large"></i>Sign in with Yahoo</a></li>
                                             <li  onclick="QQ();" ><a style="color:rgb(32,168,34)" href="#"><i class="icon-plane icon-large"></i>Sign in with QQ</a></li>
                                             <li  onclick="Sina();" ><a style="color:rgb(138,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Sina</a></li>
@@ -448,24 +613,25 @@
                                 //    'collapse' => 'true',
                                 'items' => array(
                                     '<p class="titleText"> Global  recommendations from </p>',
-                                    array(
-                                        'class' => 'bootstrap.widgets.TbMenu',
-                                        'htmlOptions' => array('class' => 'dropdown_region'),
-                                        'items' => array(
-                                            array('label' => 'Region', 'url' => '#', 'items' => array(
-                                                    array('label' => 'Australia', 'url' => array('/site/index')),
-                                                    array('label' => 'New Zealand', 'url' => array('/site/index')),
-                                                    array('label' => 'India', 'url' => array('/site/index')),
-                                                    array('label' => 'China', 'url' => array('/site/index')),
-                                                    array('label' => 'America', 'url' => array('/site/index')),
-                                                )),
-                                        )
-                                    ),
-
+                                    '<div id="dd4" class="wrapper-dropdown-3" tabindex="1" style="top: -30px; background:none;border-radius: none;border: none;color:white;box-shadow: none;">
+                                                <span class="SpanFontSetting">Region</span>
+                                                <ul class="dropdown" style="background: none repeat scroll 0% 0% rgb(45, 45, 45);border: 1px solid rgba(0, 0, 0, 0.17);">
+                                                    <li><a href="#" style="border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>Australia</a></li>
+                                                    <li><a href="#" style="border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>New Zealand</a></li>
+                                                    <li><a href="#" style="border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>India</a></li>
+                                                    <li><a href="#" style="border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>China</a></li>
+                                                    <li><a href="#" style="border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>America</a></li>
+                                                </ul>
+                                            </div>',
+                                    '<div class="smallIcon">
+                                        <a class="icon_a" href="#"><i class="icon-th icon-2x" ></i></a>
+                                            <a class="icon_b" href="#"><i class="icon-list-ul  icon-2x" ></i></a>
+                                                <a href="#" class="icon_c" ><i class="icon-search icon-2x" ></i></a>
+                                                </div>',
                                     array(
                                         'class' => 'bootstrap.widgets.TbMenu',
                                         'htmlOptions' => array(
-                                            'class' => 'pull-right',
+                                            'class' => 'login_guest',
                                             'data-toggle' => 'modal',
                                             'data-target' => '#myModal',
                                         ),
@@ -489,19 +655,16 @@
                                 'brand' => '<img class="logonew"  height="29px" src ="../../../images/landing-trends.png"/>',
                                 'items' => array(
                                     '<p class="titleText">  Global  recommendations from </p>',
-                                    array(
-                                        'class' => 'bootstrap.widgets.TbMenu',
-                                        'htmlOptions' => array('class' => 'dropdown_region'),
-                                        'items' => array(
-                                            array('label' => 'Region', 'url' => '#', 'items' => array(
-                                                    array('label' => 'Australia', 'url' => array('/site/index')),
-                                                    array('label' => 'New Zealand', 'url' => array('/site/index')),
-                                                    array('label' => 'India', 'url' => array('/site/index')),
-                                                    array('label' => 'China', 'url' => array('/site/index')),
-                                                    array('label' => 'America', 'url' => array('/site/index')),
-                                                )),
-                                        )
-                                    ),
+                                    '<div id="dd4" class="wrapper-dropdown-3" tabindex="1" style="top: -30px; background:none;border-radius: none;border: none;color:white;box-shadow: none;">
+                                                <span class="SpanFontSetting">Region</span>
+                                                <ul class="dropdown" style="background: none repeat scroll 0% 0% rgb(45, 45, 45);border: 1px solid rgba(0, 0, 0, 0.17);">
+                                                    <li><a href="#" style="border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>Australia</a></li>
+                                                    <li><a href="#" style="border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>New Zealand</a></li>
+                                                    <li><a href="#" style="border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>India</a></li>
+                                                    <li><a href="#" style="border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>China</a></li>
+                                                    <li><a href="#" style="border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>America</a></li>
+                                                </ul>
+                                            </div>',
                                     '<img id="asdas" class="loging_image"  height="29px" src ="' . $user_img . '"/>',
                                     '<p class="loging_text">Hi!!   ' . $name . ' </p>',
                                     '<div class="smallIcon">
@@ -511,7 +674,7 @@
                                                 </div>',
                                     array(
                                         'class' => 'bootstrap.widgets.TbMenu',
-                                        'htmlOptions' => array('class' => 'loging_table'),
+                                        'htmlOptions' => array('class' => 'loging_table moveTop'),
                                         'items' => array(
                                             array('label' => '', 'url' => '#', 'items' => array(
                                                     array('label' => '1', 'url' => array('/site/index')),
@@ -543,7 +706,9 @@
                     <?php echo $content; ?>
 
                     <div class="clear"></div>
-
+                    <p id="back-top">
+                        <a href="#top"><span></span>Back to Top</a>
+                    </p>
                     <div id="footer">
                         Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
                         All Rights Reserved.<br/>

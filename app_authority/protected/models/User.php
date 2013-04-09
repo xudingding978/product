@@ -30,7 +30,7 @@ class User extends CActiveRecord {
      * @return string the associated database table name
      */
     public function tableName() {
-        return 'tpl_user';
+        return 'user';
     }
 
     /**
@@ -98,6 +98,14 @@ class User extends CActiveRecord {
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
+    }
+
+    public function check($value) {
+        //     $new_hash = crypt($value, $this->pwd_hash);
+        if ($value == $this->PWD_HASH) {
+            return true;
+        }
+        return false;
     }
 
 }

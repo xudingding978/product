@@ -179,12 +179,12 @@ color: rgb(51, 51, 51);
 white-space: nowrap;
 }
 .open > .dropdown-menu {
-    
-    margin-top: 50px;
+
+margin-top: 50px;
 }
 
 .navbar .nav > li {
-    float: none;
+float: none;
 }
 
 .login_icon{
@@ -278,7 +278,7 @@ height: 650px;
 
 #item_detail_modal .carousel .active {
 
-    height: auto;
+height: auto;
 }
 
 
@@ -290,15 +290,15 @@ width: 1980px;
 
 #item_detail_modal  .carousel .item {
 
-    background-color: black;
+background-color: black;
 }
 
 
 #item_detail_modal  .carousel .item > img {
 
-    width: auto;
-    margin:auto;
-    height:600px;
+width: auto;
+margin:auto;
+height:600px;
 }
 
 
@@ -395,6 +395,17 @@ width: 600px;
 
 height: 550px;
 
+}
+.question_modal{
+background-color: rgb(255, 255, 255);
+outline: medium none;
+background-clip: padding-box;
+position: fixed;
+width:420px;
+z-index: 99050;
+margin-top:-24%;
+margin-left:29%;
+height:300px;
 }
 
 

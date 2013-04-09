@@ -256,13 +256,14 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 
 
                     <div id="mainmenu" class="sadcasf">
+
                         <?php $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModal')); ?>
 
                         <div class="modal-header" style="background-color: rgb(242,240,240); padding:12px 0px; ">
                             <a class="close" style="margin:-8px 8px;" onclick="reset_login();" data-dismiss="modal" x>x</a>
 
                         </div>
-                      
+
 
                         <div class="modal-body" style="margin:-15px;" style='word-wrap:break-word' >
 

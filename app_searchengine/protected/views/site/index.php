@@ -348,6 +348,10 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
 
 
                     }
+                    function enable_qustion_modal() {
+                        $('#question_modal').attr('aria-hidden', 'false');
+                        $('#question_modal').attr("style", "display:block");
+                    }
 
 </script>
 
@@ -366,6 +370,20 @@ $user_info = UserProfile::model()->findByAttributes(array('USER_REC_ID' => 84));
         <div id='categories'>
 
             <div id="container" class="variable-sizes clearfix isotope">
+                <div id="question_modal" class=" question_modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+                    <div class="modal-body">
+                        
+                        
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <p>This is the area to raise your question!!!!!!!!</p>
+                        
+                       
+                        <textarea rows="4" placeholder="Pros are encouraged but not obligated to answer qusetions. Polite questions are more likely to receive responses."></textarea>
+                          <button class="btn btn-small" type="button">Submit</button>
+                    </div>
+
+                </div>
 
                 <!-- Modal -->
                 <div id="item_detail" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="left:40%;top:40%;">
@@ -395,7 +413,7 @@ $user_info = UserProfile::model()->findByAttributes(array('USER_REC_ID' => 84));
 
                         </div>
                         <div class="question_bar">
-                            <button class="btn" style="margin:10px;float:left;"><i class="icon-question-sign"></i> Ask a Question</button>
+                            <a href="#question_modal" role="button" class="btn" data-toggle="modal" style="margin:10px;float:left;"><i class="icon-question-sign"></i> Ask a Question</a>
                             <div style="margin-left: 80%; margin-top: 3%;">
                                 <a href="#"> <i class="icon-rss icon-large"></i></a>
                                 <a href="#"><i class="icon-print icon-large"></i></a>
@@ -404,8 +422,9 @@ $user_info = UserProfile::model()->findByAttributes(array('USER_REC_ID' => 84));
                                 <a href="#"><i class="icon-google-plus icon-large"></i></a>
                             </div>
                         </div>
+
                         <div  style="float:left ;position:relative;">
-                            <a class="close" onclick="reset_login();" data-dismiss="modal" x>x</a>
+                            <a class="close"  data-dismiss="modal" x>x</a>
 
                             <div style="width:440px;overflow-y:scroll;margin-top:20px ;">
 
@@ -448,16 +467,16 @@ $user_info = UserProfile::model()->findByAttributes(array('USER_REC_ID' => 84));
                                     </div>
                                 </div>
                                 <script>
-                    function generate_slide_img(id) {
+                                    function generate_slide_img(id) {
 
-                        if ($('div').hasClass('bx-wrapper')) {
+                                        if ($('div').hasClass('bx-wrapper')) {
 
-                        } else {
+                                        } else {
 
-                            grab_slide_img();
+                                            grab_slide_img();
 
-                        }
-                    }
+                                        }
+                                    }
                                 </script> 
                                 <div>
 
@@ -618,16 +637,16 @@ if (Yii::app()->user->isGuest) {
 
 
 <script type="text/javascript">
-                    document.getElementById("loading").className = "loading-visible";
-                    var hideDiv = function() {
-                        document.getElementById("loading").className = "loading-invisible";
-                    };
-                    var oldLoad = window.onload;
-                    var newLoad = oldLoad ? function() {
-                        hideDiv.call(this);
-                        oldLoad.call(this);
-                    } : hideDiv;
-                    window.onload = newLoad;</script>
+                                    document.getElementById("loading").className = "loading-visible";
+                                    var hideDiv = function() {
+                                        document.getElementById("loading").className = "loading-invisible";
+                                    };
+                                    var oldLoad = window.onload;
+                                    var newLoad = oldLoad ? function() {
+                                        hideDiv.call(this);
+                                        oldLoad.call(this);
+                                    } : hideDiv;
+                                    window.onload = newLoad;</script>
 
 <script type="text/javascript" language="JavaScript" src="../../../js/search.js"></script>
 <script type="text/javascript">

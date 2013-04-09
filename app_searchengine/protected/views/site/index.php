@@ -315,7 +315,7 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                             if (client_check) {
                                 //      alert("test " + client_id_ary[key] );
 
-                                var $slide_img = $(' <div class="slide" onclick="reload_new_client_albem(' + data[key]['CLIENT_REC_ID'] + ');  switch_loading_modal();"><img  src=' + data[key]['IMAGE_URL'] + '></div>');
+                                var $slide_img = $(' <div class="slide" style="cursor:pointer;" onclick="reload_new_client_albem(' + data[key]['CLIENT_REC_ID'] + ');  switch_loading_modal();"><img  src=' + data[key]['IMAGE_URL'] + '></div>');
 
                                 $('.slider_photo').append($slide_img);
                             }

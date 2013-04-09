@@ -404,7 +404,7 @@ position: fixed;
 width:420px;
 z-index: 99050;
 top:20%;
-margin-left:29%;
+margin-left:24%;
 height:300px;
 }
 

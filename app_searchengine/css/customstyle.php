@@ -403,7 +403,7 @@ background-clip: padding-box;
 position: fixed;
 width:420px;
 z-index: 99050;
-margin-top:-29%;
+top:20%;
 margin-left:29%;
 height:300px;
 }

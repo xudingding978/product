@@ -495,79 +495,79 @@ body {
 .modal-topbox > .wrapper-dropdown-3 {
     left:24%;
     color: white;
-          /* gradients */
-                  background-color: #2b4170;
-	background: -moz-linear-gradient(top, #3b5998, #2b4170);
-	background: -ms-linear-gradient(top, #3b5998, #2b4170);
-	background: -webkit-linear-gradient(top, #3b5998, #2b4170);
-	border: 1px solid #2b4170;
-                  border-top: 1px solid rgb(161,163,197);
-                  border-left:  1px solid rgb(110,112,146);
-                  
-                  
-                  -moz-text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
-                  -webkit-text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
-	text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
-      
-      -moz-border-radius:3px;
-      -webkit-border-radius:3px;
-      border-radius:3px;
-    
+    /* gradients */
+    background-color: #2b4170;
+    background: -moz-linear-gradient(top, #3b5998, #2b4170);
+    background: -ms-linear-gradient(top, #3b5998, #2b4170);
+    background: -webkit-linear-gradient(top, #3b5998, #2b4170);
+    border: 1px solid #2b4170;
+    border-top: 1px solid rgb(161,163,197);
+    border-left:  1px solid rgb(110,112,146);
+
+
+    -moz-text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
+    -webkit-text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
+    text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
+
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border-radius:3px;
+
 }
 .container >.wrapper-dropdown-3 {
 
     font-weight: normal;
 }
 .tile_img >.wrapper-dropdown-3 {
-        left: 0px;
-        color: white;
-        width:270px;
-        text-align: center;
-        position:relative;
+    left: 0px;
+    color: white;
+    width:270px;
+    text-align: center;
+    position:relative;
 
-      /* gradients */
-                  background-color: #2b4170;
-	background: -moz-linear-gradient(top, #3b5998, #2b4170);
-	background: -ms-linear-gradient(top, #3b5998, #2b4170);
-	background: -webkit-linear-gradient(top, #3b5998, #2b4170);
-	border: 1px solid #2b4170;
-                  border-top: 1px solid rgb(161,163,197);
-                  border-left:  1px solid rgb(110,112,146);
-                  
-                  
-                  -moz-text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
-                  -webkit-text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
-	text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
-      
-      -moz-border-radius:3px;
-      -webkit-border-radius:3px;
-      border-radius:3px;
+    /* gradients */
+    background-color: #2b4170;
+    background: -moz-linear-gradient(top, #3b5998, #2b4170);
+    background: -ms-linear-gradient(top, #3b5998, #2b4170);
+    background: -webkit-linear-gradient(top, #3b5998, #2b4170);
+    border: 1px solid #2b4170;
+    border-top: 1px solid rgb(161,163,197);
+    border-left:  1px solid rgb(110,112,146);
+
+
+    -moz-text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
+    -webkit-text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
+    text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
+
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border-radius:3px;
 }
 
 .modal-topbox >.wrapper-dropdown-3 {
-        left: 25%;
-        color: white;
-        width:270px;
-        text-align: center;
-        position:relative;
+    left: 25%;
+    color: white;
+    width:270px;
+    text-align: center;
+    position:relative;
 
-      /* gradients */
-                  background-color: #2b4170;
-	background: -moz-linear-gradient(top, #3b5998, #2b4170);
-	background: -ms-linear-gradient(top, #3b5998, #2b4170);
-	background: -webkit-linear-gradient(top, #3b5998, #2b4170);
-	border: 1px solid #2b4170;
-                  border-top: 1px solid rgb(161,163,197);
-                  border-left:  1px solid rgb(110,112,146);
-                  
-                  
-                  -moz-text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
-                  -webkit-text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
-	text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
-      
-      -moz-border-radius:3px;
-      -webkit-border-radius:3px;
-      border-radius:3px;
+    /* gradients */
+    background-color: #2b4170;
+    background: -moz-linear-gradient(top, #3b5998, #2b4170);
+    background: -ms-linear-gradient(top, #3b5998, #2b4170);
+    background: -webkit-linear-gradient(top, #3b5998, #2b4170);
+    border: 1px solid #2b4170;
+    border-top: 1px solid rgb(161,163,197);
+    border-left:  1px solid rgb(110,112,146);
+
+
+    -moz-text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
+    -webkit-text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
+    text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
+
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border-radius:3px;
 }
 
 
@@ -575,95 +575,95 @@ body {
 
 
 #dropdown-cover{
-/* webkit example */
-background-image: -webkit-gradient(
-  linear, left top, left bottom, from(rgba(255,255,255,0.15)),
-  to(rgba(255,255,255,0))
-);
+    /* webkit example */
+    background-image: -webkit-gradient(
+        linear, left top, left bottom, from(rgba(255,255,255,0.15)),
+        to(rgba(255,255,255,0))
+        );
 
-/* mozilla example - FF3.6+ */
-background-image: -moz-linear-gradient(
-  rgba(255, 255, 255, 0.15) , rgba(255, 255, 255, 0) 
-);
+    /* mozilla example - FF3.6+ */
+    background-image: -moz-linear-gradient(
+        rgba(255, 255, 255, 0.15) , rgba(255, 255, 255, 0) 
+        );
 
-/* approximately a 33% opacity on blue */
-filter: progid:DXImageTransform.Microsoft.gradient(
-  startColorstr=rgba(255,255,255,0.15), endColorstr=rgba(255, 255, 255, 0)
-);
+    /* approximately a 33% opacity on blue */
+    filter: progid:DXImageTransform.Microsoft.gradient(
+        startColorstr=rgba(255,255,255,0.15), endColorstr=rgba(255, 255, 255, 0)
+        );
 
-/* IE8 uses -ms-filter for whatever reason... */
--ms-filter: progid:DXImageTransform.Microsoft.gradient(
-  startColorstr=rgba(255, 255, 255, 0.15), endColorstr=rgba(255, 255, 255, 0)
-);
+    /* IE8 uses -ms-filter for whatever reason... */
+    -ms-filter: progid:DXImageTransform.Microsoft.gradient(
+        startColorstr=rgba(255, 255, 255, 0.15), endColorstr=rgba(255, 255, 255, 0)
+        );
 }      
 
 #dropdown-cover:hover{
-/* webkit example */
-background-image: -webkit-gradient(
-  linear, left top, left bottom, from(rgba(255,255,255,0)),
-  to(rgba(255,255,255,0))
-);
+    /* webkit example */
+    background-image: -webkit-gradient(
+        linear, left top, left bottom, from(rgba(255,255,255,0)),
+        to(rgba(255,255,255,0))
+        );
 
-/* mozilla example - FF3.6+ */
-background-image: -moz-linear-gradient(
-  rgba(255, 255, 255, 0) , rgba(255, 255, 255, 0) 
-);
+    /* mozilla example - FF3.6+ */
+    background-image: -moz-linear-gradient(
+        rgba(255, 255, 255, 0) , rgba(255, 255, 255, 0) 
+        );
 
-/* approximately a 33% opacity on blue */
-filter: progid:DXImageTransform.Microsoft.gradient(
-  startColorstr=rgba(255,255,255,0), endColorstr=rgba(255, 255, 255, 0)
-);
+    /* approximately a 33% opacity on blue */
+    filter: progid:DXImageTransform.Microsoft.gradient(
+        startColorstr=rgba(255,255,255,0), endColorstr=rgba(255, 255, 255, 0)
+        );
 
-/* IE8 uses -ms-filter for whatever reason... */
--ms-filter: progid:DXImageTransform.Microsoft.gradient(
-  startColorstr=rgba(255, 255, 255, 0), endColorstr=rgba(255, 255, 255, 0)
-);
+    /* IE8 uses -ms-filter for whatever reason... */
+    -ms-filter: progid:DXImageTransform.Microsoft.gradient(
+        startColorstr=rgba(255, 255, 255, 0), endColorstr=rgba(255, 255, 255, 0)
+        );
 }      
 
 .tile_img  .sign-in-with{
-text-shadow: 1.5px 2px 1px #000000; 
-padding-left: 3%; 
-border-left: 1px solid rgba(242,240,240,0.4); 
-font-weight: normal; 
-size: 16px; 
-margin-right: 0%;       
-position: relative;
-bottom: -12px;
+    text-shadow: 1.5px 2px 1px #000000; 
+    padding-left: 3%; 
+    border-left: 1px solid rgba(242,240,240,0.4); 
+    font-weight: normal; 
+    size: 16px; 
+    margin-right: 0%;       
+    position: relative;
+    bottom: -12px;
 }
 
 .modal-topbox .sign-in-with{
-text-shadow: 1.5px 2px 1px #000000; 
-padding-left: 3%; 
-border-left: 1px solid rgba(242,240,240,0.4); 
-font-weight: normal; 
-size: 16px; 
-margin-right: 0%;       
-position: relative;
-bottom: -12px;
+    text-shadow: 1.5px 2px 1px #000000; 
+    padding-left: 3%; 
+    border-left: 1px solid rgba(242,240,240,0.4); 
+    font-weight: normal; 
+    size: 16px; 
+    margin-right: 0%;       
+    position: relative;
+    bottom: -12px;
 }      
 
 .tile_img  .login-icon {
-margin-right: 0px; 
-text-shadow: 1.5px 2px 1px #000000; 
-border-right:1px solid rgba(42,39,42,1); 
-padding-left: 0%; 
-padding-right: 0%; 
-width: 44px;
-position: relative;
-bottom: -11px;
-left:-15px;
+    margin-right: 0px; 
+    text-shadow: 1.5px 2px 1px #000000; 
+    border-right:1px solid rgba(42,39,42,1); 
+    padding-left: 0%; 
+    padding-right: 0%; 
+    width: 44px;
+    position: relative;
+    bottom: -11px;
+    left:-15px;
 }
 
 .modal-topbox  .login-icon {
-margin-right: 0px; 
-text-shadow: 1.5px 2px 1px #000000; 
-border-right:1px solid rgba(42,39,42,1); 
-padding-left: 0%; 
-padding-right: 0%; 
-width: 40px;
-position: relative;
-bottom: -11px;
-left:-11px;
+    margin-right: 0px; 
+    text-shadow: 1.5px 2px 1px #000000; 
+    border-right:1px solid rgba(42,39,42,1); 
+    padding-left: 0%; 
+    padding-right: 0%; 
+    width: 40px;
+    position: relative;
+    bottom: -11px;
+    left:-11px;
 }
 
 .wrapper-dropdown-3:after {
@@ -687,13 +687,13 @@ left:-11px;
 .tile_img >.wrapper-dropdown-3:after {
     border-color:  #fff  transparent;
     left:15px;
-    }
-    
-    .modal-topbox >.wrapper-dropdown-3:after {
+}
+
+.modal-topbox >.wrapper-dropdown-3:after {
     border-color:  #fff  transparent;
     left:15px;
-    }
-    
+}
+
 .login_guest{
     margin: -64px 0px 0px 3%;
 }
@@ -813,27 +813,27 @@ left:-11px;
 /* Hover state */
 /*frontpage login button hover state*/
 .wrapper-dropdown-3 .dropdown li:nth-child(1):hover a{
-    
+
     background: rgba(0,172,237,0.2);
 }
 .wrapper-dropdown-3 .dropdown li:nth-child(2):hover a{
-    
+
     background: rgba(211,72,54,0.2);
 }
 .wrapper-dropdown-3 .dropdown li:nth-child(3):hover a{
-    
+
     background: rgba(123,0,153,0.2);
 }
 .wrapper-dropdown-3 .dropdown li:nth-child(4):hover a{
-    
+
     background: rgba(245,213,0,0.2);
 }
 .wrapper-dropdown-3 .dropdown li:nth-child(5):hover a{
-    
+
     background: rgba(62,59,62,0.2);
 }
 .wrapper-dropdown-3 .dropdown li:nth-child(6):hover a{
-    
+
     background: rgba(0,153,68,0.2);
 }
 
@@ -844,27 +844,27 @@ left:-11px;
 /*login panel login button hover state*/
 
 .modal-topbox .dropdown li:nth-child(1):hover a{
-    
+
     background: rgba(0,172,237,0.2);
 }
 .modal-topbox .dropdown li:nth-child(2):hover a{
-    
+
     background: rgba(211,72,54,0.2);
 }
 .modal-topbox .dropdown li:nth-child(3):hover a{
-    
+
     background: rgba(123,0,153,0.2);
 }
 .modal-topbox .dropdown li:nth-child(4):hover a{
-    
+
     background: rgba(245,213,0,0.2);
 }
 .modal-topbox .dropdown li:nth-child(5):hover a{
-    
+
     background: rgba(62,59,62,0.2);
 }
 .modal-topbox .dropdown li:nth-child(6):hover a{
-    
+
     background: rgba(0,153,68,0.2);
 }
 
@@ -888,10 +888,10 @@ left:-11px;
 }
 /*dropdowntriangle*/
 .tile_img > .wrapper-dropdown-3 .dropdown:after {
-  right: 90%  
+    right: 90%  
 }
 .modal-topbox > .wrapper-dropdown-3 .dropdown:after {
-  right: 90%  
+    right: 90%  
 }
 .container > .wrapper-dropdown-3 .dropdown:after {
     border-color: #000 transparent;
@@ -940,7 +940,7 @@ left:-11px;
 
 * {
     box-sizing: border-box;
--moz-box-sizing: border-box;}
+    -moz-box-sizing: border-box;}
 
 html, body {
     min-height: 100%; }
@@ -1390,10 +1390,10 @@ a {
 }
 
 .modal-topbox .logonew{
-height: 40px;
-float: left;
-left: 37%;
-position: relative;
+    height: 40px;
+    float: left;
+    left: 37%;
+    position: relative;
 }
 
 #treeview{
@@ -1566,4 +1566,14 @@ div.right_panel img {
 }
 #back-top a:hover span {
     background-color: #777;
+}
+
+
+.question_bar{
+    position: absolute;
+    width: 569px;
+    height: 50px;
+    bottom: 0px;
+    background-color: rgba(255, 255, 255, 0.698);
+
 }

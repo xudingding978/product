@@ -321,7 +321,7 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                             }
 
                         }
-               //         alert("test1");
+                        //         alert("test1");
                         $('#new_slide .slider_photo').bxSlider({
                             slideWidth: 95,
                             minSlides: 1,
@@ -336,7 +336,7 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
 
                         // remove slide_img bullet
                         $('div').remove('.bx-pager');
-                      //  alert("test2");
+                        //  alert("test2");
                     }
 
                     function reload_new_client_albem(id) {
@@ -394,6 +394,16 @@ $user_info = UserProfile::model()->findByAttributes(array('USER_REC_ID' => 84));
                             -->
 
                         </div>
+                        <div class="question_bar">
+                            <button class="btn" style="margin:10px;float:left;"><i class="icon-question-sign"></i> Ask a Question</button>
+                            <div style="margin-left: 80%; margin-top: 3%;">
+                                <a href="#"> <i class="icon-rss icon-large"></i></a>
+                                <a href="#"><i class="icon-print icon-large"></i></a>
+                                <a href="#"><i class="icon-facebook icon-large"></i></a>
+                                <a href="#"><i class="icon-icon-print icon-large"></i></a>
+                                <a href="#"><i class="icon-google-plus icon-large"></i></a>
+                            </div>
+                        </div>
                         <div  style="float:left ;position:relative;">
                             <a class="close" onclick="reset_login();" data-dismiss="modal" x>x</a>
 
@@ -444,13 +454,7 @@ $user_info = UserProfile::model()->findByAttributes(array('USER_REC_ID' => 84));
 
                         } else {
 
-
-//                           var $slide_img = $('<div class="slider_photo" ><div class="slide" ><img  src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_a.jpg"></div></div>');
-//
-//                           $('#new_slide').append($slide_img);
-
                             grab_slide_img();
-
 
                         }
                     }

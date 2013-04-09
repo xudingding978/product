@@ -386,7 +386,7 @@ $user_info = UserProfile::model()->findByAttributes(array('USER_REC_ID' => 84));
                 </div>
 
                 <!-- Modal -->
-                <div id="item_detail" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="left:40%;top:40%;">
+                <div id="item_detail" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="left:35%;top:40%;">
 
                     <div id="item_detail_modal"  class="modal-body" style="padding-left: 0px;padding-top: 0px;padding-bottom: 0px;">
                         <div id="img_slide" style="float:left;">

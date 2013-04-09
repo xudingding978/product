@@ -19,6 +19,13 @@ class SiteController extends Controller {
             ),
         );
     }
+    
+    public function actionCouch() {
+        // renders the view file 'protected/views/site/index.php'
+        // using the default layout 'protected/views/layouts/main.php'
+        $this->render('couch');
+    }
+
 
     /**
      * This is the default 'index' action that is invoked

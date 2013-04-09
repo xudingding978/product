@@ -32,7 +32,7 @@ class User extends CActiveRecord {
      * @return string the associated database table name
      */
     public function tableName() {
-        return 'user';
+        return 'tpl_user';
     }
 
     /**
@@ -101,5 +101,12 @@ class User extends CActiveRecord {
             'criteria' => $criteria,
         ));
     }
-
+    
+    public function check($value) {
+        //     $new_hash = crypt($value, $this->pwd_hash);
+        if ($value == $this->PWD_HASH) {
+            return true;
+        }
+        return false;
+    }
 }

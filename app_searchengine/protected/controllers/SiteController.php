@@ -82,26 +82,28 @@ class SiteController extends Controller {
 //    }
 
     public function actionLogin() {
-
         $model = new LoginForm;
+        $this->render('login', array('model' => $model));
 
-        // if it is ajax validation request
-        if (!Yii::app()->user->isGuest) {
-            $this->redirect(Yii::app()->user->returnUrl);
-        }
-
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'login-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
-
-        // collect user input data
-        if (isset($_POST['LoginForm'])) {
-            $model->attributes = $_POST['LoginForm'];
-            // validate user input and redirect to the previous page if valid
-            if ($model->validate() && $model->login())
-                $this->redirect('index');
-        }
+//        $model = new LoginForm;
+//
+//        // if it is ajax validation request
+//        if (!Yii::app()->user->isGuest) {
+//            $this->redirect(Yii::app()->user->returnUrl);
+//        }
+//
+//        if (isset($_POST['ajax']) && $_POST['ajax'] === 'login-form') {
+//            echo CActiveForm::validate($model);
+//            Yii::app()->end();
+//        }
+//
+//        // collect user input data
+//        if (isset($_POST['LoginForm'])) {
+//            $model->attributes = $_POST['LoginForm'];
+//            // validate user input and redirect to the previous page if valid
+//            if ($model->validate() && $model->login())
+//                $this->redirect('index');
+//        }
     }
 
     public function actionAjax() {
@@ -120,8 +122,7 @@ class SiteController extends Controller {
 
             if ($model->validate() && $model->login()) {
 
-                    return;
-
+                return;
             } else {
                 echo CActiveForm::validate($model);
                 return;
@@ -149,11 +150,12 @@ class SiteController extends Controller {
     }
 
     public function actionGetDataFromItemtable() {
-        $dataProvider =  ShadowListing::model()->findAll();
+        $dataProvider = ShadowListing::model()->findAll();
         echo CJSON::encode($dataProvider);
     }
-            public function actionGetSlideImage() {
-        $dataProvider =  Client::model()->findAll();
+
+    public function actionGetSlideImage() {
+        $dataProvider = Client::model()->findAll();
         echo CJSON::encode($dataProvider);
     }
 

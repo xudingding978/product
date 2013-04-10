@@ -164,9 +164,6 @@ class ClientController extends Controller {
         }
     }
     
-        public function actionGetDataFromItemtable() {
-        $dataProvider =  Client::model()->findAll();
-        echo CJSON::encode($dataProvider);
-    }
+
 
 }

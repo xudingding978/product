@@ -23,11 +23,17 @@
 
 
             <title><?php echo 'search engine' ?></title>
-            <script type="text/javascript" language="JavaScript" src="../../../js/jquery-1.7.1.min.js"></script>
+            <script type="text/javascript" language="JavaScript" src="../../../js/jquery-1.9.1.js"></script>
+            <script type="text/javascript" language="JavaScript" src="../../../js/handlebars.js"></script>
+            
+            <script type="text/javascript" language="JavaScript" src="../../../js/ember-1.0.0-rc.2.js"></script>  
+            
             <script type="text/javascript" language="JavaScript" src="../../../js/jquery.isotope.min.js"></script>  
+            <script type="text/javascript" language="JavaScript" src="../../../js/jquery.bxslider.min.js"></script>  
+
 
             <link media="screen, projection" rel="stylesheet" type="text/css" href="../../../css/gallery.css"/>
-
+            <link media="screen, projection" rel="stylesheet" type="text/css" href="../../../css/jquery.bxslider.css"/>
             <link rel="stylesheet" type="text/css" href="../../../css/customstyle.php" /> 
             <link rel="stylesheet" href="../../../css/font-awesome.min.css">
 
@@ -105,7 +111,11 @@
 
                 </script>
                 <script type="text/javascript">
+
                     $(document).ready(function() {
+
+
+
                         $('#main-nav span').removeClass('caret');
                         $('#myModal').attr('aria-hidden', 'false');
                         $('#myModal').attr("style", "display:none");
@@ -119,6 +129,10 @@
 
                         $('#email_register').attr('aria-hidden', 'true');
                         $('#email_register').attr("style", "display:none");
+
+
+
+
 
                         // left hiding menu bar
 
@@ -247,6 +261,7 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 
 
                     <div id="mainmenu" class="sadcasf">
+
                         <?php $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModal')); ?>
 
                         <div class="modal-header" style="background-color: rgb(242,240,240); padding:12px 0px; border-radius: 6px 6px 0 0;">

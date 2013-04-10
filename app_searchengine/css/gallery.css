@@ -545,9 +545,15 @@ body {
     border-left:  1px solid rgb(110,112,146);
 
 
+<<<<<<< HEAD
     -moz-text-shadow: -1px -1px  #595757;
     -webkit-text-shadow: -1px -1px  #595757;
     text-shadow: -1px -1px  #595757;
+=======
+    -moz-text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
+    -webkit-text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
+    text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
+>>>>>>> 5d27101c2fd15c10390d9cdc73d9f689a61a3b94
 
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
@@ -570,11 +576,19 @@ body {
     border-top: 1px solid rgb(161,163,197);
     border-left:  1px solid rgb(110,112,146);
 
+<<<<<<< HEAD
 
     -moz-text-shadow: -1px -1px  #595757;
     -webkit-text-shadow: -1px -1px  #595757;
     text-shadow: -1px -1px  #595757;
 
+=======
+
+    -moz-text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
+    -webkit-text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
+    text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
+
+>>>>>>> 5d27101c2fd15c10390d9cdc73d9f689a61a3b94
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     border-radius:3px;
@@ -1541,7 +1555,11 @@ a {
 .modal-topbox .logonew{
     height: 40px;
     float: left;
+<<<<<<< HEAD
     left: 36%;
+=======
+    left: 37%;
+>>>>>>> 5d27101c2fd15c10390d9cdc73d9f689a61a3b94
     position: relative;
 }
 
@@ -1715,4 +1733,23 @@ div.right_panel img {
 }
 #back-top a:hover span {
     background-color: #777;
+}
+
+
+.question_bar{
+    position: absolute;
+    width: 569px;
+    height: 50px;
+    bottom: 0px;
+    background-color: rgba(255, 255, 255, 0.698);
+
+}
+.album_status_bar{
+
+    position: absolute;
+    width: 569px;
+    height: 50px;
+    top: 0px;
+    background-color: rgba(255, 255, 255, 0);
+
 }

@@ -267,8 +267,8 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 
                         <?php $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModal')); ?>
 
-                        <div class="modal-header" style="background-color: rgb(242,240,240); padding:12px 0px; ">
-                            <a class="close" style="margin:-8px 8px;" onclick="reset_login();" data-dismiss="modal" x>x</a>
+                        <div class="modal-header" style="background-color: rgb(242,240,240); padding:12px 0px; border-radius: 6px 6px 0 0;">
+                            <a class="close" style="margin:-11px 8px;" onclick="reset_login();" data-dismiss="modal" x>x</a>
 
                         </div>
 
@@ -276,11 +276,11 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                         <div class="modal-body" style="margin:-15px;" style='word-wrap:break-word' >
 
                             <!-- Modal -->
-                            <div id="social_login" class="social_modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div id="social_login" class="social_modal hide fade"  style="border-radius: 0 0 6px 6px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
-                                <div class="modal-body">
+                                <div class="modal-body" style="border-radius: 0 0 6px 6px;">
 
-                                    <div class="modal-topbox" style="background-color: rgb(242,240,240); padding:10px 0px 45px 0px; margin: -15px; ">
+                                    <div class="modal-topbox" style="background-color: rgb(242,240,240); padding:30px 0px 45px 0px; margin: -23px -15px -15px -15px; ">
                                         <img class="logonew"  src="../../../images/trendslogo(black).png"></img>
                                         <div style="margin:60px 65px;">
                                             <p style="text-align:center; "><b>COLLECT YOUR ONLINE RESOURCE FOR KITCHENS, PRODUCTS, SERVICES & IDEAS</b></p>
@@ -289,17 +289,17 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                                         <div id="dd" class="wrapper-dropdown-3" tabindex="1" style=" width:270px; height:45px; margin-top: -45px; margin-bottom: -5px;">
 
                                             <div>
-                                                <div id="dropdown-cover" style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -11px; padding-left: 35px;">
+                                                <div id="dropdown-cover" style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -11px; padding-left: 35px; border-radius: 3px 0 0 3px;">
                                                     <div class="login-icon">
                                                         <i class="icon-facebook icon-large">
                                                         </i>
                                                     </div>   
                                                 </div>
-                                                <div  id="dropdown-cover" onclick="Facebook();" style="float: right; bottom: 10px; position: relative; width: 204px; height: 45px; margin-right: -9.5px;">
+                                                <div  id="dropdown-cover" onclick="Facebook();" style="float: right; bottom: 10px; position: relative; width: 204px; height: 45px; margin-right: -9.5px; border-radius: 0 3px 3px 0;">
                                                     <div class="sign-in-with" >Sign In with Facebook</div>
                                                 </div>
                                             </div>
-                                            <ul class="dropdown" style="width:270px">
+                                            <ul class="dropdown"  style="width:270px">
                                                 <li  onclick="Twitter();" ><a style="color:rgb(0,172,237)" href="#"><i class="icon-twitter icon-large"></i>Sign in with Twitter</a></li>
                                                 <li  onclick="Google();" ><a style="color:rgb(211,72,54)" href="#"><i class="icon-google-plus icon-large"></i>Sign in with Google+</a></li>
                                                 <li  onclick="Yahoo();" ><a style="color:rgb(123,0,153)" href="#"><img src='../../../images/yahoo.png' style='width: auto; height: 35px; float:left;margin: -3% -5% 0 6%;'>Sign in with Yahoo</a></li>
@@ -308,102 +308,151 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                                                 <li  onclick="dismiss_modal_test();" ><a style="color:rgb(0,153,68)" href="#myModal"><i class="icon-envelope-alt icon-large"></i>Sign in with Email</a></li>
                                             </ul>
                                         </div>
-
+                                        <div class="panelcircle" style="position: absolute; right: 45%; top: 55%;"><b>OR</b></div>
                                     </div>
 
 
 
 
-                                    <div style="top:200px;margin-top:250px;">
-                                        <a  href="http://account.business-software.co.nz/hybridauth/default/login/?provider=Google" >Google+</a>
-                                        <a  href="http://account.business-software.co.nz/hybridauth/default/login/?provider=FaceBook">FaceBook</a>
-                                        <a  href="http://account.business-software.co.nz/hybridauth/default/login/?provider=QQ">QQ</a>
-                                        <a  href="http://account.business-software.co.nz/hybridauth/default/login/?provider=Sina">Sina</a>
-                                        <a  href="http://account.business-software.co.nz/hybridauth/default/login/?provider=Twitter">Twitter</a>
-                                        <a  href="http://account.business-software.co.nz/hybridauth/default/login/?provider=Yahoo">Yahoo</a>
-                                        <a  href="#email_login" onclick="dismiss_modal();">Email</a>
-                                        <a href="#email_login" role="button" class="btn" onclick="dismiss_modal();">Email</a>
+                                    <div style="top:200px; margin: 43px 40px 88px;">
+                                        <div><p style="font-size: 12px; text-align: center;"><b>Other platform you might prefer:</b></p></div>
+                                        <div>
+                                            <a  class="square-button" href="http://account.business-software.co.nz/hybridauth/default/login/?provider=Twitter">
+                                                <div id="dropdown-cover" style="float: left; width: 45px; height: 45px; border-radius: 3px;"></div>
+                                                <div class="square-button-twitter"><i class="icon-twitter icon-large" style="position: relative; top: -33px;"></i></div></a>
 
+                                            <a  class="square-button" href="http://account.business-software.co.nz/hybridauth/default/login/?provider=Google" >
+                                                <div id="dropdown-cover" style="float: left; width: 45px; height: 45px; border-radius: 3px;"></div>
+                                                <div class="square-button-google"><i class="icon-google-plus icon-large" style="position: relative; top: -33px; "></i></div></a>
+
+                                            <a  class="square-button" href="http://account.business-software.co.nz/hybridauth/default/login/?provider=Yahoo">
+                                                <div id="dropdown-cover" style="float: left; width: 45px; height: 45px; border-radius: 3px;"></div>
+                                                <div class="square-button-yahoo"><img src="../../../images/yahoo(white).png" style="position:  relative; top: -34px; width: auto; height:22px; "></img></div></a>
+
+                                            <a  class="square-button" href="http://account.business-software.co.nz/hybridauth/default/login/?provider=Sina">  
+                                                <div id="dropdown-cover" style="float: left; width: 45px; height: 45px; border-radius: 3px;"></div>
+                                                <div class="square-button-sina"><img src="../../../images/sina(white).png" style="position:  relative; top: -34px; width: auto; height:22px; "></img></div></a>
+
+                                            <a  class="square-button" href="http://account.business-software.co.nz/hybridauth/default/login/?provider=QQ">
+                                                <div id="dropdown-cover" style="float: left; width: 45px; height: 45px; border-radius: 3px;"></div>
+                                                <div class="square-button-qq"><img src="../../../images/QQ(white).png" style="position:  relative; top: -34px; width: auto; height:22px; "></img></div></a>
+
+                                            <a  class="square-button" href="#email_login" onclick="dismiss_modal();" >
+                                                <div id="dropdown-cover" style="float: left; width: 45px; height: 45px; border-radius: 3px;"></div>
+                                                <div class="square-button-email"><i class="icon-envelope-alt icon-large" style="position: relative; top: -33px; "></i></div></a>
+
+                                        </div>
+                                        <!--                                    <a  href="#email_login" onclick="dismiss_modal();">Email</a>
+                                                                            <a href="#email_login" role="button" class="btn" onclick="dismiss_modal();">Email</a>-->
+                                        <div style="position: relative; top: 15px; margin-bottom: -35px; margin-top: 70px;"> <p style="text-align:center; "><b>Already have an account? Click <a>here </a> to log in!</b></p></div>
 
 
                                     </div>
-                                </div>
-
+                                </div>                   
                             </div>
+
+
+
+
+
+
+                            <!--EMAIL_LOGIN-->
                             <!-- Modal -->
+
+
+
+
+
+
+
+
                             <div id="email_login" class="email_modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
                                 <div class="modal-body">
-                                    <div id="dd1" class="wrapper-dropdown-3" tabindex="1">
-                                        <span>Select to login</span>
-                                        <ul class="dropdown" style="width:220px">
-                                            <li  onclick="Facebook();" ><a style="color:rgb(138,168,1)" href="#"><i class="icon-envelope icon-large"></i>Sign in with FaceBook</a></li>
-                                            <li  onclick="Yahoo();" ><a style="color:rgb(138,32,50)" href="#"><i class="icon-truck icon-large"></i>Sign in with Yahoo</a></li>
-                                            <li  onclick="QQ();" ><a style="color:rgb(32,168,34)" href="#"><i class="icon-plane icon-large"></i>Sign in with QQ</a></li>
-                                            <li  onclick="Sina();" ><a style="color:rgb(138,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Sina</a></li>
-                                            <li  onclick="Google();" ><a style="color:rgb(138,23,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Google+</a></li>
-                                            <li  onclick="Twitter();" ><a style="color:rgb(55,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Twitter</a></li>
 
-                                        </ul>
+                                    <div class="modal-topbox" style="background-color: rgb(242,240,240); padding:30px 0px 45px 0px; margin: -23px -15px -15px -15px; ">
+
+                                        <div id="dd1" class="wrapper-dropdown-3" tabindex="1" style=" width:270px; height:45px; margin-top: -45px; margin-bottom: -5px;">
+
+                                            <div>
+                                                <div id="dropdown-cover" style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -11px; padding-left: 35px; border-radius: 3px 0 0 3px;">
+                                                    <div class="login-icon">
+                                                        <i class="icon-facebook icon-large">
+                                                        </i>
+                                                    </div>   
+                                                </div>
+                                                <div  id="dropdown-cover" onclick="Facebook();" style="float: right; bottom: 10px; position: relative; width: 204px; height: 45px; margin-right: -9.5px; border-radius: 0 3px 3px 0;">
+                                                    <div class="sign-in-with" >Sign In with Facebook</div>
+                                                </div>
+                                            </div>
+                                            <ul class="dropdown"  style="width:270px">
+                                                <li  onclick="Twitter();" ><a style="color:rgb(0,172,237)" href="#"><i class="icon-twitter icon-large"></i>Sign in with Twitter</a></li>
+                                                <li  onclick="Google();" ><a style="color:rgb(211,72,54)" href="#"><i class="icon-google-plus icon-large"></i>Sign in with Google+</a></li>
+                                                <li  onclick="Yahoo();" ><a style="color:rgb(123,0,153)" href="#"><img src='../../../images/yahoo.png' style='width: auto; height: 35px; float:left;margin: -3% -5% 0 6%;'>Sign in with Yahoo</a></li>
+                                                <li  onclick="Sina();" ><a style="color:rgb(245,213,0)" href="#"><img src='../../../images/sina.png' style='width: auto; height: 35px; float:left;margin: -3% -3% 0 6%;'>Sign in with Sina</a></li>
+                                                <li  onclick="QQ();" ><a style="color:rgb(62,59,62)" href="#"><img src='../../../images/qq.png' style='width: auto; height: 35px; float:left;margin: -3% -2% 0 7%;'>Sign in with QQ</a></li>
+                                                <li  onclick="dismiss_modal_test();" ><a style="color:rgb(0,153,68)" href="#myModal"><i class="icon-envelope-alt icon-large"></i>Sign in with Email</a></li>
+                                            </ul>
+                                        </div>
+                                        <p style="margin-left:350px;">Don't have an account yet?</p>
+                                        <a style="margin-left:350px;" href="#email_register" onclick="dismiss_Join();">Join Now</a>
                                     </div>
-                                    <p style="margin-left:350px;">Don't have an account yet?</p>
-                                    <a style="margin-left:350px;" href="#email_register" onclick="dismiss_Join();">Join Now</a>
 
 
                                     <?PHP
                                     $model = new LoginForm;
                                     ?>
+                                    <div class="modal-bottombox">
+                                        <div class="form">
 
-                                    <div class="form">
-
-                                        <?php
-                                        $form = $this->beginWidget('CActiveForm', array(
-                                            'id' => 'login-form',
-                                            'enableAjaxValidation' => true,
-                                            'enableClientValidation' => true,
-                                            'clientOptions' => array(
-                                                'validateOnSubmit' => true
-                                            ),
-                                            'htmlOptions' => array(
-                                                'onsubmit' => "return false;", /* Disable normal form submit */
-                                                'onkeypress' => " if(event.keyCode == 13){ send(); } " /* Do ajax call when user presses enter key */
-                                            ),
-                                        ));
-                                        ?>
-
-
+                                            <?php
+                                            $form = $this->beginWidget('CActiveForm', array(
+                                                'id' => 'login-form',
+                                                'enableAjaxValidation' => true,
+                                                'enableClientValidation' => true,
+                                                'clientOptions' => array(
+                                                    'validateOnSubmit' => true
+                                                ),
+                                                'htmlOptions' => array(
+                                                    'onsubmit' => "return false;", /* Disable normal form submit */
+                                                    'onkeypress' => " if(event.keyCode == 13){ send(); } " /* Do ajax call when user presses enter key */
+                                                ),
+                                            ));
+                                            ?>
 
 
-                                        <div class="row">
-                                            <?php echo $form->labelEx($model, 'username'); ?>
-                                            <?php echo $form->textField($model, 'username'); ?>
-                                            <?php echo $form->error($model, 'username'); ?>    
-                                            <p id='user_blank' style="display:none">* Username cannot be blank.</p>
-                                        </div>
-                                        <div class="row">
-                                            <?php echo $form->labelEx($model, 'password'); ?>
-                                            <?php echo $form->passwordField($model, 'password'); ?>
-                                            <?php echo $form->error($model, 'password'); ?>
-                                            <p  id='password_blank'  style='display:none;' >* Password cannot be blank.</p>
-                                            <p  id='password_incorrect'  style='display:none' >* Incorrect username or password.</p>
-                                        </div>
-                                        <div class="row rememberMe">
-                                            <?php echo $form->checkBox($model, 'rememberMe'); ?>
-                                            <?php echo $form->label($model, 'keep me signed in'); ?>
-                                            <?php echo $form->error($model, 'rememberMe'); ?>
-                                        </div>
 
 
-                                        <div class="row buttons">
+                                            <div class="row">
+                                                <?php echo $form->labelEx($model, 'username'); ?>
+                                                <?php echo $form->textField($model, 'username'); ?>
+                                                <?php echo $form->error($model, 'username'); ?>    
+                                                <p id='user_blank' style="display:none">* Username cannot be blank.</p>
+                                            </div>
+                                            <div class="row">
+                                                <?php echo $form->labelEx($model, 'password'); ?>
+                                                <?php echo $form->passwordField($model, 'password'); ?>
+                                                <?php echo $form->error($model, 'password'); ?>
+                                                <p  id='password_blank'  style='display:none;' >* Password cannot be blank.</p>
+                                                <p  id='password_incorrect'  style='display:none' >* Incorrect username or password.</p>
+                                            </div>
+                                            <div class="row rememberMe">
+                                                <?php echo $form->checkBox($model, 'rememberMe'); ?>
+                                                <?php echo $form->label($model, 'keep me signed in'); ?>
+                                                <?php echo $form->error($model, 'rememberMe'); ?>
+                                            </div>
 
-                                            <a href="#" role="button" class="btn" onclick="send();">Login</a>
-                                        </div>
 
-                                        <?php $this->endWidget(); ?>
+                                            <div class="row buttons">
 
-                                    </div><!-- form -->
-                                    <a href='#'>Forgot your username or password?</a>
-                                    <script type="text/javascript">
+                                                <a href="#" role="button" class="btn" onclick="send();">Login</a>
+                                            </div>
+
+                                            <?php $this->endWidget(); ?>
+
+                                        </div><!-- form -->
+                                        <a href='#'>Forgot your username or password?</a>
+                                        <script type="text/javascript">
 
                     function send()
                     {
@@ -452,16 +501,20 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 
                     }
 
-                                    </script>
-
-
-
-
+                                        </script>
+                                    </div>
                                 </div>
-
                             </div>
 
+
+
+
+                            <!--EMIAL_REGISTER-->
                             <!-- Modal -->
+
+
+
+
                             <div id="email_register" class="register_modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
                                 <div class="modal-body">

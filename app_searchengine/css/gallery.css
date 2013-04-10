@@ -467,6 +467,16 @@ body {
 
 
 
+.panelcircle {
+    width:40px;
+    height:40px;
+    border-radius:50px;
+    font-size:18px;
+    color:#fff;
+    line-height:40px;
+    text-align:center;
+    background:rgb(201,202,202)
+}
 
 
 /*  facebook google qq dropdown list                             */
@@ -535,9 +545,15 @@ body {
     border-left:  1px solid rgb(110,112,146);
 
 
+<<<<<<< HEAD
+    -moz-text-shadow: -1px -1px  #595757;
+    -webkit-text-shadow: -1px -1px  #595757;
+    text-shadow: -1px -1px  #595757;
+=======
     -moz-text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
     -webkit-text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
     text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
+>>>>>>> 5d27101c2fd15c10390d9cdc73d9f689a61a3b94
 
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
@@ -560,11 +576,19 @@ body {
     border-top: 1px solid rgb(161,163,197);
     border-left:  1px solid rgb(110,112,146);
 
+<<<<<<< HEAD
+
+    -moz-text-shadow: -1px -1px  #595757;
+    -webkit-text-shadow: -1px -1px  #595757;
+    text-shadow: -1px -1px  #595757;
+
+=======
 
     -moz-text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
     -webkit-text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
     text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
 
+>>>>>>> 5d27101c2fd15c10390d9cdc73d9f689a61a3b94
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     border-radius:3px;
@@ -619,6 +643,29 @@ body {
         startColorstr=rgba(255, 255, 255, 0), endColorstr=rgba(255, 255, 255, 0)
         );
 }      
+
+#dropdown-cover:active{
+    /* webkit example */
+    background-image: -webkit-gradient(
+        linear, left top, left bottom, from(rgba(0,0,0,0.45)),
+        to(rgba(0,0,0,0.05))
+        );
+
+    /* mozilla example - FF3.6+ */
+    background-image: -moz-linear-gradient(
+        rgba(0,0,0,0.45) , rgba(0,0,0,0.05) 
+        );
+
+    /* approximately a 33% opacity on blue */
+    filter: progid:DXImageTransform.Microsoft.gradient(
+        startColorstr=rgba(0,0,0,0.45), endColorstr=rgba(0,0,0,0.05)
+        );
+
+    /* IE8 uses -ms-filter for whatever reason... */
+    -ms-filter: progid:DXImageTransform.Microsoft.gradient(
+        startColorstr=rgba(0,0,0,0.45), endColorstr=rgba(0,0,0,0.05)
+        );
+}
 
 .tile_img  .sign-in-with{
     text-shadow: 1.5px 2px 1px #000000; 
@@ -678,12 +725,16 @@ body {
     border-style: solid;
     border-color: #8aa8bd transparent;
 }
+
+
+/*region dropdown triangle*/
 .container>.wrapper-dropdown-3:after {
 
     border-color: #fff transparent;
 
 }
 
+/*button dropdown triangle*/
 .tile_img >.wrapper-dropdown-3:after {
     border-color:  #fff  transparent;
     left:15px;
@@ -750,55 +801,6 @@ body {
 
 
 
-
-
-.modal-topbox .wrapper-dropdown-3 .dropdown {
-    /* Size & position */
-    position: absolute;
-    top: 140%;
-    left: -25px;
-    right: 0;
-
-    /* Styles */
-    background: rgb(242,240,240);
-    border-radius: inherit;
-    border: 1px solid rgb(62,59,62);
-    box-shadow: 1px 2px 10px rgb(0,0,0);
-    font-weight: normal;
-    transition: all 0.5s ease-in;
-    list-style: none;
-
-    /* Hiding */
-    opacity: 0;
-    pointer-events: none;
-    z-index:10000;
-    display:none;
-}
-
-.modal-topbox .wrapper-dropdown-3 .dropdown li a {
-    display: block;
-    padding: 10px;
-    text-decoration: none;
-    color: #8aa8bd;
-    border-bottom: 1px solid #e6e8ea;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,1);
-    transition: all 0.3s ease-out;
-}
-
-.modal-topbox .wrapper-dropdown-3 .dropdown li i {
-    float: left;
-    margin-left: 10%;
-    color: inherit;
-}
-
-.modal-topbox .wrapper-dropdown-3 .dropdown li:first-of-type a {
-    border-radius: 7px 7px 0 0;
-}
-
-.modal-topbox .wrapper-dropdown-3 .dropdown li:last-of-type a {
-    border-radius: 0 0 7px 7px;
-    border: none;
-}
 
 
 
@@ -870,7 +872,168 @@ body {
 
 
 
+/*square button*/
+.square-button {
+    float: left;
+    margin: 10px;
 
+}
+
+.square-button-google {
+    width: 45px;
+    height: 45px;
+    /*    border: 1px solid rgb(201,202,202);
+            padding: 60px 0;*/
+    text-align: center;
+    color: white; 
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: #666 0px 0px 1px;
+    -moz-box-shadow: #666 0px 0px 1px;
+    box-shadow: #666 0px 0px 1px;
+    background: #e64522;
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#e64522), to(#c33219));
+    background: -webkit-linear-gradient(#e64522, #c33219);
+    background: -moz-linear-gradient(#e64522, #c33219);
+    background: -ms-linear-gradient(#e64522, #c33219);
+    background: -o-linear-gradient(#e64522, #c33219);
+    background: linear-gradient(#e64522, #c33219);
+    -pie-background: linear-gradient(#e64522, #c33219);
+    behavior: url(/pie/PIE.htc);
+
+    -moz-text-shadow: -1px -1px  #595757; 
+    -webkit-text-shadow: -1px -1px  #595757;
+    text-shadow: -1px -1px  #595757;
+
+}
+
+.square-button-twitter {
+    width: 45px;
+    height: 45px;
+    /*    border: 1px solid rgb(201,202,202);
+            padding: 60px 0;*/
+    text-align: center;
+    color: white; 
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: #666 0px 0px 1px;
+    -moz-box-shadow: #666 0px 0px 1px;
+    box-shadow: #666 0px 0px 1px;
+    background: #e64522;
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#00aced), to(#0081ce));
+    background: -webkit-linear-gradient(#00aced, #0081ce);
+    background: -moz-linear-gradient(#00aced, #0081ce);
+    background: -ms-linear-gradient(#00aced, #0081ce);
+    background: -o-linear-gradient(#00aced, #0081ce);
+    background: linear-gradient(#00aced, #0081ce);
+    -pie-background: linear-gradient(#00aced, #0081ce);
+    behavior: url(/pie/PIE.htc);
+
+    -moz-text-shadow: -1px -1px  #595757; 
+    -webkit-text-shadow: -1px -1px  #595757;
+    text-shadow: -1px -1px  #595757;
+}
+
+.square-button-yahoo  {
+    width: 45px;
+    height: 45px;
+    /*    border: 1px solid rgb(201,202,202);
+            padding: 60px 0;*/
+    text-align: center;
+    color: white; 
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: #666 0px 0px 1px;
+    -moz-box-shadow: #666 0px 0px 1px;
+    box-shadow: #666 0px 0px 1px;
+    background: rgb(163,89,167);
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(rgb(163,89,167)), to(rgb(138,43,143)));
+    background: -webkit-linear-gradient(rgb(163,89,167), rgb(138,43,143));
+    background: -moz-linear-gradient(rgb(163,89,167), rgb(138,43,143));
+    background: -ms-linear-gradient(rgb(163,89,167), rgb(138,43,143));
+    background: -o-linear-gradient(rgb(163,89,167), rgb(138,43,143));
+    background: linear-gradient(rgb(163,89,167), rgb(138,43,143));
+    -pie-background: linear-gradient(rgb(163,89,167), rgb(138,43,143));
+    behavior: url(/pie/PIE.htc);
+}
+
+.square-button-sina {
+    width: 45px;
+    height: 45px;
+    /*    border: 1px solid rgb(201,202,202);
+            padding: 60px 0;*/
+    text-align: center;
+    color: white; 
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: #666 0px 0px 1px;
+    -moz-box-shadow: #666 0px 0px 1px;
+    box-shadow: #666 0px 0px 1px;
+    background: rgb(245,213,0);
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(rgb(245,213,0)), to(rgb(230,200,0)));
+    background: -webkit-linear-gradient(rgb(245,213,0), rgb(230,200,0));
+    background: -moz-linear-gradient(rgb(245,213,0), rgb(230,200,0));
+    background: -ms-linear-gradient(rgb(245,213,0), rgb(230,200,0));
+    background: -o-linear-gradient(rgb(245,213,0), rgb(230,200,0));
+    background: linear-gradient(rgb(245,213,0), rgb(230,200,0));
+    -pie-background: linear-gradient(rgb(245,213,0), rgb(230,200,0));
+    behavior: url(/pie/PIE.htc);
+}
+
+.square-button-qq {
+    width: 45px;
+    height: 45px;
+    /*    border: 1px solid rgb(201,202,202);
+            padding: 60px 0;*/
+    text-align: center;
+    color: white; 
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: #666 0px 0px 1px;
+    -moz-box-shadow: #666 0px 0px 1px;
+    box-shadow: #666 0px 0px 1px;
+    background: rgba(62,59,62,0.8);
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(rgba(62,59,62,0.8)), to(rgba(62,59,62,1)));
+    background: -webkit-linear-gradient(rgba(62,59,62,0.8), rgba(62,59,62,1));
+    background: -moz-linear-gradient(rgba(62,59,62,0.8), rgba(62,59,62,1));
+    background: -ms-linear-gradient(rgba(62,59,62,0.8), rgba(62,59,62,1));
+    background: -o-linear-gradient(rgba(62,59,62,0.8), rgba(62,59,62,1));
+    background: linear-gradient(rgba(62,59,62,0.8), rgba(62,59,62,1));
+    -pie-background: linear-gradient(rgba(62,59,62,0.8), rgba(62,59,62,1));
+    behavior: url(/pie/PIE.htc);
+}
+
+.square-button-email {
+    width: 45px;
+    height: 45px;
+    /*    border: 1px solid rgb(201,202,202);*/
+    text-align: center;
+    color: white; 
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: #666 0px 0px 1px;
+    -moz-box-shadow: #666 0px 0px 1px;
+    box-shadow: #666 0px 0px 1px;
+    background: rgb(84,181,112);
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(rgb(84,181,112)), to(rgb(39,162,75)));
+    background: -webkit-linear-gradient(rgb(84,181,112), rgb(39,162,75));
+    background: -moz-linear-gradient(rgb(84,181,112), rgb(39,162,75));
+    background: -ms-linear-gradient(rgb(84,181,112), rgb(39,162,75));
+    background: -o-linear-gradient(rgb(84,181,112), rgb(39,162,75));
+    background: linear-gradient(rgb(84,181,112), rgb(39,162,75));
+    -pie-background: linear-gradient(rgb(84,181,112), rgb(39,162,75));
+    behavior: url(/pie/PIE.htc);
+
+    -moz-text-shadow: -1px -1px  #595757; 
+    -webkit-text-shadow: -1px -1px  #595757;
+    text-shadow: -1px -1px  #595757;
+}
 
 
 
@@ -1392,7 +1555,11 @@ a {
 .modal-topbox .logonew{
     height: 40px;
     float: left;
+<<<<<<< HEAD
+    left: 36%;
+=======
     left: 37%;
+>>>>>>> 5d27101c2fd15c10390d9cdc73d9f689a61a3b94
     position: relative;
 }
 

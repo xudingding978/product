@@ -355,7 +355,7 @@ background-color: rgba(255, 255, 255,0.8);
 .modal-body {
 height: 100%;
 padding: 15px;
-overflow-y: hidden;
+overflow-y: visible;
 max-height:100%;
 
 }
@@ -376,15 +376,16 @@ z-index: 1050;
 background-color: rgb(255, 255, 255);
 outline: medium none;
 background-clip: padding-box;
+border-radius: 0 0 6px 6px;
 }
 
 .email_modal {
 position: relative;
 
 z-index: 1050;
-width: 900px;
+width: 700px;
 
-height: 350px;
+height: 300px;
 }
 
 .register_modal{
@@ -454,6 +455,16 @@ top:-40px;
 .login_guest{
 margin: -64px 0px 0px 3%;
 }
+
+
+#mainmenu #dd ul li a {
+
+font-size: 100%;
+text-decoration: none;
+padding: 10px;
+
+}
+
 
 <?php
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// isotope parts   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

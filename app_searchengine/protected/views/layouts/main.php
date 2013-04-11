@@ -21,17 +21,11 @@
 
 
 
-
             <title><?php echo 'search engine' ?></title>
             <script type="text/javascript" language="JavaScript" src="../../../js/jquery-1.9.1.js"></script>
-            <script type="text/javascript" language="JavaScript" src="../../../js/handlebars.js"></script>
-
-            <script type="text/javascript" language="JavaScript" src="../../../js/ember-1.0.0-rc.2.js"></script>  
-
             <script type="text/javascript" language="JavaScript" src="../../../js/jquery.isotope.min.js"></script>  
-            <script type="text/javascript" language="JavaScript" src="../../../js/jquery.bxslider.min.js"></script>  
-
-
+            <script type="text/javascript" language="JavaScript" src="../../../js/jquery.bxslider.min.js"></script>
+        
             <link media="screen, projection" rel="stylesheet" type="text/css" href="../../../css/gallery.css"/>
             <link media="screen, projection" rel="stylesheet" type="text/css" href="../../../css/jquery.bxslider.css"/>
             <link rel="stylesheet" type="text/css" href="../../../css/customstyle.php" /> 
@@ -806,8 +800,11 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 
 
 
-
                     </div><!-- footer -->
+
+
+
+
 
 
 

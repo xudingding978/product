@@ -25,9 +25,9 @@
             <title><?php echo 'search engine' ?></title>
             <script type="text/javascript" language="JavaScript" src="../../../js/jquery-1.9.1.js"></script>
             <script type="text/javascript" language="JavaScript" src="../../../js/handlebars.js"></script>
-            
+
             <script type="text/javascript" language="JavaScript" src="../../../js/ember-1.0.0-rc.2.js"></script>  
-            
+
             <script type="text/javascript" language="JavaScript" src="../../../js/jquery.isotope.min.js"></script>  
             <script type="text/javascript" language="JavaScript" src="../../../js/jquery.bxslider.min.js"></script>  
 
@@ -277,7 +277,7 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 
                                 <div class="modal-body" style="border-radius: 0 0 6px 6px;">
 
-                                    <div class="modal-topbox" style="background-color: rgb(242,240,240); padding:30px 0px 45px 0px; margin: -23px -15px -15px -15px; ">
+                                    <div class="modal-topbox" style="background-color: rgb(242,240,240); padding:15px 0px 45px 0px; margin: -21px -15px -15px -15px; ">
                                         <img class="logonew"  src="../../../images/trendslogo(black).png"></img>
                                         <div style="margin:60px 65px;">
                                             <p style="text-align:center; "><b>COLLECT YOUR ONLINE RESOURCE FOR KITCHENS, PRODUCTS, SERVICES & IDEAS</b></p>
@@ -367,9 +367,9 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 
                                 <div class="modal-body">
 
-                                    <div class="modal-topbox" style="background-color: rgb(242,240,240); padding:30px 0px 45px 0px; margin: -23px -15px -15px -15px; ">
+                                    <div class="modal-topbox" style="background-color: rgb(242,240,240); padding: 40px; margin: -15px -15px 0 0; float: right;width: 350px;height: 300px;">
 
-                                        <div id="dd1" class="wrapper-dropdown-3" tabindex="1" style=" width:270px; height:45px; margin-top: -45px; margin-bottom: -5px;">
+                                        <div id="dd1" class="wrapper-dropdown-3" tabindex="1" style=" width:270px; height:45px; position: relative; left: 5px; top: 50px;">
 
                                             <div>
                                                 <div id="dropdown-cover" style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -11px; padding-left: 35px; border-radius: 3px 0 0 3px;">
@@ -391,17 +391,24 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                                                 <li  onclick="dismiss_modal_test();" ><a style="color:rgb(0,153,68)" href="#myModal"><i class="icon-envelope-alt icon-large"></i>Sign in with Email</a></li>
                                             </ul>
                                         </div>
-                                        <p style="margin-left:350px;">Don't have an account yet?</p>
-                                        <a style="margin-left:350px;" href="#email_register" onclick="dismiss_Join();">Join Now</a>
+                                        <div style="position: relative; left: 5px; top: 60px;">
+                                            <p style="">Don't have an account yet?</p>
+                                            <a style="" href="#email_register" onclick="dismiss_Join();"><b>Join Now</b></a>
+                                        </div>
                                     </div>
-
+                                    <div class="panelcircle" style="position: absolute; right: 47%; top: 38%;"><b>OR</b></div>
 
                                     <?PHP
                                     $model = new LoginForm;
                                     ?>
-                                    <div class="modal-bottombox">
-                                        <div class="form">
+                                    <div class="modal-bottombox" style="background-color: white;float: left; width: 350px; height: 325px; margin: -40px 0px 0px -15px; padding: 29px 40px 25px 40px; border-radius: 6px 0 0 6px;">
+                                        <img class="logonew"  src="../../../images/trendslogo(black).png"></img>
+                                        <div style="margin:12px 0; font-size: 20px; color: #0088cc;">
+                                            <p style="text-align:center; "><b>Login to Trends</b></p>
+                                        </div>
 
+
+                                        <div class="form">
                                             <?php
                                             $form = $this->beginWidget('CActiveForm', array(
                                                 'id' => 'login-form',
@@ -433,23 +440,24 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                                                 <p  id='password_blank'  style='display:none;' >* Password cannot be blank.</p>
                                                 <p  id='password_incorrect'  style='display:none' >* Incorrect username or password.</p>
                                             </div>
-                                            <div class="row rememberMe">
+                                            <div class="row rememberMe" style="margin-top: 5px; ">
                                                 <?php echo $form->checkBox($model, 'rememberMe'); ?>
                                                 <?php echo $form->label($model, 'keep me signed in'); ?>
                                                 <?php echo $form->error($model, 'rememberMe'); ?>
                                             </div>
 
 
-                                            <div class="row buttons">
-
+                                            <div style="float: right; position: relative; top: -18px;">
                                                 <a href="#" role="button" class="btn" onclick="send();">Login</a>
                                             </div>
 
                                             <?php $this->endWidget(); ?>
 
                                         </div><!-- form -->
-                                        <a href='#'>Forgot your username or password?</a>
-                                        <script type="text/javascript">
+
+                                        <div style="font-size: 12px; width: 100%; margin-left: 30px; position: absolute;">
+                                            <a href='#'>Forgot your username or password?</a>
+                                            <script type="text/javascript">
 
                     function send()
                     {
@@ -498,7 +506,8 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 
                     }
 
-                                        </script>
+                                            </script>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -516,89 +525,113 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 
                                 <div class="modal-body">
 
-                                    <h2>Sign Up for your Free Account!</h2>
+                                    <div class="modal-topbox" style="background-color: rgb(242,240,240); padding: 5px 0px 20px 0px; margin: -15px -15px 0px -15px;  ">
+                                        <div style=" font-size: 22px; text-align: center;"> 
+                                            <p><b>Sign Up for your Free Account!</b></p> 
+                                        </div>
 
-                                    <div id="dd2" class="wrapper-dropdown-3" tabindex="1">
-                                        <span>Select to login</span>
-                                        <ul class="dropdown" style="width:220px">
-                                            <li  onclick="Facebook();" ><a style="color:rgb(138,168,1)" href="#"><i class="icon-envelope icon-large"></i>Sign in with FaceBook</a></li>
-                                            <li  onclick="Yahoo();" ><a style="color:rgb(138,32,50)" href="#"><i class="icon-truck icon-large"></i>Sign in with Yahoo</a></li>
-                                            <li  onclick="QQ();" ><a style="color:rgb(32,168,34)" href="#"><i class="icon-plane icon-large"></i>Sign in with QQ</a></li>
-                                            <li  onclick="Sina();" ><a style="color:rgb(138,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Sina</a></li>
-                                            <li  onclick="Google();" ><a style="color:rgb(138,23,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Google+</a></li>
-                                            <li  onclick="Twitter();" ><a style="color:rgb(55,168,189)" href="#"><i class="icon-plane icon-large"></i>Sign in with Twitter</a></li>
+                                        <div id="dd2" class="wrapper-dropdown-3" tabindex="1" style=" width:270px; height:45px; position: relative; left: 23%; top:3px;">
 
-                                        </ul>
+                                            <div>
+                                                <div id="dropdown-cover" style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -11px; padding-left: 35px; border-radius: 3px 0 0 3px;">
+                                                    <div class="login-icon">
+                                                        <i class="icon-facebook icon-large">
+                                                        </i>
+                                                    </div>   
+                                                </div>
+                                                <div  id="dropdown-cover" onclick="Facebook();" style="float: right; bottom: 10px; position: relative; width: 204px; height: 45px; margin-right: -9.5px; border-radius: 0 3px 3px 0;">
+                                                    <div class="sign-in-with" >Sign In with Facebook</div>
+                                                </div>
+                                            </div>
+                                            <ul class="dropdown"  style="width:270px">
+                                                <li  onclick="Twitter();" ><a style="color:rgb(0,172,237)" href="#"><i class="icon-twitter icon-large"></i>Sign in with Twitter</a></li>
+                                                <li  onclick="Google();" ><a style="color:rgb(211,72,54)" href="#"><i class="icon-google-plus icon-large"></i>Sign in with Google+</a></li>
+                                                <li  onclick="Yahoo();" ><a style="color:rgb(123,0,153)" href="#"><img src='../../../images/yahoo.png' style='width: auto; height: 35px; float:left;margin: -3% -5% 0 6%;'>Sign in with Yahoo</a></li>
+                                                <li  onclick="Sina();" ><a style="color:rgb(245,213,0)" href="#"><img src='../../../images/sina.png' style='width: auto; height: 35px; float:left;margin: -3% -3% 0 6%;'>Sign in with Sina</a></li>
+                                                <li  onclick="QQ();" ><a style="color:rgb(62,59,62)" href="#"><img src='../../../images/qq.png' style='width: auto; height: 35px; float:left;margin: -3% -2% 0 7%;'>Sign in with QQ</a></li>
+                                                <li  onclick="dismiss_modal_test();" ><a style="color:rgb(0,153,68)" href="#myModal"><i class="icon-envelope-alt icon-large"></i>Sign in with Email</a></li>
+                                            </ul>
+                                        </div>
+                                        <div style="font-size: 12px; text-align: center;">
+                                            <p>Don't worry , we'll never post without your permission.</p>
+                                        </div>
+
                                     </div>
-                                    <p>Don't worry , we'll never post without your permission.</p>
-                                    <?php
-                                    $this->widget('bootstrap.widgets.TbButton', array(
-                                        'label' => 'Bottom popover',
-                                        'type' => 'success',
-                                        'htmlOptions' => array('data-title' => 'A Title', 'data-placement' => 'bottom', 'data-content' => 'And here\'s some amazing content. It\'s very engaging. right?', 'rel' => 'popover'),
-                                    ));
-                                    ?>
 
-                                    <span>Sign Up with your Email Address:</span>
+                                   <div class="panelcircle" style="position: absolute; right: 45%; top: 24%;"><b>OR</b></div>
 
-                                    <?PHP
-                                    $model = new User;
-                                    ?>
 
-                                    <div class="form">
 
-                                        <?php
-                                        $form = $this->beginWidget('CActiveForm', array(
-                                            'id' => 'login-form-register',
-                                            'enableAjaxValidation' => true,
-                                            'enableClientValidation' => true,
-                                            'clientOptions' => array(
-                                                'validateOnSubmit' => true
-                                            ),
-                                            'htmlOptions' => array(
-                                                'onsubmit' => "return false;", /* Disable normal form submit */
-                                                'onkeypress' => " if(event.keyCode == 13){ send_register(); } " /* Do ajax call when user presses enter key */
-                                            ),
-                                        ));
+
+                                    <div class="modal-bottombox" style="background-color: white;  height: 355px; width: 500px;margin: 0px 15px 0px -15px; padding: 35px 70px 30px 70px; border-radius: 0 0 6px 6px;">
+
+                                        <div style="font-size: 14px; text-align:center ;padding: 0 0 5px 0;">
+                                            <p><b>Sign Up with your Email Address:</b></p>
+                                        </div>
+
+                                        <?PHP
+                                        $model = new User;
                                         ?>
 
+                                        <div class="form">
 
-                                        <div class="row">
+                                            <?php
+                                            $form = $this->beginWidget('CActiveForm', array(
+                                                'id' => 'login-form-register',
+                                                'enableAjaxValidation' => true,
+                                                'enableClientValidation' => true,
+                                                'clientOptions' => array(
+                                                    'validateOnSubmit' => true
+                                                ),
+                                                'htmlOptions' => array(
+                                                    'onsubmit' => "return false;", /* Disable normal form submit */
+                                                    'onkeypress' => " if(event.keyCode == 13){ send_register(); } " /* Do ajax call when user presses enter key */
+                                                ),
+                                            ));
+                                            ?>
 
-                                            <?php echo $form->textField($model, 'EMAIL_ADDRESS', array('size' => 60, 'placeholder' => "Email Address", 'maxlength' => 255)); ?>
-                                            <?php echo $form->error($model, 'EMAIL_ADDRESS'); ?>
-                                            <p id='email_taken' style="display:none">* E-mail has already been taken.</p>
-                                        </div>
 
-                                        <div class="row">
+                                            <div class="row">
 
-                                            <?php echo $form->textField($model, 'USER_NAME', array('size' => 60, 'placeholder' => "Username", 'maxlength' => 255)); ?>
-                                            <?php echo $form->error($model, 'USER_NAME'); ?>
-                                            <p id='username_taken' style="display:none">* Username has already been taken.</p>
-                                        </div>
-                                        <div class="row">
+                                                <?php echo $form->textField($model, 'EMAIL_ADDRESS', array('size' => 60, 'placeholder' => "Email Address", 'maxlength' => 255)); ?>
+                                                <?php echo $form->error($model, 'EMAIL_ADDRESS'); ?>
+                                                <p id='email_taken' style="display:none">* E-mail has already been taken.</p>
+                                            </div>
 
-                                            <?php echo $form->passwordField($model, 'PWD_HASH', array('size' => 60, 'placeholder' => "Password", 'maxlength' => 512)); ?>
-                                            <?php echo $form->error($model, 'PWD_HASH'); ?>
+                                            <div class="row">
 
-                                        </div>
+                                                <?php echo $form->textField($model, 'USER_NAME', array('size' => 60, 'placeholder' => "Username", 'maxlength' => 255)); ?>
+                                                <?php echo $form->error($model, 'USER_NAME'); ?>
+                                                <p id='username_taken' style="display:none">* Username has already been taken.</p>
+                                            </div>
+                                            <div class="row">
 
-                                        <div class="row">
+                                                <?php echo $form->passwordField($model, 'PWD_HASH', array('size' => 60, 'placeholder' => "Password", 'maxlength' => 512)); ?>
+                                                <?php echo $form->error($model, 'PWD_HASH'); ?>
 
-                                            <?php echo $form->passwordField($model, 'repeatPassword', array('size' => 60, 'placeholder' => "Confirm Password", 'maxlength' => 512)); ?>
-                                            <?php echo $form->error($model, 'repeatPassword'); ?>
-                                            <p id='password_repeat' style="display:none">* Password must be repeated exactly.</p>
-                                        </div>
-                                        <div class="row buttons">
+                                            </div>
 
-                                            <a href="#" role="button" class="btn" onclick="send_register();">Sign Up</a>
-                                        </div>
+                                            <div class="row">
 
-                                        <?php $this->endWidget(); ?>
+                                                <?php echo $form->passwordField($model, 'repeatPassword', array('size' => 60, 'placeholder' => "Confirm Password", 'maxlength' => 512)); ?>
+                                                <?php echo $form->error($model, 'repeatPassword'); ?>
+                                                <p id='password_repeat' style="display:none">* Password must be repeated exactly.</p>
+                                            </div>
 
-                                    </div><!-- form -->
+                                            <div style="font-size: 12px; text-align: center; padding-top: 5px; padding-bottom: 10px;">
+                                                <p>By clicking Sign Up you indicate that you have read and agreed to the <a href='#'>Terms of Use</a> and <a href='#'>Privacy Policy </a>.</p>
+                                            </div>
 
-                                    <script type="text/javascript">
+                                            <div class="row buttons" style="text-align: center; ">
+
+                                                <a href="#" role="button" class="btn" onclick="send_register();">Sign Up</a>
+                                            </div>
+
+                                            <?php $this->endWidget(); ?>
+
+                                        </div><!-- form -->
+
+                                        <script type="text/javascript">
 
                     function send_register()
                     {
@@ -648,11 +681,10 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 
                     }
 
-                                    </script>
+                                        </script>
 
 
-                                    <p>By clicking Sign Up you indicate that you have read and agreed to the <a href='#'>Terms of Use</a> and <a href='#'>Privacy Policy </a>.</p>
-
+                                    </div>
 
                                 </div>
 

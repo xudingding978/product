@@ -544,16 +544,9 @@ body {
     border-top: 1px solid rgb(161,163,197);
     border-left:  1px solid rgb(110,112,146);
 
-
-<<<<<<< HEAD
     -moz-text-shadow: -1px -1px  #595757;
     -webkit-text-shadow: -1px -1px  #595757;
     text-shadow: -1px -1px  #595757;
-=======
-    -moz-text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
-    -webkit-text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
-    text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
->>>>>>> 5d27101c2fd15c10390d9cdc73d9f689a61a3b94
 
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
@@ -561,7 +554,7 @@ body {
 }
 
 .modal-topbox >.wrapper-dropdown-3 {
-    left: 25%;
+    /*    left: 25%;*/
     color: white;
     width:270px;
     text-align: center;
@@ -576,19 +569,10 @@ body {
     border-top: 1px solid rgb(161,163,197);
     border-left:  1px solid rgb(110,112,146);
 
-<<<<<<< HEAD
-
     -moz-text-shadow: -1px -1px  #595757;
     -webkit-text-shadow: -1px -1px  #595757;
     text-shadow: -1px -1px  #595757;
 
-=======
-
-    -moz-text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
-    -webkit-text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
-    text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
-
->>>>>>> 5d27101c2fd15c10390d9cdc73d9f689a61a3b94
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     border-radius:3px;
@@ -668,10 +652,10 @@ body {
 }
 
 .tile_img  .sign-in-with{
-    text-shadow: 1.5px 2px 1px #000000; 
+    text-shadow: -1px -1px 1px #000000; 
     padding-left: 3%; 
     border-left: 1px solid rgba(242,240,240,0.4); 
-    font-weight: normal; 
+    font-weight: bold; 
     size: 16px; 
     margin-right: 0%;       
     position: relative;
@@ -679,10 +663,10 @@ body {
 }
 
 .modal-topbox .sign-in-with{
-    text-shadow: 1.5px 2px 1px #000000; 
+    text-shadow: -1px -1px 1px #000000; 
     padding-left: 3%; 
     border-left: 1px solid rgba(242,240,240,0.4); 
-    font-weight: normal; 
+    font-weight: bold; 
     size: 16px; 
     margin-right: 0%;       
     position: relative;
@@ -889,9 +873,9 @@ body {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
-    -webkit-box-shadow: #666 0px 0px 1px;
-    -moz-box-shadow: #666 0px 0px 1px;
-    box-shadow: #666 0px 0px 1px;
+    -webkit-box-shadow: #666 1px 0px 0px;
+    -moz-box-shadow: #666 1px 0px 0px;
+    box-shadow: #666 1px 0px 0px;
     background: #e64522;
     background: -webkit-gradient(linear, 0 0, 0 bottom, from(#e64522), to(#c33219));
     background: -webkit-linear-gradient(#e64522, #c33219);
@@ -918,9 +902,9 @@ body {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
-    -webkit-box-shadow: #666 0px 0px 1px;
-    -moz-box-shadow: #666 0px 0px 1px;
-    box-shadow: #666 0px 0px 1px;
+    -webkit-box-shadow: #666 1px 0px 0px;
+    -moz-box-shadow: #666 1px 0px 0px;
+    box-shadow: #666 1px 0px 0px;
     background: #e64522;
     background: -webkit-gradient(linear, 0 0, 0 bottom, from(#00aced), to(#0081ce));
     background: -webkit-linear-gradient(#00aced, #0081ce);
@@ -946,9 +930,9 @@ body {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
-    -webkit-box-shadow: #666 0px 0px 1px;
-    -moz-box-shadow: #666 0px 0px 1px;
-    box-shadow: #666 0px 0px 1px;
+    -webkit-box-shadow: #666 1px 0px 0px;
+    -moz-box-shadow: #666 1px 0px 0px;
+    box-shadow: #666 1px 0px 0px;
     background: rgb(163,89,167);
     background: -webkit-gradient(linear, 0 0, 0 bottom, from(rgb(163,89,167)), to(rgb(138,43,143)));
     background: -webkit-linear-gradient(rgb(163,89,167), rgb(138,43,143));
@@ -970,9 +954,9 @@ body {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
-    -webkit-box-shadow: #666 0px 0px 1px;
-    -moz-box-shadow: #666 0px 0px 1px;
-    box-shadow: #666 0px 0px 1px;
+    -webkit-box-shadow: #666 1px 0px 0px;
+    -moz-box-shadow: #666 1px 0px 0px;
+    box-shadow: #666 1px 0px 0px;
     background: rgb(245,213,0);
     background: -webkit-gradient(linear, 0 0, 0 bottom, from(rgb(245,213,0)), to(rgb(230,200,0)));
     background: -webkit-linear-gradient(rgb(245,213,0), rgb(230,200,0));
@@ -994,9 +978,9 @@ body {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
-    -webkit-box-shadow: #666 0px 0px 1px;
-    -moz-box-shadow: #666 0px 0px 1px;
-    box-shadow: #666 0px 0px 1px;
+    -webkit-box-shadow: #666 1px 0px 0px;
+    -moz-box-shadow: #666 1px 0px 0px;
+    box-shadow: #666 1px 0px 0px;
     background: rgba(62,59,62,0.8);
     background: -webkit-gradient(linear, 0 0, 0 bottom, from(rgba(62,59,62,0.8)), to(rgba(62,59,62,1)));
     background: -webkit-linear-gradient(rgba(62,59,62,0.8), rgba(62,59,62,1));
@@ -1017,9 +1001,9 @@ body {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
-    -webkit-box-shadow: #666 0px 0px 1px;
-    -moz-box-shadow: #666 0px 0px 1px;
-    box-shadow: #666 0px 0px 1px;
+    -webkit-box-shadow: #666 1px 0px 0px;
+    -moz-box-shadow: #666 1px 0px 0px;
+    box-shadow: #666 1px 0px 0px;
     background: rgb(84,181,112);
     background: -webkit-gradient(linear, 0 0, 0 bottom, from(rgb(84,181,112)), to(rgb(39,162,75)));
     background: -webkit-linear-gradient(rgb(84,181,112), rgb(39,162,75));
@@ -1051,22 +1035,25 @@ body {
 }
 /*dropdowntriangle*/
 .tile_img > .wrapper-dropdown-3 .dropdown:after {
-    right: 90%  
+    right: 90%;
 }
 .modal-topbox > .wrapper-dropdown-3 .dropdown:after {
-    right: 90%  
+    right: 90%;
 }
+
+/*" Region"dropdowntriangle*/
 .container > .wrapper-dropdown-3 .dropdown:after {
     border-color: #000 transparent;
 }
 
+/*dropdowntriangle back shadow*/
 .wrapper-dropdown-3 .dropdown:before {
     content: "";
     width: 0;
     height: 0;
     position: absolute;
     bottom: 100%;
-    right: 13px;
+    right: 89%;
     border-width: 0 8px 8px 8px;
     border-style: solid;
     border-color: rgba(0,0,0,0.1) transparent;   
@@ -1548,19 +1535,22 @@ a {
     height: 66px;
     margin: 14px 0px 14px 35px;
 }
+
 .logonew{
-    height:25px;
+    height: 25px;
 }
 
 .modal-topbox .logonew{
     height: 40px;
     float: left;
-<<<<<<< HEAD
     left: 36%;
-=======
-    left: 37%;
->>>>>>> 5d27101c2fd15c10390d9cdc73d9f689a61a3b94
     position: relative;
+}
+
+.modal-bottombox .logonew{
+    height: 30px;
+    position: relative;
+    left: 28%;
 }
 
 #treeview{

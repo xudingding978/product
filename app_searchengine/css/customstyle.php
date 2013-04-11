@@ -392,9 +392,9 @@ height: 300px;
 position: relative;
 
 z-index: 1050;
-width: 600px;
+width: 500px;
 
-height: 550px;
+height: 500px;
 
 }
 .question_modal{
@@ -416,7 +416,99 @@ opacity:1;
 }
 
 .row{
-margin-left:0;
+margin-left: 0
+}
+
+.row > .required {
+font-size: 16px;
+font-weight: bold;
+}
+
+.row > #LoginForm_username {
+width: 100%;
+height: 30px;
+font-size: 16px;
+}
+
+.row > #LoginForm_password {
+width: 100%;
+height: 30px;
+font-size: 16px;
+}
+
+
+.row > #User_EMAIL_ADDRESS {
+text-align: center;
+width: 100%;
+height: 30px;
+font-size: 16px;
+}
+
+.row > #User_USER_NAME {
+text-align: center;
+width: 100%;
+height: 30px;
+font-size: 16px;
+}
+
+.row > #User_PWD_HASH {
+text-align: center;
+width: 100%;
+height: 30px;
+font-size: 16px;
+}
+
+.row > #User_repeatPassword {
+text-align: center;
+width: 100%;
+height: 30px;
+font-size: 16px;
+}
+
+
+
+
+
+#LoginForm_rememberMe {
+margin-top: 1px;
+}
+
+.form .btn {
+width: 100px;
+height: 25px;
+line-height: 14px;
+font-size: 13px;
+font-weight: bold;
+color:white;
+border-radius:2px;
+
+-moz-text-shadow: -1px -1px  #595757; 
+-webkit-text-shadow: -1px -1px  #595757;
+text-shadow: -1px -1px  #595757;
+
+background: rgb(115,191,133);
+background: -webkit-gradient(linear, 0 0, 0 bottom, from(rgb(115,191,133)), to(rgb(35,140,60)));
+background: -webkit-linear-gradient(rgb(115,191,133), rgb(35,140,60));
+background: -moz-linear-gradient(rgb(115,191,133), rgb(35,140,60));
+background: -ms-linear-gradient(rgb(115,191,133), rgb(35,140,60));
+background: -o-linear-gradient(rgb(115,191,133), rgb(35,140,60));
+background: linear-gradient(rgb(115,191,133), rgb(35,140,60));
+-pie-background: linear-gradient(rgb(115,191,133), rgb(35,140,60));
+behavior: url(/pie/PIE.htc);
+
+}
+
+.form .btn:hover {
+background: rgb(84,181,112);
+background: -webkit-gradient(linear, 0 0, 0 bottom, from(rgb(84,181,112)), to(rgb(39,162,75)));
+background: -webkit-linear-gradient(rgb(84,181,112), rgb(39,162,75));
+background: -moz-linear-gradient(rgb(84,181,112), rgb(39,162,75));
+background: -ms-linear-gradient(rgb(84,181,112), rgb(39,162,75));
+background: -o-linear-gradient(rgb(84,181,112), rgb(39,162,75));
+background: linear-gradient(rgb(84,181,112), rgb(39,162,75));
+-pie-background: linear-gradient(rgb(84,181,112), rgb(39,162,75));
+behavior: url(/pie/PIE.htc);
+
 }
 
 .carousel-control {
@@ -465,6 +557,13 @@ padding: 10px;
 
 }
 
+#mainmenu #dd1 ul li a {
+padding: 10px;
+}
+
+#mainmenu #dd2 ul li a {
+padding: 10px;
+}
 
 <?php
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// isotope parts   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -26,7 +26,7 @@ if (Yii::app()->user->isGuest) {
 
 
     <div class="tile_img" >
-        <div id="dd3" class="wrapper-dropdown-3" tabindex="1" style="margin-left:73%; width:270px; height:45px;">
+        <div id="dd3" class="wrapper-dropdown-3" tabindex="1" style="margin-left:67%; width:270px; height:45px;">
 
             <div>
                 <div id="dropdown-cover" style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -10.5px; padding-left: 35px;">
@@ -49,8 +49,8 @@ if (Yii::app()->user->isGuest) {
             </ul>
         </div>
         <div class="title_text" >
-            <h1 >COLLECT YOUR ONLINE RESOURCE FOR KITCHENS,</h1>
-            <h1 >PRODUCTS, SERVICES & IDEAS</h1>
+            <h1 >COLLECT YOUR ONLINE RESOURCE FOR</h1>
+            <h1 >KITCHENS, PRODUCTS, SERVICES & IDEAS</h1>
             <p >Hundreds of videos, thousands of articles and tens of thousands of high quality images</p>
             <p >from around the world showcasing: Architecture, Kitchen Design, Bathroom Design,</p>
             <p >Interiors, Landscape Design and Commercial Design.</p>
@@ -96,31 +96,31 @@ if (Yii::app()->user->isGuest) {
 <?PHP } ?>
 
 <script>
-                    var imgHeight;
-                    var imgWidth;
-                    var image_src;
-                    var des_src;
-                    var des_src_array = new Array();
-                    function Set()
-                    {
-                        $.ajax({
-                            type: 'GET',
-                            url: '<?php echo CController::createUrl('Site/GetDataFromItemtable'); ?>',
-                            dataType: 'json',
-                            success: function(data) {
-                                //     alert(data);
-                                getValue(data);
-                            }
-                        });
-                    }
+                var imgHeight;
+                var imgWidth;
+                var image_src;
+                var des_src;
+                var des_src_array = new Array();
+                function Set()
+                {
+                    $.ajax({
+                        type: 'GET',
+                        url: '<?php echo CController::createUrl('Site/GetDataFromItemtable'); ?>',
+                        dataType: 'json',
+                        success: function(data) {
+                            //     alert(data);
+                            getValue(data);
+                        }
+                    });
+                }
 
-                    function loading()
-                    {
-                        document.getElementById('display_loading').style.display = 'block';
-                        document.getElementById('loading_img').style.display = 'none';
-                        imgHeight = this.height;
-                        imgWidth = this.width;
-                        console.log("this.height : " + this.height + " " + imgHeight + " " + image_src);
+                function loading()
+                {
+                    document.getElementById('display_loading').style.display = 'block';
+                    document.getElementById('loading_img').style.display = 'none';
+                    imgHeight = this.height;
+                    imgWidth = this.width;
+                    console.log("this.height : " + this.height + " " + imgHeight + " " + image_src);
 <?PHP
 $dependency = new CDbCacheDependency('SELECT * FROM `tpl_user_profile` `t` WHERE `t`.`USER_REC_ID`=93 LIMIT 1');
 $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(array('USER_REC_ID' => 93));
@@ -128,13 +128,13 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
 
 
 
-                        var image_height = this.height / this.width * 180;
-                        var element_height = image_height + 160;
+                    var image_height = this.height / this.width * 180;
+                    var element_height = image_height + 160;
 //            console.log(key + ' ' + img.height);
 //            console.log(element_height);
 
 
-                        var $newItems = $('<div class="element alkali metal   isotope-item"  style="height:' + element_height + 'px"> \n\
+                    var $newItems = $('<div class="element alkali metal   isotope-item"  style="height:' + element_height + 'px"> \n\
             <div id="image_container"  style="left: 15px;  top: 30px; width: 180px;height:' + image_height + 'px"> \n\
                     <a href="#item_detail"  data-toggle="modal" onclick="clear_modal();   call_items(' + this.id + '); generate_slide_img(' + this.id + '); switch_loading_modal();" ><img src=' + this.src + ' ></a>\n\
             </div>\n\
@@ -147,204 +147,204 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                     <p style="left: 50px;  bottom: 20px;white-space: nowrap;">by  <a href="#" > Trends ideas</a></p>\n\
                 </div>\n\
             </div>');
-                        $('#container').append($newItems).isotope('insert', $newItems);
-                        return true;
+                    $('#container').append($newItems).isotope('insert', $newItems);
+                    return true;
+                }
+                function switch_loading()
+                {
+                    document.getElementById('display_loading').style.display = 'none';
+                    document.getElementById('loading_img').style.display = 'block';
+                }
+
+
+                function switch_loading_modal()
+                {
+                    document.getElementById("loading").className = "loading-visible";
+                }
+                function getValue(data) {
+
+
+
+                    for (var key in data) {
+                        if (data.hasOwnProperty(key)) {
+                            var img = new Image();
+                            image_src = data[key]['IMAGE_URL'];
+                            des_src = data[key]['DESCRIPTION'];
+                            client_id = data[key]['CLIENT_REC_ID'];
+
+                            img.src = image_src;
+                            img.description = des_src;
+                            img.user_photo = "";
+                            img.id = client_id;
+
+                            img.onload = loading;
+                            //            loading();
+
+
+                            console.log("imgHeight : " + imgHeight + " " + "this.height : " + this.height + " " + image_src);
+                        }
+
                     }
-                    function switch_loading()
-                    {
-                        document.getElementById('display_loading').style.display = 'none';
-                        document.getElementById('loading_img').style.display = 'block';
-                    }
+                }
+
+                function clear_modal() {
+                    $('#modal_insert .item:last-child').addClass('.active');
+
+                    $('div').remove('#myCarousel');
 
 
-                    function switch_loading_modal()
-                    {
-                        document.getElementById("loading").className = "loading-visible";
-                    }
-                    function getValue(data) {
+                }
 
 
 
-                        for (var key in data) {
-                            if (data.hasOwnProperty(key)) {
-                                var img = new Image();
-                                image_src = data[key]['IMAGE_URL'];
-                                des_src = data[key]['DESCRIPTION'];
-                                client_id = data[key]['CLIENT_REC_ID'];
 
-                                img.src = image_src;
-                                img.description = des_src;
-                                img.user_photo = "";
-                                img.id = client_id;
+                $(document).ready(function() {
+                    Set();
 
-                                img.onload = loading;
-                                //            loading();
+                    $(window).scroll(function() {
 
-
-                                console.log("imgHeight : " + imgHeight + " " + "this.height : " + this.height + " " + image_src);
-                            }
+                        var oldLoad = function() {
+                            document.getElementById("loading").className = "loading-visible";
+                        };
+                        var hideDiv = function() {
+                            document.getElementById("loading").className = "loading-invisible";
+                        };
+                        if ($(this).scrollTop() >= ($(document).height() - $(window).height() - 250)) {
 
                         }
-                    }
-
-                    function clear_modal() {
-                        $('#modal_insert .item:last-child').addClass('.active');
-
-                        $('div').remove('#myCarousel');
-
-
-                    }
-
-
-
-
-                    $(document).ready(function() {
-                        Set();
-
-                        $(window).scroll(function() {
-
-                            var oldLoad = function() {
-                                document.getElementById("loading").className = "loading-visible";
-                            };
-                            var hideDiv = function() {
-                                document.getElementById("loading").className = "loading-invisible";
-                            };
-                            if ($(this).scrollTop() >= ($(document).height() - $(window).height() - 250)) {
-
-                            }
-                        });
                     });
+                });
 
-                    function call_items(id)
-                    {
-                        $.ajax({
-                            type: 'GET',
-                            url: '<?php echo CController::createUrl('Site/GetDataFromItemtable'); ?>',
-                            dataType: 'json',
-                            success: function(json_data) {
-                                popup_items(json_data, id);
-                            }
-                        });
-                    }
-                    function popup_items(json_data, id) {
+                function call_items(id)
+                {
+                    $.ajax({
+                        type: 'GET',
+                        url: '<?php echo CController::createUrl('Site/GetDataFromItemtable'); ?>',
+                        dataType: 'json',
+                        success: function(json_data) {
+                            popup_items(json_data, id);
+                        }
+                    });
+                }
+                function popup_items(json_data, id) {
 
 
-                        var $slide_frame = $('<div id="myCarousel" class="carousel slide" style="width:450px">\n\
+                    var $slide_frame = $('<div id="myCarousel" class="carousel slide" style="width:450px">\n\
                             <div id="modal_insert" class="carousel-inner" style="top:0px;"></div>\n\
                             <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>\n\
                             <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>\n\
                         </div>');
-                        $('#img_slide').append($slide_frame);
+                    $('#img_slide').append($slide_frame);
 
-                        var url_ary = new Array();
-                        var img_name_ary = new Array();
-                        var number = 0;
-                        for (var ary_key in json_data) {
-                            if (json_data.hasOwnProperty(ary_key)) {
-                                console.log(json_data[ary_key]);
-                                if (json_data[ary_key]['CLIENT_REC_ID'] == id) {
+                    var url_ary = new Array();
+                    var img_name_ary = new Array();
+                    var number = 0;
+                    for (var ary_key in json_data) {
+                        if (json_data.hasOwnProperty(ary_key)) {
+                            console.log(json_data[ary_key]);
+                            if (json_data[ary_key]['CLIENT_REC_ID'] == id) {
 
-                                    url_ary[number] = json_data[ary_key]['IMAGE_URL'];
-                                    $("#item_detail_modal").data("url", url_ary[number]);
+                                url_ary[number] = json_data[ary_key]['IMAGE_URL'];
+                                $("#item_detail_modal").data("url", url_ary[number]);
 
 
-                                    img_name_ary[number] = "pic" + number;
-                                    var $album_img = $('<div class=" item"><img src="' + $("#item_detail_modal").data("url") + '" id="' + number + '" /></div>');
-                                    $('#modal_insert').append($album_img);
-                                    number = number + 1;
-                                }
+                                img_name_ary[number] = "pic" + number;
+                                var $album_img = $('<div class=" item"><img src="' + $("#item_detail_modal").data("url") + '" id="' + number + '" /></div>');
+                                $('#modal_insert').append($album_img);
+                                number = number + 1;
                             }
                         }
-                        $(".album_status_bar .total_img").text("/" + number);
-                        $("#modal_insert .item:first-child").addClass("active");
-                        document.getElementById("loading").className = "loading-invisible";
                     }
+                    $(".album_status_bar .total_img").text("/" + number);
+                    $("#modal_insert .item:first-child").addClass("active");
+                    document.getElementById("loading").className = "loading-invisible";
+                }
 
 
-                    function grab_slide_img()
-                    {
-                        $.ajax({
-                            type: 'GET',
-                            url: '<?php echo CController::createUrl('Site/GetDataFromItemtable'); ?>',
-                            dataType: 'json',
-                            success: function(json_data) {
+                function grab_slide_img()
+                {
+                    $.ajax({
+                        type: 'GET',
+                        url: '<?php echo CController::createUrl('Site/GetDataFromItemtable'); ?>',
+                        dataType: 'json',
+                        success: function(json_data) {
 
-                                slide_img_items(json_data);
-                            }
-                        });
-                    }
-                    function slide_img_items(json_data) {
+                            slide_img_items(json_data);
+                        }
+                    });
+                }
+                function slide_img_items(json_data) {
 
-                        var $slider_photo = $('<div class="slider_photo"></div>');
+                    var $slider_photo = $('<div class="slider_photo"></div>');
 
-                        $('#new_slide').append($slider_photo);
-                        var client_check;
-                        var client_id_ary = [];
-                        for (var ary_key in json_data) {
+                    $('#new_slide').append($slider_photo);
+                    var client_check;
+                    var client_id_ary = [];
+                    for (var ary_key in json_data) {
 
-                            if (json_data.hasOwnProperty(ary_key)) {
-                                client_check = true;
-                                if (ary_key >= 1) {
+                        if (json_data.hasOwnProperty(ary_key)) {
+                            client_check = true;
+                            if (ary_key >= 1) {
 
-                                    for (var i = 0; i <= ary_key; i++) {
+                                for (var i = 0; i <= ary_key; i++) {
 
-                                        if (client_id_ary[i] == json_data[ary_key]['CLIENT_REC_ID']) {
+                                    if (client_id_ary[i] == json_data[ary_key]['CLIENT_REC_ID']) {
 
-                                            client_check = false;
-
-                                        }
-                                    }
-                                    if (client_check) {
-                                        client_id_ary[ary_key] = json_data[ary_key]['CLIENT_REC_ID'];
+                                        client_check = false;
 
                                     }
-
-                                } else {
-                                    client_id_ary[ary_key] = json_data[ary_key]['CLIENT_REC_ID'];
                                 }
-
                                 if (client_check) {
-                                    var $slide_img = $('<div class="slide" style="cursor:pointer;" onclick="reload_new_client_albem(' + json_data[ary_key]['CLIENT_REC_ID'] + ');  switch_loading_modal();"><img  src=' + json_data[ary_key]['IMAGE_URL'] + '></div>');
-                                    $('.slider_photo').append($slide_img);
+                                    client_id_ary[ary_key] = json_data[ary_key]['CLIENT_REC_ID'];
+
                                 }
+
+                            } else {
+                                client_id_ary[ary_key] = json_data[ary_key]['CLIENT_REC_ID'];
                             }
 
+                            if (client_check) {
+                                var $slide_img = $('<div class="slide" style="cursor:pointer;" onclick="reload_new_client_albem(' + json_data[ary_key]['CLIENT_REC_ID'] + ');  switch_loading_modal();"><img  src=' + json_data[ary_key]['IMAGE_URL'] + '></div>');
+                                $('.slider_photo').append($slide_img);
+                            }
                         }
-                        $('#new_slide .slider_photo').bxSlider({
-                            slideWidth: 95,
-                            minSlides: 1,
-                            maxSlides: 4,
-                            slideMargin: 10,
-                            infiniteLoop: false,
-                            hideControlOnEnd: true,
-                            mode: 'horizontal'
-
-                        });
-
-
-                        // remove slide_img bullet
-                        $('div').remove('.bx-pager');
-                        //  alert("test2");
-                    }
-
-                    function reload_new_client_albem(id) {
-
-                        //     alert("test " + id);
-                        clear_modal();
-                        call_items(id);
-
-
 
                     }
-                    function enable_qustion_modal() {
-                        $('#question_modal').attr('aria-hidden', 'false');
-                        $('#question_modal').attr("style", "display:block");
+                    $('#new_slide .slider_photo').bxSlider({
+                        slideWidth: 95,
+                        minSlides: 1,
+                        maxSlides: 4,
+                        slideMargin: 10,
+                        infiniteLoop: false,
+                        hideControlOnEnd: true,
+                        mode: 'horizontal'
+
+                    });
+
+
+                    // remove slide_img bullet
+                    $('div').remove('.bx-pager');
+                    //  alert("test2");
+                }
+
+                function reload_new_client_albem(id) {
+
+                    //     alert("test " + id);
+                    clear_modal();
+                    call_items(id);
+
+
+
+                }
+                function enable_qustion_modal() {
+                    $('#question_modal').attr('aria-hidden', 'false');
+                    $('#question_modal').attr("style", "display:block");
 
 
 //                        $('#img_slide #myCarousel').bind('slid', function() {
 //                            alert("Slide Event");
 //                        });
-                    }
+                }
 
 </script>
 
@@ -573,14 +573,16 @@ if (Yii::app()->user->isGuest) {
             'class' => 'dropdown_left',
         ),
         'items' => array(
-            array('icon' => 'icon-eye-open icon-2x', 'url' => '#', 'htmlOptions' => array('class' => 'dropdown_123',), 'items' => array(
-                    array('label' => 'All Room &amp; Stlyes', 'url' => array('#')),
+            array('icon' => 'icon-eye-open icon-2x', 'url' => '#', 'items' => array(
+                    array('alabel' => ''),
+                    array('label' => 'All Room & Stlyes', 'url' => array('#')),
                     array('label' => 'Kitchen', 'url' => array('/site/index')),
                     array('label' => 'Bath', 'url' => array('/site/index')),
                     array('label' => 'Bedroom', 'items' => array(
-                            array('label' => 'Bedroom Photos &gt;'),
+                            array('label' => ''),
+                            array('label' => 'Bedroom Photos:'),
                             array('label' => 'Browse all Bedroom Photos', 'url' => '#'),
-                            array('label' => 'Bedroom Products'),
+                            array('label' => 'Bedroom Products:'),
                             array('label' => 'Beds and Headboards', 'url' => '#'),
                             array('label' => 'Bedroom Benchess', 'url' => '#'),
                             array('label' => 'Dressers Chests and Bedroom Armories', 'url' => '#'),
@@ -589,6 +591,7 @@ if (Yii::app()->user->isGuest) {
                             array('label' => 'Sofa Beds', 'url' => '#'),
                             array('label' => 'Bedding', 'url' => '#'),
                             array('label' => 'Upholstery Fabric', 'url' => '#'),
+                            array('label' => ''),
                         ),),
                     array('label' => 'Living', 'url' => array('/site/index')),
                     array('label' => 'Dinging', 'url' => array('/site/index')),
@@ -601,13 +604,16 @@ if (Yii::app()->user->isGuest) {
                     array('label' => 'Lighting', 'url' => array('/site/index')),
                     array('label' => 'Accessories & Decor', 'url' => array('/site/index')),
                     array('label' => 'Windows & Doors', 'tabindex' => '-1', 'items' => array(
+                            array('label' => ''),
                             array('label' => 'Action1', 'url' => '#'),
                             array('label' => 'Action2', 'url' => '#'),
                             array('label' => 'Action3', 'url' => '#'),
                             array('label' => 'Action4', 'url' => '#'),
                             array('label' => 'Action5', 'url' => '#'),
+                            array('label' => ''),
                         ),
                     ),
+                    array('alabel' => ''),
                 )
             ),
         )
@@ -656,7 +662,7 @@ if (Yii::app()->user->isGuest) {
     var hasBeenClicked = false;
     function testing2() {
 
-        $('.dropdown_left >li:first-child>ul ').attr("style", "margin:-170px 0px 0px 80px");
+        $('.dropdown_left >li:first-child>ul ').attr("style", "margin:-140px 0px 0px 70px");
     }
 
 
@@ -665,7 +671,7 @@ if (Yii::app()->user->isGuest) {
 
     //  hover testing
     $(".main-nav").mouseover(function() {
-        $(".main-nav").attr("style", "opacity:0.9;width: 80px");
+        $(".main-nav").attr("style", "opacity:0.9;width: 70px");
         $(".open-menu").attr("style", "opacity:0");
         $('.main-nav').click(function() {
 

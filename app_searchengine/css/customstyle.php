@@ -21,7 +21,7 @@ font-size:15.5px;
 
 
 .titleText{
-margin:11px 0 0 17%;
+margin:13px 0 0 17%;
 
 }
 
@@ -140,18 +140,21 @@ border-radius: 6px 6px 6px 6px;
 box-shadow: none;
 background-clip: padding-box;
 }
+
+
 .main-nav .dropdown-menu{
 
-background-color: rgba(0, 0, 0,0);
+background-color: rgba(242, 240, 240,0);
 padding: 0px 0px 0px 30px;
 }
 
 
 .navbar .nav {
-color:white;
+color:rgb(242,240,240);
 position: absolute;
 
-left: 70%;
+left: 80%;
+top: 72px;
 display: block;
 float: left;
 margin: -27px 0px 0px 31%;
@@ -171,11 +174,11 @@ margin-left: 110px;
 
 .dropdown-menu li > a {
 display: block;
-padding: 3px 20px;
+padding: 2px 20px;
 clear: both;
 font-weight: normal;
 line-height: 30px;
-color: rgb(51, 51, 51);
+color: rgb(62, 59, 62);
 white-space: nowrap;
 }
 .open > .dropdown-menu {
@@ -230,7 +233,7 @@ background-repeat: repeat-x;
 .dropdown-menu .active > a {
 color: rgb(51, 51, 51);
 text-decoration: none;
-background-color: rgb(0, 129, 194);
+background-color: rgb(242, 240, 240);
 background-image:none;
 background-repeat: repeat-x;
 outline: 0px none;
@@ -239,16 +242,18 @@ outline: 0px none;
 
 .smallIcon{
 position:absolute;
-margin: -66px 0px 0px ;
+margin: -65px 0px 0px ;
 display:none;
-left:56%;
-width:200px;
+left:70%;
+width:250px;
 z-index:10000;
 cursor:pointer;
+line-height: 32px;
 }
 
-.smallIcon a, .smallIcon a:visited, .smallIcon a:active {color:rgb(235,235,235); ; text-decoration:none;}
-.smallIcon a:hover{ color: black;text-decoration: none;}
+.smallIcon a, .smallIcon a:visited  {color:rgb(242,240,240); ; text-decoration:none;}
+.smallicon a:active {color: rgb(255,255,255); text-decoration: none; text-shadow: ;}
+.smallIcon a:hover{color: rgb(255,255,255); text-decoration: none;}
 
 .icon_a{
 
@@ -534,10 +539,15 @@ border-radius: 0px 6px 6px 6px;
 .main-nav .nav a:hover{
 background-color:black;
 color:rgba(255,255,255,1);
+font-weight:bold;
 }
+
+
 
 .nav li + .nav-header {
 margin-top: 0px;
+color:black;
+font-style: italic;
 }
 
 .moveTop{
@@ -564,6 +574,38 @@ padding: 10px;
 #mainmenu #dd2 ul li a {
 padding: 10px;
 }
+
+
+
+.dropdown-menu .dropdown-submenu > a:after {
+margin-top: 10px;
+margin-right: -50px;
+border-left-color: transparent;
+border-width: 10px;
+}
+
+.dropdown-menu .dropdown-submenu:hover > a:after {
+
+border-left-color: rgb(242,240,240);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <?php
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// isotope parts   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

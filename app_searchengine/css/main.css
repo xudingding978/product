@@ -24,7 +24,7 @@ body
 
 #content
 {
-  
+
 }
 
 #sidebar
@@ -56,12 +56,12 @@ body
 #mainmenu ul
 {
 
-z-index:1000;
+    z-index:1000;
 }
 
 #mainmenu .container >.login_guest
 {
-margin: -64px 0px 0px 5%;
+    margin: -64px 0px 0px 5%;
 
 }
 
@@ -75,8 +75,8 @@ margin: -64px 0px 0px 5%;
 
 #mainmenu ul li a
 {
-   
-    color:#ffffff;
+
+    color: rgb(242,240,240);
     font-size:15px;
 
     text-decoration:none;
@@ -86,7 +86,7 @@ margin: -64px 0px 0px 5%;
 
 #mainmenu ul li a:hover, #mainmenu ul li.active a
 {
-
+    color: rgb(255,255,255);
     text-decoration:none;
 }
 

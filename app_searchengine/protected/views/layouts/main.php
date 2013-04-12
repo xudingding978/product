@@ -693,7 +693,7 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                         <?php
                         if (Yii::app()->user->isGuest) {
                             $this->widget('bootstrap.widgets.TbNavbar', array(
-                                'brand' => '<img class="logonew"  height="29px" src ="../../../images/landing-trends.png"/>',
+                                'brand' => '<img class="logonew" style="left: -40%; position: relative; top: 5px;"  src ="../../../images/landing-trends.png"/>',
                                 //    'collapse' => 'true',
                                 'items' => array(
                                     '<p class="titleText"> Global  recommendations from </p>',
@@ -708,9 +708,9 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                                                 </ul>
                                             </div>',
                                     '<div class="smallIcon">
-                                        <a class="icon_a" href="#"><i class="icon-th icon-2x" ></i></a>
-                                            <a class="icon_b" href="#"><i class="icon-list-ul  icon-2x" ></i></a>
-                                                <a href="#" class="icon_c" ><i class="icon-search icon-2x" ></i></a>
+                                        <a class="icon_a" href="#"><i class="icon-th icon-large" ></i></a>
+                                            <a class="icon_b" href="#"><i class="icon-list-ul  icon-large" ></i></a>
+                                                <a href="#" class="icon_c" ><i class="icon-search icon-large" ></i></a>
                                                 </div>',
                                     array(
                                         'class' => 'bootstrap.widgets.TbMenu',
@@ -736,7 +736,7 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                                 $user_img = $userProfile->PHOTO_URL;
                             }
                             $this->widget('bootstrap.widgets.TbNavbar', array(
-                                'brand' => '<img class="logonew"  height="29px" src ="../../../images/landing-trends.png"/>',
+                                'brand' => '<img class="logonew"  style="left: -40%; position: relative; top: 5px;"  src ="../../../images/landing-trends.png"/>',
                                 'items' => array(
                                     '<p class="titleText">  Global  recommendations from </p>',
                                     '<div id="dd4" class="wrapper-dropdown-3" tabindex="1" style="top: -30px; background:none;border-radius: none;border: none;color:white;box-shadow: none;">
@@ -752,9 +752,9 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                                     '<img id="asdas" class="loging_image"  height="29px" src ="' . $user_img . '"/>',
                                     '<p class="loging_text">Hi!!   ' . $name . ' </p>',
                                     '<div class="smallIcon">
-                                        <a class="icon_a" href="#"><i class="icon-th icon-2x" ></i></a>
-                                            <a class="icon_b" href="#")><i class="icon-list-ul  icon-2x" ></i></a>
-                                                <a class="icon_c" onclick="show_search_bar();"><i class="icon-search icon-2x" ></i></a>
+                                        <a class="icon_a" href="#"><i class="icon-th icon-large" ></i></a>
+                                            <a class="icon_b" href="#")><i class="icon-list-ul  icon-large" ></i></a>
+                                                <a class="icon_c" onclick="show_search_bar();"><i class="icon-search icon-large" ></i></a>
                                                 </div>',
                                     array(
                                         'class' => 'bootstrap.widgets.TbMenu',

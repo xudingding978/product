@@ -14,7 +14,7 @@ root {
 /**** Isotope Filtering ****/
 
 .isotope-item {
-    z-index: 2;
+    z-index: 0;
 }
 
 .isotope-hidden.isotope-item {
@@ -708,7 +708,38 @@ body {
     left:-11px;
 }
 
-.wrapper-dropdown-3:after {
+
+
+
+.modal-topbox  .login-icon:after {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    right: 38px;
+    top: 50%;
+    margin-top: -3px;
+    border-width: 6px 6px 0 6px;
+    border-style: solid;
+    border-color: #fff transparent;
+    
+}
+
+.tile_img  .login-icon:after {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    right: 38px;
+    top: 50%;
+    margin-top: -3px;
+    border-width: 6px 6px 0 6px;
+    border-style: solid;
+    border-color: #fff transparent;
+}
+
+
+.wrapper-dropdown-3  .SpanFontSetting:after {
     content: "";
     width: 0;
     height: 0;
@@ -718,12 +749,13 @@ body {
     margin-top: -3px;
     border-width: 6px 6px 0 6px;
     border-style: solid;
-    border-color: #8aa8bd transparent;
+    border-color: #fff transparent;
 }
 
 
+
 /*region dropdown triangle*/
-.container>.wrapper-dropdown-3:after {
+.container >.wrapper-dropdown-3:after {
 
     border-color: #fff transparent;
 

@@ -48,7 +48,7 @@
                             var obj = this;
 
                             obj.dd.on('click', function(event) {
-                                $(this).toggleClass('active');
+                                $(this).parents('div .wrapper-dropdown-3').toggleClass('active');
                                 return false;
                             });
 
@@ -70,31 +70,31 @@
 
                     $(function() {
 
-                        var dd = new DropDown($('#dd'));
+                        var dd = new DropDown($('.dropdown_test'));
 
                         $(document).click(function() {
                             // all dropdowns
                             $('.wrapper-dropdown-3').removeClass('active');
                         });
-                        var dd1 = new DropDown($('#dd1'));
+                        var dd1 = new DropDown($('.dropdown_test_1'));
 
                         $(document).click(function() {
                             // all dropdowns
                             $('.wrapper-dropdown-3').removeClass('active');
                         });
-                        var dd2 = new DropDown($('#dd2'));
+                        var dd2 = new DropDown($('.dropdown_test_2'));
 
                         $(document).click(function() {
                             // all dropdowns
                             $('.wrapper-dropdown-3').removeClass('active');
                         });
-                        var dd3 = new DropDown($('#dd3'));
+                        var dd3 = new DropDown($('.dropdown_test_3'));
 
                         $(document).click(function() {
                             // all dropdowns
                             $('.wrapper-dropdown-3').removeClass('active');
                         });
-                        var dd4 = new DropDown($('#dd4'));
+                        var dd4 = new DropDown($('.dropdown_test_4'));
 
                         $(document).click(function() {
                             // all dropdowns
@@ -280,7 +280,7 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                                         <div id="dd" class="wrapper-dropdown-3" tabindex="1" style=" width:270px; height:45px; margin-top: -45px; margin-bottom: -5px;">
 
                                             <div>
-                                                <div id="dropdown-cover" style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -11px; padding-left: 35px; border-radius: 3px 0 0 3px;">
+                                                <div id="dropdown-cover" class="dropdown_test"  style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -11px; padding-left: 35px; border-radius: 3px 0 0 3px;">
                                                     <div class="login-icon">
                                                         <i class="icon-facebook icon-large">
                                                         </i>
@@ -366,7 +366,7 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                                         <div id="dd1" class="wrapper-dropdown-3" tabindex="1" style=" width:270px; height:45px; position: relative; left: 5px; top: 50px;">
 
                                             <div>
-                                                <div id="dropdown-cover" style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -11px; padding-left: 35px; border-radius: 3px 0 0 3px;">
+                                                <div id="dropdown-cover" class="dropdown_test_1"  style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -11px; padding-left: 35px; border-radius: 3px 0 0 3px;">
                                                     <div class="login-icon">
                                                         <i class="icon-facebook icon-large">
                                                         </i>
@@ -527,7 +527,7 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                                         <div id="dd2" class="wrapper-dropdown-3" tabindex="1" style=" width:270px; height:45px; position: relative; left: 23%; top:3px;">
 
                                             <div>
-                                                <div id="dropdown-cover" style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -11px; padding-left: 35px; border-radius: 3px 0 0 3px;">
+                                                <div id="dropdown-cover" class="dropdown_test_2"  style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -11px; padding-left: 35px; border-radius: 3px 0 0 3px;">
                                                     <div class="login-icon">
                                                         <i class="icon-facebook icon-large">
                                                         </i>
@@ -698,7 +698,7 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                                 'items' => array(
                                     '<p class="titleText"> Global  recommendations from </p>',
                                     '<div id="dd4" class="wrapper-dropdown-3" tabindex="1" style="top: -30px; background:none;border-radius: none;border: none;color:white;box-shadow: none;">
-                                                <span class="SpanFontSetting">Region</span>
+                                                <div class="SpanFontSetting dropdown_test_4">Region</div>
                                                 <ul class="dropdown" style="background: none repeat scroll 0% 0% rgb(45, 45, 45);border: 1px solid rgba(0, 0, 0, 0.17);">
                                                     <li><a href="#" style="border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>Australia</a></li>
                                                     <li><a href="#" style="border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>New Zealand</a></li>
@@ -736,7 +736,7 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                                 $user_img = $userProfile->PHOTO_URL;
                             }
                             $this->widget('bootstrap.widgets.TbNavbar', array(
-                                'brand' => '<img class="logonew"  style="left: -40%; position: relative; top: 5px;"  src ="../../../images/landing-trends.png"/>',
+                                'brand' => '<img class="logonew"  height="29px" src ="../../../images/landing-trends.png"/>',
                                 'items' => array(
                                     '<p class="titleText">  Global  recommendations from </p>',
                                     '<div id="dd4" class="wrapper-dropdown-3" tabindex="1" style="top: -30px; background:none;border-radius: none;border: none;color:white;box-shadow: none;">

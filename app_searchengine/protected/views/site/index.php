@@ -6,30 +6,38 @@ $this->pageTitle = Yii::app()->name;
 
 <?php
 if (Yii::app()->user->isGuest) {
-    $this->widget('bootstrap.widgets.TbCarousel', array(
-        'items' => array(
-            array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_a.jpg'),
-            array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_b.jpg'),
-            array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_c.jpg'),
-            array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_d.jpg'),
-            array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_e.jpg'),
-            array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_f.jpg'),
-            array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_g.jpg'),
-            array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_h.jpg'),
-            array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_i.jpg'),
-            array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_j.jpg'),
-            array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_c.jpg'),
-            array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_k.jpg'),
-        ),
-    ));
-    ?>
+    ?> 
+
+
+
+    <div id="myCarousel" class="carousel slide">
+
+        <!-- Carousel items -->
+        <div class="carousel-inner" style="min-width:1280px">
+            <div class="active item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_a.jpg"></div>
+            <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_b.jpg"></div>
+            <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_c.jpg"></div>
+            <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_d.jpg"></div>
+            <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_e.jpg"></div>
+            <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_f.jpg"></div>
+            <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_g.jpg"></div>
+            <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_h.jpg"></div>
+            <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_i.jpg"></div>
+            <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_j.jpg"></div>
+            <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_k.jpg"></div>
+        </div>
+        <!-- Carousel nav -->
+        <a id="slider-control" class="icon-angle-left" href="#myCarousel" data-slide="prev" style="position: relative; float: left;left: 5%; top: -400px;font-size: 6em;"></a>
+        <a id="slider-control" class="icon-angle-right" href="#myCarousel" data-slide="next"style="position: relative; float: right;left: -5%; top: -400px;font-size: 6em;"></a>
+    </div>
+
 
 
     <div class="tile_img" >
-        <div id="dd3" class="wrapper-dropdown-3" tabindex="1" style="margin-left:67%; width:270px; height:45px;">
+        <div id="dd3" class="wrapper-dropdown-3" tabindex="1" style="margin-left: 68.5%; margin-bottom: -2%;width:270px; height:45px;">
 
             <div>
-                <div id="dropdown-cover" style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -10.5px; padding-left: 35px;">
+                <div id="dropdown-cover" class="dropdown_test_3" style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -10.5px; padding-left: 35px;">
                     <div class="login-icon">
                         <i class="icon-facebook icon-large">
                         </i>
@@ -49,11 +57,7 @@ if (Yii::app()->user->isGuest) {
             </ul>
         </div>
         <div class="title_text" >
-            <h1 >COLLECT YOUR ONLINE RESOURCE FOR</h1>
-            <h1 >KITCHENS, PRODUCTS, SERVICES & IDEAS</h1>
-            <p >Hundreds of videos, thousands of articles and tens of thousands of high quality images</p>
-            <p >from around the world showcasing: Architecture, Kitchen Design, Bathroom Design,</p>
-            <p >Interiors, Landscape Design and Commercial Design.</p>
+       <img src="../../../images/frontpage-intro.png">
         </div>
     </div>
 
@@ -128,23 +132,23 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
 
 
 
-                    var image_height = this.height / this.width * 180;
-                    var element_height = image_height + 160;
+                    var image_height = this.height / this.width * 212;
+                    var element_height = image_height + 130;
 //            console.log(key + ' ' + img.height);
 //            console.log(element_height);
 
 
                     var $newItems = $('<div class="element alkali metal   isotope-item"  style="height:' + element_height + 'px"> \n\
-            <div id="image_container"  style="left: 15px;  top: 30px; width: 180px;height:' + image_height + 'px"> \n\
+            <div id="image_container"  style="left: 15px; height:' + image_height + 'px"> \n\
                     <a href="#item_detail"  data-toggle="modal" onclick="clear_modal();   call_items(' + this.id + '); generate_slide_img(' + this.id + '); switch_loading_modal();" ><img src=' + this.src + ' ></a>\n\
             </div>\n\
-            <p style="left: 15px;  bottom: 100px;">' + this.description + '</p>\n\
-            <a href="#" style="left: 15px;  bottom: 78px; width:55px;white-space: nowrap;"><k class="icon-heart-empty"></k> <p style="left: 20px; ">12</p></a>\n\
-            <a href="#" style="left: 75px;  bottom: 78px;width:55px;white-space: nowrap;"><k class="icon-comment-alt"></k> <p style="left: 20px; ">6</p></a>\n\
-            <a href="#" style="left: 135px;  bottom: 78px;width:55px;white-space: nowrap;"><k class="icon-save"></k><p style="left: 20px; ">66</p></a>\n\
-                <div id="comments" class="comments">\n\
-                    <img style="width:35px; bottom:5px; left:5px;" src="<?PHP echo $userProfile->PHOTO_URL; ?>" />\n\
-                    <p style="left: 50px;  bottom: 20px;white-space: nowrap;">by  <a href="#" > Trends ideas</a></p>\n\
+          <div style="position: relative; margin: 10px;">  <p style="font-size:12px;"><b>' + this.description + '</b></p>\n\
+          </div> <div class="likecomemts" style="position: relative; height: 20px; margin: 10px;"> <a href="#" ><k class="icon-heart-empty"></k> <p style="left: 22px; top: -1px; ">12</p></a>\n\
+            <a href="#" ><k class="icon-comment-alt" style="left: 55px; top: -1px;" ></k> <p style="left: 80px; top: -1px; ">6</p></a>\n\
+            <a href="#" ><k class="icon-save" style="left: 105px;top: 1px;"></k><p style="left: 130px; top: 0px;">66</p></a>\n\
+               </div> <div id="comments" class="comments">\n\
+                    <img style="width: 40px;  margin: 10px;position: relative;" src="<?PHP echo $userProfile->PHOTO_URL; ?>" />\n\
+                    <p style="position: relative;left: 27%;  bottom: 45px; margin: 5px;">by &nbsp <a href="#" > <b>Trends ideas</b></a></p>\n\
                 </div>\n\
             </div>');
                     $('#container').append($newItems).isotope('insert', $newItems);

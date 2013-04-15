@@ -319,7 +319,7 @@ font-weight: bold;
 position: relative;
 margin-bottom: 0px;
 line-height: 1;
-min-width:769px;
+min-width:1280px;
 }
 
 #item_detail_modal  .carousel {
@@ -592,14 +592,19 @@ border-left-color: rgb(242,240,240);
 
 
 
+#slider-control {
+    text-decoration: none;
+    color: rgba(255,255,255,0.5);
+}
 
 
 
 
 
-
-
-
+#slider-control:hover {
+    text-decoration: none;
+    color: rgba(255,255,255,1);
+}
 
 
 

@@ -21,7 +21,6 @@
 
 
 
-
             <title><?php echo 'search engine' ?></title>
             <script type="text/javascript" language="JavaScript" src="../../../js/jquery-1.7.1.min.js"></script>
             <script type="text/javascript" language="JavaScript" src="../../../js/jquery.isotope.min.js"></script>  

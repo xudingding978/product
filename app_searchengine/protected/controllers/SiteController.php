@@ -89,8 +89,8 @@ class SiteController extends Controller {
 //    }
 
     public function actionLogin() {
-
-        $model = new LoginForm;
+        
+                $model = new LoginForm;
 
         // if it is ajax validation request
         if (!Yii::app()->user->isGuest) {

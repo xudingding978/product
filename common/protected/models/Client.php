@@ -75,7 +75,7 @@ class Client extends CActiveRecord {
      * @return string the associated database table name
      */
     public function tableName() {
-        return 'tpl_client';
+        return 'client';
     }
 
     /**

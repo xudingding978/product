@@ -32,7 +32,7 @@ class User extends CActiveRecord {
      * @return string the associated database table name
      */
     public function tableName() {
-        return 'tpl_user';
+        return 'user';
     }
 
     /**

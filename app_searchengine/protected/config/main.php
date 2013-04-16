@@ -49,7 +49,8 @@ return CMap::mergeArray(
             'name' => 'Trends Search Engine',
             'id' => $domain,
             // preloading 'log' component
-            'preload' => array('log', 'bootstrap'),
+            //'preload' => array('log', 'bootstrap'),
+            'preload' => array('bootstrap'),
             // @see http://www.yiiframework.com/doc/api/1.1/CApplication#language-detail
             'language' => 'en',
             // autoloading model and component classes

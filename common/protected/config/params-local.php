@@ -29,15 +29,15 @@ return array(
     'tablePrefix' => 'tpl_',
     // live database
     'db_live.name' => 'db_live',
-       'db_live.connectionString' => 'mysql:host=db.business-software.co.nz;dbname=db_v3.1_live',
-   // 'db_live.connectionString' => 'mysql:host=127.0.0.1;dbname=db_v3.1_live',
-    'db_live.username' => 'db_user',
+      // 'db_live.connectionString' => 'mysql:host=db.business-software.co.nz;dbname=db_v3.1_live',
+    'db_live.connectionString' => 'mysql:host=develop.devbox1;dbname=db_v3.2_live',
+    'db_live.username' => 'root',
     'db_live.password' => 'Pa55word',
     // admin database
     'db_admin.name' => 'db_admin',
-    'db_admin.connectionString' => 'mysql:host=db.business-software.co.nz;dbname=db_v3.1_admin',
-  // 'db_admin.connectionString' => 'mysql:host=127.0.0.1;dbname=db_v3.1_admin',
-    'db_admin.username' => 'db_user',
+   // 'db_admin.connectionString' => 'mysql:host=db.business-software.co.nz;dbname=db_v3.1_admin',
+   'db_admin.connectionString' => 'mysql:host=develop.devbox1;dbname=db_v3.2_admin',
+    'db_admin.username' => 'root',
     'db_admin.password' => 'Pa55word',
     'adminEmail' => 'localwebmaster@example.com',
 );

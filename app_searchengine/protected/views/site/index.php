@@ -6,135 +6,135 @@ $this->pageTitle = Yii::app()->name;
 
 <?php
 if (Yii::app()->user->isGuest) {
-    $this->widget('bootstrap.widgets.TbCarousel', array(
-        'items' => array(
-            array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_a.jpg'),
-            array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_b.jpg'),
-            array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_c.jpg'),
-            array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_d.jpg'),
-            array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_e.jpg'),
-            array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_f.jpg'),
-            array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_g.jpg'),
-            array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_h.jpg'),
-            array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_i.jpg'),
-            array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_j.jpg'),
-            array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_c.jpg'),
-            array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_k.jpg'),
-        ),
-    ));
-    ?>
+$this->widget('bootstrap.widgets.TbCarousel', array(
+'items' => array(
+array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_a.jpg'),
+ array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_b.jpg'),
+ array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_c.jpg'),
+ array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_d.jpg'),
+ array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_e.jpg'),
+ array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_f.jpg'),
+ array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_g.jpg'),
+ array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_h.jpg'),
+ array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_i.jpg'),
+ array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_j.jpg'),
+ array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_c.jpg'),
+ array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_k.jpg'),
+ ),
+));
+?>
 
 
-    <div class="tile_img" >
-        <div id="dd3" class="wrapper-dropdown-3" tabindex="1" style="margin-left:73%; width:270px; height:45px;">
+<div class="tile_img" >
+    <div id="dd3" class="wrapper-dropdown-3" tabindex="1" style="margin-left:73%; width:270px; height:45px;">
 
-            <div>
-                <div id="dropdown-cover" style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -10.5px; padding-left: 35px;">
-                    <div class="login-icon">
-                        <i class="icon-facebook icon-large">
-                        </i>
-                    </div>   
-                </div>
-                <div  id="dropdown-cover" onclick="Facebook();" style="float: right; bottom: 10px; position: relative; width: 204px; height: 45px; margin-right: -10px;">
-                    <div class="sign-in-with" >Sign In with Facebook</div>
-                </div>
+        <div>
+            <div id="dropdown-cover" style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -10.5px; padding-left: 35px;">
+                <div class="login-icon">
+                    <i class="icon-facebook icon-large">
+                    </i>
+                </div>   
             </div>
-            <ul class="dropdown" style="width:270px">
-                <li  onclick="Twitter();" ><a style="color:rgb(0,172,237)" href="#"><i class="icon-twitter icon-large"></i>Sign in with Twitter</a></li>
-                <li  onclick="Google();" ><a style="color:rgb(211,72,54)" href="#"><i class="icon-google-plus icon-large"></i>Sign in with Google+</a></li>
-                <li  onclick="Yahoo();" ><a style="color:rgb(123,0,153)" href="#"><img src='../../../images/yahoo.png' style='width: auto; height: 35px; float:left;margin: -3% -5% 0 6%;'>Sign in with Yahoo</a></li>
-                <li  onclick="Sina();" ><a style="color:rgb(245,213,0)" href="#"><img src='../../../images/sina.png' style='width: auto; height: 35px; float:left;margin: -3% -3% 0 6%;'>Sign in with Sina</a></li>
-                <li  onclick="QQ();" ><a style="color:rgb(62,59,62)" href="#"><img src='../../../images/qq.png' style='width: auto; height: 35px; float:left;margin: -3% -2% 0 7%;'>Sign in with QQ</a></li>
-                <li  onclick="dismiss_modal_test();" ><a style="color:rgb(0,153,68)" href="#myModal"><i class="icon-envelope-alt icon-large"></i>Sign in with Email</a></li>
-            </ul>
+            <div  id="dropdown-cover" onclick="Facebook();" style="float: right; bottom: 10px; position: relative; width: 204px; height: 45px; margin-right: -10px;">
+                <div class="sign-in-with" >Sign In with Facebook</div>
+            </div>
         </div>
-        <div class="title_text" >
-            <h1 >COLLECT YOUR ONLINE RESOURCE FOR KITCHENS,</h1>
-            <h1 >PRODUCTS, SERVICES & IDEAS</h1>
-            <p >Hundreds of videos, thousands of articles and tens of thousands of high quality images</p>
-            <p >from around the world showcasing: Architecture, Kitchen Design, Bathroom Design,</p>
-            <p >Interiors, Landscape Design and Commercial Design.</p>
-        </div>
+        <ul class="dropdown" style="width:270px">
+            <li  onclick="Twitter();" ><a style="color:rgb(0,172,237)" href="#"><i class="icon-twitter icon-large"></i>Sign in with Twitter</a></li>
+            <li  onclick="Google();" ><a style="color:rgb(211,72,54)" href="#"><i class="icon-google-plus icon-large"></i>Sign in with Google+</a></li>
+            <li  onclick="Yahoo();" ><a style="color:rgb(123,0,153)" href="#"><img src='../../../images/yahoo.png' style='width: auto; height: 35px; float:left;margin: -3% -5% 0 6%;'>Sign in with Yahoo</a></li>
+            <li  onclick="Sina();" ><a style="color:rgb(245,213,0)" href="#"><img src='../../../images/sina.png' style='width: auto; height: 35px; float:left;margin: -3% -3% 0 6%;'>Sign in with Sina</a></li>
+            <li  onclick="QQ();" ><a style="color:rgb(62,59,62)" href="#"><img src='../../../images/qq.png' style='width: auto; height: 35px; float:left;margin: -3% -2% 0 7%;'>Sign in with QQ</a></li>
+            <li  onclick="dismiss_modal_test();" ><a style="color:rgb(0,153,68)" href="#myModal"><i class="icon-envelope-alt icon-large"></i>Sign in with Email</a></li>
+        </ul>
     </div>
+    <div class="title_text" >
+        <h1 >COLLECT YOUR ONLINE RESOURCE FOR KITCHENS,</h1>
+        <h1 >PRODUCTS, SERVICES & IDEAS</h1>
+        <p >Hundreds of videos, thousands of articles and tens of thousands of high quality images</p>
+        <p >from around the world showcasing: Architecture, Kitchen Design, Bathroom Design,</p>
+        <p >Interiors, Landscape Design and Commercial Design.</p>
+    </div>
+</div>
 
 
 
-    <?php
+<?php
 } else {
-    ?>
+?>
 
-    <div id="discovery_search_bar_wrapper">
-        <div class="select_container_left">
-            <ul class="discovery_select_left">
-                <li>
-                    <a href="#" >PRODUCTS</a>
-                </li>
-                <li>
-                    <a href="#" >SERVICES</a>
-                </li>
-                <li>
-                    <a href="#" >BRANDS</a>
-                </li>
-                <li>
-                    <a href="#" >SUPPLIERS</a>
-                </li>
-            </ul>
-        </div>
-
-        <div id="discovery_search_bar">
-
-            <input id="search_key" class="search_input" placeholder="All region in New Zealand" name="search_key" type="text"  />
-            <input id="search_business" class="search_business" placeholder="Search by Business and keyword" type="text" />
-            <a class="search_button" href="#"><i class="icon-book" ></i></a>
-            <a class="view_control_list" href='#'><i class="icon-eye-open" ></i></a>
-            <a class="view_control_gal"  href='#")'><i class="icon-film" ></i></a>
-            <a  class="cancleIcon"  href="#" ><i class="icon-remove-sign" ></i></a>
-
-        </div>
+<div id="discovery_search_bar_wrapper">
+    <div class="select_container_left">
+        <ul class="discovery_select_left">
+            <li>
+                <a href="#" >PRODUCTS</a>
+            </li>
+            <li>
+                <a href="#" >SERVICES</a>
+            </li>
+            <li>
+                <a href="#" >BRANDS</a>
+            </li>
+            <li>
+                <a href="#" >SUPPLIERS</a>
+            </li>
+        </ul>
     </div>
+
+    <div id="discovery_search_bar">
+
+        <input id="search_key" class="search_input" placeholder="All region in New Zealand" name="search_key" type="text"  />
+        <input id="search_business" class="search_business" placeholder="Search by Business and keyword" type="text" />
+        <a class="search_button" href="#"><i class="icon-book" ></i></a>
+        <a class="view_control_list" href='#'><i class="icon-eye-open" ></i></a>
+        <a class="view_control_gal"  href='#")'><i class="icon-film" ></i></a>
+        <a  class="cancleIcon"  href="#" ><i class="icon-remove-sign" ></i></a>
+
+    </div>
+</div>
 
 <?PHP } ?>
 
 <script>
-                    var imgHeight;
-                    var imgWidth;
-                    var image_src;
-                    var des_src;
-                    var des_src_array = new Array();
-                    function Set()
-                    {
-                        $.ajax({
-                            type: 'GET',
-                            url: '<?php echo CController::createUrl('Site/GetDataFromItemtable'); ?>',
-                            dataType: 'json',
-                            success: function(data) {
+                var imgHeight;
+                var imgWidth;
+                var image_src;
+                var des_src;
+                var des_src_array = new Array();
+                function Set()
+                {
+                    $.ajax({
+                        type: 'GET',
+                        url: '<?php echo CController::createUrl('Site/GetDataFromItemtable'); ?>',
+                        dataType: 'json',
+                        success: function(data) {
 
-                                getValue(data);
-                            }
-                        });
-                    }
+                            getValue(data);
+                        }
+                    });
+                }
 
-                    function loading()
-                    {
-                        document.getElementById('display_loading').style.display = 'block';
-                        document.getElementById('loading_img').style.display = 'none';
-                        imgHeight = this.height;
-                        imgWidth = this.width;
-                        console.log("this.height : " + this.height + " " + imgHeight + " " + image_src);
+                function loading()
+                {
+                    document.getElementById('display_loading').style.display = 'block';
+                    document.getElementById('loading_img').style.display = 'none';
+                    imgHeight = this.height;
+                    imgWidth = this.width;
+                    console.log("this.height : " + this.height + " " + imgHeight + " " + image_src);
 <?PHP
-$dependency = new CDbCacheDependency('SELECT * FROM `tpl_user_profile` `t` WHERE `t`.`USER_REC_ID`=93 LIMIT 1');
+$dependency = new CDbCacheDependency('SELECT * FROM `user_profile` `t` WHERE `t`.`USER_REC_ID`=93 LIMIT 1');
 $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(array('USER_REC_ID' => 93));
 ?>
 
 
 
-                        var image_height = this.height / this.width * 180;
-                        var element_height = image_height + 160;
+                    var image_height = this.height / this.width * 180;
+                    var element_height = image_height + 160;
 //            console.log(key + ' ' + img.height);
 //            console.log(element_height);
 
 
-                        var $newItems = $('<div class="element alkali metal   isotope-item"  style="height:' + element_height + 'px"> \n\
+                    var $newItems = $('<div class="element alkali metal   isotope-item"  style="height:' + element_height + 'px"> \n\
             <div id="image_container"  style="left: 15px;  top: 30px; width: 180px;height:' + image_height + 'px"> \n\
                     <a href="#item_detail"  data-toggle="modal" onclick="clear_modal();   call_items(' + this.id + '); generate_slide_img(' + this.id + '); switch_loading_modal();" ><img src=' + this.src + ' ></a>\n\
             </div>\n\
@@ -143,215 +143,215 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
             <a href="#" style="left: 75px;  bottom: 78px;width:55px;white-space: nowrap;"><k class="icon-comment-alt"></k> <p style="left: 20px; ">6</p></a>\n\
             <a href="#" style="left: 135px;  bottom: 78px;width:55px;white-space: nowrap;"><k class="icon-save"></k><p style="left: 20px; ">66</p></a>\n\
                 <div id="comments" class="comments">\n\
-                    <img style="width:35px; bottom:5px; left:5px;" src="<?PHP echo $userProfile->PHOTO_URL; ?>" />\n\
+                    <img style="width:35px; bottom:5px; left:5px;" src="<?PHP //if ($userProfile->PHOTO_URL) : echo $userProfile->PHOTO_URL ;   ?>" />\n\
                     <p style="left: 50px;  bottom: 20px;white-space: nowrap;">by  <a href="#" > Trends ideas</a></p>\n\
                 </div>\n\
             </div>');
-                        $('#container').append($newItems).isotope('insert', $newItems);
-                        return true;
+                    $('#container').append($newItems).isotope('insert', $newItems);
+                    return true;
+                }
+                function switch_loading()
+                {
+                    document.getElementById('display_loading').style.display = 'none';
+                    document.getElementById('loading_img').style.display = 'block';
+                }
+
+
+                function switch_loading_modal()
+                {
+                    document.getElementById("loading").className = "loading-visible";
+                }
+                function getValue(data) {
+
+
+
+                    for (var key in data) {
+                        var img = new Image();
+                        image_src = data[key]['IMAGE_URL'];
+                        des_src = data[key]['DESCRIPTION'];
+                        client_id = data[key]['CLIENT_REC_ID'];
+
+                        img.src = image_src;
+                        img.description = des_src;
+                        img.user_photo = "";
+                        img.id = client_id;
+
+                        img.onload = loading;
+                        //            loading();
+
+
+                        console.log("imgHeight : " + imgHeight + " " + "this.height : " + this.height + " " + image_src);
                     }
-                    function switch_loading()
-                    {
-                        document.getElementById('display_loading').style.display = 'none';
-                        document.getElementById('loading_img').style.display = 'block';
-                    }
 
 
-                    function switch_loading_modal()
-                    {
-                        document.getElementById("loading").className = "loading-visible";
-                    }
-                    function getValue(data) {
+                }
+
+                function clear_modal() {
+                    $('#modal_insert .item:last-child').addClass('.active');
+
+                    $('div').remove('#myCarousel');
+
+
+                }
 
 
 
-                        for (var key in data) {
-                            var img = new Image();
-                            image_src = data[key]['IMAGE_URL'];
-                            des_src = data[key]['DESCRIPTION'];
-                            client_id = data[key]['CLIENT_REC_ID'];
 
-                            img.src = image_src;
-                            img.description = des_src;
-                            img.user_photo = "";
-                            img.id = client_id;
+                $(document).ready(function() {
+                    Set();
 
-                            img.onload = loading;
-                            //            loading();
+                    $(window).scroll(function() {
+                        //  console.log($(this).scrollTop());
+
+                        var oldLoad = function() {
+                            document.getElementById("loading").className = "loading-visible";
+                        };
+                        var hideDiv = function() {
+                            document.getElementById("loading").className = "loading-invisible";
+                        };
+                        if ($(this).scrollTop() >= ($(document).height() - $(window).height() - 250)) {
 
 
-                            console.log("imgHeight : " + imgHeight + " " + "this.height : " + this.height + " " + image_src);
+
+                            //   oldLoad.call(this);
+
+                            //  Set();
                         }
-
-
-                    }
-
-                    function clear_modal() {
-                        $('#modal_insert .item:last-child').addClass('.active');
-
-                        $('div').remove('#myCarousel');
-
-
-                    }
-
-
-
-
-                    $(document).ready(function() {
-                        Set();
-
-                        $(window).scroll(function() {
-                            //  console.log($(this).scrollTop());
-
-                            var oldLoad = function() {
-                                document.getElementById("loading").className = "loading-visible";
-                            };
-                            var hideDiv = function() {
-                                document.getElementById("loading").className = "loading-invisible";
-                            };
-                            if ($(this).scrollTop() >= ($(document).height() - $(window).height() - 250)) {
-
-
-
-                                //   oldLoad.call(this);
-
-                                //  Set();
-                            }
-                            // hideDiv.call(this);
-                        });
+                        // hideDiv.call(this);
                     });
+                });
 
-                    function call_items(id)
-                    {
-                        $.ajax({
-                            type: 'GET',
-                            url: '<?php echo CController::createUrl('Site/GetDataFromItemtable'); ?>',
-                            dataType: 'json',
-                            success: function(data) {
+                function call_items(id)
+                {
+                    $.ajax({
+                        type: 'GET',
+                        url: '<?php echo CController::createUrl('Site/GetDataFromItemtable'); ?>',
+                        dataType: 'json',
+                        success: function(data) {
 
-                                popup_items(data, id);
-                            }
-                        });
-                    }
-                    function popup_items(data, id) {
+                            popup_items(data, id);
+                        }
+                    });
+                }
+                function popup_items(data, id) {
 
 
-                        var $slide_frame = $('<div id="myCarousel" class="carousel slide" style="width:450px">\n\
+                    var $slide_frame = $('<div id="myCarousel" class="carousel slide" style="width:450px">\n\
                             <div id="modal_insert" class="carousel-inner" style="top:0px;"></div>\n\
                             <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>\n\
                             <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>\n\
                         </div>');
-                        $('#img_slide').append($slide_frame);
+                    $('#img_slide').append($slide_frame);
 
 
 
 
-                        var url_ary = new Array();
-                        var img_name_ary = new Array();
-                        var number = 0;
-                        for (var key in data) {
-                            if (data[key]['CLIENT_REC_ID'] == id) {
+                    var url_ary = new Array();
+                    var img_name_ary = new Array();
+                    var number = 0;
+                    for (var key in data) {
+                        if (data[key]['CLIENT_REC_ID'] == id) {
 
-                                url_ary[number] = data[key]['IMAGE_URL'];
-                                $("#item_detail_modal").data("url", url_ary[number]);
+                            url_ary[number] = data[key]['IMAGE_URL'];
+                            $("#item_detail_modal").data("url", url_ary[number]);
 
 
-                                img_name_ary[number] = "pic" + number;
-                                //                   alert(img_name_ary[number]);
-                                var $album_img = $('<div class=" item"><img src="' + $("#item_detail_modal").data("url") + '" id="pic' + number + '" /></div>');
-                                $('#modal_insert').append($album_img);
-                                //        document.img_name_ary[number].src = $("#item_detail_modal").data("url");
-                                //         $('#modal_insert > .item >img').attr("src", $("#item_detail_modal").data("url"));
-                                number = number + 1;
-
-                            }
+                            img_name_ary[number] = "pic" + number;
+                            //                   alert(img_name_ary[number]);
+                            var $album_img = $('<div class=" item"><img src="' + $("#item_detail_modal").data("url") + '" id="pic' + number + '" /></div>');
+                            $('#modal_insert').append($album_img);
+                            //        document.img_name_ary[number].src = $("#item_detail_modal").data("url");
+                            //         $('#modal_insert > .item >img').attr("src", $("#item_detail_modal").data("url"));
+                            number = number + 1;
 
                         }
-                        $("#modal_insert .item:first-child").addClass("active");
-                        document.getElementById("loading").className = "loading-invisible";
+
                     }
+                    $("#modal_insert .item:first-child").addClass("active");
+                    document.getElementById("loading").className = "loading-invisible";
+                }
 
 
-                    function grab_slide_img()
-                    {
-                        $.ajax({
-                            type: 'GET',
-                            url: '<?php echo CController::createUrl('Site/GetDataFromItemtable'); ?>',
-                            dataType: 'json',
-                            success: function(data) {
+                function grab_slide_img()
+                {
+                    $.ajax({
+                        type: 'GET',
+                        url: '<?php echo CController::createUrl('Site/GetDataFromItemtable'); ?>',
+                        dataType: 'json',
+                        success: function(data) {
 
-                                slide_img_items(data);
-                            }
-                        });
-                    }
-                    function slide_img_items(data) {
+                            slide_img_items(data);
+                        }
+                    });
+                }
+                function slide_img_items(data) {
 
-                        var $slider_photo = $(' <div class="slider_photo" ></div>');
+                    var $slider_photo = $(' <div class="slider_photo" ></div>');
 
-                        $('#new_slide').append($slider_photo);
-                        var client_check;
-                        var client_id_ary = [];
-                        for (var key in data) {
-                            client_check = true;
-                            if (key >= 1) {
+                    $('#new_slide').append($slider_photo);
+                    var client_check;
+                    var client_id_ary = [];
+                    for (var key in data) {
+                        client_check = true;
+                        if (key >= 1) {
 
-                                for (var i = 0; i <= key; i++) {
+                            for (var i = 0; i <= key; i++) {
 
-                                    if (client_id_ary[i] == data[key]['CLIENT_REC_ID']) {
+                                if (client_id_ary[i] == data[key]['CLIENT_REC_ID']) {
 
-                                        client_check = false;
-
-                                    }
-                                }
-                                if (client_check) {
-                                    client_id_ary[key] = data[key]['CLIENT_REC_ID'];
+                                    client_check = false;
 
                                 }
-
-                            } else {
-                                client_id_ary[key] = data[key]['CLIENT_REC_ID'];
                             }
-
                             if (client_check) {
-                                //      alert("test " + client_id_ary[key] );
+                                client_id_ary[key] = data[key]['CLIENT_REC_ID'];
 
-                                var $slide_img = $(' <div class="slide" style="cursor:pointer;" onclick="reload_new_client_albem(' + data[key]['CLIENT_REC_ID'] + ');  switch_loading_modal();"><img  src=' + data[key]['IMAGE_URL'] + '></div>');
-
-                                $('.slider_photo').append($slide_img);
                             }
 
+                        } else {
+                            client_id_ary[key] = data[key]['CLIENT_REC_ID'];
                         }
-                        //         alert("test1");
-                        $('#new_slide .slider_photo').bxSlider({
-                            slideWidth: 95,
-                            minSlides: 1,
-                            maxSlides: 4,
-                            slideMargin: 10,
-                            infiniteLoop: false,
-                            hideControlOnEnd: true,
-                            mode: 'horizontal'
 
-                        });
+                        if (client_check) {
+                            //      alert("test " + client_id_ary[key] );
 
+                            var $slide_img = $(' <div class="slide" style="cursor:pointer;" onclick="reload_new_client_albem(' + data[key]['CLIENT_REC_ID'] + ');  switch_loading_modal();"><img  src=' + data[key]['IMAGE_URL'] + '></div>');
 
-                        // remove slide_img bullet
-                        $('div').remove('.bx-pager');
-                        //  alert("test2");
-                    }
-
-                    function reload_new_client_albem(id) {
-
-                        //     alert("test " + id);
-                        clear_modal();
-                        call_items(id);
-
-
+                            $('.slider_photo').append($slide_img);
+                        }
 
                     }
-                    function enable_qustion_modal() {
-                        $('#question_modal').attr('aria-hidden', 'false');
-                        $('#question_modal').attr("style", "display:block");
-                    }
+                    //         alert("test1");
+                    $('#new_slide .slider_photo').bxSlider({
+                        slideWidth: 95,
+                        minSlides: 1,
+                        maxSlides: 4,
+                        slideMargin: 10,
+                        infiniteLoop: false,
+                        hideControlOnEnd: true,
+                        mode: 'horizontal'
+
+                    });
+
+
+                    // remove slide_img bullet
+                    $('div').remove('.bx-pager');
+                    //  alert("test2");
+                }
+
+                function reload_new_client_albem(id) {
+
+                    //     alert("test " + id);
+                    clear_modal();
+                    call_items(id);
+
+
+
+                }
+                function enable_qustion_modal() {
+                    $('#question_modal').attr('aria-hidden', 'false');
+                    $('#question_modal').attr("style", "display:block");
+                }
 
 </script>
 
@@ -359,7 +359,7 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
 
 
 <?php
-$user_info = UserProfile::model()->findByAttributes(array('USER_REC_ID' => 84));
+    $user_info = UserProfile::model()->findByAttributes(array('USER_REC_ID' => 1));
 ?>
 
 
@@ -373,14 +373,14 @@ $user_info = UserProfile::model()->findByAttributes(array('USER_REC_ID' => 84));
                 <div id="question_modal" class=" question_modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
                     <div class="modal-body">
-                        
-                        
+
+
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                         <p>This is the area to raise your question!!!!!!!!</p>
-                        
-                       
+
+
                         <textarea rows="4" placeholder="Pros are encouraged but not obligated to answer qusetions. Polite questions are more likely to receive responses."></textarea>
-                          <button class="btn btn-small" type="button">Submit</button>
+                        <button class="btn btn-small" type="button">Submit</button>
                     </div>
 
                 </div>
@@ -436,7 +436,7 @@ $user_info = UserProfile::model()->findByAttributes(array('USER_REC_ID' => 84));
                                 <div  style=" text-align: center; margin-top: 20px;">
 
                                     <div >
-                                        <a href="#"><img src="<?PHP echo $user_info->PHOTO_URL ?>"/></a>
+                                        <a href="#"><img src="<?PHP echo $user_info->PHOTO_URL; ?>"/></a>
                                     </div>
                                     <a href="#" style='margin-top:25%;'><?PHP echo $user_info->FIRST_NAME . " " . $user_info->LAST_NAME ?></a>
                                     <p><?PHP echo $user_info->DESCRIPTION ?></p>
@@ -482,12 +482,12 @@ $user_info = UserProfile::model()->findByAttributes(array('USER_REC_ID' => 84));
 
                                     <?php
                                     $image_example = json_encode(array('questions' => array(
-                                            'question_text' => 'Where is the headboard from?',
-                                            'question_comment_count' => 5,
-                                            'question_likes' => array(
-                                                'user_id' => 1,
-                                                'user_comment' => 'Urban Hardwoods makes headboards like this. Here\'s one that looks very similar to the one above'
-                                            )
+                                    'question_text' => 'Where is the headboard from?',
+                                    'question_comment_count' => 5,
+                                    'question_likes' => array(
+                                    'user_id' => 1,
+                                    'user_comment' => 'Urban Hardwoods makes headboards like this. Here\'s one that looks very similar to the one above'
+                                    )
                                     )));
                                     //                       echo var_dump($image_example, true);
                                     //                       $decoded = json_decode($image_example);
@@ -513,13 +513,13 @@ $user_info = UserProfile::model()->findByAttributes(array('USER_REC_ID' => 84));
         <div id='display_loading' class='display_btn' style="display: none">
             <?php
             $this->widget('bootstrap.widgets.TbButton', array(
-                'label' => 'DISCOVER MORE',
-                'type' => 'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-                'size' => 'large', // null, 'large', 'small' or 'mini'
-                'htmlOptions' => array(
-                    'class' => 'pull-right',
-                    'onclick' => "Set(); switch_loading();"
-                ),
+            'label' => 'DISCOVER MORE',
+            'type' => 'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+            'size' => 'large', // null, 'large', 'small' or 'mini'
+            'htmlOptions' => array(
+            'class' => 'pull-right',
+            'onclick' => "Set(); switch_loading();"
+            ),
             ));
             ?>
 
@@ -541,73 +541,73 @@ $user_info = UserProfile::model()->findByAttributes(array('USER_REC_ID' => 84));
 </div>
 <?PHP
 if (Yii::app()->user->isGuest) {
-    ?>
+?>
 
 
 
-    <?php
+<?php
 }
 ?>
 <div class="main-nav" id="main-nav" >
 
     <?php
     if (Yii::app()->user->isGuest) {
-        ?>
-        <a href="#"><i class="icon-user icon-2x"></i></a>
-        <?php
+    ?>
+    <a href="#"><i class="icon-user icon-2x"></i></a>
+    <?php
     } else {
-        $userProfile = UserProfile::model()->findByAttributes(array('USER_REC_ID' => Yii::app()->user->id));
-        ?>
-        <a href="#"><img src="<?PHP echo $userProfile->PHOTO_URL ?>"/></a>
+    $userProfile = UserProfile::model()->findByAttributes(array('USER_REC_ID' => Yii::app()->user->id));
+    ?>
+    <a href="#"><img src="<?PHP echo $userProfile->PHOTO_URL ?>"/></a>
 
-        <?php
+    <?php
     }
     ?>
     <?php
     $this->widget('bootstrap.widgets.TbMenu', array(
-        'htmlOptions' => array(
-            'onclick' => 'testing2();',
-            'class' => 'dropdown_left',
-        ),
-        'items' => array(
-            array('icon' => 'icon-eye-open icon-2x', 'url' => '#', 'htmlOptions' => array('class' => 'dropdown_123',), 'items' => array(
-                    array('label' => 'All Room &amp; Stlyes', 'url' => array('#')),
-                    array('label' => 'Kitchen', 'url' => array('/site/index')),
-                    array('label' => 'Bath', 'url' => array('/site/index')),
-                    array('label' => 'Bedroom', 'items' => array(
-                            array('label' => 'Bedroom Photos &gt;'),
-                            array('label' => 'Browse all Bedroom Photos', 'url' => '#'),
-                            array('label' => 'Bedroom Products'),
-                            array('label' => 'Beds and Headboards', 'url' => '#'),
-                            array('label' => 'Bedroom Benchess', 'url' => '#'),
-                            array('label' => 'Dressers Chests and Bedroom Armories', 'url' => '#'),
-                            array('label' => 'Makeup Mirrors', 'url' => '#'),
-                            array('label' => 'Nightstands and Bedside Tables', 'url' => '#'),
-                            array('label' => 'Sofa Beds', 'url' => '#'),
-                            array('label' => 'Bedding', 'url' => '#'),
-                            array('label' => 'Upholstery Fabric', 'url' => '#'),
-                        ),),
-                    array('label' => 'Living', 'url' => array('/site/index')),
-                    array('label' => 'Dinging', 'url' => array('/site/index')),
-                    array('label' => 'Outdoor', 'url' => array('/site/index')),
-                    array('label' => 'Kids', 'url' => array('/site/index')),
-                    array('label' => 'Home Office', 'url' => array('/site/index')),
-                    array('label' => 'Storage & Closets', 'url' => array('/site/index')),
-                    array('label' => 'Exterior', 'url' => array('/site/index')),
-                    array('label' => 'More Rooms', 'url' => array('/site/index')),
-                    array('label' => 'Lighting', 'url' => array('/site/index')),
-                    array('label' => 'Accessories & Decor', 'url' => array('/site/index')),
-                    array('label' => 'Windows & Doors', 'tabindex' => '-1', 'items' => array(
-                            array('label' => 'Action1', 'url' => '#'),
-                            array('label' => 'Action2', 'url' => '#'),
-                            array('label' => 'Action3', 'url' => '#'),
-                            array('label' => 'Action4', 'url' => '#'),
-                            array('label' => 'Action5', 'url' => '#'),
-                        ),
-                    ),
-                )
-            ),
-        )
+    'htmlOptions' => array(
+    'onclick' => 'testing2();',
+    'class' => 'dropdown_left',
+    ),
+    'items' => array(
+    array('icon' => 'icon-eye-open icon-2x', 'url' => '#', 'htmlOptions' => array('class' => 'dropdown_123', ), 'items' => array(
+    array('label' => 'All Room &amp; Stlyes', 'url' => array('#')),
+    array('label' => 'Kitchen', 'url' => array('/site/index')),
+    array('label' => 'Bath', 'url' => array('/site/index')),
+    array('label' => 'Bedroom', 'items' => array(
+    array('label' => 'Bedroom Photos &gt;'),
+    array('label' => 'Browse all Bedroom Photos', 'url' => '#'),
+    array('label' => 'Bedroom Products'),
+    array('label' => 'Beds and Headboards', 'url' => '#'),
+    array('label' => 'Bedroom Benchess', 'url' => '#'),
+    array('label' => 'Dressers Chests and Bedroom Armories', 'url' => '#'),
+    array('label' => 'Makeup Mirrors', 'url' => '#'),
+    array('label' => 'Nightstands and Bedside Tables', 'url' => '#'),
+    array('label' => 'Sofa Beds', 'url' => '#'),
+    array('label' => 'Bedding', 'url' => '#'),
+    array('label' => 'Upholstery Fabric', 'url' => '#'),
+    ), ),
+    array('label' => 'Living', 'url' => array('/site/index')),
+    array('label' => 'Dinging', 'url' => array('/site/index')),
+    array('label' => 'Outdoor', 'url' => array('/site/index')),
+    array('label' => 'Kids', 'url' => array('/site/index')),
+    array('label' => 'Home Office', 'url' => array('/site/index')),
+    array('label' => 'Storage & Closets', 'url' => array('/site/index')),
+    array('label' => 'Exterior', 'url' => array('/site/index')),
+    array('label' => 'More Rooms', 'url' => array('/site/index')),
+    array('label' => 'Lighting', 'url' => array('/site/index')),
+    array('label' => 'Accessories & Decor', 'url' => array('/site/index')),
+    array('label' => 'Windows & Doors', 'tabindex' => '-1', 'items' => array(
+    array('label' => 'Action1', 'url' => '#'),
+    array('label' => 'Action2', 'url' => '#'),
+    array('label' => 'Action3', 'url' => '#'),
+    array('label' => 'Action4', 'url' => '#'),
+    array('label' => 'Action5', 'url' => '#'),
+    ),
+    ),
+    )
+    ),
+    )
     ));
     ?> 
 
@@ -646,7 +646,8 @@ if (Yii::app()->user->isGuest) {
                                         hideDiv.call(this);
                                         oldLoad.call(this);
                                     } : hideDiv;
-                                    window.onload = newLoad;</script>
+                                    window.onload = newLoad;
+</script>
 
 <script type="text/javascript" language="JavaScript" src="../../../js/search.js"></script>
 <script type="text/javascript">
@@ -655,11 +656,6 @@ if (Yii::app()->user->isGuest) {
 
         $('.dropdown_left >li:first-child>ul ').attr("style", "margin:-170px 0px 0px 80px");
     }
-
-
-
-
-
     //  hover testing
     $(".main-nav").mouseover(function() {
         $(".main-nav").attr("style", "opacity:0.9;width: 80px");
@@ -680,6 +676,4 @@ if (Yii::app()->user->isGuest) {
         }
         //  hasBeenClicked = false;
     });
-
-
 </script>

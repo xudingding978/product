@@ -49,7 +49,7 @@ class UserProfile extends CActiveRecord {
      * @return string the associated database table name
      */
     public function tableName() {
-        return 'tpl_user_profile';
+        return 'user_profile';
     }
 
     /**

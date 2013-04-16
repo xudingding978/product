@@ -21,7 +21,7 @@ font-size:15.5px;
 
 
 .titleText{
-margin:11px 0 0 17%;
+margin:13px 0 0 17%;
 
 }
 
@@ -140,18 +140,21 @@ border-radius: 6px 6px 6px 6px;
 box-shadow: none;
 background-clip: padding-box;
 }
+
+
 .main-nav .dropdown-menu{
 
-background-color: rgba(0, 0, 0,0);
+background-color: rgba(242, 240, 240,0);
 padding: 0px 0px 0px 30px;
 }
 
 
 .navbar .nav {
-color:white;
+color:rgb(242,240,240);
 position: absolute;
 
-left: 70%;
+left: 80%;
+top: 72px;
 display: block;
 float: left;
 margin: -27px 0px 0px 31%;
@@ -171,11 +174,11 @@ margin-left: 110px;
 
 .dropdown-menu li > a {
 display: block;
-padding: 3px 20px;
+padding: 2px 20px;
 clear: both;
 font-weight: normal;
 line-height: 30px;
-color: rgb(51, 51, 51);
+color: rgb(62, 59, 62);
 white-space: nowrap;
 }
 .open > .dropdown-menu {
@@ -230,7 +233,7 @@ background-repeat: repeat-x;
 .dropdown-menu .active > a {
 color: rgb(51, 51, 51);
 text-decoration: none;
-background-color: rgb(0, 129, 194);
+background-color: rgb(242, 240, 240);
 background-image:none;
 background-repeat: repeat-x;
 outline: 0px none;
@@ -239,16 +242,18 @@ outline: 0px none;
 
 .smallIcon{
 position:absolute;
-margin: -66px 0px 0px ;
+margin: -65px 0px 0px ;
 display:none;
-left:56%;
-width:200px;
+left:70%;
+width:250px;
 z-index:10000;
 cursor:pointer;
+line-height: 32px;
 }
 
-.smallIcon a, .smallIcon a:visited, .smallIcon a:active {color:rgb(235,235,235); ; text-decoration:none;}
-.smallIcon a:hover{ color: black;text-decoration: none;}
+.smallIcon a, .smallIcon a:visited  {color:rgb(242,240,240); ; text-decoration:none;}
+.smallicon a:active {color: rgb(255,255,255); text-decoration: none; text-shadow: ;}
+.smallIcon a:hover{color: rgb(255,255,255); text-decoration: none;}
 
 .icon_a{
 
@@ -314,7 +319,7 @@ font-weight: bold;
 position: relative;
 margin-bottom: 0px;
 line-height: 1;
-min-width:769px;
+min-width:1280px;
 }
 
 #item_detail_modal  .carousel {
@@ -355,7 +360,7 @@ background-color: rgba(255, 255, 255,0.8);
 .modal-body {
 height: 100%;
 padding: 15px;
-overflow-y: hidden;
+overflow-y: visible;
 max-height:100%;
 
 }
@@ -376,24 +381,25 @@ z-index: 1050;
 background-color: rgb(255, 255, 255);
 outline: medium none;
 background-clip: padding-box;
+border-radius: 0 0 6px 6px;
 }
 
 .email_modal {
 position: relative;
 
 z-index: 1050;
-width: 900px;
+width: 700px;
 
-height: 350px;
+height: 300px;
 }
 
 .register_modal{
 position: relative;
 
 z-index: 1050;
-width: 600px;
+width: 500px;
 
-height: 550px;
+height: 500px;
 
 }
 .question_modal{
@@ -415,7 +421,99 @@ opacity:1;
 }
 
 .row{
-margin-left:0;
+margin-left: 0
+}
+
+.row > .required {
+font-size: 16px;
+font-weight: bold;
+}
+
+.row > #LoginForm_username {
+width: 100%;
+height: 30px;
+font-size: 16px;
+}
+
+.row > #LoginForm_password {
+width: 100%;
+height: 30px;
+font-size: 16px;
+}
+
+
+.row > #User_EMAIL_ADDRESS {
+text-align: center;
+width: 100%;
+height: 30px;
+font-size: 16px;
+}
+
+.row > #User_USER_NAME {
+text-align: center;
+width: 100%;
+height: 30px;
+font-size: 16px;
+}
+
+.row > #User_PWD_HASH {
+text-align: center;
+width: 100%;
+height: 30px;
+font-size: 16px;
+}
+
+.row > #User_repeatPassword {
+text-align: center;
+width: 100%;
+height: 30px;
+font-size: 16px;
+}
+
+
+
+
+
+#LoginForm_rememberMe {
+margin-top: 1px;
+}
+
+.form .btn {
+width: 100px;
+height: 25px;
+line-height: 14px;
+font-size: 13px;
+font-weight: bold;
+color:white;
+border-radius:2px;
+
+-moz-text-shadow: -1px -1px  #595757; 
+-webkit-text-shadow: -1px -1px  #595757;
+text-shadow: -1px -1px  #595757;
+
+background: rgb(115,191,133);
+background: -webkit-gradient(linear, 0 0, 0 bottom, from(rgb(115,191,133)), to(rgb(35,140,60)));
+background: -webkit-linear-gradient(rgb(115,191,133), rgb(35,140,60));
+background: -moz-linear-gradient(rgb(115,191,133), rgb(35,140,60));
+background: -ms-linear-gradient(rgb(115,191,133), rgb(35,140,60));
+background: -o-linear-gradient(rgb(115,191,133), rgb(35,140,60));
+background: linear-gradient(rgb(115,191,133), rgb(35,140,60));
+-pie-background: linear-gradient(rgb(115,191,133), rgb(35,140,60));
+behavior: url(/pie/PIE.htc);
+
+}
+
+.form .btn:hover {
+background: rgb(84,181,112);
+background: -webkit-gradient(linear, 0 0, 0 bottom, from(rgb(84,181,112)), to(rgb(39,162,75)));
+background: -webkit-linear-gradient(rgb(84,181,112), rgb(39,162,75));
+background: -moz-linear-gradient(rgb(84,181,112), rgb(39,162,75));
+background: -ms-linear-gradient(rgb(84,181,112), rgb(39,162,75));
+background: -o-linear-gradient(rgb(84,181,112), rgb(39,162,75));
+background: linear-gradient(rgb(84,181,112), rgb(39,162,75));
+-pie-background: linear-gradient(rgb(84,181,112), rgb(39,162,75));
+behavior: url(/pie/PIE.htc);
+
 }
 
 .carousel-control {
@@ -441,10 +539,15 @@ border-radius: 0px 6px 6px 6px;
 .main-nav .nav a:hover{
 background-color:black;
 color:rgba(255,255,255,1);
+font-weight:bold;
 }
+
+
 
 .nav li + .nav-header {
 margin-top: 0px;
+color:black;
+font-style: italic;
 }
 
 .moveTop{
@@ -454,6 +557,60 @@ top:-40px;
 .login_guest{
 margin: -64px 0px 0px 3%;
 }
+
+
+#mainmenu #dd ul li a {
+
+font-size: 100%;
+text-decoration: none;
+padding: 10px;
+
+}
+
+#mainmenu #dd1 ul li a {
+padding: 10px;
+}
+
+#mainmenu #dd2 ul li a {
+padding: 10px;
+}
+
+
+
+.dropdown-menu .dropdown-submenu > a:after {
+margin-top: 10px;
+margin-right: -50px;
+border-left-color: transparent;
+border-width: 10px;
+}
+
+.dropdown-menu .dropdown-submenu:hover > a:after {
+
+border-left-color: rgb(242,240,240);
+}
+
+
+
+
+#slider-control {
+    text-decoration: none;
+    color: rgba(255,255,255,0.5);
+}
+
+
+
+
+
+#slider-control:hover {
+    text-decoration: none;
+    color: rgba(255,255,255,1);
+}
+
+
+
+
+
+
 
 <?php
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// isotope parts   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

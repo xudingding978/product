@@ -6,38 +6,58 @@ $this->pageTitle = Yii::app()->name;
 
 <?php
 if (Yii::app()->user->isGuest) {
-$this->widget('bootstrap.widgets.TbCarousel', array(
-'items' => array(
-array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_a.jpg'),
- array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_b.jpg'),
- array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_c.jpg'),
- array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_d.jpg'),
- array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_e.jpg'),
- array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_f.jpg'),
- array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_g.jpg'),
- array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_h.jpg'),
- array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_i.jpg'),
- array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_j.jpg'),
- array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_c.jpg'),
- array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_k.jpg'),
- ),
-));
-?>
+    ?> 
 
 
-<div class="tile_img" >
-    <div id="dd3" class="wrapper-dropdown-3" tabindex="1" style="margin-left:73%; width:270px; height:45px;">
 
-        <div>
-            <div id="dropdown-cover" style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -10.5px; padding-left: 35px;">
-                <div class="login-icon">
-                    <i class="icon-facebook icon-large">
-                    </i>
-                </div>   
+    <div id="myCarousel" class="carousel slide">
+
+        <!-- Carousel items -->
+        <div class="carousel-inner" style="min-width:1280px">
+            <div class="active item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_a.jpg"></div>
+            <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_b.jpg"></div>
+            <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_c.jpg"></div>
+            <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_d.jpg"></div>
+            <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_e.jpg"></div>
+            <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_f.jpg"></div>
+            <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_g.jpg"></div>
+            <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_h.jpg"></div>
+            <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_i.jpg"></div>
+            <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_j.jpg"></div>
+            <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_k.jpg"></div>
+        </div>
+        <!-- Carousel nav -->
+        <a id="slider-control" class="icon-angle-left" href="#myCarousel" data-slide="prev" style="position: relative; float: left;left: 5%; top: -400px;font-size: 6em;"></a>
+        <a id="slider-control" class="icon-angle-right" href="#myCarousel" data-slide="next"style="position: relative; float: right;left: -5%; top: -400px;font-size: 6em;"></a>
+    </div>
+
+
+
+    <div class="tile_img" >
+        <div id="dd3" class="wrapper-dropdown-3" tabindex="1" style="margin-left: 68.5%; margin-bottom: -2%;width:270px; height:45px;">
+
+            <div>
+                <div id="dropdown-cover" class="dropdown_test_3" style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -10.5px; padding-left: 35px;">
+                    <div class="login-icon">
+                        <i class="icon-facebook icon-large">
+                        </i>
+                    </div>   
+                </div>
+                <div  id="dropdown-cover" onclick="Facebook();" style="float: right; bottom: 10px; position: relative; width: 204px; height: 45px; margin-right: -10px;">
+                    <div class="sign-in-with" >Sign In with Facebook</div>
+                </div>
             </div>
-            <div  id="dropdown-cover" onclick="Facebook();" style="float: right; bottom: 10px; position: relative; width: 204px; height: 45px; margin-right: -10px;">
-                <div class="sign-in-with" >Sign In with Facebook</div>
-            </div>
+            <ul class="dropdown" style="width:270px">
+                <li  onclick="Twitter();" ><a style="color:rgb(0,172,237)" href="#"><i class="icon-twitter icon-large"></i>Sign in with Twitter</a></li>
+                <li  onclick="Google();" ><a style="color:rgb(211,72,54)" href="#"><i class="icon-google-plus icon-large"></i>Sign in with Google+</a></li>
+                <li  onclick="Yahoo();" ><a style="color:rgb(123,0,153)" href="#"><img src='../../../images/yahoo.png' style='width: auto; height: 35px; float:left;margin: -3% -5% 0 6%;'>Sign in with Yahoo</a></li>
+                <li  onclick="Sina();" ><a style="color:rgb(245,213,0)" href="#"><img src='../../../images/sina.png' style='width: auto; height: 35px; float:left;margin: -3% -3% 0 6%;'>Sign in with Sina</a></li>
+                <li  onclick="QQ();" ><a style="color:rgb(62,59,62)" href="#"><img src='../../../images/qq.png' style='width: auto; height: 35px; float:left;margin: -3% -2% 0 7%;'>Sign in with QQ</a></li>
+                <li  onclick="dismiss_modal_test();" ><a style="color:rgb(0,153,68)" href="#myModal"><i class="icon-envelope-alt icon-large"></i>Sign in with Email</a></li>
+            </ul>
+        </div>
+        <div class="title_text" >
+       <img src="../../../images/frontpage-intro.png">
         </div>
         <ul class="dropdown" style="width:270px">
             <li  onclick="Twitter();" ><a style="color:rgb(0,172,237)" href="#"><i class="icon-twitter icon-large"></i>Sign in with Twitter</a></li>
@@ -108,7 +128,7 @@ array('image' => 'https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/
                         url: '<?php echo CController::createUrl('Site/GetDataFromItemtable'); ?>',
                         dataType: 'json',
                         success: function(data) {
-
+                            //     alert(data);
                             getValue(data);
                         }
                     });
@@ -128,23 +148,23 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
 
 
 
-                    var image_height = this.height / this.width * 180;
-                    var element_height = image_height + 160;
+                    var image_height = this.height / this.width * 212;
+                    var element_height = image_height + 130;
 //            console.log(key + ' ' + img.height);
 //            console.log(element_height);
 
 
                     var $newItems = $('<div class="element alkali metal   isotope-item"  style="height:' + element_height + 'px"> \n\
-            <div id="image_container"  style="left: 15px;  top: 30px; width: 180px;height:' + image_height + 'px"> \n\
+            <div id="image_container"  style="left: 15px; height:' + image_height + 'px"> \n\
                     <a href="#item_detail"  data-toggle="modal" onclick="clear_modal();   call_items(' + this.id + '); generate_slide_img(' + this.id + '); switch_loading_modal();" ><img src=' + this.src + ' ></a>\n\
             </div>\n\
-            <p style="left: 15px;  bottom: 100px;">' + this.description + '</p>\n\
-            <a href="#" style="left: 15px;  bottom: 78px; width:55px;white-space: nowrap;"><k class="icon-heart-empty"></k> <p style="left: 20px; ">12</p></a>\n\
-            <a href="#" style="left: 75px;  bottom: 78px;width:55px;white-space: nowrap;"><k class="icon-comment-alt"></k> <p style="left: 20px; ">6</p></a>\n\
-            <a href="#" style="left: 135px;  bottom: 78px;width:55px;white-space: nowrap;"><k class="icon-save"></k><p style="left: 20px; ">66</p></a>\n\
-                <div id="comments" class="comments">\n\
-                    <img style="width:35px; bottom:5px; left:5px;" src="<?PHP //if ($userProfile->PHOTO_URL) : echo $userProfile->PHOTO_URL ;   ?>" />\n\
-                    <p style="left: 50px;  bottom: 20px;white-space: nowrap;">by  <a href="#" > Trends ideas</a></p>\n\
+          <div style="position: relative; margin: 10px;">  <p style="font-size:12px;"><b>' + this.description + '</b></p>\n\
+          </div> <div class="likecomemts" style="position: relative; height: 20px; margin: 10px;"> <a href="#" ><k class="icon-heart-empty"></k> <p style="left: 22px; top: -1px; ">12</p></a>\n\
+            <a href="#" ><k class="icon-comment-alt" style="left: 55px; top: -1px;" ></k> <p style="left: 80px; top: -1px; ">6</p></a>\n\
+            <a href="#" ><k class="icon-save" style="left: 105px;top: 1px;"></k><p style="left: 130px; top: 0px;">66</p></a>\n\
+               </div> <div id="comments" class="comments">\n\
+                    <img style="width: 40px;  margin: 10px;position: relative;" src="<?PHP echo $userProfile->PHOTO_URL; ?>" />\n\
+                    <p style="position: relative;left: 27%;  bottom: 45px; margin: 5px;">by &nbsp <a href="#" > <b>Trends ideas</b></a></p>\n\
                 </div>\n\
             </div>');
                     $('#container').append($newItems).isotope('insert', $newItems);
@@ -166,10 +186,11 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
 
 
                     for (var key in data) {
-                        var img = new Image();
-                        image_src = data[key]['IMAGE_URL'];
-                        des_src = data[key]['DESCRIPTION'];
-                        client_id = data[key]['CLIENT_REC_ID'];
+                        if (data.hasOwnProperty(key)) {
+                            var img = new Image();
+                            image_src = data[key]['IMAGE_URL'];
+                            des_src = data[key]['DESCRIPTION'];
+                            client_id = data[key]['CLIENT_REC_ID'];
 
                         img.src = image_src;
                         img.description = des_src;
@@ -183,7 +204,7 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                         console.log("imgHeight : " + imgHeight + " " + "this.height : " + this.height + " " + image_src);
                     }
 
-
+                    }
                 }
 
                 function clear_modal() {
@@ -201,7 +222,6 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                     Set();
 
                     $(window).scroll(function() {
-                        //  console.log($(this).scrollTop());
 
                         var oldLoad = function() {
                             document.getElementById("loading").className = "loading-visible";
@@ -211,13 +231,7 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                         };
                         if ($(this).scrollTop() >= ($(document).height() - $(window).height() - 250)) {
 
-
-
-                            //   oldLoad.call(this);
-
-                            //  Set();
                         }
-                        // hideDiv.call(this);
                     });
                 });
 
@@ -227,13 +241,12 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                         type: 'GET',
                         url: '<?php echo CController::createUrl('Site/GetDataFromItemtable'); ?>',
                         dataType: 'json',
-                        success: function(data) {
-
-                            popup_items(data, id);
+                        success: function(json_data) {
+                            popup_items(json_data, id);
                         }
                     });
                 }
-                function popup_items(data, id) {
+                function popup_items(json_data, id) {
 
 
                     var $slide_frame = $('<div id="myCarousel" class="carousel slide" style="width:450px">\n\
@@ -243,34 +256,36 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                         </div>');
                     $('#img_slide').append($slide_frame);
 
-
-
-
                     var url_ary = new Array();
                     var img_name_ary = new Array();
                     var number = 0;
-                    for (var key in data) {
-                        if (data[key]['CLIENT_REC_ID'] == id) {
+                    for (var ary_key in json_data) {
+                        if (json_data.hasOwnProperty(ary_key)) {
+                            console.log(json_data[ary_key]);
+                            if (json_data[ary_key]['CLIENT_REC_ID'] == id) {
+
+                                url_ary[number] = json_data[ary_key]['IMAGE_URL'];
+                                $("#item_detail_modal").data("url", url_ary[number]);
 
                             url_ary[number] = data[key]['IMAGE_URL'];
                             $("#item_detail_modal").data("url", url_ary[number]);
 
-
-                            img_name_ary[number] = "pic" + number;
-                            //                   alert(img_name_ary[number]);
-                            var $album_img = $('<div class=" item"><img src="' + $("#item_detail_modal").data("url") + '" id="pic' + number + '" /></div>');
-                            $('#modal_insert').append($album_img);
-                            //        document.img_name_ary[number].src = $("#item_detail_modal").data("url");
-                            //         $('#modal_insert > .item >img').attr("src", $("#item_detail_modal").data("url"));
-                            number = number + 1;
-
+                                img_name_ary[number] = "pic" + number;
+                                var $album_img = $('<div class=" item"><img src="' + $("#item_detail_modal").data("url") + '" id="' + number + '" /></div>');
+                                $('#modal_insert').append($album_img);
+                                number = number + 1;
+                            }
                         }
+                    }
+                    $(".album_status_bar .total_img").text("/" + number);
+                    $("#modal_insert .item:first-child").addClass("active");
+                    document.getElementById("loading").className = "loading-invisible";
+                }
 
                     }
                     $("#modal_insert .item:first-child").addClass("active");
                     document.getElementById("loading").className = "loading-invisible";
                 }
-
 
                 function grab_slide_img()
                 {
@@ -278,50 +293,49 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                         type: 'GET',
                         url: '<?php echo CController::createUrl('Site/GetDataFromItemtable'); ?>',
                         dataType: 'json',
-                        success: function(data) {
+                        success: function(json_data) {
 
-                            slide_img_items(data);
+                            slide_img_items(json_data);
                         }
                     });
                 }
-                function slide_img_items(data) {
+                function slide_img_items(json_data) {
 
-                    var $slider_photo = $(' <div class="slider_photo" ></div>');
+                    var $slider_photo = $('<div class="slider_photo"></div>');
 
                     $('#new_slide').append($slider_photo);
                     var client_check;
                     var client_id_ary = [];
-                    for (var key in data) {
-                        client_check = true;
-                        if (key >= 1) {
+                    for (var ary_key in json_data) {
 
-                            for (var i = 0; i <= key; i++) {
+                        if (json_data.hasOwnProperty(ary_key)) {
+                            client_check = true;
+                            if (ary_key >= 1) {
+
+                                for (var i = 0; i <= ary_key; i++) {
+
+                                    if (client_id_ary[i] == json_data[ary_key]['CLIENT_REC_ID']) {
 
                                 if (client_id_ary[i] == data[key]['CLIENT_REC_ID']) {
 
-                                    client_check = false;
+                                    }
+                                }
+                                if (client_check) {
+                                    client_id_ary[ary_key] = json_data[ary_key]['CLIENT_REC_ID'];
 
                                 }
+
+                            } else {
+                                client_id_ary[ary_key] = json_data[ary_key]['CLIENT_REC_ID'];
                             }
+
                             if (client_check) {
-                                client_id_ary[key] = data[key]['CLIENT_REC_ID'];
-
+                                var $slide_img = $('<div class="slide" style="cursor:pointer;" onclick="reload_new_client_albem(' + json_data[ary_key]['CLIENT_REC_ID'] + ');  switch_loading_modal();"><img  src=' + json_data[ary_key]['IMAGE_URL'] + '></div>');
+                                $('.slider_photo').append($slide_img);
                             }
-
-                        } else {
-                            client_id_ary[key] = data[key]['CLIENT_REC_ID'];
-                        }
-
-                        if (client_check) {
-                            //      alert("test " + client_id_ary[key] );
-
-                            var $slide_img = $(' <div class="slide" style="cursor:pointer;" onclick="reload_new_client_albem(' + data[key]['CLIENT_REC_ID'] + ');  switch_loading_modal();"><img  src=' + data[key]['IMAGE_URL'] + '></div>');
-
-                            $('.slider_photo').append($slide_img);
                         }
 
                     }
-                    //         alert("test1");
                     $('#new_slide .slider_photo').bxSlider({
                         slideWidth: 95,
                         minSlides: 1,
@@ -351,6 +365,11 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                 function enable_qustion_modal() {
                     $('#question_modal').attr('aria-hidden', 'false');
                     $('#question_modal').attr("style", "display:block");
+
+
+//                        $('#img_slide #myCarousel').bind('slid', function() {
+//                            alert("Slide Event");
+//                        });
                 }
 
 </script>
@@ -411,6 +430,16 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                                    </div>
                             -->
 
+                        </div>
+                        <div class="album_status_bar">
+                            <div style="margin-left: 4%; margin-top: 3%;">
+                                <a href="#"> <k class="icon-heart-empty icon-large"></k>23</a>
+                                <a href="#"><k class="icon-comment-alt icon-large"></k>2</a>
+                                <a href="#"><k class="icon-save icon-large"></k>3</a>
+
+                            </div>
+                            <p class="current_img" style="margin: -20px 0px 0px 85%; font-size: 25px;">3</p>
+                            <p class="total_img"  style="margin: -20px 0px 0px 88%; font-size: 25px;"></p>
                         </div>
                         <div class="question_bar">
                             <a href="#question_modal" role="button" class="btn" data-toggle="modal" style="margin:10px;float:left;"><i class="icon-question-sign"></i> Ask a Question</a>
@@ -565,49 +594,55 @@ if (Yii::app()->user->isGuest) {
     ?>
     <?php
     $this->widget('bootstrap.widgets.TbMenu', array(
-    'htmlOptions' => array(
-    'onclick' => 'testing2();',
-    'class' => 'dropdown_left',
-    ),
-    'items' => array(
-    array('icon' => 'icon-eye-open icon-2x', 'url' => '#', 'htmlOptions' => array('class' => 'dropdown_123', ), 'items' => array(
-    array('label' => 'All Room &amp; Stlyes', 'url' => array('#')),
-    array('label' => 'Kitchen', 'url' => array('/site/index')),
-    array('label' => 'Bath', 'url' => array('/site/index')),
-    array('label' => 'Bedroom', 'items' => array(
-    array('label' => 'Bedroom Photos &gt;'),
-    array('label' => 'Browse all Bedroom Photos', 'url' => '#'),
-    array('label' => 'Bedroom Products'),
-    array('label' => 'Beds and Headboards', 'url' => '#'),
-    array('label' => 'Bedroom Benchess', 'url' => '#'),
-    array('label' => 'Dressers Chests and Bedroom Armories', 'url' => '#'),
-    array('label' => 'Makeup Mirrors', 'url' => '#'),
-    array('label' => 'Nightstands and Bedside Tables', 'url' => '#'),
-    array('label' => 'Sofa Beds', 'url' => '#'),
-    array('label' => 'Bedding', 'url' => '#'),
-    array('label' => 'Upholstery Fabric', 'url' => '#'),
-    ), ),
-    array('label' => 'Living', 'url' => array('/site/index')),
-    array('label' => 'Dinging', 'url' => array('/site/index')),
-    array('label' => 'Outdoor', 'url' => array('/site/index')),
-    array('label' => 'Kids', 'url' => array('/site/index')),
-    array('label' => 'Home Office', 'url' => array('/site/index')),
-    array('label' => 'Storage & Closets', 'url' => array('/site/index')),
-    array('label' => 'Exterior', 'url' => array('/site/index')),
-    array('label' => 'More Rooms', 'url' => array('/site/index')),
-    array('label' => 'Lighting', 'url' => array('/site/index')),
-    array('label' => 'Accessories & Decor', 'url' => array('/site/index')),
-    array('label' => 'Windows & Doors', 'tabindex' => '-1', 'items' => array(
-    array('label' => 'Action1', 'url' => '#'),
-    array('label' => 'Action2', 'url' => '#'),
-    array('label' => 'Action3', 'url' => '#'),
-    array('label' => 'Action4', 'url' => '#'),
-    array('label' => 'Action5', 'url' => '#'),
-    ),
-    ),
-    )
-    ),
-    )
+        'htmlOptions' => array(
+            'onclick' => 'testing2();',
+            'class' => 'dropdown_left',
+        ),
+        'items' => array(
+            array('icon' => 'icon-eye-open icon-2x', 'url' => '#', 'items' => array(
+                    array('alabel' => ''),
+                    array('label' => 'All Room & Stlyes', 'url' => array('#')),
+                    array('label' => 'Kitchen', 'url' => array('/site/index')),
+                    array('label' => 'Bath', 'url' => array('/site/index')),
+                    array('label' => 'Bedroom', 'items' => array(
+                            array('label' => ''),
+                            array('label' => 'Bedroom Photos:'),
+                            array('label' => 'Browse all Bedroom Photos', 'url' => '#'),
+                            array('label' => 'Bedroom Products:'),
+                            array('label' => 'Beds and Headboards', 'url' => '#'),
+                            array('label' => 'Bedroom Benchess', 'url' => '#'),
+                            array('label' => 'Dressers Chests and Bedroom Armories', 'url' => '#'),
+                            array('label' => 'Makeup Mirrors', 'url' => '#'),
+                            array('label' => 'Nightstands and Bedside Tables', 'url' => '#'),
+                            array('label' => 'Sofa Beds', 'url' => '#'),
+                            array('label' => 'Bedding', 'url' => '#'),
+                            array('label' => 'Upholstery Fabric', 'url' => '#'),
+                            array('label' => ''),
+                        ),),
+                    array('label' => 'Living', 'url' => array('/site/index')),
+                    array('label' => 'Dinging', 'url' => array('/site/index')),
+                    array('label' => 'Outdoor', 'url' => array('/site/index')),
+                    array('label' => 'Kids', 'url' => array('/site/index')),
+                    array('label' => 'Home Office', 'url' => array('/site/index')),
+                    array('label' => 'Storage & Closets', 'url' => array('/site/index')),
+                    array('label' => 'Exterior', 'url' => array('/site/index')),
+                    array('label' => 'More Rooms', 'url' => array('/site/index')),
+                    array('label' => 'Lighting', 'url' => array('/site/index')),
+                    array('label' => 'Accessories & Decor', 'url' => array('/site/index')),
+                    array('label' => 'Windows & Doors', 'tabindex' => '-1', 'items' => array(
+                            array('label' => ''),
+                            array('label' => 'Action1', 'url' => '#'),
+                            array('label' => 'Action2', 'url' => '#'),
+                            array('label' => 'Action3', 'url' => '#'),
+                            array('label' => 'Action4', 'url' => '#'),
+                            array('label' => 'Action5', 'url' => '#'),
+                            array('label' => ''),
+                        ),
+                    ),
+                    array('alabel' => ''),
+                )
+            ),
+        )
     ));
     ?> 
 
@@ -654,11 +689,11 @@ if (Yii::app()->user->isGuest) {
     var hasBeenClicked = false;
     function testing2() {
 
-        $('.dropdown_left >li:first-child>ul ').attr("style", "margin:-170px 0px 0px 80px");
+        $('.dropdown_left >li:first-child>ul ').attr("style", "margin:-140px 0px 0px 70px");
     }
     //  hover testing
     $(".main-nav").mouseover(function() {
-        $(".main-nav").attr("style", "opacity:0.9;width: 80px");
+        $(".main-nav").attr("style", "opacity:0.9;width: 70px");
         $(".open-menu").attr("style", "opacity:0");
         $('.main-nav').click(function() {
 

@@ -163,7 +163,7 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
             <a href="#" ><k class="icon-comment-alt" style="left: 55px; top: -1px;" ></k> <p style="left: 80px; top: -1px; ">6</p></a>\n\
             <a href="#" ><k class="icon-save" style="left: 105px;top: 1px;"></k><p style="left: 130px; top: 0px;">66</p></a>\n\
                </div> <div id="comments" class="comments">\n\
-                    <img style="width: 40px;  margin: 10px;position: relative;" src="<?PHP echo $userProfile->PHOTO_URL; ?>" />\n\
+                    <img style="width: 40px;  margin: 10px;position: relative;" src="<?PHP ($userProfile) ? $userProfile->PHOTO_URL:'No'; ?>" />\n\
                     <p style="position: relative;left: 27%;  bottom: 45px; margin: 5px;">by &nbsp <a href="#" > <b>Trends ideas</b></a></p>\n\
                 </div>\n\
             </div>');

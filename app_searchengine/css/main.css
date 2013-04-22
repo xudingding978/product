@@ -24,7 +24,8 @@ body
 
 #content
 {
-
+background: #fff url('../images/texture.png') repeat;
+padding-bottom: 50px;
 }
 
 #sidebar
@@ -34,11 +35,13 @@ body
 
 #footer
 {
-    padding: 10px;
-    margin: 10px 20px;
+    position: relative;
+    width: 100%;
+    background-color: #333333;
+    color: white;
+    padding: 40px;
     font-size: 0.8em;
     text-align: center;
-    border-top: 1px solid #C9E0ED;
 }
 
 #logo
@@ -55,14 +58,14 @@ body
 
 #mainmenu ul
 {
-
-    z-index:1000;
+    z-index: 1000;
 }
 
 #mainmenu .container >.login_guest
 {
-    margin: -64px 0px 0px 5%;
-
+    margin: -68px 0px 0px 10%;
+    top: 0px;
+    left:85%
 }
 
 #mainmenu ul li
@@ -82,6 +85,7 @@ body
     text-decoration:none;
     padding:5px 8px;
 
+    background-color: rgba(255,255,255,0)
 }
 
 #mainmenu ul li a:hover, #mainmenu ul li.active a

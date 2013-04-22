@@ -25,7 +25,7 @@
             <script type="text/javascript" language="JavaScript" src="../../../js/jquery-1.9.1.js"></script>
             <script type="text/javascript" language="JavaScript" src="../../../js/jquery.isotope.min.js"></script>  
             <script type="text/javascript" language="JavaScript" src="../../../js/jquery.bxslider.min.js"></script>
-        
+
             <link media="screen, projection" rel="stylesheet" type="text/css" href="../../../css/gallery.css"/>
             <link media="screen, projection" rel="stylesheet" type="text/css" href="../../../css/jquery.bxslider.css"/>
             <link rel="stylesheet" type="text/css" href="../../../css/customstyle.php" /> 
@@ -552,7 +552,7 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 
                                     </div>
 
-                                   <div class="panelcircle" style="position: absolute; right: 45%; top: 24%;"><b>OR</b></div>
+                                    <div class="panelcircle" style="position: absolute; right: 45%; top: 24%;"><b>OR</b></div>
 
 
 
@@ -693,18 +693,18 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                         <?php
                         if (Yii::app()->user->isGuest) {
                             $this->widget('bootstrap.widgets.TbNavbar', array(
-                                'brand' => '<img class="logonew" style="left: -40%; position: relative; top: 5px;"  src ="../../../images/landing-trends.png"/>',
+                                'brand' => '<img class="logonew" style="position: relative; top: 0; margin:0;"  src ="../../../images/landing-trends.png"/>',
                                 //    'collapse' => 'true',
                                 'items' => array(
                                     '<p class="titleText"> Global  recommendations from </p>',
-                                    '<div id="dd4" class="wrapper-dropdown-3" tabindex="1" style="top: -30px; background:none;border-radius: none;border: none;color:white;box-shadow: none;">
-                                                <div class="SpanFontSetting dropdown_test_4">Region</div>
+                                    '<div id="dd4" class="wrapper-dropdown-3" tabindex="1" style="top: -33px; background:none;border-radius: none;border: none;color:white;box-shadow: none;">
+                                                <div class="SpanFontSetting dropdown_test_4" style="margin-right: 40px;" >Region</div>
                                                 <ul class="dropdown" style="background: none repeat scroll 0% 0% rgb(45, 45, 45);border: 1px solid rgba(0, 0, 0, 0.17);">
-                                                    <li><a href="#" style="border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>Australia</a></li>
-                                                    <li><a href="#" style="border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>New Zealand</a></li>
-                                                    <li><a href="#" style="border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>India</a></li>
-                                                    <li><a href="#" style="border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>China</a></li>
-                                                    <li><a href="#" style="border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>America</a></li>
+                                                    <li><a href="#" style="margin:0; border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>Australia</a></li>
+                                                    <li><a href="#" style="margin:0; border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>New Zealand</a></li>
+                                                    <li><a href="#" style="margin:0; border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>India</a></li>
+                                                    <li><a href="#" style="margin:0; border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>China</a></li>
+                                                    <li><a href="#" style="margin:0; border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>America</a></li>
                                                 </ul>
                                             </div>',
                                     '<div class="smallIcon">
@@ -736,21 +736,23 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                                 $user_img = $userProfile->PHOTO_URL;
                             }
                             $this->widget('bootstrap.widgets.TbNavbar', array(
-                                'brand' => '<img class="logonew"  height="29px" src ="../../../images/landing-trends.png"/>',
+                                'brand' => '<img class="logonew" style="position: relative; top: 0; margin:0; "  src ="../../../images/landing-trends.png"/>',
                                 'items' => array(
                                     '<p class="titleText">  Global  recommendations from </p>',
-                                    '<div id="dd4" class="wrapper-dropdown-3" tabindex="1" style="top: -30px; background:none;border-radius: none;border: none;color:white;box-shadow: none;">
-                                                <span class="SpanFontSetting">Region</span>
+                                    '<div id="dd4" class="wrapper-dropdown-3" tabindex="1" style="top: -33px; background:none;border-radius: none;border: none;color:white;box-shadow: none;">
+                                                <div class="SpanFontSetting dropdown_test_4" style="margin-right: 40px;">Region</div>
                                                 <ul class="dropdown" style="background: none repeat scroll 0% 0% rgb(45, 45, 45);border: 1px solid rgba(0, 0, 0, 0.17);">
-                                                    <li><a href="#" style="border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>Australia</a></li>
-                                                    <li><a href="#" style="border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>New Zealand</a></li>
-                                                    <li><a href="#" style="border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>India</a></li>
-                                                    <li><a href="#" style="border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>China</a></li>
-                                                    <li><a href="#" style="border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>America</a></li>
+                                                    <li><a href="#" style="margin:0; border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>Australia</a></li>
+                                                    <li><a href="#" style="margin:0; border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>New Zealand</a></li>
+                                                    <li><a href="#" style="margin:0; border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>India</a></li>
+                                                    <li><a href="#" style="margin:0; border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>China</a></li>
+                                                    <li><a href="#" style="margin:0; border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>America</a></li>
                                                 </ul>
                                             </div>',
-                                    '<img id="asdas" class="loging_image"  height="29px" src ="' . $user_img . '"/>',
-                                    '<p class="loging_text">Hi!!   ' . $name . ' </p>',
+                                    '<div style="position:relative; left:15%;"> 
+                                <img id = "asdas" class = "loging_image" style="border-radius:3px; height:29px; " src = "' . $user_img . '"/>
+                                    <p class = "loging_text">Hi!! &nbsp ' . $name . ' </p>
+                                    </div>',
                                     '<div class="smallIcon">
                                         <a class="icon_a" href="#"><i class="icon-th icon-large" ></i></a>
                                             <a class="icon_b" href="#")><i class="icon-list-ul  icon-large" ></i></a>
@@ -761,10 +763,10 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                                         'htmlOptions' => array('class' => 'loging_table moveTop'),
                                         'items' => array(
                                             array('label' => '', 'url' => '#', 'items' => array(
-                                                    array('label' => '1', 'url' => array('/site/index')),
-                                                    array('label' => '2', 'url' => array('/site/index')),
-                                                    array('label' => '3', 'url' => array('/site/index')),
-                                                    array('label' => '4', 'url' => array('/site/index')),
+                                                    array('label' => 'Ideabook', 'url' => array('/site/index')),
+                                                    array('label' => 'Find Friends', 'url' => array('/site/index')),
+                                                    array('label' => 'Settings', 'url' => array('/site/index')),
+                                                    array('label' => 'Help Center', 'url' => array('/site/index')),
                                                     array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout')),
                                                 )),
                                         )
@@ -793,13 +795,64 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                     <p id="back-top">
                         <a href="#top"><span></span>Back to Top</a>
                     </p>
+
+
+
+
                     <div id="footer">
-                        Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
-                        All Rights Reserved.<br/>
-                        <?php echo Yii::powered(); ?>
+                        <div class="footer_contentbox">
+                            <div class="footer-text-left">
+                                <ul>
+                                    <li><a href="#">About Trends</a></li>
+                                    <li><a href="#">In the News</a></li>
+                                    <li><a href="#">Terms of Use</a></li>
+                                    <li><a href="#">Copyright</a></li> 
+                                    <li><a href="#">Privacy Policy</a></li>
+                                    <li><a href="#">Jobs</a></li>
+                                </ul>
+                            </div>
+                            <div class="footer-text-left">
+                                <ul>
+                                    <li><a href="#">Buttons and Badges</a></li>
+                                    <li><a href="#">Mobile Apps</a></li>
+                                    <li><a href="#">FAQs</a></li>
+                                    <li><a href="#">Contact Us</a></li>
+                                    <li><a href="#">Advertise</a></li>
+                                </ul>
+                            </div>
 
+                            <div style="text-align: center; padding: 20px 0; margin: 0 90px 0 100px; font-size: 13px; width: 160px; float: left;">
+                                <img class="logonew" style="height: auto; position: relative; top: 0; margin:0;"  src ="../../../images/landing-trends.png"/>
+                                <div style="padding-top: 15px;">
+                                    <i class="socon icon-facebook-sign icon-3x"></i>
+                                    <i class="socon icon-twitter-sign icon-3x" style=" padding: 0 27px;"></i>
+                                    <i class="socon icon-rss icon-3x"></i>
+                                </div>
+                            </div>
+                            <div class="footer-text-right">
+                                <ul>
+                                    <li><a href="#">Home</a></li>
+                                    <li><a href="#">Photos</a></li>
+                                    <li><a href="#">Products</a></li>
+                                    <li><a href="#">Find Local Pros</a></li>
+                                    <li><a href="#">Ideabooks</a></li>
+                                    <li><a href="#">Discussions</a></li>
+                                </ul>
+                            </div>
+                            <div class="footer-text-right">
+                                <ul>
+                                    <li><a href="#">Your Trends</a></li>
+                                    <li><a href="#">Your Ideabookds</a></li>
+                                    <li><a href="#">Your Photos</a></li>
+                                    <li><a href="#">Recommended</a></li>
+                                    <li><a href="#">Photos</a></li>
+                                    <li><a href="#">Edit Profile</a></li>
+                                    <li><a href="#">Change Password</a></li>
+                                    <li><a href="#">Sign Out</a></li>
+                                </ul>
+                            </div>
 
-
+                        </div>
                     </div><!-- footer -->
 
 

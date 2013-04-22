@@ -57,7 +57,7 @@ if (Yii::app()->user->isGuest) {
             </ul>
         </div>
         <div class="title_text" >
-       <img src="../../../images/frontpage-intro.png">
+            <img src="../../../images/frontpage-intro.png">
         </div>
     </div>
 
@@ -89,9 +89,10 @@ if (Yii::app()->user->isGuest) {
 
             <input id="search_key" class="search_input" placeholder="All region in New Zealand" name="search_key" type="text"  />
             <input id="search_business" class="search_business" placeholder="Search by Business and keyword" type="text" />
-            <a class="search_button" href="#"><i class="icon-book" ></i></a>
-            <a class="view_control_list" href='#'><i class="icon-eye-open" ></i></a>
+            <a class="view_book" href="#"><i class="icon-book" ></i></a>
+            <a class="view_control_list" href='#'><i class="icon-picture" ></i></a>
             <a class="view_control_gal"  href='#")'><i class="icon-film" ></i></a>
+            <a class="search_button" href="#"><i class="icon-search" ></i></a>
             <a  class="cancleIcon"  href="#" ><i class="icon-remove-sign" ></i></a>
 
         </div>
@@ -315,7 +316,9 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
 
                     }
                     $('#new_slide .slider_photo').bxSlider({
-                        slideWidth: 95,
+                        slideWidth: 105,
+                        slideHeight: 75,
+                        adaptiveHeight: 75,
                         minSlides: 1,
                         maxSlides: 4,
                         slideMargin: 10,
@@ -369,43 +372,65 @@ $user_info = UserProfile::model()->findByAttributes(array('USER_REC_ID' => 84));
             <div id="container" class="variable-sizes clearfix isotope">
                 <div id="question_modal" class=" question_modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
-                    <div class="modal-body">
-
-
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <p>This is the area to raise your question!!!!!!!!</p>
-
-
-                        <textarea rows="4" placeholder="Pros are encouraged but not obligated to answer qusetions. Polite questions are more likely to receive responses."></textarea>
-                        <button class="btn btn-small" type="button">Submit</button>
+                    <div class="modal-body" style="padding: 0;">
+                        <div>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="font-size: 17px;margin-right: 5px;">×</button>
+                        </div>
+                        <div style="background-color: rgb(242,240,240); padding:25px;">                  
+                            <p style="font-size: 16px;"><b>Ask a question about this photo.</b></p>
+                            <p style="font-size: 13px; margin: 0;">The answer you need may already be here:</p>
+                            <ul style="list-style-type:disc; font-size: 13px; text-decoration: underline;">
+                                <li><a href="#">where is the headboard from?? (3 replies)</a></li>
+                                <li><a href="#">Love the color of the room - does anyone know what it is? (1 reply)</a></li>    
+                            </ul>
+                        </div>
+                        <div class="panelcircle" style="position: absolute; right: 45%; top: 150px;"><b>OR</b></div>
+                        <div style="padding:25px; margin-bottom: 3px ;">
+                            <p style="font-size: 13px;">Write your question here:</p>
+                            <textarea rows="4" style="min-width: 370px;" placeholder="Pros are encouraged but not obligated to answer qusetions. Polite questions are more likely to receive responses."></textarea>
+                            <button class="btn btn-small" type="button">Submit</button>
+                        </div>
                     </div>
 
                 </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
                 <!-- Modal -->
-                <div id="item_detail" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="left:35%;top:40%;">
+                <div id="item_detail" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="left:35%;top:41.5%; width: 1000px;">
 
                     <div id="item_detail_modal"  class="modal-body" style="padding-left: 0px;padding-top: 0px;padding-bottom: 0px;">
                         <div id="img_slide" style="float:left;">
 
-
-                            <!--                            <div id="myCarousel" class="carousel slide" style="width:450px">
+                            <!--
+                                                                                    <div id="myCarousel" class="carousel slide" style="width:450px">
+                                                        
+                                                                                         Carousel items 
+                                                                                        <div id="modal_insert" class="carousel-inner" style="top:0px;">
+                                                        
+                                                        
+                                                                                        </div>
+                                                                                         Carousel nav 
+                                                                                        <a id='slider-control' class="icon-angle-left" href="#myCarousel" data-slide="prev"></a>
+                                                                                        <a id='slider-control' class="icon-angle-right" href="#myCarousel" data-slide="next"></a>
+                                                                                    </div>
                             
-                                                             Carousel items 
-                                                            <div id="modal_insert" class="carousel-inner" style="top:0px;">
                             
                             
-                                                            </div>
-                                                             Carousel nav 
-                                                            <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-                                                            <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
-                                                        </div>-->
-
-
-
-
-                            <!--       <div style="position:absolute;bottom:0px;left:0px;height: 50px ;background-color: rgba(255, 255, 255, 0.8);">
-                                   </div>
+                            
+                                                               <div style="position:absolute;bottom:0px;left:0px;height: 50px ;background-color: rgba(255, 255, 255, 0.8);">
+                                                               </div>
                             -->
 
                         </div>
@@ -420,97 +445,106 @@ $user_info = UserProfile::model()->findByAttributes(array('USER_REC_ID' => 84));
                             <p class="total_img"  style="margin: -20px 0px 0px 88%; font-size: 25px;"></p>
                         </div>
                         <div class="question_bar">
-                            <a href="#question_modal" role="button" class="btn" data-toggle="modal" style="margin:10px;float:left;"><i class="icon-question-sign"></i> Ask a Question</a>
-                            <div style="margin-left: 80%; margin-top: 3%;">
+                            <a href="#question_modal" role="button" class="btn" data-toggle="modal" style="margin:10px;float:left;left: 15px;position: relative;"><i style="color: #333333; padding-right: 5px;" class="icon-question-sign" ></i> Ask a Question</a>
+                            <div style="margin-left: 60%; margin-top: 3%;">
                                 <a href="#"> <i class="icon-rss icon-large"></i></a>
                                 <a href="#"><i class="icon-print icon-large"></i></a>
                                 <a href="#"><i class="icon-facebook icon-large"></i></a>
-                                <a href="#"><i class="icon-icon-print icon-large"></i></a>
+                                <a href="#"><i class="icon-twitter icon-large"></i></a>
                                 <a href="#"><i class="icon-google-plus icon-large"></i></a>
                             </div>
                         </div>
 
-                        <div  style="float:left ;position:relative;">
-                            <a class="close"  data-dismiss="modal" x>x</a>
 
-                            <div style="width:440px;overflow-y:scroll;margin-top:20px ;">
+                        <div style="background-color: rgb(242,240,240); width: 450px; height: 21px; position: absolute; right: 0; ">
+                            <a class="close"  style="font-size: 15px; margin-right: 5px;"data-dismiss="modal" x>x</a>
+                        </div>
 
-                                <div style=" text-align: center;background-color: #cbdccc;margin-top:-20px;padding-top:20px;padding-bottom:10px;">
-                                    <h3>Want a Great Bedroom Design? Start With a Stunning Headboard!</h3>
-                                    <p>A beautiful slab of wood becomes a unique headboard,
-                                        setting the stage for a naturally elegant and simple bedroom design.</p>
+
+                        <div  style="float:left ;position: absolute;width: 450px;overflow-y:scroll; margin-top:20px;height: 580px;background-color: rgb(242,240,240);right: 0px; padding:10px 20px;">
+
+                            <!--                            <div style="width:450px;overflow-y:scroll; margin-top:20px ;">-->
+
+                            <div style=" text-align: center;background-color: rgb(242,240,240); padding: 0px 20px 20px 20px; border-bottom: 1px solid #ccc;">
+                                <p style='font-size:20px; font-weight: bold; margin-bottom: 15px;'>Want a Great Bedroom Design? Start With a Stunning Headboard!</p>
+                                <p style="font-size: 14px;">A beautiful slab of wood becomes a unique headboard,
+                                    setting the stage for a naturally elegant and simple bedroom design.</p>
+                            </div>
+                            <div  class='ligthbox_contact'   style=" text-align: center; padding: 20px; border-top: 1px solid #fff; border-bottom: 1px solid #ccc;">
+
+                                <div style=" margin: 0 0 15px 0;">
+                                    <a href="#"><img style="width:50px; height: 50px;" src="<?PHP echo $user_info->PHOTO_URL ?>"/></a>
                                 </div>
-                                <div  style=" text-align: center; margin-top: 20px;">
+                                <a href="#" style='margin-top:25%;font-weight: bold;font-size: 17px;'><?PHP echo $user_info->FIRST_NAME . " " . $user_info->LAST_NAME ?></a>
+                                <p style="font-size: 14px;"><?PHP echo $user_info->DESCRIPTION ?></p>
+                                <button class="btn btn-large" style='padding-left:75px; padding-right: 75px;'  >Contact me</button>
+                            </div>  
 
-                                    <div >
-                                        <a href="#"><img src="<?PHP echo $user_info->PHOTO_URL ?>"/></a>
-                                    </div>
-                                    <a href="#" style='margin-top:25%;'><?PHP echo $user_info->FIRST_NAME . " " . $user_info->LAST_NAME ?></a>
-                                    <p><?PHP echo $user_info->DESCRIPTION ?></p>
+                            <div id="slide_img" style="  background-color: rgb(242,240,240); border-top: 1px solid #fff; padding: 20px 0 20px 0;">
+                                <p style="margin-left:30px;padding-top: 8px;font-weight: bold;font-size: 14px;">Other Photos in <a href='#'>Bedroom</a> (547 photos):</p>
+                                <div id="new_slide" style="margin-left:7px;">
+
+
+
+
+                                    <!--                                      <div class="slider_photo" >
+                                                                            <div class="slide"><img onclick="" src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_a.jpg"></div>
+                                                                             <div class="slide"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_b.jpg"></div>-->
+                                 <!--                                            <div class="slide"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_c.jpg"></div>
+                                                                             <div class="slide"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_d.jpg"></div>
+                                                                             <div class="slide"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_e.jpg"></div>
+                                                                             <div class="slide"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_f.jpg"></div>
+                                                                             <div class="slide"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_g.jpg"></div>
+                                                                             <div class="slide"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_h.jpg"></div>
+                                                                             <div class="slide"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_i.jpg"></div>
+                                                                             <div class="slide"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_j.jpg"></div>
+                                                                         </div>-->
                                 </div>
-                                <div>
-                                    <button class="btn btn-large" style='margin-left:23%; padding-left:75px; padding-right: 75px;'  >Contact me</button>
-                                </div>  
+                            </div>
+                            <script>
+                                function generate_slide_img(id) {
 
-                                <div id="slide_img" style=" background-color: #cbdccc; margin-top: 20px;height:120px">
-                                    <p style="margin-left:30px;padding-top: 8px;">Other Photos in <a href='#'>Bedroom</a> (547 photos):</p>
-                                    <div id="new_slide" style="margin-left:7px;">
+                                    if ($('div').hasClass('bx-wrapper')) {
 
+                                    } else {
 
+                                        grab_slide_img();
 
-
-                                        <!--                                      <div class="slider_photo" >
-                                                                                <div class="slide"><img onclick="" src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_a.jpg"></div>
-                                                                                 <div class="slide"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_b.jpg"></div>-->
-                                     <!--                                            <div class="slide"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_c.jpg"></div>
-                                                                                 <div class="slide"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_d.jpg"></div>
-                                                                                 <div class="slide"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_e.jpg"></div>
-                                                                                 <div class="slide"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_f.jpg"></div>
-                                                                                 <div class="slide"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_g.jpg"></div>
-                                                                                 <div class="slide"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_h.jpg"></div>
-                                                                                 <div class="slide"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_i.jpg"></div>
-                                                                                 <div class="slide"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_j.jpg"></div>
-                                                                             </div>-->
-                                    </div>
-                                </div>
-                                <script>
-                                    function generate_slide_img(id) {
-
-                                        if ($('div').hasClass('bx-wrapper')) {
-
-                                        } else {
-
-                                            grab_slide_img();
-
-                                        }
                                     }
-                                </script> 
-                                <div>
+                                }
+                            </script> 
+                            <div>
 
-                                    <?php
-                                    $image_example = json_encode(array('questions' => array(
-                                            'question_text' => 'Where is the headboard from?',
-                                            'question_comment_count' => 5,
-                                            'question_likes' => array(
-                                                'user_id' => 1,
-                                                'user_comment' => 'Urban Hardwoods makes headboards like this. Here\'s one that looks very similar to the one above'
-                                            )
-                                    )));
-                                    //                       echo var_dump($image_example, true);
-                                    //                       $decoded = json_decode($image_example);
-                                    //                     echo var_export($decoded);
-                                    //                     print_r  $decoded;
-                                    ?>
-
-                                </div>
-
+                                <?php
+                                $image_example = json_encode(array('questions' => array(
+                                        'question_text' => 'Where is the headboard from?',
+                                        'question_comment_count' => 5,
+                                        'question_likes' => array(
+                                            'user_id' => 1,
+                                            'user_comment' => 'Urban Hardwoods makes headboards like this. Here\'s one that looks very similar to the one above'
+                                        )
+                                )));
+                                //                       echo var_dump($image_example, true);
+                                //                       $decoded = json_decode($image_example);
+                                //                     echo var_export($decoded);
+                                //                     print_r  $decoded;
+                                ?>
 
                             </div>
+
+
+                            <!--                            </div>-->
                         </div>
                     </div>
                 </div>
 
             </div>
+
+
+
+
+
+
 
 
 
@@ -565,7 +599,7 @@ if (Yii::app()->user->isGuest) {
     } else {
         $userProfile = UserProfile::model()->findByAttributes(array('USER_REC_ID' => Yii::app()->user->id));
         ?>
-        <a href="#"><img src="<?PHP echo $userProfile->PHOTO_URL ?>"/></a>
+        <a href="#"><img style="width: 40px; height: 40px; border-radius: 3px; " src="<?PHP echo $userProfile->PHOTO_URL ?>"/></a>
 
         <?php
     }
@@ -650,16 +684,16 @@ if (Yii::app()->user->isGuest) {
 
 
 <script type="text/javascript">
-                                    document.getElementById("loading").className = "loading-visible";
-                                    var hideDiv = function() {
-                                        document.getElementById("loading").className = "loading-invisible";
-                                    };
-                                    var oldLoad = window.onload;
-                                    var newLoad = oldLoad ? function() {
-                                        hideDiv.call(this);
-                                        oldLoad.call(this);
-                                    } : hideDiv;
-                                    window.onload = newLoad;</script>
+                                document.getElementById("loading").className = "loading-visible";
+                                var hideDiv = function() {
+                                    document.getElementById("loading").className = "loading-invisible";
+                                };
+                                var oldLoad = window.onload;
+                                var newLoad = oldLoad ? function() {
+                                    hideDiv.call(this);
+                                    oldLoad.call(this);
+                                } : hideDiv;
+                                window.onload = newLoad;</script>
 
 <script type="text/javascript" language="JavaScript" src="../../../js/search.js"></script>
 <script type="text/javascript">

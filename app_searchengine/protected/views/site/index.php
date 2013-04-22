@@ -59,59 +59,43 @@ if (Yii::app()->user->isGuest) {
         <div class="title_text" >
        <img src="../../../images/frontpage-intro.png">
         </div>
-        <ul class="dropdown" style="width:270px">
-            <li  onclick="Twitter();" ><a style="color:rgb(0,172,237)" href="#"><i class="icon-twitter icon-large"></i>Sign in with Twitter</a></li>
-            <li  onclick="Google();" ><a style="color:rgb(211,72,54)" href="#"><i class="icon-google-plus icon-large"></i>Sign in with Google+</a></li>
-            <li  onclick="Yahoo();" ><a style="color:rgb(123,0,153)" href="#"><img src='../../../images/yahoo.png' style='width: auto; height: 35px; float:left;margin: -3% -5% 0 6%;'>Sign in with Yahoo</a></li>
-            <li  onclick="Sina();" ><a style="color:rgb(245,213,0)" href="#"><img src='../../../images/sina.png' style='width: auto; height: 35px; float:left;margin: -3% -3% 0 6%;'>Sign in with Sina</a></li>
-            <li  onclick="QQ();" ><a style="color:rgb(62,59,62)" href="#"><img src='../../../images/qq.png' style='width: auto; height: 35px; float:left;margin: -3% -2% 0 7%;'>Sign in with QQ</a></li>
-            <li  onclick="dismiss_modal_test();" ><a style="color:rgb(0,153,68)" href="#myModal"><i class="icon-envelope-alt icon-large"></i>Sign in with Email</a></li>
-        </ul>
     </div>
-    <div class="title_text" >
-        <h1 >COLLECT YOUR ONLINE RESOURCE FOR KITCHENS,</h1>
-        <h1 >PRODUCTS, SERVICES & IDEAS</h1>
-        <p >Hundreds of videos, thousands of articles and tens of thousands of high quality images</p>
-        <p >from around the world showcasing: Architecture, Kitchen Design, Bathroom Design,</p>
-        <p >Interiors, Landscape Design and Commercial Design.</p>
-    </div>
-</div>
 
 
 
-<?php
+    <?php
 } else {
-?>
+    ?>
 
-<div id="discovery_search_bar_wrapper">
-    <div class="select_container_left">
-        <ul class="discovery_select_left">
-            <li>
-                <a href="#" >PRODUCTS</a>
-            </li>
-            <li>
-                <a href="#" >SERVICES</a>
-            </li>
-            <li>
-                <a href="#" >BRANDS</a>
-            </li>
-            <li>
-                <a href="#" >SUPPLIERS</a>
-            </li>
-        </ul>
+    <div id="discovery_search_bar_wrapper">
+        <div class="select_container_left">
+            <ul class="discovery_select_left">
+                <li>
+                    <a href="#" >PRODUCTS</a>
+                </li>
+                <li>
+                    <a href="#" >SERVICES</a>
+                </li>
+                <li>
+                    <a href="#" >BRANDS</a>
+                </li>
+                <li>
+                    <a href="#" >SUPPLIERS</a>
+                </li>
+            </ul>
+        </div>
+
+        <div id="discovery_search_bar">
+
+            <input id="search_key" class="search_input" placeholder="All region in New Zealand" name="search_key" type="text"  />
+            <input id="search_business" class="search_business" placeholder="Search by Business and keyword" type="text" />
+            <a class="search_button" href="#"><i class="icon-book" ></i></a>
+            <a class="view_control_list" href='#'><i class="icon-eye-open" ></i></a>
+            <a class="view_control_gal"  href='#")'><i class="icon-film" ></i></a>
+            <a  class="cancleIcon"  href="#" ><i class="icon-remove-sign" ></i></a>
+
+        </div>
     </div>
-
-    <div id="discovery_search_bar">
-
-        <input id="search_key" class="search_input" placeholder="All region in New Zealand" name="search_key" type="text"  />
-        <input id="search_business" class="search_business" placeholder="Search by Business and keyword" type="text" />
-        <a class="search_button" href="#"><i class="icon-book" ></i></a>
-        <a class="view_control_list" href='#'><i class="icon-eye-open" ></i></a>
-        <a class="view_control_gal"  href='#")'><i class="icon-film" ></i></a>
-        <a  class="cancleIcon"  href="#" ><i class="icon-remove-sign" ></i></a>
-
-    </div>
-</div>
 
 <?PHP } ?>
 
@@ -142,8 +126,8 @@ if (Yii::app()->user->isGuest) {
                     imgWidth = this.width;
                     console.log("this.height : " + this.height + " " + imgHeight + " " + image_src);
 <?PHP
-$dependency = new CDbCacheDependency('SELECT * FROM `user_profile` `t` WHERE `t`.`USER_REC_ID`=93 LIMIT 1');
-$userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(array('USER_REC_ID' => 93));
+//$dependency = new CDbCacheDependency('SELECT * FROM `user_profile` `t` WHERE `t`.`USER_REC_ID`=93 LIMIT 1');
+//$userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(array('USER_REC_ID' => 93));
 ?>
 
 
@@ -163,7 +147,7 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
             <a href="#" ><k class="icon-comment-alt" style="left: 55px; top: -1px;" ></k> <p style="left: 80px; top: -1px; ">6</p></a>\n\
             <a href="#" ><k class="icon-save" style="left: 105px;top: 1px;"></k><p style="left: 130px; top: 0px;">66</p></a>\n\
                </div> <div id="comments" class="comments">\n\
-                    <img style="width: 40px;  margin: 10px;position: relative;" src="<?PHP ($userProfile) ? $userProfile->PHOTO_URL:'No'; ?>" />\n\
+                    <img style="width: 40px;  margin: 10px;position: relative;" src="<?PHP //($userProfile) ? $userProfile->PHOTO_URL: 'No'; ?>" />\n\
                     <p style="position: relative;left: 27%;  bottom: 45px; margin: 5px;">by &nbsp <a href="#" > <b>Trends ideas</b></a></p>\n\
                 </div>\n\
             </div>');
@@ -192,17 +176,17 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                             des_src = data[key]['DESCRIPTION'];
                             client_id = data[key]['CLIENT_REC_ID'];
 
-                        img.src = image_src;
-                        img.description = des_src;
-                        img.user_photo = "";
-                        img.id = client_id;
+                            img.src = image_src;
+                            img.description = des_src;
+                            img.user_photo = "";
+                            img.id = client_id;
 
-                        img.onload = loading;
-                        //            loading();
+                            img.onload = loading;
+                            //            loading();
 
 
-                        console.log("imgHeight : " + imgHeight + " " + "this.height : " + this.height + " " + image_src);
-                    }
+                            console.log("imgHeight : " + imgHeight + " " + "this.height : " + this.height + " " + image_src);
+                        }
 
                     }
                 }
@@ -267,8 +251,6 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                                 url_ary[number] = json_data[ary_key]['IMAGE_URL'];
                                 $("#item_detail_modal").data("url", url_ary[number]);
 
-                            url_ary[number] = data[key]['IMAGE_URL'];
-                            $("#item_detail_modal").data("url", url_ary[number]);
 
                                 img_name_ary[number] = "pic" + number;
                                 var $album_img = $('<div class=" item"><img src="' + $("#item_detail_modal").data("url") + '" id="' + number + '" /></div>');
@@ -282,10 +264,6 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                     document.getElementById("loading").className = "loading-invisible";
                 }
 
-                    }
-                    $("#modal_insert .item:first-child").addClass("active");
-                    document.getElementById("loading").className = "loading-invisible";
-                }
 
                 function grab_slide_img()
                 {
@@ -316,7 +294,7 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
 
                                     if (client_id_ary[i] == json_data[ary_key]['CLIENT_REC_ID']) {
 
-                                if (client_id_ary[i] == data[key]['CLIENT_REC_ID']) {
+                                        client_check = false;
 
                                     }
                                 }
@@ -378,7 +356,7 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
 
 
 <?php
-    $user_info = UserProfile::model()->findByAttributes(array('USER_REC_ID' => 1));
+$user_info = UserProfile::model()->findByAttributes(array('USER_REC_ID' => 84));
 ?>
 
 
@@ -465,10 +443,10 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
                                 <div  style=" text-align: center; margin-top: 20px;">
 
                                     <div >
-                                        <a href="#"><img src="<?PHP echo $user_info->PHOTO_URL; ?>"/></a>
+                                        <a href="#"><img src="<?PHP echo ($user_info) ? $user_info->PHOTO_URL : ''; ?>"/></a>
                                     </div>
-                                    <a href="#" style='margin-top:25%;'><?PHP echo $user_info->FIRST_NAME . " " . $user_info->LAST_NAME ?></a>
-                                    <p><?PHP echo $user_info->DESCRIPTION ?></p>
+                                    <a href="#" style='margin-top:25%;'><?PHP echo ($user_info) ? $user_info->FIRST_NAME . " " . $user_info->LAST_NAME : '';?></a>
+                                    <p><?PHP echo ($user_info) ? $user_info->DESCRIPTION : '';?></p>
                                 </div>
                                 <div>
                                     <button class="btn btn-large" style='margin-left:23%; padding-left:75px; padding-right: 75px;'  >Contact me</button>
@@ -511,12 +489,12 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
 
                                     <?php
                                     $image_example = json_encode(array('questions' => array(
-                                    'question_text' => 'Where is the headboard from?',
-                                    'question_comment_count' => 5,
-                                    'question_likes' => array(
-                                    'user_id' => 1,
-                                    'user_comment' => 'Urban Hardwoods makes headboards like this. Here\'s one that looks very similar to the one above'
-                                    )
+                                            'question_text' => 'Where is the headboard from?',
+                                            'question_comment_count' => 5,
+                                            'question_likes' => array(
+                                                'user_id' => 1,
+                                                'user_comment' => 'Urban Hardwoods makes headboards like this. Here\'s one that looks very similar to the one above'
+                                            )
                                     )));
                                     //                       echo var_dump($image_example, true);
                                     //                       $decoded = json_decode($image_example);
@@ -542,13 +520,13 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
         <div id='display_loading' class='display_btn' style="display: none">
             <?php
             $this->widget('bootstrap.widgets.TbButton', array(
-            'label' => 'DISCOVER MORE',
-            'type' => 'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-            'size' => 'large', // null, 'large', 'small' or 'mini'
-            'htmlOptions' => array(
-            'class' => 'pull-right',
-            'onclick' => "Set(); switch_loading();"
-            ),
+                'label' => 'DISCOVER MORE',
+                'type' => 'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+                'size' => 'large', // null, 'large', 'small' or 'mini'
+                'htmlOptions' => array(
+                    'class' => 'pull-right',
+                    'onclick' => "Set(); switch_loading();"
+                ),
             ));
             ?>
 
@@ -570,26 +548,26 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
 </div>
 <?PHP
 if (Yii::app()->user->isGuest) {
-?>
+    ?>
 
 
 
-<?php
+    <?php
 }
 ?>
 <div class="main-nav" id="main-nav" >
 
     <?php
     if (Yii::app()->user->isGuest) {
-    ?>
-    <a href="#"><i class="icon-user icon-2x"></i></a>
-    <?php
+        ?>
+        <a href="#"><i class="icon-user icon-2x"></i></a>
+        <?php
     } else {
-    $userProfile = UserProfile::model()->findByAttributes(array('USER_REC_ID' => Yii::app()->user->id));
-    ?>
-    <a href="#"><img src="<?PHP echo $userProfile->PHOTO_URL ?>"/></a>
+        $userProfile = UserProfile::model()->findByAttributes(array('USER_REC_ID' => Yii::app()->user->id));
+        ?>
+        <a href="#"><img src="<?PHP echo $userProfile->PHOTO_URL ?>"/></a>
 
-    <?php
+        <?php
     }
     ?>
     <?php
@@ -681,8 +659,7 @@ if (Yii::app()->user->isGuest) {
                                         hideDiv.call(this);
                                         oldLoad.call(this);
                                     } : hideDiv;
-                                    window.onload = newLoad;
-</script>
+                                    window.onload = newLoad;</script>
 
 <script type="text/javascript" language="JavaScript" src="../../../js/search.js"></script>
 <script type="text/javascript">
@@ -691,6 +668,11 @@ if (Yii::app()->user->isGuest) {
 
         $('.dropdown_left >li:first-child>ul ').attr("style", "margin:-140px 0px 0px 70px");
     }
+
+
+
+
+
     //  hover testing
     $(".main-nav").mouseover(function() {
         $(".main-nav").attr("style", "opacity:0.9;width: 70px");
@@ -711,4 +693,6 @@ if (Yii::app()->user->isGuest) {
         }
         //  hasBeenClicked = false;
     });
+
+
 </script>

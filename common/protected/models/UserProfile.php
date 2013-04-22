@@ -3,7 +3,7 @@
 /**
  * This is the model class for table "tpl_user_profile".
  *
- * The followings are the available columns in table 'tpl_user_profile':
+ * The followings are the available columns in table 'user_profile':
  * @property integer $REC_ID
  * @property string $REC_DATETIME
  * @property string $REC_TIMESTAMP
@@ -44,12 +44,19 @@ class UserProfile extends CActiveRecord {
     public static function model($className = __CLASS__) {
         return parent::model($className);
     }
+    
+        /**
+     * @return CDbConnection database connection
+     */
+    public function getDbConnection() {
+        return Yii::app()->db;
+    }
 
     /**
      * @return string the associated database table name
      */
     public function tableName() {
-        return 'user_profile';
+        return 'userprofile';
     }
 
     /**

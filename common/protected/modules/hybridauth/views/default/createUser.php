@@ -13,8 +13,7 @@
 
   $config = Yii::app()->getBasePath().'/config/provider_config.php';
 
-   require_once(  Yii::app()->getBasePath().'/modules/hybridauth/Hybrid/Auth.php');
-//    require_once( '/home/devbox/NetBeansProjects/bds-v3.1/app_useraccount/protected/modules/hybridauth/Hybrid/Auth.php' );
+  require_once(  Yii::app()->getBasePath().'/../../common/protected/modules/hybridauth/Hybrid/Auth.php');
 
     try {
 

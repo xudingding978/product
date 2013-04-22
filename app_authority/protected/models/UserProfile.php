@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "tpl_user_profile".
+ * This is the model class for table "userprofile".
  *
- * The followings are the available columns in table 'tpl_user_profile':
+ * The followings are the available columns in table 'userprofile':
  * @property integer $REC_ID
  * @property string $REC_DATETIME
  * @property string $REC_TIMESTAMP
@@ -49,7 +49,7 @@ class UserProfile extends CActiveRecord {
      * @return string the associated database table name
      */
     public function tableName() {
-        return 'tpl_user_profile';
+        return 'userprofile';
     }
 
     /**

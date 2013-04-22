@@ -15,8 +15,6 @@
 
             <link media="screen, projection" rel="stylesheet" href="../../../css/reset-new.css"/>
 
-
-
             <link rel="stylesheet" type="text/css" href="../../../css/main.css" />    
 
 

@@ -36,15 +36,25 @@ $result_arr = CJSON::decode($result_json);
 
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id' => 'verticalForm',
-    'htmlOptions' => array('class' => 'well', ),
+    'htmlOptions' => array('class' => 'well',),
         ));
 
 //echo $form->textFieldRow($result_arr, 'textField', array('class'=>'span3'));
 //echo $form->passwordFieldRow($result_arr, 'password', array('class'=>'span3'));
 //echo $form->checkboxRow($result_arr, 'checkbox');
-$this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Login'));
+$this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'submit', 'label' => 'Login'));
 
-$this->endWidget()
+$this->endWidget();
+
+$this->widget('zii.widgets.jui.CJuiButton', array(
+    'id' => 'myCustomID',
+    'name' => 'submit',
+    'caption' => 'Save',
+    // you can easily change the look of the button by providing the correct class
+    // ui-button-error, ui-button-primary, ui-button-success
+    'htmlOptions' => array('class' => 'ui-button-error'),
+    'onclick' => new CJavaScriptExpression('function(){alert("Yes");}'),
+));
 
 //foreach($result_arr as $key => $value){
 //     echo '<br/> Label:  '.$key. 'value:'.$value;  

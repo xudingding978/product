@@ -58,12 +58,16 @@ return CMap::mergeArray(
                 'common.components.*',
                 'common.extensions.*',
                 'common.components.auth.*',
+               // 'common.modules.*',
                 'common.models.*',
                 'common.tests.*',
                 'application.models.*',
                 'application.components.*',
             ),
             'modules' => array(
+                'api' => array(
+                    'class' => 'common.modules.api.ApiModule'
+                ),
             ),
             // application components
             'components' => array(

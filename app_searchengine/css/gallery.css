@@ -1879,7 +1879,8 @@ div.right_panel img {
     width: 1000px;
     margin: auto;
     height: 220px;
-
+    position: relative;
+    top: 15px;
 }
 
 .footer-text-left {
@@ -1905,3 +1906,8 @@ div.right_panel img {
     width: 150px;
 }
 
+.follow a  img {
+    width: 50px;
+    height: 50px;
+    padding: 5px;
+}

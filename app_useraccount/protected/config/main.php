@@ -82,6 +82,7 @@ return CMap::mergeArray(
                     'class' => 'common.modules.hybridauth.HybridauthModule',
                     'baseUrl' => 'http://' . $_SERVER['HTTP_HOST'] . '/hybridauth',
                     'withYiiUser' => false, // Set to true if using yii-user
+                    'debug_mode' => true,
                     "providers" => array(
                         "OpenID" => array(
                             "enabled" => true
@@ -146,7 +147,7 @@ return CMap::mergeArray(
                     'class' => 'CDbHttpSession',
                     //  'autoCreateSessionTable' => true,
                     'connectionID' => 'db',
-                    'sessionTableName' => 'tpl_user_session',
+                    'sessionTableName' => 'usersession',
                     //    'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
                     'useTransparentSessionID' => true,
                     'autoStart' => 'true',

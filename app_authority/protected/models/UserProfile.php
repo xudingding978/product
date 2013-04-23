@@ -59,7 +59,7 @@ class UserProfile extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('TENANT_REC_ID, USER_REC_ID, AGE, BIRTH_DAY, BIRTH_MONTH, BIRTH_YEAR, ZIP', 'numerical', 'integerOnly' => true),
+            array('USER_REC_ID, AGE, BIRTH_DAY, BIRTH_MONTH, BIRTH_YEAR, ZIP', 'numerical', 'integerOnly' => true),
             array('LOGIN_PROVIDER', 'length', 'max' => 80),
             array('LOGIN_PROVIDER_IDENTIFIER', 'length', 'max' => 100),
             array('IDENTIFIER, DISPLAY_NAME, EMAIL, EMAIL_VERIFIED, COUNTRY, REGION, CITY', 'length', 'max' => 255),

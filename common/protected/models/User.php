@@ -73,7 +73,7 @@ class User extends CActiveRecord {
             'TENANT_REC_ID' => 'Tenant Rec',
             'REC_DATETIME' => 'Rec Datetime',
             'REC_TIMESTAMP' => 'Rec Timestamp',
-            'USER_NAME' => 'User Name',
+            'USER_NAME' => 'User Name from User Model',
             'PWD_HASH' => 'Pwd Hash',
             'EMAIL_ADDRESS' => 'Email Address',
         );

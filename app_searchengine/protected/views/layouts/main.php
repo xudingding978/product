@@ -800,6 +800,7 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 
 
                     <div id="footer">
+                                <div style="background: url('../../../images/footershadow.png') repeat-x;position: absolute;bottom: 0px; width: 100%;height: 300px;left: 0px;"></div>
                         <div class="footer_contentbox">
                             <div class="footer-text-left">
                                 <ul>

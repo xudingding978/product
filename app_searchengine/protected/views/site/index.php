@@ -11,7 +11,7 @@ if (Yii::app()->user->isGuest) {
 
 
     <div id="myCarousel" class="carousel slide">
-
+        <div style="background: url('../../../images/shadowontop.png') repeat-x;position: absolute;top: 620px;z-index: 1000;width: 100%;height: 30px;"></div>
         <!-- Carousel items -->
         <div class="carousel-inner" style="min-width:1280px">
             <div class="active item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_a.jpg"></div>

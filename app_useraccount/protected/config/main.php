@@ -9,6 +9,12 @@
  *
  * This file holds the configuration settings of the User Account application.
  * */
+
+$cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
+$result = $cb->get($_SERVER['HTTP_HOST']);
+$result_arr = CJSON::decode($result, true);
+
+
 $app_useraccountConfigDir = dirname(__FILE__);
 //
 $root = $app_useraccountConfigDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..';
@@ -40,10 +46,9 @@ $dot_positon = strpos($_SERVER['HTTP_HOST'], ".");
 
 $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 
-$cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
-$result = $cb->get($_SERVER['HTTP_HOST']);
 
-$result_arr = CJSON::decode($result, true);
+
+
 
 echo '<div style=height:100px;></div>';
 
@@ -82,7 +87,6 @@ return CMap::mergeArray(
                     'class' => 'common.modules.hybridauth.HybridauthModule',
                     'baseUrl' => 'http://' . $_SERVER['HTTP_HOST'] . '/hybridauth',
                     'withYiiUser' => false, // Set to true if using yii-user
-                    'debug_mode' => true,
                     "providers" => array(
                         "OpenID" => array(
                             "enabled" => true

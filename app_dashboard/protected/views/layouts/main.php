@@ -63,6 +63,11 @@
                 ));
                 ?><!-- breadcrumbs -->
             <?php endif ?>
+            <?php
+            $q = CHttpRequest::getUrl('http://es1.hubsrv.com/test/_search/q?=a*');
+
+            echo var_dump($q);
+            ?>
 
             <?php echo $content; ?>
 

@@ -111,9 +111,9 @@ return CMap::mergeArray(
                 'authManager' => array(
                     'class' => 'CDbAuthManager',
                     'connectionID' => 'db',
-                    'itemTable' => 'auth_item',
-                    'itemChildTable' => 'auth_item_child',
-                    'assignmentTable' => 'auth_assignment',
+                    'itemTable' => 'tpl_auth_item',
+                    'itemChildTable' => 'tpl_auth_item_child',
+                    'assignmentTable' => 'tpl_auth_assignment',
                     'behaviors' => array(
                         'auth' => array(
                             'class' => 'AuthBehavior',
@@ -142,7 +142,6 @@ return CMap::mergeArray(
                     'enableParamLogging' => YII_DEBUG,
                     'charset' => 'utf8',
                     'tablePrefix' => $params['tablePrefix']
-                    
                 ),
                 'db_live' => array(
                     'class' => 'CDbConnection',
@@ -156,20 +155,19 @@ return CMap::mergeArray(
                 ),
                 'errorHandler' => array(
                     // use 'site/error' action to display errors
-                    'errorAction' => 'site/error',
+                'errorAction' => 'site/error',
                 ),
                 'log' => array(
                     'class' => 'CLogRouter',
                     'routes' => array(
-                        array(
-                            'class' => 'CFileLogRoute',
-                            'levels' => 'error, warning',
+                    array(
+                    'class' => 'CFileLogRoute',
+                        'levels' => 'error, warning',
                         ),
                         array(
-                            'class' => 'CWebLogRoute',
-                        ),
-                    ),
+                        'class' => 'CWebLogRoute',
                 ),
             ),
-                ), CMap::mergeArray($mainEnvConfiguration, $mainLocalConfiguration)
+                ), ),
+                        ), CMap ::mergeArray($mainEnvConfiguration, $mainLocalConfiguration)
 );

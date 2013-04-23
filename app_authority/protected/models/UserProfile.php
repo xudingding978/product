@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "tpl_user_profile".
+ * This is the model class for table "userprofile".
  *
- * The followings are the available columns in table 'tpl_user_profile':
+ * The followings are the available columns in table 'userprofile':
  * @property integer $REC_ID
  * @property string $REC_DATETIME
  * @property string $REC_TIMESTAMP
@@ -49,7 +49,7 @@ class UserProfile extends CActiveRecord {
      * @return string the associated database table name
      */
     public function tableName() {
-        return 'tpl_user_profile';
+        return 'userprofile';
     }
 
     /**
@@ -59,7 +59,7 @@ class UserProfile extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('TENANT_REC_ID, USER_REC_ID, AGE, BIRTH_DAY, BIRTH_MONTH, BIRTH_YEAR, ZIP', 'numerical', 'integerOnly' => true),
+            array('USER_REC_ID, AGE, BIRTH_DAY, BIRTH_MONTH, BIRTH_YEAR, ZIP', 'numerical', 'integerOnly' => true),
             array('LOGIN_PROVIDER', 'length', 'max' => 80),
             array('LOGIN_PROVIDER_IDENTIFIER', 'length', 'max' => 100),
             array('IDENTIFIER, DISPLAY_NAME, EMAIL, EMAIL_VERIFIED, COUNTRY, REGION, CITY', 'length', 'max' => 255),

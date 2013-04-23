@@ -49,7 +49,8 @@ return CMap::mergeArray(
             'name' => 'Trends Search Engine',
             'id' => $domain,
             // preloading 'log' component
-            'preload' => array('log', 'bootstrap'),
+            //'preload' => array('log', 'bootstrap'),
+            'preload' => array('bootstrap'),
             // @see http://www.yiiframework.com/doc/api/1.1/CApplication#language-detail
             'language' => 'en',
             // autoloading model and component classes
@@ -57,12 +58,16 @@ return CMap::mergeArray(
                 'common.components.*',
                 'common.extensions.*',
                 'common.components.auth.*',
+               // 'common.modules.*',
                 'common.models.*',
                 'common.tests.*',
                 'application.models.*',
                 'application.components.*',
             ),
             'modules' => array(
+                'api' => array(
+                    'class' => 'common.modules.api.ApiModule'
+                ),
             ),
             // application components
             'components' => array(

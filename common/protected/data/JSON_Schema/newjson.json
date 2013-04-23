@@ -1,0 +1,76 @@
+
+{
+    "$schema": "http://hubstar.com/test/user",
+    "title": "Platform Users ",
+    "type": "array",
+    "items": {
+        "title": "User",
+        "type": "object",
+        "properties": {
+            "guid": {
+                "description": "The globally unique identifier for a user",
+                "type": "string"
+            },
+            "object_type": {
+                "description": "The description of the type of object",
+                "type": "string"
+            },
+            "platform_metadata": {
+                "type": "object",
+                "properties": {
+                    "domains": {
+                        "description": "The domains this object belongs to",
+                        "type": "string"
+                    },
+                    "tenant_id": {
+                        "description": "The Tenant ID for this object",
+                        "type": "string"
+                    }
+                }
+            },
+            "first name": {
+                "type": "string"
+            },
+            "last name": {
+                "type": "string"
+            },
+            "tags": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                },
+                "minItems": 1,
+                "uniqueItems": true
+            },
+            "images": {
+                "type": "object",
+                "properties": {
+                    "image name": {
+                        "type": "number"
+                    },
+                    "image url": {
+                        "type": "number"
+                    },
+                    "height": {
+                        "type": "number"
+                    },
+                    "width": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "image name",
+                    "image url",
+                    "width",
+                    "height"
+                ]
+            }
+        },
+        "required": [
+            "id",
+            "first name",
+            "last name",
+            "images"
+        ]
+    }
+}

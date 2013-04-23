@@ -9,6 +9,12 @@
  *
  * This file holds the configuration settings of the User Account application.
  * */
+
+$cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
+$result = $cb->get($_SERVER['HTTP_HOST']);
+$result_arr = CJSON::decode($result, true);
+
+
 $app_useraccountConfigDir = dirname(__FILE__);
 //
 $root = $app_useraccountConfigDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..';
@@ -43,6 +49,15 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 
 
 
+
+echo '<div style=height:100px;></div>';
+
+echo $_SERVER['HTTP_HOST'];
+
+//echo 'Face book secert = ' . $result_arr['providers']['Facebook']['keys']['secret'];
+
+//error_log(var_export($tparams,true));
+
 return CMap::mergeArray(
                 array(
             'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
@@ -62,7 +77,7 @@ return CMap::mergeArray(
                 'common.modules.*',
                 'common.modules.hybridauth.*',
                 'common.models.*',
-                'common.redbean.*',
+               // 'common.redbean.*',
                 'application.models.*',
                 'application.components.*',
             ),
@@ -91,7 +106,8 @@ return CMap::mergeArray(
                         ),
                         "Facebook" => array(
                             "enabled" => true,
-                            "keys" => array("id" => "351417541640384", "secret" => "545a09525ae4bd0769174d12f6986f7c"),
+                            //"keys" => array("id" => "351417541640384", "secret" => "545a09525ae4bd0769174d12f6986f7c"),
+                            "keys" => array("id" => ($result_arr) ? $result_arr['providers']['Facebook']['keys']['id']: "", "secret" => $result_arr['providers']['Facebook']['keys']['secret']),
                             "scope" => "publish_stream",
                             "display" => "page"
                         ),
@@ -135,7 +151,7 @@ return CMap::mergeArray(
                     'class' => 'CDbHttpSession',
                     //  'autoCreateSessionTable' => true,
                     'connectionID' => 'db',
-                    'sessionTableName' => 'tpl_user_session',
+                    'sessionTableName' => 'usersession',
                     //    'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
                     'useTransparentSessionID' => true,
                     'autoStart' => 'true',

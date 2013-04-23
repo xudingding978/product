@@ -127,8 +127,8 @@ if (Yii::app()->user->isGuest) {
                     imgWidth = this.width;
                     console.log("this.height : " + this.height + " " + imgHeight + " " + image_src);
 <?PHP
-$dependency = new CDbCacheDependency('SELECT * FROM `tpl_user_profile` `t` WHERE `t`.`USER_REC_ID`=93 LIMIT 1');
-$userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(array('USER_REC_ID' => 93));
+//$dependency = new CDbCacheDependency('SELECT * FROM `user_profile` `t` WHERE `t`.`USER_REC_ID`=93 LIMIT 1');
+//$userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(array('USER_REC_ID' => 93));
 ?>
 
 
@@ -148,7 +148,7 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
             <a href="#" ><k class="icon-comment-alt" style="left: 55px; top: -1px;" ></k> <p style="left: 80px; top: -1px; ">6</p></a>\n\
             <a href="#" ><k class="icon-save" style="left: 105px;top: 1px;"></k><p style="left: 130px; top: 0px;">66</p></a>\n\
                </div> <div id="comments" class="comments">\n\
-                    <img style="width: 40px;  margin: 10px;position: relative;" src="<?PHP echo $userProfile->PHOTO_URL; ?>" />\n\
+                    <img style="width: 40px;  margin: 10px;position: relative;" src="<?PHP //($userProfile) ? $userProfile->PHOTO_URL: 'No';   ?>" />\n\
                     <p style="position: relative;left: 27%;  bottom: 45px; margin: 5px;">by &nbsp <a href="#" > <b>Trends ideas</b></a></p>\n\
                 </div>\n\
             </div>');
@@ -359,7 +359,18 @@ $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(
 
 
 <?php
-$user_info = UserProfile::model()->findByAttributes(array('USER_REC_ID' => 84));
+try {
+    if (!Yii::app()->user->isGuest) {
+        $user_info = UserProfile::model()->findByAttributes(array('USER_REC_ID' => Yii::app()->user->id));
+        if (!$user_info) {
+            throw new Exception("The user profile is undefined.");
+        }
+} else {
+    $user_info = new stdClass();
+}
+} catch (Exception $e) {
+    throw $e->getMessage();
+};
 ?>
 
 
@@ -393,19 +404,6 @@ $user_info = UserProfile::model()->findByAttributes(array('USER_REC_ID' => 84));
                     </div>
 
                 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                 <!-- Modal -->
                 <div id="item_detail" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="left:35%;top:41.5%; width: 1000px;">
@@ -473,10 +471,10 @@ $user_info = UserProfile::model()->findByAttributes(array('USER_REC_ID' => 84));
                             <div  class='ligthbox_contact'   style=" text-align: center; padding: 20px; border-top: 1px solid #fff; border-bottom: 1px solid #ccc;">
 
                                 <div style=" margin: 0 0 15px 0;">
-                                    <a href="#"><img style="width:50px; height: 50px;" src="<?PHP echo $user_info->PHOTO_URL ?>"/></a>
+                                    <a href="#"><img style="width:50px; height: 50px;" src="<?PHP echo (!Yii::app()->user->isGuest && ($user_info)) ? $user_info->PHOTO_URL : "No Photo" ?>"/></a>
                                 </div>
-                                <a href="#" style='margin-top:25%;font-weight: bold;font-size: 17px;'><?PHP echo $user_info->FIRST_NAME . " " . $user_info->LAST_NAME ?></a>
-                                <p style="font-size: 14px;"><?PHP echo $user_info->DESCRIPTION ?></p>
+                                <a href="#" style='margin-top:25%;font-weight: bold;font-size: 17px;'><?PHP echo (!Yii::app()->user->isGuest && ($user_info)) ? $user_info->FIRST_NAME . " " . $user_info->LAST_NAME : "Guest, please login" ?></a>
+                                <p style="font-size: 14px;"><?PHP echo (!Yii::app()->user->isGuest && ($user_info)) ? $user_info->DESCRIPTION : "" ?></p>
                                 <button class="btn btn-large" style='padding-left:75px; padding-right: 75px;'  >Contact me</button>
                             </div>  
 

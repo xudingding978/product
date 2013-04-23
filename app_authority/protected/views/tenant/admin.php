@@ -35,11 +35,11 @@ $('.search-form form').submit(function(){
 
 <?php //echo CHtml::link('Advanced Search', '#', array('class' => 'search-button')); ?>
 <div class="search-form" style="display:none">
-    <?php
-    //$this->renderPartial('_search', array(
-     //   'model' => $model,
-   // ));
-    ?>
+<?php
+//$this->renderPartial('_search', array(
+//   'model' => $model,
+// ));
+?>
 </div>-form -->
 
 <?php
@@ -52,49 +52,32 @@ $this->beginwidget('bootstrap.widgets.TbBox', array(
             'type' => 'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
             'buttons' => array(
                 array('label' => 'Actions', 'items' => array(
-                    array('label' => 'View Tenant', 'url' => array('index')),
+                        array('label' => 'View Tenant', 'url' => array('index')),
                         array('label' => 'Create Tenant', 'url' => array('create')),
                         array('label' => 'Manage Tenant', 'url' => array('admin')),
                     )))
-        ))));
-$this->widget('zii.widgets.grid.CGridView', array(
-    'id' => 'tenant-grid',
-    'dataProvider' => $model->search(),
-    'filter' => $model,
-    'columns' => array(
-        'REC_ID',
-        'REC_DATETIME',
-        'REC_TIMESTAMP',
-        'NAME',
-        'DESCRIPTION',
-        'LAST_INVOICE_ID',
-        'LAST_ORDER_ID',
-        'LAST_TRANSACTION_ID',
-        array(
-            'class' => 'CButtonColumn',
-        ),
-    ),
-));
+))));
 
-    $this->widget('bootstrap.widgets.TbExtendedGridView', array(
-    'filter'=>$model,
+$this->widget('bootstrap.widgets.TbExtendedGridView', array(
+    'filter' => $model,
     'fixedHeader' => true,
-    'headerOffset' => 40, // 40px is the height of the main navigation at bootstrap
-    'type'=>'striped bordered',
+    'headerOffset' => 0, // 40px is the height of the main navigation at bootstrap
+    'type' => 'striped bordered',
+    'responsiveTable' => true,
     'dataProvider' => $model->search(),
     'template' => "{items}",
-    'columns' =>array(
-        'REC_ID',
-        'REC_DATETIME',
-        'REC_TIMESTAMP',
+    'columns' => array(
+        array('name'=>'REC_ID', 'header'=>'ID', 'htmlOptions'=>array('style'=>'width: 50px'),),
         'NAME',
         'DESCRIPTION',
         'LAST_INVOICE_ID',
         'LAST_ORDER_ID',
         'LAST_TRANSACTION_ID',
         array(
-            'class' => 'CButtonColumn',
+            'class'=>'bootstrap.widgets.TbButtonColumn',
+            'htmlOptions'=>array('style'=>'width: 50px'),
         ))
-    ));
+));
+
 $this->endWidget();
 ?>

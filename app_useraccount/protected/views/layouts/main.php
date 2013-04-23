@@ -52,10 +52,11 @@
                 <?php
                 $items = array();
                 if (!Yii::app()->user->isGuest) {
-                    $clients = Client::model()->findAllByAttributes(array('USER_ID' => Yii::app()->user->getID()));
-                    foreach ($clients as $c) {
-                        array_push($items, array('label' => $c->CLIENT_NAME, 'url' => '/client/view/' . $c->REC_ID));
-                    }
+//                    $clients = Client::model()->findAllByAttributes(array('USER_ID' => Yii::app()->user->getID()));
+//                    foreach ($clients as $c) {
+//                        array_push($items, array('label' => $c->CLIENT_NAME, 'url' => '/client/view/' . $c->REC_ID));
+//                    }
+                    
                 }
                 $this->widget('bootstrap.widgets.TbButtonGroup', array(
                     'size' => 'large',

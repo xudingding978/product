@@ -12,6 +12,11 @@
 //	HybridAuth Config file: http://hybridauth.sourceforge.net/userguide/Configuration.html
 // ----------------------------------------------------------------------------------------
 
+$cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
+$result = $cb->get($_SERVER['HTTP_HOST']);
+$result_arr = CJSON::decode($result, true);
+
+
 return
         array(
           "base_url" =>  'http://'.$_SERVER['HTTP_HOST'].'/hybridauth',
@@ -35,7 +40,7 @@ return
                 ),
                 "Facebook" => array(
                     "enabled" => true,
-                    "keys" => array("id" => "351417541640384", "secret" => "545a09525ae4bd0769174d12f6986f7c"),
+                      "keys" => array("id" => ($result_arr) ? $result_arr['providers']['Facebook']['keys']['id']: "", "secret" => $result_arr['providers']['Facebook']['keys']['secret']),
                     "scope" => "publish_stream",
                     "display" => "page"
                 ),

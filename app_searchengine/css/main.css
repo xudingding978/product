@@ -35,7 +35,7 @@ padding-bottom: 50px;
 
 #footer
 {
-    position: relative;
+    position: absolute;
     width: 100%;
     background: #333333 url('../images/footerbg.png') repeat-x;
     color: white;

@@ -111,7 +111,7 @@ class DefaultController extends CController {
     }
 
     private function _linkProvider($identity) {
-        $config = Yii::app()->getBasePath() . '/config/provider_config.php';
+        $config = Yii::app()->getBasePath() . '/../../common/protected/modules/hybridauth/config/provider_config.php';
         require_once( Yii::app()->getBasePath() . '/../../common/protected/modules/hybridauth/Hybrid/Auth.php');
        
         $hybridauth = new Hybrid_Auth($config);
@@ -126,6 +126,7 @@ class DefaultController extends CController {
         $userProfile->PROFILE_URL = $user_profile->profileURL;
         $userProfile->WEBSITE_URL = $user_profile->webSiteURL;
         $userProfile->PHOTO_URL = $user_profile->photoURL;
+        $userProfile->PHOTO_URL_LARGE = $user_profile->photoURL_large;
         $userProfile->DISPLAY_NAME = $user_profile->displayName;
         $userProfile->DESCRIPTION = $user_profile->description;
         $userProfile->FIRST_NAME = $user_profile->firstName;

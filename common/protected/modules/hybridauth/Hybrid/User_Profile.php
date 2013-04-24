@@ -1,9 +1,10 @@
 <?php
-/*!
-* HybridAuth
-* http://hybridauth.sourceforge.net | https://github.com/hybridauth/hybridauth
-*  (c) 2009-2011 HybridAuth authors | hybridauth.sourceforge.net/licenses.html
-*/
+
+/* !
+ * HybridAuth
+ * http://hybridauth.sourceforge.net | https://github.com/hybridauth/hybridauth
+ *  (c) 2009-2011 HybridAuth authors | hybridauth.sourceforge.net/licenses.html
+ */
 
 /**
  * Hybrid_User_Profile object represents the current logged in user profile. 
@@ -14,71 +15,75 @@
  * 
  * http://hybridauth.sourceforge.net/userguide/Profile_Data_User_Profile.html
  */
-class Hybrid_User_Profile
-{
-	/* The Unique user's ID on the connected provider */
-	public $identifier = NULL;
+class Hybrid_User_Profile {
+    /* The Unique user's ID on the connected provider */
 
-	/* User website, blog, web page */
-	public $webSiteURL = NULL;
+    public $identifier = NULL;
 
-	/* URL link to profile page on the IDp web site */
-	public $profileURL = NULL;
+    /* User website, blog, web page */
+    public $webSiteURL = NULL;
 
-	/* URL link to user photo or avatar */
-	public $photoURL = NULL;
+    /* URL link to profile page on the IDp web site */
+    public $profileURL = NULL;
 
-	/* User dispalyName provided by the IDp or a concatenation of first and last name. */
-	public $displayName = NULL;
+    /* URL link to user photo or avatar */
+    public $photoURL = NULL;
 
-	/* A short about_me */
-	public $description = NULL;
+    /* URL link to user photo or avatar */
+    public $photoURL_large = NULL;
 
-	/* User's first name */
-	public $firstName = NULL;
+    /* User dispalyName provided by the IDp or a concatenation of first and last name. */
+    public $displayName = NULL;
 
-	/* User's last name */
-	public $lastName = NULL;
+    /* A short about_me */
+    public $description = NULL;
 
-	/* male or female */
-	public $gender = NULL;
+    /* User's first name */
+    public $firstName = NULL;
 
-	/* language */
-	public $language = NULL;
+    /* User's last name */
+    public $lastName = NULL;
 
-	/* User age, we dont calculate it. we return it as is if the IDp provide it. */
-	public $age = NULL;
+    /* male or female */
+    public $gender = NULL;
 
-	/* User birth Day */
-	public $birthDay = NULL;
+    /* language */
+    public $language = NULL;
 
-	/* User birth Month */
-	public $birthMonth = NULL;
+    /* User age, we dont calculate it. we return it as is if the IDp provide it. */
+    public $age = NULL;
 
-	/* User birth Year */
-	public $birthYear = NULL;
+    /* User birth Day */
+    public $birthDay = NULL;
 
-	/* User email. Note: not all of IDp garant access to the user email */
-	public $email = NULL;
-	
-	/* Verified user email. Note: not all of IDp garant access to verified user email */
-	public $emailVerified = NULL;
+    /* User birth Month */
+    public $birthMonth = NULL;
 
-	/* phone number */
-	public $phone = NULL;
+    /* User birth Year */
+    public $birthYear = NULL;
 
-	/* complete user address */
-	public $address = NULL;
+    /* User email. Note: not all of IDp garant access to the user email */
+    public $email = NULL;
 
-	/* user country */
-	public $country = NULL;
+    /* Verified user email. Note: not all of IDp garant access to verified user email */
+    public $emailVerified = NULL;
 
-	/* region */
-	public $region = NULL;
+    /* phone number */
+    public $phone = NULL;
 
-	/** city */
-	public $city = NULL;
+    /* complete user address */
+    public $address = NULL;
 
-	/* Postal code  */
-	public $zip = NULL;
+    /* user country */
+    public $country = NULL;
+
+    /* region */
+    public $region = NULL;
+
+    /** city */
+    public $city = NULL;
+
+    /* Postal code  */
+    public $zip = NULL;
+
 }

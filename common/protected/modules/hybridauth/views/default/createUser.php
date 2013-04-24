@@ -6,8 +6,6 @@
         'id' => 'create-user-form',
         'enableAjaxValidation' => false,
     ));
-    echo Yii::app()->getBaseUrl() . 'aaaaaaaaaa.</br>';
-    echo Yii::app()->getBasePath() . 'bbbbbbbbbbbbbbbbbb</br>';
 
 //   $config = '/home/devbox/NetBeansProjects/bds-v3.1/app_useraccount/protected/config/provider_config.php';
 

@@ -120,7 +120,7 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
         $this->user->profile->displayName = (array_key_exists('name', $data)) ? $data['name'] : "";
         $this->user->profile->firstName = (array_key_exists('first_name', $data)) ? $data['first_name'] : "";
         $this->user->profile->lastName = (array_key_exists('last_name', $data)) ? $data['last_name'] : "";
-        $this->user->profile->photoURL = "https://graph.facebook.com/" . $this->user->profile->identifier . "/picture?type=square";
+        $this->user->profile->photoURL = "https://graph.facebook.com/" . $this->user->profile->identifier . "/picture?width=400&height=400";
         $this->user->profile->profileURL = (array_key_exists('link', $data)) ? $data['link'] : "";
         $this->user->profile->webSiteURL = (array_key_exists('website', $data)) ? $data['website'] : "";
         $this->user->profile->gender = (array_key_exists('gender', $data)) ? $data['gender'] : "";
@@ -241,7 +241,7 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
                 $ua->user->identifier = (array_key_exists("id", $item["from"])) ? $item["from"]["id"] : "";
                 $ua->user->displayName = (array_key_exists("name", $item["from"])) ? $item["from"]["name"] : "";
                 $ua->user->profileURL = "https://www.facebook.com/profile.php?id=" . $ua->user->identifier;
-                $ua->user->photoURL = "https://graph.facebook.com/" . $ua->user->identifier . "/picture?type=square";
+                $ua->user->photoURL = "https://graph.facebook.com/" . $ua->user->identifier . "/picture?width=400&height=400";
 
                 $activities[] = $ua;
             }

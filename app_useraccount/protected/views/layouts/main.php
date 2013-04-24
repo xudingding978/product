@@ -17,7 +17,7 @@
             <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
 
 
-            <title><?php echo CHtml::encode($this->pageTitle); ?></title>
+            <title><?php echo CHtml::encode($this->pageTitle . ' sess '. Yii::app()->session->getSessionID()); ?></title>
 
 
     </head>
@@ -25,7 +25,10 @@
     <body>
 
         <div class="container" id="page">
-
+            <?php if (!Yii::app()->user->isGuest) {
+                
+            };
+            ?>
             <div id="header">
                 <div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
             </div><!-- header -->
@@ -52,10 +55,10 @@
                 <?php
                 $items = array();
                 if (!Yii::app()->user->isGuest) {
-                    $clients = Client::model()->findAllByAttributes(array('USER_ID' => Yii::app()->user->getID()));
-                    foreach ($clients as $c) {
-                        array_push($items, array('label' => $c->CLIENT_NAME, 'url' => '/client/view/' . $c->REC_ID));
-                    }
+//                    $clients = Client::model()->findAllByAttributes(array('USER_ID' => Yii::app()->user->getID()));
+//                    foreach ($clients as $c) {
+//                        array_push($items, array('label' => $c->CLIENT_NAME, 'url' => '/client/view/' . $c->REC_ID));
+//                    }
                 }
                 $this->widget('bootstrap.widgets.TbButtonGroup', array(
                     'size' => 'large',
@@ -102,7 +105,7 @@
                 Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
                 All Rights Reserved.<br/>
                 <?php echo Yii::powered(); ?>
-                
+
 
 
             </div><!-- footer -->

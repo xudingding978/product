@@ -1,28 +1,27 @@
 <?php
 
 /**
- * This is the model class for table "user".
+ * This is the model class for table "tenant".
  *
- * The followings are the available columns in table 'user':
- * @property string $REC_ID
- * @property integer $TENANT_REC_ID
+ * The followings are the available columns in table 'tenant':
+ * @property integer $REC_ID
  * @property string $REC_DATETIME
  * @property string $REC_TIMESTAMP
- * @property string $USER_NAME
- * @property string $PWD_HASH
- * @property string $EMAIL_ADDRESS
+ * @property string $NAME
+ * @property string $DESCRIPTION
+ * @property integer $LAST_INVOICE_ID
+ * @property integer $LAST_ORDER_ID
+ * @property integer $LAST_TRANSACTION_ID
  *
  * The followings are the available model relations:
- * @property DbV3.2Admin.tenant $tENANTREC
+ * @property User[] $Users
  */
-class User extends CActiveRecord {
-
-    public $repeatPassword;
+class Tenant extends CActiveRecord {
 
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
-     * @return User the static model class
+     * @return Tenant the static model class
      */
     public static function model($className = __CLASS__) {
         return parent::model($className);
@@ -32,7 +31,7 @@ class User extends CActiveRecord {
      * @return string the associated database table name
      */
     public function tableName() {
-        return 'user';
+        return 'tenant';
     }
 
     /**
@@ -42,14 +41,13 @@ class User extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('TENANT_REC_ID', 'required'),
-            array('TENANT_REC_ID', 'numerical', 'integerOnly' => true),
-            array('USER_NAME, EMAIL_ADDRESS', 'length', 'max' => 255),
-            array('PWD_HASH', 'length', 'max' => 512),
+            array('LAST_INVOICE_ID, LAST_ORDER_ID, LAST_TRANSACTION_ID', 'numerical', 'integerOnly' => true),
+            array('NAME', 'length', 'max' => 45),
+            array('DESCRIPTION', 'length', 'max' => 200),
             array('REC_DATETIME, REC_TIMESTAMP', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('REC_ID, TENANT_REC_ID, REC_DATETIME, REC_TIMESTAMP, USER_NAME, PWD_HASH, EMAIL_ADDRESS', 'safe', 'on' => 'search'),
+            array('REC_ID, REC_DATETIME, REC_TIMESTAMP, NAME, DESCRIPTION, LAST_INVOICE_ID, LAST_ORDER_ID, LAST_TRANSACTION_ID', 'safe', 'on' => 'search'),
         );
     }
 
@@ -60,8 +58,7 @@ class User extends CActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'Tenant' => array(self::BELONGS_TO, 'Tenant', 'TENANT_REC_ID'),
-            'UserProfile' => array(self::HAS_ONE, 'UserProfile', 'USER_REC_ID'),
+            'users' => array(self::HAS_MANY, 'User', 'TENANT_REC_ID'),
         );
     }
 
@@ -71,12 +68,13 @@ class User extends CActiveRecord {
     public function attributeLabels() {
         return array(
             'REC_ID' => 'Rec',
-            'TENANT_REC_ID' => 'Tenant Rec',
             'REC_DATETIME' => 'Rec Datetime',
             'REC_TIMESTAMP' => 'Rec Timestamp',
-            'USER_NAME' => 'User Name from User Model',
-            'PWD_HASH' => 'Pwd Hash',
-            'EMAIL_ADDRESS' => 'Email Address',
+            'NAME' => 'Name',
+            'DESCRIPTION' => 'Description',
+            'LAST_INVOICE_ID' => 'Last Invoice',
+            'LAST_ORDER_ID' => 'Last Order',
+            'LAST_TRANSACTION_ID' => 'Last Transaction',
         );
     }
 
@@ -90,24 +88,18 @@ class User extends CActiveRecord {
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('REC_ID', $this->REC_ID, true);
-        $criteria->compare('TENANT_REC_ID', $this->TENANT_REC_ID);
+        $criteria->compare('REC_ID', $this->REC_ID);
         $criteria->compare('REC_DATETIME', $this->REC_DATETIME, true);
         $criteria->compare('REC_TIMESTAMP', $this->REC_TIMESTAMP, true);
-        $criteria->compare('USER_NAME', $this->USER_NAME, true);
-        $criteria->compare('PWD_HASH', $this->PWD_HASH, true);
-        $criteria->compare('EMAIL_ADDRESS', $this->EMAIL_ADDRESS, true);
+        $criteria->compare('NAME', $this->NAME, true);
+        $criteria->compare('DESCRIPTION', $this->DESCRIPTION, true);
+        $criteria->compare('LAST_INVOICE_ID', $this->LAST_INVOICE_ID);
+        $criteria->compare('LAST_ORDER_ID', $this->LAST_ORDER_ID);
+        $criteria->compare('LAST_TRANSACTION_ID', $this->LAST_TRANSACTION_ID);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
     }
-    
-    public function check($value) {
-        //     $new_hash = crypt($value, $this->pwd_hash);
-        if ($value == $this->PWD_HASH) {
-            return true;
-        }
-        return false;
-    }
+
 }

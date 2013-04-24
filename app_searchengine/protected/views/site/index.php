@@ -127,10 +127,15 @@ if (Yii::app()->user->isGuest) {
                     imgWidth = this.width;
                     console.log("this.height : " + this.height + " " + imgHeight + " " + image_src);
 <?PHP
-//$dependency = new CDbCacheDependency('SELECT * FROM `user_profile` `t` WHERE `t`.`USER_REC_ID`=93 LIMIT 1');
-//$userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(array('USER_REC_ID' => 93));
-?>
+//$dependency = new CDbCacheDependency('SELECT * FROM `userprofile` `t` WHERE `t`.`USER_REC_ID`='. Yii::app()->user->id .' LIMIT 1');
+//$userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(array('USER_REC_ID' => Yii::app()->user->id));
 
+$dependency = new CDbCacheDependency('SELECT * FROM `userprofile` `t` WHERE `t`.`USER_REC_ID`=20 LIMIT 1');
+$userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(array('USER_REC_ID' => 20));
+
+echo "User Profile:".var_dump($userProfile);
+
+?>
 
 
                     var image_height = this.height / this.width * 212;
@@ -572,7 +577,7 @@ try {
 
 </div>
 
-<div id="loading" class="loading-invisible">
+<div id="loading" class="loading-invisible" style="margin-top: 45px;">
     <p> <img src="../../../images/loader.gif" /></p>
 </div>
 <div id="search-loading" class="search-loading-invisible" onclick='dismiss_search();'>

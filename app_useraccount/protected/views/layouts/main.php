@@ -17,7 +17,7 @@
             <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
 
 
-            <title><?php echo CHtml::encode($this->pageTitle); ?></title>
+            <title><?php echo CHtml::encode($this->pageTitle . ' sess '. Yii::app()->session->getSessionID()); ?></title>
 
 
     </head>

@@ -17,8 +17,14 @@
 
             <link rel="stylesheet" type="text/css" href="../../../css/main.css" />    
 
-
-            <title><?php echo 'search engine' ?></title>
+            <?php
+            if (!Yii::app()->user->isGuest) {
+                $status = ' Logged In';
+            }else{
+                $status = ' Out';
+            };?>
+            <title><?php echo CHtml::encode($this->pageTitle . ' sess ' . Yii::app()->session->getSessionID() . ' ' . $status);
+            ?></title>
             <script type="text/javascript" language="JavaScript" src="../../../js/jquery-1.9.1.js"></script>
             <script type="text/javascript" language="JavaScript" src="../../../js/jquery.isotope.min.js"></script>  
             <script type="text/javascript" language="JavaScript" src="../../../js/jquery.bxslider.min.js"></script>
@@ -246,23 +252,12 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                 </head>
 
                 <body style="min-width:900px;">
-
-
-
-
-
                     <div id="mainmenu" class="sadcasf">
-
-                        <?php $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModal')); ?>
-
+<?php $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModal')); ?>
                         <div class="modal-header" style="background-color: rgb(242,240,240); padding:12px 0px; border-radius: 6px 6px 0 0;">
                             <a class="close" style="margin:-11px 8px;" onclick="reset_login();" data-dismiss="modal" x>x</a>
-
                         </div>
-
-
                         <div class="modal-body" style="margin:-15px;" style='word-wrap:break-word' >
-
                             <!-- Modal -->
                             <div id="social_login" class="social_modal hide fade"  style="border-radius: 0 0 6px 6px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
@@ -420,21 +415,21 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 
                                             <div class="row">
                                                 <?php echo $form->labelEx($model, 'username'); ?>
-                                                <?php echo $form->textField($model, 'username'); ?>
-                                                <?php echo $form->error($model, 'username'); ?>    
+<?php echo $form->textField($model, 'username'); ?>
+<?php echo $form->error($model, 'username'); ?>    
                                                 <p id='user_blank' style="display:none">* Username cannot be blank.</p>
                                             </div>
                                             <div class="row">
                                                 <?php echo $form->labelEx($model, 'password'); ?>
-                                                <?php echo $form->passwordField($model, 'password'); ?>
-                                                <?php echo $form->error($model, 'password'); ?>
+<?php echo $form->passwordField($model, 'password'); ?>
+<?php echo $form->error($model, 'password'); ?>
                                                 <p  id='password_blank'  style='display:none;' >* Password cannot be blank.</p>
                                                 <p  id='password_incorrect'  style='display:none' >* Incorrect username or password.</p>
                                             </div>
                                             <div class="row rememberMe" style="margin-top: 5px; ">
                                                 <?php echo $form->checkBox($model, 'rememberMe'); ?>
-                                                <?php echo $form->label($model, 'keep me signed in'); ?>
-                                                <?php echo $form->error($model, 'rememberMe'); ?>
+<?php echo $form->label($model, 'keep me signed in'); ?>
+<?php echo $form->error($model, 'rememberMe'); ?>
                                             </div>
 
 
@@ -442,7 +437,7 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                                                 <a href="#" role="button" class="btn" onclick="send();">Login</a>
                                             </div>
 
-                                            <?php $this->endWidget(); ?>
+<?php $this->endWidget(); ?>
 
                                         </div><!-- form -->
 
@@ -584,28 +579,28 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 
                                             <div class="row">
 
-                                                <?php echo $form->textField($model, 'EMAIL_ADDRESS', array('size' => 60, 'placeholder' => "Email Address", 'maxlength' => 255)); ?>
-                                                <?php echo $form->error($model, 'EMAIL_ADDRESS'); ?>
+<?php echo $form->textField($model, 'EMAIL_ADDRESS', array('size' => 60, 'placeholder' => "Email Address", 'maxlength' => 255)); ?>
+<?php echo $form->error($model, 'EMAIL_ADDRESS'); ?>
                                                 <p id='email_taken' style="display:none">* E-mail has already been taken.</p>
                                             </div>
 
                                             <div class="row">
 
-                                                <?php echo $form->textField($model, 'USER_NAME', array('size' => 60, 'placeholder' => "Username", 'maxlength' => 255)); ?>
-                                                <?php echo $form->error($model, 'USER_NAME'); ?>
+<?php echo $form->textField($model, 'USER_NAME', array('size' => 60, 'placeholder' => "Username", 'maxlength' => 255)); ?>
+<?php echo $form->error($model, 'USER_NAME'); ?>
                                                 <p id='username_taken' style="display:none">* Username has already been taken.</p>
                                             </div>
                                             <div class="row">
 
-                                                <?php echo $form->passwordField($model, 'PWD_HASH', array('size' => 60, 'placeholder' => "Password", 'maxlength' => 512)); ?>
-                                                <?php echo $form->error($model, 'PWD_HASH'); ?>
+<?php echo $form->passwordField($model, 'PWD_HASH', array('size' => 60, 'placeholder' => "Password", 'maxlength' => 512)); ?>
+<?php echo $form->error($model, 'PWD_HASH'); ?>
 
                                             </div>
 
                                             <div class="row">
 
-                                                <?php echo $form->passwordField($model, 'repeatPassword', array('size' => 60, 'placeholder' => "Confirm Password", 'maxlength' => 512)); ?>
-                                                <?php echo $form->error($model, 'repeatPassword'); ?>
+<?php echo $form->passwordField($model, 'repeatPassword', array('size' => 60, 'placeholder' => "Confirm Password", 'maxlength' => 512)); ?>
+<?php echo $form->error($model, 'repeatPassword'); ?>
                                                 <p id='password_repeat' style="display:none">* Password must be repeated exactly.</p>
                                             </div>
 
@@ -618,7 +613,7 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                                                 <a href="#" role="button" class="btn" onclick="send_register();">Sign Up</a>
                                             </div>
 
-                                            <?php $this->endWidget(); ?>
+<?php $this->endWidget(); ?>
 
                                         </div><!-- form -->
 
@@ -686,14 +681,14 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 
                         <?php $this->endWidget(); ?>
 
-
+                        <!-- Top Navigation Menubar -->
                         <?php
                         if (Yii::app()->user->isGuest) {
                             $this->widget('bootstrap.widgets.TbNavbar', array(
                                 'brand' => '<img class="logonew" style="position: relative; top: 0; margin:0;"  src ="../../../images/landing-trends.png"/>',
                                 //    'collapse' => 'true',
                                 'items' => array(
-                                    '<p class="titleText"> Global  recommendations from </p>',
+                                    '<p class="titleText">Global  recommendations from </p>',
                                     '<div id="dd4" class="wrapper-dropdown-3" tabindex="1" style="top: -33px; background:none;border-radius: none;border: none;color:white;box-shadow: none;">
                                                 <div class="SpanFontSetting dropdown_test_4" style="margin-right: 40px;" >Region</div>
                                                 <ul class="dropdown" style="background: none repeat scroll 0% 0% rgb(45, 45, 45);border: 1px solid rgba(0, 0, 0, 0.17);">
@@ -735,7 +730,7 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                             $this->widget('bootstrap.widgets.TbNavbar', array(
                                 'brand' => '<img class="logonew" style="position: relative; top: 0; margin:0; "  src ="../../../images/landing-trends.png"/>',
                                 'items' => array(
-                                    '<p class="titleText">  Global  recommendations from </p>',
+                                    '<p class="titleText">Global  recommendations from </p>',
                                     '<div id="dd4" class="wrapper-dropdown-3" tabindex="1" style="top: -33px; background:none;border-radius: none;border: none;color:white;box-shadow: none;">
                                                 <div class="SpanFontSetting dropdown_test_4" style="margin-right: 40px;">Region</div>
                                                 <ul class="dropdown" style="background: none repeat scroll 0% 0% rgb(45, 45, 45);border: 1px solid rgba(0, 0, 0, 0.17);">
@@ -786,7 +781,7 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
                         ?><!-- breadcrumbs -->
                     <?php endif ?>
 
-                    <?php echo $content; ?>
+<?php echo $content; ?>
 
                     <div class="clear"></div>
                     <p id="back-top">
@@ -796,68 +791,13 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 
 
 
-                    <div id="footer">
-                                <div style="background: url('../../../images/footershadow.png') repeat-x;position: absolute;bottom: 0px; width: 100%;height: 300px;left: 0px;"></div>
-                        <div class="footer_contentbox">
-                            <div class="footer-text-left">
-                                <ul>
-                                    <li><a href="#">About Trends</a></li>
-                                    <li><a href="#">In the News</a></li>
-                                    <li><a href="#">Terms of Use</a></li>
-                                    <li><a href="#">Copyright</a></li> 
-                                    <li><a href="#">Privacy Policy</a></li>
-                                    <li><a href="#">Jobs</a></li>
-                                </ul>
-                            </div>
-                            <div class="footer-text-left">
-                                <ul>
-                                    <li><a href="#">Buttons and Badges</a></li>
-                                    <li><a href="#">Mobile Apps</a></li>
-                                    <li><a href="#">FAQs</a></li>
-                                    <li><a href="#">Contact Us</a></li>
-                                    <li><a href="#">Advertise</a></li>
-                                </ul>
-                            </div>
-
-                            <div style="text-align: center; padding: 20px 0; margin: 0 90px 0 100px; font-size: 13px; width: 160px; float: left;">
-                                <img class="logonew" style="height: auto; position: relative; top: 0; margin:0;"  src ="../../../images/landing-trends.png"/>
-                                <div style="padding-top: 15px;">
-                                    <i class="socon icon-facebook-sign icon-3x"></i>
-                                    <i class="socon icon-twitter-sign icon-3x" style=" padding: 0 27px;"></i>
-                                    <i class="socon icon-rss icon-3x"></i>
-                                </div>
-                            </div>
-                            <div class="footer-text-right">
-                                <ul>
-                                    <li><a href="#">Home</a></li>
-                                    <li><a href="#">Photos</a></li>
-                                    <li><a href="#">Products</a></li>
-                                    <li><a href="#">Find Local Pros</a></li>
-                                    <li><a href="#">Ideabooks</a></li>
-                                    <li><a href="#">Discussions</a></li>
-                                </ul>
-                            </div>
-                            <div class="footer-text-right">
-                                <ul>
-                                    <li><a href="#">Your Trends</a></li>
-                                    <li><a href="#">Your Ideabookds</a></li>
-                                    <li><a href="#">Your Photos</a></li>
-                                    <li><a href="#">Recommended</a></li>
-                                    <li><a href="#">Photos</a></li>
-                                    <li><a href="#">Edit Profile</a></li>
-                                    <li><a href="#">Change Password</a></li>
-                                    <li><a href="#">Sign Out</a></li>
-                                </ul>
-                            </div>
-
-                        </div>
-                    </div><!-- footer -->
 
 
 
 
 
 
+<?php $this->renderPartial('/layouts/_footer'); ?>
 
                 </body>
                 </html>

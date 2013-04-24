@@ -14,9 +14,14 @@ $this->menu = array(
 //	array('label'=>'Delete User', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->REC_ID),'confirm'=>'Are you sure you want to delete this item?')),
 //	array('label'=>'Manage User', 'url'=>array('admin')),
 );
+
+error_log(Yii::app()->user->isGuest);
 ?>
 
-<h1>View User #<?php echo $model->REC_ID . ' ' . $model->USER_NAME . ' @ Tenant Name ' . $model->Tenant->NAME; ?></h1>
+<h1>View User #<?php echo $model->REC_ID . ' ' . $model->USER_NAME . ' @ Tenant Name ' . $model->Tenant->NAME . ' Session = ' . Yii::app()->session->getSessionID() .  ' User ID = ' . (Yii::app()->user->isGuest)? "Logged IN" : "Out"; 
+
+
+?></h1>
 <img width="200" heigh="200" src="<?php echo $model->UserProfile->PHOTO_URL; ?>"/>
      <?php
      $this->widget('zii.widgets.CDetailView', array(

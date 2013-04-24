@@ -834,6 +834,57 @@ color: #fff;
 }
 
 
+.profilemain > .tabs-right > .nav-tabs > li {
+
+margin: 75px 24px 0px -30px;
+
+
+}
+
+
+
+
+.profilemain > .tabs-right > .nav-tabs > li > a {
+color: #555;
+background-color: rgba(255,255,255,0.5);
+
+text-align: center;
+font-weight: bold;
+box-shadow: 2px -2px 2px #333;
+
+-webkit-transform: rotate(90deg);   
+-moz-transform: rotate(90deg);
+-ms-transform: rotate(90deg);
+-o-transform: rotate(90deg);
+transform: rotate(90deg);
+
+margin: 0 -3px 0 -3px;
+border-radius: 5px 5px 0px 0px;
+border-bottom:0 solid transparent;
+
+}
+
+.profilemain > .tabs-right > .nav-tabs > li > a:hover {
+color: #0088cc;
+background-color: rgba(255,255,255,0.8)
+}
+
+.profilemain > .tabs-right > .nav-tabs > .active > a {
+
+color: #333;
+cursor: default;
+background-color: #ffffff;
+border: 1px solid #ddd;
+border-bottom-color: transparent;
+
+}
+
+.profilemain > .tabs-right > .nav-tabs {
+margin:0;
+border-left:0px solid transparent;
+
+}
+
 
 
 <?php

@@ -18,18 +18,6 @@
     <?php echo $form->errorSummary($model); ?>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'REC_DATETIME'); ?>
-        <?php echo $form->textField($model, 'REC_DATETIME'); ?>
-        <?php echo $form->error($model, 'REC_DATETIME'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'REC_TIMESTAMP'); ?>
-        <?php echo $form->textField($model, 'REC_TIMESTAMP'); ?>
-        <?php echo $form->error($model, 'REC_TIMESTAMP'); ?>
-    </div>
-
-    <div class="row">
         <?php echo $form->labelEx($model, 'NAME'); ?>
         <?php echo $form->textField($model, 'NAME', array('size' => 45, 'maxlength' => 45)); ?>
         <?php echo $form->error($model, 'NAME'); ?>
@@ -62,10 +50,11 @@
     <div class="row buttons">
         <?php
         $this->widget('bootstrap.widgets.TbButton', array(
-            'label' => 'Save',
+            'label' => ($model->REC_ID == NULL)? 'Create New Tenant' : 'Update Tenant ' . $model->REC_ID,
             'buttonType' => 'submit',
             'type' => 'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
             'size' => 'large', // null, 'large', 'small' or 'mini'
+            'htmlOptions' =>  array( 'style'=>'width:206px;'),
         ));
         ?>
     </div>

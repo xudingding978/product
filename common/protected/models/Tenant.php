@@ -102,4 +102,22 @@ class Tenant extends CActiveRecord {
         ));
     }
 
+    protected function beforeSave() 
+        {
+            if (parent::beforeSave()) 
+                {
+                    if ($this->isNewRecord) 
+                        {
+                            $this->REC_DATETIME = date('Y-m-d H:i:s');
+                            $this->REC_TIMESTAMP = date('Y-m-d H:i:s');
+                            return true;
+                    } 
+                    else {
+                        $this->REC_TIMESTAMP = date('Y-m-d H:i:s');
+                        return true;
+                }
+                return false;
+            }
+        }
+
 }

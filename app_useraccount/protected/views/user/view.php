@@ -18,10 +18,10 @@ $this->menu = array(
 error_log(Yii::app()->user->isGuest);
 ?>
 <div style="width:100%">
-    <div style="width:200px; height: 200px; float:left;">
-        <img width="200" heigh="200" src="<?php echo $model->UserProfile->PHOTO_URL_LARGE; ?>"/>
+    <div style="width:200px; height: 200px; float:left; padding:0 0 15px 0;">
+        <img class="img-polaroid" width="200" heigh="200" src="<?php echo $model->UserProfile->PHOTO_URL_LARGE; ?>"/>
     </div>
-    <div style="width:60%; height: 30px; float:left;">
+    <div style="width:60%; height: 30px; float:left; margin-left:50px;">
         <h1><?php echo $model->UserProfile->FIRST_NAME . ' ' . $model->UserProfile->LAST_NAME ?></h1>
     </div>
 </div>
@@ -39,7 +39,9 @@ $this->widget('zii.widgets.CDetailView', array(
         'EMAIL_ADDRESS',
     ),
 ));
-
+?>
+<h2> User Profile</h2>
+<?php 
 $this->widget('zii.widgets.CDetailView', array(
     'data' => $model->UserProfile,
     'attributes' => array(

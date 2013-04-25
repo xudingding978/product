@@ -15,6 +15,7 @@
  * @property string $PROFILE_URL
  * @property string $WEBSITE_URL
  * @property string $PHOTO_URL
+ * @property string $PHOTO_URL_LARGE
  * @property string $DISPLAY_NAME
  * @property string $DESCRIPTION
  * @property string $FIRST_NAME
@@ -107,6 +108,7 @@ class UserProfile extends CActiveRecord {
             'PROFILE_URL' => 'Profile Url',
             'WEBSITE_URL' => 'Website Url',
             'PHOTO_URL' => 'Photo Url',
+            'PHOTO_URL_LARGE' => 'Photo Url Large',
             'DISPLAY_NAME' => 'Display Name',
             'DESCRIPTION' => 'Description',
             'FIRST_NAME' => 'First Name',
@@ -149,6 +151,7 @@ class UserProfile extends CActiveRecord {
         $criteria->compare('PROFILE_URL', $this->PROFILE_URL, true);
         $criteria->compare('WEBSITE_URL', $this->WEBSITE_URL, true);
         $criteria->compare('PHOTO_URL', $this->PHOTO_URL, true);
+        $criteria->compare('PHOTO_URL_LARGE', $this->PHOTO_URL_LARGE, true);
         $criteria->compare('DISPLAY_NAME', $this->DISPLAY_NAME, true);
         $criteria->compare('DESCRIPTION', $this->DESCRIPTION, true);
         $criteria->compare('FIRST_NAME', $this->FIRST_NAME, true);

@@ -51,9 +51,6 @@ return CMap::mergeArray(array(
             'urlFormat' => 'path',
             'showScriptName' => false,
             'url.rules' => array(
-                
-                
-                
                 //REST API
                 array('api/<controller>/list', 'pattern' => 'api/<controller>', 'verb' => 'GET'),
                 array('api/<controller>/list', 'pattern' => 'api/<controller>/<id:\d+>', 'verb' => 'GET'),
@@ -61,7 +58,6 @@ return CMap::mergeArray(array(
                 array('api/<controller>/read', 'pattern' => 'api/<controller>/<id:\d+>', 'verb' => 'GET'),
                 array('api/<controller>/update', 'pattern' => 'api/<controller>/<id:\d+>', 'verb' => 'PUT'),
                 array('api/<controller>/delete', 'pattern' => 'api/<controller>/<id:\d+>', 'verb' => 'DELETE'),
-                
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',

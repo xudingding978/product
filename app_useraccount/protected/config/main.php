@@ -14,7 +14,6 @@ $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
 $result = $cb->get($_SERVER['HTTP_HOST']);
 $result_arr = CJSON::decode($result, true);
 
-
 $app_useraccountConfigDir = dirname(__FILE__);
 //
 $root = $app_useraccountConfigDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..';
@@ -46,18 +45,6 @@ $dot_positon = strpos($_SERVER['HTTP_HOST'], ".");
 
 $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 
-
-
-
-
-echo '<div style=height:100px;></div>';
-
-echo $_SERVER['HTTP_HOST'];
-
-//echo 'Face book secert = ' . $result_arr['providers']['Facebook']['keys']['secret'];
-
-//error_log(var_export($tparams,true));
-
 return CMap::mergeArray(
                 array(
             'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
@@ -87,43 +74,7 @@ return CMap::mergeArray(
                     'class' => 'common.modules.hybridauth.HybridauthModule',
                     'baseUrl' => 'http://' . $_SERVER['HTTP_HOST'] . '/hybridauth',
                     'withYiiUser' => false, // Set to true if using yii-user
-                    "providers" => array(
-                        "OpenID" => array(
-                            "enabled" => true
-                        ),
-                        "Yahoo" => array(
-                            "enabled" => true,
-                            "keys" => array("Key" => "dj0yJmk9U2FlYXZIelpuQTNoJmQ9WVdrOVpqVlJVakpQTXpZbWNHbzlNVFUyTURVM01qVTJNZy0tJnM9Y29uc3VtZXJzZWNyZXQmeD1mOQ--", "secret" => "0ad41773d20dc1208bfdb54204a3e5bba043c073"),
-                        ),
-                        "Google" => array(
-                            "enabled" => true,
-                            "keys" => array("id" => "229536460581.apps.googleusercontent.com", "secret" => "P5ewnNOsUD4a6chOsf-V7C6n"),
-                            "scope" => ""
-                        ),
-                        "Live" => array(
-                            "enabled" => true,
-                            "keys" => array("id" => "00000000400ED656", "secret" => "mM8x15UDeuXNbjlBCTFapZfr7G8fizh4"),
-                        ),
-                        "Facebook" => array(
-                            "enabled" => true,
-                            //"keys" => array("id" => "351417541640384", "secret" => "545a09525ae4bd0769174d12f6986f7c"),
-                            "keys" => array("id" => ($result_arr) ? $result_arr['providers']['Facebook']['keys']['id']: "", "secret" => $result_arr['providers']['Facebook']['keys']['secret']),
-                            "scope" => "publish_stream",
-                            "display" => "page"
-                        ),
-                        "Twitter" => array(
-                            "enabled" => true,
-                            "keys" => array("key" => "T8gsComi9Nt391cKHMJcw", "secret" => "D5jSS3jC7n4kxOdUwYPebgoXqrckbEcFikUppUNA0")
-                        ),
-                        "QQ" => array(
-                            "enabled" => true,
-                            "keys" => array("key" => "801323043", "secret" => "619b9dbc531ebfea8c674d0eb8c03478")
-                        ),
-                        "Sina" => array(
-                            "enabled" => true,
-                            "keys" => array("key" => "1988690508", "secret" => "bd472b4386849450e9287521ba4dd889")
-                        ),
-                    )
+                    'providers' => $result_arr['providers'],
                 ),
             ),
             // application components

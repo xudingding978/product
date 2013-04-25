@@ -15,6 +15,7 @@
  * @property string $PROFILE_URL
  * @property string $WEBSITE_URL
  * @property string $PHOTO_URL
+ * @property string $PHOTO_URL_LARGE
  * @property string $DISPLAY_NAME
  * @property string $DESCRIPTION
  * @property string $FIRST_NAME
@@ -63,14 +64,14 @@ class UserProfile extends CActiveRecord {
             array('LOGIN_PROVIDER', 'length', 'max' => 80),
             array('LOGIN_PROVIDER_IDENTIFIER', 'length', 'max' => 100),
             array('IDENTIFIER, DISPLAY_NAME, EMAIL, EMAIL_VERIFIED, COUNTRY, REGION, CITY', 'length', 'max' => 255),
-            array('PROFILE_URL, WEBSITE_URL, PHOTO_URL', 'length', 'max' => 2048),
+            array('PROFILE_URL, WEBSITE_URL, PHOTO_URL, PHOTO_URL_LARGE', 'length', 'max' => 2048),
             array('FIRST_NAME, LAST_NAME', 'length', 'max' => 55),
             array('GENDER', 'length', 'max' => 10),
             array('LANGUAGE, PHONE, POST_CODE', 'length', 'max' => 45),
             array('REC_DATETIME, REC_TIMESTAMP, DESCRIPTION', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('REC_ID, REC_DATETIME, REC_TIMESTAMP, TENANT_REC_ID, USER_REC_ID, LOGIN_PROVIDER, LOGIN_PROVIDER_IDENTIFIER, IDENTIFIER, PROFILE_URL, WEBSITE_URL, PHOTO_URL, DISPLAY_NAME, DESCRIPTION, FIRST_NAME, LAST_NAME, GENDER, LANGUAGE, AGE, BIRTH_DAY, BIRTH_MONTH, BIRTH_YEAR, EMAIL, EMAIL_VERIFIED, PHONE, COUNTRY, REGION, CITY, ZIP, POST_CODE', 'safe', 'on' => 'search'),
+            array('REC_ID, REC_DATETIME, REC_TIMESTAMP, TENANT_REC_ID, USER_REC_ID, LOGIN_PROVIDER, LOGIN_PROVIDER_IDENTIFIER, IDENTIFIER, PROFILE_URL, WEBSITE_URL, PHOTO_URL, PHOTO_URL_LARGE, DISPLAY_NAME, DESCRIPTION, FIRST_NAME, LAST_NAME, GENDER, LANGUAGE, AGE, BIRTH_DAY, BIRTH_MONTH, BIRTH_YEAR, EMAIL, EMAIL_VERIFIED, PHONE, COUNTRY, REGION, CITY, ZIP, POST_CODE', 'safe', 'on' => 'search'),
         );
     }
 
@@ -100,6 +101,7 @@ class UserProfile extends CActiveRecord {
             'PROFILE_URL' => 'Profile Url',
             'WEBSITE_URL' => 'Website Url',
             'PHOTO_URL' => 'Photo Url',
+            'PHOTO_URL_LARGE' => 'Photo Url Large',
             'DISPLAY_NAME' => 'Display Name',
             'DESCRIPTION' => 'Description',
             'FIRST_NAME' => 'First Name',
@@ -142,6 +144,7 @@ class UserProfile extends CActiveRecord {
         $criteria->compare('PROFILE_URL', $this->PROFILE_URL, true);
         $criteria->compare('WEBSITE_URL', $this->WEBSITE_URL, true);
         $criteria->compare('PHOTO_URL', $this->PHOTO_URL, true);
+        $criteria->compare('PHOTO_URL_LARGE', $this->PHOTO_URL_LARGE, true);
         $criteria->compare('DISPLAY_NAME', $this->DISPLAY_NAME, true);
         $criteria->compare('DESCRIPTION', $this->DESCRIPTION, true);
         $criteria->compare('FIRST_NAME', $this->FIRST_NAME, true);

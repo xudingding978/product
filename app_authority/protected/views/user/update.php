@@ -4,12 +4,12 @@
 
 $this->breadcrumbs=array(
 	'Users'=>array('index'),
-	'Create',
+	$model->REC_ID=>array('view','id'=>$model->REC_ID),
+	'Update',
 );
-
 ?>
 
-<h1>Create User</h1>
+<h1>Update User <?php echo $model->REC_ID; ?></h1>
 
 <?php 
 $this->beginwidget('bootstrap.widgets.TbBox', array(

@@ -18,6 +18,10 @@ $this->breadcrumbs = array(
         <div class="profilewrapper" style="position: relative; width: 980px; height: auto; margin: auto; top: -200px; background: white; box-shadow: 0px 0px 13px; border-radius: 3px 3px 0 0; margin-bottom: -160px;">
 
 
+
+            <!--PROFILE PAGE LEFT SIDE-->
+
+
             <div class="profileaside" style="background-color: rgb(242,240,240); width: 300px; height: auto; padding: 10px; border-radius:3px 0 0 0; float: left;">
                 <div class="profileaside_content" style="margin:20px;">
 
@@ -31,6 +35,9 @@ $this->breadcrumbs = array(
                             <a href="#"><k class="icon-google-plus icon-large"></k></a>
                         </div>
                     </div>
+
+
+                    <!--PROFILE CONTACT SECTION-->
 
                     <div class="aside-contact" style="padding: 5px; border-bottom: 1px solid #ccc; border-top: 1px solid #fff;">
                         <table id="aside_contact" >
@@ -57,6 +64,8 @@ $this->breadcrumbs = array(
 
                         </table> 
                     </div>
+
+                    <!--FOLLOW SECTION-->
 
                     <div class="follow" style="padding: 5px; border-bottom: 1px solid #ccc; border-top: 1px solid #fff;">
                         <div class="following" style="padding:5px;">
@@ -86,11 +95,17 @@ $this->breadcrumbs = array(
                             </div>
                         </div>
 
+
+                        <!--ADVERTISING SECTION-->
+
                     </div>
                     <div class="profile-ad" style="padding: 5px; border-bottom: 1px solid #ccc; border-top: 1px solid #fff;">
                         <a href="#" > <img src="../images/ad.jpg" style="margin: auto;padding: 20px;width: 230px;"></a>
 
                     </div>
+
+
+                    <!--DISCOVER MORE SECTION-->
 
                     <div class="profile_discovermore" style="padding: 5px;border-top: 1px solid #fff;">
                         <h4 style="margin: 15px 0;"><b>Discover more:</b></h4>
@@ -139,6 +154,10 @@ $this->breadcrumbs = array(
             </div>
 
 
+
+
+            <!--PROFILE PAGE MAIN PART-->
+
             <div class="profilemain" style="display: block; width: 770px;margin: 0 0 0 300px;">
 
                 <div class="tabbable tabs-right"> <!-- Only required for left/right tabs -->
@@ -147,12 +166,81 @@ $this->breadcrumbs = array(
                         <li><a href="#tab2" data-toggle="tab">Ideabooks</a></li>
                         <li><a href="#tab3" data-toggle="tab">Gallery</a></li>
                     </ul>
+
                     <div class="tab-content">
+
+
+                        <!--MAIN PROFILE TAB-->
+
                         <div class="tab-pane active" id="tab1">
-                            <p>I'm in Section 1.</p>
+                            <div class="profile-main-content" style="margin: 50px 35px 20px 35px;">   
+                                <div class="main_title" style=" border-bottom: 1px solid #ccc;padding-bottom: 10px;">
+                                    <h3>Molly Brandenburg Interiors, LLC.</h3>
+                                    <div style="display: inline-block;">
+                                        <p style='display: inline-block; float: left;'><a href='#' style='margin-right: 15px;'><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star-half" ></k></a>
+                                            <a href='#' style=" margin-right: 20px;">23 Reviews</a>|<a href='#'style=" margin-left: 20px;">Review me »</a></p>
+                                        <a href="#question_modal" role="button" class="btn" data-toggle="modal" style="display: inline-block;width: 150px;position: relative;float: left;bottom: 5px;right: -150px;">Contact me</a>
+                                    </div>
+                                </div>
+                                <div class="main_aboutus" style=" border-bottom: 1px solid #ccc; padding:20px 0 30px 0; font-size: 15px;">
+                                    <h4><i class='icon-user' style='margin-right: 10px;'></i>About Us</h4>
+                                    <p>I love interior design and all things houses. It has been my great privilege to create spaces over the last eleven years for a varied and loyal clientele. 
+                                        The collaborative nature of projects with clients is my favorite part. I like spaces that I design to read like a biography of the clients needs, experiences and travels. 
+                                        I consider it sport to have every detail of the room give a perspective on the client. 
+                                    </p>
+                                    <p>
+                                        Molly Brandenburg Interiors is a full-service, high-end residential design office with a full-time staff and ten years of experience. 
+                                        We are based in Pasadena, CA and have projects throughout Southern California.
+                                    </p>
+                                    <p><b>Services Provided:</b><br/> Full Service</p>
+                                    <p><b>Areas Served:</b><br/>Pasadena, South Pasadena, San Marino, La Canada, Altadena, San Gabriel, Sierra Madre, Los Angeles, Santa Barbara, Montecito, Summerland, Carpinteria</p>
+                                </div>
+                                <div class="main_hours" style=" border-bottom: 1px solid #ccc; padding:20px 0 30px 0; font-size: 16px;">
+                                    <h4><i class='icon-time' style='margin-right: 10px;'></i>Hours</h4>
+                                    <div style='display: inline-block;margin-right: 50px;'>
+                                        <p>Mon - Fri: </p>
+                                        <p>Saturday:</p>
+                                        <p>Sunday:</p>
+                                        <p>Holidays:</p>
+                                    </div>
+                                    <div style='font-weight: bold;display: inline-block;text-align: right;margin-left: 50px;'>
+                                        <p>7:00am - Late</p>
+                                        <p>10:00am - Late</p>
+                                        <p>4:00pm - Late</p>
+                                        <p>Closed</p>
+                                    </div>
+                                </div>
+                                <div class="main_Gallery" style=" border-bottom: 1px solid #ccc; padding:20px 0 30px 0; font-size: 16px;">
+                                    <h4><i class='icon-picture' style='margin-right: 10px;'></i>Gallery</h4>
+                                    <a href='#' class='thumbnail' style='width: 200px; height: 200px; overflow: hidden;'>
+                                        <img src='../images/kichen_c.jpg' style='min-height: 200px; min-width: 200px; width:auto; height:auto;'>
+                                    </a>
+                                </div>
+                                <div class="main_videos" style=" border-bottom: 1px solid #ccc; padding:20px 0 30px 0; font-size: 16px;">
+                                    <h4><i class='icon-film' style='margin-right: 10px;'></i>Videos</h4>
+                                </div>
+
+                                <div class="main_ebooks" style=" border-bottom: 1px solid #ccc; padding:20px 0 30px 0; font-size: 16px;">
+                                    <h4><i class='icon-book' style='margin-right: 10px;'></i>E-Books</h4>
+                                </div>
+
+                                <div class="main_comments" style=" border-bottom: 1px solid #ccc; padding:20px 0 30px 0; font-size: 16px;">
+                                    <h4><i class='icon-comments-alt' style='margin-right: 10px;'></i>Comments</h4>
+                                </div>
+
+                            </div>                     
                         </div>
+
+                        <!--MAIN IDEABOOKS TAB-->
+
                         <div class="tab-pane" id="tab2">
-                            <p>Howdy, I'm in Section 2.</p>
+                            <p>Howdy, I'm in Ideabooks tab.</p>
+                        </div>
+
+                        <!--MAIN GALLERY TAB-->
+
+                        <div class="tab-pane" id="tab3">
+                            <p>Howdy, I'm in Gallery tab.</p>
                         </div>
                     </div>
                 </div>

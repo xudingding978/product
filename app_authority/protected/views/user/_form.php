@@ -18,18 +18,6 @@
         <?php echo $form->errorSummary($model); ?>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'REC_DATETIME'); ?>
-<?php echo $form->textField($model, 'REC_DATETIME'); ?>
-<?php echo $form->error($model, 'REC_DATETIME'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'REC_TIMESTAMP'); ?>
-<?php echo $form->textField($model, 'REC_TIMESTAMP'); ?>
-<?php echo $form->error($model, 'REC_TIMESTAMP'); ?>
-    </div>
-
-    <div class="row">
         <?php echo $form->labelEx($model, 'TENANT_REC_ID'); ?>
 <?php echo $form->textField($model, 'TENANT_REC_ID'); ?>
 <?php echo $form->error($model, 'TENANT_REC_ID'); ?>

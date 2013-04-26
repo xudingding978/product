@@ -76,7 +76,7 @@ return CMap::mergeArray(
                     'class' => 'system.gii.GiiModule',
                     'password' => 'Pa55word',
                     // If removed, Gii defaults to localhost only. Edit carefully to taste.
-                    'ipFilters' => array('127.0.0.1', '::1', '192.168.1.35'),
+                    'ipFilters' => array('127.0.0.1', '::1', '192.168.1.14'),
                     'generatorPaths' => array(
                         'bootstrap.gii'
                     ),

@@ -43,8 +43,11 @@
                 ?><!-- breadcrumbs -->
                 <?php endif ?>
             <div class="row-fluid">
-<?php echo $content; ?>
+                
+                <?php echo $content; ?>
+            
             </div>
+                
 
             <div class="clear"></div>
 

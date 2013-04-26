@@ -36,6 +36,8 @@
  * @property string $POST_CODE
  */
 class UserProfile extends CActiveRecord {
+    
+    public $PHOTO_URL = '/this/is/on/userprofile/object/jason.png';
 
     /**
      * Returns the static model of the specified AR class.

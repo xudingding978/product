@@ -124,13 +124,16 @@ class UserController extends Controller {
      * Manages all models.
      */
     public function actionAdmin() {
-        $model = new User('search');
+        //$model = new User('search');
+        $model = User::model()->with('UserProfiles')->findByPk($id);
+        //$dataProvider = new CActiveDataProvider('User');
+        //$dataProvider = new User('search');
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['User']))
             $model->attributes = $_GET['User'];
-
         $this->render('admin', array(
             'model' => $model,
+           // 'dataProvider' => $dataProvider,
         ));
     }
 
@@ -142,7 +145,7 @@ class UserController extends Controller {
      * @throws CHttpException
      */
     public function loadModel($id) {
-        $model = User::model()->findByPk($id);
+        $model = User::model()->with('UserProfiles')->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;

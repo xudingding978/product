@@ -38,21 +38,31 @@ $('.search-form form').submit(function(){
 </div><!-- search-form -->
 
 <?php
+//$gridColumns = array(
+//    array(
+//        'REC_ID',
+//        'REC_DATETIME',
+//        'REC_TIMESTAMP',
+//        'TENANT_REC_ID',
+//        'Tenant.NAME',
+//        'USER_NAME',
+//        'PWD_HASH',
+//    )
+//);
 //$groupGridColumns = $gridColumns;
 //$groupGridColumns[] = array(
 //    'name' => 'firstLetter',
-//    'value' => 'substr($data->firstName, 0, 1)',
+//    'value' => 'substr($data->USER_NAME, 0, 1)',
 //    'headerHtmlOptions' => array('style' => 'display:none'),
 //    'htmlOptions' => array('style' => 'display:none')
 //);
-//
 //$this->widget('bootstrap.widgets.TbGroupGridView', array(
-//    'filter' => $model,
+//   //'filter' => $model,
 //    'type' => 'striped bordered',
-//    'dataProvider' => $model,
+//    'dataProvider' => $dataProvider,
 //    'template' => "{items}",
 //    'extraRowColumns' => array('firstLetter'),
-//    'extraRowExpression' => '"<b style=\"font-size: 3em; color: #333;\">".substr($data->firstName, 0, 1)."</b>"',
+//    'extraRowExpression' => '"<b style=\"font-size: 3em; color: #333;\">".substr($data->USER_NAME 0, 1)."</b>"',
 //    'extraRowHtmlOptions' => array('style' => 'padding:10px'),
 //    'columns' => $groupGridColumns
 //));
@@ -72,26 +82,28 @@ $this->beginwidget('bootstrap.widgets.TbBox', array(
                     )))
 ))));
 
-$this->widget('bootstrap.widgets.TbJsonGridView', array(
-    'dataProvider' => $model->search(),
-    'filter' => $model,
-    'type' => 'striped bordered condensed',
-    'summaryText' => false,
-    'cacheTTL' => 10, // cache will be stored 10 seconds (see cacheTTLType)
-    'cacheTTLType' => 's', // type can be of seconds, minutes or hours
-    'columns' => array(
-        'REC_ID',
-        'REC_DATETIME',
-        'REC_TIMESTAMP',
-        'USER_NAME',
-        'PWD_HASH',
-        array(
-            'header' => Yii::t('ses', 'Edit'),
-            'class' => 'bootstrap.widgets.TbJsonButtonColumn',
-            'template' => '{view}{update}{delete}',
-        ),
-    ),
-));
+//$this->widget('bootstrap.widgets.TbJsonGridView', array(
+//    'dataProvider' => $model->search(),
+//    'filter' => $model,
+//    'type' => 'striped bordered condensed',
+//    'summaryText' => false,
+//    'cacheTTL' => 10, // cache will be stored 10 seconds (see cacheTTLType)
+//    'cacheTTLType' => 's', // type can be of seconds, minutes or hours
+//    'columns' => array(
+//        'REC_ID',
+//        'REC_DATETIME',
+//        'REC_TIMESTAMP',
+//        'TENANT_REC_ID',
+//        'Tenant.NAME',
+//        'USER_NAME',
+//        'PWD_HASH',
+//        array(
+//            'header' => Yii::t('ses', 'Edit'),
+//            'class' => 'bootstrap.widgets.TbJsonButtonColumn',
+//            'template' => '{view}{update}{delete}',
+//        ),
+//    ),
+//));
 
 
 $this->widget('bootstrap.widgets.TbExtendedGridView', array(
@@ -102,8 +114,28 @@ $this->widget('bootstrap.widgets.TbExtendedGridView', array(
     'responsiveTable' => true,
     'dataProvider' => $model->search(),
     'template' => "{items}",
+    'bulkActions' => array(
+        'actionButtons' => array(
+            array(
+                'buttonType' => 'button',
+                'type' => 'primary',
+                'size' => 'small',
+                'label' => 'Bulk Actions',
+                'click' => 'js:function(values){console.log(values);}'
+            )
+        ),
+// if grid doesn't have a checkbox column type, it will attach
+// one and this configuration will be part of it
+        'checkBoxColumnConfig' => array(
+            'name' => 'id'
+        ),
+    ),
     'columns' => array(
         array('name' => 'REC_ID', 'header' => 'ID', 'htmlOptions' => array('style' => 'width: 50px'),),
+        'Tenant.NAME',
+        'UserProfiles.LOGIN_PROVIDER',
+        'UserProfiles.PHOTO_URL',
+        //array('name'=>'PHOTO_URL', 'value'=>'$data->UserProfiles->PHOTO_URL'),
         'USER_NAME',
         'PWD_HASH',
         array(
@@ -112,25 +144,25 @@ $this->widget('bootstrap.widgets.TbExtendedGridView', array(
         ))
 ));
 
-$this->widget('zii.widgets.grid.CGridView', array(
-    'id' => 'user-grid',
-    'dataProvider' => $model->search(),
-    'filter' => $model,
-    'columns' => array(
-        'REC_ID',
-        'REC_DATETIME',
-        'REC_TIMESTAMP',
-        'TENANT_REC_ID',
-        'USER_NAME',
-        'PWD_HASH',
-        /*
-          'EMAIL_ADDRESS',
-         */
-        array(
-            'class' => 'CButtonColumn',
-        ),
-    ),
-));
+//$this->widget('zii.widgets.grid.CGridView', array(
+//    'id' => 'user-grid',
+//    'dataProvider' => $model->search(),
+//    'filter' => $model,
+//    'columns' => array(
+//        'REC_ID',
+//        'REC_DATETIME',
+//        'REC_TIMESTAMP',
+//        'TENANT_REC_ID',
+//        'USER_NAME',
+//        'PWD_HASH',
+//        /*
+//          'EMAIL_ADDRESS',
+//         */
+//        array(
+//            'class' => 'CButtonColumn',
+//        ),
+//    ),
+//));
 
 $this->endWidget();
 ?>

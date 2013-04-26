@@ -13,11 +13,13 @@
  * @property string $EMAIL_ADDRESS
  *
  * The followings are the available model relations:
- * @property DbV3.2Admin.tenant $tENANTREC
+ * @property tenant $tenant
+ *  @property UserProfiles[] $userprofiles
  */
 class User extends CActiveRecord {
 
     public $repeatPassword;
+    public $PHOTO_URL = 'dasdasdsadsa';
 
     /**
      * Returns the static model of the specified AR class.
@@ -49,7 +51,7 @@ class User extends CActiveRecord {
             array('REC_DATETIME, REC_TIMESTAMP', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('REC_ID, TENANT_REC_ID, REC_DATETIME, REC_TIMESTAMP, USER_NAME, PWD_HASH, EMAIL_ADDRESS', 'safe', 'on' => 'search'),
+            array('REC_ID, TENANT_REC_ID, REC_DATETIME, REC_TIMESTAMP, USER_NAME, PHOTO_URL, PWD_HASH, EMAIL_ADDRESS', 'safe', 'on' => 'search'),
         );
     }
 
@@ -61,7 +63,7 @@ class User extends CActiveRecord {
         // class name for the relations automatically generated below.
         return array(
             'Tenant' => array(self::BELONGS_TO, 'Tenant', 'TENANT_REC_ID'),
-            'UserProfile' => array(self::HAS_ONE, 'UserProfile', 'USER_REC_ID'),
+            'UserProfiles' => array(self::HAS_MANY, 'UserProfile', 'USER_REC_ID'),
         );
     }
 
@@ -77,6 +79,8 @@ class User extends CActiveRecord {
             'USER_NAME' => 'User Name',
             'PWD_HASH' => 'Pwd Hash',
             'EMAIL_ADDRESS' => 'Email Address',
+            'Tenant.NAME' => 'Tenant Name',
+            'UserProfiles.PHOTO_URL' => 'Photo'
         );
     }
 
@@ -97,9 +101,21 @@ class User extends CActiveRecord {
         $criteria->compare('USER_NAME', $this->USER_NAME, true);
         $criteria->compare('PWD_HASH', $this->PWD_HASH, true);
         $criteria->compare('EMAIL_ADDRESS', $this->EMAIL_ADDRESS, true);
-
+        $criteria->compare('UserProfiles.USER_REC_ID', $this->REC_ID, true);
+        //$criteria->alias = 'UserProfile';
+        //$criteria->join = 'INNER JOIN user ON user.REC_ID = userprofile.USER_REC_ID'; 
+        //$criteria->with = array('UserProfiles');
+        //$criteria->together = true;
+        
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
+             'pagination'=>array(
+                        'pageSize'=>10,
+                ),
+                'sort'=>array(
+                        'defaultOrder'=>'t.REC_DATETIME DESC',
+                ),
+
         ));
     }
     

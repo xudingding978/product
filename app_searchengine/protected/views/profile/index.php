@@ -183,7 +183,7 @@ $this->breadcrumbs = array(
                                     </div>
                                 </div>
                                 <div class="main_aboutus" style=" border-bottom: 1px solid #ccc; padding:20px 0 30px 0; font-size: 15px;">
-                                    <h4><i class='icon-user' style='margin-right: 10px;'></i>About Us</h4>
+                                    <h4 style='margin-bottom: 20px;'><i class='icon-user' style='margin-right: 10px;'></i>About Us</h4>
                                     <p>I love interior design and all things houses. It has been my great privilege to create spaces over the last eleven years for a varied and loyal clientele. 
                                         The collaborative nature of projects with clients is my favorite part. I like spaces that I design to read like a biography of the clients needs, experiences and travels. 
                                         I consider it sport to have every detail of the room give a perspective on the client. 
@@ -196,7 +196,7 @@ $this->breadcrumbs = array(
                                     <p><b>Areas Served:</b><br/>Pasadena, South Pasadena, San Marino, La Canada, Altadena, San Gabriel, Sierra Madre, Los Angeles, Santa Barbara, Montecito, Summerland, Carpinteria</p>
                                 </div>
                                 <div class="main_hours" style=" border-bottom: 1px solid #ccc; padding:20px 0 30px 0; font-size: 16px;">
-                                    <h4><i class='icon-time' style='margin-right: 10px;'></i>Hours</h4>
+                                    <h4 style='margin-bottom: 20px;'><i class='icon-time' style='margin-right: 10px;'></i>Hours</h4>
                                     <div style='display: inline-block;margin-right: 50px;'>
                                         <p>Mon - Fri: </p>
                                         <p>Saturday:</p>
@@ -212,17 +212,157 @@ $this->breadcrumbs = array(
                                 </div>
                                 <div class="main_Gallery" style=" border-bottom: 1px solid #ccc; padding:20px 0 30px 0; font-size: 16px;">
                                     <h4><i class='icon-picture' style='margin-right: 10px;'></i>Gallery</h4>
-                                    <a href='#' class='thumbnail' style='width: 200px; height: 200px; overflow: hidden;'>
-                                        <img src='../images/kichen_c.jpg' style='min-height: 200px; min-width: 200px; width:auto; height:auto;'>
-                                    </a>
-                                </div>
-                                <div class="main_videos" style=" border-bottom: 1px solid #ccc; padding:20px 0 30px 0; font-size: 16px;">
-                                    <h4><i class='icon-film' style='margin-right: 10px;'></i>Videos</h4>
+
+
+                                    <div class='profile_gallery' style='margin:20px 0; min-height: 210px;'>
+                                        <a href='#' class='thumbnail' style='width: 210px; height: 210px; padding: 0; float: left;margin-right: 15px;'>
+                                            <div style=" width: 200px; height: 200px; margin: 4px; overflow: hidden;">
+                                                <img src='../images/kichen_c.jpg' style='  width:auto; height:auto;max-height: 200px;max-width: none'>
+                                            </div>
+                                        </a>
+                                        <div class='profilegallerypics'>
+                                            <a href='#' class='thumbnail' >
+                                                <img src='../images/kichen_a.jpg' style='  width:auto; height:auto;max-height: 65px;max-width: none'>
+                                            </a>
+                                            <a href='#' class='thumbnail'>
+                                                <img src='../images/kichen_b.jpg' style='  width:auto; height:auto;max-height: 65px;max-width: none'>
+                                            </a>
+                                            <a href='#' class='thumbnail'>
+                                                <img src='../images/kichen_c.jpg' style='  width:auto; height:auto;max-height: 65px;max-width: none'>
+                                            </a>
+                                            <a href='#' class='thumbnail'>
+                                                <img src='../images/kichen_d.jpg' style='  width:auto; height:auto;max-height: 65px;max-width: none'>
+                                            </a>
+                                            <a href='#' class='thumbnail'>
+                                                <img src='../images/kichen_e.jpg' style='  width:auto; height:auto;max-height: 65px;max-width: none'>
+                                            </a>
+                                            <a href='#' class='thumbnail'>
+                                                <img src='../images/kichen_f.jpg' style='  width:auto; height:auto;max-height: 65px;max-width: none'>
+                                            </a>
+                                            <a href='#' class='thumbnail'>
+                                                <img src='../images/kichen_g.jpg' style='  width:auto; height:auto;max-height: 65px;max-width: none'>
+                                            </a>
+                                            <a href='#' class='thumbnail'>
+                                                <img src='../images/kichen_h.jpg' style='  width:auto; height:auto;max-height: 65px;max-width: none'>
+                                            </a>
+                                            <a href='#' class='thumbnail' >
+                                                <img src='../images/kichen_i.jpg' style='  width:auto; height:auto;max-height: 65px;max-width: none'>
+                                            </a>
+                                            <a href='#' class='thumbnail' >
+                                                <img src='../images/kichen_j.jpg' style='  width:auto; height:auto;max-height: 65px;max-width: none'>
+                                            </a>
+                                            <a href='#' class='thumbnail' >
+                                                <img src='../images/kichen_k.jpg' style='  width:auto; height:auto;max-height: 65px;max-width: none'>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class='profile_gallery' style='min-height: 210px;'>
+                                        <a href='#' class='thumbnail' style='width: 210px; height: 210px; padding: 0; float: left;margin-right: 15px;'>
+                                            <div style=" width: 200px; height: 200px; margin: 4px; overflow: hidden;">
+                                                <img src='../images/kichen_k.jpg' style='  width:auto; height:auto;max-height: 200px;max-width: none'>
+                                            </div>
+                                        </a>
+                                        <div class='profilegallerypics' style='margin-bottom: 20px'>
+                                            <a href='#' class='thumbnail' >
+                                                <img src='../images/kichen_b.jpg' style='  width:auto; height:auto;max-height: 65px;max-width: none'>
+                                            </a>
+                                            <a href='#' class='thumbnail'>
+                                                <img src='../images/kichen_k.jpg' style='  width:auto; height:auto;max-height: 65px;max-width: none'>
+                                            </a>
+                                            <a href='#' class='thumbnail'>
+                                                <img src='../images/kichen_j.jpg' style='  width:auto; height:auto;max-height: 65px;max-width: none'>
+                                            </a>
+                                            <a href='#' class='thumbnail'>
+                                                <img src='../images/kichen_i.jpg' style='  width:auto; height:auto;max-height: 65px;max-width: none'>
+                                            </a>
+                                            <a href='#' class='thumbnail'>
+                                                <img src='../images/kichen_h.jpg' style='  width:auto; height:auto;max-height: 65px;max-width: none'>
+                                            </a>
+                                            <a href='#' class='thumbnail'>
+                                                <img src='../images/kichen_g.jpg' style='  width:auto; height:auto;max-height: 65px;max-width: none'>
+                                            </a>
+                                            <a href='#' class='thumbnail'>
+                                                <img src='../images/kichen_f.jpg' style='  width:auto; height:auto;max-height: 65px;max-width: none'>
+                                            </a>
+
+                                        </div>
+                                    </div>
+
                                 </div>
 
-                                <div class="main_ebooks" style=" border-bottom: 1px solid #ccc; padding:20px 0 30px 0; font-size: 16px;">
-                                    <h4><i class='icon-book' style='margin-right: 10px;'></i>E-Books</h4>
+
+
+
+
+                                <div class="main_videos" style=" border-bottom: 1px solid #ccc; padding:20px 0 30px 0; font-size: 16px;">
+                                    <h4><i class='icon-film' style='margin-right: 10px;'></i>Videos</h4>
+
+                                    <div class="media" style='margin-bottom: 20px;'>
+                                        <a class="pull-left" href="#" style='margin-right: 20px;'>
+                                            <img class="media-object" src="../images/vedio1.png">
+                                        </a>
+                                        <div class="media-body" style='font-size: 13px;vertical-align: middle;'>
+                                            <a><h4 class="media-heading">European-look appliances - German efficiency</h4></a>
+                                            <p>by <a href='#'>Molly Brandenburg</a> <br/> 4,672 views</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="media">
+                                        <a class="pull-left" href="#" style='margin-right: 20px;'>
+                                            <img class="media-object" src="../images/vedio2.png">
+                                        </a>
+                                        <div class="media-body" style='font-size: 13px;vertical-align: middle;'>
+                                            <a><h4 class="media-heading">Appliances that belong to the same family</h4></a>
+                                            <p>by <a href='#'>Molly Brandenburg</a> <br/> 5,702 views</p>
+                                        </div>
+                                    </div>
+
                                 </div>
+
+
+
+
+                                <div class="main_ebooks" style="min-height: 430px;border-bottom: 1px solid #ccc; padding:20px 0 30px 0; font-size: 16px;">
+                                    <h4><i class='icon-book' style='margin-right: 10px;'></i>E-Books</h4>
+
+                                    <div style='float: left; margin:10px;'>
+                                        <div class="thumbnail" style='width: 180px; height:250px;padding: 0; '>
+                                            <div style='width: 170px; height: 240px; overflow: hidden;margin: 4px;'>
+                                                <img src="../images/ebook1.jpg">
+                                            </div>
+                                            <div class="caption" style='background-color: rgba(255,255,255,0.7);position: relative;bottom: 100px;'>
+                                                <a href='#'><h5>Let Nature Inspire Your Landscape: Shape a Sea-Inspired Garden</h5></a>
+                                            </div>
+                                        </div>
+                                        <p style='font-size: 13px; margin: 10px;'>by Molly Brandenburg<br/>5,702 views<br/>1,203 downloads</p>
+                                    </div>
+
+                                    <div style="float: left;margin:10px;">
+                                        <div class="thumbnail" style='width: 180px; height:250px;padding: 0; '>
+                                            <div style='width: 170px; height: 240px; overflow: hidden;margin: 4px;'>
+                                                <img src="../images/ebook2.jpg">
+                                            </div>
+                                            <div class="caption" style='background-color: rgba(255,255,255,0.7);position: relative;bottom: 100px;'>
+                                                <a href='#'><h5>Let Nature Inspire Your Landscape: Shape a Sea-Inspired Garden</h5></a>
+                                            </div>
+                                        </div>
+                                        <p style='font-size: 13px; margin: 10px;'>by Molly Brandenburg<br/>2,341 views<br/>624 downloads</p>
+                                    </div>
+
+                                    <div style="float: left;margin:10px;">
+                                        <div class="thumbnail" style='width: 180px; height:250px;padding: 0; '>
+                                            <div style='width: 170px; height: 240px; overflow: hidden;margin: 4px;'>
+                                                <img src="../images/ebook3.jpg">
+                                            </div>
+                                            <div class="caption" style='background-color: rgba(255,255,255,0.7);position: relative;bottom: 100px;'>
+                                                <a href='#'><h5>Let Nature Inspire Your Landscape: Shape a Sea-Inspired Garden</h5></a>
+                                            </div>
+                                        </div>
+                                        <p style='font-size: 13px; margin: 10px;'>by Molly Brandenburg<br/>3,562 views<br/>2,287 downloads</p>
+                                    </div>
+                                </div>
+
 
                                 <div class="main_comments" style=" border-bottom: 1px solid #ccc; padding:20px 0 30px 0; font-size: 16px;">
                                     <h4><i class='icon-comments-alt' style='margin-right: 10px;'></i>Comments</h4>

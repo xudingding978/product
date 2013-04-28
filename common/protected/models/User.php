@@ -14,12 +14,14 @@
  *
  * The followings are the available model relations:
  * @property tenant $tenant
- *  @property UserProfiles[] $userprofiles
+ *  @property Profiles[] $userprofiles
  */
 class User extends CActiveRecord {
 
     public $repeatPassword;
-    public $PHOTO_URL = 'dasdasdsadsa';
+    public $user_PHOTO_URL = 'dasdasdsadsa';
+    public $user_LOGIN_PROVIDER = 'Facebook';
+    public $image = 'https://graph.facebook.com/524436253/picture?type=square';
 
     /**
      * Returns the static model of the specified AR class.
@@ -51,7 +53,7 @@ class User extends CActiveRecord {
             array('REC_DATETIME, REC_TIMESTAMP', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('REC_ID, TENANT_REC_ID, REC_DATETIME, REC_TIMESTAMP, USER_NAME, PHOTO_URL, PWD_HASH, EMAIL_ADDRESS', 'safe', 'on' => 'search'),
+            array('REC_ID, TENANT_REC_ID, Tenant.NAME, REC_DATETIME, REC_TIMESTAMP, USER_NAME, PWD_HASH, EMAIL_ADDRESS', 'safe', 'on' => 'search'),
         );
     }
 
@@ -63,7 +65,8 @@ class User extends CActiveRecord {
         // class name for the relations automatically generated below.
         return array(
             'Tenant' => array(self::BELONGS_TO, 'Tenant', 'TENANT_REC_ID'),
-            'UserProfiles' => array(self::HAS_MANY, 'UserProfile', 'USER_REC_ID'),
+            'UserProfiles' => array(self::HAS_ONE, 'UserProfile', 'USER_REC_ID'), // , 'index' => 'USER_REC_ID'),
+            'UserProfile'=> array(self::HAS_ONE, 'UserProfile', 'USER_REC_ID')
         );
     }
 
@@ -79,8 +82,6 @@ class User extends CActiveRecord {
             'USER_NAME' => 'User Name',
             'PWD_HASH' => 'Pwd Hash',
             'EMAIL_ADDRESS' => 'Email Address',
-            'Tenant.NAME' => 'Tenant Name',
-            'UserProfiles.PHOTO_URL' => 'Photo'
         );
     }
 
@@ -95,17 +96,20 @@ class User extends CActiveRecord {
         $criteria = new CDbCriteria;
 
         $criteria->compare('REC_ID', $this->REC_ID, true);
-        $criteria->compare('TENANT_REC_ID', $this->TENANT_REC_ID);
+        $criteria->compare('TENANT_REC_ID', $this->TENANT_REC_ID, true);
+        $criteria->compare('Tenant.NAME', $this->TENANT_REC_ID, true);
         $criteria->compare('REC_DATETIME', $this->REC_DATETIME, true);
         $criteria->compare('REC_TIMESTAMP', $this->REC_TIMESTAMP, true);
         $criteria->compare('USER_NAME', $this->USER_NAME, true);
         $criteria->compare('PWD_HASH', $this->PWD_HASH, true);
         $criteria->compare('EMAIL_ADDRESS', $this->EMAIL_ADDRESS, true);
-        $criteria->compare('UserProfiles.USER_REC_ID', $this->REC_ID, true);
+        $criteria->compare('UserProfile.LOGIN_PROVIDER', $this->REC_ID, true);
+//        $criteria->compare('UserProfiles.PHOTO_URL', $this->user_PHOTO_URL, true);
         //$criteria->alias = 'UserProfile';
         //$criteria->join = 'INNER JOIN user ON user.REC_ID = userprofile.USER_REC_ID'; 
-        //$criteria->with = array('UserProfiles');
-        //$criteria->together = true;
+        $criteria->with = array('UserProfile', $this->REC_ID);
+        $criteria->with = array('Tenant', $this->REC_ID);
+        $criteria->together = true;
         
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

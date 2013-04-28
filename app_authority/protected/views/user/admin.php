@@ -38,17 +38,30 @@ $('.search-form form').submit(function(){
 </div><!-- search-form -->
 
 <?php
-//$gridColumns = array(
-//    array(
-//        'REC_ID',
-//        'REC_DATETIME',
-//        'REC_TIMESTAMP',
-//        'TENANT_REC_ID',
-//        'Tenant.NAME',
-//        'USER_NAME',
-//        'PWD_HASH',
-//    )
-//);
+$gridColumns = array(
+    array('name' => 'REC_ID', 'header' => 'ID', 'htmlOptions' => array('style' => 'width: 50px'),),
+    array(
+        'class' => 'bootstrap.widgets.TbImageColumn',
+        'imagePathExpression' => '($data->UserProfile->PHOTO_URL) ? $data->UserProfile->PHOTO_URL : "/images/blank-user-50x50.gif"',
+        'usePlaceKitten' => FALSE,
+    ),
+    array(
+        'name' => 'TENANT_REC_ID',
+        'header' => 'Tenant',
+        'value' => '$data->Tenant->NAME." (".$data->Tenant->REC_ID.")"'
+    ),
+    array(
+        'name' => 'REC_ID', 
+        'header' => 'Provider', 
+        'value' => '$data->UserProfile->LOGIN_PROVIDER'
+        ),
+    'USER_NAME',
+    array('name' => 'PWD_HASH', 'header' => 'Password', 'value' => '($data->PWD_HASH) ? $data->PWD_HASH: ""'),
+    array(
+        'class' => 'bootstrap.widgets.TbButtonColumn',
+        'htmlOptions' => array('style' => 'width: 50px'),
+    )
+);
 //$groupGridColumns = $gridColumns;
 //$groupGridColumns[] = array(
 //    'name' => 'firstLetter',
@@ -130,18 +143,7 @@ $this->widget('bootstrap.widgets.TbExtendedGridView', array(
             'name' => 'id'
         ),
     ),
-    'columns' => array(
-        array('name' => 'REC_ID', 'header' => 'ID', 'htmlOptions' => array('style' => 'width: 50px'),),
-        'Tenant.NAME',
-        'UserProfiles.LOGIN_PROVIDER',
-        'UserProfiles.PHOTO_URL',
-        //array('name'=>'PHOTO_URL', 'value'=>'$data->UserProfiles->PHOTO_URL'),
-        'USER_NAME',
-        'PWD_HASH',
-        array(
-            'class' => 'bootstrap.widgets.TbButtonColumn',
-            'htmlOptions' => array('style' => 'width: 50px'),
-        ))
+    'columns' => $gridColumns,
 ));
 
 //$this->widget('zii.widgets.grid.CGridView', array(

@@ -124,8 +124,8 @@ class UserController extends Controller {
      * Manages all models.
      */
     public function actionAdmin() {
-        //$model = new User('search');
-        $model = User::model()->with('UserProfiles')->findByPk($id);
+        $model = new User('search');
+        //$model = User::model()->with('UserProfiles')->search();
         //$dataProvider = new CActiveDataProvider('User');
         //$dataProvider = new User('search');
         $model->unsetAttributes();  // clear any default values
@@ -145,7 +145,9 @@ class UserController extends Controller {
      * @throws CHttpException
      */
     public function loadModel($id) {
-        $model = User::model()->with('UserProfiles')->findByPk($id);
+        $model = User::model()
+                ->with('UserProfiles')
+                ->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;

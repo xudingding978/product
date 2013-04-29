@@ -163,6 +163,10 @@ class SiteController extends Controller {
         $dataProvider = ShadowListing::model()->findAll();
         echo CJSON::encode($dataProvider);
     }
+    
+    public function actionSearchStart(){
+        
+    }
 
     public function actionGetSlideImage() {
         $dataProvider = Client::model()->findAll();

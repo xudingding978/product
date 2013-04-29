@@ -16,7 +16,7 @@ class ApiModule extends CWebModule {
         $components = array(
             'request' => array(
                 'class' => 'HttpRequest',
-                'enableCsrfValidation' => true,
+                'enableCsrfValidation' => false,
             )
         );
 

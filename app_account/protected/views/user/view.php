@@ -14,8 +14,6 @@ $this->menu = array(
     array('label' => 'Delete User', 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->REC_ID), 'confirm' => 'Are you sure you want to delete this item?')),
     array('label' => 'Manage User', 'url' => array('admin')),
 );
-
-error_log(Yii::app()->user->isGuest);
 ?>
 <div style="width:100%">
     <div style="width:200px; height: 200px; float:left; padding:0 0 15px 0;">

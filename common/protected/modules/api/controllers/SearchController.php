@@ -6,7 +6,7 @@ class SearchController extends Controller{
     }
     
     function actionList(){
-        $qs = Yii::app()->request->url;
+        //$qs = Yii::app()->request->url;
        echo var_export($qs);
     }
 }

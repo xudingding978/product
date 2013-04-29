@@ -1,15 +1,10 @@
 <?php
 /* @var $this SiteController */
-
-$this->pageTitle = Yii::app()->name;
 ?>
 
 <?php
-if (Yii::app()->user->isGuest) {
-    ?> 
-
-
-
+$this->pageTitle = Yii::app()->name;
+if (Yii::app()->user->isGuest) { ?> 
     <div id="myCarousel" class="carousel slide">
         <div style="background: url('../../../images/shadowontop.png') repeat-x;position: absolute;top: 620px;z-index: 1000;width: 100%;height: 30px;"></div>
         <!-- Carousel items -->
@@ -30,12 +25,8 @@ if (Yii::app()->user->isGuest) {
         <a id="slider-control" class="icon-angle-left" href="#myCarousel" data-slide="prev" style="position: relative; float: left;left: 5%; top: -400px;font-size: 6em;"></a>
         <a id="slider-control" class="icon-angle-right" href="#myCarousel" data-slide="next"style="position: relative; float: right;left: -5%; top: -400px;font-size: 6em;"></a>
     </div>
-
-
-
     <div class="tile_img" >
         <div id="dd3" class="wrapper-dropdown-3" tabindex="1" style="margin-left: 68.5%; margin-bottom: -2%;width:270px; height:45px;">
-
             <div>
                 <div id="dropdown-cover" class="dropdown_test_3" style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -10.5px; padding-left: 35px;">
                     <div class="login-icon">
@@ -60,13 +51,7 @@ if (Yii::app()->user->isGuest) {
             <img src="../../../images/frontpage-intro.png">
         </div>
     </div>
-
-
-
-    <?php
-} else {
-    ?>
-
+<?php } else { ?>
     <div id="discovery_search_bar_wrapper">
         <div class="select_container_left">
             <ul class="discovery_select_left">
@@ -84,9 +69,7 @@ if (Yii::app()->user->isGuest) {
                 </li>
             </ul>
         </div>
-
         <div id="discovery_search_bar">
-
             <input id="search_key" class="search_input" placeholder="All region in New Zealand" name="search_key" type="text"  />
             <input id="search_business" class="search_business" placeholder="Search by Business and keyword" type="text" />
             <a class="view_book" href="#"><i class="icon-book" ></i></a>
@@ -94,13 +77,10 @@ if (Yii::app()->user->isGuest) {
             <a class="view_control_gal"  href='#")'><i class="icon-film" ></i></a>
             <a class="search_button" href="#"><i class="icon-search" ></i></a>
             <a  class="cancleIcon"  href="#" ><i class="icon-remove-sign" ></i></a>
-
         </div>
     </div>
-
-<?PHP } ?>
-
-<script>
+<?php } ?>
+<script type="text/javascript">
                 var imgHeight;
                 var imgWidth;
                 var image_src;
@@ -126,12 +106,13 @@ if (Yii::app()->user->isGuest) {
                     imgHeight = this.height;
                     imgWidth = this.width;
                     console.log("this.height : " + this.height + " " + imgHeight + " " + image_src);
-<?PHP
+<?php
 //$dependency = new CDbCacheDependency('SELECT * FROM `userprofile` `t` WHERE `t`.`USER_REC_ID`='. Yii::app()->user->id .' LIMIT 1');
 //$userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(array('USER_REC_ID' => Yii::app()->user->id));
 
-$dependency = new CDbCacheDependency('SELECT * FROM `userprofile` `t` WHERE `t`.`USER_REC_ID`=20 LIMIT 1');
-$userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(array('USER_REC_ID' => 20));
+$dependency = new CDbCacheDependency('SELECT * FROM `userprofile` `t` WHERE `t`.`USER_REC_ID`=' . Yii::app()->user->id . ' LIMIT 1');
+//$userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(array('USER_REC_ID' => 20));
+$userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(array('USER_REC_ID' => Yii::app()->user->id));
 
 echo "User Profile:".var_dump($userProfile);
 
@@ -359,10 +340,6 @@ echo "User Profile:".var_dump($userProfile);
                 }
 
 </script>
-
-
-
-
 <?php
 try {
     if (!Yii::app()->user->isGuest) {
@@ -377,10 +354,6 @@ try {
     throw $e->getMessage();
 };
 ?>
-
-
-
-
 <div id="" class="group">
     <div class="group"> 
         <div id='categories'>

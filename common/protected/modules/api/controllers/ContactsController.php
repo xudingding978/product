@@ -80,13 +80,9 @@ class ContactsController extends Controller {
         
         //query via elastic search for a list of the users
         
-        $url = 'http://es1.hubsrv.com:9200/beer-sample/_search?q=trendideas.com';
+        $url = 'http://es1.hubsrv.com:9200/beer-sample/_search?q=trendsideas.com';
         $this->getJSONCurl($url);
-        
-        
-        
-        
-        
+
     }
 
     public function actionCreate() {

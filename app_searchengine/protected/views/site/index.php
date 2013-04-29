@@ -112,9 +112,10 @@ if (Yii::app()->user->isGuest) { ?>
 
 $dependency = new CDbCacheDependency('SELECT * FROM `userprofile` `t` WHERE `t`.`USER_REC_ID`=' . Yii::app()->user->id . ' LIMIT 1');
 //$userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(array('USER_REC_ID' => 20));
-$userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(array('USER_REC_ID' => Yii::app()->user->id));
 
-echo "User Profile:".var_dump($userProfile);
+if ((Yii::app()->user != null) && (Yii::app()->user->isGuest != true)){
+    $userProfile = UserProfile::model()->cache(1000, $dependency)->findByAttributes(array('USER_REC_ID' => Yii::app()->user->id));
+};
 
 ?>
 

@@ -90,7 +90,7 @@ if (Yii::app()->user->isGuest) { ?>
                 {
                     $.ajax({
                         type: 'GET',
-                        url: '<?php echo CController::createUrl('Site/GetDataFromItemtable'); ?>',
+                        url: '<?php echo CController::createUrl('site/SearchStart'); ?>',
                         dataType: 'json',
                         success: function(data) {
                             //     alert(data);

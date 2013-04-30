@@ -5,9 +5,8 @@ class SiteController extends Controller {
     /**
      * Declares class-based actions.
      */
-    
     public $footer;
-    
+
     public function actions() {
         return array(
             // captcha action renders the CAPTCHA image displayed on the contact page
@@ -22,13 +21,12 @@ class SiteController extends Controller {
             ),
         );
     }
-    
+
     public function actionCouch() {
         // renders the view file 'protected/views/site/index.php'
         // using the default layout 'protected/views/layouts/main.php'
         $this->render('couch');
     }
-
 
     /**
      * This is the default 'index' action that is invoked
@@ -163,9 +161,16 @@ class SiteController extends Controller {
         $dataProvider = ShadowListing::model()->findAll();
         echo CJSON::encode($dataProvider);
     }
-    
-    public function actionSearchStart(){
+
+    public function actionSearchStart() {
+        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "Pa55word", "test", true);
+        $result_arr = $cb->getMulti(array('photo_1','photo_2','photo_3','photo_4','photo_5','photo_6','photo_7','photo_8','photo_9', 'photo_10'));
         
+       foreach($result_arr as $key => $value){
+           $newvalue = CJSON::decode($value);
+           echo CJSON::encode($newvalue);
+       }
+       //echo var_dump($result_arr);
     }
 
     public function actionGetSlideImage() {

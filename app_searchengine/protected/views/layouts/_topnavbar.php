@@ -32,38 +32,38 @@ if (Yii::app()->user->isGuest) {
             </div>
             <!-- show if not logged into platform-->
             <?php if (Yii::app()->user->isGuest) { ?>
-            <div id="guest-dd-menu">
-                <ul class="login_guest nav" data-toggle="modal" data-target="#myModal" >
-                    <li><a href="/site/#/">Login Guest</a></li>
-                </ul>
-            </div>
+                <div id="guest-dd-menu">
+                    <ul class="login_guest nav" data-toggle="modal" data-target="#myModal" >
+                        <li><a href="/site/#/">Login Guest</a></li>
+                    </ul>
+                </div>
                 <!-- user is logged in -->
             <?php } else { ?>
-                <div>
+                <div id="user-header-menu">
                     <ul class="loging_table moveTop nav" data-toggle="modal" data-target="#myModal" id="myModal">
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"> 
-                            <span class="caret"></span>
-                        </a>
-                        <ul id="user-dd-menu" class="dropdown-menu">
-                            <li class="active">
-                                <a tabindex="-1" href="/site/index/">Ideabook</a>
-                            </li>
-                            <li class="active">
-                                <a tabindex="-1" href="/site/index/">Find Friends</a>
-                            </li>
-                            <li class="active">
-                                <a tabindex="-1" href="/site/index/">Settings</a>
-                            </li>
-                            <li class="active">
-                                <a tabindex="-1" href="/site/index/">Help Center</a>
-                            </li>
-                            <li>
-                                <a tabindex="-1" href="/site/logout/">Logout (<?php echo Yii::app()->user->name; ?>)</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"> 
+                                <span class="caret"></span>
+                            </a>
+                            <ul id="user-dd-menu" class="dropdown-menu">
+                                <li class="active">
+                                    <a tabindex="-1" href="#">Ideabook</a>
+                                </li>
+                                <li class="active">
+                                    <a tabindex="-1" href="#">Find Friends</a>
+                                </li>
+                                <li class="active">
+                                    <a tabindex="-1" href="#">Settings</a>
+                                </li>
+                                <li class="active">
+                                    <a tabindex="-1" href="#">Help Center</a>
+                                </li>
+                                <li>
+                                    <a tabindex="-1" href="#">Logout (<?php echo Yii::app()->user->name; ?>)</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
             <?php }; ?>
         </div>
@@ -72,70 +72,70 @@ if (Yii::app()->user->isGuest) {
 <script type="text/javascript">
 
     function DropDown(el) {
-    this.dd = el;
-    this.placeholder = this.dd.children('span');
-    this.opts = this.dd.find('ul.dropdown > li');
-    this.val = '';
-    this.index = -1;
-    this.initEvents();
+        this.dd = el;
+        this.placeholder = this.dd.children('span');
+        this.opts = this.dd.find('ul.dropdown > li');
+        this.val = '';
+        this.index = -1;
+        this.initEvents();
     }
     DropDown.prototype = {
-    initEvents: function() {
-    var obj = this;
+        initEvents: function() {
+            var obj = this;
 
-    obj.dd.on('click', function(event) {
-    $(this).parents('div .wrapper-dropdown-3').toggleClass('active');
-    return false;
-    });
+            obj.dd.on('click', function(event) {
+                $(this).parents('div .wrapper-dropdown-3').toggleClass('active');
+                return false;
+            });
 
 
-    obj.opts.on('click', function() {
-    var opt = $(this);
-    obj.val = opt.text();
-    obj.index = opt.index();
-    obj.placeholder.text(obj.val);
-    });
-    },
-    getValue: function() {
-    return this.val;
-    },
-    getIndex: function() {
-    return this.index;
-    }
+            obj.opts.on('click', function() {
+                var opt = $(this);
+                obj.val = opt.text();
+                obj.index = opt.index();
+                obj.placeholder.text(obj.val);
+            });
+        },
+        getValue: function() {
+            return this.val;
+        },
+        getIndex: function() {
+            return this.index;
+        }
     };
 
-    $(function() {
+   $(function()) {
 
-    var dd = new DropDown($('.dropdown_test'));
+        var dd = new DropDown($('.dropdown_test'));
 
-    $(document).click(function() {
-    // all dropdowns
-    $('.wrapper-dropdown-3').removeClass('active');
-    });
-    var dd1 = new DropDown($('.dropdown_test_1'));
+        $(document).click(function() {
+            // all dropdowns
+            $('.wrapper-dropdown-3').removeClass('active');
+        });
+        var dd1 = new DropDown($('.dropdown_test_1'));
 
-    $(document).click(function() {
-    // all dropdowns
-    $('.wrapper-dropdown-3').removeClass('active');
-    });
-    var dd2 = new DropDown($('.dropdown_test_2'));
+        $(document).click(function() {
+            // all dropdowns
+            $('.wrapper-dropdown-3').removeClass('active');
+        });
+        var dd2 = new DropDown($('.dropdown_test_2'));
 
-    $(document).click(function() {
-    // all dropdowns
-    $('.wrapper-dropdown-3').removeClass('active');
-    });
-    var dd3 = new DropDown($('.dropdown_test_3'));
+        $(document).click(function() {
+            // all dropdowns
+            $('.wrapper-dropdown-3').removeClass('active');
+        });
+        var dd3 = new DropDown($('.dropdown_test_3'));
 
-    $(document).click(function() {
-    // all dropdowns
-    $('.wrapper-dropdown-3').removeClass('active');
-    });
-    var dd4 = new DropDown($('.dropdown_test_4'));
+        $(document).click(function() {
+            // all dropdowns
+            $('.wrapper-dropdown-3').removeClass('active');
+        });
+        var dd4 = new DropDown($('.dropdown_test_4'));
 
-    $(document).click(function() {
-    // all dropdowns
-    $('.wrapper-dropdown-3').removeClass('active');
-    });
+        $(document).click(function() {
+            // all dropdowns
+            $('.wrapper-dropdown-3').removeClass('active');
+        });
 
-    });
+    };
 </script>

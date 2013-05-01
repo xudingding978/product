@@ -94,7 +94,7 @@
 }
 
 .login_icon{
-    positison:absolute;
+    position:absolute;
     margin: 10px 10px 10px 10px ;
 }
 
@@ -117,7 +117,7 @@
     margin: 50px 0px 0px 0px;
 }
 .loging_table >.dropdown>.dropdown-toggle>.caret {
-    positison:absolute;
+    position:absolute;
     margin-top: 8px;
     margin-left: 0px;
 }

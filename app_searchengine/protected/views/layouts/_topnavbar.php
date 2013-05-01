@@ -144,3 +144,127 @@ if (Yii::app()->user->isGuest) {
 
     });
 </script>
+     <script type="text/javascript">
+
+                    $(document).ready(function() {
+
+                        $('#main-nav span').removeClass('caret');
+                        $('#myModal').attr('aria-hidden', 'false');
+                        $('#myModal').attr("style", "display:none");
+
+                        $('#social_login').attr('aria-hidden', 'false');
+                        $('#social_login').attr("style", "display:block");
+
+                        $('#email_login').attr('aria-hidden', 'true');
+                        $('#email_login').attr("style", "display:none");
+
+
+                        $('#email_register').attr('aria-hidden', 'true');
+                        $('#email_register').attr("style", "display:none");
+
+                        // left hiding menu bar
+
+                        $('.main-nav ').attr("style", "opacity:0.4;width:10px;overflow:hidden");
+                        // hide #back-top first
+                        $("#back-top").hide();
+                        $(window).scroll(function() {
+                            if ($(this).scrollTop() == 0) {
+                                $('#discovery_search_bar_wrapper').attr('style', 'position:relative;margin-top: 40px;');
+                                document.getElementById("search-loading").className = "search-loading-invisible";
+                            }
+                            if ($(this).scrollTop() > 150) {
+                                $('#back-top').fadeIn();
+                            } else {
+                                $('#back-top').fadeOut();
+                            }
+
+                            if ($(this).scrollTop() > 150) {
+                                $('.smallIcon').fadeIn();
+                            } else {
+                                $('.smallIcon').fadeOut();
+                            }
+                        });
+                        $('#back-top a').click(function() {
+                            $('body,html').animate({
+                                scrollTop: 0
+                            }, 800);
+                            return false;
+                        });
+                    });
+                    function dismiss_modal() {
+                        $('#social_login').attr('aria-hidden', 'true');
+                        $('#social_login').attr("style", "display:none");
+                        $('#email_login').attr('aria-hidden', 'false');
+                        $('#email_login').attr("style", "display:block");
+
+                    }
+                    function dismiss_modal_test() {
+                        $('#social_login').attr('aria-hidden', 'true');
+                        $('#social_login').attr("style", "display:none");
+                        $('#email_login').attr('aria-hidden', 'false');
+                        $('#email_login').attr("style", "display:block");
+
+                    }
+                    function dismiss_Join() {
+                        $('#email_login').attr('aria-hidden', 'true');
+                        $('#email_login').attr("style", "display:none");
+                        $('#email_register').attr('aria-hidden', 'false');
+                        $('#email_register').attr("style", "display:block");
+
+                    }
+
+
+                    function reset_login() {
+                        $('#email_login').attr('aria-hidden', 'true');
+                        $('#email_login').attr("style", "display:none");
+                        $('#social_login').attr('aria-hidden', 'false');
+                        $('#social_login').attr("style", "display:block");
+
+                        $('#email_register').attr('aria-hidden', 'true');
+                        $('#email_register').attr("style", "display:none");
+
+                    }
+                    function show_search_bar() {
+
+
+                        $('#discovery_search_bar_wrapper').attr('style', 'position:fixed;margin-top: -30px;z-index: 50000;');
+                        document.getElementById("search-loading").className = "search-loading-visible";
+
+                    }
+                    function dismiss_search() {
+                        $('#discovery_search_bar_wrapper').attr('style', 'position:relative;margin-top: 40px;z-index: 500;');
+                        document.getElementById("search-loading").className = "search-loading-invisible";
+                    }
+
+                    function detDomain() {
+<?php
+$dot_positon = strpos($_SERVER['HTTP_HOST'], ".");
+$domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
+?>
+                    }
+                    function Facebook() {
+                        detDomain();
+                        window.location.href = "http://account" + "<?php echo $domain ?>" + "/hybridauth/default/login/?provider=Facebook";
+                    }
+                    function Yahoo() {
+                        detDomain();
+                        window.location.href = "http://account" + "<?php echo $domain ?>" + "/hybridauth/default/login/?provider=Yahoo";
+                    }
+                    function QQ() {
+                        detDomain();
+                        window.location.href = "http://account" + "<?php echo $domain ?>" + "/hybridauth/default/login/?provider=QQ";
+                    }
+                    function Sina() {
+                        detDomain();
+                        window.location.href = "http://account" + "<?php echo $domain ?>" + "/hybridauth/default/login/?provider=Sina";
+                    }
+                    function Twitter() {
+                        detDomain();
+                        window.location.href = "http://account" + "<?php echo $domain ?>" + "/hybridauth/default/login/?provider=Twitter";
+                    }
+                    function Google() {
+                        detDomain();
+                        //      alert("<?php echo $domain ?>");
+                        window.location.href = "http://account" + "<?php echo $domain ?>" + "/hybridauth/default/login/?provider=Google";
+                    }
+                </script>

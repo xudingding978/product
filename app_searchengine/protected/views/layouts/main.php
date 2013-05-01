@@ -22,7 +22,7 @@
             <link media="screen, projection" rel="stylesheet" type="text/css" href="../../../css/jquery.bxslider.css"/>
             <link rel="stylesheet" type="text/css" href="../../../css/customstyle.php" /> 
             <link rel="stylesheet" href="../../../css/font-awesome.min.css">
-                <script type="text/javascript"> //dropdown JS
+                <script type="text/javascript">
 
                     function DropDown(el) {
                         this.dd = el;

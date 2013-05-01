@@ -1,0 +1,10 @@
+#footer
+{
+    position: absolute;
+    width: 100%;
+    background: #333333 url('../images/footerbg.png') repeat-x;
+    color: white;
+    padding: 40px;
+    font-size: 0.8em;
+    text-align: center;
+}

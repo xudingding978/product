@@ -358,3 +358,9 @@
                     </div>
 
                      <?php $this->endWidget(); ?>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,158 @@
+.navbar .brand {
+    display: block;
+    float: left;
+    padding:10px;
+    margin-left: 0px;
+    font-size: 20px;
+    font-weight: 200;
+    color: rgb(119, 119, 119);
+    text-shadow: none;
+    margin:0;
+}
+
+.titleText{
+    margin:13px 0 0 17%;
+
+}
+.navbar-inner > .container {
+    min-width:95%;
+    height:45px;
+}
+.navbar-fixed-top {
+    margin-bottom: 0px;
+    height:45px;
+    top:0;
+    position: fixed;
+}
+.navbar{
+    overflow:visible;
+    color:white;
+    -webkit-box-shadow: 0px 0px 15px rgb(0, 0, 0);
+    -moz-box-shadow: 0px 0px 15px rgb(0, 0, 0);
+    box-shadow: 0px 0px 15px rgb(0, 0, 0);
+
+}
+
+.navbar > .navbar-inner {
+    padding: 0px;
+}
+
+.logonew {
+    height: 25px;
+}
+
+.wrapper-dropdown-3 {
+    position: relative;
+    width: 200px;
+    margin: 0px;
+    left: 40%;
+    padding: 10px;
+    background: none repeat scroll 0% 0% rgb(255, 255, 255);
+    border-radius: 7px 7px 7px 7px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 1px 1px rgba(50, 50, 50, 0.1);
+    cursor: pointer;
+    outline: medium none;
+    font-weight: bold;
+    color: rgb(138, 168, 189);
+}
+
+.container > .wrapper-dropdown-3 {
+    font-weight: normal;
+}
+
+.wrapper-dropdown-3 {
+    cursor: pointer;
+    font-weight: bold;
+    color: rgb(138, 168, 189);
+}
+.container > .wrapper-dropdown-3 {
+    font-weight: normal;
+}
+
+* {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0px;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 170px;
+    min-height: 200px;
+    margin: 15px 0px 0px 0px;
+    list-style: none outside none;
+    background-color: rgba(0, 0, 0,1);
+    border: none;
+    border-radius: 6px 6px 6px 6px;
+    box-shadow: none;
+    background-clip: padding-box;
+}
+
+.login_icon{
+    positison:absolute;
+    margin: 10px 10px 10px 10px ;
+}
+
+.loging_image{
+    margin-top: -65px;
+    position: absolute;
+    left:72%;
+    float: right;
+}
+
+.loging_text{
+    margin-top: -60px;
+    position: absolute;
+    left:76%;
+    float: right;
+}
+
+.navbar .nav.loging_table {
+    float: right;
+    margin: 50px 0px 0px 0px;
+}
+.loging_table >.dropdown>.dropdown-toggle>.caret {
+    positison:absolute;
+    margin-top: 8px;
+    margin-left: 0px;
+}
+
+.open > #user-dd-menu {
+    background: none repeat scroll 0% 0% rgb(45,45,45);
+    border: 1px solid rgba(0,0,0,0.17);
+    margin-top:20px;
+    padding:0px;
+    width:200px;
+}
+
+#user-dd-menu li a {
+    border-radius: 0px;
+    color: white;
+    background-color: rgba(255, 255, 255, 0);
+    border-bottom:1px solid black;
+    padding:10px;
+    border-top:1px solid rgb(66,66,66);
+    box-shadow:none;
+    margin:0;
+}
+
+
+.navbar .nav > li > #user-dd-menu:after {
+    border-color: #000 transparent;
+    left:3%
+
+}
+
+
+.navbar .nav > li >#user-dd-menu:before {
+    left:3%;
+}
+
+#user-dd-menu {
+    padding:0px;
+}

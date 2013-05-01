@@ -37,11 +37,11 @@ if (Yii::app()->user->isGuest) {
             </div>
             <!-- show if not logged into platform-->
             <?php if (Yii::app()->user->isGuest) { ?>
-                <div id="guest-dd-menu">
+               
                     <ul class="login_guest nav" data-toggle="modal" data-target="#myModal" >
                         <li><a href="#">Login Guest</a></li>
                     </ul>
-                </div>
+              
                 <!-- user is logged in -->
             <?php } else { ?>
                 <div>
@@ -268,4 +268,5 @@ if (Yii::app()->user->isGuest) {
     //      alert("<?php echo $domain ?>");
     window.location.href = "http://account" + "<?php echo $domain ?>" + "/hybridauth/default/login/?provider=Google";
     }
+    
 </script>

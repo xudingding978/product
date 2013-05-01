@@ -325,3 +325,9 @@
         progid:DXImageTransform.Microsoft.Shadow(color=#404040,direction=315,strength=3);
 
 }
+
+#mainmenu .container > .login_guest {
+    margin: -68px 0px 0px 10%;
+    top: 0px;
+    left: 85%;
+}

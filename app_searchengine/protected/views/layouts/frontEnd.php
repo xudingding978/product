@@ -1,5 +1,8 @@
 <!doctype html>
-<!--[if lt IE 7 ]> <html lang="en" class="ie6"> <![endif]--> <!--[if IE 7 ]>    <html lang="en" class="ie7"> <![endif]--> <!--[if IE 8 ]>    <html lang="en" class="ie8"> <![endif]--> <!--[if IE 9 ]>    <html lang="en" class="ie9"> <![endif]-->
+<!--[if lt IE 7 ]> <html lang="en" class="ie6"> <![endif]--> 
+<!--[if IE 7 ]>    <html lang="en" class="ie7"> <![endif]--> 
+<!--[if IE 8 ]>    <html lang="en" class="ie8"> <![endif]--> 
+<!--[if IE 9 ]>    <html lang="en" class="ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
     <head>
         <meta charset="UTF-8">
@@ -8,8 +11,6 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
         <link rel="stylesheet" href="/app_hubstar/scripts/libs/bootstrap/2.2.2/css/bootstrap.css">
         <link rel="stylesheet" href="/app_hubstar/css/style.css?v=2">
         <link media="screen, projection" rel="stylesheet" type="text/css" href="css/gallery.css"/>
@@ -17,8 +18,6 @@
        <link media="screen, projection" rel="stylesheet" type="text/css" href="css/_topnavbar.css"/>
        <link media="screen, projection" rel="stylesheet" type="text/css" href="css/_footer.css"/>
         <link rel="stylesheet" href="css/font-awesome.min.css">
-        <script type="text/javascript" language="JavaScript" src="../../../js/jquery-1.9.1.js"></script>
-
     </head>
     <body>
         <?php 

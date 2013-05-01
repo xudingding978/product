@@ -530,15 +530,15 @@ try {
         <div class='place_holder'></div>
         <div id='display_loading' class='display_btn' style="display: none">
             <?php
-            $this->widget('bootstrap.widgets.TbButton', array(
-                'label' => 'DISCOVER MORE',
-                'type' => 'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-                'size' => 'large', // null, 'large', 'small' or 'mini'
-                'htmlOptions' => array(
-                    'class' => 'pull-right',
-                    'onclick' => "Set(); switch_loading();"
-                ),
-            ));
+//            $this->widget('bootstrap.widgets.TbButton', array(
+//                'label' => 'DISCOVER MORE',
+//                'type' => 'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+//                'size' => 'large', // null, 'large', 'small' or 'mini'
+//                'htmlOptions' => array(
+//                    'class' => 'pull-right',
+//                    'onclick' => "Set(); switch_loading();"
+//                ),
+//            ));
             ?>
 
 
@@ -582,57 +582,57 @@ if (Yii::app()->user->isGuest) {
     }
     ?>
     <?php
-    $this->widget('bootstrap.widgets.TbMenu', array(
-        'htmlOptions' => array(
-            'onclick' => 'testing2();',
-            'class' => 'dropdown_left',
-        ),
-        'items' => array(
-            array('icon' => 'icon-eye-open icon-2x', 'url' => '#', 'items' => array(
-                    array('alabel' => ''),
-                    array('label' => 'All Room & Stlyes', 'url' => array('#')),
-                    array('label' => 'Kitchen', 'url' => array('/site/index')),
-                    array('label' => 'Bath', 'url' => array('/site/index')),
-                    array('label' => 'Bedroom', 'items' => array(
-                            array('label' => ''),
-                            array('label' => 'Bedroom Photos:'),
-                            array('label' => 'Browse all Bedroom Photos', 'url' => '#'),
-                            array('label' => 'Bedroom Products:'),
-                            array('label' => 'Beds and Headboards', 'url' => '#'),
-                            array('label' => 'Bedroom Benchess', 'url' => '#'),
-                            array('label' => 'Dressers Chests and Bedroom Armories', 'url' => '#'),
-                            array('label' => 'Makeup Mirrors', 'url' => '#'),
-                            array('label' => 'Nightstands and Bedside Tables', 'url' => '#'),
-                            array('label' => 'Sofa Beds', 'url' => '#'),
-                            array('label' => 'Bedding', 'url' => '#'),
-                            array('label' => 'Upholstery Fabric', 'url' => '#'),
-                            array('label' => ''),
-                        ),),
-                    array('label' => 'Living', 'url' => array('/site/index')),
-                    array('label' => 'Dinging', 'url' => array('/site/index')),
-                    array('label' => 'Outdoor', 'url' => array('/site/index')),
-                    array('label' => 'Kids', 'url' => array('/site/index')),
-                    array('label' => 'Home Office', 'url' => array('/site/index')),
-                    array('label' => 'Storage & Closets', 'url' => array('/site/index')),
-                    array('label' => 'Exterior', 'url' => array('/site/index')),
-                    array('label' => 'More Rooms', 'url' => array('/site/index')),
-                    array('label' => 'Lighting', 'url' => array('/site/index')),
-                    array('label' => 'Accessories & Decor', 'url' => array('/site/index')),
-                    array('label' => 'Windows & Doors', 'tabindex' => '-1', 'items' => array(
-                            array('label' => ''),
-                            array('label' => 'Action1', 'url' => '#'),
-                            array('label' => 'Action2', 'url' => '#'),
-                            array('label' => 'Action3', 'url' => '#'),
-                            array('label' => 'Action4', 'url' => '#'),
-                            array('label' => 'Action5', 'url' => '#'),
-                            array('label' => ''),
-                        ),
-                    ),
-                    array('alabel' => ''),
-                )
-            ),
-        )
-    ));
+//    $this->widget('bootstrap.widgets.TbMenu', array(
+//        'htmlOptions' => array(
+//            'onclick' => 'testing2();',
+//            'class' => 'dropdown_left',
+//        ),
+//        'items' => array(
+//            array('icon' => 'icon-eye-open icon-2x', 'url' => '#', 'items' => array(
+//                    array('alabel' => ''),
+//                    array('label' => 'All Room & Stlyes', 'url' => array('#')),
+//                    array('label' => 'Kitchen', 'url' => array('/site/index')),
+//                    array('label' => 'Bath', 'url' => array('/site/index')),
+//                    array('label' => 'Bedroom', 'items' => array(
+//                            array('label' => ''),
+//                            array('label' => 'Bedroom Photos:'),
+//                            array('label' => 'Browse all Bedroom Photos', 'url' => '#'),
+//                            array('label' => 'Bedroom Products:'),
+//                            array('label' => 'Beds and Headboards', 'url' => '#'),
+//                            array('label' => 'Bedroom Benchess', 'url' => '#'),
+//                            array('label' => 'Dressers Chests and Bedroom Armories', 'url' => '#'),
+//                            array('label' => 'Makeup Mirrors', 'url' => '#'),
+//                            array('label' => 'Nightstands and Bedside Tables', 'url' => '#'),
+//                            array('label' => 'Sofa Beds', 'url' => '#'),
+//                            array('label' => 'Bedding', 'url' => '#'),
+//                            array('label' => 'Upholstery Fabric', 'url' => '#'),
+//                            array('label' => ''),
+//                        ),),
+//                    array('label' => 'Living', 'url' => array('/site/index')),
+//                    array('label' => 'Dinging', 'url' => array('/site/index')),
+//                    array('label' => 'Outdoor', 'url' => array('/site/index')),
+//                    array('label' => 'Kids', 'url' => array('/site/index')),
+//                    array('label' => 'Home Office', 'url' => array('/site/index')),
+//                    array('label' => 'Storage & Closets', 'url' => array('/site/index')),
+//                    array('label' => 'Exterior', 'url' => array('/site/index')),
+//                    array('label' => 'More Rooms', 'url' => array('/site/index')),
+//                    array('label' => 'Lighting', 'url' => array('/site/index')),
+//                    array('label' => 'Accessories & Decor', 'url' => array('/site/index')),
+//                    array('label' => 'Windows & Doors', 'tabindex' => '-1', 'items' => array(
+//                            array('label' => ''),
+//                            array('label' => 'Action1', 'url' => '#'),
+//                            array('label' => 'Action2', 'url' => '#'),
+//                            array('label' => 'Action3', 'url' => '#'),
+//                            array('label' => 'Action4', 'url' => '#'),
+//                            array('label' => 'Action5', 'url' => '#'),
+//                            array('label' => ''),
+//                        ),
+//                    ),
+//                    array('alabel' => ''),
+//                )
+//            ),
+//        )
+//    ));
     ?> 
 
 

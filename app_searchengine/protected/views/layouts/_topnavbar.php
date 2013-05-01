@@ -17,7 +17,7 @@ if (Yii::app()->user->isGuest) {
                     </a>
                 </div>
                 
-            <div style="width: 100px">
+            <div id="title" class="title-strapline" style="width: 100px">
                 <p class="titleText">Global  recommendations from </p>
             </div>
             <div id="dd4" class="wrapper-dropdown-3" tabindex="1" style="top: -33px; background:none;border-radius: none;border: none;color:white;box-shadow: none;">

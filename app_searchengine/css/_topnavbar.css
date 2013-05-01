@@ -10,9 +10,13 @@
     margin:0;
 }
 
+.title-strapline{
+    float:  left;   
+}
+
 .titleText{
     margin:13px 0 0 17%;
-
+    width: 300px;
 }
 .navbar-inner > .container {
     min-width:100%;

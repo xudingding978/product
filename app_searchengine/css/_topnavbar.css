@@ -623,7 +623,7 @@
     background-color: rgba(255,255,255,0)
 }
 
-.navbar-fixed-top ul li a:hover, .navbar-fixed-top ul li.active a
+.navbar-fixed-top ul li a:hover, .navbar-fixed-top ul li a:active
 {
     color: rgb(255,255,255);
     text-decoration:none;

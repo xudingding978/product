@@ -1,5 +1,6 @@
 
 
+
 <div id="myModal" class="modal hide fade" aria-hidden="true">
     <div class="modal-header" style="background-color: rgb(242,240,240); padding:12px 0px; border-radius: 6px 6px 0 0;">
         <a class="close" style="margin:-11px 8px;" onclick="reset_login();" data-dismiss="modal" x>x</a>
@@ -163,20 +164,20 @@
                         <div class="row">
                             <?php echo $form->labelEx($model, 'username'); ?>
                             <?php echo $form->textField($model, 'username'); ?>
-<?php echo $form->error($model, 'username'); ?>    
+                            <?php echo $form->error($model, 'username'); ?>    
                             <p id='user_blank' style="display:none">* Username cannot be blank.</p>
                         </div>
                         <div class="row">
                             <?php echo $form->labelEx($model, 'password'); ?>
                             <?php echo $form->passwordField($model, 'password'); ?>
-<?php echo $form->error($model, 'password'); ?>
+                            <?php echo $form->error($model, 'password'); ?>
                             <p  id='password_blank'  style='display:none;' >* Password cannot be blank.</p>
                             <p  id='password_incorrect'  style='display:none' >* Incorrect username or password.</p>
                         </div>
                         <div class="row rememberMe" style="margin-top: 5px; ">
                             <?php echo $form->checkBox($model, 'rememberMe'); ?>
                             <?php echo $form->label($model, 'keep me signed in'); ?>
-<?php echo $form->error($model, 'rememberMe'); ?>
+                            <?php echo $form->error($model, 'rememberMe'); ?>
                         </div>
 
 
@@ -184,7 +185,7 @@
                             <a href="#" role="button" class="btn" onclick="send();">Login</a>
                         </div>
 
-<?php $this->endWidget(); ?>
+                        <?php $this->endWidget(); ?>
 
                     </div><!-- form -->
 
@@ -327,27 +328,27 @@
                         <div class="row">
 
                             <?php echo $form->textField($model, 'EMAIL_ADDRESS', array('size' => 60, 'placeholder' => "Email Address", 'maxlength' => 255)); ?>
-<?php echo $form->error($model, 'EMAIL_ADDRESS'); ?>
+                            <?php echo $form->error($model, 'EMAIL_ADDRESS'); ?>
                             <p id='email_taken' style="display:none">* E-mail has already been taken.</p>
                         </div>
 
                         <div class="row">
 
                             <?php echo $form->textField($model, 'USER_NAME', array('size' => 60, 'placeholder' => "Username", 'maxlength' => 255)); ?>
-<?php echo $form->error($model, 'USER_NAME'); ?>
+                            <?php echo $form->error($model, 'USER_NAME'); ?>
                             <p id='username_taken' style="display:none">* Username has already been taken.</p>
                         </div>
                         <div class="row">
 
                             <?php echo $form->passwordField($model, 'PWD_HASH', array('size' => 60, 'placeholder' => "Password", 'maxlength' => 512)); ?>
-<?php echo $form->error($model, 'PWD_HASH'); ?>
+                            <?php echo $form->error($model, 'PWD_HASH'); ?>
 
                         </div>
 
                         <div class="row">
 
                             <?php echo $form->passwordField($model, 'repeatPassword', array('size' => 60, 'placeholder' => "Confirm Password", 'maxlength' => 512)); ?>
-<?php echo $form->error($model, 'repeatPassword'); ?>
+                            <?php echo $form->error($model, 'repeatPassword'); ?>
                             <p id='password_repeat' style="display:none">* Password must be repeated exactly.</p>
                         </div>
 
@@ -360,7 +361,7 @@
                             <a href="#" role="button" class="btn" onclick="send_register();">Sign Up</a>
                         </div>
 
-<?php $this->endWidget(); ?>
+                        <?php $this->endWidget(); ?>
 
                     </div>
                 </div>
@@ -368,3 +369,51 @@
         </div>
     </div>
 </div>
+
+<script>
+    function dismiss_modal() {
+    $('#social_login').attr('aria-hidden', 'true');
+    $('#social_login').attr("style", "display:none");
+    $('#email_login').attr('aria-hidden', 'false');
+    $('#email_login').attr("style", "display:block");
+
+    }
+    function dismiss_modal_test() {
+    $('#social_login').attr('aria-hidden', 'true');
+    $('#social_login').attr("style", "display:none");
+    $('#email_login').attr('aria-hidden', 'false');
+    $('#email_login').attr("style", "display:block");
+
+    }
+    function dismiss_Join() {
+    $('#email_login').attr('aria-hidden', 'true');
+    $('#email_login').attr("style", "display:none");
+    $('#email_register').attr('aria-hidden', 'false');
+    $('#email_register').attr("style", "display:block");
+
+    }
+
+
+    function reset_login() {
+    $('#email_login').attr('aria-hidden', 'true');
+    $('#email_login').attr("style", "display:none");
+    $('#social_login').attr('aria-hidden', 'false');
+    $('#social_login').attr("style", "display:block");
+
+    $('#email_register').attr('aria-hidden', 'true');
+    $('#email_register').attr("style", "display:none");
+
+    }
+    function show_search_bar() {
+
+
+    $('#discovery_search_bar_wrapper').attr('style', 'position:fixed;margin-top: -30px;z-index: 50000;');
+    document.getElementById("search-loading").className = "search-loading-visible";
+
+    }
+    function dismiss_search() {
+    $('#discovery_search_bar_wrapper').attr('style', 'position:relative;margin-top: 40px;z-index: 500;');
+    document.getElementById("search-loading").className = "search-loading-invisible";
+    }
+
+</script>

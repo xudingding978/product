@@ -38,7 +38,7 @@ if (Yii::app()->user->isGuest) {
             <!-- show if not logged into platform-->
             <?php if (Yii::app()->user->isGuest) { ?>
                     <ul class="login_guest nav" data-toggle="modal" data-target="#myModal" >
-                        <li><a href="#">Login Guest</a></li>
+                        <li><a href="#">Login</a></li>
                     </ul>
            
                 <!-- user is logged in -->

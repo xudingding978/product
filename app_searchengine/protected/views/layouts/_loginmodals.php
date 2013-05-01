@@ -1,7 +1,7 @@
 
 
 
-<div id="myModal" class="modal hide fade" aria-hidden="true">
+<div id="myModal" class="modal hide" aria-hidden="true">
     <div class="modal-header" style="background-color: rgb(242,240,240); padding:12px 0px; border-radius: 6px 6px 0 0;">
         <a class="close" style="margin:-11px 8px;" onclick="reset_login();" data-dismiss="modal" x>x</a>
     </div>

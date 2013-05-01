@@ -12,7 +12,9 @@ if (Yii::app()->user->isGuest) {
     <div class="navbar-inner">
         <div class="container"><a href="/" class="brand">
                 <img class="logonew" style="position: relative; top: 0; margin:0;" src="../../../images/landing-trends.png"></a>
-            <p class="titleText">Global  recommendations from </p>
+            <div style="width: 100px">
+                <p class="titleText">Global  recommendations from </p>
+            </div>
             <div id="dd4" class="wrapper-dropdown-3" tabindex="1" style="top: -33px; background:none;border-radius: none;border: none;color:white;box-shadow: none;">
                 <div class="SpanFontSetting dropdown_test_4" style="margin-right: 40px;">Region</div>
                 <ul class="dropdown" style="background: none repeat scroll 0% 0% rgb(45, 45, 45);border: 1px solid rgba(0, 0, 0, 0.17);">
@@ -29,13 +31,16 @@ if (Yii::app()->user->isGuest) {
                 <a href="#" class="icon_c"><i class="icon-search icon-large"></i></a>
             </div>
             <!-- show if not logged into platform-->
-            <?php if ($userProfile != null) { ?>
-                <ul class="login_guest nav" data-toggle="modal" data-target="#myModal" id="myModal">
-                    <li><a href="/site/#/">Login</a></li>
+            <?php if (Yii::app()->user->isGuest) { ?>
+            <div id="guest-dd-menu">
+                <ul class="login_guest nav" data-toggle="modal" data-target="#myModal" >
+                    <li><a href="/site/#/">Login Guest</a></li>
                 </ul>
+            </div>
                 <!-- user is logged in -->
             <?php } else { ?>
-                <ul class="loging_table moveTop nav" data-toggle="modal" data-target="#myModal" id="myModal">
+                <div>
+                    <ul class="loging_table moveTop nav" data-toggle="modal" data-target="#myModal" id="myModal">
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"> 
                             <span class="caret"></span>
@@ -59,6 +64,7 @@ if (Yii::app()->user->isGuest) {
                         </ul>
                     </li>
                 </ul>
+                </div>
             <?php }; ?>
         </div>
     </div>

@@ -22,7 +22,7 @@
     <body>
         <?php 
             $this->renderPartial('/layouts/_topnavbar');
-          //  $this->renderPartial('/layouts/_loginmodals'); 
+            $this->renderPartial('/layouts/_loginmodals'); 
         ?>
         <div id="main" class="container-fluid" style="min-height: 100%; padding-top: 45px;"></div>
         <script data-main="../../../app_hubstar/scripts/main" src="../../../app_hubstar/scripts/libs/requirejs/2.1.2/require.js"></script>

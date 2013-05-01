@@ -10,9 +10,14 @@ if (Yii::app()->user->isGuest) {
 <!-- Top Navigation Menubar -->
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
-        <div class="container"><a href="/" class="brand">
-                <img class="logonew" style="position: relative; top: 0; margin:0;" src="../../../images/landing-trends.png"></a>
-            <div style="width: 100px">
+        <div class="container">
+                <div class="brand">
+                    <a href="#">
+                        <img class="logonew" style="position: relative; top: 0; margin:0;" src="../../../images/landing-trends.png">
+                    </a>
+                </div>
+                
+            <div id="title" class="title-strapline" style="width: 100px">
                 <p class="titleText">Global  recommendations from </p>
             </div>
             <div id="dd4" class="wrapper-dropdown-3" tabindex="1" style="top: -33px; background:none;border-radius: none;border: none;color:white;box-shadow: none;">

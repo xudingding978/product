@@ -10,9 +10,13 @@
     margin:0;
 }
 
+.title-strapline{
+    float:  left;   
+}
+
 .titleText{
     margin:13px 0 0 17%;
-
+    width: 300px;
 }
 .navbar-inner > .container {
     min-width:100%;
@@ -94,7 +98,7 @@
 }
 
 .login_icon{
-    positison:absolute;
+    position:absolute;
     margin: 10px 10px 10px 10px ;
 }
 
@@ -117,7 +121,7 @@
     margin: 50px 0px 0px 0px;
 }
 .loging_table >.dropdown>.dropdown-toggle>.caret {
-    positison:absolute;
+    position:absolute;
     margin-top: 8px;
     margin-left: 0px;
 }

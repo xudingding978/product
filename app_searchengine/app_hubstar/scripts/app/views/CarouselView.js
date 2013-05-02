@@ -1,7 +1,7 @@
 define([
   "ember",
-  "text!templates/carouselTemplate.html",
-  "bootstrap"
+  "text!templates/carouselTemplate.html"
+
 ], function(Ember, carouselTemplate){
   var CarouselView = Ember.View.extend({
 

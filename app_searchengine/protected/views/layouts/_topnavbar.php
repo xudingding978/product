@@ -20,8 +20,8 @@ if (Yii::app()->user->isGuest) {
             <div id="title" class="title-strapline" style="width: 100px">
                 <p class="titleText">Global  recommendations from </p>
             </div>
-            <div id="dd4" class="wrapper-dropdown-3" tabindex="1" style="top: -33px; background:none;border-radius: none;border: none;color:white;box-shadow: none;">
-                <div class="SpanFontSetting dropdown_test_4" style="margin-right: 40px;">Region</div>
+            <div id="dd4" class="wrapper-dropdown-3" tabindex="1" style="background:none;border-radius: none;border: none;color:white;box-shadow: none;height: 45px;">
+                <div class="SpanFontSetting dropdown_test_4" style="margin: -10px 0px 0px -10px;height: 45px;"><p style=" position: absolute; margin: 14px 0;">Region</p></div>
                 <ul class="dropdown" style="background: none repeat scroll 0% 0% rgb(45, 45, 45);border: 1px solid rgba(0, 0, 0, 0.17);">
                     <li><a href="#" style="margin:0; border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>Australia</a></li>
                     <li><a href="#" style="margin:0; border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>New Zealand</a></li>
@@ -38,7 +38,7 @@ if (Yii::app()->user->isGuest) {
             <!-- show if not logged into platform-->
             <?php if (Yii::app()->user->isGuest) { ?>
                     <ul class="login_guest nav" data-toggle="modal" data-target="#myModal" >
-                        <li><a href="#">Login Guest</a></li>
+                        <li><a href="#">Login</a></li>
                     </ul>
            
                 <!-- user is logged in -->

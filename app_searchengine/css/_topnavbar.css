@@ -15,7 +15,7 @@
 }
 
 .titleText{
-    margin:13px 0 0 17%;
+    margin:13px 0 0 60%;
     width: 300px;
 }
 .navbar-inner > .container {
@@ -600,18 +600,18 @@
 
 .navbar-fixed-top .container >.login_guest
 {
-    margin: -68px 0px 0px 10%;
+    margin: -37px 0px 0px 10%;
     top: 0px;
     left:85%
 }
 
-.navbar-fixed-top ul li
+.navbar-fixed-top  .navbar-inner ul li
 {
     display: inline;
 
 }
 
-.navbar-fixed-top ul li a
+.navbar-fixed-top .navbar-inner ul li a
 {
 
     color: rgb(242,240,240);
@@ -623,7 +623,7 @@
     background-color: rgba(255,255,255,0)
 }
 
-.navbar-fixed-top ul li a:hover, .navbar-fixed-top ul li.active a
+.navbar-fixed-top .navbar-inner ul li a:hover, .navbar-fixed-top .navbar-inner ul li a:active
 {
     color: rgb(255,255,255);
     text-decoration:none;

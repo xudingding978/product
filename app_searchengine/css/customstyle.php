@@ -374,10 +374,7 @@ position: fixed;
 margin-top: -30px;
 }
 
-.modal.fade {
-top:50%;
 
-}
 .modal{
 width:auto;
 }
@@ -892,6 +889,17 @@ padding: 0;
 overflow: hidden;
 margin: 0.5px;
 display: inline-block;
+}
+
+
+
+
+.modal {
+    top:10%;
+    -webkit-transition: opacity 0.15s linear 0s;
+    -moz-transition: opacity 0.15s linear 0s;
+    -o-transition: opacity 0.15s linear 0s;
+    transition: opacity 0.15s linear 0s;
 }
 
 <?php

@@ -1,13 +1,13 @@
 
 
 
-<div id="myModal" class="modal hide" aria-hidden="true">
+<div id="myModal" class="modal hide " aria-hidden="true">
     <div class="modal-header" style="background-color: rgb(242,240,240); padding:12px 0px; border-radius: 6px 6px 0 0;">
-        <a class="close" style="margin:-11px 8px;" onclick="reset_login();" data-dismiss="modal" x>x</a>
+        <a class="close" style="margin:-11px 8px;" data-dismiss="modal" onclick="reset_login();"  x>x</a>
     </div>
     <div class="modal-body" style="margin:-15px;" style='word-wrap:break-word'>
         <!-- Modal -->
-        <div id="social_login" class="social_modal hide fade"  style="border-radius: 0 0 6px 6px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div id="social_login" class="social_modal hide "  style="border-radius: 0 0 6px 6px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
             <div class="modal-body" style="border-radius: 0 0 6px 6px;">
 
@@ -68,14 +68,14 @@
                             <div id="dropdown-cover" style="float: left; width: 45px; height: 45px; border-radius: 3px;"></div>
                             <div class="square-button-qq"><img src="../../../images/QQ(white).png" style="position:  relative; top: -34px; width: auto; height:22px; "></img></div></a>
 
-                        <a  class="square-button" href="#email_login" onclick="dismiss_modal();" >
+                        <a  class="square-button" href="#email_login" onclick="dismiss_Join();" >
                             <div id="dropdown-cover" style="float: left; width: 45px; height: 45px; border-radius: 3px;"></div>
                             <div class="square-button-email"><i class="icon-envelope-alt icon-large" style="position: relative; top: -33px; "></i></div></a>
 
                     </div>
                     <!--                                    <a  href="#email_login" onclick="dismiss_modal();">Email</a>
                                                         <a href="#email_login" role="button" class="btn" onclick="dismiss_modal();">Email</a>-->
-                    <div style="position: relative; top: 15px; margin-bottom: -35px; margin-top: 70px;"> <p style="text-align:center; "><b>Already have an account? Click <a>here </a> to log in!</b></p></div>
+                    <div style="position: relative; top: 15px; margin-bottom: -35px; margin-top: 70px;"> <p style="text-align:center; "><b>Already have an account? Click <a  href="#email_register" onclick="dismiss_modal();">here </a> to log in!</b></p></div>
 
 
                 </div>
@@ -97,7 +97,7 @@
 
 
 
-        <div id="email_login" class="email_modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div id="email_login" class="email_modal hide " tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
             <div class="modal-body">
 
@@ -255,7 +255,7 @@
 
 
 
-        <div id="email_register" class="register_modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div id="email_register" class="register_modal hide " tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
             <div class="modal-body">
 
@@ -377,6 +377,7 @@
     $('#email_login').attr('aria-hidden', 'false');
     $('#email_login').attr("style", "display:block");
 
+    $('.modal').attr("style", "display:block;left:44%");
     }
     function dismiss_modal_test() {
     $('#social_login').attr('aria-hidden', 'true');
@@ -386,22 +387,28 @@
 
     }
     function dismiss_Join() {
+
     $('#email_login').attr('aria-hidden', 'true');
     $('#email_login').attr("style", "display:none");
     $('#email_register').attr('aria-hidden', 'false');
     $('#email_register').attr("style", "display:block");
-
+    $('.modal').attr("style", "display:block;left:50%");
+    $('#social_login').attr('aria-hidden', 'true');
+    $('#social_login').attr("style", "display:none");
     }
 
 
     function reset_login() {
-    $('#email_login').attr('aria-hidden', 'true');
+
+         $('.modal').attr("style", "display:none;");
+
     $('#email_login').attr("style", "display:none");
     $('#social_login').attr('aria-hidden', 'false');
     $('#social_login').attr("style", "display:block");
 
     $('#email_register').attr('aria-hidden', 'true');
     $('#email_register').attr("style", "display:none");
+    $('.modal').attr("style", "display:block;left:50%");
 
     }
     function show_search_bar() {

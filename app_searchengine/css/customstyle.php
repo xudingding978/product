@@ -390,9 +390,10 @@ background-color: rgba(255, 255, 255,0.8);
 
 .modal-body {
 height: 100%;
-padding: 15px;
+padding: 0 15px 15px 15px;
+margin-top: 15px;
 overflow-y: visible;
-max-height:100%;
+max-height: 100%;
 
 }
 

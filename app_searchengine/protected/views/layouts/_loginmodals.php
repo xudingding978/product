@@ -14,7 +14,7 @@
                 <div class="modal-topbox" style="background-color: rgb(242,240,240); padding:15px 0px 45px 0px; margin: -21px -15px -15px -15px; ">
                     <img class="logonew"  src="../../../images/trendslogo(black).png"></img>
                     <div style="margin:60px 65px;">
-                        <p style="text-align:center; "><b>COLLECT YOUR ONLINE RESOURCE FOR KITCHENS, PRODUCTS, SERVICES & IDEAS</b></p>
+                        <p style="text-align:center; font-size: 16.5px; "><b>COLLECT YOUR ONLINE RESOURCE FOR KITCHENS, PRODUCTS, SERVICES & IDEAS</b></p>
                         <p style="font-size: 12px; text-align: center;"><b>Hundreds of videos, thousands of articles and tens of thousands of high quality images from around the world showcasing: Architecture, Kitchen Design, Bathroom Design, Interiors, Landscape Design and Commercial Design. </b></p>
                     </div>
                     <div id="dd" class="wrapper-dropdown-3" tabindex="1" style=" width:270px; height:45px; margin-top: -45px; margin-bottom: -5px;">
@@ -101,7 +101,7 @@
 
             <div class="modal-body">
 
-                <div class="modal-topbox" style="background-color: rgb(242,240,240); padding: 40px; margin: -15px -15px 0 0; float: right;width: 350px;height: 300px;">
+                <div class="modal-topbox" style="background-color: rgb(242,240,240); padding: 40px; margin: 0px -15px 0 0; float: right;width: 350px;height: 300px;">
 
                     <div id="dd1" class="wrapper-dropdown-3" tabindex="1" style=" width:270px; height:45px; position: relative; left: 5px; top: 50px;">
 
@@ -135,7 +135,7 @@
                 <?PHP
                 $model = new LoginForm;
                 ?>
-                <div class="modal-bottombox" style="background-color: white;float: left; width: 350px; height: 325px; margin: -40px 0px 0px -15px; padding: 29px 40px 25px 40px; border-radius: 6px 0 0 6px;">
+                <div class="modal-bottombox" style="background-color: white;float: left; width: 350px; height: 325px; margin: -25px 0px 0px -15px; padding: 29px 40px 25px 40px; border-radius: 6px 0 0 6px;">
                     <img class="logonew"  src="../../../images/trendslogo(black).png"></img>
                     <div style="margin:12px 0; font-size: 20px; color: #0088cc;">
                         <p style="text-align:center; "><b>Login to Trends</b></p>
@@ -255,7 +255,7 @@
 
 
 
-        <div id="email_register" class="register_modal hide " tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div id="email_register" class="register_modal hide " tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="outline: none;">
 
             <div class="modal-body">
 

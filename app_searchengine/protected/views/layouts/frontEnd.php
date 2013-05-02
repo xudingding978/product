@@ -11,6 +11,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/reset-new.css">
         <link rel="stylesheet" href="/app_hubstar/scripts/libs/bootstrap/2.2.2/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="css/customstyle.php" /> 
        <link media="screen, projection" rel="stylesheet" type="text/css" href="css/_topnavbar.css"/>
@@ -25,7 +26,7 @@
             $this->renderPartial('/layouts/_loginmodals'); 
         ?>
         
-        <div id="main" class="container-fluid" style="min-height: 100%; padding-top: 45px;"></div>
+        <div id="main" class="container-fluid" style="min-height: 100%; padding: 45px 0 0 0;"></div>
 
         <script data-main="app_hubstar/scripts/main" src="app_hubstar/scripts/libs/requirejs/2.1.2/require.js"></script>
         <?php 

@@ -37,9 +37,10 @@ if (Yii::app()->user->isGuest) {
             </div>
             <!-- show if not logged into platform-->
             <?php if (Yii::app()->user->isGuest) { ?>
-                <ul class="login_guest nav" data-toggle="modal" data-target="#myModal" >
-                    <li><a href="#">Login Guest</a></li>
-                </ul>
+                    <ul class="login_guest nav" data-toggle="modal" data-target="#myModal" >
+                        <li><a href="#">Login Guest</a></li>
+                    </ul>
+           
                 <!-- user is logged in -->
             <?php } else { ?>
                 <div id="user-header-menu">
@@ -190,50 +191,7 @@ if (Yii::app()->user->isGuest) {
             return false;
         });
     });
-    function dismiss_modal() {
-        $('#social_login').attr('aria-hidden', 'true');
-        $('#social_login').attr("style", "display:none");
-        $('#email_login').attr('aria-hidden', 'false');
-        $('#email_login').attr("style", "display:block");
 
-    }
-    function dismiss_modal_test() {
-        $('#social_login').attr('aria-hidden', 'true');
-        $('#social_login').attr("style", "display:none");
-        $('#email_login').attr('aria-hidden', 'false');
-        $('#email_login').attr("style", "display:block");
-
-    }
-    function dismiss_Join() {
-        $('#email_login').attr('aria-hidden', 'true');
-        $('#email_login').attr("style", "display:none");
-        $('#email_register').attr('aria-hidden', 'false');
-        $('#email_register').attr("style", "display:block");
-
-    }
-
-
-    function reset_login() {
-        $('#email_login').attr('aria-hidden', 'true');
-        $('#email_login').attr("style", "display:none");
-        $('#social_login').attr('aria-hidden', 'false');
-        $('#social_login').attr("style", "display:block");
-
-        $('#email_register').attr('aria-hidden', 'true');
-        $('#email_register').attr("style", "display:none");
-
-    }
-    function show_search_bar() {
-
-
-        $('#discovery_search_bar_wrapper').attr('style', 'position:fixed;margin-top: -30px;z-index: 50000;');
-        document.getElementById("search-loading").className = "search-loading-visible";
-
-    }
-    function dismiss_search() {
-        $('#discovery_search_bar_wrapper').attr('style', 'position:relative;margin-top: 40px;z-index: 500;');
-        document.getElementById("search-loading").className = "search-loading-invisible";
-    }
 
     function detDomain() {
 <?php

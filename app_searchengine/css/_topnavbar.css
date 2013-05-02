@@ -15,7 +15,7 @@
 }
 
 .titleText{
-    margin:13px 0 0 17%;
+    margin:13px 0 0 60%;
     width: 300px;
 }
 .navbar-inner > .container {
@@ -600,7 +600,7 @@
 
 .navbar-fixed-top .container >.login_guest
 {
-    margin: -68px 0px 0px 10%;
+    margin: -37px 0px 0px 10%;
     top: 0px;
     left:85%
 }

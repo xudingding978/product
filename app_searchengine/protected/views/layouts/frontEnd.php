@@ -16,7 +16,7 @@
        <link media="screen, projection" rel="stylesheet" type="text/css" href="css/_topnavbar.css"/>
        <link media="screen, projection" rel="stylesheet" type="text/css" href="css/_footer.css"/>
         <link rel="stylesheet" href="css/font-awesome.min.css">
-        <script src="../../../app_hubstar/scripts/libs/bootstrap/2.2.2/js/bootstrap.min.js"></script>
+        <script src="app_hubstar/scripts/libs/bootstrap/2.2.2/js/bootstrap.min.js"></script>
     </head>
     <body>
         <?php 
@@ -27,7 +27,7 @@
         
         <div id="main" class="container-fluid" style="min-height: 100%; padding-top: 45px;"></div>
 
-        <script data-main="../../../app_hubstar/scripts/main" src="../../../app_hubstar/scripts/libs/requirejs/2.1.2/require.js"></script>
+        <script data-main="app_hubstar/scripts/main" src="app_hubstar/scripts/libs/requirejs/2.1.2/require.js"></script>
         <?php 
             $this->renderPartial('/layouts/_footer'); 
             ?>

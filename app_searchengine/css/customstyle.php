@@ -245,7 +245,7 @@ outline: 0px none;
 
 .smallIcon{
 position:absolute;
-margin: -68px 0px 0px ;
+margin: -37px 0px 0px ;
 display:none;
 left:65%;
 width:150px;

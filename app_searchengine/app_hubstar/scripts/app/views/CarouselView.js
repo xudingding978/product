@@ -1,14 +1,12 @@
 define([
-    "ember",
-    "text!templates/carouselTemplate.html"
-], function(Ember, carouselTemplate) {
-    
-        Ember.TEMPLATES["carousel"] = Ember.Handlebars.compile(carouselTemplate);
-    
-    var carouselView = Ember.View.extend({
-        defaultTemplate: Ember.Handlebars.compile(carouselTemplate)
-                
-    });
+  "ember",
+  "text!templates/carouselTemplate.html"
 
-    return carouselView;
+], function(Ember, carouselTemplate){
+  var CarouselView = Ember.View.extend({
+
+    template: Ember.Handlebars.compile(carouselTemplate)
+
+  });
+  return CarouselView;
 });

@@ -20,8 +20,8 @@ if (Yii::app()->user->isGuest) {
             <div id="title" class="title-strapline" style="width: 100px">
                 <p class="titleText">Global  recommendations from </p>
             </div>
-            <div id="dd4" class="wrapper-dropdown-3" tabindex="1" style="top: -33px; background:none;border-radius: none;border: none;color:white;box-shadow: none;">
-                <div class="SpanFontSetting dropdown_test_4" style="margin-right: 40px;">Region</div>
+            <div id="dd4" class="wrapper-dropdown-3" tabindex="1" style="background:none;border-radius: none;border: none;color:white;box-shadow: none;height: 45px;">
+                <div class="SpanFontSetting dropdown_test_4" style="margin: -10px 0px 0px -10px;height: 45px;"><p style=" position: absolute; margin: 14px 0;">Region</p></div>
                 <ul class="dropdown" style="background: none repeat scroll 0% 0% rgb(45, 45, 45);border: 1px solid rgba(0, 0, 0, 0.17);">
                     <li><a href="#" style="margin:0; border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>Australia</a></li>
                     <li><a href="#" style="margin:0; border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>New Zealand</a></li>
@@ -37,12 +37,13 @@ if (Yii::app()->user->isGuest) {
             </div>
             <!-- show if not logged into platform-->
             <?php if (Yii::app()->user->isGuest) { ?>
-                <ul class="login_guest nav" data-toggle="modal" data-target="#myModal" >
-                    <li><a href="#">Login Guest</a></li>
-                </ul>
+                    <ul class="login_guest nav" data-toggle="modal" data-target="#myModal" >
+                        <li><a href="#">Login</a></li>
+                    </ul>
+           
                 <!-- user is logged in -->
             <?php } else { ?>
-                <div>
+                <div id="user-header-menu">
                     <ul class="loging_table moveTop nav" data-toggle="modal" data-target="#myModal" id="myModal">
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#"> 
@@ -107,7 +108,7 @@ if (Yii::app()->user->isGuest) {
         }
     };
 
-    $(function() {
+   $(function() {
 
         var dd = new DropDown($('.dropdown_test'));
 
@@ -190,50 +191,7 @@ if (Yii::app()->user->isGuest) {
             return false;
         });
     });
-    function dismiss_modal() {
-        $('#social_login').attr('aria-hidden', 'true');
-        $('#social_login').attr("style", "display:none");
-        $('#email_login').attr('aria-hidden', 'false');
-        $('#email_login').attr("style", "display:block");
 
-    }
-    function dismiss_modal_test() {
-        $('#social_login').attr('aria-hidden', 'true');
-        $('#social_login').attr("style", "display:none");
-        $('#email_login').attr('aria-hidden', 'false');
-        $('#email_login').attr("style", "display:block");
-
-    }
-    function dismiss_Join() {
-        $('#email_login').attr('aria-hidden', 'true');
-        $('#email_login').attr("style", "display:none");
-        $('#email_register').attr('aria-hidden', 'false');
-        $('#email_register').attr("style", "display:block");
-
-    }
-
-
-    function reset_login() {
-        $('#email_login').attr('aria-hidden', 'true');
-        $('#email_login').attr("style", "display:none");
-        $('#social_login').attr('aria-hidden', 'false');
-        $('#social_login').attr("style", "display:block");
-
-        $('#email_register').attr('aria-hidden', 'true');
-        $('#email_register').attr("style", "display:none");
-
-    }
-    function show_search_bar() {
-
-
-        $('#discovery_search_bar_wrapper').attr('style', 'position:fixed;margin-top: -30px;z-index: 50000;');
-        document.getElementById("search-loading").className = "search-loading-visible";
-
-    }
-    function dismiss_search() {
-        $('#discovery_search_bar_wrapper').attr('style', 'position:relative;margin-top: 40px;z-index: 500;');
-        document.getElementById("search-loading").className = "search-loading-invisible";
-    }
 
     function detDomain() {
 <?php

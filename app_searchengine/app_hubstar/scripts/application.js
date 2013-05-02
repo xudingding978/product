@@ -13,7 +13,7 @@ require.config({
         'ember': 'libs/ember-latest',
         'emberData': 'libs/ember-data-latest',
         'jquery.ui': 'libs/jquery.ui/1.9.2/jquery-ui-1.9.2.custom.min',
-        'bootstrap': 'libs/bootstrap/2.2.2/js/boostrap',
+        'bootstrap': 'libs/bootstrap/2.2.2/js/bootstrap.min',
         /*requirejs-plugins*/
         'text': 'libs/requirejs-plugins/text',
         'hbs': 'libs/requirejs-plugins/hbs',
@@ -47,7 +47,6 @@ define('application', [
     "views/TabMenuView",
     "views/TabView",
     "views/CarouselView",
-    "views/SearchView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -58,7 +57,7 @@ define('application', [
     "models/Postmodel",
     "emberData"
 
-], function(ApplicationView, WindowContainerView, TabIndexView, SelectedTabView, TabMenuView, TabView, carouselView, searchView, ApplicationController, tabListController, DataController, Router, IndexRoute, SelectedTabRoute, DataRoute, Post)
+], function(ApplicationView, WindowContainerView, TabIndexView, SelectedTabView, TabMenuView, TabView, CarouselView, ApplicationController, tabListController, DataController, Router, IndexRoute, SelectedTabRoute, DataRoute, Post)
 {
     return  Ember.Application.createWithMixins({
         VERSION: '1.0.0',
@@ -69,8 +68,7 @@ define('application', [
         SelectedTabView: SelectedTabView,
         TabMenuView: TabMenuView,
         TabView: TabView,
-        carouselView: carouselView,
-        searchView: searchView,
+        CarouselView: CarouselView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,

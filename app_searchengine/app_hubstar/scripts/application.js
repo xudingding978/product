@@ -60,6 +60,9 @@ define('application', [
 
 ], function(ApplicationView, WindowContainerView, TabIndexView, SelectedTabView, TabMenuView, TabView, CarouselView, PhotoView, ApplicationController, tabListController, DataController, Router, IndexRoute, SelectedTabRoute, DataRoute, Post)
 {
+
+   var url_path = 'http://www.hubstar.devbox3';
+
     return  Ember.Application.createWithMixins({
         VERSION: '1.0.0',
         rootElement: '#main',
@@ -83,8 +86,7 @@ define('application', [
             revision: 12,
             adapter: DS.RESTAdapter.create({
                 bulkCommit: false,
-      
-                url: 'http://www.hubstar.devbox6',
+                url: url_path,
                 mappings: {
                     posts: Post
                 },

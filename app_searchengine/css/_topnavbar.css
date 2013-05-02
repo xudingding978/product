@@ -41,8 +41,21 @@
     padding: 0px;
 }
 
-.logonew {
+.logonew{
     height: 25px;
+}
+
+.modal-topbox .logonew{
+    height: 40px;
+    float: left;
+    left: 36%;
+    position: relative;
+}
+
+.modal-bottombox .logonew{
+    height: 30px;
+    position: relative;
+    left: 28%;
 }
 
 .wrapper-dropdown-3 {
@@ -66,10 +79,193 @@
 }
 
 .wrapper-dropdown-3 {
+    /* Size and position */
+    position: relative;
+    width: 200px;
+    margin: 0;
+    left:40%;
+    padding: 10px;
+
+    /* Styles */
+    background: #fff;
+    border-radius: 7px;
+    border: 1px solid rgba(0,0,0,0.15);
+    box-shadow: 0 1px 1px rgba(50,50,50,0.1);
     cursor: pointer;
+    outline: none;
+
+    /* Font settings */
     font-weight: bold;
-    color: rgb(138, 168, 189);
+    color: #8AA8BD;
 }
+
+.modal-topbox > .wrapper-dropdown-3 {
+    left:24%;
+    color: white;
+    /* gradients */
+    background-color: #2b4170;
+    background: -moz-linear-gradient(top, #3b5998, #2b4170);
+    background: -ms-linear-gradient(top, #3b5998, #2b4170);
+    background: -webkit-linear-gradient(top, #3b5998, #2b4170);
+    border: 1px solid #2b4170;
+    border-top: 1px solid rgb(161,163,197);
+    border-left:  1px solid rgb(110,112,146);
+
+
+    -moz-text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
+    -webkit-text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
+    text-shadow: -1px -1px  #595757, 1px 1px #f7f8f8;
+
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border-radius:3px;
+
+}
+.container >.wrapper-dropdown-3 {
+
+    font-weight: normal;
+}
+.tile_img >.wrapper-dropdown-3 {
+    left: 0px;
+    color: white;
+    width:270px;
+    text-align: center;
+    position:relative;
+
+    /* gradients */
+    background-color: #2b4170;
+    background: -moz-linear-gradient(top, #3b5998, #2b4170);
+    background: -ms-linear-gradient(top, #3b5998, #2b4170);
+    background: -webkit-linear-gradient(top, #3b5998, #2b4170);
+    border: 1px solid #2b4170;
+    border-top: 1px solid rgb(161,163,197);
+    border-left:  1px solid rgb(110,112,146);
+
+    -moz-text-shadow: -1px -1px  #595757;
+    -webkit-text-shadow: -1px -1px  #595757;
+    text-shadow: -1px -1px  #595757;
+
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border-radius:3px;
+}
+
+.modal-topbox >.wrapper-dropdown-3 {
+    /*    left: 25%;*/
+    color: white;
+    width:270px;
+    text-align: center;
+    position:relative;
+
+    /* gradients */
+    background-color: #2b4170;
+    background: -moz-linear-gradient(top, #3b5998, #2b4170);
+    background: -ms-linear-gradient(top, #3b5998, #2b4170);
+    background: -webkit-linear-gradient(top, #3b5998, #2b4170);
+    border: 1px solid #2b4170;
+    border-top: 1px solid rgb(161,163,197);
+    border-left:  1px solid rgb(110,112,146);
+
+    -moz-text-shadow: -1px -1px  #595757;
+    -webkit-text-shadow: -1px -1px  #595757;
+    text-shadow: -1px -1px  #595757;
+
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border-radius:3px;
+}
+
+
+.tile_img  .sign-in-with{
+    text-shadow: -1px -1px 1px #000000; 
+    padding-left: 3%; 
+    border-left: 1px solid rgba(242,240,240,0.4); 
+    font-weight: bold; 
+    size: 16px; 
+    margin-right: 0%;       
+    position: relative;
+    bottom: -12px;
+}
+
+.modal-topbox .sign-in-with{
+    text-shadow: -1px -1px 1px #000000; 
+    padding-left: 3%; 
+    border-left: 1px solid rgba(242,240,240,0.4); 
+    font-weight: bold; 
+    size: 16px; 
+    margin-right: 0%;       
+    position: relative;
+    bottom: -12px;
+}      
+
+.tile_img  .login-icon {
+    margin-right: 0px; 
+    text-shadow: 1.5px 2px 1px #000000; 
+    border-right:1px solid rgba(42,39,42,1); 
+    padding-left: 0%; 
+    padding-right: 0%; 
+    width: 44px;
+    position: relative;
+    bottom: -11px;
+    left:-15px;
+}
+
+.modal-topbox  .login-icon {
+    margin-right: 0px; 
+    text-shadow: 1.5px 2px 1px #000000; 
+    border-right:1px solid rgba(42,39,42,1); 
+    padding-left: 0%; 
+    padding-right: 0%; 
+    width: 40px;
+    position: relative;
+    bottom: -11px;
+    left:-11px;
+}
+
+
+
+
+.modal-topbox  .login-icon:after {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    right: 38px;
+    top: 50%;
+    margin-top: -3px;
+    border-width: 6px 6px 0 6px;
+    border-style: solid;
+    border-color: #fff transparent;
+
+}
+
+.tile_img  .login-icon:after {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    right: 38px;
+    top: 50%;
+    margin-top: -3px;
+    border-width: 6px 6px 0 6px;
+    border-style: solid;
+    border-color: #fff transparent;
+}
+
+
+.wrapper-dropdown-3  .SpanFontSetting:after {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    margin-top: -3px;
+    border-width: 6px 6px 0 6px;
+    border-style: solid;
+    border-color: #fff transparent;
+}
+
 
 .container > .wrapper-dropdown-3 {
     font-weight: normal;
@@ -373,7 +569,75 @@
 }
 
 
+#dropdown-cover{
+    /* webkit example */
+    background-image: -webkit-gradient(
+        linear, left top, left bottom, from(rgba(255,255,255,0.15)),
+        to(rgba(255,255,255,0))
+        );
 
+    /* mozilla example - FF3.6+ */
+    background-image: -moz-linear-gradient(
+        rgba(255, 255, 255, 0.15) , rgba(255, 255, 255, 0) 
+        );
+
+    /* approximately a 33% opacity on blue */
+    filter: progid:DXImageTransform.Microsoft.gradient(
+        startColorstr=rgba(255,255,255,0.15), endColorstr=rgba(255, 255, 255, 0)
+        );
+
+    /* IE8 uses -ms-filter for whatever reason... */
+    -ms-filter: progid:DXImageTransform.Microsoft.gradient(
+        startColorstr=rgba(255, 255, 255, 0.15), endColorstr=rgba(255, 255, 255, 0)
+        );
+}      
+
+
+#dropdown-cover:hover{
+    /* webkit example */
+    background-image: -webkit-gradient(
+        linear, left top, left bottom, from(rgba(255,255,255,0)),
+        to(rgba(255,255,255,0))
+        );
+
+    /* mozilla example - FF3.6+ */
+    background-image: -moz-linear-gradient(
+        rgba(255, 255, 255, 0) , rgba(255, 255, 255, 0) 
+        );
+
+    /* approximately a 33% opacity on blue */
+    filter: progid:DXImageTransform.Microsoft.gradient(
+        startColorstr=rgba(255,255,255,0), endColorstr=rgba(255, 255, 255, 0)
+        );
+
+    /* IE8 uses -ms-filter for whatever reason... */
+    -ms-filter: progid:DXImageTransform.Microsoft.gradient(
+        startColorstr=rgba(255, 255, 255, 0), endColorstr=rgba(255, 255, 255, 0)
+        );
+}      
+
+#dropdown-cover:active{
+    /* webkit example */
+    background-image: -webkit-gradient(
+        linear, left top, left bottom, from(rgba(0,0,0,0.45)),
+        to(rgba(0,0,0,0.05))
+        );
+
+    /* mozilla example - FF3.6+ */
+    background-image: -moz-linear-gradient(
+        rgba(0,0,0,0.45) , rgba(0,0,0,0.05) 
+        );
+
+    /* approximately a 33% opacity on blue */
+    filter: progid:DXImageTransform.Microsoft.gradient(
+        startColorstr=rgba(0,0,0,0.45), endColorstr=rgba(0,0,0,0.05)
+        );
+
+    /* IE8 uses -ms-filter for whatever reason... */
+    -ms-filter: progid:DXImageTransform.Microsoft.gradient(
+        startColorstr=rgba(0,0,0,0.45), endColorstr=rgba(0,0,0,0.05)
+        );
+}
 
 
 
@@ -627,4 +891,22 @@
 {
     color: rgb(255,255,255);
     text-decoration:none;
+}
+
+
+.panelcircle {
+    width:40px;
+    height:40px;
+    border-radius:50px;
+    font-size:18px;
+    color:#fff;
+    line-height:40px;
+    text-align:center;
+    background:rgb(201,202,202)
+}
+
+div.form .rememberMe label
+{
+    display: inline;
+    font-size: 12px;
 }

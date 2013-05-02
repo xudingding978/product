@@ -13,13 +13,5 @@ enter you name here ... {{input type="text" value=name}}
 <h1>{{lastname}}</h1>
 
 
-<button {{action "login"}}>login</button>
-<button {{action "logout"}}>logout</button>
-
-{{#if loginStatus}}
-{{partial 'search'}}
-{{else}}
-{{partial 'carousel'}}
-{{/if}}
 
 {{outlet}}

@@ -81,7 +81,8 @@ define('application', [
             revision: 12,
             adapter: DS.RESTAdapter.create({
                 bulkCommit: false,
-                //  url: 'http://www.hubstar.devbox6',
+      
+                url: 'http://www.hubstar.devbox6',
                 mappings: {
                     posts: Post
                 },

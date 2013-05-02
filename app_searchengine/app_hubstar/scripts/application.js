@@ -47,6 +47,7 @@ define('application', [
     "views/TabMenuView",
     "views/TabView",
     "views/CarouselView",
+    "views/PhotoView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -57,7 +58,7 @@ define('application', [
     "models/Postmodel",
     "emberData"
 
-], function(ApplicationView, WindowContainerView, TabIndexView, SelectedTabView, TabMenuView, TabView, CarouselView, ApplicationController, tabListController, DataController, Router, IndexRoute, SelectedTabRoute, DataRoute, Post)
+], function(ApplicationView, WindowContainerView, TabIndexView, SelectedTabView, TabMenuView, TabView, CarouselView, PhotoView, ApplicationController, tabListController, DataController, Router, IndexRoute, SelectedTabRoute, DataRoute, Post)
 {
     return  Ember.Application.createWithMixins({
         VERSION: '1.0.0',
@@ -69,6 +70,7 @@ define('application', [
         TabMenuView: TabMenuView,
         TabView: TabView,
         CarouselView: CarouselView,
+        PhotoView: PhotoView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,

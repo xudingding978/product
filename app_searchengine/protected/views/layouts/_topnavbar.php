@@ -43,7 +43,7 @@ if (Yii::app()->user->isGuest) {
            
                 <!-- user is logged in -->
             <?php } else { ?>
-                <div>
+                <div id="user-header-menu">
                     <ul class="loging_table moveTop nav" data-toggle="modal" data-target="#myModal" id="myModal">
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#"> 
@@ -108,7 +108,7 @@ if (Yii::app()->user->isGuest) {
         }
     };
 
-    $(function() {
+   $(function() {
 
         var dd = new DropDown($('.dropdown_test'));
 

@@ -46,6 +46,8 @@ define('application', [
     "views/SelectedTabView",
     "views/TabMenuView",
     "views/TabView",
+    "views/CarouselView",
+    "views/SearchView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -54,10 +56,9 @@ define('application', [
     "routes/SelectedTabRoute",
     "routes/DataRoute",
     "models/Postmodel",
-
     "emberData"
 
-], function(ApplicationView, WindowContainerView, TabIndexView, SelectedTabView, TabMenuView, TabView, ApplicationController, tabListController, DataController, Router, IndexRoute, SelectedTabRoute, DataRoute, Post)
+], function(ApplicationView, WindowContainerView, TabIndexView, SelectedTabView, TabMenuView, TabView, carouselView, searchView, ApplicationController, tabListController, DataController, Router, IndexRoute, SelectedTabRoute, DataRoute, Post)
 {
     return  Ember.Application.createWithMixins({
         VERSION: '1.0.0',
@@ -68,6 +69,8 @@ define('application', [
         SelectedTabView: SelectedTabView,
         TabMenuView: TabMenuView,
         TabView: TabView,
+        carouselView: carouselView,
+        searchView: searchView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
@@ -80,7 +83,7 @@ define('application', [
             revision: 12,
             adapter: DS.RESTAdapter.create({
                 bulkCommit: false,
-              //  url: 'http://www.hubstar.devbox6',
+                //  url: 'http://www.hubstar.devbox6',
                 mappings: {
                     posts: Post
                 },

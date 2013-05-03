@@ -34,7 +34,7 @@ require.config({
         disableI18n: true,
         templateExtension: "html"
     },
-    waitSeconds: 15,
+    waitSeconds: 0,
     urlArgs: "bust=" + (new Date()).getTime()  //cancel caching for network requests,for development.
 });
 
@@ -48,6 +48,7 @@ define('application', [
     "views/TabView",
     "views/CarouselView",
     "views/PhotoView",
+
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -55,13 +56,13 @@ define('application', [
     "routes/IndexRoute",
     "routes/SelectedTabRoute",
     "routes/DataRoute",
-    "models/Postmodel",
-    "emberData"
+    "models/Postmodel"
+], function(ApplicationView, WindowContainerView, TabIndexView, SelectedTabView, TabMenuView, TabView, CarouselView, PhotoView,
 
-], function(ApplicationView, WindowContainerView, TabIndexView, SelectedTabView, TabMenuView, TabView, CarouselView, PhotoView, ApplicationController, tabListController, DataController, Router, IndexRoute, SelectedTabRoute, DataRoute, Post)
+        ApplicationController, tabListController, DataController, Router, IndexRoute, SelectedTabRoute, DataRoute, Post)
 {
 
-   var url_path = 'http://www.hubstar.devbox3';
+    var url_path = getURL();
 
     return  Ember.Application.createWithMixins({
         VERSION: '1.0.0',
@@ -74,6 +75,7 @@ define('application', [
         TabView: TabView,
         CarouselView: CarouselView,
         PhotoView: PhotoView,
+
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
@@ -89,13 +91,20 @@ define('application', [
                 url: url_path,
                 mappings: {
                     posts: Post
-                },
-                namespace: 'api'
+                }
             })
         }),
         ready: function() {
         }
     });
+
 }
 );
+
+function getURL()
+{
+    var url = document.URL;
+    var url = url.replace("www", "api");
+    return url;
+}
 

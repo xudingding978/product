@@ -1,10 +1,18 @@
-
-<div>  {{view App.CarouselView}}</div>
-<div>  {{view App.PhotoView}}</div>
+<div>
+    {{view App.CarouselView}}
+</div>
+<div>
+    {{view App.PhotoView}}
+</div>
 
 
 <div style="padding-top: 20px;"></div>
-<h1>I am an Ember App :) </h1>
+<h1>I am an Ember App :) {{title}}</h1>
+{{#each model}}
+<h1>
+    Post Title : {{title}}
+</h1>
+{{/each}}
 <a  {{bindAttr title=name}}>Hover over me</a>
 <h2>and you are looking at the application template.</h2>
 enter you name here ... {{input type="text" value=name}}

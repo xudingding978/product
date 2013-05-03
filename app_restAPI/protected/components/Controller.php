@@ -1,12 +1,23 @@
 <?php
 class Controller extends CController {
+    public $cb= null;
     public $layout = '//layouts/api';
+    /**
+     * @var array the breadcrumbs of the current page. The value of this property will
+     * be assigned to {@link CBreadcrumbs::links}. Please refer to {@link CBreadcrumbs::links}
+     * for more details on how to specify this property.
+     */
+    public $breadcrumbs = array();
         /**
      * Gets RestFul data and decodes its JSON request
      * @return mixed
      */
     protected function getInputAsJson() {
         return CJSON::decode(file_get_contents('php://input'));
+    }
+    
+    protected function couchBaseConnection(){
+        return new Couchbase("cb1.hubsrv.com:8091", "", "Pa55word", "test", true);
     }
 
     /**

@@ -60,6 +60,7 @@ define('application', [
 
 ], function(ApplicationView, WindowContainerView, TabIndexView, SelectedTabView, TabMenuView, TabView, CarouselView, PhotoView, ApplicationController, tabListController, DataController, Router, IndexRoute, SelectedTabRoute, DataRoute, Post)
 {
+
     return  Ember.Application.createWithMixins({
         VERSION: '1.0.0',
         rootElement: '#main',
@@ -83,16 +84,21 @@ define('application', [
             revision: 12,
             adapter: DS.RESTAdapter.create({
                 bulkCommit: false,
-                url: 'http://api.develop.devbox1',
+                url: getRestAPIURL(),
                 mappings: {
                     posts: Post
-                },
-                namespace: 'api'
+                }
             })
         }),
         ready: function() {
         }
     });
-}
-);
+});
 
+function getRestAPIURL()
+{
+    var api_url = document.domain;
+    var api_url = api_url.replace("www", "api");
+    api_url = "http://" + api_url;
+    return api_url;
+}

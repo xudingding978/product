@@ -360,6 +360,34 @@ height:600px;
 
 }
 
+.carousel .item {
+-webkit-transition: opacity 1s; 
+-moz-transition: opacity 1s; 
+-ms-transition: opacity 1s; 
+-o-transition: opacity 1s; 
+transition: opacity 1s;
+}
+
+.carousel .active.left {
+left:0;
+opacity:0;
+z-index:2;
+}
+
+.carousel .active.right{
+left:0;
+opacity:0;
+z-index:2;
+}
+
+.carousel .next {
+left:0;
+opacity:1;
+z-index:1;
+}
+
+
+
 
 
 .navbar-fixed-top {
@@ -390,9 +418,10 @@ background-color: rgba(255, 255, 255,0.8);
 
 .modal-body {
 height: 100%;
-padding: 15px;
+padding: 0 15px 15px 15px;
+margin-top: 15px;
 overflow-y: visible;
-max-height:100%;
+max-height: 100%;
 
 }
 
@@ -901,6 +930,11 @@ display: inline-block;
     -o-transition: opacity 0.15s linear 0s;
     transition: opacity 0.15s linear 0s;
 }
+
+
+
+
+
 
 <?php
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// isotope parts   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

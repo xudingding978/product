@@ -26,7 +26,7 @@
                                     </i>
                                 </div>   
                             </div>
-                            <div  id="dropdown-cover" onclick="Facebook();" style="float: right; bottom: 10px; position: relative; width: 204px; height: 45px; margin-right: -9.5px; border-radius: 0 3px 3px 0;">
+                            <div  id="dropdown-cover" onclick="Facebook();" style="float: right; bottom: 10px; position: relative; width: 204.5px; height: 45px; margin-right: -9.5px; border-radius: 0 3px 3px 0;">
                                 <div class="sign-in-with" >Sign In with Facebook</div>
                             </div>
                         </div>
@@ -112,7 +112,7 @@
                                     </i>
                                 </div>   
                             </div>
-                            <div  id="dropdown-cover" onclick="Facebook();" style="float: right; bottom: 10px; position: relative; width: 204px; height: 45px; margin-right: -9.5px; border-radius: 0 3px 3px 0;">
+                            <div  id="dropdown-cover" onclick="Facebook();" style="float: right; bottom: 10px; position: relative; width: 204.5px; height: 45px; margin-right: -9.5px; border-radius: 0 3px 3px 0;">
                                 <div class="sign-in-with" >Sign In with Facebook</div>
                             </div>
                         </div>
@@ -273,7 +273,7 @@
                                     </i>
                                 </div>   
                             </div>
-                            <div  id="dropdown-cover" onclick="Facebook();" style="float: right; bottom: 10px; position: relative; width: 204px; height: 45px; margin-right: -9.5px; border-radius: 0 3px 3px 0;">
+                            <div  id="dropdown-cover" onclick="Facebook();" style="float: right; bottom: 10px; position: relative; width: 204.5px; height: 45px; margin-right: -9.5px; border-radius: 0 3px 3px 0;">
                                 <div class="sign-in-with" >Sign In with Facebook</div>
                             </div>
                         </div>

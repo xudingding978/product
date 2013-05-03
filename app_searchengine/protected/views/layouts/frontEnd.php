@@ -14,23 +14,32 @@
         <link rel="stylesheet" href="css/reset-new.css">
         <link rel="stylesheet" href="/app_hubstar/scripts/libs/bootstrap/2.2.2/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="css/customstyle.php" /> 
-       <link media="screen, projection" rel="stylesheet" type="text/css" href="css/_topnavbar.css"/>
-       <link media="screen, projection" rel="stylesheet" type="text/css" href="css/_footer.css"/>
+        <link media="screen, projection" rel="stylesheet" type="text/css" href="css/_topnavbar.css"/>
+        <link media="screen, projection" rel="stylesheet" type="text/css" href="css/_footer.css"/>
         <link rel="stylesheet" href="css/font-awesome.min.css">
         <script src="app_hubstar/scripts/libs/bootstrap/2.2.2/js/bootstrap.min.js"></script>
     </head>
     <body>
-        <?php 
-            $this->renderPartial('/layouts/_topnavbar');
-            
-            $this->renderPartial('/layouts/_loginmodals'); 
+        <?php
+        $this->renderPartial('/layouts/_topnavbar');
+
+        $this->renderPartial('/layouts/_loginmodals');
         ?>
-        
+
         <div id="main" class="container-fluid" style="min-height: 100%; padding: 45px 0 0 0;"></div>
 
         <script data-main="app_hubstar/scripts/main" src="app_hubstar/scripts/libs/requirejs/2.1.2/require.js"></script>
-        <?php 
-            $this->renderPartial('/layouts/_footer'); 
-            ?>
+
+
+        <?php $this->renderPartial('/layouts/_footer'); ?>
     </body>
+</html>
+
+
+<?php
+$this->renderPartial('/layouts/_footer');
+?>
+
+
+</body>
 </html>

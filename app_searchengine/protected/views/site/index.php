@@ -25,7 +25,7 @@ if (Yii::app()->user->isGuest) { ?>
         <a id="slider-control" class="icon-angle-left" href="#myCarousel" data-slide="prev" style="position: relative; float: left;left: 5%; top: -400px;font-size: 6em;"></a>
         <a id="slider-control" class="icon-angle-right" href="#myCarousel" data-slide="next"style="position: relative; float: right;left: -5%; top: -400px;font-size: 6em;"></a>
     </div>
-    <div class="tile_img" >
+    <div class="tile_img"  style="z-index: 5;">
         <div id="dd3" class="wrapper-dropdown-3" tabindex="1" style="margin-left: 68.5%; margin-bottom: -2%;width:270px; height:45px;">
             <div>
                 <div id="dropdown-cover" class="dropdown_test_3" style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -10.5px; padding-left: 35px;">

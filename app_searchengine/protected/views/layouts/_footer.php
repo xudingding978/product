@@ -53,3 +53,7 @@
         </div>
     </div>
 </div><!-- footer -->
+
+<p id="back-top">
+    <a href="#top"><span></span>Back to Top</a>
+</p>

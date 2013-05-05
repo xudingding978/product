@@ -8,11 +8,13 @@
 
 <div style="padding-top: 20px;"></div>
 <h1>I am an Ember App :) {{title}}</h1>
+========================<br/>
 {{#each model}}
 <h1>
     Post Title : {{title}}
 </h1>
 {{/each}}
+========================<br/>
 <a  {{bindAttr title=name}}>Hover over me</a>
 <h2>and you are looking at the application template.</h2>
 enter you name here ... {{input type="text" value=name}}

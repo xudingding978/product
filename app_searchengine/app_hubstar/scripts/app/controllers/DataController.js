@@ -1,10 +1,10 @@
 define([
-    "models/Postmodel"
-],function(Postmodel) {
+    "models/PostModel"
+],function(PostModel) {
     var DataController = Ember.Controller.extend({
-//        modelPost: function() {
-//            return Postmodel.find();
-//        }
+        modelPost: function() {
+            return PostModel.find();
+        }
     });
     return DataController;
 });

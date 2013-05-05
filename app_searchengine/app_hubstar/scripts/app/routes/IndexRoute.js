@@ -1,13 +1,18 @@
 define([
     'ember',
-    'controllers/tabListController'
+    'controllers/tabListController',
+    'models/PostModel'
 ], function(
         Ember,
-        tabListController
+        tabListController,
+        PostModel
         ) {
     "use strict";
 
     var IndexRoute = Ember.Route.extend({
+        model: function() {
+            return PostModel.find();
+        },
         setupController: function(indexController, model) {
             tabListController.showFirstTab();
         },

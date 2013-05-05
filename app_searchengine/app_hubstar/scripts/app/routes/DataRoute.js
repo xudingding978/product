@@ -1,25 +1,25 @@
 define([
     'ember',
-    'controllers/DataController', 'models/Postmodel'
+    'controllers/DataController', 
+    'models/PostModel'
 ], function(
         Ember,
         dataController,
-        Postmodel
+        PostModel
         ) {
     "use strict";
 
     var DataRoute = Ember.Route.extend({
         model: function() {
-      //    alert(Postmodel.find);
-            return Postmodel.find();
+            return PostModel.find();
+        },
+
+
+        setupController: function(dataController, PostModel) {
+
+            alert(dataController.modelPost());
+            dataController.modelPost();
         }
-
-
-//        setupController: function(dataController, Postmodel) {
-//
-//            alert(dataController.modelPost());
-//            dataController.modelPost();
-//        }
     });
     return DataRoute;
 });

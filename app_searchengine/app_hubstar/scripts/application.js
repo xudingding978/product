@@ -55,10 +55,26 @@ define('application', [
     "routes/IndexRoute",
     "routes/SelectedTabRoute",
     "routes/DataRoute",
-    "models/Postmodel",
+    "models/PostModel",
     "emberData"
 
-], function(ApplicationView, WindowContainerView, TabIndexView, SelectedTabView, TabMenuView, TabView, CarouselView, PhotoView, ApplicationController, tabListController, DataController, Router, IndexRoute, SelectedTabRoute, DataRoute, Post)
+], function(
+        ApplicationView, 
+        WindowContainerView, 
+        TabIndexView, 
+        SelectedTabView, 
+        TabMenuView, 
+        TabView, 
+        CarouselView, 
+        PhotoView, 
+        ApplicationController, 
+        tabListController, 
+        DataController, 
+        Router, 
+        IndexRoute, 
+        SelectedTabRoute, 
+        DataRoute, 
+        Post)
 {
 
     return  Ember.Application.createWithMixins({

@@ -17,9 +17,9 @@ define([
             tabListController.showFirstTab();
         },
         renderTemplate: function() {
-            this.render('selectedTab', {
+            this.render('profiles', {
                 into: "application",
-                controller: tabListController
+                //  controller: tabListController
             });
         }
     });

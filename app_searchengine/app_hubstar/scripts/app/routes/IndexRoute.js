@@ -1,20 +1,23 @@
 define([
     'ember',
-    'controllers/tabListController'
+    'controllers/ApplicationController'
 ], function(
         Ember,
-        tabListController
+        ApplicationController
         ) {
     "use strict";
 
     var IndexRoute = Ember.Route.extend({
-        setupController: function(indexController, model) {
-            tabListController.showFirstTab();
+   //     controller: ApplicationController,
+        setupController: function(ApplicationController, model) {
+            alert(ApplicationController.get('indexPage'));
+            ApplicationController.set('indexPage', true);
+            alert(ApplicationController.get('indexPage'));
         },
         renderTemplate: function() {
-            this.render('selectedTab', {
+            this.render('profiles', {
                 into: "application",
-                controller: tabListController
+                //  controller: tabListController
             });
         }
     });

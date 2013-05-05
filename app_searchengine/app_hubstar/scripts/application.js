@@ -48,6 +48,8 @@ define('application', [
     "views/TabView",
     "views/CarouselView",
     "views/PhotoView",
+    "views/ProfilesView",
+    "views/UsersView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -55,10 +57,32 @@ define('application', [
     "routes/IndexRoute",
     "routes/SelectedTabRoute",
     "routes/DataRoute",
+    "routes/ProfilesRoute",
+    "routes/UsersRoute",
     "models/Postmodel",
     "emberData"
 
-], function(ApplicationView, WindowContainerView, TabIndexView, SelectedTabView, TabMenuView, TabView, CarouselView, PhotoView, ApplicationController, tabListController, DataController, Router, IndexRoute, SelectedTabRoute, DataRoute, Post)
+], function(
+        ApplicationView, 
+        WindowContainerView, 
+        TabIndexView, 
+        SelectedTabView, 
+        TabMenuView, 
+        TabView, 
+        CarouselView, 
+        PhotoView, 
+        ProfilesView, 
+        UsersView, 
+        ApplicationController, 
+        tabListController, 
+        DataController, 
+        Router, 
+        IndexRoute, 
+        SelectedTabRoute, 
+        DataRoute, 
+        ProfilesRoute, 
+        UsersRoute, 
+        Post)
 {
     return  Ember.Application.createWithMixins({
         VERSION: '1.0.0',
@@ -71,6 +95,8 @@ define('application', [
         TabView: TabView,
         CarouselView: CarouselView,
         PhotoView: PhotoView,
+        ProfilesView: ProfilesView,
+        UsersView: UsersView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
@@ -78,6 +104,8 @@ define('application', [
         IndexRoute: IndexRoute,
         SelectedTabRoute: SelectedTabRoute,
         DataRoute: DataRoute,
+        ProfilesRoute: ProfilesRoute,
+        UsersRoute: UsersRoute,
         Post: Post,
         Store: DS.Store.extend({
             revision: 12,

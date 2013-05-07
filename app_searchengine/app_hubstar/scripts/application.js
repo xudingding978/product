@@ -2,6 +2,7 @@
 require.config({
     paths: {
         //     'AppMain': 'app/main',
+
         'models': 'app/models',
         'views': 'app/views',
         'controllers': 'app/controllers',
@@ -34,12 +35,13 @@ require.config({
         disableI18n: true,
         templateExtension: "html"
     },
-    waitSeconds: 0,
+    waitSeconds: 15,
     urlArgs: "bust=" + (new Date()).getTime()  //cancel caching for network requests,for development.
 });
 
 // Define application
 define('application', [
+    "models/DragNDrop",
     "views/ApplicationView",
     "views/WindowContainerView",
     "views/TabIndexView",
@@ -48,7 +50,7 @@ define('application', [
     "views/TabView",
     "views/CarouselView",
     "views/PhotoView",
-
+    "views/mouseEventView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -57,8 +59,9 @@ define('application', [
     "routes/SelectedTabRoute",
     "routes/DataRoute",
     "models/Postmodel"
-], function(ApplicationView, WindowContainerView, TabIndexView, SelectedTabView, TabMenuView, TabView, CarouselView, PhotoView,
-
+], function(DragNDrop,
+        ApplicationView, WindowContainerView, TabIndexView, SelectedTabView, TabMenuView, TabView, CarouselView, PhotoView,
+        MouseEventView,
         ApplicationController, tabListController, DataController, Router, IndexRoute, SelectedTabRoute, DataRoute, Post)
 {
 
@@ -67,6 +70,7 @@ define('application', [
     return  Ember.Application.createWithMixins({
         VERSION: '1.0.0',
         rootElement: '#main',
+        DragNDrop: DragNDrop,
         ApplicationView: ApplicationView,
         WindowContainerView: WindowContainerView,
         TabIndexView: TabIndexView,
@@ -75,7 +79,7 @@ define('application', [
         TabView: TabView,
         CarouselView: CarouselView,
         PhotoView: PhotoView,
-
+        MouseEventView: MouseEventView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
@@ -95,6 +99,7 @@ define('application', [
             })
         }),
         ready: function() {
+
         }
     });
 

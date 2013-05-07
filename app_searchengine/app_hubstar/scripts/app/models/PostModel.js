@@ -1,9 +1,9 @@
 
-define('models/Postmodel',
+define('models/PostModel',
         ['ember', 'emberData'],
         function() {
 
-            var Postmodel = DS.Model.extend({
+            var PostModel = DS.Model.extend({
                 title: DS.attr('string'),
                 author: DS.attr('string'),
                 cents: DS.attr('string'),
@@ -20,11 +20,11 @@ define('models/Postmodel',
 
 
             });
-//            Postmodel.reopenClass({
+//            PostModel.reopenClass({
 //                url: 'posts', //this must match JSON_RESPONSE_ROOT_SINGLE constant in modules/api/controllers/ContactController.php
 //                pk: "id"
 //            });
-            return Postmodel;
+            return PostModel;
         }
 );
 

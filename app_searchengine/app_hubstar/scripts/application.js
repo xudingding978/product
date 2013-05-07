@@ -49,7 +49,7 @@ define('application', [
     "views/SelectedTabView",
     "views/TabMenuView",
     "views/TabView",
-    "views/CarouselView",
+    "views/DiscoveryView",
     "views/PhotoView",
     "views/ProfilesView",
     "views/UsersView",
@@ -64,7 +64,7 @@ define('application', [
     "routes/DataRoute",
     "routes/ProfilesRoute",
     "routes/UsersRoute",
-    "models/Postmodel",
+    "models/PostModel",
     "emberData"
 
 ], function(
@@ -91,7 +91,9 @@ define('application', [
         UsersRoute,
         Post)
 {
+
     return  Ember.Application.createWithMixins({
+        LOG_TRANSITIONS: true,
         VERSION: '1.0.0',
         rootElement: '#main',
         ApplicationView: ApplicationView,
@@ -100,7 +102,7 @@ define('application', [
         SelectedTabView: SelectedTabView,
         TabMenuView: TabMenuView,
         TabView: TabView,
-        CarouselView: CarouselView,
+        DiscoveryView: DiscoveryView,
         PhotoView: PhotoView,
         ProfilesView: ProfilesView,
         UsersView: UsersView,
@@ -120,16 +122,21 @@ define('application', [
             revision: 12,
             adapter: DS.RESTAdapter.create({
                 bulkCommit: false,
-                //  url: 'http://www.hubstar.devbox6',
+                url: getRestAPIURL(),
                 mappings: {
                     posts: Post
-                },
-                namespace: 'api'
+                }
             })
         }),
         ready: function() {
         }
     });
-}
-);
+});
 
+function getRestAPIURL()
+{
+    var api_url = document.domain;
+    var api_url = api_url.replace("www", "api");
+    api_url = "http://" + api_url;
+    return api_url;
+}

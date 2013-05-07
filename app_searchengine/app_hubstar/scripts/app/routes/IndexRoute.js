@@ -1,9 +1,11 @@
 define([
     'ember',
-    'controllers/ApplicationController'
+    'controllers/tabListController',
+    'models/PostModel'
 ], function(
         Ember,
-        ApplicationController
+        tabListController,
+        PostModel
         ) {
     "use strict";
 
@@ -24,6 +26,5 @@ define([
             });
         }
     });
-
     return IndexRoute;
 });

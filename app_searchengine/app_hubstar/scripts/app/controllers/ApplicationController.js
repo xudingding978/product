@@ -17,6 +17,5 @@ define(["ember"], function(Ember) {
             this.set('editing', false);
         }
     });
-
     return ApplicationController;
 });

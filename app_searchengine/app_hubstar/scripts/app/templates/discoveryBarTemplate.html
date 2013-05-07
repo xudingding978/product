@@ -1,4 +1,9 @@
-
+{{#if isLoggedIn}}
+<h1>Discovery Bar</h1>
+Enter your keywords to search for...   {{input type=textfield value=""}}<button>Search</button><br/><br/>
+{{view App.PhotoView}}
+{{view App.WindowContainerView}}
+{{else}}
 <div id="myCarousel" class="carousel slide">
         <div style="background: url('../../../images/shadowontop.png') repeat-x;position: absolute;top: 620px;z-index: 1000;width: 100%;height: 30px;"></div>
         <!-- Carousel items -->

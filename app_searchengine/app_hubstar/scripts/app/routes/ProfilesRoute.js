@@ -1,10 +1,11 @@
 define([
     'ember',
-    'controllers/ApplicationController', 'models/Postmodel'
+    'controllers/ApplicationController', 
+    'models/PostModel'
 ], function(
         Ember,
         ApplicationController,
-        Postmodel
+        PostModel
         ) {
     "use strict";
 
@@ -23,7 +24,7 @@ define([
         renderTemplate: function() {
 
             this.render('profiles', {
-                into: "application",
+                into: "application"
             });
 
         }

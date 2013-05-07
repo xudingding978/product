@@ -12,7 +12,7 @@ if (Yii::app()->user->isGuest) {
     <div class="navbar-inner">
         <div class="container">
             <div class="brand">
-                <a href="#">
+                <a href="/#">
                     <img class="logonew" style="position: relative; top: 0; margin:0;" src="../../../images/landing-trends.png">
                 </a>
             </div>

@@ -15,6 +15,8 @@ require.config({
         'emberData': 'libs/ember-data-latest',
         'jquery.ui': 'libs/jquery.ui/1.9.2/jquery-ui-1.9.2.custom.min',
         'bootstrap': 'libs/bootstrap/2.2.2/js/bootstrap.min',
+        'bootstrapPopover': 'libs/bootstrap/2.2.2/js/bootstrap-popover',
+        'bootstrapTooltip': 'libs/bootstrap/2.2.2/js/bootstrap-tooltip',
         /*requirejs-plugins*/
         'text': 'libs/requirejs-plugins/text',
         'hbs': 'libs/requirejs-plugins/hbs',
@@ -41,7 +43,7 @@ require.config({
 
 // Define application
 define('application', [
-    "models/DragNDrop",
+   // "models/DragNDrop",
     "views/ApplicationView",
     "views/WindowContainerView",
     "views/TabIndexView",
@@ -50,7 +52,8 @@ define('application', [
     "views/TabView",
     "views/CarouselView",
     "views/PhotoView",
-    "views/mouseEventView",
+    "views/ProfilesView",
+    "views/UsersView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -58,11 +61,32 @@ define('application', [
     "routes/IndexRoute",
     "routes/SelectedTabRoute",
     "routes/DataRoute",
-    "models/Postmodel"
-], function(DragNDrop,
-        ApplicationView, WindowContainerView, TabIndexView, SelectedTabView, TabMenuView, TabView, CarouselView, PhotoView,
-        MouseEventView,
-        ApplicationController, tabListController, DataController, Router, IndexRoute, SelectedTabRoute, DataRoute, Post)
+    "routes/ProfilesRoute",
+    "routes/UsersRoute",
+    "models/Postmodel",
+    "emberData"
+
+], function(
+        ApplicationView,
+        WindowContainerView,
+        TabIndexView,
+        SelectedTabView,
+        TabMenuView,
+        TabView,
+        CarouselView,
+        PhotoView,
+        ProfilesView,
+        UsersView,
+        ApplicationController,
+        tabListController,
+        DataController,
+        Router,
+        IndexRoute,
+        SelectedTabRoute,
+        DataRoute,
+        ProfilesRoute,
+        UsersRoute,
+        Post)
 {
 
     var url_path = getURL();
@@ -70,7 +94,7 @@ define('application', [
     return  Ember.Application.createWithMixins({
         VERSION: '1.0.0',
         rootElement: '#main',
-        DragNDrop: DragNDrop,
+      //  DragNDrop: DragNDrop,
         ApplicationView: ApplicationView,
         WindowContainerView: WindowContainerView,
         TabIndexView: TabIndexView,
@@ -79,7 +103,8 @@ define('application', [
         TabView: TabView,
         CarouselView: CarouselView,
         PhotoView: PhotoView,
-        MouseEventView: MouseEventView,
+        ProfilesView: ProfilesView,
+        UsersView: UsersView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
@@ -87,6 +112,8 @@ define('application', [
         IndexRoute: IndexRoute,
         SelectedTabRoute: SelectedTabRoute,
         DataRoute: DataRoute,
+        ProfilesRoute: ProfilesRoute,
+        UsersRoute: UsersRoute,
         Post: Post,
         Store: DS.Store.extend({
             revision: 12,

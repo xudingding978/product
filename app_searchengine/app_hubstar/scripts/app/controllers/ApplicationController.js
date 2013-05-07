@@ -1,9 +1,9 @@
 define(["ember"], function(Ember) {
     var ApplicationController = Ember.Controller.extend({
-        loginStatus: false,
-        logout: function() {
-            this.set('loginStatus', false);
-
+        indexPage: true,
+        profileName: "leo",
+        Profile_page: function() {
+            this.set('indexPage', false);
         },
         login: function() {
             this.set('loginStatus', true);

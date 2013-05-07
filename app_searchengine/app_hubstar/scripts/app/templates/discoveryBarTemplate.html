@@ -50,10 +50,6 @@ Enter your keywords to search for...   {{input type=textfield value=""}}<button>
             <img src="../../../images/frontpage-intro.png">
         </div>
     </div>
-{{/if}}
-{{outlet}}
-{{#if isLoggedIn}}
-<button {{action 'logout'}}>Logout</button>
-{{else}}
-<button {{action 'login'}}>Login</button>
-{{/if}}
+
+
+{{view App.PhotoView}}

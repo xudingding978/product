@@ -46,7 +46,7 @@ define('application', [
     "views/SelectedTabView",
     "views/TabMenuView",
     "views/TabView",
-    "views/CarouselView",
+    "views/DiscoveryView",
     "views/PhotoView",
     "views/ProfilesView",
     "views/UsersView",
@@ -59,7 +59,7 @@ define('application', [
     "routes/DataRoute",
     "routes/ProfilesRoute",
     "routes/UsersRoute",
-    "models/Postmodel",
+    "models/PostModel",
     "emberData"
 
 ], function(
@@ -69,7 +69,7 @@ define('application', [
         SelectedTabView, 
         TabMenuView, 
         TabView, 
-        CarouselView, 
+        DiscoveryView, 
         PhotoView, 
         ProfilesView, 
         UsersView, 
@@ -82,10 +82,12 @@ define('application', [
         DataRoute, 
         ProfilesRoute, 
         UsersRoute, 
-        Post)
+        Post
+    )
 {
 
     return  Ember.Application.createWithMixins({
+        LOG_TRANSITIONS: true,
         VERSION: '1.0.0',
         rootElement: '#main',
         ApplicationView: ApplicationView,
@@ -94,7 +96,7 @@ define('application', [
         SelectedTabView: SelectedTabView,
         TabMenuView: TabMenuView,
         TabView: TabView,
-        CarouselView: CarouselView,
+        DiscoveryView: DiscoveryView,
         PhotoView: PhotoView,
         ProfilesView: ProfilesView,
         UsersView: UsersView,

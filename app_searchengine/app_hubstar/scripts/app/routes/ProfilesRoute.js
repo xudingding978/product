@@ -1,23 +1,24 @@
 define([
     'ember',
-    'controllers/ApplicationController', 'models/Postmodel'
+    'controllers/ApplicationController', 
+    'models/PostModel'
 ], function(
         Ember,
         ApplicationController,
-        Postmodel
+        PostModel
         ) {
     "use strict";
 
     var ProfilesRoute = Ember.Route.extend({
         controller: ApplicationController,
-        setupController: function(controller, Postmodel) {
+        setupController: function(controller, PostModel) {
          //  controller.set("indexPage",true);
          //   controller.get('application').remove();
         },
         renderTemplate: function() {
 
             this.render('profiles', {
-                into: "application",
+                into: "application"
             });
 
         }

@@ -1,10 +1,11 @@
 define([
     'ember',
     'controllers/DataController', 
-    'models/PostModel'
+    'models/PostModel',
+    'views/DiscoveryView'
 ], function(
         Ember,
-        dataController,
+        DataController,
         PostModel
         ) {
     "use strict";
@@ -13,12 +14,13 @@ define([
         model: function() {
             return PostModel.find();
         },
-
-
-        setupController: function(dataController, PostModel) {
-
-            alert(dataController.modelPost());
-            dataController.modelPost();
+        setupController: function(DataController) {
+            DataController.model;
+        },
+        renderTemplate: function() {
+            this.render('profiles', {
+                into: 'discoveryBar'
+            });
         }
     });
     return DataRoute;

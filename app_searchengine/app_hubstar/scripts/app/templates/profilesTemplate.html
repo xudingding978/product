@@ -170,19 +170,20 @@
 
 
 
-
-
                                 {{#if view.editing}}
-                                <form class="form-inline editableform">
-                                    {{input type="text" value=profileName}} 
+                                <div class="window-container" id="test">
+                                    <div class="head"></div>
+                                    <div class="content">
+                                        {{input type="text" value=profileName}} 
 
-                                    <div class="buttons">
-                                        <button type="button" {{action changeTitle on="click" target="view"}}  class="btn btn-primary"><i class="icon-ok icon-white"></i></button>
-                                        
-                                        <button type="button" {{action toggleEditing on="click" target="view"}} class="btn"><i class="icon-remove"></i></button>
-                                        
+                                        <div class="buttons">
+                                            <button type="button" {{action changeTitle on="click" target="view"}}  class="btn btn-primary"><i class="icon-ok icon-white"></i></button>
+
+                                            <button type="button" {{action toggleEditing on="click" target="view"}} class="btn"><i class="icon-remove"></i></button>
+
+                                        </div>
                                     </div>
-                                </form>
+                                </div>
                                 {{else}}
                                 <button type="button" {{action toggleEditing on="click" target="view"}} class="btn"><i class="icon-pencil"></i></button>
                                 {{/if}}

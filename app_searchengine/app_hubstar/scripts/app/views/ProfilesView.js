@@ -2,7 +2,8 @@ define([
     "ember",
     "text!templates/profilesTemplate.html",
     "bootstrapPopover",
-    "bootstrapTooltip"
+    "bootstrapTooltip",
+    "jquery.ui"
 
 ], function(Ember, profilesTemplate) {
     Ember.TEMPLATES["profiles"] = Ember.Handlebars.compile(profilesTemplate);
@@ -14,9 +15,20 @@ define([
             this.set('editing', !this.get('editing'));
 
         },
-        changeTitle: function() {
+        didInsertElement: function() {
+
+            $(window-container).find("img");draggable({
+                cancel: ".content",
+                cursor: "move",
+                containment: "body",
+                scroll: true,
+                scrollSensitivity: 100
+            });
+
+            },
+            changeTitle: function() {
             var new_name = this.$("input").val();
-      //      alert(new_name);
+            //      alert(new_name);
             this.set("profileName", new_name);
             this.set('editing', false);
         },

@@ -171,18 +171,20 @@
 
 
 
-                               
+
                                 {{#if view.editing}}
                                 <form class="form-inline editableform">
                                     {{input type="text" value=profileName}} 
 
                                     <div class="buttons">
                                         <button type="button" {{action changeTitle on="click" target="view"}}  class="btn btn-primary"><i class="icon-ok icon-white"></i></button>
+                                        
                                         <button type="button" {{action toggleEditing on="click" target="view"}} class="btn"><i class="icon-remove"></i></button>
+                                        
                                     </div>
                                 </form>
                                 {{else}}
-                                 <button type="button" {{action toggleEditing on="click" target="view"}} class="btn"><i class="icon-pencil"></i></button>
+                                <button type="button" {{action toggleEditing on="click" target="view"}} class="btn"><i class="icon-pencil"></i></button>
                                 {{/if}}
 
 

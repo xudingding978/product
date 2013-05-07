@@ -15,10 +15,10 @@ define([
 //            alert(ApplicationController.get('indexPage'));
         },
         renderTemplate: function() {
-//            this.render('index', {
-//                into: "application",
-//                //  controller: tabListController
-//            });
+            this.render('carousel', {
+                into: "application",
+                //  controller: tabListController
+            });
         }
     });
 

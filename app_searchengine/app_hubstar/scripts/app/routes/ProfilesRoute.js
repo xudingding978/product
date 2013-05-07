@@ -14,8 +14,9 @@ define([
             //  controller.set("indexPage",true);
             //   controller.get('application').remove();
         },
-        model: function() {
-            return {profileName: 'Molly Brandenburg Interior'};
+        model: function(params) {
+            return [params.profile_id];
+           //    return [{id:'Molly',profileName: 'Molly Brandenburg Interior'},{id:'Colin',profileName: 'Top graphic designer!'},{id:'Tao',profileName: 'web developer'}];
         },
         renderTemplate: function() {
 

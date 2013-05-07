@@ -164,14 +164,15 @@
                     <div class="tab-pane active" id="tab1">
                         <div class="profile-main-content" style="margin: 50px 35px 20px 35px;">   
                             <div class="main_title" style=" border-bottom: 1px solid #ccc;padding-bottom: 10px;">
-                                <h3>{{profileName}}</h3>
+
+                                <h3>{{id}}</h3>
 
 
 
 
 
                                 {{#if controller.editing}}
-                                    {{view App.EditingView}}
+                                {{view App.EditingView}}
                                 {{else}}
                                 <button type="button" {{action toggleEditing}} class="btn"><i class="icon-pencil"></i></button>
                                 {{/if}}

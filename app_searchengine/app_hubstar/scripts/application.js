@@ -7,6 +7,7 @@ require.config({
         'controllers': 'app/controllers',
         'templates': 'app/templates',
         'routes': 'app/routes',
+        'helpers': 'app/helpers/forms',
         /*libs*/
         'jquery': 'libs/jquery/1.9.1/jquery',
         'handlebars': 'libs/handlebars/1.0.rc.3/handlebars',
@@ -107,7 +108,7 @@ define('application', [
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
-        ProfilesController:ProfilesController,
+        ProfilesController: ProfilesController,
         Router: Router,
         IndexRoute: IndexRoute,
         SelectedTabRoute: SelectedTabRoute,

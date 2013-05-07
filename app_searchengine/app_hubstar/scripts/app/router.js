@@ -7,8 +7,11 @@ define(["ember"], function(Ember) {
             path: "/"
         });
         this.resource("profiles", {
-            path: "/profiles"
+            path: '/profiles/:profile_id'
         });
+
+
+
         this.resource("users", {
             path: "/users"
         });

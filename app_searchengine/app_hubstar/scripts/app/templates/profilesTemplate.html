@@ -165,13 +165,13 @@
                         <div class="profile-main-content" style="margin: 50px 35px 20px 35px;">   
                             <div class="main_title" style=" border-bottom: 1px solid #ccc;padding-bottom: 10px;">
                                 <h3>{{profileName}}</h3>
-                                
-                                
-                                
-                                
-                                
-                                
-                                <button type="button" {{action toggleEditing on="click" target="view"}} class="btn"><i class="icon-pencil"></i></button>
+
+
+
+
+
+
+                               
                                 {{#if view.editing}}
                                 <form class="form-inline editableform">
                                     {{input type="text" value=profileName}} 
@@ -181,7 +181,8 @@
                                         <button type="button" {{action toggleEditing on="click" target="view"}} class="btn"><i class="icon-remove"></i></button>
                                     </div>
                                 </form>
-
+                                {{else}}
+                                 <button type="button" {{action toggleEditing on="click" target="view"}} class="btn"><i class="icon-pencil"></i></button>
                                 {{/if}}
 
 

@@ -15,8 +15,10 @@ define([
             //   controller.get('application').remove();
         },
         model: function(params) {
-            return [params.profile_id];
-           //    return [{id:'Molly',profileName: 'Molly Brandenburg Interior'},{id:'Colin',profileName: 'Top graphic designer!'},{id:'Tao',profileName: 'web developer'}];
+          //  console.log(params);
+            return {id:params.profile_id,profileName: 'Molly Brandenburg Interior'};
+
+            //    return [{id:'Molly',profileName: 'Molly Brandenburg Interior'},{id:'Colin',profileName: 'Top graphic designer!'},{id:'Tao',profileName: 'web developer'}];
         },
         renderTemplate: function() {
 

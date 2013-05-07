@@ -5,35 +5,17 @@ define(["ember"], function(Ember) {
         Profile_page: function() {
             this.set('indexPage', false);
         },
-        login: function() {
-            this.set('loginStatus', true);
-        },
-        getLoginStatus: function() {
-            return this.loginStatus;
-        },
-        handleFileSelect: function(evt) {
-            evt.stopPropagation();
-            evt.preventDefault();
+        toggleEditing: function() {
+            alert("aa");
+            this.set('editing', !this.get('editing'));
 
-            var files = evt.dataTransfer.files; // FileList object.
-
-            // files is a FileList of File objects. List some properties.
-            var output = [];
-            for (var i = 0, f; f = files[i]; i++) {
-                output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
-                        f.size, ' bytes, last modified: ',
-                        f.lastModifiedDate.toLocaleDateString(), '</li>');
-                console.log("i: " + i);
-            }
-            document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
         },
-        handleDragOver: function(evt) {
-            evt.stopPropagation();
-            evt.preventDefault();
-            evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+        changeTitle: function() {
+            var new_name = this.$("input").val();
+            //      alert(new_name);
+            this.set("profileName", new_name);
+            this.set('editing', false);
         }
-    }
-
-    );
+    });
     return ApplicationController;
 });

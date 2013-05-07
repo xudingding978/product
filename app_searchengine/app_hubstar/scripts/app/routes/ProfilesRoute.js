@@ -11,8 +11,11 @@ define([
     var ProfilesRoute = Ember.Route.extend({
         controller: ApplicationController,
         setupController: function(controller, Postmodel) {
-         //  controller.set("indexPage",true);
-         //   controller.get('application').remove();
+            //  controller.set("indexPage",true);
+            //   controller.get('application').remove();
+        },
+        model: function() {
+            return {profileName: 'Molly Brandenburg Interior'};
         },
         renderTemplate: function() {
 

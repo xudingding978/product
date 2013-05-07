@@ -10,12 +10,12 @@ define([
     var IndexRoute = Ember.Route.extend({
    //     controller: ApplicationController,
         setupController: function(ApplicationController, model) {
-            alert(ApplicationController.get('indexPage'));
-            ApplicationController.set('indexPage', true);
-            alert(ApplicationController.get('indexPage'));
+//            alert(ApplicationController.get('indexPage'));
+//            ApplicationController.set('indexPage', true);
+//            alert(ApplicationController.get('indexPage'));
         },
         renderTemplate: function() {
-            this.render('profiles', {
+            this.render('carousel', {
                 into: "application",
                 //  controller: tabListController
             });

@@ -36,6 +36,7 @@ class Controller extends CController {
         // Set the Access Control for permissable domains
         header('Access-Control-Allow-Origin: *');
         header('Access-Control-Request-Method: *');
+        header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
         
         echo $body;
         Yii::app()->end();

@@ -9,18 +9,21 @@
 <p>profile_name:  {{profile_name}}</p>
 
 
-<form class="form-inline" {{action save on="submit"}}>
+<form class="form-inline" >
     <label>
         id
-        {{input type="text" value=id}}      
+
+
+        {{view Ember.TextField valueBinding="id" id="id" placeholder="please type in...id"}}
     </label><br>
 
     <label>
         profile_name
-        {{input type="text" value=profile_name}}        
+
+        {{view Ember.TextField valueBinding="profile_name" id="profile_name" placeholder="please type in...profile_name"}}
     </label>
 
     <div class="controls">
-        <button type="submit" class="btn btn-primary">Done</button>
+        <button type="submit" class="btn btn-primary" {{action save on="click" target="view"}} >Done</button>
     </div>
 </form>

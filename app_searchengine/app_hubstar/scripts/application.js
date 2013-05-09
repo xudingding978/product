@@ -143,9 +143,9 @@ define('application', [
         Post: Post,
         Profile: Profile,
         User: User,
-        Store: DS.Store.extend({
+        Store: DS.Store.create({
             revision: 12,
-            adapter: DS.RESTAdapter.create({
+            adapter: DS.RESTAdapter.extend({
                 bulkCommit: false,
                 url: getRestAPIURL(),
                 mappings: {

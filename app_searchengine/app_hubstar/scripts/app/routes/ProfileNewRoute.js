@@ -1,8 +1,8 @@
 define([
-    'ember', 'models/ProfileModel'
+    'ember', 'models/ProfileModel',"controllers/ProfileController"
 
 ], function(
-        Ember, ProfileModel
+        Ember, ProfileModel,ProfileController
 
         ) {
     "use strict";
@@ -19,16 +19,16 @@ define([
             return ProfileModel.find();
 
         },
-        events: {
-            save: function() {
-                 var new_name = this.$("input").val();
-                 alert(new_name);
-                var newProfile = ProfileModel.createRecord({"id":new_name});
-                //   var newProfile = this.modelFor('profile');
-                this.transitionTo('profile', newProfile);
-
-            }
-        }
+//        events: {
+//            save: function() {
+//              this.controllerFor('ProfileController').set('selected', model);
+//             var new_name = this.$("#profile_name").val();
+//                var newProfile = ProfileModel.createRecord({"profile_name":"aaaa"});
+//                //   var newProfile = this.modelFor('profile');
+//                this.transitionTo('profile', newProfile);
+//
+//            }
+//        }
     });
     return NewRoute;
 });

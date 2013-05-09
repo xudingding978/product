@@ -11,8 +11,8 @@ define(
         email: DS.attr('string'),
         about: DS.attr('string'),
         didLoad: function() {
-            console.log('model loaded', this.toJSON());
-            console.log('id: ' + this.id + ' ' + this.profile_name, this);
+//            console.log('model loaded', this.toJSON());
+//            console.log('id: ' + this.id + ' ' + this.profile_name, this);
         }
     });
 

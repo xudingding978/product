@@ -22,6 +22,9 @@ define(
                 changeAbout: function() {
 
                     this.set('editingAbout', false);
+                },
+                newProfile: function() {
+                    alert("aa");
                 }
 
             });

@@ -4,3 +4,23 @@
 <h1>NEW PROFILES</h1>
 <h1>NEW PROFILES</h1>
 <h1>NEW PROFILES</h1>
+<p>id:  {{id}}</p>
+<br>
+<p>profile_name:  {{profile_name}}</p>
+
+
+<form class="form-inline" {{action save on="submit"}}>
+    <label>
+        id
+        {{input type="text" value=id}}      
+    </label><br>
+
+    <label>
+        profile_name
+        {{input type="text" value=profile_name}}        
+    </label>
+
+    <div class="controls">
+        <button type="submit" class="btn btn-primary">Done</button>
+    </div>
+</form>

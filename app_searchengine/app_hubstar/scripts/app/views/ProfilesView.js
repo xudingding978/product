@@ -4,15 +4,15 @@ define([
     "controllers/ProfilesController",
     "bootstrapPopover",
     "bootstrapTooltip",
-    "jquery.ui"
-
+    "jquery.ui",
+    'helpers'
 ], function(Ember, profilesTemplate, ProfilesController) {
     Ember.TEMPLATES["profiles"] = Ember.Handlebars.compile(profilesTemplate);
 
 
     var ProfilesView = Ember.View.extend({
         template: Ember.Handlebars.compile(profilesTemplate),
-       // controller: ProfilesController,
+        // controller: ProfilesController,
 //        toggleEditing: function() {
 //        //  alert("toghle");
 //         //   this.get('controller').toggleEditing;

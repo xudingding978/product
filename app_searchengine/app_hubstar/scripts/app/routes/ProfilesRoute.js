@@ -1,32 +1,40 @@
 define([
     'ember',
-    'controllers/ApplicationController', 
-    'models/PostModel'
+    'controllers/ProfilesController',
+    'models/ProfileModel'
 ], function(
         Ember,
         ApplicationController,
-        PostModel
+        ProfileModel
         ) {
     "use strict";
-
     var ProfilesRoute = Ember.Route.extend({
         controller: ApplicationController,
         setupController: function(controller, Postmodel) {
-            //  controller.set("indexPage",true);
-            //   controller.get('application').remove();
+
         },
-        model: function(params) {
-            return [params.profile_id];
-           //    return [{id:'Molly',profileName: 'Molly Brandenburg Interior'},{id:'Colin',profileName: 'Top graphic designer!'},{id:'Tao',profileName: 'web developer'}];
+        model: function() {
+       //      console.log("profileModel 111111111    "+ProfileModel.find());
+            return ProfileModel.find();
+
         },
         renderTemplate: function() {
 
             this.render('profiles', {
                 into: "application"
             });
+        },
+        events: {
+            newProfile: function() {
+//                var newProfile = ProfileModel.createRecord({"id":"new"});
+//                console.log("profileModel  2222222222222   "+profileModel);
+//                var profile = profileModel.createRecord("profiles"{
+//                    id: "4"
+//                });
+                this.transitionTo('profileNew');
 
+            }
         }
-
     });
     return ProfilesRoute;
 });

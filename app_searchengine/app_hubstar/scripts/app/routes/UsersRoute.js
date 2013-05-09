@@ -17,7 +17,7 @@ define([
         renderTemplate: function() {
 
             this.render('users', {
-                into: "discoveryBar"
+                into: "application"
             });
 
         }

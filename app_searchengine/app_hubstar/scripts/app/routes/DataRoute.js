@@ -17,11 +17,11 @@ define([
         setupController: function(DataController) {
             DataController.model;
         },
-        renderTemplate: function() {
-            this.render('profiles', {
-                into: 'discoveryBar'
-            });
-        }
+//        renderTemplate: function() {
+//            this.render('profiles', {
+//                into: 'discoveryBar'
+//            });
+//        }
     });
     return DataRoute;
 });

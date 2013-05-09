@@ -31,52 +31,50 @@ class ProfilesController extends Controller {
                 ->query("profile")
                 ->boost(2.5);
         
-        $filter = null;
+//        $filter = null;
         
         //custom_filters_score query allows to execute a query, and if the hit matches a provided filter (ordered)
-        $customFilterQuery = Sherlock\Sherlock::queryBuilder()->CustomFiltersScore()
-                ->query("match_all")
-                ->filters($filter);
+//        $customFilterQuery = Sherlock\Sherlock::queryBuilder()->CustomFiltersScore()
+//                ->query("match_all")
+//                ->filters($filter);
 
         //Set the index, type and from/to parameters of the request.
         $request->index(Yii::app()->params['elasticSearchIndex'])
         ->type("couchbaseDocument")
         ->from(0)
         ->to(10)
-        ->query($customFilterQuery);
+        ->query($termQuery);
 
         //Execute the search and return results
         $response = $request->execute();
 
-        echo "Took: " . $response->took . "\r\n";
-        echo "Number of Hits: " . count($response) . "\r\n";
+        //echo "Took: " . $response->took . "\r\n";
+        //echo "Number of Hits: " . count($response) . "\r\n";
         
         //echo var_export($response);
+        
+        $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":[';
 
         //Iterate over the hits and print out some data
+        $i = 0;
         foreach ($response as $hit) {
-            echo $hit['score'] . ' - ' .$hit['source']['doc']['id']. "\r\n\n\r";
+            $results .= CJSON::encode($hit['source']['doc']); 
+            if (++$i !== count($response)){
+                $results .= ',';
+            }
         }
-
-
-//        try {
-//            $cb = $this->couchBaseConnection();
-//            $keys = array('develop.devbox1/profiles/jason_liddiard', 'develop.devbox1/profiles/leo_sun');
-//            $results_arr = ($cb->getMulti($keys));
-//            $result = $this->processMultiGet($results_arr, self::JSON_RESPONSE_ROOT_PLURAL);
-//            echo $this->sendResponse(200, $result);
-//        } catch (Exception $exc) {
-//            echo $exc->getTraceAsString();
-//        }
+        $results .=  ']}';
+            
+        echo $this->sendResponse(200, $results);
     }
 
     public function actionCreate() {
         try {
             $cb = $this->couchBaseConnection();
-            if ($cb->add($_POST['id'], CJSON::encode($_POST))) {
+            if ($cb->add(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $_POST['id'], CJSON::encode($_POST))) {
                 echo $this->sendResponse(201, 'OK');
             } else {
-                echo $this->sendResponse(409, 'A record with id: "' . $_POST['id'] . '" already exists');
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $_POST['id'] . '" already exists');
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();

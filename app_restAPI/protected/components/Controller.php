@@ -1,22 +1,26 @@
 <?php
+
 class Controller extends CController {
-    public $cb= null;
+
+    public $cb = null;
     public $layout = '//layouts/api';
+
     /**
      * @var array the breadcrumbs of the current page. The value of this property will
      * be assigned to {@link CBreadcrumbs::links}. Please refer to {@link CBreadcrumbs::links}
      * for more details on how to specify this property.
      */
     public $breadcrumbs = array();
-        /**
+
+    /**
      * Gets RestFul data and decodes its JSON request
      * @return mixed
      */
     protected function getInputAsJson() {
         return CJSON::decode(file_get_contents('php://input'));
     }
-    
-    protected function couchBaseConnection(){
+
+    protected function couchBaseConnection() {
         return new Couchbase("cb1.hubsrv.com:8091", "", "Pa55word", "test", true);
     }
 
@@ -36,7 +40,7 @@ class Controller extends CController {
         // Set the Access Control for permissable domains
         header('Access-Control-Allow-Origin: *');
         header('Access-Control-Request-Method: *');
-        
+
         echo $body;
         Yii::app()->end();
     }
@@ -92,4 +96,20 @@ class Controller extends CController {
         );
         return (isset($codes[$status])) ? $codes[$status] : '';
     }
+
+    protected function processMultiGet($results_arr, $jsonRoot) {
+        $numItems = count($results_arr);
+        $i = 0;
+        $result = '{"' . $jsonRoot . '":[';
+        foreach ($results_arr as $key => $value) {
+            if (++$i === $numItems) {
+                $result .= $value;
+            } else {
+                $result .= $value . ',';
+            }
+        }
+        $result .= ']}';
+        return $result;
+    }
+
 }

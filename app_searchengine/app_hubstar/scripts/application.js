@@ -74,7 +74,7 @@ define('application', [
         SelectedTabView,
         TabMenuView,
         TabView,
-        CarouselView,
+        DiscoveryView,
         PhotoView,
         ProfilesView,
         UsersView,

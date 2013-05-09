@@ -21,7 +21,7 @@ define([
         },
         renderTemplate: function() {
             this.render('carousel', {
-                into: "application",
+                into: "application"
                 //  controller: tabListController
             });
         }

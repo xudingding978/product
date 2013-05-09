@@ -862,7 +862,7 @@ color: #fff;
 
 .profilemain > .tabs-right > .nav-tabs > li {
 
-margin: 75px 24px 0px -30px;
+margin: 85px 16px 0px -45px;
 
 
 }
@@ -919,6 +919,44 @@ overflow: hidden;
 margin: 0.5px;
 display: inline-block;
 }
+
+
+.aside-profilepic > .profile_like > a {
+color:#aaa;
+
+}
+
+.aside-profilepic > .profile_like > a:hover {
+color:red;
+}
+
+.aside-profilepic > .profile_like > a > .icon-facebook:hover {
+color: #3B5998;
+}
+
+.aside-profilepic > .profile_like > a > .icon-twitter:hover {
+color: #4099ff;
+}
+
+.aside-profilepic > .profile_like > a > .icon-google-plus:hover {
+color: #F90101;
+}
+
+
+
+
+
+
+
+ .discovermoreitem  a {
+color: #555;
+}
+
+ .discovermoreitem  a:hover {
+color: #0088cc;
+}
+
+
 
 
 

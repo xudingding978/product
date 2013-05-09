@@ -1,18 +1,42 @@
-<div class="profilegb" style="background: #fff url('../images/texture.png') repeat; top: 0; left: 0;z-index: -1;width: 100%;height: auto;">
-    <div style="width: 100%; height: 500px; overflow: hidden;"> 
+<div class="profilegb" style="background: #fff url('../images/texture.png') repeat; top: 0; left: 0;z-index: -1;width: 100%;height: auto; padding-bottom: 300px;">
+    <div style="width: 100%; height: 500px; overflow: hidden; position: fixed;"> 
         <img src="../images/kichen_i.jpg" style="width: 100%; height:auto;">
     </div>
 
 
-    <div class="profilewrapper" style="position: relative; width: 980px; height: auto; margin: auto; top: -200px; background: white; box-shadow: 0px 0px 13px; border-radius: 3px 3px 0 0; margin-bottom: -160px;">
+    <div class="profilewrapper" style="position: relative; width: 980px; height: auto; margin: auto; top: 100px; background: white; box-shadow: 0px 0px 13px; border-radius: 3px 3px 0 0; margin-bottom: -160px;">
+
+        <!-- corpbanner-->
+
+        <div class="profilecorpbanner" style="background-image: url('../images/smegcover.jpg'); width: 980; height:300px; border-radius: 3px 3px 0 0; position: relative;">
+            <div class="corpbanner_mask" style="background: url('../images/bannershadow.png') repeat-x; position: absolute;bottom:0; width: 980px; height: 200px;">
+                <div class="corpbanner_content" style="position: absolute;bottom:0;margin-left: 300px;width: 680px;padding: 20px;">
+                    <div class="main_title" style="height: 100px;">
+                        <div>
+                            <h3 style="display: inline-block; color: white;">{{id}}</h3>
 
 
+                            {{#if controller.editing}}
+                            {{view App.EditingView}}
+                            {{else}}
+                            <button type="button" {{action toggleEditing}} class="btn"><i class="icon-pencil"></i></button>
+                            {{/if}}
+                        </div>
+                        <div style="display: inline-block;">
+                            <p style='display: inline-block; float: left; color: white; margin: 7px 0;'><a href='#' style='margin-right: 15px;'><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star-half" ></k></a>
+                                <a href='#' style=" margin-right: 20px;">23 Reviews</a>|<a href='#'style=" margin-left: 20px;">Review me »</a></p>
+                            <a href="#question_modal" role="button" class="btn Contactme" data-toggle="modal" style="display: inline-block;width: 150px;position: relative;float: left;bottom: 5px;right: -150px;">Contact me</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!--PROFILE PAGE LEFT SIDE-->
 
 
         <div class="profileaside" style="background-color: rgb(242,240,240); width: 300px; height: auto; padding: 10px; border-radius:3px 0 0 0; float: left;">
-            <div class="profileaside_content" style="margin:20px;">
+            <div class="profileaside_content" style="margin:20px; margin-top: -200px; position: relative;">
 
                 <div class="aside-profilepic" style="padding:5px; border-bottom: 1px solid #ccc;">
                     <img src="../images/profilepic.jpg" style="width: 200px; height:auto; display: block;margin: 10px auto; border:3px solid white;width: 200px; height:auto; display: block;margin: 20px auto; border:5px solid white;"> 
@@ -28,7 +52,7 @@
 
                 <!--PROFILE CONTACT SECTION-->
 
-                <div class="aside-contact" style="padding: 5px; border-bottom: 1px solid #ccc; border-top: 1px solid #fff; font-size: 14px;">
+                <div class="aside-contact" style="padding: 20px 5px; border-bottom: 1px solid #ccc; border-top: 1px solid #fff; font-size: 14px;">
                     <table id="aside_contact" >
                         <tr>
                             <th style="color: #aaa; font-weight: normal; text-align: right;">Contact:</th>
@@ -111,7 +135,7 @@
                                 <a href="#" ><k class="icon-save" >&nbsp;66</k></a>
                             </div>
                         </div>
-                        <div id="comments" class="comments" style="width: auto; height: auto;">                          
+                        <div id="comments" class="comments" style="width: auto; height: auto;background-color: rgb(242,240,240);">                          
                             <img style="width: 40px;  margin: 10px; display: inline-block;" src="../images/profilepic6.jpg" />
                             <p style="position: relative;  bottom: -10px; font-size: 12px;width: 135px;display: inline-block;">by &nbsp <a href="#"> <b>Krueger Architecture & Design</b></a></p>
                         </div>
@@ -129,14 +153,11 @@
                                 <a href="#" ><k class="icon-save" >&nbsp;66</k></a>
                             </div>
                         </div>
-                        <div id="comments" class="comments" style="width: auto; height: auto;">                          
+                        <div id="comments" class="comments" style="width: auto; height: auto;background-color: rgb(242,240,240);">                          
                             <img style="width: 40px;  margin: 10px; display: inline-block; vertical-align: baseline;" src="../images/profilepic1.jpg" />
                             <p style="position: relative; font-size: 12px;width: 135px;display: inline-block;">by &nbsp <a href="#"> <b>Faux Finish & Murals. Carlos Casamayor</b></a></p>
                         </div>
-                        <div id="comments" class="comments" style="width: auto; height: auto;">                          
-                            <img style="width: 40px;  margin: 10px; display: inline-block; vertical-align: baseline;" src="../images/profilepic1.jpg" />
-                            <p style="position: relative; font-size: 12px;width: 135px;display: inline-block;">by &nbsp <a href="#"> <b>Faux Finish & Murals. Carlos Casamayor</b></a></p>
-                        </div>
+
                     </div>
 
 
@@ -158,44 +179,23 @@
                     <li><a href="#tab3" data-toggle="tab">Discussions</a></li>
                 </ul>
 
-                <div class="tab-content">
+                <div class="tab-content"  style="width: 680px;">
 
 
                     <!--MAIN PROFILE TAB-->
 
                     <div class="tab-pane active" id="tab1">
-                        <div class="profile-main-content" style="margin: 50px 35px 20px 35px;">   
-                            <div class="main_title" style=" border-bottom: 1px solid #ccc;padding-bottom: 10px;">
-
-                                <h3>{{id}}</h3>
+                        <div class="profile-main-content" style="margin: 10px 35px 20px 35px;">   
 
 
-
-
-
-                                {{#if controller.editing}}
-                                {{view App.EditingView}}
-                                {{else}}
-                                <button type="button" {{action toggleEditing}} class="btn"><i class="icon-pencil"></i></button>
-                                {{/if}}
-
-
-
-
-                                <div style="display: inline-block;">
-                                    <p style='display: inline-block; float: left;'><a href='#' style='margin-right: 15px;'><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star-half" ></k></a>
-                                        <a href='#' style=" margin-right: 20px;">23 Reviews</a>|<a href='#'style=" margin-left: 20px;">Review me »</a></p>
-                                    <a href="#question_modal" role="button" class="btn" data-toggle="modal" style="display: inline-block;width: 150px;position: relative;float: left;bottom: 5px;right: -150px;">Contact me</a>
-                                </div>
-                            </div>
                             <div class="main_aboutus" style=" border-bottom: 1px solid #ccc; padding:20px 0 30px 0; font-size: 15px;">
                                 <h4 style='margin-bottom: 20px;'><i class='icon-user' style='margin-right: 10px;'></i>About Us</h4>
                                 {{#if controller.editingAbout}}
-                                      {{view App.EditingAboutView}}
+                                {{view App.EditingAboutView}}
                                 {{else}}
                                 <button type="button" {{action toggleEditingAbout}} class="btn"><i class="icon-pencil"></i></button>
                                 {{/if}}
-                               {{{about}}}
+                                {{{about}}}
 
                             </div>
                             <div class="main_hours" style=" border-bottom: 1px solid #ccc; padding:20px 0 30px 0; font-size: 16px;">
@@ -296,7 +296,7 @@
 
 
 
-
+                            <!--MAIN VIDEOS -->
 
                             <div class="main_videos" style=" border-bottom: 1px solid #ccc; padding:20px 0 30px 0; font-size: 16px;">
                                 <h4><i class='icon-film' style='margin-right: 10px;'></i>Videos</h4>
@@ -324,12 +324,12 @@
                             </div>
 
 
-
+                            <!--MAIN EBOOKS -->
 
                             <div class="main_ebooks" style="min-height: 430px;border-bottom: 1px solid #ccc; padding:20px 0 30px 0; font-size: 16px;">
                                 <h4><i class='icon-book' style='margin-right: 10px;'></i>E-Books</h4>
 
-                                <div style='float: left; margin:10px;'>
+                                <div style='display: inline-block;margin:10px;vertical-align: top;'>
                                     <div class="thumbnail" style='width: 180px; height:250px;padding: 0; '>
                                         <div style='width: 170px; height: 240px; overflow: hidden;margin: 4px;'>
                                             <img src="../images/ebook1.jpg">
@@ -341,7 +341,7 @@
                                     <p style='font-size: 13px; margin: 10px;'>by Molly Brandenburg<br/>5,702 views<br/>1,203 downloads</p>
                                 </div>
 
-                                <div style="float: left;margin:10px;">
+                                <div style=" display: inline-block;margin:10px;vertical-align: top;">
                                     <div class="thumbnail" style='width: 180px; height:250px;padding: 0; '>
                                         <div style='width: 170px; height: 240px; overflow: hidden;margin: 4px;'>
                                             <img src="../images/ebook2.jpg">
@@ -353,7 +353,7 @@
                                     <p style='font-size: 13px; margin: 10px;'>by Molly Brandenburg<br/>2,341 views<br/>624 downloads</p>
                                 </div>
 
-                                <div style="float: left;margin:10px;">
+                                <div style="display: inline-block;margin:10px;vertical-align: top;">
                                     <div class="thumbnail" style='width: 180px; height:250px;padding: 0; '>
                                         <div style='width: 170px; height: 240px; overflow: hidden;margin: 4px;'>
                                             <img src="../images/ebook3.jpg">
@@ -384,15 +384,9 @@
 
                     <div class="tab-pane" id="tab2">
 
-                        <div class="profile-main-content" style="margin: 50px 35px 20px 35px;">   
-                            <div class="main_title" style=" border-bottom: 1px solid #ccc;padding-bottom: 10px;">
-                                <h3>Molly Brandenburg Interiors, LLC.</h3>
-                                <div style="display: inline-block;">
-                                    <p style='display: inline-block; float: left;'><a href='#' style='margin-right: 15px;'><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star-half" ></k></a>
-                                        <a href='#' style=" margin-right: 20px;">23 Reviews</a>|<a href='#'style=" margin-left: 20px;">Review me »</a></p>
-                                    <a href="#question_modal" role="button" class="btn" data-toggle="modal" style="display: inline-block;width: 150px;position: relative;float: left;bottom: 5px;right: -150px;">Contact me</a>
-                                </div>
-                            </div>
+                        <div class="profile-main-content" style="margin: 10px 35px 20px 35px;">   
+
+
                             <div class="main_ideabooks" style="padding:20px 0 30px 0; font-size: 16px;">
                                 <h4><i class='icon-book' style='margin-right: 10px;'></i>Ideabooks</h4>            
 
@@ -409,7 +403,7 @@
                                             <a href="#" ><k class="icon-save" >&nbsp;66</k></a>
                                         </div>
                                     </div>
-                                    <div id="comments" class="comments" style="width: auto; height: auto;">                          
+                                    <div id="comments" class="comments" style="width: auto; height: auto;background-color: rgb(242,240,240);">                          
                                         <img style="width: 40px;  margin: 10px; display: inline-block;" src="../images/profilepic2.jpg" />
                                         <p style="position: relative;  bottom: -10px; font-size: 12px;width: 135px;display: inline-block;">by &nbsp <a href="#"> <b>Krueger Architecture & Design</b></a></p>
                                     </div>
@@ -427,7 +421,7 @@
                                             <a href="#" ><k class="icon-save" >&nbsp;66</k></a>
                                         </div>
                                     </div>
-                                    <div id="comments" class="comments" style="width: auto; height: auto;">                          
+                                    <div id="comments" class="comments" style="width: auto; height: auto;background-color: rgb(242,240,240);">                          
                                         <img style="width: 40px;  margin: 10px; display: inline-block; vertical-align: baseline;" src="../images/profilepic1.jpg" />
                                         <p style="position: relative; font-size: 12px;width: 135px;display: inline-block;">by &nbsp <a href="#"> <b>Faux Finish & Murals. Carlos Casamayor</b></a></p>
                                     </div>
@@ -445,7 +439,7 @@
                                             <a href="#" ><k class="icon-save" >&nbsp;66</k></a>
                                         </div>
                                     </div>
-                                    <div id="comments" class="comments" style="width: auto; height: auto;">                          
+                                    <div id="comments" class="comments" style="width: auto; height: auto;background-color: rgb(242,240,240);">                          
                                         <img style="width: 40px;  margin: 10px; display: inline-block;" src="../images/profilepic6.jpg" />
                                         <p style="position: relative;  bottom: -10px; font-size: 12px;width: 135px;display: inline-block;">by &nbsp <a href="#"> <b>Krueger Architecture & Design</b></a></p>
                                     </div>
@@ -463,7 +457,7 @@
                                             <a href="#" ><k class="icon-save" >&nbsp;66</k></a>
                                         </div>
                                     </div>
-                                    <div id="comments" class="comments" style="width: auto; height: auto;">                          
+                                    <div id="comments" class="comments" style="width: auto; height: auto;background-color: rgb(242,240,240);">                          
                                         <img style="width: 40px;  margin: 10px; display: inline-block;" src="../images/profilepic5.jpg" />
                                         <p style="position: relative;  bottom: -10px; font-size: 12px;width: 135px;display: inline-block;">by &nbsp <a href="#"> <b>Krueger Architecture & Design</b></a></p>
                                     </div>
@@ -479,15 +473,9 @@
 
                     <div class="tab-pane" id="tab3">
 
-                        <div class="profile-main-content" style="margin: 50px 35px 20px 35px;">   
-                            <div class="main_title" style=" border-bottom: 1px solid #ccc;padding-bottom: 10px;">
-                                <h3>Molly Brandenburg Interiors, LLC.</h3>
-                                <div style="display: inline-block;">
-                                    <p style='display: inline-block; float: left;'><a href='#' style='margin-right: 15px;'><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star-half" ></k></a>
-                                        <a href='#' style=" margin-right: 20px;">23 Reviews</a>|<a href='#'style=" margin-left: 20px;">Review me »</a></p>
-                                    <a href="#question_modal" role="button" class="btn" data-toggle="modal" style="display: inline-block;width: 150px;position: relative;float: left;bottom: 5px;right: -150px;">Contact me</a>
-                                </div>
-                            </div>
+                        <div class="profile-main-content" style="margin: 10px 35px 20px 35px;">   
+
+
 
                             <div class="main_ideabooks" style="padding:20px 0 30px 0; font-size: 16px;">
                                 <h4><i class='icon-question-sign' style='margin-right: 10px;'></i>Discussion</h4>            

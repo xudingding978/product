@@ -168,7 +168,7 @@ if (Yii::app()->user->isGuest) {
         // hide #back-top first
         $("#back-top").hide();
         $(window).scroll(function() {
-            if ($(this).scrollTop() == 0) {
+            if ($(this).scrollTop() === 0) {
                 $('#discovery_search_bar_wrapper').attr('style', 'position:relative;margin-top: 40px;');
                 document.getElementById("search-loading").className = "search-loading-invisible";
             }

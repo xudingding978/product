@@ -1,30 +1,18 @@
 define([
-    'ember',
-    'controllers/tabListController',
-    'models/PostModel'
+    'ember'
+
 ], function(
-        Ember,
-        tabListController,
-        PostModel
+        Ember
+
         ) {
     "use strict";
 
     var IndexRoute = Ember.Route.extend({
-        //     controller: ApplicationController,
-        setupController: function(ApplicationController, model) {
-//            alert(ApplicationController.get('indexPage'));
-//            ApplicationController.set('indexPage', true);
-//            alert(ApplicationController.get('indexPage'));
-        },
-        model: function() {
-            return [{id: 'Molly', profileName: 'Molly Brandenburg Interior'}, {id: 'Colin', profileName: 'Top graphic designer!'}, {id: 'Tao', profileName: 'web developer'}];
-        },
-        renderTemplate: function() {
-            this.render('carousel', {
-                into: "application",
-                //  controller: tabListController
-            });
+        redirect: function() {
+
+            this.transitionTo('profiles');
         }
+
     });
     return IndexRoute;
 });

@@ -1,8 +1,8 @@
 define([
     "ember",
     "text!templates/photoTemplate.html",
-  "controllers/ApplicationController"
-], function(Ember, photoTemplate,ApplicationController) {
+  "controllers/ProfilesController"
+], function(Ember, photoTemplate,ProfilesController) {
     Ember.TEMPLATES["photo"] = Ember.Handlebars.compile(photoTemplate);
 
 

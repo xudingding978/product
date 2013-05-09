@@ -1,13 +1,13 @@
 define([
     "ember",
-    "text!templates/ProfileNewTemplate.html"
+    "text!templates/profileNewTemplate.html"
 
-], function(Ember, newTemplate) {
-    Ember.TEMPLATES["ProfileNew"] = Ember.Handlebars.compile(newTemplate);
+], function(Ember, profileNewTemplate) {
+    Ember.TEMPLATES["profileNew"] = Ember.Handlebars.compile(profileNewTemplate);
 
 
     var ProfileNew = Ember.View.extend({
-        template: Ember.Handlebars.compile(newTemplate),
+        template: Ember.Handlebars.compile(profileNewTemplate),
     });
     return ProfileNew;
 });

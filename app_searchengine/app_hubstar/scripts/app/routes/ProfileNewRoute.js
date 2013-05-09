@@ -10,7 +10,7 @@ define([
     var NewRoute = Ember.Route.extend({
         renderTemplate: function() {
 
-            this.render('ProfileNew', {
+            this.render('profileNew', {
                 into: "application"
             });
         }

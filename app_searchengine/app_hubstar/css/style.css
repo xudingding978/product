@@ -1,73 +1,165 @@
 
 /*/WindowContainer-------------------/*/
 .window-container {
-  cursor: move;
-  width: 400px;
-  max-height: 600px;
-  overflow: visible;
-  position: fixed;
-  top: 20%;
-  left: 40%;
-  z-index: 1050;
-  background-color: white;
-  border: 1px solid #999;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;
-  outline: none;
-  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-  -webkit-background-clip: padding-box;
-  -moz-background-clip: padding-box;
-  background-clip: padding-box;
+    cursor: move;
+    overflow: visible;
+    position: fixed;
+    top: 20%;
+    left: 40%;
+    z-index: 1050;
+    background-color: white;
+    border: 1px solid #999;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    outline: none;
+    -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+    background-clip: padding-box;
 }
 
 .window-container > .head {
-  height:30px; 
-  background-color: pink;
+    height:30px; 
+    background-color: rgb(242,240,240);
+    border-radius: 3px 3px 0 0;
 }
 
 .window-container > .content {
-  padding: 5px;
+    padding: 10px 15px;
+    border-radius: 3px 3px 0 0;
 }
 /*/End WindowContainer---------------/*/
+
+
+.content > .ember-view {
+    width: 265px;
+    display: inline-block;
+    margin: 6px 6px;
+
+}
+
+
 
 
 
 /*/TabIndexItem----------------------/*/
 .tab-index-item {
-  line-height: 40px;
+    line-height: 40px;
 }
 
 .tab-index-item .buttons {
-  display: none;
+    display: none;
 }
 
 .tab-index-item:hover .buttons{
-  display: inline-block;
+    display: inline-block;
 }
 
 .tab-index-item .icon-resize-vertical {
-  display: none;
+    display: none;
 }
 
 .tab-index-item:hover .icon-resize-vertical{
-  display: inline-block;
+    display: inline-block;
 }
 
 /*/End TabIndexItem------------------/*/
 
 /*/Tab-------------------------------/*/
 .tab .navbar {
-  margin-bottom: 0px;
+    margin-bottom: 0px;
 }
 /*/End Tab---------------------------/*/
 
 
 .content .ember-text-field{
     height:30px;
-    
-    
+
+
 }
+
+
+
+/*CONTACT ME  BUTTON*/
+.contactmebtn {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    float: right;
+    bottom: 30px;
+    right: 30px;
+}
+
+.contactmebtn a {
+
+
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    position: relative;
+    line-height: 53px;
+    background-color: #eaeaea;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f6f6f6), to(#eaeaea));
+    background-image: -webkit-linear-gradient(top, #f6f6f6, #eaeaea);
+    background-image: -moz-linear-gradient(top, #f6f6f6, #eaeaea); 
+    background-image: -ms-linear-gradient(top, #f6f6f6, #eaeaea); 
+    background-image: -o-linear-gradient(top, #f6f6f6, #eaeaea);
+    background-image: linear-gradient(top, #f6f6f6, #eaeaea);
+    -moz-border-radius: 32px;
+    -webkit-border-radius: 32px;
+    border-radius: 32px;
+    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
+}
+
+.contactmebtn a:active {
+    top: 1px;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#eaeaea), to(#f6f6f6));
+    background-image: -webkit-linear-gradient(top, #eaeaea, #f6f6f6);
+    background-image: -moz-linear-gradient(top, #eaeaea, #f6f6f6); 
+    background-image: -ms-linear-gradient(top, #eaeaea, #f6f6f6); 
+    background-image: -o-linear-gradient(top, #eaeaea, #f6f6f6);
+    background-image: linear-gradient(top, #eaeaea, #f6f6f6);
+}
+
+
+
+.contactmebtn a::before{
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: -8px;
+    right: -8px;
+    bottom: -8px;
+    left: -8px;
+    background-color: #eaeaea;
+    -moz-border-radius: 140px;
+    -webkit-border-radius: 140px;
+    border-radius: 140px;
+    opacity: 0.5;	
+
+
+    display: block;
+    border-top: 2px solid #ddd;
+    box-shadow: inset 0px 8px 48px #ddd;
+}
+
+.contactmebtn a:active::before {
+    top: -9px;
+}
+
+.contactmebtn a:hover::before {
+    opacity: 0.8;
+    background-color: #6399cd;
+}
+
+.contactmeicon img {
+    vertical-align: -7px;
+    width: 24px;
+}
+

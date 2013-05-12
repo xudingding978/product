@@ -75,7 +75,8 @@ define('application', [
     "models/PostModel",
     "models/ProfileModel",
     "models/UserModel",
-    "emberData"
+    "emberData",
+    "bxslider"
 
 ], function(
         ApplicationView,

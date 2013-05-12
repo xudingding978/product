@@ -1,8 +1,8 @@
 define([
     "ember",
     "text!templates/profileNewTemplate.html", 
-    'models/ProfileModel',
-    'bxslider'
+    'models/ProfileModel'
+   
 
 ], function(Ember, profileNewTemplate, ProfileModel) {
     Ember.TEMPLATES["profileNew"] = Ember.Handlebars.compile(profileNewTemplate);

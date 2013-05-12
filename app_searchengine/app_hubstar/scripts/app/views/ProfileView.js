@@ -4,7 +4,8 @@ define([
     "controllers/ProfileController",
     "bootstrapPopover",
     "bootstrapTooltip",
-    "jquery.ui"
+    "jquery.ui",
+     'bxslider'
 
 ], function(Ember, profileTemplate, ProfileController) {
     Ember.TEMPLATES["profile"] = Ember.Handlebars.compile(profileTemplate);

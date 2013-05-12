@@ -12,7 +12,7 @@
         <meta name="author" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/reset-new.css">
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
         <link rel="stylesheet" href="/app_hubstar/scripts/libs/bootstrap/2.2.2/css/bootstrap.css">
            <link rel="stylesheet" href="/app_hubstar/css/jquery.bxslider.css">
         <link rel="stylesheet" href="/app_hubstar/css/style.css">
@@ -22,8 +22,7 @@
         <link rel="stylesheet" href="css/font-awesome.min.css">
         <script src="app_hubstar/scripts/libs/bootstrap/2.2.2/js/bootstrap.min.js"></script>
         <script src="app_hubstar/scripts/libs/jquery.bxslider.min.js"></script>
-        <script src="app_hubstar/scripts/libs/bootstrap/2.2.2/js/bootstrap-tooltip.js"></script>
-        <script src="app_hubstar/scripts/libs/bootstrap/2.2.2/js/bootstrap-popover.js"></script>
+
     </head>
     <body>
         <?php

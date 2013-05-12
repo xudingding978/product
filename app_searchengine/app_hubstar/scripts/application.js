@@ -15,8 +15,6 @@ require.config({
         'emberData': 'libs/ember-data-latest',
         'jquery.ui': 'libs/jquery.ui/1.9.2/jquery-ui-1.9.2.custom.min',
         'bootstrap': 'libs/bootstrap/2.2.2/js/bootstrap.min',
-        'bootstrapPopover': 'libs/bootstrap/2.2.2/js/bootstrap-popover',
-        'bootstrapTooltip': 'libs/bootstrap/2.2.2/js/bootstrap-tooltip',
         'bxslider': 'libs/jquery.bxslider.min',
         /*requirejs-plugins*/
         'text': 'libs/requirejs-plugins/text',

@@ -26,11 +26,12 @@ require.config({
             deps: ['handlebars', 'jquery'],
             exports: 'Ember'
         },
-        'emberData': {  
+        'emberData': {
             deps: ['ember'],
             exports: 'DS'
         },
-        'jquery.ui': ['jquery']
+        'jquery.ui': ['jquery'],
+        'bxslider': ['jquery']
     },
     hbs: {
         disableI18n: true,

@@ -12,6 +12,7 @@
         <meta name="author" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/reset-new.css">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
         <link rel="stylesheet" href="/app_hubstar/scripts/libs/bootstrap/2.2.2/css/bootstrap.css">
            <link rel="stylesheet" href="/app_hubstar/css/jquery.bxslider.css">
         <link rel="stylesheet" href="/app_hubstar/css/style.css">

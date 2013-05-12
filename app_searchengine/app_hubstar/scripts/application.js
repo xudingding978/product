@@ -17,6 +17,7 @@ require.config({
         'bootstrap': 'libs/bootstrap/2.2.2/js/bootstrap.min',
         'bootstrapPopover': 'libs/bootstrap/2.2.2/js/bootstrap-popover',
         'bootstrapTooltip': 'libs/bootstrap/2.2.2/js/bootstrap-tooltip',
+        'bxslider': 'libs/jquery.bxslider.min',
         /*requirejs-plugins*/
         'text': 'libs/requirejs-plugins/text',
         'hbs': 'libs/requirejs-plugins/hbs',
@@ -143,9 +144,9 @@ define('application', [
         Post: Post,
         Profile: Profile,
         User: User,
-        Store: DS.Store.create({
+        store: DS.Store.create({
             revision: 12,
-            adapter: DS.RESTAdapter.create({
+            adapter: DS.RESTAdapter.extend({
                 bulkCommit: false,
                 url: getRestAPIURL(),
                 mappings: {

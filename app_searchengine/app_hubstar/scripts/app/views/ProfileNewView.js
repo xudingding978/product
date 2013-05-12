@@ -1,6 +1,8 @@
 define([
     "ember",
-    "text!templates/profileNewTemplate.html", 'models/ProfileModel'
+    "text!templates/profileNewTemplate.html", 
+    'models/ProfileModel',
+    'bxslider'
 
 ], function(Ember, profileNewTemplate, ProfileModel) {
     Ember.TEMPLATES["profileNew"] = Ember.Handlebars.compile(profileNewTemplate);
@@ -15,7 +17,7 @@ define([
             console.log(ProfileModel.find("leo"));
             var newProfile = ProfileModel.createRecord({"id": new_id, "profile_name": new_name});
             
-           route.transitionTo('profile', newProfile);
+//           route.transitionTo('profile', newProfile);
 
         }
 

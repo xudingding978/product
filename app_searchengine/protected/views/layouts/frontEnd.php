@@ -21,7 +21,8 @@
         <link media="screen, projection" rel="stylesheet" type="text/css" href="css/_footer.css"/>
         <link rel="stylesheet" href="css/font-awesome.min.css">
         <script src="app_hubstar/scripts/libs/bootstrap/2.2.2/js/bootstrap.min.js"></script>
-
+        <script src="app_hubstar/scripts/libs/jquery.bxslider.min.js"></script>
+        <link rel="stylesheet" href="/app_hubstar/css/jquery.bxslider.css">
     </head>
     <body>
         <?php

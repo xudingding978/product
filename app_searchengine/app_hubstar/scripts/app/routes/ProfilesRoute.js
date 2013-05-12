@@ -10,7 +10,7 @@ define([
     "use strict";
     var ProfilesRoute = Ember.Route.extend({
         controller: ApplicationController,
-        setupController: function(controller, Postmodel) {
+        setupController: function(controller, ProfileModel) {
 
         },
         model: function() {

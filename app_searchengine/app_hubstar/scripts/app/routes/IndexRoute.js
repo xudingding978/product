@@ -11,7 +11,13 @@ define([
         redirect: function() {
 
             this.transitionTo('profiles');
-        }
+        },
+//        renderTemplate: function() {
+//
+//            this.render('profiles', {
+//                into: "application"
+//            });
+//        }
 
     });
     return IndexRoute;

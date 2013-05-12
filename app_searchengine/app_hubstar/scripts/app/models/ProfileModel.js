@@ -6,6 +6,9 @@ define(
         ], function() {
 
     var ProfileModel = DS.Model.extend({
+        init: function(){
+            this._super();
+        },
         profile_name: DS.attr('string'),
         last_name: DS.attr('string'),
         first_name: DS.attr('string'),

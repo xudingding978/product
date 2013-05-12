@@ -1,8 +1,8 @@
 // Define libraries
 require.config({
     paths: {
-        //     'AppMain': 'app/main',
-
+//     'AppMain': 'app/main',
+        'namespace': 'app/namespace',
         'models': 'app/models',
         'views': 'app/views',
         'controllers': 'app/controllers',
@@ -40,10 +40,10 @@ require.config({
     waitSeconds: 15,
     urlArgs: "bust=" + (new Date()).getTime()  //cancel caching for network requests,for development.
 });
-
 // Define application
 define('application', [
-   // "models/DragNDrop",
+    "namespace/DragNDrop",
+    "models/ImageFile",
     "views/ApplicationView",
     "views/WindowContainerView",
     "views/TabIndexView",
@@ -55,10 +55,14 @@ define('application', [
     "views/ProfilesView",
     "views/UsersView",
     "views/EditingView",
+    "views/TestView",
+    "views/ImageInputButton",
+    "views/PreviewUploadImageView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
     "controllers/ProfilesController",
+    "controllers/TestController",
     "app/router",
     "routes/IndexRoute",
     "routes/SelectedTabRoute",
@@ -69,6 +73,8 @@ define('application', [
     "emberData"
 
 ], function(
+        DragNDrop,
+        ImageFile,
         ApplicationView,
         WindowContainerView,
         TabIndexView,
@@ -80,10 +86,14 @@ define('application', [
         ProfilesView,
         UsersView,
         EditingView,
+        TestView,
+        ImageInputButton,
+        PreviewUploadImageView,
         ApplicationController,
         tabListController,
         DataController,
         ProfilesController,
+        TestController,
         Router,
         IndexRoute,
         SelectedTabRoute,
@@ -94,11 +104,12 @@ define('application', [
 {
 
     var url_path = getURL();
-
     return  Ember.Application.createWithMixins({
         VERSION: '1.0.0',
         rootElement: '#main',
-      //  DragNDrop: DragNDrop,
+        //  DragNDrop: DragNDrop,
+        DragNDrop: DragNDrop,
+        ImageFile: ImageFile,
         ApplicationView: ApplicationView,
         WindowContainerView: WindowContainerView,
         TabIndexView: TabIndexView,
@@ -110,10 +121,14 @@ define('application', [
         ProfilesView: ProfilesView,
         UsersView: UsersView,
         EditingView: EditingView,
+        TestView: TestView,
+        ImageInputButton: ImageInputButton,
+        PreviewUploadImageView: PreviewUploadImageView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
-        ProfilesController:ProfilesController,
+        ProfilesController: ProfilesController,
+        TestController: TestController,
         Router: Router,
         IndexRoute: IndexRoute,
         SelectedTabRoute: SelectedTabRoute,
@@ -135,10 +150,8 @@ define('application', [
 
         }
     });
-
 }
 );
-
 function getURL()
 {
     var url = document.URL;

@@ -1,0 +1,22 @@
+
+
+<div style="height: 500px; background-color: grey"></div>
+
+
+<p>aaaaaaaaaaaaaaaaaaa</p>
+
+<br />
+
+
+
+{{view App.ImageInputButton}}
+
+
+{{view App.PreviewUploadImageView width="200" height="100" }}
+
+
+<ul>
+    {{#each file in  App.TestController.files}}
+    <li>{{file.name}}</li>
+    {{/each}}
+</ul>

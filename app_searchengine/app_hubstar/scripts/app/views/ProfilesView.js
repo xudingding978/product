@@ -1,12 +1,12 @@
 define([
     "ember",
     "text!templates/profilesTemplate.html",
-    "controllers/ProfilesController",
+
     "bootstrapPopover",
     "bootstrapTooltip",
     "jquery.ui"
 
-], function(Ember, profilesTemplate, ProfilesController) {
+], function(Ember, profilesTemplate) {
     Ember.TEMPLATES["profiles"] = Ember.Handlebars.compile(profilesTemplate);
 
 

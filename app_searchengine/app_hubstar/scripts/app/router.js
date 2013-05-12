@@ -12,6 +12,9 @@ define(["ember"], function(Ember) {
         this.resource("users", {
             path: "/users"
         });
+        this.resource("test", {
+            path: "/test"
+        });
     });
 
     return Router;

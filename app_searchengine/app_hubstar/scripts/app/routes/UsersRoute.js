@@ -16,7 +16,7 @@ define([
         },
         renderTemplate: function() {
 
-            this.render('users', {
+            this.render('test', {
                 into: "application"
             });
 

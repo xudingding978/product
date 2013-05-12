@@ -83,7 +83,15 @@ class ProfilesController extends Controller {
 
     public function actionRead() {
         try {
+            $cb = $this->couchBaseConnection();
+            $results_arr = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI']);
             
+             if ($results_arr) {
+                 $result = $this->processGet($results_arr, self::JSON_RESPONSE_ROOT_SINGLE);
+                echo $this->sendResponse(200, $result);
+            } else {
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $_POST['id'] . '" already exists');
+            }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -91,7 +99,7 @@ class ProfilesController extends Controller {
 
     public function actionUpdate() {
         try {
-            
+            echo $this->sendResponse(204, 'OK');
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

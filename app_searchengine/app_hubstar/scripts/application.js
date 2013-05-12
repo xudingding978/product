@@ -68,6 +68,7 @@ define('application', [
     "routes/DataRoute",
     "routes/ProfilesRoute",
     "routes/ProfileRoute",
+    "routes/ProfileIndexRoute",
     "routes/UsersRoute",
     "routes/ProfileNewRoute",
     "models/PostModel",
@@ -101,6 +102,7 @@ define('application', [
         DataRoute,
         ProfilesRoute,
         ProfileRoute,
+        ProfileIndexRoute,
         UsersRoute,
         ProfileNewRoute,
         Post,
@@ -138,14 +140,15 @@ define('application', [
         DataRoute: DataRoute,
         ProfilesRoute: ProfilesRoute,
         ProfileRoute: ProfileRoute,
+        ProfileIndexRoute: ProfileIndexRoute,
         UsersRoute: UsersRoute,
         ProfileNewRoute: ProfileNewRoute,
         Post: Post,
         Profile: Profile,
         User: User,
-        Store: DS.Store.create({
+        store: DS.Store.create({
             revision: 12,
-            adapter: DS.RESTAdapter.create({
+            adapter: DS.RESTAdapter.extend({
                 bulkCommit: false,
                 url: getRestAPIURL(),
                 mappings: {

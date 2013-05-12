@@ -74,7 +74,7 @@ class ProfilesController extends Controller {
             if ($cb->add(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $_POST['id'], CJSON::encode($_POST))) {
                 echo $this->sendResponse(201, 'OK');
             } else {
-                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $_POST['id'] . '" already exists');
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '" already exists');
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -90,7 +90,7 @@ class ProfilesController extends Controller {
                  $result = $this->processGet($results_arr, self::JSON_RESPONSE_ROOT_SINGLE);
                 echo $this->sendResponse(200, $result);
             } else {
-                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $_POST['id'] . '" already exists');
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '" cannot be found');
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();

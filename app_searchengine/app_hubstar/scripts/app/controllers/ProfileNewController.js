@@ -9,7 +9,8 @@ define([
                 newProfile: function(model) {
                     var newProfile = ProfileModel.createRecord({
                              id:ProfileModel.id,
-                             profile_name:ProfileModel.profile_name
+                             profile_name:ProfileModel.profile_name,
+                             type:"profile"
                     });
 
                     //newProfile.get('transaction').commit();

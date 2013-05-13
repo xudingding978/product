@@ -15,8 +15,7 @@ require.config({
         'emberData': 'libs/ember-data-latest',
         'jquery.ui': 'libs/jquery.ui/1.9.2/jquery-ui-1.9.2.custom.min',
         'bootstrap': 'libs/bootstrap/2.2.2/js/bootstrap.min',
-        'bootstrapPopover': 'libs/bootstrap/2.2.2/js/bootstrap-popover',
-        'bootstrapTooltip': 'libs/bootstrap/2.2.2/js/bootstrap-tooltip',
+        'bxslider': 'libs/jquery.bxslider.min',
         /*requirejs-plugins*/
         'text': 'libs/requirejs-plugins/text',
         'hbs': 'libs/requirejs-plugins/hbs',
@@ -31,7 +30,8 @@ require.config({
             deps: ['ember'],
             exports: 'DS'
         },
-        'jquery.ui': ['jquery']
+        'jquery.ui': ['jquery'],
+        'bxslider': ['jquery']
     },
     hbs: {
         disableI18n: true,
@@ -62,6 +62,7 @@ define('application', [
     "controllers/DataController",
     "controllers/ProfilesController",
     "controllers/ProfileController",
+    "controllers/ProfileNewController",
     "app/router",
     "routes/IndexRoute",
     "routes/SelectedTabRoute",
@@ -74,7 +75,8 @@ define('application', [
     "models/PostModel",
     "models/ProfileModel",
     "models/UserModel",
-    "emberData"
+    "emberData",
+    "bxslider"
 
 ], function(
         ApplicationView,
@@ -96,6 +98,7 @@ define('application', [
         DataController,
         ProfilesController,
         ProfileController,
+        ProfileNewController,
         Router,
         IndexRoute,
         SelectedTabRoute,
@@ -134,6 +137,7 @@ define('application', [
         DataController: DataController,
         ProfilesController: ProfilesController,
         ProfileController: ProfileController,
+        ProfileNewController: ProfileNewController,
         Router: Router,
         IndexRoute: IndexRoute,
         SelectedTabRoute: SelectedTabRoute,
@@ -148,7 +152,7 @@ define('application', [
         User: User,
         store: DS.Store.create({
             revision: 12,
-            adapter: DS.RESTAdapter.extend({
+            adapter: DS.RESTAdapter.create({
                 bulkCommit: false,
                 url: getRestAPIURL(),
                 mappings: {

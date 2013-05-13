@@ -70,14 +70,20 @@ class ProfilesController extends Controller {
 
     public function actionCreate() {
         try {
+            $request_json = file_get_contents('php://input');
+            $request_arr = CJSON::decode($request_json, true);
+                        
             $cb = $this->couchBaseConnection();
-            if ($cb->add(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $_POST['id'], CJSON::encode($_POST))) {
-                echo $this->sendResponse(201, 'OK');
+            if ($cb->add(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $request_arr['profile']['id'] , CJSON::encode($request_arr['profile']))) {
+                echo $this->sendResponse(200, var_dump($request_arr));
             } else {
-                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $_POST['id'] . '" already exists');
+                //echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+                echo file_get_contents('php://input');
+                echo var_dump($request_arr);
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
+            echo json_decode(file_get_contents('php://input'));
         }
     }
 

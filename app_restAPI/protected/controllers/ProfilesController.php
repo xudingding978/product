@@ -99,9 +99,10 @@ class ProfilesController extends Controller {
 
     public function actionUpdate() {
         try {
+            error_log(var_dump($_POST)); 
             echo $this->sendResponse(204, 'OK');
         } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
+            echo $this->sendResponse(204, $exc->getTraceAsString());
         }
     }
 

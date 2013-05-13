@@ -2,8 +2,7 @@ define([
     "ember",
     "text!templates/profileTemplate.html",
     "controllers/ProfileController",
-    "jquery.ui",
-     'bxslider'
+
 
 ], function(Ember, profileTemplate, ProfileController) {
     Ember.TEMPLATES["profile"] = Ember.Handlebars.compile(profileTemplate);

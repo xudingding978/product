@@ -1,8 +1,10 @@
 define([
-    'ember', 'models/ProfileModel',"controllers/ProfileController"
+    'ember', 'models/ProfileModel',
+    "controllers/ProfileNewController"
 
 ], function(
-        Ember, ProfileModel,ProfileController
+        Ember, ProfileModel,
+        ProfileNewController
 
         ) {
     "use strict";

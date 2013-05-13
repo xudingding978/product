@@ -1,9 +1,7 @@
 define([
-    'controllers/ProfileController',
     'models/ProfileModel',
     'ember'],
         function(
-                ProfileController,
                 ProfileModel,
                 Ember
                 ) {

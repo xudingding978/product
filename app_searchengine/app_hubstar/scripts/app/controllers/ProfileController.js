@@ -1,7 +1,12 @@
-define(
-        'controllers/ProfileController',
-        ['ember'],
-        function() {
+define([
+    'controllers/ProfileController',
+    'models/ProfileModel',
+    'ember'],
+        function(
+                ProfileController,
+                ProfileModel,
+                Ember
+                ) {
             var ProfileController = Ember.ObjectController.extend({
                 editing: false,
                 toggleEditing: function() {
@@ -22,6 +27,12 @@ define(
                 changeAbout: function() {
 
                     this.set('editingAbout', false);
+                },
+                newProfile: function() {
+                    alert("aa");
+                },
+                saveProfile: function() {
+                    App.store.commit();
                 }
 
             });

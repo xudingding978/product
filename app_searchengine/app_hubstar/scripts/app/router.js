@@ -6,11 +6,9 @@ define(["ember"], function(Ember) {
 //            path: "/"
 //        });
         this.resource("profiles", function() {
-             this.resource("profileNew",{
-            path: '/new'
-        });
+            this.resource("profileIndex", {path: '/'});
+            this.resource("profileNew", {path: '/new'});
             this.resource("profile", {path: ':profile_id'});
-           
         });
 
         this.route("data", {

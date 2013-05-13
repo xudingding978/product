@@ -23,16 +23,13 @@ return array(
             'showScriptName' => false,
             'rules' => array(
                 //REST API
-//                array('<controller>', 'pattern' => '<controller>', 'verb' => 'GET'),
-//                array('<controller>/list', 'pattern' => '<controller>/<id:\d+>', 'verb' => 'GET'),
-//                array('<controller>/create', 'pattern' => '<controller>', 'verb' => 'POST'),
-//                array('<controller>/read', 'pattern' => '<controller>/<id:\d+>', 'verb' => 'GET'),
-//                array('<controller>/update', 'pattern' => '<controller>/<id:\d+>', 'verb' => 'PUT'),
-//                array('<controller>/delete', 'pattern' => '<controller>/<id:\d+>', 'verb' => 'DELETE'),
-                '<controller:\w+>/index' => '<controller>',
-                '<controller:\w+>/<id:\d+>' => '<controller>/view',
-                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
-                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+                //array('<controller>/create', 'pattern' => '<controller>', 'verb' => 'OPTIONS'),
+                array('<controller>/', 'pattern' => '<controller>', 'verb' => 'GET'),
+                array('<controller>/create', 'pattern' => '<controller>', 'verb' => 'POST'),
+                array('<controller>/read', 'pattern' => '<controller>/<id>', 'verb' => 'GET'),
+                //array('<controller>/update', 'pattern' => '<controller>/<id>', 'verb' => 'PUT'),
+                array('<controller>/update', 'pattern' => '<controller>/<id>', 'verb' => 'OPTIONS'),
+                array('<controller>/delete', 'pattern' => '<controller>/<id>', 'verb' => 'DELETE'),
             )
         ),
 //        'errorHandler' => array(
@@ -45,5 +42,8 @@ return array(
     'params' => array(
         // this is used in contact page
         'adminEmail' => 'webmaster@example.com',
+        // this the primary elastic search server and index
+        'elasticSearchNode'=>'es1.hubsrv.com',
+        'elasticSearchIndex'=>'test'
     ),
 );

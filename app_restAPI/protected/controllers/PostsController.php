@@ -11,8 +11,8 @@ class PostsController extends Controller {
         $keys = array('post_1', 'post_2');
         // $keys = array('develop.devbox1/userprofiles/jason_liddiard', 'trendsideas.com/userprofiles/jason_liddiard');
         $results_arr = ($cb->getMulti($keys));
-        
-       // $results_arr = $cb->get('post_1');
+
+        // $results_arr = $cb->get('post_1');
 //        $json_values = null;
 //
 //        foreach ($results_arr as $key => $value){
@@ -33,11 +33,19 @@ class PostsController extends Controller {
 
 
         //$results_arr = json_encode(array(self::JSON_RESPONSE_ROOT_PLURAL => $results_arr), JSON_UNESCAPED_UNICODE);
-
         //echo $this->sendResponse(200, json_encode($results_arr, JSON_UNESCAPED_SLASHES));
-        
+
         echo $this->sendResponse(200, $result);
-        
+    }
+
+    public function actionList() {
+        try {
+            if (isset($_GET['id'])) {
+                echo 'this is post 1 ' . $_GET['id'];
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
     }
 
     /**

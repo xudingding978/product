@@ -152,7 +152,7 @@ define('application', [
         User: User,
         store: DS.Store.create({
             revision: 12,
-            adapter: DS.RESTAdapter.extend({
+            adapter: DS.RESTAdapter.create({
                 bulkCommit: false,
                 url: getRestAPIURL(),
                 mappings: {

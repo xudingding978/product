@@ -1,4 +1,4 @@
-<div class="profilegb" style="background: #fff url('../images/texture.png') repeat; top: 0; left: 0;z-index: -1;width: 100%;height: auto; padding-bottom: 300px;">
+<div class="profilegb" style="background: #fff url('../images/texture.png') repeat;width: 100%;height: auto; padding-bottom: 300px;">
     <div style="width: 100%; height: 500px; overflow: hidden; position: fixed;"> 
         <img src="../images/kichen_i.jpg" style="width: 100%; height:auto;">
     </div>
@@ -10,23 +10,28 @@
 
         <div class="profilecorpbanner" style="background-image: url('../images/smegcover.jpg'); width: 980; height:300px; border-radius: 3px 3px 0 0; position: relative;">
             <div class="corpbanner_mask" style="background: url('../images/bannershadow.png') repeat-x; position: absolute;bottom:0; width: 980px; height: 200px;">
-                <div class="corpbanner_content" style="position: absolute;bottom:0;margin-left: 300px;width: 680px;padding: 20px;">
+                <div class="corpbanner_content" style="position: absolute;bottom:0;margin-left: 300px;width: 680px;">
                     <div class="main_title" style="height: 100px;">
                         <div>
-                            <h3 style="display: inline-block; color: white;">{{profile_name}}</h3>
+                            <h3 style="display: inline-block; color: white;max-width: 500px;overflow: hidden;">{{profile_name}}</h3>
 
 
                             {{#if controller.editing}}
                             {{view App.EditingView}}
                             {{else}}
-                            <button type="button" {{action toggleEditing}} class="btn"><i class="icon-pencil"></i></button>
+                            <a href="#"{{action toggleEditing}} class="btn"><i class="icon-edit"></i></a>
                             {{/if}}
                         </div>
+                        <!--contact me-->
+                        <div class="contactmebtn">
+                            <a class="contactmeicon" href=""><img src="../images/mail_24dark.png"/></a>
+                        </div>
+
                         <div style="display: inline-block;">
                             <p style='display: inline-block; float: left; color: white; margin: 7px 0;'><a href='#' style='margin-right: 15px;'><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star-half" ></k></a>
-                                <a href='#' style=" margin-right: 20px;">23 Reviews</a>|<a href='#'style=" margin-left: 20px;">Review me »</a></p>
-                            <a href="#question_modal" role="button" class="btn Contactme" data-toggle="modal" style="display: inline-block;width: 150px;position: relative;float: left;bottom: 5px;right: -150px;">Contact me</a>
+                                <a href='#' style=" margin-right: 20px;">23 Reviews</a>|<a href='#'style=" margin-left: 20px;">Review me »</a></p>                       
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -177,6 +182,7 @@
                     <li class="active"><a href="#tab1" data-toggle="tab">Profile</a></li>
                     <li><a href="#tab2" data-toggle="tab">Ideabooks</a></li>
                     <li><a href="#tab3" data-toggle="tab">Discussions</a></li>
+                    <li><a href="#tab4" data-toggle="tab">Partners</a></li>
                 </ul>
 
                 <div class="tab-content"  style="width: 680px;">
@@ -187,58 +193,66 @@
                     <div class="tab-pane active" id="tab1">
                         <div class="profile-main-content" style="margin: 10px 35px 20px 35px;">   
 
+                            <div class="main_partners" style=" border-bottom: 1px solid #ccc; padding:20px 0 30px 0; font-size: 15px;">
+                                <h4 style='margin-bottom: 20px;'><i class='icon-sitemap' style='margin-right: 10px;display: inline-block;'></i>Partners</h4>
 
-                            <script>
+                                <script>
 
 
-                                $('.slider1').bxSlider({
-                                    slideWidth: 500,
-                                    minSlides: 5,
-                                    maxSlides: 5,
-                                    slideMargin: 10
-                                });
+                                    $('.slider1').bxSlider({
+                                        slideWidth: 500,
+                                        minSlides: 5,
+                                        maxSlides: 5,
+                                        slideMargin: 10
+                                    });
 
-                                $('.slider2').bxSlider({
-                                    slideWidth: 500,
-                                    minSlides: 5,
-                                    maxSlides: 5,
-                                    slideMargin: 10
-                                });
 
-                            </script>
+                                </script>
 
-                            <div class="slider1">
-                                <div class="slide"><img src="http://placehold.it/500x150&text=FooBar1"><p>11111</p><p>11111</p><p>11111</p><p>11111</p><p>11111</p><p>11111</p></div>
-                                <div class="slide"><img src="http://placehold.it/500x150&text=FooBar2"><p>222222</p></div>
-                                <div class="slide"><img src="http://placehold.it/500x150&text=FooBar3"><p>333333</p></div>
-                                <div class="slide"><img src="http://placehold.it/500x150&text=FooBar4"><p>4444</p></div>
-                                <div class="slide"><img src="http://placehold.it/500x150&text=FooBar5"><p>5555555</p></div>
-                                <div class="slide"><img src="http://placehold.it/500x150&text=FooBar6"><p>666666</p></div>
-                                <div class="slide"><img src="http://placehold.it/500x150&text=FooBar7"><p>77777</p></div>
-                                <div class="slide"><img src="http://placehold.it/500x150&text=FooBar8"><p></p></div>
-                                <div class="slide"><img src="http://placehold.it/500x150&text=FooBar9"><p></p></div>
-                                <div class="slide"><img src="http://placehold.it/500x150&text=FooBar10"><p></p></div>
+                                <div class="slider1">
+                                    <div class="slide">
+                                        <img src="../images/profilepic1.jpg">
+                                        <a href="#" class="slider_name">Dave Demers</a><a href="#" class="slider_type">Retailer</a><a class="slider_region">Wellington</a>
+                                    </div>
+                                    <div class="slide">
+                                        <img src="../images/profilepic2.jpg">
+                                        <a href="#" class="slider_name">Joni Koenig</a><a href="#" class="slider_type">Distributor</a><a class="slider_region">Auckland</a>
+                                    </div>                        
+                                    <div class="slide">
+                                        <img src="../images/profilepic3.jpg">
+                                        <a href="#" class="slider_name">Dana Parker</a><a href="#" class="slider_type">Franchisee</a><a class="slider_region">Wellington</a>
+                                    </div>                          
+                                    <div class="slide">
+                                        <img src="../images/profilepic4.jpg">
+                                        <a href="#" class="slider_name">Elizabeth Reich</a><a href="#" class="slider_type">Designer</a><a class="slider_region">Hamilton</a>
+                                    </div>                       
+                                    <div class="slide">
+                                        <img src="../images/profilepic5.jpg">
+                                        <a href="#" class="slider_name">Kevin Toukoumidis</a><a href="#" class="slider_type">Builder</a><a class="slider_region">Auckland</a>
+                                    </div>                    
+                                    <div class="slide">
+                                        <img src="../images/profilepic6.jpg">
+                                        <a href="#" class="slider_name">Teri Turan</a><a href="#" class="slider_type">Retailer</a><a class="slider_region">Hamilton</a>
+                                    </div>                     
+                                    <div class="slide">
+                                        <img src="../images/profilepic7.jpg">
+                                        <a href="#" class="slider_name">Charmean Neithart</a><a href="#" class="slider_type">Retailer</a><a class="slider_region">Auckland</a>
+                                    </div>                      
+                                    <div class="slide">
+                                        <img src="../images/profilepic8.jpg">
+                                        <a href="#" class="slider_name">Divine Kitchens</a><a href="#" class="slider_type">Builder</a><a class="slider_region">Auckland</a>
+                                    </div>                
+                                    <div class="slide">
+                                        <img src="../images/profilepic9.jpg">
+                                        <a href="#" class="slider_name">Karr Bick</a><a href="#" class="slider_type">Designer</a><a class="slider_region">Wellington</a>
+                                    </div>
+                                </div>
+
                             </div>
-
-                            <div class="slider2">
-                                <div class="slide"><img src="http://placehold.it/500x150&text=FooBar1"><p>11111</p><p>11111</p><p>11111</p><p>11111</p><p>11111</p><p>11111</p></div>
-                                <div class="slide"><img src="http://placehold.it/500x150&text=FooBar2"><p>222222</p></div>
-                                <div class="slide"><img src="http://placehold.it/500x150&text=FooBar3"><p>333333</p></div>
-                                <div class="slide"><img src="http://placehold.it/500x150&text=FooBar4"><p>4444</p></div>
-                                <div class="slide"><img src="http://placehold.it/500x150&text=FooBar5"><p>5555555</p></div>
-                                <div class="slide"><img src="http://placehold.it/500x150&text=FooBar6"><p>666666</p></div>
-                                <div class="slide"><img src="http://placehold.it/500x150&text=FooBar7"><p>77777</p></div>
-                                <div class="slide"><img src="http://placehold.it/500x150&text=FooBar8"><p></p></div>
-                                <div class="slide"><img src="http://placehold.it/500x150&text=FooBar9"><p></p></div>
-                                <div class="slide"><img src="http://placehold.it/500x150&text=FooBar10"><p></p></div>
-                            </div>
-
-
-
 
 
                             <div class="main_aboutus" style=" border-bottom: 1px solid #ccc; padding:20px 0 30px 0; font-size: 15px;">
-                                <h4 style='margin-bottom: 20px;'><i class='icon-user' style='margin-right: 10px;'></i>About Us</h4>
+                                <h4 style='margin-bottom: 20px;'><i class='icon-user' style='margin-right: 10px;display: inline-block;'></i>About Us</h4>
                                 {{#if controller.editingAbout}}
                                 {{view App.EditingAboutView}}
                                 {{else}}
@@ -583,6 +597,144 @@
 
                         </div>
                     </div>
+
+                    <!-- PARTNER TAB-->
+
+                    <div class="tab-pane active" id="tab4">
+                        <div class="profile-main-content" style="margin: 10px 35px 20px 35px;">   
+                            <div class="main_partners" style="padding:20px 0 30px 0; font-size: 15px;">
+                                <h4 style='margin-bottom: 20px;'><i class='icon-sitemap' style='margin-right: 10px;display: inline-block;'></i>Partners</h4>
+                                <div class="accordion" id="accordion2">
+                                    <div class="accordion-group">
+                                        <div class="accordion-heading">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                                                Auckland
+                                            </a>
+                                        </div>
+                                        <div id="collapseOne" class="accordion-body collapse in">
+                                            <div class="accordion-inner">
+                                                <div class="partner">
+                                                    <img src="../images/profilepic1.jpg">
+                                                    <a href="#" class="slider_name">Dave Demers</a><a href="#" class="slider_type">Retailer</a><a class="slider_region">Wellington</a>
+                                                </div>
+                                                <div class="partner">
+                                                    <img src="../images/profilepic2.jpg">
+                                                    <a href="#" class="slider_name">Joni Koenig</a><a href="#" class="slider_type">Distributor</a><a class="slider_region">Auckland</a>
+                                                </div>                        
+                                                <div class="partner">
+                                                    <img src="../images/profilepic3.jpg">
+                                                    <a href="#" class="slider_name">Dana Parker</a><a href="#" class="slider_type">Franchisee</a><a class="slider_region">Wellington</a>
+                                                </div>                          
+                                                <div class="partner">
+                                                    <img src="../images/profilepic4.jpg">
+                                                    <a href="#" class="slider_name">Elizabeth Reich</a><a href="#" class="slider_type">Designer</a><a class="slider_region">Hamilton</a>
+                                                </div>                       
+                                                <div class="partner">
+                                                    <img src="../images/profilepic5.jpg">
+                                                    <a href="#" class="slider_name">Kevin Toukoumidis</a><a href="#" class="slider_type">Builder</a><a class="slider_region">Auckland</a>
+                                                </div>                    
+                                                <div class="partner">
+                                                    <img src="../images/profilepic6.jpg">
+                                                    <a href="#" class="slider_name">Teri Turan</a><a href="#" class="slider_type">Retailer</a><a class="slider_region">Hamilton</a>
+                                                </div>                     
+                                                <div class="partner">
+                                                    <img src="../images/profilepic7.jpg">
+                                                    <a href="#" class="slider_name">Charmean Neithart</a><a href="#" class="slider_type">Retailer</a><a class="slider_region">Auckland</a>
+                                                </div>                      
+                                                <div class="partner">
+                                                    <img src="../images/profilepic8.jpg">
+                                                    <a href="#" class="slider_name">Divine Kitchens</a><a href="#" class="slider_type">Builder</a><a class="slider_region">Auckland</a>
+                                                </div>                
+                                                <div class="partner">
+                                                    <img src="../images/profilepic9.jpg">
+                                                    <a href="#" class="slider_name">Karr Bick</a><a href="#" class="slider_type">Designer</a><a class="slider_region">Wellington</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-group">
+                                        <div class="accordion-heading">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+                                                Wellington
+                                            </a>
+                                        </div>
+                                        <div id="collapseTwo" class="accordion-body collapse">
+                                            <div class="accordion-inner">
+
+                                                <div class="partner">
+                                                    <img src="../images/profilepic4.jpg">
+                                                    <a href="#" class="slider_name">Dave Demers</a><a href="#" class="slider_type">Retailer</a><a class="slider_region">Wellington</a>
+                                                </div>
+                                                <div class="partner">
+                                                    <img src="../images/profilepic8.jpg">
+                                                    <a href="#" class="slider_name">Joni Koenig</a><a href="#" class="slider_type">Distributor</a><a class="slider_region">Auckland</a>
+                                                </div>                        
+                                                <div class="partner">
+                                                    <img src="../images/profilepic3.jpg">
+                                                    <a href="#" class="slider_name">Dana Parker</a><a href="#" class="slider_type">Franchisee</a><a class="slider_region">Wellington</a>
+                                                </div>                          
+                                                <div class="partner">
+                                                    <img src="../images/profilepic1.jpg">
+                                                    <a href="#" class="slider_name">Elizabeth Reich</a><a href="#" class="slider_type">Designer</a><a class="slider_region">Hamilton</a>
+                                                </div>                                                                    
+                                                <div class="partner">
+                                                    <img src="../images/profilepic7.jpg">
+                                                    <a href="#" class="slider_name">Charmean Neithart</a><a href="#" class="slider_type">Retailer</a><a class="slider_region">Auckland</a>
+                                                </div>                      
+                                                <div class="partner">
+                                                    <img src="../images/profilepic2.jpg">
+                                                    <a href="#" class="slider_name">Divine Kitchens</a><a href="#" class="slider_type">Builder</a><a class="slider_region">Auckland</a>
+                                                </div>                
+                                                <div class="partner">
+                                                    <img src="../images/profilepic9.jpg">
+                                                    <a href="#" class="slider_name">Karr Bick</a><a href="#" class="slider_type">Designer</a><a class="slider_region">Wellington</a>
+                                                </div>
+
+                                            </div>
+                                        </div>                                      
+                                    </div>
+                                    <div class="accordion-group">
+                                        <div class="accordion-heading">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+                                                Hamilton
+                                            </a>
+                                        </div>
+                                        <div id="collapseThree" class="accordion-body collapse">
+                                            <div class="accordion-inner">
+
+                                                <div class="partner">
+                                                    <img src="../images/profilepic6.jpg">
+                                                    <a href="#" class="slider_name">Dave Demers</a><a href="#" class="slider_type">Retailer</a><a class="slider_region">Wellington</a>
+                                                </div>
+                                                <div class="partner">
+                                                    <img src="../images/profilepic9.jpg">
+                                                    <a href="#" class="slider_name">Joni Koenig</a><a href="#" class="slider_type">Distributor</a><a class="slider_region">Auckland</a>
+                                                </div>                        
+                                                <div class="partner">
+                                                    <img src="../images/profilepic3.jpg">
+                                                    <a href="#" class="slider_name">Dana Parker</a><a href="#" class="slider_type">Franchisee</a><a class="slider_region">Wellington</a>
+                                                </div>                          
+                                                <div class="partner">
+                                                    <img src="../images/profilepic4.jpg">
+                                                    <a href="#" class="slider_name">Elizabeth Reich</a><a href="#" class="slider_type">Designer</a><a class="slider_region">Hamilton</a>
+                                                </div>                       
+                                                <div class="partner">
+                                                    <img src="../images/profilepic5.jpg">
+                                                    <a href="#" class="slider_name">Kevin Toukoumidis</a><a href="#" class="slider_type">Builder</a><a class="slider_region">Auckland</a>
+                                                </div>                                                 
+
+                                            </div>
+                                        </div>                                      
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
                 </div>
             </div>
         </div>

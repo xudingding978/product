@@ -6,11 +6,15 @@ define([
                 Ember
                 ) {
             var ProfileNewController = Ember.ObjectController.extend({
-                newProfile: function(model) {
+                newProfile: function() {
+                    var profile_ID = ProfileModel.id;
+                    var profile_NAME = ProfileModel.profile_name;
+
+
                     var newProfile = ProfileModel.createRecord({
-                             id:ProfileModel.id,
-                             profile_name:ProfileModel.profile_name,
-                             type:"profile"
+                        id: profile_ID,
+                        profile_name: profile_NAME,
+                        type: "profile"
                     });
 
                     //newProfile.get('transaction').commit();

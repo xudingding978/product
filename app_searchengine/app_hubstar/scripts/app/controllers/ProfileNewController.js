@@ -11,7 +11,7 @@ define([
                     var profile_NAME = ProfileModel.profile_name;
 
 
-                    var newProfile = ProfileModel.createRecord({
+                    var newProfile = App.store.createRecord(App.Profile,{
                         id: profile_ID,
                         profile_name: profile_NAME,
                         type: "profile"

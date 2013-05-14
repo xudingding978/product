@@ -30,41 +30,38 @@ class ProfilesController extends Controller {
                 ->field("type")
                 ->query("profile")
                 ->boost(2.5);
-        
+
 //        $filter = null;
-        
         //custom_filters_score query allows to execute a query, and if the hit matches a provided filter (ordered)
 //        $customFilterQuery = Sherlock\Sherlock::queryBuilder()->CustomFiltersScore()
 //                ->query("match_all")
 //                ->filters($filter);
-
         //Set the index, type and from/to parameters of the request.
         $request->index(Yii::app()->params['elasticSearchIndex'])
-        ->type("couchbaseDocument")
-        ->from(0)
-        ->to(10)
-        ->query($termQuery);
+                ->type("couchbaseDocument")
+                ->from(0)
+                ->to(10)
+                ->query($termQuery);
 
         //Execute the search and return results
         $response = $request->execute();
 
         //echo "Took: " . $response->took . "\r\n";
         //echo "Number of Hits: " . count($response) . "\r\n";
-        
         //echo var_export($response);
-        
+
         $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":[';
 
         //Iterate over the hits and print out some data
         $i = 0;
         foreach ($response as $hit) {
-            $results .= CJSON::encode($hit['source']['doc']); 
-            if (++$i !== count($response)){
+            $results .= CJSON::encode($hit['source']['doc']);
+            if (++$i !== count($response)) {
                 $results .= ',';
             }
         }
-        $results .=  ']}';
-            
+        $results .= ']}';
+
         echo $this->sendResponse(200, $results);
     }
 
@@ -72,14 +69,14 @@ class ProfilesController extends Controller {
         try {
             $request_json = file_get_contents('php://input');
             $request_arr = CJSON::decode($request_json, true);
-                        
+
             $cb = $this->couchBaseConnection();
-            if ($cb->add(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $request_arr['profile']['id'] , CJSON::encode($request_arr['profile']))) {
+            if ($cb->add(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $request_arr['profile']['id'], CJSON::encode($request_arr['profile']))) {
                 echo $this->sendResponse(200, var_dump($request_arr));
             } else {
-                //echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
-                echo file_get_contents('php://input');
-                echo var_dump($request_arr);
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+                //echo file_get_contents('php://input');
+                //echo var_dump($request_arr);
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -91,9 +88,9 @@ class ProfilesController extends Controller {
         try {
             $cb = $this->couchBaseConnection();
             $results_arr = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI']);
-            
-             if ($results_arr) {
-                 $result = $this->processGet($results_arr, self::JSON_RESPONSE_ROOT_SINGLE);
+
+            if ($results_arr) {
+                $result = $this->processGet($results_arr, self::JSON_RESPONSE_ROOT_SINGLE);
                 echo $this->sendResponse(200, $result);
             } else {
                 echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $_POST['id'] . '" already exists');
@@ -105,9 +102,21 @@ class ProfilesController extends Controller {
 
     public function actionUpdate() {
         try {
-            echo $this->sendResponse(200, 'OK');
+            $request_arr = CJSON::decode(file_get_contents('php://input'), true);
+
+
+            $cb = $this->couchBaseConnection();
+            
+            $arry = CJSON::encode($request_arr['profile']);
+            $arry['id'] = "4565";
+
+       //     error_log(CJSON::encode($request_arr['profile']));
+
+            if ($cb->replace(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'], $arry))
+                echo $this->sendResponse(200, $cb->get(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI']));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
+            ///  echo var_dump(CJSON::encode($request_arr['profile']));
         }
     }
 

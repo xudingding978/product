@@ -104,15 +104,10 @@ class ProfilesController extends Controller {
         try {
             $request_arr = CJSON::decode(file_get_contents('php://input'), true);
 
-
             $cb = $this->couchBaseConnection();
             
-            $arry = CJSON::encode($request_arr['profile']);
-            $arry['id'] = "4565";
 
-       //     error_log(CJSON::encode($request_arr['profile']));
-
-            if ($cb->replace(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'], $arry))
+            if ($cb->replace(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'], CJSON::encode($request_arr['profile'])))
                 echo $this->sendResponse(200, $cb->get(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI']));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();

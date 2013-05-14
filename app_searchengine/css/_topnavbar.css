@@ -1,22 +1,26 @@
 .navbar .brand {
     display: block;
     float: left;
-    padding:10px;
-    margin-left: 0px;
+    padding: 10px;
     font-size: 20px;
-    font-weight: 200;
     color: rgb(119, 119, 119);
     text-shadow: none;
-    margin:0;
+    margin: 0;
+    margin-right: 30px;
+    position: relative;
 }
 
 .title-strapline{
-    float:  left;   
+    width: auto;
+    display: inline-block;
+    vertical-align: top;
+
 }
 
 .titleText{
-    margin:13px 0 0 60%;
-    width: 300px;
+    width: auto;
+    padding: 13px;
+    margin: 0;
 }
 .navbar-inner > .container {
     min-width:1000px;
@@ -864,9 +868,14 @@
 
 .navbar-fixed-top .container >.login_guest
 {
-    margin: -37px 0px 0px 10%;
+    margin: 0;
+    padding: 7px;
     top: 0px;
-    left:85%
+    left: 0%;
+    display: inline-block;
+    vertical-align: top;
+    width: auto;
+    float: right;
 }
 
 .navbar-fixed-top  .navbar-inner ul li

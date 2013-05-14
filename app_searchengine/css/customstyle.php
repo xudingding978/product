@@ -244,14 +244,14 @@ outline: 0px none;
 
 
 .smallIcon{
-position:absolute;
-margin: -37px 0px 0px ;
-display:none;
-left:65%;
-width:150px;
-z-index:10000;
-cursor:pointer;
-line-height: 32px;
+position: relative;
+margin: 13px;
+display: inline-block;
+left: 5%;
+width: 120px;
+z-index: 10000;
+cursor: pointer;
+vertical-align: top;
 }
 
 .smallIcon a, .smallIcon a:visited  {color:rgb(242,240,240); ; text-decoration:none;}

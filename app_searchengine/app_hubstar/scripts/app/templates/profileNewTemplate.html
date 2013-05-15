@@ -1,0 +1,29 @@
+<h1>NEW PROFILES</h1>
+<h1>NEW PROFILES</h1>
+<h1>NEW PROFILES</h1>
+<h1>NEW PROFILES</h1>
+<h1>NEW PROFILES</h1>
+<h1>NEW PROFILES</h1>
+<p>id:  {{id}}</p>
+<br>
+<p>profile_name:  {{profile_name}}</p>
+
+
+<form class="form-inline" >
+    <label>
+        id
+
+
+        {{view Ember.TextField valueBinding="id" id="id" placeholder="please type in...id"}}
+    </label><br>
+
+    <label>
+        profile_name
+
+        {{view Ember.TextField valueBinding="profile_name" id="profile_name" placeholder="please type in...profile_name"}}
+    </label>
+
+    <div class="controls">
+        <button type="submit" class="btn btn-primary" {{action save on="click" target="view"}} >Done</button>
+    </div>
+</form>

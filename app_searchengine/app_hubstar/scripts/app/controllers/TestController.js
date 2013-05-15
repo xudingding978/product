@@ -1,9 +1,9 @@
-define(["ember"], function(Ember) {
+define(["ember", 'models/ImageFile'], function(Ember, ImageFile) {
     var TestController = Ember.ArrayController.extend({
         content: [],
         files: null,
-        //       model: imageFile,
-        formDirty: false,
+        model: ImageFile,
+        test: "test",
         getSize: function(tmpfiles) {
             //       console.log(tmpfiles);
             console.log('dddd');
@@ -14,17 +14,12 @@ define(["ember"], function(Ember) {
             console.log("test ok");
             alert("ok");
         },
-        addFile: function(thisfile) {
-          //  this.set('files', thisfiles);
-            //     this.set('content', thisfiles);
-//            for (var i = 0; i < thisfiles.length; i++) { 
-                     this.get('content').pushObject(thisfile);
-//            }
-                console.log(this.get('content'));
-    //        console.log( this.get('files').length);
+                addFile: function(file) {
 
-            // fell through --> add it to the end.
+            var file = ImageFile.createRecord(file);
+            this.get('content').addObject(file);
 
+            console.log(this.get('content').length);
         }
     }
     );

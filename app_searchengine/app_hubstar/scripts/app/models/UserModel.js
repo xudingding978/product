@@ -11,7 +11,7 @@ define('models/UserModel',
                     console.log('id: ' + this.id + ' ' + this.get('last_name'), this);
                 }
             });
-//            Postmodel.reopenClass({
+//            PostModel.reopenClass({
 //                url: 'posts', //this must match JSON_RESPONSE_ROOT_SINGLE constant in modules/api/controllers/ContactController.php
 //                pk: "id"
 //            });

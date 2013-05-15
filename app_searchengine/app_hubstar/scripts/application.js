@@ -8,6 +8,7 @@ require.config({
         'controllers': 'app/controllers',
         'templates': 'app/templates',
         'routes': 'app/routes',
+        'helpers': 'app/helpers/forms',
         /*libs*/
         'jquery': 'libs/jquery/1.9.1/jquery',
         'handlebars': 'libs/handlebars/1.0.rc.3/handlebars',
@@ -42,7 +43,7 @@ require.config({
 });
 // Define application
 define('application', [
-    "namespace/DragNDrop",
+    "namespace/DragNDropNamespace",
     "models/ImageFile",
     "views/ApplicationView",
     "views/WindowContainerView",
@@ -50,65 +51,83 @@ define('application', [
     "views/SelectedTabView",
     "views/TabMenuView",
     "views/TabView",
-    "views/CarouselView",
+    "views/DiscoveryView",
     "views/PhotoView",
     "views/ProfilesView",
+    "views/ProfileView",
     "views/UsersView",
     "views/EditingView",
-    "views/TestView",
+    "views/DragNDropView",
     "views/ImageInputButton",
     "views/PreviewUploadImageView",
+    "views/TestView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
     "controllers/ProfilesController",
     "controllers/TestController",
+    "controllers/DragNDropController",
     "app/router",
     "routes/IndexRoute",
     "routes/SelectedTabRoute",
     "routes/DataRoute",
     "routes/ProfilesRoute",
+    "routes/ProfileRoute",
     "routes/UsersRoute",
-    "models/Postmodel",
+    "routes/ProfileNewRoute",
+    "routes/DragNDropRoute",
+    "models/PostModel",
+    "models/ProfileModel",
+    "models/UserModel",
+    "models/ProgressModel",
     "emberData"
 
 ], function(
-        DragNDrop,
-        ImageFile,
-        ApplicationView,
+        DragNDropNamespace, ImageFile, ApplicationView,
         WindowContainerView,
         TabIndexView,
         SelectedTabView,
         TabMenuView,
         TabView,
-        CarouselView,
+        DiscoveryView,
         PhotoView,
         ProfilesView,
+        ProfileView,
         UsersView,
         EditingView,
-        TestView,
+        DragNDropView,
         ImageInputButton,
         PreviewUploadImageView,
+        TestView,
         ApplicationController,
         tabListController,
         DataController,
         ProfilesController,
         TestController,
+        DragNDropController,
         Router,
         IndexRoute,
         SelectedTabRoute,
         DataRoute,
         ProfilesRoute,
+        ProfileRoute,
         UsersRoute,
-        Post)
+        ProfileNewRoute,
+        DragNDropRoute,
+        Post,
+        Profile,
+        User,
+        Progress
+        )
 {
 
-    var url_path = getURL();
+
     return  Ember.Application.createWithMixins({
+        LOG_TRANSITIONS: true,
         VERSION: '1.0.0',
         rootElement: '#main',
         //  DragNDrop: DragNDrop,
-        DragNDrop: DragNDrop,
+        DragNDropNamespace: DragNDropNamespace,
         ImageFile: ImageFile,
         ApplicationView: ApplicationView,
         WindowContainerView: WindowContainerView,
@@ -116,31 +135,40 @@ define('application', [
         SelectedTabView: SelectedTabView,
         TabMenuView: TabMenuView,
         TabView: TabView,
-        CarouselView: CarouselView,
+        DiscoveryView: DiscoveryView,
         PhotoView: PhotoView,
         ProfilesView: ProfilesView,
+        ProfileView: ProfileView,
         UsersView: UsersView,
         EditingView: EditingView,
-        TestView: TestView,
+        DragNDropView: DragNDropView,
         ImageInputButton: ImageInputButton,
         PreviewUploadImageView: PreviewUploadImageView,
+        TestView: TestView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
         ProfilesController: ProfilesController,
         TestController: TestController,
+        DragNDropController: DragNDropController,
         Router: Router,
         IndexRoute: IndexRoute,
         SelectedTabRoute: SelectedTabRoute,
         DataRoute: DataRoute,
         ProfilesRoute: ProfilesRoute,
+        ProfileRoute: ProfileRoute,
         UsersRoute: UsersRoute,
+        ProfileNewRoute: ProfileNewRoute,
+        DragNDropRoute: DragNDropRoute,
         Post: Post,
-        Store: DS.Store.extend({
+        Profile: Profile,
+        User: User,
+        Progress: Progress,
+        store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({
                 bulkCommit: false,
-                url: url_path,
+                url: getRestAPIURL(),
                 mappings: {
                     posts: Post
                 }
@@ -152,10 +180,12 @@ define('application', [
     });
 }
 );
-function getURL()
-{
-    var url = document.URL;
-    var url = url.replace("www", "api");
-    return url;
-}
 
+
+function getRestAPIURL()
+{
+    var api_url = document.domain;
+    var api_url = api_url.replace("www", "api");
+    api_url = "http://" + api_url;
+    return api_url;
+}

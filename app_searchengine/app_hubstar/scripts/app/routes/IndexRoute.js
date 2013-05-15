@@ -1,9 +1,9 @@
 define([
-    'ember',
-    'controllers/ApplicationController'
+    'ember'
+
 ], function(
-        Ember,
-        ApplicationController
+        Ember
+
         ) {
     "use strict";
 
@@ -23,7 +23,7 @@ define([
                 });
             }
         }
-    });
 
+    });
     return IndexRoute;
 });

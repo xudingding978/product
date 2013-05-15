@@ -64,9 +64,9 @@ return CMap::mergeArray(
                 'application.components.*',
             ),
             'modules' => array(
-                'api' => array(
-                    'class' => 'common.modules.api.ApiModule'
-                ),
+//                'api' => array(
+//                    'class' => 'common.modules.api.ApiModule'
+//                ),
             ),
             // application components
             'components' => array(

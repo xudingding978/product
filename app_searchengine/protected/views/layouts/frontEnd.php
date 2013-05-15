@@ -39,10 +39,6 @@
 </html>
 
 
-<?php
-$this->renderPartial('/layouts/_footer');
-?>
-
 
 </body>
 </html>

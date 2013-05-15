@@ -15,8 +15,15 @@
 {{view App.PreviewUploadImageView width="200" height="100" }}
 
 
+
+{{controller.content.length}}
 <ul>
-    {{#each file in  App.TestController.files}}
-    <li>{{file.name}}</li>
+    {{#each imagefile in controller}}
+    <li>{{imagefile.name}}  </li>
+
+
+    <li> <img  {{bindAttr src= "imagefile.path"}}  alt="Logo" > </li>
+
     {{/each}}
 </ul>
+

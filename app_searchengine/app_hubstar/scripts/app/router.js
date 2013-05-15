@@ -17,6 +17,12 @@ define(["ember"], function(Ember) {
         this.resource("users", {
             path: "/users"
         });
+        this.resource("test", {
+            path: "/test"
+        });
+        this.resource("DragNDrop", {
+            path: "/dragndrop"
+        });
     });
     return Router;
 });

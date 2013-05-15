@@ -244,14 +244,14 @@ outline: 0px none;
 
 
 .smallIcon{
-position:absolute;
-margin: -37px 0px 0px ;
-display:none;
-left:65%;
-width:150px;
-z-index:10000;
-cursor:pointer;
-line-height: 32px;
+position: relative;
+margin: 13px;
+display: inline-block;
+left: 5%;
+width: 120px;
+z-index: 10000;
+cursor: pointer;
+vertical-align: top;
 }
 
 .smallIcon a, .smallIcon a:visited  {color:rgb(242,240,240); ; text-decoration:none;}
@@ -888,6 +888,7 @@ margin: 0 -3px 0 -3px;
 border-radius: 5px 5px 0px 0px;
 border-bottom:0 solid transparent;
 
+-webkit-transition: all 0.3s ease-out;
 }
 
 .profilemain > .tabs-right > .nav-tabs > li > a:hover {

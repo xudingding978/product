@@ -6,7 +6,8 @@ define([
     Ember.TEMPLATES["application"] = Ember.Handlebars.compile(applicationTemplate);
     
     var ApplicationView = Ember.View.extend({
-        defaultTemplate: Ember.Handlebars.compile(applicationTemplate)
+        defaultTemplate: Ember.Handlebars.compile(applicationTemplate),
+
     });
     return ApplicationView;
 });

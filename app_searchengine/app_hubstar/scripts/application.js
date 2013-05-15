@@ -16,8 +16,7 @@ require.config({
         'emberData': 'libs/ember-data-latest',
         'jquery.ui': 'libs/jquery.ui/1.9.2/jquery-ui-1.9.2.custom.min',
         'bootstrap': 'libs/bootstrap/2.2.2/js/bootstrap.min',
-        'bootstrapPopover': 'libs/bootstrap/2.2.2/js/bootstrap-popover',
-        'bootstrapTooltip': 'libs/bootstrap/2.2.2/js/bootstrap-tooltip',
+        'bxslider': 'libs/jquery.bxslider.min',
         /*requirejs-plugins*/
         'text': 'libs/requirejs-plugins/text',
         'hbs': 'libs/requirejs-plugins/hbs',
@@ -32,7 +31,8 @@ require.config({
             deps: ['ember'],
             exports: 'DS'
         },
-        'jquery.ui': ['jquery']
+        'jquery.ui': ['jquery'],
+        'bxslider': ['jquery']
     },
     hbs: {
         disableI18n: true,
@@ -67,12 +67,16 @@ define('application', [
     "controllers/ProfilesController",
     "controllers/TestController",
     "controllers/DragNDropController",
+    "controllers/ProfileController",
+    "controllers/ProfileNewController",
+    "controllers/EditingController",
     "app/router",
     "routes/IndexRoute",
     "routes/SelectedTabRoute",
     "routes/DataRoute",
     "routes/ProfilesRoute",
     "routes/ProfileRoute",
+    "routes/ProfileIndexRoute",
     "routes/UsersRoute",
     "routes/ProfileNewRoute",
     "routes/DragNDropRoute",
@@ -80,7 +84,8 @@ define('application', [
     "models/ProfileModel",
     "models/UserModel",
     "models/ProgressModel",
-    "emberData"
+    "emberData",
+    "bxslider"
 
 ], function(
         DragNDropNamespace, ImageFile, ApplicationView,
@@ -103,14 +108,21 @@ define('application', [
         tabListController,
         DataController,
         ProfilesController,
+
         TestController,
         DragNDropController,
+
+        ProfileController,
+        ProfileNewController,
+        EditingController,
+
         Router,
         IndexRoute,
         SelectedTabRoute,
         DataRoute,
         ProfilesRoute,
         ProfileRoute,
+        ProfileIndexRoute,
         UsersRoute,
         ProfileNewRoute,
         DragNDropRoute,
@@ -151,12 +163,16 @@ define('application', [
         ProfilesController: ProfilesController,
         TestController: TestController,
         DragNDropController: DragNDropController,
+        ProfileController: ProfileController,
+        ProfileNewController: ProfileNewController,
+        EditingController: EditingController,
         Router: Router,
         IndexRoute: IndexRoute,
         SelectedTabRoute: SelectedTabRoute,
         DataRoute: DataRoute,
         ProfilesRoute: ProfilesRoute,
         ProfileRoute: ProfileRoute,
+        ProfileIndexRoute: ProfileIndexRoute,
         UsersRoute: UsersRoute,
         ProfileNewRoute: ProfileNewRoute,
         DragNDropRoute: DragNDropRoute,

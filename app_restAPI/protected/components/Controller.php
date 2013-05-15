@@ -40,7 +40,9 @@ class Controller extends CController {
         // Set the Access Control for permissable domains
         header('Access-Control-Allow-Origin: *');
         header('Access-Control-Request-Method: *');
+        header('Access-Control-Allow-Methods: PUT, POST, OPTIONS');
         header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+        //header('Access-Control-Allow-Headers: *');
         
         echo $body;
         Yii::app()->end();
@@ -109,6 +111,13 @@ class Controller extends CController {
                 $result .= $value . ',';
             }
         }
+        $result .= ']}';
+        return $result;
+    }
+    
+    protected function processGet($results_arr, $jsonRoot){
+        $result = '{"' . $jsonRoot . '":[';
+        $result .= CJSON::encode($results_arr);
         $result .= ']}';
         return $result;
     }

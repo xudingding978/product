@@ -22,12 +22,12 @@ return array(
             'urlFormat' => 'path',
             'showScriptName' => false,
             'rules' => array(
-                //REST API
-                array('<controller>/create', 'pattern' => '<controller>', 'verb' => 'OPTIONS'),
-                array('<controller>/', 'pattern' => '<controller>', 'verb' => 'GET'),
+                //REST AP
+                //array('<controller>/', 'pattern' => '<controller>', 'verb' => 'GET'),
                 array('<controller>/create', 'pattern' => '<controller>', 'verb' => 'POST'),
                 array('<controller>/read', 'pattern' => '<controller>/<id>', 'verb' => 'GET'),
                 array('<controller>/update', 'pattern' => '<controller>/<id>', 'verb' => 'PUT'),
+              array('<controller>/update', 'pattern' => '<controller>/<id>', 'verb' => 'OPTIONS'),
                 array('<controller>/delete', 'pattern' => '<controller>/<id>', 'verb' => 'DELETE'),
             )
         ),

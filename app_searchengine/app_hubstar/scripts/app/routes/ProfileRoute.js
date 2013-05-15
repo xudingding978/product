@@ -1,16 +1,20 @@
 define([
     'ember',
-    'controllers/ProfileController'
+    'controllers/ProfileController',
+    'models/ProfileModel'
 ], function(
         Ember,
-        ProfileController
+        ProfileController,
+        ProfileModel
         ) {
     "use strict";
 
     var ProfileRoute = Ember.Route.extend({
-        setupController: function(ProfilesController) {
+        setupController: function(ProfileController, ProfileModel) {
         },
-
+        model: function(params) {
+            return ProfileModel.find(params.profile_id);
+        },
         renderTemplate: function() {
 
             this.render('profile', {

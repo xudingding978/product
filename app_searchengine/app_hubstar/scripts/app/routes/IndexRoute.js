@@ -16,13 +16,14 @@ define([
         },
         renderTemplate: function() {
 
-            {
-                this.render('carousel', {
-                    into: "application",
-                    //  controller: tabListController
-                });
-            }
-        }
+            this.transitionTo('profiles');
+        },
+//        renderTemplate: function() {
+//
+//            this.render('profiles', {
+//                into: "application"
+//            });
+//        }
 
     });
     return IndexRoute;

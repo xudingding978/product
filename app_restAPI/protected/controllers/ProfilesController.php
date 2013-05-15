@@ -101,17 +101,73 @@ class ProfilesController extends Controller {
     }
 
     public function actionUpdate() {
+//echo file_get_contents('php://input');
+//        $payload = CJSON::decode(file_get_contents('php://input'));
+//        $profile = CJSON::encode($payload['profile']);
+//
+////echo $profile;
+//
+//        $profile_arr = CJSON::decode($profile);
+//
+//        $add_arr = array('test' => 'test value');
+//
+//        $newDoc = array_merge($profile_arr, $add_arr);
+//
+//        echo CJSON::encode($newDoc);
+
+
         try {
-            $request_arr = CJSON::decode(file_get_contents('php://input'), true);
+
+
+            $payloads_arr = CJSON::decode(file_get_contents('php://input'));
+            $payload_json = CJSON::encode($payloads_arr['profile']);
+            $payload_arr = CJSON::decode($payload_json);
+
+
+//        $payload = CJSON::decode(file_get_contents('php://input'));
+//        $profile = CJSON::encode($payload['profile']);
+            //    $profile_arr = CJSON::decode($profile);
+//        $add_arr = array('test' => 'test value');
+            //   $newDoc = array_merge($profile_arr, $add_arr);
+
+
+
+
 
             $cb = $this->couchBaseConnection();
+
+            $document_arr = CJSON::decode($cb->get(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI']));
+
+            $array1 = '{"profile":{"id":"Jason_test",profile_name":"leokllhghgvbb","last_name":null,"first_name":null,"email":null,"about":null,"type":"profile","profile_cover_url":null,"profile_pic_url":null,"profile_bg_url":null,"contact_user":null,"profile_category":null,"profile_physical_address":null,"phone_number":null,"website_url":null}}';
+            $array2 = '{"id": "leo_test","profile_name": "Leooooooooooooooooooooooooooooooooo","new_file":null}';
+
+            $a1 = CJSON::decode($array1);
+            $a2 = CJSON::decode($array2);
+
+            $a3 = array('id' => 'leo_test', 'profile_name' => 'Jason Liddiard', 'last_name' => NULL, 'full_name' => 'Leo Sun', 'first_name' => NULL, 'email' => NULL, 'about' => NULL, 'type' => 'profile', 'profile_cover_url' => NULL, 'profile_pic_url' => NULL, 'profile_bg_url' => NULL, 'contact_user' => NULL, 'profile_category' => NULL, 'profile_physical_address' => NULL, 'phone_number' => NULL, 'website_url' => NULL,);
+
+            //$newdocument1 = array_merge( $a2 , $a1['profile']);
+            
+            if (is_array($document_arr) && is_array($payload_arr)){
+                $newdocument2 = $document_arr + $payload_arr;
+            } else {
+                echo $this->sendResponse(401, 'Array Mergin issue');
+            }
+
             
 
-            if ($cb->replace(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'], CJSON::encode($request_arr['profile'])))
+
+            if ($cb->set(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'], CJSON::encode($newdocument2))) {
+                //     echo $this->sendResponse(200, $cb->get(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI']));
+                //echo $this->sendResponse(200, CJSON::encode($newdocument));
+                echo $this->sendResponse(200, CJSON::encode($document_arr).','. CJSON::encode($payloads_arr['profile']));
+            } else {
                 echo $this->sendResponse(200, $cb->get(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI']));
+            }
         } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
+            //echo $this->sendResponse(409, $exc->getTraceAsString());
             ///  echo var_dump(CJSON::encode($request_arr['profile']));
+            //echo var_export($newdocument);
         }
     }
 

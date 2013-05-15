@@ -23,7 +23,7 @@ return array(
             'showScriptName' => false,
             'rules' => array(
                 //REST AP
-                //array('<controller>/', 'pattern' => '<controller>', 'verb' => 'GET'),
+                array('<controller>/', 'pattern' => '<controller>', 'verb' => 'GET'),
                 array('<controller>/create', 'pattern' => '<controller>', 'verb' => 'POST'),
                 array('<controller>/read', 'pattern' => '<controller>/<id>', 'verb' => 'GET'),
                 array('<controller>/update', 'pattern' => '<controller>/<id>', 'verb' => 'PUT'),

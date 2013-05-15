@@ -1,7 +1,8 @@
 // Define libraries
 require.config({
     paths: {
-        //     'AppMain': 'app/main',
+//     'AppMain': 'app/main',
+        'namespace': 'app/namespace',
         'models': 'app/models',
         'views': 'app/views',
         'controllers': 'app/controllers',
@@ -40,9 +41,10 @@ require.config({
     waitSeconds: 15,
     urlArgs: "bust=" + (new Date()).getTime()  //cancel caching for network requests,for development.
 });
-
 // Define application
 define('application', [
+    "namespace/DragNDropNamespace",
+    "models/ImageFile",
     "views/ApplicationView",
     "views/WindowContainerView",
     "views/TabIndexView",
@@ -55,12 +57,16 @@ define('application', [
     "views/ProfileView",
     "views/UsersView",
     "views/EditingView",
-    "views/EditingAboutView",
-    "views/ProfileNewView",
+    "views/DragNDropView",
+    "views/ImageInputButton",
+    "views/PreviewUploadImageView",
+    "views/TestView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
     "controllers/ProfilesController",
+    "controllers/TestController",
+    "controllers/DragNDropController",
     "controllers/ProfileController",
     "controllers/ProfileNewController",
     "controllers/EditingController",
@@ -73,14 +79,16 @@ define('application', [
     "routes/ProfileIndexRoute",
     "routes/UsersRoute",
     "routes/ProfileNewRoute",
+    "routes/DragNDropRoute",
     "models/PostModel",
     "models/ProfileModel",
     "models/UserModel",
+    "models/ProgressModel",
     "emberData",
     "bxslider"
 
 ], function(
-        ApplicationView,
+        DragNDropNamespace, ImageFile, ApplicationView,
         WindowContainerView,
         TabIndexView,
         SelectedTabView,
@@ -92,12 +100,16 @@ define('application', [
         ProfileView,
         UsersView,
         EditingView,
-        EditingAboutView,
-        ProfileNewView,
+        DragNDropView,
+        ImageInputButton,
+        PreviewUploadImageView,
+        TestView,
         ApplicationController,
         tabListController,
         DataController,
         ProfilesController,
+        TestController,
+        DragNDropController,
         ProfileController,
         ProfileNewController,
         EditingController,
@@ -110,16 +122,22 @@ define('application', [
         ProfileIndexRoute,
         UsersRoute,
         ProfileNewRoute,
+        DragNDropRoute,
         Post,
         Profile,
-        User
+        User,
+        Progress
         )
 {
+
 
     return  Ember.Application.createWithMixins({
         LOG_TRANSITIONS: true,
         VERSION: '1.0.0',
         rootElement: '#main',
+        //  DragNDrop: DragNDrop,
+        DragNDropNamespace: DragNDropNamespace,
+        ImageFile: ImageFile,
         ApplicationView: ApplicationView,
         WindowContainerView: WindowContainerView,
         TabIndexView: TabIndexView,
@@ -132,12 +150,16 @@ define('application', [
         ProfileView: ProfileView,
         UsersView: UsersView,
         EditingView: EditingView,
-        EditingAboutView: EditingAboutView,
-        ProfileNewView: ProfileNewView,
+        DragNDropView: DragNDropView,
+        ImageInputButton: ImageInputButton,
+        PreviewUploadImageView: PreviewUploadImageView,
+        TestView: TestView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
         ProfilesController: ProfilesController,
+        TestController: TestController,
+        DragNDropController: DragNDropController,
         ProfileController: ProfileController,
         ProfileNewController: ProfileNewController,
         EditingController: EditingController,
@@ -150,25 +172,28 @@ define('application', [
         ProfileIndexRoute: ProfileIndexRoute,
         UsersRoute: UsersRoute,
         ProfileNewRoute: ProfileNewRoute,
+        DragNDropRoute: DragNDropRoute,
         Post: Post,
         Profile: Profile,
         User: User,
+        Progress: Progress,
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({
                 bulkCommit: false,
                 url: getRestAPIURL(),
                 mappings: {
-                    posts: Post,
-                    profiles: Profile,
-                    users: User
+                    posts: Post
                 }
             })
         }),
         ready: function() {
+
         }
     });
-});
+}
+);
+
 
 function getRestAPIURL()
 {

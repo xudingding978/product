@@ -5,13 +5,13 @@ define([
                 ProfileModel,
                 Ember
                 ) {
-            var ProfileNewController = Ember.ObjectController.extend({
-                newProfile: function() {
+            var EditingController = Ember.ObjectController.extend({
+                newProfile: function(model) {
                     var profile_ID = ProfileModel.id;
                     var profile_NAME = ProfileModel.profile_name;
 
 
-                    var newProfile = App.store.createRecord(App.Profile,{
+                    var newProfile = ProfileModel.createRecord({
                         id: profile_ID,
                         profile_name: profile_NAME,
                         type: "profile"
@@ -27,5 +27,5 @@ define([
 //                }
 
             });
-            return ProfileNewController;
+            return EditingController;
         });

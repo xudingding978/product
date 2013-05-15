@@ -1,6 +1,6 @@
 <div class="profilegb" style="background: #fff url('../images/texture.png') repeat;width: 100%;height: auto; padding-bottom: 300px;">
     <div style="width: 100%; height: 500px; overflow: hidden; position: fixed;"> 
-        <img src="../images/kichen_i.jpg" style="width: 100%; height:auto;">
+        <img  {{bindAttr src= profile_bg_url}} style="width: 100%; height:auto;">
     </div>
 
 
@@ -8,7 +8,8 @@
 
         <!-- corpbanner-->
 
-        <div class="profilecorpbanner" style="background-image: url('../images/smegcover.jpg'); width: 980; height:300px; border-radius: 3px 3px 0 0; position: relative;">
+        <div class="profilecorpbanner"    style="overflow:hidden;width: 980; height:300px; border-radius: 3px 3px 0 0; position: relative;">
+            <img {{bindAttr src= profile_cover_url}} >
             <div class="corpbanner_mask" style="background: url('../images/bannershadow.png') repeat-x; position: absolute;bottom:0; width: 980px; height: 200px;">
                 <div class="corpbanner_content" style="position: absolute;bottom:0;margin-left: 300px;width: 680px;">
                     <div class="main_title" style="height: 100px;">
@@ -44,7 +45,7 @@
             <div class="profileaside_content" style="margin:20px; margin-top: -200px; position: relative;">
 
                 <div class="aside-profilepic" style="padding:5px; border-bottom: 1px solid #ccc;">
-                    <img src="../images/profilepic.jpg" style="width: 200px; height:auto; display: block;margin: 10px auto; border:3px solid white;width: 200px; height:auto; display: block;margin: 20px auto; border:5px solid white;"> 
+                    <img {{bindAttr src= profile_pic_url}} style="width: 200px; height:auto; display: block;margin: 10px auto; border:3px solid white;width: 200px; height:auto; display: block;margin: 20px auto; border:5px solid white;"> 
                     <a href="#question_modal" role="button" class="btn" data-toggle="modal" style="margin:10px auto;display: block;width: 150px;position: relative;color:#0088cc;"><b>Follow</b></a>
                     <div class="profile_like"style=" margin: 30px auto 20px;">
                         <a href="#" style="margin-left:20px; margin-right: 10px;"> <k class="icon-heart-empty icon-large" style="float: left; margin: 0 10px 0 15px;"></k><p style="float: left;margin-right: 40px;"><b>23</b></p></a>
@@ -60,27 +61,58 @@
                 <div class="aside-contact" style="padding: 20px 5px; border-bottom: 1px solid #ccc; border-top: 1px solid #fff; font-size: 14px;">
                     <table id="aside_contact" >
                         <tr>
+
                             <th style="color: #aaa; font-weight: normal; text-align: right;">Contact:</th>
-                            <th>Molly Brandenburg</th>
+                            {{#if controller.editingContact}}
+                            {{input type="text" value=contact_user  }}
+                            {{else}}
+                            <th {{action toggleEditingContact}}>{{contact_user}}</th>
+                            {{/if}}
                         </tr>
                         <tr>
                             <th style="color: #aaa; font-weight: normal; text-align: right;">Type:</th>
-                            <th><a href="#">Interior designer</a></th>
+                            {{#if controller.editingContact}}
+                            {{input type="text" value=profile_category  }}
+                            {{else}}
+                            <th {{action toggleEditingContact}}><a href="#">{{profile_category}}</a></th>
+                            {{/if}}
                         </tr>
                         <tr>
                             <th style="color: #aaa; font-weight: normal; text-align: right;">Address:</th>
-                            <th>5B Volkner Place, Albany, <a href="#">Auckland</a></th>
+                            {{#if controller.editingContact}}
+                            {{input type="text" value=profile_physical_address  }}
+                            {{else}}
+                            <th {{action toggleEditingContact}}>{{profile_physical_address}}</th>
+                            {{/if}}
                         </tr>
                         <tr>
                             <th style="color: #aaa; font-weight: normal; text-align: right;">Phone:</th>
-                            <th>(09) 4471400</th>
+                            {{#if controller.editingContact}}
+                            {{input type="text" value=phone_number  }}
+                            {{else}}
+                            <th {{action toggleEditingContact}}>{{phone_number}}</th>
+                            {{/if}}
                         </tr>
                         <tr>
                             <th style="color: #aaa; font-weight: normal; text-align: right;">Website:</th>
-                            <th><a href="http://ikitchen.y8.co.nz">ikitchen.y8.co.nz</a></th>
+                            {{#if controller.editingContact}}
+                            {{input type="text" value=website_url  }}
+                            {{else}}
+                            <th {{action toggleEditingContact}}><a href="http://ikitchen.y8.co.nz">{{website_url}}</a></th>
+                            {{/if}}
                         </tr>
 
-                    </table> 
+                    </table>
+                    {{#unless controller.editingContact}}
+                    <button type="button" {{action toggleEditingContact}} class="btn"><i class="icon-pencil"></i></button>
+                    {{else}}
+                    <div class="buttons" style="display: inline-block;">
+                        <button type="button" {{action changeEditingContact }}  class="btn btn-primary"><i class="icon-ok icon-white"></i></button>
+
+                        <button type="button" {{action toggleEditingContact }} class="btn"><i class="icon-remove"></i></button>
+
+                    </div>
+                    {{/unless}}
                 </div>
 
                 <!--FOLLOW SECTION-->

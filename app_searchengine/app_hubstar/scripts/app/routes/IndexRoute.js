@@ -10,14 +10,14 @@ define([
     var IndexRoute = Ember.Route.extend({
         redirect: function() {
 
-            this.transitionTo('profiles');
+           // this.transitionTo('profiles');
         },
-//        renderTemplate: function() {
-//
-//            this.render('profiles', {
-//                into: "application"
-//            });
-//        }
+        renderTemplate: function() {
+
+            this.render('discoveryBar', {
+                into: "application"
+            });
+        }
 
     });
     return IndexRoute;

@@ -5,37 +5,26 @@ define([
                 ProfileModel,
                 Ember
                 ) {
+            var record;
             var ProfileController = Ember.ObjectController.extend({
                 editing: false,
                 content: null,
+//                record: Ember.Profile.find(this.get('content.profile_name')),
                 toggleEditing: function() {
-
+                    record = this.get('content.profile_name');
                     this.set('editing', !this.get('editing'));
 
                 },
                 changeTitle: function() {
-                    this.transaction = App.store.transaction();
-                    this.transaction.add(this.get('content'));
-                    //         console.log(this.get('content.id'));
-
-                    //        this.transaction.add(this.get('content'));
-                    //        console.log(this.get('content.profile_name'));
 
                     var update_record = App.Profile.find(this.get('content.id'));
-//               //     console.log(update_record);
-//                 //   update_record.set('profile_name', this.get('content.profile_name'));
                     App.store.get('adapter').updateRecord(App.store, App.Profile, update_record);
-
-
-
-
-                    //            this.transaction.commit();
                     App.store.commit();
-                    //             this.transaction = null;
-//                    alert(this.get('content.profile_name'));
-//                    this.set("content.profileName", this.get('content.profile_name'));
                     this.set('editing', false);
-
+                },
+                exitEditing: function() {
+                    this.set('content.profile_name', record);
+                    this.set('editing', !this.get('editing'));
                 },
                 toggleEditingAbout: function() {
                     this.set('editingAbout', !this.get('editingAbout'));

@@ -8,7 +8,13 @@ define([
     "use strict";
 
     var IndexRoute = Ember.Route.extend({
-        redirect: function() {
+        //     controller: ApplicationController,
+        setupController: function(ApplicationController, model) {
+//            alert(ApplicationController.get('indexPage'));
+//            ApplicationController.set('indexPage', true);
+//            alert(ApplicationController.get('indexPage'));
+        },
+        renderTemplate: function() {
 
             this.transitionTo('profiles');
         },

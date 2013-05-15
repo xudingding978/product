@@ -1,0 +1,27 @@
+{{#view App.DragNDropView }}
+
+
+<div style="height: 500px; background-color: grey">   drop files to here. 
+    {{controller.content.length}}                
+
+    <ul>
+        {{#each content}}
+        <li>{{name}}</li>
+        <li>{{progress}}</li>
+        <li>
+
+            <div class="progress progress-striped active">
+
+                <div class="bar" style="width:{{unbound progress}}%"></div>
+
+            </div>
+
+        </li>
+        <li> <img  {{bindAttr src= "path"}}  alt="Logo" > </li>
+        {{/each}}
+        <ul>
+            </div>
+
+            {{/view}}
+
+            <button {{action test}}>aaa</button>

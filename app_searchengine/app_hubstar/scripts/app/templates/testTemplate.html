@@ -1,0 +1,29 @@
+
+
+<div style="height: 500px; background-color: grey"></div>
+
+
+<p>aaaaaaaaaaaaaaaaaaa</p>
+
+<br />
+
+
+
+{{view App.ImageInputButton}}
+
+
+{{view App.PreviewUploadImageView width="200" height="100" }}
+
+
+
+{{controller.content.length}}
+<ul>
+    {{#each imagefile in controller}}
+    <li>{{imagefile.name}}  </li>
+
+
+    <li> <img  {{bindAttr src= "imagefile.path"}}  alt="Logo" > </li>
+
+    {{/each}}
+</ul>
+

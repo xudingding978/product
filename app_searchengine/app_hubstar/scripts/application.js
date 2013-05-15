@@ -108,14 +108,11 @@ define('application', [
         tabListController,
         DataController,
         ProfilesController,
-
         TestController,
         DragNDropController,
-
         ProfileController,
         ProfileNewController,
         EditingController,
-
         Router,
         IndexRoute,
         SelectedTabRoute,

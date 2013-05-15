@@ -888,6 +888,7 @@ margin: 0 -3px 0 -3px;
 border-radius: 5px 5px 0px 0px;
 border-bottom:0 solid transparent;
 
+-webkit-transition: all 0.3s ease-out;
 }
 
 .profilemain > .tabs-right > .nav-tabs > li > a:hover {

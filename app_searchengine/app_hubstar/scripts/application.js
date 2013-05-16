@@ -35,7 +35,7 @@ require.config({
         },
         'jquery.ui': ['jquery'],
         'bxslider': ['jquery'],
-        'bootstrap-wysihtml5':['wysihtml5'],
+        'bootstrap-wysihtml5': ['wysihtml5'],
         'bootstrap': ['jquery']
     },
     hbs: {
@@ -66,6 +66,7 @@ define('application', [
     "views/PreviewUploadImageView",
     "views/TestView",
     "views/EditingAboutView",
+    "views/ProfileNewView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -113,6 +114,7 @@ define('application', [
         PreviewUploadImageView,
         TestView,
         EditingAboutView,
+        ProfileNewView,
         ApplicationController,
         tabListController,
         DataController,
@@ -160,6 +162,7 @@ define('application', [
         UsersView: UsersView,
         EditingView: EditingView,
         DragNDropView: DragNDropView,
+        ProfileNewView: ProfileNewView,
         ImageInputButton: ImageInputButton,
         PreviewUploadImageView: PreviewUploadImageView,
         TestView: TestView,

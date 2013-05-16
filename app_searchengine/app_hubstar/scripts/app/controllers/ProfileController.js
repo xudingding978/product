@@ -52,11 +52,9 @@ define([
 
                 },
                 changeEditingContact: function() {
-
                     var update_contact_record = App.Profile.find(this.get('content.id'));
                     App.store.get('adapter').updateRecord(App.store, App.Profile, update_contact_record);
                     this.set('editingContact', false);
-
                 },
                 exitContactEditing: function() {
                     this.set('content.contact_user', contact_record);

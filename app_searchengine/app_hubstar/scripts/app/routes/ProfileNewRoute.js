@@ -1,18 +1,16 @@
 define([
-    'ember', 
+    'ember',
     'models/ProfileModel',
     "controllers/ProfileNewController"
 
 ], function(
-        Ember, 
+        Ember,
         ProfileModel,
         ProfileNewController
         ) {
     "use strict";
 
     var NewRoute = Ember.Route.extend({
-//        setupController: function(ProfileNewController, ProfileModel) {
-//        },
         renderTemplate: function() {
             this.render('profileNew', {
                 into: "application"
@@ -20,17 +18,13 @@ define([
         },
         model: function() {
             return ProfileModel;
+        },
+        activate: function() {
+             $("body").css("overflow", "hidden");
+        },
+        deactivate: function() {
+             $("body").css("overflow", "auto");
         }
-//        events: {
-//            save: function() {
-//              this.controllerFor('ProfileController').set('selected', model);
-//             var new_name = this.$("#profile_name").val();
-//                var newProfile = ProfileModel.createRecord({"profile_name":"aaaa"});
-//                //   var newProfile = this.modelFor('profile');
-//                this.transitionTo('profile', newProfile);
-//
-//            }
-//        }
     });
     return NewRoute;
 });

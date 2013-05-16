@@ -7,10 +7,14 @@ define([
                 ) {
             var profile_record;
             var about_record;
+            var contact_record;
+            var category_record;
+            var address_record;
+            var phone_record;
+            var website_record;
             var ProfileController = Ember.ObjectController.extend({
                 editing: false,
                 content: null,
-//                record: Ember.Profile.find(this.get('content.profile_name')),
                 toggleEditing: function() {
                     profile_record = this.get('content.profile_name');
                     this.set('editing', !this.get('editing'));
@@ -18,8 +22,8 @@ define([
                 },
                 changeTitle: function() {
 
-                    var update_profil_record = App.Profile.find(this.get('content.id'));
-                    App.store.get('adapter').updateRecord(App.store, App.Profile, update_profil_record);
+                    var update_profile_record = App.Profile.find(this.get('content.id'));
+                    App.store.get('adapter').updateRecord(App.store, App.Profile, update_profile_record);
                     App.store.commit();
                     this.set('editing', false);
                 },
@@ -42,14 +46,30 @@ define([
                     this.set('editingAbout', !this.get('editingAbout'));
                 },
                 toggleEditingContact: function() {
-
+                    contact_record = this.get('content.contact_user');
+                    category_record = this.get('content.profile_category');
+                    address_record = this.get('content.profile_physical_address');
+                    phone_record = this.get('content.phone_number');
+                    website_record = this.get('content.website_url');
                     this.set('editingContact', !this.get('editingContact'));
 
                 },
                 changeEditingContact: function() {
 
+                    var update_contact_record = App.Profile.find(this.get('content.id'));
+                    App.store.get('adapter').updateRecord(App.store, App.Profile, update_contact_record);
+                    App.store.commit();
+
                     this.set('editingContact', false);
 
+                },
+                exitContactEditing: function() {
+                    this.set('content.contact_user', contact_record);
+                    this.set('content.profile_category', category_record);
+                    this.set('content.profile_physical_address', address_record);
+                    this.set('content.phone_number', phone_record);
+                    this.set('content.website_url', website_record);
+                    this.set('editingContact', !this.get('editingContact'));
                 }
             });
             return ProfileController;

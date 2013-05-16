@@ -1,13 +1,5 @@
 <?php
 
-//spl_autoload_unregister(array('YiiBase','autoload'));
-//
-//Yii::import('application.protected.vendor.autoload');
-//require_once '/home/devbox/NetBeansProjects/hubstar/app_restAPI/protected/vendor/autoload.php';
-////spl_autoload_register(array('Sherlock','autoload'));
-////$sherlock = new Sherlock();
-//spl_autoload_register(array('YiiBase','autoload'));
-
 class ProfilesController extends Controller {
 
     const JSON_RESPONSE_ROOT_SINGLE = 'profile';
@@ -75,8 +67,6 @@ class ProfilesController extends Controller {
                 echo $this->sendResponse(200, var_dump($request_arr));
             } else {
                 echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
-                //echo file_get_contents('php://input');
-                //echo var_dump($request_arr);
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();

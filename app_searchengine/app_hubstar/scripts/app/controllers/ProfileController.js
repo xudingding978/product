@@ -18,7 +18,6 @@ define([
                 toggleEditing: function() {
                     profile_record = this.get('content.profile_name');
                     this.set('editing', !this.get('editing'));
-
                 },
                 changeTitle: function() {
 

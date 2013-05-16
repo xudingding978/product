@@ -14,16 +14,16 @@ define([
 //            ApplicationController.set('indexPage', true);
 //            alert(ApplicationController.get('indexPage'));
         },
-        renderTemplate: function() {
-
-            this.transitionTo('profiles');
-        },
 //        renderTemplate: function() {
 //
-//            this.render('profiles', {
-//                into: "application"
-//            });
-//        }
+//            this.transitionTo('profiles');
+//        },
+        renderTemplate: function() {
+
+            this.render('discoveryBar', {
+                into: "application"
+            });
+        }
 
     });
     return IndexRoute;

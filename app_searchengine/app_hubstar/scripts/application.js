@@ -16,6 +16,8 @@ require.config({
         'emberData': 'libs/ember-data-latest',
         'jquery.ui': 'libs/jquery.ui/1.9.2/jquery-ui-1.9.2.custom.min',
         'bootstrap': 'libs/bootstrap/2.2.2/js/bootstrap.min',
+        'bootstrap-wysihtml5': 'libs/wysihtml5/bootstrap-wysihtml5',
+        'wysihtml5': 'libs/wysihtml5/wysihtml5-0.3.0',
         'bxslider': 'libs/jquery.bxslider.min',
         /*requirejs-plugins*/
         'text': 'libs/requirejs-plugins/text',
@@ -32,7 +34,9 @@ require.config({
             exports: 'DS'
         },
         'jquery.ui': ['jquery'],
-        'bxslider': ['jquery']
+        'bxslider': ['jquery'],
+        'bootstrap-wysihtml5':['wysihtml5'],
+        'bootstrap': ['jquery']
     },
     hbs: {
         disableI18n: true,
@@ -86,7 +90,10 @@ define('application', [
     "models/UserModel",
     "models/ProgressModel",
     "emberData",
-    "bxslider"
+    "bxslider",
+    'bootstrap-wysihtml5',
+    "wysihtml5",
+    'bootstrap'
 
 ], function(
         DragNDropNamespace, ImageFile, ApplicationView,

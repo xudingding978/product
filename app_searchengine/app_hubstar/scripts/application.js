@@ -19,6 +19,8 @@ require.config({
         'bootstrap-wysihtml5': 'libs/wysihtml5/bootstrap-wysihtml5',
         'wysihtml5': 'libs/wysihtml5/wysihtml5-0.3.0',
         'bxslider': 'libs/jquery.bxslider.min',
+        'isotope': 'libs/isotope/jquery.isotope.min',
+        'search': 'libs/isotope/search',
         /*requirejs-plugins*/
         'text': 'libs/requirejs-plugins/text',
         'hbs': 'libs/requirejs-plugins/hbs',
@@ -36,7 +38,9 @@ require.config({
         'jquery.ui': ['jquery'],
         'bxslider': ['jquery'],
         'bootstrap-wysihtml5': ['wysihtml5'],
-        'bootstrap': ['jquery']
+        'bootstrap': ['jquery'],
+        'isotope': ['jquery'],
+        'search': ['isotope']
     },
     hbs: {
         disableI18n: true,
@@ -67,6 +71,9 @@ define('application', [
     "views/TestView",
     "views/EditingAboutView",
     "views/ProfileNewView",
+    "views/IndexView",
+    "views/CarouselView",
+    "views/IsotopeView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -76,6 +83,7 @@ define('application', [
     "controllers/ProfileController",
     "controllers/ProfileNewController",
     "controllers/EditingController",
+    "controllers/IndexController",
     "app/router",
     "routes/IndexRoute",
     "routes/SelectedTabRoute",
@@ -94,7 +102,9 @@ define('application', [
     "bxslider",
     'bootstrap-wysihtml5',
     "wysihtml5",
-    'bootstrap'
+    'bootstrap',
+    'isotope',
+    'search'
 
 ], function(
         DragNDropNamespace, ImageFile, ApplicationView,
@@ -115,6 +125,9 @@ define('application', [
         TestView,
         EditingAboutView,
         ProfileNewView,
+        IndexView,
+        CarouselView,
+        IsotopeView,
         ApplicationController,
         tabListController,
         DataController,
@@ -124,6 +137,7 @@ define('application', [
         ProfileController,
         ProfileNewController,
         EditingController,
+        IndexController,
         Router,
         IndexRoute,
         SelectedTabRoute,
@@ -163,6 +177,9 @@ define('application', [
         EditingView: EditingView,
         DragNDropView: DragNDropView,
         ProfileNewView: ProfileNewView,
+        IndexView: IndexView,
+        CarouselView: CarouselView,
+        IsotopeView: IsotopeView,
         ImageInputButton: ImageInputButton,
         PreviewUploadImageView: PreviewUploadImageView,
         TestView: TestView,
@@ -176,6 +193,7 @@ define('application', [
         ProfileController: ProfileController,
         ProfileNewController: ProfileNewController,
         EditingController: EditingController,
+        IndexController: IndexController,
         Router: Router,
         IndexRoute: IndexRoute,
         SelectedTabRoute: SelectedTabRoute,

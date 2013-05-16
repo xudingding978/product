@@ -14,7 +14,6 @@ define([
 
         },
         model: function() {
-       //      console.log("profileModel 111111111    "+ProfileModel.find());
             return ProfileModel.find();
 
         },
@@ -23,18 +22,7 @@ define([
             this.render('profiles', {
                 into: "application"
             });
-        },
-//        events: {
-//            newProfile: function() {
-////                var newProfile = ProfileModel.createRecord({"id":"new"});
-////                console.log("profileModel  2222222222222   "+profileModel);
-////                var profile = profileModel.createRecord("profiles"{
-////                    id: "4"
-////                });
-//                this.transitionTo('profileNew',newProfile);
-//
-//            }
- //       }
+        }
     });
     return ProfilesRoute;
 });

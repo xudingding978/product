@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="css/reset-new.css">
 
         <link rel="stylesheet" href="/app_hubstar/scripts/libs/bootstrap/2.2.2/css/bootstrap.css">
-
+        <link rel="stylesheet" href="/app_hubstar/css/bootstrap-wysihtml5.css">
         <link rel="stylesheet" href="/app_hubstar/css/style.css">
         <link rel="stylesheet" type="text/css" href="css/customstyle.php" /> 
         <link media="screen, projection" rel="stylesheet" type="text/css" href="css/_topnavbar.css"/>

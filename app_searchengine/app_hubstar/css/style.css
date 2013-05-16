@@ -43,7 +43,19 @@
 }
 
 
+#about > .textarea {
+    width: 810px;
+    height: 300px;
+    display: inline-block;
+    margin: 6px 6px;
 
+}
+#about > .fake {
+
+    display: none;
+
+
+}
 
 
 /*/TabIndexItem----------------------/*/

@@ -110,7 +110,7 @@ class ProfilesController extends Controller {
             $document_arr = CJSON::decode($cb->get(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI']));
             $newdocument = array_merge($document_arr, $payload_arr);
             if ($cb->set(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'], CJSON::encode($newdocument))) {
-                echo $this->sendResponse(200, "OK");
+                echo $this->sendResponse(201, "OK");
             }
         } catch (Exception $exc) {
             echo var_export($newdocument);

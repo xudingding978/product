@@ -14,6 +14,7 @@ return array(
         'application.components.Controller',
         'application.components.RestController',
         'application.components.HttpRequest',
+        'application.vendor.autoload',
     ),
     // application components
     'components' => array(

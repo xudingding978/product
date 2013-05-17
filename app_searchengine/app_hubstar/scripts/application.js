@@ -35,12 +35,13 @@ require.config({
             deps: ['ember'],
             exports: 'DS'
         },
+        'jquery':[''],
         'jquery.ui': ['jquery'],
         'bxslider': ['jquery'],
         'bootstrap-wysihtml5': ['wysihtml5'],
         'bootstrap': ['jquery'],
         'isotope': ['jquery'],
-        'search': ['isotope']
+        'search': ['jquery']
     },
     hbs: {
         disableI18n: true,
@@ -52,7 +53,6 @@ require.config({
 // Define application
 define('application', [
     "namespace/DragNDropNamespace",
-    "models/ImageFile",
     "views/ApplicationView",
     "views/WindowContainerView",
     "views/TabIndexView",
@@ -98,7 +98,9 @@ define('application', [
     "models/ProfileModel",
     "models/UserModel",
     "models/ProgressModel",
+    "models/Image",
     "emberData",
+    'jquery',
     "bxslider",
     'bootstrap-wysihtml5',
     "wysihtml5",
@@ -107,7 +109,7 @@ define('application', [
     'search'
 
 ], function(
-        DragNDropNamespace, ImageFile, ApplicationView,
+        DragNDropNamespace, ApplicationView,
         WindowContainerView,
         TabIndexView,
         SelectedTabView,
@@ -151,7 +153,8 @@ define('application', [
         Post,
         Profile,
         User,
-        Progress
+        Progress,
+        Image
         )
 {
 
@@ -162,7 +165,6 @@ define('application', [
         rootElement: '#main',
         //  DragNDrop: DragNDrop,
         DragNDropNamespace: DragNDropNamespace,
-        ImageFile: ImageFile,
         ApplicationView: ApplicationView,
         WindowContainerView: WindowContainerView,
         TabIndexView: TabIndexView,
@@ -208,6 +210,7 @@ define('application', [
         Profile: Profile,
         User: User,
         Progress: Progress,
+        Image: Image,
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({

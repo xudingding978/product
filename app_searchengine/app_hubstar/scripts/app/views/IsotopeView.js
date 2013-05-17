@@ -1,6 +1,7 @@
 define([
     "ember",
     "text!templates/isotopeTemplate.html",
+    'jquery',
     'isotope',
     'search'
 ], function(Ember, isotopeTemplate) {

@@ -1,4 +1,4 @@
-define(["ember", 'models/ImageFile'], function(Ember, ImageFile) {
+define(["ember", 'models/Image'], function(Ember, ImageFile) {
     var TestController = Ember.ArrayController.extend({
         content: [],
         files: null,

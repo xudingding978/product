@@ -35,12 +35,13 @@ require.config({
             deps: ['ember'],
             exports: 'DS'
         },
+        'jquery':[''],
         'jquery.ui': ['jquery'],
         'bxslider': ['jquery'],
         'bootstrap-wysihtml5': ['wysihtml5'],
         'bootstrap': ['jquery'],
         'isotope': ['jquery'],
-        'search': ['isotope']
+        'search': ['jquery']
     },
     hbs: {
         disableI18n: true,
@@ -99,6 +100,7 @@ define('application', [
     "models/UserModel",
     "models/ProgressModel",
     "emberData",
+    'jquery',
     "bxslider",
     'bootstrap-wysihtml5',
     "wysihtml5",

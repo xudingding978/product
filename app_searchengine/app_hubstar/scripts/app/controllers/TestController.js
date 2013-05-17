@@ -10,11 +10,7 @@ define(["ember", 'models/Image'], function(Ember, ImageFile) {
 
             //       console.log(this.get('content'));
         },
-        test: function() {
-            console.log("test ok");
-            alert("ok");
-        },
-                addFile: function(file) {
+        addFile: function(file) {
 
             var file = ImageFile.createRecord(file);
             this.get('content').addObject(file);

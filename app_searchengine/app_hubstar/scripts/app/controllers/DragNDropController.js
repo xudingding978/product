@@ -1,11 +1,11 @@
-define(["ember", 'models/ImageFile', 'models/ProgressModel'], function(Ember, ImageFile) {
+define(["ember", 'models/Image', 'models/ProgressModel'], function(Ember, Image) {
     var arr = [];
     var progress = new Object();
     progress.val = 0;
 
     var DragNDropController = Ember.ArrayController.extend({
         content: arr,
-        model: ImageFile,
+        model: Image,
         progressVal: progress.val,
         getSize: function(tmpfiles) {
             console.log('dddd');
@@ -24,7 +24,7 @@ define(["ember", 'models/ImageFile', 'models/ProgressModel'], function(Ember, Im
         },
         addFile: function(file) {
 
-            var file = ImageFile.createRecord(file);
+            var file = Image.createRecord(file);
 
             this.get('content').addObject(file);
 
@@ -42,13 +42,12 @@ define(["ember", 'models/ImageFile', 'models/ProgressModel'], function(Ember, Im
     DragNDropController.Droppable = Ember.Mixin.create(DragNDropController, {
         content: arr,
         progressValue: progress,
-        model: ImageFile,
+        model: Image,
         dragEnter: DragNDropController.cancel,
         dragOver: DragNDropController.cancel,
         drop: function(event) {
             var dataTransfer = event.originalEvent.dataTransfer;
             var files = dataTransfer.files;
-
             this.get("progressValue").val = this.get("progressValue").val + 10;
             //   console.log(this.get("progressValue").val);
 //            var tempVar = this.progressValue + 10;
@@ -60,8 +59,9 @@ define(["ember", 'models/ImageFile', 'models/ProgressModel'], function(Ember, Im
                 var tempfile = files[i];
                 var reader = new FileReader();
                 reader.onload = function(e) {
-
-                    var path = e.target.result;
+                    var path = e.srcElement.result;
+                    console.log(path);
+                    //      var path = e.target.result;
 //                    if (e.lengthComputable) {
 //                        //     scope.progress = e.round(e.loaded * 100 / e.total)
 //                        console.log("e.loaded" + e.loaded);
@@ -71,13 +71,26 @@ define(["ember", 'models/ImageFile', 'models/ProgressModel'], function(Ember, Im
 //                        scope.progress = 'unable to compute';
 //                    }
 
-                    var file = ImageFile.createRecord({"name": tempfile.name, "path": path, "progress": Math.round(e.loaded * 100 / e.total)});
+                    Image.createRecord({"name": tempfile.name, "path": path, "progress": Math.round(e.loaded * 100 / e.total)});
                     //         var progress = e.loaded;
-                    //      console.log(e.loaded);
+                    console.log(e.loaded);
 
-                    console.log(path);
-                    file.get('transaction').commit();
-                    content.addObject(file);
+                    //    App.store.get('adapter').updateRecord(App.store, App.Image, file);
+                    //              this.transaction.commit();
+                App.store.commit();
+
+//                    console.log("drop");
+//                    $.ajax({
+//                        url: 'http://api.develop.devbox/images/Test',
+//                        type: 'POST',
+//                        data: JSON.stringify(file),
+//                        success: function(data) {
+//                            console.log(data);
+//                        }
+//                    });
+                    //   console.log(path);
+                    //            file.get('transaction').commit();
+                    //              content.addObject(file);
                 },
                         reader.readAsDataURL(tempfile);
                 event.preventDefault();

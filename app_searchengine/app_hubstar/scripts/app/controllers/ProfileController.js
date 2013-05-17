@@ -24,13 +24,13 @@ define([
                     var update_record = App.Profile.find(this.get('content.id'));
 //               //     console.log(update_record);
 //                 //   update_record.set('profile_name', this.get('content.profile_name'));
-                    App.store.get('adapter').updateRecord(App.store, App.Profile, update_record);
+            //        App.store.get('adapter').updateRecord(App.store, App.Profile, update_record);
 
-
+ 
 
 
                     //            this.transaction.commit();
-                    App.store.commit();
+          //          App.store.commit();
                     //             this.transaction = null;
 //                    alert(this.get('content.profile_name'));
 //                    this.set("content.profileName", this.get('content.profile_name'));

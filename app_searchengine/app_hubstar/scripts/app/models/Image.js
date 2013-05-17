@@ -1,9 +1,9 @@
 
-define('models/ImageFile',
+define('models/Image',
         ['emberData'],
         function() {
 
-            var ImageFile = DS.Model.extend({
+            var Image = DS.Model.extend({
                 name: DS.attr('string'),
                 path: DS.attr('string'),
                 progress: DS.attr('string'),
@@ -13,7 +13,7 @@ define('models/ImageFile',
                 }
             });
 
-            return ImageFile;
+            return Image;
         }
 );
 

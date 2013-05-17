@@ -14,6 +14,7 @@ return array(
         'application.components.Controller',
         'application.components.RestController',
         'application.components.HttpRequest',
+        'application.vendor.autoload',
     ),
     // application components
     'components' => array(
@@ -27,7 +28,7 @@ return array(
                 array('<controller>/create', 'pattern' => '<controller>', 'verb' => 'POST'),
                 array('<controller>/read', 'pattern' => '<controller>/<id>', 'verb' => 'GET'),
                 array('<controller>/update', 'pattern' => '<controller>/<id>', 'verb' => 'PUT'),
-              array('<controller>/update', 'pattern' => '<controller>/<id>', 'verb' => 'OPTIONS'),
+                array('<controller>/opction', 'pattern' => '<controller>/<id>', 'verb' => 'OPTIONS'),
                 array('<controller>/delete', 'pattern' => '<controller>/<id>', 'verb' => 'DELETE'),
             )
         ),
@@ -42,7 +43,7 @@ return array(
         // this is used in contact page
         'adminEmail' => 'webmaster@example.com',
         // this the primary elastic search server and index
-        'elasticSearchNode'=>'es1.hubsrv.com',
-        'elasticSearchIndex'=>'test'
+        'elasticSearchNode' => 'es1.hubsrv.com',
+        'elasticSearchIndex' => 'test'
     ),
 );

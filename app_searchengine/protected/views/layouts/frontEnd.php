@@ -20,6 +20,7 @@
         <link media="screen, projection" rel="stylesheet" type="text/css" href="css/_topnavbar.css"/>
         <link media="screen, projection" rel="stylesheet" type="text/css" href="css/_footer.css"/>
         <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link href='http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
         <script src="app_hubstar/scripts/libs/bootstrap/2.2.2/js/bootstrap.min.js"></script>
         <script src="app_hubstar/scripts/libs/jquery.bxslider.min.js"></script>
         <link rel="stylesheet" href="/app_hubstar/css/jquery.bxslider.css">

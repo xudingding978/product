@@ -48,6 +48,20 @@
     margin: 5px;
 }
 
+.form-inline  .ember-view {
+    width: 250px;
+    height: 30px;
+
+
+    border-width:1px;
+    border-style:inset;
+
+    border-radius:3px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+}
+
+
 #about > .textarea {
     width: 810px;
     height: 300px;
@@ -179,6 +193,21 @@
     vertical-align: -7px;
     width: 24px;
 }
+
+
+.contactmebtn > .contactmeicon > i {
+    color: rgba(10,60,150, 0.8);
+    text-shadow: 1px 4px 6px #def, 0 0 0 #000, 1px 4px 6px #def;
+
+}
+::-moz-selection { background: #5af; color: #fff; text-shadow: none; }
+::selection { background: #5af; color: #fff; text-shadow: none; }
+
+
+
+
+
+
 
 
 .slider1 > .slide > img {
@@ -596,3 +625,16 @@
 
 }
 
+
+#newtemplate{
+    top: 500px; 
+    -webkit-transition: all 0.8s ease;
+    -moz-transition: all 0.8s ease;
+    -o-transition: all 0.8s ease;
+}
+
+#newtemplate:hover{
+    top: 180px;
+
+
+}

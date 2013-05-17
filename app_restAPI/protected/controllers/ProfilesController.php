@@ -1,13 +1,5 @@
 <?php
 
-//spl_autoload_unregister(array('YiiBase','autoload'));
-//
-//Yii::import('application.protected.vendor.autoload');
-//require_once '/home/devbox/NetBeansProjects/hubstar/app_restAPI/protected/vendor/autoload.php';
-////spl_autoload_register(array('Sherlock','autoload'));
-////$sherlock = new Sherlock();
-//spl_autoload_register(array('YiiBase','autoload'));
-
 class ProfilesController extends Controller {
 
     const JSON_RESPONSE_ROOT_SINGLE = 'profile';
@@ -75,8 +67,6 @@ class ProfilesController extends Controller {
                 echo $this->sendResponse(200, var_dump($request_arr));
             } else {
                 echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
-                //echo file_get_contents('php://input');
-                //echo var_dump($request_arr);
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -101,28 +91,33 @@ class ProfilesController extends Controller {
     }
 
     public function actionUpdate() {
+
         try {
-            $request_arr = CJSON::decode(file_get_contents('php://input'), true);
-
-
+            $payloads_arr = CJSON::decode(file_get_contents('php://input'));
+            $payload_json = CJSON::encode($payloads_arr['profile']);
+            $payload_arr = CJSON::decode($payload_json);
             $cb = $this->couchBaseConnection();
-            
-            $arry = CJSON::encode($request_arr['profile']);
-            $arry['id'] = "4565";
-
-       //     error_log(CJSON::encode($request_arr['profile']));
-
-            if ($cb->replace(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'], $arry))
-                echo $this->sendResponse(200, $cb->get(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI']));
+            $document_arr = CJSON::decode($cb->get(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI']));
+            $newdocument = array_merge($document_arr, $payload_arr);
+            if ($cb->set(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'], CJSON::encode($newdocument))) {
+                echo $this->sendResponse(201,var_export($newdocument));
+            }
         } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-            ///  echo var_dump(CJSON::encode($request_arr['profile']));
+            echo var_export($newdocument);
         }
     }
 
     public function actionDelete() {
         try {
             
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function actionOptions() {
+        try {
+            echo $this->sendResponse(200, "OK");
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

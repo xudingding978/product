@@ -1,29 +1,28 @@
 define([
-    'ember'
-
+    'ember',
+    'controllers/IndexController',
+    'models/ProfileModel'
 ], function(
-        Ember
-
+        Ember,
+        IndexController,
+        ProfileModel
         ) {
     "use strict";
 
     var IndexRoute = Ember.Route.extend({
         //     controller: ApplicationController,
-        setupController: function(ApplicationController, model) {
-//            alert(ApplicationController.get('indexPage'));
-//            ApplicationController.set('indexPage', true);
-//            alert(ApplicationController.get('indexPage'));
+        setupController: function(IndexController, model) {
+
+        },
+        model: function() {
+            return ProfileModel.find();
+
         },
         renderTemplate: function() {
-
-            this.transitionTo('profiles');
-        },
-//        renderTemplate: function() {
-//
-//            this.render('profiles', {
-//                into: "application"
-//            });
-//        }
+            this.render('index', {
+                into: "application"
+            });
+        }
 
     });
     return IndexRoute;

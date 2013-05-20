@@ -7,6 +7,21 @@ define(["ember", 'models/Image', 'models/ProgressModel'], function(Ember, Image)
         content: arr,
         model: Image,
         progressVal: progress.val,
+        getSize: function(tmpfiles) {
+            console.log('dddd');
+
+        },
+        test: function() {
+            //           var file = ImageFile.createRecord({name: "test", path: "path"});
+//            console.log("name:");
+//            console.log(file.get('name'));
+            //   this.content.addObject(file);
+            progress.val = progress.val + 10;
+            this.set("progressVal", progress.val);
+            //     console.log(this.get("progressValue"));
+            console.log(progress.val);
+            console.log(this.content);
+        },
         addFile: function(file) {
 
             var file = Image.createRecord(file);
@@ -33,25 +48,23 @@ define(["ember", 'models/Image', 'models/ProgressModel'], function(Ember, Image)
         drop: function(event) {
             var dataTransfer = event.originalEvent.dataTransfer;
             var files = dataTransfer.files;
-            this.get("progressValue").val = this.get("progressValue").val + 10;
+            var content = this.content;
+            //   console.log(this.get("progressValue").val);
+//            var tempVar = this.progressValue + 10;
+//            this.set("progressValue", tempVar);
+//            console.log(this.get("progressValue"));
+
             for (var i = 0; i < files.length; i++) {
-                var content = this.content;
-                var tempfile = files[i];
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    var src = e.srcElement.result;
-                    console.log(src);
 
-                    var file = Image.createRecord({"name": tempfile.name, "path": src, "progress": Math.round(e.loaded * 100 / e.total)});
-                    content.addObject(file);
-                    console.log(e.loaded);
-
-
-   //              App.store.commit();
-
-
-
-
+                (function(file) {
+                    var name = file.name;
+                    var type = file.type;
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        var src = e.srcElement.result;
+                        var file = Image.createRecord({"name": name, "data_type": type, "src": src, "progress": Math.round(e.loaded * 100 / e.total)});
+                        App.store.commit();
+                        content.addObject(file);
 //                    $.ajax({
 //                        url: 'http://api.develop.devbox/images/Test',
 //                        type: 'POST',
@@ -60,18 +73,17 @@ define(["ember", 'models/Image', 'models/ProgressModel'], function(Ember, Image)
 //                            console.log(data);
 //                        }
 //                    });
+                        //   console.log(path);
+                        //            file.get('transaction').commit();
+                        //          
+                    }, reader.readAsDataURL(files[i]);
+                })(files[i]);
 
-                },
-                        reader.readAsDataURL(tempfile);
                 event.preventDefault();
             }
 
-            //   App.store.commit();
-
             return false;
         },
-  
-
     });
     return DragNDropController;
 });

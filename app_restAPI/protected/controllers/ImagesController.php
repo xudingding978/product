@@ -1,6 +1,6 @@
 <?php
 
-header("Access-Control-Allow-Origin: http://www.develop.devbox");
+header("Access-Control-Allow-Origin: *");
 
 class ImagesController extends Controller {
 
@@ -61,24 +61,62 @@ class ImagesController extends Controller {
 
     public function actionCreate() {
 
+        /*
+         * writting file on the php server 
+
+          //        $request_json = file_get_contents('php://input');
+          //        $request_arr = CJSON::decode($request_json, true);
+          //        $my_file = '/home/devbox/NetBeansProjects/hubstar/app_restAPI/protected/controllers/' . $request_arr['image']['name'];
+          //        if (file_exists($my_file)) {
+          //            unlink($my_file);
+          //            error_log($my_file);
+          //        }
+          //        $handle = fopen($my_file, 'w') or die('Cannot open file:  ' . $my_file);
+          //        $input = str_replace('data:image/jpeg;base64,', '', $request_arr['image']['path']);
+          //        $data = base64_decode($input);
+          //        error_log($data);
+          //        fwrite($handle, $data);
+          //        fclose($handle);
+
+         */
+
+
+        /*
+          $client = Aws\S3\S3Client::factory(array(
+          'key' => 'AKIAJKVKLIJWCJBKMJUQ',
+          'secret' => '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',
+          ));
+
+          $result = $client->getObject(array(
+          'Bucket' => 'hubstar-dev',
+          'Key' => 'test.txt'
+          ));
+          if ($result === NULL) {
+          error_log("nothging");
+          } else {
+          error_log('fffdafdf ' . var_export($result['body'], true));
+          }
+
+         */
+        $response = "";
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
-        $input = str_replace('data:image/jpeg;base64,', '', $request_arr['image']['path']);
-        $data = base64_decode($input);
+        $data = $this->getInputData($request_arr['image']['data_type'], $request_arr['image']['src']);
         $client = Aws\S3\S3Client::factory(array(
                     'key' => 'AKIAJKVKLIJWCJBKMJUQ',
                     'secret' => '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',
         ));
-        $client->putObject(array(
-            'Bucket' => "hubstar-dev",
-            'Key' => 'kingsley/'.$request_arr['image']['name'],
-            'Body' => $data,
-            'ACL' => 'public-read'
-        ));
-
-
-
-
+        if ($client->doesObjectExist('hubstar-dev', 'kingsley/' . $request_arr['image']['name'])) {
+            $response = $request_arr['image']['name'] . " already exist.";
+        } else {
+            $client->putObject(array(
+                'Bucket' => "hubstar-dev",
+                'Key' => 'kingsley/' . $request_arr['image']['name'],
+                'Body' => $data,
+                'ACL' => 'public-read'
+            ));
+            $response = "file uploads secussfully";
+        }
 
         $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);
         header($statusHeader);
@@ -90,7 +128,7 @@ class ImagesController extends Controller {
         header('Access-Control-Allow-Methods: PUT, POST, OPTIONS');
         header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
         //header('Access-Control-Allow-Headers: *');
-        echo "ffff";
+        echo $response;
         Yii::app()->end();
     }
 
@@ -133,17 +171,32 @@ class ImagesController extends Controller {
         // Set the content type
         header('Content-type: ' . 'application/json');
         // Set the Access Control for permissable domains
-        header("Access-Control-Allow-Origin: http://www.develop.devbox");
+        header("Access-Control-Allow-Origin: *");
         header('Access-Control-Request-Method: *');
         header('Access-Control-Allow-Methods: PUT, POST, OPTIONS');
         header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
-        //header('Access-Control-Allow-Headers: *');
+        header('Access-Control-Allow-Headers: *');
 
         echo "";
         Yii::app()->end();
 
 
 //                echo $this->sendResponse(200, "OK");
+    }
+
+    public function getInputData($inputDataType, $inputData) {
+        $tempInput = "";
+        if ($inputDataType == "image/jpeg") {
+            $tempInput = str_replace('data:image/jpeg;base64,', '', $inputData);
+        } elseif ($inputDataType == "application/pdf") {
+            $tempInput = str_replace('data:application/pdf;base64,', '', $inputData);
+        } elseif ($inputDataType == "image/png") {
+            $tempInput = str_replace('data:image/png;base64,', '', $inputData);
+        } elseif ($inputDataType == "image/gif") {
+            $tempInput = str_replace('data:image/gif;base64,', '', $inputData);
+        }
+        $data = base64_decode($tempInput);
+        return $data;
     }
 
 }

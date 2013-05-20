@@ -11,9 +11,10 @@
     <div class="element ">
 
         <img {{bindAttr src="profile_pic_url"}} />
+        {{#linkTo 'lightBox' this}}<h1>{{contact_user}}</h1>{{/linkTo}}
     </div>
-
-
+    
+    
 
     {{/each}}
 

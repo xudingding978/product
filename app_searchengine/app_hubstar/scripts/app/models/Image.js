@@ -5,7 +5,8 @@ define('models/Image',
 
             var Image = DS.Model.extend({
                 name: DS.attr('string'),
-                path: DS.attr('string'),
+                data_type: DS.attr('string'),
+                src: DS.attr('string'),
                 progress: DS.attr('string'),
                 say: function()
                 {

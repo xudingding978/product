@@ -15,6 +15,7 @@ define([
             var ProfileController = Ember.ObjectController.extend({
                 editing: false,
                 content: null,
+                galleryInsert: false,
                 toggleEditing: function() {
                     profile_record = this.get('content.profile_name');
                     this.set('editing', !this.get('editing'));
@@ -63,7 +64,20 @@ define([
                     this.set('content.phone_number', phone_record);
                     this.set('content.website_url', website_record);
                     this.set('editingContact', !this.get('editingContact'));
+                },
+                galleryEdit: function() {
+                    this.set('galleryInsert', !this.get('galleryInsert'));
+
+                },
+                galleryEndingEdit: function() {
+                    this.set('galleryInsert', !this.get('galleryInsert'));
+
                 }
+
+
             });
+
+
+
             return ProfileController;
         });

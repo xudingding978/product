@@ -199,6 +199,10 @@ $dot_positon = strpos($_SERVER['HTTP_HOST'], ".");
 $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 ?>
     }
+    
+
+    
+    
     function Facebook() {
         detDomain();
         window.location.href = "http://account" + "<?php echo $domain ?>" + "/hybridauth/default/login/?provider=Facebook";

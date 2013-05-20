@@ -35,7 +35,7 @@ require.config({
             deps: ['ember'],
             exports: 'DS'
         },
-        'jquery':[''],
+        'jquery': [''],
         'jquery.ui': ['jquery'],
         'bxslider': ['jquery'],
         'bootstrap-wysihtml5': ['wysihtml5'],
@@ -74,6 +74,13 @@ define('application', [
     "views/IndexView",
     "views/CarouselView",
     "views/IsotopeView",
+    "views/LightBoxView",
+    "views/PhotosView",
+    "views/VideosView",
+    "views/FilesView",
+    "views/ArticlesView",
+    "views/IdeabooksView",
+    "views/DiscussionsView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -94,6 +101,12 @@ define('application', [
     "routes/UsersRoute",
     "routes/ProfileNewRoute",
     "routes/DragNDropRoute",
+    "routes/LightBoxRoute",
+    "routes/PhotosRoute",
+    "routes/VideosRoute",
+    "routes/FilesRoute",
+    "routes/ArticlesRoute",
+    "routes/DiscussionsRoute",
     "models/PostModel",
     "models/ProfileModel",
     "models/UserModel",
@@ -130,6 +143,13 @@ define('application', [
         IndexView,
         CarouselView,
         IsotopeView,
+        LightBoxView,
+        PhotosView,
+        VideosView,
+        FilesView,
+        ArticlesView,
+        IdeabooksView,
+        DiscussionsView,
         ApplicationController,
         tabListController,
         DataController,
@@ -150,6 +170,12 @@ define('application', [
         UsersRoute,
         ProfileNewRoute,
         DragNDropRoute,
+        LightBoxRoute,
+        PhotosRoute,
+        VideosRoute,
+        FilesRoute,
+        ArticlesRoute,
+        DiscussionsRoute,
         Post,
         Profile,
         User,
@@ -186,6 +212,13 @@ define('application', [
         PreviewUploadImageView: PreviewUploadImageView,
         TestView: TestView,
         EditingAboutView: EditingAboutView,
+        LightBoxView: LightBoxView,
+        PhotosView: PhotosView,
+        VideosView: VideosView,
+        FilesView: FilesView,
+        ArticlesView: ArticlesView,
+        IdeabooksView: IdeabooksView,
+        DiscussionsView: DiscussionsView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
@@ -206,6 +239,12 @@ define('application', [
         UsersRoute: UsersRoute,
         ProfileNewRoute: ProfileNewRoute,
         DragNDropRoute: DragNDropRoute,
+        LightBoxRoute: LightBoxRoute,
+        PhotosRoute: PhotosRoute,
+        VideosRoute: VideosRoute,
+        FilesRoute: FilesRoute,
+        ArticlesRoute: ArticlesRoute,
+        DiscussionsRoute: DiscussionsRoute,
         Post: Post,
         Profile: Profile,
         User: User,
@@ -228,11 +267,11 @@ define('application', [
 }
 );
 
-
 function getRestAPIURL()
 {
     var api_url = document.domain;
-    var api_url = api_url.replace("www", "api");
-    api_url = "http://" + api_url;
+    var api_domain_start_pos = api_url.indexOf('.');
+    var api_url = api_url.slice(api_domain_start_pos);
+    api_url = "http://api" + api_url;
     return api_url;
 }

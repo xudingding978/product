@@ -24,7 +24,7 @@ return array(
             'showScriptName' => false,
             'rules' => array(
                 //REST AP
-                array('<controller>/options', 'pattern' => '<controller>/<id>', 'verb' => 'OPTIONS'),
+                array('<controller>/option', 'pattern' => '<controller>/<id>', 'verb' => 'OPTIONS'),
                 array('<controller>/', 'pattern' => '<controller>', 'verb' => 'GET'),
                 array('<controller>/create', 'pattern' => '<controller>', 'verb' => 'POST'),
                 array('<controller>/read', 'pattern' => '<controller>/<id>', 'verb' => 'GET'),

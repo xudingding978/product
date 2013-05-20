@@ -820,27 +820,27 @@ background-repeat: repeat-x;
 
 #mainmenu .modal-topbox .dropdown li:nth-child(1):hover a{
 
-    background: rgba(0,172,237,0.2);
+background: rgba(0,172,237,0.2);
 }
 #mainmenu .modal-topbox .dropdown li:nth-child(2):hover a{
 
-    background: rgba(211,72,54,0.2);
+background: rgba(211,72,54,0.2);
 }
 #mainmenu .modal-topbox .dropdown li:nth-child(3):hover a{
 
-    background: rgba(123,0,153,0.2);
+background: rgba(123,0,153,0.2);
 }
 #mainmenu .modal-topbox .dropdown li:nth-child(4):hover a{
 
-    background: rgba(245,213,0,0.2);
+background: rgba(245,213,0,0.2);
 }
 #mainmenu .modal-topbox .dropdown li:nth-child(5):hover a{
 
-    background: rgba(62,59,62,0.2);
+background: rgba(62,59,62,0.2);
 }
 #mainmenu .modal-topbox .dropdown li:nth-child(6):hover a{
 
-    background: rgba(0,153,68,0.2);
+background: rgba(0,153,68,0.2);
 }
 
 
@@ -854,9 +854,9 @@ color: #fff;
 }
 
 #footer  .socon {
-    display: inline-block;
-    
-    
+display: inline-block;
+
+
 }
 
 
@@ -889,6 +889,8 @@ border-radius: 5px 5px 0px 0px;
 border-bottom:0 solid transparent;
 
 -webkit-transition: all 0.3s ease-out;
+-moz-transition: all 0.3s ease-out;
+-o-transition: all 0.3s ease-out;
 }
 
 .profilemain > .tabs-right > .nav-tabs > li > a:hover {
@@ -949,11 +951,11 @@ color: #F90101;
 
 
 
- .discovermoreitem  a {
+.discovermoreitem  a {
 color: #555;
 }
 
- .discovermoreitem  a:hover {
+.discovermoreitem  a:hover {
 color: #0088cc;
 }
 
@@ -963,25 +965,25 @@ color: #0088cc;
 
 
 .modal {
-    top:10%;
-    -webkit-transition: opacity 0.15s linear 0s;
-    -moz-transition: opacity 0.15s linear 0s;
-    -o-transition: opacity 0.15s linear 0s;
-    transition: opacity 0.15s linear 0s;
+top:10%;
+-webkit-transition: opacity 0.15s linear 0s;
+-moz-transition: opacity 0.15s linear 0s;
+-o-transition: opacity 0.15s linear 0s;
+transition: opacity 0.15s linear 0s;
 }
 
 
 
 .follow a  img {
-    width: 50px;
-    height: 50px;
-    padding: 5px;
+width: 50px;
+height: 50px;
+padding: 5px;
 }
 
 #userspage .follow a  img {
-    width: 40px;
-    height: 40px;
-    padding: 2px;
+width: 40px;
+height: 40px;
+padding: 2px;
 }
 
 <?php

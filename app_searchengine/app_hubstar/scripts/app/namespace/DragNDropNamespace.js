@@ -39,11 +39,8 @@ define([
         click: function(event)
         {
             console.log("click");
-        },
-//        getContent: function()
-//        {
-//            return this.content;
-//        }
+        }
+
     });
     return DragNDrop;
 });

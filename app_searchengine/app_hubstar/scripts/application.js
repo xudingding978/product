@@ -35,7 +35,7 @@ require.config({
             deps: ['ember'],
             exports: 'DS'
         },
-        'jquery':[''],
+        'jquery': [''],
         'jquery.ui': ['jquery'],
         'bxslider': ['jquery'],
         'bootstrap-wysihtml5': ['wysihtml5'],
@@ -74,6 +74,7 @@ define('application', [
     "views/IndexView",
     "views/CarouselView",
     "views/IsotopeView",
+    "views/LightBoxView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -94,6 +95,7 @@ define('application', [
     "routes/UsersRoute",
     "routes/ProfileNewRoute",
     "routes/DragNDropRoute",
+    "routes/LightBoxRoute",
     "models/PostModel",
     "models/ProfileModel",
     "models/UserModel",
@@ -130,6 +132,7 @@ define('application', [
         IndexView,
         CarouselView,
         IsotopeView,
+        LightBoxView,
         ApplicationController,
         tabListController,
         DataController,
@@ -150,6 +153,7 @@ define('application', [
         UsersRoute,
         ProfileNewRoute,
         DragNDropRoute,
+        LightBoxRoute,
         Post,
         Profile,
         User,
@@ -186,6 +190,7 @@ define('application', [
         PreviewUploadImageView: PreviewUploadImageView,
         TestView: TestView,
         EditingAboutView: EditingAboutView,
+        LightBoxView: LightBoxView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
@@ -206,6 +211,7 @@ define('application', [
         UsersRoute: UsersRoute,
         ProfileNewRoute: ProfileNewRoute,
         DragNDropRoute: DragNDropRoute,
+        LightBoxRoute: LightBoxRoute,
         Post: Post,
         Profile: Profile,
         User: User,
@@ -228,11 +234,11 @@ define('application', [
 }
 );
 
-
 function getRestAPIURL()
 {
     var api_url = document.domain;
-    var api_url = api_url.replace("www", "api");
-    api_url = "http://" + api_url;
+    var api_domain_start_pos = api_url.indexOf('.');
+    var api_url = api_url.slice(api_domain_start_pos);
+    api_url = "http://api" + api_url;
     return api_url;
 }

@@ -21,9 +21,11 @@ define([
         },
         activate: function() {
              $("body").css("overflow", "hidden");
+             $('#footer').attr("style", "display:none");
         },
         deactivate: function() {
              $("body").css("overflow", "auto");
+             $('#footer').attr("style", "display:block");
         }
     });
     return NewRoute;

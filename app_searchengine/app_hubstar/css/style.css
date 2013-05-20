@@ -1,4 +1,34 @@
 
+
+
+.lightbox{
+
+    overflow: visible;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height:100%;
+    z-index: 1000050;
+    background-color: rgba(0,0,0,1);
+    border: 1px solid #999;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    outline: none;
+    -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+    background-clip: padding-box;
+
+
+}
+
+
+
+
 /*/WindowContainer-------------------/*/
 .window-container {
     cursor: move;
@@ -47,6 +77,20 @@
     height: 30px;
     margin: 5px;
 }
+
+.form-inline  .ember-view {
+    width: 250px;
+    height: 30px;
+
+
+    border-width:1px;
+    border-style:inset;
+
+    border-radius:3px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+}
+
 
 #about > .textarea {
     width: 810px;
@@ -179,6 +223,21 @@
     vertical-align: -7px;
     width: 24px;
 }
+
+
+.contactmebtn > .contactmeicon > i {
+    color: rgba(10,60,150, 0.8);
+    text-shadow: 1px 4px 6px #def, 0 0 0 #000, 1px 4px 6px #def;
+
+}
+::-moz-selection { background: #5af; color: #fff; text-shadow: none; }
+::selection { background: #5af; color: #fff; text-shadow: none; }
+
+
+
+
+
+
 
 
 .slider1 > .slide > img {
@@ -596,3 +655,16 @@
 
 }
 
+
+#newtemplate{
+    top: 500px; 
+    -webkit-transition: all 0.8s ease;
+    -moz-transition: all 0.8s ease;
+    -o-transition: all 0.8s ease;
+}
+
+#newtemplate:hover{
+    top: 180px;
+
+
+}

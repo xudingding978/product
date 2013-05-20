@@ -83,7 +83,7 @@ define(["ember", 'models/Image', 'models/ProgressModel'], function(Ember, Image)
             }
 
             return false;
-        }
+        },
     });
     return DragNDropController;
 });

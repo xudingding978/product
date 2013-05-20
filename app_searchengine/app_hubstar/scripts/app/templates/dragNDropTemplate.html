@@ -1,14 +1,16 @@
 {{#view App.DragNDropView }}
 
 
-<div  style="height: 500px; background-color: grey" >   drop files to here. 
-    {{controller.content.length}}                
+<div  style="margin-top: 70px;height: 500px;width: 2000px; background-color: grey">   drop files to here. 
 
-    <ul>
-        {{#each content}}
-        <li>{{name}}</li>
-        <li>{{progress}}</li>
-        <li>
+    {{controller.content.length}}    
+    {{#each content}}
+    <div style="float:left">
+
+        <div> <img  {{bindAttr src= "src"}}  alt="Logo" > </div>
+        <div>{{name}}</div>
+
+        <div style="width: 260px;">
 
             <div class="progress progress-striped active">
 
@@ -16,12 +18,13 @@
 
             </div>
 
-        </li>
-        <li> <img  {{bindAttr src= "src"}}  alt="Logo" > </li>
-        {{/each}}
-        <ul>
-            </div>
+        </div>
 
-            {{/view}}
 
-            <button {{action test}}>aaa</button>
+    </div>
+    {{/each}}
+</div>
+
+{{/view}}
+
+<button {{action test}}>aaa</button>

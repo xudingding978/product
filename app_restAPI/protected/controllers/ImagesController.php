@@ -1,6 +1,6 @@
 <?php
 
-header("Access-Control-Allow-Origin: http://www.develop.devbox");
+header("Access-Control-Allow-Origin: *");
 
 class ImagesController extends Controller {
 

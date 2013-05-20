@@ -234,11 +234,11 @@ define('application', [
 }
 );
 
-
 function getRestAPIURL()
 {
     var api_url = document.domain;
-    var api_url = api_url.replace("www", "api");
-    api_url = "http://" + api_url;
+    var api_domain_start_pos = api_url.indexOf('.');
+    var api_url = api_url.slice(api_domain_start_pos);
+    api_url = "http://api" + api_url;
     return api_url;
 }

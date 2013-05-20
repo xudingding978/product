@@ -6,21 +6,18 @@ define(["ember", 'models/Image', 'models/ProgressModel'], function(Ember, Image)
     var DragNDropController = Ember.ArrayController.extend({
         content: arr,
         model: Image,
-        progressVal: progress.val,
         getSize: function(tmpfiles) {
             console.log('dddd');
 
         },
-        test: function() {
-            //           var file = ImageFile.createRecord({name: "test", path: "path"});
-//            console.log("name:");
-//            console.log(file.get('name'));
-            //   this.content.addObject(file);
-            progress.val = progress.val + 10;
-            this.set("progressVal", progress.val);
-            //     console.log(this.get("progressValue"));
-            console.log(progress.val);
-            console.log(this.content);
+        test: function(event) {
+
+
+            // var inputFiles = event.target.files;
+
+            console.log(event.length);
+
+
         },
         addFile: function(file) {
 

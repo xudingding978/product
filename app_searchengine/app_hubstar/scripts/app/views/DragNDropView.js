@@ -6,9 +6,7 @@ define([
 
     Ember.TEMPLATES["dragndrop"] = Ember.Handlebars.compile(dragNDropTemplate);
     var DragNDropView = Ember.View.extend(DragNDropController.Droppable, {
-        template: Ember.Handlebars.compile(dragNDropTemplate),
-
-
+        template: Ember.Handlebars.compile(dragNDropTemplate)
     });
     return DragNDropView;
 });

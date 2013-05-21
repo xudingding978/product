@@ -1,23 +1,58 @@
 
-
-
-
 <div id="container">
 
+    {{#each  model}}
 
-    {{#each model}}
-
-    {{type}}
-
-    {{#checkingType profile.type}}
-
+    {{#if getProfile}}
     <div class="element ">
-
         <img {{bindAttr src="profile_pic_url"}} />
-        {{#linkTo 'videos' this}}<h1>{{contact_user}}</h1>{{/linkTo}}
+        {{#linkTo 'profiles' this}}<h1>{{id}}</h1>{{/linkTo}}
+        <a {{bindAttr href="url"}}>aaa</a>
     </div>
+    {{/if}}
 
-    {{/checkingType}}
+    {{#if getPhoto}}
+    <div class="element ">
+        <img {{bindAttr src="profile_pic_url"}} />
+        {{#linkTo 'photos' this}}<h1>{{id}}</h1>{{/linkTo}}
+    </div>
+    {{/if}}
+
+    {{#if getVideo}}
+    <div class="element ">
+        <img {{bindAttr src="profile_pic_url"}} />
+        {{#linkTo 'videos' this}}<h1>{{id}}</h1>{{/linkTo}}
+    </div>
+    {{/if}}
+
+    {{#if getFile}}
+    <div class="element ">
+        <img {{bindAttr src="profile_pic_url"}} />
+        {{#linkTo 'files' this}}<h1>{{id}}</h1>{{/linkTo}}
+    </div>
+    {{/if}}
+
+    {{#if getArticle}}
+    <div class="element ">
+        <img {{bindAttr src="profile_pic_url"}} />
+        {{#linkTo 'articles' this}}<h1>{{id}}</h1>{{/linkTo}}
+    </div>
+    {{/if}}
+
+    {{#if getIdeabook}}
+    <div class="element ">
+        <img {{bindAttr src="profile_pic_url"}} />
+        {{#linkTo 'ideabooks' this}}<h1>{{id}}</h1>{{/linkTo}}
+    </div>
+    {{/if}}
+    
+       {{#if getDiscussion}}
+    <div class="element ">
+        <img {{bindAttr src="profile_pic_url"}} />
+        {{#linkTo 'discussions' this}}<h1>{{id}}</h1>{{/linkTo}}
+    </div>
+    {{/if}}
+    
 
     {{/each}}
 

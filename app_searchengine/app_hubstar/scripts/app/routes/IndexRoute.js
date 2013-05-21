@@ -12,7 +12,7 @@ define([
     var IndexRoute = Ember.Route.extend({
         //     controller: ApplicationController,
         setupController: function(IndexController, model) {
-
+//            IndexController.test();
         },
         model: function() {
             return ProfileModel.find();

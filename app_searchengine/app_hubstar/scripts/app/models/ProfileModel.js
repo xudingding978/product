@@ -6,6 +6,7 @@ define(
         ], function() {
 
     var ProfileModel = DS.Model.extend({
+//        id: DS.attr('string'),
         profile_name: DS.attr('string'),
         last_name: DS.attr('string'),
         first_name: DS.attr('string'),
@@ -20,9 +21,32 @@ define(
         profile_physical_address: DS.attr('string'),
         phone_number: DS.attr('string'),
         website_url: DS.attr('string'),
-        
-        
+        getProfile: function() {
+            return this.get('type') === 'profile';
+        }.property('type'),
+        getPhoto: function() {
+            return this.get('type') === 'photo';
+        }.property('type'),
+        getVideo: function() {
+            return this.get('type') === 'video';
+        }.property('type'),
+        getFile: function() {
+            return this.get('type') === 'file';
+        }.property('type'),
+        getArticle: function() {
+            return this.get('type') === 'article';
+        }.property('type'),
+        getIdeabook: function() {
+            return this.get('type') === 'ideabook';
+        }.property('type'),
+        getDiscussion: function() {
+            return this.get('type') === 'discussion';
+        }.property('type'),
+        url: function() {
+            var type = this.get('type');
 
+            return  "http://www.develop.devbox/#/" + type + "s/";
+        }.property('type'),
         didLoad: function() {
 //            console.log('model loaded', this.toJSON());
 //            console.log('id: ' + this.id + ' ' + this.profile_name, this);

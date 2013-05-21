@@ -81,6 +81,7 @@ define('application', [
     "views/ArticlesView",
     "views/IdeabooksView",
     "views/DiscussionsView",
+    "views/SearchIsotopeView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -91,6 +92,7 @@ define('application', [
     "controllers/ProfileNewController",
     "controllers/EditingController",
     "controllers/IndexController",
+    "controllers/SearchController",
     "app/router",
     "routes/IndexRoute",
     "routes/SelectedTabRoute",
@@ -112,7 +114,7 @@ define('application', [
     "models/UserModel",
     "models/ProgressModel",
     "models/Image",
-    "models/SearchResultsModel",
+    "models/SearchModel",
     "emberData",
     'jquery',
     "bxslider",
@@ -151,6 +153,7 @@ define('application', [
         ArticlesView,
         IdeabooksView,
         DiscussionsView,
+        SearchIsotopeView,
         ApplicationController,
         tabListController,
         DataController,
@@ -161,6 +164,7 @@ define('application', [
         ProfileNewController,
         EditingController,
         IndexController,
+        SearchController,
         Router,
         IndexRoute,
         SelectedTabRoute,
@@ -182,7 +186,7 @@ define('application', [
         User,
         Progress,
         Image,
-        SearchResults
+        Search
         )
 {
 
@@ -221,6 +225,7 @@ define('application', [
         ArticlesView: ArticlesView,
         IdeabooksView: IdeabooksView,
         DiscussionsView: DiscussionsView,
+        SearchIsotopeView: SearchIsotopeView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
@@ -231,6 +236,7 @@ define('application', [
         ProfileNewController: ProfileNewController,
         EditingController: EditingController,
         IndexController: IndexController,
+        SearchController: SearchController,
         Router: Router,
         IndexRoute: IndexRoute,
         SelectedTabRoute: SelectedTabRoute,
@@ -252,7 +258,7 @@ define('application', [
         User: User,
         Progress: Progress,
         Image: Image,
-        SearchResults: SearchResults,
+        Search: Search,
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({

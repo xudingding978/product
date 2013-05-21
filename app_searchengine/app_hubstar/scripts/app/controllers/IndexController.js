@@ -1,7 +1,7 @@
-define(['models/ProfileModel',
+define(['models/SearchModel',
     'ember'],
         function(
-                ProfileModel,
+                SearchModel,
                 Ember
                 ) {
             var IndexController = Ember.ObjectController.extend({

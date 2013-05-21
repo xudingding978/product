@@ -1,11 +1,11 @@
 define([
     'ember',
     'controllers/IndexController',
-    'models/ProfileModel'
+    'models/SearchModel'
 ], function(
         Ember,
         IndexController,
-        ProfileModel
+        SearchModel
         ) {
     "use strict";
 
@@ -15,7 +15,7 @@ define([
 //            IndexController.test();
         },
         model: function() {
-            return ProfileModel.find();
+            return SearchModel.find();
 
         },
         renderTemplate: function() {

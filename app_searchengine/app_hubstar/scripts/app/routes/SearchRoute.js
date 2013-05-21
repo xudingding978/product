@@ -11,9 +11,8 @@ define([
         setupController: function(SearchController) {
         },
         renderTemplate: function() {
-            this.render('selectedTab', {
-                into: "application",
-                controller: tabListController
+            this.render('searchIsotope', {
+                into: "index",
             });
         }
     });

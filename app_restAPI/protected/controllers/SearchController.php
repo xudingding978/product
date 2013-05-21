@@ -9,7 +9,7 @@ class SearchController extends Controller {
 
         $settings['log.enabled'] = true;
         // $settings['log.file'] = '/var/log/sherlock/newlogfile.log';
-        // $settings['log.level'] = 'debug';
+         $settings['log.level'] = 'debug';
         $sherlock = new Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
 
@@ -17,12 +17,11 @@ class SearchController extends Controller {
         $request = $sherlock->search();
 
         //populate a Term query to start
-        $termQuery = Sherlock\Sherlock::queryBuilder()
-             //   ->Match()
-                ->field("type")
-                ->term("profile");
-           //     ->boost(2.5);
-
+//        $termQuery = Sherlock\Sherlock::queryBuilder()->QueryString()
+//                ->default_field("type")
+//                ->query("profile OR photo")
+//                ->boost(2.5);
+//        
 //        $filter = null;
         //custom_filters_score query allows to execute a query, and if the hit matches a provided filter (ordered)
 //        $customFilterQuery = Sherlock\Sherlock::queryBuilder()->CustomFiltersScore()
@@ -32,15 +31,42 @@ class SearchController extends Controller {
         $request->index(Yii::app()->params['elasticSearchIndex'])
                 ->type("couchbaseDocument")
                 ->from(0)
-                ->to(10)
-                ->query($termQuery);
+                ->to(50)
+                ->size(50);
+                //->query($termQuery);
+        
+        $must = Sherlock\Sherlock::queryBuilder()->QueryString()
+                ->default_field("type")
+                ->query("profile OR photo");
+        
+         $must2 = Sherlock\Sherlock::queryBuilder()->Term()
+                ->field("type")
+                ->term("profile");
+        
+       // echo var_dump($must2);
+        
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()
+                ->must($must2);
+                //->should("")
+                //->must_not("");
+        
+       // echo var_dump($bool);
+                
 
         //Execute the search and return results
-        $response = $request->execute();
+        //$response = $request->query($bool)->execute();
 
-        //echo "Took: " . $response->took . "\r\n";
-        //echo "Number of Hits: " . count($response) . "\r\n";
-        //echo var_export($response);
+        
+        //Raw Term Query
+        $json = '{"query":{"bool":{"must":[{"query_string":{"default_field":"couchbaseDocument.doc.type","query":"profile OR photo"}}],"must_not":[],"should":[]}},"from":0,"size":50,"sort":[],"facets":{}}';
+        $rawTermQuery = Sherlock\Sherlock::queryBuilder()->Raw($json);
+        
+        $response = $request->query($rawTermQuery)->execute();
+        
+        
+//        echo "Took: " . $response->took . "\r\n";
+//        echo "Number of Hits: " . count($response) . "\r\n";
+//        echo var_export($response);
 
         $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":[';
 

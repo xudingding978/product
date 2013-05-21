@@ -7,11 +7,11 @@
     </div>
 
 
-    <div class="profilewrapper" style="position: relative; width: 980px; height: auto; margin: auto; top: 100px; background: white; box-shadow: 0px 0px 13px; border-radius: 3px 3px 0 0; margin-bottom: -160px;">
+    <div class="profilewrapper" style="position: relative; width: 980px; height: auto; margin: auto; top: 100px; background: rgb(242,240,240); box-shadow: 0px 0px 13px; border-radius: 3px 3px 0 0; margin-bottom: -160px;">
 
         <!-- corpbanner-->
 
-        <div class="profilecorpbanner"    style="overflow:hidden;width: 980; height:300px; border-radius: 3px 3px 0 0; position: relative;">
+        <div class="profilecorpbanner"    style="overflow:hidden;width: 980px; height:300px; border-radius: 3px 3px 0 0; position: relative;">
             <img {{bindAttr src= profile_cover_url}} >
             <div style="background-image:url('../images/dogearhover.png');width: 30px;height: 29px;position: relative;right: -952px;top: -302px;"></div>
             <div class="corpbanner_mask" style="background: url('../images/bannershadow.png') repeat-x; position: absolute;bottom:0; width: 980px; height: 200px;">
@@ -66,13 +66,13 @@
                 <!--PROFILE CONTACT SECTION-->
 
                 <div class="aside-contact" style="padding: 20px 5px; border-bottom: 1px solid #ccc; border-top: 1px solid #fff; font-size: 14px;">
-                                        {{#unless controller.editingContact}}
+                    {{#unless controller.editingContact}}
 
-                         <a class="editicon" href="#"{{action toggleEditingContact}} style="display: block;margin: -10px auto 10px;">
-                               <i class="icon-pencil"></i>
-                                <b class="editicon_callout"></b>                             
-                            </a>
- 
+                    <a class="editicon" href="#"{{action toggleEditingContact}} style="display: block;margin: -10px auto 10px;">
+                       <i class="icon-pencil"></i>
+                        <b class="editicon_callout"></b>                             
+                    </a>
+
                     {{/unless}}
                     <table id="aside_contact" >
                         <tr>
@@ -232,7 +232,7 @@
                     <li><a href="#tab4" data-toggle="tab">Partners</a></li>
                 </ul>
 
-                <div class="tab-content"  style="width: 680px;">
+                <div class="tab-content"  style="width: 680px; background-color: white;">
 
 
                     <!--MAIN PROFILE TAB-->
@@ -311,8 +311,6 @@
 
                             </div>
 
-
-
                             <div class="main_hours" style=" border-bottom: 1px solid #ccc; padding:20px 0 30px 0; font-size: 16px;">
                                 <h4 style='margin-bottom: 20px;'><i class='icon-time' style='margin-right: 10px;'></i>Hours</h4>
                                 <div style='display: inline-block;margin-right: 50px;'>
@@ -328,51 +326,54 @@
                                     <p>Closed</p>
                                 </div>
                             </div>
+
+
+
+
+                            {{#if galleryInsert}}
+
+
+
+
+
+
+                            <div style="width: 610px; border-bottom: 1px solid #ccc;">
+                                <div style="margin: 20px 5px; border: 4px dashed rgb(242,240,240);height: 540px;">
+                                    <div style="margin: 5px; height: 520px; background-color: rgb(242,240,240);text-align: center;">
+                                        <p style=" font-size: 27px; font-weight: bold; top: 170px; position: relative; text-shadow: 1px 1px 0px #fff; color: #aaa;">Drag & Drop</p>    
+                                        <button {{action galleryEndingEdit}}>X</button>
+
+                                        <div style="background-color: white;width: 100px; position: relative; top: 185px;margin: auto;">upload</div>
+                                        <div style="background-color: white;width: 100px;position: relative;top: 250px;margin: auto;">choose album</div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+                            {{else}}
+
                             <div class="main_Gallery" style=" border-bottom: 1px solid #ccc; padding:20px 0 30px 0; font-size: 16px;">
+
+
                                 <h4><i class='icon-picture' style='margin-right: 10px;'></i>Gallery</h4>
 
 
                                 <div class='profile_gallery' style='margin:20px 0; min-height: 210px;'>
-                                    <a href='#' class='thumbnail' style='width: 210px; height: 210px; padding: 0; float: left;margin-right: 15px;'>
-                                        <div style=" width: 200px; height: 200px; margin: 4px; overflow: hidden;">
-                                            <img src='../images/kichen_c.jpg' style='  width:auto; height:auto;max-height: 200px;max-width: none'>
+                                    <div class='thumbnail' style='width: 210px; height: 210px; padding: 0; float: left;margin-right: 15px;'>
+                                        <div style=" width: 200px; height: 200px; margin: 4px; overflow: hidden; background-color: rgb(242,240,240); text-align: center;">
+                                            <i class='icon-plus-sign icon-3x' style="top: 75px; position: relative; color: #aaa; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;"></i>
                                         </div>
-                                    </a>
-                                    <div class='profilegallerypics'>
-                                        <a href='#' class='thumbnail' >
-                                            <img src='../images/kichen_a.jpg' style='  width:auto; height:auto;max-height: 65px;max-width: none'>
-                                        </a>
-                                        <a href='#' class='thumbnail'>
-                                            <img src='../images/kichen_b.jpg' style='  width:auto; height:auto;max-height: 65px;max-width: none'>
-                                        </a>
-                                        <a href='#' class='thumbnail'>
-                                            <img src='../images/kichen_c.jpg' style='  width:auto; height:auto;max-height: 65px;max-width: none'>
-                                        </a>
-                                        <a href='#' class='thumbnail'>
-                                            <img src='../images/kichen_d.jpg' style='  width:auto; height:auto;max-height: 65px;max-width: none'>
-                                        </a>
-                                        <a href='#' class='thumbnail'>
-                                            <img src='../images/kichen_e.jpg' style='  width:auto; height:auto;max-height: 65px;max-width: none'>
-                                        </a>
-                                        <a href='#' class='thumbnail'>
-                                            <img src='../images/kichen_f.jpg' style='  width:auto; height:auto;max-height: 65px;max-width: none'>
-                                        </a>
-                                        <a href='#' class='thumbnail'>
-                                            <img src='../images/kichen_g.jpg' style='  width:auto; height:auto;max-height: 65px;max-width: none'>
-                                        </a>
-                                        <a href='#' class='thumbnail'>
-                                            <img src='../images/kichen_h.jpg' style='  width:auto; height:auto;max-height: 65px;max-width: none'>
-                                        </a>
-                                        <a href='#' class='thumbnail' >
-                                            <img src='../images/kichen_i.jpg' style='  width:auto; height:auto;max-height: 65px;max-width: none'>
-                                        </a>
-                                        <a href='#' class='thumbnail' >
-                                            <img src='../images/kichen_j.jpg' style='  width:auto; height:auto;max-height: 65px;max-width: none'>
-                                        </a>
-                                        <a href='#' class='thumbnail' >
-                                            <img src='../images/kichen_k.jpg' style='  width:auto; height:auto;max-height: 65px;max-width: none'>
-                                        </a>
+                                        <div id='addnew' {{action galleryEdit}} style='width: 209px; height: 209px; background-color: #333; position: relative;top: -208px;display: block;text-align: center; border-radius: 4px;'>
+                                             <p style='color: #fff;font-size: 15px;position: relative;top: 93px;'>Create a New Album</p>
+                                            <p style='color: #333;font-size: 15px;position: absolute;right: -335px;text-align: center;display: block;top: 93px;width: 300px;'>Share your Projects to showcase your awesome talents!</p>
+                                        </div>
                                     </div>
+
+
                                 </div>
 
                                 <div class='profile_gallery' style='min-height: 210px;'>
@@ -411,10 +412,25 @@
 
 
 
+                            {{/if}}
+
+
                             <!--MAIN VIDEOS -->
 
                             <div class="main_videos" style=" border-bottom: 1px solid #ccc; padding:20px 0 30px 0; font-size: 16px;">
                                 <h4><i class='icon-film' style='margin-right: 10px;'></i>Videos</h4>
+
+                                <div class="media" style='margin-bottom: 20px;'>
+                                    <div class="thumbnail" style='width:185px; height: 105px;display: inline-block; vertical-align: middle;margin-right: 20px; padding: 0;'>
+                                        <div style='margin: 4px; background-color: rgb(242,240,240);width: 175px;height: 95px;text-align: center;'>
+                                            <i class='icon-plus-sign icon-2x' style="top: 34px; position: relative; color: #aaa; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;"></i>
+                                        </div>
+                                        <div id='addnew' style='width: 184px; height: 104px; background-color: #333; position: relative;top: -104px;display: block;text-align: center; border-radius: 4px;'>
+                                            <p style='color: #fff;font-size: 15px;position: relative;top: 43px;'>Upload New Videos</p>
+                                            <p style='color: #333;font-size: 15px;position: absolute;right: -378px;text-align: left;vertical-align: middle;display: block;top: 43px;'>Share your Videos to showcase your awesome talents!</p>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="media" style='margin-bottom: 20px;'>
                                     <a class="pull-left" href="#" style='margin-right: 20px;'>
@@ -444,6 +460,19 @@
                             <div class="main_ebooks" style="min-height: 430px;border-bottom: 1px solid #ccc; padding:20px 0 30px 0; font-size: 16px;">
                                 <h4><i class='icon-book' style='margin-right: 10px;'></i>E-Books</h4>
 
+                                <div style=" display: inline-block;margin:10px;vertical-align: top;">
+                                    <div class="thumbnail" style='width: 180px; height:250px;padding: 0;'>
+
+                                        <div style='width: 170px; height: 240px;margin: 4px; background-color: rgb(242,240,240); text-align: center;'>
+                                            <i class='icon-plus-sign icon-3x' style="top: 90px; position: relative; color: #aaa; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;"></i>
+                                        </div>
+                                        <div id='addnew' style='width: 178px; height: 248px; background-color: #333; position: relative;top: -248px;display: block;text-align: center;border-radius: 4px;'>
+                                            <p style='color: #fff;font-size: 17px;position: relative;top: 111px;'>Upload New E-Book</p>
+                                            <p style='color: #333;font-size: 15px;position: absolute;text-align: left;vertical-align: middle;display: block;top: 260px;'>Share your E-Books to showcase your awesome talents!</p>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div style='display: inline-block;margin:10px;vertical-align: top;'>
                                     <div class="thumbnail" style='width: 180px; height:250px;padding: 0; '>
                                         <div style='width: 170px; height: 240px; overflow: hidden;margin: 4px;'>
@@ -468,17 +497,7 @@
                                     <p style='font-size: 13px; margin: 10px;'>by Molly Brandenburg<br/>2,341 views<br/>624 downloads</p>
                                 </div>
 
-                                <div style="display: inline-block;margin:10px;vertical-align: top;">
-                                    <div class="thumbnail" style='width: 180px; height:250px;padding: 0; '>
-                                        <div style='width: 170px; height: 240px; overflow: hidden;margin: 4px;'>
-                                            <img src="../images/ebook3.jpg">
-                                        </div>
-                                        <div class="caption" style='background-color: rgba(255,255,255,0.7);position: relative;bottom: 100px;'>
-                                            <a href='#'><h5>Guest picks: 20fun Ways to Store Bath Toys</h5></a>
-                                        </div>
-                                    </div>
-                                    <p style='font-size: 13px; margin: 10px;'>by Molly Brandenburg<br/>3,562 views<br/>2,287 downloads</p>
-                                </div>
+
                             </div>
 
 

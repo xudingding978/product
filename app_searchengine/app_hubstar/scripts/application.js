@@ -112,6 +112,7 @@ define('application', [
     "models/UserModel",
     "models/ProgressModel",
     "models/Image",
+    "models/SearchResultsModel",
     "emberData",
     'jquery',
     "bxslider",
@@ -180,7 +181,8 @@ define('application', [
         Profile,
         User,
         Progress,
-        Image
+        Image,
+        SearchResults
         )
 {
 
@@ -250,6 +252,7 @@ define('application', [
         User: User,
         Progress: Progress,
         Image: Image,
+        SearchResults: SearchResults,
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({

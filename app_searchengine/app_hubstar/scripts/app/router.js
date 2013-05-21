@@ -20,8 +20,16 @@ define(["ember"], function(Ember) {
         this.resource("profiles", function() {
             this.resource("profileIndex", {path: '/'});
             this.resource("profileNew", {path: '/new'});
+
             this.resource("profile", {path: ':profile_id'});
+
         });
+
+
+        //   this.resource('photoUpload', {path: '/profiles/:user_id/photoupload'});
+
+
+
 
         this.route("data", {
             path: '/data'

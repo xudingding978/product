@@ -5,12 +5,12 @@
 
 
 
-    {{view App.ImageInputButton}}
+    {{view App.DragNDropView.childView}}
 
 
-    {{#each content}}
+
     <div style="float:left">
-
+        {{#each content}}
         <div> <img  {{bindAttr src= "src"}}  alt="Logo" > </div>
         <div>{{name}}</div>
 
@@ -24,11 +24,11 @@
 
         </div>
 
-
+        {{/each}}
     </div>
-    {{/each}}
+
 </div>
 
 {{/view}}
 
-<button {{action test}}>aaa</button>
+

@@ -24,6 +24,14 @@ requirejs(['handlebars'],
                         "<a href='" + object.url + "'>" + object.text + "</a>"
                         );
             });
+            Handlebars.registerHelper('checkInputFilesSize', function(object) {
+
+                return new Handlebars.SafeString(
+                        "<p>" + object.length + "</p>"
+                        );
+
+            });
+
 
 
         });

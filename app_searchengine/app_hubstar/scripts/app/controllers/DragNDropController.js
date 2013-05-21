@@ -6,25 +6,30 @@ define(["ember", 'models/Image', 'models/ProgressModel'], function(Ember, Image)
     var DragNDropController = Ember.ArrayController.extend({
         content: arr,
         model: Image,
-        getSize: function(tmpfiles) {
-            console.log('dddd');
+        commitFiles: function(files, content) {
+            for (var i = 0; i < files.length; i++) {
+                (function(file) {
+                    var name = file.name;
+                    var type = file.type;
+                    var content = arr;
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        var src = e.srcElement.result;
+                        var file = Image.createRecord({"name": name, "data_type": type, "src": src, "progress": Math.round(e.loaded * 100 / e.total)});
+                        //   App.store.commit();
+                        content.addObject(file);
+                        console.log(content.length);
 
-        },
-        test: function(event) {
+                    }, reader.readAsDataURL(files[i]);
+                })(files[i]);
 
-
-            // var inputFiles = event.target.files;
-
-            console.log(event.length);
-
+                event.preventDefault();
+            }
 
         },
         addFile: function(file) {
-
             var file = Image.createRecord(file);
-
             this.get('content').addObject(file);
-
             console.log(this.get('content').length);
         }
     }
@@ -34,11 +39,10 @@ define(["ember", 'models/Image', 'models/ProgressModel'], function(Ember, Image)
         event.preventDefault();
         return false;
     };
-    DragNDropController.progressValt = 11;
 
     DragNDropController.Droppable = Ember.Mixin.create(DragNDropController, {
         content: arr,
-        progressValue: progress,
+        that: this,
         model: Image,
         dragEnter: DragNDropController.cancel,
         dragOver: DragNDropController.cancel,
@@ -46,22 +50,20 @@ define(["ember", 'models/Image', 'models/ProgressModel'], function(Ember, Image)
             var dataTransfer = event.originalEvent.dataTransfer;
             var files = dataTransfer.files;
             var content = this.content;
-            //   console.log(this.get("progressValue").val);
-//            var tempVar = this.progressValue + 10;
-//            this.set("progressValue", tempVar);
-//            console.log(this.get("progressValue"));
 
             for (var i = 0; i < files.length; i++) {
-
                 (function(file) {
                     var name = file.name;
                     var type = file.type;
+
                     var reader = new FileReader();
                     reader.onload = function(e) {
                         var src = e.srcElement.result;
                         var file = Image.createRecord({"name": name, "data_type": type, "src": src, "progress": Math.round(e.loaded * 100 / e.total)});
-                        App.store.commit();
+                        //       App.store.commit();
+
                         content.addObject(file);
+                        console.log(content.length);
 //                    $.ajax({
 //                        url: 'http://api.develop.devbox/images/Test',
 //                        type: 'POST',
@@ -75,7 +77,6 @@ define(["ember", 'models/Image', 'models/ProgressModel'], function(Ember, Image)
                         //          
                     }, reader.readAsDataURL(files[i]);
                 })(files[i]);
-
                 event.preventDefault();
             }
 

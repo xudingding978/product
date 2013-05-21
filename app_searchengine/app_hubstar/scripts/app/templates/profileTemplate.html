@@ -330,27 +330,40 @@
 
 
 
-                            {{#if galleryInsert}}
+                            <!--king test code -->
+                            {{#view App.DragNDropView }}
+
+
+                            <div  style="margin-top: 70px;height: 500px;width: 2000px; background-color: grey">   drop files to here. 
 
 
 
+                                {{view App.ImageInputButton}}
 
 
 
-                            <div style="width: 610px; border-bottom: 1px solid #ccc;">
-                                <div style="margin: 20px 5px; border: 4px dashed rgb(242,240,240);height: 540px;">
-                                    <div style="margin: 5px; height: 520px; background-color: rgb(242,240,240);text-align: center;">
-                                        <p style=" font-size: 27px; font-weight: bold; top: 170px; position: relative; text-shadow: 1px 1px 0px #fff; color: #aaa;">Drag & Drop</p>    
-                                        <button {{action galleryEndingEdit}}>X</button>
+                                <div style="float:left">
+                                    {{#each content}}
+                                    <div> <img  {{bindAttr src= "src"}}  alt="Logo" > </div>
+                                    <div>{{name}}</div>
 
-                                        <div style="background-color: white;width: 100px; position: relative; top: 185px;margin: auto;">upload</div>
-                                        <div style="background-color: white;width: 100px;position: relative;top: 250px;margin: auto;">choose album</div>
+                                    <div style="width: 260px;">
+
+                                        <div class="progress progress-striped active">
+
+                                            <div class="bar" style="width:{{unbound progress}}%"></div>
+
+                                        </div>
 
                                     </div>
+
+                                    {{/each}}
                                 </div>
+
                             </div>
 
-
+                            {{/view}}
+                            {{#if galleryInsert}}
 
 
 
@@ -367,9 +380,11 @@
                                         <div style=" width: 200px; height: 200px; margin: 4px; overflow: hidden; background-color: rgb(242,240,240); text-align: center;">
                                             <i class='icon-plus-sign icon-3x' style="top: 75px; position: relative; color: #aaa; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;"></i>
                                         </div>
-                                        <div id='addnew' {{action galleryEdit}} style='width: 209px; height: 209px; background-color: #333; position: relative;top: -208px;display: block;text-align: center; border-radius: 4px;'>
-                                             <p style='color: #fff;font-size: 15px;position: relative;top: 93px;'>Create a New Album</p>
+                                        <div id='addnew'  >
+
+                                            <p style='color: #fff;font-size: 15px;position: relative;top: 93px;'>Create a New Album</p>
                                             <p style='color: #333;font-size: 15px;position: absolute;right: -335px;text-align: center;display: block;top: 93px;width: 300px;'>Share your Projects to showcase your awesome talents!</p>
+
                                         </div>
                                     </div>
 

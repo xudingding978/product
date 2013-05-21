@@ -15,7 +15,7 @@ define([
             var files = input.files;
             var controller = this.get('controller');
             console.log("controller: " + controller);
-            controller.test(files);
+            controller.commitFiles(files);
             console.log();
 //            for (var i = 0; i < files.length; i++) {
 //                var tempfile = files[i];

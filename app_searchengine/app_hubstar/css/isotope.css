@@ -79,9 +79,9 @@ body {
 }
 
 .element {
-    width: 280px;
+    width: 350px;
     height: 360px;
-    margin: 5px;
+    margin: 10px;
     float: left;
     overflow: hidden;
     position: relative;

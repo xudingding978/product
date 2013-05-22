@@ -1,7 +1,11 @@
 
 <div id="container">
 
-    {{#each  model}}
+
+    {{log controller}}
+
+
+    {{#each  controller}}
 
     {{#if getProfile}}
     <div class="element ">
@@ -44,14 +48,14 @@
         {{#linkTo 'ideabooks' this}}<h1>{{type}}</h1>{{/linkTo}}
     </div>
     {{/if}}
-    
-       {{#if getDiscussion}}
+
+    {{#if getDiscussion}}
     <div class="element ">
         <img {{bindAttr src="profile_pic_url"}} />
         {{#linkTo 'discussions' this}}<h1>{{type}}</h1>{{/linkTo}}
     </div>
     {{/if}}
-    
+
 
     {{/each}}
 

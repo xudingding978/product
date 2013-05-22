@@ -1,13 +1,21 @@
 define(
-        'models/ProfileModel'
-        ['ember' ],
-        function(ProfileModel) {
+        ['models/SearchModel', 'ember'],
+        function(SearchModel, Ember) {
             var SearchController = Ember.ArrayController.extend({
-                model: function() {
-                    //      console.log("profileModel 111111111    "+ProfileModel.find());
-                    return ProfileModel.find();
 
-                },
+                newSearch: function(object) {
+
+                    var searchResult = App.store.createRecord(App.Search, {
+                        id: object.id,
+                        region: object.region,
+                        result: object.result
+                    });
+
+                    //     App.store.commit();
+
+                    this.transitionToRoute('search', searchResult);
+
+                }
 
             });
             return SearchController;

@@ -1,25 +1,4 @@
 
-{{#if controller.isLogin}}
 
-
-
-{{view App.DiscoveryView}}
-
-<button type="button" {{action loginOut }}  class="btn btn-primary" >login out</button>
-
-
-{{else}}
-
-
-{{view App.CarouselView}}
-
-<button type="button" {{action loginIn }}  class="btn btn-primary" >login in</button>
-
-{{/if}}
-
-
-
-
-{{view App.IsotopeView}}
 
 {{outlet}}

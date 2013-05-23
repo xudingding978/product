@@ -29,7 +29,7 @@ return array(
     //'tablePrefix' => 'tpl_',
     // live database
     'db_live.name' => 'db_live',
-      'db_live.connectionString' => 'mysql:host=db.business-software.co.nz;dbname=db_v3.2_live',
+      'db_live.connectionString' => 'mysql:host=db.business-software.co.nz;dbname=hubstar_live',
     //'db_live.connectionString' => 'mysql:host=develop.devbox1;dbname=db_v3.2_live',
     'db_live.username' => 'db_user',
     'db_live.password' => 'Pa55word',

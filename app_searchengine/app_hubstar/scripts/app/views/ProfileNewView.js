@@ -1,10 +1,10 @@
 define([
     "ember",
     "text!templates/profileNewTemplate.html",
-    'controllers/ProfileNewController',
+    'controllers/ProfileNewController'
 ], function(
-        Ember, 
-        profileNewTemplate, 
+        Ember,
+        profileNewTemplate,
         ProfileNewController) {
     Ember.TEMPLATES["profileNew"] = Ember.Handlebars.compile(profileNewTemplate);
 
@@ -15,8 +15,6 @@ define([
         save: function(e) {
             this.get("controller").send("newProfile");
         },
-                
-
     });
     return ProfileNew;
 });

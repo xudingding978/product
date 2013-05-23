@@ -25,9 +25,6 @@ define([
                     this.transitionTo('profile', newProfile);
 
                 }
-//                saveProfile: function() {
-//                    App.store.commit();
-//                }
 
             });
             return ProfileNewController;

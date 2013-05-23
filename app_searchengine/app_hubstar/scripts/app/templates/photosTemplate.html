@@ -54,18 +54,20 @@
                     <p style="font-size: 14px;font-weight: bold;margin-bottom: 0;"><a href="#">NAME</a></p>
                     <span class="posttime" style="color: #aaa; font-size: 11px;">yesterday 8:37</span>
                 </div>
-                <div class="dropdownicon" style="position: absolute; right: 15px; top: 15px;">
+                <div class="dropdownicon" style="cursor: pointer;position: absolute; right: 15px; top: 15px;" {{action setNameTag on="click" target="view"}} >
                     <i class="icon-chevron-down" style="height: 16px; width: 16px;"></i>
                 </div>      
             </div>
+            {{#if view.NameTag}}
 
-            <div class="object-poster_contact"></div>
+            <div class="object-poster_contact">fffffffffffff</div>
+            {{/if}}
 
         </div>
 
         <!-- OBJECT DESCRIBTION SECTION -->
         <div >
-            <div class="object-detail" style="background-color: rgb(242,240,240);color: #404040; padding: 15px; position: relative; -webkit-transition: 130ms; transition: 130ms;-webkit-user-select: none;border-top: 2px solid #fff;">
+            <div class="object-detail" {{action setTitleTag  on="click" target="view"}}  style="cursor: pointer;background-color: rgb(242,240,240);color: #404040; padding: 15px; position: relative; -webkit-transition: 130ms; transition: 130ms;-webkit-user-select: none;border-top: 2px solid #fff;">
                 <div class="object-detail_title">
                     Title
                 </div>
@@ -74,13 +76,25 @@
                 </div>
             </div>
 
-            <div class="object-detail_content"></div>
+
+
+            {{#if view.TitleTag}}
+
+
+
+            <div class="object-detail_content">
+                <p>object-detail_content</p>
+
+            </div>
+
+            {{/if}}
+
 
         </div>
 
         <!-- OBJECT PARTNER SECTION -->
         <div>
-            <div class="object-partner">
+            <div class="object-partner" {{action setPartnerTag on="click" target="view"}}  style="cursor: pointer;">
                 <div style="background-color: rgb(242,240,240);color: #404040; padding: 15px; position: relative; -webkit-transition: 130ms; transition: 130ms;-webkit-user-select: none;border-top: 2px solid #fff;">
                     <div class="object-partner_title">
                         Partner
@@ -91,8 +105,11 @@
                 </div>
             </div>
 
-            <div class="object-partner_content"></div>
+            {{#if view.PartnerTag}}
 
+
+            <div class="object-partner_content">aaaaaaaaaaaa</div>
+            {{/if}}
         </div>
 
 
@@ -100,7 +117,7 @@
 
         <!-- OBJECT DISCUSSION SECTION -->
         <div>
-            <div class="object-discussion">
+            <div class="object-discussion" {{action setDiscussionTag on="click" target="view"}}  style="cursor: pointer;">
                 <div style="background-color: rgb(242,240,240);color: #404040; padding: 15px; position: relative; -webkit-transition: 130ms; transition: 130ms;-webkit-user-select: none;border-top: 2px solid #fff;">
                     <div class="object-discussion_title">
                         Discussion
@@ -109,9 +126,9 @@
                         <i class="icon-chevron-down" style="height: 16px; width: 16px;"></i>
                     </div>      
                 </div>
-
-                <div class="object-partner_content"></div>
-
+                {{#if view.DiscussionTag}}
+                <div class="object-partner_content">ggggggggggggg</div>
+                {{/if}}
             </div>
         </div>
 

@@ -1,17 +1,15 @@
 define(
-        'models/SearchResultsModel',
+        'models/SearchModel',
         [
             'ember',
             'emberData'
         ], function() {
 
-    var ProfileModel = DS.Model.extend({
-  
+    var SearchModel = DS.Model.extend({
         uri_url: DS.attr('string'),
         creator: DS.attr('string'),
         type: DS.attr('string'),
-        
-        
+        profile_pic_url: DS.attr('string'),
         getProfile: function() {
             return this.get('type') === 'profile';
         }.property('type'),
@@ -33,18 +31,13 @@ define(
         getDiscussion: function() {
             return this.get('type') === 'discussion';
         }.property('type'),
-        url: function() {
-            var type = this.get('type');
-
-            return  "http://www.develop.devbox/#/" + type + "s/";
-        }.property('type'),
         didLoad: function() {
 //            console.log('model loaded', this.toJSON());
 //            console.log('id: ' + this.id + ' ' + this.profile_name, this);
         }
     });
 
-    return ProfileModel;
+    return SearchModel;
 }
 );
 

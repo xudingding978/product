@@ -5,6 +5,10 @@ define([
     Ember.TEMPLATES["photos"] = Ember.Handlebars.compile(photosTemplate);
     var PhotosView = Ember.View.extend({
         classNames: ["lightbox"],
+        TitleTag: false,
+        PartnerTag: false,
+        DiscussionTag: false,
+        NameTag: false,
         template: Ember.Handlebars.compile(photosTemplate),
         didInsertElement: function() {
 
@@ -13,22 +17,22 @@ define([
         },
         setTitleTag: function() {
 
-            this.set('TitleTag', !this.get('TitleTag'));
+            this.set('titleTag', !this.get('titleTag'));
 
         },
         setPartnerTag: function() {
 
-            this.set('PartnerTag', !this.get('PartnerTag'));
+            this.set('partnerTag', !this.get('partnerTag'));
 
         },
         setDiscussionTag: function() {
 
-            this.set('DiscussionTag', !this.get('DiscussionTag'));
+            this.set('discussionTag', !this.get('discussionTag'));
 
         },
         setNameTag: function() {
 
-            this.set('NameTag', !this.get('NameTag'));
+            this.set('nameTag', !this.get('nameTag'));
 
         }
     });

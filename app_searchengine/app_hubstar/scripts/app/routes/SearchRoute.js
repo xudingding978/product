@@ -10,9 +10,13 @@ define([
     "use strict";
 
     var SearchRoute = Ember.Route.extend({
-        model: function(params) {
-            return SearchModel.find(params.search_id);
+        setupController: function() {
+            this.controllerFor('search').set('model', SearchModel.find({ keywords:"red"}));
         },
+//        model: function(params) {
+//
+//            return SearchModel.find(params.search_id);
+//        },
         renderTemplate: function() {
 
             this.render('search', {

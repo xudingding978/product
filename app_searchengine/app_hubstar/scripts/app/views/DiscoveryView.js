@@ -1,8 +1,8 @@
 define([
     "ember",
     "text!templates/discoveryBarTemplate.html",
-    'controllers/SearchController'
-], function(Ember, discoveryBarTemplate, SearchController) {
+    'controllers/SearchsController'
+], function(Ember, discoveryBarTemplate, SearchsController) {
     Ember.TEMPLATES["discoveryBar"] = Ember.Handlebars.compile(discoveryBarTemplate);
     var DiscoveryView = Ember.View.extend({
         template: Ember.Handlebars.compile(discoveryBarTemplate),
@@ -26,6 +26,8 @@ define([
                 object = {"id": "", "region": "", "result": ""};
 
             }
+            
+
             this.get("controller").send("newSearch", object);
         }
     });

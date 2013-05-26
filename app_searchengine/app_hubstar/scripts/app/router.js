@@ -14,7 +14,7 @@ define(["ember"], function(Ember) {
             this.resource("profiles", {path: '/profiles/:profile_id'});
             this.resource("searchs", function( ) {
                 
-                
+
                 this.resource('search', {path: '/:search_id'});
                 
                 

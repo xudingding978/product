@@ -29,6 +29,9 @@ define([
             
 
             this.get("controller").send("newSearch", object);
+//            
+//               var area = this.$("#search_key").val();
+//            var search_key = this.$("#search_business").val();
         }
     });
     return DiscoveryView;

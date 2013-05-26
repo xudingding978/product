@@ -58,9 +58,8 @@ class SearchController extends Controller {
 
         
         //Raw Term Query
-        $json = '{"query":{"bool":{"must":[{"query_string":{"default_field":"couchbaseDocument.doc.type","query":"profile OR photo"}}],"must_not":[],"should":[]}},"from":0,"size":50,"sort":[],"facets":{}}';
+        $json = '{"query":{"bool":{"must":[{"query_string":{"default_field":"couchbaseDocument.doc.type","query":"profile OR photo"}}],"must_not":[],"should":[]}},"from":0,"size":500,"sort":[],"facets":{}}';
         $rawTermQuery = Sherlock\Sherlock::queryBuilder()->Raw($json);
-        
         $response = $request->query($rawTermQuery)->execute();
         
         

@@ -1,8 +1,8 @@
 define([
     "ember",
-    "text!templates/searchTemplate.html"
+    "text!templates/searchsTemplate.html"
 ], function(Ember, searchTemplate) {
-    Ember.TEMPLATES["search"] = Ember.Handlebars.compile(searchTemplate);
+    Ember.TEMPLATES["searchs"] = Ember.Handlebars.compile(searchTemplate);
     var searchView = Ember.View.extend({
         template: Ember.Handlebars.compile(searchTemplate)
 

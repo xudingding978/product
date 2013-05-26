@@ -37,10 +37,10 @@ if (Yii::app()->user->isGuest) {
             </div>
             <!-- show if not logged into platform-->
             <?php if (Yii::app()->user->isGuest) { ?>
-                    <ul class="login_guest nav" data-toggle="modal" data-target="#myModal" >
-                        <li><a href="#">Login</a></li>
-                    </ul>
-           
+                <ul class="login_guest nav" data-toggle="modal" data-target="#myModal" >
+                    <li><a href="#">Login</a></li>
+                </ul>
+
                 <!-- user is logged in -->
             <?php } else { ?>
                 <div id="user-header-menu">
@@ -108,7 +108,7 @@ if (Yii::app()->user->isGuest) {
         }
     };
 
-   $(function() {
+    $(function() {
 
         var dd = new DropDown($('.dropdown_test'));
 
@@ -147,7 +147,7 @@ if (Yii::app()->user->isGuest) {
 <script type="text/javascript">
 
     $(document).ready(function() {
-
+        $('.smallIcon').attr("style", "display:none");
         $('#main-nav span').removeClass('caret');
         $('#myModal').attr('aria-hidden', 'false');
         $('#myModal').attr("style", "display:none");
@@ -170,7 +170,7 @@ if (Yii::app()->user->isGuest) {
         $(window).scroll(function() {
             if ($(this).scrollTop() === 0) {
                 $('#discovery_search_bar_wrapper').attr('style', 'position:relative;margin-top: 40px;');
-                document.getElementById("search-loading").className = "search-loading-invisible";
+                //      document.getElementById("search-loading").attr('style','display:none');
             }
             if ($(this).scrollTop() > 150) {
                 $('#back-top').fadeIn();
@@ -199,10 +199,10 @@ $dot_positon = strpos($_SERVER['HTTP_HOST'], ".");
 $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 ?>
     }
-    
 
-    
-    
+
+
+
     function Facebook() {
         detDomain();
         window.location.href = "http://account" + "<?php echo $domain ?>" + "/hybridauth/default/login/?provider=Facebook";

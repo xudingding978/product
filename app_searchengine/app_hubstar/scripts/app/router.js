@@ -14,7 +14,7 @@ define(["ember"], function(Ember) {
             this.resource("profiles", {path: '/profiles/:profile_id'});
             this.resource("searchs", function( ) {
                 
-                
+
                 this.resource('search', {path: '/:search_id'});
                 
                 
@@ -27,7 +27,7 @@ define(["ember"], function(Ember) {
                 this.resource("ideabooks", {path: '/ideabooks/:ideabook_id'});
                 this.resource("discussions", {path: '/discussions/:discussion_id'});
                 this.resource("users", {path: '/users/:user_id'});
-                this.resource("profiles", {path: '/profiles/:profile_id'});
+                
                 
                 
             });

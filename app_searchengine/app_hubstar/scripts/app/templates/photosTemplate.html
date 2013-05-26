@@ -1,10 +1,144 @@
 
-<h1>photos views</h1>
-<h1>photos views</h1>
-<h1>photos views</h1>
 
-<img {{bindAttr src="profile_pic_url"}} style='height:100%;width:30%'/>
 
-{{view App.PhotoView}}
+<div class="objectview-wrapper">
 
-{{#linkTo index}}<button type="button" class="btn btn-primary" >X</button>{{/linkTo}}
+
+    <div class="exit" style="cursor: pointer;height: 44px;left: 0;filter: alpha(opacity=80);opacity: .8;position: absolute;right: 320px;top: 0;z-index: 100;">
+        {{#linkTo index}}<button type="button" class="btn btn-primary"  style="height: 44px; position: absolute; right: 0; top: 0; width: 44px;">X</button>{{/linkTo}}
+    </div>
+
+
+    <div class="top-controlbar" style="height: 44px; left: 0;position: absolute; right: 320px; top: 0; line-height: 44px; text-align: center;">
+        <div class="objectview_askquestion" style="position: relative; display: inline-block;"><i class="icon-question-sign icon-2x"></i></div>
+        <div class="objectview_collect" style="position: relative; display: inline-block;"><i class="icon-folder-close icon-2x"></i></div>
+        <div class="objectview_share" style="position: relative; display: inline-block;"><i class="icon-share-alt icon-2x"></i></div>
+    </div>
+
+
+    <div class="mainfeature" style="bottom: 44px; left: 0; overflow: hidden; position: absolute; right: 320px; top: 44px;">
+        <img {{bindAttr src="profile_pic_url"}} style='bottom: 0; left: 0; margin: auto; position: absolute; right: 0; top: 0;'/>
+    </div>
+
+
+    <div class="bottom-controlbar" style="bottom: 0; height: 44px; left: 0; margin: 0 auto; position: absolute; right: 320px; width: 132px;">
+        <div class="object-name" style="right: 132px; -webkit-transition: 130ms; color: #737373; font: normal 14px Roboto,arial,sans-serif; line-height: 44px; padding: 0 10px; position: absolute; white-space: nowrap;"> object Name</div>
+        <div class="botcontrol-previous" style="height: 44px;filter: alpha(opacity=80);opacity: .8;position: absolute;-webkit-transition: 130ms;transition: 130ms;width: 44px;">
+            <i class="icon-arrow-left icon-2x"></i>
+        </div>
+        <div class="object-album-view" style="left: 44px; height: 44px;filter: alpha(opacity=80);opacity: .8;position: absolute;-webkit-transition: 130ms;transition: 130ms;width: 44px;">
+            <i class="icon-th icon-2x"></i>
+        </div>
+        <div class="botcontrol-next" style="left: 88px; height: 44px;filter: alpha(opacity=80);opacity: .8;position: absolute;-webkit-transition: 130ms;transition: 130ms;width: 44px;">
+            <i class="icon-arrow-right icon-2x"></i>
+        </div>
+        <div class="objectview_numbering" style="left: 132px;color: #737373;font: normal 14px Roboto,arial,sans-serif;line-height: 44px;padding: 0 10px;position: absolute;white-space: nowrap;"> 18/30 </div>
+    </div>
+
+
+
+
+
+
+    <div class="objectview-right" style="bottom: 0; position: absolute; right: 0; top: 0; width: 320px; background-color: white;">
+
+        <!-- USER SECTION -->
+        <div>
+            <div class="object-poster" style="padding: 15px;width: 100%; margin=0;">
+                <div class="profilepic" style="position: relative; display: block; ">
+                    <div style="margin-right: 10px; vertical-align: top; display: inline-block;">
+                        <a href="#" class="toprofile" ><img class="profilepicture" scr="" style="border-radius: 50%; width: 46px; height: 46px;"/></a>              
+                    </div>
+                </div>
+                <div class="object_username" style="left: 61px; line-height: 1.4; position: absolute; top: 3px;">
+                    <p style="font-size: 14px;font-weight: bold;margin-bottom: 0;"><a href="#">NAME</a></p>
+                    <span class="posttime" style="color: #aaa; font-size: 11px;">yesterday 8:37</span>
+                </div>
+                <div class="dropdownicon" style="cursor: pointer;position: absolute; right: 15px; top: 15px;" {{action setNameTag on="click" target="view"}} >
+                    <i class="icon-chevron-down" style="height: 16px; width: 16px;"></i>
+                </div>      
+            </div>
+            {{#if view.NameTag}}
+
+            <div class="object-poster_contact">fffffffffffff</div>
+            {{/if}}
+
+        </div>
+
+        <!-- OBJECT DESCRIBTION SECTION -->
+        <div >
+            <div class="object-detail" {{action setTitleTag  on="click" target="view"}}  style="cursor: pointer;background-color: rgb(242,240,240);color: #404040; padding: 15px; position: relative; -webkit-transition: 130ms; transition: 130ms;-webkit-user-select: none;border-top: 2px solid #fff;">
+                <div class="object-detail_title">
+                    Title
+                </div>
+                <div class="dropdownicon" style="position: absolute; right: 15px; top: 15px;">
+                    <i class="icon-chevron-down" style="height: 16px; width: 16px;"></i>
+                </div>
+            </div>
+
+
+
+            {{#if view.TitleTag}}
+
+
+
+            <div class="object-detail_content">
+                <p>object-detail_content</p>
+
+            </div>
+
+            {{/if}}
+
+
+        </div>
+
+        <!-- OBJECT PARTNER SECTION -->
+        <div>
+            <div class="object-partner" {{action setPartnerTag on="click" target="view"}}  style="cursor: pointer;">
+                <div style="background-color: rgb(242,240,240);color: #404040; padding: 15px; position: relative; -webkit-transition: 130ms; transition: 130ms;-webkit-user-select: none;border-top: 2px solid #fff;">
+                    <div class="object-partner_title">
+                        Partner
+                    </div>
+                    <div class="dropdownicon" style="position: absolute; right: 15px; top: 15px;">
+                        <i class="icon-chevron-down" style="height: 16px; width: 16px;"></i>
+                    </div>      
+                </div>
+            </div>
+
+            {{#if view.PartnerTag}}
+
+
+            <div class="object-partner_content">aaaaaaaaaaaa</div>
+            {{/if}}
+        </div>
+
+
+
+
+        <!-- OBJECT DISCUSSION SECTION -->
+        <div>
+            <div class="object-discussion" {{action setDiscussionTag on="click" target="view"}}  style="cursor: pointer;">
+                <div style="background-color: rgb(242,240,240);color: #404040; padding: 15px; position: relative; -webkit-transition: 130ms; transition: 130ms;-webkit-user-select: none;border-top: 2px solid #fff;">
+                    <div class="object-discussion_title">
+                        Discussion
+                    </div>
+                    <div class="dropdownicon" style="position: absolute; right: 15px; top: 15px;">
+                        <i class="icon-chevron-down" style="height: 16px; width: 16px;"></i>
+                    </div>      
+                </div>
+                {{#if view.DiscussionTag}}
+                <div class="object-partner_content">ggggggggggggg</div>
+                {{/if}}
+            </div>
+        </div>
+
+
+
+
+
+
+
+    </div>
+
+
+</div>

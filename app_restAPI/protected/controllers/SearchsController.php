@@ -1,9 +1,9 @@
 <?php
 
-class SearchController extends Controller {
+class SearchsController extends Controller {
     
-        const JSON_RESPONSE_ROOT_SINGLE = 'searchresult';
-    const JSON_RESPONSE_ROOT_PLURAL = 'searchresults';
+        const JSON_RESPONSE_ROOT_SINGLE = 'search';
+    const JSON_RESPONSE_ROOT_PLURAL = 'searchs';
 
     public function actionIndex() {
 

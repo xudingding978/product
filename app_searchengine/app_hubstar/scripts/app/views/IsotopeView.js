@@ -3,7 +3,8 @@ define([
     "text!templates/isotopeTemplate.html",
     'jquery',
     'isotope',
-    'search'
+    'search',
+    'helpers'
 ], function(Ember, isotopeTemplate) {
     Ember.TEMPLATES["isotope"] = Ember.Handlebars.compile(isotopeTemplate);
     var IsotopeView = Ember.View.extend({

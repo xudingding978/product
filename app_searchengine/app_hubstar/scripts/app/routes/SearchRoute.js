@@ -1,19 +1,22 @@
 define([
     'ember',
+    'models/SearchModel',
     'controllers/SearchController'
 ], function(
         Ember,
+        SearchModel,
         SearchController
         ) {
     "use strict";
 
     var SearchRoute = Ember.Route.extend({
-        setupController: function(SearchController) {
+        model: function(params) {
+            return SearchModel.find(params.search_id);
         },
         renderTemplate: function() {
-            this.render('selectedTab', {
-                into: "application",
-                controller: tabListController
+
+            this.render('search', {
+                into: "index"
             });
         }
     });

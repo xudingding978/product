@@ -49,7 +49,6 @@
 
 
 <script language="javascript" type="text/javascript">
-
                 function popitup() {
 
                     var api_url = document.domain;
@@ -59,7 +58,7 @@
                  //   alert(api_url);
                     newwindow = window.open(api_url, 'name', 'height=600,width=550,top=200,left=500');
                     if (window.focus) {
-                        newwindow.focus()
+                        newwindow.focus();
                     }
                     return false;
 
@@ -68,3 +67,7 @@
 
 
 </script>
+
+
+
+{{#linkTo "searchs"}}<button type="button"  class="btn btn-primary" >login in</button>{{/linkTo}}

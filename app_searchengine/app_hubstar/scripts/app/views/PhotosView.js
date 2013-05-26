@@ -10,6 +10,26 @@ define([
 
 
 
+        },
+        setTitleTag: function() {
+
+            this.set('TitleTag', !this.get('TitleTag'));
+
+        },
+        setPartnerTag: function() {
+
+            this.set('PartnerTag', !this.get('PartnerTag'));
+
+        },
+        setDiscussionTag: function() {
+
+            this.set('DiscussionTag', !this.get('DiscussionTag'));
+
+        },
+        setNameTag: function() {
+
+            this.set('NameTag', !this.get('NameTag'));
+
         }
     });
     return PhotosView;

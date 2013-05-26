@@ -1,7 +1,7 @@
 
 // Start the main app logic.
-requirejs(['handlebars'],
-        function() {
+define(['ember',  'models/ProfileModel', 'handlebars'],
+        function(Ember, ProfileModel) {
 
             Handlebars.registerHelper('submitButton', function(text) {
                 return new Handlebars.SafeString('<button  id="login" type="submit" class="btn btn-primary">' + text + '</button>');
@@ -19,10 +19,14 @@ requirejs(['handlebars'],
             });
 
 
-            Handlebars.registerHelper('checkingType', function(object) {
-                return new Handlebars.SafeString(
-                        "<a href='" + object.url + "'>" + object.text + "</a>"
-                        );
+            Ember.Handlebars.registerHelper('ifCond', function(v1, v2, options) {
+             alert(v1);
+                alert(ProfileModel.find('flooringxtra').get('type'));
+                v1 = ProfileModel.find('flooringxtra').get('type');
+                if (v1 == v2) {
+                    return options.fn(this);
+                }
+                return options.inverse(this);
             });
 
 

@@ -911,7 +911,7 @@ border-bottom-color: transparent;
 .profilemain > .tabs-right > .nav-tabs {
 margin:0;
 border-left:0px solid transparent;
-
+margin-right:-90px;
 }
 
 .main_Gallery > .profile_gallery > .profilegallerypics > .thumbnail {

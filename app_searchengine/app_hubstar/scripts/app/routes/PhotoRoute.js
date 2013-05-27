@@ -11,13 +11,13 @@ define([
         //     controller: ApplicationController,
         setupController: function(controller, model) {
 
-     //   alert(model.type);
+        alert(model.type);
             //    this.controllerFor('photos').set('model', PhotoModel.find({id: "photo1"}));
 
 
         },
         model: function(params) {
-         
+            console.log(PhotoModel.find(params.photo_id));
             return PhotoModel.find(params.photo_id);
         },
         activate: function() {

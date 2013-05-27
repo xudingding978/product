@@ -33,37 +33,6 @@
      * feasible for technical reasons, the Appropriate Legal Notices must display the words
      * "Copyright Zurmo Inc. 2013. All rights reserved".
      ********************************************************************************/
-    require_once('version.php');
-    require_once('roots.php');
 
-    // Debug is used per instance.
-    if (is_file(INSTANCE_ROOT . '/protected/config/debug.php'))
-    {
-        $debug          = INSTANCE_ROOT . '/protected/config/debug.php';
-    }
-    else
-    {
-        $debug          = INSTANCE_ROOT . '/protected/config/debugDIST.php';
-    }
-    // Runtime path is used per instance.
-    $runtimePath    = INSTANCE_ROOT . '/protected/runtime';
-    // The config is used per instance.
-    $config         = INSTANCE_ROOT . '/protected/config/main.php';
-    // Yii is used from the common source.
-    $yii            = COMMON_ROOT   . '/../common/protected/lib/Yii/yii.php';
-    // WebApplication is used from the common source.
-    $webApplication = COMMON_ROOT   . '/protected/core/components/WebApplication.php';
-
-    require_once($debug);
-    require_once($yii);
-    require_once($webApplication);
-
-    $webApplication = Yii::createApplication('WebApplication', $config);
-    if (file_exists($runtimePath))
-    {
-        $webApplication->setRuntimePath($runtimePath);
-    }
-    $webApplication->run();
-
-    exit;
+    header("Location: app/index.php");
 ?>

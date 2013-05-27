@@ -1,9 +1,9 @@
 define([
     'ember',
-    'models/ProfileModel'
+    'models/PhotoModel'
 ], function(
         Ember,
-        ProfileModel
+        PhotoModel
         ) {
     "use strict";
 
@@ -13,17 +13,21 @@ define([
 
         },
         model: function(params) {
-            return ProfileModel.find(params.profile_id);
+     //       alert(SearchModel.find(params.photo_id));
+            return PhotoModel.find(params.photo_id);
         },
         activate: function() {
-             $("body").css("overflow", "hidden");
-             $('#footer').attr("style", "display:none");
+            $("body").css("overflow", "hidden");
+            $('#footer').attr("style", "display:none");
         },
         deactivate: function() {
-             $("body").css("overflow", "auto");
-             $('#footer').attr("style", "display:block");
+            $("body").css("overflow", "auto");
+            $('#footer').attr("style", "display:block");
         },
         renderTemplate: function() {
+                this.render('index', {
+                into: "application"
+            });
             this.render('photos', {
                 into: "index"
             });

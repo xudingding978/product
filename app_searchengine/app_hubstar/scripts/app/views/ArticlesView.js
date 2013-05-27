@@ -10,6 +10,26 @@ define([
 
 
 
+        },
+                        setTitleTag: function() {
+
+            this.set('titleTag', !this.get('titleTag'));
+
+        },
+        setPartnerTag: function() {
+
+            this.set('partnerTag', !this.get('partnerTag'));
+
+        },
+        setDiscussionTag: function() {
+
+            this.set('discussionTag', !this.get('discussionTag'));
+
+        },
+        setNameTag: function() {
+
+            this.set('nameTag', !this.get('nameTag'));
+
         }
     });
     return ArticlesView;

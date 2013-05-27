@@ -61,8 +61,8 @@ class ImagesController extends Controller {
 
     public function actionCreate() {
 
-        /*
-         * writting file on the php server 
+  
+         //writting file on the php server 
 
           //        $request_json = file_get_contents('php://input');
           //        $request_arr = CJSON::decode($request_json, true);
@@ -78,45 +78,43 @@ class ImagesController extends Controller {
           //        fwrite($handle, $data);
           //        fclose($handle);
 
-         */
+         
 
-
-        /*
-          $client = Aws\S3\S3Client::factory(array(
-          'key' => 'AKIAJKVKLIJWCJBKMJUQ',
-          'secret' => '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',
-          ));
-
-          $result = $client->getObject(array(
-          'Bucket' => 'hubstar-dev',
-          'Key' => 'test.txt'
-          ));
-          if ($result === NULL) {
-          error_log("nothging");
-          } else {
-          error_log('fffdafdf ' . var_export($result['body'], true));
-          }
-
-         */
         $response = "";
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
-        $data = $this->getInputData($request_arr['image']['data_type'], $request_arr['image']['src']);
-        $client = Aws\S3\S3Client::factory(array(
-                    'key' => 'AKIAJKVKLIJWCJBKMJUQ',
-                    'secret' => '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',
-        ));
-        if ($client->doesObjectExist('hubstar-dev', 'kingsley/' . $request_arr['image']['name'])) {
-            $response = $request_arr['image']['name'] . " already exist.";
-        } else {
-            $client->putObject(array(
-                'Bucket' => "hubstar-dev",
-                'Key' => 'kingsley/' . $request_arr['image']['name'],
-                'Body' => $data,
-                'ACL' => 'public-read'
-            ));
-            $response = "file uploads secussfully";
-        }
+//        $data = $this->getInputData($request_arr['image']['data_type'], $request_arr['image']['src']);
+//        $client = Aws\S3\S3Client::factory(array(
+//                    'key' => 'AKIAJKVKLIJWCJBKMJUQ',
+//                    'secret' => '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',
+//        ));
+//        if ($client->doesObjectExist('hubstar-dev', 'kingsley/' . $request_arr['image']['name'])) {
+//            $response = $request_arr['image']['name'] . " already exist.";
+//        } else {
+//            $client->putObject(array(
+//                'Bucket' => "hubstar-dev",
+//                'Key' => 'kingsley/gallery/' . $request_arr['image']['name'],
+//                'Body' => $data,
+//                'ACL' => 'public-read'
+//            ));
+//            $response = "file uploads secussfully";
+//        }
+
+       error_log(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $request_arr['image']['name']);
+        error_log($_SERVER['REQUEST_URI']);
+        //      try {
+//            $cb = $this->couchBaseConnection();
+//            if ($cb->add(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $request_arr['profile']['id'], CJSON::encode($request_arr['profile']))) {
+//                echo $this->sendResponse(200, var_dump($request_arr));
+//            } else {
+//                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+//            }
+//        } catch (Exception $exc) {
+//            echo $exc->getTraceAsString();
+//            echo json_decode(file_get_contents('php://input'));
+//        }
+
+
 
         $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);
         header($statusHeader);

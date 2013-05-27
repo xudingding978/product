@@ -1,8 +1,7 @@
 
-define('models/Image',
+define('models/PhotoModel',
         ['emberData'],
         function() {
-
             var Image = DS.Model.extend({
                 name: DS.attr('string'),
                 data_type: DS.attr('string'),

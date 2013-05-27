@@ -1,9 +1,9 @@
 define([
     'ember',
-    'models/SearchModel'
+    'models/PhotoModel'
 ], function(
         Ember,
-        SearchModel
+        PhotoModel
         ) {
     "use strict";
 
@@ -14,7 +14,7 @@ define([
         },
         model: function(params) {
      //       alert(SearchModel.find(params.photo_id));
-            return SearchModel.find(params.photo_id);
+            return PhotoModel.find(params.photo_id);
         },
         activate: function() {
             $("body").css("overflow", "hidden");

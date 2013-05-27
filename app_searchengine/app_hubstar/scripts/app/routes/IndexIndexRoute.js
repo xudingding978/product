@@ -1,25 +1,23 @@
 define([
     'ember',
-    'controllers/IndexController',
     'models/SearchModel'
 ], function(
         Ember,
-        IndexController,
         SearchModel
         ) {
     "use strict";
 
-    var IndexRoute = Ember.Route.extend({
-        //     controller: ApplicationController,
+    var IndexIndexRoute = Ember.Route.extend({
         redirect: function() {
 
-          //  this.transitionTo('index');
+            this.transitionTo('index');
         },
         model: function() {
             return SearchModel.find();
 
         },
         renderTemplate: function() {
+
             this.render('index', {
                 into: "application"
             });
@@ -27,9 +25,8 @@ define([
             this.render('default', {
                 into: "index"
             });
-
         }
 
     });
-    return IndexRoute;
+    return IndexIndexRoute;
 });

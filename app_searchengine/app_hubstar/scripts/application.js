@@ -113,12 +113,15 @@ define('application', [
     "routes/SearchsRoute",
     "routes/SearchRoute",
     "routes/SearchIndexRoute",
+    "routes/IndexIndexRoute",
     "models/PostModel",
     "models/ProfileModel",
     "models/UserModel",
     "models/ProgressModel",
     "models/Image",
     "models/SearchModel",
+    "models/PhotoModel",
+    "models/ArticleModel",
     "emberData",
     'jquery',
     "bxslider",
@@ -189,12 +192,15 @@ define('application', [
         SearchsRoute,
         SearchRoute,
         SearchIndexRoute,
+        IndexIndexRoute,
         Post,
         Profile,
         User,
         Progress,
         Image,
-        Search
+        Search,
+        Photo,
+        Article
         )
 {
 
@@ -265,12 +271,15 @@ define('application', [
         SearchsRoute: SearchsRoute,
         SearchRoute: SearchRoute,
         SearchIndexRoute: SearchIndexRoute,
+        IndexIndexRoute: IndexIndexRoute,
         Post: Post,
         Profile: Profile,
         User: User,
         Progress: Progress,
         Image: Image,
         Search: Search,
+        Photo: Photo,
+        Article: Article,
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({

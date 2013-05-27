@@ -1,9 +1,9 @@
 define([
     'ember',
-    'models/ProfileModel'
+    'models/ArticleModel'
 ], function(
         Ember,
-        ProfileModel
+        ArticleModel
         ) {
     "use strict";
 
@@ -13,7 +13,7 @@ define([
 
         },
         model: function(params) {
-            return ProfileModel.find(params.profile_id);
+            return ArticleModel.find(params.article_id);
         },
         activate: function() {
              $("body").css("overflow", "hidden");

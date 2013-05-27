@@ -15,7 +15,7 @@ define(["ember", 'models/PhotoModel'], function(Ember, Image) {
                     reader.onload = function(e) {
                         var src = e.srcElement.result;
                         var file = Image.createRecord({"name": name, "data_type": type, "src": src, "progress": Math.round(e.loaded * 100 / e.total)});
-                        App.store.commit();
+                        //      App.store.commit();
                         content.addObject(file);
                         console.log(content.length);
                     }, reader.readAsDataURL(files[i]);
@@ -58,8 +58,7 @@ define(["ember", 'models/PhotoModel'], function(Ember, Image) {
                     reader.onload = function(e) {
                         var src = e.srcElement.result;
                         var file = Image.createRecord({"name": name, "data_type": type, "src": src, "progress": Math.round(e.loaded * 100 / e.total)});
-                        App.store.commit();
-
+               //         App.store.commit();
                         content.addObject(file);
                         console.log(content.length);
 //                    $.ajax({

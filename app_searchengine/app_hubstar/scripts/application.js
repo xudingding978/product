@@ -1,7 +1,7 @@
 // Define libraries
 require.config({
     paths: {
-//     'AppMain': 'app/main',
+//     'AppMain': 'app/main',           
         'namespace': 'app/namespace',
         'models': 'app/models',
         'views': 'app/views',
@@ -76,6 +76,8 @@ define('application', [
     "views/ArticlesView",
     "views/IdeabooksView",
     "views/DiscussionsView",
+    "views/DefaultView",
+    "views/SearchsView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -86,6 +88,7 @@ define('application', [
     "controllers/ProfileNewController",
     "controllers/EditingController",
     "controllers/IndexController",
+    "controllers/SearchsController",
     "app/router",
     "routes/IndexRoute",
     "routes/SelectedTabRoute",
@@ -102,12 +105,15 @@ define('application', [
     "routes/FilesRoute",
     "routes/ArticlesRoute",
     "routes/DiscussionsRoute",
+    "routes/SearchsRoute",
+    "routes/SearchRoute",
     "models/PostModel",
     "models/ProfileModel",
     "models/UserModel",
     "models/ProgressModel",
     "models/PhotoModel",
     "models/ImageArray",
+    "models/SearchModel",
     "emberData",
     'jquery',
     "bxslider",
@@ -119,7 +125,6 @@ define('application', [
 
 ], function(
         DragNDropNamespace, ApplicationView,
-       
         DiscoveryView,
         PhotoView,
         ProfilesView,
@@ -142,6 +147,8 @@ define('application', [
         ArticlesView,
         IdeabooksView,
         DiscussionsView,
+        DefaultView,
+        SearchsView,
         ApplicationController,
         tabListController,
         DataController,
@@ -152,6 +159,7 @@ define('application', [
         ProfileNewController,
         EditingController,
         IndexController,
+        SearchsController,
         Router,
         IndexRoute,
         SelectedTabRoute,
@@ -168,12 +176,15 @@ define('application', [
         FilesRoute,
         ArticlesRoute,
         DiscussionsRoute,
+        SearchsRoute,
+        SearchRoute,
         Post,
         Profile,
         User,
         Progress,
         Image,
-        ImageArray
+        ImageArray,
+        SearchModel
         )
 {
 
@@ -207,6 +218,8 @@ define('application', [
         ArticlesView: ArticlesView,
         IdeabooksView: IdeabooksView,
         DiscussionsView: DiscussionsView,
+        DefaultView: DefaultView,
+        SearchsView: SearchsView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
@@ -217,6 +230,7 @@ define('application', [
         ProfileNewController: ProfileNewController,
         EditingController: EditingController,
         IndexController: IndexController,
+        SearchsController: SearchsController,
         Router: Router,
         IndexRoute: IndexRoute,
         SelectedTabRoute: SelectedTabRoute,
@@ -233,12 +247,15 @@ define('application', [
         FilesRoute: FilesRoute,
         ArticlesRoute: ArticlesRoute,
         DiscussionsRoute: DiscussionsRoute,
+        SearchsRoute: SearchsRoute,
+        SearchRoute: SearchRoute,
         Post: Post,
         Profile: Profile,
         User: User,
         Progress: Progress,
         Image: Image,
         ImageArray: ImageArray,
+        SearchModel: SearchModel,
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({

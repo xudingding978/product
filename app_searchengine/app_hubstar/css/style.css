@@ -1,5 +1,8 @@
 
-
+div.search-loading-invisible{
+    /*make invisible*/
+    display:none;
+}
 
 .lightbox{
 

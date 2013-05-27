@@ -1,11 +1,11 @@
 define([
     'ember',
-    'controllers/SearchController',
+    'controllers/SearchsController',
     'models/SearchModel'
 
 ], function(
         Ember,
-        SearchController,
+        SearchsController,
         SearchModel
 
         ) {
@@ -13,7 +13,7 @@ define([
 
     var SearchRoute = Ember.Route.extend({
         setupController: function() {
-            this.controllerFor('search').set('model', SearchModel.find());
+            this.controllerFor('searchs').set('model', SearchModel.find());
         },
 //        model: function() {
 //
@@ -21,7 +21,7 @@ define([
 //        },
         renderTemplate: function() {
 
-            this.render('search', {
+            this.render('searchs', {
                 into: "index"
             });
 

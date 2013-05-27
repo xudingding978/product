@@ -20,7 +20,6 @@
                         <div>
                             <h3 style="display: inline-block; color: white;max-width: 500px;overflow: hidden;">{{profile_name}}</h3>
 
-
                             {{#if controller.editing}}
                             {{view App.EditingView}}
                             {{else}}
@@ -330,24 +329,17 @@
 
 
 
+
+
                             {{#if galleryInsert}}
 
 
-
-
-
-
+                            <button {{action galleryEndingEdit}}>X</button>
                             <div style="width: 610px; border-bottom: 1px solid #ccc;">
-                                <div style="margin: 20px 5px; border: 4px dashed rgb(242,240,240);height: 540px;">
-                                    <div style="margin: 5px; height: 520px; background-color: rgb(242,240,240);text-align: center;">
-                                        <p style=" font-size: 27px; font-weight: bold; top: 170px; position: relative; text-shadow: 1px 1px 0px #fff; color: #aaa;">Drag & Drop</p>    
-                                        <button {{action galleryEndingEdit}}>X</button>
-
-                                        <div style="background-color: white;width: 100px; position: relative; top: 185px;margin: auto;">upload</div>
-                                        <div style="background-color: white;width: 100px;position: relative;top: 250px;margin: auto;">choose album</div>
-
-                                    </div>
-                                </div>
+                        
+{{log controller}}
+                                        {{outlet}}
+                                  
                             </div>
 
 

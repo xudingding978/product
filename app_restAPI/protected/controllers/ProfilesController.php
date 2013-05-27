@@ -33,6 +33,7 @@ class ProfilesController extends Controller {
                 ->type("couchbaseDocument")
                 ->from(0)
                 ->to(10)
+                ->size(50)
                 ->query($termQuery);
 
         //Execute the search and return results

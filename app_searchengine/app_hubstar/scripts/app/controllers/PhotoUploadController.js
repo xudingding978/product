@@ -60,11 +60,10 @@ define(["ember", 'models/PhotoModel'], function(Ember, PhotoModel) {
 
                         var src = e.srcElement.result;
                         var file = PhotoModel.createRecord({"name": name.toLowerCase(), "data_type": type, "src": src, "progress": Math.round(e.loaded * 100 / e.total)});
-        console.log(file.isLoaded());
                         arr.addObject(file);
-                        App.store.commit();
-
-           //             file.isSaving();
+                        //         App.store.commit();
+                        console.log(arr.length);
+                        //             file.isSaving();
 
 
 //                    $.ajax({

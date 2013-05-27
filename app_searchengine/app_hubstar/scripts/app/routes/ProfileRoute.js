@@ -1,26 +1,34 @@
 define([
     'ember',
-    'controllers/ProfileController',
-    'models/ProfileModel'
+    'models/ProfileModel',
+    'controllers/ProfileController'
 ], function(
         Ember,
-        ProfileController,
-        ProfileModel
+        ProfileModel,
+        ProfileController
         ) {
     "use strict";
-
     var ProfileRoute = Ember.Route.extend({
-        setupController: function(ProfileController, ProfileModel) {
+        setupController: function(ProfileController) {
+            ProfileController.setLocalLoginRecrod();
+            console.log("this is local storage: ");
+            console.log(localStorage.lastname);
+            console.log("this is local arr length: ");
+            console.log(ProfileController.imageArray);
         },
         model: function(params) {
             return ProfileModel.find(params.profile_id);
         },
         renderTemplate: function() {
-
             this.render('profile', {
                 into: "application"
             });
+            this.render('image', {
+                into: 'profile',
+                controller: 'photoUpload'
+            });
         }
+
     });
     return ProfileRoute;
 });

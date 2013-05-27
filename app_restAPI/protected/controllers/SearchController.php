@@ -1,6 +1,6 @@
 <?php
 
-class SearchsController extends Controller {
+class SearchController extends Controller {
     
         const JSON_RESPONSE_ROOT_SINGLE = 'search';
     const JSON_RESPONSE_ROOT_PLURAL = 'searchs';

@@ -6,6 +6,9 @@ define(
         ], function() {
 
     var SearchModel = DS.Model.extend({
+        region:  DS.attr('string'),
+        took:  DS.attr('string'),
+        hits:  DS.attr('string'),
         uri_url: DS.attr('string'),
         creator: DS.attr('string'),
         type: DS.attr('string'),

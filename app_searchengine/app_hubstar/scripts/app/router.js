@@ -12,7 +12,7 @@ define(["ember"], function(Ember) {
             this.resource("discussions", {path: '/discussions/:discussion_id'});
             this.resource("users", {path: '/users/:user_id'});
             this.resource("profiles", {path: '/profiles/:profile_id'});
-            this.resource("searchs", function( ) {
+            this.resource("searchs",{path: '/search'},  function( ) {
                 
 
                 this.resource('search', {path: '/:search_id'});

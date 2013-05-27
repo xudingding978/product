@@ -80,21 +80,23 @@ body {
 
 .element {
     width: 350px;
-    height: 360px;
     margin: 10px;
     float: left;
     overflow: hidden;
     position: relative;
     background: #888;
     color: #222;
-
+    border-radius: 2px;
+    border: 1px solid #d8d8d8;
+    border-bottom-width: 2px;
+    border-top-width: 0;
 }
 
 
-.element * {
+/*.element * {
     position: absolute;
     margin: 0;
-}
+}*/
 
 .element .symbol {
     left: 0.2em;

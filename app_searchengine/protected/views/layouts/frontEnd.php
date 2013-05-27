@@ -26,7 +26,7 @@
         <script src="app_hubstar/scripts/libs/jquery.bxslider.min.js"></script>
         <link rel="stylesheet" href="/app_hubstar/css/jquery.bxslider.css">
     </head>
-    <body>
+    <body style="background:#fff url('../images/texture.png') repeat;width: 100%;height: auto;">
         <?php
         $this->renderPartial('/layouts/_topnavbar');
 

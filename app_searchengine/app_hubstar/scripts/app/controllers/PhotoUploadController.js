@@ -1,7 +1,6 @@
-define(["ember", 'models/Image', 'models/ProgressModel'], function(Ember, Image) {
+define(["ember", 'models/PhotoModel'], function(Ember, Image) {
     var arr = [];
-    var progress = new Object();
-    progress.val = 0;
+
 
     var DragNDropController = Ember.ArrayController.extend({
         content: arr,
@@ -16,10 +15,9 @@ define(["ember", 'models/Image', 'models/ProgressModel'], function(Ember, Image)
                     reader.onload = function(e) {
                         var src = e.srcElement.result;
                         var file = Image.createRecord({"name": name, "data_type": type, "src": src, "progress": Math.round(e.loaded * 100 / e.total)});
-                        //   App.store.commit();
+                        App.store.commit();
                         content.addObject(file);
                         console.log(content.length);
-
                     }, reader.readAsDataURL(files[i]);
                 })(files[i]);
 
@@ -31,6 +29,9 @@ define(["ember", 'models/Image', 'models/ProgressModel'], function(Ember, Image)
             var file = Image.createRecord(file);
             this.get('content').addObject(file);
             console.log(this.get('content').length);
+        },
+        test: function() {
+            console.log("image test");
         }
     }
     );
@@ -42,7 +43,6 @@ define(["ember", 'models/Image', 'models/ProgressModel'], function(Ember, Image)
 
     DragNDropController.Droppable = Ember.Mixin.create(DragNDropController, {
         content: arr,
-        that: this,
         model: Image,
         dragEnter: DragNDropController.cancel,
         dragOver: DragNDropController.cancel,
@@ -50,17 +50,15 @@ define(["ember", 'models/Image', 'models/ProgressModel'], function(Ember, Image)
             var dataTransfer = event.originalEvent.dataTransfer;
             var files = dataTransfer.files;
             var content = this.content;
-
             for (var i = 0; i < files.length; i++) {
                 (function(file) {
                     var name = file.name;
                     var type = file.type;
-
                     var reader = new FileReader();
                     reader.onload = function(e) {
                         var src = e.srcElement.result;
                         var file = Image.createRecord({"name": name, "data_type": type, "src": src, "progress": Math.round(e.loaded * 100 / e.total)});
-                        //       App.store.commit();
+                        App.store.commit();
 
                         content.addObject(file);
                         console.log(content.length);
@@ -74,14 +72,13 @@ define(["ember", 'models/Image', 'models/ProgressModel'], function(Ember, Image)
 //                    });
                         //   console.log(path);
                         //            file.get('transaction').commit();
-                        //          
+                        //      
                     }, reader.readAsDataURL(files[i]);
                 })(files[i]);
                 event.preventDefault();
             }
-
             return false;
-        },
+        }
     });
     return DragNDropController;
 });

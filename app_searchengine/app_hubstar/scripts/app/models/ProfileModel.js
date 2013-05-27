@@ -20,9 +20,7 @@ define(
         profile_physical_address: DS.attr('string'),
         phone_number: DS.attr('string'),
         website_url: DS.attr('string'),
-        
-        
-
+        imageArray:DS.belongsTo("App.ImageArray"),
         didLoad: function() {
 //            console.log('model loaded', this.toJSON());
 //            console.log('id: ' + this.id + ' ' + this.profile_name, this);

@@ -10,7 +10,8 @@ define([
     "use strict";
 
     var IndexRoute = Ember.Route.extend({
-        //     controller: ApplicationController,
+  
+
         setupController: function(IndexController, model) {
 
         },

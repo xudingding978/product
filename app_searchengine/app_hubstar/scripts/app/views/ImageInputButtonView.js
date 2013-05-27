@@ -1,22 +1,19 @@
 define([
     'ember'
-
 ], function(
         Ember
         ) {
-
-
-    var imageInputButton = Ember.TextField.create({
+    var PhotoSelectButton = Ember.TextField.extend({
         type: 'file',
         attributeBindings: ['multiple'],
         multiple: true,
         change: function(evt) {
             var input = evt.target;
             var files = input.files;
+            console.log("button controller");
             var controller = this.get('controller');
-            console.log("controller: " + controller);
-            controller.commitFiles(files);
-            console.log();
+            console.log(controller);
+          controller.commitFiles(files);
 //            for (var i = 0; i < files.length; i++) {
 //                var tempfile = files[i];
 //                if (tempfile) {
@@ -35,5 +32,5 @@ define([
 //            }
         }
     });
-    return imageInputButton;
+    return PhotoSelectButton;
 });

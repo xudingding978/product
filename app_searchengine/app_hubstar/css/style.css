@@ -730,8 +730,141 @@ div.search-loading-invisible{
     box-shadow: 0px 1px 5px #555;
 }
 
+
+
+
+
+
+
 .easing {
     -webkit-transition: all 0.8s ease;
     -moz-transition: all 0.8s ease;
     -o-transition: all 0.8s ease;
+}
+
+
+
+
+
+
+
+
+
+/*PHOTO VIEW*/
+.closeview{
+    font-size: 16px;
+    height: 44px; 
+    position: absolute; 
+    right: 0; 
+    top: 0; 
+    width: 44px;
+    color: #737373;
+}
+
+.closeview:hover{
+    color: #fff;
+}
+
+.closeview > i{
+    bottom: 0;
+    height: 16px;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 16px;
+
+}
+
+.icon-on-black > i{
+    bottom: 0;
+    height: 20px;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 20px;
+    font-size: 21px;
+}
+
+.icon-on-black:hover{
+    color: #fff;
+}
+
+
+
+.object-poster{
+    padding: 15px;
+    width: 100%; 
+    margin:0;
+
+}
+
+.object-poster:hover{
+    background-color: #e5e5e5;
+}
+
+.object-detail {
+    cursor: pointer;
+    background-color: rgb(242,240,240);
+    color: #404040; 
+    padding: 15px; 
+    position: relative; 
+    -webkit-transition: 300ms; 
+    transition: 300ms;
+    -webkit-user-select: none;
+    border-top: 2px solid #fff;
+}
+
+.object-detail:hover {
+    background-color: #e5e5e5;
+}
+
+.object-partner{
+    background-color: rgb(242,240,240);
+    color: #404040; 
+    padding: 15px; 
+    position: relative; 
+    -webkit-transition: 300ms; 
+    transition: 300ms;
+    -webkit-user-select: none;
+    border-top: 2px solid #fff;
+}
+
+.object-partner:hover{
+    background-color: #e5e5e5;
+}
+
+.object-discussion{
+    background-color: rgb(242,240,240);
+    color: #404040; 
+    padding: 15px; 
+    position: relative; 
+    -webkit-transition: 300ms; 
+    transition: 300ms;
+    -webkit-user-select: none;
+    border-top: 2px solid #fff;
+}
+
+.object-discussion:hover{
+    background-color: #e5e5e5;
+}
+
+.dropdownicon{
+    position: absolute; 
+    right: 15px; 
+    top: 15px;
+    font-size: 11px;
+}
+
+.object-discussion_content{
+    position: relative;
+    height: auto;
+    overflow: hidden;
+    -webkit-transition: height 0.35s ease;
+    -moz-transition: height 0.35s ease;
+    -o-transition: height 0.35s ease;
+    transition: height 0.35s ease;
 }

@@ -4,33 +4,33 @@
 <div class="objectview-wrapper">
 
 
-    <div class="exit" style="cursor: pointer;height: 44px;left: 0;filter: alpha(opacity=80);opacity: .8;position: absolute;right: 320px;top: 0;z-index: 100;">
-        <button type="button"  onclick="window.history.back();" class="btn btn-primary"  style="height: 44px; position: absolute; right: 0; top: 0; width: 44px;">X</button>
+    <div class="exit" style="cursor: pointer;height: 44px;left: 0;filter: alpha(opacity=80);opacity: .8;position: absolute;right: 320px;top: 0;">
+        <div class="closeview" onclick="window.history.back();" ><i class="icon-remove"></i></div>
     </div>
 
 
-    <div class="top-controlbar" style="height: 44px; left: 0;position: absolute; right: 320px; top: 0; line-height: 44px; text-align: center;">
-        <div class="objectview_askquestion" style="position: relative; display: inline-block;"><i class="icon-question-sign icon-2x"></i></div>
-        <div class="objectview_collect" style="position: relative; display: inline-block;"><i class="icon-folder-close icon-2x"></i></div>
-        <div class="objectview_share" style="position: relative; display: inline-block;"><i class="icon-share-alt icon-2x"></i></div>
+    <div class="top-controlbar" style="height: 44px; left: 0; margin: 0 auto; position: absolute; right: 320px; width: 100px; text-align: center;">
+        <div class="icon-on-black" style="height: 44px;position: absolute;width: 44px; left: 8px;"><i class="icon-question-sign"></i></div>
+        <div class="icon-on-black" style="height: 44px;position: absolute;width: 44px;left: 50px;"><i class="icon-folder-close"></i></div>
+        <!--    <div class="icon-on-black" style="height: 44px;position: absolute;width: 44px;"><i class="icon-share-alt"></i></div>     -->
     </div>
 
 
     <div class="mainfeature" style="bottom: 44px; left: 0; overflow: hidden; position: absolute; right: 320px; top: 44px;">
-        <img {{bindAttr src="image_url" }} style='bottom: 0; left: 0; margin: auto; position: absolute; right: 0; top: 0;'/>
+        <img {{bindAttr src="image_url" }} style='bottom: 0; left: 0; margin: auto; position: absolute; right: 0; top: 0; max-height: 95%;max-width: 95%;'/>
     </div>
 
 
     <div class="bottom-controlbar" style="bottom: 0; height: 44px; left: 0; margin: 0 auto; position: absolute; right: 320px; width: 132px;">
-        <div class="object-name" style="right: 132px; -webkit-transition: 130ms; color: #737373; font: normal 14px Roboto,arial,sans-serif; line-height: 44px; padding: 0 10px; position: absolute; white-space: nowrap;"> object Name</div>
-        <div class="botcontrol-previous" style="height: 44px;filter: alpha(opacity=80);opacity: .8;position: absolute;-webkit-transition: 130ms;transition: 130ms;width: 44px;">
-            <i class="icon-arrow-left icon-2x"></i>
+        <div class="object-name" style="right: 132px; color: #737373; font: normal 14px Roboto,arial,sans-serif; line-height: 44px; padding: 0 10px; position: absolute; white-space: nowrap;"> object Name</div>
+        <div class="icon-on-black" style="height: 44px;position: absolute;width: 44px;">
+            <i class="icon-arrow-left"></i>
         </div>
-        <div class="object-album-view" style="left: 44px; height: 44px;filter: alpha(opacity=80);opacity: .8;position: absolute;-webkit-transition: 130ms;transition: 130ms;width: 44px;">
-            <i class="icon-th icon-2x"></i>
+        <div class="icon-on-black" style="left: 44px; height: 44px;position: absolute; width: 44px;">
+            <i class="icon-th"></i>
         </div>
-        <div class="botcontrol-next" style="left: 88px; height: 44px;filter: alpha(opacity=80);opacity: .8;position: absolute;-webkit-transition: 130ms;transition: 130ms;width: 44px;">
-            <i class="icon-arrow-right icon-2x"></i>
+        <div class="icon-on-black" style="left: 88px; height: 42px;position: absolute; width: 44px;">
+            <i class="icon-arrow-right"></i>
         </div>
         <div class="objectview_numbering" style="left: 132px;color: #737373;font: normal 14px Roboto,arial,sans-serif;line-height: 44px;padding: 0 10px;position: absolute;white-space: nowrap;"> 18/30 </div>
     </div>
@@ -44,7 +44,7 @@
 
         <!-- USER SECTION -->
         <div>
-            <div class="object-poster easing" style="padding: 15px;width: 100%; margin:0;" {{action setNameTag on="click" target="view"}}>
+            <div class="object-poster easing" {{action setNameTag on="click" target="view"}}>
                 <div class="profilepic" style="position: relative; display: inline-block; vertical-align: top;">
                     <div style="margin-right: 10px; vertical-align: top; display: inline-block;">
                         <a href="#" class="toprofile" ><img {{bindAttr src="profile_pic_url"}} class="profilepicture" style="border-radius: 50%; width: 46px; height: 46px;"/></a>              
@@ -63,7 +63,7 @@
             </div>
             {{#if view.nameTag}}
 
-            <div class="object-poster_contact easing" style="background-color: #f8f8f8;">
+            <div class="object-poster_contact" style="background-color: #f8f8f8;">
                 <table style="padding: 15px; width: 100%;font-size: 13px;  display: table;border-collapse: separate;border-spacing: 4px;">
                     <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
                         <tr>
@@ -94,12 +94,12 @@
         </div>
 
         <!-- OBJECT DESCRIBTION SECTION -->
-        <div >
-            <div class="object-detail" {{action setTitleTag  on="click" target="view"}}  style="cursor: pointer;background-color: rgb(242,240,240);color: #404040; padding: 15px; position: relative; -webkit-transition: 130ms; transition: 130ms;-webkit-user-select: none;border-top: 2px solid #fff;">
+        <div   >
+            <div class="object-detail " {{action setTitleTag  on="click" target="view"}}>
                 <div class="object-detail_title">
                     Title
                 </div>
-                <div class="dropdownicon" style="position: absolute; right: 15px; top: 15px;">
+                <div class="dropdownicon" >
                     <i class="icon-chevron-down" style="height: 16px; width: 16px;"></i>
                 </div>
             </div>
@@ -110,8 +110,8 @@
 
 
 
-            <div class="object-detail_content" style="background-color: #f8f8f8;">
-                <div style="padding: 15px;">
+            <div class="object-detail_content " style="background-color: #f8f8f8; ">
+                <div class="easing" style="padding: 15px;">
                     <p style="font-size: 14px;">Title</p>
                     <p style="font-size: 13px;">alskdjflakjdsfl;kajdsl;fk</p>
                 </div>
@@ -124,12 +124,12 @@
 
         <!-- OBJECT PARTNER SECTION -->
         <div>
-            <div class="object-partner" {{action setPartnerTag on="click" target="view"}}  style="cursor: pointer;">
-                <div style="background-color: rgb(242,240,240);color: #404040; padding: 15px; position: relative; -webkit-transition: 130ms; transition: 130ms;-webkit-user-select: none;border-top: 2px solid #fff;">
+            <div>
+                <div class="object-partner " {{action setPartnerTag on="click" target="view"}}  style="cursor: pointer;">
                     <div class="object-partner_title">
                         Partner
                     </div>
-                    <div class="dropdownicon" style="position: absolute; right: 15px; top: 15px;">
+                    <div class="dropdownicon" >
                         <i class="icon-chevron-down" style="height: 16px; width: 16px;"></i>
                     </div>      
                 </div>
@@ -158,12 +158,12 @@
 
         <!-- OBJECT DISCUSSION SECTION -->
         <div>
-            <div class="object-discussion" {{action setDiscussionTag on="click" target="view"}}  style="cursor: pointer;">
-                <div style="background-color: rgb(242,240,240);color: #404040; padding: 15px; position: relative; -webkit-transition: 130ms; transition: 130ms;-webkit-user-select: none;border-top: 2px solid #fff;">
+            <div>
+                <div class="object-discussion " {{action setDiscussionTag on="click" target="view"}}  style="cursor: pointer;">
                     <div class="object-discussion_title">
                         Discussion
                     </div>
-                    <div class="dropdownicon" style="position: absolute; right: 15px; top: 15px;">
+                    <div class="dropdownicon">
                         <i class="icon-chevron-down" style="height: 16px; width: 16px;"></i>
                     </div>      
                 </div>

@@ -182,7 +182,7 @@ define('application', [
         Profile,
         User,
         Progress,
-        Image,
+        Photo,
         ImageArray,
         SearchModel
         )
@@ -253,7 +253,7 @@ define('application', [
         Profile: Profile,
         User: User,
         Progress: Progress,
-        Image: Image,
+        Photo: Photo,
         ImageArray: ImageArray,
         SearchModel: SearchModel,
         store: DS.Store.create({

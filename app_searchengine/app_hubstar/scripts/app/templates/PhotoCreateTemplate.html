@@ -1,11 +1,11 @@
 {{#view App.PhotoUploadView }}
 
 
+
+
 <div  style="margin-top: 70px;height: 500px;width: 2000px; background-color: grey">   drop files to here. </br>
 
-
-    {{log controller}}
-
+    {{log controller }}
     {{view App.ImageInputButtonView}}<br/>
     {{#each content}}
     <div style="float:left">
@@ -14,16 +14,14 @@
         <div>{{name}}</div>
 
         <div style="width: 260px;">
-
             <div class="progress progress-striped active">
-
                 <div class="bar" style="width:{{unbound progress}}%"></div>
             </div>
         </div>
     </div>
     {{/each}}
-</div>
 
+</div>
 {{/view}}
 
 

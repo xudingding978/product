@@ -695,6 +695,40 @@ div.search-loading-invisible{
 }
 
 
+#exit-add-photos{
+position: absolute;
+width: 20px;
+height: 20px;
+right: 0px;
+margin: 13px 55px;
+color: #aaa;
+}
+
+
+#exit-add-photos:hover{
+
+color: #333;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .object-poster_contact tr {
     display: table-row;
     vertical-align: top;

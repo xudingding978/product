@@ -9,7 +9,7 @@ define([
         ) {
     "use strict";
     var ProfilesRoute = Ember.Route.extend({
-        controller: ApplicationController,
+   //     controller: ApplicationController,
         setupController: function(controller, ProfileModel) {
         },
         model: function() {

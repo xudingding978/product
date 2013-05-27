@@ -101,6 +101,7 @@ define('application', [
     "routes/PhotoUploadRoute",
     "routes/LightBoxRoute",
     "routes/PhotosRoute",
+ //   "routes/PhotoRoute",
     "routes/VideosRoute",
     "routes/FilesRoute",
     "routes/ArticlesRoute",
@@ -112,7 +113,6 @@ define('application', [
     "models/PostModel",
     "models/ProfileModel",
     "models/UserModel",
-    "models/ProgressModel",
     "models/ImageArray",
     "models/SearchModel",
     "models/PhotoModel",
@@ -175,6 +175,7 @@ define('application', [
         PhotoUploadRoute,
         LightBoxRoute,
         PhotosRoute,
+  //      PhotoRoute,
         VideosRoute,
         FilesRoute,
         ArticlesRoute,
@@ -186,12 +187,11 @@ define('application', [
         Post,
         Profile,
         User,
-        Progress,
-        Image,
+        
+        ImageArray,
         Search,
         Photo,
         Article
-    
         )
 {
 
@@ -250,6 +250,7 @@ define('application', [
         PhotoUploadRoute: PhotoUploadRoute,
         LightBoxRoute: LightBoxRoute,
         PhotosRoute: PhotosRoute,
+ //       PhotoRoute: PhotoRoute,
         VideosRoute: VideosRoute,
         FilesRoute: FilesRoute,
         ArticlesRoute: ArticlesRoute,
@@ -261,12 +262,11 @@ define('application', [
         Post: Post,
         Profile: Profile,
         User: User,
-        Progress: Progress,
-        Image: Image,
+        ImageArray: ImageArray,
         Search: Search,
         Photo: Photo,
         Article: Article,
-        
+
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({

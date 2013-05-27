@@ -10,7 +10,7 @@ define(
         article_text: DS.attr('string'),
         profile_pic_url: DS.attr('string'),
         type: DS.attr('string'),
-         image_url: DS.attr('string'),
+        image_url: DS.attr('string'),
         didLoad: function() {
 //            console.log('model loaded', this.toJSON());
 //            console.log('id: ' + this.id + ' ' + this.profile_name, this);

@@ -184,7 +184,9 @@ define('application', [
         Progress,
         Image,
         ImageArray,
-        SearchModel
+        Search
+    
+
         )
 {
 
@@ -255,7 +257,7 @@ define('application', [
         Progress: Progress,
         Image: Image,
         ImageArray: ImageArray,
-        SearchModel: SearchModel,
+        Search: Search,
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({

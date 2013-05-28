@@ -75,25 +75,29 @@ class PhotosController extends Controller {
         //        $data = base64_decode($input);
         //        error_log($data);
         //        fwrite($handle, $data);
-        //        fclose($handle);
-//        $request_json = file_get_contents('php://input');
-//        $s3response = $this->photoSavingToS3($request_json);
-//        $request_arr = CJSON::decode($request_json, true);
-//
-//        if($s3response) {
-//            $request_arr['photo']['src'] = "https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/kingsley/gallery/" . $request_arr['photo']['name'];
-//            try {
-//                $cb = $this->couchBaseConnection();
-//                if ($cb->add(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $request_arr['photo']['name'], CJSON::encode($request_arr['photo']))) {
-//                    echo $this->sendResponse(200, var_dump($request_arr));
-//                } else {
-//                    echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
-//                }
-//            } catch (Exception $exc) {
-//                echo $exc->getTraceAsString();
-//                echo json_decode(file_get_contents('php://input'));
-//            }
-//        }
+        //        fclose($handle);        
+
+        $request_json = file_get_contents('php://input');
+        $s3response = $this->photoSavingToS3($request_json);
+        $request_arr = CJSON::decode($request_json, true);
+      //  error_log(var_export($request_arr, true));
+        if ($s3response) {
+            $fileName = explode('.', $request_arr['photo']['photo_title'])[0];
+            $request_arr['photo']['image_url'] = "https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/kingsley/gallery/" . $request_arr['photo']['photo_title'];
+            $request_arr['photo']['type'] = "photo";
+
+            try {
+                $cb = $this->couchBaseConnection();
+                if ($cb->add(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $fileName, CJSON::encode($request_arr['photo']))) {
+                    echo $this->sendResponse(200, var_dump($request_arr));
+                } else {
+                    echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+                }
+            } catch (Exception $exc) {
+                echo $exc->getTraceAsString();
+                echo json_decode(file_get_contents('php://input'));
+            }
+        }
 
         $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);
         header($statusHeader);
@@ -102,7 +106,7 @@ class PhotosController extends Controller {
         header('Access-Control-Request-Method: *');
         header('Access-Control-Allow-Methods: PUT, POST, OPTIONS');
         header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
-       
+
         echo "ok";
         Yii::app()->end();
     }
@@ -178,23 +182,26 @@ class PhotosController extends Controller {
         $response = false;
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
-        $data = $this->getInputData($request_arr['photo']['data_type'], $request_arr['photo']['src']);
-        $client = Aws\S3\S3Client::factory(array(
-                    'key' => 'AKIAJKVKLIJWCJBKMJUQ',
-                    'secret' => '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',
-        ));
-        if ($client->doesObjectExist('hubstar-dev', 'kingsley/' . $request_arr['photo']['name'])) {
-            $response = false;
-        } else {
-            $client->putObject(array(
-                'Bucket' => "hubstar-dev",
-                'Key' => 'kingsley/gallery/' . $request_arr['photo']['name'],
-                'Body' => $data,
-                'ACL' => 'public-read'
-            ));
-            $response = true;
-        }
-       return $response;
+
+
+
+//        $data = $this->getInputData($request_arr['photo']['type'], $request_arr['photo']['image_url']);
+//        $client = Aws\S3\S3Client::factory(array(
+//                    'key' => 'AKIAJKVKLIJWCJBKMJUQ',
+//                    'secret' => '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',
+//        ));
+//        if ($client->doesObjectExist('hubstar-dev', 'kingsley/' . $request_arr['photo']['photo_title'])) {
+//            $response = false;
+//        } else {
+//            $client->putObject(array(
+//                'Bucket' => "hubstar-dev",
+//                'Key' => 'kingsley/gallery/' . $request_arr['photo']['photo_title'],
+//                'Body' => $data,
+//                'ACL' => 'public-read'
+//            ));
+//            $response = true;
+//        }
+        return $response;
     }
 
 }

@@ -325,11 +325,12 @@
                                     <p>Closed</p>
                                 </div>
                             </div>
+
                             {{#if galleryInsert}}
                             <div style="width: 610px; border-bottom: 1px solid #ccc;">
                                 <div style="margin: 20px 5px; border: 4px dashed rgb(242,240,240);height: 540px;">
                                     <button {{action galleryEdit}}>X</button>
-                            {{outlet "photoUploader"}}
+                                    {{outlet "photoUploader"}}
                                 </div>
 
                                 {{else}}

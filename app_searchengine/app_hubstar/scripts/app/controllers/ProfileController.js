@@ -1,10 +1,7 @@
 define([
     'models/ProfileModel',
     'ember'],
-        function(
-                ProfileModel,
-                Ember
-                ) {
+        function(ProfileModel, Ember) {
             var profile_record;
             var about_record;
             var contact_record;

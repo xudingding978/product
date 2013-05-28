@@ -1,7 +1,7 @@
 define([
     "ember",
     "text!templates/profileTemplate.html",
-    "controllers/ProfileController",
+    "controllers/ProfileController",  
 
 
 ], function(Ember, profileTemplate, ProfileController) {
@@ -9,8 +9,7 @@ define([
 
 
     var ProfileView = Ember.View.extend({
-        template: Ember.Handlebars.compile(profileTemplate),
-
+            template: Ember.Handlebars.compile(profileTemplate)
     });
-    return ProfileView;
+    return ProfileView;  
 });

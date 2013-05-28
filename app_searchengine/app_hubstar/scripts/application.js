@@ -16,6 +16,7 @@ require.config({
         'emberData': 'libs/ember-data-latest',
         'jquery.ui': 'libs/jquery.ui/1.9.2/jquery-ui-1.9.2.custom.min',
         'bootstrap': 'libs/bootstrap/2.2.2/js/bootstrap.min',
+        "bootstrap-collapse": 'libs/bootstrap/2.2.2/js/bootstrap-collapse',
         'bootstrap-wysihtml5': 'libs/wysihtml5/bootstrap-wysihtml5',
         'wysihtml5': 'libs/wysihtml5/wysihtml5-0.3.0',
         'bxslider': 'libs/jquery.bxslider.min',
@@ -42,6 +43,7 @@ require.config({
         'bootstrap': ['jquery'],
         'isotope': ['jquery'],
         'search': ['jquery']
+
     },
     hbs: {
         disableI18n: true,
@@ -120,7 +122,8 @@ define('application', [
     "wysihtml5",
     'bootstrap',
     'isotope',
-    'search'
+    'search',
+
 
 ], function(
         DragNDropNamespace, ApplicationView,

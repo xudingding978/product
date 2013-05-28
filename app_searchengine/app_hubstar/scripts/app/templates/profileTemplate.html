@@ -1,3 +1,43 @@
+<script  type="text/javascript">
+      
+        $(window).scroll(function() {
+                var p = $('div#tab-right');
+                var ul = $('ul#tab-title');
+                var ul_height = ul.height();
+                var p_height = p.height();
+                
+                var position = p.offset();
+                var top_pos = position.top;
+                var scroll_up = $(window).scrollTop();
+                
+                if (scroll_up+ul_height>top_pos) {
+                        var new_top = scroll_up - position.top;
+                        if ((new_top + ul_height) > p_height) {
+                                if (new_top<0) new_top=0;
+                                ul.css("top", new_top); 
+                        }
+                }
+                
+                console.log("title hight: " + ul_height);
+                console.log("content hight: " + p_height);
+                console.log("scroll up: " + scroll_up);
+                console.log("top pos: " + top_pos); 
+
+                console.log("----------------------------------------------------------");
+        });
+
+                $('img#profile_cover-image').hover(function(){
+                        $('div#profile_dogearhover').css("display", "block");
+                },  function(){ 
+                        $('div#profile_dogearhover').css("display", "none");
+                });
+                
+                $('div#profile_dogearhover').click(function(){
+                        console.log("1111111111111111111111");
+                });
+   
+</script>
+
 <div class="profilegb" style="background: #fff url('../images/texture.png') repeat;width: 100%;height: auto; padding-bottom: 300px;">
     <div style="width: 100%; height: 500px; overflow: hidden; position: fixed;"> 
         <img  {{bindAttr src= profile_bg_url}} style="width: 100%; height:auto;">
@@ -12,8 +52,8 @@
         <!-- corpbanner-->
 
         <div class="profilecorpbanner"    style="overflow:hidden;width: 980px; height:300px; border-radius: 3px 3px 0 0; position: relative;">
-            <img {{bindAttr src= profile_cover_url}} >
-            <div style="background-image:url('../images/dogearhover.png');width: 30px;height: 29px;position: relative;right: -952px;top: -302px;"></div>
+            <img id="profile_cover-image" {{bindAttr src= profile_cover_url}} >
+            <div id="profile_dogearhover" style="display: none; background-image:url('../images/dogearhover.png');width: 30px;height: 29px;position: relative;right: -952px;top: -302px;"></div>
             <div class="corpbanner_mask" style="background: url('../images/bannershadow.png') repeat-x; position: absolute;bottom:0; width: 980px; height: 200px;">
                 <div class="corpbanner_content" style="position: absolute;bottom:0;margin-left: 300px;width: 680px;">
                     <div class="main_title" style="height: 100px;">
@@ -211,21 +251,17 @@
                         </div>
 
                     </div>
-
-
                 </div>
             </div>
         </div>
-
-
 
 
         <!--PROFILE PAGE MAIN PART-->
 
         <div class="profilemain" style="display: block; width: 770px;margin: 0 0 0 300px;">
 
-            <div class="tabbable tabs-right"> <!-- Only required for left/right tabs -->
-                <ul class="nav nav-tabs">
+            <div class="tabbable tabs-right" id="tab-right"> <!-- Only required for left/right tabs -->
+                <ul class="nav nav-tabs" id="tab-title" style="position:relative;">
                     <li class="active"><a href="#tab1" data-toggle="tab">Profile</a></li>
                     <li><a href="#tab2" data-toggle="tab">Ideabooks</a></li>
                     <li><a href="#tab3" data-toggle="tab">Discussions</a></li>
@@ -671,18 +707,21 @@
 
                     <!-- PARTNER TAB-->
 
-                    <div class="tab-pane active" id="tab4">
+                    <div class="tab-pane" id="tab4">
                         <div class="profile-main-content" style="margin: 10px 35px 20px 35px;">   
                             <div class="main_partners" style="padding:20px 0 30px 0; font-size: 15px;">
                                 <h4 style='margin-bottom: 20px;'><i class='icon-sitemap' style='margin-right: 10px;display: inline-block;'></i>Partners</h4>
+                                
                                 <div class="accordion" id="accordion2">
+                                    
                                     <div class="accordion-group">
                                         <div class="accordion-heading">
                                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
                                                 Auckland
                                             </a>
                                         </div>
-                                        <div id="collapseOne" class="accordion-body collapse in">
+                                        
+                                        <div id="collapseOne" class="accordion-body collapse">
                                             <div class="accordion-inner">
                                                 <div class="partner">
                                                     <img src="../images/profilepic1.jpg">
@@ -764,6 +803,7 @@
                                             </div>
                                         </div>                                      
                                     </div>
+                                    
                                     <div class="accordion-group">
                                         <div class="accordion-heading">
                                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
@@ -792,14 +832,45 @@
                                                 <div class="partner">
                                                     <img src="../images/profilepic5.jpg">
                                                     <a href="#" class="slider_name">Kevin Toukoumidis</a><a href="#" class="slider_type">Builder</a><a class="slider_region">Auckland</a>
-                                                </div>                                                 
-
+                                                </div>
                                             </div>
                                         </div>                                      
-                                    </div>
+                                    </div> 
+                                    
+                                    
 
                                 </div>
 
+                                
+                                <div class="accordion" id="accordion1">
+                                    
+                                            <div class="accordion-group">
+                                              <div class="accordion-heading">
+                                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#selector" href="#collapsefour">
+                                                  Collapsible Group Item #1
+                                                </a>
+                                              </div>
+                                              <div id="collapsefour" class="accordion-body collapse in">
+                                                <div class="accordion-inner">
+                                                  Anim pariatur cliche...
+                                                </div>
+                                              </div>
+                                            </div>
+                                    <div class="accordion-group">
+                                        <div class="accordion-heading">
+                                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#selector" href="#collapsesix">
+                                            Collapsible Group Item #2
+                                          </a>
+                                        </div>
+                                        <div id="collapsesix" class="accordion-body collapse">
+                                          <div class="accordion-inner">
+                                            Anim pariatur cliche...
+                                          </div>
+                                        </div>
+                                      </div>
+                                 </div>   
+                                
+                                
                             </div>
                         </div>
                     </div>
@@ -815,3 +886,6 @@
     </div>
 
 </div>
+
+
+

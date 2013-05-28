@@ -112,7 +112,6 @@ define('application', [
     "models/PostModel",
     "models/ProfileModel",
     "models/UserModel",
-    "models/ProgressModel",
     "models/ImageArray",
     "models/SearchModel",
     "models/PhotoModel",
@@ -186,12 +185,11 @@ define('application', [
         Post,
         Profile,
         User,
-        Progress,
-        Image,
+        
+        ImageArray,
         Search,
         Photo,
         Article
-    
         )
 {
 
@@ -261,12 +259,11 @@ define('application', [
         Post: Post,
         Profile: Profile,
         User: User,
-        Progress: Progress,
-        Image: Image,
+        ImageArray: ImageArray,
         Search: Search,
         Photo: Photo,
         Article: Article,
-        
+
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({

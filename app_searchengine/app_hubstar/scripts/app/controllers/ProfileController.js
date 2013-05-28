@@ -75,15 +75,10 @@ define([
                 galleryEdit: function() {
                     this.set('galleryInsert', !this.get('galleryInsert'));
                 },
-                galleryEndingEdit: function() {
-                    this.set('galleryInsert', !this.get('galleryInsert'));
-                },
                 showDragNdropWindow: function()
                 {
                     console.log("click showDragNdropWindow ");
                 }
-
-
 
             }
 

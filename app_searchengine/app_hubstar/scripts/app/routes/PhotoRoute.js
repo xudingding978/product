@@ -9,11 +9,15 @@ define([
 
     var PhotoRoute = Ember.Route.extend({
         //     controller: ApplicationController,
-        setupController: function(IndexController, model) {
+        setupController: function(controller, model) {
+
+     //   alert(model.type);
+            //    this.controllerFor('photos').set('model', PhotoModel.find({id: "photo1"}));
+
 
         },
         model: function(params) {
-     //       alert(SearchModel.find(params.photo_id));
+         
             return PhotoModel.find(params.photo_id);
         },
         activate: function() {
@@ -25,7 +29,7 @@ define([
             $('#footer').attr("style", "display:block");
         },
         renderTemplate: function() {
-                this.render('index', {
+            this.render('index', {
                 into: "application"
             });
             this.render('photos', {

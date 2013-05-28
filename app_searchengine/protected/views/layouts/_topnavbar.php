@@ -169,7 +169,7 @@ if (Yii::app()->user->isGuest) {
         $("#back-top").hide();
         $(window).scroll(function() {
             if ($(this).scrollTop() === 0) {
-                $('#discovery_search_bar_wrapper').attr('style', 'position:relative;margin-top: 40px;');
+                $('#discovery_search_bar_wrapper').attr('style', 'position:relative;margin-bottom: 40px;');
                 //      document.getElementById("search-loading").attr('style','display:none');
             }
             if ($(this).scrollTop() > 150) {

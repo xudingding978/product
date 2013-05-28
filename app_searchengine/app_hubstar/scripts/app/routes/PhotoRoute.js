@@ -7,7 +7,7 @@ define([
         ) {
     "use strict";
 
-    var LightBoxRoute = Ember.Route.extend({
+    var PhotoRoute = Ember.Route.extend({
         //     controller: ApplicationController,
         setupController: function(IndexController, model) {
 
@@ -34,5 +34,5 @@ define([
         }
 
     });
-    return LightBoxRoute;
+    return PhotoRoute;
 });

@@ -1,5 +1,8 @@
 
-
+div.search-loading-invisible{
+    /*make invisible*/
+    display:none;
+}
 
 .lightbox{
 
@@ -635,6 +638,7 @@
 }
 
 .search_button	{
+    cursor:pointer;
     position: absolute;
     margin: 8px 0px 0px -32px;
 }
@@ -688,4 +692,258 @@
     -khtml-opacity: 0.7;
     opacity: 0.7;
 
+}
+
+
+#exit-add-photos{
+position: absolute;
+width: 20px;
+height: 20px;
+right: 0px;
+margin: 13px 55px;
+color: #aaa;
+}
+
+
+#exit-add-photos:hover{
+
+color: #333;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.object-poster_contact tr {
+    display: table-row;
+    vertical-align: top;
+    border-color: inherit;
+
+}
+
+.object-poster_contact td:nth-child(1)  {
+    color: #aaa;
+    text-align: left;
+    width: 45%;
+
+}
+
+.object-poster_contact td:nth-child(2)  {
+    color: #404040;
+    word-break: break-all;
+
+    display: table-cell;
+    vertical-align: inherit;
+}
+
+.object-partner_content a {
+    margin:10px;
+    display: inline-block;
+
+}
+
+.object-partner_content a  img{
+    border-radius: 10%;
+    width: 45px;
+    height: 45px;
+    box-shadow: 0px 1px 5px #555;
+}
+
+
+
+
+
+
+
+.easing {
+    -webkit-transition: all 0.8s ease;
+    -moz-transition: all 0.8s ease;
+    -o-transition: all 0.8s ease;
+}
+
+
+
+
+
+
+
+
+
+/*PHOTO VIEW*/
+.closeview{
+    font-size: 16px;
+    height: 44px; 
+    position: absolute; 
+    right: 0; 
+    top: 0; 
+    width: 44px;
+    color: #737373;
+}
+
+.closeview:hover{
+    color: #fff;
+}
+
+.closeview > i{
+    bottom: 0;
+    height: 16px;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 16px;
+
+}
+
+.icon-on-black > i{
+    bottom: 0;
+    height: 20px;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 20px;
+    font-size: 21px;
+}
+
+.icon-on-black:hover{
+    color: #fff;
+}
+
+
+
+.object-poster{
+    padding: 15px;
+    width: 100%; 
+    margin:0;
+
+}
+
+.object-poster:hover{
+    background-color: #e5e5e5;
+}
+
+.object-detail {
+    cursor: pointer;
+    background-color: rgb(242,240,240);
+    color: #404040; 
+    padding: 15px; 
+    position: relative; 
+    -webkit-transition: 300ms; 
+    transition: 300ms;
+    -webkit-user-select: none;
+    border-top: 2px solid #fff;
+}
+
+.object-detail:hover {
+    background-color: #e5e5e5;
+}
+
+.object-partner{
+    background-color: rgb(242,240,240);
+    color: #404040; 
+    padding: 15px; 
+    position: relative; 
+    -webkit-transition: 300ms; 
+    transition: 300ms;
+    -webkit-user-select: none;
+    border-top: 2px solid #fff;
+}
+
+.object-partner:hover{
+    background-color: #e5e5e5;
+}
+
+.object-discussion{
+    background-color: rgb(242,240,240);
+    color: #404040; 
+    padding: 15px; 
+    position: relative; 
+    -webkit-transition: 300ms; 
+    transition: 300ms;
+    -webkit-user-select: none;
+    border-top: 2px solid #fff;
+}
+
+.object-discussion:hover{
+    background-color: #e5e5e5;
+}
+
+.dropdownicon{
+    position: absolute; 
+    right: 15px; 
+    top: 15px;
+    font-size: 11px;
+}
+
+.object-discussion_content{
+    position: relative;
+    height: auto;
+    overflow: hidden;
+    -webkit-transition: height 0.35s ease;
+    -moz-transition: height 0.35s ease;
+    -o-transition: height 0.35s ease;
+    transition: height 0.35s ease;
+}
+
+
+
+.readbtn {
+    display: inline-block;
+    float: right;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 1px 0 rgba(0,0,0,.05);
+    box-shadow: 0 1px 0 rgba(0,0,0,.05);
+    -webkit-transition: background-color .218s,border-color .218s,box-shadow .218s;
+    transition: background-color .218s,border-color .218s,box-shadow .218s;
+    -webkit-user-select: none;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+    cursor: pointer;
+    line-height: 28px;
+    padding: 0 10px 0 10px;
+    outline: none;
+    width: auto;
+    position: relative;
+    top: -4px;
+}
+
+.readbtn:hover{
+    -webkit-box-shadow: 0 0px 6px rgba(0, 172, 237,.5);
+    box-shadow: 0px 0px 6px rgba(0, 172, 237,.5);
+    border-color: #bfbfbf;
+}
+
+.readbtn:active{
+    -webkit-box-shadow: inset 0 1px 0 #ddd;
+    box-shadow: inset 0 1px 0 #ddd;
+    background-color: #e5e5e5;
+    border-color: #bfbfbf;
+}
+
+.readbtn_read{
+    color: #262626;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    opacity: .7;
+    text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;
 }

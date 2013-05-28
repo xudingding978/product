@@ -126,8 +126,8 @@ return CMap::mergeArray(
                 'db' => array(
                     'class' => 'CDbConnection',
                     'connectionString' => $params['db_live.connectionString'],
-                    'username' => $params['db_admin.username'],
-                    'password' => $params['db_admin.password'],
+                    'username' => $params['db_live.username'],
+                    'password' => $params['db_live.password'],
                     'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
                     'enableParamLogging' => YII_DEBUG,
                     'charset' => 'utf8'

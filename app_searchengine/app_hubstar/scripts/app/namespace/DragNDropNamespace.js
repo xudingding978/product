@@ -1,6 +1,6 @@
 define([
     'ember',
-    'models/Image'
+    'models/PhotoModel'
 ], function(
         Ember,
         ImageFile

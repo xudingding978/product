@@ -1,7 +1,10 @@
 define([
     'models/ProfileModel',
-    'ember'],
-        function(ProfileModel, Ember) {
+    'ember', 'controllers/PhotoUploadController'],
+        function(
+                ProfileModel,
+                Ember  , PhotoUploadController
+                ) {
             var profile_record;
             var about_record;
             var contact_record;
@@ -9,16 +12,24 @@ define([
             var address_record;
             var phone_record;
             var website_record;
+
+
             var ProfileController = Ember.ObjectController.extend({
                 editing: false,
-                content: null,
                 galleryInsert: false,
+                setLocalLoginRecrod: function() {
+                   
+                    localStorage.lastname = this.get('content.id');
+                },
+                getArrLength: function()
+                {
+                    console.log(arr);
+                },
                 toggleEditing: function() {
                     profile_record = this.get('content.profile_name');
                     this.set('editing', !this.get('editing'));
                 },
                 changeTitle: function() {
-
                     var update_profile_record = App.Profile.find(this.get('content.id'));
                     App.store.get('adapter').updateRecord(App.store, App.Profile, update_profile_record);
                     this.set('editing', false);
@@ -47,7 +58,6 @@ define([
                     phone_record = this.get('content.phone_number');
                     website_record = this.get('content.website_url');
                     this.set('editingContact', !this.get('editingContact'));
-
                 },
                 changeEditingContact: function() {
                     var update_contact_record = App.Profile.find(this.get('content.id'));
@@ -64,17 +74,15 @@ define([
                 },
                 galleryEdit: function() {
                     this.set('galleryInsert', !this.get('galleryInsert'));
-
                 },
-                galleryEndingEdit: function() {
-                    this.set('galleryInsert', !this.get('galleryInsert'));
-
+                showDragNdropWindow: function()
+                {
+                    console.log("click showDragNdropWindow ");
                 }
 
+            }
 
-            });
-
-
+            );
 
             return ProfileController;
         });

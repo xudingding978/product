@@ -28,7 +28,7 @@
                     </i>
                 </div>   
             </div>
-            <div  id="dropdown-cover" onclick="return popitup();" style="float: right; bottom: 10px; position: relative; width: 204px; height: 45px; margin-right: -10px;">
+            <div  id="dropdown-cover" onclick="return popitup(650, 400);" style="float: right; bottom: 10px; position: relative; width: 204px; height: 45px; margin-right: -10px;">
                 <div class="sign-in-with" >Sign In with Facebook</div>
             </div>
         </div>
@@ -49,22 +49,24 @@
 
 
 <script language="javascript" type="text/javascript">
-
-                function popitup() {
-
+                function popitup(popupWidth, popupHeight) {
+                    var left = (screen.width / 2) - (popupWidth / 2);
+                    var top = (screen.height / 2) - (popupHeight / 2);
                     var api_url = document.domain;
                     var api_domain_start_pos = api_url.indexOf('.');
                     var api_url = api_url.slice(api_domain_start_pos);
-                    api_url = "http://account" + api_url+"/hybridauth/default/login/?provider=Facebook";
-                 //   alert(api_url);
-                    newwindow = window.open(api_url, 'name', 'height=600,width=550,top=200,left=500');
+                    api_url = "http://account" + api_url + "/hybridauth/default/login/?provider=Facebook";
+                    //   alert(api_url);
+                    newwindow = window.open(api_url, 'name', 'height='+popupHeight+',width='+popupWidth+',top='+top+',left='+left+',toolbar=no,scrollbars=no,location=no,resizable =yes');
                     if (window.focus) {
-                        newwindow.focus()
+                        newwindow.focus();
                     }
                     return false;
-
-            
                 }
 
 
 </script>
+
+
+
+{{#linkTo "searchIndex" }}<button type="button"  class="btn btn-primary" >login in</button>{{/linkTo}}

@@ -44,11 +44,7 @@ define(
         getDiscussion: function() {
             return this.get('type') === 'discussion';
         }.property('type'),
-        url: function() {
-            var type = this.get('type');
 
-            return  "http://www.develop.devbox/#/" + type + "s/";
-        }.property('type'),
         didLoad: function() {
 //            console.log('model loaded', this.toJSON());
 //            console.log('id: ' + this.id + ' ' + this.profile_name, this);

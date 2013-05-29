@@ -10,6 +10,9 @@ define(["ember"], function(Ember) {
                 this.resource("photo", {path: ':photo_id'});
             });
             this.resource("videos", {path: '/videos/:video_id'});
+            this.resource("videos", function() {
+                this.resource("video", {path: ':video_id'});
+            });
             this.resource("files", {path: '/files/:file_id'});
             this.resource("articles", {path: '/articles/:article_id'});
             this.resource("articles", function() {

@@ -69,7 +69,7 @@ define('application', [
     "views/CarouselView",
     "views/MasonryView",
     "views/LightBoxView",
-    "views/VideosView",
+    "views/VideoView",
     "views/FilesView",
     "views/ArticleView",
     "views/IdeabooksView",
@@ -101,6 +101,7 @@ define('application', [
     "routes/PhotosRoute",
     "routes/PhotoRoute",
     "routes/VideosRoute",
+    "routes/VideoRoute",
     "routes/FilesRoute",
     "routes/ArticlesRoute",
     "routes/ArticleRoute",
@@ -117,6 +118,7 @@ define('application', [
     "models/SearchModel",
     "models/PhotoModel",
     "models/ArticleModel",
+    "models/VideoModel",
     "emberData",
     'jquery',
     "bxslider",
@@ -143,7 +145,7 @@ define('application', [
         CarouselView,
         MasonryView,
         LightBoxView,
-        VideosView,
+        VideoView,
         FilesView,
         ArticleView,
         IdeabooksView,
@@ -175,6 +177,7 @@ define('application', [
         PhotosRoute,
         PhotoRoute,
         VideosRoute,
+        VideoRoute,
         FilesRoute,
         ArticlesRoute,
         ArticleRoute,
@@ -190,7 +193,8 @@ define('application', [
         ImageArray,
         Search,
         Photo,
-        Article
+        Article,
+        Video
 
 
 
@@ -221,7 +225,7 @@ define('application', [
         TestView: TestView,
         EditingAboutView: EditingAboutView,
         LightBoxView: LightBoxView,
-        VideosView: VideosView,
+        VideoView: VideoView,
         FilesView: FilesView,
         ArticleView: ArticleView,
         IdeabooksView: IdeabooksView,
@@ -253,6 +257,7 @@ define('application', [
         PhotosRoute: PhotosRoute,
         PhotoRoute: PhotoRoute,
         VideosRoute: VideosRoute,
+        VideoRoute: VideoRoute,
         FilesRoute: FilesRoute,
         ArticlesRoute: ArticlesRoute,
         ArticleRoute: ArticleRoute,
@@ -269,6 +274,7 @@ define('application', [
         Search: Search,
         Photo: Photo,
         Article: Article,
+        Video: Video,
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({

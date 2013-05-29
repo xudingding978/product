@@ -1,13 +1,13 @@
 define([
     "ember",
-    "text!templates/isotopeTemplate.html",
+    "text!templates/masonryTemplate.html",
     'jquery',
     'helpers',
       'jquery.masonry'
-], function(Ember, isotopeTemplate) {
-    Ember.TEMPLATES["isotope"] = Ember.Handlebars.compile(isotopeTemplate);
-    var IsotopeView = Ember.View.extend({
-        template: Ember.Handlebars.compile(isotopeTemplate),
+], function(Ember, masonryTemplate) {
+    Ember.TEMPLATES["masonry"] = Ember.Handlebars.compile(masonryTemplate);
+    var MasonryView = Ember.View.extend({
+        template: Ember.Handlebars.compile(masonryTemplate),
         didInsertElement: function() {
             $(function() {
 
@@ -23,5 +23,5 @@ define([
 
         }
     });
-    return IsotopeView;
+    return MasonryView;
 });

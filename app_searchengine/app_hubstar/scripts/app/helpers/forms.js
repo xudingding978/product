@@ -28,6 +28,7 @@ define(['ember',  'models/ProfileModel', 'handlebars'],
                 }
                 return options.inverse(this);
             });
+            
             Handlebars.registerHelper('checkInputFilesSize', function(object) {
 
                 return new Handlebars.SafeString(
@@ -35,8 +36,7 @@ define(['ember',  'models/ProfileModel', 'handlebars'],
                         );
 
             });
-
-
+           
 
         });
 

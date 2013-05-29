@@ -1,10 +1,7 @@
 define([
     'models/ProfileModel',
     'ember', 'controllers/PhotoUploadController'],
-        function(
-                ProfileModel,
-                Ember  , PhotoUploadController
-                ) {
+        function(ProfileModel, Ember, PhotoUploadController ) {
             var profile_record;
             var about_record;
             var contact_record;
@@ -12,11 +9,12 @@ define([
             var address_record;
             var phone_record;
             var website_record;
-
+                
 
             var ProfileController = Ember.ObjectController.extend({
                 editing: false,
                 galleryInsert: false,
+                
                 setLocalLoginRecrod: function() {
                    
                     localStorage.lastname = this.get('content.id');
@@ -78,11 +76,25 @@ define([
                 showDragNdropWindow: function()
                 {
                     console.log("click showDragNdropWindow ");
+                }, 
+                    
+                autoScrolling: function() {
+                        var view = this; 
+                       $(window).bind("scroll", function() {
+                               view.didScroll();
+                       });
+               },
+
+               didScroll: function() {
+                       console.log("222222222222222222222222222222222222222222");
+               },
+                        
+                getPosition: function() 
+                {
+                    console.log(this.scrolled());
                 }
 
-            }
-
-            );
+            });
 
             return ProfileController;
         });

@@ -100,7 +100,8 @@ define('application', [
     "routes/ProfileNewRoute",
     "routes/PhotoUploadRoute",
     "routes/LightBoxRoute",
-    "routes/PhotoRoute",
+    "routes/PhotosRoute",
+  //     "routes/PhotoRoute",
     "routes/VideosRoute",
     "routes/FilesRoute",
     "routes/ArticlesRoute",
@@ -109,6 +110,7 @@ define('application', [
     "routes/SearchRoute",
     "routes/SearchIndexRoute",
     "routes/IndexIndexRoute",
+    "models/ObjectModel",
     "models/PostModel",
     "models/ProfileModel",
     "models/UserModel",
@@ -173,7 +175,8 @@ define('application', [
         ProfileNewRoute,
         PhotoUploadRoute,
         LightBoxRoute,
-        PhotoRoute,
+        PhotosRoute,
+        //      PhotoRoute,
         VideosRoute,
         FilesRoute,
         ArticlesRoute,
@@ -182,6 +185,7 @@ define('application', [
         SearchRoute,
         SearchIndexRoute,
         IndexIndexRoute,
+        Object,
         Post,
         Profile,
         User,
@@ -247,7 +251,8 @@ define('application', [
         ProfileNewRoute: ProfileNewRoute,
         PhotoUploadRoute: PhotoUploadRoute,
         LightBoxRoute: LightBoxRoute,
-        PhotoRoute: PhotoRoute,
+        PhotosRoute: PhotosRoute,
+        //       PhotoRoute: PhotoRoute,
         VideosRoute: VideosRoute,
         FilesRoute: FilesRoute,
         ArticlesRoute: ArticlesRoute,
@@ -256,6 +261,7 @@ define('application', [
         SearchRoute: SearchRoute,
         SearchIndexRoute: SearchIndexRoute,
         IndexIndexRoute: IndexIndexRoute,
+        Object: Object,
         Post: Post,
         Profile: Profile,
         User: User,
@@ -268,9 +274,11 @@ define('application', [
             adapter: DS.RESTAdapter.create({
                 bulkCommit: false,
                 url: getRestAPIURL(),
-                mappings: {
-                    posts: Post
-                }
+                map: {
+                    Object: {
+                        Photo: {embedded: 'always'}
+                    }
+                },
             })
         }),
         ready: function() {
@@ -280,7 +288,6 @@ define('application', [
     });
 }
 );
-
 function getRestAPIURL()
 {
     var api_url = document.domain;

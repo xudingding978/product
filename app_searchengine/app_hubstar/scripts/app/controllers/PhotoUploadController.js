@@ -1,4 +1,4 @@
-define(["ember", 'models/PhotoModel'], function(Ember, PhotoModel) {
+define(["ember", 'models/PhotoModel', 'models/ObjectModel'], function(Ember, PhotoModel, Obj) {
     var arr = [];
     var test = "test";
 
@@ -14,10 +14,11 @@ define(["ember", 'models/PhotoModel'], function(Ember, PhotoModel) {
                     var reader = new FileReader();
                     reader.onload = function(e) {
                         var src = e.srcElement.result;
-                        var file = PhotoModel.createRecord({"name": name.toLowerCase(), "data_type": type, "src": src, "progress": Math.round(e.loaded * 100 / e.total)});
-                        //      App.store.commit();
+                        var obj = Obj.createRecord({"title": name.toLowerCase(), "type": "photo"});
+                        var file = PhotoModel.createRecord({"photo_title": name.toLowerCase(), "photo_url": src});
+                        //      obj.get("photos").pushObject({"photo_title": name.toLowerCase(), "photo_url": src});
+                        obj.get("photos").pushObject(file);
                         content.addObject(file);
-                        console.log(content.length);
                     }, reader.readAsDataURL(files[i]);
                 })(files[i]);
 
@@ -57,13 +58,17 @@ define(["ember", 'models/PhotoModel'], function(Ember, PhotoModel) {
                     var type = file.type;
                     var reader = new FileReader();
                     reader.onload = function(e) {
-
                         var src = e.srcElement.result;
-                        var file = PhotoModel.createRecord({"name": name.toLowerCase(), "data_type": type, "src": src, "progress": Math.round(e.loaded * 100 / e.total)});
-                        arr.addObject(file);
-                        //         App.store.commit();
-                        console.log(arr.length);
-                        //             file.isSaving();
+                        var obj = Obj.createRecord({"title": name.toLowerCase(), "type": "photo"});
+                        var file = PhotoModel.createRecord({"photo_title": name.toLowerCase(), "photo_url": src});
+                        //      obj.get("photos").pushObject({"photo_title": name.toLowerCase(), "photo_url": src});
+                        obj.get("photos").pushObject(file);
+                        console.log(obj.get("photos"));
+                        // arr.addObject(obj);
+//                             console.log(obj.photo);
+//                        console.log(file.common_object);
+                        App.store.commit();
+
 
 
 //                    $.ajax({

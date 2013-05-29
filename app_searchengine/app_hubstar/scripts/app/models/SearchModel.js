@@ -14,7 +14,8 @@ define(
         type: DS.attr('string'),
         profile_pic_url: DS.attr('string'),
         image_url: DS.attr('string'),
-        article_text: DS.attr('string'),
+        article_text:DS.attr('string'),
+        article_title:DS.attr('string'),
         getProfile: function() {
             return this.get('type') === 'profile';
         }.property('type'),

@@ -695,10 +695,7 @@ height:45px;
 
 
 
-#discovery_search_bar > a {
-color: #ccc;
 
-}
 
 #discovery_search_bar > .cancleIcon {
 color: #333333;
@@ -708,12 +705,6 @@ color: #333333;
 color: #ccc;
 }
 
-
-#discovery_search_bar > a:hover {
-
-color:#333333;
-text-decoration: none;
-}
 
 
 #mainmenu #yw6 li a {

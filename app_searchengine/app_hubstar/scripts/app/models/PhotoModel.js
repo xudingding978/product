@@ -9,6 +9,7 @@ define(
         photo_title: DS.attr('string'),
         photo_url: DS.attr('string'),
         photo_caption: DS.attr('string'),
+        photo_type: DS.attr('string'),//
         photo_file_name: DS.attr('string'),
         photo_collection_name: DS.attr('string'),
         photo_categories: DS.attr('string'), //[] 

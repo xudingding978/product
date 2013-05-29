@@ -15,8 +15,7 @@ define([
                 editing: false,
                 galleryInsert: false,
                 
-                setLocalLoginRecrod: function() {
-                   
+                setLocalLoginRecrod: function() {                   
                     localStorage.lastname = this.get('content.id');
                 },
                 getArrLength: function()

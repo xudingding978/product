@@ -280,7 +280,7 @@ define('application', [
                     Object: {
                         Photo: {embedded: 'always'}
                     }
-                },
+                }
             })
         }),
         ready: function() {

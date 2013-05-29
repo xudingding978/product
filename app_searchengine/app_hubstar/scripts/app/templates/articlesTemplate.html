@@ -1,31 +1,30 @@
 
 
 
-<div class="objectview-wrapper" style="min-width: 700px;">
+<div class="objectview-wrapper" >
 
-    <div class="objectview-left" style="bottom: 0; top: 0; left: 0; margin: 0; position: absolute; right: 320px; overflow: hidden; ">
+    <div class="objectview-left">
 
-        <div class="exit" style="cursor: pointer;height: 44px;left: 0;filter: alpha(opacity=80);opacity: .8;position: absolute;right: 0px;top: 0;">
-            <div class="closeview" onclick="window.history.back();" ><i class="icon-remove"></i></div>
-
-
-
+        <div class="exit" >
+            <div class="closeview" onclick="window.history.back();" >
+                <i class="icon-remove"></i>
+            </div>
         </div>
 
 
-        <div class="top-controlbar" style="height: 44px; left: 0; margin: 0 auto; position: absolute; right: 0px; width: 100px; text-align: center;">
+        <div class="top-controlbar" >
             <div class="icon-on-black" style="left: 8px;"><i class="icon-question-sign"></i></div>
             <div class="icon-on-black" style="left: 50px;"><i class="icon-folder-close"></i></div>
             <!--    <div class="icon-on-black" style=""><i class="icon-share-alt"></i></div>     -->
         </div>
 
 
-        <div class="mainfeature" style="bottom: 44px; left: 0; overflow: hidden; position: absolute; right: 0px; top: 44px;">
-            <img {{bindAttr src="image_url" }} style='bottom: 0; left: 0; margin: auto; position: absolute; right: 0; top: 0; max-height: 95%;max-width: 95%;'/>
+        <div class="mainfeature">
+            <img class="mainfeature_object" {{bindAttr src="image_url" }}/>
         </div>
 
 
-        <div class="bottom-controlbar" style="bottom: 0; height: 44px; left: 0; margin: 0 auto; position: absolute; right: 0px; width: 132px;">
+        <div class="bottom-controlbar">
             <div class="object-name" style="right: 132px; color: #737373; font: normal 14px Roboto,arial,sans-serif; line-height: 44px; padding: 0 10px; position: absolute; white-space: nowrap;"> object Name</div>
             <div class="icon-on-black" >
                 <i class="icon-arrow-left"></i>

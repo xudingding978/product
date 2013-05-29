@@ -6,6 +6,10 @@ define([
     var ArticleView = Ember.View.extend({
         classNames: ["lightbox"],
         template: Ember.Handlebars.compile(articleTemplate),
+        didInsertElement: function() {
+
+
+        },
         checkReading: function() {
             $('.objectview-right').animate({
                 width: '45%'
@@ -19,7 +23,7 @@ define([
             }, 500, function() {
                 // Animation complete.
             });
-            $('.lightbox').attr("style",  "min-width:700px");
+            $('.lightbox').attr("style", "min-width:700px");
             this.set('readContent', !this.get("readContent"));
 
         },
@@ -40,13 +44,9 @@ define([
             });
 
 //          $('.lightbox').attr("style" , "min-width:none");
-            $('.objectview-left').attr("style" , "bottom: 0; top: 0; left: 0; margin: 0; position: absolute; right: 320px; overflow: hidden; transition:all 0.5 ease; ");
+            $('.objectview-left').attr("style", "bottom: 0; top: 0; left: 0; margin: 0; position: absolute; right: 320px; overflow: hidden; transition:all 0.5 ease; ");
 //             $('.objectview-right').attr("style" , "bottom: 0; position: absolute; right: 0; top: 0; width: 320px; background-color: white; overflow-y: scroll; ");
             this.set('readContent', !this.get("readContent"));
-
-        },
-        didInsertElement: function() {
-
 
         },
         setTitleTag: function() {

@@ -1,12 +1,12 @@
 
-<div id="container" style="width: 90%; margin: auto;">
+<div id="masonry_container" class="transitions-enabled centered clearfix">
 
 
 
     {{#each  model}}
 
     {{#if getProfile}}
-    <div class="element ">
+     <div class="box col4">
 
 
 
@@ -80,7 +80,7 @@ Smeg retains its leading edge in the worldwide market through a total dedication
 
 
     {{#if getPhoto}}
-    <div class="element ">
+   <div class="box col4">
 
 
         <div class="isotope-object" style="-webkit-border-radius:2px; border-radius: 2px;background-color: #fff; box-shadow: inset 0px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07);width: 350px;">
@@ -142,7 +142,7 @@ Smeg retains its leading edge in the worldwide market through a total dedication
     {{/if}}
 
     {{#if getVideo}}
-    <div class="element ">
+ <div class="box col4">
 
         <div class="isotope-object" style="-webkit-border-radius:2px; border-radius: 2px;background-color: #fff; box-shadow: inset 0px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07);width: 350px;">
             <div class="isotope-object_poster" style="margin-bottom: 20px;padding: 0 20px 0 20px;position: relative;">
@@ -200,14 +200,14 @@ Smeg retains its leading edge in the worldwide market through a total dedication
     {{/if}}
 
     {{#if getFile}}
-    <div class="element ">
+    <div class="box col4">
         <img {{bindAttr src="profile_pic_url"}} />
         {{#linkTo 'files' this}}<h1>{{type}}</h1>{{/linkTo}}
     </div>
     {{/if}}
 
     {{#if getArticle}}
-    <div class="element ">
+ <div class="box col4">
 
         <div class="isotope-object" style="-webkit-border-radius:2px; border-radius: 2px;background-color: #fff; box-shadow: inset 0px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07);width: 350px;">
             <div class="isotope-object_poster" style="margin-bottom: 20px;padding: 0 20px 0 20px;position: relative;">
@@ -265,19 +265,39 @@ Smeg retains its leading edge in the worldwide market through a total dedication
     {{/if}}
 
     {{#if getIdeabook}}
-    <div class="element ">
+     <div class="box col4">
         <img {{bindAttr src="profile_pic_url"}} />
         {{#linkTo 'ideabooks' this}}<h1>{{type}}</h1>{{/linkTo}}
     </div>
     {{/if}}
 
     {{#if getDiscussion}}
-    <div class="element ">
+ <div class="box col4">
         <img {{bindAttr src="profile_pic_url"}} />
         {{#linkTo 'discussions' this}}<h1>{{type}}</h1>{{/linkTo}}
     </div>
     {{/if}}
 
+    
+    
+    
+    
+    
+    
+        <script>
+
+        $(function() {   
+            var $container = $('#masonry_container');
+            var $boxes = $('.box');
+            window.setTimeout(function() {
+                $container.prepend($boxes).masonry('reload');
+            }, 10);
+        });
+    </script>
+    
+    
+    
+    
 
     {{/each}}
 

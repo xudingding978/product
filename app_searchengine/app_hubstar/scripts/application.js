@@ -19,9 +19,8 @@ require.config({
         'bootstrap-wysihtml5': 'libs/wysihtml5/bootstrap-wysihtml5',
         'wysihtml5': 'libs/wysihtml5/wysihtml5-0.3.0',
         'bxslider': 'libs/jquery.bxslider.min',
-        'isotope': 'libs/isotope/jquery.isotope.min',
-        'search': 'libs/isotope/search',
         'guid_creater': 'libs/guid_creater',
+        'jquery.masonry': 'libs/jquery.masonry/jquery.masonry.min',
         /*requirejs-plugins*/
         'text': 'libs/requirejs-plugins/text',
         'hbs': 'libs/requirejs-plugins/hbs',
@@ -41,8 +40,7 @@ require.config({
         'bxslider': ['jquery'],
         'bootstrap-wysihtml5': ['wysihtml5'],
         'bootstrap': ['jquery'],
-        'isotope': ['jquery'],
-        'search': ['jquery']
+        'jquery.masonry': ['jquery']
     },
     hbs: {
         disableI18n: true,
@@ -125,8 +123,7 @@ define('application', [
     'bootstrap-wysihtml5',
     "wysihtml5",
     'bootstrap',
-    'isotope',
-    'search'
+    'jquery.masonry'
 
 ], function(
         DragNDropNamespace, ApplicationView,

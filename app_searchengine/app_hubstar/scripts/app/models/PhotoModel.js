@@ -5,31 +5,24 @@ define(
             'emberData'
         ], function() {
 
-    var PhotoModel = DS.Model.extend({
+    var Photo = DS.Model.extend({
         photo_title: DS.attr('string'),
-        photo_description: DS.attr('string'),
-        last_name: DS.attr('string'),
-        first_name: DS.attr('string'),
-        email: DS.attr('string'),
-        about: DS.attr('string'),
-        description: DS.attr('string'),
-        type: DS.attr('string'),
-        profile_cover_url: DS.attr('string'),
-        profile_pic_url: DS.attr('string'),
-        profile_bg_url: DS.attr('string'),
-        contact_user: DS.attr('string'),
-        profile_category: DS.attr('string'),
-        profile_physical_address: DS.attr('string'),
-        phone_number: DS.attr('string'),
-        website_url: DS.attr('string'),
-        image_url: DS.attr('string'),
+        photo_url: DS.attr('string'),
+        photo_caption: DS.attr('string'),
+        photo_file_name: DS.attr('string'),
+        photo_collection_name: DS.attr('string'),
+        photo_categories: DS.attr('string'), //[] 
+        photo_keywords: DS.attr('string'), //[ ]
+        photo_brands: DS.attr('string'), // [ ]
+        photo_products: DS.attr('string'), // [ ] 
+        object: DS.belongsTo('App.Object'),
         didLoad: function() {
 //            console.log('model loaded', this.toJSON());
 //            console.log('id: ' + this.id + ' ' + this.profile_name, this);
         }
     });
 
-    return PhotoModel;
+    return Photo;
 }
 );
 

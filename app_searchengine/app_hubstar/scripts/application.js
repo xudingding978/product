@@ -185,7 +185,6 @@ define('application', [
         Post,
         Profile,
         User,
-        
         ImageArray,
         Search,
         Photo,
@@ -196,6 +195,7 @@ define('application', [
 
     return  Ember.Application.createWithMixins({
         LOG_TRANSITIONS: true,
+        LOG_BINDINGS: true,
         VERSION: '1.0.0',
         rootElement: '#main',
         //  DragNDrop: DragNDrop,
@@ -263,7 +263,6 @@ define('application', [
         Search: Search,
         Photo: Photo,
         Article: Article,
-
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({

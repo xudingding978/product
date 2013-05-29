@@ -5,7 +5,7 @@ define(
             'emberData'
         ], function() {
 
-    var Photo = DS.Model.extend({
+    var PhotoModel = DS.Model.extend({
         photo_title: DS.attr('string'),
         photo_url: DS.attr('string'),
         photo_caption: DS.attr('string'),
@@ -23,7 +23,7 @@ define(
         }
     });
 
-    return Photo;
+    return PhotoModel;
 }
 );
 

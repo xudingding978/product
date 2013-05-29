@@ -7,17 +7,12 @@ define([
         ) {
     "use strict";
 
-    var PhotosRoute = Ember.Route.extend({
+    var PhotoRoute = Ember.Route.extend({
         //     controller: ApplicationController,
         setupController: function(controller, model) {
-
-        alert(model.type);
-            //    this.controllerFor('photos').set('model', PhotoModel.find({id: "photo1"}));
-
-
         },
         model: function(params) {
-            console.log(PhotoModel.find(params.photo_id));
+     
             return PhotoModel.find(params.photo_id);
         },
         activate: function() {
@@ -32,11 +27,11 @@ define([
             this.render('index', {
                 into: "application"
             });
-            this.render('photos', {
+            this.render('photo', {
                 into: "index"
             });
         }
 
     });
-    return PhotosRoute;
+    return PhotoRoute;
 });

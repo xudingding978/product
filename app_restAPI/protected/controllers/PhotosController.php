@@ -4,8 +4,8 @@ header("Access-Control-Allow-Origin: *");
 
 class PhotosController extends Controller {
 
-    const JSON_RESPONSE_ROOT_SINGLE = 'ImageFile';
-    const JSON_RESPONSE_ROOT_PLURAL = 'ImageFiles';
+    const JSON_RESPONSE_ROOT_SINGLE = 'photo';
+    const JSON_RESPONSE_ROOT_PLURAL = 'photos';
 
     public function actionIndex() {
 
@@ -22,7 +22,7 @@ class PhotosController extends Controller {
         $termQuery = Sherlock\Sherlock::queryBuilder()
                 ->Match()
                 ->field("type")
-                ->query("profile")
+                ->query("photo")
                 ->boost(2.5);
 
 //        $filter = null;
@@ -113,7 +113,15 @@ class PhotosController extends Controller {
 
     public function actionRead() {
         try {
-            
+            $cb = $this->couchBaseConnection();
+            $results_arr = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI']);
+
+            if ($results_arr) {
+                $result = $this->processGet($results_arr, self::JSON_RESPONSE_ROOT_SINGLE);
+                echo $this->sendResponse(200, $result);
+            } else {
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $_POST['id'] . '" already exists');
+            }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

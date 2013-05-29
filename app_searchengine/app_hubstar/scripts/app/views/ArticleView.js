@@ -1,11 +1,11 @@
 define([
     "ember",
-    "text!templates/articlesTemplate.html"
-], function(Ember, articlesTemplate) {
-    Ember.TEMPLATES["articles"] = Ember.Handlebars.compile(articlesTemplate);
-    var ArticlesView = Ember.View.extend({
+    "text!templates/articleTemplate.html"
+], function(Ember, articleTemplate) {
+    Ember.TEMPLATES["article"] = Ember.Handlebars.compile(articleTemplate);
+    var ArticleView = Ember.View.extend({
         classNames: ["lightbox"],
-        template: Ember.Handlebars.compile(articlesTemplate),
+        template: Ember.Handlebars.compile(articleTemplate),
         checkReading: function() {
             $('.objectview-right').animate({
                 width: '45%'
@@ -70,5 +70,5 @@ define([
 
         }
     });
-    return ArticlesView;
+    return ArticleView;
 });

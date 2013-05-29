@@ -21,6 +21,7 @@ require.config({
         'bxslider': 'libs/jquery.bxslider.min',
         'isotope': 'libs/isotope/jquery.isotope.min',
         'search': 'libs/isotope/search',
+        'guid_creater': 'libs/guid_creater',
         /*requirejs-plugins*/
         'text': 'libs/requirejs-plugins/text',
         'hbs': 'libs/requirejs-plugins/hbs',
@@ -272,12 +273,12 @@ define('application', [
             revision: 12,
             adapter: DS.RESTAdapter.create({
                 bulkCommit: false,
-                url: getRestAPIURL(),
-                map: {
-                    Object: {
-                        Photo: {embedded: 'always'}
-                    }
-                },
+                url: getRestAPIURL()
+//                map: {
+//                    Object: {
+//                        Photo: {embedded: 'always'}
+//                    }
+//                },
             })
         }),
         ready: function() {

@@ -274,6 +274,8 @@ define('application', [
             adapter: DS.RESTAdapter.create({
                 bulkCommit: false,
                 url: getRestAPIURL()
+         
+
 //                map: {
 //                    Object: {
 //                        Photo: {embedded: 'always'}
@@ -294,5 +296,6 @@ function getRestAPIURL()
     var api_domain_start_pos = api_url.indexOf('.');
     var api_url = api_url.slice(api_domain_start_pos);
     api_url = "http://api" + api_url;
+    console.log(api_url);
     return api_url;
 }

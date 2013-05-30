@@ -13,13 +13,12 @@ class ObjectsController extends Controller {
     }
 
     public function actionCreate() {
-
-
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
         $request_arr["object"]["id"] = str_replace('test', '', $request_arr["object"]["id"]);
         $path = 'this_is/folder_path/';
-        $s3response = false;
+        
+       
         $s3response = $this->photoSavingToS3($request_arr, $path);
         $response = "ok";
         //   error_log(var_export($request_arr, true));
@@ -32,7 +31,7 @@ class ObjectsController extends Controller {
                 if ($cb->add(substr($_SERVER['HTTP_HOST'], 4) . '/' . $request_arr["object"]["type"] . '/' . $request_arr["object"]["id"], CJSON::encode($request_arr['object']))) {
                     echo $this->sendResponse(200, var_dump($request_arr));
                 } else {
-                    echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+                    echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '"rrrrr  rrrr already exists');
                 }
             } catch (Exception $exc) {
                 echo $exc->getTraceAsString();
@@ -133,17 +132,17 @@ class ObjectsController extends Controller {
         $client = Aws\S3\S3Client::factory(
                         $result_arr["providers"]["S3Client"]
         );
-        if ($client->doesObjectExist('hubstar-dev', $path . $request_arr ["object"]['photos'][0]['photo_title'])) {
-            $response = false;
-        } else {
-            $client->putObject(array(
-                'Bucket' => "hubstar-dev",
-                'Key' => $path . $request_arr ["object"]['photos'][0]['photo_title'],
-                'Body' => $data,
-                'ACL' => 'public-read'
-            ));
-            $response = true;
-        }
+//        if ($client->doesObjectExist('hubstar-dev', $path . $request_arr ["object"]['photos'][0]['photo_title'])) {
+//            $response = false;
+//        } else {
+//            $client->putObject(array(
+//                'Bucket' => "hubstar-dev",
+//                'Key' => $path . $request_arr ["object"]['photos'][0]['photo_title'],
+//                'Body' => $data,
+//                'ACL' => 'public-read'
+//            ));
+//            $response = true;
+//        }
         return $response;
     }
 

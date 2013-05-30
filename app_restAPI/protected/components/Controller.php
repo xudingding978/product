@@ -24,6 +24,24 @@ class Controller extends CController {
         return new Couchbase("cb1.hubsrv.com:8091", "", "Pa55word", "test", true);
     }
 
+    protected function getS3BucketName($domain) {
+        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
+        $result = $cb->get($domain);
+        $result_arr = CJSON::decode($result, true);
+        error_log(var_export($result_arr,true));
+        return    $result_arr["providers"]["S3bucket"];
+    }
+
+    protected function getS3Connection($domain) {
+        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
+        $result = $cb->get($domain);
+        $result_arr = CJSON::decode($result, true);
+        $client = Aws\S3\S3Client::factory(
+                        $result_arr["providers"]["S3Client"]
+        );
+        return $client;
+    }
+
     /**
      * Send raw HTTP response
      * @param int $status HTTP status code
@@ -43,7 +61,7 @@ class Controller extends CController {
         header('Access-Control-Allow-Methods: PUT, POST, OPTIONS');
         header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
         //header('Access-Control-Allow-Headers: *');
-        
+
         echo $body;
         Yii::app()->end();
     }
@@ -114,8 +132,8 @@ class Controller extends CController {
         $result .= ']}';
         return $result;
     }
-    
-    protected function processGet($results_arr, $jsonRoot){
+
+    protected function processGet($results_arr, $jsonRoot) {
         $result = '{"' . $jsonRoot . '":[';
         $result .= CJSON::encode($results_arr);
         $result .= ']}';

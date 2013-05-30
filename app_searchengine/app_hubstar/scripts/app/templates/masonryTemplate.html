@@ -1,14 +1,12 @@
 
-<div id="container" style="width: 90%; margin: auto;">
+<div id="masonry_container" class="transitions-enabled centered clearfix">
 
-
-    {{log controller}}
 
 
     {{#each  model}}
 
     {{#if getProfile}}
-    <div class="element ">
+     <div class="box col4">
 
 
 
@@ -17,7 +15,7 @@
             <div class="isotope-object_profile-cover" style="background: url(../../images/searchbarbg.jpg) repeat scroll 0% 5% rgb(242, 240, 240);  background-size: 100% auto; padding: 0; position: relative;height: 170px;">
                 <div>
                     <img {{bindAttr src="profile_pic_url"}} class="profilepicture" scr="" style="width: 150px;height: 150px;box-shadow: 0 0 10px #333; margin: auto; left: 0;-webkit-border-radius: 6%; border-radius: 6%;right: 0;position: absolute;top: 40%;"/>
-                    <div style=" position: absolute;display: block; width: 80%; margin: auto; left: 0; right: 0; text-align: center; top: 133%;"> Name </div>
+                    <div style=" position: absolute;display: block; width: 80%; margin: auto; left: 0; right: 0; text-align: center; top: 133%;"> <a {{bindAttr href="getProfile_id"}}>{{id}}</a></div>
                     <div style="position: absolute;display: block; width: 80%; margin: auto; left: 0; right: 0; text-align: center; top: 145%; font-size: 12px; color: #aaa;">
                         <span> type</span>
                         <span> <k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star-half" ></k></span>
@@ -82,16 +80,16 @@ Smeg retains its leading edge in the worldwide market through a total dedication
 
 
     {{#if getPhoto}}
-    <div class="element ">
+   <div class="box col4">
 
 
         <div class="isotope-object" style="-webkit-border-radius:2px; border-radius: 2px;background-color: #fff; box-shadow: inset 0px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07);width: 350px;">
             <div class="isotope-object_poster" style="margin-bottom: 20px;padding: 0 20px 0 20px;position: relative;">
                 <a href="#" class="toprofile" style="">
-                    <img {{bindAttr src="profile_pic_url"}} class="profilepicture" scr="" style="width: 46px;height: 46px;float: left; margin: 20px 15px 0 0; padding: 0;-webkit-border-radius: 50%; border-radius: 50%;"/>
+                    <a {{bindAttr href="getProfile_id"}}><img {{bindAttr src="profile_pic_url"}} class="profilepicture" scr="" style="width: 46px;height: 46px;float: left; margin: 20px 15px 0 0; padding: 0;-webkit-border-radius: 50%; border-radius: 50%;"/></a>
                 </a>   
                 <div class="object_username" style="margin: 0 0 15px 61px; padding: 23px 0 0 0; text-overflow: ellipsis;">
-                    <p style="margin: 0;border: 0;font-size: 14px;font-weight: normal;unicode-bidi:normal;"><a href="#">NAME</a></p>
+                    <p style="margin: 0;border: 0;font-size: 14px;font-weight: normal;unicode-bidi:normal "><a {{bindAttr href="getProfile_id"}}>{{profile_id}}</a></p>
                     <span class="posttime" style="color: #999; display: inline-block; font-size: 12px;">yesterday 8:37</span>
                 </div>
             </div>
@@ -99,7 +97,7 @@ Smeg retains its leading edge in the worldwide market through a total dedication
                 <div style="display:block;">
                     <div class="isotope-object_image" style="margin: 0 -14px 0 -14px;clear: both;line-height: 0;overflow: hidden;position: relative;padding: 0 0 20px 0;">
                         <a href="#" style="background-color: #f5f5f5; line-height: 0;min-width: 70px;overflow: hidden; position: relative;">
-                            {{#linkTo 'photos' this}} <img {{bindAttr src="image_url" }} style="max-height: 100%; max-width: 100%; display: inline-block;" />{{/linkTo}}
+                            {{#linkTo 'photo' this}} <img {{bindAttr src="image_url" }} style="max-height: 100%; max-width: 100%; display: inline-block;" />{{/linkTo}}
 
                         </a>
                     </div>
@@ -107,7 +105,7 @@ Smeg retains its leading edge in the worldwide market through a total dedication
                 <div class="isotope-object_text" style="display:block;">
                     <div style="color: #404040;font-size: 13px;line-height: 1.4;min-height: 0; overflow: hidden;">
                         <div style="max-height: 72px; overflow: hidden;">
-                            <p class="isotope-object_title" style="display: block;">Title</p>
+                            <p class="isotope-object_title" style="display: block;">   {{#linkTo 'photo' this}} Title{{/linkTo}} </p>
                             <p class="isotope-object_describtion" style="display:block;">{{description}}</p>
                         </div>
                         <span role="button" style="-webkit-user-select: none;color: #999;display: block;font-size: 12px;margin-top: 2px;vertical-align: middle;">more</span>
@@ -144,7 +142,7 @@ Smeg retains its leading edge in the worldwide market through a total dedication
     {{/if}}
 
     {{#if getVideo}}
-    <div class="element ">
+ <div class="box col4">
 
         <div class="isotope-object" style="-webkit-border-radius:2px; border-radius: 2px;background-color: #fff; box-shadow: inset 0px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07);width: 350px;">
             <div class="isotope-object_poster" style="margin-bottom: 20px;padding: 0 20px 0 20px;position: relative;">
@@ -152,7 +150,7 @@ Smeg retains its leading edge in the worldwide market through a total dedication
                     <img {{bindAttr src="profile_pic_url"}} class="profilepicture" scr="" style="width: 46px;height: 46px;float: left; margin: 20px 15px 0 0; padding: 0;-webkit-border-radius: 50%; border-radius: 50%;"/>
                 </a>   
                 <div class="object_username" style="margin: 0 0 15px 61px; padding: 23px 0 0 0; text-overflow: ellipsis;">
-                    <p style="margin: 0;border: 0;font-size: 14px;font-weight: normal;unicode-bidi:normal;"><a href="#">NAME</a></p>
+                    <p style="margin: 0;border: 0;font-size: 14px;font-weight: normal;unicode-bidi:normal;"><a {{bindAttr href="getProfile_id"}}>{{profile_id}}</a></p>
                     <span class="posttime" style="color: #999; display: inline-block; font-size: 12px;">yesterday 8:37</span>
                 </div>
             </div>
@@ -160,7 +158,7 @@ Smeg retains its leading edge in the worldwide market through a total dedication
                 <div style="display:block;">
                     <div class="isotope-object_image" style="margin: 0 -14px 0 -14px;clear: both;line-height: 0;overflow: hidden;position: relative;padding: 0 0 20px 0;">
                         <a href="#" style="background-color: #f5f5f5; line-height: 0;min-width: 70px;overflow: hidden; position: relative;">
-                            {{#linkTo 'videos' this}} <img {{bindAttr src="image_url" }} style="max-height: 100%; max-width: 100%; display: inline-block;" />{{/linkTo}}
+                            {{#linkTo 'video' this}} <img {{bindAttr src="image_url" }} style="max-height: 100%; max-width: 100%; display: inline-block;" />{{/linkTo}}
 
                         </a>
                     </div>
@@ -169,7 +167,7 @@ Smeg retains its leading edge in the worldwide market through a total dedication
                     <div style="color: #404040;font-size: 13px;line-height: 1.4;min-height: 0; overflow: hidden;">
                         <div style="max-height: 72px; overflow: hidden;">
                             <p class="isotope-object_title" style="display: block;">Videos</p>
-                            <p class="isotope-object_describtion" style="display:block;">alskdjflajsdflkajldkfjalkdjfl;akdjfl;akjdsfl;akjdsfl;kajdsl;jaldkflsjalklk;dlfjaldkfalkjla;kjdlkaj</p>
+                            <p class="isotope-object_describtion" style="display:block;">{{article_title}}</p>
                         </div>
                         <span role="button" style="-webkit-user-select: none;color: #999;display: block;font-size: 12px;margin-top: 2px;vertical-align: middle;">more</span>
                     </div>
@@ -202,14 +200,14 @@ Smeg retains its leading edge in the worldwide market through a total dedication
     {{/if}}
 
     {{#if getFile}}
-    <div class="element ">
+    <div class="box col4">
         <img {{bindAttr src="profile_pic_url"}} />
         {{#linkTo 'files' this}}<h1>{{type}}</h1>{{/linkTo}}
     </div>
     {{/if}}
 
     {{#if getArticle}}
-    <div class="element ">
+ <div class="box col4">
 
         <div class="isotope-object" style="-webkit-border-radius:2px; border-radius: 2px;background-color: #fff; box-shadow: inset 0px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07);width: 350px;">
             <div class="isotope-object_poster" style="margin-bottom: 20px;padding: 0 20px 0 20px;position: relative;">
@@ -217,7 +215,7 @@ Smeg retains its leading edge in the worldwide market through a total dedication
                     <img {{bindAttr src="profile_pic_url"}} class="profilepicture" scr="" style="width: 46px;height: 46px;float: left; margin: 20px 15px 0 0; padding: 0;-webkit-border-radius: 50%; border-radius: 50%;"/>
                 </a>   
                 <div class="object_username" style="margin: 0 0 15px 61px; padding: 23px 0 0 0; text-overflow: ellipsis;">
-                    <p style="margin: 0;border: 0;font-size: 14px;font-weight: normal;unicode-bidi:normal;"><a href="#">NAME</a></p>
+                    <p style="margin: 0;border: 0;font-size: 14px;font-weight: normal;unicode-bidi:normal;"><a {{bindAttr href="getProfile_id"}}>{{profile_id}}</a></p>
                     <span class="posttime" style="color: #999; display: inline-block; font-size: 12px;">yesterday 8:37</span>
                 </div>
             </div>
@@ -225,7 +223,7 @@ Smeg retains its leading edge in the worldwide market through a total dedication
                 <div style="display:block;">
                     <div class="isotope-object_image" style="margin: 0 -14px 0 -14px;clear: both;line-height: 0;overflow: hidden;position: relative;padding: 0 0 20px 0;">
                         <a href="#" style="background-color: #f5f5f5; line-height: 0;min-width: 70px;overflow: hidden; position: relative;">
-                            {{#linkTo 'articles' this}} <img {{bindAttr src="image_url" }} style="max-height: 100%; max-width: 100%; display: inline-block;" />{{/linkTo}}
+                            {{#linkTo 'article' this}} <img {{bindAttr src="image_url" }} style="max-height: 100%; max-width: 100%; display: inline-block;" />{{/linkTo}}
 
                         </a>
                     </div>
@@ -233,8 +231,8 @@ Smeg retains its leading edge in the worldwide market through a total dedication
                 <div class="isotope-object_text" style="display:block;">
                     <div style="color: #404040;font-size: 13px;line-height: 1.4;min-height: 0; overflow: hidden;">
                         <div style="max-height: 72px; overflow: hidden;">
-                            <p class="isotope-object_title" style="display: block;">Articles</p>
-                            <p class="isotope-object_describtion" style="display:block;">alskdjflajsdflkajldkfjalkdjfl;akdjfl;akjdsfl;akjdsfl;kajdsl;jaldkflsjalklk;dlfjaldkfalkjla;kjdlkaj</p>
+                            <p class="isotope-object_title" style="display: block;">  {{#linkTo 'article' this}}  {{article_title}}  {{/linkTo}}</p>
+                            <p class="isotope-object_describtion" style="display:block;">{{description}}</p>
                         </div>
                         <span role="button" style="-webkit-user-select: none;color: #999;display: block;font-size: 12px;margin-top: 2px;vertical-align: middle;">more</span>
                     </div>
@@ -267,19 +265,39 @@ Smeg retains its leading edge in the worldwide market through a total dedication
     {{/if}}
 
     {{#if getIdeabook}}
-    <div class="element ">
+     <div class="box col4">
         <img {{bindAttr src="profile_pic_url"}} />
         {{#linkTo 'ideabooks' this}}<h1>{{type}}</h1>{{/linkTo}}
     </div>
     {{/if}}
 
     {{#if getDiscussion}}
-    <div class="element ">
+ <div class="box col4">
         <img {{bindAttr src="profile_pic_url"}} />
         {{#linkTo 'discussions' this}}<h1>{{type}}</h1>{{/linkTo}}
     </div>
     {{/if}}
 
+    
+    
+    
+    
+    
+    
+        <script>
+
+        $(function() {   
+            var $container = $('#masonry_container');
+            var $boxes = $('.box');
+            window.setTimeout(function() {
+                $container.prepend($boxes).masonry('reload');
+            }, 10);
+        });
+    </script>
+    
+    
+    
+    
 
     {{/each}}
 

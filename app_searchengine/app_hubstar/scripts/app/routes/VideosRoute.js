@@ -1,34 +1,22 @@
 define([
     'ember',
-    'models/ProfileModel'
+    'models/VideoModel'
 ], function(
         Ember,
-        ProfileModel
+        VideoModel
         ) {
     "use strict";
 
-    var LightBoxRoute = Ember.Route.extend({
+    var VideosRoute = Ember.Route.extend({
         //     controller: ApplicationController,
         setupController: function(IndexController, model) {
 
         },
-        model: function(params) {
-            return ProfileModel.find(params.profile_id);
-        },
-        activate: function() {
-             $("body").css("overflow", "hidden");
-             $('#footer').attr("style", "display:none");
-        },
-        deactivate: function() {
-             $("body").css("overflow", "auto");
-             $('#footer').attr("style", "display:block");
-        },
-        renderTemplate: function() {
-            this.render('videos', {
-                into: "index"
-            });
+        model: function() {
+            return VideoModel.find();
         }
 
+
     });
-    return LightBoxRoute;
+    return VideosRoute;
 });

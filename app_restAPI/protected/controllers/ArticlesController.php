@@ -1,5 +1,7 @@
 <?php
 
+header("Access-Control-Allow-Origin: *");
+
 class ArticlesController extends Controller {
 
     const JSON_RESPONSE_ROOT_SINGLE = 'article';

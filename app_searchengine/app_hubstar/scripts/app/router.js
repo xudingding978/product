@@ -6,9 +6,18 @@ define(["ember"], function(Ember) {
             this.resource("indexIndex", {path: '/'});
             this.resource("lightBox", {path: '/lightBox/:profile_id'});
             this.resource("photos", {path: '/photos/:photo_id'});
+            this.resource("photos", function() {
+                this.resource("photo", {path: ':photo_id'});
+            });
             this.resource("videos", {path: '/videos/:video_id'});
+            this.resource("videos", function() {
+                this.resource("video", {path: ':video_id'});
+            });
             this.resource("files", {path: '/files/:file_id'});
             this.resource("articles", {path: '/articles/:article_id'});
+            this.resource("articles", function() {
+                this.resource("article", {path: ':article_id'});
+            });
             this.resource("ideabooks", {path: '/ideabooks/:ideabook_id'});
             this.resource("discussions", {path: '/discussions/:discussion_id'});
             this.resource("users", {path: '/users/:user_id'});

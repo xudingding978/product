@@ -1,8 +1,8 @@
 define([
     "ember",
-    "text!templates/videosTemplate.html"
+    "text!templates/videoTemplate.html"
 ], function(Ember, videosTemplate) {
-    Ember.TEMPLATES["videos"] = Ember.Handlebars.compile(videosTemplate);
+    Ember.TEMPLATES["video"] = Ember.Handlebars.compile(videosTemplate);
     var VideosView = Ember.View.extend({
         classNames: ["lightbox"],
         template: Ember.Handlebars.compile(videosTemplate),
@@ -10,7 +10,12 @@ define([
 
 
 
-        }
+        },
+        testing: function() {
+            alert('asd');
+
+
+        }.observes('content.id')
     });
     return VideosView;
 });

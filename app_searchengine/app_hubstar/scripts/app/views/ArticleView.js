@@ -51,11 +51,6 @@ define([
         setTitleTag: function() {
             $('.object-detail_content').slideToggle("slow");
         },
-        setPartnerTag: function() {
-            $('.object-partner_content').slideToggle("slow");
-            //       this.set('partnerTag', !this.get('partnerTag'));
-
-        },
         setDiscussionTag: function() {
             $('.object-discussion_content').slideToggle("slow");
             //     this.set('discussionTag', !this.get('discussionTag'));
@@ -64,6 +59,11 @@ define([
         setNameTag: function() {
             $('.object-poster_contact').slideToggle("slow");
             //       this.set('nameTag', !this.get('nameTag'));
+
+        },
+        setPartnerTag: function() {
+            $('.object-partner_content').slideToggle("slow");
+            //       this.set('partnerTag', !this.get('partnerTag'));
 
         }
     });

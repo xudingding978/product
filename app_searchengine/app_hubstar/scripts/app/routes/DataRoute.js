@@ -13,7 +13,7 @@ define([
             return PostModel.find();
         },
         setupController: function(DataController) {
-            DataController.model;
+
         },
         renderTemplate: function() {
             this.render('data', {

@@ -4,14 +4,10 @@ define(
             'ember',
             'emberData'
         ], function() {
-
-    DS.RESTAdapter.map('App.Object', {
-        'photos': {embedded: 'always'}
-
-    });
     var ObjectModel = DS.Model.extend({
-        photos: DS.hasMany('App.Photo'),
-        title: DS.attr('string'),
+        photo: DS.belongsTo('App.Photo'),
+        article: DS.belongsTo('App.Article'),
+         title: DS.attr('string'),
         domains: DS.attr('string'), //[]
         uri_url: DS.attr('string'),
         creator: DS.attr('string'),

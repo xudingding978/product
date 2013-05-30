@@ -34,13 +34,13 @@ body {
 }
 
 a {
-  color: #A2C;
+  color: #08C;
   text-decoration: none;
   font-weight: bold;
 }
 
 a:hover {
-  color: #D26;
+  color: #005580;
 }
 
 a:active {
@@ -291,7 +291,7 @@ button {
 /**** Demos ****/
 
 #masonry_container {
-  background: #FFF;
+  background: none;
   padding: 5px;
   margin-bottom: 20px;
   border-radius: 5px;

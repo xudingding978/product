@@ -1,6 +1,7 @@
 <?php
-
+     header('Content-type: *');
 header("Access-Control-Allow-Origin: *");
+   header('Access-Control-Allow-Headers: *');
 
 class PhotosController extends Controller {
 
@@ -77,34 +78,34 @@ class PhotosController extends Controller {
         //        fwrite($handle, $data);
         //        fclose($handle);        
 
-        $request_json = file_get_contents('php://input');
-        $s3response = $this->photoSavingToS3($request_json);
-        $request_arr = CJSON::decode($request_json, true);
-      //  error_log(var_export($request_arr, true));
-        if ($s3response) {
-            $fileName = explode('.', $request_arr['photo']['photo_title'])[0];
-            $request_arr['photo']['image_url'] = "https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/kingsley/gallery/" . $request_arr['photo']['photo_title'];
-            $request_arr['photo']['type'] = "photo";
-
-            try {
-                $cb = $this->couchBaseConnection();
-                if ($cb->add(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $fileName, CJSON::encode($request_arr['photo']))) {
-                    echo $this->sendResponse(200, var_dump($request_arr));
-                } else {
-                    echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
-                }
-            } catch (Exception $exc) {
-                echo $exc->getTraceAsString();
-                echo json_decode(file_get_contents('php://input'));
-            }
-        }
+//        $request_json = file_get_contents('php://input');
+//        $s3response = $this->photoSavingToS3($request_json);
+//        $request_arr = CJSON::decode($request_json, true);
+//      //  error_log(var_export($request_arr, true));
+//        if ($s3response) {
+//            $fileName = explode('.', $request_arr['photo']['photo_title'])[0];
+//            $request_arr['photo']['image_url'] = "https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/kingsley/gallery/" . $request_arr['photo']['photo_title'];
+//            $request_arr['photo']['type'] = "photo";
+//
+//            try {
+//                $cb = $this->couchBaseConnection();
+//                if ($cb->add(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $fileName, CJSON::encode($request_arr['photo']))) {
+//                    echo $this->sendResponse(200, var_dump($request_arr));
+//                } else {
+//                    echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+//                }
+//            } catch (Exception $exc) {
+//                echo $exc->getTraceAsString();
+//                echo json_decode(file_get_contents('php://input'));
+//            }
+//        }
 
         $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);
         header($statusHeader);
-        header('Content-type: ' . 'application/json');
+        header('Content-type: *');
         header("Access-Control-Allow-Origin: http://www.develop.devbox");
         header('Access-Control-Request-Method: *');
-        header('Access-Control-Allow-Methods: PUT, POST, OPTIONS');
+        header('Access-Control-Allow-Methods: *');
         header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
         echo "ok";
@@ -142,7 +143,7 @@ class PhotosController extends Controller {
         echo CJSON::encode("dddddddd");
     }
 
-    public function actionOption() {
+    public function actionOptions() {
 
 
         $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);

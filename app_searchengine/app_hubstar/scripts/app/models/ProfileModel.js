@@ -42,11 +42,15 @@ define(
         getDiscussion: function() {
             return this.get('type') === 'discussion';
         }.property('type'),
-
         didLoad: function() {
 //            console.log('model loaded', this.toJSON());
 //            console.log('id: ' + this.id + ' ' + this.profile_name, this);
         }
+    });
+
+    ProfileModel.reopenClass({
+        url: 'https://api.example.com', //this must match JSON_RESPONSE_ROOT_SINGLE constant in modules/api/controllers/ContactController.php
+        pk: "id"
     });
 
     return ProfileModel;

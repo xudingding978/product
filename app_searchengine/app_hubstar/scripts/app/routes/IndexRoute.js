@@ -13,12 +13,12 @@ define([
         //     controller: ApplicationController,
         redirect: function() {
 
-          //  this.transitionTo('index');
+       //     this.transitionTo('index');
         },
-        model: function() {
-            return SearchModel.find();
-
-        },
+//        model: function() {
+//            return SearchModel.find();
+//
+//        },
         renderTemplate: function() {
             this.render('index', {
                 into: "application"

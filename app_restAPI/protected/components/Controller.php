@@ -28,7 +28,6 @@ class Controller extends CController {
         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
         $result = $cb->get($domain);
         $result_arr = CJSON::decode($result, true);
-        error_log(var_export($result_arr,true));
         return    $result_arr["providers"]["S3bucket"];
     }
 

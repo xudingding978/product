@@ -17,7 +17,7 @@ define(["ember", 'models/PhotoModel', 'models/ObjectModel', 'models/ArticleModel
                                 var src = e.srcElement.result;
                                 console.log("ocalStorage.user_id: " + localStorage.user_id);
                                 var obj = Obj.createRecord({"id": createGuid(), "title": name.toLowerCase(), "type": "photos", "creator": localStorage.user_id});
-                                var file = PhotoModel.createRecord({"photo_title": name.toLowerCase(), "photo_url": src, "photo_type": type});
+                                var file = PhotoModel.createRecord({"photo_title": name.toLowerCase(), "photo_image_url": src, "photo_type": type});
                                 obj.get("photos").pushObject(file);
                                 content.addObject(file);
                                 App.store.commit();
@@ -62,11 +62,11 @@ define(["ember", 'models/PhotoModel', 'models/ObjectModel', 'models/ArticleModel
                                 var src = e.srcElement.result;
                                 var id = createGuid();
                                 var obj = Obj.createRecord({"id": id, "title": name.toLowerCase(), "type": "photos", "creator": localStorage.user_id});
-                                var file = PhotoModel.createRecord({"id": id, "photo_title": name.toLowerCase(), "photo_url": src, "photo_type": type});
-                                file.set("meta", null);
+                                var file = PhotoModel.createRecord({"id": id, "photo_title": name.toLowerCase(), "photo_image_url": src, "photo_type": type});
+                                file.set("mega", null);
                                 //    var article = Article.createRecord({"article_title": "article_title", "article_text": "article_title"});
                                 //   article.get("meta").pushObject(obj);
-                                file.get("meta").pushObject(obj);
+                                file.get("mega").pushObject(obj);
                                 arr.addObject(file);
                                 
                                 //   obj.get("photos").objectAt(0).set("photo_title", "test.jpg");

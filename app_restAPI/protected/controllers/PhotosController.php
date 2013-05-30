@@ -4,8 +4,8 @@ header("Access-Control-Allow-Origin: *");
 
 class PhotosController extends Controller {
 
-    const JSON_RESPONSE_ROOT_SINGLE = 'ImageFile';
-    const JSON_RESPONSE_ROOT_PLURAL = 'ImageFiles';
+    const JSON_RESPONSE_ROOT_SINGLE = 'photo';
+    const JSON_RESPONSE_ROOT_PLURAL = 'photos';
 
     public function actionIndex() {
 
@@ -22,7 +22,7 @@ class PhotosController extends Controller {
         $termQuery = Sherlock\Sherlock::queryBuilder()
                 ->Match()
                 ->field("type")
-                ->query("profile")
+                ->query("photo")
                 ->boost(2.5);
 
 //        $filter = null;
@@ -62,6 +62,7 @@ class PhotosController extends Controller {
     public function actionCreate() {
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
+        error_log(var_export($request_arr, true));
         $id = str_replace('test', '', $request_arr["photo"]["id"]);
         $request_arr["photo"]["id"] = $id;
         $request_arr["photo"]["meta"][0]["id"] = $id;
@@ -71,13 +72,13 @@ class PhotosController extends Controller {
         $bucket = $this->getS3BucketName($domain);
         $s3response = $this->photoSavingToS3($request_arr, $path, $domain, $bucket);
         $response = "ok";
-        //   error_log(var_export($request_arr, true));
+
         if ($s3response) {
             // $fileName = explode('.', $request_arr['photo']['photo_title'])[0];
-            $request_arr['photo']['photo_image_url'] = "https://s3-ap-southeast-2.amazonaws.com/" .$bucket. $path . $request_arr['photo']['photo_title'];
+            $request_arr['photo']['photo_image_url'] = "https://s3-ap-southeast-2.amazonaws.com/" . $bucket . $path . $request_arr['photo']['photo_title'];
             try {
                 $cb = $this->couchBaseConnection();
-                if ($cb->add(substr($_SERVER['HTTP_HOST'], 4)  . $_SERVER['REQUEST_URI'] . '/' . $id, CJSON::encode($request_arr['photo']))) {
+                if ($cb->add(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $id, CJSON::encode($request_arr['photo']))) {
                     echo $this->sendResponse(200, var_dump($request_arr));
                 } else {
                     echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '"rrrrr  rrrr already exists');
@@ -104,7 +105,15 @@ class PhotosController extends Controller {
 
     public function actionRead() {
         try {
-            
+            $cb = $this->couchBaseConnection();
+            $results_arr = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI']);
+
+            if ($results_arr) {
+                $result = $this->processGet($results_arr, self::JSON_RESPONSE_ROOT_SINGLE);
+                echo $this->sendResponse(200, $result);
+            } else {
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $_POST['id'] . '" already exists');
+            }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -176,7 +185,7 @@ class PhotosController extends Controller {
 
         $client = $this->getS3Connection($domain);
         // error_log(var_export($request_arr ['photo'], true));
-        $data = $this->getInputData($request_arr['photo']['photo_type'], $request_arr ['photo']['photo_url']);
+        $data = $this->getInputData($request_arr['photo']['photo_type'], $request_arr ['photo']['photo_image_url']);
         if ($client->doesObjectExist($bucket, $path . $request_arr ['photo']['photo_title'])) {
             $response = false;
         } else {

@@ -25,7 +25,7 @@
 
 
         <div class="bottom-controlbar" >
-            <div class="object-name" style="right: 132px; color: #737373; font: normal 14px Roboto,arial,sans-serif; line-height: 44px; padding: 0 10px; position: absolute; white-space: nowrap;"> object Name</div>
+            <div class="text-on-black" style="right: 132px;"> object Name</div>
             <div class="icon-on-black" >
                 <i class="icon-arrow-left"></i>
             </div>
@@ -35,7 +35,7 @@
             <div class="icon-on-black" style="left: 88px;">
                 <i class="icon-arrow-right"></i>
             </div>
-            <div class="objectview_numbering" style="left: 132px;color: #737373;font: normal 14px Roboto,arial,sans-serif;line-height: 44px;padding: 0 10px;position: absolute;white-space: nowrap;"> 18/30 </div>
+            <div class="text-on-black" style="left: 132px;"> 18/30 </div>
         </div>
 
     </div>
@@ -43,22 +43,20 @@
 
 
 
-    <div class="objectview-right" style="bottom: 0; position: absolute; right: 0; top: 0; width: 320px; background-color: white; overflow-y: scroll;">
+    <div class="objectview-right">
 
         <!-- USER SECTION -->
         <div>
             <div class="object-poster easing" {{action setNameTag on="click" target="view"}}>
-                <div class="profilepic" style="position: relative; display: inline-block; vertical-align: top;">
-                    <div style="margin-right: 10px; vertical-align: top; display: inline-block;">
-                        <a href="#" class="toprofile" ><img {{bindAttr src="profile_pic_url"}} class="profilepicture" style="border-radius: 50%; width: 46px; height: 46px;"/></a>              
-                    </div>
+                <div class="profilepic-container">
+                    <a href="#"><img {{bindAttr src="profile_pic_url"}} class="profilepic"/></a>              
                 </div>
-                <div class="object_username" style="position: relative; top: 3px;display: inline-block;">
-                    <p style="font-size: 14px;font-weight: bold;margin-bottom: 0;"><a href="#">NAME</a></p>
-                    <span class="posttime" style="color: #aaa; font-size: 11px;">yesterday 8:37</span>
+                <div class="poster_user" >
+                    <a class="poster-name" href="#">NAME</a>
+                    <span class="posttime">yesterday 8:37</span>
                 </div>
 
-                <div class="contactmebtn" style="cursor: pointer;position: absolute; right: 15px; top: 23px; bottom: auto;">
+                <div class="contactmebtn" style="position: absolute; right: 15px; top: 23px; bottom: auto;">
                     <a class="contactmeicon" href="#" style=" width: 35px; height: 35px;">
                         <img src="../images/mail_24dark.png" style="vertical-align: 6px; width: 15px;"/>
                     </a>
@@ -66,7 +64,7 @@
             </div>
             {{#if view.nameTag}}
 
-            <div class="object-poster_contact" style="background-color: #f8f8f8;">
+            <div class="collapes-container">
                 <table style="padding: 15px; width: 100%;font-size: 13px;  display: table;border-collapse: separate;border-spacing: 4px;">
                     <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
                         <tr>
@@ -99,11 +97,11 @@
         <!-- OBJECT DESCRIBTION SECTION -->
         <div   >
             <div class="object-collapes-title" {{action setTitleTag  on="click" target="view"}}>
-                <div class="object-detail_title">
+                <div class="collapes-title_inner">
                     About
                 </div>
                 <div class="dropdownicon" >
-                    <i class="icon-chevron-down" style="height: 16px; width: 16px;"></i>
+                    <i class="icon-chevron-down"></i>
                 </div>
             </div>
 
@@ -113,10 +111,10 @@
 
 
 
-            <div class="object-detail_content " style="background-color: #f8f8f8; ">
-                <div class="easing" style="padding: 15px;">
-                    <p style="font-size: 14px;">Title</p>
-                    <p style="font-size: 13px;">{{description}}</p>
+            <div class="collapes-container">
+                <div  class="collapes-container_inner">
+                    <div class="article-title">Title</div>
+                    <div class="article-text">{{description}}</div>
                 </div>
             </div>
 
@@ -129,11 +127,11 @@
         <div>
             <div>
                 <div class="object-collapes-title" {{action setPartnerTag on="click" target="view"}}>
-                    <div class="object-partner_title">
+                    <div class="collapes-title_inner">
                         Partner
                     </div>
                     <div class="dropdownicon" >
-                        <i class="icon-chevron-down" style="height: 16px; width: 16px;"></i>
+                        <i class="icon-chevron-down"></i>
                     </div>      
                 </div>
             </div>
@@ -141,16 +139,16 @@
             {{#if view.partnerTag}}
 
 
-            <div class="object-partner_content" style="background-color: #f8f8f8;">
-                <div style="padding: 15px;">
-                    <a href="#" ><img src="../images/profilepic1.jpg" /></a>
-                    <a href="#" ><img src="../images/profilepic2.jpg" /></a>
-                    <a href="#" ><img src="../images/profilepic3.jpg" /></a>
-                    <a href="#" ><img src="../images/profilepic4.jpg" /></a>
-                    <a href="#" ><img src="../images/profilepic5.jpg" /></a>
-                    <a href="#" ><img src="../images/profilepic6.jpg" /></a>
-                    <a href="#" ><img src="../images/profilepic7.jpg" /></a>
-                    <a href="#" ><img src="../images/profilepic8.jpg" /></a>          
+            <div class="collapes-container" style="height: 150px;overflow-y: auto;">
+                <div class="collapes-container_inner">
+                    <a class="sml-partner" href="#" ><img src="../images/profilepic1.jpg" /></a>
+                    <a class="sml-partner" href="#" ><img src="../images/profilepic2.jpg" /></a>
+                    <a class="sml-partner" href="#" ><img src="../images/profilepic3.jpg" /></a>
+                    <a class="sml-partner" href="#" ><img src="../images/profilepic4.jpg" /></a>
+                    <a class="sml-partner" href="#" ><img src="../images/profilepic5.jpg" /></a>
+                    <a class="sml-partner" href="#" ><img src="../images/profilepic6.jpg" /></a>
+                    <a class="sml-partner" href="#" ><img src="../images/profilepic7.jpg" /></a>
+                    <a class="sml-partner" href="#" ><img src="../images/profilepic8.jpg" /></a>          
                 </div>
             </div>
             {{/if}}
@@ -163,7 +161,7 @@
         <div>
             <div>
                 <div class="object-collapes-title" {{action setDiscussionTag on="click" target="view"}} >
-                    <div class="object-discussion_title">
+                    <div class="collapes-title_inner">
                         Discussion
                     </div>
                     <div class="dropdownicon">
@@ -173,96 +171,111 @@
                 {{#if view.discussionTag}}
 
 
-                <div class="object-discussion_content" style="background-color: #f8f8f8;">
+                <div class="collapes-container" >
+                    <div class="collapes-container_inner">
 
+                        <div class="show-comment">
+                            <div class="show-comment_container">
+                                <span class="show-comment_inner">
+                                    <span class="comment-amount" > 10 </span>
+                                    <span class="comment-amount" > comments</span>
+                                </span>
+                            </div>
 
-                    <div style="background-color: #f8f8f8;margin: 0 20px;padding: 16px 0 12px;">
-                        <div style="background-color: #f8f8f8; color: #999; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                            <span style="-webkit-transition: color .218s; transition: color .218s; background-color: #f8f8f8; color: #999; font-size: 12px; padding-right: 5px;">
-                                <span class="comment-amount" style="overflow: hidden;vertical-align: top;"> 10 </span>
-                                <span style="overflow: hidden; vertical-align: top;"> comments</span>
-                            </span>
-
+                            <div class="object-like" style=""></div>
+                            <div class="object-save" style=""></div>
                         </div>
-                        <div class="object-like" style=""></div>
-                        <div class="object-save" style=""></div>
-                    </div>
 
-                    <div class="isotope-object_commnetbox" style="margin: 0 20px 0 20px;padding: 0 0 20px 0;">
-                        <div class="" style="background-color: #fff; border: 1px solid #ddd; color: #999; cursor: text; font-size: 12px; height: auto; margin: 0 0 0 0; padding: 6px 8px;">
-                            Add comments
+                        <div class="addcommnetbox-container">
+                            <div class="addcommnetbox">
+                                Add comments
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="object-discussion_comments" style="position: relative; margin-right: 0; overflow-y: auto; width: auto; display: block;">
-                        <div style="padding: 0 0 0 0; position: relative;">
-                            <div style="padding: 0 20px 16px 58px; vertical-align: top;">
-                                <a href="#" style=" cursor: pointer; position: absolute;left: 20px;top: 5px;">
-                                    <img style="width: 30px; height: 30px;" src="../images/profilepic1.jpg" />
+
+                        <div class="comment-item">
+
+                            <div class="comment-position">
+                                <a class="profilepic-comment-container" href="#">
+                                    <img class="profilepic_comment" src="../images/profilepic1.jpg" />
                                 </a>
                                 <div style="">
-                                    <div style="position: relative; display: block;">
-                                        <div style="margin-right: 100px;">
-                                            <a href="" style="-webkit-transition: color .218s;transition: color .218s;color: #404040;font-size: 13px;font-weight: bold;margin-right: 8px;">
+                                    <div class="comment-namentime">
+                                        <div class="namentime_position">
+                                            <a class="comment-username" href="" >
                                                 Carmilita Zotomayor-Riveral 
                                             </a>
-                                            <div style="display: inline-block; white-space: nowrap;">
-                                                <span style="display: inline; margin-left: 0; text-align: left; color: #999; font-size: 12px;">yesterday 10:14 pm</span>
-                                                <span style="display: inline-block; float: none; font-size: 11px; margin-top: 2px; vertical-align: top;">+1</span>
+                                            <div class="posttime-container">
+                                                <span class="posttime">yesterday 10:14 pm</span>
+                                                <span class="like-amount">+1</span>
                                             </div>
                                         </div>
-                                        <div style="display: inline-block; font-size: 11px; min-height: 16px; padding: 0 0 0 0; position: absolute; right: 0; text-align: right; top: 0; width: 115px;">
+
+                                        <div class="reply-comment">
                                             <!--this div for reply-->
                                         </div>
+
                                     </div>
-                                    <div style="color: #404040; font-size: 13px; margin: 0 0 0 0; overflow: hidden;">
+
+                                    <div class="comment-content">
                                         Thanks. I love vintage photos. More than half a century later, Manhattan has transformed and evolved into what it is today. 
+
                                         <!-- for +someone into the conversation-->
                                         <span>
                                             <span></span>
                                             <a></a>
                                         </span>
                                     </div>
+
                                 </div>
                             </div>
-                        </div>                     
-                    </div>
 
-                    <div class="object-discussion_comments" style="position: relative; margin-right: 0; overflow-y: auto; width: auto; display: block;">
-                        <div style="padding: 0 0 0 0; position: relative;">
-                            <div style="padding: 0 20px 16px 58px; vertical-align: top;">
-                                <a href="#" style=" cursor: pointer; position: absolute;left: 20px;top: 5px;">
-                                    <img style="width: 30px; height: 30px;" src="../images/profilepic2.jpg" />
+                        </div>
+
+
+                        <div class="comment-item">
+
+                            <div class="comment-position">
+                                <a class="profilepic-comment-container" href="#">
+                                    <img class="profilepic_comment" src="../images/profilepic3.jpg" />
                                 </a>
                                 <div style="">
-                                    <div style="position: relative; display: block;">
-                                        <div style="margin-right: 100px;">
-                                            <a href="" style="-webkit-transition: color .218s;transition: color .218s;color: #404040;font-size: 13px;font-weight: bold;margin-right: 8px;">
+                                    <div class="comment-namentime">
+                                        <div class="namentime_position">
+                                            <a class="comment-username" href="" >
                                                 John Patrick Anthony Cummins
                                             </a>
-                                            <div style="display: inline-block; white-space: nowrap;">
-                                                <span style="display: inline; margin-left: 0; text-align: left; color: #999; font-size: 12px;">yesterday 10:14 pm</span>
-                                                <span style="display: inline-block; float: none; font-size: 11px; margin-top: 2px; vertical-align: top;">+1</span>
+                                            <div class="posttime-container">
+                                                <span class="posttime">yesterday 10:14 pm</span>
+                                                <span class="like-amount">+1</span>
                                             </div>
                                         </div>
-                                        <div style="display: inline-block; font-size: 11px; min-height: 16px; padding: 0 0 0 0; position: absolute; right: 0; text-align: right; top: 0; width: 115px;">
+
+                                        <div class="reply-comment">
                                             <!--this div for reply-->
                                         </div>
+
                                     </div>
-                                    <div style="color: #404040; font-size: 13px; margin: 0 0 0 0; overflow: hidden;">
+
+                                    <div class="comment-content">
                                         My pleasure! I thought a New Yorker would like it, the island has changed lot in 50 yrs. 
+
                                         <!-- for +someone into the conversation-->
                                         <span>
                                             <span></span>
                                             <a></a>
                                         </span>
                                     </div>
+
                                 </div>
                             </div>
-                        </div>                     
+
+                        </div>
+
+
+
+
                     </div>
-
-
                 </div>
                 {{/if}}
             </div>

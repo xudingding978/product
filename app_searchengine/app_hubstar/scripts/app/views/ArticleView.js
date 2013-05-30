@@ -28,7 +28,6 @@ define([
 
         },
         checkClosed: function() {
-            var width_test = $(window).width() - 320;
 
             $('.objectview-right').animate({
                 width: '320px'
@@ -50,23 +49,21 @@ define([
 
         },
         setTitleTag: function() {
-
-            this.set('titleTag', !this.get('titleTag'));
-
+            $('.object-detail_content').slideToggle("slow");
         },
         setPartnerTag: function() {
-
-            this.set('partnerTag', !this.get('partnerTag'));
+            $('.object-partner_content').slideToggle("slow");
+            //       this.set('partnerTag', !this.get('partnerTag'));
 
         },
         setDiscussionTag: function() {
-
-            this.set('discussionTag', !this.get('discussionTag'));
+            $('.object-discussion_content').slideToggle("slow");
+            //     this.set('discussionTag', !this.get('discussionTag'));
 
         },
         setNameTag: function() {
-
-            this.set('nameTag', !this.get('nameTag'));
+            $('.object-poster_contact').slideToggle("slow");
+            //       this.set('nameTag', !this.get('nameTag'));
 
         }
     });

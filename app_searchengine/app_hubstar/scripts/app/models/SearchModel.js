@@ -17,7 +17,7 @@ define(
         article_text: DS.attr('string'),
         article_title: DS.attr('string'),
         profile_id: DS.attr('string'),
-        description:DS.attr('string'),
+        description: DS.attr('string'),
         getProfile_id: function() {
             return "#/profiles/" + this.get('profile_id');
         }.property('profile_id'),
@@ -46,6 +46,9 @@ define(
 //            console.log('model loaded', this.toJSON());
 //            console.log('id: ' + this.id + ' ' + this.profile_name, this);
         }
+
+
+
     });
 
     return SearchModel;

@@ -1,4 +1,20 @@
 
+/*BASIC STYLE*/
+
+.dropdownicon{
+    position: absolute; 
+    right: 15px; 
+    top: 15px;
+}
+
+.dropdownicon > i{
+    height: 16px; 
+    width: 16px;
+    font-size: 11px;
+}
+
+
+
 
 
 .easing {
@@ -6,6 +22,173 @@
     -moz-transition: all 0.8s ease;
     -o-transition: all 0.8s ease;
 }
+
+
+
+
+
+
+
+/*MANSONRY OBJECT STYLE*/
+
+/*MANSONRY profiles OBJECT STYLE*/
+
+.masonry-object_profile-cover{
+    background: url(../../images/searchbarbg.jpg) repeat scroll 0% 5% rgb(242, 240, 240);  
+    background-size: 100% auto; 
+    padding: 0; 
+    position: relative;
+    height: 170px;
+}
+
+.masonry-object_profilepic{
+    width: 150px;
+    height: 150px;
+    box-shadow: 0 0 10px #333; 
+    margin: auto; 
+    right: 0;
+    left: 0;
+    -webkit-border-radius: 6%; 
+    border-radius: 6%;
+    position: absolute;top: 40%;
+}
+
+.masonry-object_name-position{
+    position: absolute;
+    display: block; 
+    width: 80%; 
+    margin: auto; 
+    left: 0; 
+    right: 0; 
+    text-align: center;
+}
+
+
+/*MANSONRY profiles OBJECT STYLE               END*/
+
+
+
+.masonry-object{
+    -webkit-border-radius:2px; 
+    border-radius: 2px;
+    background-color: #fff; 
+    box-shadow: inset 0px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07);
+    width: 350px;
+}
+
+.masonry-object_poster{
+    margin-bottom: 20px;
+    padding: 0 20px 0 20px;
+    position: relative;
+}
+
+.profilepic-on-masonry{
+    width: 46px;
+    height: 46px;
+    float: left; 
+    margin: 20px 15px 0 0; 
+    padding: 0;
+    -webkit-border-radius: 50%; 
+    border-radius: 50%;
+}
+
+.object_username{
+    margin: 0 0 15px 61px; 
+    padding: 23px 0 0 0; 
+    text-overflow: ellipsis;
+}
+
+.masonry-object_mainfeature{
+    padding: 0 20px 0 20px; 
+    text-overflow: ellipsis;
+}
+
+.mainfeature-wrapper{
+    margin: 0 -14px 0 -14px;
+    clear: both;
+    line-height: 0;
+    overflow: hidden;
+    position: relative;
+    padding: 0 0 20px 0;
+}
+
+.mainfeature-container{
+    background-color: #f5f5f5; 
+    line-height: 0;
+    min-width: 70px;
+    overflow: hidden; 
+    position: relative;
+}
+
+.this-is-the-object{
+    max-height: 100%; 
+    max-width: 100%; 
+    display: inline-block;
+}
+
+.masonry-object_text{
+    color: #404040;
+    font-size: 13px;
+    line-height: 1.4;
+    min-height: 0; 
+    overflow: hidden;
+}
+
+.masonry-object_text-container{
+    max-height: 72px; 
+    overflow: hidden;
+}
+
+.masonry_more-btn{
+    -webkit-user-select: none;
+    color: #999;
+    display:block;
+    font-size: 12px;
+    margin-top: 2px;
+    vertical-align: middle;
+}
+
+.masonry-object_interact{
+    margin: 20px 0 0 0; 
+    border-top: 1px solid #e5e5e5; 
+    -webkit-border-radius: 0 0 2px 2px; 
+    border-radius: 0 0 2px 2px; 
+    background-color: #f8f8f8;
+}
+
+.masonry_show-comment{
+    margin: 16px 20px 12px 20px;
+}
+
+.masonry_dropdownicon{
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    right: -5px;
+    top: -1px;
+}
+
+.masonry_addcommnetbox-container{
+    margin: 0 20px 0 20px;
+    padding: 0 0 20px 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*MANSONRY OBJECT STYLE             END*/
+
+
 
 
 
@@ -158,7 +341,7 @@
 
 
 
-
+/*OBJECT VIEW LEFT               END*/
 
 
 
@@ -216,6 +399,7 @@
     font-size: 14px;
     font-weight: bold;
     display: block;
+    unicode-bidi:normal;
 }
 
 .posttime{
@@ -248,20 +432,6 @@
 .collapes-title_inner {
     display: inline-block;
 }
-
-
-.dropdownicon{
-    position: absolute; 
-    right: 15px; 
-    top: 15px;
-    font-size: 11px;
-}
-
-.dropdownicon > i{
-    height: 16px; 
-    width: 16px;
-}
-
 
 
 .collapes-container {
@@ -423,12 +593,12 @@
     overflow: hidden; 
     text-overflow: ellipsis; 
     white-space: nowrap;
+    color: #aaa;
 }
 
 .show-comment_inner{
     -webkit-transition: color .218s; 
-    transition: color .218s;
-    color: #999; 
+    transition: color .218s; 
     font-size: 12px; 
     padding-right: 5px;
 }
@@ -528,3 +698,7 @@
     margin: 0 0 0 0; 
     overflow: hidden;
 }
+
+
+
+/*OBJECT VIEW RIGHT             END*/

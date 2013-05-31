@@ -164,7 +164,7 @@
 
                 <div class="masonry-object_text">
                     <div class="masonry-object_text-container">
-                        <p>Videos</p>
+                        <p>  {{#linkTo 'video' this}} VIDEO{{/linkTo}} </p>
                         <p>{{article_title}}</p>
                     </div>
                     <span role="button" class="masonry_more-btn">more</span>
@@ -212,6 +212,12 @@
     </div>
     {{/if}}
 
+    
+    
+    
+    
+    
+    
     {{#if getArticle}}
     <div class="box col4">
 
@@ -267,6 +273,11 @@
     </div>
     {{/if}}
 
+    
+    
+    
+    
+    
     {{#if getIdeabook}}
     <div class="box col4">
         <img {{bindAttr src="profile_pic_url"}} />

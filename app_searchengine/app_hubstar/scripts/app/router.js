@@ -26,12 +26,6 @@ define(["ember"], function(Ember) {
             });
         });
 
-
-
-
-
-
-
         this.route("data", {
             path: '/data'
         });

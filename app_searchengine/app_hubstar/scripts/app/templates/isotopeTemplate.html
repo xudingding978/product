@@ -4,14 +4,14 @@
 
     {{log controller}}
 
+    {{ controller.content.length}}
+    
+    {{#if content.isLoaded}}
 
     {{#each  model}}
 
     {{#if getProfile}}
     <div class="element ">
-
-
-
 
         <div class="isotope-object" style="-webkit-border-radius:2px; border-radius: 2px;background-color: #fff; box-shadow: inset 0px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07);width: 350px;">
             <div class="isotope-object_profile-cover" style="background: url(../../images/searchbarbg.jpg) repeat scroll 0% 5% rgb(242, 240, 240);  background-size: 100% auto; padding: 0; position: relative;height: 170px;">
@@ -282,6 +282,13 @@ Smeg retains its leading edge in the worldwide market through a total dedication
 
 
     {{/each}}
+    
+    {{else}}
+    
+    Loading !!!!!
+    
+    
+    {{/if}}
 
 </div> <!-- #container -->
 

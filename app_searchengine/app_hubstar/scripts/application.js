@@ -71,6 +71,7 @@ define('application', [
     "views/IndexView",
     "views/CarouselView",
     "views/IsotopeView",
+    "views/IsLoadingView",
     "views/LightBoxView",
     "views/PhotosView",
     "views/VideosView",
@@ -91,6 +92,7 @@ define('application', [
     "controllers/EditingController",
     "controllers/IndexController",
     "controllers/SearchsController",
+    "controllers/DefaultController",
     "app/router",
     "routes/IndexRoute",
     "routes/SelectedTabRoute",
@@ -131,7 +133,8 @@ define('application', [
 
 
 ], function(
-        DragNDropNamespace, ApplicationView,
+        DragNDropNamespace, 
+        ApplicationView,
         DiscoveryView,
         PhotoView,
         ProfilesView,
@@ -147,6 +150,7 @@ define('application', [
         IndexView,
         CarouselView,
         IsotopeView,
+        IsLoadingView,
         LightBoxView,
         PhotosView,
         VideosView,
@@ -167,6 +171,7 @@ define('application', [
         EditingController,
         IndexController,
         SearchsController,
+        DefaultController,
         Router,
         IndexRoute,
         SelectedTabRoute,
@@ -218,6 +223,7 @@ define('application', [
         IndexView: IndexView,
         CarouselView: CarouselView,
         IsotopeView: IsotopeView,
+        IsLoadingView:IsLoadingView,
         ImageInputButtonView: ImageInputButtonView,
         PreviewUploadImageView: PreviewUploadImageView,
         TestView: TestView,
@@ -242,6 +248,7 @@ define('application', [
         EditingController: EditingController,
         IndexController: IndexController,
         SearchsController: SearchsController,
+        DefaultController: DefaultController,
         Router: Router,
         IndexRoute: IndexRoute,
         SelectedTabRoute: SelectedTabRoute,
@@ -284,7 +291,6 @@ define('application', [
             })
         }),
         ready: function() {
-
 
         }
     });

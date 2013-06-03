@@ -2,7 +2,12 @@
 <div id="masonry_container" class="transitions-enabled centered clearfix">
 
     <div class="box col4">
-        <h1>{{controller}}</h1>
+
+
+
+        {{#linkTo "searchIndex" }}<button type="button"  id="login_button" class="btn btn-primary" >login in</button>{{/linkTo}}
+
+        <div id="afterLogin">After login </div>
 
     </div>
 
@@ -216,12 +221,12 @@
     </div>
     {{/if}}
 
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
     {{#if getArticle}}
     <div class="box col4">
 
@@ -277,11 +282,11 @@
     </div>
     {{/if}}
 
-    
-    
-    
-    
-    
+
+
+
+
+
     {{#if getIdeabook}}
     <div class="box col4">
         <img {{bindAttr src="profile_pic_url"}} />

@@ -19,6 +19,9 @@ define([
 //
 //            return SearchModel.find();
 //        },
+
+
+
         renderTemplate: function() {
             this.render('index', {
                 into: "application"

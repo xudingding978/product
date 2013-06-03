@@ -1,6 +1,10 @@
 
 <div id="masonry_container" class="transitions-enabled centered clearfix">
 
+    <div class="box col4">
+        <h1>{{controller}}</h1>
+
+    </div>
 
 
     {{#each  model}}
@@ -307,6 +311,9 @@
                 $container.prepend($boxes).masonry('reload');
             }, 10);
         });
+
+
+
     </script>
 
 
@@ -314,6 +321,9 @@
 
 
     {{/each}}
+
+
+
 
 </div> <!-- #container -->
 

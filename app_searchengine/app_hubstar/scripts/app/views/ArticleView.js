@@ -6,6 +6,9 @@ define([
     var ArticleView = Ember.View.extend({
         classNames: ["lightbox"],
         template: Ember.Handlebars.compile(articleTemplate),
+        fullName: (function() {
+            return "test";
+        }).property(),
         didInsertElement: function() {
 
 

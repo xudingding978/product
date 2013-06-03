@@ -21,7 +21,7 @@ class Controller extends CController {
     }
 
     protected function couchBaseConnection() {
-        return new Couchbase("cb1.hubsrv.com:8091", "", "Pa55word", "test", true);
+        return new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "test", true);
     }
 
     /**

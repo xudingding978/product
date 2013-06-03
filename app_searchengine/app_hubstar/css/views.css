@@ -1,4 +1,20 @@
 
+/*BASIC STYLE*/
+
+.dropdownicon{
+    position: absolute; 
+    right: 15px; 
+    top: 15px;
+}
+
+.dropdownicon > i{
+    height: 16px; 
+    width: 16px;
+    font-size: 11px;
+}
+
+
+
 
 
 .easing {
@@ -9,9 +25,183 @@
 
 
 
+
+
+
+
+/*MANSONRY OBJECT STYLE*/
+
+/*MANSONRY profiles OBJECT STYLE*/
+
+.masonry-object_profile-cover{
+    background: url(../../images/searchbarbg.jpg) repeat scroll 0% 5% rgb(242, 240, 240);  
+    background-size: 100% auto; 
+    padding: 0; 
+    position: relative;
+    height: 170px;
+}
+
+.masonry-object_profilepic{
+    width: 150px;
+    height: 150px;
+    box-shadow: 0 0 10px #333; 
+    margin: auto; 
+    right: 0;
+    left: 0;
+    -webkit-border-radius: 6%; 
+    border-radius: 6%;
+    position: absolute;top: 40%;
+}
+
+.masonry-object_name-position{
+    position: absolute;
+    display: block; 
+    width: 80%; 
+    margin: auto; 
+    left: 0; 
+    right: 0; 
+    text-align: center;
+}
+
+
+/*MANSONRY profiles OBJECT STYLE               END*/
+
+
+
+.masonry-object{
+    -webkit-border-radius:2px; 
+    border-radius: 2px;
+    background-color: #fff; 
+    box-shadow: inset 0px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07);
+    width: 350px;
+}
+
+.masonry-object_poster{
+    margin-bottom: 20px;
+    padding: 0 20px 0 20px;
+    position: relative;
+}
+
+.profilepic-on-masonry{
+    width: 46px;
+    height: 46px;
+    float: left; 
+    margin: 20px 15px 0 0; 
+    padding: 0;
+    -webkit-border-radius: 50%; 
+    border-radius: 50%;
+}
+
+.object_username{
+    margin: 0 0 15px 61px; 
+    padding: 23px 0 0 0; 
+    text-overflow: ellipsis;
+}
+
+.masonry-object_mainfeature{
+    padding: 0 20px 0 20px; 
+    text-overflow: ellipsis;
+}
+
+.mainfeature-wrapper{
+    margin: 0 -14px 0 -14px;
+    clear: both;
+    line-height: 0;
+    overflow: hidden;
+    position: relative;
+    padding: 0 0 20px 0;
+}
+
+.mainfeature-container{
+    background-color: #f5f5f5; 
+    line-height: 0;
+    min-width: 70px;
+    overflow: hidden; 
+    position: relative;
+}
+
+.this-is-the-object{
+    max-height: 100%; 
+    max-width: 100%; 
+    display: inline-block;
+}
+
+.masonry-object_text{
+    color: #404040;
+    font-size: 13px;
+    line-height: 1.4;
+    min-height: 0; 
+    overflow: hidden;
+}
+
+.masonry-object_text-container{
+    max-height: 72px; 
+    overflow: hidden;
+}
+
+.masonry_more-btn{
+    -webkit-user-select: none;
+    color: #999;
+    display:block;
+    font-size: 12px;
+    margin-top: 2px;
+    vertical-align: middle;
+}
+
+.masonry-object_interact{
+    margin: 20px 0 0 0; 
+    border-top: 1px solid #e5e5e5; 
+    -webkit-border-radius: 0 0 2px 2px; 
+    border-radius: 0 0 2px 2px; 
+    background-color: #f8f8f8;
+}
+
+.masonry_show-comment{
+    margin: 16px 20px 12px 20px;
+}
+
+.masonry_dropdownicon{
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    right: -5px;
+    top: -1px;
+}
+
+.masonry_addcommnetbox-container{
+    margin: 0 20px 0 20px;
+    padding: 0 0 20px 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*MANSONRY OBJECT STYLE             END*/
+
+
+
+
+
 .objectview-wrapper{
     min-width: 700px;
 }
+
+
+
+
+/*OBJECT VIEW LEFT*/
+
+
 
 .objectview-left{
     bottom: 0; 
@@ -75,6 +265,7 @@
     top: 0; 
     max-height: 95%;
     max-width: 95%;
+    background-color: black;
 }
 
 
@@ -139,6 +330,42 @@
 }
 
 
+.text-on-black{  
+    color: #737373; 
+    font: normal 14px Roboto,arial,sans-serif; 
+    line-height: 44px; 
+    padding: 0 10px; 
+    position: absolute; 
+    white-space: nowrap;
+}
+
+
+
+
+/*OBJECT VIEW LEFT               END*/
+
+
+
+
+
+
+
+
+
+/*OBJECT VIEW RIGHT*/
+
+
+.objectview-right{
+    bottom: 0; 
+    position: absolute; 
+    right: 0; 
+    top: 0; 
+    width: 320px; 
+    background-color: white; 
+    overflow-y: scroll; 
+}
+
+
 .object-poster{
     padding: 15px;
     width: 100%; 
@@ -149,6 +376,41 @@
 .object-poster:hover{
     background-color: #e5e5e5;
 }
+
+.profilepic-container{
+    position: relative; 
+    display: inline-block; 
+    vertical-align: top;
+    margin-right: 10px;
+}
+
+.profilepic/* for img*/{
+    border-radius: 50%; 
+    width: 46px; 
+    height: 46px;
+} 
+
+.poster_user{
+    position: relative; 
+    top: 3px;
+    display: inline-block;
+}
+
+.poster-name{
+    font-size: 14px;
+    font-weight: bold;
+    display: block;
+    unicode-bidi:normal;
+}
+
+.posttime{
+    color: #aaa; 
+    font-size: 11px;
+}
+
+
+
+
 
 .object-collapes-title {
     cursor: pointer;
@@ -162,34 +424,44 @@
     border-top: 2px solid #fff;
 }
 
+
 .object-collapes-title:hover {
     background-color: #e5e5e5;
 }
 
 
-.dropdownicon{
-    position: absolute; 
-    right: 15px; 
-    top: 15px;
-    font-size: 11px;
+.collapes-title_inner {
+    display: inline-block;
 }
 
 
-.object-poster_contact tr {
+.collapes-container {
+    display:none;
+    background-color: #f8f8f8;
+}
+
+.collapes-container_inner{
+    padding: 15px 0; 
+    width: 87%; 
+    margin: auto; 
+}
+
+
+.collapes-container tr {
     display: table-row;
     vertical-align: top;
     border-color: inherit;
 
 }
 
-.object-poster_contact td:nth-child(1)  {
+.collapes-container td:nth-child(1)  {
     color: #aaa;
     text-align: left;
     width: 45%;
 
 }
 
-.object-poster_contact td:nth-child(2)  {
+.collapes-container td:nth-child(2)  {
     color: #404040;
     word-break: break-all;
 
@@ -197,31 +469,17 @@
     vertical-align: inherit;
 }
 
-.object-partner_content a {
+.sml-partner {
     margin: 7px;
     display: inline-block;
 
 }
 
-.object-partner_content a  img{
+.sml-partner img{
     border-radius: 10%;
     width: 45px;
     height: 45px;
     box-shadow: 0px 1px 5px #555;
-}
-
-
-
-
-
-.object-discussion_content{
-    position: relative;
-    height: auto;
-    overflow: hidden;
-    -webkit-transition: height 0.35s ease;
-    -moz-transition: height 0.35s ease;
-    -o-transition: height 0.35s ease;
-    transition: height 0.35s ease;
 }
 
 
@@ -312,3 +570,136 @@
     border-color: #bfbfbf;
 }
 
+
+.article-title{
+    font-size: 25px;
+    font-weight: bold; 
+    margin: 20px 0;
+    line-height: 30px;
+}
+
+
+.article-text{
+    font-size: 14px;
+}
+
+
+
+
+.show-comment{
+    padding-bottom: 12px;
+}
+
+.show-comment_container{
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    white-space: nowrap;
+    color: #aaa;
+}
+
+.show-comment_inner{
+    -webkit-transition: color .218s; 
+    transition: color .218s; 
+    font-size: 12px; 
+    padding-right: 5px;
+}
+
+
+.comment-amount{
+    overflow: hidden;
+    vertical-align: top;
+}
+
+.addcommnetbox-container{
+    padding: 0 0 20px 0;
+}
+
+.addcommnetbox{
+    background-color: #fff; 
+    border: 1px solid #ddd; 
+    color: #999; 
+    cursor: text; 
+    font-size: 12px; 
+    height: auto; 
+    margin: 0 0 0 0; 
+    padding: 6px 8px;
+}
+
+
+.comment-item{
+    position: relative; 
+    overflow-y: auto; 
+    width: auto; 
+    display: block;
+}
+
+.comment-position{
+    padding: 0 0px 16px 38px; 
+    vertical-align: top;
+}
+
+.profilepic-comment-container{
+    cursor: pointer; 
+    position: absolute;
+    left: 0px;
+    top: 5px;
+}
+
+.profilepic_comment{
+    width: 30px; 
+    height: 30px;
+}
+
+.comment-namentime{
+    position: relative; 
+    display: block;
+}
+
+.namentime_position{
+    margin-right: 100px;
+}
+
+.comment-username{
+    -webkit-transition: color .218s;
+    transition: color .218s;
+    color: #404040;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.posttime-container{
+    display: block; 
+    white-space: nowrap; 
+    margin-bottom: 5px;
+}
+
+.like-amount{
+    display: inline-block; 
+    float: none; 
+    font-size: 11px; 
+    margin-top: 2px; 
+    vertical-align: top
+}
+
+.reply-comment{
+    display: inline-block; 
+    font-size: 11px; 
+    min-height: 16px; 
+    padding: 0 0 0 0; 
+    position: absolute; 
+    right: 0; 
+    text-align: right; 
+    top: 0; 
+    width: 115px;
+}
+
+.comment-content{
+    color: #404040; 
+    font-size: 13px; 
+    margin: 0 0 0 0; 
+    overflow: hidden;
+}
+
+
+
+/*OBJECT VIEW RIGHT             END*/

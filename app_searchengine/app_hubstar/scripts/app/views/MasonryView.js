@@ -13,7 +13,7 @@ define([
 
                 $('#masonry_container').masonry({
                     itemSelector: '.box',
-                    columnWidth: 200,
+                    columnWidth: 0,
                   
                     isFitWidth: true
                 });

@@ -76,6 +76,7 @@ define('application', [
     "views/DiscussionsView",
     "views/DefaultView",
     "views/SearchsView",
+    "views/DataView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -152,6 +153,7 @@ define('application', [
         DiscussionsView,
         DefaultView,
         SearchsView,
+        DataView,
         ApplicationController,
         tabListController,
         DataController,
@@ -233,6 +235,7 @@ define('application', [
         DiscussionsView: DiscussionsView,
         DefaultView: DefaultView,
         SearchsView: SearchsView,
+        DataView: DataView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
@@ -281,7 +284,7 @@ define('application', [
             adapter: DS.RESTAdapter.create({
                 bulkCommit: false,
                 url: getRestAPIURL()
-         
+
 
 //                map: {
 //                    Object: {

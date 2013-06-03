@@ -49,21 +49,21 @@ define([
 
         },
         setTitleTag: function() {
-            $('.object-detail_content').slideToggle("slow");
-        },
-        setPartnerTag: function() {
-            $('.object-partner_content').slideToggle("slow");
-            //       this.set('partnerTag', !this.get('partnerTag'));
-
+            $('#article_action').slideToggle(1000);
         },
         setDiscussionTag: function() {
-            $('.object-discussion_content').slideToggle("slow");
+            $('#discuss_action').slideToggle("slow");
             //     this.set('discussionTag', !this.get('discussionTag'));
 
         },
         setNameTag: function() {
-            $('.object-poster_contact').slideToggle("slow");
+            $('#poster_action').slideToggle("slow");
             //       this.set('nameTag', !this.get('nameTag'));
+
+        },
+        setPartnerTag: function() {
+            $('#partner_action').slideToggle("slow");
+            //       this.set('partnerTag', !this.get('partnerTag'));
 
         }
     });

@@ -41,7 +41,7 @@ define(["ember"], function(Ember) {
 
 
 
-        this.route("data", {
+        this.resource("data", {
             path: '/data'
         });
         this.resource("users", {

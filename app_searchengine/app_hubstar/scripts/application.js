@@ -89,7 +89,6 @@ define('application', [
     "controllers/EditingController",
     "controllers/IndexController",
     "controllers/SearchsController",
-
     "app/router",
     "routes/ApplicationRoute",
     "routes/IndexRoute",
@@ -169,7 +168,6 @@ define('application', [
         EditingController,
         IndexController,
         SearchsController,
-
         Router,
         ApplicationRoute,
         IndexRoute,
@@ -253,7 +251,6 @@ define('application', [
         EditingController: EditingController,
         IndexController: IndexController,
         SearchsController: SearchsController,
-
         Router: Router,
         ApplicationRoute: ApplicationRoute,
         IndexRoute: IndexRoute,
@@ -302,7 +299,7 @@ define('application', [
             })
         }),
         ready: function() {
-
+          App.set("isLogin",false);
 
         }
     });

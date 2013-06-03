@@ -13,6 +13,7 @@ define([
         setupController: function(controller, ProfileModel) {
         },
         model: function() {
+
             return ProfileModel.find();
         },
         renderTemplate: function() {

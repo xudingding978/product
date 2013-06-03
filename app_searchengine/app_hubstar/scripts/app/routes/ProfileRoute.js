@@ -14,6 +14,7 @@ define([
           
         },
         model: function(params) {
+
             return ProfileModel.find(params.profile_id);
         },
         renderTemplate: function() {

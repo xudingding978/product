@@ -1,16 +1,16 @@
 define([
     'ember',
-    'models/PostModel'
+    'models/SearchModel'
 
 ], function(
         Ember,
-        PostModel
+        SearchModel
         ) {
     "use strict";
 
     var DataRoute = Ember.Route.extend({
         model: function() {
-            return PostModel.find();
+            return SearchModel.find();
         },
         setupController: function(DataController) {
 

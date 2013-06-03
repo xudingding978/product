@@ -8,9 +8,7 @@ define([
 ], function(Ember, isotopeTemplate) {
     Ember.TEMPLATES["isotope"] = Ember.Handlebars.compile(isotopeTemplate);
     var IsotopeView = Ember.View.extend({
-        
-        template: Ember.Handlebars.compile(isotopeTemplate),
-                
+        template: Ember.Handlebars.compile(isotopeTemplate)      
     });
     return IsotopeView;
 });

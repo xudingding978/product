@@ -1,9 +1,9 @@
 <?php
 
-class PhotosController extends Controller {
+class VideosController extends Controller {
 
-    const JSON_RESPONSE_ROOT_SINGLE = 'photo';
-    const JSON_RESPONSE_ROOT_PLURAL = 'photos';
+    const JSON_RESPONSE_ROOT_SINGLE = 'video';
+    const JSON_RESPONSE_ROOT_PLURAL = 'videos';
 
     public function actionIndex() {
 
@@ -20,7 +20,7 @@ class PhotosController extends Controller {
         $termQuery = Sherlock\Sherlock::queryBuilder()
                 ->Match()
                 ->field("type")
-                ->query("photo")
+                ->query("video")
                 ->boost(2.5);
 
 //        $filter = null;
@@ -33,6 +33,7 @@ class PhotosController extends Controller {
                 ->type("couchbaseDocument")
                 ->from(0)
                 ->to(10)
+                ->size(100)
                 ->query($termQuery);
 
         //Execute the search and return results
@@ -57,16 +58,59 @@ class PhotosController extends Controller {
         echo $this->sendResponse(200, $results);
     }
 
+    public function actionCreate() {
+        try {
+            $request_json = file_get_contents('php://input');
+            $request_arr = CJSON::decode($request_json, true);
+
+            $cb = $this->couchBaseConnection();
+            if ($cb->add(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $request_arr['video']['id'], CJSON::encode($request_arr['video']))) {
+                echo $this->sendResponse(200, var_dump($request_arr));
+            } else {
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+            echo json_decode(file_get_contents('php://input'));
+        }
+    }
+
     public function actionRead() {
         try {
             $cb = $this->couchBaseConnection();
             $results_arr = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI']);
+
             if ($results_arr) {
                 $result = $this->processGet($results_arr, self::JSON_RESPONSE_ROOT_SINGLE);
                 echo $this->sendResponse(200, $result);
             } else {
-                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '" already exists');
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $_POST['id'] . '" already exists');
             }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function actionUpdate() {
+
+        try {
+            $payloads_arr = CJSON::decode(file_get_contents('php://input'));
+            $payload_json = CJSON::encode($payloads_arr['video']);
+            $payload_arr = CJSON::decode($payload_json);
+            $cb = $this->couchBaseConnection();
+            $document_arr = CJSON::decode($cb->get(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI']));
+            $newdocument = array_merge($document_arr, $payload_arr);
+            if ($cb->set(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'], CJSON::encode($newdocument))) {
+                echo $this->sendResponse(201,var_export($newdocument));
+            }
+        } catch (Exception $exc) {
+            echo var_export($newdocument);
+        }
+    }
+
+    public function actionDelete() {
+        try {
+            
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

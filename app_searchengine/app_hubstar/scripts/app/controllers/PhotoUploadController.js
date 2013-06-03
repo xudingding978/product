@@ -1,5 +1,5 @@
-define(["ember", 'models/PhotoModel', 'models/ObjectModel', 'guid_creater', 'controllers/ProfileController'],
-        function(Ember, PhotoModel, Obj, profileController) {
+define(["ember", 'models/PhotoModel', 'models/ObjectModel', 'models/ArticleModel', 'guid_creater'],
+        function(Ember, PhotoModel, Obj, Article) {
             var arr = [];
             var test = "test";
             var DragNDropController = Ember.ArrayController.extend({
@@ -17,9 +17,10 @@ define(["ember", 'models/PhotoModel', 'models/ObjectModel', 'guid_creater', 'con
                                 var src = e.srcElement.result;
                                 console.log("ocalStorage.user_id: " + localStorage.user_id);
                                 var obj = Obj.createRecord({"id": createGuid(), "title": name.toLowerCase(), "type": "photos", "creator": localStorage.user_id});
-                                var file = PhotoModel.createRecord({"photo_title": name.toLowerCase(), "photo_url": src, "photo_type": type});
+                                var file = PhotoModel.createRecord({"photo_title": name.toLowerCase(), "photo_image_url": src, "photo_type": type});
                                 obj.get("photos").pushObject(file);
                                 content.addObject(file);
+                                App.store.commit();
                             }, reader.readAsDataURL(files[i]);
                         })(files[i]);
 
@@ -59,15 +60,18 @@ define(["ember", 'models/PhotoModel', 'models/ObjectModel', 'guid_creater', 'con
                             var reader = new FileReader();
                             reader.onload = function(e) {
                                 var src = e.srcElement.result;
-
-                                var obj = Obj.createRecord({"id": createGuid(), "title": name.toLowerCase(), "type": "photos", "creator": localStorage.user_id});
-                                var file = PhotoModel.createRecord({"photo_title": name.toLowerCase(), "photo_url": src, "photo_type": type});
-                                obj.get("photos").pushObject(file);
+                                var id = createGuid();
+                                var obj = Obj.createRecord({"id": id, "title": name.toLowerCase(), "type": "photos", "creator": localStorage.user_id});
+                                var file = PhotoModel.createRecord({"id": id, "photo_title": name.toLowerCase(), "photo_image_url": src, "photo_type": type});
+                                file.set("mega", null);
+                                //    var article = Article.createRecord({"article_title": "article_title", "article_text": "article_title"});
+                                //   article.get("meta").pushObject(obj);
+                                file.get("mega").pushObject(obj);
                                 arr.addObject(file);
-
+                                
                                 //   obj.get("photos").objectAt(0).set("photo_title", "test.jpg");
                                 //     console.log(obj.get("photos").objectAt(0).get("photo_title"));
-                                App.store.commit();
+                             App.store.commit();
 //                    $.ajax({
 //                        url: 'http://api.develop.devbox/images/Test',
 //                        type: 'POST',

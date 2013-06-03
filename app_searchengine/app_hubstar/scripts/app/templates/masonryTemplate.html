@@ -99,6 +99,28 @@
                     <a class="poster-name" {{bindAttr href="getProfile_id"}}>{{profile_id}}</a>
                     <span class="posttime">yesterday 8:37</span>
                 </div>
+
+                <div class="object-tags-box">
+                    
+                    <div class="object-tags">
+                        <span class="tags-mark" style="background-color: #427fed"></span>
+                        <div class="tags easing">
+                            <div class="tags-new">New</div>
+                            <div class="object-tpye">
+                                <i class="icon-picture"></i>
+                            </div>                      
+                        </div>
+                    </div>
+
+                    <div class="object-tags ">
+                        <span class="tags-mark" style="background-color: #76a7fa"></span>
+                        <div class="tags easing tagsappear">
+                            <div class="tags-new">#Kitchen</div>                   
+                        </div>
+                    </div>
+                    
+                </div>
+
             </div>
             <div class="masonry-object_mainfeature">             
                 <div class="mainfeature-wrapper">
@@ -216,12 +238,12 @@
     </div>
     {{/if}}
 
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
     {{#if getArticle}}
     <div class="box col4">
 
@@ -277,11 +299,11 @@
     </div>
     {{/if}}
 
-    
-    
-    
-    
-    
+
+
+
+
+
     {{#if getIdeabook}}
     <div class="box col4">
         <img {{bindAttr src="profile_pic_url"}} />

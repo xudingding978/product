@@ -247,7 +247,7 @@ outline: 0px none;
 position: relative;
 margin: 13px;
 display: inline-block;
-left: 5%;
+left: 20%;
 width: 120px;
 z-index: 10000;
 cursor: pointer;

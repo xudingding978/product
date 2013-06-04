@@ -66,6 +66,13 @@
                     <div class="object-tags ">
                         <span class="tags-mark" style="background-color: #76a7fa"></span>
                         <div class="tags easing tagsappear">
+                            <div class="tags-new">#Auckland</div>                   
+                        </div>
+                    </div>
+
+                    <div class="object-tags ">
+                        <span class="tags-mark" style="background-color: #a0c3ff"></span>
+                        <div class="tags easing tagsappear">
                             <div class="tags-new">#Kitchen</div>                   
                         </div>
                     </div>
@@ -84,7 +91,17 @@
                             Smeg retains its leading edge in the worldwide market through a total dedication to the design and manufacturing of specialist appliances. A continual monitoring of trends and developments in both style and technology has led to a constantly evolving partnership with leading architects and designers. Indeed, this dedication to the marrying of style with function has created an ongoing love affair between Smeg, architects and designers worldwide.
                         </div>
                     </div>
-                    <span role="button" class="masonry_more-btn">more</span>
+
+                    <div class="more_detail" {{bindAttr id="id"}} style="display:none;width:auto">
+                        <h1>article show</h1>
+
+                    </div>
+
+                    <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>
+
+                    <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collapes</span>
+
+
                 </div>
 
             </div>
@@ -161,6 +178,13 @@
                     <div class="object-tags ">
                         <span class="tags-mark" style="background-color: #76a7fa"></span>
                         <div class="tags easing tagsappear">
+                            <div class="tags-new">#Auckland</div>                   
+                        </div>
+                    </div>
+
+                    <div class="object-tags ">
+                        <span class="tags-mark" style="background-color: #a0c3ff"></span>
+                        <div class="tags easing tagsappear">
                             <div class="tags-new">#Kitchen</div>                   
                         </div>
                     </div>
@@ -183,14 +207,15 @@
                         <p>{{description}}</p>
                     </div>
 
-                    <div  class="more_detail" {{bindAttr id="id"}} style="display:none;width:auto">
+                    <div class="more_detail" {{bindAttr id="id"}} style="display:none;width:auto">
                         <h1>article show</h1>
 
                     </div>
 
-                    <span role="button" class="masonry_more-btn"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>
+                    <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>
 
-                    <span role="button" class="masonry_more-btn" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collapes</span>
+                    <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collapes</span>
+
                 </div>
             </div>
 
@@ -250,6 +275,13 @@
                     <div class="object-tags ">
                         <span class="tags-mark" style="background-color: #76a7fa"></span>
                         <div class="tags easing tagsappear">
+                            <div class="tags-new">#Auckland</div>                   
+                        </div>
+                    </div>
+
+                    <div class="object-tags ">
+                        <span class="tags-mark" style="background-color: #a0c3ff"></span>
+                        <div class="tags easing tagsappear">
                             <div class="tags-new">#Kitchen</div>                   
                         </div>
                     </div>
@@ -270,7 +302,17 @@
                         <p>  {{#linkTo 'video' this}} VIDEO{{/linkTo}} </p>
                         <p>{{article_title}}</p>
                     </div>
-                    <span role="button" class="masonry_more-btn">more</span>
+
+                    <div class="more_detail" {{bindAttr id="id"}} style="display:none;width:auto">
+                        <h1>article show</h1>
+
+                    </div>
+
+                    <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>
+
+                    <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collapes</span>
+
+
                 </div>
 
             </div>
@@ -349,6 +391,13 @@
                     <div class="object-tags ">
                         <span class="tags-mark" style="background-color: #76a7fa"></span>
                         <div class="tags easing tagsappear">
+                            <div class="tags-new">#Auckland</div>                   
+                        </div>
+                    </div>
+
+                    <div class="object-tags ">
+                        <span class="tags-mark" style="background-color: #a0c3ff"></span>
+                        <div class="tags easing tagsappear">
                             <div class="tags-new">#Kitchen</div>                   
                         </div>
                     </div>
@@ -369,7 +418,17 @@
                         <p>   {{#linkTo 'article' this}} Title{{/linkTo}} </p>
                         <p>{{description}}</p>
                     </div>
-                    <span role="button" class="masonry_more-btn">more</span>
+
+                    <div class="more_detail" {{bindAttr id="id"}} style="display:none;width:auto">
+                        <h1>article show</h1>
+
+                    </div>
+
+                    <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>
+
+                    <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collapes</span>
+
+
                 </div>
             </div>
 

@@ -18,16 +18,16 @@ define([
                     isFitWidth: true
                 });
             });
-      //      alert(App.get('isLogin'));
+            //      alert(App.get('isLogin'));
             if (App.get('isLogin')) {
 
                 $('#login_button').attr("style", "display:none");
-                 $('#afterLogin').attr("style", "display:block");
-                
+                $('#afterLogin').attr("style", "display:block");
+
             } else {
 
                 $('#login_button').attr("style", "display:block");
-                 $('#afterLogin').attr("style", "display:none");
+                $('#afterLogin').attr("style", "display:none");
             }
 
 //            if (localStorage.isLogin=="true") {
@@ -39,15 +39,28 @@ define([
 //            }
 
         },
-        detailToggle: function(event) {
+        moreContent: function(event) {
 
-            alert(event.context);
-            alert(this.get('controller.id'));
-            alert(this.get('content.id'));
-            alert(this.get('controller.id'));
-            $('.more_detail').slideToggle(100);
-            var $container = $('#masonry_container');
-            $container.masonry('reload');
+            var id = "#" + event.id;
+            var collape_button = "#collape_button_" + event.id;
+            var more_button = "#more_button_" + event.id;
+            $(id).slideToggle(100);
+
+            $(collape_button).attr("style", "display:block");
+            $(more_button).attr("style", "display:none");
+//            var $container = $('#masonry_container');
+//            $container.masonry('reload');
+        },
+        collapeContent: function(event) {
+
+            var id = "#" + event.id;
+            var collape_button = "#collape_button_" + event.id;
+            var more_button = "#more_button_" + event.id;
+            $(id).slideToggle(100);
+
+            $(collape_button).attr("style", "display:none");
+            $(more_button).attr("style", "display:block");
+
         }
     });
     return MasonryView;

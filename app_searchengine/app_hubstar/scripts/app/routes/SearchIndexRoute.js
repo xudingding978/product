@@ -12,6 +12,13 @@ define([
 
             this.transitionTo('searchs');
         },
+        activate: function() {
+            //           localStorage.isLogin = true;
+            App.set("isLogin", true);
+        },
+        deactivate: function() {
+
+        },
         renderTemplate: function() {
             this.render('index', {
                 into: "application"

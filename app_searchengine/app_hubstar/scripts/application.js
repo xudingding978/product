@@ -77,6 +77,7 @@ define('application', [
     "views/DefaultView",
     "views/SearchsView",
     "views/DataView",
+    "views/DataItemView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -89,6 +90,7 @@ define('application', [
     "controllers/IndexController",
     "controllers/SearchsController",
     "app/router",
+    "routes/ApplicationRoute",
     "routes/IndexRoute",
     "routes/SelectedTabRoute",
     "routes/DataRoute",
@@ -154,6 +156,7 @@ define('application', [
         DefaultView,
         SearchsView,
         DataView,
+        DataItemView,
         ApplicationController,
         tabListController,
         DataController,
@@ -166,6 +169,7 @@ define('application', [
         IndexController,
         SearchsController,
         Router,
+        ApplicationRoute,
         IndexRoute,
         SelectedTabRoute,
         DataRoute,
@@ -236,6 +240,7 @@ define('application', [
         DefaultView: DefaultView,
         SearchsView: SearchsView,
         DataView: DataView,
+        DataItemView: DataItemView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
@@ -248,6 +253,7 @@ define('application', [
         IndexController: IndexController,
         SearchsController: SearchsController,
         Router: Router,
+        ApplicationRoute: ApplicationRoute,
         IndexRoute: IndexRoute,
         SelectedTabRoute: SelectedTabRoute,
         DataRoute: DataRoute,
@@ -294,7 +300,7 @@ define('application', [
             })
         }),
         ready: function() {
-
+            App.set("isLogin", false);
 
         }
     });

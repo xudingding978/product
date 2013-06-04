@@ -57,11 +57,18 @@
                 </div>
 
                 <div class="contactmebtn" style="position: absolute; right: 15px; top: 23px; bottom: auto;">
-                    <a class="contactmeicon" href="#" style=" width: 35px; height: 35px;">
-                        <img src="../images/mail_24dark.png" style="vertical-align: 6px; width: 15px;"/>
+                    <a class="contactmeicon" href="#" style=" width: 35px; height: 35px;" {{action editingContact }}  >
+
+                       <img src="../images/mail_24dark.png" style="vertical-align: 6px; width: 15px;"/>
                     </a>
+
                 </div>
             </div>
+
+            {{#if controller.contact}}
+            {{view App.ContactView}}
+            {{/if}}
+
             {{#if view.nameTag}}
 
             <div class="collapes-container">
@@ -291,3 +298,5 @@
 
 
 </div>
+
+

@@ -17,6 +17,7 @@ require.config({
         'jquery.ui': 'libs/jquery.ui/1.9.2/jquery-ui-1.9.2.custom.min',
         'bootstrap': 'libs/bootstrap/2.2.2/js/bootstrap.min',
         'bootstrap-wysihtml5': 'libs/wysihtml5/bootstrap-wysihtml5',
+        'bootstrap-modal': 'libs/bootstrap/2.2.2/js/bootstrap-modal',
         'wysihtml5': 'libs/wysihtml5/wysihtml5-0.3.0',
         'bxslider': 'libs/jquery.bxslider.min',
         'guid_creater': 'libs/guid_creater',
@@ -40,7 +41,8 @@ require.config({
         'bxslider': ['jquery'],
         'bootstrap-wysihtml5': ['wysihtml5'],
         'bootstrap': ['jquery'],
-        'jquery.masonry': ['jquery']
+        'jquery.masonry': ['jquery'],
+        'bootstrap-modal': ['bootstrap']
     },
     hbs: {
         disableI18n: true,
@@ -79,6 +81,7 @@ define('application', [
     "views/DataView",
     "views/DataItemView",
     "views/DataIndexView",
+    "views/ContactView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -90,6 +93,7 @@ define('application', [
     "controllers/EditingController",
     "controllers/IndexController",
     "controllers/SearchsController",
+    "controllers/PhotoController",
     "app/router",
     "routes/ApplicationRoute",
     "routes/IndexRoute",
@@ -129,7 +133,8 @@ define('application', [
     'bootstrap-wysihtml5',
     "wysihtml5",
     'bootstrap',
-    'jquery.masonry'
+    'jquery.masonry',
+    'bootstrap-modal'
 
 ], function(
         DragNDropNamespace, ApplicationView,
@@ -159,6 +164,7 @@ define('application', [
         DataView,
         DataItemView,
         DataIndexView,
+        ContactView,
         ApplicationController,
         tabListController,
         DataController,
@@ -170,6 +176,7 @@ define('application', [
         EditingController,
         IndexController,
         SearchsController,
+        PhotoController,
         Router,
         ApplicationRoute,
         IndexRoute,
@@ -243,6 +250,7 @@ define('application', [
         DataView: DataView,
         DataItemView: DataItemView,
         DataIndexView: DataIndexView,
+        ContactView: ContactView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
@@ -254,6 +262,7 @@ define('application', [
         EditingController: EditingController,
         IndexController: IndexController,
         SearchsController: SearchsController,
+        PhotoController: PhotoController,
         Router: Router,
         ApplicationRoute: ApplicationRoute,
         IndexRoute: IndexRoute,

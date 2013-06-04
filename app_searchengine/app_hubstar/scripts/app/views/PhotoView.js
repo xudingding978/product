@@ -1,6 +1,7 @@
 define([
     "ember",
-    "text!templates/photoTemplate.html"
+    "text!templates/photoTemplate.html",
+    'bootstrap-modal'
 ], function(Ember, photoTemplate) {
     Ember.TEMPLATES["photo"] = Ember.Handlebars.compile(photoTemplate);
     var PhotoView = Ember.View.extend({
@@ -34,7 +35,8 @@ define([
 
             this.set('nameTag', !this.get('nameTag'));
 
-        }
+        },
+
     });
     return PhotoView;
 });

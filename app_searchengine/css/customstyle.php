@@ -332,13 +332,6 @@ margin:auto;
 }
 
 
-h2 {
-font-family: Arial,Helvetica,sans-serif;
-font-size: 14px;
-font-weight: bold;
-}
-
-
 
 .carousel {
 position: relative;

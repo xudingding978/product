@@ -134,7 +134,7 @@ class Controller extends CController {
 
     protected function processGet($results_arr, $jsonRoot) {
         $result = '{"' . $jsonRoot . '":[';
-        $result .= CJSON::encode($results_arr);
+        $result .= $results_arr;
         $result .= ']}';
         return $result;
     }

@@ -5,8 +5,9 @@ define(
             'emberData'
         ], function() {
     var ObjectModel = DS.Model.extend({
-        photo: DS.belongsTo('App.Photo'),
-        article: DS.belongsTo('App.Article'),
+        photos: DS.belongsTo('App.Photo'),
+        articles: DS.belongsTo('App.Article'),
+        users: DS.belongsTo('App.User'),
          title: DS.attr('string'),
         domains: DS.attr('string'), //[]
         uri_url: DS.attr('string'),

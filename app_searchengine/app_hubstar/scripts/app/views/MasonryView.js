@@ -44,12 +44,6 @@ define([
         },
         moreContent: function(event) {
 
-
-            $('#masonry_container').masonry({
-                itemSelector: '.box',
-                isAnimated: true
-            });
-
             var id = "#" + event.id;
             var collape_button = "#collape_button_" + event.id;
             var more_button = "#more_button_" + event.id;
@@ -65,24 +59,13 @@ define([
         },
         collapeContent: function(event) {
 
-
-            $('#masonry_container').masonry({
-                itemSelector: '.box',
-                isAnimated: true
-            });
-
-
             var id = "#" + event.id;
             var collape_button = "#collape_button_" + event.id;
             var more_button = "#more_button_" + event.id;
 
-
             $(id).slideToggle(200);
-
             $(collape_button).attr("style", "display:none");
             $(more_button).attr("style", "display:block");
-//            var $container = $('#masonry_container');
-//            $container.masonry('reload');
 
             setTimeout(function() {
                 $('#masonry_container').masonry("reload");

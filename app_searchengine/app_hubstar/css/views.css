@@ -109,6 +109,39 @@
 
 /*MANSONRY OBJECT STYLE*/
 
+/*MANSONRY WELCOME OBJECT STYLE*/
+
+.masonry_login-btn{
+display: inline-block;
+-webkit-border-radius: 3px;
+border-radius: 3px;
+-webkit-box-shadow: 0 1px 0 rgba(0,0,0,.05);
+box-shadow: 0 1px 0 rgba(0,0,0,.05);
+-webkit-transition: background-color .218s,border-color .218s,box-shadow .218s;
+transition: background-color .218s,border-color .218s,box-shadow .218s;
+-webkit-user-select: none;
+background-color: #fff;
+border: 1px solid #d9d9d9;
+cursor: pointer;
+line-height: 28px;
+padding: 0 10px 0 10px;
+outline: none;
+width: auto;
+position: relative;
+margin: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 /*MANSONRY profiles OBJECT STYLE*/
 
 .masonry-object_profile-cover{
@@ -224,6 +257,7 @@
     font-size: 12px;
     margin-top: 2px;
     vertical-align: middle;
+    cursor:pointer;
 }
 
 .masonry-object_interact{

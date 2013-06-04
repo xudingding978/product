@@ -18,6 +18,12 @@ define(
         article_title: DS.attr('string'),
         profile_id: DS.attr('string'),
         description: DS.attr('string'),
+        more_button: function() {
+            return "more_button_" + this.get('id');
+        }.property('id'),
+        collape_button: function() {
+            return "collape_button_" + this.get('id');
+        }.property('id'),
         getProfile_id: function() {
             return "#/profiles/" + this.get('profile_id');
         }.property('profile_id'),

@@ -23,14 +23,14 @@ define([
 
                 $('#login_button').attr("style", "display:none");
                 $('#afterLogin').attr("style", "display:block");
-                 $('#welcome_message').attr("style", "display:none");
-                
+                $('#welcome_message').attr("style", "display:none");
+
 
             } else {
 
-                $('#login_button').attr("style", "display:block");
+                $('#login_button').attr("style", "display:inline-block");
                 $('#afterLogin').attr("style", "display:none");
-                  $('#welcome_message').attr("style", "display:block");
+                $('#welcome_message').attr("style", "display:block");
             }
 
 //            if (localStorage.isLogin=="true") {
@@ -51,8 +51,8 @@ define([
 
             $(collape_button).attr("style", "display:block");
             $(more_button).attr("style", "display:none");
-//            var $container = $('#masonry_container');
-//            $container.masonry('reload');
+            var $container = $('#masonry_container');
+            $container.masonry('reloadItems');
         },
         collapeContent: function(event) {
 
@@ -63,6 +63,8 @@ define([
 
             $(collape_button).attr("style", "display:none");
             $(more_button).attr("style", "display:block");
+            var $container = $('#masonry_container');
+            $container.masonry('reloadItems');
 
         }
     });

@@ -5,7 +5,7 @@ define(
             'emberData'
         ], function() {
     var Photo = DS.Model.extend({
-        objectModel: DS.belongsTo('App.MegaObject'),
+        mega: DS.belongsTo('App.Mega', {embedded: 'always'}),
         photo_title: DS.attr('string'),
         photo_image_url: DS.attr('string'),
         photo_image_linkto: DS.attr('string'),

@@ -1,7 +1,7 @@
 define([
     'ember',
     //'models/SearchModel',
-    'models/MegaObjectModel'
+    'models/MegaModel'
 ], function(
         Ember,
         //  SearchModel,
@@ -28,6 +28,18 @@ define([
 
              return obj;
 
+        },
+        activate: function() {
+            //      localStorage.isLogin = false;
+            
+              App.set("isLogin", false);
+        },
+        deactivate: function() {
+
+            //         localStorage.isLogin = true;
+
+
+            App.set("isLogin", true);
         },
         renderTemplate: function() {
 

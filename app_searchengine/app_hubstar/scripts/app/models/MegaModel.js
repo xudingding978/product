@@ -1,23 +1,17 @@
 define(
-        'models/MegaObjectModel',
+        'models/MegaModel',
         [
             'ember',
             'emberData'
         ], function() {
-    DS.RESTAdapter.map('App.MegaObject', {
-        'photos': {embedded: 'always'}
+    DS.RESTAdapter.map('App.Mega', {
+        photos: {embedded: 'always'},
+        users: {embedded: 'always'}
     });
-//    DS.RESTAdapter.map('App.Object', {
-//        'articles': {embedded: 'always'}
-//    });
-//    DS.RESTAdapter.map('App.Photo', {
-//        'video': {embedded: 'always'}
-//    });
-//    DS.RESTAdapter.map('App.Photo', {
-//        'product': {embedded: 'always'}
-//    });
 
-    var MegaObjectModel = DS.Model.extend({
+
+
+    var MegaModel = DS.Model.extend({
         type: DS.attr('string'),
         accessed: DS.attr('string'),
         active_yn: DS.attr('string'),
@@ -46,7 +40,8 @@ define(
         uri_url: DS.attr('string'),
         view_count: DS.attr('string'),
         photos: DS.hasMany('App.Photo'),
-    //    articles: DS.hasMany('App.Article'),
+        users: DS.hasMany('App.User'),
+        //    articles: DS.hasMany('App.Article'),
 //        video: DS.hasMany('App.Video'),
 //        product: DS.hasMany('App.Product'),
         didLoad: function() {
@@ -54,7 +49,7 @@ define(
 //            console.log('id: ' + this.id + ' ' + this.profile_name, this);
         }
     });
-    return MegaObjectModel;
+    return MegaModel;
 }
 );
 

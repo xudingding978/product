@@ -119,12 +119,11 @@ class ProfilesController extends Controller {
             $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);
             header($statusHeader);
             // Set the content type
-            header('Content-type: ' . 'application/json');
+            header('Content-type: *');
             // Set the Access Control for permissable domains
             header("Access-Control-Allow-Origin: *");
             header('Access-Control-Request-Method: *');
-            header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET');
-            header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+            header('Access-Control-Allow-Methods: *');
             header('Access-Control-Allow-Headers: *');
 
             echo "";

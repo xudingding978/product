@@ -1,27 +1,25 @@
 define([
     'ember',
-    'controllers/DataController', 
-    'models/PostModel',
-    'views/DiscoveryView'
+    'models/SearchModel'
+
 ], function(
         Ember,
-        DataController,
-        PostModel
+        SearchModel
         ) {
     "use strict";
 
     var DataRoute = Ember.Route.extend({
         model: function() {
-            return PostModel.find();
+            return SearchModel.find();
         },
         setupController: function(DataController) {
-            DataController.model;
+
         },
-//        renderTemplate: function() {
-//            this.render('profiles', {
-//                into: 'discoveryBar'
-//            });
-//        }
+        renderTemplate: function() {
+            this.render('data', {
+                into: 'application'
+            });
+        }
     });
     return DataRoute;
 });

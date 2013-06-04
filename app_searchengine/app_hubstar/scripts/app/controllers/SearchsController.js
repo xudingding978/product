@@ -16,6 +16,7 @@ define([
             this.transitionToRoute('search', searchResult);
 
         }
+                     
     });
     return SearchsController;
 });

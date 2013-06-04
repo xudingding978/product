@@ -17,7 +17,7 @@ class PhotosController extends Controller {
 
 //Build a new search request
         $request = $sherlock->search();
-
+         
 //populate a Term query to start
         $termQuery = Sherlock\Sherlock::queryBuilder()
                 ->Match()
@@ -37,26 +37,7 @@ class PhotosController extends Controller {
                 ->to(10)
                 ->query($termQuery);
 
-//Execute the search and return results
-        $response = $request->execute();
-
-//echo "Took: " . $response->took . "\r\n";
-//echo "Number of Hits: " . count($response) . "\r\n";
-//echo var_export($response);
-
-        $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":[';
-
-//Iterate over the hits and print out some data
-        $i = 0;
-        foreach ($response as $hit) {
-            $results .= CJSON::encode($hit['source']['doc']);
-            if (++$i !== count($response)) {
-                $results .= ',';
-            }
-        }
-        $results .= ']}';
-
-        echo $this->sendResponse(200, $results);
+                echo $this->sendResponse(200, $result);
     }
 
     public function actionCreate() {

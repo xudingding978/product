@@ -5,7 +5,7 @@ div.search-loading-invisible{
 }
 
 .lightbox{
-min-width: 700px;
+    min-width: 700px;
     overflow: visible;
     position: fixed;
     top: 0;
@@ -28,9 +28,6 @@ min-width: 700px;
 
 
 }
-
-
-
 
 /*/WindowContainer-------------------/*/
 .window-container {
@@ -156,6 +153,7 @@ min-width: 700px;
     float: right;
     bottom: 30px;
     right: 30px;
+    cursor: pointer;
 }
 
 .contactmebtn a {

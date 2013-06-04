@@ -7,45 +7,35 @@ header('Access-Control-Request-Method: *');
 header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET');
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
-class Mega_ObjectsController extends Controller {
+class MegasController extends Controller {
 
-    const JSON_RESPONSE_ROOT_SINGLE = 'mega_object';
-    const JSON_RESPONSE_ROOT_PLURAL = 'mega_objects';
+    const JSON_RESPONSE_ROOT_SINGLE = 'mega';
+    const JSON_RESPONSE_ROOT_PLURAL = 'megas';
 
     public function actionIndex() {
 
-        try {
-
-            $cb = $this->couchBaseConnection();
-            $reponse = $cb->get("develop.devbox/photos/1396571369972031211");
-            error_log("dddddddddddddd");
-
-            error_log(var_export($reponse, true));
-            //   echo "aaaaaaaaaa";
-            if ($reponse) {
-                //       $result = $this->processGet($results_arr, self::JSON_RESPONSE_ROOT_SINGLE);
-                $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":';
-                //Iterate over the hits and print out some data
-                $result .=$reponse;
-                $result .= '}';
-
-                echo $this->sendResponse(200, $result);
-            } else {
-                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $_POST['id'] . '" already exists');
-            }
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
 
 
-        //   echo $this->sendResponse(200, "this is object control");
+        $cb = $this->couchBaseConnection();
+        $temp = explode("/", $_SERVER['REQUEST_URI']);
+        $id = $temp [sizeof($temp) - 1];
+        error_log("id              " . $id);
+        $reponse1 = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . "/" . "1833721370323321108");
+        $reponse2 = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . "/" . "9717991370317029955");
+
+        $result = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":';
+
+        $result = $reponse1 . "," . $reponse2;
+        $result .= '}';
+
+        echo $this->sendResponse(200, $result);
     }
 
     public function actionCreate() {
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
 
-        $request_arr["object"]["id"] = str_replace('test', '', $request_arr["object"]["id"]);
+        $request_arr["mega"]["id"] = str_replace('test', '', $request_arr["mega"]["id"]);
         $path = 'this_is/folder_path/';
 
 
@@ -54,11 +44,12 @@ class Mega_ObjectsController extends Controller {
         error_log(var_export($request_arr, true));
         //      if ($s3response) {
         // $fileName = explode('.', $request_arr['photo']['photo_title'])[0];
-        //           $request_arr["object"]['photos'][0]['image_url'] = "https://s3-ap-southeast-2.amazonaws.com/" . $path . $request_arr["object"]['photos'][0]['photo_title'];
-        $request_arr["object"]['type'] = "photos";
+        //           $request_arr["mega"]['photos'][0]['image_url'] = "https://s3-ap-southeast-2.amazonaws.com/" . $path . $request_arr["mega"]['photos'][0]['photo_title'];
+        $request_arr["mega"]['type'] = "photos";
+        $request_arr["object"]['photos'][0]['id'] = $request_arr["mega"]["id"];
         try {
             $cb = $this->couchBaseConnection();
-            if ($cb->add(substr($_SERVER['HTTP_HOST'], 4) . '/' . $request_arr["object"]["type"] . '/' . $request_arr["object"]["id"], CJSON::encode($request_arr))) {
+            if ($cb->add(substr($_SERVER['HTTP_HOST'], 4) . '/' . $request_arr["mega"]["id"], CJSON::encode($request_arr))) {
                 echo $this->sendResponse(200, var_dump($request_arr));
             } else {
                 echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '"rrrrr  rrrr already exists');
@@ -74,7 +65,7 @@ class Mega_ObjectsController extends Controller {
 
         $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);
         header($statusHeader);
-        header('Content-type: *') ;
+        header('Content-type: *');
         header("Access-Control-Allow-Origin: *");
         header('Access-Control-Request-Method: *');
         header('Access-Control-Allow-Methods: PUT, POST, OPTIONS, GET');
@@ -88,20 +79,11 @@ class Mega_ObjectsController extends Controller {
         try {
 
             $cb = $this->couchBaseConnection();
-            $reponse = $cb->get("develop.devbox/photos/1396571369972031211");
-            error_log(var_export($reponse, true));
-            //   echo "aaaaaaaaaa";
-            if ($reponse) {
-                //       $result = $this->processGet($results_arr, self::JSON_RESPONSE_ROOT_SINGLE);
-                $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":';
-                //Iterate over the hits and print out some data
-                $result .=$reponse;
-                $result .= '}';
-
-                echo $this->sendResponse(200, $result);
-            } else {
-                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $_POST['id'] . '" already exists');
-            }
+            $temp = explode("/", $_SERVER['REQUEST_URI']);
+            $id = $temp [sizeof($temp) - 1];
+            $reponse = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . "/" . $id);
+            echo $this->sendResponse(200, $reponse);
+      
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -135,13 +117,12 @@ class Mega_ObjectsController extends Controller {
         $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);
         header($statusHeader);
         // Set the content type
-        header('Content-type: *');
+        header('Content-type:*');
         // Set the Access Control for permissable domains
-        header("Access-Control-Allow-Origin: *");
-        header('Access-Control-Request-Method: *');
-        header('Access-Control-Allow-Methods: PUT, POST, OPTIONS');
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Request-Method:*');
+        header('Access-Control-Allow-Methods:*');
         header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
-        header('Access-Control-Allow-Headers: *');
 
         echo "";
         Yii::app()->end();
@@ -172,7 +153,7 @@ class Mega_ObjectsController extends Controller {
         $result = $cb->get($key);
         $result_arr = CJSON::decode($result, true);
         $response = false;
-        error_log(var_export($request_arr ["object"]['photos'][0], true));
+        error_log(var_export($request_arr ["mega"]['photos'][0], true));
         $data = $this->getInputData($request_arr ["object"]['photos'][0]['photo_type'], $request_arr ["object"]['photos'][0]['photo_url']);
         $client = Aws\S3\S3Client::factory(
                         $result_arr["providers"]["S3Client"]

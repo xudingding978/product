@@ -76,6 +76,8 @@ define('application', [
     "views/DiscussionsView",
     "views/DefaultView",
     "views/SearchsView",
+    "views/DataView",
+    "views/DataItemView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -88,6 +90,7 @@ define('application', [
     "controllers/IndexController",
     "controllers/SearchsController",
     "app/router",
+    "routes/ApplicationRoute",
     "routes/IndexRoute",
     "routes/SelectedTabRoute",
     "routes/DataRoute",
@@ -110,7 +113,7 @@ define('application', [
     "routes/SearchRoute",
     "routes/SearchIndexRoute",
     "routes/IndexIndexRoute",
-    "models/MegaObjectModel",
+    "models/MegaModel",
     "models/PostModel",
     "models/ProfileModel",
     "models/UserModel",
@@ -152,6 +155,8 @@ define('application', [
         DiscussionsView,
         DefaultView,
         SearchsView,
+        DataView,
+        DataItemView,
         ApplicationController,
         tabListController,
         DataController,
@@ -164,6 +169,7 @@ define('application', [
         IndexController,
         SearchsController,
         Router,
+        ApplicationRoute,
         IndexRoute,
         SelectedTabRoute,
         DataRoute,
@@ -186,7 +192,7 @@ define('application', [
         SearchRoute,
         SearchIndexRoute,
         IndexIndexRoute,
-        MegaObject,
+        Mega,
         Post,
         Profile,
         User,
@@ -229,6 +235,8 @@ define('application', [
         DiscussionsView: DiscussionsView,
         DefaultView: DefaultView,
         SearchsView: SearchsView,
+        DataView: DataView,
+        DataItemView: DataItemView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
@@ -241,6 +249,7 @@ define('application', [
         IndexController: IndexController,
         SearchsController: SearchsController,
         Router: Router,
+        ApplicationRoute: ApplicationRoute,
         IndexRoute: IndexRoute,
         SelectedTabRoute: SelectedTabRoute,
         DataRoute: DataRoute,
@@ -263,7 +272,7 @@ define('application', [
         SearchRoute: SearchRoute,
         SearchIndexRoute: SearchIndexRoute,
         IndexIndexRoute: IndexIndexRoute,
-        MegaObject: MegaObject,
+        Mega: Mega,
         Post: Post,
         Profile: Profile,
         User: User,
@@ -276,11 +285,20 @@ define('application', [
             revision: 12,
             adapter: DS.RESTAdapter.create({
                 bulkCommit: false,
-                url: getRestAPIURL()
+                url: getRestAPIURL(),
+                plurals : {
+                    mega : "mega"
+                },
+//                map: {
+//                    Object: {
+//                        Photo: {embedded: 'always'}
+//                    }
+//                },
             })
         }),
-        ready: function() {    
-  
+        ready: function() {
+          App.set("isLogin",false);
+
         }
     });
 }

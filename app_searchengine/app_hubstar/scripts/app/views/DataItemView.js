@@ -4,12 +4,13 @@ define([
     "text!templates/dataItemTemplate.html"
 ], function(Ember, DataController, dataItemTemplate) {
 
-    var DataItemView = Ember.View.extend({
-        tagName: 'li',
+    var DataItemView = Ember.ContainerView.extend({
+        tagName: 'div',
+        classNames: ['child-view'],
         controller: DataController,
         template: Ember.Handlebars.compile(dataItemTemplate)
 
     });
-    console.log(dataItemTemplate);
+    // console.log(dataItemTemplate);
     return DataItemView;
 });

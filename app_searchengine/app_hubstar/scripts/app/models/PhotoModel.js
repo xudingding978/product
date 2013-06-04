@@ -4,11 +4,8 @@ define(
             'ember',
             'emberData'
         ], function() {
-    DS.RESTAdapter.map('App.Photo', {
-        'mega': {embedded: 'always'}
-    });
     var Photo = DS.Model.extend({
-        mega: DS.hasMany('App.Object'),
+        objectModel: DS.belongsTo('App.MegaObject'),
         photo_title: DS.attr('string'),
         photo_image_url: DS.attr('string'),
         photo_image_linkto: DS.attr('string'),
@@ -20,7 +17,6 @@ define(
         photo_keywords: DS.attr('string'), //[ ]
         photo_brands: DS.attr('string'), // [ ]
         photo_products: DS.attr('string'), // [ ] 
-
         didLoad: function() {
 //            console.log('model loaded', this.toJSON());
 //            console.log('id: ' + this.id + ' ' + this.profile_name, this);

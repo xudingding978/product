@@ -110,7 +110,7 @@ define('application', [
     "routes/SearchRoute",
     "routes/SearchIndexRoute",
     "routes/IndexIndexRoute",
-    "models/ObjectModel",
+    "models/MegaObjectModel",
     "models/PostModel",
     "models/ProfileModel",
     "models/UserModel",
@@ -186,18 +186,15 @@ define('application', [
         SearchRoute,
         SearchIndexRoute,
         IndexIndexRoute,
-        Object,
+        MegaObject,
         Post,
         Profile,
         User,
         ImageArray,
-        Search,
+        Searchresult,
         Photo,
         Article,
         Video
-
-
-
         )
 {
 
@@ -266,12 +263,12 @@ define('application', [
         SearchRoute: SearchRoute,
         SearchIndexRoute: SearchIndexRoute,
         IndexIndexRoute: IndexIndexRoute,
-        Object: Object,
+        MegaObject: MegaObject,
         Post: Post,
         Profile: Profile,
         User: User,
         ImageArray: ImageArray,
-        Search: Search,
+        Searchresult: Searchresult,
         Photo: Photo,
         Article: Article,
         Video: Video,
@@ -280,18 +277,10 @@ define('application', [
             adapter: DS.RESTAdapter.create({
                 bulkCommit: false,
                 url: getRestAPIURL()
-         
-
-//                map: {
-//                    Object: {
-//                        Photo: {embedded: 'always'}
-//                    }
-//                },
             })
         }),
-        ready: function() {
-
-
+        ready: function() {    
+  
         }
     });
 }

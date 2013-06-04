@@ -57,8 +57,8 @@ class Controller extends CController {
         // Set the Access Control for permissable domains
         header('Access-Control-Allow-Origin: *');
         header('Access-Control-Request-Method: *');
-        header('Access-Control-Allow-Methods: PUT, POST, OPTIONS');
-        header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+        header('Access-Control-Allow-Methods: *');
+        header('Access-Control-Allow-Headers: *');
         //header('Access-Control-Allow-Headers: *');
 
         echo $body;

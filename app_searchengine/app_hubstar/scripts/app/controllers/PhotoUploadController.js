@@ -1,4 +1,4 @@
-define(["ember", 'models/PhotoModel', 'models/ObjectModel', 'models/ArticleModel', 'guid_creater'],
+define(["ember", 'models/PhotoModel', 'models/MegaObjectModel', 'models/ArticleModel', 'guid_creater'],
         function(Ember, PhotoModel, Obj, Article) {
             var arr = [];
             var test = "test";
@@ -61,17 +61,23 @@ define(["ember", 'models/PhotoModel', 'models/ObjectModel', 'models/ArticleModel
                             reader.onload = function(e) {
                                 var src = e.srcElement.result;
                                 var id = createGuid();
+                    
                                 var obj = Obj.createRecord({"id": id, "title": name.toLowerCase(), "type": "photos", "creator": localStorage.user_id});
-                                var file = PhotoModel.createRecord({"id": id, "photo_title": name.toLowerCase(), "photo_image_url": src, "photo_type": type});
-                                file.set("mega", null);
+                                var file = PhotoModel.createRecord({"id": id, "photo_title": "file " + name.toLowerCase(), "photo_image_url": "src", "photo_type": type});
+   
+                                //    var article = Article.createRecord({"id": id, "article_title": "article " + name.toLowerCase()});
+                                //       file.set("mega", null);
                                 //    var article = Article.createRecord({"article_title": "article_title", "article_text": "article_title"});
                                 //   article.get("meta").pushObject(obj);
-                                file.get("mega").pushObject(obj);
-                                arr.addObject(file);
-                                
+                                obj.get("photos").pushObject(file);
+                  //              console.log(obj);
+                                //          obj.get("articles").pushObject(article);
+                                //   arr.addObject(file);
+                                //     console.log(id);
                                 //   obj.get("photos").objectAt(0).set("photo_title", "test.jpg");
-                                //     console.log(obj.get("photos").objectAt(0).get("photo_title"));
-                             App.store.commit();
+                                //       console.log(obj.get("photos").objectAt(0).get("photo_title"));
+                                //       console.log(obj.get("articles").objectAt(0).get("article_title"));
+                                App.store.commit();
 //                    $.ajax({
 //                        url: 'http://api.develop.devbox/images/Test',
 //                        type: 'POST',

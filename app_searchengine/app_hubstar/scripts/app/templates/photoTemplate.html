@@ -53,7 +53,7 @@
                 </div>
                 <div class="poster_user" >
                     <a class="poster-name" href="#">NAME</a>
-                    <span class="posttime">yesterday 8:37</span>
+                    <span class="posttime">yesterday 8:37 </span>
                 </div>
 
                 <div class="contactmebtn" style="position: absolute; right: 15px; top: 23px; bottom: auto;">
@@ -69,9 +69,9 @@
             {{view App.ContactView}}
             {{/if}}
 
-            {{#if view.nameTag}}
+      
 
-            <div class="collapes-container">
+            <div class="collapes-container" id="poster_action">
                 <table style="padding: 15px; width: 100%;font-size: 13px;  display: table;border-collapse: separate;border-spacing: 4px;">
                     <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
                         <tr>
@@ -97,7 +97,7 @@
                     </tbody>
                 </table>                
             </div>
-            {{/if}}
+       
 
         </div>
 
@@ -114,18 +114,15 @@
 
 
 
-            {{#unless view.titleTag}}
 
-
-
-            <div class="collapes-container">
+            <div class="collapes-container"   id="article_action">
                 <div  class="collapes-container_inner">
                     <div class="article-title">Title</div>
                     <div class="article-text">{{description}}</div>
                 </div>
             </div>
 
-            {{/unless}}
+
 
 
         </div>
@@ -143,10 +140,9 @@
                 </div>
             </div>
 
-            {{#if view.partnerTag}}
 
 
-            <div class="collapes-container" style="height: 150px;overflow-y: auto;">
+            <div class="collapes-container" style="height: 150px;overflow-y: auto;"  id="partner_action">
                 <div class="collapes-container_inner">
                     <a class="sml-partner" href="#" ><img src="../images/profilepic1.jpg" /></a>
                     <a class="sml-partner" href="#" ><img src="../images/profilepic2.jpg" /></a>
@@ -158,7 +154,7 @@
                     <a class="sml-partner" href="#" ><img src="../images/profilepic8.jpg" /></a>          
                 </div>
             </div>
-            {{/if}}
+       
         </div>
 
 
@@ -175,10 +171,10 @@
                         <i class="icon-chevron-down" style="height: 16px; width: 16px;"></i>
                     </div>      
                 </div>
-                {{#if view.discussionTag}}
 
 
-                <div class="collapes-container" >
+
+                <div class="collapes-container"  id="discuss_action">
                     <div class="collapes-container_inner">
 
                         <div class="show-comment">
@@ -284,7 +280,7 @@
 
                     </div>
                 </div>
-                {{/if}}
+            
             </div>
         </div>
 

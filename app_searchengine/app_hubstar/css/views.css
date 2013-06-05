@@ -145,11 +145,13 @@
 /*MANSONRY profiles OBJECT STYLE*/
 
 .masonry-object_profile-cover{
-    background: url(../../images/searchbarbg.jpg) repeat scroll 0% 5% rgb(242, 240, 240);  
-    background-size: 100% auto; 
-    padding: 0; 
     position: relative;
     height: 170px;
+}
+
+.masonry-object_cover-wapper{
+    max-height: 170px;
+    overflow: hidden;
 }
 
 .masonry-object_profilepic{
@@ -246,8 +248,14 @@
 }
 
 .masonry-object_text-container{
-    max-height: 72px; 
+    max-height: 90px; 
     overflow: hidden;
+}
+
+.more_text-container{
+    max-height: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .masonry_more-btn{

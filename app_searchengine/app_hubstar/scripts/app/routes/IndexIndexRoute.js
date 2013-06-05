@@ -14,7 +14,6 @@ define([
         model: function() {
             return SearchModel.find();
         },
-
         activate: function() {
 //      localStorage.isLogin = false;
 
@@ -32,9 +31,13 @@ define([
             this.render('index', {
                 into: "application"
             });
+
             this.render('default', {
                 into: "index"
             });
+
+
+
         }
 
     });

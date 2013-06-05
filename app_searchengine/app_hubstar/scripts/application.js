@@ -82,6 +82,10 @@ define('application', [
     "views/DataItemView",
     "views/DataIndexView",
     "views/ContactView",
+    'views/FooterView',
+    "views/HeaderView",
+    "views/BeforeLoginView",
+    "views/AfterLoginView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -165,6 +169,10 @@ define('application', [
         DataItemView,
         DataIndexView,
         ContactView,
+        FooterView,
+        HeaderView,
+        BeforeLoginView,
+        AfterLoginView,
         ApplicationController,
         tabListController,
         DataController,
@@ -251,6 +259,10 @@ define('application', [
         DataItemView: DataItemView,
         DataIndexView: DataIndexView,
         ContactView: ContactView,
+        FooterView: FooterView,
+        HeaderView: HeaderView,
+        BeforeLoginView: BeforeLoginView,
+        AfterLoginView: AfterLoginView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
@@ -325,4 +337,10 @@ function getRestAPIURL()
     api_url = "http://api" + api_url;
     console.log(api_url);
     return api_url;
+}
+
+
+function getLogin()
+{
+//  $.ajax()
 }

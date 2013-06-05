@@ -153,9 +153,9 @@ padding: 0px 0px 0px 30px;
 color:rgb(242,240,240);
 position: relative;
 
-left: 10px;
+left: 1000px;
 display: block;
-top:-115px;
+top:-45px;
 width:200px;
 }
 

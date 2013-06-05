@@ -248,12 +248,11 @@
 }
 
 .masonry-object_text-container{
-    max-height: 90px; 
-    overflow: hidden;
-}
 
-.more_text-container{
-    max-height: 200px;
+    text-overflow: ellipsis;
+}
+.more_detail{
+    height: 90px; 
     overflow: hidden;
     text-overflow: ellipsis;
 }

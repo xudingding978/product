@@ -28,17 +28,17 @@
                     </i>
                 </div>   
             </div>
-            <div  id="dropdown-cover" onclick="return popitup(650, 400);" style="float: right; bottom: 10px; position: relative; width: 204px; height: 45px; margin-right: -10px;">
+            <div  id="dropdown-cover" onclick="Facebook(650, 400);" style="float: right; bottom: 10px; position: relative; width: 204px; height: 45px; margin-right: -10px;">
                 <div class="sign-in-with" >Sign In with Facebook</div>
             </div>
         </div>
         <ul class="dropdown" style="width:270px">
-            <li  onclick="Twitter();" ><a style="color:rgb(0,172,237)" href="#"><i class="icon-twitter icon-large"></i>Sign in with Twitter</a></li>
-            <li  onclick="Google();" ><a style="color:rgb(211,72,54)" href="#"><i class="icon-google-plus icon-large"></i>Sign in with Google+</a></li>
-            <li  onclick="Yahoo();" ><a style="color:rgb(123,0,153)" href="#"><img src='../../../images/yahoo.png' style='width: auto; height: 35px; float:left;margin: -3% -5% 0 6%;'>Sign in with Yahoo</a></li>
-            <li  onclick="Sina();" ><a style="color:rgb(245,213,0)" href="#"><img src='../../../images/sina.png' style='width: auto; height: 35px; float:left;margin: -3% -3% 0 6%;'>Sign in with Sina</a></li>
-            <li  onclick="QQ();" ><a style="color:rgb(62,59,62)" href="#"><img src='../../../images/qq.png' style='width: auto; height: 35px; float:left;margin: -3% -2% 0 7%;'>Sign in with QQ</a></li>
-            <li  onclick="dismiss_modal_test();" ><a style="color:rgb(0,153,68)" href="#myModal"><i class="icon-envelope-alt icon-large"></i>Sign in with Email</a></li>
+            <li  onclick="Twitter(650, 400);" ><a style="color:rgb(0,172,237)" href="#"><i class="icon-twitter icon-large"></i>Sign in with Twitter</a></li>
+            <li  onclick="Google(650, 400);" ><a style="color:rgb(211,72,54)" href="#"><i class="icon-google-plus icon-large"></i>Sign in with Google+</a></li>
+            <li  onclick="Yahoo(650, 400);" ><a style="color:rgb(123,0,153)" href="#"><img src='../../../images/yahoo.png' style='width: auto; height: 35px; float:left;margin: -3% -5% 0 6%;'>Sign in with Yahoo</a></li>
+            <li  onclick="Sina(650, 400);" ><a style="color:rgb(245,213,0)" href="#"><img src='../../../images/sina.png' style='width: auto; height: 35px; float:left;margin: -3% -3% 0 6%;'>Sign in with Sina</a></li>
+            <li  onclick="QQ(650, 400);" ><a style="color:rgb(62,59,62)" href="#"><img src='../../../images/qq.png' style='width: auto; height: 35px; float:left;margin: -3% -2% 0 7%;'>Sign in with QQ</a></li>
+
         </ul>
     </div>
     <div class="title_text" >
@@ -47,26 +47,81 @@
 </div>
 
 
+<script type="text/javascript">
 
-<script language="javascript" type="text/javascript">
-                function popitup(popupWidth, popupHeight) {
-                    var left = (screen.width / 2) - (popupWidth / 2);
-                    var top = (screen.height / 2) - (popupHeight / 2);
+
+
+
+
+
+                function setDomain() {
+
                     var api_url = document.domain;
                     var api_domain_start_pos = api_url.indexOf('.');
                     var api_url = api_url.slice(api_domain_start_pos);
-                    api_url = "http://account" + api_url + "/hybridauth/default/login/?provider=Facebook";
-                    //   alert(api_url);
-                    newwindow = window.open(api_url, 'name', 'height='+popupHeight+',width='+popupWidth+',top='+top+',left='+left+',toolbar=no,scrollbars=no,location=no,resizable =yes');
-                    if (window.focus) {
-                        newwindow.focus();
-                    }
-                    return false;
+
+                    return api_url;
                 }
 
 
+
+
+
+                function Facebook(popupWidth, popupHeight) {
+                    var left = (screen.width / 2) - (popupWidth / 2);
+                    var top = (screen.height / 2) - (popupHeight / 2);
+                    var api_url = "http://account" + setDomain() + "/hybridauth/default/login/?provider=Facebook";
+                    newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+                    if (window.focus) {
+                        newwindow.focus();
+                    }
+
+
+                }
+                function Yahoo(popupWidth, popupHeight) {
+                    var left = (screen.width / 2) - (popupWidth / 2);
+                    var top = (screen.height / 2) - (popupHeight / 2);
+                    var api_url = "http://account" + setDomain() + "/hybridauth/default/login/?provider=Yahoo";
+                    newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+                    if (window.focus) {
+                        newwindow.focus();
+                    }
+                }
+                function QQ(popupWidth, popupHeight) {
+                    var left = (screen.width / 2) - (popupWidth / 2);
+                    var top = (screen.height / 2) - (popupHeight / 2);
+                    var api_url = "http://account" + setDomain() + "/hybridauth/default/login/?provider=QQ";
+                    newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+                    if (window.focus) {
+                        newwindow.focus();
+                    }
+                }
+                function Sina(popupWidth, popupHeight) {
+                    var left = (screen.width / 2) - (popupWidth / 2);
+                    var top = (screen.height / 2) - (popupHeight / 2);
+                    window.location.href = "http://account" + "<?php echo $domain ?>" + "/hybridauth/default/login/?provider=Sina";
+                    var api_url = "http://account" + setDomain() + "/hybridauth/default/login/?provider=Sina";
+                    newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+                    if (window.focus) {
+                        newwindow.focus();
+                    }
+                }
+                function Twitter(popupWidth, popupHeight) {
+                    var left = (screen.width / 2) - (popupWidth / 2);
+                    var top = (screen.height / 2) - (popupHeight / 2);
+                    var api_url = "http://account" + setDomain() + "/hybridauth/default/login/?provider=Twitter";
+                    newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+                    if (window.focus) {
+                        newwindow.focus();
+                    }
+                }
+                function Google(popupWidth, popupHeight) {
+                    var left = (screen.width / 2) - (popupWidth / 2);
+                    var top = (screen.height / 2) - (popupHeight / 2);
+                    var api_url = "http://account" + setDomain() + "/hybridauth/default/login/?provider=Google";
+                    newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+                    if (window.focus) {
+                        newwindow.focus();
+                    }
+                }
 </script>
-
-
-
-

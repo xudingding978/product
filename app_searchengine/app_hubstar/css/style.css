@@ -621,7 +621,7 @@ div.search-loading-invisible{
     position: relative;
 }
 
-.search_input	{
+.search_input{
     width:300px;
 }
 .search_business{
@@ -653,8 +653,9 @@ div.search-loading-invisible{
     margin: auto;
     left: 0;
     right: 0;
-    width: 37px;
+    width: 120px;
     top: 280px;
+    text-align: center;
 }
 
 .search_button:hover{

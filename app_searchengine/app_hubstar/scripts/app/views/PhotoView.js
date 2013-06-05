@@ -1,7 +1,7 @@
 define([
     "ember",
-    "text!templates/photoTemplate.html",
-    'bootstrap-modal'
+    "text!templates/photoTemplate.html"
+
 ], function(Ember, photoTemplate) {
     Ember.TEMPLATES["photo"] = Ember.Handlebars.compile(photoTemplate);
     var PhotoView = Ember.View.extend({
@@ -17,25 +17,23 @@ define([
 
         },
         setTitleTag: function() {
-
-            this.set('titleTag', !this.get('titleTag'));
-
-        },
-        setPartnerTag: function() {
-
-            this.set('partnerTag', !this.get('partnerTag'));
-
+            $('#article_action').slideToggle(1000);
         },
         setDiscussionTag: function() {
-
-            this.set('discussionTag', !this.get('discussionTag'));
+            $('#discuss_action').slideToggle("slow");
+            //     this.set('discussionTag', !this.get('discussionTag'));
 
         },
         setNameTag: function() {
-
-            this.set('nameTag', !this.get('nameTag'));
+            $('#poster_action').slideToggle("slow");
+            //       this.set('nameTag', !this.get('nameTag'));
 
         },
+        setPartnerTag: function() {
+            $('#partner_action').slideToggle("slow");
+            //       this.set('partnerTag', !this.get('partnerTag'));
+
+        }
 
     });
     return PhotoView;

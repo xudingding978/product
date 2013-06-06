@@ -28,7 +28,7 @@ class Controller extends CController {
         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
         $result = $cb->get($domain);
         $result_arr = CJSON::decode($result, true);
-        return    $result_arr["providers"]["S3bucket"];
+        return $result_arr["providers"]["S3bucket"];
     }
 
     protected function getS3Connection($domain) {
@@ -131,12 +131,17 @@ class Controller extends CController {
         $result .= ']}';
         return $result;
     }
-
     protected function processGet($results_arr, $jsonRoot) {
         $result = '{"' . $jsonRoot . '":[';
         $result .= $results_arr;
         $result .= ']}';
         return $result;
     }
-
+    protected function getNewID() {
+        $myText = (string) microtime();
+        $pieces = explode(" ", $myText);
+        $id = $pieces[1];
+        $id = (string) rand(99999999, 999999999) . $id;
+        return $id;
+    }
 }

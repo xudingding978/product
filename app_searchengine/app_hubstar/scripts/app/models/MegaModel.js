@@ -9,8 +9,6 @@ define(
         users: {embedded: 'always'}
     });
 
-
-
     var MegaModel = DS.Model.extend({
         type: DS.attr('string'),
         accessed: DS.attr('string'),

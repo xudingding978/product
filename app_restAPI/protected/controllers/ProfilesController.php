@@ -23,6 +23,8 @@ class ProfilesController extends Controller {
                 ->query("profile")
                 ->boost(2.5);
 
+        
+        
 //        $filter = null;
         //custom_filters_score query allows to execute a query, and if the hit matches a provided filter (ordered)
 //        $customFilterQuery = Sherlock\Sherlock::queryBuilder()->CustomFiltersScore()

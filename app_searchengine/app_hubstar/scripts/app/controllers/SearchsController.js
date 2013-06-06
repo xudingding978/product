@@ -4,19 +4,19 @@ define([
 ], function(SearchsModel, Ember) {
     var SearchsController = Ember.ArrayController.extend({
         newSearch: function(object) {
+            console.log(object.result);
+            App.Mega.find(object);
+//            var searchResult = App.store.createRecord(App.Search, {
+//                id: object.id,
+//                region: object.region,
+//                result: object.result
+//            });
 
-            var searchResult = App.store.createRecord(App.Search, {
-                id: object.id,
-                region: object.region,
-                result: object.result
-            });
 
-            //     App.store.commit();
-
-            this.transitionToRoute('search', searchResult);
+     //       this.transitionToRoute('search', searchResult);
 
         }
-                     
+
     });
     return SearchsController;
 });

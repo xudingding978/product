@@ -26,10 +26,121 @@
 
 
 
+.object-tags-box{
+    -webkit-transition: box-shadow .218s ease,background-color .218s ease,max-width .218s step-end;
+    transition: box-shadow .218s ease,background-color .218s ease,max-width .218s step-end;
+    margin: 45px 0 0 0;
+    max-width: 5%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+}
+
+.object-tags{
+    clear: both;
+    height: 26px;
+    line-height: 26px;
+    word-wrap: normal;
+}
+
+.tags-mark{
+    float: right;
+    height: 26px;
+    margin-right: -4px;
+    padding-right: 4px;
+    width: 0;
+}
+
+.tags{
+    margin-right: -2px;
+    color: #999;
+    display: block;
+    float: right;
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    background-color: #eee;
+    opacity: .6
+}
+
+.tags:hover{
+    color: white;
+    background-color: #427fed;
+    box-shadow: 0px 0px 8px #555;
+    opacity: 1;
+}
+
+.tags-new{
+    display: inline-block;
+    font-weight: bold;
+    padding: 0 10px;
+    font-size: 12px;
+    vertical-align: top;
+    margin-right: -4px;
+}
+
+.object-tpye{
+    display: inline-block;
+    text-align: center;
+    background-color: #427fed;
+    color: white
+}
+
+.object-tpye:hover{
+    background-color: #eee;
+    color: #999;
+}
+
+.tagsappear{
+    opacity: 0;
+}
+
+.tagsappear:hover{
+    opacity: 1;
+}
+
+.object-tpye > i {
+    padding: 10px;
+}
 
 
 
 /*MANSONRY OBJECT STYLE*/
+
+/*MANSONRY WELCOME OBJECT STYLE*/
+
+.masonry_login-btn{
+    display: inline-block;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 1px 0 rgba(0,0,0,.05);
+    box-shadow: 0 1px 0 rgba(0,0,0,.05);
+    -webkit-transition: background-color .218s,border-color .218s,box-shadow .218s;
+    transition: background-color .218s,border-color .218s,box-shadow .218s;
+    -webkit-user-select: none;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+    cursor: pointer;
+    line-height: 28px;
+    padding: 0 10px 0 10px;
+    outline: none;
+    width: auto;
+    position: relative;
+    margin: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 /*MANSONRY profiles OBJECT STYLE*/
 
@@ -73,13 +184,13 @@
     border-radius: 2px;
     background-color: #fff; 
     box-shadow: inset 0px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07);
-    width: 350px;
 }
 
 .masonry-object_poster{
     margin-bottom: 20px;
     padding: 0 20px 0 20px;
     position: relative;
+    z-index: 1;
 }
 
 .profilepic-on-masonry{
@@ -146,6 +257,11 @@
     font-size: 12px;
     margin-top: 2px;
     vertical-align: middle;
+    cursor:pointer;
+}
+
+.masonry_more-btn:hover{
+    color: #333;
 }
 
 .masonry-object_interact{

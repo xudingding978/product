@@ -247,7 +247,7 @@ outline: 0px none;
 position: relative;
 margin: 13px;
 display: inline-block;
-left: 5%;
+left: 20%;
 width: 120px;
 z-index: 10000;
 cursor: pointer;
@@ -329,13 +329,6 @@ max-height:600px;
 width: auto;
 margin:auto;
 
-}
-
-
-h2 {
-font-family: Arial,Helvetica,sans-serif;
-font-size: 14px;
-font-weight: bold;
 }
 
 

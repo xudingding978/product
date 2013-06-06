@@ -16,7 +16,7 @@ define(["ember", 'models/PhotoModel', 'models/MegaModel', 'models/UserModel', 'g
                             reader.onload = function(e) {
                                 var src = e.srcElement.result;
                                 console.log("ocalStorage.user_id: " + localStorage.user_id);
-                                var obj = Obj.createRecord({"id": createGuid(), "title": name.toLowerCase(), "type": "photos", "creator": localStorage.user_id});
+                                var obj = Obj.createRecord({"title": name.toLowerCase(), "type": "photos", "creator": localStorage.user_id});
                                 var file = PhotoModel.createRecord({"photo_title": name.toLowerCase(), "photo_image_url": src, "photo_type": type});
                                 obj.get("photos").pushObject(file);
                                 content.addObject(file);
@@ -60,10 +60,8 @@ define(["ember", 'models/PhotoModel', 'models/MegaModel', 'models/UserModel', 'g
                             var reader = new FileReader();
                             reader.onload = function(e) {
                                 var src = e.srcElement.result;
-                                var id = createGuid();
-
-                                var obj = Obj.createRecord({"id": id, "title": name.toLowerCase(), "type": "photos", "creator": "king"});
-                                var file = PhotoModel.createRecord({"id": id, "photo_title": name.toLowerCase(), "photo_image_url": "src", "photo_type": type});
+                                var obj = Obj.createRecord({"title": name.toLowerCase(), "type": "photos", "creator": "king"});
+                                var file = PhotoModel.createRecord({ "photo_title": name.toLowerCase(), "photo_image_url": "src", "photo_type": type});
                                 // var user = UserModel.createRecord({"REC_ID": id, "TENANT_REC_ID": name.toLowerCase()});
                                 //   console.log(obj.get("photos").objectAt(0));
                                 //    var article = Article.createRecord({"id": id, "article_title": "article " + name.toLowerCase()});

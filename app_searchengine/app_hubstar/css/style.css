@@ -31,25 +31,25 @@ div.search-loading-invisible{
 
 /*/WindowContainer-------------------/*/
 .window-container {
-    cursor: move;
-    overflow: visible;
-    position: fixed;
-    top: 20%;
-    left: 40%;
-    z-index: 1000050;
-    background-color: white;
-    border: 1px solid #999;
-    border: 1px solid rgba(0, 0, 0, 0.3);
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    outline: none;
-    -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-    -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-    -webkit-background-clip: padding-box;
-    -moz-background-clip: padding-box;
-    background-clip: padding-box;
+cursor: move;
+overflow: visible;
+position: fixed;
+top: 20%;
+left: 40%;
+z-index: 1000050;
+background-color: white;
+border: 1px solid #999;
+border: 1px solid rgba(0, 0, 0, 0.3);
+-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+border-radius: 3px;
+outline: none;
+-webkit-box-shadow: 0 3px 7px #888;
+-moz-box-shadow: 0 3px 7px #888;
+box-shadow: 0 3px 7px #888;
+-webkit-background-clip: padding-box;
+-moz-background-clip: padding-box;
+background-clip: padding-box;
 }
 
 .head { 

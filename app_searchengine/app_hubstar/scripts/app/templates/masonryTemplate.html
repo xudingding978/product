@@ -17,10 +17,10 @@
                 </div>{{/linkTo}}
 
                 <div id="afterLogin">
-                    <div class="profilepic-container" style="margin:0 0 10px;">                   
-                        <a href="#" ><img {{bindAttr src="profile_pic_url"}} class="profilepic"/></a>                              
+                    <div class="profilepic-container" style=" margin:0 0 10px;">                   
+                        <a href="#" ><img {{bindAttr src="profile_pic_url"}} src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash3/c34.34.426.426/s160x160/556015_10151601804148200_348426023_n.jpg" class="profilepic"/></a>                              
                     </div>
-                    <p> Hi Jason! </p>
+                    <p> Hi Andrew! </p>
                     <h3> What do you want
                         to do on Trends today?  </h3>  
                 </div>
@@ -204,7 +204,7 @@
 
                 <div class="masonry-object_text">
                     <div class="masonry-object_text-container">
-                        <p>   {{#linkTo 'photo' this}} Title{{/linkTo}} </p>
+                        <p>   {{#linkTo 'photo' this}} {{photo_title}}{{/linkTo}} </p>
                         <p>{{description}}</p>
                     </div>
 
@@ -300,8 +300,8 @@
 
                 <div class="masonry-object_text">
                     <div class="masonry-object_text-container">
-                        <p>  {{#linkTo 'video' this}} VIDEO{{/linkTo}} </p>
-                        <p>{{article_title}}</p>
+                        <p>  {{#linkTo 'video' this}}{{video_title}}{{/linkTo}} </p>
+                        <p>{{description}}</p>
                     </div>
 
                     <div class="more_detail" {{bindAttr id="id"}} style="display:none;width:auto">
@@ -374,7 +374,7 @@
                 </a>
                 <div class="object_username">
                     <a class="poster-name" {{bindAttr href="getProfile_id"}}>{{profile_id}}</a>
-                    <span class="posttime">yesterday 8:37</span>
+                    <span class="posttime">yesterday 10:26</span>
                 </div>
 
                 <div class="object-tags-box">
@@ -416,12 +416,13 @@
 
                 <div class="masonry-object_text">
                     <div class="masonry-object_text-container">
-                        <p>   {{#linkTo 'article' this}} Title{{/linkTo}} </p>
+                        <p>   {{#linkTo 'article' this}} {{article_title}}{{/linkTo}} </p>
                         <p>{{description}}</p>
                     </div>
 
                     <div class="more_detail" {{bindAttr id="id"}} style="display:none;width:auto">
-                        <h1>article show</h1>
+                        <h1>{{article_title}}</h1>
+                        {{{article_text}}}
 
                     </div>
 

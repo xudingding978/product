@@ -16,6 +16,8 @@ define(
         image_url: DS.attr('string'),
         article_text: DS.attr('string'),
         article_title: DS.attr('string'),
+        video_title: DS.attr('string'),
+        photo_title: DS.attr('string'),
         profile_id: DS.attr('string'),
         description: DS.attr('string'),
         more_button: function() {

@@ -3,7 +3,7 @@
         <div class="poster_user" >
             <div style="display: block; font-size: 17px; font-weight: bold; margin-bottom: 5px;">
                 <span style="display: inline-block;margin-right: 5px;">Send an Email to</span>
-                <a style="width: 250px; display: inline-block; overflow: hidden; text-overflow: ellipsis;">Name</a>
+                <a style="max-width: 240px; display: inline-block; overflow: hidden; text-overflow: ellipsis;">Name</a>
             </div>
             <div style="display: block; margin-bottom: 10px;">
                 <span style="display: inline-block;margin-right: 5px;">From: Allen_wen@gmail.com</span>
@@ -15,7 +15,7 @@
         </div>
         <div>
             <span style="display: inline-block; margin-right: 10px;">Subject:</span>
-            <div class="addcommnetbox" style="display: inline-block; width: 388px; height: 25px; vertical-align: middle; padding: 2px 8px;">
+            <div class="addcommnetbox" style="display: inline-block; width: 378px; height: 25px; vertical-align: middle; padding: 2px 8px;">
                 Project inquiry
             </div>
         </div>
@@ -23,8 +23,8 @@
 
     </div>
     <div class="content">
-        <div class="contactme-table">
-            <table style="padding: 0 20px 10px; width: 100%;font-size: 16px;  display: table;border-collapse: separate;border-spacing: 4px;">
+        <div class="contactme-table" style="text-align: center;">
+            <table style="padding: 0 20px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;">
                 <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
                     <tr>
                         <td>Project Category:</td>
@@ -81,14 +81,47 @@
                         </td>
                     </tr>
                 </tbody>
-            </table>            
+            </table>        
+            <div class="checkbox-columncontainer">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkbox5" class="css-checkbox" checked="checked">
+                    <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Products</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkbox5" class="css-checkbox" checked="checked">
+                    <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Design</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkbox5" class="css-checkbox" checked="checked">
+                    <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Ideas</label>
+                </div>
+            </div>
+            <div class="checkbox-columncontainer">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkbox5" class="css-checkbox" checked="checked">
+                    <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Appliances</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkbox5" class="css-checkbox" checked="checked">
+                    <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Benchtops</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkbox5" class="css-checkbox" checked="checked">
+                    <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Layout</label>
+                </div>
+            </div>
         </div>
-
-        <div class="buttons" style="display: inline-block;">
-            <div></div>
-            <button type="button" {{action closeContact }}  class="btn btn-primary"><i class="icon-ok icon-white"></i></button>
-
-            <button type="button" {{action closeContact }} class="btn"><i class="icon-remove"></i></button>
+        <div style="display: block;padding: 5px 0px;">
+            <div>
+                <span style="display: inline-block; margin-bottom: 5px;">Message:</span>
+                <div class="addcommnetbox" style="margin-bottom: 10px; width: auto; height: 70px; vertical-align: middle; padding: 2px 8px;">
+                    I saw your profile, I'd love to talk to you about my project, Please reply  if you are interested.
+                </div>
+            </div>
+            <div style='text-align: right;'>
+                <button type="button" {{action closeContact }} class="btn">Cancel</button>
+                <button type="button" {{action closeContact }}  class="btn btn-primary">Submit</button>
+            </div>
         </div>
     </div>
 </div>

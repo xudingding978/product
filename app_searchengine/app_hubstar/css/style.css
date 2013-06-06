@@ -55,11 +55,11 @@ div.search-loading-invisible{
 .head { 
     background-color: rgb(242,240,240);
     border-radius: 3px 3px 0 0;
-    padding: 15px 25px 20px;
+    padding: 15px 30px 20px;
 }
 
 .content {
-    padding: 15px 25px 20px;
+    padding: 15px 30px 20px;
     border-radius: 3px 3px 0 0;
 }
 
@@ -73,7 +73,7 @@ div.search-loading-invisible{
 .contactme-table td:nth-child(1)  {
     color: #555;
     text-align: right;
-    width: 40%;
+    width: 35%;
 }
 
 .contactme-table td:nth-child(2)  {
@@ -85,7 +85,67 @@ div.search-loading-invisible{
 .dropdown-contactme {
     width: 230px;
 }
+
+
+
+
+
+.checkbox-columncontainer{
+    display: inline-block;
+    width: 40%;
+    text-align: left;
+}
+
+.checkbox-container{
+    padding: 2px 8px;
+}
+
+/*CSS Checkboxes*/
+
+input[type=checkbox].css-checkbox {
+    display:none;
+}
+
+input[type=checkbox].css-checkbox + label.css-label {
+    padding-left:20px;
+    height:15px; 
+    display:inline-block;
+    line-height:15px;
+    background-repeat:no-repeat;
+    background-position: 0 0;
+    font-size:15px;
+    vertical-align:middle;
+    cursor:pointer;
+}
+
+input[type=checkbox].css-checkbox:checked + label.css-label {
+    background-position: 0 -15px;
+}
+
+.css-label{
+    background-image:url(http://csscheckbox.com/checkboxes/dark-check-green.png);
+}
+
+.lite-blue-check{background-image: url(../../images/blue-check.png) ;}
+
+input[type=checkbox].css-checkbox.med + label.css-label.med {
+    padding-left:22px;
+    height:17px; 
+    display:inline-block;
+    line-height:17px;
+    background-repeat:no-repeat;
+    background-position: 0 0;
+    font-size:15px;
+    vertical-align:middle;
+    cursor:pointer;
+}
+
+/*/End checkbox---------------/*/
+
+
 /*/End WindowContainer---------------/*/
+
+
 
 
 .content > .ember-view {

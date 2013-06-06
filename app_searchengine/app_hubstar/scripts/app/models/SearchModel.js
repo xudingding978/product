@@ -17,6 +17,10 @@ define(
         article_text: DS.attr('string'),
         article_title: DS.attr('string'),
         profile_id: DS.attr('string'),
+        profile_name: DS.attr('string'),
+        profile_cover_url: DS.attr('string'),
+        photo_title: DS.attr('string'),
+        video_title: DS.attr('string'),
         description: DS.attr('string'),
         more_button: function() {
             return "more_button_" + this.get('id');

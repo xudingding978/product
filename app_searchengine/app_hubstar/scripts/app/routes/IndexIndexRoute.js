@@ -29,9 +29,13 @@ define([
             this.render('index', {
                 into: "application"
             });
+
             this.render('default', {
                 into: "index"
             });
+
+
+
         }
 
     });

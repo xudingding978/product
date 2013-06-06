@@ -8,6 +8,7 @@ define(
         mega: DS.belongsTo('App.Mega', {embedded: 'always'}),
         photo_title: DS.attr('string'),
         photo_image_url: DS.attr('string'),
+        image_url: DS.attr('string'),
         photo_image_linkto: DS.attr('string'),
         photo_caption: DS.attr('string'),
         photo_type: DS.attr('string'), 

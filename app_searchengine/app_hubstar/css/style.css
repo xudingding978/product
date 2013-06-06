@@ -52,15 +52,38 @@ div.search-loading-invisible{
     background-clip: padding-box;
 }
 
-.window-container > .head {
-    height:30px; 
+.head { 
     background-color: rgb(242,240,240);
+    border-radius: 3px 3px 0 0;
+    padding: 15px 25px 20px;
+}
+
+.content {
+    padding: 15px 25px 20px;
     border-radius: 3px 3px 0 0;
 }
 
-.window-container > .content {
-    padding: 10px 15px;
-    border-radius: 3px 3px 0 0;
+.contactme-table tr {
+    display: table-row;
+    vertical-align: top;
+    border-color: inherit;
+
+}
+
+.contactme-table td:nth-child(1)  {
+    color: #555;
+    text-align: right;
+    width: 40%;
+}
+
+.contactme-table td:nth-child(2)  {
+    padding: 0 0 5px 20px;
+    color: #555;
+    text-align: center;
+}
+
+.dropdown-contactme {
+    width: 230px;
 }
 /*/End WindowContainer---------------/*/
 

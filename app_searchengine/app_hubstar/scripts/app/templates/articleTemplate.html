@@ -1,0 +1,303 @@
+
+
+
+<div class="objectview-wrapper" >
+
+    <div class="objectview-left">
+
+        <div class="exit" >
+            <div class="closeview" onclick="window.history.back();" >
+                <i class="icon-remove"></i>
+            </div>
+        </div>
+
+
+        <div class="top-controlbar" >
+            <div class="icon-on-black" style="left: 8px;"><i class="icon-question-sign"></i></div>
+            <div class="icon-on-black" style="left: 50px;"><i class="icon-folder-close"></i></div>
+            <!--    <div class="icon-on-black" style=""><i class="icon-share-alt"></i></div>     -->
+        </div>
+
+
+        <div class="mainfeature">
+            <img class="mainfeature_object" {{bindAttr src="image_url" }}/>
+        </div>
+
+        <div class="bottom-controlbar">
+            <div class="text-on-black" style="right: 132px;"> object Name</div>
+            <div class="icon-on-black" >
+                <i class="icon-arrow-left"></i>
+            </div>
+            <div class="icon-on-black" style="left: 44px;">
+                <i class="icon-th"></i>
+            </div>
+            <div class="icon-on-black" style="left: 88px;">
+                <i class="icon-arrow-right"></i>
+            </div>
+            <div class="text-on-black" style="left: 132px;"> 18/30 </div>
+        </div>
+
+
+    </div>
+
+
+
+    <div class="objectview-right" >
+
+        <!-- USER SECTION -->
+        <div>
+            <div class="object-poster easing" {{action setNameTag on="click" target="view"}}>
+                <div class="profilepic-container" >                   
+                    <a href="#" ><img {{bindAttr src="profile_pic_url"}} class="profilepic"/></a>                              
+                </div>
+                <div class="poster_user">
+                    <a class="poster-name" href="#">{{view.fullName}}</a>
+                    <span class="posttime">yesterday 8:37</span>
+                </div>
+
+                <div class="contactmebtn" style="position: absolute; right: 15px; top: 23px; bottom: auto;">
+                    <a class="contactmeicon" href="#" style=" width: 35px; height: 35px;">
+                        <img src="../images/mail_24dark.png" style="vertical-align: 6px; width: 15px;"/>
+                    </a>
+                </div>
+            </div>
+ 
+
+            <div class="collapes-container" id="poster_action">
+                <table style="padding: 15px; width: 100%;font-size: 13px;  display: table;border-collapse: separate;border-spacing: 4px;">
+                    <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
+                        <tr>
+                            <td>Contact:</td>
+                            <td>--</td>
+                        </tr>
+                        <tr>
+                            <td>Type:</td>
+                            <td>--</td>
+                        </tr>
+                        <tr>
+                            <td>Address:</td>
+                            <td>--</td>
+                        </tr>
+                        <tr>
+                            <td>Phone:</td>
+                            <td>--</td>
+                        </tr>
+                        <tr>
+                            <td>Website:</td>
+                            <td>--</td>
+                        </tr>
+                    </tbody>
+                </table>                
+            </div>
+      
+
+        </div>
+
+        <!-- OBJECT DESCRIBTION SECTION -->
+        <div   >
+            <div class="object-collapes-title" {{action setTitleTag  on="click" target="view"}}>
+                <div class="collapes-title_inner">
+                    Article
+                </div>
+
+
+
+
+
+
+                {{#unless view.readContent}}
+
+                <div class="readbtn" {{action checkReading on="click" target="view"}}>
+                    <span class="readbtn_read" >Read</span>
+                </div>
+                {{else}}
+
+                <div class="closeReadbtn" {{action checkClosed on="click" target="view"}}>
+                    <span class="readbtn_read"  >Close</span>
+                </div>
+
+            </div>
+
+            {{/unless}}
+        </div>
+
+
+
+        <div class="collapes-container"  id="article_action">
+            <div class="collapes-container_inner">
+                <div class="article-title" >{{article_title}}</div>
+                <div class="article-text">{{{article_text}}}</div>
+            </div>
+        </div>
+
+     
+
+
+
+
+        <!-- OBJECT PARTNER SECTION -->
+        <div>
+            <div>
+                <div class="object-collapes-title" {{action setPartnerTag on="click" target="view"}} >
+                    <div class="collapes-title_inner">
+                        Partner
+                    </div>
+                    <div class="dropdownicon" >
+                        <i class="icon-chevron-down"></i>
+                    </div>      
+                </div>
+            </div>
+
+     
+
+            <div class="collapes-container" style="height: 150px;overflow-y: auto;"  id="partner_action">
+                <div class="collapes-container_inner">
+                    <a class="sml-partner" href="#" ><img src="../images/profilepic1.jpg" /></a>
+                    <a class="sml-partner" href="#" ><img src="../images/profilepic2.jpg" /></a>
+                    <a class="sml-partner" href="#" ><img src="../images/profilepic3.jpg" /></a>
+                    <a class="sml-partner" href="#" ><img src="../images/profilepic4.jpg" /></a>
+                    <a class="sml-partner" href="#" ><img src="../images/profilepic5.jpg" /></a>
+                    <a class="sml-partner" href="#" ><img src="../images/profilepic6.jpg" /></a>
+                    <a class="sml-partner" href="#" ><img src="../images/profilepic7.jpg" /></a>
+                    <a class="sml-partner" href="#" ><img src="../images/profilepic8.jpg" /></a>          
+                </div>
+            </div>
+ 
+        </div>
+
+
+
+
+        <!-- OBJECT DISCUSSION SECTION -->
+        <div>
+
+            <div class="object-collapes-title" {{action setDiscussionTag on="click" target="view"}} >
+                <div class="collapes-title_inner">
+                    Discussion
+                </div>
+                <div class="dropdownicon">
+                    <i class="icon-chevron-down" ></i>
+                </div>      
+            </div>
+           
+
+
+            <div class="collapes-container" id="discuss_action">
+                <div class="collapes-container_inner">
+
+                    <div class="show-comment">
+                        <div class="show-comment_container">
+                            <span class="show-comment_inner">
+                                <span class="comment-amount" > 10 </span>
+                                <span class="comment-amount" > comments</span>
+                            </span>
+                        </div>
+
+                        <div class="object-like" style=""></div>
+                        <div class="object-save" style=""></div>
+                    </div>
+
+                    <div class="addcommnetbox-container">
+                        <div class="addcommnetbox">
+                            Add comments
+                        </div>
+                    </div>
+
+                    <div class="comment-item">
+
+                        <div class="comment-position">
+                            <a class="profilepic-comment-container" href="#">
+                                <img class="profilepic_comment" src="../images/profilepic1.jpg" />
+                            </a>
+                            <div style="">
+                                <div class="comment-namentime">
+                                    <div class="namentime_position">
+                                        <a class="comment-username" href="" >
+                                            Carmilita Zotomayor-Riveral 
+                                        </a>
+                                        <div class="posttime-container">
+                                            <span class="posttime">yesterday 10:14 pm</span>
+                                            <span class="like-amount">+1</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="reply-comment">
+                                        <!--this div for reply-->
+                                    </div>
+
+                                </div>
+
+                                <div class="comment-content">
+                                    Thanks. I love vintage photos. More than half a century later, Manhattan has transformed and evolved into what it is today. 
+
+                                    <!-- for +someone into the conversation-->
+                                    <span>
+                                        <span></span>
+                                        <a></a>
+                                    </span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="comment-item">
+
+                        <div class="comment-position">
+                            <a class="profilepic-comment-container" href="#">
+                                <img class="profilepic_comment" src="../images/profilepic3.jpg" />
+                            </a>
+                            <div style="">
+                                <div class="comment-namentime">
+                                    <div class="namentime_position">
+                                        <a class="comment-username" href="" >
+                                            John Patrick Anthony Cummins
+                                        </a>
+                                        <div class="posttime-container">
+                                            <span class="posttime">yesterday 10:14 pm</span>
+                                            <span class="like-amount">+1</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="reply-comment">
+                                        <!--this div for reply-->
+                                    </div>
+
+                                </div>
+
+                                <div class="comment-content">
+                                    My pleasure! I thought a New Yorker would like it, the island has changed lot in 50 yrs. 
+
+                                    <!-- for +someone into the conversation-->
+                                    <span>
+                                        <span></span>
+                                        <a></a>
+                                    </span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+
+    </div>
+
+
+</div>

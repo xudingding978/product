@@ -9,7 +9,12 @@ define([
         ) {
     "use strict";
     var ProfileRoute = Ember.Route.extend({
+        setupController: function(ProfileController, model) {
+            ProfileController.setLocalLoginRecrod();
+          
+        },
         model: function(params) {
+
             return ProfileModel.find(params.profile_id);
         },
         renderTemplate: function() {
@@ -21,7 +26,7 @@ define([
                 into: 'profile',
                 controller: 'photoUpload'
             }
-        );
+            );
         }
 
     });

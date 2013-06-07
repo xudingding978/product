@@ -17,13 +17,8 @@ define([
             var ProfileController = Ember.ObjectController.extend({
                 editing: false,
                 galleryInsert: false,
-                
-                setLocalLoginRecrod: function() {                   
-                    localStorage.lastname = this.get('content.id');
-                },
-                getArrLength: function()
-                {
-                    console.log(arr);
+                setLocalLoginRecrod: function() {                  
+                    localStorage.user_id = this.get('content.id');
                 },
                 toggleEditing: function() {
                     profile_record = this.get('content.profile_name');
@@ -75,7 +70,7 @@ define([
                 galleryEdit: function() {
                     this.set('galleryInsert', !this.get('galleryInsert'));
                 },
-                showDragNdropWindow: function()
+                test: function()
                 {
                     console.log("click showDragNdropWindow ");
                 }

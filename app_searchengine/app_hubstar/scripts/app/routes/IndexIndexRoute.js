@@ -16,6 +16,18 @@ define([
             return SearchModel.find();
 
         },
+        activate: function() {
+            //      localStorage.isLogin = false;
+            
+              App.set("isLogin", false);
+        },
+        deactivate: function() {
+
+            //         localStorage.isLogin = true;
+
+
+            App.set("isLogin", true);
+        },
         renderTemplate: function() {
 
             this.render('index', {

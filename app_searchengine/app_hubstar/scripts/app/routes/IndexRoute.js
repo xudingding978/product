@@ -11,14 +11,10 @@ define([
 
     var IndexRoute = Ember.Route.extend({
         //     controller: ApplicationController,
-        redirect: function() {
 
-          //  this.transitionTo('index');
-        },
-        model: function() {
-            return SearchModel.find();
-
-        },
+//        model: function() {
+//            return App.SearchModel.find();
+//        },
         renderTemplate: function() {
             this.render('index', {
                 into: "application"
@@ -27,7 +23,6 @@ define([
             this.render('default', {
                 into: "index"
             });
-
         }
 
     });

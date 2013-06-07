@@ -20,8 +20,8 @@ require.config({
         'bootstrap-wysihtml5': 'libs/wysihtml5/bootstrap-wysihtml5',
         'wysihtml5': 'libs/wysihtml5/wysihtml5-0.3.0',
         'bxslider': 'libs/jquery.bxslider.min',
-        'isotope': 'libs/isotope/jquery.isotope.min',
-        'search': 'libs/isotope/search',
+        'guid_creater': 'libs/guid_creater',
+        'jquery.masonry': 'libs/jquery.masonry/jquery.masonry.min',
         /*requirejs-plugins*/
         'text': 'libs/requirejs-plugins/text',
         'hbs': 'libs/requirejs-plugins/hbs',
@@ -41,9 +41,7 @@ require.config({
         'bxslider': ['jquery'],
         'bootstrap-wysihtml5': ['wysihtml5'],
         'bootstrap': ['jquery'],
-        'isotope': ['jquery'],
-        'search': ['jquery']
-
+        'jquery.masonry': ['jquery']
     },
     hbs: {
         disableI18n: true,
@@ -70,16 +68,18 @@ define('application', [
     "views/ProfileNewView",
     "views/IndexView",
     "views/CarouselView",
-    "views/IsotopeView",
+    "views/PhotoSliderView",
+    "views/MasonryView",
     "views/LightBoxView",
-    "views/PhotosView",
-    "views/VideosView",
+    "views/VideoView",
     "views/FilesView",
-    "views/ArticlesView",
+    "views/ArticleView",
     "views/IdeabooksView",
     "views/DiscussionsView",
     "views/DefaultView",
     "views/SearchsView",
+    "views/DataView",
+    "views/DataItemView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -92,6 +92,7 @@ define('application', [
     "controllers/IndexController",
     "controllers/SearchsController",
     "app/router",
+    "routes/ApplicationRoute",
     "routes/IndexRoute",
     "routes/SelectedTabRoute",
     "routes/DataRoute",
@@ -103,10 +104,12 @@ define('application', [
     "routes/PhotoUploadRoute",
     "routes/LightBoxRoute",
     "routes/PhotosRoute",
-    //   "routes/PhotoRoute",
+    "routes/PhotoRoute",
     "routes/VideosRoute",
+    "routes/VideoRoute",
     "routes/FilesRoute",
     "routes/ArticlesRoute",
+    "routes/ArticleRoute",
     "routes/DiscussionsRoute",
     "routes/SearchsRoute",
     "routes/SearchRoute",
@@ -120,15 +123,14 @@ define('application', [
     "models/SearchModel",
     "models/PhotoModel",
     "models/ArticleModel",
+    "models/VideoModel",
     "emberData",
     'jquery',
     "bxslider",
     'bootstrap-wysihtml5',
     "wysihtml5",
     'bootstrap',
-    'isotope',
-    'search',
-
+    'jquery.masonry'
 
 ], function(
         DragNDropNamespace, ApplicationView,
@@ -146,16 +148,18 @@ define('application', [
         ProfileNewView,
         IndexView,
         CarouselView,
-        IsotopeView,
+        PhotoSliderView,
+        MasonryView,
         LightBoxView,
-        PhotosView,
-        VideosView,
+        VideoView,
         FilesView,
-        ArticlesView,
+        ArticleView,
         IdeabooksView,
         DiscussionsView,
         DefaultView,
         SearchsView,
+        DataView,
+        DataItemView,
         ApplicationController,
         tabListController,
         DataController,
@@ -168,6 +172,7 @@ define('application', [
         IndexController,
         SearchsController,
         Router,
+        ApplicationRoute,
         IndexRoute,
         SelectedTabRoute,
         DataRoute,
@@ -179,10 +184,12 @@ define('application', [
         PhotoUploadRoute,
         LightBoxRoute,
         PhotosRoute,
-        //      PhotoRoute,
+        PhotoRoute,
         VideosRoute,
+        VideoRoute,
         FilesRoute,
         ArticlesRoute,
+        ArticleRoute,
         DiscussionsRoute,
         SearchsRoute,
         SearchRoute,
@@ -195,7 +202,11 @@ define('application', [
         ImageArray,
         Search,
         Photo,
-        Article
+        Article,
+        Video
+
+
+
         )
 {
 
@@ -217,20 +228,22 @@ define('application', [
         ProfileNewView: ProfileNewView,
         IndexView: IndexView,
         CarouselView: CarouselView,
-        IsotopeView: IsotopeView,
+        PhotoSliderView: PhotoSliderView,
+        MasonryView: MasonryView,
         ImageInputButtonView: ImageInputButtonView,
         PreviewUploadImageView: PreviewUploadImageView,
         TestView: TestView,
         EditingAboutView: EditingAboutView,
         LightBoxView: LightBoxView,
-        PhotosView: PhotosView,
-        VideosView: VideosView,
+        VideoView: VideoView,
         FilesView: FilesView,
-        ArticlesView: ArticlesView,
+        ArticleView: ArticleView,
         IdeabooksView: IdeabooksView,
         DiscussionsView: DiscussionsView,
         DefaultView: DefaultView,
         SearchsView: SearchsView,
+        DataView: DataView,
+        DataItemView: DataItemView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
@@ -243,6 +256,7 @@ define('application', [
         IndexController: IndexController,
         SearchsController: SearchsController,
         Router: Router,
+        ApplicationRoute: ApplicationRoute,
         IndexRoute: IndexRoute,
         SelectedTabRoute: SelectedTabRoute,
         DataRoute: DataRoute,
@@ -254,10 +268,12 @@ define('application', [
         PhotoUploadRoute: PhotoUploadRoute,
         LightBoxRoute: LightBoxRoute,
         PhotosRoute: PhotosRoute,
-        //       PhotoRoute: PhotoRoute,
+        PhotoRoute: PhotoRoute,
         VideosRoute: VideosRoute,
+        VideoRoute: VideoRoute,
         FilesRoute: FilesRoute,
         ArticlesRoute: ArticlesRoute,
+        ArticleRoute: ArticleRoute,
         DiscussionsRoute: DiscussionsRoute,
         SearchsRoute: SearchsRoute,
         SearchRoute: SearchRoute,
@@ -271,20 +287,23 @@ define('application', [
         Search: Search,
         Photo: Photo,
         Article: Article,
+        Video: Video,
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({
                 bulkCommit: false,
-                url: getRestAPIURL(),
-                map: {
-                    Object: {
-                        Photo: {embedded: 'always'}
-                    }
-                }
+                url: getRestAPIURL()
+
+
+//                map: {
+//                    Object: {
+//                        Photo: {embedded: 'always'}
+//                    }
+//                },
             })
         }),
         ready: function() {
-
+          App.set("isLogin",false);
 
         }
     });
@@ -296,5 +315,6 @@ function getRestAPIURL()
     var api_domain_start_pos = api_url.indexOf('.');
     var api_url = api_url.slice(api_domain_start_pos);
     api_url = "http://api" + api_url;
+    console.log(api_url);
     return api_url;
 }

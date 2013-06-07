@@ -23,9 +23,7 @@ define([
             $('#footer').attr("style", "display:block");
         },
         renderTemplate: function() {
-            this.render('index', {
-                into: "application"
-            });
+
             this.render('photo', {
                 into: "index"
             });

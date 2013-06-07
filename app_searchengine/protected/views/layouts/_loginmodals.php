@@ -193,52 +193,52 @@
                         <a href='#'>Forgot your username or password?</a>
                         <script type="text/javascript">
 
-                            function send()
-                            {
+            function send()
+            {
 
-                            var data = $("#login-form").serialize();
+                var data = $("#login-form").serialize();
 
 
-                            $.ajax({
-                            type: 'POST',
-                            url: '<?php echo CController::createUrl('Site/Ajax'); ?>',
-                            data: data,
-                            success: function(data) {
-                            if (data !== "") {
+                $.ajax({
+                    type: 'POST',
+                    url: '<?php echo CController::createUrl('Site/Ajax'); ?>',
+                    data: data,
+                    success: function(data) {
+                        if (data !== "") {
                             //       alert(data);
                             if (data.indexOf('Username cannot be blank') !== -1) {
-                            $('#user_blank').attr("style", "display:block; color:red");
+                                $('#user_blank').attr("style", "display:block; color:red");
 
                             } else {
-                            $('#user_blank').attr("style", "display:none");
+                                $('#user_blank').attr("style", "display:none");
                             }
                             if (data.indexOf('Password cannot be blank') !== -1) {
 
-                            $('#password_blank').attr("style", "display:block; color:red");
+                                $('#password_blank').attr("style", "display:block; color:red");
                             } else {
-                            $('#password_blank').attr("style", "display:none");
+                                $('#password_blank').attr("style", "display:none");
                             }
                             if (data.indexOf('Incorrect username or password') !== -1) {
 
-                            $('#password_incorrect').attr("style", "display:block ;color:red");
+                                $('#password_incorrect').attr("style", "display:block ;color:red");
                             } else {
-                            $('#password_incorrect').attr("style", "display:none");
+                                $('#password_incorrect').attr("style", "display:none");
                             }
 
 
-                            } else {
+                        } else {
                             window.location = "<?php echo CController::createUrl('Site/index'); ?>";
-                            }
+                        }
 
-                            },
-                            error: function(data) { // if error occured
-                            alert("Error occured.please try again");
-                            alert(data);
-                            },
-                            dataType: 'html'
-                            });
+                    },
+                    error: function(data) { // if error occured
+                        alert("Error occured.please try again");
+                        alert(data);
+                    },
+                    dataType: 'html'
+                });
 
-                            }
+            }
 
                         </script>
                     </div>
@@ -371,56 +371,56 @@
 </div>
 
 <script>
-    function dismiss_modal() {
-    $('#social_login').attr('aria-hidden', 'true');
-    $('#social_login').attr("style", "display:none");
-    $('#email_login').attr('aria-hidden', 'false');
-    $('#email_login').attr("style", "display:block");
+            function dismiss_modal() {
+                $('#social_login').attr('aria-hidden', 'true');
+                $('#social_login').attr("style", "display:none");
+                $('#email_login').attr('aria-hidden', 'false');
+                $('#email_login').attr("style", "display:block");
 
-    $('.modal').attr("style", "display:block;left:44%");
-    }
-    function dismiss_modal_test() {
-    $('#social_login').attr('aria-hidden', 'true');
-    $('#social_login').attr("style", "display:none");
-    $('#email_login').attr('aria-hidden', 'false');
-    $('#email_login').attr("style", "display:block");
+                $('.modal').attr("style", "display:block;left:44%");
+            }
+            function dismiss_modal_test() {
+                $('#social_login').attr('aria-hidden', 'true');
+                $('#social_login').attr("style", "display:none");
+                $('#email_login').attr('aria-hidden', 'false');
+                $('#email_login').attr("style", "display:block");
 
-    }
-    function dismiss_Join() {
+            }
+            function dismiss_Join() {
 
-    $('#email_login').attr('aria-hidden', 'true');
-    $('#email_login').attr("style", "display:none");
-    $('#email_register').attr('aria-hidden', 'false');
-    $('#email_register').attr("style", "display:block");
-    $('.modal').attr("style", "display:block;left:50%");
-    $('#social_login').attr('aria-hidden', 'true');
-    $('#social_login').attr("style", "display:none");
-    }
-
-
-    function reset_login() {
-
-         $('.modal').attr("style", "display:none;");
-
-    $('#email_login').attr("style", "display:none");
-    $('#social_login').attr('aria-hidden', 'false');
-    $('#social_login').attr("style", "display:block");
-
-    $('#email_register').attr('aria-hidden', 'true');
-    $('#email_register').attr("style", "display:none");
-    $('.modal').attr("style", "display:block;left:50%");
-
-    }
-    function show_search_bar() {
+                $('#email_login').attr('aria-hidden', 'true');
+                $('#email_login').attr("style", "display:none");
+                $('#email_register').attr('aria-hidden', 'false');
+                $('#email_register').attr("style", "display:block");
+                $('.modal').attr("style", "display:block;left:50%");
+                $('#social_login').attr('aria-hidden', 'true');
+                $('#social_login').attr("style", "display:none");
+            }
 
 
-    $('#discovery_search_bar_wrapper').attr('style', 'position:fixed;margin-top: -30px;z-index: 50000;');
-    document.getElementById("search-loading").className = "search-loading-visible";
+            function reset_login() {
 
-    }
-    function dismiss_search() {
-    $('#discovery_search_bar_wrapper').attr('style', 'position:relative;margin-top: 40px;z-index: 500;');
-    document.getElementById("search-loading").className = "search-loading-invisible";
-    }
+                $('.modal').attr("style", "display:none;");
+
+                $('#email_login').attr("style", "display:none");
+                $('#social_login').attr('aria-hidden', 'false');
+                $('#social_login').attr("style", "display:block");
+
+                $('#email_register').attr('aria-hidden', 'true');
+                $('#email_register').attr("style", "display:none");
+                $('.modal').attr("style", "display:block;left:50%");
+
+            }
+            function show_search_bar() {
+
+
+                $('#discovery_search_bar_wrapper').attr('style', 'position:fixed;margin-top: -30px;z-index: 50000;');
+                document.getElementById("search-loading").className = "search-loading-visible";
+
+            }
+            function dismiss_search() {
+                $('#discovery_search_bar_wrapper').attr('style', 'position:relative;margin-top: 40px;z-index: 500;');
+                document.getElementById("search-loading").className = "search-loading-invisible";
+            }
 
 </script>

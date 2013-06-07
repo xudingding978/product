@@ -16,7 +16,7 @@ define([
 
         },
         renderTemplate: function() {
-            this.render('data', {
+            this.render('dataIndex', {
                 into: 'application'
             });
         }

@@ -94,7 +94,7 @@ class ImportDataController extends Controller {
             "object_title" => null,
             "owner_profile_pic" => null,
             "owner_title" => null,
-            "owner_url" => null,
+            "owner_url" => "/profiles/trends",
             "owners" => null,
             "status_id" => null,
             "updated" => null,

@@ -18,6 +18,7 @@ require.config({
         'bootstrap': 'libs/bootstrap/2.2.2/js/bootstrap.min',
         "bootstrap-collapse": 'libs/bootstrap/2.2.2/js/bootstrap-collapse',
         'bootstrap-wysihtml5': 'libs/wysihtml5/bootstrap-wysihtml5',
+        'bootstrap-modal': 'libs/bootstrap/2.2.2/js/bootstrap-modal',
         'wysihtml5': 'libs/wysihtml5/wysihtml5-0.3.0',
         'bxslider': 'libs/jquery.bxslider.min',
         'guid_creater': 'libs/guid_creater',
@@ -41,7 +42,8 @@ require.config({
         'bxslider': ['jquery'],
         'bootstrap-wysihtml5': ['wysihtml5'],
         'bootstrap': ['jquery'],
-        'jquery.masonry': ['jquery']
+        'jquery.masonry': ['jquery'],
+        'bootstrap-modal': ['bootstrap']
     },
     hbs: {
         disableI18n: true,
@@ -80,6 +82,13 @@ define('application', [
     "views/SearchsView",
     "views/DataView",
     "views/DataItemView",
+    "views/DataIndexView",
+    "views/ContactView",
+    'views/FooterView',
+    "views/HeaderView",
+    "views/BeforeLoginView",
+    "views/AfterLoginView",
+    "views/LoginModalView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -91,6 +100,7 @@ define('application', [
     "controllers/EditingController",
     "controllers/IndexController",
     "controllers/SearchsController",
+    "controllers/PhotoController",
     "app/router",
     "routes/ApplicationRoute",
     "routes/IndexRoute",
@@ -130,7 +140,8 @@ define('application', [
     'bootstrap-wysihtml5',
     "wysihtml5",
     'bootstrap',
-    'jquery.masonry'
+    'jquery.masonry',
+    'bootstrap-modal'
 
 ], function(
         DragNDropNamespace, ApplicationView,
@@ -160,6 +171,13 @@ define('application', [
         SearchsView,
         DataView,
         DataItemView,
+        DataIndexView,
+        ContactView,
+        FooterView,
+        HeaderView,
+        BeforeLoginView,
+        AfterLoginView,
+        LoginModalView,
         ApplicationController,
         tabListController,
         DataController,
@@ -171,6 +189,7 @@ define('application', [
         EditingController,
         IndexController,
         SearchsController,
+        PhotoController,
         Router,
         ApplicationRoute,
         IndexRoute,
@@ -244,6 +263,13 @@ define('application', [
         SearchsView: SearchsView,
         DataView: DataView,
         DataItemView: DataItemView,
+        DataIndexView: DataIndexView,
+        ContactView: ContactView,
+        FooterView: FooterView,
+        HeaderView: HeaderView,
+        BeforeLoginView: BeforeLoginView,
+        AfterLoginView: AfterLoginView,
+        LoginModalView: LoginModalView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
@@ -255,6 +281,7 @@ define('application', [
         EditingController: EditingController,
         IndexController: IndexController,
         SearchsController: SearchsController,
+        PhotoController: PhotoController,
         Router: Router,
         ApplicationRoute: ApplicationRoute,
         IndexRoute: IndexRoute,
@@ -303,7 +330,7 @@ define('application', [
             })
         }),
         ready: function() {
-          App.set("isLogin",false);
+            App.set("isLogin", false);
 
         }
     });
@@ -317,4 +344,10 @@ function getRestAPIURL()
     api_url = "http://api" + api_url;
     console.log(api_url);
     return api_url;
+}
+
+
+function getLogin()
+{
+//  $.ajax()
 }

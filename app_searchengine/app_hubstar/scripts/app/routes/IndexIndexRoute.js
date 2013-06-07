@@ -6,7 +6,6 @@ define([
         SearchModel
         ) {
     "use strict";
-
     var IndexIndexRoute = Ember.Route.extend({
         redirect: function() {
 
@@ -14,16 +13,15 @@ define([
         },
         model: function() {
             return SearchModel.find();
-
         },
         activate: function() {
-            //      localStorage.isLogin = false;
-            
-              App.set("isLogin", false);
+//      localStorage.isLogin = false;
+
+            App.set("isLogin", false);
         },
         deactivate: function() {
 
-            //         localStorage.isLogin = true;
+//         localStorage.isLogin = true;
 
 
             App.set("isLogin", true);
@@ -37,6 +35,9 @@ define([
             this.render('default', {
                 into: "index"
             });
+
+
+
         }
 
     });

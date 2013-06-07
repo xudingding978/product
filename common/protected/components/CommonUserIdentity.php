@@ -27,7 +27,7 @@ class CommonUserIdentity extends CUserIdentity {
         else
         if ($user->check($this->password)) {
             $this->_id = $user->REC_ID;
-
+error_log("aaaaaaaaaaaaa     ".$user->REC_ID);
             $this->errorCode = self::ERROR_NONE;
         } else {
 

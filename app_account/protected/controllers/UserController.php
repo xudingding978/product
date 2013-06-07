@@ -72,6 +72,8 @@ class UserController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate() {
+        
+        error_log('actionCreate');
         $model = new User;
 
         // Uncomment the following line if AJAX validation is needed

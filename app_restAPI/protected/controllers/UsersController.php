@@ -9,8 +9,8 @@ header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 
 class UsersController extends Controller {
 
-    const JSON_RESPONSE_ROOT_SINGLE = 'mega';
-    const JSON_RESPONSE_ROOT_PLURAL = 'megas';
+    const JSON_RESPONSE_ROOT_SINGLE = 'user';
+    const JSON_RESPONSE_ROOT_PLURAL = 'users';
 
     public function actionIndex() {
         //   $this->setImage("http://trendsideas.com/media/article/35013.jpg");
@@ -113,6 +113,10 @@ class UsersController extends Controller {
             $id = $temp [sizeof($temp) - 1];
             
             $reponse = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . "/users/" . $id);
+            
+          error_log("wwwwwwwwwwwwww           ". gettype( json_decode($reponse,true)   ));
+  
+      //      error_log("hhhhhhhhhhhhhhh           ".json_decode($reponse));
            $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $reponse . '}';
             echo $this->sendResponse(200, $result);
         } catch (Exception $exc) {

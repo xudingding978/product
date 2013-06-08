@@ -73,7 +73,7 @@
                 function Facebook(popupWidth, popupHeight) {
                     var left = (screen.width / 2) - (popupWidth / 2);
                     var top = (screen.height / 2) - (popupHeight / 2);
-                    var api_url = "http://account" + setDomain() + "/hybridauth/default/login/?provider=Facebook";
+                    var api_url = "http://account" + setDomain() + "/hybridauth/default/login/?provider=Facebook#_=_";
                     newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
                     if (window.focus) {
                         newwindow.focus();

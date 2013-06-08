@@ -4,6 +4,21 @@
 <!--[if IE 8 ]>    <html lang="en" class="ie8"> <![endif]--> 
 <!--[if IE 9 ]>    <html lang="en" class="ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
+
+
+
+    <script>   window.onload = function() {
+         //   alert('ok');
+
+            localStorage.setItem("loginStatus", <?php echo Yii::app()->user->getUserData() ?>);
+        
+        
+        }
+
+
+
+    </script>
+
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -31,11 +46,11 @@
 
 
         <div id="main" class="container-fluid" style="min-height: 100%; padding: 45px 0 0 0;"></div>
-    
-    <script data-main="app_hubstar/scripts/main" src="app_hubstar/scripts/libs/requirejs/2.1.2/require.js"></script>
+
+        <script data-main="app_hubstar/scripts/main" src="app_hubstar/scripts/libs/requirejs/2.1.2/require.js"></script>
 
 
- 
-</body>
+
+    </body>
 </html>
 

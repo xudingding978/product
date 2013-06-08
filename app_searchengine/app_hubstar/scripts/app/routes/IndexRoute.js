@@ -11,10 +11,7 @@ define([
 
     var IndexRoute = Ember.Route.extend({
         //     controller: ApplicationController,
-        redirect: function() {
 
-       //     this.transitionTo('index');
-        },
 //        model: function() {
 //            return SearchModel.find();
 //

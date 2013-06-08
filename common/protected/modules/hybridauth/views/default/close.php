@@ -14,12 +14,9 @@
     {
 
         var parent = window.opener;
+     
 
-    //    parent.location = 'http://www.develop.devbox/#/search';
-
-        parent.GetValueFromChild(<?php echo Yii::app()->session['data'] ?>);
-
-
+        parent.location = 'http://www.develop.devbox/';
 
         var windowObject = window.self;
         windowObject.opener = window.self;

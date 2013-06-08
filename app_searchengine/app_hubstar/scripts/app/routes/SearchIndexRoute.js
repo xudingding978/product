@@ -13,8 +13,21 @@ define([
             this.transitionTo('searchs');
         },
         activate: function() {
-            //           localStorage.isLogin = true;
-            App.set("isLogin", true);
+
+//            var data = JSON.parse(localStorage.loginStatus);
+//            console.log(data);
+//
+//
+//
+//            var user = App.store.createRecord(App.User, {
+//                id:"leo11",
+//                profileURL: "John",
+//                 webSiteURL: "Doe",
+//                 photoURL_large:'doe@whatever.com',
+//                 birthYear:'Rockstar'
+//             });
+//            console.log(user);
+
         },
         deactivate: function() {
 

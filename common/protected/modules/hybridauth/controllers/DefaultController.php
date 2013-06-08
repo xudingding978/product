@@ -55,7 +55,7 @@ class DefaultController extends CController {
 
 
 
-                Yii::app()->session['data'] = Yii::app()->user->id;
+        //        Yii::app()->session['data'] = Yii::app()->user->id;
                 $this->render('close');
             }
         } else if ($identity->errorCode == RemoteUserIdentity::ERROR_USERNAME_INVALID) {
@@ -169,43 +169,14 @@ class DefaultController extends CController {
         $temp["users"][0]["id"] = $rand_id;
         $cb->add(substr($_SERVER['HTTP_HOST'], 8) . "/users/" . $rand_id, CJSON::encode($temp));
 
-        Yii::app()->session['data'] = $temp["users"][0];
+
     }
 
     private function _loginUser($identity) {
         Yii::app()->user->login($identity, 0);
 
-        $couchbase_id = "http://api.develop.devbox/users/" . User::model()->findByPk(Yii::app()->user->id)->getAttribute('COUCHBASE_ID');
-
-
-
-//        $ch = curl_init($couchbase_id);
-//        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
-//        curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
-//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-//            'Content-Type: application/json',
-//            'Content-Length: ' . strlen($data_string))
-//        );
-//
-//        $result = curl_exec($ch);
-
-        $ch = curl_init($couchbase_id);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
-        $curl_data = curl_exec($ch);
-        $data = json_decode($curl_data, true);
-
-        Yii::app()->session['data'] = CJSON::encode($data['mega']['users'][0]);
-
         $this->render('close');
 
-
-        //    $this->redirect(Yii::app()->user->returnUrl);
-        //   error_log(Yii::app()->user->returnUrl);
-        //     $this->redirect('http://'.$_SERVER['SERVER_NAME'].'/hybridauth');
-        //  $this->redirect('http://account.business-software.co.nz/hybridauth');
     }
 
     /**

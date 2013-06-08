@@ -1,10 +1,6 @@
-<p><?php echo sizeof($headline) ?></p>
-<ul>
-<?PHP 
-        for($i=0; $i<sizeof($headline); $i++) {
-?>
-        
-    <li><?PHP echo $i; ?> <p>------</p>  <?PHP print_r("<pre>"); print_r($headline[$i]); ?> </li>
+<p><?php echo $url  ?></p>    
+    <img 
+            src="data:image/jpeg;base64, <?php echo base64_encode($headline);  ?>"
+    />
 
-<?PHP } ?>
-</ul>
+

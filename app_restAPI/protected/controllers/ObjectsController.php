@@ -37,6 +37,7 @@ class ObjectsController extends Controller {
                 echo $exc->getTraceAsString();
                 echo json_decode(file_get_contents('php://input'));
             }
+            
 //        } else {
 //            echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
 //        }

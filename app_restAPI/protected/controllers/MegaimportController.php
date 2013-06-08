@@ -68,13 +68,14 @@ class MegaimportController extends Controller {
         try {
             $cb = $this->couchBaseConnection();
             if ($cb->add($url, CJSON::encode($request_arr))) {
-                $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_sucess.log';
-                $this->writeToLog($my_file, $url);
-                $response = "ok";
+              //  $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_sucess.log';
+             //   $this->writeToLog($my_file, $url);
+                $response = $url. " is create";
                 //      echo $this->sendResponse(200, var_dump($record));
             } else {
-                $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_error.log';
-                $this->writeToLog($my_file, $url);
+             //   $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_error.log';
+            //    $this->writeToLog($my_file, $url);
+                   $response = $url. " is failed";
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -89,7 +90,7 @@ class MegaimportController extends Controller {
         header('Access-Control-Request-Method: *');
         header('Access-Control-Allow-Methods: PUT, POST, OPTIONS, GET');
         header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
-        echo $id;
+        $this->sendResponse(200,$response);
         Yii::app()->end();
     }
 

@@ -183,7 +183,7 @@ class Article extends CActiveRecord {
     public function  getObjData(){
           
                  $data_list = array();  
-                 $sql = "select top 10 dbo.Articles.id, dbo.ArticleCredits.categoryText, dbo.ArticleImages.hero  from dbo.Articles
+                 $sql = "select dbo.Articles.id, dbo.ArticleCredits.categoryText, dbo.ArticleImages.hero  from dbo.Articles
                              inner join dbo.ArticleCredits 
                              on dbo.Articles.id = dbo.ArticleCredits.articleId
                              inner join dbo.ArticleImages

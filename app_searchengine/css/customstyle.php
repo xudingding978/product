@@ -391,9 +391,6 @@ position: fixed;
 }
 
 
-.navbar .btn, .navbar .btn-group {
-margin-top: -30px;
-}
 
 
 .modal{

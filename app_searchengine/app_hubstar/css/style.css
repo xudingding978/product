@@ -31,38 +31,121 @@ div.search-loading-invisible{
 
 /*/WindowContainer-------------------/*/
 .window-container {
-    cursor: move;
-    overflow: visible;
-    position: fixed;
-    top: 20%;
-    left: 40%;
-    z-index: 1000050;
-    background-color: white;
-    border: 1px solid #999;
-    border: 1px solid rgba(0, 0, 0, 0.3);
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    outline: none;
-    -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-    -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-    -webkit-background-clip: padding-box;
-    -moz-background-clip: padding-box;
-    background-clip: padding-box;
+cursor: move;
+overflow: visible;
+position: fixed;
+top: 20%;
+left: 40%;
+z-index: 1000050;
+background-color: white;
+border: 1px solid #999;
+border: 1px solid rgba(0, 0, 0, 0.3);
+-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+border-radius: 3px;
+outline: none;
+-webkit-box-shadow: 0 3px 7px #888;
+-moz-box-shadow: 0 3px 7px #888;
+box-shadow: 0 3px 7px #888;
+-webkit-background-clip: padding-box;
+-moz-background-clip: padding-box;
+background-clip: padding-box;
 }
 
-.window-container > .head {
-    height:30px; 
+.head { 
     background-color: rgb(242,240,240);
     border-radius: 3px 3px 0 0;
+    padding: 15px 30px 20px;
 }
 
-.window-container > .content {
-    padding: 10px 15px;
+.content {
+    padding: 15px 30px 20px;
     border-radius: 3px 3px 0 0;
 }
+
+.contactme-table tr {
+    display: table-row;
+    vertical-align: top;
+    border-color: inherit;
+
+}
+
+.contactme-table td:nth-child(1)  {
+    color: #555;
+    text-align: right;
+    width: 35%;
+}
+
+.contactme-table td:nth-child(2)  {
+    padding: 0 0 5px 20px;
+    color: #555;
+    text-align: center;
+}
+
+.dropdown-contactme {
+    width: 230px;
+}
+
+
+
+
+
+.checkbox-columncontainer{
+    display: inline-block;
+    width: 40%;
+    text-align: left;
+}
+
+.checkbox-container{
+    padding: 2px 8px;
+}
+
+/*CSS Checkboxes*/
+
+input[type=checkbox].css-checkbox {
+    display:none;
+}
+
+input[type=checkbox].css-checkbox + label.css-label {
+    padding-left:20px;
+    height:15px; 
+    display:inline-block;
+    line-height:15px;
+    background-repeat:no-repeat;
+    background-position: 0 0;
+    font-size:15px;
+    vertical-align:middle;
+    cursor:pointer;
+}
+
+input[type=checkbox].css-checkbox:checked + label.css-label {
+    background-position: 0 -15px;
+}
+
+.css-label{
+    background-image:url(http://csscheckbox.com/checkboxes/dark-check-green.png);
+}
+
+.lite-blue-check{background-image: url(../../images/blue-check.png) ;}
+
+input[type=checkbox].css-checkbox.med + label.css-label.med {
+    padding-left:22px;
+    height:17px; 
+    display:inline-block;
+    line-height:17px;
+    background-repeat:no-repeat;
+    background-position: 0 0;
+    font-size:15px;
+    vertical-align:middle;
+    cursor:pointer;
+}
+
+/*/End checkbox---------------/*/
+
+
 /*/End WindowContainer---------------/*/
+
+
 
 
 .content > .ember-view {

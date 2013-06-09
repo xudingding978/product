@@ -12,7 +12,7 @@ define([
 
 
 
-            if (localStorage.getItem("loginStatus")===null) {
+            if (localStorage.getItem("loginStatus") === null) {
                 this.transitionTo('index');
 
             } else {
@@ -38,13 +38,15 @@ define([
             App.set("isLogin", true);
         },
         renderTemplate: function() {
+            var controller = this.controllerFor('application');
 
             this.render('index', {
                 into: "application"
             });
 
             this.render('default', {
-                into: "index"
+                into: "index",
+                controller: controller
             });
 
 

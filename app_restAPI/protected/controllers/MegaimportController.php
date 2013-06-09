@@ -59,7 +59,7 @@ class MegaimportController extends Controller {
     public function actionCreate() {
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
-        error_log("aaaaaaaaaaaaaa            ".var_export($request_arr,true));
+  
         $id = $this->getNewID();
         $request_arr["id"] = $id;
         $response = "fail";
@@ -69,20 +69,22 @@ class MegaimportController extends Controller {
         try {
             $cb = $this->couchBaseConnection();
             if ($cb->add($url, CJSON::encode($request_arr))) {
-                $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_sucess.log';
+                $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_apiside_sucess.log';
                 $handle = fopen($my_file, 'a') or die('Cannot open file:  ' . $my_file);
                 $output = "\n" . $url . ' is create';
                 fwrite($handle, $output);
                 fclose($handle);
                 $response="ok";
-                //      echo $this->sendResponse(200, var_dump($record));
+                $this->sendResponse(200, var_dump($record));
             } else {
-                $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_error.log';
+                $response="something wrong";
+                $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_apiside_error.log';
                 $handle = fopen($my_file, 'a') or die('Cannot open file:  ' . $my_file);
                 $output = "\n" . 'New data ';
                 $output = "\n" . $url . ' has error';
                 fwrite($handle, $output);
                 fclose($handle);
+                     $this->sendResponse(500,$response);
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -97,7 +99,7 @@ class MegaimportController extends Controller {
         header('Access-Control-Request-Method: *');
         header('Access-Control-Allow-Methods: PUT, POST, OPTIONS, GET');
         header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
-        echo $id;
+   
         Yii::app()->end();
     }
 

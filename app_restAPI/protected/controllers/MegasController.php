@@ -14,7 +14,14 @@ class MegasController extends Controller {
 
     public function actionIndex() {
         //   $this->setImage("http://trendsideas.com/media/article/35013.jpg");
-        $this->setImage("trendsideas.com/media/article/original/35013.jpg");
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
+        $data = curl_exec($ch);
+
+
 //        $temp = explode("/", $_SERVER['REQUEST_URI']);
 //        $id = $temp [sizeof($temp) - 1];
 //
@@ -26,14 +33,12 @@ class MegasController extends Controller {
             $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
 //Build a new search request
             $request = $sherlock->search();
-
 //populate a Term query to start
             $termQuery = Sherlock\Sherlock::queryBuilder()
                     ->QueryStringMultiField()
                     ->fields(["couchbaseDocument.doc.keywords", "couchbaseDocument.doc.desc"])
                     ->query("work kitchen")
                     ->boost(2.5);
-
             $request->index(Yii::app()->params['elasticSearchIndex'])
                     ->type("couchbaseDocument")
                     ->from(0)
@@ -61,7 +66,6 @@ class MegasController extends Controller {
 //            $reponse_2 = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . "/" . '9717991370317029955');
 //            $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":[' . $reponse_1 . "," . $reponse_2;
 //            $results .= ']}';
-//
 //            echo $this->sendResponse(200, $results);
 //        } catch (Exception $exc) {
 //            echo $exc->getTraceAsString();
@@ -112,8 +116,6 @@ class MegasController extends Controller {
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
-
-
             $reponse = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . "/" . $id);
             $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $reponse . '}';
             echo $this->sendResponse(200, $result);

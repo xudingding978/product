@@ -10,7 +10,7 @@ define([
     var SearchIndexRoute = Ember.Route.extend({
         redirect: function() {
 
-          this.transitionTo('searchs');
+            //  this.transitionTo('searchs');
 
 
 //            if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
@@ -25,7 +25,7 @@ define([
 
         },
         activate: function() {
-
+            App.set("isLogin", true);
 //            var data = JSON.parse(localStorage.loginStatus);
 //            console.log(data);
 //

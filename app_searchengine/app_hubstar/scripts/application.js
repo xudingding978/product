@@ -324,6 +324,8 @@ define('application', [
             })
         }),
         ready: function() {
+    
+    
             App.set("isLogin", false);
 
         }

@@ -15,11 +15,11 @@ class MegasController extends Controller {
     public function actionIndex() {
         //   $this->setImage("http://trendsideas.com/media/article/35013.jpg");
 
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
-        $data = curl_exec($ch);
+//        $ch = curl_init($url);
+//        curl_setopt($ch, CURLOPT_HEADER, 0);
+//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+//        curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
+//        $data = curl_exec($ch);
 
 
 //        $temp = explode("/", $_SERVER['REQUEST_URI']);
@@ -34,18 +34,28 @@ class MegasController extends Controller {
 //Build a new search request
             $request = $sherlock->search();
 //populate a Term query to start
-            $termQuery = Sherlock\Sherlock::queryBuilder()
-                    ->QueryStringMultiField()
-                    ->fields(["couchbaseDocument.doc.keywords", "couchbaseDocument.doc.desc"])
-                    ->query("work kitchen")
-                    ->boost(2.5);
-            $request->index(Yii::app()->params['elasticSearchIndex'])
-                    ->type("couchbaseDocument")
-                    ->from(0)
-                    ->to(10)
-                    ->size(100)
-                    ->query($termQuery);
-            $response = $request->execute();
+//            $termQuery = Sherlock\Sherlock::queryBuilder()
+//                    ->QueryStringMultiField()
+//                    ->fields(["couchbaseDocument.doc.keywords", "couchbaseDocument.doc.desc"])
+//                    ->query("work kitchen")
+//                    ->boost(2.5);
+//            $request->index(Yii::app()->params['elasticSearchIndex'])
+//                    ->type("couchbaseDocument")
+//                    ->from(0)
+//                    ->to(10)
+//                    ->size(100)
+//                    ->query($termQuery);
+//            $response = $request->execute();
+//            
+            
+             $json = '{"query":{"bool":{"must":[{"query_string":{"default_field":"couchbaseDocument.doc.mega.type","query":"profile OR photo OR article OR video"}}],"must_not":[],"should":[]}},"from":0,"size":50,"sort":[],"facets":{}}';
+        $rawTermQuery = Sherlock\Sherlock::queryBuilder()->Raw($json);
+
+        $response = $request->query($rawTermQuery)->execute();
+
+            
+            
+            
             $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":[';
             $i = 0;
             foreach ($response as $hit) {

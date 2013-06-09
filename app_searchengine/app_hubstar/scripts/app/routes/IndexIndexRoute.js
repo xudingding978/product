@@ -12,12 +12,13 @@ define([
 
 
 
-            if (localStorage.loginStatus !== "") {
+            if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
+                this.transitionTo('index');
+
+            } else {
                 alert('loginred');
                 this.transitionTo('searchIndex');
 
-            } else {
-                this.transitionTo('index');
             }
 
         },

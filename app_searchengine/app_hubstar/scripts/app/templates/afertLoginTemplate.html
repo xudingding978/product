@@ -3,6 +3,9 @@
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#"> 
                 <span class="caret"></span>
+                {{model}}
+                {{model.region}}
+                <img {{bindAttr src="model.photoURL"}}/>
             </a>
             <ul id="user-dd-menu" class="dropdown-menu">
                 <li class="active">

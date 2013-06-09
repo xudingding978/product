@@ -8,11 +8,19 @@
 
 
     <script>   window.onload = function() {
-         //   alert('ok');
+            //   alert('ok');
+            var data = "";
+            if ('<?php echo Yii::app()->user->getUserData() ?>' !== '') {
+                
+                alert('test');
+            
+                data = "<?php echo Yii::app()->user->getUserData() ?>";
+                localStorage.setItem("loginStatus", data);
 
-            localStorage.setItem("loginStatus", <?php echo Yii::app()->user->getUserData() ?>);
-        
-        
+            }
+
+
+
         }
 
 

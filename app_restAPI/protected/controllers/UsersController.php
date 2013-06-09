@@ -108,16 +108,18 @@ class UsersController extends Controller {
         try {
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
-            
-            
+
+
             $id = $temp [sizeof($temp) - 1];
-            
+
             $reponse = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . "/users/" . $id);
-            
-          error_log("wwwwwwwwwwwwww           ". gettype( json_decode($reponse,true)   ));
-  
-      //      error_log("hhhhhhhhhhhhhhh           ".json_decode($reponse));
-           $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $reponse . '}';
+
+            $respone_user_data = json_decode($reponse, true)['users'][0];
+
+      //      error_log("hhhhhhhhhhhhhh  ".CJSON::encode($respone_user_data));
+
+//   var_dump(json_decode($json, false, 512, JSON_BIGINT_AS_STRING));    ********** !important***************************
+            $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . CJSON::encode($respone_user_data) . '}';
             echo $this->sendResponse(200, $result);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();

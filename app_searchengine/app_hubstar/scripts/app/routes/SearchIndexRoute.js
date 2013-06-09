@@ -10,7 +10,19 @@ define([
     var SearchIndexRoute = Ember.Route.extend({
         redirect: function() {
 
-            this.transitionTo('searchs');
+          this.transitionTo('searchs');
+
+
+//            if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
+//                this.transitionTo('index');
+//
+//            } else {
+//                alert('loginred');
+//                this.transitionTo('searchIndex');
+//
+//            }
+
+
         },
         activate: function() {
 

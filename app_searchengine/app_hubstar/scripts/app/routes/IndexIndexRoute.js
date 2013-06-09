@@ -1,23 +1,18 @@
 define([
     'ember',
-    'models/SearchModel',
-    'models/MegaModel'
+    'models/SearchModel'
 ], function(
         Ember,
-          SearchModel,
-        Object
+        SearchModel
         ) {
     "use strict";
     var IndexIndexRoute = Ember.Route.extend({
         redirect: function() {
-<<<<<<< HEAD
-            this.transitionTo('index');
-=======
 
 
 
 
-            if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
+            if (localStorage.getItem("loginStatus")===null) {
                 this.transitionTo('index');
 
             } else {
@@ -26,18 +21,20 @@ define([
 
             }
 
->>>>>>> f7dd3d4e930511a3e00bcb817cceb0e1b4cd5f8f
         },
         model: function() {
             return SearchModel.find();
         },
         activate: function() {
 //      localStorage.isLogin = false;
+
             App.set("isLogin", false);
         },
         deactivate: function() {
 
 //         localStorage.isLogin = true;
+
+
             App.set("isLogin", true);
         },
         renderTemplate: function() {

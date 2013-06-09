@@ -9,8 +9,13 @@ header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 
 class UsersController extends Controller {
 
+<<<<<<< HEAD
     const JSON_RESPONSE_ROOT_SINGLE = 'mega';
     const JSON_RESPONSE_ROOT_PLURAL = 'megas';
+=======
+    const JSON_RESPONSE_ROOT_SINGLE = 'user';
+    const JSON_RESPONSE_ROOT_PLURAL = 'users';
+>>>>>>> f7dd3d4e930511a3e00bcb817cceb0e1b4cd5f8f
 
     public function actionIndex() {
         //   $this->setImage("http://trendsideas.com/media/article/35013.jpg");
@@ -108,9 +113,24 @@ class UsersController extends Controller {
         try {
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
+<<<<<<< HEAD
             $id = $temp [sizeof($temp) - 1];
             $reponse = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . "/" . $id);
            $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $reponse . '}';
+=======
+
+
+            $id = $temp [sizeof($temp) - 1];
+
+            $reponse = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . "/users/" . $id);
+
+            $respone_user_data = json_decode($reponse, true)['users'][0];
+
+      //      error_log("hhhhhhhhhhhhhh  ".CJSON::encode($respone_user_data));
+
+//   var_dump(json_decode($json, false, 512, JSON_BIGINT_AS_STRING));    ********** !important***************************
+            $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . CJSON::encode($respone_user_data) . '}';
+>>>>>>> f7dd3d4e930511a3e00bcb817cceb0e1b4cd5f8f
             echo $this->sendResponse(200, $result);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -246,4 +266,8 @@ class UsersController extends Controller {
 
 }
 
+<<<<<<< HEAD
 ?>
+=======
+?>
+>>>>>>> f7dd3d4e930511a3e00bcb817cceb0e1b4cd5f8f

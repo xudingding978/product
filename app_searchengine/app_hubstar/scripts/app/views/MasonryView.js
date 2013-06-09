@@ -48,7 +48,11 @@ define([
             var collape_button = "#collape_button_" + event.id;
             var more_button = "#more_button_" + event.id;
 
-            $(id).slideToggle(200);
+            //     $(id).slideToggle(200);
+            $(id).animate({
+                height: "100%"
+
+            }, 200);
 
             $(collape_button).attr("style", "display:block");
             $(more_button).attr("style", "display:none");
@@ -63,7 +67,12 @@ define([
             var collape_button = "#collape_button_" + event.id;
             var more_button = "#more_button_" + event.id;
 
-            $(id).slideToggle(200);
+            //   $(id).slideToggle(200);
+
+            $(id).animate({
+                height: "90px"
+
+            }, 200);
             $(collape_button).attr("style", "display:none");
             $(more_button).attr("style", "display:block");
 

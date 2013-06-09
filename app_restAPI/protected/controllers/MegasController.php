@@ -34,28 +34,21 @@ class MegasController extends Controller {
 //Build a new search request
             $request = $sherlock->search();
 //populate a Term query to start
-//            $termQuery = Sherlock\Sherlock::queryBuilder()
-//                    ->QueryStringMultiField()
-//                    ->fields(["couchbaseDocument.doc.keywords", "couchbaseDocument.doc.desc"])
-//                    ->query("work kitchen")
-//                    ->boost(2.5);
-//            $request->index(Yii::app()->params['elasticSearchIndex'])
-//                    ->type("couchbaseDocument")
-//                    ->from(0)
-//                    ->to(10)
-//                    ->size(100)
-//                    ->query($termQuery);
-//            $response = $request->execute();
-//            
+            $termQuery = Sherlock\Sherlock::queryBuilder()
+                    ->QueryString()
+                    ->fields(["couchbaseDocument.doc.keywords"])
+                    ->query("photo OR article")
+                    ->boost(2.5);
+            $request->index(Yii::app()->params['elasticSearchIndex'])
+                    ->type("couchbaseDocument")
+                    ->from(0)
+                    ->to(10)
+                    ->size(100)
+                    ->query($termQuery);
+            $response = $request->execute();
             
-             $json = '{"query":{"bool":{"must":[{"query_string":{"default_field":"couchbaseDocument.doc.mega.type","query":"profile OR photo OR article OR video"}}],"must_not":[],"should":[]}},"from":0,"size":50,"sort":[],"facets":{}}';
-        $rawTermQuery = Sherlock\Sherlock::queryBuilder()->Raw($json);
+            
 
-        $response = $request->query($rawTermQuery)->execute();
-
-            
-            
-            
             $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":[';
             $i = 0;
             foreach ($response as $hit) {

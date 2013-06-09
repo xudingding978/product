@@ -12,8 +12,8 @@ define([
 
 
 
-            if (localStorage.getItem("loginStatus") === null) {
-                this.transitionTo('index');
+            if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
+                this.transitionTo('indexIndex');
 
             } else {
                 alert('loginred');

@@ -36,7 +36,7 @@
     position: fixed;
     z-index: 2;
     width: 100%;
-    
+
 
 
     -webkit-box-shadow: 0px 0px 10px rgb(0, 0, 0);
@@ -278,14 +278,6 @@
     margin-left: 0px;
 }
 
-.open > #user-dd-menu {
-    background: none repeat scroll 0% 0% rgb(45,45,45);
-    border: 1px solid rgba(0,0,0,0.17);
-    margin-top:20px;
-    padding:0px;
-    width:200px;
-}
-
 #user-dd-menu li a {
     border-radius: 0px;
     color: white;
@@ -300,17 +292,23 @@
 
 .navbar .nav > li > #user-dd-menu:after {
     border-color: #000 transparent;
-    left:3%
+    left:47%
 
 }
 
 
 .navbar .nav > li >#user-dd-menu:before {
-    left:3%;
+    left:47%;
 }
 
 #user-dd-menu {
+    background: none repeat scroll 0% 0% rgb(45,45,45);
+    border: 1px solid rgba(0,0,0,0.17);
+    margin-top:20px;
     padding:0px;
+    width:150px;
+
+    left: -65px;
 }
 
 
@@ -345,8 +343,8 @@
 
 
 .LoginModelSize{
-    
-    
+
+
     width:480px;
 }
 

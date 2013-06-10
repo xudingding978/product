@@ -88,24 +88,6 @@ border-top-right-radius: 4px;
 }
 
 
-.dropdown-menu {
-position: absolute;
-top: 100%;
-left: 0px;
-z-index: 1000;
-display: none;
-float: left;
-min-width: 170px;
-min-height: 200px;
-margin: 15px 0px 0px 0px;
-list-style: none outside none;
-background-color: rgba(0, 0, 0,1);
-border: none;
-border-radius: 6px 6px 6px 6px;
-box-shadow: none;
-background-clip: padding-box;
-}
-
 
 .main-nav .dropdown-menu{
 

@@ -29,6 +29,7 @@ div.search-loading-invisible{
 
 }
 
+
 /*/WindowContainer-------------------/*/
 .window-container {
 cursor: move;
@@ -765,8 +766,6 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
     color: #333;
 }
-
-
 
 
 

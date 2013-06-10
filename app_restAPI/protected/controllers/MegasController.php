@@ -15,6 +15,14 @@ class MegasController extends Controller {
     public function actionIndex() {
         //   $this->setImage("http://trendsideas.com/media/article/35013.jpg");
 
+<<<<<<< HEAD
+=======
+//        $ch = curl_init($url);
+//        curl_setopt($ch, CURLOPT_HEADER, 0);
+//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+//        curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
+//        $data = curl_exec($ch);
+>>>>>>> 459ee6b65ff266d25e32799dc8fa969d0f5a7404
 
 
 //        $temp = explode("/", $_SERVER['REQUEST_URI']);
@@ -30,17 +38,20 @@ class MegasController extends Controller {
             $request = $sherlock->search();
 //populate a Term query to start
             $termQuery = Sherlock\Sherlock::queryBuilder()
-                    ->QueryStringMultiField()
-                    ->fields(["couchbaseDocument.doc.keywords", "couchbaseDocument.doc.desc"])
-                    ->query("work kitchen")
+                    ->QueryString()
+                    ->fields(["couchbaseDocument.doc.keywords"])
+                    ->query("photo OR article")
                     ->boost(2.5);
             $request->index(Yii::app()->params['elasticSearchIndex'])
                     ->type("couchbaseDocument")
                     ->from(0)
-                    ->to(10)
+                    ->to(100)
                     ->size(100)
                     ->query($termQuery);
             $response = $request->execute();
+            
+            
+
             $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":[';
             $i = 0;
             foreach ($response as $hit) {

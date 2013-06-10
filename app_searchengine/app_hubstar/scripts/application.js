@@ -87,6 +87,7 @@ define('application', [
     "views/BeforeLoginView",
     "views/AfterLoginView",
     "views/LoginModalView",
+    "views/StatusView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -99,6 +100,7 @@ define('application', [
     "controllers/IndexController",
     "controllers/SearchsController",
     "controllers/PhotoController",
+    "controllers/StatusController",
     "app/router",
     "routes/ApplicationRoute",
     "routes/IndexRoute",
@@ -175,6 +177,7 @@ define('application', [
         BeforeLoginView,
         AfterLoginView,
         LoginModalView,
+        StatusView,
         ApplicationController,
         tabListController,
         DataController,
@@ -187,6 +190,7 @@ define('application', [
         IndexController,
         SearchsController,
         PhotoController,
+        StatusController,
         Router,
         ApplicationRoute,
         IndexRoute,
@@ -263,6 +267,7 @@ define('application', [
         BeforeLoginView: BeforeLoginView,
         AfterLoginView: AfterLoginView,
         LoginModalView: LoginModalView,
+        StatusView: StatusView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
@@ -275,6 +280,7 @@ define('application', [
         IndexController: IndexController,
         SearchsController: SearchsController,
         PhotoController: PhotoController,
+        StatusController: StatusController,
         Router: Router,
         ApplicationRoute: ApplicationRoute,
         IndexRoute: IndexRoute,
@@ -313,8 +319,8 @@ define('application', [
             adapter: DS.RESTAdapter.create({
                 bulkCommit: false,
                 url: getRestAPIURL(),
-                plurals : {
-                    mega : "mega"
+                plurals: {
+                    mega: "mega"
                 },
 //                map: {
 //                    Object: {
@@ -324,6 +330,8 @@ define('application', [
             })
         }),
         ready: function() {
+
+
             App.set("isLogin", false);
 
         }

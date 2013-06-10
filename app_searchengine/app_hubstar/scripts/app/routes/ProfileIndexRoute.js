@@ -10,7 +10,20 @@ define([
     var ProfileIndexRoute = Ember.Route.extend({
         redirect: function() {
 
-            this.transitionTo('profiles');
+
+
+
+            if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
+                alert('please login in');
+                this.transitionTo('indexIndex');
+
+            } else {
+
+                this.transitionTo('profiles');
+
+            }
+
+
         },
         renderTemplate: function() {
 

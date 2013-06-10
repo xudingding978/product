@@ -14,6 +14,8 @@ define(
         accessed: DS.attr('string'),
         active_yn: DS.attr('string'),
         article_id: DS.attr('string'),
+        region: DS.attr('string'),
+        topic: DS.attr('string'),
         category: DS.attr('string'),
         created: DS.attr('string'),
         creator: DS.attr('string'),
@@ -39,7 +41,7 @@ define(
         view_count: DS.attr('string'),
         photos: DS.hasMany('App.Photo'),
         users: DS.hasMany('App.User'),
-                more_button: function() {
+        more_button: function() {
             return "more_button_" + this.get('id');
         }.property('id'),
         collape_button: function() {

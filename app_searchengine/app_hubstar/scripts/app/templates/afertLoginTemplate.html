@@ -1,26 +1,39 @@
-                <div id="user-header-menu" style="position:absolute;top: 10px">
-                    <ul class="loging_table moveTop nav" data-toggle="modal" data-target="#myModal" id="myModal">
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"> 
-                                <span class="caret"></span>
-                            </a>
-                            <ul id="user-dd-menu" class="dropdown-menu">
-                                <li class="active">
-                                    <a tabindex="-1" href="/site/index/">Ideabook</a>
-                                </li>
-                                <li class="active">
-                                    <a tabindex="-1" href="/site/index/">Find Friends</a>
-                                </li>
-                                <li class="active">
-                                    <a tabindex="-1" href="/site/index/">Settings</a>
-                                </li>
-                                <li class="active">
-                                    <a tabindex="-1" href="/site/index/">Help Center</a>
-                                </li>
-                                <li>
-                                    <a tabindex="-1" href="/site/logout/">Logout </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
+<div id="user-header-menu" style="position:absolute;top: 10px">
+    <ul class="loging_table moveTop nav" data-toggle="modal" data-target="#myModal" id="myModal">
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#"> 
+                <span class="caret"></span>
+                        {{controller}}
+                <img {{bindAttr src="model.photo_url"}}/>
+            </a>
+            <ul id="user-dd-menu" class="dropdown-menu">
+                <li class="active">
+                    <a tabindex="-1" href="#">Ideabook</a>
+                </li>
+                <li class="active">
+                    <a tabindex="-1" href="#">Find Friends</a>
+                </li>
+                <li class="active">
+                    <a tabindex="-1" href="#">Settings</a>
+                </li>
+                <li class="active">
+                    <a tabindex="-1" href="#">Help Center</a>
+                </li>
+                <li>
+                    <a tabindex="-1" href="#">Logout </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+
+<script>
+
+//                        function logout() {
+//
+//                            localStorage.clear();
+//                            window.location.reload();
+//                            
+//                        }
+</script>

@@ -2,10 +2,10 @@
 
 header('Access-Control-Allow-Origin: *');  
 
-class SearchsController extends Controller {
+class SearchresultsController extends Controller {
 
-    const JSON_RESPONSE_ROOT_SINGLE = 'search';
-    const JSON_RESPONSE_ROOT_PLURAL = 'searchs';
+    const JSON_RESPONSE_ROOT_SINGLE = 'searchresult';
+    const JSON_RESPONSE_ROOT_PLURAL = 'searchresults';
 
     public function actionIndex() {
 
@@ -37,25 +37,25 @@ class SearchsController extends Controller {
                 ->size(50);
         //->query($termQuery);
 
-        $must = Sherlock\Sherlock::queryBuilder()->QueryString()
-                ->default_field("type")
-                ->query("profile OR photo");
-
-        $must2 = Sherlock\Sherlock::queryBuilder()->Term()
-                ->field("type")
-                ->term("profile");
-
-        // echo var_dump($must2);
-
-        $bool = Sherlock\Sherlock::queryBuilder()->Bool()
-                ->must($must2);
+//        $must = Sherlock\Sherlock::queryBuilder()->QueryString()
+//                ->default_field("type")
+//                ->query("profile OR photo");
+//
+//        $must2 = Sherlock\Sherlock::queryBuilder()->Term()
+//                ->field("type")
+//                ->term("profile");
+//
+//        // echo var_dump($must2);
+//
+//        $bool = Sherlock\Sherlock::queryBuilder()->Bool()
+//                ->must($must2);
         //->should("")
         //->must_not("");
         // echo var_dump($bool);
         //Execute the search and return results
         //$response = $request->query($bool)->execute();
         //Raw Term Query
-        $json = '{"query":{"bool":{"must":[{"query_string":{"default_field":"couchbaseDocument.doc.type","query":"profile OR photo  OR article OR video"}}],"must_not":[],"should":[]}},"from":0,"size":50,"sort":[],"facets":{}}';
+        $json = '{"query":{"bool":{"must":[{"query_string":{"default_field":"couchbaseDocument.doc.mega.type","query":"profile OR photo OR article OR video"}}],"must_not":[],"should":[]}},"from":0,"size":50,"sort":[],"facets":{}}';
         $rawTermQuery = Sherlock\Sherlock::queryBuilder()->Raw($json);
 
         $response = $request->query($rawTermQuery)->execute();

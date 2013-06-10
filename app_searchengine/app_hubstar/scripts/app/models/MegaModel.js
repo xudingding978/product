@@ -1,27 +1,46 @@
 define(
-        'models/SearchModel',
+        'models/MegaModel',
         [
             'ember',
             'emberData'
         ], function() {
+    DS.RESTAdapter.map('App.Mega', {
+        photos: {embedded: 'always'},
+        users: {embedded: 'always'}
+    });
 
-    var SearchModel = DS.Model.extend({
-        region: DS.attr('string'),
-        took: DS.attr('string'),
-        hits: DS.attr('string'),
-        uri_url: DS.attr('string'),
-        creator: DS.attr('string'),
+    var MegaModel = DS.Model.extend({
         type: DS.attr('string'),
-        profile_pic_url: DS.attr('string'),
-        image_url: DS.attr('string'),
-        article_text: DS.attr('string'),
-        article_title: DS.attr('string'),
-        profile_id: DS.attr('string'),
-        profile_name: DS.attr('string'),
-        profile_cover_url: DS.attr('string'),
-        photo_title: DS.attr('string'),
-        video_title: DS.attr('string'),
-        description: DS.attr('string'),
+        accessed: DS.attr('string'),
+        active_yn: DS.attr('string'),
+        article_id: DS.attr('string'),
+        region: DS.attr('string'),
+        topic: DS.attr('string'),
+        category: DS.attr('string'),
+        created: DS.attr('string'),
+        creator: DS.attr('string'),
+        deleted: DS.attr('string'),
+        domains: DS.attr('string'),
+        editors: DS.attr('string'),
+        follower_count: DS.attr('string'),
+        followers: DS.attr('string'),
+        following: DS.attr('string'),
+        following_count: DS.attr('string'),
+        geography: DS.attr('string'),
+        indexed_yn: DS.attr('string'),
+        object_image_linkto: DS.attr('string'),
+        object_image_url: DS.attr('string'),
+        object_title: DS.attr('string'),
+        owner_profile_pic: DS.attr('string'),
+        owner_title: DS.attr('string'),
+        owner_url: DS.attr('string'),
+        owners: DS.attr('string'),
+        status_id: DS.attr('string'),
+        updated: DS.attr('string'),
+        uri_url: DS.attr('string'),
+        view_count: DS.attr('string'),
+        photos: DS.hasMany('App.Photo'),
+        users: DS.hasMany('App.User'),
         more_button: function() {
             return "more_button_" + this.get('id');
         }.property('id'),
@@ -52,15 +71,15 @@ define(
         getDiscussion: function() {
             return this.get('type') === 'discussion';
         }.property('type'),
+        //    articles: DS.hasMany('App.Article'),
+//        video: DS.hasMany('App.Video'),
+//        product: DS.hasMany('App.Product'),
         didLoad: function() {
 //            console.log('model loaded', this.toJSON());
 //            console.log('id: ' + this.id + ' ' + this.profile_name, this);
         }
-
-
-
     });
-    return SearchModel;
+    return MegaModel;
 }
 );
 

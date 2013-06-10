@@ -23,6 +23,8 @@ class ProfilesController extends Controller {
                 ->query("profile")
                 ->boost(2.5);
 
+        
+        
 //        $filter = null;
         //custom_filters_score query allows to execute a query, and if the hit matches a provided filter (ordered)
 //        $customFilterQuery = Sherlock\Sherlock::queryBuilder()->CustomFiltersScore()
@@ -78,14 +80,12 @@ class ProfilesController extends Controller {
     public function actionRead() {
         try {
             $cb = $this->couchBaseConnection();
-            $results_arr = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI']);
-
-            if ($results_arr) {
-                $result = $this->processGet($results_arr, self::JSON_RESPONSE_ROOT_SINGLE);
-                echo $this->sendResponse(200, $result);
-            } else {
-                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $_POST['id'] . '" already exists');
-            }
+            $reponse = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI']);
+            $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":';
+            //Iterate over the hits and print out some data
+            $result .=$reponse;
+            $result .= '}';
+            echo $this->sendResponse(200, $result);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -101,7 +101,7 @@ class ProfilesController extends Controller {
             $document_arr = CJSON::decode($cb->get(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI']));
             $newdocument = array_merge($document_arr, $payload_arr);
             if ($cb->set(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'], CJSON::encode($newdocument))) {
-                echo $this->sendResponse(201,var_export($newdocument));
+                echo $this->sendResponse(201, var_export($newdocument));
             }
         } catch (Exception $exc) {
             echo var_export($newdocument);
@@ -118,12 +118,22 @@ class ProfilesController extends Controller {
 
     public function actionOptions() {
         try {
-            echo $this->sendResponse(200, "OK");
+            $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);
+            header($statusHeader);
+            // Set the content type
+            header('Content-type: *');
+            // Set the Access Control for permissable domains
+            header("Access-Control-Allow-Origin: *");
+            header('Access-Control-Request-Method: *');
+            header('Access-Control-Allow-Methods: *');
+            header('Access-Control-Allow-Headers: *');
+
+            echo "";
+            Yii::app()->end();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
 
 }
-
 ?>

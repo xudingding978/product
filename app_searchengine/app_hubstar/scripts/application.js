@@ -87,6 +87,7 @@ define('application', [
     "views/BeforeLoginView",
     "views/AfterLoginView",
     "views/LoginModalView",
+    "views/StatusView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -99,6 +100,7 @@ define('application', [
     "controllers/IndexController",
     "controllers/SearchsController",
     "controllers/PhotoController",
+    "controllers/StatusController",
     "app/router",
     "routes/ApplicationRoute",
     "routes/IndexRoute",
@@ -123,7 +125,7 @@ define('application', [
     "routes/SearchRoute",
     "routes/SearchIndexRoute",
     "routes/IndexIndexRoute",
-    "models/ObjectModel",
+    "models/MegaModel",
     "models/PostModel",
     "models/ProfileModel",
     "models/UserModel",
@@ -175,6 +177,7 @@ define('application', [
         BeforeLoginView,
         AfterLoginView,
         LoginModalView,
+        StatusView,
         ApplicationController,
         tabListController,
         DataController,
@@ -187,6 +190,7 @@ define('application', [
         IndexController,
         SearchsController,
         PhotoController,
+        StatusController,
         Router,
         ApplicationRoute,
         IndexRoute,
@@ -211,18 +215,15 @@ define('application', [
         SearchRoute,
         SearchIndexRoute,
         IndexIndexRoute,
-        Object,
+        Mega,
         Post,
         Profile,
         User,
         ImageArray,
-        Search,
+        Searchresult,
         Photo,
         Article,
         Video
-
-
-
         )
 {
 
@@ -266,6 +267,7 @@ define('application', [
         BeforeLoginView: BeforeLoginView,
         AfterLoginView: AfterLoginView,
         LoginModalView: LoginModalView,
+        StatusView: StatusView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
@@ -278,6 +280,7 @@ define('application', [
         IndexController: IndexController,
         SearchsController: SearchsController,
         PhotoController: PhotoController,
+        StatusController: StatusController,
         Router: Router,
         ApplicationRoute: ApplicationRoute,
         IndexRoute: IndexRoute,
@@ -302,12 +305,12 @@ define('application', [
         SearchRoute: SearchRoute,
         SearchIndexRoute: SearchIndexRoute,
         IndexIndexRoute: IndexIndexRoute,
-        Object: Object,
+        Mega: Mega,
         Post: Post,
         Profile: Profile,
         User: User,
         ImageArray: ImageArray,
-        Search: Search,
+        Searchresult: Searchresult,
         Photo: Photo,
         Article: Article,
         Video: Video,
@@ -315,9 +318,10 @@ define('application', [
             revision: 12,
             adapter: DS.RESTAdapter.create({
                 bulkCommit: false,
-                url: getRestAPIURL()
-
-
+                url: getRestAPIURL(),
+                plurals: {
+                    mega: "mega"
+                },
 //                map: {
 //                    Object: {
 //                        Photo: {embedded: 'always'}
@@ -326,6 +330,8 @@ define('application', [
             })
         }),
         ready: function() {
+
+
             App.set("isLogin", false);
 
         }

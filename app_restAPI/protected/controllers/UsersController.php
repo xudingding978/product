@@ -115,13 +115,13 @@ class UsersController extends Controller {
 
             $respone_user = json_decode($reponse, true)['users'][0];
 
-            error_log("eeeeeeeeeeeeee     " . var_export($respone_user, true));
+    //        error_log("eeeeeeeeeeeeee     " . var_export($respone_user, true));
 
 
 
             $respone_user_data = str_replace("\/", "/", CJSON::encode($respone_user));
-            error_log("hhhhhhhhhhhhhh  " . $respone_user_data);
-//   var_dump(json_decode($json, false, 512, JSON_BIGINT_AS_STRING));    ********** !important***************************
+      //      error_log("hhhhhhhhhhhhhh  " . $respone_user_data);
+
             $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $respone_user_data . '}';
             echo $this->sendResponse(200, $result);
         } catch (Exception $exc) {

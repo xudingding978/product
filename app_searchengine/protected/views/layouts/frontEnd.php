@@ -10,16 +10,13 @@
     <script>   window.onload = function() {
             //   alert('ok');
             var data = "";
-            if ('<?php echo Yii::app()->user->getUserData() ?>' !== '') {
-                
-                alert('test');
             
-                data = "<?php echo Yii::app()->user->getUserData() ?>";
+            if (<?php echo Yii::app()->user->getUserData() ?> !== "") {
+            
+                data = <?php echo Yii::app()->user->getUserData() ?>;
                 localStorage.setItem("loginStatus", data);
 
             }
-
-
 
         }
 

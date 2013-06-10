@@ -39,11 +39,7 @@
 
 
     <?php echo $form->errorSummary($user); ?>
-    <div class="row">
-        <?php echo $form->labelEx($user, 'TENANT_REC_ID'); ?>
-        <?php echo $form->textField($user, 'TENANT_REC_ID'); ?>
-        <?php echo $form->error($user, 'TENANT_REC_ID'); ?>
-    </div>
+    
 
     <div class="row">
         <?php echo $form->labelEx($user, 'USER_NAME'); ?>

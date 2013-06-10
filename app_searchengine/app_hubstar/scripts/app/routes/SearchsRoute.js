@@ -1,19 +1,19 @@
 define([
     'ember',
     'controllers/SearchsController',
-    'models/SearchModel'
+    'models/MegaModel'
 
 ], function(
         Ember,
         SearchsController,
-        SearchModel
+        MegaModel
 
         ) {
     "use strict";
 
     var SearchRoute = Ember.Route.extend({
         setupController: function() {
-            this.controllerFor('searchs').set('model', SearchModel.find());
+            this.controllerFor('searchs').set('model', MegaModel.find());
         },
 //        model: function() {
 //

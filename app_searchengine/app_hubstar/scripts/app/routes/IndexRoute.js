@@ -1,11 +1,11 @@
 define([
     'ember',
     'controllers/IndexController',
-    'models/SearchModel'
+    'models/MegaModel'
 ], function(
         Ember,
         IndexController,
-        SearchModel
+        MegaModel
         ) {
     "use strict";
 

@@ -14,7 +14,6 @@ class UsersController extends Controller {
 
     public function actionIndex() {
         //   $this->setImage("http://trendsideas.com/media/article/35013.jpg");
-        $this->setImage("trendsideas.com/media/article/original/35013.jpg");
 //        $temp = explode("/", $_SERVER['REQUEST_URI']);
 //        $id = $temp [sizeof($temp) - 1];
 //
@@ -114,12 +113,16 @@ class UsersController extends Controller {
 
             $reponse = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . "/users/" . $id);
 
-            $respone_user_data = json_decode($reponse, true)['users'][0];
+            $respone_user = json_decode($reponse, true)['users'][0];
 
-      //      error_log("hhhhhhhhhhhhhh  ".CJSON::encode($respone_user_data));
+    //        error_log("eeeeeeeeeeeeee     " . var_export($respone_user, true));
 
-//   var_dump(json_decode($json, false, 512, JSON_BIGINT_AS_STRING));    ********** !important***************************
-            $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . CJSON::encode($respone_user_data) . '}';
+
+
+            $respone_user_data = str_replace("\/", "/", CJSON::encode($respone_user));
+      //      error_log("hhhhhhhhhhhhhh  " . $respone_user_data);
+
+            $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $respone_user_data . '}';
             echo $this->sendResponse(200, $result);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -210,47 +213,6 @@ class UsersController extends Controller {
 
 
         return $response;
-    }
-
-    public function setImage($url) {
-
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
-        $data = curl_exec($ch);
-        if (is_null($data) || strpos($data, '404') || empty($data)) {
-            $my_file = '/home/devbox/NetBeansProjects/test/error.log';
-            $handle = fopen($my_file, 'a') or die('Cannot open file:  ' . $my_file);
-            $output = "\n" . 'New data ';
-            $output = "\n" . $url . ' has error';
-            fwrite($handle, $output);
-            fclose($handle);
-        } else {
-            $my_file = '/home/devbox/NetBeansProjects/test/sucess.log';
-            $handle = fopen($my_file, 'a') or die('Cannot open file:  ' . $my_file);
-            $output = "\n" . $url . ' is create';
-            fwrite($handle, $output);
-            fclose($handle);
-            $this->putImagetoS3($url, $data);
-        }
-    }
-
-    public function putImagetoS3($url, $data) {
-        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
-        $key = explode(".", $_SERVER['HTTP_HOST']);
-        $key = $key[1] . '.' . $key[2];
-        $result = $cb->get($key);
-        $result_arr = CJSON::decode($result, true);
-        $client = Aws\S3\S3Client::factory(
-                        $result_arr["providers"]["S3Client"]
-        );
-        $client->putObject(array(
-            'Bucket' => "hubstar-dev",
-            'Key' => $url,
-            'Body' => $data,
-            'ACL' => 'public-read'
-        ));
     }
 
 }

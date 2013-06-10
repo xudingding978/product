@@ -15,7 +15,7 @@ class DefaultController extends CController {
             Yii::app()->session['hybridauth-ref'] = Yii::app()->request->urlReferrer;
         }
 
-        error_log("user id  :                    " . Yii::app()->user->getId());
+    
 
 
         $this->_doLogin();
@@ -40,10 +40,10 @@ class DefaultController extends CController {
         }
 
         $identity = new RemoteUserIdentity($_GET['provider'], $this->module->getHybridauth());
-        error_log("this is identity process");
+
 
         if ($identity->authenticate()) {
-            error_log("this is authenticate process");
+    
 
 
             // They have authenticated AND we have a user record associated with that provider
@@ -55,7 +55,7 @@ class DefaultController extends CController {
 
 
 
-        //        Yii::app()->session['data'] = Yii::app()->user->id;
+                //        Yii::app()->session['data'] = Yii::app()->user->id;
                 $this->render('close');
             }
         } else if ($identity->errorCode == RemoteUserIdentity::ERROR_USERNAME_INVALID) {
@@ -119,6 +119,7 @@ class DefaultController extends CController {
         $user_profile = $adapter->getUserProfile();
         $user = new User;
         $user->attributes = $_POST['User'];
+        $user->TENANT_REC_ID=1;
         $user_profile->email = $user->EMAIL_ADDRESS;
         $user_profile->displayName = $user->USER_NAME;
         $user_profile->lastName = $user->LAST_NAME;
@@ -161,22 +162,48 @@ class DefaultController extends CController {
         $temp = $this->getMega();
         $temp["id"] = $rand_id;
 
-        $social_data = (array) $user_profile;
-
-        $temp["users"][0] = $social_data;
 
 
         $temp["users"][0]["id"] = $rand_id;
+        $temp["users"][0]["identifier"] = $userProfile->IDENTIFIER;
+        $temp["users"][0]["profile_url"] = $userProfile->PROFILE_URL;
+        $temp["users"][0]["website_url"] = $userProfile->WEBSITE_URL;
+
+        $temp["users"][0]["photo_url"] = $userProfile->PHOTO_URL;
+        $temp["users"][0]["photo_url_large"] = $userProfile->PHOTO_URL_LARGE;
+        $temp["users"][0]["display_name"] = $userProfile->DISPLAY_NAME;
+        $temp["users"][0]["description"] = $userProfile->DESCRIPTION;
+        $temp["users"][0]["first_name"] = $userProfile->FIRST_NAME;
+        $temp["users"][0]["last_name"] = $userProfile->LAST_NAME;
+        $temp["users"][0]["gender"] = $userProfile->GENDER;
+        $temp["users"][0]["age"] = $userProfile->AGE;
+        $temp["users"][0]["birth_day"] = $userProfile->BIRTH_DAY;
+        $temp["users"][0]["birth_month"] = $userProfile->BIRTH_MONTH;
+        $temp["users"][0]["birth_year"] = $userProfile->BIRTH_YEAR;
+
+        $temp["users"][0]["email"] = $userProfile->EMAIL;
+        $temp["users"][0]["phone"] = $userProfile->PHONE;
+        $temp["users"][0]["email_verified"] = $userProfile->EMAIL_VERIFIED;
+        $temp["users"][0]["country"] = $userProfile->COUNTRY;
+        $temp["users"][0]["region"] = $userProfile->REGION;
+        $temp["users"][0]["city"] = $userProfile->CITY;
+        $temp["users"][0]["zip"] = $userProfile->ZIP;
+
+
+
+
+
+
+
+
+
         $cb->add(substr($_SERVER['HTTP_HOST'], 8) . "/users/" . $rand_id, CJSON::encode($temp));
-
-
     }
 
     private function _loginUser($identity) {
         Yii::app()->user->login($identity, 0);
 
         $this->render('close');
-
     }
 
     /**

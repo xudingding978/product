@@ -47,6 +47,9 @@ class MegasController extends Controller {
                     ->size(100)
                     ->query($termQuery);
             $response = $request->execute();
+            
+            
+
             $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":[';
             $i = 0;
             foreach ($response as $hit) {

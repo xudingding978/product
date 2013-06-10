@@ -410,9 +410,16 @@
     left:15px;
 }
 
-.login_guest{
-    margin: -64px 0px 0px 3%;
+
+.LoginModelSize{
+    
+    
+    width:480px;
 }
+
+
+
+
 .wrapper-dropdown-3 .dropdown {
     /* Size & position */
     position: absolute;

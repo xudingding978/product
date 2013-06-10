@@ -8,14 +8,15 @@ define([
         ProfileController
         ) {
     "use strict";
+ //   var kink;
     var ProfileRoute = Ember.Route.extend({
         setupController: function(ProfileController, model) {
+       //     kink=model;
+            
             ProfileController.setLocalLoginRecrod();
-
+    //        console.log('aaaaaaaaaa'+ kink);
         },
         redirect: function() {
-
-
 
 
             if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {

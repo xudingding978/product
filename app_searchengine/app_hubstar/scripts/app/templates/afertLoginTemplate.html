@@ -1,5 +1,5 @@
 <div id="user-header-menu" style="top: 10px">
-    <ul class="loging_table moveTop nav" data-toggle="modal" data-target="#myModal" id="myModal" style='margin: 0;'>
+    <ul class="loging_table moveTop nav" style='margin: 0;'>
         <li class="dropdown">
 
             <div class="profilepic-container" data-toggle="dropdown" style="margin:3px;">
@@ -32,11 +32,20 @@
 
                         function logout() {
 
+
+
+                            $.ajax({
+                                type: 'POST',
+                                url: 'http://www.develop.devbox/site/logout',
+                                contentType: 'application/json; charset=uft-8',
+                                dataType: 'json',
+                                success: function() {
+
+                                }
+                            });
+
                             localStorage.clear();
-                            
-                            
-                            
-                            window.location.reload();
-                            
+                            //            window.location.reload();
+
                         }
 </script>

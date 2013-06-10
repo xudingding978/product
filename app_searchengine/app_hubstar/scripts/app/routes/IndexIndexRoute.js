@@ -27,7 +27,7 @@ define([
         },
         activate: function() {
 //      localStorage.isLogin = false;
-
+             
             App.set("isLogin", false);
         },
         deactivate: function() {

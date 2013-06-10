@@ -85,19 +85,14 @@ class PhotosController extends Controller {
     }
 
     public function actionRead() {
-        try {
-            $cb = $this->couchBaseConnection();
-            $results_arr = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI']);
+   $temp = explode("/", $_SERVER['REQUEST_URI']);
+   
+      $id=  $temp[sizeof($temp)-1];
+   $result=$this->getRequestResultByID(self::JSON_RESPONSE_ROOT_SINGLE, $id);
+   $this->sendResponse(null,$result);
 
-            if ($results_arr) {
-                $result = $this->processGet($results_arr, self::JSON_RESPONSE_ROOT_SINGLE);
-                echo $this->sendResponse(200, $result);
-            } else {
-                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $_POST['id'] . '" already exists');
-            }
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
+
+
     }
 
     public function actionUpdate() {
@@ -180,6 +175,8 @@ class PhotosController extends Controller {
         }
         return $response;
     }
+    
+    
 
 }
 

@@ -17,14 +17,14 @@ define([
 
             if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
 
-
-               // controller.setLoginOut();
+                App.set("isLogin", false);
+ 
             } else {
 
                 this.controllerFor('application').set('model', UserModel.find(localStorage.loginStatus));
                 this.controllerFor('status').set('model', UserModel.find(localStorage.loginStatus));
-                //    console.log("dataaaaaaaaaaaaaaa   "+UserModel.find(localStorage.loginStatus));
-           //     controller.setLoginIn();
+                    App.set("isLogin", true);
+
 
             }
         }

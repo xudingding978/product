@@ -20,7 +20,7 @@
 
 
         <div class="mainfeature">
-            <img class="mainfeature_object" {{bindAttr src="image_url" }}/>
+            <img class="mainfeature_object" {{bindAttr src="photo_image_original_url" }}/>
         </div>
 
 
@@ -49,7 +49,7 @@
         <div>
             <div class="object-poster easing" {{action setNameTag on="click" target="view"}}>
                 <div class="profilepic-container">
-                    <a href="#"><img {{bindAttr src="profile_pic_url"}} class="profilepic"/></a>              
+                    <a href="#"><img {{bindAttr src="photo_brands"}} class="profilepic"/></a>              
                 </div>
                 <div class="poster_user" >
                     <a class="poster-name" href="#">NAME</a>

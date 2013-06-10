@@ -10,14 +10,14 @@ class PhotosController extends Controller {
     public function actionIndex() {
 
         $settings['log.enabled'] = true;
-    // $settings['log.file'] = '/var/log/sherlock/newlogfile.log';
-    // $settings['log.level'] = 'debug';
+        // $settings['log.file'] = '/var/log/sherlock/newlogfile.log';
+        // $settings['log.level'] = 'debug';
         $sherlock = new Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
 
 //Build a new search request
         $request = $sherlock->search();
-         
+
 //populate a Term query to start
         $termQuery = Sherlock\Sherlock::queryBuilder()
                 ->Match()
@@ -37,7 +37,7 @@ class PhotosController extends Controller {
                 ->to(10)
                 ->query($termQuery);
 
-                echo $this->sendResponse(200, $result);
+        echo $this->sendResponse(200, "ok");
     }
 
     public function actionCreate() {
@@ -87,13 +87,18 @@ class PhotosController extends Controller {
     public function actionRead() {
         try {
             $cb = $this->couchBaseConnection();
-            $results_arr = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI']);
+
+
+            $temp = explode("/", $_SERVER['REQUEST_URI']);
+            $id = $temp [sizeof($temp) - 1];
+            $results_arr = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . "/" . $id);
+
 
             if ($results_arr) {
                 $result = $this->processGet($results_arr, self::JSON_RESPONSE_ROOT_SINGLE);
                 echo $this->sendResponse(200, $result);
             } else {
-                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $_POST['id'] . '" already exists');
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" could not be found');
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();

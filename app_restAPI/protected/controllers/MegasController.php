@@ -25,7 +25,7 @@ class MegasController extends Controller {
                 $response = $this->getRequestResult($region, $searchString);
                 error_log(var_export($response, true));
             } else {
-                error_log("default search");
+          $response = $this->getRequestResult("", "dean");
             }
                 echo $this->sendResponse(200, $response);
         } catch (Exception $exc) {

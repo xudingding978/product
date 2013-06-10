@@ -82,14 +82,13 @@ class AuthWebUser extends CWebUser {
             curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
             $curl_data = curl_exec($ch);
             $data = json_decode($curl_data, true);
-//error_log(var_export($data,true));
 
-
-            error_log('sssssssssssssss' . Yii::app()->user->id . "       asdasds");
-            $this->user = (int) CJSON::encode($data['user']['id']);
+            $this->user = $data['user']['id'];
+        
         } else {
 
             $this->user = "";
+            
         }
         return CJSON::encode($this->user);
     }

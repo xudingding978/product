@@ -39,6 +39,36 @@ define(
         view_count: DS.attr('string'),
         photos: DS.hasMany('App.Photo'),
         users: DS.hasMany('App.User'),
+                more_button: function() {
+            return "more_button_" + this.get('id');
+        }.property('id'),
+        collape_button: function() {
+            return "collape_button_" + this.get('id');
+        }.property('id'),
+        getProfile_id: function() {
+            return "#/profiles/" + this.get('profile_id');
+        }.property('profile_id'),
+        getProfile: function() {
+            return this.get('type') === 'profile';
+        }.property('type'),
+        getPhoto: function() {
+            return this.get('type') === 'photo';
+        }.property('type'),
+        getVideo: function() {
+            return this.get('type') === 'video';
+        }.property('type'),
+        getFile: function() {
+            return this.get('type') === 'file';
+        }.property('type'),
+        getArticle: function() {
+            return this.get('type') === 'article';
+        }.property('type'),
+        getIdeabook: function() {
+            return this.get('type') === 'ideabook';
+        }.property('type'),
+        getDiscussion: function() {
+            return this.get('type') === 'discussion';
+        }.property('type'),
         //    articles: DS.hasMany('App.Article'),
 //        video: DS.hasMany('App.Video'),
 //        product: DS.hasMany('App.Product'),

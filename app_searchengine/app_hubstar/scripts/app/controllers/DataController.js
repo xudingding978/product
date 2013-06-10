@@ -1,5 +1,5 @@
-define(['ember', 'models/SearchModel']
-        , function(Ember, SearchModel) {
+define(['ember', 'models/MegaModel']
+        , function(Ember, MegaModel) {
     var DataController = Ember.ArrayController.extend({
         content: [],
     });

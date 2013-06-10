@@ -20,8 +20,10 @@ define([
 
                 controller.setLoginOut();
             } else {
+
                 this.controllerFor('application').set('model', UserModel.find(localStorage.loginStatus));
-                console.log(UserModel.find(localStorage.loginStatus));
+                this.controllerFor('status').set('model', UserModel.find(localStorage.loginStatus));
+                //    console.log("dataaaaaaaaaaaaaaa   "+UserModel.find(localStorage.loginStatus));
                 controller.setLoginIn();
 
             }

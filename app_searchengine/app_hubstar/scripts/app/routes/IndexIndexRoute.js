@@ -1,9 +1,9 @@
 define([
     'ember',
-    'models/SearchModel'
+    'models/MegaModel'
 ], function(
         Ember,
-        SearchModel
+        MegaModel
         ) {
     "use strict";
     var IndexIndexRoute = Ember.Route.extend({
@@ -23,7 +23,7 @@ define([
 
         },
         model: function() {
-            return SearchModel.find();
+            return MegaModel.find();
         },
         activate: function() {
 //      localStorage.isLogin = false;
@@ -45,11 +45,14 @@ define([
             });
 
             this.render('default', {
-                into: "index",
-                controller: controller
+                into: "index"
+ 
             });
 
-
+//            this.render('status', {
+//                into: "masonry",
+//                controller: controller
+//            });
 
         }
 

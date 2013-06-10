@@ -1,10 +1,10 @@
 define([
     'ember',
-    'models/SearchModel'
+    'models/MegaModel'
 
 ], function(
         Ember,
-        SearchModel
+        MegaModel
         ) {
     "use strict";
 
@@ -14,7 +14,7 @@ define([
             if (($('#search_key').val() == model.region) || ($('#search_business').val() == model.result)) {
                 if (model.result !== "" || model.region !== "") {
                     console.log("aaaaaaaaaaaa" + model);
-                    this.controllerFor('search').set('model', SearchModel.find({keywords: model.result, region: model.region}));
+                    this.controllerFor('search').set('model', MegaModel.find({keywords: model.result, region: model.region}));
                 }
             }
         },
@@ -26,7 +26,7 @@ define([
             var getRegion = result.slice(0, separate);
             $('#search_key').val(getRegion);
             $('#search_business').val(getKey);
-            return SearchModel.find({keywords: getKey, region: getRegion});
+            return MegaModel.find({keywords: getKey, region: getRegion});
         },
         renderTemplate: function() {
 

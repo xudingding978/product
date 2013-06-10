@@ -42,7 +42,7 @@ class MegasController extends Controller {
             $request->index(Yii::app()->params['elasticSearchIndex'])
                     ->type("couchbaseDocument")
                     ->from(0)
-                    ->to(10)
+                    ->to(100)
                     ->size(100)
                     ->query($termQuery);
             $response = $request->execute();

@@ -567,9 +567,36 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 
 
+.style-box{
+background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f3f3f3), color-stop(100%, #e5e5e5));
+background: -webkit-linear-gradient(#f3f3f3,#e5e5e5);
+background: -moz-linear-gradient(#f3f3f3,#e5e5e5);
+background: -o-linear-gradient(#f3f3f3,#e5e5e5);
+background: linear-gradient(#f3f3f3,#e5e5e5);
+-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+-ms-border-radius: 3px;
+-o-border-radius: 3px;
+border-radius: 3px;
+-webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.14);
+-moz-box-shadow: 0 1px 4px rgba(0,0,0,0.14);
+box-shadow: 0 1px 4px rgba(0,0,0,0.14);
+overflow: hidden;
+background-color: #f3f3f3;
+border-left: 1px solid #d4d4d4;
+border-left: 1px solid rgba(0,0,0,0.17);
+border-top: 1px solid rgba(0,0,0,0.1);
+border-right: 1px solid rgba(0,0,0,0.17);
+border-left: 1px solid #d4d4d4;
+border-bottom: 1px solid rgba(0,0,0,0.2);
+clear: both;
+color: #333;
+height: 44px;
+line-height: 44px;
 
-
-
+max-width: 10000px;
+position: relative;
+}
 
 
 

@@ -68,7 +68,7 @@ class AuthWebUser extends CWebUser {
 
     public function getUserData() {
 
-        error_log('zzzzzzzzzzzzzzzz' . Yii::app()->user->id . "       asdasds");
+   
 
 
         if (Yii::app()->user->id) {

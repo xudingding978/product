@@ -15,7 +15,7 @@ class DefaultController extends CController {
             Yii::app()->session['hybridauth-ref'] = Yii::app()->request->urlReferrer;
         }
 
-        error_log("user id  :                    " . Yii::app()->user->getId());
+    
 
 
         $this->_doLogin();
@@ -40,10 +40,10 @@ class DefaultController extends CController {
         }
 
         $identity = new RemoteUserIdentity($_GET['provider'], $this->module->getHybridauth());
-        error_log("this is identity process");
+
 
         if ($identity->authenticate()) {
-            error_log("this is authenticate process");
+    
 
 
             // They have authenticated AND we have a user record associated with that provider

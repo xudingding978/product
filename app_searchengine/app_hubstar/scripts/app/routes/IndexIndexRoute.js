@@ -17,7 +17,7 @@ define([
                 this.transitionTo('indexIndex');
 
             } else {
-                alert('loginred');
+
                 this.transitionTo('searchIndex');
 
             }

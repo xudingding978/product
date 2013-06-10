@@ -124,7 +124,7 @@ class ArticleImages extends CActiveRecord
         
         
                 function getImageRange($from, $to) {
-//                        error_log("1111111111111111111111111111111111111111111111");
+                        error_log("1111111111111111111111111111111111111111111111");
                         $data_list = array();  
                         $sql = "select dbo.ArticleImages.*, dbo.HeliumMedia.keywords from dbo.ArticleImages
                                     inner join  dbo.HeliumMedia on

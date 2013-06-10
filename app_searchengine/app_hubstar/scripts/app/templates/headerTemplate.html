@@ -27,27 +27,35 @@
 
 
 
-            {{#if controller.isLogin}}
-            <div>
+
+
+
+
+            <div id="login_detail">
                 {{view App.AfterLoginView}}
             </div>
 
-            {{else}}
-
-            {{view App.BeforeLoginView}}
-
-            {{#if controller.popup}}
-
-
-            {{view App.LoginModalView}}
 
 
 
 
+            <div id="login_icon">
+                {{view App.BeforeLoginView}}
 
-            {{/if}}
+                {{#if controller.popup}}
 
-            {{/if}}
+
+                {{view App.LoginModalView}}
+
+
+                {{/if}}
+
+            </div>
+
+
+
+
+
             <!-- user is logged in -->
 
         </div>

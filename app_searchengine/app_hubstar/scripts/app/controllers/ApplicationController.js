@@ -17,16 +17,16 @@ define(["ember"], function(Ember) {
 
             this.set('mail', !this.get('mail'));
         },
-        setLoginIn: function() {
-
-            this.set('isLogin', true);
-
-        },
-        setLoginOut: function() {
-
-            this.set('isLogin', false);
-
-        }
+//        setLoginIn: function() {
+//
+//            this.set('isLogin', true);
+//
+//        },
+//        setLoginOut: function() {
+//
+//            this.set('isLogin', false);
+//
+//        }
     });
 
     return ApplicationController;

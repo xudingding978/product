@@ -172,7 +172,7 @@ class UserController extends Controller {
      */
     public function loadModel($id) {
         $model = User::model()
-                ->with('UserProfile')
+         
                 ->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');

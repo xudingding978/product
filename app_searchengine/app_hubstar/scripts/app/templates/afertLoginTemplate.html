@@ -20,7 +20,7 @@
                     <a tabindex="-1" href="#">Help Center</a>
                 </li>
                 <li>
-                    <a tabindex="-1" href="#">Logout </a>
+                    <a tabindex="-1" href="#" onclick="logout();">Logout </a>
                 </li>
             </ul>
         </li>
@@ -30,10 +30,22 @@
 
 <script>
 
-//                        function logout() {
-//
-//                            localStorage.clear();
-//                            window.location.reload();
-//                            
-//                        }
+                        function logout() {
+
+
+
+                            $.ajax({
+                                type: 'POST',
+                                url: 'http://www.develop.devbox/site/logout',
+                                contentType: 'application/json; charset=uft-8',
+                                dataType: 'json',
+                                success: function() {
+
+                                }
+                            });
+
+                            localStorage.clear();
+        
+
+                        }
 </script>

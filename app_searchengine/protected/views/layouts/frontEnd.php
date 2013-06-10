@@ -8,7 +8,7 @@
 
 
     <script>   window.onload = function() {
-            //   alert('ok');
+
             var data = "";
             
             if (<?php echo Yii::app()->user->getUserData() ?> !== "") {

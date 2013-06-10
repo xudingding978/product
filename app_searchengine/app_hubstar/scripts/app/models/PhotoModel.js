@@ -1,3 +1,4 @@
+
 define(
         'models/PhotoModel',
         [
@@ -29,4 +30,5 @@ define(
     return Photo;
 }
 );
+
 

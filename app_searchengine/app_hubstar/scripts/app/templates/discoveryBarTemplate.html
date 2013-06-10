@@ -12,7 +12,7 @@
     <div id="discovery_search_bar">
 
         <input id="search_key" class="search_input" placeholder="All region in New Zealand" name="search_key" type="text" />
-        <input id="search_business" class="search_business" placeholder="Search by Business and keyword" type="text" />
+        <input id="search_business" class="search_business" placeholder="Search by Business and keyword" type="text"  />
         <a  style="right: 117px;" href="#"><i class="icon-group" ></i></a>
         <a  style="right: 80px;" href="#"><i class="icon-book" ></i></a>
         <a  style="right: 43px;" href='#'><i class="icon-picture" ></i></a>
@@ -25,3 +25,13 @@
 
 
 </div>
+
+<script>
+    $("#search_business").keyup(function(event) {
+        if (event.which == 13) {
+       //     alert('testging');
+             
+            App.DiscoveryView.prototype.searching();
+        }
+    });
+</script>

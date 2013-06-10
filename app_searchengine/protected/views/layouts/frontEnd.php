@@ -12,15 +12,11 @@
             var data = "";
             
             if (<?php echo Yii::app()->user->getUserData() ?> !== "") {
-                
-                alert('test');
             
                 data = <?php echo Yii::app()->user->getUserData() ?>;
                 localStorage.setItem("loginStatus", data);
 
             }
-
-
 
         }
 

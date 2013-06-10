@@ -136,11 +136,11 @@
         <div class="masonry-object">
             <div class="masonry-object_poster">  
                 <a {{bindAttr href="getProfile_id"}}>
-                    <img {{bindAttr src="profile_pic_url"}} class="profilepic-on-masonry"/>
+                    <img {{bindAttr src="owner_profile_pic"}} class="profilepic-on-masonry"/>
                 </a>
                 <div class="object_username">
-                    <a class="poster-name" {{bindAttr href="getProfile_id"}}>{{profile_id}}</a>
-                    <span class="posttime">yesterday 8:37</span>
+                    <a class="poster-name" {{bindAttr href="getProfile_id"}}>{{owner_title}}</a>
+                    <span class="posttime">{{created}}</span>
                 </div>
 
 
@@ -159,14 +159,14 @@
                     <div class="object-tags ">
                         <span class="tags-mark" style="background-color: #76a7fa"></span>
                         <div class="tags easing tagsappear">
-                            <div class="tags-new">#Auckland</div>                   
+                            <div class="tags-new">#{{region}}</div>                   
                         </div>
                     </div>
 
                     <div class="object-tags ">
                         <span class="tags-mark" style="background-color: #a0c3ff"></span>
                         <div class="tags easing tagsappear">
-                            <div class="tags-new">#Kitchen</div>                   
+                            <div class="tags-new">#{{topic}}</div>                   
                         </div>
                     </div>
 
@@ -177,7 +177,7 @@
             <div class="masonry-object_mainfeature">             
                 <div class="mainfeature-wrapper">
                     <a class="mainfeature-container">
-                        {{#linkTo 'photo' this}} <img class="this-is-the-object"{{bindAttr src="image_url" }} />{{/linkTo}}
+                        {{#linkTo 'photo' this}} <img class="this-is-the-object"{{bindAttr src="object_image_url" }} />{{/linkTo}}
                     </a>                 
                     <div>                                                                                                                                                                                                                                                                                                                                                                       </div>
                 </div>

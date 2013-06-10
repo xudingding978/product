@@ -119,6 +119,7 @@ class DefaultController extends CController {
         $user_profile = $adapter->getUserProfile();
         $user = new User;
         $user->attributes = $_POST['User'];
+        $user->TENANT_REC_ID=1;
         $user_profile->email = $user->EMAIL_ADDRESS;
         $user_profile->displayName = $user->USER_NAME;
         $user_profile->lastName = $user->LAST_NAME;

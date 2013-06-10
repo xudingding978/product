@@ -20,6 +20,7 @@ require.config({
         'bootstrap-modal': 'libs/bootstrap/2.2.2/js/bootstrap-modal',
         'wysihtml5': 'libs/wysihtml5/wysihtml5-0.3.0',
         'bxslider': 'libs/jquery.bxslider.min',
+        'moment': 'libs/moment',
         'guid_creater': 'libs/guid_creater',
         'jquery.masonry': 'libs/jquery.masonry/jquery.masonry.min',
         /*requirejs-plugins*/

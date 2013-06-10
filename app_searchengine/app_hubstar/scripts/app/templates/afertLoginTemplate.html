@@ -1,11 +1,11 @@
-<div id="user-header-menu" style="position:absolute;top: 10px">
-    <ul class="loging_table moveTop nav" data-toggle="modal" data-target="#myModal" id="myModal">
+<div id="user-header-menu" style="top: 10px">
+    <ul class="loging_table moveTop nav" style='margin: 0;'>
         <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#"> 
-                <span class="caret"></span>
-             
-                <img {{bindAttr src="model.photo_url"}}/>
-            </a>
+
+            <div class="profilepic-container" data-toggle="dropdown" style="margin:3px;">
+                <a href="#"><img {{bindAttr src="model.photo_url"}} class="profilepic profilepic_effect easing" style='width: 35px;height:35px;'/></a>              
+            </div>
+
             <ul id="user-dd-menu" class="dropdown-menu">
                 <li class="active">
                     <a tabindex="-1" href="#">Ideabook</a>
@@ -20,7 +20,7 @@
                     <a tabindex="-1" href="#">Help Center</a>
                 </li>
                 <li>
-                    <a tabindex="-1" href="#">Logout </a>
+                    <a tabindex="-1" href="#" onclick="logout();">Logout </a>
                 </li>
             </ul>
         </li>
@@ -30,10 +30,22 @@
 
 <script>
 
-//                        function logout() {
-//
-//                            localStorage.clear();
-//                            window.location.reload();
-//                            
-//                        }
+                        function logout() {
+
+
+
+                            $.ajax({
+                                type: 'POST',
+                                url: 'http://www.develop.devbox/site/logout',
+                                contentType: 'application/json; charset=uft-8',
+                                dataType: 'json',
+                                success: function() {
+
+                                }
+                            });
+
+                            localStorage.clear();
+        
+
+                        }
 </script>

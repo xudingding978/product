@@ -450,6 +450,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     background-size: 100% auto;
     top: 45px;
     position: relative;
+    min-width: 1040px;
 }
 
 

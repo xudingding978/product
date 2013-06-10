@@ -30,7 +30,7 @@
     <body style="background:#fff url('../images/texture.png') repeat;width: 100%;height: auto;">
 
 
-        <div id="main" class="container-fluid" style="min-height: 100%; padding: 45px 0 0 0;"></div>
+        <div id="main" class="container-fluid" style="padding:0;"></div>
     
     <script data-main="app_hubstar/scripts/main" src="app_hubstar/scripts/libs/requirejs/2.1.2/require.js"></script>
 

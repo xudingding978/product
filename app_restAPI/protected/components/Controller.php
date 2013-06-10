@@ -144,4 +144,73 @@ class Controller extends CController {
         $id = (string) rand(99999999, 999999999) . $id;
         return $id;
     }
+    
+    
+        protected function getRequestResult($returnType,$region, $requestString) {
+        $settings['log.enabled'] = true;
+        $sherlock = new Sherlock\Sherlock($settings);
+        $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
+//Build a new search request
+        $request = $sherlock->search();
+//populate a Term query to start
+        $termQuery = Sherlock\Sherlock::queryBuilder()
+                ->QueryStringMultiField()
+                ->fields(["couchbaseDocument.doc.keywords", "couchbaseDocument.doc.desc"])
+                ->query($requestString)
+                ->boost(2.5);
+        $request->index(Yii::app()->params['elasticSearchIndex'])
+                ->type("couchbaseDocument")
+                ->size(7)
+                ->query($termQuery);
+        
+        $response = $request->execute();
+        error_log("size of response".sizeof($response));
+        $results = '{"' . $returnType. '":[';
+        $i = 0;
+        foreach ($response as $hit) {
+            $results .= CJSON::encode($hit['source']['doc']);
+            if (++$i < count($response)) {
+                $results .= ',';
+            }
+        }
+        $results .= ']}';
+
+
+        return $results;
+    }
+    
+            protected function getRequestResultByID($returnType, $requestString) {
+        $settings['log.enabled'] = true;
+        $sherlock = new Sherlock\Sherlock($settings);
+        $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
+//Build a new search request
+        $request = $sherlock->search();
+//populate a Term query to start
+        $termQuery = Sherlock\Sherlock::queryBuilder()
+                ->QueryString()
+                ->fields("couchbaseDocument.doc.id")
+                ->query($requestString)
+                ->boost(2.5);
+        $request->index(Yii::app()->params['elasticSearchIndex'])
+                ->type("couchbaseDocument")
+                ->size(7)
+                ->query($termQuery);
+        
+        $response = $request->execute();
+
+        $results = '{"' . $returnType. '":';
+        $i = 0;
+        foreach ($response as $hit) {
+            $results .= CJSON::encode($hit['source']['doc'][$returnType][0]);
+            if (++$i < count($response)) {
+                $results .= ',';
+            }
+        }
+        $results .= '}';
+
+
+        return $results;
+    }
+    
+    
 }

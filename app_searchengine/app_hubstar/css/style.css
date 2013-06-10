@@ -425,7 +425,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     -moz-box-shadow: 0px 0px 20px rgba(0,190,255,0.8);
     box-shadow: 0px 0px 20px rgba(0,190,255,0.8);
 
-    margin-bottom: 5px;
+    bottom: 5px;
 }
 
 .editicon > .icon-pencil{

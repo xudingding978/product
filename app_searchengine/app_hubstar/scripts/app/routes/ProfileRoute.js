@@ -16,8 +16,7 @@ define([
         model: function(params) {
 
             return ProfileModel.find(params.profile_id);
-        },
-        renderTemplate: function() {
+        }, renderTemplate: function() {
             this.render('profile', {
                 into: "application"
             });

@@ -123,7 +123,7 @@ define('application', [
     "routes/SearchRoute",
     "routes/SearchIndexRoute",
     "routes/IndexIndexRoute",
-    "models/ObjectModel",
+    "models/MegaModel",
     "models/PostModel",
     "models/ProfileModel",
     "models/UserModel",
@@ -211,18 +211,15 @@ define('application', [
         SearchRoute,
         SearchIndexRoute,
         IndexIndexRoute,
-        Object,
+        Mega,
         Post,
         Profile,
         User,
         ImageArray,
-        Search,
+        Searchresult,
         Photo,
         Article,
         Video
-
-
-
         )
 {
 
@@ -303,12 +300,12 @@ define('application', [
         SearchRoute: SearchRoute,
         SearchIndexRoute: SearchIndexRoute,
         IndexIndexRoute: IndexIndexRoute,
-        Object: Object,
+        Mega: Mega,
         Post: Post,
         Profile: Profile,
         User: User,
         ImageArray: ImageArray,
-        Search: Search,
+        Searchresult: Searchresult,
         Photo: Photo,
         Article: Article,
         Video: Video,
@@ -316,9 +313,10 @@ define('application', [
             revision: 12,
             adapter: DS.RESTAdapter.create({
                 bulkCommit: false,
-                url: getRestAPIURL()
-
-
+                url: getRestAPIURL(),
+                plurals : {
+                    mega : "mega"
+                },
 //                map: {
 //                    Object: {
 //                        Photo: {embedded: 'always'}

@@ -30,20 +30,10 @@ define(["ember"], function(Ember) {
             });
             this.resource("searchs", {path: "/search"}, function( ) {
                 this.resource("searchIndex", {path: '/'});
-
                 this.resource('search', {path: ':search_id'});
             });
         });
 
-
-
-
-
-
-
-        this.resource("data", {
-            path: '/data'
-        });
         this.resource("users", {
             path: "/users"
         });

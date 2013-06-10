@@ -42,7 +42,7 @@ return
                     "enabled" => true,
                       "keys" => array("id" => ($result_arr) ? $result_arr['providers']['Facebook']['keys']['id']: "", "secret" => $result_arr['providers']['Facebook']['keys']['secret']),
                     "scope" => "publish_stream",
-                    "display" => "page"
+                    "display" => "popup"
                 ),
                 "Twitter" => array(
                     "enabled" => true,

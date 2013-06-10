@@ -62,22 +62,6 @@
     left: 28%;
 }
 
-.wrapper-dropdown-3 {
-    position: relative;
-    width: 200px;
-    margin: 0px;
-    left: 40%;
-    padding: 10px;
-    background: none repeat scroll 0% 0% rgb(255, 255, 255);
-    border-radius: 7px 7px 7px 7px;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    box-shadow: 0px 1px 1px rgba(50, 50, 50, 0.1);
-    cursor: pointer;
-    outline: medium none;
-    font-weight: bold;
-    color: rgb(138, 168, 189);
-}
-
 .container > .wrapper-dropdown-3 {
     font-weight: normal;
 }
@@ -705,7 +689,7 @@
 
 /*square button*/
 .square-button {
-    float: left;
+    display: inline-block;
     margin: 10px;
 
 }

@@ -9,7 +9,18 @@ define([
     var IndexIndexRoute = Ember.Route.extend({
         redirect: function() {
 
-            this.transitionTo('index');
+
+
+
+            if (localStorage.getItem("loginStatus")===null) {
+                this.transitionTo('index');
+
+            } else {
+                alert('loginred');
+                this.transitionTo('searchIndex');
+
+            }
+
         },
         model: function() {
             return SearchModel.find();

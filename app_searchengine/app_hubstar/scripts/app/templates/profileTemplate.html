@@ -23,7 +23,7 @@
                             {{#if controller.editing}}
                             {{view App.EditingView}}
                             {{else}}
-                            <a class="editicon" href="#"{{action toggleEditing}}>
+                            <a class="editicon" style="vertical-align: top;" href="#"{{action toggleEditing}}>
                                <i class="icon-pencil"></i>
                                 <b class="editicon_callout"></b>                             
                             </a>
@@ -35,7 +35,7 @@
                         </div>
 
                         <div style="display: inline-block;">
-                            <p style='display: inline-block; float: left; color: white; margin: 7px 0; font-size: 14px;'><a href='#' style='margin-right: 15px;'><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star-half" ></k></a>
+                            <p style='display: inline-block; float: left; color: white; margin: 7px 0; font-size: 14px;'><a href='#' style='margin-right: 15px;'><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star-half-full" ></k></a>
                                 <a href='#' style=" margin-right: 20px;">23 Reviews</a>|<a href='#'style=" margin-left: 20px;">Review me »</a></p>                       
                         </div>
 
@@ -67,7 +67,7 @@
                     <div class="aside-container" style="padding: 20px 0; border-bottom: 1px solid #ccc; border-top: 1px solid #fff; font-size: 14px;margin: auto;width: 95%;">
                         {{#unless controller.editingContact}}
                         <div>
-                            <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-time' style='margin-right: 10px;'></i>Contact Detail</div>
+                            <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-phone' style='margin-right: 10px;'></i>Contact Detail</div>
 
                             <a class="editicon"  style="display: inline-block;margin: 0 0 0 10px;" href="#"{{action toggleEditingContact}}>
                                <i class="icon-pencil"></i>
@@ -76,53 +76,64 @@
                         </div>
 
                         {{/unless}}
-                        <div style='display: inline-block;color: #888;text-align: right;'>
-                            <p>Contact: </p>
-                            <p>Type: </p>
-                            <p>Address: </p>
-                            <p>Phone: </p>
-                            <p>Website: </p>
-                        </div>
-                        <div style='font-weight: bold;display: inline-block;text-align: right;margin: auto;left: 0;width: 60%;'>
-                            {{#if controller.editingContact}}
-                            {{input type="text" value=contact_user  }}
-                            {{else}}
-                            <p {{action toggleEditingContact}}>{{contact_user}}</p>
-                            {{/if}}
 
-                            {{#if controller.editingContact}}
-                            {{input type="text" value=profile_category  }}
-                            {{else}}
-                            <p {{action toggleEditingContact}}>{{profile_category}}</p>
-                            {{/if}}
 
-                            {{#if controller.editingContact}}
-                            {{input type="text" value=profile_physical_address  }}
-                            {{else}}
-                            <p {{action toggleEditingContact}}>{{profile_physical_address}}</p>
-                            {{/if}}
 
-                            {{#if controller.editingContact}}
-                            {{input type="text" value=phone_number  }}
-                            {{else}}
-                            <p {{action toggleEditingContact}}>{{phone_number}}</p>
-                            {{/if}}
+                        <table id="aside_contact">
+                            <tr>
+                                <th style="color: #aaa; text-align: right; padding-bottom: 10px;font-size: 14px; font-weight: normal;">Contact:</th>
+                                {{#if controller.editingContact}}
+                                {{input type="text" value=contact_user  }}
+                                {{else}}
+                                <th {{action toggleEditingContact}} class="second-th">{{contact_user}}</th>
+                                {{/if}}
+                            </tr>
+                            <tr>
+                                <th>Type:</th>
+                                {{#if controller.editingContact}}
+                                {{input type="text" value=profile_category  }}
+                                {{else}}
+                                <th {{action toggleEditingContact}} class="second-th"><a href="#">{{profile_category}}</a></th>
+                                {{/if}}
+                            </tr>
+                            <tr>
+                                <th>Address:</th>
+                                {{#if controller.editingContact}}
+                                {{input type="text" value=profile_physical_address  }}
+                                {{else}}
+                                <th {{action toggleEditingContact}} class="second-th">{{profile_physical_address}}</th>
+                                {{/if}}
+                            </tr>
+                            <tr>
+                                <th>Phone:</th>
+                                {{#if controller.editingContact}}
+                                {{input type="text" value=phone_number  }}
+                                {{else}}
+                                <th {{action toggleEditingContact}} class="second-th">{{phone_number}}</th>
+                                {{/if}}
+                            </tr>
+                            <tr>
+                                <th>Website:</th>
+                                {{#if controller.editingContact}}
+                                {{input type="text" value=website_url  }}
+                                {{else}}
+                                <th  {{action toggleEditingContact}} class="second-th"><a href="http://ikitchen.y8.co.nz">{{website_url}}</a></th>
+                                {{/if}}
+                            </tr>
 
-                            {{#if controller.editingContact}}
-                            {{input type="text" value=website_url  }}
-                            {{else}}
-                            <p {{action toggleEditingContact}}>{{website_url}}</p>
-                            {{/if}}
-                        </div>
-
+                        </table>
                         {{#unless controller.editingContact}}
 
                         {{else}}
                         <div class="buttons" style="position: relative;display: block;margin: 10px auto 0;text-align: center;">
-                            <button type="button" {{action changeEditingContact }}  class="btn btn-primary"><i class="icon-ok icon-white"></i></button>
-                            <button type="button" {{action exitContactEditing }} class="btn"><i class="icon-remove"></i></button>
+
+                            <div  type="button" class="new-btn blue-btn" {{action changeEditingContact }}> <i class="icon-ok icon-white"></i></div>
+
+                            <div  type="button" class="new-btn" {{action exitContactEditing }}> <i class="icon-remove"></i></div>
+
                         </div>
                         {{/unless}}
+
                     </div>
 
 
@@ -155,27 +166,28 @@
 
             <!--PROFILE PAGE MAIN PART-->
 
-            <div class="profilemain" style="display: inline-block; width: 69%;left: 0;right: 0; background-color: white;margin: auto; min-width: 553px;">
+            <div class="profilemain" style="display: inline-block; width: 69.5%;left: 0;right: 0; background-color: white;margin: auto; min-width: 553px;">
 
                 <div class="profile-main-content" style="margin: 20px auto;width: 90%;">   
 
                     <div class="main_aboutus" style=" border-bottom: 1px solid #ccc; padding:20px 0 30px 0; font-size: 15px;">
-                        <h4 style='margin-bottom: 20px;display: inline-block;'><i class='icon-user' style='margin-right: 10px;display: inline-block;'></i>About Us</h4>
-                        {{#if controller.editingAbout}}
-                        {{view App.EditingAboutView}}
-                        {{else}}
-                        <a class="editicon" href="#"{{action toggleEditingAbout}}>
-                           <i class="icon-pencil"></i>
-                            <b class="editicon_callout"></b>                             
-                        </a>
-                        {{/if}}
+                        <div><p style='margin-bottom: 20px;display: inline-block; font-size: 18px;'><i class='icon-user' style='margin-right: 10px;display: inline-block;'></i>About Us</p>
+                            {{#if controller.editingAbout}}
+                            {{view App.EditingAboutView}}
+                            {{else}}
+                            <a class="editicon" href="#"{{action toggleEditingAbout}}>
+                               <i class="icon-pencil"></i>
+                                <b class="editicon_callout"></b>                             
+                            </a>
+                            {{/if}}
+                        </div>
                         {{{about}}}
 
                     </div>
 
 
                     <div class="main_comments" style="padding:20px 0 30px 0; font-size: 16px;">
-                        <h4><i class='icon-comments-alt' style='margin-right: 10px;'></i>Comments</h4>
+                        <p style="font-size:18px;"><i class='icon-comments-alt' style='margin-right: 10px;'></i>Comments</p>
 
 
                         <div class="collapes-container_inner">

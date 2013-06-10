@@ -371,12 +371,21 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     padding-bottom: 10px;
 }
 
+#aside_contact  th:first-child{
+    color: #aaa;
+    text-align: right;
+    padding-bottom: 10px;
+    font-size: 14px;
+    font-weight: normal;
+}
+
 #aside_contact  .second-th{
     display: block;
     width: 170px;
     margin-left: 20px;
     text-align: left;
     word-wrap: break-word;
+    font-weight: normal;
 }
 
 .main_aboutus p{

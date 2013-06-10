@@ -14,6 +14,17 @@ define([
 
     var ProfileView = Ember.View.extend({
         template: Ember.Handlebars.compile(profileTemplate),
+        didInsertElement: function() {
+
+            $(function() {
+                $('#masonry_profile_container').masonry({
+                    itemSelector: '.box',
+                    columnWidth: 0,
+                    isFitWidth: true
+                });
+            });
+
+        },
     });
 
     return ProfileView;

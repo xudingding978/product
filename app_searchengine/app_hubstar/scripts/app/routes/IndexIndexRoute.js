@@ -1,3 +1,4 @@
+
 define([
     'ember',
     'models/MegaModel'

@@ -13,66 +13,24 @@ class MegasController extends Controller {
     const JSON_RESPONSE_ROOT_PLURAL = 'megas';
 
     public function actionIndex() {
-        //   $this->setImage("http://trendsideas.com/media/article/35013.jpg");
-
-//        $ch = curl_init($url);
-//        curl_setopt($ch, CURLOPT_HEADER, 0);
-//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-//        curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
-//        $data = curl_exec($ch);
-
-
-//        $temp = explode("/", $_SERVER['REQUEST_URI']);
-//        $id = $temp [sizeof($temp) - 1];
-//
-//        echo $this->sendResponse(200, $id);
-
         try {
-            $settings['log.enabled'] = true;
-            $sherlock = new Sherlock\Sherlock($settings);
-            $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
-//Build a new search request
-            $request = $sherlock->search();
-//populate a Term query to start
-            $termQuery = Sherlock\Sherlock::queryBuilder()
-                    ->QueryString()
-                    ->fields(["couchbaseDocument.doc.keywords"])
-                    ->query("photo OR article")
-                    ->boost(2.5);
-            $request->index(Yii::app()->params['elasticSearchIndex'])
-                    ->type("couchbaseDocument")
-                    ->from(0)
-                    ->to(100)
-                    ->size(100)
-                    ->query($termQuery);
-            $response = $request->execute();
-            
-            
-
-            $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":[';
-            $i = 0;
-            foreach ($response as $hit) {
-                $results .= CJSON::encode($hit['source']['doc']);
-                if (++$i < count($response)) {
-                    $results .= ',';
-                }
+            $temp = explode("?", $_SERVER['REQUEST_URI']);
+            error_log(var_export($temp, true));
+            $response;
+            if (sizeof($temp) > 1) {
+                $request_string = $temp [sizeof($temp) - 1];
+                $regionAndsearchString = explode('&', $request_string);
+                $region = $this->getUserInput($regionAndsearchString[0]);
+                $searchString = $this->getUserInput($regionAndsearchString[1]);
+                $response = $this->getRequestResult($region, $searchString);
+                error_log(var_export($response, true));
+            } else {
+                error_log("default search");
             }
-            $results .= ']}';
-
-            echo $this->sendResponse(200, $results);
-//Execute the search and return results
+                echo $this->sendResponse(200, $response);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
-//            $cb = $this->couchBaseConnection();           
-//            $reponse_1 = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . "/" . '889131370378289753');
-//            $reponse_2 = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . "/" . '9717991370317029955');
-//            $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":[' . $reponse_1 . "," . $reponse_2;
-//            $results .= ']}';
-//            echo $this->sendResponse(200, $results);
-//        } catch (Exception $exc) {
-//            echo $exc->getTraceAsString();
-//        }
     }
 
     public function actionCreate() {
@@ -252,6 +210,51 @@ class MegasController extends Controller {
             'Body' => $data,
             'ACL' => 'public-read'
         ));
+    }
+
+    protected function getRequestResult($region, $requestString) {
+        error_log("adfefda   " . $requestString);
+        $settings['log.enabled'] = true;
+        $sherlock = new Sherlock\Sherlock($settings);
+        $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
+//Build a new search request
+        $request = $sherlock->search();
+//populate a Term query to start
+        $termQuery = Sherlock\Sherlock::queryBuilder()
+                ->QueryStringMultiField()
+                ->fields(["couchbaseDocument.doc.keywords", "couchbaseDocument.doc.desc"])
+                ->query($requestString)
+                ->boost(2.5);
+        $request->index(Yii::app()->params['elasticSearchIndex'])
+                ->type("couchbaseDocument")
+                ->from(0)
+                ->to(10)
+                ->size(100)
+                ->query($termQuery);
+        $response = $request->execute();
+        $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":[';
+        $i = 0;
+        foreach ($response as $hit) {
+            $results .= CJSON::encode($hit['source']['doc']);
+            if (++$i < count($response)) {
+                $results .= ',';
+            }
+        }
+        $results .= ']}';
+
+
+        return $results;
+//   echo $this->sendResponse(200, $results);
+////Execute the search and return results
+    }
+
+    protected function getUserInput($request_string) {
+
+        $returnString = "";
+        if ($request_string != null || $request_string != "") {
+            $returnString = explode('=', $request_string)[1];
+        }
+        return $returnString;
     }
 
 }

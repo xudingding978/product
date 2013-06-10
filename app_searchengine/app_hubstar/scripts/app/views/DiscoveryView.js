@@ -13,20 +13,17 @@ define([
             var object;
             if (search_key !== "" || area !== "") {
                 if (area !== "" && search_key !== "") {
-                    object = {"id": area + "+" + search_key, "region": area, "result": search_key};
+                    object = {"region": area, "search_string": search_key};
                 } else if (area === "" && search_key !== "") {
-                    object = {"id": search_key, "region": area, "result": search_key};
+                    object = {"region": area, "search_string": search_key};
                 } else if (area !== "" && search_key === "") {
-                    object = {"id": area, "region": area, "result": search_key};
+                    object = {"region": area, "search_string": search_key};
                 }
-
-
             } else {
-
-                object = {"id": "", "region": "", "result": ""};
+                object = {"id": "", "region": "", "search_string": ""};
 
             }
-            
+
 
             this.get("controller").send("newSearch", object);
 //            

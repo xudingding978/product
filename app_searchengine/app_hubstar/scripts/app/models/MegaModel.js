@@ -17,7 +17,7 @@ define(
         region: DS.attr('string'),
         topic: DS.attr('string'),
         category: DS.attr('string'),
-        created: DS.attr('string'),
+        created: DS.attr('date'),
         creator: DS.attr('string'),
         deleted: DS.attr('string'),
         domains: DS.attr('string'),

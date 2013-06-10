@@ -1,8 +1,8 @@
 
-<div id="myCarousel" class="carousel slide">
+<div id="myCarousel" class="carousel" style='z-index: 1;'>
     <div style="background: url('../../../images/shadowontop.png') repeat-x;position: absolute;top: 620px;z-index: 1000;width: 100%;height: 30px;"></div>
     <!-- Carousel items -->
-    <div class="carousel-inner" style="min-width:1280px">
+    <div class="carousel-inner" style="min-width:1260px">
         <div class="active item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_a.jpg"></div>
         <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_b.jpg"></div>
         <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_c.jpg"></div>
@@ -16,35 +16,43 @@
         <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_k.jpg"></div>
     </div>
     <!-- Carousel nav -->
-    <a id="slider-control" class="icon-angle-left" href="#myCarousel" data-slide="prev" style="position: relative; float: left;left: 5%; top: -400px;font-size: 6em;z-index: 5;"></a>
-    <a id="slider-control" class="icon-angle-right" href="#myCarousel" data-slide="next"style="position: relative; float: right;left: -5%; top: -400px;font-size: 6em;z-index: 5;"></a>
-</div>
-<div class="tile_img" style="z-index: 5;">
-    <div id="dd3" class="wrapper-dropdown-3" tabindex="1" style="margin-left: 68.5%; margin-bottom: -2%;width:270px; height:45px;">
-        <div>
-            <div id="dropdown-cover" class="dropdown_test_3" style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -10.5px; padding-left: 35px;">
-                <div class="login-icon">
-                    <i class="icon-facebook icon-large">
-                    </i>
-                </div>   
-            </div>
-            <div  id="dropdown-cover" onclick="Facebook(650, 400);" style="float: right; bottom: 10px; position: relative; width: 204px; height: 45px; margin-right: -10px;">
-                <div class="sign-in-with" >Sign In with Facebook</div>
-            </div>
-        </div>
-        <ul class="dropdown" style="width:270px">
-            <li  onclick="Twitter(650, 400);" ><a style="color:rgb(0,172,237)" href="#"><i class="icon-twitter icon-large"></i>Sign in with Twitter</a></li>
-            <li  onclick="Google(650, 400);" ><a style="color:rgb(211,72,54)" href="#"><i class="icon-google-plus icon-large"></i>Sign in with Google+</a></li>
-            <li  onclick="Yahoo(650, 400);" ><a style="color:rgb(123,0,153)" href="#"><img src='../../../images/yahoo.png' style='width: auto; height: 35px; float:left;margin: -3% -5% 0 6%;'>Sign in with Yahoo</a></li>
-            <li  onclick="Sina(650, 400);" ><a style="color:rgb(245,213,0)" href="#"><img src='../../../images/sina.png' style='width: auto; height: 35px; float:left;margin: -3% -3% 0 6%;'>Sign in with Sina</a></li>
-            <li  onclick="QQ(650, 400);" ><a style="color:rgb(62,59,62)" href="#"><img src='../../../images/qq.png' style='width: auto; height: 35px; float:left;margin: -3% -2% 0 7%;'>Sign in with QQ</a></li>
+    <a id="slider-control" class="icon-angle-left" href="#myCarousel" data-slide="prev" style=" float: left;left: 5%;"></a>
+    <a id="slider-control" class="icon-angle-right" href="#myCarousel" data-slide="next"style="float: right;left: -5%;"></a>
 
-        </ul>
+    <div class="tile_img">
+        <div id="dd3" class="wrapper-dropdown-3" tabindex="1" style=" width:270px; height:45px;left: 360px;">
+            <div>
+                <div id="dropdown-cover" class="dropdown_test_3" style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -10.5px; padding-left: 35px;">
+                    <div class="login-icon">
+                        <i class="icon-facebook icon-large">
+                        </i>
+                    </div>   
+                </div>
+                <div  id="dropdown-cover" onclick="Facebook(650, 400);" style="float: right; bottom: 10px; position: relative; width: 204px; height: 45px; margin-right: -10px;">
+                    <div class="sign-in-with" >Sign In with Facebook</div>
+                </div>
+            </div>
+            <ul class="dropdown" style="width:270px">
+                <li  onclick="Twitter(650, 400);" ><a style="color:rgb(0,172,237)" href="#"><i class="icon-twitter icon-large"></i>Sign in with Twitter</a></li>
+                <li  onclick="Google(650, 400);" ><a style="color:rgb(211,72,54)" href="#"><i class="icon-google-plus icon-large"></i>Sign in with Google+</a></li>
+                <li  onclick="Yahoo(650, 400);" ><a style="color:rgb(123,0,153)" href="#"><img src='../../../images/yahoo.png' style='width: auto; height: 35px; float:left;margin: -3% -5% 0 6%;'>Sign in with Yahoo</a></li>
+                <li  onclick="Sina(650, 400);" ><a style="color:rgb(245,213,0)" href="#"><img src='../../../images/sina.png' style='width: auto; height: 35px; float:left;margin: -3% -3% 0 6%;'>Sign in with Sina</a></li>
+                <li  onclick="QQ(650, 400);" ><a style="color:rgb(62,59,62)" href="#"><img src='../../../images/qq.png' style='width: auto; height: 35px; float:left;margin: -3% -2% 0 7%;'>Sign in with QQ</a></li>
+
+            </ul>
+        </div>
+        <div class="title_text" >
+            <p style="font-size: 45px; font-weight: bold; line-height: 50px;">
+                COLLECT YOUR ONLINE RESOURCE FOR KITCHENS, PRODUCTS, SERVICES & IDEAS
+            </p>
+            <p style="ffont-size: 16px; line-height: 20px; width: 900px;left: 100px;position: relative;">
+                Hundreds of videos, thousands of articles and tens of thousands of high quality images from around the world showcasing: Architecture, Kitchen Design, Bathroom Design, Interiors, Landscape Design and Commercial Design. 
+            </p>
+        </div>
     </div>
-    <div class="title_text" >
-        <img src="../../../images/frontpage-intro.png">
-    </div>
+
 </div>
+
 
 
 <script type="text/javascript">
@@ -52,14 +60,14 @@
 
 
 
-                function setDomain() {
+                    function setDomain() {
 
-                    var api_url = document.domain;
-                    var api_domain_start_pos = api_url.indexOf('.');
-                    var api_url = api_url.slice(api_domain_start_pos);
+                        var api_url = document.domain;
+                        var api_domain_start_pos = api_url.indexOf('.');
+                        var api_url = api_url.slice(api_domain_start_pos);
 
-                    return api_url;
-                }
+                        return api_url;
+                    }
 
 
 
@@ -76,51 +84,51 @@
                     
                     
 
-                }
-                function Yahoo(popupWidth, popupHeight) {
-                    var left = (screen.width / 2) - (popupWidth / 2);
-                    var top = (screen.height / 2) - (popupHeight / 2);
-                    var api_url = "http://account" + setDomain() + "/hybridauth/default/login/?provider=Yahoo";
-                    newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-                    if (window.focus) {
-                        newwindow.focus();
                     }
-                }
-                function QQ(popupWidth, popupHeight) {
-                    var left = (screen.width / 2) - (popupWidth / 2);
-                    var top = (screen.height / 2) - (popupHeight / 2);
-                    var api_url = "http://account" + setDomain() + "/hybridauth/default/login/?provider=QQ";
-                    newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-                    if (window.focus) {
-                        newwindow.focus();
+                    function Yahoo(popupWidth, popupHeight) {
+                        var left = (screen.width / 2) - (popupWidth / 2);
+                        var top = (screen.height / 2) - (popupHeight / 2);
+                        var api_url = "http://account" + setDomain() + "/hybridauth/default/login/?provider=Yahoo";
+                        newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+                        if (window.focus) {
+                            newwindow.focus();
+                        }
                     }
-                }
-                function Sina(popupWidth, popupHeight) {
-                    var left = (screen.width / 2) - (popupWidth / 2);
-                    var top = (screen.height / 2) - (popupHeight / 2);
-                    window.location.href = "http://account" + "<?php echo $domain ?>" + "/hybridauth/default/login/?provider=Sina";
-                    var api_url = "http://account" + setDomain() + "/hybridauth/default/login/?provider=Sina";
-                    newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-                    if (window.focus) {
-                        newwindow.focus();
+                    function QQ(popupWidth, popupHeight) {
+                        var left = (screen.width / 2) - (popupWidth / 2);
+                        var top = (screen.height / 2) - (popupHeight / 2);
+                        var api_url = "http://account" + setDomain() + "/hybridauth/default/login/?provider=QQ";
+                        newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+                        if (window.focus) {
+                            newwindow.focus();
+                        }
                     }
-                }
-                function Twitter(popupWidth, popupHeight) {
-                    var left = (screen.width / 2) - (popupWidth / 2);
-                    var top = (screen.height / 2) - (popupHeight / 2);
-                    var api_url = "http://account" + setDomain() + "/hybridauth/default/login/?provider=Twitter";
-                    newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-                    if (window.focus) {
-                        newwindow.focus();
+                    function Sina(popupWidth, popupHeight) {
+                        var left = (screen.width / 2) - (popupWidth / 2);
+                        var top = (screen.height / 2) - (popupHeight / 2);
+                        window.location.href = "http://account" + "<?php echo $domain ?>" + "/hybridauth/default/login/?provider=Sina";
+                        var api_url = "http://account" + setDomain() + "/hybridauth/default/login/?provider=Sina";
+                        newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+                        if (window.focus) {
+                            newwindow.focus();
+                        }
                     }
-                }
-                function Google(popupWidth, popupHeight) {
-                    var left = (screen.width / 2) - (popupWidth / 2);
-                    var top = (screen.height / 2) - (popupHeight / 2);
-                    var api_url = "http://account" + setDomain() + "/hybridauth/default/login/?provider=Google";
-                    newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-                    if (window.focus) {
-                        newwindow.focus();
+                    function Twitter(popupWidth, popupHeight) {
+                        var left = (screen.width / 2) - (popupWidth / 2);
+                        var top = (screen.height / 2) - (popupHeight / 2);
+                        var api_url = "http://account" + setDomain() + "/hybridauth/default/login/?provider=Twitter";
+                        newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+                        if (window.focus) {
+                            newwindow.focus();
+                        }
                     }
-                }
+                    function Google(popupWidth, popupHeight) {
+                        var left = (screen.width / 2) - (popupWidth / 2);
+                        var top = (screen.height / 2) - (popupHeight / 2);
+                        var api_url = "http://account" + setDomain() + "/hybridauth/default/login/?provider=Google";
+                        newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+                        if (window.focus) {
+                            newwindow.focus();
+                        }
+                    }
 </script>

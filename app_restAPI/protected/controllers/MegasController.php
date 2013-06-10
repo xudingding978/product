@@ -15,11 +15,6 @@ class MegasController extends Controller {
     public function actionIndex() {
         //   $this->setImage("http://trendsideas.com/media/article/35013.jpg");
 
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
-        $data = curl_exec($ch);
 
 
 //        $temp = explode("/", $_SERVER['REQUEST_URI']);

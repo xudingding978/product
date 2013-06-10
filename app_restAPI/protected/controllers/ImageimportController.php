@@ -80,34 +80,34 @@ class ImageimportController extends Controller {
         return $data;
     }
 
-    public function photoSavingToS3($request_arr, $path) {
-        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
-        $key = explode(".", $_SERVER['HTTP_HOST']);
-        $key = $key[1] . '.' . $key[2];
-        $result = $cb->get($key);
-        $result_arr = CJSON::decode($result, true);
-        $response = false;
-        error_log(var_export($request_arr ["mega"]['photos'][0], true));
-        $data = $this->getInputData($request_arr ["object"]['photos'][0]['photo_type'], $request_arr ["object"]['photos'][0]['photo_url']);
-        $client = Aws\S3\S3Client::factory(
-                        $result_arr["providers"]["S3Client"]
-        );
-//        if ($client->doesObjectExist('hubstar-dev', $path . $request_arr ["object"]['photos'][0]['photo_title'])) {
-//            $response = false;
-//        } else {
-//            $client->putObject(array(
-//                'Bucket' => "hubstar-dev",
-//                'Key' => $path . $request_arr ["object"]['photos'][0]['photo_title'],
-//                'Body' => $data,box/NetBeansProjects/hubstar/app_restAPI
-//                'ACL' => 'public-read'
-//            ));
-//            $response = true;
-//        }
-
-
-
-        return $response;
-    }
+//    public function photoSavingToS3($request_arr, $path) {
+//        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
+//        $key = explode(".", $_SERVER['HTTP_HOST']);
+//        $key = $key[1] . '.' . $key[2];
+//        $result = $cb->get($key);
+//        $result_arr = CJSON::decode($result, true);
+//        $response = false;
+//        error_log(var_export($request_arr ["mega"]['photos'][0], true));
+//        $data = $this->getInputData($request_arr ["object"]['photos'][0]['photo_type'], $request_arr ["object"]['photos'][0]['photo_url']);
+//        $client = Aws\S3\S3Client::factory(
+//                        $result_arr["providers"]["S3Client"]
+//        );
+////        if ($client->doesObjectExist('hubstar-dev', $path . $request_arr ["object"]['photos'][0]['photo_title'])) {
+////            $response = false;
+////        } else {
+////            $client->putObject(array(
+////                'Bucket' => "hubstar-dev",
+////                'Key' => $path . $request_arr ["object"]['photos'][0]['photo_title'],
+////                'Body' => $data,box/NetBeansProjects/hubstar/app_restAPI
+////                'ACL' => 'public-read'
+////            ));
+////            $response = true;
+////        }
+//
+//
+//
+//        return $response;
+//    }
 
     public function setImage($url) {
 
@@ -134,7 +134,6 @@ class ImageimportController extends Controller {
     }
 
     public function watermark($url) {
-
         $response;
         if ($this->shouldBeWaterMarked($url)) {
             $stamp = $this->getStamp($url);
@@ -146,14 +145,9 @@ class ImageimportController extends Controller {
                 $sx = imagesx($stamp);
                 $sy = imagesy($stamp);
                 imagecopy($im, $stamp, imagesx($im) - $sx - $marge_right, imagesy($im) - $sy - $marge_bottom, 0, 0, imagesx($stamp), imagesy($stamp));
-                ob_start();
-                imagepng($im);
-                $contents = ob_get_contents();
-                ob_end_clean();
+                $data = $this->convertData($imageInfo['mime'], $im);
                 header('Content-type: ' . $imageInfo['mime']);
-                $name = $this->imageRename($imageInfo, $url);
-                $this->putImagetoS3($name, $contents);
-                $response = "https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/" . $name;
+                $response = $this->imageRenameAndputImagetoS3($imageInfo, $url, $data);
             } catch (Exception $e) {
                 $response = 'Caught exception: ' . $e->getMessage() . "\n";
             }
@@ -165,9 +159,7 @@ class ImageimportController extends Controller {
                 curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
                 $data = curl_exec($ch);
                 $imageInfo = $this->getImageInfo($url);
-                $name = $this->imageRename($imageInfo, $url);
-                $this->putImagetoS3($name, $data);
-                $response = "https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/" . $name;
+                $response = $this->imageRenameAndputImagetoS3($imageInfo, $url, $data);
             } catch (Exception $e) {
                 $response = 'Caught exception: ' . $e->getMessage() . "\n";
             }
@@ -235,8 +227,8 @@ class ImageimportController extends Controller {
         return $im;
     }
 
-    protected function imageRename($imageInfo, $url) {
-        $tempname;
+    protected function imageRenameAndputImagetoS3($imageInfo, $url, $data) {
+        $tempname = "false";
         $exteonsion = ".png";
         if (strpos($url, '.jpg')) {
             $tempname = explode(".jpg", $url);
@@ -248,9 +240,19 @@ class ImageimportController extends Controller {
         } elseif (strpos($imageInfo['mime'], 'png')) {
             $exteonsion = ".png";
         }
-        $name = $tempname[0] . "_" . $imageInfo[0] . "x" . $imageInfo[1] . "$exteonsion";
+        $name = $tempname[0] . "_" . $imageInfo[0] . "x" . $imageInfo[1] . "$exteonsion"; //  $width  = $get[0]; $height = $get[1]; $type   = $get[2];  $attr   = $get[3];  $bits   = $get['bits']; $mime   = $get['mime'];
         $name = str_replace('http://', '', $name);
-        return $name;
+        $this->putImagetoS3($name, $data);
+        $url = "https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/" . $name;
+        $width = $imageInfo[0];
+        $height = $imageInfo[1];
+        $tempArray = array(
+            "width" => $width,
+            "height" => $height,
+            "url" => $url,
+        );
+        $returnReponse = json_encode($tempArray, true);
+        return $returnReponse;
     }
 
     function is_image($path) {
@@ -275,6 +277,19 @@ class ImageimportController extends Controller {
             $response = "true";
         }
         return $response;
+    }
+
+    function convertData($type, $data) {
+        ob_start();
+        if ($type == "image/png") {
+
+            imagepng($data);
+        } elseif ($type == "image/jpeg") {
+            imagejpeg($data, null, 80);
+        }
+        $return = ob_get_contents();
+        ob_end_clean();
+        return $return;
     }
 
 }

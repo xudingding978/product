@@ -5,8 +5,8 @@ define(
             'emberData'
         ], function() {
     DS.RESTAdapter.map('App.Mega', {
-        photos: {embedded: 'always'},
-        users: {embedded: 'always'}
+        photo: {embedded: 'always'},
+        user: {embedded: 'always'}
     });
 
     var MegaModel = DS.Model.extend({
@@ -39,8 +39,8 @@ define(
         updated: DS.attr('string'),
         uri_url: DS.attr('string'),
         view_count: DS.attr('string'),
-        photos: DS.hasMany('App.Photo'),
-        users: DS.hasMany('App.User'),
+        photo: DS.hasMany('App.Photo'),
+        user: DS.hasMany('App.User'),
         more_button: function() {
             return "more_button_" + this.get('id');
         }.property('id'),

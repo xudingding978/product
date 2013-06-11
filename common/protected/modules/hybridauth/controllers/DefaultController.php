@@ -164,30 +164,30 @@ class DefaultController extends CController {
 
 
 
-        $temp["users"][0]["id"] = $rand_id;
-        $temp["users"][0]["identifier"] = $userProfile->IDENTIFIER;
-        $temp["users"][0]["profile_url"] = $userProfile->PROFILE_URL;
-        $temp["users"][0]["website_url"] = $userProfile->WEBSITE_URL;
+        $temp["user"][0]["id"] = $rand_id;
+        $temp["user"][0]["identifier"] = $userProfile->IDENTIFIER;
+        $temp["user"][0]["profile_url"] = $userProfile->PROFILE_URL;
+        $temp["user"][0]["website_url"] = $userProfile->WEBSITE_URL;
 
-        $temp["users"][0]["photo_url"] = $userProfile->PHOTO_URL;
-        $temp["users"][0]["photo_url_large"] = $userProfile->PHOTO_URL_LARGE;
-        $temp["users"][0]["display_name"] = $userProfile->DISPLAY_NAME;
-        $temp["users"][0]["description"] = $userProfile->DESCRIPTION;
-        $temp["users"][0]["first_name"] = $userProfile->FIRST_NAME;
-        $temp["users"][0]["last_name"] = $userProfile->LAST_NAME;
-        $temp["users"][0]["gender"] = $userProfile->GENDER;
-        $temp["users"][0]["age"] = $userProfile->AGE;
-        $temp["users"][0]["birth_day"] = $userProfile->BIRTH_DAY;
-        $temp["users"][0]["birth_month"] = $userProfile->BIRTH_MONTH;
-        $temp["users"][0]["birth_year"] = $userProfile->BIRTH_YEAR;
+        $temp["user"][0]["photo_url"] = $userProfile->PHOTO_URL;
+        $temp["user"][0]["photo_url_large"] = $userProfile->PHOTO_URL_LARGE;
+        $temp["user"][0]["display_name"] = $userProfile->DISPLAY_NAME;
+        $temp["user"][0]["description"] = $userProfile->DESCRIPTION;
+        $temp["user"][0]["first_name"] = $userProfile->FIRST_NAME;
+        $temp["user"][0]["last_name"] = $userProfile->LAST_NAME;
+        $temp["user"][0]["gender"] = $userProfile->GENDER;
+        $temp["user"][0]["age"] = $userProfile->AGE;
+        $temp["user"][0]["birth_day"] = $userProfile->BIRTH_DAY;
+        $temp["user"][0]["birth_month"] = $userProfile->BIRTH_MONTH;
+        $temp["user"][0]["birth_year"] = $userProfile->BIRTH_YEAR;
 
-        $temp["users"][0]["email"] = $userProfile->EMAIL;
-        $temp["users"][0]["phone"] = $userProfile->PHONE;
-        $temp["users"][0]["email_verified"] = $userProfile->EMAIL_VERIFIED;
-        $temp["users"][0]["country"] = $userProfile->COUNTRY;
-        $temp["users"][0]["region"] = $userProfile->REGION;
-        $temp["users"][0]["city"] = $userProfile->CITY;
-        $temp["users"][0]["zip"] = $userProfile->ZIP;
+        $temp["user"][0]["email"] = $userProfile->EMAIL;
+        $temp["user"][0]["phone"] = $userProfile->PHONE;
+        $temp["user"][0]["email_verified"] = $userProfile->EMAIL_VERIFIED;
+        $temp["user"][0]["country"] = $userProfile->COUNTRY;
+        $temp["user"][0]["region"] = $userProfile->REGION;
+        $temp["user"][0]["city"] = $userProfile->CITY;
+        $temp["user"][0]["zip"] = $userProfile->ZIP;
 
 
 
@@ -224,7 +224,7 @@ class DefaultController extends CController {
     public function getMega() {
         $mega = '{
   "id": "",
-  "type": "users",
+  "type": "user",
   "accessed": null,
   "active_yn": null,
   "article_id": null,
@@ -254,8 +254,8 @@ class DefaultController extends CController {
   "uri_url": null,
   "view_count": null,
   "keywords": "",
-  "photos": [],
-  "users": []
+  "photo": [],
+  "user": []
 }';
         return json_decode($mega, true);
     }

@@ -12,14 +12,12 @@ define([
             //  controller.set("indexPage",true);
             //   controller.get('application').remove();
         },
-        model: function() {
-     //   console.log( UserModel.find());
-
-            return UserModel.find();
+        model: function(params) {
+            return UserModel.find(params.user_id);
         },
         renderTemplate: function() {
 
-            this.render('users', {
+            this.render('user', {
                 into: "application"
             });
 

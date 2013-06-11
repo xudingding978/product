@@ -10,10 +10,10 @@ define([
     var PhotosRoute = Ember.Route.extend({
         setupController: function(controller, model) {
         },
-        model: function() {
-
-            return PhotoModel.find();
-        }
+//        model: function() {
+//
+//            return PhotoModel.find();
+//        }
 
 
     });

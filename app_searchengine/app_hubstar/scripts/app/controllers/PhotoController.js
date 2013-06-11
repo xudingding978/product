@@ -16,8 +16,6 @@ define(['ember', 'models/PhotoModel']
         getTempArr: function() {
           return tempArr;
         }
-
-
     });
     return PhotoController;
 });

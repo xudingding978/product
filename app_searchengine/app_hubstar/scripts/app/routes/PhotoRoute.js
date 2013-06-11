@@ -6,8 +6,8 @@ define([
         PhotoModel
         ) {
     "use strict";
-
     var PhotoRoute = Ember.Route.extend({
+
         setupController: function(controller, model) {
             this.controllerFor('photo').tempArrPush();
             this.controllerFor('photo').set('model', PhotoModel.find(model.id));
@@ -15,7 +15,10 @@ define([
          console.log(this.controllerFor('photo').tempArrPush());
          console.log(this.controllerFor('photo').getTempArr().length);
         },
+        nextImage: function() {
 
+            alert('hahah');
+        },
         activate: function() {
             $("body").css("overflow", "hidden");
             $('#footer').attr("style", "display:none");

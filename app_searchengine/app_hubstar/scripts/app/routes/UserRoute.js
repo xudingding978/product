@@ -15,6 +15,7 @@ define([
         model: function(params) {
             return UserModel.find(params.user_id);
         },
+  
         renderTemplate: function() {
 
             this.render('user', {

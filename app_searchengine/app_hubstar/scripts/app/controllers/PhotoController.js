@@ -2,6 +2,7 @@ define(['ember', 'models/PhotoModel']
         , function(Ember, PhotoModel) {
 
     var tempArr = [];
+    var currentPhotoNumber=0;
     var PhotoController = Ember.Controller.extend({
         editingContact: function() {
             this.set('contact', !this.get('contact'));
@@ -15,10 +16,10 @@ define(['ember', 'models/PhotoModel']
 
         },
         previesImage: function() {
-            alert('left');
+
         },
         nextImage: function() {
-            alert('right');
+
         },
 
         getTempArr: function() {
@@ -31,8 +32,7 @@ define(['ember', 'models/PhotoModel']
         },
         setFirestPhoto: function()
         {
-            this.set('model', tempArr[0]);
-
+            this.set('model', tempArr[currentPhotoNumber]);
         }
     });
     return PhotoController;

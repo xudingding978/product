@@ -23,7 +23,7 @@ class MegasController extends Controller {
                 $regionAndsearchString = explode('&', $request_string);
                 $region = $this->getUserInput($regionAndsearchString[0]);
                 $searchString = $this->getUserInput($regionAndsearchString[1]);
-            //    error_log("wwwwwwwwwwwwwwwww           ");
+                error_log("aaaaaaaaaaaaaaa         ".$searchString);
                 $response = $this->getRequestResult(self::JSON_RESPONSE_ROOT_PLURAL, $region, $searchString);
                 error_log(var_export($response, true));
             } else {

@@ -13,55 +13,41 @@ class UsersController extends Controller {
     const JSON_RESPONSE_ROOT_PLURAL = 'users';
 
     public function actionIndex() {
-        //   $this->setImage("http://trendsideas.com/media/article/35013.jpg");
-//        $temp = explode("/", $_SERVER['REQUEST_URI']);
-//        $id = $temp [sizeof($temp) - 1];
-//
-//        echo $this->sendResponse(200, $id);
+        $settings['log.enabled'] = true;
+        // $settings['log.file'] = '/var/log/sherlock/newlogfile.log';
+        $settings['log.level'] = 'debug';
+        $sherlock = new Sherlock\Sherlock($settings);
+        $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
 
-        try {
-            $settings['log.enabled'] = true;
-            $sherlock = new Sherlock\Sherlock($settings);
-            $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
-//Build a new search request
-            $request = $sherlock->search();
-//populate a Term query to start
-            $termQuery = Sherlock\Sherlock::queryBuilder()
-                    ->QueryStringMultiField()
-                    ->fields(["couchbaseDocument.doc.keywords", "couchbaseDocument.doc.desc"])
-                    ->query("work kitchen")
-                    ->boost(2.5);
-            $request->index(Yii::app()->params['elasticSearchIndex'])
-                    ->type("couchbaseDocument")
-                    ->from(0)
-                    ->to(10)
-                    ->size(100)
-                    ->query($termQuery);
-            $response = $request->execute();
-            $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":[';
-            $i = 0;
-            foreach ($response as $hit) {
-                $results .= CJSON::encode($hit['source']['doc']);
-                if (++$i < count($response)) {
-                    $results .= ',';
-                }
+        //Build a new search request
+        $request = $sherlock->search();
+//        $json = '{"query":
+//                            {"bool":
+//                                {"must":[
+//                                    {"query_string":
+//                                        {"default_field":"couchbaseDocument.doc.keywords","query":"home"}}],
+//                                            "must_not":[],"should":[]
+//                                                }},
+//                                                "from":0,"size":50,"sort":[],"facets":{}}';
+        
+    $json =  '{"query":{"bool":{"must":[{"query_string":{"default_field":"couchbaseDocument.doc.type","query":"user"}}],"must_not":[],"should":[]}},"from":0,"size":50,"sort":[],"facets":{}}';
+        $rawTermQuery = Sherlock\Sherlock::queryBuilder()->Raw($json);
+
+        $response = $request->query($rawTermQuery)->execute();
+        $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":[';
+
+        //Iterate over the hits and print out some data
+        $i = 0;
+        foreach ($response as $hit) {
+            $results .= CJSON::encode($hit['source']['doc']['user'][0]);
+            if (++$i !== count($response)) {
+                $results .= ',';
             }
-            $results .= ']}';
-
-            echo $this->sendResponse(200, $results);
-//Execute the search and return results
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
         }
-//            $cb = $this->couchBaseConnection();           
-//            $reponse_1 = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . "/" . '889131370378289753');
-//            $reponse_2 = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . "/" . '9717991370317029955');
-//            $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":[' . $reponse_1 . "," . $reponse_2;
-//            $results .= ']}';
-//            echo $this->sendResponse(200, $results);
-//        } catch (Exception $exc) {
-//            echo $exc->getTraceAsString();
-//        }
+        $results .= ']}';
+
+        echo $this->sendResponse(200, $results);
+
     }
 
     public function actionCreate() {
@@ -113,7 +99,7 @@ class UsersController extends Controller {
 
             $reponse = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . "/users/" . $id);
 
-            $respone_user = json_decode($reponse, true)['users'][0];
+            $respone_user = json_decode($reponse, true)['user'][0];
 
     //        error_log("eeeeeeeeeeeeee     " . var_export($respone_user, true));
 

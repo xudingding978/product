@@ -13,18 +13,13 @@ define([
             if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
                 alert('please login in');
                 this.transitionTo('indexIndex');
-
             } else {
-
-                this.transitionTo('profiles');
-
+                this.transitionTo('users');
             }
-
-
         },
         renderTemplate: function() {
 
-            this.render('profiles', {
+            this.render('users', {
                 into: "application"
             });
         }

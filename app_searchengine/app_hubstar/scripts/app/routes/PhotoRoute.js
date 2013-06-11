@@ -11,7 +11,7 @@ define([
         setupController: function(controller, model) {
             this.controllerFor('photo').set('model', PhotoModel.find(model.id));
             
-           console.log(this.controllerFor('photo').tempArrPush());
+         console.log(this.controllerFor('photo').tempArrPush());
          console.log(this.controllerFor('photo').getTempArr().length);
         },
 

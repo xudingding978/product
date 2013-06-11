@@ -11,10 +11,19 @@ define(['ember', 'models/PhotoModel']
         },
         tempArrPush: function() {
             tempArr.push({"cool": "34.33", "alsocool": "45454"});
-          tempArr.push({"cool": "34.39", "alsocool": "45459"});
+            tempArr.push({"cool": "34.39", "alsocool": "45459"});
         },
         getTempArr: function() {
-          return tempArr;
+            return tempArr;
+        },
+        getFirstPhoto: function(id) {
+            var photo = PhotoModel.find(id);
+          
+            tempArr.push(photo);
+        },
+        setFirestPhoto: function()
+        {
+            this.set('model', tempArr[0]);
         }
     });
     return PhotoController;

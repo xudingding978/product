@@ -11,7 +11,6 @@ define([
             this.controllerFor('photo').getFirstPhoto(model.id);
             this.controllerFor('photo').setFirestPhoto();
         },
-
         activate: function() {
             $("body").css("overflow", "hidden");
             $('#footer').attr("style", "display:none");
@@ -21,9 +20,10 @@ define([
             $('#footer').attr("style", "display:block");
         },
         renderTemplate: function() {
-
+            var controller = this.controllerFor('mega');
             this.render('photo', {
-                into: "index"
+                into: "index",
+                controller: controller
             });
         }
 

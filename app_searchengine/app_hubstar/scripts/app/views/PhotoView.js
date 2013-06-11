@@ -33,6 +33,12 @@ define([
             $('#partner_action').slideToggle("slow");
             //       this.set('partnerTag', !this.get('partnerTag'));
 
+        },
+        popupAibum: function(e) {
+            alert(e);
+            var album_id = "#album_" + e;
+
+            $(album_id).slideToggle("slow");
         }
 
     });

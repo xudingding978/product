@@ -24,37 +24,28 @@
         </div>
 
         <!--THIS IS THE ALBUM BOX-->
-        <div style="bottom: 44px; right: 0px; height: 300px;background-color: grey;overflow: hidden;position: absolute;z-index: 5; display: block;width: 100%;">
-            <div style="background-color: #333;color: #fff;font-weight: bold;height: 30px;padding: 13px 0 0 40px;width: 100%;position: relative;display: -moz-inline-box;display: inline-block;">
-                All photos
-                <div>(55)</div>
-            </div>
-            <div class="exit">
-                <div class="closeview" >
-                    <i class="icon-remove"></i>
-                </div>
-            </div>
-            <div style="margin: 10px;"> here lies the images.</div>
-        </div>
+
+        {{view App.ShowAlbumView}}
+  
         <!--THIS IS THE ALBUM BOX-->
 
         <div class="bottom-controlbar" >
-            <div class="text-on-black" style="right: 132px;"> object Name</div>
+            <div class="text-on-black" style="right: 132px;"> object Name </div>
             <div class="icon-on-black"  {{action previesImage}}>
-                <i class="icon-arrow-left"></i>
+                 <i class="icon-arrow-left"></i>
             </div>
-            <div class="icon-on-black" style="left: 44px;" >
-                <i class="icon-th"></i>
+            <div class="icon-on-black" style="left: 44px;" {{action popupAibum model.id on="click" target="view"}}>
+                 <i class="icon-th"></i>
             </div>
             <div class="icon-on-black" style="left: 88px;" {{action nextImage }}>
-                <i class="icon-arrow-right"></i>
+                 <i class="icon-arrow-right"></i>
             </div>
             <div class="text-on-black" style="left: 132px;"> 18/30 </div>
         </div>
 
-        
-      
-        
+
+
+
     </div>
 
 
@@ -66,11 +57,11 @@
         <div>
             <div class="object-poster easing" {{action setNameTag on="click" target="view"}}>
                 <div class="profilepic-container">
-                    <a href="#"><img {{bindAttr src="model.photo_image_thumbnail_url"}} class="profilepic"/></a>              
+                    <a href="#"><img {{bindAttr src="model.owner_profile_pic"}} class="profilepic"/></a>              
                 </div>
                 <div class="poster_user" >
-                    <a class="poster-name" href="#">NAME</a>
-                    <span class="posttime">yesterday 8:37 </span>
+                    <a class="poster-name" href="#">{{model.owner_title}}</a>
+                    <span class="posttime">{{date model.created}} </span>
                 </div>
 
                 <div class="contactmebtn" style="position: absolute; right: 15px; top: 23px; bottom: auto;">
@@ -93,11 +84,11 @@
                     <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
                         <tr>
                             <td>Contact:</td>
-                            <td>--</td>
+                            <td>{{controller}}</td>
                         </tr>
                         <tr>
                             <td>Type:</td>
-                            <td>{{model.photo_type}}</td>
+                            <td>{{model}}</td>
                         </tr>
                         <tr>
                             <td>Address:</td>
@@ -135,7 +126,7 @@
             <div class="collapes-container"   id="article_action">
                 <div  class="collapes-container_inner">
                     <div class="article-title">Title</div>
-                    <div class="article-text">{{model.photo_caption}}</div>
+                    <div class="article-text">{{model.keywords}}</div>
                 </div>
             </div>
 

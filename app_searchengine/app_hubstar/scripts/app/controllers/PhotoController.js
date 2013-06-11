@@ -1,8 +1,8 @@
-define(['ember', 'models/PhotoModel']
-        , function(Ember, PhotoModel) {
+define(['ember', 'models/MegaModel']
+        , function(Ember, MegaModel) {
 
     var tempArr = [];
-    var currentPhotoNumber=0;
+    var currentPhotoNumber = 0;
     var PhotoController = Ember.Controller.extend({
         editingContact: function() {
             this.set('contact', !this.get('contact'));
@@ -21,19 +21,27 @@ define(['ember', 'models/PhotoModel']
         nextImage: function() {
 
         },
-
         getTempArr: function() {
             return tempArr;
         },
         getFirstPhoto: function(id) {
-            var photo = PhotoModel.find(id);
-          
+            var photo = MegaModel.find(id);
+               
             tempArr.push(photo);
         },
         setFirestPhoto: function()
         {
             this.set('model', tempArr[currentPhotoNumber]);
+        },
+        popupAibum: function() {
+
+            this.set('oppupOpen', !this.get('oppupOpen'));
+
+
         }
+
+
+
     });
     return PhotoController;
 });

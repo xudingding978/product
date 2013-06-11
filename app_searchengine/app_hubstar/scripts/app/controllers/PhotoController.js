@@ -7,8 +7,6 @@ define(['ember', 'models/PhotoModel']
         closeContact: function() {
             this.set('contact', !this.get('contact'));
         }
-
-
     });
     return PhotoController;
 });

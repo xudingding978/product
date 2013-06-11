@@ -6,14 +6,16 @@ define([
         PhotoModel
         ) {
     "use strict";
-
     var PhotoRoute = Ember.Route.extend({
-        //     controller: ApplicationController,
+//     controller: ApplicationController,
         setupController: function(controller, model) {
 
             this.controllerFor('photo').set('model', PhotoModel.find(model.id));
         },
+        nextImage: function() {
 
+            alert('hahah');
+        },
         activate: function() {
             $("body").css("overflow", "hidden");
             $('#footer').attr("style", "display:none");

@@ -9,6 +9,7 @@ define([
 
     var PhotoRoute = Ember.Route.extend({
         setupController: function(controller, model) {
+            this.controllerFor('photo').tempArrPush();
             this.controllerFor('photo').set('model', PhotoModel.find(model.id));
             
          console.log(this.controllerFor('photo').tempArrPush());

@@ -10,11 +10,10 @@ define([
     var PhotoRoute = Ember.Route.extend({
         //     controller: ApplicationController,
         setupController: function(controller, model) {
+
+            this.controllerFor('photo').set('model', PhotoModel.find(model.id));
         },
-        model: function(params) {
-     
-            return PhotoModel.find(params.photo_id);
-        },
+
         activate: function() {
             $("body").css("overflow", "hidden");
             $('#footer').attr("style", "display:none");

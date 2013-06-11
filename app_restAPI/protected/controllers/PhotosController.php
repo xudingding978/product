@@ -10,35 +10,11 @@ class PhotosController extends Controller {
 
     public function actionIndex() {
 
-        $settings['log.enabled'] = true;
-    // $settings['log.file'] = '/var/log/sherlock/newlogfile.log';
-    // $settings['log.level'] = 'debug';
-        $sherlock = new Sherlock\Sherlock($settings);
-        $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
-
-//Build a new search request
-        $request = $sherlock->search();
-         
-//populate a Term query to start
-        $termQuery = Sherlock\Sherlock::queryBuilder()
-                ->Match()
-                ->field("couchbaseDocument.doc.mega.id")
-                ->query("!=null")
-                ->boost(2.5);
-
-//        $filter = null;
-//custom_filters_score query allows to execute a query, and if the hit matches a provided filter (ordered)
-//        $customFilterQuery = Sherlock\Sherlock::queryBuilder()->CustomFiltersScore()
-//                ->query("match_all")
-//                ->filters($filter);
-//Set the index, type and from/to parameters of the request.
-        $request->index(Yii::app()->params['elasticSearchIndex'])
-                ->type("couchbaseDocument")
-                ->from(0)
-                ->to(10)
-                ->query($termQuery);
-
-                echo $this->sendResponse(200, $result);
+   $temp = explode("/", $_SERVER['REQUEST_URI']);
+   
+      $id=  $temp[sizeof($temp)-1];
+   $result=$this->getRequestResultByID(self::JSON_RESPONSE_ROOT_SINGLE, $id);
+   $this->sendResponse(null,$result);
     }
 
     public function actionCreate() {
@@ -86,19 +62,14 @@ class PhotosController extends Controller {
     }
 
     public function actionRead() {
-        try {
-            $cb = $this->couchBaseConnection();
-            $results_arr = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI']);
+   $temp = explode("/", $_SERVER['REQUEST_URI']);
+   
+      $id=  $temp[sizeof($temp)-1];
+   $result=$this->getRequestResultByID(self::JSON_RESPONSE_ROOT_SINGLE, $id);
+   $this->sendResponse(null,$result);
 
-            if ($results_arr) {
-                $result = $this->processGet($results_arr, self::JSON_RESPONSE_ROOT_SINGLE);
-                echo $this->sendResponse(200, $result);
-            } else {
-                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $_POST['id'] . '" already exists');
-            }
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
+
+
     }
 
     public function actionUpdate() {
@@ -181,6 +152,8 @@ class PhotosController extends Controller {
         }
         return $response;
     }
+    
+    
 
 }
 

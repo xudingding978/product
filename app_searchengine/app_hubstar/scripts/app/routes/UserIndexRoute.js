@@ -13,14 +13,9 @@ define([
             if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
                 alert('please login in');
                 this.transitionTo('indexIndex');
-
             } else {
-
                 this.transitionTo('users');
-
             }
-
-
         },
         renderTemplate: function() {
 

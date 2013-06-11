@@ -16,7 +16,7 @@ define([
 
             } else {
 
-                this.transitionTo('profiles');
+                this.transitionTo('users');
 
             }
 
@@ -24,7 +24,7 @@ define([
         },
         renderTemplate: function() {
 
-            this.render('profiles', {
+            this.render('users', {
                 into: "application"
             });
         }

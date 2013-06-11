@@ -12,14 +12,27 @@ define([
             //  controller.set("indexPage",true);
             //   controller.get('application').remove();
         },
-        model: function() {
-     //   console.log( UserModel.find());
+        model: function(params) {
+            return UserModel.find(params.user_id);
+        },
+        redirect: function() {
 
-            return UserModel.find();
+
+            if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
+                alert('please login in');
+                this.transitionTo('indexIndex');
+
+            } else {
+
+                this.transitionTo('users');
+
+            }
+
+
         },
         renderTemplate: function() {
 
-            this.render('users', {
+            this.render('user', {
                 into: "application"
             });
 

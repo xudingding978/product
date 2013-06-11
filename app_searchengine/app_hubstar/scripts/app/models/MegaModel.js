@@ -31,6 +31,7 @@ define(
         object_image_linkto: DS.attr('string'),
         object_image_url: DS.attr('string'),
         object_title: DS.attr('string'),
+        owner_profile_id: DS.attr('string'),
         owner_profile_pic: DS.attr('string'),
         owner_title: DS.attr('string'),
         owner_url: DS.attr('string'),

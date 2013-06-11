@@ -11,10 +11,16 @@ define(['ember', 'models/PhotoModel']
         },
         tempArrPush: function() {
             tempArr.push({"cool": "34.33", "alsocool": "45454"});
-          tempArr.push({"cool": "34.39", "alsocool": "45459"});
+            tempArr.push({"cool": "34.39", "alsocool": "45459"});
+        },
+        previesImage: function() {
+            alert('left');
+        },
+        nextImage: function() {
+            alert('right');
         },
         getTempArr: function() {
-          return tempArr;
+            return tempArr;
         }
     });
     return PhotoController;

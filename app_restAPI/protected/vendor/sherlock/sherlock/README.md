@@ -17,6 +17,8 @@ Resources
 ---------------
  - Read the [Quickstart Guide](http://sherlockphp.com/quickstart/)
  - Read the [Full Documentation](http://sherlockphp.com/documentation/)
+ - [Roadmap for Sherlock](Roadmap.md)
+ - [Changelog](Changelog.md)
 
 Installation via Composer
 -------------------------
@@ -26,7 +28,7 @@ The recommended method to install _Sherlock_ is through [Composer](http://getcom
 
         {
             "require": {
-                "sherlock/sherlock": "~0.1"
+                "sherlock/sherlock": "~0.1.0"
             }
         }
 
@@ -66,6 +68,7 @@ The library interface is still under flux...this section will be updated once _S
 
 ```php
    require 'vendor/autoload.php';
+   use \Sherlock\Sherlock;
 
    //The Sherlock object manages cluster state, builds queries, etc
    $sherlock = new Sherlock();
@@ -81,7 +84,7 @@ The library interface is still under flux...this section will be updated once _S
    $request->index("test")
             ->type("tweet")
             ->from(0)
-            ->to(10);
+            ->size(10)
             ->query(Sherlock::query()->Term()->field("message")
                                               ->term("ElasticSearch"));
 
@@ -116,10 +119,53 @@ The library interface is still under flux...this section will be updated once _S
    $request->query($bool);
    $request->execute();
 
-
 ```
 
+Other types of queries
+----------------------
+You can use _Sherlock_ with every type of query listed in the elasticsearch docs.
+E.g. if you'd like to use a _fuzzy like this (flt)_ query, you can build your query like this:
+
+```php
+	$sherlock = new Sherlock();
+    $sherlock->addNode('localhost', 9200);
+    $request = $sherlock->search();
+
+	$request->index('test')
+			->type('tweet')
+			->query(Sherlock::queryBuilder()
+				->FuzzyLikeThis()
+				->fields( array('description', 'tags', 'name') )
+				->like_text( $query )
+				->min_similarity( 0.6 )
+			);
+
+	$response = $request->execute();
+```
+
+Filters
+-------
+Building filters is identical to building queries, but requires the use of _filterBuilder()_ instead of _queryBuilder()_.
+Again, a simple example would be:
+
+```php
+    $request->index('test')
+		->type('tweet')
+		->filter(Sherlock::filterBuilder()
+			->Term()
+			->field($type)
+			->term($value)
+		);
+	
+	$response = $request->execute();
+```
+
+
+
+Non-ORM style
+-------------
 Not a fan of ORM style construction?  Don't worry, _Sherlock_ supports "raw" associative arrays
+
 ```php
     //Build a new search request
     $request = $sherlock->search();
@@ -145,12 +191,13 @@ Need to consume and use raw JSON?  No problem
 
 (There will be a RawQuery method soon, that lets you construct entirely arbitrary queries with arrays or JSON)
 
-For more examples check out the (Quickstart Guide)[http://sherlockphp.com/quickstart.html]
+For more examples check out the [Quickstart Guide](http://sherlockphp.com/quickstart.html)
+
 
 Philosophy
 ----------
 _Sherlock_ aims to continue the precendent set by ElasticSearch: work out of the box with minimal configuration and provide a simple interface.
 
-_Sherlock's_ API uses a "Fluid" interface that relies heavily on method chaining and type hinting for brevity.  The developer should never need to stop and look up a class name to instantiate, or dig through docs to remember which class accepts which arguments.
+_Sherlock's_ API uses a "fluent" interface that relies heavily on method chaining and type hinting for brevity.  The developer should never need to stop and look up a class name to instantiate, or dig through docs to remember which class accepts which arguments.
 
 Secondary to the interface comes _Sherlock_ developer sanity: reduce code as much as possible.  Rather than write a million getter/setter functions to expose ElasticSearch's various parameters, _Sherlock_ relies heavily upon templates, auto-generated class stubs, magic methods and PHPdoc.

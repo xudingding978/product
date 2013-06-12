@@ -6,6 +6,7 @@ define([
     Ember.TEMPLATES["photo"] = Ember.Handlebars.compile(photoTemplate);
     var PhotoView = Ember.View.extend({
         classNames: ["lightbox"],
+        content: [],
         TitleTag: false,
         PartnerTag: false,
         DiscussionTag: false,
@@ -16,6 +17,8 @@ define([
 
 
         },
+
+                
         setTitleTag: function() {
             $('#article_action').slideToggle(1000);
         },
@@ -33,6 +36,12 @@ define([
             $('#partner_action').slideToggle("slow");
             //       this.set('partnerTag', !this.get('partnerTag'));
 
+        },
+        popupAibum: function(e) {
+            alert(e);
+            var album_id = "#album_" + e;
+
+            $(album_id).slideToggle("slow");
         }
 
     });

@@ -13,7 +13,7 @@ define([
 
     });
     //alert(DataItemView+'aaaaaaaaa');
-    console.log(DataView);
-    console.log(DataItemView);
+//    console.log(DataView);
+//    console.log(DataItemView);
     return DataView;
 });

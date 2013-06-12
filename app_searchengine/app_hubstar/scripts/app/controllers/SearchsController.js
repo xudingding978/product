@@ -10,9 +10,7 @@ define([
       
             
          this.set("controller",[]);
-            console.log("sssssssssss");
-            App.Mega.find(object);
-            
+            App.Mega.find(object);            
 //            var searchResult = App.store.createRecord(App.Search, {
 //                id: object.id,
 //                region: object.region,

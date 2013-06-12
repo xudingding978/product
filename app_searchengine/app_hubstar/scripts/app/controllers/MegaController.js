@@ -29,9 +29,9 @@ define(['models/MegaModel',
                 },
                 previesImage: function() {
                     this.addObjects();
-                    if (!this.get('selected')) {
-                        this.set('selected', this.get('content').get('lastObject'));
-                    }
+//                    if (!this.get('selected')) {
+//                        this.set('selected', this.get('content').get('lastObject'));
+//                    }
                     var selectedIndex = this.findSelectedItemIndex();
 
                     if (selectedIndex <= 0) {
@@ -51,23 +51,25 @@ define(['models/MegaModel',
 
                     this.addObjects();
 
-                    if (!this.get('selected')) {
-
-                        this.set('selected', this.get('content').get('firstObject'));
-
-                    }
+//                    if (!this.get('selected')) {
+//
+//                        this.set('selected', this.get('content').get('firstObject'));
+//
+//                    }
 
                     var selectedIndex = this.findSelectedItemIndex();
                     if (selectedIndex >= (this.get('content').get('length') - 1)) {
 
                         selectedIndex = 0;
                     } else {
+                        
                         selectedIndex++;
 
                     }
                     this.set('selected', this.get('content').objectAt(selectedIndex));
+                    
                     this.set("percentComplete", this.get('content').objectAt(selectedIndex).data.photo[0]);
-                //    console.log(this.get('content'));
+                    //    console.log(this.get('content'));
                     //   console.log(this.get('content').objectAt(selectedIndex).editors);
                     //        console.log(this.get('selected'));
 
@@ -76,21 +78,20 @@ define(['models/MegaModel',
                     var content = this.get("content");
 
                     //                 console.log(megaObject);
-                    //     content.pushObject(megaObject);
+                       content.pushObject(megaObject);
                     setTimeout(function() {
                         var owner_profile_id = megaObject.get("owner_profile_id");
                         var collection_id = megaObject.get("collection_id");
                         tcontent = MegaModel.find({"collection_id": collection_id, "owner_profile_id": owner_profile_id});
 
 
- console.log(tcontent);
+                        console.log(tcontent);
 //                        tcontent.one("didLoad", function() {
 //                            tcontent.resolve(tcontent.get("firstObject"));
 //                        });
                     }, 200);
-              
-                },
 
+                },
                 addObjects: function() {
 
                     if (!this.isSelected)
@@ -102,8 +103,8 @@ define(['models/MegaModel',
                         }
                         this.isSelected = true;
                     }
-                 
-console.log("ddddddddddd");
+
+                    console.log("ddddddddddd");
                 }
 
 

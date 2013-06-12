@@ -17,6 +17,8 @@ define([
 
 
         },
+
+                
         setTitleTag: function() {
             $('#article_action').slideToggle(1000);
         },

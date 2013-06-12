@@ -58,13 +58,25 @@ define(['models/MegaModel',
 
                         }
                         this.set('selected', this.get('content').objectAt(selectedIndex));
-                        console.log(this.get('selected'));
+                        console.log(this.get('selected').get("id"));
                     }
                 },
                 actionOn: function(megaObject) {
-console.log("aaaaa"+megaObject);
+                    //  console.log("aaaaa" + megaObject);
+                    var content = this.get("content");
 
-             //       get("content").pushObject(MegaModel.find(model.id));
+                    //     var t = MegaModel.find(megaObject);
+                    //           this.get("content").pushObject(megaObject);
+                    setTimeout(function() {
+                        var owner_profile_id = megaObject.get("owner_profile_id");
+                        var collection_id = megaObject.get("collection_id");
+                     var ddd=   MegaModel.find({"collection_id": collection_id, "owner_profile_id": owner_profile_id})
+              console.log(   ddd.get("content").objectAt(0).get("id"));
+                        content.pushObject(MegaModel.find({"collection_id": collection_id, "owner_profile_id": owner_profile_id}));
+                   console.log(   content.get("length"));
+                    }, 200);
+
+                    //       get("content").pushObject(MegaModel.find(model.id));
                 }
             });
             return MegaController;

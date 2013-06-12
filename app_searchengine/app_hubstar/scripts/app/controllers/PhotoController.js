@@ -1,8 +1,6 @@
 define(['ember', 'models/MegaModel']
         , function(Ember, MegaModel) {
 
-    var tempArr = [];
-    var currentPhotoNumber = 0;
     var PhotoController = Ember.ObjectController.extend({
      //   needs: ['mega'],
         //   content: Ember.computed.alias('controllers.application.currentUser'),
@@ -19,7 +17,7 @@ define(['ember', 'models/MegaModel']
             console.log("nextImage");
         },
         getTempArr: function() {
-            return tempArr;
+            return this.tempArr;
         },
 //        getFirstPhoto: function(id) {
 //            //   controllers.mega.test();

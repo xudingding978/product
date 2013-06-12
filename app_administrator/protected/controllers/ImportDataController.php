@@ -30,10 +30,10 @@ class ImportDataController extends Controller {
     public function actionImage() {
         error_log("111111111111111111111111111111111");
 
-        for ($i = 0; $i < 1500; $i++) {
+        for ($i = 0; $i < 1; $i++) {
             $image_data = array();
-            $from = 59451 + $i * 10;
-            $to = 59451 + ($i + 1) * 10;
+            $from = 60114 + $i * 10;
+            $to = 60114 + ($i + 1) * 10;
             $image_data = ArticleImages::model()->getImageRange($from, $to);
             $this->total_amount = $this->total_amount + sizeof($image_data);
 //            error_log(sizeof($image_data)."-------------");
@@ -164,7 +164,7 @@ class ImportDataController extends Controller {
             curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
             $result = curl_exec($ch);
             $this->obj_amount++;
-            $message = $result . "\n" . date("Y-m-d H:i:s") . $data_list['object_image_url'] . "---" . $this->obj_amount."/".$this->total_amount."\n".$id;
+            $message = "develop.devbox/".$result . "\n" . date("Y-m-d H:i:s") . $data_list['object_image_url'] . "---" . $this->obj_amount."/".$this->total_amount."\n".$id;
             $this->writeToLog("/home/devbox/NetBeansProjects/test/AddingCouchbase_success.log", $message);
         } catch (Exception $e) {
             $response = 'Caught exception: ' . $e->getMessage();
@@ -202,11 +202,10 @@ class ImportDataController extends Controller {
             "accessed" => null,
             "active_yn" => "y",
             "created" => "created",
-            "creator" => "creator",
+            "creator" => null,
             "creator_type" => 'user',
             "creator_profile_pic" => "",
             "creator_title" => null,
-            "creator" => null,
             "topics" => $topic_list,
             "categories" => $category,
             "subcategories" => $subcategory,
@@ -227,7 +226,7 @@ class ImportDataController extends Controller {
             "owner_type" => 'profile',
             "owner_profile_pic" => "https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/this_is/folder_path/Trends-Logo.jpg",
             "owner_title" => "Trends Ideas",
-            "owner_id" => "trendsideas",
+            "owner_id" => "home-and-apartment-trends-nz",
             "owners" => array(),
             "status_id" => null,
             "updated" => null,
@@ -261,6 +260,7 @@ class ImportDataController extends Controller {
             "photo_original_filename" => $original_size,
             "photo_original_width" => $return_original->width,
             "photo_original_height" => $return_original->height,
+            "photo_book_id" => null
         );
 
         array_push($obj['photo'], $photo_list);

@@ -147,14 +147,6 @@ class Controller extends CController {
         return $id;
     }
 
-    protected function getNewID() {
-        $myText = (string) microtime();
-        $pieces = explode(" ", $myText);
-        $id = $pieces[1];
-        $id = (string) rand(99999999, 999999999) . $id;
-        return $id;
-    }
-
     protected function getRequestResult($searchString, $returnType) {
         $response = "";
                     

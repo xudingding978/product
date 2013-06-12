@@ -1,41 +1,42 @@
 <script  type="text/javascript">
-      
-        $(window).scroll(function() {
-                var p = $('div#tab-right');
-                var ul = $('ul#tab-title');
-                var ul_height = ul.height();
-                var p_height = p.height();
-                
-                var position = p.offset();
-                var top_pos = position.top;
-                var scroll_up = $(window).scrollTop();
-                
-                if (scroll_up+ul_height>top_pos) {
-                        var new_top = scroll_up - position.top;
-                        if ((new_top + ul_height) > p_height) {
-                                if (new_top<0) new_top=0;
-                                ul.css("top", new_top); 
-                        }
-                }
-                
-                console.log("title hight: " + ul_height);
-                console.log("content hight: " + p_height);
-                console.log("scroll up: " + scroll_up);
-                console.log("top pos: " + top_pos); 
 
-                console.log("----------------------------------------------------------");
-        });
+    $(window).scroll(function() {
+        var p = $('div#tab-right');
+        var ul = $('ul#tab-title');
+        var ul_height = ul.height();
+        var p_height = p.height();
 
-                $('img#profile_cover-image').hover(function(){
-                        $('div#profile_dogearhover').css("display", "block");
-                },  function(){ 
-                        $('div#profile_dogearhover').css("display", "none");
-                });
-                
-                $('div#profile_dogearhover').click(function(){
-                        console.log("1111111111111111111111");
-                });
-   
+        var position = p.offset();
+        var top_pos = position.top;
+        var scroll_up = $(window).scrollTop();
+
+        if (scroll_up + ul_height > top_pos) {
+            var new_top = scroll_up - position.top;
+            if ((new_top + ul_height) > p_height) {
+                if (new_top < 0)
+                    new_top = 0;
+                ul.css("top", new_top);
+            }
+        }
+
+        console.log("title hight: " + ul_height);
+        console.log("content hight: " + p_height);
+        console.log("scroll up: " + scroll_up);
+        console.log("top pos: " + top_pos);
+
+        console.log("----------------------------------------------------------");
+    });
+
+    $('img#profile_cover-image').hover(function() {
+        $('div#profile_dogearhover').css("display", "block");
+    }, function() {
+        $('div#profile_dogearhover').css("display", "none");
+    });
+
+    $('div#profile_dogearhover').click(function() {
+        console.log("1111111111111111111111");
+    });
+
 </script>
 
 <div class="profilegb" style="background: #fff url('../images/texture.png') repeat;width: 100%;height: auto; padding-bottom: 300px;">
@@ -352,28 +353,14 @@
         <!-- masonry from here -->
         <div id="masonry_profile_container"  class="transitions-enabled centered clearfix" >
 
-<<<<<<< HEAD
-        <!--PROFILE PAGE MAIN PART-->
-=======
-            <!--SECTION CONTROL BAR-->
 
             <div class="style-box" style="width: 100%; min-width: 796px; height: 50px; background: white;margin: -70px auto;left: 0;right: 0;position: relative;display: block;">
 
->>>>>>> db253c0e45ccd7cd9a8d35e62a4ee6181290d62e
 
             </div>
 
-<<<<<<< HEAD
-            <div class="tabbable tabs-right" id="tab-right"> <!-- Only required for left/right tabs -->
-                <ul class="nav nav-tabs" id="tab-title" style="position:relative;">
-                    <li class="active"><a href="#tab1" data-toggle="tab">Profile</a></li>
-                    <li><a href="#tab2" data-toggle="tab">Ideabooks</a></li>
-                    <li><a href="#tab3" data-toggle="tab">Discussions</a></li>
-                    <li><a href="#tab4" data-toggle="tab">Partners</a></li>
-                </ul>
-=======
-            <!--END SECTION CONTROL BAR-->
->>>>>>> db253c0e45ccd7cd9a8d35e62a4ee6181290d62e
+
+
 
 
             <div class="box col2">
@@ -885,14 +872,11 @@
                 </div>
 
 
+
+
+
+
             </div>
-
-
-
-
-
-     
         </div>
+        <!--masonry end -->
     </div>
-    <!--masonry end -->
-</div>

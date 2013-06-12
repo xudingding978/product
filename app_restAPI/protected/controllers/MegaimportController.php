@@ -59,7 +59,7 @@ class MegaimportController extends Controller {
     public function actionCreate() {
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
-  
+//        error_log("aaaaaaaaaaaaaa            ".var_export($request_arr,true));
         $id = $this->getNewID();
         $request_arr["id"] = $id;
         $response = "fail";
@@ -69,22 +69,20 @@ class MegaimportController extends Controller {
         try {
             $cb = $this->couchBaseConnection();
             if ($cb->add($url, CJSON::encode($request_arr))) {
-                $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_apiside_sucess.log';
-                $handle = fopen($my_file, 'a') or die('Cannot open file:  ' . $my_file);
-                $output = "\n" . $url . ' is create';
-                fwrite($handle, $output);
-                fclose($handle);
+//                $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_sucess.log';
+//                $handle = fopen($my_file, 'a') or die('Cannot open file:  ' . $my_file);
+//                $output = "\n" . $url . ' is create';
+//                fwrite($handle, $output);
+//                fclose($handle);
                 $response="ok";
-                $this->sendResponse(200, var_dump($record));
+                //      echo $this->sendResponse(200, var_dump($record));
             } else {
-                $response="something wrong";
-                $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_apiside_error.log';
+                $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_error.log';
                 $handle = fopen($my_file, 'a') or die('Cannot open file:  ' . $my_file);
                 $output = "\n" . 'New data ';
                 $output = "\n" . $url . ' has error';
                 fwrite($handle, $output);
                 fclose($handle);
-                     $this->sendResponse(500,$response);
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -99,7 +97,7 @@ class MegaimportController extends Controller {
         header('Access-Control-Request-Method: *');
         header('Access-Control-Allow-Methods: PUT, POST, OPTIONS, GET');
         header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
-   
+        echo $id;
         Yii::app()->end();
     }
 
@@ -109,7 +107,7 @@ class MegaimportController extends Controller {
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
 
-            error_log("id:  " . $id);
+//            error_log("id:  " . $id);
             echo $this->sendResponse(200, $id);
 //            $reponse = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . "/" . $id);
 //            $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $reponse . '}';
@@ -183,7 +181,7 @@ class MegaimportController extends Controller {
         $result = $cb->get($key);
         $result_arr = CJSON::decode($result, true);
         $response = false;
-        error_log(var_export($request_arr ["mega"]['photos'][0], true));
+//        error_log(var_export($request_arr ["mega"]['photos'][0], true));
         $data = $this->getInputData($request_arr ["object"]['photos'][0]['photo_type'], $request_arr ["object"]['photos'][0]['photo_url']);
         $client = Aws\S3\S3Client::factory(
                         $result_arr["providers"]["S3Client"]

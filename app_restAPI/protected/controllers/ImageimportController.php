@@ -186,13 +186,25 @@ class ImageimportController extends Controller {
     }
 
     protected function getStamp($url) {
-        $stamp = imagecreatefrompng('https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/watermark4hero.png');
-        if (strpos($url, 'original')) {
-            $stamp = imagecreatefrompng('https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/watermark4original.png');
-        } elseif (strpos($url, 'hero')) {
-            $stamp = imagecreatefrompng('https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/watermark4hero.png');
+        try{
+                $stamp = imagecreatefrompng('/home/devbox/NetBeansProjects/test/watermark4hero.png');
+                if (strpos($url, 'original')) {
+                    $stamp = imagecreatefrompng('/home/devbox/NetBeansProjects/test/watermark4original.png');
+                } elseif (strpos($url, 'hero')) {
+                    $stamp = imagecreatefrompng('/home/devbox/NetBeansProjects/test/watermark4hero.png');
+                }
+                return $stamp;
+        } catch(Exception $e) {
+                
+                $stamp = imagecreatefrompng('https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/watermark4hero.png');
+                if (strpos($url, 'original')) {
+                    $stamp = imagecreatefrompng('https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/watermark4original.png');
+                } elseif (strpos($url, 'hero')) {
+                    $stamp = imagecreatefrompng('https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/watermark4hero.png');
+                }
+                
+                error_log("get water mark image faill: ".$e->getMessage());
         }
-        return $stamp;
     }
 
     protected function getImageInfo($url) {

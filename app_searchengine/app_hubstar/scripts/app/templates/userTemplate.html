@@ -4,9 +4,15 @@
     <div class="user-board_left style-box" style="background: white; width: 69%;display: inline-block;vertical-align: top;height: 150px;margin-right: 0.5%;">
         <img style="width: 150px; height: 150px; border-radius: 3px 0 0 3px;display: inline-block;vertical-align: top;" {{bindAttr src="photo_url_large"}}/>
         <div style="height: 120px; margin: 15px 20px;display: inline-block;position: absolute;left: 150px;">
-            <div style="font-size: 26px;font-weight: bold; line-height: 32px; overflow: hidden;">{{display_name}}</div>
+            <div style="font-size: 26px;font-weight: bold; line-height: 30px; overflow: hidden;">{{display_name}}</div>
             <div style="font-size: 13px;line-height: 20px;margin: 5px auto;color: #888; overflow: hidden;height: 60px; text-overflow: ellipsis;">{{description}}</div>
-            <div style="position: absolute; bottom: 0; line-height: 15px;font-size: 13px; overflow: hidden;">Like stuffs</div>
+            <ul class="locationandlinks">
+                <li class="location_li" style="background: none;padding: 0;"><i class="icon-map-marker"></i>Auckland</li> 
+                <li><a href="#" target="_blank">www.you.com</a></li>
+                <li><a href="#" target="_blank"><i class="icon-twitter"></i></a></li>
+                <li><a href="#" target="_blank"><i class="icon-facebook"></i></a></li>
+                <li><a href="#" target="_blank"><i class="icon-google-plus"></i></a></li>
+            </ul>
         </div>
     </div>
     <div class="user-board_right style-box" style="background: white; width: 30%; height: 150px; display: inline-block; vertical-align: top;">
@@ -41,8 +47,16 @@
 
         <!--SECTION CONTROL BAR-->
 
-        <div class="style-box" style="width: 100%; min-width: 796px; height: 50px; background: white;margin: -70px auto;left: 0;right: 0;position: relative;display: block;">
-
+        <div class="style-box t-style-box" style="width: 100%; min-width: 796px; height: 50px; background: white;margin: -70px auto;left: 0;right: 0;position: relative;display: block;">
+            <div style="margin: 2px 20px 2px 40px; font-size: 20px; font-weight: bold; text-shadow: 0 1px 0 rgba(255,255,255,0.8);float: left;">Album Name</div>
+            <ul class="user-stats" >
+                <li><a>Collections</a></li>
+                <li><a>Photos</a></li>
+                <li><a>Videos</a></li>
+                <li><a>Discussions</a></li>
+                <li><a>Following</a></li>
+                <li><a>Followers</a></li>
+            </ul>
 
         </div>
 

@@ -15,6 +15,7 @@ return array(
         'application.components.RestController',
         'application.components.HttpRequest',
         'application.vendor.autoload',
+        'application.components.SearchEngine'
     ),
     // application components
     'components' => array(
@@ -24,7 +25,7 @@ return array(
             'showScriptName' => false,
             'rules' => array(
                 //REST AP
-                array('<controller>/options', 'pattern' => '<controller>/<id>', 'verb' => 'OPTIONS'),
+                array('<controller>/options', 'pattern' => '<controller>', 'verb' => 'OPTIONS'),
                 array('<controller>/', 'pattern' => '<controller>', 'verb' => 'GET'),
                 array('<controller>/create', 'pattern' => '<controller>', 'verb' => 'POST'),
                 array('<controller>/read', 'pattern' => '<controller>/<id>', 'verb' => 'GET'),

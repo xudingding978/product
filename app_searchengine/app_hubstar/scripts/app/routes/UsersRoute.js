@@ -1,18 +1,21 @@
 define([
     'ember',
-    'controllers/ApplicationController', 'models/UserModel'
+    'models/UserModel'
 ], function(
         Ember,
-        ApplicationController,
         UserModel
         ) {
     "use strict";
 
     var UsersRoute = Ember.Route.extend({
-        controller: ApplicationController,
-        setupController: function(controller, UserModel) {
-         //  controller.set("indexPage",true);
-         //   controller.get('application').remove();
+        setupController: function(controller, model) {
+            //  controller.set("indexPage",true);
+            //   controller.get('application').remove();
+        },
+        model: function() {
+     //   console.log( UserModel.find());
+
+            return UserModel.find();
         },
         renderTemplate: function() {
 

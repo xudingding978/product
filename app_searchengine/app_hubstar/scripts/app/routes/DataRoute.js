@@ -1,16 +1,16 @@
 define([
     'ember',
-    'models/SearchModel'
+    'models/MegaModel'
 
 ], function(
         Ember,
-        SearchModel
+        MegaModel
         ) {
     "use strict";
 
     var DataRoute = Ember.Route.extend({
         model: function() {
-            return SearchModel.find();
+            return MegaModel.find();
         },
         setupController: function(DataController) {
 

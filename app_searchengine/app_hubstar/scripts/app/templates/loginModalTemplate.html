@@ -1,14 +1,18 @@
 
 
-<div id="side-1" class="flip content" style='background-color:white;margin-top: 20%'>
+<div id="side-1" class="flip" style='background-color: white; width: 480px; text-align: center; color: rgb(51, 51, 51); border-radius: 3px;'>
 
 
-    <div class="buttons" style="display: inline-block;color:black" >
-        <button type="button" {{action closeModal }} class="btn"><i class="icon-remove"></i></button>
-        <div><h1>hahahahahahahahahahhahahahhahahahahahhaha</h1></div>
-
-
-        <div id="dd" class="wrapper-dropdown-3" tabindex="1" style=" width:270px; height:45px; margin-top: -45px; margin-bottom: -5px;">
+    <div class="head" >
+        <div type="button" {{action closeModal }} class="closeview"><i class="icon-remove"></i></div>
+        <img class="logonew"  style="margin: 30px auto 0; width: 92px; display: block;" src="../../../images/trendslogo(black).png"></img>
+        <div style="margin: 20px auto; width: 360px;s">
+            <p style="text-align:center; font-weight: bold; ">COLLECT YOUR ONLINE RESOURCE FOR KITCHENS, PRODUCTS, SERVICES & IDEAS</p>
+            <p style="font-size: 12px; text-align: center;">
+                Hundreds of videos, thousands of articles and tens of thousands of high quality images from around the world showcasing: Architecture, Kitchen Design, Bathroom Design, Interiors, Landscape Design and Commercial Design. 
+            </p>
+        </div>
+        <div id="dd" class="wrapper-dropdown-3" tabindex="1" style=" width:270px; height:45px;">
 
             <div>
                 <div id="dropdown-cover" class="dropdown_test"  style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -11px; padding-left: 35px; border-radius: 3px 0 0 3px;">
@@ -31,89 +35,153 @@
             </ul>
         </div>
 
+    </div>
 
+    <div class="panelcircle" style="position: absolute; right: 0; top: 300px; margin: auto;left: 0;"><b>OR</b></div>
 
-        <div style="top:200px; margin: 43px 40px 88px;">
-            <div><p style="font-size: 12px; text-align: center;"><b>Other platform you might prefer:</b></p></div>
+    <div class="content" >
+        {{#unless mail}}
+        <div style="font-size: 12px; margin: 20px auto 0; font-weight: bold;">Other platform you might prefer:</div>
 
-            {{#unless mail}}
-            <div>
-                <a  class="square-button" href='#' onclick="Twitter(650, 400);" >
-                    <div id="dropdown-cover" style="float: left; width: 45px; height: 45px; border-radius: 3px;"></div>
-                    <div class="square-button-twitter"><i class="icon-twitter icon-large" style="position: relative; top: -33px;"></i></div></a>
+        <div style="margin: 10px auto 5px; width: 100%;">
+            <a  class="square-button" href='#' onclick="Twitter(650, 400);" >
+                <div id="dropdown-cover" style="position: absolute; width: 45px; height: 45px; border-radius: 3px;"></div>
+                <div class="square-button-twitter"><i class="icon-twitter icon-large" style="float: left; margin: 11px 13px; width: auto; height:22px; "></i></div></a>
 
-                <a  class="square-button"  href='#' onclick="Google(650, 400);" >
-                    <div id="dropdown-cover" style="float: left; width: 45px; height: 45px; border-radius: 3px;"></div>
-                    <div class="square-button-google"><i class="icon-google-plus icon-large" style="position: relative; top: -33px; "></i></div></a>
+            <a  class="square-button"  href='#' onclick="Google(650, 400);" >
+                <div id="dropdown-cover" style="position: absolute; width: 45px; height: 45px; border-radius: 3px;"></div>
+                <div class="square-button-google"><i class="icon-google-plus icon-large" style="float: left; margin: 11px 15px; width: auto; height:22px; "></i></div></a>
 
-                <a  class="square-button"  href='#' onclick="Yahoo(650, 400);">
-                    <div id="dropdown-cover" style="float: left; width: 45px; height: 45px; border-radius: 3px;"></div>
-                    <div class="square-button-yahoo"><img src="../../../images/yahoo(white).png" style="position:  relative; top: -34px; width: auto; height:22px; "></img></div></a>
+            <a  class="square-button"  href='#' onclick="Yahoo(650, 400);">
+                <div id="dropdown-cover" style="position: absolute; width: 45px; height: 45px; border-radius: 3px;"></div>
+                <div class="square-button-yahoo"><img src="../../../images/yahoo(white).png" style="float: left; margin: 10px 0px; width: auto; height:22px;  "></img></div></a>
 
-                <a  class="square-button"  href='#' onclick="Sina(650, 400);">  
-                    <div id="dropdown-cover" style="float: left; width: 45px; height: 45px; border-radius: 3px;"></div>
-                    <div class="square-button-sina"><img src="../../../images/sina(white).png" style="position:  relative; top: -34px; width: auto; height:22px; "></img></div></a>
+            <a  class="square-button"  href='#' onclick="Sina(650, 400);">  
+                <div id="dropdown-cover" style="position: absolute; width: 45px; height: 45px; border-radius: 3px;"></div>
+                <div class="square-button-sina"><img src="../../../images/sina(white).png" style="float: left; margin: 10px 3px; width: auto; height:22px; "></img></div></a>
 
-                <a  class="square-button"  href='#' onclick="QQ(650, 400);">
-                    <div id="dropdown-cover" style="float: left; width: 45px; height: 45px; border-radius: 3px;"></div>
-                    <div class="square-button-qq"><img src="../../../images/QQ(white).png" style="position:  relative; top: -34px; width: auto; height:22px; "></img></div></a>
+            <a  class="square-button"  href='#' onclick="QQ(650, 400);">
+                <div id="dropdown-cover" style="position: absolute; width: 45px; height: 45px; border-radius: 3px;"></div>
+                <div class="square-button-qq"><img src="../../../images/QQ(white).png" style="float: left; margin: 11px 9px; width: auto; height:22px;"></img></div></a>
 
-                <a  class="square-button" href="#email_login" {{action email_login}} >
-                    <div id="dropdown-cover" style="float: left; width: 45px; height: 45px; border-radius: 3px;"></div>
-                    <div class="square-button-email"><i class="icon-envelope-alt icon-large" style="position: relative; top: -33px; "></i></div></a> 
-
-            </div>
-            {{else}}
-            <h2>username</h2>
-            <input type="text" class="span2">
-            <h2>password</h2>
-            <input type="text" class="span2">
-            <button type="button" {{action email_login }} class="btn"><i class="icon-remove"></i></button>
-            <button type="button"  class="btn">Login</button>
-            {{/unless}}
-
-            <div style="position: relative; top: 15px; margin-bottom: -35px; margin-top: 70px;"> <p style="text-align:center; "><b>Already have an account? Click <a  href="#" id='signup'>here </a> to log in!</b></p></div>
-
+            <a  class="square-button" href="#email_login" {{action email_login}} >
+                <div id="dropdown-cover" style="position: absolute; width: 45px; height: 45px; border-radius: 3px;"></div>
+                <div class="square-button-email"><i class="icon-envelope-alt icon-large" style="float: left; margin: 11px 13px; width: auto; height:22px; "></i></div></a> 
 
         </div>
+        {{else}}
+        <div style='margin: 30px auto 5px; display: block;'>
+            <p style='display: inline-block; vertical-align: middle;'>Username:</p>
+            <input type="text" class="span2">
+        </div>
+        <div style='margin: 0 auto 5px; display: block;'>
+            <p style='display: inline-block; vertical-align: middle;'>Password:</p>
+            <input type="text" class="span2">
+        </div>
+        <div>
+            <div  type="button" class="new-btn green-btn" >
+                Login
+            </div>
 
+            <div  type="button" class="new-btn" {{action email_login }}>
+                  Cancel
+        </div>
+        <div style="font-size: 11px;">
+            <a href='#'>Forgot your username or password?</a>
+        </div>
     </div>
+
+
+
+    {{/unless}}
+
+    <div style="position: relative; text-align: center; font-size: 12px; margin-bottom: 15px;"> 
+        Don't have an account? Click <a  href="#" id='signup'>here </a> to sign up!
+    </div>
+
+
 </div>
 
 
-<div id="side-2" class="flip content" style='background-color:white;margin-top: -160px'>
+</div>
 
-    <button type="button" {{action closeModal }} class="btn"><i class="icon-remove"></i></button>
-    <div id="dd2" class="wrapper-dropdown-3" tabindex="1" style=" width:270px; height:45px; position: relative; left: 23%; top:3px;">
+
+<div id="side-2" class="flip easing" style='background-color: white; width: 480px; text-align: center; color: rgb(51, 51, 51); border-radius: 3px; position: relative; bottom: 500px;'>
+    <div class="head" >
+        <div type="button" {{action closeModal }} class="closeview"><i class="icon-remove"></i></div>
+        <div style="font-size: 22px; font-weight: bold; margin: 20px auto 15px;"> 
+            Sign Up for your Free Account!
+        </div>
+
+        <div id="dd2" class="wrapper-dropdown-3" tabindex="1" style="top: 3px; height: 45px;">
+            <div>
+                <div id="dropdown-cover" class="dropdown_test_2"  style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -11px; padding-left: 35px; border-radius: 3px 0 0 3px;">
+                    <div class="login-icon">
+                        <i class="icon-facebook icon-large">
+                        </i>
+                    </div>   
+                </div>
+                <div  id="dropdown-cover" onclick="Facebook(650, 400);" style="float: right; bottom: 10px; position: relative; width: 204.5px; height: 45px; margin-right: -9.5px; border-radius: 0 3px 3px 0;">
+                    <div class="sign-in-with" >Sign In with Facebook</div>
+                </div>
+            </div>
+            <ul class="dropdown"  style="width:270px">
+                <li  onclick="Twitter(650, 400);" ><a style="color:rgb(0,172,237)" href="#"><i class="icon-twitter icon-large"></i>Sign in with Twitter</a></li>
+                <li  onclick="Google(650, 400);" ><a style="color:rgb(211,72,54)" href="#"><i class="icon-google-plus icon-large"></i>Sign in with Google+</a></li>
+                <li  onclick="Yahoo(650, 400);" ><a style="color:rgb(123,0,153)" href="#"><img src='../../../images/yahoo.png' style='width: auto; height: 35px; float:left;margin: -3% -5% 0 6%;'>Sign in with Yahoo</a></li>
+                <li  onclick="Sina(650, 400);" ><a style="color:rgb(245,213,0)" href="#"><img src='../../../images/sina.png' style='width: auto; height: 35px; float:left;margin: -3% -3% 0 6%;'>Sign in with Sina</a></li>
+                <li  onclick="QQ(650, 400);" ><a style="color:rgb(62,59,62)" href="#"><img src='../../../images/qq.png' style='width: auto; height: 35px; float:left;margin: -3% -2% 0 7%;'>Sign in with QQ</a></li>
+            </ul>
+        </div>
+        <div style="font-size: 11px; margin-bottom: 10px;">
+            Don't worry , we'll never post without your permission.
+        </div>
+    </div>
+    <div class="panelcircle" style="position: absolute; right: 0; top: 160px; margin: auto;left: 0;"><b>OR</b></div>
+
+    <div class="content" >
+
+        <div style="font-size: 14px; font-weight: bold; margin: 15px auto 10px;">
+            Sign Up with your Email Address:
+        </div>
+
+
+
+
 
         <div>
-            <div id="dropdown-cover" class="dropdown_test_2"  style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -11px; padding-left: 35px; border-radius: 3px 0 0 3px;">
-                <div class="login-icon">
-                    <i class="icon-facebook icon-large">
-                    </i>
-                </div>   
+
+            <input type="text" class="span2" placeholder="Email Address">
+
+            <input type="text" class="span2" placeholder="Username">
+
+
+            <input type="text" class="span2" placeholder="Password">
+
+            <input type="text" class="span2" placeholder="Confirm Password">
+
+        </div>
+
+
+
+
+
+
+
+        <div style="font-size: 11px; width: 250px; margin: auto;">
+            By clicking Sign Up you indicate that you have read and agreed to the <a href='#'>Terms of Use</a> and <a href='#'>Privacy Policy </a>.
+        </div>
+        <div>
+            <div  type="button" class="new-btn green-btn" >
+                Sign Up
             </div>
-            <div  id="dropdown-cover" onclick="Facebook(650, 400);" style="float: right; bottom: 10px; position: relative; width: 204.5px; height: 45px; margin-right: -9.5px; border-radius: 0 3px 3px 0;">
-                <div class="sign-in-with" >Sign In with Facebook</div>
+
+            <div  type="button" class="new-btn" id="goback">
+                Go Back
             </div>
         </div>
-        <ul class="dropdown"  style="width:270px">
-            <li  onclick="Twitter(650, 400);" ><a style="color:rgb(0,172,237)" href="#"><i class="icon-twitter icon-large"></i>Sign in with Twitter</a></li>
-            <li  onclick="Google(650, 400);" ><a style="color:rgb(211,72,54)" href="#"><i class="icon-google-plus icon-large"></i>Sign in with Google+</a></li>
-            <li  onclick="Yahoo(650, 400);" ><a style="color:rgb(123,0,153)" href="#"><img src='../../../images/yahoo.png' style='width: auto; height: 35px; float:left;margin: -3% -5% 0 6%;'>Sign in with Yahoo</a></li>
-            <li  onclick="Sina(650, 400);" ><a style="color:rgb(245,213,0)" href="#"><img src='../../../images/sina.png' style='width: auto; height: 35px; float:left;margin: -3% -3% 0 6%;'>Sign in with Sina</a></li>
-            <li  onclick="QQ(650, 400);" ><a style="color:rgb(62,59,62)" href="#"><img src='../../../images/qq.png' style='width: auto; height: 35px; float:left;margin: -3% -2% 0 7%;'>Sign in with QQ</a></li>
-
-        </ul>
     </div>
-
-
-
-    <a href="#" role="button" id="create" class="btn">Cancel</a>
-
-    <a href="#" role="button" class="btn">Sign Up</a>
 </div>
-
 
 <script>
 
@@ -125,7 +193,7 @@
 
                     });
 
-                    $('#create').on('click', function(e) {
+                    $('#goback').on('click', function(e) {
                         e.preventDefault();
                         document.getElementById('side-2').className = 'flip';
                         document.getElementById('side-1').className = 'flip';

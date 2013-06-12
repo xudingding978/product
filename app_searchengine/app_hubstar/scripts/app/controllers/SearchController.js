@@ -1,7 +1,7 @@
 define([
-    'models/SearchModel',
+    'models/MegaModel',
     'ember'
-], function(SearchsModel, Ember) {
+], function(MegaModel, Ember) {
     var SearchController = Ember.ObjectController.extend({
 
     });

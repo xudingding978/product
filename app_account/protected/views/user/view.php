@@ -17,10 +17,9 @@ $this->menu = array(
 ?>
 <div style="width:100%">
     <div style="width:200px; height: 200px; float:left; padding:0 0 15px 0;">
-        <img class="img-polaroid" width="200" heigh="200" src="<?php echo ($model->UserProfile->PHOTO_URL_LARGE && $model->UserProfile->PHOTO_URL_LARGE != NULL) ? $model->UserProfile->PHOTO_URL_LARGE : $model->UserProfile->PHOTO_URL; ?>"/>
-    </div>
+           </div>
     <div style="width:60%; height: 30px; float:left; margin-left:50px;">
-        <h1><?php echo $model->UserProfile->FIRST_NAME . ' ' . $model->UserProfile->LAST_NAME ?></h1>
+    
     </div>
 </div>
 
@@ -39,20 +38,3 @@ $this->widget('zii.widgets.CDetailView', array(
 ));
 ?>
 <h2> User Profile</h2>
-<?php 
-$this->widget('zii.widgets.CDetailView', array(
-    'data' => $model->UserProfile,
-    'attributes' => array(
-        'LOGIN_PROVIDER',
-        'REC_ID',
-        'REC_DATETIME',
-        'REC_TIMESTAMP',
-        'TENANT_REC_ID',
-        'USER_REC_ID',
-        'FIRST_NAME',
-        'LAST_NAME',
-        'EMAIL_ADDRESS',
-        'LOGIN_PROVIDER'
-    ),
-));
-?>

@@ -3,10 +3,10 @@
 <div class="content">
     {{input type="text" value=profile_name }} 
 
-    <div class="buttons" style="display: inline-block;">
-        <button type="button" {{action changeTitle }}  class="btn btn-primary"><i class="icon-ok icon-white"></i></button>
+    <div class="buttons" style="display: inline-block; vertical-align: text-top;">
 
-        <button type="button" {{action exitEditing }} class="btn"><i class="icon-remove"></i></button>
+        <div  type="button" class="new-btn blue-btn" {{action changeTitle }}> <i class="icon-ok icon-white"></i></div>
 
+        <div  type="button" class="new-btn" {{action exitEditing }}> <i class="icon-remove"></i></div>
     </div>
 </div>

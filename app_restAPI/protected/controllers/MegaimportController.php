@@ -54,11 +54,12 @@ class MegaimportController extends Controller {
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
-    }
 
+    }
     public function actionCreate() {
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
+  
         $id = $this->getNewID();
         $request_arr["id"] = $id;
         $response = "fail";
@@ -68,14 +69,22 @@ class MegaimportController extends Controller {
         try {
             $cb = $this->couchBaseConnection();
             if ($cb->add($url, CJSON::encode($request_arr))) {
-              //  $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_sucess.log';
-             //   $this->writeToLog($my_file, $url);
-                $response = $url. " is create";
-                //      echo $this->sendResponse(200, var_dump($record));
+                $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_apiside_sucess.log';
+                $handle = fopen($my_file, 'a') or die('Cannot open file:  ' . $my_file);
+                $output = "\n" . $url . ' is create';
+                fwrite($handle, $output);
+                fclose($handle);
+                $response="ok";
+                $this->sendResponse(200, var_dump($record));
             } else {
-             //   $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_error.log';
-            //    $this->writeToLog($my_file, $url);
-                   $response = $url. " is failed";
+                $response="something wrong";
+                $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_apiside_error.log';
+                $handle = fopen($my_file, 'a') or die('Cannot open file:  ' . $my_file);
+                $output = "\n" . 'New data ';
+                $output = "\n" . $url . ' has error';
+                fwrite($handle, $output);
+                fclose($handle);
+                     $this->sendResponse(500,$response);
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -90,7 +99,7 @@ class MegaimportController extends Controller {
         header('Access-Control-Request-Method: *');
         header('Access-Control-Allow-Methods: PUT, POST, OPTIONS, GET');
         header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
-        $this->sendResponse(200,$response);
+   
         Yii::app()->end();
     }
 
@@ -237,12 +246,34 @@ class MegaimportController extends Controller {
         ));
     }
 
-    protected function writeToLog($fileName, $content) {
-        //   $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_sucess.log';
-        $handle = fopen($fileName, 'a') or die('Cannot open file:  ' . $fileName);
-        $output = "\n" . $content . ' is create';
-        fwrite($handle, $output);
-        fclose($handle);
+    public function setCouchBaseRecord($record, $id = null) {
+        if (is_null($id)) {
+            $id = rand(99999999999999, 999999999999999);
+        }
+        try {
+            $cb = $this->couchBaseConnection();
+
+            $url = substr($_SERVER['HTTP_HOST'], 4) . '/' . $id;
+            if ($cb->add($url, CJSON::encode($record))) {
+                $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_sucess.log';
+                $handle = fopen($my_file, 'a') or die('Cannot open file:  ' . $my_file);
+                $output = "\n" . $url . ' is create';
+                fwrite($handle, $output);
+                fclose($handle);
+                //      echo $this->sendResponse(200, var_dump($record));
+            } else {
+                $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_error.log';
+                $handle = fopen($my_file, 'a') or die('Cannot open file:  ' . $my_file);
+                $output = "\n" . 'New data ';
+                $output = "\n" . $url . ' has error';
+                fwrite($handle, $output);
+                fclose($handle);
+                //    echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '"rrrrr  rrrr already exists');
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+            echo json_decode(file_get_contents('php://input'));
+        }
     }
 
 }

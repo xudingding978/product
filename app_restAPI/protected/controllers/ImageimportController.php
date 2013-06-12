@@ -145,7 +145,7 @@ class ImageimportController extends Controller {
                 $sx = imagesx($stamp);
                 $sy = imagesy($stamp);
                 imagecopy($im, $stamp, imagesx($im) - $sx - $marge_right, imagesy($im) - $sy - $marge_bottom, 0, 0, imagesx($stamp), imagesy($stamp));
-                $data = $this->convertData($imageInfo['mime'],$im);
+                $data = $this->convertData($imageInfo['mime'], $im);
                 header('Content-type: ' . $imageInfo['mime']);
                 $response = $this->imageRenameAndputImagetoS3($imageInfo, $url, $data);
             } catch (Exception $e) {
@@ -186,30 +186,13 @@ class ImageimportController extends Controller {
     }
 
     protected function getStamp($url) {
-        try{
-            $stamp = imagecreatefrompng('/home/devbox/NetBeansProjects/test/watermark4hero.png');
-
-            if (strpos($url, 'original')) {
-                $stamp = imagecreatefrompng('/home/devbox/NetBeansProjects/test/watermark4original.png');
-            } elseif (strpos($url, 'hero')) {
-                $stamp = imagecreatefrompng('/home/devbox/NetBeansProjects/test/watermark4hero.png');
-            }
-            return $stamp;
-        } catch (Exception $e) {
-            
-            $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_NotSucess.log", $e);
-            
-            for($n=0; $n<3;$n++){
-                $stamp = imagecreatefrompng('https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/watermark4hero.png');
-                if (strpos($url, 'original')) {
-                    $stamp = imagecreatefrompng('https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/watermark4original.png');
-                } elseif (strpos($url, 'hero')) {
-                    $stamp = imagecreatefrompng('https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/watermark4hero.png');
-                }
-            }
-            
-            return $stamp;
+        $stamp = imagecreatefrompng('https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/watermark4hero.png');
+        if (strpos($url, 'original')) {
+            $stamp = imagecreatefrompng('https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/watermark4original.png');
+        } elseif (strpos($url, 'hero')) {
+            $stamp = imagecreatefrompng('https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/watermark4hero.png');
         }
+        return $stamp;
     }
 
     protected function getImageInfo($url) {
@@ -266,19 +249,15 @@ class ImageimportController extends Controller {
         $tempArray = array(
             "width" => $width,
             "height" => $height,
-            "name" => $name,
-            "url"=>$url
+            "url" => $url,
         );
-//        error_log(var_export($tempArray, true));
         $returnReponse = json_encode($tempArray, true);
-//        error_log($returnReponse);
         return $returnReponse;
     }
 
     function is_image($path) {
         try {
             $a = getimagesize($path);
-            
             $image_type = $a[2];
             if (in_array($image_type, array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_BMP))) {
                 return "true";
@@ -311,15 +290,6 @@ class ImageimportController extends Controller {
         $return = ob_get_contents();
         ob_end_clean();
         return $return;
-    }
-    
-    
-    protected function writeToLog($fileName, $content) {
-        //   $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_sucess.log';
-        $handle = fopen($fileName, 'a') or die('Cannot open file:  ' . $fileName);
-        $output = "\n" . $content;
-        fwrite($handle, $output);
-        fclose($handle);
     }
 
 }

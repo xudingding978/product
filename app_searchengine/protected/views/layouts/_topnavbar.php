@@ -168,10 +168,7 @@ if (Yii::app()->user->isGuest) {
         // hide #back-top first
         $("#back-top").hide();
         $(window).scroll(function() {
-            if ($(this).scrollTop() === 0) {
-                $('#discovery_search_bar_wrapper').attr('style', 'margin-bottom: 40px;');
-                //      document.getElementById("search-loading").attr('style','display:none');
-            }
+
             if ($(this).scrollTop() > 150) {
                 $('#back-top').fadeIn();
             } else {

@@ -20,7 +20,7 @@ Yii::setPathOfAlias('app_administrator', $root . DIRECTORY_SEPARATOR . 'app_admi
 Yii::setPathOfAlias('app_authority', $root . DIRECTORY_SEPARATOR . 'app_authority');
 Yii::setPathOfAlias('app_dashboard', $root . DIRECTORY_SEPARATOR . 'app_dashboard');
 Yii::setPathOfAlias('app_searchengine', $root . DIRECTORY_SEPARATOR . 'app_searchengine');
-Yii::setPathOfAlias('app_useraccount', $root . DIRECTORY_SEPARATOR . 'app_useraccount');
+Yii::setPathOfAlias('app_account', $root . DIRECTORY_SEPARATOR . 'app_account');
 
 // The configuation tree overides in the following way...
 // local settings below > environment specific > main configuration
@@ -133,17 +133,17 @@ return CMap::mergeArray(
                     'rules' => $params['url.rules']
                 ),
                 // Gii Connection String
+//                'db' => array(
+//                    'class' => 'CDbConnection',
+//                    'connectionString' => $params['db_admin.connectionString'],
+//                    'username' => $params['db_admin.username'],
+//                    'password' => $params['db_admin.password'],
+//                    'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
+//                    'enableParamLogging' => YII_DEBUG,
+//                    'charset' => 'utf8',
+//                    'tablePrefix' => $params['tablePrefix']
+//                ),
                 'db' => array(
-                    'class' => 'CDbConnection',
-                    'connectionString' => $params['db_admin.connectionString'],
-                    'username' => $params['db_admin.username'],
-                    'password' => $params['db_admin.password'],
-                    'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
-                    'enableParamLogging' => YII_DEBUG,
-                    'charset' => 'utf8',
-                    'tablePrefix' => $params['tablePrefix']
-                ),
-                'db_live' => array(
                     'class' => 'CDbConnection',
                     'connectionString' => $params['db_live.connectionString'],
                     'username' => $params['db_live.username'],

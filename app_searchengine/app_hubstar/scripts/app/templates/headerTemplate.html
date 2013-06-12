@@ -1,4 +1,4 @@
-<div class="navbar navbar-fixed-top">
+<div class="navbar">
     <div class="navbar-inner">
         <div class="container">
             <div class="brand">
@@ -10,7 +10,7 @@
             <div id="title" class="title-strapline">
                 <p class="titleText">Global  recommendations from </p>
             </div>
-            <div id="dd4" class="wrapper-dropdown-3" tabindex="1" style="background:none;border: none;color:white;height: 45px;left: 0;display: inline-block;box-shadow: none;">
+            <div id="dd4" class="wrapper-dropdown-3" tabindex="1" style="background:none;border: none;color:white;height: 45px;display: inline-block;box-shadow: none; font-weight: normal;">
                 <div class="SpanFontSetting dropdown_test_4" style="margin: -10px 0px 0px -10px;height: 45px;"><p style=" position: absolute; margin: 13px 0;">Region</p></div>
                 <ul class="dropdown" style="background: none repeat scroll 0% 0% rgb(45, 45, 45);border: 1px solid rgba(0, 0, 0, 0.17);">
                     <li><a href="#" style="margin:0; border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>Australia</a></li>
@@ -21,33 +21,41 @@
                 </ul>
             </div>
             <div class="smallIcon">
-                <a class="icon_a" href="#"><i class="icon-th icon-large"></i></a>
-                <a class="icon_b" href="#"><i class="icon-list-ul  icon-large"></i></a>
                 <a href="#" class="icon_c"><i class="icon-search icon-large"></i></a>
             </div>
             <!-- show if not logged into platform-->
 
 
 
-            {{#if controller.isLogin}}
-            {{view App.AfterLoginView}}
 
-            {{else}}
 
-            {{view App.BeforeLoginView}}
 
-            {{#if controller.popup}}
 
-            
-            {{view App.LoginModalView}}
-            
- 
-            
-            
-            
-            {{/if}}
+            <div id="login_detail">
+                {{view App.AfterLoginView}}
+            </div>
 
-            {{/if}}
+
+
+
+
+            <div id="login_icon">
+                {{view App.BeforeLoginView}}
+
+                {{#if controller.popup}}
+
+
+                {{view App.LoginModalView}}
+
+
+                {{/if}}
+
+            </div>
+
+
+
+
+
             <!-- user is logged in -->
 
         </div>
@@ -71,10 +79,7 @@
         // hide #back-top first
         $("#back-top").hide();
         $(window).scroll(function() {
-            if ($(this).scrollTop() === 0) {
-                $('#discovery_search_bar_wrapper').attr('style', 'margin-bottom: 40px;');
-                //      document.getElementById("search-loading").attr('style','display:none');
-            }
+
             if ($(this).scrollTop() > 150) {
                 $('#back-top').fadeIn();
             } else {

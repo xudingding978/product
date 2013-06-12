@@ -15,8 +15,18 @@ define(["ember"], function(Ember) {
         },
         email_login: function() {
 
-          this.set('mail', !this.get('mail'));
+            this.set('mail', !this.get('mail'));
         },
+//        setLoginIn: function() {
+//
+//            this.set('isLogin', true);
+//
+//        },
+//        setLoginOut: function() {
+//
+//            this.set('isLogin', false);
+//
+//        }
     });
 
     return ApplicationController;

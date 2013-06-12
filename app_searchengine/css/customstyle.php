@@ -40,50 +40,23 @@ box-shadow: 0px -1px 10px rgba(0, 0, 0, 0.1);
 
 
 .navbar-inner {
-height: 45px;
-background-color: <?php echo $color_1; ?>;
-background-image: -moz-linear-gradient(top,<?php echo $color_1; ?> , <?php echo $color_2; ?>);
-background-image: -ms-linear-gradient(top, <?php echo $color_1; ?> , <?php echo $color_2; ?> );
-background-image: -webkit-gradient(linear, 0 0, 0 100%, from(<?php echo $color_1; ?> ), to( <?php echo $color_2; ?>));
-background-image: -webkit-linear-gradient(top, <?php echo $color_1; ?> ,  <?php echo $color_2; ?>);
-background-image: -o-linear-gradient(top, <?php echo $color_1; ?> ,  <?php echo $color_2; ?>);
-background-image: linear-gradient(top, <?php echo $color_1; ?> ,  <?php echo $color_2; ?>);
-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='<?php echo $color_1; ?>', endColorstr='<?php echo $color_2; ?>', GradientType=0);
--webkit-box-shadow: 0px 0px 15px rgb(0, 0, 0);
--moz-box-shadow: 0px 0px 15px rgb(0, 0, 0);
-box-shadow: 0px 0px 15px rgb(0, 0, 0);
-
-border:0px;
-}
-.navbar{
-overflow:visible;
-color:white;
--webkit-box-shadow: 0px 0px 15px rgb(0, 0, 0);
--moz-box-shadow: 0px 0px 15px rgb(0, 0, 0);
-box-shadow: 0px 0px 15px rgb(0, 0, 0);
+width:87%;
+margin:auto;
 
 }
+
 
 
 .navbar .nav > li > a {
-float: none;
-padding: 10px 15px;
-color: rgb(119, 119, 119);
-text-decoration: none;
+color: rgb(242,240,240);
 text-shadow: none;
 }
 
-.navbar .brand {
-display: block;
-float: left;
-padding:10px;
-margin-left: 0px;
-font-size: 20px;
-font-weight: 200;
-color: rgb(119, 119, 119);
-text-shadow: none;
-margin:0;
+.navbar .nav > li > a:focus, .navbar .nav > li > a:hover {
+color: #fff;
 }
+
+
 
 .bootstrap-widget-header {
 
@@ -114,32 +87,6 @@ border-top-right-radius: 4px;
 -webkit-background-clip: padding-box;
 }
 
-.navbar .nav > li > a {
-float: none;
-padding: 10px 15px;
-color: <?php echo $text_color; ?>;
-text-decoration: none;
-
-}
-
-
-.dropdown-menu {
-position: absolute;
-top: 100%;
-left: 0px;
-z-index: 1000;
-display: none;
-float: left;
-min-width: 170px;
-min-height: 200px;
-margin: 15px 0px 0px 0px;
-list-style: none outside none;
-background-color: rgba(0, 0, 0,1);
-border: none;
-border-radius: 6px 6px 6px 6px;
-box-shadow: none;
-background-clip: padding-box;
-}
 
 
 .main-nav .dropdown-menu{
@@ -150,13 +97,11 @@ padding: 0px 0px 0px 30px;
 
 
 .navbar .nav {
-color:rgb(242,240,240);
+color: rgb(242,240,240);
 position: relative;
-
-left: 1000px;
-display: block;
-top:-45px;
-width:200px;
+right: 0px;
+top: -62px;
+float: right;
 }
 
 
@@ -189,9 +134,6 @@ padding:0px;
 width:200px;
 }
 
-.navbar .nav > li {
-float: none;
-}
 
 .login_icon{
 positison:absolute;
@@ -246,30 +188,18 @@ outline: 0px none;
 .smallIcon{
 position: relative;
 margin: 13px;
-display: inline-block;
-left: 20%;
-width: 120px;
-z-index: 10000;
+right: 10%;
 cursor: pointer;
 vertical-align: top;
+display: inline-block;
+float: right;
 }
 
 .smallIcon a, .smallIcon a:visited  {color:rgb(242,240,240); ; text-decoration:none;}
 .smallicon a:active {color: rgb(255,255,255); text-decoration: none; text-shadow: ;}
 .smallIcon a:hover{color: rgb(255,255,255); text-decoration: none;}
 
-.icon_a{
 
-
-}
-.icon_b{
-margin: 0 0 0 22px;
-
-}
-.icon_c{
-margin: 0 0 0 24px;
-
-}
 
 
 .navbar .nav li.dropdown > .dropdown-toggle .caret {
@@ -290,18 +220,6 @@ height: auto;
 }
 
 
-.carousel > #modal_insert > .item > img {
-display: block;
-line-height: 1;
-width: auto;
-height:auto;
-margin:auto;
-position:absolute;
-top:0;
-bottom:0;
-max-height:600px;
-max-width:550px;
-}
 
 
 .carousel-inner > .item > img {
@@ -311,47 +229,6 @@ height:auto;
 
 
 
-#item_detail_modal  .carousel .item {
-background-color: white;
-position: absolute;
-top: 0;
-bottom: 0;
-margin: auto;
-max-width:550px;
-max-height:600px;
-}
-
-
-
-
-#item_detail_modal  .carousel .item > img {
-
-width: auto;
-margin:auto;
-
-}
-
-
-
-.carousel {
-position: relative;
-margin-bottom: 0px;
-line-height: 1;
-min-width:1280px;
-}
-
-#item_detail_modal  .carousel {
-
-min-width:550px;
-}
-
-#myCarousel > #modal_insert {
-position:relative;
-width:550px;
-height:600px;
-
-
-}
 
 .carousel .item {
 -webkit-transition: opacity 1s; 
@@ -380,20 +257,6 @@ z-index:1;
 }
 
 
-
-
-
-.navbar-fixed-top {
-margin-bottom: 0px;
-height:45px;
-top:0;
-position: fixed;
-}
-
-
-.navbar .btn, .navbar .btn-group {
-margin-top: -30px;
-}
 
 
 .modal{
@@ -608,10 +471,6 @@ font-style: italic;
 top:-40px;
 }
 
-.login_guest{
-margin: -64px 0px 0px 3%;
-}
-
 
 #mainmenu #dd ul li a {
 
@@ -649,6 +508,10 @@ border-left-color: rgb(242,240,240);
 #slider-control {
 text-decoration: none;
 color: rgba(255,255,255,0.5);
+position: relative;
+top: -400px;
+font-size: 6em;
+z-index: 2;
 }
 
 
@@ -675,18 +538,6 @@ height: 35px;
 width: 70%;
 
 }
-
-.navbar > .navbar-inner {
-padding:0;
-
-}
-
-.navbar-inner > .container {
-min-width:950px;
-height:45px;
-}
-
-
 
 
 
@@ -743,90 +594,6 @@ padding:7px 20px;
 }
 
 
-a:hover {
-text-decoration: none;
-
-}
-
-
-.album_status_bar a {
-margin:10px;
-
-}
-
-.question_bar a {
-margin:10px;
-}
-
-.question_bar a > i {
-color:#ccc;
-}
-
-.question_bar a > .icon-rss:hover {
-color: orange;
-} 
-
-.question_bar a > .icon-print:hover {
-color: #333333;
-} 
-
-.question_bar a > .icon-facebook:hover {
-color: #3b5998;
-} 
-
-.question_bar a > .icon-twitter:hover {
-color: #4099ff;
-} 
-
-.question_bar a > .icon-google-plus:hover {
-color: #e64522;
-} 
-
-
-.ligthbox_contact > .btn {
-
-border-radius:3px;
-color: white;
-text-shadow: -1px -1px 0 #333333;
-font-size: 20px;
-font-weight: bold;
-background-color: rgb(35,140,60);
-background-image: -moz-linear-gradient(top, rgb(115,191,133), rgb(35,140,60));
-background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(115,191,133)), to(rgb(35,140,60)));
-background-image: -webkit-linear-gradient(top, rgb(115,191,133), rgb(35,140,60));
-background-image: -o-linear-gradient(top, rgb(115,191,133), rgb(35,140,60));
-background-image: linear-gradient(to bottom, rgb(115,191,133), rgb(35,140,60));
-background-repeat: repeat-x;
-
-}
-
-/*login panel login button hover state*/
-
-#mainmenu .modal-topbox .dropdown li:nth-child(1):hover a{
-
-background: rgba(0,172,237,0.2);
-}
-#mainmenu .modal-topbox .dropdown li:nth-child(2):hover a{
-
-background: rgba(211,72,54,0.2);
-}
-#mainmenu .modal-topbox .dropdown li:nth-child(3):hover a{
-
-background: rgba(123,0,153,0.2);
-}
-#mainmenu .modal-topbox .dropdown li:nth-child(4):hover a{
-
-background: rgba(245,213,0,0.2);
-}
-#mainmenu .modal-topbox .dropdown li:nth-child(5):hover a{
-
-background: rgba(62,59,62,0.2);
-}
-#mainmenu .modal-topbox .dropdown li:nth-child(6):hover a{
-
-background: rgba(0,153,68,0.2);
-}
-
 
 .footer_contentbox  ul li a {
 color: #ccc;
@@ -844,106 +611,6 @@ display: inline-block;
 }
 
 
-.profilemain > .tabs-right > .nav-tabs > li {
-
-margin: 85px 16px 0px -45px;
-
-
-}
-
-
-
-
-.profilemain > .tabs-right > .nav-tabs > li > a {
-color: #555;
-background-color: rgba(255,255,255,0.5);
-
-text-align: center;
-font-weight: bold;
-box-shadow: 2px -2px 2px #333;
-
--webkit-transform: rotate(90deg);   
--moz-transform: rotate(90deg);
--ms-transform: rotate(90deg);
--o-transform: rotate(90deg);
-transform: rotate(90deg);
-
-margin: 0 -3px 0 -3px;
-border-radius: 5px 5px 0px 0px;
-border-bottom:0 solid transparent;
-
--webkit-transition: all 0.3s ease-out;
--moz-transition: all 0.3s ease-out;
--o-transition: all 0.3s ease-out;
-}
-
-.profilemain > .tabs-right > .nav-tabs > li > a:hover {
-color: #0088cc;
-background-color: rgba(255,255,255,0.8)
-}
-
-.profilemain > .tabs-right > .nav-tabs > .active > a {
-
-color: #333;
-cursor: default;
-background-color: #ffffff;
-border: 1px solid #ddd;
-border-bottom-color: transparent;
-
-}
-
-.profilemain > .tabs-right > .nav-tabs {
-margin:0;
-border-left:0px solid transparent;
-margin-right:-90px;
-}
-
-.main_Gallery > .profile_gallery > .profilegallerypics > .thumbnail {
-width: 65px;
-height: 65px;
-padding: 0;
-overflow: hidden;
-margin: 0.5px;
-display: inline-block;
-}
-
-
-.aside-profilepic > .profile_like > a {
-color:#aaa;
-
-}
-
-.aside-profilepic > .profile_like > a:hover {
-color:red;
-}
-
-.aside-profilepic > .profile_like > a > .icon-facebook:hover {
-color: #3B5998;
-}
-
-.aside-profilepic > .profile_like > a > .icon-twitter:hover {
-color: #4099ff;
-}
-
-.aside-profilepic > .profile_like > a > .icon-google-plus:hover {
-color: #F90101;
-}
-
-
-
-
-
-
-
-.discovermoreitem  a {
-color: #555;
-}
-
-.discovermoreitem  a:hover {
-color: #0088cc;
-}
-
-
 
 
 
@@ -957,18 +624,6 @@ transition: opacity 0.15s linear 0s;
 }
 
 
-
-.follow a  img {
-width: 50px;
-height: 50px;
-padding: 5px;
-}
-
-#userspage .follow a  img {
-width: 40px;
-height: 40px;
-padding: 2px;
-}
 
 <?php
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// isotope parts   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

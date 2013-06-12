@@ -21,6 +21,7 @@ require.config({
         'bootstrap-modal': 'libs/bootstrap/2.2.2/js/bootstrap-modal',
         'wysihtml5': 'libs/wysihtml5/wysihtml5-0.3.0',
         'bxslider': 'libs/jquery.bxslider.min',
+        'moment': 'libs/moment',
         'guid_creater': 'libs/guid_creater',
         'jquery.masonry': 'libs/jquery.masonry/jquery.masonry.min',
         /*requirejs-plugins*/
@@ -61,6 +62,7 @@ define('application', [
     "views/ProfilesView",
     "views/ProfileView",
     "views/UsersView",
+    "views/UserView",
     "views/EditingView",
     "views/PhotoUploadView",
     "views/ImageInputButtonView",
@@ -89,6 +91,9 @@ define('application', [
     "views/BeforeLoginView",
     "views/AfterLoginView",
     "views/LoginModalView",
+    "views/StatusView",
+    "views/ShowAlbumView",
+    "views/PhotoDisplayAreaView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -101,6 +106,9 @@ define('application', [
     "controllers/IndexController",
     "controllers/SearchsController",
     "controllers/PhotoController",
+    "controllers/StatusController",
+    "controllers/MegaController",
+    "controllers/PhotoDisplayAreaController",
     "app/router",
     "routes/ApplicationRoute",
     "routes/IndexRoute",
@@ -109,7 +117,9 @@ define('application', [
     "routes/ProfilesRoute",
     "routes/ProfileRoute",
     "routes/ProfileIndexRoute",
+    "routes/UserIndexRoute",
     "routes/UsersRoute",
+    "routes/UserRoute",
     "routes/ProfileNewRoute",
     "routes/PhotoUploadRoute",
     "routes/LightBoxRoute",
@@ -125,7 +135,7 @@ define('application', [
     "routes/SearchRoute",
     "routes/SearchIndexRoute",
     "routes/IndexIndexRoute",
-    "models/ObjectModel",
+    "models/MegaModel",
     "models/PostModel",
     "models/ProfileModel",
     "models/UserModel",
@@ -150,6 +160,7 @@ define('application', [
         ProfilesView,
         ProfileView,
         UsersView,
+        UserView,
         EditingView,
         PhotoUploadView,
         ImageInputButtonView,
@@ -178,6 +189,9 @@ define('application', [
         BeforeLoginView,
         AfterLoginView,
         LoginModalView,
+        StatusView,
+        ShowAlbumView,
+        PhotoDisplayAreaView,
         ApplicationController,
         tabListController,
         DataController,
@@ -190,6 +204,9 @@ define('application', [
         IndexController,
         SearchsController,
         PhotoController,
+        StatusController,
+        MegaController,
+        PhotoDisplayAreaController,
         Router,
         ApplicationRoute,
         IndexRoute,
@@ -198,7 +215,9 @@ define('application', [
         ProfilesRoute,
         ProfileRoute,
         ProfileIndexRoute,
+        UserIndexRoute,
         UsersRoute,
+        UserRoute,
         ProfileNewRoute,
         PhotoUploadRoute,
         LightBoxRoute,
@@ -214,18 +233,15 @@ define('application', [
         SearchRoute,
         SearchIndexRoute,
         IndexIndexRoute,
-        Object,
+        Mega,
         Post,
         Profile,
         User,
         ImageArray,
-        Search,
+        Searchresult,
         Photo,
         Article,
         Video
-
-
-
         )
 {
 
@@ -242,6 +258,7 @@ define('application', [
         ProfilesView: ProfilesView,
         ProfileView: ProfileView,
         UsersView: UsersView,
+        UserView: UserView,
         EditingView: EditingView,
         PhotoUploadView: PhotoUploadView,
         ProfileNewView: ProfileNewView,
@@ -270,6 +287,9 @@ define('application', [
         BeforeLoginView: BeforeLoginView,
         AfterLoginView: AfterLoginView,
         LoginModalView: LoginModalView,
+        StatusView: StatusView,
+        ShowAlbumView: ShowAlbumView,
+        PhotoDisplayAreaView: PhotoDisplayAreaView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
@@ -282,6 +302,9 @@ define('application', [
         IndexController: IndexController,
         SearchsController: SearchsController,
         PhotoController: PhotoController,
+        StatusController: StatusController,
+        MegaController: MegaController,
+        PhotoDisplayAreaController: PhotoDisplayAreaController,
         Router: Router,
         ApplicationRoute: ApplicationRoute,
         IndexRoute: IndexRoute,
@@ -290,7 +313,9 @@ define('application', [
         ProfilesRoute: ProfilesRoute,
         ProfileRoute: ProfileRoute,
         ProfileIndexRoute: ProfileIndexRoute,
+        UserIndexRoute: UserIndexRoute,
         UsersRoute: UsersRoute,
+        UserRoute: UserRoute,
         ProfileNewRoute: ProfileNewRoute,
         PhotoUploadRoute: PhotoUploadRoute,
         LightBoxRoute: LightBoxRoute,
@@ -306,12 +331,12 @@ define('application', [
         SearchRoute: SearchRoute,
         SearchIndexRoute: SearchIndexRoute,
         IndexIndexRoute: IndexIndexRoute,
-        Object: Object,
+        Mega: Mega,
         Post: Post,
         Profile: Profile,
         User: User,
         ImageArray: ImageArray,
-        Search: Search,
+        Searchresult: Searchresult,
         Photo: Photo,
         Article: Article,
         Video: Video,
@@ -319,9 +344,10 @@ define('application', [
             revision: 12,
             adapter: DS.RESTAdapter.create({
                 bulkCommit: false,
-                url: getRestAPIURL()
-
-
+                url: getRestAPIURL(),
+                plurals: {
+                    mega: "mega"
+                },
 //                map: {
 //                    Object: {
 //                        Photo: {embedded: 'always'}
@@ -330,6 +356,8 @@ define('application', [
             })
         }),
         ready: function() {
+
+
             App.set("isLogin", false);
 
         }

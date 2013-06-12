@@ -3,6 +3,10 @@
 
 <div class="objectview-wrapper">
 
+
+
+
+
     <div class="objectview-left">
 
         <div class="exit">
@@ -19,28 +23,32 @@
         </div>
 
 
-        <div class="mainfeature">
-            <img class="mainfeature_object" {{bindAttr src="image_url" }}/>
-        </div>
+        {{render photoDisplayArea}}
 
+        <!--THIS IS THE ALBUM BOX-->
+
+        {{view App.ShowAlbumView}}
+
+        <!--THIS IS THE ALBUM BOX-->
 
         <div class="bottom-controlbar" >
-            <div class="text-on-black" style="right: 132px;"> object Name</div>
-            <div class="icon-on-black" >
-                <i class="icon-arrow-left"></i>
+            <div class="text-on-black" style="right: 132px;"> object Name </div>
+            <div class="icon-on-black"  {{action previesImage}}>
+                 <i class="icon-arrow-left"></i>
             </div>
-            <div class="icon-on-black" style="left: 44px;">
+            <div class="icon-on-black" style="left: 44px;" {{action popupAibum model.id on="click" target="view"}}>
                 <i class="icon-th"></i>
             </div>
-            <div class="icon-on-black" style="left: 88px;">
-                <i class="icon-arrow-right"></i>
+            <div class="icon-on-black" style="left: 88px;" {{action nextImage }}>
+                 <i class="icon-arrow-right"></i>
             </div>
             <div class="text-on-black" style="left: 132px;"> 18/30 </div>
         </div>
 
+
+
+
     </div>
-
-
 
 
     <div class="objectview-right">
@@ -49,11 +57,11 @@
         <div>
             <div class="object-poster easing" {{action setNameTag on="click" target="view"}}>
                 <div class="profilepic-container">
-                    <a href="#"><img {{bindAttr src="profile_pic_url"}} class="profilepic"/></a>              
+                    <a href="#"><img {{bindAttr src="model.owner_profile_pic"}} class="profilepic"/></a>              
                 </div>
                 <div class="poster_user" >
-                    <a class="poster-name" href="#">NAME</a>
-                    <span class="posttime">yesterday 8:37 </span>
+                    <a class="poster-name" href="#">{{content.owner_title}}</a>
+                    <span class="posttime">{{date content.created}} </span>
                 </div>
 
                 <div class="contactmebtn" style="position: absolute; right: 15px; top: 23px; bottom: auto;">
@@ -69,18 +77,18 @@
             {{view App.ContactView}}
             {{/if}}
 
-      
+
 
             <div class="collapes-container" id="poster_action">
                 <table style="padding: 15px; width: 100%;font-size: 13px;  display: table;border-collapse: separate;border-spacing: 4px;">
                     <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
                         <tr>
                             <td>Contact:</td>
-                            <td>--</td>
+                            <td>{{controller}}</td>
                         </tr>
                         <tr>
                             <td>Type:</td>
-                            <td>--</td>
+                            <td>{{model}}</td>
                         </tr>
                         <tr>
                             <td>Address:</td>
@@ -97,7 +105,7 @@
                     </tbody>
                 </table>                
             </div>
-       
+
 
         </div>
 
@@ -118,7 +126,7 @@
             <div class="collapes-container"   id="article_action">
                 <div  class="collapes-container_inner">
                     <div class="article-title">Title</div>
-                    <div class="article-text">{{description}}</div>
+                    <div class="article-text">{{model.keywords}}</div>
                 </div>
             </div>
 
@@ -154,7 +162,7 @@
                     <a class="sml-partner" href="#" ><img src="../images/profilepic8.jpg" /></a>          
                 </div>
             </div>
-       
+
         </div>
 
 
@@ -280,7 +288,7 @@
 
                     </div>
                 </div>
-            
+
             </div>
         </div>
 

@@ -57,7 +57,6 @@ define(
 //            console.log('id: ' + this.id + ' ' + this.profile_name, this);
         }
     });
-
     return SearchModel;
 }
 );

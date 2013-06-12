@@ -72,6 +72,8 @@ class UserController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate() {
+        
+        error_log('actionCreate');
         $model = new User;
 
         // Uncomment the following line if AJAX validation is needed
@@ -170,7 +172,7 @@ class UserController extends Controller {
      */
     public function loadModel($id) {
         $model = User::model()
-                ->with('UserProfile')
+         
                 ->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');

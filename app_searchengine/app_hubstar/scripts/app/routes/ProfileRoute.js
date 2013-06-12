@@ -8,16 +8,33 @@ define([
         ProfileController
         ) {
     "use strict";
+ //   var kink;
     var ProfileRoute = Ember.Route.extend({
         setupController: function(ProfileController, model) {
+       //     kink=model;
+            
             ProfileController.setLocalLoginRecrod();
-          
+    //        console.log('aaaaaaaaaa'+ kink);
+        },
+        redirect: function() {
+
+
+            if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
+                alert('please login in');
+                this.transitionTo('indexIndex');
+
+            } else {
+
+                this.transitionTo('profiles');
+
+            }
+
+
         },
         model: function(params) {
 
             return ProfileModel.find(params.profile_id);
-        },
-        renderTemplate: function() {
+        }, renderTemplate: function() {
             this.render('profile', {
                 into: "application"
             });

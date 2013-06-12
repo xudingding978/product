@@ -14,11 +14,11 @@ class DefaultController extends CController {
         if (!isset(Yii::app()->session['hybridauth-ref'])) {
             Yii::app()->session['hybridauth-ref'] = Yii::app()->request->urlReferrer;
         }
+
+    
+
+
         $this->_doLogin();
-        //} catch (Exception $e) {
-        //	Yii::app()->user->setFlash('hybridauth-error', "Something went wrong, did you cancel?");
-        //	$this->redirect(Yii::app()->session['hybridauth-ref'], true);
-        //}
     }
 
     /**
@@ -39,21 +39,29 @@ class DefaultController extends CController {
             throw new Exception("Invalid characters in provider string");
         }
 
-
         $identity = new RemoteUserIdentity($_GET['provider'], $this->module->getHybridauth());
 
+
         if ($identity->authenticate()) {
+    
+
+
             // They have authenticated AND we have a user record associated with that provider
             if (Yii::app()->user->isGuest) {
+
                 $this->_loginUser($identity);
             } else {
-                //they shouldn't get here because they are already logged in AND have a record for
-                // that provider.  Just bounce them on
-                $this->redirect(Yii::app()->user->returnUrl);
+
+
+
+
+                //        Yii::app()->session['data'] = Yii::app()->user->id;
+                $this->render('close');
             }
         } else if ($identity->errorCode == RemoteUserIdentity::ERROR_USERNAME_INVALID) {
             // They have authenticated to their provider but we don't have a matching HaLogin entry
             if (Yii::app()->user->isGuest) {
+
                 // They aren't logged in => display a form to choose their username & email 
                 // (we might not get it from the provider)
                 if ($this->module->withYiiUser == true) {
@@ -64,22 +72,13 @@ class DefaultController extends CController {
 
                 $user = new User;
 
-
-
-
-
                 if (isset($_POST['User'])) {
                     //Save the form
                     $user->attributes = $_POST['User'];
 
-
-
                     if ($user->validate() && $user->save()) {
                         if ($this->module->withYiiUser == true) {
-//                            $userProfile = new UserProfile;
-//                            $userProfile->FIRST_NAME = 'firstname';
-//                            $userProfile->GENDER = 'firstname';
-//                            $userProfile->save();
+                            
                         }
 
 
@@ -102,6 +101,7 @@ class DefaultController extends CController {
                 ));
             } else {
                 // They are already logged in, link their user account with new provider
+
                 $identity->id = Yii::app()->user->id;
                 $this->_linkProvider($identity);
                 $this->redirect(Yii::app()->session['hybridauth-ref']);
@@ -113,10 +113,17 @@ class DefaultController extends CController {
     private function _linkProvider($identity) {
         $config = Yii::app()->getBasePath() . '/../../common/protected/modules/hybridauth/config/provider_config.php';
         require_once( Yii::app()->getBasePath() . '/../../common/protected/modules/hybridauth/Hybrid/Auth.php');
-       
+
         $hybridauth = new Hybrid_Auth($config);
         $adapter = $hybridauth->authenticate($_GET['provider']);
         $user_profile = $adapter->getUserProfile();
+        $user = new User;
+        $user->attributes = $_POST['User'];
+        $user->TENANT_REC_ID=1;
+        $user_profile->email = $user->EMAIL_ADDRESS;
+        $user_profile->displayName = $user->USER_NAME;
+        $user_profile->lastName = $user->LAST_NAME;
+        $user_profile->firstName = $user->FIRST_NAME;
 
         $userProfile = new UserProfile;
         $userProfile->LOGIN_PROVIDER_IDENTIFIER = $identity->loginProviderIdentifier;
@@ -145,15 +152,58 @@ class DefaultController extends CController {
         $userProfile->CITY = $user_profile->city;
         $userProfile->ZIP = $user_profile->zip;
         $userProfile->POST_CODE = '';
+
+        //   return $user_profile;
         $userProfile->save();
+
+
+        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "Pa55word", "test", true);
+        $rand_id = $user->COUCHBASE_ID;
+        $temp = $this->getMega();
+        $temp["id"] = $rand_id;
+
+
+
+        $temp["user"][0]["id"] = $rand_id;
+        $temp["user"][0]["identifier"] = $userProfile->IDENTIFIER;
+        $temp["user"][0]["profile_url"] = $userProfile->PROFILE_URL;
+        $temp["user"][0]["website_url"] = $userProfile->WEBSITE_URL;
+
+        $temp["user"][0]["photo_url"] = $userProfile->PHOTO_URL;
+        $temp["user"][0]["photo_url_large"] = $userProfile->PHOTO_URL_LARGE;
+        $temp["user"][0]["display_name"] = $userProfile->DISPLAY_NAME;
+        $temp["user"][0]["description"] = $userProfile->DESCRIPTION;
+        $temp["user"][0]["first_name"] = $userProfile->FIRST_NAME;
+        $temp["user"][0]["last_name"] = $userProfile->LAST_NAME;
+        $temp["user"][0]["gender"] = $userProfile->GENDER;
+        $temp["user"][0]["age"] = $userProfile->AGE;
+        $temp["user"][0]["birth_day"] = $userProfile->BIRTH_DAY;
+        $temp["user"][0]["birth_month"] = $userProfile->BIRTH_MONTH;
+        $temp["user"][0]["birth_year"] = $userProfile->BIRTH_YEAR;
+
+        $temp["user"][0]["email"] = $userProfile->EMAIL;
+        $temp["user"][0]["phone"] = $userProfile->PHONE;
+        $temp["user"][0]["email_verified"] = $userProfile->EMAIL_VERIFIED;
+        $temp["user"][0]["country"] = $userProfile->COUNTRY;
+        $temp["user"][0]["region"] = $userProfile->REGION;
+        $temp["user"][0]["city"] = $userProfile->CITY;
+        $temp["user"][0]["zip"] = $userProfile->ZIP;
+
+
+
+
+
+
+
+
+
+        $cb->add(substr($_SERVER['HTTP_HOST'], 8) . "/users/" . $rand_id, CJSON::encode($temp));
     }
 
     private function _loginUser($identity) {
         Yii::app()->user->login($identity, 0);
-        $this->redirect(Yii::app()->user->returnUrl);
-        //   error_log(Yii::app()->user->returnUrl);
-        //     $this->redirect('http://'.$_SERVER['SERVER_NAME'].'/hybridauth');
-        //  $this->redirect('http://account.business-software.co.nz/hybridauth');
+
+        $this->render('close');
     }
 
     /**
@@ -169,6 +219,45 @@ class DefaultController extends CController {
         $login = UserProfile::getLogin(Yii::app()->user->getid(), $_POST['hybridauth-unlinkprovider']);
         $login->delete();
         $this->redirect(Yii::app()->getRequest()->urlReferrer);
+    }
+
+    public function getMega() {
+        $mega = '{
+  "id": "",
+  "type": "user",
+  "accessed": null,
+  "active_yn": null,
+  "article_id": null,
+  "category": null,
+  "created": null,
+  "creator": "",
+  "deleted": null,
+  "domains": null,
+  "editors": null,
+  "follower_count": null,
+  "followers": null,
+  "following": null,
+  "following_count": null,
+  "country": "new zealand",
+  "region": "auckland",
+  "geography": null,
+  "indexed_yn": null,
+  "object_image_linkto": null,
+  "object_image_url": null,
+  "object_title": null,
+  "owner_profile_pic": null,
+  "owner_title": null,
+  "owner_url": null,
+  "owners": null,
+  "status_id": null,
+  "updated": null,
+  "uri_url": null,
+  "view_count": null,
+  "keywords": "",
+  "photo": [],
+  "user": []
+}';
+        return json_decode($mega, true);
     }
 
 }

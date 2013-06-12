@@ -131,12 +131,14 @@ class Controller extends CController {
         $result .= ']}';
         return $result;
     }
+
     protected function processGet($results_arr, $jsonRoot) {
         $result = '{"' . $jsonRoot . '":[';
         $result .= $results_arr;
         $result .= ']}';
         return $result;
     }
+
     protected function getNewID() {
         $myText = (string) microtime();
         $pieces = explode(" ", $myText);
@@ -144,9 +146,28 @@ class Controller extends CController {
         $id = (string) rand(99999999, 999999999) . $id;
         return $id;
     }
-    
-    
-        protected function getRequestResult($returnType,$region, $requestString) {
+
+    protected function getRequestResult($searchString, $returnType) {
+        $response = "";
+                    
+        if (strpos($searchString, 'search')!==false) {
+            $regionAndsearchString = explode('&', $searchString);
+            $region = $this->getUserInput($regionAndsearchString[0]);
+            $searchString = $this->getUserInput($regionAndsearchString[1]);
+            $response = $this->performSearch($returnType, $region, $searchString);
+        } elseif (strpos($searchString, 'collection')!==false) {
+            $regionAndsearchString = explode('&', $searchString);
+          
+            $collection_id = $this->getUserInput($regionAndsearchString[0]);
+            $owner_profile_id = $this->getUserInput($regionAndsearchString[1]);
+            $response = $this->performRawSearch($returnType, $collection_id, $owner_profile_id);
+        } else {
+            $response = $this->getRequestResult($returnType, "", "dean");
+        }
+        return $response;
+    }
+
+    protected function performSearch($returnType, $region, $requestString) {
         $settings['log.enabled'] = true;
         $sherlock = new Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
@@ -162,10 +183,10 @@ class Controller extends CController {
                 ->type("couchbaseDocument")
                 ->size(7)
                 ->query($termQuery);
-        
+
         $response = $request->execute();
-        error_log("size of response".sizeof($response));
-        $results = '{"' . $returnType. '":[';
+        error_log("size of response " . sizeof($response));
+        $results = '{"' . $returnType . '":[';
         $i = 0;
         foreach ($response as $hit) {
             $results .= CJSON::encode($hit['source']['doc']);
@@ -174,12 +195,10 @@ class Controller extends CController {
             }
         }
         $results .= ']}';
-
-
         return $results;
     }
-    
-            protected function getRequestResultByID($returnType, $requestString) {
+
+    protected function getRequestResultByID($returnType, $requestString) {
         $settings['log.enabled'] = true;
         $sherlock = new Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
@@ -195,10 +214,10 @@ class Controller extends CController {
                 ->type("couchbaseDocument")
                 ->size(7)
                 ->query($termQuery);
-        
+
         $response = $request->execute();
 
-        $results = '{"' . $returnType. '":';
+        $results = '{"' . $returnType . '":';
         $i = 0;
         foreach ($response as $hit) {
             $results .= CJSON::encode($hit['source']['doc'][$returnType][0]);
@@ -207,10 +226,50 @@ class Controller extends CController {
             }
         }
         $results .= '}';
-
-
         return $results;
     }
     
+        protected function performRawSearch($returnType, $collection_id, $owner_profile_id) {
+            
+        error_log("ssssssssss    ".$collection_id."ddddddd   ". $owner_profile_id);
+        $settings['log.enabled'] = true;
+        // $settings['log.file'] = '/var/log/sherlock/newlogfile.log';
+        $settings['log.level'] = 'debug';
+        $sherlock = new Sherlock\Sherlock($settings);
+        $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
+        $request = $sherlock->search();
+//        $json = '{"query":
+//                            {"bool":
+//                                {"must":[
+//                                    {"query_string":
+//                                        {"default_field":"couchbaseDocument.doc.keywords","query":"home"}}],
+//                                            "must_not":[],"should":[]
+//                                                }},
+//                                                "from":0,"size":50,"sort":[],"facets":{}}';
+        
+        $json =  '{"query":
+                            {"bool":
+                                {"must":[
+                                    {"query_string":{"default_field":"couchbaseDocument.doc.collection_id","query":"'.$collection_id.'"}},
+                                        {"query_string":{"default_field":"couchbaseDocument.doc.owner_profile_id","query":"'.$owner_profile_id.'"}}],
+                                            "must_not":[],"should":[]}},"from":0,"size":50,"sort":[],"facets":{}}';
+ 
+        $rawTermQuery = Sherlock\Sherlock::queryBuilder()->Raw($json);
+
+        $response = $request->query($rawTermQuery)->execute();
+        $results = '{"' . $returnType . '":[';
+
+        //Iterate over the hits and print out some data
+        $i = 0;
+        foreach ($response as $hit) {
+            $results .= CJSON::encode($hit['source']['doc']);
+            if (++$i !== count($response)) {
+                $results .= ',';
+            }
+        }
+        $results .= ']}';
+        return $results;
+    }
     
+
 }

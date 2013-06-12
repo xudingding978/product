@@ -10,8 +10,8 @@ define([
         setupController: function(controller, model) {
 
 
-    //        this.controllerFor('photo').getFirstPhoto(model.id);
-            this.controllerFor('photo').getFirstPhoto(model.id);
+     //       this.controllerFor('photo').getFirstPhoto(model.id);
+           this.controllerFor('mega').test(model.id);
         },
         activate: function() {
             $("body").css("overflow", "hidden");

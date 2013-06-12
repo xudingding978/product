@@ -19,6 +19,7 @@ define(
         category: DS.attr('string'),
         created: DS.attr('date'),
         creator: DS.attr('string'),
+        collection_id: DS.attr('string'),
         deleted: DS.attr('string'),
         domains: DS.attr('string'),
         editors: DS.attr('string'),

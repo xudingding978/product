@@ -15,19 +15,14 @@ class MegasController extends Controller {
     public function actionIndex() {
         try {
             $temp = explode("?", $_SERVER['REQUEST_URI']);
-          //  error_log(var_export($temp, true)."       ".sizeof($temp));
+            $request_string = $temp [sizeof($temp) - 1];
+            //  error_log(var_export($temp, true)."       ".sizeof($temp));
             $response;
-            if (sizeof($temp) > 1) {
-              // error_log("ssssssssssssssss");
-                $request_string = $temp [sizeof($temp) - 1];
-                $regionAndsearchString = explode('&', $request_string);
-                $region = $this->getUserInput($regionAndsearchString[0]);
-                $searchString = $this->getUserInput($regionAndsearchString[1]);
-                error_log("aaaaaaaaaaaaaaa         ".$searchString);
-                $response = $this->getRequestResult(self::JSON_RESPONSE_ROOT_PLURAL, $region, $searchString);
-                error_log(var_export($response, true));
+            if (sizeof($temp) > 1) {                
+                $response=$this->getRequestResult($request_string,self::JSON_RESPONSE_ROOT_PLURAL);               
             } else {
-                $response = $this->getRequestResult(self::JSON_RESPONSE_ROOT_PLURAL,"", "dean");
+       
+                $response = $this->performSearch(self::JSON_RESPONSE_ROOT_PLURAL, "", "dean");
             }
             echo $this->sendResponse(200, $response);
         } catch (Exception $exc) {
@@ -213,7 +208,6 @@ class MegasController extends Controller {
             'ACL' => 'public-read'
         ));
     }
-
 
     protected function getUserInput($request_string) {
 

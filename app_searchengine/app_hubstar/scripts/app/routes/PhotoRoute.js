@@ -16,16 +16,10 @@ define([
             this.controllerFor('photoDisplayArea').set('model', MegaModel.find(model.id));
 
         },
-<<<<<<< HEAD
-        model: function(params) {
-            return PhotoModel.find(params.photo_id);
-        },
-=======
 //        model: function() {
 //            console.log("second");
 //            return  MegaModel.find();
 //        },
->>>>>>> db253c0e45ccd7cd9a8d35e62a4ee6181290d62e
         activate: function() {
             $("body").css("overflow", "hidden");
             $('#footer').attr("style", "display:none");

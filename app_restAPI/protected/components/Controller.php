@@ -148,6 +148,9 @@ class Controller extends CController {
     }
 
     protected function getRequestResult($searchString, $returnType) {
+        
+        
+        
         $response = "";
                     
         if (strpos($searchString, 'search')!==false) {
@@ -157,12 +160,13 @@ class Controller extends CController {
             $response = $this->performSearch($returnType, $region, $searchString);
         } elseif (strpos($searchString, 'collection')!==false) {
             $regionAndsearchString = explode('&', $searchString);
-          
             $collection_id = $this->getUserInput($regionAndsearchString[0]);
             $owner_profile_id = $this->getUserInput($regionAndsearchString[1]);
             $response = $this->performRawSearch($returnType, $collection_id, $owner_profile_id);
         } else {
-            $response = $this->getRequestResult($returnType, "", "dean");
+     
+            $response = $this->performSearch($returnType, "", "dean");
+          
         }
         return $response;
     }
@@ -224,15 +228,16 @@ class Controller extends CController {
 
         $response = $request->execute();
 
-        $results = '{"' . $returnType . '":';
+        $results = '{"' . $returnType . '":[';
         $i = 0;
         foreach ($response as $hit) {
-            $results .= CJSON::encode($hit['source']['doc'][$returnType][0]);
+            error_log(var_export($hit['source']['doc'],true));
+            $results .= CJSON::encode($hit['source']['doc']);
             if (++$i < count($response)) {
                 $results .= ',';
             }
         }
-        $results .= '}';
+        $results .= ']}';
         return $results;
     }
     

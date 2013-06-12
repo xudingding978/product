@@ -29,9 +29,9 @@ define(['models/MegaModel',
                 },
                 previesImage: function() {
                     this.addObjects();
-                    if (!this.get('selected')) {
-                        this.set('selected', this.get('content').get('lastObject'));
-                    }
+//                    if (!this.get('selected')) {
+//                        this.set('selected', this.get('content').get('lastObject'));
+//                    }
                     var selectedIndex = this.findSelectedItemIndex();
 
                     if (selectedIndex <= 0) {
@@ -50,11 +50,11 @@ define(['models/MegaModel',
 
                     this.addObjects();
 
-                    if (!this.get('selected')) {
-
-                        this.set('selected', this.get('content').get('firstObject'));
-
-                    }
+//                    if (!this.get('selected')) {
+//
+//                        this.set('selected', this.get('content').get('firstObject'));
+//
+//                    }
 
                     var selectedIndex = this.findSelectedItemIndex();
                     if (selectedIndex >= (this.get('content').get('length') - 1)) {

@@ -21,7 +21,8 @@ class MegasController extends Controller {
             if (sizeof($temp) > 1) {                
                 $response=$this->getRequestResult($request_string,self::JSON_RESPONSE_ROOT_PLURAL);               
             } else {
-                $response = $this->getRequestResult(self::JSON_RESPONSE_ROOT_PLURAL,"", "kitchen");
+       
+                $response = $this->performSearch(self::JSON_RESPONSE_ROOT_PLURAL, "", "dean");
             }
             echo $this->sendResponse(200, $response);
         } catch (Exception $exc) {

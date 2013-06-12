@@ -162,7 +162,7 @@ class Controller extends CController {
             $owner_profile_id = $this->getUserInput($regionAndsearchString[1]);
             $response = $this->performRawSearch($returnType, $collection_id, $owner_profile_id);
         } else {
-            $response = $this->getRequestResult($returnType, "", "dean");
+            $response = $this->performSearch($returnType, "", "dean");
         }
         return $response;
     }

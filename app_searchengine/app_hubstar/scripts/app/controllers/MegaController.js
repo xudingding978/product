@@ -10,13 +10,15 @@ define(['models/MegaModel',
                 MegaModel,
                 Ember
                 ) {
+            var tcontent;
             var MegaController = Ember.ArrayController.extend({
                 content: [],
+                test: "test",
                 selected: null,
+                isSelected: false,
                 needs: ['photo'],
                 findSelectedItemIndex: function() {
-
-                    var content = this.get('content');
+                    content = this.get('content');
                     for (var index = 0; index < content.get('length'); index++) {
                         if (this.get('selected') === content.objectAt(index)) {
                             return index;
@@ -25,70 +27,84 @@ define(['models/MegaModel',
                     return 0;
                 },
                 previesImage: function() {
-
+                    this.addObjects();
                     if (!this.get('selected')) {
                         this.set('selected', this.get('content').get('lastObject'));
-                    } else {
-                        var selectedIndex = this.findSelectedItemIndex();
-
-                        if (selectedIndex <= 0) {
-                            selectedIndex = this.get('content').get('length') - 1;
-                        } else {
-                            selectedIndex--;
-                        }
-
-                        this.set('selected', this.get('content').objectAt(selectedIndex));
-                        console.log(this.get('selected'));
                     }
+                    var selectedIndex = this.findSelectedItemIndex();
+
+                    if (selectedIndex <= 0) {
+                        selectedIndex = this.get('content').get('length') - 1;
+                    } else {
+                        selectedIndex--;
+                    }
+
+                    this.set('selected', this.get('content').objectAt(selectedIndex));
+                    console.log(this.get('selected'));
+
 
 
                 },
                 nextImage: function() {
+
+                    this.addObjects();
+
                     if (!this.get('selected')) {
+
                         this.set('selected', this.get('content').get('firstObject'));
 
-
-                    } else {
-                        var selectedIndex = this.findSelectedItemIndex();
-                        if (selectedIndex >= (this.get('content').get('length') - 1)) {
-
-                            selectedIndex = 0;
-                        } else {
-                            selectedIndex++;
-
-                        }
-                        this.set('selected', this.get('content').objectAt(selectedIndex));
-                        console.log(this.get('selected').get("id"));
                     }
+
+                    var selectedIndex = this.findSelectedItemIndex();
+                    if (selectedIndex >= (this.get('content').get('length') - 1)) {
+
+                        selectedIndex = 0;
+                    } else {
+                        selectedIndex++;
+
+                    }
+                    this.set('selected', this.get('content').objectAt(selectedIndex));
+                    console.log(this.get('selected'));
+
                 },
                 actionOn: function(megaObject) {
                     //  console.log("aaaaa" + megaObject);
                     var content = this.get("content");
 
                     //     var t = MegaModel.find(megaObject);
-                    //           this.get("content").pushObject(megaObject);
-                    window.setTimeout(function() {
+                //    console.log(megaObject);
+                    //     content.pushObject(megaObject);
+                    setTimeout(function() {
                         var owner_profile_id = megaObject.get("owner_profile_id");
                         var collection_id = megaObject.get("collection_id");
-                        console.log(owner_profile_id + "    cccccccccc    " + collection_id);
-                        var ddd = App.Mega.find({"collection_id": collection_id, "owner_profile_id": owner_profile_id});
-                        // var ddd = App.store.findMany(App.Mega, {"collection_id": collection_id, "owner_profile_id": owner_profile_id});
-                        console.log(ddd);
+                        tcontent = MegaModel.find({"collection_id": collection_id, "owner_profile_id": owner_profile_id});
 
-                        ddd.one("didLoad", function() {
-                            ddd.resolve(ddd.get("firstObject"));
-                        });
-                        //      console.log(ddd.objectAt(0).get('id'));
-                        //         console.log(ddd.objectAt(0).get("id"));
-                        content.pushObject(MegaModel.find({"collection_id": collection_id, "owner_profile_id": owner_profile_id}));
-                        //      content.pushObject(MegaModel.find({"collection_id": collection_id, "owner_profile_id": owner_profile_id}));
-                        console.log("aaaaaaaa   " + MegaModel.find({"collection_id": collection_id, "owner_profile_id": owner_profile_id}));
-      
+
+
+                        //      console.log("aaaaaaaaa   "+tcontent.get("firstObject"));
+//                        tcontent.one("didLoad", function() {
+//                            tcontent.resolve(tcontent.get("firstObject"));
+//                        });
                     }, 200);
-
-
-                    //       get("content").pushObject(MegaModel.find(model.id));
                 },
+                imgReturn: function() {
+                    console.log(this.get("content").get("length"));
+                }.observes('selected'),
+                addObjects: function() {
+
+                    if (!this.isSelected)
+                    {
+
+                        for (var i = 0; i < tcontent.get("content").get("length"); i++) {
+                            //    this.content.pushObject(tcontent);
+                            this.content.pushObject(tcontent.get("content").objectAt(i));
+                        }
+                        this.isSelected = true;
+                    }
+
+                }
+
+
 
 
             });

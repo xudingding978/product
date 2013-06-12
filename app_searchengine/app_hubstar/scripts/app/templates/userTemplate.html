@@ -1,34 +1,62 @@
 
 
-<div class="user-board style-box" style="width: 87%; height: 150px; position: relative; margin: 70px auto; left: 0; right: 0; min-width: 796px; max-width: 1260px;">
-    <div class="user-board_left" style="width:65%;display: inline-block;vertical-align: top;">
-        <img style="width: 150px; height: 150px; border-radius: 3px 0 0 3px;display: inline-block;vertical-align: top;"/>
-        <div style="height: 150px; margin: 10px 20px;">
-            <div style="font-size: 26px;">NAME</div>
-            <div style="font-size: 16px;">This is the description.</div>
-            <div style="position: relative; bottom: 0;">Like stuffs</div>
+<div class="user-board" style="width: 87%; position: relative; margin: 100px auto 20px; left: 0; right: 0; min-width: 796px; max-width: 1260px;">
+    <div class="user-board_left style-box" style="background: white; width: 69%;display: inline-block;vertical-align: top;height: 150px;margin-right: 0.5%;">
+        <img style="width: 150px; height: 150px; border-radius: 3px 0 0 3px;display: inline-block;vertical-align: top;" {{bindAttr src="photo_url_large"}}/>
+        <div style="height: 120px; margin: 15px 20px;display: inline-block;position: absolute;left: 150px;">
+            <div style="font-size: 26px;font-weight: bold; line-height: 30px; overflow: hidden;">{{display_name}}</div>
+            <div style="font-size: 13px;line-height: 20px;margin: 5px auto;color: #888; overflow: hidden;height: 60px; text-overflow: ellipsis;">{{description}}</div>
+            <ul class="locationandlinks">
+                <li class="location_li" style="background: none;padding: 0;"><i class="icon-map-marker"></i>Auckland</li> 
+                <li><a href="#" target="_blank">www.you.com</a></li>
+                <li><a href="#" target="_blank"><i class="icon-twitter"></i></a></li>
+                <li><a href="#" target="_blank"><i class="icon-facebook"></i></a></li>
+                <li><a href="#" target="_blank"><i class="icon-google-plus"></i></a></li>
+            </ul>
         </div>
     </div>
-    <div style="width: 30%; height: 150px; display: inline-block; vertical-align: top;">
-        <div style="margin: 20px 10px;">
-            <div>Friends:</div>
-            <div class="profilepic-container" style="margin:3px;">
-                <a href="#"><img class="profilepic profilepic_effect easing" style='width: 35px;height:35px;'/></a>       
-                <a href="#"><img class="profilepic profilepic_effect easing" style='width: 35px;height:35px;'/></a>
-                <a href="#"><img class="profilepic profilepic_effect easing" style='width: 35px;height:35px;'/></a>
+    <div class="user-board_right style-box" style="background: white; width: 30%; height: 150px; display: inline-block; vertical-align: top;">
+
+
+        <ul class="nav nav-tabs" id="myTab">
+            <li class="active"><a href="#following">Following (52) :</a></li>
+            <li><a href="#followers">Followers (22) :</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="following">
+                <a href="#" style="margin:2px;"><img class="profilepic profilepic_effect easing" style='width: 35px;height:35px;' src="../images/profilepic1.jpg"/></a>       
+                <a href="#" style="margin:2px;"><img class="profilepic profilepic_effect easing" style='width: 35px;height:35px;' src="../images/profilepic2.jpg"/></a>
+                <a href="#" style="margin:2px;"><img class="profilepic profilepic_effect easing" style='width: 35px;height:35px;' src="../images/profilepic3.jpg"/></a>
             </div>
+            <div class="tab-pane" id="followers">
+                <a href="#" style="margin:2px;"><img class="profilepic profilepic_effect easing" style='width: 35px;height:35px;' src="../images/profilepic4.jpg"/></a>       
+                <a href="#" style="margin:2px;"><img class="profilepic profilepic_effect easing" style='width: 35px;height:35px;' src="../images/profilepic5.jpg"/></a>
+                <a href="#" style="margin:2px;"><img class="profilepic profilepic_effect easing" style='width: 35px;height:35px;' src="../images/profilepic6.jpg"/></a>
+            </div>
+
         </div>
+
+
     </div>
 </div>
 
-<div style="width: 100%; margin: 130px auto; left: 0;right: 0;position: relative;display: block;">
+<div style="width: 100%; margin: 100px auto; left: 0;right: 0;position: relative;display: block;">
     <!-- masonry from here -->
     <div id="masonry_user_container"  class="transitions-enabled centered clearfix" >
 
         <!--SECTION CONTROL BAR-->
 
-        <div class="style-box" style="width: 100%; min-width: 796px; height: 50px; background: white;margin: -70px auto;left: 0;right: 0;position: relative;display: block;">
-
+        <div class="style-box t-style-box" style="width: 100%; min-width: 796px; height: 50px; background: white;margin: -70px auto;left: 0;right: 0;position: relative;display: block;">
+            <div style="margin: 2px 20px 2px 40px; font-size: 20px; font-weight: bold; text-shadow: 0 1px 0 rgba(255,255,255,0.8);float: left;">Album Name</div>
+            <ul class="user-stats" >
+                <li><a>Collections</a></li>
+                <li><a>Photos</a></li>
+                <li><a>Videos</a></li>
+                <li><a>Discussions</a></li>
+                <li><a>Following</a></li>
+                <li><a>Followers</a></li>
+            </ul>
 
         </div>
 

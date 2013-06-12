@@ -227,7 +227,7 @@ button {
     border-radius: 5px;
 }
 
-.centered { margin: 0 auto; }
+.centered { margin: 0 auto;  width: 87%;}
 
 .box {
     width: 350px;

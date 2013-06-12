@@ -29,6 +29,7 @@
 
 
 .navbar {
+    min-width: 692px;
     height: 45px;
     overflow: visible;
     color: white;

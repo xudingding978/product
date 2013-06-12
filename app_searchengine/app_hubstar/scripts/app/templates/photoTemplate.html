@@ -23,7 +23,7 @@
         </div>
 
 
-        {{render photoDisplayArea}}
+        {{view App.PhotoDisplayAreaView}}
 
         <!--THIS IS THE ALBUM BOX-->
 
@@ -88,7 +88,7 @@
                         </tr>
                         <tr>
                             <td>Type:</td>
-                            <td>{{model}}</td>
+                            <td>{{content.selected}}</td>
                         </tr>
                         <tr>
                             <td>Address:</td>

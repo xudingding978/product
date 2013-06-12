@@ -8,7 +8,7 @@ define([
                 
                 
         imgReturn: function() {
-          console.log("lllllllllll");
+
         }.observes('content')
     });
 

@@ -13,6 +13,7 @@ define(['models/MegaModel',
             var tcontent;
             var MegaController = Ember.ArrayController.extend({
                 content: [],
+                percentComplete: 0,
                 test: "test",
                 selected: null,
                 isSelected: false,
@@ -40,8 +41,9 @@ define(['models/MegaModel',
                     }
 
                     this.set('selected', this.get('content').objectAt(selectedIndex));
-                    console.log(this.get('selected'));
+                    //         console.log(this.get('selected'));
 
+                    this.set("percentComplete", this.get('content').objectAt(selectedIndex));
 
 
                 },
@@ -64,13 +66,16 @@ define(['models/MegaModel',
 
                     }
                     this.set('selected', this.get('content').objectAt(selectedIndex));
-                    console.log(this.get('selected'));
+                    this.set("percentComplete", this.get('content').objectAt(selectedIndex).data.photo[0]);
+                //    console.log(this.get('content'));
+                    //   console.log(this.get('content').objectAt(selectedIndex).editors);
+                    //        console.log(this.get('selected'));
 
                 },
                 actionOn: function(megaObject) {
                     var content = this.get("content");
 
-                    console.log(megaObject);
+                    //                 console.log(megaObject);
                     //     content.pushObject(megaObject);
                     setTimeout(function() {
                         var owner_profile_id = megaObject.get("owner_profile_id");
@@ -78,15 +83,14 @@ define(['models/MegaModel',
                         tcontent = MegaModel.find({"collection_id": collection_id, "owner_profile_id": owner_profile_id});
 
 
-
+ console.log(tcontent);
 //                        tcontent.one("didLoad", function() {
 //                            tcontent.resolve(tcontent.get("firstObject"));
 //                        });
                     }, 200);
+              
                 },
-                imgReturn: function() {
-                    //     console.log(this.get("content").get("length"));
-                }.observes('selected'),
+
                 addObjects: function() {
 
                     if (!this.isSelected)
@@ -98,7 +102,8 @@ define(['models/MegaModel',
                         }
                         this.isSelected = true;
                     }
-
+                 
+console.log("ddddddddddd");
                 }
 
 

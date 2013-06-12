@@ -7,7 +7,7 @@
 
 namespace Sherlock\responses;
 
-use Analog\Analog;
+
 use Sherlock\common\exceptions;
 
 /**
@@ -34,66 +34,131 @@ class Response
 
     /**
      * @param  \Sherlock\common\tmp\RollingCurl\Request $response
-     * @throws \Sherlock\common\exceptions\ServerErrorResponseException
+     *
      * @throws \Sherlock\common\exceptions\BadMethodCallException
      */
     public function __construct($response)
     {
         if (!isset($response)) {
-            Analog::error("Response must be set in constructor.");
             throw new exceptions\BadMethodCallException("Response must be set in constructor.");
         }
 
-        Analog::debug("Response:".print_r($response, true));
+        $this->parseResponse($response);
+        $this->checkForErrorsInResponse();
 
-        $this->responseInfo = $response->getResponseInfo();
+    }
+
+
+    /**
+     * @param \Sherlock\common\tmp\RollingCurl\Request $response
+     */
+    private function parseResponse($response)
+    {
+        $this->responseInfo  = $response->getResponseInfo();
         $this->responseError = $response->getResponseError();
-
         $this->responseData = json_decode($response->getResponseText(), true);
 
+    }
+
+
+    private function checkForErrorsInResponse()
+    {
         if ($this->responseInfo['http_code'] >= 400 && $this->responseInfo['http_code'] < 500) {
             $this->process4xx();
         } elseif ($this->responseInfo['http_code'] >= 500) {
             $this->process5xx();
         }
-
-
     }
 
     /**
-     * @throws \Sherlock\common\exceptions\IndexAlreadyExistsException
-     * @throws \Sherlock\common\exceptions\ClientErrorResponseException
-     * @throws \Sherlock\common\exceptions\IndexMissingException
+     * @throws \Exception
      */
     private function process4xx()
     {
-        $error = $this->responseData['error'];
-        Analog::error($error);
-
-        if (strpos($error, "IndexMissingException") !== false) {
-            throw new exceptions\IndexMissingException($error);
-        } elseif (strpos($error, "IndexAlreadyExistsException") !== false) {
-            throw new exceptions\IndexAlreadyExistsException($error);
-        } else {
-            throw new exceptions\ClientErrorResponseException($error);
+        try {
+            $this->ifDocumentMissingThrowException();
+            $this->ifIndexMissingThrowException();
+            $this->ifIndexExistsThrowException();
+            $this->unknownClientErrorFound();
+        } catch (\Exception $exception) {
+            throw $exception;
         }
 
     }
 
     /**
-     * @throws \Sherlock\common\exceptions\ServerErrorResponseException
-     * @throws \Sherlock\common\exceptions\SearchPhaseExecutionException
+     * @throws \Sherlock\common\exceptions\DocumentMissingException
+     */
+    private function ifDocumentMissingThrowException()
+    {
+        if (isset($this->responseData['found']) && $this->responseData['found'] === false) {
+            throw new exceptions\DocumentMissingException("Document is missing from the index");
+        }
+    }
+
+
+    /**
+     * @throws \Sherlock\common\exceptions\IndexMissingException
+     */
+    private function ifIndexMissingThrowException()
+    {
+        if (strpos($this->responseData['error'], "IndexMissingException") !== false) {
+            throw new exceptions\IndexMissingException($this->responseData['error']);
+        }
+    }
+
+
+    /**
+     * @throws \Sherlock\common\exceptions\IndexAlreadyExistsException
+     */
+    private function ifIndexExistsThrowException()
+    {
+        if (strpos($this->responseData['error'], "IndexAlreadyExistsException") !== false) {
+            throw new exceptions\IndexAlreadyExistsException($this->responseData['error']);
+        }
+    }
+
+
+    /**
+     * @throws \Sherlock\common\exceptions\ClientErrorResponseException
+     */
+    private function unknownClientErrorFound()
+    {
+        throw new exceptions\ClientErrorResponseException($this->responseData['error']);
+    }
+
+
+    /**
+     * @throws \Exception
      */
     private function process5xx()
     {
-        $error = $this->responseData['error'];
-        Analog::error($error);
-
-        if (strpos($error, "SearchPhaseExecutionException") !== false) {
-            throw new exceptions\SearchPhaseExecutionException($error);
-        } else {
-            throw new exceptions\ServerErrorResponseException($error);
+        try {
+            $this->ifSearchPhaseErrorThrowException();
+            $this->unknownServerErrorFound();
+        } catch (\Exception $exception) {
+            throw $exception;
         }
 
+    }
+
+
+    /**
+     * @throws \Sherlock\common\exceptions\SearchPhaseExecutionException
+     */
+    private function ifSearchPhaseErrorThrowException()
+    {
+        if (strpos($this->responseData['error'], "SearchPhaseExecutionException") !== false) {
+            throw new exceptions\SearchPhaseExecutionException($this->responseData['error']);
+        }
+    }
+
+
+    /**
+     * @throws \Sherlock\common\exceptions\ServerErrorResponseException
+     */
+    private function unknownServerErrorFound()
+    {
+        throw new exceptions\ServerErrorResponseException($this->responseData['error']);
     }
 }

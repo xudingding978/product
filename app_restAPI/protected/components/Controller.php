@@ -169,10 +169,16 @@ class Controller extends CController {
 
     protected function performSearch($returnType, $region, $requestString) {
         $settings['log.enabled'] = true;
-        $sherlock = new Sherlock\Sherlock($settings);
+//        $settings['log.file'] = '/var/log/sherlock/debug.log';
+//        $settings['log.level'] = 'debug';
+        $sherlock = new \Sherlock\Sherlock($settings);
+        
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
 //Build a new search request
         $request = $sherlock->search();
+
+        $request->index("test")->type("couchbaseDocument")->from(1);
+        $request->index("test")->type("couchbaseDocument")->size(1);
 //populate a Term query to start
         $termQuery = Sherlock\Sherlock::queryBuilder()
                 ->QueryStringMultiField()
@@ -181,7 +187,8 @@ class Controller extends CController {
                 ->boost(2.5);
         $request->index(Yii::app()->params['elasticSearchIndex'])
                 ->type("couchbaseDocument")
-                ->size(7)
+                ->from(10)
+                ->size(50)
                 ->query($termQuery);
 
         $response = $request->execute();

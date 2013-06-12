@@ -245,6 +245,7 @@ define('application', [
 
     return  Ember.Application.createWithMixins({
         LOG_TRANSITIONS: true,
+        LOG_BINDINGS: true,
         VERSION: '1.0.0',
         rootElement: '#main',
         //  DragNDrop: DragNDrop,

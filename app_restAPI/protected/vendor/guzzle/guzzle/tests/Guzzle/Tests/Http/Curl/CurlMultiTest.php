@@ -5,7 +5,6 @@ namespace Guzzle\Tests\Http\Curl;
 use Guzzle\Common\Event;
 use Guzzle\Http\Exception\BadResponseException;
 use Guzzle\Http\Exception\MultiTransferException;
-use Guzzle\Common\Collection;
 use Guzzle\Http\Client;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
@@ -20,9 +19,7 @@ use Guzzle\Tests\Mock\MockMulti;
  */
 class CurlMultiTest extends \Guzzle\Tests\GuzzleTestCase
 {
-    /**
-     * @var \Guzzle\Http\Curl\CurlMulti
-     */
+    /** @var \Guzzle\Http\Curl\CurlMulti */
     private $multi;
 
     /**
@@ -32,6 +29,11 @@ class CurlMultiTest extends \Guzzle\Tests\GuzzleTestCase
     {
         parent::setUp();
         $this->multi = new MockMulti();
+    }
+
+    public function tearDown()
+    {
+        unset($this->multi);
     }
 
     public function testConstructorCreateMultiHandle()

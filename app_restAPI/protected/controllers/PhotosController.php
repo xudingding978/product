@@ -1,6 +1,7 @@
 <?php
-
+     header('Content-type: *');
 header("Access-Control-Allow-Origin: *");
+   header('Access-Control-Allow-Headers: *');
 
 class PhotosController extends Controller {
 
@@ -50,10 +51,10 @@ class PhotosController extends Controller {
 
         $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);
         header($statusHeader);
-        header('Content-type: ' . 'application/json');
+        header('Content-type: *');
         header("Access-Control-Allow-Origin: http://www.develop.devbox");
         header('Access-Control-Request-Method: *');
-        header('Access-Control-Allow-Methods: PUT, POST, OPTIONS');
+        header('Access-Control-Allow-Methods: *');
         header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
         echo $response;

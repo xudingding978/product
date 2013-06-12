@@ -7,7 +7,6 @@
 
 namespace Sherlock\components\facets;
 
-use Analog\Analog;
 use Sherlock\common\exceptions\BadMethodCallException;
 use Sherlock\common\exceptions\RuntimeException;
 use Sherlock\components;
@@ -28,31 +27,31 @@ class Filter extends components\BaseComponent implements components\FacetInterfa
     public function __construct($hashMap = null)
     {
 
-        $this->params['facetname'] = null;
+        $this->params['facetname']    = null;
         $this->params['facet_filter'] = null;
 
         parent::__construct($hashMap);
     }
 
+
     /**
      * @param $fieldName
+     *
      * @throws \Sherlock\common\exceptions\BadMethodCallException
      * @return $this
      */
     public function field($fieldName)
     {
 
-        Analog::debug("Filter->field(".print_r($fieldName, true).")");
-
         if (is_string($fieldName)) {
             $this->params['field'] = $fieldName;
         } else {
-            Analog::error("Field must be a string");
             throw new BadMethodCallException("Field must be a string");
         }
 
         return $this;
     }
+
 
     /**
      * @throws \Sherlock\common\exceptions\RuntimeException
@@ -61,22 +60,18 @@ class Filter extends components\BaseComponent implements components\FacetInterfa
     public function toArray()
     {
         if (!isset($this->params['field'])) {
-            Analog::error("Field parameter is required for a Filter Facet");
             throw new RuntimeException("Field parameter is required for a Filter Facet");
         }
 
         if ($this->params['field'] === null) {
-            Analog::error("Field parameter may not be null");
             throw new RuntimeException("Field parameter may not be null");
         }
 
         if (!isset($this->params['filter'])) {
-            Analog::error("Filter parameter is required for a Filter Facet");
             throw new RuntimeException("Filter parameter is required for a Filter Facet");
         }
 
         if (!$this->params['filter'] instanceof components\FilterInterface) {
-            Analog::error("Filter parameter must be a Filter component");
             throw new RuntimeException("Filter parameter must be a Filter component");
         }
 
@@ -89,9 +84,9 @@ class Filter extends components\BaseComponent implements components\FacetInterfa
             $this->params['facet_filter'] = $this->params['facet_filter']->toArray();
         }
 
-        $ret = array (
+        $ret = array(
             $this->params['facetname'] => array(
-                "filter" => $this->params['filter']->toArray(),
+                "filter"       => $this->params['filter']->toArray(),
                 "facet_filter" => $this->params['facet_filter']
             )
         );

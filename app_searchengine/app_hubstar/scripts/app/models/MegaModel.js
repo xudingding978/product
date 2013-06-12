@@ -19,6 +19,7 @@ define(
         category: DS.attr('string'),
         created: DS.attr('date'),
         creator: DS.attr('string'),
+        collection_id: DS.attr('string'),
         deleted: DS.attr('string'),
         domains: DS.attr('string'),
         editors: DS.attr('string'),
@@ -42,6 +43,9 @@ define(
         view_count: DS.attr('string'),
         photo: DS.hasMany('App.Photo'),
         user: DS.hasMany('App.User'),
+        photo_album_id: function() {
+            return "album_" + this.get('id');
+        }.property('id'),
         more_button: function() {
             return "more_button_" + this.get('id');
         }.property('id'),

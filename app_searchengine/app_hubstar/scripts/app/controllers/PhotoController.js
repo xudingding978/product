@@ -1,10 +1,8 @@
 define(['ember', 'models/MegaModel']
         , function(Ember, MegaModel) {
 
-    var tempArr = [];
-    var currentPhotoNumber = 0;
     var PhotoController = Ember.ObjectController.extend({
-        needs: ['mega'],
+     //   needs: ['mega'],
         //   content: Ember.computed.alias('controllers.application.currentUser'),
         editingContact: function() {
             this.set('contact', !this.get('contact'));
@@ -19,7 +17,7 @@ define(['ember', 'models/MegaModel']
             console.log("nextImage");
         },
         getTempArr: function() {
-            return tempArr;
+            return this.tempArr;
         },
 //        getFirstPhoto: function(id) {
 //            //   controllers.mega.test();
@@ -28,14 +26,17 @@ define(['ember', 'models/MegaModel']
 //            //       tempArr.push(photo);
 //        },
         getFirstPhoto: function(id) {
-            
-            
- this.get("controllers.mega").test(id);
+
+
+          //  this.get("controllers.mega").test(id);
         },
         setFirestPhoto: function()
         {
             this.set('model', tempArr[currentPhotoNumber]);
         }
+
+
+
     });
     return PhotoController;
 });

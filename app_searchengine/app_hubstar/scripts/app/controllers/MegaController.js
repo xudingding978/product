@@ -68,11 +68,9 @@ define(['models/MegaModel',
 
                 },
                 actionOn: function(megaObject) {
-                    //  console.log("aaaaa" + megaObject);
                     var content = this.get("content");
 
-                    //     var t = MegaModel.find(megaObject);
-                //    console.log(megaObject);
+                    console.log(megaObject);
                     //     content.pushObject(megaObject);
                     setTimeout(function() {
                         var owner_profile_id = megaObject.get("owner_profile_id");
@@ -81,14 +79,13 @@ define(['models/MegaModel',
 
 
 
-                        //      console.log("aaaaaaaaa   "+tcontent.get("firstObject"));
 //                        tcontent.one("didLoad", function() {
 //                            tcontent.resolve(tcontent.get("firstObject"));
 //                        });
                     }, 200);
                 },
                 imgReturn: function() {
-                    console.log(this.get("content").get("length"));
+                    //     console.log(this.get("content").get("length"));
                 }.observes('selected'),
                 addObjects: function() {
 

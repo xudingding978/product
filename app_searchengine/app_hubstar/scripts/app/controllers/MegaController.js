@@ -41,9 +41,10 @@ define(['models/MegaModel',
                     }
 
                     this.set('selected', this.get('content').objectAt(selectedIndex));
-                    console.log(this.get('selected'));
+                    //         console.log(this.get('selected'));
 
-    this.set("percentComplete","0");
+                    this.set("percentComplete", this.get('content').objectAt(selectedIndex));
+
 
                 },
                 nextImage: function() {
@@ -61,36 +62,36 @@ define(['models/MegaModel',
 
                         selectedIndex = 0;
                     } else {
+                        
                         selectedIndex++;
 
                     }
                     this.set('selected', this.get('content').objectAt(selectedIndex));
-                    this.set("percentComplete","2222222222222222");
-                    console.log(this.get('selected'));
+                    
+                    this.set("percentComplete", this.get('content').objectAt(selectedIndex).data.photo[0]);
+                    //    console.log(this.get('content'));
+                    //   console.log(this.get('content').objectAt(selectedIndex).editors);
+                    //        console.log(this.get('selected'));
 
                 },
                 actionOn: function(megaObject) {
-                    //  console.log("aaaaa" + megaObject);
                     var content = this.get("content");
 
-                    //     var t = MegaModel.find(megaObject);
-                //    console.log(megaObject);
-                    //     content.pushObject(megaObject);
+                    //                 console.log(megaObject);
+                       content.pushObject(megaObject);
                     setTimeout(function() {
                         var owner_profile_id = megaObject.get("owner_profile_id");
                         var collection_id = megaObject.get("collection_id");
                         tcontent = MegaModel.find({"collection_id": collection_id, "owner_profile_id": owner_profile_id});
 
 
-
-                        //      console.log("aaaaaaaaa   "+tcontent.get("firstObject"));
+                        console.log(tcontent);
 //                        tcontent.one("didLoad", function() {
 //                            tcontent.resolve(tcontent.get("firstObject"));
 //                        });
                     }, 200);
+
                 },
-                imgReturn: function() {
-                }.observes('selected'),
                 addObjects: function() {
 
                     if (!this.isSelected)
@@ -103,6 +104,7 @@ define(['models/MegaModel',
                         this.isSelected = true;
                     }
 
+                    console.log("ddddddddddd");
                 }
 
 

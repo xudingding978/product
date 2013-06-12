@@ -67,17 +67,30 @@ define(['models/MegaModel',
 
                     //     var t = MegaModel.find(megaObject);
                     //           this.get("content").pushObject(megaObject);
-                    setTimeout(function() {
+                    window.setTimeout(function() {
                         var owner_profile_id = megaObject.get("owner_profile_id");
                         var collection_id = megaObject.get("collection_id");
-                     var ddd=   MegaModel.find({"collection_id": collection_id, "owner_profile_id": owner_profile_id})
-              console.log(   ddd.get("content").objectAt(0).get("id"));
+                        console.log(owner_profile_id + "    cccccccccc    " + collection_id);
+                        var ddd = App.Mega.find({"collection_id": collection_id, "owner_profile_id": owner_profile_id});
+                        // var ddd = App.store.findMany(App.Mega, {"collection_id": collection_id, "owner_profile_id": owner_profile_id});
+                        console.log(ddd);
+
+                        ddd.one("didLoad", function() {
+                            ddd.resolve(ddd.get("firstObject"));
+                        });
+                        //      console.log(ddd.objectAt(0).get('id'));
+                        //         console.log(ddd.objectAt(0).get("id"));
                         content.pushObject(MegaModel.find({"collection_id": collection_id, "owner_profile_id": owner_profile_id}));
-                   console.log(   content.get("length"));
+                        //      content.pushObject(MegaModel.find({"collection_id": collection_id, "owner_profile_id": owner_profile_id}));
+                        console.log("aaaaaaaa   " + MegaModel.find({"collection_id": collection_id, "owner_profile_id": owner_profile_id}));
+      
                     }, 200);
 
+
                     //       get("content").pushObject(MegaModel.find(model.id));
-                }
+                },
+
+
             });
             return MegaController;
         });

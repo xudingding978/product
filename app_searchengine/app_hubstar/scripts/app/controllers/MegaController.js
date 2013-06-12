@@ -19,8 +19,6 @@ define(['models/MegaModel',
                         var owner_profile_id = t.get("owner_profile_id");
                         var collection_id = t.get("collection_id");
                        MegaModel.find({"collection_id":collection_id,"owner_profile_id":owner_profile_id});
-                      console.log(owner_profile_id+"  sss  "+collection_id);  
-
                     }, 200);
                 },
                 clicked: function() {

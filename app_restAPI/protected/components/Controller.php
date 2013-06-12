@@ -231,7 +231,7 @@ class Controller extends CController {
     
         protected function performRawSearch($returnType, $collection_id, $owner_profile_id) {
             
-        error_log("ssssssssss    ".$collection_id."ddddddd   ". $owner_profile_id);
+      
         $settings['log.enabled'] = true;
         // $settings['log.file'] = '/var/log/sherlock/newlogfile.log';
         $settings['log.level'] = 'debug';

@@ -124,7 +124,6 @@ class ArticleImages extends CActiveRecord
         
         
                 function getImageRange($from, $to) {
-                        error_log("1111111111111111111111111111111111111111111111");
                         $data_list = array();  
                         $sql = "select dbo.ArticleImages.*, dbo.HeliumMedia.keywords from dbo.ArticleImages
                                     inner join  dbo.HeliumMedia on
@@ -132,10 +131,6 @@ class ArticleImages extends CActiveRecord
                                     where dbo.ArticleImages.id between ".$from. " and ".$to;
                         
                         $data_list = Yii::app() ->db->createCommand($sql)->queryAll();   
-                    
                         return $data_list;
                 }
-   
-             
-        
 }

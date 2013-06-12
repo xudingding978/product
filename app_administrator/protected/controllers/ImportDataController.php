@@ -10,14 +10,30 @@ class ImportDataController extends Controller {
         echo "index........................";
     }
 
+    public function actionObject() {
+//        $a = getimagesize("http://trendsideas.com/media/article/original/NAFF");
+//        print_r("<pre>");
+//        print_r($a);
+        
+//        $result = preg_match('/\d[.](jpg)/', ".jpg");
+//        echo($result);
+//            $sql = "select dbo.ArticleImages.id from dbo.ArticleImages where dbo.ArticleImages.id between 58960 and 59060";
+//            $data_list = Yii::app()->db->createCommand($sql)->queryAll();
+//            
+//            foreach($data_list as $val) {
+//                $region_list = Categories::model()->selectCategory("59000");
+//                echo $region_list;
+//            }
+    }
+    
+    
     public function actionImage() {
         error_log("111111111111111111111111111111111");
 
-        for ($i = 10; $i < 50; $i++) {
-
+        for ($i = 0; $i < 1500; $i++) {
             $image_data = array();
-            $from = 46500 + $i * 10;
-            $to = 46500 + ($i + 1) * 10;
+            $from = 59451 + $i * 10;
+            $to = 59451 + ($i + 1) * 10;
             $image_data = ArticleImages::model()->getImageRange($from, $to);
             $this->total_amount = $this->total_amount + sizeof($image_data);
 //            error_log(sizeof($image_data)."-------------");
@@ -31,8 +47,8 @@ class ImportDataController extends Controller {
             }
         }
         
-        $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_sucess.log", "All finished");
-        $this->writeToLog("/home/devbox/NetBeansProjects/test/AddingCouchbase_sucess.log", "All finished");
+        $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_success.log", "All finished");
+        $this->writeToLog("/home/devbox/NetBeansProjects/test/AddingCouchbase_success.log", "All finished");
 
 //        $this->render('image', array(
 //            'headline' => $image_data
@@ -40,89 +56,71 @@ class ImportDataController extends Controller {
     }
 
     public function getMegaData($image_data) {
-
         foreach ($image_data as $val) {
             $return_hero = array();
             $return_thumbnail = array();
             $return_preview = array();
             $return_original = array();
+            
             $is_hero = false;
             $is_thumbnail = false;
             $is_preview = false;
             $is_original = false;            
+                
+            if(preg_match('/\d[.](jpg)/', $val['hero'])) {
+                    if($this->isUrlExist("http://trendsideas.com/media/article/hero/".$val['hero'])) {
+                        $url_hero = '{"url":"http://trendsideas.com/media/article/hero/'.$val['hero'].'"}';
+                        $return_hero=json_decode($this->imageImport($url_hero));
+                        $is_hero = true;
+                    } else {
+                        $message="http://trendsideas.com/media/article/hero/".$val['hero']."--- URL NOT available!";
+                        $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_success.log", $message);
+                    }
+            }
             
-//            $return_hero = $this->addImage("http://trendsideas.com/media/article/hero/".$val['hero']);
-//            $return_thumbnail = $this->addImage("http://trendsideas.com/media/article/thumbnail/".$val['thumbnail']);
-//            $return_preview = $this->addImage("http://trendsideas.com/media/article/preview/".$val['preview']);
-//            $return_original = $this->addImage("http://trendsideas.com/media/article/original/".$val['original']);
-
-
-                if($this->isUrlExist("http://trendsideas.com/media/article/hero/".$val['hero'])) {
-                    $url_hero = '{"url":"http://trendsideas.com/media/article/hero/'.$val['hero'].'"}';
-                    $return_hero=json_decode($this->imageImport($url_hero));
-                    $is_hero = true;
-                } else {
-                    $message="http://trendsideas.com/media/article/hero/".$val['hero']."--- URL NOT available!";
-                    $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_sucess.log", $message);
-                }
-//                error_log("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-//                error_log(var_export($return_hero, true));
+             if(preg_match('/\d[.](jpg)/', $val['thumbnail'])) {
+                    if($this->isUrlExist("http://trendsideas.com/media/article/thumbnail/".$val['thumbnail'])) {
+                        $url_thumbnail = '{"url":"http://trendsideas.com/media/article/thumbnail/'.$val['thumbnail'].'"}'; 
+                        $return_thumbnail=json_decode($this->imageImport($url_thumbnail));
+                        $is_thumbnail=true;
+                    } else {
+                        $message="http://trendsideas.com/media/article/thumbnail/".$val['thumbnail']."--- URL NOT available!";
+                        $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_success.log", $message);
+                    }
+             }
                 
-                if($this->isUrlExist("http://trendsideas.com/media/article/thumbnail/".$val['thumbnail'])) {
-                    $url_thumbnail = '{"url":"http://trendsideas.com/media/article/thumbnail/'.$val['thumbnail'].'"}'; 
-                    $return_thumbnail=json_decode($this->imageImport($url_thumbnail));
-                    $is_thumbnail=true;
-                } else {
-                    $message="http://trendsideas.com/media/article/thumbnail/".$val['thumbnail']."--- URL NOT available!";
-                    $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_sucess.log", $message);
-                }
-                
-                if($this->isUrlExist("http://trendsideas.com/media/article/preview/".$val['preview'])) {
-                    $url_preview = '{"url":"http://trendsideas.com/media/article/preview/'.$val['preview'].'"}';
-                    $return_preview=json_decode($this->imageImport($url_preview));
-                    $is_preview=true;
-                } else {
-                    $message="http://trendsideas.com/media/article/preview/".$val['preview']."--- URL NOT available!";
-                    $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_sucess.log", $message);
-                }
-                
-                if($this->isUrlExist("http://trendsideas.com/media/article/original/".$val['original'])) {
-                    $url_original = '{"url":"http://trendsideas.com/media/article/original/'.$val['original'].'"}';
-                    $return_original=json_decode($this->imageImport($url_original));
-                    $is_original=true;
-                } else {
-                    $message="http://trendsideas.com/media/article/original/".$val['original']."--- URL NOT available!";
-                    $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_sucess.log", $message);
-                }
+              if(preg_match('/\d[.](jpg)/', $val['preview'])) {
+                    if($this->isUrlExist("http://trendsideas.com/media/article/preview/".$val['preview'])) {
+                        $url_preview = '{"url":"http://trendsideas.com/media/article/preview/'.$val['preview'].'"}';
+                        $return_preview=json_decode($this->imageImport($url_preview));
+                        $is_preview=true;
+                    } else {
+                        $message="http://trendsideas.com/media/article/preview/".$val['preview']."--- URL NOT available!";
+                        $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_success.log", $message);
+                    }
+              }
+              
+               if(preg_match('/\d[.](jpg)/', $val['original'])) {
+                    if($this->isUrlExist("http://trendsideas.com/media/article/original/".$val['original'])) {
+                        $url_original = '{"url":"http://trendsideas.com/media/article/original/'.$val['original'].'"}';
+                        $return_original=json_decode($this->imageImport($url_original));
+                        $is_original=true;
+                    } else {
+                        $message="http://trendsideas.com/media/article/original/".$val['original']."--- URL NOT available!";
+                        $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_success.log", $message);
+                    }
+               }
                 
                 if($is_original==true&&$is_preview==true&&$is_thumbnail==true&&$is_hero == true) {
                     $obj = $this->structureArray($val, $return_hero, $return_thumbnail, $return_preview, $return_original);
-                    $this->importMegaObj($obj); 
+                    $this->importMegaObj($obj, $val['id']); 
                 }else {
-                    $message="http://trendsideas.com/media/article/preview/".$val['preview']."--- DO NOT have return value from S3!";
+                    $message="http://trendsideas.com/media/article/preview/".$val['preview']."--- DO NOT have return value from S3!--ID:".$val['id'];
+                    $this->writeToLog("/home/devbox/NetBeansProjects/test/AddingCouchbase_NotScucess.log", $message);
                 }
         }
 
     }
-
-//    public function addImage($url) {
-//        error_log($url);
-
-//        if ($this->isUrlExist($url)) {
-////            $return_json = '{"url":' . $url . '}';
-////            
-////            $return_data = json_decode($this->imageImport($return_json));
-////            
-//            error_log(var_export($return_data, true));
-//            
-//            
-//            return $return_data;
-//        } else {
-//            $message = $url . "--- URL NOT available!";
-//            $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_sucess.log", $message);
-//            return false;
-//        }
-//    }
 
     public function isUrlExist($path) {
         $file_headers = @get_headers($path);
@@ -146,17 +144,17 @@ class ImportDataController extends Controller {
             $this->image_amount++;
 
             $message = $result . "\n" . date("Y-m-d H:i:s") . $json_obj . "---" . $this->image_amount;
-            $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_sucess.log", $message);
+            $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_success.log", $message);
             return $result;
         } catch (Exception $e) {
             $response = 'Caught exception: ' . $e->getMessage();
             $message = $response . "\n" . date("Y-m-d H:i:s") . $json_obj;
-            $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_NotSucess.log", $message);
+            $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_NotSuccess.log", $message);
         }
         return false;
     }
 
-    public function importMegaObj($data_list) {
+    public function importMegaObj($data_list, $id) {
         $json_list = json_encode($data_list);
         try {
             $ch = curl_init("http://api.develop.devbox/megaimport/");
@@ -166,33 +164,48 @@ class ImportDataController extends Controller {
             curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
             $result = curl_exec($ch);
             $this->obj_amount++;
-            $message = $result . "\n" . date("Y-m-d H:i:s") . $data_list['object_image_url'] . "---" . $this->obj_amount."/".$this->total_amount;
-            $this->writeToLog("/home/devbox/NetBeansProjects/test/AddingCouchbase_sucess.log", $message);
+            $message = $result . "\n" . date("Y-m-d H:i:s") . $data_list['object_image_url'] . "---" . $this->obj_amount."/".$this->total_amount."\n".$id;
+            $this->writeToLog("/home/devbox/NetBeansProjects/test/AddingCouchbase_success.log", $message);
         } catch (Exception $e) {
             $response = 'Caught exception: ' . $e->getMessage();
             $message = $response . "\n" . date("Y-m-d H:i:s") . $data_list['object_image_url'];
-            $this->writeToLog("/home/devbox/NetBeansProjects/test/AddingCouchbase_NotSucess.log", $message);
+            $this->writeToLog("/home/devbox/NetBeansProjects/test/AddingCouchbase_NotSuccess.log", $message);
         }
     }
 
     public function structureArray($val, $return_hero, $return_thumbnail, $return_preview, $return_original) {
-
-//        error_log(var_export($return_original, true));
-//        error_log(gettype($return_original));
+        // get size of image
         $size = "_" . $return_original->width . 'x' . $return_original->height . ".jpg";
         $original_size = str_replace(".jpg", $size, $val['original']);
-//        error_log($original_size);
-
+        
+        //  get region and country
+        $region = Regions::model()->selectRegionByImage($val['id']);
+        $country = $region;
+        $pos = strripos($country, ",");
+        if($pos){
+            $country = substr($country, -($pos-3));
+        }
+        
+        // get topic
+        $topic_list = TopicSearchNames::model()->selectTopicName($val['id']);
+        
+        //get subcategory
+        $subcategory = SubCategorySearchNames::model()->selectSubCategory($val['id']);
+        
+        // get category 
+        $category = Categories::model()->selectCategory($val['id']);
+        
         $keywords = mb_check_encoding($val['keywords'], 'UTF-8') ? $val['keywords'] : utf8_encode($val['keywords']);
         $obj = array(
             "id" => null,
             "type" => "photo",
             "accessed" => null,
             "active_yn" => "y",
-            "topic" => null,
-            "category" => "kitchens",
-            "created" => "06/06/2013",
-            "creator" => "importer@trendsideas.com",
+            "created" => "created",
+            "creator" => "creator",
+            "topics" => $topic_list,
+            "categories" => $category,
+            "subcategories" => $subcategory,
             "deleted" => null,
             "domains" => "trendsideas.com",
             "editors" => "*@trendsideas.com",
@@ -200,8 +213,8 @@ class ImportDataController extends Controller {
             "followers" => null,
             "following" => null,
             "following_count" => rand(1, 999999),
-            "country" => "New Zealand",
-            "region" => "Auckland",
+            "country" => $country,
+            "region" => $region,
             "geography" => null,
             "indexed_yn" => "y",
             "object_image_linkto" => null,
@@ -216,7 +229,6 @@ class ImportDataController extends Controller {
             "uri_url" => null,
             "view_count" => rand(1, 99999999),
             "keywords" => $keywords,
-            "photo_original_width_height" => $original_size,
             "photo" => array()
         );
 
@@ -241,7 +253,9 @@ class ImportDataController extends Controller {
             "photo_keywords" => $keywords,
             "photo_brands" => null,
             "photo_products" => null,
-            "photo_original_width_height" => $original_size,
+            "photo_original_filename" => $original_size,
+            "photo_original_width" => $return_original->width,
+            "photo_original_height" => $return_original->height,
         );
 
         array_push($obj['photo'], $photo_list);
@@ -251,7 +265,7 @@ class ImportDataController extends Controller {
     }
 
     protected function writeToLog($fileName, $content) {
-        //   $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_sucess.log';
+        //   $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_success.log';
         $handle = fopen($fileName, 'a') or die('Cannot open file:  ' . $fileName);
         $output = "\n" . $content;
         fwrite($handle, $output);

@@ -13,6 +13,7 @@ define(['models/MegaModel',
             var tcontent;
             var MegaController = Ember.ArrayController.extend({
                 content: [],
+                percentComplete: 0,
                 test: "test",
                 selected: null,
                 isSelected: false,
@@ -37,36 +38,43 @@ define(['models/MegaModel',
                             selectedIndex = this.get('content').get('length') - 1;
                         } else {
                             selectedIndex--;
+                          
                         }
 
+  this.percentComplete--;
+  
+
                         this.set('selected', this.get('content').objectAt(selectedIndex));
-                        console.log(this.get('selected'));
+                        console.log(this.get('selected').get("type"));
                     }
 
 
                 },
                 nextImage: function() {
-                     this.addObjects();
+                    this.addObjects();
+                 
                     if (!this.get('selected')) {
                         this.set('selected', this.get('content').get('firstObject'));
                     } else {
+
                         var selectedIndex = this.findSelectedItemIndex();
                         if (selectedIndex >= (this.get('content').get('length') - 1)) {
 
                             selectedIndex = 0;
                         } else {
                             selectedIndex++;
-
+                            this.percentComplete++;
                         }
                         this.set('selected', this.get('content').objectAt(selectedIndex));
+                             this.percentComplete++;
                         console.log(this.get('selected'));
                     }
+                     
                 },
                 actionOn: function(megaObject) {
                     //  console.log("aaaaa" + megaObject);
                     var content = this.get("content");
 
-                    //     var t = MegaModel.find(megaObject);
                     content.pushObject(megaObject);
                     setTimeout(function() {
                         var owner_profile_id = megaObject.get("owner_profile_id");
@@ -76,13 +84,11 @@ define(['models/MegaModel',
                 },
                 addObjects: function() {
 
-                    if (!this.selected)
+                    if (!this.isSelected)
                     {
-
-
-                    //    this.content.pushObject(tcontent);
-                this.content.pushObject(tcontent.get("content").objectAt(0));
-                        this.selected = true;
+                        //    this.content.pushObject(tcontent);
+                        this.content.pushObject(tcontent.get("content").objectAt(0));
+                        this.isSelected = true;
                     }
 
                 }

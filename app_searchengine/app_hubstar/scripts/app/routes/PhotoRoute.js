@@ -13,7 +13,7 @@ define([
         
                 this.controllerFor('mega').actionOn(MegaModel.find(model.id));
 
-            this.controllerFor('photoDisplayArea').set('model', MegaModel.find(model.id));
+     //       this.controllerFor('mega').set('model', MegaModel.find(model.id));
 
         },
 //        model: function() {
@@ -29,7 +29,6 @@ define([
             $('#footer').attr("style", "display:block");
         },
         renderTemplate: function() {
-            console.log("next");
             var controller = this.controllerFor('mega');
             this.render('photo', {
                 into: "index",

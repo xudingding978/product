@@ -3,6 +3,10 @@
 
 <div class="objectview-wrapper">
 
+
+
+
+
     <div class="objectview-left">
 
         <div class="exit">
@@ -19,14 +23,12 @@
         </div>
 
 
-        <div class="mainfeature">
-            <img class="mainfeature_object" {{bindAttr src="model.photo_image_original_url" }}/>
-        </div>
+        {{render photoDisplayArea}}
 
         <!--THIS IS THE ALBUM BOX-->
 
         {{view App.ShowAlbumView}}
-  
+
         <!--THIS IS THE ALBUM BOX-->
 
         <div class="bottom-controlbar" >
@@ -35,7 +37,7 @@
                  <i class="icon-arrow-left"></i>
             </div>
             <div class="icon-on-black" style="left: 44px;" {{action popupAibum model.id on="click" target="view"}}>
-                 <i class="icon-th"></i>
+                <i class="icon-th"></i>
             </div>
             <div class="icon-on-black" style="left: 88px;" {{action nextImage }}>
                  <i class="icon-arrow-right"></i>
@@ -49,8 +51,6 @@
     </div>
 
 
-
-
     <div class="objectview-right">
 
         <!-- USER SECTION -->
@@ -60,8 +60,8 @@
                     <a href="#"><img {{bindAttr src="model.owner_profile_pic"}} class="profilepic"/></a>              
                 </div>
                 <div class="poster_user" >
-                    <a class="poster-name" href="#">{{model.owner_title}}</a>
-                    <span class="posttime">{{date model.created}} </span>
+                    <a class="poster-name" href="#">{{content.owner_title}}</a>
+                    <span class="posttime">{{date content.created}} </span>
                 </div>
 
                 <div class="contactmebtn" style="position: absolute; right: 15px; top: 23px; bottom: auto;">

@@ -6,6 +6,7 @@ define([
     Ember.TEMPLATES["photo"] = Ember.Handlebars.compile(photoTemplate);
     var PhotoView = Ember.View.extend({
         classNames: ["lightbox"],
+        content: [],
         TitleTag: false,
         PartnerTag: false,
         DiscussionTag: false,

@@ -127,15 +127,6 @@ return CMap::mergeArray(
                 ),
                 'db' => array(
                     'class' => 'CDbConnection',
-                    'connectionString' => $params['db_admin.connectionString'],
-                    'username' => $params['db_admin.username'],
-                    'password' => $params['db_admin.password'],
-                    'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
-                    'enableParamLogging' => YII_DEBUG,
-                    'charset' => 'utf8'
-                ),
-                'db_live' => array(
-                    'class' => 'CDbConnection',
                     'connectionString' => $params['db_live.connectionString'],
                     'username' => $params['db_live.username'],
                     'password' => $params['db_live.password'],
@@ -143,25 +134,34 @@ return CMap::mergeArray(
                     'enableParamLogging' => YII_DEBUG,
                     'charset' => 'utf8'
                 ),
+//                'db_live' => array(
+//                    'class' => 'CDbConnection',
+//                    'connectionString' => $params['db_live.connectionString'],
+//                    'username' => $params['db_live.username'],
+//                    'password' => $params['db_live.password'],
+//                    'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
+//                    'enableParamLogging' => YII_DEBUG,
+//                    'charset' => 'utf8'
+//                ),
                 'errorHandler' => array(
 // use 'site/error' action to display errors
                     'errorAction' => 'site/error',
                 ),
-                'log' => array(
-                    'class' => 'CLogRouter',
-                    'routes' => array(
-                        array(
-                            'class' => 'CFileLogRoute',
-                            'levels' => 'error, warning',
-                        ),
-                        // uncomment the following to show log messages on web pages
-///*
-                        array(
-                            'class' => 'CWebLogRoute',
-                        ),
-                    //*/
-                    ),
-                ),
+//                'log' => array(
+//                    'class' => 'CLogRouter',
+//                    'routes' => array(
+//                        array(
+//                            'class' => 'CFileLogRoute',
+//                            'levels' => 'error, warning',
+//                        ),
+//                        // uncomment the following to show log messages on web pages
+/////*
+//                        array(
+//                            'class' => 'CWebLogRoute',
+//                        ),
+//                    //*/
+//                    ),
+//                ),
             ),
                 ), CMap::mergeArray($mainEnvConfiguration, $mainLocalConfiguration)
 );

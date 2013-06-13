@@ -1,13 +1,6 @@
 <?php
-
-//spl_autoload_unregister(array('YiiBase','autoload'));
-//
-//Yii::import('application.protected.vendor.autoload');
-//require_once '/home/devbox/NetBeansProjects/hubstar/app_restAPI/protected/vendor/autoload.php';
-////spl_autoload_register(array('Sherlock','autoload'));
-////$sherlock = new Sherlock();
-//spl_autoload_register(array('YiiBase','autoload'));
-
+ 
+        header('Access-Control-Allow-Origin: *');
 class ProfilesController extends Controller {
 
     const JSON_RESPONSE_ROOT_SINGLE = 'profile';
@@ -30,41 +23,41 @@ class ProfilesController extends Controller {
                 ->field("type")
                 ->query("profile")
                 ->boost(2.5);
+
+        
         
 //        $filter = null;
-        
         //custom_filters_score query allows to execute a query, and if the hit matches a provided filter (ordered)
 //        $customFilterQuery = Sherlock\Sherlock::queryBuilder()->CustomFiltersScore()
 //                ->query("match_all")
 //                ->filters($filter);
-
         //Set the index, type and from/to parameters of the request.
         $request->index(Yii::app()->params['elasticSearchIndex'])
-        ->type("couchbaseDocument")
-        ->from(0)
-        ->to(10)
-        ->query($termQuery);
+                ->type("couchbaseDocument")
+                ->from(0)
+                ->to(10)
+                ->size(100)
+                ->query($termQuery);
 
         //Execute the search and return results
         $response = $request->execute();
 
         //echo "Took: " . $response->took . "\r\n";
         //echo "Number of Hits: " . count($response) . "\r\n";
-        
         //echo var_export($response);
-        
+
         $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":[';
 
         //Iterate over the hits and print out some data
         $i = 0;
         foreach ($response as $hit) {
-            $results .= CJSON::encode($hit['source']['doc']); 
-            if (++$i !== count($response)){
+            $results .= CJSON::encode($hit['source']['doc']);
+            if (++$i !== count($response)) {
                 $results .= ',';
             }
         }
-        $results .=  ']}';
-            
+        $results .= ']}';
+
         echo $this->sendResponse(200, $results);
     }
 
@@ -72,14 +65,12 @@ class ProfilesController extends Controller {
         try {
             $request_json = file_get_contents('php://input');
             $request_arr = CJSON::decode($request_json, true);
-                        
+
             $cb = $this->couchBaseConnection();
-            if ($cb->add(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $request_arr['profile']['id'] , CJSON::encode($request_arr['profile']))) {
+            if ($cb->add(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $request_arr['profile']['id'], CJSON::encode($request_arr['profile']))) {
                 echo $this->sendResponse(200, var_dump($request_arr));
             } else {
-                //echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
-                echo file_get_contents('php://input');
-                echo var_dump($request_arr);
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -90,24 +81,31 @@ class ProfilesController extends Controller {
     public function actionRead() {
         try {
             $cb = $this->couchBaseConnection();
-            $results_arr = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI']);
-            
-             if ($results_arr) {
-                 $result = $this->processGet($results_arr, self::JSON_RESPONSE_ROOT_SINGLE);
-                echo $this->sendResponse(200, $result);
-            } else {
-                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $_POST['id'] . '" already exists');
-            }
+            $reponse = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI']);
+            $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":';
+            //Iterate over the hits and print out some data
+            $result .=$reponse;
+            $result .= '}';
+            echo $this->sendResponse(200, $result);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
 
     public function actionUpdate() {
+
         try {
-            echo $this->sendResponse(200, 'OK');
+            $payloads_arr = CJSON::decode(file_get_contents('php://input'));
+            $payload_json = CJSON::encode($payloads_arr['profile']);
+            $payload_arr = CJSON::decode($payload_json);
+            $cb = $this->couchBaseConnection();
+            $document_arr = CJSON::decode($cb->get(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI']));
+            $newdocument = array_merge($document_arr, $payload_arr);
+            if ($cb->set(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'], CJSON::encode($newdocument))) {
+                echo $this->sendResponse(201, var_export($newdocument));
+            }
         } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
+            echo var_export($newdocument);
         }
     }
 
@@ -119,6 +117,24 @@ class ProfilesController extends Controller {
         }
     }
 
-}
+    public function actionOptions() {
+        try {
+            $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);
+            header($statusHeader);
+            // Set the content type
+            header('Content-type: *');
+            // Set the Access Control for permissable domains
+            header("Access-Control-Allow-Origin: *");
+            header('Access-Control-Request-Method: *');
+            header('Access-Control-Allow-Methods: *');
+            header('Access-Control-Allow-Headers: *');
 
+            echo "";
+            Yii::app()->end();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+}
 ?>

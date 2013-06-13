@@ -81,7 +81,10 @@ class SiteController extends Controller {
      */
     public function actionLogout() {
         // echo CHtml::listData(Tpl::model()->findAll(), 'IMAGE_URL', 'DESCRIPTION'); 
+        
+      
         Yii::app()->user->logout();
+     
         $this->redirect(Yii::app()->homeUrl);
     }
 

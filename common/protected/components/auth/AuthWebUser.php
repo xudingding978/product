@@ -17,11 +17,13 @@
  */
 class AuthWebUser extends CWebUser {
 
+    private $user = "";
+
     /**
      * Initializes the component.
      */
     public function init() {
-        if (Yii::app()->authManager->admins !== ''&&$this->name!=='') {
+        if (Yii::app()->authManager->admins !== '' && $this->name !== '') {
             parent::init();
             $this->setIsAdmin(in_array($this->name, Yii::app()->authManager->admins));
         }
@@ -62,6 +64,33 @@ class AuthWebUser extends CWebUser {
             return true;
 
         return parent::checkAccess($operation, $params, $allowCaching);
+    }
+
+    public function getUserData() {
+
+   
+
+
+        if (Yii::app()->user->id) {
+            $couchbase_id = "http://api.develop.devbox/users/" . User::model()->findByPk(Yii::app()->user->id)->getAttribute('COUCHBASE_ID');
+
+
+
+            $ch = curl_init($couchbase_id);
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
+            $curl_data = curl_exec($ch);
+            $data = json_decode($curl_data, true);
+
+            $this->user = $data['user']['id'];
+        
+        } else {
+
+            $this->user = "";
+            
+        }
+        return CJSON::encode($this->user);
     }
 
 }

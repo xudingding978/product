@@ -1,49 +1,37 @@
 
-<div id="myCarousel" class="carousel slide">
-        <div style="background: url('../../../images/shadowontop.png') repeat-x;position: absolute;top: 620px;z-index: 1000;width: 100%;height: 30px;"></div>
-        <!-- Carousel items -->
-        <div class="carousel-inner" style="min-width:1280px">
-            <div class="active item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_a.jpg"></div>
-            <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_b.jpg"></div>
-            <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_c.jpg"></div>
-            <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_d.jpg"></div>
-            <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_e.jpg"></div>
-            <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_f.jpg"></div>
-            <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_g.jpg"></div>
-            <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_h.jpg"></div>
-            <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_i.jpg"></div>
-            <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_j.jpg"></div>
-            <div class="item"><img src="https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/slide_img/kichen_k.jpg"></div>
-        </div>
-        <!-- Carousel nav -->
-        <a id="slider-control" class="icon-angle-left" href="#myCarousel" data-slide="prev" style="position: relative; float: left;left: 5%; top: -400px;font-size: 6em;z-index: 5;"></a>
-        <a id="slider-control" class="icon-angle-right" href="#myCarousel" data-slide="next"style="position: relative; float: right;left: -5%; top: -400px;font-size: 6em;z-index: 5;"></a>
+
+
+
+
+<div id="discovery_search_bar_wrapper" style="margin: 0 0 100px 0;">
+    <div style="width: 100%; height: 300px; background-color: black; opacity: 0.05;"></div>
+    <P style="position: absolute; font-size: 20px; top: 110px;z-index: 600; width: 600px; color: white; left:0; right: 0; margin: auto; line-height: 25px; text-align: center;">
+        Collect your online resource for kitchen, products, services & ideas
+    </P>
+
+    <div id="discovery_search_bar">
+
+        <input id="search_key" class="search_input" placeholder="All region in New Zealand" name="search_key" type="text" />
+        <input id="search_business" class="search_business" placeholder="Search by Business and keyword" type="text"  />
+        <a  style="right: 117px;" href="#"><i class="icon-group" ></i></a>
+        <a  style="right: 80px;" href="#"><i class="icon-book" ></i></a>
+        <a  style="right: 43px;" href='#'><i class="icon-picture" ></i></a>
+        <a  style="right: 6px;" href='#")'><i class="icon-film" ></i></a>
+        <a  style="right: -35px;" class="cancleIcon"  href="#" ><i class="icon-remove-sign" ></i></a>
     </div>
-    <div class="tile_img" style="z-index: 5;">
-        <div id="dd3" class="wrapper-dropdown-3" tabindex="1" style="margin-left: 68.5%; margin-bottom: -2%;width:270px; height:45px;">
-            <div>
-                <div id="dropdown-cover" class="dropdown_test_3" style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -10.5px; padding-left: 35px;">
-                    <div class="login-icon">
-                        <i class="icon-facebook icon-large">
-                        </i>
-                    </div>   
-                </div>
-                <div  id="dropdown-cover" onclick="Facebook();" style="float: right; bottom: 10px; position: relative; width: 204px; height: 45px; margin-right: -10px;">
-                    <div class="sign-in-with" >Sign In with Facebook</div>
-                </div>
-            </div>
-            <ul class="dropdown" style="width:270px">
-                <li  onclick="Twitter();" ><a style="color:rgb(0,172,237)" href="#"><i class="icon-twitter icon-large"></i>Sign in with Twitter</a></li>
-                <li  onclick="Google();" ><a style="color:rgb(211,72,54)" href="#"><i class="icon-google-plus icon-large"></i>Sign in with Google+</a></li>
-                <li  onclick="Yahoo();" ><a style="color:rgb(123,0,153)" href="#"><img src='../../../images/yahoo.png' style='width: auto; height: 35px; float:left;margin: -3% -5% 0 6%;'>Sign in with Yahoo</a></li>
-                <li  onclick="Sina();" ><a style="color:rgb(245,213,0)" href="#"><img src='../../../images/sina.png' style='width: auto; height: 35px; float:left;margin: -3% -3% 0 6%;'>Sign in with Sina</a></li>
-                <li  onclick="QQ();" ><a style="color:rgb(62,59,62)" href="#"><img src='../../../images/qq.png' style='width: auto; height: 35px; float:left;margin: -3% -2% 0 7%;'>Sign in with QQ</a></li>
-                <li  onclick="dismiss_modal_test();" ><a style="color:rgb(0,153,68)" href="#myModal"><i class="icon-envelope-alt icon-large"></i>Sign in with Email</a></li>
-            </ul>
-        </div>
-        <div class="title_text" >
-            <img src="../../../images/frontpage-intro.png">
-        </div>
+    <div class="new-btn" style="margin: auto; width: 100px; display: block; position: absolute;left: 0;right: 0;top: 235px;" {{action searching on="click" target="view"}}>
+        <i class="icon-search" style="margin-right: 10px;"></i> Search
     </div>
 
-{{view App.PhotoView}}
+
+</div>
+
+<script>
+    $("#search_business").keyup(function(event) {
+        if (event.which == 13) {
+       //     alert('testging');
+             
+            App.DiscoveryView.prototype.searching();
+        }
+    });
+</script>

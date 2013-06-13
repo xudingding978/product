@@ -1,13 +1,18 @@
 
-/*/WindowContainer-------------------/*/
-.window-container {
-    cursor: move;
+div.search-loading-invisible{
+    /*make invisible*/
+    display:none;
+}
+
+.lightbox{
+    min-width: 700px;
     overflow: visible;
     position: fixed;
-    top: 20%;
-    left: 40%;
+    top: 0;
+    width: 100%;
+    height:100%;
     z-index: 1000050;
-    background-color: white;
+    background-color: rgba(0,0,0,1);
     border: 1px solid #999;
     border: 1px solid rgba(0, 0, 0, 0.3);
     -webkit-border-radius: 3px;
@@ -20,19 +25,130 @@
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding-box;
     background-clip: padding-box;
+
+
 }
 
-.window-container > .head {
-    height:30px; 
+
+/*/WindowContainer-------------------/*/
+.window-container {
+    cursor: move;
+    overflow: visible;
+    position: fixed;
+    z-index: 100;
+    background-color: white;
+    border: 1px solid #999;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    outline: none;
+    -webkit-box-shadow: 0 3px 7px #888;
+    -moz-box-shadow: 0 3px 7px #888;
+    box-shadow: 0 3px 7px #888;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+    background-clip: padding-box;
+}
+
+.head { 
     background-color: rgb(242,240,240);
     border-radius: 3px 3px 0 0;
+    padding: 15px 30px 20px;
 }
 
-.window-container > .content {
-    padding: 10px 15px;
+.head > .closeview:hover{
+    color: black;
+}
+
+.content {
+    padding: 15px 30px 20px;
     border-radius: 3px 3px 0 0;
 }
+
+.contactme-table tr {
+    display: table-row;
+    vertical-align: top;
+    border-color: inherit;
+
+}
+
+.contactme-table td:nth-child(1)  {
+    color: #555;
+    text-align: right;
+    width: 35%;
+}
+
+.contactme-table td:nth-child(2)  {
+    padding: 0 0 5px 20px;
+    color: #555;
+    text-align: center;
+}
+
+.dropdown-contactme {
+    width: 230px;
+}
+
+
+
+
+
+.checkbox-columncontainer{
+    display: inline-block;
+    width: 40%;
+    text-align: left;
+}
+
+.checkbox-container{
+    padding: 2px 8px;
+}
+
+/*CSS Checkboxes*/
+
+input[type=checkbox].css-checkbox {
+    display:none;
+}
+
+input[type=checkbox].css-checkbox + label.css-label {
+    padding-left:20px;
+    height:15px; 
+    display:inline-block;
+    line-height:15px;
+    background-repeat:no-repeat;
+    background-position: 0 0;
+    font-size:15px;
+    vertical-align:middle;
+    cursor:pointer;
+}
+
+input[type=checkbox].css-checkbox:checked + label.css-label {
+    background-position: 0 -15px;
+}
+
+.css-label{
+    background-image:url(http://csscheckbox.com/checkboxes/dark-check-green.png);
+}
+
+.lite-blue-check{background-image: url(../../images/blue-check.png) ;}
+
+input[type=checkbox].css-checkbox.med + label.css-label.med {
+    padding-left:22px;
+    height:17px; 
+    display:inline-block;
+    line-height:17px;
+    background-repeat:no-repeat;
+    background-position: 0 0;
+    font-size:15px;
+    vertical-align:middle;
+    cursor:pointer;
+}
+
+/*/End checkbox---------------/*/
+
+
 /*/End WindowContainer---------------/*/
+
+
 
 
 .content > .ember-view {
@@ -42,38 +158,42 @@
 
 }
 
-
-
-
-
-/*/TabIndexItem----------------------/*/
-.tab-index-item {
-    line-height: 40px;
+#aside_contact  .ember-view{
+    width: 190px;
+    height: 30px;
+    margin: 5px;
 }
 
-.tab-index-item .buttons {
-    display: none;
+.form-inline  .ember-view {
+    width: 250px;
+    height: 30px;
+
+
+    border-width:1px;
+    border-style:inset;
+
+    border-radius:3px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
 }
 
-.tab-index-item:hover .buttons{
+
+#about > .textarea {
+    width: 810px;
+    height: 300px;
     display: inline-block;
-}
+    margin: 6px 6px;
 
-.tab-index-item .icon-resize-vertical {
+}
+#about > .fake {
+
     display: none;
+
+
 }
 
-.tab-index-item:hover .icon-resize-vertical{
-    display: inline-block;
-}
 
-/*/End TabIndexItem------------------/*/
 
-/*/Tab-------------------------------/*/
-.tab .navbar {
-    margin-bottom: 0px;
-}
-/*/End Tab---------------------------/*/
 
 
 .content .ember-text-field{
@@ -92,6 +212,7 @@
     float: right;
     bottom: 30px;
     right: 30px;
+    cursor: pointer;
 }
 
 .contactmebtn a {
@@ -164,35 +285,50 @@
 }
 
 
+.contactmebtn > .contactmeicon > i {
+    color: rgba(10,60,150, 0.8);
+    text-shadow: 1px 4px 6px #def, 0 0 0 #000, 1px 4px 6px #def;
+
+}
+::-moz-selection { background: #5af; color: #fff; text-shadow: none; }
+::selection { background: #5af; color: #fff; text-shadow: none; }
+
+
+
+
+
+
+
+
 .slider1 > .slide > img {
     position: absolute;
     clip: rect(0, 112px, 112px, 0);
 }
 
 .slider1 > .slide > .slider_name {
- position: relative;
-margin-top: 113px;
-display: block;
-font-size: 13px;
-color: #555;
-text-align: center;
-font-weight: bold;
+    position: relative;
+    margin-top: 113px;
+    display: block;
+    font-size: 13px;
+    color: #555;
+    text-align: center;
+    font-weight: bold;
 }
 
 .slider1 > .slide > .slider_type {
-position: relative;
-display: block;
-font-size: 12px;
-text-align: center;
-color: #777;
+    position: relative;
+    display: block;
+    font-size: 12px;
+    text-align: center;
+    color: #777;
 }
 
 .slider1 > .slide > .slider_region {
-position: relative;
-display: block;
-font-size: 12px;
-text-align: center;
-padding-bottom: 10px;
+    position: relative;
+    display: block;
+    font-size: 12px;
+    text-align: center;
+    padding-bottom: 10px;
 }
 
 .partner {
@@ -204,33 +340,236 @@ padding-bottom: 10px;
 }
 
 .partner > img {
-     position: absolute;
+    position: absolute;
     clip: rect(0, 100px, 100px, 0);
     width: 100px
 }
 
 .partner > .slider_name {
- position: relative;
-margin-top: 100px;
-display: block;
-font-size: 13px;
-color: #555;
-text-align: center;
-font-weight: bold;
+    position: relative;
+    margin-top: 100px;
+    display: block;
+    font-size: 13px;
+    color: #555;
+    text-align: center;
+    font-weight: bold;
 }
 
 .partner > .slider_type {
-position: relative;
-display: block;
-font-size: 12px;
-text-align: center;
-color: #777;
+    position: relative;
+    display: block;
+    font-size: 12px;
+    text-align: center;
+    color: #777;
 }
 
 .partner > .slider_region {
-position: relative;
-display: block;
-font-size: 12px;
-text-align: center;
-padding-bottom: 10px;
+    position: relative;
+    display: block;
+    font-size: 12px;
+    text-align: center;
+    padding-bottom: 10px;
 }
+
+#aside_contact  th:first-child{
+    color: #aaa;
+    text-align: right;
+    padding-bottom: 10px;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+#aside_contact  .second-th{
+    display: block;
+    width: 170px;
+    margin-left: 20px;
+    text-align: left;
+    word-wrap: break-word;
+    font-weight: normal;
+}
+
+.main_aboutus p{
+    font-size: 13px;
+}
+
+
+
+
+/*EDITICON*/
+.editicon_callout{
+    position: absolute;
+    top: 20px;
+    left: 7px;
+    margin: 0;
+    border-top: 4px solid #fff;
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    padding: 0;
+    width: 0;
+    height: 0;
+    font-size: 0;
+    line-height: 0;
+}
+
+.editicon{
+    display: inline-block;
+    position: relative;
+    margin: 0 10px;
+    background-color: #fff;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    width: 20px;
+    height: 20px;
+
+    opacity: 0.8;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+}
+
+.editicon:hover{
+    opacity: 1;
+    -webkit-box-shadow: 0px 0px 20px rgba(0,190,255,0.8);
+    -moz-box-shadow: 0px 0px 20px rgba(0,190,255,0.8);
+    box-shadow: 0px 0px 20px rgba(0,190,255,0.8);
+
+    bottom: 5px;
+}
+
+.editicon > .icon-pencil{
+    left: 4px;
+    position: absolute;
+    top: 3px;
+    color: #555;
+    font-size: 14px;
+}
+
+
+
+
+#discovery_search_bar_wrapper {
+    margin: 0 0 100px 0;
+    z-index: 1;
+    height: 300px;
+    width: 100%;
+    min-width: 768px;
+    background: url(../../images/searchbarbg.jpg) repeat scroll 0% 5% rgb(242, 240, 240);
+    border-bottom: 1px solid #aaa;
+    background-size: 100% auto;
+    top: 45px;
+    position: relative;
+    min-width: 1040px;
+}
+
+
+#discovery_search_bar_wrapper_moving {
+
+    z-index: 500;
+    margin-top: 36px;
+    height: 160px;
+    width: 100%;
+    min-width: 768px;
+    background: none repeat scroll 0% 0% rgb(235, 235, 235);
+    border-bottom: 1px solid #AFAFAF; 
+}
+
+#discovery_search_bar{
+    min-width: 800px;
+    position: absolute;
+    width: 40%;
+    top: 170px;
+    display: block;
+    margin: auto;
+    left: 0;
+    right: 0;
+}
+
+
+
+#discovery_search_bar > a {
+    color: #ccc;
+    width: 37px;
+    height: 37px;
+    position: absolute;
+    float: right;
+    display: inline-block;
+    vertical-align: top;
+
+    -webkit-transition: all 0.8s ease;
+    -moz-transition: all 0.8s ease;
+    -o-transition: all 0.8s ease;
+}
+
+#discovery_search_bar > a:hover {
+    color: #333333;
+    text-decoration: none;
+}
+
+#discovery_search_bar > a > i {
+    margin: 9px;
+}
+
+
+#newtemplate{
+    top: 500px; 
+    -webkit-transition: all 0.8s ease;
+    -moz-transition: all 0.8s ease;
+    -o-transition: all 0.8s ease;
+}
+
+#newtemplate:hover{
+    top: 180px;
+
+
+}
+
+#addnew{
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    -moz-opacity: 0;
+    -khtml-opacity: 0;
+    opacity: 0;
+
+    -webkit-transition: all 0.8s ease;
+    -moz-transition: all 0.8s ease;
+    -o-transition: all 0.8s ease;
+}
+
+#addnew:hover{
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+    filter: alpha(opacity=70);
+    -moz-opacity: 0.7;
+    -khtml-opacity: 0.7;
+    opacity: 0.7;
+
+}
+
+
+#exit-add-photos{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: 0px;
+    margin: 13px 55px;
+    color: #aaa;
+}
+
+
+#exit-add-photos:hover{
+
+    color: #333;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -4,6 +4,26 @@
 <!--[if IE 8 ]>    <html lang="en" class="ie8"> <![endif]--> 
 <!--[if IE 9 ]>    <html lang="en" class="ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
+
+
+
+    <script>   window.onload = function() {
+
+            var data = "";
+            
+            if (<?php echo Yii::app()->user->getUserData() ?> !== "") {
+            
+                data = <?php echo Yii::app()->user->getUserData() ?>;
+                localStorage.setItem("loginStatus", data);
+
+            }
+
+        }
+
+
+
+    </script>
+
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -13,34 +33,30 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/reset-new.css">
 
+        <link rel="stylesheet" href="/app_hubstar/css/masonry.css">  
         <link rel="stylesheet" href="/app_hubstar/scripts/libs/bootstrap/2.2.2/css/bootstrap.css">
-
+        <link rel="stylesheet" href="/app_hubstar/css/bootstrap-wysihtml5.css">
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+        
         <link rel="stylesheet" href="/app_hubstar/css/style.css">
+        <link rel="stylesheet" href="/app_hubstar/css/views.css">        
+        <link rel="stylesheet" href="/app_hubstar/css/profile-css.css">   
         <link rel="stylesheet" type="text/css" href="css/customstyle.php" /> 
         <link media="screen, projection" rel="stylesheet" type="text/css" href="css/_topnavbar.css"/>
         <link media="screen, projection" rel="stylesheet" type="text/css" href="css/_footer.css"/>
-        <link rel="stylesheet" href="css/font-awesome.min.css">
-        <script src="app_hubstar/scripts/libs/bootstrap/2.2.2/js/bootstrap.min.js"></script>
-        <script src="app_hubstar/scripts/libs/jquery.bxslider.min.js"></script>
+        <link href='http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+<!--        <script src="app_hubstar/scripts/libs/bootstrap/2.2.2/js/bootstrap.min.js"></script>
+        <script src="app_hubstar/scripts/libs/jquery.bxslider.min.js"></script>-->
         <link rel="stylesheet" href="/app_hubstar/css/jquery.bxslider.css">
     </head>
-    <body>
-        <?php
-        $this->renderPartial('/layouts/_topnavbar');
-
-        $this->renderPartial('/layouts/_loginmodals');
-        ?>
-
-        <div id="main" class="container-fluid" style="min-height: 100%; padding: 45px 0 0 0;"></div>
-
-        <script data-main="app_hubstar/scripts/main" src="app_hubstar/scripts/libs/requirejs/2.1.2/require.js"></script>
+    <body style="background:#fff url('../images/texture.png') repeat;width: 100%;height: auto;">
 
 
-        <?php $this->renderPartial('/layouts/_footer'); ?>
+        <div id="main" class="container-fluid" style="padding:0;"></div>
+    
+    <script data-main="app_hubstar/scripts/main" src="app_hubstar/scripts/libs/requirejs/2.1.2/require.js"></script>
+
+
     </body>
 </html>
 
-
-
-</body>
-</html>

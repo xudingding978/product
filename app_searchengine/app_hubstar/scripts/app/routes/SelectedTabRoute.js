@@ -22,7 +22,7 @@ define([
         renderTemplate: function() {
             this.render('selectedTab', {
                 into: "application",
-                controller: tabListController
+
             });
         }
     });

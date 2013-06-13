@@ -245,18 +245,6 @@ line-height: 32px;
 .smallicon a:active {color: rgb(255,255,255); text-decoration: none; text-shadow: ;}
 .smallIcon a:hover{color: rgb(255,255,255); text-decoration: none;}
 
-.icon_a{
-
-
-}
-.icon_b{
-margin: 0 0 0 22px;
-
-}
-.icon_c{
-margin: 0 0 0 24px;
-
-}
 
 
 .navbar .nav li.dropdown > .dropdown-toggle .caret {
@@ -617,9 +605,8 @@ border-left-color: rgb(242,240,240);
 #slider-control {
 text-decoration: none;
 color: rgba(255,255,255,0.5);
+
 }
-
-
 
 
 

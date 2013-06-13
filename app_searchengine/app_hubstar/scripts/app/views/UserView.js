@@ -15,8 +15,8 @@ define([
                 });
             });
 
-            $('#user-stats > li>a').click(function() {
-                $('#user-stats > li>a').removeClass('selected-user-stats');
+            $('#user-stats > li').click(function() {
+                $('#user-stats > li').removeClass('selected-user-stats');
                 $(this).addClass('selected-user-stats');
              //    $(this).removeClass('hover');
 //                $(this).attr('id', 'selected');
@@ -27,3 +27,8 @@ define([
     });
     return UserView;
 });
+
+
+
+
+//   http://css3playground.com/flip-card.php

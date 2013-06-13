@@ -221,7 +221,7 @@
     text-overflow: ellipsis;
 }
 .more_detail{
-    height: 90px; 
+    height: 20px; 
     overflow: hidden;
     text-overflow: ellipsis;
 }

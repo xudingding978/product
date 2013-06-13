@@ -37,7 +37,7 @@ class MegaimportController extends Controller {
                     ->type("couchbaseDocument")
                     ->from(0)
                     ->to(10)
-                    ->size(100)
+                    ->size(10)
                     ->query($termQuery);
             $response = $request->execute();
             $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":[';

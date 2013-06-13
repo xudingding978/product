@@ -148,35 +148,34 @@ class Controller extends CController {
     }
 
     protected function getRequestResult($searchString, $returnType) {
-        
-        
-        
+
+
+
         $response = "";
-                    
-        if (strpos($searchString, 'search')!==false) {
+
+        if (strpos($searchString, 'search') !== false) {
             $regionAndsearchString = explode('&', $searchString);
             $region = $this->getUserInput($regionAndsearchString[0]);
             $searchString = $this->getUserInput($regionAndsearchString[1]);
             $response = $this->performSearch($returnType, $region, $searchString);
-        } elseif (strpos($searchString, 'collection')!==false) {
+        } elseif (strpos($searchString, 'collection') !== false) {
+
             $regionAndsearchString = explode('&', $searchString);
             $collection_id = $this->getUserInput($regionAndsearchString[0]);
             $owner_profile_id = $this->getUserInput($regionAndsearchString[1]);
+
             $response = $this->performRawSearch($returnType, $collection_id, $owner_profile_id);
         } else {
-     
+
             $response = $this->performSearch($returnType, "", "dean");
-          
         }
         return $response;
     }
 
     protected function performSearch($returnType, $region, $requestString) {
         $settings['log.enabled'] = true;
-//        $settings['log.file'] = '/var/log/sherlock/debug.log';
-//        $settings['log.level'] = 'debug';
         $sherlock = new \Sherlock\Sherlock($settings);
-        
+
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
 //Build a new search request
         $request = $sherlock->search();
@@ -189,14 +188,17 @@ class Controller extends CController {
                 ->fields(["couchbaseDocument.doc.keywords", "couchbaseDocument.doc.desc"])
                 ->query($requestString)
                 ->boost(2.5);
+
+        error_log($termQuery->toJSON());
         $request->index(Yii::app()->params['elasticSearchIndex'])
                 ->type("couchbaseDocument")
                 ->from(10)
                 ->size(50)
                 ->query($termQuery);
 
+
         $response = $request->execute();
-        error_log("size of response " . sizeof($response));
+
         $results = '{"' . $returnType . '":[';
         $i = 0;
         foreach ($response as $hit) {
@@ -221,6 +223,7 @@ class Controller extends CController {
                 ->fields("couchbaseDocument.doc.id")
                 ->query($requestString)
                 ->boost(2.5);
+
         $request->index(Yii::app()->params['elasticSearchIndex'])
                 ->type("couchbaseDocument")
                 ->size(7)
@@ -231,7 +234,7 @@ class Controller extends CController {
         $results = '{"' . $returnType . '":[';
         $i = 0;
         foreach ($response as $hit) {
-            error_log(var_export($hit['source']['doc'],true));
+
             $results .= CJSON::encode($hit['source']['doc']);
             if (++$i < count($response)) {
                 $results .= ',';
@@ -240,48 +243,49 @@ class Controller extends CController {
         $results .= ']}';
         return $results;
     }
-    
-        protected function performRawSearch($returnType, $collection_id, $owner_profile_id) {
-            
-      
+
+    protected function performRawSearch($returnType, $collection_id, $owner_profile_id) {
         $settings['log.enabled'] = true;
-        // $settings['log.file'] = '/var/log/sherlock/newlogfile.log';
-        $settings['log.level'] = 'debug';
         $sherlock = new Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
+
         $request = $sherlock->search();
+
+        $must = Sherlock\Sherlock::queryBuilder()->Term()->term($collection_id)//$collection_id
+                ->field('couchbaseDocument.doc.collection_id');
+       $must2= Sherlock\Sherlock::queryBuilder()->Term()->term($owner_profile_id)
+                ->field('couchbaseDocument.doc.owner_profile_id');
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)
+                ->must($must2)
+                ->boost(2.5);
+        $response = $request->query($bool)->execute();
+
 //        $json = '{"query":
 //                            {"bool":
 //                                {"must":[
 //                                    {"query_string":
-//                                        {"default_field":"couchbaseDocument.doc.keywords","query":"home"}}],
-//                                            "must_not":[],"should":[]
-//                                                }},
-//                                                "from":0,"size":50,"sort":[],"facets":{}}';
-        
-        $json =  '{"query":
-                            {"bool":
-                                {"must":[
-                                    {"query_string":{"default_field":"couchbaseDocument.doc.collection_id","query":"'.$collection_id.'"}},
-                                        {"query_string":{"default_field":"couchbaseDocument.doc.owner_profile_id","query":"'.$owner_profile_id.'"}}],
-                                            "must_not":[],"should":[]}},"from":0,"size":50,"sort":[],"facets":{}}';
- 
-        $rawTermQuery = Sherlock\Sherlock::queryBuilder()->Raw($json);
+//                                        {"default_field":"couchbaseDocument.doc.collection_id","query":"' . $collection_id . '"}},
+//                                            {"query_string":{"default_field":"couchbaseDocument.doc.owner_profile_id","query":"' . $owner_profile_id . '"}}],
+//                                            "must_not":[],"should":[]}},"from":0,"size":50,"sort":[]}';
 
-        $response = $request->query($rawTermQuery)->execute();
+//        $rawTermQuery = Sherlock\Sherlock::queryBuilder()->Raw($json);
+//   
+//        $response = $rawTermQuery->execute();
+
         $results = '{"' . $returnType . '":[';
 
         //Iterate over the hits and print out some data
         $i = 0;
         foreach ($response as $hit) {
+
             $results .= CJSON::encode($hit['source']['doc']);
             if (++$i !== count($response)) {
                 $results .= ',';
             }
         }
         $results .= ']}';
+
         return $results;
     }
-    
 
 }

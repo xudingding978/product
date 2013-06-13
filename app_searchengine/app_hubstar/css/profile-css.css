@@ -80,6 +80,29 @@
 }
 
 
+.album-name{
+    margin: 2px 20px 2px 40px; 
+    font-size: 20px; 
+    font-weight: bold; 
+    text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+    float: left;
+}
+
+
+.album-name:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1px;
+    height: 100%;
+    background: -webkit-linear-gradient(top,rgba(222,222,222,1),rgba(222,222,222,0.5) 90%,rgba(222,222,222,0) 100%) no-repeat;
+    background: -moz-linear-gradient(top,rgba(222,222,222,1),rgba(222,222,222,0.5) 90%,rgba(222,222,222,0) 100%) no-repeat;
+    background: linear-gradient(top,rgba(222,222,222,1),rgba(222,222,222,0.5) 90%,rgba(222,222,222,0) 100%) no-repeat;
+}
+
+
 .user-stats{
     margin:0;
     float: right;
@@ -101,21 +124,22 @@
 }
 
 .selected-user-stats{
-border-top: 1px solid rgba(0,0,0,.16);
-border-right: 1px solid rgba(0,0,0,0.16);
-border-bottom: 1px solid rgba(0,0,0,.05);
-margin-bottom: -1px;
-position: relative;
-font-weight: bold;
-text-shadow: 1px 1px 1px rgba(255,255,255,1);
-background: rgba(0,0,0,0.05);
--webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
--moz-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
--ms-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
--o-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
-color: #555;
+    border-top: 1px solid rgba(0,0,0,.16);
+    border-right: 1px solid rgba(0,0,0,0.16);
+    border-bottom: 1px solid rgba(0,0,0,.05);
+    margin-bottom: -1px;
+    position: relative;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px rgba(255,255,255,1);
+    background: rgba(0,0,0,0.05);
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
+    -ms-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
+    -o-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
+    color: #555;
 }
+
 
 .user-stats li a{
     -webkit-box-shadow: 0 0 1px rgba(255,255,255,0.9) inset;
@@ -127,14 +151,13 @@ color: #555;
     padding: 1px 20px 0;
     text-shadow: 0 1px 0 rgba(255,255,255,0.8);
     line-height: 44px;
+    height: 50px;
+
+    -webkit-transition: all 0.8s ease;
+    -moz-transition: all 0.8s ease;
+    -o-transition: all 0.8s ease;
 }
 
-
-.user-stats li:first-child a.active {
-    -webkit-box-shadow: -1px 0 3px rgba(0,0,0,0.05) inset;
-    -moz-box-shadow: -1px 0 3px rgba(0,0,0,0.05) inset;
-    box-shadow: -1px 0 3px rgba(0,0,0,0.05) inset;
-}
 
 .user-stats li a:hover{
     background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #f4f4f4));
@@ -143,6 +166,12 @@ color: #555;
     background: -o-linear-gradient(#ffffff,#f4f4f4);
     background: linear-gradient(#ffffff,#f4f4f4);
     background-color: #fff;
+    color: #333;
+    text-decoration: none;
+}
+
+#user-stats > .selected-user-stats > a:hover{
+    background: none;
     color: #333;
     text-decoration: none;
 }

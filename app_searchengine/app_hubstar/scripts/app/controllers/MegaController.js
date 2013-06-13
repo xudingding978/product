@@ -90,17 +90,13 @@ define(['models/MegaModel',
 
                 },
                 addObjects: function(tcontent) {
-
 console.log("aaaaa");
-console.log(tcontent.values);
-
-
+console.log(tcontent.self);
                         for (var i = 0; i < tcontent.get("content").get("length"); i++) {
 console.log(i);
                             this.content.pushObject(tcontent.get("content").objectAt(i));
                         }
-                        this.isSelected = true;
-                    
+                        this.isSelected = true;                    
                 }
 
 

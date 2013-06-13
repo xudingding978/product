@@ -1,4 +1,24 @@
 
+<script type="text/javascript">
+ 
+
+        // set up hover panels
+        // although this can be done without JavaScript, we've attached these events
+        // because it causes the hover to be triggered when the element is tapped on a touch device
+        $('.front').click(function() {
+            $(".hover").addClass('flip');
+        });
+
+        $('.back').click(function() {
+            $(".hover").removeClass('flip');
+        });
+
+
+
+</script>
+
+
+
 <div class="user-board" style="width: 87%; position: relative; margin: 100px auto 20px; left: 0; right: 0; min-width: 796px; max-width: 1260px;">
     <div class="user-board_left style-box" style="background: white; width: 69%;display: inline-block;vertical-align: top;height: 150px;margin-right: 0.5%;">
         <img style="width: 150px; height: 150px; border-radius: 3px 0 0 3px;display: inline-block;vertical-align: top;" {{bindAttr src="photo_url_large"}}/>
@@ -48,15 +68,15 @@
 
         <div class="style-box t-style-box" style="width: 100%; min-width: 796px; height: 50px; background: white;margin: -70px auto;left: 0;right: 0;position: relative;display: block;">
             <div style="margin: 2px 20px 2px 40px; font-size: 20px; font-weight: bold; text-shadow: 0 1px 0 rgba(255,255,255,0.8);float: left;">Album Name</div>
-            
-            
-            
-            
-            
-            
-            
-            
-            
+
+
+
+
+
+
+
+
+
             <ul class="user-stats" id="user-stats">
                 <li><a>Collections</a></li>
                 <li><a>Photos</a></li>
@@ -66,14 +86,38 @@
                 <li><a>Followers</a></li>
             </ul>
 
-            
-            
-            
-            
-            
+
+
+
+
+
         </div>
 
         <!--END SECTION CONTROL BAR-->
+
+
+
+        <div class="box col2">
+
+
+            <div class="hover panel">
+                <div class="front">
+                    <div class="pad">
+                        <h2>Mouse Over Me!</h2>
+                        <p>
+                            The effect on this box can be done using 100% CSS.<br><br>
+                            The other boxes all require some Javascript, but the animation is driven by CSS3.
+                        </p>
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="pad">
+                        <h2>check you on the flip side</h2>
+                    </div>
+                </div>
+            </div>
+
+        </div>
 
 
         <div class="box col2">

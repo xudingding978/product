@@ -14,11 +14,6 @@ class MegaimportController extends Controller {
     public function actionIndex() {
         //   $this->setImage("http://trendsideas.com/media/article/35013.jpg");
         $this->setImage("trendsideas.com/media/article/original/35013.jpg");
-//        $temp = explode("/", $_SERVER['REQUEST_URI']);
-//        $id = $temp [sizeof($temp) - 1];
-//
-//        echo $this->sendResponse(200, $id);
-
         try {
             $settings['log.enabled'] = true;
             $sherlock = new Sherlock\Sherlock($settings);
@@ -59,23 +54,19 @@ class MegaimportController extends Controller {
     public function actionCreate() {
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
-//        error_log("aaaaaaaaaaaaaa            ".var_export($request_arr,true));
         $id = $this->getNewID();
         $request_arr["id"] = $id;
         $response = "fail";
         $type = $request_arr['type'];
         $request_arr[$type][0]['id'] = $id;
         $url = substr($_SERVER['HTTP_HOST'], 4) . '/' . $request_arr["id"];
+        
+       
         try {
             $cb = $this->couchBaseConnection();
+            
             if ($cb->add($url, CJSON::encode($request_arr))) {
-//                $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_sucess.log';
-//                $handle = fopen($my_file, 'a') or die('Cannot open file:  ' . $my_file);
-//                $output = "\n" . $url . ' is create';
-//                fwrite($handle, $output);
-//                fclose($handle);
                 $response="ok";
-                //      echo $this->sendResponse(200, var_dump($record));
             } else {
                 $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_error.log';
                 $handle = fopen($my_file, 'a') or die('Cannot open file:  ' . $my_file);
@@ -84,11 +75,11 @@ class MegaimportController extends Controller {
                 fwrite($handle, $output);
                 fclose($handle);
             }
+            unset($cb);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
             echo json_decode(file_get_contents('php://input'));
         }
-
 
         $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);
         header($statusHeader);
@@ -97,7 +88,8 @@ class MegaimportController extends Controller {
         header('Access-Control-Request-Method: *');
         header('Access-Control-Allow-Methods: PUT, POST, OPTIONS, GET');
         header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
-        echo $id;
+
+        unset($request_json, $request_arr, $id, $response, $type, $url, $statusHeader);
         Yii::app()->end();
     }
 
@@ -106,12 +98,7 @@ class MegaimportController extends Controller {
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
-
-//            error_log("id:  " . $id);
             echo $this->sendResponse(200, $id);
-//            $reponse = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . "/" . $id);
-//            $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $reponse . '}';
-//            echo $this->sendResponse(200, $result);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -172,35 +159,6 @@ class MegaimportController extends Controller {
         }
         $data = base64_decode($tempInput);
         return $data;
-    }
-
-    public function photoSavingToS3($request_arr, $path) {
-        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
-        $key = explode(".", $_SERVER['HTTP_HOST']);
-        $key = $key[1] . '.' . $key[2];
-        $result = $cb->get($key);
-        $result_arr = CJSON::decode($result, true);
-        $response = false;
-//        error_log(var_export($request_arr ["mega"]['photos'][0], true));
-        $data = $this->getInputData($request_arr ["object"]['photos'][0]['photo_type'], $request_arr ["object"]['photos'][0]['photo_url']);
-        $client = Aws\S3\S3Client::factory(
-                        $result_arr["providers"]["S3Client"]
-        );
-//        if ($client->doesObjectExist('hubstar-dev', $path . $request_arr ["object"]['photos'][0]['photo_title'])) {
-//            $response = false;
-//        } else {
-//            $client->putObject(array(
-//                'Bucket' => "hubstar-dev",
-//                'Key' => $path . $request_arr ["object"]['photos'][0]['photo_title'],
-//                'Body' => $data,
-//                'ACL' => 'public-read'
-//            ));
-//            $response = true;
-//        }
-
-
-
-        return $response;
     }
 
     public function setImage($url) {

@@ -17,23 +17,33 @@ class ImportDataController extends Controller {
         
 //        $result = preg_match('/\d[.](jpg)/', ".jpg");
 //        echo($result);
-//            $sql = "select dbo.ArticleImages.id from dbo.ArticleImages where dbo.ArticleImages.id between 58960 and 59060";
-//            $data_list = Yii::app()->db->createCommand($sql)->queryAll();
+            $time_zone = date_default_timezone_set('America/New_York');
+//            echo $time_zone; 
+            $time_string = strtotime("Dec 10 2004 12:00:00:000AM");
+            echo gmdate('Y-m-d H:i:s', $time_string) ;
+        
+            
+            $sql = "select dbo.ArticleImages.id from dbo.ArticleImages where dbo.ArticleImages.id between 58960 and 59060";
+            $data_list = Yii::app()->db->createCommand($sql)->queryAll();
 //            
-//            foreach($data_list as $val) {
-//                $region_list = Categories::model()->selectCategory("59000");
-//                echo $region_list;
-//            }
+            foreach($data_list as $val) {
+                $book_list = Books::model()->getBookByPhotoID($val['id']);
+//                $region_list = Regions::model()->selectRegionByImage($val['id']);
+                
+                print_r("<pre>");
+                print_r($book_list);
+//                print_r($region_list);
+            }
     }
     
     
     public function actionImage() {
         error_log("111111111111111111111111111111111");
 
-        for ($i = 0; $i < 1; $i++) {
+        for ($i = 0; $i < 2000; $i++) {
             $image_data = array();
-            $from = 60114 + $i * 10;
-            $to = 60114 + ($i + 1) * 10;
+            $from = 65615 + $i * 10;
+            $to = 65615 + ($i + 1) * 10;
             $image_data = ArticleImages::model()->getImageRange($from, $to);
             $this->total_amount = $this->total_amount + sizeof($image_data);
 //            error_log(sizeof($image_data)."-------------");
@@ -45,6 +55,8 @@ class ImportDataController extends Controller {
 
                 $this->getMegaData($image_data);
             }
+            
+            unset($image_data, $from, $to, $image_data);
         }
         
         $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_success.log", "All finished");
@@ -61,12 +73,23 @@ class ImportDataController extends Controller {
             $return_thumbnail = array();
             $return_preview = array();
             $return_original = array();
+            $obj = array();
             
             $is_hero = false;
             $is_thumbnail = false;
             $is_preview = false;
-            $is_original = false;            
-                
+            $is_original = false;
+            
+            $message = "";
+            $url_hero = "";
+            $return_hero = "";
+            $url_thumbnail = "";
+            $return_thumbnail = "";
+            $url_preview = "";
+            $return_preview = "";
+            $url_original = "";
+            $return_original = "";
+            
             if(preg_match('/\d[.](jpg)/', $val['hero'])) {
                     if($this->isUrlExist("http://trendsideas.com/media/article/hero/".$val['hero'])) {
                         $url_hero = '{"url":"http://trendsideas.com/media/article/hero/'.$val['hero'].'"}';
@@ -118,8 +141,13 @@ class ImportDataController extends Controller {
                     $message="http://trendsideas.com/media/article/preview/".$val['preview']."--- DO NOT have return value from S3!--ID:".$val['id'];
                     $this->writeToLog("/home/devbox/NetBeansProjects/test/AddingCouchbase_NotScucess.log", $message);
                 }
+                
+                
+            unset($return_hero, $return_thumbnail, $return_preview, $return_original, $obj);
+            unset($is_hero, $is_thumbnail, $is_preview, $is_original);
+            unset($message, $url_hero, $return_hero, $url_thumbnail, $return_thumbnail, $url_preview, $return_preview, $url_original, $return_original);
+            
         }
-
     }
 
     public function isUrlExist($path) {
@@ -129,6 +157,8 @@ class ImportDataController extends Controller {
         } else {
             $response = "true";
         }
+        
+        unset($file_headers);
         return $response;
     }
 
@@ -145,13 +175,19 @@ class ImportDataController extends Controller {
 
             $message = $result . "\n" . date("Y-m-d H:i:s") . $json_obj . "---" . $this->image_amount;
             $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_success.log", $message);
+            
+            unset($ch, $message, $json_obj);
+            
             return $result;
         } catch (Exception $e) {
             $response = 'Caught exception: ' . $e->getMessage();
             $message = $response . "\n" . date("Y-m-d H:i:s") . $json_obj;
             $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_NotSuccess.log", $message);
+            
+            unset($e, $response, $message);
+            return false;
         }
-        return false;
+        
     }
 
     public function importMegaObj($data_list, $id) {
@@ -166,10 +202,14 @@ class ImportDataController extends Controller {
             $this->obj_amount++;
             $message = "develop.devbox/".$result . "\n" . date("Y-m-d H:i:s") . $data_list['object_image_url'] . "---" . $this->obj_amount."/".$this->total_amount."\n".$id;
             $this->writeToLog("/home/devbox/NetBeansProjects/test/AddingCouchbase_success.log", $message);
+            
+            unset($data_list, $json_list, $ch, $result, $message);
         } catch (Exception $e) {
             $response = 'Caught exception: ' . $e->getMessage();
             $message = $response . "\n" . date("Y-m-d H:i:s") . $data_list['object_image_url'];
             $this->writeToLog("/home/devbox/NetBeansProjects/test/AddingCouchbase_NotSuccess.log", $message);
+            
+            unset($json_list, $response, $message);
         }
     }
 
@@ -195,6 +235,9 @@ class ImportDataController extends Controller {
         // get category 
         $category = Categories::model()->selectCategory($val['id']);
         
+        // get book infor 
+        
+        // get keywords imfor
         $keywords = mb_check_encoding($val['keywords'], 'UTF-8') ? $val['keywords'] : utf8_encode($val['keywords']);
         $obj = array(
             "id" => null,
@@ -223,6 +266,7 @@ class ImportDataController extends Controller {
             "object_image_linkto" => null,
             "object_image_url" => $return_hero->url,
             "object_title" => null,
+            "object_description" => $val['caption'],
             "owner_type" => 'profile',
             "owner_profile_pic" => "https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/this_is/folder_path/Trends-Logo.jpg",
             "owner_title" => "Trends Ideas",
@@ -266,6 +310,10 @@ class ImportDataController extends Controller {
         array_push($obj['photo'], $photo_list);
         $owners_arr = array("andrew.johnson@trendsideas.com", "support@trendsideas.com");
         array_push($obj['owners'], $owners_arr);
+        
+        
+        
+        unset($owners_arr, $photo_list, $photo_list, $keywords, $category, $subcategory, $topic_list, $country, $pos, $region, $original_size, $size, $val, $return_hero, $return_thumbnail, $return_preview, $return_original);
         return $obj;
     }
 
@@ -275,6 +323,8 @@ class ImportDataController extends Controller {
         $output = "\n" . $content;
         fwrite($handle, $output);
         fclose($handle);
+        
+        unset($fileName, $content, $handle, $output);
     }
 
 }

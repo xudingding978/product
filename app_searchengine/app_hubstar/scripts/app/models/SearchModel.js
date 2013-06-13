@@ -16,6 +16,23 @@ define(
         image_url: DS.attr('string'),
         article_text: DS.attr('string'),
         article_title: DS.attr('string'),
+        video_title: DS.attr('string'),
+        photo_title: DS.attr('string'),
+        profile_id: DS.attr('string'),
+        profile_name: DS.attr('string'),
+        profile_cover_url: DS.attr('string'),
+        photo_title: DS.attr('string'),
+        video_title: DS.attr('string'),
+        description: DS.attr('string'),
+        more_button: function() {
+            return "more_button_" + this.get('id');
+        }.property('id'),
+        collape_button: function() {
+            return "collape_button_" + this.get('id');
+        }.property('id'),
+        getProfile_id: function() {
+            return "#/profiles/" + this.get('profile_id');
+        }.property('profile_id'),
         getProfile: function() {
             return this.get('type') === 'profile';
         }.property('type'),
@@ -44,9 +61,6 @@ define(
 
 
     });
-
-//    if(SearchModel.get('isLoaded')) {
-//        console.log('loaded!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
     return SearchModel;
 //    };
 

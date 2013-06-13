@@ -1,21 +1,24 @@
 define([
     'ember',
-    'controllers/DataController', 
-    'models/PostModel',
-    'views/DiscoveryView'
+    'models/MegaModel'
+
 ], function(
         Ember,
-        DataController,
-        PostModel
+        MegaModel
         ) {
     "use strict";
 
     var DataRoute = Ember.Route.extend({
         model: function() {
-            return PostModel.find();
+            return MegaModel.find();
         },
         setupController: function(DataController) {
-            DataController.model;
+
+        },
+        renderTemplate: function() {
+            this.render('dataIndex', {
+                into: 'application'
+            });
         }
     });
     return DataRoute;

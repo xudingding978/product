@@ -1,7 +1,11 @@
-define(['models/SearchModel',
+define(['models/MegaModel',
     'ember'],
-        function(SearchModel, Ember) {
-            var IndexController = Ember.ArrayController.extend();
-            
+        function(
+                MegaModel,
+                Ember
+                ) {
+            var IndexController = Ember.ArrayController.extend({
+ 
+            });
             return IndexController;
         });

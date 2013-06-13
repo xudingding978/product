@@ -1,26 +1,28 @@
 define([
     'ember',
     'controllers/IndexController',
-    'models/SearchModel'
+    'models/MegaModel'
 ], function(
         Ember,
         IndexController,
-        SearchModel
+        MegaModel
         ) {
     "use strict";
 
     var IndexRoute = Ember.Route.extend({
-        model: function() {
-            return SearchModel.find();
-        },
+        //     controller: ApplicationController,
+
+//        model: function() {
+//            return App.SearchModel.find();
+//        },
         renderTemplate: function() {
             this.render('index', {
                 into: "application"
             });
-//            this.render('default', {
-//                
-//                into: "index"
-//            });
+
+            this.render('default', {
+                into: "index"
+            });
         }
     });
     return IndexRoute;

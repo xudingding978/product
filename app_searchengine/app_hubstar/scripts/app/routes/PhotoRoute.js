@@ -1,25 +1,26 @@
 define([
     'ember',
+    'models/MegaModel',
     'models/PhotoModel'
 ], function(
         Ember,
+        MegaModel,
         PhotoModel
         ) {
     "use strict";
-
-    var PhotosRoute = Ember.Route.extend({
-        //     controller: ApplicationController,
+    var PhotoRoute = Ember.Route.extend({
         setupController: function(controller, model) {
+            var d = MegaModel.find(model.id);
+            console.log("photoRouteeeeeeeeeeeeeeeeee");
+            this.controllerFor('mega').actionOn(d);
 
-        alert(model.type);
-            //    this.controllerFor('photos').set('model', PhotoModel.find({id: "photo1"}));
-
+    //   this.controllerFor('mega').set('model', MegaModel.find(model.id));
 
         },
-        model: function(params) {
-            console.log(PhotoModel.find(params.photo_id));
-            return PhotoModel.find(params.photo_id);
-        },
+//        model: function(params) {
+//          
+//             return MegaModel.find(params.photo_id);
+//        },
         activate: function() {
             $("body").css("overflow", "hidden");
             $('#footer').attr("style", "display:none");
@@ -29,14 +30,13 @@ define([
             $('#footer').attr("style", "display:block");
         },
         renderTemplate: function() {
-            this.render('index', {
-                into: "application"
-            });
-            this.render('photos', {
-                into: "index"
+            var controller = this.controllerFor('mega');
+            this.render('photo', {
+                into: "index",
+                controller: controller
             });
         }
 
     });
-    return PhotosRoute;
+    return PhotoRoute;
 });

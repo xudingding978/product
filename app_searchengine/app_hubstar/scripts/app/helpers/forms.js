@@ -1,7 +1,7 @@
 
 // Start the main app logic.
-define(['ember',  'models/ProfileModel', 'handlebars'],
-        function(Ember, ProfileModel) {
+define(['ember', 'handlebars','moment'],
+        function(Ember) {
 
             Handlebars.registerHelper('submitButton', function(text) {
                 return new Handlebars.SafeString('<button  id="login" type="submit" class="btn btn-primary">' + text + '</button>');
@@ -20,7 +20,7 @@ define(['ember',  'models/ProfileModel', 'handlebars'],
 
 
             Ember.Handlebars.registerHelper('ifCond', function(v1, v2, options) {
-             alert(v1);
+                alert(v1);
                 alert(ProfileModel.find('flooringxtra').get('type'));
                 v1 = ProfileModel.find('flooringxtra').get('type');
                 if (v1 == v2) {
@@ -28,7 +28,6 @@ define(['ember',  'models/ProfileModel', 'handlebars'],
                 }
                 return options.inverse(this);
             });
-            
             Handlebars.registerHelper('checkInputFilesSize', function(object) {
 
                 return new Handlebars.SafeString(
@@ -36,7 +35,12 @@ define(['ember',  'models/ProfileModel', 'handlebars'],
                         );
 
             });
-           
+            Ember.Handlebars.registerBoundHelper('date', function(date) {
+
+                return moment(date).fromNow();
+
+            });
+
 
         });
 

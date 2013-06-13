@@ -7,12 +7,13 @@
  */
 
 namespace Sherlock\requests;
+
 use Sherlock\common\events\Events;
 use Sherlock\common\events\RequestEvent;
 use Sherlock\common\exceptions;
 use Sherlock\common\tmp\RollingCurl;
 use Sherlock\responses\IndexResponse;
-use Analog\Analog;
+
 use Sherlock\responses\Response;
 
 /**
@@ -37,18 +38,19 @@ class Request
 
     /**
      * @param  \Symfony\Component\EventDispatcher\EventDispatcher $dispatcher
+     *
      * @throws \Sherlock\common\exceptions\BadMethodCallException
      */
     public function __construct($dispatcher)
     {
         if (!isset($dispatcher)) {
-            Analog::log("An Event Dispatcher must be injected into all Request objects", Analog::ERROR);
-            throw new exceptions\BadMethodCallException("An Event Dispatcher must be injected into all Request objects");
+                        throw new exceptions\BadMethodCallException("An Event Dispatcher must be injected into all Request objects");
         }
 
         $this->dispatcher = $dispatcher;
-        $this->batch = new BatchCommand();
+        $this->batch      = new BatchCommand();
     }
+
 
     /**
      * Execute the Request, performs on the actual transport layer
@@ -61,9 +63,8 @@ class Request
     public function execute()
     {
         $reflector = new \ReflectionClass(get_class($this));
-        $class = $reflector->getShortName();
+        $class     = $reflector->getShortName();
 
-        Analog::debug("Request->execute()");
 
         //construct a requestEvent and dispatch it with the "request.preexecute" event
         //This will, among potentially other things, populate the $node variable with
@@ -73,45 +74,45 @@ class Request
 
         //Make sure the node variable is set correctly after the event
         if (!isset($this->node)) {
-            Analog::error("Request requires a valid, non-empty node");
-            throw new exceptions\RuntimeException("Request requires a valid, non-empty node");
+                        throw new exceptions\RuntimeException("Request requires a valid, non-empty node");
         }
 
         if (!isset($this->node['host'])) {
-            Analog::error("Request requires a host to connect to");
-            throw new exceptions\RuntimeException("Request requires a host to connect to");
+                        throw new exceptions\RuntimeException("Request requires a host to connect to");
         }
 
         if (!isset($this->node['port'])) {
-            Analog::error("Request requires a port to connect to");
-            throw new exceptions\RuntimeException("Request requires a port to connect to");
+                        throw new exceptions\RuntimeException("Request requires a port to connect to");
         }
 
-        $path = 'http://'.$this->node['host'].':'.$this->node['port'];
+        $path = 'http://' . $this->node['host'] . ':' . $this->node['port'];
 
-        Analog::debug("Request->commands: ".print_r($this->batch, true));
 
         $rolling = new RollingCurl\RollingCurl();
         $rolling->setHeaders(array('Content-Type: application/json'));
 
-        $window = 10;
+        $window  = 10;
         $counter = 0;
 
-        /** @var BatchCommandInterface $batch  */
+        /** @var BatchCommandInterface $batch */
         $batch = $this->batch;
 
         //prefill our buffer with a full window
         //the rest will be streamed by our callback closure
         foreach ($batch as $request) {
 
-            /** @var CommandInterface $req  */
-            $req = $request;
+            /** @var CommandInterface $req */
+            $req    = $request;
             $action = $req->getAction();
 
             if ($action == 'put' || $action == 'post') {
-                $rolling->$action($path.$req->getURI(), json_encode($req->getData()), array('Content-Type: application/json'));
+                $rolling->$action(
+                    $path . $req->getURI(),
+                    json_encode($req->getData()),
+                    array('Content-Type: application/json')
+                );
             } else {
-                $rolling->$action($path.$req->getURI());
+                $rolling->$action($path . $req->getURI());
             }
 
             if ($counter > $window) {
@@ -120,7 +121,7 @@ class Request
         }
 
         /**
-         * @param RollingCurl\Request $request
+         * @param RollingCurl\Request     $request
          * @param RollingCurl\RollingCurl $rolling
          */
         $callback = function (RollingCurl\Request $request, RollingCurl\RollingCurl $rolling) use ($batch, $path) {
@@ -140,9 +141,9 @@ class Request
                     $action = $data->getAction();
 
                     if ($action == 'put' || $action == 'post') {
-                        $rolling->$action($path.$data->getURI(), json_encode($data->getData()));
+                        $rolling->$action($path . $data->getURI(), json_encode($data->getData()));
                     } else {
-                        $rolling->$action($path.$data->getURI());
+                        $rolling->$action($path . $data->getURI());
                     }
                 }
             }
@@ -157,11 +158,11 @@ class Request
         $this->batch = new BatchCommand();
 
         //This is kinda gross...
-        $returnResponse = 'Response';
+        $returnResponse = '\Sherlock\responses\Response';
         if ($class == 'SearchRequest') {
-            $returnResponse =  '\Sherlock\responses\QueryResponse';
+            $returnResponse = '\Sherlock\responses\QueryResponse';
         } elseif ($class == 'IndexRequest') {
-            $returnResponse =  '\Sherlock\responses\IndexResponse';
+            $returnResponse = '\Sherlock\responses\IndexResponse';
         } elseif ($class == 'IndexDocumentRequest') {
             $returnResponse = '\Sherlock\responses\IndexResponse';
         } elseif ($class == 'DeleteDocumentRequest') {

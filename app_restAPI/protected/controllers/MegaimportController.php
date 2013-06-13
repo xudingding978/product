@@ -32,7 +32,7 @@ class MegaimportController extends Controller {
                     ->type("couchbaseDocument")
                     ->from(0)
                     ->to(10)
-                    ->size(100)
+                    ->size(10)
                     ->query($termQuery);
             $response = $request->execute();
             $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":[';
@@ -54,14 +54,14 @@ class MegaimportController extends Controller {
     public function actionCreate() {
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
+
         $id = $this->getNewID();
         $request_arr["id"] = $id;
         $response = "fail";
         $type = $request_arr['type'];
         $request_arr[$type][0]['id'] = $id;
         $url = substr($_SERVER['HTTP_HOST'], 4) . '/' . $request_arr["id"];
-        
-       
+
         try {
             $cb = $this->couchBaseConnection();
             
@@ -88,7 +88,7 @@ class MegaimportController extends Controller {
         header('Access-Control-Request-Method: *');
         header('Access-Control-Allow-Methods: PUT, POST, OPTIONS, GET');
         header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
-
+        echo $id;
         unset($request_json, $request_arr, $id, $response, $type, $url, $statusHeader);
         Yii::app()->end();
     }

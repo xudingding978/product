@@ -10,7 +10,6 @@ define(['models/MegaModel',
                 MegaModel,
                 Ember
                 ) {
-            var tcontent;
             var MegaController = Ember.ArrayController.extend({
                 content: [],
                 percentComplete: 0,
@@ -29,9 +28,9 @@ define(['models/MegaModel',
                 },
                 previesImage: function() {
                     this.addObjects();
-                    if (!this.get('selected')) {
-                        this.set('selected', this.get('content').get('lastObject'));
-                    }
+//                    if (!this.get('selected')) {
+//                        this.set('selected', this.get('content').get('lastObject'));
+//                    }
                     var selectedIndex = this.findSelectedItemIndex();
 
                     if (selectedIndex <= 0) {
@@ -41,68 +40,63 @@ define(['models/MegaModel',
                     }
 
                     this.set('selected', this.get('content').objectAt(selectedIndex));
-                    console.log(this.get('selected'));
+                    //         console.log(this.get('selected'));
 
-    this.set("percentComplete","0");
+                    this.set("percentComplete", this.get('content').objectAt(selectedIndex));
+
 
                 },
                 nextImage: function() {
 
                     this.addObjects();
 
-                    if (!this.get('selected')) {
-
-                        this.set('selected', this.get('content').get('firstObject'));
-
-                    }
+//                    if (!this.get('selected')) {
+//
+//                        this.set('selected', this.get('content').get('firstObject'));
+//
+//                    }
 
                     var selectedIndex = this.findSelectedItemIndex();
                     if (selectedIndex >= (this.get('content').get('length') - 1)) {
 
                         selectedIndex = 0;
                     } else {
+
                         selectedIndex++;
 
                     }
                     this.set('selected', this.get('content').objectAt(selectedIndex));
-                    this.set("percentComplete","2222222222222222");
-                    console.log(this.get('selected'));
+                    console.log(this.get('content').objectAt(selectedIndex).record._data);
+                    //      this.set("percentComplete", this.get('content').objectAt(selectedIndex).data.photo[0]);
+                    //    console.log(this.get('content'));
+                    //   console.log(this.get('content').objectAt(selectedIndex).editors);
+                    //        console.log(this.get('selected'));
 
                 },
                 actionOn: function(megaObject) {
-                    //  console.log("aaaaa" + megaObject);
                     var content = this.get("content");
-
-                    //     var t = MegaModel.find(megaObject);
-                //    console.log(megaObject);
-                    //     content.pushObject(megaObject);
-                    setTimeout(function() {
+                    console.log(megaObject);
+                    console.log("owner_profile_id: " + megaObject.get("owner_profile_id"));
+                    console.log("collection_id: " + megaObject.get("collection_id"));
+                    //                 console.log(megaObject);
+                    //      content.pushObject(megaObject);
+                 
+               //     setTimeout(function() {
                         var owner_profile_id = megaObject.get("owner_profile_id");
                         var collection_id = megaObject.get("collection_id");
                         tcontent = MegaModel.find({"collection_id": collection_id, "owner_profile_id": owner_profile_id});
+                        console.log(tcontent);
+                        this.addObjects(tcontent);
 
-
-
-                        //      console.log("aaaaaaaaa   "+tcontent.get("firstObject"));
-//                        tcontent.one("didLoad", function() {
-//                            tcontent.resolve(tcontent.get("firstObject"));
-//                        });
-                    }, 200);
                 },
-                imgReturn: function() {
-                }.observes('selected'),
-                addObjects: function() {
-
-                    if (!this.isSelected)
-                    {
-
+                addObjects: function(tcontent) {
+console.log("aaaaa");
+console.log(tcontent.self);
                         for (var i = 0; i < tcontent.get("content").get("length"); i++) {
-                            //    this.content.pushObject(tcontent);
+console.log(i);
                             this.content.pushObject(tcontent.get("content").objectAt(i));
                         }
-                        this.isSelected = true;
-                    }
-
+                        this.isSelected = true;                    
                 }
 
 

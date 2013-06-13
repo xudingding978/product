@@ -81,7 +81,7 @@ define(
 //        product: DS.hasMany('App.Product'),
         didLoad: function() {
 //            console.log('model loaded', this.toJSON());
-//            console.log('id: ' + this.id + ' ' + this.profile_name, this);
+            console.log('id: ' + this.id + ' ' + this.profile_name);
         }
     });
     return MegaModel;

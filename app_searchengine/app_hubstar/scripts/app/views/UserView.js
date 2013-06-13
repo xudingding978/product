@@ -5,10 +5,7 @@ define([
     Ember.TEMPLATES["user"] = Ember.Handlebars.compile(userTemplate);
     var UserView = Ember.View.extend({
         template: Ember.Handlebars.compile(userTemplate),
-                
-                
-                
-                        didInsertElement: function() {
+        didInsertElement: function() {
 
             $(function() {
                 $('#masonry_user_container').masonry({
@@ -18,9 +15,18 @@ define([
                 });
             });
 
-        },
-                
-                
+            $('#user-stats > li').click(function() {
+                $('#user-stats > li').removeClass('selected-user-stats');
+                $(this).addClass('selected-user-stats');
+             //    $(this).removeClass('hover');
+//                $(this).attr('id', 'selected');
+
+                return false;
+            });
+        }
     });
     return UserView;
 });
+
+
+

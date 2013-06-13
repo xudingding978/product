@@ -13,7 +13,7 @@ class ImageimportController extends Controller {
         //       $this->watermark("https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/trendsideas.com/media/article/original/18715.jpg");
     }
 
-    public function actionCreate() {
+    public function actionCreate() {        
         $reponse;
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
@@ -21,7 +21,7 @@ class ImageimportController extends Controller {
 
         $isUrlExist = $this->isUrlExist($url);
         $this->is_image($url);
-
+        
         if ($isUrlExist == "true") {
             $reponse = $this->watermark($url);
         } else {

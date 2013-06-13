@@ -48,7 +48,7 @@ define([
             //   $(id).slideToggle(200);
 
             $(id).animate({
-                height: "90px"
+                height: "20px"
 
             }, 200);
             $(collape_button).attr("style", "display:none");

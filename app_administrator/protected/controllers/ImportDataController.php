@@ -38,25 +38,17 @@ class ImportDataController extends Controller {
     
     
     public function actionImage() {
-        error_log("111111111111111111111111111111111");
-
-        for ($i = 0; $i < 2000; $i++) {
+        for ($i = 0; $i < 3; $i++) {
             $image_data = array();
-            $from = 65615 + $i * 10;
-            $to = 65615 + ($i + 1) * 10;
+            $from = 65681 + $i * 10;
+            $to = 65681 + ($i + 1) * 10;
             $image_data = ArticleImages::model()->getImageRange($from, $to);
             $this->total_amount = $this->total_amount + sizeof($image_data);
-//            error_log(sizeof($image_data)."-------------");
 
             if (sizeof($image_data) > 0) {
-                
-//                error_log(var_export($image_data, true));
-//                error_log(sizeof($image_data));
-
                 $this->getMegaData($image_data);
             }
-            
-            unset($image_data, $from, $to, $image_data);
+            unset($image_data, $from, $to);
         }
         
         $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_success.log", "All finished");
@@ -68,6 +60,7 @@ class ImportDataController extends Controller {
     }
 
     public function getMegaData($image_data) {
+        
         foreach ($image_data as $val) {
             $return_hero = array();
             $return_thumbnail = array();
@@ -88,7 +81,6 @@ class ImportDataController extends Controller {
             $url_preview = "";
             $return_preview = "";
             $url_original = "";
-            $return_original = "";
             
             if(preg_match('/\d[.](jpg)/', $val['hero'])) {
                     if($this->isUrlExist("http://trendsideas.com/media/article/hero/".$val['hero'])) {
@@ -122,7 +114,7 @@ class ImportDataController extends Controller {
                         $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_success.log", $message);
                     }
               }
-              
+
                if(preg_match('/\d[.](jpg)/', $val['original'])) {
                     if($this->isUrlExist("http://trendsideas.com/media/article/original/".$val['original'])) {
                         $url_original = '{"url":"http://trendsideas.com/media/article/original/'.$val['original'].'"}';
@@ -192,6 +184,7 @@ class ImportDataController extends Controller {
 
     public function importMegaObj($data_list, $id) {
         $json_list = json_encode($data_list);
+//        print_r($json_list);
         try {
             $ch = curl_init("http://api.develop.devbox/megaimport/");
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
@@ -200,6 +193,7 @@ class ImportDataController extends Controller {
             curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
             $result = curl_exec($ch);
             $this->obj_amount++;
+//            error_log($result);
             $message = "develop.devbox/".$result . "\n" . date("Y-m-d H:i:s") . $data_list['object_image_url'] . "---" . $this->obj_amount."/".$this->total_amount."\n".$id;
             $this->writeToLog("/home/devbox/NetBeansProjects/test/AddingCouchbase_success.log", $message);
             
@@ -310,9 +304,7 @@ class ImportDataController extends Controller {
         array_push($obj['photo'], $photo_list);
         $owners_arr = array("andrew.johnson@trendsideas.com", "support@trendsideas.com");
         array_push($obj['owners'], $owners_arr);
-        
-        
-        
+
         unset($owners_arr, $photo_list, $photo_list, $keywords, $category, $subcategory, $topic_list, $country, $pos, $region, $original_size, $size, $val, $return_hero, $return_thumbnail, $return_preview, $return_original);
         return $obj;
     }

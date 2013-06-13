@@ -1,7 +1,7 @@
 
 <div id="masonry_container" class="transitions-enabled centered clearfix">
 
-    <div class="box col4">
+    <div class="box col2">
         {{render status}}
     </div>
 
@@ -10,7 +10,7 @@
     
 
     {{#if getProfile}}
-    <div class="box col4">
+    <div class="box col2">
 
         <div class="masonry-object">
             <div class="masonry-object_profile-cover">
@@ -127,7 +127,7 @@
 
 
     {{#if getPhoto}}
-    <div class="box col4">
+    <div class="box col2">
 
 
         <div class="masonry-object">
@@ -232,7 +232,7 @@
     {{/if}}
 
     {{#if getVideo}}
-    <div class="box col4">
+    <div class="box col2">
 
         <div class="masonry-object">
             <div class="masonry-object_poster">
@@ -335,7 +335,7 @@
 
 
     {{#if getFile}}
-    <div class="box col4">
+    <div class="box col2">
         <img {{bindAttr src="profile_pic_url"}} />
         {{#linkTo 'files' this}}<h1>{{type}}</h1>{{/linkTo}}
     </div>
@@ -348,7 +348,7 @@
 
 
     {{#if getArticle}}
-    <div class="box col4">
+    <div class="box col2">
 
         <div class="masonry-object">
             <div class="masonry-object_poster">  
@@ -357,7 +357,7 @@
                 </a>
                 <div class="object_username">
                     <a class="poster-name" {{bindAttr href="getProfile_id"}}>{{profile_id}}</a>
-                    <span class="posttime">yesterday 8:37</span>
+                    <span class="posttime">yesterday 10:26</span>
                 </div>
 
                 <div class="object-tags-box">
@@ -404,7 +404,8 @@
                     </div>
 
                     <div class="more_detail" {{bindAttr id="id"}} style="display:none;width:auto">
-                        <h1>article show</h1>
+                        <h1>{{article_title}}</h1>
+                        {{{article_text}}}
 
                     </div>
 
@@ -447,14 +448,14 @@
 
 
     {{#if getIdeabook}}
-    <div class="box col4">
+    <div class="box col2">
         <img {{bindAttr src="profile_pic_url"}} />
         {{#linkTo 'ideabooks' this}}<h1>{{type}}</h1>{{/linkTo}}
     </div>
     {{/if}}
 
     {{#if getDiscussion}}
-    <div class="box col4">
+    <div class="box col2">
         <img {{bindAttr src="profile_pic_url"}} />
         {{#linkTo 'discussions' this}}<h1>{{type}}</h1>{{/linkTo}}
     </div>

@@ -10,8 +10,10 @@ define(['models/MegaModel',
                 MegaModel,
                 Ember
                 ) {
+            var midcontent = [];
             var MegaController = Ember.ArrayController.extend({
-                content: [],
+                content: midcontent,
+                temp: null,
                 percentComplete: 0,
                 test: "test",
                 selected: null,
@@ -80,24 +82,40 @@ define(['models/MegaModel',
                     console.log("collection_id: " + megaObject.get("collection_id"));
                     //                 console.log(megaObject);
                     //      content.pushObject(megaObject);
-                 
-               //     setTimeout(function() {
-                        var owner_profile_id = megaObject.get("owner_profile_id");
-                        var collection_id = megaObject.get("collection_id");
-                        tcontent = MegaModel.find({"collection_id": collection_id, "owner_profile_id": owner_profile_id});
-                        console.log(tcontent);
-                        this.addObjects(tcontent);
 
-                },
-                addObjects: function(tcontent) {
-console.log("aaaaa");
-console.log(tcontent.self);
-                        for (var i = 0; i < tcontent.get("content").get("length"); i++) {
-console.log(i);
-                            this.content.pushObject(tcontent.get("content").objectAt(i));
+                    //            setTimeout(function() {
+                    var owner_profile_id = megaObject.get("owner_profile_id");
+                    var collection_id = megaObject.get("collection_id");
+                    //   this.set("temp" ,MegaModel.query({"collection_id": collection_id, "owner_profile_id": owner_profile_id}));
+                    var data = MegaModel.query({"collection_id": collection_id, "owner_profile_id": owner_profile_id});
+                    data.addObserver('isLoaded', function() {
+                        if (data.get('isLoaded')) {
+                            for (var i = 0; i < this.get("content").get("length"); i++) {
+                                midcontent.pushObject((this.get("content").objectAt(i)));
+                            }
                         }
-                        this.isSelected = true;                    
-                }
+                        console.log(midcontent.length);
+                    });
+
+//                    this.get("temp").one("didLoad", function() {
+//                  //      console.log(this);
+//              //          console.log(   this.get("temp").get("content").get("length"));
+//                    });
+
+                    this.set("isSelected", true);
+                    console.log("done");
+                },
+                addObjects: function() {
+                    console.log(this.get("temp").get("content").length);
+                    console.log(this.get("temp").get("content").get("length"));
+                    //     console.log(tcontent.get("content").get("length"));
+
+//                    for (var i = 0; i < tcontent.get("content").get("length"); i++) {
+//                        console.log(i);
+//                        this.content.pushObject(tcontent.get("content").objectAt(i));
+//                    }
+//                    this.isSelected = true;
+                }.observes('App.Mega.didLoad')
 
 
 

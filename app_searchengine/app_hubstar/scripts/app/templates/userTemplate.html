@@ -1,24 +1,4 @@
 
-<script type="text/javascript">
- 
-
-        // set up hover panels
-        // although this can be done without JavaScript, we've attached these events
-        // because it causes the hover to be triggered when the element is tapped on a touch device
-        $('.front').click(function() {
-            $(".hover").addClass('flip');
-        });
-
-        $('.back').click(function() {
-            $(".hover").removeClass('flip');
-        });
-
-
-
-</script>
-
-
-
 <div class="user-board" style="width: 87%; position: relative; margin: 100px auto 20px; left: 0; right: 0; min-width: 796px; max-width: 1260px;">
     <div class="user-board_left style-box" style="background: white; width: 69%;display: inline-block;vertical-align: top;height: 150px;margin-right: 0.5%;">
         <img style="width: 150px; height: 150px; border-radius: 3px 0 0 3px;display: inline-block;vertical-align: top;" {{bindAttr src="photo_url_large"}}/>
@@ -37,25 +17,6 @@
     <div class="user-board_right style-box" style="background: white; width: 30%; height: 150px; display: inline-block; vertical-align: top;">
 
 
-        <ul class="nav nav-tabs" id="myTab">
-            <li class="active"><a href="#following">Following (52) :</a></li>
-            <li><a href="#followers">Followers (22) :</a></li>
-        </ul>
-
-        <div class="tab-content">
-            <div class="tab-pane active" id="following">
-                <a href="#" style="margin:2px;"><img class="profilepic profilepic_effect easing" style='width: 35px;height:35px;' src="../images/profilepic1.jpg"/></a>       
-                <a href="#" style="margin:2px;"><img class="profilepic profilepic_effect easing" style='width: 35px;height:35px;' src="../images/profilepic2.jpg"/></a>
-                <a href="#" style="margin:2px;"><img class="profilepic profilepic_effect easing" style='width: 35px;height:35px;' src="../images/profilepic3.jpg"/></a>
-            </div>
-            <div class="tab-pane" id="followers">
-                <a href="#" style="margin:2px;"><img class="profilepic profilepic_effect easing" style='width: 35px;height:35px;' src="../images/profilepic4.jpg"/></a>       
-                <a href="#" style="margin:2px;"><img class="profilepic profilepic_effect easing" style='width: 35px;height:35px;' src="../images/profilepic5.jpg"/></a>
-                <a href="#" style="margin:2px;"><img class="profilepic profilepic_effect easing" style='width: 35px;height:35px;' src="../images/profilepic6.jpg"/></a>
-            </div>
-
-        </div>
-
 
     </div>
 </div>
@@ -71,12 +32,6 @@
 
 
 
-
-
-
-
-
-
             <ul class="user-stats" id="user-stats">
                 <li><a>Collections</a></li>
                 <li><a>Photos</a></li>
@@ -85,9 +40,6 @@
                 <li><a>Following</a></li>
                 <li><a>Followers</a></li>
             </ul>
-
-
-
 
 
 

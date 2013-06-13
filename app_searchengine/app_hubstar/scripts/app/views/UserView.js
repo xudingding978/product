@@ -30,5 +30,3 @@ define([
 
 
 
-
-//   http://css3playground.com/flip-card.php

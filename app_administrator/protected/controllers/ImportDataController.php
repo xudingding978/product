@@ -17,8 +17,7 @@ class ImportDataController extends Controller {
         
 //        $result = preg_match('/\d[.](jpg)/', ".jpg");
 //        echo($result);
-            $time_zone = date_default_timezone_set('America/New_York');
-//            echo $time_zone; 
+            $time_zone = date_default_timezone_set('UTC');
             $time_string = strtotime("Dec 10 2004 12:00:00:000AM");
             echo gmdate('Y-m-d H:i:s', $time_string) ;
         
@@ -38,10 +37,10 @@ class ImportDataController extends Controller {
     
     
     public function actionImage() {
-        for ($i = 0; $i < 3; $i++) {
+        for ($i = 0; $i < 2000; $i++) {
             $image_data = array();
-            $from = 65681 + $i * 10;
-            $to = 65681 + ($i + 1) * 10;
+            $from = 65856 + $i * 10;
+            $to = 65856 + ($i + 1) * 10;
             $image_data = ArticleImages::model()->getImageRange($from, $to);
             $this->total_amount = $this->total_amount + sizeof($image_data);
 

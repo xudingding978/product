@@ -221,22 +221,6 @@
 
 
 
-
-                        $('#signup').on('click', function(e) {
-                            e.preventDefault();
-                            document.getElementById('side-2').className = 'flip flip-side-1';
-                            document.getElementById('side-1').className = 'flip flip-side-2';
-
-                        });
-
-                        $('#goback').on('click', function(e) {
-                            e.preventDefault();
-                            document.getElementById('side-2').className = 'flip';
-                            document.getElementById('side-1').className = 'flip';
-
-                        });
-
-
                         function DropDown(el) {
                             this.dd = el;
                             this.placeholder = this.dd.children('span');

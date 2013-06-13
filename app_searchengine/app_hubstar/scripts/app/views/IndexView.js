@@ -8,6 +8,5 @@ define([
 
 
     });
-
     return IndexView;
 });

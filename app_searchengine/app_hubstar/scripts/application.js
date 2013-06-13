@@ -16,6 +16,7 @@ require.config({
         'emberData': 'libs/ember-data-latest',
         'jquery.ui': 'libs/jquery.ui/1.9.2/jquery-ui-1.9.2.custom.min',
         'bootstrap': 'libs/bootstrap/2.2.2/js/bootstrap.min',
+        "bootstrap-collapse": 'libs/bootstrap/2.2.2/js/bootstrap-collapse',
         'bootstrap-wysihtml5': 'libs/wysihtml5/bootstrap-wysihtml5',
         'bootstrap-modal': 'libs/bootstrap/2.2.2/js/bootstrap-modal',
         'wysihtml5': 'libs/wysihtml5/wysihtml5-0.3.0',
@@ -71,6 +72,7 @@ define('application', [
     "views/ProfileNewView",
     "views/IndexView",
     "views/CarouselView",
+    "views/PhotoSliderView",
     "views/MasonryView",
     "views/LightBoxView",
     "views/VideoView",
@@ -152,7 +154,8 @@ define('application', [
     'bootstrap-modal'
 
 ], function(
-        DragNDropNamespace, ApplicationView,
+        DragNDropNamespace, 
+        ApplicationView,
         DiscoveryView,
         PhotoView,
         ProfilesView,
@@ -168,6 +171,7 @@ define('application', [
         ProfileNewView,
         IndexView,
         CarouselView,
+        PhotoSliderView,
         MasonryView,
         LightBoxView,
         VideoView,
@@ -262,6 +266,7 @@ define('application', [
         ProfileNewView: ProfileNewView,
         IndexView: IndexView,
         CarouselView: CarouselView,
+        PhotoSliderView: PhotoSliderView,
         MasonryView: MasonryView,
         ImageInputButtonView: ImageInputButtonView,
         PreviewUploadImageView: PreviewUploadImageView,

@@ -11,10 +11,16 @@ defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',3);
 
 chdir(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..');
 
-//require_once('common' . DIRECTORY_SEPARATOR . 'protected' . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'Yii' . DIRECTORY_SEPARATOR . 'yii.php');
-//$config = require('app_administrator' . DIRECTORY_SEPARATOR .  'protected' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'main.php');
-//require_once('common' . DIRECTORY_SEPARATOR .  'protected' . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'WebApplication.php');
-//require_once('common' . DIRECTORY_SEPARATOR .  'protected' . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'global.php');
+
+// register composer autoloader
+require_once dirname(__FILE__) . '/protected/vendor/autoload.php';
+
+use \Sherlock\Sherlock;
+use Aws\Common\Aws;
+use Aws\S3\S3Client;
+use Aws\S3\Enum\CannedAcl;
+use Aws\S3\Exception\S3Exception;
+
 
 require_once($yii);
 Yii::createWebApplication($config)->run();

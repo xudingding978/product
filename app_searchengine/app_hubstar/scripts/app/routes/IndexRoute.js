@@ -13,8 +13,7 @@ define([
         //     controller: ApplicationController,
 
 //        model: function() {
-//            return SearchModel.find();
-//
+//            return App.SearchModel.find();
 //        },
         renderTemplate: function() {
             this.render('index', {
@@ -24,9 +23,7 @@ define([
             this.render('default', {
                 into: "index"
             });
-
         }
-
     });
     return IndexRoute;
 });

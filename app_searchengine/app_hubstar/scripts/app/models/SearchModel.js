@@ -53,16 +53,18 @@ define(
         }.property('type'),
         getDiscussion: function() {
             return this.get('type') === 'discussion';
-        }.property('type'),
-        didLoad: function() {
+        }.property('type')
+//        didLoad: function() {
 //            console.log('model loaded', this.toJSON());
 //            console.log('id: ' + this.id + ' ' + this.profile_name, this);
-        }
-
+//        }
 
 
     });
     return SearchModel;
+//    };
+
+
 }
 );
 

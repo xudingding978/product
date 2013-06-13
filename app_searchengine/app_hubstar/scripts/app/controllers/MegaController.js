@@ -10,7 +10,6 @@ define(['models/MegaModel',
                 MegaModel,
                 Ember
                 ) {
-            var tcontent;
             var MegaController = Ember.ArrayController.extend({
                 content: [],
                 percentComplete: 0,
@@ -62,13 +61,13 @@ define(['models/MegaModel',
 
                         selectedIndex = 0;
                     } else {
-                        
+
                         selectedIndex++;
 
                     }
                     this.set('selected', this.get('content').objectAt(selectedIndex));
-                    
-                    this.set("percentComplete", this.get('content').objectAt(selectedIndex).data.photo[0]);
+                    console.log(this.get('content').objectAt(selectedIndex).record._data);
+                    //      this.set("percentComplete", this.get('content').objectAt(selectedIndex).data.photo[0]);
                     //    console.log(this.get('content'));
                     //   console.log(this.get('content').objectAt(selectedIndex).editors);
                     //        console.log(this.get('selected'));
@@ -76,35 +75,32 @@ define(['models/MegaModel',
                 },
                 actionOn: function(megaObject) {
                     var content = this.get("content");
-
+                    console.log(megaObject);
+                    console.log("owner_profile_id: " + megaObject.get("owner_profile_id"));
+                    console.log("collection_id: " + megaObject.get("collection_id"));
                     //                 console.log(megaObject);
-                       content.pushObject(megaObject);
-                    setTimeout(function() {
+                    //      content.pushObject(megaObject);
+                 
+               //     setTimeout(function() {
                         var owner_profile_id = megaObject.get("owner_profile_id");
                         var collection_id = megaObject.get("collection_id");
                         tcontent = MegaModel.find({"collection_id": collection_id, "owner_profile_id": owner_profile_id});
-
-
                         console.log(tcontent);
-//                        tcontent.one("didLoad", function() {
-//                            tcontent.resolve(tcontent.get("firstObject"));
-//                        });
-                    }, 200);
+                        this.addObjects(tcontent);
 
                 },
-                addObjects: function() {
+                addObjects: function(tcontent) {
 
-                    if (!this.isSelected)
-                    {
+console.log("aaaaa");
+console.log(tcontent.values);
+
 
                         for (var i = 0; i < tcontent.get("content").get("length"); i++) {
-                            //    this.content.pushObject(tcontent);
+console.log(i);
                             this.content.pushObject(tcontent.get("content").objectAt(i));
                         }
                         this.isSelected = true;
-                    }
-
-                    console.log("ddddddddddd");
+                    
                 }
 
 

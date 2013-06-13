@@ -143,6 +143,7 @@ class UserController extends Controller {
      * Lists all models.
      */
     public function actionIndex() {
+
         $dataProvider = new CActiveDataProvider('User');
         $this->render('index', array(
             'dataProvider' => $dataProvider,

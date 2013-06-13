@@ -3,6 +3,9 @@
 class DefaultController extends CController {
 
     public function actionIndex() {
+
+
+
         $this->render('index');
     }
 
@@ -11,11 +14,16 @@ class DefaultController extends CController {
      */
     public function actionLogin() {
         //try {
+
+
+        $this->layout = '//layouts/signup';
+
         if (!isset(Yii::app()->session['hybridauth-ref'])) {
+
             Yii::app()->session['hybridauth-ref'] = Yii::app()->request->urlReferrer;
         }
 
-    
+
 
 
         $this->_doLogin();
@@ -43,7 +51,7 @@ class DefaultController extends CController {
 
 
         if ($identity->authenticate()) {
-    
+
 
 
             // They have authenticated AND we have a user record associated with that provider
@@ -119,7 +127,7 @@ class DefaultController extends CController {
         $user_profile = $adapter->getUserProfile();
         $user = new User;
         $user->attributes = $_POST['User'];
-        $user->TENANT_REC_ID=1;
+        $user->TENANT_REC_ID = 1;
         $user_profile->email = $user->EMAIL_ADDRESS;
         $user_profile->displayName = $user->USER_NAME;
         $user_profile->lastName = $user->LAST_NAME;

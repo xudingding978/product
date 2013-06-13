@@ -69,17 +69,15 @@ define(['models/MegaModel',
                     }
                     this.set('selected', this.get('content').objectAt(selectedIndex));
                     console.log(this.get('content').objectAt(selectedIndex).record._data);
-                    //      this.set("percentComplete", this.get('content').objectAt(selectedIndex).data.photo[0]);
-                    //    console.log(this.get('content'));
-                    //   console.log(this.get('content').objectAt(selectedIndex).editors);
-                    //        console.log(this.get('selected'));
+
 
                 },
                 actionOn: function(megaObject) {
                     var content = this.get("content");
-                    console.log(megaObject);
-                    console.log("owner_profile_id: " + megaObject.get("owner_profile_id"));
-                    console.log("collection_id: " + megaObject.get("collection_id"));
+                    console.log(megaObject.id);
+                    var tempFirstMage=MegaModel.find(megaObject.id);
+                    console.log("owner_profile_id: " + tempFirstMage.get("owner_profile_id"));
+                    console.log("collection_id: " + tempFirstMage.get("collection_id"));
                     //                 console.log(megaObject);
                     //      content.pushObject(megaObject);
 
@@ -91,23 +89,20 @@ define(['models/MegaModel',
                     data.addObserver('isLoaded', function() {
                         if (data.get('isLoaded')) {
                             for (var i = 0; i < this.get("content").get("length"); i++) {
+                                console.log(this.get("content").objectAt(i));
                                 midcontent.pushObject((this.get("content").objectAt(i)));
                             }
                         }
-                        console.log(midcontent.length);
+                        console.log(midcontent.length +"    eeeeeee");
                     });
 
-//                    this.get("temp").one("didLoad", function() {
-//                  //      console.log(this);
-//              //          console.log(   this.get("temp").get("content").get("length"));
-//                    });
 
                     this.set("isSelected", true);
                     console.log("done");
                 },
                 addObjects: function() {
-                    console.log(this.get("temp").get("content").length);
-                    console.log(this.get("temp").get("content").get("length"));
+                    console.log(this.get("temp").get("content").length+"        qqqqqq");
+                    console.log(this.get("temp").get("content").get("length")+"        wwwwwwwwwww");
 
                 }.observes('App.Mega.didLoad')
 

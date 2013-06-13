@@ -108,13 +108,7 @@ define(['models/MegaModel',
                 addObjects: function() {
                     console.log(this.get("temp").get("content").length);
                     console.log(this.get("temp").get("content").get("length"));
-                    //     console.log(tcontent.get("content").get("length"));
 
-//                    for (var i = 0; i < tcontent.get("content").get("length"); i++) {
-//                        console.log(i);
-//                        this.content.pushObject(tcontent.get("content").objectAt(i));
-//                    }
-//                    this.isSelected = true;
                 }.observes('App.Mega.didLoad')
 
 

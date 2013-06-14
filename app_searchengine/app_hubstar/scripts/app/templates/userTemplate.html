@@ -1,6 +1,6 @@
 
-<div class="user-board" style="width: 87%; position: relative; margin: 100px auto 20px; left: 0; right: 0; min-width: 796px; max-width: 1260px;">
-    <div class="user-board_left style-box" style="background: white; width: 69%;display: inline-block;vertical-align: top;height: 150px;margin-right: 0.5%;">
+<div class="user-board">
+    <div class="user-board_left style-box">
         <img style="width: 150px; height: 150px; border-radius: 3px 0 0 3px;display: inline-block;vertical-align: top;" {{bindAttr src="photo_url_large"}}/>
         <div style="height: 120px; margin: 15px 20px;display: inline-block;position: absolute;left: 150px;">
             <div style="font-size: 26px;font-weight: bold; line-height: 30px; overflow: hidden;">{{display_name}}</div>
@@ -28,8 +28,8 @@
         <!--SECTION CONTROL BAR-->
 
         <div class="style-box t-style-box" style="width: 100%; min-width: 796px; height: 50px; background: white;margin: -70px auto;left: 0;right: 0;position: relative;display: block;">
-            <div style="margin: 2px 20px 2px 40px; font-size: 20px; font-weight: bold; text-shadow: 0 1px 0 rgba(255,255,255,0.8);float: left;">Album Name</div>
-
+            <div style="margin: 4px 20px 4px 40px; font-size: 18px; text-shadow: 0 1px 0 rgba(255,255,255,0.8);float: left;">Album Name</div>
+            <i class="icon-upload" style="color: #555; text-shadow: 0 1px 0 rgba(255,255,255,0.8); font-size: 20px; margin: 15px 0; display: inline-block;"></i>
 
 
             <ul class="user-stats" id="user-stats">
@@ -52,63 +52,15 @@
         <div class="box col1">
 
             <div class="masonry-object">
+                <div class="usersobject-hoverarea easing">
+                    <div class="usersobject-hoverarea_bg"></div>
+                    <div  type="button" class="new-btn green-btn object-followbtn-position" >
+                        Follow
+                    </div>
+                </div>
                 <div class="masonry-object_profile-pic">
                     <div class="masonry-object_cover-wapper">
-                        <img src="../images/profilepic1.jpg"/>
-                    </div>
-                </div>
-
-                <div class="masonry-object_username">
-                    <div class="object-username">
-                        Name
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="box col1">
-
-            <div class="masonry-object">
-                <div class="masonry-object_profile-pic">
-                    <div class="masonry-object_cover-wapper">
-                        <img src="../images/profilepic4.jpg"/>
-                    </div>
-                </div>
-
-                <div class="masonry-object_username">
-                    <div class="object-username">
-                        Name
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="box col1">
-
-            <div class="masonry-object">
-                <div class="masonry-object_profile-pic">
-                    <div class="masonry-object_cover-wapper">
-                        <img src="../images/profilepic2.jpg"/>
-                    </div>
-                </div>
-
-                <div class="masonry-object_username">
-                    <div class="object-username">
-                        Name
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="box col1">
-
-            <div class="masonry-object">
-                <div class="masonry-object_profile-pic">
-                    <div class="masonry-object_cover-wapper">
-                        <img src="../images/profilepic3.jpg"/>
+                        <img src="../images/profilepic7.jpg"/>
                     </div>
                 </div>
 
@@ -123,105 +75,43 @@
 
 
 
-        <div class="box col2">
 
+        <div class="box col2 style-box">
             <div class="masonry-object">
-                <div class="masonry-object_profile-cover">
-                    <div class="masonry-object_cover-wapper">
-                        <img {{bindAttr src="profile_cover_url"}}/>
-                    </div>
-                    <div>
-                        <img {{bindAttr src="profile_pic_url"}} class="masonry-object_profilepic"/>
-                        <div class="masonry-object_name-position" style="top: 133%;"> 
-                            <a {{bindAttr href="getProfile_id"}}>{{profile_name}}</a>
-                        </div>
-                        <div class="masonry-object_name-position" style="top: 145%; font-size: 12px; color: #aaa;">
-                            <span> type</span>
-                            <span> <k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star-half" ></k></span>
-                        </div>
-                    </div>
-
-                    <div class="object-tags-box">
-
-                        <div class="object-tags">
-                            <span class="tags-mark" style="background-color: #427fed"></span>
-                            <div class="tags easing">
-                                <div class="tags-new">New</div>
-                                <div class="object-tpye">
-                                    <i class="icon-group"></i>
-                                </div>                      
-                            </div>
-                        </div>
-
-                        <div class="object-tags ">
-                            <span class="tags-mark" style="background-color: #76a7fa"></span>
-                            <div class="tags easing tagsappear">
-                                <div class="tags-new">#Auckland</div>                   
-                            </div>
-                        </div>
-
-                        <div class="object-tags ">
-                            <span class="tags-mark" style="background-color: #a0c3ff"></span>
-                            <div class="tags easing tagsappear">
-                                <div class="tags-new">#Kitchen</div>                   
-                            </div>
-                        </div>
-
-                    </div>
-
+                <div class="album-description-hoverarea easing">
+                    <div class="album-description">description this photo album is about brabrabra, take a look in side!</div>
+                    <div class="album-description-bg">description this photo album is about brabrabra, take a look in side!</div>
                 </div>
-
-                <div class="masonry-object_mainfeature" style="margin: 110px 0 0 0">
-
-                    <div class="masonry-object_text">
-
-
-                        <div class="more_detail" {{bindAttr id="id"}} >
-
-
-                            <div style="display:block;">
-                                Smeg was founded by the Bertazzoni family in the 1940s as Smalterie Metallurgiche Emiliane Guastalla (metal enamelling factory in the village of Guastalla, Reggio Emilia). Today that foresight continues with Smeg constantly breaking new ground in design originality and superior performance. Smeg classic appliances elevate food preparation areas worldwide into architectural masterpieces.
-
-                                Smeg retains its leading edge in the worldwide market through a total dedication to the design and manufacturing of specialist appliances. A continual monitoring of trends and developments in both style and technology has led to a constantly evolving partnership with leading architects and designers. Indeed, this dedication to the marrying of style with function has created an ongoing love affair between Smeg, architects and designers worldwide.
-                            </div>
-
-
-                        </div>
-
-                        <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>
-
-                        <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collapes</span>
-
-
-                    </div>
-
+                <div class="albumcover-container">
+                    <img class="albumcover" src="../images/kichen_a.jpg"/>
                 </div>
-
-                <div class="masonry-object_interact">
-                    <div class="masonry_show-comment">
-                        <div class="show-comment_container">
-                            <span class="show-comment_inner">
-                                <span class="comment-amount"> 10 </span>
-                                <span class="comment-amount"> comments</span>
-                            </span>
-                            <div class="dropdownicon masonry_dropdownicon">
-                                <i class="icon-chevron-down"></i>
-                            </div>
-                        </div>
-                        <div class="object-like" style=""></div>
-                        <div class="object-save" style=""></div>
-                    </div>
-                    <div class="masonry_addcommnetbox-container">
-                        <div class="addcommnetbox">
-                            Add comments
-                        </div>
+                <div class="album-info">
+                    <div class="album-info_name"><i class="icon-picture"></i> Album Name</div>
+                    <div class="album-info_content">
+                        <div class="edit-object"><i class="icon-cog"></i></div>
+                        <span><a> 32 </a>photos </span>
+                        <span><img src="../../images/list-doc.png"/> April 1 2013</span>
                     </div>
                 </div>
 
             </div>
-
-
         </div>
+
+        <div class="box col2 style-box">
+            <div class="add-new-object-hoverarea easing">
+                <i class="icon-plus-sign"></i>
+            </div>
+            <div class="masonry-object t-style-box">
+                <div class="add-new-object-content">
+                    <i class="icon-group"></i>
+                    <i class="icon-book"></i>
+                    <i class="icon-picture"></i>
+                    <i class="icon-film"></i>            
+                </div>
+
+            </div>
+        </div>
+
 
 
     </div>

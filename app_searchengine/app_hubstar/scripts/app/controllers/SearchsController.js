@@ -9,7 +9,7 @@ define([
             this.set("content", MegaModel.find(object));
         },
         checkContent: function() {
-console.log(this.get("content"));
+     //       console.log(this.get("content"));
 
 
         }.observes('content'),

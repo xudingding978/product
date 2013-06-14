@@ -15,6 +15,7 @@ define([
         setupController: function() {            
             var d = MegaModel.find();
             this.controllerFor('searchs').set('content', d);
+    //        console.log(this.get('content'));
         },
 
         renderTemplate: function() {

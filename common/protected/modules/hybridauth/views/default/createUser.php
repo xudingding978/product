@@ -49,19 +49,6 @@
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($user, 'LAST_NAME'); ?>
-        <?php echo $form->textField($user, 'LAST_NAME'); ?>
-        <?php echo $form->error($user, 'LAST_NAME'); ?>
-    </div>
-
-
-    <div class="row">
-        <?php echo $form->labelEx($user, 'FIRST_NAME'); ?>
-        <?php echo $form->textField($user, 'FIRST_NAME'); ?>
-        <?php echo $form->error($user, 'FIRST_NAME'); ?>
-    </div>
-
-    <div class="row">
         <?php echo $form->labelEx($user, 'EMAIL_ADDRESS'); ?>
         <?php echo $form->textField($user, 'EMAIL_ADDRESS'); ?>
         <?php echo $form->error($user, 'EMAIL_ADDRESS'); ?>

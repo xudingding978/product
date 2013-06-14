@@ -74,9 +74,6 @@ define(['models/MegaModel',
                 actionOn: function(megaObject) {
 
                     var data = MegaModel.find({"collection_id": megaObject.get("collection_id"), "owner_profile_id": megaObject.get("owner_profile_id")});
-                    var currentImage;
-                    var checkMaterial;
-
                     this.set("percentComplete", megaObject._data.hasMany.photo[0].data);
                     console.log(this.get("percentComplete"));
                     data.addObserver('isLoaded', function() {

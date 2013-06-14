@@ -18,13 +18,16 @@ define([
         },
         model: function(params) {
 
-          return MegaModel.find(params.photo_id);
+            return MegaModel.find(params.photo_id);
         },
         activate: function() {
             $("body").css("overflow", "hidden");
             $('#footer').attr("style", "display:none");
         },
         deactivate: function() {
+            alert(this.get("content"));
+
+
             $("body").css("overflow", "auto");
             $('#footer').attr("style", "display:block");
         },

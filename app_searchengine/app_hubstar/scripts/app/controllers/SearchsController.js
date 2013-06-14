@@ -6,9 +6,8 @@ define([
     var SearchsController = Ember.ArrayController.extend({
         content: midContent,
         newSearch: function(object) {
-            //      
-            midContent = [];
-            this.set("content", midContent);
+           
+
             var data = MegaModel.find(object);
             data.addObserver('isLoaded', function() {
                 if (data.get('isLoaded')) {

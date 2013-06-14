@@ -3,7 +3,6 @@
  * and open the template in the editor.
  */
 
-
 define(['models/MegaModel',
     'ember'],
         function(
@@ -42,7 +41,6 @@ define(['models/MegaModel',
                     }
 
                     this.set('selected', this.get('content').objectAt(selectedIndex));
-                    //                      console.log(this.get('selected'));
                     this.set("percentComplete", this.get('selected'));
 
                 },
@@ -58,24 +56,17 @@ define(['models/MegaModel',
 
                     var selectedIndex = this.findSelectedItemIndex();
                     if (selectedIndex >= (this.get('content').get('length') - 1)) {
-
                         selectedIndex = 0;
                     } else {
-
                         selectedIndex++;
-
                     }
                     this.set('selected', this.get('content').objectAt(selectedIndex));
-                    //     console.log(this.get('selected'));
-
                     this.set("percentComplete", this.get('selected'));
-
                 },
                 actionOn: function(megaObject) {
-
                     var data = MegaModel.find({"collection_id": megaObject.get("collection_id"), "owner_profile_id": megaObject.get("owner_profile_id")});
                     this.set("percentComplete", megaObject._data.hasMany.photo[0].data);
-                    console.log(this.get("percentComplete"));
+        //            console.log(this.get("percentComplete"));
                     data.addObserver('isLoaded', function() {
                         if (data.get('isLoaded')) {
                             for (var i = 0; i < this.get("content").get("length"); i++) {
@@ -87,9 +78,7 @@ define(['models/MegaModel',
                                 }
                             }   
                         }
-
                     });
-
                 },
                 addObjects: function() {
                     console.log("addObjects");

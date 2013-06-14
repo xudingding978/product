@@ -214,7 +214,30 @@ class Regions extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+                
+                public function selectCountryNameByID($id) {
+                    $sql = "select dbo.Regions.* from dbo.Regions where id = ".$id;
+                    $data_list = Yii::app() ->db->createCommand($sql)->queryAll();
+                    $region = "";
+                     if(sizeof($data_list)>0) {
+                            $region = $data_list[0]['name'];
+                            while(true) {
+                                $parent_id = $data_list[0]['parentId'];
+                                if($parent_id==null) {
+                                    break;
+                                } else {
+                                    $data_list=array();
+                                    $sql = "select dbo.Regions.* from dbo.Regions where id = ".$parent_id;
+                                    $data_list = Yii::app() ->db->createCommand($sql)->queryAll();
+                                    $region = $region.", ".$data_list[0]['name'];
+                                }
+                            }
+                        }
+                        
+                        return $region;
+                }
         
+                
                 public function selectRegionByImage($id) {
                     $data_list = array();
                     $region = "";

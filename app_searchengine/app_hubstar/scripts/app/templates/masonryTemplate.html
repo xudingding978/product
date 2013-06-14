@@ -1,13 +1,12 @@
 
 <div id="masonry_container" class="transitions-enabled centered clearfix">
-
     <div class="box col2">
         {{render status}}
+{{content.length}}
     </div>
 
 
-    {{#each  model}}
-    
+ {{#each mega in content}}
 
     {{#if getProfile}}
     <div class="box col2">

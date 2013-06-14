@@ -13,7 +13,7 @@ class ImageimportController extends Controller {
         //       $this->watermark("https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/trendsideas.com/media/article/original/18715.jpg");
     }
 
-    public function actionCreate() {        
+    public function actionCreate() {
         $reponse;
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
@@ -21,7 +21,7 @@ class ImageimportController extends Controller {
 
         $isUrlExist = $this->isUrlExist($url);
         $this->is_image($url);
-        
+
         if ($isUrlExist == "true") {
             $reponse = $this->watermark($url);
         } else {
@@ -116,6 +116,8 @@ class ImageimportController extends Controller {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
         $data = curl_exec($ch);
+        //close connection
+        curl_close($ch);
         if (is_null($data) || strpos($data, '404') || empty($data)) {
             $my_file = '/home/devbox/NetBeansProjects/test/error.log';
             $handle = fopen($my_file, 'a') or die('Cannot open file:  ' . $my_file);
@@ -186,24 +188,24 @@ class ImageimportController extends Controller {
     }
 
     protected function getStamp($url) {
-        try{
+        try {
+            $stamp = imagecreatefrompng('/home/devbox/NetBeansProjects/test/watermark4hero.png');
+            if (strpos($url, 'original')) {
+                $stamp = imagecreatefrompng('/home/devbox/NetBeansProjects/test/watermark4original.png');
+            } elseif (strpos($url, 'hero')) {
                 $stamp = imagecreatefrompng('/home/devbox/NetBeansProjects/test/watermark4hero.png');
-                if (strpos($url, 'original')) {
-                    $stamp = imagecreatefrompng('/home/devbox/NetBeansProjects/test/watermark4original.png');
-                } elseif (strpos($url, 'hero')) {
-                    $stamp = imagecreatefrompng('/home/devbox/NetBeansProjects/test/watermark4hero.png');
-                }
-                return $stamp;
-        } catch(Exception $e) {
-                
+            }
+            return $stamp;
+        } catch (Exception $e) {
+
+            $stamp = imagecreatefrompng('https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/watermark4hero.png');
+            if (strpos($url, 'original')) {
+                $stamp = imagecreatefrompng('https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/watermark4original.png');
+            } elseif (strpos($url, 'hero')) {
                 $stamp = imagecreatefrompng('https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/watermark4hero.png');
-                if (strpos($url, 'original')) {
-                    $stamp = imagecreatefrompng('https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/watermark4original.png');
-                } elseif (strpos($url, 'hero')) {
-                    $stamp = imagecreatefrompng('https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/watermark4hero.png');
-                }
-                
-                error_log("get water mark image faill: ".$e->getMessage());
+            }
+
+            error_log("get water mark image faill: " . $e->getMessage());
         }
     }
 

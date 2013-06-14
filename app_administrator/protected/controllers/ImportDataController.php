@@ -17,17 +17,21 @@ class ImportDataController extends Controller {
         
 //        $result = preg_match('/\d[.](jpg)/', ".jpg");
 //        echo($result);
-            date_default_timezone_set('US/Eastern');
-            $time_string = strtotime("Dec 10 2004 12:00:00:000AM");
-            echo $time_string;
+//            date_default_timezone_set('Asia/Bangkok');
+//            $time_string = strtotime("DEC 10 2004 12:00:00:000AM");
+//            echo $date_time = date('Y-m-d H:i:s', $time_string)."\n";
+//            echo $time_string;
         
             
             $sql = "select dbo.ArticleImages.id from dbo.ArticleImages where dbo.ArticleImages.id between 58960 and 59060";
             $data_list = Yii::app()->db->createCommand($sql)->queryAll();
-//            
             foreach($data_list as $val) {
                 $book_list = Books::model()->getBookByPhotoID($val['id']);
 //                $region_list = Regions::model()->selectRegionByImage($val['id']);
+                
+                foreach($book_list as $book){
+                    
+                }
                 
                 print_r("<pre>");
                 print_r($book_list);
@@ -39,11 +43,11 @@ class ImportDataController extends Controller {
     public function actionImage() {
         for ($i = 0; $i < 2000; $i++) {
             $image_data = array();
-            $from = 65856 + $i * 10;
-            $to = 65856 + ($i + 1) * 10;
+            $from = 66597 + $i * 10;
+            $to = 66597 + ($i + 1) * 10;
             $image_data = ArticleImages::model()->getImageRange($from, $to);
             $this->total_amount = $this->total_amount + sizeof($image_data);
-
+            
             if (sizeof($image_data) > 0) {
                 $this->getMegaData($image_data);
             }
@@ -178,7 +182,6 @@ class ImportDataController extends Controller {
             unset($e, $response, $message);
             return false;
         }
-        
     }
 
     public function importMegaObj($data_list, $id) {
@@ -210,7 +213,8 @@ class ImportDataController extends Controller {
         // get size of image
         $size = "_" . $return_original->width . 'x' . $return_original->height . ".jpg";
         $original_size = str_replace(".jpg", $size, $val['original']);
-        
+        $book_id = array();
+
         //  get region and country
         $region = Regions::model()->selectRegionByImage($val['id']);
         $country = $region;
@@ -229,6 +233,15 @@ class ImportDataController extends Controller {
         $category = Categories::model()->selectCategory($val['id']);
         
         // get book infor 
+        
+        
+//        $book_list = Books::model()->getBookByPhotoID($val['id']);
+//        if(sizeof($book_list)>0) {
+//            foreach($book_list as $book) {
+//                arrray_push($book_id, $book['id']);
+//                
+//            }
+//        }
         
         // get keywords imfor
         $keywords = mb_check_encoding($val['keywords'], 'UTF-8') ? $val['keywords'] : utf8_encode($val['keywords']);

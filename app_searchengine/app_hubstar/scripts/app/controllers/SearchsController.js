@@ -2,30 +2,34 @@ define([
     'models/MegaModel',
     'ember'
 ], function(MegaModel, Ember) {
+    var midContent = [];
     var SearchsController = Ember.ArrayController.extend({
-        content: [],
+        content: midContent,
         newSearch: function(object) {
             //      
-            console.log("serach");
+            midContent = [];
+            this.set("content", midContent);
+            var data = MegaModel.find(object);
+            data.addObserver('isLoaded', function() {
+                if (data.get('isLoaded')) {
 
-//    var data = MegaModel.find(object);
-//                    data.addObserver('isLoaded', function() {
-//                        if (data.get('isLoaded')) {
-//                            for (var i = 0; i < this.get("content").get("length"); i++) {
-//                          //      midcontent.pushObject((this.get("content").objectAt(i)));
-//                                    console.log(this.get("content").objectAt(i));
-//                            }
-//                        }
-//
-//                    });
+                    for (var i = 0; i < this.get("content").get("length"); i++) {
+                        if (this.get("content").objectAt(i).data.materialized) {
+                            midContent.pushObject(this.get("content").objectAt(i).record._data.hasMany.photo[0].data);
+                        }
+                        else {
+                            midContent.pushObject(this.get("content").objectAt(i).data.photo[0]);
+                        }
+                    }
+                }
+
+            });
 
 
-                this.set("content", MegaModel.find(object));
-                
-                
-                
-     //       this.get("content").pushObject(MegaModel.find(object));            
-        console.log(this.get("content").get("length"));
+
+
+            //       this.get("content").pushObject(MegaModel.find(object));            
+
 //            var searchResult = App.store.createRecord(App.Search, {
 //                id: object.id,
 //                region: object.region,

@@ -13,7 +13,7 @@ define([
 
     var SearchRoute = Ember.Route.extend({
         setupController: function() {
-            this.controllerFor('searchs').set('model', MegaModel.find());
+            this.controllerFor('searchs').set('content', MegaModel.find());
         },
 //        model: function() {
 //

@@ -25,7 +25,7 @@ define([
             $('#footer').attr("style", "display:none");
         },
         deactivate: function() {
-            alert(this.get("content"));
+   //         alert(this.get("content"));
 
 
             $("body").css("overflow", "auto");

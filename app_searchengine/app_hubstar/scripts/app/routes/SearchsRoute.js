@@ -12,8 +12,13 @@ define([
     "use strict";
 
     var SearchRoute = Ember.Route.extend({
-        setupController: function() {
-            this.controllerFor('searchs').set('content', MegaModel.find());
+        setupController:function(controller, model) {
+
+            
+       //     this.controllerFor('searchs').set('model', MegaModel.find());
+ 
+            this.controllerFor('searchs').searchModelLoad();
+     
         },
 //        model: function() {
 //

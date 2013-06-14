@@ -26,6 +26,7 @@ define([
 
         },
         activate: function() {
+
             App.set("isLogin", true);
 
         },

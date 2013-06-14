@@ -96,7 +96,7 @@ define(['models/MegaModel',
 
                                     if (this.get("content").objectAt(i).id === megaObject.id) {
                                         currentImage = i;
-
+                                        checkMaterial = false;
                                     } else {
                                         midcontent.pushObject(this.get("content").objectAt(i).data.photo[0]);
                                     }

@@ -23,7 +23,7 @@ define([
                 object = {"id": "", "region": "", "search_string": ""};
             }
             this.get("controller").send("newSearch", object);
-            console.log(this.get("controller"));
+            console.log(this);
         },
         test: function() {
 

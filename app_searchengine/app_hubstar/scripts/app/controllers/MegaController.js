@@ -42,7 +42,6 @@ define(['models/MegaModel',
                     }
 
                     this.set('selected', this.get('content').objectAt(selectedIndex));
-                    //                      console.log(this.get('selected'));
                     this.set("percentComplete", this.get('selected'));
 
                 },
@@ -66,47 +65,24 @@ define(['models/MegaModel',
 
                     }
                     this.set('selected', this.get('content').objectAt(selectedIndex));
-                    //     console.log(this.get('selected'));
-
                     this.set("percentComplete", this.get('selected'));
 
                 },
                 actionOn: function(megaObject) {
 
                     var data = MegaModel.find({"collection_id": megaObject.get("collection_id"), "owner_profile_id": megaObject.get("owner_profile_id")});
-                    var currentImage;
-                    var checkMaterial;
-
                     this.set("percentComplete", megaObject._data.hasMany.photo[0].data);
-                    console.log("aaaaaaaa");
-                    console.log(this.get("percentComplete"));
+        //            console.log(this.get("percentComplete"));
                     data.addObserver('isLoaded', function() {
                         if (data.get('isLoaded')) {
                             for (var i = 0; i < this.get("content").get("length"); i++) {
-                                if (i === 0 || i === this.get("content").get("length") - 1) {
-
-                                    if (this.get("content").objectAt(i).id === megaObject.id) {
-                                        currentImage = i;
-                                        checkMaterial = true;
-
-                                    } else {
-                                        midcontent.pushObject(this.get("content").objectAt(i).record._data.hasMany.photo[0].data);
-                                    }
-                                } else {
-
-                                    if (this.get("content").objectAt(i).id === megaObject.id) {
-                                        currentImage = i;
-                                        checkMaterial = false;
-                                    } else {
-                                        midcontent.pushObject(this.get("content").objectAt(i).data.photo[0]);
-                                    }
+                                if (this.get("content").objectAt(i).data.materialized) {
+                                    midcontent.pushObject(this.get("content").objectAt(i).record._data.hasMany.photo[0].data);
                                 }
-                            }
-                            if (checkMaterial) {
-                                midcontent.pushObject(this.get("content").objectAt(currentImage).record._data.hasMany.photo[0].data);
-                            } else {
-                                midcontent.pushObject(this.get("content").objectAt(currentImage).data.photo[0]);
-                            }
+                                else {
+                                    midcontent.pushObject(this.get("content").objectAt(i).data.photo[0]);
+                                }
+                            }   
                         }
 
                     });

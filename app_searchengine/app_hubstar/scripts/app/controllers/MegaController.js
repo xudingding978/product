@@ -87,9 +87,7 @@ define(['models/MegaModel',
                                 }
                             }   
                         }
-
                     });
-
                 },
                 addObjects: function() {
                     console.log("addObjects");

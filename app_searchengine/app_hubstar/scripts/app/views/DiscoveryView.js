@@ -21,15 +21,12 @@ define([
                 }
             } else {
                 object = {"id": "", "region": "", "search_string": ""};
-
             }
-
-
             this.get("controller").send("newSearch", object);
-//            
 //               var area = this.$("#search_key").val();
 //            var search_key = this.$("#search_business").val();
-        }
+        },
+
     });
     return DiscoveryView;
 });

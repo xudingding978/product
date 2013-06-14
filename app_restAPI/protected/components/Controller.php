@@ -149,8 +149,6 @@ class Controller extends CController {
 
     protected function getRequestResult($searchString, $returnType) {
 
-
-
         $response = "";
 
         if (strpos($searchString, 'search') !== false) {
@@ -159,7 +157,6 @@ class Controller extends CController {
             $searchString = $this->getUserInput($regionAndsearchString[1]);
             $response = $this->performSearch($returnType, $region, $searchString);
         } elseif (strpos($searchString, 'collection') !== false) {
-
             $regionAndsearchString = explode('&', $searchString);
             $collection_id = $this->getUserInput($regionAndsearchString[0]);
             $owner_profile_id = $this->getUserInput($regionAndsearchString[1]);
@@ -167,7 +164,7 @@ class Controller extends CController {
             $response = $this->performRawSearch($returnType, $collection_id, $owner_profile_id);
         } else {
 
-            $response = $this->performSearch($returnType, "", "dean");
+            $response = $this->performSearch($returnType, "", "huang");
         }
         return $response;
     }
@@ -181,14 +178,13 @@ class Controller extends CController {
         $request = $sherlock->search();
 
         $request->index("test")->type("couchbaseDocument")->from(1);
-        $request->index("test")->type("couchbaseDocument")->size(1);
+        $request->index("test")->type("couchbaseDocument")->size(50);
 //populate a Term query to start
         $termQuery = Sherlock\Sherlock::queryBuilder()
-                ->QueryStringMultiField()
-                ->fields(["couchbaseDocument.doc.keywords", "couchbaseDocument.doc.desc"])
+                ->QueryString()
+                ->fields("couchbaseDocument.doc.keywords")
                 ->query($requestString)
                 ->boost(2.5);
-
 
         $request->index(Yii::app()->params['elasticSearchIndex'])
                 ->type("couchbaseDocument")

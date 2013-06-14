@@ -13,7 +13,7 @@ class ImageimportController extends Controller {
         //       $this->watermark("https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/trendsideas.com/media/article/original/18715.jpg");
     }
 
-    public function actionCreate() {
+    public function actionCreate() {        
         $reponse;
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
@@ -21,7 +21,7 @@ class ImageimportController extends Controller {
 
         $isUrlExist = $this->isUrlExist($url);
         $this->is_image($url);
-
+        
         if ($isUrlExist == "true") {
             $reponse = $this->watermark($url);
         } else {
@@ -186,13 +186,25 @@ class ImageimportController extends Controller {
     }
 
     protected function getStamp($url) {
-        $stamp = imagecreatefrompng('https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/watermark4hero.png');
-        if (strpos($url, 'original')) {
-            $stamp = imagecreatefrompng('https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/watermark4original.png');
-        } elseif (strpos($url, 'hero')) {
-            $stamp = imagecreatefrompng('https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/watermark4hero.png');
+        try{
+                $stamp = imagecreatefrompng('/home/devbox/NetBeansProjects/test/watermark4hero.png');
+                if (strpos($url, 'original')) {
+                    $stamp = imagecreatefrompng('/home/devbox/NetBeansProjects/test/watermark4original.png');
+                } elseif (strpos($url, 'hero')) {
+                    $stamp = imagecreatefrompng('/home/devbox/NetBeansProjects/test/watermark4hero.png');
+                }
+                return $stamp;
+        } catch(Exception $e) {
+                
+                $stamp = imagecreatefrompng('https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/watermark4hero.png');
+                if (strpos($url, 'original')) {
+                    $stamp = imagecreatefrompng('https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/watermark4original.png');
+                } elseif (strpos($url, 'hero')) {
+                    $stamp = imagecreatefrompng('https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/watermark4hero.png');
+                }
+                
+                error_log("get water mark image faill: ".$e->getMessage());
         }
-        return $stamp;
     }
 
     protected function getImageInfo($url) {

@@ -1,5 +1,5 @@
 <div class="form">
-    <h1>Choose a username and an email address</h1>
+
 
     <?php
     $form = $this->beginWidget('CActiveForm', array(
@@ -29,17 +29,18 @@
         $user->EMAIL_ADDRESS = $user_profile->email;
         $user->LAST_NAME = $user_profile->lastName;
         $user->FIRST_NAME = $user_profile->firstName;
-
     } catch (Exception $e) {
         echo "Ooophs, we got an error: " . $e->getMessage();
     }
     ?>
 
-    <p class="note">Fields with <span class="required">*</span> are required.</p>
+
+
+
 
 
     <?php echo $form->errorSummary($user); ?>
-    
+
 
     <div class="row">
         <?php echo $form->labelEx($user, 'USER_NAME'); ?>
@@ -66,18 +67,18 @@
         <?php echo $form->error($user, 'EMAIL_ADDRESS'); ?>
     </div>
 
-
+    <div class="row buttons">
+        <?php echo CHtml::submitButton($user->isNewRecord ? 'Create' : 'Save'); ?>
+    </div>
     <div class="row" style="opacity:0">
-   
+
         <?php echo $form->textField($user, 'COUCHBASE_ID'); ?>
 
     </div>
 
 
 
-    <div class="row buttons">
-        <?php echo CHtml::submitButton($user->isNewRecord ? 'Create' : 'Save'); ?>
-    </div>
+
 
     <?php $this->endWidget(); ?>
 

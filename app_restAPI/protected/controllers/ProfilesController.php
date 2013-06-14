@@ -1,5 +1,6 @@
 <?php
-
+ 
+        header('Access-Control-Allow-Origin: *');
 class ProfilesController extends Controller {
 
     const JSON_RESPONSE_ROOT_SINGLE = 'profile';

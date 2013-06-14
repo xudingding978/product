@@ -21,7 +21,7 @@ class Controller extends CController {
     }
 
     protected function couchBaseConnection() {
-        return new Couchbase("cb1.hubsrv.com:8091", "", "Pa55word", "test", true);
+        return new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "test", true);
     }
 
     protected function getS3BucketName($domain) {
@@ -138,7 +138,7 @@ class Controller extends CController {
         $result .= ']}';
         return $result;
     }
-
+    
     protected function getNewID() {
         $myText = (string) microtime();
         $pieces = explode(" ", $myText);
@@ -189,7 +189,7 @@ class Controller extends CController {
                 ->query($requestString)
                 ->boost(2.5);
 
-        error_log($termQuery->toJSON());
+
         $request->index(Yii::app()->params['elasticSearchIndex'])
                 ->type("couchbaseDocument")
                 ->from(10)
@@ -248,9 +248,7 @@ class Controller extends CController {
         $settings['log.enabled'] = true;
         $sherlock = new Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
-
         $request = $sherlock->search();
-
         $must = Sherlock\Sherlock::queryBuilder()->Term()->term($collection_id)//$collection_id
                 ->field('couchbaseDocument.doc.collection_id');
        $must2= Sherlock\Sherlock::queryBuilder()->Term()->term($owner_profile_id)

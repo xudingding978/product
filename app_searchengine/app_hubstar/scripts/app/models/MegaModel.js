@@ -40,6 +40,7 @@ define(
         status_id: DS.attr('string'),
         updated: DS.attr('string'),
         uri_url: DS.attr('string'),
+        owner_id: DS.attr('string'),
         view_count: DS.attr('string'),
         photo: DS.hasMany('App.Photo'),
         user: DS.hasMany('App.User'),
@@ -53,8 +54,8 @@ define(
             return "collape_button_" + this.get('id');
         }.property('id'),
         getProfile_id: function() {
-            return "#/profiles/" + this.get('profile_id');
-        }.property('profile_id'),
+            return "#/profiles/" + this.get('owner_id');
+        }.property('owner_id'),
         getProfile: function() {
             return this.get('type') === 'profile';
         }.property('type'),
@@ -81,7 +82,7 @@ define(
 //        product: DS.hasMany('App.Product'),
         didLoad: function() {
 //            console.log('model loaded', this.toJSON());
-//            console.log('id: ' + this.id + ' ' + this.profile_name, this);
+            //     console.log('id: ' + this.id + ' ' + this.profile_name);
         }
     });
     return MegaModel;

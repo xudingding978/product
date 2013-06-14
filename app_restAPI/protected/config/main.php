@@ -27,7 +27,7 @@ return array(
                 //REST AP
                 array('<controller>/options', 'pattern' => '<controller>', 'verb' => 'OPTIONS'),
                 array('<controller>/', 'pattern' => '<controller>', 'verb' => 'GET'),
-                array('<controller>/objects/create', 'pattern' => '<controller>', 'verb' => 'POST'),
+                array('<controller>/create', 'pattern' => '<controller>', 'verb' => 'POST'),
                 array('<controller>/read', 'pattern' => '<controller>/<id>', 'verb' => 'GET'),
                 array('<controller>/update', 'pattern' => '<controller>/<id>', 'verb' => 'PUT'),
                 array('<controller>/delete', 'pattern' => '<controller>/<id>', 'verb' => 'DELETE'),

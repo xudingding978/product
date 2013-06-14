@@ -26,9 +26,11 @@ $this->pageTitle='Administrator | '.Yii::app()->name;
 <hr/>
 <?php
 
-echo 'para config';
-
-echo print_r(Yii::app()->params);
+echo phpinfo();
+//
+//echo 'para config';
+//
+//echo print_r(Yii::app()->params);
 
 ?>
 <hr/>

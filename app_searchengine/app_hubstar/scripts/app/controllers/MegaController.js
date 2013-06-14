@@ -3,7 +3,6 @@
  * and open the template in the editor.
  */
 
-
 define(['models/MegaModel',
     'ember'],
         function(
@@ -57,19 +56,14 @@ define(['models/MegaModel',
 
                     var selectedIndex = this.findSelectedItemIndex();
                     if (selectedIndex >= (this.get('content').get('length') - 1)) {
-
                         selectedIndex = 0;
                     } else {
-
                         selectedIndex++;
-
                     }
                     this.set('selected', this.get('content').objectAt(selectedIndex));
                     this.set("percentComplete", this.get('selected'));
-
                 },
                 actionOn: function(megaObject) {
-
                     var data = MegaModel.find({"collection_id": megaObject.get("collection_id"), "owner_profile_id": megaObject.get("owner_profile_id")});
                     this.set("percentComplete", megaObject._data.hasMany.photo[0].data);
         //            console.log(this.get("percentComplete"));

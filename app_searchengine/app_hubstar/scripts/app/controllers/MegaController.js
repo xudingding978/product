@@ -30,9 +30,9 @@ define(['models/MegaModel',
                 },
                 previesImage: function() {
                     this.addObjects();
-//                    if (!this.get('selected')) {
-//                        this.set('selected', this.get('content').get('lastObject'));
-//                    }
+                    if (!this.get('selected')) {
+                        this.set('selected', this.get('content').get('lastObject'));
+                    }
                     var selectedIndex = this.findSelectedItemIndex();
 
                     if (selectedIndex <= 0) {
@@ -42,9 +42,13 @@ define(['models/MegaModel',
                     }
 
                     this.set('selected', this.get('content').objectAt(selectedIndex));
-                    //         console.log(this.get('selected'));
+                    console.log(this.get('selected'));
+                    if (this.get('selected').record._data.hasMany.photo[0].data.materialized === true) {
+                        this.set("percentComplete", this.get('selected').record._data.hasMany.photo[0].record._data.attributes);
+                    } else {
 
-                    this.set("percentComplete", this.get('content').objectAt(selectedIndex));
+                        this.set("percentComplete", this.get('selected').record._data.hasMany.photo[0].data);
+                    }
 
 
                 },
@@ -52,11 +56,11 @@ define(['models/MegaModel',
 
                     this.addObjects();
 
-//                    if (!this.get('selected')) {
-//
-//                        this.set('selected', this.get('content').get('firstObject'));
-//
-//                    }
+                    if (!this.get('selected')) {
+
+                        this.set('selected', this.get('content').get('firstObject'));
+
+                    }
 
                     var selectedIndex = this.findSelectedItemIndex();
                     if (selectedIndex >= (this.get('content').get('length') - 1)) {
@@ -68,11 +72,14 @@ define(['models/MegaModel',
 
                     }
                     this.set('selected', this.get('content').objectAt(selectedIndex));
-                    console.log(this.get('content').objectAt(selectedIndex).record._data);
-                    //      this.set("percentComplete", this.get('content').objectAt(selectedIndex).data.photo[0]);
-                    //    console.log(this.get('content'));
-                    //   console.log(this.get('content').objectAt(selectedIndex).editors);
-                    //        console.log(this.get('selected'));
+                    console.log(this.get('selected'));
+                    if (this.get('selected').record._data.hasMany.photo[0].data.materialized === true) {
+                        this.set("percentComplete", this.get('selected').record._data.hasMany.photo[0].record._data.attributes);
+                    } else {
+
+                        this.set("percentComplete", this.get('selected').record._data.hasMany.photo[0].data);
+                    }
+
 
                 },
                 actionOn: function(megaObject) {
@@ -88,7 +95,7 @@ define(['models/MegaModel',
   
                     //        console.log("done owner_profile_id: " + megaObject.get("owner_profile_id"));
                     //      console.log("done collection_id: " + megaObject.get("collection_id"));
-                    setTimeout(function(){
+            //        setTimeout(function(){
                     var data = MegaModel.find({"collection_id": megaObject.get("collection_id"), "owner_profile_id": megaObject.get("owner_profile_id")});
                     data.addObserver('isLoaded', function() {
                         if (data.get('isLoaded')) {
@@ -99,7 +106,7 @@ define(['models/MegaModel',
                         }
 
                     });
-                },200);
+           //     },200);
 //----------------
 //
 //                    var owner_profile_id = megaObject.get("owner_profile_id");
@@ -116,10 +123,6 @@ define(['models/MegaModel',
                     //         console.log(midcontent.length);
                     //       });
 
-//                    this.get("temp").one("didLoad", function() {
-//                  //      console.log(this);
-//              //          console.log(   this.get("temp").get("content").get("length"));
-//                    });
 
 
                 },

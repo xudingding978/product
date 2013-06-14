@@ -35,9 +35,9 @@ $mainEnvConfiguration = file_exists($mainEnvFile) ? require($mainEnvFile) : arra
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 
-$dot_positon=strpos($_SERVER['HTTP_HOST'],".");
+$dot_positon = strpos($_SERVER['HTTP_HOST'], ".");
 
-$domain=substr($_SERVER['HTTP_HOST'],$dot_positon);
+$domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 //require_once  ('/home/devbox/NetBeansProjects/bds-v3.1/common/protected/config/domainSetting.php');
 //$domainSetting = new DomainSetting();
 
@@ -66,45 +66,45 @@ return CMap::mergeArray(
                 'gii' => array(
                     'class' => 'system.gii.GiiModule',
                     'password' => 'Pa55word',
-                    // If removed, Gii defaults to localhost only. Edit carefully to taste.
+                    // If removed, Gii defaults to localhost only. Edit carefully to taste. 
                     'ipFilters' => array('127.0.0.1', '::1'),
                 ),
             ),
             // application components
             'components' => array(
-                'user' => array(
-                    'allowAutoLogin' => true,
-                    'class' => 'AuthWebUser',
-                    'identityCookie' => array(
-                        'domain' => $domain,
-                    ),
-                ),
-                'authManager' => array(
-                    'class' => 'CDbAuthManager',
-                    'behaviors' => array(
-                        'auth' => array(
-                            'class' => 'AuthBehavior',
-                            'admins' => array('', '', ''), // users with full access
-                        ),
-                    ),
-                ),
-                'session' => array(
-                    'sessionName' => 'Session',
-                    'class' => 'CDbHttpSession',
-                    //  'autoCreateSessionTable' => true,
-                    'connectionID' => 'db',
-                    'sessionTableName' => 'usersession',
-                    //    'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
-                    'useTransparentSessionID' => true,
-                    'autoStart' => 'true',
-                    'cookieMode' => 'only',
-                    'cookieParams' => array(
-                        'path' => '/',
-                        'domain' => $domain,
-                        'httpOnly' => true,
-                    ),
-             //       'timeout' => 1800,
-                ),
+//                'user' => array(
+//                    'allowAutoLogin' => true,
+//                    'class' => 'AuthWebUser',
+//                    'identityCookie' => array(
+//                        'domain' => $domain,
+//                    ),
+//                ),
+//                'authManager' => array(
+//                    'class' => 'CDbAuthManager',
+//                    'behaviors' => array(
+//                        'auth' => array(
+//                            'class' => 'AuthBehavior',
+//                            'admins' => array('', '', ''), // users with full access
+//                        ),
+//                    ),
+//                ),
+//                'session' => array(
+//                    'sessionName' => 'Session',
+//                    'class' => 'CDbHttpSession',
+//                    //  'autoCreateSessionTable' => true,
+//                    'connectionID' => 'db',
+//                    'sessionTableName' => 'usersession',
+//                    //    'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
+//                    'useTransparentSessionID' => true,
+//                    'autoStart' => 'true',
+//                    'cookieMode' => 'only',
+//                    'cookieParams' => array(
+//                        'path' => '/',
+//                        'domain' => $domain,
+//                        'httpOnly' => true,
+//                    ),
+//                //       'timeout' => 1800,
+//                ),
                 'bootstrap' => array(
                     'class' => 'common.extensions.bootstrap.components.Bootstrap',
                     'responsiveCss' => true,
@@ -118,13 +118,23 @@ return CMap::mergeArray(
                 ),
                 'db' => array(
                     'class' => 'CDbConnection',
-                    'connectionString' => $params['db_admin.connectionString'],
-                    'username' => $params['db_admin.username'],
-                    'password' => $params['db_admin.password'],
-                    'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
-                    'enableParamLogging' => YII_DEBUG,
+                    'connectionString' => 'dblib:host=192.168.2.226;dbname=Trends;port:1433;',
+                    'username' => 'sa',
+                    'password' => 'Pa55word',
+                   // 'tablePrefix'=>'dbo',
+//                    'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
+//                    'enableParamLogging' => YII_DEBUG,
                     'charset' => 'utf8'
                 ),
+//                'db' => array(
+//                    'class' => 'CDbConnection',
+//                    'connectionString' => $params['db_admin.connectionString'],
+//                    'username' => $params['db_admin.username'],
+//                    'password' => $params['db_admin.password'],
+//                    'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
+//                    'enableParamLogging' => YII_DEBUG,
+//                    'charset' => 'utf8'
+//                ),
                 'db_live' => array(
                     'class' => 'CDbConnection',
                     'connectionString' => $params['db_live.connectionString'],
@@ -137,19 +147,19 @@ return CMap::mergeArray(
                 'errorHandler' => array(
                     'errorAction' => 'site/error',
                 ),
-                'log' => array(
-                    'class' => 'CLogRouter',
-                    'routes' => array(
-                        array(
-                            'class' => 'CFileLogRoute',
-                            'levels' => 'error, warning',
-                        ),
-                        // uncomment the following to show log messages on web pages
-                        array(
-                            'class' => 'CWebLogRoute',
-                        ),
-                    ),
-                ),
+//                'log' => array(
+//                    'class' => 'CLogRouter',
+//                    'routes' => array(
+//                        array(
+//                            'class' => 'CFileLogRoute',
+//                            'levels' => 'error, warning',
+//                        ),
+//                        // uncomment the following to show log messages on web pages
+//                        array(
+//                            'class' => 'CWebLogRoute',
+//                        ),
+//                    ),
+//                ),
             ),
                 ), CMap::mergeArray($mainEnvConfiguration, $mainLocalConfiguration)
 );

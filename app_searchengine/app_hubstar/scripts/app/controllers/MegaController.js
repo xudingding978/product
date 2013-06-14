@@ -42,13 +42,17 @@ define(['models/MegaModel',
                     }
 
                     this.set('selected', this.get('content').objectAt(selectedIndex));
-                    console.log(this.get('selected'));
-                    if (this.get('selected').record._data.hasMany.photo[0].data.materialized === true) {
-                        this.set("percentComplete", this.get('selected').record._data.hasMany.photo[0].record._data.attributes);
-                    } else {
-
-                        this.set("percentComplete", this.get('selected').record._data.hasMany.photo[0].data);
-                    }
+  //                      console.log(this.get('selected'));
+                    this.set("percentComplete", this.get('selected'));
+                    
+                    
+                    
+//                    if (this.get('selected').record._data.hasMany.photo[0].data.materialized === true) {
+//                        this.set("percentComplete", this.get('selected').record._data.hasMany.photo[0].record._data.attributes);
+//                    } else {
+//
+//                        this.set("percentComplete", this.get('selected').record._data.hasMany.photo[0].data);
+//                    }
 
 
                 },
@@ -72,13 +76,16 @@ define(['models/MegaModel',
 
                     }
                     this.set('selected', this.get('content').objectAt(selectedIndex));
-                    console.log(this.get('selected'));
-                    if (this.get('selected').record._data.hasMany.photo[0].data.materialized === true) {
-                        this.set("percentComplete", this.get('selected').record._data.hasMany.photo[0].record._data.attributes);
-                    } else {
-
-                        this.set("percentComplete", this.get('selected').record._data.hasMany.photo[0].data);
-                    }
+                    //     console.log(this.get('selected'));
+                    
+                      this.set("percentComplete", this.get('selected'));
+                    
+//                    if (this.get('selected').record._data.hasMany.photo[0].data.materialized === true) {
+//                        this.set("percentComplete", this.get('selected').record._data.hasMany.photo[0].record._data.attributes);
+//                    } else {
+//
+//                        this.set("percentComplete", this.get('selected').record._data.hasMany.photo[0].data);
+//                    }
 
 
                 },
@@ -87,22 +94,33 @@ define(['models/MegaModel',
 
                     var tempFirstMage = MegaModel.find(megaObject.id);
                     console.log(tempFirstMage);
-                    console.log("owner_profile_id: " + tempFirstMage.owner_profile_id);
+                    console.log("owner_profile_id: " + tempFirstMage.get("owner_profile_id"));
                     console.log("collection_id: " + tempFirstMage.get("collection_id"));
-                    //                 console.log(megaObject);
-                    //      content.pushObject(megaObject);
 
-                    //            setTimeout(function() {
+
+
                     var owner_profile_id = megaObject.get("owner_profile_id");
                     var collection_id = megaObject.get("collection_id");
+
+
+
+
+
                     //   this.set("temp" ,MegaModel.query({"collection_id": collection_id, "owner_profile_id": owner_profile_id}));
                     var data = MegaModel.query({"collection_id": collection_id, "owner_profile_id": owner_profile_id});
                     data.addObserver('isLoaded', function() {
                         if (data.get('isLoaded')) {
                             for (var i = 0; i < this.get("content").get("length"); i++) {
                                 console.log(i);
-                                console.log(this.get("content").objectAt(i));
-                                midcontent.pushObject((this.get("content").objectAt(i)));
+                                if (i === 0 || i === this.get("content").get("length") - 1) {
+                                    console.log(this.get("content").objectAt(i).record._data.hasMany.photo[0].data);
+                                    midcontent.pushObject(this.get("content").objectAt(i).record._data.hasMany.photo[0].data);
+                                } else {
+                                    console.log(this.get("content").objectAt(i).data.photo[0]);
+                                    midcontent.pushObject(this.get("content").objectAt(i).data.photo[0]);
+
+                                }
+
                             }
                         }
                         console.log(midcontent.length + "    eeeeeee");

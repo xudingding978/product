@@ -14,13 +14,13 @@ define([
             console.log("photoRouteeeeeeeeeeeeeeeeee");
             this.controllerFor('mega').actionOn(d);
 
-    //   this.controllerFor('mega').set('model', MegaModel.find(model.id));
+            //   this.controllerFor('mega').set('model', MegaModel.find(model.id));
 
         },
-//        model: function(params) {
-//          
-//             return MegaModel.find(params.photo_id);
-//        },
+        model: function(params) {
+
+          return MegaModel.find(params.photo_id);
+        },
         activate: function() {
             $("body").css("overflow", "hidden");
             $('#footer').attr("style", "display:none");

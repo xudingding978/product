@@ -42,7 +42,6 @@ define(['models/MegaModel',
                     }
 
                     this.set('selected', this.get('content').objectAt(selectedIndex));
-                    //                      console.log(this.get('selected'));
                     this.set("percentComplete", this.get('selected'));
 
                 },
@@ -66,8 +65,6 @@ define(['models/MegaModel',
 
                     }
                     this.set('selected', this.get('content').objectAt(selectedIndex));
-                    //     console.log(this.get('selected'));
-
                     this.set("percentComplete", this.get('selected'));
 
                 },
@@ -75,7 +72,7 @@ define(['models/MegaModel',
 
                     var data = MegaModel.find({"collection_id": megaObject.get("collection_id"), "owner_profile_id": megaObject.get("owner_profile_id")});
                     this.set("percentComplete", megaObject._data.hasMany.photo[0].data);
-                    console.log(this.get("percentComplete"));
+        //            console.log(this.get("percentComplete"));
                     data.addObserver('isLoaded', function() {
                         if (data.get('isLoaded')) {
                             for (var i = 0; i < this.get("content").get("length"); i++) {

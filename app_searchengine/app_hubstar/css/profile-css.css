@@ -26,7 +26,6 @@
     border-bottom: 1px solid rgba(0,0,0,0.2);
     clear: both;
     color: #333;
-    height: 44px;
     line-height: 44px;
 
     max-width: 10000px;
@@ -38,6 +37,25 @@
     background-color: #fff;
     box-shadow: 0 0 0 0px #eef2f9 inset,0 0 20px 0px rgba(0,0,0,0.07) inset;
     background-image: none;
+}
+
+.user-board{
+    width: 87%; 
+    position: relative; 
+    margin: 100px auto 20px; 
+    left: 0; 
+    right: 0; 
+    min-width: 796px; 
+    max-width: 1260px;    
+}
+
+.user-board_left{
+    background: white;
+    width: 69%;
+    display: inline-block;
+    vertical-align: top;
+    height: 150px;
+    margin-right: 0.5%;
 }
 
 

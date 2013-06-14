@@ -17,9 +17,9 @@ class ImportDataController extends Controller {
         
 //        $result = preg_match('/\d[.](jpg)/', ".jpg");
 //        echo($result);
-            $time_zone = date_default_timezone_set('UTC');
+            date_default_timezone_set('US/Eastern');
             $time_string = strtotime("Dec 10 2004 12:00:00:000AM");
-            echo gmdate('Y-m-d H:i:s', $time_string) ;
+            echo $time_string;
         
             
             $sql = "select dbo.ArticleImages.id from dbo.ArticleImages where dbo.ArticleImages.id between 58960 and 59060";

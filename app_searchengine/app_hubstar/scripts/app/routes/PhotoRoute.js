@@ -11,7 +11,6 @@ define([
     var PhotoRoute = Ember.Route.extend({
         setupController: function(controller, model) {
             var d = MegaModel.find(model.id);
-            console.log("photoRouteeeeeeeeeeeeeeeeee");
             this.controllerFor('mega').actionOn(d);
 
             //   this.controllerFor('mega').set('model', MegaModel.find(model.id));

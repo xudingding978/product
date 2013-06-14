@@ -3,7 +3,6 @@
  * and open the template in the editor.
  */
 
-
 define(['models/MegaModel',
     'ember'],
         function(
@@ -42,14 +41,7 @@ define(['models/MegaModel',
                     }
 
                     this.set('selected', this.get('content').objectAt(selectedIndex));
-                    console.log(this.get('selected'));
-                    if (this.get('selected').record._data.hasMany.photo[0].data.materialized === true) {
-                        this.set("percentComplete", this.get('selected').record._data.hasMany.photo[0].record._data.attributes);
-                    } else {
-
-                        this.set("percentComplete", this.get('selected').record._data.hasMany.photo[0].data);
-                    }
-
+                    this.set("percentComplete", this.get('selected'));
 
                 },
                 nextImage: function() {
@@ -64,63 +56,34 @@ define(['models/MegaModel',
 
                     var selectedIndex = this.findSelectedItemIndex();
                     if (selectedIndex >= (this.get('content').get('length') - 1)) {
-
                         selectedIndex = 0;
                     } else {
-
                         selectedIndex++;
-
                     }
                     this.set('selected', this.get('content').objectAt(selectedIndex));
-                    console.log(this.get('selected'));
-                    if (this.get('selected').record._data.hasMany.photo[0].data.materialized === true) {
-                        this.set("percentComplete", this.get('selected').record._data.hasMany.photo[0].record._data.attributes);
-                    } else {
-
-                        this.set("percentComplete", this.get('selected').record._data.hasMany.photo[0].data);
-                    }
-
-
+                    this.set("percentComplete", this.get('selected'));
                 },
                 actionOn: function(megaObject) {
-                    var content = this.get("content");
-
-                    var tempFirstMage = MegaModel.find(megaObject.id);
-                    console.log(tempFirstMage);
-                    console.log("owner_profile_id: " + tempFirstMage.owner_profile_id);
-                    console.log("collection_id: " + tempFirstMage.get("collection_id"));
-                    //                 console.log(megaObject);
-                    //      content.pushObject(megaObject);
-
-                    //            setTimeout(function() {
-                    var owner_profile_id = megaObject.get("owner_profile_id");
-                    var collection_id = megaObject.get("collection_id");
-                    //   this.set("temp" ,MegaModel.query({"collection_id": collection_id, "owner_profile_id": owner_profile_id}));
-                    var data = MegaModel.query({"collection_id": collection_id, "owner_profile_id": owner_profile_id});
+                    var data = MegaModel.find({"collection_id": megaObject.get("collection_id"), "owner_profile_id": megaObject.get("owner_profile_id")});
+                    this.set("percentComplete", megaObject._data.hasMany.photo[0].data);
+        //            console.log(this.get("percentComplete"));
                     data.addObserver('isLoaded', function() {
                         if (data.get('isLoaded')) {
                             for (var i = 0; i < this.get("content").get("length"); i++) {
-                                console.log(i);
-                                console.log(this.get("content").objectAt(i));
-                                midcontent.pushObject((this.get("content").objectAt(i)));
-                            }
+                                if (this.get("content").objectAt(i).data.materialized) {
+                                    midcontent.pushObject(this.get("content").objectAt(i).record._data.hasMany.photo[0].data);
+                                }
+                                else {
+                                    midcontent.pushObject(this.get("content").objectAt(i).data.photo[0]);
+                                }
+                            }   
                         }
-                        console.log(midcontent.length + "    eeeeeee");
                     });
-
-
-                    this.set("isSelected", true);
-                    console.log("done");
                 },
                 addObjects: function() {
-                    //      console.log(this.get("temp").get("content").length + "        qqqqqq");
-                    //      console.log(this.get("temp").get("content").get("length") + "        wwwwwwwwwww");
+                    console.log("addObjects");
 
-                }.observes('App.Mega.didLoad')
-
-
-
-
+                }.observes('isSelected')
             });
             return MegaController;
         });

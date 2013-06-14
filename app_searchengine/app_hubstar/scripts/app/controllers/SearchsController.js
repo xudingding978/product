@@ -18,8 +18,9 @@ define([
             if (stores.length === 0) {
 //{"region": "", "search_string": "home"}
                 var d = MegaModel.find();
-                this.set('content', MegaModel.find());
-                console.log(this.get('content'));
+                      midContent.pushObject(d);
+      //          this.get('content'));
+                console.log(midContent);
               //  d.addObserver('isLoaded', function() {
              //       console.log(d.get('isLoaded'));
                     if (d.get('isLoaded')) {
@@ -37,9 +38,7 @@ define([
                         console.log("else");
                     }
 
-                    console.log(stores.get('length'));
-                    console.log(stores.get('length'));
-                    console.log(stores.length);
+           
             //    });
 
 

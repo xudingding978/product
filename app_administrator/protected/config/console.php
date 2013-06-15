@@ -9,9 +9,16 @@ return array(
     'preload' => array('log'),
     // application components
     'components' => array(
-        'db' => array(
-            'connectionString' => 'sqlite:' . dirname(__FILE__) . '/../data/testdrive.db',
-        ),
+         'db' => array(
+                    'class' => 'CDbConnection',
+                    'connectionString' => 'dblib:host=192.168.2.226;dbname=Trends;port:1433;',
+                    'username' => 'sa',
+                    'password' => 'Pa55word',
+                   // 'tablePrefix'=>'dbo',
+//                    'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
+//                    'enableParamLogging' => YII_DEBUG,
+                    'charset' => 'utf8'
+                ),
         // uncomment the following to use a MySQL database
         /*
           'db'=>array(

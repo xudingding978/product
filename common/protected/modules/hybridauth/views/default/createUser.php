@@ -1,4 +1,4 @@
-<div class="form">
+<div class="form" style="margin: 10% 0;box-shadow: 0 0 50px 10px #999;">
 
 
     <?php
@@ -39,30 +39,32 @@
 
 
 
-    <?php echo $form->errorSummary($user); ?>
+    <div style="width: 250px; margin: 0 auto; height: 80%;">
 
+        <div style=" font-size: 30px; line-height: 30px; font-weight: bold; margin: 40px 0; top: 20px; position: relative;">Hi Jason!! </div>
+        <div>One step to start!</div>
+        <div class="row">
+            <?php echo $form->labelEx($user, 'USER_NAME'); ?>
+            <?php echo $form->textField($user, 'USER_NAME'); ?>
+            <?php echo $form->error($user, 'USER_NAME'); ?>
+        </div>
 
-    <div class="row">
-        <?php echo $form->labelEx($user, 'USER_NAME'); ?>
-        <?php echo $form->textField($user, 'USER_NAME'); ?>
-        <?php echo $form->error($user, 'USER_NAME'); ?>
+        <div class="row">
+            <?php echo $form->labelEx($user, 'EMAIL_ADDRESS'); ?>
+            <?php echo $form->textField($user, 'EMAIL_ADDRESS'); ?>
+            <?php echo $form->error($user, 'EMAIL_ADDRESS'); ?>
+        </div>
+
+        <div class="row buttons">
+            <?php echo CHtml::submitButton($user->isNewRecord ? 'Create' : 'Save'); ?>
+        </div>
+
+        <div class="row" style="opacity:0">
+
+            <?php echo $form->textField($user, 'COUCHBASE_ID'); ?>
+
+        </div>
     </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($user, 'EMAIL_ADDRESS'); ?>
-        <?php echo $form->textField($user, 'EMAIL_ADDRESS'); ?>
-        <?php echo $form->error($user, 'EMAIL_ADDRESS'); ?>
-    </div>
-
-    <div class="row buttons">
-        <?php echo CHtml::submitButton($user->isNewRecord ? 'Create' : 'Save'); ?>
-    </div>
-    <div class="row" style="opacity:0">
-
-        <?php echo $form->textField($user, 'COUCHBASE_ID'); ?>
-
-    </div>
-
 
 
 

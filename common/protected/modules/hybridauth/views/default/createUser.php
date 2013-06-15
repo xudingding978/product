@@ -1,5 +1,6 @@
-<div class="form" style="margin: 10% 0;box-shadow: 0 0 50px 10px #999;">
+<div class="form" style="margin: 10% 0;box-shadow: 0 0 50px 10px #999;  background: url(../../../../../../../images/searchbarbg.jpg) repeat scroll 0% 5% rgb(242, 240, 240);">
 
+/home/devbox/NetBeansProjects/hubstar/common/protected/modules/hybridauth/views/default/createUser.php
 
     <?php
     $form = $this->beginWidget('CActiveForm', array(

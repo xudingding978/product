@@ -7,9 +7,6 @@ define([
         classNames: ["lightbox"],
         template: Ember.Handlebars.compile(discussionsTemplate),
         didInsertElement: function() {
-
-
-
         }
     });
     return DiscussionsView;

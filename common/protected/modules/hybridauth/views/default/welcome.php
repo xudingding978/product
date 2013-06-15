@@ -12,11 +12,11 @@
 
     window.onload = function()
     {
-      //  alert('close');
+        alert('welcome');
         var parent = window.opener;
+     
 
-
-        parent.location = 'http://www.develop.devbox/';
+        parent.location = 'http://www.develop.devbox/#/welcome';
 
         var windowObject = window.self;
         windowObject.opener = window.self;

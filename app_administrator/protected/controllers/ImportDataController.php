@@ -41,10 +41,10 @@ class ImportDataController extends Controller {
     
     
     public function actionImage() {
-        for ($i = 0; $i < 2000; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $image_data = array();
-            $from = 66597 + $i * 10;
-            $to = 66597 + ($i + 1) * 10;
+            $from = 66995 + $i * 10;
+            $to = 66995 + ($i + 1) * 10;
             $image_data = ArticleImages::model()->getImageRange($from, $to);
             $this->total_amount = $this->total_amount + sizeof($image_data);
             

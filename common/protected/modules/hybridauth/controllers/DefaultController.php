@@ -198,7 +198,7 @@ class DefaultController extends CController {
         $temp["user"][0]["zip"] = $userProfile->ZIP;
 
 
-
+        Yii::app()->session['newUser'] = "new";
 
 
 
@@ -211,7 +211,13 @@ class DefaultController extends CController {
     private function _loginUser($identity) {
         Yii::app()->user->login($identity, 0);
 
-        $this->render('close');
+
+        if (Yii::app()->session['newUser'] == "new") {
+            
+            $this->render('welcome');
+        } else {
+            $this->render('close');
+        }
     }
 
     /**

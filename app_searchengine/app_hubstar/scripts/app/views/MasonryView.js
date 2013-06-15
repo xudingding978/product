@@ -40,13 +40,9 @@ define([
             }, 200);
         },
         collapeContent: function(event) {
-
             var id = "#" + event.id;
             var collape_button = "#collape_button_" + event.id;
             var more_button = "#more_button_" + event.id;
-
-            //   $(id).slideToggle(200);
-
             $(id).animate({
                 height: "20px"
 
@@ -57,8 +53,10 @@ define([
             setTimeout(function() {
                 $('#masonry_container').masonry("reload");
             }, 200);
-
-        }
+        },
+        mega: function() {
+            this.rerender();
+        }.observes('controller.content')
     });
     return MasonryView;
 });

@@ -129,7 +129,7 @@ class ProfilesController extends Controller {
             header('Access-Control-Allow-Methods: *');
             header('Access-Control-Allow-Headers: *');
 
-            echo "";
+            echo $this->sendResponse();
             Yii::app()->end();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();

@@ -6,7 +6,7 @@ define([
     Ember.TEMPLATES["image"] = Ember.Handlebars.compile(PhotoCreateTemplate);
     var DragNDropView = Ember.View.extend(PhotoUploadController.Droppable, {
         contentBinding: "photoUpload",
-        template: Ember.Handlebars.compile(PhotoCreateTemplate),   
+        template: Ember.Handlebars.compile(PhotoCreateTemplate)
     });
     return DragNDropView;
 });

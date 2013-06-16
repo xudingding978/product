@@ -80,6 +80,9 @@ define(['models/MegaModel',
                         }
                     });
                 },
+                        test:function(){
+                    console.log("ssssssssssssss");
+                        },
                 addObjects: function() {
                     console.log("addObjects");
 

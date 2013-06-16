@@ -94,6 +94,7 @@ define('application', [
     "views/StatusView",
     "views/ShowAlbumView",
     "views/PhotoDisplayAreaView",
+    "views/SearchTextFieldView",
     "views/WelcomeView",
     "views/QuickstartView",
     "controllers/ApplicationController",
@@ -148,6 +149,7 @@ define('application', [
     "models/PhotoModel",
     "models/ArticleModel",
     "models/VideoModel",
+    "models/ResultstatusModel",
     "emberData",
     'jquery',
     "bxslider",
@@ -197,6 +199,7 @@ define('application', [
         StatusView,
         ShowAlbumView,
         PhotoDisplayAreaView,
+        SearchTextFieldView,
         WelcomeView,
         QuickstartView,
         ApplicationController,
@@ -250,7 +253,8 @@ define('application', [
         Searchresult,
         Photo,
         Article,
-        Video
+        Video,
+        Resultstatus
         )
 {
 
@@ -300,6 +304,7 @@ define('application', [
         StatusView: StatusView,
         ShowAlbumView: ShowAlbumView,
         PhotoDisplayAreaView: PhotoDisplayAreaView,
+        SearchTextFieldView: SearchTextFieldView,
         WelcomeView: WelcomeView,
         QuickstartView: QuickstartView,
         ApplicationController: ApplicationController,
@@ -354,6 +359,7 @@ define('application', [
         Photo: Photo,
         Article: Article,
         Video: Video,
+        Resultstatus:Resultstatus,
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({
@@ -374,7 +380,7 @@ define('application', [
 
             App.set("isLogin", false);
 
-          
+
 
         }
     });

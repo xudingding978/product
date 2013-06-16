@@ -7,8 +7,6 @@ define([
         
         template: Ember.Handlebars.compile(statusTemplate),
         didInsertElement: function() {
-
-
             if (App.get('isLogin')) {
 
                 $('#login_button').attr("style", "display:none");
@@ -22,12 +20,7 @@ define([
                 $('#afterLogin').attr("style", "display:none");
                 $('#welcome_message').attr("style", "display:block");
             }
-        },
-//        rerenderPage: function() {
-// 
-//    //    console.log( this.get("getStatus"));
-//            this.rerender();
-//        }.observes('controller.application.loginInfo')
+        }
 
     });
 

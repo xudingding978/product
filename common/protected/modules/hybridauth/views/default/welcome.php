@@ -12,7 +12,7 @@
 
     window.onload = function()
     {
-        alert('welcome');
+    
         var parent = window.opener;
 
         localStorage.setItem("checkUser", "newUser");

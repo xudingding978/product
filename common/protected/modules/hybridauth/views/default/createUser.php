@@ -1,6 +1,7 @@
-<div class="form" style="margin: 10% 0;box-shadow: 0 0 50px 10px #999;  background: url(../../../../../../../images/searchbarbg.jpg) repeat scroll 0% 5% rgb(242, 240, 240);">
-
-/home/devbox/NetBeansProjects/hubstar/common/protected/modules/hybridauth/views/default/createUser.php
+<div class="form" style="color: white; text-shadow: 0 0 10px #333;">
+    <div style="width: 100%;height: 100%;position: absolute;z-index: -1;overflow: hidden;">
+        <img src="../../../../../../../images/defaultbg6.jpg" />
+    </div>
 
     <?php
     $form = $this->beginWidget('CActiveForm', array(
@@ -40,10 +41,10 @@
 
 
 
-    <div style="width: 250px; margin: 0 auto; height: 80%;">
+    <div style="width: 250px; margin: auto; height: 100%;padding: 40px 0;">
 
-        <div style=" font-size: 30px; line-height: 30px; font-weight: bold; margin: 40px 0; top: 20px; position: relative;">Hi Jason!! </div>
-        <div>One step to start!</div>
+        <div style="font-size: 30px; line-height: 30px; font-weight: bold; margin-bottom: 20px; top: 20px; position: relative;">Hi Jason!! </div>
+        <div>Please enter your email address to create your profile.</div>
         <div class="row">
             <?php echo $form->labelEx($user, 'USER_NAME'); ?>
             <?php echo $form->textField($user, 'USER_NAME'); ?>
@@ -56,8 +57,8 @@
             <?php echo $form->error($user, 'EMAIL_ADDRESS'); ?>
         </div>
 
-        <div class="row buttons">
-            <?php echo CHtml::submitButton($user->isNewRecord ? 'Create' : 'Save'); ?>
+        <div class="row">
+            <?php echo CHtml::submitButton($user->isNewRecord ? 'Create' : 'Save', array('class' => 'new-btn green-btn',)); ?>
         </div>
 
         <div class="row" style="opacity:0">

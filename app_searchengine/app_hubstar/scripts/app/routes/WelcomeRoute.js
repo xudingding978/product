@@ -15,8 +15,8 @@ define([
 
 
             if (localStorage.checkUser === "newUser") {
-            
-               
+
+
 
             } else {
 
@@ -24,6 +24,12 @@ define([
 
             }
 
+
+        },
+        setupController: function() {
+
+
+            this.controllerFor('searchs').searchModel();
 
         },
         renderTemplate: function() {

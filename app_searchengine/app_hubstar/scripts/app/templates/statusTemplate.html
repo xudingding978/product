@@ -4,7 +4,6 @@
         <div class="masonry-object" style="background-color: #427fed; color: white;">
 
             <div style="padding: 20px;text-align: center;">
-{{controller}}
                 <div id='welcome_message' style='margin-bottom: 25px;'>
                     <h2>Welcome!!</h2>
                     <p>Please Login to experience the searching.</p>
@@ -19,7 +18,7 @@
                     <div class="profilepic-container" style="margin:0 0 10px;">                   
                         <a href="#" ><img {{bindAttr src="controller.user.photo_url"}} class="profilepic"/></a>                              
                     </div>
-                    <p> Hi {{controller.user.first_name}} </p>
+                    <p> Hi {{controller.user.display_name}} </p>
                     <h3> What do you want
                         to do on Trends today? </h3>  
 

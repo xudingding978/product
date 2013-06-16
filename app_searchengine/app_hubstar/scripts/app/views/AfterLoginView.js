@@ -25,12 +25,7 @@ define([
 
             }
         },
-//        rerenderPage: function() {
-//            //      alert(1);
-//            //     console.log("dddddddddddddddddddd");
-//       //       App.User.find(localStorage.loginStatus);
-//            this.rerender();
-//        }.observes('controller.loginInfo')
+
     });
 
     return AfterLoginView;

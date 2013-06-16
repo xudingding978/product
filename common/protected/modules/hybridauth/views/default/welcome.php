@@ -12,7 +12,14 @@
 
     window.onload = function()
     {
-        alert('welcome');
+        if (<?php echo Yii::app()->user->getUserData() ?> !== "") {
+
+            data = <?php echo Yii::app()->user->getUserData() ?>;
+            localStorage.setItem("loginStatus", data);
+
+        }
+
+
         var parent = window.opener;
 
         localStorage.setItem("checkUser", "newUser");

@@ -1,6 +1,6 @@
 <div class="form" style="color: white; text-shadow: 0 0 10px #333;">
     <div style="width: 100%;height: 100%;position: absolute;z-index: -1;overflow: hidden;">
-        <img src="../../../../../../../images/defaultbg6.jpg" />
+        <img style="width: 100%;" src="../../../../../../../images/defaultbg6.jpg" />
     </div>
 
     <?php

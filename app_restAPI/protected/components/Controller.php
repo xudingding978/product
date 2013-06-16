@@ -138,7 +138,7 @@ class Controller extends CController {
         $result .= ']}';
         return $result;
     }
-    
+
     protected function getNewID() {
         $myText = (string) microtime();
         $pieces = explode(" ", $myText);
@@ -150,7 +150,7 @@ class Controller extends CController {
     protected function getRequestResult($searchString, $returnType) {
 
         $response = "";
-
+        error_log("dddddddddddd  " . $searchString);
         if (strpos($searchString, 'search') !== false) {
             $regionAndsearchString = explode('&', $searchString);
             $region = $this->getUserInput($regionAndsearchString[0]);
@@ -160,8 +160,15 @@ class Controller extends CController {
             $regionAndsearchString = explode('&', $searchString);
             $collection_id = $this->getUserInput($regionAndsearchString[0]);
             $owner_profile_id = $this->getUserInput($regionAndsearchString[1]);
-
             $response = $this->performRawSearch($returnType, $collection_id, $owner_profile_id);
+        } elseif (strpos($searchString, 'hits') !== false) {
+            $regionAndsearchString = explode('&', $searchString);
+            $region = $this->getUserInput($regionAndsearchString[0]);
+            $searchString = $this->getUserInput($regionAndsearchString[1]);
+            $response = $this->getSearchResultsTotal( $region, $searchString);
+
+            error_log( $response);
+       //     unset(Yii::app()->session['hit']);
         } else {
 
             $response = $this->performSearch($returnType, "", "huang");
@@ -194,7 +201,8 @@ class Controller extends CController {
 
 
         $response = $request->execute();
-
+        Yii::app()->session['hit'] = $response->total;
+      error_log("just number back   ".  Yii::app()->session['hit']);
         $results = '{"' . $returnType . '":[';
         $i = 0;
         foreach ($response as $hit) {
@@ -247,7 +255,7 @@ class Controller extends CController {
         $request = $sherlock->search();
         $must = Sherlock\Sherlock::queryBuilder()->Term()->term($collection_id)//$collection_id
                 ->field('couchbaseDocument.doc.collection_id');
-       $must2= Sherlock\Sherlock::queryBuilder()->Term()->term($owner_profile_id)
+        $must2 = Sherlock\Sherlock::queryBuilder()->Term()->term($owner_profile_id)
                 ->field('couchbaseDocument.doc.owner_profile_id');
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)
                 ->must($must2)
@@ -261,9 +269,7 @@ class Controller extends CController {
 //                                        {"default_field":"couchbaseDocument.doc.collection_id","query":"' . $collection_id . '"}},
 //                                            {"query_string":{"default_field":"couchbaseDocument.doc.owner_profile_id","query":"' . $owner_profile_id . '"}}],
 //                                            "must_not":[],"should":[]}},"from":0,"size":50,"sort":[]}';
-
 //        $rawTermQuery = Sherlock\Sherlock::queryBuilder()->Raw($json);
-//   
 //        $response = $rawTermQuery->execute();
 
         $results = '{"' . $returnType . '":[';
@@ -280,6 +286,32 @@ class Controller extends CController {
         $results .= ']}';
 
         return $results;
+    }
+    
+    
+        protected function getSearchResultsTotal($region, $requestString) {
+        $settings['log.enabled'] = true;
+        $sherlock = new \Sherlock\Sherlock($settings);
+
+        $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
+//Build a new search request
+        $request = $sherlock->search();
+
+        $request->index("test")->type("couchbaseDocument")->from(1);
+        $request->index("test")->type("couchbaseDocument")->size(50);
+//populate a Term query to start
+        $termQuery = Sherlock\Sherlock::queryBuilder()
+                ->QueryString()
+                ->fields("couchbaseDocument.doc.keywords")
+                ->query($requestString)
+                ->boost(2.5);
+
+        $request->index(Yii::app()->params['elasticSearchIndex'])
+                ->type("couchbaseDocument")
+                ->query($termQuery);
+
+        $response = $request->execute();   
+        return $response->total;
     }
 
 }

@@ -5,11 +5,23 @@ define([
 
     var SearchsController = Ember.ArrayController.extend({
         content: [],
-        newSearch: function(object) {
-            this.set("content", MegaModel.find(object));
-        //    console.log(MegaModel.find(object).toString());
-        //    console.log(this.get("content"));
+        search_string: "",
+        searchResultNum: "",
+        newSearch: function(area,search_key) {
+            var results = MegaModel.find({"region":area , "search_string": search_key});
+            this.set("content", results);
+
+                 var searchResultNum = MegaModel.find({"RquireType": "hits","region": area, "search_string": search_key});
+
         },
+        test: function()
+        {
+            console.log(' todoLabel ' + this.get("search_string"));
+        },
+        rrr: function()
+        {
+            var searchResultNum = MegaModel.find({"RquireType": "hits","region": "", "search_string": ""});
+        }.observes("content")
 //        checkContent: function() {
 //            if (this.get("content") !== undefined)
 //            {

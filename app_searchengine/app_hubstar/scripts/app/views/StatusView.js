@@ -6,8 +6,6 @@ define([
     var StatusView = Ember.View.extend({
         template: Ember.Handlebars.compile(statusTemplate),
         didInsertElement: function() {
-
-
             if (App.get('isLogin')) {
 
                 $('#login_button').attr("style", "display:none");

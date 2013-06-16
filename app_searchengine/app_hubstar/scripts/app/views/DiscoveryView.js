@@ -20,9 +20,9 @@ define([
                     object = {"region": area, "search_string": search_key};
                 }
             } else {
-                object = {"id": "", "region": "", "search_string": ""};
+                object = { "region": "", "search_string": ""};
             }
-            this.get("controller").send("newSearch", object);
+            this.get("controller").send("newSearch", area,search_key);
         },
         test: function() {
 this.searching();

@@ -1,4 +1,4 @@
-define(["ember", 'models/PhotoModel', 'models/MegaModel', 'models/UserModel', 'guid_creater'],
+define(["ember", 'models/PhotoModel', 'models/MegaModel', 'models/UserModel', ],
         function(Ember, PhotoModel, Obj, UserModel) {
             var arr = [];
             var test = "test";
@@ -18,9 +18,9 @@ define(["ember", 'models/PhotoModel', 'models/MegaModel', 'models/UserModel', 'g
                                 console.log("ocalStorage.user_id: " + localStorage.user_id);
                                 var obj = Obj.createRecord({"title": name.toLowerCase(), "type": "photos", "creator": localStorage.user_id});
                                 var file = PhotoModel.createRecord({"photo_title": name.toLowerCase(), "photo_image_url": src, "photo_type": type});
-                                obj.get("photos").pushObject(file);
+                                obj.get("photo").pushObject(file);
                                 content.addObject(file);
-                                App.store.commit();
+                        //        App.store.commit();
                             }, reader.readAsDataURL(files[i]);
                         })(files[i]);
 
@@ -68,7 +68,8 @@ define(["ember", 'models/PhotoModel', 'models/MegaModel', 'models/UserModel', 'g
                                 //       file.set("mega", null);
                                 //    var article = Article.createRecord({"article_title": "article_title", "article_text": "article_title"});
                                 //   article.get("meta").pushObject(obj);
-                                obj.get("photos").pushObject(file);
+                                obj.get("photo").pushObject(file);
+                                     arr.addObject(file);
                                 //      obj.get("users").pushObject(user);
                                 //    console.log(obj.get("users").objectAt(0).get("id"));
                                 //       console.log(obj);
@@ -78,7 +79,7 @@ define(["ember", 'models/PhotoModel', 'models/MegaModel', 'models/UserModel', 'g
                                 //   obj.get("photos").objectAt(0).set("photo_title", "test.jpg");
                                 //       console.log(obj.get("photos").objectAt(0).get("photo_title"));
                                 //       console.log(obj.get("articles").objectAt(0).get("article_title"));
-                                App.store.commit();
+                 //               App.store.commit();
 //                    $.ajax({
 //                        url: 'http://api.develop.devbox/images/Test',
 //                        type: 'POST',

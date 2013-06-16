@@ -1,27 +1,25 @@
 define([
     'models/MegaModel',
+    'models/ResultstatusModel',
     'ember'
-], function(MegaModel, Ember) {
+], function(MegaModel,ResultstatusModel, Ember) {
 
     var SearchsController = Ember.ArrayController.extend({
         content: [],
         search_string: "",
         searchResultNum: "",
-        newSearch: function(area,search_key) {
-            var results = MegaModel.find({"region":area , "search_string": search_key});
+        newSearch: function(area, search_key) {
+            var results = MegaModel.find({"RquireType": "search", "region": area, "search_string": search_key});
             this.set("content", results);
-
-                 var searchResultNum = MegaModel.find({"RquireType": "hits","region": area, "search_string": search_key});
+            var searchResultNum = ResultstatusModel.find({"RquireType": "status", "region": area, "search_string": search_key});
 
         },
         test: function()
         {
+            this.set("searchResultNum", this.get("search_string"));
             console.log(' todoLabel ' + this.get("search_string"));
         },
-        rrr: function()
-        {
-            var searchResultNum = MegaModel.find({"RquireType": "hits","region": "", "search_string": ""});
-        }.observes("content")
+
 //        checkContent: function() {
 //            if (this.get("content") !== undefined)
 //            {

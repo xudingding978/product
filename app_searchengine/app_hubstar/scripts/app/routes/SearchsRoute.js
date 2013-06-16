@@ -13,15 +13,9 @@ define([
 
     var SearchRoute = Ember.Route.extend({
         setupController: function() {
-            var data = MegaModel.find({});
-            data.addObserver('isLoaded', function() {
-                if (data.get('isLoaded')) {
-                    for (var i = 0; i < this.get("content").get("length"); i++) {
-                        //        console.log("aaaaaaaaa");
-                    }
-                }
-            });
-//          this.controllerFor('searchs').set('content', data);
+
+
+          //  this.controllerFor('searchs').searchModel();
 
         },
         renderTemplate: function() {

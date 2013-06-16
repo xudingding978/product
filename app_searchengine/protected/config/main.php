@@ -9,6 +9,10 @@
  *
  * This file holds the configuration settings of the Search Engine application.
  * */
+$cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
+$result = $cb->get($_SERVER['HTTP_HOST']);
+$result_arr = CJSON::decode($result, true);
+
 $app_searchengineConfigDir = dirname(__FILE__);
 //
 $root = $app_searchengineConfigDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..';
@@ -20,7 +24,7 @@ Yii::setPathOfAlias('app_administrator', $root . DIRECTORY_SEPARATOR . 'app_admi
 Yii::setPathOfAlias('app_authority', $root . DIRECTORY_SEPARATOR . 'app_authority');
 Yii::setPathOfAlias('app_dashboard', $root . DIRECTORY_SEPARATOR . 'app_dashboard');
 Yii::setPathOfAlias('app_searchengine', $root . DIRECTORY_SEPARATOR . 'app_searchengine');
-Yii::setPathOfAlias('app_useraccount', $root . DIRECTORY_SEPARATOR . 'app_useraccount');
+Yii::setPathOfAlias('app_account', $root . DIRECTORY_SEPARATOR . 'app_account');
 
 // The configuation tree overides in the following way...
 // local settings below > environment specific > main configuration
@@ -40,42 +44,48 @@ $dot_positon = strpos($_SERVER['HTTP_HOST'], ".");
 
 $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 
-
 return CMap::mergeArray(
                 array(
             'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
             // set parameters
             'params' => $params,
-            'name' => 'Trends Search Engine',
+            'name' => 'User Account',
             'id' => $domain,
             // preloading 'log' component
-            //'preload' => array('log', 'bootstrap'),
-           // 'preload' => array('bootstrap'),
+            'preload' => array('log'),
             // @see http://www.yiiframework.com/doc/api/1.1/CApplication#language-detail
             'language' => 'en',
             // autoloading model and component classes
             'import' => array(
                 'common.components.*',
-                'common.extensions.*',
                 'common.components.auth.*',
+                'common.extensions.*',
+                'common.modules.*',
+                'common.modules.hybridauth.*',
                 'common.models.*',
-                'common.tests.*',
+               // 'common.redbean.*',
                 'application.models.*',
                 'application.components.*',
             ),
             'modules' => array(
-//                'api' => array(
-//                    'class' => 'common.modules.api.ApiModule'
-//                ),
+                'hybridauth' => array(
+//   'baseUrl' => 'http://account.business-software.co.nz/hybridauth',
+                    'class' => 'common.modules.hybridauth.HybridauthModule',
+                    'baseUrl' => 'http://' . $_SERVER['HTTP_HOST'] . '/hybridauth',
+                    'withYiiUser' => false, // Set to true if using yii-user
+               
+                    'providers' => $result_arr['providers'],
+                ),
             ),
             // application components
             'components' => array(
                 'user' => array(
-                    // enable cookie-based authentication
+// enable cookie-based authentication
                     'allowAutoLogin' => true,
+                    //        'class' => 'MyWebUser',
                     'class' => 'AuthWebUser',
                     'identityCookie' => array(
-                        'domain' => $domain,
+                        'domain' => $domain
                     ),
                 ),
                 'authManager' => array(
@@ -90,10 +100,10 @@ return CMap::mergeArray(
                 'session' => array(
                     'sessionName' => 'Session',
                     'class' => 'CDbHttpSession',
-                    //   'autoCreateSessionTable' => true,
+                    //  'autoCreateSessionTable' => true,
                     'connectionID' => 'db',
                     'sessionTableName' => 'usersession',
-                    //   'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
+                    //    'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
                     'useTransparentSessionID' => true,
                     'autoStart' => 'true',
                     'cookieMode' => 'only',
@@ -104,14 +114,6 @@ return CMap::mergeArray(
                     ),
                 //        'timeout' => 1800,
                 ),
-                'authManager' => array(
-                    'behaviors' => array(
-                        'auth' => array(
-                            'class' => 'AuthBehavior',
-                            'admins' => '', // users with full access
-                        ),
-                    ),
-                ),
                 'bootstrap' => array(
                     'class' => 'common.extensions.bootstrap.components.Bootstrap',
                     'responsiveCss' => true,
@@ -121,7 +123,7 @@ return CMap::mergeArray(
                     'urlFormat' => 'path',
                     'showScriptName' => false,
                     'urlSuffix' => '/',
-                    'rules' => $params['url.rules'],
+                    'rules' => $params['url.rules']
                 ),
                 'db' => array(
                     'class' => 'CDbConnection',
@@ -132,32 +134,35 @@ return CMap::mergeArray(
                     'enableParamLogging' => YII_DEBUG,
                     'charset' => 'utf8'
                 ),
+//                'db_live' => array(
+//                    'class' => 'CDbConnection',
+//                    'connectionString' => $params['db_live.connectionString'],
+//                    'username' => $params['db_live.username'],
+//                    'password' => $params['db_live.password'],
+//                    'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
+//                    'enableParamLogging' => YII_DEBUG,
+//                    'charset' => 'utf8'
+//                ),
                 'errorHandler' => array(
-                    // use 'site/error' action to display errors
+// use 'site/error' action to display errors
                     'errorAction' => 'site/error',
                 ),
-                'log' => array(
-                    'class' => 'CLogRouter',
-                    'routes' => array(
-                        array(
-                            'class' => 'CFileLogRoute',
-                            'levels' => 'error, warning',
-                        ),
-                        array(
-                            'class' => 'CWebLogRoute',
-                        ),
-                    ),
-                ),
-                'cache' => array(
-                    'class' => 'CMemCache',
-                    'servers' => array(
-                        array(
-                            'host' => '127.0.0.1',
-                            'port' => 11211,
-                            'weight' => 100,
-                        ),
-                    ),
-                ),
+//                'log' => array(
+//                    'class' => 'CLogRouter',
+//                    'routes' => array(
+//                        array(
+//                            'class' => 'CFileLogRoute',
+//                            'levels' => 'error, warning',
+//                        ),
+//                        // uncomment the following to show log messages on web pages
+/////*
+//                        array(
+//                            'class' => 'CWebLogRoute',
+//                        ),
+//                    //*/
+//                    ),
+//                ),
             ),
                 ), CMap::mergeArray($mainEnvConfiguration, $mainLocalConfiguration)
 );
+?>

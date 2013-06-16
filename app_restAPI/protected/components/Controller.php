@@ -148,27 +148,26 @@ class Controller extends CController {
     }
 
     protected function getRequestResult($searchString, $returnType) {
-
         $response = "";
-        error_log("dddddddddddd  " . $searchString);
-        if (strpos($searchString, 'search') !== false) {
-            $regionAndsearchString = explode('&', $searchString);
-            $region = $this->getUserInput($regionAndsearchString[0]);
-            $searchString = $this->getUserInput($regionAndsearchString[1]);
+        $requireParams = explode('&', $searchString);
+        error_log(var_export($requireParams,true));
+        $requireType = $this->getUserInput($requireParams[0]);
+        if ($requireType == 'search') {
+            $region = $this->getUserInput($requireParams[1]);
+            $searchString = $this->getUserInput($requireParams[2]);
             $response = $this->performSearch($returnType, $region, $searchString);
-        } elseif (strpos($searchString, 'collection') !== false) {
-            $regionAndsearchString = explode('&', $searchString);
-            $collection_id = $this->getUserInput($regionAndsearchString[0]);
-            $owner_profile_id = $this->getUserInput($regionAndsearchString[1]);
-            $response = $this->performRawSearch($returnType, $collection_id, $owner_profile_id);
-        } elseif (strpos($searchString, 'hits') !== false) {
-            $regionAndsearchString = explode('&', $searchString);
-            $region = $this->getUserInput($regionAndsearchString[0]);
-            $searchString = $this->getUserInput($regionAndsearchString[1]);
-            $response = $this->getSearchResultsTotal( $region, $searchString);
+        } elseif ($requireType == 'collection' ) {
 
-            error_log( $response);
-       //     unset(Yii::app()->session['hit']);
+            $collection_id = $this->getUserInput($requireParams[1]);
+            $owner_profile_id = $this->getUserInput($requireParams[2]);
+            $response = $this->performRawSearch($returnType, $collection_id, $owner_profile_id);
+        } elseif ($requireType=='status') {
+
+            $region = $this->getUserInput($requireParams[1]);
+            $searchString = $this->getUserInput($requireParams[2]);
+            $response = $this->getSearchResultsTotal($returnType, $region, $searchString);
+
+            //     unset(Yii::app()->session['hit']);
         } else {
 
             $response = $this->performSearch($returnType, "", "huang");
@@ -201,8 +200,6 @@ class Controller extends CController {
 
 
         $response = $request->execute();
-        Yii::app()->session['hit'] = $response->total;
-      error_log("just number back   ".  Yii::app()->session['hit']);
         $results = '{"' . $returnType . '":[';
         $i = 0;
         foreach ($response as $hit) {
@@ -287,9 +284,8 @@ class Controller extends CController {
 
         return $results;
     }
-    
-    
-        protected function getSearchResultsTotal($region, $requestString) {
+
+    protected function getSearchResultsTotal($returnType, $region, $requestString) {
         $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
 
@@ -310,8 +306,16 @@ class Controller extends CController {
                 ->type("couchbaseDocument")
                 ->query($termQuery);
 
-        $response = $request->execute();   
-        return $response->total;
+        $response = $request->execute();
+
+        $result = '{"' . $returnType . '":';
+
+        //Iterate over the hits and print out some data
+
+        $result .= $response->total;
+
+        $result .= '}';
+        return $result;
     }
 
 }

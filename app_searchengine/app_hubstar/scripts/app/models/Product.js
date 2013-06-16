@@ -2,17 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
-define('models/Product',
+define('models/ResultstatusModel',
         ['ember', 'emberData'],
         function() {
-
-            var Product = DS.Model.extend({
-                name: DS.attr('string'),
-                isAdded: DS.attr('string'),
+            var Resultstatust = DS.Model.extend({
+                hits: DS.attr('string'),
+                search_string: DS.attr('string'),
             });
-
-            return Product;
+            return Resultstatust;
         }
 );

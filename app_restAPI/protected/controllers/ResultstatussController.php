@@ -18,7 +18,7 @@ class ResultstatussController extends Controller {
         //  error_log(var_export($temp, true)."       ".sizeof($temp));
         $response = $this->getRequestResult($request_string, self::JSON_RESPONSE_ROOT_PLURAL);
 
-        $this->sendResponse(200, $request_arr);
+        $this->sendResponse(200, $response);
     }
 
     public function actionCreate() {

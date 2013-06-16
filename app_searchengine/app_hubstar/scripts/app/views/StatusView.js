@@ -21,7 +21,11 @@ define([
                 $('#afterLogin').attr("style", "display:none");
                 $('#welcome_message').attr("style", "display:block");
             }
-        }
+        },
+        rerenderPage: function() {
+            alert(0);
+            this.rerender();
+        }.observes('localStorage.loginStatus')
 
     });
     return StatusView;

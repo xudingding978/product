@@ -11,33 +11,82 @@ class ImportDataController extends Controller {
     }
 
     public function actionObject() {
-//        $a = getimagesize("http://trendsideas.com/media/article/original/NAFF");
-//        print_r("<pre>");
-//        print_r($a);
-//        $result = preg_match('/\d[.](jpg)/', ".jpg");
-//        echo($result);
-//            date_default_timezone_set('Asia/Bangkok');
-//            $time_string = strtotime("DEC 10 2004 12:00:00:000AM");
-//            echo $date_time = date('Y-m-d H:i:s', $time_string)."\n";
-//            echo $time_string;
-
-
-        $sql = "select dbo.ArticleImages.id from dbo.ArticleImages where dbo.ArticleImages.id between 58960 and 59060";
+        $sql = "select dbo.ArticleImages.id from dbo.ArticleImages where dbo.ArticleImages.id between 58500 and 59060";
         $data_list = Yii::app()->db->createCommand($sql)->queryAll();
+//        echo sizeof($data_list);
         foreach ($data_list as $val) {
+            $book_id =  array();
+            $book_detail = array();
             $book_list = Books::model()->getBookByPhotoID($val['id']);
-//                $region_list = Regions::model()->selectRegionByImage($val['id']);
-
-//            foreach ($book_list as $book) {
+            $book_date = 0;
+            $book_title = "";
+            foreach ($book_list as $book) {
+                array_push($book_id, $book['id']);               
+                $region = Regions::model()->selectCountryNameByID($book['region']);
+                $date_live = $book['dateLive'];
+                $title = str_replace(" & ", "-", $book['title']);
+                $title = str_replace(" ", "-", $title);
+                $UTC = $this->getUTC($date_live, $region);
+                
+                if ((int)$UTC>$book_date) {
+                    $book_date = $UTC;
+                    $region = str_replace(" & ", "-", $region);
+                    $region = str_replace(" ", "-", $region);
+                    $book_title =$region."-".$title;
+                }
 //                
-//            }
-
-//            print_r("<pre>");
-//            print_r($book_list);
-//                print_r($region_list);
+//                $book_detail = array(
+//                            'title'=>$book['title'], 
+//                            'datetime'=>$UTC,
+//                            'region'=>$region,
+//                );
+//
+//                print_r("<pre>");
+//                print_r($book_detail);
+//                print_r($book);
+            }
+            
+            print_r("<pre>");
+            print_r($book_list);
+            echo $book_date."\r\n";
+            echo $book_title;
         }
+        
+//        echo ("333333333333333333333333333333");
     }
+    
+    public function getUTC($datetime, $region) {
+        $time_zone = '';
+        switch ($region) {
+            case "New Zealand": 
+                $time_zone = 'NZ';
+            case "Australia": 
+                $time_zone = 'Australia/Sydney';
+            case "United States": 
+                $time_zone = 'America/New_York';
+            case "South Africa": 
+                $time_zone = 'Africa/Johannesburg';    
+            case "The Gulf": 
+                $time_zone = 'Asia/Dubai';      
+            case "The Gulf & Asia": 
+                $time_zone = 'Asia/Dubai';
+            case "中国": 
+                $time_zone = 'Asia/Shanghai';
+            case "India":
+                $time_zone = 'Asia/Kolkata';
+        };
+        
+//        $time_zone = 'Asia/Kolkata';
+//        date_default_timezone_set($time_zone);
+//        $time_string = strtotime("2003-08-01 00:00:00.000");
+//        $date_time = date('Y-m-d H:i:s', $time_string)."-".$time_string;
 
+        date_default_timezone_set($time_zone);
+        $time_string = strtotime($datetime);
+        
+        return $time_string;
+    }
+    
     public function actionImage() {
         for ($i = 0; $i < $quantity; $i++) {
             $image_data = array();

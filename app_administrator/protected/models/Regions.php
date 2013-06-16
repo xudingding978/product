@@ -229,7 +229,7 @@ class Regions extends CActiveRecord
                                     $data_list=array();
                                     $sql = "select dbo.Regions.* from dbo.Regions where id = ".$parent_id;
                                     $data_list = Yii::app() ->db->createCommand($sql)->queryAll();
-                                    $region = $region.", ".$data_list[0]['name'];
+                                    $region = $data_list[0]['name'];
                                 }
                             }
                         }

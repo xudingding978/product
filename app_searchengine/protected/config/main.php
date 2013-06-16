@@ -13,8 +13,7 @@ $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
 $result = $cb->get($_SERVER['HTTP_HOST']);
 $result_arr = CJSON::decode($result, true);
 
-error_log(var_export($result_arr['providers'],true));
-error_log("iiiii".$_SERVER['HTTP_HOST']);
+
 $app_searchengineConfigDir = dirname(__FILE__);
 //
 $root = $app_searchengineConfigDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..';
@@ -46,7 +45,6 @@ $dot_positon = strpos($_SERVER['HTTP_HOST'], ".");
 
 $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 
-error_log("8888888".$_SERVER['HTTP_HOST'] . '8888888888' . $dot_positon . ' ' . $domain."88888888888");
 
 
 return CMap::mergeArray(

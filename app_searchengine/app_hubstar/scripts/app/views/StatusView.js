@@ -4,6 +4,7 @@ define([
 ], function(Ember, statusTemplate) {
     Ember.TEMPLATES["status"] = Ember.Handlebars.compile(statusTemplate);
     var StatusView = Ember.View.extend({
+        
         template: Ember.Handlebars.compile(statusTemplate),
         didInsertElement: function() {
 
@@ -22,10 +23,11 @@ define([
                 $('#welcome_message').attr("style", "display:block");
             }
         },
-        rerenderPage: function() {
-            alert(0);
-            this.rerender();
-        }.observes('controller.getStatus')
+//        rerenderPage: function() {
+// 
+//    //    console.log( this.get("getStatus"));
+//            this.rerender();
+//        }.observes('controller.application.loginInfo')
 
     });
 

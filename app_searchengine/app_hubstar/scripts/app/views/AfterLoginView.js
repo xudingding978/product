@@ -6,9 +6,10 @@ define([
     Ember.TEMPLATES["afterLogin"] = Ember.Handlebars.compile(afertLoginTemplate);
 
     var AfterLoginView = Ember.View.extend({
+        needs: ['searchs'],
         template: Ember.Handlebars.compile(afertLoginTemplate),
         didInsertElement: function() {
-
+          
 
             if (App.get('isLogin')) {
 
@@ -23,7 +24,13 @@ define([
                 $('#login_detail').attr("style", "display:none");
 
             }
-        }
+        },
+//        rerenderPage: function() {
+//            //      alert(1);
+//            //     console.log("dddddddddddddddddddd");
+//       //       App.User.find(localStorage.loginStatus);
+//            this.rerender();
+//        }.observes('controller.loginInfo')
     });
 
     return AfterLoginView;

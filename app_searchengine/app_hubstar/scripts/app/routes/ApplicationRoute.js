@@ -27,6 +27,9 @@ define([
 
 
             }
+            
+                  this.controllerFor('application').loginStatus();
+            
         }
 
     });

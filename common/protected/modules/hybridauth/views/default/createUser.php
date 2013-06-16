@@ -1,5 +1,7 @@
-<div class="form">
-
+<div class="form" style="color: white; text-shadow: 0 0 10px #333;">
+    <div style="width: 100%;height: 100%;position: absolute;z-index: -1;overflow: hidden;">
+        <img src="../../../../../../../images/defaultbg6.jpg" />
+    </div>
 
     <?php
     $form = $this->beginWidget('CActiveForm', array(
@@ -39,43 +41,32 @@
 
 
 
-    <?php echo $form->errorSummary($user); ?>
+    <div style="width: 250px; margin: auto; height: 100%;padding: 40px 0;">
 
+        <div style="font-size: 30px; line-height: 30px; font-weight: bold; margin-bottom: 20px; top: 20px; position: relative;">Hi Jason!! </div>
+        <div>Please enter your email address to create your profile.</div>
+        <div class="row">
+            <?php echo $form->labelEx($user, 'USER_NAME'); ?>
+            <?php echo $form->textField($user, 'USER_NAME'); ?>
+            <?php echo $form->error($user, 'USER_NAME'); ?>
+        </div>
 
-    <div class="row">
-        <?php echo $form->labelEx($user, 'USER_NAME'); ?>
-        <?php echo $form->textField($user, 'USER_NAME'); ?>
-        <?php echo $form->error($user, 'USER_NAME'); ?>
+        <div class="row">
+            <?php echo $form->labelEx($user, 'EMAIL_ADDRESS'); ?>
+            <?php echo $form->textField($user, 'EMAIL_ADDRESS'); ?>
+            <?php echo $form->error($user, 'EMAIL_ADDRESS'); ?>
+        </div>
+
+        <div class="row">
+            <?php echo CHtml::submitButton($user->isNewRecord ? 'Create' : 'Save', array('class' => 'new-btn green-btn',)); ?>
+        </div>
+
+        <div class="row" style="opacity:0">
+
+            <?php echo $form->textField($user, 'COUCHBASE_ID'); ?>
+
+        </div>
     </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($user, 'LAST_NAME'); ?>
-        <?php echo $form->textField($user, 'LAST_NAME'); ?>
-        <?php echo $form->error($user, 'LAST_NAME'); ?>
-    </div>
-
-
-    <div class="row">
-        <?php echo $form->labelEx($user, 'FIRST_NAME'); ?>
-        <?php echo $form->textField($user, 'FIRST_NAME'); ?>
-        <?php echo $form->error($user, 'FIRST_NAME'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($user, 'EMAIL_ADDRESS'); ?>
-        <?php echo $form->textField($user, 'EMAIL_ADDRESS'); ?>
-        <?php echo $form->error($user, 'EMAIL_ADDRESS'); ?>
-    </div>
-
-    <div class="row buttons">
-        <?php echo CHtml::submitButton($user->isNewRecord ? 'Create' : 'Save'); ?>
-    </div>
-    <div class="row" style="opacity:0">
-
-        <?php echo $form->textField($user, 'COUCHBASE_ID'); ?>
-
-    </div>
-
 
 
 

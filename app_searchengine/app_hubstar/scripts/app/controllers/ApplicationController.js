@@ -1,8 +1,12 @@
+
+
 define(["ember"], function(Ember) {
 
     var ApplicationController = Ember.Controller.extend({
+        needs: ['searchs'],
+        loginInfo: "",
+        user: null,
         popupModal: function() {
-
             this.set('popup', !this.get('popup'));
 
 
@@ -17,16 +21,23 @@ define(["ember"], function(Ember) {
 
             this.set('mail', !this.get('mail'));
         },
-//        setLoginIn: function() {
-//
-//            this.set('isLogin', true);
-//
+        loginStatus: function() {
+            var searchsController = this.get("controllers.searchs");
+            this.set('loginInfo', localStorage.loginStatus);
+            searchsController.set('loginInfo', localStorage.loginStatus);
+            //      console.log(searchsController.get('loginInfo'));
+
+        },
+//        test: function() {
+//            this.set('loginInfo', localStorage.loginStatus);
 //        },
-//        setLoginOut: function() {
-//
-//            this.set('isLogin', false);
-//
-//        }
+        grapData: function() {
+            this.set("user", App.User.find(localStorage.loginStatus));
+         //   console.log(this.get("user"));
+
+        }
+
+
     });
 
     return ApplicationController;

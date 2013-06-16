@@ -5,6 +5,8 @@ define([
 ], function(MegaModel,ResultstatusModel, Ember) {
 
     var SearchsController = Ember.ArrayController.extend({
+        needs: ['application', 'status'],
+        loginInfo: "",
         content: [],
         search_string: "",
         searchResultNum: "",
@@ -19,6 +21,21 @@ define([
             this.set("searchResultNum", this.get("search_string"));
             console.log(' todoLabel ' + this.get("search_string"));
         },
+      
+        searchModel: function() {
+
+
+
+            this.set("loginInfo", localStorage.loginStatus);
+
+            var ac = this.get("controllers.application");
+            var st = this.get("controllers.status");
+            ac.grapData();
+            st.grapData();
+        
+
+            var data = MegaModel.find({});
+        }
 
 //        checkContent: function() {
 //            if (this.get("content") !== undefined)

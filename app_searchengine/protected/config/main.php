@@ -13,6 +13,7 @@ $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
 $result = $cb->get($_SERVER['HTTP_HOST']);
 $result_arr = CJSON::decode($result, true);
 
+
 $app_searchengineConfigDir = dirname(__FILE__);
 //
 $root = $app_searchengineConfigDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..';
@@ -43,6 +44,8 @@ $mainEnvConfiguration = file_exists($mainEnvFile) ? require($mainEnvFile) : arra
 $dot_positon = strpos($_SERVER['HTTP_HOST'], ".");
 
 $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
+
+
 
 return CMap::mergeArray(
                 array(

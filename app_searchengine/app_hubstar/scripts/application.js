@@ -374,6 +374,8 @@ define('application', [
 
             App.set("isLogin", false);
 
+          
+
         }
     });
 }

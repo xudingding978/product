@@ -12,11 +12,21 @@
 
     window.onload = function()
     {
-      //  alert('close');
+        //  alert('close');
+
+
+        if (<?php echo Yii::app()->user->getUserData() ?> !== "") {
+
+            data = <?php echo Yii::app()->user->getUserData() ?>;
+            localStorage.setItem("loginStatus", data);
+
+        }
+
+
         var parent = window.opener;
 
 
-        parent.location = 'http://www.develop.devbox/';
+    //    parent.location = 'http://www.develop.devbox/';
 
         var windowObject = window.self;
         windowObject.opener = window.self;

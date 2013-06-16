@@ -8,9 +8,10 @@ class ImportdataCommand extends CConsoleCommand {
         echo (isset($quantity) ? 'Quantity to load is... ' . $quantity : 'No quantity defined');
         $this->actionImage($start, $quantity);
     }
-  public $image_amount = 0;
+    public $image_amount = 0;
     public $obj_amount = 0;
     public $total_amount = 0;
+    public $amount = 0;
 
     public function actionObject() {
 //        $a = getimagesize("http://trendsideas.com/media/article/original/NAFF");
@@ -41,10 +42,13 @@ class ImportdataCommand extends CConsoleCommand {
     }
 
     public function actionImage($start, $quantity) {
-        for ($i = 0; $i < $quantity; $i++) {
+        $rows = 0;
+        $this->amount = $start+$quantity;
+        while(true) {
             $image_data = array();
-            $from = $start;
-            $to = $start + $quantity;
+            $from = $start + $rows;
+            $to = $start + $rows + 20;
+            $rows += 20;
             
             Yii::import("application.models.*");
             
@@ -54,9 +58,15 @@ class ImportdataCommand extends CConsoleCommand {
             if (sizeof($image_data) > 0) {
                 $this->getMegaData($image_data);
             }
-            unset($image_data, $from, $to);
+            
+            if (($rows+20)>$quantity) {
+                break;
+            }
         }
-
+        
+        unset($image_data, $from, $to);
+        echo ("All finished: start from: " .$start. ", quantity: " .$quantity );
+        
         //$this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_success.log", "All finished");
         //$this->writeToLog("/home/devbox/NetBeansProjects/test/AddingCouchbase_success.log", "All finished");
 //        $this->render('image', array(
@@ -93,8 +103,8 @@ class ImportdataCommand extends CConsoleCommand {
                     $return_hero = json_decode($this->imageImport($url_hero));
                     $is_hero = true;
                 } else {
-                    $message = "http://trendsideas.com/media/article/hero/" . $val['hero'] . "--- URL NOT available!";
-                    $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_success.log", $message);
+                    echo $message = "http://trendsideas.com/media/article/hero/" . $val['hero'] . "--- URL NOT available! \r\n";
+//                    $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_unsuccess.log", $message);
                 }
             }
 
@@ -104,8 +114,8 @@ class ImportdataCommand extends CConsoleCommand {
                     $return_thumbnail = json_decode($this->imageImport($url_thumbnail));
                     $is_thumbnail = true;
                 } else {
-                    $message = "http://trendsideas.com/media/article/thumbnail/" . $val['thumbnail'] . "--- URL NOT available!";
-                    $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_success.log", $message);
+                    echo $message = "http://trendsideas.com/media/article/thumbnail/" . $val['thumbnail'] . "--- URL NOT available!  \r\n";
+//                    $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_unsuccess.log", $message);
                 }
             }
 
@@ -115,8 +125,8 @@ class ImportdataCommand extends CConsoleCommand {
                     $return_preview = json_decode($this->imageImport($url_preview));
                     $is_preview = true;
                 } else {
-                    $message = "http://trendsideas.com/media/article/preview/" . $val['preview'] . "--- URL NOT available!";
-                    $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_success.log", $message);
+                    echo $message = "http://trendsideas.com/media/article/preview/" . $val['preview'] . "--- URL NOT available!  \r\n";
+//                    $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_unsuccess.log", $message);
                 }
             }
 
@@ -126,8 +136,8 @@ class ImportdataCommand extends CConsoleCommand {
                     $return_original = json_decode($this->imageImport($url_original));
                     $is_original = true;
                 } else {
-                    $message = "http://trendsideas.com/media/article/original/" . $val['original'] . "--- URL NOT available!";
-                    $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_success.log", $message);
+                    echo $message = "http://trendsideas.com/media/article/original/" . $val['original'] . "--- URL NOT available!  \r\n";
+//                    $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_unsuccess.log", $message);
                 }
             }
 
@@ -135,8 +145,8 @@ class ImportdataCommand extends CConsoleCommand {
                 $obj = $this->structureArray($val, $return_hero, $return_thumbnail, $return_preview, $return_original);
                 $this->importMegaObj($obj, $val['id']);
             } else {
-                $message = "http://trendsideas.com/media/article/preview/" . $val['preview'] . "--- DO NOT have return value from S3!--ID:" . $val['id'];
-                $this->writeToLog("/home/devbox/NetBeansProjects/test/AddingCouchbase_NotScucess.log", $message);
+                echo $message = "http://trendsideas.com/media/article/preview/" . $val['preview'] . "--- DO NOT have return value from S3!--ID:" . $val['id']. " \r\n";
+//                $this->writeToLog("/home/devbox/NetBeansProjects/test/AddingCouchbase_NotScucess.log", $message);
             }
 
 
@@ -167,20 +177,20 @@ class ImportdataCommand extends CConsoleCommand {
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
             $result = curl_exec($ch);
-            //close connection
-            curl_close($ch);
 
             $this->image_amount++;
 
-            echo $message = $result . "\n" . date("Y-m-d H:i:s") . $json_obj . "---" . $this->image_amount;
+            echo $message = $result . "\n" . date("Y-m-d H:i:s") . $json_obj . "---" . $this->image_amount." \r\n";
             //$this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_success.log", $message);
-
+            
+            //close connection
+            curl_close($ch);
             unset($ch, $message, $json_obj);
 
             return $result;
         } catch (Exception $e) {
             $response = 'Caught exception: ' . $e->getMessage();
-            echo $message = $response . "\n" . date("Y-m-d H:i:s") . $json_obj;
+            echo $message = $response . "\n" . date("Y-m-d H:i:s") . $json_obj. " \r\n";
             //$this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_NotSuccess.log", $message);
 
             unset($e, $response, $message);
@@ -202,13 +212,13 @@ class ImportdataCommand extends CConsoleCommand {
             curl_close($ch);
             $this->obj_amount++;
 //            error_log($result);
-            echo $message = "develop.devbox/" . $result . "\n" . date("Y-m-d H:i:s") . $data_list['object_image_url'] . "---" . $this->obj_amount . "/" . $this->total_amount . "\n" . $id;
+            echo $message = "develop.devbox/" . $result . "\r\n" . date("Y-m-d H:i:s") ."\r\n". $data_list['object_image_url'] . "---" . $this->obj_amount . "/" . $this->total_amount . "\r\n" .$id. "/" . $this->amount. " \r\n";
             //$this->writeToLog("/home/devbox/NetBeansProjects/test/AddingCouchbase_success.log", $message);
 
             unset($data_list, $json_list, $ch, $result, $message);
         } catch (Exception $e) {
             $response = 'Caught exception: ' . $e->getMessage();
-            echo $message = $response . "\n" . date("Y-m-d H:i:s") . $data_list['object_image_url'];
+            echo $message = $response . "\n" . date("Y-m-d H:i:s") . $data_list['object_image_url']." \r\n";
            // $this->writeToLog("/home/devbox/NetBeansProjects/test/AddingCouchbase_NotSuccess.log", $message);
 
             unset($json_list, $response, $message);
@@ -219,8 +229,7 @@ class ImportdataCommand extends CConsoleCommand {
         // get size of image
         $size = "_" . $return_original->width . 'x' . $return_original->height . ".jpg";
         $original_size = str_replace(".jpg", $size, $val['original']);
-        $book_id = array();
-
+       
         //  get region and country
         $region = Regions::model()->selectRegionByImage($val['id']);
         $country = $region;
@@ -239,13 +248,27 @@ class ImportdataCommand extends CConsoleCommand {
         $category = Categories::model()->selectCategory($val['id']);
 
         // get book infor 
-//        $book_list = Books::model()->getBookByPhotoID($val['id']);
-//        if(sizeof($book_list)>0) {
-//            foreach($book_list as $book) {
-//                arrray_push($book_id, $book['id']);
-//                
-//            }
-//        }
+        $book_id = array();
+        $book_date = 0;
+        $book_title = "";
+        $book_list = Books::model()->getBookByPhotoID($val['id']);
+        if(sizeof($book_list)>0) {
+            foreach($book_list as $book) {
+                array_push($book_id, $book['id']);
+                $region = Regions::model()->selectCountryNameByID($book['region']);
+                $date_live = $book['dateLive'];
+                $title = str_replace(" & ", "-", $book['title']);
+                $title = str_replace(" ", "-", $title);
+                $UTC = $this->getUTC($date_live, $region);
+                
+                if ((int)$UTC>$book_date) {
+                   $book_date = $UTC;
+                    $region = str_replace(" & ", "-", $region);
+                    $region = str_replace(" ", "-", $region);
+                    $book_title =$region."-".$title;
+                }
+            }
+        }
         // get keywords imfor
         $keywords = mb_check_encoding($val['keywords'], 'UTF-8') ? $val['keywords'] : utf8_encode($val['keywords']);
         $obj = array(
@@ -253,8 +276,8 @@ class ImportdataCommand extends CConsoleCommand {
             "type" => "photo",
             "accessed" => null,
             "active_yn" => "y",
-            "created" => "created",
-            "creator" => null,
+            "created" => $book_date,
+            "creator" => $book_title,
             "creator_type" => 'user',
             "creator_profile_pic" => "",
             "creator_title" => null,
@@ -279,7 +302,7 @@ class ImportdataCommand extends CConsoleCommand {
             "owner_type" => 'profile',
             "owner_profile_pic" => "https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/this_is/folder_path/Trends-Logo.jpg",
             "owner_title" => "Trends Ideas",
-            "owner_id" => "home-and-apartment-trends-nz",
+            "owner_id" => $book_title,    //"home-and-apartment-trends-nz"
             "owners" => array(),
             "status_id" => null,
             "updated" => null,
@@ -313,7 +336,7 @@ class ImportdataCommand extends CConsoleCommand {
             "photo_original_filename" => $original_size,
             "photo_original_width" => $return_original->width,
             "photo_original_height" => $return_original->height,
-            "photo_book_id" => null
+            "photo_book_id" => $book_id
         );
 
         array_push($obj['photo'], $photo_list);
@@ -324,6 +347,36 @@ class ImportdataCommand extends CConsoleCommand {
         return $obj;
     }
 
+    public function getUTC($datetime, $region) {
+        $time_zone = '';
+        switch ($region) {
+            case "New Zealand": 
+                $time_zone = 'NZ';
+            case "Australia": 
+                $time_zone = 'Australia/Sydney';
+            case "United States": 
+                $time_zone = 'America/New_York';
+            case "South Africa": 
+                $time_zone = 'Africa/Johannesburg';    
+            case "The Gulf": 
+                $time_zone = 'Asia/Dubai'; 
+            case "The Gulf & Asia":
+                $time_zone = 'Asia/Dubai';
+            case "中国": 
+                $time_zone = 'Asia/Shanghai';
+            case "India":
+                $time_zone = 'Asia/Kolkata';
+        };
+
+        date_default_timezone_set($time_zone);
+        $time_string = strtotime($datetime);
+        
+        return $time_string;
+    }
+    
+    
+    
+    
     protected function writeToLog($fileName, $content) {
         //   $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_success.log';
         $handle = fopen($fileName, 'a') or die('Cannot open file:  ' . $fileName);

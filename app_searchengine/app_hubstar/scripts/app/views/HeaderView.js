@@ -7,7 +7,10 @@ define([
 
     var HeaderView = Ember.View.extend({
         template: Ember.Handlebars.compile(headerTemplate),
-
+        rerenderPage: function() {
+            alert(0);
+            this.rerender();
+        }.observes('controller.getStatus')
     });
 
     return HeaderView;

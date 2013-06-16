@@ -25,8 +25,9 @@ define([
         rerenderPage: function() {
             alert(0);
             this.rerender();
-        }.observes('localStorage.loginStatus')
+        }.observes('controller.getStatus')
 
     });
+
     return StatusView;
 });

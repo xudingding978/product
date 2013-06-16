@@ -75,7 +75,7 @@
                 function Facebook(popupWidth, popupHeight) {
                     var left = (screen.width / 2) - (popupWidth / 2);
                     var top = (screen.height / 2) - (popupHeight / 2);
-                    var api_url = "http://account" + setDomain() + "/hybridauth/default/login/?provider=Facebook#_=_";
+                    var api_url = "http://www" + setDomain() + "/hybridauth/default/login/?provider=Facebook#_=_";
                     newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
                     if (window.focus) {
                         newwindow.focus();
@@ -87,7 +87,7 @@
                     function Yahoo(popupWidth, popupHeight) {
                         var left = (screen.width / 2) - (popupWidth / 2);
                         var top = (screen.height / 2) - (popupHeight / 2);
-                        var api_url = "http://account" + setDomain() + "/hybridauth/default/login/?provider=Yahoo";
+                        var api_url = "http://www" + setDomain() + "/hybridauth/default/login/?provider=Yahoo";
                         newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
                         if (window.focus) {
                             newwindow.focus();
@@ -96,7 +96,7 @@
                     function QQ(popupWidth, popupHeight) {
                         var left = (screen.width / 2) - (popupWidth / 2);
                         var top = (screen.height / 2) - (popupHeight / 2);
-                        var api_url = "http://account" + setDomain() + "/hybridauth/default/login/?provider=QQ";
+                        var api_url = "http://www" + setDomain() + "/hybridauth/default/login/?provider=QQ";
                         newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
                         if (window.focus) {
                             newwindow.focus();
@@ -105,8 +105,7 @@
                     function Sina(popupWidth, popupHeight) {
                         var left = (screen.width / 2) - (popupWidth / 2);
                         var top = (screen.height / 2) - (popupHeight / 2);
-                        window.location.href = "http://account" + "<?php echo $domain ?>" + "/hybridauth/default/login/?provider=Sina";
-                        var api_url = "http://account" + setDomain() + "/hybridauth/default/login/?provider=Sina";
+                        var api_url = "http://www" + setDomain() + "/hybridauth/default/login/?provider=Sina";
                         newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
                         if (window.focus) {
                             newwindow.focus();
@@ -115,7 +114,7 @@
                     function Twitter(popupWidth, popupHeight) {
                         var left = (screen.width / 2) - (popupWidth / 2);
                         var top = (screen.height / 2) - (popupHeight / 2);
-                        var api_url = "http://account" + setDomain() + "/hybridauth/default/login/?provider=Twitter";
+                        var api_url = "http://www" + setDomain() + "/hybridauth/default/login/?provider=Twitter";
                         newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
                         if (window.focus) {
                             newwindow.focus();
@@ -124,7 +123,7 @@
                     function Google(popupWidth, popupHeight) {
                         var left = (screen.width / 2) - (popupWidth / 2);
                         var top = (screen.height / 2) - (popupHeight / 2);
-                        var api_url = "http://account" + setDomain() + "/hybridauth/default/login/?provider=Google";
+                        var api_url = "http://www" + setDomain() + "/hybridauth/default/login/?provider=Google";
                         newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
                         if (window.focus) {
                             newwindow.focus();

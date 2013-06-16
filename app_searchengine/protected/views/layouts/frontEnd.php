@@ -7,22 +7,7 @@
 
 
 
-    <script>   window.onload = function() {
 
-            var data = "";
-            
-            if (<?php echo Yii::app()->user->getUserData() ?> !== "") {
-            
-                data = <?php echo Yii::app()->user->getUserData() ?>;
-                localStorage.setItem("loginStatus", data);
-
-            }
-
-        }
-
-
-
-    </script>
 
     <head>
         <meta charset="UTF-8">

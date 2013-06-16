@@ -13,10 +13,7 @@ define([
 
     var SearchRoute = Ember.Route.extend({
         setupController: function() {
-
-
             this.controllerFor('searchs').searchModel();
-
         },
         renderTemplate: function() {
             this.render('index', {

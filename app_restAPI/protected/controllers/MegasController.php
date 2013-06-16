@@ -22,8 +22,8 @@ class MegasController extends Controller {
             if (sizeof($temp) > 1) {
                 $response = $this->getRequestResult($request_string, self::JSON_RESPONSE_ROOT_PLURAL);
             } else {//default search       
-                //       $response = $this->performSearch(self::JSON_RESPONSE_ROOT_PLURAL, "", "dean");
-                $response = $this->getRequestResult("huang", self::JSON_RESPONSE_ROOT_PLURAL);
+                $response = $this->performSearch(self::JSON_RESPONSE_ROOT_PLURAL, "", "dean");
+                //       $response = $this->getRequestResult("huang", self::JSON_RESPONSE_ROOT_PLURAL);
             }
             $this->sendResponse(200, $response);
         } catch (Exception $exc) {
@@ -209,7 +209,6 @@ class MegasController extends Controller {
             'ACL' => 'public-read'
         ));
     }
-
 
 }
 

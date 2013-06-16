@@ -365,8 +365,12 @@ define('application', [
             adapter: DS.RESTAdapter.create({
                 bulkCommit: false,
                 url: getRestAPIURL(),
+                  mappings: {
+      resultstatus: "App.Resultstatus"
+    },
                 plurals: {
-                    mega: "mega"
+                    mega: "mega",
+                       resultstatus: 'resultstatuss' 
                 },
 //                map: {
 //                    Object: {

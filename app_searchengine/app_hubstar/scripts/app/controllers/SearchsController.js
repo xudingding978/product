@@ -2,7 +2,7 @@ define([
     'models/MegaModel',
     'models/ResultstatusModel',
     'ember'
-], function(MegaModel,ResultstatusModel, Ember) {
+], function(MegaModel, ResultstatusModel, Ember) {
 
     var SearchsController = Ember.ArrayController.extend({
         needs: ['application', 'status'],
@@ -12,28 +12,22 @@ define([
         searchResultNum: "",
         newSearch: function(area, search_key) {
             var results = MegaModel.find({"RquireType": "search", "region": area, "search_string": search_key});
+            var t = MegaModel.find("1000117801371025408");
             this.set("content", results);
             var searchResultNum = ResultstatusModel.find({"RquireType": "status", "region": area, "search_string": search_key});
-
+            console.log(searchResultNum);
         },
         test: function()
         {
             this.set("searchResultNum", this.get("search_string"));
             console.log(' todoLabel ' + this.get("search_string"));
         },
-      
         searchModel: function() {
-
-
-
             this.set("loginInfo", localStorage.loginStatus);
-
             var ac = this.get("controllers.application");
             var st = this.get("controllers.status");
             ac.grapData();
             st.grapData();
-        
-
             var data = MegaModel.find({});
         }
 

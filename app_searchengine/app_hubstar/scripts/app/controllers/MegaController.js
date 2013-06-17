@@ -19,7 +19,7 @@ define(['models/MegaModel',
                 test: "test",
                 selected: null,
                 isSelected: false,
-                collectable:false,
+                collectable: false,
                 needs: ['photo'],
                 photo_album_id: null,
                 photo_thumb_id: null,
@@ -127,14 +127,20 @@ define(['models/MegaModel',
 
                 },
                 addCollection: function() {
-  
+
                     this.set('collectable', this.get('collectable'));
                 },
                 closeWindow: function() {
                     this.set('collectable', false);
+                      this.set('contact', false);
                     window.history.back();
-                }
-
+                },
+                editingContact: function() {
+                    this.set('contact', !this.get('contact'));
+                },
+                closeContact: function() {
+                    this.set('contact', !this.get('contact'));
+                },
             });
             return MegaController;
         });

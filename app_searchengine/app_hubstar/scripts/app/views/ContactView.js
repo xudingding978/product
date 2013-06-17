@@ -5,7 +5,7 @@ define([
 
 ], function(Ember, contactTemplate) {
     var ContactView = Ember.View.extend({
-        classNames: ["window-container"],
+        classNames: ["contact-container"],
         template: Ember.Handlebars.compile(contactTemplate),
         didInsertElement: function() {
 

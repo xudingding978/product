@@ -14,7 +14,7 @@ define(['models/MegaModel',
                 content: midcontent,
                 megaResouce: null,
                 temp: null,
-                image_no:1,
+                image_no: 1,
                 percentComplete: 0,
                 test: "test",
                 selected: null,
@@ -37,19 +37,21 @@ define(['models/MegaModel',
                         this.set('selected', this.get('content').get('lastObject'));
                     }
                     var selectedIndex = this.findSelectedItemIndex();
-
+                    console.log(selectedIndex);
                     if (selectedIndex <= 0) {
+
                         selectedIndex = this.get('content').get('length') - 1;
-                         this.set('image_no', this.get('content').get('length') );
+
+
                     } else {
                         selectedIndex--;
-                        this.set('image_no',this.get('image_no')-1);
-                    }
 
+                    }
+                    this.set('image_no', selectedIndex+1);
                     this.set('selected', this.get('content').objectAt(selectedIndex));
                     this.set("percentComplete", this.get('selected'));
                     this.set('megaResouce', MegaModel.find(this.get('selected').id)._data.attributes);
-                    console.log(this.get('selected'));
+                    //          console.log(this.get('selected'));
                     this.set("photo_album_id", "album_" + this.get('percentComplete').id);
                     this.set("photo_thumb_id", "thumb_" + this.get('percentComplete').id);
                     this.selectedImage(this.get('percentComplete').id);
@@ -67,12 +69,13 @@ define(['models/MegaModel',
 
                     var selectedIndex = this.findSelectedItemIndex();
                     if (selectedIndex >= (this.get('content').get('length') - 1)) {
-                         this.set('image_no',1);
+
                         selectedIndex = 0;
                     } else {
                         selectedIndex++;
-                         this.set('image_no',this.get('image_no')+1);
+
                     }
+                    this.set('image_no', selectedIndex+1);
                     this.set('selected', this.get('content').objectAt(selectedIndex));
                     this.set("percentComplete", this.get('selected'));
                     this.set('megaResouce', MegaModel.find(this.get('selected').id)._data.attributes);
@@ -81,7 +84,7 @@ define(['models/MegaModel',
                     this.selectedImage(this.get('percentComplete').id);
                 },
                 actionOn: function(megaObject) {
-            console.log(megaObject.id);
+                    console.log(megaObject.id);
                     var data = MegaModel.find({"collection_id": megaObject.get("collection_id"), "owner_profile_id": megaObject.get("owner_profile_id")});
                     this.set("percentComplete", megaObject._data.hasMany.photo[0].data);
                     this.set('megaResouce', MegaModel.find(megaObject.id)._data.attributes);

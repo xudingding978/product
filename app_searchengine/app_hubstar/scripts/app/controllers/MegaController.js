@@ -19,6 +19,7 @@ define(['models/MegaModel',
                 test: "test",
                 selected: null,
                 isSelected: false,
+                collectable:false,
                 needs: ['photo'],
                 photo_album_id: null,
                 photo_thumb_id: null,
@@ -37,7 +38,7 @@ define(['models/MegaModel',
                         this.set('selected', this.get('content').get('lastObject'));
                     }
                     var selectedIndex = this.findSelectedItemIndex();
-    
+
                     if (selectedIndex <= 0) {
 
                         selectedIndex = this.get('content').get('length') - 1;
@@ -47,7 +48,7 @@ define(['models/MegaModel',
                         selectedIndex--;
 
                     }
-                    this.set('image_no', selectedIndex+1);
+                    this.set('image_no', selectedIndex + 1);
                     this.set('selected', this.get('content').objectAt(selectedIndex));
                     this.set("percentComplete", this.get('selected'));
                     this.set('megaResouce', MegaModel.find(this.get('selected').id)._data.attributes);
@@ -71,7 +72,7 @@ define(['models/MegaModel',
                         selectedIndex++;
 
                     }
-                    this.set('image_no', selectedIndex+1);
+                    this.set('image_no', selectedIndex + 1);
                     this.set('selected', this.get('content').objectAt(selectedIndex));
                     this.set("percentComplete", this.get('selected'));
                     this.set('megaResouce', MegaModel.find(this.get('selected').id)._data.attributes);
@@ -90,7 +91,7 @@ define(['models/MegaModel',
                         if (data.get('isLoaded')) {
                             for (var i = 0; i < this.get("content").length; i++) {
                                 var id = this.get("content").objectAt(i).id;
-                                
+
                                 if (MegaModel.find(id)._data.hasMany.photo.length === 1)
                                 {
                                     midcontent.pushObject(MegaModel.find(id)._data.hasMany.photo[0].data);
@@ -124,6 +125,14 @@ define(['models/MegaModel',
                     $('.photo_original_style').removeClass('selected_image_style');
                     $(selectedImage_id).addClass('selected_image_style');
 
+                },
+                addCollection: function() {
+  
+                    this.set('collectable', this.get('collectable'));
+                },
+                closeWindow: function() {
+                    this.set('collectable', false);
+                    window.history.back();
                 }
 
             });

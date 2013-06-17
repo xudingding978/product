@@ -99,6 +99,7 @@ define('application', [
     "views/SearchAreaTextFieldView",
     "views/WelcomeView",
     "views/QuickstartView",
+    "views/AddCollectionView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -205,6 +206,7 @@ define('application', [
         SearchAreaTextFieldView,
         WelcomeView,
         QuickstartView,
+        AddCollectionView,
         ApplicationController,
         tabListController,
         DataController,
@@ -311,6 +313,7 @@ define('application', [
         SearchAreaTextFieldView: SearchAreaTextFieldView,
         WelcomeView: WelcomeView,
         QuickstartView: QuickstartView,
+        AddCollectionView: AddCollectionView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
@@ -363,21 +366,18 @@ define('application', [
         Photo: Photo,
         Article: Article,
         Video: Video,
-
         Stat: Stat,
-
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({
                 bulkCommit: false,
                 url: getRestAPIURL(),
                 mappings: {
-
-           //         resultstatus: "App.Resultstatus"
+                    //         resultstatus: "App.Resultstatus"
                 },
                 plurals: {
                     mega: "mega",
-             //       resultstatus: 'resultstatuss'
+                    //       resultstatus: 'resultstatuss'
 
                 },
                 plurals: {

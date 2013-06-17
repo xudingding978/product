@@ -9,6 +9,7 @@ define([
         loginInfo: "",
         content: [],
         search_string: "",
+        search_key:"",
         searchResultNum: "",
         newSearch: function(area, search_key) {
             var results = MegaModel.find({"RquireType": "search", "region": area, "search_string": search_key});
@@ -19,8 +20,9 @@ define([
         },
         test: function()
         {
-            this.set("searchResultNum", this.get("search_string"));
-            console.log(' todoLabel ' + this.get("search_string"));
+       //     this.set("searchResultNum", this.get("search_string"));
+      //      console.log(' todoLabel ' + this.get("search_string")+"   "+this.get('search_key'));
+            this.newSearch(this.get("search_string"), this.get('search_key'));
         },
         searchModel: function() {
             this.set("loginInfo", localStorage.loginStatus);

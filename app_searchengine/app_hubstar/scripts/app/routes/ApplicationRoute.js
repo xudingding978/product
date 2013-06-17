@@ -18,18 +18,18 @@ define([
             if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
 
                 App.set("isLogin", false);
- 
+
             } else {
 
                 this.controllerFor('application').set('model', UserModel.find(localStorage.loginStatus));
                 this.controllerFor('status').set('model', UserModel.find(localStorage.loginStatus));
-                    App.set("isLogin", true);
+                App.set("isLogin", true);
 
 
             }
-            
-                  this.controllerFor('application').loginStatus();
-            
+
+            this.controllerFor('application').loginStatus();
+
         }
 
     });

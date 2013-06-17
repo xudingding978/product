@@ -12,11 +12,9 @@ class StatsController extends Controller {
     const JSON_RESPONSE_ROOT_PLURAL = 'stats';
 
     public function actionIndex() {
-
         $temp = explode("?", $_SERVER['REQUEST_URI']);
         $request_string = $temp [sizeof($temp) - 1];
         $response = $this->getRequestResult($request_string, self::JSON_RESPONSE_ROOT_PLURAL);
-
         $this->sendResponse(200, $response);
     }
 

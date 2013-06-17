@@ -11,15 +11,16 @@
 
     <div id="discovery_search_bar">
 
-        <input id="search_key" class="search_input" placeholder="All region in New Zealand" name="search_key" type="text" />
-        <input id="search_business" class="search_business" placeholder="Search by Business and keyword" type="text"  />
+        {{view App.SearchAreaTextFieldView valueBinding="search_area"  id="search_key" class="search_input" placeholder="All region in New Zealand" name="search_key"}}
+        {{view App.SearchRequireTextFieldView valueBinding="search_string"  id="search_business" class="search_business" placeholder="Search by Business and keyword" }}
+
         <a  style="right: 117px;" href="#"><i class="icon-group" ></i></a>
         <a  style="right: 80px;" href="#"><i class="icon-book" ></i></a>
         <a  style="right: 43px;" href='#'><i class="icon-picture" ></i></a>
         <a  style="right: 6px;" href='#")'><i class="icon-film" ></i></a>
         <a  style="right: -35px;" class="cancleIcon"  href="#" ><i class="icon-remove-sign" ></i></a>
     </div>
-    <div style="margin: auto; width: 200px; top: 450px; position: relative;">{{view App.SearchTextFieldView valueBinding="search_string"}}</div>    
+    <div style="margin: auto; width: 200px; top: 450px; position: relative;"></div>    
 
     <div class="new-btn" style="margin: auto; width: 100px; display: block; position: absolute;left: 0;right: 0;top: 235px;" {{action searching on="click" target="view"}}>
         <i class="icon-search" style="margin-right: 10px;"></i> Search

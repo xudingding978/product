@@ -9,66 +9,42 @@ define([
         loginInfo: "",
         content: [],
         search_string: "",
+        search_area: "",
         searchResultNum: "",
-        newSearch: function(area, search_key) {
-            var results = MegaModel.find({"RquireType": "search", "region": area, "search_string": search_key});
-            var t = MegaModel.find("1000117801371025408");
+        time: "",
+        newSearch: function() {
+            var d = new Date();
+            var start = d.getTime();
+            var results = MegaModel.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string")});
             this.set("content", results);
-            var stats = Stat.find({"RquireType": "status", "region": area, "search_string": search_key});
-
-//            stats.addObserver('isLoaded', function() {
-//                if (stats.get('isLoaded')) {
-//
-//                    for (var i = 0; i < this.get("content").get("length"); i++) {
-//                        console.log(this);
-//                        console.log("aaaaaaaaa");
-//                    }
-//                }
-//            });
-            console.log("2222");
-            console.log(stats);
-            stats.addObserver('isLoaded', this.test(stats));
-
-        },
-        test: function(stats)
-        {
-            console.log("eeeeeeeeeeee");
-            if (stats.get('isLoaded')) {
-                for (var i = 0; i < this.get("content").get("length"); i++) {
-                    console.log(this);
-                    console.log("aaaaaaaaa");
+            var stats = Stat.find({"RquireType": "status", "region": this.get("search_area"), "search_string": this.get("search_string")});
+            var that = this;
+            stats.addObserver('isLoaded', function() {
+                if (stats.get('isLoaded')) {
+                    var d = new Date();
+                    var end = d.getTime();
+                    that.set("searchResultNum", Stat.find('hit').get("hits"));
+                    that.getResponseTime(start, end);
                 }
-            }
+            });
         },
-        searchModel: function() {
+        defaultSearch: function() {
             this.set("loginInfo", localStorage.loginStatus);
             var ac = this.get("controllers.application");
             var st = this.get("controllers.status");
             ac.grapData();
             st.grapData();
-            var data = MegaModel.find({});
+            var results = MegaModel.find({});
+            this.set("content", results);
+        }, getResponseTime: function(start, end)
+        {
+            var totalTime = end - start;
+            totalTime += "ms";
+            this.set("time", totalTime);
+            console.log(totalTime);
         }
 
-//        checkContent: function() {
-//            if (this.get("content") !== undefined)
-//            {
-//                Ember.run(console.log(this.get("content")));
-//            }
-//        }.observes('content'),
-//        init: function() {
-//                 var data = MegaModel.find({});
-//                    this.set("content", data);
-//             console.log(data.toString());
-////                    data.addObserver('isLoaded', function() {
-////                        if (data.get('isLoaded')) {
-////                            for (var i = 0; i < this.get("content").get("length"); i++) {
-////                         console.log("aaaaaaaaa");
-////                            }   
-////                        }
-////                    });
-//
-//
-//        }
+
     });
 
 

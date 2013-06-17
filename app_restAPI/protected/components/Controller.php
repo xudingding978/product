@@ -308,7 +308,7 @@ class Controller extends CController {
         $response = $request->execute();
        // $result = "";
         //Iterate over the hits and print out some data
-        $result = '{"'.$returnType.'":[{"hits":"' . $response->total;
+        $result = '{"'.$returnType.'":[{"id":"hit","hits":"' . $response->total;
         $result .= '"}]}';
         return $result;
     }

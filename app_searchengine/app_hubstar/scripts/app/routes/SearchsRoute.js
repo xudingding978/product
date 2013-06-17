@@ -14,8 +14,7 @@ define([
     var SearchRoute = Ember.Route.extend({
         setupController: function() {
             localStorage.checkUser = "";
-
-            this.controllerFor('searchs').searchModel();
+            this.controllerFor('searchs').defaultSearch();
         },
         renderTemplate: function() {
             this.render('index', {

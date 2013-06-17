@@ -22,6 +22,7 @@ require.config({
         'wysihtml5': 'libs/wysihtml5/wysihtml5-0.3.0',
         'bxslider': 'libs/jquery.bxslider.min',
         'moment': 'libs/moment',
+        'modernizr': 'libs/modernizer/modernizr-latest',
         'guid_creater': 'libs/guid_creater',
         'jquery.masonry': 'libs/jquery.masonry/jquery.masonry.min',
         /*requirejs-plugins*/
@@ -94,7 +95,8 @@ define('application', [
     "views/StatusView",
     "views/ShowAlbumView",
     "views/PhotoDisplayAreaView",
-    "views/SearchTextFieldView",
+    "views/SearchRequireTextFieldView",
+    "views/SearchAreaTextFieldView",
     "views/WelcomeView",
     "views/QuickstartView",
     "controllers/ApplicationController",
@@ -199,7 +201,8 @@ define('application', [
         StatusView,
         ShowAlbumView,
         PhotoDisplayAreaView,
-        SearchTextFieldView,
+        SearchRequireTextFieldView,
+        SearchAreaTextFieldView,
         WelcomeView,
         QuickstartView,
         ApplicationController,
@@ -304,7 +307,8 @@ define('application', [
         StatusView: StatusView,
         ShowAlbumView: ShowAlbumView,
         PhotoDisplayAreaView: PhotoDisplayAreaView,
-        SearchTextFieldView: SearchTextFieldView,
+        SearchRequireTextFieldView: SearchRequireTextFieldView,
+        SearchAreaTextFieldView: SearchAreaTextFieldView,
         WelcomeView: WelcomeView,
         QuickstartView: QuickstartView,
         ApplicationController: ApplicationController,
@@ -359,14 +363,22 @@ define('application', [
         Photo: Photo,
         Article: Article,
         Video: Video,
+
         Stat: Stat,
+
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({
                 bulkCommit: false,
                 url: getRestAPIURL(),
                 mappings: {
-            //        resultstatus: Resultstatus
+
+           //         resultstatus: "App.Resultstatus"
+                },
+                plurals: {
+                    mega: "mega",
+             //       resultstatus: 'resultstatuss'
+
                 },
                 plurals: {
                     mega: "mega"

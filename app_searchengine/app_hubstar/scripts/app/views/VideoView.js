@@ -12,7 +12,7 @@ define([
 
         },
         testing: function() {
-            alert('asd');
+           
 
 
         }.observes('content.id')

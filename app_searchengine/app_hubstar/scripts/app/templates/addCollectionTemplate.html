@@ -1,12 +1,30 @@
-gsreaaaaaaaaaaaaaaaaaaaa
+  
 
 
-sa
-da
-sd
-asd
-as
-das
-d
-sad
 
+<div class="contactmebox-wapper" style="width: 500px;height:500px;font-size: 13px;">
+
+ <button type="button" {{action addCollection }} class="close">X</button>
+
+
+ {{view Ember.Select
+       listBinding="App.megaController.list"
+       selectionBinding="App.megaController.myVal"
+       optionLabelPath="list.category"
+       optionValuePath="list.id"
+       optionClassPath="dropdownOption"
+    }}
+
+
+{{view Ember.TextArea valueBinding="" rows="12" cols="70"}}
+
+
+
+
+
+
+    <button type="button" {{action addCollection }} class="btn">Cancel</button>
+    <button type="button" {{action addCollection }}  class="btn btn-primary">Submit</button>
+
+
+</div>

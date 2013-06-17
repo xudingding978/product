@@ -19,8 +19,8 @@ define(['models/MegaModel',
                 test: "test",
                 selected: null,
                 isSelected: false,
-                collectable: false,
                 needs: ['photo'],
+                list: [{category:"spend",id:"1",cls:"dropdownOption"},{category:"cashflow",id:"2",cls:"dropdownOption"}],
                 photo_album_id: null,
                 photo_thumb_id: null,
                 findSelectedItemIndex: function() {
@@ -128,11 +128,11 @@ define(['models/MegaModel',
                 },
                 addCollection: function() {
 
-                    this.set('collectable', this.get('collectable'));
+                    this.set('collectable', !this.get('collectable'));
                 },
                 closeWindow: function() {
                     this.set('collectable', false);
-                      this.set('contact', false);
+                    this.set('contact', false);
                     window.history.back();
                 },
                 editingContact: function() {
@@ -140,7 +140,7 @@ define(['models/MegaModel',
                 },
                 closeContact: function() {
                     this.set('contact', !this.get('contact'));
-                },
+                }
             });
             return MegaController;
         });

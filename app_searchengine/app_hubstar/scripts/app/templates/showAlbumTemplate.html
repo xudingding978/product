@@ -25,7 +25,7 @@
 
     {{#each  content}}
 
-    <img {{bindAttr  id="id" src="photo_image_thumbnail_url"}}  {{action selectImage id on="click" target="controller"}}/>
+    <img class="photo_original_style" {{bindAttr  id="id" src="photo_image_thumbnail_url"}}  {{action selectImage id on="click" target="controller"}}/>
 
     {{/each}}
 </div>

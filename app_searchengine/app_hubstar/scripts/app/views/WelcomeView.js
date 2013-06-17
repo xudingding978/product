@@ -6,7 +6,13 @@ define([
     var WelcomeView = Ember.View.extend({
         template: Ember.Handlebars.compile(welcomeTemplate),
         didInsertElement: function() {
-
+            $(function() {
+                $('#masonry_welcome_container').masonry({
+                    itemSelector: '.box',
+                    columnWidth: 0,
+                    isFitWidth: true
+                });
+            });
 
             if (App.get('isLogin')) {
 

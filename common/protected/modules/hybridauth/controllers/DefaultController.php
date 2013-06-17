@@ -203,7 +203,7 @@ class DefaultController extends CController {
 
 
 
-        error_log("aaaaaaaaaaaaaaaaa".   $cb->add(substr($_SERVER['HTTP_HOST'], 4) . "/users/" . $rand_id, CJSON::encode($temp)));
+      $cb->add(substr($_SERVER['HTTP_HOST'], 4) . "/users/" . $rand_id, CJSON::encode($temp));
     }
 
     private function _loginUser($identity) {

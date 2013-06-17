@@ -8,11 +8,11 @@ define(["ember"], function(Ember) {
         needs: ['searchs'],
         getSearchResultNum: function() {
             var controller = this.get("controllers.searchs");
-            this.set("searchResultNum", controller.get("searchResultNum"));
+            this.set("searchResultNum", "Item:" +controller.get("searchResultNum"));
         }.observes('controllers.searchs.searchResultNum'),
         getSearchResultTime: function() {
             var controller = this.get("controllers.searchs");
-            this.set("time", controller.get("time"));
+            this.set("time", "Time: "+controller.get("time"));
         }.observes('controllers.searchs.time'),
                 grapData: function() {
             this.set("user", App.User.find(localStorage.loginStatus));

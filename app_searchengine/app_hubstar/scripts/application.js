@@ -22,6 +22,7 @@ require.config({
         'wysihtml5': 'libs/wysihtml5/wysihtml5-0.3.0',
         'bxslider': 'libs/jquery.bxslider.min',
         'moment': 'libs/moment',
+        'modernizr': 'libs/modernizer/modernizr-latest',
         'guid_creater': 'libs/guid_creater',
         'jquery.masonry': 'libs/jquery.masonry/jquery.masonry.min',
         /*requirejs-plugins*/
@@ -359,18 +360,18 @@ define('application', [
         Photo: Photo,
         Article: Article,
         Video: Video,
-        Resultstatus:Resultstatus,
+        Resultstatus: Resultstatus,
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({
                 bulkCommit: false,
                 url: getRestAPIURL(),
-                  mappings: {
-      resultstatus: "App.Resultstatus"
-    },
+                mappings: {
+                    resultstatus: "App.Resultstatus"
+                },
                 plurals: {
                     mega: "mega",
-                       resultstatus: 'resultstatuss' 
+                    resultstatus: 'resultstatuss'
                 },
 //                map: {
 //                    Object: {

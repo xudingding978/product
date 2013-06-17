@@ -7,14 +7,13 @@ define([
         template: Ember.Handlebars.compile(showAlbumTemplate),
         didInsertElement: function() {
 
-        //    this.$().hide().show('slow');
+     
 
         },
-        hide: function(e) {
-            var album_id="#album_" + e;
-            
+        hide: function() {
+        
    
-            $(album_id).slideToggle("slow" );
+            $("#collection_tab").slideToggle("slow" );
             
             
 

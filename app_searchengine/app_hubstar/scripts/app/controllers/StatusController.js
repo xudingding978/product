@@ -5,7 +5,7 @@ define(["ember"], function(Ember) {
         searchResultNum: "",
         user: null,
         needs: ['searchs'],
-        test: function() {
+        dontDoTest: function() {
             var controller = this.get("controllers.searchs");
             this.set("searchResultNum", controller.get("searchResultNum"));
         }.observes('controllers.searchs.searchResultNum'),

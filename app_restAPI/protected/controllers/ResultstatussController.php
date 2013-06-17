@@ -8,17 +8,17 @@ header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 
 class ResultstatussController extends Controller {
 
-    const JSON_RESPONSE_ROOT_SINGLE = 'Resultstatus';
-    const JSON_RESPONSE_ROOT_PLURAL = 'Resultstatuss';
+    const JSON_RESPONSE_ROOT_SINGLE = 'resultstatus';
+    const JSON_RESPONSE_ROOT_PLURAL = 'resultstatuss';
 
     public function actionIndex() {
 
         $temp = explode("?", $_SERVER['REQUEST_URI']);
         $request_string = $temp [sizeof($temp) - 1];
         //  error_log(var_export($temp, true)."       ".sizeof($temp));
-        $response = $this->getRequestResult($request_string, self::JSON_RESPONSE_ROOT_PLURAL);
+        $response = $this->getRequestResult($request_string, self::JSON_RESPONSE_ROOT_SINGLE);
 
-        $this->sendResponse(200, $request_arr);
+        $this->sendResponse(200, $response);
     }
 
     public function actionCreate() {

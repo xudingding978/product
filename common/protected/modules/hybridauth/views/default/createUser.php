@@ -57,15 +57,32 @@
             <?php echo $form->error($user, 'EMAIL_ADDRESS'); ?>
         </div>
 
-        <div class="row">
+        <div class="row" >
             <?php echo CHtml::submitButton($user->isNewRecord ? 'Create' : 'Save', array('class' => 'new-btn green-btn', 'style' => 'width:170px; margin-top:20px')); ?>
         </div>
 
+        <div class="row"  style="opacity:0">
+            <?php echo $form->labelEx($user, 'LAST_NAME'); ?>
+            <?php echo $form->textField($user, 'LAST_NAME'); ?>
+            <?php echo $form->error($user, 'LAST_NAME'); ?>
+        </div>
+
+
+        <div class="row"  style="opacity:0">
+            <?php echo $form->labelEx($user, 'FIRST_NAME'); ?>
+            <?php echo $form->textField($user, 'FIRST_NAME'); ?>
+            <?php echo $form->error($user, 'FIRST_NAME'); ?>
+        </div>
+   
+        
+        
         <div class="row" style="opacity:0">
 
             <?php echo $form->textField($user, 'COUCHBASE_ID'); ?>
 
         </div>
+
+
     </div>
 
 

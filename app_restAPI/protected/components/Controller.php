@@ -150,18 +150,17 @@ class Controller extends CController {
     protected function getRequestResult($searchString, $returnType) {
         $response = "";
         $requireParams = explode('&', $searchString);
-        error_log(var_export($requireParams,true));
         $requireType = $this->getUserInput($requireParams[0]);
         if ($requireType == 'search') {
             $region = $this->getUserInput($requireParams[1]);
             $searchString = $this->getUserInput($requireParams[2]);
             $response = $this->performSearch($returnType, $region, $searchString);
-        } elseif ($requireType == 'collection' ) {
+        } elseif ($requireType == 'collection') {
 
             $collection_id = $this->getUserInput($requireParams[1]);
             $owner_profile_id = $this->getUserInput($requireParams[2]);
             $response = $this->performRawSearch($returnType, $collection_id, $owner_profile_id);
-        } elseif ($requireType=='status') {
+        } elseif ($requireType == 'status') {
 
             $region = $this->getUserInput($requireParams[1]);
             $searchString = $this->getUserInput($requireParams[2]);
@@ -232,7 +231,7 @@ class Controller extends CController {
 
         $response = $request->execute();
 
-        $results = '{"' . $returnType . '":[';
+        $results = '{"' . $returnType . '":';
         $i = 0;
         foreach ($response as $hit) {
 
@@ -241,7 +240,7 @@ class Controller extends CController {
                 $results .= ',';
             }
         }
-        $results .= ']}';
+        $results .= '}';
         return $results;
     }
 
@@ -307,15 +306,19 @@ class Controller extends CController {
                 ->query($termQuery);
 
         $response = $request->execute();
-
-        $result = '{"' . $returnType . '":';
-
+       // $result = "";
         //Iterate over the hits and print out some data
-
-        $result .= $response->total;
-
-        $result .= '}';
+        $result = '{"'.$returnType.'":{"hits":"' . $response->total;
+        $result .= '"}}';
         return $result;
+    }
+
+    protected function getUserInput($request_string) {
+        $returnString = "";
+        if ($request_string != null || $request_string != "") {
+            $returnString = explode('=', $request_string)[1];
+        }
+        return $returnString;
     }
 
 }

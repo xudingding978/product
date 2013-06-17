@@ -46,7 +46,7 @@ define(['models/MegaModel',
                     this.set('selected', this.get('content').objectAt(selectedIndex));
                     this.set("percentComplete", this.get('selected'));
                     this.set('megaResouce', MegaModel.find(this.get('selected').id)._data.attributes);
-                  console.log(this.get('id'));
+                  console.log(this.get('selected'));
                     this.set("photo_album_id", "album_" + this.get('percentComplete').id);
                     this.set("photo_thumb_id", "thumb_" + this.get('percentComplete').id);
 

@@ -11,15 +11,21 @@
 
 
 
-<div {{bindAttr id="model.photo_album_id"}}  style="bottom: 0px; right: 0px; height: 300px;background-color: grey;overflow: hidden;position: absolute; display:none;z-index: 5; width: 100%;">
+<div id="collection_tab" style="bottom: 0px; right: 0px; height: 300px;background-color: grey;overflow:hidden;display:none; position: absolute;z-index: 5; width: 100%;">
     <div style="background-color: #333;color: #fff;font-weight: bold;height: 30px;padding: 13px 0 0 40px;width: 100%;position: relative;display: -moz-inline-box;display: inline-block;">
         All photos
-        <div>(55)</div>
+        <div>({{content.length}}) </div>
     </div>
     <div class="exit">
-        <div class="closeview" {{action hide model.id on="click" target="view"}} >
+        <div class="closeview" {{action hide on="click" target="view"}} >
             <i class="icon-remove"></i>
         </div>
     </div>
     <div style="margin: 10px;"> here lies the images.</div>
+
+    {{#each  content}}
+
+    <img class="photo_original_style" {{bindAttr  id="id" src="photo_image_thumbnail_url"}}  {{action selectImage id on="click" target="controller"}}/>
+
+    {{/each}}
 </div>

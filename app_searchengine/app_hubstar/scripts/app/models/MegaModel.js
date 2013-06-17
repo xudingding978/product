@@ -45,7 +45,7 @@ define(
         photo: DS.hasMany('App.Photo'),
         user: DS.hasMany('App.User'),
         photo_album_id: function() {
-            return "album_" + this.get('id');
+            return "#album_" + this.get('id');
         }.property('id'),
         more_button: function() {
             return "more_button_" + this.get('id');

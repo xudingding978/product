@@ -29,7 +29,7 @@ define([
         setupController: function() {
 
 
-            this.controllerFor('searchs').searchModel();
+            this.controllerFor('searchs').defaultSearch();
 
         },
         renderTemplate: function() {

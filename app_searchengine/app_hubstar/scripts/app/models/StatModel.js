@@ -1,9 +1,9 @@
 
-define('models/ResultstatusModel',
+define('models/StatModel',
         ['ember', 'emberData'],
         function() {
 
-            var ResultstatusModel = DS.Model.extend({
+            var stat = DS.Model.extend({
                 hits: DS.attr('string'),
     //            search_string: DS.attr('string'),
                 didLoad: function() {
@@ -14,7 +14,7 @@ define('models/ResultstatusModel',
 
             });
 
-            return ResultstatusModel;
+            return stat;
         }
 );
 

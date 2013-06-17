@@ -33,16 +33,16 @@
 
         <div class="bottom-controlbar" >
             <div class="text-on-black" style="right: 132px;"> object Name </div>
-            <div class="icon-on-black"  {{action previesImage model.id on="click" target="controller"}}>
+            <div class="icon-on-black"  {{action previesImage on="click" target="controller"}}>
                  <i class="icon-arrow-left"></i>
             </div>
-            <div class="icon-on-black" style="left: 44px;" {{action popupAibum model.id on="click" target="view"}}>
+            <div class="icon-on-black" style="left: 44px;" {{action popupAibum on="click" target="view"}}>
                 <i class="icon-th"></i>
             </div>
-            <div class="icon-on-black" style="left: 88px;" {{action nextImage model.id on="click" target="controller"}}>
+            <div class="icon-on-black" style="left: 88px;" {{action nextImage on="click" target="controller"}}>
                  <i class="icon-arrow-right"></i>
             </div>
-            <div class="text-on-black" style="left: 132px;"> 18/30 </div>
+            <div class="text-on-black" style="left: 132px;"> {{controller.image_no}}/{{content.length}} </div>
         </div>
 
 
@@ -57,11 +57,11 @@
         <div>
             <div class="object-poster easing" {{action setNameTag on="click" target="view"}}>
                 <div class="profilepic-container">
-                    <a href="#"><img {{bindAttr src="model.owner_profile_pic"}} class="profilepic"/></a>              
+                    <a href="#"><img {{bindAttr src="controller.megaResouce.owner_profile_pic"}} class="profilepic"/></a>              
                 </div>
                 <div class="poster_user" >
-                    <a class="poster-name" href="#">{{content.owner_title}}</a>
-                    <span class="posttime">{{date content.created}} </span>
+                    <a class="poster-name" href="#">{{controller.megaResouce.owner_title}}</a>
+                    <span class="posttime">{{date controller.megaResouce.created}} </span>
                 </div>
 
                 <div class="contactmebtn" style="position: absolute; right: 15px; top: 23px; bottom: auto;">
@@ -88,7 +88,7 @@
                         </tr>
                         <tr>
                             <td>Type:</td>
-                            <td>{{content.selected}}</td>
+                            <td>{{controller.percentComplete.id}}</td>
                         </tr>
                         <tr>
                             <td>Address:</td>

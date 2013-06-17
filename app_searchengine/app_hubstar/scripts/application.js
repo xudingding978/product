@@ -95,8 +95,8 @@ define('application', [
     "views/StatusView",
     "views/ShowAlbumView",
     "views/PhotoDisplayAreaView",
-    "views/SearchTextFieldView",
-    "views/SearchKeyFieldView",
+    "views/SearchRequireTextFieldView",
+    "views/SearchAreaTextFieldView",
     "views/WelcomeView",
     "views/QuickstartView",
     "controllers/ApplicationController",
@@ -151,7 +151,7 @@ define('application', [
     "models/PhotoModel",
     "models/ArticleModel",
     "models/VideoModel",
-    "models/ResultstatusModel",
+    "models/StatModel",
     "emberData",
     'jquery',
     "bxslider",
@@ -201,8 +201,8 @@ define('application', [
         StatusView,
         ShowAlbumView,
         PhotoDisplayAreaView,
-        SearchTextFieldView,
-        SearchKeyFieldView,
+        SearchRequireTextFieldView,
+        SearchAreaTextFieldView,
         WelcomeView,
         QuickstartView,
         ApplicationController,
@@ -257,7 +257,7 @@ define('application', [
         Photo,
         Article,
         Video,
-        Resultstatus
+        Stat
         )
 {
 
@@ -307,8 +307,8 @@ define('application', [
         StatusView: StatusView,
         ShowAlbumView: ShowAlbumView,
         PhotoDisplayAreaView: PhotoDisplayAreaView,
-        SearchTextFieldView: SearchTextFieldView,
-        SearchKeyFieldView: SearchKeyFieldView,
+        SearchRequireTextFieldView: SearchRequireTextFieldView,
+        SearchAreaTextFieldView: SearchAreaTextFieldView,
         WelcomeView: WelcomeView,
         QuickstartView: QuickstartView,
         ApplicationController: ApplicationController,
@@ -363,32 +363,32 @@ define('application', [
         Photo: Photo,
         Article: Article,
         Video: Video,
-        Resultstatus: Resultstatus,
+
+        Stat: Stat,
+
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({
                 bulkCommit: false,
                 url: getRestAPIURL(),
                 mappings: {
-                    resultstatus: "App.Resultstatus"
+
+           //         resultstatus: "App.Resultstatus"
                 },
                 plurals: {
                     mega: "mega",
-                    resultstatus: 'resultstatuss'
+             //       resultstatus: 'resultstatuss'
+
                 },
-//                map: {
-//                    Object: {
-//                        Photo: {embedded: 'always'}
-//                    }
-//                },
+                plurals: {
+                    mega: "mega"
+                }
             })
         }),
         ready: function() {
 
 
             App.set("isLogin", false);
-
-
 
         }
     });

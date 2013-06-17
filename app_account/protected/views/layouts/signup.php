@@ -15,28 +15,29 @@
 
             <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
             <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
+            <link rel="stylesheet" href="/app_hubstar/scripts/libs/bootstrap/2.2.2/css/bootstrap.css"/>
 
 
-            <title><?php echo CHtml::encode($this->pageTitle . ' sess ' . Yii::app()->session->getSessionID()); ?></title>
+                <title><?php echo CHtml::encode($this->pageTitle . ' sess ' . Yii::app()->session->getSessionID()); ?></title>
 
 
-    </head>
+                </head>
 
-    <body style="padding: 0; background:#fff url('../../../images/texture.png') repeat">
-
-
-
-
-
-
-
-
-        <?php echo $content; ?>
+                <body style="padding: 0; background:#fff url('../../../images/texture.png') repeat">
 
 
 
 
 
 
-    </body>
-</html>
+
+
+                    <?php echo $content; ?>
+
+
+
+
+
+
+                </body>
+                </html>

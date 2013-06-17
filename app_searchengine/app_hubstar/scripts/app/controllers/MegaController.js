@@ -20,7 +20,7 @@ define(['models/MegaModel',
                 selected: null,
                 isSelected: false,
                 needs: ['photo'],
-                list: [{category:"spend",id:"1",cls:"dropdownOption"},{category:"cashflow",id:"2",cls:"dropdownOption"}],
+           
                 photo_album_id: null,
                 photo_thumb_id: null,
                 findSelectedItemIndex: function() {

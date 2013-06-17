@@ -41,24 +41,24 @@
 
 
 
-    <div style="width: 250px; margin: auto; height: 100%;padding: 40px 0; text-align: center;">
+    <div style="width: 250px; margin: auto; height: 100%;padding: 30px 0; text-align: center;">
 
         <div style="font-size: 32px; line-height: 30px; font-weight: bold; margin-bottom: 20px; top: 20px; position: relative;">Hi Jason!! </div>
         <div style="padding: 10px 0 20px; font-size: 13px;">Please enter your email address to create your profile.</div>
         <div class="row">
-            <?php echo $form->labelEx($user, 'USER_NAME'); ?>
-            <?php echo $form->textField($user, 'USER_NAME'); ?>
+            <?php echo $form->labelEx($user, 'USER_NAME', array('style' => 'margin-bottom:10px; font-size:16px;')); ?>
+            <?php echo $form->textField($user, 'USER_NAME', array('class' => 'inputbox')); ?>
             <?php echo $form->error($user, 'USER_NAME'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->labelEx($user, 'EMAIL_ADDRESS'); ?>
-            <?php echo $form->textField($user, 'EMAIL_ADDRESS'); ?>
+            <?php echo $form->labelEx($user, 'EMAIL_ADDRESS', array('style' => 'margin-bottom:10px; font-size:16px;')); ?>
+            <?php echo $form->textField($user, 'EMAIL_ADDRESS', array('class' => 'inputbox')); ?>
             <?php echo $form->error($user, 'EMAIL_ADDRESS'); ?>
         </div>
 
         <div class="row">
-            <?php echo CHtml::submitButton($user->isNewRecord ? 'Create' : 'Save', array('class' => 'new-btn green-btn',)); ?>
+            <?php echo CHtml::submitButton($user->isNewRecord ? 'Create' : 'Save', array('class' => 'new-btn green-btn', 'style' => 'width:170px; margin-top:20px')); ?>
         </div>
 
         <div class="row" style="opacity:0">

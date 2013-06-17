@@ -258,6 +258,7 @@ button {
 
 .col1 { width: 165px; }
 .col2 { width: 350px; }
+.col3 { width: 300px; margin: 20px; }
 
 /*
 .col1 img { max-width: 80px; }

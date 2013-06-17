@@ -10,12 +10,23 @@ define([
     "use strict";
 
     var QuickstartRoute = Ember.Route.extend({
-//        model: function() {
-//            return MegaModel.find();
-//        },
-//        setupController: function(DataController) {
-//
-//        },
+        redirect: function() {
+
+
+
+
+            if (localStorage.checkUser === "newUser") {
+
+
+
+            } else {
+
+                this.transitionTo('searchIndex');
+
+            }
+
+
+        },
         renderTemplate: function() {
             this.render('quickstart', {
                 into: 'application'

@@ -22,6 +22,7 @@ require.config({
         'wysihtml5': 'libs/wysihtml5/wysihtml5-0.3.0',
         'bxslider': 'libs/jquery.bxslider.min',
         'moment': 'libs/moment',
+        'modernizr': 'libs/modernizer/modernizr-latest',
         'guid_creater': 'libs/guid_creater',
         'jquery.masonry': 'libs/jquery.masonry/jquery.masonry.min',
         /*requirejs-plugins*/
@@ -94,6 +95,8 @@ define('application', [
     "views/StatusView",
     "views/ShowAlbumView",
     "views/PhotoDisplayAreaView",
+    "views/SearchTextFieldView",
+    "views/SearchKeyFieldView",
     "views/WelcomeView",
     "views/QuickstartView",
     "controllers/ApplicationController",
@@ -148,6 +151,7 @@ define('application', [
     "models/PhotoModel",
     "models/ArticleModel",
     "models/VideoModel",
+    "models/ResultstatusModel",
     "emberData",
     'jquery',
     "bxslider",
@@ -197,6 +201,8 @@ define('application', [
         StatusView,
         ShowAlbumView,
         PhotoDisplayAreaView,
+        SearchTextFieldView,
+        SearchKeyFieldView,
         WelcomeView,
         QuickstartView,
         ApplicationController,
@@ -250,7 +256,8 @@ define('application', [
         Searchresult,
         Photo,
         Article,
-        Video
+        Video,
+        Resultstatus
         )
 {
 
@@ -300,6 +307,8 @@ define('application', [
         StatusView: StatusView,
         ShowAlbumView: ShowAlbumView,
         PhotoDisplayAreaView: PhotoDisplayAreaView,
+        SearchTextFieldView: SearchTextFieldView,
+        SearchKeyFieldView: SearchKeyFieldView,
         WelcomeView: WelcomeView,
         QuickstartView: QuickstartView,
         ApplicationController: ApplicationController,
@@ -354,13 +363,18 @@ define('application', [
         Photo: Photo,
         Article: Article,
         Video: Video,
+        Resultstatus: Resultstatus,
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({
                 bulkCommit: false,
                 url: getRestAPIURL(),
+                mappings: {
+                    resultstatus: "App.Resultstatus"
+                },
                 plurals: {
-                    mega: "mega"
+                    mega: "mega",
+                    resultstatus: 'resultstatuss'
                 },
 //                map: {
 //                    Object: {
@@ -374,7 +388,7 @@ define('application', [
 
             App.set("isLogin", false);
 
-          
+
 
         }
     });

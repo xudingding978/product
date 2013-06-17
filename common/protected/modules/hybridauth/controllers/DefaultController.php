@@ -203,9 +203,7 @@ class DefaultController extends CController {
 
 
 
-
-
-        $cb->add(substr($_SERVER['HTTP_HOST'], 8) . "/users/" . $rand_id, CJSON::encode($temp));
+      $cb->add(substr($_SERVER['HTTP_HOST'], 4) . "/users/" . $rand_id, CJSON::encode($temp));
     }
 
     private function _loginUser($identity) {
@@ -215,6 +213,7 @@ class DefaultController extends CController {
         if (Yii::app()->session['newUser'] == "new") {
             
             $this->render('welcome');
+            unset(Yii::app()->session['newUser'] );
         } else {
             $this->render('close');
         }

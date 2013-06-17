@@ -26,7 +26,7 @@
         var parent = window.opener;
 
 
-    //    parent.location = 'http://www.develop.devbox/';
+        parent.location = 'http://www.develop.devbox/#/search';
 
         var windowObject = window.self;
         windowObject.opener = window.self;

@@ -1,8 +1,8 @@
 define([
     'models/MegaModel',
-    'models/ResultstatusModel',
+    'models/StatModel',
     'ember'
-], function(MegaModel, ResultstatusModel, Ember) {
+], function(MegaModel, Stat, Ember) {
 
     var SearchsController = Ember.ArrayController.extend({
         needs: ['application', 'status'],
@@ -14,13 +14,31 @@ define([
             var results = MegaModel.find({"RquireType": "search", "region": area, "search_string": search_key});
             var t = MegaModel.find("1000117801371025408");
             this.set("content", results);
-            var searchResultNum = ResultstatusModel.find({"RquireType": "status", "region": area, "search_string": search_key});
-            console.log(searchResultNum);
+            var stats = Stat.find({"RquireType": "status", "region": area, "search_string": search_key});
+
+//            stats.addObserver('isLoaded', function() {
+//                if (stats.get('isLoaded')) {
+//
+//                    for (var i = 0; i < this.get("content").get("length"); i++) {
+//                        console.log(this);
+//                        console.log("aaaaaaaaa");
+//                    }
+//                }
+//            });
+            console.log("2222");
+            console.log(stats);
+            stats.addObserver('isLoaded', this.test(stats));
+
         },
-        test: function()
+        test: function(stats)
         {
-            this.set("searchResultNum", this.get("search_string"));
-            console.log(' todoLabel ' + this.get("search_string"));
+            console.log("eeeeeeeeeeee");
+            if (stats.get('isLoaded')) {
+                for (var i = 0; i < this.get("content").get("length"); i++) {
+                    console.log(this);
+                    console.log("aaaaaaaaa");
+                }
+            }
         },
         searchModel: function() {
             this.set("loginInfo", localStorage.loginStatus);

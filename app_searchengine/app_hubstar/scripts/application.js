@@ -149,7 +149,7 @@ define('application', [
     "models/PhotoModel",
     "models/ArticleModel",
     "models/VideoModel",
-    "models/ResultstatusModel",
+    "models/StatModel",
     "emberData",
     'jquery',
     "bxslider",
@@ -254,7 +254,7 @@ define('application', [
         Photo,
         Article,
         Video,
-        Resultstatus
+        Stat
         )
 {
 
@@ -359,32 +359,24 @@ define('application', [
         Photo: Photo,
         Article: Article,
         Video: Video,
-        Resultstatus:Resultstatus,
+        Stat: Stat,
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({
                 bulkCommit: false,
                 url: getRestAPIURL(),
-                  mappings: {
-      resultstatus: "App.Resultstatus"
-    },
-                plurals: {
-                    mega: "mega",
-                       resultstatus: 'resultstatuss' 
+                mappings: {
+            //        resultstatus: Resultstatus
                 },
-//                map: {
-//                    Object: {
-//                        Photo: {embedded: 'always'}
-//                    }
-//                },
+                plurals: {
+                    mega: "mega"
+                }
             })
         }),
         ready: function() {
 
 
             App.set("isLogin", false);
-
-
 
         }
     });

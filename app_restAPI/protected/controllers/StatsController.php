@@ -6,17 +6,16 @@ header('Access-Control-Request-Method: *');
 header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET');
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
-class ResultstatussController extends Controller {
+class StatsController extends Controller {
 
-    const JSON_RESPONSE_ROOT_SINGLE = 'resultstatus';
-    const JSON_RESPONSE_ROOT_PLURAL = 'resultstatuss';
+    const JSON_RESPONSE_ROOT_SINGLE = 'stat';
+    const JSON_RESPONSE_ROOT_PLURAL = 'stats';
 
     public function actionIndex() {
 
         $temp = explode("?", $_SERVER['REQUEST_URI']);
         $request_string = $temp [sizeof($temp) - 1];
-        //  error_log(var_export($temp, true)."       ".sizeof($temp));
-        $response = $this->getRequestResult($request_string, self::JSON_RESPONSE_ROOT_SINGLE);
+        $response = $this->getRequestResult($request_string, self::JSON_RESPONSE_ROOT_PLURAL);
 
         $this->sendResponse(200, $response);
     }

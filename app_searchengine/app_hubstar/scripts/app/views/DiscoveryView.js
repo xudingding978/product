@@ -27,7 +27,7 @@ define([
         },
         test: function() {
 
-             alert(0);
+        
             var area = $("#search_key").val();
             var search_key = $("#search_business").val();
             var object;

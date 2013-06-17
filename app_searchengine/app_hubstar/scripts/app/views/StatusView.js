@@ -23,7 +23,7 @@ define([
             }
         },
         rerenderPage: function() {
-            alert(0);
+      
             this.rerender();
         }.observes('controller.getStatus')
 

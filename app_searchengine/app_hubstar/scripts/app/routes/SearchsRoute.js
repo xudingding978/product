@@ -16,13 +16,11 @@ define([
             localStorage.checkUser = "";
             this.controllerFor('searchs').defaultSearch();
         },
-                    events: {
-        transitionToPhoto: function (id) {
-            console.log(id);
-            this.transitionTo("photo", id);
-        //    App.pageController.lightbox(id);
-        }
-    },
+        events: {
+            transitionToPhoto: function(id) {
+                this.transitionTo("photo", MegaModel.find(id));
+            }
+        },
         renderTemplate: function() {
             this.render('index', {
                 into: "application"

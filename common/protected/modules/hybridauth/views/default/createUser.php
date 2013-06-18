@@ -25,7 +25,7 @@
         $user_profile = $adapter->getUserProfile();
 
 
-        $rand_id = strval(rand(99999999999999, 999999999999999));
+        $rand_id = strval(rand(9999999999, 99999999999));
         $user->COUCHBASE_ID = $rand_id;
         $user->USER_NAME = $user_profile->displayName;
         $user->EMAIL_ADDRESS = $user_profile->email;
@@ -73,9 +73,9 @@
             <?php echo $form->textField($user, 'FIRST_NAME'); ?>
             <?php echo $form->error($user, 'FIRST_NAME'); ?>
         </div>
-   
-        
-        
+
+
+
         <div class="row" style="opacity:0">
 
             <?php echo $form->textField($user, 'COUCHBASE_ID'); ?>

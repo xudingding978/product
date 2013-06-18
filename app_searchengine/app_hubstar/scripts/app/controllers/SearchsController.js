@@ -36,8 +36,8 @@ define([
             st.grapData();
             var results = MegaModel.find({});
             this.set("content", results);
-        }, getResponseTime: function(start, end)
-        {
+        },
+        getResponseTime: function(start, end) {
             var totalTime = end - start;
             totalTime += "ms";
             this.set("time", totalTime);

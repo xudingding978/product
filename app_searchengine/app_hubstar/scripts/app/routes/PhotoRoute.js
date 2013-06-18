@@ -12,6 +12,7 @@ define([
         setupController: function(controller, model) {
 
             var d = MegaModel.find(model.id);
+            //     console.log(model.id);
             this.controllerFor('mega').getInitData(d);
 
             //   this.controllerFor('mega').set('model', MegaModel.find(model.id));
@@ -19,7 +20,7 @@ define([
         },
         model: function(params) {
             console.log("model: " + params.photo_id);
-            return MegaModel.find(params.photo_id);
+           return MegaModel.find(params.photo_id);
         },
         activate: function() {
             $("body").css("overflow", "hidden");

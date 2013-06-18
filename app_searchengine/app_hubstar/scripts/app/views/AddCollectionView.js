@@ -1,12 +1,12 @@
 define([
     "ember",
-    "text!templates/contactTemplate.html",
+    "text!templates/addCollectionTemplate.html",
     "jquery.ui"
 
-], function(Ember, contactTemplate) {
-    var ContactView = Ember.View.extend({
+], function(Ember, addCollectionTemplate) {
+    var AddCollectionView = Ember.View.extend({
         classNames: ["contact-container"],
-        template: Ember.Handlebars.compile(contactTemplate),
+        template: Ember.Handlebars.compile(addCollectionTemplate),
         didInsertElement: function() {
 
             this.$().draggable({
@@ -19,5 +19,5 @@ define([
 
         }
     });
-    return ContactView;
+    return AddCollectionView;
 });

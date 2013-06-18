@@ -50,6 +50,9 @@ define(["ember"], function(Ember) {
             this.resource("quickstart", {
                 path: "/quickstart"
             });
+            this.resource("comingSoon", {
+                path: "/comingsoon"
+            });
         });
 
 

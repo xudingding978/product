@@ -50,8 +50,7 @@ define([
             $('#user-stats > li').click(function() {
                 $('#user-stats > li').removeClass('selected-user-stats');
                 $(this).addClass('selected-user-stats');
-                //    $(this).removeClass('hover');
-//                $(this).attr('id', 'selected');
+
 
                 return false;
             });

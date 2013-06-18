@@ -99,6 +99,8 @@ define('application', [
     "views/SearchAreaTextFieldView",
     "views/WelcomeView",
     "views/QuickstartView",
+    "views/AddCollectionView",
+    "views/ComingSoonView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -142,6 +144,7 @@ define('application', [
     "routes/IndexIndexRoute",
     "routes/WelcomeRoute",
     "routes/QuickstartRoute",
+    "routes/ComingSoonRoute",
     "models/MegaModel",
     "models/PostModel",
     "models/ProfileModel",
@@ -205,6 +208,8 @@ define('application', [
         SearchAreaTextFieldView,
         WelcomeView,
         QuickstartView,
+        AddCollectionView,
+        ComingSoonView,
         ApplicationController,
         tabListController,
         DataController,
@@ -248,6 +253,7 @@ define('application', [
         IndexIndexRoute,
         WelcomeRoute,
         QuickstartRoute,
+        ComingSoonRoute,
         Mega,
         Post,
         Profile,
@@ -311,6 +317,8 @@ define('application', [
         SearchAreaTextFieldView: SearchAreaTextFieldView,
         WelcomeView: WelcomeView,
         QuickstartView: QuickstartView,
+        AddCollectionView: AddCollectionView,
+        ComingSoonView: ComingSoonView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
@@ -354,6 +362,7 @@ define('application', [
         IndexIndexRoute: IndexIndexRoute,
         WelcomeRoute: WelcomeRoute,
         QuickstartRoute: QuickstartRoute,
+        ComingSoonRoute: ComingSoonRoute,
         Mega: Mega,
         Post: Post,
         Profile: Profile,
@@ -363,21 +372,18 @@ define('application', [
         Photo: Photo,
         Article: Article,
         Video: Video,
-
         Stat: Stat,
-
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({
                 bulkCommit: false,
                 url: getRestAPIURL(),
                 mappings: {
-
-           //         resultstatus: "App.Resultstatus"
+                    //         resultstatus: "App.Resultstatus"
                 },
                 plurals: {
                     mega: "mega",
-             //       resultstatus: 'resultstatuss'
+                    //       resultstatus: 'resultstatuss'
 
                 },
                 plurals: {

@@ -25,8 +25,6 @@ define(["ember"], function(Ember) {
             var searchsController = this.get("controllers.searchs");
             this.set('loginInfo', localStorage.loginStatus);
             searchsController.set('loginInfo', localStorage.loginStatus);
-            //      console.log(searchsController.get('loginInfo'));
-
         },
 //        test: function() {
 //            this.set('loginInfo', localStorage.loginStatus);
@@ -35,6 +33,11 @@ define(["ember"], function(Ember) {
             this.set("user", App.User.find(localStorage.loginStatus));
          //   console.log(this.get("user"));
 
+        },
+                
+                test:function()
+        {
+            console.log("app test");
         }
 
 

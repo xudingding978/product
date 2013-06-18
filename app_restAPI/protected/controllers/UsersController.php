@@ -104,14 +104,11 @@ class UsersController extends Controller {
 
     public function actionRead() {
         try {
+
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
-
-
             $id = $temp [sizeof($temp) - 1];
-
             $reponse = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . "/users/" . $id);
-
             $respone_user = json_decode($reponse, true)['user'][0];
 
             //        error_log("eeeeeeeeeeeeee     " . var_export($respone_user, true));
@@ -162,12 +159,9 @@ class UsersController extends Controller {
         header('Access-Control-Request-Method:*');
         header('Access-Control-Allow-Methods:*');
         header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
-
         echo "";
         Yii::app()->end();
 
-
-//                echo $this->sendResponse(200, "OK");
     }
 
     public function getInputData($inputDataType, $inputData) {

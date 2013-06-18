@@ -3,7 +3,7 @@ define([
     'ember', 'controllers/PhotoUploadController'],
         function(
                 ProfileModel,
-                Ember  , PhotoUploadController
+                Ember, PhotoUploadController
                 ) {
             var profile_record;
             var about_record;
@@ -15,9 +15,10 @@ define([
 
 
             var ProfileController = Ember.ObjectController.extend({
+                model: null,
                 editing: false,
                 galleryInsert: false,
-                setLocalLoginRecrod: function() {                  
+                setLocalLoginRecrod: function() {
                     localStorage.user_id = this.get('content.id');
                 },
                 toggleEditing: function() {
@@ -73,8 +74,10 @@ define([
                 test: function()
                 {
                     console.log("click showDragNdropWindow ");
+                },
+                setModel: function(model) {
+                    this.set("model", model);        
                 }
-
             }
 
             );

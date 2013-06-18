@@ -4,15 +4,23 @@
 
 <div class="contactmebox-wapper" style="width: 500px;height:500px;font-size: 13px;">
 
- <button type="button" {{action addCollection }} class="close">X</button>
+    <button type="button" {{action addCollection }} class="close">X</button>
+
+    {{#view App.DropDownView  contentBinding="controller.collection"}}
+    <select>
+        {{#each collection}}
+
+        <option {{bindAttr value="title"}} >{{title}}</option>
+        {{/each}}
+    </select>
+    {{/view}}
 
 
- {{view Ember.Select
-
-    }}
 
 
-{{view Ember.TextArea valueBinding="" rows="12" cols="70"}}
+
+
+    {{view Ember.TextArea valueBinding="" rows="12" cols="70"}}
 
 
 

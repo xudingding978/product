@@ -48,6 +48,9 @@ class MegaimportController extends Controller {
             echo $this->sendResponse(200, $results);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
+            
+            $message = $exc->getTraceAsString();
+            $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $message);
         }
 
     }
@@ -79,6 +82,9 @@ class MegaimportController extends Controller {
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
             echo json_decode(file_get_contents('php://input'));
+            
+            $message = file_get_contents('php://input');
+            $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $message);
         }
 
         $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);
@@ -229,8 +235,25 @@ class MegaimportController extends Controller {
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
             echo json_decode(file_get_contents('php://input'));
+            
+            $message = file_get_contents('php://input');
+            $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $message);
         }
+    } 
+    
+    
+    
+    
+    protected function writeToLog($fileName, $content) {
+        //   $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_success.log';
+        $handle = fopen($fileName, 'a') or die('Cannot open file:  ' . $fileName);
+        $output = "\n" . $content;
+        fwrite($handle, $output);
+        fclose($handle);
+
+        unset($fileName, $content, $handle, $output);
     }
+    
 
 }
 

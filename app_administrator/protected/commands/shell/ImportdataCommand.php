@@ -42,6 +42,8 @@ class ImportdataCommand extends CConsoleCommand {
     }
 
     public function actionImage($start, $quantity) {
+        $start_time = microtime(true);
+        
         $rows = 0;
         $this->amount = $start+$quantity;
         while(true) {
@@ -65,7 +67,10 @@ class ImportdataCommand extends CConsoleCommand {
         }
         
         unset($image_data, $from, $to);
-        echo ("All finished: start from: " .$start. ", quantity: " .$quantity );
+        echo "All finished: start from: " .$start. ", quantity: " .$quantity  . "\r\n";
+        
+        $end_time = microtime(true);
+        echo "totally spend: ". ($end_time-$start_time);
         
         //$this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_success.log", "All finished");
         //$this->writeToLog("/home/devbox/NetBeansProjects/test/AddingCouchbase_success.log", "All finished");
@@ -97,77 +102,97 @@ class ImportdataCommand extends CConsoleCommand {
             $return_preview = "";
             $url_original = "";
 
+            $url_list = array();
+            $image_details_array = array();
+            
             if (preg_match('/\d[.](jpg)/', $val['hero'])) {
                 if ($this->isUrlExist("http://trendsideas.com/media/article/hero/" . $val['hero'])) {
                     $url_hero = '{"url":"http://trendsideas.com/media/article/hero/' . $val['hero'] . '"}';
-                    $return_hero = json_decode($this->imageImport($url_hero));
-                    $is_hero = true;
-                } else {
-                    echo $message = "http://trendsideas.com/media/article/hero/" . $val['hero'] . "--- URL NOT available! \r\n";
-//                    $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_unsuccess.log", $message);
+                    $url_list['hero']=$url_hero;
                 }
             }
-
+            
             if (preg_match('/\d[.](jpg)/', $val['thumbnail'])) {
                 if ($this->isUrlExist("http://trendsideas.com/media/article/thumbnail/" . $val['thumbnail'])) {
                     $url_thumbnail = '{"url":"http://trendsideas.com/media/article/thumbnail/' . $val['thumbnail'] . '"}';
-                    $return_thumbnail = json_decode($this->imageImport($url_thumbnail));
-                    $is_thumbnail = true;
-                } else {
-                    echo $message = "http://trendsideas.com/media/article/thumbnail/" . $val['thumbnail'] . "--- URL NOT available!  \r\n";
-//                    $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_unsuccess.log", $message);
+                    $url_list['thumbnail']=$url_thumbnail;
                 }
             }
-
+            
             if (preg_match('/\d[.](jpg)/', $val['preview'])) {
                 if ($this->isUrlExist("http://trendsideas.com/media/article/preview/" . $val['preview'])) {
                     $url_preview = '{"url":"http://trendsideas.com/media/article/preview/' . $val['preview'] . '"}';
-                    $return_preview = json_decode($this->imageImport($url_preview));
-                    $is_preview = true;
-                } else {
-                    echo $message = "http://trendsideas.com/media/article/preview/" . $val['preview'] . "--- URL NOT available!  \r\n";
-//                    $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_unsuccess.log", $message);
+                    $url_list['preview']=$url_preview;
                 }
             }
-
+            
             if (preg_match('/\d[.](jpg)/', $val['original'])) {
                 if ($this->isUrlExist("http://trendsideas.com/media/article/original/" . $val['original'])) {
                     $url_original = '{"url":"http://trendsideas.com/media/article/original/' . $val['original'] . '"}';
-                    $return_original = json_decode($this->imageImport($url_original));
-                    $is_original = true;
-                } else {
-                    echo $message = "http://trendsideas.com/media/article/original/" . $val['original'] . "--- URL NOT available!  \r\n";
-//                    $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_unsuccess.log", $message);
+                    $url_list['original']=$url_original;
                 }
             }
 
-            if ($is_original == true && $is_preview == true && $is_thumbnail == true && $is_hero == true) {
+            if (sizeof($url_list)>0) {
+                    $image_details_array = $this->importImageList($url_list);
+            }
+            
+            if (sizeof($image_details_array)>0) {
+                $return_hero = json_decode($image_details_array['hero']);
+                $return_thumbnail = json_decode($image_details_array['thumbnail']);
+                $return_preview = json_decode($image_details_array['preview']);
+                $return_original = json_decode($image_details_array['original']);
+                
                 $obj = $this->structureArray($val, $return_hero, $return_thumbnail, $return_preview, $return_original);
                 $this->importMegaObj($obj, $val['id']);
             } else {
-                echo $message = "http://trendsideas.com/media/article/preview/" . $val['preview'] . "--- DO NOT have return value from S3!--ID:" . $val['id']. " \r\n";
-//                $this->writeToLog("/home/devbox/NetBeansProjects/test/AddingCouchbase_NotScucess.log", $message);
+                echo "http://trendsideas.com/media/article/preview/" . $val['preview'] . "--- DO NOT have return value from S3!--ID:" . $val['id']. " \r\n";
             }
-
 
             unset($return_hero, $return_thumbnail, $return_preview, $return_original, $obj);
             unset($is_hero, $is_thumbnail, $is_preview, $is_original);
             unset($message, $url_hero, $return_hero, $url_thumbnail, $return_thumbnail, $url_preview, $return_preview, $url_original, $return_original);
         }
     }
-
-    public function isUrlExist($path) {
-        $file_headers = @get_headers($path);
-        if ($file_headers[0] == 'HTTP/1.1 404 Not Found') {
-            $response = 'HTTP/1.1 404 Not Found';
-        } else {
-            $response = "true";
+    
+    public function importImageList(&$image_list) {
+        $handle_array = array();
+        $return_array = array();
+        foreach($image_list as $k=>$list){
+            $ch = curl_init("http://api.develop.devbox/imageimport/");
+            
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $list);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+                
+            $handle_array[$k] = $ch;
         }
-
-        unset($file_headers);
-        return $response;
+        
+        $mh = curl_multi_init();
+        foreach($handle_array as $k => $val) curl_multi_add_handle($mh, $val);
+        
+        $running = null; 
+        do{
+           curl_multi_exec($mh, $running);           
+        } while($running > 0);
+        
+        foreach($handle_array as $k => $h) {
+            $result = curl_multi_getcontent($h);
+            $return_array[$k] = $result;
+            
+            $this->image_amount++;
+            echo $result . "\r\n" . date("Y-m-d H:i:s") . "---" . $this->image_amount." \r\n";
+        }
+        
+        foreach ($handle_array as $k=>$h) {
+            curl_multi_remove_handle($mh, $h);
+        }
+        
+        curl_multi_close($mh); 
+        return $return_array; 
     }
-
+    
     public function imageImport($json_obj) {
         try {
             $ch = curl_init("http://api.develop.devbox/imageimport/");
@@ -179,9 +204,7 @@ class ImportdataCommand extends CConsoleCommand {
             $result = curl_exec($ch);
 
             $this->image_amount++;
-
             echo $message = $result . "\n" . date("Y-m-d H:i:s") . $json_obj . "---" . $this->image_amount." \r\n";
-            //$this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_success.log", $message);
             
             //close connection
             curl_close($ch);
@@ -191,8 +214,7 @@ class ImportdataCommand extends CConsoleCommand {
         } catch (Exception $e) {
             $response = 'Caught exception: ' . $e->getMessage();
             echo $message = $response . "\n" . date("Y-m-d H:i:s") . $json_obj. " \r\n";
-            //$this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_NotSuccess.log", $message);
-
+            
             unset($e, $response, $message);
             return false;
         }
@@ -200,7 +222,6 @@ class ImportdataCommand extends CConsoleCommand {
 
     public function importMegaObj($data_list, $id) {
         $json_list = json_encode($data_list);
-//        print_r($json_list);
         try {
             $ch = curl_init("http://api.develop.devbox/megaimport/");
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
@@ -213,13 +234,13 @@ class ImportdataCommand extends CConsoleCommand {
             $this->obj_amount++;
 //            error_log($result);
             echo $message = "develop.devbox/" . $result . "\r\n" . date("Y-m-d H:i:s") ."\r\n". $data_list['object_image_url'] . "---" . $this->obj_amount . "/" . $this->total_amount . "\r\n" .$id. "/" . $this->amount. " \r\n";
-            //$this->writeToLog("/home/devbox/NetBeansProjects/test/AddingCouchbase_success.log", $message);
+          
 
             unset($data_list, $json_list, $ch, $result, $message);
         } catch (Exception $e) {
             $response = 'Caught exception: ' . $e->getMessage();
             echo $message = $response . "\n" . date("Y-m-d H:i:s") . $data_list['object_image_url']." \r\n";
-           // $this->writeToLog("/home/devbox/NetBeansProjects/test/AddingCouchbase_NotSuccess.log", $message);
+         
 
             unset($json_list, $response, $message);
         }
@@ -266,15 +287,20 @@ class ImportdataCommand extends CConsoleCommand {
                     $region = str_replace(" & ", "-", $region);
                     $region = str_replace(" ", "-", $region);
                     $book_title =$region."-".$title;
+//                    $book_title = strtolower($book_title);
                 }
             }
         }
+        
+        // get current datetime
+        $accessed = strtotime(date('Y-m-d H:i:s'));
+        
         // get keywords imfor
         $keywords = mb_check_encoding($val['keywords'], 'UTF-8') ? $val['keywords'] : utf8_encode($val['keywords']);
         $obj = array(
             "id" => null,
             "type" => "photo",
-            "accessed" => null,
+            "accessed" => $accessed,
             "active_yn" => "y",
             "created" => $book_date,
             "creator" => $book_title,
@@ -283,6 +309,7 @@ class ImportdataCommand extends CConsoleCommand {
             "creator_title" => null,
             "topics" => $topic_list,
             "categories" => $category,
+            "collection_id" =>$val['articleId'],
             "subcategories" => $subcategory,
             "deleted" => null,
             "domains" => "trendsideas.com",
@@ -302,7 +329,7 @@ class ImportdataCommand extends CConsoleCommand {
             "owner_type" => 'profile',
             "owner_profile_pic" => "https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/this_is/folder_path/Trends-Logo.jpg",
             "owner_title" => "Trends Ideas",
-            "owner_id" => $book_title,    //"home-and-apartment-trends-nz"
+            "owner_id" => strtolower($book_title),    //"home-and-apartment-trends-nz"
             "owners" => array(),
             "status_id" => null,
             "updated" => null,
@@ -375,6 +402,17 @@ class ImportdataCommand extends CConsoleCommand {
     }
     
     
+    public function isUrlExist($path) {
+        $file_headers = @get_headers($path);
+        if ($file_headers[0] == 'HTTP/1.1 404 Not Found') {
+            $response = 'HTTP/1.1 404 Not Found';
+        } else {
+            $response = "true";
+        }
+
+        unset($file_headers);
+        return $response;
+    }
     
     
     protected function writeToLog($fileName, $content) {

@@ -155,6 +155,7 @@ define('application', [
     "models/ArticleModel",
     "models/VideoModel",
     "models/StatModel",
+    "models/CollectionModel",
     "emberData",
     'jquery',
     "bxslider",
@@ -263,7 +264,8 @@ define('application', [
         Photo,
         Article,
         Video,
-        Stat
+        Stat,
+        Collection
         )
 {
 
@@ -373,6 +375,7 @@ define('application', [
         Article: Article,
         Video: Video,
         Stat: Stat,
+        Collection: Collection,
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({

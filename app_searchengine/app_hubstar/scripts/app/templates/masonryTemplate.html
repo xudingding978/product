@@ -2,6 +2,8 @@
 <div id="masonry_container" class="transitions-enabled centered clearfix">
     <div class="box col2">
         {{render status}}
+        
+        {{controller}}
     </div>
 
 
@@ -172,7 +174,7 @@
             <div class="masonry-object_mainfeature">             
                 <div class="mainfeature-wrapper">
                     <a class="mainfeature-container">
-                      <img class="this-is-the-object"{{bindAttr src="object_image_url" }} {{action transitionToPhoto id}} />
+                        <img class="this-is-the-object"{{bindAttr src="object_image_url" }} {{action transitionToPhoto id}} />
                     </a>                 
                     <div>                                                                                                                                                                                                                                                                                                                                                                       </div>
                 </div>
@@ -490,6 +492,10 @@
 
 
 </div> <!-- #container -->
+
+
+
+
 
 
 

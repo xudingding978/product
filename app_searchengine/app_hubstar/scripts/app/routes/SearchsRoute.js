@@ -15,6 +15,7 @@ define([
         setupController: function() {
             localStorage.checkUser = "";
             this.controllerFor('searchs').defaultSearch();
+
         },
         events: {
             transitionToPhoto: function(id) {
@@ -22,9 +23,7 @@ define([
             }
         },
         renderTemplate: function() {
-            this.render('index', {
-                into: "application"
-            });
+
             this.render('searchs', {
                 into: "index"
             });

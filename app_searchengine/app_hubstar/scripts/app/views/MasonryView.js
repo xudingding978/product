@@ -10,14 +10,19 @@ define([
     var MasonryView = Ember.View.extend({
         template: Ember.Handlebars.compile(masonryTemplate),
         didInsertElement: function() {
-          
+    
+  
+            console.log(this.get('controller'));
             $(function() {
                 $('#masonry_container').masonry({
                     itemSelector: '.box',
                     columnWidth: 0,
+
                     isFitWidth: true
                 });
             });
+
+    
 
         },
         moreContent: function(event) {
@@ -55,7 +60,7 @@ define([
             }, 200);
         },
         mega: function() {
-  console.log('test');
+    console.log('ssssssssss');
             this.rerender();
         }.observes('controller.content')
     });

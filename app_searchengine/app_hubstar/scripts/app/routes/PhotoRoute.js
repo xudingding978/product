@@ -20,7 +20,7 @@ define([
         },
         model: function(params) {
             console.log("model: " + params.photo_id);
-           return MegaModel.find(params.photo_id);
+            return MegaModel.find(params.photo_id);
         },
         activate: function() {
             $("body").css("overflow", "hidden");
@@ -35,7 +35,14 @@ define([
         },
         renderTemplate: function() {
             var controller = this.controllerFor('mega');
-            this.render('photo', {
+//            this.render('photo', {
+//                into: "index",
+//                controller: controller
+//            });
+
+
+            this.render("photo", {
+                outlet: "newphoto",
                 into: "index",
                 controller: controller
             });

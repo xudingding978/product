@@ -51,6 +51,29 @@ div.search-loading-invisible{
     background-clip: padding-box;
 }
 
+
+.contact-container {
+    cursor: move;
+    overflow: visible;
+    position: fixed;
+    left: 30%;
+    top:20%;
+    z-index: 100;
+    background-color: white;
+    border: 1px solid #999;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    outline: none;
+    -webkit-box-shadow: 0 3px 7px #888;
+    -moz-box-shadow: 0 3px 7px #888;
+    box-shadow: 0 3px 7px #888;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+    background-clip: padding-box;
+}
+
 .head { 
     background-color: rgb(242,240,240);
     border-radius: 3px 3px 0 0;
@@ -436,6 +459,17 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
     bottom: 5px;
 }
+
+
+
+.selected_image_style{
+    opacity: 1;
+    -webkit-box-shadow: 0px 0px 20px rgba(0,190,255,0.8);
+    -moz-box-shadow: 0px 0px 20px rgba(0,190,255,0.8);
+    box-shadow: 0px 0px 20px rgba(0,190,255,0.8);
+ bottom: 5px;
+}
+
 
 .editicon > .icon-pencil{
     left: 4px;

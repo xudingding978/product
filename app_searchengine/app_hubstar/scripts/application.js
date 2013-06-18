@@ -22,6 +22,7 @@ require.config({
         'wysihtml5': 'libs/wysihtml5/wysihtml5-0.3.0',
         'bxslider': 'libs/jquery.bxslider.min',
         'moment': 'libs/moment',
+        'modernizr': 'libs/modernizer/modernizr-latest',
         'guid_creater': 'libs/guid_creater',
         'jquery.masonry': 'libs/jquery.masonry/jquery.masonry.min',
         /*requirejs-plugins*/
@@ -94,8 +95,12 @@ define('application', [
     "views/StatusView",
     "views/ShowAlbumView",
     "views/PhotoDisplayAreaView",
+    "views/SearchRequireTextFieldView",
+    "views/SearchAreaTextFieldView",
     "views/WelcomeView",
     "views/QuickstartView",
+    "views/AddCollectionView",
+    "views/ComingSoonView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -139,6 +144,7 @@ define('application', [
     "routes/IndexIndexRoute",
     "routes/WelcomeRoute",
     "routes/QuickstartRoute",
+    "routes/ComingSoonRoute",
     "models/MegaModel",
     "models/PostModel",
     "models/ProfileModel",
@@ -148,6 +154,7 @@ define('application', [
     "models/PhotoModel",
     "models/ArticleModel",
     "models/VideoModel",
+    "models/StatModel",
     "emberData",
     'jquery',
     "bxslider",
@@ -197,8 +204,12 @@ define('application', [
         StatusView,
         ShowAlbumView,
         PhotoDisplayAreaView,
+        SearchRequireTextFieldView,
+        SearchAreaTextFieldView,
         WelcomeView,
         QuickstartView,
+        AddCollectionView,
+        ComingSoonView,
         ApplicationController,
         tabListController,
         DataController,
@@ -242,6 +253,7 @@ define('application', [
         IndexIndexRoute,
         WelcomeRoute,
         QuickstartRoute,
+        ComingSoonRoute,
         Mega,
         Post,
         Profile,
@@ -250,7 +262,8 @@ define('application', [
         Searchresult,
         Photo,
         Article,
-        Video
+        Video,
+        Stat
         )
 {
 
@@ -300,8 +313,12 @@ define('application', [
         StatusView: StatusView,
         ShowAlbumView: ShowAlbumView,
         PhotoDisplayAreaView: PhotoDisplayAreaView,
+        SearchRequireTextFieldView: SearchRequireTextFieldView,
+        SearchAreaTextFieldView: SearchAreaTextFieldView,
         WelcomeView: WelcomeView,
         QuickstartView: QuickstartView,
+        AddCollectionView: AddCollectionView,
+        ComingSoonView: ComingSoonView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
@@ -345,6 +362,7 @@ define('application', [
         IndexIndexRoute: IndexIndexRoute,
         WelcomeRoute: WelcomeRoute,
         QuickstartRoute: QuickstartRoute,
+        ComingSoonRoute: ComingSoonRoute,
         Mega: Mega,
         Post: Post,
         Profile: Profile,
@@ -354,19 +372,23 @@ define('application', [
         Photo: Photo,
         Article: Article,
         Video: Video,
+        Stat: Stat,
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({
                 bulkCommit: false,
                 url: getRestAPIURL(),
+                mappings: {
+                    //         resultstatus: "App.Resultstatus"
+                },
+                plurals: {
+                    mega: "mega",
+                    //       resultstatus: 'resultstatuss'
+
+                },
                 plurals: {
                     mega: "mega"
-                },
-//                map: {
-//                    Object: {
-//                        Photo: {embedded: 'always'}
-//                    }
-//                },
+                }
             })
         }),
         ready: function() {

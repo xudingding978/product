@@ -13,11 +13,16 @@ define([
 
     var SearchRoute = Ember.Route.extend({
         setupController: function() {
-
-
-            this.controllerFor('searchs').searchModel();
-
+            localStorage.checkUser = "";
+            this.controllerFor('searchs').defaultSearch();
         },
+                    events: {
+        transitionToPhoto: function (id) {
+            console.log(id);
+            this.transitionTo("photo", id);
+        //    App.pageController.lightbox(id);
+        }
+    },
         renderTemplate: function() {
             this.render('index', {
                 into: "application"

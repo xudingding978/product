@@ -20,31 +20,30 @@ define([
                     object = {"region": area, "search_string": search_key};
                 }
             } else {
-                object = {"id": "", "region": "", "search_string": ""};
+                object = { "region": "", "search_string": ""};
             }
-            this.get("controller").send("newSearch", object);
-            console.log(this);
+            this.get("controller").send("newSearch", area,search_key);
         },
         test: function() {
-
-             alert(0);
-            var area = $("#search_key").val();
-            var search_key = $("#search_business").val();
-            var object;
-            if (search_key !== "" || area !== "") {
-                if (area !== "" && search_key !== "") {
-                    object = {"region": area, "search_string": search_key};
-                } else if (area === "" && search_key !== "") {
-                    object = {"region": area, "search_string": search_key};
-                } else if (area !== "" && search_key === "") {
-                    object = {"region": area, "search_string": search_key};
-                }
-            } else {
-                object = {"id": "", "region": "", "search_string": ""};
-            }
-            console.log(this);
-            //     this.controllerFor('searchs').newSearch(object);
-            this.send("newSearch", object);
+this.searching();
+//            var area = $("#search_key").val();
+//            var search_key = $("#search_business").val();
+//            var object;
+//            if (search_key !== "" || area !== "") {
+//                if (area !== "" && search_key !== "") {
+//                    object = {"region": area, "search_string": search_key};
+//                } else if (area === "" && search_key !== "") {
+//                    object = {"region": area, "search_string": search_key};
+//                } else if (area !== "" && search_key === "") {
+//                    object = {"region": area, "search_string": search_key};
+//                }
+//            } else {
+//                object = {"id": "", "region": "", "search_string": ""};
+//            }
+//   //         console.log(this);
+//       this.get("controller").send("newSearch", object);
+                 //this.controllerFor('searchs').newSearch(object);
+          //  this.send("newSearch", object);
         }
 
     });

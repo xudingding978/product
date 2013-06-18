@@ -17,8 +17,6 @@ define([
 
 
         },
-
-                
         setTitleTag: function() {
             $('#article_action').slideToggle(1000);
         },
@@ -37,11 +35,9 @@ define([
             //       this.set('partnerTag', !this.get('partnerTag'));
 
         },
-        popupAibum: function(e) {
-            alert(e);
-            var album_id = "#album_" + e;
+        popupAibum: function() {
 
-            $(album_id).slideToggle("slow");
+            $("#collection_tab").slideToggle("slow" );
         }
 
     });

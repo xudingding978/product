@@ -4,12 +4,7 @@ define(['ember', 'models/MegaModel']
     var PhotoController = Ember.ObjectController.extend({
      //   needs: ['mega'],
         //   content: Ember.computed.alias('controllers.application.currentUser'),
-        editingContact: function() {
-            this.set('contact', !this.get('contact'));
-        },
-        closeContact: function() {
-            this.set('contact', !this.get('contact'));
-        },
+
         previesImage: function() {
             console.log("previesImage");
         },

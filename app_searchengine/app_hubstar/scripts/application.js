@@ -100,6 +100,7 @@ define('application', [
     "views/WelcomeView",
     "views/QuickstartView",
     "views/AddCollectionView",
+    "views/ComingSoonView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -143,6 +144,7 @@ define('application', [
     "routes/IndexIndexRoute",
     "routes/WelcomeRoute",
     "routes/QuickstartRoute",
+    "routes/ComingSoonRoute",
     "models/MegaModel",
     "models/PostModel",
     "models/ProfileModel",
@@ -153,6 +155,7 @@ define('application', [
     "models/ArticleModel",
     "models/VideoModel",
     "models/StatModel",
+    "models/CollectionModel",
     "emberData",
     'jquery',
     "bxslider",
@@ -207,6 +210,7 @@ define('application', [
         WelcomeView,
         QuickstartView,
         AddCollectionView,
+        ComingSoonView,
         ApplicationController,
         tabListController,
         DataController,
@@ -250,6 +254,7 @@ define('application', [
         IndexIndexRoute,
         WelcomeRoute,
         QuickstartRoute,
+        ComingSoonRoute,
         Mega,
         Post,
         Profile,
@@ -259,7 +264,8 @@ define('application', [
         Photo,
         Article,
         Video,
-        Stat
+        Stat,
+        Collection
         )
 {
 
@@ -314,6 +320,7 @@ define('application', [
         WelcomeView: WelcomeView,
         QuickstartView: QuickstartView,
         AddCollectionView: AddCollectionView,
+        ComingSoonView: ComingSoonView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
@@ -357,6 +364,7 @@ define('application', [
         IndexIndexRoute: IndexIndexRoute,
         WelcomeRoute: WelcomeRoute,
         QuickstartRoute: QuickstartRoute,
+        ComingSoonRoute: ComingSoonRoute,
         Mega: Mega,
         Post: Post,
         Profile: Profile,
@@ -367,6 +375,7 @@ define('application', [
         Article: Article,
         Video: Video,
         Stat: Stat,
+        Collection: Collection,
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({

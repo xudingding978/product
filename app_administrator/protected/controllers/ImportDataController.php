@@ -11,48 +11,26 @@ class ImportDataController extends Controller {
     }
 
     public function actionObject() {
-        $sql = "select dbo.ArticleImages.id from dbo.ArticleImages where dbo.ArticleImages.id between 58500 and 59060";
-        $data_list = Yii::app()->db->createCommand($sql)->queryAll();
-//        echo sizeof($data_list);
-        foreach ($data_list as $val) {
-            $book_id =  array();
-            $book_detail = array();
-            $book_list = Books::model()->getBookByPhotoID($val['id']);
-            $book_date = 0;
-            $book_title = "";
-            foreach ($book_list as $book) {
-                array_push($book_id, $book['id']);               
-                $region = Regions::model()->selectCountryNameByID($book['region']);
-                $date_live = $book['dateLive'];
-                $title = str_replace(" & ", "-", $book['title']);
-                $title = str_replace(" ", "-", $title);
-                $UTC = $this->getUTC($date_live, $region);
-                
-                if ((int)$UTC>$book_date) {
-                    $book_date = $UTC;
-                    $region = str_replace(" & ", "-", $region);
-                    $region = str_replace(" ", "-", $region);
-                    $book_title =$region."-".$title;
-                }
-//                
-//                $book_detail = array(
-//                            'title'=>$book['title'], 
-//                            'datetime'=>$UTC,
-//                            'region'=>$region,
-//                );
-//
-//                print_r("<pre>");
-//                print_r($book_detail);
-//                print_r($book);
-            }
-            
-            print_r("<pre>");
-            print_r($book_list);
-            echo $book_date."\r\n";
-            echo $book_title;
-        }
         
-//        echo ("333333333333333333333333333333");
+        $utc = strtotime(date('Y-m-d H:i:s'));
+        echo date('Y-m-d H:i:s') . "\r\n";
+        echo $utc;
+        
+        
+        $ch = curl_init();
+        
+        curl_setopt($ch, CURLOPT_URL, "http://api.develop.devbox/imageimport/");
+       
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+//        curl_setopt($ch, CURLOPT_POSTFIELDS, $json_obj);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+//        $result = curl_exec($ch);
+         echo($ch);
+        //close connection
+        curl_close($ch);
+        
+
     }
     
     public function getUTC($datetime, $region) {
@@ -88,19 +66,24 @@ class ImportDataController extends Controller {
     }
     
     public function actionImage() {
-        for ($i = 0; $i < $quantity; $i++) {
+            $start_time = microtime(true);
+//            print_r("<pre>");
+//            echo $start_time."\r\n" ;
+            
             $image_data = array();
-            $from = $start;
-            $to = $start + $quantity;
-            $image_data = ArticleImages::model()->getImageRange($from, $to);
+            $from = "100000";
+            $to = "100005";
+            $image_data = ArticleImages::model()->getImageRange($from, $to);            
             $this->total_amount = $this->total_amount + sizeof($image_data);
 
             if (sizeof($image_data) > 0) {
                 $this->getMegaData($image_data);
             }
             unset($image_data, $from, $to);
-        }
-
+            
+            $end_time = microtime(true);
+            echo "totally spend: ". ($end_time-$start_time);
+            
         //$this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_success.log", "All finished");
         //$this->writeToLog("/home/devbox/NetBeansProjects/test/AddingCouchbase_success.log", "All finished");
 //        $this->render('image', array(
@@ -130,52 +113,96 @@ class ImportDataController extends Controller {
             $url_preview = "";
             $return_preview = "";
             $url_original = "";
-
-            if (preg_match('/\d[.](jpg)/', $val['hero'])) {
+            
+            $url_list = array();
+            $image_details_array = array();
+            
+             if (preg_match('/\d[.](jpg)/', $val['hero'])) {
                 if ($this->isUrlExist("http://trendsideas.com/media/article/hero/" . $val['hero'])) {
                     $url_hero = '{"url":"http://trendsideas.com/media/article/hero/' . $val['hero'] . '"}';
-                    $return_hero = json_decode($this->imageImport($url_hero));
-                    $is_hero = true;
-                } else {
-                    $message = "http://trendsideas.com/media/article/hero/" . $val['hero'] . "--- URL NOT available!";
-                    $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_success.log", $message);
+                    $url_list['hero']=$url_hero;
                 }
             }
-
+            
             if (preg_match('/\d[.](jpg)/', $val['thumbnail'])) {
                 if ($this->isUrlExist("http://trendsideas.com/media/article/thumbnail/" . $val['thumbnail'])) {
                     $url_thumbnail = '{"url":"http://trendsideas.com/media/article/thumbnail/' . $val['thumbnail'] . '"}';
-                    $return_thumbnail = json_decode($this->imageImport($url_thumbnail));
-                    $is_thumbnail = true;
-                } else {
-                    $message = "http://trendsideas.com/media/article/thumbnail/" . $val['thumbnail'] . "--- URL NOT available!";
-                    $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_success.log", $message);
+                    $url_list['thumbnail']=$url_thumbnail;
                 }
             }
-
+            
             if (preg_match('/\d[.](jpg)/', $val['preview'])) {
                 if ($this->isUrlExist("http://trendsideas.com/media/article/preview/" . $val['preview'])) {
                     $url_preview = '{"url":"http://trendsideas.com/media/article/preview/' . $val['preview'] . '"}';
-                    $return_preview = json_decode($this->imageImport($url_preview));
-                    $is_preview = true;
-                } else {
-                    $message = "http://trendsideas.com/media/article/preview/" . $val['preview'] . "--- URL NOT available!";
-                    $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_success.log", $message);
+                    $url_list['preview']=$url_preview;
                 }
             }
-
+            
             if (preg_match('/\d[.](jpg)/', $val['original'])) {
                 if ($this->isUrlExist("http://trendsideas.com/media/article/original/" . $val['original'])) {
                     $url_original = '{"url":"http://trendsideas.com/media/article/original/' . $val['original'] . '"}';
-                    $return_original = json_decode($this->imageImport($url_original));
-                    $is_original = true;
-                } else {
-                    $message = "http://trendsideas.com/media/article/original/" . $val['original'] . "--- URL NOT available!";
-                    $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_success.log", $message);
+                    $url_list['original']=$url_original;
                 }
             }
-
-            if ($is_original == true && $is_preview == true && $is_thumbnail == true && $is_hero == true) {
+            
+//            print_r("<pre>");
+//            print_r($url_list);
+           
+            
+//            if (preg_match('/\d[.](jpg)/', $val['hero'])) {
+//                if ($this->isUrlExist("http://trendsideas.com/media/article/hero/" . $val['hero'])) {
+//                    $url_hero = '{"url":"http://trendsideas.com/media/article/hero/' . $val['hero'] . '"}';
+//                    $return_hero = json_decode($this->imageImport($url_hero));
+//                    $is_hero = true;
+//                } else {
+//                    $message = "http://trendsideas.com/media/article/hero/" . $val['hero'] . "--- URL NOT available!";
+//                    $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_success.log", $message);
+//                }
+//            }
+//
+//            if (preg_match('/\d[.](jpg)/', $val['thumbnail'])) {
+//                if ($this->isUrlExist("http://trendsideas.com/media/article/thumbnail/" . $val['thumbnail'])) {
+//                    $url_thumbnail = '{"url":"http://trendsideas.com/media/article/thumbnail/' . $val['thumbnail'] . '"}';
+//                    $return_thumbnail = json_decode($this->imageImport($url_thumbnail));
+//                    $is_thumbnail = true;
+//                } else {
+//                    $message = "http://trendsideas.com/media/article/thumbnail/" . $val['thumbnail'] . "--- URL NOT available!";
+//                    $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_success.log", $message);
+//                }
+//            }
+//
+//            if (preg_match('/\d[.](jpg)/', $val['preview'])) {
+//                if ($this->isUrlExist("http://trendsideas.com/media/article/preview/" . $val['preview'])) {
+//                    $url_preview = '{"url":"http://trendsideas.com/media/article/preview/' . $val['preview'] . '"}';
+//                    $return_preview = json_decode($this->imageImport($url_preview));
+//                    $is_preview = true;
+//                } else {
+//                    $message = "http://trendsideas.com/media/article/preview/" . $val['preview'] . "--- URL NOT available!";
+//                    $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_success.log", $message);
+//                }
+//            }
+//
+//            if (preg_match('/\d[.](jpg)/', $val['original'])) {
+//                if ($this->isUrlExist("http://trendsideas.com/media/article/original/" . $val['original'])) {
+//                    $url_original = '{"url":"http://trendsideas.com/media/article/original/' . $val['original'] . '"}';
+//                    $return_original = json_decode($this->imageImport($url_original));
+//                    $is_original = true;
+//                } else {
+//                    $message = "http://trendsideas.com/media/article/original/" . $val['original'] . "--- URL NOT available!";
+//                    $this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_success.log", $message);
+//                }
+//            }
+                         
+            if (sizeof($url_list)>0) {
+                    $image_details_array = $this->importImageList($url_list);
+            }
+            
+            if (sizeof($image_details_array)>0) {
+                $return_hero = json_decode($image_details_array['hero']);
+                $return_thumbnail = json_decode($image_details_array['thumbnail']);
+                $return_preview = json_decode($image_details_array['preview']);
+                $return_original = json_decode($image_details_array['original']);
+                
                 $obj = $this->structureArray($val, $return_hero, $return_thumbnail, $return_preview, $return_original);
                 $this->importMegaObj($obj, $val['id']);
             } else {
@@ -189,19 +216,45 @@ class ImportDataController extends Controller {
             unset($message, $url_hero, $return_hero, $url_thumbnail, $return_thumbnail, $url_preview, $return_preview, $url_original, $return_original);
         }
     }
-
-    public function isUrlExist($path) {
-        $file_headers = @get_headers($path);
-        if ($file_headers[0] == 'HTTP/1.1 404 Not Found') {
-            $response = 'HTTP/1.1 404 Not Found';
-        } else {
-            $response = "true";
+    
+    public function importImageList(&$image_list) {
+        $handle_array = array();
+        $return_array = array();
+        foreach($image_list as $k=>$list){
+            $ch = curl_init("http://api.develop.devbox/imageimport/");
+            
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $list);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+                
+            $handle_array[$k] = $ch;
         }
-
-        unset($file_headers);
-        return $response;
+        
+        $mh = curl_multi_init();
+        foreach($handle_array as $k => $val) curl_multi_add_handle($mh, $val);
+        
+        $running = null; 
+        do{
+           curl_multi_exec($mh, $running);           
+        } while($running > 0);
+        
+        foreach($handle_array as $k=>$h) {
+            $result = curl_multi_getcontent($h);
+            $return_array[$k] = $result;
+            
+            $this->image_amount++;
+            echo $result . "\r\n" . date("Y-m-d H:i:s") . "---" . $this->image_amount." \r\n"; 
+        }
+        
+        foreach ($handle_array as $k=>$h) {
+            curl_multi_remove_handle($mh,$h);             
+        }
+        
+        curl_multi_close($mh); 
+        return $return_array;
     }
-
+    
     public function imageImport($json_obj) {
         try {
             $ch = curl_init("http://api.develop.devbox/imageimport/");
@@ -216,7 +269,7 @@ class ImportDataController extends Controller {
 
             $this->image_amount++;
 
-            echo $message = $result . "\n" . date("Y-m-d H:i:s") . $json_obj . "---" . $this->image_amount;
+//            echo $message = $result . "\n" . date("Y-m-d H:i:s") . $json_obj . "---" . $this->image_amount;
             //$this->writeToLog("/home/devbox/NetBeansProjects/test/addimage_success.log", $message);
 
             unset($ch, $message, $json_obj);
@@ -241,6 +294,7 @@ class ImportDataController extends Controller {
             curl_setopt($ch, CURLOPT_POSTFIELDS, $json_list);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+            
             $result = curl_exec($ch);
              //close connection
             curl_close($ch);
@@ -283,13 +337,29 @@ class ImportDataController extends Controller {
         $category = Categories::model()->selectCategory($val['id']);
 
         // get book infor 
-//        $book_list = Books::model()->getBookByPhotoID($val['id']);
-//        if(sizeof($book_list)>0) {
-//            foreach($book_list as $book) {
-//                arrray_push($book_id, $book['id']);
-//                
-//            }
-//        }
+        $book_id = array();
+        $book_date = 0;
+        $book_title = "";
+        $book_list = Books::model()->getBookByPhotoID($val['id']);
+        if(sizeof($book_list)>0) {
+            foreach($book_list as $book) {
+                array_push($book_id, $book['id']);
+                $region = Regions::model()->selectCountryNameByID($book['region']);
+                $date_live = $book['dateLive'];
+                $title = str_replace(" & ", "-", $book['title']);
+                $title = str_replace(" ", "-", $title);
+                $UTC = $this->getUTC($date_live, $region);
+                
+                if ((int)$UTC>$book_date) {
+                   $book_date = $UTC;
+                    $region = str_replace(" & ", "-", $region);
+                    $region = str_replace(" ", "-", $region);
+                    $book_title =$region."-".$title;
+//                    $book_title = strtolower($book_title);
+                }
+            }
+        }
+        
         // get keywords imfor
         $keywords = mb_check_encoding($val['keywords'], 'UTF-8') ? $val['keywords'] : utf8_encode($val['keywords']);
         $obj = array(
@@ -378,4 +448,18 @@ class ImportDataController extends Controller {
         unset($fileName, $content, $handle, $output);
     }
 
+    
+    public function isUrlExist($path) {
+        $file_headers = @get_headers($path);
+        if ($file_headers[0] == 'HTTP/1.1 404 Not Found') {
+            $response = 'HTTP/1.1 404 Not Found';
+        } else {
+            $response = "true";
+        }
+
+        unset($file_headers);
+        return $response;
+    }
+
+    
 }

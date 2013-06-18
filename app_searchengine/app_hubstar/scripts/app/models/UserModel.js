@@ -2,6 +2,11 @@
 define('models/UserModel',
         ['ember', 'emberData'],
         function() {
+            DS.RESTAdapter.map('App.User', {
+                collection: {embedded: 'always'}
+            });
+
+
             var UserModel = DS.Model.extend({
                 identifier: DS.attr('string'),
                 profile_url: DS.attr('string'),
@@ -26,6 +31,7 @@ define('models/UserModel',
                 city: DS.attr('string'),
                 zip: DS.attr('string'),
                 address: DS.attr('string'),
+                collection: DS.hasMany('App.Collection')
 //                didLoad: function() {
 //                    console.log('model loaded', this.toJSON());
 //                    console.log('id: ' + this.id + ' ' + this.get('last_name'), this);
@@ -36,7 +42,7 @@ define('models/UserModel',
 //                url: 'search', //this must match JSON_RESPONSE_ROOT_SINGLE constant in modules/api/controllers/ContactController.php
 //                pk: "id"
 //            });
-    return UserModel;
-}
+            return UserModel;
+        }
 );
 

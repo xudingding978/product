@@ -5,7 +5,7 @@ define([
 
 ], function(Ember, addCollectionTemplate) {
     var AddCollectionView = Ember.View.extend({
-        classNames: ["window-container"],
+        classNames: ["contact-container"],
         template: Ember.Handlebars.compile(addCollectionTemplate),
         didInsertElement: function() {
 

@@ -152,6 +152,7 @@ define('application', [
     "models/ArticleModel",
     "models/VideoModel",
     "models/StatModel",
+    "models/CollectionModel",
     "emberData",
     'jquery',
     "bxslider",
@@ -257,7 +258,8 @@ define('application', [
         Photo,
         Article,
         Video,
-        Stat
+        Stat,
+        Collection
         )
 {
 
@@ -363,21 +365,19 @@ define('application', [
         Photo: Photo,
         Article: Article,
         Video: Video,
-
         Stat: Stat,
-
+        Collection: Collection,
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({
                 bulkCommit: false,
                 url: getRestAPIURL(),
                 mappings: {
-
-           //         resultstatus: "App.Resultstatus"
+                    //         resultstatus: "App.Resultstatus"
                 },
                 plurals: {
                     mega: "mega",
-             //       resultstatus: 'resultstatuss'
+                    //       resultstatus: 'resultstatuss'
 
                 },
                 plurals: {

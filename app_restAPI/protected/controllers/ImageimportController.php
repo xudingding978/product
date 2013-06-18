@@ -151,7 +151,8 @@ class ImageimportController extends Controller {
                 header('Content-type: ' . $imageInfo['mime']);
                 $response = $this->imageRenameAndputImagetoS3($imageInfo, $url, $data);
             } catch (Exception $e) {
-                $response = 'Caught exception: ' . $e->getMessage() . "\n";
+                $response = 'Caught exception: ' . $e->getMessage() . "\n". $url;
+                $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $response);
             }
         } else {
             try {
@@ -163,7 +164,8 @@ class ImageimportController extends Controller {
                 $imageInfo = $this->getImageInfo($url);
                 $response = $this->imageRenameAndputImagetoS3($imageInfo, $url, $data);
             } catch (Exception $e) {
-                $response = 'Caught exception: ' . $e->getMessage() . "\n";
+                $response = 'Caught exception: ' . $e->getMessage() . "\r\n". $url;
+                $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $response);
             }
         }
 
@@ -204,8 +206,10 @@ class ImageimportController extends Controller {
             } elseif (strpos($url, 'hero')) {
                 $stamp = imagecreatefrompng('https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/watermark4hero.png');
             }
-
-            error_log("get water mark image faill: " . $e->getMessage());
+            
+            $message = "get water mark image faill: " . $e->getMessage() . "\r\n" . date("Y-m-d H:i:s").$url. "\r\n";
+            echo $message;            
+            $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $message);
         }
     }
 
@@ -278,6 +282,8 @@ class ImageimportController extends Controller {
             }
         } catch (Exception $e) {
             $response = 'Caught exception: ' . $e->getMessage() . "\n";
+            $message = $response . "\n" . date("Y-m-d H:i:s").$path. " \r\n";
+            $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $message);
         }
 
         return "false";
@@ -304,8 +310,19 @@ class ImageimportController extends Controller {
         $return = ob_get_contents();
         ob_end_clean();
         return $return;
-    }
+    } 
+    
+    
+    protected function writeToLog($fileName, $content) {
+        //   $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_success.log';
+        $handle = fopen($fileName, 'a') or die('Cannot open file:  ' . $fileName);
+        $output = "\n" . $content;
+        fwrite($handle, $output);
+        fclose($handle);
 
+        unset($fileName, $content, $handle, $output);
+    }
+    
 }
 
 ?>

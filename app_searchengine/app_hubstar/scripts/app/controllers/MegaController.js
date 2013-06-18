@@ -19,6 +19,7 @@ define(['models/MegaModel',
                 selected: null,
                 isSelected: false,
                 needs: ['photo'],
+           
                 photo_album_id: null,
                 photo_thumb_id: null,
                 findSelectedItemIndex: function() {
@@ -60,6 +61,7 @@ define(['models/MegaModel',
                         this.set('image_no', 1);
                         selectedIndex = 0;
                     }
+                    this.set('image_no', selectedIndex + 1);
                     this.set('selected', this.get('content').objectAt(selectedIndex));
                     this.set("percentComplete", this.get('selected'));
                     this.set('megaResouce', MegaModel.find(this.get('selected').id)._data.attributes);
@@ -114,8 +116,25 @@ define(['models/MegaModel',
                 {
                     var result = (param !== null && param !== undefined);
                     return result;
-                }
+                
 
+                },
+                addCollection: function() {
+
+
+                    this.set('collectable', !this.get('collectable'));
+                },
+                closeWindow: function() {
+                    this.set('collectable', false);
+                    this.set('contact', false);
+                    window.history.back();
+                },
+                editingContact: function() {
+                    this.set('contact', !this.get('contact'));
+                },
+                closeContact: function() {
+                    this.set('contact', !this.get('contact'));
+                }
             });
             return MegaController;
         });

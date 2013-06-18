@@ -41,7 +41,7 @@
 
 <div class="profilegb" style="background: #fff url('../images/texture.png') repeat;width: 100%;height: auto; padding-bottom: 300px;">
     <div style="width: 100%; height: 500px; overflow: hidden; position: fixed;"> 
-        <img  {{bindAttr src= profile_bg_url}} style="width: 100%; height:auto;">
+        <img  {{bindAttr src= model.profile_bg_url}} style="width: 100%; height:auto;">
 
         <!--        <div style="background-color: black;position: absolute; top:125px; left: 6%; border-radius: 3px;padding: 5px;opacity: 0.6;">
                     <p style="color: white;margin: 2px;font-size: 12px;">Change Background</p>
@@ -52,18 +52,17 @@
     <div style="width: 100%; height:170px; position: relative; display: block; opacity: 0;">      </div>
 
     <div class="profilewrapper" style="position: relative; width: 87%; height: auto; margin:  auto; background: #fff; box-shadow: 0px 0px 8px #555; border-radius: 3px 3px 0 0;max-width: 1260px;min-width: 796px;">
-  aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa     {{controller.profile_bg_url}}
         <!--corpbanner-->
 
         <div class="profilecorpbanner"    style="overflow:hidden;width: 100%; max-height: 650px; border-radius: 3px 3px 0 0; position: relative;">
-            <img {{bindAttr src= profile_cover_url}} style="width:100%;">
+            <img {{bindAttr src= model.profile_cover_url}} style="width:100%;">
             <div style="background-image:url('../images/dogearhover.png');width: 30px;height: 29px;position: absolute;right: 0; top: 0;"></div>
             <div class="corpbanner_mask" style="background: url('../images/bannershadow.png') repeat-x; position: absolute;bottom:0; width: 100%; height: 200px;">
                 <div class="corpbanner_content" style="position: absolute;bottom:0;margin-left: 30%;width: 70%;">
                     <div class="main_title" style="height: 100px;">
                         <div>
                             <div style="display: inline-block; color: white;max-width: 750px;overflow: hidden; font-size: 28px; margin-bottom: 15px;line-height: 32px;">
-                                {{profile_name}}
+                                {{model.profile_name}}
                             </div>
 
                             {{#if controller.editing}}
@@ -102,7 +101,7 @@
                 <div class="profileaside_content" style="margin:auto; margin-top: -200px; position: relative; width:87%;">
 
                     <div class="aside-profilepic" style="padding: 20px 5px; border-bottom: 1px solid #ccc;">
-                        <img {{bindAttr src= profile_pic_url}} style="width: 200px; height:auto; display: block;margin: 10px auto; border:3px solid white;width: 200px; height:auto; display: block;margin: 20px auto; border:5px solid white;box-shadow: 0px 0px 5px #888;"> 
+                        <img {{bindAttr src= model.profile_pic_url}} style="width: 200px; height:auto; display: block;margin: 10px auto; border:3px solid white;width: 200px; height:auto; display: block;margin: 20px auto; border:5px solid white;box-shadow: 0px 0px 5px #888;"> 
                         <a href="#question_modal" role="button" class="btn" data-toggle="modal" style="margin:10px auto;display: block;width: 150px;position: relative;color:#0088cc;"><b>Follow</b></a>
 
                     </div>
@@ -218,6 +217,7 @@
 
                     <div class="main_aboutus" style=" border-bottom: 1px solid #ccc; padding:20px 0 30px 0; font-size: 15px;">
                         <div><p style='margin-bottom: 20px;display: inline-block; font-size: 18px;'><i class='icon-user' style='margin-right: 10px;display: inline-block;'></i>About Us</p>
+
                             {{#if controller.editingAbout}}
                             {{view App.EditingAboutView}}
                             {{else}}
@@ -227,8 +227,7 @@
                             </a>
                             {{/if}}
                         </div>
-                        {{{about}}}
-
+                        {{{about}}} 
                     </div>
 
 
@@ -358,7 +357,7 @@
 
 
             <div class="style-box t-style-box" style="width: 100%; min-width: 796px; height: 50px; background: white;margin: -70px auto;left: 0;right: 0;position: relative;display: block;">
-                <div style="margin: 4px 20px 4px 40px; font-size: 18px; text-shadow: 0 1px 0 rgba(255,255,255,0.8);float: left;">Album Name</div>
+                <div style="margin: 4px 20px 4px 40px; font-size: 16px; text-shadow: 0 1px 0 rgba(255,255,255,0.8);float: left;">Collection Name</div>
 
                 <ul class="user-stats" id="user-stats">
 
@@ -366,7 +365,7 @@
                     <li><a>Videos</a></li>
                     <li><a>Articles</a></li>
                     <li><a>E-books</a></li>
-                    <li><a>Following</a></li>
+                    <li><a>Partners</a></li>
                     <li><a>Followers</a></li>
                 </ul>
 

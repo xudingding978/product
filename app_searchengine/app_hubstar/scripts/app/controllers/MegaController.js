@@ -9,22 +9,21 @@ define(['models/MegaModel',
                 MegaModel,
                 Ember
                 ) {
-
             var MegaController = Ember.ArrayController.extend({
                 content: [],
+                collection: [{title:"a", value:"1"},{title:"b", value:"2"},{title:"c", value:"3"}],
                 megaResouce: null,
                 temp: null,
                 image_no: 1,
                 percentComplete: 0,
                 selected: null,
                 isSelected: false,
-                needs: ['photo'],
-           
+                needs: ['photo', 'application'],
+                currentUser: null,
                 photo_album_id: null,
                 photo_thumb_id: null,
                 findSelectedItemIndex: function() {
                     content = this.get('content');
-
                     for (var index = 0; index <= content.get('length'); index++) {
                         if (this.get('selected') === content.objectAt(index)) {
                             return index;
@@ -70,10 +69,11 @@ define(['models/MegaModel',
                     this.selectedImage(this.get('percentComplete').id);
                 },
                 getInitData: function(megaObject) {
+
+                //    this.setUser();
                     this.set("content", []);
                     this.set("percentComplete", megaObject._data.hasMany.photo[0].data);
                     this.get("content").pushObject(megaObject._data.hasMany.photo[0].data);
-
                     this.set('megaResouce', MegaModel.find(megaObject.id)._data.attributes);
                     this.set("photo_album_id", "album_" + this.get('percentComplete').id);
                     this.set("photo_thumb_id", "thumb_" + this.get('percentComplete').id);
@@ -116,12 +116,8 @@ define(['models/MegaModel',
                 {
                     var result = (param !== null && param !== undefined);
                     return result;
-                
-
                 },
                 addCollection: function() {
-
-
                     this.set('collectable', !this.get('collectable'));
                 },
                 closeWindow: function() {
@@ -134,6 +130,23 @@ define(['models/MegaModel',
                 },
                 closeContact: function() {
                     this.set('contact', !this.get('contact'));
+                },
+                setUser: function()
+                {
+                    var user = App.User.find(localStorage.loginStatus);
+                    var that = this;
+                    user.addObserver('isLoaded', function() {
+                        if (user.get('isLoaded')) {
+                            that.set("user", user);
+                    that.set("collection", that.get("user")._data.hasMany.collection);
+              console.log(that.get("collection"));
+                    //        console.log(that.get("user")._data.hasMany.collection[0].data.title);
+                        }
+                    });
+
+                },test:function()
+                {
+                    console.log("test");
                 }
             });
             return MegaController;

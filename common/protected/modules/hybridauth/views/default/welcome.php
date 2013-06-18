@@ -15,6 +15,7 @@
         if (<?php echo Yii::app()->user->getUserData() ?> !== "") {
 
             data = <?php echo Yii::app()->user->getUserData() ?>;
+            console.log(data);
             localStorage.setItem("loginStatus", data);
 
         }

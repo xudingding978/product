@@ -110,7 +110,7 @@ class ImageimportController extends Controller {
 //    }
 
     public function setImage($url) {
-
+        
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);

@@ -21,6 +21,20 @@ class UsersController extends Controller {
 
         //Build a new search request
         $request = $sherlock->search();
+
+        $termQuery = Sherlock\Sherlock::queryBuilder()
+                ->Match()
+                ->field("type")
+                ->query("user")
+                ->boost(2.5);
+
+        $request->index(Yii::app()->params['elasticSearchIndex'])
+                ->type("couchbaseDocument")
+                ->from(0)
+                ->to(10)
+                ->size(100)
+                ->query($termQuery);
+
 //        $json = '{"query":
 //                            {"bool":
 //                                {"must":[
@@ -29,11 +43,11 @@ class UsersController extends Controller {
 //                                            "must_not":[],"should":[]
 //                                                }},
 //                                                "from":0,"size":50,"sort":[],"facets":{}}';
-        
-    $json =  '{"query":{"bool":{"must":[{"query_string":{"default_field":"couchbaseDocument.doc.type","query":"user"}}],"must_not":[],"should":[]}},"from":0,"size":50,"sort":[],"facets":{}}';
-        $rawTermQuery = Sherlock\Sherlock::queryBuilder()->Raw($json);
 
-        $response = $request->query($rawTermQuery)->execute();
+//        $json = '{"query":{"bool":{"must":[{"query_string":{"default_field":"couchbaseDocument.doc.type","query":"user"}}],"must_not":[],"should":[]}},"from":0,"size":50,"sort":[],"facets":{}}';
+//        $rawTermQuery = Sherlock\Sherlock::queryBuilder()->Raw($json);
+
+        $response = $request->execute();
         $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":[';
 
         //Iterate over the hits and print out some data
@@ -47,7 +61,6 @@ class UsersController extends Controller {
         $results .= ']}';
 
         echo $this->sendResponse(200, $results);
-
     }
 
     public function actionCreate() {
@@ -91,22 +104,19 @@ class UsersController extends Controller {
 
     public function actionRead() {
         try {
+
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
-
-
             $id = $temp [sizeof($temp) - 1];
-
             $reponse = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . "/users/" . $id);
-
             $respone_user = json_decode($reponse, true)['user'][0];
 
-    //        error_log("eeeeeeeeeeeeee     " . var_export($respone_user, true));
+            //        error_log("eeeeeeeeeeeeee     " . var_export($respone_user, true));
 
 
 
             $respone_user_data = str_replace("\/", "/", CJSON::encode($respone_user));
-      //      error_log("hhhhhhhhhhhhhh  " . $respone_user_data);
+            //      error_log("hhhhhhhhhhhhhh  " . $respone_user_data);
 
             $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $respone_user_data . '}';
             echo $this->sendResponse(200, $result);
@@ -149,12 +159,9 @@ class UsersController extends Controller {
         header('Access-Control-Request-Method:*');
         header('Access-Control-Allow-Methods:*');
         header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
-
         echo "";
         Yii::app()->end();
 
-
-//                echo $this->sendResponse(200, "OK");
     }
 
     public function getInputData($inputDataType, $inputData) {

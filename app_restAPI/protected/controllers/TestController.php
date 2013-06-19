@@ -21,7 +21,8 @@ class TestController extends Controller {
     }
 
     public function actionRead() {
-        echo "this is read method";
+        error_log("aaaaaaaaaaaaaaa");
+        echo "aaaaaaaaaaa";
     }
 
     public function actionUpdate() {

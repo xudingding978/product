@@ -11,9 +11,9 @@ define([
     var ProfilesRoute = Ember.Route.extend({
    //     controller: ApplicationController,
         setupController: function(controller, ProfileModel) {
+
         },
         model: function() {
-
             return ProfileModel.find();
         },
         renderTemplate: function() {

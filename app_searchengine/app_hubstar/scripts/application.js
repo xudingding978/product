@@ -101,6 +101,7 @@ define('application', [
     "views/QuickstartView",
     "views/AddCollectionView",
     "views/ComingSoonView",
+    "views/DropDownView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -155,6 +156,7 @@ define('application', [
     "models/ArticleModel",
     "models/VideoModel",
     "models/StatModel",
+    "models/CollectionModel",
     "emberData",
     'jquery',
     "bxslider",
@@ -210,6 +212,7 @@ define('application', [
         QuickstartView,
         AddCollectionView,
         ComingSoonView,
+        DropDownView,
         ApplicationController,
         tabListController,
         DataController,
@@ -263,7 +266,8 @@ define('application', [
         Photo,
         Article,
         Video,
-        Stat
+        Stat,
+        Collection
         )
 {
 
@@ -319,6 +323,7 @@ define('application', [
         QuickstartView: QuickstartView,
         AddCollectionView: AddCollectionView,
         ComingSoonView: ComingSoonView,
+        DropDownView: DropDownView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
@@ -373,6 +378,7 @@ define('application', [
         Article: Article,
         Video: Video,
         Stat: Stat,
+        Collection: Collection,
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({

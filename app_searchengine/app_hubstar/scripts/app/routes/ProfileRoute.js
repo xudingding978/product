@@ -11,10 +11,9 @@ define([
  //   var kink;
     var ProfileRoute = Ember.Route.extend({
         setupController: function(ProfileController, model) {
-       //     kink=model;
-            
+           
             ProfileController.setLocalLoginRecrod();
-    //        console.log('aaaaaaaaaa'+ kink);
+            ProfileController.setModel(model);
         },
         redirect: function() {
 

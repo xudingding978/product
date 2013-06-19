@@ -146,31 +146,44 @@ class Controller extends CController {
         $id = (string) rand(99999999, 999999999) . $id;
         return $id;
     }
-
+    
     protected function getRequestResult($searchString, $returnType) {
         $response = "";
+        
+//        error_log("return type: ".$returnType);
+        
         $requireParams = explode('&', $searchString);
         $requireType = $this->getUserInput($requireParams[0]);
+        
+//        error_log("require_type: ".$requireType);
         if ($requireType == 'search') {
             $region = $this->getUserInput($requireParams[1]);
             $searchString = $this->getUserInput($requireParams[2]);
             $response = $this->performSearch($returnType, $region, $searchString);
+            
+//            error_log("4444444444444444444444444");
         } elseif ($requireType == 'collection') {
 
             $collection_id = $this->getUserInput($requireParams[1]);
             $owner_profile_id = $this->getUserInput($requireParams[2]);
             $response = $this->performRawSearch($returnType, $collection_id, $owner_profile_id);
+            
+//            error_log("3333333333333333333333333");
         } elseif ($requireType == 'status') {
 
             $region = $this->getUserInput($requireParams[1]);
             $searchString = $this->getUserInput($requireParams[2]);
             $response = $this->getSearchResultsTotal($returnType, $region, $searchString);
-
+            
+//            error_log("22222222222222222");
             //     unset(Yii::app()->session['hit']);
         } else {
-
+//            error_log("111111111111111111");
             $response = $this->performSearch($returnType, "", "huang");
         }
+        
+//        error_log("response= ".$response);
+        
         return $response;
     }
 

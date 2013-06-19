@@ -8,23 +8,13 @@ class ImportdataCommand extends CConsoleCommand {
         echo (isset($quantity) ? 'Quantity to load is... ' . $quantity : 'No quantity defined');
         $this->actionImage($start, $quantity);
     }
+    
     public $image_amount = 0;
     public $obj_amount = 0;
     public $total_amount = 0;
     public $amount = 0;
 
     public function actionObject() {
-//        $a = getimagesize("http://trendsideas.com/media/article/original/NAFF");
-//        print_r("<pre>");
-//        print_r($a);
-//        $result = preg_match('/\d[.](jpg)/', ".jpg");
-//        echo($result);
-//            date_default_timezone_set('Asia/Bangkok');
-//            $time_string = strtotime("DEC 10 2004 12:00:00:000AM");
-//            echo $date_time = date('Y-m-d H:i:s', $time_string)."\n";
-//            echo $time_string;
-
-
         $sql = "select dbo.ArticleImages.id from dbo.ArticleImages where dbo.ArticleImages.id between 58960 and 59060";
         $data_list = Yii::app()->db->createCommand($sql)->queryAll();
         foreach ($data_list as $val) {
@@ -132,7 +122,7 @@ class ImportdataCommand extends CConsoleCommand {
                     $url_list['original']=$url_original;
                 }
             }
-
+            
             if (sizeof($url_list)>0) {
                     $image_details_array = $this->importImageList($url_list);
             }
@@ -148,7 +138,7 @@ class ImportdataCommand extends CConsoleCommand {
             } else {
                 echo "http://trendsideas.com/media/article/preview/" . $val['preview'] . "--- DO NOT have return value from S3!--ID:" . $val['id']. " \r\n";
             }
-
+            
             unset($return_hero, $return_thumbnail, $return_preview, $return_original, $obj);
             unset($is_hero, $is_thumbnail, $is_preview, $is_original);
             unset($message, $url_hero, $return_hero, $url_thumbnail, $return_thumbnail, $url_preview, $return_preview, $url_original, $return_original);

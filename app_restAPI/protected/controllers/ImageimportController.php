@@ -209,6 +209,7 @@ class ImageimportController extends Controller {
             
             $message = "get water mark image faill: " . $e->getMessage() . "\r\n" . date("Y-m-d H:i:s").$url. "\r\n";
             echo $message;            
+            
             $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $message);
         }
     }
@@ -219,8 +220,14 @@ class ImageimportController extends Controller {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
         $tim = curl_exec($ch);
-        $imageInfo = getimagesizefromstring($tim);
-        return $imageInfo;
+        
+        if (@$imageInfo = getimagesizefromstring($tim)) {;
+            return $imageInfo;
+        } else {
+            $message = $url . "\r\n" . date("Y-m-d H:i:s").$tim. " \r\n";
+            $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $message);
+            return false;
+        }
     }
 
     protected function shouldBeWaterMarked($url) {
@@ -275,10 +282,15 @@ class ImageimportController extends Controller {
 
     function is_image($path) {
         try {
-            $a = getimagesize($path);
-            $image_type = $a[2];
-            if (in_array($image_type, array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_BMP))) {
-                return "true";
+            if($a=@getimagesize($path)) {
+//                $a = getimagesize($path);
+                $image_type = $a[2];
+                if (in_array($image_type, array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_BMP))) {
+                    return "true";
+                }
+            } else {
+                $message = $response . "\n" . date("Y-m-d H:i:s").$path. " \r\n";
+                $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $message);
             }
         } catch (Exception $e) {
             $response = 'Caught exception: ' . $e->getMessage() . "\n";

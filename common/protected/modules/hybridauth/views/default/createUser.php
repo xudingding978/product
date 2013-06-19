@@ -1,6 +1,6 @@
 <div class="form" style="color: white; text-shadow: 0 0 10px #333;">
     <div style="width: 100%;height: 100%;position: absolute;z-index: -1;overflow: hidden;">
-        <img style="width: 100%;" src="../../../../../../../images/defaultbg6.jpg" />
+        <img style="width: 100%;" src="../../../../../../../images/defaultbg/defaultbg6.jpg" />
     </div>
 
     <?php
@@ -24,7 +24,7 @@
         $adapter = $hybridauth->authenticate($_GET['provider']);
         $user_profile = $adapter->getUserProfile();
         $rand_id = strval(rand(9999999999, 99999999999));
- 
+
         $user->COUCHBASE_ID = $rand_id;
         $user->USER_NAME = $user_profile->displayName;
         $user->EMAIL_ADDRESS = $user_profile->email;

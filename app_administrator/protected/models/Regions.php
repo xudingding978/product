@@ -237,6 +237,51 @@ class Regions extends CActiveRecord
                         return $region;
                 }
         
+                public function selectRegionByArtical($id) {
+                    $data_list = array();
+                    $region = "";
+                    $sql = "select 
+                                    dbo.Regions.* 
+                                from 
+                                    dbo.Regions 
+                                inner join 
+                                    dbo.ArticleTopicMaps 
+                                on 
+                                    dbo.ArticleTopicMaps.regionId = dbo.Regions.id 
+                                inner join 
+                                    dbo.Articles
+                                on 
+                                    dbo.Articles.id = dbo.ArticleTopicMaps.articleId
+                                where 
+                                    dbo.Articles.id = ".$id; 
+//                    error_log($sql); 
+                    try {
+                        $data_list = Yii::app() ->db->createCommand($sql)->queryAll(); 
+                        if(sizeof($data_list)>0) {
+                            $region = $data_list[0]['name'];
+                            while(true) {
+                                $parent_id = $data_list[0]['parentId'];
+                                if($parent_id==null) {
+                                    break;
+                                } else {
+                                    $data_list = $this->getParentRegionData($parent_id);
+                                    $region = $region.", ".$data_list[0]['name'];
+                                }
+                            }
+                        }
+                    } catch (Exception $e) {
+                        error_log("Cannot get region infor: ".$e->getMessage());
+                    }
+                    return $region;
+                }
+                
+                public function getParentRegionData($parent_id) {
+                    $data_list=array();
+                    $sql = "select dbo.Regions.* from dbo.Regions where id = ".$parent_id;
+                    $data_list = Yii::app() ->db->createCommand($sql)->queryAll();
+                    
+                    return $data_list;
+                }
                 
                 public function selectRegionByImage($id) {
                     $data_list = array();

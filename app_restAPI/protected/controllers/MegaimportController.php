@@ -18,10 +18,8 @@ class MegaimportController extends Controller {
             $settings['log.enabled'] = true;
             $sherlock = new Sherlock\Sherlock($settings);
             $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
-//Build a new search request
             $request = $sherlock->search();
 
-//populate a Term query to start
             $termQuery = Sherlock\Sherlock::queryBuilder()
                     ->QueryStringMultiField()
                     ->fields(["couchbaseDocument.doc.keywords", "couchbaseDocument.doc.desc"])

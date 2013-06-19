@@ -5,7 +5,7 @@ define('models/CollectionModel',
             var CollectionModel = DS.Model.extend({
                 title: DS.attr('string'),
                 desc: DS.attr('string'),
-                comment: DS.attr('string'),
+                collection_ids: DS.attr('string'),
                 didLoad: function() {
                 }
             });

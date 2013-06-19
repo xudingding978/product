@@ -20,9 +20,7 @@ define([
                 into: "application"
             });
 
-            this.render('default', {
-                into: "index"
-            });
+
         }
     });
     return IndexRoute;

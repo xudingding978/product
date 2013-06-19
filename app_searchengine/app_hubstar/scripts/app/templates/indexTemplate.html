@@ -10,13 +10,21 @@
 
 
 
+{{#if controller.islogin}}
 
+{{view App.DiscoveryView}}
 
-{{outlet}}
+{{else}}
 
+{{view App.CarouselView}}
 
-
+{{/if}}
 
 {{view App.MasonryView}}
 
+
+<div {{action reloadPage target="view" }}>ddddddddddddd</div>
+
+
 {{outlet 'newphoto'}}
+

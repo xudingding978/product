@@ -101,6 +101,9 @@ define('application', [
     "views/QuickstartView",
     "views/AddCollectionView",
     "views/ComingSoonView",
+    "views/DropDownView",
+    "views/ConView",
+    "views/AddChildViewButton",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -155,6 +158,7 @@ define('application', [
     "models/ArticleModel",
     "models/VideoModel",
     "models/StatModel",
+    "models/CollectionModel",
     "emberData",
     'jquery',
     "bxslider",
@@ -210,6 +214,9 @@ define('application', [
         QuickstartView,
         AddCollectionView,
         ComingSoonView,
+        DropDownView,
+        ConView,
+        AddChildViewButton,
         ApplicationController,
         tabListController,
         DataController,
@@ -263,7 +270,8 @@ define('application', [
         Photo,
         Article,
         Video,
-        Stat
+        Stat,
+        Collection
         )
 {
 
@@ -319,6 +327,9 @@ define('application', [
         QuickstartView: QuickstartView,
         AddCollectionView: AddCollectionView,
         ComingSoonView: ComingSoonView,
+        DropDownView: DropDownView,
+        ConView: ConView,
+        AddChildViewButton: AddChildViewButton,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
@@ -373,6 +384,7 @@ define('application', [
         Article: Article,
         Video: Video,
         Stat: Stat,
+        Collection: Collection,
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({
@@ -395,7 +407,12 @@ define('application', [
 
 
             App.set("isLogin", false);
-
+            App.set("afterSearch", false);
+//            var firstView = App.DiscoveryView.create(),
+//                    secondView = App.MasonryView.create();
+//
+//            App.ConView.pushObject(firstView);
+//            App.ConView.pushObject(secondView);
         }
     });
 }

@@ -10,26 +10,21 @@ define([
 
         ) {
     "use strict";
-
+    var loginChecking = true;
     var SearchRoute = Ember.Route.extend({
         setupController: function() {
-            localStorage.checkUser = "";
-            this.controllerFor('searchs').defaultSearch();
 
+       //     localStorage.checkUser = "";
+            this.controllerFor('searchs').defaultSearch();
+            this.controllerFor('index').setLogin();
+            console.log("search route");
+           
         },
         events: {
             transitionToPhoto: function(id) {
                 this.transitionTo("photo", MegaModel.find(id));
             }
         },
-        renderTemplate: function() {
-
-            this.render('searchs', {
-                into: "index"
-            });
-
-
-        }
     });
     return SearchRoute;
 });

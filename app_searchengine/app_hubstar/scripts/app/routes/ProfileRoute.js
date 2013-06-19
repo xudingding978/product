@@ -8,13 +8,12 @@ define([
         ProfileController
         ) {
     "use strict";
- //   var kink;
+    //   var kink;
     var ProfileRoute = Ember.Route.extend({
         setupController: function(ProfileController, model) {
-       //     kink=model;
-            
+ 
             ProfileController.setLocalLoginRecrod();
-    //        console.log('aaaaaaaaaa'+ kink);
+            ProfileController.setModel(model);
         },
         redirect: function() {
 
@@ -29,6 +28,9 @@ define([
 
             }
 
+
+        },
+        deactivate: function() {
 
         },
         model: function(params) {

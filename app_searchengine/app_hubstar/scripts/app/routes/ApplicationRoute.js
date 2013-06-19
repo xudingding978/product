@@ -14,7 +14,7 @@ define([
         setupController: function(controller, model) {
 
 
-
+            console.log("application route");
             if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
 
                 App.set("isLogin", false);

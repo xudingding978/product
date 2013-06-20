@@ -74,6 +74,7 @@ define([
             totalTime += "ms";
             this.set("time", totalTime);
         }
+                
 
     });
 

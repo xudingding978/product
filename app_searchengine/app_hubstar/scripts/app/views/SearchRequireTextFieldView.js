@@ -14,6 +14,12 @@ define([
             {
                 controller.newSearch();
             }
+            else if (controller._debugContainerKey.indexOf("user") !== -1) {
+                controller.addNewCollection();
+            }
+            else {
+                console.log(controller._debugContainerKey);
+            }
         }
     });
     return SearchTextField;

@@ -1,9 +1,9 @@
 define([
     'models/ProfileModel',
-    'ember', 'controllers/PhotoUploadController'],
+    'ember'],
         function(
                 ProfileModel,
-                Ember, PhotoUploadController
+                Ember
                 ) {
             var profile_record;
             var about_record;

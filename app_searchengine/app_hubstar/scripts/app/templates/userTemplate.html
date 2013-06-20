@@ -1,9 +1,9 @@
 
 <div class="user-board">
     <div class="user-board_left style-box">
-        <img style="width: 150px; height: 150px; border-radius: 3px 0 0 3px;display: inline-block;vertical-align: top;" {{bindAttr src="photo_url_large"}}/>
+        <img style="width: 150px; height: 150px; border-radius: 3px 0 0 3px;display: inline-block;vertical-align: top;" {{bindAttr src="controller.user.photo_url_large"}}/>
         <div style="height: 120px; margin: 15px 20px;display: inline-block;position: absolute;left: 150px;">
-            <div style="font-size: 26px;font-weight: bold; line-height: 30px; overflow: hidden;">{{display_name}}</div>
+            <div style="font-size: 26px;font-weight: bold; line-height: 30px; overflow: hidden;">{{controller.user.display_name}}</div>
             <div style="font-size: 13px;line-height: 20px;margin: 5px auto;color: #888; overflow: hidden;height: 60px; text-overflow: ellipsis;">{{description}}</div>
             <ul class="locationandlinks">
                 <li class="location_li" style="background: none;padding: 0;"><i class="icon-map-marker"></i>Auckland</li> 
@@ -64,67 +64,37 @@
             </div>
 
 
+            <div id="uploadArea"  style="height: 510px;width: 570px;  display: none">
+                <button id="uploadingObject" style="display: none">
+                    X
+                </button>
 
-            <div id="uploadingObject" style="display: none">
-                    <div>4444444455555555555555555555555555555555555555555555555555555544</div>
+                {{view App.SearchRequireTextFieldView valueBinding="newCollectionName"  id="" class="" placeholder="Search by Business and keyword" }}    <button type="button" {{action addNewCollection }} class="btn">New Collection</button>
+                {{#view App.DropDownView  contentBinding="controller.collections"}}
+                <select>
+                    {{#each collections}}
+                    <option {{bindAttr value="desc" }} >{{title}}</option>
+                    {{/each}}
+                </select>
+                {{/view}}
+                {{view Ember.TextArea valueBinding="controller.selectedDesc" rows="12" cols="70"}}
+                <button type="button" {{action exit }} class="btn">Cancel</button>
+                <button type="button" {{action submit }}  class="btn btn-primary">Submit</button>
+
+                {{render "PhotoCreate"}}
+
+
             </div>
 
         </div>
 
-
-
-        <div class="box col1">
-
-            <div class="masonry-object">
-                <div class="usersobject-hoverarea easing">
-                    <div class="usersobject-hoverarea_bg"></div>
-                    <div  type="button" class="new-btn green-btn object-followbtn-position" >
-                        Follow
-                    </div>
-                </div>
-                <div class="masonry-object_profile-pic">
-                    <div class="masonry-object_cover-wapper">
-                        <img src="../images/profilepic7.jpg"/>
-                    </div>
-                </div>
-
-                <div class="masonry-object_username">
-                    <div class="object-username">
-                        Name
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="box col1">
-
-            <div class="masonry-object">
-                <div class="usersobject-hoverarea easing">
-                    <div class="usersobject-hoverarea_bg"></div>
-                    <div  type="button" class="new-btn green-btn object-followbtn-position" >
-                        Follow
-                    </div>
-                </div>
-                <div class="masonry-object_profile-pic">
-                    <div class="masonry-object_cover-wapper">
-                        <img src="../images/profilepic7.jpg"/>
-                    </div>
-                </div>
-
-                <div class="masonry-object_username">
-                    <div class="object-username">
-                        Name
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
+        {{controller.collections.length}}
+        {{#each collections}}
 
         <div class="box col2 style-box">
             <div class="masonry-object">
                 <div class="album-description-hoverarea easing">
+                    
                     <div class="album-description">description this photo album is about brabrabra, take a look in side!</div>
                     <div class="album-description-bg">description this photo album is about brabrabra, take a look in side!</div>
                 </div>
@@ -132,16 +102,20 @@
                     <img class="albumcover" src="../images/kichen_a.jpg"/>
                 </div>
                 <div class="album-info">
-                    <div class="album-info_name"><i class="icon-picture"></i> Album Name</div>
+                    <div class="album-info_name"><i class="icon-picture"></i> {{title}}</div>
                     <div class="album-info_content">
                         <div class="edit-object"><i class="icon-cog"></i></div>
                         <span><a> 32 </a>photos </span>
                         <span><img src="../../images/list-doc.png"/> April 1 2013</span>
                     </div>
                 </div>
-
             </div>
         </div>
+
+
+        {{/each}}
+
+
 
 
 
@@ -149,3 +123,17 @@
 
     </div>
 </div>
+        <script>
+
+            $(function() {
+                var $container = $('#masonry_user_container');
+                var $boxes = $('.box');
+                window.setTimeout(function() {
+                    $container.masonry();
+                    $container.prepend($boxes).masonry('reload');
+                }, 400);
+            });
+
+
+
+        </script>

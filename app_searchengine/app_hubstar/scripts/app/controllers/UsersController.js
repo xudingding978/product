@@ -8,5 +8,5 @@ define([
 //            return UserModel.find();
 //        }
     });
-    return UserController;
+    return UsersController;
 });

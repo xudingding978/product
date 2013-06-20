@@ -5,7 +5,7 @@ define([
 ], function(MegaModel, Stat, Ember) {
 
 
-    var ApplicationController = Ember.Controller.extend({
+    var ApplicationController = Ember.ArrayController.extend({
         needs: ['searchs'],
         loginInfo: "",
         test: false,

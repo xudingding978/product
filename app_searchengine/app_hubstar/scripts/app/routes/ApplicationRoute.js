@@ -15,18 +15,20 @@ define([
 
 
             console.log("application route");
-            if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
-
-                App.set("isLogin", false);
-
-            } else {
-
-                this.controllerFor('application').set('model', UserModel.find(localStorage.loginStatus));
-                this.controllerFor('status').set('model', UserModel.find(localStorage.loginStatus));
-                App.set("isLogin", true);
-
-
-            }
+            
+            
+//            if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
+//
+//                App.set("isLogin", false);
+//
+//            } else {
+//
+//                this.controllerFor('application').set('model', UserModel.find(localStorage.loginStatus));
+//                this.controllerFor('status').set('model', UserModel.find(localStorage.loginStatus));
+//                App.set("isLogin", true);
+//
+//
+//            }
 
             this.controllerFor('application').loginStatus();
 

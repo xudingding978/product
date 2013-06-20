@@ -7,7 +7,28 @@
 
 {{outlet users}}
 
+
+
+
+
+
+
+
+{{#if controller.islogin}}
+
 {{view App.DiscoveryView}}
+
+{{else}}
+
+{{view App.CarouselView}}
+
+{{/if}}
+
+
+
+
+
+
 
 
 

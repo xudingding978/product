@@ -411,6 +411,8 @@ define('application', [
 
             App.set("isLogin", false);
             App.set("afterSearch", false);
+
+            App.set("setHight", null);
 //            var firstView = App.DiscoveryView.create(),
 //                    secondView = App.MasonryView.create();
 //

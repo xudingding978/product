@@ -5,6 +5,7 @@ define(["ember"], function(Ember) {
         searchResultNum: "",
         time: "",
         user: null,
+
         needs: ['searchs'],
         getSearchResultNum: function() {
             var controller = this.get("controllers.searchs");

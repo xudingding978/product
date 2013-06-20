@@ -6,11 +6,10 @@ define('models/CollectionModel',
                 title: DS.attr('string'),
                 desc: DS.attr('string'),
                 collection_ids: DS.attr('string'),
+                createdAt: DS.attr('date'),
                 didLoad: function() {
                 }
             });
-
             return CollectionModel;
         }
 );
-

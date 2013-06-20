@@ -3,8 +3,7 @@ define([
 ], function(Ember) {
 
     var AddCollectionTemplate = Ember.ObjectController.extend({
-        collection: [],
-        user: null,
+        collections: [],
         selectedDesc: "",
         selectedTitle: "",
         needs: ["mega"],
@@ -20,9 +19,9 @@ define([
         setUser: function()
         {
             var user = App.User.find(localStorage.loginStatus);
-            this.set("collection", user.get("collection"));
-            this.setDesc(this.get("collection").objectAt(0).get("desc"));
-            this.setTitle(this.get("collection").objectAt(0).get("title"));
+            this.set("collections", user.get("collections"));
+            this.setDesc(this.get("collections").objectAt(0).get("desc"));
+            this.setTitle(this.get("collections").objectAt(0).get("title"));
         },
         setDesc: function(desc) {
             this.set("selectedDesc", desc);
@@ -33,9 +32,9 @@ define([
         submit: function()
         {
 
-            for (var i = 0; i < this.get("collection").get("length"); i++)
+            for (var i = 0; i < this.get("collections").get("length"); i++)
             {
-                var collection = this.get("collection").objectAt(i);
+                var collection = this.get("collections").objectAt(i);
                 if (collection.get("title") === this.get("selectedTitle"))
                 {
                     collection.set("desc", this.get("selectedDesc"));
@@ -70,9 +69,9 @@ define([
             var title = this.get("newCollectionName");
             var isInputValid = this.checkInput(title);
             if (isInputValid) {
-                var tempCollection = App.Collection.createRecord({"title": title, "desc": null, "collection_ids": null});
-                this.get("collection").pushObject(tempCollection);
-                this.set("selectedTitle", title);
+                var tempCollection = App.Collection.createRecord({"title": title, "desc": null, "collection_ids": null, "createdAt": new Date()});
+                this.get("collections").pushObject(tempCollection);
+                //      this.set("selectedTitle", title);
             }
         },
         checkInput: function(title) {
@@ -89,9 +88,9 @@ define([
         },
         isTitleNotExist: function(title) {
             var isContainsTitle = true;
-            for (var i = 0; i < this.get("collection").get("length"); i++)
+            for (var i = 0; i < this.get("collections").get("length"); i++)
             {
-                var collection = this.get("collection").objectAt(i);
+                var collection = this.get("collections").objectAt(i);
                 if (collection.get("title") === title)
                 {
                     isContainsTitle = false;

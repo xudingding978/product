@@ -68,7 +68,7 @@
                 <button id="uploadingObject" style="display: none">
                     X
                 </button>
-   
+
                 {{view App.SearchRequireTextFieldView valueBinding="newCollectionName"  id="" class="" placeholder="Search by Business and keyword" }}    <button type="button" {{action addNewCollection }} class="btn">New Collection</button>
                 {{#view App.DropDownView  contentBinding="controller.collections"}}
                 <select>
@@ -88,27 +88,32 @@
 
         </div>
 
+        {{controller.collections.length}}
+        {{#each collections}}
 
         <div class="box col2 style-box">
             <div class="masonry-object">
                 <div class="album-description-hoverarea easing">
-                    <div class="album-description">        {{controller}}</div>
+                    
+                    <div class="album-description">description this photo album is about brabrabra, take a look in side!</div>
                     <div class="album-description-bg">description this photo album is about brabrabra, take a look in side!</div>
                 </div>
                 <div class="albumcover-container">
                     <img class="albumcover" src="../images/kichen_a.jpg"/>
                 </div>
                 <div class="album-info">
-                    <div class="album-info_name"><i class="icon-picture"></i> Album Name</div>
+                    <div class="album-info_name"><i class="icon-picture"></i> {{title}}</div>
                     <div class="album-info_content">
                         <div class="edit-object"><i class="icon-cog"></i></div>
                         <span><a> 32 </a>photos </span>
                         <span><img src="../../images/list-doc.png"/> April 1 2013</span>
                     </div>
                 </div>
-
             </div>
         </div>
+
+
+        {{/each}}
 
 
 
@@ -118,3 +123,17 @@
 
     </div>
 </div>
+        <script>
+
+            $(function() {
+                var $container = $('#masonry_user_container');
+                var $boxes = $('.box');
+                window.setTimeout(function() {
+                    $container.masonry();
+                    $container.prepend($boxes).masonry('reload');
+                }, 400);
+            });
+
+
+
+        </script>

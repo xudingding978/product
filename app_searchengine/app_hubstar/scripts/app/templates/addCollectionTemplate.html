@@ -3,32 +3,18 @@
 
 
 <div class="contactmebox-wapper" style="width: 500px;height:500px;font-size: 13px;">
-
-    <button type="button" {{action addCollection }} class="close">X</button>
-
-    {{#view App.DropDownView  contentBinding="controller.collection"}}
+    <button type="button" {{action exit }} class="close">X</button>
+    {{view App.SearchRequireTextFieldView valueBinding="newCollectionName"  id="" class="" placeholder="Search by Business and keyword" }}    <button type="button" {{action addNewCollection }} class="btn">New Collection</button>
+    {{#view App.DropDownView  contentBinding="controller.collections"}}
     <select>
-        {{#each collection}}
-
-        <option {{bindAttr value="title"}} >{{title}}</option>
+        {{#each collections}}
+        <option {{bindAttr value="desc" }} >{{title}}</option>
         {{/each}}
     </select>
     {{/view}}
-
-
-
-
-
-
-    {{view Ember.TextArea valueBinding="" rows="12" cols="70"}}
-
-
-
-
-
-
-    <button type="button" {{action addCollection }} class="btn">Cancel</button>
-    <button type="button" {{action addCollection }}  class="btn btn-primary">Submit</button>
+    {{view Ember.TextArea valueBinding="controller.selectedDesc" rows="12" cols="70"}}
+    <button type="button" {{action exit }} class="btn">Cancel</button>
+    <button type="button" {{action submit }}  class="btn btn-primary">Submit</button>
 
 
 </div>

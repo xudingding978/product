@@ -11,14 +11,13 @@ define(['models/MegaModel',
                 ) {
             var MegaController = Ember.ArrayController.extend({
                 content: [],
-                collection: [{title:"a", value:"1"},{title:"b", value:"2"},{title:"c", value:"3"}],
                 megaResouce: null,
                 temp: null,
                 image_no: 1,
                 percentComplete: 0,
                 selected: null,
                 isSelected: false,
-                needs: ['photo', 'application'],
+                needs: ['application'],
                 currentUser: null,
                 photo_album_id: null,
                 photo_thumb_id: null,
@@ -32,7 +31,6 @@ define(['models/MegaModel',
                     return 0;
                 },
                 previesImage: function() {
-
                     if (!this.get('selected')) {
                         this.set('selected', this.get('content').get('lastObject'));
                     }
@@ -45,7 +43,6 @@ define(['models/MegaModel',
                     this.set('selected', this.get('content').objectAt(selectedIndex));
                     this.set("percentComplete", this.get('selected'));
                     this.set('megaResouce', MegaModel.find(this.get('selected').id)._data.attributes);
-
                     this.set("photo_album_id", "album_" + this.get('percentComplete').id);
                     this.set("photo_thumb_id", "thumb_" + this.get('percentComplete').id);
                     this.selectedImage(this.get('percentComplete').id);
@@ -70,7 +67,6 @@ define(['models/MegaModel',
                 },
                 getInitData: function(megaObject) {
 
-                //    this.setUser();
                     this.set("content", []);
                     this.set("percentComplete", megaObject._data.hasMany.photo[0].data);
                     this.get("content").pushObject(megaObject._data.hasMany.photo[0].data);
@@ -131,23 +127,6 @@ define(['models/MegaModel',
                 closeContact: function() {
                     this.set('contact', !this.get('contact'));
                 },
-                setUser: function()
-                {
-                    var user = App.User.find(localStorage.loginStatus);
-                    var that = this;
-                    user.addObserver('isLoaded', function() {
-                        if (user.get('isLoaded')) {
-                            that.set("user", user);
-                    that.set("collection", that.get("user")._data.hasMany.collection);
-              console.log(that.get("collection"));
-                    //        console.log(that.get("user")._data.hasMany.collection[0].data.title);
-                        }
-                    });
-
-                },test:function()
-                {
-                    console.log("test");
-                }
             });
             return MegaController;
         });

@@ -464,10 +464,11 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 .selected_image_style{
     opacity: 1;
-    -webkit-box-shadow: 0px 0px 20px rgba(0,190,255,0.8);
-    -moz-box-shadow: 0px 0px 20px rgba(0,190,255,0.8);
-    box-shadow: 0px 0px 20px rgba(0,190,255,0.8);
- bottom: 5px;
+    -webkit-box-shadow: 0px 0px 20px rgba(255,255,255,0.8);
+    -moz-box-shadow: 0px 0px 20px rgba(255,255,255,0.8);
+    box-shadow: 0px 0px 20px rgba(255,255,255,0.8);
+    bottom: 5px;
+    border: 7px solid #fff;
 }
 
 
@@ -542,6 +543,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 #discovery_search_bar > a > i {
     margin: 9px;
+    position: absolute;
 }
 
 
@@ -597,6 +599,13 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 
 
+/*SHOW ALBUM TEMPLATE STYLE*/
+
+.photo_original_style{
+    border-radius: 3px;
+    width: 110px;
+    margin: 5px;
+}
 
 
 

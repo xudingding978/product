@@ -149,8 +149,11 @@ class Controller extends CController {
 
     protected function getRequestResult($searchString, $returnType) {
         $response = "";
+
+
         $requireParams = explode('&', $searchString);
         $requireType = $this->getUserInput($requireParams[0]);
+
         if ($requireType == 'search') {
             $region = $this->getUserInput($requireParams[1]);
             $searchString = $this->getUserInput($requireParams[2]);
@@ -161,16 +164,20 @@ class Controller extends CController {
             $owner_profile_id = $this->getUserInput($requireParams[2]);
             $response = $this->performRawSearch($returnType, $collection_id, $owner_profile_id);
         } elseif ($requireType == 'status') {
-
             $region = $this->getUserInput($requireParams[1]);
             $searchString = $this->getUserInput($requireParams[2]);
             $response = $this->getSearchResultsTotal($returnType, $region, $searchString);
-
-            //     unset(Yii::app()->session['hit']);
+        } elseif ($requireType == 'personalCollection') {
+            $require = $this->getUserInput($requireParams[1]);
+            $ids = explode("%2C", $require);
+            error_log(var_export($ids,true));
+            $response = $this->performSearch($returnType, "", "huang");
         } else {
-
             $response = $this->performSearch($returnType, "", "huang");
         }
+
+//        error_log("response= ".$response);
+
         return $response;
     }
 
@@ -306,9 +313,9 @@ class Controller extends CController {
                 ->query($termQuery);
 
         $response = $request->execute();
-       // $result = "";
+        // $result = "";
         //Iterate over the hits and print out some data
-        $result = '{"'.$returnType.'":[{"id":"hit","hits":"' . $response->total;
+        $result = '{"' . $returnType . '":[{"id":"hit","hits":"' . $response->total;
         $result .= '"}]}';
         return $result;
     }

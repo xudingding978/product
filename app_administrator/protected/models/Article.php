@@ -180,6 +180,25 @@ class Article extends CActiveRecord {
         ));
     }
     
+    function getArticalRange($from, $to) {
+            $data_list = array();  
+            $sql = "select 
+                            dbo.Articles.* 
+                        from 
+                            dbo.Articles                                    
+                        where 
+                            dbo.Articles.id
+                        between ".$from. " and ".$to;
+//                        echo $sql;
+            $data_list = Yii::app() ->db->createCommand($sql)->queryAll();
+//            print_r("<pre>");
+//            print_r($data_list);
+            
+            return $data_list;
+    }
+    
+    
+    
     public function  getObjData(){
           
                  $data_list = array();  

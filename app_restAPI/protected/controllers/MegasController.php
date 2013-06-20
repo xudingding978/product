@@ -39,6 +39,7 @@ class MegasController extends Controller {
         $path = 'this_is/folder_path/';
 //      $s3response = $this->photoSavingToS3($request_arr, $path);
         $response = "ok";
+        
 //        error_log(var_export($request_arr, true));
 
         $request_arr["mega"]['type'] = "photos";
@@ -51,6 +52,7 @@ class MegasController extends Controller {
         header('Access-Control-Request-Method: *');
         header('Access-Control-Allow-Methods: PUT, POST, OPTIONS, GET');
         header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+        
         echo $response;
         Yii::app()->end();
     }
@@ -62,6 +64,7 @@ class MegasController extends Controller {
             $id = $temp [sizeof($temp) - 1];
             $reponse = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . "/" . $id);
             $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $reponse . '}';
+            
             echo $this->sendResponse(200, $result);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();

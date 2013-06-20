@@ -210,7 +210,6 @@ class Controller extends CController {
                 ->size(50)
                 ->query($termQuery);
 
-
         $response = $request->execute();
         $results = '{"' . $returnType . '":[';
         $i = 0;

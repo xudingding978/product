@@ -197,8 +197,6 @@ class Article extends CActiveRecord {
             return $data_list;
     }
     
-    
-    
     public function  getObjData(){
           
                  $data_list = array();  

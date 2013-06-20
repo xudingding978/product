@@ -11,24 +11,35 @@ class ImportDataController extends Controller {
     }
 
     public function actionObject() {
-            $url="http://trendsideas.com/media/article/preview/75481.jpg";
+        
+        
+        
+//            $url="http://trendsideas.com/media/article/preview/75481.jpg";
             
 //        $utc = strtotime(date('Y-m-d H:i:s'));
 //        echo date('Y-m-d H:i:s') . "\r\n";
 //        echo $utc;
         
-            if($a=@getimagesize($url)) {
-                print_r("<pre>");
-                print_r($a);
-//                echo "4444444444444444444444444444444444444";
-            } else {
-                
-                echo "3333333333333333333333";
-                $message = $url . "\r\n" . date("Y-m-d H:i:s");
-                $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $message);
-            }
+//            if($a=@getimagesize($url)) {
+//                print_r("<pre>");
+//                print_r($a);
+////                echo "4444444444444444444444444444444444444";
+//            } else {
+//                
+//                echo "3333333333333333333333";
+//                $message = $url . "\r\n" . date("Y-m-d H:i:s");
+//                $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $message);
+//            }
 //        }
   
+    }
+    
+    public function actionTime() {
+            $timezone = "America/Guayaquil";
+            date_default_timezone_set($timezone);
+            $utc = "1292092200";
+            $date_time = date("Y-m-d H:i:s", $utc);
+            echo $date_time;
     }
     
     public function getUTC($datetime, $region) {

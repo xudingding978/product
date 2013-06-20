@@ -13,6 +13,7 @@ define([
         searchResultNum: "",
         time: "",
         newSearch: function() {
+            App.set("uploadMode", null);
             var d = new Date();
             var start = d.getTime();
             var results = MegaModel.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string")});
@@ -43,7 +44,6 @@ define([
             totalTime += "ms";
             this.set("time", totalTime);
         }
-
 
     });
 

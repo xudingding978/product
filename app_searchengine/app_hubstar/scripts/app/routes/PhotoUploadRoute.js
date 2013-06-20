@@ -9,7 +9,7 @@ define([
 //            this.controllerFor('dragNDrop');
 //        },
         renderTemplate: function() {
-            this.render('image', {
+            this.render('PhotoCreate', {
                 into: 'application'
             });
 

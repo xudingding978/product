@@ -33,12 +33,8 @@ define(["ember"], function(Ember) {
             this.set("user", App.User.find(localStorage.loginStatus));
          //   console.log(this.get("user"));
 
-        },
-                
-                test:function()
-        {
-            console.log("app test");
         }
+                
 
 
     });

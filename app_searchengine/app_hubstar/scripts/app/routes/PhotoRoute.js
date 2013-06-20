@@ -42,8 +42,8 @@ define([
 
 
             this.render("photo", {
-                outlet: "newphoto",
-                into: "index",
+                outlet: "photos",
+                into: "application",
                 controller: controller
             });
         }

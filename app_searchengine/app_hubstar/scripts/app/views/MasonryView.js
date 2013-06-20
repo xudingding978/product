@@ -11,18 +11,7 @@ define([
         template: Ember.Handlebars.compile(masonryTemplate),
         didInsertElement: function() {
     
-  
-            console.log(this.get('controller'));
-            $(function() {
-                $('#masonry_container').masonry({
-                    itemSelector: '.box',
-                    columnWidth: 0,
 
-                    isFitWidth: true
-                });
-            });
-
-    
 
         },
 

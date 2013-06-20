@@ -19,7 +19,7 @@ define([
                 $('#uploadingObject').attr('style', "display:block");
                 $('#uploadArea').attr('style', "display:block");
                 $('#addNew').animate({
-                    height: 650,
+                    height: 1000,
                     width: 600
                 }, 400, function() {
                     $('#masonry_user_container').masonry({

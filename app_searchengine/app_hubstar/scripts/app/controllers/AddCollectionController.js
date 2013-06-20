@@ -71,7 +71,7 @@ define([
             if (isInputValid) {
                 var tempCollection = App.Collection.createRecord({"title": title, "desc": null, "collection_ids": null, "createdAt": new Date()});
                 this.get("collections").pushObject(tempCollection);
-                //      this.set("selectedTitle", title);
+
             }
         },
         checkInput: function(title) {

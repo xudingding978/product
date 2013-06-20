@@ -12,7 +12,7 @@ define([
         setupController: function(controller, model) {
 
             var d = MegaModel.find(model.id);
-            //     console.log(model.id);
+               console.log(model.id);
             this.controllerFor('mega').getInitData(d);
 
             //   this.controllerFor('mega').set('model', MegaModel.find(model.id));

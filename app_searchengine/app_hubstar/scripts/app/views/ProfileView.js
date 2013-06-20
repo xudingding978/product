@@ -14,6 +14,7 @@ define([
 
     var ProfileView = Ember.View.extend({
         template: Ember.Handlebars.compile(profileTemplate),
+
         didInsertElement: function() {
 
             $(function() {

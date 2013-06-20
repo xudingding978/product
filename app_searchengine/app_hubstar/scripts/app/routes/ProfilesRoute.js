@@ -16,11 +16,11 @@ define([
         model: function() {
             return ProfileModel.find();
         },
-        renderTemplate: function() {
-            this.render('profiles', {
-                into: "application"
-            });
-        }
+//        renderTemplate: function() {
+//            this.render('profiles', {
+//                into: "application"
+//            });
+//        }
     });
     return ProfilesRoute;
 });

@@ -17,22 +17,30 @@ define([
         },
         redirect: function() {
 
+//
+//            if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
+//
+//                this.transitionTo('indexIndex');
+//
+//            } else {
+//
+//                this.transitionTo('users');
+//
+//            }
 
-            if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
 
-                this.transitionTo('indexIndex');
+        },
+                        deactivate: function() {
 
-            } else {
-
-                this.transitionTo('users');
-
-            }
-
-
+        },
+        activate: function() {
+            $('#discovery_search_bar_wrapper').attr('style', "display:none");
+            $('#masonry_container').attr('style', "display:none");
         },
         renderTemplate: function() {
 
             this.render('user', {
+                outlet: "users",
                 into: "application"
             });
 

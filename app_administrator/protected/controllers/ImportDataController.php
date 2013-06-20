@@ -11,26 +11,24 @@ class ImportDataController extends Controller {
     }
 
     public function actionObject() {
+            $url="http://trendsideas.com/media/article/preview/75481.jpg";
+            
+//        $utc = strtotime(date('Y-m-d H:i:s'));
+//        echo date('Y-m-d H:i:s') . "\r\n";
+//        echo $utc;
         
-        $utc = strtotime(date('Y-m-d H:i:s'));
-        echo date('Y-m-d H:i:s') . "\r\n";
-        echo $utc;
-        
-        
-        $ch = curl_init();
-        
-        curl_setopt($ch, CURLOPT_URL, "http://api.develop.devbox/imageimport/");
-       
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-//        curl_setopt($ch, CURLOPT_POSTFIELDS, $json_obj);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-//        $result = curl_exec($ch);
-         echo($ch);
-        //close connection
-        curl_close($ch);
-        
-
+            if($a=@getimagesize($url)) {
+                print_r("<pre>");
+                print_r($a);
+//                echo "4444444444444444444444444444444444444";
+            } else {
+                
+                echo "3333333333333333333333";
+                $message = $url . "\r\n" . date("Y-m-d H:i:s");
+                $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $message);
+            }
+//        }
+  
     }
     
     public function getUTC($datetime, $region) {

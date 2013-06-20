@@ -4,7 +4,7 @@ header("Access-Control-Allow-Origin: *");
 header('Content-type: *');
 
 header('Access-Control-Request-Method: *');
-header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET');
+header('Access-Control-Allow-Methods: *');
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
 class UsersController extends Controller {
@@ -43,7 +43,6 @@ class UsersController extends Controller {
 //                                            "must_not":[],"should":[]
 //                                                }},
 //                                                "from":0,"size":50,"sort":[],"facets":{}}';
-
 //        $json = '{"query":{"bool":{"must":[{"query_string":{"default_field":"couchbaseDocument.doc.type","query":"user"}}],"must_not":[],"should":[]}},"from":0,"size":50,"sort":[],"facets":{}}';
 //        $rawTermQuery = Sherlock\Sherlock::queryBuilder()->Raw($json);
 
@@ -127,7 +126,10 @@ class UsersController extends Controller {
 
     public function actionUpdate() {
         try {
-            
+            $request_json = file_get_contents('php://input');
+         //   $request_arr = CJSON::decode($request_json, true);
+
+            $this->sendResponse(200, $request_json);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -157,8 +159,9 @@ class UsersController extends Controller {
 // Set the Access Control for permissable domains
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Request-Method:*');
-        header('Access-Control-Allow-Methods:*');
+        header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET');
         header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+
         echo "";
         Yii::app()->end();
 

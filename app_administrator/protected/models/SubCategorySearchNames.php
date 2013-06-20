@@ -124,5 +124,38 @@ class SubCategorySearchNames extends CActiveRecord
                     
                     return $topic_list;
                 }
+                
+                public function selectSubCategoryByArticalID($id) {
+                    $data_list = array();
+                    $topic_list = array();
+                    $sql = "select 
+                                    SCSN.*
+                                from 
+                                   dbo.Articles as Ar,
+                                   dbo.ArticleSubCategoryMaps as ASCM,
+                                   dbo.SubCategorySearchNames as SCSN
+                                where
+                                   SCSN.subCategoryId = ASCM.subCategoryId
+                                AND
+                                   Ar.id = ASCM.articleId
+                                AND
+                                   Ar.id = ".$id;
+                    try {
+                        $data_list = Yii::app() ->db->createCommand($sql)->queryAll(); 
+                        
+//                        print_r("<pre>");
+//                        print_r($data_list);
+                        
+                        if(sizeof($data_list)>0) {
+                            foreach($data_list as $val) {
+                                array_push($topic_list, $val['name']);                       
+                            }
+                        }
+                    } catch (Exception $e) {
+                        error_log("Cannot get topic infor: ".$e->getMessage());
+                    }
+                    
+                    return $topic_list;
+                }
         
 }

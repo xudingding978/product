@@ -14,12 +14,13 @@ class MegasController extends Controller {
 
     public function actionIndex() {
         try {
-
+            
             $temp = explode("?", $_SERVER['REQUEST_URI']);
             $request_string = $temp [sizeof($temp) - 1];
-            //  error_log(var_export($temp, true)."       ".sizeof($temp));
+//            error_log(var_export($temp, true)."       ".sizeof($temp));
             $response;
             if (sizeof($temp) > 1) {
+//                error_log($request_string);
                 $response = $this->getRequestResult($request_string, self::JSON_RESPONSE_ROOT_PLURAL);
             } else {//default search       
                 $response = $this->performSearch(self::JSON_RESPONSE_ROOT_PLURAL, "", "dean");
@@ -38,26 +39,10 @@ class MegasController extends Controller {
         $path = 'this_is/folder_path/';
 //      $s3response = $this->photoSavingToS3($request_arr, $path);
         $response = "ok";
-        error_log(var_export($request_arr, true));
-//      if ($s3response) {
-// $fileName = explode('.', $request_arr['photo']['photo_title'])[0];
-//           $request_arr["mega"]['photos'][0]['image_url'] = "https://s3-ap-southeast-2.amazonaws.com/" . $path . $request_arr["mega"]['photos'][0]['photo_title'];
+//        error_log(var_export($request_arr, true));
+
         $request_arr["mega"]['type'] = "photos";
         $request_arr["mega"]['photos'][0]['id'] = $request_arr["mega"]["id"];
-//        try {
-//            $cb = $this->couchBaseConnection();
-//            if ($cb->add(substr($_SERVER['HTTP_HOST'], 4) . '/' . $request_arr["mega"]["id"], CJSON::encode($request_arr["mega"]))) {
-//                echo $this->sendResponse(200, var_dump($request_arr));
-//            } else {
-//                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '"rrrrr  rrrr already exists');
-//            }
-//        } catch (Exception $exc) {
-//            echo $exc->getTraceAsString();
-//            echo json_decode(file_get_contents('php://input'));
-//        }
-//        } else {
-//            echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
-//        }
 
         $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);
         header($statusHeader);
@@ -147,7 +132,7 @@ class MegasController extends Controller {
         $result = $cb->get($key);
         $result_arr = CJSON::decode($result, true);
         $response = false;
-        error_log(var_export($request_arr ["mega"]['photos'][0], true));
+//        error_log(var_export($request_arr ["mega"]['photos'][0], true));
         $data = $this->getInputData($request_arr ["object"]['photos'][0]['photo_type'], $request_arr ["object"]['photos'][0]['photo_url']);
         $client = Aws\S3\S3Client::factory(
                         $result_arr["providers"]["S3Client"]

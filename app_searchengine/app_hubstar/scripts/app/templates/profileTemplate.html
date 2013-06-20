@@ -80,7 +80,14 @@
                         </div>
 
                         <div style="display: inline-block;">
-                            <p style='display: inline-block; float: left; color: white; margin: 7px 0; font-size: 14px;'><a href='#' style='margin-right: 15px;'><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star-half-full" ></k></a>
+                            <p style='display: inline-block; float: left; color: white; margin: 7px 0; font-size: 14px;'>
+                                <a href='#' style='margin-right: 15px;'>
+                                    <k class="icon-star" ></k>
+                                    <k class="icon-star" ></k>
+                                    <k class="icon-star" ></k>
+                                    <k class="icon-star" ></k>
+                                    <k class="icon-star" ></k>
+                                </a>
                                 <a href='#' style=" margin-right: 20px;">23 Reviews</a>|<a href='#'style=" margin-left: 20px;">Review me »</a></p>                       
                         </div>
 
@@ -130,7 +137,7 @@
                                 {{#if controller.editingContact}}
                                 {{input type="text" value=contact_user  }}
                                 {{else}}
-                                <th {{action toggleEditingContact}} class="second-th">{{contact_user}}</th>
+                                <th {{action toggleEditingContact}} class="second-th">{{model.contact_user}}</th>
                                 {{/if}}
                             </tr>
                             <tr>
@@ -138,7 +145,7 @@
                                 {{#if controller.editingContact}}
                                 {{input type="text" value=profile_category  }}
                                 {{else}}
-                                <th {{action toggleEditingContact}} class="second-th"><a href="#">{{profile_category}}</a></th>
+                                <th {{action toggleEditingContact}} class="second-th"><a href="#">{{model.profile_category}}</a></th>
                                 {{/if}}
                             </tr>
                             <tr>
@@ -146,7 +153,7 @@
                                 {{#if controller.editingContact}}
                                 {{input type="text" value=profile_physical_address  }}
                                 {{else}}
-                                <th {{action toggleEditingContact}} class="second-th">{{profile_physical_address}}</th>
+                                <th {{action toggleEditingContact}} class="second-th">{{model.profile_physical_address}}</th>
                                 {{/if}}
                             </tr>
                             <tr>
@@ -154,7 +161,7 @@
                                 {{#if controller.editingContact}}
                                 {{input type="text" value=phone_number  }}
                                 {{else}}
-                                <th {{action toggleEditingContact}} class="second-th">{{phone_number}}</th>
+                                <th {{action toggleEditingContact}} class="second-th">{{model.phone_number}}</th>
                                 {{/if}}
                             </tr>
                             <tr>
@@ -162,7 +169,7 @@
                                 {{#if controller.editingContact}}
                                 {{input type="text" value=website_url  }}
                                 {{else}}
-                                <th  {{action toggleEditingContact}} class="second-th"><a href="http://ikitchen.y8.co.nz">{{website_url}}</a></th>
+                                <th  {{action toggleEditingContact}} class="second-th"><a href="http://ikitchen.y8.co.nz">{{model.website_url}}</a></th>
                                 {{/if}}
                             </tr>
 
@@ -227,7 +234,9 @@
                             </a>
                             {{/if}}
                         </div>
-                        {{{about}}} 
+                        <div style="padding: 10px 50px;">
+                            {{{model.about}}} 
+                        </div>
                     </div>
 
 
@@ -376,18 +385,23 @@
 
             <!--END SECTION CONTROL BAR-->
 
+<!--            <div class="box col2">
 
-            <div class="box col2">
                 <div class="masonry-object">
-                    <div class="masonry-object_poster">  
-                        <a {{bindAttr href="getProfile_id"}}>
-                            <img {{bindAttr src="owner_profile_pic"}} class="profilepic-on-masonry"/>
-                        </a>
-                        <div class="object_username">
-                            <a class="poster-name" {{bindAttr href="getProfile_id"}}>{{owner_title}}</a>
-                            <span class="posttime">{{date created}}</span>
+                    <div class="masonry-object_profile-cover">
+                        <div class="masonry-object_cover-wapper">
+                            <img src="https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-ash3/943759_479382738797295_1355705984_n.jpg"/>
                         </div>
-
+                        <div>
+                            <img src="../images/demo/h-pic3.jpg" class="masonry-object_profilepic"/>
+                            <div class="masonry-object_name-position" style="top: 133%;"> 
+                                <a {{bindAttr href="getProfile_id"}}>Heritage Tiles Ellerslie</a>
+                            </div>
+                            <div class="masonry-object_name-position" style="top: 145%; font-size: 12px; color: #aaa;">
+                                <span> type</span>
+                                <span> <k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k></span>
+                            </div>
+                        </div>
 
                         <div class="object-tags-box">
 
@@ -396,7 +410,7 @@
                                 <div class="tags easing">
                                     <div class="tags-new">New</div>
                                     <div class="object-tpye">
-                                        <i class="icon-picture"></i>
+                                        <i class="icon-group"></i>
                                     </div>                      
                                 </div>
                             </div>
@@ -404,43 +418,34 @@
                             <div class="object-tags ">
                                 <span class="tags-mark" style="background-color: #76a7fa"></span>
                                 <div class="tags easing tagsappear">
-                                    <div class="tags-new">#{{region}}</div>                   
+                                    <div class="tags-new">#Auckland</div>                   
                                 </div>
                             </div>
 
                             <div class="object-tags ">
                                 <span class="tags-mark" style="background-color: #a0c3ff"></span>
                                 <div class="tags easing tagsappear">
-                                    <div class="tags-new">#{{topic}}</div>                   
+                                    <div class="tags-new">#Kitchen</div>                   
                                 </div>
                             </div>
 
                         </div>
 
-
                     </div>
-                    <div class="masonry-object_mainfeature">             
-                        <div class="mainfeature-wrapper">
-                            <a class="mainfeature-container">
-                                {{#linkTo 'photo' this}} <img class="this-is-the-object"{{bindAttr src="object_image_url" }} />{{/linkTo}}
-                            </a>                 
-                            <div>                                                                                                                                                                                                                                                                                                                                                                       </div>
-                        </div>
 
+                    <div class="masonry-object_mainfeature" style="margin: 110px 0 0 0">
 
                         <div class="masonry-object_text">
-                            <div class="masonry-object_text-container">
-                                <p>   {{#linkTo 'photo' this}} {{photo_title}}{{/linkTo}} </p>
 
-                            </div>
 
                             <div class="more_detail" {{bindAttr id="id"}} >
 
-                                <div class="more_text-container" >
-                                    <div style="display:block;">
-                                        {{description}}
-                                    </div>
+
+                                <div style="display:block;">
+                                    Heritage Tiles is a leading distributor and retailer of contemporary ceramic tiles and porcelain tiles in New Zealand. With 25 years experience in the tiling industry, and a distributor network nationwide, we have tiles to suit anyone, anywhere. A large range of tiles from kitchen and bathroom tiles, to outdoor tiles, to mosiac tiles and decorative tiles can be found in our 6 Auckland stores and 1 store in Wellington. Our Auckland tile warehouse stocks at least 200 000 m2 of tiles in over 500 designs - one of the largest stocks in NZ!
+
                                 </div>
+
 
                             </div>
 
@@ -448,7 +453,9 @@
 
                             <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collapes</span>
 
+
                         </div>
+
                     </div>
 
                     <div class="masonry-object_interact">
@@ -471,23 +478,29 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
+
             </div>
 
 
-
-
             <div class="box col2">
-                <div class="masonry-object">
-                    <div class="masonry-object_poster">  
-                        <a {{bindAttr href="getProfile_id"}}>
-                            <img {{bindAttr src="owner_profile_pic"}} class="profilepic-on-masonry"/>
-                        </a>
-                        <div class="object_username">
-                            <a class="poster-name" {{bindAttr href="getProfile_id"}}>{{owner_title}}</a>
-                            <span class="posttime">{{date created}}</span>
-                        </div>
 
+                <div class="masonry-object">
+                    <div class="masonry-object_profile-cover">
+                        <div class="masonry-object_cover-wapper">
+                            <img src="https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-prn2/970145_479383022130600_214268574_n.jpg"/>
+                        </div>
+                        <div>
+                            <img src="../images/demo/h-pic2.jpg" class="masonry-object_profilepic"/>
+                            <div class="masonry-object_name-position" style="top: 133%;"> 
+                                <a {{bindAttr href="getProfile_id"}}>Heritage Tiles Whangaparaoa</a>
+                            </div>
+                            <div class="masonry-object_name-position" style="top: 145%; font-size: 12px; color: #aaa;">
+                                <span> type</span>
+                                <span> <k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k></span>
+                            </div>
+                        </div>
 
                         <div class="object-tags-box">
 
@@ -496,7 +509,7 @@
                                 <div class="tags easing">
                                     <div class="tags-new">New</div>
                                     <div class="object-tpye">
-                                        <i class="icon-picture"></i>
+                                        <i class="icon-group"></i>
                                     </div>                      
                                 </div>
                             </div>
@@ -504,43 +517,34 @@
                             <div class="object-tags ">
                                 <span class="tags-mark" style="background-color: #76a7fa"></span>
                                 <div class="tags easing tagsappear">
-                                    <div class="tags-new">#{{region}}</div>                   
+                                    <div class="tags-new">#Auckland</div>                   
                                 </div>
                             </div>
 
                             <div class="object-tags ">
                                 <span class="tags-mark" style="background-color: #a0c3ff"></span>
                                 <div class="tags easing tagsappear">
-                                    <div class="tags-new">#{{topic}}</div>                   
+                                    <div class="tags-new">#Kitchen</div>                   
                                 </div>
                             </div>
 
                         </div>
 
-
                     </div>
-                    <div class="masonry-object_mainfeature">             
-                        <div class="mainfeature-wrapper">
-                            <a class="mainfeature-container">
-                                {{#linkTo 'photo' this}} <img class="this-is-the-object"{{bindAttr src="object_image_url" }} />{{/linkTo}}
-                            </a>                 
-                            <div>                                                                                                                                                                                                                                                                                                                                                                       </div>
-                        </div>
 
+                    <div class="masonry-object_mainfeature" style="margin: 110px 0 0 0">
 
                         <div class="masonry-object_text">
-                            <div class="masonry-object_text-container">
-                                <p>   {{#linkTo 'photo' this}} {{photo_title}}{{/linkTo}} </p>
 
-                            </div>
 
                             <div class="more_detail" {{bindAttr id="id"}} >
 
-                                <div class="more_text-container" >
-                                    <div style="display:block;">
-                                        {{description}}
-                                    </div>
+
+                                <div style="display:block;">
+                                    Heritage Tiles is a leading distributor and retailer of contemporary ceramic tiles and porcelain tiles in New Zealand. With 25 years experience in the tiling industry, and a distributor network nationwide, we have tiles to suit anyone, anywhere. A large range of tiles from kitchen and bathroom tiles, to outdoor tiles, to mosiac tiles and decorative tiles can be found in our 6 Auckland stores and 1 store in Wellington. Our Auckland tile warehouse stocks at least 200 000 m2 of tiles in over 500 designs - one of the largest stocks in NZ!
+
                                 </div>
+
 
                             </div>
 
@@ -548,7 +552,9 @@
 
                             <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collapes</span>
 
+
                         </div>
+
                     </div>
 
                     <div class="masonry-object_interact">
@@ -571,27 +577,28 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
 
             </div>
 
-
-
-
-
-
             <div class="box col2">
 
                 <div class="masonry-object">
-                    <div class="masonry-object_poster">  
-                        <a {{bindAttr href="getProfile_id"}}>
-                            <img {{bindAttr src="owner_profile_pic"}} class="profilepic-on-masonry"/>
-                        </a>
-                        <div class="object_username">
-                            <a class="poster-name" {{bindAttr href="getProfile_id"}}>{{owner_title}}</a>
-                            <span class="posttime">{{date created}}</span>
+                    <div class="masonry-object_profile-cover">
+                        <div class="masonry-object_cover-wapper">
+                            <img src="https://fbcdn-sphotos-g-a.akamaihd.net/hphotos-ak-ash4/379658_479382862130616_1197721736_n.jpg"/>
                         </div>
-
+                        <div>
+                            <img src="../images/demo/h-pic4.jpg" class="masonry-object_profilepic"/>
+                            <div class="masonry-object_name-position" style="top: 133%;"> 
+                                <a {{bindAttr href="getProfile_id"}}>Heritage Tiles Wellington</a>
+                            </div>
+                            <div class="masonry-object_name-position" style="top: 145%; font-size: 12px; color: #aaa;">
+                                <span> type</span>
+                                <span> <k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k></span>
+                            </div>
+                        </div>
 
                         <div class="object-tags-box">
 
@@ -600,7 +607,7 @@
                                 <div class="tags easing">
                                     <div class="tags-new">New</div>
                                     <div class="object-tpye">
-                                        <i class="icon-picture"></i>
+                                        <i class="icon-group"></i>
                                     </div>                      
                                 </div>
                             </div>
@@ -608,43 +615,34 @@
                             <div class="object-tags ">
                                 <span class="tags-mark" style="background-color: #76a7fa"></span>
                                 <div class="tags easing tagsappear">
-                                    <div class="tags-new">#{{region}}</div>                   
+                                    <div class="tags-new">#Auckland</div>                   
                                 </div>
                             </div>
 
                             <div class="object-tags ">
                                 <span class="tags-mark" style="background-color: #a0c3ff"></span>
                                 <div class="tags easing tagsappear">
-                                    <div class="tags-new">#{{topic}}</div>                   
+                                    <div class="tags-new">#Kitchen</div>                   
                                 </div>
                             </div>
 
                         </div>
 
-
                     </div>
-                    <div class="masonry-object_mainfeature">             
-                        <div class="mainfeature-wrapper">
-                            <a class="mainfeature-container">
-                                {{#linkTo 'photo' this}} <img class="this-is-the-object"{{bindAttr src="object_image_url" }} />{{/linkTo}}
-                            </a>                 
-                            <div>                                                                                                                                                                                                                                                                                                                                                                       </div>
-                        </div>
 
+                    <div class="masonry-object_mainfeature" style="margin: 110px 0 0 0">
 
                         <div class="masonry-object_text">
-                            <div class="masonry-object_text-container">
-                                <p>   {{#linkTo 'photo' this}} {{photo_title}}{{/linkTo}} </p>
 
-                            </div>
 
                             <div class="more_detail" {{bindAttr id="id"}} >
 
-                                <div class="more_text-container" >
-                                    <div style="display:block;">
-                                        {{description}}
-                                    </div>
+
+                                <div style="display:block;">
+                                    Heritage Tiles is a leading distributor and retailer of contemporary ceramic tiles and porcelain tiles in New Zealand. With 25 years experience in the tiling industry, and a distributor network nationwide, we have tiles to suit anyone, anywhere. A large range of tiles from kitchen and bathroom tiles, to outdoor tiles, to mosiac tiles and decorative tiles can be found in our 6 Auckland stores and 1 store in Wellington. Our Auckland tile warehouse stocks at least 200 000 m2 of tiles in over 500 designs - one of the largest stocks in NZ!
+
                                 </div>
+
 
                             </div>
 
@@ -652,7 +650,9 @@
 
                             <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collapes</span>
 
+
                         </div>
+
                     </div>
 
                     <div class="masonry-object_interact">
@@ -675,28 +675,133 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
 
-
-            </div>
-
+            </div>-->
 
 
 
-
-            <div class="box col2">
-
-
-                <div class="masonry-object">
-                    <div class="masonry-object_poster">  
-                        <a {{bindAttr href="getProfile_id"}}>
-                            <img {{bindAttr src="owner_profile_pic"}} class="profilepic-on-masonry"/>
-                        </a>
-                        <div class="object_username">
-                            <a class="poster-name" {{bindAttr href="getProfile_id"}}>{{owner_title}}</a>
-                            <span class="posttime">{{date created}}</span>
+                       <div class="box col2">
+            
+                            <div class="masonry-object">
+                                <div class="masonry-object_profile-cover">
+                                    <div class="masonry-object_cover-wapper">
+                                        <img src="http://assets.selector.com/assets/images/44/43396/638x425-crop.jpg"/>
+                                    </div>
+                                    <div>
+                                        <img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/heritage-tiles.jpg" class="masonry-object_profilepic"/>
+                                        <div class="masonry-object_name-position" style="top: 133%;"> 
+                                            <a {{bindAttr href="getProfile_id"}}>Heritage Tile</a>
+                                        </div>
+                                        <div class="masonry-object_name-position" style="top: 145%; font-size: 12px; color: #aaa;">
+                                            <span> type</span>
+                                            <span> <k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k></span>
+                                        </div>
+                                    </div>
+            
+                                    <div class="object-tags-box">
+            
+                                        <div class="object-tags">
+                                            <span class="tags-mark" style="background-color: #427fed"></span>
+                                            <div class="tags easing">
+                                                <div class="tags-new">New</div>
+                                                <div class="object-tpye">
+                                                    <i class="icon-group"></i>
+                                                </div>                      
+                                            </div>
+                                        </div>
+            
+                                        <div class="object-tags ">
+                                            <span class="tags-mark" style="background-color: #76a7fa"></span>
+                                            <div class="tags easing tagsappear">
+                                                <div class="tags-new">#Auckland</div>                   
+                                            </div>
+                                        </div>
+            
+                                        <div class="object-tags ">
+                                            <span class="tags-mark" style="background-color: #a0c3ff"></span>
+                                            <div class="tags easing tagsappear">
+                                                <div class="tags-new">#Kitchen</div>                   
+                                            </div>
+                                        </div>
+            
+                                    </div>
+            
+                                </div>
+            
+                                <div class="masonry-object_mainfeature" style="margin: 110px 0 0 0">
+            
+                                    <div class="masonry-object_text">
+            
+            
+                                        <div class="more_detail" {{bindAttr id="id"}} >
+            
+            
+                                            <div style="display:block;">
+                                                Heritage Tiles is a leading distributor and retailer of contemporary ceramic tiles and porcelain tiles in New Zealand. With 25 years experience in the tiling industry, and a distributor network nationwide, we have tiles to suit anyone, anywhere. A large range of tiles from kitchen and bathroom tiles, to outdoor tiles, to mosiac tiles and decorative tiles can be found in our 6 Auckland stores and 1 store in Wellington. Our Auckland tile warehouse stocks at least 200 000 m2 of tiles in over 500 designs - one of the largest stocks in NZ!
+            
+                                            </div>
+            
+            
+                                        </div>
+            
+                                        <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>
+            
+                                        <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collapes</span>
+            
+            
+                                    </div>
+            
+                                </div>
+            
+                                <div class="masonry-object_interact">
+                                    <div class="masonry_show-comment">
+                                        <div class="show-comment_container">
+                                            <span class="show-comment_inner">
+                                                <span class="comment-amount"> 10 </span>
+                                                <span class="comment-amount"> comments</span>
+                                            </span>
+                                            <div class="dropdownicon masonry_dropdownicon">
+                                                <i class="icon-chevron-down"></i>
+                                            </div>
+                                        </div>
+                                        <div class="object-like" style=""></div>
+                                        <div class="object-save" style=""></div>
+                                    </div>
+                                    <div class="masonry_addcommnetbox-container">
+                                        <div class="addcommnetbox">
+                                            Add comments
+                                        </div>
+                                    </div>
+                                </div>
+            
+                            </div>
+            
                         </div>
 
+
+
+
+
+<!--
+            <div class="box col2">
+
+                <div class="masonry-object">
+                    <div class="masonry-object_profile-cover">
+                        <div class="masonry-object_cover-wapper">
+                            <img src="../images/demo/slide-tiles-la-fabbrica.png"/>
+                        </div>
+                        <div>
+                            <img src="../images/demo/la_fabbrica.png" class="masonry-object_profilepic"/>
+                            <div class="masonry-object_name-position" style="top: 133%;"> 
+                                <a {{bindAttr href="getProfile_id"}}>Lafabbrica</a>
+                            </div>
+                            <div class="masonry-object_name-position" style="top: 145%; font-size: 12px; color: #aaa;">
+                                <span> type</span>
+                                <span> <k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k></span>
+                            </div>
+                        </div>
 
                         <div class="object-tags-box">
 
@@ -705,7 +810,7 @@
                                 <div class="tags easing">
                                     <div class="tags-new">New</div>
                                     <div class="object-tpye">
-                                        <i class="icon-picture"></i>
+                                        <i class="icon-group"></i>
                                     </div>                      
                                 </div>
                             </div>
@@ -713,43 +818,34 @@
                             <div class="object-tags ">
                                 <span class="tags-mark" style="background-color: #76a7fa"></span>
                                 <div class="tags easing tagsappear">
-                                    <div class="tags-new">#{{region}}</div>                   
+                                    <div class="tags-new">#Auckland</div>                   
                                 </div>
                             </div>
 
                             <div class="object-tags ">
                                 <span class="tags-mark" style="background-color: #a0c3ff"></span>
                                 <div class="tags easing tagsappear">
-                                    <div class="tags-new">#{{topic}}</div>                   
+                                    <div class="tags-new">#Kitchen</div>                   
                                 </div>
                             </div>
 
                         </div>
 
-
                     </div>
-                    <div class="masonry-object_mainfeature">             
-                        <div class="mainfeature-wrapper">
-                            <a class="mainfeature-container">
-                                {{#linkTo 'photo' this}} <img class="this-is-the-object"{{bindAttr src="object_image_url" }} />{{/linkTo}}
-                            </a>                 
-                            <div>                                                                                                                                                                                                                                                                                                                                                                       </div>
-                        </div>
 
+                    <div class="masonry-object_mainfeature" style="margin: 110px 0 0 0">
 
                         <div class="masonry-object_text">
-                            <div class="masonry-object_text-container">
-                                <p>   {{#linkTo 'photo' this}} {{photo_title}}{{/linkTo}} </p>
 
-                            </div>
 
                             <div class="more_detail" {{bindAttr id="id"}} >
 
-                                <div class="more_text-container" >
-                                    <div style="display:block;">
-                                        {{description}}
-                                    </div>
+
+                                <div style="display:block;">
+                                    La Fabbrica is a company in the Faenza area that has been operating in the production and sale of high quality floor ceramics and coverings for more than 10 years. La Fabbrica is a well-established, rapidly growing company that is known and present not only in Italy but also on the main international markets.
+
                                 </div>
+
 
                             </div>
 
@@ -757,7 +853,9 @@
 
                             <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collapes</span>
 
+
                         </div>
+
                     </div>
 
                     <div class="masonry-object_interact">
@@ -780,26 +878,28 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
 
             </div>
 
-
-
-
-
             <div class="box col2">
 
                 <div class="masonry-object">
-                    <div class="masonry-object_poster">  
-                        <a {{bindAttr href="getProfile_id"}}>
-                            <img {{bindAttr src="owner_profile_pic"}} class="profilepic-on-masonry"/>
-                        </a>
-                        <div class="object_username">
-                            <a class="poster-name" {{bindAttr href="getProfile_id"}}>{{owner_title}}</a>
-                            <span class="posttime">{{date created}}</span>
+                    <div class="masonry-object_profile-cover">
+                        <div class="masonry-object_cover-wapper">
+                            <img src="../images/demo/Italgranati-cover.jpg"/>
                         </div>
-
+                        <div>
+                            <img src="../images/demo/Italgranati.jpg" class="masonry-object_profilepic"/>
+                            <div class="masonry-object_name-position" style="top: 133%;"> 
+                                <a {{bindAttr href="getProfile_id"}}>Italgranati</a>
+                            </div>
+                            <div class="masonry-object_name-position" style="top: 145%; font-size: 12px; color: #aaa;">
+                                <span> type</span>
+                                <span> <k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star-half" ></k></span>
+                            </div>
+                        </div>
 
                         <div class="object-tags-box">
 
@@ -808,7 +908,7 @@
                                 <div class="tags easing">
                                     <div class="tags-new">New</div>
                                     <div class="object-tpye">
-                                        <i class="icon-picture"></i>
+                                        <i class="icon-group"></i>
                                     </div>                      
                                 </div>
                             </div>
@@ -816,43 +916,33 @@
                             <div class="object-tags ">
                                 <span class="tags-mark" style="background-color: #76a7fa"></span>
                                 <div class="tags easing tagsappear">
-                                    <div class="tags-new">#{{region}}</div>                   
+                                    <div class="tags-new">#Auckland</div>                   
                                 </div>
                             </div>
 
                             <div class="object-tags ">
                                 <span class="tags-mark" style="background-color: #a0c3ff"></span>
                                 <div class="tags easing tagsappear">
-                                    <div class="tags-new">#{{topic}}</div>                   
+                                    <div class="tags-new">#Kitchen</div>                   
                                 </div>
                             </div>
 
                         </div>
 
-
                     </div>
-                    <div class="masonry-object_mainfeature">             
-                        <div class="mainfeature-wrapper">
-                            <a class="mainfeature-container">
-                                {{#linkTo 'photo' this}} <img class="this-is-the-object"{{bindAttr src="object_image_url" }} />{{/linkTo}}
-                            </a>                 
-                            <div>                                                                                                                                                                                                                                                                                                                                                                       </div>
-                        </div>
 
+                    <div class="masonry-object_mainfeature" style="margin: 110px 0 0 0">
 
                         <div class="masonry-object_text">
-                            <div class="masonry-object_text-container">
-                                <p>   {{#linkTo 'photo' this}} {{photo_title}}{{/linkTo}} </p>
 
-                            </div>
 
                             <div class="more_detail" {{bindAttr id="id"}} >
 
-                                <div class="more_text-container" >
-                                    <div style="display:block;">
-                                        {{description}}
-                                    </div>
+
+                                <div style="display:block;">
+                                    Specialising in high grade porcelain tiles, the range available provides quality ,long lasting beauty in any situation.
                                 </div>
+
 
                             </div>
 
@@ -860,7 +950,9 @@
 
                             <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collapes</span>
 
+
                         </div>
+
                     </div>
 
                     <div class="masonry-object_interact">
@@ -883,11 +975,209 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
 
+            </div>
 
+
+            <div class="box col2">
+
+                <div class="masonry-object">
+                    <div class="masonry-object_profile-cover">
+                        <div class="masonry-object_cover-wapper">
+                            <img src="../images/demo/Amb._Himalaya_random.JPG"/>
+                        </div>
+                        <div>
+                            <img src="../images/demo/logo-stylnul.jpg"  class="masonry-object_profilepic"/>
+                            <div class="masonry-object_name-position" style="top: 133%;"> 
+                                <a {{bindAttr href="getProfile_id"}}>Stylnul</a>
+                            </div>
+                            <div class="masonry-object_name-position" style="top: 145%; font-size: 12px; color: #aaa;">
+                                <span> type</span>
+                                <span> <k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star-half" ></k></span>
+                            </div>
+                        </div>
+
+                        <div class="object-tags-box">
+
+                            <div class="object-tags">
+                                <span class="tags-mark" style="background-color: #427fed"></span>
+                                <div class="tags easing">
+                                    <div class="tags-new">New</div>
+                                    <div class="object-tpye">
+                                        <i class="icon-group"></i>
+                                    </div>                      
+                                </div>
+                            </div>
+
+                            <div class="object-tags ">
+                                <span class="tags-mark" style="background-color: #76a7fa"></span>
+                                <div class="tags easing tagsappear">
+                                    <div class="tags-new">#Auckland</div>                   
+                                </div>
+                            </div>
+
+                            <div class="object-tags ">
+                                <span class="tags-mark" style="background-color: #a0c3ff"></span>
+                                <div class="tags easing tagsappear">
+                                    <div class="tags-new">#Kitchen</div>                   
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="masonry-object_mainfeature" style="margin: 110px 0 0 0">
+
+                        <div class="masonry-object_text">
+
+
+                            <div class="more_detail" {{bindAttr id="id"}} >
+
+
+                                <div style="display:block;">
+                                    STN Ceramic is part of the group of companies as Ceramics Nulense, S.A. Established since 1973, its main activity is the production of the ceramic wall tiles, stoneware floor tiles as well as procelain tiles.
+                                </div>
+
+
+                            </div>
+
+                            <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>
+
+                            <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collapes</span>
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="masonry-object_interact">
+                        <div class="masonry_show-comment">
+                            <div class="show-comment_container">
+                                <span class="show-comment_inner">
+                                    <span class="comment-amount"> 10 </span>
+                                    <span class="comment-amount"> comments</span>
+                                </span>
+                                <div class="dropdownicon masonry_dropdownicon">
+                                    <i class="icon-chevron-down"></i>
+                                </div>
+                            </div>
+                            <div class="object-like" style=""></div>
+                            <div class="object-save" style=""></div>
+                        </div>
+                        <div class="masonry_addcommnetbox-container">
+                            <div class="addcommnetbox">
+                                Add comments
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
 
             </div>
+
+
+            <div class="box col2">
+
+                <div class="masonry-object">
+                    <div class="masonry-object_profile-cover">
+                        <div class="masonry-object_cover-wapper">
+                            <img src="../images/demo/Ascot-cover.jpg"/>
+                        </div>
+                        <div>
+                            <img src="../images/demo/ascot-logo.jpg" class="masonry-object_profilepic"/>
+                            <div class="masonry-object_name-position" style="top: 133%;"> 
+                                <a {{bindAttr href="getProfile_id"}}>Ascot</a>
+                            </div>
+                            <div class="masonry-object_name-position" style="top: 145%; font-size: 12px; color: #aaa;">
+                                <span> type</span>
+                                <span> <k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star-half" ></k></span>
+                            </div>
+                        </div>
+
+                        <div class="object-tags-box">
+
+                            <div class="object-tags">
+                                <span class="tags-mark" style="background-color: #427fed"></span>
+                                <div class="tags easing">
+                                    <div class="tags-new">New</div>
+                                    <div class="object-tpye">
+                                        <i class="icon-group"></i>
+                                    </div>                      
+                                </div>
+                            </div>
+
+                            <div class="object-tags ">
+                                <span class="tags-mark" style="background-color: #76a7fa"></span>
+                                <div class="tags easing tagsappear">
+                                    <div class="tags-new">#Auckland</div>                   
+                                </div>
+                            </div>
+
+                            <div class="object-tags ">
+                                <span class="tags-mark" style="background-color: #a0c3ff"></span>
+                                <div class="tags easing tagsappear">
+                                    <div class="tags-new">#Kitchen</div>                   
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="masonry-object_mainfeature" style="margin: 110px 0 0 0">
+
+                        <div class="masonry-object_text">
+
+
+                            <div class="more_detail" {{bindAttr id="id"}} >
+
+
+                                <div style="display:block;">
+                                    Blending design, technology and innovation to create a truly unique range of tiles, creating a space that is sophisticated, user friendly and a masterpiece. Here you can see a range of products to enhance any environment.
+                                </div>
+
+
+                            </div>
+
+                            <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>
+
+                            <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collapes</span>
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="masonry-object_interact">
+                        <div class="masonry_show-comment">
+                            <div class="show-comment_container">
+                                <span class="show-comment_inner">
+                                    <span class="comment-amount"> 10 </span>
+                                    <span class="comment-amount"> comments</span>
+                                </span>
+                                <div class="dropdownicon masonry_dropdownicon">
+                                    <i class="icon-chevron-down"></i>
+                                </div>
+                            </div>
+                            <div class="object-like" style=""></div>
+                            <div class="object-save" style=""></div>
+                        </div>
+                        <div class="masonry_addcommnetbox-container">
+                            <div class="addcommnetbox">
+                                Add comments
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>-->
+
+
+
 
         </div>
         <!--masonry end -->

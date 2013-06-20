@@ -44,7 +44,6 @@ define([
             this.set("time", totalTime);
         }
 
-
     });
 
 

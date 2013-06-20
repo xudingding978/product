@@ -55,6 +55,7 @@ define([
             }, 200);
         },
         mega: function() {
+    console.log("rerender");
             this.rerender();
         }.observes('controller.content')
     });

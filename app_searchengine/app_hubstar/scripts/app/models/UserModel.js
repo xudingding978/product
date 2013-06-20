@@ -3,7 +3,7 @@ define('models/UserModel',
         ['ember', 'emberData'],
         function() {
             DS.RESTAdapter.map('App.User', {
-                collection: {embedded: 'always'}
+                collections: {embedded: 'always'}
             });
 
 
@@ -31,7 +31,7 @@ define('models/UserModel',
                 city: DS.attr('string'),
                 zip: DS.attr('string'),
                 address: DS.attr('string'),
-                collection: DS.hasMany('App.Collection')
+                collections: DS.hasMany('App.Collection')
 //                didLoad: function() {
 //                    console.log('model loaded', this.toJSON());
 //                    console.log('id: ' + this.id + ' ' + this.get('last_name'), this);

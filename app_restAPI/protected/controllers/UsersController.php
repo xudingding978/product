@@ -110,26 +110,37 @@ class UsersController extends Controller {
             $reponse = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . "/users/" . $id);
             $respone_user = json_decode($reponse, true)['user'][0];
 
-            //        error_log("eeeeeeeeeeeeee     " . var_export($respone_user, true));
-
-
 
             $respone_user_data = str_replace("\/", "/", CJSON::encode($respone_user));
-            //      error_log("hhhhhhhhhhhhhh  " . $respone_user_data);
-
             $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $respone_user_data . '}';
-            echo $this->sendResponse(200, $result);
+            $this->sendResponse(200, $result);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
 
     public function actionUpdate() {
-        try {
-            $request_json = file_get_contents('php://input');
-            //   $request_arr = CJSON::decode($request_json, true);
 
-            $this->sendResponse(200, $request_json);
+        $request_json = file_get_contents('php://input');
+        $request_arr = CJSON::decode($request_json, true);
+        try {
+            $cb = $this->couchBaseConnection();
+            $temp = explode("/", $_SERVER['REQUEST_URI']);
+            $id = $temp [sizeof($temp) - 1];
+            $request_arr['user']['id'] = $id;
+         
+            $url = substr($_SERVER['HTTP_HOST'], 4) . "/users/" . $id;
+            $oldRecord = $cb->get($url);
+            $oldRecord = CJSON::decode($oldRecord, true);
+            error_log(var_export($oldRecord, true));
+            $oldRecord['user'][0] = null;
+            $oldRecord['user'][0] = $request_arr['user'];
+              error_log(var_export($oldRecord, true));
+            if ($cb->set($url, CJSON::encode($oldRecord))) {
+                $this->sendResponse(200, "ok");
+            } else {
+                $this->sendResponse(500, "some thing wrong");
+            }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -141,13 +152,6 @@ class UsersController extends Controller {
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
-    }
-
-    public function actionTest() {
-
-        header('Content-type: application/json');
-
-        echo CJSON::encode("dddddddd");
     }
 
     public function actionOptions() {

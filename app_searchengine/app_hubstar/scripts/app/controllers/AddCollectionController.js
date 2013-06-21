@@ -50,6 +50,7 @@ define([
                 }
             }
             App.store.commit();
+            this.get("controllers.mega").switchCollection();
         },
         addCollection: function(collection, content)
         {

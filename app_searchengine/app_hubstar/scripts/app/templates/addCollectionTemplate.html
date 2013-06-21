@@ -11,12 +11,12 @@
 
     <div {{action collectionSwitch }} class="btn" id="recordID" {{bindAttr text="controller.selectedTitle" }}>Choose One</div>
 
-    {{view Ember.TextArea valueBinding="controller.selectedDesc" rows="12" cols="70"}}
+    {{view Ember.TextArea valueBinding="controller.selectedDesc" rows="12" cols="70" placeholder="please inout your description........."}}
 
 
     {{#if controller.selectionPop}}
     <div class="contact-container" style="width: 600px;height:200px;">
-        {{view App.SearchRequireTextFieldView valueBinding="newCollectionName"  id="AddRecord" class=""  placeholder=".............." }}   
+        {{view App.SearchRequireTextFieldView valueBinding="newCollectionName"  id="AddRecord" class=""  placeholder="please choose collection...." }}   
 
         <button type="button" {{action addNewCollection }} class="btn">New Collection</button>
 

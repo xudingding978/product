@@ -71,14 +71,14 @@ define([
                 });
             });
 
-            alert(App.get("setHight"));
+         //   alert(App.get("setHight"));
             
             $(window).scrollTop(App.get("setHight"));
             App.set("setHight", 0);
         },
         deactivate: function() {
             App.set("setHight", $(window).scrollTop());
-            alert(App.get("setHight"));
+        //    alert(App.get("setHight"));
         },
         renderTemplate: function() {
 

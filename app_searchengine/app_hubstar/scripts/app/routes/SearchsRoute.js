@@ -16,11 +16,8 @@ define([
     var SearchRoute = Ember.Route.extend({
         setupController: function() {
 
-            //     localStorage.checkUser = "";
             this.controllerFor('searchs').defaultSearch();
             this.controllerFor('index').setLogin();
-            console.log("search route");
-
             this.controllerFor('application').set('islogin', true);
             this.controllerFor('status').set('islogin', true);
             this.controllerFor('application').set('popup', false);

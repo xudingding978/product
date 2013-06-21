@@ -6,29 +6,25 @@ define([
 
 
     var ApplicationController = Ember.ArrayController.extend({
-        needs: ['searchs'],
+        needs: ['status'],
         loginInfo: "",
+        search_area:"",
+        search_string:"",
         test: false,
         user: null,
         popupModal: function() {
             this.set('popup', !this.get('popup'));
-
-
         },
         closeModal: function() {
-
             this.set('popup', !this.get('popup'));
-
-
         },
         email_login: function() {
-
             this.set('mail', !this.get('mail'));
         },
         loginStatus: function() {
-            var searchsController = this.get("controllers.searchs");
-            this.set('loginInfo', localStorage.loginStatus);
-            searchsController.set('loginInfo', localStorage.loginStatus);
+//            var searchsController = this.get("controllers.searchs");
+//            this.set('loginInfo', localStorage.loginStatus);
+//            searchsController.set('loginInfo', localStorage.loginStatus);
         },
 //        test: function() {
 //            this.set('loginInfo', localStorage.loginStatus);
@@ -47,16 +43,21 @@ define([
             var d = new Date();
             var start = d.getTime();
             var results = MegaModel.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string")});
-            console.log(results);
             this.set("content", results);
             var stats = Stat.find({"RquireType": "status", "region": this.get("search_area"), "search_string": this.get("search_string")});
+
             var that = this;
+
             stats.addObserver('isLoaded', function() {
                 if (stats.get('isLoaded')) {
                     var d = new Date();
                     var end = d.getTime();
-                    that.set("searchResultNum", Stat.find('hit').get("hits"));
-                    that.getResponseTime(start, end);
+
+                    var statusController = that.get('controllers.status');
+                    var hit = Stat.find('hit');
+                    var time = that.getResponseTime(start, end);
+                    statusController.set("searchResultNum", hit.get("hits"));
+                    statusController.set("time", time);
                 }
             });
         },
@@ -72,9 +73,10 @@ define([
         getResponseTime: function(start, end) {
             var totalTime = end - start;
             totalTime += "ms";
-            this.set("time", totalTime);
+            //     this.set("time", totalTime);
+            return totalTime;
         }
-                
+
 
     });
 

@@ -3,7 +3,7 @@
 header("Access-Control-Allow-Origin: *");
 header('Content-type: *');
 header('Access-Control-Request-Method: *');
-header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET');
+header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET ,DELETE');
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
 class StatsController extends Controller {
@@ -70,18 +70,24 @@ class StatsController extends Controller {
 
     public function actionDelete() {
         try {
-            
+ $this->sendResponse(200, "OK");
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
 
     public function actionOptions() {
-        try {
-            echo $this->sendResponse(200, "OK");
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
+        $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);
+        header($statusHeader);
+// Set the content type
+        header('Content-type:*');
+// Set the Access Control for permissable domains
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Request-Method:*');
+        header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET ,DELETE');
+        header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+
+        echo "";
     }
 
 }

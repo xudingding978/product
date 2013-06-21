@@ -1,9 +1,42 @@
+
+
 {{view App.HeaderView}}
 
 
+{{outlet profiles}}
+
+{{outlet users}}
 
 
-{{outlet}}
+
+
+
+
+
+
+{{#if controller.islogin}}
+
+{{view App.DiscoveryView}}
+
+{{else}}
+
+{{view App.CarouselView}}
+
+{{/if}}
+
+
+
+
+
+
+
+
+
+{{view App.MasonryView}}
+
+{{outlet photos}}
+
+
 
 
 

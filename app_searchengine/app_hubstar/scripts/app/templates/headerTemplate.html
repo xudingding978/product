@@ -8,7 +8,7 @@
             </div>
 
             <div id="title" class="title-strapline">
-                <p class="titleText">Global  recommendations from </p>
+                <p class="titleText" >Global  recommendations from      {{controller}}</p>
             </div>
             <div id="dd4" class="wrapper-dropdown-3" tabindex="1" style="background:none;border: none;color:white;height: 45px;display: inline-block;box-shadow: none; font-weight: normal;">
                 <div class="SpanFontSetting dropdown_test_4" style="margin: -10px 0px 0px -10px;height: 45px;"><p style=" position: absolute; margin: 13px 0;">Region</p></div>
@@ -29,17 +29,18 @@
 
 
 
-
+            {{#if controller.islogin}}
 
             <div id="login_detail">
                 {{view App.AfterLoginView}}
             </div>
 
 
-
+            {{else}}
 
 
             <div id="login_icon">
+
                 {{view App.BeforeLoginView}}
 
                 {{#if controller.popup}}
@@ -53,7 +54,7 @@
             </div>
 
 
-
+            {{/if}}
 
 
             <!-- user is logged in -->

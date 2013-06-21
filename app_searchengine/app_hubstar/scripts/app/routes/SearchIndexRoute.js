@@ -13,16 +13,6 @@ define([
 
 
 
-            if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
-
-                this.transitionTo('indexIndex');
-
-            } else {
-
-                this.transitionTo('searchIndex');
-
-            }
-
 
         },
         activate: function() {
@@ -34,17 +24,7 @@ define([
 
         },
         renderTemplate: function() {
-            var controller = this.controllerFor('application');
-            this.render('index', {
-                into: "application"
-            });
-            this.render('searchs', {
-                into: "index"
-            });
-//            this.render('status', {
-//                into: "masonry",
-//                controller: controller
-//            });
+
         }
 
     });

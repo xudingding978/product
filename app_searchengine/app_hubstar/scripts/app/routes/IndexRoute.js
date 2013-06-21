@@ -15,14 +15,14 @@ define([
 //        model: function() {
 //            return App.SearchModel.find();
 //        },
+
+
         renderTemplate: function() {
             this.render('index', {
                 into: "application"
             });
 
-            this.render('default', {
-                into: "index"
-            });
+
         }
     });
     return IndexRoute;

@@ -12,7 +12,7 @@ define([
             }
             else if (controller._debugContainerKey.indexOf("application") !== -1)
             {
-                         console.log(controller);
+
                 controller.newSearch();
             }
             else if (controller._debugContainerKey.indexOf("user") !== -1) {

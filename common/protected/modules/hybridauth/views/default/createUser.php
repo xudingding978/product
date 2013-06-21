@@ -25,6 +25,11 @@
         $user_profile = $adapter->getUserProfile();
         $rand_id = strval(rand(9999999999, 99999999999));
 
+<<<<<<< HEAD
+
+        $rand_id = strval(rand(9999999999, 99999999999));
+=======
+>>>>>>> bbf672bf2d73fd2cd82d7408b565a41de1827472
         $user->COUCHBASE_ID = $rand_id;
         $user->USER_NAME = $user_profile->displayName;
         $user->EMAIL_ADDRESS = $user_profile->email;

@@ -86,6 +86,7 @@ class ProfilesController extends Controller {
             //Iterate over the hits and print out some data
             $result .=$reponse;
             $result .= '}';
+       //     error_log(var_export($result,true));
             echo $this->sendResponse(200, $result);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();

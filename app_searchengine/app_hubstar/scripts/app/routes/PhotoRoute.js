@@ -12,6 +12,7 @@ define([
         setupController: function(controller, model) {
 
             var d = MegaModel.find(model.id);
+               console.log(model.id);
             this.controllerFor('mega').getInitData(d);
 
             //   this.controllerFor('mega').set('model', MegaModel.find(model.id));
@@ -34,8 +35,15 @@ define([
         },
         renderTemplate: function() {
             var controller = this.controllerFor('mega');
-            this.render('photo', {
-                into: "index",
+//            this.render('photo', {
+//                into: "index",
+//                controller: controller
+//            });
+
+
+            this.render("photo", {
+                outlet: "photos",
+                into: "application",
                 controller: controller
             });
         }

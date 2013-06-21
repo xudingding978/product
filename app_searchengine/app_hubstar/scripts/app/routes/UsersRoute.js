@@ -13,13 +13,14 @@ define([
             //   controller.get('application').remove();
         },
         model: function() {
-     //   console.log( UserModel.find());
+            //   console.log( UserModel.find());
 
             return UserModel.find();
         },
         renderTemplate: function() {
 
             this.render('users', {
+                outlet: 'users',
                 into: "application"
             });
 

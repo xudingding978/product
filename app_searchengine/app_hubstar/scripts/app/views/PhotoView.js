@@ -41,5 +41,6 @@ define([
         }
 
     });
+   
     return PhotoView;
 });

@@ -11,13 +11,17 @@ define([
         template: Ember.Handlebars.compile(masonryTemplate),
         didInsertElement: function() {
 
+            console.log('test111');
             $(function() {
                 $('#masonry_container').masonry({
                     itemSelector: '.box',
                     columnWidth: 0,
+                    isInitLayout: false,
                     isFitWidth: true
                 });
             });
+
+
 
         },
         moreContent: function(event) {
@@ -31,7 +35,6 @@ define([
                 height: "100%"
 
             }, 200);
-
             $(collape_button).attr("style", "display:block");
             $(more_button).attr("style", "display:none");
 
@@ -55,7 +58,7 @@ define([
             }, 200);
         },
         mega: function() {
-    console.log("rerender");
+            console.log("rerender");
             this.rerender();
         }.observes('controller.content')
     });

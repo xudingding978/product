@@ -6,6 +6,7 @@ define([
         collections: [],
         selectedDesc: "",
         selectedTitle: "",
+        selectionPop: false,
         needs: ["mega"],
         newCollectionName: null,
         objectID: null,
@@ -15,15 +16,19 @@ define([
             var id = megaController.get("percentComplete").id;
             this.set("objectID", id);
             this.setUser();
+
         },
         setUser: function()
         {
             var user = App.User.find(localStorage.loginStatus);
+//             console.log(user);
+//            console.log(user.get("collections"));
             this.set("collections", user.get("collections"));
             if (this.get("collections").objectAt(0) !== null && this.get("collections").objectAt(0) !== undefined) {
                 this.setDesc(this.get("collections").objectAt(0).get("desc"));
                 this.setTitle(this.get("collections").objectAt(0).get("title"));
             }
+
         },
         setDesc: function(desc) {
             this.set("selectedDesc", desc);
@@ -48,6 +53,7 @@ define([
         },
         addCollection: function(collection, content)
         {
+
             if (content === null) {
                 collection.set("collection_ids", this.get("objectID"));
             }
@@ -70,9 +76,21 @@ define([
 
 
             var title = this.get("newCollectionName");
+            // console.log(    this.get("collections"));
             var isInputValid = this.checkInput(title);
             if (isInputValid) {
-                var tempCollection = App.Collection.createRecord({"title": title, "desc": null, "collection_ids": null, "createdAt": new Date()});
+                var tempCollection = App.Collection.createRecord({"title": title, "desc": "please give some desc", "collection_ids": null, "createdAt": new Date()});
+                this.get("collections").pushObject(tempCollection);
+
+            }
+        },
+        addNewCollectionTesting: function() {
+            this.set('selectionPop', true);
+            var title = this.get("newCollectionName");
+            // console.log(    this.get("collections"));
+            var isInputValid = this.checkInput(title);
+            if (isInputValid) {
+                var tempCollection = App.Collection.createRecord({"title": title, "desc": "please give some desc", "collection_ids": null, "createdAt": new Date()});
                 this.get("collections").pushObject(tempCollection);
 
             }

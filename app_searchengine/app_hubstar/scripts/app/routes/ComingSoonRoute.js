@@ -18,10 +18,10 @@ define([
 
         },
         setupController: function() {
-    
+
         },
         activate: function() {
-      this.controllerFor('application').set('comingsoon', true);
+            this.controllerFor('application').set('comingsoon', true);
 
         },
         deactivate: function() {

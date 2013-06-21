@@ -31,7 +31,7 @@ define([
                 this.transitionTo("photo", MegaModel.find(id));
             },
             transitionToProfile: function(id) {
-                console.log(id);
+
                 this.transitionTo("profile", ProfileModel.find(id));
             }
         },
@@ -50,7 +50,7 @@ define([
             if (App.get("setHight") === null || App.get("setHight") === "null") {
                 App.set("setHight", 0);
             }
-            
+
             $(function() {
                 $('#masonry_container').masonry({
                     itemSelector: '.box',
@@ -59,10 +59,12 @@ define([
                     isFitWidth: true
                 });
             });
+            setTimeout(function() {
+                $(window).scrollTop(App.get("setHight"));
+                App.set("setHight", 0);
+            }, 100);
 
-            
-            $(window).scrollTop(App.get("setHight"));
-            App.set("setHight", 0);
+
         },
         deactivate: function() {
             App.set("setHight", $(window).scrollTop());

@@ -26,17 +26,25 @@
 
 
 
-<br />
-<br />
+    <br />
+    <br />
 
-    <button type="button" {{action addNewCollectionTesting }} class="btn" {{bindAttr value="desc" }}>Choose One</button>
+    <button type="button" {{action addNewCollectionTesting }} class="btn" id="recordID" {{bindAttr text="controller.selectedDesc" }}>Choose One</button>
 
 
     {{#if controller.selectionPop}}
-    <div>
-        {{view App.SearchRequireTextFieldView valueBinding="newCollectionName"  id="" class="" placeholder="Search by Business and keyword" }}   
+    <div class="contact-container" style="width: 600px;height:200px;">
+        {{view App.SearchRequireTextFieldView valueBinding="newCollectionName"  id="AddRecord" class=""  placeholder=".............." }}   
 
         <button type="button" {{action addNewCollection }} class="btn">New Collection</button>
+
+
+
+        {{#each controller.collections}}
+        <div>
+            <a {{action chooseRecord title}}> {{title}}</a>
+        </div>
+        {{/each}}
 
     </div>
     {{/if}}

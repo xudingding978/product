@@ -81,11 +81,18 @@ define([
             if (isInputValid) {
                 var tempCollection = App.Collection.createRecord({"title": title, "desc": "please give some desc", "collection_ids": null, "createdAt": new Date()});
                 this.get("collections").pushObject(tempCollection);
+                console.log(tempCollection.get('title'));
+                this.set('selectedDesc', tempCollection.get('title'));
+                $('#recordID').text(this.get('selectedDesc'));
 
             }
+
+            this.set('newCollectionName', null);
+            this.set('selectionPop', !this.get('selectionPop'));
         },
         addNewCollectionTesting: function() {
-            this.set('selectionPop', true);
+            $('#AddRecord').val("33333");
+            this.set('selectionPop', !this.get('selectionPop'));
             var title = this.get("newCollectionName");
             // console.log(    this.get("collections"));
             var isInputValid = this.checkInput(title);
@@ -93,7 +100,14 @@ define([
                 var tempCollection = App.Collection.createRecord({"title": title, "desc": "please give some desc", "collection_ids": null, "createdAt": new Date()});
                 this.get("collections").pushObject(tempCollection);
 
+
             }
+        },
+        chooseRecord: function(record) {
+            this.set('selectedDesc', record);
+            $('#recordID').text(this.get('selectedDesc'));
+            this.set('selectionPop', !this.get('selectionPop'));
+
         },
         checkInput: function(title) {
             var isInputValid = false;

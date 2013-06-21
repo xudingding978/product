@@ -62,7 +62,7 @@ define([
                 collection.set("collection_ids", ids);
             }
         }, exit: function() {
-            this.get("controllers.mega").addCollection();
+            this.get("controllers.mega").switchCollection();
         },
         addNewCollection: function()
         {

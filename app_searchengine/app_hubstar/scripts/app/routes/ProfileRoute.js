@@ -14,6 +14,10 @@ define([
             console.log(model.id);
             ProfileController.setLocalLoginRecrod();
             ProfileController.setModel(model);
+                 this.controllerFor('application').set('islogin', true);
+                      this.controllerFor('application').set('popup', false);
+                        this.controllerFor('application').set('isotherpage', true);
+       
         },
 //        redirect: function() {
 //
@@ -39,8 +43,8 @@ define([
             $('#masonry_container').attr('style', "display:none");
         },
         model: function(params) {
-  //  alert(333);
-  console.log(ProfileModel.find(params.profile_id));
+            //  alert(333);
+            console.log(ProfileModel.find(params.profile_id));
             return ProfileModel.find(params.profile_id);
         },
         renderTemplate: function() {

@@ -39,7 +39,8 @@ define([
             $('#masonry_container').attr('style', "display:none");
         },
         model: function(params) {
-
+  //  alert(333);
+  console.log(ProfileModel.find(params.profile_id));
             return ProfileModel.find(params.profile_id);
         },
         renderTemplate: function() {

@@ -33,7 +33,7 @@ define([
                 this.transitionTo("photo", MegaModel.find(id));
             },
             transitionToProfile: function(id) {
-                console.log(id);
+     
                 this.transitionTo("profile", ProfileModel.find(id));
             }
         },

@@ -30,13 +30,9 @@ define([
             this.set('loginInfo', localStorage.loginStatus);
             searchsController.set('loginInfo', localStorage.loginStatus);
         },
-//        test: function() {
-//            this.set('loginInfo', localStorage.loginStatus);
-//        },
+
         grapData: function() {
             this.set("user", App.User.find(localStorage.loginStatus));
-            //   console.log(this.get("user"));
-
         },
         reloadPage: function() {
             console.log("aqpllication " + this.get("test"));

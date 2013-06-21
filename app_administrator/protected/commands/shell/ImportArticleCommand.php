@@ -8,10 +8,10 @@
 
             echo (isset($start) ? 'Start position is... ' . $start : 'No start defined');
             echo (isset($quantity) ? '  Quantity to load is... ' . $quantity : 'No quantity defined');
-            $this->actionArtical($start, $quantity);
+            $this->actionArticle($start, $quantity);
         }
     
-        public function actionArtical($start, $quantity) {
+        public function actionArticle($start, $quantity) {
             $start_time = microtime(true);
 
             $rows = 0;
@@ -26,7 +26,7 @@
 
                 $artical_data = Article::model()->getArticalRange($from, $to);
                 $this->total_amount = $this->total_amount + sizeof($artical_data);
-                echo sizeof($artical_data);
+//                echo sizeof($artical_data);
                if(sizeof($artical_data>0)) {
                     $this->getMegaData($artical_data);
                } else {
@@ -54,7 +54,7 @@
 //                print_r($obj);
 //                exit();
                 
-                $this->importMegaObj($obj, $val['id']);
+//                $this->importMegaObj($obj, $val['id']);
             }
         }
     
@@ -83,7 +83,6 @@
             $book_title = "";
             $book_list = Books::model()->getBookByArticalID($val['id']);
             if(sizeof($book_list)>0) {
-                
                 foreach($book_list as $book) {
                     array_push($book_id, $book['id']);
                     $region_book = Regions::model()->selectCountryNameByID($book['region']);
@@ -119,6 +118,10 @@
                 $writer =  str_replace("Story by", "", $val['writer']);
             }
             
+            //get object cover
+//            $cover= $this->getArticleCover($val['id']);
+            $this->updateObj();
+            
             // get keywords imfor
 //            $keywords = mb_check_encoding($val['keywords'], 'UTF-8') ? $val['keywords'] : utf8_encode($val['keywords']);
             
@@ -151,6 +154,7 @@
                 "object_image_url" => null,
                 "object_title" => $val['headline'],
                 "object_description" => $val['subHeadline'],
+                "object_cover" => $cover,
                 "owner_type" => 'profile',
                 "owner_profile_pic" => "https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/this_is/folder_path/Trends-Logo.jpg",
                 "owner_title" => "Trends Ideas",
@@ -166,6 +170,7 @@
 
             $article_list = array(
                 "id" => null,
+                "article_id"=>$val['id'],
                 "article_spark_job_id" => $val['sparkJobId'],
                 "article_helium_mediaId" => $val['heliumMediaId'],
                 "article_type" => $val['type'],
@@ -195,6 +200,65 @@
 
             return $obj;
         }
+        
+        public function updateObj(){
+            $id_array = Article::model()->getArticalID();
+//            print_r($id_array);
+            foreach($id_array as $val) {
+//                    echo $val['article']."-----------".$val['image'];
+                    $url = "http://api.develop.devbox/GetResultByKeyValue/?type=photo&photo_heliumMediaId=".$val['image'];
+//                    echo $url;
+                    $cover=$this->getArticleCover($url);
+                    
+                    
+                    
+//                    echo 
+            }
+            
+        }
+        
+        public function getArticleCover($url){
+            try{
+//                $url = "http://api.develop.devbox/GetResultByKeyValue/?type=photo&collection_id=".$article_id;
+//                echo $url."\r\n";
+                $cover_url="";
+                $ch = curl_init($url);
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+                
+                $result = curl_exec($ch);
+                $json_result = json_decode($result, true);
+
+                if(sizeof($json_result)>0) {
+                    foreach($json_result['articles'] as $val) {
+//                        print_r($val);
+                        
+                        $sequence = $val['photo'][0]['photo_sequence'];
+                        if($sequence=1) {
+                            $cover_url = $val['photo'][0]['photo_image_hero_url'];
+                            
+//                            echo $cover_url."\r\n";
+                            
+                            if ($cover_url != "") break;
+                        }
+                    }
+                }
+
+//                echo $cover_url;
+//                exit();
+                
+                curl_close ($ch);
+                
+                return $cover_url;
+                
+            } catch (Exception $e) {
+                echo 'Caught exception: ' . $e->getMessage();
+                return null;
+            }
+        }
+        
+        
         
         public function importMegaObj($data_list, $id) {
         $json_list = json_encode($data_list);

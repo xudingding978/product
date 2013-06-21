@@ -61,7 +61,8 @@ define([
                 ids = ids + ", " + this.get("objectID");
                 collection.set("collection_ids", ids);
             }
-        }, exit: function() {
+        },
+        exit: function() {
             this.get("controllers.mega").switchCollection();
         },
         addNewCollection: function()

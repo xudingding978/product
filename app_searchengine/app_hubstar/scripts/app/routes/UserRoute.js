@@ -11,6 +11,10 @@ define([
         setupController: function(controller, model) {
             //  controller.set("indexPage",true);
             //   controller.get('application').remove();
+                 this.controllerFor('application').set('islogin', true);
+                      this.controllerFor('application').set('popup', false);
+                                  this.controllerFor('application').set('isotherpage', true);
+                                  
         },
         model: function(params) {
             return UserModel.find(params.user_id);
@@ -30,12 +34,11 @@ define([
 
 
         },
-                        deactivate: function() {
+        deactivate: function() {
 
         },
         activate: function() {
-            $('#discovery_search_bar_wrapper').attr('style', "display:none");
-            $('#masonry_container').attr('style', "display:none");
+
         },
         renderTemplate: function() {
 

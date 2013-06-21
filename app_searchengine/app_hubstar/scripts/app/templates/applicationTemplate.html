@@ -11,7 +11,7 @@
 
 
 
-
+{{#unless controller.isotherpage}}
 
 
 {{#if controller.islogin}}
@@ -31,8 +31,11 @@
 
 
 
-
 {{view App.MasonryView}}
+
+
+
+{{/unless}}
 
 {{outlet photos}}
 

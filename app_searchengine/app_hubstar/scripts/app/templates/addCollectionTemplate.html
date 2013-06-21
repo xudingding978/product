@@ -4,7 +4,10 @@
 
 <div class="contactmebox-wapper" style="width: 500px;height:500px;font-size: 13px;">
     <button type="button" {{action exit }} class="close">X</button>
-    {{view App.SearchRequireTextFieldView valueBinding="newCollectionName"  id="" class="" placeholder="Search by Business and keyword" }}    <button type="button" {{action addNewCollection }} class="btn">New Collection</button>
+    
+    {{view App.SearchRequireTextFieldView valueBinding="newCollectionName"  id="" class="" placeholder="Search by Business and keyword" }}   
+    
+    <button type="button" {{action addNewCollection }} class="btn">New Collection</button>
     {{#view App.DropDownView  contentBinding="controller.collections"}}
     <select>
         {{#each collections}}

@@ -18,9 +18,12 @@ define([
 
             this.controllerFor('searchs').defaultSearch();
             this.controllerFor('index').setLogin();
+
             this.controllerFor('application').set('islogin', true);
             this.controllerFor('status').set('islogin', true);
             this.controllerFor('application').set('popup', false);
+            this.controllerFor('application').set('isotherpage', false);
+
 
         },
         events: {
@@ -33,26 +36,21 @@ define([
             }
         },
         redirect: function() {
-
-
-
-
             if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
                 this.transitionTo('indexIndex');
 
             } else {
-
                 this.transitionTo('searchIndex');
-
             }
 
         },
         activate: function() {
-            //      alert(App.get("setHight"));
-
-
             $('#discovery_search_bar_wrapper').attr('style', "display:block;margin: 0 0 100px 0;");
             $('#masonry_container').attr('style', "display:block;position:relative");
+            if (App.get("setHight") === null || App.get("setHight") === "null") {
+                App.set("setHight", 0);
+            }
+            
             $(function() {
                 $('#masonry_container').masonry({
                     itemSelector: '.box',
@@ -61,26 +59,17 @@ define([
                     isFitWidth: true
                 });
             });
-            if (App.get("setHight") === null || App.get("setHight") === "null") {
-                App.set("setHight", 0);
-            }
 
+            
             $(window).scrollTop(App.get("setHight"));
             App.set("setHight", 0);
         },
         deactivate: function() {
             App.set("setHight", $(window).scrollTop());
-            //         alert(App.get("setHight"));
+
         },
         renderTemplate: function() {
 
-//            if (false) {
-//                alert(3333);
-//                this.render('masonry', {
-//                    outlet: "masonry",
-//                    into: "application"
-//                });
-//            }
 
         }
     });

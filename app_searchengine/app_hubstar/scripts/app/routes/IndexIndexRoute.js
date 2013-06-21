@@ -14,6 +14,10 @@ define([
             this.controllerFor('application').set('islogin', false);
 
             this.controllerFor('status').set('islogin', false);
+            this.controllerFor('application').set('isotherpage', false);
+
+            
+            
         },
         redirect: function() {
 

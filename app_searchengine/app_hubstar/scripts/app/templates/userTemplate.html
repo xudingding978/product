@@ -2,9 +2,14 @@
 <div class="user-board">
     <div class="user-board_left style-box">
         <img style="width: 150px; height: 150px; border-radius: 3px 0 0 3px;display: inline-block;vertical-align: top;" {{bindAttr src="controller.user.photo_url_large"}}/>
-        <div style="height: 120px; margin: 15px 20px;display: inline-block;position: absolute;left: 150px;">
-            <div style="font-size: 26px;font-weight: bold; line-height: 30px; overflow: hidden;">{{controller.user.display_name}}</div>
-            <div style="font-size: 13px;line-height: 20px;margin: 5px auto;color: #888; overflow: hidden;height: 60px; text-overflow: ellipsis;">{{description}}</div>
+        <div style="height: 128px; margin: 10px 20px;display: inline-block;position: absolute;left: 150px;">
+            <div style='display: block;'>
+                <div style="font-size: 26px;font-weight: bold; line-height: 30px; overflow: hidden; display: inline-block;">{{controller.user.display_name}}</div>
+                <div  type="button" class="new-btn green-btn" >
+                    Follow
+                </div>
+            </div>
+            <div style="font-size: 13px;line-height: 20px;margin: 5px auto;color: #888; overflow: hidden;height: 50px; text-overflow: ellipsis;">{{description}}</div>
             <ul class="locationandlinks">
                 <li class="location_li" style="background: none;padding: 0;"><i class="icon-map-marker"></i>Auckland</li> 
                 <li><a href="#" target="_blank">www.you.com</a></li>
@@ -14,10 +19,13 @@
             </ul>
         </div>
     </div>
-    <div class="user-board_right style-box" style="background: white; width: 30%; height: 150px; display: inline-block; vertical-align: top;">
-
-
-
+    <div class="user-board_right style-box" style="background: white; width: 30%; height: 150px; display: inline-block; vertical-align: top;padding: 15px 20px;">
+        <div style="font-weight: bold;line-height: 20px; color: #777; font-size: 13px;">Interested in:</div>
+        <div style="padding: 0 8px;">
+            <div class='hashtags'>Acceseories<i class='remove-hashtages'>x</i></div>
+            <div class='hashtags'>Applicances<i class='remove-hashtages'>x</i></div>
+            <div class='hashtags'>Benchtops<i class='remove-hashtages'>x</i></div>
+        </div>
     </div>
 </div>
 
@@ -57,7 +65,7 @@
                         <i class="icon-group"></i>
                         <i class="icon-book"></i>
                         <i class="icon-picture"></i>
-                        <i class="icon-film"></i>            
+                        <i class="icon-film"></i>
                     </div>
 
                 </div>
@@ -109,6 +117,7 @@
         {{/each}}
 
     </div>
+<<<<<<< HEAD
 
     <script>
 
@@ -122,3 +131,20 @@
         });
     </script>
 </div>
+=======
+</div>
+<script>
+
+    $(function() {
+        var $container = $('#masonry_user_container');
+        var $boxes = $('.box');
+        window.setTimeout(function() {
+            $container.masonry();
+            $container.prepend($boxes).masonry('reload');
+        }, 400);
+    });
+
+
+
+</script>
+>>>>>>> c7221d353d80fff673c63c827240d7616fe48853

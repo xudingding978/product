@@ -102,6 +102,8 @@ define('application', [
     "views/AddCollectionView",
     "views/ComingSoonView",
     "views/DropDownView",
+    "views/ConView",
+    "views/AddChildViewButton",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -214,6 +216,8 @@ define('application', [
         AddCollectionView,
         ComingSoonView,
         DropDownView,
+        ConView,
+        AddChildViewButton,
         ApplicationController,
         tabListController,
         DataController,
@@ -326,6 +330,8 @@ define('application', [
         AddCollectionView: AddCollectionView,
         ComingSoonView: ComingSoonView,
         DropDownView: DropDownView,
+        ConView: ConView,
+        AddChildViewButton: AddChildViewButton,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
@@ -404,7 +410,14 @@ define('application', [
 
 
             App.set("isLogin", false);
+            App.set("afterSearch", false);
 
+            App.set("setHight", null);
+//            var firstView = App.DiscoveryView.create(),
+//                    secondView = App.MasonryView.create();
+//
+//            App.ConView.pushObject(firstView);
+//            App.ConView.pushObject(secondView);
         }
     });
 }

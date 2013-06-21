@@ -14,6 +14,7 @@ define([
 
     var ProfileView = Ember.View.extend({
         template: Ember.Handlebars.compile(profileTemplate),
+
         didInsertElement: function() {
 
             $(function() {
@@ -23,6 +24,16 @@ define([
                     isFitWidth: true
                 });
             });
+
+            $('#user-stats > li').click(function() {
+                $('#user-stats > li').removeClass('selected-user-stats');
+                $(this).addClass('selected-user-stats');
+
+
+                return false;
+            });
+
+
 
         },
     });

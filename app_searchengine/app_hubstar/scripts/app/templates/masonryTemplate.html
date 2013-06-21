@@ -1,7 +1,10 @@
 
 <div id="masonry_container" class="transitions-enabled centered clearfix">
     <div class="box col2">
+        
         {{render status}}
+        
+    
     </div>
 
 
@@ -109,21 +112,6 @@
     {{/if}}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     {{#if getPhoto}}
     <div class="box col2">
 
@@ -131,10 +119,10 @@
         <div class="masonry-object">
             <div class="masonry-object_poster">  
                 <a {{bindAttr href="getProfile_id"}}>
-                    <img {{bindAttr src="owner_profile_pic"}} class="profilepic-on-masonry"/>
+                    <img  {{action transitionToProfile id}} class="profilepic-on-masonry"/>
                 </a>
                 <div class="object_username">
-                    <a class="poster-name" {{bindAttr href="getProfile_id"}}>{{owner_title}}</a>
+                    <a class="poster-name"  {{action transitionToProfile id}}>{{owner_title}}</a>
                     <span class="posttime">{{date created}}</span>
                 </div>
 
@@ -172,7 +160,7 @@
             <div class="masonry-object_mainfeature">             
                 <div class="mainfeature-wrapper">
                     <a class="mainfeature-container">
-                        {{#linkTo 'photo' this}} <img class="this-is-the-object"{{bindAttr src="object_image_url" }} />{{/linkTo}}
+                        <img class="this-is-the-object"{{bindAttr src="object_image_url" }} {{action transitionToPhoto id}} />
                     </a>                 
                     <div>                                                                                                                                                                                                                                                                                                                                                                       </div>
                 </div>
@@ -180,13 +168,13 @@
 
                 <div class="masonry-object_text">
                     <div class="masonry-object_text-container">
-                        <p>   {{#linkTo 'photo' this}} {{photo_title}}{{/linkTo}} </p>
+                        <p>    {{photo_title}}</p>
 
                     </div>
 
                     <div class="more_detail" {{bindAttr id="id"}} >
 
-                        <div class="more_text-container" >
+                        <div class="more_text-container" > 
                             <div style="display:block;">
                                 {{description}}
                             </div>
@@ -490,6 +478,7 @@
 
 
 </div> <!-- #container -->
+
 
 
 

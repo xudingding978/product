@@ -5,19 +5,17 @@ define(["ember"], function(Ember) {
         searchResultNum: "",
         time: "",
         user: null,
-        needs: ['searchs'],
-        getSearchResultNum: function() {
-            var controller = this.get("controllers.searchs");
-            this.set("searchResultNum", "Item:" +controller.get("searchResultNum"));
-        }.observes('controllers.searchs.searchResultNum'),
-        getSearchResultTime: function() {
-            var controller = this.get("controllers.searchs");
-            this.set("time", "Time: "+controller.get("time"));
-        }.observes('controllers.searchs.time'),
-                grapData: function() {
-            this.set("user", App.User.find(localStorage.loginStatus));
-            //      console.log(this.get("user"));
+        needs: ['application'],
+        getSearchResultNum: function(hits) {
 
+            this.set("searchResultNum", "Item: " + hits);
+        },
+        getSearchResultTime: function(time) {
+
+            this.set("time", "Time: " + time);
+        },
+        grapData: function() {
+            this.set("user", App.User.find(localStorage.loginStatus));
         }
     });
     return StatusController;

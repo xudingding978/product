@@ -4,9 +4,9 @@ define([
         UserModel
     ) {
     var UserController = Ember.Controller.extend({
-        model: function() {
-            return UserModel.find();
-        }
+//        model: function() {
+//            return UserModel.find();
+//        }
     });
-    return UserController;
+    return UsersController;
 });

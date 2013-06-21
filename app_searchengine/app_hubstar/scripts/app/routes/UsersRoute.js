@@ -10,16 +10,25 @@ define([
     var UsersRoute = Ember.Route.extend({
         setupController: function(controller, model) {
             //  controller.set("indexPage",true);
+            this.controllerFor('application').set('islogin', true);
+            this.controllerFor('application').set('popup', false);
+            this.controllerFor('application').set('isotherpage', true);
+     
+
             //   controller.get('application').remove();
         },
         model: function() {
-     //   console.log( UserModel.find());
+            //   console.log( UserModel.find());
 
             return UserModel.find();
+        },
+        activate: function() {
+
         },
         renderTemplate: function() {
 
             this.render('users', {
+                outlet: 'users',
                 into: "application"
             });
 

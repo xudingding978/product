@@ -1,15 +1,72 @@
+{{#if controller.comingsoon}}
+
+{{outlet comingsoon}}
+
+
+
+
+
+
+
+
+
+{{else}}
+
+
+
+
+
+
+
+
+
+
 {{view App.HeaderView}}
 
 
+{{outlet profiles}}
+
+{{outlet users}}
 
 
-{{outlet}}
+
+
+
+{{#unless controller.isotherpage}}
+
+
+{{#if controller.islogin}}
+
+{{view App.DiscoveryView}}
+
+{{else}}
+
+{{view App.CarouselView}}
+
+{{/if}}
+
+
+
+
+
+
+
+
+{{view App.MasonryView}}
+
+
+
+{{/unless}}
+
+{{outlet photos}}
+
+
 
 
 
 {{render "footer"}}
 
-
+{{/if}}
 
 
 

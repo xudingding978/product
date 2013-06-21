@@ -19,8 +19,8 @@ define([
                 $('#uploadingObject').attr('style', "display:block");
                 $('#uploadArea').attr('style', "display:block");
                 $('#addNew').animate({
-                    height: 650,
-                    width: 600
+                    height: 400,
+                    width: 400
                 }, 400, function() {
                     $('#masonry_user_container').masonry({
                         itemSelector: '.box',

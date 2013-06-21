@@ -8,6 +8,9 @@ define([
 
     var ApplicationView = Ember.View.extend({
         defaultTemplate: Ember.Handlebars.compile(applicationTemplate),
+        reaaarender: function() {
+            this.rerender();
+        }.observes('controller.test')
     });
 
     return ApplicationView;

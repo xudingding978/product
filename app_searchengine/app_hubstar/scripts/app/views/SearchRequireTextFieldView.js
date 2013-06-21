@@ -10,15 +10,16 @@ define([
             {
                 controller.addNewCollection();
             }
-            else if (controller._debugContainerKey.indexOf("searchs") !== -1)
+            else if (controller._debugContainerKey.indexOf("application") !== -1)
             {
+
                 controller.newSearch();
             }
             else if (controller._debugContainerKey.indexOf("user") !== -1) {
                 controller.addNewCollection();
             }
             else {
-                console.log(controller._debugContainerKey);
+                console.log(controller);
             }
         }
     });

@@ -20,8 +20,10 @@ define([
         {
             var user = App.User.find(localStorage.loginStatus);
             this.set("collections", user.get("collections"));
-            this.setDesc(this.get("collections").objectAt(0).get("desc"));
-            this.setTitle(this.get("collections").objectAt(0).get("title"));
+            if (this.get("collections").objectAt(0) !== null && this.get("collections").objectAt(0) !== undefined) {
+                this.setDesc(this.get("collections").objectAt(0).get("desc"));
+                this.setTitle(this.get("collections").objectAt(0).get("title"));
+            }
         },
         setDesc: function(desc) {
             this.set("selectedDesc", desc);
@@ -59,8 +61,9 @@ define([
                 ids = ids + ", " + this.get("objectID");
                 collection.set("collection_ids", ids);
             }
-        }, exit: function() {
-            this.get("controllers.mega").addCollection();
+        },
+        exit: function() {
+            this.get("controllers.mega").switchCollection();
         },
         addNewCollection: function()
         {

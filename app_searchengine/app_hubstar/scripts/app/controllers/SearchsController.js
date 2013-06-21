@@ -20,14 +20,15 @@ define([
             this.set("content", results);
             var stats = Stat.find({"RquireType": "status", "region": this.get("search_area"), "search_string": this.get("search_string")});
             var that = this;
-            stats.addObserver('isLoaded', function() {
-                if (stats.get('isLoaded')) {
-                    var d = new Date();
-                    var end = d.getTime();
-                    that.set("searchResultNum", Stat.find('hit').get("hits"));
-                    that.getResponseTime(start, end);
-                }
-            });
+            console.log(Stat.find('hit').get("hits"));
+//            stats.addObserver('isLoaded', function() {
+//                if (stats.get('isLoaded')) {
+//                    var d = new Date();
+//                    var end = d.getTime();
+//                    that.set("searchResultNum", Stat.find('hit').get("hits"));
+//                    that.getResponseTime(start, end);
+//                }
+//            });
         },
         defaultSearch: function() {
             this.set("loginInfo", localStorage.loginStatus);
@@ -38,12 +39,12 @@ define([
             var results = MegaModel.find({});
             this.set("content", results);
         },
-        getResponseTime: function(start, end)
-        {
+        getResponseTime: function(start, end) {
             var totalTime = end - start;
             totalTime += "ms";
             this.set("time", totalTime);
         }
+
 
     });
 

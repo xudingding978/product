@@ -8,6 +8,17 @@ define([
         ) {
     "use strict";
     var IndexIndexRoute = Ember.Route.extend({
+        setupController: function() {
+
+
+            this.controllerFor('application').set('islogin', false);
+
+            this.controllerFor('status').set('islogin', false);
+            this.controllerFor('application').set('isotherpage', false);
+
+            
+            
+        },
         redirect: function() {
 
 
@@ -28,7 +39,7 @@ define([
         },
         activate: function() {
 
-             
+
             App.set("isLogin", false);
         },
         deactivate: function() {
@@ -46,7 +57,7 @@ define([
 
             this.render('default', {
                 into: "index"
- 
+
             });
 
 //            this.render('status', {

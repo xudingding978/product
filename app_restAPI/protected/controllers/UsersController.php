@@ -4,7 +4,7 @@ header("Access-Control-Allow-Origin: *");
 header('Content-type: *');
 
 header('Access-Control-Request-Method: *');
-header('Access-Control-Allow-Methods: *');
+header('Access-Control-Allow-Methods: PUT, POST, OPTIONS, GET');
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
 class UsersController extends Controller {
@@ -127,7 +127,7 @@ class UsersController extends Controller {
     public function actionUpdate() {
         try {
             $request_json = file_get_contents('php://input');
-         //   $request_arr = CJSON::decode($request_json, true);
+            //   $request_arr = CJSON::decode($request_json, true);
 
             $this->sendResponse(200, $request_json);
         } catch (Exception $exc) {
@@ -159,12 +159,11 @@ class UsersController extends Controller {
 // Set the Access Control for permissable domains
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Request-Method:*');
-        header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET');
+        header('Access-Control-Allow-Methods: PUT, POST, OPTIONS, GET');
         header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
         echo "";
         Yii::app()->end();
-
     }
 
     public function getInputData($inputDataType, $inputData) {

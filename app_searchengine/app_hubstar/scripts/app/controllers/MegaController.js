@@ -113,9 +113,10 @@ define(['models/MegaModel',
                     var result = (param !== null && param !== undefined);
                     return result;
                 },
-                addCollection: function() {
+                switchCollection: function() {
                     this.set('collectable', !this.get('collectable'));
                 },
+
                 closeWindow: function() {
                     this.set('collectable', false);
                     this.set('contact', false);

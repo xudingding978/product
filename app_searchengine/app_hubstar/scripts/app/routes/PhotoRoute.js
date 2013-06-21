@@ -12,13 +12,11 @@ define([
         setupController: function(controller, model) {
 
             var d = MegaModel.find(model.id);
+
             this.controllerFor('mega').getInitData(d);
-
-            //   this.controllerFor('mega').set('model', MegaModel.find(model.id));
-
         },
         model: function(params) {
-            console.log("model: " + params.photo_id);
+
             return MegaModel.find(params.photo_id);
         },
         activate: function() {
@@ -34,8 +32,15 @@ define([
         },
         renderTemplate: function() {
             var controller = this.controllerFor('mega');
-            this.render('photo', {
-                into: "index",
+//            this.render('photo', {
+//                into: "index",
+//                controller: controller
+//            });
+
+
+            this.render("photo", {
+                outlet: "photos",
+                into: "application",
                 controller: controller
             });
         }

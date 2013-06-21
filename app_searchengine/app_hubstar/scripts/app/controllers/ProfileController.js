@@ -19,6 +19,8 @@ define([
                 editing: false,
                 galleryInsert: false,
                 setLocalLoginRecrod: function() {
+                    App.set('afterSearch', true);
+                    console.log(App.get("afterSearch"));
                     localStorage.user_id = this.get('content.id');
                 },
                 toggleEditing: function() {
@@ -76,7 +78,7 @@ define([
                     console.log("click showDragNdropWindow ");
                 },
                 setModel: function(model) {
-                    this.set("model", model);        
+                    this.set("model", model);
                 }
             }
 

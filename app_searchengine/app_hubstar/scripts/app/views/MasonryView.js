@@ -11,7 +11,7 @@ define([
         template: Ember.Handlebars.compile(masonryTemplate),
         didInsertElement: function() {
 
-            console.log('test111');
+
             $(function() {
                 $('#masonry_container').masonry({
                     itemSelector: '.box',
@@ -48,7 +48,6 @@ define([
             var more_button = "#more_button_" + event.id;
             $(id).animate({
                 height: "20px"
-
             }, 200);
             $(collape_button).attr("style", "display:none");
             $(more_button).attr("style", "display:block");
@@ -58,7 +57,6 @@ define([
             }, 200);
         },
         mega: function() {
-            console.log("rerender");
             this.rerender();
         }.observes('controller.content')
     });

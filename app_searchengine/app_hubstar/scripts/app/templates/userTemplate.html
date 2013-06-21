@@ -2,9 +2,14 @@
 <div class="user-board">
     <div class="user-board_left style-box">
         <img style="width: 150px; height: 150px; border-radius: 3px 0 0 3px;display: inline-block;vertical-align: top;" {{bindAttr src="controller.user.photo_url_large"}}/>
-        <div style="height: 120px; margin: 15px 20px;display: inline-block;position: absolute;left: 150px;">
-            <div style="font-size: 26px;font-weight: bold; line-height: 30px; overflow: hidden;">{{controller.user.display_name}}</div>
-            <div style="font-size: 13px;line-height: 20px;margin: 5px auto;color: #888; overflow: hidden;height: 60px; text-overflow: ellipsis;">{{description}}</div>
+        <div style="height: 128px; margin: 10px 20px;display: inline-block;position: absolute;left: 150px;">
+            <div style='display: block;'>
+                <div style="font-size: 26px;font-weight: bold; line-height: 30px; overflow: hidden; display: inline-block;">{{controller.user.display_name}}</div>
+                <div  type="button" class="new-btn green-btn" >
+                    Follow
+                </div>
+            </div>
+            <div style="font-size: 13px;line-height: 20px;margin: 5px auto;color: #888; overflow: hidden;height: 50px; text-overflow: ellipsis;">{{description}}</div>
             <ul class="locationandlinks">
                 <li class="location_li" style="background: none;padding: 0;"><i class="icon-map-marker"></i>Auckland</li> 
                 <li><a href="#" target="_blank">www.you.com</a></li>
@@ -14,10 +19,13 @@
             </ul>
         </div>
     </div>
-    <div class="user-board_right style-box" style="background: white; width: 30%; height: 150px; display: inline-block; vertical-align: top;">
-
-
-
+    <div class="user-board_right style-box" style="background: white; width: 30%; height: 150px; display: inline-block; vertical-align: top;padding: 15px 20px;">
+        <div style="font-weight: bold;line-height: 20px; color: #777; font-size: 13px;">Interested in:</div>
+        <div style="padding: 0 8px;">
+            <div class='hashtags'>Acceseories<i class='remove-hashtages'>x</i></div>
+            <div class='hashtags'>Applicances<i class='remove-hashtages'>x</i></div>
+            <div class='hashtags'>Benchtops<i class='remove-hashtages'>x</i></div>
+        </div>
     </div>
 </div>
 
@@ -69,20 +77,11 @@
                     X
                 </button>
 
-                {{view App.SearchRequireTextFieldView valueBinding="newCollectionName"  id="" class="" placeholder="Search by Business and keyword" }}    <button type="button" {{action addNewCollection }} class="btn">New Collection</button>
-                {{#view App.DropDownView  contentBinding="controller.collections"}}
-                <select>
-                    {{#each collections}}
-                    <option {{bindAttr value="desc" }} >{{title}}</option>
-                    {{/each}}
-                </select>
-                {{/view}}
+                {{view App.SearchRequireTextFieldView valueBinding="newCollectionName"  id="" class="" placeholder="Name your collection" }} 
+           
                 {{view Ember.TextArea valueBinding="controller.selectedDesc" rows="12" cols="70"}}
                 <button type="button" {{action exit }} class="btn">Cancel</button>
-                <button type="button" {{action submit }}  class="btn btn-primary">Submit</button>
-
-                {{render "PhotoCreate"}}
-
+                <button type="button" {{action submit }}  class="btn btn-primary">New Collection</button>
 
             </div>
 
@@ -94,7 +93,7 @@
         <div class="box col2 style-box">
             <div class="masonry-object">
                 <div class="album-description-hoverarea easing">
-                    
+
                     <div class="album-description">description this photo album is about brabrabra, take a look in side!</div>
                     <div class="album-description-bg">description this photo album is about brabrabra, take a look in side!</div>
                 </div>
@@ -102,7 +101,7 @@
                     <img class="albumcover" src="../images/kichen_a.jpg"/>
                 </div>
                 <div class="album-info">
-                    <div class="album-info_name"><i class="icon-picture"></i> {{title}}</div>
+                    <div class="album-info_name"><i class="icon-picture"></i> {{collection_ids}}</div>
                     <div class="album-info_content">
                         <div class="edit-object"><i class="icon-cog"></i></div>
                         <span><a> 32 </a>photos </span>
@@ -113,27 +112,39 @@
         </div>
 
 
+
+
         {{/each}}
 
-
-
-
-
-
-
     </div>
+<<<<<<< HEAD
+
+    <script>
+
+        $(function() {
+            var $container = $('#masonry_user_container');
+            var $boxes = $('.box');
+            window.setTimeout(function() {
+                $container.masonry();
+                $container.prepend($boxes).masonry('reload');
+            }, 400);
+        });
+    </script>
 </div>
-        <script>
+=======
+</div>
+<script>
 
-            $(function() {
-                var $container = $('#masonry_user_container');
-                var $boxes = $('.box');
-                window.setTimeout(function() {
-                    $container.masonry();
-                    $container.prepend($boxes).masonry('reload');
-                }, 400);
-            });
+    $(function() {
+        var $container = $('#masonry_user_container');
+        var $boxes = $('.box');
+        window.setTimeout(function() {
+            $container.masonry();
+            $container.prepend($boxes).masonry('reload');
+        }, 400);
+    });
 
 
 
-        </script>
+</script>
+>>>>>>> c7221d353d80fff673c63c827240d7616fe48853

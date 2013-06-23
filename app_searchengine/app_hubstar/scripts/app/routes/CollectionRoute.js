@@ -7,7 +7,7 @@ define([
         ) {
     "use strict";
 
-    var TitleRoute = Ember.Route.extend({
+    var CollectionRoute = Ember.Route.extend({
         setupController: function(controller, model) {
 
 //            this.controllerFor('application').set('islogin', true);
@@ -16,7 +16,7 @@ define([
 
         },
         model: function(params) {
-              return CollectionModel.find(params.title);
+              return CollectionModel.find(params.collection_id);
         },
         redirect: function() {
 
@@ -29,6 +29,7 @@ define([
         },
         renderTemplate: function() {
 
+
 //            this.render('user', {
 //                outlet: "users",
 //                into: "application"
@@ -37,5 +38,5 @@ define([
         }
 
     });
-    return TitleRoute;
+    return CollectionRoute;
 });

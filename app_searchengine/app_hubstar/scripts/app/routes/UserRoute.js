@@ -1,9 +1,11 @@
 define([
     'ember',
-    'models/UserModel'
+    'models/UserModel',
+    'models/CollectionModel'
 ], function(
         Ember,
-        UserModel
+        UserModel,
+        CollectionModel
         ) {
     "use strict";
 
@@ -21,8 +23,8 @@ define([
         },
         events: {
             transitionToCollectionPhoto: function(id) {
-          //      alert(id);
-                         this.transitionTo("title");
+                //      alert(id);
+                this.transitionTo("collection", CollectionModel.find(id));
             }
         },
         redirect: function() {

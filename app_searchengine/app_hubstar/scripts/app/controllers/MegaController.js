@@ -17,7 +17,7 @@ define(['models/MegaModel',
                 percentComplete: 0,
                 selected: null,
                 isSelected: false,
-                needs: ['application'],
+                needs: ['application', 'addCollection'],
                 currentUser: null,
                 photo_album_id: null,
                 photo_thumb_id: null,
@@ -114,9 +114,12 @@ define(['models/MegaModel',
                     return result;
                 },
                 switchCollection: function() {
+                    var addCollectionController = this.get('controllers.addCollection');
+                    var selectid = this.get('percentComplete').id;
+                    addCollectionController.setImageID(selectid);
+                    addCollectionController.setUser();
                     this.set('collectable', !this.get('collectable'));
                 },
-
                 closeWindow: function() {
                     this.set('collectable', false);
                     this.set('contact', false);

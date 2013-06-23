@@ -355,4 +355,20 @@ class Controller extends CController {
         return $returnString;
     }
 
+    public function actionOptions() {
+
+        $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);
+        header($statusHeader);
+// Set the content type
+        header('Content-type:*');
+// Set the Access Control for permissable domains
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Request-Method:*');
+        header('Access-Control-Allow-Methods: DELETE, PUT, POST, OPTIONS, GET');
+        header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+
+        echo "";
+        Yii::app()->end();
+    }
+
 }

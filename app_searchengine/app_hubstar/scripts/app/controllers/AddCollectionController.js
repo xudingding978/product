@@ -16,19 +16,19 @@ define([
             var id = megaController.get("percentComplete").id;
             this.set("objectID", id);
             this.setUser();
-
         },
         setUser: function()
         {
+
             var user = App.User.find(localStorage.loginStatus);
-//             console.log(user);
-//            console.log(user.get("collections"));
             this.set("collections", user.get("collections"));
             if (this.get("collections").objectAt(0) !== null && this.get("collections").objectAt(0) !== undefined) {
                 this.setDesc(this.get("collections").objectAt(0).get("desc"));
                 this.setTitle(this.get("collections").objectAt(0).get("title"));
             }
-
+        },
+        setImageID: function(id) {
+            this.set("objectID", id);
         },
         setDesc: function(desc) {
             this.set("selectedDesc", desc);
@@ -38,7 +38,6 @@ define([
         },
         submit: function()
         {
-
             for (var i = 0; i < this.get("collections").get("length"); i++)
             {
                 var collection = this.get("collections").objectAt(i);
@@ -49,7 +48,16 @@ define([
                     this.addCollection(collection, content);
                 }
             }
-            App.store.commit();
+            var that = this;
+            var user = App.User.find(localStorage.loginStatus);
+            user.store.save();
+            user.addObserver('isSaving', function() {
+                if (!user.get('isSaving')) {
+                }
+                else {
+                }
+            });
+
             this.get("controllers.mega").switchCollection();
         },
         addCollection: function(collection, content)
@@ -74,15 +82,12 @@ define([
         },
         addNewCollection: function()
         {
-
-
             var title = this.get("newCollectionName");
-            // console.log(    this.get("collections"));
             var isInputValid = this.checkInput(title);
             if (isInputValid) {
                 var tempCollection = App.Collection.createRecord({"id":title,"title": title, "desc": null, "collection_ids": null, "createdAt": new Date()});
                 this.get("collections").pushObject(tempCollection);
-                console.log(tempCollection.get('title'));
+
                 this.set('selectedTitle', tempCollection.get('title'));
                 $('#recordID').text(this.get('selectedTitle'));
 

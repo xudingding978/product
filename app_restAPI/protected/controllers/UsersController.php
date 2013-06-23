@@ -112,7 +112,6 @@ class UsersController extends Controller {
     }
 
     public function actionUpdate() {
-
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
         try {
@@ -122,9 +121,10 @@ class UsersController extends Controller {
             $request_arr['user']['id'] = $id;
          
             $url = substr($_SERVER['HTTP_HOST'], 4) . "/users/" . $id;
+//            error_log($url."---------------------");
             $oldRecord = $cb->get($url);
             $oldRecord = CJSON::decode($oldRecord, true);
-            error_log(var_export($oldRecord, true));
+//            error_log(var_export($oldRecord, true));
             $oldRecord['user'][0] = null;
             $oldRecord['user'][0] = $request_arr['user'];
        

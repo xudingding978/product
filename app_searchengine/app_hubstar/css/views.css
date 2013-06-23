@@ -10,7 +10,7 @@
 .dropdownicon > i{
     height: 16px; 
     width: 16px;
-    font-size: 11px;
+    font-size: 16px;
 }
 
 
@@ -204,6 +204,7 @@
     font-size: 68px;
     padding: 135px;
     border-radius: 3px;
+    margin-top: -5px;
 }
 
 .add-new-object-hoverarea:hover{
@@ -211,10 +212,11 @@
 }
 
 .add-new-object-content{
-    width: 337px;
-    height: 337px;
+    width: 357px;
+    height: 357px;
     background-color: rgb(242,240,240);
-    padding: 50px;
+    padding: 60px;
+    margin: 5px;
 }
 
 .add-new-object-content > i{
@@ -225,6 +227,16 @@
     color: #555;
 }
 
+.new-collection-name_insert{
+    height: 30px;
+}
+
+.controlbtn-field{
+    border-top: 1px solid rgba(0,0,0,0.05);
+    background: -webkit-linear-gradient(top,rgba(0,0,0,.03),rgba(0,0,0,.01) 90%,rgba(0,0,0,0) 100%) no-repeat;
+    background: -moz-linear-gradient(top,rgba(0,0,0,.03),rgba(0,0,0,.01) 90%,rgba(0,0,0,0) 100%) no-repeat;
+    background: linear-gradient(top,rgba(0,0,0,.03),rgba(0,0,0,.01) 90%,rgba(0,0,0,0) 100%) no-repeat;
+}
 
 
 /*MANSONRY album OBJECT STYLE*/
@@ -942,7 +954,7 @@
 }
 
 .show-comment_container{
-    overflow: hidden; 
+    display: inline-block;
     text-overflow: ellipsis; 
     white-space: nowrap;
     color: #aaa;

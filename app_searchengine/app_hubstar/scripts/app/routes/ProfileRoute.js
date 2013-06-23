@@ -14,10 +14,11 @@ define([
             console.log(model.id);
             ProfileController.setLocalLoginRecrod();
             ProfileController.setModel(model);
-                 this.controllerFor('application').set('islogin', true);
-                      this.controllerFor('application').set('popup', false);
-                        this.controllerFor('application').set('isotherpage', true);
-       
+            this.controllerFor('application').set('islogin', true);
+            this.controllerFor('application').set('popup', false);
+            this.controllerFor('application').set('isotherpage', true);
+            this.controllerFor('searchs').setLoginImge();
+            this.controllerFor('application').set('isotherpage', true);
         },
 //        redirect: function() {
 //
@@ -41,6 +42,9 @@ define([
             $(window).scrollTop(0);
             $('#discovery_search_bar_wrapper').attr('style', "display:none");
             $('#masonry_container').attr('style', "display:none");
+            $(function() {
+                $('#masonry_container').masonry('remove', $('.noStyle1'));
+            });
         },
         model: function(params) {
             //  alert(333);

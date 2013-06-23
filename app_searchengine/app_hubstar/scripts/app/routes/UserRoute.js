@@ -16,14 +16,13 @@ define([
             this.controllerFor('application').set('islogin', true);
             this.controllerFor('application').set('popup', false);
             this.controllerFor('application').set('isotherpage', true);
-
+            this.controller.set('switchPhoto', true);
         },
         model: function(params) {
             return UserModel.find(params.user_id);
         },
         events: {
             transitionToCollectionPhoto: function(id) {
-                //      alert(id);
                 this.transitionTo("collection", CollectionModel.find(id));
             }
         },

@@ -29,6 +29,9 @@
     </div>
 </div>
 
+
+{{#if controller.switchPhoto}}
+
 <div style="width: 100%; margin: 100px auto; left: 0;right: 0;position: relative;display: block;">
     <!-- masonry from here -->
     <div id="masonry_user_container"  class="transitions-enabled centered clearfix" >
@@ -95,7 +98,7 @@
             <div class="masonry-object">
                 <div class="album-description-hoverarea easing" {{action transitionToCollectionPhoto title}} >
 
-                    <div class="album-description">{{desc}}</div>
+                     <div class="album-description">{{desc}}</div>
                     <div class="album-description-bg">{{desc}}</div>
                 </div>
                 <div class="albumcover-container"  >
@@ -120,6 +123,8 @@
     </div>
 
 </div>
+
+
 <script>
 
     $(function() {
@@ -134,3 +139,18 @@
 
 
 </script>
+
+
+
+
+
+
+{{else}}
+
+
+
+ {{render insideCollection}}
+
+
+
+{{/if}}

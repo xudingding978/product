@@ -12,11 +12,14 @@ define([
 
 //            this.controllerFor('application').set('islogin', true);
 //            this.controllerFor('application').set('popup', false);
-//            this.controllerFor('application').set('isotherpage', true);
+            this.controllerFor('user').set('switchPhoto', false);
+            this.controllerFor('insideCollection').selectModel();
 
         },
         model: function(params) {
-              return CollectionModel.find(params.collection_id);
+            var address = document.URL;
+            var user_id = address.split("#")[1].split("/")[2];
+            return CollectionModel.find({user_id: user_id, collection_id: params.collection_id});
         },
         redirect: function() {
 

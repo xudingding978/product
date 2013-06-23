@@ -36,23 +36,8 @@ define(["ember"
                 var imgId = col.get("collection_ids").split(",").objectAt(0);
                 this.getHeroImgae(imgId, col);
 
-//                var photo = App.Mega.find(imgId);
-//
-//                photo.addObserver('isLoaded', function() {
-//                    if (photo.get('isLoaded')) {
-//                 //       console.log(photo.get('photo').objectAt(0)._data.attributes.photo_image_hero_url);
-//             //      col.set("cover", photo.get('photo').objectAt(0)._data.attributes.photo_image_hero_url);
-//                      console.log(col.get("cover"));
-//
-//                    }
-//                });
-
-
             }
 
-//          App.store.commit();
-
-            //       this.getCollectedItems(all_cols);
         },
         getHeroImgae: function(id, col) {
 
@@ -62,7 +47,7 @@ define(["ember"
                 if (photo.get('isLoaded')) {
 
                     col.set("cover", photo.get('photo').objectAt(0)._data.attributes.photo_image_hero_url);
-           
+
                     console.log(col.get("cover"));
 
                 }
@@ -83,7 +68,7 @@ define(["ember"
             var title = this.get("newCollectionName");
             var isInputValid = this.checkInput(title);
             if (isInputValid) {
-                var tempCollection = App.Collection.createRecord({"title": title, "desc": null, "collection_ids": null, "createdAt": new Date()});
+                var tempCollection = App.Collection.createRecord({"id": title, "title": title, "desc": null, "collection_ids": null, "createdAt": new Date()});
                 this.get("collections").pushObject(tempCollection);
 
             }

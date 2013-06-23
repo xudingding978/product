@@ -25,6 +25,7 @@ define([
         },
         events: {
             transitionToCollectionPhoto: function(id) {
+                console.log(id);
                 this.transitionTo("collection", CollectionModel.find(id));
             }
         },

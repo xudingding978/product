@@ -50,6 +50,7 @@ define([
                 }
             }
             App.store.commit();
+            this.get("controllers.mega").switchCollection();
         },
         addCollection: function(collection, content)
         {
@@ -79,21 +80,27 @@ define([
             // console.log(    this.get("collections"));
             var isInputValid = this.checkInput(title);
             if (isInputValid) {
-                var tempCollection = App.Collection.createRecord({"title": title, "desc": "please give some desc", "collection_ids": null, "createdAt": new Date()});
+                var tempCollection = App.Collection.createRecord({"title": title, "desc": null, "collection_ids": null, "createdAt": new Date()});
                 this.get("collections").pushObject(tempCollection);
+                console.log(tempCollection.get('title'));
+                this.set('selectedTitle', tempCollection.get('title'));
+                $('#recordID').text(this.get('selectedTitle'));
 
             }
+
+            this.set('newCollectionName', null);
+            this.set('selectionPop', !this.get('selectionPop'));
         },
-        addNewCollectionTesting: function() {
-            this.set('selectionPop', true);
-            var title = this.get("newCollectionName");
-            // console.log(    this.get("collections"));
-            var isInputValid = this.checkInput(title);
-            if (isInputValid) {
-                var tempCollection = App.Collection.createRecord({"title": title, "desc": "please give some desc", "collection_ids": null, "createdAt": new Date()});
-                this.get("collections").pushObject(tempCollection);
+        collectionSwitch: function() {
 
-            }
+            this.set('selectionPop', !this.get('selectionPop'));
+
+        },
+        chooseRecord: function(record) {
+            this.set('selectedTitle', record);
+            $('#recordID').text(this.get('selectedTitle'));
+            this.set('selectionPop', !this.get('selectionPop'));
+
         },
         checkInput: function(title) {
             var isInputValid = false;

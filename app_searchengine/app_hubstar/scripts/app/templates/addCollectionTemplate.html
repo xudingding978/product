@@ -3,20 +3,34 @@
 
 
 <div class="contactmebox-wapper" style="width: 500px;height:500px;font-size: 13px;">
-    <button type="button" {{action exit }} class="close">X</button>
 
-    {{view App.SearchRequireTextFieldView valueBinding="newCollectionName"  id="" class="" placeholder="Search by Business and keyword" }}   
 
-    <button type="button" {{action addNewCollection }} class="btn">New Collection</button>
-    {{#view App.DropDownView  contentBinding="controller.collections"}}
-    <select>
-        <option >add something</option>
-        {{#each collections}}
-        <option {{bindAttr value="desc" }} >{{title}}</option>
+
+
+
+
+    <div {{action collectionSwitch }} class="btn" id="recordID" {{bindAttr text="controller.selectedTitle" }}>Choose One</div>
+
+    {{view Ember.TextArea valueBinding="controller.selectedDesc" rows="12" cols="70" placeholder="please inout your description........."}}
+
+
+    {{#if controller.selectionPop}}
+    <div class="contact-container" style="width: 600px;height:200px;">
+        {{view App.SearchRequireTextFieldView valueBinding="newCollectionName"  id="AddRecord" class=""  placeholder="please choose collection...." }}   
+
+        <button type="button" {{action addNewCollection }} class="btn">New Collection</button>
+
+
+
+        {{#each controller.collections}}
+        <div>
+            <a {{action chooseRecord title}}> {{title}}</a>
+        </div>
         {{/each}}
-    </select>
-    {{/view}}
-    {{view Ember.TextArea valueBinding="controller.selectedDesc" rows="12" cols="70"}}
+
+    </div>
+    {{/if}}
+
 
 
 
@@ -24,20 +38,4 @@
     <button type="button" {{action submit }}  class="btn btn-primary">Submit</button>
 
 
-
-
-<br />
-<br />
-
-    <button type="button" {{action addNewCollectionTesting }} class="btn" {{bindAttr value="desc" }}>Choose One</button>
-
-
-    {{#if controller.selectionPop}}
-    <div>
-        {{view App.SearchRequireTextFieldView valueBinding="newCollectionName"  id="" class="" placeholder="Search by Business and keyword" }}   
-
-        <button type="button" {{action addNewCollection }} class="btn">New Collection</button>
-
-    </div>
-    {{/if}}
 </div>

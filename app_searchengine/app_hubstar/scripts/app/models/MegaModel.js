@@ -6,7 +6,8 @@ define(
         ], function() {
     DS.RESTAdapter.map('App.Mega', {
         photo: {embedded: 'always'},
-        user: {embedded: 'always'}
+        user: {embedded: 'always'},
+        article: {embedded: 'always'}
     });
 
     var MegaModel = DS.Model.extend({
@@ -44,6 +45,7 @@ define(
         view_count: DS.attr('string'),
         photo: DS.hasMany('App.Photo'),
         user: DS.hasMany('App.User'),
+        article: DS.hasMany('App.Article'),
         photo_album_id: function() {
             return "#album_" + this.get('id');
         }.property('id'),

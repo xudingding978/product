@@ -197,7 +197,20 @@ class Article extends CActiveRecord {
             return $data_list;
     }
     
-    
+    function getArticalID() {
+            $data_list = array();  
+            $sql = 'select
+                            Ar.id as article, AI.heliumMediaId as image 
+                        from
+                            dbo.ArticleImages as AI, dbo.Articles AS Ar 
+                        where
+                            AI.articleId=Ar.id
+                        AND AI.sequence = 1';
+                        
+            $data_list = Yii::app() ->db->createCommand($sql)->queryAll();
+          
+            return $data_list;
+    }
     
     public function  getObjData(){
           

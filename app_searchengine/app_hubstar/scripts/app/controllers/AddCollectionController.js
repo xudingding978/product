@@ -6,6 +6,7 @@ define([
         collections: [],
         selectedDesc: "",
         selectedTitle: "",
+        selectionPop: false,
         needs: ["mega"],
         newCollectionName: null,
         objectID: null,
@@ -18,12 +19,16 @@ define([
         },
         setUser: function()
         {
+
             var user = App.User.find(localStorage.loginStatus);
             this.set("collections", user.get("collections"));
             if (this.get("collections").objectAt(0) !== null && this.get("collections").objectAt(0) !== undefined) {
                 this.setDesc(this.get("collections").objectAt(0).get("desc"));
                 this.setTitle(this.get("collections").objectAt(0).get("title"));
             }
+        },
+        setImageID: function(id) {
+            this.set("objectID", id);
         },
         setDesc: function(desc) {
             this.set("selectedDesc", desc);
@@ -33,7 +38,6 @@ define([
         },
         submit: function()
         {
-
             for (var i = 0; i < this.get("collections").get("length"); i++)
             {
                 var collection = this.get("collections").objectAt(i);
@@ -44,10 +48,21 @@ define([
                     this.addCollection(collection, content);
                 }
             }
-            App.store.commit();
+            var that = this;
+            var user = App.User.find(localStorage.loginStatus);
+            user.store.save();
+            user.addObserver('isSaving', function() {
+                if (!user.get('isSaving')) {
+                }
+                else {
+                }
+            });
+
+            this.get("controllers.mega").switchCollection();
         },
         addCollection: function(collection, content)
         {
+
             if (content === null) {
                 collection.set("collection_ids", this.get("objectID"));
             }
@@ -67,15 +82,30 @@ define([
         },
         addNewCollection: function()
         {
-
-
             var title = this.get("newCollectionName");
             var isInputValid = this.checkInput(title);
             if (isInputValid) {
-                var tempCollection = App.Collection.createRecord({"title": title, "desc": null, "collection_ids": null, "createdAt": new Date()});
+                var tempCollection = App.Collection.createRecord({"id":title,"title": title, "desc": null, "collection_ids": null, "createdAt": new Date()});
                 this.get("collections").pushObject(tempCollection);
 
+                this.set('selectedTitle', tempCollection.get('title'));
+                $('#recordID').text(this.get('selectedTitle'));
+
             }
+
+            this.set('newCollectionName', null);
+            this.set('selectionPop', !this.get('selectionPop'));
+        },
+        collectionSwitch: function() {
+
+            this.set('selectionPop', !this.get('selectionPop'));
+
+        },
+        chooseRecord: function(record) {
+            this.set('selectedTitle', record);
+            $('#recordID').text(this.get('selectedTitle'));
+            this.set('selectionPop', !this.get('selectionPop'));
+
         },
         checkInput: function(title) {
             var isInputValid = false;

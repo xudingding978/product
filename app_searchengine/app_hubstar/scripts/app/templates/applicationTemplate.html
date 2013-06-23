@@ -1,3 +1,24 @@
+{{#if controller.comingsoon}}
+
+{{outlet comingsoon}}
+
+
+
+
+
+
+
+
+
+{{else}}
+
+
+
+
+
+
+
+
 
 
 {{view App.HeaderView}}
@@ -45,7 +66,7 @@
 
 {{render "footer"}}
 
-
+{{/if}}
 
 
 

@@ -9,6 +9,7 @@ define(["ember"
         collections: [],
         selectedDesc: "",
         selectedTitle: "",
+        coverImg: "",
         objectID: null,
         needs: ['photoCreate'],
         init: function()
@@ -18,6 +19,8 @@ define(["ember"
         setUser: function()
         {
             var user = App.User.find(localStorage.loginStatus);
+//            console.log(user);
+//            console.log( user.get("collections"));
             this.set("collections", user.get("collections"));
             if (this.get("collections").objectAt(0) !== null && typeof this.get("collections").objectAt(0) !== 'undefined') {
                 this.setDesc(this.get("collections").objectAt(0).get("desc"));
@@ -25,18 +28,36 @@ define(["ember"
             }
             this.set("user", user);
             var collections = user.get("collections");
-            var all_cols = "";
+//            var all_cols = "";
             for (var i = 0; i < collections.get("length"); i++)
             {
+
                 var col = collections.objectAt(i);
-                all_cols += col.get("collection_ids") + ",";
+                var imgId = col.get("collection_ids").split(",").objectAt(0);
+                this.getHeroImgae(imgId, col);
+
             }
-            this.getCollectedItems(all_cols);
+
+        },
+        getHeroImgae: function(id, col) {
+
+            var photo = App.Mega.find(id);
+
+            photo.addObserver('isLoaded', function() {
+                if (photo.get('isLoaded')) {
+
+                    col.set("cover", photo.get('photo').objectAt(0)._data.attributes.photo_image_hero_url);
+
+                    console.log(col.get("cover"));
+
+                }
+            });
+
         },
         getCollectedItems: function(ids)
         {
             var results = App.Mega.find({"RquireType": "personalCollection", "collection_ids": ids});
-            console.log(results);
+            //     console.log(results);
         },
         exit: function()
         {
@@ -47,11 +68,12 @@ define(["ember"
             var title = this.get("newCollectionName");
             var isInputValid = this.checkInput(title);
             if (isInputValid) {
-                var tempCollection = App.Collection.createRecord({"title": title, "desc": null, "collection_ids": null, "createdAt": new Date()});
+                var tempCollection = App.Collection.createRecord({"id": title, "title": title, "desc": null, "collection_ids": null, "createdAt": new Date()});
                 this.get("collections").pushObject(tempCollection);
 
             }
-        }, submit: function()
+        },
+        submit: function()
         {
             var controller = this.get('controllers.photoCreate');
             controller.setMode("user");

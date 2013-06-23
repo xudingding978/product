@@ -170,7 +170,7 @@ class Controller extends CController {
         } elseif ($requireType == 'personalCollection') {
             $require = $this->getUserInput($requireParams[1]);
             $ids = explode("%2C", $require);
-            error_log(var_export($ids,true));
+            error_log(var_export($ids, true));
             $response = $this->performSearch($returnType, "", "huang");
         } else {
             $response = $this->performSearch($returnType, "", "huang");
@@ -326,6 +326,22 @@ class Controller extends CController {
             $returnString = explode('=', $request_string)[1];
         }
         return $returnString;
+    }
+
+    public function actionOptions() {
+
+        $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);
+        header($statusHeader);
+// Set the content type
+        header('Content-type:*');
+// Set the Access Control for permissable domains
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Request-Method:*');
+        header('Access-Control-Allow-Methods: DELETE, PUT, POST, OPTIONS, GET');
+        header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+
+        echo "";
+        Yii::app()->end();
     }
 
 }

@@ -8,8 +8,8 @@ define([
     var ApplicationController = Ember.ArrayController.extend({
         needs: ['status'],
         loginInfo: "",
-        search_area:"",
-        search_string:"",
+        search_area: "",
+        search_string: "",
         test: false,
         user: null,
         popupModal: function() {
@@ -22,13 +22,15 @@ define([
             this.set('mail', !this.get('mail'));
         },
         loginStatus: function() {
-//            var searchsController = this.get("controllers.searchs");
-//            this.set('loginInfo', localStorage.loginStatus);
-//            searchsController.set('loginInfo', localStorage.loginStatus);
         },
-
         grapData: function() {
-            this.set("user", App.User.find(localStorage.loginStatus));
+//            var user = App.User.find(localStorage.loginStatus);
+//            user.addObserver('didLoad', function() {
+//                if (user.get('didLoad')) {
+//                    user.get('store').commit();
+//                }
+//            });
+            //  this.set("user", App.User.find(localStorage.loginStatus));
         },
         reloadPage: function() {
             console.log("aqpllication " + this.get("test"));
@@ -59,10 +61,10 @@ define([
         },
         defaultSearch: function() {
             this.set("loginInfo", localStorage.loginStatus);
-            var ac = this.get("controllers.application");
-            var st = this.get("controllers.status");
-            ac.grapData();
-            st.grapData();
+//            var ac = this.get("controllers.application");
+//            var st = this.get("controllers.status");
+//            ac.grapData();
+//            st.grapData();
             var results = MegaModel.find({});
             this.set("content", results);
         },

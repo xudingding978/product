@@ -127,7 +127,7 @@
         <div class="masonry-object">
             <div class="masonry-object_poster">  
                 <a {{bindAttr href="getProfile_id"}}>
-                    <img  {{action transitionToProfile id}} class="profilepic-on-masonry"/>
+                    <img  {{action transitionToProfile id}} {{bindAttr src="owner_profile_pic"}} class="profilepic-on-masonry"/>
                 </a>
                 <div class="object_username">
                     <a class="poster-name" {{bindAttr href="getProfile_id"}}  {{action transitionToProfile id}}>{{owner_title}}</a>

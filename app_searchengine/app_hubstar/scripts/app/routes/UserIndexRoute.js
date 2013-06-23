@@ -7,7 +7,11 @@ define([
         ) {
     "use strict";
 
-    var ProfileIndexRoute = Ember.Route.extend({
+    var UserIndexRoute = Ember.Route.extend({
+        setupController: function(controller, model) {
+
+            this.controllerFor('user').set('switchPhoto', true);
+        },
         redirect: function() {
 
             if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
@@ -25,5 +29,5 @@ define([
         }
 
     });
-    return ProfileIndexRoute;
+    return UserIndexRoute;
 });

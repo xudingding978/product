@@ -3,7 +3,7 @@ define([
 ],function(
         UserModel
     ) {
-    var UserController = Ember.Controller.extend({
+    var UsersController = Ember.Controller.extend({
 //        model: function() {
 //            return UserModel.find();
 //        }

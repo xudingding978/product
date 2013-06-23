@@ -8,9 +8,15 @@
 
             echo (isset($start) ? 'Start position is... ' . $start : 'No start defined');
             echo (isset($quantity) ? '  Quantity to load is... ' . $quantity : 'No quantity defined');
-            $this->actionArticle($start, $quantity);
+            
+            $this->updateObj();
+//            $this->actionArticle($start, $quantity);
         }
-    
+        
+        protected function couchBaseConnection() {
+            return new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "test", true);
+        }
+        
         public function actionArticle($start, $quantity) {
             $start_time = microtime(true);
 
@@ -23,8 +29,11 @@
                 $rows += 20;
 
                 Yii::import("application.models.*");
-
+                
                 $artical_data = Article::model()->getArticalRange($from, $to);
+                echo "qqqqqqqqqqqqqqqqqqq";
+                exit();
+                
                 $this->total_amount = $this->total_amount + sizeof($artical_data);
 //                echo sizeof($artical_data);
                if(sizeof($artical_data>0)) {
@@ -46,7 +55,7 @@
         }
     
        public function getMegaData(&$artical_data) {
-            foreach ($artical_data as $val) {                
+            foreach ($artical_data as $val) {
                 $obj = array();
                 $obj = $this->structureArray($val);
                 
@@ -120,7 +129,7 @@
             
             //get object cover
 //            $cover= $this->getArticleCover($val['id']);
-            $this->updateObj();
+
             
             // get keywords imfor
 //            $keywords = mb_check_encoding($val['keywords'], 'UTF-8') ? $val['keywords'] : utf8_encode($val['keywords']);
@@ -202,24 +211,34 @@
         }
         
         public function updateObj(){
+             Yii::import("application.models.*");
             $id_array = Article::model()->getArticalID();
-//            print_r($id_array);
+
             foreach($id_array as $val) {
 //                    echo $val['article']."-----------".$val['image'];
                     $url = "http://api.develop.devbox/GetResultByKeyValue/?type=photo&photo_heliumMediaId=".$val['image'];
 //                    echo $url;
-                    $cover=$this->getArticleCover($url);
-                    
-                    
-                    
-//                    echo 
+                    $json_result=$this->getData($url);
+                    if (sizeof($json_result)>0) {
+//                        $cover_url = $this->getCoverUrl($json_result);
+                        $this->updateArticle();
+                    } else {
+                        echo "cannot find any image object from couchbaswe!";
+                    }      
             }
-            
         }
+                
+        public function updateArticle() {
+            $cb = $this->couchBaseConnection();
+            $temp = explode("/", $_SERVER['REQUEST_URI']);
+            $id = $temp [sizeof($temp) - 1];
+            
+            echo $id;
+            
+        } 
         
-        public function getArticleCover($url){
+        public function getData($url){
             try{
-//                $url = "http://api.develop.devbox/GetResultByKeyValue/?type=photo&collection_id=".$article_id;
 //                echo $url."\r\n";
                 $cover_url="";
                 $ch = curl_init($url);
@@ -229,28 +248,9 @@
                 
                 $result = curl_exec($ch);
                 $json_result = json_decode($result, true);
-
-                if(sizeof($json_result)>0) {
-                    foreach($json_result['articles'] as $val) {
-//                        print_r($val);
-                        
-                        $sequence = $val['photo'][0]['photo_sequence'];
-                        if($sequence=1) {
-                            $cover_url = $val['photo'][0]['photo_image_hero_url'];
-                            
-//                            echo $cover_url."\r\n";
-                            
-                            if ($cover_url != "") break;
-                        }
-                    }
-                }
-
-//                echo $cover_url;
-//                exit();
-                
                 curl_close ($ch);
                 
-                return $cover_url;
+                return $json_result;
                 
             } catch (Exception $e) {
                 echo 'Caught exception: ' . $e->getMessage();
@@ -258,7 +258,24 @@
             }
         }
         
-        
+        public function getCoverUrl($json_result) {
+                if(sizeof($json_result)>0) {
+                    foreach($json_result['articles'] as $val) {
+                        $sequence = $val['photo'][0]['photo_sequence'];
+                        if($sequence=1) {
+                            $cover_url = $val['photo'][0]['photo_image_hero_url'];
+                            
+                            echo $cover_url."\r\n";
+                            
+                            if ($cover_url != "") break;
+                        }
+                    }
+                }
+
+                echo $cover_url;
+                exit();
+
+        }
         
         public function importMegaObj($data_list, $id) {
         $json_list = json_encode($data_list);

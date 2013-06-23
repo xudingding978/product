@@ -11,24 +11,48 @@ class ImportDataController extends Controller {
     }
 
     public function actionObject() {
-            $url="http://trendsideas.com/media/article/preview/75481.jpg";
             
-//        $utc = strtotime(date('Y-m-d H:i:s'));
-//        echo date('Y-m-d H:i:s') . "\r\n";
-//        echo $utc;
-        
-            if($a=@getimagesize($url)) {
-                print_r("<pre>");
-                print_r($a);
-//                echo "4444444444444444444444444444444444444";
-            } else {
+            $temp = explode("?", $_SERVER['REQUEST_URI']);
+            if(sizeof($temp)>1) {
+//                $request_string = $temp[sizeof($temp)-1];
+                $request_string="1000338081371701087";
+                print_r($request_string); 
                 
-                echo "3333333333333333333333";
-                $message = $url . "\r\n" . date("Y-m-d H:i:s");
-                $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $message);
+//                echo Yii::app()->params['elasticSearchNode']);
+                
+                $settings['log.enabled'] = true;
+                $sherlock = new Sherlock\Sherlock($settings);
+                $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
+        //Build a new search request
+                $request = $sherlock->search();
+        //populate a Term query to start
+                $termQuery = Sherlock\Sherlock::queryBuilder()
+                        ->QueryString()
+                        ->fields("couchbaseDocument.doc.id")
+                        ->query($requestString)
+                        ->boost(2.5);
+
+                $request->index(Yii::app()->params['elasticSearchIndex'])
+                        ->type("couchbaseDocument")
+                        ->size(7)
+                        ->query($termQuery);
+
+                $response = $request->execute();
+                
+                foreach($response as $val){
+                    print_r("<pre>");
+                    print_r($val);
+                }
+
             }
-//        }
-  
+    }
+    
+    public function actionTime() {
+            $timezone = "America/Guayaquil";
+            date_default_timezone_set($timezone);
+            $utc = "1292092200";
+            $date_time = date("Y-m-d H:i:s", $utc);
+            echo $date_time;
     }
     
     public function getUTC($datetime, $region) {

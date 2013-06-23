@@ -263,21 +263,25 @@ class ImportdataCommand extends CConsoleCommand {
         $book_date = 0;
         $book_title = "";
         $book_list = Books::model()->getBookByPhotoID($val['id']);
+        $timezone="";
         if(sizeof($book_list)>0) {
             foreach($book_list as $book) {
                 array_push($book_id, $book['id']);
-                $region = Regions::model()->selectCountryNameByID($book['region']);
+                $region_book = Regions::model()->selectCountryNameByID($book['region']);
                 $date_live = $book['dateLive'];
                 $title = str_replace(" & ", "-", $book['title']);
                 $title = str_replace(" ", "-", $title);
-                $UTC = $this->getUTC($date_live, $region);
-                
-                if ((int)$UTC>$book_date) {
-                   $book_date = $UTC;
-                    $region = str_replace(" & ", "-", $region);
-                    $region = str_replace(" ", "-", $region);
-                    $book_title =$region."-".$title;
-//                    $book_title = strtolower($book_title);
+                $time_array = $this->getUTC($date_live, $region_book);
+                if(sizeof($time_array)>0) {
+                    $UTC = $time_array['utc'];
+                    $timezone = $time_array['timezone'];
+                    if ((int)$UTC>$book_date) {
+                       $book_date = $UTC;
+                        $region_book = str_replace(" & ", "-", $region_book);
+                        $region_book = str_replace(" ", "-", $region_book);
+                        $book_title =$region_book."-".$title;
+    //                    $book_title = strtolower($book_title);
+                    }
                 }
             }
         }
@@ -293,6 +297,7 @@ class ImportdataCommand extends CConsoleCommand {
             "accessed" => $accessed,
             "active_yn" => "y",
             "created" => $book_date,
+            "timezone" =>$timezone,
             "creator" => $book_title,
             "creator_type" => 'user',
             "creator_profile_pic" => "",
@@ -350,6 +355,8 @@ class ImportdataCommand extends CConsoleCommand {
             "photo_keywords" => $keywords,
             "photo_brands" => null,
             "photo_products" => null,
+            "photo_time_zone" =>$timezone,
+            "photo_created" => $book_date,
             "photo_original_filename" => $original_size,
             "photo_original_width" => $return_original->width,
             "photo_original_height" => $return_original->height,
@@ -384,11 +391,13 @@ class ImportdataCommand extends CConsoleCommand {
             case "India":
                 $time_zone = 'Asia/Kolkata';
         };
-
+        $time_array = array();
         date_default_timezone_set($time_zone);
         $time_string = strtotime($datetime);
+        $time_array['utc']=$time_string;
+        $time_array['timezone']=$time_zone;
         
-        return $time_string;
+        return $time_array;
     }
     
     

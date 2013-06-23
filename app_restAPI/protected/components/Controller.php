@@ -167,9 +167,12 @@ class Controller extends CController {
             $searchString = $this->getUserInput($requireParams[2]);
             $response = $this->getSearchResultsTotal($returnType, $region, $searchString);
         } elseif ($requireType == 'personalCollection') {
-            $require = $this->getUserInput($requireParams[1]);
-            $ids = explode("%2C", $require);
-            error_log(var_export($ids,true));
+            $userid = $this->getUserInput($requireParams[1]);
+                    $collection_id = $this->getUserInput($requireParams[2]);
+        error_log('$userid: '.$userid);
+                error_log('$collection_id: '.$collection_id);
+    //        $ids = explode("%2C", $require);
+  //          error_log(var_export($ids,true));
 //            $response = $this->performSearch($returnType, "", "huang");
         } else {
             $response = $this->performSearch($returnType, "", "huang");

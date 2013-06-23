@@ -25,8 +25,8 @@ define(
 
         photo_heliumId: DS.attr('string'),
         didLoad: function() {
-            console.log("1111111111111111111111111111111111111111111111111111");
-            console.log('id: ' + this.id + ' ' + this.profile_name, this);
+//            console.log("1111111111111111111111111111111111111111111111111111");
+//            console.log('id: ' + this.id + ' ' + this.profile_name, this);
         }
     });
     return Photo;

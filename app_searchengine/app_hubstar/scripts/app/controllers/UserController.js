@@ -9,6 +9,7 @@ define(["ember"
         collections: [],
         selectedDesc: "",
         selectedTitle: "",
+        coverImg: "",
         objectID: null,
         needs: ['photoCreate'],
         init: function()
@@ -18,6 +19,8 @@ define(["ember"
         setUser: function()
         {
             var user = App.User.find(localStorage.loginStatus);
+//            console.log(user);
+//            console.log( user.get("collections"));
             this.set("collections", user.get("collections"));
             if (this.get("collections").objectAt(0) !== null && typeof this.get("collections").objectAt(0) !== 'undefined') {
                 this.setDesc(this.get("collections").objectAt(0).get("desc"));
@@ -25,18 +28,51 @@ define(["ember"
             }
             this.set("user", user);
             var collections = user.get("collections");
-            var all_cols = "";
+//            var all_cols = "";
             for (var i = 0; i < collections.get("length"); i++)
             {
+
                 var col = collections.objectAt(i);
-                all_cols += col.get("collection_ids") + ",";
+                var imgId = col.get("collection_ids").split(",").objectAt(0);
+                this.getHeroImgae(imgId, col);
+
+//                var photo = App.Mega.find(imgId);
+//
+//                photo.addObserver('isLoaded', function() {
+//                    if (photo.get('isLoaded')) {
+//                 //       console.log(photo.get('photo').objectAt(0)._data.attributes.photo_image_hero_url);
+//             //      col.set("cover", photo.get('photo').objectAt(0)._data.attributes.photo_image_hero_url);
+//                      console.log(col.get("cover"));
+//
+//                    }
+//                });
+
+
             }
-            this.getCollectedItems(all_cols);
+
+//          App.store.commit();
+
+            //       this.getCollectedItems(all_cols);
+        },
+        getHeroImgae: function(id, col) {
+
+            var photo = App.Mega.find(id);
+
+            photo.addObserver('isLoaded', function() {
+                if (photo.get('isLoaded')) {
+
+                    col.set("cover", photo.get('photo').objectAt(0)._data.attributes.photo_image_hero_url);
+           
+                    console.log(col.get("cover"));
+
+                }
+            });
+
         },
         getCollectedItems: function(ids)
         {
             var results = App.Mega.find({"RquireType": "personalCollection", "collection_ids": ids});
-            console.log(results);
+            //     console.log(results);
         },
         exit: function()
         {
@@ -51,7 +87,8 @@ define(["ember"
                 this.get("collections").pushObject(tempCollection);
 
             }
-        }, submit: function()
+        },
+        submit: function()
         {
             var controller = this.get('controllers.photoCreate');
             controller.setMode("user");

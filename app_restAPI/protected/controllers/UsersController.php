@@ -129,10 +129,10 @@ class UsersController extends Controller {
             $request_arr['user']['id'] = $id;
          
             $url = substr($_SERVER['HTTP_HOST'], 4) . "/users/" . $id;
-            echo $url;
+//            error_log($url."---------------------");
             $oldRecord = $cb->get($url);
             $oldRecord = CJSON::decode($oldRecord, true);
-            error_log(var_export($oldRecord, true));
+//            error_log(var_export($oldRecord, true));
             $oldRecord['user'][0] = null;
             $oldRecord['user'][0] = $request_arr['user'];
               error_log(var_export($oldRecord, true));

@@ -6,7 +6,7 @@ define(
         ], function() {
 
     var ArticleModel = DS.Model.extend({
-        object: DS.belongsTo('App.Object'),
+        mega: DS.belongsTo('App.Mega', {embedded: 'always'}),
         article_title: DS.attr('string'),
         article_text: DS.attr('string'),
         profile_pic_url: DS.attr('string'),

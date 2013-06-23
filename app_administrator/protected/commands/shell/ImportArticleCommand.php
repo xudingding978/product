@@ -14,7 +14,8 @@
         }
         
         protected function couchBaseConnection() {
-            return new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "test", true);
+            $cb = new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "test", true);
+            return $cb;
         }
         
         public function actionArticle($start, $quantity) {
@@ -31,8 +32,8 @@
                 Yii::import("application.models.*");
                 
                 $artical_data = Article::model()->getArticalRange($from, $to);
-                echo "qqqqqqqqqqqqqqqqqqq";
-                exit();
+//                echo "qqqqqqqqqqqqqqqqqqq";
+//                exit();
                 
                 $this->total_amount = $this->total_amount + sizeof($artical_data);
 //                echo sizeof($artical_data);
@@ -160,10 +161,9 @@
                 "geography" => null,
                 "indexed_yn" => "y",
                 "object_image_linkto" => null,
-                "object_image_url" => null,
+                "object_image_url" => $cover,
                 "object_title" => $val['headline'],
                 "object_description" => $val['subHeadline'],
-                "object_cover" => $cover,
                 "owner_type" => 'profile',
                 "owner_profile_pic" => "https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/this_is/folder_path/Trends-Logo.jpg",
                 "owner_title" => "Trends Ideas",
@@ -213,29 +213,64 @@
         public function updateObj(){
              Yii::import("application.models.*");
             $id_array = Article::model()->getArticalID();
-
+            $total = sizeof($id_array);
+            $num = 0;
             foreach($id_array as $val) {
-//                    echo $val['article']."-----------".$val['image'];
-                    $url = "http://api.develop.devbox/GetResultByKeyValue/?type=photo&photo_heliumMediaId=".$val['image'];
-//                    echo $url;
-                    $json_result=$this->getData($url);
-                    if (sizeof($json_result)>0) {
-//                        $cover_url = $this->getCoverUrl($json_result);
-                        $this->updateArticle();
-                    } else {
-                        echo "cannot find any image object from couchbaswe!";
-                    }      
+//                    echo "---".$val['article']."-----------".$val['image']."------------------";
+                $cover_url="";
+                $couchbase_id = array();
+
+                $url = "http://api.develop.devbox/GetResultByKeyValue/?type=photo&photo_heliumMediaId=".$val['image'];
+                $json_result=$this->getData($url);
+                if (sizeof($json_result)>0) {
+                    $cover_url = $this->getCoverUrl($json_result);
+                } else {
+                    echo "cannot find any image object from couchbase!----".$val['article']."------".$val['image']."------ \r\n";
+                }
+                
+                $url = "http://api.develop.devbox/GetResultByKeyValue/?type=article&collection_id=".$val['article'];
+                $article_result=$this->getData($url);
+                 if (sizeof($article_result)>0) {
+                    $couchbase_id = $this->getArticleCouchbaseId($article_result);
+                } else {
+                    echo "cannot find any article object from couchbase!----".$val['article']."------".$val['image']."------ \r\n";
+                }
+//                print_r($couchbase_id);
+                
+                if ($cover_url!="" && sizeof($couchbase_id)>0) {
+                    foreach ($couchbase_id as $k=>$val) {
+                        $this->updateArticle($cover_url, $val);
+                    }
+                    $num ++;
+                    echo "--".$num ."/". $total; 
+                }
+                
             }
         }
                 
-        public function updateArticle() {
+        public function updateArticle($cover_url, $couchbase_id) {
             $cb = $this->couchBaseConnection();
-            $temp = explode("/", $_SERVER['REQUEST_URI']);
-            $id = $temp [sizeof($temp) - 1];
+            $id = "develop.devbox/".$couchbase_id;
             
-            echo $id;
+            $old_record = $cb->get($id);
+            $old_record_array = CJSON::decode($old_record, true);
             
-        } 
+            $old_record_array['object_image_url']=$cover_url;
+              if ($cb->set($id, CJSON::encode($old_record_array))) {
+                  echo $id." update successssssssssssssssssssssssss! \r\n";
+              } else {
+                  echo $id." update failllllllllllllllllllllllllllllllllllllllllllllll! \r\n";
+              }
+        }
+        
+        public function getArticleCouchbaseId($article_result) {
+            $couchbase_id_array = array();
+            foreach($article_result['articles'] as $val) {
+                array_push($couchbase_id_array, $val['id']);
+            }
+            
+            return $couchbase_id_array;
+        }
         
         public function getData($url){
             try{
@@ -259,22 +294,16 @@
         }
         
         public function getCoverUrl($json_result) {
-                if(sizeof($json_result)>0) {
-                    foreach($json_result['articles'] as $val) {
-                        $sequence = $val['photo'][0]['photo_sequence'];
-                        if($sequence=1) {
-                            $cover_url = $val['photo'][0]['photo_image_hero_url'];
-                            
-                            echo $cover_url."\r\n";
-                            
-                            if ($cover_url != "") break;
-                        }
-                    }
+            $cover_url = "";
+            foreach($json_result['articles'] as $val) {
+                $sequence = $val['photo'][0]['photo_sequence'];
+                if($sequence=1) {
+                    $cover_url = $val['photo'][0]['photo_image_hero_url'];
+                    if ($cover_url != "") break;
                 }
+            }
 
-                echo $cover_url;
-                exit();
-
+            return $cover_url;
         }
         
         public function importMegaObj($data_list, $id) {

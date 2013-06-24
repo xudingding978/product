@@ -127,10 +127,9 @@
 
     $(function() {
         var $container = $('#masonry_user_container');
-        var $boxes = $('.box');
         window.setTimeout(function() {
             $container.masonry();
-            $container.prepend($boxes).masonry('reload');
+            $container.masonry('reload');
         }, 400);
     });
 

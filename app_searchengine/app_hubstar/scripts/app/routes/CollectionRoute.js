@@ -17,6 +17,9 @@ define([
 
         },
         model: function(params) {
+
+            this.controllerFor('user').set('switchPhoto', false);
+            this.controllerFor('insideCollection').selectModel();
             var address = document.URL;
             var user_id = address.split("#")[1].split("/")[2];
             return App.Mega.find({RquireType: "personalCollection", user_id: user_id, collection_id: params.collection_id});

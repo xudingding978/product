@@ -10,6 +10,7 @@ define(["ember"
         selectedDesc: "",
         selectedTitle: "",
         coverImg: "",
+        currentID: "",
         objectID: null,
         needs: ['photoCreate'],
         init: function()

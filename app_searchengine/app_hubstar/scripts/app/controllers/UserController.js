@@ -18,7 +18,10 @@ define(["ember"
         },
         setUser: function()
         {
-            var user = App.User.find(localStorage.loginStatus);
+            var address = document.URL;
+            var user_id = address.split("#")[1].split("/")[2];
+            console.log(user_id);
+            var user = App.User.find(user_id);
 //            console.log(user);
 //            console.log( user.get("collections"));
             this.set("collections", user.get("collections"));
@@ -36,23 +39,11 @@ define(["ember"
                 var imgId = col.get("collection_ids").split(",").objectAt(0);
                 this.getHeroImgae(imgId, col);
 
-//                var photo = App.Mega.find(imgId);
-//
-//                photo.addObserver('isLoaded', function() {
-//                    if (photo.get('isLoaded')) {
-//                 //       console.log(photo.get('photo').objectAt(0)._data.attributes.photo_image_hero_url);
-//             //      col.set("cover", photo.get('photo').objectAt(0)._data.attributes.photo_image_hero_url);
-//                      console.log(col.get("cover"));
-//
-//                    }
-//                });
-
-
             }
 
-//          App.store.commit();
-
-            //       this.getCollectedItems(all_cols);
+        },
+        transitionToCollectionPhoto: function() {
+            //alert(333333333333);
         },
         getHeroImgae: function(id, col) {
 
@@ -62,8 +53,8 @@ define(["ember"
                 if (photo.get('isLoaded')) {
 
                     col.set("cover", photo.get('photo').objectAt(0)._data.attributes.photo_image_hero_url);
-           
-                    console.log(col.get("cover"));
+
+                    //            console.log(col.get("cover"));
 
                 }
             });
@@ -83,7 +74,7 @@ define(["ember"
             var title = this.get("newCollectionName");
             var isInputValid = this.checkInput(title);
             if (isInputValid) {
-                var tempCollection = App.Collection.createRecord({"title": title, "desc": null, "collection_ids": null, "createdAt": new Date()});
+                var tempCollection = App.Collection.createRecord({"id": title, "title": title, "desc": null, "collection_ids": null, "createdAt": new Date()});
                 this.get("collections").pushObject(tempCollection);
 
             }
@@ -98,7 +89,8 @@ define(["ember"
         },
         setTitle: function(title) {
             this.set("selectedTitle", title);
-        }, checkInput: function(title) {
+        },
+        checkInput: function(title) {
             var isInputValid = false;
             if (title !== null && title !== "")
             {

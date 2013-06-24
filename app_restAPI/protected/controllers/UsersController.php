@@ -4,7 +4,7 @@ header("Access-Control-Allow-Origin: *");
 header('Content-type: *');
 
 header('Access-Control-Request-Method: *');
-header('Access-Control-Allow-Methods: PUT, POST, OPTIONS, GET');
+header('Access-Control-Allow-Methods: PUT, POST, OPTIONS, GET, DELETE');
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
 class UsersController extends Controller {
@@ -90,15 +90,7 @@ class UsersController extends Controller {
 //            echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
 //        }
 
-        $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);
-        header($statusHeader);
-        header('Content-type: *');
-        header("Access-Control-Allow-Origin: *");
-        header('Access-Control-Request-Method: *');
-        header('Access-Control-Allow-Methods: PUT, POST, OPTIONS, GET');
-        header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
-        echo $response;
-        Yii::app()->end();
+       
     }
 
     public function actionRead() {
@@ -120,7 +112,6 @@ class UsersController extends Controller {
     }
 
     public function actionUpdate() {
-
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
         try {
@@ -130,14 +121,15 @@ class UsersController extends Controller {
             $request_arr['user']['id'] = $id;
          
             $url = substr($_SERVER['HTTP_HOST'], 4) . "/users/" . $id;
+//            error_log($url."---------------------");
             $oldRecord = $cb->get($url);
             $oldRecord = CJSON::decode($oldRecord, true);
-            error_log(var_export($oldRecord, true));
+//            error_log(var_export($oldRecord, true));
             $oldRecord['user'][0] = null;
             $oldRecord['user'][0] = $request_arr['user'];
-              error_log(var_export($oldRecord, true));
+       
             if ($cb->set($url, CJSON::encode($oldRecord))) {
-                $this->sendResponse(200, "ok");
+                $this->sendResponse(204, "{ render json: @user, status: :ok }");
             } else {
                 $this->sendResponse(500, "some thing wrong");
             }
@@ -163,7 +155,7 @@ class UsersController extends Controller {
 // Set the Access Control for permissable domains
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Request-Method:*');
-        header('Access-Control-Allow-Methods: PUT, POST, OPTIONS, GET');
+        header('Access-Control-Allow-Methods: DELETE, PUT, POST, OPTIONS, GET');
         header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
         echo "";

@@ -6,6 +6,7 @@ define(["ember"], function(Ember) {
             this.resource("indexIndex", {path: '/'});
             this.resource("lightBox", {path: '/lightBox/:profile_id'});
             this.resource("photo", {path: '/photos/:photo_id'});
+            this.resource("article", {path: '/articles/:article_id'});
 //            this.resource("photos", function() {
 //                this.resource("photo", {path: ':photo_id'});
 //            });
@@ -34,9 +35,8 @@ define(["ember"], function(Ember) {
             this.resource("users", {path: '/users/:user_id'});
             this.resource("users", function() {
                 this.resource("userIndex", {path: '/'});
-
                 this.resource("user", {path: ':user_id'}, function() {
-                    this.resource("title", {path: ':title'});
+                    this.resource("collection", {path: ':collection_id'});
 
                 });
             });

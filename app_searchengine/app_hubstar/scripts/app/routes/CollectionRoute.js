@@ -7,16 +7,19 @@ define([
         ) {
     "use strict";
 
-    var TitleRoute = Ember.Route.extend({
+    var CollectionRoute = Ember.Route.extend({
         setupController: function(controller, model) {
 
 //            this.controllerFor('application').set('islogin', true);
 //            this.controllerFor('application').set('popup', false);
-//            this.controllerFor('application').set('isotherpage', true);
+            this.controllerFor('user').set('switchPhoto', false);
+            this.controllerFor('insideCollection').selectModel();
 
         },
         model: function(params) {
-              return CollectionModel.find(params.title);
+            var address = document.URL;
+            var user_id = address.split("#")[1].split("/")[2];
+            return App.Mega.find({RquireType: "personalCollection", user_id: user_id, collection_id: params.collection_id});
         },
         redirect: function() {
 
@@ -29,6 +32,7 @@ define([
         },
         renderTemplate: function() {
 
+
 //            this.render('user', {
 //                outlet: "users",
 //                into: "application"
@@ -37,5 +41,5 @@ define([
         }
 
     });
-    return TitleRoute;
+    return CollectionRoute;
 });

@@ -1,14 +1,16 @@
 define([
     "ember",
-    "text!templates/userTemplate.html"
-], function(Ember, userTemplate) {
-    Ember.TEMPLATES["user"] = Ember.Handlebars.compile(userTemplate);
-    var UserView = Ember.View.extend({
-        template: Ember.Handlebars.compile(userTemplate),
+    "text!templates/insideCollectionTemplate.html",
+    "jquery.ui"
+
+], function(Ember, insideCollectionTemplate) {
+    Ember.TEMPLATES["insideCollection"] = Ember.Handlebars.compile(insideCollectionTemplate);
+    var InsideCollectionView = Ember.View.extend({
+        template: Ember.Handlebars.compile(insideCollectionTemplate),
         didInsertElement: function() {
 
             $(function() {
-                $('#masonry_user_container').masonry({
+                $('#masonry_photo_collection_container').masonry({
                     itemSelector: '.box',
                     columnWidth: 0,
                     isFitWidth: true
@@ -16,13 +18,13 @@ define([
             });
             $('#uploadObject').click(function() {
                 $('#uploadObject').attr("style", "display:none");
-                $('#uploadingObject').attr('style', "display:inline-block");
+                $('#uploadingObject').attr('style', "display:block");
                 $('#uploadArea').attr('style', "display:block");
                 $('#addNew').animate({
-                    height: 370,
-                    width: 370
+                    height: 400,
+                    width: 400
                 }, 400, function() {
-                    $('#masonry_user_container').masonry({
+                    $('#masonry_photo_collection_container').masonry({
                         itemSelector: '.box',
                         columnWidth: 0,
                         isFitWidth: true
@@ -34,10 +36,10 @@ define([
                 $('#uploadingObject').attr('style', "display:none");
                 $('#uploadArea').attr('style', "display:none");
                 $('#addNew').animate({
-                    height: 370,
-                    width: 370
+                    height: 400,
+                    width: 300
                 }, 400, function() {
-                    $('#masonry_user_container').masonry({
+                    $('#masonry_photo_collection_container').masonry({
                         itemSelector: '.box',
                         columnWidth: 0,
                         isFitWidth: true
@@ -54,9 +56,7 @@ define([
                 return false;
             });
         }
+
     });
-    return UserView;
+    return InsideCollectionView;
 });
-
-
-

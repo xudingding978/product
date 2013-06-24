@@ -21,12 +21,15 @@ define([
                 this.transitionTo('users');
             }
         },
-        renderTemplate: function() {
-
-            this.render('users', {
-                into: "application"
-            });
-        }
+                
+                
+//        renderTemplate: function() {
+//
+//            this.render('users', {
+//          
+//                into: "application"
+//            });
+//        }
 
     });
     return UserIndexRoute;

@@ -2,40 +2,51 @@
 
 
 
-<div class="contactmebox-wapper" style="width: 500px;height:500px;font-size: 13px;">
-
-
-
-
-
-
-    <div {{action collectionSwitch }} class="btn" id="recordID" {{bindAttr text="controller.selectedTitle" }}>Choose One</div>
-
-    {{view Ember.TextArea valueBinding="controller.selectedDesc" rows="12" cols="70" placeholder="please inout your description........."}}
-
-
-    {{#if controller.selectionPop}}
-    <div class="contact-container" style="width: 600px;height:200px;">
-        {{view App.SearchRequireTextFieldView valueBinding="newCollectionName"  id="AddRecord" class=""  placeholder="please choose collection...." }}   
-
-        <button type="button" {{action addNewCollection }} class="btn">New Collection</button>
-
-
-
-        {{#each controller.collections}}
-        <div>
-            <a {{action chooseRecord title}}> {{title}}</a>
+<div class="contactmebox-wapper t-style-box" style="width: 500px;height:500px;font-size: 13px;padding: 20px;">
+    <div>
+        <div style=' color: #333; font-size: 20px; font-weight: bold; padding: 0px 0 13px;'>Add to Collections</div>
+        <div class="exit">
+            <div class="closeview"  >
+                <i class="icon-remove"></i>
+            </div>
         </div>
-        {{/each}}
-
     </div>
-    {{/if}}
 
 
 
+    <span>
+        <div {{action collectionSwitch }} class="new-btn" id="recordID" {{bindAttr text="controller.selectedTitle" }}>Choose One</div>
 
-    <button type="button" {{action exit }} class="btn">Cancel</button>
-    <button type="button" {{action submit }}  class="btn btn-primary">Submit</button>
+        {{view Ember.TextArea valueBinding="controller.selectedDesc" rows="12" cols="70" placeholder="please inout your description........."}}
+
+
+        {{#if controller.selectionPop}}
+        <div class="contact-container" style="width: 600px;height:200px;">
+            {{view App.SearchRequireTextFieldView valueBinding="newCollectionName"  id="AddRecord" class=""  placeholder="please choose collection...." }}   
+
+            <div type="button" {{action addNewCollection }} class="new-btn">New Collection</div>
+
+
+
+            {{#each controller.collections}}
+            <div>
+                <a {{action chooseRecord title}}> {{title}}</a>
+            </div>
+            {{/each}}
+
+        </div>
+        {{/if}}
+    </span>
+    <span>
+        <div>
+            <img src="">
+        </div>
+    </span>
+
+
+
+    <div type="button" {{action exit }} class="new-btn">Cancel</div>
+    <div type="button" {{action submit }}  class="new-btn green-btn">Submit</div>
 
 
 </div>

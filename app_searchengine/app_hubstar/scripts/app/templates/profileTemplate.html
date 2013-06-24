@@ -40,11 +40,11 @@
 
 
 
-    $('#signup').click(function() {
+    $('#flip-front').click(function() {
         $(".hover").addClass('flip');
     });
 
-    $('#goback').click(function() {
+    $('#flip-back').click(function() {
         $(".hover").removeClass('flip');
     });
 
@@ -72,329 +72,338 @@
 
 
 
+    <div class="hover panel" style='float: none;position: relative; width: 87%; height: auto; margin:  auto; background: #fff; box-shadow: 0px 0px 8px #555; border-radius: 3px 3px 0 0;max-width: 1260px;min-width: 796px;'>
+
+        <div class="front" style="text-align: inherit; width: auto; height: auto; box-shadow: none; border: none; position: relative;">
+            <div class="profilewrapper" style="">
+                <!--corpbanner-->
+
+                <div class="profilecorpbanner"    style="overflow:hidden;width: 100%; max-height: 650px; border-radius: 3px 3px 0 0; position: relative;">
+                    <img {{bindAttr src= model.profile_cover_url}} style="width:100%;">
+                    <div style="background-image:url('../images/dogearhover.png');width: 30px;height: 29px;position: absolute;right: 0; top: 0;"></div>
+                    <div class="corpbanner_mask" style="background: url('../images/bannershadow.png') repeat-x; position: absolute;bottom:0; width: 100%; height: 200px;">
+                        <div class="corpbanner_content" style="position: absolute;bottom:0;margin-left: 30%;width: 70%;">
+                            <div class="main_title" style="height: 100px;">
+                                <div>
+                                    <div style="display: inline-block; color: white;max-width: 750px;overflow: hidden; font-size: 28px; margin-bottom: 15px;line-height: 32px;">
+                                        {{model.profile_name}}
+                                    </div>
+
+                                    {{#if controller.editing}}
+                                    {{view App.EditingView}}
+                                    {{else}}
+                                    <a class="editicon" style="vertical-align: top;" href="#"{{action toggleEditing}}>
+                                       <i class="icon-pencil"></i>
+                                        <b class="editicon_callout"></b>                             
+                                    </a>
+                                    {{/if}}
+                                </div>
+                                <!--contact me-->
+                                <div class="contactmebtn">
+                                    <a class="contactmeicon" href=""><img src="../images/mail_24dark.png"/></a>
+                                </div>
+
+                                <div style="display: inline-block;">
+                                    <p style='display: inline-block; float: left; color: white; margin: 7px 0; font-size: 14px;'>
+                                        <a href='#' style='margin-right: 15px;'>
+                                            <k class="icon-star" ></k>
+                                            <k class="icon-star" ></k>
+                                            <k class="icon-star" ></k>
+                                            <k class="icon-star" ></k>
+                                            <k class="icon-star" ></k>
+                                        </a>
+                                        <a href='#' style=" margin-right: 20px;">23 Reviews</a>|<a href='#'style=" margin-left: 20px;">Review me »</a></p>                       
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--corpbanner                                  END-->
 
 
 
-    <div id="profile-front" class="profilewrapper" style="position: relative; width: 87%; height: auto; margin:  auto; background: #fff; box-shadow: 0px 0px 8px #555; border-radius: 3px 3px 0 0;max-width: 1260px;min-width: 796px;">
-        <!--corpbanner-->
 
-        <div class="profilecorpbanner"    style="overflow:hidden;width: 100%; max-height: 650px; border-radius: 3px 3px 0 0; position: relative;">
-            <img {{bindAttr src= model.profile_cover_url}} style="width:100%;">
-            <div style="background-image:url('../images/dogearhover.png');width: 30px;height: 29px;position: absolute;right: 0; top: 0;"></div>
-            <div class="corpbanner_mask" style="background: url('../images/bannershadow.png') repeat-x; position: absolute;bottom:0; width: 100%; height: 200px;">
-                <div class="corpbanner_content" style="position: absolute;bottom:0;margin-left: 30%;width: 70%;">
-                    <div class="main_title" style="height: 100px;">
-                        <div>
-                            <div style="display: inline-block; color: white;max-width: 750px;overflow: hidden; font-size: 28px; margin-bottom: 15px;line-height: 32px;">
-                                {{model.profile_name}}
+                <div style="position: relative; width: 100%;background-color: rgb(242,240,240);">
+
+                    <!--PROFILE PAGE LEFT SIDE-->
+
+                    <div class="profileaside" style="background-color: rgb(242,240,240); width: 29.5%; min-width: 230px;height: auto; padding: 10px; border-radius:3px 0 0 0; display: inline-block;vertical-align: top;">
+                        <div class="profileaside_content" style="margin:auto; margin-top: -200px; position: relative; width:87%;">
+
+                            <div class="aside-profilepic" style="padding: 20px 5px; border-bottom: 1px solid #ccc;">
+                                <img {{bindAttr src= model.profile_pic_url}} style="width: 200px; height:auto; display: block;margin: 10px auto; border:3px solid white;width: 200px; height:auto; display: block;margin: 20px auto; border:5px solid white;box-shadow: 0px 0px 5px #888;"> 
+                                <a href="#question_modal" role="button" class="btn" data-toggle="modal" style="margin:10px auto;display: block;width: 150px;position: relative;color:#0088cc;"><b>Follow</b></a>
+
                             </div>
 
-                            {{#if controller.editing}}
-                            {{view App.EditingView}}
-                            {{else}}
-                            <a class="editicon" style="vertical-align: top;" href="#"{{action toggleEditing}}>
-                               <i class="icon-pencil"></i>
-                                <b class="editicon_callout"></b>                             
-                            </a>
-                            {{/if}}
+
+                            <!--PROFILE CONTACT SECTION-->
+
+                            <div class="aside-container" style="padding: 20px 0; border-bottom: 1px solid #ccc; border-top: 1px solid #fff; font-size: 14px;margin: auto;width: 95%;">
+                                {{#unless controller.editingContact}}
+                                <div>
+                                    <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-phone' style='margin-right: 10px;'></i>Contact Detail</div>
+
+                                    <a class="editicon"  style="display: inline-block;margin: 0 0 0 10px;" href="#"{{action toggleEditingContact}}>
+                                       <i class="icon-pencil"></i>
+                                        <b class="editicon_callout"></b>
+                                    </a>
+                                </div>
+
+                                {{/unless}}
+
+
+
+                                <table id="aside_contact">
+                                    <tr>
+                                        <th style="color: #aaa; text-align: right; padding-bottom: 10px;font-size: 14px; font-weight: normal;">Contact:</th>
+                                        {{#if controller.editingContact}}
+                                        {{input type="text" value=contact_user  }}
+                                        {{else}}
+                                        <th {{action toggleEditingContact}} class="second-th">{{model.contact_user}}</th>
+                                        {{/if}}
+                                    </tr>
+                                    <tr>
+                                        <th>Type:</th>
+                                        {{#if controller.editingContact}}
+                                        {{input type="text" value=profile_category  }}
+                                        {{else}}
+                                        <th {{action toggleEditingContact}} class="second-th"><a href="#">{{model.profile_category}}</a></th>
+                                        {{/if}}
+                                    </tr>
+                                    <tr>
+                                        <th>Address:</th>
+                                        {{#if controller.editingContact}}
+                                        {{input type="text" value=profile_physical_address  }}
+                                        {{else}}
+                                        <th {{action toggleEditingContact}} class="second-th">{{model.profile_physical_address}}</th>
+                                        {{/if}}
+                                    </tr>
+                                    <tr>
+                                        <th>Phone:</th>
+                                        {{#if controller.editingContact}}
+                                        {{input type="text" value=phone_number  }}
+                                        {{else}}
+                                        <th {{action toggleEditingContact}} class="second-th">{{model.phone_number}}</th>
+                                        {{/if}}
+                                    </tr>
+                                    <tr>
+                                        <th>Website:</th>
+                                        {{#if controller.editingContact}}
+                                        {{input type="text" value=website_url  }}
+                                        {{else}}
+                                        <th  {{action toggleEditingContact}} class="second-th"><a href="http://ikitchen.y8.co.nz">{{model.website_url}}</a></th>
+                                        {{/if}}
+                                    </tr>
+
+                                </table>
+                                {{#unless controller.editingContact}}
+
+                                {{else}}
+                                <div class="buttons" style="position: relative;display: block;margin: 10px auto 0;text-align: center;">
+
+                                    <div  type="button" class="new-btn blue-btn" {{action changeEditingContact }}> <i class="icon-ok icon-white"></i></div>
+
+                                    <div  type="button" class="new-btn" {{action exitContactEditing }}> <i class="icon-remove"></i></div>
+
+                                </div>
+                                {{/unless}}
+
+                            </div>
+
+
+                            <!--PROFILE HOURS SECTION-->
+
+                            <div class="aside-container" style="padding: 20px 0; border-top: 1px solid #fff; font-size: 14px;margin: auto;width: 95%;">
+                                <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-time' style='margin-right: 10px;'></i>Hours</div>
+                                <div style="display: block">
+                                    <div style='display: inline-block;color: #888;text-align: right;'>
+                                        <p>Mon - Fri: </p>
+                                        <p>Saturday:</p>
+                                        <p>Sunday:</p>
+                                        <p>Holidays:</p>
+                                    </div>
+                                    <div style='ffont-weight: bold;display: inline-block;text-align: right;margin: auto;left: 0;width: 60%;'>
+                                        <p>7:00am - Late</p>
+                                        <p>10:00am - Late</p>
+                                        <p>4:00pm - Late</p>
+                                        <p>Closed</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
                         </div>
-                        <!--contact me-->
-                        <div class="contactmebtn">
-                            <a class="contactmeicon" href=""><img src="../images/mail_24dark.png"/></a>
+                    </div>
+
+
+
+
+                    <!--PROFILE PAGE MAIN PART-->
+
+                    <div class="profilemain" style="display: inline-block; width: 70%;left: 0;right: 0; background-color: white;margin: auto; min-width: 553px;">
+
+                        <div class="profile-main-content" style="margin: 20px auto;width: 90%;">   
+
+                            <div class="main_aboutus" style="padding:20px 0 30px 0; font-size: 15px; min-height: 500px;">
+                                <div><p style='margin-bottom: 20px;display: inline-block; font-size: 18px;'><i class='icon-user' style='margin-right: 10px;display: inline-block;'></i>About Us</p>
+
+                                    {{#if controller.editingAbout}}
+                                    {{view App.EditingAboutView}}
+                                    {{else}}
+                                    <a class="editicon" href="#"{{action toggleEditingAbout}}>
+                                       <i class="icon-pencil"></i>
+                                        <b class="editicon_callout"></b>                             
+                                    </a>
+                                    {{/if}}
+                                </div>
+                                <div style="padding: 10px 50px;">
+                                    {{{model.about}}} 
+                                </div>
+                            </div>
+                            <div id="flip-front" class='new-btn' style="float: right;display: block;margin: 10px 0;">
+                                <i class="icon-refresh"></i>
+                            </div>
                         </div>
 
-                        <div style="display: inline-block;">
-                            <p style='display: inline-block; float: left; color: white; margin: 7px 0; font-size: 14px;'>
-                                <a href='#' style='margin-right: 15px;'>
-                                    <k class="icon-star" ></k>
-                                    <k class="icon-star" ></k>
-                                    <k class="icon-star" ></k>
-                                    <k class="icon-star" ></k>
-                                    <k class="icon-star" ></k>
-                                </a>
-                                <a href='#' style=" margin-right: 20px;">23 Reviews</a>|<a href='#'style=" margin-left: 20px;">Review me »</a></p>                       
-                        </div>
+
+
 
                     </div>
                 </div>
             </div>
+            <!-- wrapper   end-->
         </div>
-        <!--corpbanner                                  END-->
+
+        <!--wrapper back-->
+
+        <div class="back"  style='width: 100%;height: auto;   border-radius: 3px;border: none;background-color: white;min-height: 1220px;'>
+
+            <div style="width:70%;"></div>
 
 
 
+            <div class="main_comments controlbtn-field" style="padding:20px 0 30px 0; font-size: 16px;width: 30%;float: right;text-shadow: none;border-left: 1px solid rgba(0,0,0,0.05);min-height: 1000px;">
+                <p style="font-size:18px;width: 90%;margin: 20px auto 0;">
+                    <i class='icon-comments-alt' style='margin-right: 10px;'></i>
+                    Comments
+                </p>
 
-        <div style="position: relative; width: 100%;background-color: rgb(242,240,240);">
 
-            <!--PROFILE PAGE LEFT SIDE-->
+                <div class="collapes-container_inner">
 
-            <div class="profileaside" style="background-color: rgb(242,240,240); width: 29.5%; min-width: 230px;height: auto; padding: 10px; border-radius:3px 0 0 0; display: inline-block;vertical-align: top;">
-                <div class="profileaside_content" style="margin:auto; margin-top: -200px; position: relative; width:87%;">
+                    <div class="show-comment">
+                        <div class="show-comment_container">
+                            <span class="show-comment_inner">
+                                <span class="comment-amount" > 10 </span>
+                                <span class="comment-amount" > comments</span>
+                            </span>
+                        </div>
 
-                    <div class="aside-profilepic" style="padding: 20px 5px; border-bottom: 1px solid #ccc;">
-                        <img {{bindAttr src= model.profile_pic_url}} style="width: 200px; height:auto; display: block;margin: 10px auto; border:3px solid white;width: 200px; height:auto; display: block;margin: 20px auto; border:5px solid white;box-shadow: 0px 0px 5px #888;"> 
-                        <a href="#question_modal" role="button" class="btn" data-toggle="modal" style="margin:10px auto;display: block;width: 150px;position: relative;color:#0088cc;"><b>Follow</b></a>
-
+                        <div class="object-like" style=""></div>
+                        <div class="object-save" style=""></div>
                     </div>
 
+                    <div class="addcommnetbox-container">
+                        <div class="addcommnetbox">
+                            Add comments
+                        </div>
+                    </div>
 
-                    <!--PROFILE CONTACT SECTION-->
+                    <div class="comment-item">
 
-                    <div class="aside-container" style="padding: 20px 0; border-bottom: 1px solid #ccc; border-top: 1px solid #fff; font-size: 14px;margin: auto;width: 95%;">
-                        {{#unless controller.editingContact}}
-                        <div>
-                            <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-phone' style='margin-right: 10px;'></i>Contact Detail</div>
-
-                            <a class="editicon"  style="display: inline-block;margin: 0 0 0 10px;" href="#"{{action toggleEditingContact}}>
-                               <i class="icon-pencil"></i>
-                                <b class="editicon_callout"></b>                             
+                        <div class="comment-position">
+                            <a class="profilepic-comment-container" href="#">
+                                <img class="profilepic_comment" src="../images/profilepic1.jpg" />
                             </a>
-                        </div>
+                            <div style="">
+                                <div class="comment-namentime">
+                                    <div class="namentime_position">
+                                        <a class="comment-username" href="" >
+                                            Carmilita Zotomayor-Riveral 
+                                        </a>
+                                        <div class="posttime-container">
+                                            <span class="posttime">yesterday 10:14 pm</span>
+                                            <span class="like-amount">+1</span>
+                                        </div>
+                                    </div>
 
-                        {{/unless}}
+                                    <div class="reply-comment">
+                                        <!--this div for reply-->
+                                    </div>
 
+                                </div>
 
+                                <div class="comment-content">
+                                    Thanks. I love vintage photos. More than half a century later, Manhattan has transformed and evolved into what it is today. 
 
-                        <table id="aside_contact">
-                            <tr>
-                                <th style="color: #aaa; text-align: right; padding-bottom: 10px;font-size: 14px; font-weight: normal;">Contact:</th>
-                                {{#if controller.editingContact}}
-                                {{input type="text" value=contact_user  }}
-                                {{else}}
-                                <th {{action toggleEditingContact}} class="second-th">{{model.contact_user}}</th>
-                                {{/if}}
-                            </tr>
-                            <tr>
-                                <th>Type:</th>
-                                {{#if controller.editingContact}}
-                                {{input type="text" value=profile_category  }}
-                                {{else}}
-                                <th {{action toggleEditingContact}} class="second-th"><a href="#">{{model.profile_category}}</a></th>
-                                {{/if}}
-                            </tr>
-                            <tr>
-                                <th>Address:</th>
-                                {{#if controller.editingContact}}
-                                {{input type="text" value=profile_physical_address  }}
-                                {{else}}
-                                <th {{action toggleEditingContact}} class="second-th">{{model.profile_physical_address}}</th>
-                                {{/if}}
-                            </tr>
-                            <tr>
-                                <th>Phone:</th>
-                                {{#if controller.editingContact}}
-                                {{input type="text" value=phone_number  }}
-                                {{else}}
-                                <th {{action toggleEditingContact}} class="second-th">{{model.phone_number}}</th>
-                                {{/if}}
-                            </tr>
-                            <tr>
-                                <th>Website:</th>
-                                {{#if controller.editingContact}}
-                                {{input type="text" value=website_url  }}
-                                {{else}}
-                                <th  {{action toggleEditingContact}} class="second-th"><a href="http://ikitchen.y8.co.nz">{{model.website_url}}</a></th>
-                                {{/if}}
-                            </tr>
-
-                        </table>
-                        {{#unless controller.editingContact}}
-
-                        {{else}}
-                        <div class="buttons" style="position: relative;display: block;margin: 10px auto 0;text-align: center;">
-
-                            <div  type="button" class="new-btn blue-btn" {{action changeEditingContact }}> <i class="icon-ok icon-white"></i></div>
-
-                            <div  type="button" class="new-btn" {{action exitContactEditing }}> <i class="icon-remove"></i></div>
-
-                        </div>
-                        {{/unless}}
-
-                    </div>
-
-
-                    <!--PROFILE HOURS SECTION-->
-
-                    <div class="aside-container" style="padding: 20px 0; border-top: 1px solid #fff; font-size: 14px;margin: auto;width: 95%;">
-                        <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-time' style='margin-right: 10px;'></i>Hours</div>
-                        <div style="display: block">
-                            <div style='display: inline-block;color: #888;text-align: right;'>
-                                <p>Mon - Fri: </p>
-                                <p>Saturday:</p>
-                                <p>Sunday:</p>
-                                <p>Holidays:</p>
-                            </div>
-                            <div style='ffont-weight: bold;display: inline-block;text-align: right;margin: auto;left: 0;width: 60%;'>
-                                <p>7:00am - Late</p>
-                                <p>10:00am - Late</p>
-                                <p>4:00pm - Late</p>
-                                <p>Closed</p>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-
-
-
-
-            <!--PROFILE PAGE MAIN PART-->
-
-            <div class="profilemain" style="display: inline-block; width: 70%;left: 0;right: 0; background-color: white;margin: auto; min-width: 553px;">
-
-                <div class="profile-main-content" style="margin: 20px auto;width: 90%;">   
-
-                    <div class="main_aboutus" style=" border-bottom: 1px solid #ccc; padding:20px 0 30px 0; font-size: 15px;">
-                        <div><p style='margin-bottom: 20px;display: inline-block; font-size: 18px;'><i class='icon-user' style='margin-right: 10px;display: inline-block;'></i>About Us</p>
-                            <div id="uploadingObject" class='new-btn' style="right: 0;">flip</div>
-
-                            {{#if controller.editingAbout}}
-                            {{view App.EditingAboutView}}
-                            {{else}}
-                            <a class="editicon" href="#"{{action toggleEditingAbout}}>
-                               <i class="icon-pencil"></i>
-                                <b class="editicon_callout"></b>                             
-                            </a>
-                            {{/if}}
-                        </div>
-                        <div style="padding: 10px 50px;">
-                            {{{model.about}}} 
-                        </div>
-                    </div>
-
-
-                    <div class="main_comments" style="padding:20px 0 30px 0; font-size: 16px;">
-                        <p style="font-size:18px;"><i class='icon-comments-alt' style='margin-right: 10px;'></i>Comments</p>
-
-
-                        <div class="collapes-container_inner">
-
-                            <div class="show-comment">
-                                <div class="show-comment_container">
-                                    <span class="show-comment_inner">
-                                        <span class="comment-amount" > 10 </span>
-                                        <span class="comment-amount" > comments</span>
+                                    <!-- for +someone into the conversation-->
+                                    <span>
+                                        <span></span>
+                                        <a></a>
                                     </span>
                                 </div>
 
-                                <div class="object-like" style=""></div>
-                                <div class="object-save" style=""></div>
                             </div>
-
-                            <div class="addcommnetbox-container">
-                                <div class="addcommnetbox">
-                                    Add comments
-                                </div>
-                            </div>
-
-                            <div class="comment-item">
-
-                                <div class="comment-position">
-                                    <a class="profilepic-comment-container" href="#">
-                                        <img class="profilepic_comment" src="../images/profilepic1.jpg" />
-                                    </a>
-                                    <div style="">
-                                        <div class="comment-namentime">
-                                            <div class="namentime_position">
-                                                <a class="comment-username" href="" >
-                                                    Carmilita Zotomayor-Riveral 
-                                                </a>
-                                                <div class="posttime-container">
-                                                    <span class="posttime">yesterday 10:14 pm</span>
-                                                    <span class="like-amount">+1</span>
-                                                </div>
-                                            </div>
-
-                                            <div class="reply-comment">
-                                                <!--this div for reply-->
-                                            </div>
-
-                                        </div>
-
-                                        <div class="comment-content">
-                                            Thanks. I love vintage photos. More than half a century later, Manhattan has transformed and evolved into what it is today. 
-
-                                            <!-- for +someone into the conversation-->
-                                            <span>
-                                                <span></span>
-                                                <a></a>
-                                            </span>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-
-
-                            <div class="comment-item">
-
-                                <div class="comment-position">
-                                    <a class="profilepic-comment-container" href="#">
-                                        <img class="profilepic_comment" src="../images/profilepic3.jpg" />
-                                    </a>
-                                    <div style="">
-                                        <div class="comment-namentime">
-                                            <div class="namentime_position">
-                                                <a class="comment-username" href="" >
-                                                    John Patrick Anthony Cummins
-                                                </a>
-                                                <div class="posttime-container">
-                                                    <span class="posttime">yesterday 10:14 pm</span>
-                                                    <span class="like-amount">+1</span>
-                                                </div>
-                                            </div>
-
-                                            <div class="reply-comment">
-                                                <!--this div for reply-->
-                                            </div>
-
-                                        </div>
-
-                                        <div class="comment-content">
-                                            My pleasure! I thought a New Yorker would like it, the island has changed lot in 50 yrs. 
-
-                                            <!-- for +someone into the conversation-->
-                                            <span>
-                                                <span></span>
-                                                <a></a>
-                                            </span>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-
-
-
-
                         </div>
 
+                    </div>
+
+
+                    <div class="comment-item">
+
+                        <div class="comment-position">
+                            <a class="profilepic-comment-container" href="#">
+                                <img class="profilepic_comment" src="../images/profilepic3.jpg" />
+                            </a>
+                            <div style="">
+                                <div class="comment-namentime">
+                                    <div class="namentime_position">
+                                        <a class="comment-username" href="" >
+                                            John Patrick Anthony Cummins
+                                        </a>
+                                        <div class="posttime-container">
+                                            <span class="posttime">yesterday 10:14 pm</span>
+                                            <span class="like-amount">+1</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="reply-comment">
+                                        <!--this div for reply-->
+                                    </div>
+
+                                </div>
+
+                                <div class="comment-content">
+                                    My pleasure! I thought a New Yorker would like it, the island has changed lot in 50 yrs. 
+
+                                    <!-- for +someone into the conversation-->
+                                    <span>
+                                        <span></span>
+                                        <a></a>
+                                    </span>
+                                </div>
+
+                            </div>
+                        </div>
 
                     </div>
+
+
+
+
                 </div>
 
 
-
-
             </div>
+
+            <div id="flip-back" class='new-btn' style="float: right;bottom: 0;position:absolute;">go back</div>
+
         </div>
+
+
     </div>
-    <!-- wrapper   end-->
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -404,7 +413,7 @@
         <div id="masonry_profile_container"  class="transitions-enabled centered clearfix" >
 
 
-            <div class="style-box t-style-box" style="width: 100%; min-width: 796px; height: 50px; background: white;margin: -70px auto;left: 0;right: 0;position: relative;display: block;">
+            <div class="style-box t-style-box" style="width: 100%; min-width: 800px; height: 50px; background: white;margin: -70px auto;left: 0;right: 0;position: relative;display: block;">
                 <div style="margin: 4px 20px 4px 40px; font-size: 16px; text-shadow: 0 1px 0 rgba(255,255,255,0.8);float: left;">Collection Name</div>
 
                 <ul class="user-stats" id="user-stats">
@@ -419,305 +428,6 @@
 
             </div>
 
-
-
-
-            <!--END SECTION CONTROL BAR-->
-
-            <!--            <div class="box col2">
-            
-                            <div class="masonry-object">
-                                <div class="masonry-object_profile-cover">
-                                    <div class="masonry-object_cover-wapper">
-                                        <img src="https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-ash3/943759_479382738797295_1355705984_n.jpg"/>
-                                    </div>
-                                    <div>
-                                        <img src="../images/demo/h-pic3.jpg" class="masonry-object_profilepic"/>
-                                        <div class="masonry-object_name-position" style="top: 133%;"> 
-                                            <a {{bindAttr href="getProfile_id"}}>Heritage Tiles Ellerslie</a>
-                                        </div>
-                                        <div class="masonry-object_name-position" style="top: 145%; font-size: 12px; color: #aaa;">
-                                            <span> type</span>
-                                            <span> <k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k></span>
-                                        </div>
-                                    </div>
-            
-                                    <div class="object-tags-box">
-            
-                                        <div class="object-tags">
-                                            <span class="tags-mark" style="background-color: #427fed"></span>
-                                            <div class="tags easing">
-                                                <div class="tags-new">New</div>
-                                                <div class="object-tpye">
-                                                    <i class="icon-group"></i>
-                                                </div>                      
-                                            </div>
-                                        </div>
-            
-                                        <div class="object-tags ">
-                                            <span class="tags-mark" style="background-color: #76a7fa"></span>
-                                            <div class="tags easing tagsappear">
-                                                <div class="tags-new">#Auckland</div>                   
-                                            </div>
-                                        </div>
-            
-                                        <div class="object-tags ">
-                                            <span class="tags-mark" style="background-color: #a0c3ff"></span>
-                                            <div class="tags easing tagsappear">
-                                                <div class="tags-new">#Kitchen</div>                   
-                                            </div>
-                                        </div>
-            
-                                    </div>
-            
-                                </div>
-            
-                                <div class="masonry-object_mainfeature" style="margin: 110px 0 0 0">
-            
-                                    <div class="masonry-object_text">
-            
-            
-                                        <div class="more_detail" {{bindAttr id="id"}} >
-            
-            
-                                            <div style="display:block;">
-                                                Heritage Tiles is a leading distributor and retailer of contemporary ceramic tiles and porcelain tiles in New Zealand. With 25 years experience in the tiling industry, and a distributor network nationwide, we have tiles to suit anyone, anywhere. A large range of tiles from kitchen and bathroom tiles, to outdoor tiles, to mosiac tiles and decorative tiles can be found in our 6 Auckland stores and 1 store in Wellington. Our Auckland tile warehouse stocks at least 200 000 m2 of tiles in over 500 designs - one of the largest stocks in NZ!
-            
-                                            </div>
-            
-            
-                                        </div>
-            
-                                        <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>
-            
-                                        <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collapes</span>
-            
-            
-                                    </div>
-            
-                                </div>
-            
-                                <div class="masonry-object_interact">
-                                    <div class="masonry_show-comment">
-                                        <div class="show-comment_container">
-                                            <span class="show-comment_inner">
-                                                <span class="comment-amount"> 10 </span>
-                                                <span class="comment-amount"> comments</span>
-                                            </span>
-                                            <div class="dropdownicon masonry_dropdownicon">
-                                                <i class="icon-angle-down"></i>
-                                            </div>
-                                        </div>
-                                        <div class="object-like" style=""></div>
-                                        <div class="object-save" style=""></div>
-                                    </div>
-                                    <div class="masonry_addcommnetbox-container">
-                                        <div class="addcommnetbox">
-                                            Add comments
-                                        </div>
-                                    </div>
-                                </div>
-            
-                            </div>
-            
-                        </div>
-            
-            
-                        <div class="box col2">
-            
-                            <div class="masonry-object">
-                                <div class="masonry-object_profile-cover">
-                                    <div class="masonry-object_cover-wapper">
-                                        <img src="https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-prn2/970145_479383022130600_214268574_n.jpg"/>
-                                    </div>
-                                    <div>
-                                        <img src="../images/demo/h-pic2.jpg" class="masonry-object_profilepic"/>
-                                        <div class="masonry-object_name-position" style="top: 133%;"> 
-                                            <a {{bindAttr href="getProfile_id"}}>Heritage Tiles Whangaparaoa</a>
-                                        </div>
-                                        <div class="masonry-object_name-position" style="top: 145%; font-size: 12px; color: #aaa;">
-                                            <span> type</span>
-                                            <span> <k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k></span>
-                                        </div>
-                                    </div>
-            
-                                    <div class="object-tags-box">
-            
-                                        <div class="object-tags">
-                                            <span class="tags-mark" style="background-color: #427fed"></span>
-                                            <div class="tags easing">
-                                                <div class="tags-new">New</div>
-                                                <div class="object-tpye">
-                                                    <i class="icon-group"></i>
-                                                </div>                      
-                                            </div>
-                                        </div>
-            
-                                        <div class="object-tags ">
-                                            <span class="tags-mark" style="background-color: #76a7fa"></span>
-                                            <div class="tags easing tagsappear">
-                                                <div class="tags-new">#Auckland</div>                   
-                                            </div>
-                                        </div>
-            
-                                        <div class="object-tags ">
-                                            <span class="tags-mark" style="background-color: #a0c3ff"></span>
-                                            <div class="tags easing tagsappear">
-                                                <div class="tags-new">#Kitchen</div>                   
-                                            </div>
-                                        </div>
-            
-                                    </div>
-            
-                                </div>
-            
-                                <div class="masonry-object_mainfeature" style="margin: 110px 0 0 0">
-            
-                                    <div class="masonry-object_text">
-            
-            
-                                        <div class="more_detail" {{bindAttr id="id"}} >
-            
-            
-                                            <div style="display:block;">
-                                                Heritage Tiles is a leading distributor and retailer of contemporary ceramic tiles and porcelain tiles in New Zealand. With 25 years experience in the tiling industry, and a distributor network nationwide, we have tiles to suit anyone, anywhere. A large range of tiles from kitchen and bathroom tiles, to outdoor tiles, to mosiac tiles and decorative tiles can be found in our 6 Auckland stores and 1 store in Wellington. Our Auckland tile warehouse stocks at least 200 000 m2 of tiles in over 500 designs - one of the largest stocks in NZ!
-            
-                                            </div>
-            
-            
-                                        </div>
-            
-                                        <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>
-            
-                                        <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collapes</span>
-            
-            
-                                    </div>
-            
-                                </div>
-            
-                                <div class="masonry-object_interact">
-                                    <div class="masonry_show-comment">
-                                        <div class="show-comment_container">
-                                            <span class="show-comment_inner">
-                                                <span class="comment-amount"> 10 </span>
-                                                <span class="comment-amount"> comments</span>
-                                            </span>
-                                            <div class="dropdownicon masonry_dropdownicon">
-                                                <i class="icon-angle-down"></i>
-                                            </div>
-                                        </div>
-                                        <div class="object-like" style=""></div>
-                                        <div class="object-save" style=""></div>
-                                    </div>
-                                    <div class="masonry_addcommnetbox-container">
-                                        <div class="addcommnetbox">
-                                            Add comments
-                                        </div>
-                                    </div>
-                                </div>
-            
-                            </div>
-            
-                        </div>
-            
-                        <div class="box col2">
-            
-                            <div class="masonry-object">
-                                <div class="masonry-object_profile-cover">
-                                    <div class="masonry-object_cover-wapper">
-                                        <img src="https://fbcdn-sphotos-g-a.akamaihd.net/hphotos-ak-ash4/379658_479382862130616_1197721736_n.jpg"/>
-                                    </div>
-                                    <div>
-                                        <img src="../images/demo/h-pic4.jpg" class="masonry-object_profilepic"/>
-                                        <div class="masonry-object_name-position" style="top: 133%;"> 
-                                            <a {{bindAttr href="getProfile_id"}}>Heritage Tiles Wellington</a>
-                                        </div>
-                                        <div class="masonry-object_name-position" style="top: 145%; font-size: 12px; color: #aaa;">
-                                            <span> type</span>
-                                            <span> <k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k></span>
-                                        </div>
-                                    </div>
-            
-                                    <div class="object-tags-box">
-            
-                                        <div class="object-tags">
-                                            <span class="tags-mark" style="background-color: #427fed"></span>
-                                            <div class="tags easing">
-                                                <div class="tags-new">New</div>
-                                                <div class="object-tpye">
-                                                    <i class="icon-group"></i>
-                                                </div>                      
-                                            </div>
-                                        </div>
-            
-                                        <div class="object-tags ">
-                                            <span class="tags-mark" style="background-color: #76a7fa"></span>
-                                            <div class="tags easing tagsappear">
-                                                <div class="tags-new">#Auckland</div>                   
-                                            </div>
-                                        </div>
-            
-                                        <div class="object-tags ">
-                                            <span class="tags-mark" style="background-color: #a0c3ff"></span>
-                                            <div class="tags easing tagsappear">
-                                                <div class="tags-new">#Kitchen</div>                   
-                                            </div>
-                                        </div>
-            
-                                    </div>
-            
-                                </div>
-            
-                                <div class="masonry-object_mainfeature" style="margin: 110px 0 0 0">
-            
-                                    <div class="masonry-object_text">
-            
-            
-                                        <div class="more_detail" {{bindAttr id="id"}} >
-            
-            
-                                            <div style="display:block;">
-                                                Heritage Tiles is a leading distributor and retailer of contemporary ceramic tiles and porcelain tiles in New Zealand. With 25 years experience in the tiling industry, and a distributor network nationwide, we have tiles to suit anyone, anywhere. A large range of tiles from kitchen and bathroom tiles, to outdoor tiles, to mosiac tiles and decorative tiles can be found in our 6 Auckland stores and 1 store in Wellington. Our Auckland tile warehouse stocks at least 200 000 m2 of tiles in over 500 designs - one of the largest stocks in NZ!
-            
-                                            </div>
-            
-            
-                                        </div>
-            
-                                        <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>
-            
-                                        <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collapes</span>
-            
-            
-                                    </div>
-            
-                                </div>
-            
-                                <div class="masonry-object_interact">
-                                    <div class="masonry_show-comment">
-                                        <div class="show-comment_container">
-                                            <span class="show-comment_inner">
-                                                <span class="comment-amount"> 10 </span>
-                                                <span class="comment-amount"> comments</span>
-                                            </span>
-                                            <div class="dropdownicon masonry_dropdownicon">
-                                                <i class="icon-angle-down"></i>
-                                            </div>
-                                        </div>
-                                        <div class="object-like" style=""></div>
-                                        <div class="object-save" style=""></div>
-                                    </div>
-                                    <div class="masonry_addcommnetbox-container">
-                                        <div class="addcommnetbox">
-                                            Add comments
-                                        </div>
-                                    </div>
-                                </div>
-            
-                            </div>
-            
-                        </div>-->
 
 
 
@@ -823,401 +533,10 @@
 
 
 
-            <!--
-                        <div class="box col2">
-            
-                            <div class="masonry-object">
-                                <div class="masonry-object_profile-cover">
-                                    <div class="masonry-object_cover-wapper">
-                                        <img src="../images/demo/slide-tiles-la-fabbrica.png"/>
-                                    </div>
-                                    <div>
-                                        <img src="../images/demo/la_fabbrica.png" class="masonry-object_profilepic"/>
-                                        <div class="masonry-object_name-position" style="top: 133%;"> 
-                                            <a {{bindAttr href="getProfile_id"}}>Lafabbrica</a>
-                                        </div>
-                                        <div class="masonry-object_name-position" style="top: 145%; font-size: 12px; color: #aaa;">
-                                            <span> type</span>
-                                            <span> <k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k></span>
-                                        </div>
-                                    </div>
-            
-                                    <div class="object-tags-box">
-            
-                                        <div class="object-tags">
-                                            <span class="tags-mark" style="background-color: #427fed"></span>
-                                            <div class="tags easing">
-                                                <div class="tags-new">New</div>
-                                                <div class="object-tpye">
-                                                    <i class="icon-group"></i>
-                                                </div>                      
-                                            </div>
-                                        </div>
-            
-                                        <div class="object-tags ">
-                                            <span class="tags-mark" style="background-color: #76a7fa"></span>
-                                            <div class="tags easing tagsappear">
-                                                <div class="tags-new">#Auckland</div>                   
-                                            </div>
-                                        </div>
-            
-                                        <div class="object-tags ">
-                                            <span class="tags-mark" style="background-color: #a0c3ff"></span>
-                                            <div class="tags easing tagsappear">
-                                                <div class="tags-new">#Kitchen</div>                   
-                                            </div>
-                                        </div>
-            
-                                    </div>
-            
-                                </div>
-            
-                                <div class="masonry-object_mainfeature" style="margin: 110px 0 0 0">
-            
-                                    <div class="masonry-object_text">
-            
-            
-                                        <div class="more_detail" {{bindAttr id="id"}} >
-            
-            
-                                            <div style="display:block;">
-                                                La Fabbrica is a company in the Faenza area that has been operating in the production and sale of high quality floor ceramics and coverings for more than 10 years. La Fabbrica is a well-established, rapidly growing company that is known and present not only in Italy but also on the main international markets.
-            
-                                            </div>
-            
-            
-                                        </div>
-            
-                                        <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>
-            
-                                        <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collapes</span>
-            
-            
-                                    </div>
-            
-                                </div>
-            
-                                <div class="masonry-object_interact">
-                                    <div class="masonry_show-comment">
-                                        <div class="show-comment_container">
-                                            <span class="show-comment_inner">
-                                                <span class="comment-amount"> 10 </span>
-                                                <span class="comment-amount"> comments</span>
-                                            </span>
-                                            <div class="dropdownicon masonry_dropdownicon">
-                                                <i class="icon-angle-down"></i>
-                                            </div>
-                                        </div>
-                                        <div class="object-like" style=""></div>
-                                        <div class="object-save" style=""></div>
-                                    </div>
-                                    <div class="masonry_addcommnetbox-container">
-                                        <div class="addcommnetbox">
-                                            Add comments
-                                        </div>
-                                    </div>
-                                </div>
-            
-                            </div>
-            
-                        </div>
-            
-                        <div class="box col2">
-            
-                            <div class="masonry-object">
-                                <div class="masonry-object_profile-cover">
-                                    <div class="masonry-object_cover-wapper">
-                                        <img src="../images/demo/Italgranati-cover.jpg"/>
-                                    </div>
-                                    <div>
-                                        <img src="../images/demo/Italgranati.jpg" class="masonry-object_profilepic"/>
-                                        <div class="masonry-object_name-position" style="top: 133%;"> 
-                                            <a {{bindAttr href="getProfile_id"}}>Italgranati</a>
-                                        </div>
-                                        <div class="masonry-object_name-position" style="top: 145%; font-size: 12px; color: #aaa;">
-                                            <span> type</span>
-                                            <span> <k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star-half" ></k></span>
-                                        </div>
-                                    </div>
-            
-                                    <div class="object-tags-box">
-            
-                                        <div class="object-tags">
-                                            <span class="tags-mark" style="background-color: #427fed"></span>
-                                            <div class="tags easing">
-                                                <div class="tags-new">New</div>
-                                                <div class="object-tpye">
-                                                    <i class="icon-group"></i>
-                                                </div>                      
-                                            </div>
-                                        </div>
-            
-                                        <div class="object-tags ">
-                                            <span class="tags-mark" style="background-color: #76a7fa"></span>
-                                            <div class="tags easing tagsappear">
-                                                <div class="tags-new">#Auckland</div>                   
-                                            </div>
-                                        </div>
-            
-                                        <div class="object-tags ">
-                                            <span class="tags-mark" style="background-color: #a0c3ff"></span>
-                                            <div class="tags easing tagsappear">
-                                                <div class="tags-new">#Kitchen</div>                   
-                                            </div>
-                                        </div>
-            
-                                    </div>
-            
-                                </div>
-            
-                                <div class="masonry-object_mainfeature" style="margin: 110px 0 0 0">
-            
-                                    <div class="masonry-object_text">
-            
-            
-                                        <div class="more_detail" {{bindAttr id="id"}} >
-            
-            
-                                            <div style="display:block;">
-                                                Specialising in high grade porcelain tiles, the range available provides quality ,long lasting beauty in any situation.
-                                            </div>
-            
-            
-                                        </div>
-            
-                                        <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>
-            
-                                        <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collapes</span>
-            
-            
-                                    </div>
-            
-                                </div>
-            
-                                <div class="masonry-object_interact">
-                                    <div class="masonry_show-comment">
-                                        <div class="show-comment_container">
-                                            <span class="show-comment_inner">
-                                                <span class="comment-amount"> 10 </span>
-                                                <span class="comment-amount"> comments</span>
-                                            </span>
-                                            <div class="dropdownicon masonry_dropdownicon">
-                                                <i class="icon-angle-down"></i>
-                                            </div>
-                                        </div>
-                                        <div class="object-like" style=""></div>
-                                        <div class="object-save" style=""></div>
-                                    </div>
-                                    <div class="masonry_addcommnetbox-container">
-                                        <div class="addcommnetbox">
-                                            Add comments
-                                        </div>
-                                    </div>
-                                </div>
-            
-                            </div>
-            
-                        </div>
-            
-            
-                        <div class="box col2">
-            
-                            <div class="masonry-object">
-                                <div class="masonry-object_profile-cover">
-                                    <div class="masonry-object_cover-wapper">
-                                        <img src="../images/demo/Amb._Himalaya_random.JPG"/>
-                                    </div>
-                                    <div>
-                                        <img src="../images/demo/logo-stylnul.jpg"  class="masonry-object_profilepic"/>
-                                        <div class="masonry-object_name-position" style="top: 133%;"> 
-                                            <a {{bindAttr href="getProfile_id"}}>Stylnul</a>
-                                        </div>
-                                        <div class="masonry-object_name-position" style="top: 145%; font-size: 12px; color: #aaa;">
-                                            <span> type</span>
-                                            <span> <k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star-half" ></k></span>
-                                        </div>
-                                    </div>
-            
-                                    <div class="object-tags-box">
-            
-                                        <div class="object-tags">
-                                            <span class="tags-mark" style="background-color: #427fed"></span>
-                                            <div class="tags easing">
-                                                <div class="tags-new">New</div>
-                                                <div class="object-tpye">
-                                                    <i class="icon-group"></i>
-                                                </div>                      
-                                            </div>
-                                        </div>
-            
-                                        <div class="object-tags ">
-                                            <span class="tags-mark" style="background-color: #76a7fa"></span>
-                                            <div class="tags easing tagsappear">
-                                                <div class="tags-new">#Auckland</div>                   
-                                            </div>
-                                        </div>
-            
-                                        <div class="object-tags ">
-                                            <span class="tags-mark" style="background-color: #a0c3ff"></span>
-                                            <div class="tags easing tagsappear">
-                                                <div class="tags-new">#Kitchen</div>                   
-                                            </div>
-                                        </div>
-            
-                                    </div>
-            
-                                </div>
-            
-                                <div class="masonry-object_mainfeature" style="margin: 110px 0 0 0">
-            
-                                    <div class="masonry-object_text">
-            
-            
-                                        <div class="more_detail" {{bindAttr id="id"}} >
-            
-            
-                                            <div style="display:block;">
-                                                STN Ceramic is part of the group of companies as Ceramics Nulense, S.A. Established since 1973, its main activity is the production of the ceramic wall tiles, stoneware floor tiles as well as procelain tiles.
-                                            </div>
-            
-            
-                                        </div>
-            
-                                        <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>
-            
-                                        <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collapes</span>
-            
-            
-                                    </div>
-            
-                                </div>
-            
-                                <div class="masonry-object_interact">
-                                    <div class="masonry_show-comment">
-                                        <div class="show-comment_container">
-                                            <span class="show-comment_inner">
-                                                <span class="comment-amount"> 10 </span>
-                                                <span class="comment-amount"> comments</span>
-                                            </span>
-                                            <div class="dropdownicon masonry_dropdownicon">
-                                                <i class="icon-angle-down"></i>
-                                            </div>
-                                        </div>
-                                        <div class="object-like" style=""></div>
-                                        <div class="object-save" style=""></div>
-                                    </div>
-                                    <div class="masonry_addcommnetbox-container">
-                                        <div class="addcommnetbox">
-                                            Add comments
-                                        </div>
-                                    </div>
-                                </div>
-            
-                            </div>
-            
-                        </div>
-            
-            
-                        <div class="box col2">
-            
-                            <div class="masonry-object">
-                                <div class="masonry-object_profile-cover">
-                                    <div class="masonry-object_cover-wapper">
-                                        <img src="../images/demo/Ascot-cover.jpg"/>
-                                    </div>
-                                    <div>
-                                        <img src="../images/demo/ascot-logo.jpg" class="masonry-object_profilepic"/>
-                                        <div class="masonry-object_name-position" style="top: 133%;"> 
-                                            <a {{bindAttr href="getProfile_id"}}>Ascot</a>
-                                        </div>
-                                        <div class="masonry-object_name-position" style="top: 145%; font-size: 12px; color: #aaa;">
-                                            <span> type</span>
-                                            <span> <k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star" ></k><k class="icon-star-half" ></k></span>
-                                        </div>
-                                    </div>
-            
-                                    <div class="object-tags-box">
-            
-                                        <div class="object-tags">
-                                            <span class="tags-mark" style="background-color: #427fed"></span>
-                                            <div class="tags easing">
-                                                <div class="tags-new">New</div>
-                                                <div class="object-tpye">
-                                                    <i class="icon-group"></i>
-                                                </div>                      
-                                            </div>
-                                        </div>
-            
-                                        <div class="object-tags ">
-                                            <span class="tags-mark" style="background-color: #76a7fa"></span>
-                                            <div class="tags easing tagsappear">
-                                                <div class="tags-new">#Auckland</div>                   
-                                            </div>
-                                        </div>
-            
-                                        <div class="object-tags ">
-                                            <span class="tags-mark" style="background-color: #a0c3ff"></span>
-                                            <div class="tags easing tagsappear">
-                                                <div class="tags-new">#Kitchen</div>                   
-                                            </div>
-                                        </div>
-            
-                                    </div>
-            
-                                </div>
-            
-                                <div class="masonry-object_mainfeature" style="margin: 110px 0 0 0">
-            
-                                    <div class="masonry-object_text">
-            
-            
-                                        <div class="more_detail" {{bindAttr id="id"}} >
-            
-            
-                                            <div style="display:block;">
-                                                Blending design, technology and innovation to create a truly unique range of tiles, creating a space that is sophisticated, user friendly and a masterpiece. Here you can see a range of products to enhance any environment.
-                                            </div>
-            
-            
-                                        </div>
-            
-                                        <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>
-            
-                                        <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collapes</span>
-            
-            
-                                    </div>
-            
-                                </div>
-            
-                                <div class="masonry-object_interact">
-                                    <div class="masonry_show-comment">
-                                        <div class="show-comment_container">
-                                            <span class="show-comment_inner">
-                                                <span class="comment-amount"> 10 </span>
-                                                <span class="comment-amount"> comments</span>
-                                            </span>
-                                            <div class="dropdownicon masonry_dropdownicon">
-                                                <i class="icon-angle-down"></i>
-                                            </div>
-                                        </div>
-                                        <div class="object-like" style=""></div>
-                                        <div class="object-save" style=""></div>
-                                    </div>
-                                    <div class="masonry_addcommnetbox-container">
-                                        <div class="addcommnetbox">
-                                            Add comments
-                                        </div>
-                                    </div>
-                                </div>
-            
-                            </div>
-            
-                        </div>-->
-
-
-
-
         </div>
         <!--masonry end -->
     </div>
+
+
+
+

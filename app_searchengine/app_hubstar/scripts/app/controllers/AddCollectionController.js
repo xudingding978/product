@@ -13,7 +13,7 @@ define([
         init: function()
         {
             var megaController = this.get("controllers.mega");
-            var id = megaController.get("percentComplete").id;
+            var id = megaController.get("selected").id;
             this.set("objectID", id);
             this.setUser();
         },

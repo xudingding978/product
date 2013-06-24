@@ -40,9 +40,7 @@ define(["ember"
 
         },
         getHeroImgae: function(id, col) {
-
             var photo = App.Mega.find(id);
-
             photo.addObserver('isLoaded', function() {
                 if (photo.get('isLoaded')) {
                     col.set("cover", photo.get('photo').objectAt(0)._data.attributes.photo_image_hero_url);

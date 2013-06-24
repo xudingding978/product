@@ -796,6 +796,7 @@
 
 .new-btn {
     /*BASIC POSITION*/
+    cursor: pointer;
     display: inline-block;
     width: auto;
     position: relative;

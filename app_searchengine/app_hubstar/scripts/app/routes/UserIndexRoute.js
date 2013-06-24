@@ -23,13 +23,13 @@ define([
         },
                 
                 
-        renderTemplate: function() {
-
-            this.render('users', {
-          
-                into: "application"
-            });
-        }
+//        renderTemplate: function() {
+//
+//            this.render('users', {
+//          
+//                into: "application"
+//            });
+//        }
 
     });
     return UserIndexRoute;

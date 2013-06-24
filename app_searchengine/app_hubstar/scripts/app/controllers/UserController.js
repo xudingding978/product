@@ -42,9 +42,7 @@ define(["ember"
             }
 
         },
-        transitionToCollectionPhoto: function() {
-            //alert(333333333333);
-        },
+
         getHeroImgae: function(id, col) {
 
             var photo = App.Mega.find(id);

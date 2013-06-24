@@ -10,6 +10,7 @@ define(["ember"
         selectedDesc: "",
         selectedTitle: "",
         coverImg: "",
+        currentID: "",
         objectID: null,
         needs: ['photoCreate'],
         init: function()
@@ -20,7 +21,8 @@ define(["ember"
         {
             var address = document.URL;
             var user_id = address.split("#")[1].split("/")[2];
-            console.log(user_id);
+            this.set('currentID', user_id);
+            console.log(this.get('currentID'));
             var user = App.User.find(user_id);
 //            console.log(user);
 //            console.log( user.get("collections"));
@@ -42,6 +44,7 @@ define(["ember"
             }
 
         },
+
 
         getHeroImgae: function(id, col) {
 

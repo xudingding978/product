@@ -31,9 +31,12 @@
         <link media="screen, projection" rel="stylesheet" type="text/css" href="css/_footer.css"/>
         <link href='http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
 
+
     </head>
     <body style="background:#fff url('../images/texture.png') repeat;width: 100%;height: auto;">
-
+        <script type="text/javascript"
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwl8LT_S7FsRP_yDcoxM72-U8x15l-alw&sensor=TRUE">
+        </script>
 
         <div id="main" class="container-fluid" style="padding:0;"></div>
 

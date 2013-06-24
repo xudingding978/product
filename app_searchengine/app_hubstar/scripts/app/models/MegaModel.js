@@ -7,6 +7,7 @@ define(
     DS.RESTAdapter.map('App.Mega', {
         photo: {embedded: 'always'},
         user: {embedded: 'always'},
+        comments: {embedded: 'always'},
         article: {embedded: 'always'}
     });
 
@@ -45,6 +46,7 @@ define(
         view_count: DS.attr('string'),
         photo: DS.hasMany('App.Photo'),
         user: DS.hasMany('App.User'),
+        comments: DS.hasMany('App.Comment'),
         article: DS.hasMany('App.Article'),
         photo_album_id: function() {
             return "#album_" + this.get('id');

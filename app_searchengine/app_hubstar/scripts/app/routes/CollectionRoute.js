@@ -19,7 +19,7 @@ define([
         model: function(params) {
             var address = document.URL;
             var user_id = address.split("#")[1].split("/")[2];
-            return CollectionModel.find({user_id: user_id, collection_id: params.collection_id});
+            return App.Mega.find({RquireType: "personalCollection", user_id: user_id, collection_id: params.collection_id});
         },
         redirect: function() {
 

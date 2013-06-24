@@ -73,9 +73,7 @@ class MegasController extends Controller {
     public function actionUpdate() {
         try {
             
-            
-            
-            
+             
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

@@ -1,7 +1,7 @@
 
 <div id="masonry_container" class="transitions-enabled centered clearfix noStyle1">
     <div class="box col2 noStyle1">
-        
+
         {{render status}}
 
 
@@ -27,7 +27,7 @@
                     </div>
                     <img {{bindAttr src="profile_pic_url"}} class="masonry-object_profilepic"/>
                     <div class="masonry-object_name-position" style="top: 133%;"> 
-                        <a {{bindAttr href="getProfile_id"}}>{{profile_name}}</a>
+                        <a {{bindAttr href="getProfile_id"}}>{{profile_name}} </a>
                     </div>
                     <div class="masonry-object_name-position" style="top: 145%; font-size: 12px; color: #aaa;">
                         <span> type</span>
@@ -40,7 +40,7 @@
                     <div class="object-tags">
                         <span class="tags-mark" style="background-color: #427fed"></span>
                         <div class="tags easing">
-                            <div class="tags-new">New</div>
+                            <div class="tags-new">New </div>
                             <div class="object-tpye">
                                 <i class="icon-group"></i>
                             </div>                      
@@ -140,7 +140,7 @@
                     <div class="object-tags">
                         <span class="tags-mark" style="background-color: #427fed"></span>
                         <div class="tags easing">
-                            <div class="tags-new">New</div>
+                            <div class="tags-new">New </div>
                             <div class="object-tpye">
                                 <i class="icon-picture"></i>
                             </div>                      
@@ -471,10 +471,9 @@
 
         $(function() {
             var $container = $('#masonry_container');
-            var $boxes = $('.box');
             window.setTimeout(function() {
                 $container.masonry();
-                $container.prepend($boxes).masonry('reload');
+                $container.masonry('reload');
             }, 400);
         });
 

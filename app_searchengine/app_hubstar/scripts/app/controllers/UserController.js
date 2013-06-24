@@ -32,9 +32,9 @@ define(["ember"
             {
 
                 var col = collections.objectAt(i);
-                if((col.get("collection_ids") !== null && col.get("collection_ids") !== "")){
-                var imgId = col.get("collection_ids").split(",").objectAt(0);
-                this.getHeroImgae(imgId, col);
+                if ((col.get("collection_ids") !== null && col.get("collection_ids") !== "")) {
+                    var imgId = col.get("collection_ids").split(",").objectAt(0);
+                    this.getHeroImgae(imgId, col);
                 }
             }
 
@@ -71,6 +71,7 @@ define(["ember"
             this.addNewCollection();
             var address = document.URL;
             var user_id = address.split("#")[1].split("/")[2];
+            this.set('currentID', user_id);
             var user = App.User.find(user_id);
             return user;
         },

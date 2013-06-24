@@ -35,11 +35,30 @@ class Controller extends CController {
         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
         $result = $cb->get($domain);
         $result_arr = CJSON::decode($result, true);
+        error_log(var_export($result_arr));
         $client = Aws\S3\S3Client::factory(
                         $result_arr["providers"]["S3Client"]
         );
         return $client;
     }
+    
+    // function for connecting to s3. Using for move photo between buckets. (Tao)
+    public function connectToS3(){
+        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
+        $key = explode(".", $_SERVER['HTTP_HOST']);
+        $key = $key[1] . '.' . $key[2];
+        $result = $cb->get($key);
+        $result_arr = CJSON::decode($result, true);
+        
+//        error_log(var_export($result_arr));
+        
+        $client = Aws\S3\S3Client::factory(
+            $result_arr["providers"]["S3Client"]
+        );
+
+        return $client;
+    }
+
 
     /**
      * Send raw HTTP response

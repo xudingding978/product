@@ -26,18 +26,6 @@ class GetResultByKeyValueController extends Controller {
                 $request_array = preg_split("/=|&/", $request_string);
                 $response = $this->getRequestResultByKeyValue($request_array);
 
-//                if(sizeof($response)>0) {
-//                    
-//                    foreach($response as $val) {
-////                        print_r($val['source']['doc']['photo'][0]);
-//                        $sequence = $val['source']['doc']['photo'][0]['photo_sequence'];
-//                        if($sequence==="1") {
-//                            $cover_url = $val['source']['doc']['photo'][0]['photo_image_hero_url'];
-//                            error_log($cover_url);
-//                            if ($cover_url != "") break;
-//                        }
-//                    }
-//                }
 //                print_r($response);
                 echo $response;
 //                return $response;

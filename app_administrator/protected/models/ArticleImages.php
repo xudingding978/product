@@ -133,4 +133,11 @@ class ArticleImages extends CActiveRecord
                         $data_list = Yii::app() ->db->createCommand($sql)->queryAll();   
                         return $data_list;
                 }
+                
+                function getHeliumMediald() {
+                        $data_list = array();  
+                        $sql = "select dbo.ArticleImages.heliumMediaId from dbo.ArticleImages";                        
+                        $data_list = Yii::app() ->db->createCommand($sql)->queryAll();
+                        return $data_list;
+                }
 }

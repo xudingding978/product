@@ -30,7 +30,7 @@ define([
 
 
 
-            console.log(this.get('content'));
+     //       console.log(this.get('content'));
         },
     });
     return InsideCollectionController;

@@ -16,8 +16,8 @@ define([
     var SearchRoute = Ember.Route.extend({
         setupController: function() {
 
-            this.controllerFor('searchs').defaultSearch();
-            this.controllerFor('index').setLogin();
+           this.controllerFor('searchs').defaultSearch();
+          this.controllerFor('index').setLogin();
 
             this.controllerFor('application').set('islogin', true);
             this.controllerFor('status').set('islogin', true);
@@ -26,7 +26,7 @@ define([
 
 
         },
-        events: {
+        events: { 
             transitionToPhoto: function(id) {
                 this.transitionTo("photo", MegaModel.find(id));
             },

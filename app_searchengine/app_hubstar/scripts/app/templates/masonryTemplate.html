@@ -1,7 +1,7 @@
 
-<div id="masonry_container" class="transitions-enabled centered clearfix">
-    <div class="box col2">
-
+<div id="masonry_container" class="transitions-enabled centered clearfix noStyle1">
+    <div class="box col2 noStyle1">
+        
         {{render status}}
 
 
@@ -11,7 +11,7 @@
     {{#each  content}}
 
     {{#if getProfile}}
-    <div class="box col2">
+    <div class="box col2 noStyle1">
 
         <div class="masonry-object">
             <div class="masonry-object_profile-cover">
@@ -121,13 +121,13 @@
 
 
     {{#if getPhoto}}
-    <div class="box col2">
+    <div class="box col2 noStyle1">
 
 
         <div class="masonry-object">
             <div class="masonry-object_poster">  
                 <a {{bindAttr href="getProfile_id"}}>
-                    <img  {{action transitionToProfile id}} class="profilepic-on-masonry"/>
+                    <img  {{action transitionToProfile id}} {{bindAttr src="owner_profile_pic"}} class="profilepic-on-masonry"/>
                 </a>
                 <div class="object_username">
                     <a class="poster-name" {{bindAttr href="getProfile_id"}}  {{action transitionToProfile id}}>{{owner_title}}</a>
@@ -228,7 +228,7 @@
     {{/if}}
 
     {{#if getVideo}}
-    <div class="box col2">
+    <div class="box col2 noStyle1">
 
         <div class="masonry-object">
             <div class="masonry-object_poster">
@@ -333,7 +333,7 @@
 
 
     {{#if getFile}}
-    <div class="box col2">
+    <div class="box col2 noStyle1">
         <img {{bindAttr src="profile_pic_url"}} />
         {{#linkTo 'files' this}}<h1>{{type}}</h1>{{/linkTo}}
     </div>
@@ -346,7 +346,7 @@
 
 
     {{#if getArticle}}
-    <div class="box col2">
+    <div class="box col2 noStyle1">
 
         <div class="masonry-object">
             <div class="masonry-object_poster">  
@@ -448,14 +448,14 @@
 
 
     {{#if getIdeabook}}
-    <div class="box col2">
+    <div class="box col2 noStyle1">
         <img {{bindAttr src="profile_pic_url"}} />
         {{#linkTo 'ideabooks' this}}<h1>{{type}}</h1>{{/linkTo}}
     </div>
     {{/if}}
 
     {{#if getDiscussion}}
-    <div class="box col2">
+    <div class="box col2 noStyle1">
         <img {{bindAttr src="profile_pic_url"}} />
         {{#linkTo 'discussions' this}}<h1>{{type}}</h1>{{/linkTo}}
     </div>

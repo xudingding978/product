@@ -6,6 +6,7 @@ define(["ember"], function(Ember) {
         time: "",
         user: null,
         needs: ['application'],
+        myUserProfile:null,
         getSearchResultNum: function(hits) {
 
             this.set("searchResultNum", "Item: " + hits);
@@ -16,7 +17,9 @@ define(["ember"], function(Ember) {
         },
         grapData: function() {
             this.set("user", App.User.find(localStorage.loginStatus));
-        }
+            this.set("myUserProfile", "#/users/"+localStorage.loginStatus);
+        },
+
     });
     return StatusController;
 });

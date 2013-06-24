@@ -22,7 +22,6 @@ define([
         },
         activate: function() {
             this.controllerFor('application').set('comingsoon', true);
-
         },
         deactivate: function() {
             this.controllerFor('application').set('comingsoon', false);

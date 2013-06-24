@@ -10,7 +10,7 @@
 
         <div class="style-box t-style-box" style="width: 100%; min-width: 796px; height: 50px; background: white;margin: -70px auto;left: 0;right: 0;position: relative;display: block;">
 
-            <div style="margin: 4px 20px 4px 40px; font-size: 18px; text-shadow: 0 1px 0 rgba(255,255,255,0.8);float: left;">Album Name</div>
+            <div style="margin: 4px 20px 4px 40px; font-size: 18px; text-shadow: 0 1px 0 rgba(255,255,255,0.8);float: left;">{{title}}</div>
             <i class="icon-upload" style="color: #555; text-shadow: 0 1px 0 rgba(255,255,255,0.8); font-size: 20px; margin: 15px 0; display: inline-block;"></i>
 
 
@@ -27,35 +27,7 @@
         </div>
 
 
-        {{controller.collections.length}}
-        {{controller}}
-        {{#each collections}}
 
-        <div class="box col2 style-box">
-            <div class="masonry-object">
-                <div class="album-description-hoverarea easing" {{action transitionToCollectionPhoto title}} >
-
-                     <div class="album-description">{{desc}}</div>
-                    <div class="album-description-bg">{{desc}}</div>
-                </div>
-                <div class="albumcover-container"  >
-                    <img class="albumcover" {{bindAttr src="cover"}} />
-                </div>
-                <div class="album-info">
-                    <div class="album-info_name"><i class="icon-picture"></i> {{collection_ids}} </div>
-                    <div class="album-info_content">
-                        <div class="edit-object"><i class="icon-cog"></i></div>
-                        <span><a  {{action transitionToCollectionPhoto title}}> {{title}} </a> photos </span>
-                        <span><img src="../../images/list-doc.png"/> April 1 2013</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
-        {{/each}}
 
     </div>
 
@@ -65,7 +37,7 @@
 <script>
 
     $(function() {
-        var $container = $('#masonry_photo_collection_container');
+        var $container = $('#masonry_user_container');
         var $boxes = $('.box');
         window.setTimeout(function() {
             $container.masonry();

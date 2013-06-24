@@ -14,7 +14,6 @@ define(['models/MegaModel',
                 megaResouce: null,
                 temp: null,
                 image_no: 1,
-                percentComplete: 0,
                 selected: null,
                 isSelected: false,
                 needs: ['application', 'addCollection'],
@@ -41,11 +40,10 @@ define(['models/MegaModel',
                         this.set('image_no', this.get('content').get('length'));
                     }
                     this.set('selected', this.get('content').objectAt(selectedIndex));
-                    this.set("percentComplete", this.get('selected'));
                     this.set('megaResouce', MegaModel.find(this.get('selected').id)._data.attributes);
-                    this.set("photo_album_id", "album_" + this.get('percentComplete').id);
-                    this.set("photo_thumb_id", "thumb_" + this.get('percentComplete').id);
-                    this.selectedImage(this.get('percentComplete').id);
+                    this.set("photo_album_id", "album_" + this.get('selected').id);
+                    this.set("photo_thumb_id", "thumb_" + this.get('selected').id);
+                    this.selectedImage(this.get('selected').id);
                 },
                 nextImage: function() {
                     if (!this.get('selected')) {
@@ -59,26 +57,25 @@ define(['models/MegaModel',
                     }
                     this.set('image_no', selectedIndex + 1);
                     this.set('selected', this.get('content').objectAt(selectedIndex));
-                    this.set("percentComplete", this.get('selected'));
                     this.set('megaResouce', MegaModel.find(this.get('selected').id)._data.attributes);
-                    this.set("photo_album_id", "album_" + this.get('percentComplete').id);
-                    this.set("photo_thumb_id", "thumb_" + this.get('percentComplete').id);
-                    this.selectedImage(this.get('percentComplete').id);
+                    this.set("photo_album_id", "album_" + this.get('selected').id);
+                    this.set("photo_thumb_id", "thumb_" + this.get('selected').id);
+                    this.selectedImage(this.get('selected').id);
                 },
                 getInitData: function(megaObject) {
 
                     this.set("content", []);
-                    this.set("percentComplete", megaObject._data.hasMany.photo[0].data);
+                    this.set("selected", megaObject._data.hasMany.photo[0].data);
                     this.get("content").pushObject(megaObject._data.hasMany.photo[0].data);
                     this.set('megaResouce', MegaModel.find(megaObject.id)._data.attributes);
-                    this.set("photo_album_id", "album_" + this.get('percentComplete').id);
-                    this.set("photo_thumb_id", "thumb_" + this.get('percentComplete').id);
+                    this.set("photo_album_id", "album_" + this.get('selected').id);
+                    this.set("photo_thumb_id", "thumb_" + this.get('selected').id);
                     this.addRelatedData(megaObject);
                 },
                 selectImage: function(e) {
                     this.set('megaResouce', MegaModel.find(e)._data.attributes);
                     this.set('selected', MegaModel.find(e)._data.hasMany.photo[0].data);
-                    this.set("percentComplete", this.get('selected'));
+                    this.set("selected", this.get('selected'));
                     this.selectedImage(e);
                 },
                 selectedImage: function(id) {
@@ -115,7 +112,7 @@ define(['models/MegaModel',
                 },
                 switchCollection: function() {
                     var addCollectionController = this.get('controllers.addCollection');
-                    var selectid = this.get('percentComplete').id;
+                    var selectid = this.get('selected').id;
                     addCollectionController.setImageID(selectid);
                     addCollectionController.setUser();
                     this.set('collectable', !this.get('collectable'));

@@ -24,12 +24,7 @@ define([
         loginStatus: function() {
         },
         grapData: function() {
-//            var user = App.User.find(localStorage.loginStatus);
-//            user.addObserver('didLoad', function() {
-//                if (user.get('didLoad')) {
-//                    user.get('store').commit();
-//                }
-//            });
+
             this.set("user", App.User.find(localStorage.loginStatus));
             this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
         },

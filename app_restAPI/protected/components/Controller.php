@@ -168,12 +168,17 @@ class Controller extends CController {
             $response = $this->getSearchResultsTotal($returnType, $region, $searchString);
         } elseif ($requireType == 'personalCollection') {
             $userid = $this->getUserInput($requireParams[1]);
-                    $collection_id = $this->getUserInput($requireParams[2]);
-        error_log('$userid: '.$userid);
-                error_log('$collection_id: '.$collection_id);
-    //        $ids = explode("%2C", $require);
-  //          error_log(var_export($ids,true));
-//            $response = $this->performSearch($returnType, "", "huang");
+            $collection_id = $this->getUserInput($requireParams[2]);
+            $requestArray = array();
+            $requestStringOne = 'couchbaseDocument.doc.user.id=' . $userid;
+            array_push($requestArray, $requestStringOne);
+            $requestStringTwo = 'couchbaseDocument.doc.user.collections.id=' . $collection_id;
+            array_push($requestArray, $requestStringTwo);
+            $response = $this->performMustSearch($requestArray, $returnType);
+            $user=$response['user'];
+            
+            
+            
         } else {
             $response = $this->performSearch($returnType, "", "huang");
         }
@@ -207,9 +212,9 @@ class Controller extends CController {
                 ->query($termQuery);
 
         $response = $request->execute();
-        
+
         error_log(var_export($response, true));
-        
+
         $results = '{"' . $returnType . '":[';
         $i = 0;
         foreach ($response as $hit) {
@@ -221,32 +226,26 @@ class Controller extends CController {
         $results .= ']}';
         return $results;
     }
-    
-    protected function getRequestResultByKeyValue($request_array){
-       $settings['log.enabled'] = true;
+
+    protected function performMustSearch($requestArray, $returnType) {
+        error_log(var_export($requestArray, true));
+        $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
-//        error_log($message);
-        //Build a new search request
         $request = $sherlock->search();
-
         $request->index("test")->type("couchbaseDocument")->from(1);
-        $request->index("test")->type("couchbaseDocument")->size(50);       
-        $must = Sherlock\Sherlock::queryBuilder()->Term()->field("couchbaseDocument.doc.".$request_array[0])
-                                                                                            ->term($request_array[1]);
-
-        $must2 = Sherlock\Sherlock::queryBuilder()->Term()->field("couchbaseDocument.".$request_array[2])
-                                                                                                ->term($request_array[3]);
-        
-        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)
-                                                                            ->must($must2)
-                                                                            ->boost(2.5);
+        $request->index("test")->type("couchbaseDocument")->size(50);
+        $max = sizeof($requestArray);
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool();
+        for ($i = 0; $i < $max; $i++) {
+            $must = $this->getmustQuest($requestArray[$i]);
+            $bool->must($must);
+        }
         $request->query($bool);
+        error_log($request->toJSON());
         $response = $request->execute();
-        
         $i = 0;
-        $results = '{"articles":[';
-        
+        $results = '{' . $returnType . ':[';
         foreach ($response as $hit) {
             $results .= CJSON::encode($hit['source']['doc']);
             if (++$i < count($response)) {
@@ -254,11 +253,12 @@ class Controller extends CController {
             }
         }
         $results .= ']}';
+        error_log(var_export($results, true));
         return $results;
     }
-    
+
     protected function getRequestResultByID($returnType, $requestString) {
-        
+
         $settings['log.enabled'] = true;
         $sherlock = new Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
@@ -372,6 +372,13 @@ class Controller extends CController {
 
         echo "";
         Yii::app()->end();
+    }
+
+    protected function getmustQuest($queryString) {
+        $mustQuery = explode('=', $queryString);
+        $should = Sherlock\Sherlock::queryBuilder()->Term()->term($mustQuery[1])//$collection_id
+                ->field($mustQuery[0]);
+        return $should;
     }
 
 }

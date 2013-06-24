@@ -18,7 +18,10 @@ define(["ember"
         },
         setUser: function()
         {
-            var user = App.User.find(localStorage.loginStatus);
+            var address = document.URL;
+            var user_id = address.split("#")[1].split("/")[2];
+            console.log(user_id);
+            var user = App.User.find(user_id);
 //            console.log(user);
 //            console.log( user.get("collections"));
             this.set("collections", user.get("collections"));

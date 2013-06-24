@@ -30,7 +30,8 @@ define([
 //                    user.get('store').commit();
 //                }
 //            });
-            //  this.set("user", App.User.find(localStorage.loginStatus));
+            this.set("user", App.User.find(localStorage.loginStatus));
+            this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
         },
         reloadPage: function() {
             console.log("aqpllication " + this.get("test"));

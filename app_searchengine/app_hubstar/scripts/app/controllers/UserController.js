@@ -48,7 +48,7 @@ define(["ember"
 
                     col.set("cover", photo.get('photo').objectAt(0)._data.attributes.photo_image_hero_url);
 
-                    console.log(col.get("cover"));
+                    //            console.log(col.get("cover"));
 
                 }
             });
@@ -83,7 +83,8 @@ define(["ember"
         },
         setTitle: function(title) {
             this.set("selectedTitle", title);
-        }, checkInput: function(title) {
+        },
+        checkInput: function(title) {
             var isInputValid = false;
             if (title !== null && title !== "")
             {

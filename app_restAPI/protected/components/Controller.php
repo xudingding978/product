@@ -175,7 +175,7 @@ class Controller extends CController {
             $requestStringTwo = 'couchbaseDocument.doc.user.collections.id=' . $collection_id;
             array_push($requestArray, $requestStringTwo);
             $response = $this->performMustSearch($requestArray, $returnType);
-            $user=$response['user'];
+    //        $user=$response['user'];
             
             
             

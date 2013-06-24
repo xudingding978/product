@@ -13,6 +13,7 @@ define([
     var NewRoute = Ember.Route.extend({
         renderTemplate: function() {
             this.render('profileNew', {
+                outlet:"profileNew",
                 into: "application"
             });
         },

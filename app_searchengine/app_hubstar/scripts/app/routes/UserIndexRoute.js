@@ -21,9 +21,12 @@ define([
                 this.transitionTo('users');
             }
         },
+                
+                
         renderTemplate: function() {
 
             this.render('users', {
+          
                 into: "application"
             });
         }

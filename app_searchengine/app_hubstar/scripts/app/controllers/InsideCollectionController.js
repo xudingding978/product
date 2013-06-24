@@ -12,7 +12,7 @@ define([
             var address = document.URL;
             var user_id = address.split("#")[1].split("/")[2];
             var collection_id = address.split("#")[1].split("/")[3];
-            this.set('title', user_id);
+            this.set('title', collection_id);
             var results = MegaModel.find({RquireType: "personalCollection", user_id: user_id, collection_id: collection_id});
 
             var that = this;

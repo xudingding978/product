@@ -24,9 +24,9 @@ define([
 
 
         },
-        editCollectionButton: function(id) {
+        editCollectionButton: function(id, desc) {
 
-
+//  create or update colleciton !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11
 
             var div_id = "#" + id;
             var div_class = "." + id + "  #uploadArea";
@@ -40,22 +40,27 @@ define([
             var updatebtn = "." + id + "  #updatebtn";
             var createbtn = "." + id + "  #createbtn";
             var deletebtn = "." + id + "  #deletebtn";
+            var collection_name_insert = "." + id + "  .new-collection-name_insert";
+            var collection_area = "." + id + "  .new-collection-area";
             $(createCollection).attr('style', "display:none");
-            $(updateCollection).attr('style', "display:block;color: #333; font-size: 20px; font-weight: bold; text-align: center; margin: 5px 0 0;");
-            $(updatebtn).attr('style', "display:block");
-            $(deletebtn).attr('style', "display:block");
+            $(updateCollection).attr('style', "display:inline-block;color: #333; font-size: 20px; font-weight: bold; text-align: center; margin: 5px 0 0;");
+            $(updatebtn).attr('style', "display:inline-block");
+            $(deletebtn).attr('style', "display:inline-block");
             $(createbtn).attr('style', "display:none");
-            $('.new-collection-name_insert').val("");
-            $('.new-collection-area').val("");
-            
-            
-            
+
+
+
+            $(collection_name_insert).val(id);
+            $(collection_area).val(desc);
+
+
+
             $('#masonry_user_container').masonry({
                 itemSelector: '.box',
                 columnWidth: 0,
                 isFitWidth: true
             });
-
+//  create or update colleciton !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11
         }
     });
     return MasonryView;

@@ -17,6 +17,7 @@ define([
 //            this.controllerFor('application').set('islogin', true);
 //            this.controllerFor('application').set('popup', false);
             this.controllerFor('user').set('switchPhoto', false);
+              console.log('444444444444');
             this.controllerFor('insideCollection').selectModel();
 
         },

@@ -120,7 +120,7 @@ define(["ember"
         {
             this.get("collections").removeObject(this.get("selectedCollection"));
             var user = this.getCurrentUser();
-            user.store.commit();
+            user.store.save();
 
         },
         updateCollectionInfo: function()
@@ -128,11 +128,13 @@ define(["ember"
             this.get("selectedCollection").store.save();
         },
         setSelectedCollection: function(id) {
-            console.log(id);
+         
             for (var i = 0; i < this.get("collections").get("length"); i++) {
+                   
                 var thisCollection = this.get("collections").objectAt(i);
+     //           console.log(thisCollection);
                 if (id === thisCollection.get("id")) {
-                    console.log(thisCollection.get("id"));
+     //               console.log(thisCollection.get("id"));
                     this.set("selectedCollection", thisCollection);
                 }
             }

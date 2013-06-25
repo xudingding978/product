@@ -1253,10 +1253,11 @@
 
 
 .comment-item{
-    position: relative; 
-    overflow-y: auto; 
-    width: auto; 
+    position: relative;
+    overflow-y: auto;
+    width: auto;
     display: block;
+    margin: 5px 0;
 }
 
 .comment-position{
@@ -1275,6 +1276,18 @@
     width: 30px; 
     height: 30px;
 }
+
+.comment-insert-field{    
+    cursor:text;
+    word-wrap: break-word;
+
+    background-color: #fff;
+    border: 1px solid #ccc;
+    margin-bottom:7px;
+    min-height:3.9em;
+    padding:6px 6px;
+}
+
 
 .comment-namentime{
     position: relative; 

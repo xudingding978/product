@@ -189,20 +189,26 @@
                             <div class="show-comment_container">
                                 <span class="show-comment_inner">
                                     <span class="comment-amount" > 10 </span>
-                                    <span class="comment-amount" > comments   </span> <button {{action toggleComment target="view" on="click"}} id="addcommetBut">add comment....</button>
+                                    <span class="comment-amount" > comments   </span> 
                                 </span>
                             </div>
 
                             <div class="object-like" style=""></div>
                             <div class="object-save" style=""></div>
                         </div>
-
+                        <div class="addcommnetbox" role="button" {{action toggleComment target="view" on="click"}} id="addcommetBut" >
+                            add comment...
+                        </div >
                         <div class="addcommnetbox-container" id="commentBox" style="display: none">
-
-                            <div class="addcommnetbox">
-                            {{view App.SearchRequireTextFieldView valueBinding="commentContent"  id="AddRecord" class=""  placeholder="please give your comments " }}   
-                                <button {{action toggleComment target="view" on="click"}}>Cancel</button>
-                                <button {{action addComment}}>post</button>
+                            <div style="margin:0 auto; padding: 0 0 15px 38px;">
+                                <a> 
+                                    <img class="profilepic_comment"  style="float: left; margin: 4px 0 0 -38px; margin-top: 0;"{{bindAttr src="controller.thisComments.commenter_profile_pic_url"}} /> 
+                                </a>
+                                {{view App.SearchRequireTextFieldView valueBinding="commentContent"  id="AddRecord" class="comment-insert-field"  placeholder="" }}   
+                                <span class="" style="margin-top: 7px;float: right;">
+                                    <div  class="new-btn"{{action toggleComment target="view" on="click"}}>Cancel</div>
+                                    <div class="new-btn green-btn" {{action addComment}}>post</div>
+                                </span>
                             </div>
                         </div>
 
@@ -217,7 +223,7 @@
                                     <div class="comment-namentime">
                                         <div class="namentime_position">
                                             <a class="comment-username" href="" >
-                                               {{name}}
+                                                {{name}}
                                             </a>
                                             <div class="posttime-container">
                                                 <span class="posttime">{{time_stamp}}</span>

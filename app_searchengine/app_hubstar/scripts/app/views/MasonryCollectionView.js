@@ -45,7 +45,11 @@ define([
             $(updatebtn).attr('style', "display:block");
             $(deletebtn).attr('style', "display:block");
             $(createbtn).attr('style', "display:none");
-
+            $('.new-collection-name_insert').val("");
+            $('.new-collection-area').val("");
+            
+            
+            
             $('#masonry_user_container').masonry({
                 itemSelector: '.box',
                 columnWidth: 0,

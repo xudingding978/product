@@ -45,7 +45,7 @@ define([
             $(createCollection).attr('style', "display:none");
             $(updateCollection).attr('style', "display:inline-block;color: #333; font-size: 20px; font-weight: bold; text-align: center; margin: 5px 0 0;");
             $(updatebtn).attr('style', "display:inline-block");
-            $(deletebtn).attr('style', "display:inline-block");
+            $(deletebtn).attr('style', "display:inline-block;left:15px");
             $(createbtn).attr('style', "display:none");
 
 

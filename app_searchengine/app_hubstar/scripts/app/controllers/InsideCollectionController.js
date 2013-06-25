@@ -7,7 +7,7 @@ define([
         content: [],
         title: null,
         selectModel: function() {
-   //     this.set('content', []);
+            this.set('content', []);
 
             var address = document.URL;
             var user_id = address.split("#")[1].split("/")[2];
@@ -30,7 +30,7 @@ define([
 
 
 
-         console.log(this.get('content'));
+            console.log(this.get('content'));
         },
     });
     return InsideCollectionController;

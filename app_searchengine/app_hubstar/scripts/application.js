@@ -1,7 +1,7 @@
 // Define libraries
 require.config({
     paths: {
-//     'AppMain': 'app/main',           
+        'App': 'main',
         'namespace': 'app/namespace',
         'models': 'app/models',
         'views': 'app/views',

@@ -148,10 +148,10 @@ define(['models/MegaModel',
                 },
                 getCommentsById: function(id)
                 {
-                    var comments = App.Mega.find(id).get("comments");
-
+                    console.log(id);
+                    var mega = App.Mega.find(id);
+                    var comments = mega.get('comments');
                     this.set('thisComments', comments);
-           //         console.log(comments);
                 }
             });
             return MegaController;

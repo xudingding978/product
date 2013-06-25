@@ -7,7 +7,7 @@ define([
         ) {
     "use strict";
 
-    var LightBoxRoute = Ember.Route.extend({
+    var ArticleRoute = Ember.Route.extend({
         //     controller: ApplicationController,
         setupController: function(IndexController, model) {
 
@@ -15,13 +15,25 @@ define([
         model: function(params) {
             return ArticleModel.find(params.article_id);
         },
+        activate: function() {
+            $("body").css("overflow", "hidden");
+            $('#footer').attr("style", "display:none");
+        },
+        deactivate: function() {
 
+
+            $("body").css("overflow", "auto");
+            $('#footer').attr("style", "display:block");
+        },
         renderTemplate: function() {
-            this.render('article', {
-                into: "index"
+
+
+            this.render("article", {
+                outlet: "articles",
+                into: "application",
             });
         }
 
     });
-    return LightBoxRoute;
+    return ArticleRoute;
 });

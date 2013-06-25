@@ -1149,6 +1149,33 @@
     border-top: 1px solid #21448d;
 }
 
+.red-btn{
+    background-color: #dd4b39;
+    color: #fff;
+    text-shadow: none;
+}
+
+.red-btn:hover{
+    -webkit-box-shadow: inset 0 -1px 0 #2f69c2;
+    box-shadow: inset 0 -1px 0 #2f69c2;
+    background-color: #4285f4;
+    background-image: -webkit-linear-gradient(top,transparent,transparent);
+    background-image: linear-gradient(top,transparent,transparent);
+    border: 1px solid transparent;
+    border-bottom-color: #2f69c2;
+    text-shadow: none;
+    color: white;
+}
+
+
+
+.red-btn:active{
+    -webkit-box-shadow: inset 0 1px 0 #21448d;
+    box-shadow: inset 0 1px 0 #21448d;
+    background: #2c56b1;
+    border: 1px solid transparent;
+    border-top: 1px solid #21448d;
+}
 
 
 

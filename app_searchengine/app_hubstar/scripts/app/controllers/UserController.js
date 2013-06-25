@@ -13,6 +13,9 @@ define(["ember"
         currentID: "",
         objectID: null,
         needs: ['photoCreate'],
+        sortProperties: ['id'],
+        sortAscending: false,
+        selectedCollection: "",
         init: function()
         {
             this.setUser();
@@ -41,10 +44,12 @@ define(["ember"
         },
         getHeroImgae: function(id, col) {
             var photo = App.Mega.find(id);
+        //    console.log(photo.get("photo"));
             photo.addObserver('isLoaded', function() {
                 if (photo.get('isLoaded')) {
-                    col.set("cover", photo.get('photo').objectAt(0)._data.attributes.photo_image_hero_url);
-                    col.store.save();
+                         console.log(photo.get("photo"));
+           //       col.set("cover", photo.get('photo').objectAt(0).get("photo_image_hero_url"));
+            //      col.store.save();
                 }
             });
 
@@ -78,9 +83,8 @@ define(["ember"
         submit: function()
         {
             var user = this.getCurrentUser();
-
             user.store.commit();
-     //       $('#masonry_user_container').masonry('reload');
+
         },
         setDesc: function(desc) {
             this.set("selectedDesc", desc);
@@ -111,6 +115,27 @@ define(["ember"
                 }
             }
             return isContainsTitle;
+        },
+        deleteSelectedCollection: function()
+        {
+            this.get("collections").removeObject(this.get("selectedCollection"));
+            var user = this.getCurrentUser();
+            user.store.commit();
+
+        },
+        updateCollectionInfo: function()
+        {
+            this.get("selectedCollection").store.save();
+        },
+        setSelectedCollection: function(id) {
+            console.log(id);
+            for (var i = 0; i < this.get("collections").get("length"); i++) {
+                var thisCollection = this.get("collections").objectAt(i);
+                if (id === thisCollection.get("id")) {
+                    console.log(thisCollection.get("id"));
+                    this.set("selectedCollection", thisCollection);
+                }
+            }
         }
     }
     );

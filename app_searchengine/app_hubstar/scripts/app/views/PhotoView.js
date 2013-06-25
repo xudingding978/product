@@ -37,10 +37,16 @@ define([
         },
         popupAibum: function() {
 
-            $("#collection_tab").slideToggle("slow" );
+            $("#collection_tab").slideToggle("slow");
+        },
+        toggleComment: function() {
+
+            $('#addcommetBut').slideToggle();
+            $('#commentBox').slideToggle();
+
         }
 
     });
-   
+
     return PhotoView;
 });

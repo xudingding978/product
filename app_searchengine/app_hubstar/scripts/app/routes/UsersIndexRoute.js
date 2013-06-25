@@ -8,7 +8,7 @@ define([
         ) {
     "use strict";
 
-    var UserIndexRoute = Ember.Route.extend({
+    var UsersIndexRoute = Ember.Route.extend({
         setupController: function(controller, model) {
 
             this.controllerFor('user').set('switchPhoto', true);
@@ -19,18 +19,21 @@ define([
 
                 this.transitionTo('indexIndex');
             } else {
-       
-                this.transitionTo('user');
+                this.transitionTo('users');
             }
         },
+//        model: function(params) {
+//            this.controllerFor('user').set('switchPhoto', true);
+//            return UserModel.find(params.user_id);
+//        },
 //        renderTemplate: function() {
 //
-//            this.render('user', {
-//                outlet: "users",
+//            this.render('users', {
+//          
 //                into: "application"
 //            });
-//
-//        },
+//        }
+
     });
-    return UserIndexRoute;
+    return UsersIndexRoute;
 });

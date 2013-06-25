@@ -14,6 +14,10 @@ define([
                     isFitWidth: true
                 });
             });
+
+
+
+
             $('#uploadObject').click(function() {
                 $('#uploadObject').attr("style", "display:none");
                 $('#uploadingObject').attr('style', "display:inline-block");

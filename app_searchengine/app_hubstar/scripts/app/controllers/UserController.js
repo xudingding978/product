@@ -80,8 +80,8 @@ define(["ember"
             var user = this.getCurrentUser();
 
             user.store.commit();
-        }
-        ,
+     //       $('#masonry_user_container').masonry('reload');
+        },
         setDesc: function(desc) {
             this.set("selectedDesc", desc);
         },

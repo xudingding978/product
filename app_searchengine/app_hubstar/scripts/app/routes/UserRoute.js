@@ -11,6 +11,7 @@ define([
 
     var UsersRoute = Ember.Route.extend({
         setupController: function(controller, model) {
+       
             //  controller.set("indexPage",true);
             //   controller.get('application').remove();
             this.controllerFor('application').set('islogin', true);
@@ -19,10 +20,13 @@ define([
             this.controllerFor('searchs').setLoginImge();
             this.controllerFor('application').set('isotherpage', true);
             this.controller.set('switchPhoto', true);
+
         },
         model: function(params) {
 
+
             return UserModel.find(params.user_id);
+         //        alert(666);
         },
         events: {
 //            transitionToCollectionPhoto: function() {
@@ -61,6 +65,7 @@ define([
             $(function() {
                 $('#masonry_container').masonry('remove', $('.noStyle1'));
             });
+
         },
         renderTemplate: function() {
 

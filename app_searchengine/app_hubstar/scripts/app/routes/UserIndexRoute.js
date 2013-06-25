@@ -1,8 +1,9 @@
 define([
-    'ember'
-
+    'ember',
+    'models/UserModel',
 ], function(
-        Ember
+        Ember,
+        UserModel
 
         ) {
     "use strict";
@@ -21,8 +22,10 @@ define([
                 this.transitionTo('users');
             }
         },
-                
-                
+        model: function(params) {
+            this.controllerFor('user').set('switchPhoto', true);
+            return UserModel.find(params.user_id);
+        },
 //        renderTemplate: function() {
 //
 //            this.render('users', {

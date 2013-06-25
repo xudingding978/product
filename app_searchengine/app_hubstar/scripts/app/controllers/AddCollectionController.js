@@ -13,7 +13,7 @@ define([
         init: function()
         {
             var megaController = this.get("controllers.mega");
-            var id = megaController.get("percentComplete").id;
+            var id = megaController.get("selected").id;
             this.set("objectID", id);
             this.setUser();
         },
@@ -87,7 +87,6 @@ define([
             if (isInputValid) {
                 var tempCollection = App.Collection.createRecord({"id":title,"title": title, "desc": null, "collection_ids": null, "createdAt": new Date()});
                 this.get("collections").pushObject(tempCollection);
-
                 this.set('selectedTitle', tempCollection.get('title'));
                 $('#recordID').text(this.get('selectedTitle'));
 

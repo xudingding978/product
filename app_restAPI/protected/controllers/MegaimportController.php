@@ -195,9 +195,12 @@ class MegaimportController extends Controller {
         $key = $key[1] . '.' . $key[2];
         $result = $cb->get($key);
         $result_arr = CJSON::decode($result, true);
+        
+   
         $client = Aws\S3\S3Client::factory(
                         $result_arr["providers"]["S3Client"]
         );
+        
         $client->putObject(array(
             'Bucket' => "hubstar-dev",
             'Key' => $url,

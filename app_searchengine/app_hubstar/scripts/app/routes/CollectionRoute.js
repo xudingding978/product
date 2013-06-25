@@ -1,9 +1,13 @@
 define([
     'ember',
-    'models/CollectionModel'
+    'models/CollectionModel',
+    'models/MegaModel',
+    'models/ProfileModel'
 ], function(
         Ember,
-        CollectionModel
+        CollectionModel,
+        MegaModel,
+        ProfileModel
         ) {
     "use strict";
 
@@ -17,9 +21,21 @@ define([
 
         },
         model: function(params) {
+
+            this.controllerFor('user').set('switchPhoto', false);
+
             var address = document.URL;
             var user_id = address.split("#")[1].split("/")[2];
-            return App.Mega.find({RquireType: "personalCollection", user_id: user_id, collection_id: params.collection_id});
+            return MegaModel.find({RquireType: "personalCollection", user_id: user_id, collection_id: params.collection_id});
+        },
+        events: {
+            transitionToPhoto: function(id) {
+                this.transitionTo("photo", MegaModel.find(id));
+            },
+            transitionToProfile: function(id) {
+
+                this.transitionTo("profile", ProfileModel.find(id));
+            }
         },
         redirect: function() {
 

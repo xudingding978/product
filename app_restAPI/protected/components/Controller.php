@@ -49,17 +49,17 @@ class Controller extends CController {
      * @return HTTP response
      */
     protected function sendResponse($status = 200, $body = '', $contentType = 'application/json') {
-        // Set the status
+// Set the status
         $statusHeader = 'HTTP/1.1 ' . $status . ' ' . $this->getStatusCodeMessage($status);
         header($statusHeader);
-        // Set the content type
+// Set the content type
         header('Content-type: ' . $contentType);
-        // Set the Access Control for permissable domains
+// Set the Access Control for permissable domains
         header('Access-Control-Allow-Origin: *');
         header('Access-Control-Request-Method: *');
         header('Access-Control-Allow-Methods: *');
         header('Access-Control-Allow-Headers: *');
-        //header('Access-Control-Allow-Headers: *');
+//header('Access-Control-Allow-Headers: *');
 
         echo $body;
         Yii::app()->end();
@@ -175,15 +175,13 @@ class Controller extends CController {
             $requestStringTwo = 'couchbaseDocument.doc.user.collections.id=' . $collection_id;
             array_push($requestArray, $requestStringTwo);
             $response = $this->performMustSearch($requestArray, $returnType);
-    //        $user=$response['user'];
-            
-            
-            
+            $mega = CJSON::decode($response, true);
+            $collections = $mega['megas'][0]['user'][0]['collections'];
+            $response = $this->getCollections($collections, $collection_id, $returnType);
         } else {
             $response = $this->performSearch($returnType, "", "huang");
         }
 
-//        error_log("response= ".$response);
 
         return $response;
     }
@@ -213,8 +211,6 @@ class Controller extends CController {
 
         $response = $request->execute();
 
-        error_log(var_export($response, true));
-
         $results = '{"' . $returnType . '":[';
         $i = 0;
         foreach ($response as $hit) {
@@ -228,7 +224,6 @@ class Controller extends CController {
     }
 
     protected function performMustSearch($requestArray, $returnType) {
-        error_log(var_export($requestArray, true));
         $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
@@ -242,7 +237,6 @@ class Controller extends CController {
             $bool->must($must);
         }
         $request->query($bool);
-        error_log($request->toJSON());
         $response = $request->execute();
         $i = 0;
         $results = '{' . $returnType . ':[';
@@ -253,7 +247,7 @@ class Controller extends CController {
             }
         }
         $results .= ']}';
-        error_log(var_export($results, true));
+
         return $results;
     }
 
@@ -307,7 +301,7 @@ class Controller extends CController {
 
         $results = '{"' . $returnType . '":[';
 
-        //Iterate over the hits and print out some data
+//Iterate over the hits and print out some data
         $i = 0;
         foreach ($response as $hit) {
 
@@ -324,11 +318,9 @@ class Controller extends CController {
     protected function getSearchResultsTotal($returnType, $region, $requestString) {
         $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
-
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
 //Build a new search request
         $request = $sherlock->search();
-
         $request->index("test")->type("couchbaseDocument")->from(1);
         $request->index("test")->type("couchbaseDocument")->size(50);
 //populate a Term query to start
@@ -343,8 +335,8 @@ class Controller extends CController {
                 ->query($termQuery);
 
         $response = $request->execute();
-        // $result = "";
-        //Iterate over the hits and print out some data
+// $result = "";
+//Iterate over the hits and print out some data
         $result = '{"' . $returnType . '":[{"id":"hit","hits":"' . $response->total;
         $result .= '"}]}';
         return $result;
@@ -379,6 +371,68 @@ class Controller extends CController {
         $should = Sherlock\Sherlock::queryBuilder()->Term()->term($mustQuery[1])//$collection_id
                 ->field($mustQuery[0]);
         return $should;
+    }
+
+    protected function getCollections($collections, $collection_id, $returnType) {
+
+        $request_ids = $this->getSelectedCollectionIds($collections, $collection_id);
+        $request_ids = explode(',', $request_ids);
+        $header = '{"ids": { "values": [';
+        $footer = ']}}';
+        $tempRquestIDs = "";
+        for ($i = 0; $i < sizeof($request_ids); $i++) {
+            $tempRquestIDs.= '"' . $this->getDomain() . "/" . trim($request_ids[$i]) . '"';
+            if ($i < sizeof($request_ids) - 1) {
+                $tempRquestIDs.=',';
+            }
+        }
+        $rawRequest = $header . $tempRquestIDs . $footer;
+                error_log($rawRequest);
+        $settings['log.enabled'] = true;
+        $sherlock = new \Sherlock\Sherlock($settings);
+        $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
+        $request = $sherlock->search();
+        $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
+        $request->index(Yii::app()->params['elasticSearchIndex'])
+                ->type("couchbaseDocument")
+                ->query($termQuery);
+        $response = $request->execute();
+        $results = $this->getReponseResult($response, $returnType);
+
+        return $results;
+    }
+
+    protected function getDomain() {
+        $host = $_SERVER['HTTP_HOST'];
+        preg_match("/[^\.\/]+\.[^\.\/]+$/", $host, $matches);
+        return $matches[0];
+    }
+
+    protected function getSelectedCollectionIds($collections, $collection_id) {
+        $max = sizeof($collections);
+        $request_ids;
+        for ($i = 0; $i < $max; $i++) {
+            $thisCollection = $collections[$i];
+            if ($thisCollection["id"] == $collection_id) {
+                $request_ids = $thisCollection['collection_ids'];
+            }
+        }
+        return $request_ids;
+    }
+
+    protected function getReponseResult($response, $returnType) {
+
+        $results = '{"' . $returnType . '":[';
+
+        $i = 0;
+        foreach ($response as $hit) {
+            $results .= CJSON::encode($hit['source']['doc']);
+            if (++$i !== count($response)) {
+                $results .= ',';
+            }
+        }
+        $results .= ']}';
+        return $results;
     }
 
 }

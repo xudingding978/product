@@ -46,8 +46,10 @@ class ImportdataCommand extends CConsoleCommand {
             
             $image_data = ArticleImages::model()->getImageRange($from, $to);
             $this->total_amount = $this->total_amount + sizeof($image_data);
-
+            
+            echo "-------------------".sizeof($image_data)."\r\n";
             if (sizeof($image_data) > 0) {
+                
                 $this->getMegaData($image_data);
             }
             

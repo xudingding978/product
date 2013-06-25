@@ -270,16 +270,23 @@ class Regions extends CActiveRecord
                             }
                         }
                     } catch (Exception $e) {
-                        error_log("Cannot get region infor: ".$e->getMessage());
+                         $response = $e->getMessage();
+                        $message = date("Y-m-d H:i:s")." ----cannot get photo from region -> selectRegionByArtical!! \r\n".$response;
+                        $this->writeToLog('/home/devbox/NetBeansProjects/test/error.log', $message);
                     }
                     return $region;
                 }
                 
                 public function getParentRegionData($parent_id) {
                     $data_list=array();
-                    $sql = "select dbo.Regions.* from dbo.Regions where id = ".$parent_id;
-                    $data_list = Yii::app() ->db->createCommand($sql)->queryAll();
-                    
+                    try{
+                        $sql = "select dbo.Regions.* from dbo.Regions where id = ".$parent_id;
+                        $data_list = Yii::app() ->db->createCommand($sql)->queryAll();
+                     } catch (Exception $e) {
+                        $response = $e->getMessage();
+                        $message = date("Y-m-d H:i:s")." ----cannot get photo from region -> getParentRegionData!! \r\n".$response;
+                        $this->writeToLog('/home/devbox/NetBeansProjects/test/error.log', $message);
+                    }
                     return $data_list;
                 }
                 
@@ -314,8 +321,10 @@ class Regions extends CActiveRecord
                             }
                         }
                     } catch (Exception $e) {
-                        error_log("Cannot get region infor: ".$e->getMessage());
-                    } 
+                        $response = $e->getMessage();
+                        $message = date("Y-m-d H:i:s")." ----cannot get photo from region -> selectRegionByImage!! \r\n".$response;
+                        $this->writeToLog('/home/devbox/NetBeansProjects/test/error.log', $message);
+                    }
                     return $region;
                 }
             

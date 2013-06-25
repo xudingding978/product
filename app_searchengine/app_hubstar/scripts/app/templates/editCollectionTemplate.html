@@ -20,23 +20,22 @@
 
     <div style=" width: 80%; margin: auto;">
         <div style="font-size: 16px;font-weight: bold;color: #555; line-height: 25px;">Name*</div>
-        {{view App.SearchRequireTextFieldView valueBinding="newCollectionName"  id="" class="new-collection-name_insert" style="height:30px;" placeholder="e.g. Bedroom Design" }} 
+        {{view App.SearchRequireTextFieldView valueBinding="controller.selectedCollection.id"  id="" class="new-collection-name_insert" style="height:30px;" placeholder="e.g. Bedroom Design" }} 
 
         <div style="font-size: 16px;font-weight: bold;color: #555; line-height: 25px;">Description   </div>
-        {{view Ember.TextArea valueBinding="controller.selectedDesc" rows="12" cols="70" class="new-collection-area"  placeholder="Add a short description to your Collection"}}
+        {{view Ember.TextArea valueBinding="controller.selectedCollection.desc" rows="12" cols="70" class="new-collection-area"  placeholder="Add a short description to your Collection"}}
 
     </div>
 
     <div class="controlbtn-field" style="margin-top: 15px;height: 60px;">
-
-        <div id="deletebtn" type="button" class="new-btn red-btn"style="display: none;vertical-align: top;top: 15px;left: 15px;">Delete</div>
-
-        <div style="position: relative;display: inline-block;margin: 10px auto;right: 15px;float: right;">
+        <div style="position: relative; right: 0;display: inline-block;margin: 10px auto;left: 58%;">
+            <div id="deletebtn" type="button" {{action deleteSelectedCollection}} class="new-btn green-btn"style="right:0; display: none">Delete</div>
 
             <div id="uploadingObject" class='new-btn' style="right: 0;"  {{action returnCollection  id target="view" on="click"}}>Cancel</div> 
-            <div id="createbtn" type="button" {{action submit }}  class="new-btn green-btn"style="right:0;">Create</div>
-            <div id="updatebtn" type="button" class="new-btn green-btn"style="right:0; display: none">Update</div>
 
+            <div id="createbtn" type="button" {{action submit }}  class="new-btn green-btn"style="right:0;">Create</div>
+
+            <div id="updatebtn" type="button" {{action updateCollectionInfo }} class="new-btn green-btn"style="right:0; display: none">Update</div>
         </div>
     </div>
 </div>

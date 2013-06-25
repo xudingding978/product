@@ -162,9 +162,10 @@ class Books extends CActiveRecord
                          $data_list = Yii::app() ->db->createCommand($sql)->queryAll(); 
                          return $data_list;
                     } catch (Exception $e) {
-                        error_log("Cannot get topic infor: ".$e->getMessage());
-                        return null;
-                    }                    
+                         $response = $e->getMessage();
+                        $message = date("Y-m-d H:i:s")." ----cannot get photo from book -> getBookByPhotoID!! \r\n".$response;
+                        $this->writeToLog('/home/devbox/NetBeansProjects/test/error.log', $message);
+                    }        
                 }
                 
                 public function getBookByArticalID($id) {
@@ -189,8 +190,9 @@ class Books extends CActiveRecord
                          $data_list = Yii::app() ->db->createCommand($sql)->queryAll(); 
                          return $data_list;
                     } catch (Exception $e) {
-                        error_log("Cannot get topic infor: ".$e->getMessage());
-                        return null;
+                         $response = $e->getMessage();
+                        $message = date("Y-m-d H:i:s")." ----cannot get photo from book -> getBookByArticalID!! \r\n".$response;
+                        $this->writeToLog('/home/devbox/NetBeansProjects/test/error.log', $message);
                     }
                     
                     

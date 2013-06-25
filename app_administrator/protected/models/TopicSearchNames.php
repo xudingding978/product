@@ -115,6 +115,7 @@ class TopicSearchNames extends CActiveRecord
                 public function selectTopicNameByArticalID($id) {
                     $data_list = array();
                     $topic_list = array();
+                    
                     $sql = "select 
                                     dbo.TopicSearchNames.* 
                                 from 
@@ -137,7 +138,9 @@ class TopicSearchNames extends CActiveRecord
                             }
                         }
                     } catch (Exception $e) {
-                        error_log("Cannot get topic infor: ".$e->getMessage());
+                         $response = $e->getMessage();
+                        $message = date("Y-m-d H:i:s")." ----cannot get photo from topicsearchname -> selectTopicNameByArticalID!! \r\n".$response;
+                        $this->writeToLog('/home/devbox/NetBeansProjects/test/error.log', $message);
                     }
                     
                     return $topic_list;

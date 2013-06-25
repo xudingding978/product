@@ -5,13 +5,13 @@
         <div style="height: 128px; margin: 10px 20px;display: inline-block;position: absolute;left: 150px;">
             <div style='display: block;'>
                 <div style="font-size: 26px;font-weight: bold; line-height: 30px; overflow: hidden; display: inline-block;">{{controller.user.display_name}}</div>
-                <div  type="button" class="new-btn green-btn" >
+                <div  type="button" class="new-btn green-btn" style="margin-left: 20px;">
                     Follow
                 </div>
             </div>
             <div style="font-size: 13px;line-height: 20px;margin: 5px auto;color: #888; overflow: hidden;height: 50px; text-overflow: ellipsis;">{{description}}</div>
             <ul class="locationandlinks">
-                <li class="location_li" style="background: none;padding: 0;"><i class="icon-map-marker"></i>Auckland</li> 
+                <li class="location_li" style="background: none;padding: 0;"><i class="icon-map-marker"> </i>Auckland</li> 
                 <li><a href="#" target="_blank">www.you.com</a></li>
                 <li><a href="#" target="_blank"><i class="icon-twitter"></i></a></li>
                 <li><a href="#" target="_blank"><i class="icon-facebook"></i></a></li>
@@ -21,7 +21,7 @@
     </div>
     <div class="user-board_right style-box" style="background: white; width: 30%; height: 150px; display: inline-block; vertical-align: top;padding: 15px 20px;">
         <div style="font-weight: bold;line-height: 20px; color: #777; font-size: 13px;">Interested in:</div>
-        <div style="padding: 0 8px;">
+        <div style="padding: 0 8px; line-height: 25px;">
             <div class='hashtags'>Acceseories<i class='remove-hashtages'>x</i></div>
             <div class='hashtags'>Applicances<i class='remove-hashtages'>x</i></div>
             <div class='hashtags'>Benchtops<i class='remove-hashtages'>x</i></div>
@@ -34,13 +34,13 @@
 
 <div style="width: 100%; margin: 100px auto; left: 0;right: 0;position: relative;display: block;">
     <!-- masonry from here -->
-    <div id="masonry_user_container"  class="transitions-enabled centered clearfix" >
+    <div id="masonry_user_container"  class="transitions-enabled centered clearfix">
 
         <!--SECTION CONTROL BAR-->
 
         <div class="style-box t-style-box" style="width: 100%; min-width: 796px; height: 50px; background: white;margin: -70px auto;left: 0;right: 0;position: relative;display: block;">
 
-            <div style="margin: 4px 20px 4px 40px; font-size: 18px; text-shadow: 0 1px 0 rgba(255,255,255,0.8);float: left;">Album Name</div>
+            <div style="margin: 4px 20px 4px 40px; font-size: 18px; text-shadow: 0 1px 0 rgba(255,255,255,0.8);float: left;"  {{action test11 id}} >Album Name </div>
             <i class="icon-upload" style="color: #555; text-shadow: 0 1px 0 rgba(255,255,255,0.8); font-size: 20px; margin: 15px 0; display: inline-block;"></i>
 
 
@@ -57,7 +57,7 @@
         </div>
 
         <!--END SECTION CONTROL BAR-->
-        <div class="box  style-box" id="addNew">
+        <div class="box style-box t-style-box" id="addNew">
 
             <div id="uploadObject"  >
                 <div class="add-new-object-hoverarea easing">
@@ -76,31 +76,35 @@
 
 
             <div id="uploadArea"  style="height: 510px;width: 570px;  display: none">
-                <button id="uploadingObject" style="display: none">
-                    X
-                </button>
+                <div style=' color: #333; font-size: 20px; font-weight: bold; text-align: center; margin: 5px 0 0;'>Create a Collection</div>
+                <div style=" width: 80%; margin: auto;">
+                    <div style="font-size: 16px;font-weight: bold;color: #555; line-height: 25px;">Name*</div>
+                    {{view App.SearchRequireTextFieldView valueBinding="newCollectionName"  id="" class="new-collection-name_insert" style="height:30px;" placeholder="e.g. Bedroom Design" }} 
 
-                {{view App.SearchRequireTextFieldView valueBinding="newCollectionName"  id="" class="" placeholder="Name your collection" }} 
+                    <div style="font-size: 16px;font-weight: bold;color: #555; line-height: 25px;">Description   </div>
+                    {{view Ember.TextArea valueBinding="controller.selectedDesc" rows="12" cols="70" placeholder="Add a short description to your Collection"}}
 
-                {{view Ember.TextArea valueBinding="controller.selectedDesc" rows="12" cols="70"}}
-                <button type="button" {{action exit }} class="btn">Cancel</button>
-                <button type="button" {{action submit }}  class="btn btn-primary">New Collection</button>
+                </div>
 
+                <div class="controlbtn-field" style="margin-top: 15px;height: 60px;">
+                    <div style="position: relative; right: 0;display: inline-block;margin: 10px auto;left: 58%;">
+                        <div id="uploadingObject" class='new-btn' style="right: 0;">Cancel</div>
+                        <div type="button" {{action submit }}  class="new-btn green-btn"style="right:0;">Create</div>
+                    </div>
+                </div>
             </div>
 
         </div>
 
-        {{controller.collections.length}}
-        {{controller}}
         {{#each collections}}
 
         <div class="box col2 style-box">
             <div class="masonry-object">
-                <div class="album-description-hoverarea easing" {{action transitionToCollectionPhoto title}} >
+                <a class="album-description-hoverarea easing"  href="#/users/{{unbound controller.currentID}}/{{unbound title}}">
 
                      <div class="album-description">{{desc}}</div>
                     <div class="album-description-bg">{{desc}}</div>
-                </div>
+                </a>
                 <div class="albumcover-container"  >
                     <img class="albumcover" {{bindAttr src="cover"}} />
                 </div>
@@ -108,41 +112,28 @@
                     <div class="album-info_name"><i class="icon-picture"></i> {{collection_ids}} </div>
                     <div class="album-info_content">
                         <div class="edit-object"><i class="icon-cog"></i></div>
-                        <span><a  {{action transitionToCollectionPhoto title}}> {{title}} </a> photos </span>
+                        <span><a  href="#/users/{{unbound controller.currentID}}/{{unbound title}}"> {{title}} </a> photos {{title}}</span>
                         <span><img src="../../images/list-doc.png"/> April 1 2013</span>
                     </div>
                 </div>
             </div>
         </div>
-
-
-
-
         {{/each}}
 
     </div>
 
 </div>
-
-
 <script>
 
     $(function() {
         var $container = $('#masonry_user_container');
-        var $boxes = $('.box');
         window.setTimeout(function() {
             $container.masonry();
-            $container.prepend($boxes).masonry('reload');
+            $container.masonry('reload');
         }, 400);
     });
 
-
-
 </script>
-
-
-
-
 
 
 {{else}}

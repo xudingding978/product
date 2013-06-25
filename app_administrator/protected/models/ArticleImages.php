@@ -134,10 +134,18 @@ class ArticleImages extends CActiveRecord
                         return $data_list;
                 }
                 
-                function getHeliumMediald() {
-                        $data_list = array();  
-                        $sql = "select dbo.ArticleImages.heliumMediaId from dbo.ArticleImages";                        
+                function getAll() {
+                    $data_list = array();  
+                    try {
+                        $sql = "select dbo.ArticleImages.*, dbo.HeliumMedia.keywords from dbo.ArticleImages
+                                    inner join  dbo.HeliumMedia on
+                                    dbo.ArticleImages.heliumMediaId = dbo.HeliumMedia.heliumId";
                         $data_list = Yii::app() ->db->createCommand($sql)->queryAll();
-                        return $data_list;
+                    } catch (Exception $e) {
+                        $response = $e->getMessage();
+                        $message = date("Y-m-d H:i:s")." ----cannot get photo from db!! \r\n".$response;
+                        $this->writeToLog('/home/devbox/NetBeansProjects/test/error.log', $message);
+                    }
+                    return $data_list;
                 }
 }

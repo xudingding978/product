@@ -16,11 +16,11 @@ define([
             });
             $('#uploadObject').click(function() {
                 $('#uploadObject').attr("style", "display:none");
-                $('#uploadingObject').attr('style', "display:block");
+                $('#uploadingObject').attr('style', "display:inline-block");
                 $('#uploadArea').attr('style', "display:block");
                 $('#addNew').animate({
-                    height: 400,
-                    width: 400
+                    height: 370,
+                    width: 370
                 }, 400, function() {
                     $('#masonry_user_container').masonry({
                         itemSelector: '.box',
@@ -34,8 +34,8 @@ define([
                 $('#uploadingObject').attr('style', "display:none");
                 $('#uploadArea').attr('style', "display:none");
                 $('#addNew').animate({
-                    height: 400,
-                    width: 300
+                    height: 370,
+                    width: 370
                 }, 400, function() {
                     $('#masonry_user_container').masonry({
                         itemSelector: '.box',

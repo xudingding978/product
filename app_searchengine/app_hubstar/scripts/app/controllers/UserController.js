@@ -10,6 +10,7 @@ define(["ember"
         selectedDesc: "",
         selectedTitle: "",
         coverImg: "",
+        currentID: "",
         objectID: null,
         needs: ['photoCreate'],
         init: function()
@@ -18,9 +19,7 @@ define(["ember"
         },
         setUser: function()
         {
-            var user = App.User.find(localStorage.loginStatus);
-//            console.log(user);
-//            console.log( user.get("collections"));
+            var user = this.getCurrentUser();
             this.set("collections", user.get("collections"));
             if (this.get("collections").objectAt(0) !== null && typeof this.get("collections").objectAt(0) !== 'undefined') {
                 this.setDesc(this.get("collections").objectAt(0).get("desc"));
@@ -28,28 +27,24 @@ define(["ember"
             }
             this.set("user", user);
             var collections = user.get("collections");
-//            var all_cols = "";
+
             for (var i = 0; i < collections.get("length"); i++)
             {
 
                 var col = collections.objectAt(i);
-                var imgId = col.get("collection_ids").split(",").objectAt(0);
-                this.getHeroImgae(imgId, col);
-
+                if ((col.get("collection_ids") !== null && col.get("collection_ids") !== "")) {
+                    var imgId = col.get("collection_ids").split(",").objectAt(0);
+                    this.getHeroImgae(imgId, col);
+                }
             }
 
         },
         getHeroImgae: function(id, col) {
-
             var photo = App.Mega.find(id);
-
             photo.addObserver('isLoaded', function() {
                 if (photo.get('isLoaded')) {
-
                     col.set("cover", photo.get('photo').objectAt(0)._data.attributes.photo_image_hero_url);
-
-                    console.log(col.get("cover"));
-
+                    col.store.save();
                 }
             });
 
@@ -57,7 +52,6 @@ define(["ember"
         getCollectedItems: function(ids)
         {
             var results = App.Mega.find({"RquireType": "personalCollection", "collection_ids": ids});
-            //     console.log(results);
         },
         exit: function()
         {
@@ -70,20 +64,31 @@ define(["ember"
             if (isInputValid) {
                 var tempCollection = App.Collection.createRecord({"id": title, "title": title, "desc": null, "collection_ids": null, "createdAt": new Date()});
                 this.get("collections").pushObject(tempCollection);
-
             }
+        },
+        getCurrentUser: function()
+        {
+            this.addNewCollection();
+            var address = document.URL;
+            var user_id = address.split("#")[1].split("/")[2];
+            this.set('currentID', user_id);
+            var user = App.User.find(user_id);
+            return user;
         },
         submit: function()
         {
-            var controller = this.get('controllers.photoCreate');
-            controller.setMode("user");
-        },
+            var user = this.getCurrentUser();
+
+            user.store.commit();
+        }
+        ,
         setDesc: function(desc) {
             this.set("selectedDesc", desc);
         },
         setTitle: function(title) {
             this.set("selectedTitle", title);
-        }, checkInput: function(title) {
+        },
+        checkInput: function(title) {
             var isInputValid = false;
             if (title !== null && title !== "")
             {

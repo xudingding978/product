@@ -105,6 +105,8 @@ define('application', [
     "views/ConView",
     "views/AddChildViewButton",
     "views/InsideCollectionView",
+    "views/MapView",
+    "views/ItemView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -164,6 +166,7 @@ define('application', [
     "models/VideoModel",
     "models/StatModel",
     "models/CollectionModel",
+    "models/CommentModel",
     "emberData",
     'jquery',
     "bxslider",
@@ -223,6 +226,8 @@ define('application', [
         ConView,
         AddChildViewButton,
         InsideCollectionView,
+        MapView,
+        ItemView,
         ApplicationController,
         tabListController,
         DataController,
@@ -281,7 +286,8 @@ define('application', [
         Article,
         Video,
         Stat,
-        Collection
+        Collection,
+        Comment
         )
 {
 
@@ -341,6 +347,8 @@ define('application', [
         ConView: ConView,
         AddChildViewButton: AddChildViewButton,
         InsideCollectionView: InsideCollectionView,
+        MapView: MapView,
+        ItemView: ItemView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
@@ -400,6 +408,7 @@ define('application', [
         Video: Video,
         Stat: Stat,
         Collection: Collection,
+        Comment: Comment,
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({

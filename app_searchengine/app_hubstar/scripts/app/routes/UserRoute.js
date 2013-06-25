@@ -16,15 +16,24 @@ define([
             this.controllerFor('application').set('islogin', true);
             this.controllerFor('application').set('popup', false);
             this.controllerFor('application').set('isotherpage', true);
+            this.controllerFor('searchs').setLoginImge();
+            this.controllerFor('application').set('isotherpage', true);
             this.controller.set('switchPhoto', true);
         },
         model: function(params) {
+
             return UserModel.find(params.user_id);
         },
         events: {
-            transitionToCollectionPhoto: function(id) {
-                this.transitionTo("collection", CollectionModel.find(id));
-            }
+//            transitionToCollectionPhoto: function() {
+//                var address = document.URL;
+//                var user_id = address.split("#")[1].split("/")[2];
+//                console.log(user_id);
+//                this.transitionTo("collection", CollectionModel.find(user_id));
+//            },
+//            test11: function(id) {
+//                console.log("id");
+//            }
         },
         redirect: function() {
 
@@ -46,6 +55,12 @@ define([
         },
         activate: function() {
 
+            $(window).scrollTop(0);
+            $('#discovery_search_bar_wrapper').attr('style', "display:none");
+            $('#masonry_container').attr('style', "display:none");
+            $(function() {
+                $('#masonry_container').masonry('remove', $('.noStyle1'));
+            });
         },
         renderTemplate: function() {
 

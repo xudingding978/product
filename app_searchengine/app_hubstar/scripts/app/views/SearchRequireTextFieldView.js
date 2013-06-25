@@ -16,7 +16,8 @@ define([
                 controller.newSearch();
             }
             else if (controller._debugContainerKey.indexOf("user") !== -1) {
-                controller.addNewCollection();
+                //   controller.addNewCollection();
+         //       console.log(controller);
             }
             else {
                 console.log(controller);

@@ -24,10 +24,7 @@ define([
         },
         defaultSearch: function() {
             this.set("loginInfo", localStorage.loginStatus);
-            var ac = this.get("controllers.application");
-            var st = this.get("controllers.status");
-            ac.grapData();
-            st.grapData();
+            this.setLoginImge();
             var results = MegaModel.find({});
             this.set("content", results);
         },
@@ -35,8 +32,16 @@ define([
             var totalTime = end - start;
             totalTime += "ms";
             this.set("time", totalTime);
-        }
+        },
+        //get user model data after login
+            /***/     setLoginImge: function() {                                           /***/
 
+            /***/            var ac = this.get("controllers.application");          /***/
+            /***/           var st = this.get("controllers.status");                   /***/
+            /***/          ac.grapData();                                                       /***/
+            /***/          st.grapData();                                                        /***/
+            /***/      }                                                                                /***/
+         //get user model data after login
 
     });
 

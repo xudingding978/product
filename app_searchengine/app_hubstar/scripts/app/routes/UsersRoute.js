@@ -13,8 +13,8 @@ define([
             this.controllerFor('application').set('islogin', true);
             this.controllerFor('application').set('popup', false);
             this.controllerFor('application').set('isotherpage', true);
-     
-
+            this.controllerFor('searchs').setLoginImge();
+            this.controllerFor('application').set('isotherpage', true);
             //   controller.get('application').remove();
         },
         model: function() {

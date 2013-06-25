@@ -15,6 +15,7 @@ define(["ember"
         needs: ['photoCreate'],
         sortProperties: ['id'],
         sortAscending: false,
+        selectedCollection: "",
         init: function()
         {
             this.setUser();
@@ -112,6 +113,27 @@ define(["ember"
                 }
             }
             return isContainsTitle;
+        },
+        deleteSelectedCollection: function()
+        {
+            this.get("collections").removeObject(this.get("selectedCollection"));
+            var user = this.getCurrentUser();
+            user.store.commit();
+
+        },
+        updateCollectionInfo: function()
+        {
+            this.get("selectedCollection").store.save();
+        },
+        setSelectedCollection: function(id) {
+            console.log(id);
+            for (var i = 0; i < this.get("collections").get("length"); i++) {
+                var thisCollection = this.get("collections").objectAt(i);
+                if (id === thisCollection.get("id")) {
+                    console.log(thisCollection.get("id"));
+                    this.set("selectedCollection", thisCollection);
+                }
+            }
         }
     }
     );

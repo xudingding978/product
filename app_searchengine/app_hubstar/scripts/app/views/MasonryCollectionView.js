@@ -26,7 +26,8 @@ define([
         },
         editCollectionButton: function(id, desc) {
 
-
+            var userController = this.get('controller');
+            userController.setSelectedCollection(id);
             var div_id = "#" + id;
             var div_class = "." + id + "  #uploadArea";
             $(div_id).attr("style", "display:none");

@@ -158,7 +158,7 @@ define(['models/MegaModel',
                         App.store.commit();
                     }
                     this.set('thisComments', comments);
-
+                    console.log(comments);
                 }
             });
             return MegaController;

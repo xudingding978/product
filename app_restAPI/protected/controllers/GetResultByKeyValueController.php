@@ -31,6 +31,7 @@ class GetResultByKeyValueController extends Controller {
                 error_log(var_export($requestArray, true));
                 $response = $this->performMustSearch($requestArray, $returnType);
                 $this->sendResponse(200, $response);
+
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();

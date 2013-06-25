@@ -153,7 +153,10 @@ class PhotosController extends Controller {
         return $response;
     }
     
-    
+    public function actionMovePhoto(){
+        
+        echo "1111111111111111111111";
+    }
 
 }
 

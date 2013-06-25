@@ -48,28 +48,45 @@ class MegaimportController extends Controller {
             echo $exc->getTraceAsString();
             
             $message = $exc->getTraceAsString();
-            $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $message);
+            $this->writeToLog('/home/devbox/NetBeansProjects/test/error.log', $message);
+            
+//            $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $message);
         }
-
     }
-    public function actionCreate() {
-        $request_json = file_get_contents('php://input');
-        $request_arr = CJSON::decode($request_json, true);
-
-        $id = $this->getNewID();
+    
+    public function modifyArrayProperty($request_arr, $id) {
         $request_arr["id"] = $id;
-        $response = "fail";
+        $request_arr["object_image_url"] = str_replace("object_id", $id, $request_arr["object_image_url"]);
+        
         $type = $request_arr['type'];
         $request_arr[$type][0]['id'] = $id;
-        $url = substr($_SERVER['HTTP_HOST'], 4) . '/' . $request_arr["id"];
-
+        
+        $request_arr[$type][0]['photo_image_url'] = str_replace("object_id", $id, $request_arr[$type][0]['photo_image_url']);
+        $request_arr[$type][0]['photo_image_original_url'] = str_replace("object_id", $id, $request_arr[$type][0]['photo_image_original_url']);
+        $request_arr[$type][0]['photo_image_hero_url'] = str_replace("object_id", $id, $request_arr[$type][0]['photo_image_hero_url']);
+        $request_arr[$type][0]['photo_image_thumbnail_url'] = str_replace("object_id", $id, $request_arr[$type][0]['photo_image_thumbnail_url']);
+        $request_arr[$type][0]['photo_image_preview_url'] = str_replace("object_id", $id, $request_arr[$type][0]['photo_image_preview_url']);
+        
+        return $request_arr;
+    }
+    
+    public function actionCreate() {
+        $response = "fail";   
+        $request_json = file_get_contents('php://input');
+//        $request_arr = CJSON::decode($request_json, true);
+        $id = $this->getNewID();
+        $request_arr = $this->modifyArrayProperty(CJSON::decode($request_json, true), $id);
+//        $url = substr($_SERVER['HTTP_HOST'], 4) . '/' . $request_arr["id"];
+        $url = 'trendsideas.com/' . $request_arr["id"];
+//        error_log($url);
+        
         try {
             $cb = $this->couchBaseConnection();
             
             if ($cb->add($url, CJSON::encode($request_arr))) {
                 $response="ok";
             } else {
-                $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_error.log';
+                $my_file = '/home/devbox/NetBeansProjects/test/error.log';
                 $handle = fopen($my_file, 'a') or die('Cannot open file:  ' . $my_file);
                 $output = "\n" . 'New data ';
                 $output = "\n" . $url . ' has error';
@@ -82,7 +99,8 @@ class MegaimportController extends Controller {
             echo json_decode(file_get_contents('php://input'));
             
             $message = file_get_contents('php://input');
-            $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $message);
+            $this->writeToLog('/home/devbox/NetBeansProjects/test/error.log', $message);
+//            $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $message);
         }
 
         $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);
@@ -92,8 +110,10 @@ class MegaimportController extends Controller {
         header('Access-Control-Request-Method: *');
         header('Access-Control-Allow-Methods: PUT, POST, OPTIONS, GET');
         header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+        
+        
         echo $id;
-        unset($request_json, $request_arr, $id, $response, $type, $url, $statusHeader);
+        
         Yii::app()->end();
     }
 

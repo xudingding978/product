@@ -18,7 +18,7 @@ class ImageimportController extends Controller {
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
         $url = $request_arr["url"];
-
+        
         $isUrlExist = $this->isUrlExist($url);
         $this->is_image($url);
 
@@ -178,6 +178,12 @@ class ImageimportController extends Controller {
         $key = $key[1] . '.' . $key[2];
         $result = $cb->get($key);
         $result_arr = CJSON::decode($result, true);
+        
+//        echo"ttttttttttttttttttttttttttttttttttttttttt";
+//        echo $url;
+//        print_r($result_arr);
+//        exit();
+        
         $client = Aws\S3\S3Client::factory(
                         $result_arr["providers"]["S3Client"]
         );
@@ -221,7 +227,7 @@ class ImageimportController extends Controller {
         curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
         $tim = curl_exec($ch);
         
-        if (@$imageInfo = getimagesizefromstring($tim)) {;
+        if (@$imageInfo = getimagesizefromstring($tim)) {
             return $imageInfo;
         } else {
             $message = $url . "\r\n" . date("Y-m-d H:i:s").$tim. " \r\n";

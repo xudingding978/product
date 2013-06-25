@@ -546,9 +546,16 @@
     line-height: 20px;
 }
 
-.edit-object{
+.edit-collection-btn{
     float: right;
+    color: #333;
+    opacity: .6;
 }
+
+.edit-collection-btn:hover{
+    opacity: 1;
+}
+
 
 /*MANSONRY album OBJECT STYLE               END*/
 
@@ -1379,3 +1386,16 @@
 .contactmebox-wapper  .closeview:hover{
     color: #333;
 } 
+
+
+.edit-object-btn{
+    top: 10px;
+    position: absolute;
+    right: 10px;
+    color: #333;
+    opacity: .6;
+}
+
+.edit-object-btn:hover{
+    opacity: 1;
+}

@@ -26,7 +26,8 @@ define([
         },
         editCollectionButton: function(id, desc) {
 
-
+            var userController = this.get('controller');
+            userController.setSelectedCollection(id);
             var div_id = "#" + id;
             var div_class = "." + id + "  #uploadArea";
             $(div_id).attr("style", "display:none");
@@ -41,7 +42,7 @@ define([
             $(createCollection).attr('style', "display:none");
             $(updateCollection).attr('style', "display:block;color: #333; font-size: 20px; font-weight: bold; text-align: center; margin: 5px 0 0;");
             $(updatebtn).attr('style', "display:inline-block");
-            $(deletebtn).attr('style', "display:inline-block;left:15px");
+            $(deletebtn).attr('style', "display:inline-block;left:15px; top:7px");
             $(createbtn).attr('style', "display:none");
             $(collection_name_insert).val(id);
             $(collection_area).val(desc);

@@ -20,6 +20,7 @@ define(['models/MegaModel',
                 currentUser: null,
                 photo_album_id: null,
                 photo_thumb_id: null,
+                userProfile:null,
                 findSelectedItemIndex: function() {
                     content = this.get('content');
                     for (var index = 0; index <= content.get('length'); index++) {
@@ -142,6 +143,8 @@ define(['models/MegaModel',
                     comments.pushObject(tempComment);
                     comments.store.save();
                     this.set('commentContent', '');
+                    $('#addcommetBut').slideToggle();
+                    $('#commentBox').slideToggle();
 
                 },
                 getCommentsById: function(id)

@@ -80,7 +80,6 @@ define(["ember"
         submit: function()
         {
             var user = this.getCurrentUser();
-
             user.store.commit();
 
         },

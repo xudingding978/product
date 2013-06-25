@@ -14,7 +14,7 @@ class MegasController extends Controller {
 
     public function actionIndex() {
         try {
-            
+
             $temp = explode("?", $_SERVER['REQUEST_URI']);
             $request_string = $temp [sizeof($temp) - 1];
 //            error_log(var_export($temp, true)."       ".sizeof($temp));
@@ -38,7 +38,7 @@ class MegasController extends Controller {
         $path = 'this_is/folder_path/';
 //      $s3response = $this->photoSavingToS3($request_arr, $path);
         $response = "ok";
-        
+
 //        error_log(var_export($request_arr, true));
 
         $request_arr["mega"]['type'] = "photos";
@@ -51,7 +51,7 @@ class MegasController extends Controller {
         header('Access-Control-Request-Method: *');
         header('Access-Control-Allow-Methods: PUT, POST, OPTIONS, GET');
         header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
-        
+
         echo $response;
         Yii::app()->end();
     }
@@ -63,7 +63,7 @@ class MegasController extends Controller {
             $id = $temp [sizeof($temp) - 1];
             $reponse = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . "/" . $id);
             $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $reponse . '}';
-            
+
             echo $this->sendResponse(200, $result);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -71,9 +71,26 @@ class MegasController extends Controller {
     }
 
     public function actionUpdate() {
+        $newRecord = file_get_contents('php://input');
+        $request_arr = CJSON::decode($newRecord, true);
+        error_log($newRecord);
         try {
-            
-             
+            //    $this->sendResponse(204, "{ render json: @user, status: :ok }");
+            $cb = $this->couchBaseConnection();
+            $temp = explode("/", $_SERVER['REQUEST_URI']);
+            $id = $temp [sizeof($temp) - 1];
+            $docID = $this->getDomain() . "/" . $id;
+            $oldRecord = $cb->get($docID);
+            error_log("old record " . $oldRecord);
+            //         $oldRecord = CJSON::encode($request_arr, true);
+//            $oldRecord['user'][0] = null;
+//            $oldRecord['user'][0] = $request_arr['user'];
+            if ($cb->set($docID,  CJSON::encode($request_arr, true)
+                    )) {
+                $this->sendResponse(204, "{ render json: @user, status: :ok }");
+            } else {
+                $this->sendResponse(500, "some thing wrong");
+            }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -93,8 +110,6 @@ class MegasController extends Controller {
 
         echo CJSON::encode("dddddddd");
     }
-
-
 
     public function getInputData($inputDataType, $inputData) {
         $tempInput = "";

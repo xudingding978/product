@@ -17,7 +17,10 @@ define([
                 });
             });
             $('#uploadObject').click(function() {
-                
+
+                $('.new-collection-name_insert').val("");
+                $('.new-collection-area').val("");
+
                 $('#uploadObject').attr("style", "display:none");
                 $('#uploadingObject').attr('style', "display:inline-block");
                 $('#uploadArea').attr('style', "display:block");

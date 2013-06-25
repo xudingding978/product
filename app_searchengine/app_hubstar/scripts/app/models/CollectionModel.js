@@ -6,7 +6,7 @@ define('models/CollectionModel',
                 title: DS.attr('string'),
                 desc: DS.attr('string'),
                 collection_ids: DS.attr('string'),
-                createdAt: DS.attr('date'),
+                createdAt: DS.attr('string'),
                 cover: DS.attr('string'),
                 didLoad: function() {
                 }

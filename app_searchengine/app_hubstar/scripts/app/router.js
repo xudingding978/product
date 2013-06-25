@@ -34,8 +34,9 @@ define(["ember"], function(Ember) {
 
             this.resource("users", {path: '/users/:user_id'});
             this.resource("users", function() {
-                this.resource("userIndex", {path: '/'});
+                this.resource("usersIndex", {path: '/'});
                 this.resource("user", {path: ':user_id'}, function() {
+                    this.resource("userIndex", {path: '/'});
                     this.resource("collection", {path: ':collection_id'});
 
                 });

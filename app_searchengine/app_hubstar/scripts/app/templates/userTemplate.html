@@ -32,116 +32,20 @@
 
 {{#if controller.switchPhoto}}
 
-<div style="width: 100%; margin: 100px auto; left: 0;right: 0;position: relative;display: block;">
-    <!-- masonry from here -->
-    <div id="masonry_user_container"  class="transitions-enabled centered clearfix">
-
-        <!--SECTION CONTROL BAR-->
-
-        <div class="style-box t-style-box" style="width: 100%; min-width: 796px; height: 50px; background: white;margin: -70px auto;left: 0;right: 0;position: relative;display: block;">
-
-            <div style="margin: 4px 20px 4px 40px; font-size: 18px; text-shadow: 0 1px 0 rgba(255,255,255,0.8);float: left;"  {{action test11 id}} >Album Name </div>
-            <i class="icon-upload" style="color: #555; text-shadow: 0 1px 0 rgba(255,255,255,0.8); font-size: 20px; margin: 15px 0; display: inline-block;"></i>
 
 
-            <ul class="user-stats" id="user-stats">
-                <li><a>Collections</a></li>
-                <li><a>Photos</a></li>
-                <li><a>Videos</a></li>
-                <li><a>Following</a></li>
-                <li><a>Followers</a></li>
-            </ul>
+{{view App.MasonryCollectionView}}
 
-
-
-        </div>
-
-        <!--END SECTION CONTROL BAR-->
-        <div class="box style-box t-style-box" id="addNew">
-
-            <div id="uploadObject"  >
-                <div class="add-new-object-hoverarea easing">
-                    <i class="icon-plus-sign"></i>
-                </div>
-                <div class="masonry-object t-style-box">
-                    <div class="add-new-object-content">
-                        <i class="icon-group"></i>
-                        <i class="icon-book"></i>
-                        <i class="icon-picture"></i>
-                        <i class="icon-film"></i>
-                    </div>
-
-                </div>
-            </div>
-
-
-            <div id="uploadArea"  style="height: 510px;width: 570px;  display: none">
-                <div style=' color: #333; font-size: 20px; font-weight: bold; text-align: center; margin: 5px 0 0;'>Create a Collection</div>
-                <div style=" width: 80%; margin: auto;">
-                    <div style="font-size: 16px;font-weight: bold;color: #555; line-height: 25px;">Name*</div>
-                    {{view App.SearchRequireTextFieldView valueBinding="newCollectionName"  id="" class="new-collection-name_insert" style="height:30px;" placeholder="e.g. Bedroom Design" }} 
-
-                    <div style="font-size: 16px;font-weight: bold;color: #555; line-height: 25px;">Description   </div>
-                    {{view Ember.TextArea valueBinding="controller.selectedDesc" rows="12" cols="70" placeholder="Add a short description to your Collection"}}
-
-                </div>
-
-                <div class="controlbtn-field" style="margin-top: 15px;height: 60px;">
-                    <div style="position: relative; right: 0;display: inline-block;margin: 10px auto;left: 58%;">
-                        <div id="uploadingObject" class='new-btn' style="right: 0;">Cancel</div>
-                        <div type="button" {{action submit }}  class="new-btn green-btn"style="right:0;">Create</div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        {{#each collections}}
-
-        <div class="box col2 style-box">
-            <div class="masonry-object">
-                <a class="album-description-hoverarea easing"  href="#/users/{{unbound controller.currentID}}/{{unbound title}}">
-
-                     <div class="album-description">{{desc}}</div>
-                    <div class="album-description-bg">{{desc}}</div>
-                </a>
-                <div class="albumcover-container"  >
-                    <img class="albumcover" {{bindAttr src="cover"}} />
-                </div>
-                <div class="album-info">
-                    <div class="album-info_name"><i class="icon-picture"></i> {{collection_ids}} </div>
-                    <div class="album-info_content">
-                        <div class="edit-object"><i class="icon-cog"></i></div>
-                        <span><a  href="#/users/{{unbound controller.currentID}}/{{unbound title}}"> {{title}} </a> photos {{title}}</span>
-                        <span><img src="../../images/list-doc.png"/> April 1 2013</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{/each}}
-
-    </div>
-
-</div>
-<script>
-
-    $(function() {
-        var $container = $('#masonry_user_container');
-        window.setTimeout(function() {
-            $container.masonry();
-            $container.masonry('reload');
-        }, 400);
-    });
-
-</script>
 
 
 {{else}}
 
 
 
- {{render insideCollection}}
+{{render insideCollection}}
 
 
 
 {{/if}}
+
+

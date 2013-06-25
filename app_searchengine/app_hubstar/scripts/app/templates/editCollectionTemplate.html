@@ -28,16 +28,15 @@
     </div>
 
     <div class="controlbtn-field" style="margin-top: 15px;height: 60px;">
-        <div style="position: relative; right: 0;display: inline-block;margin: 10px auto;left: 58%;">
 
-            <div id="deletebtn" type="button" class="new-btn green-btn"style="right:0; display: none">Delete</div>
+        <div id="deletebtn" type="button" class="new-btn green-btn"style="display: inline-block;vertical-align: top;top: 15px;left: 15px;">Delete</div>
+
+        <div style="position: relative; right: 0;display: inline-block;margin: 10px auto;left: 44%;">
 
             <div id="uploadingObject" class='new-btn' style="right: 0;"  {{action returnCollection  id target="view" on="click"}}>Cancel</div> 
-
-
             <div id="createbtn" type="button" {{action submit }}  class="new-btn green-btn"style="right:0;">Create</div>
-
             <div id="updatebtn" type="button" class="new-btn green-btn"style="right:0; display: none">Update</div>
+
         </div>
     </div>
 </div>

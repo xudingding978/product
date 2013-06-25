@@ -142,6 +142,8 @@ define(['models/MegaModel',
                     comments.pushObject(tempComment);
                     comments.store.save();
                     this.set('commentContent', '');
+                    $('#addcommetBut').slideToggle();
+                    $('#commentBox').slideToggle();
 
                 },
                 getCommentsById: function(id)

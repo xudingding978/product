@@ -72,22 +72,25 @@ class MegasController extends Controller {
 
     public function actionUpdate() {
         $newRecord = file_get_contents('php://input');
-        $request_arr = CJSON::decode($newRecord, true);
-        error_log($newRecord);
+        $newRecord = CJSON::decode($newRecord, true);
         try {
-            //    $this->sendResponse(204, "{ render json: @user, status: :ok }");
+            if (isset($newRecord['mega']['comments'][0]['mega_id'])) {
+                $newRecord['mega']['comments'][0]['mega_id'] = null;
+                error_log(var_export($newRecord['mega']['comments'], true));
+            }
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
             $docID = $this->getDomain() . "/" . $id;
             $oldRecord = $cb->get($docID);
-            error_log("old record " . $oldRecord);
-            //         $oldRecord = CJSON::encode($request_arr, true);
+            $oldRecord = CJSON::decode($oldRecord, true);
+            $oldRecord['comments'] = $newRecord['mega']['comments'];
+            //   $oldRecord['mega']['comments'] = $newRecord['mega']['comments'];
+            //   error_log(var_export($oldRecord['mega']['comments'] , true));
 //            $oldRecord['user'][0] = null;
-//            $oldRecord['user'][0] = $request_arr['user'];
-            if ($cb->set($docID,  CJSON::encode($request_arr, true)
-                    )) {
-                $this->sendResponse(204, "{ render json: @user, status: :ok }");
+//       $oldRecord['user'][0] = $request_arr['user'];
+            if ($cb->set($docID, CJSON::encode($oldRecord))) {
+                $this->sendResponse(204, "");
             } else {
                 $this->sendResponse(500, "some thing wrong");
             }

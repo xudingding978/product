@@ -146,19 +146,10 @@ define(['models/MegaModel',
                 },
                 getCommentsById: function(id)
                 {
-                    var comments = App.Mega.find(id).get("comments");
-
-                    if (comments.get("length") === 0)
-                    {
-
-                        Ember.set(comments, []);
-                        var tempComment = App.Comment.createRecord();
-                        comments.pushObject(tempComment);
-                        console.log(comments.get("length"));
-                        App.store.commit();
-                    }
+                    console.log(id);
+                    var mega = App.Mega.find(id);
+                    var comments = mega.get('comments');
                     this.set('thisComments', comments);
-                    console.log(comments);
                 }
             });
             return MegaController;

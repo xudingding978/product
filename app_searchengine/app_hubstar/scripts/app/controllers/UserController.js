@@ -10,6 +10,7 @@ define(["ember"
         selectedDesc: "",
         selectedTitle: "",
         coverImg: "",
+        display_name:"",
         currentID: "",
         objectID: null,
         needs: ['photoCreate'],
@@ -18,29 +19,29 @@ define(["ember"
         selectedCollection: "",
         init: function()
         {
+            console.log('user init');
             this.setUser();
         },
         setUser: function()
         {
             var user = this.getCurrentUser();
             this.set("collections", user.get("collections"));
+            this.set("coverImg", user.get("photo_url"));
+            this.set("display_name", user.get("display_name"));
             if (this.get("collections").objectAt(0) !== null && typeof this.get("collections").objectAt(0) !== 'undefined') {
                 this.setDesc(this.get("collections").objectAt(0).get("desc"));
                 this.setTitle(this.get("collections").objectAt(0).get("title"));
             }
             this.set("user", user);
             var collections = user.get("collections");
-
             for (var i = 0; i < collections.get("length"); i++)
             {
-
                 var col = collections.objectAt(i);
                 if ((col.get("collection_ids") !== null && col.get("collection_ids") !== "")) {
                     var imgId = col.get("collection_ids").split(",").objectAt(0);
                     this.getHeroImgae(imgId, col);
                 }
             }
-
         },
         getHeroImgae: function(id, col) {
             var photo = App.Mega.find(id);

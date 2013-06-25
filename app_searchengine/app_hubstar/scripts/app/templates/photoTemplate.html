@@ -200,7 +200,7 @@
                         <div class="addcommnetbox-container" id="commentBox" style="display: none">
 
                             <div class="addcommnetbox">
-                                {{view App.SearchRequireTextFieldView valueBinding="commentContent"  id="AddRecord" class=""  placeholder="please give your comments " }}   
+                                  <img class="profilepic_comment" {{bindAttr src="controller.thisComments.commenter_profile_pic_url"}} /> {{view App.SearchRequireTextFieldView valueBinding="commentContent"  id="AddRecord" class=""  placeholder="please give your comments " }}   
                                 <button {{action toggleComment target="view" on="click"}}>Cancel</button>
                                 <button {{action addComment}}>post</button>
                             </div>

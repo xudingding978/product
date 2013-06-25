@@ -23,9 +23,6 @@
             <!--    <div class="icon-on-black" style="height: 44px;position: absolute;width: 44px;"><i class="icon-share-alt"></i></div>     -->
         </div>
 
-
-
-
         {{view App.PhotoDisplayAreaView}}
 
         <!--THIS IS THE ALBUM BOX-->
@@ -91,7 +88,7 @@
                         </tr>
                         <tr>
                             <td>Type:</td>
-                            <td>{{controller.selected.id}}</td>
+                            <td>{{controller.selectedMega.id}}</td>
                         </tr>
                         <tr>
                             <td>Address:</td>
@@ -128,8 +125,8 @@
 
             <div class="collapes-container"   id="article_action" style="display:block">
                 <div  class="collapes-container_inner">
-                    <div class="article-title">{{controller.selected.photo_title}}</div>
-                    <div class="article-text">{{controller.selected.photo_caption}}</div>
+                    <div class="article-title">{{controller.selectedMega.photo_title}}</div>
+                    <div class="article-text">{{controller.selectedMega.photo_caption}}</div>
                 </div>
             </div>
 
@@ -202,7 +199,7 @@
 
                         <div class="addcommnetbox-container">
                             <div class="addcommnetbox">
-         
+                                {{view App.SearchRequireTextFieldView valueBinding="commentContent"  id="AddRecord" class=""  placeholder="please give your comments " }}   
                             </div>
                         </div>
 

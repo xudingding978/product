@@ -13,13 +13,12 @@ define([
         init: function()
         {
             var megaController = this.get("controllers.mega");
-            var id = megaController.get("selected").id;
+            var id = megaController.get("selectedMega").id;
             this.set("objectID", id);
             this.setUser();
         },
         setUser: function()
         {
-
             var user = App.User.find(localStorage.loginStatus);
             this.set("collections", user.get("collections"));
             if (this.get("collections").objectAt(0) !== null && this.get("collections").objectAt(0) !== undefined) {
@@ -62,7 +61,6 @@ define([
         },
         addCollection: function(collection, content)
         {
-
             if (content === null) {
                 collection.set("collection_ids", this.get("objectID"));
             }
@@ -91,7 +89,6 @@ define([
                 $('#recordID').text(this.get('selectedTitle'));
 
             }
-
             this.set('newCollectionName', null);
             this.set('selectionPop', !this.get('selectionPop'));
         },

@@ -33,7 +33,7 @@ define([
 
 
             this.set('map', map); //save for future updations
-            this.$().css({width: "70%", height: "600px"});
+            this.$().css({width: "100%", height: "100%"});
 
 
 

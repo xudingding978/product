@@ -13,6 +13,8 @@ define(["ember"
         currentID: "",
         objectID: null,
         needs: ['photoCreate'],
+        sortProperties: ['id'],
+        sortAscending: false,
         init: function()
         {
             this.setUser();
@@ -79,8 +81,8 @@ define(["ember"
         {
             var user = this.getCurrentUser();
             user.store.commit();
-        }
-        ,
+
+        },
         setDesc: function(desc) {
             this.set("selectedDesc", desc);
         },

@@ -70,6 +70,7 @@ define(['models/MegaModel',
                     this.set("photo_album_id", "album_" + this.get('selectedMega').id);
                     this.set("photo_thumb_id", "thumb_" + this.get('selectedMega').id);
                     this.addRelatedData(megaObject);
+                    this.getCommentsById(megaObject.id);
                 },
                 selectImage: function(e) {
                     this.set('megaResouce', MegaModel.find(e)._data.attributes);
@@ -98,7 +99,6 @@ define(['models/MegaModel',
                                     if (MegaModel.find(id)._data.hasMany.photo.length === 1)
                                     {
                                         that.get("content").pushObject(MegaModel.find(id)._data.hasMany.photo[0].data);
-                                        that.get("content").pushObject(MegaModel.find(id));
                                     }
                                 }
                             }
@@ -109,10 +109,6 @@ define(['models/MegaModel',
                 {
                     var result = (param !== null && param !== undefined);
                     return result;
-                },
-                getSelectedImageUrl: function()
-                {
-
                 },
                 switchCollection: function() {
                     var addCollectionController = this.get('controllers.addCollection');
@@ -133,23 +129,28 @@ define(['models/MegaModel',
                     this.set('contact', !this.get('contact'));
                 },
                 addComment: function() {
-                 this.getThisComments("8290043341371525007");
+
+                    var comments = this.get("thisComments");
+                    var currentUser = App.User.find(localStorage.loginStatus);
+                    var commenter_profile_pic_url = currentUser.get('photo_url');
+                    var commenter_id = currentUser.get('id');
+                    var commentContent = this.get('commentContent');
+                    var name = currentUser.get('display_name');
+                    var date = new Date();
+                    var tempComment = App.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url,
+                        "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(), "is_delete": false});
+                    comments.pushObject(tempComment);
+                    comments.store.save();
+                    this.set('commentContent', '');
+
                 },
-                getSelectedComment: function()
+                getCommentsById: function(id)
                 {
-                    console.log(this.get('selectedMega'));
-                },
-                getThisComments: function(id)
-                {
-                            var comments=App.Mega.find(id).get("comments");
-                           comments.addObserver('isLoaded', function() {
-                            if (comments.get('isLoaded')) {
-                          //    console.log(comments.objectAt);
-                            }
-                        });
+                    var comments = App.Mega.find(id).get("comments");
+
+                    this.set('thisComments', comments);
+
                 }
             });
-
-
             return MegaController;
         });

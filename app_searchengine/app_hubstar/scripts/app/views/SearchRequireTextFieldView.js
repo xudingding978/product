@@ -17,7 +17,8 @@ define([
             }
             else if (controller._debugContainerKey.indexOf("mega") !== -1) {
                 controller.addComment();
-                //       console.log(controller);
+                
+                 //      console.log(controller);
             }
             else {
                 console.log(controller);

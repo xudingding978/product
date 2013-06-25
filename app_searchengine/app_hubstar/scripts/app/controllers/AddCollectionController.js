@@ -13,7 +13,7 @@ define([
         init: function()
         {
             var megaController = this.get("controllers.mega");
-            var id = megaController.get("selected").id;
+            var id = megaController.get("selectedMega").id;
             this.set("objectID", id);
             this.setUser();
         },
@@ -61,7 +61,6 @@ define([
         },
         addCollection: function(collection, content)
         {
-
             if (content === null) {
                 collection.set("collection_ids", this.get("objectID"));
             }
@@ -90,7 +89,6 @@ define([
                 $('#recordID').text(this.get('selectedTitle'));
 
             }
-
             this.set('newCollectionName', null);
             this.set('selectionPop', !this.get('selectionPop'));
         },

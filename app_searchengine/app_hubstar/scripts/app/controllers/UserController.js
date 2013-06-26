@@ -45,20 +45,20 @@ define(["ember"
         },
         getHeroImgae: function(id, col) {
             var photo = App.Mega.find(id);
-            //    console.log(photo.get("photo"));
+      //   console.log(photo);
             photo.addObserver('isLoaded', function() {
+                
                 if (photo.get('isLoaded')) {
-                    console.log(photo.get("photo"));
-                    //       col.set("cover", photo.get('photo').objectAt(0).get("photo_image_hero_url"));
-                    //      col.store.save();
+                  col.set("cover", photo.get('photo').objectAt(0).get("photo_image_hero_url"));
+                  col.store.save();
                 }
             });
 
         },
-        getCollectedItems: function(ids)
-        {
-            var results = App.Mega.find({"RquireType": "personalCollection", "collection_ids": ids});
-        },
+//        getCollectedItems: function(ids)
+//        {
+//            var results = App.Mega.find({"RquireType": "personalCollection", "collection_ids": ids});
+//        },
         exit: function()
         {
             console.log(" drop and grag controller");
@@ -122,18 +122,21 @@ define(["ember"
         {
             this.get("collections").removeObject(this.get("selectedCollection"));
             var user = this.getCurrentUser();
-            user.store.commit();
+            user.store.save();
+
         },
         updateCollectionInfo: function()
         {
             this.get("selectedCollection").store.save();
         },
         setSelectedCollection: function(id) {
-
+         
             for (var i = 0; i < this.get("collections").get("length"); i++) {
+                   
                 var thisCollection = this.get("collections").objectAt(i);
+     //           console.log(thisCollection);
                 if (id === thisCollection.get("id")) {
-                    console.log(thisCollection.get("id"));
+     //               console.log(thisCollection.get("id"));
                     this.set("selectedCollection", thisCollection);
                 }
             }

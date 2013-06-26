@@ -18,6 +18,8 @@ define([
 //            this.controllerFor('application').set('popup', false);
             this.controllerFor('user').set('switchPhoto', false);
             this.controllerFor('insideCollection').selectModel();
+             this.controllerFor('insideCollection').set('canEdit', true);
+            
 
         },
         model: function(params) {

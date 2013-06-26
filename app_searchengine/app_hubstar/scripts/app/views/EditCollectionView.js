@@ -20,6 +20,8 @@ define([
 
                 $('.new-collection-name_insert').val("");
                 $('.new-collection-area').val("");
+                $(".Targeting_Object_front").attr("style", "display:inline-block");
+                $(" #uploadArea").attr('style', "display:none");
                 $('#uploadObject').attr("style", "display:none");
                 $('#uploadingObject').attr('style', "display:inline-block");
                 $('#uploadArea').attr('style', "display:block");

@@ -143,8 +143,8 @@ define(['models/MegaModel',
                         comments.pushObject(tempComment);
                         comments.store.save();
                         this.set('commentContent', '');
-                        $('#addcommetBut').slideToggle();
-                        $('#commentBox').slideToggle();
+                        $('#addcommetBut').attr('style', 'display:block');
+                        $('#commentBox').attr('style', 'display:none');
 
 
 

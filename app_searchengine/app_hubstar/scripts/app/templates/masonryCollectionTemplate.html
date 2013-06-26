@@ -38,16 +38,16 @@
                 </div>
             </div>
 
-
-            {{view App.EditCollectionView}}
-
+        
+                {{view App.EditCollectionView}}
+         
         </div>
 
         {{#each collections}}
 
 
         <div class="box col2 style-box t-style-box">
-            <div class="masonry-object" {{bindAttr id="id"}}>
+            <div class="masonry-object Targeting_Object_front" {{bindAttr id="id"}}>
                 <a class="album-description-hoverarea easing"  href="#/users/{{unbound controller.currentID}}/{{unbound title}}">
 
                     <div class="album-description">{{desc}}</div>
@@ -65,7 +65,7 @@
                     </div>
                 </div>
             </div>
-            <div {{bindAttr class="id"}}>
+            <div id="Targeting_Object_back"{{bindAttr class="id"}}>
                 {{view App.EditCollectionView}}
             </div>
         </div>

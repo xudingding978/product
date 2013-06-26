@@ -1399,6 +1399,19 @@
     color: #333;
 } 
 
+.edit-btn{
+    color: #333;
+    opacity: .6;
+    text-shadow: 0 0 10px #fff;
+    display: inline-block;
+    font-size: 16px;
+    margin: 0 10px;
+}
+
+.edit-btn:hover{
+    opacity: 1;
+}
+
 
 .edit-object-btn{
     top: 10px;

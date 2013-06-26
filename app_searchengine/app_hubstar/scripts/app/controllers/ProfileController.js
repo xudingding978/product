@@ -90,7 +90,8 @@ define([
                 setSelectedCollection: function(id) {
 
                     console.log(333333333);
-                },
+                    
+                }
             }
 
             );

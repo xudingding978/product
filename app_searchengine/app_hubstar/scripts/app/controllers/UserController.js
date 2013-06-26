@@ -88,6 +88,10 @@ define(["ember"
             //   var user = this.getCurrentUser();
             this.get("collections").pushObject(this.selectedCollection);
             this.get("collections").store.commit();
+
+            $(".Targeting_Object_front").attr("style", "display:inline-block");
+            $(" #uploadArea").attr('style', "display:none");
+            $(" #uploadObject").attr('style', "display:block");
         },
         setDesc: function(desc) {
             this.set("selectedDesc", desc);
@@ -122,7 +126,8 @@ define(["ember"
         deleteSelectedCollection: function()
         {
 
-            this.set("messege", "Do you wish to delete this?");
+            var message = "Do you wish to delete " + this.get("selectedCollection").get('id') + " ?";
+            this.set("messege", message);
             this.set('makeSureDelete', true);
 
             if (this.get('willDelete')) {
@@ -142,16 +147,18 @@ define(["ember"
         },
         updateCollectionInfo: function()
         {
+
             this.get("selectedCollection").store.save();
+            $(".Targeting_Object_front").attr("style", "display:inline-block");
+            $(" #uploadArea").attr('style', "display:none");
+            $(" #uploadObject").attr('style', "display:block");
         },
         setSelectedCollection: function(id) {
 
             for (var i = 0; i < this.get("collections").get("length"); i++) {
 
                 var thisCollection = this.get("collections").objectAt(i);
-                //           console.log(thisCollection);
                 if (id === thisCollection.get("id")) {
-                    //               console.log(thisCollection.get("id"));
                     this.set("selectedCollection", thisCollection);
                 }
             }

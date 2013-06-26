@@ -20,12 +20,12 @@ define(["ember"
         selectedCollection: "",
         init: function()
         {
-            console.log('user init');
             this.setUser();
         },
         setUser: function()
         {
             var user = this.getCurrentUser();
+            console.log(user);
             this.set("collections", user.get("collections"));
             this.set("coverImg", user.get("photo_url"));
             this.set("display_name", user.get("display_name"));
@@ -64,18 +64,19 @@ define(["ember"
         {
             console.log(" drop and grag controller");
         },
-        addNewCollection: function()
-        {
-            var title = this.get("newCollectionName");
-            var isInputValid = this.checkInput(title);
-            if (isInputValid) {
-                var tempCollection = App.Collection.createRecord({"id": title, "title": title, "desc": null, "collection_ids": null, "createdAt": new Date()});
-                this.get("collections").pushObject(tempCollection);
-            }
-        },
+//        addNewCollection: function()
+//        {
+//            var title = this.get("newCollectionName");
+//            var isInputValid = this.checkInput(title);
+//            if (isInputValid) {
+//                var tempCollection = App.Collection.createRecord({"id": title, "title": title, "desc": null, "collection_ids": null, "createdAt": new Date()});
+//                this.get("collections").pushObject(tempCollection);
+//            }
+//        },
         getCurrentUser: function()
         {
-            this.addNewCollection();
+
+            //    this.addNewCollection();
             var address = document.URL;
             var user_id = address.split("#")[1].split("/")[2];
             this.set('currentID', user_id);
@@ -84,9 +85,9 @@ define(["ember"
         },
         submit: function()
         {
-            var user = this.getCurrentUser();
-            user.store.commit();
-
+            //   var user = this.getCurrentUser();
+            this.get("collections").pushObject(this.selectedCollection);
+            this.get("collections").store.commit();
         },
         setDesc: function(desc) {
             this.set("selectedDesc", desc);
@@ -154,6 +155,10 @@ define(["ember"
                     this.set("selectedCollection", thisCollection);
                 }
             }
+        }, newCollection: function()
+        {
+            var collection = App.Collection.createRecord({"id": null, "title": null, "desc": null, "collection_ids": null, "createdAt": new Date()});
+            this.set("selectedCollection", collection);
         }
     }
     );

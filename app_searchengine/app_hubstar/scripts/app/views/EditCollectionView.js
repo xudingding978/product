@@ -8,8 +8,8 @@ define([
     var EditCollectionView = Ember.View.extend({
         template: Ember.Handlebars.compile(editCollectionTemplate),
         didInsertElement: function() {
-
             $(function() {
+           
                 $('#masonry_user_container').masonry({
                     itemSelector: '.box',
                     columnWidth: 0,
@@ -62,7 +62,6 @@ define([
             });
         },
         returnCollection: function(id) {
-
 
 
             var div_id = "#" + id;

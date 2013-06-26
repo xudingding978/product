@@ -83,25 +83,42 @@ define([
             var title = this.get("newCollectionName");
             var isInputValid = this.checkInput(title);
             if (isInputValid) {
-                var tempCollection = App.Collection.createRecord({"id":title,"title": title, "desc": null, "collection_ids": null, "createdAt": new Date()});
+                var tempCollection = App.Collection.createRecord({"id": title, "title": title, "desc": null, "collection_ids": null, "createdAt": new Date()});
                 this.get("collections").pushObject(tempCollection);
                 this.set('selectedTitle', tempCollection.get('title'));
                 $('#recordID').text(this.get('selectedTitle'));
-
+                this.set('selectedDesc', "");
             }
             this.set('newCollectionName', null);
             this.set('selectionPop', !this.get('selectionPop'));
         },
         collectionSwitch: function() {
-
             this.set('selectionPop', !this.get('selectionPop'));
 
         },
         chooseRecord: function(record) {
             this.set('selectedTitle', record);
+            this.selectSelectedDesc();
+
+
+
             $('#recordID').text(this.get('selectedTitle'));
             this.set('selectionPop', !this.get('selectionPop'));
 
+        },
+        selectSelectedDesc: function()
+        {
+            console.log(this.get("selectedTitle"));
+            var desc="";
+            for (var i = 0; i < this.get("collections").get("length"); i++)
+            {
+                var collection = this.get("collections").objectAt(i);
+                if (collection.get("title") === this.get("selectedTitle"))
+                {
+                   desc=collection.get("desc");
+                }
+            }
+                this.set("selectedDesc", desc);
         },
         checkInput: function(title) {
             var isInputValid = false;

@@ -207,13 +207,15 @@ class MegasController extends Controller {
     public function updateUserRecord($newRecord) {
         try {
             $cb = $this->couchBaseConnection();
-            $id = $newRecord['mega']['id'];
+            $id = $newRecord['mega']['user'][0]['id'];
+           
             $docID = substr($_SERVER['HTTP_HOST'], 4) . "/users/" . $id;
-            $oldRecord = $cb->get($docID);
+            $oldRecord = $cb->get($docID);            
             $oldRecord = CJSON::decode($oldRecord, true);
-            $oldRecord['user'][0] = null;
-            $oldRecord['user'][0] = $newRecord['user'][0];
-            if ($cb->set($url, CJSON::encode($oldRecord))) {
+            error_log(var_export($oldRecord,true));
+        //  $oldRecord['user'][0] = null;
+            $oldRecord['user'] = $newRecord['mega']['user'];
+            if ($cb->set($docID, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204, "{ render json: @user, status: :ok }");
             } else {
                 $this->sendResponse(500, "some thing wrong");

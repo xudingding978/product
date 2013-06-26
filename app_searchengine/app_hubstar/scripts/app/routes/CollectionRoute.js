@@ -26,6 +26,7 @@ define([
 
             var address = document.URL;
             var user_id = address.split("#")[1].split("/")[2];
+       //     console.log();
             return MegaModel.find({RquireType: "personalCollection", user_id: user_id, collection_id: params.collection_id});
         },
         events: {

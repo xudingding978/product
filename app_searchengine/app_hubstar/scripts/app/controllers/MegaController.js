@@ -130,20 +130,25 @@ define(['models/MegaModel',
                     this.set('contact', !this.get('contact'));
                 },
                 addComment: function() {
-                    var comments = this.get("thisComments");
-
-                    var commenter_profile_pic_url = this.get("currentUser").get('photo_url');
-                    var commenter_id = this.get("currentUser").get('id');
                     var commentContent = this.get('commentContent');
-                    var name = this.get("currentUser").get('display_name');
-                    var date = new Date();
-                    var tempComment = App.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url,
-                        "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(), "is_delete": false});
-                    comments.pushObject(tempComment);
-                    comments.store.save();
-                    this.set('commentContent', '');
-                    $('#addcommetBut').slideToggle();
-                    $('#commentBox').slideToggle();
+                    if (commentContent) {
+                        var comments = this.get("thisComments");
+                        var commenter_profile_pic_url = this.get("currentUser").get('photo_url');
+                        var commenter_id = this.get("currentUser").get('id');
+
+                        var name = this.get("currentUser").get('display_name');
+                        var date = new Date();
+                        var tempComment = App.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url,
+                            "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(), "is_delete": false});
+                        comments.pushObject(tempComment);
+                        comments.store.save();
+                        this.set('commentContent', '');
+                        $('#addcommetBut').slideToggle();
+                        $('#commentBox').slideToggle();
+
+
+
+                    }
 
                 },
                 getCommentsById: function(id)

@@ -93,8 +93,8 @@
                                     {{#if controller.editing}}
                                     {{view App.EditingView}}
                                     {{else}}
-                                    <div class="new-btn blue-btn" {{action toggleEditing}}>
-                                         <i class="icon-pencil"></i>                          
+                                    <div class="edit-btn easing" style="color: white;" {{action toggleEditing}}>
+                                         <i class="icon-edit"></i>                          
                                     </div>
                                     {{/if}}
                                 </div>
@@ -145,8 +145,8 @@
                                 <div>
                                     <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-phone' style='margin-right: 10px;'></i>Contact Detail</div>
 
-                                    <div class="new-btn blue-btn"  style="display: inline-block;margin: 0 0 0 10px;" {{action toggleEditingContact}}>
-                                         <i class="icon-pencil"></i>
+                                    <div class="edit-btn easing"  {{action toggleEditingContact}}>
+                                         <i class="icon-edit"></i>
                                     </div>
                                 </div>
 
@@ -216,6 +216,9 @@
 
                             <div class="aside-container" style="padding: 20px 0; border-top: 1px solid #fff; font-size: 14px;margin: auto;width: 95%;">
                                 <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-time' style='margin-right: 10px;'></i>Hours</div>
+                                 <div class="edit-btn easing">
+                                         <i class="icon-edit"></i>                            
+                                    </div>
                                 <div style="display: block">
                                     <div style='display: inline-block;color: #888;text-align: right;'>
                                         <p>Mon - Fri: </p>
@@ -245,14 +248,14 @@
 
                         <div class="profile-main-content" style="margin: 20px auto;width: 90%;">   
 
-                            <div class="main_aboutus" style="border-bottom: 1px solid #ccc; padding:20px 0 30px 0; font-size: 15px; min-height: 300px;">
+                            <div class="main_aboutus" style="border-bottom: 1px solid rgba(0,0,0,.1); padding:20px 0 30px 0; font-size: 15px; min-height: 300px;">
                                 <div><p style='margin-bottom: 20px;display: inline-block; font-size: 18px;'><i class='icon-group' style='margin-right: 10px;display: inline-block;'></i>About Us</p>
 
                                     {{#if controller.editingAbout}}
                                     {{view App.EditingAboutView}}
                                     {{else}}
-                                    <div class="new-btn blue-btn" {{action toggleEditingAbout}}>
-                                         <i class="icon-pencil"></i>                            
+                                    <div class="edit-btn" {{action toggleEditingAbout}}>
+                                         <i class="icon-edit"></i>                            
                                     </div>
                                     {{/if}}
                                 </div>

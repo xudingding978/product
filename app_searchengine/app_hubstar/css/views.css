@@ -546,16 +546,6 @@
     line-height: 20px;
 }
 
-.edit-collection-btn{
-    float: right;
-    color: #333;
-    opacity: .6;
-}
-
-.edit-collection-btn:hover{
-    opacity: 1;
-}
-
 
 /*MANSONRY album OBJECT STYLE               END*/
 
@@ -1001,7 +991,8 @@
 .collapes-container_inner{
     padding: 15px 0; 
     width: 87%; 
-    margin: auto; 
+    margin: auto;
+    border-bottom: 1px solid rgba(0,0,0,.03)
 }
 
 
@@ -1263,7 +1254,7 @@
     cursor: text; 
     font-size: 12px; 
     height: auto; 
-    margin: 0 0 0 0; 
+    margin: 0 0 20px 0; 
     padding: 6px 8px;
 }
 
@@ -1278,7 +1269,7 @@
 }
 
 .comment-position{
-    padding: 0 0px 16px 38px; 
+    padding: 0 0px 16px 45px; 
     vertical-align: top;
 }
 
@@ -1291,8 +1282,8 @@
 
 .profilepic_comment{
     border-radius: 50%;
-    width: 30px; 
-    height: 30px;
+    width: 35px; 
+    height: 35px;
 }
 
 .comment-insert-field{    
@@ -1399,15 +1390,25 @@
     color: #333;
 } 
 
+.edit-btn{
+    color: #333;
+    opacity: .6;
+    text-shadow: 0 0 10px #fff;
+    display: inline-block;
+    font-size: 16px;
+    margin: 0 10px;
+}
+
+.edit-btn:hover{
+    opacity: 1;
+}
+
+.edit-collection-btn{
+    float: right;
+}
 
 .edit-object-btn{
     top: 10px;
     position: absolute;
     right: 10px;
-    color: #333;
-    opacity: .6;
-}
-
-.edit-object-btn:hover{
-    opacity: 1;
 }

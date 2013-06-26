@@ -6,7 +6,7 @@ define([
     Ember.TEMPLATES["deletefunction"] = Ember.Handlebars.compile(deletefunctionTemplate);
 
     var DeleteFunctionView = Ember.View.extend({
-        classNames: ['blur'],
+
         template: Ember.Handlebars.compile(deletefunctionTemplate),
         didInsertElement: function() {
          //   this.$().hide().show('fast');

@@ -15,7 +15,9 @@
 
     <div class="controlbtn-field" style="margin-top: 15px;height: 60px;">
 
-        <div id="deletebtn" type="button" {{action deleteSelectedCollection}} class="new-btn red-btn"style="right:0; display: none">Delete</div>
+        <div id="deletebtn" type="button" {{action deleteSelectedCollection}} class="new-btn red-btn"style="right:0; display: none">
+             <i class='icon-trash'></i>
+        </div>
         <div style="position: relative; right: 15px;margin: 10px auto;float: right;">
 
             <div id="uploadingObject" class='new-btn' style="right: 0;"  {{action returnCollection  id target="view" on="click"}}>Cancel</div> 

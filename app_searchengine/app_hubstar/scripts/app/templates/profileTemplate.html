@@ -93,10 +93,9 @@
                                     {{#if controller.editing}}
                                     {{view App.EditingView}}
                                     {{else}}
-                                    <a class="editicon" style="vertical-align: top;" href="#"{{action toggleEditing}}>
-                                       <i class="icon-pencil"></i>
-                                        <b class="editicon_callout"></b>                             
-                                    </a>
+                                    <div class="new-btn blue-btn" {{action toggleEditing}}>
+                                         <i class="icon-pencil"></i>                          
+                                    </div>
                                     {{/if}}
                                 </div>
                                 <!--contact me-->
@@ -146,10 +145,9 @@
                                 <div>
                                     <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-phone' style='margin-right: 10px;'></i>Contact Detail</div>
 
-                                    <a class="editicon"  style="display: inline-block;margin: 0 0 0 10px;" href="#"{{action toggleEditingContact}}>
-                                       <i class="icon-pencil"></i>
-                                        <b class="editicon_callout"></b>
-                                    </a>
+                                    <div class="new-btn blue-btn"  style="display: inline-block;margin: 0 0 0 10px;" {{action toggleEditingContact}}>
+                                         <i class="icon-pencil"></i>
+                                    </div>
                                 </div>
 
                                 {{/unless}}
@@ -253,10 +251,9 @@
                                     {{#if controller.editingAbout}}
                                     {{view App.EditingAboutView}}
                                     {{else}}
-                                    <a class="editicon" href="#"{{action toggleEditingAbout}}>
-                                       <i class="icon-pencil"></i>
-                                        <b class="editicon_callout"></b>                             
-                                    </a>
+                                    <div class="new-btn blue-btn" {{action toggleEditingAbout}}>
+                                         <i class="icon-pencil"></i>                            
+                                    </div>
                                     {{/if}}
                                 </div>
                                 <div style="padding: 10px 50px;">
@@ -419,7 +416,7 @@
 
 
 
-{{controller}}
+    {{controller}}
 
     {{#if controller.switchPhoto}}
 

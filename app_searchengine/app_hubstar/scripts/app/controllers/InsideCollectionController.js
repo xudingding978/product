@@ -6,12 +6,10 @@ define([
     var InsideCollectionController = Ember.ArrayController.extend({
         content: [],
         title: null,
-        selectModel: function() {
+        selectModel: function(collection_id) {
             this.set('content', []);
-
             var address = document.URL;
             var user_id = address.split("#")[1].split("/")[2];
-            var collection_id = address.split("#")[1].split("/")[3];
             this.set('title', collection_id);
             var results = MegaModel.find({RquireType: "personalCollection", user_id: user_id, collection_id: collection_id});
 

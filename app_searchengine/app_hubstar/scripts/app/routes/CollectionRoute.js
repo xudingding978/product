@@ -13,9 +13,18 @@ define([
 
     var CollectionRoute = Ember.Route.extend({
         setupController: function(controller, model) {
-      //      console.log(model.id);
+       
+
+            if (model.id === undefined ||model.id==="") {
+                var address = document.URL;
+                var id = address.split("#")[1].split("/")[3];
+                console.log(id);
+            } else {
+                var id = model.id;
+
+            }
             this.controllerFor('user').set('switchPhoto', false);
-            this.controllerFor('insideCollection').selectModel(model.id);
+            this.controllerFor('insideCollection').selectModel(id);
             this.controllerFor('insideCollection').set('canEdit', true);
 
 
@@ -26,7 +35,6 @@ define([
 
             var address = document.URL;
             var user_id = address.split("#")[1].split("/")[2];
-            //     console.log();
             return MegaModel.find({RquireType: "personalCollection", user_id: user_id, collection_id: params.collection_id});
         },
         events: {

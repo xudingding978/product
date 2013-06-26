@@ -1261,10 +1261,11 @@
 
 .comment-item{
     position: relative;
-    overflow-y: auto;
     width: auto;
     display: block;
     margin: 5px 0;
+    overflow-wrap: break-word;
+    overflow-x: hidden;
 }
 
 .comment-position{

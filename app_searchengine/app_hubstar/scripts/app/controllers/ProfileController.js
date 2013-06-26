@@ -80,12 +80,16 @@ define([
 
                     var total_collection = this.get('model')._data.attributes.collections.split(",");
                     this.set('collections', total_collection);
+                    for (var i = 0; i < this.get('collections').length; i++) {
+console.log();
 
+                    }
                     console.log(this.get('collections'));
+
                 },
                 setSelectedCollection: function(id) {
 
-                 console.log(333333333);
+                    console.log(333333333);
                 },
             }
 

@@ -122,10 +122,16 @@
                 <a class="poster-name" {{bindAttr href="getProfile_id"}}  {{action transitionToProfile id}}>{{owner_title}}</a>
                 <span class="posttime">{{date created}}</span>
             </div>
+            {{#if controller.canEdit}}
             <div class="edit-object-btn">
                 <i class="icon-cog"></i>
             </div>
 
+
+            {{controller.title}}
+            {{id}}
+
+            {{/if}}
             <div class="object-tags-box">
 
                 <div class="object-tags">
@@ -175,7 +181,7 @@
 
                     <div class="more_text-container" > 
                         <div style="display:block;">
-                            {{description}}
+                            {{object_description}}
                         </div>
                     </div>
 

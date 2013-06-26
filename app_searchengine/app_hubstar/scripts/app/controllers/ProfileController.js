@@ -78,10 +78,10 @@ define([
                 setModel: function(model) {
                     this.set("model", model);
 
-                    var total_collection = this.get('model')._data.attributes.collections.split(",");
+                    var total_collection = this.get('model').get('collections').split(",");
                     this.set('collections', total_collection);
-                    for (var i = 0; i < this.get('collections').length; i++) {
-console.log();
+                    for (var i = 0; i < total_collection.length; i++) {
+                        console.log(total_collection[i]);
 
                     }
                     console.log(this.get('collections'));

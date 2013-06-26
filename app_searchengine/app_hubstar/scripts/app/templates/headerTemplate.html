@@ -24,39 +24,6 @@
             </div>
 
 
-
-
-
-            <div class="post_options popover popover_gradient popover_menu popover_post_options">
-                <div class="popover_inner">
-                    <ul>
-                        <li class="publish_now"><div class="option selected" data-option-value="0" data-button-text="{{#if edit}}Save post{{else}}{{#if reblog}}Reblog post{{else}}Publish{{/if}}{{/if}}">{{#isPublished post reblog}}Published{{else}}Publish now{{/isPublished}}</div></li>
-                        {{#isPublished post reblog}}
-                        {{else}}
-                        <li class="queue"><div class="option" data-option-value="2" data-button-text="Queue post">Add to queue</div></li>
-                        <li class="publish_on">
-                            <div class="option" data-option-value="on.2" data-button-text="Schedule post">
-                                <label for="post_publish_on" class="title">Publish on...</label>
-                                <div class="inline_edit">
-                                    <input type="text" class="inplace_edit" data-original-value="next tuesday, 10am" value="{{post.publish_on}}" id="post_publish_on" name="post[publish_on]" autocomplete="off">
-                                </div>
-                            </div>
-                        </li>
-                        <li class="save_draft"><div class="option" data-option-value="1" data-button-text="Save draft">Save as draft</div></li>
-                        {{/isPublished}}
-                        <li class="private_post"><div class="option" data-option-value="private" data-button-text="{{#if edit}}Save private post{{else}}Create private post{{/if}}">Private</div></li>
-                        <li id="preview"><span class="chrome full">Preview on blog</span></li>
-                    </ul>
-                </div>
-            </div>
-
-
-
-
-
-
-
-
             <div class="smallIcon">
                 <a href="#" class="icon_c"><i class="icon-search icon-large"></i></a>
             </div>

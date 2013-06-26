@@ -619,8 +619,8 @@
     float: left; 
     margin: 20px 15px 0 0; 
     padding: 0;
-    -webkit-border-radius: 50%; 
-    border-radius: 50%;
+    -webkit-border-radius: 5px; 
+    border-radius: 5px;
 }
 
 .object_username{
@@ -928,10 +928,16 @@
 }
 
 .profilepic/* for img*/{
-    border-radius: 50%; 
+    border-radius: 5px; 
     width: 46px; 
     height: 46px;
 } 
+
+.profilepic_user{
+    border-radius: 50%;
+    width: 46px; 
+    height: 46px;
+}
 
 .profilepic_effect{
     opacity: 0.8;
@@ -1281,6 +1287,7 @@
 }
 
 .profilepic_comment{
+    border-radius: 50%;
     width: 30px; 
     height: 30px;
 }

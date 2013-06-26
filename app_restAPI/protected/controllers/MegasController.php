@@ -73,29 +73,10 @@ class MegasController extends Controller {
     public function actionUpdate() {
         $newRecord = file_get_contents('php://input');
         $newRecord = CJSON::decode($newRecord, true);
-        try {
-            if (isset($newRecord['mega']['comments'][0]['mega_id'])) {
-                $newRecord['mega']['comments'][0]['mega_id'] = null;
-                error_log(var_export($newRecord['mega']['comments'], true));
-            }
-            $cb = $this->couchBaseConnection();
-            $temp = explode("/", $_SERVER['REQUEST_URI']);
-            $id = $temp [sizeof($temp) - 1];
-            $docID = $this->getDomain() . "/" . $id;
-            $oldRecord = $cb->get($docID);
-            $oldRecord = CJSON::decode($oldRecord, true);
-            $oldRecord['comments'] = $newRecord['mega']['comments'];
-            //   $oldRecord['mega']['comments'] = $newRecord['mega']['comments'];
-            //   error_log(var_export($oldRecord['mega']['comments'] , true));
-//            $oldRecord['user'][0] = null;
-//       $oldRecord['user'][0] = $request_arr['user'];
-            if ($cb->set($docID, CJSON::encode($oldRecord))) {
-                $this->sendResponse(204, "");
-            } else {
-                $this->sendResponse(500, "some thing wrong");
-            }
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
+        if ($newRecord['mega']['type'] == 'user') {
+            $this->updateUserRecord($newRecord);
+        } else {
+            $this->updateComment($newRecord);
         }
     }
 
@@ -197,6 +178,49 @@ class MegasController extends Controller {
             'Body' => $data,
             'ACL' => 'public-read'
         ));
+    }
+
+    public function updateComment($newRecord) {
+
+        try {
+            if (isset($newRecord['mega']['comments'][0]['mega_id'])) {
+                $newRecord['mega']['comments'][0]['mega_id'] = null;
+                error_log(var_export($newRecord['mega']['comments'], true));
+            }
+            $cb = $this->couchBaseConnection();
+            $temp = explode("/", $_SERVER['REQUEST_URI']);
+            $id = $temp [sizeof($temp) - 1];
+            $docID = $this->getDomain() . "/" . $id;
+            $oldRecord = $cb->get($docID);
+            $oldRecord = CJSON::decode($oldRecord, true);
+            $oldRecord['comments'] = $newRecord['mega']['comments'];
+            if ($cb->set($docID, CJSON::encode($oldRecord))) {
+                $this->sendResponse(204, "");
+            } else {
+                $this->sendResponse(500, "some thing wrong");
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function updateUserRecord($newRecord) {
+        try {
+            $cb = $this->couchBaseConnection();
+            $id = $newRecord['mega']['id'];
+            $docID = substr($_SERVER['HTTP_HOST'], 4) . "/users/" . $id;
+            $oldRecord = $cb->get($docID);
+            $oldRecord = CJSON::decode($oldRecord, true);
+            $oldRecord['user'][0] = null;
+            $oldRecord['user'][0] = $newRecord['user'][0];
+            if ($cb->set($url, CJSON::encode($oldRecord))) {
+                $this->sendResponse(204, "{ render json: @user, status: :ok }");
+            } else {
+                $this->sendResponse(500, "some thing wrong");
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
     }
 
 }

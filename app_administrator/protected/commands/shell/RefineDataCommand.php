@@ -2,47 +2,76 @@
     class RefineDataCommand extends CConsoleCommand {
         public $total_num = 0;
         public $obj_amount = 0;
-        
+        public $image_amount = 0;
         
         public function  actionIndex() {
             Yii::import("application.models.*");
             $data_list = ArticleImages::model()->getAll();
+
             $this->total_num = sizeof($data_list);
             echo "Totally: ".$this->total_num."\r\n";
-
+            
+            $start_time = microtime(TRUE);
             if (sizeof($data_list)>0) {
                 foreach ($data_list as $val) {
                     $photo_heliumMediaId = $val['heliumMediaId'];
 //                    echo $photo_heliumMediaId ."\r\n";
-                    if ($photo_heliumMediaId!="") {                        
+                    if ($photo_heliumMediaId!="") {
                         $photo_array=$this->getValidPhoto($photo_heliumMediaId);
                         
                         $url = "http://api.develop.devbox/GetResultByKeyValue/?type=photo&photo_heliumMediaId=".$photo_heliumMediaId;
                         $elastic_return_str = $this->callAPI($url);
+
                         $s3_url_arr=$this->getUrlFromElastic($elastic_return_str);
-                        
+                       
                         $mega_obj_arr = $this->structureArray($val, $s3_url_arr);
                         $id = $this->importMegaObj($mega_obj_arr, $val['id']);
                         
+                        $handle_array = array();
                         foreach($photo_array as $k=>$val){
                             $url_arr = explode("/", $s3_url_arr[$k]);
                             $file_name = $url_arr[sizeof($url_arr)-1];
                             
-                            $url = 'http://api.develop.devbox/PhotoMoving?style='.$k.'&name='.$file_name.'&id='.$id;                            
-                            $move_return_data=$this->callAPI($url);
+                            $url = 'http://api.develop.devbox/PhotoMoving?style='.$k.'&name='.$file_name.'&id='.$id;
+//                            $move_return_data=$this->callAPI($url);
                             
-//                            echo $url."\r\n";
-//                            echo gettype($move_return_data);
+                            $ch = curl_init($url);
+                            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+                            
+                            $handle_array[$k] = $ch;
                         }
-            
-//                        exit();
                         
+                        $this->movingPhotoList($handle_array);
+                        
+                        if($this->obj_amount>200) break;
                     } else {
                         $message = date("Y-m-d H:i:s")." -- ".$val['id']." --Does not have helium media id!!";
                         $this->writeToLog('/home/devbox/NetBeansProjects/test/error.log', $message);
                     }
+ 
                 }
             }
+            
+            $end_time = microtime(TRUE);
+            echo "*******************************".($end_time-$start_time);
+        }
+        
+        public function movingPhotoList($handle_array){
+            $mh = curl_multi_init();
+            foreach($handle_array as $k => $val) curl_multi_add_handle($mh, $val);
+            $running = null; 
+            
+            do{
+               curl_multi_exec($mh, $running);           
+            } while($running > 0);
+
+            foreach ($handle_array as $k=>$h) {
+                curl_multi_remove_handle($mh, $h);
+            }
+
+            curl_multi_close($mh);
         }
         
         public function importMegaObj($data_list, $id) {
@@ -58,7 +87,7 @@
                 curl_close($ch);
                 $this->obj_amount++;
     //            error_log($result);
-                echo $message = "trendsideas.com/" . $result . "\r\n id=" .$id . "---" . date("Y-m-d H:i:s"). "---" . $this->obj_amount . "/" . $this->total_num. " \r\n";
+                echo $message = "trendsideas.com/" . $result . "\r\n id=" .$id . "---" . date("Y-m-d H:i:s"). "---" . $this->obj_amount . "/" . $this->total_num. "\r\n";
                 return $result;
             } catch (Exception $e) {
                 $response = 'Caught exception: ' . $e->getMessage();
@@ -69,14 +98,14 @@
         }
         
         public function structureArray($val, $photo_arr) {
-            // get size of image        
+            // get size of image
             $original_size = $photo_arr['photo_original_filename'];
 
-            // image url 
-            $original_url = 'https://s3.hubsrv.com/trendsideas.com/object_id/photo/object_id/origianl/'.$photo_arr['photo_original_filename'];
-            $hero_url = 'https://s3.hubsrv.com/trendsideas.com/object_id/photo/object_id/hero/'.$photo_arr['photo_hero_filename'];
-            $preview_url = 'https://s3.hubsrv.com/trendsideas.com/object_id/photo/object_id/preview/'.$photo_arr['photo_preview_filename'];
-            $thumbnail_url = 'https://s3.hubsrv.com/trendsideas.com/object_id/photo/object_id/thumbnail/'.$photo_arr['photo_thumbnail_filename'];
+            // image url
+            $original_url = 'https://s3-ap-southeast-2.amazonaws.com/s3.hubsrv.com/trendsideas.com/object_id/photo/object_id/original/'.$photo_arr['photo_original_filename'];
+            $hero_url = 'https://s3-ap-southeast-2.amazonaws.com/s3.hubsrv.com/trendsideas.com/object_id/photo/object_id/hero/'.$photo_arr['photo_hero_filename'];
+            $preview_url = 'https://s3-ap-southeast-2.amazonaws.com/s3.hubsrv.com/trendsideas.com/object_id/photo/object_id/preview/'.$photo_arr['photo_preview_filename'];
+            $thumbnail_url = 'https://s3-ap-southeast-2.amazonaws.com/s3.hubsrv.com/trendsideas.com/object_id/photo/object_id/thumbnail/'.$photo_arr['photo_thumbnail_filename'];
 
             //  get region and country
             $country="";
@@ -89,6 +118,7 @@
                     $country = substr($country, -($pos - 3));
                 }
             }
+            
             // get topic
             $topic_list = TopicSearchNames::model()->selectTopicName($val['id']);
             
@@ -113,18 +143,21 @@
                     $title = str_replace(" & ", "-", $book['title']);
                     $title = str_replace(" ", "-", $title);
                     $time_array = $this->getUTC($date_live, $region_book);
+                    
                     if(sizeof($time_array)>0) {
                         $UTC = $time_array['utc'];
                         $timezone = $time_array['timezone'];
+                        
                         if ((int)$UTC>$book_date) {
                            $book_date = $UTC;
                             $region_book = str_replace(" & ", "-", $region_book);
                             $region_book = str_replace(" ", "-", $region_book);
                             $book_title =$region_book."-".$title;
-        //                    $book_title = strtolower($book_title);
+        
                         }
                     }
                 }
+                
             }
 
             // get current datetime
@@ -132,7 +165,11 @@
 
             // get keywords imfor
             $keywords = mb_check_encoding($val['keywords'], 'UTF-8') ? $val['keywords'] : utf8_encode($val['keywords']);
-
+                
+            // get article
+            Yii::import("application.models.*");
+            $article = Article::model()->findByPk((int)$val['articleId']);
+            
             $obj = array(
                 "id" => null,
                 "type" => "photo",
@@ -142,14 +179,14 @@
                 "timezone" =>$timezone,
                 "creator" => $book_title,
                 "creator_type" => 'user',
-                "creator_profile_pic" => "",
-                "creator_title" => null,
+                "creator_profile_pic" => "https://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small",
+                "creator_title" => "Trends Ideas",
                 "topics" => $topic_list,
                 "categories" => $category,
                 "collection_id" =>$val['articleId'],
                 "subcategories" => $subcategory,
                 "deleted" => null,
-                "domains" => "trendsideas.com",
+                "domains" => "beta.trendsides.com, trendsideas.com",
                 "editors" => "*@trendsideas.com",
                 "follower_count" => null,
                 "followers" => null,
@@ -161,10 +198,11 @@
                 "indexed_yn" => "y",
                 "object_image_linkto" => null,
                 "object_image_url" => $hero_url,
-                "object_title" => null,
+                "object_title" => $val['heliumMediaId'],
                 "object_description" => $val['caption'],
                 "owner_type" => 'profile',
-                "owner_profile_pic" => "https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/this_is/folder_path/Trends-Logo.jpg",
+                "owner_email" => null,
+                "owner_profile_pic" => "https://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small",
                 "owner_title" => "Trends Ideas",
                 "owner_id" => strtolower($book_title),    //"home-and-apartment-trends-nz"
                 "owners" => array(),
@@ -192,7 +230,7 @@
                 "photo_image_preview_url" => $preview_url,
                 "photo_image_linkto" => null,
                 "photo_type" => "image/jpeg",
-                "photo_collection_name" => null,
+                "photo_collection_name" => $article->headline,
                 "photo_categories" => null,
                 "photo_keywords" => $keywords,
                 "photo_brands" => null,
@@ -215,29 +253,37 @@
         public function getUTC($datetime, $region) {
             $time_zone = '';
             switch ($region) {
-                case "New Zealand": 
+                case 'New Zealand': 
                     $time_zone = 'NZ';
-                case "Australia": 
+                    break;
+                case 'Australia': 
                     $time_zone = 'Australia/Sydney';
-                case "United States": 
+                    break;
+                case 'United States': 
                     $time_zone = 'America/New_York';
-                case "South Africa": 
-                    $time_zone = 'Africa/Johannesburg';    
-                case "The Gulf": 
+                    break;
+                case 'South Africa': 
+                    $time_zone = 'Africa/Johannesburg'; 
+                    break;
+                case 'The Gulf': 
                     $time_zone = 'Asia/Dubai'; 
-                case "The Gulf & Asia":
+                    break;
+                case 'The Gulf & Asia':
                     $time_zone = 'Asia/Dubai';
-                case "中国": 
+                    break;
+                case '中国': 
                     $time_zone = 'Asia/Shanghai';
-                case "India":
+                    break;
+                case 'India':
                     $time_zone = 'Asia/Kolkata';
-            };
+                    break;
+            }
             $time_array = array();
             date_default_timezone_set($time_zone);
             $time_string = strtotime($datetime);
             $time_array['utc']=$time_string;
             $time_array['timezone']=$time_zone;
-
+            
             return $time_array;
         }
       
@@ -251,6 +297,7 @@
 
                 $result = curl_exec($ch);
                 curl_close ($ch);
+                
                 return $result;
             } catch (Exception $e) {
                $response = $e->getMessage();
@@ -262,7 +309,7 @@
         public function getUrlFromElastic($elastic_return_str){
                 $obj_url_arr=array();
                 $result_arr =  CJSON::decode($elastic_return_str);
-                
+
                 if(sizeof($result_arr['articles'])>0) {
                     $photo_arr = $result_arr['articles'][sizeof($result_arr['articles'])-1]['photo'][0];
                     
@@ -270,17 +317,17 @@
                     $obj_url_arr['hero'] = $photo_arr['photo_image_hero_url'];
                     $obj_url_arr['thumbnail'] = $photo_arr['photo_image_thumbnail_url'];
                     $obj_url_arr['preview'] = $photo_arr['photo_image_preview_url'];
-                    
-                    if(array_key_exists('photo_original_filename', $photo_arr)) {
-                        $obj_url_arr['photo_original_filename'] = $photo_arr['photo_original_filename'];
-                    } 
-                    if(array_key_exists('photo_original_width', $photo_arr)) {
-                        $obj_url_arr['photo_original_width'] = $photo_arr['photo_original_width'];                     
-                    } 
-                    if(array_key_exists('photo_original_height', $photo_arr)) {
-                        $obj_url_arr['photo_original_height'] = $photo_arr['photo_original_height'];
-                    }
                                        
+//                    if(array_key_exists('photo_original_filename', $photo_arr)) {
+//                        $obj_url_arr['photo_original_filename'] = $photo_arr['photo_original_filename'];
+//                    } 
+//                    if(array_key_exists('photo_original_width', $photo_arr)) {
+//                        $obj_url_arr['photo_original_width'] = $photo_arr['photo_original_width'];                     
+//                    } 
+//                    if(array_key_exists('photo_original_height', $photo_arr)) {
+//                        $obj_url_arr['photo_original_height'] = $photo_arr['photo_original_height'];
+//                    }
+                    
                     $url_arr = explode("/", $obj_url_arr['hero']);
                     $obj_url_arr['photo_hero_filename'] = $url_arr[sizeof($url_arr)-1];
                     
@@ -289,10 +336,21 @@
                     
                      $url_arr = explode("/", $obj_url_arr['preview']);
                      $obj_url_arr['photo_preview_filename'] = $url_arr[sizeof($url_arr)-1];
+                     
+                     $url_arr = explode("/", $obj_url_arr['original']); 
+                     $obj_url_arr['photo_original_filename'] = $url_arr[sizeof($url_arr)-1];
+                     $original_url = $url_arr[sizeof($url_arr)-1];
+                     
+                     $orginal_name_arr = preg_split("/_|x|\./", $original_url);
+                     $obj_url_arr['photo_original_width'] = "";
+                     $obj_url_arr['photo_original_height'] = "";
+                     if (sizeof($orginal_name_arr)>0) {
+                        $obj_url_arr['photo_original_width'] = $orginal_name_arr[1];
+                        $obj_url_arr['photo_original_height'] = $orginal_name_arr[2];
+                     }
+                     
                 }
-                                               
-//                print_r($obj_url_arr);
-//                exit();
+
                 return $obj_url_arr;
         }
         
@@ -319,7 +377,6 @@
                         $url = 'http://trendsideas.com/media/article/'.$photo_type.'/'.$photo_heliumMediaId.'.jpg';
                         break;
                 }
-//                        echo $url."\r\n";
 
                if($this->validatePhotoUrl($url)) {
                    $valid_photo_array[$photo_type] = $url;
@@ -331,16 +388,14 @@
         
         public function validatePhotoUrl($url) {
             $is_vailable = FALSE;
-            if ($this->isUrlExist($url)) {
+            $response = $this->isUrlExist($url);
+            if ($response) {
                 if($a=@getimagesize($url)) {
                     $is_vailable=TRUE;
                  } else {
-                    $message = date("Y-m-d H:i:s")." -- ".$url." --URL is not a photo!!";
-                    $this->writeToLog('/home/devbox/NetBeansProjects/test/error.log', $message);
-                }                
-            } else {
-                $message = date("Y-m-d H:i:s")." -- ".$url." --URL is not work!!";
-                $this->writeToLog('/home/devbox/NetBeansProjects/test/error.log', $message);
+                    $message = date("Y-m-d H:i:s")." -- ".$url." (cannot get image from this site!!)";
+                    $this->writeToLog('/home/devbox/NetBeansProjects/test/error_url.log', $message);
+                }
             }
             
             return $is_vailable;
@@ -349,9 +404,12 @@
         public function isUrlExist($path) {
             $file_headers = @get_headers($path);
             if ($file_headers[0] == 'HTTP/1.1 404 Not Found') {
-                $response = 'HTTP/1.1 404 Not Found';
+                $response = FALSE; 
+                
+                $message = date("Y-m-d H:i:s")." -- ".$path." (HTTP/1.1 404 Not Found)";
+                $this->writeToLog('/home/devbox/NetBeansProjects/test/error_url.log', $message);
             } else {
-                $response = "true";
+                $response = TRUE;
             }
 
             return $response;

@@ -21,6 +21,10 @@ class Controller extends CController {
     }
 
     protected function couchBaseConnection() {
+        return new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "test", true);
+    }
+    
+    protected function couchBaseConnection_production() {
         return new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "production", true);
     }
 
@@ -35,7 +39,7 @@ class Controller extends CController {
         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
         $result = $cb->get($domain);
         $result_arr = CJSON::decode($result, true);
-        error_log(var_export($result_arr));
+//        error_log(var_export($result_arr));
         $client = Aws\S3\S3Client::factory(
                         $result_arr["providers"]["S3Client"]
         );
@@ -200,8 +204,6 @@ class Controller extends CController {
         } else {
             $response = $this->performSearch($returnType, "", "huang");
         }
-
-
         return $response;
     }
 
@@ -406,7 +408,7 @@ class Controller extends CController {
             }
         }
         $rawRequest = $header . $tempRquestIDs . $footer;
-                error_log($rawRequest);
+//                error_log($rawRequest);
         $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);

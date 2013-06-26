@@ -122,7 +122,7 @@ define(["ember"
         deleteSelectedCollection: function()
         {
 
-            this.set("messege", "do you wish to delete this ???");
+            this.set("messege", "Do you wish to delete this?");
             this.set('makeSureDelete', true);
 
             if (this.get('willDelete')) {

@@ -17,6 +17,7 @@ define([
             var ProfileController = Ember.ObjectController.extend({
                 model: null,
                 editing: false,
+                switchPhoto:false,
                 galleryInsert: false,
                 setLocalLoginRecrod: function() {
                     App.set('afterSearch', true);

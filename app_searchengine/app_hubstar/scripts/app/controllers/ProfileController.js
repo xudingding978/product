@@ -17,11 +17,12 @@ define([
             var ProfileController = Ember.ObjectController.extend({
                 model: null,
                 editing: false,
-                switchPhoto:false,
+                switchPhoto: false,
                 galleryInsert: false,
+                collections: [],
                 setLocalLoginRecrod: function() {
                     App.set('afterSearch', true);
-                    console.log(App.get("afterSearch"));
+                    //        console.log(App.get("afterSearch"));
                     localStorage.user_id = this.get('content.id');
                 },
                 toggleEditing: function() {
@@ -74,13 +75,18 @@ define([
                 galleryEdit: function() {
                     this.set('galleryInsert', !this.get('galleryInsert'));
                 },
-                test: function()
-                {
-                    console.log("click showDragNdropWindow ");
-                },
                 setModel: function(model) {
                     this.set("model", model);
-                }
+
+                    var total_collection = this.get('model')._data.attributes.collections.split(",");
+                    this.set('collections', total_collection);
+
+                    console.log(this.get('collections'));
+                },
+                setSelectedCollection: function(id) {
+
+                 console.log(333333333);
+                },
             }
 
             );

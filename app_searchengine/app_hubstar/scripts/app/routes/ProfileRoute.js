@@ -11,7 +11,7 @@ define([
     //   var kink;
     var ProfileRoute = Ember.Route.extend({
         setupController: function(ProfileController, model) {
-            console.log(model.id);
+       //     console.log(model.id);
             ProfileController.setLocalLoginRecrod();
             ProfileController.setModel(model);
             this.controllerFor('application').set('islogin', true);
@@ -49,7 +49,7 @@ define([
         },
         model: function(params) {
             //  alert(333);
-            console.log(ProfileModel.find(params.profile_id));
+    //        console.log(ProfileModel.find(params.profile_id));
             return ProfileModel.find(params.profile_id);
         },
         renderTemplate: function() {

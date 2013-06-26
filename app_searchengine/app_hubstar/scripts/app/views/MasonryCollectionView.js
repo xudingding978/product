@@ -58,6 +58,14 @@ define([
                 columnWidth: 0,
                 isFitWidth: true
             });
+            
+            
+            
+            
+            
+            
+            
+            
         }
     });
     return MasonryView;

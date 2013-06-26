@@ -132,7 +132,7 @@ define(["ember"
                 this.cancelDelete();
             } else {
                 this.set('willDelete', true);
-                
+
             }
 
         },
@@ -155,7 +155,8 @@ define(["ember"
                     this.set("selectedCollection", thisCollection);
                 }
             }
-        }, newCollection: function()
+        },
+        newCollection: function()
         {
             var collection = App.Collection.createRecord({"id": null, "title": null, "desc": null, "collection_ids": null, "createdAt": new Date()});
             this.set("selectedCollection", collection);

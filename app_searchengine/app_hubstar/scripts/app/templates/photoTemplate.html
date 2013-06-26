@@ -196,7 +196,7 @@
                             <div class="object-like" style=""></div>
                             <div class="object-save" style=""></div>
                         </div>
-                        <div class="addcommnetbox" role="button" {{action toggleComment target="view" on="click"}} id="addcommetBut" >
+                        <div class="addcommnetbox" role="button" {{action openComment target="view" on="click"}} id="addcommetBut" >
                             add comment...
                         </div >
                         <div class="addcommnetbox-container" id="commentBox" style="display: none">
@@ -207,7 +207,7 @@
 
                                 {{view App.SearchRequireTextFieldView valueBinding="commentContent"  id="AddRecord" class="comment-insert-field"  placeholder="" }}   
                                 <span class="" style="margin-top: 7px;float: right;">
-                                    <div  class="new-btn"{{action toggleComment target="view" on="click"}}>Cancel</div>
+                                    <div  class="new-btn"{{action closeComment target="view" on="click"}}>Cancel</div>
                                     <div class="new-btn green-btn" {{action addComment}}>post</div>
                                 </span>
                       

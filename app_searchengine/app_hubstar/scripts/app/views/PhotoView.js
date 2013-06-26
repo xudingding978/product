@@ -39,10 +39,18 @@ define([
 
             $("#collection_tab").slideToggle("slow");
         },
-        toggleComment: function() {
+        openComment: function() {
 
-            $('#addcommetBut').slideToggle();
-            $('#commentBox').slideToggle();
+            $('#addcommetBut').attr('style', 'display:none');
+            $('#commentBox').attr('style', 'display:block');
+
+
+        },
+        closeComment: function() {
+
+            $('#addcommetBut').attr('style', 'display:block');
+            $('#commentBox').attr('style', 'display:none');
+
 
         }
 

@@ -126,7 +126,7 @@ define([
 
             if (title.indexOf(" ") !== -1) {
 
-                title = title.split(' ').join('_');
+                title = title.split(' ').join('-');
               
             }
             return title;

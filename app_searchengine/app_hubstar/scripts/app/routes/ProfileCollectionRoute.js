@@ -13,29 +13,26 @@ define([
 
     var CollectionRoute = Ember.Route.extend({
         setupController: function(controller, model) {
-       
 
-            if (model.id === undefined ||model.id==="") {
+            if (model.id === undefined || model.id === "") {
                 var address = document.URL;
                 var id = address.split("#")[1].split("/")[3];
-                console.log(id);
             } else {
                 var id = model.id;
 
             }
-            this.controllerFor('user').set('switchPhoto', false);
-            this.controllerFor('insideCollection').selectModelForUser(id);
-            this.controllerFor('insideCollection').set('canEdit', true);
-
-
+            this.controllerFor('insideCollection').selectModelForProfile(id);
+            this.controllerFor('profile').set('switchPhoto', false);
+            this.controllerFor('insideCollection').set('uploadStuff', true);
+            this.controllerFor('insideCollection').set('canEditbyOwner', true);
         },
         model: function(params) {
-
-            this.controllerFor('user').set('switchPhoto', false);
-
+            this.controllerFor('profile').set('switchPhoto', false);
             var address = document.URL;
-            var user_id = address.split("#")[1].split("/")[2];
-            return MegaModel.find({RquireType: "personalCollection", user_id: user_id, collection_id: params.collection_id});
+            var owner_id = address.split("#")[1].split("/")[2];
+            console.log(params.profileCollection_id);
+            return MegaModel.find({RquireType: "collection", collection_id: params.profileCollection_id, owner_profile_id: owner_id});
+
         },
         events: {
             transitionToPhoto: function(id) {
@@ -58,10 +55,6 @@ define([
         renderTemplate: function() {
 
 
-//            this.render('user', {
-//                outlet: "users",
-//                into: "application"
-//            });
 
         }
 

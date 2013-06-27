@@ -79,12 +79,13 @@ define([
                     this.set("model", model);
 
                     var total_collection = this.get('model').get('collections').split(",");
-                    this.set('collections', total_collection);
+                    //  this.set('collections', total_collection);
                     for (var i = 0; i < total_collection.length; i++) {
-                  //     this.get('collections').pushObject(App.Mega.find());
-                        console.log(total_collection[i]);
+                        this.get('collections').pushObject({id: total_collection[i]});
+
 
                     }
+                 //   console.log(this.get('collections'));
                     //        console.log(this.get('collections'));
 
                 },

@@ -48,7 +48,7 @@
 
         <div class="box col2 style-box t-style-box">
             <div class="masonry-object Targeting_Object_front" {{bindAttr id="id"}}>
-                <a class="album-description-hoverarea easing" {{action transitionToCollectionPhoto title}}>
+                <a class="album-description-hoverarea easing" href="" {{action transitionToCollectionPhoto id}}>
 
                     <div class="album-description">{{desc}}</div>
                     <div class="album-description-bg">{{desc}}</div>
@@ -60,7 +60,7 @@
                     <div class="album-info_name"><i class="icon-picture" ></i> {{collection_ids}}         {{controller}} </div>
                     <div class="album-info_content">
                         <div class="edit-btn edit-collection-btn easing"><i class="icon-cog" {{action editCollectionButton id desc target="view" on="click"}}></i></div>
-                        <span><a  href="#/users/{{unbound controller.currentID}}/{{unbound title}}"> {{title}} </a> photos {{title}}</span>
+                        <span><a href="" {{action transitionToCollectionPhoto id}}> {{title}} </a> photos {{title}}</span>
                         <span><img src="../../images/list-doc.png"/> April 1 2013</span>
                     </div>
                 </div>

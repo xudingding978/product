@@ -216,9 +216,9 @@
 
                             <div class="aside-container" style="padding: 20px 0; border-top: 1px solid #fff; font-size: 14px;margin: auto;width: 95%;">
                                 <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-time' style='margin-right: 10px;'></i>Hours</div>
-                                 <div class="edit-btn easing">
-                                         <i class="icon-edit"></i>                            
-                                    </div>
+                                <div class="edit-btn easing">
+                                    <i class="icon-edit"></i>                            
+                                </div>
                                 <div style="display: block">
                                     <div style='display: inline-block;color: #888;text-align: right;'>
                                         <p>Mon - Fri: </p>
@@ -438,3 +438,10 @@
     {{/if}}
 
 
+
+    {{#if controller.makeSureDelete}}
+
+    {{view App.DeleteFunctionView}}
+
+
+    {{/if}}

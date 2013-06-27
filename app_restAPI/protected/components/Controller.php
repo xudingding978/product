@@ -41,24 +41,23 @@ class Controller extends CController {
         );
         return $client;
     }
-    
+
     // function for connecting to s3. Using for move photo between buckets. (Tao)
-    public function connectToS3(){
+    public function connectToS3() {
         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
         $key = explode(".", $_SERVER['HTTP_HOST']);
         $key = $key[1] . '.' . $key[2];
         $result = $cb->get($key);
         $result_arr = CJSON::decode($result, true);
-        
+
 //        error_log(var_export($result_arr));
-        
+
         $client = Aws\S3\S3Client::factory(
-            $result_arr["providers"]["S3Client"]
+                        $result_arr["providers"]["S3Client"]
         );
 
         return $client;
     }
-
 
     /**
      * Send raw HTTP response
@@ -190,8 +189,8 @@ class Controller extends CController {
             array_push($requestArray, $requestStringOne);
             $requestStringTwo = 'couchbaseDocument.doc.user.collections.id=' . $collection_id;
             array_push($requestArray, $requestStringTwo);
-            $response = $this->performMustSearch($requestArray, $returnType);
-            $mega = CJSON::decode($response, true);
+            $tempResult = $this->performMustSearch($requestArray, $returnType);
+            $mega = CJSON::decode($tempResult, true);
             $collections = $mega['megas'][0]['user'][0]['collections'];
             $response = $this->getCollections($collections, $collection_id, $returnType);
         } else {
@@ -403,7 +402,7 @@ class Controller extends CController {
             }
         }
         $rawRequest = $header . $tempRquestIDs . $footer;
-                error_log($rawRequest);
+        error_log($rawRequest);
         $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);

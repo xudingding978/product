@@ -11,9 +11,7 @@ define([
 
     var UsersRoute = Ember.Route.extend({
         setupController: function(controller, model) {
-       
-            //  controller.set("indexPage",true);
-            //   controller.get('application').remove();
+
             this.controllerFor('application').set('islogin', true);
             this.controllerFor('application').set('popup', false);
             this.controllerFor('application').set('isotherpage', true);

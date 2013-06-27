@@ -3,24 +3,36 @@
         <div class="poster_user" >
             <div style="display: block; font-size: 16px; font-weight: bold; margin-bottom: 5px;">
                 <span style="display: inline-block;margin-right: 5px;">Send an Email to</span>
-                <a style="max-width: 240px; display: inline-block; overflow: hidden; text-overflow: ellipsis;">Name</a>
+                <a style="max-width: 240px; display: inline-block; overflow: hidden; text-overflow: ellipsis;">{{controller.selectedMega.owner_title}}</a>
             </div>
             <div style="display: block; margin-bottom: 10px;">
-                <span style="display: inline-block;margin-right: 5px;">From: Allen_wen@gmail.com</span>
-                <a>edit</a>
+                {{#unless controller.isDisplayNameEditable}}
+                <span style="display: inline-block;margin-right: 5px;">From: {{controller.displayName}}</span>
+                {{else}}
+                {{view App.SearchRequireTextFieldView valueBinding="controller.displayName"}}
+                {{/unless}}
+                <a {{action setEditable "Name"}}>{{editNameStatus}}</a>
             </div>
+            <div style="display: block; margin-bottom: 10px;">
+                {{#unless controller.isDisplayEmailEditable}}
+                <span style="display: inline-block;margin-right: 5px;">Email: {{controller.displayEmail}}</span>
+                {{else}}
+                {{view App.SearchAreaTextFieldView valueBinding="controller.displayEmail"}}
+                {{/unless}}
+                <a {{action setEditable "Email"}}>{{editEmailStatus}}</a>
+            </div>
+
+
         </div>
         <div style="float: right;position: relative; display: inline-block; vertical-align: top;">
-            <a href="#"><img src="https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-ash3/556015_10151601804148200_348426023_n.jpg" class="profilepic"/></a>              
+            <a href="#"><img {{bindAttr src="controller.selectedMega.owner_profile_pic"}} class="profilepic"/></a>              
         </div>
         <div>
             <span style="display: inline-block; margin-right: 10px;">Subject:</span>
             <div class="addcommnetbox" style="display: inline-block; width: 378px; height: 25px; vertical-align: middle; padding: 2px 8px;">
-                Project inquiry
+                {{view Ember.TextField valueBinding="controller.emailSubject"}}
             </div>
         </div>
-
-
     </div>
     <div class="content">
         <div class="contactme-table" style="text-align: center;">
@@ -82,45 +94,19 @@
                     </tr>
                 </tbody>
             </table>        
-            <div class="checkbox-columncontainer">
-                <div class="checkbox-container">
-                    <input type="checkbox" id="checkbox5" class="css-checkbox" checked="checked">
-                    <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Products</label>
-                </div>
-                <div class="checkbox-container">
-                    <input type="checkbox" id="checkbox5" class="css-checkbox" checked="checked">
-                    <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Design</label>
-                </div>
-                <div class="checkbox-container">
-                    <input type="checkbox" id="checkbox5" class="css-checkbox" checked="checked">
-                    <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Ideas</label>
-                </div>
-            </div>
-            <div class="checkbox-columncontainer">
-                <div class="checkbox-container">
-                    <input type="checkbox" id="checkbox5" class="css-checkbox" checked="checked">
-                    <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Appliances</label>
-                </div>
-                <div class="checkbox-container">
-                    <input type="checkbox" id="checkbox5" class="css-checkbox" checked="checked">
-                    <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Benchtops</label>
-                </div>
-                <div class="checkbox-container">
-                    <input type="checkbox" id="checkbox5" class="css-checkbox" checked="checked">
-                    <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Layout</label>
-                </div>
-            </div>
         </div>
         <div style="display: block;padding: 5px 0px;">
             <div>
                 <span style="display: inline-block; margin-bottom: 5px;">Message:</span>
                 <div class="addcommnetbox" style="margin-bottom: 10px; width: auto; height: 70px; vertical-align: middle; padding: 2px 8px;">
-                    I saw your profile, I'd love to talk to you about my project, Please reply  if you are interested.
+                    {{view Ember.TextArea valueBinding="controller.emailBody" rows="12" cols="70" class="collect_descriptionbox" placeholder="         
+                    I saw your profile, I'd love to talk to you about my project, Please reply  if you are interested.........."}}
+
                 </div>
             </div>
             <div style='text-align: right;'>
                 <button type="button" {{action closeContact }} class="btn">Cancel</button>
-                <button type="button" {{action closeContact }}  class="btn btn-primary">Submit</button>
+                <button type="button" {{action emailSend }}  class="btn btn-primary">Submit</button>
             </div>
         </div>
     </div>

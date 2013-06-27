@@ -11,8 +11,7 @@ define(["ember"
         selectedTitle: "",
         coverImg: "",
         display_name: "",
-        currentID: "",
-        objectID: null,
+        currentUserID: "",
         needs: ['photoCreate'],
         sortProperties: ['id'],
         sortAscending: false,
@@ -45,12 +44,12 @@ define(["ember"
         },
         getHeroImgae: function(id, col) {
             var photo = App.Mega.find(id);
-      //   console.log(photo);
+            //   console.log(photo);
             photo.addObserver('isLoaded', function() {
-                
+
                 if (photo.get('isLoaded')) {
-                  col.set("cover", photo.get('photo').objectAt(0).get("photo_image_hero_url"));
-                  col.store.save();
+                    col.set("cover", photo.get('photo').objectAt(0).get("photo_image_hero_url"));
+                    col.store.save();
                 }
             });
 
@@ -78,7 +77,7 @@ define(["ember"
             //    this.addNewCollection();
             var address = document.URL;
             var user_id = address.split("#")[1].split("/")[2];
-            this.set('currentID', user_id);
+            this.set('currentUserID', user_id);
             var user = App.User.find(user_id);
             return user;
         },
@@ -127,16 +126,17 @@ define(["ember"
         },
         updateCollectionInfo: function()
         {
+            var title = this.get("selectedCollection").get("id");
+            this.get("selectedCollection").set("title", title);
+            this.set("selectedTitle", title);
+
             this.get("selectedCollection").store.save();
         },
         setSelectedCollection: function(id) {
-         
+
             for (var i = 0; i < this.get("collections").get("length"); i++) {
-                   
                 var thisCollection = this.get("collections").objectAt(i);
-     //           console.log(thisCollection);
                 if (id === thisCollection.get("id")) {
-     //               console.log(thisCollection.get("id"));
                     this.set("selectedCollection", thisCollection);
                 }
             }

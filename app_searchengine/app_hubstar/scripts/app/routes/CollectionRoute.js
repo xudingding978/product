@@ -18,18 +18,15 @@ define([
 //            this.controllerFor('application').set('popup', false);
             this.controllerFor('user').set('switchPhoto', false);
             this.controllerFor('insideCollection').selectModel();
-             this.controllerFor('insideCollection').set('canEdit', true);
-            
+            this.controllerFor('insideCollection').set('canEdit', true);
+
 
         },
         model: function(params) {
-
             this.controllerFor('user').set('switchPhoto', false);
-
             var address = document.URL;
             var user_id = address.split("#")[1].split("/")[2];
-       //     console.log();
-            return MegaModel.find({RquireType: "personalCollection", user_id: user_id, collection_id: params.collection_id});
+            return MegaModel.find({RquireType: "personalCollection", user_id: user_id, collection_id: this.controllerFor('user').get("selectedTitle")});
         },
         events: {
             transitionToPhoto: function(id) {

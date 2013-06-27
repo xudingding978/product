@@ -21,6 +21,10 @@ define([
         emailDestination: null,
         emaiCCDestination: null,
         emaiBCCDestination: null,
+        projectCategory: null,
+        projectTimeframe: null,
+        projectBudget: null,
+        projectExperience: null,
         needs: ["mega"],
         setSelectedMega: function(id)
         {
@@ -57,6 +61,7 @@ define([
         },
         emailSend: function()
         {
+    //        alert($('#dropdownCategory').text());
             var tempEmail = App.Email.createRecord({
                 "displayName": this.get("displayName"),
                 "displayEmail": this.get("displayEmail"),
@@ -64,35 +69,39 @@ define([
                 "emailSubject": this.get("emailSubject"),
                 "emailDestination": this.get("emailDestination"),
                 "emaiCCDestination": this.get("emaiCCDestination"),
-                "emaiBCCDestination": this.get("emaiBCCDestination")
+                "emaiBCCDestination": this.get("emaiBCCDestination"),
+                "projectCategory": $('#dropdownCategory').text(),
+                "projectTimeframe": $('#dropdownTimeframe').text(),
+                "projectBudget": $('#dropdownBudget').text(),
+                "projectExperience": $('#dropdownExperience').text()
             });
             tempEmail.store.commit();
             this.closeContact();
         },
         dropdown: function(checking) {
             if (checking === "category") {
-                console.log(checking);
+            //    console.log(checking);
                 this.set('toggleDropdown2', false);
                 this.set('toggleDropdown3', false);
                 this.set('toggleDropdown4', false);
                 this.set('toggleDropdown1', !this.get('toggleDropdown1'));
 
             } else if (checking === "Timeframe") {
-                console.log(checking);
+          //      console.log(checking);
                 this.set('toggleDropdown1', false);
                 this.set('toggleDropdown3', false);
                 this.set('toggleDropdown4', false);
                 this.set('toggleDropdown2', !this.get('toggleDropdown2'));
 
             } else if (checking === "Budget") {
-                console.log(checking);
+         //       console.log(checking);
                 this.set('toggleDropdown1', false);
                 this.set('toggleDropdown2', false);
                 this.set('toggleDropdown4', false);
                 this.set('toggleDropdown3', !this.get('toggleDropdown3'));
 
             } else if (checking === "Experience") {
-                console.log(checking);
+         //       console.log(checking);
                 this.set('toggleDropdown1', false);
                 this.set('toggleDropdown2', false);
                 this.set('toggleDropdown3', false);

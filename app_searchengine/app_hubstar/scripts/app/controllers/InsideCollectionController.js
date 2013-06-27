@@ -36,7 +36,7 @@ define([
             var address = document.URL;
             var owner_id = address.split("#")[1].split("/")[2];
             this.set('title', collection_id);
-            var results =  MegaModel.find({RquireType: "collection", collection_id: collection_id, owner_profile_id: owner_id});
+            var results = MegaModel.find({RquireType: "collection", collection_id: collection_id, owner_profile_id: owner_id});
 
             var that = this;
             results.addObserver('isLoaded', function() {
@@ -53,8 +53,16 @@ define([
 
 //            console.log(this.get('title'));
 //            console.log(this.get('content'));
-       console.log(this.get('content'));
+            //        console.log(this.get('content'));
 
+        },
+        newUpload: function() {
+            $('#ownerUpload').attr('style', 'display:block');
+            $('#tagetUplaod').attr('style', 'display:none');
+        },
+        back: function() {
+            $('#ownerUpload').attr('style', 'display:none');
+            $('#tagetUplaod').attr('style', 'display:block');
         }
     });
     return InsideCollectionController;

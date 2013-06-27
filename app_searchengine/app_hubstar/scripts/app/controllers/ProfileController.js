@@ -22,7 +22,6 @@ define([
                 collections: [],
                 setLocalLoginRecrod: function() {
                     App.set('afterSearch', true);
-                    //        console.log(App.get("afterSearch"));
                     localStorage.user_id = this.get('content.id');
                 },
                 toggleEditing: function() {
@@ -85,15 +84,9 @@ define([
 
 
                     }
-                 //   console.log(this.get('collections'));
-                    //        console.log(this.get('collections'));
-
+         
                 },
-                setSelectedCollection: function(id) {
 
-                    console.log(333333333);
-
-                }
             }
 
             );

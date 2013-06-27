@@ -4,8 +4,6 @@ define([
 
 
     var ContactController = Ember.Controller.extend({
-        loginInfo: "",
-        test: false,
         selectedMega: null,
         displayName: null,
         displayEmail: null,
@@ -19,6 +17,7 @@ define([
         emailDestination: null,
         emaiCCDestination: null,
         emaiBCCDestination: null,
+        needs: ["mega"],
         setSelectedMega: function(id)
         {
             this.set("currentUser", App.User.find(localStorage.loginStatus));
@@ -28,10 +27,12 @@ define([
             this.set("emailDestination", this.get("selectedMega").get("owner_contact_email"));
             this.set("emaiCCDestination", this.get("selectedMega").get("owner_contact_cc_emails"));
             this.set("emaiBCCDestination", this.get("selectedMega").get("owner_contact_bcc_emails"));
-                      console.log(    this.get("selectedMega"));
+            console.log(this.get("selectedMega"));
             console.log(this.get("emailDestination"));
         },
-        loginStatus: function() {
+        closeContact: function() {
+            var megaController = this.get("controllers.mega");
+            megaController.closeContact();
         },
         setEditable: function(attr) {
             var swtich = "isDisplay" + attr + "Editable";
@@ -47,8 +48,17 @@ define([
         },
         emailSend: function()
         {
-
-
+            var tempEmail = App.Email.createRecord({
+                "displayName": this.get("displayName"),
+                "displayEmail": this.get("displayEmail"),
+                "emailBody": this.get("emailBody"),
+                "emailSubject": this.get("emailSubject"),
+                "emailDestination": this.get("emailDestination"),
+                "emaiCCDestination": this.get("emaiCCDestination"),
+                "emaiBCCDestination": this.get("emaiBCCDestination")
+            });
+            tempEmail.store.commit();
+            this.closeContact();
         }
 
     });

@@ -81,6 +81,8 @@ define([
         addNewCollection: function()
         {
             var title = this.get("newCollectionName");
+            title = this.checkingValidInput(title);
+
             var isInputValid = this.checkInput(title);
             if (isInputValid) {
                 var tempCollection = App.Collection.createRecord({"id": title, "title": title, "desc": null, "collection_ids": null, "createdAt": new Date()});
@@ -109,16 +111,26 @@ define([
         selectSelectedDesc: function()
         {
             console.log(this.get("selectedTitle"));
-            var desc="";
+            var desc = "";
             for (var i = 0; i < this.get("collections").get("length"); i++)
             {
                 var collection = this.get("collections").objectAt(i);
                 if (collection.get("title") === this.get("selectedTitle"))
                 {
-                   desc=collection.get("desc");
+                    desc = collection.get("desc");
                 }
             }
-                this.set("selectedDesc", desc);
+            this.set("selectedDesc", desc);
+        },
+        checkingValidInput: function(title) {
+
+            if (title.indexOf(" ") !== -1) {
+
+                title = title.split(' ').join('-');
+              
+            }
+            return title;
+
         },
         checkInput: function(title) {
             var isInputValid = false;

@@ -9,7 +9,7 @@ define([
             //     App.set("afterSearch",true);
 
 
-            console.log("qwerty");
+      //      console.log("qwerty");
             this.rerender();
 
 
@@ -21,7 +21,7 @@ define([
 
         },
         reloadPage: function() {
-console.log('hhhhhhhhhhhhhh'); 
+//console.log('hhhhhhhhhhhhhh'); 
         }
 
     });

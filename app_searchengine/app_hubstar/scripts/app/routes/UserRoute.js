@@ -1,17 +1,21 @@
 define([
     'ember',
     'models/UserModel',
-    'models/CollectionModel'
+    'models/CollectionModel',
+    'models/MegaModel'
+
 ], function(
         Ember,
         UserModel,
-        CollectionModel
+        CollectionModel,
+        MegaModel
         ) {
     "use strict";
 
     var UsersRoute = Ember.Route.extend({
         setupController: function(controller, model) {
 
+ 
             this.controllerFor('application').set('islogin', true);
             this.controllerFor('application').set('popup', false);
             this.controllerFor('application').set('isotherpage', true);
@@ -21,21 +25,17 @@ define([
 
         },
         model: function(params) {
-
-
             return UserModel.find(params.user_id);
-         //        alert(666);
         },
         events: {
-//            transitionToCollectionPhoto: function() {
-//                var address = document.URL;
-//                var user_id = address.split("#")[1].split("/")[2];
-//                console.log(user_id);
-//                this.transitionTo("collection", CollectionModel.find(user_id));
-//            },
-//            test11: function(id) {
-//                console.log("id");
-//            }
+            transitionToCollectionPhoto: function(collection_id) {
+
+                var address = document.URL;
+                var user_id = address.split("#")[1].split("/")[2];
+                console.log(collection_id);
+                var data = MegaModel.find(collection_id);
+                this.transitionTo("collection", data);
+            }
         },
         redirect: function() {
 

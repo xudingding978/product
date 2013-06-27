@@ -15,6 +15,7 @@ define(["ember"
         needs: ['photoCreate'],
         sortProperties: ['id'],
         sortAscending: false,
+        makeSureDelete: false,
         selectedCollection: "",
         init: function()
         {
@@ -86,6 +87,10 @@ define(["ember"
             //   var user = this.getCurrentUser();
             this.get("collections").pushObject(this.selectedCollection);
             this.get("collections").store.commit();
+
+            $(".Targeting_Object_front").attr("style", "display:inline-block");
+            $(" #uploadArea").attr('style', "display:none");
+            $(" #uploadObject").attr('style', "display:block");
         },
         setDesc: function(desc) {
             this.set("selectedDesc", desc);
@@ -119,18 +124,35 @@ define(["ember"
         },
         deleteSelectedCollection: function()
         {
-            this.get("collections").removeObject(this.get("selectedCollection"));
-            var user = this.getCurrentUser();
-            user.store.save();
 
+            var message = "Do you wish to delete " + this.get("selectedCollection").get('id') + " ?";
+            this.set("messege", message);
+            this.set('makeSureDelete', true);
+
+            if (this.get('willDelete')) {
+                this.get("collections").removeObject(this.get("selectedCollection"));
+                var user = this.getCurrentUser();
+                user.store.save();
+                this.cancelDelete();
+            } else {
+                this.set('willDelete', true);
+
+            }
+
+        },
+        cancelDelete: function() {
+            this.set('willDelete', false);
+            this.set('makeSureDelete', false);
         },
         updateCollectionInfo: function()
         {
             var title = this.get("selectedCollection").get("id");
             this.get("selectedCollection").set("title", title);
             this.set("selectedTitle", title);
-
             this.get("selectedCollection").store.save();
+            $(".Targeting_Object_front").attr("style", "display:inline-block");
+            $(" #uploadArea").attr('style', "display:none");
+            $(" #uploadObject").attr('style', "display:block");
         },
         setSelectedCollection: function(id) {
 
@@ -140,7 +162,8 @@ define(["ember"
                     this.set("selectedCollection", thisCollection);
                 }
             }
-        }, newCollection: function()
+        },
+        newCollection: function()
         {
             var collection = App.Collection.createRecord({"id": null, "title": null, "desc": null, "collection_ids": null, "createdAt": new Date()});
             this.set("selectedCollection", collection);

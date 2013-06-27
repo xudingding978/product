@@ -89,7 +89,7 @@
 
 
                                     {{#if controller.editing}}
-                                    <!--                                    {{view App.EditingView}}-->
+
                                     {{view App.SearchRequireTextFieldView valueBinding="model.profile_name"  id="" class=""  }} 
                                     <button {{action yes controller.profileName}}>Yes</button>     <button {{action no controller.profileName}}>No</button> {{controller}}
                                     {{else}}

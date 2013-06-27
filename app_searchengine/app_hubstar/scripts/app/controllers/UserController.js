@@ -11,8 +11,7 @@ define(["ember"
         selectedTitle: "",
         coverImg: "",
         display_name: "",
-        currentID: "",
-        objectID: null,
+        currentUserID: "",
         needs: ['photoCreate'],
         sortProperties: ['id'],
         sortAscending: false,
@@ -79,7 +78,7 @@ define(["ember"
             //    this.addNewCollection();
             var address = document.URL;
             var user_id = address.split("#")[1].split("/")[2];
-            this.set('currentID', user_id);
+            this.set('currentUserID', user_id);
             var user = App.User.find(user_id);
             return user;
         },
@@ -147,7 +146,9 @@ define(["ember"
         },
         updateCollectionInfo: function()
         {
-
+            var title = this.get("selectedCollection").get("id");
+            this.get("selectedCollection").set("title", title);
+            this.set("selectedTitle", title);
             this.get("selectedCollection").store.save();
             $(".Targeting_Object_front").attr("style", "display:inline-block");
             $(" #uploadArea").attr('style', "display:none");
@@ -156,7 +157,6 @@ define(["ember"
         setSelectedCollection: function(id) {
 
             for (var i = 0; i < this.get("collections").get("length"); i++) {
-
                 var thisCollection = this.get("collections").objectAt(i);
                 if (id === thisCollection.get("id")) {
                     this.set("selectedCollection", thisCollection);

@@ -4,7 +4,6 @@ define([
     'ember'
 ], function(MegaModel, Stat, Ember) {
 
-
     var ApplicationController = Ember.ArrayController.extend({
         needs: ['status'],
         loginInfo: "",
@@ -29,9 +28,7 @@ define([
             this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
         },
         reloadPage: function() {
-            console.log("aqpllication " + this.get("test"));
             this.set("test", !this.get("test"));
-            console.log("aqpllication " + this.get("test"));
         },
         newSearch: function() {
             var d = new Date();

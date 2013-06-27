@@ -129,6 +129,7 @@ define('application', [
     "controllers/UsersController",
     "controllers/UserController",
     "controllers/InsideCollectionController",
+    "controllers/ContactController",
     "app/router",
     "routes/ApplicationRoute",
     "routes/IndexRoute",
@@ -174,6 +175,7 @@ define('application', [
     "models/StatModel",
     "models/CollectionModel",
     "models/CommentModel",
+    "models/EmailModel",
     "emberData",
     'jquery',
     "bxslider",
@@ -257,6 +259,7 @@ define('application', [
         UsersController,
         UserController,
         InsideCollectionController,
+        ContactController,
         Router,
         ApplicationRoute,
         IndexRoute,
@@ -301,7 +304,8 @@ define('application', [
         Video,
         Stat,
         Collection,
-        Comment
+        Comment,
+        Email
         )
 {
 
@@ -385,6 +389,7 @@ define('application', [
         UsersController: UsersController,
         UserController: UserController,
         InsideCollectionController: InsideCollectionController,
+        ContactController: ContactController,
         Router: Router,
         ApplicationRoute: ApplicationRoute,
         IndexRoute: IndexRoute,
@@ -430,6 +435,7 @@ define('application', [
         Stat: Stat,
         Collection: Collection,
         Comment: Comment,
+        Email: Email,
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({

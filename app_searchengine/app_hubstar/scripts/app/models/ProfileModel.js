@@ -6,7 +6,7 @@ define(
         ], function() {
 
     var ProfileModel = DS.Model.extend({
-//        id: DS.attr('string'),
+
         profile_name: DS.attr('string'),
         last_name: DS.attr('string'),
         first_name: DS.attr('string'),

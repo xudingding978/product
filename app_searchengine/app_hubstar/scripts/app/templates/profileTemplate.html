@@ -91,15 +91,13 @@
                                     {{#if controller.editing}}
 
                                     {{view App.SearchRequireTextFieldView valueBinding="model.profile_name"  id="" class=""  }} 
-                                    <div class="edit-btn easing" style="color: white;" {{action toggleEditing}}>
-                                         <i class="icon-edit"></i>                          
-                                    </div>
+                                    <button {{action yes controller.profileName}}>Yes</button>     <button {{action no controller.profileName}}>No</button> {{controller}}
                                     {{else}}
                                     <div style="display: inline-block; color: white;max-width: 750px;overflow: hidden; font-size: 28px; margin-bottom: 15px;line-height: 32px;">
                                         {{model.profile_name}}
                                     </div>
-                                    <div class="edit-btn easing" style="color: white;" {{action toggleEditing}}>
-                                         <i class="icon-edit"></i>
+                                    <div class="edit-btn easing" style="color: white;" {{action toggleEditing  model.profile_name controller.profileName}}>
+                                         <i class="icon-edit"></i>                          
                                     </div>
                                     {{/if}}
                                 </div>
@@ -150,7 +148,7 @@
                                 <div>
                                     <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-phone' style='margin-right: 10px;'></i>Contact Detail</div>
 
-                                    <div class="edit-btn easing"  {{action toggleEditingContact}}>
+                                    <div class="edit-btn easing"  {{action toggleEditing model.phone_number controller.contact}}>
                                          <i class="icon-edit"></i>
                                     </div>
                                 </div>
@@ -163,41 +161,41 @@
                                     <tr>
                                         <th style="color: #aaa; text-align: right; padding-bottom: 10px;font-size: 14px; font-weight: normal;">Contact:</th>
                                         {{#if controller.editingContact}}
-                                        {{input type="text" value=contact_user  }}
+                                        {{input type="text" value=model.contact_user  }}
                                         {{else}}
-                                        <th {{action toggleEditingContact}} class="second-th">{{model.contact_user}}</th>
+                                        <th>{{model.contact_user}}</th>
                                         {{/if}}
                                     </tr>
                                     <tr>
                                         <th>Type:</th>
                                         {{#if controller.editingContact}}
-                                        {{input type="text" value=profile_category  }}
+                                        {{input type="text" value=model.profile_category  }}
                                         {{else}}
-                                        <th {{action toggleEditingContact}} class="second-th"><a href="#">{{model.profile_category}}</a></th>
+                                        <th><a href="#">{{model.profile_category}}</a></th>
                                         {{/if}}
                                     </tr>
                                     <tr>
                                         <th>Address:</th>
                                         {{#if controller.editingContact}}
-                                        {{input type="text" value=profile_physical_address  }}
+                                        {{input type="text" value=model.profile_physical_address  }}
                                         {{else}}
-                                        <th {{action toggleEditingContact}} class="second-th">{{model.profile_physical_address}}</th>
+                                        <th>{{model.profile_physical_address}}</th>
                                         {{/if}}
                                     </tr>
                                     <tr>
                                         <th>Phone:</th>
                                         {{#if controller.editingContact}}
-                                        {{input type="text" value=phone_number  }}
+                                        {{input type="text" value=model.phone_number  }}
                                         {{else}}
-                                        <th {{action toggleEditingContact}} class="second-th">{{model.phone_number}}</th>
+                                        <th>{{model.phone_number}}</th>
                                         {{/if}}
                                     </tr>
                                     <tr>
                                         <th>Website:</th>
                                         {{#if controller.editingContact}}
-                                        {{input type="text" value=website_url  }}
+                                        {{input type="text" value=model.website_url  }}
                                         {{else}}
-                                        <th  {{action toggleEditingContact}} class="second-th"><a href="http://ikitchen.y8.co.nz">{{model.website_url}}</a></th>
+                                        <th><a href="http://ikitchen.y8.co.nz">{{model.website_url}}</a></th>
                                         {{/if}}
                                     </tr>
 
@@ -207,9 +205,9 @@
                                 {{else}}
                                 <div class="buttons" style="position: relative;display: block;margin: 10px auto 0;text-align: center;">
 
-                                    <div  type="button" class="new-btn blue-btn" {{action changeEditingContact }}> <i class="icon-ok icon-white"></i></div>
+                                    <div  type="button" class="new-btn blue-btn" {{action yes controller.contact }}> <i class="icon-ok icon-white"></i></div>
 
-                                    <div  type="button" class="new-btn" {{action exitContactEditing }}> <i class="icon-remove"></i></div>
+                                    <div  type="button" class="new-btn" {{action no controller.contact}}> <i class="icon-remove"></i></div>
 
                                 </div>
                                 {{/unless}}
@@ -257,16 +255,22 @@
                                 <div><p style='margin-bottom: 20px;display: inline-block; font-size: 18px;'><i class='icon-group' style='margin-right: 10px;display: inline-block;'></i>About Us</p>
 
                                     {{#if controller.editingAbout}}
-                                    {{view App.EditingAboutView}}
+
+                                    {{view Ember.TextArea valueBinding="model.about"  id="" class=""  }} 
+                                    <button {{action yes controller.aboutMe}}>Yes</button>     <button {{action no controller.aboutMe}}>No</button>
                                     {{else}}
-                                    <div class="edit-btn" {{action toggleEditingAbout}}>
+                                    <div class="edit-btn" {{action toggleEditing model.about controller.aboutMe}}>
                                          <i class="icon-edit"></i>                            
                                     </div>
+
                                     {{/if}}
+                              
                                 </div>
-                                <div style="padding: 10px 50px;">
-                                    {{{model.about}}} 
-                                </div>
+
+
+
+
+
                             </div>
 
                             <div class="main_comments" style="padding:20px 0 30px 0; font-size: 16px;">

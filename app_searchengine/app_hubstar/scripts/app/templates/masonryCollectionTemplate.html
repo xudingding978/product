@@ -48,7 +48,7 @@
 
         <div class="box col2 style-box t-style-box">
             <div class="masonry-object Targeting_Object_front" {{bindAttr id="id"}}>
-                <a class="album-description-hoverarea easing"  href="#/users/{{unbound controller.currentID}}/{{unbound title}}">
+                <a class="album-description-hoverarea easing" {{action transitionToCollectionPhoto title}}>
 
                     <div class="album-description">{{desc}}</div>
                     <div class="album-description-bg">{{desc}}</div>

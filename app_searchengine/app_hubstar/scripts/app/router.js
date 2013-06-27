@@ -28,7 +28,10 @@ define(["ember"], function(Ember) {
             this.resource("profiles", function() {
                 this.resource("profileIndex", {path: '/'});
                 this.resource("profileNew", {path: '/new'});
-                this.resource("profile", {path: ':profile_id'
+                this.resource("profile", {path: ':profile_id'}, function() {
+     
+                    this.resource("profileCollection", {path: ':profileCollection_id'});
+
                 });
             });
 

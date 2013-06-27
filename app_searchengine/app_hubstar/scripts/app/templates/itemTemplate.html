@@ -120,11 +120,23 @@
             </a>
             <div class="object_username">
                 <a class="poster-name" {{bindAttr href="getProfile_id"}}  {{action transitionToProfile id}}>{{owner_title}}</a>
-                <span class="posttime">{{date created}}</span>
+                <span class="posttime">{{date created}} {{controller}}</span>
             </div>
             {{#if controller.canEdit}}
             <div class="edit-btn edit-object-btn">
-                <i class="icon-trash"</i>
+                <k class="icon-trash"</k>
+            </div>
+
+
+            {{controller.title}}
+            {{id}}
+
+            {{/if}}
+
+
+            {{#if controller.canEditbyOwner}}
+            <div class="edit-btn edit-object-btn">
+                <k class="icon-trash"</k>
             </div>
 
 

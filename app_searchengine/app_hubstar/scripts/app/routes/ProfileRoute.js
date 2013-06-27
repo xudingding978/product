@@ -1,9 +1,11 @@
 define([
     'ember',
+    'models/MegaModel',
     'models/ProfileModel',
     'controllers/ProfileController'
 ], function(
         Ember,
+        MegaModel,
         ProfileModel,
         ProfileController
         ) {
@@ -11,7 +13,7 @@ define([
     //   var kink;
     var ProfileRoute = Ember.Route.extend({
         setupController: function(ProfileController, model) {
-       //     console.log(model.id);
+            //     console.log(model.id);
             ProfileController.setLocalLoginRecrod();
             ProfileController.setModel(model);
             this.controllerFor('application').set('islogin', true);
@@ -21,21 +23,16 @@ define([
             this.controllerFor('application').set('isotherpage', true);
             this.controllerFor('profile').set('switchPhoto', true);
         },
-//        redirect: function() {
-//
-//
-////            if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
-////
-////                this.transitionTo('indexIndex');
-////
-////            } else {
-//
-//                this.transitionTo('profiles');
-//
-////            }
-//
-//
-//        },
+        events: {
+            transitionToCollectionPhoto: function(collection_id) {
+
+                var address = document.URL;
+                var user_id = address.split("#")[1].split("/")[2];
+          //      console.log(collection_id);
+                var data = MegaModel.find(collection_id);
+                this.transitionTo("profileCollection", data);
+            }
+        },
         deactivate: function() {
 
         },
@@ -49,7 +46,7 @@ define([
         },
         model: function(params) {
             //  alert(333);
-    //        console.log(ProfileModel.find(params.profile_id));
+            //        console.log(ProfileModel.find(params.profile_id));
             return ProfileModel.find(params.profile_id);
         },
         renderTemplate: function() {

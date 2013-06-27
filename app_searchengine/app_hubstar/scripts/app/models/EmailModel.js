@@ -13,6 +13,10 @@ define(
         emailDestination: DS.attr('string'),
         emaiCCDestination: DS.attr('string'),
         emaiBCCDestination: DS.attr('string'),
+        projectCategory: DS.attr('string'),
+        projectTimeframe: DS.attr('string'),
+        projectBudget: DS.attr('string'),
+        projectExperience: DS.attr('string'),
         didLoad: function() {
 //            console.log('model loaded', this.toJSON());
 //            console.log('id: ' + this.id + ' ' + this.profile_name, this);

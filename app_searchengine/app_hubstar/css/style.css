@@ -86,9 +86,9 @@ div.search-loading-invisible{
 }
 
 .head { 
-    background-color: rgb(242,240,240);
     border-radius: 3px 3px 0 0;
     padding: 15px 30px 20px;
+    width: 465px;
 }
 
 .head > .closeview:hover{
@@ -97,7 +97,9 @@ div.search-loading-invisible{
 
 .content {
     padding: 15px 30px 20px;
-    border-radius: 3px 3px 0 0;
+    border-radius: 0 0 3px 3px;
+    width: 465px;
+
 }
 
 .contactme-table tr {

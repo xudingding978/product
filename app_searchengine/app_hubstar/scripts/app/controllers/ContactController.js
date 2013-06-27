@@ -36,6 +36,11 @@ define([
         },
         closeContact: function() {
             var megaController = this.get("controllers.mega");
+            this.set('toggleDropdown2', false);
+            this.set('toggleDropdown3', false);
+            this.set('toggleDropdown4', false);
+
+            this.set('toggleDropdown1', false);
             megaController.closeContact();
         },
         setEditable: function(attr) {
@@ -67,18 +72,30 @@ define([
         dropdown: function(checking) {
             if (checking === "category") {
                 console.log(checking);
+                this.set('toggleDropdown2', false);
+                this.set('toggleDropdown3', false);
+                this.set('toggleDropdown4', false);
                 this.set('toggleDropdown1', !this.get('toggleDropdown1'));
 
             } else if (checking === "Timeframe") {
                 console.log(checking);
+                this.set('toggleDropdown1', false);
+                this.set('toggleDropdown3', false);
+                this.set('toggleDropdown4', false);
                 this.set('toggleDropdown2', !this.get('toggleDropdown2'));
 
             } else if (checking === "Budget") {
                 console.log(checking);
+                this.set('toggleDropdown1', false);
+                this.set('toggleDropdown2', false);
+                this.set('toggleDropdown4', false);
                 this.set('toggleDropdown3', !this.get('toggleDropdown3'));
 
             } else if (checking === "Experience") {
                 console.log(checking);
+                this.set('toggleDropdown1', false);
+                this.set('toggleDropdown2', false);
+                this.set('toggleDropdown3', false);
                 this.set('toggleDropdown4', !this.get('toggleDropdown4'));
 
             } else {

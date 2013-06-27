@@ -41,9 +41,9 @@
                     <tr>
                         <td>Project Category:</td>
                         <td class="btn-group"> 
-                            <a class="dropdown-contactme btn dropdown-toggle" data-toggle="dropdown" href="#" {{action dropdown controller.dropdownCategory}}>
-                               Kitchen Remodel
-                               <span class="caret"></span>
+                            <a class="dropdown-contactme btn dropdown-toggle" id="" href="#" {{action dropdown controller.dropdownCategory}}>
+                               <span id="dropdownCategory"> Kitchen Remodel</span>
+                                <span class="caret"></span>
                             </a>
                             {{#if controller.toggleDropdown1}}
                             {{view App.DropdownListView}}
@@ -53,9 +53,9 @@
                     <tr>
                         <td>Project Timeframe:</td>
                         <td class="btn-group"> 
-                            <a class="dropdown-contactme btn dropdown-toggle" data-toggle="dropdown" href="#" {{action dropdown controller.dropdownTimeframe}}>
-                               1-2 months
-                               <span class="caret"></span>
+                            <a class="dropdown-contactme btn dropdown-toggle"  href="#" {{action dropdown controller.dropdownTimeframe}}>
+                               <span id="dropdownTimeframe">1-2 months</span>
+                                <span class="caret"></span>
                             </a>
                             {{#if controller.toggleDropdown2}}
                             {{view App.DropdownListView}}
@@ -65,9 +65,9 @@
                     <tr>
                         <td>Project Budget:</td>
                         <td class="btn-group"> 
-                            <a class="dropdown-contactme btn dropdown-toggle" data-toggle="dropdown" href="#" {{action dropdown controller.dropdownBudget}}>
-                               Less than 5k
-                               <span class="caret"></span>
+                            <a class="dropdown-contactme btn dropdown-toggle" id="" href="#" {{action dropdown controller.dropdownBudget}}>
+                               <span id="dropdownBudget">Less than 5k</span>
+                                <span class="caret"></span>
                             </a>
                             {{#if controller.toggleDropdown3}}
                             {{view App.DropdownListView}}
@@ -76,10 +76,10 @@
                     </tr>
                     <tr>
                         <td>Project Experience:</td>
-                        <td class="btn-group"> 
-                            <a class="dropdown-contactme btn dropdown-toggle" href="#"  data-toggle="dropdown" {{action dropdown controller.dropdownExperience}}>
-                               First Time 
-                               <span class="caret"></span>
+                        <td class="btn-group">
+                            <a class="dropdown-contactme btn dropdown-toggle" id="" href="#"  {{action dropdown controller.dropdownExperience}}>
+                               <span id="dropdownExperience"> First Time </span>
+                                <span class="caret"></span>
                             </a>
                             {{#if controller.toggleDropdown4}}
                             {{view App.DropdownListView}}
@@ -88,7 +88,7 @@
                     </tr>
                     <tr>
                         <td>I want help on:</td>
-                        <td> 
+                        <td>
                             (Select one or more)
                         </td>
                     </tr>

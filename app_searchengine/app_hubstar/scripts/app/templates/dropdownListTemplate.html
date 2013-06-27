@@ -1,3 +1,61 @@
 
 
-fdgfdg
+
+{{#if controller.toggleDropdown1}}
+<div id="dropItem1"  {{action dropdown controller.dropdownCategory}}>
+     <h1  class="ite"> Kitchen Remodel</h1>
+    <h1  class="ite">11111111</h1>
+    <h1  class="ite">1</h1>
+    <h1  class="ite">111</h1>
+</div>
+{{/if}}
+
+
+
+
+
+{{#if controller.toggleDropdown2}}
+<div id="dropItem2" {{action dropdown controller.dropdownTimeframe}}>
+     <h1  class="ite">1-2 months   </h1>
+    <h1  class="ite">no months  </h1>
+    <h1  class="ite">sadmonths   </h1>
+</div>
+{{/if}}
+
+
+
+{{#if controller.toggleDropdown3}}
+<div id="dropItem3" {{action dropdown controller.dropdownBudget}}>
+     <h1  class="ite">  Less than 5k   </h1>
+    <h1  class="ite">  Less than 10k   </h1>
+</div>
+{{/if}}
+
+{{#if controller.toggleDropdown4}}
+<div id="dropItem4" {{action dropdown controller.dropdownExperience}}>
+     <h1  class="ite">  First Time </h1>
+    <h1  class="ite">  no Time   </h1>
+</div>
+{{/if}}
+
+
+
+<script>
+    $('#dropItem1 > .ite').click(function() {
+
+        $('#dropdownCategory').text($(this).text());
+    });
+
+    $('#dropItem2 > .ite').click(function() {
+
+        $('#dropdownTimeframe').text($(this).text());
+    });
+    $('#dropItem3 > .ite').click(function() {
+
+        $('#dropdownBudget').text($(this).text());
+    });
+    $('#dropItem4 > .ite').click(function() {
+
+        $('#dropdownExperience').text($(this).text());
+    });
+</script>

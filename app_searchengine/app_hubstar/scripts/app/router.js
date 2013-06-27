@@ -26,10 +26,10 @@ define(["ember"], function(Ember) {
 
             this.resource("profile", {path: '/profiles/:profile_id'});
             this.resource("profiles", function() {
-                this.resource("profileIndex", {path: '/'});
+                this.resource("profilesIndex", {path: '/'});
                 this.resource("profileNew", {path: '/new'});
                 this.resource("profile", {path: ':profile_id'}, function() {
-     
+                    this.resource("profileIndex", {path: '/'});
                     this.resource("profileCollection", {path: ':profileCollection_id'});
 
                 });

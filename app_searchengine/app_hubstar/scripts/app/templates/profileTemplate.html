@@ -90,7 +90,7 @@
 
                                     {{#if controller.editing}}
                                     <!--                                    {{view App.EditingView}}-->
-                                    {{view App.SearchRequireTextFieldView valueBinding="controller.selectedCollection.id"  id="" class=""  }} 
+                                    {{view App.SearchRequireTextFieldView valueBinding="model.profile_name"  id="" class=""  }} 
                                     <div class="edit-btn easing" style="color: white;" {{action toggleEditing}}>
                                          <i class="icon-edit"></i>                          
                                     </div>
@@ -99,7 +99,7 @@
                                         {{model.profile_name}}
                                     </div>
                                     <div class="edit-btn easing" style="color: white;" {{action toggleEditing}}>
-                                         <i class="icon-edit"></i>                          
+                                         <i class="icon-edit"></i>
                                     </div>
                                     {{/if}}
                                 </div>

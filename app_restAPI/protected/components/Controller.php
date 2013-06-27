@@ -42,7 +42,12 @@ class Controller extends CController {
     }
     
     
-
+        protected function getProviderConfigurationByName($domain,$name) {
+        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
+        $result = $cb->get($domain);
+        $result_arr = CJSON::decode($result, true);
+        return $result_arr["providers"][$name];
+    }
 
     // function for connecting to s3. Using for move photo between buckets. (Tao)
     public function connectToS3() {

@@ -43,7 +43,7 @@ div.search-loading-invisible{
 
 /*/WindowContainer-------------------/*/
 .window-container {
-    cursor: move;
+
     overflow: visible;
     position: fixed;
     z-index: 100;
@@ -64,7 +64,7 @@ div.search-loading-invisible{
 
 
 .contact-container {
-    cursor: move;
+
     overflow: visible;
     position: fixed;
     left: 30%;
@@ -84,6 +84,31 @@ div.search-loading-invisible{
     -moz-background-clip: padding-box;
     background-clip: padding-box;
 }
+
+.dropdownViewStyle {
+
+    overflow: visible;
+    position: fixed;
+    left: 50%;
+    top:40%;
+    width: 20%;
+    height: 30%;
+    z-index: 102;
+    background-color: white;
+    border: 1px solid #999;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    outline: none;
+    -webkit-box-shadow: 0 3px 7px #888;
+    -moz-box-shadow: 0 3px 7px #888;
+    box-shadow: 0 3px 7px #888;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+    background-clip: padding-box;
+}
+
 
 .head { 
     border-radius: 3px 3px 0 0;

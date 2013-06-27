@@ -41,49 +41,49 @@
                     <tr>
                         <td>Project Category:</td>
                         <td class="btn-group"> 
-                            <a class="dropdown-contactme btn dropdown-toggle" data-toggle="dropdown" href="#">
-                                Kitchen Remodel
-                                <span class="caret"></span>
+                            <a class="dropdown-contactme btn dropdown-toggle" data-toggle="dropdown" href="#" {{action dropdown controller.dropdownCategory}}>
+                               Kitchen Remodel
+                               <span class="caret"></span>
                             </a>
-                            <ul class="dropdown-menu">
-                                <!-- dropdown menu links -->
-                            </ul>
+                            {{#if controller.toggleDropdown1}}
+                            {{view App.DropdownListView}}
+                            {{/if}}
                         </td>
                     </tr>
                     <tr>
                         <td>Project Timeframe:</td>
                         <td class="btn-group"> 
-                            <a class="dropdown-contactme btn dropdown-toggle" data-toggle="dropdown" href="#">
-                                1-2 months
-                                <span class="caret"></span>
+                            <a class="dropdown-contactme btn dropdown-toggle" data-toggle="dropdown" href="#" {{action dropdown controller.dropdownTimeframe}}>
+                               1-2 months
+                               <span class="caret"></span>
                             </a>
-                            <ul class="dropdown-menu">
-                                <!-- dropdown menu links -->
-                            </ul>
+                            {{#if controller.toggleDropdown2}}
+                            {{view App.DropdownListView}}
+                            {{/if}}
                         </td>
                     </tr>
                     <tr>
                         <td>Project Budget:</td>
                         <td class="btn-group"> 
-                            <a class="dropdown-contactme btn dropdown-toggle" data-toggle="dropdown" href="#">
-                                Less than 5k
-                                <span class="caret"></span>
+                            <a class="dropdown-contactme btn dropdown-toggle" data-toggle="dropdown" href="#" {{action dropdown controller.dropdownBudget}}>
+                               Less than 5k
+                               <span class="caret"></span>
                             </a>
-                            <ul class="dropdown-menu">
-                                <!-- dropdown menu links -->
-                            </ul>
+                            {{#if controller.toggleDropdown3}}
+                            {{view App.DropdownListView}}
+                            {{/if}}
                         </td>
                     </tr>
                     <tr>
                         <td>Project Experience:</td>
                         <td class="btn-group"> 
-                            <a class="dropdown-contactme btn dropdown-toggle" data-toggle="dropdown" href="#">
-                                First Time
-                                <span class="caret"></span>
+                            <a class="dropdown-contactme btn dropdown-toggle" href="#"  data-toggle="dropdown" {{action dropdown controller.dropdownExperience}}>
+                               First Time 
+                               <span class="caret"></span>
                             </a>
-                            <ul class="dropdown-menu">
-                                <!-- dropdown menu links -->
-                            </ul>
+                            {{#if controller.toggleDropdown4}}
+                            {{view App.DropdownListView}}
+                            {{/if}}
                         </td>
                     </tr>
                     <tr>

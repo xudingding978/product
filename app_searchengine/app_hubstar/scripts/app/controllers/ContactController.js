@@ -4,6 +4,10 @@ define([
 
 
     var ContactController = Ember.Controller.extend({
+        dropdownCategory: "category",
+        dropdownTimeframe: "Timeframe",
+        dropdownBudget: "Budget",
+        dropdownExperience: "Experience",
         selectedMega: null,
         displayName: null,
         displayEmail: null,
@@ -59,6 +63,29 @@ define([
             });
             tempEmail.store.commit();
             this.closeContact();
+        },
+        dropdown: function(checking) {
+            if (checking === "category") {
+                console.log(checking);
+                this.set('toggleDropdown1', !this.get('toggleDropdown1'));
+
+            } else if (checking === "Timeframe") {
+                console.log(checking);
+                this.set('toggleDropdown2', !this.get('toggleDropdown2'));
+
+            } else if (checking === "Budget") {
+                console.log(checking);
+                this.set('toggleDropdown3', !this.get('toggleDropdown3'));
+
+            } else if (checking === "Experience") {
+                console.log(checking);
+                this.set('toggleDropdown4', !this.get('toggleDropdown4'));
+
+            } else {
+
+
+            }
+
         }
 
     });

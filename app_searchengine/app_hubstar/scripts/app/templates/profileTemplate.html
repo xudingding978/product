@@ -86,13 +86,18 @@
                         <div class="corpbanner_content" style="position: absolute;bottom:0;margin-left: 30%;width: 70%;">
                             <div class="main_title" style="height: 100px;">
                                 <div>
+
+
+                                    {{#if controller.editing}}
+                                    <!--                                    {{view App.EditingView}}-->
+                                    {{view App.SearchRequireTextFieldView valueBinding="controller.selectedCollection.id"  id="" class=""  }} 
+                                    <div class="edit-btn easing" style="color: white;" {{action toggleEditing}}>
+                                         <i class="icon-edit"></i>                          
+                                    </div>
+                                    {{else}}
                                     <div style="display: inline-block; color: white;max-width: 750px;overflow: hidden; font-size: 28px; margin-bottom: 15px;line-height: 32px;">
                                         {{model.profile_name}}
                                     </div>
-
-                                    {{#if controller.editing}}
-                                    {{view App.EditingView}}
-                                    {{else}}
                                     <div class="edit-btn easing" style="color: white;" {{action toggleEditing}}>
                                          <i class="icon-edit"></i>                          
                                     </div>

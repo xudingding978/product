@@ -19,7 +19,12 @@ define([
 
 
                 controller.addComment();
-                
+
+            } else if (controller._debugContainerKey.indexOf("profile") !== -1) {
+
+
+                //   controller.addComment();
+
             }
             else {
                 console.log(controller);

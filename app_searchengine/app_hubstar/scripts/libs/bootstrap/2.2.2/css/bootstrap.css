@@ -1380,6 +1380,8 @@ input.span3,
 textarea.span3,
 .uneditable-input.span3 {
     width: 206px;
+    margin: 5px 0;
+    height:29px;
 }
 
 input.span2,

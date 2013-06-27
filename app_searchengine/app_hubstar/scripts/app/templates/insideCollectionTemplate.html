@@ -27,49 +27,71 @@
         </div>
         {{#if controller.uploadStuff}}
 
-        <div class="box col2 noStyle1">
-
-            {{#view App.PhotoUploadView }}
-
-            <button>submit</button>
-            <div  style="margin: 11px;height: 510px;width: 570px; background-color: rgb(242,240,240);"> 
-                <p style="font-size: 26px; font-weight: bold;text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #ccc;top: 225px;position: relative;margin: auto;width: 185px;">
-                    Drag and drop. 
-                </p>
-
-
-                <div style="margin: auto; width: 200px; top: 450px; position: relative;">{{view App.ImageInputButtonView}}</div>    
+        <div class="box style-box t-style-box" id="addNew">
 
 
 
-                <div style=" position: relative; height: 430px; bottom: 25px; padding: 15px; overflow-y: auto; overflow-x: hidden;">
-                    {{#each content}}
 
-                    <div style="position: relative;margin:8px; display: inline-block; vertical-align: top; min-width: 150px;">
-
-                        <div> <img  {{bindAttr src= "photo_url"}}  alt="Logo" style="max-width: 150px; max-height: 160px;"> </div>
-                        <div style="margin-top: 2px; font-size: 13px; text-overflow:ellipsis; text-align: center; width: 150px;overflow: hidden;">{{photo_title}}</div>
-
-                        <!--    <div style="width: 260px;">
-                       <div class="progress progress-striped active">
-                                   <div class="bar" style="width:{{unbound progress}}%"></div>
-                               </div>
-                           </div>
-                        </div>-->
+            <div id="tagetUplaod" {{action newUpload }}  >
+                 <div class="add-new-object-hoverarea easing">
+                    <i class="icon-plus-sign"></i>
+                </div>
+                <div class="masonry-object t-style-box">
+                    <div class="add-new-object-content">
+                        <i class="icon-group"></i>
+                        <i class="icon-book"></i>
+                        <i class="icon-picture"></i>
+                        <i class="icon-film"></i>
                     </div>
 
-                    {{/each}}
+                </div>
+            </div>
 
+
+            <div id="ownerUpload" style="display:none">
+
+
+                {{#view App.PhotoUploadView }}
+
+                <button>submit</button> <button {{action back }}>back</button>
+                <div  style="margin: 11px;height: 510px;width: 570px; background-color: rgb(242,240,240);"> 
+                    <p style="font-size: 26px; font-weight: bold;text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #ccc;top: 225px;position: relative;margin: auto;width: 185px;">
+                        Drag and drop. 
+                    </p>
+
+
+                    <div style="margin: auto; width: 200px; top: 450px; position: relative;">{{view App.ImageInputButtonView}}</div>    
+
+
+
+                    <div style=" position: relative; height: 430px; bottom: 25px; padding: 15px; overflow-y: auto; overflow-x: hidden;">
+                        {{#each content}}
+
+                        <div style="position: relative;margin:8px; display: inline-block; vertical-align: top; min-width: 150px;">
+
+                            <div> <img  {{bindAttr src= "photo_url"}}  alt="Logo" style="max-width: 150px; max-height: 160px;"> </div>
+                            <div style="margin-top: 2px; font-size: 13px; text-overflow:ellipsis; text-align: center; width: 150px;overflow: hidden;">{{photo_title}}</div>
+
+                            <!--    <div style="width: 260px;">
+                           <div class="progress progress-striped active">
+                                       <div class="bar" style="width:{{unbound progress}}%"></div>
+                                   </div>
+                               </div>
+                            </div>-->
+                        </div>
+
+                        {{/each}}
+
+
+
+
+                    </div>
 
 
 
                 </div>
-
-
-
+                {{/view}}
             </div>
-            {{/view}}
-
         </div>
         {{/if}}
 

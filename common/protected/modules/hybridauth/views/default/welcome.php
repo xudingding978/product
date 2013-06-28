@@ -24,7 +24,14 @@
         var parent = window.opener;
 
         localStorage.setItem("checkUser", "newUser");
-        parent.location = 'http://www.develop.devbox/#/welcome';
+
+        var address = document.URL;
+        var domain = address.split("/")[2];
+
+
+        parent.location = 'http://' + domain + '/#/welcome';
+
+
 
         var windowObject = window.self;
         windowObject.opener = window.self;

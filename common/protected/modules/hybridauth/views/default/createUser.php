@@ -9,8 +9,6 @@
         'enableAjaxValidation' => false,
     ));
 
-//   $config = '/home/devbox/NetBeansProjects/bds-v3.1/app_useraccount/protected/config/provider_config.php';
-
     $config = Yii::app()->getBasePath() . '/config/provider_config.php';
 
     try {

@@ -9,17 +9,17 @@
                 {{#unless controller.isDisplayNameEditable}}
                 <span style="display: inline-block;margin-right: 5px;">From: {{controller.displayName}}</span>
                 {{else}}
-                {{view App.SearchRequireTextFieldView valueBinding="controller.displayName"}}
+                {{view App.SearchRequireTextFieldView valueBinding="controller.displayName" class="lineuptextbox"}}
                 {{/unless}}
-                <a {{action setEditable "Name"}}>{{editNameStatus}}</a>
+                <a style="display: inline-block; cursor: pointer;" {{action setEditable "Name"}}>{{editNameStatus}}</a>
             </div>
             <div style="display: block; margin-bottom: 15px;">
                 {{#unless controller.isDisplayEmailEditable}}
                 <span style="display: inline-block;margin-right: 5px;">Email: {{controller.displayEmail}}</span>
                 {{else}}
-                {{view App.SearchAreaTextFieldView valueBinding="controller.displayEmail"}}
+                {{view App.SearchAreaTextFieldView valueBinding="controller.displayEmail" class="lineuptextbox"}}
                 {{/unless}}
-                <a {{action setEditable "Email"}}>{{editEmailStatus}}</a>
+                <a style="display: inline-block;cursor: pointer;" {{action setEditable "Email"}}>{{editEmailStatus}}</a>
             </div>
         </div>
 
@@ -46,7 +46,7 @@
                         <td>Project Category:</td>
                         <td> 
                             <div class="new-btn" style="display: block;" {{action dropdown controller.dropdownCategory}}>
-                               <span id="dropdownCategory"> Kitchen Remodel</span>
+                                 <span id="dropdownCategory">Bathrooms</span>
                                 <span class="caret"></span>
                             </div>
                             {{#if controller.projectCategoryDropdown}}
@@ -58,7 +58,7 @@
                         <td>Project Timeframe:</td>
                         <td> 
                             <div class="new-btn" style="display: block;" {{action dropdown controller.dropdownTimeframe}}>
-                               <span id="dropdownTimeframe">1-2 months</span>
+                                 <span id="dropdownTimeframe">1-2 months</span>
                                 <span class="caret"></span>
                             </div>
                             {{#if controller.projectTimeframeDropdown}}
@@ -70,7 +70,7 @@
                         <td>Project Budget:</td>
                         <td> 
                             <div class="new-btn" style="display: block;" {{action dropdown controller.dropdownBudget}}>
-                               <span id="dropdownBudget">Less than 5k</span>
+                                 <span id="dropdownBudget">Less than 5k</span>
                                 <span class="caret"></span>
                             </div>
                             {{#if controller.projectBudgetDropdown}}
@@ -82,7 +82,7 @@
                         <td>Project Experience:</td>
                         <td>
                             <div class="new-btn" style="display: block;"  {{action dropdown controller.dropdownExperience}}>
-                               <span id="dropdownExperience"> First Time </span>
+                                 <span id="dropdownExperience"> First Time </span>
                                 <span class="caret"></span>
                             </div>
                             {{#if controller.projectExperienceDropdown}}
@@ -90,12 +90,14 @@
                             {{/if}}
                         </td>
                     </tr>
-                    <tr>
-                        <td>I want help on:</td>
-                        <td>
-                            (Select one or more)
-                        </td>
-                    </tr>
+
+                    <!--                    <tr>
+                                            <td>I want help on:</td>
+                                            <td>
+                                                (Select one or more)
+                                            </td>
+                                        </tr>-->
+
                 </tbody>
             </table>        
         </div>

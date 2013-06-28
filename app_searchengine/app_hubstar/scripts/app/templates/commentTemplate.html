@@ -1,0 +1,102 @@
+
+
+
+
+
+
+
+
+<div class="masonry-object_interact" >
+    <div class="masonry_show-comment">
+        <div class="show-comment_container" >
+            <div class="show-comment_inner"  id="showMoreComment_{{unbound model.id}}"   {{action seeMore model.id target="view" on="click"}}>
+                <span class="comment-amount">  {{model.comments.length}} </span>
+                <span class="comment-amount"> comments  <i class="icon-angle-down"></i></span>
+            </div>
+
+
+            <div class="show-comment_inner" id="closeComment_{{unbound model.id}}"   style="display: none" {{action closeMore model.id  target="view" on="click"}}>
+                <span class="comment-amount">  {{model.comments.length}} </span>
+                <span class="comment-amount"> comments  <i class="icon-angle-up"></i></span>
+            </div>
+
+        </div>
+        <div style="display: inline-block;float: right;">
+            <div class="new-btn" style=""><i class="icon-thumbs-up-alt">&nbsp</i> 32</div>
+            <div class="new-btn" style=""><i class="icon-folder-close-alt">&nbsp</i> 12</div>
+        </div>
+    </div>
+
+    <div class="masonry_addcommnetbox-container" {{action openComment model.id target="view" on="click"}} id="comment_{{unbound model.id}}">
+        <div class="addcommnetbox">
+            Add comments
+        </div>
+    </div>
+
+    <div class="addcommnetbox-container"  id="commentBox_{{unbound model.id}}" style="display: none">
+        <div style="margin:0 auto; padding: 0 0 15px 38px;">
+            <a>
+                <img class="profilepic_comment"  style="float: left; margin: 4px 0 0 -38px; margin-top: 0;"{{bindAttr src="controller.currentUser.photo_url"}} /> 
+            </a>
+
+            {{view App.SearchRequireTextFieldView valueBinding="commentContent"  id="" class="comment-insert-field"  placeholder="" }}
+            <span class="" style="margin-top: 7px;float: right;">
+                <div  class="new-btn"{{action closeComment model.id target="view" on="click"}}>Cancel</div>
+                <div class="new-btn green-btn" {{action addComment}}>Post</div>
+            </span>
+
+        </div>
+    </div>
+
+
+<div id="commentData_{{unbound model.id}}" style="max-height:110px">
+
+    {{#each model.comments}}
+
+    <div class="comment-item"  >
+
+        <div class="comment-position">
+            <a class="profilepic-comment-container" href="#">
+                <img class="profilepic_comment" {{bindAttr src="commenter_profile_pic_url"}} />
+            </a>
+            <div style="">
+                <div class="comment-namentime">
+                    <div class="namentime_position">
+                        <a class="comment-username" href="" >
+                            {{name}}
+                        </a>
+                        <div class="posttime-container">
+                            <span class="posttime">{{date time_stamp}}</span>
+                            <span class="like-amount">+1</span>
+                        </div>
+                    </div>
+
+                    <div class="reply-comment">
+                       
+                        
+                    </div>
+
+                </div>
+
+                <div class="comment-content">
+                    {{content}}
+
+                    <!-- for +someone into the conversation-->
+                    <span>
+                        <span></span>
+                        <a></a>
+                    </span>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    {{else}}
+
+  
+    {{/each}}
+
+    </div>
+
+</div>

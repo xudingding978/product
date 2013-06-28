@@ -42,7 +42,7 @@ define([
             $('#addcommetBut').attr('style', 'display:none');
             $('#commentBox').attr('style', 'display:block');
 
-
+            $('.comment-insert-field').focus();
         },
         closeComment: function() {
 

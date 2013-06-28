@@ -21,7 +21,7 @@ class PhotoMovingController extends Controller {
                 if (sizeof($temp_arr)>0) {
                     $client = $this->connectToS3();
                     
-                    $bucket = 'hubstar-production';
+                    $bucket = 's3.hubsrv.com';
                     $copy = 'hubstar-dev/trendsideas.com/media/article/'.$temp_arr[1].'/'.$temp_arr[3];
                     $key = 'trendsideas.com/'.$temp_arr[5].'/photo/'.$temp_arr[5].'/'.$temp_arr[1].'/'.$temp_arr[3];
                     
@@ -38,6 +38,7 @@ class PhotoMovingController extends Controller {
         
         echo $response;
     }
+
 }
 
 ?>

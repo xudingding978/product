@@ -71,17 +71,17 @@ class MegaimportController extends Controller {
     }
     
     public function actionCreate() {
-        $response = "fail";   
+        $response = "fail";
         $request_json = file_get_contents('php://input');
 //        $request_arr = CJSON::decode($request_json, true);
         $id = $this->getNewID();
-        $request_arr = $this->modifyArrayProperty(CJSON::decode($request_json, true), $id);
+        $request_arr = $this->modifyArrayProperty(CJSON::decode($request_json, true), $id); 
 //        $url = substr($_SERVER['HTTP_HOST'], 4) . '/' . $request_arr["id"];
         $url = 'trendsideas.com/' . $request_arr["id"];
 //        error_log($url);
         
         try {
-            $cb = $this->couchBaseConnection();
+            $cb = $this->couchBaseConnection_production();
             
             if ($cb->add($url, CJSON::encode($request_arr))) {
                 $response="ok";
@@ -93,6 +93,7 @@ class MegaimportController extends Controller {
                 fwrite($handle, $output);
                 fclose($handle);
             }
+            
             unset($cb);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -119,7 +120,7 @@ class MegaimportController extends Controller {
 
     public function actionRead() {
         try {
-            $cb = $this->couchBaseConnection();
+            $cb = $this->couchBaseConnection_production();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
             echo $this->sendResponse(200, $id);
@@ -234,7 +235,7 @@ class MegaimportController extends Controller {
             $id = rand(99999999999999, 999999999999999);
         }
         try {
-            $cb = $this->couchBaseConnection();
+            $cb = $this->couchBaseConnection_production();
 
             $url = substr($_SERVER['HTTP_HOST'], 4) . '/' . $id;
             if ($cb->add($url, CJSON::encode($record))) {

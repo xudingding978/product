@@ -86,13 +86,8 @@ div.search-loading-invisible{
 }
 
 .dropdownViewStyle {
-
     overflow: visible;
     position: fixed;
-    left: 50%;
-    top:40%;
-    width: 20%;
-    height: 30%;
     z-index: 102;
     background-color: white;
     border: 1px solid #999;

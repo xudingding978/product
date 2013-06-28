@@ -2860,10 +2860,13 @@ table th[class*="span"],
     width: 0;
     height: 0;
     vertical-align: top;
-    border-top: 4px solid #000000;
+    border-top: 4px solid #333;
     border-right: 4px solid transparent;
     border-left: 4px solid transparent;
     content: "";
+    top: 10px;
+    position: absolute;
+    right: 10px;
 }
 
 .dropdown .caret {

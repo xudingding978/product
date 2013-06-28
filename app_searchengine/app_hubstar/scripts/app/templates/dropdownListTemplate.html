@@ -3,10 +3,10 @@
 
 {{#if controller.toggleDropdown1}}
 <div id="dropItem1"  {{action dropdown controller.dropdownCategory}}>
-     <h1  class="ite"> Kitchen Remodel</h1>
-    <h1  class="ite">11111111</h1>
-    <h1  class="ite">1</h1>
-    <h1  class="ite">111</h1>
+     <div  class="ite choose-exist-collection"> Kitchen Remodel</div>
+    <div  class="ite choose-exist-collection">11111111</div>
+    <div  class="ite choose-exist-collection">1</div>
+    <div  class="ite choose-exist-collection">111</div>
 </div>
 {{/if}}
 
@@ -16,9 +16,11 @@
 
 {{#if controller.toggleDropdown2}}
 <div id="dropItem2" {{action dropdown controller.dropdownTimeframe}}>
-     <h1  class="ite">1-2 months   </h1>
-    <h1  class="ite">no months  </h1>
-    <h1  class="ite">sadmonths   </h1>
+     <div  class="ite choose-exist-collection">1-2 months</div>
+    <div  class="ite choose-exist-collection">Next 6 months</div>
+    <div  class="ite choose-exist-collection">Within 12 months</div>
+    <div  class="ite choose-exist-collection">1-2 years </div>
+    <div  class="ite choose-exist-collection">Within 3 years</div>
 </div>
 {{/if}}
 
@@ -26,15 +28,22 @@
 
 {{#if controller.toggleDropdown3}}
 <div id="dropItem3" {{action dropdown controller.dropdownBudget}}>
-     <h1  class="ite">  Less than 5k   </h1>
-    <h1  class="ite">  Less than 10k   </h1>
+     <div  class="ite choose-exist-collection">Less than 5k</div>
+    <div  class="ite choose-exist-collection">5k-10k</div>
+    <div  class="ite choose-exist-collection">10k-50k</div>
+    <div  class="ite choose-exist-collection">50k-100k</div>
+    <div  class="ite choose-exist-collection">100k-250k</div>
+    <div  class="ite choose-exist-collection">250k-500k</div>
+    <div  class="ite choose-exist-collection">500k- 1M</div>
+    <div  class="ite choose-exist-collection">1M+</div>
 </div>
 {{/if}}
 
 {{#if controller.toggleDropdown4}}
 <div id="dropItem4" {{action dropdown controller.dropdownExperience}}>
-     <h1  class="ite">  First Time </h1>
-    <h1  class="ite">  no Time   </h1>
+     <div  class="ite choose-exist-collection">First Time</div>
+    <div  class="ite choose-exist-collection">Helped someone do this</div>
+        <div  class="ite choose-exist-collection">Have done this once before</div>
 </div>
 {{/if}}
 

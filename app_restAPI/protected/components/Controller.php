@@ -23,6 +23,10 @@ class Controller extends CController {
     protected function couchBaseConnection() {
         return new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "test", true);
     }
+    
+    protected function couchBaseConnection_production() {
+        return new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "production", true);
+    }
 
     protected function getS3BucketName($domain) {
         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
@@ -40,8 +44,7 @@ class Controller extends CController {
         );
         return $client;
     }
-    
-    
+        
         protected function getProviderConfigurationByName($domain,$name) {
         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
         $result = $cb->get($domain);
@@ -203,8 +206,6 @@ class Controller extends CController {
         } else {
             $response = $this->performSearch($returnType, "", "huang");
         }
-
-
         return $response;
     }
 

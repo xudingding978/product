@@ -5,7 +5,7 @@ define([
         ) {
     var PhotoSelectButton = Ember.TextField.extend({
         type: 'file',
-//        classNames: ["new-btn","blue-btn"],
+        classNameBindings: ['new-btn'],
         attributeBindings: ['multiple'],
         multiple: true,
         change: function(evt) {

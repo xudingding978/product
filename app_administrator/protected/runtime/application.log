@@ -2183,3 +2183,27 @@ in /home/devbox/NetBeansProjects/hubstar/app_administrator/index.php (20)
                                     dbo.ArticleTopicMaps.articleId = dbo.Articles.id
                                 where 
                                     dbo.Articles.id 5000.
+2013/06/28 08:35:40 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY000]: General error: 102 General SQL Server error: Check messages from the SQL Server [102] (severity 15) [(null)]. The SQL statement executed was: select dbo.ArticleImages.*, dbo.HeliumMedia.keywords from dbo.ArticleImages
+                                    inner join  dbo.HeliumMedia on
+                                   Trends.dbo.ArticleImages  = dbo.HeliumMedia.heliumId Trends.dbo.ArticleImages >80087
+                                    order by dbo.ArticleImages.id asc.
+2013/06/28 08:37:14 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY000]: General error: 102 General SQL Server error: Check messages from the SQL Server [102] (severity 15) [(null)]. The SQL statement executed was: select dbo.ArticleImages.*, dbo.HeliumMedia.keywords from dbo.ArticleImages
+                                    inner join  dbo.HeliumMedia on
+                                   Trends.dbo.ArticleImages  = dbo.HeliumMedia.heliumId Trends.dbo.ArticleImages >80087
+                                    order by dbo.ArticleImages.id asc.
+2013/06/28 08:51:12 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY000]: General error: 4104 General SQL Server error: Check messages from the SQL Server [4104] (severity 16) [(null)]. The SQL statement executed was: select dbo.ArticleImages.*, dbo.HeliumMedia.keywords from dbo.ArticleImages
+                                    inner join  dbo.HeliumMedia on
+                                   Trends.dbo.ArticleImages  = dbo.HeliumMedia.heliumId where Trends.dbo.ArticleImages.id >80087
+                                    order by dbo.ArticleImages.id asc.
+2013/06/28 08:52:04 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY000]: General error: 102 General SQL Server error: Check messages from the SQL Server [102] (severity 15) [(null)]. The SQL statement executed was: select dbo.ArticleImages.*, dbo.HeliumMedia.keywords from dbo.ArticleImages
+                                    inner join  dbo.HeliumMedia on
+                                   Trends.dbo.ArticleImages  = dbo.HeliumMedia.heliumId Trends.dbo.ArticleImages.id >80087
+                                    order by dbo.ArticleImages.id asc.
+2013/06/28 08:52:36 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY000]: General error: 102 General SQL Server error: Check messages from the SQL Server [102] (severity 15) [(null)]. The SQL statement executed was: select dbo.ArticleImages.*, dbo.HeliumMedia.keywords from dbo.ArticleImages
+                                    inner join  dbo.HeliumMedia on
+                                   Trends.dbo.ArticleImages  = dbo.HeliumMedia.heliumId Trends.dbo.ArticleImages.id >80087
+                                    order by dbo.ArticleImages.id asc.
+2013/06/28 08:54:03 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY000]: General error: 4104 General SQL Server error: Check messages from the SQL Server [4104] (severity 16) [(null)]. The SQL statement executed was: select dbo.ArticleImages.*, dbo.HeliumMedia.keywords from dbo.ArticleImages
+                                    inner join  dbo.HeliumMedia on
+                                   Trends.dbo.ArticleImages  = dbo.HeliumMedia.heliumId and Trends.dbo.ArticleImages.id >80087
+                                    order by dbo.ArticleImages.id asc.

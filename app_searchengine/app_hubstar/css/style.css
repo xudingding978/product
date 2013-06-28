@@ -86,17 +86,12 @@ div.search-loading-invisible{
 }
 
 .dropdownViewStyle {
-
     overflow: visible;
     position: fixed;
-    left: 50%;
-    top:40%;
-    width: 20%;
-    height: 30%;
+    min-width: 233px;
     z-index: 102;
     background-color: white;
-    border: 1px solid #999;
-    border: 1px solid rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
@@ -109,11 +104,26 @@ div.search-loading-invisible{
     background-clip: padding-box;
 }
 
+.ite{
+    padding: 6px 15px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.ite:hover{
+    background-color: rgba(0,0,0,0.1);
+}
+
+
+
+
+
+
 
 .head { 
     border-radius: 3px 3px 0 0;
     padding: 15px 30px 20px;
-    width: 465px;
 }
 
 .head > .closeview:hover{
@@ -123,9 +133,18 @@ div.search-loading-invisible{
 .content {
     padding: 15px 30px 20px;
     border-radius: 0 0 3px 3px;
-    width: 465px;
-
 }
+
+.lineuptextbox{
+    display: inline-block;
+    width: 270px;
+    margin-right: 5px;
+}
+
+
+
+
+
 
 .contactme-table tr {
     display: table-row;

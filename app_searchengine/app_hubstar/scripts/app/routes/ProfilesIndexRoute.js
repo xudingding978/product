@@ -20,7 +20,7 @@ define([
 
             } else {
 
-                this.transitionTo('profile');
+                this.transitionTo('profiles');
 
             }
 

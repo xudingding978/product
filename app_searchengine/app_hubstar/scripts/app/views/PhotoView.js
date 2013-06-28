@@ -14,8 +14,6 @@ define([
         template: Ember.Handlebars.compile(photoTemplate),
         didInsertElement: function() {
 
-
-
         },
         setTitleTag: function() {
             $('#article_action').slideToggle(1000);

@@ -1,10 +1,10 @@
 
 
-<div class="hover panel" style='width: 480px; text-align: center; color: rgb(51, 51, 51); border-radius: 3px;'>
-    <div class="front">
+<div class="hover panel" style='width: 465px; text-align: center; color: rgb(51, 51, 51); border-radius: 3px;'>
+    <div class="front easing">
 
 
-        <div class="head" >
+        <div class="head"  style="width: 465px;">
             <div type="button" {{action closeModal }} class="closeview"><i class="icon-remove"></i></div>
             <img class="logonew"  style="margin: 30px auto 0; width: 92px; display: block;" src="../../../images/trendslogo(black).png"></img>
             <div style="margin: 20px auto; width: 360px;s">
@@ -40,7 +40,7 @@
 
         <div class="panelcircle" style="position: absolute; right: 0; top: 300px; margin: auto;left: 0;"><b>OR</b></div>
 
-        <div class="content" >
+        <div class="content controlbtn-field" style="width: 465px;">
             {{#unless mail}}
             <div style="font-size: 12px; margin: 20px auto 0; font-weight: bold;">Other platform you might prefer:</div>
 
@@ -67,19 +67,19 @@
 
                 <a  class="square-button" href="#email_login" {{action email_login}} >
                     <div id="dropdown-cover" style="position: absolute; width: 45px; height: 45px; border-radius: 3px;"></div>
-                    <div class="square-button-email"><i class="icon-envelope-alt icon-large" style="float: left; margin: 11px 13px; width: auto; height:22px; "></i></div></a> 
+                    <div class="square-button-email"><i class="icon-envelope icon-large" style="float: left; margin: 11px 13px; width: auto; height:22px; "></i></div></a> 
 
             </div>
             {{else}}
             <div style='margin: 30px auto 5px; display: block;'>
-                <p style='display: inline-block; vertical-align: middle;'>Username:</p>
-                <input type="text" class="span2">
+                <p style='display: inline-block; vertical-align: middle;font-size: 16px;margin: 5px;'>Username:</p>
+                <input type="text" class="span3">
             </div>
             <div style='margin: 0 auto 5px; display: block;'>
-                <p style='display: inline-block; vertical-align: middle;'>Password:</p>
-                <input type="text" class="span2">
+                <p style='display: inline-block; vertical-align: middle;font-size: 16px;margin: 5px;'>Password:</p>
+                <input type="text" class="span3">
             </div>
-            <div>
+            <div style="margin: 15px 0 0px;">
                 <div  type="button" class="new-btn green-btn" >
                     Login
                 </div>
@@ -87,10 +87,11 @@
                 <div  type="button" class="new-btn" {{action email_login }}>
                       Cancel
             </div>
-            <div style="font-size: 11px;">
-                <a href='#'>Forgot your username or password?</a>
-            </div>
         </div>
+        <div style="font-size: 11px;">
+            <a href='#'>Forgot your username or password?</a>
+        </div>
+
 
 
 
@@ -105,21 +106,14 @@
 
 
 </div>
-<div class="back"  style='width: 480px; text-align: center; color: rgb(51, 51, 51); border-radius: 3px; position: relative; bottom: 500px;'>
 
 
 
 
 
+<div class="back easing" style='width: 465px; text-align: center; color: rgb(51, 51, 51); border-radius: 3px; position: relative; bottom: 500px; height: auto;'>
 
-
-
-
-
-
-
-
-    <div class="head" >
+    <div class="head" style="width: 465px;">
         <div type="button" {{action closeModal }} class="closeview"><i class="icon-remove"></i></div>
         <div style="font-size: 22px; font-weight: bold; margin: 20px auto 15px;"> 
             Sign Up for your Free Account!
@@ -151,7 +145,7 @@
     </div>
     <div class="panelcircle" style="position: absolute; right: 0; top: 160px; margin: auto;left: 0;"><b>OR</b></div>
 
-    <div class="content" >
+    <div class="content controlbtn-field" style="width: 465px;">
 
         <div style="font-size: 14px; font-weight: bold; margin: 15px auto 10px;">
             Sign Up with your Email Address:
@@ -161,16 +155,16 @@
 
 
 
-        <div>
+        <div style="width: 50%; margin: 10px auto;">
 
-            <input type="text" class="span2" placeholder="Email Address">
+            <input type="text" class="span3" placeholder="Email Address">
 
-            <input type="text" class="span2" placeholder="Username">
+            <input type="text" class="span3" placeholder="Username">
 
 
-            <input type="text" class="span2" placeholder="Password">
+            <input type="text" class="span3" placeholder="Password">
 
-            <input type="text" class="span2" placeholder="Confirm Password">
+            <input type="text" class="span3" placeholder="Confirm Password">
 
         </div>
 

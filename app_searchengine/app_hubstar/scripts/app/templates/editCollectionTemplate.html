@@ -9,16 +9,19 @@
         {{view App.SearchRequireTextFieldView valueBinding="controller.selectedCollection.id"  id="" class="new-collection-name_insert" style="height:30px;" placeholder="e.g. Bedroom Design" }} 
 
         <div style="font-size: 16px;font-weight: bold;color: #555; line-height: 25px;">Description   </div>
-        {{view Ember.TextArea valueBinding="controller.selectedCollection.desc" rows="12" cols="70" class="new-collection-area"  placeholder="Add a short description to your Collection"}}
-
+        <div style="height: 150px;">
+            {{view Ember.TextArea valueBinding="controller.selectedCollection.desc" rows="12" cols="70" class="new-collection-area"  placeholder="Add a short description to your Collection"}}
+        </div>
     </div>
 
     <div class="controlbtn-field" style="margin-top: 15px;height: 60px;">
 
-        <div id="deletebtn" type="button" {{action deleteSelectedCollection}} class="new-btn red-btn"style="right:0; display: none">Delete</div>
+        <div id="deletebtn" type="button" {{action deleteSelectedCollection}} class="new-btn red-btn"style="right:0; display: none">
+             <i class='icon-trash'></i>
+        </div>
         <div style="position: relative; right: 15px;margin: 10px auto;float: right;">
 
-            <div id="uploadingObject" class='new-btn' style="right: 0;"  {{action returnCollection  id target="view" on="click"}}>Cancel</div> 
+            <div id="uploadingObject" class='new-btn' style="right: 0;"  {{action returnCollection  id target="view" on="click"}}>Cancel</div>
             <div id="createbtn" type="button" {{action submit }}  class="new-btn green-btn"style="right:0;">Create</div>
             <div id="updatebtn" type="button" {{action updateCollectionInfo }} class="new-btn green-btn"style="right:0; display: none">Update</div>
 

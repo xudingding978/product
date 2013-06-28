@@ -16,7 +16,7 @@ define(['models/MegaModel',
                 image_no: 1,
                 selectedMega: null,
                 isSelected: false,
-                needs: ['application', 'addCollection'],
+                needs: ['application', 'addCollection', 'contact'],
                 currentUser: null,
                 photo_album_id: null,
                 photo_thumb_id: null,
@@ -92,7 +92,7 @@ define(['models/MegaModel',
                     var isCollectionIDExist = this.isParamExist(collection_id);
                     var that = this;
                     if (isProfileIDExist && isCollectionIDExist) {
-                        var data = MegaModel.find({"collection_id": collection_id, "owner_profile_id": owner_profile_id});
+                        var data = MegaModel.find({RequireType:"collection","collection_id": collection_id, "owner_profile_id": owner_profile_id});
                         data.addObserver('isLoaded', function() {
                             if (data.get('isLoaded')) {
                                 for (var i = 0; i < this.get("content").length; i++) {
@@ -124,6 +124,9 @@ define(['models/MegaModel',
                     window.history.back();
                 },
                 editingContact: function() {
+                    var contactController = this.get('controllers.contact');
+                    var selectid = this.get('selectedMega').id;
+                    contactController.setSelectedMega(selectid);
                     this.set('contact', !this.get('contact'));
                 },
                 closeContact: function() {
@@ -145,15 +148,10 @@ define(['models/MegaModel',
                         this.set('commentContent', '');
                         $('#addcommetBut').attr('style', 'display:block');
                         $('#commentBox').attr('style', 'display:none');
-
-
-
                     }
-
                 },
                 getCommentsById: function(id)
                 {
-                    console.log(id);
                     var mega = App.Mega.find(id);
                     var comments = mega.get('comments');
                     this.set('thisComments', comments);

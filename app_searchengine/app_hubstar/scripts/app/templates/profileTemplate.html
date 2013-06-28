@@ -86,19 +86,27 @@
                         <div class="corpbanner_content" style="position: absolute;bottom:0;margin-left: 30%;width: 70%;">
                             <div class="main_title" style="height: 100px;">
                                 <div>
+
+
+                                    {{#if controller.editing}}
+                                    <div style="display: inline-block;width: 350px;">
+                                        {{view App.SearchRequireTextFieldView valueBinding="model.profile_name"  id="" class=""  }} 
+                                    </div>
+                                    <div style="display: inline-block;vertical-align: bottom;">
+                                        <div class="new-btn blue-btn"{{action yes controller.profileName}}><i class="icon-ok icon-white"></i></div>   
+                                        <div class="new-btn"{{action no controller.profileName}}><i class="icon-remove icon-white"></i></div> {{controller}}
+                                    </div>
+                                    {{else}}
                                     <div style="display: inline-block; color: white;max-width: 750px;overflow: hidden; font-size: 28px; margin-bottom: 15px;line-height: 32px;">
                                         {{model.profile_name}}
                                     </div>
-
-                                    {{#if controller.editing}}
-                                    {{view App.EditingView}}
-                                    {{else}}
-                                    <a class="editicon" style="vertical-align: top;" href="#"{{action toggleEditing}}>
-                                       <i class="icon-pencil"></i>
-                                        <b class="editicon_callout"></b>                             
-                                    </a>
+                                    <div class="edit-btn easing" style="color: white;" {{action toggleEditing  model.profile_name controller.profileName}}>
+                                         <i class="icon-edit"></i>                          
+                                    </div>
                                     {{/if}}
                                 </div>
+                                
+                                
                                 <!--contact me-->
                                 <div class="contactmebtn">
                                     <a class="contactmeicon" href=""><img src="../images/mail_24dark.png"/></a>
@@ -113,7 +121,7 @@
                                             <k class="icon-star" ></k>
                                             <k class="icon-star" ></k>
                                         </a>
-                                        <a href='#' style=" margin-right: 20px;">23 Reviews</a>|<a href='#'style=" margin-left: 20px;">Review me »</a></p>                       
+                                        <a href='#' style=" margin-right: 20px; color: #fff; opacity: .8;">23 Reviews</a>|<a href='#'style=" margin-left: 20px;color: #fff; opacity: .8;">Review me »</a></p>                       
                                 </div>
 
                             </div>
@@ -146,10 +154,9 @@
                                 <div>
                                     <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-phone' style='margin-right: 10px;'></i>Contact Detail</div>
 
-                                    <a class="editicon"  style="display: inline-block;margin: 0 0 0 10px;" href="#"{{action toggleEditingContact}}>
-                                       <i class="icon-pencil"></i>
-                                        <b class="editicon_callout"></b>
-                                    </a>
+                                    <div class="edit-btn easing"  {{action toggleEditing model.phone_number controller.contact}}>
+                                         <i class="icon-edit"></i>
+                                    </div>
                                 </div>
 
                                 {{/unless}}
@@ -158,43 +165,43 @@
 
                                 <table id="aside_contact">
                                     <tr>
-                                        <th style="color: #aaa; text-align: right; padding-bottom: 10px;font-size: 14px; font-weight: normal;">Contact:</th>
+                                        <th>Contact:</th>
                                         {{#if controller.editingContact}}
-                                        {{input type="text" value=contact_user  }}
+                                        {{input type="text" value=model.contact_user}}
                                         {{else}}
-                                        <th {{action toggleEditingContact}} class="second-th">{{model.contact_user}}</th>
+                                        <th class="Contact_2child">{{model.contact_user}}</th>
                                         {{/if}}
                                     </tr>
                                     <tr>
                                         <th>Type:</th>
                                         {{#if controller.editingContact}}
-                                        {{input type="text" value=profile_category  }}
+                                        {{input type="text" value=model.profile_category  }}
                                         {{else}}
-                                        <th {{action toggleEditingContact}} class="second-th"><a href="#">{{model.profile_category}}</a></th>
+                                        <th class="Contact_2child"><a href="#">{{model.profile_category}}</a></th>
                                         {{/if}}
                                     </tr>
                                     <tr>
                                         <th>Address:</th>
                                         {{#if controller.editingContact}}
-                                        {{input type="text" value=profile_physical_address  }}
+                                        {{input type="text" value=model.profile_physical_address  }}
                                         {{else}}
-                                        <th {{action toggleEditingContact}} class="second-th">{{model.profile_physical_address}}</th>
+                                        <th class="Contact_2child">{{model.profile_physical_address}}</th>
                                         {{/if}}
                                     </tr>
                                     <tr>
                                         <th>Phone:</th>
                                         {{#if controller.editingContact}}
-                                        {{input type="text" value=phone_number  }}
+                                        {{input type="text" value=model.phone_number  }}
                                         {{else}}
-                                        <th {{action toggleEditingContact}} class="second-th">{{model.phone_number}}</th>
+                                        <th class="Contact_2child">{{model.phone_number}}</th>
                                         {{/if}}
                                     </tr>
                                     <tr>
                                         <th>Website:</th>
                                         {{#if controller.editingContact}}
-                                        {{input type="text" value=website_url  }}
+                                        {{input type="text" value=model.website_url  }}
                                         {{else}}
-                                        <th  {{action toggleEditingContact}} class="second-th"><a href="http://ikitchen.y8.co.nz">{{model.website_url}}</a></th>
+                                        <th class="Contact_2child"><a>{{model.website_url}}</a></th>
                                         {{/if}}
                                     </tr>
 
@@ -204,9 +211,9 @@
                                 {{else}}
                                 <div class="buttons" style="position: relative;display: block;margin: 10px auto 0;text-align: center;">
 
-                                    <div  type="button" class="new-btn blue-btn" {{action changeEditingContact }}> <i class="icon-ok icon-white"></i></div>
+                                    <div  type="button" class="new-btn blue-btn" {{action yes controller.contact }}> <i class="icon-ok icon-white"></i></div>
 
-                                    <div  type="button" class="new-btn" {{action exitContactEditing }}> <i class="icon-remove"></i></div>
+                                    <div  type="button" class="new-btn" {{action no controller.contact}}> <i class="icon-remove"></i></div>
 
                                 </div>
                                 {{/unless}}
@@ -218,6 +225,9 @@
 
                             <div class="aside-container" style="padding: 20px 0; border-top: 1px solid #fff; font-size: 14px;margin: auto;width: 95%;">
                                 <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-time' style='margin-right: 10px;'></i>Hours</div>
+                                <div class="edit-btn easing">
+                                    <i class="icon-edit"></i>                            
+                                </div>
                                 <div style="display: block">
                                     <div style='display: inline-block;color: #888;text-align: right;'>
                                         <p>Mon - Fri: </p>
@@ -247,21 +257,30 @@
 
                         <div class="profile-main-content" style="margin: 20px auto;width: 90%;">   
 
-                            <div class="main_aboutus" style="border-bottom: 1px solid #ccc; padding:20px 0 30px 0; font-size: 15px; min-height: 300px;">
+                            <div class="main_aboutus" style="border-bottom: 1px solid rgba(0,0,0,.1); padding:20px 0 30px 0; font-size: 15px; min-height: 300px;">
                                 <div><p style='margin-bottom: 20px;display: inline-block; font-size: 18px;'><i class='icon-group' style='margin-right: 10px;display: inline-block;'></i>About Us</p>
 
                                     {{#if controller.editingAbout}}
-                                    {{view App.EditingAboutView}}
+                                    <div style="height: 300px;">
+                                    {{view Ember.TextArea valueBinding="model.about"  id="" class=""  }} 
+                                    </div>
+                                    <div style="float: right;">
+                                    <div class="new-btn blue-btn" {{action yes controller.aboutMe}}><i class="icon-ok icon-white"></i></div> 
+                                    <div class="new-btn" {{action no controller.aboutMe}}><i class="icon-remove"></i></div>
+                                    </div>
                                     {{else}}
-                                    <a class="editicon" href="#"{{action toggleEditingAbout}}>
-                                       <i class="icon-pencil"></i>
-                                        <b class="editicon_callout"></b>                             
-                                    </a>
+                                    <div class="edit-btn" {{action toggleEditing model.about controller.aboutMe}}>
+                                         <i class="icon-edit"></i>                            
+                                    </div>
+                                    {{model.about}}
                                     {{/if}}
+
                                 </div>
-                                <div style="padding: 10px 50px;">
-                                    {{{model.about}}} 
-                                </div>
+
+
+
+
+
                             </div>
 
                             <div class="main_comments" style="padding:20px 0 30px 0; font-size: 16px;">
@@ -378,8 +397,8 @@
 
                             </div>
 
-                            <div id="flip-front" class='new-btn' style="float: right;display: block;margin: 10px 0;">
-                                <i class="icon-refresh"></i>
+                            <div id="flip-front" class='new-btn blue-btn' style="float: right;display: block;margin: 10px 0;">
+                                <i class="icon-map-marker"></i>
                             </div>
                         </div>
 
@@ -410,7 +429,7 @@
                 </div>
             </div>
 
-            <div id="flip-back" class='new-btn' style="float: right;position: relative;top: 200px;right: 20px;text-shadow: none;">go back</div>
+            <div id="flip-back" class='new-btn blue-btn' style="float: right;position: relative;top: 200px;right: 20px;text-shadow: none;">Back</div>
         </div>
 
 
@@ -418,8 +437,6 @@
     </div>
 
 
-
-{{controller}}
 
     {{#if controller.switchPhoto}}
 
@@ -440,3 +457,10 @@
     {{/if}}
 
 
+
+    {{#if controller.makeSureDelete}}
+
+    {{view App.DeleteFunctionView}}
+
+
+    {{/if}}

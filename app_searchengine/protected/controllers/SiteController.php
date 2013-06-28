@@ -80,15 +80,7 @@ class SiteController extends Controller {
         $this->render('contact', array('model' => $model));
     }
 
-//    /**
-//     * Displays the login page
-//     */
-//    public function actionLogin() {
-//        // require_once  ('/home/devbox/NetBeansProjects/bds-v3.1/common/protected/config/domainSetting.php');
-//        $domainSetting = new DomainSetting();
-//        Yii::app()->user->setReturnUrl($_SERVER['HTTP_REFERER']);
-//        $this->redirect('http://account' . $domainSetting->getDomain() . '/site/login/');
-//    }
+
 
     public function actionLogin() {
         $model = new LoginForm;

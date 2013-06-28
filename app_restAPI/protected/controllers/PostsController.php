@@ -9,7 +9,7 @@ class PostsController extends Controller {
 
         $cb = $this->couchBaseConnection();
         $keys = array('post_1', 'post_2');
-        // $keys = array('develop.devbox1/userprofiles/jason_liddiard', 'trendsideas.com/userprofiles/jason_liddiard');
+   
         $results_arr = ($cb->getMulti($keys));
 
         // $results_arr = $cb->get('post_1');

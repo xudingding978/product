@@ -135,6 +135,17 @@ div.search-loading-invisible{
     border-radius: 0 0 3px 3px;
 }
 
+.lineuptextbox{
+    display: inline-block;
+    width: 270px;
+    margin-right: 5px;
+}
+
+
+
+
+
+
 .contactme-table tr {
     display: table-row;
     vertical-align: top;

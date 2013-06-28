@@ -80,7 +80,7 @@
     z-index: 900;
     height: 0;
     overflow: hidden;
-    
+
     -webkit-transform: rotateY(180deg);
     -moz-transform: rotateY(180deg);
 
@@ -465,9 +465,20 @@
 
 .controlbtn-field{
     border-top: 1px solid rgba(0,0,0,0.05);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
     background: -webkit-linear-gradient(top,rgba(0,0,0,.03),rgba(0,0,0,.01) 90%,rgba(0,0,0,0) 100%) no-repeat;
     background: -moz-linear-gradient(top,rgba(0,0,0,.03),rgba(0,0,0,.01) 90%,rgba(0,0,0,0) 100%) no-repeat;
     background: linear-gradient(top,rgba(0,0,0,.03),rgba(0,0,0,.01) 90%,rgba(0,0,0,0) 100%) no-repeat;
+}
+
+.controlbtn{
+    text-align: right;
+    padding: 15px 0;
+    width: 200px;
+    display: block;
+    position: relative;
+    margin: auto;
+    left: 25%;
 }
 
 

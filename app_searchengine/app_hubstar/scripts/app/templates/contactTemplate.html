@@ -1,11 +1,11 @@
 <div class="contactmebox-wapper" style="width: 500px;font-size: 13px;">
-    <div class="head">
+    <div class="head controlbtn-field">
         <div class="poster_user" >
             <div style="display: block; font-size: 16px; font-weight: bold; margin-bottom: 5px;">
                 <span style="display: inline-block;margin-right: 5px;">Send an Email to</span>
                 <a style="max-width: 240px; display: inline-block; overflow: hidden; text-overflow: ellipsis;">{{controller.selectedMega.owner_title}}</a>
             </div>
-            <div style="display: block; margin-bottom: 10px;">
+            <div style="display: block;">
                 {{#unless controller.isDisplayNameEditable}}
                 <span style="display: inline-block;margin-right: 5px;">From: {{controller.displayName}}</span>
                 {{else}}
@@ -13,7 +13,7 @@
                 {{/unless}}
                 <a {{action setEditable "Name"}}>{{editNameStatus}}</a>
             </div>
-            <div style="display: block; margin-bottom: 10px;">
+            <div style="display: block; margin-bottom: 15px;">
                 {{#unless controller.isDisplayEmailEditable}}
                 <span style="display: inline-block;margin-right: 5px;">Email: {{controller.displayEmail}}</span>
                 {{else}}
@@ -21,30 +21,34 @@
                 {{/unless}}
                 <a {{action setEditable "Email"}}>{{editEmailStatus}}</a>
             </div>
-
-
         </div>
-        <div style="float: right;position: relative; display: inline-block; vertical-align: top;">
+
+
+
+        <div style="float: right;position: relative; display: inline-block; vertical-align: top;margin: 5px 0;">
             <a href="#"><img {{bindAttr src="controller.selectedMega.owner_profile_pic"}} class="profilepic"/></a>              
         </div>
         <div>
             <span style="display: inline-block; margin-right: 10px;">Subject:</span>
-            <div class="addcommnetbox" style="display: inline-block; width: 378px; height: 25px; vertical-align: middle; padding: 2px 8px;">
+            <div style="display: inline-block; width: 378px; vertical-align: middle;">
                 {{view Ember.TextField valueBinding="controller.emailSubject"}}
             </div>
         </div>
     </div>
-    <div class="content">
-        <div class="contactme-table" style="text-align: center;">
+
+
+
+    <div class="content" style="border-radius: 0; padding: 15px 30px 0px;">
+        <div class="contactme-table easing" style="text-align: center;">
             <table style="padding: 0 20px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;">
                 <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
                     <tr>
                         <td>Project Category:</td>
-                        <td class="btn-group"> 
-                            <a class="dropdown-contactme btn dropdown-toggle" id="" href="#" {{action dropdown controller.dropdownCategory}}>
+                        <td> 
+                            <div class="new-btn" style="display: block;" {{action dropdown controller.dropdownCategory}}>
                                <span id="dropdownCategory"> Kitchen Remodel</span>
                                 <span class="caret"></span>
-                            </a>
+                            </div>
                             {{#if controller.projectCategoryDropdown}}
                             {{view App.DropdownListView}}
                             {{/if}}
@@ -52,11 +56,11 @@
                     </tr>
                     <tr>
                         <td>Project Timeframe:</td>
-                        <td class="btn-group"> 
-                            <a class="dropdown-contactme btn dropdown-toggle"  href="#" {{action dropdown controller.dropdownTimeframe}}>
+                        <td> 
+                            <div class="new-btn" style="display: block;" {{action dropdown controller.dropdownTimeframe}}>
                                <span id="dropdownTimeframe">1-2 months</span>
                                 <span class="caret"></span>
-                            </a>
+                            </div>
                             {{#if controller.projectTimeframeDropdown}}
                             {{view App.DropdownListView}}
                             {{/if}}
@@ -64,11 +68,11 @@
                     </tr>
                     <tr>
                         <td>Project Budget:</td>
-                        <td class="btn-group"> 
-                            <a class="dropdown-contactme btn dropdown-toggle" id="" href="#" {{action dropdown controller.dropdownBudget}}>
+                        <td> 
+                            <div class="new-btn" style="display: block;" {{action dropdown controller.dropdownBudget}}>
                                <span id="dropdownBudget">Less than 5k</span>
                                 <span class="caret"></span>
-                            </a>
+                            </div>
                             {{#if controller.projectBudgetDropdown}}
                             {{view App.DropdownListView}}
                             {{/if}}
@@ -76,11 +80,11 @@
                     </tr>
                     <tr>
                         <td>Project Experience:</td>
-                        <td class="btn-group">
-                            <a class="dropdown-contactme btn dropdown-toggle" id="" href="#"  {{action dropdown controller.dropdownExperience}}>
+                        <td>
+                            <div class="new-btn" style="display: block;"  {{action dropdown controller.dropdownExperience}}>
                                <span id="dropdownExperience"> First Time </span>
                                 <span class="caret"></span>
-                            </a>
+                            </div>
                             {{#if controller.projectExperienceDropdown}}
                             {{view App.DropdownListView}}
                             {{/if}}
@@ -98,16 +102,17 @@
         <div style="display: block;padding: 5px 0px;">
             <div>
                 <span style="display: inline-block; margin-bottom: 5px;">Message:</span>
-                <div class="addcommnetbox" style="margin-bottom: 10px; width: auto; height: 70px; vertical-align: middle; padding: 2px 8px;">
-                    {{view Ember.TextArea valueBinding="controller.emailBody" rows="12" cols="70" class="collect_descriptionbox" placeholder="         
-                    I saw your profile, I'd love to talk to you about my project, Please reply  if you are interested.........."}}
+                <div style="margin-bottom: 10px; width: 100%; height: 70px;">
+                    {{view Ember.TextArea valueBinding="controller.emailBody" rows="12" cols="70" class="" placeholder="I saw your profile, I'd love to talk to you about my project, Please reply  if you are interested.........."}}
 
                 </div>
             </div>
-            <div style='text-align: right;'>
-                <button type="button" {{action closeContact }} class="btn">Cancel</button>
-                <button type="button" {{action emailSend }}  class="btn btn-primary">Submit</button>
-            </div>
         </div>
+    </div>
+    <div class="controlbtn-field">
+        <span class="controlbtn">
+            <div type="button" {{action closeContact }} class="new-btn">Cancel</div>
+            <div type="button" {{action emailSend }}  class="new-btn green-btn">Submit</div>
+        </span>
     </div>
 </div>

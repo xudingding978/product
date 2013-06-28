@@ -10,11 +10,12 @@
 
 
 
-    <div style=" position: relative; height: 430px; bottom: 25px; padding: 15px; overflow-y: auto; overflow-x: hidden;">
+    <div style=" position: relative; height: auto; bottom: 25px; padding: 15px; overflow-y: auto; overflow-x: hidden;">
         {{#each content}}
         <div style="position: relative;margin:8px; display: inline-block; vertical-align: top; min-width: 150px;">
             <div> <img  {{bindAttr src= "photo_url"}}  alt="Logo" style="max-width: 150px; max-height: 160px;"> </div>
             <div style="margin-top: 2px; font-size: 13px; text-overflow:ellipsis; text-align: center; width: 150px;overflow: hidden;">{{photo_title}}</div>
+
         </div>
 
         {{/each}}

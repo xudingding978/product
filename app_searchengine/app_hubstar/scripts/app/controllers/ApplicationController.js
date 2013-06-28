@@ -54,12 +54,10 @@ define([
         },
         defaultSearch: function() {
             this.set("loginInfo", localStorage.loginStatus);
-//            var ac = this.get("controllers.application");
-//            var st = this.get("controllers.status");
-//            ac.grapData();
-//            st.grapData();
+
             var results = MegaModel.find({});
-            this.set("content", results);
+             this.set("content", results);
+          
         },
         getResponseTime: function(start, end) {
             var totalTime = end - start;

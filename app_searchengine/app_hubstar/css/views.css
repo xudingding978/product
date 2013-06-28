@@ -690,6 +690,7 @@
 
 .masonry-object_interact{
     margin: 20px 0 0 0; 
+    overflow:hidden;
     border-top: 1px solid #e5e5e5; 
     -webkit-border-radius: 0 0 2px 2px; 
     border-radius: 0 0 2px 2px; 

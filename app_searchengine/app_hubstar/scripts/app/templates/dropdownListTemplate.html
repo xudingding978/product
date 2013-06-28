@@ -1,7 +1,7 @@
 
 
 
-{{#if controller.toggleDropdown1}}
+{{#if controller.projectCategoryDropdown}}
 <div id="dropItem1"  {{action dropdown controller.dropdownCategory}}>
      <h1  class="ite"> Kitchen Remodel</h1>
     <h1  class="ite">11111111</h1>
@@ -14,27 +14,34 @@
 
 
 
-{{#if controller.toggleDropdown2}}
+{{#if controller.projectTimeframeDropdown}}
 <div id="dropItem2" {{action dropdown controller.dropdownTimeframe}}>
-     <h1  class="ite">1-2 months   </h1>
-    <h1  class="ite">no months  </h1>
-    <h1  class="ite">sadmonths   </h1>
+     <h1  class="ite">1-2 months</h1>
+    <h1  class="ite">next 6 months</h1>
+    <h1  class="ite">1-2 years</h1>
+    <h1  class="ite">within 3 years</h1>
 </div>
 {{/if}}
 
-
-
-{{#if controller.toggleDropdown3}}
+{{#if controller.projectBudgetDropdown}}
 <div id="dropItem3" {{action dropdown controller.dropdownBudget}}>
      <h1  class="ite">  Less than 5k   </h1>
-    <h1  class="ite">  Less than 10k   </h1>
+    <h1  class="ite">  5-10k   </h1>
+    <h1  class="ite">  5k-10k   </h1>
+    <h1  class="ite">  50k-100k   </h1>
+    <h1  class="ite">  100k-250k   </h1>
+    <h1  class="ite">  250k-500k   </h1>
+    <h1  class="ite">  500k-1M   </h1>
+    <h1  class="ite">  1M+   </h1>
 </div>
 {{/if}}
 
-{{#if controller.toggleDropdown4}}
+{{#if controller.projectExperienceDropdown}}
 <div id="dropItem4" {{action dropdown controller.dropdownExperience}}>
-     <h1  class="ite">  First Time </h1>
-    <h1  class="ite">  no Time   </h1>
+     <h1  class="ite">First Time</h1>
+    <h1  class="ite">Helped someone do this </h1>
+    <h1  class="ite">  Have done this once before</h1>
+    <h1  class="ite">Experienced at this type of project  </h1>
 </div>
 {{/if}}
 

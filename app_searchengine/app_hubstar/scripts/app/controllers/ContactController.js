@@ -40,11 +40,10 @@ define([
         },
         closeContact: function() {
             var megaController = this.get("controllers.mega");
-            this.set('toggleDropdown2', false);
-            this.set('toggleDropdown3', false);
-            this.set('toggleDropdown4', false);
-
-            this.set('toggleDropdown1', false);
+            this.set('projectCategoryDropdown', false);
+            this.set('projectTimeframeDropdown', false);
+            this.set('projectBudgetDropdown', false);
+            this.set('projectExperienceDropdown', false);
             megaController.closeContact();
         },
         setEditable: function(attr) {
@@ -61,7 +60,6 @@ define([
         },
         emailSend: function()
         {
-    //        alert($('#dropdownCategory').text());
             var tempEmail = App.Email.createRecord({
                 "displayName": this.get("displayName"),
                 "displayEmail": this.get("displayEmail"),
@@ -70,10 +68,10 @@ define([
                 "emailDestination": this.get("emailDestination"),
                 "emaiCCDestination": this.get("emaiCCDestination"),
                 "emaiBCCDestination": this.get("emaiBCCDestination"),
-                "projectCategory": $('#dropdownCategory').text(),
-                "projectTimeframe": $('#dropdownTimeframe').text(),
-                "projectBudget": $('#dropdownBudget').text(),
-                "projectExperience": $('#dropdownExperience').text()
+                "projectCategory": $('#dropdownCategory').text().trim(),
+                "projectTimeframe": $('#dropdownTimeframe').text().trim(),
+                "projectBudget": $('#dropdownBudget').text().trim(),
+                "projectExperience": $('#dropdownExperience').text().trim()
             });
             tempEmail.store.commit();
             this.closeContact();
@@ -81,31 +79,31 @@ define([
         dropdown: function(checking) {
             if (checking === "category") {
             //    console.log(checking);
-                this.set('toggleDropdown2', false);
-                this.set('toggleDropdown3', false);
-                this.set('toggleDropdown4', false);
-                this.set('toggleDropdown1', !this.get('toggleDropdown1'));
+                this.set('dropdownExperience', false);
+                this.set('dropdownTimeframe', false);
+                this.set('dropdownBudget', false);
+                this.set('dropdownCategory', !this.get('dropdownCategory'));
 
             } else if (checking === "Timeframe") {
           //      console.log(checking);
-                this.set('toggleDropdown1', false);
-                this.set('toggleDropdown3', false);
-                this.set('toggleDropdown4', false);
-                this.set('toggleDropdown2', !this.get('toggleDropdown2'));
+                this.set('dropdownExperience', false);
+                this.set('dropdownBudget', false);
+                this.set('dropdownCategory', false);
+                this.set('dropdownTimeframe', !this.get('dropdownTimeframe'));
 
             } else if (checking === "Budget") {
          //       console.log(checking);
-                this.set('toggleDropdown1', false);
-                this.set('toggleDropdown2', false);
-                this.set('toggleDropdown4', false);
-                this.set('toggleDropdown3', !this.get('toggleDropdown3'));
+                this.set('dropdownExperience', false);
+                this.set('dropdownCategory', false);
+                this.set('dropdownTimeframe', false);
+                this.set('dropdownBudget', !this.get('dropdownBudget'));
 
             } else if (checking === "Experience") {
          //       console.log(checking);
-                this.set('toggleDropdown1', false);
-                this.set('toggleDropdown2', false);
-                this.set('toggleDropdown3', false);
-                this.set('toggleDropdown4', !this.get('toggleDropdown4'));
+                this.set('dropdownTimeframe', false);
+                this.set('dropdownCategory', false);
+                this.set('dropdownBudget', false);
+                this.set('dropdownExperience', !this.get('dropdownExperience'));
 
             } else {
 

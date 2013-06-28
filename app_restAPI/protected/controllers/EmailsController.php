@@ -28,10 +28,10 @@ class EmailsController extends Controller {
                         $configuration
         );
         $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");
-        $client_email = $platformSettings['direct_enquiries']['email'];
+        $platformEmail = $platformSettings['direct_enquiries']['email'];
         $subject_prefix = $platformSettings['direct_enquiries']['subject_prefix'];    
         $args = array(
-            "Source" => $client_email,
+            "Source" => $platformEmail,
             "Destination" => array(
                 "ToAddresses" => array(
                     $email_destination
@@ -43,7 +43,7 @@ class EmailsController extends Controller {
                 ),
                 "Body" => array(
                     "Text" => array(
-                        "Data" => $subject_prefix. $request_arr['email_body']
+                        "Data" =>$request_arr['email_body']
                     )
                 ),
             ),

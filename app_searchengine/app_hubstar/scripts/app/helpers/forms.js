@@ -1,6 +1,6 @@
 
 // Start the main app logic.
-define(['ember', 'handlebars','moment'],
+define(['ember', 'handlebars', 'moment'],
         function(Ember) {
 
             Handlebars.registerHelper('submitButton', function(text) {
@@ -36,9 +36,11 @@ define(['ember', 'handlebars','moment'],
 
             });
             Ember.Handlebars.registerBoundHelper('date', function(date) {
-
-                return moment(date).fromNow();
-
+                if (date === "" || date ===null) {
+                    return "";
+                } else {
+                    return moment(date).fromNow();
+                }
             });
 
 

@@ -145,14 +145,18 @@ define([
                 },
                 setModel: function(model) {
                     this.set("model", model);
+                    console.log(this.get('model').get('collections') );
+                    if (this.get('model').get('collections') === "undefined" || this.get('model').get('collections') === ""|| this.get('model').get('collections') === "null") {
 
-                    var total_collection = this.get('model').get('collections').split(",");
-                    for (var i = 0; i < total_collection.length; i++) {
-                        this.get('collections').pushObject({id: total_collection[i]});
+                    } else {
+
+                        var total_collection = this.get('model').get('collections').split(",");
+                        for (var i = 0; i < total_collection.length; i++) {
+                            this.get('collections').pushObject({id: total_collection[i]});
 
 
+                        }
                     }
-
                 },
             }
 

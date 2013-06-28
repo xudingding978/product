@@ -26,9 +26,6 @@ define([
                 }
             });
 
-//            console.log(this.get('title'));
-//            console.log(this.get('content'));
-//         console.log(this.get('content'));
 
         },
         selectModelForProfile: function(collection_id) {
@@ -50,10 +47,6 @@ define([
                     }
                 }
             });
-
-//            console.log(this.get('title'));
-//            console.log(this.get('content'));
-            //        console.log(this.get('content'));
 
         },
         newUpload: function() {

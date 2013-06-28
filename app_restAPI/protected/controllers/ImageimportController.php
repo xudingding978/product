@@ -179,11 +179,6 @@ class ImageimportController extends Controller {
         $result = $cb->get($key);
         $result_arr = CJSON::decode($result, true);
         
-//        echo"ttttttttttttttttttttttttttttttttttttttttt";
-//        echo $url;
-//        print_r($result_arr);
-//        exit();
-        
         $client = Aws\S3\S3Client::factory(
                         $result_arr["providers"]["S3Client"]
         );

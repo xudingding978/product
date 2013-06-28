@@ -22,20 +22,14 @@ class EmailsController extends Controller {
         $request_arr = $request_arr['email'];
         $display_email = $request_arr['display_email'];
         $email_destination = $request_arr['email_destination'];
-    //    error_log(var_export($email_destination, true));
-        $AWS_KEY = "AKIAJKVKLIJWCJBKMJUQ";
-        $AWS_SECRET_KEY = "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";
-        $amazonSes = Aws\Ses\SesClient::factory(
-                        array("key" => $AWS_KEY, "secret" => $AWS_SECRET_KEY, 'region' => 'us-east-1')
-        );
         $domain = $this->getDomain();
-
-        $array_item = $this->getProviderConfigurationByName($domain, "Communications");
-        $client_email = $array_item['direct_enquiries']['email'];
-        $subject_prefix = $array_item['direct_enquiries']['subject_prefix'];
-
-    //    error_log(var_export($client_email, true));
-
+        $configuration = $this->getProviderConfigurationByName($domain, "SES");
+        $amazonSes = Aws\Ses\SesClient::factory(
+                        $configuration
+        );
+        $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");
+        $client_email = $platformSettings['direct_enquiries']['email'];
+        $subject_prefix = $platformSettings['direct_enquiries']['subject_prefix'];    
         $args = array(
             "Source" => $client_email,
             "Destination" => array(
@@ -45,26 +39,19 @@ class EmailsController extends Controller {
             ),
             "Message" => array(
                 "Subject" => array(
-                    "Data" => $subject_prefix
+                    "Data" => $subject_prefix. $request_arr['email_subject']
                 ),
                 "Body" => array(
                     "Text" => array(
-                        "Data" => "dddddddddddd"
+                        "Data" => $subject_prefix. $request_arr['email_body']
                     )
                 ),
             ),
             "ReplyToAddresses" => array($display_email)
         );
-
-
-
-              $response = $amazonSes->sendEmail($args);
-//        $email = $_REQUEST['email'];
-//        $subject = $_REQUEST['subject']; display_email
-//        $message = $_REQUEST['message'];
-        //       mail($request_arr["email_destination"], $subject, $message, "From:" . $email);
-        //       mail($request_arr["email_destination"], $request_arr["email_subject"], $request_arr["email_subject"], "From:" . $request_arr["display_email"]);
-        $this->sendResponse(200, $response);
+        $response = $amazonSes->sendEmail($args);
+          $this->sendResponse(200, $response);
+        $this->sendResponse(204);
     }
 
     public function actionRead() {

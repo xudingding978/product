@@ -40,8 +40,7 @@ class Controller extends CController {
         );
         return $client;
     }
-    
-    
+        
         protected function getProviderConfigurationByName($domain,$name) {
         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
         $result = $cb->get($domain);

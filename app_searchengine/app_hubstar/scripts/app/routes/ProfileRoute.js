@@ -19,6 +19,7 @@ define([
             this.controllerFor('application').set('isotherpage', true);
             this.controllerFor('searchs').setLoginImge();
             this.controllerFor('application').set('isotherpage', true);
+            this.controllerFor('profile').set('switchPhoto', true);
         },
 //        redirect: function() {
 //

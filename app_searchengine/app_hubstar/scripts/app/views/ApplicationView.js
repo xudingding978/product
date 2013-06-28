@@ -1,7 +1,8 @@
 define([
+    "App",
     "ember",
     "text!templates/applicationTemplate.html"
-], function(Ember, applicationTemplate) {
+], function(App, Ember, applicationTemplate) {
 
     Ember.TEMPLATES["application"] = Ember.Handlebars.compile(applicationTemplate);
 
@@ -11,5 +12,6 @@ define([
             this.rerender();
         }.observes('controller.test')
     });
+
     return ApplicationView;
 });

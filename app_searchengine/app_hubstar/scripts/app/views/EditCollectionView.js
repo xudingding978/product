@@ -8,8 +8,8 @@ define([
     var EditCollectionView = Ember.View.extend({
         template: Ember.Handlebars.compile(editCollectionTemplate),
         didInsertElement: function() {
-
             $(function() {
+           
                 $('#masonry_user_container').masonry({
                     itemSelector: '.box',
                     columnWidth: 0,
@@ -20,7 +20,8 @@ define([
 
                 $('.new-collection-name_insert').val("");
                 $('.new-collection-area').val("");
-
+                $(".Targeting_Object_front").attr("style", "display:inline-block");
+                $(" #uploadArea").attr('style', "display:none");
                 $('#uploadObject').attr("style", "display:none");
                 $('#uploadingObject').attr('style', "display:inline-block");
                 $('#uploadArea').attr('style', "display:block");
@@ -61,7 +62,6 @@ define([
             });
         },
         returnCollection: function(id) {
-
 
 
             var div_id = "#" + id;

@@ -37,10 +37,24 @@ define([
         },
         popupAibum: function() {
 
-            $("#collection_tab").slideToggle("slow" );
+            $("#collection_tab").slideToggle("slow");
+        },
+        openComment: function() {
+
+            $('#addcommetBut').attr('style', 'display:none');
+            $('#commentBox').attr('style', 'display:block');
+
+
+        },
+        closeComment: function() {
+
+            $('#addcommetBut').attr('style', 'display:block');
+            $('#commentBox').attr('style', 'display:none');
+
+
         }
 
     });
-   
+
     return PhotoView;
 });

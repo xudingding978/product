@@ -1,7 +1,7 @@
 // Define libraries
 require.config({
     paths: {
-//     'AppMain': 'app/main',           
+        'App': 'main',
         'namespace': 'app/namespace',
         'models': 'app/models',
         'views': 'app/views',
@@ -109,6 +109,8 @@ define('application', [
     "views/ItemView",
     "views/EditCollectionView",
     "views/MasonryCollectionView",
+    "views/UploadResourceView",
+    "views/DeleteFunctionView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -233,6 +235,8 @@ define('application', [
         ItemView,
         EditCollectionView,
         MasonryCollectionView,
+        UploadResourceView,
+        DeleteFunctionView,
         ApplicationController,
         tabListController,
         DataController,
@@ -357,6 +361,8 @@ define('application', [
         ItemView: ItemView,
         EditCollectionView: EditCollectionView,
         MasonryCollectionView: MasonryCollectionView,
+        UploadResourceView: UploadResourceView,
+        DeleteFunctionView: DeleteFunctionView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,

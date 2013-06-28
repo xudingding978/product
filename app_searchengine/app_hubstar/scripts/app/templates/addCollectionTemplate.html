@@ -29,12 +29,12 @@
 
             {{#if controller.selectionPop}}
             <div class="contact-container t-style-box" style="width: 400px;height: 250px;padding: 15px;">
-                {{view App.SearchRequireTextFieldView valueBinding="newCollectionName"  id="AddRecord" class="collect_newcollection-name"  placeholder="Create new Collection" }}   
+                {{view App.SearchRequireTextFieldView valueBinding="newCollectionName"  id="" class="collect_newcollection-name"  placeholder="Create new Collection" }}   
 
-                <div type="button" {{action addNewCollection }} class="new-btn green-btn">Create</div>
+                <div type="button" {{action addNewCollection }} class="new-btn green-btn" style="vertical-align:middle;top:0;">Create</div>
 
 
-                <div style="margin: 5px 10px; font-size: 16px; font-weight: bold; overflow: auto; overflow-x:hidden; width: 350px;height: 170px;">
+                <div style="margin:10px; font-size: 16px; font-weight: bold; overflow: auto; overflow-x:hidden; width: 350px;height: 170px;">
                     {{#each controller.collections}}
                     <div class="choose-exist-collection easing" {{action chooseRecord title}}>
                          <a class="exist-name easing"> {{title}}</a>

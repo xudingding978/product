@@ -546,9 +546,16 @@
     line-height: 20px;
 }
 
-.edit-object{
+.edit-collection-btn{
     float: right;
+    color: #333;
+    opacity: .6;
 }
+
+.edit-collection-btn:hover{
+    opacity: 1;
+}
+
 
 /*MANSONRY album OBJECT STYLE               END*/
 
@@ -612,8 +619,8 @@
     float: left; 
     margin: 20px 15px 0 0; 
     padding: 0;
-    -webkit-border-radius: 50%; 
-    border-radius: 50%;
+    -webkit-border-radius: 5px; 
+    border-radius: 5px;
 }
 
 .object_username{
@@ -921,10 +928,16 @@
 }
 
 .profilepic/* for img*/{
-    border-radius: 50%; 
+    border-radius: 5px; 
     width: 46px; 
     height: 46px;
 } 
+
+.profilepic_user{
+    border-radius: 50%;
+    width: 46px; 
+    height: 46px;
+}
 
 .profilepic_effect{
     opacity: 0.8;
@@ -1253,10 +1266,12 @@
 
 
 .comment-item{
-    position: relative; 
-    overflow-y: auto; 
-    width: auto; 
+    position: relative;
+    width: auto;
     display: block;
+    margin: 5px 0;
+    overflow-wrap: break-word;
+    overflow-x: hidden;
 }
 
 .comment-position{
@@ -1272,9 +1287,22 @@
 }
 
 .profilepic_comment{
+    border-radius: 50%;
     width: 30px; 
     height: 30px;
 }
+
+.comment-insert-field{    
+    cursor:text;
+    word-wrap: break-word;
+
+    background-color: #fff;
+    border: 1px solid #ccc;
+    margin-bottom:7px;
+    min-height:3.9em;
+    padding:6px 6px;
+}
+
 
 .comment-namentime{
     position: relative; 
@@ -1340,6 +1368,7 @@
 
 .collect_newcollection-name{
     width: 300px;
+    padding: 4px;
 }
 
 .choose-exist-collection{
@@ -1366,3 +1395,16 @@
 .contactmebox-wapper  .closeview:hover{
     color: #333;
 } 
+
+
+.edit-object-btn{
+    top: 10px;
+    position: absolute;
+    right: 10px;
+    color: #333;
+    opacity: .6;
+}
+
+.edit-object-btn:hover{
+    opacity: 1;
+}

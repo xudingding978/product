@@ -62,7 +62,8 @@ define(["ember", 'models/PhotoModel', 'models/MegaModel', 'models/UserModel', ],
                             reader.onload = function(e) {
                                 var src = e.srcElement.result;
                                 var obj = Obj.createRecord({"title": name.toLowerCase(), "type": "photos", "creator": "king"});
-                                var file = PhotoModel.createRecord({"photo_title": name.toLowerCase(), "photo_image_url": "src", "photo_type": type});
+                                var file = PhotoModel.createRecord({"photo_title": name.toLowerCase(), "photo_image_url": src, "photo_type": type});
+                                //    var file = PhotoModel.createRecord({"photo_title": name.toLowerCase(), "photo_image_url": "src", "photo_type": type});
                                 // var user = UserModel.createRecord({"REC_ID": id, "TENANT_REC_ID": name.toLowerCase()});
                                 //   console.log(obj.get("photos").objectAt(0));
                                 //    var article = Article.createRecord({"id": id, "article_title": "article " + name.toLowerCase()});

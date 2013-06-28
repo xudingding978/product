@@ -5,7 +5,7 @@
                     <div style="top: 200px;position: relative;margin: auto;width: 80%;font-size: 26px; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;">
                         <i class="icon-upload" style="font-size: 45px;"></i>
                         <p style="font-weight: bold;">
-                            Drag and drop. {{controller}}
+                            Drag and drop. 
                         </p>
                     </div>
 
@@ -15,7 +15,7 @@
                     <div style="position: relative; height: auto; bottom: 25px; padding: 15px; overflow-y: auto; overflow-x: hidden;">
                         {{#each content}}
                         <div style="position: relative;margin:8px; display: inline-block; vertical-align: top; min-width: 150px;">
-                            <div> <img  {{bindAttr src= "photo_url"}}  alt="Logo" style="max-width: 150px; max-height: 160px;"> </div>
+                            <div> <img  {{bindAttr src= "photo_image_url"}}  alt="Logo" style="max-width: 150px; max-height: 160px;"> </div>
                             <div style="margin-top: 2px; font-size: 13px; text-overflow:ellipsis; text-align: center; width: 150px;overflow: hidden;">{{photo_title}}</div>
                         </div>
                         {{/each}}

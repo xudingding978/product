@@ -3,8 +3,8 @@ define(["ember"], function(Ember) {
         commentLength: null,
         init: function()
         {
-        //    console.log(this.get('comments'));
-           // this.set('commentLength', );
+            //    console.log(this.get('comments'));
+            // this.set('commentLength', );
 
             this.set("currentUser", App.User.find(localStorage.loginStatus));
 
@@ -25,6 +25,9 @@ define(["ember"], function(Ember) {
                 this.set('commentContent', '');
                 $('#addcommetBut').attr('style', 'display:block');
                 $('#commentBox').attr('style', 'display:none');
+                setTimeout(function() {
+                    $('#masonry_container').masonry("reload");
+                }, 200);
             }
         },
         getCommentsById: function(id)

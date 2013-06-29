@@ -22,8 +22,8 @@ define([
             this.controllerFor('status').set('islogin', true);
             this.controllerFor('application').set('popup', false);
             this.controllerFor('application').set('isotherpage', false);
-
-
+            this.controllerFor('application').set('firstTimeUser', false);
+          
         },
         events: {
             transitionToPhoto: function(id) {

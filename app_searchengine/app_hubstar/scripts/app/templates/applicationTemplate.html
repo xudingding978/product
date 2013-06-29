@@ -17,12 +17,13 @@
         
             {{#if contoller.firstTimeUser}}
            
-                {{view App.DiscoveryView}}
+               
+                {{outlet "welcome"}}
+                {{outlet "quickstart"}}
             
             {{else}}
             
-                {{outlet "welcome"}}
-                {{outlet "quickstart"}}
+                 {{view App.DiscoveryView}}
                 
             
             {{/if}}

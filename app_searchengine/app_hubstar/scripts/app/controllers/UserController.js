@@ -28,8 +28,14 @@ define(["ember"
             var topics = user.get('selected_topics').split(",");
 
             for (var i = 0; i < topics.length; i++) {
-                this.get('selected_topics').pushObject({topics: topics[i]});
+                if (topics.objectAt(i) === "" && topics.length === 1) {
+//                    console.log(topics.objectAt(i));
 
+
+                } else {
+
+                    this.get('selected_topics').pushObject({topics: topics[i]});
+                }
             }
 
             this.set("collections", user.get("collections"));
@@ -150,18 +156,15 @@ define(["ember"
         deleteTopic: function(topic) {
 
             var user = App.User.find(localStorage.loginStatus);
-            var data = user.get('selected_topics');
+
             user.set('selected_topics', user.get('selected_topics') + ',');
 
-
-            //    console.log(user.get('selected_topics'));
+            $('#' + topic).attr('style', 'display:none');
 
             user.set('selected_topics', user.get('selected_topics').replace(topic + ",", ""));
-            user.set('selected_topics', data.substring(0, data.length - 1));
+
+            user.set('selected_topics', user.get('selected_topics').substring(0, user.get('selected_topics').length - 1));
             user.store.commit();
-
-            //     console.log(user.get('selected_topics'));
-
         },
         cancelDelete: function() {
             this.set('willDelete', false);

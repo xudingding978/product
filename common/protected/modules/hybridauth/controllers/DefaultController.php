@@ -188,7 +188,7 @@ class DefaultController extends CController {
         $temp["user"][0]["birth_day"] = $userProfile->BIRTH_DAY;
         $temp["user"][0]["birth_month"] = $userProfile->BIRTH_MONTH;
         $temp["user"][0]["birth_year"] = $userProfile->BIRTH_YEAR;
-         $temp["user"][0]["selected_topics"] = "";
+        $temp["user"][0]["selected_topics"] = "";
 
 
         $temp["user"][0]["email"] = $userProfile->EMAIL;
@@ -205,7 +205,7 @@ class DefaultController extends CController {
 
 
 
-      $cb->add(substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'],'.')+1) . "/users/" . $rand_id, CJSON::encode($temp));
+        $cb->add(substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.') + 1) . "/users/" . $rand_id, CJSON::encode($temp));
     }
 
     private function _loginUser($identity) {
@@ -213,11 +213,11 @@ class DefaultController extends CController {
 
 
         if (Yii::app()->session['newUser'] == "new") {
-            
+
             $this->render('welcome');
-            unset(Yii::app()->session['newUser'] );
+            unset(Yii::app()->session['newUser']);
         } else {
-      
+
             $this->render('close');
         }
     }

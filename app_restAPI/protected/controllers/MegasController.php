@@ -34,26 +34,26 @@ class MegasController extends Controller {
     public function actionCreate() {
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
-        $request_arr["mega"]["id"] = str_replace('test', '', $request_arr["mega"]["id"]);
-        $path = 'this_is/folder_path/';
-//      $s3response = $this->photoSavingToS3($request_arr, $path);
-        $response = "ok";
-
-//        error_log(var_export($request_arr, true));
-
-        $request_arr["mega"]['type'] = "photos";
-        $request_arr["mega"]['photos'][0]['id'] = $request_arr["mega"]["id"];
-
-        $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);
-        header($statusHeader);
-        header('Content-type: *');
-        header("Access-Control-Allow-Origin: *");
-        header('Access-Control-Request-Method: *');
-        header('Access-Control-Allow-Methods: PUT, POST, OPTIONS, GET');
-        header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
-
-        echo $response;
-        Yii::app()->end();
+//        $request_arr["mega"]["id"] = str_replace('test', '', $request_arr["mega"]["id"]);
+//        $path = 'this_is/folder_path/';
+////      $s3response = $this->photoSavingToS3($request_arr, $path);
+//        $response = "ok";
+//
+////        error_log(var_export($request_arr, true));
+//
+//        $request_arr["mega"]['type'] = "photos";
+//        $request_arr["mega"]['photos'][0]['id'] = $request_arr["mega"]["id"];
+//
+//        $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);
+//        header($statusHeader);
+//        header('Content-type: *');
+//        header("Access-Control-Allow-Origin: *");
+//        header('Access-Control-Request-Method: *');
+//        header('Access-Control-Allow-Methods: PUT, POST, OPTIONS, GET');
+//        header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+//
+//        echo $response;
+$this->sendResponse(200,$request_json);
     }
 
     public function actionRead() {

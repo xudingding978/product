@@ -80,7 +80,7 @@
     z-index: 900;
     height: 0;
     overflow: hidden;
-    
+
     -webkit-transform: rotateY(180deg);
     -moz-transform: rotateY(180deg);
 
@@ -405,6 +405,15 @@
     opacity: 1;
 }
 
+.selected-topic{
+    width: 300px;
+    height: 300px;
+    opacity: 1;
+    position: absolute;
+    z-index: 1;
+}
+
+
 .usersobject-hoverarea_bg{
     width: 100%;
     height: 100%;
@@ -465,9 +474,20 @@
 
 .controlbtn-field{
     border-top: 1px solid rgba(0,0,0,0.05);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
     background: -webkit-linear-gradient(top,rgba(0,0,0,.03),rgba(0,0,0,.01) 90%,rgba(0,0,0,0) 100%) no-repeat;
     background: -moz-linear-gradient(top,rgba(0,0,0,.03),rgba(0,0,0,.01) 90%,rgba(0,0,0,0) 100%) no-repeat;
     background: linear-gradient(top,rgba(0,0,0,.03),rgba(0,0,0,.01) 90%,rgba(0,0,0,0) 100%) no-repeat;
+}
+
+.controlbtn{
+    text-align: right;
+    padding: 15px 0;
+    width: 200px;
+    display: block;
+    position: relative;
+    margin: auto;
+    left: 25%;
 }
 
 
@@ -587,6 +607,7 @@
 
 
 .masonry-object{
+    padding-bottom: 10px;
     -webkit-border-radius:2px; 
     border-radius: 2px;
     background-color: #fff; 
@@ -679,6 +700,7 @@
 
 .masonry-object_interact{
     margin: 20px 0 0 0; 
+    overflow:hidden;
     border-top: 1px solid #e5e5e5; 
     -webkit-border-radius: 0 0 2px 2px; 
     border-radius: 0 0 2px 2px; 
@@ -686,7 +708,8 @@
 }
 
 .masonry_show-comment{
-    margin: 16px 20px 12px 20px;
+    margin: 16px auto 12px;
+    width: 87%;
 }
 
 .masonry_dropdownicon{
@@ -1214,6 +1237,10 @@
 }
 
 
+.comment-frame{
+    width: 87%;
+    margin: 0 auto;
+}
 
 
 .show-comment{
@@ -1343,6 +1370,7 @@
     font-size: 13px; 
     margin: 0 0 0 0; 
     overflow: hidden;
+    word-wrap: break-word;
 }
 
 
@@ -1388,6 +1416,7 @@
 } 
 
 .edit-btn{
+    cursor: pointer;
     color: #333;
     opacity: .6;
     text-shadow: 0 0 10px #fff;

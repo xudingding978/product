@@ -1,40 +1,54 @@
 
 
 
-{{#if controller.toggleDropdown1}}
+{{#if controller.projectCategoryDropdown}}
 <div id="dropItem1"  {{action dropdown controller.dropdownCategory}}>
-     <h1  class="ite"> Kitchen Remodel</h1>
-    <h1  class="ite">11111111</h1>
-    <h1  class="ite">1</h1>
-    <h1  class="ite">111</h1>
+     <div  class="ite ">Bathrooms</div>
+    <div  class="ite ">Home Theatre</div>
+    <div  class="ite ">Interior Living</div>
+    <div  class="ite ">Kitchens</div>
+    <div  class="ite ">New Homes</div>
+    <div  class="ite ">Outdoor Living</div>
+    <div  class="ite ">Renovation</div>
+    <div  class="ite ">Apartment Design</div>
+    <div  class="ite ">Civic Design</div>
+    <div  class="ite ">Educational Design</div>
+    <div  class="ite ">Hospitality Design</div>
+    <div  class="ite ">Office Design</div>
+    <div  class="ite ">Refurbishment</div>
+    <div  class="ite ">Retail design</div>
 </div>
 {{/if}}
 
-
-
-
-
-{{#if controller.toggleDropdown2}}
+{{#if controller.projectTimeframeDropdown}}
 <div id="dropItem2" {{action dropdown controller.dropdownTimeframe}}>
-     <h1  class="ite">1-2 months   </h1>
-    <h1  class="ite">no months  </h1>
-    <h1  class="ite">sadmonths   </h1>
+     <div  class="ite ">1-2 months</div>
+    <div  class="ite ">Next 6 months</div>
+    <div  class="ite ">Within 12 months</div>
+    <div  class="ite ">1-2 years</div>
+    <div  class="ite ">Within 3 years</div>
 </div>
 {{/if}}
 
-
-
-{{#if controller.toggleDropdown3}}
+{{#if controller.projectBudgetDropdown}}
 <div id="dropItem3" {{action dropdown controller.dropdownBudget}}>
-     <h1  class="ite">  Less than 5k   </h1>
-    <h1  class="ite">  Less than 10k   </h1>
+     <div  class="ite ">Less than 5k</div>
+    <div  class="ite ">5k-10k</div>
+    <div  class="ite ">10k-50k</div>
+    <div  class="ite ">50k-100k</div>
+    <div  class="ite ">100k-250k</div>
+    <div  class="ite ">250k-500k</div>
+    <div  class="ite ">500k- 1M</div>
+    <div  class="ite ">1M+</div>
 </div>
 {{/if}}
 
-{{#if controller.toggleDropdown4}}
+{{#if controller.projectExperienceDropdown}}
 <div id="dropItem4" {{action dropdown controller.dropdownExperience}}>
-     <h1  class="ite">  First Time </h1>
-    <h1  class="ite">  no Time   </h1>
+     <div  class="ite ">First Time</div>
+    <div  class="ite ">Helped someone do this</div>
+    <div  class="ite ">Have done this once before</div>
+    <div  class="ite ">Experienced at this type of project</div>
 </div>
 {{/if}}
 

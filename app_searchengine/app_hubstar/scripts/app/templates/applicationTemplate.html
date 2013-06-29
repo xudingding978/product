@@ -1,48 +1,62 @@
 {{#if controller.comingsoon}}
 
-{{outlet comingsoon}}
+    {{outlet comingsoon}}
 
 {{else}}
 
-{{view App.HeaderView}}
+    {{view App.HeaderView}}
 
-{{outlet profiles}}
+    {{outlet profiles}}
 
-{{outlet users}}
+    {{outlet users}}
 
-{{#unless controller.isotherpage}}
-
-
-{{#if controller.islogin}}
-
-{{view App.DiscoveryView}}
-
-{{else}}
-
-{{view App.CarouselView}}
-
-{{/if}}
+    {{#unless controller.isotherpage}}
 
 
+        {{#if controller.islogin}}
+        
+
+           
+             {{view App.DiscoveryView}}
+              
+
+           {{outlet "welcome"}}
+           {{outlet "quickstart"}}
+            
+              
+                
+            
+           
+            
+        {{else}}
+
+            {{view App.CarouselView}}
+
+        {{/if}}
 
 
 
 
-
-
-{{view App.MasonryView}}
+       
 
 
 
-{{/unless}}
-
-{{outlet photos}}
-{{outlet articles}}
-
-{{outlet "profileNew"}}
+        {{view App.MasonryView}}
 
 
-{{render "footer"}}
+
+    {{/unless}}
+
+    {{outlet photos}}
+    {{outlet articles}}
+
+    {{outlet "profileNew"}}
+
+
+    {{render "footer"}}
+
+
+
 
 {{/if}}
 

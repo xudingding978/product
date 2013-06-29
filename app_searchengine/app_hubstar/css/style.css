@@ -8,7 +8,14 @@
     background-color: black;
 }
 
+.text-anchor{
+    cursor: pointer;
+    color: #888;
+}
 
+.text-anchor:hover{
+    color: #333;  
+}
 
 div.search-loading-invisible{
     /*make invisible*/
@@ -86,17 +93,12 @@ div.search-loading-invisible{
 }
 
 .dropdownViewStyle {
-
     overflow: visible;
     position: fixed;
-    left: 50%;
-    top:40%;
-    width: 20%;
-    height: 30%;
+    min-width: 233px;
     z-index: 102;
     background-color: white;
-    border: 1px solid #999;
-    border: 1px solid rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
@@ -108,6 +110,22 @@ div.search-loading-invisible{
     -moz-background-clip: padding-box;
     background-clip: padding-box;
 }
+
+.ite{
+    padding: 6px 15px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.ite:hover{
+    background-color: rgba(0,0,0,0.1);
+}
+
+
+
+
+
 
 
 .head { 
@@ -123,6 +141,17 @@ div.search-loading-invisible{
     padding: 15px 30px 20px;
     border-radius: 0 0 3px 3px;
 }
+
+.lineuptextbox{
+    display: inline-block;
+    width: 270px;
+    margin-right: 5px;
+}
+
+
+
+
+
 
 .contactme-table tr {
     display: table-row;
@@ -472,3 +501,12 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 
 
+.dragndropbox{
+    position: absolute;
+    height: 100%; 
+    width: 100%;
+    bottom: 0; 
+    padding: 10px;  
+    overflow: auto;
+    background-color: rgba(0,0,0,0.3);
+}

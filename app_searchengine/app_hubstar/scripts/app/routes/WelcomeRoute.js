@@ -29,7 +29,7 @@ define([
         activate: function() {
             $(window).scrollTop(0);
             $('#masonry_container').attr('style', "display:none");
-
+            App.set("isLogin", true);
         },
         setupController: function() {
             this.controllerFor('searchs').defaultSearch();
@@ -37,7 +37,9 @@ define([
 
             this.controllerFor('application').set('islogin', true);
             this.controllerFor('application').set('firstTimeUser', true);
-
+            this.controllerFor('status').set('islogin', true);
+            this.controllerFor('application').set('popup', false);
+            this.controllerFor('application').set('isotherpage', false);
 
 
            

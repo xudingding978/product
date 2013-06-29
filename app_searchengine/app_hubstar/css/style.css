@@ -14,7 +14,7 @@
 }
 
 .text-anchor:hover{
-  color: #333;  
+    color: #333;  
 }
 
 div.search-loading-invisible{
@@ -109,6 +109,8 @@ div.search-loading-invisible{
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding-box;
     background-clip: padding-box;
+    max-height: 200px;
+    overflow: auto;
 }
 
 .ite{

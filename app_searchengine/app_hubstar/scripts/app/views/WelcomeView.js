@@ -27,7 +27,9 @@ define([
                 $('#login_detail').attr("style", "display:none");
 
             }
+
         },
+
     });
     return WelcomeView;
 });

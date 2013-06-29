@@ -15,17 +15,18 @@
 
         {{#if controller.islogin}}
         
-            {{#if contoller.firstTimeUser}}
+
            
-                {{view App.DiscoveryView}}
+             {{view App.DiscoveryView}}
+              
+
+           {{outlet "welcome"}}
+           {{outlet "quickstart"}}
             
-            {{else}}
-            
-                {{outlet "welcome"}}
-                {{outlet "quickstart"}}
+              
                 
             
-            {{/if}}
+           
             
         {{else}}
 

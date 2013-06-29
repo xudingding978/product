@@ -9,10 +9,12 @@
         </p>
     </div>
 
+    <div class="new-btn blue-btn" style="margin: auto; width: 200px; top: 550px; position: absolute;left: 0;right: 67%;">
+        Choose 
+        <div style="opacity:0;position: absolute;top: 0px;left: 0;"> {{view App.ImageInputButtonView }}</div> 
+    </div> 
 
-    <div style="margin: auto; width: 200px; top: 550px; position: absolute;left: 0;right: 67%;">{{view App.ImageInputButtonView}}</div>    
-
-    <div style="position: absolute; height: 100%; width: 100%;bottom: 0; padding: 10px;  overflow: auto;background-color: rgba(0,0,0,0.3);">
+    <div id="dragAndDroppReviewArea" class="dragndropbox" style="display:none">
         {{#each content}}
         <div style="position: relative;margin:3px; display: inline-block; vertical-align: top; min-width: 150px;text-align: center;">
             <div> <img  {{bindAttr src= "photo_image_url"}}  alt="Logo" style="max-width: 140px; max-height: 150px;"> </div>
@@ -20,7 +22,6 @@
         </div>
         {{/each}}
     </div>
-
 </div>
 <div class="controlbtn-field" style="margin-top: 20px;">
     <div class="controlbtn" style="left: 34%;">

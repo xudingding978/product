@@ -215,18 +215,18 @@ class Regions extends CActiveRecord {
         try {
             $data_list = Yii::app()->db->createCommand($sql)->queryAll();
             if (sizeof($data_list) > 0) {
-                $region = $data_list[0]['name'];
-                $thisTrue=true;
-                while ($thisTrue) {
-                    $parent_id = $data_list[0]['parentId'];
-                    if ($parent_id === null&&$parent_id ==="") {
+                $region = $data_list[0]['name']; 
+                $parent_id = $data_list[0]['parentId'];
+                
+                while (true) {
+                    if ($parent_id === null || $parent_id ==="") {
                         break;
                     } else {
                         $sql = "select dbo.Regions.* from dbo.Regions where id = " . $parent_id;
                         $region_arr = Yii::app()->db->createCommand($sql)->queryAll();              
-                        if ($region_arr !== null || $region_arr !== "") {
-                            $thisTrue=false;
+                        if (sizeof ($region_arr>0)) {
                             $region = $region_arr[0]['name'];
+                            $parent_id = $region_arr[0]['parentId'];
                         }
                     }
                 }
@@ -244,19 +244,19 @@ class Regions extends CActiveRecord {
         $data_list = array();
         $region = "";
         $sql = "select 
-                                    dbo.Regions.* 
-                                from 
-                                    dbo.Regions 
-                                inner join 
-                                    dbo.ArticleTopicMaps 
-                                on 
-                                    dbo.ArticleTopicMaps.regionId = dbo.Regions.id 
-                                inner join 
-                                    dbo.Articles
-                                on 
-                                    dbo.Articles.id = dbo.ArticleTopicMaps.articleId
-                                where 
-                                    dbo.Articles.id = " . $id;
+                        dbo.Regions.* 
+                    from 
+                        dbo.Regions 
+                    inner join 
+                        dbo.ArticleTopicMaps 
+                    on 
+                        dbo.ArticleTopicMaps.regionId = dbo.Regions.id 
+                    inner join 
+                        dbo.Articles
+                    on 
+                        dbo.Articles.id = dbo.ArticleTopicMaps.articleId
+                    where 
+                        dbo.Articles.id = " . $id;
 //                    error_log($sql); 
         try {
             $data_list = Yii::app()->db->createCommand($sql)->queryAll();
@@ -325,12 +325,12 @@ class Regions extends CActiveRecord {
             }
         } catch (Exception $e) {
             $response = $e->getMessage();
-            $message = date("Y-m-d H:i:s") . " ----cannot get photo from region -> selectRegionByImage!! \r\n" . $response;
+            $message = date("Y-m-d H:i:s") . " ----cannot get photo from region -> selectRegionByImage!!---------------------------- \r\n" . $response;
             $this->writeToLog('/home/devbox/NetBeansProjects/test/error.log', $message);
         }
         return $region;
     }
-      protected function writeToLog($fileName, $content) {
+      public function writeToLog($fileName, $content) {
         //   $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_success.log';
         $handle = fopen($fileName, 'a') or die('Cannot open file:  ' . $fileName);
         $output = "\n" . $content;

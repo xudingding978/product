@@ -32,11 +32,12 @@ define([
             this.controllerFor('index').setLogin();
 
             this.controllerFor('application').set('islogin', true);
-            this.controllerFor('application').set('firstTimeUser', true);
+
 
             setTimeout(function() {
                 $(window).scrollTop(0);
                 $('#masonry_container').attr('style', "display:none");
+                  $('#discovery_search_bar_wrapper').attr('style', "display:none");
             }, 100);
 
         },

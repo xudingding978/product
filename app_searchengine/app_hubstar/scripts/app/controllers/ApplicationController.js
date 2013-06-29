@@ -9,6 +9,7 @@ define([
         loginInfo: "",
         search_area: "",
         search_string: "",
+        firstTimeUser:false,
         test: false,
         user: null,
         popupModal: function() {

@@ -17,6 +17,7 @@ define(["ember"
         sortAscending: false,
         makeSureDelete: false,
         selectedCollection: "",
+        selected_topics: [],
         init: function()
         {
             this.setUser();
@@ -24,7 +25,19 @@ define(["ember"
         setUser: function()
         {
             var user = this.getCurrentUser();
-            console.log(user);
+            var topics = user.get('selected_topics').split(",");
+
+            for (var i = 0; i < topics.length; i++) {
+                if (topics.objectAt(i) === "" && topics.length === 1) {
+//                    console.log(topics.objectAt(i));
+
+
+                } else {
+
+                    this.get('selected_topics').pushObject({topics: topics[i]});
+                }
+            }
+
             this.set("collections", user.get("collections"));
             this.set("coverImg", user.get("photo_url"));
             this.set("display_name", user.get("display_name"));
@@ -84,13 +97,29 @@ define(["ember"
         },
         submit: function()
         {
-            //   var user = this.getCurrentUser();
+            var id = this.checkingValidInput(this.selectedCollection.get('id'));
+
+            console.log(id);
+            this.selectedCollection.set('id', id);
+            this.selectedCollection.set('title', id);
+            //  console.log(this.selectedCollection.get('id'));
             this.get("collections").pushObject(this.selectedCollection);
+
             this.get("collections").store.commit();
 
             $(".Targeting_Object_front").attr("style", "display:inline-block");
             $(" #uploadArea").attr('style', "display:none");
             $(" #uploadObject").attr('style', "display:block");
+        },
+        checkingValidInput: function(title) {
+
+            if (title.indexOf(" ") !== -1) {
+
+                title = title.split(' ').join('-');
+
+            }
+            return title;
+
         },
         setDesc: function(desc) {
             this.set("selectedDesc", desc);
@@ -139,6 +168,19 @@ define(["ember"
 
             }
 
+        },
+        deleteTopic: function(topic) {
+
+            var user = App.User.find(localStorage.loginStatus);
+
+            user.set('selected_topics', user.get('selected_topics') + ',');
+
+            $('#' + topic).attr('style', 'display:none');
+
+            user.set('selected_topics', user.get('selected_topics').replace(topic + ",", ""));
+
+            user.set('selected_topics', user.get('selected_topics').substring(0, user.get('selected_topics').length - 1));
+            user.store.commit();
         },
         cancelDelete: function() {
             this.set('willDelete', false);

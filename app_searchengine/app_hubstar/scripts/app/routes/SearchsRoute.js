@@ -22,8 +22,7 @@ define([
             this.controllerFor('status').set('islogin', true);
             this.controllerFor('application').set('popup', false);
             this.controllerFor('application').set('isotherpage', false);
-
-
+            localStorage.checkUser = "";
         },
         events: {
             transitionToPhoto: function(id) {
@@ -63,7 +62,7 @@ define([
                 App.set("setHight", 0);
             }, 100);
 
-
+            localStorage.checkUser ="";
         },
         deactivate: function() {
             App.set("setHight", $(window).scrollTop());

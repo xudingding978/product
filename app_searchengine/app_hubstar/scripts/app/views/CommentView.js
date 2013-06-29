@@ -35,7 +35,7 @@ define([
         seeMore: function(id) {
             $('#closeComment_' + id).attr('style', 'display:block');
             $('#showMoreComment_' + id).attr('style', 'display:none');
-            $('#commentData_' + id).attr('style', 'max-height:100%');
+            $('#commentData_' + id).attr('style', 'max-height:350px;overflow:auto');
             setTimeout(function() {
                 $('#masonry_container').masonry("reload");
             }, 200);

@@ -105,8 +105,6 @@ define([
 
                 },
                 yes: function(checkingInfo) {
-
-
                     if (checkingInfo === "profileName") {
 
                         this.set('editing', !this.get('editing'));
@@ -140,24 +138,19 @@ define([
                         this.set('model.phone_number', phone_record);
                         this.set('model.website_url', website_record);
                         this.set('editingContact', !this.get('editingContact'));
-
                     }
                 },
                 setModel: function(model) {
                     this.set("model", model);
                     console.log(this.get('model').get('collections') );
                     if (this.get('model').get('collections') === "undefined" || this.get('model').get('collections') === ""|| this.get('model').get('collections') === "null") {
-
                     } else {
-
                         var total_collection = this.get('model').get('collections').split(",");
                         for (var i = 0; i < total_collection.length; i++) {
                             this.get('collections').pushObject({id: total_collection[i]});
-
-
                         }
                     }
-                },
+                }
             }
 
             );

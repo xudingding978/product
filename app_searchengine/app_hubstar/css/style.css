@@ -8,7 +8,14 @@
     background-color: black;
 }
 
+.text-anchor{
+    cursor: pointer;
+    color: #888;
+}
 
+.text-anchor:hover{
+  color: #333;  
+}
 
 div.search-loading-invisible{
     /*make invisible*/

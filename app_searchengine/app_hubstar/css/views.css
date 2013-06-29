@@ -598,6 +598,7 @@
 
 
 .masonry-object{
+    padding-bottom: 10px;
     -webkit-border-radius:2px; 
     border-radius: 2px;
     background-color: #fff; 
@@ -698,7 +699,8 @@
 }
 
 .masonry_show-comment{
-    margin: 16px 20px 12px 20px;
+    margin: 16px auto 12px;
+    width: 87%;
 }
 
 .masonry_dropdownicon{
@@ -1226,6 +1228,10 @@
 }
 
 
+.comment-frame{
+    width: 87%;
+    margin: 0 auto;
+}
 
 
 .show-comment{
@@ -1355,6 +1361,7 @@
     font-size: 13px; 
     margin: 0 0 0 0; 
     overflow: hidden;
+    word-wrap: break-word;
 }
 
 
@@ -1400,6 +1407,7 @@
 } 
 
 .edit-btn{
+    cursor: pointer;
     color: #333;
     opacity: .6;
     text-shadow: 0 0 10px #fff;

@@ -62,8 +62,7 @@ define([
                 App.set("setHight", 0);
             }, 100);
 
-            localStorage.checkUser =
-                    "";
+            localStorage.checkUser ="";
         },
         deactivate: function() {
             App.set("setHight", $(window).scrollTop());

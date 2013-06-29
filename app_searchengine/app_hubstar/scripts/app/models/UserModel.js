@@ -31,6 +31,7 @@ define('models/UserModel',
                 city: DS.attr('string'),
                 zip: DS.attr('string'),
                 address: DS.attr('string'),
+                selected_topics: DS.attr('string'),
                 collections: DS.hasMany('App.Collection')
 //                didLoad: function() {
 //                    console.log('model loaded', this.toJSON());

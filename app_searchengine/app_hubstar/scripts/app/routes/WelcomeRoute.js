@@ -53,9 +53,11 @@ define([
 
         },
         renderTemplate: function() {
+      var controller = this.controllerFor('topicSelection');
             this.render('welcome', {
                 outlet: 'welcome',
-                into: 'application'
+                into: 'application',
+                  controller: controller
             });
         }
     });

@@ -439,18 +439,6 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 }
 
 
-#newtemplate{
-    top: 500px; 
-    -webkit-transition: all 0.8s ease;
-    -moz-transition: all 0.8s ease;
-    -o-transition: all 0.8s ease;
-}
-
-#newtemplate:hover{
-    top: 180px;
-
-
-}
 
 #addnew{
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";

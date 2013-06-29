@@ -106,10 +106,7 @@ define([
                 this.set('projectExperienceDropdown', !this.get('projectExperienceDropdown'));
 
             } else {
-
-
             }
-
         }
 
     });

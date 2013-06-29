@@ -17,6 +17,7 @@ define(["ember"
         sortAscending: false,
         makeSureDelete: false,
         selectedCollection: "",
+        selected_topics: [],
         init: function()
         {
             this.setUser();
@@ -24,7 +25,13 @@ define(["ember"
         setUser: function()
         {
             var user = this.getCurrentUser();
-            console.log(user);
+            var topics = user.get('selected_topics').split(",");
+
+            for (var i = 0; i < topics.length; i++) {
+                this.get('selected_topics').pushObject({topics: topics[i]});
+
+            }
+
             this.set("collections", user.get("collections"));
             this.set("coverImg", user.get("photo_url"));
             this.set("display_name", user.get("display_name"));
@@ -138,6 +145,22 @@ define(["ember"
                 this.set('willDelete', true);
 
             }
+
+        },
+        deleteTopic: function(topic) {
+
+            var user = App.User.find(localStorage.loginStatus);
+            var data = user.get('selected_topics');
+            user.set('selected_topics', user.get('selected_topics') + ',');
+
+
+            //    console.log(user.get('selected_topics'));
+
+            user.set('selected_topics', user.get('selected_topics').replace(topic + ",", ""));
+            user.set('selected_topics', data.substring(0, data.length - 1));
+            user.store.commit();
+
+            //     console.log(user.get('selected_topics'));
 
         },
         cancelDelete: function() {

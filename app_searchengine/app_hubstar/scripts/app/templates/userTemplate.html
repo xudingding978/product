@@ -22,9 +22,13 @@
     <div class="user-board_right style-box" style="background: white; width: 30%; height: 150px; display: inline-block; vertical-align: top;padding: 15px 20px;">
         <div style="font-weight: bold;line-height: 20px; color: #777; font-size: 13px;">Interested in:</div>
         <div style="padding: 0 8px; line-height: 25px;">
-            <div class='hashtags'>Acceseories<i class='remove-hashtages'>x</i></div>
-            <div class='hashtags'>Applicances<i class='remove-hashtages'>x</i></div>
-            <div class='hashtags'>Benchtops<i class='remove-hashtages'>x</i></div>
+
+            {{#each controller.selected_topics}}
+            <div class='hashtags' >{{topics}}<i class='remove-hashtages' {{action deleteTopic topics}}>x</i></div>
+
+
+            {{/each}}
+
         </div>
     </div>
 </div>

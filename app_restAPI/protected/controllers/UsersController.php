@@ -64,33 +64,11 @@ class UsersController extends Controller {
 
     public function actionCreate() {
         $request_json = file_get_contents('php://input');
-        $request_arr = CJSON::decode($request_json, true);
-        $request_arr["mega"]["id"] = str_replace('test', '', $request_arr["mega"]["id"]);
-        $path = 'this_is/folder_path/';
-//      $s3response = $this->photoSavingToS3($request_arr, $path);
-        $response = "ok";
-        error_log(var_export($request_arr, true));
-//      if ($s3response) {
-// $fileName = explode('.', $request_arr['photo']['photo_title'])[0];
-//           $request_arr["mega"]['photos'][0]['image_url'] = "https://s3-ap-southeast-2.amazonaws.com/" . $path . $request_arr["mega"]['photos'][0]['photo_title'];
-        $request_arr["mega"]['type'] = "photos";
-        $request_arr["mega"]['photos'][0]['id'] = $request_arr["mega"]["id"];
-//        try {
-//            $cb = $this->couchBaseConnection();
-//            if ($cb->add(substr($_SERVER['HTTP_HOST'], 4) . '/' . $request_arr["mega"]["id"], CJSON::encode($request_arr["mega"]))) {
-//                echo $this->sendResponse(200, var_dump($request_arr));
-//            } else {
-//                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '"rrrrr  rrrr already exists');
-//            }
-//        } catch (Exception $exc) {
-//            echo $exc->getTraceAsString();
-//            echo json_decode(file_get_contents('php://input'));
-//        }
-//        } else {
-//            echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
-//        }
 
-       
+        $request_arr = CJSON::decode($request_json, true);
+
+
+    
     }
 
     public function actionRead() {
@@ -119,7 +97,7 @@ class UsersController extends Controller {
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
             $request_arr['user']['id'] = $id;
-         
+
             $url = substr($_SERVER['HTTP_HOST'], 4) . "/users/" . $id;
 //            error_log($url."---------------------");
             $oldRecord = $cb->get($url);
@@ -127,7 +105,7 @@ class UsersController extends Controller {
 //            error_log(var_export($oldRecord, true));
             $oldRecord['user'][0] = null;
             $oldRecord['user'][0] = $request_arr['user'];
-       
+
             if ($cb->set($url, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204, "{ render json: @user, status: :ok }");
             } else {

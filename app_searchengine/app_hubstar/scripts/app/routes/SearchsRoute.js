@@ -12,7 +12,6 @@ define([
 
         ) {
     "use strict";
-    var loginChecking = true;
     var SearchRoute = Ember.Route.extend({
         setupController: function() {
 

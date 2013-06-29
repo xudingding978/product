@@ -147,6 +147,22 @@ define(["ember"
             }
 
         },
+        deleteTopic: function(topic) {
+
+            var user = App.User.find(localStorage.loginStatus);
+            var data = user.get('selected_topics');
+            user.set('selected_topics', user.get('selected_topics') + ',');
+
+
+            //    console.log(user.get('selected_topics'));
+
+            user.set('selected_topics', user.get('selected_topics').replace(topic + ",", ""));
+            user.set('selected_topics', data.substring(0, data.length - 1));
+            user.store.commit();
+
+            //     console.log(user.get('selected_topics'));
+
+        },
         cancelDelete: function() {
             this.set('willDelete', false);
             this.set('makeSureDelete', false);

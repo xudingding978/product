@@ -23,7 +23,7 @@ require.config({
         'bxslider': 'libs/jquery.bxslider.min',
         'moment': 'libs/moment',
         'modernizr': 'libs/modernizer/modernizr-latest',
-        'guid_creater': 'libs/guid_creater',
+         'uploadclick': 'libs/upclick-min',
         'jquery.masonry': 'libs/jquery.masonry/jquery.masonry.min',
         /*requirejs-plugins*/
         'text': 'libs/requirejs-plugins/text',

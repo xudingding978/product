@@ -14,7 +14,7 @@
 }
 
 .text-anchor:hover{
-  color: #333;  
+    color: #333;  
 }
 
 div.search-loading-invisible{
@@ -501,3 +501,12 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 
 
+.dragndropbox{
+    position: absolute;
+    height: 100%; 
+    width: 100%;
+    bottom: 0; 
+    padding: 10px;  
+    overflow: auto;
+    background-color: rgba(0,0,0,0.3);
+}

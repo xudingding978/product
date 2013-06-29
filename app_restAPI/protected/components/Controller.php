@@ -20,8 +20,8 @@ class Controller extends CController {
         return CJSON::decode(file_get_contents('php://input'));
     }
 
-    protected function couchBaseConnection() {
-        return new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "test", true);
+    protected function couchBaseConnection($bucket="test") {
+        return new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", $bucket, true);
     }
     
     protected function couchBaseConnection_production() {
@@ -456,6 +456,33 @@ class Controller extends CController {
         }
         $results .= ']}';
         return $results;
+    } 
+    
+   
+    protected function getImageString($type, $url) {
+        $im = "";
+        if ($type == "image/png") {
+            $im = imagecreatefrompng($url);
+        } elseif ($type == "image/jpeg") {
+            $im = imagecreatefromjpeg($url);
+        }
+        return $im;
     }
-
+    
+    protected function getImageInfo($url) {
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
+        $tim = curl_exec($ch);
+        
+        if (@$imageInfo = getimagesizefromstring($tim)) {
+            return $imageInfo;
+        } else {
+            $message = $url . "\r\n" . date("Y-m-d H:i:s").$tim. " \r\n";
+            $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $message);
+            return false;
+        }
+    }
+    
 }

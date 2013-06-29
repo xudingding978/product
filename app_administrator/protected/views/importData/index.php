@@ -8,3 +8,5 @@
             
 <?PHP } ?>
 </ul>
+
+<?php phpinfo(); ?>

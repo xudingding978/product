@@ -94,48 +94,19 @@ class RefineDataCommand extends CConsoleCommand {
         }
     }
 
-    public function structureArray($val, $photo_arr) {
-        // get size of image
-        $original_size = $photo_arr['photo_original_filename'];
-
-        // image url
-        $original_url = 'http://s3.hubsrv.com/trendsideas.com/object_id/photo/object_id/original/' . $photo_arr['photo_original_filename'];
-        $hero_url = 'http://s3.hubsrv.com/trendsideas.com/object_id/photo/object_id/hero/' . $photo_arr['photo_hero_filename'];
-        $preview_url = 'http://s3.hubsrv.com/trendsideas.com/object_id/photo/object_id/preview/' . $photo_arr['photo_preview_filename'];
-        $thumbnail_url = 'http://s3.hubsrv.com/trendsideas.com/object_id/photo/object_id/thumbnail/' . $photo_arr['photo_thumbnail_filename'];
-
-        //  get region and country
-        $country = "";
-
-        $region = Regions::model()->selectRegionByImage($val['id']);
-        if (sizeof($region)) {
-            $country = $region;
-            $pos = strripos($country, ",");
-            if ($pos) {
-                $country = substr($country, -($pos - 3));
-            }
-        }
-
-        // get topic
-        $topic_list = TopicSearchNames::model()->selectTopicName($val['id']);
-
-        //get subcategory
-        $subcategory = SubCategorySearchNames::model()->selectSubCategory($val['id']);
-
-        // get category
-        $category = Categories::model()->selectCategory($val['id']);
-
+    public function getBookInfor () {
         // get book infor 
         $book_id = array();
         $book_date = 0;
         $book_title = "";
         $book_list = Books::model()->getBookByPhotoID($val['id']);
         $timezone = "";
+        $region_book = "";
 
         if (sizeof($book_list) > 0) {
             foreach ($book_list as $book) {
                 array_push($book_id, $book['id']);
-                $region_book = Regions::model()->selectCountryNameByID($book['region']);
+                if ($book['region'] != "" || $book['region'] != null) $region_book = Regions::model()->selectCountryNameByID($book['region']);
                 $date_live = $book['dateLive'];
                 $title = str_replace(" & ", "-", $book['title']);
                 $title = str_replace(" ", "-", $title);
@@ -154,6 +125,71 @@ class RefineDataCommand extends CConsoleCommand {
                 }
             }
         }
+        
+    }
+    
+    public function structureArray($val, $photo_arr) {
+        // get size of image
+        $original_size = $photo_arr['photo_original_filename'];
+
+        // image url
+        $original_url = 'http://s3.hubsrv.com/trendsideas.com/object_id/photo/object_id/original/' . $photo_arr['photo_original_filename'];
+        $hero_url = 'http://s3.hubsrv.com/trendsideas.com/object_id/photo/object_id/hero/' . $photo_arr['photo_hero_filename'];
+        $preview_url = 'http://s3.hubsrv.com/trendsideas.com/object_id/photo/object_id/preview/' . $photo_arr['photo_preview_filename'];
+        $thumbnail_url = 'http://s3.hubsrv.com/trendsideas.com/object_id/photo/object_id/thumbnail/' . $photo_arr['photo_thumbnail_filename'];
+
+        //  get region and country
+        $country = "";
+        
+        $region = Regions::model()->selectRegionByImage($val['id']);
+        if (sizeof($region)) {
+            $country = $region;
+            $pos = strripos($country, ",");
+            if ($pos) {
+                $country = substr($country, -($pos - 3));
+            }
+        }
+
+        // get topic
+        $topic_list = TopicSearchNames::model()->selectTopicName($val['id']);
+
+        //get subcategory
+        $subcategory = SubCategorySearchNames::model()->selectSubCategory($val['id']);
+
+        // get category
+        $category = Categories::model()->selectCategory($val['id']);
+        
+        // get book infor 
+        $book_id = array();
+        $book_date = 0;
+        $book_title = "";
+        $book_list = Books::model()->getBookByPhotoID($val['id']);
+        $timezone = "";
+        $region_book = "";
+
+        if (sizeof($book_list) > 0) {
+            foreach ($book_list as $book) {
+                array_push($book_id, $book['id']);
+                if ($book['region'] != "" || $book['region'] != null) $region_book = Regions::model()->selectCountryNameByID($book['region']);
+                $date_live = $book['dateLive'];
+                $title = str_replace(" & ", "-", $book['title']);
+                $title = str_replace(" ", "-", $title);
+                if ($region_book !== null && $region_book !== "") {
+                    $time_array = $this->getUTC($date_live, $region_book);
+                    if (sizeof($time_array) > 0) {
+                        $UTC = $time_array['utc'];
+                        $timezone = $time_array['timezone'];
+                        if ((int) $UTC > $book_date) {
+                            $book_date = $UTC;
+                            $tempRegion_book = str_replace(" & ", "-", $region_book);
+                            $result = str_replace(" ", "-", $tempRegion_book);
+                            $book_title = $result . "-" . $title;
+                        }
+                    }
+                }
+            }
+        }
+        
         // get current datetime
         $accessed = strtotime(date('Y-m-d H:i:s'));
 

@@ -97,11 +97,14 @@ define(["ember"
         },
         submit: function()
         {
-            //   var user = this.getCurrentUser();
-         //   var data =
-//         console.log(this.selectedCollection);
+            var id = this.checkingValidInput(this.selectedCollection.get('id'));
+
+            console.log(id);
+            this.selectedCollection.set('id', id);
+            this.selectedCollection.set('title', id);
+            //  console.log(this.selectedCollection.get('id'));
             this.get("collections").pushObject(this.selectedCollection);
-//                     console.log(this.selectedCollection);
+
             this.get("collections").store.commit();
 
             $(".Targeting_Object_front").attr("style", "display:inline-block");

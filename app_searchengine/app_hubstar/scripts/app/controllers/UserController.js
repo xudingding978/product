@@ -98,12 +98,25 @@ define(["ember"
         submit: function()
         {
             //   var user = this.getCurrentUser();
+         //   var data =
+//         console.log(this.selectedCollection);
             this.get("collections").pushObject(this.selectedCollection);
+//                     console.log(this.selectedCollection);
             this.get("collections").store.commit();
 
             $(".Targeting_Object_front").attr("style", "display:inline-block");
             $(" #uploadArea").attr('style', "display:none");
             $(" #uploadObject").attr('style', "display:block");
+        },
+        checkingValidInput: function(title) {
+
+            if (title.indexOf(" ") !== -1) {
+
+                title = title.split(' ').join('-');
+
+            }
+            return title;
+
         },
         setDesc: function(desc) {
             this.set("selectedDesc", desc);

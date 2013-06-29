@@ -24,7 +24,7 @@
         <div style="padding: 0 8px; line-height: 25px;">
 
             {{#each controller.selected_topics}}
-            <div class='hashtags' >{{topics}}<i class='remove-hashtages' {{action deleteTopic topics}}>x</i></div>
+            <div class='hashtags' {{bindAttr id="topics"}}>{{topics}}<i class='remove-hashtages' {{action deleteTopic topics}}>x</i></div>
 
 
             {{/each}}

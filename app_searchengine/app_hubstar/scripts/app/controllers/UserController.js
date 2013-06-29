@@ -25,13 +25,13 @@ define(["ember"
         setUser: function()
         {
             var user = this.getCurrentUser();
-            var topics = user.get('selected_topics').split(",");
-
-            for (var i = 0; i < topics.length; i++) {
-                this.get('selected_topics').pushObject({topics: topics[i]});
-
+            topics = user.get('selected_topics');
+            if (topics !== null && topics !== "") {
+                var topics = topics.split(",");
+                for (var i = 0; i < topics.length; i++) {
+                    this.get('selected_topics').pushObject({topics: topics[i]});
+                }
             }
-
             this.set("collections", user.get("collections"));
             this.set("coverImg", user.get("photo_url"));
             this.set("display_name", user.get("display_name"));
@@ -91,10 +91,10 @@ define(["ember"
         },
         submit: function()
         {
-            //   var user = this.getCurrentUser();
+            var id = this.selectedCollection.get("id");
+            this.selectedCollection.set("title", id);
             this.get("collections").pushObject(this.selectedCollection);
-            this.get("collections").store.commit();
-
+              this.selectedCollection.store.commit();
             $(".Targeting_Object_front").attr("style", "display:inline-block");
             $(" #uploadArea").attr('style', "display:none");
             $(" #uploadObject").attr('style', "display:block");

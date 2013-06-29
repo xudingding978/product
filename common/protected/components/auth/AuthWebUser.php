@@ -65,11 +65,16 @@ class AuthWebUser extends CWebUser {
 
         return parent::checkAccess($operation, $params, $allowCaching);
     }
+    protected function getDomain() {
+        $host = $_SERVER['HTTP_HOST'];
+        preg_match("/[^\.\/]+\.[^\.\/]+$/", $host, $matches);
+        return $matches[0];
+    }
 
     public function getUserData() {
 
         if (Yii::app()->user->id) {
-            $couchbase_id = 'api.develop.devbox/users/' . User::model()->findByPk(Yii::app()->user->id)->getAttribute('COUCHBASE_ID');
+            $couchbase_id = 'api.'.$this->getDomain().'/users/' . User::model()->findByPk(Yii::app()->user->id)->getAttribute('COUCHBASE_ID');
             error_log($couchbase_id);
             $ch = curl_init($couchbase_id);
             curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -80,7 +85,7 @@ class AuthWebUser extends CWebUser {
             curl_error($ch);
             curl_close($ch);
             $data = json_decode($curl_data, true);
-            error_log(var_export($curl_data, true));
+       //     error_log(var_export($curl_data, true));
             $this->user = $data['user']['id'];
         } else {
 

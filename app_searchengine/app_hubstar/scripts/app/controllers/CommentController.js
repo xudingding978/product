@@ -19,9 +19,9 @@ define(["ember"], function(Ember) {
                 var date = new Date();
                 var tempComment = App.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url,
                     "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(), "is_delete": false});
-                comments.insertAt(0,tempComment);
-            ///   console.log(tempComment);
-               comments.store.save();
+                comments.insertAt(0, tempComment);
+                ///   console.log(tempComment);
+                comments.store.save();
                 this.set('commentContent', '');
                 $('#addcommetBut').attr('style', 'display:block');
                 $('#commentBox').attr('style', 'display:none');

@@ -121,31 +121,17 @@ class MegasController extends Controller {
         $data = $this->getInputData($request_arr ["object"]['photos'][0]['photo_type'], $request_arr ["object"]['photos'][0]['photo_url']);
         $client = Aws\S3\S3Client::factory(
                         $result_arr["providers"]["S3Client"]
-        );
-//        if ($client->doesObjectExist('hubstar-dev', $path . $request_arr ["object"]['photos'][0]['photo_title'])) {
-//            $response = false;
-//        } else {
-//            $client->putObject(array(
-//                'Bucket' => "hubstar-dev",
-//                'Key' => $path . $request_arr ["object"]['photos'][0]['photo_title'],
-//                'Body' => $data,
-//                'ACL' => 'public-read'
-//            ));
-//            $response = true;
-//        }
-
-
-
+        );       
         return $response;
     }
 
     public function setImage($url) {
-
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
         $data = curl_exec($ch);
+        
         if (is_null($data) || strpos($data, '404') || empty($data)) {
             $my_file = '/home/devbox/NetBeansProjects/test/error.log';
             $handle = fopen($my_file, 'a') or die('Cannot open file:  ' . $my_file);

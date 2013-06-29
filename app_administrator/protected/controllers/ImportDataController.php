@@ -8,6 +8,46 @@ class ImportDataController extends Controller {
 
     public function actionIndex() {
         echo "index........................";
+        
+        $sql = "select dbo.Regions.* from dbo.Regions where id = 40";
+        echo $sql;
+        $region = "";
+        $n=0;
+        try {
+            $data_list = Yii::app()->db->createCommand($sql)->queryAll();
+            if (sizeof($data_list) > 0) {
+                $region = $data_list[0]['name'];
+                $parent_id = $data_list[0]['parentId'];
+//                $thisTrue=true;
+                while (TRUE) {
+                    echo "---".$parent_id. "---";
+//                    $region = $region."-".$parent_id;
+                    if ($parent_id == null || $parent_id =="") {
+                        echo "11111111";
+                        break;
+                    } else {
+                        $sql = "select dbo.Regions.* from dbo.Regions where id = " . $parent_id;
+                        $region_arr = Yii::app()->db->createCommand($sql)->queryAll();              
+                        if (sizeof($region_arr)) {
+//                            $region = $region_arr[0]['name'];
+                            $parent_id = $region_arr[0]['parentId'];
+                            $region = $region_arr[0]['name']."-".$parent_id;
+                        }
+                    }
+                    
+//                    error_log("******************************".$n++);
+                    
+                    error_log($parent_id);
+                    $n++; 
+                    if ($n > 10) break;
+                }
+            }
+        } catch (Exception $e) {
+            $response = $e->getMessage();
+            $message = date("Y-m-d H:i:s") . " ----cannot get photo from region -> selectCountryNameByID-----------------------!! \r\n" . $response;
+            error_log($message);
+        }
+
     }
 
     public function actionObject() {
@@ -48,11 +88,79 @@ class ImportDataController extends Controller {
     }
     
     public function actionTime() {
-            $timezone = "America/Guayaquil";
-            date_default_timezone_set($timezone);
-            $utc = "1292092200";
-            $date_time = date("Y-m-d H:i:s", $utc);
-            echo $date_time;
+////            $timezone = "America/Guayaquil";
+////            date_default_timezone_set($timezone);
+////            $utc = "1292092200";
+////            $date_time = date("Y-m-d H:i:s", $utc);
+////            echo $date_time;
+        
+        $url = "http://trendsideas.com/media/article/hero/83014.jpg";
+        $width = '100';
+        
+        error_log("11111111111111111111111111");
+        // Loading the image and getting the original dimensions
+//        $ch = curl_init();
+//        $timeout = 0; 
+//        curl_setopt($ch, CURLOPT_URL, $url);
+//        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+        
+        // Getting binary data
+//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+//        curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
+
+//        $im = curl_exec($ch);
+//        curl_close($ch); 
+        
+//        $data = 'iVBORw0KGgoAAAANSUhEUgAAABwAAAASCAMAAAB/2U7WAAAABl'
+//       . 'BMVEUAAAD///+l2Z/dAAAASUlEQVR4XqWQUQoAIAxC2/0vXZDr'
+//       . 'EX4IJTRkb7lobNUStXsB0jIXIAMSsQnWlsV+wULF4Avk9fLq2r'
+//       . '8a5HSE35Q3eO2XP1A1wQkZSgETvDtKdQAAAABJRU5ErkJggg==';
+//        $data = base64_decode($data);
+//        
+//        $image = imagecreatefromstring($data);
+//        
+//        if ($image !== false) {
+//            header('Content-Type: image/png');
+//            imagepng($image);
+//            imagedestroy($image);
+//        }
+//        $tw = @imagesx($image);
+//        print_r($image); 
+        
+//        echo ("222222222222222222222222");
+        $image = imagecreatefromjpeg($url);
+        $orig_width = imagesx($image);
+        $orig_height = imagesy($image);
+            
+//        if ($image !== false) {
+//            header('Content-Type: image/png');
+//            imagejpeg($image);
+//            imagedestroy($image);
+//        }
+//        exit();
+        
+        // Calc the new height
+        $height = (($orig_height * $width) / $orig_width);
+
+        // Create new image to display
+        $new_image = imagecreatetruecolor($width, $height);
+
+        // Create new image with changed dimensions
+        imagecopyresized($new_image, $image,
+                0, 0, 0, 0,
+                $width, $height,
+                $orig_width, $orig_height);
+
+        if ($new_image !== false) {
+            header('Content-Type: image/png');
+            imagejpeg($new_image);
+            imagedestroy($new_image);
+        }
+        
+        
+        // Print image
+//        imagejpeg($new_image);
+        
     }
     
     public function getUTC($datetime, $region) {

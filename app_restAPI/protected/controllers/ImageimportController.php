@@ -10,6 +10,7 @@ header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 class ImageimportController extends Controller {
 
     public function actionIndex() {
+ 
         //       $this->watermark("https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/trendsideas.com/media/article/original/18715.jpg");
     }
 
@@ -65,6 +66,72 @@ class ImageimportController extends Controller {
 //                echo $this->sendResponse(200, "OK");
     }
 
+    
+    public function actionResize() { 
+          echo "33333333333333";
+//        $url = "http://trendsideas.com/media/article/hero/83014.jpg";
+//        $width = '100';
+//        
+//        echo"11111111111111111111111111";
+//        // Loading the image and getting the original dimensions
+//        $ch = curl_init();
+//        $timeout = 0; 
+//        curl_setopt($ch, CURLOPT_URL, $url);
+//        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+//        
+//        // Getting binary data
+//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+//        curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
+//
+//        $im = curl_exec($ch);
+//        curl_close($ch); 
+//        
+//        $data = 'iVBORw0KGgoAAAANSUhEUgAAABwAAAASCAMAAAB/2U7WAAAABl'
+//       . 'BMVEUAAAD///+l2Z/dAAAASUlEQVR4XqWQUQoAIAxC2/0vXZDr'
+//       . 'EX4IJTRkb7lobNUStXsB0jIXIAMSsQnWlsV+wULF4Avk9fLq2r'
+//       . '8a5HSE35Q3eO2XP1A1wQkZSgETvDtKdQAAAABJRU5ErkJggg==';
+//        $data = base64_decode($data);
+//        
+//        $image = imagecreatefromstring($data);
+//        
+//        if ($image !== false) {
+//            header('Content-Type: image/png');
+//            imagepng($image);
+//            imagedestroy($image);
+//        }
+////        $tw = @imagesx($image);
+////        print_r($image); 
+//        
+//        echo ("222222222222222222222222");
+//        
+//        exit();
+//        $orig_width = imagesx($image);
+//        
+//        error_log("3333333333333333333333");
+//        $orig_height = imagesy($image);
+//        
+//        error_log("4444444444444444444444444444444");
+//        exit();
+//        
+//        // Calc the new height
+//        $height = (($orig_height * $width) / $orig_width);
+//
+//        // Create new image to display
+//        $new_image = imagecreatetruecolor($width, $height);
+//
+//        // Create new image with changed dimensions
+//        imagecopyresized($new_image, $image,
+//                0, 0, 0, 0,
+//                $width, $height,
+//                $orig_width, $orig_height);
+
+        // Print image
+//        imagejpeg($new_image);
+        
+    }
+    
+    
+    
     public function getInputData($inputDataType, $inputData) {
         $tempInput = "";
         if ($inputDataType == "image/jpeg") {
@@ -80,6 +147,7 @@ class ImageimportController extends Controller {
         return $data;
     }
 
+    
 //    public function photoSavingToS3($request_arr, $path) {
 //        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
 //        $key = explode(".", $_SERVER['HTTP_HOST']);
@@ -118,6 +186,7 @@ class ImageimportController extends Controller {
         $data = curl_exec($ch);
         //close connection
         curl_close($ch);
+        
         if (is_null($data) || strpos($data, '404') || empty($data)) {
             $my_file = '/home/devbox/NetBeansProjects/test/error.log';
             $handle = fopen($my_file, 'a') or die('Cannot open file:  ' . $my_file);
@@ -146,6 +215,7 @@ class ImageimportController extends Controller {
                 $marge_bottom = 5;
                 $sx = imagesx($stamp);
                 $sy = imagesy($stamp);
+                
                 imagecopy($im, $stamp, imagesx($im) - $sx - $marge_right, imagesy($im) - $sy - $marge_bottom, 0, 0, imagesx($stamp), imagesy($stamp));
                 $data = $this->convertData($imageInfo['mime'], $im);
                 header('Content-type: ' . $imageInfo['mime']);
@@ -220,21 +290,6 @@ class ImageimportController extends Controller {
         }
     }
 
-    protected function getImageInfo($url) {
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
-        $tim = curl_exec($ch);
-        
-        if (@$imageInfo = getimagesizefromstring($tim)) {
-            return $imageInfo;
-        } else {
-            $message = $url . "\r\n" . date("Y-m-d H:i:s").$tim. " \r\n";
-            $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $message);
-            return false;
-        }
-    }
 
     protected function shouldBeWaterMarked($url) {
         $response = false;
@@ -246,16 +301,6 @@ class ImageimportController extends Controller {
             $response = false;
         }
         return $response;
-    }
-
-    protected function getImageString($type, $url) {
-        $im = "";
-        if ($type == "image/png") {
-            $im = imagecreatefrompng($url);
-        } elseif ($type == "image/jpeg") {
-            $im = imagecreatefromjpeg($url);
-        }
-        return $im;
     }
 
     protected function imageRenameAndputImagetoS3($imageInfo, $url, $data) {

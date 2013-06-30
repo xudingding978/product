@@ -25,7 +25,7 @@
                 &nbsp;<i class="icon-caret-down"></i>
             </div>
             <div style="height: 150px;">
-            {{view Ember.TextArea valueBinding="controller.selectedDesc" rows="12" cols="70" class="collect_descriptionbox" placeholder="please inout your description........."}}
+                {{view Ember.TextArea valueBinding="controller.selectedDesc" rows="12" cols="70" class="collect_descriptionbox" placeholder="please inout your description........."}}
             </div>
 
             {{#if controller.selectionPop}}
@@ -35,14 +35,21 @@
                 <div type="button" {{action addNewCollection }} class="new-btn green-btn" style="vertical-align:middle;top:0;">Create</div>
 
 
+
                 <div style="margin:10px; font-size: 16px; font-weight: bold; overflow: auto; overflow-x:hidden; width: 350px;height: 170px;">
                     {{#each controller.collections}}
                     <div class="choose-exist-collection easing" {{action chooseRecord title}}>
                          <a class="exist-name easing"> {{title}}</a>
                     </div>
                     {{/each}}
+                    <div class="exit">
+                        <div class="closeview" {{action collectionSwitch }}>
+                             <i class="icon-remove"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
+
             {{/if}}
         </div>
         <div style="display:inline-block;margin-left:15px; vertical-align: top;">

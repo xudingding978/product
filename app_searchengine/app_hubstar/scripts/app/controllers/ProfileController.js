@@ -12,6 +12,7 @@ define([
             var address_record;
             var phone_record;
             var website_record;
+            var workingtime;
 
 
             var ProfileController = Ember.ObjectController.extend({
@@ -21,10 +22,13 @@ define([
                 editingAbout: false,
                 editingContact: false,
                 galleryInsert: false,
+                editingTime: false,
                 aboutMe: "aboutMe",
                 profileName: "profileName",
                 contact: "contact",
+                timeSetting: "timeSetting",
                 collections: [],
+                hours: [],
                 setLocalLoginRecrod: function() {
                     App.set('afterSearch', true);
                     localStorage.user_id = this.get('model.id');
@@ -102,6 +106,11 @@ define([
                         this.set('editingContact', !this.get('editingContact'));
 
                     }
+                    else if (checkingInfo === "timeSetting") {
+                        workingtime = this.get('hours');
+                        this.set('editingTime', !this.get('editingTime'));
+
+                    }
 
                 },
                 yes: function(checkingInfo) {
@@ -118,9 +127,14 @@ define([
                         this.set('editingContact', !this.get('editingContact'));
 
                     }
+                    else if (checkingInfo === "timeSetting") {
+
+                        this.set('editingTime', !this.get('editingTime'));
+
+                    }
                     var update_profile_record = App.Profile.find(this.get('model.id'));
                     App.store.get('adapter').updateRecord(App.store, App.Profile, update_profile_record);
-                    //          App.store.commit();
+
                 },
                 no: function(checkingInfo) {
                     if (checkingInfo === "profileName") {
@@ -140,11 +154,28 @@ define([
                         this.set('model.website_url', website_record);
                         this.set('editingContact', !this.get('editingContact'));
                     }
+                    else if (checkingInfo === "timeSetting") {
+                        this.set('hours', workingtime);
+                        this.set('editingTime', !this.get('editingTime'));
+                    }
                 },
                 setModel: function(model) {
+                    console.log(model.get('hours'));
+
+                    var times = model.get('hours');
+                    if (times !== null && times !== "") {
+                        var time = times.split(",");
+                        for (var i = 0; i < time.length; i++) {
+                            var dayAndTime = time[i].split("=");
+
+                            this.get('hours').pushObject({day: dayAndTime[0], time: dayAndTime[1]});
+
+
+                        }
+                    }
                     this.set("model", model);
-              //      console.log(this.get('model').get('collections'));
-                    if (this.get('model').get('collections') === "undefined" || this.get('model').get('collections') === "" || this.get('model').get('collections') === null) {       
+                    //      console.log(this.get('model').get('collections'));
+                    if (this.get('model').get('collections') === "undefined" || this.get('model').get('collections') === "" || this.get('model').get('collections') === null) {
                     } else {
                         var total_collection = this.get('model').get('collections').split(",");
                         for (var i = 0; i < total_collection.length; i++) {

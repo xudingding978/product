@@ -15,7 +15,7 @@ define([
         setupController: function(ProfileController, model) {
             //     console.log(model.id);
             ProfileController.setLocalLoginRecrod();
-            console.log(model);
+       //     console.log(model);
             ProfileController.setModel(model);
 
             this.controllerFor('application').set('islogin', true);
@@ -49,7 +49,7 @@ define([
         model: function(params) {
 
 
-            console.log(params.profile_id);
+      //      console.log(params.profile_id);
             return ProfileModel.find(params.profile_id);
         },
         renderTemplate: function() {

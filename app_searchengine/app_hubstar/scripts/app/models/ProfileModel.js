@@ -20,8 +20,7 @@ define(
         profile_category: DS.attr('string'),
         profile_physical_address: DS.attr('string'),
         phone_number: DS.attr('string'),
-        collections:DS.attr('string'),
-        
+        collections:DS.attr('string'),        
         website_url: DS.attr('string'),
         getProfile: function() {
             return this.get('type') === 'profile';

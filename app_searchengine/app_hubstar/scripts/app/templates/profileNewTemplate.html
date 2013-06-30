@@ -34,7 +34,7 @@
                         <td>Profile Name:</td>
                         <td> 
                             <div style="display: block;">
-                                {{view Ember.TextField valueBinding="profile_name" id="profile_name" placeholder="Profilename"}}
+                                {{view Ember.TextField valueBinding="profile_name"  placeholder="Profilename"}}
                             </div>
                         </td>
 
@@ -43,7 +43,7 @@
                         <td>Profile URL:</td>
                         <td> 
                             <div style="display: block;">
-                                {{view Ember.TextField valueBinding="id" id="id" placeholder="Porfile URL"}}
+                                {{view Ember.TextField valueBinding="profile_url"  placeholder="Porfile URL"}}
                             </div>
                             <div style="margin-bottom: 10px; color: #333;font-size: 13px;width: auto;display: inline-block;">
                                 Note: Once the URL has been set, it cannot be changed nor undone.
@@ -56,10 +56,10 @@
                             <div  style="display: block;" >
 
                                 <div class="addcommnetbox" style="margin: 0 5px 0;width: 48%;display: inline-block;">
-                                    First Name
+                                    {{view Ember.TextField valueBinding="first_name"  placeholder="First Name"}}
                                 </div>
                                 <div class="addcommnetbox" style="margin: 0;width: 48%;display: inline-block;">
-                                    Last Name
+                                    {{view Ember.TextField valueBinding="last_name"  placeholder="Last Name"}}
                                 </div>
 
                             </div>
@@ -81,7 +81,7 @@
                         <td> 
                             <div style="display: block;">
                                 <div class="addcommnetbox" style="margin: 0;width: 100%;height: 100px;">
-                                    Address
+                                    {{view Ember.TextArea valueBinding="address" placeholder="Address" }}
                                 </div>
                             </div>
                         </td>
@@ -92,7 +92,7 @@
                         <td> 
                             <div style="display: block;">
                                 <div class="addcommnetbox" style="margin: 0;width: 100%;">
-                                    0987364531
+                                    {{view Ember.TextField valueBinding="contact_number" placeholder="0987364531"}}
                                 </div>
                             </div>
                         </td>
@@ -103,7 +103,7 @@
                         <td> 
                             <div style="display: block;">
                                 <div class="addcommnetbox" style="margin: 0;width: 100%;">
-                                    you.co.nz
+                                    {{view Ember.TextField valueBinding="website" placeholder="you.co.nz"}}
                                 </div>
                             </div>
                         </td>
@@ -121,7 +121,7 @@
                         <td> 
                             <div style="display: block;">
                                 <div class="addcommnetbox" style="margin: 0;width: 100%;">
-                                    John Key
+                                    {{view Ember.TextField valueBinding="client_name"  placeholder="John Key" }}
                                 </div>
                             </div>
                         </td>
@@ -154,7 +154,7 @@
                         <td> 
                             <div style="display: block;">
                                 <div class="addcommnetbox" style="margin: 0;width: 100%;">
-                                    John_Key@gg.com
+                                    {{view Ember.TextField valueBinding="owner" placeholder="John_Key@gg.com"}}
                                 </div>
                             </div>
                         </td>
@@ -165,9 +165,8 @@
                         <td> 
                             <div style="display: block;">
                                 <div class="addcommnetbox" style="margin: 0;width: 100%; height: 100px;">
-                                    Superman@hubstar.com</br>
-                                    Spiderman@hubstar.com</br>
-                                    Batman@hubstar.com</br>
+                                    {{view Ember.TextArea valueBinding="direct_enquiry_emails"  placeholder="Superman@hubstar.com,Spiderman@hubstar.com,Batman@hubstar.com"}}
+
                                 </div>
                             </div>
                         </td>
@@ -178,7 +177,8 @@
                         <td> 
                             <div style="display: block;">
                                 <div class="addcommnetbox" style="margin: 0;width: 100%;">
-                                    Jason@gg.com
+                                    {{view Ember.TextField valueBinding="creater" placeholder="Jason@gg.com"}}
+
                                 </div>
                             </div>
                         </td>
@@ -189,21 +189,29 @@
                         <td> 
                             <div style="display: block;">
                                 <div class="addcommnetbox" style="margin: 0;width: 100%; height: 100px;">
-                                    Ironman@hubstar.com</br>
-                                    CaptainAmerica@hubstar.com</br>
-                                    hulk@hubstar.com</br>
+                                    {{view Ember.TextArea valueBinding="editors"  placeholder="Ironman@hubstar.com, CaptainAmerica@hubstar.com, hulk@hubstar.com"}}
+
                                 </div>
                             </div>
                         </td>
                     </tr>
 
+                    <tr>
+                        <td>Keywords:</td>
+                        <td> 
+                            <div style="display: block;">
+                                <div class="addcommnetbox" style="margin: 0;width: 100%; height: 100px;">
+                                    {{view Ember.TextArea valueBinding="keywords"  placeholder="bathroom, kitchen, living room"}}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
 
             <div  style="display: block; margin:15px auto; float: none; right: 0; bottom: 0;text-align: center;">
-                <a class="new-btn green-btn" href="#" {{action save on="click" target="view"}} style="width: 100px;">Submit</a>
+                <a class="new-btn green-btn" href="#" {{action save }} style="width: 100px;">Submit</a>
             </div>
-
 
         </div>
 

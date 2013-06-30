@@ -287,18 +287,14 @@ class Controller extends CController {
                 ->fields("couchbaseDocument.doc.id")
                 ->query($requestString)
                 ->boost(2.5);
-
         $request->index(Yii::app()->params['elasticSearchIndex'])
                 ->type("couchbaseDocument")
                 ->size(7)
                 ->query($termQuery);
-
         $response = $request->execute();
-
         $results = '{"' . $returnType . '":';
         $i = 0;
         foreach ($response as $hit) {
-
             $results .= CJSON::encode($hit['source']['doc']);
             if (++$i < count($response)) {
                 $results .= ',';

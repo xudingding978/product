@@ -19,8 +19,8 @@ define([
                 creater: "",
                 editors: "",
                 keywords: "",
-                newProfile: function() {
-                    var newMega = App.Mega.createRecord({//15
+                save: function() {
+                    var newMega = App.store.createRecord(App.Mega, {//15
                         "id": this.get("profile_url"),
                         "type": "profile",
                         accessed: null,
@@ -57,8 +57,9 @@ define([
                         website_url: this.get("website")
                     });
                     newMega.get("profile").addObject(newProfile);
-              //      console.log(newMega);
-                  newMega.store.commit();
+
+                    App.store.commit();
+                    this.transitionTo('profile', newProfile);
                 }
             });
             return ProfileNewController;

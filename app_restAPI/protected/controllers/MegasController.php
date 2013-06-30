@@ -218,6 +218,7 @@ class MegasController extends Controller {
         $id = $mega['id'];
         $domain = $this->getDomain();
         $docID = $domain . "/profiles/" . $id;
+     //   error_log(var_export(CJSON::encode($mega), true));
         if($cb->add($docID, CJSON::encode($mega))) {
             $this->sendResponse(204, "{ render json: @user, status: :ok }");
         } else {

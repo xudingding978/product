@@ -47,9 +47,9 @@ define([
             });
         },
         model: function(params) {
-            //  alert(333);
-            //        console.log(ProfileModel.find(params.profile_id));
-            console.log(ProfileModel.find(params.profile_id));
+
+
+            console.log(params.profile_id);
             return ProfileModel.find(params.profile_id);
         },
         renderTemplate: function() {
@@ -57,12 +57,6 @@ define([
                 outlet: "profiles",
                 into: "application"
             });
-//            this.render('image', {
-//                outlet: "photoUploader",
-//                into: 'profile',
-//                controller: 'photoUpload'
-//            }
-//            );
         }
 
     });

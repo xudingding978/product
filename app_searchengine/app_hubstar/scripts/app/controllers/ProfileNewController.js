@@ -57,7 +57,7 @@ define([
                         website_url: this.get("website")
                     });
                     newMega.get("profile").addObject(newProfile);
-                    console.log(newMega);
+              //      console.log(newMega);
                   newMega.store.commit();
                 }
             });

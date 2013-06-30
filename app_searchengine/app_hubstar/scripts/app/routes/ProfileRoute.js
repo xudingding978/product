@@ -47,6 +47,7 @@ define([
         model: function(params) {
             //  alert(333);
             //        console.log(ProfileModel.find(params.profile_id));
+            
             return ProfileModel.find(params.profile_id);
         },
         renderTemplate: function() {

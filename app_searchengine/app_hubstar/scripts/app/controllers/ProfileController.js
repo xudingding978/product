@@ -144,7 +144,7 @@ define([
                 setModel: function(model) {
                     this.set("model", model);
                     console.log(this.get('model').get('collections'));
-                    if (this.get('model').get('collections') === "undefined" || this.get('model').get('collections') === "" || this.get('model').get('collections') === "null") {
+                    if (this.get('model').get('collections') === "undefined" || this.get('model').get('collections') === "" || this.get('model').get('collections') === null) {       
                     } else {
                         var total_collection = this.get('model').get('collections').split(",");
                         for (var i = 0; i < total_collection.length; i++) {

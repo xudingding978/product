@@ -9,7 +9,7 @@ define([
         loginInfo: "",
         search_area: "",
         search_string: "",
-        firstTimeUser:false,
+        firstTimeUser: false,
         test: false,
         user: null,
         popupModal: function() {
@@ -57,8 +57,8 @@ define([
             this.set("loginInfo", localStorage.loginStatus);
 
             var results = MegaModel.find({});
-             this.set("content", results);
-          
+            this.set("content", results);
+
         },
         getResponseTime: function(start, end) {
             var totalTime = end - start;

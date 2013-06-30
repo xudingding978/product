@@ -34,16 +34,20 @@ class MegasController extends Controller {
     public function actionCreate() {
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
+        $mega = $request_arr['mega'];
+        if ($mega['type'] == "profile") {
+            $this->createProfile($mega);
+        }
+        error_log(var_export($mega, true));
 //        $request_arr["mega"]["id"] = str_replace('test', '', $request_arr["mega"]["id"]);
 //        $path = 'this_is/folder_path/';
-////      $s3response = $this->photoSavingToS3($request_arr, $path);
+//      $s3response = $this->photoSavingToS3($request_arr, $path);
 //        $response = "ok";
 //
-////        error_log(var_export($request_arr, true));
-//
+//        error_log(var_export($request_arr, true));
+//  
 //        $request_arr["mega"]['type'] = "photos";
 //        $request_arr["mega"]['photos'][0]['id'] = $request_arr["mega"]["id"];
-//
 //        $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);
 //        header($statusHeader);
 //        header('Content-type: *');
@@ -51,9 +55,8 @@ class MegasController extends Controller {
 //        header('Access-Control-Request-Method: *');
 //        header('Access-Control-Allow-Methods: PUT, POST, OPTIONS, GET');
 //        header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
-//
 //        echo $response;
-$this->sendResponse(200,$request_json);
+        $this->sendResponse(204, $request_json);
     }
 
     public function actionRead() {
@@ -121,7 +124,7 @@ $this->sendResponse(200,$request_json);
         $data = $this->getInputData($request_arr ["object"]['photos'][0]['photo_type'], $request_arr ["object"]['photos'][0]['photo_url']);
         $client = Aws\S3\S3Client::factory(
                         $result_arr["providers"]["S3Client"]
-        );       
+        );
         return $response;
     }
 
@@ -131,7 +134,7 @@ $this->sendResponse(200,$request_json);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
         $data = curl_exec($ch);
-        
+
         if (is_null($data) || strpos($data, '404') || empty($data)) {
             $my_file = '/home/devbox/NetBeansProjects/test/error.log';
             $handle = fopen($my_file, 'a') or die('Cannot open file:  ' . $my_file);
@@ -193,12 +196,12 @@ $this->sendResponse(200,$request_json);
         try {
             $cb = $this->couchBaseConnection();
             $id = $newRecord['mega']['user'][0]['id'];
-           
+
             $docID = substr($_SERVER['HTTP_HOST'], 4) . "/users/" . $id;
-            $oldRecord = $cb->get($docID);            
+            $oldRecord = $cb->get($docID);
             $oldRecord = CJSON::decode($oldRecord, true);
-            error_log(var_export($oldRecord,true));
-        //  $oldRecord['user'][0] = null;
+            error_log(var_export($oldRecord, true));
+            //  $oldRecord['user'][0] = null;
             $oldRecord['user'] = $newRecord['mega']['user'];
             if ($cb->set($docID, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204, "{ render json: @user, status: :ok }");
@@ -207,6 +210,18 @@ $this->sendResponse(200,$request_json);
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
+        }
+    }
+
+    public function createProfile($mega) {
+        $cb = $this->couchBaseConnection();
+        $id = $mega['id'];
+        $domain = $this->getDomain();
+        $docID = $domain . "/profiles/" . $id;
+        if($cb->add($docID, CJSON::encode($mega))) {
+            $this->sendResponse(204, "{ render json: @user, status: :ok }");
+        } else {
+            $this->sendResponse(500, "some thing wrong");
         }
     }
 

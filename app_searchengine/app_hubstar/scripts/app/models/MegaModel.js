@@ -8,6 +8,7 @@ define(
         photo: {embedded: 'always'},
         user: {embedded: 'always'},
         comments: {embedded: 'always'},
+        profile: {embedded: 'always'},
         article: {embedded: 'always'}
     });
 
@@ -21,6 +22,7 @@ define(
         category: DS.attr('string'),
         created: DS.attr('date'),
         creator: DS.attr('string'),
+        country: DS.attr('string'),
         collection_id: DS.attr('string'),
         deleted: DS.attr('string'),
         domains: DS.attr('string'),
@@ -43,6 +45,7 @@ define(
         owner_contact_email: DS.attr('string'),
         owner_contact_cc_emails: DS.attr('string'),
         owner_contact_bcc_emails: DS.attr('string'),
+        keywords: DS.attr('string'),
         status_id: DS.attr('string'),
         updated: DS.attr('string'),
         uri_url: DS.attr('string'),
@@ -50,6 +53,7 @@ define(
         view_count: DS.attr('string'),
         photo: DS.hasMany('App.Photo'),
         user: DS.hasMany('App.User'),
+        profile: DS.hasMany('App.Profile'),
         comments: DS.hasMany('App.Comment'),
         article: DS.hasMany('App.Article'),
         photo_album_id: function() {

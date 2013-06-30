@@ -34,7 +34,7 @@ define(["ember"],
                 {
                     //       var profileController = this.get('controllers.profile');
                     console.log(this.get("content").get("length"));
-                      App.store.commit();
+                    App.store.commit();
                 }, back: function()
                 {
 
@@ -42,7 +42,7 @@ define(["ember"],
                     this.set("nodifyBackGround", false);
                     var insideCollection = this.get('controllers.insideCollection');
                     insideCollection.back();
-                }, setMegaParameters: function(mega){
+                }, setMegaParameters: function(mega) {
 //                    mega.set("accessed",null);
 //                    mega.set("is_actived",false);
 //                    mega.set("is_indexed",false);
@@ -66,6 +66,18 @@ define(["ember"],
                 content: [],
                 dragEnter: PhotoCreateController.cancel,
                 dragOver: PhotoCreateController.cancel,
+                test: function()
+                {
+                    console.log("dddddddddddddddd");
+                }
+            });
+
+           var checkingData = Ember.Mixin.create({
+                checking: function() {
+                    console.log('qqqqqqqqqqqqqqqqqq');
+                    this.set('isEditing', true);
+                },
+                isEditing: false
             });
             return PhotoCreateController;
         });

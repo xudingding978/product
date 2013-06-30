@@ -120,6 +120,7 @@ define([
                     }
                     var update_profile_record = App.Profile.find(this.get('model.id'));
                     App.store.get('adapter').updateRecord(App.store, App.Profile, update_profile_record);
+                    //          App.store.commit();
                 },
                 no: function(checkingInfo) {
                     if (checkingInfo === "profileName") {
@@ -142,8 +143,8 @@ define([
                 },
                 setModel: function(model) {
                     this.set("model", model);
-                    console.log(this.get('model').get('collections') );
-                    if (this.get('model').get('collections') === "undefined" || this.get('model').get('collections') === ""|| this.get('model').get('collections') === "null") {
+              //      console.log(this.get('model').get('collections'));
+                    if (this.get('model').get('collections') === "undefined" || this.get('model').get('collections') === "" || this.get('model').get('collections') === null) {       
                     } else {
                         var total_collection = this.get('model').get('collections').split(",");
                         for (var i = 0; i < total_collection.length; i++) {

@@ -52,6 +52,7 @@ define([
                         contact_user: this.get("direct_enquiry_emails"),
                         profile_category: null,
                         profile_physical_address: null,
+                        hours: "Monday=7:00-late,Tuesday=7:00-late,Wednesday=7:00-late,Thursday=7:00-late,Friday=7:00-late,Saturday=7:00-late,Sunday=closed,Holidays=closed",
                         phone_number: this.get("contact_number"),
                         collections: null,
                         website_url: this.get("website")

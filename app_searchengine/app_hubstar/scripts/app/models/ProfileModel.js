@@ -17,6 +17,7 @@ define(
         profile_pic_url: DS.attr('string'),
         profile_bg_url: DS.attr('string'),
         contact_user: DS.attr('string'),
+        hours: DS.attr('string'),
         profile_category: DS.attr('string'),
         profile_physical_address: DS.attr('string'),
         phone_number: DS.attr('string'),

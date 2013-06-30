@@ -105,8 +105,8 @@
                                     </div>
                                     {{/if}}
                                 </div>
-                                
-                                
+
+
                                 <!--contact me-->
                                 <div class="contactmebtn">
                                     <a class="contactmeicon" href=""><img src="../images/mail_24dark.png"/></a>
@@ -262,11 +262,11 @@
 
                                     {{#if controller.editingAbout}}
                                     <div style="height: 300px;">
-                                    {{view Ember.TextArea valueBinding="model.about"  id="" class=""  }} 
+                                        {{view Ember.TextArea valueBinding="model.about"  id="" class=""  }} 
                                     </div>
                                     <div style="float: right;">
-                                    <div class="new-btn blue-btn" {{action yes controller.aboutMe}}><i class="icon-ok icon-white"></i></div> 
-                                    <div class="new-btn" {{action no controller.aboutMe}}><i class="icon-remove"></i></div>
+                                        <div class="new-btn blue-btn" {{action yes controller.aboutMe}}><i class="icon-ok icon-white"></i></div> 
+                                        <div class="new-btn" {{action no controller.aboutMe}}><i class="icon-remove"></i></div>
                                     </div>
                                     {{else}}
                                     <div class="edit-btn" {{action toggleEditing model.about controller.aboutMe}}>
@@ -284,25 +284,19 @@
                                 </p>
 
 
-                                <div class="collapes-container_inner">
 
-                                    <div class="comment-item">
+
+                                <div class="comment-item">
 
                                     {{render "comment" model}}
 
-                                    </div>
+                                </div>
 
-
-                                    <div class="comment-item">
-
-                      
-
-                                    </div>
-
-
-
+                                <div class="comment-item">
 
                                 </div>
+
+
 
 
                             </div>

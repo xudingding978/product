@@ -90,7 +90,7 @@ body {
     color: rgb(242,240,240);
     position: relative;
     right: 0px;
-    top: -62px;
+    top: 0px;
     float: right;
 }
 
@@ -125,37 +125,8 @@ body {
 }
 
 
-.login_icon{
-    positison:absolute;
-    margin: 10px 10px 10px 10px ;
 
 
-
-}
-
-.loging_image{
-    margin-top: -65px;
-    position: absolute;
-    left:72%;
-    float: right;
-}
-
-.loging_text{
-    margin-top: -60px;
-    position: absolute;
-    left:76%;
-    float: right;
-}
-
-.navbar .nav.loging_table {
-    float: right;
-    margin: 50px 0px 0px 0px;
-}
-.loging_table >.dropdown>.dropdown-toggle>.caret {
-    positison:absolute;
-    margin-top: 8px;
-    margin-left: 0px;
-}
 
 
 .dropdown-menu li > a:hover, .dropdown-menu li > a:focus, .dropdown-submenu:hover > a {

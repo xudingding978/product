@@ -62,27 +62,13 @@ define(["ember"
             });
 
         },
-//        getCollectedItems: function(ids)
-//        {
-//            var results = App.Mega.find({"RquireType": "personalCollection", "collection_ids": ids});
-//        },
         exit: function()
         {
             console.log(" drop and grag controller");
         },
-//        addNewCollection: function()
-//        {
-//            var title = this.get("newCollectionName");
-//            var isInputValid = this.checkInput(title);
-//            if (isInputValid) {
-//                var tempCollection = App.Collection.createRecord({"id": title, "title": title, "desc": null, "collection_ids": null, "createdAt": new Date()});
-//                this.get("collections").pushObject(tempCollection);
-//            }
-//        },
+
         getCurrentUser: function()
         {
-
-            //    this.addNewCollection();
             var address = document.URL;
             var user_id = address.split("#")[1].split("/")[2];
             this.set('currentUserID', user_id);
@@ -91,10 +77,11 @@ define(["ember"
         },
         submit: function()
         {
-            var id = this.selectedCollection.get("id");
-            this.selectedCollection.set("title", id);
+            var id = this.checkingValidInput(this.selectedCollection.get('id'));
+            this.selectedCollection.set('id', id);
+            this.selectedCollection.set('title', id);
             this.get("collections").pushObject(this.selectedCollection);
-              this.selectedCollection.store.commit();
+            this.get("collections").store.commit();
             $(".Targeting_Object_front").attr("style", "display:inline-block");
             $(" #uploadArea").attr('style', "display:none");
             $(" #uploadObject").attr('style', "display:block");

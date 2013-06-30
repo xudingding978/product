@@ -21,8 +21,8 @@ define([
                     });
 
                     //newProfile.get('transaction').commit();
-                    App.store.commit();
-                    this.transitionTo('profile', newProfile);
+            //        App.store.commit();
+           //         this.transitionTo('profile', newProfile);
 
                 }
 

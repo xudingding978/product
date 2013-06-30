@@ -20,4 +20,23 @@
  *
  * @see runpostdeploy
  */
-return array();
+return array(
+     'env.code' => 'prod',
+    
+    //ElasticSearch Configurations
+    'elasticSearch.node' => 'es1.hubsrv.com',
+    'elasticSearch.index' => 'test',
+    
+    //CouchBase Configurations
+    'couchBase.node'=>'cb1.hubsrv.com:8091',
+    'couchBase.bucket'=>'production',
+    
+      //MySQL Database Configurations
+    'db_live.name' => 'db_live',
+    'db_live.connectionString' => 'mysql:host=db1.hubsrv.com;dbname=hubstar_live',
+    'db_live.username' => 'db_user',
+    'db_live.password' => 'Pa55word',
+    
+    //Platform Administrator Email
+    'adminEmail' => 'localwebmaster@example.com',  
+);

@@ -1,5 +1,41 @@
 <?php
 
+/**
+ *  Search Engine Application Configuration
+ *
+ * @author: Jason Liddiard <jason@the-ebusiness-company.com>
+ * Date: 29/06/13
+ * Time: 8:20 PM
+ *
+ * This file holds the configuration settings of the REST API  application.
+ * */
+
+$app_restAPIConfigDir = dirname(__FILE__);
+//
+$root = $app_restAPIConfigDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..';
+//
+//// Setup some default path aliases. These alias may vary from projects.
+Yii::setPathOfAlias('root', $root);
+Yii::setPathOfAlias('common', $root . DIRECTORY_SEPARATOR . 'common' . DIRECTORY_SEPARATOR . 'protected');
+Yii::setPathOfAlias('app_restAPI', $root . DIRECTORY_SEPARATOR . 'app_restAPI');
+
+// The configuation tree overides in the following way...
+// local settings below > environment specific > main configuration
+
+$params = require_once($app_restAPIConfigDir . DIRECTORY_SEPARATOR . 'params.php');
+
+$mainLocalFile = $app_restAPIConfigDir . DIRECTORY_SEPARATOR . 'main-local.php';
+$mainLocalConfiguration = file_exists($mainLocalFile) ? require($mainLocalFile) : array();
+
+$mainEnvFile = $app_restAPIConfigDir . DIRECTORY_SEPARATOR . 'main-env.php';
+$mainEnvConfiguration = file_exists($mainEnvFile) ? require($mainEnvFile) : array();
+
+// This is the main Web application configuration. Any writable
+// CWebApplication properties can be configured here.
+
+$dot_positon = strpos($_SERVER['HTTP_HOST'], ".");
+
+$domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
 // This is the main Web application configuration. Any writable
@@ -45,7 +81,7 @@ return array(
         // this is used in contact page
         'adminEmail' => 'webmaster@example.com',
         // this the primary elastic search server and index
-        'elasticSearchNode' => 'es1.hubsrv.com',
-        'elasticSearchIndex' => 'test'
+        'elasticSearchNode' => $params['elasticSearch.node'], //'es1.hubsrv.com'
+        'elasticSearchIndex' => $params['elasticSearch.index'], //test
     ),
 );

@@ -2,20 +2,20 @@ define(["ember", "models/UserModel"], function(Ember, UserModel) {
     var TopicSelectionController = Ember.ArrayController.extend({
         selected_topics: "",
         content: [
-            {id: "1", image: '../images/welcomepage/accessories.jpg', topic: 'Accessories'},
-            {id: "2", image: '../images/welcomepage/appliances.jpg', topic: 'Appliances'},
-            {id: "3", image: '../images/welcomepage/benchtop.jpg', topic: 'Benchtops'},
-            {id: "4", image: '../images/welcomepage/culinary.jpg', topic: 'Culinary & Dining'},
-            {id: "5", image: '../images/welcomepage/Design.jpg', topic: 'Design'},
-            {id: "6", image: '../images/welcomepage/windows.jpg', topic: 'Door & Windows'},
-            {id: "7", image: '../images/welcomepage/flooring.jpg', topic: 'Flooring'},
-            {id: "8", image: '../images/welcomepage/furniture.jpg', topic: 'Furniture'},
-            {id: "9", image: '../images/welcomepage/heating.jpg', topic: 'Heating & Cooling'},
-            {id: "10", image: '../images/welcomepage/light.jpg', topic: 'Lighting'},
-            {id: "11", image: '../images/welcomepage/outdoor.jpg', topic: 'Outdoors'},
-            {id: "12", image: '../images/welcomepage/paints.jpg', topic: 'Paints & Varnishes'},
-            {id: "13", image: '../images/welcomepage/shelving.jpg', topic: 'Cabinetry & Shelving'},
-            {id: "14", image: '../images/welcomepage/taps.jpg', topic: 'Taps & Fittings'}
+            {id: "1", image: '../images/welcomepage/bedroom.jpg', topic: 'Bedroom'},
+            {id: "2", image: '../images/welcomepage/home-theatre.jpg', topic: 'Home Theatre'},
+            {id: "3", image: '../images/welcomepage/interior-living.jpg', topic: 'Interior Living'},
+            {id: "4", image: '../images/welcomepage/kitchens.jpg', topic: 'Kitchens'},
+            {id: "5", image: '../images/welcomepage/new-homes.jpg', topic: 'New Homes'},
+            {id: "6", image: '../images/welcomepage/outdoor-living.jpg', topic: 'Outdoor Living'},
+            {id: "7", image: '../images/welcomepage/renovation.jpg', topic: 'Renovation'},
+            {id: "8", image: '../images/welcomepage/apartment-design.jpg', topic: 'Apartment Design'},
+            {id: "9", image: '../images/welcomepage/civic-design.jpg', topic: 'Civic Design'},
+            {id: "10", image: '../images/welcomepage/educational-design.jpg', topic: 'Educational Design'},
+            {id: "11", image: '../images/welcomepage/hospitality-design.jpg', topic: 'Hospitality Design'},
+            {id: "12", image: '../images/welcomepage/office-design.jpg', topic: 'Office Design'},
+            {id: "13", image: '../images/welcomepage/refurbishment.jpg', topic: 'Refurbishment'},
+            {id: "14", image: '../images/welcomepage/retail-design.jpg', topic: 'Retail design'}
 
         ],
         selectTopic: function(id, topic) {

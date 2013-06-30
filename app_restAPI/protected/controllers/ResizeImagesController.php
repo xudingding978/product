@@ -20,7 +20,7 @@ class ResizeImagesController extends Controller {
         $image = imagecreatefromjpeg($url);
         $orig_width = imagesx($image);
         $orig_height = imagesy($image);
-        
+
 //        if ($image !== false) {
 //            header('Content-Type: image/jpg');
 //            imagejpeg($image);

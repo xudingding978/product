@@ -32,7 +32,7 @@ class Hybrid_Providers_Twitter extends Hybrid_Provider_Model_OAuth1
 	function getUserProfile()
 	{
 		$response = $this->api->get( 'account/verify_credentials.json' );
-
+error_log(var_export($response,true));
 		// check the last HTTP status code returned
 		if ( $this->api->http_code != 200 ){
 			throw new Exception( "User profile request failed! {$this->providerId} returned an error. " . $this->errorMessageByStatus( $this->api->http_code ), 6 );

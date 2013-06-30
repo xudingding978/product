@@ -1,6 +1,12 @@
 <?php
- 
-        header('Access-Control-Allow-Origin: *');
+
+header("Access-Control-Allow-Origin: *");
+header('Content-type: *');
+
+header('Access-Control-Request-Method: *');
+header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET');
+header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+
 class ProfilesController extends Controller {
 
     const JSON_RESPONSE_ROOT_SINGLE = 'profile';
@@ -84,7 +90,7 @@ class ProfilesController extends Controller {
             //Iterate over the hits and print out some data
             $result .=$reponse;
             $result .= '}';
-       //     error_log(var_export($result,true));
+            //     error_log(var_export($result,true));
             echo $this->sendResponse(200, $result);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -116,24 +122,8 @@ class ProfilesController extends Controller {
         }
     }
 
-    public function actionOptions() {
-        try {
-            $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);
-            header($statusHeader);
-            // Set the content type
-            header('Content-type: *');
-            // Set the Access Control for permissable domains
-            header("Access-Control-Allow-Origin: *");
-            header('Access-Control-Request-Method: *');
-            header('Access-Control-Allow-Methods: *');
-            header('Access-Control-Allow-Headers: *');
-
-            echo $this->sendResponse();
-            Yii::app()->end();
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }
+   
 
 }
+
 ?>

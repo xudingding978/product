@@ -143,7 +143,7 @@ define([
                 },
                 setModel: function(model) {
                     this.set("model", model);
-                    console.log(this.get('model').get('collections'));
+              //      console.log(this.get('model').get('collections'));
                     if (this.get('model').get('collections') === "undefined" || this.get('model').get('collections') === "" || this.get('model').get('collections') === null) {       
                     } else {
                         var total_collection = this.get('model').get('collections').split(",");

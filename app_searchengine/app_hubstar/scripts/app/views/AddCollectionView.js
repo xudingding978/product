@@ -9,7 +9,10 @@ define([
         classNames: ["contact-container"],
         template: Ember.Handlebars.compile(addCollectionTemplate),
         didInsertElement: function() {
-  
+            if (App.get('chooseCollection') !== null) {
+
+                $('#recordID').text(App.get('chooseCollection'));
+            }
         }
     });
     return AddCollectionView;

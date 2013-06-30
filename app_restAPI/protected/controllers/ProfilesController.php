@@ -91,7 +91,7 @@ class ProfilesController extends Controller {
              $request_arr = CJSON::decode($reponse, true);
              
              
-       error_log(var_export($request_arr["profile"][0],true));
+      // error_log(var_export($request_arr["profile"][0],true));
             $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":';
             //Iterate over the hits and print out some data
             $result .=CJSON::encode($request_arr["profile"][0],true);

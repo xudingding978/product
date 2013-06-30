@@ -124,6 +124,8 @@ class DefaultController extends CController {
 
         $hybridauth = new Hybrid_Auth($config);
         $adapter = $hybridauth->authenticate($_GET['provider']);
+
+
         $user_profile = $adapter->getUserProfile();
         $user = new User;
         $user->attributes = $_POST['User'];
@@ -132,6 +134,15 @@ class DefaultController extends CController {
         $user_profile->displayName = $user->USER_NAME;
         $user_profile->lastName = $user->LAST_NAME;
         $user_profile->firstName = $user->FIRST_NAME;
+
+        if ($user_profile->photoURL === null || $user_profile->photoURL === "") {
+
+            $user_profile->photoURL = "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg";
+        }
+        if ($user_profile->photoURL_large === null || $user_profile->photoURL_large === "") {
+
+            $user_profile->photoURL_large = "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg";
+        }
 
         $userProfile = new UserProfile;
         $userProfile->LOGIN_PROVIDER_IDENTIFIER = $identity->loginProviderIdentifier;

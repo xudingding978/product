@@ -28,24 +28,7 @@ class Controller extends CController {
         return new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "production", true);
     }
 
-    protected function getS3BucketName($domain) {
-        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
-        $result = $cb->get($domain);
-        $result_arr = CJSON::decode($result, true);
-        return $result_arr["providers"]["S3bucket"];
-    }
-
-    protected function getS3Connection($domain) {
-        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
-        $result = $cb->get($domain);
-        $result_arr = CJSON::decode($result, true);
-        $client = Aws\S3\S3Client::factory(
-                        $result_arr["providers"]["S3Client"]
-        );
-        return $client;
-    }
-        
-        protected function getProviderConfigurationByName($domain,$name) {
+    protected function getProviderConfigurationByName($domain,$name) {
         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
         $result = $cb->get($domain);
         $result_arr = CJSON::decode($result, true);
@@ -388,14 +371,14 @@ class Controller extends CController {
         echo "";
         Yii::app()->end();
     }
-
+    
     protected function getmustQuest($queryString) {
         $mustQuery = explode('=', $queryString);
         $should = Sherlock\Sherlock::queryBuilder()->Term()->term($mustQuery[1])//$collection_id
                 ->field($mustQuery[0]);
         return $should;
     }
-
+    
     protected function getCollections($collections, $collection_id, $returnType) {
 
         $request_ids = $this->getSelectedCollectionIds($collections, $collection_id);
@@ -446,7 +429,6 @@ class Controller extends CController {
     protected function getReponseResult($response, $returnType) {
 
         $results = '{"' . $returnType . '":[';
-
         $i = 0;
         foreach ($response as $hit) {
             $results .= CJSON::encode($hit['source']['doc']);
@@ -458,7 +440,6 @@ class Controller extends CController {
         return $results;
     } 
     
-   
     protected function getImageString($type, $url) {
         $im = "";
         if ($type == "image/png") {
@@ -484,5 +465,86 @@ class Controller extends CController {
             return false;
         }
     }
+    
+    public function convertToString64($image_string) {
+        $matchs = array();
+        preg_match_all('/\:(.*?)\;/', $image_string, $matchs);
+        $image_type = $matchs[1][0];
+        
+        $input_image_string = $this->getInputData($image_type, $image_string);
+        $image_data['type'] = $image_type;
+        $image_data['data'] = $input_image_string;
+                
+        return $image_data;
+    }
+    
+    public function saveImageToS3($url, $data) {
+        $provider_arr = $this->getS3ConnectionPara("S3Client");
+        $client = Aws\S3\S3Client::factory(
+                        $provider_arr
+        );
+        $client->putObject(array(
+            'Bucket' => "hubstar-dev",
+            'Key' => $url,
+            'Body' => $data,
+            'ACL' => 'public-read'
+        ));
+    }
+    
+    protected function addPhotoSizeToName($photo_name, $photo_size_arr) {
+        $name_arr = explode(".", $photo_name);
+        $new_name = "";
+        if (sizeof($name_arr>0)){
+            $temp_str = '_'.$photo_size_arr['width'].'x'.$photo_size_arr['height'];
+            $new_name = $name_arr[0].$temp_str.'.'.$name_arr[1];
+        }
+        
+        return $new_name;
+    }
+    
+    public function getS3ConnectionPara($provider) {
+        $cb = $this->couchBaseConnection("default");
+        $key = explode(".", $_SERVER['HTTP_HOST']);
+        $key = $key[1] . '.' . $key[2];
+        $result = $cb->get($key);
+        $result_arr = CJSON::decode($result, true);
+        
+        return $result_arr["providers"][$provider];
+    }
+       
+    public function getInputData($inputDataType, $inputData) {
+        $tempInput = "";
+        if ($inputDataType == "image/jpeg") {
+            $tempInput = str_replace('data:image/jpeg;base64,', '', $inputData);
+        } elseif ($inputDataType == "application/pdf") {
+            $tempInput = str_replace('data:application/pdf;base64,', '', $inputData);
+        } elseif ($inputDataType == "image/png") {
+            $tempInput = str_replace('data:image/png;base64,', '', $inputData);
+        } elseif ($inputDataType == "image/gif") {
+            $tempInput = str_replace('data:image/gif;base64,', '', $inputData);
+        }
+        $data = base64_decode($tempInput);
+        return $data;
+    }
+        
+    function compressPhotoData($type, $data) {
+        error_log($type);
+        
+        ob_start();
+        if ($type == "image/png") {
+            imagepng($data);
+            error_log("fffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+        } elseif ($type == "image/jpeg") {
+            imagejpeg($data, null, 80);
+            error_log("sssssssssssssssssssssssssssssssssssssssssssssss");
+        }
+        error_log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        $return = ob_get_contents();
+        ob_end_clean();
+        error_log($return);
+        
+        return $return;
+    } 
+    
     
 }

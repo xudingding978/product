@@ -147,6 +147,7 @@ class ImportdataCommand extends CConsoleCommand {
         }
     }
     
+    
     public function importImageList(&$image_list) {
         $handle_array = array();
         $return_array = array();

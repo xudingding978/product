@@ -7,6 +7,7 @@ class RefineDataCommand extends CConsoleCommand {
     public $image_amount = 0;
 
     public function actionIndex($startid = 0) {
+        
         Yii::import("application.models.*");
         echo (isset($startid) ? 'Start position is... ' . $startid : 'No start defined');
         $data_list = ArticleImages::model()->getDatabyid($startid);

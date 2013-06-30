@@ -357,19 +357,6 @@ class ImageimportController extends Controller {
         return $response;
     }
 
-    function convertData($type, $data) {
-        ob_start();
-        if ($type == "image/png") {
-
-            imagepng($data);
-        } elseif ($type == "image/jpeg") {
-            imagejpeg($data, null, 80);
-        }
-        $return = ob_get_contents();
-        ob_end_clean();
-        return $return;
-    } 
-    
     
     protected function writeToLog($fileName, $content) {
         //   $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_success.log';

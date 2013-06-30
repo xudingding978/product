@@ -12,7 +12,7 @@ class MegaimportController extends Controller {
     const JSON_RESPONSE_ROOT_PLURAL = 'megas';
 
     public function actionIndex() {
-        //   $this->setImage("http://trendsideas.com/media/article/35013.jpg");
+        
         $this->setImage("trendsideas.com/media/article/original/35013.jpg");
         try {
             $settings['log.enabled'] = true;
@@ -193,6 +193,7 @@ class MegaimportController extends Controller {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
         $data = curl_exec($ch);
+        
         if (is_null($data) || strpos($data, '404') || empty($data)) {
             $my_file = '/home/devbox/NetBeansProjects/test/error.log';
             $handle = fopen($my_file, 'a') or die('Cannot open file:  ' . $my_file);
@@ -210,25 +211,6 @@ class MegaimportController extends Controller {
         }
     }
 
-    public function putImagetoS3($url, $data) {
-        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
-        $key = explode(".", $_SERVER['HTTP_HOST']);
-        $key = $key[1] . '.' . $key[2];
-        $result = $cb->get($key);
-        $result_arr = CJSON::decode($result, true);
-        
-   
-        $client = Aws\S3\S3Client::factory(
-                        $result_arr["providers"]["S3Client"]
-        );
-        
-        $client->putObject(array(
-            'Bucket' => "hubstar-dev",
-            'Key' => $url,
-            'Body' => $data,
-            'ACL' => 'public-read'
-        ));
-    }
 
     public function setCouchBaseRecord($record, $id = null) {
         if (is_null($id)) {
@@ -262,10 +244,7 @@ class MegaimportController extends Controller {
             $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $message);
         }
     } 
-    
-    
-    
-    
+
     protected function writeToLog($fileName, $content) {
         //   $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_success.log';
         $handle = fopen($fileName, 'a') or die('Cannot open file:  ' . $fileName);

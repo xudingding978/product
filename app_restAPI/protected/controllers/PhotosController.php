@@ -65,8 +65,6 @@ class PhotosController extends Controller {
     }
 
     public function actionOptions() {
-
-
         $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);
         header($statusHeader);
         // Set the content type
@@ -101,27 +99,6 @@ class PhotosController extends Controller {
         return $data;
     }
 
-    public function photoSavingToS3($request_arr, $path, $domain, $bucket) {
-
-        $response = false;
-
-        $client = $this->getS3Connection($domain);
-        // error_log(var_export($request_arr ['photo'], true));
-        $data = $this->getInputData($request_arr['photo']['photo_type'], $request_arr ['photo']['photo_image_url']);
-        if ($client->doesObjectExist($bucket, $path . $request_arr ['photo']['photo_title'])) {
-            $response = false;
-        } else {
-            $client->putObject(array(
-                'Bucket' => "hubstar-dev",
-                'Key' => $path . $request_arr ['photo']['photo_title'],
-                'Body' => $data,
-                'ACL' => 'public-read'
-            ));
-            $response = true;
-        }
-        return $response;
-    }
-    
     public function actionMovePhoto(){
         
         echo "1111111111111111111111";

@@ -225,10 +225,12 @@
 
                             <div class="aside-container" style="padding: 20px 0; border-top: 1px solid #fff; font-size: 14px;margin: auto;width: 95%;">
                                 <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-time' style='margin-right: 10px;'></i>Hours</div>
+                                {{#unless controller.editingTime}}
+
                                 <div class="edit-btn easing">
                                     <i class="icon-edit" {{action toggleEditing  model.profile_name controller.timeSetting}}></i>                            
                                 </div>
-
+                                {{/unless}}
                                 {{#each controller.hours}}
                                 <div style="display: block">
 

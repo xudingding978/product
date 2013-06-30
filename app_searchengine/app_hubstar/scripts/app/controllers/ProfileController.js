@@ -48,7 +48,8 @@ define([
                         this.set('editingContact', !this.get('editingContact'));
                     }
                     else if (checkingInfo === "timeSetting") {
-                        workingtime = this.get('hours');
+
+
                         this.set('editingTime', !this.get('editingTime'));
                     }
                 },
@@ -96,26 +97,26 @@ define([
                         this.set('editingContact', !this.get('editingContact'));
                     }
                     else if (checkingInfo === "timeSetting") {
-                        this.set('hours', workingtime);
+                        this.updateWorkingHourData(this.get('model.hours'));
+
+
+
                         this.set('editingTime', !this.get('editingTime'));
                     }
                 },
-                setModel: function(model) {
-                    console.log(model.get('hours'));
-
-                    var times = model.get('hours');
+                updateWorkingHourData: function(times) {
+                    this.set('hours', []);
                     if (times !== null && times !== "") {
                         var time = times.split(",");
                         for (var i = 0; i < time.length; i++) {
                             var dayAndTime = time[i].split("=");
-
                             this.get('hours').pushObject({day: dayAndTime[0], time: dayAndTime[1]});
-
-
                         }
                     }
+                },
+                setModel: function(model) {
+                    this.updateWorkingHourData(model.get('hours'));
                     this.set("model", model);
-                    //      console.log(this.get('model').get('collections'));
                     if (this.get('model').get('collections') === "undefined" || this.get('model').get('collections') === "" || this.get('model').get('collections') === null) {
                     } else {
                         var total_collection = this.get('model').get('collections').split(",");
@@ -124,9 +125,6 @@ define([
                         }
                     }
                 }
-            }
-
-            );
-
-            return ProfileController;
+            });
+                    return ProfileController;
         });

@@ -94,7 +94,7 @@
                                     </div>
                                     <div style="display: inline-block;vertical-align: bottom;">
                                         <div class="new-btn blue-btn"{{action yes controller.profileName}}><i class="icon-ok icon-white"></i></div>   
-                                        <div class="new-btn"{{action no controller.profileName}}><i class="icon-remove icon-white"></i></div> {{controller}}
+                                        <div class="new-btn"{{action no controller.profileName}}><i class="icon-remove icon-white"></i></div>
                                     </div>
                                     {{else}}
                                     <div style="display: inline-block; color: white;max-width: 750px;overflow: hidden; font-size: 28px; margin-bottom: 15px;line-height: 32px;">
@@ -228,25 +228,33 @@
                                 <div class="edit-btn easing">
                                     <i class="icon-edit" {{action toggleEditing  model.profile_name controller.timeSetting}}></i>                            
                                 </div>
-                                
+
                                 {{#each controller.hours}}
                                 <div style="display: block">
                                     <div style='display: inline-block;color: #888;text-align: right;'>
                                         <p>{{day}}</p>
-                         
+
                                     </div>
-                                    
+
                                     {{#unless controller.editingTime}}
                                     <div style='font-weight: bold;display: inline-block;text-align: right;margin: auto;left: 0;width: 60%;'>
                                         <p>{{time}}</p>
                                     </div>
-                                    
+
                                     {{else}}
-                                      {{input type="text" value=time  }}
+                                    {{input type="text" value=time  }}
+
+
                                     {{/unless}}
                                 </div>
-                                
+
                                 {{/each}}
+                                {{#if controller.editingTime}}
+                                <div style="display: inline-block;vertical-align: bottom;">
+                                    <div class="new-btn blue-btn"{{action yes controller.timeSetting}}><i class="icon-ok icon-white"></i></div>   
+                                    <div class="new-btn"{{action no controller.timeSetting}}><i class="icon-remove icon-white"></i></div>
+                                </div>
+                                {{/if}}
                             </div>
 
 

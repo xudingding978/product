@@ -15,7 +15,7 @@ define(
     var MegaModel = DS.Model.extend({
         type: DS.attr('string'),
         accessed: DS.attr('string'),
-        active_yn: DS.attr('string'),
+        is_active: DS.attr('boolean'),
         article_id: DS.attr('string'),
         region: DS.attr('string'),
         topic: DS.attr('string'),
@@ -32,7 +32,7 @@ define(
         following: DS.attr('string'),
         following_count: DS.attr('string'),
         geography: DS.attr('string'),
-        indexed_yn: DS.attr('string'),
+        is_indexed: DS.attr('boolean'),
         object_image_linkto: DS.attr('string'),
         object_image_url: DS.attr('string'),
         object_title: DS.attr('string'),

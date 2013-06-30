@@ -66,7 +66,6 @@ define([
                         this.set('editingContact', !this.get('editingContact'));
                     }
                     else if (checkingInfo === "timeSetting") {
-                        //   console.log(  );
                         var updateHour = this.get('hours');
                         var data = "";
                         for (var i = 0; i < updateHour.length; i++) {

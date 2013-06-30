@@ -233,17 +233,23 @@
                                 {{/unless}}
                                 {{#each controller.hours}}
                                 <div style="display: block">
-
+                                 
                                     {{#unless controller.editingTime}}
+
                                     <div style='display: inline-block;color: #888;text-align: right;'>
+
                                         <p>{{day}}</p>
+
                                         {{else}}
                                         {{input type="text" value=day  }}
                                         {{/unless}}
+                                  
                                     </div>
-
+                                
                                     {{#unless controller.editingTime}}
+
                                     <div style='font-weight: bold;display: inline-block;text-align: right;margin: auto;left: 0;width: 60%;'>
+
                                         <p>{{time}}</p>
                                     </div>
 
@@ -252,6 +258,7 @@
 
 
                                     {{/unless}}
+                                  
                                 </div>
 
                                 {{/each}}

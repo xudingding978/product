@@ -57,7 +57,8 @@ define([
                         website_url: this.get("website")
                     });
                     newMega.get("profile").addObject(newProfile);
-               //     newMega.store.commit();
+                    console.log(newMega);
+                  newMega.store.commit();
                 }
             });
             return ProfileNewController;

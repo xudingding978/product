@@ -38,9 +38,9 @@
 
 
 
-    <div style="width: 250px; margin: auto; height: 100%;padding: 30px 0; text-align: center;">
+    <div style="width:100%; margin: auto; height: 100%;padding: 30px 0; text-align: center;">
 
-        <div style="font-size: 32px; line-height: 30px; font-weight: bold; margin-bottom: 20px; top: 20px; position: relative;">Hi <?PHP echo $user->USER_NAME; ?> !! </div>
+        <div style="font-size: 32px; line-height: 30px; font-weight: bold; margin-bottom: 20px; top: 20px; position: relative;">Hi <?PHP echo $user->USER_NAME; ?></div>
         <div style="padding: 10px 0 20px; font-size: 13px;">Please enter your email address to create your profile.</div>
         <div class="row">
             <?php echo $form->labelEx($user, 'USER_NAME', array('style' => 'margin-bottom:10px; font-size:16px;')); ?>

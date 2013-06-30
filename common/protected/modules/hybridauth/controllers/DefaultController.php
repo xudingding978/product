@@ -124,6 +124,8 @@ class DefaultController extends CController {
 
         $hybridauth = new Hybrid_Auth($config);
         $adapter = $hybridauth->authenticate($_GET['provider']);
+        
+   
         $user_profile = $adapter->getUserProfile();
         $user = new User;
         $user->attributes = $_POST['User'];

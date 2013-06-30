@@ -43,7 +43,7 @@
                         <td>Profile URL:</td>
                         <td> 
                             <div style="display: block;">
-                                {{view Ember.TextField valueBinding="id"  placeholder="Porfile URL"}}
+                                {{view Ember.TextField valueBinding="profile_url"  placeholder="Porfile URL"}}
                             </div>
                             <div style="margin-bottom: 10px; color: #333;font-size: 13px;width: auto;display: inline-block;">
                                 Note: Once the URL has been set, it cannot be changed nor undone.
@@ -154,7 +154,7 @@
                         <td> 
                             <div style="display: block;">
                                 <div class="addcommnetbox" style="margin: 0;width: 100%;">
-                                    {{view Ember.TextField valueBinding="email" placeholder="John_Key@gg.com"}}
+                                    {{view Ember.TextField valueBinding="owner" placeholder="John_Key@gg.com"}}
                                 </div>
                             </div>
                         </td>
@@ -165,7 +165,7 @@
                         <td> 
                             <div style="display: block;">
                                 <div class="addcommnetbox" style="margin: 0;width: 100%; height: 100px;">
-                                    {{view Ember.TextArea valueBinding="id"  placeholder="Superman@hubstar.com,Spiderman@hubstar.com,Batman@hubstar.com"}}
+                                    {{view Ember.TextArea valueBinding="direct_enquiry_emails"  placeholder="Superman@hubstar.com,Spiderman@hubstar.com,Batman@hubstar.com"}}
 
                                 </div>
                             </div>
@@ -189,7 +189,7 @@
                         <td> 
                             <div style="display: block;">
                                 <div class="addcommnetbox" style="margin: 0;width: 100%; height: 100px;">
-                                    {{view Ember.TextArea valueBinding="editor"  placeholder="Ironman@hubstar.com, CaptainAmerica@hubstar.com, hulk@hubstar.com"}}
+                                    {{view Ember.TextArea valueBinding="editors"  placeholder="Ironman@hubstar.com, CaptainAmerica@hubstar.com, hulk@hubstar.com"}}
 
                                 </div>
                             </div>
@@ -201,7 +201,7 @@
                         <td> 
                             <div style="display: block;">
                                 <div class="addcommnetbox" style="margin: 0;width: 100%; height: 100px;">
-                                    {{view Ember.TextArea valueBinding="id"  placeholder="bathroom, kitchen, living room"}}
+                                    {{view Ember.TextArea valueBinding="keywords"  placeholder="bathroom, kitchen, living room"}}
                                 </div>
                             </div>
                         </td>

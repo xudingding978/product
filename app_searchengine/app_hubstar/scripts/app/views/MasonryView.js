@@ -21,7 +21,9 @@ define([
                 });
             });
 
-
+            setTimeout(function() {
+                $('#masonry_container').masonry("reload");
+            }, 1000);
 
         },
         moreContent: function(event) {

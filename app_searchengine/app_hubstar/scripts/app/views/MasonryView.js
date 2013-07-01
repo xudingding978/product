@@ -23,7 +23,7 @@ define([
 
             setTimeout(function() {
                 $('#masonry_container').masonry("reload");
-            }, 1200);
+            }, 1800);
 
         },
         moreContent: function(event) {

@@ -216,7 +216,6 @@ define(["ember"
         {
 
             var id = this.checkingValidInput(this.selectedCollection.get('id'));
-            //   console.log(id);
             this.checkingIdisExsinting(id, "update");
             if (isExsinting) {
                 var title = this.get("selectedCollection").get("id");

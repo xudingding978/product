@@ -8,7 +8,7 @@ define(["ember"
         uploadMode: null,
         newCollectionName: null,
         collections: [],
-        temp: null,
+        temp: [],
         selectedDesc: "",
         selectedTitle: "",
         coverImg: "",
@@ -84,26 +84,17 @@ define(["ember"
         },
         checkingIdisExsinting: function(id, postOrPut) {
 
-
             if (postOrPut === "update") {
+                for (var i = 0; i < this.get("temp").get('length'); i++) {
 
-                for (var i = 0; i < this.get("collections").get('length'); i++) {
-                    if (this.get("collections").objectAt(i).id === id) {
+                    if (this.get("temp").objectAt(i) === id) {
 
                         isExsinting = false;
                     }
                 }
-
-                if (this.get("temp") === id) {
-
-                    isExsinting = false;
-                }
                 if (!isExsinting) {
-
                     alert('This Collection is already exsiting!!!');
                 }
-
-
             } else if (postOrPut === "create") {
 
                 for (var i = 0; i < this.get("collections").get('length'); i++) {
@@ -216,6 +207,7 @@ define(["ember"
         {
 
             var id = this.checkingValidInput(this.selectedCollection.get('id'));
+
             this.checkingIdisExsinting(id, "update");
             if (isExsinting) {
                 var title = this.get("selectedCollection").get("id");
@@ -233,12 +225,13 @@ define(["ember"
         setSelectedCollection: function(id) {
 
 
-
             for (var i = 0; i < this.get("collections").get("length"); i++) {
                 var thisCollection = this.get("collections").objectAt(i);
+
+                this.get('temp').pushObject(thisCollection.get("id"));
                 if (id === thisCollection.get("id")) {
                     this.set("selectedCollection", thisCollection);
-                    this.set("temp", id);
+
                 }
             }
         },

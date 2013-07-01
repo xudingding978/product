@@ -51,6 +51,11 @@ define([
                     statusController.set("searchResultNum", hit.get("hits"));
                     statusController.set("time", time);
                 }
+
+
+                setTimeout(function() {
+                    $('#masonry_container').masonry("reload");
+                }, 1800);
             });
         },
         defaultSearch: function() {

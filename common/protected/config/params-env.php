@@ -29,7 +29,7 @@ return array(
     
     //CouchBase Configurations
     'couchBase.node'=>'cb1.hubsrv.com:8091',
-    'couchBase.bucket'=>'production',
+    'couchBase.bucket'=>'test',
     
       //MySQL Database Configurations
     'db_live.name' => 'db_live',

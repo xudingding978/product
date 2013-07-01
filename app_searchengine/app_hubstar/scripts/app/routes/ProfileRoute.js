@@ -46,12 +46,10 @@ define([
                 $('#masonry_container').masonry('remove', $('.noStyle1'));
             });
         },
-        model: function(params) {
-
-
-      //      console.log(params.profile_id);
-            return ProfileModel.find(params.profile_id);
-        },
+//        model: function(params) {
+//
+//            return ProfileModel.find(params.profile_id);
+//        },
         renderTemplate: function() {
             this.render('profile', {
                 outlet: "profiles",

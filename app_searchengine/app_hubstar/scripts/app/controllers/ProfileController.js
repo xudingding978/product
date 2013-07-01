@@ -28,6 +28,11 @@ define([
                 timeSetting: "timeSetting",
                 collections: [],
                 hours: [],
+                init: function() {
+
+
+
+                },
                 setLocalLoginRecrod: function() {
                     App.set('afterSearch', true);
                     localStorage.user_id = this.get('model.id');
@@ -119,14 +124,20 @@ define([
                 },
                 newCollection: function()
                 {
-                    //     console.log(this.get('model.collections'));
+
                 },
                 submit: function()
                 {
-                    this.set('model.collections', this.get('model.collections') + ',' + $('#clientAddCollection .new-collection-name_insert').val());
+                    var newInsert = $('#clientAddCollection .new-collection-name_insert').val();
+                    if (this.get('model.collections') === null || this.get('model.collections') === "") {
+                        this.set('model.collections', newInsert);
+                    } else {
+
+                        this.set('model.collections', newInsert + "," + this.get('model.collections'));
+                    }
 
                     this.updateClient();
-                    this.setModel(this.get('model'));
+                    this.get('collections').insertAt(0, {id: newInsert});
                     $(".Targeting_Object_front").attr("style", "display:inline-block");
                     $(" #uploadArea").attr('style', "display:none");
                     $(" #uploadObject").attr('style', "display:block");
@@ -141,6 +152,34 @@ define([
                             this.get('collections').pushObject({id: total_collection[i]});
                         }
                     }
+
+
+                    var collections = this.get("collections");
+
+                    for (var i = 0; i < collections.length; i++)
+                    {
+                        var col = collections.objectAt(i);
+                        if ((col.id !== null && col.id !== "")) {
+
+                            console.log(col.id);
+//                            var imgId = col.get("collection_ids").split(",").objectAt(0);
+                            this.getHeroImgae(col.id);
+                        }
+
+
+                    }
+                },
+                getHeroImgae: function(col) {
+                    var photo = App.Mega.find({collection_id: col});
+
+                    photo.addObserver('isLoaded', function() {
+                        if (photo.get('isLoaded')) {
+                            console.log(photo);
+//                            col.set("cover", photo.get('photo').objectAt(0).get("photo_image_hero_url"));
+//
+//                            col.store.save();
+                        }
+                    });
                 }
             });
             return ProfileController;

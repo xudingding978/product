@@ -1,43 +1,5 @@
 <script  type="text/javascript">
 
-    $(window).scroll(function() {
-        var p = $('div#tab-right');
-        var ul = $('ul#tab-title');
-        var ul_height = ul.height();
-        var p_height = p.height();
-
-        var position = p.offset();
-        var top_pos = position.top;
-        var scroll_up = $(window).scrollTop();
-
-        if (scroll_up + ul_height > top_pos) {
-            var new_top = scroll_up - position.top;
-            if ((new_top + ul_height) > p_height) {
-                if (new_top < 0)
-                    new_top = 0;
-                ul.css("top", new_top);
-            }
-        }
-
-        console.log("title hight: " + ul_height);
-        console.log("content hight: " + p_height);
-        console.log("scroll up: " + scroll_up);
-        console.log("top pos: " + top_pos);
-
-        console.log("----------------------------------------------------------");
-    });
-
-    $('img#profile_cover-image').hover(function() {
-        $('div#profile_dogearhover').css("display", "block");
-    }, function() {
-        $('div#profile_dogearhover').css("display", "none");
-    });
-
-    $('div#profile_dogearhover').click(function() {
-        console.log("1111111111111111111111");
-    });
-
-
 
 
     $('#flip-front').click(function() {

@@ -4,17 +4,32 @@
         public $total_amount=0;
         public $obj_amount=0;
         
-        public function actionIndex($start = null, $quantity = null) {
-
-            echo (isset($start) ? 'Start position is... ' . $start : 'No start defined');
-            echo (isset($quantity) ? '  Quantity to load is... ' . $quantity : 'No quantity defined');
+//        public function actionIndex($start = null, $quantity = null) {
+        public function actionIndex() {
+//            echo (isset($start) ? 'Start position is... ' . $start : 'No start defined');
+//            echo (isset($quantity) ? '  Quantity to load is... ' . $quantity : 'No quantity defined');
             
-            $this->updateObj();
+            $this->updatePhoto();
+            
+            sleep(5);
+            echo "finish........................... \r\n";
+            exit();
+//            $this->updateObj();
 //            $this->actionArticle($start, $quantity);
         }
         
+        protected function updatePhoto() {
+            $url = "http://api.develop.devbox/Photos/update";
+            $from = 1372134000;
+//            while ()
+            
+             $result = $this->getData($url);
+             
+             echo sizeof($result['photo'])."\r\n";
+        }
+
         protected function couchBaseConnection() {
-            $cb = new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "test", true);
+            $cb = new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "develop", true);
             return $cb;
         }
         
@@ -274,10 +289,10 @@
         
         public function getData($url){
             try{
-//                echo $url."\r\n";
-                $cover_url="";
+                echo $url."\r\n";
+                
                 $ch = curl_init($url);
-                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
                 

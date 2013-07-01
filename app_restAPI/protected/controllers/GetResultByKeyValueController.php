@@ -24,20 +24,23 @@ class GetResultByKeyValueController extends Controller {
             if (sizeof($temp) > 1) {
                 $request_string = $temp [sizeof($temp) - 1];
                 $temparray = preg_split("/=|&/", $request_string);
-                $requestStringOne = 'couchbaseDocument.doc.' . $temparray[0] . '=' . $temparray[1];
-                array_push($requestArray, $requestStringOne);
-                $requestStringtwo = 'couchbaseDocument.doc.photo.' . $temparray[2] . '=' . $temparray[3];
+//                $requestStringOne = 'couchbaseDocument.doc.' . $temparray[0] . '=' . $temparray[1];
+//                array_push($requestArray, $requestStringOne);
+//                $requestStringtwo = 'couchbaseDocument.doc.photo.' . $temparray[2] . '=' . $temparray[3];
+                
+                $requestStringtwo = 'match_all';
                 array_push($requestArray, $requestStringtwo);
+                
                 error_log(var_export($requestArray, true));
-                $response = $this->performMustSearch($requestArray, $returnType);
+                $response = $this->getRequestResultByID($returnType, "666666666666");
+//                $response = $this->performMustSearch($requestArray, $returnType);
                 $this->sendResponse(200, $response);
-
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
-
-}
+    
+ }
 
 ?>

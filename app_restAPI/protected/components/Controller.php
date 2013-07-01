@@ -238,6 +238,8 @@ class Controller extends CController {
         $request->index("test")->type("couchbaseDocument")->size(50);
         $max = sizeof($requestArray);
         $bool = Sherlock\Sherlock::queryBuilder()->Bool();
+        
+        
         for ($i = 0; $i < $max; $i++) {
             $must = $this->getmustQuest($requestArray[$i]);
             $bool->must($must);
@@ -245,6 +247,7 @@ class Controller extends CController {
         $request->query($bool);
         $response = $request->execute();
         $i = 0;
+        
         $results = '{' . $returnType . ':[';
         foreach ($response as $hit) {
             $results .= CJSON::encode($hit['source']['doc']);
@@ -380,7 +383,6 @@ class Controller extends CController {
     }
     
     protected function getCollections($collections, $collection_id, $returnType) {
-
         $request_ids = $this->getSelectedCollectionIds($collections, $collection_id);
         $request_ids = explode(',', $request_ids);
         $header = '{"ids": { "values": [';
@@ -394,6 +396,7 @@ class Controller extends CController {
         }
         $rawRequest = $header . $tempRquestIDs . $footer;
         error_log($rawRequest);
+        
         $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
@@ -407,7 +410,43 @@ class Controller extends CController {
 
         return $results;
     }
+    
+    protected function getAllDoc($returnType, $from, $to) {
+        $rawRequest = '{
+                                      "bool": {
+                                        "must": [
+                                          {
+                                            "range": {
+                                              "couchbaseDocument.doc.accessed": {
+                                                "from ": '.$from.',
+                                                "to": '.$to.' 
+                                              }
+                                            }
+                                          }
+                                        ]
+                                    }
+                                  }';
+ 
+//        error_log($rawRequest);
+        
+        $settings['log.enabled'] = true;
+        $sherlock = new \Sherlock\Sherlock($settings);
+        $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
+        $request = $sherlock->search();
+        $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
+        $request->index("develop")
+                ->from(0)
+                ->size(2000)
+                ->type("couchbaseDocument")
+                ->query($termQuery);
+        
+        $response = $request->execute();
+        
+        $results = $this->getReponseResult($response, $returnType);
 
+        return $results;
+    }
+    
     protected function getDomain() {
         $host = $_SERVER['HTTP_HOST'];
         preg_match("/[^\.\/]+\.[^\.\/]+$/", $host, $matches);

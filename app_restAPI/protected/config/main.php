@@ -45,7 +45,12 @@ return array(
         // this is used in contact page
         'adminEmail' => 'webmaster@example.com',
         // this the primary elastic search server and index
+//        'elasticSearchNode' => 'es1.hubsrv.com',
+//        'elasticSearchIndex' => 'test', 
+        
         'elasticSearchNode' => 'es1.hubsrv.com',
         'elasticSearchIndex' => 'test'
     ),
+    
+    
 );

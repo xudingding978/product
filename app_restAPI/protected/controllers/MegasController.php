@@ -104,7 +104,7 @@ class MegasController extends Controller {
             imagejpeg($new_image);
             error_log("----------------8888888888888888888888888888888888888888888888");
             $contents = ob_get_contents();
-            imagej
+//            imagej
             
             
         }

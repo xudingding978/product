@@ -31,24 +31,82 @@ class PhotosController extends Controller {
     }
 
     public function actionRead() {
-   $temp = explode("/", $_SERVER['REQUEST_URI']);
-   
-      $id=  $temp[sizeof($temp)-1];
-   $result=$this->getRequestResultByID(self::JSON_RESPONSE_ROOT_SINGLE, $id);
-   $this->sendResponse(null,$result);
+    $temp = explode("/", $_SERVER['REQUEST_URI']);
+
+       $id=  $temp[sizeof($temp)-1];
+    $result=$this->getRequestResultByID(self::JSON_RESPONSE_ROOT_SINGLE, $id);
+    $this->sendResponse(null,$result);
 
 
 
     }
-
+    
     public function actionUpdate() {
         try {
+            $response;
+            $returnType = "photo";
+            $temp = explode("?", $_SERVER['REQUEST_URI']);
+            $requestArray = array();
             
+            if (sizeof($temp) > 1) {
+                $request_string = $temp [sizeof($temp) - 1];
+                $temparray = preg_split("/=|&/", $request_string);
+            
+                $response = $this->getAllDoc($returnType, $temparray[1], $temparray[3]);
+                
+//            $data_arr = CJSON::decode($response);
+//            echo sizeof($data_arr['photo'])."\r\n";
+            
+//            $data_arr = CJSON::decode($photo_data);
+            
+//            print_r($photo_data);
+                $this->sendResponse(200, $response);
+//            for ($i=0; $i<73; $i++) {
+//                    $start = $i*1000;
+//                    $photo_data = $this->getAllDoc('photo', $start);
+////                    echo $start;
+//                    $data_arr = CJSON::decode($photo_data);
+////                    echo sizeof($data_arr['photo'])."\r\n";
+//        //            echo $photo_data;
+//                
+//                    foreach($data_arr['photo'] as $val) {
+//                        $id = 'trendsideas.com/'.$val['id'];
+//                        error_log($id."\r\n");
+////                        $this->updateCouchbasePhoto($id);
+                    }
+//                    
+//                    exit();
+//            }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
-
+    
+    public function updateCouchbasePhoto($id) {
+        $ch = $this->couchBaseConnection("develop");
+        $result=$ch->get($id);
+        $result_arr = CJSON::decode($result, true);
+        
+        $result_arr['creator_profile_pic'] = 'http://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small.jpg';
+        $result_arr['owner_profile_pic'] = 'http://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small.jpg';
+        
+        $result_arr['is_active'] = true;
+        $result_arr['is_indexed'] = true;
+        unset($result_arr['active_yn']);
+        unset($result_arr['indexed_yn']);
+        
+//        error_log(var_export($result));
+        print_r($result_arr);        
+        
+        if ($ch->set($id, CJSON::encode($result_arr))) {
+            echo $id." update successssssssssssssssssssssssss! \r\n";
+        } else {
+            echo $id." update failllllllllllllllllllllllllllllllllllllllllllllll! \r\n";
+        }
+        
+        exit();
+    }
+    
     public function actionDelete() {
         try {
             

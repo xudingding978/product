@@ -39,7 +39,7 @@ return CMap::mergeArray(array(
                 'autoCreateCacheTable' => true,
                 'cacheTableName' => 'cache',
             ),
-            // standard memcache configuartion - added by JL 24-02-2013  
+            // standard memcache configuration - added by JL 24-02-2013  
             'cache' => array(
                 'class' => 'CMemCache',
                 'useMemcached' => 'true',

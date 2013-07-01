@@ -11,16 +11,10 @@ define([
         newCollectionName: null,
         objectID: "",
         selectedPhotoThumbnailUrl: "",
-//        init: function()
-//        {
-//            var megaController = this.get("controllers.mega");
-//            var selectedMega = megaController.get("selectedMega");
-//            var id = selectedMega.id;
-//            this.set("objectID", id);
-//            var tempUrl = selectedMega.photo_image_thumbnail_url;
-//            this.set("selectedPhotoThumbnailUrl", tempUrl);
-//            this.setUser();
-//        },
+        init: function()
+        {
+
+        },
         setUser: function()
         {
             var user = App.User.find(localStorage.loginStatus);
@@ -108,11 +102,11 @@ define([
             this.set('selectedTitle', record);
             this.selectSelectedDesc();
             $('#recordID').text(this.get('selectedTitle'));
+            App.set('chooseCollection', this.get('selectedTitle'));
             this.set('selectionPop', !this.get('selectionPop'));
         },
         selectSelectedDesc: function()
         {
-            console.log(this.get("selectedTitle"));
             var desc = "";
             for (var i = 0; i < this.get("collections").get("length"); i++)
             {

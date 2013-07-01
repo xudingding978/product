@@ -500,3 +500,8 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     overflow: auto;
     background-color: rgba(0,0,0,0.3);
 }
+
+.vertical-resize{
+resize:vertical;
+overflow:auto;
+}

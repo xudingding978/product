@@ -10,11 +10,7 @@ define([
         template: Ember.Handlebars.compile(loginModalTemplate),
         didInsertElement: function() {
 
-            this.$().draggable({
-                cursor: "move",
-                scroll: true,
-                scrollSensitivity: 100
-            });
+
 
         }
     });

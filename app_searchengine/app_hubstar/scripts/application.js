@@ -463,6 +463,7 @@ define('application', [
             App.set("afterSearch", false);
 
             App.set("setHight", null);
+            App.set('chooseCollection',null);
 //            var firstView = App.DiscoveryView.create(),
 //                    secondView = App.MasonryView.create();
 //

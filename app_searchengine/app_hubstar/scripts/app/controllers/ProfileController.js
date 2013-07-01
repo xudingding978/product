@@ -12,8 +12,7 @@ define([
             var address_record;
             var phone_record;
             var website_record;
-
-
+            var workingtime;
             var ProfileController = Ember.ObjectController.extend({
                 model: null,
                 editing: false,
@@ -21,70 +20,24 @@ define([
                 editingAbout: false,
                 editingContact: false,
                 galleryInsert: false,
+                editingTime: false,
+                clientCollection: true,
                 aboutMe: "aboutMe",
                 profileName: "profileName",
                 contact: "contact",
+                timeSetting: "timeSetting",
                 collections: [],
+                hours: [],
+                init: function() {
+
+
+
+                },
                 setLocalLoginRecrod: function() {
                     App.set('afterSearch', true);
                     localStorage.user_id = this.get('model.id');
                 },
-//                toggleEditing: function(data) {
-//                    profile_record = data;
-//                    this.set('editing', !this.get('editing'));
-//                },
-//                changeTitle: function() {
-//                    var update_profile_record = App.Profile.find(this.get('content.id'));
-//                    App.store.get('adapter').updateRecord(App.store, App.Profile, update_profile_record);
-//                    this.set('editing', false);
-//                },
-//                exitEditing: function() {
-//                    this.set('content.profile_name', profile_record);
-//                    this.set('editing', !this.get('editing'));
-//                },
-//                toggleEditingAbout: function() {
-//                    about_record = this.get('content.about');
-//                    this.set('editingAbout', !this.get('editingAbout'));
-//                },
-//
-//                changeAbout: function() {
-//                    var update_about_record = App.Profile.find(this.get('content.id'));
-//                    App.store.get('adapter').updateRecord(App.store, App.Profile, update_about_record);
-//                    this.set('editingAbout', false);
-//                },
-//                exitAboutEditing: function() {
-//                    this.set('content.about', about_record);
-//                    this.set('editingAbout', !this.get('editingAbout'));
-//                },
-//                toggleEditingContact: function() {
-//                    contact_record = this.get('content.contact_user');
-//                    category_record = this.get('content.profile_category');
-//                    address_record = this.get('content.profile_physical_address');
-//                    phone_record = this.get('content.phone_number');
-//                    website_record = this.get('content.website_url');
-//                    this.set('editingContact', !this.get('editingContact'));
-//                },
-//                changeEditingContact: function() {
-//                    var update_contact_record = App.Profile.find(this.get('content.id'));
-//                    App.store.get('adapter').updateRecord(App.store, App.Profile, update_contact_record);
-//                    this.set('editingContact', false);
-//                },
-//                exitContactEditing: function() {
-//                    this.set('content.contact_user', contact_record);
-//                    this.set('content.profile_category', category_record);
-//                    this.set('content.profile_physical_address', address_record);
-//                    this.set('content.phone_number', phone_record);
-//                    this.set('content.website_url', website_record);
-//                    this.set('editingContact', !this.get('editingContact'));
-//                },
-//                galleryEdit: function() {
-//                    this.set('galleryInsert', !this.get('galleryInsert'));
-//                },
-
-
                 toggleEditing: function(data, checkingInfo) {
-
-
                     if (checkingInfo === "profileName") {
                         profile_record = data;
                         this.set('editing', !this.get('editing'));
@@ -99,9 +52,12 @@ define([
                         phone_record = this.get('model.phone_number');
                         website_record = this.get('model.website_url');
                         this.set('editingContact', !this.get('editingContact'));
-
                     }
+                    else if (checkingInfo === "timeSetting") {
 
+
+                        this.set('editingTime', !this.get('editingTime'));
+                    }
                 },
                 yes: function(checkingInfo) {
                     if (checkingInfo === "profileName") {
@@ -111,15 +67,24 @@ define([
                     else if (checkingInfo === "aboutMe") {
 
                         this.set('editingAbout', !this.get('editingAbout'));
-
                     } else if (checkingInfo === "contact") {
 
                         this.set('editingContact', !this.get('editingContact'));
-
                     }
+                    else if (checkingInfo === "timeSetting") {
+                        var updateHour = this.get('hours');
+                        var data = "";
+                        for (var i = 0; i < updateHour.length; i++) {
+                            data = data + updateHour.objectAt(i).day + "=" + updateHour.objectAt(i).time + ",";
+                        }
+                        this.set('model.hours', data.substring(0, data.length - 1));
+                        this.set('editingTime', !this.get('editingTime'));
+                    }
+                    this.updateClient();
+                },
+                updateClient: function() {
                     var update_profile_record = App.Profile.find(this.get('model.id'));
                     App.store.get('adapter').updateRecord(App.store, App.Profile, update_profile_record);
-                    //          App.store.commit();
                 },
                 no: function(checkingInfo) {
                     if (checkingInfo === "profileName") {
@@ -139,8 +104,46 @@ define([
                         this.set('model.website_url', website_record);
                         this.set('editingContact', !this.get('editingContact'));
                     }
+                    else if (checkingInfo === "timeSetting") {
+                        this.updateWorkingHourData(this.get('model.hours'));
+
+
+
+                        this.set('editingTime', !this.get('editingTime'));
+                    }
+                },
+                updateWorkingHourData: function(times) {
+                    this.set('hours', []);
+                    if (times !== null && times !== "") {
+                        var time = times.split(",");
+                        for (var i = 0; i < time.length; i++) {
+                            var dayAndTime = time[i].split("=");
+                            this.get('hours').pushObject({day: dayAndTime[0], time: dayAndTime[1]});
+                        }
+                    }
+                },
+                newCollection: function()
+                {
+
+                },
+                submit: function()
+                {
+                    var newInsert = $('#clientAddCollection .new-collection-name_insert').val();
+                    if (this.get('model.collections') === null || this.get('model.collections') === "") {
+                        this.set('model.collections', newInsert);
+                    } else {
+
+                        this.set('model.collections', newInsert + "," + this.get('model.collections'));
+                    }
+
+                    this.updateClient();
+                    this.get('collections').insertAt(0, {id: newInsert});
+                    $(".Targeting_Object_front").attr("style", "display:inline-block");
+                    $(" #uploadArea").attr('style', "display:none");
+                    $(" #uploadObject").attr('style', "display:block");
                 },
                 setModel: function(model) {
+                    this.updateWorkingHourData(model.get('hours'));
                     this.set("model", model);
                     if (this.get('model').get('collections') === "undefined" || this.get('model').get('collections') === "" || this.get('model').get('collections') === null) {
                     } else {
@@ -149,14 +152,35 @@ define([
                             this.get('collections').pushObject({id: total_collection[i]});
                         }
                     }
+
+
+                    var collections = this.get("collections");
+
+                    for (var i = 0; i < collections.length; i++)
+                    {
+                        var col = collections.objectAt(i);
+                        if ((col.id !== null && col.id !== "")) {
+
+                            console.log(col.id);
+//                            var imgId = col.get("collection_ids").split(",").objectAt(0);
+                            this.getHeroImgae(col.id);
+                        }
+
+
+                    }
                 },
-                submit: function()
-                {
-                    
+                getHeroImgae: function(col) {
+                    var photo = App.Mega.find({collection_id: col});
+
+                    photo.addObserver('isLoaded', function() {
+                        if (photo.get('isLoaded')) {
+                            console.log(photo);
+//                            col.set("cover", photo.get('photo').objectAt(0).get("photo_image_hero_url"));
+//
+//                            col.store.save();
+                        }
+                    });
                 }
-            }
-
-            );
-
+            });
             return ProfileController;
         });

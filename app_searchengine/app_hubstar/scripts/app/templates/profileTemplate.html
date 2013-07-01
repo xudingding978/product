@@ -89,7 +89,7 @@
 
 
                                     {{#if controller.editing}}
-                                    <div style="display: inline-block;width: 350px;">
+                                    <div style="display: inline-block; width: 350px;">
                                         {{view App.SearchRequireTextFieldView valueBinding="model.profile_name"  id="" class=""  }} 
                                     </div>
                                     <div style="display: inline-block;vertical-align: bottom;">
@@ -219,37 +219,56 @@
                                 {{/unless}}
 
                             </div>
-
-
                             <!--PROFILE HOURS SECTION-->
 
                             <div class="aside-container" style="padding: 20px 0; border-top: 1px solid #fff; font-size: 14px;margin: auto;width: 95%;">
                                 <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-time' style='margin-right: 10px;'></i>Hours</div>
+                                {{#unless controller.editingTime}}
+
                                 <div class="edit-btn easing">
-                                    <i class="icon-edit"></i>                            
+                                    <i class="icon-edit" {{action toggleEditing  model.profile_name controller.timeSetting}}></i>                            
                                 </div>
+                                {{/unless}}
+                                {{#each controller.hours}}
                                 <div style="display: block">
+                                 
+                                    {{#unless controller.editingTime}}
+
                                     <div style='display: inline-block;color: #888;text-align: right;'>
-                                        <p>Mon - Fri: </p>
-                                        <p>Saturday:</p>
-                                        <p>Sunday:</p>
-                                        <p>Holidays:</p>
+
+                                        <p>{{day}}</p>
+
+                                        {{else}}
+                                        {{input type="text" value=day}}
+                                        {{/unless}}
+                                  
                                     </div>
-                                    <div style='ffont-weight: bold;display: inline-block;text-align: right;margin: auto;left: 0;width: 60%;'>
-                                        <p>7:00am - Late</p>
-                                        <p>10:00am - Late</p>
-                                        <p>4:00pm - Late</p>
-                                        <p>Closed</p>
+                                
+                                    {{#unless controller.editingTime}}
+
+                                    <div style='font-weight: bold;display: inline-block;text-align: right;margin: auto;left: 0;width: 60%;'>
+
+                                        <p>{{time}}</p>
                                     </div>
+
+                                    {{else}}
+                                    {{input type="text" value=time  }}
+
+
+                                    {{/unless}}
+                                  
                                 </div>
+
+                                {{/each}}
+                                {{#if controller.editingTime}}
+                                <div style="display: inline-block;vertical-align: bottom;">
+                                    <div class="new-btn blue-btn"{{action yes controller.timeSetting}}><i class="icon-ok icon-white"></i></div>   
+                                    <div class="new-btn"{{action no controller.timeSetting}}><i class="icon-remove icon-white"></i></div>
+                                </div>
+                                {{/if}}
                             </div>
-
-
                         </div>
                     </div>
-
-
-
 
                     <!--PROFILE PAGE MAIN PART-->
 

@@ -56,7 +56,17 @@ define(["ember"
             photo.addObserver('isLoaded', function() {
 
                 if (photo.get('isLoaded')) {
+                    
+//                    if(photo.get('photo').objectAt(0)===null || photo.get('photo').objectAt(0)===""){
+//                        
+//                          col.set("cover",);
+//                    }else{
+
                     col.set("cover", photo.get('photo').objectAt(0).get("photo_image_hero_url"));
+                    
+//                }
+                    
+                    
                     col.store.save();
                 }
             });
@@ -66,7 +76,6 @@ define(["ember"
         {
             console.log(" drop and grag controller");
         },
-
         getCurrentUser: function()
         {
             var address = document.URL;
@@ -80,7 +89,7 @@ define(["ember"
             var id = this.checkingValidInput(this.selectedCollection.get('id'));
             this.selectedCollection.set('id', id);
             this.selectedCollection.set('title', id);
-            this.get("collections").pushObject(this.selectedCollection);
+            this.get("collections").insertAt(0, this.selectedCollection);
             this.get("collections").store.commit();
             $(".Targeting_Object_front").attr("style", "display:inline-block");
             $(" #uploadArea").attr('style', "display:none");

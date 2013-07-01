@@ -119,14 +119,20 @@ define([
                 },
                 newCollection: function()
                 {
-                    //     console.log(this.get('model.collections'));
+
                 },
                 submit: function()
                 {
-                    this.set('model.collections', this.get('model.collections') + ',' + $('#clientAddCollection .new-collection-name_insert').val());
+                    var newInsert = $('#clientAddCollection .new-collection-name_insert').val();
+                    if (this.get('model.collections') === null || this.get('model.collections') === "") {
+                        this.set('model.collections', newInsert);
+                    } else {
+
+                        this.set('model.collections', newInsert + "," + this.get('model.collections'));
+                    }
 
                     this.updateClient();
-                    this.setModel(this.get('model'));
+                    this.get('collections').insertAt(0, {id: newInsert});
                     $(".Targeting_Object_front").attr("style", "display:inline-block");
                     $(" #uploadArea").attr('style', "display:none");
                     $(" #uploadObject").attr('style', "display:block");

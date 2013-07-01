@@ -223,15 +223,12 @@ define(["ember"
             }
         },
         setSelectedCollection: function(id) {
-
-
             for (var i = 0; i < this.get("collections").get("length"); i++) {
                 var thisCollection = this.get("collections").objectAt(i);
 
                 this.get('temp').pushObject(thisCollection.get("id"));
                 if (id === thisCollection.get("id")) {
                     this.set("selectedCollection", thisCollection);
-
                 }
             }
         },

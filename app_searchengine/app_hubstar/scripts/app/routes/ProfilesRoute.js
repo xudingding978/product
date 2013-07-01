@@ -20,9 +20,9 @@ define([
         activate: function() {
 
         },
-        model: function() {
-            return ProfileModel.find();
-        },
+//        model: function() {
+//            return ProfileModel.find();
+//        },
 //        renderTemplate: function() {
 //            this.render('profiles', {
 //                into: "application"

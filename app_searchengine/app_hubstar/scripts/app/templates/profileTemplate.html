@@ -167,7 +167,7 @@
                                     <tr>
                                         <th>Contact:</th>
                                         {{#if controller.editingContact}}
-                                        {{input type="text" value=model.contact_user}}
+                                        {{input type="text" class="insert-contactdetails" value=model.contact_user}}
                                         {{else}}
                                         <th class="Contact_2child">{{model.contact_user}}</th>
                                         {{/if}}
@@ -175,7 +175,7 @@
                                     <tr>
                                         <th>Type:</th>
                                         {{#if controller.editingContact}}
-                                        {{input type="text" value=model.profile_category  }}
+                                        {{input type="text" class="insert-contactdetails" value=model.profile_category  }}
                                         {{else}}
                                         <th class="Contact_2child"><a href="#">{{model.profile_category}}</a></th>
                                         {{/if}}
@@ -183,7 +183,7 @@
                                     <tr>
                                         <th>Address:</th>
                                         {{#if controller.editingContact}}
-                                        {{input type="text" value=model.profile_physical_address  }}
+                                        {{input type="text" class="insert-contactdetails" value=model.profile_physical_address  }}
                                         {{else}}
                                         <th class="Contact_2child">{{model.profile_physical_address}}</th>
                                         {{/if}}
@@ -191,7 +191,7 @@
                                     <tr>
                                         <th>Phone:</th>
                                         {{#if controller.editingContact}}
-                                        {{input type="text" value=model.phone_number  }}
+                                        {{input type="text" class="insert-contactdetails" value=model.phone_number  }}
                                         {{else}}
                                         <th class="Contact_2child">{{model.phone_number}}</th>
                                         {{/if}}
@@ -199,7 +199,7 @@
                                     <tr>
                                         <th>Website:</th>
                                         {{#if controller.editingContact}}
-                                        {{input type="text" value=model.website_url  }}
+                                        {{input type="text" class="insert-contactdetails" value=model.website_url  }}
                                         {{else}}
                                         <th class="Contact_2child"><a>{{model.website_url}}</a></th>
                                         {{/if}}
@@ -231,39 +231,35 @@
                                     <i class="icon-edit" {{action toggleEditing  model.profile_name controller.timeSetting}}></i>                            
                                 </div>
                                 {{/unless}}
+
+
+
+
                                 {{#each controller.hours}}
-                                <div style="display: block">
-                                 
+
+                                <table id="aside_contact">
                                     {{#unless controller.editingTime}}
+                                    <tbody style="display: inline-block; vertical-align: top;">
+                                        <tr style="">
+                                            <th>{{day}}</th>
+                                            {{else}}
+                                            {{input type="text" class="inserthours-day" value=day}}
+                                            {{/unless}}
 
-                                    <div style='display: inline-block;color: #888;text-align: right;'>
+                                            {{#unless controller.editingTime}}                                      
+                                            <th class="Contact_2child">{{time}}</th>
+                                            {{else}}
+                                            {{input type="text" class="inserthours-time" value=time  }}
+                                            {{/unless}}
+                                        </tr>
+                                    </tbody>
+                                </table>
 
-                                        <p>{{day}}</p>
-
-                                        {{else}}
-                                        {{input type="text" value=day}}
-                                        {{/unless}}
-                                  
-                                    </div>
-                                
-                                    {{#unless controller.editingTime}}
-
-                                    <div style='font-weight: bold;display: inline-block;text-align: right;margin: auto;left: 0;width: 60%;'>
-
-                                        <p>{{time}}</p>
-                                    </div>
-
-                                    {{else}}
-                                    {{input type="text" value=time  }}
-
-
-                                    {{/unless}}
-                                  
-                                </div>
 
                                 {{/each}}
                                 {{#if controller.editingTime}}
-                                <div style="display: inline-block;vertical-align: bottom;">
+
+                                <div style="width: 75px;margin: auto;">
                                     <div class="new-btn blue-btn"{{action yes controller.timeSetting}}><i class="icon-ok icon-white"></i></div>   
                                     <div class="new-btn"{{action no controller.timeSetting}}><i class="icon-remove icon-white"></i></div>
                                 </div>

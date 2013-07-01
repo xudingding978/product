@@ -161,7 +161,7 @@ define([
                         var col = collections.objectAt(i);
                         if ((col.id !== null && col.id !== "")) {
 
-                            console.log(col.id);
+                  //          console.log(col.id);
 //                            var imgId = col.get("collection_ids").split(",").objectAt(0);
                             this.getHeroImgae(col.id);
                         }
@@ -174,7 +174,7 @@ define([
 
                     photo.addObserver('isLoaded', function() {
                         if (photo.get('isLoaded')) {
-                            console.log(photo);
+                     //       console.log(photo);
 //                            col.set("cover", photo.get('photo').objectAt(0).get("photo_image_hero_url"));
 //
 //                            col.store.save();

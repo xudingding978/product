@@ -2,10 +2,11 @@
 
 header("Access-Control-Allow-Origin: *");
 header('Content-type: *');
-
 header('Access-Control-Request-Method: *');
 header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET');
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+
+
 
 class MegasController extends Controller {
 
@@ -194,9 +195,10 @@ class MegasController extends Controller {
 
     public function updateUserRecord($newRecord) {
         try {
+//             $userController =new UsersController();
+//            $userController->test();
             $cb = $this->couchBaseConnection();
             $id = $newRecord['mega']['user'][0]['id'];
-
             $docID = substr($_SERVER['HTTP_HOST'], 4) . "/users/" . $id;
             $oldRecord = $cb->get($docID);
             $oldRecord = CJSON::decode($oldRecord, true);
@@ -204,7 +206,7 @@ class MegasController extends Controller {
             //  $oldRecord['user'][0] = null;
             $oldRecord['user'] = $newRecord['mega']['user'];
             if ($cb->set($docID, CJSON::encode($oldRecord))) {
-                $this->sendResponse(204, "{ render json: @user, status: :ok }");
+                $this->sendResponse(204);
             } else {
                 $this->sendResponse(500, "some thing wrong");
             }
@@ -218,6 +220,7 @@ class MegasController extends Controller {
         $id = $mega['id'];
         $domain = $this->getDomain();
         $docID = $domain . "/profiles/" . $id;
+     //   error_log(var_export(CJSON::encode($mega), true));
         if($cb->add($docID, CJSON::encode($mega))) {
             $this->sendResponse(204, "{ render json: @user, status: :ok }");
         } else {

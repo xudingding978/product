@@ -83,6 +83,7 @@ class UsersController extends Controller {
 
             $respone_user_data = str_replace("\/", "/", CJSON::encode($respone_user));
             $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $respone_user_data . '}';
+           //    error_log(var_export($result,true));
             $this->sendResponse(200, $result);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -97,17 +98,14 @@ class UsersController extends Controller {
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
             $request_arr['user']['id'] = $id;
-
             $url = substr($_SERVER['HTTP_HOST'], 4) . "/users/" . $id;
-//            error_log($url."---------------------");
             $oldRecord = $cb->get($url);
             $oldRecord = CJSON::decode($oldRecord, true);
-//            error_log(var_export($oldRecord, true));
             $oldRecord['user'][0] = null;
             $oldRecord['user'][0] = $request_arr['user'];
 
             if ($cb->set($url, CJSON::encode($oldRecord))) {
-                $this->sendResponse(204, "{ render json: @user, status: :ok }");
+                $this->sendResponse(204);
             } else {
                 $this->sendResponse(500, "some thing wrong");
             }
@@ -183,6 +181,11 @@ class UsersController extends Controller {
 
         return $response;
     }
+    
+   public function test()
+   {       
+       
+   }
 
 }
 

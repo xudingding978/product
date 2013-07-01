@@ -15,7 +15,8 @@ return array(
         'application.components.RestController',
         'application.components.HttpRequest',
         'application.vendor.autoload',
-        'application.components.SearchEngine'
+        'application.components.SearchEngine',
+          'application.controllers.*'
     ),
     // application components
     'components' => array(

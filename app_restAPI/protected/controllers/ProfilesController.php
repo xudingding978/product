@@ -50,7 +50,7 @@ class ProfilesController extends Controller {
         //echo "Number of Hits: " . count($response) . "\r\n";
         //echo var_export($response);
 
-        $results = '{"' . 'megas'. '":[';
+        $results = '{"' . 'megas' . '":[';
 
         //Iterate over the hits and print out some data
         $i = 0;
@@ -88,18 +88,19 @@ class ProfilesController extends Controller {
             $cb = $this->couchBaseConnection();
             
             $reponse = $cb->get($this->getDomain(). $_SERVER['REQUEST_URI']);
-            
+
              $request_arr = CJSON::decode($reponse, true);
-                         $data = str_replace("\/", "/", CJSON::encode($request_arr['profile'][0]));
-            $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $data . '}';
-       
-       
-//            $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":';
-//            //Iterate over the hits and print out some data
-//            $result .=CJSON::encode($request_arr["profile"][0],true);
-//            $result .= '}';
+            $respone_client_data = str_replace("\/", "/", CJSON::encode($request_arr["profile"][0]));
+             
+            $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":';
+            //Iterate over the hits and print out some data
+            $result .=$respone_client_data;
             
-        //      error_log(var_export($result,true));
+            $result .= '}';
+            
+         
+          error_log(var_export($result,true));
+            
             echo $this->sendResponse(200, $result);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -110,15 +111,15 @@ class ProfilesController extends Controller {
 
         try {
             $payloads_arr = CJSON::decode(file_get_contents('php://input'));
-            $payload_json = CJSON::encode($payloads_arr['profile']);
-            $payload_arr = CJSON::decode($payload_json);
+            $payload_json = CJSON::encode($payloads_arr['profile'],true);         
             $cb = $this->couchBaseConnection();
-            $document_arr = CJSON::decode($cb->get($this->getDomain(). $_SERVER['REQUEST_URI']));
-            $newdocument = array_merge($document_arr, $payload_arr);
-            
-            
-            if ($cb->set($this->getDomain(). $_SERVER['REQUEST_URI'], CJSON::encode($newdocument))) {
-                echo $this->sendResponse(201, var_export($newdocument));
+            $oldRecord = CJSON::decode($cb->get($this->getDomain(). $_SERVER['REQUEST_URI']));
+            //  $oldRecord = CJSON::encode($document_arr);
+            //   error_log();
+            $oldRecord['profile'][0]=null;
+             $oldRecord['profile'][0]=CJSON::decode($payload_json);
+            if ($cb->set($this->getDomain(). $_SERVER['REQUEST_URI'], CJSON::encode( $oldRecord,true))) {
+               $this->sendResponse(204);
             }
         } catch (Exception $exc) {
             echo var_export($newdocument);

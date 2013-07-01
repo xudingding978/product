@@ -452,10 +452,8 @@ define('application', [
             revision: 12,
             adapter: DS.RESTAdapter.create({
                 bulkCommit: false,
-                url: getRestAPIURL(),
-//          mappings: {
-//      profile: Profile
-//    }
+                url: getRestAPIURL()
+
             })
         }),
         ready: function() {

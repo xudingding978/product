@@ -48,8 +48,8 @@ define([
         },
         model: function(params) {
 
-       
-            console.log(ProfileModel.find(params.profile_id).get("about"));
+
+            console.log(params.profile_id);
             return ProfileModel.find(params.profile_id);
         },
         renderTemplate: function() {
@@ -57,12 +57,6 @@ define([
                 outlet: "profiles",
                 into: "application"
             });
-//            this.render('image', {
-//                outlet: "photoUploader",
-//                into: 'profile',
-//                controller: 'photoUpload'
-//            }
-//            );
         }
 
     });

@@ -40,6 +40,17 @@ define([
 
             var that = this;
 
+            results.addObserver('isLoaded', function() {
+                if (results.get('isLoaded')) {
+                    setTimeout(function() {
+                        $('#masonry_container').masonry("reload");
+                    }, 2200);
+                }
+
+
+
+            });
+
             stats.addObserver('isLoaded', function() {
                 if (stats.get('isLoaded')) {
                     var d = new Date();

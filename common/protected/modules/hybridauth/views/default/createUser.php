@@ -12,9 +12,6 @@
     $config = Yii::app()->getBasePath() . '/config/provider_config.php';
 
     try {
-
-
-
         $config = Yii::app()->getBasePath() . '/../../common/protected/modules/hybridauth/config/provider_config.php';
         require_once( Yii::app()->getBasePath() . '/../../common/protected/modules/hybridauth/Hybrid/Auth.php');
 

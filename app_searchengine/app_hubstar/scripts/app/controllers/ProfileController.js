@@ -21,7 +21,7 @@ define([
                 editingContact: false,
                 galleryInsert: false,
                 editingTime: false,
-                clientCollection: true,
+
                 aboutMe: "aboutMe",
                 profileName: "profileName",
                 contact: "contact",

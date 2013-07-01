@@ -21,6 +21,7 @@ define([
                 editingContact: false,
                 galleryInsert: false,
                 editingTime: false,
+                clientCollection: true,
                 aboutMe: "aboutMe",
                 profileName: "profileName",
                 contact: "contact",
@@ -74,6 +75,9 @@ define([
                         this.set('model.hours', data.substring(0, data.length - 1));
                         this.set('editingTime', !this.get('editingTime'));
                     }
+                    this.updateClient();
+                },
+                updateClient: function() {
                     var update_profile_record = App.Profile.find(this.get('model.id'));
                     App.store.get('adapter').updateRecord(App.store, App.Profile, update_profile_record);
                 },
@@ -113,6 +117,20 @@ define([
                         }
                     }
                 },
+                newCollection: function()
+                {
+                    //     console.log(this.get('model.collections'));
+                },
+                submit: function()
+                {
+                    this.set('model.collections', this.get('model.collections') + ',' + $('#clientAddCollection .new-collection-name_insert').val());
+
+                    this.updateClient();
+                    this.setModel(this.get('model'));
+                    $(".Targeting_Object_front").attr("style", "display:inline-block");
+                    $(" #uploadArea").attr('style', "display:none");
+                    $(" #uploadObject").attr('style', "display:block");
+                },
                 setModel: function(model) {
                     this.updateWorkingHourData(model.get('hours'));
                     this.set("model", model);
@@ -125,5 +143,5 @@ define([
                     }
                 }
             });
-                    return ProfileController;
+            return ProfileController;
         });

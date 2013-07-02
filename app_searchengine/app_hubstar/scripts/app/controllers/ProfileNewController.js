@@ -65,8 +65,8 @@ define([
                     multiEmail2 = this.multiEmailChecking($('.mustFill6').val(), '#emailFormat6', multiEmail2);
 
 
-                    if ($('.mustFill1').val() === "" && $('.mustFill2').val() === "" && $('.mustFill3').val() === "" && multiEmail1
-                            && $('.mustFill5').val() === "" && multiEmail2 && this.validateEmail($('.mustFill5').val())
+                    if ($('.mustFill1').val() !== "" && $('.mustFill2').val() !== "" && $('.mustFill3').val() !== "" && multiEmail1
+                            && $('.mustFill5').val() !== "" && multiEmail2 && this.validateEmail($('.mustFill5').val())
                             && this.validateEmail($('.mustFill3').val())) {
                         passSubmit = true;
 
@@ -136,6 +136,7 @@ define([
                 save: function() {
 
                     this.fillInChecking();
+                    alert(passSubmit);
                     if (passSubmit) {
                         var newMega = App.store.createRecord(App.Mega, {//15
                             "id": this.get("profile_url"),

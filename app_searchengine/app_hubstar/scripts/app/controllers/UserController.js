@@ -186,7 +186,9 @@ define(["ember"
                 this.set('willDelete', true);
 
             }
-
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reload");
+            }, 200);
         },
         deleteTopic: function(topic) {
 
@@ -200,6 +202,7 @@ define(["ember"
 
             user.set('selected_topics', user.get('selected_topics').substring(0, user.get('selected_topics').length - 1));
             user.store.commit();
+
         },
         cancelDelete: function() {
             this.set('willDelete', false);

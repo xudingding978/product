@@ -229,6 +229,7 @@ define(["ember"
                 this.get('temp').pushObject(thisCollection.get("id"));
                 if (id === thisCollection.get("id")) {
                     this.set("selectedCollection", thisCollection);
+              //      console.log(  this.get("selectedCollection"));
                 }
             }
         },

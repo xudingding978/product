@@ -7,16 +7,16 @@
         <div class="style-box t-style-box" style="width: 100%; min-width: 796px; height: 50px; background: white;margin: -70px auto;left: 0;right: 0;position: relative;display: block;">
 
             <div style="margin: 4px 20px 4px 40px; font-size: 18px; text-shadow: 0 1px 0 rgba(255,255,255,0.8);float: left;" >Album Name </div>
-            <i class="icon-upload" style="color: #555; text-shadow: 0 1px 0 rgba(255,255,255,0.8); font-size: 20px; margin: 15px 0; display: inline-block;"></i>
+<!--            <i class="icon-upload" style="color: #555; text-shadow: 0 1px 0 rgba(255,255,255,0.8); font-size: 20px; margin: 15px 0; display: inline-block;"></i>-->
 
 
-            <ul class="user-stats" id="user-stats">
+<!--            <ul class="user-stats" id="user-stats">
                 <li><a>Collections</a></li>
                 <li><a>Photos</a></li>
                 <li><a>Videos</a></li>
                 <li><a>Following</a></li>
                 <li><a>Followers</a></li>
-            </ul>
+            </ul>-->
 
         </div>
 
@@ -52,10 +52,10 @@
                     <img class="albumcover" {{bindAttr src="cover"}} />
                 </div>
                 <div class="album-info">
-                    <div class="album-info_name"><i class="icon-picture" ></i> {{collection_ids}}  </div>
+                    <div class="album-info_name"><i class="icon-picture" ></i>   {{title}}</div>
                     <div class="album-info_content">
                         <div class="edit-btn edit-collection-btn easing"><i class="icon-cog" {{action editCollectionButton id desc target="view" on="click"}}></i></div>
-                        <span><a href="" {{action transitionToCollectionPhoto id}}> {{title}} </a> photos {{title}}</span>
+                        <span><a href="" {{action transitionToCollectionPhoto id}}> </a> photos</span>
                         <span><img src="../../images/list-doc.png"/> April 1 2013</span>
                     </div>
                 </div>

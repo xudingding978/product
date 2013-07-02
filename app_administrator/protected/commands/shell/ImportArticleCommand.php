@@ -381,7 +381,6 @@
             unset($fileName, $content, $handle, $output);
         }
         
-        
 
    }
 

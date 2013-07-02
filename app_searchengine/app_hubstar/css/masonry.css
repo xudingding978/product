@@ -235,9 +235,9 @@ button {
     position: relative;
     background: #888;
     color: #222;
-    border-radius: 2px;
+    border-radius: 3px;
     border: 1px solid #d8d8d8;
-    border-bottom-width: 2px;
+    border-bottom-width: 1px;
     border-top-width: 0;
 }
 

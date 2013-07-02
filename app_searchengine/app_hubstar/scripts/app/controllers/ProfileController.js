@@ -137,17 +137,31 @@ define([
                 {
                     var newInsert = this.checkingValidInput($('#clientAddCollection .new-collection-name_insert').val());
 
-                    if (this.get('model.collections') === null || this.get('model.collections') === "") {
-                        this.set('model.collections', newInsert);
-                    } else {
 
-                        this.set('model.collections', newInsert + "," + this.get('model.collections'));
+
+                    this.checkingIdisExsinting(newInsert, "create");
+                    if (isExsinting) {
+
+                        if (this.get('model.collections') === null || this.get('model.collections') === "") {
+                            this.set('model.collections', newInsert);
+                        } else {
+
+                            this.set('model.collections', newInsert + "," + this.get('model.collections'));
+                        }
+
+                        this.updateClient();
+                        //        this.get('collections').insertAt(0, {id: newInsert, title: newInsert, desc: $('.new-collection-area').val()});
+                        $(".Targeting_Object_front").attr("style", "display:inline-block");
+                        $(" #uploadArea").attr('style', "display:none");
+                        $(" #uploadObject").attr('style', "display:block");
+
+
+
+
+                    } else {
+                        isExsinting = true;
                     }
 
-                    this.updateClient();
-                    $(".Targeting_Object_front").attr("style", "display:inline-block");
-                    $(" #uploadArea").attr('style', "display:none");
-                    $(" #uploadObject").attr('style', "display:block");
                 },
                 setModel: function(model) {
                     this.updateWorkingHourData(model.get('hours'));
@@ -241,8 +255,6 @@ define([
 
                     if (postOrPut === "update") {
                         for (var i = 0; i < this.get("temp").get('length'); i++) {
-                            //        console.log(this.get("temp"));
-
                             if (this.get("temp").objectAt(i) === id) {
 
                                 isExsinting = false;
@@ -254,6 +266,7 @@ define([
                     } else if (postOrPut === "create") {
 
                         for (var i = 0; i < this.get("collections").get('length'); i++) {
+                            console.log(this.get("collections").objectAt(i).id);
                             if (this.get("collections").objectAt(i).id === id) {
 
                                 isExsinting = false;

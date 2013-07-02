@@ -30,6 +30,7 @@ define([
 
         },
         model: function(params) {
+    
             this.controllerFor('user').set('switchPhoto', false);
             var address = document.URL;
             var user_id = address.split("#")[1].split("/")[2];

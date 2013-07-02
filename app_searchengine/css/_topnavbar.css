@@ -23,7 +23,7 @@
     margin: 0;
 }
 .navbar-inner > .container {
-    min-width:796px;
+    min-width:600px;
     height:45px;
 }
 

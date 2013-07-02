@@ -5,8 +5,10 @@ define(
             'emberData'
         ], function() {
 
+    DS.RESTAdapter.map('App.Profile', {
+        collections: {embedded: 'always'}
+    });
     var ProfileModel = DS.Model.extend({
-
         profile_name: DS.attr('string'),
         last_name: DS.attr('string'),
         first_name: DS.attr('string'),
@@ -21,8 +23,9 @@ define(
         profile_category: DS.attr('string'),
         profile_physical_address: DS.attr('string'),
         phone_number: DS.attr('string'),
-        collections:DS.attr('string'),        
-        website_url: DS.attr('string')
+     
+        website_url: DS.attr('string'),
+        collections: DS.hasMany('App.Collection')
     });
 
 //    ProfileModel.reopenClass({

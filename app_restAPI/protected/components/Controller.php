@@ -456,7 +456,6 @@ class Controller extends CController {
         }
         return $im;
     }
-
     protected function getImageInfo($url) {
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -472,5 +471,4 @@ class Controller extends CController {
             return false;
         }
     }
-
 }

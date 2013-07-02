@@ -159,7 +159,7 @@ define([
                             "type": "profile",
                             accessed: null,
                             active_yn: "true",
-                            category: null,
+                            category: $('#dropdownCategory').text(),
                             creator_type: "user",
                             created: new Date(),
                             creator: this.get("creater"),

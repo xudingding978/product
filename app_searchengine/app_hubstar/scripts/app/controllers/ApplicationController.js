@@ -33,7 +33,7 @@ define([
         },
         scrollDownAction: function() {
             var results = MegaModel.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string")});
-            console.log(results);
+//            console.log(results);
               this.set("content", results);
             
         },
@@ -41,7 +41,7 @@ define([
             var d = new Date();
             var start = d.getTime();
             var results = MegaModel.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string")});
-            console.log(results);
+//            console.log(results);
             this.set("content", results);
             var stats = Stat.find({"RquireType": "status", "region": this.get("search_area"), "search_string": this.get("search_string")});
 

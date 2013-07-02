@@ -526,9 +526,10 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     font-weight: normal;
     font-style: normal;
     display: inline-block;
+}
 
 .rating span.star:hover:before {
-        content: "\f005";
+    content: "\f005";
     color: #e3cf7a;
 }
 
@@ -541,3 +542,14 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     content: "\f006";
     padding-right: 5px;
     color: #999999;
+}  
+
+
+
+
+
+.profilesnew-table  .dropdownViewStyle{
+    max-height: none;
+    width: 500px;
+    position: absolute;
+}

@@ -23,7 +23,7 @@ require.config({
         'bxslider': 'libs/jquery.bxslider.min',
         'moment': 'libs/moment',
         'modernizr': 'libs/modernizer/modernizr-latest',
-         'uploadclick': 'libs/upclick-min',
+         'helper': 'libs/helper',
         'jquery.masonry': 'libs/jquery.masonry/jquery.masonry.min',
         /*requirejs-plugins*/
         'text': 'libs/requirejs-plugins/text',
@@ -479,7 +479,6 @@ function getRestAPIURL()
     var api_domain_start_pos = api_url.indexOf('.');
     var api_url = api_url.slice(api_domain_start_pos);
     api_url = "http://api" + api_url;
-    console.log(api_url);
     return api_url;
 }
 

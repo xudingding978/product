@@ -34,9 +34,6 @@ define([
             this.set("selectedMega", App.Mega.find(id));
             this.set("emailDestination", this.get("selectedMega").get("owner_contact_email"));
             this.set("emaiCCDestination", this.get("selectedMega").get("owner_contact_cc_emails"));
-            this.set("emaiBCCDestination", this.get("selectedMega").get("owner_contact_bcc_emails"));
-            console.log(this.get("selectedMega"));
-            console.log(this.get("emailDestination"));
         },
         closeContact: function() {
             var megaController = this.get("controllers.mega");

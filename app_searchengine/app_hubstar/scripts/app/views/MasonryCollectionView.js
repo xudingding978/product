@@ -28,6 +28,7 @@ define([
 
             var userController = this.get('controller');
             userController.setSelectedCollection(id);
+           
 
 
             var div_id = "#" + id;

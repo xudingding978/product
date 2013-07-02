@@ -19,6 +19,7 @@ class HybridauthModule extends CWebModule {
         ));
         require dirname(__FILE__) . '/Hybrid/Auth.php';
         $this->_hybridAuth = new Hybrid_Auth($this->getConfig());
+
     }
 
     public function beforeControllerAction($controller, $action) {

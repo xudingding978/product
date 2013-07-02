@@ -1,4 +1,4 @@
-define(["ember"],
+define(["ember","helper"],
         function(Ember) {
 
 
@@ -22,11 +22,7 @@ define(["ember"],
                             var type = file.type;
                             var reader = new FileReader();
                             reader.onload = function(e) {
-                                var src = e.srcElement.result;
-                                var mega = this.createNewMega(this.get("profileMega"));
-                                var file = App.Photo.createRecord({"photo_title": name.toLowerCase(), "photo_image_url": src, "photo_type": type});
-                                mega.get("photo").pushObject(file);
-                                that.get("content").addObject(mega);
+                                that.addPhotoObject(e, that, name, type);
                             }, reader.readAsDataURL(files[i]);
                         })(files[i]);
                         event.preventDefault();
@@ -34,22 +30,13 @@ define(["ember"],
                 },
                 setMode: function()
                 {
-//                    var cc = App.Mega.Copy(this.get("mega"));
-//                    this.get("mega").set("collection_id", "qwwwwwwwwwwww");
-//                    cc.set("collection_id", "ddddddddddddddddddd");
-//                    console.log(this.get("mega").get("collection_id"));
-//                    console.log(cc.get("collection_id"));
-//                    this.set("mode", mode);
-
                 }, submit: function()
                 {
-                    App.store.commit();
-//                    if (this.get("content").length > 0) {
-//                        this.get("content").store.commit();
-//                    }
-//                    else {
-//                        console.log(this.get("content"));
-//                    }
+
+                    //App.store.commit();
+
+
+
                 }, back: function()
                 {
                     this.set("content", []);
@@ -83,7 +70,7 @@ define(["ember"],
                         "country": ProfileMega.get("country"),
                         "collection_id": this.get('controllers.insideCollection').get('title'),
                         "deleted": null,
-                        "domains": document.domain,
+                        "domains": getDomain(),
                         "editors": "",
                         "follower_count": null,
                         "followers": null,
@@ -108,11 +95,30 @@ define(["ember"],
                         "status_id": null,
                         "updated": new Date(),
                         "uri_url": ProfileMega.get("uri_url"),
-                        "owner_id": null,
-                                "view_count": null
+                        "view_count": null
                     });
-
                     return photoMega;
+                }, addPhotoObject: function(e, that, name, type) {
+                    var src = e.srcElement.result;
+                    var mega = that.createNewMega(that.get("profileMega"));
+//                    mega.on('didCreate', function() {
+//                        console.log(this);
+//                    });
+                    mega.addObserver('isSaving', function() {
+                        if (!mega.get('isSaving')) {
+                            console.log("wait");
+                        }
+                        else {
+
+                        }
+                    });
+                    var file = App.Photo.createRecord({
+                        "photo_title": name.toLowerCase(),
+                        "photo_image_url": src,
+                        "photo_type": type,
+                        "photo_keywords": that.get("profileMega").get("keywords")});
+                    mega.get("photo").pushObject(file);
+                    that.get("content").addObject(file);
                 }
             }
             );
@@ -129,6 +135,5 @@ define(["ember"],
                 }
 
             });
-
             return PhotoCreateController;
         });

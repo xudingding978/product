@@ -2,11 +2,13 @@ define(["ember"
 ], function(
         Ember
         ) {
+    var isExsinting = true;
     var UserController = Ember.Controller.extend({
         user: null,
         uploadMode: null,
         newCollectionName: null,
         collections: [],
+        temp: [],
         selectedDesc: "",
         selectedTitle: "",
         coverImg: "",
@@ -56,17 +58,13 @@ define(["ember"
             photo.addObserver('isLoaded', function() {
 
                 if (photo.get('isLoaded')) {
-                    
-//                    if(photo.get('photo').objectAt(0)===null || photo.get('photo').objectAt(0)===""){
-//                        
-//                          col.set("cover",);
-//                    }else{
+
 
                     col.set("cover", photo.get('photo').objectAt(0).get("photo_image_hero_url"));
-                    
-//                }
-                    
-                    
+
+
+
+
                     col.store.save();
                 }
             });
@@ -84,16 +82,51 @@ define(["ember"
             var user = App.User.find(user_id);
             return user;
         },
+        checkingIdisExsinting: function(id, postOrPut) {
+
+            if (postOrPut === "update") {
+                for (var i = 0; i < this.get("temp").get('length'); i++) {
+
+                    if (this.get("temp").objectAt(i) === id) {
+
+                        isExsinting = false;
+                    }
+                }
+                if (!isExsinting) {
+                    alert('This Collection is already exsiting!!!');
+                }
+            } else if (postOrPut === "create") {
+
+                for (var i = 0; i < this.get("collections").get('length'); i++) {
+                    if (this.get("collections").objectAt(i).id === id) {
+
+                        isExsinting = false;
+                    }
+                }
+                if (!isExsinting) {
+                    alert('This Collection is already exsiting!!!');
+                }
+            }
+        },
         submit: function()
         {
+
             var id = this.checkingValidInput(this.selectedCollection.get('id'));
-            this.selectedCollection.set('id', id);
-            this.selectedCollection.set('title', id);
-            this.get("collections").insertAt(0, this.selectedCollection);
-            this.get("collections").store.commit();
-            $(".Targeting_Object_front").attr("style", "display:inline-block");
-            $(" #uploadArea").attr('style', "display:none");
-            $(" #uploadObject").attr('style', "display:block");
+
+            this.checkingIdisExsinting(id, "create");
+
+            if (isExsinting) {
+                this.selectedCollection.set('id', id);
+                this.selectedCollection.set('title', id);
+                this.get("collections").insertAt(0, this.selectedCollection);
+                this.get("collections").store.commit();
+                $(".Targeting_Object_front").attr("style", "display:inline-block");
+                $(" #uploadArea").attr('style', "display:none");
+                $(" #uploadObject").attr('style', "display:block");
+
+            } else {
+                isExsinting = true;
+            }
         },
         checkingValidInput: function(title) {
 
@@ -172,20 +205,31 @@ define(["ember"
         },
         updateCollectionInfo: function()
         {
-            var title = this.get("selectedCollection").get("id");
-            this.get("selectedCollection").set("title", title);
-            this.set("selectedTitle", title);
-            this.get("selectedCollection").store.save();
-            $(".Targeting_Object_front").attr("style", "display:inline-block");
-            $(" #uploadArea").attr('style', "display:none");
-            $(" #uploadObject").attr('style', "display:block");
+
+            var id = this.checkingValidInput(this.selectedCollection.get('id'));
+
+            this.checkingIdisExsinting(id, "update");
+            if (isExsinting) {
+                var title = this.get("selectedCollection").get("id");
+                this.get("selectedCollection").set("title", title);
+                this.set("selectedTitle", title);
+                this.get("selectedCollection").store.save();
+                $(".Targeting_Object_front").attr("style", "display:inline-block");
+                $(" #uploadArea").attr('style', "display:none");
+                $(" #uploadObject").attr('style', "display:block");
+
+            } else {
+                isExsinting = true;
+            }
         },
         setSelectedCollection: function(id) {
-
             for (var i = 0; i < this.get("collections").get("length"); i++) {
                 var thisCollection = this.get("collections").objectAt(i);
+
+                this.get('temp').pushObject(thisCollection.get("id"));
                 if (id === thisCollection.get("id")) {
                     this.set("selectedCollection", thisCollection);
+              //      console.log(  this.get("selectedCollection"));
                 }
             }
         },

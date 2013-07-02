@@ -34,23 +34,32 @@ define([
         newSearch: function() {
             var d = new Date();
             var start = d.getTime();
-            var results = MegaModel.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string")});
+            var results = MegaModel.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"),"from":0,"size":50});
             this.set("content", results);
             var stats = Stat.find({"RquireType": "status", "region": this.get("search_area"), "search_string": this.get("search_string")});
-
             var that = this;
+            results.addObserver('isLoaded', function() {
+                if (results.get('isLoaded')) {
+                    setTimeout(function() {
+                        $('#masonry_container').masonry("reload");
+                    }, 2200);
+                }
+            });
 
             stats.addObserver('isLoaded', function() {
                 if (stats.get('isLoaded')) {
                     var d = new Date();
                     var end = d.getTime();
-
                     var statusController = that.get('controllers.status');
                     var hit = Stat.find('hit');
                     var time = that.getResponseTime(start, end);
                     statusController.set("searchResultNum", hit.get("hits"));
                     statusController.set("time", time);
                 }
+
+                setTimeout(function() {
+                    $('#masonry_container').masonry("reload");
+                }, 1800);
             });
         },
         defaultSearch: function() {
@@ -63,7 +72,6 @@ define([
         getResponseTime: function(start, end) {
             var totalTime = end - start;
             totalTime += "ms";
-            //     this.set("time", totalTime);
             return totalTime;
         }
 

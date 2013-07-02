@@ -6,8 +6,6 @@ header('Access-Control-Request-Method: *');
 header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET');
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
-
-
 class MegasController extends Controller {
 
     const JSON_RESPONSE_ROOT_SINGLE = 'mega';
@@ -38,8 +36,9 @@ class MegasController extends Controller {
         $mega = $request_arr['mega'];
         if ($mega['type'] == "profile") {
             $this->createProfile($mega);
+        } elseif ($mega['type'] == "photo") {
+            $this->createPhoto($mega);
         }
-   
 //        $request_arr["mega"]["id"] = str_replace('test', '', $request_arr["mega"]["id"]);
 //        $path = 'this_is/folder_path/';
 //      $s3response = $this->photoSavingToS3($request_arr, $path);
@@ -57,20 +56,20 @@ class MegasController extends Controller {
 //        header('Access-Control-Allow-Methods: PUT, POST, OPTIONS, GET');
 //        header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 //        echo $response;
-        $this->sendResponse(200, $request_json);
+        $this->sendResponse(204, $request_json);
     }
 
     public function actionRead() {
         try {
 //            $cb = $this->couchBaseConnection();
-           $temp = explode("/", $_SERVER['REQUEST_URI']);
+            $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
-           
+
 //            $reponse = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . "/" . $id);
 //            $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $reponse . '}';
-  $reponse= $this->getRequestResultByID(self::JSON_RESPONSE_ROOT_SINGLE, $id);
-            
-       $this->sendResponse(200, $reponse);
+            $reponse = $this->getRequestResultByID(self::JSON_RESPONSE_ROOT_SINGLE, $id);
+
+            $this->sendResponse(200, $reponse);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -222,8 +221,8 @@ class MegasController extends Controller {
         $id = $mega['id'];
         $domain = $this->getDomain();
         $docID = $domain . "/profiles/" . $id;
-     //   error_log(var_export(CJSON::encode($mega), true));
-        if($cb->add($docID, CJSON::encode($mega))) {
+        //   error_log(var_export(CJSON::encode($mega), true));
+        if ($cb->add($docID, CJSON::encode($mega))) {
             $this->sendResponse(204, "{ render json: @user, status: :ok }");
         } else {
             $this->sendResponse(500, "some thing wrong");

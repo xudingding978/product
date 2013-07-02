@@ -9,54 +9,26 @@
     {{outlet profiles}}
 
     {{outlet users}}
-
+    
     {{#unless controller.isotherpage}}
-
-
         {{#if controller.islogin}}
-        
 
-           
              {{view App.DiscoveryView}}
               
-
            {{outlet "welcome"}}
-           {{outlet "quickstart"}}
-            
-              
-                
-            
-           
-            
+           {{outlet "quickstart"}}        
         {{else}}
-
             {{view App.CarouselView}}
-
         {{/if}}
-
-
-
-
-       
-
-
 
         {{view App.MasonryView}}
 
-
-
     {{/unless}}
-
+    
     {{outlet photos}}
     {{outlet articles}}
-
     {{outlet "profileNew"}}
-
-
     {{render "footer"}}
-
-
-
 
 {{/if}}
 

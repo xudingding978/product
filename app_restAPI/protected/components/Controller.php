@@ -182,7 +182,9 @@ class Controller extends CController {
         if ($requireType == 'search') {
             $region = $this->getUserInput($requireParams[1]);
             $searchString = $this->getUserInput($requireParams[2]);
-            $response = $this->performSearch($returnType, $region, $searchString);
+            $from = $this->getUserInput($requireParams[3]);
+            $size = $this->getUserInput($requireParams[4]);
+            $response = $this->performSearch($returnType, $region, $searchString, $from, $size);
         } elseif ($requireType == 'collection') {
             $collection_id = $this->getUserInput($requireParams[1]);
             $owner_profile_id = $this->getUserInput($requireParams[2]);
@@ -210,23 +212,25 @@ class Controller extends CController {
         return $response;
     }
 
-    protected function performSearch($returnType, $region, $requestString) {
+    protected function performSearch($returnType, $region, $requestString, $from = 0, $size = 50) {
         $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
 //Build a new search request
         $request = $sherlock->search();
-        $request->index(Yii::app()->params['elasticSearchIndex']);
+
+        
+        $request->index(Yii::app()->params['elasticSearchIndex'])
+                ->from($from)
+                ->size($size);
 //populate a Term query to start
         $termQuery = Sherlock\Sherlock::queryBuilder()
                 ->QueryString()
                 ->fields("couchbaseDocument.doc.keywords")
                 ->query($requestString)
                 ->boost(2.5);
-        $request->from(0)
-                ->size(50)
-                ->query($termQuery);
-
+        $request->query($termQuery);
+        error_log($request->toJSON());
         $response = $request->execute();
 
         $results = '{"' . $returnType . '":[';
@@ -246,8 +250,7 @@ class Controller extends CController {
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
         $request = $sherlock->search();
-        $request->index("test")->type("couchbaseDocument")->from(1);
-        $request->index("test")->type("couchbaseDocument")->size(50);
+        $request->index("test")->type("couchbaseDocument");
         $max = sizeof($requestArray);
         $bool = Sherlock\Sherlock::queryBuilder()->Bool();
         for ($i = 0; $i < $max; $i++) {
@@ -331,8 +334,6 @@ class Controller extends CController {
         $request = $sherlock->search();
         $request->index("test")->type("couchbaseDocument")->from(1);
         $request->index("test")->type("couchbaseDocument")->size(50);
-
-
         $termQuery = Sherlock\Sherlock::queryBuilder()
                         ->QueryString()
                         ->fields("couchbaseDocument.doc.keywords")
@@ -353,7 +354,7 @@ class Controller extends CController {
     }
 
     protected function getUserInput($request_string) {
-        $returnString = "";
+        $returnString = null;
         if ($request_string != null || $request_string != "") {
             $returnString = explode('=', $request_string)[1];
         }
@@ -381,9 +382,7 @@ class Controller extends CController {
     protected function getmustQuest($queryString) {
         $mustQuery = explode('=', $queryString);
         $should = Sherlock\Sherlock::queryBuilder()->Term()->term($mustQuery[1])//$collection_id
-                ->field($mustQuery[0])
-
-        ;
+                ->field($mustQuery[0]);
         return $should;
     }
 

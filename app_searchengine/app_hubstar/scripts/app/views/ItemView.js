@@ -24,7 +24,6 @@ define([
 
 
         },
-
         moreContent: function(event) {
 
             var id = "#" + event.id;

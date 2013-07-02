@@ -515,7 +515,8 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 .rating {
     unicode-bidi: bidi-override;
     direction: rtl;
-    font-size: 30px;
+    font-size: 13px;
+    display: inline-block;
 }
 
 .rating span.star:hover {
@@ -528,22 +529,15 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     display: inline-block;
 }
 
-.rating span.star:hover:before {
+.rating span.star:hover:before, .rating span.star:hover~span.star:before {
     content: "\f005";
     color: #e3cf7a;
 }
-
-.rating span.star:hover~span.star:before {
-    content: "\f005";
-    color: #e3cf7a;
-}
-
 .rating span.star:before {
     content: "\f006";
     padding-right: 5px;
     color: #999999;
-}  
-
+}
 
 
 
@@ -552,4 +546,13 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     max-height: none;
     width: 500px;
     position: absolute;
+}
+
+.mustfull{
+    display: block;
+    color: #3B5998;
+}
+
+.no-resize{
+    resize: none;
 }

@@ -123,6 +123,7 @@ class DefaultController extends CController {
         require_once( Yii::app()->getBasePath() . '/../../common/protected/modules/hybridauth/Hybrid/Auth.php');
 
         $hybridauth = new Hybrid_Auth($config);
+
         $adapter = $hybridauth->authenticate($_GET['provider']);
 
 

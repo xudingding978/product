@@ -38,14 +38,7 @@ define([
             });
 
         },
-        scroll: function() {
-            // You can pass this directly but i've extracted it here for clarity
-            
-            var view = this;
-            Ember.run(view, function() {
-               alert(55555);
-            })
-        },
+
         infiniteData: function() {
             this.get('controller').scrollDownAction();
         },

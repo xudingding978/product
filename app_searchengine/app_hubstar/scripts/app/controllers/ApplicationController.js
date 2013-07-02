@@ -34,7 +34,7 @@ define([
         scrollDownAction: function() {
             var results = MegaModel.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string")});
 //            console.log(results);
-              this.set("content", results);
+      //        this.set("content", results);
             
         },
         newSearch: function() {

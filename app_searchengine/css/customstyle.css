@@ -147,13 +147,12 @@ body {
 
 
 .smallIcon{
-    position: relative;
+    position: absolute;
     margin: 13px;
-    right: 10%;
+    right: 170px;
     cursor: pointer;
     vertical-align: top;
     display: inline-block;
-    float: right;
 }
 
 .smallIcon a, .smallIcon a:visited  {color:rgb(242,240,240); ; text-decoration:none;}

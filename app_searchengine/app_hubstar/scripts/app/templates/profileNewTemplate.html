@@ -31,19 +31,21 @@
                 <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
 
                     <tr>
-                        <td>Profile Name:</td>
+                        <td>Profile Name*: </td>
+                        <td id="mustFill1" style="display: none">please fill in info... </td>
                         <td> 
                             <div style="display: block;">
-                                {{view Ember.TextField valueBinding="profile_name"  placeholder="Profilename"}}
+                                {{view Ember.TextField valueBinding="profile_name"   class="mustFill1" placeholder="Profilename"}} 
                             </div>
                         </td>
 
                     </tr>
                     <tr>
-                        <td>Profile URL:</td>
+                        <td>Profile URL*:</td>
+                        <td id="mustFill2" style="display: none">please fill in info... </td>
                         <td> 
                             <div style="display: block;">
-                                {{view Ember.TextField valueBinding="profile_url"  placeholder="Porfile URL"}}
+                                {{view Ember.TextField valueBinding="profile_url"  class="mustFill2"  placeholder="Porfile URL"}}
                             </div>
                             <div style="margin-bottom: 10px; color: #333;font-size: 13px;width: auto;display: inline-block;">
                                 Note: Once the URL has been set, it cannot be changed nor undone.
@@ -128,7 +130,8 @@
                     </tr>
 
                     <tr>
-                        <td>Country:</td>
+                        <td>Country*:</td>
+
                         <td>
                             <div class="new-btn" style="display: block;"  {{action dropdown controller.dropdownExperience}}>
                                  <span id="dropdownExperience"> New Zealand</span>
@@ -139,7 +142,7 @@
                     </tr>
 
                     <tr>
-                        <td>Region:</td>
+                        <td>Region*:</td>
                         <td>
                             <div class="new-btn" style="display: block;"  {{action dropdown controller.dropdownExperience}}>
                                  <span id="dropdownExperience"> Auckland</span>
@@ -150,22 +153,26 @@
                     </tr>
 
                     <tr>
-                        <td>Owner:</td>
+                        <td>Owner*:</td>
+                        <td id="mustFill3" style="display: none">please fill in info... </td>
+                        <td id="emailFormat3" style="display: none">not corret email format.....</td>
                         <td> 
                             <div style="display: block;">
                                 <div   style="margin: 0;width: 100%;">
-                                    {{view Ember.TextField valueBinding="owner" placeholder="John_Key@gg.com"}}
+                                    {{view Ember.TextField valueBinding="owner" class="mustFill3"  placeholder="John_Key@gg.com"}}
                                 </div>
                             </div>
                         </td>
                     </tr>
 
                     <tr>
-                        <td>Direct Enquiry Email:</td>
+                        <td>Direct Enquiry Email*:</td>
+                        <td id="mustFill4" style="display: none">please fill in info... </td>
+                        <td id="emailFormat4" style="display: none">not corret email format.....</td>
                         <td> 
                             <div style="display: block;">
                                 <div   style="margin: 0;width: 100%; height:100px;">
-                                    {{view Ember.TextArea valueBinding="direct_enquiry_emails"  placeholder="Superman@hubstar.com,Spiderman@hubstar.com,Batman@hubstar.com"}}
+                                    {{view Ember.TextArea valueBinding="direct_enquiry_emails"  class="mustFill4"  placeholder="Superman@hubstar.com,Spiderman@hubstar.com,Batman@hubstar.com"}}
 
                                 </div>
                             </div>
@@ -173,11 +180,13 @@
                     </tr>
 
                     <tr>
-                        <td>Creater:</td>
+                        <td>Creater*:</td>
+                        <td id="mustFill5" style="display: none">please fill in info... </td>
+                        <td id="emailFormat5" style="display: none">not corret email format.....</td>
                         <td> 
                             <div style="display: block;">
                                 <div   style="margin: 0;width: 100%;">
-                                    {{view Ember.TextField valueBinding="creater" placeholder="Jason@gg.com"}}
+                                    {{view Ember.TextField valueBinding="creater" class="mustFill5" placeholder="Jason@gg.com"}}
 
                                 </div>
                             </div>
@@ -185,11 +194,13 @@
                     </tr>
 
                     <tr>
-                        <td>editor:</td>
+                        <td>editor*:</td>
+                        <td id="mustFill6" style="display: none">please fill in info... </td>
+                        <td id="emailFormat6" style="display: none">not corret email format.....</td>
                         <td> 
                             <div style="display: block;">
                                 <div   style="margin: 0;width: 100%; height: 100px;">
-                                    {{view Ember.TextArea valueBinding="editors"  placeholder="Ironman@hubstar.com, CaptainAmerica@hubstar.com, hulk@hubstar.com"}}
+                                    {{view Ember.TextArea valueBinding="editors"   class="mustFill6" placeholder="Ironman@hubstar.com, CaptainAmerica@hubstar.com, hulk@hubstar.com"}}
 
                                 </div>
                             </div>
@@ -201,7 +212,7 @@
                         <td> 
                             <div style="display: block;">
                                 <div   style="margin: 0;width: 100%; height:100px;">
-                                    {{view Ember.TextArea valueBinding="keywords"  placeholder="bathroom, kitchen, living room"}}
+                                    {{view Ember.TextArea valueBinding="keywords"   placeholder="bathroom, kitchen, living room"}}
                                 </div>
                             </div>
                         </td>
@@ -211,6 +222,7 @@
 
             <div  style="display: block; margin:15px auto; float: none; right: 0; bottom: 0;text-align: center;">
                 <a class="new-btn green-btn" href="#" {{action save }} style="width: 100px;">Submit</a>
+                <a class="new-btn green-btn" href="#" {{action fillInChecking }} style="width: 100px;">test</a>
             </div>
 
         </div>

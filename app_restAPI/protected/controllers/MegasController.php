@@ -39,7 +39,7 @@ class MegasController extends Controller {
         if ($mega['type'] == "profile") {
             $this->createProfile($mega);
         }
-        error_log(var_export($mega, true));
+   
 //        $request_arr["mega"]["id"] = str_replace('test', '', $request_arr["mega"]["id"]);
 //        $path = 'this_is/folder_path/';
 //      $s3response = $this->photoSavingToS3($request_arr, $path);
@@ -57,18 +57,20 @@ class MegasController extends Controller {
 //        header('Access-Control-Allow-Methods: PUT, POST, OPTIONS, GET');
 //        header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 //        echo $response;
-        $this->sendResponse(204, $request_json);
+        $this->sendResponse(200, $request_json);
     }
 
     public function actionRead() {
         try {
-            $cb = $this->couchBaseConnection();
-            $temp = explode("/", $_SERVER['REQUEST_URI']);
+//            $cb = $this->couchBaseConnection();
+           $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
-            $reponse = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . "/" . $id);
-            $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $reponse . '}';
-
-            echo $this->sendResponse(200, $result);
+           
+//            $reponse = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . "/" . $id);
+//            $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $reponse . '}';
+  $reponse= $this->getRequestResultByID(self::JSON_RESPONSE_ROOT_SINGLE, $id);
+            
+       $this->sendResponse(200, $reponse);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

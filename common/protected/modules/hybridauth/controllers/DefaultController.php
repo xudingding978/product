@@ -127,6 +127,7 @@ class DefaultController extends CController {
 
 
         $user_profile = $adapter->getUserProfile();
+        
         $user = new User;
         $user->attributes = $_POST['User'];
         $user->TENANT_REC_ID = 1;
@@ -134,7 +135,6 @@ class DefaultController extends CController {
         $user_profile->displayName = $user->USER_NAME;
         $user_profile->lastName = $user->LAST_NAME;
         $user_profile->firstName = $user->FIRST_NAME;
-
         if ($user_profile->photoURL === null || $user_profile->photoURL === "") {
 
             $user_profile->photoURL = "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg";
@@ -143,7 +143,6 @@ class DefaultController extends CController {
 
             $user_profile->photoURL_large = "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg";
         }
-
         $userProfile = new UserProfile;
         $userProfile->LOGIN_PROVIDER_IDENTIFIER = $identity->loginProviderIdentifier;
         $userProfile->LOGIN_PROVIDER = $identity->loginProvider;
@@ -265,8 +264,8 @@ class DefaultController extends CController {
   "followers": null,
   "following": null,
   "following_count": null,
-  "country": "new zealand",
-  "region": "auckland",
+  "country": null,
+  "region": null,
   "geography": null,
   "indexed_yn": null,
   "object_image_linkto": null,

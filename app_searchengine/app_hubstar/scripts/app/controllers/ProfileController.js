@@ -174,7 +174,7 @@ define([
 
                     photo.addObserver('isLoaded', function() {
                         if (photo.get('isLoaded')) {
-                            console.log(photo);
+                          
 //                            col.set("cover", photo.get('photo').objectAt(0).get("photo_image_hero_url"));
 //
 //                            col.store.save();

@@ -12,7 +12,7 @@ define(
         article: {embedded: 'always'}
     });
 
-    var MegaModel = DS.Model.extend({
+    var MegaModel = DS.Model.extend(Ember.Copyable,{
         type: DS.attr('string'),
         accessed: DS.attr('string'),
         is_active: DS.attr('boolean'),

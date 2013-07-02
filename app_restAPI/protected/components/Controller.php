@@ -257,7 +257,7 @@ class Controller extends CController {
         $request->query($bool);
         error_log($request->toJSON());
         $response = $request->execute();
-                error_log(var_export($response, true));
+        error_log(var_export($response, true));
         $i = 0;
         $results = '{' . $returnType . ':[';
         foreach ($response as $hit) {
@@ -279,22 +279,15 @@ class Controller extends CController {
 //Build a new search request
         $request = $sherlock->search();
 //populate a Term query to start
-        $termQuery = Sherlock\Sherlock::queryBuilder()
-                        ->QueryString()
-                        ->fields("couchbaseDocument.doc.id")
-                        ->query($requestString)->boost(2.5);
-        $request->index(Yii::app()->params['elasticSearchIndex'])
-                ->type("couchbaseDocument")
-                ->size(7)
-                ->query($termQuery);
-        $response = $request->execute();
+        $must = Sherlock\Sherlock::queryBuilder()->Term()->term($requestString)//$collection_id
+                ->field('couchbaseDocument.doc.id');
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)
+                ->boost(2.5);
+        $response = $request->query($bool)->execute();
+        error_log(var_export($response, true));
         $results = '{"' . $returnType . '":';
-        $i = 0;
         foreach ($response as $hit) {
             $results .= CJSON::encode($hit['source'] ['doc']);
-            if (++$i < count($response)) {
-                $results .= ',';
-            }
         }
         $results .= '}';
 
@@ -430,7 +423,7 @@ class Controller extends CController {
 
     protected function getSelectedCollectionIds($collections, $collection_id) {
         $max = sizeof($collections);
-        $request_ids="";
+        $request_ids = "";
         for ($i = 0; $i < $max; $i++) {
             $thisCollection = $collections[$i];
             if ($thisCollection["id"] == $collection_id) {

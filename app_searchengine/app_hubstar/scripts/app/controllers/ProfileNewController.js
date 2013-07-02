@@ -43,7 +43,7 @@ define([
                         }
 
                     } else {
-
+                        multiEmail = true;
                         var emails = cleanEmail.split(',');
                         for (var i = 0; i < emails.length; i++) {
 

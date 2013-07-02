@@ -6,6 +6,7 @@ define([
                 Ember
                 ) {
             var passSubmit = true;
+            var multiEmail = true;
             var ProfileNewController = Ember.ObjectController.extend({
                 profile_name: "",
                 profile_url: "",
@@ -22,17 +23,50 @@ define([
                 keywords: "",
                 validateEmail: function(email)
                 {
-                    var re = /\S+@\S+\.\S+/;
-                    return re.test(email);
+                    if (email === "") {
+                        return true;
+                    } else {
+                        var re = /\S+@\S+\.\S+/;
+                        return re.test(email);
+                    }
+                },
+                EnquiryEmail: function(cleanEmail, info) {
+                    multiEmail = true;
+                    while (cleanEmail.lastIndexOf(',') === -1) {
+                        cleanEmail = cleanEmail.substring(0, cleanEmail.length - 1);
+                    }
+
+                    if (cleanEmail.indexOf(',') === -1) {
+                        if (this.validateEmail(cleanEmail)) {
+                            multiEmail = true;
+                            $(info).attr('style', 'display:none');
+                        } else {
+                            multiEmail = false;
+                            $(info).attr('style', 'display:block');
+                        }
+                    } else {
+
+                        var emails = cleanEmail.split(',');
+                        for (var i = 0; i < emails.length; i++) {
+                            if (!this.validateEmail(emails.objectAt(i))) {
+                                multiEmail = false;
+                                $(info).attr('style', 'display:block');
+                            }
+                        }
+                        if (multiEmail) {
+
+                            $(info).attr('style', 'display:none');
+                        }
+
+                    }
+
                 },
                 fillInChecking: function() {
+                    this.EnquiryEmail($('.mustFill4').val(), '#emailFormat4');
+                    this.EnquiryEmail($('.mustFill6').val(), '#emailFormat6');
 
-                    console.log($('.mustFill4').val() );
-                    
-                    
-                    
-                    if ($('.mustFill1').val() === "" && $('.mustFill2').val() === "" && $('.mustFill3').val() === "" && $('.mustFill4').val() === ""
-                            && $('.mustFill5').val() === "" && $('.mustFill6').val() === "" && this.validateEmail($('.mustFill5').val())
+                    if ($('.mustFill1').val() === "" && $('.mustFill2').val() === "" && $('.mustFill3').val() === "" && multiEmail
+                            && $('.mustFill5').val() === "" && this.validateEmail($('.mustFill5').val())
                             && this.validateEmail($('.mustFill3').val())) {
                         passSubmit = true;
 
@@ -102,6 +136,7 @@ define([
                 save: function() {
 
                     this.fillInChecking();
+
                     if (passSubmit) {
                         var newMega = App.store.createRecord(App.Mega, {//15
                             "id": this.get("profile_url"),

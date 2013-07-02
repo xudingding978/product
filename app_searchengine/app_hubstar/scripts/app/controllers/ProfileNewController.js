@@ -46,11 +46,10 @@ define([
 
                         var emails = cleanEmail.split(',');
                         for (var i = 0; i < emails.length; i++) {
-                            console.log(emails.objectAt(i));
+
                             if (!this.validateEmail(emails.objectAt(i))) {
                                 multiEmail = false;
                                 $(divInfo).attr('style', 'display:block');
-                                console.log(multiEmail);
                             }
                         }
                         if (multiEmail) {

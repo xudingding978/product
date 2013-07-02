@@ -136,7 +136,7 @@ define([
                 save: function() {
 
                     this.fillInChecking();
-                    alert(passSubmit);
+
                     if (passSubmit) {
                         var newMega = App.store.createRecord(App.Mega, {//15
                             "id": this.get("profile_url"),

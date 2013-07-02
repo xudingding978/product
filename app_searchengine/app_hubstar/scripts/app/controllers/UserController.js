@@ -26,8 +26,10 @@ define(["ember"
         },
         setUser: function()
         {
+
             var user = this.getCurrentUser();
             topics = user.get('selected_topics');
+            this.set('selected_topics', []);
             if (topics !== null && topics !== "") {
                 var topics = topics.split(",");
                 for (var i = 0; i < topics.length; i++) {
@@ -229,7 +231,7 @@ define(["ember"
                 this.get('temp').pushObject(thisCollection.get("id"));
                 if (id === thisCollection.get("id")) {
                     this.set("selectedCollection", thisCollection);
-              //      console.log(  this.get("selectedCollection"));
+                    //      console.log(  this.get("selectedCollection"));
                 }
             }
         },

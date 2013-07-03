@@ -10,10 +10,12 @@ define([
             var multiEmail2 = true;
             var ProfileNewController = Ember.ObjectController.extend({
                 profile_name: "",
+                dropdownCategory: "category",
                 profile_url: "",
                 first_name: "",
                 last_name: "",
                 address: "",
+                projectCategoryDropdown: false,
                 contact_number: "",
                 website: "",
                 client_name: "",
@@ -21,6 +23,8 @@ define([
                 direct_enquiry_emails: "",
                 creater: "",
                 editors: "",
+                secondary_email: "",
+                direct_enquiry_provide_email: "",
                 keywords: "",
                 validateEmail: function(email)
                 {
@@ -61,12 +65,12 @@ define([
                     return multiEmail;
                 },
                 fillInChecking: function() {
-                    multiEmail1 = this.multiEmailChecking($('.mustFill4').val(), '#emailFormat4', multiEmail1);
+
                     multiEmail2 = this.multiEmailChecking($('.mustFill6').val(), '#emailFormat6', multiEmail2);
 
 
-                    if ($('.mustFill1').val() !== "" && $('.mustFill2').val() !== "" && $('.mustFill3').val() !== "" && multiEmail1
-                            && $('.mustFill5').val() !== "" && multiEmail2 && this.validateEmail($('.mustFill5').val())
+                    if ($('.mustFill1').val() !== "" && $('.mustFill2').val() !== "" && $('.country').val() !== "" && $('.region').val() !== "" && $('.mustFill3').val() !== "" && multiEmail1
+                            && $('.mustFill5').val() !== "" && $('.mustFill4').val() !== "" && $('.mustFill6').val() !== "" && multiEmail2 && this.validateEmail($('.mustFill5').val())
                             && this.validateEmail($('.mustFill3').val())) {
                         passSubmit = true;
 
@@ -91,7 +95,19 @@ define([
 
                         $('#emailFormat5').attr('style', 'display:block');
                     }
+                    if ($('.region').val() === "") {
 
+                        $('#region').attr('style', 'display:block');
+                    } else {
+                        $('#region').attr('style', 'display:none');
+                    }
+
+                    if ($('.country').val() === "") {
+
+                        $('#country').attr('style', 'display:block');
+                    } else {
+                        $('#country').attr('style', 'display:none');
+                    }
 
                     if ($('.mustFill1').val() === "") {
 
@@ -143,17 +159,20 @@ define([
                             "type": "profile",
                             accessed: null,
                             active_yn: "true",
-                            category: null,
+                            category: $('#dropdownCategory').text(),
                             creator_type: "user",
                             created: new Date(),
                             creator: this.get("creater"),
-                            country: "New Zealand",
-                            region: "Auckland",
+                            country: this.get("country"),
+                            region: this.get("region"),
                             domains: document.domain,
                             editors: this.get("editors"),
                             keywords: this.get("keywords"),
                             indexed_yn: "true",
                             owners: this.get("email"),
+                            owner_contact_email: this.get("direct_enquiry_emails"),
+                            owner_contact_cc_emails: this.get('secondary_email'),
+                            owner_contact_bcc_emails: this.get('direct_enquiry_provide_email'),
                             updated: new Date()
                         });
                         var newProfile = App.store.createRecord(App.Profile, {
@@ -180,6 +199,16 @@ define([
                         this.transitionTo('profile', newProfile);
                     }
 
+                },
+                dropdown: function(checking) {
+
+                    if (checking === "category") {
+
+                        this.set('projectCategoryDropdown', !this.get('projectCategoryDropdown'));
+
+                    } else {
+
+                    }
                 }
             });
             return ProfileNewController;

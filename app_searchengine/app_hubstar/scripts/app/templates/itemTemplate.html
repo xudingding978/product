@@ -124,7 +124,7 @@
             </a>
             <div class="object_username">
                 <a class="poster-name" {{bindAttr href="getProfile_id"}}  {{action transitionToProfile owner_id}}>{{owner_title}}</a>
-                <span class="posttime">{{date created}} </span>
+                <span class="posttime">{{date created}}</span>
             </div>
             {{#if controller.canEdit}}
             <div class="edit-btn edit-object-btn">
@@ -445,7 +445,6 @@
     {{#linkTo 'discussions' this}}<h1>{{type}}</h1>{{/linkTo}}
 </div>
 {{/if}}
-
 
 
 

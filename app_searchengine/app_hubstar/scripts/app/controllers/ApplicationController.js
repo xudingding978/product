@@ -88,12 +88,12 @@ define([
                 if (results.get('isLoaded')) {
                     setTimeout(function() {
                         $('#masonry_container').masonry("reload");
-                        that.set('loadingTime', false);
+
                     }, 2200);
 
 
                 }
-
+                that.set('loadingTime', false);
 
             });
 

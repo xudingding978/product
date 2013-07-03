@@ -41,6 +41,7 @@ define([
             this.set("test", !this.get("test"));
         },
         scrollDownAction: function() {
+            this.set('loadingTime', true);
             this.set("size", 20);
             this.set("from", this.get("from") + this.get("size"));
 
@@ -52,12 +53,15 @@ define([
                         var tempmega = results.objectAt(i);
                         that.pushObject(tempmega);
                     }
+
+                    that.set('loadingTime', false);
                 }
             });
 
 
         },
         newSearch: function() {
+            this.set('loadingTime', true);
             this.init();
             var d = new Date();
             var start = d.getTime();
@@ -84,8 +88,13 @@ define([
                 if (results.get('isLoaded')) {
                     setTimeout(function() {
                         $('#masonry_container').masonry("reload");
+                        that.set('loadingTime', false);
                     }, 2200);
+
+
                 }
+
+
             });
 
             stats.addObserver('isLoaded', function() {
@@ -104,7 +113,7 @@ define([
                 }, 1800);
             });
 
-     
+
             App.set('searchStart', true);
         },
         defaultSearch: function() {

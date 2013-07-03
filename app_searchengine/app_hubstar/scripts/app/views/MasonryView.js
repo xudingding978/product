@@ -7,15 +7,12 @@ define([
 ], function(Ember, masonryTemplate) {
 
     Ember.TEMPLATES["masonry"] = Ember.Handlebars.compile(masonryTemplate);
-    var distance = "";
 
+    var runMeOnce = true;
     var MasonryView = Ember.View.extend({
         template: Ember.Handlebars.compile(masonryTemplate),
         didInsertElement: function() {
-
-            if (distance === "") {
-                distance = $(window).height() * 0.8;
-            }
+            console.log(3333333);
             $(function() {
                 $('#masonry_container').masonry({
                     itemSelector: '.box',
@@ -25,22 +22,12 @@ define([
                 });
             });
 
-            var that = this;
-            $(window).scroll(function() {
 
-                if ($(this).scrollTop() > distance) {
-
-
-                    that.infiniteData();
-                    distance = distance + 1300;
-
-                }
-            });
 
         },
 
-        infiniteData: function() {
-            this.get('controller').scrollDownAction();
+        willDestroyElement: function() {
+            $(window).unbind("scroll");
         },
         moreContent: function(event) {
 

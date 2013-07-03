@@ -29,7 +29,7 @@ class Controller extends CController {
     }
 
 
-    protected function getProviderConfigurationByName($domain,$name) {
+//    protected function getProviderConfigurationByName($domain,$name) {
 
     protected function getS3BucketName($domain) {
         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
@@ -525,7 +525,7 @@ class Controller extends CController {
     } 
     
 
-    }
+    
 
     protected function getImageString($type, $url) {
         $im = "";
@@ -536,6 +536,7 @@ class Controller extends CController {
         }
         return $im;
     }
+    
     protected function getImageInfo($url) {
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HEADER, 0);

@@ -33,7 +33,7 @@ class MegasController extends Controller {
     public function actionCreate() {
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
-<<<<<<< HEAD
+
         
         if (sizeof($request_arr) > 0) {
             error_log(var_export($request_arr["mega"]['photo'], true));
@@ -49,7 +49,7 @@ class MegasController extends Controller {
         
         error_log("9999999999999999999999999999999");
         $this->sendResponse(200,$request_json);
-=======
+
         $mega = $request_arr['mega'];
         if ($mega['type'] == "profile") {
             $this->createProfile($mega);
@@ -74,7 +74,7 @@ class MegasController extends Controller {
 //        header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 //        echo $response;
         $this->sendResponse(204, $request_json);
->>>>>>> 1374ddcc0299c3697595a1b7e1b445b7483b84af
+
     }
 
         

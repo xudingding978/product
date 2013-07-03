@@ -32,28 +32,23 @@ class PhotosController extends Controller {
     }
 
     public function actionRead() {
-<<<<<<< HEAD
-    $temp = explode("/", $_SERVER['REQUEST_URI']);
+
+        $temp = explode("/", $_SERVER['REQUEST_URI']);
 
        $id=  $temp[sizeof($temp)-1];
-    $result=$this->getRequestResultByID(self::JSON_RESPONSE_ROOT_SINGLE, $id);
-    $this->sendResponse(null,$result);
+        $result=$this->getRequestResultByID(self::JSON_RESPONSE_ROOT_SINGLE, $id);
+        $this->sendResponse(null,$result);
 
-
-=======
         $temp = explode("/", $_SERVER['REQUEST_URI']);
 
         $id = $temp[sizeof($temp) - 1];
         $result = $this->getRequestResultByID(self::JSON_RESPONSE_ROOT_SINGLE, $id);
         $this->sendResponse(null, $result);
     }
->>>>>>> 1374ddcc0299c3697595a1b7e1b445b7483b84af
-
-    }
     
     public function actionUpdate() {
         try {
-<<<<<<< HEAD
+
             $returnType = "photo";
             $temp = explode("?", $_SERVER['REQUEST_URI']);
             $request_arr = array();
@@ -65,11 +60,11 @@ class PhotosController extends Controller {
                 $response = $this->getAllDoc($returnType, $request_arr[1], $request_arr[3]);
                 $this->sendResponse(200, $response);
             }
-=======
+
             error_log("aaaaaaaaaaaaaaaaaaaa");
             $request_json = file_get_contents('php://input');
           echo $request_json;
->>>>>>> 1374ddcc0299c3697595a1b7e1b445b7483b84af
+
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -150,10 +145,6 @@ class PhotosController extends Controller {
         return $data;
     }
 
-<<<<<<< HEAD
-    public function actionMovePhoto(){
-        
-=======
     public function photoSavingToS3($request_arr, $path, $domain, $bucket) {
 
         $response = false;
@@ -177,7 +168,6 @@ class PhotosController extends Controller {
 
     public function actionMovePhoto() {
 
->>>>>>> 1374ddcc0299c3697595a1b7e1b445b7483b84af
         echo "1111111111111111111111";
     }
 

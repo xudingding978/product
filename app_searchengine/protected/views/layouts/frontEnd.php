@@ -29,7 +29,7 @@
         <link rel="stylesheet" type="text/css" href="css/customstyle.css" /> 
         <link media="screen, projection" rel="stylesheet" type="text/css" href="css/_topnavbar.css"/>
         <link media="screen, projection" rel="stylesheet" type="text/css" href="css/_footer.css"/>
-        
+        <link rel="shortcut icon" href="../../../images/favicon.ico" />
 
     </head>
     <body style="background:#fff url('../images/texture.png') repeat;width: 100%;height: auto;">

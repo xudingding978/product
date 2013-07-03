@@ -21,7 +21,7 @@ define([
             if (this.isScrolledToBottom() && App.get('isMansonryPageLoad')) {
                 this.get('controller').scrollDownAction();
 
-         //       alert(7777777);
+
             }
 
 
@@ -30,7 +30,7 @@ define([
         isScrolledToBottom: function() {
             var distanceToTop = $(document).height() - $(window).height(),
                     top = $(document).scrollTop();
-console.log(top+"         "+distanceToTop);
+//console.log(top+"         "+distanceToTop);
             return top === distanceToTop;
         },
         willDestroyElement: function() {

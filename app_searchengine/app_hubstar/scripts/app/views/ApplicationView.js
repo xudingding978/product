@@ -1,15 +1,14 @@
 define([
-    "App",
     "ember",
     "text!templates/applicationTemplate.html"
-], function(App, Ember, applicationTemplate) {
+], function(Ember, applicationTemplate) {
 
     Ember.TEMPLATES["application"] = Ember.Handlebars.compile(applicationTemplate);
 
     var ApplicationView = Ember.View.extend({
         defaultTemplate: Ember.Handlebars.compile(applicationTemplate),
         didInsertElement: function() {
-
+         
 
             var view = this;
             $(window).bind("scroll", function() {
@@ -19,10 +18,10 @@ define([
         },
         didScroll: function() {
 
-            if (this.isScrolledToBottom()) {
+            if (this.isScrolledToBottom() && App.get('isMansonryPageLoad')) {
                 this.get('controller').scrollDownAction();
 
-
+         //       alert(7777777);
             }
 
 
@@ -31,11 +30,11 @@ define([
         isScrolledToBottom: function() {
             var distanceToTop = $(document).height() - $(window).height(),
                     top = $(document).scrollTop();
-
+console.log(top+"         "+distanceToTop);
             return top === distanceToTop;
         },
         willDestroyElement: function() {
-            $(window).unbind("scroll");
+      //      $(window).unbind("scroll");
         },
         reaaarender: function() {
             this.rerender();

@@ -464,7 +464,8 @@ define('application', [
 
             App.set("setHight", null);
             App.set('chooseCollection', null);
-            App.set('runMeOnce', true);
+            App.set('isMansonryPageLoad', false);
+            App.set('searchStart', false);
 //            var firstView = App.DiscoveryView.create(),
 //                    secondView = App.MasonryView.create();
 //

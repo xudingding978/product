@@ -55,7 +55,7 @@ define([
                 }
             });
 
-        
+
         },
         newSearch: function() {
             this.init();
@@ -103,6 +103,9 @@ define([
                     $('#masonry_container').masonry("reload");
                 }, 1800);
             });
+
+     
+            App.set('searchStart', true);
         },
         defaultSearch: function() {
             this.set("loginInfo", localStorage.loginStatus);

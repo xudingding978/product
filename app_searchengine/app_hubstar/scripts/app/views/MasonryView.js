@@ -21,12 +21,13 @@ define([
                 });
             });
 
-
-
+            if (App.get('searchStart')) {
+                App.set('isMansonryPageLoad', true);
+            }
         },
-
         willDestroyElement: function() {
-            $(window).unbind("scroll");
+            //      $(window).unbind("scroll");
+            App.set('isMansonryPageLoad', false);
         },
         moreContent: function(event) {
 

@@ -1,15 +1,13 @@
 define(["ember"], function(Ember) {
     var CommentController = Ember.Controller.extend({
         commentLength: null,
+        thisComments: null,
         init: function()
         {
-            //    console.log(this.get('comments'));
-            // this.set('commentLength', );
-
             this.set("currentUser", App.User.find(localStorage.loginStatus));
-
         },
         addComment: function() {
+
             var commentContent = this.get('commentContent');
             if (commentContent) {
                 var comments = this.get("thisComments");
@@ -20,7 +18,6 @@ define(["ember"], function(Ember) {
                 var tempComment = App.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url,
                     "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(), "is_delete": false});
                 comments.insertAt(0, tempComment);
-                ///   console.log(tempComment);
                 comments.store.save();
                 this.set('commentContent', '');
                 $('#addcommetBut').attr('style', 'display:block');
@@ -35,6 +32,7 @@ define(["ember"], function(Ember) {
             var mega = App.Mega.find(id);
             var comments = mega.get('comments');
             this.set('thisComments', comments);
+         
         }
 
 

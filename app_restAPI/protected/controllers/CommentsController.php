@@ -7,26 +7,27 @@ header('Access-Control-Request-Method: *');
 header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET');
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
-class TestController extends Controller {
+class CommentsController extends Controller {
 
-    const JSON_RESPONSE_ROOT_SINGLE = 'mega';
-    const JSON_RESPONSE_ROOT_PLURAL = 'megas';
+    const JSON_RESPONSE_ROOT_SINGLE = 'comment';
+    const JSON_RESPONSE_ROOT_PLURAL = 'comments';
 
     public function actionIndex() {
-        echo $this->sendResponse(200, "aaaaaaaaaaaaa");
+$this->sendResponse(200, "aaaaaaaaaaaaa");
     }
 
     public function actionCreate() {
-        echo "this is create method";
+              $request_json = file_get_contents('php://input');
+        $request_arr = CJSON::decode($request_json, true);
+        $this->sendResponse(200, $request_json);
     }
 
     public function actionRead() {
-        error_log("aaaaaaaaaaaaaaa");
-        echo "aaaaaaaaaaa";
+
     }
 
     public function actionUpdate() {
-        
+        $this->sendResponse(200, "ok");
     }
 
     public function actionDelete() {

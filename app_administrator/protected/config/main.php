@@ -61,6 +61,7 @@ return CMap::mergeArray(
                 'common.modules.*',
                 'application.models.*',
                 'application.components.*',
+   
             ),
             'modules' => array(
                 'gii' => array(

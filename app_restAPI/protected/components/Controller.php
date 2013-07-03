@@ -28,9 +28,9 @@ class Controller extends CController {
         return new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "production", true);
     }
 
-<<<<<<< HEAD
-    protected function getProviderConfigurationByName($domain,$name) {
-=======
+
+//    protected function getProviderConfigurationByName($domain,$name) {
+
     protected function getS3BucketName($domain) {
         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
         $result = $cb->get($domain);
@@ -49,7 +49,7 @@ class Controller extends CController {
     }
 
     protected function getProviderConfigurationByName($domain, $name) {
->>>>>>> 1374ddcc0299c3697595a1b7e1b445b7483b84af
+
         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
         $result = $cb->get($domain);
         $result_arr = CJSON::decode($result, true);
@@ -254,12 +254,12 @@ class Controller extends CController {
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
         $request = $sherlock->search();
-<<<<<<< HEAD
+
         $request->index("develop")->type("couchbaseDocument")->from(1);
         $request->index("develop")->type("couchbaseDocument")->size(50);
-=======
+
         $request->index("test")->type("couchbaseDocument");
->>>>>>> 1374ddcc0299c3697595a1b7e1b445b7483b84af
+
         $max = sizeof($requestArray);
         $bool = Sherlock\Sherlock::queryBuilder()->Bool();
         
@@ -411,11 +411,9 @@ class Controller extends CController {
             }
         }
         $rawRequest = $header . $tempRquestIDs . $footer;
-<<<<<<< HEAD
+
         error_log($rawRequest);
-        
-=======
->>>>>>> 1374ddcc0299c3697595a1b7e1b445b7483b84af
+
         $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
@@ -508,14 +506,14 @@ class Controller extends CController {
         $results = '{"' . $returnType . '":[';
         $i = 0;
         foreach ($response as $hit) {
-<<<<<<< HEAD
+
 //            $id = $hit['source']['meta']['id'];
 //            error_log($id);
             
             $results .= CJSON::encode($hit['source']['doc']);
-=======
+
             $results .= CJSON::encode($hit['source'] ['doc']);
->>>>>>> 1374ddcc0299c3697595a1b7e1b445b7483b84af
+
             if (++$i !== count($response)) {
                 $results .= ',';
             }
@@ -523,13 +521,12 @@ class Controller extends CController {
         $results .= ']}';
 
         return $results;
-<<<<<<< HEAD
+
     } 
     
-=======
-    }
 
->>>>>>> 1374ddcc0299c3697595a1b7e1b445b7483b84af
+    
+
     protected function getImageString($type, $url) {
         $im = "";
         if ($type == "image/png") {
@@ -539,6 +536,7 @@ class Controller extends CController {
         }
         return $im;
     }
+    
     protected function getImageInfo($url) {
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -554,7 +552,7 @@ class Controller extends CController {
             return false;
         }
     }
-<<<<<<< HEAD
+
     
     public function convertToString64($image_string) {
         $matchs = array();
@@ -636,7 +634,5 @@ class Controller extends CController {
         return $return;
     } 
     
-    
-=======
->>>>>>> 1374ddcc0299c3697595a1b7e1b445b7483b84af
+
 }

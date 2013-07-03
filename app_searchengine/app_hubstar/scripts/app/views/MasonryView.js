@@ -8,7 +8,7 @@ define([
 
     Ember.TEMPLATES["masonry"] = Ember.Handlebars.compile(masonryTemplate);
 
-    var runMeOnce = true;
+
     var MasonryView = Ember.View.extend({
         template: Ember.Handlebars.compile(masonryTemplate),
         didInsertElement: function() {

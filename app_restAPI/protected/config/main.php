@@ -82,7 +82,12 @@ return array(
         // this is used in contact page
         'adminEmail' => 'webmaster@example.com',
         // this the primary elastic search server and index
-        'elasticSearchNode' => $params['elasticSearch.node'], //'es1.hubsrv.com'
-        'elasticSearchIndex' => $params['elasticSearch.index'], //test
+//        'elasticSearchNode' => 'es1.hubsrv.com',
+//        'elasticSearchIndex' => 'test', 
+        
+        'elasticSearchNode' => 'es1.hubsrv.com',
+        'elasticSearchIndex' => 'develop'
     ),
+    
+    
 );

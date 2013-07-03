@@ -66,17 +66,17 @@ define([
             results.addObserver('isLoaded', function() {
                 if (results.get('isLoaded')) {
                     for (var i = 0; i < results.get("length"); i++) {
-      //                  console.log(that.get("content").get("length"));
+                        //                  console.log(that.get("content").get("length"));
                         var tempmega = results.objectAt(i);
                         that.pushObject(tempmega);
                     }
                 }
             });
             this.set("from", this.get("size"));
-            
-            
-            
-            
+
+
+
+
 
             var stats = Stat.find({"RquireType": "status", "region": this.get("search_area"), "search_string": this.get("search_string")});
             var that = this;
@@ -103,6 +103,9 @@ define([
                     $('#masonry_container').masonry("reload");
                 }, 1800);
             });
+
+     
+            App.set('searchStart', true);
         },
         defaultSearch: function() {
             this.set("loginInfo", localStorage.loginStatus);

@@ -180,21 +180,35 @@ class Article extends CActiveRecord {
         ));
     }
     
-    function getArticalRange($from, $to) {
-            $data_list = array();  
-            $sql = "select 
-                            dbo.Articles.* 
-                        from 
-                            dbo.Articles                                    
-                        where 
-                            dbo.Articles.id
-                        between ".$from. " and ".$to;
+    function getArticalRange() {
+            $data_list = array();
+            $sql = "select * from Trends.dbo.Articles order by Trends.dbo.Articles.id asc";
+            
 //                        echo $sql;
             $data_list = Yii::app() ->db->createCommand($sql)->queryAll();
+            
 //            print_r("<pre>");
-//            print_r($data_list);
+//            echo sizeof($data_list);
             
             return $data_list;
+    }
+    
+    function getFirstPhotoHlmID($id) {
+        $data_list = array();
+        $sql = 'select
+                    AI.* 
+                from
+                    dbo.ArticleImages as AI, dbo.Articles AS Ar 
+                where
+                    AI.articleId=Ar.id 
+                and 
+                    AI.sequence = 1
+                and 
+                    Ar.id = '.$id;
+        
+        $data_list = Yii::app() ->db->createCommand($sql)->queryAll();
+        return $data_list;
+        
     }
     
     function getArticalID() {
@@ -205,7 +219,8 @@ class Article extends CActiveRecord {
                             dbo.ArticleImages as AI, dbo.Articles AS Ar 
                         where
                             AI.articleId=Ar.id
-                        AND AI.sequence = 1';
+                        AND AI.sequence = 1
+                        ORDER BY Ar.id asc';
                         
             $data_list = Yii::app() ->db->createCommand($sql)->queryAll();
           

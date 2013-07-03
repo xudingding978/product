@@ -142,9 +142,12 @@ define([
                     this.checkingIdisExsinting(newInsert, "create");
                     if (isExsinting) {
 
-              
-                            this.get('collections').pushObject( newInsert);
-        
+                        if (this.get('model.collections') === null || this.get('model.collections') === "") {
+                            this.set('model.collections', newInsert);
+                        } else {
+
+                            this.set('model.collections', newInsert + "," + this.get('model.collections'));
+                        }
 
                         this.updateClient();
                         //        this.get('collections').insertAt(0, {id: newInsert, title: newInsert, desc: $('.new-collection-area').val()});

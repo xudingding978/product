@@ -34,7 +34,6 @@ define([
                 init: function() {
 
 
-
                 },
                 setLocalLoginRecrod: function() {
                     App.set('afterSearch', true);
@@ -57,8 +56,6 @@ define([
                         this.set('editingContact', !this.get('editingContact'));
                     }
                     else if (checkingInfo === "timeSetting") {
-
-
                         this.set('editingTime', !this.get('editingTime'));
                     }
                 },

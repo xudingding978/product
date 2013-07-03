@@ -15,7 +15,9 @@ define([
         setupController: function(ProfileController, model) {
             //     console.log(model.id);
             ProfileController.setLocalLoginRecrod();
+       //     console.log(model);
             ProfileController.setModel(model);
+
             this.controllerFor('application').set('islogin', true);
             this.controllerFor('application').set('popup', false);
             this.controllerFor('application').set('isotherpage', true);
@@ -28,7 +30,7 @@ define([
 
                 var address = document.URL;
                 var user_id = address.split("#")[1].split("/")[2];
-          //      console.log(collection_id);
+                //      console.log(collection_id);
                 var data = MegaModel.find(collection_id);
                 this.transitionTo("profileCollection", data);
             }
@@ -44,22 +46,15 @@ define([
                 $('#masonry_container').masonry('remove', $('.noStyle1'));
             });
         },
-        model: function(params) {
-            //  alert(333);
-            //        console.log(ProfileModel.find(params.profile_id));
-            return ProfileModel.find(params.profile_id);
-        },
+//        model: function(params) {
+//
+//            return ProfileModel.find(params.profile_id);
+//        },
         renderTemplate: function() {
             this.render('profile', {
                 outlet: "profiles",
                 into: "application"
             });
-//            this.render('image', {
-//                outlet: "photoUploader",
-//                into: 'profile',
-//                controller: 'photoUpload'
-//            }
-//            );
         }
 
     });

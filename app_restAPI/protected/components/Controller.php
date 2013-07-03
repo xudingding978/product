@@ -234,8 +234,8 @@ class Controller extends CController {
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
         $request = $sherlock->search();
-        $request->index("test")->type("couchbaseDocument")->from(1);
-        $request->index("test")->type("couchbaseDocument")->size(50);
+        $request->index("develop")->type("couchbaseDocument")->from(1);
+        $request->index("develop")->type("couchbaseDocument")->size(50);
         $max = sizeof($requestArray);
         $bool = Sherlock\Sherlock::queryBuilder()->Bool();
         
@@ -273,18 +273,14 @@ class Controller extends CController {
                 ->fields("couchbaseDocument.doc.id")
                 ->query($requestString)
                 ->boost(2.5);
-
         $request->index(Yii::app()->params['elasticSearchIndex'])
                 ->type("couchbaseDocument")
                 ->size(7)
                 ->query($termQuery);
-
         $response = $request->execute();
-
         $results = '{"' . $returnType . '":';
         $i = 0;
         foreach ($response as $hit) {
-
             $results .= CJSON::encode($hit['source']['doc']);
             if (++$i < count($response)) {
                 $results .= ',';
@@ -413,37 +409,34 @@ class Controller extends CController {
     
     protected function getAllDoc($returnType, $from, $to) {
         $rawRequest = '{
-                                      "bool": {
-                                        "must": [
-                                          {
-                                            "range": {
-                                              "couchbaseDocument.doc.accessed": {
-                                                "from ": '.$from.',
-                                                "to": '.$to.' 
-                                              }
-                                            }
+                                    "bool": {
+                                      "must": {
+                                        "range": {
+                                          "couchbaseDocument.doc.accessed": {
+                                            "from": ' .$from. ',
+                                            "to": ' .$to. '
                                           }
-                                        ]
+                                        }
+                                      }
                                     }
-                                  }';
- 
-//        error_log($rawRequest);
+                                }';
         
         $settings['log.enabled'] = true;
+        $settings['log.file'] = '../../sherlock.log';
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
         $request = $sherlock->search();
         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
         $request->index("develop")
                 ->from(0)
-                ->size(2000)
+                ->size(1000)
                 ->type("couchbaseDocument")
                 ->query($termQuery);
         
         $response = $request->execute();
         
-        $results = $this->getReponseResult($response, $returnType);
-
+        $results = $this->modifyArticleResponseResult($response, $returnType);
+        
         return $results;
     }
     
@@ -464,12 +457,36 @@ class Controller extends CController {
         }
         return $request_ids;
     }
-
+    
+    
+    //update article 
+    protected function modifyArticleResponseResult($response, $returnType) {
+        $results = '{"' . $returnType . '":[';
+        $i=0;
+        foreach($response as $hit) {
+            $id = $hit['source']['meta']['id'];
+            $id = str_replace("trendsideas.com/", "", $id);
+            $hit['source']['doc']['id'] = $id;
+            $hit['source']['doc']['article'][0]['id'] = $id;
+            
+            $results .= CJSON::encode($hit['source']['doc']);
+            if (++$i !== count($response)) {
+                $results .= ',';
+            }
+        }
+        
+        $results .= ']}';
+        return $results;
+    }
+    
     protected function getReponseResult($response, $returnType) {
 
         $results = '{"' . $returnType . '":[';
         $i = 0;
         foreach ($response as $hit) {
+//            $id = $hit['source']['meta']['id'];
+//            error_log($id);
+            
             $results .= CJSON::encode($hit['source']['doc']);
             if (++$i !== count($response)) {
                 $results .= ',';

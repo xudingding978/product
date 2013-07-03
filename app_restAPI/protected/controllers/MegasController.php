@@ -191,7 +191,7 @@ class MegasController extends Controller {
         $data = $this->getInputData($request_arr ["object"]['photos'][0]['photo_type'], $request_arr ["object"]['photos'][0]['photo_url']);
         $client = Aws\S3\S3Client::factory(
                         $result_arr["providers"]["S3Client"]
-        );       
+        );
         return $response;
     }
 
@@ -201,7 +201,7 @@ class MegasController extends Controller {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
         $data = curl_exec($ch);
-        
+
         if (is_null($data) || strpos($data, '404') || empty($data)) {
             $my_file = '/home/devbox/NetBeansProjects/test/error.log';
             $handle = fopen($my_file, 'a') or die('Cannot open file:  ' . $my_file);
@@ -263,12 +263,12 @@ class MegasController extends Controller {
         try {
             $cb = $this->couchBaseConnection();
             $id = $newRecord['mega']['user'][0]['id'];
-           
+
             $docID = substr($_SERVER['HTTP_HOST'], 4) . "/users/" . $id;
-            $oldRecord = $cb->get($docID);            
+            $oldRecord = $cb->get($docID);
             $oldRecord = CJSON::decode($oldRecord, true);
-            error_log(var_export($oldRecord,true));
-        //  $oldRecord['user'][0] = null;
+            error_log(var_export($oldRecord, true));
+            //  $oldRecord['user'][0] = null;
             $oldRecord['user'] = $newRecord['mega']['user'];
             if ($cb->set($docID, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204, "{ render json: @user, status: :ok }");
@@ -277,6 +277,19 @@ class MegasController extends Controller {
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
+        }
+    }
+
+    public function createProfile($mega) {
+        $cb = $this->couchBaseConnection();
+        $id = $mega['id'];
+        $domain = $this->getDomain();
+        $docID = $domain . "/profiles/" . $id;
+     //   error_log(var_export(CJSON::encode($mega), true));
+        if($cb->add($docID, CJSON::encode($mega))) {
+            $this->sendResponse(204, "{ render json: @user, status: :ok }");
+        } else {
+            $this->sendResponse(500, "some thing wrong");
         }
     }
 

@@ -43,40 +43,17 @@ class PhotosController extends Controller {
     
     public function actionUpdate() {
         try {
-            $response;
             $returnType = "photo";
             $temp = explode("?", $_SERVER['REQUEST_URI']);
-            $requestArray = array();
+            $request_arr = array();
             
             if (sizeof($temp) > 1) {
                 $request_string = $temp [sizeof($temp) - 1];
-                $temparray = preg_split("/=|&/", $request_string);
-            
-                $response = $this->getAllDoc($returnType, $temparray[1], $temparray[3]);
+                $request_arr = preg_split("/=|&/", $request_string);
                 
-//            $data_arr = CJSON::decode($response);
-//            echo sizeof($data_arr['photo'])."\r\n";
-            
-//            $data_arr = CJSON::decode($photo_data);
-            
-//            print_r($photo_data);
+                $response = $this->getAllDoc($returnType, $request_arr[1], $request_arr[3]);
                 $this->sendResponse(200, $response);
-//            for ($i=0; $i<73; $i++) {
-//                    $start = $i*1000;
-//                    $photo_data = $this->getAllDoc('photo', $start);
-////                    echo $start;
-//                    $data_arr = CJSON::decode($photo_data);
-////                    echo sizeof($data_arr['photo'])."\r\n";
-//        //            echo $photo_data;
-//                
-//                    foreach($data_arr['photo'] as $val) {
-//                        $id = 'trendsideas.com/'.$val['id'];
-//                        error_log($id."\r\n");
-////                        $this->updateCouchbasePhoto($id);
-                    }
-//                    
-//                    exit();
-//            }
+            }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

@@ -9,13 +9,11 @@ define([
         selectionPop: false,
         needs: ["mega"],
         newCollectionName: null,
-        objectID: null,
+        objectID: "",
+        selectedPhotoThumbnailUrl: "",
         init: function()
         {
-            var megaController = this.get("controllers.mega");
-            var id = megaController.get("selectedMega").id;
-            this.set("objectID", id);
-            this.setUser();
+
         },
         setUser: function()
         {
@@ -34,6 +32,9 @@ define([
         },
         setTitle: function(title) {
             this.set("selectedTitle", title);
+        },
+        setThumbnailUrl: function(photo_image_thumbnail_url) {
+            this.set("selectedPhotoThumbnailUrl", photo_image_thumbnail_url);
         },
         submit: function()
         {
@@ -56,7 +57,6 @@ define([
                 else {
                 }
             });
-
             this.get("controllers.mega").switchCollection();
         },
         addCollection: function(collection, content)
@@ -101,16 +101,12 @@ define([
         chooseRecord: function(record) {
             this.set('selectedTitle', record);
             this.selectSelectedDesc();
-
-
-
             $('#recordID').text(this.get('selectedTitle'));
+            App.set('chooseCollection', this.get('selectedTitle'));
             this.set('selectionPop', !this.get('selectionPop'));
-
         },
         selectSelectedDesc: function()
         {
-            console.log(this.get("selectedTitle"));
             var desc = "";
             for (var i = 0; i < this.get("collections").get("length"); i++)
             {
@@ -123,11 +119,8 @@ define([
             this.set("selectedDesc", desc);
         },
         checkingValidInput: function(title) {
-
             if (title.indexOf(" ") !== -1) {
-
                 title = title.split(' ').join('-');
-              
             }
             return title;
 
@@ -137,7 +130,6 @@ define([
             if (title !== null && title !== "")
             {
                 isInputValid = this.isTitleNotExist(title);
-
             }
             else {
                 isInputValid = false;

@@ -17,11 +17,11 @@ define([
             this.controllerFor('application').set('isotherpage', true);
             //   controller.get('application').remove();
         },
-        model: function() {
-            //   console.log( UserModel.find());
-
-            return UserModel.find();
-        },
+//        model: function() {
+//            //   console.log( UserModel.find());
+//
+//            return UserModel.find();
+//        },
         activate: function() {
 
         },

@@ -33,7 +33,7 @@ class ResizeImagesController extends Controller {
         
         $orig_width = imagesx($image);
         $orig_height = imagesy($image);
-        
+
 //        if ($image !== false) {
 //            header('Content-Type: image/jpg');
 //            imagejpeg($image);

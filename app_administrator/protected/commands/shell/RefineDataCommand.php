@@ -6,9 +6,15 @@ class RefineDataCommand extends CConsoleCommand {
     public $obj_amount = 0;
     public $image_amount = 0;
 
-    public function actionIndex($startid = 0) {
+    public function actionIndex() {
         
         Yii::import("application.models.*");
+        
+        $this->refineArticle();
+        echo "finish~~~~~~~~~~~~~~~~~~~~~~~~";
+        exit();
+        
+        $startid = 0;
         echo (isset($startid) ? 'Start position is... ' . $startid : 'No start defined');
         $data_list = ArticleImages::model()->getDatabyid($startid);
         $this->total_num = sizeof($data_list);
@@ -55,6 +61,53 @@ class RefineDataCommand extends CConsoleCommand {
         echo "*******************************" . ($end_time - $start_time);
     }
 
+    public function refineArticle() {
+        $data_list = Article::model()->getArticalID();
+        $this->total_num = sizeof($data_list);
+        echo "Totally: " . $this->total_num . "\r\n";
+        
+        if (sizeof($data_list) > 0) {
+            foreach ($data_list as $val) {
+                
+//                print_r($val);                        
+//                exit();
+                
+                //     echo $val['heliumMediaId']." start\r\n";
+                $article_id_str = $val['article'];
+                if ($article_id_str != "") {
+
+                    $url = "http://api.develop.devbox/GetResultByKeyValue/?type=article&collection_id=" . $article_id_str;
+                    $elastic_return_str = $this->callAPI($url);
+                    $s3_url_arr = $this->getUrlFromElastic($elastic_return_str);
+
+                    $mega_obj_arr = $this->structureArray($val, $s3_url_arr);
+                       echo $mega_obj_arr . $val['heliumMediaId'] . "\r\n";
+                                  $id = $this->importMegaObj($mega_obj_arr, $val['id']);            
+                                  $photo_array=$this->getValidPhoto($photo_heliumMediaId, $id, $val['id']);
+                        $handle_array = array();
+                        foreach($photo_array as $k=>$val){
+                            $url_arr = explode("/", $s3_url_arr[$k]);
+                            $file_name = $url_arr[sizeof($url_arr)-1];
+                            
+                            $url = 'http://api.develop.devbox/PhotoMoving?style='.$k.'&name='.$file_name.'&id='.$id;
+                            
+                            $ch = curl_init($url);
+                            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+                            
+                            $handle_array[$k] = $ch;
+                        }                        
+                                        $this->movingPhotoList($handle_array);                        
+                } else {
+                    $message = date("Y-m-d H:i:s") . " -- " . $val['id'] . " --Does not have helium media id!!";
+                    $this->writeToLog('/home/devbox/NetBeansProjects/test/error.log', $message);
+                }
+            }
+        }
+    }
+    
+    
     public function movingPhotoList($handle_array) {
         $mh = curl_multi_init();
         foreach ($handle_array as $k => $val)
@@ -205,7 +258,7 @@ class RefineDataCommand extends CConsoleCommand {
             "id" => null,
             "type" => "photo",
             "accessed" => $accessed,
-            "active_yn" => "y",
+            "is_active" => "true",
             "created" => $book_date,
             "timezone" => $timezone,
             "creator" => $book_title,
@@ -216,6 +269,8 @@ class RefineDataCommand extends CConsoleCommand {
             "categories" => $category,
             "collection_id" => $val['articleId'],
             "subcategories" => $subcategory,
+            "collection_count" => null,
+            "like_count" => null,
             "deleted" => null,
             "domains" => array(),
             "editors" => "*@trendsideas.com",
@@ -226,23 +281,23 @@ class RefineDataCommand extends CConsoleCommand {
             "country" => $country,
             "region" => $region,
             "geography" => null,
-            "indexed_yn" => "y",
+            "is_indexed" => true,
             "object_image_linkto" => null,
             "object_image_url" => $hero_url,
             "object_title" => $val['heliumMediaId'],
             "object_description" => $val['caption'],
-            "owner_type" => 'profile',
-            "owner_contact_email" => "enquiries@trendsideas.com",
-            "owner_contact_cc_emails" => null,
-            "owner_contact_bcc_emails" => null,
+            "owner_type" => 'profile',         
             "owner_profile_pic" => "https://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small",
             "owner_title" => "Trends Ideas",
             "owner_id" => strtolower($book_title), //"home-and-apartment-trends-nz"
             "owners" => array(),
+            "owner_contact_email" => "enquiries@trendsideas.com",
+            "owner_contact_cc_emails" => null,
+            "owner_contact_bcc_emails" => null,
             "status_id" => null,
             "updated" => null,
             "uri_url" => null,
-            "view_count" => rand(1, 99999999),
+            "view_count" => null,
             "keywords" => $keywords,
             "photo" => array()
         );

@@ -1,37 +1,19 @@
-
-<div id="masonry_container" class="transitions-enabled centered clearfix noStyle1">
-    <div class="box col2 noStyle1">
-
-        {{render status}}
-
-
-    </div>
-
-
-    {{#each  content}}
-
-    {{view App.ItemView}}
-
-    <script>
-
-        $(function() {
-            var $container = $('#masonry_container');
-            window.setTimeout(function() {
-                $container.masonry();
-                $container.masonry('reload');
-            }, 400);
-        });
-
-
-
-    </script>
-    {{/each}}
-
-
-
-
-</div> <!-- #container -->
-
-
-
-
+<div id="masonry_wrapper" style="min-height:300px;">
+    <div id="masonry_container" class="transitions-enabled centered clearfix noStyle1">
+        <div class="box col2 noStyle1">
+            {{render status}}
+        </div>
+        {{#each  content}}
+        {{view App.ItemView}}
+        <script>
+            $(function() {
+                var $container = $('#masonry_container');
+                window.setTimeout(function() {
+                    $container.masonry();
+                    $container.masonry('reload');
+                }, 400);
+            });
+        </script>
+        {{/each}}
+    </div> <!-- #container -->
+</div><!-- #wrapper -->

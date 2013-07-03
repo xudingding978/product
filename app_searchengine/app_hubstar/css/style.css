@@ -109,6 +109,8 @@ div.search-loading-invisible{
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding-box;
     background-clip: padding-box;
+    max-height: 200px;
+    overflow: auto;
 }
 
 .ite{
@@ -341,9 +343,10 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     padding-bottom: 10px;
     font-size: 14px;
     font-weight: normal;
+    width: 90px;
 }
 
-#aside_contact .ember-text-field{
+.insert-contactdetails{
     margin-left: 20px;
 }
 
@@ -354,6 +357,16 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     text-align: left;
     word-wrap: break-word;
     font-weight: normal;
+}
+
+.inserthours-day{
+    width:100px;
+}
+
+.inserthours-time{
+    width: 170px;
+    margin-left: 5px;
+    margin-bottom: 10px;
 }
 
 .main_aboutus p{
@@ -437,18 +450,6 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 }
 
 
-#newtemplate{
-    top: 500px; 
-    -webkit-transition: all 0.8s ease;
-    -moz-transition: all 0.8s ease;
-    -o-transition: all 0.8s ease;
-}
-
-#newtemplate:hover{
-    top: 180px;
-
-
-}
 
 #addnew{
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
@@ -509,4 +510,9 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     padding: 10px;  
     overflow: auto;
     background-color: rgba(0,0,0,0.3);
+}
+
+.vertical-resize{
+    resize:vertical;
+    overflow:auto;
 }

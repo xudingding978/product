@@ -310,12 +310,12 @@ class ImportdataCommand extends CConsoleCommand {
             "collection_id" =>$val['articleId'],
             "subcategories" => $subcategory,
             "deleted" => null,
-            "domains" => "trendsideas.com",
+            "domains" => array(),
             "editors" => "*@trendsideas.com",
-            "follower_count" => rand(1, 999999),
+            "follower_count" => null,
             "followers" => null,
             "following" => null,
-            "following_count" => rand(1, 999999),
+            "following_count" => null,
             "country" => $country,
             "region" => $region,
             "geography" => null,
@@ -368,8 +368,11 @@ class ImportdataCommand extends CConsoleCommand {
 
         array_push($obj['photo'], $photo_list);
         $owners_arr = array("andrew.johnson@trendsideas.com", "support@trendsideas.com");
+        $domains_arr = array("beta.trendsides.com", "trendsideas.com");
+        
         array_push($obj['owners'], $owners_arr);
-
+        array_push($obj['domains'], $domains_arr);
+        
         unset($owners_arr, $photo_list, $photo_list, $keywords, $category, $subcategory, $topic_list, $country, $pos, $region, $original_size, $size, $val, $return_hero, $return_thumbnail, $return_preview, $return_original);
         return $obj;
     }

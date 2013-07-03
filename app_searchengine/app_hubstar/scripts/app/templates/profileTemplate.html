@@ -89,12 +89,12 @@
 
 
                                     {{#if controller.editing}}
-                                    <div style="display: inline-block;width: 350px;">
+                                    <div style="display: inline-block; width: 350px;">
                                         {{view App.SearchRequireTextFieldView valueBinding="model.profile_name"  id="" class=""  }} 
                                     </div>
                                     <div style="display: inline-block;vertical-align: bottom;">
                                         <div class="new-btn blue-btn"{{action yes controller.profileName}}><i class="icon-ok icon-white"></i></div>   
-                                        <div class="new-btn"{{action no controller.profileName}}><i class="icon-remove icon-white"></i></div> {{controller}}
+                                        <div class="new-btn"{{action no controller.profileName}}><i class="icon-remove icon-white"></i></div>
                                     </div>
                                     {{else}}
                                     <div style="display: inline-block; color: white;max-width: 750px;overflow: hidden; font-size: 28px; margin-bottom: 15px;line-height: 32px;">
@@ -105,8 +105,8 @@
                                     </div>
                                     {{/if}}
                                 </div>
-                                
-                                
+
+
                                 <!--contact me-->
                                 <div class="contactmebtn">
                                     <a class="contactmeicon" href=""><img src="../images/mail_24dark.png"/></a>
@@ -167,7 +167,7 @@
                                     <tr>
                                         <th>Contact:</th>
                                         {{#if controller.editingContact}}
-                                        {{input type="text" value=model.contact_user}}
+                                        {{input type="text" class="insert-contactdetails" value=model.contact_user}}
                                         {{else}}
                                         <th class="Contact_2child">{{model.contact_user}}</th>
                                         {{/if}}
@@ -175,7 +175,7 @@
                                     <tr>
                                         <th>Type:</th>
                                         {{#if controller.editingContact}}
-                                        {{input type="text" value=model.profile_category  }}
+                                        {{input type="text" class="insert-contactdetails" value=model.profile_category  }}
                                         {{else}}
                                         <th class="Contact_2child"><a href="#">{{model.profile_category}}</a></th>
                                         {{/if}}
@@ -183,7 +183,7 @@
                                     <tr>
                                         <th>Address:</th>
                                         {{#if controller.editingContact}}
-                                        {{input type="text" value=model.profile_physical_address  }}
+                                        {{input type="text" class="insert-contactdetails" value=model.profile_physical_address  }}
                                         {{else}}
                                         <th class="Contact_2child">{{model.profile_physical_address}}</th>
                                         {{/if}}
@@ -191,7 +191,7 @@
                                     <tr>
                                         <th>Phone:</th>
                                         {{#if controller.editingContact}}
-                                        {{input type="text" value=model.phone_number  }}
+                                        {{input type="text" class="insert-contactdetails" value=model.phone_number  }}
                                         {{else}}
                                         <th class="Contact_2child">{{model.phone_number}}</th>
                                         {{/if}}
@@ -199,7 +199,7 @@
                                     <tr>
                                         <th>Website:</th>
                                         {{#if controller.editingContact}}
-                                        {{input type="text" value=model.website_url  }}
+                                        {{input type="text" class="insert-contactdetails" value=model.website_url  }}
                                         {{else}}
                                         <th class="Contact_2child"><a>{{model.website_url}}</a></th>
                                         {{/if}}
@@ -225,23 +225,45 @@
 
                             <div class="aside-container" style="padding: 20px 0; border-top: 1px solid #fff; font-size: 14px;margin: auto;width: 95%;">
                                 <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-time' style='margin-right: 10px;'></i>Hours</div>
+                                {{#unless controller.editingTime}}
+
                                 <div class="edit-btn easing">
-                                    <i class="icon-edit"></i>                            
+                                    <i class="icon-edit" {{action toggleEditing  model.profile_name controller.timeSetting}}></i>                            
                                 </div>
-                                <div style="display: block">
-                                    <div style='display: inline-block;color: #888;text-align: right;'>
-                                        <p>Mon - Fri: </p>
-                                        <p>Saturday:</p>
-                                        <p>Sunday:</p>
-                                        <p>Holidays:</p>
-                                    </div>
-                                    <div style='ffont-weight: bold;display: inline-block;text-align: right;margin: auto;left: 0;width: 60%;'>
-                                        <p>7:00am - Late</p>
-                                        <p>10:00am - Late</p>
-                                        <p>4:00pm - Late</p>
-                                        <p>Closed</p>
-                                    </div>
+                                {{/unless}}
+
+
+
+
+                                {{#each controller.hours}}
+
+                                <table id="aside_contact">
+                                    {{#unless controller.editingTime}}
+                                    <tbody style="display: inline-block; vertical-align: top;">
+                                        <tr style="">
+                                            <th>{{day}}</th>
+                                            {{else}}
+                                            {{input type="text" class="inserthours-day" value=day}}
+                                            {{/unless}}
+
+                                            {{#unless controller.editingTime}}                                      
+                                            <th class="Contact_2child">{{time}}</th>
+                                            {{else}}
+                                            {{input type="text" class="inserthours-time" value=time  }}
+                                            {{/unless}}
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+                                {{/each}}
+                                {{#if controller.editingTime}}
+
+                                <div style="width: 75px;margin: auto;">
+                                    <div class="new-btn blue-btn"{{action yes controller.timeSetting}}><i class="icon-ok icon-white"></i></div>   
+                                    <div class="new-btn"{{action no controller.timeSetting}}><i class="icon-remove icon-white"></i></div>
                                 </div>
+                                {{/if}}
                             </div>
 
 
@@ -262,11 +284,11 @@
 
                                     {{#if controller.editingAbout}}
                                     <div style="height: 300px;">
-                                    {{view Ember.TextArea valueBinding="model.about"  id="" class=""  }} 
+                                        {{view Ember.TextArea valueBinding="model.about"  id="" class=""  }} 
                                     </div>
                                     <div style="float: right;">
-                                    <div class="new-btn blue-btn" {{action yes controller.aboutMe}}><i class="icon-ok icon-white"></i></div> 
-                                    <div class="new-btn" {{action no controller.aboutMe}}><i class="icon-remove"></i></div>
+                                        <div class="new-btn blue-btn" {{action yes controller.aboutMe}}><i class="icon-ok icon-white"></i></div> 
+                                        <div class="new-btn" {{action no controller.aboutMe}}><i class="icon-remove"></i></div>
                                     </div>
                                     {{else}}
                                     <div class="edit-btn" {{action toggleEditing model.about controller.aboutMe}}>
@@ -284,25 +306,19 @@
                                 </p>
 
 
-                                <div class="collapes-container_inner">
 
-                                    <div class="comment-item">
+
+                                <div class="comment-item">
 
                                     {{render "comment" model}}
 
-                                    </div>
+                                </div>
 
-
-                                    <div class="comment-item">
-
-                      
-
-                                    </div>
-
-
-
+                                <div class="comment-item">
 
                                 </div>
+
+
 
 
                             </div>

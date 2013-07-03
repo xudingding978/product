@@ -29,7 +29,6 @@
         <link rel="stylesheet" type="text/css" href="css/customstyle.css" /> 
         <link media="screen, projection" rel="stylesheet" type="text/css" href="css/_topnavbar.css"/>
         <link media="screen, projection" rel="stylesheet" type="text/css" href="css/_footer.css"/>
-        <link href='http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
         
 
     </head>

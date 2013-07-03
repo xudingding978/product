@@ -92,7 +92,7 @@ define(['models/MegaModel',
                     var isCollectionIDExist = this.isParamExist(collection_id);
                     var that = this;
                     if (isProfileIDExist && isCollectionIDExist) {
-                        var data = MegaModel.find({RequireType:"collection","collection_id": collection_id, "owner_profile_id": owner_profile_id});
+                        var data = MegaModel.find({RequireType: "collection", "collection_id": collection_id, "owner_profile_id": owner_profile_id});
                         data.addObserver('isLoaded', function() {
                             if (data.get('isLoaded')) {
                                 for (var i = 0; i < this.get("content").length; i++) {
@@ -115,6 +115,8 @@ define(['models/MegaModel',
                     var addCollectionController = this.get('controllers.addCollection');
                     var selectid = this.get('selectedMega').id;
                     addCollectionController.setImageID(selectid);
+                    var tempUrl = this.get('selectedMega').photo_image_thumbnail_url;
+                    addCollectionController.setThumbnailUrl(tempUrl);
                     addCollectionController.setUser();
                     this.set('collectable', !this.get('collectable'));
                 },
@@ -141,8 +143,8 @@ define(['models/MegaModel',
                         var name = this.get("currentUser").get('display_name');
                         var date = new Date();
                         var tempComment = App.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url,
-                         "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(), "is_delete": false});
-                        comments.insertAt(0,tempComment);
+                            "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(), "is_delete": false});
+                        comments.insertAt(0, tempComment);
                         comments.store.save();
                         this.set('commentContent', '');
                         $('#addcommetBut').attr('style', 'display:block');

@@ -124,6 +124,8 @@ class DefaultController extends CController {
 
         $hybridauth = new Hybrid_Auth($config);
         $adapter = $hybridauth->authenticate($_GET['provider']);
+
+
         $user_profile = $adapter->getUserProfile();
         $user = new User;
         $user->attributes = $_POST['User'];
@@ -132,6 +134,15 @@ class DefaultController extends CController {
         $user_profile->displayName = $user->USER_NAME;
         $user_profile->lastName = $user->LAST_NAME;
         $user_profile->firstName = $user->FIRST_NAME;
+
+        if ($user_profile->photoURL === null || $user_profile->photoURL === "") {
+
+            $user_profile->photoURL = "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg";
+        }
+        if ($user_profile->photoURL_large === null || $user_profile->photoURL_large === "") {
+
+            $user_profile->photoURL_large = "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg";
+        }
 
         $userProfile = new UserProfile;
         $userProfile->LOGIN_PROVIDER_IDENTIFIER = $identity->loginProviderIdentifier;
@@ -188,6 +199,8 @@ class DefaultController extends CController {
         $temp["user"][0]["birth_day"] = $userProfile->BIRTH_DAY;
         $temp["user"][0]["birth_month"] = $userProfile->BIRTH_MONTH;
         $temp["user"][0]["birth_year"] = $userProfile->BIRTH_YEAR;
+        $temp["user"][0]["selected_topics"] = "";
+
 
         $temp["user"][0]["email"] = $userProfile->EMAIL;
         $temp["user"][0]["phone"] = $userProfile->PHONE;
@@ -203,7 +216,7 @@ class DefaultController extends CController {
 
 
 
-      $cb->add(substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'],'.')+1) . "/users/" . $rand_id, CJSON::encode($temp));
+        $cb->add(substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.') + 1) . "/users/" . $rand_id, CJSON::encode($temp));
     }
 
     private function _loginUser($identity) {
@@ -211,11 +224,11 @@ class DefaultController extends CController {
 
 
         if (Yii::app()->session['newUser'] == "new") {
-            
+
             $this->render('welcome');
-            unset(Yii::app()->session['newUser'] );
+            unset(Yii::app()->session['newUser']);
         } else {
-      
+
             $this->render('close');
         }
     }

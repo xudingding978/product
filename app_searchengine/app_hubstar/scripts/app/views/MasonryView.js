@@ -12,7 +12,6 @@ define([
     var MasonryView = Ember.View.extend({
         template: Ember.Handlebars.compile(masonryTemplate),
         didInsertElement: function() {
-            console.log(3333333);
             $(function() {
                 $('#masonry_container').masonry({
                     itemSelector: '.box',

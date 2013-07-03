@@ -1,30 +1,31 @@
 <div style="width: 100%; margin: 100px auto; left: 0;right: 0;position: relative;display: block;">
     <!-- masonry from here -->
-    <div id="masonry_user_container"  class="transitions-enabled centered clearfix">
+    <div id="masonry_user_container"  class="centered clearfix">
 
         <!--SECTION CONTROL BAR-->
 
         <div class="style-box t-style-box" style="width: 100%; min-width: 796px; height: 50px; background: white;margin: -70px auto;left: 0;right: 0;position: relative;display: block;">
 
             <div style="margin: 4px 20px 4px 40px; font-size: 18px; text-shadow: 0 1px 0 rgba(255,255,255,0.8);float: left;" >Album Name </div>
-            <i class="icon-upload" style="color: #555; text-shadow: 0 1px 0 rgba(255,255,255,0.8); font-size: 20px; margin: 15px 0; display: inline-block;"></i>
+            <!--            <i class="icon-upload" style="color: #555; text-shadow: 0 1px 0 rgba(255,255,255,0.8); font-size: 20px; margin: 15px 0; display: inline-block;"></i>-->
 
 
-            <ul class="user-stats" id="user-stats">
-                <li><a>Collections</a></li>
-                <li><a>Photos</a></li>
-                <li><a>Videos</a></li>
-                <li><a>Following</a></li>
-                <li><a>Followers</a></li>
-            </ul>
+            <!--            <ul class="user-stats" id="user-stats">
+                            <li><a>Collections</a></li>
+                            <li><a>Photos</a></li>
+                            <li><a>Videos</a></li>
+                            <li><a>Following</a></li>
+                            <li><a>Followers</a></li>
+                        </ul>-->
 
         </div>
 
         <!--END SECTION CONTROL BAR-->
         <div class="box style-box t-style-box" id="addNew">
 
-            <div id="uploadObject" {{action newCollection }}  >
+            <div id="uploadObject" {{action newCollection }}>
                 <div class="add-new-object-hoverarea easing">
+
                     <i class="icon-plus-sign"></i>
                 </div>
                 <div class="masonry-object t-style-box">
@@ -37,7 +38,7 @@
 
                 </div>
             </div>
-                {{view App.EditCollectionView}}
+            {{view App.EditCollectionView}}
         </div>
 
         {{#each collections}}
@@ -45,17 +46,17 @@
             <div class="masonry-object Targeting_Object_front" {{bindAttr id="id"}}>
                 <a class="album-description-hoverarea easing" href="" {{action transitionToCollectionPhoto id}}>
 
-                    <div class="album-description">{{desc}}</div>
+                   <div class="album-description">{{desc}}</div>
                     <div class="album-description-bg">{{desc}}</div>
                 </a>
                 <div class="albumcover-container"  >
                     <img class="albumcover" {{bindAttr src="cover"}} />
                 </div>
                 <div class="album-info">
-                    <div class="album-info_name"><i class="icon-picture" ></i> {{collection_ids}}         </div>
+                    <div class="album-info_name"><i class="icon-picture" ></i>   {{title}}</div>
                     <div class="album-info_content">
                         <div class="edit-btn edit-collection-btn easing"><i class="icon-cog" {{action editCollectionButton id desc target="view" on="click"}}></i></div>
-                        <span><a href="" {{action transitionToCollectionPhoto id}}> {{title}} </a> photos {{title}}</span>
+                        <span><a href="" {{action transitionToCollectionPhoto id}}> </a> photos</span>
                         <span><img src="../../images/list-doc.png"/> April 1 2013</span>
                     </div>
                 </div>
@@ -77,6 +78,11 @@
 
         </script>
         {{/each}}
+
+        
+       
+        <div class="box style-box t-style-box" style="opacity: 0;"></div>
+
 
     </div>
 

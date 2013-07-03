@@ -61,9 +61,7 @@ return CMap::mergeArray(
                 'common.modules.*',
                 'application.models.*',
                 'application.components.*',
-                
-                'app_administrator.protected.components.*',
-                'app_restAPI.protected.components.*'   
+   
             ),
             'modules' => array(
                 'gii' => array(

@@ -8,30 +8,24 @@
                 </a>
             </div>
 
-<!--            <div id="title" class="title-strapline">
-                <p class="titleText" >Global  recommendations from    </p>
-            </div>
+            <!--            <div id="title" class="title-strapline">
+                            <p class="titleText" >Global  recommendations from    </p>
+                        </div>
+            
+            
+                        <div id="dd4" class="wrapper-dropdown-3" tabindex="1" style="background:none;border: none;color:white;height: 45px;display: inline-block;box-shadow: none; font-weight: normal;">
+                            <div class="SpanFontSetting dropdown_test_4" style="margin: -10px 0px 0px -10px;height: 45px;"><p style=" position: absolute; margin: 13px 0;">Region</p></div>
+                            <ul class="dropdown" style="background: none repeat scroll 0% 0% rgb(45, 45, 45);border: 1px solid rgba(0, 0, 0, 0.17);">
+                                <li><a href="#" style="margin:0; border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>Australia</a></li>
+                                <li><a href="#" style="margin:0; border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>New Zealand</a></li>
+                                <li><a href="#" style="margin:0; border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>India</a></li>
+                                <li><a href="#" style="margin:0; border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>China</a></li>
+                                <li><a href="#" style="margin:0; border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>America</a></li>
+                            </ul>
+                        </div>-->
 
 
-            <div id="dd4" class="wrapper-dropdown-3" tabindex="1" style="background:none;border: none;color:white;height: 45px;display: inline-block;box-shadow: none; font-weight: normal;">
-                <div class="SpanFontSetting dropdown_test_4" style="margin: -10px 0px 0px -10px;height: 45px;"><p style=" position: absolute; margin: 13px 0;">Region</p></div>
-                <ul class="dropdown" style="background: none repeat scroll 0% 0% rgb(45, 45, 45);border: 1px solid rgba(0, 0, 0, 0.17);">
-                    <li><a href="#" style="margin:0; border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>Australia</a></li>
-                    <li><a href="#" style="margin:0; border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>New Zealand</a></li>
-                    <li><a href="#" style="margin:0; border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>India</a></li>
-                    <li><a href="#" style="margin:0; border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>China</a></li>
-                    <li><a href="#" style="margin:0; border-radius:0px;color: white;border-bottom: 1px solid black;padding: 10px;border-top: 1px solid rgb(66, 66, 66);box-shadow: none;"><i></i>America</a></li>
-                </ul>
-            </div>-->
-
-
-            <div class="smallIcon">
-                <a href="#" class="icon_c"><i class="icon-search icon-large"></i></a>
-            </div>
             <!-- show if not logged into platform-->
-
-
-
 
 
             {{#if controller.islogin}}
@@ -64,9 +58,39 @@
 
             <!-- user is logged in -->
 
+            <div class="smallIcon">
+                <a href="#" class="icon_c"><i class="icon-search icon-large"></i></a>
+            </div>
+
         </div>
     </div>
 </div>
+
+<!-- UserVoice JavaScript SDK (only needed once on a page) -->
+<script>(function() {
+        var uv = document.createElement('script');
+        uv.type = 'text/javascript';
+        uv.async = true;
+        uv.src = '//widget.uservoice.com/aIQHthURUy7I7LzSbe3pQ.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(uv, s)
+    })()</script>
+
+<!-- A tab to launch the Classic Widget -->
+<script>
+    UserVoice = window.UserVoice || [];
+    UserVoice.push(['showTab', 'classic_widget', {
+            mode: 'full',
+            primary_color: '#cc6d00',
+            link_color: '#007dbf',
+            default_mode: 'support',
+            forum_id: 213001,
+            tab_label: 'Feedback & Support',
+            tab_color: '#57b6e6',
+            tab_position: 'middle-right',
+            tab_inverted: false
+        }]);
+</script>
 
 
 
@@ -127,7 +151,7 @@
     function Facebook(popupWidth, popupHeight) {
         var left = (screen.width / 2) - (popupWidth / 2);
         var top = (screen.height / 2) - (popupHeight / 2);
-          var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Facebook";
+        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Facebook";
         newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
         if (window.focus) {
             newwindow.focus();
@@ -138,7 +162,7 @@
     function Yahoo(popupWidth, popupHeight) {
         var left = (screen.width / 2) - (popupWidth / 2);
         var top = (screen.height / 2) - (popupHeight / 2);
-        var api_url = "http://" + document.domain +"/hybridauth/default/login/?provider=Yahoo";
+        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Yahoo";
         newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
         if (window.focus) {
             newwindow.focus();
@@ -157,7 +181,7 @@
         var left = (screen.width / 2) - (popupWidth / 2);
         var top = (screen.height / 2) - (popupHeight / 2);
 
-     var api_url = "http://" + document.domain +"/hybridauth/default/login/?provider=Sina";
+        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Sina";
         newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
         if (window.focus) {
             newwindow.focus();
@@ -166,7 +190,7 @@
     function LinkedIn(popupWidth, popupHeight) {
         var left = (screen.width / 2) - (popupWidth / 2);
         var top = (screen.height / 2) - (popupHeight / 2);
-       var api_url = "http://" + document.domain +"/hybridauth/default/login/?provider=LinkedIn";
+        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=LinkedIn";
         newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
         if (window.focus) {
             newwindow.focus();
@@ -175,7 +199,7 @@
     function Google(popupWidth, popupHeight) {
         var left = (screen.width / 2) - (popupWidth / 2);
         var top = (screen.height / 2) - (popupHeight / 2);
-        var api_url = "http://" + document.domain +"/hybridauth/default/login/?provider=Google";
+        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Google";
         newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
         if (window.focus) {
             newwindow.focus();

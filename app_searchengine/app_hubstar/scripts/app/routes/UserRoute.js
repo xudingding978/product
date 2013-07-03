@@ -14,17 +14,18 @@ define([
 
     var UsersRoute = Ember.Route.extend({
         setupController: function(controller, model) {
+            //  alert('sdddddd');
 
- 
             this.controllerFor('application').set('islogin', true);
             this.controllerFor('application').set('popup', false);
             this.controllerFor('application').set('isotherpage', true);
             this.controllerFor('searchs').setLoginImge();
             this.controllerFor('application').set('isotherpage', true);
             this.controller.set('switchPhoto', true);
-
+            this.controllerFor('user').setUser();
         },
         model: function(params) {
+            //  alert(params.user_id);
             return UserModel.find(params.user_id);
         },
         events: {

@@ -5,8 +5,10 @@ define(
             'emberData'
         ], function() {
 
+    DS.RESTAdapter.map('App.Profile', {
+        collections: {embedded: 'always'}
+    });
     var ProfileModel = DS.Model.extend({
-
         profile_name: DS.attr('string'),
         last_name: DS.attr('string'),
         first_name: DS.attr('string'),
@@ -21,39 +23,15 @@ define(
         profile_category: DS.attr('string'),
         profile_physical_address: DS.attr('string'),
         phone_number: DS.attr('string'),
-        collections:DS.attr('string'),        
+     
         website_url: DS.attr('string'),
-        getProfile: function() {
-            return this.get('type') === 'profile';
-        }.property('type'),
-        getPhoto: function() {
-            return this.get('type') === 'photo';
-        }.property('type'),
-        getVideo: function() {
-            return this.get('type') === 'video';
-        }.property('type'),
-        getFile: function() {
-            return this.get('type') === 'file';
-        }.property('type'),
-        getArticle: function() {
-            return this.get('type') === 'article';
-        }.property('type'),
-        getIdeabook: function() {
-            return this.get('type') === 'ideabook';
-        }.property('type'),
-        getDiscussion: function() {
-            return this.get('type') === 'discussion';
-        }.property('type'),
-        didLoad: function() {
-//            console.log('model loaded', this.toJSON());
-//            console.log('id: ' + this.id + ' ' + this.profile_name, this);
-        }
+        collections: DS.hasMany('App.Collection')
     });
 
-    ProfileModel.reopenClass({
-        url: 'https://api.example.com', //this must match JSON_RESPONSE_ROOT_SINGLE constant in modules/api/controllers/ContactController.php
-        pk: "id"
-    });
+//    ProfileModel.reopenClass({
+//        url: 'https://api.example.com', //this must match JSON_RESPONSE_ROOT_SINGLE constant in modules/api/controllers/ContactController.php
+//        pk: "id"
+//    });
 
     return ProfileModel;
 }

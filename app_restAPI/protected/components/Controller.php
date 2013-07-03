@@ -20,15 +20,36 @@ class Controller extends CController {
         return CJSON::decode(file_get_contents('php://input'));
     }
 
-    protected function couchBaseConnection($bucket="test") {
+    protected function couchBaseConnection($bucket = "test") {
         return new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", $bucket, true);
     }
-    
+
     protected function couchBaseConnection_production() {
         return new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "production", true);
     }
 
+<<<<<<< HEAD
     protected function getProviderConfigurationByName($domain,$name) {
+=======
+    protected function getS3BucketName($domain) {
+        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
+        $result = $cb->get($domain);
+        $result_arr = CJSON::decode($result, true);
+        return $result_arr["providers"]["S3bucket"];
+    }
+
+    protected function getS3Connection($domain) {
+        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
+        $result = $cb->get($domain);
+        $result_arr = CJSON::decode($result, true);
+        $client = Aws\S3\S3Client::factory(
+                        $result_arr["providers"]["S3Client"]
+        );
+        return $client;
+    }
+
+    protected function getProviderConfigurationByName($domain, $name) {
+>>>>>>> 1374ddcc0299c3697595a1b7e1b445b7483b84af
         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
         $result = $cb->get($domain);
         $result_arr = CJSON::decode($result, true);
@@ -165,7 +186,9 @@ class Controller extends CController {
         if ($requireType == 'search') {
             $region = $this->getUserInput($requireParams[1]);
             $searchString = $this->getUserInput($requireParams[2]);
-            $response = $this->performSearch($returnType, $region, $searchString);
+            $from = $this->getUserInput($requireParams[3]);
+            $size = $this->getUserInput($requireParams[4]);
+            $response = $this->performSearch($returnType, $region, $searchString, $from, $size);
         } elseif ($requireType == 'collection') {
             $collection_id = $this->getUserInput($requireParams[1]);
             $owner_profile_id = $this->getUserInput($requireParams[2]);
@@ -184,6 +207,7 @@ class Controller extends CController {
             array_push($requestArray, $requestStringTwo);
             $tempResult = $this->performMustSearch($requestArray, $returnType);
             $mega = CJSON::decode($tempResult, true);
+
             $collections = $mega['megas'][0]['user'][0]['collections'];
             $response = $this->getCollections($collections, $collection_id, $returnType);
         } else {
@@ -192,29 +216,25 @@ class Controller extends CController {
         return $response;
     }
 
-    protected function performSearch($returnType, $region, $requestString) {
+    protected function performSearch($returnType, $region, $requestString, $from = 0, $size = 50) {
         $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
-
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
 //Build a new search request
         $request = $sherlock->search();
 
-        $request->index("test")->type("couchbaseDocument")->from(1);
-        $request->index("test")->type("couchbaseDocument")->size(50);
+        
+        $request->index(Yii::app()->params['elasticSearchIndex'])
+                ->from($from)
+                ->size($size);
 //populate a Term query to start
         $termQuery = Sherlock\Sherlock::queryBuilder()
                 ->QueryString()
                 ->fields("couchbaseDocument.doc.keywords")
                 ->query($requestString)
                 ->boost(2.5);
-
-        $request->index(Yii::app()->params['elasticSearchIndex'])
-                ->type("couchbaseDocument")
-                ->from(10)
-                ->size(50)
-                ->query($termQuery);
-
+        $request->query($termQuery);
+        error_log($request->toJSON());
         $response = $request->execute();
 
         $results = '{"' . $returnType . '":[';
@@ -234,23 +254,29 @@ class Controller extends CController {
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
         $request = $sherlock->search();
+<<<<<<< HEAD
         $request->index("develop")->type("couchbaseDocument")->from(1);
         $request->index("develop")->type("couchbaseDocument")->size(50);
+=======
+        $request->index("test")->type("couchbaseDocument");
+>>>>>>> 1374ddcc0299c3697595a1b7e1b445b7483b84af
         $max = sizeof($requestArray);
         $bool = Sherlock\Sherlock::queryBuilder()->Bool();
         
         
         for ($i = 0; $i < $max; $i++) {
             $must = $this->getmustQuest($requestArray[$i]);
-            $bool->must($must);
+            $bool->should($must);
         }
         $request->query($bool);
+        error_log($request->toJSON());
         $response = $request->execute();
+        error_log(var_export($response, true));
         $i = 0;
         
         $results = '{' . $returnType . ':[';
         foreach ($response as $hit) {
-            $results .= CJSON::encode($hit['source']['doc']);
+            $results .= CJSON::encode($hit['source'] ['doc']);
             if (++$i < count($response)) {
                 $results .= ',';
             }
@@ -268,25 +294,18 @@ class Controller extends CController {
 //Build a new search request
         $request = $sherlock->search();
 //populate a Term query to start
-        $termQuery = Sherlock\Sherlock::queryBuilder()
-                ->QueryString()
-                ->fields("couchbaseDocument.doc.id")
-                ->query($requestString)
+        $must = Sherlock\Sherlock::queryBuilder()->Term()->term($requestString)//$collection_id
+                ->field('couchbaseDocument.doc.id');
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)
                 ->boost(2.5);
-        $request->index(Yii::app()->params['elasticSearchIndex'])
-                ->type("couchbaseDocument")
-                ->size(7)
-                ->query($termQuery);
-        $response = $request->execute();
+        $response = $request->query($bool)->execute();
+        error_log(var_export($response, true));
         $results = '{"' . $returnType . '":';
-        $i = 0;
         foreach ($response as $hit) {
-            $results .= CJSON::encode($hit['source']['doc']);
-            if (++$i < count($response)) {
-                $results .= ',';
-            }
+            $results .= CJSON::encode($hit['source'] ['doc']);
         }
         $results .= '}';
+
         return $results;
     }
 
@@ -310,7 +329,7 @@ class Controller extends CController {
         $i = 0;
         foreach ($response as $hit) {
 
-            $results .= CJSON::encode($hit['source']['doc']);
+            $results .= CJSON::encode($hit['source'] ['doc']);
             if (++$i !== count($response)) {
                 $results .= ',';
             }
@@ -324,16 +343,13 @@ class Controller extends CController {
         $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
-//Build a new search request
         $request = $sherlock->search();
         $request->index("test")->type("couchbaseDocument")->from(1);
         $request->index("test")->type("couchbaseDocument")->size(50);
-//populate a Term query to start
         $termQuery = Sherlock\Sherlock::queryBuilder()
-                ->QueryString()
-                ->fields("couchbaseDocument.doc.keywords")
-                ->query($requestString)
-                ->boost(2.5);
+                        ->QueryString()
+                        ->fields("couchbaseDocument.doc.keywords")
+                        ->query($requestString)->boost(2.5);
 
         $request->index(Yii::app()->params['elasticSearchIndex'])
                 ->type("couchbaseDocument")
@@ -343,15 +359,18 @@ class Controller extends CController {
 // $result = "";
 //Iterate over the hits and print out some data
         $result = '{"' . $returnType . '":[{"id":"hit","hits":"' . $response->total;
-        $result .= '"}]}';
+        $result .= '"}]}'
+
+        ;
         return $result;
     }
 
     protected function getUserInput($request_string) {
-        $returnString = "";
+        $returnString = null;
         if ($request_string != null || $request_string != "") {
             $returnString = explode('=', $request_string)[1];
         }
+
         return $returnString;
     }
 
@@ -368,6 +387,7 @@ class Controller extends CController {
         header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
         echo "";
+
         Yii::app()->end();
     }
     
@@ -385,14 +405,17 @@ class Controller extends CController {
         $footer = ']}}';
         $tempRquestIDs = "";
         for ($i = 0; $i < sizeof($request_ids); $i++) {
-            $tempRquestIDs.= '"' . $this->getDomain() . "/" . trim($request_ids[$i]) . '"';
+            $tempRquestIDs .= '"' . $this->getDomain() . "/" . trim($request_ids [$i]) . '"';
             if ($i < sizeof($request_ids) - 1) {
                 $tempRquestIDs.=',';
             }
         }
         $rawRequest = $header . $tempRquestIDs . $footer;
+<<<<<<< HEAD
         error_log($rawRequest);
         
+=======
+>>>>>>> 1374ddcc0299c3697595a1b7e1b445b7483b84af
         $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
@@ -443,18 +466,20 @@ class Controller extends CController {
     protected function getDomain() {
         $host = $_SERVER['HTTP_HOST'];
         preg_match("/[^\.\/]+\.[^\.\/]+$/", $host, $matches);
+
         return $matches[0];
     }
 
     protected function getSelectedCollectionIds($collections, $collection_id) {
         $max = sizeof($collections);
-        $request_ids;
+        $request_ids = "";
         for ($i = 0; $i < $max; $i++) {
             $thisCollection = $collections[$i];
             if ($thisCollection["id"] == $collection_id) {
                 $request_ids = $thisCollection['collection_ids'];
             }
         }
+
         return $request_ids;
     }
     
@@ -480,22 +505,31 @@ class Controller extends CController {
     }
     
     protected function getReponseResult($response, $returnType) {
-
         $results = '{"' . $returnType . '":[';
         $i = 0;
         foreach ($response as $hit) {
+<<<<<<< HEAD
 //            $id = $hit['source']['meta']['id'];
 //            error_log($id);
             
             $results .= CJSON::encode($hit['source']['doc']);
+=======
+            $results .= CJSON::encode($hit['source'] ['doc']);
+>>>>>>> 1374ddcc0299c3697595a1b7e1b445b7483b84af
             if (++$i !== count($response)) {
                 $results .= ',';
             }
         }
         $results .= ']}';
+
         return $results;
+<<<<<<< HEAD
     } 
     
+=======
+    }
+
+>>>>>>> 1374ddcc0299c3697595a1b7e1b445b7483b84af
     protected function getImageString($type, $url) {
         $im = "";
         if ($type == "image/png") {
@@ -505,22 +539,22 @@ class Controller extends CController {
         }
         return $im;
     }
-    
     protected function getImageInfo($url) {
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
         $tim = curl_exec($ch);
-        
+
         if (@$imageInfo = getimagesizefromstring($tim)) {
             return $imageInfo;
         } else {
-            $message = $url . "\r\n" . date("Y-m-d H:i:s").$tim. " \r\n";
+            $message = $url . "\r\n" . date("Y-m-d H:i:s") . $tim . " \r\n";
             $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $message);
             return false;
         }
     }
+<<<<<<< HEAD
     
     public function convertToString64($image_string) {
         $matchs = array();
@@ -603,4 +637,6 @@ class Controller extends CController {
     } 
     
     
+=======
+>>>>>>> 1374ddcc0299c3697595a1b7e1b445b7483b84af
 }

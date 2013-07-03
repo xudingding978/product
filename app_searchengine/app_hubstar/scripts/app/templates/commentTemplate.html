@@ -29,7 +29,7 @@
 
     <div class="masonry_addcommnetbox-container" {{action openComment model.id target="view" on="click"}} id="comment_{{unbound model.id}}">
         <div class="addcommnetbox">
-            Add comments {{model}}
+            Add comments 
         </div>
     </div>
 
@@ -48,11 +48,9 @@
         </div>
     </div>
 
-
     <div id="commentData_{{unbound model.id}}" class="comment-frame" style="max-height:120px">
 
         {{#each model.comments}}
-
         <div class="comment-item"  >
 
             <div class="comment-position">
@@ -63,7 +61,7 @@
                     <div class="comment-namentime">
                         <div class="namentime_position">
                             <a class="comment-username" href="#/users/{{unbound commenter_id}}" >
-                                {{name}}
+                                {{name}}   {{this}}
                             </a>
                             <div class="posttime-container">
                                 <span class="posttime">{{date time_stamp}}</span>

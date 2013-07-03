@@ -8,15 +8,13 @@ define(["ember"
         uploadMode: null,
         newCollectionName: null,
         collections: [],
-        temp: null,
+        temp: [],
         selectedDesc: "",
         selectedTitle: "",
         coverImg: "",
         display_name: "",
         currentUserID: "",
         needs: ['photoCreate'],
-        sortProperties: ['id'],
-        sortAscending: false,
         makeSureDelete: false,
         selectedCollection: "",
         selected_topics: [],
@@ -26,8 +24,10 @@ define(["ember"
         },
         setUser: function()
         {
+
             var user = this.getCurrentUser();
             topics = user.get('selected_topics');
+            this.set('selected_topics', []);
             if (topics !== null && topics !== "") {
                 var topics = topics.split(",");
                 for (var i = 0; i < topics.length; i++) {
@@ -84,26 +84,17 @@ define(["ember"
         },
         checkingIdisExsinting: function(id, postOrPut) {
 
-
             if (postOrPut === "update") {
+                for (var i = 0; i < this.get("temp").get('length'); i++) {
 
-                for (var i = 0; i < this.get("collections").get('length'); i++) {
-                    if (this.get("collections").objectAt(i).id === id) {
+                    if (this.get("temp").objectAt(i) === id) {
 
                         isExsinting = false;
                     }
                 }
-
-                if (this.get("temp") === id) {
-
-                    isExsinting = false;
-                }
                 if (!isExsinting) {
-
                     alert('This Collection is already exsiting!!!');
                 }
-
-
             } else if (postOrPut === "create") {
 
                 for (var i = 0; i < this.get("collections").get('length'); i++) {
@@ -193,7 +184,9 @@ define(["ember"
                 this.set('willDelete', true);
 
             }
-
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reload");
+            }, 200);
         },
         deleteTopic: function(topic) {
 
@@ -207,6 +200,7 @@ define(["ember"
 
             user.set('selected_topics', user.get('selected_topics').substring(0, user.get('selected_topics').length - 1));
             user.store.commit();
+
         },
         cancelDelete: function() {
             this.set('willDelete', false);
@@ -216,6 +210,7 @@ define(["ember"
         {
 
             var id = this.checkingValidInput(this.selectedCollection.get('id'));
+
             this.checkingIdisExsinting(id, "update");
             if (isExsinting) {
                 var title = this.get("selectedCollection").get("id");
@@ -231,14 +226,13 @@ define(["ember"
             }
         },
         setSelectedCollection: function(id) {
-
-
-
             for (var i = 0; i < this.get("collections").get("length"); i++) {
                 var thisCollection = this.get("collections").objectAt(i);
+
+                this.get('temp').pushObject(thisCollection.get("id"));
                 if (id === thisCollection.get("id")) {
                     this.set("selectedCollection", thisCollection);
-                    this.set("temp", id);
+                    //      console.log(  this.get("selectedCollection"));
                 }
             }
         },

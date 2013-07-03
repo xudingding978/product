@@ -146,8 +146,6 @@ define([
                         this.set('editingContact', !this.get('editingContact'));
                     }
                     else if (checkingInfo === "timeSetting") {
-
-
                         this.set('editingTime', !this.get('editingTime'));
                     }
                 },

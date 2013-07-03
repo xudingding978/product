@@ -28,6 +28,9 @@ class Controller extends CController {
         return new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "production", true);
     }
 
+<<<<<<< HEAD
+    protected function getProviderConfigurationByName($domain,$name) {
+=======
     protected function getS3BucketName($domain) {
         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
         $result = $cb->get($domain);
@@ -46,6 +49,7 @@ class Controller extends CController {
     }
 
     protected function getProviderConfigurationByName($domain, $name) {
+>>>>>>> 1374ddcc0299c3697595a1b7e1b445b7483b84af
         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
         $result = $cb->get($domain);
         $result_arr = CJSON::decode($result, true);
@@ -250,9 +254,16 @@ class Controller extends CController {
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
         $request = $sherlock->search();
+<<<<<<< HEAD
+        $request->index("develop")->type("couchbaseDocument")->from(1);
+        $request->index("develop")->type("couchbaseDocument")->size(50);
+=======
         $request->index("test")->type("couchbaseDocument");
+>>>>>>> 1374ddcc0299c3697595a1b7e1b445b7483b84af
         $max = sizeof($requestArray);
         $bool = Sherlock\Sherlock::queryBuilder()->Bool();
+        
+        
         for ($i = 0; $i < $max; $i++) {
             $must = $this->getmustQuest($requestArray[$i]);
             $bool->should($must);
@@ -262,6 +273,7 @@ class Controller extends CController {
         $response = $request->execute();
         error_log(var_export($response, true));
         $i = 0;
+        
         $results = '{' . $returnType . ':[';
         foreach ($response as $hit) {
             $results .= CJSON::encode($hit['source'] ['doc']);
@@ -378,14 +390,14 @@ class Controller extends CController {
 
         Yii::app()->end();
     }
-
+    
     protected function getmustQuest($queryString) {
         $mustQuery = explode('=', $queryString);
         $should = Sherlock\Sherlock::queryBuilder()->Term()->term($mustQuery[1])//$collection_id
                 ->field($mustQuery[0]);
         return $should;
     }
-
+    
     protected function getCollections($collections, $collection_id, $returnType) {
         $request_ids = $this->getSelectedCollectionIds($collections, $collection_id);
         $request_ids = explode(',', $request_ids);
@@ -399,6 +411,11 @@ class Controller extends CController {
             }
         }
         $rawRequest = $header . $tempRquestIDs . $footer;
+<<<<<<< HEAD
+        error_log($rawRequest);
+        
+=======
+>>>>>>> 1374ddcc0299c3697595a1b7e1b445b7483b84af
         $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
@@ -412,7 +429,40 @@ class Controller extends CController {
 
         return $results;
     }
-
+    
+    protected function getAllDoc($returnType, $from, $to) {
+        $rawRequest = '{
+                                    "bool": {
+                                      "must": {
+                                        "range": {
+                                          "couchbaseDocument.doc.accessed": {
+                                            "from": ' .$from. ',
+                                            "to": ' .$to. '
+                                          }
+                                        }
+                                      }
+                                    }
+                                }';
+        
+        $settings['log.enabled'] = true;
+        $settings['log.file'] = '../../sherlock.log';
+        $sherlock = new \Sherlock\Sherlock($settings);
+        $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
+        $request = $sherlock->search();
+        $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
+        $request->index("develop")
+                ->from(0)
+                ->size(1000)
+                ->type("couchbaseDocument")
+                ->query($termQuery);
+        
+        $response = $request->execute();
+        
+        $results = $this->modifyArticleResponseResult($response, $returnType);
+        
+        return $results;
+    }
+    
     protected function getDomain() {
         $host = $_SERVER['HTTP_HOST'];
         preg_match("/[^\.\/]+\.[^\.\/]+$/", $host, $matches);
@@ -432,12 +482,40 @@ class Controller extends CController {
 
         return $request_ids;
     }
-
+    
+    
+    //update article 
+    protected function modifyArticleResponseResult($response, $returnType) {
+        $results = '{"' . $returnType . '":[';
+        $i=0;
+        foreach($response as $hit) {
+            $id = $hit['source']['meta']['id'];
+            $id = str_replace("trendsideas.com/", "", $id);
+            $hit['source']['doc']['id'] = $id;
+            $hit['source']['doc']['article'][0]['id'] = $id;
+            
+            $results .= CJSON::encode($hit['source']['doc']);
+            if (++$i !== count($response)) {
+                $results .= ',';
+            }
+        }
+        
+        $results .= ']}';
+        return $results;
+    }
+    
     protected function getReponseResult($response, $returnType) {
         $results = '{"' . $returnType . '":[';
         $i = 0;
         foreach ($response as $hit) {
+<<<<<<< HEAD
+//            $id = $hit['source']['meta']['id'];
+//            error_log($id);
+            
+            $results .= CJSON::encode($hit['source']['doc']);
+=======
             $results .= CJSON::encode($hit['source'] ['doc']);
+>>>>>>> 1374ddcc0299c3697595a1b7e1b445b7483b84af
             if (++$i !== count($response)) {
                 $results .= ',';
             }
@@ -445,8 +523,13 @@ class Controller extends CController {
         $results .= ']}';
 
         return $results;
+<<<<<<< HEAD
+    } 
+    
+=======
     }
 
+>>>>>>> 1374ddcc0299c3697595a1b7e1b445b7483b84af
     protected function getImageString($type, $url) {
         $im = "";
         if ($type == "image/png") {
@@ -471,4 +554,89 @@ class Controller extends CController {
             return false;
         }
     }
+<<<<<<< HEAD
+    
+    public function convertToString64($image_string) {
+        $matchs = array();
+        preg_match_all('/\:(.*?)\;/', $image_string, $matchs);
+        $image_type = $matchs[1][0];
+        
+        $input_image_string = $this->getInputData($image_type, $image_string);
+        $image_data['type'] = $image_type;
+        $image_data['data'] = $input_image_string;
+                
+        return $image_data;
+    }
+    
+    public function saveImageToS3($url, $data) {
+        $provider_arr = $this->getS3ConnectionPara("S3Client");
+        $client = Aws\S3\S3Client::factory(
+                        $provider_arr
+        );
+        $client->putObject(array(
+            'Bucket' => "hubstar-dev",
+            'Key' => $url,
+            'Body' => $data,
+            'ACL' => 'public-read'
+        ));
+    }
+    
+    protected function addPhotoSizeToName($photo_name, $photo_size_arr) {
+        $name_arr = explode(".", $photo_name);
+        $new_name = "";
+        if (sizeof($name_arr>0)){
+            $temp_str = '_'.$photo_size_arr['width'].'x'.$photo_size_arr['height'];
+            $new_name = $name_arr[0].$temp_str.'.'.$name_arr[1];
+        }
+        
+        return $new_name;
+    }
+    
+    public function getS3ConnectionPara($provider) {
+        $cb = $this->couchBaseConnection("default");
+        $key = explode(".", $_SERVER['HTTP_HOST']);
+        $key = $key[1] . '.' . $key[2];
+        $result = $cb->get($key);
+        $result_arr = CJSON::decode($result, true);
+        
+        return $result_arr["providers"][$provider];
+    }
+       
+    public function getInputData($inputDataType, $inputData) {
+        $tempInput = "";
+        if ($inputDataType == "image/jpeg") {
+            $tempInput = str_replace('data:image/jpeg;base64,', '', $inputData);
+        } elseif ($inputDataType == "application/pdf") {
+            $tempInput = str_replace('data:application/pdf;base64,', '', $inputData);
+        } elseif ($inputDataType == "image/png") {
+            $tempInput = str_replace('data:image/png;base64,', '', $inputData);
+        } elseif ($inputDataType == "image/gif") {
+            $tempInput = str_replace('data:image/gif;base64,', '', $inputData);
+        }
+        $data = base64_decode($tempInput);
+        return $data;
+    }
+        
+    function compressPhotoData($type, $data) {
+        error_log($type);
+        
+        ob_start();
+        if ($type == "image/png") {
+            imagepng($data);
+            error_log("fffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+        } elseif ($type == "image/jpeg") {
+            imagejpeg($data, null, 80);
+            error_log("sssssssssssssssssssssssssssssssssssssssssssssss");
+        }
+        error_log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        $return = ob_get_contents();
+        ob_end_clean();
+        error_log($return);
+        
+        return $return;
+    } 
+    
+    
+=======
+>>>>>>> 1374ddcc0299c3697595a1b7e1b445b7483b84af
 }

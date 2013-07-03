@@ -15,8 +15,6 @@ define(["ember"
         display_name: "",
         currentUserID: "",
         needs: ['photoCreate'],
-        sortProperties: ['id'],
-        sortAscending: false,
         makeSureDelete: false,
         selectedCollection: "",
         selected_topics: [],

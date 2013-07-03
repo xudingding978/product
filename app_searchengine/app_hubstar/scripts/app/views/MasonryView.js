@@ -38,6 +38,7 @@ define([
             });
 
         },
+
         infiniteData: function() {
             this.get('controller').scrollDownAction();
         },

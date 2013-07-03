@@ -105,7 +105,7 @@ class UsersController extends Controller {
             $oldRecord['user'][0] = $request_arr['user'];
 
             if ($cb->set($url, CJSON::encode($oldRecord))) {
-                $this->sendResponse(204, "{ render json: @user, status: :ok }");
+                $this->sendResponse(204);
             } else {
                 $this->sendResponse(500, "some thing wrong");
             }
@@ -181,6 +181,11 @@ class UsersController extends Controller {
 
         return $response;
     }
+    
+   public function test()
+   {       
+       
+   }
 
 }
 

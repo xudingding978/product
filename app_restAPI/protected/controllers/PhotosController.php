@@ -1,7 +1,8 @@
 <?php
-     header('Content-type: *');
-    header("Access-Control-Allow-Origin: *");
-   header('Access-Control-Allow-Headers: *');
+
+header('Content-type: *');
+header("Access-Control-Allow-Origin: *");
+header('Access-Control-Allow-Headers: *');
 
 class PhotosController extends Controller {
 
@@ -10,11 +11,11 @@ class PhotosController extends Controller {
 
     public function actionIndex() {
 
-   $temp = explode("/", $_SERVER['REQUEST_URI']);
-   
-      $id=  $temp[sizeof($temp)-1];
-   $result=$this->getRequestResultByID(self::JSON_RESPONSE_ROOT_SINGLE, $id);
-   $this->sendResponse(null,$result);
+        $temp = explode("/", $_SERVER['REQUEST_URI']);
+
+        $id = $temp[sizeof($temp) - 1];
+        $result = $this->getRequestResultByID(self::JSON_RESPONSE_ROOT_SINGLE, $id);
+        $this->sendResponse(null, $result);
     }
 
     public function actionCreate() {
@@ -31,19 +32,18 @@ class PhotosController extends Controller {
     }
 
     public function actionRead() {
-   $temp = explode("/", $_SERVER['REQUEST_URI']);
-   
-      $id=  $temp[sizeof($temp)-1];
-   $result=$this->getRequestResultByID(self::JSON_RESPONSE_ROOT_SINGLE, $id);
-   $this->sendResponse(null,$result);
+        $temp = explode("/", $_SERVER['REQUEST_URI']);
 
-
-
+        $id = $temp[sizeof($temp) - 1];
+        $result = $this->getRequestResultByID(self::JSON_RESPONSE_ROOT_SINGLE, $id);
+        $this->sendResponse(null, $result);
     }
 
     public function actionUpdate() {
         try {
-            
+            error_log("aaaaaaaaaaaaaaaaaaaa");
+            $request_json = file_get_contents('php://input');
+          echo $request_json;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -121,9 +121,9 @@ class PhotosController extends Controller {
         }
         return $response;
     }
-    
-    public function actionMovePhoto(){
-        
+
+    public function actionMovePhoto() {
+
         echo "1111111111111111111111";
     }
 

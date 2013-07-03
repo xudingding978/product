@@ -16,6 +16,7 @@ define([
         from: null,
         size: null,
         init: function() {
+            this.set("content", []);
             this.set("from", 0);
             this.set("size", 50);
 
@@ -40,9 +41,9 @@ define([
             this.set("test", !this.get("test"));
         },
         scrollDownAction: function() {
+            this.set("size", 20);
+            this.set("from", this.get("from") + this.get("size"));
 
-            this.set("from", this.get("from") + 10);
-            this.set("size", 10);
             var results = MegaModel.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size")});
             var that = this;
             results.addObserver('isLoaded', function() {
@@ -57,6 +58,7 @@ define([
 
         },
         newSearch: function() {
+            this.init();
             var d = new Date();
             var start = d.getTime();
             var results = MegaModel.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size")});

@@ -53,7 +53,10 @@ define([
                         var tempmega = results.objectAt(i);
                         that.pushObject(tempmega);
                     }
+                    setTimeout(function() {
+                        $('#masonry_container').masonry("reload");
 
+                    }, 2200);
                     that.set('loadingTime', false);
                 }
             });
@@ -74,7 +77,16 @@ define([
                         var tempmega = results.objectAt(i);
                         that.pushObject(tempmega);
                     }
+
+
+                    setTimeout(function() {
+                        $('#masonry_container').masonry("reload");
+
+                    }, 2200);
+                    that.set('loadingTime', false);
                 }
+
+
             });
             this.set("from", this.get("size"));
 
@@ -83,19 +95,7 @@ define([
 
 
             var stats = Stat.find({"RquireType": "status", "region": this.get("search_area"), "search_string": this.get("search_string")});
-            var that = this;
-            results.addObserver('isLoaded', function() {
-                if (results.get('isLoaded')) {
-                    setTimeout(function() {
-                        $('#masonry_container').masonry("reload");
 
-                    }, 2200);
-
-
-                }
-                that.set('loadingTime', false);
-
-            });
 
             stats.addObserver('isLoaded', function() {
                 if (stats.get('isLoaded')) {

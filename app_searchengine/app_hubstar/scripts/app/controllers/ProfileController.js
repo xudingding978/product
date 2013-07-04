@@ -55,12 +55,12 @@ define([
 
                     this.updateWorkingHourData(user.get('hours'));
                     this.set("model", this.getCurrentClient());
-                    console.log(user);
+        //            console.log(user);
                     this.set("collections", user.get("collections"));
 
 
                     var collections = user.get("collections");
-                    console.log(collections);
+         //           console.log(collections);
                     for (var i = 0; i < collections.get("length"); i++)
                     {
                         var col = collections.objectAt(i);

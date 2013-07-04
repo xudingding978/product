@@ -6,6 +6,7 @@ define([
     var InsideCollectionController = Ember.ArrayController.extend({
         content: [],
         title: null,
+        needs: ['photoCreate'],
         selectModelForUser: function(collection_id) {
             this.set('content', []);
             var address = document.URL;
@@ -49,7 +50,7 @@ define([
             });
 
         },
-        newUpload: function() {
+        newUpload: function() {        
             $('#ownerUpload').attr('style', 'display:block');
             $('#tagetUplaod').attr('style', 'display:none');
         },

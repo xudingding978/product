@@ -192,7 +192,7 @@ define([
                             profile_physical_address: this.get("address"),
                             hours: "Monday=7:00-late,Tuesday=7:00-late,Wednesday=7:00-late,Thursday=7:00-late,Friday=7:00-late,Saturday=7:00-late,Sunday=closed,Holidays=closed",
                             phone_number: this.get("contact_number"),
-                            collections: null,
+                            collections: [],
                             website_url: this.get("website")
                         });
                         newMega.get("profile").addObject(newProfile);

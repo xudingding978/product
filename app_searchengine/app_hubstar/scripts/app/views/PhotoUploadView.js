@@ -28,11 +28,7 @@ define([
                     var type = file.type;
                     var reader = new FileReader();
                     reader.onload = function(e) {
-                        var src = e.srcElement.result;
-                        var obj = App.Mega.createRecord({"title": name.toLowerCase(), "type": "photos", "creator": localStorage.user_id});
-                        var file = App.Photo.createRecord({"photo_title": name.toLowerCase(), "photo_image_url": src, "photo_type": type});
-                        obj.get("photo").pushObject(file);
-                        controller.get("content").addObject(file);
+                        controller.addPhotoObject(e, controller, name, type);
                     }, reader.readAsDataURL(files[i]);
                 })(files[i]);
 

@@ -23,7 +23,7 @@ require.config({
         'bxslider': 'libs/jquery.bxslider.min',
         'moment': 'libs/moment',
         'modernizr': 'libs/modernizer/modernizr-latest',
-         'uploadclick': 'libs/upclick-min',
+        'helper': 'libs/helper',
         'jquery.masonry': 'libs/jquery.masonry/jquery.masonry.min',
         /*requirejs-plugins*/
         'text': 'libs/requirejs-plugins/text',
@@ -113,6 +113,7 @@ define('application', [
     "views/DeleteFunctionView",
     "views/DropdownListView",
     "views/CommentView",
+    "views/LoadingSpinnerView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -247,6 +248,7 @@ define('application', [
         DeleteFunctionView,
         DropdownListView,
         CommentView,
+        LoadingSpinnerView,
         ApplicationController,
         tabListController,
         DataController,
@@ -381,6 +383,7 @@ define('application', [
         DeleteFunctionView: DeleteFunctionView,
         DropdownListView: DropdownListView,
         CommentView: CommentView,
+        LoadingSpinnerView: LoadingSpinnerView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
@@ -452,18 +455,8 @@ define('application', [
             revision: 12,
             adapter: DS.RESTAdapter.create({
                 bulkCommit: false,
-                url: getRestAPIURL(),
-                mappings: {
-                    //         resultstatus: "App.Resultstatus"
-                },
-                plurals: {
-                    mega: "mega",
-                    //       resultstatus: 'resultstatuss'
+                url: getRestAPIURL()
 
-                },
-                plurals: {
-                    mega: "mega"
-                }
             })
         }),
         ready: function() {
@@ -473,7 +466,9 @@ define('application', [
             App.set("afterSearch", false);
 
             App.set("setHight", null);
-            App.set('chooseCollection',null);
+            App.set('chooseCollection', null);
+            App.set('isMansonryPageLoad', false);
+            App.set('searchStart', false);
 //            var firstView = App.DiscoveryView.create(),
 //                    secondView = App.MasonryView.create();
 //
@@ -489,7 +484,6 @@ function getRestAPIURL()
     var api_domain_start_pos = api_url.indexOf('.');
     var api_url = api_url.slice(api_domain_start_pos);
     api_url = "http://api" + api_url;
-    console.log(api_url);
     return api_url;
 }
 

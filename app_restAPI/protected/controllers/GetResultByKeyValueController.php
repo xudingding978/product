@@ -17,27 +17,26 @@ class GetResultByKeyValueController extends Controller {
 
     public function actionIndex() {
         try {
-            $response;
             $returnType = "articles";
             $temp = explode("?", $_SERVER['REQUEST_URI']);
             $requestArray = array();
             if (sizeof($temp) > 1) {
                 $request_string = $temp [sizeof($temp) - 1];
-                $temparray = preg_split("/=|&/", $request_string);
-                $requestStringOne = 'couchbaseDocument.doc.' . $temparray[0] . '=' . $temparray[1];
+                $temp_arr = preg_split("/=|&/", $request_string);
+                
+                $requestStringOne = 'couchbaseDocument.doc.' . $temp_arr[0] . '=' . $temp_arr[1];
                 array_push($requestArray, $requestStringOne);
-                $requestStringtwo = 'couchbaseDocument.doc.photo.' . $temparray[2] . '=' . $temparray[3];
+                $requestStringtwo = 'couchbaseDocument.doc.photo.' . $temp_arr[2] . '=' . $temp_arr[3];
                 array_push($requestArray, $requestStringtwo);
-                error_log(var_export($requestArray, true));
+                
                 $response = $this->performMustSearch($requestArray, $returnType);
                 $this->sendResponse(200, $response);
-
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
-
-}
+    
+ }
 
 ?>

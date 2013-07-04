@@ -128,7 +128,9 @@ class DefaultController extends CController {
 
 
         $user_profile = $adapter->getUserProfile();
+        error_log(var_export($user_profile, true));
         
+        error_log(000000000000);
         $user = new User;
         $user->attributes = $_POST['User'];
         $user->TENANT_REC_ID = 1;
@@ -176,12 +178,10 @@ class DefaultController extends CController {
         $userProfile->save();
 
 
-        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "Pa55word", "test", true);
+        $cb = new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "develop", true);
         $rand_id = $user->COUCHBASE_ID;
         $temp = $this->getMega();
         $temp["id"] = $rand_id;
-
-
 
         $temp["user"][0]["id"] = $rand_id;
         $temp["user"][0]["identifier"] = $userProfile->IDENTIFIER;

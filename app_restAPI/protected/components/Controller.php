@@ -20,8 +20,12 @@ class Controller extends CController {
         return CJSON::decode(file_get_contents('php://input'));
     }
 
-    protected function couchBaseConnection($bucket = "test") {
-        return new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", $bucket, true);
+    protected function couchBaseConnection() {
+        $bucket = Yii::app()->params['couchBaseBucket'];
+        $account = Yii::app()->params['couchBaseAccount'];
+        $password = Yii::app()->params['couchBasePassword'];
+        $node = Yii::app()->params['couchBaseNode'];
+        return new Couchbase($node, $account, $password, $bucket, true);
     }
 
     protected function couchBaseConnection_production() {
@@ -46,7 +50,11 @@ class Controller extends CController {
     }
 
     protected function getProviderConfigurationByName($domain, $name) {
-        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
+        $bucket = Yii::app()->params['couchBaseDefaultBucket'];
+        $account = Yii::app()->params['couchBaseDefaultAccount'];
+        $password = Yii::app()->params['couchBaseDefaultPasswrd'];
+        $node = Yii::app()->params['couchBaseDefaultNode'];
+        $cb = new Couchbase($node, $account, $password, $bucket, true);
         $result = $cb->get($domain);
         $result_arr = CJSON::decode($result, true);
         return $result_arr["providers"][$name];
@@ -59,8 +67,6 @@ class Controller extends CController {
         $key = $key[1] . '.' . $key[2];
         $result = $cb->get($key);
         $result_arr = CJSON::decode($result, true);
-
-//        error_log(var_export($result_arr));
 
         $client = Aws\S3\S3Client::factory(
                         $result_arr["providers"]["S3Client"]
@@ -213,14 +219,8 @@ class Controller extends CController {
     }
 
     protected function performSearch($returnType, $region, $requestString, $from = 0, $size = 50) {
-        $settings['log.enabled'] = true;
-        $sherlock = new \Sherlock\Sherlock($settings);
-        $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
-//Build a new search request
-        $request = $sherlock->search();
-
-        
-        $request->index(Yii::app()->params['elasticSearchIndex'])
+        $request = $this->getElasticSearch();
+        $request
                 ->from($from)
                 ->size($size);
 //populate a Term query to start
@@ -246,11 +246,8 @@ class Controller extends CController {
     }
 
     protected function performMustSearch($requestArray, $returnType) {
-        $settings['log.enabled'] = true;
-        $sherlock = new \Sherlock\Sherlock($settings);
-        $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
-        $request = $sherlock->search();
-        $request->index("test")->type("couchbaseDocument");
+
+        $request = $this->getElasticSearch();
         $max = sizeof($requestArray);
         $bool = Sherlock\Sherlock::queryBuilder()->Bool();
         for ($i = 0; $i < $max; $i++) {
@@ -258,9 +255,9 @@ class Controller extends CController {
             $bool->should($must);
         }
         $request->query($bool);
-        error_log($request->toJSON());
+
         $response = $request->execute();
-        error_log(var_export($response, true));
+
         $i = 0;
         $results = '{' . $returnType . ':[';
         foreach ($response as $hit) {
@@ -276,18 +273,15 @@ class Controller extends CController {
 
     protected function getRequestResultByID($returnType, $requestString) {
 
-        $settings['log.enabled'] = true;
-        $sherlock = new Sherlock\Sherlock($settings);
-        $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
-//Build a new search request
-        $request = $sherlock->search();
+
+        $request = $this->getElasticSearch();
 //populate a Term query to start
         $must = Sherlock\Sherlock::queryBuilder()->Term()->term($requestString)//$collection_id
                 ->field('couchbaseDocument.doc.id');
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)
                 ->boost(2.5);
         $response = $request->query($bool)->execute();
-        error_log(var_export($response, true));
+
         $results = '{"' . $returnType . '":';
         foreach ($response as $hit) {
             $results .= CJSON::encode($hit['source'] ['doc']);
@@ -298,10 +292,8 @@ class Controller extends CController {
     }
 
     protected function performRawSearch($returnType, $collection_id, $owner_profile_id) {
-        $settings['log.enabled'] = true;
-        $sherlock = new Sherlock\Sherlock($settings);
-        $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
-        $request = $sherlock->search();
+
+        $request = $this->getElasticSearch();
         $must = Sherlock\Sherlock::queryBuilder()->Term()->term($collection_id)//$collection_id
                 ->field('couchbaseDocument.doc.collection_id');
         $must2 = Sherlock\Sherlock::queryBuilder()->Term()->term($owner_profile_id)
@@ -328,12 +320,9 @@ class Controller extends CController {
     }
 
     protected function getSearchResultsTotal($returnType, $region, $requestString) {
-        $settings['log.enabled'] = true;
-        $sherlock = new \Sherlock\Sherlock($settings);
-        $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
-        $request = $sherlock->search();
-        $request->index("test")->type("couchbaseDocument")->from(1);
-        $request->index("test")->type("couchbaseDocument")->size(50);
+        $request = $this->getElasticSearch();
+        $request->type("couchbaseDocument")->from(1);
+        $request->type("couchbaseDocument")->size(50);
         $termQuery = Sherlock\Sherlock::queryBuilder()
                         ->QueryString()
                         ->fields("couchbaseDocument.doc.keywords")
@@ -351,6 +340,16 @@ class Controller extends CController {
 
         ;
         return $result;
+    }
+
+    protected function getElasticSearch() {
+        $settings['log.enabled'] = true;
+        $sherlock = new \Sherlock\Sherlock($settings);
+        $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
+        $request = $sherlock->search();
+        $index = Yii::app()->params['elasticSearchIndex'];
+        $request->index($index)->type("couchbaseDocument");
+        return $request;
     }
 
     protected function getUserInput($request_string) {
@@ -456,6 +455,7 @@ class Controller extends CController {
         }
         return $im;
     }
+
     protected function getImageInfo($url) {
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -471,4 +471,5 @@ class Controller extends CController {
             return false;
         }
     }
+
 }

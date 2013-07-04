@@ -39,7 +39,7 @@ class ContactsController extends Controller {
     }
 
     public function actionNew() {
-        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "Pa55word", "test", true);
+        $cb = new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "develop", true);
         //$model = $cb->get('user');
         //$response = array(self::JSON_RESPONSE_ROOT_SINGLE => $model);
         $this->sendResponse(200, $cb->get('user'));

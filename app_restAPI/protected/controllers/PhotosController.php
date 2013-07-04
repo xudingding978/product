@@ -41,7 +41,7 @@ class PhotosController extends Controller {
 
     public function actionUpdate() {
         try {
-            error_log("aaaaaaaaaaaaaaaaaaaa");
+       
             $request_json = file_get_contents('php://input');
           echo $request_json;
         } catch (Exception $exc) {

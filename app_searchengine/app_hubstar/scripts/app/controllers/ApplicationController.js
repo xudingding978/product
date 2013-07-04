@@ -41,11 +41,16 @@ define([
             this.set("test", !this.get("test"));
         },
         scrollDownAction: function() {
-            this.set('loadingTime', true);
+            if (App.get("itemNumber") < 50) {
+            } else {
+                this.set('loadingTime', true);
+            }
             this.set("size", 20);
             this.set("from", this.get("from") + this.get("size"));
 
             var results = MegaModel.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size")});
+
+
             var that = this;
             results.addObserver('isLoaded', function() {
                 if (results.get('isLoaded')) {
@@ -72,13 +77,11 @@ define([
             var that = this;
             results.addObserver('isLoaded', function() {
                 if (results.get('isLoaded')) {
+                    App.set('itemNumber', results.get("length"));
                     for (var i = 0; i < results.get("length"); i++) {
-                        //                  console.log(that.get("content").get("length"));
                         var tempmega = results.objectAt(i);
                         that.pushObject(tempmega);
                     }
-
-
                     setTimeout(function() {
                         $('#masonry_container').masonry("reload");
 

@@ -11,11 +11,13 @@ define([
             var ProfileNewController = Ember.ObjectController.extend({
                 profile_name: "",
                 dropdownCategory: "category",
+                packgeSelection: "package",
                 profile_url: "",
                 first_name: "",
                 last_name: "",
                 address: "",
                 projectCategoryDropdown: false,
+                packgetDropdown: false,
                 contact_number: "",
                 website: "",
                 client_name: "",
@@ -23,6 +25,8 @@ define([
                 direct_enquiry_emails: "",
                 creater: "",
                 editors: "",
+                boost: "",
+                package: "",
                 secondary_email: "",
                 direct_enquiry_provide_email: "",
                 keywords: "",
@@ -64,13 +68,25 @@ define([
                     }
                     return multiEmail;
                 },
+                numberChecking: function(divInfo, number) {
+                    var matches = number.match('^[0-9]+$');
+                    if (matches !== null) {
+                        $(divInfo).attr('style', 'display:none');
+                        return true;
+                    }
+                    $(divInfo).attr('style', 'display:block');
+
+                    return false;
+                },
                 fillInChecking: function() {
 
                     multiEmail2 = this.multiEmailChecking($('.mustFill6').val(), '#emailFormat6', multiEmail2);
 
+                    var boost = this.numberChecking('#number1', $('.mustFill7').val());
 
+                    console.log(boost);
                     if ($('.mustFill1').val() !== "" && $('.mustFill2').val() !== "" && $('.country').val() !== "" && $('.region').val() !== "" && $('.mustFill3').val() !== "" && multiEmail1
-                            && $('.mustFill5').val() !== "" && $('.mustFill4').val() !== "" && $('.mustFill6').val() !== "" && multiEmail2 && this.validateEmail($('.mustFill5').val())
+                            && $('.mustFill5').val() !== "" && $('.mustFill4').val() !== "" && $('.mustFill6').val() !== "" && boost && $('.mustFill7').val() !== "" && multiEmail2 && this.validateEmail($('.mustFill5').val())
                             && this.validateEmail($('.mustFill3').val())) {
                         passSubmit = true;
 
@@ -148,6 +164,13 @@ define([
                     } else {
                         $('#mustFill6').attr('style', 'display:none');
                     }
+
+                    if ($('.mustFill7').val() === "") {
+
+                        $('#mustFill7').attr('style', 'display:block');
+                    } else {
+                        $('#mustFill7').attr('style', 'display:none');
+                    }
                 },
                 save: function() {
 
@@ -183,6 +206,8 @@ define([
                             first_name: this.get("first_name"),
                             email: this.get("direct_enquiry_emails"),
                             about: null,
+                            boost: this.get("boost"),
+                            package: $('#packgeSelection').text(), 
                             category: $('#dropdownCategory').text(),
                             profile_bg_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_bg/default/defaultbg6.jpg",
                             profile_cover_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_cover/default/defaultcover4.jpg",
@@ -207,7 +232,12 @@ define([
 
                         this.set('projectCategoryDropdown', !this.get('projectCategoryDropdown'));
 
+                    } else if (checking === "package") {
+
+                        this.set('packgetDropdown', !this.get('packgetDropdown'));
+
                     } else {
+
 
                     }
                 }

@@ -18,6 +18,7 @@ class MegasController extends Controller {
             $request_string = $temp [sizeof($temp) - 1];
 //            error_log(var_export($temp, true)."       ".sizeof($temp));
             $response;
+            
             if (sizeof($temp) > 1) {
 //                error_log($request_string);
                 $response = $this->getRequestResult($request_string, self::JSON_RESPONSE_ROOT_PLURAL);
@@ -34,28 +35,14 @@ class MegasController extends Controller {
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
 
-        
-        if (sizeof($request_arr) > 0) {
-            error_log(var_export($request_arr["mega"]['photo'], true));
-            
-            $image_string_data = $request_arr["mega"]['photo'][0]['photo_image_url'];
-            $image_name = $request_arr["mega"]['photo'][0]['photo_title'];
-            
-            error_log($image_name.'----000000000000000000000000000000000000');
-          
-            $this->doImageResizing($image_string_data, $image_name);
-            
-        }
-        
-        error_log("9999999999999999999999999999999");
-        $this->sendResponse(200,$request_json);
-
         $mega = $request_arr['mega'];
         if ($mega['type'] == "profile") {
             $this->createProfile($mega);
         } elseif ($mega['type'] == "photo") {
-            $this->createPhoto($mega);
+            $this->createUploadedPhoto($mega);
         }
+        
+        
 //        $request_arr["mega"]["id"] = str_replace('test', '', $request_arr["mega"]["id"]);
 //        $path = 'this_is/folder_path/';
 //      $s3response = $this->photoSavingToS3($request_arr, $path);
@@ -86,10 +73,12 @@ class MegasController extends Controller {
         
         $photo = imagecreatefromstring($data_arr['data']);
         
+        
+        
         $orig_size['width'] = imagesx($photo);
         $orig_size['height'] = imagesy($photo);
         
-        
+        error_log("width:". $orig_size['width'] ."---------------------------"."height: ".$orig_size['height'] );
         
         $new_size = $this->getNewPhotoSize($orig_size, 'thambnail');
         
@@ -308,7 +297,26 @@ class MegasController extends Controller {
             echo $exc->getTraceAsString();
         }
     }
-
+    
+    public function createUploadedPhoto($mega) {
+        if (sizeof($request_arr) > 0) {
+//            error_log(var_export($request_arr["mega"]['photo'], true));
+            
+            $image_string_data = $request_arr["mega"]['photo'][0]['photo_image_url'];
+            $image_name = $request_arr["mega"]['photo'][0]['photo_title'];
+            
+            error_log($image_name.'----000000000000000000000000000000000000');
+//            exit();
+            $this->doImageResizing($image_string_data, $image_name);
+            
+        }
+        
+        error_log("9999999999999999999999999999999");
+        $this->sendResponse(200,$request_json);
+        
+    }
+    
+    
     public function createProfile($mega) {
         $cb = $this->couchBaseConnection();
         $id = $mega['id'];

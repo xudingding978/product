@@ -207,7 +207,7 @@ define([
                             email: this.get("direct_enquiry_emails"),
                             about: null,
                             boost: this.get("boost"),
-                            package: $('#packgeSelection').text(), 
+                            package: $('#packgeSelection').text(),
                             category: $('#dropdownCategory').text(),
                             profile_bg_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_bg/default/defaultbg6.jpg",
                             profile_cover_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_cover/default/defaultcover4.jpg",
@@ -229,11 +229,11 @@ define([
                 dropdown: function(checking) {
 
                     if (checking === "category") {
-
+                        this.set('packgetDropdown', false);
                         this.set('projectCategoryDropdown', !this.get('projectCategoryDropdown'));
 
                     } else if (checking === "package") {
-
+                        this.set('projectCategoryDropdown', false);
                         this.set('packgetDropdown', !this.get('packgetDropdown'));
 
                     } else {

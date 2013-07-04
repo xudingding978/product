@@ -20,10 +20,11 @@ define(
         profile_bg_url: DS.attr('string'),
         contact_user: DS.attr('string'),
         hours: DS.attr('string'),
+        boost: DS.attr('string'),
+        package: DS.attr('string'),
         profile_category: DS.attr('string'),
         profile_physical_address: DS.attr('string'),
         phone_number: DS.attr('string'),
-     
         website_url: DS.attr('string'),
         collections: DS.hasMany('App.Collection')
     });

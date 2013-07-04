@@ -38,9 +38,8 @@
                             </div>
                             <div class="mustfull" id="mustFill1" style="display: none">please fill in info... </div>
                         </td>
-
-
                     </tr>
+
                     <tr>
                         <td>Profile URL*:</td>
                         <td> 
@@ -53,6 +52,23 @@
                             <div class="mustfull" id="mustFill2" style="display: none">please fill in info... </div>
                         </td>
                     </tr>
+
+
+
+
+                    <tr>
+                        <td>boost*:</td>
+                        <td> 
+                            <div style="display: block;">
+                                {{view Ember.TextField valueBinding="boost"  class="mustFill7"  placeholder="ie: number"}}
+                            </div>
+                            <div class="mustfull" id="number1" style="display: none">not a number....</div>
+                            <div class="mustfull" id="mustFill7" style="display: none">please fill in info... </div>
+                        </td>
+                    </tr>
+
+
+
                     <tr>
                         <td>Profile Contact:</td>
                         <td> 
@@ -69,6 +85,20 @@
                         </td>
                     </tr>
                     <tr>
+                        <td> Package:</td>
+                        <td> 
+                            <div class="new-btn" style="display: block;" {{action dropdown controller.packgeSelection}}>
+                                 <span id="packgeSelection">Package</span>
+                                <span class="caret"></span>
+                            </div>
+                            {{#if controller.packgetDropdown}}
+                            {{view App.DropdownListView}}
+                            {{/if}}
+                        </td>
+                    </tr>
+
+
+                    <tr>
                         <td>Category:</td>
                         <td> 
                             <div class="new-btn" style="display: block;" {{action dropdown controller.dropdownCategory}}>
@@ -80,6 +110,7 @@
                             {{/if}}
                         </td>
                     </tr>
+
 
                     <tr>
                         <td>Physical Address:</td>
@@ -226,7 +257,7 @@
                                     {{view Ember.TextArea valueBinding="editors"   class="mustFill6 no-resize" placeholder="Ironman@hubstar.com, CaptainAmerica@hubstar.com, hulk@hubstar.com"}}
                                 </div>
                             </div>                   
-                        <div class="mustfill" id="emailFormat6" style="display: none">not correct email format.....</div>
+                            <div class="mustfill" id="emailFormat6" style="display: none">not correct email format.....</div>
                             <div class="mustfull" id="mustFill6" style="display: none">please fill in info... </div>
                         </td>
                     </tr>

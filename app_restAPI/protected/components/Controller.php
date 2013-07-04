@@ -32,6 +32,9 @@ class Controller extends CController {
         return new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "production", true);
     }
 
+
+//    protected function getProviderConfigurationByName($domain,$name) {
+
     protected function getS3BucketName($domain) {
         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
         $result = $cb->get($domain);
@@ -207,9 +210,8 @@ class Controller extends CController {
             array_push($requestArray, $requestStringOne);
             $requestStringTwo = 'couchbaseDocument.doc.user.collections.id=' . $collection_id;
             array_push($requestArray, $requestStringTwo);
-            $tempResult = $this->performMustSearch($requestArray, $returnType);
+            $tempResult = $this->performMustSearch($requestArray, $returnType,'must');
             $mega = CJSON::decode($tempResult, true);
-
             $collections = $mega['megas'][0]['user'][0]['collections'];
             $response = $this->getCollections($collections, $collection_id, $returnType);
         } else {
@@ -230,7 +232,7 @@ class Controller extends CController {
                 ->query($requestString)
                 ->boost(2.5);
         $request->query($termQuery);
-        error_log($request->toJSON());
+
         $response = $request->execute();
 
         $results = '{"' . $returnType . '":[';
@@ -245,23 +247,35 @@ class Controller extends CController {
         return $results;
     }
 
-    protected function performMustSearch($requestArray, $returnType) {
-
-        $request = $this->getElasticSearch();
+    protected function performMustSearch($requestArray, $returnType, $search_type="should") {
+        $settings['log.enabled'] = true;
+        $sherlock = new \Sherlock\Sherlock($settings);
+        $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
+        $request = $sherlock->search();
+        $request->index("develop")->type("couchbaseDocument")->from(0);
+        $request->index("develop")->type("couchbaseDocument")->size(50);
         $max = sizeof($requestArray);
         $bool = Sherlock\Sherlock::queryBuilder()->Bool();
+
         for ($i = 0; $i < $max; $i++) {
             $must = $this->getmustQuest($requestArray[$i]);
-            $bool->should($must);
+            if ($search_type == "must") {
+                $bool->must($must);
+            } else if ($search_type == "should") {
+                $bool->must($must);
+            } else {
+                echo "no such search type, please input: must or should as a search type.";
+            }
         }
         $request->query($bool);
-
+        error_log($request->toJSON());
         $response = $request->execute();
-
+        
         $i = 0;
+        
         $results = '{' . $returnType . ':[';
         foreach ($response as $hit) {
-            $results .= CJSON::encode($hit['source'] ['doc']);
+            $results .= CJSON::encode($hit['source']['doc']);
             if (++$i < count($response)) {
                 $results .= ',';
             }
@@ -287,7 +301,6 @@ class Controller extends CController {
             $results .= CJSON::encode($hit['source'] ['doc']);
         }
         $results .= '}';
-
         return $results;
     }
 
@@ -357,7 +370,6 @@ class Controller extends CController {
         if ($request_string != null || $request_string != "") {
             $returnString = explode('=', $request_string)[1];
         }
-
         return $returnString;
     }
 
@@ -374,17 +386,16 @@ class Controller extends CController {
         header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
         echo "";
-
         Yii::app()->end();
     }
-
+    
     protected function getmustQuest($queryString) {
         $mustQuery = explode('=', $queryString);
         $should = Sherlock\Sherlock::queryBuilder()->Term()->term($mustQuery[1])//$collection_id
                 ->field($mustQuery[0]);
         return $should;
     }
-
+    
     protected function getCollections($collections, $collection_id, $returnType) {
         $request_ids = $this->getSelectedCollectionIds($collections, $collection_id);
         $request_ids = explode(',', $request_ids);
@@ -411,7 +422,40 @@ class Controller extends CController {
 
         return $results;
     }
-
+    
+    protected function getAllDoc($returnType, $from, $to) {
+        $rawRequest = '{
+                                    "bool": {
+                                      "must": {
+                                        "range": {
+                                          "couchbaseDocument.doc.accessed": {
+                                            "from": ' .$from. ',
+                                            "to": ' .$to. '
+                                          }
+                                        }
+                                      }
+                                    }
+                                }';
+        
+        $settings['log.enabled'] = true;
+        $settings['log.file'] = '../../sherlock.log';
+        $sherlock = new \Sherlock\Sherlock($settings);
+        $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
+        $request = $sherlock->search();
+        $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
+        $request->index("develop")
+                ->from(0)
+                ->size(1000)
+                ->type("couchbaseDocument")
+                ->query($termQuery);
+        
+        $response = $request->execute();
+        
+        $results = $this->modifyArticleResponseResult($response, $returnType);
+        
+        return $results;
+    }
+    
     protected function getDomain() {
         $host = $_SERVER['HTTP_HOST'];
         preg_match("/[^\.\/]+\.[^\.\/]+$/", $host, $matches);
@@ -431,21 +475,45 @@ class Controller extends CController {
 
         return $request_ids;
     }
-
+    
+    
+    //update article 
+    protected function modifyArticleResponseResult($response, $returnType) {
+        $results = '{"' . $returnType . '":[';
+        $i=0;
+        foreach($response as $hit) {
+            $id = $hit['source']['meta']['id'];
+            $id = str_replace("trendsideas.com/", "", $id);
+            $hit['source']['doc']['id'] = $id;
+            $hit['source']['doc']['article'][0]['id'] = $id;
+            
+            $results .= CJSON::encode($hit['source']['doc']);
+            if (++$i !== count($response)) {
+                $results .= ',';
+            }
+        }
+        
+        $results .= ']}';
+        return $results;
+    }
+    
     protected function getReponseResult($response, $returnType) {
         $results = '{"' . $returnType . '":[';
         $i = 0;
         foreach ($response as $hit) {
-            $results .= CJSON::encode($hit['source'] ['doc']);
-            if (++$i !== count($response)) {
+            
+            $results .= CJSON::encode($hit['source']['doc']);
+
+            if (++$i < count($response)) {
                 $results .= ',';
             }
         }
         $results .= ']}';
 
         return $results;
-    }
 
+    } 
+    
     protected function getImageString($type, $url) {
         $im = "";
         if ($type == "image/png") {
@@ -471,5 +539,87 @@ class Controller extends CController {
             return false;
         }
     }
+
+    
+    public function convertToString64($image_string) {
+        $matchs = array();
+        preg_match_all('/\:(.*?)\;/', $image_string, $matchs);
+        $image_type = $matchs[1][0];
+        
+        $input_image_string = $this->getInputData($image_type, $image_string);
+        $image_data['type'] = $image_type;
+        $image_data['data'] = $input_image_string;
+                
+        return $image_data;
+    }
+    
+    public function saveImageToS3($url, $data) {
+        $provider_arr = $this->getS3ConnectionPara("S3Client");
+        $client = Aws\S3\S3Client::factory(
+                        $provider_arr
+        );
+        $client->putObject(array(
+            'Bucket' => "hubstar-dev",
+            'Key' => $url,
+            'Body' => $data,
+            'ACL' => 'public-read'
+        ));
+    }
+    
+    protected function addPhotoSizeToName($photo_name, $photo_size_arr) {
+        $name_arr = explode(".", $photo_name);
+        $new_name = "";
+        if (sizeof($name_arr>0)){
+            $temp_str = '_'.$photo_size_arr['width'].'x'.$photo_size_arr['height'];
+            $new_name = $name_arr[0].$temp_str.'.'.$name_arr[1];
+        }
+        
+        return $new_name;
+    }
+    
+    public function getS3ConnectionPara($provider) {
+        $cb = $this->couchBaseConnection("default");
+        $key = explode(".", $_SERVER['HTTP_HOST']);
+        $key = $key[1] . '.' . $key[2];
+        $result = $cb->get($key);
+        $result_arr = CJSON::decode($result, true);
+        
+        return $result_arr["providers"][$provider];
+    }
+       
+    public function getInputData($inputDataType, $inputData) {
+        $tempInput = "";
+        if ($inputDataType == "image/jpeg") {
+            $tempInput = str_replace('data:image/jpeg;base64,', '', $inputData);
+        } elseif ($inputDataType == "application/pdf") {
+            $tempInput = str_replace('data:application/pdf;base64,', '', $inputData);
+        } elseif ($inputDataType == "image/png") {
+            $tempInput = str_replace('data:image/png;base64,', '', $inputData);
+        } elseif ($inputDataType == "image/gif") {
+            $tempInput = str_replace('data:image/gif;base64,', '', $inputData);
+        }
+        $data = base64_decode($tempInput);
+        return $data;
+    }
+        
+    function compressPhotoData($type, $data) {
+        error_log($type);
+        
+        ob_start();
+        if ($type == "image/png") {
+            imagepng($data);
+            error_log("fffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+        } elseif ($type == "image/jpeg") {
+            imagejpeg($data, null, 80);
+            error_log("sssssssssssssssssssssssssssssssssssssssssssssss");
+        }
+        error_log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        $return = ob_get_contents();
+        ob_end_clean();
+        error_log($return);
+        
+        return $return;
+    } 
+    
 
 }

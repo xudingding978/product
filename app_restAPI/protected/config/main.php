@@ -94,4 +94,6 @@ return array(
         'couchBaseDefaultPasswrd' => $params['couchBase.defaultPassword'],
 
     ),
+    
+    
 );

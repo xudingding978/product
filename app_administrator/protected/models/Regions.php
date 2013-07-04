@@ -266,7 +266,7 @@ class Regions extends CActiveRecord {
                     $parent_id = $data_list[0]['parentId'];
                     if ($parent_id == null) {
                         break;
-                    } else {
+                    } else {                        
                         $data_list = $this->getParentRegionData($parent_id);
                         $region = $region . ", " . $data_list[0]['name'];
                     }

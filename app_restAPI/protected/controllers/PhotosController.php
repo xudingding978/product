@@ -32,23 +32,69 @@ class PhotosController extends Controller {
     }
 
     public function actionRead() {
+
+        $temp = explode("/", $_SERVER['REQUEST_URI']);
+
+       $id=  $temp[sizeof($temp)-1];
+        $result=$this->getRequestResultByID(self::JSON_RESPONSE_ROOT_SINGLE, $id);
+        $this->sendResponse(null,$result);
+
         $temp = explode("/", $_SERVER['REQUEST_URI']);
 
         $id = $temp[sizeof($temp) - 1];
         $result = $this->getRequestResultByID(self::JSON_RESPONSE_ROOT_SINGLE, $id);
         $this->sendResponse(null, $result);
     }
-
+    
     public function actionUpdate() {
         try {
-       
+
+            $returnType = "photo";
+            $temp = explode("?", $_SERVER['REQUEST_URI']);
+            $request_arr = array();
+            
+            if (sizeof($temp) > 1) {
+                $request_string = $temp [sizeof($temp) - 1];
+                $request_arr = preg_split("/=|&/", $request_string);
+                
+                $response = $this->getAllDoc($returnType, $request_arr[1], $request_arr[3]);
+                $this->sendResponse(200, $response);
+            }
+
+            error_log("aaaaaaaaaaaaaaaaaaaa");
             $request_json = file_get_contents('php://input');
           echo $request_json;
+
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
-
+    
+    public function updateCouchbasePhoto($id) {
+        $ch = $this->couchBaseConnection("develop");
+        $result=$ch->get($id);
+        $result_arr = CJSON::decode($result, true);
+        
+        $result_arr['creator_profile_pic'] = 'http://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small.jpg';
+        $result_arr['owner_profile_pic'] = 'http://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small.jpg';
+        
+        $result_arr['is_active'] = true;
+        $result_arr['is_indexed'] = true;
+        unset($result_arr['active_yn']);
+        unset($result_arr['indexed_yn']);
+        
+//        error_log(var_export($result));
+        print_r($result_arr);        
+        
+        if ($ch->set($id, CJSON::encode($result_arr))) {
+            echo $id." update successssssssssssssssssssssssss! \r\n";
+        } else {
+            echo $id." update failllllllllllllllllllllllllllllllllllllllllllllll! \r\n";
+        }
+        
+        exit();
+    }
+    
     public function actionDelete() {
         try {
             
@@ -65,8 +111,6 @@ class PhotosController extends Controller {
     }
 
     public function actionOptions() {
-
-
         $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);
         header($statusHeader);
         // Set the content type

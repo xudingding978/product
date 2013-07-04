@@ -97,7 +97,7 @@ class ImportDataController extends Controller {
         $url = "http://trendsideas.com/media/article/hero/83014.jpg";
         $width = '100';
         
-        error_log("11111111111111111111111111");
+//        error_log("11111111111111111111111111");
         // Loading the image and getting the original dimensions
 //        $ch = curl_init();
 //        $timeout = 0; 
@@ -127,7 +127,6 @@ class ImportDataController extends Controller {
 //        $tw = @imagesx($image);
 //        print_r($image); 
         
-//        echo ("222222222222222222222222");
         $image = imagecreatefromjpeg($url);
         $orig_width = imagesx($image);
         $orig_height = imagesy($image);

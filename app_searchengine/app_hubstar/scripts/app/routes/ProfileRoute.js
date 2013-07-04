@@ -16,7 +16,7 @@ define([
             //     console.log(model.id);
             ProfileController.setLocalLoginRecrod();
        //     console.log(model);
-            ProfileController.setModel(model);
+            ProfileController.setProfile();
 
             this.controllerFor('application').set('islogin', true);
             this.controllerFor('application').set('popup', false);

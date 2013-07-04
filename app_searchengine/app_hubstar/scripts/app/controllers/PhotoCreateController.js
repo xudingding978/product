@@ -33,7 +33,7 @@ define(["ember","helper"],
                 }, submit: function()
                 {
 
-                    //App.store.commit();
+                    App.store.commit();
 
 
 

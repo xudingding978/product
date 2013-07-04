@@ -23,7 +23,7 @@ require.config({
         'bxslider': 'libs/jquery.bxslider.min',
         'moment': 'libs/moment',
         'modernizr': 'libs/modernizer/modernizr-latest',
-         'helper': 'libs/helper',
+        'helper': 'libs/helper',
         'jquery.masonry': 'libs/jquery.masonry/jquery.masonry.min',
         /*requirejs-plugins*/
         'text': 'libs/requirejs-plugins/text',
@@ -113,6 +113,7 @@ define('application', [
     "views/DeleteFunctionView",
     "views/DropdownListView",
     "views/CommentView",
+    "views/LoadingSpinnerView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -247,6 +248,7 @@ define('application', [
         DeleteFunctionView,
         DropdownListView,
         CommentView,
+        LoadingSpinnerView,
         ApplicationController,
         tabListController,
         DataController,
@@ -381,6 +383,7 @@ define('application', [
         DeleteFunctionView: DeleteFunctionView,
         DropdownListView: DropdownListView,
         CommentView: CommentView,
+        LoadingSpinnerView: LoadingSpinnerView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
@@ -463,7 +466,9 @@ define('application', [
             App.set("afterSearch", false);
 
             App.set("setHight", null);
-            App.set('chooseCollection',null);
+            App.set('chooseCollection', null);
+            App.set('isMansonryPageLoad', false);
+            App.set('searchStart', false);
 //            var firstView = App.DiscoveryView.create(),
 //                    secondView = App.MasonryView.create();
 //

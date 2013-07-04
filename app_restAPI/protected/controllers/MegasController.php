@@ -64,96 +64,6 @@ class MegasController extends Controller {
 
     }
 
-        
-    protected function doImageResizing ($photo_string, $photo_name) {
-        error_log("----------------------------11111111111111111111111111111111");
-        $data_arr = $this->convertToString64($photo_string);
-
-//        error_log(var_export($data_arr, true));
-        
-        $photo = imagecreatefromstring($data_arr['data']);
-        
-        
-        
-        $orig_size['width'] = imagesx($photo);
-        $orig_size['height'] = imagesy($photo);
-        
-        error_log("width:". $orig_size['width'] ."---------------------------"."height: ".$orig_size['height'] );
-        
-        $new_size = $this->getNewPhotoSize($orig_size, 'thambnail');
-        
-        $new_photo_data = $this->createNewImage($orig_size, $new_size, $photo, $data_arr['type']);
-        error_log("----------------------------iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
-        $new_photo_data = $this->compressPhotoData($data_arr['type'], $new_photo_data);
-        error_log("----------------------------vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
-        $new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
-         error_log("----------------------------nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
-//        $new_size = getNewPhotoSize($orig_size, 'preview'); 
-//        $new_size = getNewPhotoSize($orig_size, 'hero');
-//        $new_photo_name = $image_name.'_'.$new_size['width'].'x'.$new_size['height'];
-        
-        $url = "trendsideas.com/media/article/resize/".$new_photo_name;
-        error_log($url."----------------------------22222222222222222222222222222222222");
-        $this->saveImageToS3($url, $new_photo_data);
-        
-    }
-    
-    public function createNewImage($orig_size, $new_size, $image, $photo_type){
-        error_log("----------------------------555555555555555555555555555555555");
-        
-        error_log(var_export($orig_size, true));
-        error_log(var_export($new_size, true));
-        
-        // Create new image to display
-        $new_image = imagecreatetruecolor($new_size['height'], $new_size['width']);
-        error_log("----------------6666666666666666666666666666");
-        // Create new image with changed dimensions
-        imagecopyresized($new_image, $image,
-                0, 0, 0, 0,
-                $new_size['width'], $new_size['height'],
-                $orig_size['width'], $orig_size['height']);
-        error_log("----------------7777777777777777777777777777");
-        
-        ob_start();
-        if ($photo_type === 'image/png') {
-            imagejpeg($new_image);
-            error_log("----------------8888888888888888888888888888888888888888888888");
-            $contents = ob_get_contents();
-//            imagej
-            
-            
-        }
-        
-        error_log("----------------8888888888888888888888888888888888888888888888");
-        $contents = ob_get_contents();
-        error_log("----------------pppppppppppppppppppppppppppppppppppppppp");
-        ob_end_clean();
-        error_log($contents);
-        return $contents;
-    }
-    
-    protected function getNewPhotoSize ($photo_size, $photo_type) {
-        error_log("----------------------------44444444444444444444444");
-        $new_size = array();
-        switch($photo_type) {
-            case 'thambnail':
-                $new_size['width'] = 132;
-                $new_size['height'] = 132;
-                break;
-            case 'preview':
-                $new_size['width'] = 118;
-                $new_size['height'] = (($photo_size['height'] * $new_size['width']) / $photo_size['width']);
-                break;
-            case 'hero':
-                $new_size['width'] = 338;
-                $new_size['height'] = (($photo_size['height'] * $new_size['width']) / $photo_size['width']);
-                break;        
-        }
-        
-        return $new_size;
-        
-    }
-    
     public function actionRead() {
         try {
 //            $cb = $this->couchBaseConnection();
@@ -299,20 +209,17 @@ class MegasController extends Controller {
     }
     
     public function createUploadedPhoto($mega) {
-        if (sizeof($request_arr) > 0) {
+        if (sizeof($mega) > 0) {
 //            error_log(var_export($request_arr["mega"]['photo'], true));
-            
-            $image_string_data = $request_arr["mega"]['photo'][0]['photo_image_url'];
-            $image_name = $request_arr["mega"]['photo'][0]['photo_title'];
-            
-            error_log($image_name.'----000000000000000000000000000000000000');
-//            exit();
-            $this->doImageResizing($image_string_data, $image_name);
+    
+            $photo_obj = new PhotosController();
+            $photo_obj->doPhotoResizing($mega);
+
             
         }
         
-        error_log("9999999999999999999999999999999");
-        $this->sendResponse(200,$request_json);
+//        error_log("9999999999999999999999999999999");
+//        $this->sendResponse(200,$request_json);
         
     }
     

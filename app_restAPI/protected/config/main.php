@@ -52,7 +52,7 @@ return array(
         'application.components.HttpRequest',
         'application.vendor.autoload',
         'application.components.SearchEngine',
-          'application.controllers.*'
+        'application.controllers.*'
     ),
     // application components
     'components' => array(
@@ -86,7 +86,7 @@ return array(
 //        'elasticSearchIndex' => 'test', 
         
         'elasticSearchNode' => 'es1.hubsrv.com',
-        'elasticSearchIndex' => 'develop'
+        'elasticSearchIndex' => 'production'
     ),
     
     

@@ -148,9 +148,10 @@ class PhotosController extends Controller {
     public function photoSavingToS3($request_arr, $path, $domain, $bucket) {
 
         $response = false;
-
+//important changement
+        //$array=getProviderConfigurationByName($domain,"S3Client");
+//            $client = Aws\S3\S3Client::factory($array);
         $client = $this->getS3Connection($domain);
-        // error_log(var_export($request_arr ['photo'], true));
         $data = $this->getInputData($request_arr['photo']['photo_type'], $request_arr ['photo']['photo_image_url']);
         if ($client->doesObjectExist($bucket, $path . $request_arr ['photo']['photo_title'])) {
             $response = false;

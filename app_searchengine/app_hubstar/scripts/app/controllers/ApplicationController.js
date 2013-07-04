@@ -73,12 +73,9 @@ define([
             results.addObserver('isLoaded', function() {
                 if (results.get('isLoaded')) {
                     for (var i = 0; i < results.get("length"); i++) {
-                        //                  console.log(that.get("content").get("length"));
                         var tempmega = results.objectAt(i);
                         that.pushObject(tempmega);
                     }
-
-
                     setTimeout(function() {
                         $('#masonry_container').masonry("reload");
 

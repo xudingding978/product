@@ -30,6 +30,7 @@ define([
                 profileName: "profileName",
                 contact: "contact",
                 timeSetting: "timeSetting",
+                uploadChecking: false,
                 currentUserID: "",
                 collections: [],
                 selectedCollection: "",
@@ -243,11 +244,14 @@ define([
                         isExsinting = true;
                     }
                 },
-                        
                 newCollection: function()
                 {
                     var collection = App.Collection.createRecord({"id": null, "title": null, "desc": null, "collection_ids": null, "createdAt": new Date()});
                     this.set("selectedCollection", collection);
+                },
+                toggleUpload: function() {
+
+                    this.set('uploadChecking', !this.get('uploadChecking'));
                 }
             });
             return ProfileController;

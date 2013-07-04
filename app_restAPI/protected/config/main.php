@@ -81,7 +81,9 @@ return array(
         // this is used in contact page
         'adminEmail' => 'webmaster@example.com',
         // this the primary elastic search server and index
-        'elasticSearchNode' => $params['elasticSearch.node'], //'es1.hubsrv.com'
-        'elasticSearchIndex' => $params['elasticSearch.index'], //test
+        'elasticSearchNode' => $params['elasticSearch.node'],
+        'elasticSearchIndex' => $params['elasticSearch.index'],
+        'couchBaseNode'=>$params['couchBase.bucket'],
+        'couchBaseBucket' => $params['couchBase.node'],
     ),
 );

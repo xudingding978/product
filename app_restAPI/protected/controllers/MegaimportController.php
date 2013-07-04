@@ -54,18 +54,19 @@ class MegaimportController extends Controller {
         }
     }
     
+    // add new obj id to image urls;
     public function modifyArrayProperty($request_arr, $id) {
         $request_arr["id"] = $id;
-        $request_arr["object_image_url"] = str_replace("object_id", $id, $request_arr["object_image_url"]);
+//        $request_arr["object_image_url"] = str_replace("object_id", $id, $request_arr["object_image_url"]);
         
         $type = $request_arr['type'];
         $request_arr[$type][0]['id'] = $id;
         
-        $request_arr[$type][0]['photo_image_url'] = str_replace("object_id", $id, $request_arr[$type][0]['photo_image_url']);
-        $request_arr[$type][0]['photo_image_original_url'] = str_replace("object_id", $id, $request_arr[$type][0]['photo_image_original_url']);
-        $request_arr[$type][0]['photo_image_hero_url'] = str_replace("object_id", $id, $request_arr[$type][0]['photo_image_hero_url']);
-        $request_arr[$type][0]['photo_image_thumbnail_url'] = str_replace("object_id", $id, $request_arr[$type][0]['photo_image_thumbnail_url']);
-        $request_arr[$type][0]['photo_image_preview_url'] = str_replace("object_id", $id, $request_arr[$type][0]['photo_image_preview_url']);
+//        $request_arr[$type][0]['photo_image_url'] = str_replace("object_id", $id, $request_arr[$type][0]['photo_image_url']);
+//        $request_arr[$type][0]['photo_image_original_url'] = str_replace("object_id", $id, $request_arr[$type][0]['photo_image_original_url']);
+//        $request_arr[$type][0]['photo_image_hero_url'] = str_replace("object_id", $id, $request_arr[$type][0]['photo_image_hero_url']);
+//        $request_arr[$type][0]['photo_image_thumbnail_url'] = str_replace("object_id", $id, $request_arr[$type][0]['photo_image_thumbnail_url']);
+//        $request_arr[$type][0]['photo_image_preview_url'] = str_replace("object_id", $id, $request_arr[$type][0]['photo_image_preview_url']);
         
         return $request_arr;
     }
@@ -76,14 +77,13 @@ class MegaimportController extends Controller {
         $request_arr = CJSON::decode($request_json, true);
         $id = $this->getNewID();
 
-//        $request_arr = $this->modifyArrayProperty(CJSON::decode($request_json, true), $id); 
+        $request_arr = $this->modifyArrayProperty(CJSON::decode($request_json, true), $id); 
 //        $url = substr($_SERVER['HTTP_HOST'], 4) . '/' . $request_arr["id"];
         $url = 'trendsideas.com/' . $id;
 //        error_log($url);
         
         try {
-            $cb = $this->couchBaseConnection("develop");
-            
+            $cb = $this->couchBaseConnection("production");
             if ($cb->add($url, CJSON::encode($request_arr))) {
                 $response="ok";
             } else {
@@ -96,8 +96,7 @@ class MegaimportController extends Controller {
 //                fwrite($handle, $output);
 //                fclose($handle);
             }
-            
-            unset($cb);
+
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
             echo json_decode(file_get_contents('php://input'));

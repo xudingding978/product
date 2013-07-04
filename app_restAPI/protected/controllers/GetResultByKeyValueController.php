@@ -17,7 +17,7 @@ class GetResultByKeyValueController extends Controller {
 
     public function actionIndex() {
         try {
-            $returnType = "articles";
+            $returnType = "photo";
             $temp = explode("?", $_SERVER['REQUEST_URI']);
             $requestArray = array();
             if (sizeof($temp) > 1) {
@@ -29,7 +29,7 @@ class GetResultByKeyValueController extends Controller {
                 $requestStringtwo = 'couchbaseDocument.doc.photo.' . $temp_arr[2] . '=' . $temp_arr[3];
                 array_push($requestArray, $requestStringtwo);
                 
-                $response = $this->performMustSearch($requestArray, $returnType);
+                $response = $this->performMustSearch($requestArray, $returnType, "must");
                 $this->sendResponse(200, $response);
             }
         } catch (Exception $exc) {

@@ -63,9 +63,6 @@ class Controller extends CController {
         $key = $key[1] . '.' . $key[2];
         $result = $cb->get($key);
         $result_arr = CJSON::decode($result, true);
-
-//        error_log(var_export($result_arr));
-
         $client = Aws\S3\S3Client::factory(
                         $result_arr["providers"]["S3Client"]
         );
@@ -234,7 +231,7 @@ class Controller extends CController {
                 ->query($requestString)
                 ->boost(2.5);
         $request->query($termQuery);
-        error_log($request->toJSON());
+
         $response = $request->execute();
 
         $results = '{"' . $returnType . '":[';
@@ -249,34 +246,35 @@ class Controller extends CController {
         return $results;
     }
 
-    protected function performMustSearch($requestArray, $returnType) {
+    protected function performMustSearch($requestArray, $returnType, $search_type="should") {
         $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
         $request = $sherlock->search();
-
-        $request->index("develop")->type("couchbaseDocument")->from(1);
+        $request->index("develop")->type("couchbaseDocument")->from(0);
         $request->index("develop")->type("couchbaseDocument")->size(50);
-
-        $request->index("test")->type("couchbaseDocument");
-
         $max = sizeof($requestArray);
         $bool = Sherlock\Sherlock::queryBuilder()->Bool();
-        
-        
+
         for ($i = 0; $i < $max; $i++) {
             $must = $this->getmustQuest($requestArray[$i]);
-            $bool->should($must);
+            if ($search_type == "must") {
+                $bool->must($must);
+            } else if ($search_type == "should") {
+                $bool->must($must);
+            } else {
+                echo "no such search type, please input: must or should as a search type.";
+            }
         }
         $request->query($bool);
-        error_log($request->toJSON());
+        
         $response = $request->execute();
-        error_log(var_export($response, true));
+        
         $i = 0;
         
         $results = '{' . $returnType . ':[';
         foreach ($response as $hit) {
-            $results .= CJSON::encode($hit['source'] ['doc']);
+            $results .= CJSON::encode($hit['source']['doc']);
             if (++$i < count($response)) {
                 $results .= ',';
             }
@@ -299,13 +297,12 @@ class Controller extends CController {
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)
                 ->boost(2.5);
         $response = $request->query($bool)->execute();
-        error_log(var_export($response, true));
+//        error_log(var_export($response, true));
         $results = '{"' . $returnType . '":';
         foreach ($response as $hit) {
             $results .= CJSON::encode($hit['source'] ['doc']);
         }
         $results .= '}';
-
         return $results;
     }
 
@@ -370,7 +367,6 @@ class Controller extends CController {
         if ($request_string != null || $request_string != "") {
             $returnString = explode('=', $request_string)[1];
         }
-
         return $returnString;
     }
 
@@ -387,7 +383,6 @@ class Controller extends CController {
         header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
         echo "";
-
         Yii::app()->end();
     }
     
@@ -411,9 +406,6 @@ class Controller extends CController {
             }
         }
         $rawRequest = $header . $tempRquestIDs . $footer;
-
-        error_log($rawRequest);
-
         $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);

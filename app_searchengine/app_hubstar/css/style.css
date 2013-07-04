@@ -392,7 +392,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     height: 300px;
     width: 100%;
     min-width: 768px;
-    background: url(../../images/searchbarbg.jpg) repeat scroll 0% 5% rgb(242, 240, 240);
+    background: url(https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Picture+17.png) repeat  rgb(242, 240, 240);
     border-bottom: 1px solid #aaa;
     background-size: 100% auto;
     top: 45px;

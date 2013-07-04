@@ -5,14 +5,14 @@
 
 <div id="discovery_search_bar_wrapper" style="margin: 0 0 100px 0;">
     <div style="width: 100%; height: 300px; background-color: black; opacity: 0.05;"></div>
-    <P style="position: absolute; font-size: 20px; top: 110px;z-index: 600; width: 600px; color: white; left:0; right: 0; margin: auto; line-height: 25px; text-align: center;">
+    <P style="position: absolute; font-size: 20px; top: 110px;z-index: 600; width: 600px; color: white; left:0; right: 0; margin: auto; line-height: 25px; text-align: center;text-shadow: 0 0 15px #000">
         Your online resource for homes, products, services & ideas   
     </P>
 
     <div id="discovery_search_bar">
 
-        {{view App.SearchAreaTextFieldView valueBinding="search_area"  id="search_key" class="search_input" placeholder="All region in New Zealand" name="search_key"}}
-        {{view App.SearchRequireTextFieldView valueBinding="search_string"  id="search_business" class="search_business" placeholder="Search by Business and keyword" }}
+        {{view App.SearchAreaTextFieldView valueBinding="search_area"  id="search_key" class="search_input" placeholder="All regions in New Zealand" name="search_key"}}
+        {{view App.SearchRequireTextFieldView valueBinding="search_string"  id="search_business" class="search_business" placeholder="Search by your keywords" }}
 
         <!--        <a  style="right: 117px;" href="#"><i class="icon-group" ></i></a>
                 <a  style="right: 80px;" href="#"><i class="icon-book" ></i></a>

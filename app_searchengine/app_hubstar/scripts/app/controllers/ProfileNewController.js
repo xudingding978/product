@@ -222,7 +222,7 @@ define([
                         });
                         newMega.get("profile").addObject(newProfile);
                         App.store.commit();
-                        this.transitionTo('profile', newProfile);
+                        this.transitionToRoute('profile', newProfile);
                     }
 
                 },

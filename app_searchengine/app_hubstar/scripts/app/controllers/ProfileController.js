@@ -36,6 +36,9 @@ define([
                 collections: [],
                 selectedCollection: "",
                 needs: ["application", "contact"],
+                profile_bg_url: "",
+                profile_cover_url: "",
+                profile_pic_url: "",
                 hours: [],
                 init: function() {
 
@@ -286,6 +289,14 @@ define([
                 closeContact: function() {
                     this.set('contactChecking', false);
                 },
+                uploadImage: function() {
+
+                    var user = this.getCurrentClient(this.get('currentUserID'));
+                    user.set("profile_bg_url", $('.background').val());
+                    user.set("profile_cover_url", $('.hero').val());
+                    user.set("profile_pic_url", $('.picture').val());
+                    this.updateClient();
+                }
             });
             return ProfileController;
         });

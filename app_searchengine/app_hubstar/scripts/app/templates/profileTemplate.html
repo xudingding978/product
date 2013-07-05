@@ -62,20 +62,31 @@
                                             <div style="margin: 0 0 0 5px;width: 69%;display: inline-block;">
                                                 {{view Ember.TextField valueBinding="profile_bg_url"  class="background"  placeholder="http://yourBackgroundImage" }}
                                             </div>
+                                            <img style="width:50px" {{bindAttr src="profile_bg_url"}} />
                                         </div>
                                         <div style="display: block;margin: 10px;">
                                             <div style="display: inline-block;font-size: 16px;width: 29%;text-align: right;">Hero: </div>
                                             <div style="margin: 0 0 0 5px;width: 69%;display: inline-block;">
                                                 {{view Ember.TextField valueBinding="profile_cover_url"  class="hero"  placeholder="http://yourHeroImage" }}
                                             </div>
+                                            <img style="width:50px" {{bindAttr src="profile_cover_url"}} />
                                         </div>
                                         <div style="display: block;margin: 10px;">
                                             <div style="display: inline-block;font-size: 16px;width: 29%;text-align: right;">Profile Picture: </div>
                                             <div style="margin: 0 0 0 5px;width: 69%;display: inline-block;">
                                                 {{view Ember.TextField valueBinding="profile_pic_url"  class="picture"  placeholder="http://yourPictureImage" }}
                                             </div>
+                                            <img style="width:50px" {{bindAttr src="profile_pic_url"}} />
                                         </div>
                                     </div>
+
+
+                                    <div class="controlbtn" style="left: 34%;">
+                                        <span class="new-btn" {{action back }}>Cancel</span>
+                                        <span class="new-btn green-btn" {{action uploadImage}}>Submit</span> 
+                                    </div>
+
+
                                 </div>
 
 
@@ -214,7 +225,7 @@
 
                                 <!--contact me-->
                                 <div class="contactmebtn" {{action editingContactForm }}>
-                                    <a class="contactmeicon" href=""><img src="../images/mail_24dark.png"/></a>
+                                     <a class="contactmeicon" href=""><img src="../images/mail_24dark.png"/></a>
                                 </div>
 
                                 {{#if controller.contactChecking}}

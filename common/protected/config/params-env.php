@@ -22,7 +22,6 @@
  */
 return array(
      'env.code' => 'prod',
-    
     //ElasticSearch Configurations
     'elasticSearch.node' => 'es1.hubsrv.com',
     'elasticSearch.index' => 'test',

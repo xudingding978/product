@@ -39,28 +39,27 @@ define([
 
 
                 },
-                getCurrentClient: function()
+                getCurrentClient: function(id)
                 {
-                    var address = document.URL;
-                    var user_id = address.split("#")[1].split("/")[2];
-                    this.set('currentUserID', user_id);
-                    var user = App.Profile.find(user_id);
+
+//                    var address = document.URL;
+//                    var user_id = address.split("#")[1].split("/")[2];
+                    this.set('currentUserID', id);
+                    var user = App.Profile.find(id);
 
                     return user;
                 },
-                setProfile: function() {
+                setProfile: function(id) {
 
-
-                    var user = this.getCurrentClient();
+                    var user = this.getCurrentClient(id);
 
                     this.updateWorkingHourData(user.get('hours'));
-                    this.set("model", this.getCurrentClient());
-        //            console.log(user);
+                    this.set("model", this.getCurrentClient(id));
                     this.set("collections", user.get("collections"));
 
 
                     var collections = user.get("collections");
-         //           console.log(collections);
+                    //           console.log(collections);
                     for (var i = 0; i < collections.get("length"); i++)
                     {
                         var col = collections.objectAt(i);
@@ -206,7 +205,8 @@ define([
                 },
                 updateWorkingHourData: function(times) {
                     this.set('hours', []);
-                    if (times !== null && times !== "") {
+                    //           console.log(times);
+                    if (times !== null && times !== "" && typeof times !== "undefined") {
                         var time = times.split(",");
                         for (var i = 0; i < time.length; i++) {
                             var dayAndTime = time[i].split("=");

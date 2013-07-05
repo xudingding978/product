@@ -66,9 +66,6 @@ class UsersController extends Controller {
         $request_json = file_get_contents('php://input');
 
         $request_arr = CJSON::decode($request_json, true);
-
-
-    
     }
 
     public function actionRead() {
@@ -76,14 +73,11 @@ class UsersController extends Controller {
 
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
-            $id = $temp [sizeof($temp) - 1];
-            $reponse = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . "/users/" . $id);
-            $respone_user = json_decode($reponse, true)['user'][0];
-
-
-            $respone_user_data = str_replace("\/", "/", CJSON::encode($respone_user));
+            $id = $temp [sizeof($temp) - 1];          
+            $reponse = $cb->get($this->getDomain() . "/users/" . $id);    
+            $respone_user =  CJSON::decode($reponse, true);
+            $respone_user_data = str_replace("\/", "/", CJSON::encode($respone_user['user'][0]));
             $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $respone_user_data . '}';
-           //    error_log(var_export($result,true));
             $this->sendResponse(200, $result);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -160,7 +154,6 @@ class UsersController extends Controller {
         $result = $cb->get($key);
         $result_arr = CJSON::decode($result, true);
         $response = false;
-        error_log(var_export($request_arr ["mega"]['photos'][0], true));
         $data = $this->getInputData($request_arr ["object"]['photos'][0]['photo_type'], $request_arr ["object"]['photos'][0]['photo_url']);
         $client = Aws\S3\S3Client::factory(
                         $result_arr["providers"]["S3Client"]
@@ -181,11 +174,10 @@ class UsersController extends Controller {
 
         return $response;
     }
-    
-   public function test()
-   {       
-       
-   }
+
+    public function test() {
+        
+    }
 
 }
 

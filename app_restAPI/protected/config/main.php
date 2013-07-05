@@ -9,7 +9,6 @@
  *
  * This file holds the configuration settings of the REST API  application.
  * */
-
 $app_restAPIConfigDir = dirname(__FILE__);
 //
 $root = $app_restAPIConfigDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..';
@@ -52,7 +51,7 @@ return array(
         'application.components.HttpRequest',
         'application.vendor.autoload',
         'application.components.SearchEngine',
-          'application.controllers.*'
+        'application.controllers.*'
     ),
     // application components
     'components' => array(
@@ -82,17 +81,17 @@ return array(
         // this is used in contact page
         'adminEmail' => 'webmaster@example.com',
         // this the primary elastic search server and index
-
-        'elasticSearchNode' => $params['elasticSearch.node'],
-        'elasticSearchIndex' => $params['elasticSearch.index'],
-        'couchBaseNode'=>$params['couchBase.bucket'],
-        'couchBaseBucket' => $params['couchBase.node'],
-
-//        'elasticSearchNode' => 'es1.hubsrv.com',
-//        'elasticSearchIndex' => 'test', 
-        
-        'elasticSearchNode' => 'es1.hubsrv.com',
-        'elasticSearchIndex' => 'develop'
+        'elasticSearchNode' => $params['elasticSearch.node'], //'es1.hubsrv.com'
+        'elasticSearchIndex' => $params['elasticSearch.index'], //test
+        'couchBaseNode' => $params['couchBase.node'],
+        'couchBaseBucket' => $params['couchBase.bucket'],
+        'couchBaseAccount' => $params['couchBase.account'],
+        'couchBasePasswrd' => $params['couchBase.password'],
+        //---------------------------
+        'couchBaseDefaultNode' => $params['couchBase.defaultNode'],
+        'couchBaseDefaultBucket' => $params['couchBase.defaultBucket'],
+        'couchBaseDefaultAccount' => $params['couchBase.defaultAccount'],
+        'couchBaseDefaultPasswrd' => $params['couchBase.defaultPassword'],
 
     ),
     

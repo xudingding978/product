@@ -13,10 +13,10 @@ define([
     //   var kink;
     var ProfileRoute = Ember.Route.extend({
         setupController: function(ProfileController, model) {
-            //     console.log(model.id);
+   //    console.log(model.id);
             ProfileController.setLocalLoginRecrod();
        //     console.log(model);
-            ProfileController.setProfile();
+            ProfileController.setProfile(model.id);
 
             this.controllerFor('application').set('islogin', true);
             this.controllerFor('application').set('popup', false);

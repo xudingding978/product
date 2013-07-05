@@ -1,3 +1,14 @@
+.displayClass{
+    display:block;
+
+}
+
+.hideClass{
+    display:none;
+
+}
+
+
 .blur{
     z-index: 10;
     top: 0;
@@ -819,3 +830,4 @@ div.loading-visible{
       of the div is centered vertically*/
     padding-top:15%;
 }
+

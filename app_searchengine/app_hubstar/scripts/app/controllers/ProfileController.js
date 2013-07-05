@@ -272,19 +272,19 @@ define([
                     this.set("selectedCollection", collection);
                 },
                 toggleUpload: function() {
-
+                    $('.corpbanner_mask').toggleClass('hideClass');
                     this.set('uploadChecking', !this.get('uploadChecking'));
                 },
                 editingContactForm: function() {
 
                     var contactController = this.get('controllers.contact');
-                    console.log(this.get('contactChecking'));
-                    console.log(this.get('currentUserID'));
+//                    console.log(this.get('contactChecking'));
+//                    console.log(this.get('currentUserID'));
                     contactController.setSelectedMega(this.get('currentUserID'));
                     this.set('contactChecking', !this.get('contactChecking'));
                 },
                 closeContact: function() {
-                    this.set('contactChecking', !this.get('contactChecking'));
+                    this.set('contactChecking', false);
                 },
             });
             return ProfileController;

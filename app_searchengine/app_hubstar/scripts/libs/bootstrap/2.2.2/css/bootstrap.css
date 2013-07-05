@@ -4179,7 +4179,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 .tab-content {
-    overflow: auto;
+    overflow: hidden;
     float: right;
     width: 80%;
     padding: 30px;

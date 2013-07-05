@@ -27,9 +27,11 @@
     </div>
 
 
-
-
-
+    <div style="position: absolute;">
+        {{#if controller.contactChecking}}
+        {{render contact}}
+        {{/if}}
+    </div>
 
 
 
@@ -228,9 +230,6 @@
                                      <a class="contactmeicon" href=""><img src="../images/mail_24dark.png"/></a>
                                 </div>
 
-                                {{#if controller.contactChecking}}
-                                {{render contact}}
-                                {{/if}}
 
                                 <!--                                <div style="display: inline-block;">
                                                                     <p style='display: inline-block; float: left; color: white; margin: 7px 0; font-size: 14px;'>

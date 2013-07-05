@@ -282,7 +282,8 @@ define([
 
                     var contactController = this.get('controllers.contact');
 //                    console.log(this.get('contactChecking'));
-//                    console.log(this.get('currentUserID'));
+               console.log(this.get('currentUserID'));
+
                     contactController.setSelectedMega(this.get('currentUserID'));
                     this.set('contactChecking', !this.get('contactChecking'));
                 },

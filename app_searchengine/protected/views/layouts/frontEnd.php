@@ -33,10 +33,13 @@
 
     </head>
     <body style="background:#fff url('../images/texture.png') repeat;width: 100%;height: auto;">
-   <script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwl8LT_S7FsRP_yDcoxM72-U8x15l-alw&sensor=false">
-    </script>
+        <script type="text/javascript"
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwl8LT_S7FsRP_yDcoxM72-U8x15l-alw&sensor=false">
+        </script>
 
+        <div id="loading" class="loading-visible" style="">
+            <p> <img style=" margin-top: 20%" src="../../../app_hubstar/img/bx_loader.gif" /></p>
+        </div>
         <div id="main" class="container-fluid" style="padding:0;"></div>
 
         <script data-main="app_hubstar/scripts/main" src="app_hubstar/scripts/libs/requirejs/2.1.2/require.js"></script>

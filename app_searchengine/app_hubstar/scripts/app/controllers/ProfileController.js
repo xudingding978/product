@@ -22,6 +22,7 @@ define([
                 editingAbout: false,
                 editingContact: false,
                 galleryInsert: false,
+                contactChecking: false,
                 temp: [],
                 selectedDesc: "",
                 selectedTitle: "",
@@ -34,6 +35,7 @@ define([
                 currentUserID: "",
                 collections: [],
                 selectedCollection: "",
+                needs: ["application", "contact"],
                 hours: [],
                 init: function() {
 
@@ -42,16 +44,36 @@ define([
                 getCurrentClient: function(id)
                 {
 
-//                    var address = document.URL;
-//                    var user_id = address.split("#")[1].split("/")[2];
+
+
+
                     this.set('currentUserID', id);
-                    var user = App.Profile.find(id);
+                    var user = ProfileModel.find(id);
+
+
+//                    var that = this;
+//                    user.addObserver('isLoaded', function() {
+//                        if (user.get('isLoaded')) {
+//                            alert(44444);
+//                            that.get("controllers.application").set('loadingTime', true);
+//
+//                        }
+//                    });
+
 
                     return user;
                 },
                 setProfile: function(id) {
-
+                    //                 this.get("controllers.application").set('loadingTime', true);
                     var user = this.getCurrentClient(id);
+
+
+//                    var that = this;
+//                    
+//                    setTimeout(function() {
+//                        that.get("controllers.application").set('loadingTime', false);
+//
+//                    }, 1000);
 
                     this.updateWorkingHourData(user.get('hours'));
                     this.set("model", this.getCurrentClient(id));
@@ -252,7 +274,18 @@ define([
                 toggleUpload: function() {
 
                     this.set('uploadChecking', !this.get('uploadChecking'));
-                }
+                },
+                editingContactForm: function() {
+
+                    var contactController = this.get('controllers.contact');
+                    console.log(this.get('contactChecking'));
+                    console.log(this.get('currentUserID'));
+                    contactController.setSelectedMega(this.get('currentUserID'));
+                    this.set('contactChecking', !this.get('contactChecking'));
+                },
+                closeContact: function() {
+                    this.set('contactChecking', !this.get('contactChecking'));
+                },
             });
             return ProfileController;
         });

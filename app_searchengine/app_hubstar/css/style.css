@@ -790,3 +790,32 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
     color: #555;
 }
+
+
+
+
+div.loading-visible{
+    /*make visible*/
+    z-index:999999;
+    display:block;
+
+    /*position it at the very top-left corner*/
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    text-align:center;
+
+    /*in supporting browsers, make it
+      a little transparent*/
+    background:#fff;
+    _background:none; /*this line removes the background in IE*/
+    opacity:.95;
+    border-top:1px solid #ddd;
+    border-bottom:1px solid #ddd;
+
+    /*set the padding, so that the content
+      of the div is centered vertically*/
+    padding-top:15%;
+}

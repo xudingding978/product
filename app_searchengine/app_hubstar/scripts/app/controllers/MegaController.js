@@ -132,7 +132,7 @@ define(['models/MegaModel',
                     this.set('contact', !this.get('contact'));
                 },
                 closeContact: function() {
-                    this.set('contact', !this.get('contact'));
+                    this.set('contact', false);
                 },
                 addComment: function() {
                     var commentContent = this.get('commentContent');

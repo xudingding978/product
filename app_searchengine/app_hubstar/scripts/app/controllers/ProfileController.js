@@ -284,7 +284,7 @@ define([
                     this.set('contactChecking', !this.get('contactChecking'));
                 },
                 closeContact: function() {
-                    this.set('contactChecking', !this.get('contactChecking'));
+                    this.set('contactChecking', false);
                 },
             });
             return ProfileController;

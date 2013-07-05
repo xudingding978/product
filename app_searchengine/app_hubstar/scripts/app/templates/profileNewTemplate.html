@@ -153,7 +153,7 @@
             <table style="padding: 0 20px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px 0;">
                 <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
                     <tr>
-                        <td>Client Name</td>
+                        <td>Client Name:</td>
                         <td> 
                             <div style="display: block;">
                                 <div   style="margin: 0;width: 100%;">
@@ -272,6 +272,55 @@
                             </div>
                         </td>
                     </tr>
+
+
+                    <tr>
+                        <td>Background:</td>
+                        <td> 
+                            <div style="display: block;">
+                                <div   style="margin: 0;width: 100%;">
+                                    {{view Ember.TextField valueBinding="profile_bg_url"  class="background"  placeholder="http://yourBackgroundImage" }}
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <img style="width:50px" {{bindAttr src="profile_bg_url"}} />
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Hero:</td>
+                        <td> 
+                            <div style="display: block;">
+                                <div   style="margin: 0;width: 100%;">
+                                    {{view Ember.TextField valueBinding="profile_cover_url"  class="hero"  placeholder="http://yourHeroImage" }}
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <img style="width:50px" {{bindAttr src="profile_cover_url"}} />
+
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>Picture:</td>
+                        <td> 
+                            <div style="display: block;">
+                                <div   style="margin: 0;width: 100%;">
+                                    {{view Ember.TextField valueBinding="profile_pic_url"  class="picture"  placeholder="http://yourPictureImage" }}
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <img style="width:50px" {{bindAttr src="profile_pic_url"}} />
+
+                        </td>
+                    </tr>
+
+
                 </tbody>
             </table>
 

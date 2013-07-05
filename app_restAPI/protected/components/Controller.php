@@ -35,12 +35,12 @@ class Controller extends CController {
 
 //    protected function getProviderConfigurationByName($domain,$name) {
 
-    protected function getS3BucketName($domain) {
-        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
-        $result = $cb->get($domain);
-        $result_arr = CJSON::decode($result, true);
-        return $result_arr["providers"]["S3bucket"];
-    }
+//    protected function getS3BucketName($domain) {
+//        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
+//        $result = $cb->get($domain);
+//        $result_arr = CJSON::decode($result, true);
+//        return $result_arr["providers"]["S3bucket"];
+//    }
 
     protected function getS3Connection($domain) {
         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);

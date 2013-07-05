@@ -22,7 +22,6 @@ define(
         photo_image_thumbnail_url: DS.attr('string'), // [ ]
         photo_products: DS.attr('string'), // [ ] 
         photo_articleId: DS.attr('string'),
-
         photo_heliumId: DS.attr('string'),
         didLoad: function() {
 //            console.log("1111111111111111111111111111111111111111111111111111");

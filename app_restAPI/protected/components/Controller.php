@@ -602,24 +602,24 @@ class Controller extends CController {
         return $data;
     }
         
-    function compressPhotoData($type, $data) {
-        error_log($type);
+    function compressPhotoData($type, $image) {
+        error_log("type in compressPhotoData: ".$type);
         
-        ob_start();
+//        ob_start();
         if ($type == "image/png") {
-            imagepng($data);
-            error_log("fffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+            imagepng($image);
+            error_log("image/png--fffffffffffffffffffffffffffffffffffffffffffffffffffffff"); 
         } elseif ($type == "image/jpeg") {
-            imagejpeg($data, null, 80);
-            error_log("sssssssssssssssssssssssssssssssssssssssssssssss");
+            error_log("in image/jpeg kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+            imagejpeg($image, null, 80);            
+            error_log("image/jpeg--sssssssssssssssssssssssssssssssssssssssssssssss");
         }
         error_log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        $return = ob_get_contents();
-        ob_end_clean();
-        error_log($return);
+//        $return = ob_get_contents();
+//        ob_end_clean();
+//        error_log($return);
         
-        return $return;
+        return $image;
     } 
     
-
 }

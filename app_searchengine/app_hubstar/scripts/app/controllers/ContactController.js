@@ -25,7 +25,7 @@ define([
         projectTimeframe: null,
         projectBudget: null,
         projectExperience: null,
-        needs: ["mega"],
+        needs: ["mega", "profile"],
         setSelectedMega: function(id)
         {
             this.set("currentUser", App.User.find(localStorage.loginStatus));
@@ -37,11 +37,13 @@ define([
         },
         closeContact: function() {
             var megaController = this.get("controllers.mega");
+            var profileController = this.get("controllers.profile");
             this.set('projectCategoryDropdown', false);
             this.set('projectTimeframeDropdown', false);
             this.set('projectBudgetDropdown', false);
             this.set('projectExperienceDropdown', false);
             megaController.closeContact();
+            profileController.closeContact();
         },
         setEditable: function(attr) {
             var swtich = "isDisplay" + attr + "Editable";
@@ -75,28 +77,28 @@ define([
         },
         dropdown: function(checking) {
             if (checking === "category") {
-            //    console.log(checking);
+                //    console.log(checking);
                 this.set('projectExperienceDropdown', false);
                 this.set('projectTimeframeDropdown', false);
                 this.set('projectBudgetDropdown', false);
                 this.set('projectCategoryDropdown', !this.get('projectCategoryDropdown'));
 
             } else if (checking === "Timeframe") {
-          //      console.log(checking);
+                //      console.log(checking);
                 this.set('projectExperienceDropdown', false);
                 this.set('projectBudgetDropdown', false);
                 this.set('projectCategoryDropdown', false);
                 this.set('projectTimeframeDropdown', !this.get('projectTimeframeDropdown'));
 
             } else if (checking === "Budget") {
-         //       console.log(checking);
+                //       console.log(checking);
                 this.set('projectExperienceDropdown', false);
                 this.set('projectCategoryDropdown', false);
                 this.set('projectTimeframeDropdown', false);
                 this.set('projectBudgetDropdown', !this.get('projectBudgetDropdown'));
 
             } else if (checking === "Experience") {
-         //       console.log(checking);
+                //       console.log(checking);
                 this.set('projectTimeframeDropdown', false);
                 this.set('projectCategoryDropdown', false);
                 this.set('projectBudgetDropdown', false);

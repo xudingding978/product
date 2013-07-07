@@ -22,6 +22,7 @@ define([
                 editingAbout: false,
                 editingContact: false,
                 galleryInsert: false,
+                contactChecking: false,
                 temp: [],
                 selectedDesc: "",
                 selectedTitle: "",
@@ -34,6 +35,10 @@ define([
                 currentUserID: "",
                 collections: [],
                 selectedCollection: "",
+                needs: ["application", "contact"],
+                profile_bg_url: "",
+                profile_cover_url: "",
+                profile_pic_url: "",
                 hours: [],
                 init: function() {
 
@@ -42,16 +47,36 @@ define([
                 getCurrentClient: function(id)
                 {
 
-//                    var address = document.URL;
-//                    var user_id = address.split("#")[1].split("/")[2];
+
+
+
                     this.set('currentUserID', id);
-                    var user = App.Profile.find(id);
+                    var user = ProfileModel.find(id);
+
+
+//                    var that = this;
+//                    user.addObserver('isLoaded', function() {
+//                        if (user.get('isLoaded')) {
+//                            alert(44444);
+//                            that.get("controllers.application").set('loadingTime', true);
+//
+//                        }
+//                    });
+
 
                     return user;
                 },
                 setProfile: function(id) {
-
+                    //                 this.get("controllers.application").set('loadingTime', true);
                     var user = this.getCurrentClient(id);
+
+
+//                    var that = this;
+//                    
+//                    setTimeout(function() {
+//                        that.get("controllers.application").set('loadingTime', false);
+//
+//                    }, 1000);
 
                     this.updateWorkingHourData(user.get('hours'));
                     this.set("model", this.getCurrentClient(id));
@@ -250,8 +275,28 @@ define([
                     this.set("selectedCollection", collection);
                 },
                 toggleUpload: function() {
-
+                    $('.corpbanner_mask').toggleClass('hideClass');
                     this.set('uploadChecking', !this.get('uploadChecking'));
+                },
+                editingContactForm: function() {
+
+                    var contactController = this.get('controllers.contact');
+//                    console.log(this.get('contactChecking'));
+               console.log(this.get('currentUserID'));
+
+                    contactController.setSelectedMega(this.get('currentUserID'));
+                    this.set('contactChecking', !this.get('contactChecking'));
+                },
+                closeContact: function() {
+                    this.set('contactChecking', false);
+                },
+                uploadImage: function() {
+
+                    var user = this.getCurrentClient(this.get('currentUserID'));
+                    user.set("profile_bg_url", $('.background').val());
+                    user.set("profile_cover_url", $('.hero').val());
+                    user.set("profile_pic_url", $('.picture').val());
+                    this.updateClient();
                 }
             });
             return ProfileController;

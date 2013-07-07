@@ -19,7 +19,7 @@ class ResizeImagesController extends Controller {
         $input_image_string = $this->getInputData($matchs[1][0], $input_string);
         $url = "trendsideas.com/media/article/resize/1111.jpg";
         $this->doS3connection($url, $input_image_string);
-                
+        
         exit();
         
 //        echo $input_image_string;

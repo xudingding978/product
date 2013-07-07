@@ -44,7 +44,7 @@
 
                 <div class="profilecorpbanner"    style="overflow:hidden;width: 100%; max-height: 650px; border-radius: 3px 3px 0 0; position: relative;">
                     {{#if controller.uploadChecking}}
-                    <div  class="t-style-box"  style="width:100%;background-color: white;height: 600px">
+                    <div  class="t-style-box"  style="width:100%;background-color: white;">
                         <div class="tabbable">
                             <div class="tabs-left">
                                 <ul class="nav nav-tabs easing">
@@ -64,26 +64,28 @@
                                             <div style="margin: 0 0 0 5px;width: 69%;display: inline-block;">
                                                 {{view Ember.TextField valueBinding="profile_bg_url"  class="background"  placeholder="http://yourBackgroundImage" }}
                                             </div>
-                                            <img style="height: 70px;margin: 5px auto;left: 0;right: 0;display: block;" {{bindAttr src="profile_bg_url"}} />
                                         </div>
                                         <div style="display: block;margin: 10px;">
                                             <div style="display: inline-block;font-size: 16px;width: 29%;text-align: right;">Hero: </div>
                                             <div style="margin: 0 0 0 5px;width: 69%;display: inline-block;">
                                                 {{view Ember.TextField valueBinding="profile_cover_url"  class="hero"  placeholder="http://yourHeroImage" }}
                                             </div>
-                                            <img style="height: 70px;margin: 5px auto;left: 0;right: 0;display: block;" {{bindAttr src="profile_cover_url"}} />
                                         </div>
                                         <div style="display: block;margin: 10px;">
                                             <div style="display: inline-block;font-size: 16px;width: 29%;text-align: right;">Profile Picture: </div>
                                             <div style="margin: 0 0 0 5px;width: 69%;display: inline-block;">
                                                 {{view Ember.TextField valueBinding="profile_pic_url"  class="picture"  placeholder="http://yourPictureImage" }}
                                             </div>
-                                            <img style="height: 70px;margin: 5px auto;left: 0;right: 0;display: block;" {{bindAttr src="profile_pic_url"}} />
                                         </div>
+                                    </div>
+                                    <div style=" height: 100px; width: 80%; margin: auto; text-align: center;">
+                                        <img style="height: 100%;margin: auto 3px;display: inline-block;" {{bindAttr src="profile_bg_url"}} />
+                                        <img style="height: 100%;margin: auto 3px;display: inline-block;" {{bindAttr src="profile_cover_url"}} />
+                                        <img style="height: 100%;margin: auto 3px;display: inline-block;" {{bindAttr src="profile_pic_url"}} />
                                     </div>
 
 
-                                    <div class="controlbtn" style="left: 34%;">
+                                    <div class="controlbtn" style="left: 34%;margin: 10px auto 20px;">
                                         <span class="new-btn" {{action toggleUpload }}>Cancel</span>
                                         <span class="new-btn green-btn" {{action uploadImage}}>Submit</span> 
                                     </div>
@@ -115,7 +117,7 @@
                                             {{/each}}
                                         </div>
                                     </div>
-                                    <div class="controlbtn-field" style="margin-top: 20px;">
+                                    <div style="margin: 20px auto;">
                                         <div class="controlbtn" style="left: 34%;">
                                             <span class="new-btn" {{action toggleUpload }}>Cancel</span>
                                             <span class="new-btn green-btn" {{action submit}}>Submit</span> 
@@ -148,7 +150,7 @@
                                             {{/each}}
                                         </div>
                                     </div>
-                                    <div class="controlbtn-field" style="margin-top: 20px;">
+                                    <div style="margin: 20px auto;">
                                         <div class="controlbtn" style="left: 34%;">
                                             <span class="new-btn" {{action toggleUpload }}>Cancel</span>
                                             <span class="new-btn green-btn" {{action submit}}>Submit</span> 
@@ -182,7 +184,7 @@
                                             {{/each}}
                                         </div>
                                     </div>
-                                    <div class="controlbtn-field" style="margin-top: 20px;">
+                                    <div style="margin: 20px auto;">
                                         <div class="controlbtn" style="left: 34%;">
                                             <span class="new-btn" {{action toggleUpload }}>Cancel</span>
                                             <span class="new-btn green-btn" {{action submit}}>Submit</span> 
@@ -392,7 +394,7 @@
 
                             <div class="main_aboutus" style="border-bottom: 1px solid rgba(0,0,0,.1); padding:20px 0 30px 0; font-size: 15px; min-height: 400px;">
                                 <div>
-                                    <div style="display: block;">
+                                    <div style="display: inline-block;">
                                         <p style='margin-bottom: 20px;display: inline-block; font-size: 18px;'>
                                             <i class='icon-group' style='margin-right: 10px;display: inline-block;'></i>About Us
                                         </p>
@@ -410,7 +412,7 @@
                                              <i class="icon-edit"></i>                            
                                         </div>
                                     </div>
-                                    {{{model.about}}}
+                                    <div style="display: block;">{{{model.about}}}</div>
                                     {{/if}}
                                 </div>
                             </div>

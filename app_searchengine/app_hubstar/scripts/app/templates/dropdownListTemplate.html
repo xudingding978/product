@@ -20,6 +20,7 @@
 </div>
 {{/if}}
 
+
 {{#if controller.projectTimeframeDropdown}}
 <div id="dropItem2" {{action dropdown controller.dropdownTimeframe}}>
      <div  class="ite ">1-2 months</div>
@@ -52,6 +53,14 @@
 </div>
 {{/if}}
 
+{{#if controller.packgetDropdown}}
+<div id="dropItem5" {{action dropdown controller.packgeSelection}}>
+     <div  class="ite ">Platinum</div>
+    <div  class="ite ">Gold</div>
+    <div  class="ite ">Silver</div>
+    <div  class="ite ">Brownze</div>
+</div>
+{{/if}}
 
 
 <script>
@@ -71,5 +80,9 @@
     $('#dropItem4 > .ite').click(function() {
 
         $('#dropdownExperience').text($(this).text());
+    });
+        $('#dropItem5 > .ite').click(function() {
+
+        $('#packgeSelection').text($(this).text());
     });
 </script>

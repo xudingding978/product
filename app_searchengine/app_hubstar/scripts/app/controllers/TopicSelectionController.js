@@ -41,6 +41,7 @@ define(["ember", "models/UserModel"], function(Ember, UserModel) {
 
             var data = this.get('selected_topics');
             var user = UserModel.find(localStorage.loginStatus);
+            console.log(user);
             user.set('selected_topics', data.substring(0, data.length - 1));
             user.store.commit();
         }

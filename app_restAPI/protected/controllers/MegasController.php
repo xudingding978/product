@@ -86,6 +86,7 @@ class MegasController extends Controller {
         if ($newRecord['mega']['type'] == 'user') {
             $this->updateUserRecord($newRecord);
         } else {
+
             $this->updateComment($newRecord);
         }
     }
@@ -165,17 +166,19 @@ class MegasController extends Controller {
 
     public function updateComment($newRecord) {
         try {
+        
             if (isset($newRecord['mega']['comments'][0]['mega_id'])) {
                 $newRecord['mega']['comments'][0]['mega_id'] = null;
-                error_log(var_export($newRecord['mega']['comments'], true));
             }
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
             $docID = $this->getDomain() . "/" . $id;
+                      error_log($docID);
             $oldRecord = $cb->get($docID);
             $oldRecord = CJSON::decode($oldRecord, true);
             $oldRecord['comments'] = $newRecord['mega']['comments'];
+            
             if ($cb->set($docID, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204, "");
             } else {
@@ -188,15 +191,13 @@ class MegasController extends Controller {
 
     public function updateUserRecord($newRecord) {
         try {
-//             $userController =new UsersController();
-//            $userController->test();
             $cb = $this->couchBaseConnection();
             $id = $newRecord['mega']['user'][0]['id'];
             $docID = substr($_SERVER['HTTP_HOST'], 4) . "/users/" . $id;
             $oldRecord = $cb->get($docID);
             $oldRecord = CJSON::decode($oldRecord, true);
             error_log(var_export($oldRecord, true));
-            //  $oldRecord['user'][0] = null;
+
             $oldRecord['user'] = $newRecord['mega']['user'];
             if ($cb->set($docID, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);

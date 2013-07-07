@@ -171,13 +171,13 @@ class PhotosController extends Controller {
     }
 
     public function doPhotoResizing($mega) {
-        $image_string = $mega['photo'][0]['photo_image_url'];
-        $image_name = $mega['photo'][0]['photo_title'];
+        $photo_string = $mega['photo'][0]['photo_image_url'];
+        $photo_name = $mega['photo'][0]['photo_title'];
         
-        error_log($image_string);
-        error_log($image_name.'----000000000000000000000000000000000000');
+//        error_log($image_string);
+        error_log($photo_name.'----000000000000000000000000000000000000');
                 
-        $data_arr = $this->convertToString64($image_string);
+        $data_arr = $this->convertToString64($photo_string);
         $photo = imagecreatefromstring($data_arr['data']);
 //        error_log(var_export($data_arr, true));
         
@@ -192,21 +192,28 @@ class PhotosController extends Controller {
         
         error_log("width:". $orig_size['width'] ."---------------------------"."height: ".$orig_size['height'] );
         
-        $new_size = $this->getNewPhotoSize($orig_size, 'thambnail');
         
+        $this->savePhotoInTypes ($orig_size, "thambnail", $photo_name, $compressed_photo, $data_arr);
+        $this->savePhotoInTypes ($orig_size, "hero", $photo_name, $compressed_photo, $data_arr);
+        $this->savePhotoInTypes ($orig_size, "preview", $photo_name, $compressed_photo, $data_arr);
+
+    }
+    
+    protected function savePhotoInTypes ($orig_size, $photo_type, $photo_name, $compressed_photo, $data_arr) {
+        $new_size = $this->getNewPhotoSize($orig_size, $photo_type);
         $new_photo_data = $this->createNewImage($orig_size, $new_size, $compressed_photo, $data_arr['type']);
-//        error_log("----------------------------vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
-        $new_photo_name = $this->addPhotoSizeToName($image_name, $new_size);
+        
+        //        error_log("----------------------------vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
+        $new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
          error_log("----------------------------nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
 //        $new_size = getNewPhotoSize($orig_size, 'preview'); 
 //        $new_size = getNewPhotoSize($orig_size, 'hero');
 //        $new_photo_name = $image_name.'_'.$new_size['width'].'x'.$new_size['height'];
         
-        $url = "trendsideas.com/media/article/resize/".$new_photo_name;
+        $url = "trendsideas.com/media/article/resize/".$photo_type."/".$new_photo_name;
         error_log($url."----------------------------22222222222222222222222222222222222");
         
         $this->saveImageToS3($url, $new_photo_data);
-        
     }
     
     protected function getNewPhotoSize ($photo_size, $photo_type) {

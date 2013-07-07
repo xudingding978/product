@@ -1,4 +1,4 @@
-define(["ember","helper"],
+define(["ember", "helper"],
         function(Ember) {
 
 
@@ -11,6 +11,7 @@ define(["ember","helper"],
                 collection_id: "",
                 needs: ['profile', 'insideCollection'],
                 init: function() {
+
                     this.setMega();
                 },
                 commitFiles: function(files) {
@@ -35,8 +36,6 @@ define(["ember","helper"],
 
                     App.store.commit();
 
-
-
                 }, back: function()
                 {
                     this.set("content", []);
@@ -49,11 +48,15 @@ define(["ember","helper"],
                     var id = profileController.get("model").id;
                     var tempmega = App.Mega.find(id);
                     var that = this;
-                    tempmega.addObserver('isLoaded', function() {
-                        if (tempmega.get('isLoaded')) {
-                            that.set("profileMega", tempmega);
-                        }
-                    });
+                    that.set("profileMega", tempmega);
+                    if (that.get("profileMega") === null) {
+                        tempmega.addObserver('isLoaded', function() {
+                            if (tempmega.get('isLoaded')) {
+                                that.set("profileMega", tempmega);
+                                console.log(that.get("profileMega"));
+                            }
+                        });
+                    }
                 },
                 createNewMega: function(ProfileMega)
                 {
@@ -101,9 +104,6 @@ define(["ember","helper"],
                 }, addPhotoObject: function(e, that, name, type) {
                     var src = e.srcElement.result;
                     var mega = that.createNewMega(that.get("profileMega"));
-//                    mega.on('didCreate', function() {
-//                        console.log(this);
-//                    });
                     mega.addObserver('isSaving', function() {
                         if (!mega.get('isSaving')) {
                             console.log("wait");

@@ -8,7 +8,7 @@ define([
     var ApplicationView = Ember.View.extend({
         defaultTemplate: Ember.Handlebars.compile(applicationTemplate),
         didInsertElement: function() {
-         
+            $("#loading").attr('style', 'display:none');
 
             var view = this;
             $(window).bind("scroll", function() {
@@ -30,11 +30,10 @@ define([
         isScrolledToBottom: function() {
             var distanceToTop = $(document).height() - $(window).height(),
                     top = $(document).scrollTop();
-//console.log(top+"         "+distanceToTop);
             return top === distanceToTop;
         },
         willDestroyElement: function() {
-      //      $(window).unbind("scroll");
+            //      $(window).unbind("scroll");
         },
         reaaarender: function() {
             this.rerender();

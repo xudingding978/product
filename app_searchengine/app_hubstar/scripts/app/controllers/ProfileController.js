@@ -22,6 +22,7 @@ define([
                 editingAbout: false,
                 editingContact: false,
                 galleryInsert: false,
+                contactChecking: false,
                 temp: [],
                 selectedDesc: "",
                 selectedTitle: "",
@@ -34,33 +35,56 @@ define([
                 currentUserID: "",
                 collections: [],
                 selectedCollection: "",
+                needs: ["application", "contact"],
+                profile_bg_url: "",
+                profile_cover_url: "",
+                profile_pic_url: "",
                 hours: [],
                 init: function() {
 
 
                 },
-                getCurrentClient: function()
+                getCurrentClient: function(id)
                 {
-                    var address = document.URL;
-                    var user_id = address.split("#")[1].split("/")[2];
-                    this.set('currentUserID', user_id);
-                    var user = App.Profile.find(user_id);
+
+
+
+
+                    this.set('currentUserID', id);
+                    var user = ProfileModel.find(id);
+
+
+//                    var that = this;
+//                    user.addObserver('isLoaded', function() {
+//                        if (user.get('isLoaded')) {
+//                            alert(44444);
+//                            that.get("controllers.application").set('loadingTime', true);
+//
+//                        }
+//                    });
+
 
                     return user;
                 },
-                setProfile: function() {
+                setProfile: function(id) {
+                    //                 this.get("controllers.application").set('loadingTime', true);
+                    var user = this.getCurrentClient(id);
 
 
-                    var user = this.getCurrentClient();
+//                    var that = this;
+//                    
+//                    setTimeout(function() {
+//                        that.get("controllers.application").set('loadingTime', false);
+//
+//                    }, 1000);
 
                     this.updateWorkingHourData(user.get('hours'));
-                    this.set("model", this.getCurrentClient());
-        //            console.log(user);
+                    this.set("model", this.getCurrentClient(id));
                     this.set("collections", user.get("collections"));
 
 
                     var collections = user.get("collections");
-         //           console.log(collections);
+                    //           console.log(collections);
                     for (var i = 0; i < collections.get("length"); i++)
                     {
                         var col = collections.objectAt(i);
@@ -206,7 +230,8 @@ define([
                 },
                 updateWorkingHourData: function(times) {
                     this.set('hours', []);
-                    if (times !== null && times !== "") {
+                    //           console.log(times);
+                    if (times !== null && times !== "" && typeof times !== "undefined") {
                         var time = times.split(",");
                         for (var i = 0; i < time.length; i++) {
                             var dayAndTime = time[i].split("=");
@@ -250,8 +275,28 @@ define([
                     this.set("selectedCollection", collection);
                 },
                 toggleUpload: function() {
-
+                    $('.corpbanner_mask').toggleClass('hideClass');
                     this.set('uploadChecking', !this.get('uploadChecking'));
+                },
+                editingContactForm: function() {
+
+                    var contactController = this.get('controllers.contact');
+//                    console.log(this.get('contactChecking'));
+               console.log(this.get('currentUserID'));
+
+                    contactController.setSelectedMega(this.get('currentUserID'));
+                    this.set('contactChecking', !this.get('contactChecking'));
+                },
+                closeContact: function() {
+                    this.set('contactChecking', false);
+                },
+                uploadImage: function() {
+
+                    var user = this.getCurrentClient(this.get('currentUserID'));
+                    user.set("profile_bg_url", $('.background').val());
+                    user.set("profile_cover_url", $('.hero').val());
+                    user.set("profile_pic_url", $('.picture').val());
+                    this.updateClient();
                 }
             });
             return ProfileController;

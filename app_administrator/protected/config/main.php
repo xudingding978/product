@@ -19,9 +19,9 @@ $root = $app_administratorConfigDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEP
 Yii::setPathOfAlias('root', $root);
 Yii::setPathOfAlias('common', $root . DIRECTORY_SEPARATOR . 'common' . DIRECTORY_SEPARATOR . 'protected');
 Yii::setPathOfAlias('app_administrator', $root . DIRECTORY_SEPARATOR . 'app_administrator');
-Yii::setPathOfAlias('app_dashboard', $root . DIRECTORY_SEPARATOR . 'app_dashboard');
-Yii::setPathOfAlias('app_searchengine', $root . DIRECTORY_SEPARATOR . 'app_searchengine');
-Yii::setPathOfAlias('app_useraccount', $root . DIRECTORY_SEPARATOR . 'app_useraccount');
+//Yii::setPathOfAlias('app_dashboard', $root . DIRECTORY_SEPARATOR . 'app_dashboard');
+//Yii::setPathOfAlias('app_searchengine', $root . DIRECTORY_SEPARATOR . 'app_searchengine');
+//Yii::setPathOfAlias('app_useraccount', $root . DIRECTORY_SEPARATOR . 'app_useraccount');
 
 // The configuation tree overides in the following way...
 // local settings below > environment specific > main configuration
@@ -59,9 +59,11 @@ return CMap::mergeArray(
                 'common.extensions.*',
                 'common.models.*',
                 'common.modules.*',
+                 'application.vendor.autoload',
                 'application.models.*',
-                'application.components.*',
-   
+                'application.components.app_restAPI',
+                'application.controllers.*'
+                
             ),
             'modules' => array(
                 'gii' => array(

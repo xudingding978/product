@@ -40,7 +40,7 @@ define(["ember"], function(Ember) {
         },
         deleteComment: function(object) {
             var message = "Do you wish to delete this comment ?";
-            this.set("messege", message);
+            this.set("message", message);
             this.set('makeSureDelete', true);
 
             if (this.get('willDelete')) {

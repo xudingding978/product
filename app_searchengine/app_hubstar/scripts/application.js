@@ -182,6 +182,7 @@ define('application', [
     "models/CollectionModel",
     "models/CommentModel",
     "models/EmailModel",
+    "models/CategoryModel",
     "emberData",
     'jquery',
     "bxslider",
@@ -317,7 +318,8 @@ define('application', [
         Stat,
         Collection,
         Comment,
-        Email
+        Email,
+        Category
         )
 {
 
@@ -454,6 +456,7 @@ define('application', [
         Collection: Collection,
         Comment: Comment,
         Email: Email,
+        Category:Category,
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({
@@ -472,11 +475,7 @@ define('application', [
             App.set('chooseCollection', null);
             App.set('isMansonryPageLoad', false);
             App.set('searchStart', false);
-//            var firstView = App.DiscoveryView.create(),
-//                    secondView = App.MasonryView.create();
-//
-//            App.ConView.pushObject(firstView);
-//            App.ConView.pushObject(secondView);
+
         }
     });
 }

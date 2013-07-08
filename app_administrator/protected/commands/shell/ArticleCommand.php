@@ -132,7 +132,7 @@ class ArticleCommand extends CConsoleCommand {
         }
     }
     
-    public function structureArray(&$val) {
+    public function structureArray($val) {
 
         //  get region and country
         $region = Regions::model()->selectRegionByArtical($val['id']);
@@ -332,6 +332,7 @@ class ArticleCommand extends CConsoleCommand {
         $time_array = array();
         date_default_timezone_set($time_zone);
         $time_string = strtotime($datetime);
+        
         $time_array['utc'] = $time_string;
         $time_array['timezone'] = $time_zone;
 

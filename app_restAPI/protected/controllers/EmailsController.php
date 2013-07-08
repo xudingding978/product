@@ -21,6 +21,7 @@ class EmailsController extends Controller {
         $request_arr = CJSON::decode($request_json, true);
         $request_arr = $request_arr['email'];
         error_log(var_export($request_arr,true));
+        
         $display_email = $request_arr['display_email'];
         $email_destination = $request_arr['email_destination'];
         $domain = $this->getDomain();

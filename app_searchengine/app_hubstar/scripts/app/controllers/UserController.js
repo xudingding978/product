@@ -172,7 +172,7 @@ define(["ember"
         {
 
             var message = "Do you wish to delete " + this.get("selectedCollection").get('id') + " ?";
-            this.set("messege", message);
+            this.set("message", message);
             this.set('makeSureDelete', true);
 
             if (this.get('willDelete')) {

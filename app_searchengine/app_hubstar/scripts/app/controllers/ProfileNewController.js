@@ -30,7 +30,7 @@ define([
                 secondary_email: "",
                 direct_enquiry_provide_email: "",
                 profile_bg_url: "",
-                profile_cover_url: "",
+                profile_hero_url: "",
                 profile_pic_url: "",
                 keywords: "",
                 validateEmail: function(email)
@@ -172,7 +172,7 @@ define([
                     }
                     if ($('.hero').val() === "") {
 
-                        this.set('profile_cover_url', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_cover/default/defaultcover4.jpg");
+                        this.set('profile_hero_url', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_cover/default/defaultcover4.jpg");
                     }
                     if ($('.picture').val() === "") {
 

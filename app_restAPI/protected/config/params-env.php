@@ -25,12 +25,14 @@ return array(
     'env.code' => 'prod',
     //ElasticSearch Configurations
     'elasticSearch.node' => 'es1.hubsrv.com',
-    'elasticSearch.index' => 'develop',
+    'elasticSearch.index' => 'production',
+    
     //CouchBase Configurations
     'couchBase.node' => 'cb1.hubsrv.com:8091',
     'couchBase.account' => 'Administrator',
     'couchBase.password' => 'Pa55word',
-    'couchBase.bucket' => 'develop',
+    'couchBase.bucket' => 'production',
+    
     //CouchBase default bucket  Configurations
     'couchBase.defaultNode' => 'cb1.hubsrv.com:8091',
     'couchBase.defaultAccount' => 'Administrator',
@@ -42,6 +44,7 @@ return array(
     'db_live.connectionString' => 'mysql:host=db1.hubsrv.com;dbname=hubstar_live',
     'db_live.username' => 'db_user',
     'db_live.password' => 'Pa55word',
+    
     //Platform Administrator Email
     'adminEmail' => 'localwebmaster@example.com',
 );

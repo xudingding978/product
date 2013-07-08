@@ -24,11 +24,11 @@ return array(
      'env.code' => 'prod',
     //ElasticSearch Configurations
     'elasticSearch.node' => 'es1.hubsrv.com',
-    'elasticSearch.index' => 'develop',
+    'elasticSearch.index' => 'test',
     
     //CouchBase Configurations
     'couchBase.node'=>'cb1.hubsrv.com:8091',
-    'couchBase.bucket'=>'develop',
+    'couchBase.bucket'=>'test',
     
       //MySQL Database Configurations
     'db_live.name' => 'db_live',

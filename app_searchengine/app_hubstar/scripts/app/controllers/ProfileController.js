@@ -274,12 +274,11 @@ define([
                     user.set("profile_pic_url", $('.picture').val());
                     this.updateClient();
                 }, checkAuthenticUser: function() {
-     var authenticUsers=this.get("model").get("owner")+","+this.get("model").get("e");
+                    var authenticUsers = this.get("model").get("owner") + "," + this.get("model").get("profile_editors");
                     var currentUser = App.User.find(localStorage.loginStatus);
                     currentUser.addObserver('isLoaded', function() {
                         if (currentUser.get('isLoaded')) {
                             console.log(currentUser.get("email"));
-
                         }
                     });
 

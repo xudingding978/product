@@ -24,6 +24,8 @@ define(
         profile_contact_email: DS.attr('string'),
         profile_keywords: DS.attr('string'),
         profile_package_name: DS.attr('string'),
+        profile_regoin: DS.attr('string'),
+        profile_country: DS.attr('string'),
         hours: DS.attr('string'),
         profile_areas_serviced: DS.attr('string'),
         profile_website: DS.attr('string'),

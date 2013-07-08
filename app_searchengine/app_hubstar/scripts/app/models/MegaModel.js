@@ -16,6 +16,7 @@ define(
         accessed: DS.attr('string'),
         boost: DS.attr('string'),
         category: DS.attr('string'),
+        creator_profile_pic: DS.attr('string'),
         created: DS.attr('date'),
         creator: DS.attr('string'),
         country: DS.attr('string'),
@@ -23,6 +24,7 @@ define(
         collection_count: DS.attr('string'),
         deleted: DS.attr('string'),
         domains: DS.attr('string'),
+        editors: DS.attr('string'),
         geography: DS.attr('string'),
         likes_count: DS.attr('string'),
         is_active: DS.attr('boolean'),
@@ -36,6 +38,9 @@ define(
         owner_profile_pic: DS.attr('string'),
         owner_title: DS.attr('string'), //profile name
         owner_id: DS.attr('string'), //profile id
+        owner_contact_email: DS.attr('string'),
+        owner_contact_cc_emails: DS.attr('string'),
+        owner_contact_bcc_emails: DS.attr('string'),
         region: DS.attr('string'),
         status_id: DS.attr('string'),
         topic: DS.attr('string'),
@@ -43,6 +48,7 @@ define(
         updated: DS.attr('string'),
         uri_url: DS.attr('string'),
         view_count: DS.attr('string'),
+        //--------------------------
         photo: DS.hasMany('App.Photo'),
         user: DS.hasMany('App.User'),
         profile: DS.hasMany('App.Profile'),

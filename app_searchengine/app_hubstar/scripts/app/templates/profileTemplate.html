@@ -22,12 +22,16 @@
     </div>
 
 
-    <div style="width: 100%; height:170px; position: relative; display: block; opacity: 0;">      </div>
+    <div style="width: 100%; height:170px; position: relative; display: block; opacity: 0;">  
+
+    </div>
 
 
-
-
-
+    <div style="position: absolute;">
+        {{#if controller.contactChecking}}
+        {{render contact}}
+        {{/if}}
+    </div>
 
 
 
@@ -40,12 +44,159 @@
 
                 <div class="profilecorpbanner"    style="overflow:hidden;width: 100%; max-height: 650px; border-radius: 3px 3px 0 0; position: relative;">
                     {{#if controller.uploadChecking}}
-                   <div style="width:100%;background-color: white;height: 600px">
-                       
-                   </div>
+                    <div  class="t-style-box"  style="width:100%;background-color: white;height: 600px">
+                        <div class="tabbable">
+                            <div class="tabs-left">
+                                <ul class="nav nav-tabs easing">
+                                    <li class="active"><a href="#tab1" data-toggle="tab">Fast upload</a></li>
+                                    <li class="easing"><a href="#tab2" data-toggle="tab">Background Wallpaper</a></li>
+                                    <li class="easing"><a href="#tab3" data-toggle="tab">Profile Hero</a></li>
+                                    <li class="easing"><a href="#tab4" data-toggle="tab">Profile Picture</a></li>
+                                </ul>
+                            </div>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tab1">
+
+                                    <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 55px;">Fast Upload:</div>
+                                    <div style="width:80%;margin: auto;">
+                                        <div style="display: block;margin: 10px;">
+                                            <div style="display: inline-block;font-size: 16px;width: 29%;text-align: right;">Background Wallpaper: </div>
+                                            <div style="margin: 0 0 0 5px;width: 69%;display: inline-block;">
+                                                {{view Ember.TextField valueBinding="profile_bg_url"  class="background"  placeholder="http://yourBackgroundImage" }}
+                                            </div>
+                                            <img style="width:50px" {{bindAttr src="profile_bg_url"}} />
+                                        </div>
+                                        <div style="display: block;margin: 10px;">
+                                            <div style="display: inline-block;font-size: 16px;width: 29%;text-align: right;">Hero: </div>
+                                            <div style="margin: 0 0 0 5px;width: 69%;display: inline-block;">
+                                                {{view Ember.TextField valueBinding="profile_cover_url"  class="hero"  placeholder="http://yourHeroImage" }}
+                                            </div>
+                                            <img style="width:50px" {{bindAttr src="profile_cover_url"}} />
+                                        </div>
+                                        <div style="display: block;margin: 10px;">
+                                            <div style="display: inline-block;font-size: 16px;width: 29%;text-align: right;">Profile Picture: </div>
+                                            <div style="margin: 0 0 0 5px;width: 69%;display: inline-block;">
+                                                {{view Ember.TextField valueBinding="profile_pic_url"  class="picture"  placeholder="http://yourPictureImage" }}
+                                            </div>
+                                            <img style="width:50px" {{bindAttr src="profile_pic_url"}} />
+                                        </div>
+                                    </div>
+
+
+                                    <div class="controlbtn" style="left: 34%;">
+                                        <span class="new-btn" {{action toggleUpload }}>Cancel</span>
+                                        <span class="new-btn green-btn" {{action uploadImage}}>Submit</span> 
+                                    </div>
+
+
+                                </div>
+
+
+
+                                <div class="tab-pane" id="tab2">
+                                    <div style="position: relative; margin: 0px auto;height: 450px; width: 90%; background-color: rgba(242,240,240,0.5);border: 3px dashed #aaa;"> 
+                                        <div style="top: 200px;position: relative;margin: auto;width: 80%;font-size: 26px; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;">
+                                            <i class="icon-upload" style="font-size: 45px;"></i>
+                                            <p style="font-weight: bold;">
+                                                Drag and drop. 
+                                            </p>
+                                        </div>
+
+                                        <div class="new-btn blue-btn" style="margin: auto; width: 200px; top: 480px; position: absolute;left: 0;right: 67%;">
+                                            Choose 
+                                            <div style="opacity:0;position: absolute;top: 0px;left: 0;"> {{view App.ImageInputButtonView }}</div> 
+                                        </div> 
+
+                                        <div id="dragAndDroppReviewArea" class="dragndropbox" style="display:none">
+                                            {{#each content}}
+                                            <div style="position: relative;margin:3px; display: inline-block; vertical-align: top; min-width: 150px;text-align: center;">
+                                                <div> <img  {{bindAttr src= "photo_image_url"}}  alt="Logo" style="max-width: 140px; max-height: 150px;"> </div>
+                                                <div style="margin: 2px 0 5px; font-size: 13px; text-overflow:ellipsis; text-align: center; width: 150px;overflow: hidden;word-wrap: break-word;line-height: 15px;">{{photo_title}}</div>
+                                            </div>
+                                            {{/each}}
+                                        </div>
+                                    </div>
+                                    <div class="controlbtn-field" style="margin-top: 20px;">
+                                        <div class="controlbtn" style="left: 34%;">
+                                            <span class="new-btn" {{action toggleUpload }}>Cancel</span>
+                                            <span class="new-btn green-btn" {{action submit}}>Submit</span> 
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="tab-pane" id="tab3">
+                                    <div style="position: relative; margin: 0px auto;height: 450px; width: 90%; background-color: rgba(242,240,240,0.5);border: 3px dashed #aaa;"> 
+                                        <div style="top: 200px;position: relative;margin: auto;width: 80%;font-size: 26px; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;">
+                                            <i class="icon-upload" style="font-size: 45px;"></i>
+                                            <p style="font-weight: bold;">
+                                                Drag and drop. 
+                                            </p>
+                                        </div>
+
+                                        <div class="new-btn blue-btn" style="margin: auto; width: 200px; top: 480px; position: absolute;left: 0;right: 67%;">
+                                            Choose 
+                                            <div style="opacity:0;position: absolute;top: 0px;left: 0;"> {{view App.ImageInputButtonView }}</div> 
+                                        </div> 
+
+                                        <div id="dragAndDroppReviewArea" class="dragndropbox" style="display:none">
+                                            {{#each content}}
+                                            <div style="position: relative;margin:3px; display: inline-block; vertical-align: top; min-width: 150px;text-align: center;">
+                                                <div> <img  {{bindAttr src= "photo_image_url"}}  alt="Logo" style="max-width: 140px; max-height: 150px;"> </div>
+                                                <div style="margin: 2px 0 5px; font-size: 13px; text-overflow:ellipsis; text-align: center; width: 150px;overflow: hidden;word-wrap: break-word;line-height: 15px;">{{photo_title}}</div>
+                                            </div>
+                                            {{/each}}
+                                        </div>
+                                    </div>
+                                    <div class="controlbtn-field" style="margin-top: 20px;">
+                                        <div class="controlbtn" style="left: 34%;">
+                                            <span class="new-btn" {{action toggleUpload }}>Cancel</span>
+                                            <span class="new-btn green-btn" {{action submit}}>Submit</span> 
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="tab-pane" id="tab4">
+                                    <div style="position: relative; margin: 0px auto;height: 450px; width: 90%; background-color: rgba(242,240,240,0.5);border: 3px dashed #aaa;"> 
+                                        <div style="top: 200px;position: relative;margin: auto;width: 80%;font-size: 26px; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;">
+                                            <i class="icon-upload" style="font-size: 45px;"></i>
+                                            <p style="font-weight: bold;">
+                                                Drag and drop. 
+                                            </p>
+                                        </div>
+
+                                        <div class="new-btn blue-btn" style="margin: auto; width: 200px; top: 480px; position: absolute;left: 0;right: 67%;">
+                                            Choose 
+                                            <div style="opacity:0;position: absolute;top: 0px;left: 0;"> {{view App.ImageInputButtonView }}</div> 
+                                        </div> 
+
+                                        <div id="dragAndDroppReviewArea" class="dragndropbox" style="display:none">
+                                            {{#each content}}
+                                            <div style="position: relative;margin:3px; display: inline-block; vertical-align: top; min-width: 150px;text-align: center;">
+                                                <div> <img  {{bindAttr src= "photo_image_url"}}  alt="Logo" style="max-width: 140px; max-height: 150px;"> </div>
+                                                <div style="margin: 2px 0 5px; font-size: 13px; text-overflow:ellipsis; text-align: center; width: 150px;overflow: hidden;word-wrap: break-word;line-height: 15px;">{{photo_title}}</div>
+                                            </div>
+                                            {{/each}}
+                                        </div>
+                                    </div>
+                                    <div class="controlbtn-field" style="margin-top: 20px;">
+                                        <div class="controlbtn" style="left: 34%;">
+                                            <span class="new-btn" {{action toggleUpload }}>Cancel</span>
+                                            <span class="new-btn green-btn" {{action submit}}>Submit</span> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
                     {{else}}
-                      <img {{bindAttr src= model.profile_hero_url}} style="width:100%;"/>
-                   
+                    <img {{bindAttr src= model.profile_cover_url}} style="width:100%;"/>
+
                     {{/if}}
 
                     <a style="background-image:url('../images/dogearhover.png');width: 30px;height: 29px;position: absolute;right: 0; top: 0;" href="" {{action toggleUpload}}></a>
@@ -75,9 +226,10 @@
 
 
                                 <!--contact me-->
-                                <div class="contactmebtn">
-                                    <a class="contactmeicon" href=""><img src="../images/mail_24dark.png"/></a>
+                                <div class="contactmebtn" {{action editingContactForm }}>
+                                     <a class="contactmeicon" href=""><img src="../images/mail_24dark.png"/></a>
                                 </div>
+
 
                                 <!--                                <div style="display: inline-block;">
                                                                     <p style='display: inline-block; float: left; color: white; margin: 7px 0; font-size: 14px;'>

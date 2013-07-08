@@ -193,7 +193,8 @@ class Controller extends CController {
             $searchString = $this->getUserInput($requireParams[2]);
             $from = $this->getUserInput($requireParams[3]);
             $size = $this->getUserInput($requireParams[4]);
-            $response = $this->performSearch($returnType, $region, $searchString, $from, $size);
+        //    $response = $this->performSearch($returnType, $region, $searchString, $from, $size);
+        $response = $this->getRequestResultByID($returnType,$searchString);
         } elseif ($requireType == 'collection') {
             $collection_id = $this->getUserInput($requireParams[1]);
             $owner_profile_id = $this->getUserInput($requireParams[2]);
@@ -287,7 +288,6 @@ class Controller extends CController {
 
     protected function getRequestResultByID($returnType, $requestString) {
 
-
         $request = $this->getElasticSearch();
 //populate a Term query to start
         $must = Sherlock\Sherlock::queryBuilder()->Term()->term($requestString)//$collection_id
@@ -295,12 +295,12 @@ class Controller extends CController {
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)
                 ->boost(2.5);
         $response = $request->query($bool)->execute();
-
-        $results = '{"' . $returnType . '":';
+error_log($request->toJSON());
+        $results = '{"' . $returnType . '":[';
         foreach ($response as $hit) {
             $results .= CJSON::encode($hit['source'] ['doc']);
         }
-        $results .= '}';
+        $results .= ']}';
         return $results;
     }
 

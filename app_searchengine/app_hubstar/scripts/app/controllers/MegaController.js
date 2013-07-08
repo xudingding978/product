@@ -125,14 +125,14 @@ define(['models/MegaModel',
                     this.set('contact', false);
                     window.history.back();
                 },
-                editingContact: function() {
+                editingContactForm: function() {
                     var contactController = this.get('controllers.contact');
                     var selectid = this.get('selectedMega').id;
                     contactController.setSelectedMega(selectid);
                     this.set('contact', !this.get('contact'));
                 },
                 closeContact: function() {
-                    this.set('contact', !this.get('contact'));
+                    this.set('contact', false);
                 },
                 addComment: function() {
                     var commentContent = this.get('commentContent');

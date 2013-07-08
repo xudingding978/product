@@ -18,10 +18,11 @@ class MegasController extends Controller {
             $request_string = $temp [sizeof($temp) - 1];
 //            error_log(var_export($temp, true)."       ".sizeof($temp));
             $response;
-            
+
             if (sizeof($temp) > 1) {
-//                error_log($request_string);
+
                 $response = $this->getRequestResult($request_string, self::JSON_RESPONSE_ROOT_PLURAL);
+                //    $response = $this->getRequestResultByID(self::JSON_RESPONSE_ROOT_PLURAL, $request_string);
             } else {//default search       
                 $response = $this->performSearch(self::JSON_RESPONSE_ROOT_PLURAL, "", "dean");
             }
@@ -41,8 +42,8 @@ class MegasController extends Controller {
         } elseif ($mega['type'] == "photo") {
             $this->createUploadedPhoto($mega);
         }
-        
-        
+
+
 //        $request_arr["mega"]["id"] = str_replace('test', '', $request_arr["mega"]["id"]);
 //        $path = 'this_is/folder_path/';
 //      $s3response = $this->photoSavingToS3($request_arr, $path);
@@ -61,81 +62,71 @@ class MegasController extends Controller {
 //        header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 //        echo $response;
         $this->sendResponse(204, $request_json);
-
     }
 
-        
-    protected function doImageResizing ($photo_string, $photo_name) {
+    protected function doImageResizing($photo_string, $photo_name) {
         error_log("----------------------------11111111111111111111111111111111");
         $data_arr = $this->convertToString64($photo_string);
 
 //        error_log(var_export($data_arr, true));
-        
+
         $photo = imagecreatefromstring($data_arr['data']);
-        
-        
-        
+
+
+
         $orig_size['width'] = imagesx($photo);
         $orig_size['height'] = imagesy($photo);
-        
-        error_log("width:". $orig_size['width'] ."---------------------------"."height: ".$orig_size['height'] );
-        
+
+        error_log("width:" . $orig_size['width'] . "---------------------------" . "height: " . $orig_size['height']);
+
         $new_size = $this->getNewPhotoSize($orig_size, 'thambnail');
-        
+
         $new_photo_data = $this->createNewImage($orig_size, $new_size, $photo, $data_arr['type']);
         error_log("----------------------------iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
         $new_photo_data = $this->compressPhotoData($data_arr['type'], $new_photo_data);
         error_log("----------------------------vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
         $new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
-         error_log("----------------------------nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
+        error_log("----------------------------nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
 //        $new_size = getNewPhotoSize($orig_size, 'preview'); 
 //        $new_size = getNewPhotoSize($orig_size, 'hero');
 //        $new_photo_name = $image_name.'_'.$new_size['width'].'x'.$new_size['height'];
-        
-        $url = "trendsideas.com/media/article/resize/".$new_photo_name;
-        error_log($url."----------------------------22222222222222222222222222222222222");
+
+        $url = "trendsideas.com/media/article/resize/" . $new_photo_name;
+        error_log($url . "----------------------------22222222222222222222222222222222222");
         $this->saveImageToS3($url, $new_photo_data);
-        
     }
-    
-    public function createNewImage($orig_size, $new_size, $image, $photo_type){
+
+    public function createNewImage($orig_size, $new_size, $image, $photo_type) {
         error_log("----------------------------555555555555555555555555555555555");
-        
+
         error_log(var_export($orig_size, true));
         error_log(var_export($new_size, true));
-        
+
         // Create new image to display
         $new_image = imagecreatetruecolor($new_size['height'], $new_size['width']);
         error_log("----------------6666666666666666666666666666");
         // Create new image with changed dimensions
-        imagecopyresized($new_image, $image,
-                0, 0, 0, 0,
-                $new_size['width'], $new_size['height'],
-                $orig_size['width'], $orig_size['height']);
+        imagecopyresized($new_image, $image, 0, 0, 0, 0, $new_size['width'], $new_size['height'], $orig_size['width'], $orig_size['height']);
         error_log("----------------7777777777777777777777777777");
-        
+
         ob_start();
         if ($photo_type === 'image/png') {
             imagejpeg($new_image);
-            error_log("----------------8888888888888888888888888888888888888888888888");
+
             $contents = ob_get_contents();
 //            imagej
-            
-            
         }
-        
-        error_log("----------------8888888888888888888888888888888888888888888888");
+
         $contents = ob_get_contents();
-        error_log("----------------pppppppppppppppppppppppppppppppppppppppp");
+
         ob_end_clean();
         error_log($contents);
         return $contents;
     }
-    
-    protected function getNewPhotoSize ($photo_size, $photo_type) {
-        error_log("----------------------------44444444444444444444444");
+
+    protected function getNewPhotoSize($photo_size, $photo_type) {
         $new_size = array();
-        switch($photo_type) {
+        switch ($photo_type) {
             case 'thambnail':
                 $new_size['width'] = 132;
                 $new_size['height'] = 132;
@@ -147,13 +138,12 @@ class MegasController extends Controller {
             case 'hero':
                 $new_size['width'] = 338;
                 $new_size['height'] = (($photo_size['height'] * $new_size['width']) / $photo_size['width']);
-                break;        
+                break;
         }
-        
+
         return $new_size;
-        
     }
-    
+
     public function actionRead() {
         try {
 //            $cb = $this->couchBaseConnection();
@@ -195,8 +185,6 @@ class MegasController extends Controller {
 
         echo CJSON::encode("dddddddd");
     }
-
-    
 
     public function photoSavingToS3($request_arr, $path) {
         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
@@ -256,7 +244,7 @@ class MegasController extends Controller {
 
     public function updateComment($newRecord) {
         try {
-        
+
             if (isset($newRecord['mega']['comments'][0]['mega_id'])) {
                 $newRecord['mega']['comments'][0]['mega_id'] = null;
             }
@@ -264,11 +252,11 @@ class MegasController extends Controller {
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
             $docID = $this->getDomain() . "/" . $id;
-                      error_log($docID);
+            error_log($docID);
             $oldRecord = $cb->get($docID);
             $oldRecord = CJSON::decode($oldRecord, true);
             $oldRecord['comments'] = $newRecord['mega']['comments'];
-            
+
             if ($cb->set($docID, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204, "");
             } else {
@@ -298,32 +286,26 @@ class MegasController extends Controller {
             echo $exc->getTraceAsString();
         }
     }
-    
+
     public function createUploadedPhoto($mega) {
-        if (sizeof($request_arr) > 0) {
-//            error_log(var_export($request_arr["mega"]['photo'], true));
-            
-            $image_string_data = $request_arr["mega"]['photo'][0]['photo_image_url'];
-            $image_name = $request_arr["mega"]['photo'][0]['photo_title'];
-            
-            error_log($image_name.'----000000000000000000000000000000000000');
-//            exit();
-            $this->doImageResizing($image_string_data, $image_name);
-            
+        $cb = $this->couchBaseConnection();
+        $id = $this->getNewID();
+        $domain = $this->getDomain();
+        $docID = $domain . "/" . $id;
+        error_log($docID);
+        if ($cb->add($docID, CJSON::encode($mega))) {
+            $this->sendResponse(204, "{ render json: @user, status: :ok }");
+        } else {
+            $this->sendResponse(500, "some thing wrong");
         }
-        
-        error_log("9999999999999999999999999999999");
-        $this->sendResponse(200,$request_json);
-        
     }
-    
-    
+
     public function createProfile($mega) {
         $cb = $this->couchBaseConnection();
         $id = $mega['id'];
         $domain = $this->getDomain();
         $docID = $domain . "/profiles/" . $id;
-        //   error_log(var_export(CJSON::encode($mega), true));
+//   error_log(var_export(CJSON::encode($mega), true));
         if ($cb->add($docID, CJSON::encode($mega))) {
             $this->sendResponse(204, "{ render json: @user, status: :ok }");
         } else {

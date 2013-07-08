@@ -29,13 +29,15 @@ define([
                 package: "",
                 secondary_email: "",
                 direct_enquiry_provide_email: "",
+                profile_bg_url: "",
+                profile_cover_url: "",
+                profile_pic_url: "",
                 keywords: "",
                 validateEmail: function(email)
                 {
 
                     var re = /\S+@\S+\.\S+/;
                     return re.test(email);
-
                 },
                 multiEmailChecking: function(cleanEmail, divInfo, multiEmail) {
 
@@ -75,29 +77,23 @@ define([
                         return true;
                     }
                     $(divInfo).attr('style', 'display:block');
-
                     return false;
                 },
                 fillInChecking: function() {
 
                     multiEmail2 = this.multiEmailChecking($('.mustFill6').val(), '#emailFormat6', multiEmail2);
-
                     var boost = this.numberChecking('#number1', $('.mustFill7').val());
-
                     console.log(boost);
                     if ($('.mustFill1').val() !== "" && $('.mustFill2').val() !== "" && $('.country').val() !== "" && $('.region').val() !== "" && $('.mustFill3').val() !== "" && multiEmail1
                             && $('.mustFill5').val() !== "" && $('.mustFill4').val() !== "" && $('.mustFill6').val() !== "" && boost && $('.mustFill7').val() !== "" && multiEmail2 && this.validateEmail($('.mustFill5').val())
                             && this.validateEmail($('.mustFill3').val())) {
                         passSubmit = true;
-
                     } else {
                         passSubmit = false;
-
                     }
                     if (this.validateEmail($('.mustFill3').val())) {
 
                         $('#emailFormat3').attr('style', 'display:none');
-
                     } else {
 
                         $('#emailFormat3').attr('style', 'display:block');
@@ -106,7 +102,6 @@ define([
                     if (this.validateEmail($('.mustFill5').val())) {
 
                         $('#emailFormat5').attr('style', 'display:none');
-
                     } else {
 
                         $('#emailFormat5').attr('style', 'display:block');
@@ -139,7 +134,6 @@ define([
                     }
                     if ($('.mustFill3').val() === "") {
                         $('#emailFormat3').attr('style', 'display:none');
-
                         $('#mustFill3').attr('style', 'display:block');
                     } else {
                         $('#mustFill3').attr('style', 'display:none');
@@ -171,12 +165,37 @@ define([
                     } else {
                         $('#mustFill7').attr('style', 'display:none');
                     }
+
+                    if ($('.background').val() === "") {
+
+                        this.set('profile_bg_url', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_bg/default/defaultbg6.jpg");
+                    }
+                    if ($('.hero').val() === "") {
+
+                        this.set('profile_cover_url', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_cover/default/defaultcover4.jpg");
+                    }
+                    if ($('.picture').val() === "") {
+
+                        this.set('profile_pic_url', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg");
+                    }
                 },
+//                IsValidImageUrl: function(url) {
+//                    $("<img>", {
+//                        src: url,
+//                        error: function() {
+//                            alert(url + ': ' + false);
+//                        },
+//                        load: function() {
+//                            alert(url + ': ' + true);
+//                        }
+//                    });
+//                },
                 save: function() {
 
                     this.fillInChecking();
-
                     if (passSubmit) {
+
+
                         var newMega = App.store.createRecord(App.Mega, {//15
                             "id": this.get("profile_url"),
                             "type": "profile",
@@ -195,6 +214,9 @@ define([
                             owner_profile_pic: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg",
                             owner_title: this.get("profile_name"), //profile name
                             owner_id: this.get("profile_url"), //profile id
+                            owner_contact_email: this.get("direct_enquiry_emails"),
+                            owner_contact_cc_emails: this.get("secondary_email"),
+                            owner_contact_bcc_emails: this.get("direct_enquiry_provide_email"),
                             updated: new Date()
                         });
                         var newProfile = App.store.createRecord(App.Profile, {
@@ -215,6 +237,8 @@ define([
                             profile_category: $('#dropdownCategory').text(),
                             profile_physical_address: this.get("address"),
                             profile_keywords: this.get("keywords"),
+                               profile_regoin: this.get("region"),
+                            profile_country: this.get("country"),
                             hours: "Monday=7:00-late,Tuesday=7:00-late,Wednesday=7:00-late,Thursday=7:00-late,Friday=7:00-late,Saturday=7:00-late,Sunday=closed,Holidays=closed",
                             phone_number: this.get("contact_number"),
                             collections: [],
@@ -231,11 +255,9 @@ define([
                     if (checking === "category") {
                         this.set('packgetDropdown', false);
                         this.set('projectCategoryDropdown', !this.get('projectCategoryDropdown'));
-
                     } else if (checking === "package") {
                         this.set('projectCategoryDropdown', false);
                         this.set('packgetDropdown', !this.get('packgetDropdown'));
-
                     } else {
 
 

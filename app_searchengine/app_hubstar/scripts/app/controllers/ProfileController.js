@@ -55,7 +55,7 @@ define([
                 setProfile: function(id) {
                     var user = this.getCurrentClient(id);
 
-                    this.updateWorkingHourData(user.get('hours'));
+                    this.updateWorkingHourData(user.get('profile_hours'));
                     this.set("model", this.getCurrentClient(id));
                     this.set("collections", user.get("collections"));
 
@@ -169,7 +169,7 @@ define([
                         for (var i = 0; i < updateHour.length; i++) {
                             data = data + updateHour.objectAt(i).day + "=" + updateHour.objectAt(i).time + ",";
                         }
-                        this.set('model.hours', data.substring(0, data.length - 1));
+                        this.set('model.profile_hours', data.substring(0, data.length - 1));
                         this.set('editingTime', !this.get('editingTime'));
                     }
                     this.updateClient();
@@ -198,7 +198,7 @@ define([
                         this.set('editingContact', !this.get('editingContact'));
                     }
                     else if (checkingInfo === "timeSetting") {
-                        this.updateWorkingHourData(this.get('model.hours'));
+                        this.updateWorkingHourData(this.get('model.profile_hours'));
 
 
 

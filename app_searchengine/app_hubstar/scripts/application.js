@@ -475,11 +475,7 @@ define('application', [
             App.set('chooseCollection', null);
             App.set('isMansonryPageLoad', false);
             App.set('searchStart', false);
-//            var firstView = App.DiscoveryView.create(),
-//                    secondView = App.MasonryView.create();
-//
-//            App.ConView.pushObject(firstView);
-//            App.ConView.pushObject(secondView);
+
         }
     });
 }

@@ -13,8 +13,11 @@ class CategoriesController extends Controller {
     const JSON_RESPONSE_ROOT_PLURAL = 'categories';
 
     public function actionIndex() {
-        error_log('dddddddddddddddddddddddd');
-        echo $this->sendResponse(200, "aaaaaaaaaaaaa");
+        $domain = $this->getDomain();
+        $configuration = $this->getProviderConfigurationByName($domain, "categories");
+
+        error_log(var_export($configuration, true));
+
     }
 
     public function actionCreate() {
@@ -22,7 +25,7 @@ class CategoriesController extends Controller {
     }
 
     public function actionRead() {
-
+        
     }
 
     public function actionUpdate() {

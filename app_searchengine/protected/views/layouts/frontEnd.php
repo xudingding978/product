@@ -37,8 +37,9 @@
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwl8LT_S7FsRP_yDcoxM72-U8x15l-alw&sensor=false">
         </script>
 
-        <div id="loading" class="loading-visible" style="">
-            <p> <img style=" margin-top: 20%" src="../../../app_hubstar/img/bx_loader.gif" /></p>
+        <div id="loading" class="loading-visible" >
+            <img style="width: 300px;position: absolute;margin: auto;left: 0;right: 0; top:27%;" src="../../../images/loading.gif" />
+            <img style="width: 200px; position: absolute; margin: auto; left: 0; right: 0;top: 33%;" src="../../../images/loading-stripe.gif" />
         </div>
         <div id="main" class="container-fluid" style="padding:0;"></div>
 

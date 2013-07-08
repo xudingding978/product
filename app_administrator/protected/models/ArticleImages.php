@@ -145,8 +145,7 @@ class ArticleImages extends CActiveRecord {
 
     function getDatabyid($startId) {
         
- 
-                $data_list = array();
+        $data_list = array();
         try {
             $sql = "select dbo.ArticleImages.*, dbo.HeliumMedia.keywords from dbo.ArticleImages
                                     inner join  dbo.HeliumMedia on 
@@ -161,6 +160,12 @@ class ArticleImages extends CActiveRecord {
             $this->writeToLog('/home/devbox/NetBeansProjects/test/error.log', $message);
         }
         return $data_list;
+    } 
+    
+    function addCouchbaseID ($couchbase_id_str, $article_id_str) {
+        
+        
     }
+    
 
 }

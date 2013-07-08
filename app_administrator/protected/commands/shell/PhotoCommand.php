@@ -1,11 +1,80 @@
 <?php
+Yii::import("application.models.*");
+Yii::import("application.components.*");
 
-class PhotoCommand extends CConsoleCommand {
-     public function actionIndex ($action=null) {
+class PhotoCommand extends Controller_admin {
+    protected $log_path = '/home/devbox/NetBeansProjects/test/error_couchbasetosql.log';
+    
+    public function actionIndex ($action=null) {
+        $start_time = microtime(true);
+        echo $start_time . "\r\n";     
         echo (isset($action) ? 'Your are do... ' . $action."\r\n" : 'No action defined \r\n');
-        Yii::import("application.models.*");
         
-        if ($action == "update") $this->updatePhoto ();
+        if ($action == "update") {
+            $this->updatePhoto ();
+        } else if ($action == "update-sqlserver") {
+            $this->insertCouchbaseIdToSQLserver();
+        } else {
+            echo "cannot find your actions";
+        }
+        
+        echo "All finished: start from: " . "\r\n";
+        $end_time = microtime(true);
+        echo "totally spend: " . ($end_time - $start_time);
+    }
+    
+    protected function insertCouchbaseIdToSQLserver() {
+        $mount=0;
+        $photo_data_arr = ArticleImages::model()->getAll();
+        echo sizeof($photo_data_arr)."-----------------------\r\n";
+        $total_amount = sizeof($photo_data_arr);
+        
+        if (sizeof($photo_data_arr)>0) {
+            foreach ($photo_data_arr as $photo_arr) {
+//                print_r($photo_arr);
+                $mount++;
+                
+                $id = '';
+                $url_str = "http://api.develop.devbox/GetResultByKeyValue/?type=photo&photo_heliumMediaId=" . $photo_arr['heliumMediaId'];
+                $search_results_arr =  $this->getData($url_str, 'GET');
+                
+//                print_r($search_results_arr);
+//                echo $url_str."\r\n";
+//                echo sizeof($search_results_arr['photo'])."**************** \r\n";
+//                exit();
+                
+                if (sizeof($search_results_arr['photo'])>0) {
+                    foreach ($search_results_arr['photo'] as $result_arr) {
+                        if ($photo_arr['articleId'] == $result_arr['collection_id'] && $photo_arr['caption'] == $result_arr['object_description'] ) {
+                            $id = "trendsideas.com/".$result_arr['id'];                            
+                            break;
+                        }
+                    }
+                }
+                
+                if ($id != '') {
+                    $update_bool = ArticleImages::model()->updateByPk($photo_arr['id'], array('couchBaseId' => $id)); // update articleimages table in sqlserver
+                    if($update_bool) {
+                        $this->addPhotoSourceId($id, $photo_arr['id']);
+                    } else {
+                        $message = 'update is not success with image id: '.$photo_arr['id']. ' by helum id: '. $photo_arr['heliumMediaId']. ' couchbase id: '. $id;
+                        echo $message;
+                        $this->writeToLog($this->log_path, $message);
+                    }  
+                     
+                    echo 'id: '.$photo_arr['id'].'--- helium id: '.$photo_arr['heliumMediaId'].'---couchbase id: '.$id."\r\n" . "update success in sql server. NO. ". $mount.'/'.$total_amount . "\r\n";
+                 } else {
+                     $message = 'connot find image: '. $photo_arr['id']. 'by helum id: '. $photo_arr['heliumMediaId'];
+                     echo $message;
+                     $this->writeToLog($this->log_path, $message);
+                 }
+                
+//                if ($mount>200) exit();
+                
+            }
+            
+            
+        }
     }
     
     protected function updatePhoto() {
@@ -43,22 +112,7 @@ class PhotoCommand extends CConsoleCommand {
     }
     
     
-    public function getData($url) {
-        try {
-            $ch = curl_init($url);
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 
-            $result = curl_exec($ch);
-            curl_close($ch);
-            $data_arr = CJSON::decode($result, true);
-            return $data_arr;
-        } catch (Exception $e) {
-            echo 'Caught exception: ' . $e->getMessage();
-            return null;
-        }
-    }
     
     
     public function updateCouchbasePhoto($id) {

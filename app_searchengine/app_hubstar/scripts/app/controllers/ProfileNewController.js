@@ -231,6 +231,7 @@ define([
                             profile_pic_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg",
                             owner: this.get("owner"),
                             profile_creater: this.get("creater"),
+                            profile_editors:this.get("editors"),
                             owner_contact_email: this.get("direct_enquiry_emails"),
                             owner_contact_cc_emails: this.get("secondary_email"),
                             owner_contact_bcc_emails: this.get("direct_enquiry_provide_email"),

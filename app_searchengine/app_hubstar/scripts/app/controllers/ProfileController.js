@@ -40,50 +40,24 @@ define([
                 profile_cover_url: "",
                 profile_pic_url: "",
                 hours: [],
+                is_authentic_user: false,
                 init: function() {
+
 
 
                 },
                 getCurrentClient: function(id)
                 {
-
-
-
-
                     this.set('currentUserID', id);
                     var user = ProfileModel.find(id);
-
-
-//                    var that = this;
-//                    user.addObserver('isLoaded', function() {
-//                        if (user.get('isLoaded')) {
-//                            alert(44444);
-//                            that.get("controllers.application").set('loadingTime', true);
-//
-//                        }
-//                    });
-
-
                     return user;
                 },
                 setProfile: function(id) {
-                    //                 this.get("controllers.application").set('loadingTime', true);
-                    var user = this.getCurrentClient(id);
-
-
-//                    var that = this;
-//                    
-//                    setTimeout(function() {
-//                        that.get("controllers.application").set('loadingTime', false);
-//
-//                    }, 1000);
-
-                    this.updateWorkingHourData(user.get('hours'));
+                    var profile = this.getCurrentClient(id);
+                    this.updateWorkingHourData(profile.get('hours'));
                     this.set("model", this.getCurrentClient(id));
-                    this.set("collections", user.get("collections"));
-
-
-                    var collections = user.get("collections");
+                    this.set("collections", profile.get("collections"));
+                    var collections = profile.get("collections");
                     //           console.log(collections);
                     for (var i = 0; i < collections.get("length"); i++)
                     {
@@ -93,6 +67,7 @@ define([
                             this.getHeroImgae(imgId, col);
                         }
                     }
+                    this.checkAuthenticUser();
                 },
                 submit: function()
                 {
@@ -225,6 +200,7 @@ define([
 
 
 
+
                         this.set('editingTime', !this.get('editingTime'));
                     }
                 },
@@ -282,7 +258,7 @@ define([
 
                     var contactController = this.get('controllers.contact');
 //                    console.log(this.get('contactChecking'));
-               console.log(this.get('currentUserID'));
+
 
                     contactController.setSelectedMega(this.get('currentUserID'));
                     this.set('contactChecking', !this.get('contactChecking'));
@@ -297,7 +273,19 @@ define([
                     user.set("profile_cover_url", $('.hero').val());
                     user.set("profile_pic_url", $('.picture').val());
                     this.updateClient();
+                }, checkAuthenticUser: function() {
+     var authenticUsers=this.get("model").get("owner")+","+this.get("model").get("e");
+                    var currentUser = App.User.find(localStorage.loginStatus);
+                    currentUser.addObserver('isLoaded', function() {
+                        if (currentUser.get('isLoaded')) {
+                            console.log(currentUser.get("email"));
+
+                        }
+                    });
+
+
                 }
+
             });
             return ProfileController;
         });

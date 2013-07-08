@@ -408,9 +408,11 @@
                                             <div class="new-btn" {{action no controller.aboutMe}}><i class="icon-remove"></i></div>
                                         </div>
                                         {{else}}
+                                        {{#if controller.is_authentic_user}}
                                         <div class="edit-btn" {{action toggleEditing model.about controller.aboutMe}}>
                                              <i class="icon-edit"></i>                            
                                         </div>
+                                        {{/if}}
                                     </div>
                                     <div style="display: block;">{{{model.about}}}</div>
                                     {{/if}}

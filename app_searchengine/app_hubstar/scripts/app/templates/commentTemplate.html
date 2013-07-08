@@ -22,7 +22,7 @@
 
         </div>
         <div style="display: inline-block;float: right;">
-<!--            <div class="new-btn" style=""><i class="icon-thumbs-up-alt">&nbsp</i> </div>-->
+            <!--            <div class="new-btn" style=""><i class="icon-thumbs-up-alt">&nbsp</i> </div>-->
             <div class="new-btn" style=""><i class="icon-folder-close-alt">&nbsp</i> </div>
         </div>
     </div>
@@ -69,10 +69,10 @@
                         </div>
 
                         <div class="reply-comment">
-
-
+                            <span {{action deleteComment this }} class="hideClass  user_comment_{{unbound commenter_id}} deletecomment-btn easing">
+                                <i class="icon-remove"></i>
+                            </span>
                         </div>
-
                     </div>
 
                     <div class="comment-content">
@@ -80,7 +80,6 @@
 
                         <span>
                             <span></span>
-                            <a {{action deleteComment this }} class="hideClass user_comment_{{unbound commenter_id}}"><i class="icon-remove"></i></a>
                         </span>
                     </div>
 
@@ -100,6 +99,6 @@
 
 {{#if controller.makeSureDelete}}
 
-    {{view App.DeleteFunctionView}}
+{{view App.DeleteFunctionView}}
 
 {{/if}}

@@ -53,6 +53,7 @@ class ResizeImagesController extends Controller {
 //        $orig_width = $image_original_size[1][0];
      
          // Calc the new height
+        
         $height = (($orig_height * $width) / $orig_width);
         $this->creatingNewImage($height, $width, $orig_width, $orig_height, $image);
         

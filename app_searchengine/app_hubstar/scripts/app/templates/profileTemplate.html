@@ -202,8 +202,9 @@
                     <img {{bindAttr src= model.profile_hero_url}} style="width:100%;"/>
 
                     {{/if}}
-
+  {{#if controller.is_authentic_user}}
                     <a style="background-image:url('../images/dogearhover.png');width: 30px;height: 29px;position: absolute;right: 0; top: 0;" href="" {{action toggleUpload}}></a>
+                    {{/if}}
                     <div class="corpbanner_mask" style="background: url('../images/bannershadow.png') repeat-x; position: absolute;bottom:0; width: 100%; height: 200px;">
                         <div class="corpbanner_content" style="position: absolute;bottom:0;margin-left: 30%;width: 70%;">
                             <div class="main_title" style="height: 100px;">

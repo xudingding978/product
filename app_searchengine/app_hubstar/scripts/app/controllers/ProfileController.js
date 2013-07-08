@@ -37,7 +37,7 @@ define([
                 selectedCollection: "",
                 needs: ["application", "contact"],
                 profile_bg_url: "",
-                profile_cover_url: "",
+                profile_hero_url: "",
                 profile_pic_url: "",
                 hours: [],
                 is_authentic_user: false,
@@ -197,16 +197,11 @@ define([
                     }
                     else if (checkingInfo === "timeSetting") {
                         this.updateWorkingHourData(this.get('model.profile_hours'));
-
-
-
-
                         this.set('editingTime', !this.get('editingTime'));
                     }
                 },
                 updateWorkingHourData: function(times) {
                     this.set('hours', []);
-                    //           console.log(times);
                     if (times !== null && times !== "" && typeof times !== "undefined") {
                         var time = times.split(",");
                         for (var i = 0; i < time.length; i++) {
@@ -267,7 +262,7 @@ define([
 
                     var user = this.getCurrentClient(this.get('currentUserID'));
                     user.set("profile_bg_url", $('.background').val());
-                    user.set("profile_cover_url", $('.hero').val());
+                    user.set("profile_hero_url", $('.hero').val());
                     user.set("profile_pic_url", $('.picture').val());
                     this.updateClient();
                 }, checkAuthenticUser: function() {

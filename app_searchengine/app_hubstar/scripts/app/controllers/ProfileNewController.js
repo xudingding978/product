@@ -30,7 +30,7 @@ define([
                 secondary_email: "",
                 direct_enquiry_provide_email: "",
                 profile_bg_url: "",
-                profile_cover_url: "",
+                profile_hero_url: "",
                 profile_pic_url: "",
                 keywords: "",
                 validateEmail: function(email)
@@ -172,7 +172,7 @@ define([
                     }
                     if ($('.hero').val() === "") {
 
-                        this.set('profile_cover_url', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_cover/default/defaultcover4.jpg");
+                        this.set('profile_hero_url', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_cover/default/defaultcover4.jpg");
                     }
                     if ($('.picture').val() === "") {
 
@@ -212,11 +212,11 @@ define([
                             profile_name: this.get("profile_name"),
                             profile_contact_last_name: this.get("last_name"),
                             profile_contact_first_name: this.get("first_name"),
-                            about: null,
+                            profile_about_us: null,
                             profile_package_name: $('#packgeSelection').text(),
-                            profile_bg_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_bg/default/defaultbg6.jpg",
-                            profile_hero_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_cover/default/defaultcover4.jpg",
-                            profile_pic_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg",
+                            profile_bg_url: this.get("profile_bg_url"),
+                            profile_hero_url: this.get("profile_hero_url"),
+                            profile_pic_url: this.get("profile_pic_url"),
                             owner: this.get("owner"),
                             profile_creater: this.get("creater"),
                             profile_editors:this.get("editors"),

@@ -261,9 +261,16 @@ define([
                 uploadImage: function() {
 
                     var user = this.getCurrentClient(this.get('currentUserID'));
-                    user.set("profile_bg_url", $('.background').val());
-                    user.set("profile_hero_url", $('.hero').val());
-                    user.set("profile_pic_url", $('.picture').val());
+                    console.log(user.get("profile_bg_url"));
+                    if ($('.background').val() !== "") {
+                        user.set("profile_bg_url", $('.background').val());
+                    }
+                    if ($('.hero').val() !== "") {
+                        user.set("profile_hero_url", $('.hero').val());
+                    }
+                    if ($('.picture').val() !== "") {
+                        user.set("profile_pic_url", $('.picture').val());
+                    }
                     this.updateClient();
                 }, checkAuthenticUser: function() {
                     var authenticUsers = this.get("model").get("owner") + "," + this.get("model").get("profile_editors");

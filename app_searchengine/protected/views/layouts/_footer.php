@@ -55,5 +55,10 @@
 </div><!-- footer -->
 
 <p id="back-top">
-    <a href="#top"><span></span>Back to Top</a>
+    <a href="#top">
+        <span>
+            <i class="icon-arrow-up"></i>
+        </span>
+        Back to Top
+    </a>
 </p>

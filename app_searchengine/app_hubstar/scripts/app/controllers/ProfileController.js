@@ -43,7 +43,7 @@ define([
                 is_authentic_user: false,
                 init: function() {
 
-
+                    this.set('is_authentic_user', false);
 
                 },
                 getCurrentClient: function(id)
@@ -54,7 +54,7 @@ define([
                 },
                 setProfile: function(id) {
                     var profile = this.getCurrentClient(id);
-                    this.updateWorkingHourData(profile.get('hours'));
+                    this.updateWorkingHourData(profile.get('profile_hours'));
                     this.set("model", this.getCurrentClient(id));
                     this.set("collections", profile.get("collections"));
                     var collections = profile.get("collections");
@@ -167,7 +167,7 @@ define([
                         for (var i = 0; i < updateHour.length; i++) {
                             data = data + updateHour.objectAt(i).day + "=" + updateHour.objectAt(i).time + ",";
                         }
-                        this.set('model.hours', data.substring(0, data.length - 1));
+                        this.set('model.profile_hours', data.substring(0, data.length - 1));
                         this.set('editingTime', !this.get('editingTime'));
                     }
                     this.updateClient();
@@ -196,7 +196,7 @@ define([
                         this.set('editingContact', !this.get('editingContact'));
                     }
                     else if (checkingInfo === "timeSetting") {
-                        this.updateWorkingHourData(this.get('model.hours'));
+                        this.updateWorkingHourData(this.get('model.profile_hours'));
 
 
 
@@ -257,9 +257,6 @@ define([
                 editingContactForm: function() {
 
                     var contactController = this.get('controllers.contact');
-//                    console.log(this.get('contactChecking'));
-
-
                     contactController.setSelectedMega(this.get('currentUserID'));
                     this.set('contactChecking', !this.get('contactChecking'));
                 },
@@ -276,13 +273,24 @@ define([
                 }, checkAuthenticUser: function() {
                     var authenticUsers = this.get("model").get("owner") + "," + this.get("model").get("profile_editors");
                     var currentUser = App.User.find(localStorage.loginStatus);
+                    var that = this;
+                    var email = currentUser.get('email');
+                    this.setIsAuthenticUser(authenticUsers, email);
                     currentUser.addObserver('isLoaded', function() {
+                        email = currentUser.get('email');
                         if (currentUser.get('isLoaded')) {
-                            console.log(currentUser.get("email"));
+                            that.setIsAuthenticUser(authenticUsers, email);
                         }
                     });
-
-
+                },
+                setIsAuthenticUser: function(authenticUsers, email)
+                {
+                    if (authenticUsers.indexOf(email) !== -1) {
+                        this.set('is_authentic_user', true);
+                    }
+                    else {
+                        this.set('is_authentic_user', false);
+                    }
                 }
 
             });

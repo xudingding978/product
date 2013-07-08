@@ -26,7 +26,7 @@ define(
         profile_package_name: DS.attr('string'),
         profile_regoin: DS.attr('string'),
         profile_country: DS.attr('string'),
-        hours: DS.attr('string'),
+        profile_hours: DS.attr('string'),
         profile_areas_serviced: DS.attr('string'),
         profile_website: DS.attr('string'),
         profile_client_name: DS.attr('string'),

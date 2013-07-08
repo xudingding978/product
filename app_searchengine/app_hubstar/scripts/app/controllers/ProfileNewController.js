@@ -228,7 +228,7 @@ define([
                             profile_keywords: this.get("keywords"),
                             profile_regoin: this.get("region"),
                             profile_country: this.get("country"),
-                            hours: "Monday=7:00-late,Tuesday=7:00-late,Wednesday=7:00-late,Thursday=7:00-late,Friday=7:00-late,Saturday=7:00-late,Sunday=closed,Holidays=closed",
+                            profile_hours: "Monday=7:00-late,Tuesday=7:00-late,Wednesday=7:00-late,Thursday=7:00-late,Friday=7:00-late,Saturday=7:00-late,Sunday=closed,Holidays=closed",
                             phone_number: this.get("contact_number"),
                             collections: [],
                             website_url: this.get("website")

@@ -32,6 +32,7 @@ define([
             this.set("displayName", this.get("currentUser").get("first_name") + " " + this.get("currentUser").get("last_name"));
             this.set("displayEmail", this.get("currentUser").get("email"));
             this.set("selectedMega", App.Mega.find(id));
+
             this.set("emailDestination", this.get("selectedMega").get("owner_contact_email"));
             this.set("emaiCCDestination", this.get("selectedMega").get("owner_contact_cc_emails"));
         },

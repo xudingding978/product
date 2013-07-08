@@ -113,7 +113,7 @@ class MegasController extends Controller {
         $result = $cb->get($key);
         $result_arr = CJSON::decode($result, true);
         $response = false;
-//        error_log(var_export($request_arr ["mega"]['photos'][0], true));
+
         $data = $this->getInputData($request_arr ["object"]['photos'][0]['photo_type'], $request_arr ["object"]['photos'][0]['photo_url']);
         $client = Aws\S3\S3Client::factory(
                         $result_arr["providers"]["S3Client"]
@@ -164,10 +164,7 @@ class MegasController extends Controller {
 
     public function updateComment($newRecord) {
         try {
-
-            if (isset($newRecord['mega']['comments'][0]['mega_id'])) {
-                $newRecord['mega']['comments'][0]['mega_id'] = null;
-            }
+        
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
@@ -176,7 +173,6 @@ class MegasController extends Controller {
             $oldRecord = $cb->get($docID);
             $oldRecord = CJSON::decode($oldRecord, true);
             $oldRecord['comments'] = $newRecord['mega']['comments'];
-
             if ($cb->set($docID, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204, "");
             } else {

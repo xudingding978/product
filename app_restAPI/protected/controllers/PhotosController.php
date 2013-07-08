@@ -273,7 +273,7 @@ class PhotosController extends Controller {
         $mega["id"] = $id;
         $mega["photo"][0]["id"] = $id;
         
-        $mega['cfreated'] = $this->getCurrentUTC();
+        $mega['created'] = $this->getCurrentUTC();
         $mega['updated'] = $this->getCurrentUTC();
         //   $this->sendResponse(204, "{ render json: @user, status: :ok }");
 error_log('$docID   '.$docID);

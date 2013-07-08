@@ -95,7 +95,6 @@ define(["ember", "helper"],
                         "owner_contact_bcc_emails": ProfileMega.get("owner_contact_bcc_emails"),
                         "keywords": ProfileMega.get("profile_keywords"),
                         "status_id": null,
-  
                         "uri_url": ProfileMega.get("uri_url"),
                         "view_count": null
                     });

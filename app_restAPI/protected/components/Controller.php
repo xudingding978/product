@@ -32,13 +32,7 @@ class Controller extends CController {
         return new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "production", true);
     }
 
-//    protected function getProviderConfigurationByName($domain,$name) {
-//    protected function getS3BucketName($domain) {
-//        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
-//        $result = $cb->get($domain);
-//        $result_arr = CJSON::decode($result, true);
-//        return $result_arr["providers"]["S3bucket"];
-//    }
+
 
     protected function getS3Connection($domain) {
         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
@@ -191,8 +185,8 @@ class Controller extends CController {
             $searchString = $this->getUserInput($requireParams[2]);
             $from = $this->getUserInput($requireParams[3]);
             $size = $this->getUserInput($requireParams[4]);
-            //    $response = $this->performSearch($returnType, $region, $searchString, $from, $size);
-            $response = $this->getRequestResultByID($returnType, $searchString);
+      $response = $this->performSearch($returnType, $region, $searchString, $from, $size);
+       //     $response = $this->getRequestResultByID($returnType, $searchString);
         } elseif ($requireType == 'collection') {
             $collection_id = $this->getUserInput($requireParams[1]);
             $owner_profile_id = $this->getUserInput($requireParams[2]);
@@ -294,11 +288,11 @@ class Controller extends CController {
                 ->boost(2.5);
         $response = $request->query($bool)->execute();
         error_log($request->toJSON());
-        $results = '{"' . $returnType . '":[';
+        $results = '{"' . $returnType . '":';
         foreach ($response as $hit) {
             $results .= CJSON::encode($hit['source'] ['doc']);
         }
-        $results .= ']}';
+        $results .= '}';
         return $results;
     }
 

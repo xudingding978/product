@@ -33,6 +33,12 @@ define([
                 controller.deleteSelectedCollection();
 
             }
+             else if (controller._debugContainerKey.indexOf("comment") !== -1) {
+
+
+                controller.deleteComment();
+
+            }
             else {
                 console.log(controller);
             }
@@ -54,6 +60,12 @@ define([
                 //    controller.addComment();
 
             } else if (controller._debugContainerKey.indexOf("user") !== -1) {
+
+
+                controller.cancelDelete();
+
+            }
+            else if (controller._debugContainerKey.indexOf("comment") !== -1) {
 
 
                 controller.cancelDelete();

@@ -257,9 +257,6 @@ class MegasController extends Controller {
     public function updateComment($newRecord) {
         try {
         
-            if (isset($newRecord['mega']['comments'][0]['mega_id'])) {
-                $newRecord['mega']['comments'][0]['mega_id'] = null;
-            }
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];

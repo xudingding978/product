@@ -20,13 +20,12 @@ class EmailsController extends Controller {
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
         $request_arr = $request_arr['email'];
+        error_log(var_export($request_arr,true));
         $display_email = $request_arr['display_email'];
         $email_destination = $request_arr['email_destination'];
         $domain = $this->getDomain();
         $configuration = $this->getProviderConfigurationByName($domain, "SES");
-        $amazonSes = Aws\Ses\SesClient::factory(
-                        $configuration
-        );
+        $amazonSes = Aws\Ses\SesClient::factory($configuration);
         $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");
         $platformEmail = $platformSettings['direct_enquiries']['email'];
         $subject_prefix = $platformSettings['direct_enquiries']['subject_prefix'];    
@@ -51,7 +50,7 @@ class EmailsController extends Controller {
         );
         $response = $amazonSes->sendEmail($args);
           $this->sendResponse(200, $response);
-        $this->sendResponse(204);
+     //   $this->sendResponse(204);
     }
 
     public function actionRead() {

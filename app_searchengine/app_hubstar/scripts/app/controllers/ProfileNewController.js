@@ -30,7 +30,7 @@ define([
                 secondary_email: "",
                 direct_enquiry_provide_email: "",
                 profile_bg_url: "",
-                profile_cover_url: "",
+                profile_hero_url: "",
                 profile_pic_url: "",
                 keywords: "",
                 validateEmail: function(email)
@@ -172,12 +172,12 @@ define([
                     }
                     if ($('.hero').val() === "") {
 
-                        this.set('profile_cover_url', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_cover/default/defaultcover4.jpg");
+                        this.set('profile_hero_url', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_cover/default/defaultcover4.jpg");
                     }
                     if ($('.picture').val() === "") {
 
                         this.set('profile_pic_url', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg");
-                    } 
+                    }
                 },
 //                IsValidImageUrl: function(url) {
 //                    $("<img>", {
@@ -200,40 +200,45 @@ define([
                             "id": this.get("profile_url"),
                             "type": "profile",
                             accessed: null,
-                            active_yn: "true",
+                            boost: this.get("boost"),
+                            is_active: "true",
+                            is_indexed: "true",
                             category: $('#dropdownCategory').text(),
-                            creator_type: "user",
                             created: new Date(),
                             creator: this.get("creater"),
                             country: this.get("country"),
                             region: this.get("region"),
                             domains: document.domain,
-                            editors: this.get("editors"),
                             keywords: this.get("keywords"),
-                            indexed_yn: "true",
-                            owners: this.get("email"),
+                            owner_type: "profiles", // profiles or user can upload files, this could help to link back to their profile.
+                            owner_profile_pic: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg",
+                            owner_title: this.get("profile_name"), //profile name
+                            owner_id: this.get("profile_url"), //profile id
                             owner_contact_email: this.get("direct_enquiry_emails"),
-                            owner_contact_cc_emails: this.get('secondary_email'),
-                            owner_contact_bcc_emails: this.get('direct_enquiry_provide_email'),
+                            owner_contact_cc_emails: this.get("secondary_email"),
+                            owner_contact_bcc_emails: this.get("direct_enquiry_provide_email"),
                             updated: new Date()
                         });
                         var newProfile = App.store.createRecord(App.Profile, {
                             id: this.get("profile_url"),
                             profile_name: this.get("profile_name"),
-                            type: "profile",
-                            last_name: this.get("last_name"),
-                            first_name: this.get("first_name"),
-                            email: this.get("direct_enquiry_emails"),
+                            profile_contact_last_name: this.get("last_name"),
+                            profile_contact_first_name: this.get("first_name"),
                             about: null,
-                            boost: this.get("boost"),
-                            package: $('#packgeSelection').text(),
-                            category: $('#dropdownCategory').text(),
-                            profile_bg_url: this.get("profile_bg_url"),
-                            profile_cover_url: this.get("profile_cover_url"),
-                            profile_pic_url: this.get("profile_pic_url"),
-                            contact_user: this.get("direct_enquiry_emails"),
+                            profile_package_name: $('#packgeSelection').text(),
+                            profile_bg_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_bg/default/defaultbg6.jpg",
+                            profile_hero_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_cover/default/defaultcover4.jpg",
+                            profile_pic_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg",
+                            owner: this.get("owner"),
+                            profile_creater: this.get("creater"),
+                            owner_contact_email: this.get("direct_enquiry_emails"),
+                            owner_contact_cc_emails: this.get("secondary_email"),
+                            owner_contact_bcc_emails: this.get("direct_enquiry_provide_email"),
                             profile_category: $('#dropdownCategory').text(),
                             profile_physical_address: this.get("address"),
+                            profile_keywords: this.get("keywords"),
+                               profile_regoin: this.get("region"),
+                            profile_country: this.get("country"),
                             hours: "Monday=7:00-late,Tuesday=7:00-late,Wednesday=7:00-late,Thursday=7:00-late,Friday=7:00-late,Saturday=7:00-late,Sunday=closed,Holidays=closed",
                             phone_number: this.get("contact_number"),
                             collections: [],

@@ -9,6 +9,10 @@ class PhotosController extends Controller {
     const JSON_RESPONSE_ROOT_SINGLE = 'photo';
     const JSON_RESPONSE_ROOT_PLURAL = 'photos';
 
+    public function __construct() {
+        
+    }
+
     public function actionIndex() {
 
         $temp = explode("/", $_SERVER['REQUEST_URI']);
@@ -35,9 +39,9 @@ class PhotosController extends Controller {
 
         $temp = explode("/", $_SERVER['REQUEST_URI']);
 
-       $id=  $temp[sizeof($temp)-1];
-        $result=$this->getRequestResultByID(self::JSON_RESPONSE_ROOT_SINGLE, $id);
-        $this->sendResponse(null,$result);
+        $id = $temp[sizeof($temp) - 1];
+        $result = $this->getRequestResultByID(self::JSON_RESPONSE_ROOT_SINGLE, $id);
+        $this->sendResponse(null, $result);
 
         $temp = explode("/", $_SERVER['REQUEST_URI']);
 
@@ -45,56 +49,55 @@ class PhotosController extends Controller {
         $result = $this->getRequestResultByID(self::JSON_RESPONSE_ROOT_SINGLE, $id);
         $this->sendResponse(null, $result);
     }
-    
+
     public function actionUpdate() {
         try {
 
             $returnType = "photo";
             $temp = explode("?", $_SERVER['REQUEST_URI']);
             $request_arr = array();
-            
+
             if (sizeof($temp) > 1) {
                 $request_string = $temp [sizeof($temp) - 1];
                 $request_arr = preg_split("/=|&/", $request_string);
-                
+
                 $response = $this->getAllDoc($returnType, $request_arr[1], $request_arr[3]);
                 $this->sendResponse(200, $response);
             }
 
             error_log("aaaaaaaaaaaaaaaaaaaa");
             $request_json = file_get_contents('php://input');
-          echo $request_json;
-
+            echo $request_json;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
-    
+
     public function updateCouchbasePhoto($id) {
         $ch = $this->couchBaseConnection("develop");
-        $result=$ch->get($id);
+        $result = $ch->get($id);
         $result_arr = CJSON::decode($result, true);
-        
+
         $result_arr['creator_profile_pic'] = 'http://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small.jpg';
         $result_arr['owner_profile_pic'] = 'http://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small.jpg';
-        
+
         $result_arr['is_active'] = true;
         $result_arr['is_indexed'] = true;
         unset($result_arr['active_yn']);
         unset($result_arr['indexed_yn']);
-        
+
 //        error_log(var_export($result));
-        print_r($result_arr);        
-        
+        print_r($result_arr);
+
         if ($ch->set($id, CJSON::encode($result_arr))) {
-            echo $id." update successssssssssssssssssssssssss! \r\n";
+            echo $id . " update successssssssssssssssssssssssss! \r\n";
         } else {
-            echo $id." update failllllllllllllllllllllllllllllllllllllllllllllll! \r\n";
+            echo $id . " update failllllllllllllllllllllllllllllllllllllllllllllll! \r\n";
         }
-        
+
         exit();
     }
-    
+
     public function actionDelete() {
         try {
             
@@ -167,9 +170,119 @@ class PhotosController extends Controller {
         return $response;
     }
 
-    public function actionMovePhoto() {
+    public function doPhotoResizing($mega) {
+        $photo_string = $mega['photo'][0]['photo_image_url'];
+        $photo_name = $mega['photo'][0]['photo_title'];
 
-        echo "1111111111111111111111";
+//        error_log($image_string);
+        error_log($photo_name . '----000000000000000000000000000000000000');
+
+        $data_arr = $this->convertToString64($photo_string);
+        $photo = imagecreatefromstring($data_arr['data']);
+//        error_log(var_export($data_arr, true));
+
+        $compressed_photo = $this->compressPhotoData($data_arr['type'], $photo);
+
+
+
+        error_log("----------------------------11111111111111111111111111111111");
+
+        $orig_size['width'] = imagesx($compressed_photo);
+        $orig_size['height'] = imagesy($compressed_photo);
+
+        error_log("width:" . $orig_size['width'] . "---------------------------" . "height: " . $orig_size['height']);
+
+
+        $this->savePhotoInTypes($orig_size, "thambnail", $photo_name, $compressed_photo, $data_arr);
+        $this->savePhotoInTypes($orig_size, "hero", $photo_name, $compressed_photo, $data_arr);
+        $this->savePhotoInTypes($orig_size, "preview", $photo_name, $compressed_photo, $data_arr);
+    }
+
+    protected function savePhotoInTypes($orig_size, $photo_type, $photo_name, $compressed_photo, $data_arr) {
+        $new_size = $this->getNewPhotoSize($orig_size, $photo_type);
+        $new_photo_data = $this->createNewImage($orig_size, $new_size, $compressed_photo, $data_arr['type']);
+
+        //        error_log("----------------------------vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
+        $new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
+        error_log("----------------------------nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
+//        $new_size = getNewPhotoSize($orig_size, 'preview'); 
+//        $new_size = getNewPhotoSize($orig_size, 'hero');
+//        $new_photo_name = $image_name.'_'.$new_size['width'].'x'.$new_size['height'];
+
+        $url = "trendsideas.com/media/article/resize/" . $photo_type . "/" . $new_photo_name;
+        error_log($url . "----------------------------22222222222222222222222222222222222");
+
+        $this->saveImageToS3($url, $new_photo_data);
+    }
+
+    protected function getNewPhotoSize($photo_size, $photo_type) {
+        error_log("----------------------------44444444444444444444444");
+        $new_size = array();
+        switch ($photo_type) {
+            case 'thambnail':
+                $new_size['width'] = 132;
+                $new_size['height'] = 132;
+                break;
+            case 'preview':
+                $new_size['width'] = 118;
+                $new_size['height'] = (($photo_size['height'] * $new_size['width']) / $photo_size['width']);
+                break;
+            case 'hero':
+                $new_size['width'] = 338;
+                $new_size['height'] = (($photo_size['height'] * $new_size['width']) / $photo_size['width']);
+                break;
+        }
+
+        return $new_size;
+    }
+
+    public function createNewImage($orig_size, $new_size, $photo, $photo_type) {
+        error_log("----------------------------555555555555555555555555555555555");
+
+        error_log(var_export($orig_size, true));
+        error_log(var_export($new_size, true));
+
+        // Create new image to display
+        $new_photo = imagecreatetruecolor($new_size['height'], $new_size['width']);
+        error_log("----------------6666666666666666666666666666");
+        // Create new image with changed dimensions
+        imagecopyresized($new_photo, $photo, 0, 0, 0, 0, $new_size['width'], $new_size['height'], $orig_size['width'], $orig_size['height']);
+        error_log("----------------7777777777777777777777777777");
+
+        ob_start();
+        if ($photo_type == "image/png") {
+            imagepng($image);
+            error_log("image/png--fffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+        } else if ($photo_type == "image/jpeg") {
+            imagejpeg($new_photo);
+            error_log("----------------8888888888888888888888888888888888888888888888");
+        }
+
+        error_log("----------------8888888888888888888888888888888888888888888888");
+        $contents = ob_get_contents();
+        error_log("----------------pppppppppppppppppppppppppppppppppppppppp");
+        ob_end_clean();
+//        error_log($contents);
+        return $contents;
+    }
+
+    public function photoCreate($mega) {
+        error_log(var_export($mega, true));
+        $id = $this->getNewID();
+        $docID = $this->getDomain() . "/" . $id;
+        $mega["id"] = $id;
+        $mega["photo"][0]["id"] = $id;
+        
+        $mega['cfreated'] = $this->getCurrentUTC();
+        $mega['updated'] = $this->getCurrentUTC();
+        //   $this->sendResponse(204, "{ render json: @user, status: :ok }");
+error_log('$docID   '.$docID);
+          $cb = $this->couchBaseConnection();
+           if ($cb->add($docID, CJSON::encode($mega))) {
+            $this->sendResponse(204, "{ render json: @user, status: :ok }");
+        } else {
+            $this->sendResponse(500, "some thing wrong");
+        }
     }
 
 }

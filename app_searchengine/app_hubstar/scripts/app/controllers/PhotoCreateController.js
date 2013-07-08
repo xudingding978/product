@@ -71,7 +71,7 @@ define(["ember", "helper"],
                         "topic": null,
                         "type": "photo",
                         "category": ProfileMega.get("category"),
-                        "created": new Date(),
+                
                         "creator": localStorage.loginStatus,
                         "country": ProfileMega.get("country"),
                         "collection_id": this.get('controllers.insideCollection').get('title'),
@@ -95,7 +95,7 @@ define(["ember", "helper"],
                         "owner_contact_bcc_emails": ProfileMega.get("owner_contact_bcc_emails"),
                         "keywords": ProfileMega.get("profile_keywords"),
                         "status_id": null,
-                        "updated": new Date(),
+  
                         "uri_url": ProfileMega.get("uri_url"),
                         "view_count": null
                     });

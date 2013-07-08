@@ -18,10 +18,11 @@ class MegasController extends Controller {
             $request_string = $temp [sizeof($temp) - 1];
 //            error_log(var_export($temp, true)."       ".sizeof($temp));
             $response;
-            
+
             if (sizeof($temp) > 1) {
-//                error_log($request_string);
+
                 $response = $this->getRequestResult($request_string, self::JSON_RESPONSE_ROOT_PLURAL);
+                //    $response = $this->getRequestResultByID(self::JSON_RESPONSE_ROOT_PLURAL, $request_string);
             } else {//default search       
                 $response = $this->performSearch(self::JSON_RESPONSE_ROOT_PLURAL, "", "dean");
             }
@@ -41,8 +42,8 @@ class MegasController extends Controller {
         } elseif ($mega['type'] == "photo") {
             $this->createUploadedPhoto($mega);
         }
-        
-        
+
+
 //        $request_arr["mega"]["id"] = str_replace('test', '', $request_arr["mega"]["id"]);
 //        $path = 'this_is/folder_path/';
 //      $s3response = $this->photoSavingToS3($request_arr, $path);
@@ -61,7 +62,6 @@ class MegasController extends Controller {
 //        header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 //        echo $response;
         $this->sendResponse(204, $request_json);
-
     }
 
     public function actionRead() {
@@ -106,8 +106,6 @@ class MegasController extends Controller {
         echo CJSON::encode("dddddddd");
     }
 
-    
-
     public function photoSavingToS3($request_arr, $path) {
         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
         $key = explode(".", $_SERVER['HTTP_HOST']);
@@ -115,7 +113,7 @@ class MegasController extends Controller {
         $result = $cb->get($key);
         $result_arr = CJSON::decode($result, true);
         $response = false;
-//        error_log(var_export($request_arr ["mega"]['photos'][0], true));
+
         $data = $this->getInputData($request_arr ["object"]['photos'][0]['photo_type'], $request_arr ["object"]['photos'][0]['photo_url']);
         $client = Aws\S3\S3Client::factory(
                         $result_arr["providers"]["S3Client"]
@@ -167,18 +165,14 @@ class MegasController extends Controller {
     public function updateComment($newRecord) {
         try {
         
-            if (isset($newRecord['mega']['comments'][0]['mega_id'])) {
-                $newRecord['mega']['comments'][0]['mega_id'] = null;
-            }
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
             $docID = $this->getDomain() . "/" . $id;
-                      error_log($docID);
+            error_log($docID);
             $oldRecord = $cb->get($docID);
             $oldRecord = CJSON::decode($oldRecord, true);
             $oldRecord['comments'] = $newRecord['mega']['comments'];
-            
             if ($cb->set($docID, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204, "");
             } else {
@@ -208,29 +202,24 @@ class MegasController extends Controller {
             echo $exc->getTraceAsString();
         }
     }
-    
+
     public function createUploadedPhoto($mega) {
         if (sizeof($mega) > 0) {
-//            error_log(var_export($request_arr["mega"]['photo'], true));
-    
-            $photo_obj = new PhotosController();
-            $photo_obj->doPhotoResizing($mega);
 
-            
+            $photoController = new PhotosController();
+            $photoController->photoCreate($mega);
+
+            //     $photo_obj->doPhotoResizing($mega);
         }
-        
-//        error_log("9999999999999999999999999999999");
-//        $this->sendResponse(200,$request_json);
-        
     }
-    
-    
+
     public function createProfile($mega) {
+        
         $cb = $this->couchBaseConnection();
         $id = $mega['id'];
         $domain = $this->getDomain();
         $docID = $domain . "/profiles/" . $id;
-        //   error_log(var_export(CJSON::encode($mega), true));
+//   error_log(var_export(CJSON::encode($mega), true));
         if ($cb->add($docID, CJSON::encode($mega))) {
             $this->sendResponse(204, "{ render json: @user, status: :ok }");
         } else {

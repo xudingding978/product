@@ -1,6 +1,6 @@
 .plaform_bar{
 
-    position: fixed;left: 0px;top:30%;height: 400px;background-color: #7398ba; z-index:20;
+    position: fixed;left: 0px;top:30%;background-color: #7398ba; z-index:20;
 }
 
 
@@ -14,13 +14,23 @@
 
     border: 1px solid #7398ba;
     text-align:center;
-    width:220px;
+    width:10px;
+    overflow: hidden;
 }
 
+#navContainer:hover {
+    margin:0;
+    padding:0;
+
+    border: 1px solid #7398ba;
+    text-align:center;
+    width:220px;
+    overflow: visible;
+}
 #navContainer ul{
     margin:0;
     padding:0;
-    list-style:none;
+   
 }
 
 

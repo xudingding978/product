@@ -36,12 +36,24 @@ define(['ember', 'handlebars', 'moment'],
 
             });
             Ember.Handlebars.registerBoundHelper('date', function(date) {
-                if (date === "" || date ===null) {
+                if (date === "" || date === null) {
                     return "";
                 } else {
                     return moment(date).fromNow();
                 }
             });
+
+//            Ember.Handlebars.registerHelper('comemntIDStringifyFunc', function(data) {
+//
+//                if (data.indexOf(" ") !== -1) {
+//                    
+//                  
+//                    return  "user_comment_"+data.replace(" ", "_");
+//                } else {
+//                    return  data;
+//
+//                }
+//            });
 
 
         });

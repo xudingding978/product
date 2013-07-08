@@ -2,8 +2,10 @@ define(["ember"], function(Ember) {
     var CommentController = Ember.Controller.extend({
         commentLength: null,
         thisComments: null,
+        stringFiedTime_stamp: null,
         init: function()
         {
+        
             this.set("currentUser", App.User.find(localStorage.loginStatus));
         },
         addComment: function() {
@@ -24,6 +26,8 @@ define(["ember"], function(Ember) {
                 $('#commentBox').attr('style', 'display:none');
                 setTimeout(function() {
                     $('#masonry_container').masonry("reload");
+                    $('.user_comment_' + localStorage.loginStatus).attr('style', 'display:block');
+
                 }, 200);
             }
         },
@@ -32,10 +36,29 @@ define(["ember"], function(Ember) {
             var mega = App.Mega.find(id);
             var comments = mega.get('comments');
             this.set('thisComments', comments);
-         
-        }
 
+        },
+        deleteComment: function(object) {
+            var message = "Do you wish to delete this comment ?";
+            this.set("messege", message);
+            this.set('makeSureDelete', true);
 
+            if (this.get('willDelete')) {
+                this.getCommentsById(this.get('content').id);
+                var comments = this.get("thisComments");
+                App.get('data').deleteRecord();
+                comments.store.save();
+                this.cancelDelete();
+            } else {
+                this.set('willDelete', true);
+                App.set('data', object);
+            }
+        },
+        cancelDelete: function() {
+            this.set('willDelete', false);
+            this.set('makeSureDelete', false);
+            App.set('data', null);
+        },
     });
     return CommentController;
 });

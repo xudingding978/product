@@ -49,18 +49,19 @@ class ProfilesController extends Controller {
         //echo "Number of Hits: " . count($response) . "\r\n";
         //echo var_export($response);
 
-        $results = '{"' . 'megas' . '":[';
+        $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL  . '":[';
 
         //Iterate over the hits and print out some data
         $i = 0;
         foreach ($response as $hit) {
-            $results .= CJSON::encode($hit['source']['doc']);
+        //    error_log(var_export($hit['source']['doc']['profile'][0],true));
+            $results .= CJSON::encode($hit['source']['doc']['profile'][0]);
             if (++$i !== count($response)) {
                 $results .= ',';
             }
         }
         $results .= ']}';
-
+        
         echo $this->sendResponse(200, $results);
     }
 
@@ -85,7 +86,7 @@ class ProfilesController extends Controller {
         try {
             $cb = $this->couchBaseConnection();
             $fileName = $this->getDomain() . $_SERVER['REQUEST_URI'];
-  
+
             $reponse = $cb->get($this->getDomain() . $_SERVER['REQUEST_URI']);
 
             $request_arr = CJSON::decode($reponse, true);

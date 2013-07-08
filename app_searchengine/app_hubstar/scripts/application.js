@@ -182,6 +182,7 @@ define('application', [
     "models/CollectionModel",
     "models/CommentModel",
     "models/EmailModel",
+    "models/CategoryModel",
     "emberData",
     'jquery',
     "bxslider",
@@ -317,7 +318,8 @@ define('application', [
         Stat,
         Collection,
         Comment,
-        Email
+        Email,
+        Category
         )
 {
 
@@ -454,6 +456,7 @@ define('application', [
         Collection: Collection,
         Comment: Comment,
         Email: Email,
+        Category:Category,
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({

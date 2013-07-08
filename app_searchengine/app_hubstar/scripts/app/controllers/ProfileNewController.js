@@ -27,6 +27,7 @@ define([
                 editors: "",
                 boost: "",
                 package: "",
+                profile_contact_number:"",
                 secondary_email: "",
                 direct_enquiry_provide_email: "",
                 profile_bg_url: "",
@@ -231,6 +232,7 @@ define([
                             profile_pic_url: this.get("profile_pic_url"),
                             owner: this.get("owner"),
                             profile_creater: this.get("creater"),
+                            profile_contact_number: this.get("profile_contact_number"),
                             owner_contact_email: this.get("direct_enquiry_emails"),
                             owner_contact_cc_emails: this.get("secondary_email"),
                             owner_contact_bcc_emails: this.get("direct_enquiry_provide_email"),
@@ -242,7 +244,7 @@ define([
                             profile_hours: "Monday=7:00-late,Tuesday=7:00-late,Wednesday=7:00-late,Thursday=7:00-late,Friday=7:00-late,Saturday=7:00-late,Sunday=closed,Holidays=closed",
                             phone_number: this.get("contact_number"),
                             collections: [],
-                            website_url: this.get("website")
+                            profile_website: this.get("website")
                         });
                         newMega.get("profile").addObject(newProfile);
                         App.store.commit();

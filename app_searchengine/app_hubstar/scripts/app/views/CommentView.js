@@ -8,10 +8,12 @@ define([
     var CommentView = Ember.View.extend({
         template: Ember.Handlebars.compile(commentTemplate),
         didInsertElement: function() {
-            //    console.log(this.get('id'));
-//   console.log(this) ;
+            $('.user_comment_' + localStorage.loginStatus).attr('style', 'display:block');
+
+
 
         },
+
         openComment: function(id) {
 
             this.get('controller').getCommentsById(id);

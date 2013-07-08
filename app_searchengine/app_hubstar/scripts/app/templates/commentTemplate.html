@@ -22,7 +22,7 @@
 
         </div>
         <div style="display: inline-block;float: right;">
-            <div class="new-btn" style=""><i class="icon-thumbs-up-alt">&nbsp</i> </div>
+            <!--            <div class="new-btn" style=""><i class="icon-thumbs-up-alt">&nbsp</i> </div>-->
             <div class="new-btn" style=""><i class="icon-folder-close-alt">&nbsp</i> </div>
         </div>
     </div>
@@ -51,7 +51,7 @@
     <div id="commentData_{{unbound model.id}}" class="comment-frame" style="max-height:120px">
 
         {{#each model.comments}}
-        <div class="comment-item"  >
+        <div class="comment-item">
 
             <div class="comment-position">
                 <a class="profilepic-comment-container" href="#/users/{{unbound commenter_id}}">
@@ -65,24 +65,21 @@
                             </a>
                             <div class="posttime-container">
                                 <span class="posttime">{{date time_stamp}}</span>
-<!--                                <span class="like-amount">+1</span>-->
                             </div>
                         </div>
 
                         <div class="reply-comment">
-
-
+                            <span {{action deleteComment this }} class="hideClass  user_comment_{{unbound commenter_id}} deletecomment-btn easing">
+                                <i class="icon-remove"></i>
+                            </span>
                         </div>
-
                     </div>
 
                     <div class="comment-content">
-                        {{content}}
+                        {{content}} 
 
-                        <!-- for +someone into the conversation-->
                         <span>
                             <span></span>
-                            <a></a>
                         </span>
                     </div>
 
@@ -98,3 +95,10 @@
     </div>
 
 </div>
+
+
+{{#if controller.makeSureDelete}}
+
+{{view App.DeleteFunctionView}}
+
+{{/if}}

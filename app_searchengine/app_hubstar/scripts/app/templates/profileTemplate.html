@@ -42,9 +42,9 @@
             <div class="profilewrapper" style="">
                 <!--corpbanner-->
 
-                <div class="profilecorpbanner"    style="overflow:hidden;width: 100%; max-height: 650px; border-radius: 3px 3px 0 0; position: relative;">
+                <div class="profilecorpbanner"    style="overflow:hidden;width: 100%; max-height: 650px; border-radius: 3px 3px 0 0; position: relative;min-height: 400px;">
                     {{#if controller.uploadChecking}}
-                    <div  class="t-style-box"  style="width:100%;background-color: white;height: 600px">
+                    <div  class="t-style-box"  style="width:100%;background-color: white;">
                         <div class="tabbable">
                             <div class="tabs-left">
                                 <ul class="nav nav-tabs easing">
@@ -64,30 +64,32 @@
                                             <div style="margin: 0 0 0 5px;width: 69%;display: inline-block;">
                                                 {{view Ember.TextField valueBinding="profile_bg_url"  class="background"  placeholder="http://yourBackgroundImage" }}
                                             </div>
-                                            <img style="height: 70px;margin: 5px auto;left: 0;right: 0;display: block;" {{bindAttr src="profile_bg_url"}} />
                                         </div>
                                         <div style="display: block;margin: 10px;">
                                             <div style="display: inline-block;font-size: 16px;width: 29%;text-align: right;">Hero: </div>
                                             <div style="margin: 0 0 0 5px;width: 69%;display: inline-block;">
-                                                {{view Ember.TextField valueBinding="profile_cover_url"  class="hero"  placeholder="http://yourHeroImage" }}
+                                                {{view Ember.TextField valueBinding="profile_hero_url"  class="hero"  placeholder="http://yourHeroImage" }}
                                             </div>
-                                            <img style="height: 70px;margin: 5px auto;left: 0;right: 0;display: block;" {{bindAttr src="profile_cover_url"}} />
                                         </div>
                                         <div style="display: block;margin: 10px;">
                                             <div style="display: inline-block;font-size: 16px;width: 29%;text-align: right;">Profile Picture: </div>
                                             <div style="margin: 0 0 0 5px;width: 69%;display: inline-block;">
                                                 {{view Ember.TextField valueBinding="profile_pic_url"  class="picture"  placeholder="http://yourPictureImage" }}
                                             </div>
-                                            <img style="height: 70px;margin: 5px auto;left: 0;right: 0;display: block;" {{bindAttr src="profile_pic_url"}} />
                                         </div>
+                                    </div>
+                                    <div style=" height: 100px; width: 80%; margin: auto; text-align: center;">
+                                        <img style="height: 100%;margin: auto 3px;display: inline-block;" {{bindAttr src="profile_bg_url"}} />
+                                        <img style="height: 100%;margin: auto 3px;display: inline-block;" {{bindAttr src="profile_hero_url"}} />
+                                        <img style="height: 100%;margin: auto 3px;display: inline-block;" {{bindAttr src="profile_pic_url"}} />
                                     </div>
 
 
-                                    <div class="controlbtn" style="left: 34%;">
+                                    <div class="controlbtn" style="left: 34%;margin: 10px auto 20px;">
                                         <span class="new-btn" {{action toggleUpload }}>Cancel</span>
                                         <span class="new-btn green-btn" {{action uploadImage}}>Submit</span> 
                                     </div>
-                                    <div style="position: absolute; background-color: #555; width:100%; height: 50px; bottom: 0;"></div>
+                                    <div style="position: absolute; width:100%; height: 50px; bottom: 0;"><img style="width: 100%;" src="../../../images/divbot.jpg"/></div>
                                 </div>
 
 
@@ -115,13 +117,13 @@
                                             {{/each}}
                                         </div>
                                     </div>
-                                    <div class="controlbtn-field" style="margin-top: 20px;">
+                                    <div style="margin: 20px auto;">
                                         <div class="controlbtn" style="left: 34%;">
                                             <span class="new-btn" {{action toggleUpload }}>Cancel</span>
                                             <span class="new-btn green-btn" {{action submit}}>Submit</span> 
                                         </div>
                                     </div>
-                                    <div style="position: absolute; background-color: #555; width:100%; height: 50px; bottom: 0;"></div>
+                                    <div style="position: absolute; width:100%; height: 50px; bottom: 0;"><img style="width: 100%;" src="../../../images/divbot.jpg"/></div>
                                 </div>
 
 
@@ -148,13 +150,13 @@
                                             {{/each}}
                                         </div>
                                     </div>
-                                    <div class="controlbtn-field" style="margin-top: 20px;">
+                                    <div style="margin: 20px auto;">
                                         <div class="controlbtn" style="left: 34%;">
                                             <span class="new-btn" {{action toggleUpload }}>Cancel</span>
                                             <span class="new-btn green-btn" {{action submit}}>Submit</span> 
                                         </div>
                                     </div>
-                                    <div style="position: absolute; background-color: #555; width:100%; height: 50px; bottom: 0;"></div>
+                                    <div style="position: absolute; width:100%; height: 50px; bottom: 0;"><img style="width: 100%;" src="../../../images/divbot.jpg"/></div>
                                 </div>
 
 
@@ -182,13 +184,13 @@
                                             {{/each}}
                                         </div>
                                     </div>
-                                    <div class="controlbtn-field" style="margin-top: 20px;">
+                                    <div style="margin: 20px auto;">
                                         <div class="controlbtn" style="left: 34%;">
                                             <span class="new-btn" {{action toggleUpload }}>Cancel</span>
                                             <span class="new-btn green-btn" {{action submit}}>Submit</span> 
                                         </div>
                                     </div>
-                                    <div style="position: absolute; background-color: #555; width:100%; height: 50px; bottom: 0;"></div>
+                                    <div style="position: absolute; width:100%; height: 50px; bottom: 0;"><img style="width: 100%;" src="../../../images/divbot.jpg"/></div>
                                 </div>
                             </div>
                         </div>
@@ -197,7 +199,7 @@
 
                     </div>
                     {{else}}
-                    <img {{bindAttr src= model.profile_cover_url}} style="width:100%;"/>
+                    <img {{bindAttr src= model.profile_hero_url}} style="width:100%;"/>
 
                     {{/if}}
 
@@ -261,7 +263,7 @@
                         <div class="profileaside_content" style="margin:auto; margin-top: -200px; position: relative; width:87%;">
 
                             <div class="aside-profilepic" style="padding: 20px 5px; border-bottom: 1px solid #ccc;">
-                                <img {{bindAttr src= model.profile_pic_url}} style="width: 200px; height:auto; display: block;margin: 10px auto; border:3px solid white;width: 200px; height:auto; display: block;margin: 20px auto; border:5px solid white;box-shadow: 0px 0px 5px #888;"> 
+                                <img {{bindAttr src= model.profile_pic_url}} style="width: 200px; min-height: 200px; display: block;margin: 20px auto; border:5px solid white;box-shadow: 0px 0px 5px #888;"> 
                                 <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin:10px auto;display: block;width: 150px;">Follow</div>
 
                             </div>
@@ -285,9 +287,9 @@
                                     <tr>
                                         <th>Contact:</th>
                                         {{#if controller.editingContact}}
-                                        {{input type="text" class="insert-contactdetails" value=model.contact_user}}
+                                        {{input type="text" class="insert-contactdetails" value=model.profile_contact_user}}
                                         {{else}}
-                                        <th class="Contact_2child">{{model.contact_user}}</th>
+                                        <th class="Contact_2child">{{model.profile_contact_user}}</th>
                                         {{/if}}
                                     </tr>
                                     <tr>
@@ -309,17 +311,17 @@
                                     <tr>
                                         <th>Phone:</th>
                                         {{#if controller.editingContact}}
-                                        {{input type="text" class="insert-contactdetails" value=model.phone_number  }}
+                                        {{input type="text" class="insert-contactdetails" value=model.profile_contact_number  }}
                                         {{else}}
-                                        <th class="Contact_2child">{{model.phone_number}}</th>
+                                        <th class="Contact_2child">{{model.profile_contact_number}}</th>
                                         {{/if}}
                                     </tr>
                                     <tr>
                                         <th>Website:</th>
                                         {{#if controller.editingContact}}
-                                        {{input type="text" class="insert-contactdetails" value=model.website_url  }}
+                                        {{input type="text" class="insert-contactdetails" value=model.profile_website  }}
                                         {{else}}
-                                        <th class="Contact_2child"><a>{{model.website_url}}</a></th>
+                                        <th class="Contact_2child"><a>{{model.profile_website}}</a></th>
                                         {{/if}}
                                     </tr>
 
@@ -392,14 +394,14 @@
 
                             <div class="main_aboutus" style="border-bottom: 1px solid rgba(0,0,0,.1); padding:20px 0 30px 0; font-size: 15px; min-height: 400px;">
                                 <div>
-                                    <div style="display: block;">
+                                    <div style="display: inline-block;">
                                         <p style='margin-bottom: 20px;display: inline-block; font-size: 18px;'>
                                             <i class='icon-group' style='margin-right: 10px;display: inline-block;'></i>About Us
                                         </p>
 
                                         {{#if controller.editingAbout}}
                                         <div style="height: 300px;">
-                                            {{view Ember.TextArea valueBinding="model.about"  id="" class=""  }} 
+                                            {{view Ember.TextArea valueBinding="model.profile_about_us"  id="" class=""  }} 
                                         </div>
                                         <div style="float: right;">
                                             <div class="new-btn blue-btn" {{action yes controller.aboutMe}}><i class="icon-ok icon-white"></i></div> 
@@ -410,7 +412,7 @@
                                              <i class="icon-edit"></i>                            
                                         </div>
                                     </div>
-                                    {{{model.about}}}
+                                    <div style="display: block;">{{{model.profile_about_us}}}</div>
                                     {{/if}}
                                 </div>
                             </div>
@@ -470,7 +472,7 @@
                         <i class='icon-map-marker' style='margin-right: 10px;display: inline-block;'></i>
                         Location
                     </p>
-
+                    <p style="padding: 0 20px;">{{model.profile_physical_address}} </p>
                 </div>
                 <div style="padding: 10px 50px;">
                 </div>

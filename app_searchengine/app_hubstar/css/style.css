@@ -11,6 +11,7 @@
 
 .blur{
     z-index: 10;
+    left: 0;
     top: 0;
     width: 100%;
     position: fixed;
@@ -831,3 +832,16 @@ div.loading-visible{
     padding-top:15%;
 }
 
+
+.deletecomment-btn{
+    cursor: pointer; 
+    color: #888; 
+    opacity: .6; 
+    text-shadow: 0 0 10px #fff; 
+    font-size: 11px; 
+    margin: 0 10px;
+}
+
+.deletecomment-btn:hover{
+    opacity: 1;
+}

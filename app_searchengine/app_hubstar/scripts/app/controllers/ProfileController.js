@@ -46,37 +46,14 @@ define([
                 },
                 getCurrentClient: function(id)
                 {
-
-
-
-
                     this.set('currentUserID', id);
                     var user = ProfileModel.find(id);
-
-
-//                    var that = this;
-//                    user.addObserver('isLoaded', function() {
-//                        if (user.get('isLoaded')) {
-//                            alert(44444);
-//                            that.get("controllers.application").set('loadingTime', true);
-//
-//                        }
-//                    });
 
 
                     return user;
                 },
                 setProfile: function(id) {
-                    //                 this.get("controllers.application").set('loadingTime', true);
                     var user = this.getCurrentClient(id);
-
-
-//                    var that = this;
-//                    
-//                    setTimeout(function() {
-//                        that.get("controllers.application").set('loadingTime', false);
-//
-//                    }, 1000);
 
                     this.updateWorkingHourData(user.get('hours'));
                     this.set("model", this.getCurrentClient(id));

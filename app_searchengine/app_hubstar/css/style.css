@@ -1,3 +1,78 @@
+.plaform_bar{
+
+    position: fixed;left: 0px;top:30%;height: 400px;background-color: black; z-index:20;
+}
+
+
+
+
+
+
+#navContainer {
+margin:0;
+padding:0;
+
+border: 1px solid #7398ba;
+text-align:center;
+width:220px;
+}
+
+#navContainer ul{
+margin:0;
+padding:0;
+list-style:none;
+}
+ 
+
+#navContainer ul li {
+position:relative;
+}
+ 
+
+#navContainer ul li span{
+display:block;
+
+}
+ 
+
+#navContainer ul li a{
+text-decoration:none;
+color:white;
+font-family:Lucida Sans Unicode, Lucida Grande, sans-serif;
+display:block;
+padding:8px;
+
+}
+ 
+
+#navContainer ul li span:hover {
+
+}
+ 
+
+#navContainer ul li a:hover{
+
+}
+
+#navContainer ul ul{
+position:absolute;
+display:none;
+}
+ 
+
+#navContainer ul ul li a{
+background:#bec8cb;
+}
+ 
+
+#navContainer ul li:hover ul{
+width:80%;
+position:absolute;
+display:block; left:218px;
+top:0;
+}
+ 
+
 .displayClass{
     display:block;
 

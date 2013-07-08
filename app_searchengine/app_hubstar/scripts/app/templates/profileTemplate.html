@@ -68,7 +68,7 @@
                                         <div style="display: block;margin: 10px;">
                                             <div style="display: inline-block;font-size: 16px;width: 29%;text-align: right;">Hero: </div>
                                             <div style="margin: 0 0 0 5px;width: 69%;display: inline-block;">
-                                                {{view Ember.TextField valueBinding="profile_cover_url"  class="hero"  placeholder="http://yourHeroImage" }}
+                                                {{view Ember.TextField valueBinding="profile_hero_url"  class="hero"  placeholder="http://yourHeroImage" }}
                                             </div>
                                         </div>
                                         <div style="display: block;margin: 10px;">
@@ -80,7 +80,7 @@
                                     </div>
                                     <div style=" height: 100px; width: 80%; margin: auto; text-align: center;">
                                         <img style="height: 100%;margin: auto 3px;display: inline-block;" {{bindAttr src="profile_bg_url"}} />
-                                        <img style="height: 100%;margin: auto 3px;display: inline-block;" {{bindAttr src="profile_cover_url"}} />
+                                        <img style="height: 100%;margin: auto 3px;display: inline-block;" {{bindAttr src="profile_hero_url"}} />
                                         <img style="height: 100%;margin: auto 3px;display: inline-block;" {{bindAttr src="profile_pic_url"}} />
                                     </div>
 
@@ -199,7 +199,7 @@
 
                     </div>
                     {{else}}
-                    <img {{bindAttr src= model.profile_cover_url}} style="width:100%;"/>
+                    <img {{bindAttr src= model.profile_hero_url}} style="width:100%;"/>
 
                     {{/if}}
 

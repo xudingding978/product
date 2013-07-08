@@ -15,7 +15,7 @@ define(
         email: DS.attr('string'),
         about: DS.attr('string'),
         type: DS.attr('string'),
-        profile_cover_url: DS.attr('string'),
+        profile_hero_url: DS.attr('string'),
         profile_pic_url: DS.attr('string'),
         profile_bg_url: DS.attr('string'),
         contact_user: DS.attr('string'),

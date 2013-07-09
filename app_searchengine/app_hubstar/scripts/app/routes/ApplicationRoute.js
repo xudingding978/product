@@ -15,11 +15,6 @@ define([
 
 
             this.controllerFor('application').loginStatus();
-            this.controllerFor('platformBar').setTopicModel( model);
-//            console.log(model);
-        },
-        model: function() {
-            return App.Cate.find();
 
         }
 

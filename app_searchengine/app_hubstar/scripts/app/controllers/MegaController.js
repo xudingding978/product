@@ -63,6 +63,7 @@ define(['models/MegaModel',
                     this.selectedImage(this.get('selectedMega').id);
                 },
                 getInitData: function(megaObject) {
+            console.log("aaaaaaaaaaaaa");
                     this.set("currentUser", App.User.find(localStorage.loginStatus));
                     this.set("content", []);
                     this.set("selectedMega", megaObject._data.hasMany.photo[0].data);

@@ -43,6 +43,7 @@ define([
                 is_authentic_user: false,
                 init: function() {
 
+
                     this.set('is_authentic_user', false);
 
                 },
@@ -54,6 +55,9 @@ define([
                 },
                 setProfile: function(id) {
                     var profile = this.getCurrentClient(id);
+                    this.set('profile_bg_url', profile.get('profile_bg_url'));
+                    this.set('profile_hero_url', profile.get('profile_hero_url'));
+                    this.set('profile_pic_url', profile.get('profile_pic_url'));
                     this.updateWorkingHourData(profile.get('profile_hours'));
                     this.set("model", this.getCurrentClient(id));
                     this.set("collections", profile.get("collections"));

@@ -23,7 +23,14 @@
             <li> <span><a href="#"> {{topic}}</a></span>
                 <ul>
                     {{#each subcate}}
-                    <li> <a href="#"> {{category_topic}}</a></li>
+                    <li> <a href="#"> {{category_topic}}</a>
+                        <ul>
+                            {{#each subcategories}}
+                            <li> <a href="#">{{search_topic}}</a>
+                                {{/each}}
+
+                        </ul>
+                    </li>
                     {{/each}}
 
                 </ul>

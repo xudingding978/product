@@ -185,6 +185,7 @@ define('application', [
     "models/EmailModel",
     "models/CateModel",
     "models/SubcateModel",
+    "models/SubcategoriesModel",
     "emberData",
     'jquery',
     "bxslider",
@@ -323,7 +324,8 @@ define('application', [
         Comment,
         Email,
         Cate,
-        Subcate
+        Subcate,
+        Subcategories
         )
 {
 
@@ -463,6 +465,7 @@ define('application', [
         Email: Email,
         Cate: Cate,
         Subcate: Subcate,
+        Subcategories: Subcategories,
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({

@@ -49,13 +49,13 @@ class ProfilesController extends Controller {
         //echo "Number of Hits: " . count($response) . "\r\n";
         //echo var_export($response);
 
-        $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL  . '":[';
+        $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":[';
 
 
         //Iterate over the hits and print out some data
         $i = 0;
         foreach ($response as $hit) {
-
+            error_log(var_export($response, true));
             $results .= CJSON::encode($hit['source']['doc']['profile'][0]);
 
             if (++$i !== count($response)) {
@@ -63,7 +63,7 @@ class ProfilesController extends Controller {
             }
         }
         $results .= ']}';
-        
+
         echo $this->sendResponse(200, $results);
     }
 
@@ -100,7 +100,7 @@ class ProfilesController extends Controller {
             $result .= '}';
 
 
-            error_log(var_export($result, true));
+     //       error_log(var_export($result, true));
 
             echo $this->sendResponse(200, $result);
         } catch (Exception $exc) {

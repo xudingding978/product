@@ -16,25 +16,44 @@
 
 
     <div id="navContainer">
+
         <ul>
-            <li> <span><a href="#"> Home</a></span></li>
-            <li> 
-                <span><a href="#"> About </a></span>
+            <li> <span> <img {{bindAttr src="controller.user.photo_url"}} class="profilepic_user"/></span>   </li>
+
+            <li> <span><a href="#"> <i class="icon-eye-open"></i></a></span>  
                 <ul>
-                    <li> <a href="#"> Our business</a></li>
-                    <li> <a href="#"> Our History </a></li>
+                    {{#each controller.categorys}}
+
+
+                    <li> <span><a href="#"> {{topic}}</a></span>
+                        <ul>
+                            {{#each subcate}}
+                            <li> <a href="#"> {{category_topic}}</a>
+                                <ul>
+                                    {{#each subcategories}}
+                                    <li> <a href="#">{{search_topic}}</a>
+                                        {{/each}}
+
+                                </ul>
+                            </li>
+                            {{/each}}
+
+                        </ul>
+                    </li>
+
+
+                    {{/each}}
                 </ul>
             </li>
-            <li> 
-                <span><a href="#"> Services</a></span>
+            <li> <span><a href="#"> <i class="icon-folder-open"></i></a></span>   
                 <ul>
-                    <li> <a href="#"> Web Design</a></li>
-                    <li> <a href="#"> Web templates </a></li>
-                    <li> <a href="#"> Tutorials </a></li>
+                    {{#each controller.user.collections}}
+                    
+                    <li><a  href="{{unbound controller.myUserProfile}}/{{unbound id}}" > {{id}}</a></li>
+                    
+                    {{/each}}
                 </ul>
             </li>
-            <li><span><a href="#"> Contact</a></span></li>
-            <li> <span><a href="#"> News</a></span></li>
         </ul>
     </div>
 </div>

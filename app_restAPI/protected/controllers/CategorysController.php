@@ -15,10 +15,11 @@ class CategorysController extends Controller {
 
     public function actionIndex() {
         $domain = $this->getDomain();
-        $configuration = $this->getProviderConfigurationByName($domain, "categorys");
+
+        $configuration = $this->getProviderConfigurationByName($domain, "categories");
+        error_log('wwwwwwwwwwww');
 
         error_log(var_export($configuration, true));
-
     }
 
     public function actionCreate() {

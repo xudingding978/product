@@ -24,10 +24,10 @@ define([
                 this.transitionTo('user');
             }
         },
-        model: function(params) {
-
-            return UserModel.find(params.user_id);
-        },
+//        model: function(params) {
+//
+//            return UserModel.find(params.user_id);
+//        },
 //        renderTemplate: function() {
 //
 //            this.render('user', {

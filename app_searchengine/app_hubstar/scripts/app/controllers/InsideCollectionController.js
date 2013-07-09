@@ -64,16 +64,28 @@ define([
         {
             var currentUser = App.User.find(localStorage.loginStatus);
             var currentCollection = null;
-            var currentColletions = null;
+            var collectedColletionids = null;
             for (var i = 0; i < currentUser.get('collections').get('length'); i++) {
                 if (currentUser.get('collections').objectAt(i).get('id') === collectionID)
                 {
                     currentCollection = currentUser.get('collections').objectAt(i);
-                    currentColletions = currentCollection.get('collection_ids');
+                    collectedColletionids = currentCollection.get('collection_ids');
+                    var tempcollectedColletionids = collectedColletionids.replace(itemID + ",", "");
+                    tempcollectedColletionids = collectedColletionids.replace(itemID, "");
+                    currentCollection.set('collection_ids', tempcollectedColletionids);
+                    App.store.save();
                     break;
                 }
             }
-           
+            for (var i = 0; i < this.get('content').length; i++) {
+                if (this.get('content').objectAt(i).get('id') === itemID) {
+                    var tempItem = this.get('content').objectAt(i);
+                    this.get('content').removeObject(tempItem);
+
+                    break;
+                }
+            }
+
         }
     });
     return InsideCollectionController;

@@ -2,10 +2,17 @@ define(["ember", 'models/CateModel'], function(Ember, CateModel) {
     var PlatformBarController = Ember.ArrayController.extend({
         categorys: [],
         centent: [],
+        user: null,
+        myUserProfile: null,
         init: function()
         {
 
+            this.set("user", App.User.find(localStorage.loginStatus));
+            console.log(this.get('user'));
+            this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
 
+        },
+        toMyCollection: function() {
 
         },
         setTopicModel: function(model) {
@@ -18,7 +25,7 @@ define(["ember", 'models/CateModel'], function(Ember, CateModel) {
 
                     for (var j = 0; j < category.objectAt(i).get('subcate').get("length"); j++) {
                         var data = category.objectAt(i).get('subcate').objectAt(j).get('subcategories');
-                        console.log(data);
+                        //      console.log(data);
 
                         that.get('centent').pushObject(data);
 

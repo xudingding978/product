@@ -4,14 +4,15 @@ define(["ember", 'models/CateModel'], function(Ember, CateModel) {
         centent: [],
         user: null,
         myUserProfile: null,
+        needs: ["application"],
         init: function()
         {
 
 
 
         },
-        toMyCollection: function() {
-
+        topicSearch: function() {
+            this.get("controllers.application").switchCollection();
         },
         setTopicModel: function(model) {
             this.set("user", App.User.find(localStorage.loginStatus));

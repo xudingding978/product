@@ -272,6 +272,7 @@ define([
                         user.set("profile_pic_url", $('.picture').val());
                     }
                     this.updateClient();
+                    this.toggleUpload();
                 },
                 checkAuthenticUser: function() {
                     var authenticUsers = this.get("model").get("owner") + "," + this.get("model").get("profile_editors");

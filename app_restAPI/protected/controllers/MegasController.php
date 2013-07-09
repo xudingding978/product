@@ -169,7 +169,7 @@ class MegasController extends Controller {
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
             $docID = $this->getDomain() . "/" . $id;
-            error_log($docID);
+    //        error_log($docID);
             $oldRecord = $cb->get($docID);
             $oldRecord = CJSON::decode($oldRecord, true);
             $oldRecord['comments'] = $newRecord['mega']['comments'];
@@ -190,7 +190,7 @@ class MegasController extends Controller {
             $docID = substr($_SERVER['HTTP_HOST'], 4) . "/users/" . $id;
             $oldRecord = $cb->get($docID);
             $oldRecord = CJSON::decode($oldRecord, true);
-            error_log(var_export($oldRecord, true));
+      //      error_log(var_export($oldRecord, true));
 
             $oldRecord['user'] = $newRecord['mega']['user'];
             if ($cb->set($docID, CJSON::encode($oldRecord))) {

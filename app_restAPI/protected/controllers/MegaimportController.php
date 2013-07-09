@@ -87,7 +87,7 @@ class MegaimportController extends Controller {
             if ($cb->add($url, CJSON::encode($request_arr))) {
                 $response="ok";
             } else {
-                error_log("inport article faill, ID:". $request_arr["collection_id"]);
+        //        error_log("inport article faill, ID:". $request_arr["collection_id"]);
                 
 //                $my_file = '/home/devbox/NetBeansProjects/test/error.log';
 //                $handle = fopen($my_file, 'a') or die('Cannot open file:  ' . $my_file);

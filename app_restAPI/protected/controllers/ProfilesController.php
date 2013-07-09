@@ -56,7 +56,7 @@ class ProfilesController extends Controller {
         $i = 0;
         foreach ($response as $hit) {
             error_log(var_export($response, true));
-            $results .= CJSON::encode($hit['source']['doc']['profile'][0]);
+            $results .= CJSON::encode($hit['_source']['doc']['profile'][0]);
 
             if (++$i !== count($response)) {
                 $results .= ',';

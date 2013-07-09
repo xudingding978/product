@@ -25,13 +25,13 @@ return array(
     'env.code' => 'prod',
     //ElasticSearch Configurations
     'elasticSearch.node' => 'es1.hubsrv.com',
-    'elasticSearch.index' => 'production',
+    'elasticSearch.index' => 'test',
     
     //CouchBase Configurations
     'couchBase.node' => 'cb1.hubsrv.com:8091',
     'couchBase.account' => 'Administrator',
     'couchBase.password' => 'Pa55word',
-    'couchBase.bucket' => 'production',
+    'couchBase.bucket' => 'test',
     
     //CouchBase default bucket  Configurations
     'couchBase.defaultNode' => 'cb1.hubsrv.com:8091',

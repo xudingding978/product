@@ -49,22 +49,16 @@ class ProfilesController extends Controller {
         //echo "Number of Hits: " . count($response) . "\r\n";
         //echo var_export($response);
 
-<<<<<<< HEAD
-        $results = '{"' .  self::JSON_RESPONSE_ROOT_SINGLE. '":[';
-=======
+
         $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL  . '":[';
->>>>>>> adceacc008ca024950f41ae71f47de3bcdd388fe
+
 
         //Iterate over the hits and print out some data
         $i = 0;
         foreach ($response as $hit) {
-<<<<<<< HEAD
 
-            $results .= CJSON::encode($hit['source']['doc']);
-=======
-        //    error_log(var_export($hit['source']['doc']['profile'][0],true));
             $results .= CJSON::encode($hit['source']['doc']['profile'][0]);
->>>>>>> adceacc008ca024950f41ae71f47de3bcdd388fe
+
             if (++$i !== count($response)) {
                 $results .= ',';
             }
@@ -95,10 +89,9 @@ class ProfilesController extends Controller {
         try {
             $cb = $this->couchBaseConnection();
             $fileName = $this->getDomain() . $_SERVER['REQUEST_URI'];
-
-            $reponse = $cb->get($this->getDomain() . $_SERVER['REQUEST_URI']);
-
+            $reponse = $cb->get($fileName);
             $request_arr = CJSON::decode($reponse, true);
+
             $respone_client_data = str_replace("\/", "/", CJSON::encode($request_arr["profile"][0]));
             $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":';
             //Iterate over the hits and print out some data

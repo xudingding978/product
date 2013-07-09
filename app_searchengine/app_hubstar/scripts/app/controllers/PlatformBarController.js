@@ -12,7 +12,7 @@ define(["ember", 'models/CateModel'], function(Ember, CateModel) {
 
         },
         topicSearch: function(search_topic) {
-
+            this.transitionToRoute('searchIndex');
             this.get("controllers.application").set('search_string', search_topic);
 
 

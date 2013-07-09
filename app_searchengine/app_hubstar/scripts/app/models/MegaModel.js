@@ -41,6 +41,7 @@ define(
         owner_contact_email: DS.attr('string'),
         owner_contact_cc_emails: DS.attr('string'),
         owner_contact_bcc_emails: DS.attr('string'),
+        people_like: DS.attr('string'),
         region: DS.attr('string'),
         status_id: DS.attr('string'),
         subcategories:DS.attr('string'),

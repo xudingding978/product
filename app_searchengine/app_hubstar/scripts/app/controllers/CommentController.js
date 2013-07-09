@@ -5,11 +5,9 @@ define(["ember"], function(Ember) {
         stringFiedTime_stamp: null,
         init: function()
         {
-        
             this.set("currentUser", App.User.find(localStorage.loginStatus));
         },
         addComment: function() {
-
             var commentContent = this.get('commentContent');
             if (commentContent) {
                 var comments = this.get("thisComments");
@@ -36,13 +34,11 @@ define(["ember"], function(Ember) {
             var mega = App.Mega.find(id);
             var comments = mega.get('comments');
             this.set('thisComments', comments);
-
         },
         deleteComment: function(object) {
             var message = "Do you wish to delete this comment ?";
             this.set("message", message);
             this.set('makeSureDelete', true);
-
             if (this.get('willDelete')) {
                 this.getCommentsById(this.get('content').id);
                 var comments = this.get("thisComments");
@@ -59,6 +55,34 @@ define(["ember"], function(Ember) {
             this.set('makeSureDelete', false);
             App.set('data', null);
         },
+        addLike: function(id)
+        {
+            var mega = App.Mega.find(id);
+            var people_like = mega.get("people_like");
+            if (people_like === null || people_like === undefined)
+            {
+                people_like = "";
+            }
+            if (people_like.indexOf(localStorage.loginStatus) !== -1)
+            {
+            }
+            else {
+                this.addPeopleLike(mega);
+            }
+        }, addPeopleLike: function(mega)
+        {
+            var people_like = mega.get("people_like");
+            if (people_like === null || people_like === undefined)
+            {
+                people_like = localStorage.loginStatus;
+                mega.set("likes_count", 1);
+            } else {
+                people_like = people_like + "," + localStorage.loginStatus;
+                mega.set("likes_count", mega.get("likes_count") + 1);
+            }
+               mega.set("people_like", people_like);
+           App.store.save();
+        }
     });
     return CommentController;
 });

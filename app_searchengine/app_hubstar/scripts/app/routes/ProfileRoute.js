@@ -52,7 +52,7 @@ define([
 //        },
         renderTemplate: function() {
             this.render('profile', {
-                outlet: "profiles",
+                outlet: "profile",
                 into: "application"
             });
         }

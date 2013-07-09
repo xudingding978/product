@@ -282,9 +282,9 @@ class Controller extends CController {
 
         $request = $this->getElasticSearch();
 //populate a Term query to start
-        $must = Sherlock\Sherlock::queryBuilder()->Term()->term($requestString)//$collection_id
+        $should = Sherlock\Sherlock::queryBuilder()->Term()->term($requestString)//$collection_id
                 ->field('couchbaseDocument.doc.id');
-        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->should($should)
                 ->boost(2.5);
         $response = $request->query($bool)->execute();
         error_log($request->toJSON());

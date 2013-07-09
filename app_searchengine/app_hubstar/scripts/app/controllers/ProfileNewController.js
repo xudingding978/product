@@ -1,6 +1,6 @@
 define([
     'models/ProfileModel',
-    'ember'],
+    'ember', 'helper'],
         function(
                 ProfileModel,
                 Ember
@@ -23,11 +23,13 @@ define([
                 client_name: "",
                 owner: "",
                 direct_enquiry_emails: "",
+                region: "",
                 creater: "",
                 editors: "",
+                country: "",
                 boost: "",
                 package: "",
-                profile_contact_number:"",
+                profile_contact_number: "",
                 secondary_email: "",
                 direct_enquiry_provide_email: "",
                 profile_bg_url: "",
@@ -180,23 +182,10 @@ define([
                         this.set('profile_pic_url', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg");
                     }
                 },
-//                IsValidImageUrl: function(url) {
-//                    $("<img>", {
-//                        src: url,
-//                        error: function() {
-//                            alert(url + ': ' + false);
-//                        },
-//                        load: function() {
-//                            alert(url + ': ' + true);
-//                        }
-//                    });
-//                },
                 save: function() {
 
                     this.fillInChecking();
                     if (passSubmit) {
-
-
                         var newMega = App.store.createRecord(App.Mega, {//15
                             "id": this.get("profile_url"),
                             "type": "profile",
@@ -205,11 +194,12 @@ define([
                             is_active: "true",
                             is_indexed: "true",
                             category: $('#dropdownCategory').text(),
-                            created: new Date(),
+                            created: "",
                             creator: this.get("creater"),
                             country: this.get("country"),
                             region: this.get("region"),
-                            domains: document.domain,
+                            domains: getDomain(),
+                            editors: this.get("editors"),
                             keywords: this.get("keywords"),
                             owner_type: "profiles", // profiles or user can upload files, this could help to link back to their profile.
                             owner_profile_pic: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg",
@@ -218,7 +208,7 @@ define([
                             owner_contact_email: this.get("direct_enquiry_emails"),
                             owner_contact_cc_emails: this.get("secondary_email"),
                             owner_contact_bcc_emails: this.get("direct_enquiry_provide_email"),
-                            updated: new Date()
+                            updated: ""
                         });
                         var newProfile = App.store.createRecord(App.Profile, {
                             id: this.get("profile_url"),
@@ -232,6 +222,7 @@ define([
                             profile_pic_url: this.get("profile_pic_url"),
                             owner: this.get("owner"),
                             profile_creater: this.get("creater"),
+                            profile_editors: this.get("editors"),
                             profile_contact_number: this.get("profile_contact_number"),
                             owner_contact_email: this.get("direct_enquiry_emails"),
                             owner_contact_cc_emails: this.get("secondary_email"),

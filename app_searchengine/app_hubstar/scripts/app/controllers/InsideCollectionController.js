@@ -6,7 +6,8 @@ define([
     var InsideCollectionController = Ember.ArrayController.extend({
         content: [],
         title: null,
-        needs: ['photoCreate'],
+        is_authentic_user: false,
+        needs: ['photoCreate', 'profile'],
         selectModelForUser: function(collection_id) {
             this.set('content', []);
             var address = document.URL;
@@ -30,6 +31,8 @@ define([
 
         },
         selectModelForProfile: function(collection_id) {
+            var proController = this.get('controllers.profile');
+            this.set("is_authentic_user", proController.get("is_authentic_user"));
             this.set('content', []);
             var address = document.URL;
             var owner_id = address.split("#")[1].split("/")[2];
@@ -50,7 +53,7 @@ define([
             });
 
         },
-        newUpload: function() {        
+        newUpload: function() {
             $('#ownerUpload').attr('style', 'display:block');
             $('#tagetUplaod').attr('style', 'display:none');
         },

@@ -40,27 +40,24 @@ define([
                 profile_hero_url: "",
                 profile_pic_url: "",
                 hours: [],
+                is_authentic_user: false,
                 init: function() {
 
+                    this.set('is_authentic_user', false);
 
                 },
                 getCurrentClient: function(id)
                 {
                     this.set('currentUserID', id);
                     var user = ProfileModel.find(id);
-
-
                     return user;
                 },
                 setProfile: function(id) {
-                    var user = this.getCurrentClient(id);
-
-                    this.updateWorkingHourData(user.get('profile_hours'));
+                    var profile = this.getCurrentClient(id);
+                    this.updateWorkingHourData(profile.get('profile_hours'));
                     this.set("model", this.getCurrentClient(id));
-                    this.set("collections", user.get("collections"));
-
-
-                    var collections = user.get("collections");
+                    this.set("collections", profile.get("collections"));
+                    var collections = profile.get("collections");
                     //           console.log(collections);
                     for (var i = 0; i < collections.get("length"); i++)
                     {
@@ -70,6 +67,7 @@ define([
                             this.getHeroImgae(imgId, col);
                         }
                     }
+                    this.checkAuthenticUser();
                 },
                 submit: function()
                 {
@@ -199,15 +197,11 @@ define([
                     }
                     else if (checkingInfo === "timeSetting") {
                         this.updateWorkingHourData(this.get('model.profile_hours'));
-
-
-
                         this.set('editingTime', !this.get('editingTime'));
                     }
                 },
                 updateWorkingHourData: function(times) {
                     this.set('hours', []);
-                    //           console.log(times);
                     if (times !== null && times !== "" && typeof times !== "undefined") {
                         var time = times.split(",");
                         for (var i = 0; i < time.length; i++) {
@@ -258,9 +252,6 @@ define([
                 editingContactForm: function() {
 
                     var contactController = this.get('controllers.contact');
-//                    console.log(this.get('contactChecking'));
-                    console.log(this.get('currentUserID'));
-
                     contactController.setSelectedMega(this.get('currentUserID'));
                     this.set('contactChecking', !this.get('contactChecking'));
                 },
@@ -281,8 +272,29 @@ define([
                         user.set("profile_pic_url", $('.picture').val());
                     }
                     this.updateClient();
-                    this.toggleUpload();
+                }, checkAuthenticUser: function() {
+                    var authenticUsers = this.get("model").get("owner") + "," + this.get("model").get("profile_editors");
+                    var currentUser = App.User.find(localStorage.loginStatus);
+                    var that = this;
+                    var email = currentUser.get('email');
+                    this.setIsAuthenticUser(authenticUsers, email);
+                    currentUser.addObserver('isLoaded', function() {
+                        email = currentUser.get('email');
+                        if (currentUser.get('isLoaded')) {
+                            that.setIsAuthenticUser(authenticUsers, email);
+                        }
+                    });
+                },
+                setIsAuthenticUser: function(authenticUsers, email)
+                {
+                    if (authenticUsers.indexOf(email) !== -1) {
+                        this.set('is_authentic_user', true);
+                    }
+                    else {
+                        this.set('is_authentic_user', false);
+                    }
                 }
+
             });
             return ProfileController;
         });

@@ -4534,7 +4534,6 @@ input[type="submit"].btn.btn-mini {
 .navbar .nav > li > a {
     position: relative;
     line-height: 19px;
-    right: 20px;
     padding: 13px 15px;
     color: #777777;
     text-decoration: none;

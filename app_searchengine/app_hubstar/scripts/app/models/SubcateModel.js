@@ -7,11 +7,13 @@ define(
 
 
     var SubcateModel = DS.Model.extend({
-        cate: DS.belongsTo('App.Cate', {embedded: 'always'}),
         category_topic: DS.attr('string'),
         subcategories: DS.attr('string'),
+        sub_topic: function() {
+            return this.get('subcategories').split(",");
+        }.property('subcategories'),
         didLoad: function() {
-//            console.log('model loaded', this.toJSON());
+         //   console.log(this.get('sub_topic'));
 //            console.log('id: ' + this.id + ' ' + this.profile_name, this);
         }
     });

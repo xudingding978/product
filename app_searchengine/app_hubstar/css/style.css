@@ -75,14 +75,19 @@
 }
 
 
-#navContainer ul li:hover ul{
+#navContainer > ul > li:hover> ul{
     width:80%;
     position:absolute;
     display:block; left:218px;
     top:0;
 }
 
-
+#navContainer > ul > li> ul > li:hover> ul{
+    width:80%;
+    position:absolute;
+    display:block; left:160px;
+    top:0;
+}
 
 
 

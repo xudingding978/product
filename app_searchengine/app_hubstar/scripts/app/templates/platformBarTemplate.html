@@ -22,10 +22,10 @@
             {{#each controller.categorys}}
             <li> <span><a href="#"> {{topic}}</a></span>
                 <ul>
-               
-                    <li> <a href="#"> {{categories}}</a></li>
-                    
-                       
+                    {{#each subcate}}
+                    <li> <a href="#"> {{category_topic}}</a></li>
+                    {{/each}}
+
                 </ul>
             </li>
             {{/each}}

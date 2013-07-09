@@ -17,9 +17,14 @@ class CategorysController extends Controller {
         $domain = $this->getDomain();
 
         $configuration = $this->getProviderConfigurationByName($domain, "categories");
+        $topicSelection = $configuration[0]['global'][0];
+
+        $response = CJSON::encode($topicSelection, true);
+
         error_log('wwwwwwwwwwww');
 
-        error_log(var_export($configuration, true));
+        error_log(var_export($response, true));
+        $this->sendResponse(200, $response);
     }
 
     public function actionCreate() {

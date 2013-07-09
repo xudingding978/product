@@ -209,7 +209,6 @@ class MegasController extends Controller {
             $photoController = new PhotosController();
             $photoController->photoCreate($mega);
 
-            //     $photo_obj->doPhotoResizing($mega);
         }
     }
 
@@ -219,9 +218,9 @@ class MegasController extends Controller {
         $id = $mega['id'];
         $domain = $this->getDomain();
         $docID = $domain . "/profiles/" . $id;
-//   error_log(var_export(CJSON::encode($mega), true));
+
         if ($cb->add($docID, CJSON::encode($mega))) {
-            $this->sendResponse(204, "{ render json: @user, status: :ok }");
+            $this->sendResponse(200, "ok");
         } else {
             $this->sendResponse(500, "some thing wrong");
         }

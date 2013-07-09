@@ -43,6 +43,8 @@ define(
         owner_contact_bcc_emails: DS.attr('string'),
         region: DS.attr('string'),
         status_id: DS.attr('string'),
+        subcategories:DS.attr('string'),
+        timezone: DS.attr('string'),
         topic: DS.attr('string'),
         type: DS.attr('string'),
         updated: DS.attr('string'),

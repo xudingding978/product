@@ -28,13 +28,24 @@ define([
         needs: ["mega", "profile"],
         setSelectedMega: function(id)
         {
+
             this.set("currentUser", App.User.find(localStorage.loginStatus));
             this.set("displayName", this.get("currentUser").get("first_name") + " " + this.get("currentUser").get("last_name"));
             this.set("displayEmail", this.get("currentUser").get("email"));
-            this.set("selectedMega", App.Mega.find(id));
-
+            var tempMega = App.Mega.find(id);
+            this.set("selectedMega", tempMega);
             this.set("emailDestination", this.get("selectedMega").get("owner_contact_email"));
             this.set("emaiCCDestination", this.get("selectedMega").get("owner_contact_cc_emails"));
+            var that = this;
+     
+            tempMega.addObserver('isLoaded', function() {
+                if (tempMega.get('isLoaded')) {
+      
+                    that.set("selectedMega", tempMega);
+                    that.set("emailDestination", that.get("selectedMega").get("owner_contact_email"));
+                    that.set("emaiCCDestination", that.get("selectedMega").get("owner_contact_cc_emails"));
+                }
+            });
         },
         closeContact: function() {
             var megaController = this.get("controllers.mega");

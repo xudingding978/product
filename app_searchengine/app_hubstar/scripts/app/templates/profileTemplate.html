@@ -202,8 +202,9 @@
                     <img {{bindAttr src= model.profile_hero_url}} style="width:100%;"/>
 
                     {{/if}}
-
+  {{#if controller.is_authentic_user}}
                     <a style="background-image:url('../images/dogearhover.png');width: 30px;height: 29px;position: absolute;right: 0; top: 0;" href="" {{action toggleUpload}}></a>
+                    {{/if}}
                     <div class="corpbanner_mask" style="background: url('../images/bannershadow.png') repeat-x; position: absolute;bottom:0; width: 100%; height: 200px;">
                         <div class="corpbanner_content" style="position: absolute;bottom:0;margin-left: 30%;width: 70%;">
                             <div class="main_title" style="height: 100px;">
@@ -222,12 +223,13 @@
                                     <div style="display: inline-block; color: white;max-width: 750px;overflow: hidden; font-size: 28px; margin-bottom: 15px;line-height: 32px;">
                                         {{model.profile_name}}
                                     </div>
+                                    {{#if controller.is_authentic_user}}
                                     <div class="edit-btn easing" style="color: white;" {{action toggleEditing  model.profile_name controller.profileName}}>
                                          <i class="icon-edit"></i>                          
                                     </div>
                                     {{/if}}
+                                    {{/if}}
                                 </div>
-
 
                                 <!--contact me-->
                                 <div class="contactmebtn" {{action editingContactForm }}>
@@ -270,13 +272,15 @@
                             <!--PROFILE CONTACT SECTION-->
 
                             <div class="aside-container" style="padding: 20px 0; border-bottom: 1px solid #ccc; border-top: 1px solid #fff; font-size: 14px;margin: auto;width: 95%;">
+           
                                 {{#unless controller.editingContact}}
                                 <div>
                                     <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-phone' style='margin-right: 10px;'></i>Contact Detail</div>
-
+        {{#if controller.is_authentic_user}}
                                     <div class="edit-btn easing"  {{action toggleEditing model.phone_number controller.contact}}>
                                          <i class="icon-edit"></i>
                                     </div>
+        {{/if}}
                                 </div>
 
                                 {{/unless}}
@@ -344,11 +348,13 @@
 
                             <div class="aside-container" style="padding: 20px 0; border-top: 1px solid #fff; font-size: 14px;margin: auto;width: 95%;">
                                 <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-time' style='margin-right: 10px;'></i>Hours</div>
+                    
                                 {{#unless controller.editingTime}}
-
+                                        {{#if controller.is_authentic_user}}
                                 <div class="edit-btn easing">
                                     <i class="icon-edit" {{action toggleEditing  model.profile_name controller.timeSetting}}></i>                            
                                 </div>
+                                {{/if}}
                                 {{/unless}}
 
 
@@ -409,9 +415,11 @@
                                             <div class="new-btn" {{action no controller.aboutMe}}><i class="icon-remove"></i></div>
                                         </div>
                                         {{else}}
+                                        {{#if controller.is_authentic_user}}
                                         <div class="edit-btn" {{action toggleEditing model.about controller.aboutMe}}>
                                              <i class="icon-edit"></i>                            
                                         </div>
+                                        {{/if}}
                                     </div>
                                     <div style="display: block;">{{{model.profile_about_us}}}</div>
                                     {{/if}}

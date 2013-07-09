@@ -11,8 +11,13 @@ define(["ember", 'models/CateModel'], function(Ember, CateModel) {
 
 
         },
-        topicSearch: function() {
-            this.get("controllers.application").switchCollection();
+        topicSearch: function(search_topic) {
+
+            this.get("controllers.application").set('search_string', search_topic);
+
+
+            this.get("controllers.application").newSearch();
+
         },
         setTopicModel: function(model) {
             this.set("user", App.User.find(localStorage.loginStatus));

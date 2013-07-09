@@ -19,7 +19,7 @@
         </div>
 
         <!--END SECTION CONTROL BAR-->
-                    {{#if controller.is_authentic_user}}
+              {{#if controller.is_authentic_user}}
         <div class="box style-box t-style-box" id="addNew">
 
             <div id="uploadObject" {{action newCollection }}>
@@ -54,7 +54,9 @@
                 <div class="album-info">
                     <div class="album-info_name"><i class="icon-picture" ></i>   {{title}}</div>
                     <div class="album-info_content">
+                          {{#if controller.is_authentic_user}}
                         <div class="edit-btn edit-collection-btn easing"><i class="icon-cog" {{action editCollectionButton id desc target="view" on="click"}}></i></div>
+                        {{/if}}
                         <span><a href="" {{action transitionToCollectionPhoto id}}> </a> photos</span>
                         <span><img src="../../images/list-doc.png"/> April 1 2013</span>
                     </div>

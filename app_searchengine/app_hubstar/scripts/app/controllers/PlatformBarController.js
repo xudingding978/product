@@ -1,6 +1,6 @@
-define(["ember", 'models/CategoryModel'], function(Ember, CategoryModel) {
+define(["ember", 'models/CateModel'], function(Ember, CateModel) {
     var PlatformBarController = Ember.ArrayController.extend({
-      
+        categorys: []
     }
     );
     return PlatformBarController;

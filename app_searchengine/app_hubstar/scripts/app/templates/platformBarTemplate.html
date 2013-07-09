@@ -16,25 +16,19 @@
 
 
     <div id="navContainer">
+
         <ul>
-            <li> <span><a href="#"> Home</a></span></li>
-            <li> 
-                <span><a href="#"> About </a></span>
+
+            {{#each controller.categorys}}
+            <li> <span><a href="#"> {{topic}}</a></span>
                 <ul>
-                    <li> <a href="#"> Our business</a></li>
-                    <li> <a href="#"> Our History </a></li>
+                    {{#each subcate}}
+                    <li> <a href="#"> {{category_topic}}</a></li>
+                    {{/each}}
+
                 </ul>
             </li>
-            <li> 
-                <span><a href="#"> Services</a></span>
-                <ul>
-                    <li> <a href="#"> Web Design</a></li>
-                    <li> <a href="#"> Web templates </a></li>
-                    <li> <a href="#"> Tutorials </a></li>
-                </ul>
-            </li>
-            <li><span><a href="#"> Contact</a></span></li>
-            <li> <span><a href="#"> News</a></span></li>
+            {{/each}}
         </ul>
     </div>
 </div>

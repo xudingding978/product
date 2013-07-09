@@ -1,11 +1,11 @@
 define([
     'ember',
-    'models/UserModel', 'models/CategoryModel'
+    'models/UserModel', 'models/CateModel'
 
 ], function(
         Ember,
         UserModel,
-        CategoryModel
+        CateModel
 
         ) {
     "use strict";
@@ -15,7 +15,12 @@ define([
 
 
             this.controllerFor('application').loginStatus();
-            this.controllerFor('platformBar').set('model', App.Category.find());
+            this.controllerFor('platformBar').set('categorys', model);
+            console.log(model);
+        },
+        model: function() {
+            return CateModel.find();
+
         }
 
     });

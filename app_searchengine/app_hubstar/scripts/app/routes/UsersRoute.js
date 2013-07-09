@@ -25,14 +25,14 @@ define([
         activate: function() {
 
         },
-        renderTemplate: function() {
-
-            this.render('users', {
-                outlet: 'users',
-                into: "application"
-            });
-
-        }
+//        renderTemplate: function() {
+//
+//            this.render('users', {
+//                outlet: 'users',
+//                into: "application"
+//            });
+//
+//        }
 
     });
     return UsersRoute;

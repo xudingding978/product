@@ -18,13 +18,14 @@ define(["ember"
         makeSureDelete: false,
         selectedCollection: "",
         selected_topics: [],
+        is_authentic_user: false,
         init: function()
         {
             this.setUser();
+
         },
         setUser: function()
         {
-
             var user = this.getCurrentUser();
             topics = user.get('selected_topics');
             this.set('selected_topics', []);
@@ -51,20 +52,14 @@ define(["ember"
                     this.getHeroImgae(imgId, col);
                 }
             }
+            this.checkAuthenticUser();
         },
         getHeroImgae: function(id, col) {
             var photo = App.Mega.find(id);
             //   console.log(photo);
             photo.addObserver('isLoaded', function() {
-
                 if (photo.get('isLoaded')) {
-
-
                     col.set("cover", photo.get('photo').objectAt(0).get("photo_image_hero_url"));
-
-
-
-
                     col.store.save();
                 }
             });
@@ -240,6 +235,16 @@ define(["ember"
         {
             var collection = App.Collection.createRecord({"id": null, "title": null, "desc": null, "collection_ids": null, "createdAt": new Date()});
             this.set("selectedCollection", collection);
+        },
+        checkAuthenticUser: function() {
+            {
+                if (localStorage.loginStatus === this.get('user').id) {
+                    this.set('is_authentic_user', true);
+                }
+                else {
+                    this.set('is_authentic_user', false);
+                }
+            }
         }
     }
     );

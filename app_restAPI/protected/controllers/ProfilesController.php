@@ -55,9 +55,7 @@ class ProfilesController extends Controller {
         //Iterate over the hits and print out some data
         $i = 0;
         foreach ($response as $hit) {
-            error_log(var_export($response, true));
-            $results .= CJSON::encode($hit['_source']['doc']['profile'][0]);
-
+            $results .= CJSON::encode($hit['source']['doc']['profile'][0]);
             if (++$i !== count($response)) {
                 $results .= ',';
             }
@@ -88,10 +86,9 @@ class ProfilesController extends Controller {
         try {
             $cb = $this->couchBaseConnection();
             $fileName = $this->getDomain() . $_SERVER['REQUEST_URI'];
-
-            $reponse = $cb->get($this->getDomain() . $_SERVER['REQUEST_URI']);
-
+            $reponse = $cb->get($fileName);
             $request_arr = CJSON::decode($reponse, true);
+
             $respone_client_data = str_replace("\/", "/", CJSON::encode($request_arr["profile"][0]));
             $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":';
             //Iterate over the hits and print out some data
@@ -100,7 +97,7 @@ class ProfilesController extends Controller {
             $result .= '}';
 
 
-     //       error_log(var_export($result, true));
+            //       error_log(var_export($result, true));
 
             echo $this->sendResponse(200, $result);
         } catch (Exception $exc) {
@@ -112,13 +109,15 @@ class ProfilesController extends Controller {
 
         try {
             $payloads_arr = CJSON::decode(file_get_contents('php://input'));
+
             $payload_json = CJSON::encode($payloads_arr['profile'], true);
+
             $cb = $this->couchBaseConnection();
             $oldRecord = CJSON::decode($cb->get($this->getDomain() . $_SERVER['REQUEST_URI']));
-            //  $oldRecord = CJSON::encode($document_arr);
-            //   error_log();
+            $id = $oldRecord['profile'][0]['id'];
             $oldRecord['profile'][0] = null;
             $oldRecord['profile'][0] = CJSON::decode($payload_json);
+            $oldRecord['profile'][0]['id'] = $id;
             if ($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true))) {
                 $this->sendResponse(204);
             }

@@ -14,12 +14,13 @@
     
     {{#unless controller.isotherpage}}
         {{#if controller.islogin}}
-
+            {{render platformBar}}
              {{view App.DiscoveryView}}
               
            {{outlet "welcome"}}
            {{outlet "quickstart"}}        
         {{else}}
+        
             {{view App.CarouselView}}
         {{/if}}
 
@@ -34,7 +35,9 @@
 
 {{/if}}
 
-{{render platformBar}}
+
+
+
 
 
 {{#if controller.loadingTime}}

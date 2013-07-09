@@ -18,24 +18,34 @@
     <div id="navContainer">
 
         <ul>
+            <li> <span><a href="#"> <i class="icon-folder-open"></i></a></span>   </li>
 
-            {{#each controller.categorys}}
-            <li> <span><a href="#"> {{topic}}</a></span>
+            <li> <span><a href="#"> <i class="icon-eye-open"></i></a></span>  
                 <ul>
-                    {{#each subcate}}
-                    <li> <a href="#"> {{category_topic}}</a>
+                    {{#each controller.categorys}}
+
+
+                    <li> <span><a href="#"> {{topic}}</a></span>
                         <ul>
-                            {{#each subcategories}}
-                            <li> <a href="#">{{search_topic}}</a>
-                                {{/each}}
+                            {{#each subcate}}
+                            <li> <a href="#"> {{category_topic}}</a>
+                                <ul>
+                                    {{#each subcategories}}
+                                    <li> <a href="#">{{search_topic}}</a>
+                                        {{/each}}
+
+                                </ul>
+                            </li>
+                            {{/each}}
 
                         </ul>
                     </li>
-                    {{/each}}
 
+
+                    {{/each}}
                 </ul>
             </li>
-            {{/each}}
+            <li> <span><a href="#"> <i class="icon-folder-open"></i></a></span>   </li>
         </ul>
     </div>
 </div>

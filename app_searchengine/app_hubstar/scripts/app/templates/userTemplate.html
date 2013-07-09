@@ -19,16 +19,16 @@
             </ul>
         </div>
     </div>
-    <div class="user-board_right style-box" style="background: white; width: 30%; height: 150px; display: inline-block; vertical-align: top;padding: 15px 20px;">
-        <div style="font-weight: bold;line-height: 20px; color: #777; font-size: 13px;">Interested in:</div>
-        <div style="padding: 0 8px; line-height: 25px;">
+    <div class="user-board_right style-box" style="background: white; width: 30%; height: 150px; padding: 10px 15px; display: inline-block; vertical-align: top; overflow: hidden;">
+        <div style="padding: 5px; width: 115%; height: 130px; overflow: auto;">
+            <div style="font-weight: bold;line-height: 20px; color: #777; font-size: 13px;">Interested in:</div>
+            <div style="padding: 0 8px; line-height: 25px;">
 
-            {{#each controller.selected_topics}}
-            <div class='hashtags' {{bindAttr id="topics"}}>{{topics}}<i class='remove-hashtages' {{action deleteTopic topics}}>x</i></div>
+                {{#each controller.selected_topics}}
+                <div class='hashtags' {{bindAttr id="topics"}}>{{topics}}<i class='remove-hashtages' {{action deleteTopic topics}}>x</i></div>
 
-
-            {{/each}}
-
+                {{/each}}
+            </div>
         </div>
     </div>
 </div>

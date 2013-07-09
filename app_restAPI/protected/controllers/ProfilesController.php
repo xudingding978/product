@@ -112,13 +112,15 @@ class ProfilesController extends Controller {
 
         try {
             $payloads_arr = CJSON::decode(file_get_contents('php://input'));
+
             $payload_json = CJSON::encode($payloads_arr['profile'], true);
+            
             $cb = $this->couchBaseConnection();
             $oldRecord = CJSON::decode($cb->get($this->getDomain() . $_SERVER['REQUEST_URI']));
-            //  $oldRecord = CJSON::encode($document_arr);
-            //   error_log();
+  $id=$oldRecord['profile'][0]['id'];
             $oldRecord['profile'][0] = null;
             $oldRecord['profile'][0] = CJSON::decode($payload_json);
+             $oldRecord['profile'][0]['id']=$id;
             if ($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true))) {
                 $this->sendResponse(204);
             }

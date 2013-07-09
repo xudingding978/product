@@ -128,16 +128,15 @@
             </div>
             {{#if controller.canEdit}}
             <div class="edit-btn edit-object-btn">
-                <k class="icon-trash"</k>
+                <k class="icon-trash" {{action  removeCollectedItem controller.title id}}></k>
             </div>
 
-            {{controller.title}}
-            {{id}}
             {{/if}}
 
             {{#if controller.canEditbyOwner}}
             <div class="edit-btn edit-object-btn">
-                <k class="icon-trash"</k>
+     
+                <k class="icon-trash"></k>
             </div>
 
 

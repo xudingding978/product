@@ -1,6 +1,6 @@
 define([
     'models/ProfileModel',
-    'ember','helper'],
+    'ember', 'helper'],
         function(
                 ProfileModel,
                 Ember
@@ -23,11 +23,13 @@ define([
                 client_name: "",
                 owner: "",
                 direct_enquiry_emails: "",
+                region: "",
                 creater: "",
                 editors: "",
+                country: "",
                 boost: "",
                 package: "",
-                profile_contact_number:"",
+                profile_contact_number: "",
                 secondary_email: "",
                 direct_enquiry_provide_email: "",
                 profile_bg_url: "",
@@ -197,7 +199,7 @@ define([
                             country: this.get("country"),
                             region: this.get("region"),
                             domains: getDomain(),
-                            editors:this.get("editors"),
+                            editors: this.get("editors"),
                             keywords: this.get("keywords"),
                             owner_type: "profiles", // profiles or user can upload files, this could help to link back to their profile.
                             owner_profile_pic: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg",
@@ -220,7 +222,7 @@ define([
                             profile_pic_url: this.get("profile_pic_url"),
                             owner: this.get("owner"),
                             profile_creater: this.get("creater"),
-                            profile_editors:this.get("editors"),
+                            profile_editors: this.get("editors"),
                             profile_contact_number: this.get("profile_contact_number"),
                             owner_contact_email: this.get("direct_enquiry_emails"),
                             owner_contact_cc_emails: this.get("secondary_email"),

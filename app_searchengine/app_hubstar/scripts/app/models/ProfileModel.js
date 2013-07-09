@@ -9,7 +9,7 @@ define(
         collections: {embedded: 'always'}
     });
     var ProfileModel = DS.Model.extend({
-        mega: DS.belongsTo('App.Mega', {embedded: 'always'}),
+
         profile_category: DS.attr('string'),
         profile_hero_url: DS.attr('string'),
         profile_pic_url: DS.attr('string'),

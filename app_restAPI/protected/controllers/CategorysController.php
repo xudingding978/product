@@ -17,9 +17,6 @@ class CategorysController extends Controller {
         $domain = $this->getDomain();
 
         $configuration = $this->getProviderConfigurationByName($domain, "categories");
-        error_log('wwwwwwwwwwww');
-
-        error_log(var_export($configuration, true));
     }
 
     public function actionCreate() {

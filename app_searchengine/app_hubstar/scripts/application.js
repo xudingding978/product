@@ -136,6 +136,7 @@ define('application', [
     "controllers/ContactController",
     "controllers/CommentController",
     "controllers/TopicSelectionController",
+    "controllers/PlatformBarController",
     "app/router",
     "routes/ApplicationRoute",
     "routes/IndexRoute",
@@ -273,6 +274,7 @@ define('application', [
         ContactController,
         CommentController,
         TopicSelectionController,
+        PlatformBarController,
         Router,
         ApplicationRoute,
         IndexRoute,
@@ -410,6 +412,7 @@ define('application', [
         ContactController: ContactController,
         CommentController: CommentController,
         TopicSelectionController: TopicSelectionController,
+        PlatformBarController: PlatformBarController,
         Router: Router,
         ApplicationRoute: ApplicationRoute,
         IndexRoute: IndexRoute,
@@ -456,7 +459,7 @@ define('application', [
         Collection: Collection,
         Comment: Comment,
         Email: Email,
-        Category:Category,
+        Category: Category,
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({

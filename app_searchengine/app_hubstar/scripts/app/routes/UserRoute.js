@@ -69,7 +69,7 @@ define([
         renderTemplate: function() {
 
             this.render('user', {
-                outlet: "users",
+                outlet: "user",
                 into: "application"
             });
 

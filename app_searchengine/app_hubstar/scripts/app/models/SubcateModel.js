@@ -4,16 +4,15 @@ define(
             'ember',
             'emberData'
         ], function() {
-
+    DS.RESTAdapter.map('App.Subcate', {
+        subcategories: {embedded: 'always'},
+    });
 
     var SubcateModel = DS.Model.extend({
         category_topic: DS.attr('string'),
-        subcategories: DS.attr('string'),
-        sub_topic: function() {
-            return this.get('subcategories').split(",");
-        }.property('subcategories'),
+        subcategories: DS.hasMany('App.Subcategories'),
         didLoad: function() {
-         //   console.log(this.get('sub_topic'));
+            //   console.log(this.get('sub_topic'));
 //            console.log('id: ' + this.id + ' ' + this.profile_name, this);
         }
     });

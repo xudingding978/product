@@ -1,3 +1,4 @@
+
 <?php
 
 header("Access-Control-Allow-Origin: *");
@@ -7,14 +8,14 @@ header('Access-Control-Request-Method: *');
 header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET');
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
-class CategoriesController extends Controller {
+class CategorysController extends Controller {
 
     const JSON_RESPONSE_ROOT_SINGLE = 'category';
-    const JSON_RESPONSE_ROOT_PLURAL = 'categories';
+    const JSON_RESPONSE_ROOT_PLURAL = 'categorys';
 
     public function actionIndex() {
         $domain = $this->getDomain();
-        $configuration = $this->getProviderConfigurationByName($domain, "categories");
+        $configuration = $this->getProviderConfigurationByName($domain, "categorys");
 
         error_log(var_export($configuration, true));
 

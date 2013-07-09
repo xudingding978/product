@@ -168,12 +168,14 @@ class MegasController extends Controller {
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
-            $docID = $this->getDomain() . "/" . $id;
-    //        error_log($docID);
+            $docID = $this->getDomain() . "/profiles/" . $id;
+      
             $oldRecord = $cb->get($docID);
             $oldRecord = CJSON::decode($oldRecord, true);
+              $oldRecord['comments']=null;
             $oldRecord['comments'] = $newRecord['mega']['comments'];
-            if ($cb->set($docID, CJSON::encode($oldRecord))) {
+                  error_log(var_export($oldRecord['comments'] ,true));
+                  if ($cb->set($docID, CJSON::encode($oldRecord,true))) {
                 $this->sendResponse(204, "");
             } else {
                 $this->sendResponse(500, "some thing wrong");

@@ -78,7 +78,7 @@ class UsersController extends Controller {
 
             $reponse = $cb->get($doc_id);    
             $respone_user =  CJSON::decode($reponse, true);
-                        error_log(var_export($respone_user,true));
+              //          error_log(var_export($respone_user,true));
             $respone_user_data = CJSON::encode($respone_user['user'][0]);
 
             $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $respone_user_data . '}';

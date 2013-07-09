@@ -8,22 +8,36 @@ header('Access-Control-Request-Method: *');
 header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET');
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
-class CategorysController extends Controller {
+class CatesController extends Controller {
 
-    const JSON_RESPONSE_ROOT_SINGLE = 'category';
-    const JSON_RESPONSE_ROOT_PLURAL = 'categorys';
+    const JSON_RESPONSE_ROOT_SINGLE = 'cate';
+    const JSON_RESPONSE_ROOT_PLURAL = 'cates';
 
     public function actionIndex() {
         $domain = $this->getDomain();
 
         $configuration = $this->getProviderConfigurationByName($domain, "categories");
-        $topicSelection = $configuration[0]['global'][0];
+        $topicSelection = $configuration[0]['global'][0]['topics'];
 
-        $response = CJSON::encode($topicSelection, true);
 
-        error_log('wwwwwwwwwwww');
+//        $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":[';
+//        $i = 0;
+//        foreach ($response as $hit) {
+//            $results .= CJSON::encode($hit['source']['doc']);
+//              error_log(var_export($results, true));
+//            if (++$i < count($response)) {
+//                $results .= ',';
+//            }
+//        }
+//        $results .= ']}';
 
-        error_log(var_export($response, true));
+
+        $response = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":' . CJSON::encode($topicSelection, true) . '}';
+
+
+      //  error_log('wwwwwwwwwwww');
+
+    error_log(var_export($response, true));
         $this->sendResponse(200, $response);
     }
 

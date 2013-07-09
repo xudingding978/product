@@ -22,7 +22,6 @@ define(
         profile_contact_first_name: DS.attr('string'),
         profile_contact_last_name: DS.attr('string'),
         profile_contact_email: DS.attr('string'),
-
         profile_keywords: DS.attr('string'),
         profile_package_name: DS.attr('string'),
         profile_regoin: DS.attr('string'),

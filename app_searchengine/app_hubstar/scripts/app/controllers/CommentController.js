@@ -58,7 +58,9 @@ define(["ember"], function(Ember) {
         addLike: function(id)
         {
             var mega = App.Mega.find(id);
+
             var people_like = mega.get("people_like");
+
             if (people_like === null || people_like === undefined)
             {
                 people_like = "";
@@ -69,8 +71,7 @@ define(["ember"], function(Ember) {
             else {
                 this.addPeopleLike(mega);
             }
-        }, addPeopleLike: function(mega)
-        {
+        }, addPeopleLike: function(mega) {
             var people_like = mega.get("people_like");
             if (people_like === null || people_like === undefined)
             {
@@ -78,9 +79,9 @@ define(["ember"], function(Ember) {
                 mega.set("likes_count", 1);
             } else {
                 people_like = people_like + "," + localStorage.loginStatus;
-                mega.set("likes_count", mega.get("likes_count") + 1);
+                mega.set("likes_count",people_like.split(",").length);
             }
-               mega.set("people_like", people_like);
+            mega.set("people_like", people_like);
            App.store.save();
         }
     });

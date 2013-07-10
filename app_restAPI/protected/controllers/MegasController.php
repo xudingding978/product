@@ -91,8 +91,9 @@ class MegasController extends Controller {
             $this->updateUserRecord($newRecord);
         } else {
 
-            //      $this->updateComment($newRecord);
+
             $this->updateMega($newRecord);
+            $this->updateComment($newRecord);
         }
     }
 
@@ -173,13 +174,13 @@ class MegasController extends Controller {
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
-            $docID = $this->getDomain() . "/profiles/" . $id;
-
+            $docID = $this->getDomain() . "/" . $id;
+error_log($docID);
             $oldRecord = $cb->get($docID);
             $oldRecord = CJSON::decode($oldRecord, true);
             $oldRecord['comments'] = null;
             $oldRecord['comments'] = $newRecord['mega']['comments'];
-            error_log(var_export($oldRecord['comments'], true));
+            error_log(var_export($newRecord['mega']['comments'], true));
             if ($cb->set($docID, CJSON::encode($oldRecord, true))) {
                 $this->sendResponse(204, "");
             } else {
@@ -236,18 +237,19 @@ class MegasController extends Controller {
         $cb = $this->couchBaseConnection();
         $id = $newRecord['id'];
         $docID = $this->getDomain() . "/" . $id;
+
         $oldRecord = $cb->get($docID);
-        $oldRecord = CJSON::decode($oldRecord, true);       
-        if (!isset($oldRecord['likes_count']) || $oldRecord['likes_count'] != $newRecord['mega']['likes_count']) {
+        $oldRecord = CJSON::decode($oldRecord, true);
+        if (!isset($oldRecord['likes_count']) || $oldRecord['likes_count'] != $newRecord['mega']['likes_count']) {//update count
+            error_log('new ' . $newRecord['mega']['people_like']);
             $oldRecord['likes_count'] = $newRecord['mega']['likes_count'];
-              $oldRecord['people_like']= $newRecord['mega']['people_like'];
-                if ($cb->set($docID, CJSON::encode($oldRecord, true))) {
+            $oldRecord['people_like'] = $newRecord['mega']['people_like'];
+            if ($cb->set($docID, CJSON::encode($oldRecord, true))) {
                 $this->sendResponse(204, "");
             } else {
                 $this->sendResponse(500, "some thing wrong");
             }
         }
-       
     }
 
 }

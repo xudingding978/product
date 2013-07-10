@@ -19,15 +19,6 @@ define(['ember', 'handlebars', 'moment'],
             });
 
 
-            Ember.Handlebars.registerHelper('ifCond', function(v1, v2, options) {
-                alert(v1);
-                alert(ProfileModel.find('flooringxtra').get('type'));
-                v1 = ProfileModel.find('flooringxtra').get('type');
-                if (v1 == v2) {
-                    return options.fn(this);
-                }
-                return options.inverse(this);
-            });
             Handlebars.registerHelper('checkInputFilesSize', function(object) {
 
                 return new Handlebars.SafeString(

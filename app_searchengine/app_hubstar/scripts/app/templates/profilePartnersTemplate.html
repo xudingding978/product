@@ -3,11 +3,15 @@
 
 
 
-
-
-
-
-
-
-
-
+{{#each  content}}
+{{view App.ItemView}}
+<script>
+    $(function() {
+        var $container = $('#masonry_container');
+        window.setTimeout(function() {
+            $container.masonry();
+            $container.masonry('reload');
+        }, 1000);
+    });
+</script>
+{{/each}}

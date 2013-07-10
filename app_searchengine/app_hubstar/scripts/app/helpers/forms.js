@@ -53,9 +53,6 @@ define(['ember', 'handlebars', 'moment'],
 
                     }
                 }, 20);
-
-
-
             });
 
 //            Ember.Handlebars.registerHelper('comemntIDStringifyFunc', function(data) {

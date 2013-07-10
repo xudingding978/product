@@ -308,8 +308,8 @@ define([
                     this.set('collectionTag', true);
                 },
                 selectPartner: function(model) {
-        //            console.log(model.id);
-                    this.get('controllers.profilePartners').getClientId(model.id);
+                    //            console.log(model.id);
+                    this.get('controllers.profilePartners').getClientId(model);
                     this.set('partnerTag', true);
                     this.set('collectionTag', false);
                 },

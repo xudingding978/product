@@ -52,8 +52,6 @@ define([
                 $('#user-stats > li').removeClass('selected-user-stats');
                 $(this).addClass('selected-user-stats');
 
-
-                return false;
             });
         }
 

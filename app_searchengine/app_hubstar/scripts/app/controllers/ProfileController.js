@@ -23,6 +23,8 @@ define([
                 editingContact: false,
                 galleryInsert: false,
                 contactChecking: false,
+                collectionTag: true,
+                partnerTag: false,
                 temp: [],
                 selectedDesc: "",
                 selectedTitle: "",
@@ -299,8 +301,20 @@ define([
                     else {
                         this.set('is_authentic_user', false);
                     }
-                }
+                },
+                selectCollection: function() {
+     
+                    this.set('partnerTag', false);
+                    this.set('collectionTag', true);
+                },
+                selectPartner: function() {
+ 
+                    this.set('partnerTag', true);
+                    this.set('collectionTag', false);
+                },
+                selectFollower: function() {
 
+                },
             });
             return ProfileController;
         });

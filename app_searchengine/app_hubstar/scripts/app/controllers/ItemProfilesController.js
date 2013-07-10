@@ -5,6 +5,10 @@ define(["ember"], function(Ember) {
             this.set("profiles", App.Mega.find());
             console.log();
         },
+        toProfilePage: function(model) {
+
+            this.transitionToRoute('profile', model);
+        }
     });
     return ItemProfilesController;
 });

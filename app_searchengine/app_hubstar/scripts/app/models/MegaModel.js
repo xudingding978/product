@@ -17,7 +17,7 @@ define(
         boost: DS.attr('string'),
         category: DS.attr('string'),
         creator_profile_pic: DS.attr('string'),
-        created: DS.attr('date'),
+        created: DS.attr('string'),
         creator: DS.attr('string'),
         country: DS.attr('string'),
         collection_id: DS.attr('string'),

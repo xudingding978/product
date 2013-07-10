@@ -75,26 +75,23 @@ class MegaimportController extends Controller {
         $response = "fail";
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
-        $id = $this->getNewID();
-
-        $request_arr = $this->modifyArrayProperty(CJSON::decode($request_json, true), $id); 
+        
+//        print_r($request_arr);
+        $id = "trendsideas.com/".$request_arr['id'];
+//        echo $id;
+//        exit();
+        
+//        $request_arr = $this->modifyArrayProperty(CJSON::decode($request_json, true), $id); 
 //        $url = substr($_SERVER['HTTP_HOST'], 4) . '/' . $request_arr["id"];
-        $url = 'trendsideas.com/' . $id;
+//        $url = 'trendsideas.com/' . $id;
 //        error_log($url);
         
         try {
-            $cb = $this->couchBaseConnection("production");
-            if ($cb->add($url, CJSON::encode($request_arr))) {
+            $cb = $this->couchBaseConnection_production();
+            if ($cb->add($id, CJSON::encode($request_arr))) {
                 $response="ok";
             } else {
-                error_log("inport article faill, ID:". $request_arr["collection_id"]);
-                
-//                $my_file = '/home/devbox/NetBeansProjects/test/error.log';
-//                $handle = fopen($my_file, 'a') or die('Cannot open file:  ' . $my_file);
-//                $output = "\n" . 'New data ';
-//                $output = "\n" . $url . ' has error';
-//                fwrite($handle, $output);
-//                fclose($handle);
+                error_log("inport article faill, ID:". $request_arr["id"]);
             }
 
         } catch (Exception $exc) {

@@ -94,9 +94,20 @@ class ImportDataController extends Controller {
 ////            $date_time = date("Y-m-d H:i:s", $utc);
 ////            echo $date_time;
         
-        $url = "http://trendsideas.com/media/article/hero/83014.jpg";
-        $width = '100';
+//        $url = "http://trendsideas.com/media/article/hero/83014.jpg";
+//        $width = '100';
+        $region = Regions::model()->selectCountryNameByID('3');
+        $country = "";
+//        if (sizeof($region)) {
+            $pos = explode(", ", $region);
+            if (sizeof($pos)>0) {
+                $country = $pos[sizeof($pos)-1];
+            } else {
+                $country = $region;
+            }
+//        }
         
+        echo '-------------region: '. $region. "------------------------- country: ". $country;
 //        error_log("11111111111111111111111111");
         // Loading the image and getting the original dimensions
 //        $ch = curl_init();
@@ -127,9 +138,9 @@ class ImportDataController extends Controller {
 //        $tw = @imagesx($image);
 //        print_r($image); 
         
-        $image = imagecreatefromjpeg($url);
-        $orig_width = imagesx($image);
-        $orig_height = imagesy($image);
+//        $image = imagecreatefromjpeg($url);
+//        $orig_width = imagesx($image);
+//        $orig_height = imagesy($image);
             
 //        if ($image !== false) {
 //            header('Content-Type: image/png');
@@ -139,22 +150,22 @@ class ImportDataController extends Controller {
 //        exit();
         
         // Calc the new height
-        $height = (($orig_height * $width) / $orig_width);
+//        $height = (($orig_height * $width) / $orig_width);
 
         // Create new image to display
-        $new_image = imagecreatetruecolor($width, $height);
+//        $new_image = imagecreatetruecolor($width, $height);
 
         // Create new image with changed dimensions
-        imagecopyresized($new_image, $image,
-                0, 0, 0, 0,
-                $width, $height,
-                $orig_width, $orig_height);
+//        imagecopyresized($new_image, $image,
+//                0, 0, 0, 0,
+//                $width, $height,
+//                $orig_width, $orig_height);
 
-        if ($new_image !== false) {
-            header('Content-Type: image/png');
-            imagejpeg($new_image);
-            imagedestroy($new_image);
-        }
+//        if ($new_image !== false) {
+//            header('Content-Type: image/png');
+//            imagejpeg($new_image);
+//            imagedestroy($new_image);
+//        }
         
         
         // Print image

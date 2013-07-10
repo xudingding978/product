@@ -67,7 +67,7 @@ class ImageimportController extends Controller {
     }
 
     
-    public function actionResize() { 
+    public function actionResize() {
           echo "33333333333333";
 //        $url = "http://trendsideas.com/media/article/hero/83014.jpg";
 //        $width = '100';
@@ -218,6 +218,7 @@ class ImageimportController extends Controller {
                 
                 imagecopy($im, $stamp, imagesx($im) - $sx - $marge_right, imagesy($im) - $sy - $marge_bottom, 0, 0, imagesx($stamp), imagesy($stamp));
                 $data = $this->convertData($imageInfo['mime'], $im);
+                
                 header('Content-type: ' . $imageInfo['mime']);
                 $response = $this->imageRenameAndputImagetoS3($imageInfo, $url, $data);
             } catch (Exception $e) {
@@ -313,10 +314,12 @@ class ImageimportController extends Controller {
         }
         $name = $tempname[0] . "_" . $imageInfo[0] . "x" . $imageInfo[1] . "$exteonsion"; //  $width  = $get[0]; $height = $get[1]; $type   = $get[2];  $attr   = $get[3];  $bits   = $get['bits']; $mime   = $get['mime'];
         $name = str_replace('http://', '', $name);
+        
         $this->putImagetoS3($name, $data);
         $url = "https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/" . $name;
         $width = $imageInfo[0];
         $height = $imageInfo[1];
+        
         $tempArray = array(
             "width" => $width,
             "height" => $height,
@@ -326,47 +329,21 @@ class ImageimportController extends Controller {
         return $returnReponse;
     }
 
-    function is_image($path) {
-        try {
-            if($a=@getimagesize($path)) {
-//                $a = getimagesize($path);
-                $image_type = $a[2];
-                if (in_array($image_type, array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_BMP))) {
-                    return "true";
-                }
-            } else {
-                $message = $response . "\n" . date("Y-m-d H:i:s").$path. " \r\n";
-                $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $message);
-            }
-        } catch (Exception $e) {
-            $response = 'Caught exception: ' . $e->getMessage() . "\n";
-            $message = $response . "\n" . date("Y-m-d H:i:s").$path. " \r\n";
-            $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $message);
+    function convertData($type, $data) {
+        ob_start();
+        if ($type == "image/png") {
+
+            imagepng($data);
+        } elseif ($type == "image/jpeg") {
+            imagejpeg($data, null, 80);
         }
-
-        return "false";
-    }
-
-    function isUrlExist($path) {
-        $file_headers = @get_headers($path);
-        if ($file_headers[0] == 'HTTP/1.1 404 Not Found') {
-            $response = 'HTTP/1.1 404 Not Found';
-        } else {
-            $response = "true";
-        }
-        return $response;
-    }
-
+        $return = ob_get_contents();
+        ob_end_clean();
+        return $return;
+    } 
     
-    protected function writeToLog($fileName, $content) {
-        //   $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_success.log';
-        $handle = fopen($fileName, 'a') or die('Cannot open file:  ' . $fileName);
-        $output = "\n" . $content;
-        fwrite($handle, $output);
-        fclose($handle);
+    
 
-        unset($fileName, $content, $handle, $output);
-    }
     
 }
 

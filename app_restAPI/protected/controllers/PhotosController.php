@@ -10,11 +10,9 @@ class PhotosController extends Controller {
     const JSON_RESPONSE_ROOT_PLURAL = 'photos';
 
     public function __construct() {
-        
     }
 
     public function actionIndex() {
-
         $temp = explode("/", $_SERVER['REQUEST_URI']);
 
         $id = $temp[sizeof($temp) - 1];
@@ -23,18 +21,153 @@ class PhotosController extends Controller {
     }
 
     public function actionCreate() {
-        $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);
-        header($statusHeader);
-        header('Content-type: *');
-        header("Access-Control-Allow-Origin: http://www.develop.devbox");
-        header('Access-Control-Request-Method: *');
-        header('Access-Control-Allow-Methods: *');
-        header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+        $response;
+        $request_json = file_get_contents('php://input');
+        $request_arr = CJSON::decode($request_json, true);
+        $url =$request_arr["url"];
+        $isUrlExist = $this->isUrlExist($url);
+        $this->is_image($url);
+        
+//        print_r($request_arr); 
+//        exit();
+        
+        if ($isUrlExist == "true") {
+            if(strpos($url, 'hero')) {
+                $url = str_replace('http://', 'http://imageservice.', $url) . '?width=336&format=jpg';
+                $url = str_replace('hero', 'original', $url);
+            } 
+            
+            $image_info = $this->getImageInfo($url);
+            
+//            print_r($image_info); 
+//            exit();
+            
+            $name = $this->renamingImage($image_info, $url);
+            
+//            echo $name; 
+//            exit();
+            
+            if(strpos($url, 'original')) {
+                $response = $this->getWatermarkImageSource($url, $image_info);
+            } else {
+                $response = $this->getImageSource($url, $image_info);
+            }
+            
+            $bucket = 's3.hubsrv.com';
+            $key = str_replace("http://s3.hubsrv.com/", "", $request_arr['hero_url']);
+            $this->removeImageFromS3($key, $bucket);
+            
+            $key = 'trendsideas.com/'.$request_arr['id'].'/photo/'.$request_arr['id'].'/'.$request_arr['type'].'/'.$name;
+           
+//            echo $key. "\r\n";
+            
+            $this->saveImageToS3($key, $response, $bucket);
+            $path = 'http://s3.hubsrv.com/'.$key;
+         
 
-        echo $response;
-        Yii::app()->end();
+//            echo $path;
+//            exit();
+            $tempArray = array(
+                "width" => $image_info[0],
+                "height" => $image_info[1],
+                "url" => $path,
+                "name" => $name
+            );
+               
+//            print_r($tempArray);
+//            exit();
+            
+            $response = json_encode($tempArray, true);
+         
+        } else {
+            $response = $isUrlExist;
+        }
+
+        $this->sendResponse(200, $response);
+    }
+    
+    protected function renamingImage($imageInfo, $url) {
+        $tempname = "false";
+        $exteonsion = ".png";
+        $name_arr = explode("/", $url);
+        if (strpos($url, '.jpg')) {
+            $tempname = explode(".jpg", $name_arr[sizeof($name_arr)-1]);
+        } elseif (strpos($url, '.png')) {
+            $tempname = explode(".png", $name_arr[sizeof($name_arr)-1]);
+        }
+        if (strpos($imageInfo['mime'], 'jpeg')) {
+            $exteonsion = ".jpg";
+        } elseif (strpos($imageInfo['mime'], 'png')) {
+            $exteonsion = ".png";
+        }
+        $name = $tempname[0] . "_" . $imageInfo[0] . "x" . $imageInfo[1] . "$exteonsion"; //  $width  = $get[0]; $height = $get[1]; $type   = $get[2];  $attr   = $get[3];  $bits   = $get['bits']; $mime   = $get['mime'];
+        $name = str_replace('http://', '', $name);
+        
+        return $name;
+    }
+    
+    protected function getWatermarkImageSource($url, $imageInfo) {
+        $stamp = $this->getStamp($url);
+        try {
+            
+            $im = $this->getImageString($imageInfo['mime'], $url);            
+            $marge_right = 5;
+            $marge_bottom = 5;
+            
+            $sx = imagesx($stamp);
+            $sy = imagesy($stamp);
+
+            imagecopy($im, $stamp, imagesx($im) - $sx - $marge_right, imagesy($im) - $sy - $marge_bottom, 0, 0, imagesx($stamp), imagesy($stamp));
+            $response = $this->compressData($imageInfo['mime'], $im, $url);
+
+            return $response;
+            
+        } catch (Exception $e) {
+            $response = 'Caught watermark exception: ' . $e->getMessage() . "\r\n". $url;
+            $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $response);
+        }
+    }
+    
+    protected function getImageSource($url, $imageInfo) {
+        try {
+            $im = $this->getImageString($imageInfo['mime'], $url);
+            $response = $this->compressData($imageInfo['mime'], $im, $url);
+            header('Content-type: ' . $imageInfo['mime']);
+            
+            return $response;
+            
+        } catch (Exception $e) {
+            $response = 'Caught un-watermark exception: ' . $e->getMessage() . "\r\n". $url;
+            $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $response);
+        }
     }
 
+    protected function getStamp($url) {
+        try {
+            $stamp = imagecreatefrompng('/home/devbox/NetBeansProjects/test/watermark4hero.png');
+            if (strpos($url, 'original') && !strpos($url, 'imageservice')) {
+                $stamp = imagecreatefrompng('/home/devbox/NetBeansProjects/test/watermark4original.png');
+            } elseif (strpos($url, 'imageservice')) {
+                $stamp = imagecreatefrompng('/home/devbox/NetBeansProjects/test/watermark4hero.png');
+            }
+            
+            return $stamp;
+        } catch (Exception $e) {
+
+            $stamp = imagecreatefrompng('https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/watermark4hero.png');
+            if (strpos($url, 'original')) {
+                $stamp = imagecreatefrompng('https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/watermark4original.png');
+            } elseif (strpos($url, 'imageservice')) {
+                $stamp = imagecreatefrompng('https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/watermark4hero.png');
+            }
+           
+            $message = "get water mark image faill from localhost: " . $e->getMessage() . "\r\n" . date("Y-m-d H:i:s").$url. "\r\n";
+            error_log($message);
+            
+            return $stamp;
+        }
+    }
+    
     public function actionRead() {
 
         $temp = explode("/", $_SERVER['REQUEST_URI']);

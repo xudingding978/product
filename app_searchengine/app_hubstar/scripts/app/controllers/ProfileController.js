@@ -23,6 +23,8 @@ define([
                 editingContact: false,
                 galleryInsert: false,
                 contactChecking: false,
+                collectionTag: true,
+                partnerTag: false,
                 temp: [],
                 selectedDesc: "",
                 selectedTitle: "",
@@ -35,55 +37,33 @@ define([
                 currentUserID: "",
                 collections: [],
                 selectedCollection: "",
-                needs: ["application", "contact"],
+                needs: ["application", "contact", "profilePartners"],
                 profile_bg_url: "",
-                profile_cover_url: "",
+                profile_hero_url: "",
                 profile_pic_url: "",
                 hours: [],
+                is_authentic_user: false,
                 init: function() {
 
+
+                    this.set('is_authentic_user', false);
 
                 },
                 getCurrentClient: function(id)
                 {
-
-
-
-
                     this.set('currentUserID', id);
                     var user = ProfileModel.find(id);
-
-
-//                    var that = this;
-//                    user.addObserver('isLoaded', function() {
-//                        if (user.get('isLoaded')) {
-//                            alert(44444);
-//                            that.get("controllers.application").set('loadingTime', true);
-//
-//                        }
-//                    });
-
-
                     return user;
                 },
                 setProfile: function(id) {
-                    //                 this.get("controllers.application").set('loadingTime', true);
-                    var user = this.getCurrentClient(id);
-
-
-//                    var that = this;
-//                    
-//                    setTimeout(function() {
-//                        that.get("controllers.application").set('loadingTime', false);
-//
-//                    }, 1000);
-
-                    this.updateWorkingHourData(user.get('hours'));
+                    var profile = this.getCurrentClient(id);
+                    this.set('profile_bg_url', profile.get('profile_bg_url'));
+                    this.set('profile_hero_url', profile.get('profile_hero_url'));
+                    this.set('profile_pic_url', profile.get('profile_pic_url'));
+                    this.updateWorkingHourData(profile.get('profile_hours'));
                     this.set("model", this.getCurrentClient(id));
-                    this.set("collections", user.get("collections"));
-
-
-                    var collections = user.get("collections");
+                    this.set("collections", profile.get("collections"));
+                    var collections = profile.get("collections");
                     //           console.log(collections);
                     for (var i = 0; i < collections.get("length"); i++)
                     {
@@ -93,6 +73,7 @@ define([
                             this.getHeroImgae(imgId, col);
                         }
                     }
+                    this.checkAuthenticUser();
                 },
                 submit: function()
                 {
@@ -192,7 +173,7 @@ define([
                         for (var i = 0; i < updateHour.length; i++) {
                             data = data + updateHour.objectAt(i).day + "=" + updateHour.objectAt(i).time + ",";
                         }
-                        this.set('model.hours', data.substring(0, data.length - 1));
+                        this.set('model.profile_hours', data.substring(0, data.length - 1));
                         this.set('editingTime', !this.get('editingTime'));
                     }
                     this.updateClient();
@@ -221,16 +202,12 @@ define([
                         this.set('editingContact', !this.get('editingContact'));
                     }
                     else if (checkingInfo === "timeSetting") {
-                        this.updateWorkingHourData(this.get('model.hours'));
-
-
-
+                        this.updateWorkingHourData(this.get('model.profile_hours'));
                         this.set('editingTime', !this.get('editingTime'));
                     }
                 },
                 updateWorkingHourData: function(times) {
                     this.set('hours', []);
-                    //           console.log(times);
                     if (times !== null && times !== "" && typeof times !== "undefined") {
                         var time = times.split(",");
                         for (var i = 0; i < time.length; i++) {
@@ -281,9 +258,6 @@ define([
                 editingContactForm: function() {
 
                     var contactController = this.get('controllers.contact');
-//                    console.log(this.get('contactChecking'));
-               console.log(this.get('currentUserID'));
-
                     contactController.setSelectedMega(this.get('currentUserID'));
                     this.set('contactChecking', !this.get('contactChecking'));
                 },
@@ -293,11 +267,55 @@ define([
                 uploadImage: function() {
 
                     var user = this.getCurrentClient(this.get('currentUserID'));
-                    user.set("profile_bg_url", $('.background').val());
-                    user.set("profile_cover_url", $('.hero').val());
-                    user.set("profile_pic_url", $('.picture').val());
+                    console.log(user.get("profile_bg_url"));
+                    if ($('.background').val() !== "") {
+                        user.set("profile_bg_url", $('.background').val());
+                    }
+                    if ($('.hero').val() !== "") {
+                        user.set("profile_hero_url", $('.hero').val());
+                    }
+                    if ($('.picture').val() !== "") {
+                        user.set("profile_pic_url", $('.picture').val());
+                    }
                     this.updateClient();
-                }
+                    this.toggleUpload();
+                },
+                checkAuthenticUser: function() {
+                    var authenticUsers = this.get("model").get("owner") + "," + this.get("model").get("profile_editors");
+                    var currentUser = App.User.find(localStorage.loginStatus);
+                    var that = this;
+                    var email = currentUser.get('email');
+                    this.setIsAuthenticUser(authenticUsers, email);
+                    currentUser.addObserver('isLoaded', function() {
+                        email = currentUser.get('email');
+                        if (currentUser.get('isLoaded')) {
+                            that.setIsAuthenticUser(authenticUsers, email);
+                        }
+                    });
+                },
+                setIsAuthenticUser: function(authenticUsers, email)
+                {
+                    if (authenticUsers.indexOf(email) !== -1) {
+                        this.set('is_authentic_user', true);
+                    }
+                    else {
+                        this.set('is_authentic_user', false);
+                    }
+                },
+                selectCollection: function() {
+
+                    this.set('partnerTag', false);
+                    this.set('collectionTag', true);
+                },
+                selectPartner: function(model) {
+        //            console.log(model.id);
+                    this.get('controllers.profilePartners').getClientId(model.id);
+                    this.set('partnerTag', true);
+                    this.set('collectionTag', false);
+                },
+                selectFollower: function() {
+
+                },
             });
             return ProfileController;
         });

@@ -14,7 +14,7 @@ define([
 
     var UsersRoute = Ember.Route.extend({
         setupController: function(controller, model) {
-            //  alert('sdddddd');
+
 
             this.controllerFor('application').set('islogin', true);
             this.controllerFor('application').set('popup', false);
@@ -69,7 +69,7 @@ define([
         renderTemplate: function() {
 
             this.render('user', {
-                outlet: "users",
+                outlet: "user",
                 into: "application"
             });
 

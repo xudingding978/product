@@ -191,6 +191,10 @@ class Controller extends CController {
             $collection_id = $this->getUserInput($requireParams[1]);
             $owner_profile_id = $this->getUserInput($requireParams[2]);
             $response = $this->performRawSearch($returnType, $collection_id, $owner_profile_id);
+        } elseif ($requireType == 'partner') {
+           error_log(var_export($owner_profile_id));
+            
+            
         } elseif ($requireType == 'status') {
             $region = $this->getUserInput($requireParams[1]);
             $searchString = $this->getUserInput($requireParams[2]);
@@ -282,9 +286,9 @@ class Controller extends CController {
 
         $request = $this->getElasticSearch();
 //populate a Term query to start
-        $must = Sherlock\Sherlock::queryBuilder()->Term()->term($requestString)//$collection_id
+        $should = Sherlock\Sherlock::queryBuilder()->Term()->term($requestString)//$collection_id
                 ->field('couchbaseDocument.doc.id');
-        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->should($should)
                 ->boost(2.5);
         $response = $request->query($bool)->execute();
         error_log($request->toJSON());

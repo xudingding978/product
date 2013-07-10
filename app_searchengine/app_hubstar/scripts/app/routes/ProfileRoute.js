@@ -13,9 +13,9 @@ define([
     //   var kink;
     var ProfileRoute = Ember.Route.extend({
         setupController: function(ProfileController, model) {
-   //    console.log(model.id);
+            //    console.log(model.id);
             ProfileController.setLocalLoginRecrod();
-       //     console.log(model);
+            //     console.log(model);
             ProfileController.setProfile(model.id);
 
             this.controllerFor('application').set('islogin', true);
@@ -24,6 +24,9 @@ define([
             this.controllerFor('searchs').setLoginImge();
             this.controllerFor('application').set('isotherpage', true);
             this.controllerFor('profile').set('switchPhoto', true);
+            setTimeout(function() {
+                $('.nothingHere').attr('style', 'display:none');
+            }, 10);
         },
         events: {
             transitionToCollectionPhoto: function(collection_id) {
@@ -52,7 +55,7 @@ define([
 //        },
         renderTemplate: function() {
             this.render('profile', {
-                outlet: "profiles",
+                outlet: "profile",
                 into: "application"
             });
         }

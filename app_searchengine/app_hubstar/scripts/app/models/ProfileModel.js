@@ -9,7 +9,7 @@ define(
         collections: {embedded: 'always'}
     });
     var ProfileModel = DS.Model.extend({
-        mega: DS.belongsTo('App.Mega', {embedded: 'always'}),
+
         profile_category: DS.attr('string'),
         profile_hero_url: DS.attr('string'),
         profile_pic_url: DS.attr('string'),
@@ -26,12 +26,13 @@ define(
         profile_package_name: DS.attr('string'),
         profile_regoin: DS.attr('string'),
         profile_country: DS.attr('string'),
-        hours: DS.attr('string'),
+        profile_hours: DS.attr('string'),
         profile_areas_serviced: DS.attr('string'),
         profile_website: DS.attr('string'),
         profile_client_name: DS.attr('string'),
         profile_editors: DS.attr('string'),
         profile_creater: DS.attr('string'),
+        profile_partner_ids:  DS.attr('string'),
         owner: DS.attr('string'),
         owner_contact_email: DS.attr('string'),
         owner_contact_cc_emails: DS.attr('string'),

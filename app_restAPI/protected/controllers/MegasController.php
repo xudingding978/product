@@ -16,7 +16,6 @@ class MegasController extends Controller {
 
             $temp = explode("?", $_SERVER['REQUEST_URI']);
             $request_string = $temp [sizeof($temp) - 1];
-//            error_log(var_export($temp, true)."       ".sizeof($temp));
             $response;
 
             if (sizeof($temp) > 1) {
@@ -43,24 +42,6 @@ class MegasController extends Controller {
             $this->createUploadedPhoto($mega);
         }
 
-
-//        $request_arr["mega"]["id"] = str_replace('test', '', $request_arr["mega"]["id"]);
-//        $path = 'this_is/folder_path/';
-//      $s3response = $this->photoSavingToS3($request_arr, $path);
-//        $response = "ok";
-//
-//        error_log(var_export($request_arr, true));
-//  
-//        $request_arr["mega"]['type'] = "photos";
-//        $request_arr["mega"]['photos'][0]['id'] = $request_arr["mega"]["id"];
-//        $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);
-//        header($statusHeader);
-//        header('Content-type: *');
-//        header("Access-Control-Allow-Origin: *");
-//        header('Access-Control-Request-Method: *');
-//        header('Access-Control-Allow-Methods: PUT, POST, OPTIONS, GET');
-//        header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
-//        echo $response;
         $this->sendResponse(204, $request_json);
     }
 
@@ -81,13 +62,17 @@ class MegasController extends Controller {
     }
 
     public function actionUpdate() {
+        $temp = explode("/", $_SERVER['REQUEST_URI']);
+        $id = $temp [sizeof($temp) - 1];
+
         $newRecord = file_get_contents('php://input');
         $newRecord = CJSON::decode($newRecord, true);
+        $newRecord['id'] = $id;
         if ($newRecord['mega']['type'] == 'user') {
             $this->updateUserRecord($newRecord);
         } else {
-
-            $this->updateComment($newRecord);
+            $this->updateMega($newRecord);
+        //    $this->updateComment($newRecord);
         }
     }
 
@@ -164,17 +149,19 @@ class MegasController extends Controller {
 
     public function updateComment($newRecord) {
         try {
-        
+
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
-            $docID = $this->getDomain() . "/" . $id;
-            error_log($docID);
+            $type = $newRecord['mega']['type'];
+            $docID = $this->getDocId($type, $id);
+            ;
             $oldRecord = $cb->get($docID);
             $oldRecord = CJSON::decode($oldRecord, true);
+            $oldRecord['comments'] = null;
             $oldRecord['comments'] = $newRecord['mega']['comments'];
-            if ($cb->set($docID, CJSON::encode($oldRecord))) {
-                $this->sendResponse(204, "");
+            if ($cb->set($docID, CJSON::encode($oldRecord, true))) {
+                $this->sendResponse(204);
             } else {
                 $this->sendResponse(500, "some thing wrong");
             }
@@ -190,8 +177,6 @@ class MegasController extends Controller {
             $docID = substr($_SERVER['HTTP_HOST'], 4) . "/users/" . $id;
             $oldRecord = $cb->get($docID);
             $oldRecord = CJSON::decode($oldRecord, true);
-            error_log(var_export($oldRecord, true));
-
             $oldRecord['user'] = $newRecord['mega']['user'];
             if ($cb->set($docID, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);
@@ -208,23 +193,51 @@ class MegasController extends Controller {
 
             $photoController = new PhotosController();
             $photoController->photoCreate($mega);
-
-            //     $photo_obj->doPhotoResizing($mega);
         }
     }
 
     public function createProfile($mega) {
-        
+
         $cb = $this->couchBaseConnection();
         $id = $mega['id'];
         $domain = $this->getDomain();
         $docID = $domain . "/profiles/" . $id;
-//   error_log(var_export(CJSON::encode($mega), true));
+
         if ($cb->add($docID, CJSON::encode($mega))) {
-            $this->sendResponse(204, "{ render json: @user, status: :ok }");
+            $this->sendResponse(200, "ok");
         } else {
             $this->sendResponse(500, "some thing wrong");
         }
+    }
+
+    public function updateMega($newRecord) {
+        $cb = $this->couchBaseConnection();
+        $id = $newRecord['id'];
+        $type = $newRecord['mega']['type'];
+        $this->getDocId($type, $id);
+        $docID = $this->getDocId($type, $id);
+        $oldRecord = $cb->get($docID);
+        $oldRecord = CJSON::decode($oldRecord, true);
+        $oldRecord['comments'] = $newRecord['mega']['comments'];
+        if (!isset($oldRecord['likes_count']) || $oldRecord['likes_count'] != $newRecord['mega']['likes_count']) {//update count
+            $oldRecord['likes_count'] = $newRecord['mega']['likes_count'];
+            $oldRecord['people_like'] = $newRecord['mega']['people_like'];
+        }
+             if ($cb->set($docID, CJSON::encode($oldRecord))) {
+                $this->sendResponse(204);
+            } else {
+                $this->sendResponse(500, "some thing wrong");
+            }
+    }
+
+    public function getDocId($type, $id) {
+        $docID = "";
+        if ($type == "profile") {
+            $docID = $this->getDomain() . "/profiles/" . $id;
+        } elseif ($type == "photo") {
+            $docID = $this->getDomain() . "/" . $id;
+        }
+        return $docID;
     }
 
 }

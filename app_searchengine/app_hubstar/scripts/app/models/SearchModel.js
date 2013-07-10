@@ -20,7 +20,7 @@ define(
         photo_title: DS.attr('string'),
         profile_id: DS.attr('string'),
         profile_name: DS.attr('string'),
-        profile_cover_url: DS.attr('string'),
+        profile_hero_url: DS.attr('string'),
         photo_title: DS.attr('string'),
         video_title: DS.attr('string'),
         description: DS.attr('string'),

@@ -6,18 +6,61 @@
 
 
 
-<!--
+
+
+
+<div class="plaform_bar">
+    <div style="font-size: 0px; line-height: 0%; width: 0px; border-top: 20px solid red; border-right: 20px solid #f6f6f6;"></div>
 
 
 
 
-<div style="position: fixed;left: 0px;top:30%;height: 400px;width:50px;background-color: black">
-    <ul>
-        <li style="width:auto;height:60px;background-color: gainsboro;"> aaaaaaaa</li>
-        <li style="width:auto;height:60px;background-color: gainsboro;"> dddddddddd</li>
-        <li style="width:auto;height:60px;background-color: gainsboro;"> ffffffffffffff</li>
-        <li style="width:auto;height:60px;background-color: gainsboro;"> ssssssssssssss</li>
-        <li style="width:auto;height:60px;background-color: gainsboro;">xxxxxxxxxxx</li>
-    </ul>
+    <div id="navContainer">
 
-</div>-->
+        <ul id="nav-ul">
+            <li> 
+                <span> <img {{bindAttr src="controller.user.photo_url"}} class="profilepic_user"/></span>
+            </li>
+
+            <li style="margin-top: 20px;"> <span><a href="#"> <i class="icon-eye-open" style="font-size: 20px;"></i></a></span>  
+                <ul>
+                    <li>&nbsp;</li>
+                    {{#each controller.categorys}}
+
+                    <li> <span><a href="#"> {{topic}}</a></span>
+                        <ul>
+                            <li>&nbsp;</li>
+                            {{#each subcate}}
+                            <li> <a href="#"> {{category_topic}}</a>
+                                <ul>
+                                    <li>&nbsp;</li>
+                                    {{#each subcategories}}
+                                    <li> <a href="#" {{action topicSearch search_topic}} >{{search_topic}}</a>
+                                        {{/each}}
+                                </ul>
+                            </li>
+                            {{/each}}
+                        </ul>
+                    </li>
+
+
+                    {{/each}}
+                </ul>
+            </li>
+            <li> <span><a href="#"> <i class="icon-folder-open" style="font-size: 20px;"></i></a></span>   
+                <ul>
+                    <li>&nbsp;</li>
+                    {{#each controller.user.collections}}
+
+                    <li><a  href="{{unbound controller.myUserProfile}}/{{unbound id}}" > {{id}}</a></li>
+
+                    {{/each}}
+                </ul>
+            </li>
+            <li> <span><a href="#"> <i class="icon-question-sign" style="font-size: 20px;"></i></a></span>   
+            </li>
+            <li> <span><a href="#"> <i class="icon-off" style="font-size: 20px;"></i></a></span>   
+            </li>
+        </ul>
+    </div>
+</div>

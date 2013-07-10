@@ -4,7 +4,7 @@ define(["ember"], function(Ember) {
     Router.map(function() {
         this.resource("index", {path: '/'}, function() {
             this.resource("indexIndex", {path: '/'});
-            this.resource("lightBox", {path: '/lightBox/:profile_id'});
+
             this.resource("photo", {path: '/photos/:photo_id'});
             this.resource("article", {path: '/articles/:article_id'});
 //            this.resource("photos", function() {
@@ -21,28 +21,34 @@ define(["ember"], function(Ember) {
 //            });
             this.resource("ideabooks", {path: '/ideabooks/:ideabook_id'});
             this.resource("discussions", {path: '/discussions/:discussion_id'});
-            this.resource("users", {path: '/users/:user_id'});
+        
 
 
-            this.resource("profile", {path: '/profiles/:profile_id'});
+            this.resource("profile", {path: '/profiles/:profile_id'},function(){
+                
+                 this.resource("profileCollection", {path: ':profileCollection_id'});
+            });
             this.resource("profiles", function() {
                 this.resource("profilesIndex", {path: '/'});
                 this.resource("profileNew", {path: '/new'});
-                this.resource("profile", {path: ':profile_id'}, function() {
-                    this.resource("profileIndex", {path: '/'});
-                    this.resource("profileCollection", {path: ':profileCollection_id'});
-
-                });
+//                this.resource("profile", {path: ':profile_id'}, function() {
+//           
+//                    this.resource("profileCollection", {path: ':profileCollection_id'});
+//
+//                });
             });
-
-            this.resource("users", {path: '/users/:user_id'});
+            this.resource("user", {path: '/users/:user_id'},function(){
+                   this.resource("userIndex", {path: '/'});
+                    this.resource("collection", {path: ':collection_id'});
+                
+            });
             this.resource("users", function() {
                 this.resource("usersIndex", {path: '/'});
-                this.resource("user", {path: ':user_id'}, function() {
-                    this.resource("userIndex", {path: '/'});
-                    this.resource("collection", {path: ':collection_id'});
-
-                });
+//                this.resource("user", {path: ':user_id'}, function() {
+//                    this.resource("userIndex", {path: '/'});
+//                    this.resource("collection", {path: ':collection_id'});
+//
+//                });
             });
             this.resource("searchs", {path: "/search"}, function( ) {
                 this.resource("searchIndex", {path: '/'});

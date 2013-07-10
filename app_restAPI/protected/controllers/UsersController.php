@@ -73,10 +73,14 @@ class UsersController extends Controller {
 
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
-            $id = $temp [sizeof($temp) - 1];          
-            $reponse = $cb->get($this->getDomain() . "/users/" . $id);    
+            $id = $temp [sizeof($temp) - 1]; 
+         $doc_id  = $this->getDomain() . "/users/" . $id;
+
+            $reponse = $cb->get($doc_id);    
             $respone_user =  CJSON::decode($reponse, true);
-            $respone_user_data = str_replace("\/", "/", CJSON::encode($respone_user['user'][0]));
+              //          error_log(var_export($respone_user,true));
+            $respone_user_data = CJSON::encode($respone_user['user'][0]);
+
             $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $respone_user_data . '}';
             $this->sendResponse(200, $result);
         } catch (Exception $exc) {

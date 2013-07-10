@@ -115,6 +115,9 @@ define('application', [
     "views/CommentView",
     "views/LoadingSpinnerView",
     "views/PlatformBarView",
+    "views/ItemProfilesView",
+    "views/ProfileCollectionsView",
+    "views/ProfilePartnersView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -136,6 +139,9 @@ define('application', [
     "controllers/ContactController",
     "controllers/CommentController",
     "controllers/TopicSelectionController",
+    "controllers/PlatformBarController",
+    "controllers/ItemProfilesController",
+    "controllers/ProfilePartnersController",
     "app/router",
     "routes/ApplicationRoute",
     "routes/IndexRoute",
@@ -182,6 +188,10 @@ define('application', [
     "models/CollectionModel",
     "models/CommentModel",
     "models/EmailModel",
+    "models/CateModel",
+    "models/SubcateModel",
+    "models/SubcategoriesModel",
+
     "emberData",
     'jquery',
     "bxslider",
@@ -251,6 +261,9 @@ define('application', [
         CommentView,
         LoadingSpinnerView,
         PlatformBarView,
+        ItemProfilesView,
+        ProfileCollectionsView,
+        ProfilePartnersView,
         ApplicationController,
         tabListController,
         DataController,
@@ -272,6 +285,9 @@ define('application', [
         ContactController,
         CommentController,
         TopicSelectionController,
+        PlatformBarController,
+        ItemProfilesController,
+        ProfilePartnersController,
         Router,
         ApplicationRoute,
         IndexRoute,
@@ -317,7 +333,10 @@ define('application', [
         Stat,
         Collection,
         Comment,
-        Email
+        Email,
+        Cate,
+        Subcate,
+        Subcategories
         )
 {
 
@@ -387,6 +406,9 @@ define('application', [
         CommentView: CommentView,
         LoadingSpinnerView: LoadingSpinnerView,
         PlatformBarView: PlatformBarView,
+        ItemProfilesView: ItemProfilesView,
+        ProfileCollectionsView: ProfileCollectionsView,
+        ProfilePartnersView: ProfilePartnersView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
@@ -408,6 +430,9 @@ define('application', [
         ContactController: ContactController,
         CommentController: CommentController,
         TopicSelectionController: TopicSelectionController,
+        PlatformBarController: PlatformBarController,
+        ItemProfilesController: ItemProfilesController,
+        ProfilePartnersController: ProfilePartnersController,
         Router: Router,
         ApplicationRoute: ApplicationRoute,
         IndexRoute: IndexRoute,
@@ -454,6 +479,10 @@ define('application', [
         Collection: Collection,
         Comment: Comment,
         Email: Email,
+        Cate: Cate,
+        Subcate: Subcate,
+        Subcategories: Subcategories,
+
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({
@@ -472,11 +501,7 @@ define('application', [
             App.set('chooseCollection', null);
             App.set('isMansonryPageLoad', false);
             App.set('searchStart', false);
-//            var firstView = App.DiscoveryView.create(),
-//                    secondView = App.MasonryView.create();
-//
-//            App.ConView.pushObject(firstView);
-//            App.ConView.pushObject(secondView);
+
         }
     });
 }

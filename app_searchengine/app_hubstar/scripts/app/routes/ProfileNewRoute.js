@@ -13,16 +13,24 @@ define([
     var NewRoute = Ember.Route.extend({
         renderTemplate: function() {
             this.render('profileNew', {
-                outlet:"profileNew",
+                outlet: "profileNew",
                 into: "application"
             });
         },
+        setupController: function(controller, model) {
+
+            setTimeout(function() {
+                $('.nothingHere').attr('style', 'display:none');
+            }, 10);
+
+
+        },
         model: function() {
+          
             return ProfileModel;
         },
         activate: function() {
-//            $("body").css("overflow", "hidden");
-//            $('#footer').attr("style", "display:none");
+
         },
         deactivate: function() {
 //            $("body").css("overflow", "auto");

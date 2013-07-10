@@ -11,18 +11,7 @@ define([
 
     var ProfilesView = Ember.View.extend({
         template: Ember.Handlebars.compile(profilesTemplate),
-        // controller: ProfilesController,
-//        toggleEditing: function() {
-//        //  alert("toghle");
-//         //   this.get('controller').toggleEditing;
-//            this.get("controller").send("toggleEditing"); 
-//        },
-//        changeTitle: function() {
-//            var new_name = this.$("input").val();
-//            //      alert(new_name);
-//            this.set("profileName", new_name);
-//            this.set('editing', false);
-//        },
+        classNames: ["nothingHere"],
     });
     return ProfilesView;
 });

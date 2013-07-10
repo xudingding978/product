@@ -7,11 +7,9 @@ define([
 
     var CommentView = Ember.View.extend({
         template: Ember.Handlebars.compile(commentTemplate),
+
         didInsertElement: function() {
             $('.user_comment_' + localStorage.loginStatus).attr('style', 'display:block');
-
-
-
         },
 
         openComment: function(id) {

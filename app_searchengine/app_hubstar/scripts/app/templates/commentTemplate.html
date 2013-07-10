@@ -22,7 +22,8 @@
 
         </div>
         <div style="display: inline-block;float: right;">
-            <div class="new-btn" style=""><i class="icon-thumbs-up-alt" {{action addLike model.id}}>&nbsp</i>{{model.likes_count}}</div>
+            <div id="thumbUpBtn_{{unbound model.id}}"  class="new-btn" ><i class="icon-thumbs-up-alt" {{action addLike model.id}}>&nbsp</i>{{model.likes_count}}</div>
+           
             <!--<div class="new-btn" style=""><i class="icon-folder-close-alt">&nbsp</i> </div>-->
         </div>
     </div>
@@ -102,3 +103,5 @@
 {{view App.DeleteFunctionView}}
 
 {{/if}}
+
+ {{isThumbUped model.people_like model.id}}

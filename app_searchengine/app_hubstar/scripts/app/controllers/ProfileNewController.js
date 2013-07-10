@@ -234,6 +234,7 @@ define([
                             profile_country: this.get("country"),
                             profile_hours: "Monday=7:00-late,Tuesday=7:00-late,Wednesday=7:00-late,Thursday=7:00-late,Friday=7:00-late,Saturday=7:00-late,Sunday=closed,Holidays=closed",
                             phone_number: this.get("contact_number"),
+                            profile_partner_ids:[],
                             collections: [],
                             profile_website: this.get("website")
                         });

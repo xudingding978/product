@@ -116,6 +116,8 @@ define('application', [
     "views/LoadingSpinnerView",
     "views/PlatformBarView",
     "views/ItemProfilesView",
+    "views/ProfileCollectionsView",
+    "views/ProfilePartnersView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -188,6 +190,7 @@ define('application', [
     "models/CateModel",
     "models/SubcateModel",
     "models/SubcategoriesModel",
+    "models/PartnerModel",
     "emberData",
     'jquery',
     "bxslider",
@@ -258,6 +261,8 @@ define('application', [
         LoadingSpinnerView,
         PlatformBarView,
         ItemProfilesView,
+        ProfileCollectionsView,
+        ProfilePartnersView,
         ApplicationController,
         tabListController,
         DataController,
@@ -329,7 +334,8 @@ define('application', [
         Email,
         Cate,
         Subcate,
-        Subcategories
+        Subcategories,
+        Partner
         )
 {
 
@@ -400,6 +406,8 @@ define('application', [
         LoadingSpinnerView: LoadingSpinnerView,
         PlatformBarView: PlatformBarView,
         ItemProfilesView: ItemProfilesView,
+        ProfileCollectionsView: ProfileCollectionsView,
+        ProfilePartnersView: ProfilePartnersView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
@@ -472,6 +480,7 @@ define('application', [
         Cate: Cate,
         Subcate: Subcate,
         Subcategories: Subcategories,
+        Partner: Partner,
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({

@@ -23,13 +23,12 @@ define([
                     isFitWidth: true
                 });
             });
-
+            $('#defualt').addClass('selected-user-stats');
             $('#user-stats > li').click(function() {
                 $('#user-stats > li').removeClass('selected-user-stats');
                 $(this).addClass('selected-user-stats');
 
 
-                return false;
             });
 
 

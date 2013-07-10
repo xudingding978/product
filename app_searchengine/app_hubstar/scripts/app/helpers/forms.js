@@ -33,6 +33,25 @@ define(['ember', 'handlebars', 'moment'],
                     return moment(date).fromNow();
                 }
             });
+            Ember.Handlebars.registerBoundHelper('isThumbUped', function(userids, megaId) {
+                if (userids === null || userids === undefined)
+                {
+                    userids = "";
+                }
+
+                setTimeout(function() {
+                    if (userids.indexOf(localStorage.loginStatus) !== -1)
+                    {
+                        console.log(megaId);
+                        var div_id = "#thumbUpBtn_" + megaId;
+                        $(div_id).removeClass("new-btn");
+
+                    }
+                }, 20);
+
+
+
+            });
 
 //            Ember.Handlebars.registerHelper('comemntIDStringifyFunc', function(data) {
 //

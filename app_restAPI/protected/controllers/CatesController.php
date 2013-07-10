@@ -34,10 +34,6 @@ class CatesController extends Controller {
 
         $response = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":' . CJSON::encode($topicSelection, true) . '}';
 
-
-      //  error_log('wwwwwwwwwwww');
-
-    error_log(var_export($response, true));
         $this->sendResponse(200, $response);
     }
 

@@ -63,10 +63,12 @@ define(['models/MegaModel',
                     this.selectedImage(this.get('selectedMega').id);
                 },
                 getInitData: function(megaObject) {
+
+                    var photoObj = megaObject.get('photo').objectAt(0);
                     this.set("currentUser", App.User.find(localStorage.loginStatus));
                     this.set("content", []);
-                    this.set("selectedMega", megaObject._data.hasMany.photo[0].data);
-                    this.get("content").pushObject(megaObject._data.hasMany.photo[0].data);
+                    this.set("selectedMega", photoObj);
+                    this.get("content").pushObject(photoObj);
                     this.set('megaResouce', MegaModel.find(megaObject.id)._data.attributes);
                     this.set("photo_album_id", "album_" + this.get('selectedMega').id);
                     this.set("photo_thumb_id", "thumb_" + this.get('selectedMega').id);

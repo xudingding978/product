@@ -18,9 +18,11 @@
     <div id="navContainer">
 
         <ul id="nav-ul">
-            <li> <span> <img {{bindAttr src="controller.user.photo_url"}} class="profilepic_user"/></span>   </li>
+            <li> 
+                <span> <img {{bindAttr src="controller.user.photo_url"}} class="profilepic_user"/></span>
+            </li>
 
-            <li> <span><a href="#"> <i class="icon-eye-open"></i></a></span>  
+            <li style="margin-top: 20px;"> <span><a href="#"> <i class="icon-eye-open" style="font-size: 20px;"></i></a></span>  
                 <ul>
                     <li>&nbsp;</li>
                     {{#each controller.categorys}}
@@ -35,11 +37,9 @@
                                     {{#each subcategories}}
                                     <li> <a href="#" {{action topicSearch search_topic}} >{{search_topic}}</a>
                                         {{/each}}
-
                                 </ul>
                             </li>
                             {{/each}}
-
                         </ul>
                     </li>
 
@@ -47,7 +47,7 @@
                     {{/each}}
                 </ul>
             </li>
-            <li> <span><a href="#"> <i class="icon-folder-open"></i></a></span>   
+            <li> <span><a href="#"> <i class="icon-folder-open" style="font-size: 20px;"></i></a></span>   
                 <ul>
                     <li>&nbsp;</li>
                     {{#each controller.user.collections}}

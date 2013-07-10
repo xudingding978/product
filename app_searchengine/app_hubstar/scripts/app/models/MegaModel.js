@@ -43,6 +43,7 @@ define(
         owner_contact_bcc_emails: DS.attr('string'),
         people_like: DS.attr('string'),
         region: DS.attr('string'),
+        suburb: DS.attr('string'),
         status_id: DS.attr('string'),
         subcategories:DS.attr('string'),
         timezone: DS.attr('string'),

@@ -191,6 +191,10 @@ class Controller extends CController {
             $collection_id = $this->getUserInput($requireParams[1]);
             $owner_profile_id = $this->getUserInput($requireParams[2]);
             $response = $this->performRawSearch($returnType, $collection_id, $owner_profile_id);
+        } elseif ($requireType == 'partner') {
+           error_log(var_export($owner_profile_id));
+            
+            
         } elseif ($requireType == 'status') {
             $region = $this->getUserInput($requireParams[1]);
             $searchString = $this->getUserInput($requireParams[2]);

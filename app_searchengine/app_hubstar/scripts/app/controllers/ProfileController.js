@@ -37,7 +37,7 @@ define([
                 currentUserID: "",
                 collections: [],
                 selectedCollection: "",
-                needs: ["application", "contact"],
+                needs: ["application", "contact", "profilePartners"],
                 profile_bg_url: "",
                 profile_hero_url: "",
                 profile_pic_url: "",
@@ -303,12 +303,13 @@ define([
                     }
                 },
                 selectCollection: function() {
-     
+
                     this.set('partnerTag', false);
                     this.set('collectionTag', true);
                 },
-                selectPartner: function() {
- 
+                selectPartner: function(model) {
+        //            console.log(model.id);
+                    this.get('controllers.profilePartners').getClientId(model.id);
                     this.set('partnerTag', true);
                     this.set('collectionTag', false);
                 },

@@ -10,7 +10,7 @@
             <i class="icon-upload" style="color: #555; text-shadow: 0 1px 0 rgba(255,255,255,0.8); font-size: 20px; margin: 15px 0; display: inline-block;"></i>
             <ul class="user-stats" id="user-stats">
                 <li id="defualt" ><a {{action selectCollection}}> Collections</a></li>
-                <li ><a {{action selectPartner}}>Partners</a></li>
+                <li ><a {{action selectPartner this}}>Partners</a></li>
                 <li ><a {{action selectFollower}}>Followers</a></li>
             </ul>
 
@@ -20,7 +20,7 @@
         {{/if}} 
 
         {{#if partnerTag}}
-        {{view App.ProfilePartnersView}}
+        {{render profilePartners}}
         {{/if}} 
 
         <!--END SECTION CONTROL BAR-->

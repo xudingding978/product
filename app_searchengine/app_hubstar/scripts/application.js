@@ -141,6 +141,7 @@ define('application', [
     "controllers/TopicSelectionController",
     "controllers/PlatformBarController",
     "controllers/ItemProfilesController",
+    "controllers/ProfilePartnersController",
     "app/router",
     "routes/ApplicationRoute",
     "routes/IndexRoute",
@@ -190,7 +191,7 @@ define('application', [
     "models/CateModel",
     "models/SubcateModel",
     "models/SubcategoriesModel",
-    "models/PartnerModel",
+
     "emberData",
     'jquery',
     "bxslider",
@@ -286,6 +287,7 @@ define('application', [
         TopicSelectionController,
         PlatformBarController,
         ItemProfilesController,
+        ProfilePartnersController,
         Router,
         ApplicationRoute,
         IndexRoute,
@@ -334,8 +336,7 @@ define('application', [
         Email,
         Cate,
         Subcate,
-        Subcategories,
-        Partner
+        Subcategories
         )
 {
 
@@ -431,6 +432,7 @@ define('application', [
         TopicSelectionController: TopicSelectionController,
         PlatformBarController: PlatformBarController,
         ItemProfilesController: ItemProfilesController,
+        ProfilePartnersController: ProfilePartnersController,
         Router: Router,
         ApplicationRoute: ApplicationRoute,
         IndexRoute: IndexRoute,
@@ -480,7 +482,7 @@ define('application', [
         Cate: Cate,
         Subcate: Subcate,
         Subcategories: Subcategories,
-        Partner: Partner,
+
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({

@@ -19,15 +19,6 @@ define(['ember', 'handlebars', 'moment'],
             });
 
 
-            Ember.Handlebars.registerHelper('ifCond', function(v1, v2, options) {
-                alert(v1);
-                alert(ProfileModel.find('flooringxtra').get('type'));
-                v1 = ProfileModel.find('flooringxtra').get('type');
-                if (v1 == v2) {
-                    return options.fn(this);
-                }
-                return options.inverse(this);
-            });
             Handlebars.registerHelper('checkInputFilesSize', function(object) {
 
                 return new Handlebars.SafeString(
@@ -39,7 +30,12 @@ define(['ember', 'handlebars', 'moment'],
                 if (date === "" || date === null) {
                     return "";
                 } else {
-                    return moment(date).fromNow();
+                    var matches = date.match('^[0-9]+$');
+                    if (matches !== null) {
+                        return moment.unix(date).fromNow();
+                    } else {
+                        return moment(date).fromNow();
+                    }
                 }
             });
             Ember.Handlebars.registerBoundHelper('isThumbUped', function(userids, megaId) {
@@ -51,7 +47,7 @@ define(['ember', 'handlebars', 'moment'],
                 setTimeout(function() {
                     if (userids.indexOf(localStorage.loginStatus) !== -1)
                     {
-                        console.log(megaId);
+                        //           console.log(megaId);
                         var div_id = "#thumbUpBtn_" + megaId;
                         $(div_id).removeClass("new-btn");
 

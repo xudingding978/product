@@ -10,16 +10,16 @@
 
 
 
-
+{{#each model.profile}}
 <div class="box col2 noStyle1">
 
     <div class="masonry-object">
         <div class="masonry-object_profile-cover">
             <div class="masonry-object_cover-wapper">
-                <img {{bindAttr src="profile_hero_url"}}/>{{controller}}
+                <img {{bindAttr src="profile_hero_url"}}/>
             </div>
             <div>
-                <div class="usersobject-hoverarea easing" style="position: relative;width: 150px;height: 150px; margin: auto; top: 48px;">
+                <div class="usersobject-hoverarea easing" style="position: relative;width: 150px;height: 150px; margin: auto; bottom:102px">
                     <div class="usersobject-hoverarea_bg"></div>
                     <div  type="button" class="new-btn green-btn object-followbtn-position" style="left: 50px;">
                         Follow
@@ -124,3 +124,4 @@
 </div>
 
 
+{{/each}}

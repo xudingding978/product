@@ -17,19 +17,21 @@
 
     <div id="navContainer">
 
-        <ul class="nav-ul">
+        <ul id="nav-ul">
             <li> <span> <img {{bindAttr src="controller.user.photo_url"}} class="profilepic_user"/></span>   </li>
 
             <li> <span><a href="#"> <i class="icon-eye-open"></i></a></span>  
                 <ul>
+                    <li>&nbsp;</li>
                     {{#each controller.categorys}}
-
 
                     <li> <span><a href="#"> {{topic}}</a></span>
                         <ul>
+                            <li>&nbsp;</li>
                             {{#each subcate}}
                             <li> <a href="#"> {{category_topic}}</a>
                                 <ul>
+                                    <li>&nbsp;</li>
                                     {{#each subcategories}}
                                     <li> <a href="#" {{action topicSearch search_topic}} >{{search_topic}}</a>
                                         {{/each}}
@@ -47,10 +49,11 @@
             </li>
             <li> <span><a href="#"> <i class="icon-folder-open"></i></a></span>   
                 <ul>
+                    <li>&nbsp;</li>
                     {{#each controller.user.collections}}
-                    
+
                     <li><a  href="{{unbound controller.myUserProfile}}/{{unbound id}}" > {{id}}</a></li>
-                    
+
                     {{/each}}
                 </ul>
             </li>

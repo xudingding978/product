@@ -42,7 +42,7 @@ class PhotoCommand extends Controller_admin {
 //                break;
                 
                 $obj_arr = $this->structureArray($photo_data_arr[$i]);
-//                print_r($obj_arr); 
+                print_r($obj_arr); 
 //                break;
                 
                 if ($this->importMegaObj($obj_arr)) {
@@ -288,7 +288,6 @@ class PhotoCommand extends Controller_admin {
             "photo_image_hero_url" => $hero_url,
             "photo_image_thumbnail_url" => $thumbnail_url,
             "photo_image_preview_url" => $preview_url,
-            "photo_image_linkto" => null,
             "photo_type" => "image/jpeg",
             "photo_collection_name" => $article->headline,
             "photo_categories" => null,

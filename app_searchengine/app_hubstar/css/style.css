@@ -4,13 +4,17 @@
     left: 0px;
     top:30%;
     z-index:20;
+    min-width: 10px;
     background-image:url(../../../images/reflection.png);
     background-repeat:no-repeat;
     background-attachment:local;
     background-size: 100% 80%;
 }
 
+.plaform_bar:hover #navContainer{
 
+display:block;
+}
 
 #navContainer {
     margin:0;
@@ -29,6 +33,7 @@
     margin: 0;
     padding: 15px 0;
     text-align: center;
+
     width: 100px;
     overflow: visible;
     box-shadow: 0 0 5px #333;

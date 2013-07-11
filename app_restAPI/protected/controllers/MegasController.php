@@ -19,7 +19,6 @@ class MegasController extends Controller {
             $response;
 
             if (sizeof($temp) > 1) {
-
                 $response = $this->getRequestResult($request_string, self::JSON_RESPONSE_ROOT_PLURAL);
                 //    $response = $this->getRequestResultByID(self::JSON_RESPONSE_ROOT_PLURAL, $request_string);
             } else {//default search       
@@ -217,8 +216,8 @@ class MegasController extends Controller {
         $this->getDocId($type, $id);
         $docID = $this->getDocId($type, $id);
         $oldRecord = $cb->get($docID);
-        $oldRecord = CJSON::decode($oldRecord, true);
-        $oldRecord['comments'] = $newRecord['mega']['comments'];
+        $oldRecord = CJSON::decode($oldRecord, true);     
+        array_unshift($oldRecord['comments'],$newRecord['mega']['comments'][0]);
         if (!isset($oldRecord['likes_count']) || $oldRecord['likes_count'] != $newRecord['mega']['likes_count']) {//update count
             $oldRecord['likes_count'] = $newRecord['mega']['likes_count'];
             $oldRecord['people_like'] = $newRecord['mega']['people_like'];
@@ -239,6 +238,7 @@ class MegasController extends Controller {
         }
         return $docID;
     }
+      
 
 }
 

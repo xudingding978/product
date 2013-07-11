@@ -42,7 +42,7 @@ define([
                 profile_hero_url: "",
                 profile_pic_url: "",
                 hours: [],
-                follow_status: "follow",
+                follow_status: "Follow",
                 is_authentic_user: false,
                 init: function() {
 
@@ -253,9 +253,7 @@ define([
                     this.set('contactChecking', false);
                 },
                 uploadImage: function() {
-
                     var user = this.getCurrentClient(this.get('currentUserID'));
-                    console.log(user.get("profile_bg_url"));
                     if ($('.background').val() !== "") {
                         user.set("profile_bg_url", $('.background').val());
                     }
@@ -286,32 +284,39 @@ define([
                     if (authenticUsers.indexOf(email) !== -1) {
                         this.set('is_authentic_user', true);
                     }
+                    else if (email.indexOf('@trendsideas.com') !== -1) {
+                        this.set('is_authentic_user', true);
+                    }
                     else {
                         this.set('is_authentic_user', false);
                     }
                 },
-
                 isFollowed: function()
                 {
                     if (this.checkFollowStatus())
                     {
-                        this.set('follow_status', "following");
+                        this.set('follow_status', "Following");
                     }
                     else {
-                        this.set('follow_status', "followed");
+                        this.set('follow_status', "Follow");
                     }
                 },
                 followThisProfile: function() {
-                    if (this.checkFollowStatus()) {
+                    if (!this.checkFollowStatus()) {
                         var currentUser = App.User.find(localStorage.loginStatus);
                         var commenter_profile_pic_url = currentUser.get('photo_url');
                         var commenter_id = currentUser.get('id');
                         var name = currentUser.get('display_name');
                         var date = new Date();
-                        var tempComment = App.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url,
-                            "commenter_id": commenter_id, "name": name, "content": null, "time_stamp": date.toString(), "is_delete": false});
+                        var tempComment = App.Follower.createRecord({"follower_profile_pic_url": commenter_profile_pic_url,
+                            "follower_id": commenter_id, "name": name, "time_stamp": date.toString(), "is_delete": false});
+                        tempComment.store.save();
                         this.get("model").get("followers").insertAt(0, tempComment);
-                        this.get("model").store.save();
+                        this.set('follow_status', "following");
+                    }
+                    else {
+                        //dont delete this line
+                        //         this.unfollow(); 
                     }
                 },
                 checkFollowStatus: function()
@@ -319,7 +324,7 @@ define([
                     var isFollow = false;
                     var followers = this.get("model").get("followers");
                     for (var i = 0; i < followers.get('length'); i++) {
-                        var follower_id = followers.get("content").objectAt(i).data.commenter_id;
+                        var follower_id = followers.get("content").objectAt(i).data.follower_id;
                         if (follower_id === localStorage.loginStatus)
                         {
                             isFollow = true;
@@ -328,9 +333,18 @@ define([
                     }
                     return isFollow;
                 },
-
+                unfollow: function() {
+                    var currentUser = App.User.find(localStorage.loginStatus);
+                    var commenter_profile_pic_url = currentUser.get('photo_url');
+                    var commenter_id = currentUser.get('id');
+                    var name = currentUser.get('display_name');
+                    var date = new Date();
+                    var tempComment = App.Follower.createRecord({"follower_profile_pic_url": commenter_profile_pic_url,
+                        "follower_id": commenter_id, "name": name, "time_stamp": date.toString(), "is_delete": false});
+                    //dont delete this line
+                    //      tempComment.store.commit();
+                },
                 selectCollection: function() {
-
                     this.set('partnerTag', false);
                     this.set('collectionTag', true);
                 },

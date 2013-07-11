@@ -89,7 +89,7 @@ define(['models/MegaModel',
                 addRelatedData: function(mega)
                 {
                     var collection_id = mega.get("collection_id");
-                    var owner_profile_id = mega.get("owner_profile_id");
+                    var owner_profile_id = mega.get("owner_id");
                     var isProfileIDExist = this.isParamExist(owner_profile_id);
                     var isCollectionIDExist = this.isParamExist(collection_id);
                     var that = this;

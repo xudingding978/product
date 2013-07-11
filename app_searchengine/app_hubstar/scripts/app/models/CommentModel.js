@@ -10,9 +10,7 @@ define('models/CommentModel',
                 content: DS.attr('string'),
                 time_stamp: DS.attr('string'),
                 is_delete: DS.attr('boolean'),
-//                fomate_time_stamp: function() {
-//                    return "user_comment_" +this.get('time_stamp').split(' ').join('_');
-//                }.property(),
+
                 didLoad: function() {
 
                 }

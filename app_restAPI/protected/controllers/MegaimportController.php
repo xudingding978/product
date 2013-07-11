@@ -88,7 +88,7 @@ class MegaimportController extends Controller {
         
         try {
             $cb = $this->couchBaseConnection_production();
-            if ($cb->add($id, CJSON::encode($request_arr))) {
+            if ($cb->set($id, CJSON::encode($request_arr))) {
                 $response="ok";
             } else {
                 error_log("inport article faill, ID:". $request_arr["id"]);

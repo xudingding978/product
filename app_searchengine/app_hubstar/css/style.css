@@ -9,24 +9,27 @@
     background-repeat:no-repeat;
     background-attachment:local;
     background-size: 100% 80%;
+    
+    
+       box-shadow: 0 0 15px #fff;
+    border-radius: 0 10px 10px 0;
+
+    background-image: -webkit-gradient( linear, left top, left bottom, from(rgba(20,20,20,0.2)), to(rgba(40,40,40,0.7)));
 }
 
 .plaform_bar:hover #navContainer{
 
-display:block;
+      opacity: 1;
 }
 
 #navContainer {
     margin:0;
     padding:15px 0;
-
+    opacity: 0;
     text-align:center;
     width:10px;
     overflow: hidden;
-    box-shadow: 0 0 15px #fff;
-    border-radius: 0 10px 10px 0;
 
-    background-image: -webkit-gradient( linear, left top, left bottom, from(rgba(20,20,20,0.2)), to(rgba(40,40,40,0.7)));
 }
 
 #navContainer:hover {

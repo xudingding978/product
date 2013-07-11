@@ -1041,3 +1041,237 @@ div.loading-visible{
 
 }
 
+
+#blurringTextG1{
+    width: 128px;
+    position: relative;
+    top: -40px;
+    left: 60px;
+}
+
+.blurringTextG1{
+    color:transparent;
+    ;
+    font-family:Arial;
+    font-size:18px;
+    text-decoration:none;
+    font-weight:bold;
+    font-style:normal;
+    float:left;
+    text-shadow: #555555 0 0 0;
+    -moz-animation-name:bounce_blurringTextG;
+    -moz-animation-duration:1.82s;
+    -moz-animation-iteration-count:infinite;
+    -moz-animation-direction:linear;
+    -webkit-animation-name:bounce_blurringTextG;
+    -webkit-animation-duration:1.82s;
+    -webkit-animation-iteration-count:infinite;
+    -webkit-animation-direction:linear;
+    -ms-animation-name:bounce_blurringTextG;
+    -ms-animation-duration:1.82s;
+    -ms-animation-iteration-count:infinite;
+    -ms-animation-direction:linear;
+    -o-animation-name:bounce_blurringTextG;
+    -o-animation-duration:1.82s;
+    -o-animation-iteration-count:infinite;
+    -o-animation-direction:linear;
+    animation-name:bounce_blurringTextG;
+    animation-duration:1.82s;
+    animation-iteration-count:infinite;
+    animation-direction:linear;
+}
+
+@-moz-keyframes bounce_blurringTextG1{
+    0%{
+    text-shadow: #555555 0 0 0;
+}
+
+50%{
+    text-shadow: #FFFFFF 0 0 20px;
+}
+
+100%{
+    text-shadow: #555555 0 0 0;
+}
+
+}
+
+@-webkit-keyframes bounce_blurringTextG1{
+    0%{
+    text-shadow: #555555 0 0 0;
+}
+
+50%{
+    text-shadow: #FFFFFF 0 0 20px;
+}
+
+100%{
+    text-shadow: #555555 0 0 0;
+}
+
+}
+
+@-ms-keyframes bounce_blurringTextG1{
+    0%{
+    text-shadow: #555555 0 0 0;
+}
+
+50%{
+    text-shadow: #FFFFFF 0 0 20px;
+}
+
+100%{
+    text-shadow: #555555 0 0 0;
+}
+
+}
+
+@-o-keyframes bounce_blurringTextG1{
+    0%{
+    text-shadow: #555555 0 0 0;
+}
+
+50%{
+    text-shadow: #FFFFFF 0 0 20px;
+}
+
+100%{
+    text-shadow: #555555 0 0 0;
+}
+
+}
+
+@keyframes bounce_blurringTextG1{
+    0%{
+    text-shadow: #555555 0 0 0;
+}
+
+50%{
+    text-shadow: #FFFFFF 0 0 20px;
+}
+
+100%{
+    text-shadow: #555555 0 0 0;
+}
+
+}
+
+
+
+
+#blurringTextG{
+    width: 180px;
+    margin: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 43%;
+}
+
+.blurringTextG{
+    color:transparent;
+    ;
+    font-family:Arial;
+    font-size:13px;
+    text-decoration:none;
+    font-weight:bold;
+    font-style:normal;
+    float:left;
+    text-shadow: #555555 0 0 0;
+    -moz-animation-name:bounce_blurringTextG;
+    -moz-animation-duration:2.31s;
+    -moz-animation-iteration-count:infinite;
+    -moz-animation-direction:linear;
+    -webkit-animation-name:bounce_blurringTextG;
+    -webkit-animation-duration:2.31s;
+    -webkit-animation-iteration-count:infinite;
+    -webkit-animation-direction:linear;
+    -ms-animation-name:bounce_blurringTextG;
+    -ms-animation-duration:2.31s;
+    -ms-animation-iteration-count:infinite;
+    -ms-animation-direction:linear;
+    -o-animation-name:bounce_blurringTextG;
+    -o-animation-duration:2.31s;
+    -o-animation-iteration-count:infinite;
+    -o-animation-direction:linear;
+    animation-name:bounce_blurringTextG;
+    animation-duration:2.31s;
+    animation-iteration-count:infinite;
+    animation-direction:linear;
+}
+
+@-moz-keyframes bounce_blurringTextG{
+    0%{
+    text-shadow: #555555 0 0 0;
+}
+
+50%{
+    text-shadow: #FFFFFF 0 0 20px;
+}
+
+100%{
+    text-shadow: #555555 0 0 0;
+}
+
+}
+
+@-webkit-keyframes bounce_blurringTextG{
+    0%{
+    text-shadow: #555555 0 0 0;
+}
+
+50%{
+    text-shadow: #FFFFFF 0 0 20px;
+}
+
+100%{
+    text-shadow: #555555 0 0 0;
+}
+
+}
+
+@-ms-keyframes bounce_blurringTextG{
+    0%{
+    text-shadow: #555555 0 0 0;
+}
+
+50%{
+    text-shadow: #FFFFFF 0 0 20px;
+}
+
+100%{
+    text-shadow: #555555 0 0 0;
+}
+
+}
+
+@-o-keyframes bounce_blurringTextG{
+    0%{
+    text-shadow: #555555 0 0 0;
+}
+
+50%{
+    text-shadow: #FFFFFF 0 0 20px;
+}
+
+100%{
+    text-shadow: #555555 0 0 0;
+}
+
+}
+
+@keyframes bounce_blurringTextG{
+    0%{
+    text-shadow: #555555 0 0 0;
+}
+
+50%{
+    text-shadow: #FFFFFF 0 0 20px;
+}
+
+100%{
+    text-shadow: #555555 0 0 0;
+}
+
+}
+

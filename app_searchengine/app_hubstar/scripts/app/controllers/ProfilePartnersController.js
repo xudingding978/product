@@ -17,6 +17,9 @@ define(["ember"], function(Ember) {
             this.set('content', data);
 
 
+        },
+        deletePartner: function(model) {
+            console.log(model.id);
         }
     }
     );

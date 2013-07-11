@@ -2207,3 +2207,57 @@ in /home/devbox/NetBeansProjects/hubstar/app_administrator/index.php (20)
                                     inner join  dbo.HeliumMedia on
                                    Trends.dbo.ArticleImages  = dbo.HeliumMedia.heliumId and Trends.dbo.ArticleImages.id >80087
                                     order by dbo.ArticleImages.id asc.
+2013/07/11 10:37:32 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY000]: General error: 102 General SQL Server error: Check messages from the SQL Server [102] (severity 15) [(null)]. The SQL statement executed was: select 
+                                    Bs.*, IR.regionId as region, Pu."name" as publication
+                                 from 
+                                    dbo.Publications as Pu,
+                                    dbo.Books as Bs,
+                                    dbo.SparkJobInternalReferenceMaps as SJIRM,
+                                    dbo.Articles as Ar,
+                                    dbo.InternalReferences as IR
+                                where 
+                                    Bs.internalReferenceId = SJIRM.internalReferenceId 
+                                and
+                                    IR.id = SJIRM.internalReferenceId
+                                and
+                                    Bs.PublicationId = Pu.id
+                                and
+                                    SJIRM.sparkJobId = Ar.sparkJobId
+                                and
+                                    Ar.id = 5448.
+2013/07/11 10:41:51 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY000]: General error: 102 General SQL Server error: Check messages from the SQL Server [102] (severity 15) [(null)]. The SQL statement executed was: select 
+                                    Bs.*, IR.regionId as region, Pu."name" as publication
+                                 from 
+                                    dbo.Publications as Pu,
+                                    dbo.Books as Bs,
+                                    dbo.SparkJobInternalReferenceMaps as SJIRM,
+                                    dbo.Articles as Ar,
+                                    dbo.InternalReferences as IR
+                                where 
+                                    Bs.internalReferenceId = SJIRM.internalReferenceId 
+                                and
+                                    IR.id = SJIRM.internalReferenceId
+                                and
+                                    Bs.PublicationId = Pu.id
+                                and
+                                    SJIRM.sparkJobId = Ar.sparkJobId
+                                and
+                                    Ar.id = 5448.
+2013/07/11 10:44:28 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY000]: General error: 102 General SQL Server error: Check messages from the SQL Server [102] (severity 15) [(null)]. The SQL statement executed was: select 
+                                    Bs.*, IR.regionId as region, Pu."name" as publication
+                                 from 
+                                    dbo.Publications as Pu,
+                                    dbo.Books as Bs,
+                                    dbo.SparkJobInternalReferenceMaps as SJIRM,
+                                    dbo.Articles as Ar,
+                                    dbo.InternalReferences as IR
+                                where 
+                                    Bs.internalReferenceId = SJIRM.internalReferenceId 
+                                and
+                                    IR.id = SJIRM.internalReferenceId
+                                and
+                                    Bs.PublicationId = Pu.id
+                                and
+                                    SJIRM.sparkJobId = Ar.sparkJobId
+                                and
+                                    Ar.id = 5448.

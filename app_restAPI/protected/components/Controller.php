@@ -191,10 +191,10 @@ class Controller extends CController {
             $response = $this->performRawSearch($returnType, $collection_id, $owner_profile_id);
         } elseif ($requireType == 'partner') {
 
-            $profile_id = $this->getUserInput($requireParams[1]);
-            $partner_id = $this->getUserInput($requireParams[2]);
-            error_log($partner_id);
-            $response = $this->getProfilePartner($returnType, $profile_id, $partner_id);
+            $partner_id_raw = $this->getUserInput($requireParams[1]);
+            $partner_id = str_replace("%2C", ",", $partner_id_raw);
+            //     error_log(str_replace("%2C", ",", $returnType));
+            $response = $this->getProfilePartner($returnType, $partner_id);
             //  error_log(var_export($requireType, true));
         } elseif ($requireType == 'status') {
             $region = $this->getUserInput($requireParams[1]);
@@ -301,15 +301,35 @@ class Controller extends CController {
         return $results;
     }
 
-    protected function getProfilePartner($returnType, $profile_id, $partner_id) {
+    protected function getProfilePartner($returnType, $partner_id) {
 
         $request = $this->getElasticSearch();
-        $must = Sherlock\Sherlock::queryBuilder()->Term()->term($partner_id)//$collection_id
-                ->field('couchbaseDocument.doc.profile.id');
-        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)
-                ->boost(2.5);
-        $response = $request->query($bool)->execute();
-        error_log(var_export($response, true));
+        $termQuery = Sherlock\Sherlock::queryBuilder()->Raw('{
+                "bool": {
+                    "must": [
+                        {
+                            "query_string": {
+                                "default_field": "couchbaseDocument.doc.profile.id",
+                                "query": "' .$partner_id . '"
+                            }
+                        }
+                    ]
+                }
+    
+            }');
+        $response = $request->query($termQuery)->execute();
+
+
+        $results = '{"' . $returnType . '":[';
+        $i = 0;
+        foreach ($response as $hit) {
+
+            $results .= CJSON::encode($hit['source'] ['doc']);
+            if (++$i !== count($response)) {
+                $results .= ',';
+            }
+        }
+        $results .= ']}';
 
         return $results;
     }

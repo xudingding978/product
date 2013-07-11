@@ -1,17 +1,24 @@
+<div id="masonry_wrapper" style="min-height:300px;margin-top: 100px;">
+    <div id="masonry_profile_partner_container" class=" centered clearfix noStyle1">
 
 
 
 
+        {{#each  content}}
+        {{render itemProfiles this}}
 
-{{#each  content}}
-{{view App.ItemView}}
-<script>
-    $(function() {
-        var $container = $('#masonry_container');
-        window.setTimeout(function() {
-            $container.masonry();
-            $container.masonry('reload');
-        }, 1000);
-    });
-</script>
-{{/each}}
+
+        <script>
+            $(function() {
+                var $container = $('#masonry_profile_partner_container');
+                window.setTimeout(function() {
+                    $container.masonry();
+                    $container.masonry('reload');
+                }, 1000);
+            });
+        </script>
+        {{/each}}
+
+    </div> <!-- #container -->
+</div><!-- #wrapper -->
+

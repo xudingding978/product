@@ -6,10 +6,9 @@ define([
     Ember.TEMPLATES["deletefunction"] = Ember.Handlebars.compile(deletefunctionTemplate);
 
     var DeleteFunctionView = Ember.View.extend({
-
         template: Ember.Handlebars.compile(deletefunctionTemplate),
         didInsertElement: function() {
-         //   this.$().hide().show('fast');
+            //   this.$().hide().show('fast');
         },
         deleteSelection: function() {
             var controller = this.get('controller');
@@ -33,10 +32,16 @@ define([
                 controller.deleteSelectedCollection();
 
             }
-             else if (controller._debugContainerKey.indexOf("comment") !== -1) {
+            else if (controller._debugContainerKey.indexOf("comment") !== -1) {
 
 
                 controller.deleteComment();
+
+            }
+            else if (controller._debugContainerKey.indexOf("profilePartners") !== -1) {
+
+
+                controller.deletePartner();
 
             }
             else {
@@ -66,6 +71,12 @@ define([
 
             }
             else if (controller._debugContainerKey.indexOf("comment") !== -1) {
+
+
+                controller.cancelDelete();
+
+            }
+             else if (controller._debugContainerKey.indexOf("profilePartners") !== -1) {
 
 
                 controller.cancelDelete();

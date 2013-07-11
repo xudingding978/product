@@ -24,6 +24,7 @@ define([
             ProfileController.set('contactChecking', false);
             ProfileController.set('collectionTag', true);
             ProfileController.set('partnerTag', false);
+        
 /*************************            partner cehcking           */   
 
 

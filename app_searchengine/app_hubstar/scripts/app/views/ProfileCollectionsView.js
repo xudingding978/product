@@ -1,35 +1,17 @@
 define([
     "ember",
-    "text!templates/masonryCollectionTemplate.html",
-    'jquery',
-    'helpers',
-    'jquery.masonry'
-], function(Ember, masonryCollectionTemplate) {
+    "text!templates/profileCollectionsTemplate.html"
+], function(Ember, profileCollectionsTemplate) {
 
-    Ember.TEMPLATES["masonryCollection"] = Ember.Handlebars.compile(masonryCollectionTemplate);
-    var MasonryCollectionView = Ember.View.extend({
-        template: Ember.Handlebars.compile(masonryCollectionTemplate),
-        didInsertElement: function() {
+    Ember.TEMPLATES["profileCollections"] = Ember.Handlebars.compile(profileCollectionsTemplate);
 
-
-            $(function() {
-                $('#masonry_user_container').masonry({
-                    itemSelector: '.box',
-                    columnWidth: 0,
-                    isInitLayout: false,
-                    isFitWidth: true
-                });
-            });
-
-
-
-        },
+    var ProfileCollectionsView = Ember.View.extend({
+        template: Ember.Handlebars.compile(profileCollectionsTemplate),
         editCollectionButton: function(id, desc) {
-    
 
             var userController = this.get('controller');
             userController.setSelectedCollection(id);
-           
+
 
 
             var div_id = "#" + id;
@@ -37,7 +19,7 @@ define([
             $(".Targeting_Object_front").attr("style", "display:inline-block");
             $(" #uploadArea").attr('style', "display:none");
             $(" #uploadObject").attr('style', "display:block");
-            
+
 
             $(div_id).attr("style", "display:none");
             $(div_class).attr('style', "display:inline-block");
@@ -60,15 +42,16 @@ define([
                 columnWidth: 0,
                 isFitWidth: true
             });
-            
-            
-            
-            
-            
-            
-            
-            
+
+
+
+
+
+
+
+
         }
     });
-    return MasonryCollectionView;
+
+    return ProfileCollectionsView;
 });

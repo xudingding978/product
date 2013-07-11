@@ -582,13 +582,18 @@
 .masonry-object_profilepic{
     width: 150px;
     height: 150px;
-    box-shadow: 0 0 10px #333; 
     margin: auto; 
     right: 0;
-    left: 0;
+    left: 0;    
+    position: absolute;
+    top: 40%;
+    line-height: 150px;
+}
+
+.masonry-object_profilepic img{
+    box-shadow: 0 0 10px #333; 
     -webkit-border-radius: 6%; 
     border-radius: 6%;
-    position: absolute;top: 40%;
 }
 
 .masonry-object_name-position{

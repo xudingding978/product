@@ -82,8 +82,8 @@ class RefineDataCommand extends CConsoleCommand {
 
                     $mega_obj_arr = $this->structureArray($val, $s3_url_arr);
                        echo $mega_obj_arr . $val['heliumMediaId'] . "\r\n";
-                                  $id = $this->importMegaObj($mega_obj_arr, $val['id']);            
-                                  $photo_array=$this->getValidPhoto($photo_heliumMediaId, $id, $val['id']);
+                        $id = $this->importMegaObj($mega_obj_arr, $val['id']);
+                        $photo_array=$this->getValidPhoto($photo_heliumMediaId, $id, $val['id']);
                         $handle_array = array();
                         foreach($photo_array as $k=>$val){
                             $url_arr = explode("/", $s3_url_arr[$k]);

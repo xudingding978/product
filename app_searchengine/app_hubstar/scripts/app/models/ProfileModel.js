@@ -6,10 +6,10 @@ define(
         ], function() {
 
     DS.RESTAdapter.map('App.Profile', {
-        collections: {embedded: 'always'}
+        collections: {embedded: 'always'},
+        followers: {embedded: 'always'}
     });
     var ProfileModel = DS.Model.extend({
-
         profile_category: DS.attr('string'),
         profile_hero_url: DS.attr('string'),
         profile_pic_url: DS.attr('string'),
@@ -32,10 +32,12 @@ define(
         profile_client_name: DS.attr('string'),
         profile_editors: DS.attr('string'),
         profile_creater: DS.attr('string'),
+        profile_partner_ids:  DS.attr('string'),
         owner: DS.attr('string'),
         owner_contact_email: DS.attr('string'),
         owner_contact_cc_emails: DS.attr('string'),
         owner_contact_bcc_emails: DS.attr('string'),
+        followers: DS.hasMany('App.Follower'),
         collections: DS.hasMany('App.Collection')
     });
 

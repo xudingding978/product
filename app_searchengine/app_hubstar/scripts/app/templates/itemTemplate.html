@@ -1,6 +1,8 @@
 
 {{#if getProfile}}
+
     {{render itemProfiles this}}
+    {{render "comment" this}}
 {{/if}}
 
 
@@ -24,8 +26,7 @@
             {{/if}}
 
             {{#if controller.canEditbyOwner}}
-            <div class="edit-btn edit-object-btn">
-     
+            <div class="edit-btn edit-object-btn">     
                 <k class="icon-trash"></k>
             </div>
 
@@ -106,6 +107,8 @@
         <div class="masonry-object_poster">
             <a href="#" class="masonry-object_poster">
                 <img {{bindAttr src="profile_pic_url"}} class="profilepic-on-masonry" />
+                
+                 <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}} class="profilepic-on-masonry"/>
             </a>   
             <div class="object_username">
                 <a class="poster-name" {{bindAttr href="getProfile_id"}}>{{profile_id}}</a>

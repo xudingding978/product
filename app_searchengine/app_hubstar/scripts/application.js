@@ -116,6 +116,8 @@ define('application', [
     "views/LoadingSpinnerView",
     "views/PlatformBarView",
     "views/ItemProfilesView",
+    "views/ProfileCollectionsView",
+    "views/ProfilePartnersView",
     "controllers/ApplicationController",
     "controllers/tabListController",
     "controllers/DataController",
@@ -139,6 +141,7 @@ define('application', [
     "controllers/TopicSelectionController",
     "controllers/PlatformBarController",
     "controllers/ItemProfilesController",
+    "controllers/ProfilePartnersController",
     "app/router",
     "routes/ApplicationRoute",
     "routes/IndexRoute",
@@ -188,6 +191,8 @@ define('application', [
     "models/CateModel",
     "models/SubcateModel",
     "models/SubcategoriesModel",
+    "models/FollowerModel",
+
     "emberData",
     'jquery',
     "bxslider",
@@ -258,6 +263,8 @@ define('application', [
         LoadingSpinnerView,
         PlatformBarView,
         ItemProfilesView,
+        ProfileCollectionsView,
+        ProfilePartnersView,
         ApplicationController,
         tabListController,
         DataController,
@@ -281,6 +288,7 @@ define('application', [
         TopicSelectionController,
         PlatformBarController,
         ItemProfilesController,
+        ProfilePartnersController,
         Router,
         ApplicationRoute,
         IndexRoute,
@@ -329,7 +337,8 @@ define('application', [
         Email,
         Cate,
         Subcate,
-        Subcategories
+        Subcategories,
+        Follower
         )
 {
 
@@ -400,6 +409,8 @@ define('application', [
         LoadingSpinnerView: LoadingSpinnerView,
         PlatformBarView: PlatformBarView,
         ItemProfilesView: ItemProfilesView,
+        ProfileCollectionsView: ProfileCollectionsView,
+        ProfilePartnersView: ProfilePartnersView,
         ApplicationController: ApplicationController,
         tabListController: tabListController,
         DataController: DataController,
@@ -423,6 +434,7 @@ define('application', [
         TopicSelectionController: TopicSelectionController,
         PlatformBarController: PlatformBarController,
         ItemProfilesController: ItemProfilesController,
+        ProfilePartnersController: ProfilePartnersController,
         Router: Router,
         ApplicationRoute: ApplicationRoute,
         IndexRoute: IndexRoute,
@@ -472,6 +484,8 @@ define('application', [
         Cate: Cate,
         Subcate: Subcate,
         Subcategories: Subcategories,
+        Follower:Follower,
+
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({
@@ -500,7 +514,7 @@ function getRestAPIURL()
     var api_url = document.domain;
     var api_domain_start_pos = api_url.indexOf('.');
     var api_url = api_url.slice(api_domain_start_pos);
-    api_url = "http://api" + api_url;
+    api_url = "http://develop-api" + api_url;
     return api_url;
 }
 

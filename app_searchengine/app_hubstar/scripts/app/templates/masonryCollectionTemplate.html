@@ -7,81 +7,27 @@
         <div class="style-box t-style-box" style="width: 100%; min-width: 796px; height: 50px; background: white;margin: -70px auto;left: 0;right: 0;position: relative;display: block;">
 
             <div style="margin: 4px 20px 4px 40px; font-size: 18px; text-shadow: 0 1px 0 rgba(255,255,255,0.8);float: left;" >My Collections </div>
-            <!--            <i class="icon-upload" style="color: #555; text-shadow: 0 1px 0 rgba(255,255,255,0.8); font-size: 20px; margin: 15px 0; display: inline-block;"></i>-->
-            <!--            <ul class="user-stats" id="user-stats">
-                            <li><a>Collections</a></li>
-                            <li><a>Photos</a></li>
-                            <li><a>Videos</a></li>
-                            <li><a>Following</a></li>
-                            <li><a>Followers</a></li>
-                        </ul>-->
+            <i class="icon-upload" style="color: #555; text-shadow: 0 1px 0 rgba(255,255,255,0.8); font-size: 20px; margin: 15px 0; display: inline-block;"></i>
+            <ul class="user-stats" id="user-stats">
+                <li id="defualt" ><a {{action selectCollection}}> Collections</a></li>
+                <li ><a {{action selectPartner this}}>Partners</a></li>
+                <li ><a {{action selectFollower}}>Followers</a></li>
+            </ul>
 
         </div>
+
+
+        {{#if collectionTag}}
+        {{view App.ProfileCollectionsView}}
+        {{/if}} 
+
+        {{#if partnerTag}}
+        {{render profilePartners}}
+        {{/if}} 
 
         <!--END SECTION CONTROL BAR-->
-              {{#if controller.is_authentic_user}}
-        <div class="box style-box t-style-box" id="addNew">
 
-            <div id="uploadObject" {{action newCollection }}>
-                <div class="add-new-object-hoverarea easing">
-
-                    <i class="icon-plus-sign"></i>
-                </div>
-                <div class="masonry-object t-style-box">
-                    <div class="add-new-object-content">
-                        <i class="icon-group"></i>
-                        <i class="icon-book"></i>
-                        <i class="icon-picture"></i>
-                        <i class="icon-film"></i>
-                    </div>
-
-                </div>
-            </div>
-            {{view App.EditCollectionView}}
-        </div>
-{{/if}}
-        {{#each collections}}
-        <div class="box col2 style-box t-style-box">
-            <div class="masonry-object Targeting_Object_front" {{bindAttr id="id"}}>
-                <a class="album-description-hoverarea easing" href="" {{action transitionToCollectionPhoto id}}>
-
-                   <div class="album-description">{{desc}}</div>
-                    <div class="album-description-bg">{{desc}}</div>
-                </a>
-                <div class="albumcover-container"  >
-                    <img class="albumcover" {{bindAttr src="cover"}} />
-                </div>
-                <div class="album-info">
-                    <div class="album-info_name"><i class="icon-picture" ></i>   {{title}}</div>
-                    <div class="album-info_content">
-                          {{#if controller.is_authentic_user}}
-                        <div class="edit-btn edit-collection-btn easing"><i class="icon-cog" {{action editCollectionButton id desc target="view" on="click"}}></i></div>
-                        {{/if}}
-                        <span><a href="" {{action transitionToCollectionPhoto id}}> </a> photos</span>
-                        <span><img src="../../images/list-doc.png"/> April 1 2013</span>
-                    </div>
-                </div>
-            </div>
-            <div id="Targeting_Object_back"{{bindAttr class="id"}}>
-                {{view App.EditCollectionView}}
-            </div>
-        </div>
-
-        <script>
-
-            $(function() {
-                var $container = $('#masonry_user_container');
-                window.setTimeout(function() {
-                    $container.masonry();
-                    $container.masonry('reload');
-                }, 400);
-            });
-
-        </script>
-        {{/each}}
-
-        
-       
+        <div class="box style-box t-style-box" ></div>
         <div class="box style-box t-style-box" style="opacity: 0;"></div>
 
 

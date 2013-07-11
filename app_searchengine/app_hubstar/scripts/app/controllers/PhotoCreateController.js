@@ -63,15 +63,13 @@ define(["ember", "helper"],
 
                     var photoMega = App.Mega.createRecord({
                         "accessed": ProfileMega.get("accessed"),
+                        "boost": ProfileMega.get("boost"),
                         "owner_type": "profiles",
-                        //              boost: DS.attr('string'),
                         "is_active": false,
-                        "article_id": null,
                         "region": ProfileMega.get("profile_regoin"),
                         "topic": null,
                         "type": "photo",
                         "category": ProfileMega.get("category"),
-                
                         "creator": localStorage.loginStatus,
                         "country": ProfileMega.get("country"),
                         "collection_id": this.get('controllers.insideCollection').get('title'),
@@ -80,9 +78,8 @@ define(["ember", "helper"],
                         "editors": "",
                         "geography": ProfileMega.get("country"),
                         "is_indexed": false,
-                        "object_image_linkto": ProfileMega.get("object_image_linkto"),
                         "object_image_url": ProfileMega.get("object_image_url"),
-                        "object_title":null,
+                        "object_title": null,
                         "object_description": null,
                         "owner_profile_id": this.get("profileMega").id,
                         "owner_profile_pic": ProfileMega.get("profile_pic_url"),
@@ -104,7 +101,7 @@ define(["ember", "helper"],
                     var mega = that.createNewMega(that.get("profileMega"));
                     var file = App.Photo.createRecord({
                         "photo_title": name.toLowerCase(),
-                        "photo_image_url": src,
+                        "photo_image_original_url": src,
                         "photo_type": type,
                         "photo_keywords": that.get("profileMega").get("keywords")});
                     mega.get("photo").pushObject(file);

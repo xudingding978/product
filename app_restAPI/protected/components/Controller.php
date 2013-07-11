@@ -338,16 +338,22 @@ error_log('aaaaaaaaaaaaaaaaaaaaaaa');
         
 //                $should = Sherlock\Sherlock::queryBuilder()->Term()->term($collection_id//$collection_id
 //                ->field($mustQuery[0]);
-        $must = Sherlock\Sherlock::queryBuilder()->Term()->term($collection_id)
-                ->field('couchbaseDocument.doc.collection_id');
+        $must = Sherlock\Sherlock::queryBuilder()
+                ->QueryString()
+                           ->field('couchbaseDocument.doc.collection_id')
+                        ->query($collection_id);
 
 
-        $must2 = Sherlock\Sherlock::queryBuilder()->Term()->term($owner_profile_id)
-                ->field('couchbaseDocument.doc.owner_id');
+        $must2 = Sherlock\Sherlock::queryBuilder()
+                   ->QueryString()
+                           ->field('couchbaseDocument.doc.owner_id')
+                        ->query($owner_profile_id);
+                
+//                ->Term()->term($owner_profile_id)
+//               ->field('couchbaseDocument.doc.owner_id');
 
- 
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)
-                ->must($must2)
+       ->must($must2)
                 ->boost(2.5);
         error_log($bool->toJSON());
         $response = $request->query($bool)->execute();

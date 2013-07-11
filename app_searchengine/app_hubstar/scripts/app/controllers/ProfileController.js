@@ -272,9 +272,12 @@ define([
                     var currentUser = App.User.find(localStorage.loginStatus);
                     var that = this;
                     var email = currentUser.get('email');
+                    if(authenticUsers!==null&&authenticUsers!==undefined&&email!==null&&email!==undefined){
                     this.setIsAuthenticUser(authenticUsers, email);
+                    }
                     currentUser.addObserver('isLoaded', function() {
                         email = currentUser.get('email');
+               
                         if (currentUser.get('isLoaded')) {
                             that.setIsAuthenticUser(authenticUsers, email);
                         }
@@ -282,6 +285,7 @@ define([
                 },
                 setIsAuthenticUser: function(authenticUsers, email)
                 {
+         
                     if (authenticUsers.indexOf(email) !== -1) {
                         this.set('is_authentic_user', true);
                     }
@@ -350,13 +354,15 @@ define([
                     this.set('collectionTag', true);
                 },
                 selectPartner: function(model) {
-              
-     
+
+
+             
                     this.get('controllers.profilePartners').getClientId(model);
                     this.set('partnerTag', true);
                     this.set('collectionTag', false);
 
 
+                    this.get('controllers.itemProfiles').setPartnerRemove();
 
 
                 },

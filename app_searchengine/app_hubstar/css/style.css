@@ -19,7 +19,7 @@
     text-align:center;
     width:10px;
     overflow: hidden;
-    box-shadow: 0 0 5px #333;
+    box-shadow: 0 0 15px #fff;
     border-radius: 0 10px 10px 0;
 
     background-image: -webkit-gradient( linear, left top, left bottom, from(rgba(20,20,20,0.2)), to(rgba(40,40,40,0.7)));

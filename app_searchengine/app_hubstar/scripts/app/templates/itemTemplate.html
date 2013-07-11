@@ -2,6 +2,7 @@
 {{#if getProfile}}
 
     {{render itemProfiles this}}
+    {{render "comment" this}}
 {{/if}}
 
 
@@ -25,8 +26,7 @@
             {{/if}}
 
             {{#if controller.canEditbyOwner}}
-            <div class="edit-btn edit-object-btn">
-     
+            <div class="edit-btn edit-object-btn">     
                 <k class="icon-trash"></k>
             </div>
 

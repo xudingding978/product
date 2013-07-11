@@ -42,12 +42,11 @@ define([
                 profile_hero_url: "",
                 profile_pic_url: "",
                 hours: [],
+                follow_status: "follow",
                 is_authentic_user: false,
                 init: function() {
 
-
                     this.set('is_authentic_user', false);
-
                 },
                 getCurrentClient: function(id)
                 {
@@ -73,15 +72,14 @@ define([
                             this.getHeroImgae(imgId, col);
                         }
                     }
+                    this.isFollowed();
                     this.checkAuthenticUser();
                 },
                 submit: function()
                 {
 
                     var id = this.checkingValidInput(this.selectedCollection.get('id'));
-
                     this.checkingIdisExsinting(id, "create");
-
                     if (isExsinting) {
                         this.selectedCollection.set('id', id);
                         this.selectedCollection.set('title', id);
@@ -90,7 +88,6 @@ define([
                         $(".Targeting_Object_front").attr("style", "display:inline-block");
                         $(" #uploadArea").attr('style', "display:none");
                         $(" #uploadObject").attr('style', "display:block");
-
                     } else {
                         isExsinting = true;
                     }
@@ -100,10 +97,8 @@ define([
                     if (title.indexOf(" ") !== -1) {
 
                         title = title.split(' ').join('-');
-
                     }
                     return title;
-
                 },
                 checkingIdisExsinting: function(id, postOrPut) {
 
@@ -122,7 +117,6 @@ define([
 
                         for (var i = 0; i < this.get("collections").get('length'); i++) {
                             if (this.get("collections").objectAt(i).id === id) {
-
                                 isExsinting = false;
                             }
                         }
@@ -142,7 +136,6 @@ define([
                     } else if (checkingInfo === "aboutMe") {
                         about_record = data;
                         this.set('editingAbout', !this.get('editingAbout'));
-
                     } else if (checkingInfo === "contact") {
                         contact_record = this.get('model.contact_user');
                         category_record = this.get('model.profile_category');
@@ -181,7 +174,6 @@ define([
                 updateClient: function() {
                     var update_profile_record = App.Profile.find(this.get('model.id'));
                     App.store.get('adapter').updateRecord(App.store, App.Profile, update_profile_record);
-
                 },
                 no: function(checkingInfo) {
                     if (checkingInfo === "profileName") {
@@ -191,7 +183,6 @@ define([
                     else if (checkingInfo === "aboutMe") {
                         this.set('model.about', about_record);
                         this.set('editingAbout', !this.get('editingAbout'));
-
                     }
                     else if (checkingInfo === "contact") {
                         this.set('model.contact_user', contact_record);
@@ -219,7 +210,6 @@ define([
                 setSelectedCollection: function(id) {
                     for (var i = 0; i < this.get("collections").get("length"); i++) {
                         var thisCollection = this.get("collections").objectAt(i);
-
                         this.get('temp').pushObject(thisCollection.get("id"));
                         if (id === thisCollection.get("id")) {
                             this.set("selectedCollection", thisCollection);
@@ -231,7 +221,6 @@ define([
                 {
 
                     var id = this.checkingValidInput(this.selectedCollection.get('id'));
-
                     this.checkingIdisExsinting(id, "update");
                     if (isExsinting) {
                         var title = this.get("selectedCollection").get("id");
@@ -241,7 +230,6 @@ define([
                         $(".Targeting_Object_front").attr("style", "display:inline-block");
                         $(" #uploadArea").attr('style', "display:none");
                         $(" #uploadObject").attr('style', "display:block");
-
                     } else {
                         isExsinting = true;
                     }
@@ -302,6 +290,45 @@ define([
                         this.set('is_authentic_user', false);
                     }
                 },
+
+                isFollowed: function()
+                {
+                    if (this.checkFollowStatus())
+                    {
+                        this.set('follow_status', "following");
+                    }
+                    else {
+                        this.set('follow_status', "followed");
+                    }
+                },
+                followThisProfile: function() {
+                    if (this.checkFollowStatus()) {
+                        var currentUser = App.User.find(localStorage.loginStatus);
+                        var commenter_profile_pic_url = currentUser.get('photo_url');
+                        var commenter_id = currentUser.get('id');
+                        var name = currentUser.get('display_name');
+                        var date = new Date();
+                        var tempComment = App.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url,
+                            "commenter_id": commenter_id, "name": name, "content": null, "time_stamp": date.toString(), "is_delete": false});
+                        this.get("model").get("followers").insertAt(0, tempComment);
+                        this.get("model").store.save();
+                    }
+                },
+                checkFollowStatus: function()
+                {
+                    var isFollow = false;
+                    var followers = this.get("model").get("followers");
+                    for (var i = 0; i < followers.get('length'); i++) {
+                        var follower_id = followers.get("content").objectAt(i).data.commenter_id;
+                        if (follower_id === localStorage.loginStatus)
+                        {
+                            isFollow = true;
+                            break;
+                        }
+                    }
+                    return isFollow;
+                },
+
                 selectCollection: function() {
 
                     this.set('partnerTag', false);
@@ -315,7 +342,8 @@ define([
                 },
                 selectFollower: function() {
 
-                },
+                }
+
             });
             return ProfileController;
         });

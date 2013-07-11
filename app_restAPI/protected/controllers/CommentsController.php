@@ -17,7 +17,7 @@ $this->sendResponse(200, "aaaaaaaaaaaaa");
     }
 
     public function actionCreate() {
-              $request_json = file_get_contents('php://input');
+        $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
         $this->sendResponse(200, $request_json);
     }

@@ -58,11 +58,8 @@ define(["ember"], function(Ember) {
         addLike: function(id)
         {
             var mega = App.Mega.find(id);
-
             var people_like = mega.get("people_like");
-
-            if (people_like === null || people_like === undefined)
-            {
+            if (people_like === null || people_like === undefined) {
                 people_like = "";
             }
             if (people_like.indexOf(localStorage.loginStatus) !== -1)

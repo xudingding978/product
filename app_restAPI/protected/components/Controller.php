@@ -735,4 +735,29 @@ class Controller extends CController {
         unset($fileName, $content, $handle, $output);
     }
 
+    function array_put_to_position($array, $object, $position, $name = null) {
+        $count = 0;
+        $inserted = false;
+        $return = array();
+
+        foreach ($array as $k => $v) {
+            // insert new object
+            if ($count == $position) {
+                if (!$name)
+                    $name = $count;
+                $return[$name] = $object;
+                $inserted = true;
+            }
+            // insert old object
+            $return[$k] = $v;
+            $count++;
+        }
+        if (!$name)
+            $name = $count;
+        if (!$inserted)
+            $return[$name];
+        $array = $return;
+        return $array;
+    }
+
 }

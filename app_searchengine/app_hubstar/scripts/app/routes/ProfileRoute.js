@@ -18,6 +18,15 @@ define([
             //     console.log(model);
             ProfileController.setProfile(model.id);
 
+/******************  partner cehcking*******************/
+            $('#user-stats > li').removeClass('selected-user-stats');
+            $('#defualt').addClass('selected-user-stats');
+            ProfileController.set('contactChecking', false);
+            ProfileController.set('collectionTag', true);
+            ProfileController.set('partnerTag', false);
+/*************************            partner cehcking           */   
+
+
             this.controllerFor('application').set('islogin', true);
             this.controllerFor('application').set('popup', false);
             this.controllerFor('application').set('isotherpage', true);
@@ -43,6 +52,7 @@ define([
         },
         activate: function() {
             $(window).scrollTop(0);
+
             $('#discovery_search_bar_wrapper').attr('style', "display:none");
             $('#masonry_container').attr('style', "display:none");
             $(function() {

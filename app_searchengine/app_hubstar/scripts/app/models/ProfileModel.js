@@ -32,6 +32,7 @@ define(
         profile_client_name: DS.attr('string'),
         profile_editors: DS.attr('string'),
         profile_creater: DS.attr('string'),
+        profile_partner_ids:  DS.attr('string'),
         owner: DS.attr('string'),
         owner_contact_email: DS.attr('string'),
         owner_contact_cc_emails: DS.attr('string'),

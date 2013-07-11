@@ -141,9 +141,6 @@ class ImportdataCommand extends CConsoleCommand {
                 echo "http://trendsideas.com/media/article/preview/" . $val['preview'] . "--- DO NOT have return value from S3!--ID:" . $val['id']. " \r\n";
             }
             
-            unset($return_hero, $return_thumbnail, $return_preview, $return_original, $obj);
-            unset($is_hero, $is_thumbnail, $is_preview, $is_original);
-            unset($message, $url_hero, $return_hero, $url_thumbnail, $return_thumbnail, $url_preview, $return_preview, $url_original, $return_original);
         }
     }
     

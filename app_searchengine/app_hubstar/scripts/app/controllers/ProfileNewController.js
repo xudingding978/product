@@ -232,8 +232,9 @@ define([
                             profile_keywords: this.get("keywords"),
                             profile_regoin: this.get("region"),
                             profile_country: this.get("country"),
-                            profile_hours: "Monday=7:00-late,Tuesday=7:00-late,Wednesday=7:00-late,Thursday=7:00-late,Friday=7:00-late,Saturday=7:00-late,Sunday=closed,Holidays=closed",
+                            profile_hours: "Monday=9:00am-5:00pm,Tuesday=9:00am-5:00pm,Wednesday=9:00am-5:00pm,Thursday=9:00am-5:00pm,Friday=9:00am-5:00pm,Saturday=closed,Sunday=closed,Holidays=closed",
                             phone_number: this.get("contact_number"),
+                            profile_partner_ids:null,
                             collections: [],
                             profile_website: this.get("website")
                         });

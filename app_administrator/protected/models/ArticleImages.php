@@ -162,8 +162,36 @@ class ArticleImages extends CActiveRecord {
         return $data_list;
     } 
     
-    function addCouchbaseID ($couchbase_id_str, $article_id_str) {
+    function getExtra () {
+        $data_list = array();
+        try {
+            $sql = "select dbo.ArticleImages.*, dbo.HeliumMedia.keywords from dbo.ArticleImages
+                                    inner join  dbo.HeliumMedia on
+                                    dbo.ArticleImages.heliumMediaId = dbo.HeliumMedia.heliumId
+                                    where dbo.ArticleImages.couchBaseId is null
+                                    order by dbo.ArticleImages.id asc";
+            $data_list = Yii::app()->db->createCommand($sql)->queryAll();
+        } catch (Exception $e) {
+            $response = $e->getMessage();
+            $message = date("Y-m-d H:i:s") . " ----cannot get photo from db!! \r\n" . $response;
+            $this->writeToLog('/home/devbox/NetBeansProjects/test/error.log', $message);
+        }
+        return $data_list;
         
+    }
+    
+     function startFrom ($start_id) {
+        $data_list = array();
+        try {
+            $sql = "select * from Trends.dbo.ArticleImages WHERE dbo.ArticleImages.id > " . $start_id . " order by dbo.ArticleImages.id asc";
+//            error_log($sql);
+            $data_list = Yii::app()->db->createCommand($sql)->queryAll();
+        } catch (Exception $e) {
+            $response = $e->getMessage();
+            $message = date("Y-m-d H:i:s") . " ----cannot get photo from db by function startFrom()!! \r\n" . $response;
+            $this->writeToLog('/home/devbox/NetBeansProjects/test/error.log', $message);
+        }
+        return $data_list;
         
     }
     

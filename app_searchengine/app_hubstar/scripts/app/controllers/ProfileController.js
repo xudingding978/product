@@ -23,6 +23,8 @@ define([
                 editingContact: false,
                 galleryInsert: false,
                 contactChecking: false,
+                collectionTag: true,
+                partnerTag: false,
                 temp: [],
                 selectedDesc: "",
                 selectedTitle: "",
@@ -35,7 +37,7 @@ define([
                 currentUserID: "",
                 collections: [],
                 selectedCollection: "",
-                needs: ["application", "contact"],
+                needs: ["application", "contact", "profilePartners"],
                 profile_bg_url: "",
                 profile_hero_url: "",
                 profile_pic_url: "",
@@ -288,6 +290,7 @@ define([
                         this.set('is_authentic_user', false);
                     }
                 },
+
                 isFollowed: function()
                 {
                     if (this.checkFollowStatus())
@@ -324,7 +327,23 @@ define([
                         }
                     }
                     return isFollow;
+                },
+
+                selectCollection: function() {
+
+                    this.set('partnerTag', false);
+                    this.set('collectionTag', true);
+                },
+                selectPartner: function(model) {
+                    //            console.log(model.id);
+                    this.get('controllers.profilePartners').getClientId(model);
+                    this.set('partnerTag', true);
+                    this.set('collectionTag', false);
+                },
+                selectFollower: function() {
+
                 }
+
             });
             return ProfileController;
         });

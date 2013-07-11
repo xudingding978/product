@@ -267,6 +267,7 @@
     right: 0;
     top: 0;
     cursor: pointer;
+    z-index: 1;
 }
 
 .object-tags{
@@ -582,18 +583,23 @@
 .masonry-object_profilepic{
     width: 150px;
     height: 150px;
-    margin: auto; 
+    margin: -100px auto;
     right: 0;
-    left: 0;    
-    position: absolute;
-    top: 40%;
+    left: 0;
+    position: relative;
     line-height: 150px;
+    z-index: 1;
 }
 
 .masonry-object_profilepic img{
     box-shadow: 0 0 10px #333; 
     -webkit-border-radius: 6%; 
     border-radius: 6%;
+}
+
+.masonry-object_profilepic img:hover{
+    box-shadow: 0 0 10px #fff; 
+    opacity: 0.8;
 }
 
 .masonry-object_name-position{
@@ -692,7 +698,7 @@
 .masonry_more-btn{
     -webkit-user-select: none;
     color: #999;
-    display:block;
+    display:inline-block;
     font-size: 12px;
     margin-top: 2px;
     vertical-align: middle;
@@ -1105,7 +1111,7 @@
 }
 
 .new-btn > i{
-    font-size: 15px;
+    font-size: 13px;
 }
 
 
@@ -1231,9 +1237,8 @@
 
 
 .article-title{
-    font-size: 25px;
+    font-size: 18px;
     font-weight: bold; 
-    margin: 20px 0;
     line-height: 30px;
 }
 
@@ -1401,6 +1406,7 @@
     background-color: rgba(0,0,0,0.03);
     height: 30px;
     padding: 5px 8px;
+    cursor: pointer;
 }
 
 .choose-exist-collection:hover{

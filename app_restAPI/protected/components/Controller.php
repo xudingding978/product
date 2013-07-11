@@ -32,8 +32,6 @@ class Controller extends CController {
         return new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "production", true);
     }
 
-
-
     protected function getS3Connection($domain) {
         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
         $result = $cb->get($domain);
@@ -185,8 +183,8 @@ class Controller extends CController {
             $searchString = $this->getUserInput($requireParams[2]);
             $from = $this->getUserInput($requireParams[3]);
             $size = $this->getUserInput($requireParams[4]);
-      $response = $this->performSearch($returnType, $region, $searchString, $from, $size);
-       //     $response = $this->getRequestResultByID($returnType, $searchString);
+            $response = $this->performSearch($returnType, $region, $searchString, $from, $size);
+            //     $response = $this->getRequestResultByID($returnType, $searchString);
         } elseif ($requireType == 'collection') {
             $collection_id = $this->getUserInput($requireParams[1]);
             $owner_profile_id = $this->getUserInput($requireParams[2]);
@@ -613,9 +611,34 @@ class Controller extends CController {
 
     public function getCurrentUTC() {
 
-        $datetime = date("Y-m-d H:i:s"); 
+        $datetime = date("Y-m-d H:i:s");
         $time_string = strtotime($datetime);
         return $time_string;
+    }
+
+    function array_put_to_position($array, $object, $position, $name = null) {
+        $count = 0;
+        $inserted = false;
+        $return = array();
+
+        foreach ($array as $k => $v) {
+            // insert new object
+            if ($count == $position) {
+                if (!$name)
+                    $name = $count;
+                $return[$name] = $object;
+                $inserted = true;
+            }
+            // insert old object
+            $return[$k] = $v;
+            $count++;
+        }
+        if (!$name)
+            $name = $count;
+        if (!$inserted)
+            $return[$name];
+        $array = $return;
+        return $array;
     }
 
 }

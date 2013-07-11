@@ -41,7 +41,7 @@ define(["ember"], function(Ember) {
                 this.cancelDelete();
             } else {
                 this.set('willDelete', true);
-                  App.set('data', model);
+                App.set('data', model);
             }
 
 
@@ -51,7 +51,7 @@ define(["ember"], function(Ember) {
         cancelDelete: function() {
             this.set('willDelete', false);
             this.set('makeSureDelete', false);
-          
+            App.set('data', null);
         },
     }
     );

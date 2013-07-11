@@ -184,16 +184,14 @@ class Controller extends CController {
             $from = $this->getUserInput($requireParams[3]);
             $size = $this->getUserInput($requireParams[4]);
             $response = $this->performSearch($returnType, $region, $searchString, $from, $size);
-            //     $response = $this->getRequestResultByID($returnType, $searchString);
+
         } elseif ($requireType == 'collection') {
             $collection_id = $this->getUserInput($requireParams[1]);
             $owner_profile_id = $this->getUserInput($requireParams[2]);
             $response = $this->performRawSearch($returnType, $collection_id, $owner_profile_id);
         } elseif ($requireType == 'partner') {
-
             $partner_id_raw = $this->getUserInput($requireParams[1]);
             $partner_id = str_replace("%2C", ",", $partner_id_raw);
-            //     error_log(str_replace("%2C", ",", $returnType));
             $response = $this->getProfilePartner($returnType, $partner_id);
             //  error_log(var_export($requireType, true));
         } elseif ($requireType == 'status') {
@@ -340,7 +338,7 @@ class Controller extends CController {
         $must = Sherlock\Sherlock::queryBuilder()->Term()->term($collection_id)//$collection_id
                 ->field('couchbaseDocument.doc.collection_id');
         $must2 = Sherlock\Sherlock::queryBuilder()->Term()->term($owner_profile_id)
-                ->field('couchbaseDocument.doc.owner_profile_id');
+                ->field('couchbaseDocument.doc.owner_id');
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)
                 ->must($must2)
                 ->boost(2.5);

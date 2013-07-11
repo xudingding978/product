@@ -191,6 +191,7 @@ define('application', [
     "models/CateModel",
     "models/SubcateModel",
     "models/SubcategoriesModel",
+    "models/FollowerModel",
 
     "emberData",
     'jquery',
@@ -336,7 +337,8 @@ define('application', [
         Email,
         Cate,
         Subcate,
-        Subcategories
+        Subcategories,
+        Follower
         )
 {
 
@@ -482,6 +484,7 @@ define('application', [
         Cate: Cate,
         Subcate: Subcate,
         Subcategories: Subcategories,
+        Follower:Follower,
 
         store: DS.Store.create({
             revision: 12,

@@ -37,7 +37,7 @@ define(
         owner_contact_email: DS.attr('string'),
         owner_contact_cc_emails: DS.attr('string'),
         owner_contact_bcc_emails: DS.attr('string'),
-        followers: DS.hasMany('App.Comment'),
+        followers: DS.hasMany('App.Follower'),
         collections: DS.hasMany('App.Collection')
     });
 

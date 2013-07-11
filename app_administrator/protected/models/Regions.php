@@ -225,7 +225,7 @@ class Regions extends CActiveRecord {
                         $sql = "select dbo.Regions.* from dbo.Regions where id = " . $parent_id;
                         $region_arr = Yii::app()->db->createCommand($sql)->queryAll();              
                         if (sizeof ($region_arr>0)) {
-                            $region = $region_arr[0]['name'];
+                            $region = $region .', '. $region_arr[0]['name'];
                             $parent_id = $region_arr[0]['parentId'];
                         }
                     }
@@ -330,6 +330,7 @@ class Regions extends CActiveRecord {
         }
         return $region;
     }
+    
       public function writeToLog($fileName, $content) {
         //   $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_success.log';
         $handle = fopen($fileName, 'a') or die('Cannot open file:  ' . $fileName);

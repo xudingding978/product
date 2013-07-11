@@ -54,19 +54,19 @@ class Controller extends CController {
     }
 
     // function for connecting to s3. Using for move photo between buckets. (Tao)
-    public function connectToS3() {
-        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
-        $key = explode(".", $_SERVER['HTTP_HOST']);
-        $key = $key[1] . '.' . $key[2];
-        $result = $cb->get($key);
-        $result_arr = CJSON::decode($result, true);
-
-        $client = Aws\S3\S3Client::factory(
-                        $result_arr["providers"]["S3Client"]
-        );
-
-        return $client;
-    }
+//    public function connectToS3() {
+//        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
+//        $key = explode(".", $_SERVER['HTTP_HOST']);
+//        $key = $key[1] . '.' . $key[2];
+//        $result = $cb->get($key);
+//        $result_arr = CJSON::decode($result, true);
+//
+//        $client = Aws\S3\S3Client::factory(
+//                        $result_arr["providers"]["S3Client"]
+//        );
+//
+//        return $client;
+//    }
 
     /**
      * Send raw HTTP response
@@ -170,7 +170,7 @@ class Controller extends CController {
         $myText = (string) microtime();
         $pieces = explode(" ", $myText);
         $id = $pieces[1];
-        $id = (string) rand(99999999, 999999999) . $id;
+        $id = (string) " ".rand(99999999, 999999999) . $id;
         return $id;
     }
 
@@ -549,6 +549,8 @@ class Controller extends CController {
         } elseif ($type == "image/jpeg") {
             $im = imagecreatefromjpeg($url);
         }
+        
+        
         return $im;
     }
 
@@ -580,19 +582,45 @@ class Controller extends CController {
         return $image_data;
     }
 
-    public function saveImageToS3($url, $data) {
-        $provider_arr = $this->getS3ConnectionPara("S3Client");
+    public function saveImageToS3($url, $data, $bucket) {
+//        $provider_arr = $this->getProviderConfigurationByName("trendsideas.com", "S3Client");
+//        print_r($provider_arr);
+//        exit();
+        
+        $provider_arr['key'] = 'AKIAJKVKLIJWCJBKMJUQ';
+        $provider_arr['secret'] = '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';
+        $provider_arr['region'] = 'ap-southeast-2';
+        
         $client = Aws\S3\S3Client::factory(
                         $provider_arr
         );
         $client->putObject(array(
-            'Bucket' => "hubstar-dev",
+            'Bucket' => $bucket, //"s3.hubsrv.com"
             'Key' => $url,
             'Body' => $data,
             'ACL' => 'public-read'
         ));
     }
 
+    
+    public function removeImageFromS3($key, $bucket) {
+//        $provider_arr = $this->getProviderConfigurationByName("trendsideas.com", "S3Client");
+//        print_r($provider_arr);
+//        exit();
+        
+        $provider_arr['key'] = 'AKIAJKVKLIJWCJBKMJUQ';
+        $provider_arr['secret'] = '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';
+        $provider_arr['region'] = 'ap-southeast-2';
+        
+        $client = Aws\S3\S3Client::factory(
+            $provider_arr
+        );
+        $client->deleteObject(array(
+            'Bucket' => $bucket, //"s3.hubsrv.com"
+            'Key' => $key
+        ));
+    }
+    
     protected function addPhotoSizeToName($photo_name, $photo_size_arr) {
         $name_arr = explode(".", $photo_name);
         $new_name = "";
@@ -604,15 +632,6 @@ class Controller extends CController {
         return $new_name;
     }
 
-    public function getS3ConnectionPara($provider) {
-        $cb = $this->couchBaseConnection("default");
-        $key = explode(".", $_SERVER['HTTP_HOST']);
-        $key = $key[1] . '.' . $key[2];
-        $result = $cb->get($key);
-        $result_arr = CJSON::decode($result, true);
-
-        return $result_arr["providers"][$provider];
-    }
 
     public function getInputData($inputDataType, $inputData) {
         $tempInput = "";
@@ -654,6 +673,66 @@ class Controller extends CController {
         $datetime = date("Y-m-d H:i:s");
         $time_string = strtotime($datetime);
         return $time_string;
+    }
+    
+       
+    function compressData($type, $data, $url) {
+        
+//        error_log($url."--------------------- \r\n");
+        ob_start();
+        if ($type == "image/png") {
+            imagepng($data);
+        } elseif ($type == "image/jpeg") {
+            if(!strpos($url, 'imageservice') && strpos($url, 'original')) {
+                imagejpeg($data, null, 80);
+            } else {
+                imagejpeg($data, null, 100);
+            }
+        }
+        $return = ob_get_contents();
+        ob_end_clean();
+        return $return;
+    } 
+    
+    function isUrlExist($path) {
+        $file_headers = @get_headers($path);
+        if ($file_headers[0] == 'HTTP/1.1 404 Not Found') {
+            $response = 'HTTP/1.1 404 Not Found';
+        } else {
+            $response = "true";
+        }
+        return $response;
+    }
+    
+    function is_image($path) {
+        try {
+            if($a=@getimagesize($path)) {
+//                $a = getimagesize($path);
+                $image_type = $a[2];
+                if (in_array($image_type, array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_BMP))) {
+                    return "true";
+                }
+            } else {
+                $message = "is not a image." . date("Y-m-d H:i:s").$path. " \r\n";
+                $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $message);
+            }
+        } catch (Exception $e) {
+            $response = 'Caught exception: ' . $e->getMessage() . "\n";
+            $message = $response . "\n" . date("Y-m-d H:i:s").$path. " \r\n";
+            $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $message);
+        }
+
+        return "false";
+    }
+    
+    protected function writeToLog($fileName, $content) {
+        //   $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_success.log';
+        $handle = fopen($fileName, 'a') or die('Cannot open file:  ' . $fileName);
+        $output = "\n" . $content;
+        fwrite($handle, $output);
+        fclose($handle);
+
+        unset($fileName, $content, $handle, $output);
     }
 
 }

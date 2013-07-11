@@ -24,6 +24,7 @@ define([
                 galleryInsert: false,
                 contactChecking: false,
                 collectionTag: true,
+                updateOrCreate:true,
                 partnerTag: false,
                 temp: [],
                 selectedDesc: "",

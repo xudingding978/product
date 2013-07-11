@@ -4,31 +4,39 @@
     left: 0px;
     top:30%;
     z-index:20;
+    min-width: 10px;
     background-image:url(../../../images/reflection.png);
     background-repeat:no-repeat;
     background-attachment:local;
     background-size: 100% 80%;
+    
+    
+       box-shadow: 0 0 15px #fff;
+    border-radius: 0 10px 10px 0;
+
+    background-image: -webkit-gradient( linear, left top, left bottom, from(rgba(20,20,20,0.2)), to(rgba(40,40,40,0.7)));
 }
 
+.plaform_bar:hover #navContainer{
 
+      opacity: 1;
+}
 
 #navContainer {
     margin:0;
     padding:15px 0;
-
+    opacity: 0;
     text-align:center;
     width:10px;
     overflow: hidden;
-    box-shadow: 0 0 15px #fff;
-    border-radius: 0 10px 10px 0;
 
-    background-image: -webkit-gradient( linear, left top, left bottom, from(rgba(20,20,20,0.2)), to(rgba(40,40,40,0.7)));
 }
 
 #navContainer:hover {
     margin: 0;
     padding: 15px 0;
     text-align: center;
+
     width: 100px;
     overflow: visible;
     box-shadow: 0 0 5px #333;

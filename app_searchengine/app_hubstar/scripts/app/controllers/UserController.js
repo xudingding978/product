@@ -13,6 +13,7 @@ define(["ember"
         selectedTitle: "",
         coverImg: "",
         display_name: "",
+        updateOrCreate: true,
         currentUserID: "",
         needs: ['photoCreate'],
         makeSureDelete: false,

@@ -54,10 +54,20 @@ class ProfilesController extends Controller {
 
         //Iterate over the hits and print out some data
         $i = 0;
+        $length = count($response);
         foreach ($response as $hit) {
-            $results .= CJSON::encode($hit['source']['doc']['profile'][0]);
-            if (++$i !== count($response)) {
-                $results .= ',';
+            try {
+                if (isset($hit['source']['doc']['profile'][0])) {
+                    $results .= CJSON::encode($hit['source']['doc']['profile'][0]);
+                    if (++$i !== $length) {
+                        $results .= ',';
+                    }
+                } else {
+                    --$length;
+                }
+            } catch (Exception $exc) {
+                echo $exc->getTraceAsString();
+                echo json_decode(file_get_contents('php://input'));
             }
         }
         $results .= ']}';

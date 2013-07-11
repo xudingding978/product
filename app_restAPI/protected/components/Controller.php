@@ -32,8 +32,6 @@ class Controller extends CController {
         return new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "production", true);
     }
 
-
-
     protected function getS3Connection($domain) {
         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
         $result = $cb->get($domain);
@@ -185,16 +183,19 @@ class Controller extends CController {
             $searchString = $this->getUserInput($requireParams[2]);
             $from = $this->getUserInput($requireParams[3]);
             $size = $this->getUserInput($requireParams[4]);
-      $response = $this->performSearch($returnType, $region, $searchString, $from, $size);
-       //     $response = $this->getRequestResultByID($returnType, $searchString);
+            $response = $this->performSearch($returnType, $region, $searchString, $from, $size);
+            //     $response = $this->getRequestResultByID($returnType, $searchString);
         } elseif ($requireType == 'collection') {
             $collection_id = $this->getUserInput($requireParams[1]);
             $owner_profile_id = $this->getUserInput($requireParams[2]);
             $response = $this->performRawSearch($returnType, $collection_id, $owner_profile_id);
         } elseif ($requireType == 'partner') {
-           error_log(var_export($owner_profile_id));
-            
-            
+
+            $partner_id_raw = $this->getUserInput($requireParams[1]);
+            $partner_id = str_replace("%2C", ",", $partner_id_raw);
+            //     error_log(str_replace("%2C", ",", $returnType));
+            $response = $this->getProfilePartner($returnType, $partner_id);
+            //  error_log(var_export($requireType, true));
         } elseif ($requireType == 'status') {
             $region = $this->getUserInput($requireParams[1]);
             $searchString = $this->getUserInput($requireParams[2]);
@@ -297,6 +298,39 @@ class Controller extends CController {
             $results .= CJSON::encode($hit['source'] ['doc']);
         }
         $results .= '}';
+        return $results;
+    }
+
+    protected function getProfilePartner($returnType, $partner_id) {
+
+        $request = $this->getElasticSearch();
+        $termQuery = Sherlock\Sherlock::queryBuilder()->Raw('{
+                "bool": {
+                    "must": [
+                        {
+                            "query_string": {
+                                "default_field": "couchbaseDocument.doc.profile.id",
+                                "query": "' .$partner_id . '"
+                            }
+                        }
+                    ]
+                }
+    
+            }');
+        $response = $request->query($termQuery)->execute();
+
+
+        $results = '{"' . $returnType . '":[';
+        $i = 0;
+        foreach ($response as $hit) {
+
+            $results .= CJSON::encode($hit['source'] ['doc']);
+            if (++$i !== count($response)) {
+                $results .= ',';
+            }
+        }
+        $results .= ']}';
+
         return $results;
     }
 
@@ -636,7 +670,7 @@ class Controller extends CController {
 
     public function getCurrentUTC() {
 
-        $datetime = date("Y-m-d H:i:s"); 
+        $datetime = date("Y-m-d H:i:s");
         $time_string = strtotime($datetime);
         return $time_string;
     }

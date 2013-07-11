@@ -25,8 +25,14 @@
                         Follow
                     </div>
                 </div>
-                <img {{bindAttr src="profile_pic_url"}} class="masonry-object_profilepic" style="cursor:pointer" {{action toProfilePage this}}/>
-                    <div class="masonry-object_name-position" style="top: 133%;"> 
+
+
+                <div class="masonry-object_profilepic" style="cursor:pointer;" {{action toProfilePage this}}>
+                     <img {{bindAttr src="profile_pic_url"}} />
+                </div>
+
+
+                <div class="masonry-object_name-position" style="top: 133%;"> 
                     <a {{bindAttr href="getProfile_id"}}  {{action toProfilePage this}}  style="cursor:pointer" >{{profile_name}} </a>
                 </div>
                 <div class="masonry-object_name-position" style="top: 145%; font-size: 12px; color: #aaa;">
@@ -88,7 +94,7 @@
             </div>
 
         </div>
-                {{render "comment" this}}
+        {{render "comment" this}}
 
     </div>
 

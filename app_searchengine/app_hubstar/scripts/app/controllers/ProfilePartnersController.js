@@ -7,6 +7,7 @@ define(["ember"], function(Ember) {
 
 
 
+
         },
         getClientId: function(model) {
             this.set('clientID', model.id);
@@ -17,10 +18,41 @@ define(["ember"], function(Ember) {
             this.set('content', data);
 
 
+
         },
         deletePartner: function(model) {
-            console.log(model.id);
-        }
+
+
+            var message = "Do you wish to remove this partner ?";
+            this.set("message", message);
+            this.set('makeSureDelete', true);
+            if (this.get('willDelete')) {
+
+                this.set('partnerID', (this.get('partnerID') + ",").replace(App.get('data').id + ",", ""));
+                this.set('partnerID', this.get('partnerID').substring(0, this.get('partnerID').length - 1));
+
+
+                var profileOwner = App.Profile.find(this.get('clientID'));
+                profileOwner.set('profile_partner_ids', this.get('partnerID'));
+                App.store.get('adapter').updateRecord(App.store, App.Profile, profileOwner);
+
+                var data = App.Mega.find({RequireType: "partner", profile_partner_ids: this.get('partnerID')});
+                this.set('content', data);
+                this.cancelDelete();
+            } else {
+                this.set('willDelete', true);
+                  App.set('data', model);
+            }
+
+
+
+
+        },
+        cancelDelete: function() {
+            this.set('willDelete', false);
+            this.set('makeSureDelete', false);
+          
+        },
     }
     );
     return ProfilePartnersController;

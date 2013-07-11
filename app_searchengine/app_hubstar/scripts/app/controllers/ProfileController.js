@@ -37,7 +37,7 @@ define([
                 currentUserID: "",
                 collections: [],
                 selectedCollection: "",
-                needs: ["application", "contact", "profilePartners"],
+                needs: ["application", "contact", "profilePartners", "itemProfiles"],
                 profile_bg_url: "",
                 profile_hero_url: "",
                 profile_pic_url: "",
@@ -55,6 +55,7 @@ define([
                     return user;
                 },
                 setProfile: function(id) {
+
                     var profile = this.getCurrentClient(id);
                     this.set('profile_bg_url', profile.get('profile_bg_url'));
                     this.set('profile_hero_url', profile.get('profile_hero_url'));
@@ -290,7 +291,6 @@ define([
                         this.set('is_authentic_user', false);
                     }
                 },
-
                 isFollowed: function()
                 {
                     if (this.checkFollowStatus())
@@ -328,17 +328,21 @@ define([
                     }
                     return isFollow;
                 },
-
                 selectCollection: function() {
 
                     this.set('partnerTag', false);
                     this.set('collectionTag', true);
                 },
                 selectPartner: function(model) {
-                    //            console.log(model.id);
+              
+     
                     this.get('controllers.profilePartners').getClientId(model);
                     this.set('partnerTag', true);
                     this.set('collectionTag', false);
+
+
+
+
                 },
                 selectFollower: function() {
 

@@ -115,7 +115,7 @@ class ProfilesController extends Controller {
             $id = $oldRecord['profile'][0]['id'];
             $oldRecord['profile'][0] = null;
             $oldRecord['profile'][0] = CJSON::decode($payload_json);
-            $oldRecord['profile'][0]['followers']= $this->updateFollower($oldRecord['profile'][0]['followers'],$payloads_arr['profile']['followers'][0]);
+           // $oldRecord['profile'][0]['followers']= $this->updateFollower($oldRecord['profile'][0]['followers'],$payloads_arr['profile']['followers'][0]);
             $oldRecord['profile'][0]['id'] = $id;
             if ($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true))) {
                 $this->sendResponse(204);

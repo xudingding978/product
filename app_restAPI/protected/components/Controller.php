@@ -170,7 +170,7 @@ class Controller extends CController {
         $myText = (string) microtime();
         $pieces = explode(" ", $myText);
         $id = $pieces[1];
-        $id = (string) " ".rand(99999999, 999999999) . $id;
+        $id = (string) " " . rand(99999999, 999999999) . $id;
         return trim($id);
     }
 
@@ -184,7 +184,6 @@ class Controller extends CController {
             $from = $this->getUserInput($requireParams[3]);
             $size = $this->getUserInput($requireParams[4]);
             $response = $this->performSearch($returnType, $region, $searchString, $from, $size);
-
         } elseif ($requireType == 'collection') {
             $collection_id = $this->getUserInput($requireParams[1]);
             $owner_profile_id = $this->getUserInput($requireParams[2]);
@@ -195,10 +194,23 @@ class Controller extends CController {
             $response = $this->getProfilePartner($returnType, $partner_id);
             //  error_log(var_export($requireType, true));
         } elseif ($requireType == 'articleRelatedImage') {
-           
-            
-            
-            
+
+
+
+
+            $article_id = $this->getUserInput($requireParams[1]);
+            $owner_id = $this->getUserInput($requireParams[2]);
+            $requestArray = array();
+            $requestStringOne = 'couchbaseDocument.doc.photo.photo_articleId=' . $article_id;
+            array_push($requestArray, $requestStringOne);
+            $requestStringTwo = 'couchbaseDocument.doc.owner_id=' . $owner_id;
+            array_push($requestArray, $requestStringTwo);
+            //       error_log(var_export($requestArray, true));
+            $tempResult = $this->performMustSearch($requestArray, $returnType, 'must');
+            $mega = CJSON::decode($tempResult, true);
+
+
+            //  error_log(var_export($mega, true));
         } elseif ($requireType == 'status') {
             $region = $this->getUserInput($requireParams[1]);
             $searchString = $this->getUserInput($requireParams[2]);
@@ -248,6 +260,15 @@ class Controller extends CController {
         return $results;
     }
 
+    protected function getmustQuestWithQueryString($queryString) {
+
+
+        $mustQuery = explode('=', $queryString);
+        $should = Sherlock\Sherlock::queryBuilder()->QueryString()->query($mustQuery[1])//$collection_id
+                ->field($mustQuery[0]);
+        return $should;
+    }
+
     protected function performMustSearch($requestArray, $returnType, $search_type = "should") {
         $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
@@ -259,7 +280,7 @@ class Controller extends CController {
         $bool = Sherlock\Sherlock::queryBuilder()->Bool();
 
         for ($i = 0; $i < $max; $i++) {
-            $must = $this->getmustQuest($requestArray[$i]);
+            $must = $this->getmustQuestWithQueryString($requestArray[$i]);
             if ($search_type == "must") {
                 $bool->must($must);
             } else if ($search_type == "should") {
@@ -269,7 +290,8 @@ class Controller extends CController {
             }
         }
         $request->query($bool);
-        error_log($request->toJSON());
+   //     error_log(var_export($bool, true));
+      error_log($request->toJSON());
         $response = $request->execute();
 
         $i = 0;
@@ -282,7 +304,7 @@ class Controller extends CController {
             }
         }
         $results .= ']}';
-
+        error_log(var_export($results, true));
         return $results;
     }
 
@@ -295,7 +317,7 @@ class Controller extends CController {
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->should($should)
                 ->boost(2.5);
         $response = $request->query($bool)->execute();
-        error_log($request->toJSON());
+        //     error_log($request->toJSON());
         $results = '{"' . $returnType . '":';
         foreach ($response as $hit) {
             $results .= CJSON::encode($hit['source'] ['doc']);
@@ -313,7 +335,7 @@ class Controller extends CController {
                         {
                             "query_string": {
                                 "default_field": "couchbaseDocument.doc.profile.id",
-                                "query": "' .$partner_id . '"
+                                "query": "' . $partner_id . '"
                             }
                         }
                     ]
@@ -339,18 +361,18 @@ class Controller extends CController {
 
     protected function performRawSearch($returnType, $collection_id, $owner_profile_id) {
         $request = $this->getElasticSearch();
-       
+
         $must = Sherlock\Sherlock::queryBuilder()
                 ->QueryString()
-                           ->field('couchbaseDocument.doc.collection_id')
-                        ->query($collection_id);
+                ->field('couchbaseDocument.doc.collection_id')
+                ->query($collection_id);
         $must2 = Sherlock\Sherlock::queryBuilder()
-                   ->QueryString()
-                           ->field('couchbaseDocument.doc.owner_id')
-                        ->query($owner_profile_id);
-               
+                ->QueryString()
+                ->field('couchbaseDocument.doc.owner_id')
+                ->query($owner_profile_id);
+
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)
-       ->must($must2)
+                ->must($must2)
                 ->boost(2.5);
         $response = $request->query($bool)->execute();
 
@@ -425,13 +447,6 @@ class Controller extends CController {
 
         echo "";
         Yii::app()->end();
-    }
-
-    protected function getmustQuest($queryString) {
-        $mustQuery = explode('=', $queryString);
-        $should = Sherlock\Sherlock::queryBuilder()->Term()->term($mustQuery[1])//$collection_id
-                ->field($mustQuery[0]);
-        return $should;
     }
 
     protected function getCollections($collections, $collection_id, $returnType) {
@@ -557,8 +572,8 @@ class Controller extends CController {
         } elseif ($type == "image/jpeg") {
             $im = imagecreatefromjpeg($url);
         }
-        
-        
+
+
         return $im;
     }
 
@@ -593,7 +608,7 @@ class Controller extends CController {
     public function saveImageToS3($url, $data, $bucket) {
         $provider_arr['key'] = 'AKIAJKVKLIJWCJBKMJUQ';
         $provider_arr['secret'] = '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';
-        $provider_arr['region'] = 'ap-southeast-2';        
+        $provider_arr['region'] = 'ap-southeast-2';
         $client = Aws\S3\S3Client::factory(
                         $provider_arr
         );
@@ -605,21 +620,20 @@ class Controller extends CController {
         ));
     }
 
-    
     public function removeImageFromS3($key, $bucket) {
         $provider_arr['key'] = 'AKIAJKVKLIJWCJBKMJUQ';
         $provider_arr['secret'] = '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';
         $provider_arr['region'] = 'ap-southeast-2';
-        
+
         $client = Aws\S3\S3Client::factory(
-            $provider_arr
+                        $provider_arr
         );
         $client->deleteObject(array(
             'Bucket' => $bucket, //"s3.hubsrv.com"
             'Key' => $key
         ));
     }
-    
+
     protected function addPhotoSizeToName($photo_name, $photo_size_arr) {
         $name_arr = explode(".", $photo_name);
         $new_name = "";
@@ -630,7 +644,6 @@ class Controller extends CController {
 
         return $new_name;
     }
-
 
     public function getInputData($inputDataType, $inputData) {
         $tempInput = "";
@@ -648,11 +661,11 @@ class Controller extends CController {
     }
 
     function compressPhotoData($type, $image) {
-   
+
 
         if ($type == "image/png") {
             imagepng($image);
-        } elseif ($type == "image/jpeg") {   
+        } elseif ($type == "image/jpeg") {
             imagejpeg($image, null, 80);
         }
 
@@ -665,16 +678,15 @@ class Controller extends CController {
         $time_string = strtotime($datetime);
         return $time_string;
     }
-    
-       
+
     function compressData($type, $data, $url) {
-        
+
 //        error_log($url."--------------------- \r\n");
         ob_start();
         if ($type == "image/png") {
             imagepng($data);
         } elseif ($type == "image/jpeg") {
-            if(!strpos($url, 'imageservice') && strpos($url, 'original')) {
+            if (!strpos($url, 'imageservice') && strpos($url, 'original')) {
                 imagejpeg($data, null, 80);
             } else {
                 imagejpeg($data, null, 100);
@@ -683,8 +695,8 @@ class Controller extends CController {
         $return = ob_get_contents();
         ob_end_clean();
         return $return;
-    } 
-    
+    }
+
     function isUrlExist($path) {
         $file_headers = @get_headers($path);
         if ($file_headers[0] == 'HTTP/1.1 404 Not Found') {
@@ -694,28 +706,28 @@ class Controller extends CController {
         }
         return $response;
     }
-    
+
     function is_image($path) {
         try {
-            if($a=@getimagesize($path)) {
+            if ($a = @getimagesize($path)) {
 //                $a = getimagesize($path);
                 $image_type = $a[2];
                 if (in_array($image_type, array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_BMP))) {
                     return "true";
                 }
             } else {
-                $message = "is not a image." . date("Y-m-d H:i:s").$path. " \r\n";
+                $message = "is not a image." . date("Y-m-d H:i:s") . $path . " \r\n";
                 $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $message);
             }
         } catch (Exception $e) {
             $response = 'Caught exception: ' . $e->getMessage() . "\n";
-            $message = $response . "\n" . date("Y-m-d H:i:s").$path. " \r\n";
+            $message = $response . "\n" . date("Y-m-d H:i:s") . $path . " \r\n";
             $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $message);
         }
 
         return "false";
     }
-    
+
     protected function writeToLog($fileName, $content) {
         //   $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_success.log';
         $handle = fopen($fileName, 'a') or die('Cannot open file:  ' . $fileName);

@@ -206,8 +206,8 @@ class Controller extends CController {
             $requestStringTwo = 'couchbaseDocument.doc.owner_id=' . $owner_id;
             array_push($requestArray, $requestStringTwo);
             //       error_log(var_export($requestArray, true));
-            $tempResult = $this->performMustSearch($requestArray, $returnType, 'must');
-            $mega = CJSON::decode($tempResult, true);
+            $response = $this->performMustSearch($requestArray, $returnType, 'must');
+       //     $response = CJSON::($tempResult, true);
 
 
             //  error_log(var_export($mega, true));
@@ -296,7 +296,7 @@ class Controller extends CController {
 
         $i = 0;
 
-        $results = '{' . $returnType . ':[';
+        $results = '{"' . $returnType . '":[';
         foreach ($response as $hit) {
             $results .= CJSON::encode($hit['source']['doc']);
             if (++$i < count($response)) {

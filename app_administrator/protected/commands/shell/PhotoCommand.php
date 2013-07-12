@@ -60,7 +60,7 @@ class PhotoCommand extends Controller_admin {
     }
     
     protected function resizingHero() {
-        $photo_data_arr = ArticleImages::model()->startFrom(131027);
+        $photo_data_arr = ArticleImages::model()->startFrom(132325);
         echo sizeof($photo_data_arr)."-----------------------\r\n";
 //        exit();
         $total_amount = sizeof($photo_data_arr);

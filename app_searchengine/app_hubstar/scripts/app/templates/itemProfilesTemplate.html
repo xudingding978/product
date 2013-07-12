@@ -23,10 +23,10 @@
         <div class="masonry-object_profilepic" style="cursor:pointer;" {{action toProfilePage this}}>
              <img class="easing" {{bindAttr src="profile_pic_url"}} />   
         </div>
-        <div  type="button" class="new-btn green-btn object-followbtn-position" style="margin: 0 auto 5px; left: 0;right: 0;width: 80px;display: block;">
+        <div  type="button" class="new-btn green-btn object-followbtn-position" style="margin: 0 auto 10px; left: 0;right: 0;width: 80px;display: block;">
             <i class="icon-plus">&nbsp;</i> Follow
         </div>
-        <div class="masonry-object_name-position" style="top: 133%;"> 
+        <div class="masonry-object_name-position" style="margin-bottom: 5px;"> 
             <a {{bindAttr href="getProfile_id"}}  {{action toProfilePage this}}  style="cursor:pointer" >{{profile_name}} </a>
         </div>
 

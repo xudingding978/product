@@ -53,10 +53,17 @@ define([
         newUpload: function() {
             $('#ownerUpload').attr('style', 'display:block');
             $('#tagetUplaod').attr('style', 'display:none');
+
+            setTimeout(function() {
+                $('#masonry_photo_collection_container').masonry("reload");
+            }, 200);
         },
         back: function() {
             $('#ownerUpload').attr('style', 'display:none');
             $('#tagetUplaod').attr('style', 'display:block');
+            setTimeout(function() {
+                $('#masonry_photo_collection_container').masonry("reload");
+            }, 200);
         },
         removeCollectedItem: function(collectionID, itemID)
         {

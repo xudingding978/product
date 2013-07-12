@@ -90,7 +90,7 @@ define(["ember"], function(Ember) {
 
 
                     }
-                    this.get("content").pushObject(App.Mega.find(client_id));
+                    //     this.get("content").pushObject(App.Mega.find(client_id));
                     //          this.getClientId(App.Profile.find(this.get('clientID')));
                 }
 

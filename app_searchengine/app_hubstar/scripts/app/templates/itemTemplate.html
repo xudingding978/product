@@ -225,11 +225,11 @@
     <div class="masonry-object">
         <div class="masonry-object_poster">  
             <a {{bindAttr href="getProfile_id"}}>
-                <img {{bindAttr src="profile_pic_url"}} class="profilepic-on-masonry"/>
+                <img {{bindAttr src="creator_profile_pic"}} class="profilepic-on-masonry"/>
             </a>
             <div class="object_username">
-                <a class="poster-name" {{bindAttr href="getProfile_id"}}>{{profile_id}}</a>
-                <span class="posttime">yesterday 10:26</span>
+                <a class="poster-name" {{bindAttr href="getProfile_id"}}>{{creator}}</a>
+                <span class="posttime">{{date created}}</span>
             </div>
 
             <div class="object-tags-box">

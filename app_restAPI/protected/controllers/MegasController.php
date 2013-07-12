@@ -154,7 +154,6 @@ class MegasController extends Controller {
             $id = $temp [sizeof($temp) - 1];
             $type = $newRecord['mega']['type'];
             $docID = $this->getDocId($type, $id);
-            ;
             $oldRecord = $cb->get($docID);
             $oldRecord = CJSON::decode($oldRecord, true);
             $oldRecord['comments'] = null;
@@ -189,7 +188,6 @@ class MegasController extends Controller {
 
     public function createUploadedPhoto($mega) {
         if (sizeof($mega) > 0) {
-
             $photoController = new PhotosController();
             $photoController->photoCreate($mega);
         }

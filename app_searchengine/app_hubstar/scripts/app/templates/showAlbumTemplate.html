@@ -1,10 +1,3 @@
-      
-
-
-
-
-
-
 
 
 
@@ -22,8 +15,11 @@
         </div>
     </div>
     <div style="margin: 15px;"> 
+        {{controller}}{{content}}
         {{#each  content}}
             <img class="photo_original_style" {{bindAttr  id="id" src="photo_image_thumbnail_url"}}  {{action selectImage id on="click" target="controller"}}/>
         {{/each}}
     </div>
 </div>
+
+

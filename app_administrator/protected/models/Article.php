@@ -180,7 +180,7 @@ class Article extends CActiveRecord {
         ));
     }
     
-    function getArticalRange() {
+    function getAll() {
             $data_list = array();
             $sql = "select * from Trends.dbo.Articles order by Trends.dbo.Articles.id asc";
             
@@ -238,4 +238,19 @@ class Article extends CActiveRecord {
                  $data_list = Yii::app() ->db->createCommand($sql)->queryAll(); 
                  return $data_list;
          }
+         
+    public function getCoverPage($article_id) {
+        $data_arr = array();
+        $sql = "select * from 
+                        dbo.ArticleImages as AI, 
+                        dbo.Articles as Ar
+                    where 
+                        Ar.id = AI.articleId 
+                    and 
+                        AI.sequence = 1
+                    and 
+                    Ar.id = ". $article_id;
+        $data_arr = Yii::app()->db->createCommand($sql)->queryAll();
+        return $data_arr;
+    }
 }

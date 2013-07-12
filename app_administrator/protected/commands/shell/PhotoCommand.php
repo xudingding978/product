@@ -42,7 +42,7 @@ class PhotoCommand extends Controller_admin {
 //                break;
                 
                 $obj_arr = $this->structureArray($photo_data_arr[$i]);
-                print_r($obj_arr); 
+//                print_r($obj_arr); 
 //                break;
                 
                 if ($this->importMegaObj($obj_arr)) {
@@ -54,13 +54,13 @@ class PhotoCommand extends Controller_admin {
                    $this->writeToLog($this->log_path, $message);
                }
                
-               if($i>10)                   break;
+               if($i>9)                   break;
             }
          }
     }
     
     protected function resizingHero() {
-        $photo_data_arr = ArticleImages::model()->startFrom(61518);
+        $photo_data_arr = ArticleImages::model()->startFrom(124409);
         echo sizeof($photo_data_arr)."-----------------------\r\n";
 //        exit();
         $total_amount = sizeof($photo_data_arr);
@@ -255,17 +255,18 @@ class PhotoCommand extends Controller_admin {
             "object_description" => $val['caption'],
             "owner_profile_pic" => "http://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small.jpg",
             "owner_type" => 'profile',  
-            "owner_title" => $book_arr['publication'], //Publication Name  ie: Home & Architecture Trends
+            "owner_title" => str_replace("& ", " ", $book_arr['publication']), //Publication Name  ie: Home Architecture Trends
             "owner_id" => strtolower(str_replace("&", "and", str_replace(" ", "-", $book_arr['publication']))),  //Publication Name lovwer case and '&' replaced with 'and'  ie: home-and-architecture-trends
             "owner_contact_email" => "enquiries@trendsideas.com",
             "owner_contact_cc_emails" => null,
             "owner_contact_bcc_emails" => null,
             "people_like" => array(),
-             "region" => $book_arr['region'],
+            "region" => $book_arr['region'],
+            "suburb" => null,
             "status_id" => null,
-             "subcategories" => $subcategory,
+            "subcategories" => $subcategory,
             "timezone" => $book_arr['timezone'],
-             "topics" => $topic_list,
+            "topics" => $topic_list,
             "type" => "photo",
             "updated" => $now,  // this will be the UTC for the uploading time
             "uri_url" => null,
@@ -282,8 +283,7 @@ class PhotoCommand extends Controller_admin {
             "photo_heliumMediaId" => $val['heliumMediaId'],
             "photo_technicalSpecification" => $val['technicalSpecification'],
             "photo_sequence" => $val['sequence'],
-            "photo_isExtra" => $val['isExtra'],
-            "photo_image_url" => $original_url,
+            "photo_isExtra" => $val['isExtra'],            
             "photo_image_original_url" => $original_url,
             "photo_image_hero_url" => $hero_url,
             "photo_image_thumbnail_url" => $thumbnail_url,

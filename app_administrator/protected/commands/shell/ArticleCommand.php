@@ -1,8 +1,10 @@
 <?php
+Yii::import("application.models.*");
+Yii::import("application.components.*");
 
-class ArticleCommand extends CConsoleCommand {
-    protected  $total_amount=0;
-
+class ArticleCommand extends Controller_admin {
+    protected $log_path = '/home/devbox/NetBeansProjects/test/error_loadingarticle.log';
+    
     public function actionIndex ($action=null) {
         echo (isset($action) ? 'Your are do... ' . $action."\r\n" : 'No action defined \r\n');
         Yii::import("application.models.*");
@@ -23,26 +25,42 @@ class ArticleCommand extends CConsoleCommand {
     }
     
     protected function importArticleToProduction() {
-        $artical_data_arr = Article::model()->getArticalRange();
-        $this->total_amount = sizeof($artical_data_arr);
-        echo $this->total_amount . "\r\n";
-        
-        $i=0;
-        if (sizeof($artical_data_arr) > 0) {
-            foreach ($artical_data_arr as $val_arr) {
-                $obj = $this->structureArray($val_arr);
+        $artical_data_arr = Article::model()->getAll();
+        $total_amount = sizeof($artical_data_arr);
+        echo "totally: ". $total_amount . "\r\n";
+
+        if ($total_amount > 0) {
+            for ($i=0; $i<$total_amount; $i++) {
+//                echo $this->getNewID() . "\r\n";
+                
+                $obj = $this->structureArray($artical_data_arr[$i]);
 //                print_r($obj);
-                
-                $this->importMegaObj($obj, $val_arr['id']);
-                
-                $i++;
-                echo "-------------------".$i."/".$this->total_amount."\r\n" ;
-                
-//                if ($i>5) exit();
 //                exit();
+                if ($this->importMegaObj($obj)) {
+                    $id_arr['couchBaseId'] = "trendsideas.com/".$obj['id'];
+                    $id_arr['objectId'] = $obj['id'];
+                    
+                    $update_bool = Article::model()->updateByPk($artical_data_arr[$i]['id'], $id_arr);
+                     if($update_bool) {
+                        $message = 'update sql server  is success with article id: '.$artical_data_arr[$i]['id'] . " ----------------- ".$i."/".$total_amount. "\r\n";
+                        echo $message;
+                    } else {
+                        $message = 'update sql server  is NOT success with article id: '.$artical_data_arr[$i]['id']."\r\n";
+                        echo $message;
+                        
+                        $this->writeToLog($this->log_path, $message);
+                    }
+                    
+                } else {
+                    $message = 'import object to couchbase is fail, id: '. $artical_data_arr[$i]['id'];
+                    echo $message;
+                    $this->writeToLog($this->log_path, $message);
+                }
+                
+                if($i >9) break;
             }
         } else {
-            echo "cannot find any articals";
+            echo "cannot find any articles";
         }
 
     }
@@ -114,34 +132,10 @@ class ArticleCommand extends CConsoleCommand {
         return new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", $bucket, true);
     }
     
-    protected function getData($url, $method) {
-        try {
-            $ch = curl_init($url);
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-
-            $result = curl_exec($ch);
-            curl_close($ch);
-            $data_arr = CJSON::decode($result, true);
-            
-            return $data_arr;
-        } catch (Exception $e) {
-            echo 'Caught exception: ' . $e->getMessage();
-            return null;
-        }
-    }
-    
     public function structureArray($val) {
-
-        //  get region and country
-        $region = Regions::model()->selectRegionByArtical($val['id']);
-        $country = $region;
-        $pos = strripos($country, ",");
-        if ($pos) {
-            $country = substr($country, -($pos - 3));
-        }
-
+        //get id 
+        $id = $this->getNewID();
+        
         // get topic
         $topic_list = TopicSearchNames::model()->selectTopicNameByArticalID($val['id']);
 
@@ -152,10 +146,10 @@ class ArticleCommand extends CConsoleCommand {
         $category = Categories::model()->selectCategoryByArticalID($val['id']);
 
         //get book details
-        $book_arr = $this->getBookDetails($val);
+        $book_arr = $this->getBookDetails($val['id']);
 
         // get current datetime
-        $accessed = strtotime(date('Y-m-d H:i:s'));
+        $now = strtotime(date('Y-m-d H:i:s'));
 
         // get photography
         $photography = "";
@@ -170,66 +164,70 @@ class ArticleCommand extends CConsoleCommand {
         }
 
         //get object cover
-        $cover = $this->getCoverPage($val['id']);
-
-        $obj = array(
-            "id" => null,
-            "type" => "article",
-            "accessed" => $accessed,
-            "is_active" => true,
-            "created" => $book_arr['date'],
-            "timezone" => $book_arr['timezone'],
-            "creator" => $book_arr['title'],
-            "creator_type" => 'user',
-            "creator_profile_pic" => "http://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small.jpg",
-            "creator_title" => "Trends Ideas",
-            "topics" => $topic_list,
+        $cover = "";
+        $cover_arr = Article::model()->getCoverPage($val['id']);
+        if (sizeof($cover_arr)) {
+            $cover = $cover_arr[0]['photo_image_hero_url'];
+            
+//            print_r($cover_arr);
+//            exit();
+        }
+        
+         $obj = array(
+            "id" => $id,
+            "accessed" => $now,
+            "boost" => null,  // serach engine ranking... integer ie 6
+            "created" => $book_arr['date'],  // UTC date time timezone format
             "categories" => $category,
             "collection_id" => $val['id'],
-            "subcategories" => $subcategory,
+            "creator" => $book_arr['title'],  //Book Title ie: Home & Architectural Trends - Atlanta
+            "creator_type" => 'user', 
+            "creator_profile_pic" => "http://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small.jpg",
+            "country" => $book_arr['country'],
             "collection_count" => null,
-            "likes_count" => null,
             "deleted" => null,
             "domains" => array(),
-            "editors" => "*@trendsideas.com",
-            "follower_count" => null,
-            "followers" => null,
-            "following" => null,
-            "following_count" => null,
-            "country" => $country,
-            "region" => $region,
+            "editors" => "*@trendsideas.com, support@trendsideas.com",
             "geography" => null,
+            "like_count" => null,
             "is_indexed" => true,
+             "is_active" => true,
+            "keywords" => $val['headline'],
             "object_image_linkto" => null,
-            "object_image_url" => $cover,  //varify later
+            "object_image_url" => $cover,
             "object_title" => $val['headline'],
             "object_description" => $val['subHeadline'],
-            "owner_type" => 'profile',
             "owner_profile_pic" => "http://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small.jpg",
-            "owner_title" => "Trends Ideas",
-            "owner_id" => strtolower($book_arr['title']), //"home-and-apartment-trends-nz"
-            "owners" => array(),
+            "owner_type" => 'profile',  
+            "owner_title" => str_replace("& ", "", $book_arr['publication']), //Publication Name  ie: Home Architecture Trends
+            "owner_id" => strtolower(str_replace("&", "and", str_replace(" ", "-", $book_arr['publication']))),  //Publication Name lovwer case and '&' replaced with 'and'  ie: home-and-architecture-trends
             "owner_contact_email" => "enquiries@trendsideas.com",
             "owner_contact_cc_emails" => null,
             "owner_contact_bcc_emails" => null,
+            "people_like" => array(),
+            "region" => $book_arr['region'],
+            "suburb" => null,
             "status_id" => null,
-            "updated" => null,
+            "subcategories" => $subcategory,
+            "timezone" => $book_arr['timezone'],
+            "topics" => $topic_list,
+            "type" => "article",
+            "updated" => $now,  // this will be the UTC for the uploading time
             "uri_url" => null,
             "view_count" => null,
-            "keywords" => $val['headline'],
             "article" => array()
         );
 
         $article_list = array(
-            "id" => null,
+            "id" => $id,
             "article_id" => $val['id'],
             "article_spark_job_id" => $val['sparkJobId'],
-            "article_helium_mediaId" => $val['heliumMediaId'],
+            "article_helium_media_id" => $val['heliumMediaId'],
             "article_type" => $val['type'],
             "article_headline" => $val['headline'],
-            "article_subheadline" => $val['subHeadline'],
+            "article_sub_headline" => $val['subHeadline'],
             "article_body" => $val['body'],
-            "article_credits" => $val['creditText'],
+            "article_credits_text" => $val['creditText'],
             "article_photography" => $photography,
             "article_feature_name" => $val['featureName'],
             "article_channel_id" => $val['channelId'],
@@ -248,167 +246,12 @@ class ArticleCommand extends CConsoleCommand {
         );
 
         array_push($obj['article'], $article_list);
-        $owners_arr = array("*@trendsideas.com");
-        $domains_arr = array("beta.trendsides.com", "trendsideas.com");
         
-        array_push($obj['owners'], $owners_arr);
+        $domains_arr = array("beta.trendsides.com", "trendsideas.com");        
         array_push($obj['domains'], $domains_arr);
         
         return $obj;
     }
-    
-    protected function getBookDetails ($val) {
-        $book_data_arr = array();
-        
-        $book_id = array();
-        $book_date = 0;
-        $book_title = "";
-        $timezone = "";
-        $title = ""; 
-        $region_book="";
-        
-        $book_list = Books::model()->getBookByArticalID($val['id']);
-        if (sizeof($book_list) > 0) {
-            foreach ($book_list as $book) {
-                array_push($book_id, $book['id']);
-                
-                if ($book['region'] != "" || $book['region'] != null)  $region_book = Regions::model()->selectCountryNameByID($book['region']);
-                $date_live = $book['dateLive'];
-                $title = str_replace(" & ", "-", $book['title']);
-                $title = str_replace(" ", "-", $title);
-                if ($region_book !== null && $region_book !== "") {
-                    $time_array = $this->getUTC($date_live, $region_book);
-                    if (sizeof($time_array) > 0) {
-                        $UTC = $time_array['utc'];
-                        if ((int) $UTC > $book_date) {
-                            $book_date = $UTC;
-                            $timezone = $time_array['timezone'];
-                            $region_book = str_replace(" & ", "-", $region_book);
-                            $region_book = str_replace(" ", "-", $region_book);
-                            $book_title = $region_book . "-" . $title;
-                        }
-                    }
-                }
-            }
-        }
-        
-        $book_data_arr['id'] = $book_id;
-        $book_data_arr['date'] =  $book_date;
-        $book_data_arr['title'] = $book_title;
-        $book_data_arr['timezone'] = $timezone;
-        
-        return $book_data_arr;        
-    }
-    
-    
-    public function getUTC($datetime, $region) {
-        $time_zone = '';
-        switch ($region) {
-            case 'New Zealand':
-                $time_zone = 'NZ';
-                break;
-            case 'Australia':
-                $time_zone = 'Australia/Sydney';
-                break;
-            case 'United States':
-                $time_zone = 'America/New_York';
-                break;
-            case 'South Africa':
-                $time_zone = 'Africa/Johannesburg';
-                break;
-            case 'The Gulf':
-                $time_zone = 'Asia/Dubai';
-                break;
-            case 'The Gulf & Asia':
-                $time_zone = 'Asia/Dubai';
-                break;
-            case '中国':
-                $time_zone = 'Asia/Shanghai';
-                break;
-            case 'India':
-                $time_zone = 'Asia/Kolkata';
-                break;
-        }
-        $time_array = array();
-        date_default_timezone_set($time_zone);
-        $time_string = strtotime($datetime);
-        
-        $time_array['utc'] = $time_string;
-        $time_array['timezone'] = $time_zone;
 
-        return $time_array;
-    }
-
-    public function getCoverPage($article_id) {
-        
-        $data_arr = Article::model()->getFirstPhotoHlmID($article_id);
-        
-//        print_r($data_arr);
-//        echo $data_arr[0]['heliumMediaId']."\r\n";
-//        exit();
-        
-        $cover_url = "";
-        if (sizeof($data_arr) > 0) {
-            $helim_id_str = $data_arr[0]['heliumMediaId'];
-//            echo $helim_id_str;
-            $url = "http://api.develop.devbox/GetResultByKeyValue/?type=photo&photo_heliumMediaId=" . $helim_id_str;
-            $json_result = $this->getData($url, "GET");
-            
-//            print_r($json_result);
-//            echo gettype($json_result);
-            
-//            exit();
-            
-            if (sizeof($json_result) > 0) {
-                $cover_url = $this->getCoverUrl($json_result);
-            } else {
-                echo "cannot find any image object from couchbase!----helim ID: " . $helim_id_str . "----------- \r\n";
-            }
-        }
-        
-//        echo $cover_url;
-//        exit();
-        
-        return $cover_url;
-    }
-    
-    public function getCoverUrl($json_result) {
-        $cover_url = "";
-        
-//        print_r($json_result['photo']);
-        
-        foreach ($json_result['photo'] as $val) {
-            $sequence = $val['photo'][0]['photo_sequence'];
-            if ($sequence === "1") {
-                $cover_url = $val['photo'][0]['photo_image_hero_url'];
-                
-                if ($cover_url != "")
-                    break;
-            }
-        }
-
-        return $cover_url;
-    }
-    
-    public function importMegaObj($data_list, $id) {
-        $json_list = json_encode($data_list);
-        try {
-            $ch = curl_init("http://api.develop.devbox/megaimport/");
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $json_list);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-            $result = curl_exec($ch);
-            //close connection
-            curl_close($ch);
-
-            echo $message = "trendsideas.com/" . $result. "-----------" . date("Y-m-d H:i:s") . "---id: " . $id .  " \r\n";
-
-        } catch (Exception $e) {
-            $response = 'Caught exception: ' . $e->getMessage();
-            echo $message = $response . "----" . date("Y-m-d H:i:s") . $data_list['object_image_url'] . " \r\n";
-        }
-    }
-    
 }
 ?>

@@ -64,7 +64,6 @@ class PhotosController extends Controller {
             $this->saveImageToS3($key, $response, $bucket);
             $path = 'http://s3.hubsrv.com/'.$key;
          
-
 //            echo $path;
 //            exit();
             $tempArray = array(
@@ -303,11 +302,13 @@ class PhotosController extends Controller {
         return $response;
     }
 
+    
     public function doPhotoResizing($mega) {
         $photo_string = $mega['photo'][0]['photo_image_url'];
         $photo_name = $mega['photo'][0]['photo_title'];
 
-
+        error_log($photo_name);
+        
         $data_arr = $this->convertToString64($photo_string);
         $photo = imagecreatefromstring($data_arr['data']);
 //        error_log(var_export($data_arr, true));
@@ -333,17 +334,17 @@ class PhotosController extends Controller {
         $new_size = $this->getNewPhotoSize($orig_size, $photo_type);
         $new_photo_data = $this->createNewImage($orig_size, $new_size, $compressed_photo, $data_arr['type']);
 
-
+        
         $new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
 
 //        $new_size = getNewPhotoSize($orig_size, 'preview'); 
 //        $new_size = getNewPhotoSize($orig_size, 'hero');
 //        $new_photo_name = $image_name.'_'.$new_size['width'].'x'.$new_size['height'];
 
-        $url = "trendsideas.com/media/article/resize/" . $photo_type . "/" . $new_photo_name;
+        $key = "test/" . $photo_type . "/" . $new_photo_name;
+        $bucket = "s3.hubsrv.com";
 
-
-        $this->saveImageToS3($url, $new_photo_data);
+        $this->saveImageToS3($key, $new_photo_data, $bucket);
     }
 
     protected function getNewPhotoSize($photo_size, $photo_type) {
@@ -382,7 +383,7 @@ class PhotosController extends Controller {
 
         ob_start();
         if ($photo_type == "image/png") {
-            imagepng($image);
+            imagepng($new_photo);
 
         } else if ($photo_type == "image/jpeg") {
             imagejpeg($new_photo);
@@ -398,7 +399,11 @@ class PhotosController extends Controller {
     }
 
     public function photoCreate($mega) {
+        $this->doPhotoResizing ($mega);
         error_log(var_export($mega, true));
+        
+        exit();
+        
         $id = $this->getNewID();
         $docID = $this->getDomain() . "/" . $id;
         $mega["id"] = $id;
@@ -407,9 +412,12 @@ class PhotosController extends Controller {
         $mega['created'] = $this->getCurrentUTC();
         $mega['updated'] = $this->getCurrentUTC();
         //   $this->sendResponse(204, "{ render json: @user, status: :ok }");
-error_log('$docID   '.$docID);
+        error_log('$docID   '.$docID);
           $cb = $this->couchBaseConnection();
            if ($cb->add($docID, CJSON::encode($mega))) {
+               //save images 
+               
+               
             $this->sendResponse(204, "{ render json: @user, status: :ok }");
         } else {
             $this->sendResponse(500, "some thing wrong");

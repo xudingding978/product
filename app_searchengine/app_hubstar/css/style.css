@@ -1,34 +1,57 @@
 .plaform_bar{
-
     position: fixed;
     left: 0px;
-    top:30%;
-    z-index:20;
-    background-image:url(../../../images/reflection.png);
-    background-repeat:no-repeat;
-    background-attachment:local;
+    top: 20%;
+    z-index: 20;
+    min-width: 10px;
+    background-image: url(../../../images/reflection.png);
+    background-repeat: no-repeat;
+    background-attachment: local;
     background-size: 100% 80%;
+    border-radius: 0 10px 10px 0;
+    background-color: rgba(50,50,50,0.4);
+    box-shadow: 0 0 10px #fff;
 }
 
+.plaform_bar:hover{
+    box-shadow: none;
+    background-color: transparent;
+}
 
+.plaform_bar:hover #navContainer{
+    opacity: 1;
+}
 
 #navContainer {
     margin:0;
     padding:15px 0;
-
+    opacity: 0;
     text-align:center;
     width:10px;
     overflow: hidden;
-    box-shadow: 0 0 5px #333;
-    border-radius: 0 10px 10px 0;
+    box-shadow: 0 0 15px #fff;
 
+    /* Safari 4+, Chrome 1-9 */
     background-image: -webkit-gradient( linear, left top, left bottom, from(rgba(20,20,20,0.2)), to(rgba(40,40,40,0.7)));
+
+    /* Safari 5.1+, Mobile Safari, Chrome 10+ */
+    background-image: -webkit-linear-gradient(top, rgba(20,20,20,0.2), rgba(40,40,40,0.7)); 
+
+    /* Firefox 3.6+ */
+    background-image: -moz-linear-gradient(top, rgba(20,20,20,0.2), rgba(40,40,40,0.7));
+
+    /* IE 10+ */
+    background-image: -ms-linear-gradient(top, rgba(20,20,20,0.2), rgba(40,40,40,0.7));
+
+    /* Opera 11.10+ */
+    background-image: -o-linear-gradient(top, rgba(20,20,20,0.2), rgba(40,40,40,0.7));
 }
 
 #navContainer:hover {
     margin: 0;
     padding: 15px 0;
     text-align: center;
+
     width: 100px;
     overflow: visible;
     box-shadow: 0 0 5px #333;
@@ -160,7 +183,7 @@
     background-color: #f3f3f3;
     border-radius: 6px;
     box-shadow: 0 0 5px #333;
-    z-index: 1;
+    z-index: 21;
 }
 #navContainer > ul > li> ul > li > ul{
 
@@ -176,7 +199,7 @@
     background-color: #f3f3f3;
     box-shadow: 0 0 5px #333;
     border-radius: 6px;
-    z-index: 2;
+    z-index: 22;
 }
 #navContainer > ul > li> ul > li> ul> li > ul{
     display:none; 
@@ -191,7 +214,7 @@
     background-color: #f3f3f3;
     box-shadow: 0 0 5px #333;
     border-radius: 6px;
-    z-index: 3;
+    z-index: 23;
 }
 
 
@@ -1037,6 +1060,240 @@ div.loading-visible{
 100%{
     left:0px;
     background-color:#000000;
+}
+
+}
+
+
+#blurringTextG1{
+    width: 128px;
+    position: relative;
+    top: -40px;
+    left: 60px;
+}
+
+.blurringTextG1{
+    color:transparent;
+    ;
+    font-family:Arial;
+    font-size:18px;
+    text-decoration:none;
+    font-weight:bold;
+    font-style:normal;
+    float:left;
+    text-shadow: #555555 0 0 0;
+    -moz-animation-name:bounce_blurringTextG;
+    -moz-animation-duration:1.82s;
+    -moz-animation-iteration-count:infinite;
+    -moz-animation-direction:linear;
+    -webkit-animation-name:bounce_blurringTextG;
+    -webkit-animation-duration:1.82s;
+    -webkit-animation-iteration-count:infinite;
+    -webkit-animation-direction:linear;
+    -ms-animation-name:bounce_blurringTextG;
+    -ms-animation-duration:1.82s;
+    -ms-animation-iteration-count:infinite;
+    -ms-animation-direction:linear;
+    -o-animation-name:bounce_blurringTextG;
+    -o-animation-duration:1.82s;
+    -o-animation-iteration-count:infinite;
+    -o-animation-direction:linear;
+    animation-name:bounce_blurringTextG;
+    animation-duration:1.82s;
+    animation-iteration-count:infinite;
+    animation-direction:linear;
+}
+
+@-moz-keyframes bounce_blurringTextG1{
+    0%{
+    text-shadow: #555555 0 0 0;
+}
+
+50%{
+    text-shadow: #FFFFFF 0 0 20px;
+}
+
+100%{
+    text-shadow: #555555 0 0 0;
+}
+
+}
+
+@-webkit-keyframes bounce_blurringTextG1{
+    0%{
+    text-shadow: #555555 0 0 0;
+}
+
+50%{
+    text-shadow: #FFFFFF 0 0 20px;
+}
+
+100%{
+    text-shadow: #555555 0 0 0;
+}
+
+}
+
+@-ms-keyframes bounce_blurringTextG1{
+    0%{
+    text-shadow: #555555 0 0 0;
+}
+
+50%{
+    text-shadow: #FFFFFF 0 0 20px;
+}
+
+100%{
+    text-shadow: #555555 0 0 0;
+}
+
+}
+
+@-o-keyframes bounce_blurringTextG1{
+    0%{
+    text-shadow: #555555 0 0 0;
+}
+
+50%{
+    text-shadow: #FFFFFF 0 0 20px;
+}
+
+100%{
+    text-shadow: #555555 0 0 0;
+}
+
+}
+
+@keyframes bounce_blurringTextG1{
+    0%{
+    text-shadow: #555555 0 0 0;
+}
+
+50%{
+    text-shadow: #FFFFFF 0 0 20px;
+}
+
+100%{
+    text-shadow: #555555 0 0 0;
+}
+
+}
+
+
+
+
+#blurringTextG{
+    width: 180px;
+    margin: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 43%;
+}
+
+.blurringTextG{
+    color:transparent;
+    ;
+    font-family:Arial;
+    font-size:13px;
+    text-decoration:none;
+    font-weight:bold;
+    font-style:normal;
+    float:left;
+    text-shadow: #555555 0 0 0;
+    -moz-animation-name:bounce_blurringTextG;
+    -moz-animation-duration:2.31s;
+    -moz-animation-iteration-count:infinite;
+    -moz-animation-direction:linear;
+    -webkit-animation-name:bounce_blurringTextG;
+    -webkit-animation-duration:2.31s;
+    -webkit-animation-iteration-count:infinite;
+    -webkit-animation-direction:linear;
+    -ms-animation-name:bounce_blurringTextG;
+    -ms-animation-duration:2.31s;
+    -ms-animation-iteration-count:infinite;
+    -ms-animation-direction:linear;
+    -o-animation-name:bounce_blurringTextG;
+    -o-animation-duration:2.31s;
+    -o-animation-iteration-count:infinite;
+    -o-animation-direction:linear;
+    animation-name:bounce_blurringTextG;
+    animation-duration:2.31s;
+    animation-iteration-count:infinite;
+    animation-direction:linear;
+}
+
+@-moz-keyframes bounce_blurringTextG{
+    0%{
+    text-shadow: #555555 0 0 0;
+}
+
+50%{
+    text-shadow: #FFFFFF 0 0 20px;
+}
+
+100%{
+    text-shadow: #555555 0 0 0;
+}
+
+}
+
+@-webkit-keyframes bounce_blurringTextG{
+    0%{
+    text-shadow: #555555 0 0 0;
+}
+
+50%{
+    text-shadow: #FFFFFF 0 0 20px;
+}
+
+100%{
+    text-shadow: #555555 0 0 0;
+}
+
+}
+
+@-ms-keyframes bounce_blurringTextG{
+    0%{
+    text-shadow: #555555 0 0 0;
+}
+
+50%{
+    text-shadow: #FFFFFF 0 0 20px;
+}
+
+100%{
+    text-shadow: #555555 0 0 0;
+}
+
+}
+
+@-o-keyframes bounce_blurringTextG{
+    0%{
+    text-shadow: #555555 0 0 0;
+}
+
+50%{
+    text-shadow: #FFFFFF 0 0 20px;
+}
+
+100%{
+    text-shadow: #555555 0 0 0;
+}
+
+}
+
+@keyframes bounce_blurringTextG{
+    0%{
+    text-shadow: #555555 0 0 0;
+}
+
+50%{
+    text-shadow: #FFFFFF 0 0 20px;
+}
+
+100%{
+    text-shadow: #555555 0 0 0;
 }
 
 }

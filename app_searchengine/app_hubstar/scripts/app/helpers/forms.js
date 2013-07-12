@@ -27,7 +27,7 @@ define(['ember', 'handlebars', 'moment'],
 
             });
             Ember.Handlebars.registerBoundHelper('date', function(date) {
-                if (date === "" || date === null) {
+                if (date === "" || date === null||date === undefined) {
                     return "";
                 } else {
                     var matches = date.match('^[0-9]+$');
@@ -54,7 +54,9 @@ define(['ember', 'handlebars', 'moment'],
                     }
                 }, 20);
             });
-
+            Ember.Handlebars.registerBoundHelper('test', function(test) {
+       console.log(test);
+            });
 //            Ember.Handlebars.registerHelper('comemntIDStringifyFunc', function(data) {
 //
 //                if (data.indexOf(" ") !== -1) {

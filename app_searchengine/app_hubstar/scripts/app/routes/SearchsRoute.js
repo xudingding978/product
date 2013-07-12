@@ -2,13 +2,15 @@ define([
     'ember',
     'controllers/SearchsController',
     'models/MegaModel',
-    'models/ProfileModel'
+    'models/ProfileModel',
+    'models/ArticleModel'
 
 ], function(
         Ember,
         SearchsController,
         MegaModel,
-        ProfileModel
+        ProfileModel,
+        ArticleModel
 
         ) {
     "use strict";
@@ -31,6 +33,10 @@ define([
             transitionToProfile: function(id) {
 
                 this.transitionTo("profile", ProfileModel.find(id));
+            },
+            transitionToArticle: function(id) {
+
+                this.transitionTo("article", ArticleModel.find(id));
             }
         },
         redirect: function() {
@@ -62,7 +68,7 @@ define([
                 App.set("setHight", 0);
             }, 100);
 
-            localStorage.checkUser ="";
+            localStorage.checkUser = "";
         },
         deactivate: function() {
             App.set("setHight", $(window).scrollTop());

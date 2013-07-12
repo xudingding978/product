@@ -171,7 +171,7 @@ class Controller extends CController {
         $pieces = explode(" ", $myText);
         $id = $pieces[1];
         $id = (string) " ".rand(99999999, 999999999) . $id;
-        return $id;
+        return trim($id);
     }
 
     protected function getRequestResult($searchString, $returnType) {
@@ -184,18 +184,21 @@ class Controller extends CController {
             $from = $this->getUserInput($requireParams[3]);
             $size = $this->getUserInput($requireParams[4]);
             $response = $this->performSearch($returnType, $region, $searchString, $from, $size);
-            //     $response = $this->getRequestResultByID($returnType, $searchString);
+
         } elseif ($requireType == 'collection') {
             $collection_id = $this->getUserInput($requireParams[1]);
             $owner_profile_id = $this->getUserInput($requireParams[2]);
             $response = $this->performRawSearch($returnType, $collection_id, $owner_profile_id);
         } elseif ($requireType == 'partner') {
-
             $partner_id_raw = $this->getUserInput($requireParams[1]);
             $partner_id = str_replace("%2C", ",", $partner_id_raw);
-            //     error_log(str_replace("%2C", ",", $returnType));
             $response = $this->getProfilePartner($returnType, $partner_id);
             //  error_log(var_export($requireType, true));
+        } elseif ($requireType == 'articleRelatedImage') {
+           
+            
+            
+            
         } elseif ($requireType == 'status') {
             $region = $this->getUserInput($requireParams[1]);
             $searchString = $this->getUserInput($requireParams[2]);
@@ -335,14 +338,19 @@ class Controller extends CController {
     }
 
     protected function performRawSearch($returnType, $collection_id, $owner_profile_id) {
-
         $request = $this->getElasticSearch();
-        $must = Sherlock\Sherlock::queryBuilder()->Term()->term($collection_id)//$collection_id
-                ->field('couchbaseDocument.doc.collection_id');
-        $must2 = Sherlock\Sherlock::queryBuilder()->Term()->term($owner_profile_id)
-                ->field('couchbaseDocument.doc.owner_profile_id');
+       
+        $must = Sherlock\Sherlock::queryBuilder()
+                ->QueryString()
+                           ->field('couchbaseDocument.doc.collection_id')
+                        ->query($collection_id);
+        $must2 = Sherlock\Sherlock::queryBuilder()
+                   ->QueryString()
+                           ->field('couchbaseDocument.doc.owner_id')
+                        ->query($owner_profile_id);
+               
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)
-                ->must($must2)
+       ->must($must2)
                 ->boost(2.5);
         $response = $request->query($bool)->execute();
 
@@ -521,7 +529,7 @@ class Controller extends CController {
         $host = $_SERVER['HTTP_HOST'];
         preg_match("/[^\.\/]+\.[^\.\/]+$/", $host, $matches);
 
-        return $matches[0];
+        return trim($matches[0]);
     }
 
     protected function getSelectedCollectionIds($collections, $collection_id) {
@@ -614,14 +622,9 @@ class Controller extends CController {
     }
 
     public function saveImageToS3($url, $data, $bucket) {
-//        $provider_arr = $this->getProviderConfigurationByName("trendsideas.com", "S3Client");
-//        print_r($provider_arr);
-//        exit();
-        
         $provider_arr['key'] = 'AKIAJKVKLIJWCJBKMJUQ';
         $provider_arr['secret'] = '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';
-        $provider_arr['region'] = 'ap-southeast-2';
-        
+        $provider_arr['region'] = 'ap-southeast-2';        
         $client = Aws\S3\S3Client::factory(
                         $provider_arr
         );
@@ -686,21 +689,13 @@ class Controller extends CController {
     }
 
     function compressPhotoData($type, $image) {
-        error_log("type in compressPhotoData: " . $type);
+   
 
-//        ob_start();
         if ($type == "image/png") {
             imagepng($image);
-            error_log("image/png--fffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        } elseif ($type == "image/jpeg") {
-            error_log("in image/jpeg kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+        } elseif ($type == "image/jpeg") {   
             imagejpeg($image, null, 80);
-            error_log("image/jpeg--sssssssssssssssssssssssssssssssssssssssssssssss");
         }
-        error_log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-//        $return = ob_get_contents();
-//        ob_end_clean();
-//        error_log($return);
 
         return $image;
     }
@@ -770,6 +765,31 @@ class Controller extends CController {
         fclose($handle);
 
         unset($fileName, $content, $handle, $output);
+    }
+
+    function array_put_to_position($array, $object, $position, $name = null) {
+        $count = 0;
+        $inserted = false;
+        $return = array();
+
+        foreach ($array as $k => $v) {
+            // insert new object
+            if ($count == $position) {
+                if (!$name)
+                    $name = $count;
+                $return[$name] = $object;
+                $inserted = true;
+            }
+            // insert old object
+            $return[$k] = $v;
+            $count++;
+        }
+        if (!$name)
+            $name = $count;
+        if (!$inserted)
+            $return[$name];
+        $array = $return;
+        return $array;
     }
 
 }

@@ -142,6 +142,7 @@ define('application', [
     "controllers/PlatformBarController",
     "controllers/ItemProfilesController",
     "controllers/ProfilePartnersController",
+    "controllers/ArticleController",
     "app/router",
     "routes/ApplicationRoute",
     "routes/IndexRoute",
@@ -191,7 +192,7 @@ define('application', [
     "models/CateModel",
     "models/SubcateModel",
     "models/SubcategoriesModel",
-
+    "models/FollowerModel",
     "emberData",
     'jquery',
     "bxslider",
@@ -288,6 +289,7 @@ define('application', [
         PlatformBarController,
         ItemProfilesController,
         ProfilePartnersController,
+        ArticleController,
         Router,
         ApplicationRoute,
         IndexRoute,
@@ -336,7 +338,8 @@ define('application', [
         Email,
         Cate,
         Subcate,
-        Subcategories
+        Subcategories,
+        Follower
         )
 {
 
@@ -433,6 +436,7 @@ define('application', [
         PlatformBarController: PlatformBarController,
         ItemProfilesController: ItemProfilesController,
         ProfilePartnersController: ProfilePartnersController,
+        ArticleController: ArticleController,
         Router: Router,
         ApplicationRoute: ApplicationRoute,
         IndexRoute: IndexRoute,
@@ -482,7 +486,7 @@ define('application', [
         Cate: Cate,
         Subcate: Subcate,
         Subcategories: Subcategories,
-
+        Follower: Follower,
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({
@@ -496,7 +500,6 @@ define('application', [
 
             App.set("isLogin", false);
             App.set("afterSearch", false);
-
             App.set("setHight", null);
             App.set('chooseCollection', null);
             App.set('isMansonryPageLoad', false);
@@ -511,7 +514,7 @@ function getRestAPIURL()
     var api_url = document.domain;
     var api_domain_start_pos = api_url.indexOf('.');
     var api_url = api_url.slice(api_domain_start_pos);
-    api_url = "http://api" + api_url;
+    api_url = "http://develop-api" + api_url;
     return api_url;
 }
 

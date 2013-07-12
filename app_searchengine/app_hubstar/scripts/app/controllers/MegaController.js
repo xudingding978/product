@@ -14,7 +14,7 @@ define(['models/MegaModel',
                 megaResouce: null,
                 temp: null,
                 image_no: 1,
-                selectedMega: null,
+                selectedPhoto: null,
                 isSelected: false,
                 needs: ['application', 'addCollection', 'contact'],
                 currentUser: null,
@@ -23,62 +23,66 @@ define(['models/MegaModel',
                 findSelectedItemIndex: function() {
                     content = this.get('content');
                     for (var index = 0; index <= content.get('length'); index++) {
-                        if (this.get('selectedMega') === content.objectAt(index)) {
+                        if (this.get('selectedPhoto') === content.objectAt(index)) {
                             return index;
                         }
                     }
                     return 0;
                 },
                 previesImage: function() {
-                    if (!this.get('selectedMega')) {
-                        this.set('selectedMega', this.get('content').get('lastObject'));
+                    if (!this.get('selectedPhoto')) {
+                        this.set('selectedPhoto', this.get('content').get('lastObject'));
                     }
-                    selectedIndex--;
+
                     var selectedIndex = this.findSelectedItemIndex();
+                    selectedIndex--;
                     if (selectedIndex < 0) {
-                        selectedIndex = this.get('content').get('length');
+                        selectedIndex = this.get('content').get('length') - 1;
                         this.set('image_no', this.get('content').get('length'));
                     }
-                    this.set('selectedMega', this.get('content').objectAt(selectedIndex));
-                    this.set('megaResouce', MegaModel.find(this.get('selectedMega').id)._data.attributes);
-                    this.set("photo_album_id", "album_" + this.get('selectedMega').id);
-                    this.set("photo_thumb_id", "thumb_" + this.get('selectedMega').id);
-                    this.selectedImage(this.get('selectedMega').id);
+                    this.set('image_no', selectedIndex + 1);
+                    this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
+                    this.set('megaResouce', MegaModel.find(this.get('selectedPhoto').id));
+                    this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
+                    this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
+                    this.selectedImage(this.get('selectedPhoto').id);
                 },
                 nextImage: function() {
-                    if (!this.get('selectedMega')) {
-                        this.set('selectedMega', this.get('content').get('firstObject'));
+                    if (!this.get('selectedPhoto')) {
+                        this.set('selectedPhoto', this.get('content').get('firstObject'));
                     }
                     var selectedIndex = this.findSelectedItemIndex();
                     selectedIndex++;
+                    console.log(selectedIndex);
                     if (selectedIndex >= (this.get('content').get('length'))) {
                         this.set('image_no', 1);
                         selectedIndex = 0;
                     }
                     this.set('image_no', selectedIndex + 1);
-                    this.set('selectedMega', this.get('content').objectAt(selectedIndex));
-                    this.set('megaResouce', MegaModel.find(this.get('selectedMega').id)._data.attributes);
-                    this.set("photo_album_id", "album_" + this.get('selectedMega').id);
-                    this.set("photo_thumb_id", "thumb_" + this.get('selectedMega').id);
-                    this.selectedImage(this.get('selectedMega').id);
+                    this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
+                    this.set('megaResouce', MegaModel.find(this.get('selectedPhoto').id));
+                    this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
+                    this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
+                    this.selectedImage(this.get('selectedPhoto').id);
                 },
                 getInitData: function(megaObject) {
-
                     var photoObj = megaObject.get('photo').objectAt(0);
                     this.set("currentUser", App.User.find(localStorage.loginStatus));
                     this.set("content", []);
-                    this.set("selectedMega", photoObj);
+                    this.set('image_no', 1);
+                    this.set("selectedPhoto", photoObj);
                     this.get("content").pushObject(photoObj);
-                    this.set('megaResouce', MegaModel.find(megaObject.id)._data.attributes);
-                    this.set("photo_album_id", "album_" + this.get('selectedMega').id);
-                    this.set("photo_thumb_id", "thumb_" + this.get('selectedMega').id);
+                    var megaResouce = MegaModel.find(megaObject.id);
+                    this.set('megaResouce', megaResouce);
+                    this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
+                    this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
                     this.addRelatedData(megaObject);
                     this.getCommentsById(megaObject.id);
                 },
                 selectImage: function(e) {
-                    this.set('megaResouce', MegaModel.find(e)._data.attributes);
-                    this.set('selectedMega', MegaModel.find(e)._data.hasMany.photo[0].data);
-                    this.set("selectedMega", this.get('selectedMega'));
+                    this.set('megaResouce', MegaModel.find(e));
+                    this.set('selectedPhoto', MegaModel.find(e).get('photo').objectAt(0));
+                    this.set("selectedPhoto", this.get('selectedPhoto'));
                     this.selectedImage(e);
                 },
                 selectedImage: function(id) {
@@ -89,7 +93,7 @@ define(['models/MegaModel',
                 addRelatedData: function(mega)
                 {
                     var collection_id = mega.get("collection_id");
-                    var owner_profile_id = mega.get("owner_profile_id");
+                    var owner_profile_id = mega.get("owner_id");
                     var isProfileIDExist = this.isParamExist(owner_profile_id);
                     var isCollectionIDExist = this.isParamExist(collection_id);
                     var that = this;
@@ -101,7 +105,7 @@ define(['models/MegaModel',
                                     var id = this.get("content").objectAt(i).id;
                                     if (MegaModel.find(id)._data.hasMany.photo.length === 1)
                                     {
-                                        that.get("content").pushObject(MegaModel.find(id)._data.hasMany.photo[0].data);
+                                        that.get("content").pushObject(MegaModel.find(id).get("photo").objectAt(0));
                                     }
                                 }
                             }
@@ -115,9 +119,9 @@ define(['models/MegaModel',
                 },
                 switchCollection: function() {
                     var addCollectionController = this.get('controllers.addCollection');
-                    var selectid = this.get('selectedMega').id;
+                    var selectid = this.get('selectedPhoto').id;
                     addCollectionController.setImageID(selectid);
-                    var tempUrl = this.get('selectedMega').photo_image_thumbnail_url;
+                    var tempUrl = this.get('selectedPhoto').photo_image_thumbnail_url;
                     addCollectionController.setThumbnailUrl(tempUrl);
                     addCollectionController.setUser();
                     this.set('collectable', !this.get('collectable'));
@@ -129,7 +133,7 @@ define(['models/MegaModel',
                 },
                 editingContactForm: function() {
                     var contactController = this.get('controllers.contact');
-                    var selectid = this.get('selectedMega').id;
+                    var selectid = this.get('selectedPhoto').id;
                     contactController.setSelectedMega(selectid);
                     this.set('contact', !this.get('contact'));
                 },
@@ -139,7 +143,7 @@ define(['models/MegaModel',
                 addComment: function() {
                     var commentContent = this.get('commentContent');
                     if (commentContent) {
-                        var comments = this.get("thisComments");
+                        var comments = this.get('megaResouce').get('comments');
                         var commenter_profile_pic_url = this.get("currentUser").get('photo_url');
                         var commenter_id = this.get("currentUser").get('id');
                         var name = this.get("currentUser").get('display_name');

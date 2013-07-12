@@ -57,7 +57,7 @@ class ArticleCommand extends Controller_admin {
                     $this->writeToLog($this->log_path, $message);
                 }
                 
-                if($i >9) break;
+                if($i >1) break;
             }
         } else {
             echo "cannot find any articles";

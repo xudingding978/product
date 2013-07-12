@@ -239,7 +239,5 @@ class MegasController extends Controller {
         }
         return $docID;
     }
-
 }
-
 ?>

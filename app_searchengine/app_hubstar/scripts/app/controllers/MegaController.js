@@ -82,7 +82,7 @@ define(['models/MegaModel',
                 selectImage: function(e) {
                     this.set('megaResouce', MegaModel.find(e));
                     this.set('selectedPhoto', MegaModel.find(e).get('photo').objectAt(0));
-                    this.set("selectedPhoto", this.get('selectedPhoto'));
+               
                     this.selectedImage(e);
                 },
                 selectedImage: function(id) {

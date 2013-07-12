@@ -17,8 +17,10 @@ define([
             return MegaModel.find(params.photo_id);
         },
         activate: function() {
-            $("body").css("overflow", "hidden");
-            $('#footer').attr("style", "display:none");
+            setTimeout(function() {
+                $("body").css("overflow", "hidden");
+                $('#footer').attr("style", "display:none");
+            }, 100);
         },
         deactivate: function() {
 

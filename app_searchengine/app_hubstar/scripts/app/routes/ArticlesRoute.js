@@ -12,10 +12,6 @@ define([
         setupController: function(IndexController, model) {
 
         },
-        model: function() {
-            return ArticleModel.find();
-        }
-
 
     });
     return LightBoxRoute;

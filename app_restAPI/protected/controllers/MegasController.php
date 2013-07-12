@@ -71,7 +71,7 @@ class MegasController extends Controller {
             $this->updateUserRecord($newRecord);
         } else {
             $this->updateMega($newRecord);
-        //    $this->updateComment($newRecord);
+            //    $this->updateComment($newRecord);
         }
     }
 
@@ -214,17 +214,20 @@ class MegasController extends Controller {
         $this->getDocId($type, $id);
         $docID = $this->getDocId($type, $id);
         $oldRecord = $cb->get($docID);
-        $oldRecord = CJSON::decode($oldRecord, true);     
-        array_unshift($oldRecord['comments'],$newRecord['mega']['comments'][0]);
+        $oldRecord = CJSON::decode($oldRecord, true);
+        if (!isset($oldRecord['comments'] )) {
+            $oldRecord['comments'] = array();
+        }
+        array_unshift($oldRecord['comments'], $newRecord['mega']['comments'][0]);
         if (!isset($oldRecord['likes_count']) || $oldRecord['likes_count'] != $newRecord['mega']['likes_count']) {//update count
             $oldRecord['likes_count'] = $newRecord['mega']['likes_count'];
             $oldRecord['people_like'] = $newRecord['mega']['people_like'];
         }
-             if ($cb->set($docID, CJSON::encode($oldRecord))) {
-                $this->sendResponse(204);
-            } else {
-                $this->sendResponse(500, "some thing wrong");
-            }
+        if ($cb->set($docID, CJSON::encode($oldRecord))) {
+            $this->sendResponse(204);
+        } else {
+            $this->sendResponse(500, "some thing wrong");
+        }
     }
 
     public function getDocId($type, $id) {
@@ -236,8 +239,5 @@ class MegasController extends Controller {
         }
         return $docID;
     }
-      
-
 }
-
 ?>

@@ -27,6 +27,7 @@ define([
                 followerTag: false,
                 updateOrCreate: true,
                 partnerTag: false,
+                profileSelectionStatus: "Collections",
                 temp: [],
                 selectedDesc: "",
                 selectedTitle: "",
@@ -352,13 +353,14 @@ define([
                     //      tempComment.store.commit();
                 },
                 selectCollection: function() {
+                    this.set('profileSelectionStatus', 'Collections');
                     this.set('partnerTag', false);
                     this.set('collectionTag', true);
                     this.set('followerTag', false);
                 },
                 selectPartner: function(model) {
 
-
+                    this.set('profileSelectionStatus', 'Partners');
 
                     this.get('controllers.profilePartners').getClientId(model);
                     this.set('partnerTag', true);
@@ -371,6 +373,7 @@ define([
 
                 },
                 selectFollower: function() {
+                    this.set('profileSelectionStatus', 'Followers');
                     this.set('partnerTag', false);
                     this.set('collectionTag', false);
                     this.set('followerTag', true);

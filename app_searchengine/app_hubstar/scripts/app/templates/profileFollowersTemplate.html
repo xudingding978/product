@@ -1,12 +1,35 @@
 
 
-<div style="height: 500px; background-color: grey"></div>
-{{log controller}}
 
-<p>aaaaaaaaaaaaaaaaaaa</p>
 
-<br />
 
+
+
+
+
+
+
+
+
+
+
+
+
+{{#each  content}}
+
+{{render itemProfiles this}}
+
+
+<script>
+    $(function() {
+        var $container = $('#masonry_user_container');
+        window.setTimeout(function() {
+            $container.masonry();
+            $container.masonry('reload');
+        }, 100);
+    });
+</script>
+{{/each}}
 
 
 

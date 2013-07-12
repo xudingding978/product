@@ -294,7 +294,6 @@ class PhotosController extends Controller {
         $photo_string = $mega['photo'][0]['photo_image_original_url'];
         $photo_name = $mega['photo'][0]['photo_title'];
         $owner_id = $mega['owner_id'];
-        error_log('$owner_id '.$mega['id']);
         $data_arr = $this->convertToString64($photo_string);
         $photo = imagecreatefromstring($data_arr['data']);
         $compressed_photo = $this->compressPhotoData($data_arr['type'], $photo);
@@ -304,9 +303,8 @@ class PhotosController extends Controller {
         $heroUrl = $this->savePhotoInTypes($orig_size, "hero", $photo_name, $compressed_photo, $data_arr, $owner_id);
         $previewUrl = $this->savePhotoInTypes($orig_size, "preview", $photo_name, $compressed_photo, $data_arr, $owner_id);
         $originalUrl = $this->savePhotoInTypes($orig_size, "original", $photo_name, $compressed_photo, $data_arr, $owner_id);
-      
         $mega['object_image_url']=$heroUrl;
-        $mega['bject_image_url'] = $heroUrl;
+
         $mega['photo'][0]['photo_image_original_url'] = $originalUrl;
         $mega['photo'][0]['photo_image_hero_url'] = $heroUrl;
         $mega['photo'][0]['photo_image_thumbnail_url'] = $thambnailUrl;

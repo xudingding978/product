@@ -26,6 +26,7 @@ define(
         article_supplier: DS.attr('string'),
         article_category: DS.attr('string'),
         article_writer: DS.attr('string'),
+        article_image_url: DS.attr('string'),
         article_writer_user_id: DS.attr('string'),
         article_book_id: DS.attr('string'),
         didLoad: function() {

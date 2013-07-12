@@ -142,6 +142,7 @@ define('application', [
     "controllers/PlatformBarController",
     "controllers/ItemProfilesController",
     "controllers/ProfilePartnersController",
+    "controllers/ArticleController",
     "app/router",
     "routes/ApplicationRoute",
     "routes/IndexRoute",
@@ -192,7 +193,6 @@ define('application', [
     "models/SubcateModel",
     "models/SubcategoriesModel",
     "models/FollowerModel",
-
     "emberData",
     'jquery',
     "bxslider",
@@ -289,6 +289,7 @@ define('application', [
         PlatformBarController,
         ItemProfilesController,
         ProfilePartnersController,
+        ArticleController,
         Router,
         ApplicationRoute,
         IndexRoute,
@@ -435,6 +436,7 @@ define('application', [
         PlatformBarController: PlatformBarController,
         ItemProfilesController: ItemProfilesController,
         ProfilePartnersController: ProfilePartnersController,
+        ArticleController: ArticleController,
         Router: Router,
         ApplicationRoute: ApplicationRoute,
         IndexRoute: IndexRoute,
@@ -484,8 +486,7 @@ define('application', [
         Cate: Cate,
         Subcate: Subcate,
         Subcategories: Subcategories,
-        Follower:Follower,
-
+        Follower: Follower,
         store: DS.Store.create({
             revision: 12,
             adapter: DS.RESTAdapter.create({

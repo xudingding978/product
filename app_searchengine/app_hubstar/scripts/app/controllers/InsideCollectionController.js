@@ -26,8 +26,6 @@ define([
                     }
                 }
             });
-
-
         },
         selectModelForProfile: function(collection_id) {
             var proController = this.get('controllers.profile');

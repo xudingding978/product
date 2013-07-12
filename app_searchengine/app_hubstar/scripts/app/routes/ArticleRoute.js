@@ -29,8 +29,10 @@ define([
         deactivate: function() {
 
 
-            $("body").css("overflow", "auto");
-            $('#footer').attr("style", "display:block");
+            setTimeout(function() {
+                $("body").css("overflow", "auto");
+                $('#footer').attr("style", "display:block");
+            }, 100);
         },
         renderTemplate: function() {
 

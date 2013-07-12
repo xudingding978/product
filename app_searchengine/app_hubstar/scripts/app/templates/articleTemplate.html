@@ -123,8 +123,8 @@
 
         <div class="collapes-container"  id="article_action">
             <div class="collapes-container_inner">
-                <div class="article-title" >{{article_headline}}</div>
-                <div class="article-text">{{{article_body}}}</div>
+                <div class="article-title" >{{controller.articleResouce.article_headline}}</div>
+                <div class="article-text">{{{controller.articleResouce.article_body}}</div>
             </div>
         </div>
 
@@ -168,129 +168,99 @@
 
         <!-- OBJECT DISCUSSION SECTION -->
         <div>
-
-            <div class="object-collapes-title" {{action setDiscussionTag on="click" target="view"}} >
-                <div class="collapes-title_inner">
-                    Discussion
+            <div>
+                <div class="object-collapes-title" {{action setDiscussionTag on="click" target="view"}} >
+                    <div class="collapes-title_inner">
+                        Discussion
+                    </div>
+                    <div class="dropdownicon">
+                        <i class="icon-angle-down" style="height: 16px; width: 16px;"></i>
+                    </div>      
                 </div>
-                <div class="dropdownicon">
-                    <i class="icon-angle-down" ></i>
-                </div>      
-            </div>
 
 
 
-            <div class="collapes-container" id="discuss_action">
-                <div class="collapes-container_inner">
+                <div class="collapes-container"  id="discuss_action" style="display:block">
+                    <div class="collapes-container_inner">
 
-                    <div class="show-comment">
-                        <div class="show-comment_container">
-                            <span class="show-comment_inner">
-                                <span class="comment-amount" > 0 </span>
-                                <span class="comment-amount" > comments</span>
-                            </span>
+                        <div class="show-comment">
+                            <div class="show-comment_container">
+                                <span class="show-comment_inner">
+                                    <span class="comment-amount" > {{controller.megaResouce.comments.length}} </span>
+                                    <span class="comment-amount" > comments   </span> 
+                                </span>
+                            </div>
+
+                            <div class="object-like" style=""></div>
+                            <div class="object-save" style=""></div>
                         </div>
+                        <div class="addcommnetbox" role="button" {{action openComment target="view" on="click"}} id="addcommetBut" >
+                            add comment...
+                        </div >
+                        <div class="addcommnetbox-container" id="commentBox" style="display: none">
+                            <div style="margin:0 auto; padding: 0 0 15px 38px;">
+                                <a> 
+                                    <img class="profilepic_comment"  style="float: left; margin: 4px 0 0 -38px; margin-top: 0;"{{bindAttr src="controller.currentUser.photo_url"}} /> 
+                                </a>
 
-                        <div class="object-like" style=""></div>
-                        <div class="object-save" style=""></div>
-                    </div>
-
-                    <div class="addcommnetbox-container">
-                        <div class="addcommnetbox">
-                            Add comments
-                        </div>
-                    </div>
-
-                    <div class="comment-item">
-
-                        <div class="comment-position">
-                            <a class="profilepic-comment-container" href="#">
-                                <img class="profilepic_comment" src="../images/profilepic1.jpg" />
-                            </a>
-                            <div style="">
-                                <div class="comment-namentime">
-                                    <div class="namentime_position">
-                                        <a class="comment-username" href="" >
-                                            Carmilita Zotomayor-Riveral 
-                                        </a>
-                                        <div class="posttime-container">
-                                            <span class="posttime">yesterday 10:14 pm</span>
-                                            <span class="like-amount">+1</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="reply-comment">
-                                        <!--this div for reply-->
-                                    </div>
-
-                                </div>
-
-                                <div class="comment-content">
-                                    Thanks. I love vintage photos. More than half a century later, Manhattan has transformed and evolved into what it is today. 
-
-                                    <!-- for +someone into the conversation-->
-                                    <span>
-                                        <span></span>
-                                        <a></a>
-                                    </span>
-                                </div>
-
+                                {{view App.SearchRequireTextFieldView valueBinding="commentContent"  id="AddRecord" class="comment-insert-field"  placeholder="" }}   
+                                <span class="" style="margin-top: 7px;float: right;">
+                                    <div  class="new-btn"{{action closeComment target="view" on="click"}}>Cancel</div>
+                                    <div class="new-btn green-btn" {{action addComment}}>Post</div>
+                                </span>
+                      
                             </div>
                         </div>
+                        {{#each controller.megaResouce.comments}}
+                        <div class="comment-item">
 
-                    </div>
-
-
-                    <div class="comment-item">
-
-                        <div class="comment-position">
-                            <a class="profilepic-comment-container" href="#">
-                                <img class="profilepic_comment" src="../images/profilepic3.jpg" />
-                            </a>
-                            <div style="">
-                                <div class="comment-namentime">
-                                    <div class="namentime_position">
-                                        <a class="comment-username" href="" >
-                                            John Patrick Anthony Cummins
-                                        </a>
-                                        <div class="posttime-container">
-                                            <span class="posttime">yesterday 10:14 pm</span>
-                                            <span class="like-amount">+1</span>
+                            <div class="comment-position">
+                                <a class="profilepic-comment-container" href="#">
+                                    <img class="profilepic_comment" {{bindAttr src="commenter_profile_pic_url"}} />
+                                </a>
+                                <div style="">
+                                    <div class="comment-namentime">
+                                        <div class="namentime_position">
+                                            <a class="comment-username" href="" >
+                                                {{name}}
+                                            </a>
+                                            <div class="posttime-container">
+                                                <span class="posttime">{{date time_stamp}}</span>
+                                                <span class="like-amount">+1</span>
+                                            </div>
                                         </div>
+
+                                        <div class="reply-comment">
+                                            <!--this div for reply-->
+                                        </div>
+
                                     </div>
 
-                                    <div class="reply-comment">
-                                        <!--this div for reply-->
+                                    <div class="comment-content">
+                                        {{content}}
+
+                                        <!-- for +someone into the conversation-->
+                                        <span>
+                                            <span></span>
+                                            <a></a>
+                                        </span>
                                     </div>
 
                                 </div>
-
-                                <div class="comment-content">
-                                    My pleasure! I thought a New Yorker would like it, the island has changed lot in 50 yrs. 
-
-                                    <!-- for +someone into the conversation-->
-                                    <span>
-                                        <span></span>
-                                        <a></a>
-                                    </span>
-                                </div>
-
                             </div>
+
                         </div>
 
+
+                        {{/each}}
+
+
+
                     </div>
-
-
-
-
                 </div>
+
             </div>
-
-
         </div>
-
-
-
 
 
 

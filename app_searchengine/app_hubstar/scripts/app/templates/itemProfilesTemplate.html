@@ -31,16 +31,6 @@
         </div>
 
 
-
-                <div class="masonry-object_name-position" style="top: 133%;"> 
-                    <a {{bindAttr href="getProfile_id"}}  {{action toProfilePage this}}  style="cursor:pointer" >{{profile_name}} </a>
-                </div>
-                <div class="masonry-object_name-position" style="top: 145%; font-size: 12px; color: #aaa;">
-                    <span> Type: </span>
-                    {{test controller.partnerRemove}}  {{controller.partnerRemove}}<span ><k class="icon-trash" {{action deletePartner this}}></k> </span>
-                </div>
-            </div>
-
         <!--TAGS-->
         <div class="object-tags-box">
 
@@ -79,12 +69,7 @@
 
                 <div class="more_detail" {{bindAttr id="id"}} >
 
-
-                    <div style="display:block;">
-                        {{profile_about_us}}
-                    </div>
-
-
+                    {{profile_about_us}}
                 </div>
 
                 <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>

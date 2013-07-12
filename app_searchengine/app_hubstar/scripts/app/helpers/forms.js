@@ -54,7 +54,9 @@ define(['ember', 'handlebars', 'moment'],
                     }
                 }, 20);
             });
-
+            Ember.Handlebars.registerBoundHelper('test', function(test) {
+       console.log(test);
+            });
 //            Ember.Handlebars.registerHelper('comemntIDStringifyFunc', function(data) {
 //
 //                if (data.indexOf(" ") !== -1) {

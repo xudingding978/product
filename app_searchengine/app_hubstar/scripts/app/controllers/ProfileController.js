@@ -24,6 +24,7 @@ define([
                 galleryInsert: false,
                 contactChecking: false,
                 collectionTag: true,
+                updateOrCreate:true,
                 partnerTag: false,
                 temp: [],
                 selectedDesc: "",
@@ -37,7 +38,7 @@ define([
                 currentUserID: "",
                 collections: [],
                 selectedCollection: "",
-                needs: ["application", "contact", "profilePartners"],
+                needs: ["application", "contact", "profilePartners", "itemProfiles"],
                 profile_bg_url: "",
                 profile_hero_url: "",
                 profile_pic_url: "",
@@ -55,6 +56,7 @@ define([
                     return user;
                 },
                 setProfile: function(id) {
+
                     var profile = this.getCurrentClient(id);
                     this.set('profile_bg_url', profile.get('profile_bg_url'));
                     this.set('profile_hero_url', profile.get('profile_hero_url'));
@@ -271,9 +273,12 @@ define([
                     var currentUser = App.User.find(localStorage.loginStatus);
                     var that = this;
                     var email = currentUser.get('email');
+                    if(authenticUsers!==null&&authenticUsers!==undefined&&email!==null&&email!==undefined){
                     this.setIsAuthenticUser(authenticUsers, email);
+                    }
                     currentUser.addObserver('isLoaded', function() {
                         email = currentUser.get('email');
+               
                         if (currentUser.get('isLoaded')) {
                             that.setIsAuthenticUser(authenticUsers, email);
                         }
@@ -281,6 +286,7 @@ define([
                 },
                 setIsAuthenticUser: function(authenticUsers, email)
                 {
+         
                     if (authenticUsers.indexOf(email) !== -1) {
                         this.set('is_authentic_user', true);
                     }
@@ -349,10 +355,17 @@ define([
                     this.set('collectionTag', true);
                 },
                 selectPartner: function(model) {
-                    //            console.log(model.id);
+
+
+             
                     this.get('controllers.profilePartners').getClientId(model);
                     this.set('partnerTag', true);
                     this.set('collectionTag', false);
+
+
+                    this.get('controllers.itemProfiles').setPartnerRemove();
+
+
                 },
                 selectFollower: function() {
 

@@ -102,6 +102,7 @@ define(["ember", "helper"],
                     var file = App.Photo.createRecord({
                         "photo_title": name.toLowerCase(),
                         "photo_image_original_url": src,
+                        "photo_file_name":name.toLowerCase(),
                         "photo_type": type,
                         "photo_keywords": that.get("profileMega").get("keywords")});
                     mega.get("photo").pushObject(file);

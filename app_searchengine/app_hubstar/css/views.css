@@ -571,7 +571,7 @@
 /*MANSONRY profiles OBJECT STYLE*/
 
 .masonry-object_profile-cover{
-    position: relative;
+    position: absolute;
     height: 170px;
 }
 
@@ -582,8 +582,8 @@
 
 .masonry-object_profilepic{
     width: 150px;
-    height: 150px;
-    margin: -100px auto;
+    max-height: 200px;
+    margin: auto;
     right: 0;
     left: 0;
     position: relative;
@@ -603,7 +603,7 @@
 }
 
 .masonry-object_name-position{
-    position: absolute;
+    position: relative;
     display: block; 
     width: 80%; 
     margin: auto; 

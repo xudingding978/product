@@ -4,6 +4,7 @@ define(["ember"], function(Ember) {
         clientID: "",
         partnerID: "",
         addPartner: true,
+        selectedCollection:"",
         init: function() {
 
 
@@ -37,17 +38,14 @@ define(["ember"], function(Ember) {
                 var profileOwner = App.Profile.find(this.get('clientID'));
                 profileOwner.set('profile_partner_ids', this.get('partnerID'));
                 App.store.get('adapter').updateRecord(App.store, App.Profile, profileOwner);
-//console.log(App.Profile.find(this.get('clientID')));
 
-
-                //        this.getClientId(App.Profile.find(this.get('clientID')));
 
                 this.cancelDelete();
             } else {
                 this.set('willDelete', true);
 
                 App.set('data', model);
-                console.log(App.get('data').id);
+ //               console.log(App.get('data').id);
             }
 
             console.log("deletePartner2222222222     " + this.get('partnerID'));

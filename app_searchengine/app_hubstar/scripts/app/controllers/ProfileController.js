@@ -24,8 +24,10 @@ define([
                 galleryInsert: false,
                 contactChecking: false,
                 collectionTag: true,
-                updateOrCreate:true,
+                followerTag: false,
+                updateOrCreate: true,
                 partnerTag: false,
+                profileSelectionStatus: "Collections",
                 temp: [],
                 selectedDesc: "",
                 selectedTitle: "",
@@ -273,12 +275,12 @@ define([
                     var currentUser = App.User.find(localStorage.loginStatus);
                     var that = this;
                     var email = currentUser.get('email');
-                    if(authenticUsers!==null&&authenticUsers!==undefined&&email!==null&&email!==undefined){
-                    this.setIsAuthenticUser(authenticUsers, email);
+                    if (authenticUsers !== null && authenticUsers !== undefined && email !== null && email !== undefined) {
+                        this.setIsAuthenticUser(authenticUsers, email);
                     }
                     currentUser.addObserver('isLoaded', function() {
                         email = currentUser.get('email');
-               
+
                         if (currentUser.get('isLoaded')) {
                             that.setIsAuthenticUser(authenticUsers, email);
                         }
@@ -286,7 +288,7 @@ define([
                 },
                 setIsAuthenticUser: function(authenticUsers, email)
                 {
-         
+
                     if (authenticUsers.indexOf(email) !== -1) {
                         this.set('is_authentic_user', true);
                     }
@@ -351,16 +353,19 @@ define([
                     //      tempComment.store.commit();
                 },
                 selectCollection: function() {
+                    this.set('profileSelectionStatus', 'Collections');
                     this.set('partnerTag', false);
                     this.set('collectionTag', true);
+                    this.set('followerTag', false);
                 },
                 selectPartner: function(model) {
 
+                    this.set('profileSelectionStatus', 'Partners');
 
-             
                     this.get('controllers.profilePartners').getClientId(model);
                     this.set('partnerTag', true);
                     this.set('collectionTag', false);
+                    this.set('followerTag', false);
 
 
                     this.get('controllers.itemProfiles').setPartnerRemove();
@@ -368,7 +373,10 @@ define([
 
                 },
                 selectFollower: function() {
-
+                    this.set('profileSelectionStatus', 'Followers');
+                    this.set('partnerTag', false);
+                    this.set('collectionTag', false);
+                    this.set('followerTag', true);
                 }
 
             });

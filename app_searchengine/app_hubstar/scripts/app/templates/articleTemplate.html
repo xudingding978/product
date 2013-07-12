@@ -18,9 +18,11 @@
             <!--    <div class="icon-on-black" style="height: 44px;position: absolute;width: 44px;"><i class="icon-share-alt"></i></div>     -->
         </div>
 
-
-       {{view App.PhotoDisplayAreaView}}
-
+        <div class="mainfeature">
+            <div class="previous" style="width: 50%; height: 100%; float: left;" {{action previesImage on="click" target="controller"}}></div>
+            <div class="next" style="width: 50%; height: 100%; float: right;"  {{action nextImage on="click" target="controller"}}></div>
+            {{view App.PhotoDisplayAreaView}}
+        </div>
         <!--THIS IS THE ALBUM BOX-->
 
         {{view App.ShowAlbumView}}
@@ -140,34 +142,34 @@
 
 
         <!-- OBJECT PARTNER SECTION -->
-<!--        <div>
-            <div>
-                <div class="object-collapes-title" {{action setPartnerTag on="click" target="view"}} >
-                    <div class="collapes-title_inner">
-                        Partner
+        <!--        <div>
+                    <div>
+                        <div class="object-collapes-title" {{action setPartnerTag on="click" target="view"}} >
+                            <div class="collapes-title_inner">
+                                Partner
+                            </div>
+                            <div class="dropdownicon" >
+                                <i class="icon-angle-down"></i>
+                            </div>      
+                        </div>
                     </div>
-                    <div class="dropdownicon" >
-                        <i class="icon-angle-down"></i>
-                    </div>      
-                </div>
-            </div>
-
-
-
-            <div class="collapes-container" style="height: 150px;overflow-y: auto;"  id="partner_action">
-                <div class="collapes-container_inner">
-                    <a class="sml-partner" href="#" ><img src="../images/profilepic1.jpg" /></a>
-                    <a class="sml-partner" href="#" ><img src="../images/profilepic2.jpg" /></a>
-                    <a class="sml-partner" href="#" ><img src="../images/profilepic3.jpg" /></a>
-                    <a class="sml-partner" href="#" ><img src="../images/profilepic4.jpg" /></a>
-                    <a class="sml-partner" href="#" ><img src="../images/profilepic5.jpg" /></a>
-                    <a class="sml-partner" href="#" ><img src="../images/profilepic6.jpg" /></a>
-                    <a class="sml-partner" href="#" ><img src="../images/profilepic7.jpg" /></a>
-                    <a class="sml-partner" href="#" ><img src="../images/profilepic8.jpg" /></a>          
-                </div>
-            </div>
-
-        </div>-->
+        
+        
+        
+                    <div class="collapes-container" style="height: 150px;overflow-y: auto;"  id="partner_action">
+                        <div class="collapes-container_inner">
+                            <a class="sml-partner" href="#" ><img src="../images/profilepic1.jpg" /></a>
+                            <a class="sml-partner" href="#" ><img src="../images/profilepic2.jpg" /></a>
+                            <a class="sml-partner" href="#" ><img src="../images/profilepic3.jpg" /></a>
+                            <a class="sml-partner" href="#" ><img src="../images/profilepic4.jpg" /></a>
+                            <a class="sml-partner" href="#" ><img src="../images/profilepic5.jpg" /></a>
+                            <a class="sml-partner" href="#" ><img src="../images/profilepic6.jpg" /></a>
+                            <a class="sml-partner" href="#" ><img src="../images/profilepic7.jpg" /></a>
+                            <a class="sml-partner" href="#" ><img src="../images/profilepic8.jpg" /></a>          
+                        </div>
+                    </div>
+        
+                </div>-->
 
 
 
@@ -214,7 +216,7 @@
                                     <div  class="new-btn"{{action closeComment target="view" on="click"}}>Cancel</div>
                                     <div class="new-btn green-btn" {{action addComment}}>Post</div>
                                 </span>
-                      
+
                             </div>
                         </div>
                         {{#each controller.megaResouce.comments}}

@@ -11,6 +11,7 @@ define(["ember"], function(Ember) {
 
         },
         getClientId: function(model) {
+            console.log(model);
             this.set('clientID', model.id);
             this.set('partnerID', model.get('profile_partner_ids'));
             //          console.log(this.get('clientID'));
@@ -29,24 +30,24 @@ define(["ember"], function(Ember) {
             this.set('makeSureDelete', true);
             if (this.get('willDelete')) {
                 console.log("deletePartner1111111    " + this.get('partnerID'));
-                this.set('partnerID', (this.get('partnerID') + ",").replace(App.get('data').id.toLowerCase() + ",", ""));
+                this.set('partnerID', (this.get('partnerID') + ",").replace(App.get('data').id + ",", ""));
                 this.set('partnerID', this.get('partnerID').substring(0, this.get('partnerID').length - 1));
 
 
                 var profileOwner = App.Profile.find(this.get('clientID'));
                 profileOwner.set('profile_partner_ids', this.get('partnerID'));
                 App.store.get('adapter').updateRecord(App.store, App.Profile, profileOwner);
+//console.log(App.Profile.find(this.get('clientID')));
 
 
-//                var data = App.Mega.find({RequireType: "partner", profile_partner_ids: this.get('partnerID')});
-//                data.store.save();
-//                this.set('content', data);
+                //        this.getClientId(App.Profile.find(this.get('clientID')));
+
                 this.cancelDelete();
             } else {
                 this.set('willDelete', true);
 
                 App.set('data', model);
-                console.log(App.get('data').id.toLowerCase());
+                console.log(App.get('data').id);
             }
 
             console.log("deletePartner2222222222     " + this.get('partnerID'));
@@ -74,6 +75,7 @@ define(["ember"], function(Ember) {
                     profileOwner.set('profile_partner_ids', this.get('partnerID'));
                     App.store.get('adapter').updateRecord(App.store, App.Profile, profileOwner);
 
+
                 } else {
 
                     if (temp.indexOf(client_id) !== -1) {
@@ -86,13 +88,12 @@ define(["ember"], function(Ember) {
                         profileOwner.set('profile_partner_ids', this.get('partnerID'));
                         App.store.get('adapter').updateRecord(App.store, App.Profile, profileOwner);
 
+
                     }
-
-
+                    //     this.get("content").pushObject(App.Mega.find(client_id));
+                    //          this.getClientId(App.Profile.find(this.get('clientID')));
                 }
-//                var data = App.Mega.find({RequireType: "partner", profile_partner_ids: this.get('partnerID')});
-//                data.store.save();
-//                this.set('content', data);
+
             } else {
                 alert('please input valid url!!!');
             }

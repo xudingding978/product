@@ -22,7 +22,6 @@
             <div class="edit-btn edit-object-btn">
                 <k class="icon-trash" {{action  removeCollectedItem controller.title id}}></k>
             </div>
-
             {{/if}}
 
             {{#if controller.canEditbyOwner}}
@@ -226,11 +225,11 @@
     <div class="masonry-object">
         <div class="masonry-object_poster">  
             <a {{bindAttr href="getProfile_id"}}>
-                <img {{bindAttr src="profile_pic_url"}} class="profilepic-on-masonry"/>
+                <img {{bindAttr src="creator_profile_pic"}} class="profilepic-on-masonry"/>
             </a>
             <div class="object_username">
-                <a class="poster-name" {{bindAttr href="getProfile_id"}}>{{profile_id}}</a>
-                <span class="posttime">yesterday 10:26</span>
+                <a class="poster-name" {{bindAttr href="getProfile_id"}}>{{creator}}</a>
+                <span class="posttime">{{date created}}</span>
             </div>
 
             <div class="object-tags-box">
@@ -248,14 +247,14 @@
                 <div class="object-tags ">
                     <span class="tags-mark" style="background-color: #76a7fa"></span>
                     <div class="tags easing tagsappear">
-                        <div class="tags-new">#Auckland</div>                   
+                        <div class="tags-new">#{{region}}</div>                   
                     </div>
                 </div>
 
                 <div class="object-tags ">
                     <span class="tags-mark" style="background-color: #a0c3ff"></span>
                     <div class="tags easing tagsappear">
-                        <div class="tags-new">#Kitchen</div>                   
+                        <div class="tags-new">#{{categories}}</div>                   
                     </div>
                 </div>
 
@@ -265,20 +264,21 @@
         <div class="masonry-object_mainfeature">             
             <div class="mainfeature-wrapper">
                 <a class="mainfeature-container">
-                    {{#linkTo 'article' this}} <img class="this-is-the-object"{{bindAttr src="object_image_url" }} />{{/linkTo}}
+                      <img class="this-is-the-object"{{bindAttr src="object_image_url" }} {{action transitionToArticle id}} />
+           
                 </a>                 
             </div>
 
 
             <div class="masonry-object_text">
                 <div class="masonry-object_text-container">
-                    <p>   {{#linkTo 'article' this}} {{article_title}}{{/linkTo}} </p>
-                    <p>{{{description}}}</p>
+                    <p>   {{#linkTo 'article' this}} {{object_title}}{{/linkTo}} </p>
+                    <p>{{{object_description}}}</p>
                 </div>
 
                 <div class="more_detail" {{bindAttr id="id"}} style="display:none;width:auto">
-                    <h1>{{article_title}}</h1>
-                    {{{article_text}}}
+                    <h1>{{object_title}}</h1>
+                    {{{object_description}}}
 
                 </div>
 
@@ -286,6 +286,8 @@
 
                 <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collapes</span>
 
+                
+                
 
             </div>
         </div>

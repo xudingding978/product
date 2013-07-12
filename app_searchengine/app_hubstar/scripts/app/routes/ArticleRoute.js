@@ -1,19 +1,22 @@
 define([
     'ember',
+    'models/MegaModel',
     'models/ArticleModel'
 ], function(
         Ember,
+        MegaModel,
         ArticleModel
         ) {
     "use strict";
 
     var ArticleRoute = Ember.Route.extend({
         //     controller: ApplicationController,
-        setupController: function(IndexController, model) {
-
+        setupController: function(controller, model) {
+            var d = MegaModel.find(model.id);
+            controller.getInitData(d);
         },
         model: function(params) {
-            return ArticleModel.find(params.article_id);
+            return MegaModel.find(params.article_id);
         },
         activate: function() {
             $("body").css("overflow", "hidden");

@@ -68,6 +68,24 @@ define([
             $('#partner_action').slideToggle("slow");
             //       this.set('partnerTag', !this.get('partnerTag'));
 
+        },
+        popupAibum: function() {
+
+            $("#collection_tab").slideToggle("slow");
+        },
+        openComment: function() {
+
+            $('#addcommetBut').attr('style', 'display:none');
+            $('#commentBox').attr('style', 'display:block');
+
+            $('.comment-insert-field').focus();
+        },
+        closeComment: function() {
+
+            $('#addcommetBut').attr('style', 'display:block');
+            $('#commentBox').attr('style', 'display:none');
+
+
         }
     });
     return ArticleView;

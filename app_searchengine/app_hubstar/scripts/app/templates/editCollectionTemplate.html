@@ -27,8 +27,14 @@
         {{view App.SearchRequireTextFieldView valueBinding="controller.selectedCollection.id"  id="" class="new-collection-name_insert" style="height:30px;" placeholder="e.g. Bedroom Design" }} 
 
 
+        {{#if controller.addPartner}}
 
-
+        <div style="margin: auto; vertical-align: top;width: 80%;left: 0;right: 0;position: relative;">
+            <div style="height: 180px; overflow: hidden;width: 100%;line-height: 180px;text-align: center;margin-top: 5px;">
+                <img style="max-height: 100%; padding: 10px; background-color: rgba(0,0,0,0.03);" src="http://www.hdwallpaperstop.com/wp-content/uploads/2013/04/Car-Ferrari-HD-Wallpaper.jpg"/>
+            </div>
+        </div>
+        {{/if}}
 
 
 
@@ -61,8 +67,10 @@
         {{/if}}
 
         {{#if controller.addPartner}}
-        <div id="uploadingObject" class='new-btn' style="right: 0;"  {{action returnCollection  id target="view" on="click"}}>Cancel</div>
-        <div id="createbtn" type="button" {{action submit }}  class="new-btn green-btn" style="right:0;">Add</div>
+        <div style="float: right; margin: 5px 20px;">
+            <div id="uploadingObject" class='new-btn' style="right: 0;"  {{action returnCollection  id target="view" on="click"}}>Cancel</div>
+            <div id="createbtn" type="button" {{action submit }}  class="new-btn green-btn" style="right:0;">Add</div>
+        </div>
         {{/if}}
     </div>
 </div>

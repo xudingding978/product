@@ -194,6 +194,11 @@ class Controller extends CController {
             $partner_id = str_replace("%2C", ",", $partner_id_raw);
             $response = $this->getProfilePartner($returnType, $partner_id);
             //  error_log(var_export($requireType, true));
+        } elseif ($requireType == 'articleRelatedImage') {
+           
+            
+            
+            
         } elseif ($requireType == 'status') {
             $region = $this->getUserInput($requireParams[1]);
             $searchString = $this->getUserInput($requireParams[2]);

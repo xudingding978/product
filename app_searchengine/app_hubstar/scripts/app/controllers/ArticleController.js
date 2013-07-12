@@ -1,6 +1,7 @@
 define(["ember"], function(Ember) {
     var ArticleController = Ember.Controller.extend({
         content: [],
+        image_no: 1,
         findSelectedItemIndex: function() {
             content = this.get('content');
             for (var index = 0; index <= content.get('length'); index++) {
@@ -58,10 +59,10 @@ define(["ember"], function(Ember) {
             $(selectedImage_id).addClass('selected_image_style');
         },
         getInitData: function(megaObject) {
-            var articleObj = megaObject.get('article').objectAt(0);
+            //         var articleObj = megaObject.get('article').objectAt(0);
             this.set("currentUser", App.User.find(localStorage.loginStatus));
             this.set("content", []);
-
+            this.set('image_no', 1);
             // this.set('selectedPhoto', App.Mega.find(e).get('photo').objectAt(0))
             var megaResouce = App.Mega.find(megaObject.id);
 

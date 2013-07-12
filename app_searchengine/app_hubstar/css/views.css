@@ -850,10 +850,16 @@
     top: 0; 
     max-height: 95%;
     max-width: 95%;
-
+    z-index: -1;
 }
 
+.next {
+    cursor: url(../../../images/nextcursor.png), auto;
+}
 
+.previous{
+    cursor: url(../../../images/previouscursor.png), auto;
+}
 
 
 .closeview{

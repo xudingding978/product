@@ -19,8 +19,12 @@ define([
             return MegaModel.find(params.article_id);
         },
         activate: function() {
-            $("body").css("overflow", "hidden");
-            $('#footer').attr("style", "display:none");
+
+            setTimeout(function() {
+                $("body").css("overflow", "hidden");
+                $('#footer').attr("style", "display:none");
+            }, 100);
+
         },
         deactivate: function() {
 

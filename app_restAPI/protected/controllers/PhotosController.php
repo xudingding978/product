@@ -53,9 +53,8 @@ class PhotosController extends Controller {
 //            echo $key. "\r\n";
 
             $this->saveImageToS3($key, $response, $bucket);
-            $path = 'http://s3.hubsrv.com/' . $key;
-
-
+            $path = 'http://s3.hubsrv.com/'.$key;
+         
 //            echo $path;
 //            exit();
             $tempArray = array(
@@ -290,6 +289,7 @@ class PhotosController extends Controller {
         return $response;
     }
 
+    
     public function doPhotoResizing($mega) {
         $photo_string = $mega['photo'][0]['photo_image_original_url'];
         $photo_name = $mega['photo'][0]['photo_title'];
@@ -360,6 +360,7 @@ class PhotosController extends Controller {
         ob_start();
         if ($photo_type == "image/png") {
             imagepng($new_photo);
+
         } else if ($photo_type == "image/jpeg") {
             imagejpeg($new_photo);
         }
@@ -369,6 +370,11 @@ class PhotosController extends Controller {
     }
 
     public function photoCreate($mega) {
+        $this->doPhotoResizing ($mega);
+        error_log(var_export($mega, true));
+        
+        exit();
+        
         $id = $this->getNewID();
 
         $docID = $this->getDomain() . "/" . $id;

@@ -1,13 +1,71 @@
 define(["ember"], function(Ember) {
     var ArticleController = Ember.Controller.extend({
+        content: [],
+        image_no: 1,
+        findSelectedItemIndex: function() {
+            content = this.get('content');
+            for (var index = 0; index <= content.get('length'); index++) {
+                if (this.get('selectedPhoto') === content.objectAt(index)) {
+                    return index;
+                }
+            }
+            return 0;
+        },
+        previesImage: function() {
+            if (!this.get('selectedPhoto')) {
+                this.set('selectedPhoto', this.get('content').get('lastObject'));
+            }
+
+            var selectedIndex = this.findSelectedItemIndex();
+            selectedIndex--;
+            if (selectedIndex < 0) {
+                selectedIndex = this.get('content').get('length') - 1;
+                this.set('image_no', this.get('content').get('length'));
+            }
+            this.set('image_no', selectedIndex + 1);
+            this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
+            this.set('megaResouce', App.Mega.find(this.get('selectedPhoto').id));
+            this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
+            this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
+            this.selectedImage(this.get('selectedPhoto').id);
+        },
+        nextImage: function() {
+            if (!this.get('selectedPhoto')) {
+                this.set('selectedPhoto', this.get('content').get('firstObject'));
+            }
+            var selectedIndex = this.findSelectedItemIndex();
+            selectedIndex++;
+            console.log(selectedIndex);
+            if (selectedIndex >= (this.get('content').get('length'))) {
+                this.set('image_no', 1);
+                selectedIndex = 0;
+            }
+            this.set('image_no', selectedIndex + 1);
+            this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
+            this.set('megaResouce', App.Mega.find(this.get('selectedPhoto').id));
+            this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
+            this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
+            this.selectedImage(this.get('selectedPhoto').id);
+        },
+        selectImage: function(e) {
+            this.set('megaResouce', App.Mega.find(e));
+            this.set('selectedPhoto', App.Mega.find(e).get('photo').objectAt(0));
+
+            this.selectedImage(e);
+        },
+        selectedImage: function(id) {
+            var selectedImage_id = "#" + id;
+            $('.photo_original_style').removeClass('selected_image_style');
+            $(selectedImage_id).addClass('selected_image_style');
+        },
         getInitData: function(megaObject) {
-            var articleObj = megaObject.get('article').objectAt(0);
+            //         var articleObj = megaObject.get('article').objectAt(0);
             this.set("currentUser", App.User.find(localStorage.loginStatus));
             this.set("content", []);
-
-
+            this.set('image_no', 1);
+            // this.set('selectedPhoto', App.Mega.find(e).get('photo').objectAt(0))
             var megaResouce = App.Mega.find(megaObject.id);
-            //  console.log(megaResouce.get('article').objectAt(0));
+
 
             this.set('articleResouce', megaResouce.get('article').objectAt(0));
             this.set('megaResouce', megaResouce);
@@ -46,6 +104,10 @@ define(["ember"], function(Ember) {
                     if (data.get('isLoaded')) {
                         for (var i = 0; i < this.get("content").length; i++) {
                             var id = this.get("content").objectAt(i).id;
+                            if (i === 0) {
+                                that.set('megaResouce', App.Mega.find(id));
+                                that.set('selectedPhoto', App.Mega.find(id).get('photo').objectAt(0));
+                            }
                             if (App.Mega.find(id)._data.hasMany.photo.length === 1)
                             {
                                 that.get("content").pushObject(App.Mega.find(id).get("photo").objectAt(0));
@@ -65,6 +127,11 @@ define(["ember"], function(Ember) {
         {
             var result = (param !== null && param !== undefined);
             return result;
+        },
+        closeWindow: function() {
+            this.set('collectable', false);
+            this.set('contact', false);
+            window.history.back();
         },
     });
     return ArticleController;

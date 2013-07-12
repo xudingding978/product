@@ -6,7 +6,7 @@
     <div class="objectview-left">
 
         <div class="exit" >
-            <div class="closeview" onclick="window.history.back();" >
+            <div class="closeview" {{action closeWindow on="click" target="controller"}} >
                 <i class="icon-remove"></i>
             </div>
         </div>
@@ -49,7 +49,7 @@
     <div class="objectview-right" >
 
         <!-- USER SECTION -->
-        <div>
+        <div style="cursor: pointer;">
             <div class="object-poster easing" {{action setNameTag on="click" target="view"}}>
                 <div class="profilepic-container" >                   
                     <a href="#" ><img {{bindAttr src="controller.megaResouce.creator_profile_pic"}} class="profilepic"/></a>                              
@@ -75,7 +75,7 @@
                             <td>--</td>
                         </tr>
                         <tr>
-                            <td>Type:</td>
+                            <td>Category:</td>
                             <td>--</td>
                         </tr>
                         <tr>
@@ -232,7 +232,6 @@
                                             </a>
                                             <div class="posttime-container">
                                                 <span class="posttime">{{date time_stamp}}</span>
-                                                <span class="like-amount">+1</span>
                                             </div>
                                         </div>
 

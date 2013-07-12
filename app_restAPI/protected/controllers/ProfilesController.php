@@ -13,6 +13,8 @@ class ProfilesController extends Controller {
     const JSON_RESPONSE_ROOT_PLURAL = 'profiles';
 
     public function actionIndex() {
+        $results = $this->getAllProfiles("profile");
+        /*
         $settings['log.enabled'] = true;
         // $settings['log.file'] = '/var/log/sherlock/newlogfile.log';
         // $settings['log.level'] = 'debug';
@@ -61,7 +63,7 @@ class ProfilesController extends Controller {
             }
         }
         $results .= ']}';
-
+*/
         echo $this->sendResponse(200, $results);
     }
 

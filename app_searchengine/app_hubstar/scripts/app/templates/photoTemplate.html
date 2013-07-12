@@ -23,8 +23,11 @@
             <!--    <div class="icon-on-black" style="height: 44px;position: absolute;width: 44px;"><i class="icon-share-alt"></i></div>     -->
         </div>
 
-        {{view App.PhotoDisplayAreaView}}
-
+        <div class="mainfeature">
+            <div class="previous" style="width: 50%; height: 100%; float: left;" {{action previesImage on="click" target="controller"}}></div>
+            <div class="next" style="width: 50%; height: 100%; float: right;"  {{action nextImage on="click" target="controller"}}></div>
+            {{view App.PhotoDisplayAreaView}}
+        </div>
         <!--THIS IS THE ALBUM BOX-->
 
         {{view App.ShowAlbumView}}
@@ -54,7 +57,7 @@
     <div class="objectview-right">
 
         <!-- USER SECTION -->
-        <div>
+        <div style="cursor: pointer;">
             <div class="object-poster easing" {{action setNameTag on="click" target="view"}}>
                 <div class="profilepic-container">
                     <a class="profilepic" href="#"><img {{bindAttr src="controller.megaResouce.owner_profile_pic"}} /></a>              
@@ -87,7 +90,7 @@
                             <td></td>
                         </tr>
                         <tr>
-                            <td>Type:</td>
+                            <td>Category:</td>
                             <td>{{controller.selectedMega.id}}</td>
                         </tr>
                         <tr>
@@ -227,8 +230,7 @@
                                                 {{name}}
                                             </a>
                                             <div class="posttime-container">
-                                                <span class="posttime">{{date time_stamp}}</span>
-                                                <span class="like-amount">+1</span>
+                                                <span class="posttime">{{date time_stamp}}</span>                  
                                             </div>
                                         </div>
 

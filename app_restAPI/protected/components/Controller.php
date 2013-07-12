@@ -205,12 +205,7 @@ class Controller extends CController {
             array_push($requestArray, $requestStringOne);
             $requestStringTwo = 'couchbaseDocument.doc.owner_id=' . $owner_id;
             array_push($requestArray, $requestStringTwo);
-            //       error_log(var_export($requestArray, true));
-            $tempResult = $this->performMustSearch($requestArray, $returnType, 'must');
-            $mega = CJSON::decode($tempResult, true);
-
-
-            //  error_log(var_export($mega, true));
+            $response = $this->performMustSearch($requestArray, $returnType, 'must');
         } elseif ($requireType == 'status') {
             $region = $this->getUserInput($requireParams[1]);
             $searchString = $this->getUserInput($requireParams[2]);
@@ -290,13 +285,13 @@ class Controller extends CController {
             }
         }
         $request->query($bool);
-   //     error_log(var_export($bool, true));
-      error_log($request->toJSON());
+
+  //      error_log($request->toJSON());
         $response = $request->execute();
 
         $i = 0;
 
-        $results = '{' . $returnType . ':[';
+        $results = '{"' . $returnType . '":[';
         foreach ($response as $hit) {
             $results .= CJSON::encode($hit['source']['doc']);
             if (++$i < count($response)) {
@@ -304,7 +299,6 @@ class Controller extends CController {
             }
         }
         $results .= ']}';
-        error_log(var_export($results, true));
         return $results;
     }
 

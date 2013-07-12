@@ -11,6 +11,7 @@ define(["ember"], function(Ember) {
 
         },
         getClientId: function(model) {
+    console.log(model);
             this.set('clientID', model.id);
             this.set('partnerID', model.get('profile_partner_ids'));
             //          console.log(this.get('clientID'));
@@ -36,8 +37,8 @@ define(["ember"], function(Ember) {
                 var profileOwner = App.Profile.find(this.get('clientID'));
                 profileOwner.set('profile_partner_ids', this.get('partnerID'));
                 App.store.get('adapter').updateRecord(App.store, App.Profile, profileOwner);
-
-
+//console.log(App.Profile.find(this.get('clientID')));
+           this.getClientId(App.Profile.find(this.get('clientID')));
 //                var data = App.Mega.find({RequireType: "partner", profile_partner_ids: this.get('partnerID')});
 //                data.store.save();
 //                this.set('content', data);

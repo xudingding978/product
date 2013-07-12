@@ -187,7 +187,7 @@ define([
                     this.fillInChecking();
                     if (passSubmit) {
                         var newMega = App.store.createRecord(App.Mega, {//15
-                            "id": this.get("profile_url"),
+                            "id": this.get("profile_url").toLowerCase(),
                             "type": "profile",
                             accessed: null,
                             boost: this.get("boost"),
@@ -211,7 +211,7 @@ define([
                             updated: ""
                         });
                         var newProfile = App.store.createRecord(App.Profile, {
-                            id: this.get("profile_url"),
+                            id: this.get("profile_url").toLowerCase(),
                             profile_name: this.get("profile_name"),
                             profile_contact_last_name: this.get("last_name"),
                             profile_contact_first_name: this.get("first_name"),

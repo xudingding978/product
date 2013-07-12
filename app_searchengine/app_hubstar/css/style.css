@@ -1,7 +1,7 @@
 .plaform_bar{
     position: fixed;
     left: 0px;
-    top: 30%;
+    top: 20%;
     z-index: 20;
     min-width: 10px;
     background-image: url(../../../images/reflection.png);
@@ -30,7 +30,21 @@
     width:10px;
     overflow: hidden;
     box-shadow: 0 0 15px #fff;
+
+    /* Safari 4+, Chrome 1-9 */
     background-image: -webkit-gradient( linear, left top, left bottom, from(rgba(20,20,20,0.2)), to(rgba(40,40,40,0.7)));
+
+    /* Safari 5.1+, Mobile Safari, Chrome 10+ */
+    background-image: -webkit-linear-gradient(top, rgba(20,20,20,0.2), rgba(40,40,40,0.7)); 
+
+    /* Firefox 3.6+ */
+    background-image: -moz-linear-gradient(top, rgba(20,20,20,0.2), rgba(40,40,40,0.7));
+
+    /* IE 10+ */
+    background-image: -ms-linear-gradient(top, rgba(20,20,20,0.2), rgba(40,40,40,0.7));
+
+    /* Opera 11.10+ */
+    background-image: -o-linear-gradient(top, rgba(20,20,20,0.2), rgba(40,40,40,0.7));
 }
 
 #navContainer:hover {
@@ -169,7 +183,7 @@
     background-color: #f3f3f3;
     border-radius: 6px;
     box-shadow: 0 0 5px #333;
-    z-index: 1;
+    z-index: 21;
 }
 #navContainer > ul > li> ul > li > ul{
 
@@ -185,7 +199,7 @@
     background-color: #f3f3f3;
     box-shadow: 0 0 5px #333;
     border-radius: 6px;
-    z-index: 2;
+    z-index: 22;
 }
 #navContainer > ul > li> ul > li> ul> li > ul{
     display:none; 
@@ -200,7 +214,7 @@
     background-color: #f3f3f3;
     box-shadow: 0 0 5px #333;
     border-radius: 6px;
-    z-index: 3;
+    z-index: 23;
 }
 
 

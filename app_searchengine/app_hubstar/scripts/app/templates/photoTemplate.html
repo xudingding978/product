@@ -57,7 +57,7 @@
         <div>
             <div class="object-poster easing" {{action setNameTag on="click" target="view"}}>
                 <div class="profilepic-container">
-                    <a href="#"><img {{bindAttr src="controller.megaResouce.owner_profile_pic"}} class="profilepic"/></a>              
+                    <a class="profilepic" href="#"><img {{bindAttr src="controller.megaResouce.owner_profile_pic"}} /></a>              
                 </div>
                 <div class="poster_user" >
                     <a class="poster-name" href="#">{{controller.megaResouce.owner_title}}</a>
@@ -79,32 +79,32 @@
 
 
 
-     <!--        <div class="collapes-container" id="poster_action">
-                <table style="padding: 15px; width: 100%;font-size: 13px;  display: table;border-collapse: separate;border-spacing: 4px;">
-                    <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
-                        <tr>
-                            <td>Contact:</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Type:</td>
-                            <td>{{controller.selectedMega.id}}</td>
-                        </tr>
-                        <tr>
-                            <td>Address:</td>
-                            <td>--</td>
-                        </tr>
-                        <tr>
-                            <td>Phone:</td>
-                            <td>--</td>
-                        </tr>
-                        <tr>
-                            <td>Website:</td>
-                            <td>--</td>
-                        </tr>
-                    </tbody>
-                </table>                
-            </div>-->
+            <!--        <div class="collapes-container" id="poster_action">
+                       <table style="padding: 15px; width: 100%;font-size: 13px;  display: table;border-collapse: separate;border-spacing: 4px;">
+                           <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
+                               <tr>
+                                   <td>Contact:</td>
+                                   <td></td>
+                               </tr>
+                               <tr>
+                                   <td>Type:</td>
+                                   <td>{{controller.selectedMega.id}}</td>
+                               </tr>
+                               <tr>
+                                   <td>Address:</td>
+                                   <td>--</td>
+                               </tr>
+                               <tr>
+                                   <td>Phone:</td>
+                                   <td>--</td>
+                               </tr>
+                               <tr>
+                                   <td>Website:</td>
+                                   <td>--</td>
+                               </tr>
+                           </tbody>
+                       </table>                
+                   </div>-->
 
 
         </div>
@@ -210,7 +210,7 @@
                                     <div  class="new-btn"{{action closeComment target="view" on="click"}}>Cancel</div>
                                     <div class="new-btn green-btn" {{action addComment}}>Post</div>
                                 </span>
-                      
+
                             </div>
                         </div>
                         {{#each controller.thisComments}}

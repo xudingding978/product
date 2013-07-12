@@ -171,7 +171,7 @@ class Controller extends CController {
         $pieces = explode(" ", $myText);
         $id = $pieces[1];
         $id = (string) " ".rand(99999999, 999999999) . $id;
-        return $id;
+        return trim($id);
     }
 
     protected function getRequestResult($searchString, $returnType) {
@@ -333,23 +333,20 @@ class Controller extends CController {
     }
 
     protected function performRawSearch($returnType, $collection_id, $owner_profile_id) {
-error_log('aaaaaaaaaaaaaaaaaaaaaaa');
         $request = $this->getElasticSearch();
-        
-//                $should = Sherlock\Sherlock::queryBuilder()->Term()->term($collection_id//$collection_id
-//                ->field($mustQuery[0]);
-        $must = Sherlock\Sherlock::queryBuilder()->Term()->term($collection_id)
-                ->field('couchbaseDocument.doc.collection_id');
-
-
-        $must2 = Sherlock\Sherlock::queryBuilder()->Term()->term($owner_profile_id)
-                ->field('couchbaseDocument.doc.owner_id');
-
- 
+       
+        $must = Sherlock\Sherlock::queryBuilder()
+                ->QueryString()
+                           ->field('couchbaseDocument.doc.collection_id')
+                        ->query($collection_id);
+        $must2 = Sherlock\Sherlock::queryBuilder()
+                   ->QueryString()
+                           ->field('couchbaseDocument.doc.owner_id')
+                        ->query($owner_profile_id);
+               
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)
-                ->must($must2)
+       ->must($must2)
                 ->boost(2.5);
-        error_log($bool->toJSON());
         $response = $request->query($bool)->execute();
 
         $results = '{"' . $returnType . '":[';
@@ -496,7 +493,7 @@ error_log('aaaaaaaaaaaaaaaaaaaaaaa');
         $host = $_SERVER['HTTP_HOST'];
         preg_match("/[^\.\/]+\.[^\.\/]+$/", $host, $matches);
 
-        return $matches[0];
+        return trim($matches[0]);
     }
 
     protected function getSelectedCollectionIds($collections, $collection_id) {
@@ -589,14 +586,9 @@ error_log('aaaaaaaaaaaaaaaaaaaaaaa');
     }
 
     public function saveImageToS3($url, $data, $bucket) {
-//        $provider_arr = $this->getProviderConfigurationByName("trendsideas.com", "S3Client");
-//        print_r($provider_arr);
-//        exit();
-        
         $provider_arr['key'] = 'AKIAJKVKLIJWCJBKMJUQ';
         $provider_arr['secret'] = '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';
-        $provider_arr['region'] = 'ap-southeast-2';
-        
+        $provider_arr['region'] = 'ap-southeast-2';        
         $client = Aws\S3\S3Client::factory(
                         $provider_arr
         );
@@ -610,10 +602,6 @@ error_log('aaaaaaaaaaaaaaaaaaaaaaa');
 
     
     public function removeImageFromS3($key, $bucket) {
-//        $provider_arr = $this->getProviderConfigurationByName("trendsideas.com", "S3Client");
-//        print_r($provider_arr);
-//        exit();
-        
         $provider_arr['key'] = 'AKIAJKVKLIJWCJBKMJUQ';
         $provider_arr['secret'] = '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';
         $provider_arr['region'] = 'ap-southeast-2';
@@ -655,21 +643,13 @@ error_log('aaaaaaaaaaaaaaaaaaaaaaa');
     }
 
     function compressPhotoData($type, $image) {
-        error_log("type in compressPhotoData: " . $type);
+   
 
-//        ob_start();
         if ($type == "image/png") {
             imagepng($image);
-            error_log("image/png--fffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        } elseif ($type == "image/jpeg") {
-            error_log("in image/jpeg kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+        } elseif ($type == "image/jpeg") {   
             imagejpeg($image, null, 80);
-            error_log("image/jpeg--sssssssssssssssssssssssssssssssssssssssssssssss");
         }
-        error_log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-//        $return = ob_get_contents();
-//        ob_end_clean();
-//        error_log($return);
 
         return $image;
     }

@@ -500,7 +500,6 @@ define('application', [
 
             App.set("isLogin", false);
             App.set("afterSearch", false);
-
             App.set("setHight", null);
             App.set('chooseCollection', null);
             App.set('isMansonryPageLoad', false);

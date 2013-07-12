@@ -77,36 +77,6 @@
             {{render contact}}
             {{/if}}
 
-
-
-     <!--        <div class="collapes-container" id="poster_action">
-                <table style="padding: 15px; width: 100%;font-size: 13px;  display: table;border-collapse: separate;border-spacing: 4px;">
-                    <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
-                        <tr>
-                            <td>Contact:</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Type:</td>
-                            <td>{{controller.selectedMega.id}}</td>
-                        </tr>
-                        <tr>
-                            <td>Address:</td>
-                            <td>--</td>
-                        </tr>
-                        <tr>
-                            <td>Phone:</td>
-                            <td>--</td>
-                        </tr>
-                        <tr>
-                            <td>Website:</td>
-                            <td>--</td>
-                        </tr>
-                    </tbody>
-                </table>                
-            </div>-->
-
-
         </div>
 
         <!-- OBJECT DESCRIBTION SECTION -->
@@ -125,8 +95,8 @@
 
             <div class="collapes-container"   id="article_action" style="display:block">
                 <div  class="collapes-container_inner">
-                    <div class="article-title">{{controller.selectedMega.photo_title}}</div>
-                    <div class="article-text">{{controller.selectedMega.photo_caption}}</div>
+                    <div class="article-title">{{controller.selectedPhoto.photo_title}}</div>
+                    <div class="article-text">{{controller.selectedPhoto.photo_caption}}</div>
                 </div>
             </div>
 
@@ -188,7 +158,7 @@
                         <div class="show-comment">
                             <div class="show-comment_container">
                                 <span class="show-comment_inner">
-                                    <span class="comment-amount" > {{controller.thisComments.length}} </span>
+                                    <span class="comment-amount" > {{controller.megaResouce.comments.length}} </span>
                                     <span class="comment-amount" > comments   </span> 
                                 </span>
                             </div>
@@ -213,7 +183,7 @@
                       
                             </div>
                         </div>
-                        {{#each controller.thisComments}}
+                        {{#each controller.megaResouce.comments}}
                         <div class="comment-item">
 
                             <div class="comment-position">

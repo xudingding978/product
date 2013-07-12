@@ -469,7 +469,38 @@ class Controller extends CController {
 
         return $results;
     }
+    
+    protected function getAllProfiles($returnType){
+        $rawRequest = '{
+                                    "bool": {
+                                      "must": {
+                                        "text": {
+                                            "couchbaseDocument.doc.type": "profile"
+                                        }
+                                      }
+                                    }
+                                }';
 
+        $settings['log.enabled'] = true;
+        $settings['log.file'] = '../../sherlock.log';
+        $sherlock = new \Sherlock\Sherlock($settings);
+        $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
+        $request = $sherlock->search(); 
+        $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
+        $request->index("test")
+                ->from(0)
+                ->size(200)
+                ->type("couchbaseDocument")
+                ->query($termQuery);
+
+        $response = $request->execute();
+//        error_log($response);
+        $results = $this->modifyArticleResponseResult($response, $returnType);
+
+        return $results;
+        
+    }
+    
     protected function getAllDoc($returnType, $from, $to) {
         $rawRequest = '{
                                     "bool": {
@@ -488,7 +519,7 @@ class Controller extends CController {
         $settings['log.file'] = '../../sherlock.log';
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
-        $request = $sherlock->search();
+        $request = $sherlock->search(); 
         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
         $request->index("develop")
                 ->from(0)
@@ -615,17 +646,27 @@ class Controller extends CController {
     }
 
     public function removeImageFromS3($key, $bucket) {
+//        $provider_arr = $this->getProviderConfigurationByName("trendsideas.com", "S3Client");
+//        print_r($provider_arr);
+//        exit();
+        
+        
         $provider_arr['key'] = 'AKIAJKVKLIJWCJBKMJUQ';
         $provider_arr['secret'] = '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';
         $provider_arr['region'] = 'ap-southeast-2';
-
-        $client = Aws\S3\S3Client::factory(
-                        $provider_arr
-        );
-        $client->deleteObject(array(
-            'Bucket' => $bucket, //"s3.hubsrv.com"
-            'Key' => $key
-        ));
+        
+        try{
+            $client = Aws\S3\S3Client::factory(
+                $provider_arr
+            );
+            $client->deleteObject(array(
+                'Bucket' => $bucket, //"s3.hubsrv.com"
+                'Key' => $key
+            ));
+        } catch (Exception $e) {
+            $message = $e->getMessage();
+            error_log($message);
+        }
     }
 
     protected function addPhotoSizeToName($photo_name, $photo_size_arr) {

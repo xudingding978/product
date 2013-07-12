@@ -76,8 +76,12 @@ class MegaimportController extends Controller {
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
         
-//        print_r($request_arr);
         $id = "trendsideas.com/".$request_arr['id'];
+//        print_r($request_arr);
+        if ($request_arr['type'] == 'profile') {
+            $id = "trendsideas.com/profiles/".$request_arr['id'];
+        }
+        
 //        echo $id;
 //        exit();
         
@@ -88,7 +92,7 @@ class MegaimportController extends Controller {
         
         try {
             $cb = $this->couchBaseConnection_production();
-            if ($cb->set($id, CJSON::encode($request_arr))) {
+            if ($cb->add($id, CJSON::encode($request_arr))) {
                 $response="ok";
             } else {
                 error_log("inport article faill, ID:". $request_arr["id"]);

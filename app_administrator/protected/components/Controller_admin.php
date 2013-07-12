@@ -81,7 +81,7 @@ class Controller_admin extends CConsoleCommand
         $myText = (string) microtime();
         $pieces = explode(" ", $myText);
         $id = $pieces[1];
-        $id = (string)rand(999999, 9999999) . $id;
+        $id = (string)rand(99999999, 999999999) . $id;
 //        echo "111111111111111111111111111111";
         return $id;
     }
@@ -197,7 +197,7 @@ class Controller_admin extends CConsoleCommand
         $book_data_arr['publication'] = $publication;
         $book_data_arr['timezone'] = $timezone;
         $book_data_arr['region'] = $region;
-        $book_data_arr['courntry'] = $country;
+        $book_data_arr['country'] = $country;
         $book_data_arr['region_id'] = $region_id;
         
         return $book_data_arr;        

@@ -5,13 +5,21 @@ define(["ember"], function(Ember) {
         partnerID: "",
         addPartner: true,
         currentAddPartnerPic: null,
-        selectedCollection: "",
+        selectedPartnerPic: "",
         init: function() {
 
 
 
 
         },
+        addingPartnerObserver: function() {
+
+
+            var addProfilePic = this.get('currentAddPartnerPic').split("/profiles/")[1];
+
+
+            this.set('selectedPartnerPic', App.Profile.find(addProfilePic).get('profile_pic_url'));
+        }.observes('currentAddPartnerPic'),
         getClientId: function(model) {
             console.log(model);
             this.set('clientID', model.id);

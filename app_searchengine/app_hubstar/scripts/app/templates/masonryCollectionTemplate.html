@@ -8,11 +8,25 @@
 
             <div style="margin: 4px 20px 4px 40px; font-size: 18px; text-shadow: 0 1px 0 rgba(255,255,255,0.8);float: left;" >{{controller.profileSelectionStatus}}</div>
 
+
+            {{#if controller.updateOrCreate}}
+
             <ul class="user-stats" id="user-stats">
                 <li id="defualt" ><a {{action selectCollection}}> Collections</a></li>
                 <li ><a {{action selectPartner this}}>Partners</a></li>
                 <li ><a {{action selectFollower this}}>Followers</a></li>
             </ul>
+            {{/if}}
+
+            {{#if controller.userTage}}
+
+            <ul class="user-stats" id="user-stats">
+                <li id="defualt" ><a {{action selectCollection}}> Collections</a></li>
+                <li ><a {{action selectPartner this}}>Following</a></li>
+                <li ><a {{action selectFollower this}}>Followers</a></li>
+            </ul>
+            {{/if}}    
+
 
         </div>
 
@@ -51,8 +65,9 @@
 
         <!--END SECTION CONTROL BAR-->
 
-        <div class="col2 box style-box t-style-box" style="opacity: 0">text</div>
-        <div class="col2 box style-box t-style-box" style="opacity: 0">text</div>
+<!--        <div class="col2 box style-box t-style-box" style="opacity: 0">text</div>
+        <div class="col2 box style-box t-style-box" style="opacity: 0">text</div>-->
+
 
 
     </div>

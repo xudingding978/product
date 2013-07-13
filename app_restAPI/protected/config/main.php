@@ -39,61 +39,60 @@ $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
 // Yii::setPathOfAlias('local','path/to/local-folder');
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
-return array(
-    'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
-    'name' => 'API Application',
-    // preloading 'log' component
-    // 'preload' => array('log'),
-    // autoloading model and component classes
-    'import' => array(
-        'application.components.Controller',
-        'application.components.RestController',
-        'application.components.HttpRequest',
-        'application.vendor.autoload',
-        'application.components.SearchEngine',
-        'application.controllers.*'
-    ),
-    // application components
-    'components' => array(
-        // url rules needed by CUrlManager
-        'urlManager' => array(
-            'urlFormat' => 'path',
-            'showScriptName' => false,
-            'rules' => array(
-                //REST AP
-                array('<controller>/options', 'pattern' => '<controller>', 'verb' => 'OPTIONS'),
-                array('<controller>/options', 'pattern' => '<controller>/<id>', 'verb' => 'OPTIONS'),
-                array('<controller>/', 'pattern' => '<controller>', 'verb' => 'GET'),
-                array('<controller>/create', 'pattern' => '<controller>', 'verb' => 'POST'),
-                array('<controller>/read', 'pattern' => '<controller>/<id>', 'verb' => 'GET'),
-                array('<controller>/update', 'pattern' => '<controller>/<id>', 'verb' => 'PUT'),
-                array('<controller>/delete', 'pattern' => '<controller>/<id>', 'verb' => 'DELETE'),
-            )
-        ),
+return CMap::mergeArray(
+                array(
+            'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
+            'name' => 'API Application',
+            // preloading 'log' component
+            // 'preload' => array('log'),
+            // autoloading model and component classes
+            'import' => array(
+                'application.components.Controller',
+                'application.components.RestController',
+                'application.components.HttpRequest',
+                'application.vendor.autoload',
+                'application.components.SearchEngine',
+                'application.controllers.*'
+            ),
+            // application components
+            'components' => array(
+                // url rules needed by CUrlManager
+                'urlManager' => array(
+                    'urlFormat' => 'path',
+                    'showScriptName' => false,
+                    'rules' => array(
+                        //REST AP
+                        array('<controller>/options', 'pattern' => '<controller>', 'verb' => 'OPTIONS'),
+                        array('<controller>/options', 'pattern' => '<controller>/<id>', 'verb' => 'OPTIONS'),
+                        array('<controller>/', 'pattern' => '<controller>', 'verb' => 'GET'),
+                        array('<controller>/create', 'pattern' => '<controller>', 'verb' => 'POST'),
+                        array('<controller>/read', 'pattern' => '<controller>/<id>', 'verb' => 'GET'),
+                        array('<controller>/update', 'pattern' => '<controller>/<id>', 'verb' => 'PUT'),
+                        array('<controller>/delete', 'pattern' => '<controller>/<id>', 'verb' => 'DELETE'),
+                    )
+                ),
 //        'errorHandler' => array(
 //            // use 'site/error' action to display errors
 //            'errorAction' => 'site/error',
 //        ),
-    ),
-    // application-level parameters that can be accessed
-    // using Yii::app()->params['paramName']
-    'params' => array(
-        // this is used in contact page
-        'adminEmail' => 'webmaster@example.com',
-        // this the primary elastic search server and index
-        'elasticSearchNode' => $params['elasticSearch.node'], //'es1.hubsrv.com'
-        'elasticSearchIndex' => $params['elasticSearch.index'], //test
-        'couchBaseNode' => $params['couchBase.node'],
-        'couchBaseBucket' => $params['couchBase.bucket'],
-        'couchBaseAccount' => $params['couchBase.account'],
-        'couchBasePasswrd' => $params['couchBase.password'],
-        //---------------------------
-        'couchBaseDefaultNode' => $params['couchBase.defaultNode'],
-        'couchBaseDefaultBucket' => $params['couchBase.defaultBucket'],
-        'couchBaseDefaultAccount' => $params['couchBase.defaultAccount'],
-        'couchBaseDefaultPasswrd' => $params['couchBase.defaultPassword'],
-
-    ),
-    
-    
+            ),
+            // application-level parameters that can be accessed
+            // using Yii::app()->params['paramName']
+            'params' => array(
+                // this is used in contact page
+                'adminEmail' => 'webmaster@example.com',
+                // this the primary elastic search server and index
+                'elasticSearchNode' => $params['elasticSearch.node'], //'es1.hubsrv.com'
+                'elasticSearchIndex' => $params['elasticSearch.index'], //test
+                'couchBaseNode' => $params['couchBase.node'],
+                'couchBaseBucket' => $params['couchBase.bucket'],
+                'couchBaseAccount' => $params['couchBase.account'],
+                'couchBasePasswrd' => $params['couchBase.password'],
+                //---------------------------
+                'couchBaseDefaultNode' => $params['couchBase.defaultNode'],
+                'couchBaseDefaultBucket' => $params['couchBase.defaultBucket'],
+                'couchBaseDefaultAccount' => $params['couchBase.defaultAccount'],
+                'couchBaseDefaultPasswrd' => $params['couchBase.defaultPassword'],
+            ),
+                ), CMap::mergeArray($mainEnvConfiguration, $mainLocalConfiguration)
 );

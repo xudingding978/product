@@ -48,6 +48,7 @@ define(["ember"
             for (var i = 0; i < collections.get("length"); i++)
             {
                 var col = collections.objectAt(i);
+                console.log(col);
                 if ((col.get("collection_ids") !== null && col.get("collection_ids") !== "")) {
                     var imgId = col.get("collection_ids").split(",").objectAt(0);
                     this.getHeroImgae(imgId, col);

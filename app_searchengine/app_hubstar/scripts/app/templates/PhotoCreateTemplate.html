@@ -15,8 +15,13 @@
     </div> 
 
     <div id="dragAndDroppReviewArea" class="dragndropbox" style="display:none">
+
         {{#each content}}
-        <div {{bindAttr id="photo_file_name"}} style="display: block">gifdddddddddddddddd</div>
+        
+ 
+        <div {{bindAttr class="photo_source_id"}} style="display: none">gifdddddddddddddddd</div>
+   
+        
         <div style="position: relative;margin:3px; display: inline-block; vertical-align: top; min-width: 150px;text-align: center;">
             <div> <img  {{bindAttr src= "photo_image_original_url"}}  alt="Logo" style="max-width: 140px; max-height: 150px;"> </div>
             <div style="margin: 2px 0 5px; font-size: 13px; text-overflow:ellipsis; text-align: center; width: 150px;overflow: hidden;word-wrap: break-word;line-height: 15px;">{{photo_title}}</div>

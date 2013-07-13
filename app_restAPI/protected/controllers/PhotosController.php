@@ -294,7 +294,6 @@ class PhotosController extends Controller {
         $photo_string = $mega['photo'][0]['photo_image_original_url'];
         $photo_name = $mega['photo'][0]['photo_title'];
         $owner_id = $mega['owner_id'];
-
         $data_arr = $this->convertToString64($photo_string);
         $photo = imagecreatefromstring($data_arr['data']);
         $compressed_photo = $this->compressPhotoData($data_arr['type'], $photo);
@@ -381,7 +380,7 @@ class PhotosController extends Controller {
         $mega['created'] = $this->getCurrentUTC();
         $mega['updated'] = $this->getCurrentUTC();
        $newMega= $this->doPhotoResizing($mega);
-        //error_log(var_export($mega["photo"][0], true));
+
         $cb = $this->couchBaseConnection();
         if ($cb->add($docID, CJSON::encode($newMega))) {
             $this->sendResponse(204, "{ render json: @user, status: :ok }");

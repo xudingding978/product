@@ -29,24 +29,47 @@
 
 
         </div>
+           {{#if controller.userTage}}
+      
+           
+            {{#if collectionTag}}
+            {{view App.UserCollectionsView}}
+            {{/if}} 
 
+            {{#if partnerTag}}
+            {{render profilePartners}}
+            {{/if}} 
 
-        {{#if collectionTag}}
-        {{view App.ProfileCollectionsView}}
-        {{/if}} 
+            {{#if followerTag}}
+            {{render profileFollowers}}
+            {{/if}} 
+           
+           
+           
+        
+            {{/if}}    
+            
+        {{#if controller.updateOrCreate}}
+        
+        
+            {{#if collectionTag}}
+            {{view App.ProfileCollectionsView}}
+            {{/if}} 
 
-        {{#if partnerTag}}
-        {{render profilePartners}}
-        {{/if}} 
+            {{#if partnerTag}}
+            {{render profilePartners}}
+            {{/if}} 
 
-        {{#if followerTag}}
-        {{render profileFollowers}}
-        {{/if}} 
-
+            {{#if followerTag}}
+            {{render profileFollowers}}
+            {{/if}} 
+            
+            
+        {{/if}}
         <!--END SECTION CONTROL BAR-->
 
-<!--        <div class="col2 box style-box t-style-box" style="opacity: 0">text</div>
-        <div class="col2 box style-box t-style-box" style="opacity: 0">text</div>-->
+        <div class="col2 box style-box t-style-box" style="opacity: 0">text</div>
+        <div class="col2 box style-box t-style-box" style="opacity: 0">text</div>
 
 
 

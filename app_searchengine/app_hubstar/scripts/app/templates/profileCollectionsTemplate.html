@@ -11,63 +11,66 @@
 
 
 {{#if controller.is_authentic_user}}
-        <div class="box style-box t-style-box" id="addNew">
 
-            <div id="uploadObject" {{action newCollection }}>
-                 <div class="add-new-object-hoverarea easing">
 
-                    <i class="icon-plus-sign"></i>
-                </div>
-                <div class="masonry-object t-style-box">
-                    <div class="add-new-object-content">
-                        <i class="icon-group"></i>
-                        <i class="icon-book"></i>
-                        <i class="icon-picture"></i>
-                        <i class="icon-film"></i>
-                    </div>
+<div class="box style-box t-style-box" id="addNew">
 
-                </div>
-            </div>
-            {{view App.EditCollectionView}}
+    <div id="uploadObject" {{action newCollection }}>
+         <div class="add-new-object-hoverarea easing">
+
+            <i class="icon-plus-sign"></i>
         </div>
-        {{/if}}
-        {{#each collections}}
-        <div class="box col2 style-box t-style-box">
-            <div class="masonry-object Targeting_Object_front" {{bindAttr id="id"}}>
-                <a class="album-description-hoverarea easing" href="" {{action transitionToCollectionPhoto id}}>
-
-                   <div class="album-description">{{desc}}</div>
-                    <div class="album-description-bg">{{desc}}</div>
-                </a>
-                <div class="albumcover-container"  >
-                    <img class="albumcover" {{bindAttr src="cover"}} />
-                </div>
-                <div class="album-info">
-                    <div class="album-info_name"><i class="icon-picture" ></i>   {{title}}</div>
-                    <div class="album-info_content">
-                        {{#if controller.is_authentic_user}}
-                        <div class="edit-btn edit-collection-btn easing"><i class="icon-cog" {{action editCollectionButton id desc target="view" on="click"}}></i></div>
-                        {{/if}}
-                        <span><a href="" {{action transitionToCollectionPhoto id}}> </a> photos</span>
-                        <span><img src="../../images/list-doc.png"/> April 1 2013</span>
-                    </div>
-                </div>
+        <div class="masonry-object t-style-box">
+            <div class="add-new-object-content">
+                <i class="icon-group"></i>
+                <i class="icon-book"></i>
+                <i class="icon-picture"></i>
+                <i class="icon-film"></i>
             </div>
-            <div id="Targeting_Object_back"{{bindAttr class="id"}}>
-                {{view App.EditCollectionView}}
+
+        </div>
+    </div>
+    {{view App.EditCollectionView}}
+</div>
+{{/if}}
+{{#each collections}}
+<div class="box col2 style-box t-style-box">
+    <div class="masonry-object Targeting_Object_front" {{bindAttr id="id"}}>
+        <a class="album-description-hoverarea easing" href="" {{action transitionToCollectionPhoto id}}>
+
+           <div class="album-description">{{desc}}</div>
+            <div class="album-description-bg">{{desc}}</div>
+        </a>
+        <div class="albumcover-container"  >
+            <img class="albumcover" {{bindAttr src="cover"}} />
+        </div>
+        <div class="album-info">
+            <div class="album-info_name"><i class="icon-picture" ></i>   {{title}}</div>
+            <div class="album-info_content">
+                {{#if controller.is_authentic_user}}
+                <div class="edit-btn edit-collection-btn easing"><i class="icon-cog" {{action editCollectionButton id desc target="view" on="click"}}></i></div>
+                {{/if}}
+                <span><a href="" {{action transitionToCollectionPhoto id}}> </a> photos</span>
+                <span><img src="../../images/list-doc.png"/> April 1 2013</span>
             </div>
         </div>
+    </div>
+    <div id="Targeting_Object_back"{{bindAttr class="id"}}>
+        {{view App.EditCollectionView}}
+    </div>
+</div>
 
-        <script>
+<script>
 
-            $(function() {
-                var $container = $('#masonry_user_container');
-                window.setTimeout(function() {
-                    $container.masonry();
-                    $container.masonry('reload');
-                }, 400);
-            });
+    $(function() {
+        var $container = $('#masonry_user_container');
+        window.setTimeout(function() {
+            $container.masonry();
+            $container.masonry('reload');
+        }, 400);
+    });
 
-        </script>
-        {{/each}}
+</script>
+{{/each}}
 
+<div class="col2 box style-box t-style-box" style="opacity: 0;height:300px">text</div>

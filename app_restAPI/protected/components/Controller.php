@@ -191,12 +191,17 @@ class Controller extends CController {
         } elseif ($requireType == 'partner') {
             $partner_id_raw = $this->getUserInput($requireParams[1]);
             $partner_id = str_replace("%2C", ",", $partner_id_raw);
-            $response = $this->getProfilePartner($returnType, $partner_id);
-            //  error_log(var_export($requireType, true));
+            $partnerIds = explode(',', $partner_id);
+            $str_partnerIds = "";
+            for ($i = 0; $i < sizeof($partnerIds); $i++) {
+           $str_partnerIds= $str_partnerIds . '\"' . $partnerIds[$i] . '\"';
+                if ($i+1 < sizeof($partnerIds)) {
+                    $str_partnerIds.=',';
+                }
+            }
+            $response = $this->getProfilePartner($returnType, $str_partnerIds);
+
         } elseif ($requireType == 'articleRelatedImage') {
-
-
-
 
             $article_id = $this->getUserInput($requireParams[1]);
             $owner_id = $this->getUserInput($requireParams[2]);
@@ -286,7 +291,7 @@ class Controller extends CController {
         }
         $request->query($bool);
 
-  //      error_log($request->toJSON());
+        //      error_log($request->toJSON());
         $response = $request->execute();
 
         $i = 0;
@@ -329,13 +334,14 @@ class Controller extends CController {
                         {
                             "query_string": {
                                 "default_field": "couchbaseDocument.doc.profile.id",
-                                "query": "' . $partner_id . '"
+                                "query": "' . $partner_id .'"
                             }
                         }
                     ]
                 }
     
             }');
+
         $response = $request->query($termQuery)->execute();
 
 
@@ -469,8 +475,8 @@ class Controller extends CController {
 
         return $results;
     }
-    
-    protected function getAllProfiles($returnType){
+
+    protected function getAllProfiles($returnType) {
         $rawRequest = '{
                                     "bool": {
                                       "must": {
@@ -485,7 +491,7 @@ class Controller extends CController {
         $settings['log.file'] = '../../sherlock.log';
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
-        $request = $sherlock->search(); 
+        $request = $sherlock->search();
         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
         $request->index("test")
                 ->from(0)
@@ -498,9 +504,8 @@ class Controller extends CController {
         $results = $this->modifyArticleResponseResult($response, $returnType);
 
         return $results;
-        
     }
-    
+
     protected function getAllDoc($returnType, $from, $to) {
         $rawRequest = '{
                                     "bool": {
@@ -519,7 +524,7 @@ class Controller extends CController {
         $settings['log.file'] = '../../sherlock.log';
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
-        $request = $sherlock->search(); 
+        $request = $sherlock->search();
         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
         $request->index("develop")
                 ->from(0)
@@ -649,15 +654,15 @@ class Controller extends CController {
 //        $provider_arr = $this->getProviderConfigurationByName("trendsideas.com", "S3Client");
 //        print_r($provider_arr);
 //        exit();
-        
-        
+
+
         $provider_arr['key'] = 'AKIAJKVKLIJWCJBKMJUQ';
         $provider_arr['secret'] = '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';
         $provider_arr['region'] = 'ap-southeast-2';
-        
-        try{
+
+        try {
             $client = Aws\S3\S3Client::factory(
-                $provider_arr
+                            $provider_arr
             );
             $client->deleteObject(array(
                 'Bucket' => $bucket, //"s3.hubsrv.com"

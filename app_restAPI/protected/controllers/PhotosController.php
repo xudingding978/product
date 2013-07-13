@@ -375,7 +375,6 @@ class PhotosController extends Controller {
         $id = $this->getNewID();
         $docID = $this->getDomain() . "/" . $id;
         str_replace(' ', '', $docID);
-
         $mega["id"] = $id;
         $mega["photo"][0]["id"] = $id;
 

@@ -141,7 +141,6 @@ class MegasController extends Controller {
 
     public function updateComment($newRecord) {
         try {
-
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];

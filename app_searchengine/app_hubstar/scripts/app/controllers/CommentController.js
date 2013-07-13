@@ -70,7 +70,7 @@ define(["ember"], function(Ember) {
             }
         }, addPeopleLike: function(mega) {
             var people_like = mega.get("people_like");
-            if (people_like === null || people_like === undefined)
+            if (people_like === null || people_like === undefined||people_like==="")
             {
                 people_like = localStorage.loginStatus;
                 mega.set("likes_count", 1);

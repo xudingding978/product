@@ -14,11 +14,13 @@ define(["ember"
         coverImg: "",
         display_name: "",
         userTage: true,
-
         currentUserID: "",
         needs: ['photoCreate'],
         makeSureDelete: false,
+        updateOrCreate: true,
+        collectionTag:true,
         selectedCollection: "",
+        profileSelectionStatus: "Collecitons",
         selected_topics: [],
         is_authentic_user: false,
         init: function()
@@ -49,6 +51,7 @@ define(["ember"
             for (var i = 0; i < collections.get("length"); i++)
             {
                 var col = collections.objectAt(i);
+                console.log(col);
                 if ((col.get("collection_ids") !== null && col.get("collection_ids") !== "")) {
                     var imgId = col.get("collection_ids").split(",").objectAt(0);
                     this.getHeroImgae(imgId, col);
@@ -247,6 +250,33 @@ define(["ember"
                     this.set('is_authentic_user', false);
                 }
             }
+        },
+        selectCollection: function() {
+            this.set('profileSelectionStatus', 'Collections');
+            this.set('partnerTag', false);
+            this.set('collectionTag', true);
+            this.set('followerTag', false);
+        },
+        selectFollowing: function(model) {
+
+            this.set('profileSelectionStatus', 'Following');
+
+//            this.get('controllers.profilePartners').getClientId(model);
+            this.set('partnerTag', true);
+            this.set('collectionTag', false);
+            this.set('followerTag', false);
+
+
+            this.get('controllers.itemProfiles').setPartnerRemove();
+
+
+        },
+        selectFollower: function(model) {
+            this.set('profileSelectionStatus', 'Followers');
+//            this.get('controllers.profileFollowers').getClientId(model);
+            this.set('partnerTag', false);
+            this.set('collectionTag', false);
+            this.set('followerTag', true);
         }
     }
     );

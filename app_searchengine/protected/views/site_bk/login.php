@@ -9,12 +9,12 @@ $this->breadcrumbs = array(
 );
 ?>
 
-
-
-<?php $this->widget('common.modules.hybridauth.widgets.renderProviders'); ?>
 <h1>Login</h1>
 
 <p>Please fill out the following form with your login credentials:</p>
+
+
+
 
 <div class="form">
     <?php
@@ -56,3 +56,15 @@ $this->breadcrumbs = array(
 
     <?php $this->endWidget(); ?>
 </div><!-- form -->
+
+
+<script type="text/x-handlebars">
+    <h1>People</h1>
+
+    <ul>
+    {{#each model}}
+    <li>Hello, <b>{{fullName}}</b>!</li>
+    {{/each}}
+    </ul>
+</script>
+

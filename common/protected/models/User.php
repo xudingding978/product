@@ -79,7 +79,7 @@ class User extends CActiveRecord {
             'REC_DATETIME' => 'Rec Datetime',
             'REC_TIMESTAMP' => 'Rec Timestamp',
             'USER_NAME' => 'User Name',
-            'PWD_HASH' => 'Pwd Hash',
+            'PWD_HASH' => 'Password',
             'EMAIL_ADDRESS' => 'Email Address',
             'LAST_LOGIN' => 'Last Login',
             'FIRST_NAME' => 'First Name',

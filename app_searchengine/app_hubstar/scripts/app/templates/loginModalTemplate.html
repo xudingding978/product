@@ -48,7 +48,7 @@
                 <a  class="square-button" href='#' onclick="LinkedIn(650, 400);" >
                     <div id="dropdown-cover" style="position: absolute; width: 45px; height: 45px; border-radius: 3px;"></div>
                     <div class="square-button-twitter"><i class="icon-linkedin-sign icon-large" style="float: left; margin: 11px 15px; width: auto; height:22px; line-height: 20px;"></i></div></a>
-        
+
                 <a  class="square-button"  href='#' onclick="Google(650, 400);" >
                     <div id="dropdown-cover" style="position: absolute; width: 45px; height: 45px; border-radius: 3px;"></div>
                     <div class="square-button-google"><i class="icon-google-plus icon-large" style="float: left; margin: 11px 15px; width: auto; height:22px; "></i></div></a>
@@ -155,7 +155,7 @@
 
 
 
-        <div style="width: 50%; margin: 10px auto;">
+<!--        <div style="width: 50%; margin: 10px auto;">
 
             <input type="text" class="span3" placeholder="Email Address">
 
@@ -166,8 +166,8 @@
 
             <input type="password" class="span3" placeholder="Confirm Password">
 
-        </div>
-
+        </div>-->
+<iframe src="http://develop.trendsideas.com/user/create/"></iframe>
 
 
 
@@ -178,7 +178,7 @@
             By clicking Sign Up you indicate that you have read and agreed to the <a href='#'>Terms of Use</a> and <a href='#'>Privacy Policy </a>.
         </div>
         <div>
-            <div  type="button" class="new-btn green-btn" >
+            <div  type="button" class="new-btn green-btn">
                 Sign Up
             </div>
 
@@ -188,8 +188,8 @@
         </div>
     </div>
 
-
-
+    
+    
 
 
 
@@ -204,66 +204,66 @@
 
 
 
-                        $('#signup').click(function() {
-                            $(".hover").addClass('flip');
-                        });
+    $('#signup').click(function() {
+        $(".hover").addClass('flip');
+    });
 
-                        $('#goback').click(function() {
-                            $(".hover").removeClass('flip');
-                        });
-
-
+    $('#goback').click(function() {
+        $(".hover").removeClass('flip');
+    });
 
 
-                        function DropDown(el) {
-                            this.dd = el;
-                            this.placeholder = this.dd.children('span');
-                            this.opts = this.dd.find('ul.dropdown > li');
-                            this.val = '';
-                            this.index = -1;
-                            this.initEvents();
-                        }
-                        DropDown.prototype = {
-                            initEvents: function() {
-                                var obj = this;
-
-                                obj.dd.on('click', function(event) {
-                                    $(this).parents('div .wrapper-dropdown-3').toggleClass('active');
-                                    return false;
-                                });
 
 
-                                obj.opts.on('click', function() {
-                                    var opt = $(this);
-                                    obj.val = opt.text();
-                                    obj.index = opt.index();
-                                    obj.placeholder.text(obj.val);
-                                });
-                            },
-                            getValue: function() {
-                                return this.val;
-                            },
-                            getIndex: function() {
-                                return this.index;
-                            }
-                        };
-                        $(function() {
+    function DropDown(el) {
+        this.dd = el;
+        this.placeholder = this.dd.children('span');
+        this.opts = this.dd.find('ul.dropdown > li');
+        this.val = '';
+        this.index = -1;
+        this.initEvents();
+    }
+    DropDown.prototype = {
+        initEvents: function() {
+            var obj = this;
+
+            obj.dd.on('click', function(event) {
+                $(this).parents('div .wrapper-dropdown-3').toggleClass('active');
+                return false;
+            });
 
 
-                            var dd = new DropDown($('.dropdown_test'));
+            obj.opts.on('click', function() {
+                var opt = $(this);
+                obj.val = opt.text();
+                obj.index = opt.index();
+                obj.placeholder.text(obj.val);
+            });
+        },
+        getValue: function() {
+            return this.val;
+        },
+        getIndex: function() {
+            return this.index;
+        }
+    };
+    $(function() {
 
-                            $(document).click(function() {
-                                // all dropdowns
-                                $('.wrapper-dropdown-3').removeClass('active');
-                            });
-                            var dd2 = new DropDown($('.dropdown_test_2'));
 
-                            $(document).click(function() {
-                                // all dropdowns
-                                $('.wrapper-dropdown-3').removeClass('active');
-                            });
+        var dd = new DropDown($('.dropdown_test'));
 
-                        });
+        $(document).click(function() {
+            // all dropdowns
+            $('.wrapper-dropdown-3').removeClass('active');
+        });
+        var dd2 = new DropDown($('.dropdown_test_2'));
+
+        $(document).click(function() {
+            // all dropdowns
+            $('.wrapper-dropdown-3').removeClass('active');
+        });
+
+    });
 
 </script>
 

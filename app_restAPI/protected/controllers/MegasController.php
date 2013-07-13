@@ -83,13 +83,6 @@ class MegasController extends Controller {
         }
     }
 
-    public function actionTest() {
-
-        header('Content-type: application/json');
-
-        echo CJSON::encode("dddddddd");
-    }
-
     public function photoSavingToS3($request_arr, $path) {
         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
         $key = explode(".", $_SERVER['HTTP_HOST']);
@@ -148,7 +141,6 @@ class MegasController extends Controller {
 
     public function updateComment($newRecord) {
         try {
-
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
@@ -215,10 +207,13 @@ class MegasController extends Controller {
         $docID = $this->getDocId($type, $id);
         $oldRecord = $cb->get($docID);
         $oldRecord = CJSON::decode($oldRecord, true);
+        
         if (!isset($oldRecord['comments'] )) {
             $oldRecord['comments'] = array();
         }
-        array_unshift($oldRecord['comments'], $newRecord['mega']['comments'][0]);
+        if(sizeof($newRecord['mega']['comments'])>sizeof($oldRecord['comments'])){//insert comment
+        array_unshift($oldRecord['comments'], $newRecord['mega']['comments'][0]);        
+        }  
         if (!isset($oldRecord['likes_count']) || $oldRecord['likes_count'] != $newRecord['mega']['likes_count']) {//update count
             $oldRecord['likes_count'] = $newRecord['mega']['likes_count'];
             $oldRecord['people_like'] = $newRecord['mega']['people_like'];

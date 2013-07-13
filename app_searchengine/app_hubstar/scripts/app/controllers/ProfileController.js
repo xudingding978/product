@@ -27,6 +27,7 @@ define([
                 followerTag: false,
                 updateOrCreate: true,
                 partnerTag: false,
+                partnerPage:true,
                 profileSelectionStatus: "Collections",
                 temp: [],
                 selectedDesc: "",

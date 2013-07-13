@@ -9,7 +9,7 @@
             <div style="margin: 4px 20px 4px 40px; font-size: 18px; text-shadow: 0 1px 0 rgba(255,255,255,0.8);float: left;" >{{controller.profileSelectionStatus}}</div>
 
 
-            {{#if controller.updateOrCreate}}
+            {{#if controller.partnerPage}}
 
             <ul class="user-stats" id="user-stats">
                 <li id="defualt" ><a {{action selectCollection}}> Collections</a></li>
@@ -22,54 +22,108 @@
 
             <ul class="user-stats" id="user-stats">
                 <li id="defualt" ><a {{action selectCollection}}> Collections</a></li>
-                <li ><a {{action selectPartner this}}>Following</a></li>
+                <li ><a {{action selectFollowing this}}>Following</a></li>
                 <li ><a {{action selectFollower this}}>Followers</a></li>
             </ul>
             {{/if}}    
 
 
         </div>
-           {{#if controller.userTage}}
-      
-           
-            {{#if collectionTag}}
-            {{view App.UserCollectionsView}}
-            {{/if}} 
+        {{#if controller.userTage}}
 
-            {{#if partnerTag}}
-            {{render profilePartners}}
-            {{/if}} 
+        {{#if collectionTag}}
 
-            {{#if followerTag}}
-            {{render profileFollowers}}
-            {{/if}} 
-           
-           
-           
+
+        <!--END SECTION CONTROL BAR-->
+        <div class="box style-box t-style-box" id="addNew">
+
+            <div id="uploadObject"  >
+                <div class="add-new-object-hoverarea easing">
+                    <i class="icon-plus-sign"></i>
+                </div>
+                <div class="masonry-object t-style-box">
+                    <div class="add-new-object-content">
+                        <i class="icon-group"></i>
+                        <i class="icon-book"></i>
+                        <i class="icon-picture"></i>
+                        <i class="icon-film"></i>
+                    </div>
+
+                </div>
+            </div>
+
+
+            {{view App.EditCollectionView}}
+
+        </div>
+
+        {{#each collections}}
+
+        <div class="box col2 style-box">
+            <div class="masonry-object">
+                <a class="album-description-hoverarea easing"  href="#/users/{{unbound controller.currentID}}/{{unbound title}}">
+
+                    <div class="album-description">{{desc}}</div>
+                    <div class="album-description-bg">{{desc}}</div>
+                </a>
+                <div class="albumcover-container"  >
+                    <img class="albumcover" {{bindAttr src="cover"}} />
+                </div>
+                <div class="album-info">
+                    <div class="album-info_name"><i class="icon-picture"></i> {{collection_ids}} </div>
+                    <div class="album-info_content">
+                        <div class="edit-object"><i class="icon-cog"></i></div>
+                        <span><a  href="#/users/{{unbound controller.currentID}}/{{unbound title}}"> {{title}} </a> photos {{title}}</span>
+                        <span><img src="../../images/list-doc.png"/> April 1 2013</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+
+            $(function() {
+                var $container = $('#masonry_user_container');
+                window.setTimeout(function() {
+                    $container.masonry();
+                    $container.masonry('reload');
+                }, 400);
+            });
+
+        </script>
+        {{/each}}
         
-            {{/if}}    
-            
-        {{#if controller.updateOrCreate}}
         
         
-            {{#if collectionTag}}
-            {{view App.ProfileCollectionsView}}
-            {{/if}} 
+        
+        
+        
 
-            {{#if partnerTag}}
-            {{render profilePartners}}
-            {{/if}} 
+        {{/if}}
 
-            {{#if followerTag}}
-            {{render profileFollowers}}
-            {{/if}} 
-            
-            
+        {{/if}}    
+
+        {{#if controller.partnerPage}}
+
+
+        {{#if collectionTag}}
+        {{view App.ProfileCollectionsView}}
+        {{/if}} 
+
+        {{#if partnerTag}}
+        {{render profilePartners}}
+        {{/if}} 
+
+        {{#if followerTag}}
+        {{render profileFollowers}}
+        {{/if}} 
+
+
         {{/if}}
         <!--END SECTION CONTROL BAR-->
 
-        <div class="col2 box style-box t-style-box" style="opacity: 0">text</div>
-        <div class="col2 box style-box t-style-box" style="opacity: 0">text</div>
+   
 
 
 

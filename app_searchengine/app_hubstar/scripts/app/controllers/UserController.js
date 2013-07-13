@@ -17,7 +17,10 @@ define(["ember"
         currentUserID: "",
         needs: ['photoCreate'],
         makeSureDelete: false,
+        updateOrCreate: true,
+        collectionTag:true,
         selectedCollection: "",
+        profileSelectionStatus: "Collecitons",
         selected_topics: [],
         is_authentic_user: false,
         init: function()
@@ -253,6 +256,27 @@ define(["ember"
             this.set('collectionTag', true);
             this.set('followerTag', false);
         },
+        selectFollowing: function(model) {
+
+            this.set('profileSelectionStatus', 'Following');
+
+//            this.get('controllers.profilePartners').getClientId(model);
+            this.set('partnerTag', true);
+            this.set('collectionTag', false);
+            this.set('followerTag', false);
+
+
+            this.get('controllers.itemProfiles').setPartnerRemove();
+
+
+        },
+        selectFollower: function(model) {
+            this.set('profileSelectionStatus', 'Followers');
+//            this.get('controllers.profileFollowers').getClientId(model);
+            this.set('partnerTag', false);
+            this.set('collectionTag', false);
+            this.set('followerTag', true);
+        }
     }
     );
     return UserController;

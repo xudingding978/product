@@ -20,10 +20,12 @@
 </div>
 
 {{#each  content}}
-
-{{render itemProfiles this}}
-
-
+<div class="box col2 noStyle1">
+    <div class="masonry-object">
+        {{render itemProfiles this}}
+        {{render "comment" this}}
+    </div>
+</div>
 <script>
     $(function() {
         var $container = $('#masonry_user_container');

@@ -14,10 +14,10 @@ define(["ember"], function(Ember) {
 
 
         },
-        transictionToUser: function(id) {
-
-            this.transitionTo('user', id);
-        }
+//        transictionToUser: function(id) {
+//
+//            this.transitionToRoute('userIndex', App.User.find(id));
+//        }
     });
     return ProfileFollowersController;
 });

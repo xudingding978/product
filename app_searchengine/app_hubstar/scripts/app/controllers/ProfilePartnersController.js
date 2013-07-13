@@ -13,6 +13,7 @@ define(["ember"], function(Ember) {
             this.set('selectedPartnerPic', App.Profile.find(addProfilePic).get('profile_pic_url'));
         }.observes('currentAddPartnerPic'),
         getClientId: function(model) {
+            this.set('content', []);
             this.set('clientID', model.id);
             this.set('partnerID', model.get('profile_partner_ids'));
             var data = App.Mega.find({RequireType: "partner", profile_partner_ids: this.get('partnerID')});
@@ -51,7 +52,6 @@ define(["ember"], function(Ember) {
                 var tempmega = data.objectAt(i);
                 if (tempmega.get('id') === partner_id) {
                     data.removeObject(tempmega);
-                    console.log(tempmega.get('id') );
                     break;
                 }
             }
@@ -81,7 +81,8 @@ define(["ember"], function(Ember) {
             } else {
                 alert('please input valid url!!!');
             }
-        }, pushUptoBackend: function(client_id)
+        },
+        pushUptoBackend: function(client_id)
         {
             var profileOwner = App.Profile.find(this.get('clientID'));
             profileOwner.set('profile_partner_ids', this.get('partnerID'));

@@ -19,14 +19,20 @@ define([
             return MegaModel.find(params.article_id);
         },
         activate: function() {
-            $("body").css("overflow", "hidden");
-            $('#footer').attr("style", "display:none");
+
+            setTimeout(function() {
+                $("body").css("overflow", "hidden");
+                $('#footer').attr("style", "display:none");
+            }, 100);
+
         },
         deactivate: function() {
 
 
-            $("body").css("overflow", "auto");
-            $('#footer').attr("style", "display:block");
+            setTimeout(function() {
+                $("body").css("overflow", "auto");
+                $('#footer').attr("style", "display:block");
+            }, 100);
         },
         renderTemplate: function() {
 

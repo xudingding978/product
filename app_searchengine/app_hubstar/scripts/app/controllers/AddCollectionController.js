@@ -80,16 +80,18 @@ define([
         },
         addNewCollection: function()
         {
-            var title = this.get("newCollectionName");
-            title = this.checkingValidInput(title);
 
-            var isInputValid = this.checkInput(title);
-            if (isInputValid) {
-                var tempCollection = App.Collection.createRecord({"id": title, "title": title, "desc": null, "collection_ids": null, "createdAt": new Date()});
-                this.get("collections").pushObject(tempCollection);
-                this.set('selectedTitle', tempCollection.get('title'));
-                $('#recordID').text(this.get('selectedTitle'));
-                this.set('selectedDesc', "");
+            var title = this.get("newCollectionName");
+            if (title !== null) {
+                title = this.checkingValidInput(title);
+                var isInputValid = this.checkInput(title);
+                if (isInputValid) {
+                    var tempCollection = App.Collection.createRecord({"id": title, "title": title, "desc": null, "collection_ids": null, "createdAt": new Date()});
+                    this.get("collections").pushObject(tempCollection);
+                    this.set('selectedTitle', tempCollection.get('title'));
+                    $('#recordID').text(this.get('selectedTitle'));
+                    this.set('selectedDesc', "");
+                }
             }
             this.set('newCollectionName', null);
             this.set('selectionPop', !this.get('selectionPop'));
@@ -119,6 +121,7 @@ define([
             this.set("selectedDesc", desc);
         },
         checkingValidInput: function(title) {
+
             if (title.indexOf(" ") !== -1) {
                 title = title.split(' ').join('-');
             }

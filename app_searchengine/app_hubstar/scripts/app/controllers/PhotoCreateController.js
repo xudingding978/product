@@ -45,22 +45,17 @@ define(["ember", "helper"],
                     var profileController = this.get('controllers.profile');
                     var tempmega = profileController.get("model");
                     var that = this;
-
                     that.set("profileMega", tempmega);
                     if (that.get("profileMega") === null) {
                         tempmega.addObserver('isLoaded', function() {
                             if (tempmega.get('isLoaded')) {
                                 that.set("profileMega", tempmega);
-
                             }
                         });
                     }
-                    console.log('done');
                 },
                 createNewMega: function(ProfileMega)
                 {
-
-
                     var photoMega = App.Mega.createRecord({
                         "accessed": ProfileMega.get("accessed"),
                         "boost": ProfileMega.get("boost"),
@@ -101,11 +96,29 @@ define(["ember", "helper"],
                     var mega = that.createNewMega(that.get("profileMega"));
                     var file = App.Photo.createRecord({
                         "photo_title": name.toLowerCase(),
+                        "photo_source_id": name.toLowerCase().replace('.', "_"),
                         "photo_image_original_url": src,
-                        "photo_file_name":name.toLowerCase(),
+                        "photo_file_name": name.toLowerCase(),
                         "photo_type": type,
                         "photo_keywords": that.get("profileMega").get("keywords")});
                     mega.get("photo").pushObject(file);
+                    mega.addObserver('isSaving', function() {
+                        if (mega.get('isSaving')) {
+                          $('.'+name.toLowerCase().replace('.', "_")).attr("style", "display:block");
+                            console.log(mega.get('photo').objectAt(0).get('photo_title') + " " + 'saving');
+                            console.log('.' + name.toLowerCase());
+                        }
+                        else {
+                            setTimeout(function() {
+                                $('.'+name.toLowerCase().replace('.', "_")).attr("style", "display:none");
+
+                            }, 200);
+
+                            console.log(mega.get('photo').objectAt(0).get('photo_title') + " " + 'save');
+                            console.log('.' + name.toLowerCase());
+                        }
+                    });
+
                     that.get("content").addObject(file);
                 }
             }

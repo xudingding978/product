@@ -53,9 +53,8 @@ class PhotosController extends Controller {
 //            echo $key. "\r\n";
 
             $this->saveImageToS3($key, $response, $bucket);
-            $path = 'http://s3.hubsrv.com/' . $key;
-
-
+            $path = 'http://s3.hubsrv.com/'.$key;
+         
 //            echo $path;
 //            exit();
             $tempArray = array(
@@ -150,7 +149,7 @@ class PhotosController extends Controller {
             }
 
             $message = "get water mark image faill from localhost: " . $e->getMessage() . "\r\n" . date("Y-m-d H:i:s") . $url . "\r\n";
-            error_log($message);
+
 
             return $stamp;
         }
@@ -186,7 +185,7 @@ class PhotosController extends Controller {
                 $this->sendResponse(200, $response);
             }
 
-            error_log("aaaaaaaaaaaaaaaaaaaa");
+
             $request_json = file_get_contents('php://input');
             echo $request_json;
         } catch (Exception $exc) {
@@ -290,19 +289,30 @@ class PhotosController extends Controller {
         return $response;
     }
 
+    
     public function doPhotoResizing($mega) {
         $photo_string = $mega['photo'][0]['photo_image_original_url'];
         $photo_name = $mega['photo'][0]['photo_title'];
         $owner_id = $mega['owner_id'];
+
         $data_arr = $this->convertToString64($photo_string);
         $photo = imagecreatefromstring($data_arr['data']);
         $compressed_photo = $this->compressPhotoData($data_arr['type'], $photo);
         $orig_size['width'] = imagesx($compressed_photo);
         $orig_size['height'] = imagesy($compressed_photo);
-        $this->savePhotoInTypes($orig_size, "thambnail", $photo_name, $compressed_photo, $data_arr, $owner_id);
-        $this->savePhotoInTypes($orig_size, "hero", $photo_name, $compressed_photo, $data_arr, $owner_id);
-        $this->savePhotoInTypes($orig_size, "preview", $photo_name, $compressed_photo, $data_arr, $owner_id);
-        $this->savePhotoInTypes($orig_size, "original", $photo_name, $compressed_photo, $data_arr, $owner_id);
+        $thambnailUrl = $this->savePhotoInTypes($orig_size, "thambnail", $photo_name, $compressed_photo, $data_arr, $owner_id);
+        $heroUrl = $this->savePhotoInTypes($orig_size, "hero", $photo_name, $compressed_photo, $data_arr, $owner_id);
+        $previewUrl = $this->savePhotoInTypes($orig_size, "preview", $photo_name, $compressed_photo, $data_arr, $owner_id);
+        $originalUrl = $this->savePhotoInTypes($orig_size, "original", $photo_name, $compressed_photo, $data_arr, $owner_id);
+        $mega['object_image_url']=$heroUrl;
+
+        $mega['photo'][0]['photo_image_original_url'] = $originalUrl;
+        $mega['photo'][0]['photo_image_hero_url'] = $heroUrl;
+        $mega['photo'][0]['photo_image_thumbnail_url'] = $thambnailUrl;
+        $mega['photo'][0]['photo_image_preview_url'] = $previewUrl;
+        $mega['photo'][0]['photo_original_height'] = $orig_size['height'];
+        $mega['photo'][0]['photo_original_width'] = $orig_size['width'];
+        return $mega;
     }
 
     protected function savePhotoInTypes($orig_size, $photo_type, $photo_name, $compressed_photo, $data_arr, $owner_id) {
@@ -310,12 +320,10 @@ class PhotosController extends Controller {
         $new_photo_data = $this->createNewImage($orig_size, $new_size, $compressed_photo, $data_arr['type']);
         $new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
         $bucket = 's3.hubsrv.com';
-        $url = "/". $this->getDomain().'/'. $owner_id . "/" . $photo_type . "/" . $new_photo_name;
+        $url = "/" . $owner_id . "/" . $photo_type . "/" . $new_photo_name;
         $this->saveImageToS3($url, $new_photo_data, $bucket);
-        $s3url = 'https://s3-ap-southeast-2.amazonaws.com/'. $bucket.$url;
-        error_log($s3url);
-        return $s3url ;
-        ;
+        $s3url = 'https://s3-ap-southeast-2.amazonaws.com/' . $bucket . $url;
+        return $s3url;
     }
 
     protected function getNewPhotoSize($photo_size, $photo_type) {
@@ -353,6 +361,7 @@ class PhotosController extends Controller {
         ob_start();
         if ($photo_type == "image/png") {
             imagepng($new_photo);
+
         } else if ($photo_type == "image/jpeg") {
             imagejpeg($new_photo);
         }
@@ -362,25 +371,23 @@ class PhotosController extends Controller {
     }
 
     public function photoCreate($mega) {
+        $this->doPhotoResizing ($mega);        
         $id = $this->getNewID();
-
         $docID = $this->getDomain() . "/" . $id;
         str_replace(' ', '', $docID);
-
         $mega["id"] = $id;
         $mega["photo"][0]["id"] = $id;
 
         $mega['created'] = $this->getCurrentUTC();
         $mega['updated'] = $this->getCurrentUTC();
-        $this->doPhotoResizing($mega);
+       $newMega= $this->doPhotoResizing($mega);
         //error_log(var_export($mega["photo"][0], true));
-        //     $this->sendResponse(204, "{ render json: @user, status: :ok }");
-//        $cb = $this->couchBaseConnection();
-//        if ($cb->add($docID, CJSON::encode($mega))) {
-//            $this->sendResponse(204, "{ render json: @user, status: :ok }");
-//        } else {
-//            $this->sendResponse(500, "some thing wrong");
-//        }
+        $cb = $this->couchBaseConnection();
+        if ($cb->add($docID, CJSON::encode($newMega))) {
+            $this->sendResponse(204, "{ render json: @user, status: :ok }");
+        } else {
+            $this->sendResponse(500, "some thing wrong");
+        }
     }
 
 }

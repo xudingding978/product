@@ -1,8 +1,13 @@
 
 {{#if getProfile}}
+<div class="box col2 noStyle1">
+    <div class="masonry-object">
+        {{render itemProfiles this}}
+        {{render "comment" this}}
+    </div>
+</div>
 
-    {{render itemProfiles this}}
-    {{render "comment" this}}
+
 {{/if}}
 
 
@@ -11,8 +16,8 @@
 
     <div class="masonry-object">
         <div class="masonry-object_poster">  
-            <a {{bindAttr href="getProfile_id"}}>
-                <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}} class="profilepic-on-masonry"/>
+            <a class="profilepic-on-masonry" {{bindAttr href="getProfile_id"}}>
+                <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
             </a>
             <div class="object_username">
                 <a class="poster-name" {{bindAttr href="getProfile_id"}}  {{action transitionToProfile owner_id}}>{{owner_title}}</a>
@@ -64,7 +69,7 @@
         <div class="masonry-object_mainfeature">             
             <div class="mainfeature-wrapper">
                 <a class="mainfeature-container" style="cursor: pointer">
-      
+
                     <img class="this-is-the-object"{{bindAttr src="object_image_url" }} {{action transitionToPhoto id}} />
                 </a>                 
                 <div>                                                                                                                                                                                                                                                                                                                                                                       </div>
@@ -106,8 +111,8 @@
         <div class="masonry-object_poster">
             <a href="#" class="masonry-object_poster">
                 <img {{bindAttr src="profile_pic_url"}} class="profilepic-on-masonry" />
-                
-                 <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}} class="profilepic-on-masonry"/>
+
+                <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}} class="profilepic-on-masonry"/>
             </a>   
             <div class="object_username">
                 <a class="poster-name" {{bindAttr href="getProfile_id"}}>{{profile_id}}</a>
@@ -225,7 +230,9 @@
     <div class="masonry-object">
         <div class="masonry-object_poster">  
             <a {{bindAttr href="getProfile_id"}}>
-                <img {{bindAttr src="creator_profile_pic"}} class="profilepic-on-masonry"/>
+
+                <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}} class="profilepic-on-masonry"/>
+
             </a>
             <div class="object_username">
                 <a class="poster-name" {{bindAttr href="getProfile_id"}}>{{creator}}</a>
@@ -264,8 +271,8 @@
         <div class="masonry-object_mainfeature">             
             <div class="mainfeature-wrapper">
                 <a class="mainfeature-container">
-                      <img class="this-is-the-object"{{bindAttr src="object_image_url" }} {{action transitionToArticle id}} />
-           
+                    <img class="this-is-the-object"{{bindAttr src="object_image_url" }} {{action transitionToArticle id}} />
+
                 </a>                 
             </div>
 
@@ -286,8 +293,8 @@
 
                 <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collapes</span>
 
-                
-                
+
+
 
             </div>
         </div>

@@ -13,66 +13,57 @@ class ProfilesController extends Controller {
     const JSON_RESPONSE_ROOT_PLURAL = 'profiles';
 
     public function actionIndex() {
-        $settings['log.enabled'] = true;
-        // $settings['log.file'] = '/var/log/sherlock/newlogfile.log';
-        // $settings['log.level'] = 'debug';
-        $sherlock = new Sherlock\Sherlock($settings);
-        $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
+        $results = $this->getAllProfiles("profile");
+        /*
+          $settings['log.enabled'] = true;
+          // $settings['log.file'] = '/var/log/sherlock/newlogfile.log';
+          // $settings['log.level'] = 'debug';
+          $sherlock = new Sherlock\Sherlock($settings);
+          $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
 
-        //Build a new search request
-        $request = $sherlock->search();
+          //Build a new search request
+          $request = $sherlock->search();
 
-        //populate a Term query to start
-        $termQuery = Sherlock\Sherlock::queryBuilder()
-                ->Match()
-                ->field("type")
-                ->query("profile")
-                ->boost(2.5);
+          //populate a Term query to start
+          $termQuery = Sherlock\Sherlock::queryBuilder()
+          ->Match()
+          ->field("type")
+          ->query("profile")
+          ->boost(2.5);
 
-//        $filter = null;
-        //custom_filters_score query allows to execute a query, and if the hit matches a provided filter (ordered)
-//        $customFilterQuery = Sherlock\Sherlock::queryBuilder()->CustomFiltersScore()
-//                ->query("match_all")
-//                ->filters($filter);
-        //Set the index, type and from/to parameters of the request.
-        $request->index(Yii::app()->params['elasticSearchIndex'])
-                ->type("couchbaseDocument")
-                ->from(0)
-                ->to(10)
-                ->size(1)
-                ->sort("profile_name")
-                ->query($termQuery);
+          //        $filter = null;
+          //custom_filters_score query allows to execute a query, and if the hit matches a provided filter (ordered)
+          //        $customFilterQuery = Sherlock\Sherlock::queryBuilder()->CustomFiltersScore()
+          //                ->query("match_all")
+          //                ->filters($filter);
+          //Set the index, type and from/to parameters of the request.
+          $request->index(Yii::app()->params['elasticSearchIndex'])
+          ->type("couchbaseDocument")
+          ->from(0)
+          ->to(10)
+          ->size(100)
+          ->query($termQuery);
 
-        //Execute the search and return results
-        $response = $request->execute();
+          //Execute the search and return results
+          $response = $request->execute();
 
-        //echo "Took: " . $response->took . "\r\n";
-        //echo "Number of Hits: " . count($response) . "\r\n";
-        //echo var_export($response);
+          //echo "Took: " . $response->took . "\r\n";
+          //echo "Number of Hits: " . count($response) . "\r\n";
+          //echo var_export($response);
 
-        $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":[';
+          $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":[';
 
 
-        //Iterate over the hits and print out some data
-        $i = 0;
-        $length = count($response);
-        foreach ($response as $hit) {
-            try {
-                if (isset($hit['source']['doc']['profile'][0])) {
-                    $results .= CJSON::encode($hit['source']['doc']['profile'][0]);
-                    if (++$i !== $length) {
-                        $results .= ',';
-                    }
-                } else {
-                    --$length;
-                }
-            } catch (Exception $exc) {
-                echo $exc->getTraceAsString();
-                echo json_decode(file_get_contents('php://input'));
-            }
-        }
-        $results .= ']}';
-
+          //Iterate over the hits and print out some data
+          $i = 0;
+          foreach ($response as $hit) {
+          $results .= CJSON::encode($hit['source']['doc']['profile'][0]);
+          if (++$i !== count($response)) {
+          $results .= ',';
+          }
+          }
+          $results .= ']}';
+         */
         echo $this->sendResponse(200, $results);
     }
 
@@ -124,11 +115,15 @@ class ProfilesController extends Controller {
             $cb = $this->couchBaseConnection();
             $oldRecord = CJSON::decode($cb->get($this->getDomain() . $_SERVER['REQUEST_URI']));
             $id = $oldRecord['profile'][0]['id'];
-         $oldfollower=  $oldRecord['profile'][0]['followers'];
+            $oldfollower = $oldRecord['profile'][0]['followers'];
             $oldRecord['profile'][0] = null;
             $oldRecord['profile'][0] = CJSON::decode($payload_json);
             if (isset($payloads_arr['profile']['followers'][0])) {
-                $oldRecord['profile'][0]['followers'] = $this->updateFollower($oldfollower, $payloads_arr['profile']['followers'][0]);
+                error_log('new '.sizeof($payloads_arr['profile']['followers']) );
+                                error_log('old '.sizeof($oldRecord['profile'][0]['followers']));
+                if (sizeof($payloads_arr['profile']['followers']) > sizeof($oldRecord['profile'][0]['followers'])) {//insert comment
+                    array_unshift($oldRecord['profile'][0]['followers'], $payloads_arr['profile']['followers'][0]);
+                }
             }
             $oldRecord['profile'][0]['id'] = $id;
             if ($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true))) {
@@ -145,11 +140,6 @@ class ProfilesController extends Controller {
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
-    }
-
-    public function updateFollower($oldRecord, $newRecord) {
-        $result = $this->array_put_to_position($oldRecord, $newRecord, 0);
-        return $result;
     }
 
 }

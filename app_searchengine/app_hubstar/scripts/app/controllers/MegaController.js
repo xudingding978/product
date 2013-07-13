@@ -82,7 +82,7 @@ define(['models/MegaModel',
                 selectImage: function(e) {
                     this.set('megaResouce', MegaModel.find(e));
                     this.set('selectedPhoto', MegaModel.find(e).get('photo').objectAt(0));
-                    this.set("selectedPhoto", this.get('selectedPhoto'));
+               
                     this.selectedImage(e);
                 },
                 selectedImage: function(id) {
@@ -103,7 +103,7 @@ define(['models/MegaModel',
                             if (data.get('isLoaded')) {
                                 for (var i = 0; i < this.get("content").length; i++) {
                                     var id = this.get("content").objectAt(i).id;
-                                    if (MegaModel.find(id)._data.hasMany.photo.length === 1)
+                                    if (MegaModel.find(id).get('photo').get('length') === 1&&mega.get('id')!==id)
                                     {
                                         that.get("content").pushObject(MegaModel.find(id).get("photo").objectAt(0));
                                     }

@@ -13,7 +13,7 @@ define(["ember"
         selectedTitle: "",
         coverImg: "",
         display_name: "",
-        updateOrCreate: true,
+        userTage: true,
         currentUserID: "",
         needs: ['photoCreate'],
         makeSureDelete: false,
@@ -246,7 +246,13 @@ define(["ember"
                     this.set('is_authentic_user', false);
                 }
             }
-        }
+        },
+        selectCollection: function() {
+            this.set('profileSelectionStatus', 'Collections');
+            this.set('partnerTag', false);
+            this.set('collectionTag', true);
+            this.set('followerTag', false);
+        },
     }
     );
     return UserController;

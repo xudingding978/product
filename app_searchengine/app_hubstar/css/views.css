@@ -394,16 +394,9 @@
     text-align: center;
 }
 
-.usersobject-hoverarea{
-    width: 164px;
-    height: 170px;
-    opacity: 0;
-    position: absolute;
-    z-index: 1;
-}
-
-.usersobject-hoverarea:hover{
-    opacity: 1;
+.usersobject-hover{
+    width: 163px; 
+    height: 163px;
 }
 
 .selected-topic{
@@ -426,9 +419,15 @@
 }
 
 .object-followbtn-position{
+    opacity: 0;
     z-index: 6;
     left: 55px;
 }
+
+.usersobject-hover:hover .object-followbtn-position{
+    opacity: 1;
+}
+
 
 /*MANSONRY user OBJECT STYLE               END*/
 
@@ -894,6 +893,7 @@
 }
 
 .icon-on-black{
+    cursor: pointer;
     height: 44px;
     position: absolute;
     width: 44px; 

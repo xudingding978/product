@@ -104,18 +104,10 @@ define(["ember", "helper"],
                     mega.get("photo").pushObject(file);
                     mega.addObserver('isSaving', function() {
                         if (mega.get('isSaving')) {
-                          $('.'+name.toLowerCase().replace('.', "_")).attr("style", "display:block");
-                            console.log(mega.get('photo').objectAt(0).get('photo_title') + " " + 'saving');
-                            console.log('.' + name.toLowerCase());
+                          $('.'+file.get('photo_source_id')).attr("style", "display:block");
                         }
-                        else {
-                            setTimeout(function() {
-                                $('.'+name.toLowerCase().replace('.', "_")).attr("style", "display:none");
-
-                            }, 200);
-
-                            console.log(mega.get('photo').objectAt(0).get('photo_title') + " " + 'save');
-                            console.log('.' + name.toLowerCase());
+                        else {  
+                            $('.'+file.get('photo_source_id')).attr("style", "display:none");
                         }
                     });
 

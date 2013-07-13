@@ -4,7 +4,8 @@ define(["ember"], function(Ember) {
         clientID: "",
         partnerID: "",
         addPartner: true,
-        selectedCollection:"",
+        currentAddPartnerPic: null,
+        selectedCollection: "",
         init: function() {
 
 
@@ -45,7 +46,7 @@ define(["ember"], function(Ember) {
                 this.set('willDelete', true);
 
                 App.set('data', model);
- //               console.log(App.get('data').id);
+                //               console.log(App.get('data').id);
             }
 
             console.log("deletePartner2222222222     " + this.get('partnerID'));

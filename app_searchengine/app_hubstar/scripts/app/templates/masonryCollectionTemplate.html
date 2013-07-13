@@ -29,9 +29,12 @@
 
 
         </div>
+        <!--END SECTION CONTROL BAR-->
 
-{{#if controller.is_authentic_user}}
-        <div class="box style-box t-style-box" id="addNew">
+        {{#if controller.is_authentic_user}}
+
+
+        <div class="box style-box t-style-box" id="addNew" style="z-index: 1">
 
             <div id="uploadObject" {{action newCollection }}>
                  <div class="add-new-object-hoverarea easing">
@@ -50,7 +53,10 @@
             </div>
             {{view App.EditCollectionView}}
         </div>
+
         {{/if}}
+
+
         {{#if collectionTag}}
         {{view App.ProfileCollectionsView}}
         {{/if}} 
@@ -63,11 +69,17 @@
         {{render profileFollowers}}
         {{/if}} 
 
-        <!--END SECTION CONTROL BAR-->
 
-<!--        <div class="col2 box style-box t-style-box" style="opacity: 0">text</div>
-        <div class="col2 box style-box t-style-box" style="opacity: 0">text</div>-->
 
+
+        <div class="box style-box t-style-box"  style="opacity: 0; z-index: -1;">
+            <div class="add-new-object-content">
+            </div>
+        </div>
+        <div class="box style-box t-style-box"  style="opacity: 0; z-index: -1;">
+            <div class="add-new-object-content">
+            </div>
+        </div>
 
 
     </div>

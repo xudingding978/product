@@ -1,18 +1,9 @@
 
 
-<div class="col1 box style-box t-style-box" style="text-align: center; height: 200px;">
-    <div class="usersobject-hover">
-        <img style="width: 100%; height: 100%;" src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash3/c0.37.207.207/s160x160/217421_10150241585131254_7228993_n.jpg"/>
-        <div  type="button" class="new-btn green-btn object-followbtn-position" style="margin: 0 auto; left: 0;right: 0;width: 80px;display: block;top: -15px;">
-            <i class="icon-plus">&nbsp;</i> Follow
-        </div>
-    </div>
-    <div style="height:35px; line-height: 35px;">
-        <span style="font-size: 13px;line-height: 15px; text-shadow: 0 1px 0 rgba(255,255,255,0.8); font-weight: bold;">
-            Jason Liddiard
-        </span>
-    </div>
-</div>
+
+
+
+
 
 
 {{#each  content}}
@@ -20,10 +11,19 @@
 
 
 
-
-
-
-
+<div class="col1 box style-box t-style-box" style="text-align: center; height: 200px;">
+    <div class="usersobject-hover">
+        <img style="width: 100%; height: 100%;" {{bindAttr src="follower_profile_pic_url"}}/>
+<!--        <div  type="button" class="new-btn green-btn object-followbtn-position" style="margin: 0 auto; left: 0;right: 0;width: 80px;display: block;top: -15px;">
+            <i class="icon-plus">&nbsp;</i> Follow
+        </div>-->
+    </div>
+    <div style="height:35px; line-height: 35px;">
+        <span style="font-size: 13px;line-height: 15px; text-shadow: 0 1px 0 rgba(255,255,255,0.8); font-weight: bold;">
+          {{name}}
+        </span>
+    </div>
+</div>
 
 
 

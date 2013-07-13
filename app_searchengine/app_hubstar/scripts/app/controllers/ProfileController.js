@@ -40,7 +40,7 @@ define([
                 currentUserID: "",
                 collections: [],
                 selectedCollection: "",
-                needs: ["application", "contact", "profilePartners", "itemProfiles"],
+                needs: ["application", "contact", "profilePartners", "itemProfiles","profileFollowers"],
                 profile_bg_url: "",
                 profile_hero_url: "",
                 profile_pic_url: "",
@@ -312,7 +312,7 @@ define([
                 followThisProfile: function() {
                     if (!this.checkFollowStatus()) {
                         var currentUser = App.User.find(localStorage.loginStatus);
-                        var commenter_profile_pic_url = currentUser.get('photo_url');
+                        var commenter_profile_pic_url = currentUser.get('photo_url_large');
                         var commenter_id = currentUser.get('id');
                         var name = currentUser.get('display_name');
                         var date = new Date();
@@ -343,7 +343,7 @@ define([
                 },
                 unfollow: function() {
                     var currentUser = App.User.find(localStorage.loginStatus);
-                    var commenter_profile_pic_url = currentUser.get('photo_url');
+                    var commenter_profile_pic_url = currentUser.get('photo_url_large');
                     var commenter_id = currentUser.get('id');
                     var name = currentUser.get('display_name');
                     var date = new Date();
@@ -372,8 +372,9 @@ define([
 
 
                 },
-                selectFollower: function() {
+                selectFollower: function(model) {
                     this.set('profileSelectionStatus', 'Followers');
+                     this.get('controllers.profileFollowers').getClientId(model);
                     this.set('partnerTag', false);
                     this.set('collectionTag', false);
                     this.set('followerTag', true);

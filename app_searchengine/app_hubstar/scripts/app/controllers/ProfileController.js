@@ -45,7 +45,7 @@ define([
                 profile_hero_url: "",
                 profile_pic_url: "",
                 hours: [],
-                follow_status: "Follow",
+                follow_status: "+ Follow",
                 is_authentic_user: false,
                 init: function() {
 
@@ -306,7 +306,7 @@ define([
                         this.set('follow_status', "Following");
                     }
                     else {
-                        this.set('follow_status', "Follow");
+                        this.set('follow_status', "+ Follow");
                     }
                 },
                 followThisProfile: function() {
@@ -320,7 +320,7 @@ define([
                             "follower_id": commenter_id, "name": name, "time_stamp": date.toString(), "is_delete": false});
                         tempComment.store.save();
                         this.get("model").get("followers").insertAt(0, tempComment);
-                        this.set('follow_status', "following");
+                        this.set('follow_status', "Following");
                     }
                     else {
                         //dont delete this line

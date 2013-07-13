@@ -4,13 +4,22 @@ define(["ember"], function(Ember) {
         clientID: "",
         partnerID: "",
         addPartner: true,
-        selectedCollection:"",
+        currentAddPartnerPic: null,
+        selectedPartnerPic: "",
         init: function() {
 
 
 
 
         },
+        addingPartnerObserver: function() {
+
+
+            var addProfilePic = this.get('currentAddPartnerPic').split("/profiles/")[1];
+
+
+            this.set('selectedPartnerPic', App.Profile.find(addProfilePic).get('profile_pic_url'));
+        }.observes('currentAddPartnerPic'),
         getClientId: function(model) {
             console.log(model);
             this.set('clientID', model.id);
@@ -45,7 +54,7 @@ define(["ember"], function(Ember) {
                 this.set('willDelete', true);
 
                 App.set('data', model);
- //               console.log(App.get('data').id);
+                //               console.log(App.get('data').id);
             }
 
             console.log("deletePartner2222222222     " + this.get('partnerID'));

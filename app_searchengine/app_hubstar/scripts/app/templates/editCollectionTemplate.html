@@ -23,18 +23,18 @@
         {{#if controller.addPartner}}
         <div style="font-size: 16px;font-weight: bold;color: #555; line-height: 25px;">URL*</div>
         {{/if}}
-
+        {{#if controller.updateOrCreate}}
         {{view App.SearchRequireTextFieldView valueBinding="controller.selectedCollection.id"  id="" class="new-collection-name_insert" style="height:30px;" placeholder="e.g. Bedroom Design" }} 
-
+        {{/if}}
 
         {{#if controller.addPartner}}
-
+        {{view App.SearchRequireTextFieldView valueBinding="currentAddPartnerPic"  id="" class="new-collection-name_insert" style="height:30px;" placeholder="e.g. http://beta.trendsideas.com/#/profiles/leo" }} 
         <div style="margin: auto; vertical-align: top;width: 80%;left: 0;right: 0;position: relative;">
             <div style="height: 180px; overflow: hidden;width: 100%;line-height: 180px;text-align: center;margin-top: 5px;">
-                <img style="max-height: 100%; padding: 10px; background-color: rgba(0,0,0,0.03);" src="http://www.hdwallpaperstop.com/wp-content/uploads/2013/04/Car-Ferrari-HD-Wallpaper.jpg"/>
+                <img style="max-height: 100%; padding: 10px; background-color: rgba(0,0,0,0.03);" {{bindAttr src="selectedPartnerPic"}}/>
             </div>
         </div>
-        {{controller}}
+
         {{/if}}
 
 

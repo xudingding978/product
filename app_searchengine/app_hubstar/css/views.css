@@ -407,6 +407,18 @@
     z-index: 1;
 }
 
+.usersobject-hoverarea{
+    width: 164px;
+    height: 170px;
+    opacity: 0;
+    position: absolute;
+    z-index: 1;
+}
+
+.usersobject-hoverarea:hover{
+    opacity: 1;
+}
+
 
 .usersobject-hoverarea_bg{
     width: 100%;

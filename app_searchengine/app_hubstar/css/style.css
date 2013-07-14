@@ -847,7 +847,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 div.loading-visible{
     /*make visible*/
-    z-index:999999;
+    z-index:500;
     display:block;
 
     /*position it at the very top-left corner*/
@@ -868,7 +868,7 @@ div.loading-visible{
 
     /*set the padding, so that the content
       of the div is centered vertically*/
-    padding-top:15%;
+    padding-top:12%;
 }
 
 
@@ -1186,10 +1186,10 @@ div.loading-visible{
 #blurringTextG{
     width: 180px;
     margin: auto;
-    position: absolute;
+    position: relative;
     left: 0;
     right: 0;
-    top: 43%;
+    bottom: 160px;
 }
 
 .blurringTextG{

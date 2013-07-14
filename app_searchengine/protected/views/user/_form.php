@@ -2,10 +2,10 @@
 /* @var $this UserController */
 /* @var $model User */
 /* @var $form CActiveForm */
+
 ?>
 
 <div class="form">
-
     <?php
     $form = $this->beginWidget('CActiveForm', array(
         'id' => 'user-form',
@@ -18,6 +18,7 @@
     <?php echo $form->errorSummary($model); ?>
 
     <div class="row">
+      
         <?php echo $form->labelEx($model, 'USER_NAME'); ?>
         <?php echo $form->textField($model, 'USER_NAME', array('size' => 60, 'maxlength' => 255)); ?>
         <?php echo $form->error($model, 'USER_NAME'); ?>
@@ -25,13 +26,13 @@
 
     <div class="row">
         <?php echo $form->labelEx($model, 'PWD_HASH'); ?>
-        <?php echo $form->textField($model, 'PWD_HASH', array('size' => 60, 'maxlength' => 512)); ?>
+        <?php echo $form->passwordField($model, 'PWD_HASH', array('size' => 60, 'maxlength' => 512)); ?>
         <?php echo $form->error($model, 'PWD_HASH'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($model, 'repeat_password'); ?>
-        <?php echo $form->textField($model, 'repeat_password', array('size' => 60, 'maxlength' => 512)); ?>
+        <?php echo $form->passwordField($model, 'repeat_password', array('size' => 60, 'maxlength' => 512)); ?>
         <?php echo $form->error($model, 'repeat_password'); ?>
     </div>
 

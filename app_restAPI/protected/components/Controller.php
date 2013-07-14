@@ -194,13 +194,12 @@ class Controller extends CController {
             $partnerIds = explode(',', $partner_id);
             $str_partnerIds = "";
             for ($i = 0; $i < sizeof($partnerIds); $i++) {
-           $str_partnerIds= $str_partnerIds . '\"' . $partnerIds[$i] . '\"';
-                if ($i+1 < sizeof($partnerIds)) {
+                $str_partnerIds = $str_partnerIds . '\"' . $partnerIds[$i] . '\"';
+                if ($i + 1 < sizeof($partnerIds)) {
                     $str_partnerIds.=',';
                 }
             }
             $response = $this->getProfilePartner($returnType, $str_partnerIds);
-
         } elseif ($requireType == 'articleRelatedImage') {
             $article_id = $this->getUserInput($requireParams[1]);
             $owner_id = $this->getUserInput($requireParams[2]);
@@ -233,48 +232,33 @@ class Controller extends CController {
     }
 
     protected function performSearch($returnType, $region, $requestString, $from = 0, $size = 50) {
-        $request = $this->getElasticSearch();
-        $request
-                ->from($from)
-                ->size($size);
-//populate a Term query to start
-        $termQuery = Sherlock\Sherlock::queryBuilder()
-                ->QueryString()
-                ->fields("couchbaseDocument.doc.keywords")
-                ->query($requestString)
-                ->boost(2.5);
-        $request->query($termQuery);
-
-        $response = $request->execute();
-
-        $results = '{"' . $returnType . '":[';
-        $i = 0;
-        foreach ($response as $hit) {
-            $results .= CJSON::encode($hit['source']['doc']);
-            if (++$i < count($response)) {
-                $results .= ',';
-            }
+        $requestArray = array();
+        if ($region != null && $region != "") {
+            $requestStringOne = 'couchbaseDocument.doc.region=' . $region;
+            array_push($requestArray, $requestStringOne);
         }
-        $results .= ']}';
-        return $results;
+            if ($requestString != null && $requestString != "") {
+        $requestStringTwo = 'couchbaseDocument.doc.keywords=' . $requestString;
+        array_push($requestArray, $requestStringTwo);
+            }
+        $tempResult = $this->performMustSearch($requestArray, $returnType, 'must', $from, $size);
+        return $tempResult;
+
     }
-
     protected function getmustQuestWithQueryString($queryString) {
-
-
         $mustQuery = explode('=', $queryString);
-        $should = Sherlock\Sherlock::queryBuilder()->QueryString()->query($mustQuery[1])//$collection_id
+        $should = Sherlock\Sherlock::queryBuilder()->QueryString()->query('"'.$mustQuery[1].'"')//$collection_id
                 ->field($mustQuery[0]);
         return $should;
     }
 
-    protected function performMustSearch($requestArray, $returnType, $search_type = "should") {
+    protected function performMustSearch($requestArray, $returnType, $search_type = "should",$from = 0, $size = 50) {
         $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
         $request = $sherlock->search();
-        $request->index("develop")->type("couchbaseDocument")->from(0);
-        $request->index("develop")->type("couchbaseDocument")->size(50);
+        $request->index("develop")->type("couchbaseDocument")->from($from);
+        $request->index("develop")->type("couchbaseDocument")->size($size);
         $max = sizeof($requestArray);
         $bool = Sherlock\Sherlock::queryBuilder()->Bool();
 
@@ -289,7 +273,6 @@ class Controller extends CController {
             }
         }
         $request->query($bool);
-
         $response = $request->execute();
 
         $i = 0;
@@ -324,7 +307,6 @@ class Controller extends CController {
     }
 
     protected function getProfilePartner($returnType, $partner_id) {
-
         $request = $this->getElasticSearch();
         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw('{
                 "bool": {
@@ -332,7 +314,7 @@ class Controller extends CController {
                         {
                             "query_string": {
                                 "default_field": "couchbaseDocument.doc.profile.id",
-                                "query": "' . $partner_id .'"
+                                "query": "' . $partner_id . '"
                             }
                         }
                     ]
@@ -341,8 +323,6 @@ class Controller extends CController {
             }');
 
         $response = $request->query($termQuery)->execute();
-
-
         $results = '{"' . $returnType . '":[';
         $i = 0;
         foreach ($response as $hit) {
@@ -391,17 +371,34 @@ class Controller extends CController {
     }
 
     protected function getSearchResultsTotal($returnType, $region, $requestString) {
-        $request = $this->getElasticSearch();
-        $request->type("couchbaseDocument")->from(1);
-        $request->type("couchbaseDocument")->size(50);
-        $termQuery = Sherlock\Sherlock::queryBuilder()
-                        ->QueryString()
-                        ->fields("couchbaseDocument.doc.keywords")
-                        ->query($requestString)->boost(2.5);
+        
+        
+                $requestArray = array();
+        if ($region != null && $region != "") {
+            $requestStringOne = 'couchbaseDocument.doc.region=' . $region;
+            array_push($requestArray, $requestStringOne);
+        }
+            if ($requestString != null && $requestString != "") {
+        $requestStringTwo = 'couchbaseDocument.doc.keywords=' . $requestString;
+        array_push($requestArray, $requestStringTwo);
+            }
+        
+                    $settings['log.enabled'] = true;
+        $sherlock = new \Sherlock\Sherlock($settings);
+        $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
+        $request = $sherlock->search();
+        $max = sizeof($requestArray);
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool();
 
-        $request->index(Yii::app()->params['elasticSearchIndex'])
-                ->type("couchbaseDocument")
-                ->query($termQuery);
+        for ($i = 0; $i < $max; $i++) {
+            $must = $this->getmustQuestWithQueryString($requestArray[$i]);
+                $bool->must($must);
+  
+        }
+        $request->query($bool);
+
+           
+
 
         $response = $request->execute();
 // $result = "";
@@ -459,6 +456,7 @@ class Controller extends CController {
                 $tempRquestIDs.=',';
             }
         }
+
         $rawRequest = $header . $tempRquestIDs . $footer;
         $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
@@ -550,7 +548,7 @@ class Controller extends CController {
             $thisCollection = $collections[$i];
 
             if ($thisCollection["id"] == $collection_id) {
-                     
+
                 $request_ids = $thisCollection['collection_ids'];
             }
         }
@@ -664,7 +662,6 @@ class Controller extends CController {
             ));
         } catch (Exception $e) {
             $message = $e->getMessage();
-
         }
     }
 

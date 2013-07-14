@@ -38,7 +38,7 @@
         </script>
 
         <div id="loading" class="loading-visible" >
-            <img style="width: 300px;position: absolute;margin: auto;left: 0;right: 0; top:27%;" src="../../../images/loading.gif" />
+            <img style="width: 300px;position: relative;margin: auto;left: 0;right: 0; " src="../../../images/loading.gif" />
 
             <div id="blurringTextG">
                 <div id="blurringTextG_1" class="blurringTextG">

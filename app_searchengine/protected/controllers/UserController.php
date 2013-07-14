@@ -47,8 +47,32 @@ class UserController extends Controller {
         );
     }
 
+    /**
+     * Displays a particular model.
+     * @param integer $id the ID of the model to be displayed
+     */
+    public function actionView($id) {
+        if (Yii::app()->user->id == $id) {
+//            $user = User::model()->findByPk($id);
+//            //$userprofile = UserProfile::model()->findAllByAttributes(array('USER_REC_ID'=>$id));
+//            $userprofile = UserProfile::model()->findByPk(35);
+            $this->render('view', array(
+//                'user' => $user,
+//                'userprofile' => $userprofile,
+                'model' => $this->loadModel($id),
+            ));
+        } else {
+            $this->redirect(array('view', 'id' => Yii::app()->user->id));
+        }
+    }
 
+    /**
+     * Creates a new model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     */
     public function actionCreate() {
+
+        error_log('actionCreate');
         $model = new User;
 
         // Uncomment the following line if AJAX validation is needed
@@ -58,39 +82,111 @@ class UserController extends Controller {
             $model->attributes = $_POST['User'];
             $model->REC_DATETIME = new CDbExpression('NOW()');
             $model->REC_TIMESTAMP = new CDbExpression('NOW()');
+            $model->TENANT_REC_ID = "1";
+            $model->COUCHBASE_ID = strval(rand(9999999999, 99999999999));
+            $cb = new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "develop", true);
+            $rand_id = $user->COUCHBASE_ID;
+            $temp = $this->getMega();
+
             if ($model->save()) {
+
+
                 $identity = new CommonUserIdentity($model->USER_NAME, $model->PWD_HASH);
                 $identity->authenticate();
                 Yii::app()->user->login($identity, 0);
+
+
+
                 //    $this->redirect(array('view', 'id' => $model->REC_ID));
-            }else{
-                 echo CActiveForm::validate($model);
-                return;
             }
         }
 
-//        $this->render('create', array(
-//            'model' => $model,
-//        ));
-//        
-//        
-//        if (isset($_POST['LoginForm'])) {
-//            $model->attributes = $_POST['LoginForm'];
-//
-//            if ($model->validate() && $model->login()) {
-//
-//                    return;
-//
-//            } else {
-//                echo CActiveForm::validate($model);
-//                return;
-//            }
-//        }
-        
+        $this->render('create', array(
+            'model' => $model,
+        ));
     }
 
- 
+    /**
+     * Updates a particular model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id the ID of the model to be updated
+     */
+    public function actionUpdate($id) {
 
+
+        $model = $this->loadModel($id);
+
+        if (isset($_POST['User'])) {
+            $model->attributes = $_POST['User'];
+            $model->REC_TIMESTAMP = new CDbExpression('NOW()');
+            if ($model->save()) {
+                $this->redirect(array('view', 'id' => $model->REC_ID));
+            }
+        }
+        if (Yii::app()->user->id == $id) {
+            $this->render('update', array(
+                'model' => $model,
+            ));
+        } else {
+            $this->redirect(array('update', 'id' => Yii::app()->user->id));
+        }
+
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
+    }
+
+    /**
+     * Deletes a particular model.
+     * If deletion is successful, the browser will be redirected to the 'admin' page.
+     * @param integer $id the ID of the model to be deleted
+     */
+    public function actionDelete($id) {
+        $this->loadModel($id)->delete();
+
+        // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+        if (!isset($_GET['ajax']))
+            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+    }
+
+    /**
+     * Lists all models.
+     */
+    public function actionIndex() {
+
+        $dataProvider = new CActiveDataProvider('User');
+        $this->render('index', array(
+            'dataProvider' => $dataProvider,
+        ));
+    }
+
+    /**
+     * Manages all models.
+     */
+    public function actionAdmin() {
+        $model = new User('search');
+        $model->unsetAttributes();  // clear any default values
+        if (isset($_GET['User']))
+            $model->attributes = $_GET['User'];
+
+        $this->render('admin', array(
+            'model' => $model,
+        ));
+    }
+
+    /**
+     * Returns the data model based on the primary key given in the GET variable.
+     * If the data model is not found, an HTTP exception will be raised.
+     * @param integer $id the ID of the model to be loaded
+     * @return User the loaded model
+     * @throws CHttpException
+     */
+    public function loadModel($id) {
+        $model = User::model()
+                ->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'The requested page does not exist.');
+        return $model;
+    }
 
     /**
      * Performs the AJAX validation.

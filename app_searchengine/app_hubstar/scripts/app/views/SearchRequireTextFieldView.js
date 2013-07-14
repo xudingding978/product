@@ -25,7 +25,10 @@ define([
             else {
                 console.log(controller);
             }
-        }
+        },
+                didInsertElement: function() {
+    this.$().focus();             
+}
     });
     return SearchTextField;
 });

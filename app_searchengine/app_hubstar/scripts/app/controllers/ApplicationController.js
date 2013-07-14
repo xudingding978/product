@@ -3,23 +3,24 @@ define([
     'models/StatModel',
     'ember'
 ], function(MegaModel, Stat, Ember) {
-
     var ApplicationController = Ember.ArrayController.extend({
         needs: ['status'],
         content: [],
         loginInfo: "",
         search_area: "",
-        search_string: "",
+        search_string: "homes",
         firstTimeUser: false,
         test: false,
         user: null,
         from: null,
         size: null,
+        iframeURL: "",
         init: function() {
-            this.set("content", []);
-            this.set("from", 0);
-            this.set("size", 50);
+            this.newSearch();
 
+            var address = document.URL;
+            var domain = address.split("/")[2];
+            this.set('iframeURL', "http://" + domain + "/user/create/");
         },
         popupModal: function() {
             this.set('popup', !this.get('popup'));
@@ -33,7 +34,6 @@ define([
         loginStatus: function() {
         },
         grapData: function() {
-
             this.set("user", App.User.find(localStorage.loginStatus));
             this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
         },
@@ -47,10 +47,7 @@ define([
             }
             this.set("size", 20);
             this.set("from", this.get("from") + this.get("size"));
-
             var results = MegaModel.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size")});
-
-
             var that = this;
             results.addObserver('isLoaded', function() {
                 if (results.get('isLoaded')) {
@@ -60,17 +57,16 @@ define([
                     }
                     setTimeout(function() {
                         $('#masonry_container').masonry("reload");
-
                     }, 2200);
                     that.set('loadingTime', false);
                 }
             });
-
-
         },
         newSearch: function() {
+            this.set("content", []);
+            this.set("from", 0);
+            this.set("size", 50);
             this.set('loadingTime', true);
-            this.init();
             var d = new Date();
             var start = d.getTime();
             var results = MegaModel.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size")});
@@ -99,7 +95,6 @@ define([
 
             var stats = Stat.find({"RquireType": "status", "region": this.get("search_area"), "search_string": this.get("search_string")});
 
-
             stats.addObserver('isLoaded', function() {
                 if (stats.get('isLoaded')) {
                     var d = new Date();
@@ -110,7 +105,6 @@ define([
                     statusController.set("searchResultNum", hit.get("hits"));
                     statusController.set("time", time);
                 }
-
                 setTimeout(function() {
                     $('#masonry_container').masonry("reload");
                 }, 1800);

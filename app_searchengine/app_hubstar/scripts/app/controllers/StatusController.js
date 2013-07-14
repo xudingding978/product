@@ -17,7 +17,7 @@ define(["ember"], function(Ember) {
         grapData: function() {
             this.set("user", App.User.find(localStorage.loginStatus));
             this.set("myUserProfile", "#/users/"+localStorage.loginStatus);
-        },
+        }
 
     });
     return StatusController;

@@ -18,7 +18,7 @@ define(["ember"
         needs: ['photoCreate'],
         makeSureDelete: false,
         updateOrCreate: true,
-        collectionTag:true,
+        collectionTag: true,
         selectedCollection: "",
         profileSelectionStatus: "Collecitons",
         selected_topics: [],
@@ -110,22 +110,21 @@ define(["ember"
         },
         submit: function()
         {
+            if (this.selectedCollection.get('id') !== null && this.selectedCollection.get('id') !== "" && this.selectedCollection.get('id') !== undefined) {
+                var id = this.checkingValidInput(this.selectedCollection.get('id'));
+                this.checkingIdisExsinting(id, "create");
+                if (isExsinting) {
+                    this.selectedCollection.set('id', id);
+                    this.selectedCollection.set('title', id);
+                    this.get("collections").insertAt(0, this.selectedCollection);
+                    this.get("collections").store.commit();
+                    $(".Targeting_Object_front").attr("style", "display:inline-block");
+                    $(" #uploadArea").attr('style', "display:none");
+                    $(" #uploadObject").attr('style', "display:block");
 
-            var id = this.checkingValidInput(this.selectedCollection.get('id'));
-
-            this.checkingIdisExsinting(id, "create");
-
-            if (isExsinting) {
-                this.selectedCollection.set('id', id);
-                this.selectedCollection.set('title', id);
-                this.get("collections").insertAt(0, this.selectedCollection);
-                this.get("collections").store.commit();
-                $(".Targeting_Object_front").attr("style", "display:inline-block");
-                $(" #uploadArea").attr('style', "display:none");
-                $(" #uploadObject").attr('style', "display:block");
-
-            } else {
-                isExsinting = true;
+                } else {
+                    isExsinting = true;
+                }
             }
         },
         checkingValidInput: function(title) {

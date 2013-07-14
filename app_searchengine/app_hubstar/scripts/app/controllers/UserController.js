@@ -26,7 +26,6 @@ define(["ember"
         init: function()
         {
             this.setUser();
-
         },
         setUser: function()
         {
@@ -51,7 +50,6 @@ define(["ember"
             for (var i = 0; i < collections.get("length"); i++)
             {
                 var col = collections.objectAt(i);
-                console.log(col);
                 if ((col.get("collection_ids") !== null && col.get("collection_ids") !== "")) {
                     var imgId = col.get("collection_ids").split(",").objectAt(0);
                     this.getHeroImgae(imgId, col);
@@ -72,7 +70,6 @@ define(["ember"
         },
         exit: function()
         {
-            console.log(" drop and grag controller");
         },
         getCurrentUser: function()
         {
@@ -227,11 +224,10 @@ define(["ember"
         setSelectedCollection: function(id) {
             for (var i = 0; i < this.get("collections").get("length"); i++) {
                 var thisCollection = this.get("collections").objectAt(i);
-
                 this.get('temp').pushObject(thisCollection.get("id"));
                 if (id === thisCollection.get("id")) {
                     this.set("selectedCollection", thisCollection);
-                    //      console.log(  this.get("selectedCollection"));
+
                 }
             }
         },
@@ -259,20 +255,15 @@ define(["ember"
         selectFollowing: function(model) {
 
             this.set('profileSelectionStatus', 'Following');
-
-//            this.get('controllers.profilePartners').getClientId(model);
             this.set('partnerTag', true);
             this.set('collectionTag', false);
             this.set('followerTag', false);
-
-
             this.get('controllers.itemProfiles').setPartnerRemove();
 
 
         },
         selectFollower: function(model) {
             this.set('profileSelectionStatus', 'Followers');
-//            this.get('controllers.profileFollowers').getClientId(model);
             this.set('partnerTag', false);
             this.set('collectionTag', false);
             this.set('followerTag', true);

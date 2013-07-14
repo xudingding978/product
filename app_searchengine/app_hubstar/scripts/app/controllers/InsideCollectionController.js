@@ -8,10 +8,12 @@ define([
         title: null,
         is_authentic_user: false,
         needs: ['photoCreate', 'profile'],
+       user_id:null,
         selectModelForUser: function(collection_id) {
             this.set('content', []);
             var address = document.URL;
             var user_id = address.split("#")[1].split("/")[2];
+            this.set('user_id',user_id);
             this.set('title', collection_id);
             var results = MegaModel.find({RquireType: "personalCollection", user_id: user_id, collection_id: collection_id});
             var that = this;
@@ -26,6 +28,7 @@ define([
                     }
                 }
             });
+            this.checkAuthenticUser();
         },
         selectModelForProfile: function(collection_id) {
             var proController = this.get('controllers.profile');
@@ -91,6 +94,19 @@ define([
                 }
             }
 
+        },
+        checkAuthenticUser: function() {
+            {
+       
+                if (localStorage.loginStatus === this.get('user_id')) {
+                      console.log(localStorage.loginStatus);
+                        console.log(this.get('user_id'));
+                    this.set('is_authentic_user', true);
+                }
+                else {
+                    this.set('is_authentic_user', false);
+                }
+            }
         }
     });
     return InsideCollectionController;

@@ -14,7 +14,7 @@
 
         <div id='welcome_message' style='margin-bottom: 25px;'>
             <h2>Welcome!!</h2>
-            <p>Please Login to experience the searching.</p>
+            <p>Please login to create your idea space.</p>
 
         </div>
         {{else}}
@@ -27,12 +27,9 @@
                 <a {{bindAttr href="controller.myUserProfile"}} ><img {{bindAttr src="controller.user.photo_url"}} class="profilepic_user"/></a>                              
             </div>
             <p> Hi {{controller.user.display_name}} </p>
-            <h3> What do you want
-                to do on Trends today? </h3>
+            <h4>You've got {{controller.searchResultNum}} results in {{controller.time}}.</h4>
 
-            {{controller.searchResultNum}}
-
-            {{controller.time}}
+          
         </div>
         {{/unless}}
     </div>

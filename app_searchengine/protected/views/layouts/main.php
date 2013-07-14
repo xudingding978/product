@@ -22,9 +22,9 @@
 
         <div class="container" id="page">
 
-            <div id="header">
+<!--            <div id="header">
                 <div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
-            </div><!-- header -->
+            </div> header 
 
             <div id="mainmenu">
                 <?php
@@ -38,13 +38,13 @@
                     ),
                 ));
                 ?>
-            </div><!-- mainmenu -->
+            </div> mainmenu 
             <?php if (isset($this->breadcrumbs)): ?>
                 <?php
                 $this->widget('zii.widgets.CBreadcrumbs', array(
                     'links' => $this->breadcrumbs,
                 ));
-                ?><!-- breadcrumbs -->
+                ?> breadcrumbs -->
 <?php endif ?>
 
 <?php echo $content; ?>

@@ -33,9 +33,7 @@
 
     </head>
     <body style="background:#fff url('../images/texture.png') repeat;width: 100%;height: auto;">
-        <script type="text/javascript"
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwl8LT_S7FsRP_yDcoxM72-U8x15l-alw&sensor=false">
-        </script>
+ 
 
         <div id="loading" class="loading-visible" >
             <img style="width: 300px;position: relative;margin: auto;left: 0;right: 0; " src="../../../images/loading.gif" />

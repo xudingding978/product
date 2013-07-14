@@ -25,11 +25,11 @@
                     <li>&nbsp;</li>
                     {{#each controller.categorys}}
 
-                    <li> <span><a href="#"> {{topic}}</a></span>
+                    <li> <span><a href="#" {{action topicSearch topic}} > {{topic}}</a></span>
                         <ul>
                             <li>&nbsp;</li>
                             {{#each subcate}}
-                            <li> <a href="#"> {{category_topic}}</a>
+                            <li> <a href="#" {{action topicSearch category_topic}} > {{category_topic}}</a>
                                 <ul>
                                     <li>&nbsp;</li>
                                     {{#each subcategories}}

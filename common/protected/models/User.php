@@ -42,7 +42,7 @@ class User extends CActiveRecord {
     public function rules() {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-//        return array(
+        return array(
 //            array('TENANT_REC_ID', 'numerical', 'integerOnly' => true),
 //            array('EMAIL_ADDRESS, USER_NAME', 'required'),
 //            array('EMAIL_ADDRESS', 'email', 'message' => "The email isn't correct"),
@@ -56,7 +56,7 @@ class User extends CActiveRecord {
 //            // The following rule is used by search().
 //            // Please remove those attributes that should not be searched.
 //            array('REC_ID, TENANT_REC_ID, REC_DATETIME, REC_TIMESTAMP, USER_NAME, PWD_HASH, EMAIL_ADDRESS, LAST_LOGIN, FIRST_NAME, LAST_NAME, COUCHBASE_ID', 'safe', 'on' => 'search'),
-//        );
+        );
     }
 
     /**

@@ -19,8 +19,7 @@ define([
             ProfileController.setProfile(model.id);
 
 /******************  partner cehcking*******************/
-            $('#user-stats > li').removeClass('selected-user-stats');
-            $('#defualt').addClass('selected-user-stats');
+
             ProfileController.set('contactChecking', false);
             ProfileController.set('collectionTag', true);
             ProfileController.set('partnerTag', false);

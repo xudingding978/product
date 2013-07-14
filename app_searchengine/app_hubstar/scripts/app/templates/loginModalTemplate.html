@@ -71,18 +71,14 @@
 
             </div>
             {{else}}
-            <div style='margin: 30px auto 5px; display: block;'>
-                <p style='display: inline-block; vertical-align: middle;font-size: 16px;margin: 5px;'>Username:</p>
-                <input type="text" class="span3">
-            </div>
-            <div style='margin: 0 auto 5px; display: block;'>
-                <p style='display: inline-block; vertical-align: middle;font-size: 16px;margin: 5px;'>Password:</p>
-                <input type="text" class="span3">
-            </div>
+
+
+            <iframe {{bindAttr src="controller.iframeLoginURL"}}></iframe>
+
+
+
             <div style="margin: 15px 0 0px;">
-                <div  type="button" class="new-btn green-btn" >
-                    Login
-                </div>
+
 
                 <div  type="button" class="new-btn" {{action email_login }}>
                       Cancel

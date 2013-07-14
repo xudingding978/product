@@ -21,8 +21,8 @@
         $rand_id = strval(rand(9999999999, 99999999999));
 
         $user->COUCHBASE_ID = $rand_id;
-        $user->PWD_HASH = "Pa55word";
-        $user->repeat_password = "Pa55word";
+        $user->PWD_HASH = "blankblankblank";
+        $user->repeat_password = "blankblankblank";
         $user->USER_NAME = $user_profile->displayName;
         $user->EMAIL_ADDRESS = $user_profile->email;
         $user->LAST_NAME = $user_profile->lastName;

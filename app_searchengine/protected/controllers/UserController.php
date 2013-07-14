@@ -79,8 +79,11 @@ class UserController extends Controller {
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['User'])) {
+
+
+
             $model->attributes = $_POST['User'];
-             error_log(var_export($_POST['User'],true));
+            error_log(var_export($_POST['User'], true));
             $model->REC_DATETIME = new CDbExpression('NOW()');
             $model->REC_TIMESTAMP = new CDbExpression('NOW()');
             $model->TENANT_REC_ID = "1";
@@ -102,8 +105,8 @@ class UserController extends Controller {
 
 
 
-            
-            
+
+
 
             $cb->add(substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.') + 1) . "/users/" . $rand_id, CJSON::encode($temp));
 

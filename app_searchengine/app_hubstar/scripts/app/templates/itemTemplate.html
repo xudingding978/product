@@ -41,7 +41,7 @@
                 <div class="object-tags">
                     <span class="tags-mark" style="background-color: #427fed"></span>
                     <div class="tags easing">
-                        <div class="tags-new">New </div>
+                        <!--                        <div class="tags-new">New </div>-->
                         <div class="object-tpye">
                             <i class="icon-picture"></i>
                         </div>
@@ -244,7 +244,7 @@
                 <div class="object-tags">
                     <span class="tags-mark" style="background-color: #427fed"></span>
                     <div class="tags easing">
-                        <div class="tags-new">New</div>
+                        <!--                        <div class="tags-new">New</div>-->
                         <div class="object-tpye">
                             <i class="icon-book"></i>
                         </div>                      
@@ -279,8 +279,8 @@
 
             <div class="masonry-object_text">
                 <div class="masonry-object_text-container">
-                    <p>   {{#linkTo 'article' this}} {{object_title}}{{/linkTo}} </p>
-                    <p>{{{object_description}}}</p>
+                    <p style="font-size: 16px; font-weight: bold;">   {{#linkTo 'article' this}} {{object_title}}{{/linkTo}} </p>
+                    <p style="text-overflow: ellipsis;">{{{object_description}}}</p>
                 </div>
 
                 <div class="more_detail" {{bindAttr id="id"}} style="display:none;width:auto">
@@ -288,10 +288,10 @@
                     {{{object_description}}}
 
                 </div>
-
-                <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>
-
-                <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collapes</span>
+{{#linkTo 'article' this}}
+<span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>
+{{/linkTo}}
+<!--                <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collapes</span>-->
 
 
 
@@ -299,7 +299,7 @@
             </div>
         </div>
 
-        <div class="masonry-object_interact">
+<!--        <div class="masonry-object_interact">
             <div class="masonry_show-comment">
                 <div class="show-comment_container">
                     <span class="show-comment_inner">
@@ -320,7 +320,8 @@
                     Add comments
                 </div>
             </div>
-        </div>
+        </div>-->
+
     </div>
 
 </div>

@@ -118,7 +118,7 @@ define(['models/MegaModel',
                     var addCollectionController = this.get('controllers.addCollection');
                     var selectid = this.get('selectedPhoto').id;
                     addCollectionController.setImageID(selectid);
-                    var tempUrl = this.get('selectedPhoto').photo_image_thumbnail_url;
+                    var tempUrl = this.get('selectedPhoto').get('photo_image_thumbnail_url');
                     addCollectionController.setThumbnailUrl(tempUrl);
                     addCollectionController.setUser();
                     this.set('collectable', !this.get('collectable'));

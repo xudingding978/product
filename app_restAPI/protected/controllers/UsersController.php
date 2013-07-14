@@ -96,7 +96,8 @@ class UsersController extends Controller {
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
             $request_arr['user']['id'] = $id;
-            $url = substr($_SERVER['HTTP_HOST'], 4) . "/users/" . $id;
+            $url = $this->getDomain() . "/users/" . $id;
+            error_log('$url  '.$url);
             $oldRecord = $cb->get($url);
             $oldRecord = CJSON::decode($oldRecord, true);
             $oldRecord['user'][0] = null;

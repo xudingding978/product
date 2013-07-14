@@ -9,7 +9,7 @@ define([
         content: [],
         loginInfo: "",
         search_area: "",
-        search_string: "",
+        search_string: "homes",
         firstTimeUser: false,
         test: false,
         user: null,
@@ -19,6 +19,11 @@ define([
             this.set("content", []);
             this.set("from", 0);
             this.set("size", 50);
+        var    that=this;
+                                setTimeout(function() {
+      //   that.newSearch();
+                    }, 100);
+
 
         },
         popupModal: function() {
@@ -47,10 +52,7 @@ define([
             }
             this.set("size", 20);
             this.set("from", this.get("from") + this.get("size"));
-
             var results = MegaModel.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size")});
-
-
             var that = this;
             results.addObserver('isLoaded', function() {
                 if (results.get('isLoaded')) {
@@ -60,7 +62,6 @@ define([
                     }
                     setTimeout(function() {
                         $('#masonry_container').masonry("reload");
-
                     }, 2200);
                     that.set('loadingTime', false);
                 }

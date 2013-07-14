@@ -16,14 +16,12 @@ class MegasController extends Controller {
 
             $temp = explode("?", $_SERVER['REQUEST_URI']);
             $request_string = $temp [sizeof($temp) - 1];
-            $response;
+            $response="";
 
             if (sizeof($temp) > 1) {
                 $response = $this->getRequestResult($request_string, self::JSON_RESPONSE_ROOT_PLURAL);
                 //    $response = $this->getRequestResultByID(self::JSON_RESPONSE_ROOT_PLURAL, $request_string);
-            } else {//default search       
-                $response = $this->performSearch(self::JSON_RESPONSE_ROOT_PLURAL, "", "dean");
-            }
+            } 
             $this->sendResponse(200, $response);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();

@@ -556,8 +556,7 @@
 
 .albumcover{
     min-width: 350px;
-    height: 100%;
-    max-width: none;
+    min-height: 350px;
 }
 
 .album-info{
@@ -699,6 +698,7 @@
 }
 
 .this-is-the-object{
+    cursor: pointer;
     min-width: 338px;
     max-height: 100%; 
     max-width: 100%; 
@@ -1022,7 +1022,8 @@
     font-size: 14px;
     font-weight: bold;
     display: block;
-    unicode-bidi:normal;
+    unicode-bidi: normal;
+    width: 178px;
 }
 
 .posttime{

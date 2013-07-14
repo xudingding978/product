@@ -13,7 +13,6 @@ define([
         selectedPhotoThumbnailUrl: "",
         init: function()
         {
-
         },
         setUser: function()
         {

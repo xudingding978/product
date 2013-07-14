@@ -20,7 +20,7 @@
 
     <body>
 
-        <div class="container" id="page">
+        <div class="container" id="page" style="margin: 0; border: 0;width: auto;height: 270px;overflow: hidden;">
 
 <!--            <div id="header">
                 <div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
@@ -49,13 +49,15 @@
 
 <?php echo $content; ?>
 
-            <div class="clear"></div>
+<!--            <div class="clear"></div>
 
             <div id="footer">
                 Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
                 All Rights Reserved.<br/>
 <?php echo Yii::powered(); ?>
-            </div><!-- footer -->
+            </div>
+            -->
+            <!-- footer -->
 
         </div><!-- page -->
 

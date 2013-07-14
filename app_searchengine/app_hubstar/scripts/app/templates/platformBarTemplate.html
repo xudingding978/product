@@ -57,8 +57,36 @@
             </li>
             <li> <span><a href="#"> <i class="icon-question-sign" style="font-size: 20px;"></i></a></span>   
             </li>
-            <li> <span><a href="#"> <i class="icon-off" style="font-size: 20px;"></i></a></span>   
+            <li> <span><a href="#" onclick="logout();"> <i class="icon-off" style="font-size: 20px;"></i></a></span>   
             </li>
         </ul>
     </div>
 </div>
+
+
+
+
+<script>
+
+                        function logout() {
+
+                            var address = document.URL;
+                            var domain = address.split("/")[2];
+
+
+
+                            $.ajax({
+                                type: 'POST',
+                                url: 'http://' + domain + '/site/logout',
+                                contentType: 'application/json; charset=uft-8',
+                                dataType: 'json',
+                                success: function() {
+
+                                }
+                            });
+
+                            localStorage.clear();
+
+
+                        }
+</script>

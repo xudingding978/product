@@ -17,12 +17,17 @@ define([
         iframeURL: "",
         iframeLoginURL: "",
         init: function() {
-            this.newSearch();
+            if (localStorage.loginStatus !== null && localStorage.loginStatus !== ""&&localStorage.loginStatus!==undefined) {
+
+                 this.newSearch();
+            }
+
 
             var address = document.URL;
             var domain = address.split("/")[2];
             this.set('iframeURL', "http://" + domain + "/user/create/");
             this.set('iframeLoginURL', "http://" + domain + "/site/login/");
+
 
         },
         popupModal: function() {

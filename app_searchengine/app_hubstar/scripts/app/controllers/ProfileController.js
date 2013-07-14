@@ -281,7 +281,6 @@ define([
                     }
                     currentUser.addObserver('isLoaded', function() {
                         email = currentUser.get('email');
-
                         if (currentUser.get('isLoaded')) {
                             that.setIsAuthenticUser(authenticUsers, email);
                         }
@@ -311,7 +310,8 @@ define([
                     }
                 },
                 followThisProfile: function() {
-                    if (!this.checkFollowStatus()) {
+                    if (this.checkFollowStatus()===false) {
+                        console.log(this.checkFollowStatus());
                         var currentUser = App.User.find(localStorage.loginStatus);
                         var commenter_profile_pic_url = currentUser.get('photo_url_large');
                         var commenter_id = currentUser.get('id');
@@ -332,15 +332,19 @@ define([
                 {
                     var isFollow = false;
                     var followers = this.get("model").get("followers");
+
                     for (var i = 0; i < followers.get('length'); i++) {
                         var follower_id = followers.get("content").objectAt(i).data.follower_id;
+
                         if (follower_id === localStorage.loginStatus)
                         {
+  
                             isFollow = true;
                             break;
                         }
                     }
-                    return isFollow;
+                 
+                    return true;
                 },
                 unfollow: function() {
                     var currentUser = App.User.find(localStorage.loginStatus);

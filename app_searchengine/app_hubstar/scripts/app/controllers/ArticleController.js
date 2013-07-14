@@ -2,6 +2,7 @@ define(["ember"], function(Ember) {
     var ArticleController = Ember.Controller.extend({
         content: [],
         image_no: 1,
+        needs: ['application', 'addCollection', 'contact'],
         findSelectedItemIndex: function() {
             content = this.get('content');
             for (var index = 0; index <= content.get('length'); index++) {
@@ -133,6 +134,23 @@ define(["ember"], function(Ember) {
             this.set('contact', false);
             window.history.back();
         },
+        switchCollection: function() {
+
+            var addCollectionController = this.get('controllers.addCollection');
+            var selectid = this.get('selectedPhoto').id;
+            addCollectionController.setImageID(selectid);
+            var tempUrl = this.get('selectedPhoto').get('photo_image_thumbnail_url');
+            addCollectionController.setThumbnailUrl(tempUrl);
+            addCollectionController.setRelatedController('article');
+            addCollectionController.setUser();
+            this.set('collectable', !this.get('collectable'));
+        },
+          editingContactForm: function() {
+                    var contactController = this.get('controllers.contact');
+                    var selectid = this.get('selectedPhoto').id;
+                    contactController.setSelectedMega(selectid);
+                    this.set('contact', !this.get('contact'));
+                }
     });
     return ArticleController;
 });

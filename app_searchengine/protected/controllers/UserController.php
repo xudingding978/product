@@ -52,8 +52,7 @@ class UserController extends Controller {
      * @param integer $id the ID of the model to be displayed
      */
     public function actionView($id) {
-        if (Yii::app()->user->id == $id)
-            {
+        if (Yii::app()->user->id == $id) {
 //            $user = User::model()->findByPk($id);
 //            //$userprofile = UserProfile::model()->findAllByAttributes(array('USER_REC_ID'=>$id));
 //            $userprofile = UserProfile::model()->findByPk(35);
@@ -72,7 +71,7 @@ class UserController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate() {
-        
+
         error_log('actionCreate');
         $model = new User;
 
@@ -83,11 +82,21 @@ class UserController extends Controller {
             $model->attributes = $_POST['User'];
             $model->REC_DATETIME = new CDbExpression('NOW()');
             $model->REC_TIMESTAMP = new CDbExpression('NOW()');
-            $model->TENANT_REC_ID = "2";
+            $model->TENANT_REC_ID = "1";
+            $model->COUCHBASE_ID = strval(rand(9999999999, 99999999999));
+            $cb = new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "develop", true);
+            $rand_id = $user->COUCHBASE_ID;
+            $temp = $this->getMega();
+
             if ($model->save()) {
+
+
                 $identity = new CommonUserIdentity($model->USER_NAME, $model->PWD_HASH);
                 $identity->authenticate();
                 Yii::app()->user->login($identity, 0);
+
+
+
                 //    $this->redirect(array('view', 'id' => $model->REC_ID));
             }
         }
@@ -173,7 +182,6 @@ class UserController extends Controller {
      */
     public function loadModel($id) {
         $model = User::model()
-         
                 ->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');

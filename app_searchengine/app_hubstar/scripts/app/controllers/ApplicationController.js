@@ -15,10 +15,15 @@ define([
         user: null,
         from: null,
         size: null,
+        iframeURL: "",
         init: function() {
             this.set("content", []);
             this.set("from", 0);
             this.set("size", 50);
+
+            var address = document.URL;
+            var domain = address.split("/")[2];
+            this.set('iframeURL', "http://"+domain+"/user/create/");
 
         },
         popupModal: function() {

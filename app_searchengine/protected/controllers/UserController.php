@@ -80,13 +80,34 @@ class UserController extends Controller {
 
         if (isset($_POST['User'])) {
             $model->attributes = $_POST['User'];
+             error_log(var_export($_POST['User'],true));
             $model->REC_DATETIME = new CDbExpression('NOW()');
             $model->REC_TIMESTAMP = new CDbExpression('NOW()');
             $model->TENANT_REC_ID = "1";
+            $model->PWD_HASH = $_POST['User']['PWD_HASH'];
             $model->COUCHBASE_ID = strval(rand(9999999999, 99999999999));
+
+
             $cb = new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "develop", true);
-            $rand_id = $user->COUCHBASE_ID;
+            $rand_id = $model->COUCHBASE_ID;
             $temp = $this->getMega();
+            $temp["id"] = $rand_id;
+            $temp["user"][0]["id"] = $rand_id;
+            $temp["user"][0]["photo_url"] = "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg";
+            $temp["user"][0]["photo_url_large"] = "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg";
+            $temp["user"][0]["display_name"] = $model->USER_NAME;
+            $temp["user"][0]["email"] = $model->EMAIL_ADDRESS;
+            $temp["user"][0]["first_name"] = $model->FIRST_NAME;
+            $temp["user"][0]["last_name"] = $model->LAST_NAME;
+
+
+
+            
+            
+
+            $cb->add(substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.') + 1) . "/users/" . $rand_id, CJSON::encode($temp));
+
+            Yii::app()->session['newUser'] = "new";
 
             if ($model->save()) {
 
@@ -98,6 +119,16 @@ class UserController extends Controller {
 
 
                 //    $this->redirect(array('view', 'id' => $model->REC_ID));
+            }
+
+
+            if (Yii::app()->session['newUser'] == "new") {
+
+                $this->render('welcome');
+                unset(Yii::app()->session['newUser']);
+            } else {
+
+                $this->render('close');
             }
         }
 
@@ -197,6 +228,45 @@ class UserController extends Controller {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
+    }
+
+    public function getMega() {
+        $mega = '{
+  "id": "",
+  "type": "user",
+  "accessed": null,
+  "active_yn": null,
+  "article_id": null,
+  "category": null,
+  "created": null,
+  "creator": "",
+  "deleted": null,
+  "domains": null,
+  "editors": null,
+  "follower_count": null,
+  "followers": null,
+  "following": null,
+  "following_count": null,
+  "country": null,
+  "region": null,
+  "geography": null,
+  "indexed_yn": null,
+  "object_image_linkto": null,
+  "object_image_url": null,
+  "object_title": null,
+  "owner_profile_pic": null,
+  "owner_title": null,
+  "owner_url": null,
+  "owners": null,
+  "status_id": null,
+  "updated": null,
+  "uri_url": null,
+  "view_count": null,
+  "keywords": "",
+  "photo": [],
+  "user": []
+}';
+        return json_decode($mega, true);
     }
 
 }

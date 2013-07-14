@@ -83,7 +83,8 @@ class DefaultController extends CController {
                 if (isset($_POST['User'])) {
                     //Save the form
                     $user->attributes = $_POST['User'];
-
+                    $user->REC_DATETIME = new CDbExpression('NOW()');
+                    $user->REC_TIMESTAMP = new CDbExpression('NOW()');
                     if ($user->validate() && $user->save()) {
                         if ($this->module->withYiiUser == true) {
                             
@@ -129,11 +130,12 @@ class DefaultController extends CController {
 
         $user_profile = $adapter->getUserProfile();
         error_log(var_export($user_profile, true));
-        
+
         error_log(000000000000);
         $user = new User;
         $user->attributes = $_POST['User'];
         $user->TENANT_REC_ID = 1;
+
         $user_profile->email = $user->EMAIL_ADDRESS;
         $user_profile->displayName = $user->USER_NAME;
         $user_profile->lastName = $user->LAST_NAME;

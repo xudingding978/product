@@ -7,10 +7,11 @@ define([
         selectedDesc: "",
         selectedTitle: "",
         selectionPop: false,
-        needs: ["mega"],
+        needs: ["mega", "article"],
         newCollectionName: null,
         objectID: "",
         selectedPhotoThumbnailUrl: "",
+        parentController: "",
         init: function()
         {
         },
@@ -56,7 +57,7 @@ define([
                 else {
                 }
             });
-            this.get("controllers.mega").switchCollection();
+            this.exit();
         },
         addCollection: function(collection, content)
         {
@@ -75,8 +76,11 @@ define([
             }
         },
         exit: function() {
+        if(this.get('parentController')==='article')
+            {           this.get("controllers.article").switchCollection();}
+            else{
             this.get("controllers.mega").switchCollection();
-        },
+        }},
         addNewCollection: function()
         {
 
@@ -149,6 +153,9 @@ define([
                 }
             }
             return isContainsTitle;
+        }, setRelatedController: function(parentController)
+        {
+            this.set('parentController', parentController);
         }
     });
     return AddCollectionTemplate;

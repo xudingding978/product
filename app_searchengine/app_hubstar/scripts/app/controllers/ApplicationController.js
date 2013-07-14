@@ -15,7 +15,11 @@ define([
         from: null,
         size: null,
         init: function() {
-                this.newSearch();
+            if (localStorage.loginStatus !== null && localStorage.loginStatus !== ""&&localStorage.loginStatus!==undefined) {
+           
+     this.newSearch();
+            }
+
         },
         popupModal: function() {
             this.set('popup', !this.get('popup'));

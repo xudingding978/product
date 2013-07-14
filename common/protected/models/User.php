@@ -49,8 +49,8 @@ class User extends CActiveRecord {
             array('EMAIL_ADDRESS', 'unique', 'message' => 'Email already exists!'),
             array('USER_NAME, EMAIL_ADDRESS', 'length', 'max' => 255),
             array('PWD_HASH, repeat_password', 'on' => 'insert'),
-            array('PWD_HASH, repeat_password', 'length', 'min' => 6, 'max' => 40),
-            array('PWD_HASH', 'compare', 'compareAttribute' => 'repeat_password'),
+        //    array('PWD_HASH, repeat_password', 'length', 'min' => 6, 'max' => 40),
+         //   array('PWD_HASH', 'compare', 'compareAttribute' => 'repeat_password'),
             array('FIRST_NAME, LAST_NAME, COUCHBASE_ID', 'length', 'max' => 45),
             array('REC_DATETIME, REC_TIMESTAMP, LAST_LOGIN', 'safe'),
             // The following rule is used by search().

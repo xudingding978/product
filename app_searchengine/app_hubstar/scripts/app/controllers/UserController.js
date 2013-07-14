@@ -20,7 +20,7 @@ define(["ember"
         updateOrCreate: true,
         collectionTag: true,
         selectedCollection: "",
-        profileSelectionStatus: "Collecitons",
+        profileSelectionStatus: "Collections",
         selected_topics: [],
         is_authentic_user: false,
         init: function()

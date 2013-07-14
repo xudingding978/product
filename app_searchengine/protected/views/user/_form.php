@@ -42,8 +42,13 @@
         <?php echo $form->error($model, 'EMAIL_ADDRESS'); ?>
     </div>
 
+    
+    
+    
+    
+    
     <div class="row buttons">
-        <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+        <?php echo CHtml::submitButton($model->isNewRecord ? ' Sign Up' : 'Save'); ?>
     </div>
 
     <?php $this->endWidget(); ?>

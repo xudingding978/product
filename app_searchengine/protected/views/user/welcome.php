@@ -12,28 +12,25 @@
 
     window.onload = function()
     {
-        //  alert('close');
-
-
         if (<?php echo Yii::app()->user->getUserData() ?> !== "") {
-            data = <?php echo Yii::app()->user->getUserData() ?>;
 
+            data = <?php echo Yii::app()->user->getUserData() ?>;
+            console.log(data);
             localStorage.setItem("loginStatus", data);
 
         }
 
 
-        var parent = window.opener;
+
+        localStorage.setItem("checkUser", "newUser");
+
         var address = document.URL;
         var domain = address.split("/")[2];
 
+ 
+        window.parent.location.href = 'http://' + domain + '/#/welcome';
 
-        parent.location = 'http://' + domain + '/#/search';
 
-        var windowObject = window.self;
-        windowObject.opener = window.self;
-
-        windowObject.close();
 
     }
 

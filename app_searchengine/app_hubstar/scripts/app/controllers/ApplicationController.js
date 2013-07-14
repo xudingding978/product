@@ -17,11 +17,10 @@ define([
         iframeURL: "",
         iframeLoginURL: "",
         init: function() {
-            if (localStorage.loginStatus !== null && localStorage.loginStatus !== ""&&localStorage.loginStatus!==undefined) {
-
-                 this.newSearch();
-            }
-
+//            if (localStorage.loginStatus !== null && localStorage.loginStatus !== ""&&localStorage.loginStatus!==undefined) {
+//
+//                 this.newSearch();
+//            }
 
             var address = document.URL;
             var domain = address.split("/")[2];

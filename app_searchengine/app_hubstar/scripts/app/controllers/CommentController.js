@@ -62,24 +62,27 @@ define(["ember"], function(Ember) {
             if (people_like === null || people_like === undefined) {
                 people_like = "";
             }
-            if (people_like.indexOf(localStorage.loginStatus) !== -1)
+            if (localStorage.loginStatus !== null && localStorage.loginStatus !== undefined && localStorage.loginStatus !== "")
             {
-            }
-            else {
-                this.addPeopleLike(mega);
+                if (people_like.indexOf(localStorage.loginStatus) !== -1)
+                {
+                }
+                else {
+                    this.addPeopleLike(mega);
+                }
             }
         }, addPeopleLike: function(mega) {
             var people_like = mega.get("people_like");
-            if (people_like === null || people_like === undefined||people_like==="")
+            if (people_like === null || people_like === undefined || people_like === "")
             {
                 people_like = localStorage.loginStatus;
                 mega.set("likes_count", 1);
             } else {
                 people_like = people_like + "," + localStorage.loginStatus;
-                mega.set("likes_count",people_like.split(",").length);
+                mega.set("likes_count", people_like.split(",").length);
             }
             mega.set("people_like", people_like);
-           App.store.save();
+            App.store.save();
         }
     });
     return CommentController;

@@ -328,7 +328,7 @@
                                         {{#if controller.editingContact}}
                                         {{input type="text" class="insert-contactdetails" value=model.profile_website  }}
                                         {{else}}
-                                        <th class="Contact_2child"><a>{{model.profile_website}}</a></th>
+                                        <th class="Contact_2child"><a href="http://{{unbound model.profile_website}}">{{model.profile_website}}</a></th>
                                         {{/if}}
                                     </tr>
 

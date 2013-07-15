@@ -132,7 +132,16 @@ class Hybrid_Auth {
         Hybrid_Logger::debug("Hybrid_Auth initialize. dump current session: ", serialize($_SESSION));
         Hybrid_Logger::info("Hybrid_Auth initialize: check if any error is stored on the endpoint...");
 
-//        if (Hybrid_Error::hasError()) {
+        
+        
+        
+        
+        
+        if (Hybrid_Error::hasError()) {
+            
+       
+            
+            
 //            $m = Hybrid_Error::getErrorMessage();
 //            $c = Hybrid_Error::getErrorCode();
 //            $p = Hybrid_Error::getErrorPrevious();
@@ -148,7 +157,7 @@ class Hybrid_Auth {
 //            } else {
 //                throw new Exception($m, $c);
 //            }
-//        }
+        }
 
         Hybrid_Logger::info("Hybrid_Auth initialize: no error found. initialization succeed.");
 

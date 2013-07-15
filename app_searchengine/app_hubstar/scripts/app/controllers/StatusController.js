@@ -4,8 +4,8 @@ define(["ember"], function(Ember) {
         searchResultNum: "",
         time: "",
         user: null,
-        needs: ['application'],
-        myUserProfile:null,
+        myUserProfile: null,
+        response: 'Start searching for ideas now.',
         getSearchResultNum: function(hits) {
 
             this.set("searchResultNum", "Item: " + hits);
@@ -16,7 +16,14 @@ define(["ember"], function(Ember) {
         },
         grapData: function() {
             this.set("user", App.User.find(localStorage.loginStatus));
-            this.set("myUserProfile", "#/users/"+localStorage.loginStatus);
+            this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
+        },
+        changeDescription: function()
+        {
+//          this.set('response','dddddddddddd')
+//console.log(3333333333333333);
+         this.set('response',  "You've got "+this.get('searchResultNum')+" results in "+this.get('time')+".");
+
         }
 
     });

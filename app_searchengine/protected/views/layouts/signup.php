@@ -22,7 +22,7 @@
 
     </head>
 
-    <body style="padding: 0; background:#fff url('../../../images/texture.png') repeat">
+    <body style="padding: 0; background:#fff; height: 150px;overflow: hidden;">
 
 
 

@@ -29,6 +29,7 @@ define(
         profile_hours: DS.attr('string'),
         profile_areas_serviced: DS.attr('string'),
         profile_website: DS.attr('string'),
+        profile_website_url:DS.attr('string'),
         profile_client_name: DS.attr('string'),
         profile_editors: DS.attr('string'),
         profile_creater: DS.attr('string'),

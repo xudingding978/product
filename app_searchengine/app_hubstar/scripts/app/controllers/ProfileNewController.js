@@ -20,6 +20,7 @@ define([
                 packgetDropdown: false,
                 contact_number: "",
                 website: "",
+                website_url: "",
                 client_name: "",
                 owner: "",
                 direct_enquiry_emails: "",
@@ -234,8 +235,9 @@ define([
                             profile_country: this.get("country"),
                             profile_hours: "Monday=9:00am-5:00pm,Tuesday=9:00am-5:00pm,Wednesday=9:00am-5:00pm,Thursday=9:00am-5:00pm,Friday=9:00am-5:00pm,Saturday=closed,Sunday=closed,Holidays=closed",
                             phone_number: this.get("contact_number"),
-                            profile_partner_ids:null,
+                            profile_partner_ids: null,
                             collections: [],
+                            profile_website_url: this.get("website_url"),
                             profile_website: this.get("website")
                         });
                         newMega.get("profile").addObject(newProfile);

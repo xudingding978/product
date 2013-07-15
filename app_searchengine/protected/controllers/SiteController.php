@@ -58,6 +58,10 @@ class SiteController extends Controller {
         }
     }
 
+    public function actionClose() {
+        $this->render('close');
+    }
+
     /**
      * Displays the contact page
      */
@@ -112,7 +116,7 @@ class SiteController extends Controller {
             $model->attributes = $_POST['LoginForm'];
             // validate user input and redirect to the previous page if valid
             if ($model->validate() && $model->login())
-                  $this->render('//user/close');
+                $this->render('//user/close');
         }
         // display the login form                
         $this->render('login', array('model' => $model));

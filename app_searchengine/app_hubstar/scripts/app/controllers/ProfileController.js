@@ -27,7 +27,7 @@ define([
                 followerTag: false,
                 updateOrCreate: true,
                 partnerTag: false,
-                partnerPage:true,
+                partnerPage: true,
                 profileSelectionStatus: "Collections",
                 temp: [],
                 selectedDesc: "",
@@ -41,7 +41,7 @@ define([
                 currentUserID: "",
                 collections: [],
                 selectedCollection: "",
-                needs: ["application", "contact", "profilePartners", "itemProfiles","profileFollowers"],
+                needs: ["application", "contact", "profilePartners", "itemProfiles", "profileFollowers"],
                 profile_bg_url: "",
                 profile_hero_url: "",
                 profile_pic_url: "",
@@ -59,7 +59,6 @@ define([
                     return user;
                 },
                 setProfile: function(id) {
-
                     var profile = this.getCurrentClient(id);
                     this.set('profile_bg_url', profile.get('profile_bg_url'));
                     this.set('profile_hero_url', profile.get('profile_hero_url'));
@@ -69,14 +68,14 @@ define([
                     this.set("collections", profile.get("collections"));
                     var collections = profile.get("collections");
                     //           console.log(collections);
-                    for (var i = 0; i < collections.get("length"); i++)
-                    {
-                        var col = collections.objectAt(i);
-                        if ((col.get("collection_ids") !== null && col.get("collection_ids") !== "")) {
-                            var imgId = col.get("collection_ids").split(",").objectAt(0);
-                            this.getHeroImgae(imgId, col);
-                        }
-                    }
+//                    for (var i = 0; i < collections.get("length"); i++)
+//                    {
+//                        var col = collections.objectAt(i);
+//                        if ((col.get("collection_ids") !== null && col.get("collection_ids") !== "")) {
+//                            var imgId = col.get("collection_ids").split(",").objectAt(0);
+//                         this.getHeroImgae(imgId, col);
+//                        }
+//                    }
                     this.isFollowed();
                     this.checkAuthenticUser();
                 },
@@ -218,7 +217,7 @@ define([
                         this.get('temp').pushObject(thisCollection.get("id"));
                         if (id === thisCollection.get("id")) {
                             this.set("selectedCollection", thisCollection);
-                            //      console.log(  this.get("selectedCollection"));
+
                         }
                     }
                 },
@@ -303,15 +302,15 @@ define([
                 {
                     if (this.checkFollowStatus())
                     {
-                        this.set('follow_status', "Following");
+                        this.set('follow_status', true);
                     }
                     else {
-                        this.set('follow_status', "+ Follow");
+                        this.set('follow_status', false);
                     }
                 },
                 followThisProfile: function() {
-                    if (this.checkFollowStatus()===false) {
-                        console.log(this.checkFollowStatus());
+                    if (this.checkFollowStatus() === false) {
+
                         var currentUser = App.User.find(localStorage.loginStatus);
                         var commenter_profile_pic_url = currentUser.get('photo_url_large');
                         var commenter_id = currentUser.get('id');
@@ -332,19 +331,18 @@ define([
                 {
                     var isFollow = false;
                     var followers = this.get("model").get("followers");
-
                     for (var i = 0; i < followers.get('length'); i++) {
                         var follower_id = followers.get("content").objectAt(i).data.follower_id;
 
                         if (follower_id === localStorage.loginStatus)
                         {
-  
+
                             isFollow = true;
                             break;
                         }
                     }
-                 
-                    return true;
+
+                    return isFollow;
                 },
                 unfollow: function() {
                     var currentUser = App.User.find(localStorage.loginStatus);
@@ -379,7 +377,7 @@ define([
                 },
                 selectFollower: function(model) {
                     this.set('profileSelectionStatus', 'Followers');
-                     this.get('controllers.profileFollowers').getClientId(model);
+                    this.get('controllers.profileFollowers').getClientId(model);
                     this.set('partnerTag', false);
                     this.set('collectionTag', false);
                     this.set('followerTag', true);

@@ -24,9 +24,12 @@
                 <span class="posttime">{{date created}}</span>
             </div>
             {{#if controller.is_authentic_user}}
+            {{#unless controller.canEditbyOwner}}
             <div class="edit-btn edit-object-btn">
-                <k class="icon-trash" {{action  removeCollectedItem controller.title id}}></k>
+                <k class="icon-trash" {{action  removeCollectedItem controller.title id }}></k>
             </div>
+            <a {{action changeCollectionCover id controller.title App.User}}>cover change</a>
+            {{/unless}}
             {{/if}}
 
             {{#if controller.canEditbyOwner}}
@@ -34,7 +37,7 @@
                 <k class="icon-trash"></k>
 
             </div>
-            <a {{action changeProfileCollectionCover id controller.title}}>cover </a>
+            <a {{action changeCollectionCover id controller.title App.Profile}}>cover change</a>
 
             {{/if}}
             <div class="object-tags-box">

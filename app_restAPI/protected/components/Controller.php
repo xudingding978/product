@@ -309,7 +309,7 @@ class Controller extends CController {
     protected function getProfilePartner($returnType, $partner_id) {
         $request = $this->getElasticSearch();
         $request->from(0)
-                ->size(200);
+                ->size(500);
         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw('{
                 "bool": {
                     "must": [

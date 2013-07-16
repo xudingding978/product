@@ -117,12 +117,9 @@ define([
             var profile = App.Profile.find(owner_id).get('collections');
             for (var i = 0; i < profile.get('content').length; i++) {
                 if (profile.objectAt(i).id === collection_id) {
-
-
                     var currentCollection = profile.objectAt(i);
-
                     currentCollection.set('cover', coverImge);
-                    App.store.save();
+                    currentCollection.store.save();
                     break;
                 }
 

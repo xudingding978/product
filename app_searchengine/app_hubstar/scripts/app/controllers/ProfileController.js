@@ -73,7 +73,7 @@ define([
 //                        var col = collections.objectAt(i);
 //                        if ((col.get("collection_ids") !== null && col.get("collection_ids") !== "")) {
 //                            var imgId = col.get("collection_ids").split(",").objectAt(0);
-//                            this.getHeroImgae(imgId, col);
+//                         this.getHeroImgae(imgId, col);
 //                        }
 //                    }
                     this.isFollowed();

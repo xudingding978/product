@@ -1,12 +1,12 @@
 define([
-    "ember",
-    "text!templates/mapTemplate.html"
-], function(Ember, mapTemplate) {
+    "ember"
 
-    Ember.TEMPLATES["map"] = Ember.Handlebars.compile(mapTemplate);
+], function(Ember) {
+
+    
 
     var MapView = Ember.View.extend({
-        template: Ember.Handlebars.compile(mapTemplate),
+
         map: null,
         didInsertElement: function() {
 

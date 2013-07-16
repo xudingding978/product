@@ -37,9 +37,12 @@
     </div>
 
 
-
     <div class="content" style="border-radius: 0; padding: 15px 30px 0px;">
         <div class="contactme-table easing" style="text-align: center;">
+
+            {{#if controller.secondStepOfContactEmail}}
+
+
             <table style="padding: 0 20px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;">
                 <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
                     <tr>
@@ -90,17 +93,18 @@
                             {{/if}}
                         </td>
                     </tr>
-
-                    <!--                    <tr>
-                                            <td>I want help on:</td>
-                                            <td>
-                                                (Select one or more)
-                                            </td>
-                                        </tr>-->
-
                 </tbody>
-            </table>        
+            </table>    
+
+
+            {{/if}}
+
+
         </div>
+        
+        
+            {{#unless controller.firstStepOfContactEmail}}
+        
         <div style="display: block;padding: 5px 0px;">
             <div>
                 <span style="display: inline-block; margin-bottom: 5px;">Message:</span>
@@ -110,11 +114,31 @@
                 </div>
             </div>
         </div>
+        
+        
+         {{/unless}}
+        
     </div>
+    
+    
     <div class="controlbtn-field">
         <span class="controlbtn">
             <div type="button" {{action closeContact }} class="new-btn">Cancel</div>
+            
+            
+           {{#if controller.secondStepOfContactEmail}}
             <div type="button" {{action emailSend }}  class="new-btn green-btn">Submit</div>
+              <div type="button" {{action proviousSendingEmailProcess}}  class="new-btn green-btn">Previous</div>
+            
+            {{/if}}
+            
+             {{#unless controller.firstStepOfContactEmail}}
+         
+            <div type="button" {{action nextSendingEmailProcess}}  class="new-btn green-btn">Next</div>
+            {{/unless}}
+            
+            
+            
         </span>
     </div>
 </div>

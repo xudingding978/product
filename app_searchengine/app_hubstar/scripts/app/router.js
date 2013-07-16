@@ -15,7 +15,7 @@ define(["ember"], function(Ember) {
             this.resource("files", {path: '/files/:file_id'});
 
             this.resource("ideabooks", {path: '/ideabooks/:ideabook_id'});
-            this.resource("discussions", {path: '/discussions/:discussion_id'});
+//            this.resource("discussions", {path: '/discussions/:discussion_id'});
         
 
 

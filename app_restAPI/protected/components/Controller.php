@@ -373,9 +373,7 @@ class Controller extends CController {
     }
 
     protected function getSearchResultsTotal($returnType, $region, $requestString) {
-
-
-        $requestArray = array();
+                $requestArray = array();
         if ($region != null && $region != "") {
             $requestStringOne = 'couchbaseDocument.doc.region=' . $region;
             array_push($requestArray, $requestStringOne);
@@ -398,16 +396,11 @@ class Controller extends CController {
         }
         $request->query($bool);
 
-
-
-
         $response = $request->execute();
 // $result = "";
 //Iterate over the hits and print out some data
         $result = '{"' . $returnType . '":[{"id":"hit","hits":"' . $response->total;
-        $result .= '"}]}'
-
-        ;
+        $result .= '"}]}'  ;
         return $result;
     }
 
@@ -472,68 +465,6 @@ class Controller extends CController {
         return $results;
     }
 
-    protected function getAllProfiles($returnType) {
-        $rawRequest = '{
-                                    "bool": {
-                                      "must": {
-                                        "text": {
-                                            "couchbaseDocument.doc.type": "profile"
-                                        }
-                                      }
-                                    }
-                                }';
-
-        $settings['log.enabled'] = true;
-        $settings['log.file'] = '../../sherlock.log';
-        $sherlock = new \Sherlock\Sherlock($settings);
-        $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
-        $request = $sherlock->search();
-        $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
-        $request->index("test")
-                ->from(0)
-                ->size(200)
-                ->type("couchbaseDocument")
-                ->query($termQuery);
-
-        $response = $request->execute();
-
-        $results = $this->modifyArticleResponseResult($response, $returnType);
-
-        return $results;
-    }
-
-    protected function getAllDoc($returnType, $from, $to) {
-        $rawRequest = '{
-                                    "bool": {
-                                      "must": {
-                                        "range": {
-                                          "couchbaseDocument.doc.accessed": {
-                                            "from": ' . $from . ',
-                                            "to": ' . $to . '
-                                          }
-                                        }
-                                      }
-                                    }
-                                }';
-
-        $settings['log.enabled'] = true;
-        $settings['log.file'] = '../../sherlock.log';
-        $sherlock = new \Sherlock\Sherlock($settings);
-        $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
-        $request = $sherlock->search();
-        $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
-        $request->index("develop")
-                ->from(0)
-                ->size(1000)
-                ->type("couchbaseDocument")
-                ->query($termQuery);
-
-        $response = $request->execute();
-
-        $results = $this->modifyArticleResponseResult($response, $returnType);
-
-        return $results;
-    }
 
     protected function getDomain() {
         $host = $_SERVER['HTTP_HOST'];
@@ -592,117 +523,11 @@ class Controller extends CController {
         return $results;
     }
 
-    protected function getImageString($type, $url) {
-        $im = "";
-        if ($type == "image/png") {
-            $im = imagecreatefrompng($url);
-        } elseif ($type == "image/jpeg") {
-            $im = imagecreatefromjpeg($url);
-        }
 
 
-        return $im;
-    }
-
-    protected function getImageInfo($url) {
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
-        $tim = curl_exec($ch);
-
-        if (@$imageInfo = getimagesizefromstring($tim)) {
-            return $imageInfo;
-        } else {
-            $message = $url . "\r\n" . date("Y-m-d H:i:s") . $tim . " \r\n";
-            $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $message);
-            return false;
-        }
-    }
-
-    public function convertToString64($image_string) {
-        $matchs = array();
-        preg_match_all('/\:(.*?)\;/', $image_string, $matchs);
-        $image_type = $matchs[1][0];
-
-        $input_image_string = $this->getInputData($image_type, $image_string);
-        $image_data['type'] = $image_type;
-        $image_data['data'] = $input_image_string;
-
-        return $image_data;
-    }
-
-    public function saveImageToS3($url, $data, $bucket) {
-        $provider_arr['key'] = 'AKIAJKVKLIJWCJBKMJUQ';
-        $provider_arr['secret'] = '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';
-        $provider_arr['region'] = 'ap-southeast-2';
-        $client = Aws\S3\S3Client::factory(
-                        $provider_arr
-        );
-        $client->putObject(array(
-            'Bucket' => $bucket, //"s3.hubsrv.com"
-            'Key' => $url,
-            'Body' => $data,
-            'ACL' => 'public-read'
-        ));
-    }
-
-    public function removeImageFromS3($key, $bucket) {
-
-        $provider_arr['key'] = 'AKIAJKVKLIJWCJBKMJUQ';
-        $provider_arr['secret'] = '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';
-        $provider_arr['region'] = 'ap-southeast-2';
-
-        try {
-            $client = Aws\S3\S3Client::factory(
-                            $provider_arr
-            );
-            $client->deleteObject(array(
-                'Bucket' => $bucket, //"s3.hubsrv.com"
-                'Key' => $key
-            ));
-        } catch (Exception $e) {
-            $message = $e->getMessage();
-        }
-    }
-
-    protected function addPhotoSizeToName($photo_name, $photo_size_arr) {
-        $name_arr = explode(".", $photo_name);
-        $new_name = "";
-        if (sizeof($name_arr > 0)) {
-            $temp_str = '_' . $photo_size_arr['width'] . 'x' . $photo_size_arr['height'];
-            $new_name = $name_arr[0] . $temp_str . '.' . $name_arr[1];
-        }
-
-        return $new_name;
-    }
-
-    public function getInputData($inputDataType, $inputData) {
-        $tempInput = "";
-        if ($inputDataType == "image/jpeg") {
-            $tempInput = str_replace('data:image/jpeg;base64,', '', $inputData);
-        } elseif ($inputDataType == "application/pdf") {
-            $tempInput = str_replace('data:application/pdf;base64,', '', $inputData);
-        } elseif ($inputDataType == "image/png") {
-            $tempInput = str_replace('data:image/png;base64,', '', $inputData);
-        } elseif ($inputDataType == "image/gif") {
-            $tempInput = str_replace('data:image/gif;base64,', '', $inputData);
-        }
-        $data = base64_decode($tempInput);
-        return $data;
-    }
-
-    function compressPhotoData($type, $image) {
 
 
-        if ($type == "image/png") {
-            imagepng($image);
-        } elseif ($type == "image/jpeg") {
-            imagejpeg($image, null, 80);
-        }
 
-        return $image;
-    }
 
     public function getCurrentUTC() {
 
@@ -711,64 +536,9 @@ class Controller extends CController {
         return $time_string;
     }
 
-    function compressData($type, $data, $url) {
 
 
-        ob_start();
-        if ($type == "image/png") {
-            imagepng($data);
-        } elseif ($type == "image/jpeg") {
-            if (!strpos($url, 'imageservice') && strpos($url, 'original')) {
-                imagejpeg($data, null, 80);
-            } else {
-                imagejpeg($data, null, 100);
-            }
-        }
-        $return = ob_get_contents();
-        ob_end_clean();
-        return $return;
-    }
 
-    function isUrlExist($path) {
-        $file_headers = @get_headers($path);
-        if ($file_headers[0] == 'HTTP/1.1 404 Not Found') {
-            $response = 'HTTP/1.1 404 Not Found';
-        } else {
-            $response = "true";
-        }
-        return $response;
-    }
-
-    function is_image($path) {
-        try {
-            if ($a = @getimagesize($path)) {
-//                $a = getimagesize($path);
-                $image_type = $a[2];
-                if (in_array($image_type, array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_BMP))) {
-                    return "true";
-                }
-            } else {
-                $message = "is not a image." . date("Y-m-d H:i:s") . $path . " \r\n";
-                $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $message);
-            }
-        } catch (Exception $e) {
-            $response = 'Caught exception: ' . $e->getMessage() . "\n";
-            $message = $response . "\n" . date("Y-m-d H:i:s") . $path . " \r\n";
-            $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $message);
-        }
-
-        return "false";
-    }
-
-    protected function writeToLog($fileName, $content) {
-        //   $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_success.log';
-        $handle = fopen($fileName, 'a') or die('Cannot open file:  ' . $fileName);
-        $output = "\n" . $content;
-        fwrite($handle, $output);
-        fclose($handle);
-
-        unset($fileName, $content, $handle, $output);
-    }
 
     function array_put_to_position($array, $object, $position, $name = null) {
         $count = 0;

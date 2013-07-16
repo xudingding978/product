@@ -237,22 +237,22 @@ class Controller extends CController {
             $requestStringOne = 'couchbaseDocument.doc.region=' . $region;
             array_push($requestArray, $requestStringOne);
         }
-            if ($requestString != null && $requestString != "") {
-        $requestStringTwo = 'couchbaseDocument.doc.keywords=' . $requestString;
-        array_push($requestArray, $requestStringTwo);
-            }
+        if ($requestString != null && $requestString != "") {
+            $requestStringTwo = 'couchbaseDocument.doc.keywords=' . $requestString;
+            array_push($requestArray, $requestStringTwo);
+        }
         $tempResult = $this->performMustSearch($requestArray, $returnType, 'must', $from, $size);
         return $tempResult;
-
     }
+
     protected function getmustQuestWithQueryString($queryString) {
         $mustQuery = explode('=', $queryString);
-        $should = Sherlock\Sherlock::queryBuilder()->QueryString()->query('"'.$mustQuery[1].'"')//$collection_id
+        $should = Sherlock\Sherlock::queryBuilder()->QueryString()->query('"' . $mustQuery[1] . '"')//$collection_id
                 ->field($mustQuery[0]);
         return $should;
     }
 
-    protected function performMustSearch($requestArray, $returnType, $search_type = "should",$from = 0, $size = 50) {
+    protected function performMustSearch($requestArray, $returnType, $search_type = "should", $from = 0, $size = 50) {
         $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
@@ -308,6 +308,8 @@ class Controller extends CController {
 
     protected function getProfilePartner($returnType, $partner_id) {
         $request = $this->getElasticSearch();
+        $request->from(0)
+                ->size(200);
         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw('{
                 "bool": {
                     "must": [
@@ -371,19 +373,19 @@ class Controller extends CController {
     }
 
     protected function getSearchResultsTotal($returnType, $region, $requestString) {
-        
-        
-                $requestArray = array();
+
+
+        $requestArray = array();
         if ($region != null && $region != "") {
             $requestStringOne = 'couchbaseDocument.doc.region=' . $region;
             array_push($requestArray, $requestStringOne);
         }
-            if ($requestString != null && $requestString != "") {
-        $requestStringTwo = 'couchbaseDocument.doc.keywords=' . $requestString;
-        array_push($requestArray, $requestStringTwo);
-            }
-        
-                    $settings['log.enabled'] = true;
+        if ($requestString != null && $requestString != "") {
+            $requestStringTwo = 'couchbaseDocument.doc.keywords=' . $requestString;
+            array_push($requestArray, $requestStringTwo);
+        }
+
+        $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
         $request = $sherlock->search();
@@ -392,12 +394,11 @@ class Controller extends CController {
 
         for ($i = 0; $i < $max; $i++) {
             $must = $this->getmustQuestWithQueryString($requestArray[$i]);
-                $bool->must($must);
-  
+            $bool->must($must);
         }
         $request->query($bool);
 
-           
+
 
 
         $response = $request->execute();

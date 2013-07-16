@@ -99,8 +99,8 @@ define([
             {
 
                 if (localStorage.loginStatus === this.get('user_id')) {
-                    console.log(localStorage.loginStatus);
-                    console.log(this.get('user_id'));
+//                    console.log(localStorage.loginStatus);
+//                    console.log(this.get('user_id'));
                     this.set('is_authentic_user', true);
                 }
                 else {

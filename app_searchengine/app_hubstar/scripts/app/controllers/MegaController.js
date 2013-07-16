@@ -81,7 +81,12 @@ define(['models/MegaModel',
                     this.addRelatedData(megaObject);
                     this.getCommentsById(megaObject.id);
                 },
-   
+                selectImage: function(e) {
+                    this.set('megaResouce', MegaModel.find(e));
+                    this.set('selectedPhoto', MegaModel.find(e).get('photo').objectAt(0));
+                    this.set("selectedPhoto", this.get('selectedPhoto'));
+                    this.selectedImage(e);
+                },
                 selectedImage: function(id) {
                     var selectedImage_id = "#" + id;
                     $('.photo_original_style').removeClass('selected_image_style');

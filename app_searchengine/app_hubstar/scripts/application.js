@@ -121,7 +121,7 @@ define('application', [
     "views/ProfileFollowersView",
     "views/UserCollectionsView",
     "controllers/ApplicationController",
-    "controllers/tabListController",
+
     "controllers/DataController",
     "controllers/ProfilesController",
     "controllers/TestController",
@@ -180,7 +180,7 @@ define('application', [
     "routes/CollectionRoute",
     "routes/ProfileCollectionRoute",
     "models/MegaModel",
-    "models/PostModel",
+   // "models/PostModel",
     "models/ProfileModel",
     "models/UserModel",
     "models/ImageArray",
@@ -271,7 +271,7 @@ define('application', [
         ProfileFollowersView,
         UserCollectionsView,
         ApplicationController,
-        tabListController,
+ 
         DataController,
         ProfilesController,
         TestController,
@@ -330,7 +330,6 @@ define('application', [
         CollectionRoute,
         ProfileCollectionRoute,
         Mega,
-        Post,
         Profile,
         User,
         ImageArray,
@@ -421,7 +420,7 @@ define('application', [
         ProfileFollowersView: ProfileFollowersView,
         UserCollectionsView:UserCollectionsView,
         ApplicationController: ApplicationController,
-        tabListController: tabListController,
+
         DataController: DataController,
         ProfilesController: ProfilesController,
         TestController: TestController,
@@ -480,7 +479,7 @@ define('application', [
         CollectionRoute: CollectionRoute,
         ProfileCollectionRoute: ProfileCollectionRoute,
         Mega: Mega,
-        Post: Post,
+   
         Profile: Profile,
         User: User,
         ImageArray: ImageArray,

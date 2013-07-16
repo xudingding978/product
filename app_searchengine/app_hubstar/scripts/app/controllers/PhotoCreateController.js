@@ -12,8 +12,10 @@ define(["ember", "helper"],
 
                     this.setMega();
                 },
-                commitFiles: function(files) {
+                commitFiles: function(evt) {
                     this.set("nodifyBackGround", true);
+                    var input = evt.target;
+                    var files = input.files;
                     var that = this;
                     for (var i = 0; i < files.length; i++) {
                         (function(file) {
@@ -21,10 +23,12 @@ define(["ember", "helper"],
                             var type = file.type;
                             var reader = new FileReader();
                             reader.onload = function(e) {
+                                //   var src = e.srcElement.result;
+
                                 that.addPhotoObject(e, that, name, type);
                             }, reader.readAsDataURL(files[i]);
                         })(files[i]);
-                        event.preventDefault();
+                        evt.preventDefault();
                     }
                 },
                 setMode: function()
@@ -92,7 +96,10 @@ define(["ember", "helper"],
                     });
                     return photoMega;
                 }, addPhotoObject: function(e, that, name, type) {
-                    var src = e.srcElement.result;
+
+
+                    var target = that.getTarget(e);
+                    var src = target.result;
                     var mega = that.createNewMega(that.get("profileMega"));
                     var file = App.Photo.createRecord({
                         "photo_title": name.toLowerCase(),
@@ -104,14 +111,25 @@ define(["ember", "helper"],
                     mega.get("photo").pushObject(file);
                     mega.addObserver('isSaving', function() {
                         if (mega.get('isSaving')) {
-                          $('.'+file.get('photo_source_id')).attr("style", "display:block");
+                            $('.' + file.get('photo_source_id')).attr("style", "display:block");
                         }
-                        else {  
-                            $('.'+file.get('photo_source_id')).attr("style", "display:none");
+                        else {
+                            $('.' + file.get('photo_source_id')).attr("style", "display:none");
                         }
                     });
 
                     that.get("content").addObject(file);
+                },
+                getTarget: function(obj) {
+                    var targ;
+                    var e = obj;
+                    if (e.target)
+                        targ = e.target;
+                    else if (e.srcElement)
+                        targ = e.srcElement;
+                    if (targ.nodeType === 3) // defeat Safari bug
+                        targ = targ.parentNode;
+                    return targ;
                 }
             }
             );
@@ -128,5 +146,7 @@ define(["ember", "helper"],
                 }
 
             });
+
+
             return PhotoCreateController;
         });

@@ -45,7 +45,7 @@ define(
         region: DS.attr('string'),
         suburb: DS.attr('string'),
         status_id: DS.attr('string'),
-        subcategories:DS.attr('string'),
+        subcategories: DS.attr('string'),
         timezone: DS.attr('string'),
         topic: DS.attr('string'),
         type: DS.attr('string'),
@@ -91,12 +91,19 @@ define(
         getDiscussion: function() {
             return this.get('type') === 'discussion';
         }.property('type'),
-        //    articles: DS.hasMany('App.Article'),
-//        video: DS.hasMany('App.Video'),
-//        product: DS.hasMany('App.Product'),
+        addComment: function()
+        {
+                      $.ajax({
+                        url: 'http://api.develop.devbox/images/Test',
+                        type: 'POST',
+                        data: JSON.stringify(file),
+                        success: function(data) {
+                            console.log(data);
+                        }
+                    });
+        },
         didLoad: function() {
-//            console.log('model loaded', this.toJSON());
-            //     console.log('id: ' + this.id + ' ' + this.profile_name);
+
         }
     });
     return MegaModel;

@@ -232,5 +232,10 @@ class MegasController extends Controller {
         }
         return $docID;
     }
+    
+    public function addComment()
+    {
+           $this->sendResponse(200," comment added");
+    }
 }
 ?>

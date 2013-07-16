@@ -53,21 +53,6 @@ class Controller extends CController {
         return $result_arr["providers"][$name];
     }
 
-    // function for connecting to s3. Using for move photo between buckets. (Tao)
-//    public function connectToS3() {
-//        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
-//        $key = explode(".", $_SERVER['HTTP_HOST']);
-//        $key = $key[1] . '.' . $key[2];
-//        $result = $cb->get($key);
-//        $result_arr = CJSON::decode($result, true);
-//
-//        $client = Aws\S3\S3Client::factory(
-//                        $result_arr["providers"]["S3Client"]
-//        );
-//
-//        return $client;
-//    }
-
     /**
      * Send raw HTTP response
      * @param int $status HTTP status code
@@ -144,27 +129,26 @@ class Controller extends CController {
         return (isset($codes[$status])) ? $codes[$status] : '';
     }
 
-    protected function processMultiGet($results_arr, $jsonRoot) {
-        $numItems = count($results_arr);
-        $i = 0;
-        $result = '{"' . $jsonRoot . '":[';
-        foreach ($results_arr as $key => $value) {
-            if (++$i === $numItems) {
-                $result .= $value;
-            } else {
-                $result .= $value . ',';
-            }
-        }
-        $result .= ']}';
-        return $result;
-    }
-
-    protected function processGet($results_arr, $jsonRoot) {
-        $result = '{"' . $jsonRoot . '":[';
-        $result .= $results_arr;
-        $result .= ']}';
-        return $result;
-    }
+//    protected function processMultiGet($results_arr, $jsonRoot) {
+//        $numItems = count($results_arr);
+//        $i = 0;
+//        $result = '{"' . $jsonRoot . '":[';
+//        foreach ($results_arr as $key => $value) {
+//            if (++$i === $numItems) {
+//                $result .= $value;
+//            } else {
+//                $result .= $value . ',';
+//            }
+//        }
+//        $result .= ']}';
+//        return $result;
+//    }
+//    protected function processGet($results_arr, $jsonRoot) {
+//        $result = '{"' . $jsonRoot . '":[';
+//        $result .= $results_arr;
+//        $result .= ']}';
+//        return $result;
+//    }
 
     protected function getNewID() {
         $myText = (string) microtime();
@@ -253,15 +237,11 @@ class Controller extends CController {
     }
 
     protected function performMustSearch($requestArray, $returnType, $search_type = "should", $from = 0, $size = 50) {
-        $settings['log.enabled'] = true;
-        $sherlock = new \Sherlock\Sherlock($settings);
-        $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
-        $request = $sherlock->search();
-        $request->index("develop")->type("couchbaseDocument")->from($from);
-        $request->index("develop")->type("couchbaseDocument")->size($size);
+     $request = $this->getElasticSearch();
+        $request->from($from);
+        $request->size($size);
         $max = sizeof($requestArray);
         $bool = Sherlock\Sherlock::queryBuilder()->Bool();
-
         for ($i = 0; $i < $max; $i++) {
             $must = $this->getmustQuestWithQueryString($requestArray[$i]);
             if ($search_type == "must") {
@@ -275,21 +255,11 @@ class Controller extends CController {
         $request->query($bool);
         $response = $request->execute();
 
-        $i = 0;
-
-        $results = '{"' . $returnType . '":[';
-        foreach ($response as $hit) {
-            $results .= CJSON::encode($hit['source']['doc']);
-            if (++$i < count($response)) {
-                $results .= ',';
-            }
-        }
-        $results .= ']}';
+        $results = $this->getReponseResult($response, $returnType);
         return $results;
     }
 
     protected function getRequestResultByID($returnType, $requestString) {
-
         $request = $this->getElasticSearch();
 //populate a Term query to start
         $should = Sherlock\Sherlock::queryBuilder()->Term()->term($requestString)//$collection_id
@@ -297,12 +267,7 @@ class Controller extends CController {
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->should($should)
                 ->boost(2.5);
         $response = $request->query($bool)->execute();
-
-        $results = '{"' . $returnType . '":';
-        foreach ($response as $hit) {
-            $results .= CJSON::encode($hit['source'] ['doc']);
-        }
-        $results .= '}';
+        $results = $this->getReponseResult($response, $returnType);
         return $results;
     }
 
@@ -325,16 +290,7 @@ class Controller extends CController {
             }');
 
         $response = $request->query($termQuery)->execute();
-        $results = '{"' . $returnType . '":[';
-        $i = 0;
-        foreach ($response as $hit) {
-
-            $results .= CJSON::encode($hit['source'] ['doc']);
-            if (++$i !== count($response)) {
-                $results .= ',';
-            }
-        }
-        $results .= ']}';
+        $results = $this->getReponseResult($response, $returnType);
 
         return $results;
     }
@@ -356,24 +312,12 @@ class Controller extends CController {
                 ->boost(2.5);
         $response = $request->query($bool)->execute();
 
-        $results = '{"' . $returnType . '":[';
-
-//Iterate over the hits and print out some data
-        $i = 0;
-        foreach ($response as $hit) {
-
-            $results .= CJSON::encode($hit['source'] ['doc']);
-            if (++$i !== count($response)) {
-                $results .= ',';
-            }
-        }
-        $results .= ']}';
-
+        $results = $this->getReponseResult($response, $returnType);
         return $results;
     }
 
     protected function getSearchResultsTotal($returnType, $region, $requestString) {
-                $requestArray = array();
+        $requestArray = array();
         if ($region != null && $region != "") {
             $requestStringOne = 'couchbaseDocument.doc.region=' . $region;
             array_push($requestArray, $requestStringOne);
@@ -383,10 +327,7 @@ class Controller extends CController {
             array_push($requestArray, $requestStringTwo);
         }
 
-        $settings['log.enabled'] = true;
-        $sherlock = new \Sherlock\Sherlock($settings);
-        $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
-        $request = $sherlock->search();
+        $request = $this->getElasticSearch();
         $max = sizeof($requestArray);
         $bool = Sherlock\Sherlock::queryBuilder()->Bool();
 
@@ -397,10 +338,8 @@ class Controller extends CController {
         $request->query($bool);
 
         $response = $request->execute();
-// $result = "";
-//Iterate over the hits and print out some data
         $result = '{"' . $returnType . '":[{"id":"hit","hits":"' . $response->total;
-        $result .= '"}]}'  ;
+        $result .= '"}]}';
         return $result;
     }
 
@@ -452,25 +391,12 @@ class Controller extends CController {
         }
 
         $rawRequest = $header . $tempRquestIDs . $footer;
-        $settings['log.enabled'] = true;
-        $sherlock = new \Sherlock\Sherlock($settings);
-        $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
-        $request = $sherlock->search();
+       $request=$this-> getElasticSearch();
         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
-        $request->index(Yii::app()->params['elasticSearchIndex'])
-                ->type("couchbaseDocument")
-                ->query($termQuery);
+               $request ->query($termQuery);
         $response = $request->execute();
         $results = $this->getReponseResult($response, $returnType);
         return $results;
-    }
-
-
-    protected function getDomain() {
-        $host = $_SERVER['HTTP_HOST'];
-        preg_match("/[^\.\/]+\.[^\.\/]+$/", $host, $matches);
-
-        return trim($matches[0]);
     }
 
     protected function getSelectedCollectionIds($collections, $collection_id) {
@@ -478,33 +404,11 @@ class Controller extends CController {
         $request_ids = "";
         for ($i = 0; $i < $max; $i++) {
             $thisCollection = $collections[$i];
-
             if ($thisCollection["id"] == $collection_id) {
-
                 $request_ids = $thisCollection['collection_ids'];
             }
         }
         return $request_ids;
-    }
-
-    //update article 
-    protected function modifyArticleResponseResult($response, $returnType) {
-        $results = '{"' . $returnType . '":[';
-        $i = 0;
-        foreach ($response as $hit) {
-            $id = $hit['source']['meta']['id'];
-            $id = str_replace("trendsideas.com/", "", $id);
-            $hit['source']['doc']['id'] = $id;
-            $hit['source']['doc']['article'][0]['id'] = $id;
-
-            $results .= CJSON::encode($hit['source']['doc']);
-            if (++$i !== count($response)) {
-                $results .= ',';
-            }
-        }
-
-        $results .= ']}';
-        return $results;
     }
 
     protected function getReponseResult($response, $returnType) {
@@ -523,12 +427,6 @@ class Controller extends CController {
         return $results;
     }
 
-
-
-
-
-
-
     public function getCurrentUTC() {
 
         $datetime = date("Y-m-d H:i:s");
@@ -536,33 +434,35 @@ class Controller extends CController {
         return $time_string;
     }
 
+    protected function getDomain() {
+        $host = $_SERVER['HTTP_HOST'];
+        preg_match("/[^\.\/]+\.[^\.\/]+$/", $host, $matches);
 
-
-
-
-    function array_put_to_position($array, $object, $position, $name = null) {
-        $count = 0;
-        $inserted = false;
-        $return = array();
-
-        foreach ($array as $k => $v) {
-            // insert new object
-            if ($count == $position) {
-                if (!$name)
-                    $name = $count;
-                $return[$name] = $object;
-                $inserted = true;
-            }
-            // insert old object
-            $return[$k] = $v;
-            $count++;
-        }
-        if (!$name)
-            $name = $count;
-        if (!$inserted)
-            $return[$name];
-        $array = $return;
-        return $array;
+        return trim($matches[0]);
     }
 
+//    function array_put_to_position($array, $object, $position, $name = null) {
+//        $count = 0;
+//        $inserted = false;
+//        $return = array();
+//
+//        foreach ($array as $k => $v) {
+//            // insert new object
+//            if ($count == $position) {
+//                if (!$name)
+//                    $name = $count;
+//                $return[$name] = $object;
+//                $inserted = true;
+//            }
+//            // insert old object
+//            $return[$k] = $v;
+//            $count++;
+//        }
+//        if (!$name)
+//            $name = $count;
+//        if (!$inserted)
+//            $return[$name];
+//        $array = $return;
+//        return $array;
+//    }
 }

@@ -62,8 +62,13 @@ define(["ember"
             //   console.log(photo);
             photo.addObserver('isLoaded', function() {
                 if (photo.get('isLoaded')) {
-                    col.set("cover", photo.get('photo').objectAt(0).get("photo_image_hero_url"));
-                    col.store.save();
+
+                    if (col.get("cover") === null || col.get("cover") === "") {
+
+                        col.set("cover", photo.get('photo').objectAt(0).get("photo_image_hero_url"));
+                        col.store.save();
+
+                    }
                 }
             });
 

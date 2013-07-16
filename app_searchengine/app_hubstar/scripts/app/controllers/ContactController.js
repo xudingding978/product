@@ -37,10 +37,10 @@ define([
             this.set("emailDestination", this.get("selectedMega").get("owner_contact_email"));
             this.set("emaiCCDestination", this.get("selectedMega").get("owner_contact_cc_emails"));
             var that = this;
-     
+
             tempMega.addObserver('isLoaded', function() {
                 if (tempMega.get('isLoaded')) {
-      
+
                     that.set("selectedMega", tempMega);
                     that.set("emailDestination", that.get("selectedMega").get("owner_contact_email"));
                     that.set("emaiCCDestination", that.get("selectedMega").get("owner_contact_cc_emails"));
@@ -118,8 +118,19 @@ define([
 
             } else {
             }
-        }
+        },
+        nextSendingEmailProcess: function() {
+            this.set('secondStepOfContactEmail', true);
+            this.set('firstStepOfContactEmail', true);
 
+
+        },
+        proviousSendingEmailProcess: function() {
+            this.set('secondStepOfContactEmail', false);
+            this.set('firstStepOfContactEmail', false);
+
+
+        },
     });
 
     return ContactController;

@@ -269,9 +269,9 @@
                                     <img {{bindAttr src= model.profile_pic_url}} style="border:5px solid white;box-shadow: 0px 0px 5px #888;"> 
                                 </div>
                                 {{#if controller.follow_status}}
-                                <div href="#question_modal" role="button" class="green-btn" data-toggle="modal" style="margin:10px auto;display: block;width: 150px;">Following</div>
+                                <div href="#question_modal" role="button" class="followed-btn" data-toggle="modal"><i class='icon-circle-blank' >&nbsp; </i> Following</div>
                                    {{else}}
-                                      <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin:10px auto;display: block;width: 150px;"{{action followThisProfile}}>+ Follow</div>
+                                      <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin:10px auto;display: block;width: 150px;"{{action followThisProfile}}><i class='icon-plus' >&nbsp; </i> Follow</div>
 
                                         {{/if}}
                             </div>

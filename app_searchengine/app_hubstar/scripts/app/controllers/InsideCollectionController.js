@@ -119,7 +119,7 @@ define([
                 if (userOrprofile.objectAt(i).id === collection_id) {
                     var currentCollection = userOrprofile.objectAt(i);
                     currentCollection.set('cover', coverImge);
-                    currentCollection.store.save();
+                    App.store.save();
                     break;
                 }
             }

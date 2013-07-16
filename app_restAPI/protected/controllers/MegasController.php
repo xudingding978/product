@@ -16,12 +16,12 @@ class MegasController extends Controller {
 
             $temp = explode("?", $_SERVER['REQUEST_URI']);
             $request_string = $temp [sizeof($temp) - 1];
-            $response="";
+            $response = "";
 
             if (sizeof($temp) > 1) {
                 $response = $this->getRequestResult($request_string, self::JSON_RESPONSE_ROOT_PLURAL);
                 //    $response = $this->getRequestResultByID(self::JSON_RESPONSE_ROOT_PLURAL, $request_string);
-            } 
+            }
             $this->sendResponse(200, $response);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -67,7 +67,11 @@ class MegasController extends Controller {
         $newRecord['id'] = $id;
         if ($newRecord['mega']['type'] == 'user') {
             $this->updateUserRecord($newRecord);
+        }
+        elseif ($newRecord['mega']['type'] == 'profile') {
+            $this->updateProfileRecord($newRecord);
         } else {
+
             $this->updateMega($newRecord);
             //    $this->updateComment($newRecord);
         }
@@ -158,11 +162,29 @@ class MegasController extends Controller {
         }
     }
 
+    public function updateProfileRecord($newRecord) {
+        try {
+            $cb = $this->couchBaseConnection();
+            $id = $newRecord['mega']['profile'][0]['id'];
+            $docID = $this->getDomain() . "/profiles/" . $id;
+            $oldRecord = $cb->get($docID);
+            $oldRecord = CJSON::decode($oldRecord, true);
+            $oldRecord['profile'] = $newRecord['mega']['profile'];
+            if ($cb->set($docID, CJSON::encode($oldRecord))) {
+                $this->sendResponse(204);
+            } else {
+                $this->sendResponse(500, "some thing wrong");
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
     public function updateUserRecord($newRecord) {
         try {
             $cb = $this->couchBaseConnection();
             $id = $newRecord['mega']['user'][0]['id'];
-            $docID = substr($_SERVER['HTTP_HOST'], 4) . "/users/" . $id;
+            $docID = $this->getDomain() . "/users/" . $id;
             $oldRecord = $cb->get($docID);
             $oldRecord = CJSON::decode($oldRecord, true);
             $oldRecord['user'] = $newRecord['mega']['user'];
@@ -205,13 +227,13 @@ class MegasController extends Controller {
         $docID = $this->getDocId($type, $id);
         $oldRecord = $cb->get($docID);
         $oldRecord = CJSON::decode($oldRecord, true);
-        
-        if (!isset($oldRecord['comments'] )) {
+
+        if (!isset($oldRecord['comments'])) {
             $oldRecord['comments'] = array();
         }
-        if(sizeof($newRecord['mega']['comments'])>sizeof($oldRecord['comments'])){//insert comment
-        array_unshift($oldRecord['comments'], $newRecord['mega']['comments'][0]);        
-        }  
+        if (sizeof($newRecord['mega']['comments']) > sizeof($oldRecord['comments'])) {//insert comment
+            array_unshift($oldRecord['comments'], $newRecord['mega']['comments'][0]);
+        }
         if (!isset($oldRecord['likes_count']) || $oldRecord['likes_count'] != $newRecord['mega']['likes_count']) {//update count
             $oldRecord['likes_count'] = $newRecord['mega']['likes_count'];
             $oldRecord['people_like'] = $newRecord['mega']['people_like'];
@@ -232,5 +254,7 @@ class MegasController extends Controller {
         }
         return $docID;
     }
+
 }
+
 ?>

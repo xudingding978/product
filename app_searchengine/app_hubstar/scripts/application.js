@@ -56,7 +56,7 @@ require.config({
 });
 // Define application
 define('application', [
-    "namespace/DragNDropNamespace",
+//    "namespace/DragNDropNamespace",
     "views/ApplicationView",
     "views/DiscoveryView",
     "views/PhotoView",
@@ -122,7 +122,7 @@ define('application', [
     "views/UserCollectionsView",
     "controllers/ApplicationController",
 
-    "controllers/DataController",
+//    "controllers/DataController",
     "controllers/ProfilesController",
     "controllers/TestController",
     "controllers/ProfileController",
@@ -150,7 +150,7 @@ define('application', [
     "routes/ApplicationRoute",
     "routes/IndexRoute",
  //   "routes/SelectedTabRoute",
-    "routes/DataRoute",
+ //   "routes/DataRoute",
     "routes/ProfilesRoute",
     "routes/ProfileRoute",
     "routes/ProfileIndexRoute",
@@ -169,7 +169,7 @@ define('application', [
  //   "routes/FilesRoute",
     "routes/ArticlesRoute",
     "routes/ArticleRoute",
-    "routes/DiscussionsRoute",
+//    "routes/DiscussionsRoute",
     "routes/SearchsRoute",
     "routes/SearchRoute",
     "routes/SearchIndexRoute",
@@ -206,7 +206,7 @@ define('application', [
     'bootstrap-modal'
 
 ], function(
-        DragNDropNamespace,
+  //      DragNDropNamespace,
         ApplicationView,
         DiscoveryView,
         PhotoView,
@@ -272,7 +272,7 @@ define('application', [
         UserCollectionsView,
         ApplicationController,
  
-        DataController,
+ //       DataController,
         ProfilesController,
         TestController,
         ProfileController,
@@ -300,7 +300,7 @@ define('application', [
         ApplicationRoute,
         IndexRoute,
  //       SelectedTabRoute,
-        DataRoute,
+  //      DataRoute,
         ProfilesRoute,
         ProfileRoute,
         ProfileIndexRoute,
@@ -319,7 +319,7 @@ define('application', [
     //    FilesRoute,
         ArticlesRoute,
         ArticleRoute,
-        DiscussionsRoute,
+  //      DiscussionsRoute,
         SearchsRoute,
         SearchRoute,
         SearchIndexRoute,
@@ -355,7 +355,7 @@ define('application', [
         VERSION: '1.0.0',
         rootElement: '#main',
         //  DragNDrop: DragNDrop,
-        DragNDropNamespace: DragNDropNamespace,
+ //       DragNDropNamespace: DragNDropNamespace,
         ApplicationView: ApplicationView,
         DiscoveryView: DiscoveryView,
         PhotoView: PhotoView,
@@ -421,7 +421,7 @@ define('application', [
         UserCollectionsView:UserCollectionsView,
         ApplicationController: ApplicationController,
 
-        DataController: DataController,
+//        DataController: DataController,
         ProfilesController: ProfilesController,
         TestController: TestController,
         ProfileController: ProfileController,
@@ -449,7 +449,7 @@ define('application', [
         ApplicationRoute: ApplicationRoute,
         IndexRoute: IndexRoute,
  //       SelectedTabRoute: SelectedTabRoute,
-        DataRoute: DataRoute,
+ //       DataRoute: DataRoute,
         ProfilesRoute: ProfilesRoute,
         ProfileRoute: ProfileRoute,
         ProfileIndexRoute: ProfileIndexRoute,
@@ -468,7 +468,7 @@ define('application', [
      //   FilesRoute: FilesRoute,
         ArticlesRoute: ArticlesRoute,
         ArticleRoute: ArticleRoute,
-        DiscussionsRoute: DiscussionsRoute,
+ //       DiscussionsRoute: DiscussionsRoute,
         SearchsRoute: SearchsRoute,
         SearchRoute: SearchRoute,
         SearchIndexRoute: SearchIndexRoute,

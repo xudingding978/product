@@ -96,21 +96,18 @@ define([
             });
             this.set("from", this.get("size"));
 
-
-
-
-
+            var statusController = this.get('controllers.status');
             var stats = Stat.find({"RquireType": "status", "region": this.get("search_area"), "search_string": this.get("search_string")});
 
             stats.addObserver('isLoaded', function() {
                 if (stats.get('isLoaded')) {
                     var d = new Date();
-                    var end = d.getTime();
-                    var statusController = that.get('controllers.status');
+                    var end = d.getTime();                    
                     var hit = Stat.find('hit');
                     var time = that.getResponseTime(start, end);
                     statusController.set("searchResultNum", hit.get("hits"));
                     statusController.set("time", time);
+                    statusController.changeDescription();
                 }
                 setTimeout(function() {
                     $('#masonry_container').masonry("reload");

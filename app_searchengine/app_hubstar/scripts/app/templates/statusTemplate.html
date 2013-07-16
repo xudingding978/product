@@ -27,7 +27,7 @@
                 <a {{bindAttr href="controller.myUserProfile"}} ><img {{bindAttr src="controller.user.photo_url"}} class="profilepic_user"/></a>                              
             </div>
             <p> Hi {{controller.user.display_name}} </p>
-            <h4>You've got {{controller.searchResultNum}} results in {{controller.time}}.</h4>
+            <h4>{{controller.response}}</h4>
 
           
         </div>

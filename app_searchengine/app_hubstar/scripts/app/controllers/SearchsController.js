@@ -35,7 +35,6 @@ define([
         },
         //get user model data after login
             /***/     setLoginImge: function() {                                           /***/
-
             /***/            var ac = this.get("controllers.application");          /***/
             /***/           var st = this.get("controllers.status");                   /***/
             /***/          ac.grapData();                                                       /***/

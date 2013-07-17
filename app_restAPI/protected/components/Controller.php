@@ -129,27 +129,6 @@ class Controller extends CController {
         return (isset($codes[$status])) ? $codes[$status] : '';
     }
 
-//    protected function processMultiGet($results_arr, $jsonRoot) {
-//        $numItems = count($results_arr);
-//        $i = 0;
-//        $result = '{"' . $jsonRoot . '":[';
-//        foreach ($results_arr as $key => $value) {
-//            if (++$i === $numItems) {
-//                $result .= $value;
-//            } else {
-//                $result .= $value . ',';
-//            }
-//        }
-//        $result .= ']}';
-//        return $result;
-//    }
-//    protected function processGet($results_arr, $jsonRoot) {
-//        $result = '{"' . $jsonRoot . '":[';
-//        $result .= $results_arr;
-//        $result .= ']}';
-//        return $result;
-//    }
-
     protected function getNewID() {
         $myText = (string) microtime();
         $pieces = explode(" ", $myText);
@@ -440,49 +419,6 @@ class Controller extends CController {
         return trim($matches[0]);
     }
 
-    public function convertToString64($image_string) {
-        $matchs = array();
-        preg_match_all('/\:(.*?)\;/', $image_string, $matchs);
-        $image_type = $matchs[1][0];
-
-        $input_image_string = $this->getInputData($image_type, $image_string);
-        $image_data['type'] = $image_type;
-        $image_data['data'] = $input_image_string;
-
-        return $image_data;
-    }
-
-    function compressPhotoData($type, $image) {
-        if ($type == "image/png") {
-            imagepng($image);
-        } elseif ($type == "image/jpeg") {
-            imagejpeg($image, null, 80);
-        }
-        return $image;
-    }
-
-//    function array_put_to_position($array, $object, $position, $name = null) {
-//        $count = 0;
-//        $inserted = false;
-//        $return = array();
-//
-//        foreach ($array as $k => $v) {
-//            // insert new object
-//            if ($count == $position) {
-//                if (!$name)
-//                    $name = $count;
-//                $return[$name] = $object;
-//                $inserted = true;
-//            }
-//            // insert old object
-//            $return[$k] = $v;
-//            $count++;
-//        }
-//        if (!$name)
-//            $name = $count;
-//        if (!$inserted)
-//            $return[$name];
-//        $array = $return;
-//        return $array;
-//    }
+    
+   
 }

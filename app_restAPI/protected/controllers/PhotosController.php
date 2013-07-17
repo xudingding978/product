@@ -203,7 +203,6 @@ class PhotosController extends Controller {
         unset($result_arr['active_yn']);
         unset($result_arr['indexed_yn']);
 
-//        error_log(var_export($result));
         print_r($result_arr);
 
         if ($ch->set($id, CJSON::encode($result_arr))) {
@@ -368,7 +367,6 @@ class PhotosController extends Controller {
 
         $cb = $this->couchBaseConnection();
         if ($cb->add($docID, CJSON::encode($newMega))) {
-      error_log('success '.$id);
             $this->sendResponse(204);
         } else {
             $this->sendResponse(500, "some thing wrong");

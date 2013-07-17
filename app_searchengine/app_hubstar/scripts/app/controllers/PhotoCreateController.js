@@ -9,7 +9,6 @@ define(["ember", "helper"],
                 collection_id: "",
                 needs: ['profile', 'masonryCollectionItems'],
                 init: function() {
-
                     this.setMega();
                 },
                 commitFiles: function(evt) {
@@ -34,11 +33,10 @@ define(["ember", "helper"],
                 {
                 }, submit: function()
                 {
-
                     App.store.commit();
-
                 }, back: function()
                 {
+
                     this.set("content", []);
                     this.set("nodifyBackGround", false);
                     var masonryCollectionItems = this.get('controllers.masonryCollectionItems');
@@ -95,8 +93,6 @@ define(["ember", "helper"],
                     });
                     return photoMega;
                 }, addPhotoObject: function(e, that, name, type) {
-
-
                     var target = that.getTarget(e);
                     var src = target.result;
                     var mega = that.createNewMega(that.get("profileMega"));
@@ -116,7 +112,6 @@ define(["ember", "helper"],
                             $('.' + file.get('photo_source_id')).attr("style", "display:none");
                         }
                     });
-
                     that.get("content").addObject(file);
                 },
                 getTarget: function(obj) {

@@ -143,11 +143,11 @@ class MegasController extends Controller {
     public function updateProfileRecord($newRecord) {
         try {
             $cb = $this->couchBaseConnection();
-            $id = $newRecord['mega']['user'][0]['id'];
-            $docID = $this->getDomain() . "/users/" . $id;
+            $id = $newRecord['mega']['profile'][0]['id'];
+            $docID = $this->getDomain() . "/profiles/" . $id;
             $oldRecord = $cb->get($docID);
             $oldRecord = CJSON::decode($oldRecord, true);
-            $oldRecord['user'] = $newRecord['mega']['user'];
+            $oldRecord['profile'] = $newRecord['mega']['profile'];
             if ($cb->set($docID, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);
             } else {

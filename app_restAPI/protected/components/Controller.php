@@ -274,20 +274,23 @@ class Controller extends CController {
     }
 
     protected function performRawSearch($returnType, $collection_id, $owner_profile_id) {
-        $request = $this->getElasticSearch();
 
+
+        $request = $this->getElasticSearch();
         $must = Sherlock\Sherlock::queryBuilder()
-                ->QueryString()
-                ->field('couchbaseDocument.doc.collection_id')
-                ->query($collection_id);
+                ->QueryString()->query($collection_id)
+                ->default_field('couchbaseDocument.doc.collection_id');
+     
+
         $must2 = Sherlock\Sherlock::queryBuilder()
-                ->QueryString()
-                ->field('couchbaseDocument.doc.owner_id')
-                ->query($owner_profile_id);
+                ->QueryString()->query($owner_profile_id)
+                ->default_field('couchbaseDocument.doc.owner_id');
+
 
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)
-                ->must($must2)
-                ->boost(2.5);
+                ->must($must2);
+
+       
         $response = $request->query($bool)->execute();
 
         $results = $this->getReponseResult($response, $returnType);
@@ -419,6 +422,4 @@ class Controller extends CController {
         return trim($matches[0]);
     }
 
-    
-   
 }

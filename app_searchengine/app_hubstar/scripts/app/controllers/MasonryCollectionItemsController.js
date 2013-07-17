@@ -121,9 +121,8 @@ define([
             this.set('content', []);
             var address = document.URL;
             var owner_id = address.split("#")[1].split("/")[2];
-
             var title = this.get('title');
-            var results = MegaModel.find({RquireType: "collection", title: title, owner_profile_id: owner_id});
+            var results = MegaModel.find({RquireType: "collection", "collection_id": title, "owner_profile_id": owner_id});
 
             var that = this;
             results.addObserver('isLoaded', function() {

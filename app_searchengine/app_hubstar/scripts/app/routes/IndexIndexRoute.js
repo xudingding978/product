@@ -21,6 +21,17 @@ define([
             }
 
         },
+        events: {
+            transitionToProfile: function() {
+                this.controllerFor('application').set("popup", true);
+            },
+            transitionToPhoto: function() {
+                this.controllerFor('application').set("popup", true);
+            },
+            transitionToArticle: function() {
+                this.controllerFor('application').set("popup", true);
+            }
+        },
         redirect: function() {
 
 
@@ -50,25 +61,6 @@ define([
 
             App.set("isLogin", true);
         },
-        renderTemplate: function() {
-            var controller = this.controllerFor('application');
-
-            this.render('index', {
-                into: "application"
-            });
-
-            this.render('default', {
-                into: "index"
-
-            });
-
-//            this.render('status', {
-//                into: "masonry",
-//                controller: controller
-//            });
-
-        }
-
     });
     return IndexIndexRoute;
 });

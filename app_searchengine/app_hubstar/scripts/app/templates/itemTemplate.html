@@ -1,6 +1,6 @@
 
 {{#if getProfile}}
-<div class="box col2 noStyle1">
+<div class="box col2 noStyle1"  {{action checkingLoginStatus target="view" on="click"}}>
     <div class="masonry-object">
         {{render itemProfiles this}}
         {{render "comment" this}}
@@ -12,15 +12,15 @@
 
 
 {{#if getPhoto}}
-<div class="box col2 noStyle1">
+<div class="box col2 noStyle1" {{action checkingLoginStatus target="view" on="click"}}>
 
     <div class="masonry-object">
         <div class="masonry-object_poster">  
-            <a class="profilepic-on-masonry" {{bindAttr href="getProfile_id"}}>
+            <a class="profilepic-on-masonry" style="cursor: pointer">
                 <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
             </a>
             <div class="object_username">
-                <a class="poster-name" {{bindAttr href="getProfile_id"}}  {{action transitionToProfile owner_id}}>{{owner_title}}</a>
+                <a class="poster-name" style="cursor: pointer" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
                 <span class="posttime">{{date created}}</span>
             </div>
             {{#if controller.is_authentic_user}}
@@ -240,17 +240,17 @@
 
 
 {{#if getArticle}}
-<div class="box col2 noStyle1">
+<div class="box col2 noStyle1"  {{action checkingLoginStatus target="view" on="click"}}>
 
     <div class="masonry-object">
         <div class="masonry-object_poster">  
-            <a {{bindAttr href="getProfile_id"}}>
+            <a style="cursor: pointer">
 
                 <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}} class="profilepic-on-masonry"/>
 
             </a>
             <div class="object_username">
-                <a class="poster-name" {{bindAttr href="getProfile_id"}}>{{creator}}</a>
+                <a class="poster-name" style="cursor: pointer">{{creator}}</a>
                 <span class="posttime">{{date created}}</span>
             </div>
 

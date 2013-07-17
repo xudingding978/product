@@ -24,6 +24,17 @@ define([
 
 
         },
+        checkingLoginStatus: function() {
+
+            var controller = this.get('controller');
+            if (controller._debugContainerKey.indexOf("application") !== -1) {
+
+
+                if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
+                    controller.set("popup", true);
+                }
+            }
+        },
         moreContent: function(event) {
 
             var id = "#" + event.id;

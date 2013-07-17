@@ -24,8 +24,6 @@ define([
         redirect: function() {
 
 
-
-
             if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
                 this.transitionTo('indexIndex');
 
@@ -46,27 +44,7 @@ define([
         },
         deactivate: function() {
 
-
-
             App.set("isLogin", true);
-        },
-        renderTemplate: function() {
-            var controller = this.controllerFor('application');
-
-            this.render('index', {
-                into: "application"
-            });
-
-            this.render('default', {
-                into: "index"
-
-            });
-
-//            this.render('status', {
-//                into: "masonry",
-//                controller: controller
-//            });
-
         }
 
     });

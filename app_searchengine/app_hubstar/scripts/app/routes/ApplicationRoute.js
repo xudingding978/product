@@ -14,8 +14,6 @@ define([
         setupController: function(controller, model) {
 
 
-            this.controllerFor('application').loginStatus();
-
         }
 
     });

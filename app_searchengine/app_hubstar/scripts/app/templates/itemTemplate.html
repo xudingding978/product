@@ -29,23 +29,24 @@
                 <k class="icon-trash" {{action  removeCollectedItem controller.title id }}></k>
             </div>
             {{#unless controller.canEditbyOwner}}
-            <a {{action changeCollectionCover id controller.title App.User}}>cover change</a>
+
+            <k class="icon-camera" {{action changeCollectionCover id controller.title App.User}}></k>
             {{/unless}}
             {{/if}}
 
             {{#if controller.canEditbyOwner}}
 
-            <div class="edit-btn edit-object-btn">     
-                <k class="icon-building" {{action dropdownPhotoSetting}}></k>
+            <div class="edit-btn edit-object-btn">
+                <k class="icon-building" {{action dropdownPhotoSetting id}}></k>
             </div>
 
-            {{#if controller.dropdownSetting}}
-            <ul class="edit-btn edit-object-btn" style="position: absolute;right: 20px;top: 5px">     
+        
+            <ul class="edit-btn edit-object-btn" id="dropdown_id_{{unbound id}}" style="display: none;position: absolute;right: 20px;top: 5px">     
                 <li><k class="icon-trash"></k></li>
                 <li> <k class="icon-camera" {{action changeCollectionCover id controller.title App.Profile}}></k></li>
             </ul>
 
-            {{/if}}
+ 
 
 
 

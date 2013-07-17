@@ -37,7 +37,7 @@ define([
             var address = document.URL;
             var owner_id = address.split("#")[1].split("/")[2];
             this.set('title', collection_id);
-            var results = MegaModel.find({RquireType: "collection", collection_id: collection_id, owner_profile_id: owner_id});
+            var results = MegaModel.find({RquireType: "collection", "collection_id": collection_id, "owner_profile_id": owner_id});
 
             var that = this;
             results.addObserver('isLoaded', function() {
@@ -126,9 +126,10 @@ define([
 
 
         },
-        dropdownPhotoSetting: function() {
+        dropdownPhotoSetting: function(id) {
 
-            this.set('dropdownSetting', !this.get('dropdownSetting'));
+        
+            $("#dropdown_id_"+id).attr('style','display:block;position: absolute;right: 20px;top: 5px');
         }
     });
     return MasonryCollectionItemsController;

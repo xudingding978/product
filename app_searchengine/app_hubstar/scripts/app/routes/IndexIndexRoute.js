@@ -16,8 +16,10 @@ define([
             this.controllerFor('status').set('islogin', false);
             this.controllerFor('application').set('isotherpage', false);
 
-            
-            
+            if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
+                this.controllerFor('application').newSearch();
+            }
+
         },
         redirect: function() {
 

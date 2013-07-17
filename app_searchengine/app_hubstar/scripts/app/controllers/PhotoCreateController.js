@@ -7,7 +7,7 @@ define(["ember", "helper"],
                 profileMega: null,
                 nodifyBackGround: false,
                 collection_id: "",
-                needs: ['profile', 'insideCollection'],
+                needs: ['profile', 'masonryCollectionItems'],
                 init: function() {
 
                     this.setMega();
@@ -42,8 +42,8 @@ define(["ember", "helper"],
                 {
                     this.set("content", []);
                     this.set("nodifyBackGround", false);
-                    var insideCollection = this.get('controllers.insideCollection');
-                    insideCollection.back();
+                    var masonryCollectionItems = this.get('controllers.masonryCollectionItems');
+                    masonryCollectionItems.back();
                 },
                 setMega: function() {
                     var profileController = this.get('controllers.profile');
@@ -71,7 +71,7 @@ define(["ember", "helper"],
                         "category": ProfileMega.get("category"),
                         "creator": localStorage.loginStatus,
                         "country": ProfileMega.get("country"),
-                        "collection_id": this.get('controllers.insideCollection').get('title'),
+                        "collection_id": this.get('controllers.masonryCollectionItems').get('title'),
                         "deleted": null,
                         "domains": getDomain(),
                         "editors": "",

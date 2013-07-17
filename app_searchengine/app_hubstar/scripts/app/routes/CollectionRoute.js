@@ -24,8 +24,8 @@ define([
 
             }
             this.controllerFor('user').set('switchPhoto', false);
-            this.controllerFor('insideCollection').selectModelForUser(id);
-            this.controllerFor('insideCollection').set('canEdit', true);
+            this.controllerFor('masonryCollectionItems').selectModelForUser(id);
+            this.controllerFor('masonryCollectionItems').set('canEdit', true);
 
 
         },

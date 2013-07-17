@@ -31,26 +31,9 @@ define([
             this.checkAuthenticUser();
         },
         selectModelForProfile: function(collection_id) {
-            var proController = this.get('controllers.profile');
-            this.set("is_authentic_user", proController.get("is_authentic_user"));
-            this.set('content', []);
-            var address = document.URL;
-            var owner_id = address.split("#")[1].split("/")[2];
             this.set('title', collection_id);
-            var results = MegaModel.find({RquireType: "collection", collection_id: collection_id, owner_profile_id: owner_id});
+            this.resetContent();
 
-            var that = this;
-            results.addObserver('isLoaded', function() {
-                if (results.get('isLoaded')) {
-                    for (var i = 0; i < this.get("content").length; i++) {
-                        var id = this.get("content").objectAt(i).id;
-                        if (MegaModel.find(id)._data.hasMany.photo.length === 1)
-                        {
-                            that.get("content").pushObject(MegaModel.find(id));
-                        }
-                    }
-                }
-            });
 
         },
         newUpload: function() {
@@ -62,6 +45,8 @@ define([
             }, 200);
         },
         back: function() {
+            this.resetContent();
+
             $('#ownerUpload').attr('style', 'display:none');
             $('#tagetUplaod').attr('style', 'display:block');
             setTimeout(function() {
@@ -126,6 +111,32 @@ define([
 
 
         },
+        dropdownPhotoSetting: function(id) {
+
+            this.set('dropdownSetting', !this.get('dropdownSetting'));
+        }, resetContent: function()
+        {
+            var proController = this.get('controllers.profile');
+            this.set("is_authentic_user", proController.get("is_authentic_user"));
+            this.set('content', []);
+            var address = document.URL;
+            var owner_id = address.split("#")[1].split("/")[2];
+            var title = this.get('title');
+            var results = MegaModel.find({RquireType: "collection", "collection_id": title, "owner_profile_id": owner_id});
+
+            var that = this;
+            results.addObserver('isLoaded', function() {
+                if (results.get('isLoaded')) {
+                    for (var i = 0; i < this.get("content").length; i++) {
+                        var id = this.get("content").objectAt(i).id;
+                        if (MegaModel.find(id)._data.hasMany.photo.length === 1)
+                        {
+                            that.get("content").pushObject(MegaModel.find(id));
+                        }
+                    }
+                }
+            });
+        }
     });
     return MasonryCollectionItemsController;
 });

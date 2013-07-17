@@ -129,27 +129,6 @@ class Controller extends CController {
         return (isset($codes[$status])) ? $codes[$status] : '';
     }
 
-//    protected function processMultiGet($results_arr, $jsonRoot) {
-//        $numItems = count($results_arr);
-//        $i = 0;
-//        $result = '{"' . $jsonRoot . '":[';
-//        foreach ($results_arr as $key => $value) {
-//            if (++$i === $numItems) {
-//                $result .= $value;
-//            } else {
-//                $result .= $value . ',';
-//            }
-//        }
-//        $result .= ']}';
-//        return $result;
-//    }
-//    protected function processGet($results_arr, $jsonRoot) {
-//        $result = '{"' . $jsonRoot . '":[';
-//        $result .= $results_arr;
-//        $result .= ']}';
-//        return $result;
-//    }
-
     protected function getNewID() {
         $myText = (string) microtime();
         $pieces = explode(" ", $myText);
@@ -237,7 +216,7 @@ class Controller extends CController {
     }
 
     protected function performMustSearch($requestArray, $returnType, $search_type = "should", $from = 0, $size = 50) {
-     $request = $this->getElasticSearch();
+        $request = $this->getElasticSearch();
         $request->from($from);
         $request->size($size);
         $max = sizeof($requestArray);
@@ -295,20 +274,23 @@ class Controller extends CController {
     }
 
     protected function performRawSearch($returnType, $collection_id, $owner_profile_id) {
-        $request = $this->getElasticSearch();
 
+
+        $request = $this->getElasticSearch();
         $must = Sherlock\Sherlock::queryBuilder()
-                ->QueryString()
-                ->field('couchbaseDocument.doc.collection_id')
-                ->query($collection_id);
+                ->QueryString()->query($collection_id)
+                ->default_field('couchbaseDocument.doc.collection_id');
+     
+
         $must2 = Sherlock\Sherlock::queryBuilder()
-                ->QueryString()
-                ->field('couchbaseDocument.doc.owner_id')
-                ->query($owner_profile_id);
+                ->QueryString()->query($owner_profile_id)
+                ->default_field('couchbaseDocument.doc.owner_id');
+
 
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)
-                ->must($must2)
-                ->boost(2.5);
+                ->must($must2);
+
+       
         $response = $request->query($bool)->execute();
 
         $results = $this->getReponseResult($response, $returnType);
@@ -390,9 +372,9 @@ class Controller extends CController {
         }
 
         $rawRequest = $header . $tempRquestIDs . $footer;
-       $request=$this-> getElasticSearch();
+        $request = $this->getElasticSearch();
         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
-               $request ->query($termQuery);
+        $request->query($termQuery);
         $response = $request->execute();
         $results = $this->getReponseResult($response, $returnType);
         return $results;
@@ -440,28 +422,4 @@ class Controller extends CController {
         return trim($matches[0]);
     }
 
-//    function array_put_to_position($array, $object, $position, $name = null) {
-//        $count = 0;
-//        $inserted = false;
-//        $return = array();
-//
-//        foreach ($array as $k => $v) {
-//            // insert new object
-//            if ($count == $position) {
-//                if (!$name)
-//                    $name = $count;
-//                $return[$name] = $object;
-//                $inserted = true;
-//            }
-//            // insert old object
-//            $return[$k] = $v;
-//            $count++;
-//        }
-//        if (!$name)
-//            $name = $count;
-//        if (!$inserted)
-//            $return[$name];
-//        $array = $return;
-//        return $array;
-//    }
 }

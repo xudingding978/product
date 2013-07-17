@@ -87,6 +87,8 @@ define([
                     if (isExsinting) {
                         this.selectedCollection.set('id', id);
                         this.selectedCollection.set('title', id);
+
+                                  this.selectedCollection.set('cover', this.model.get('profile_hero_url'));
                         this.get("collections").insertAt(0, this.selectedCollection);
                         this.get("collections").store.commit();
                         $(".Targeting_Object_front").attr("style", "display:inline-block");

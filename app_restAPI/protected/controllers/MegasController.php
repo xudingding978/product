@@ -140,7 +140,23 @@ class MegasController extends Controller {
             'ACL' => 'public-read'
         ));
     }
-
+    public function updateProfileRecord($newRecord) {
+        try {
+            $cb = $this->couchBaseConnection();
+            $id = $newRecord['mega']['profile'][0]['id'];
+            $docID = $this->getDomain() . "/profiles/" . $id;
+            $oldRecord = $cb->get($docID);
+            $oldRecord = CJSON::decode($oldRecord, true);
+            $oldRecord['profile'] = $newRecord['mega']['profile'];
+            if ($cb->set($docID, CJSON::encode($oldRecord))) {
+                $this->sendResponse(204);
+            } else {
+                $this->sendResponse(500, "some thing wrong");
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
     public function updateUserRecord($newRecord) {
         try {
             $cb = $this->couchBaseConnection();

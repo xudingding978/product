@@ -34,11 +34,20 @@
             {{/if}}
 
             {{#if controller.canEditbyOwner}}
-            <div class="edit-btn edit-object-btn">     
-                <k class="icon-trash"></k>
 
+            <div class="edit-btn edit-object-btn">     
+                <k class="icon-building" {{action dropdownPhotoSetting}}></k>
             </div>
-            <a {{action changeCollectionCover id controller.title App.Profile}}>cover change</a>
+
+            {{#if controller.dropdownSetting}}
+            <ul class="edit-btn edit-object-btn" style="position: absolute;right: 20px;top: 5px">     
+                <li><k class="icon-trash"></k></li>
+                <li> <k class="icon-camera" {{action changeCollectionCover id controller.title App.Profile}}></k></li>
+            </ul>
+
+            {{/if}}
+
+
 
             {{/if}}
             <div class="object-tags-box">

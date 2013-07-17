@@ -126,6 +126,10 @@ define([
 
 
         },
+        dropdownPhotoSetting: function() {
+
+            this.set('dropdownSetting', !this.get('dropdownSetting'));
+        }
     });
     return MasonryCollectionItemsController;
 });

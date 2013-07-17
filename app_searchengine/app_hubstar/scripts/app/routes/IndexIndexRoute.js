@@ -35,8 +35,6 @@ define([
         redirect: function() {
 
 
-
-
             if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
                 this.transitionTo('indexIndex');
 
@@ -57,10 +55,9 @@ define([
         },
         deactivate: function() {
 
-
-
             App.set("isLogin", true);
-        },
+        }
+
     });
     return IndexIndexRoute;
 });

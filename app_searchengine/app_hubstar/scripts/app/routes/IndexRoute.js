@@ -13,13 +13,8 @@ define([
 
 
 
-//        renderTemplate: function() {
-//            this.render('index', {
-//                into: "application"
-//            });
 
 
-  //      }
     });
     return IndexRoute;
 });

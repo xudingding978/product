@@ -1,48 +1,48 @@
 {{#if controller.comingsoon}}
 
-    {{outlet comingsoon}}
+{{outlet comingsoon}}
 
 {{else}}
 
-    {{view App.HeaderView}}
+{{view App.HeaderView}}
 
-    {{outlet profile}}
-    
-    {{outlet profiles}}
-    
-    {{outlet user}}
-    
-    {{#unless controller.isotherpage}}
-        {{#if controller.islogin}}
-       
-             {{view App.DiscoveryView}}
-              
-           {{outlet "welcome"}}
-           {{outlet "quickstart"}}        
-        {{else}}
-        
-            {{view App.CarouselView}}
-        {{/if}}
+{{outlet profile}}
 
-        {{view App.MasonryView}}
+{{outlet profiles}}
 
-    {{/unless}}
-    
-    {{outlet photos}}
-    {{outlet articles}}
-    {{outlet "profileNew"}}
-    {{render "footer"}}
+{{outlet user}}
+
+{{#unless controller.isotherpage}}
+{{#if controller.islogin}}
+
+{{view App.DiscoveryView}}
+
+{{outlet "welcome"}}
+{{outlet "quickstart"}}        
+{{else}}
+
+{{view App.CarouselView}}
+{{/if}}
+
+{{view App.MasonryView}}
+
+{{/unless}}
+
+{{outlet photos}}
+{{outlet articles}}
+{{outlet "profileNew"}}
+{{render "footer"}}
 
 {{/if}}
 
 {{#if controller.islogin}}
-    {{render platformBar}}
+{{render platformBar}}
 {{/if}}
 
 
 {{#if controller.loadingTime}}
 
-    {{render loadingSpinner}}
+{{render loadingSpinner}}
 
 {{/if}}
 
@@ -51,6 +51,18 @@
 
 
 <script type="text/javascript">
+
+//(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+//(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+//m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+//})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+//ga('create', 'the-ebusiness-company.com:trendsideas');
+//ga('send', 'pageview');
+
+
+
+
 
     function DropDown(el) {
         this.dd = el;

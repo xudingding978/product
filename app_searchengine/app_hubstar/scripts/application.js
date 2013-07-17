@@ -71,9 +71,7 @@ define('application', [
     "views/TestView",
     "views/EditingAboutView",
     "views/ProfileNewView",
-//    "views/IndexView",
     "views/CarouselView",
-//    "views/PhotoSliderView",
     "views/MasonryView",
     //  "views/LightBoxView",
     "views/VideoView",
@@ -169,7 +167,6 @@ define('application', [
     //   "routes/FilesRoute",
     "routes/ArticlesRoute",
     "routes/ArticleRoute",
-//    "routes/DiscussionsRoute",
     "routes/SearchsRoute",
     "routes/SearchRoute",
     "routes/SearchIndexRoute",
@@ -503,8 +500,6 @@ define('application', [
             })
         }),
         ready: function() {
-
-
             App.set("isLogin", false);
             App.set("afterSearch", false);
             App.set("setHight", null);

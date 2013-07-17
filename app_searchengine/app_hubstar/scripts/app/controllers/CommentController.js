@@ -82,7 +82,9 @@ define(["ember"], function(Ember) {
                 mega.set("likes_count", people_like.split(",").length);
             }
             mega.set("people_like", people_like);
-            App.store.save();
+            mega.addLike(mega);
+
+            //       App.store.save();
         }
     });
     return CommentController;

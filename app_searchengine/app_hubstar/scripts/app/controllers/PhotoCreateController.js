@@ -23,7 +23,6 @@ define(["ember", "helper"],
                             var type = file.type;
                             var reader = new FileReader();
                             reader.onload = function(e) {
-                                //   var src = e.srcElement.result;
 
                                 that.addPhotoObject(e, that, name, type);
                             }, reader.readAsDataURL(files[i]);

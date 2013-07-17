@@ -18,18 +18,6 @@
             </ul>
 
 
-
-            {{#if collectionTag}}
-            {{view App.ProfileCollectionsView}}
-            {{/if}} 
-
-            {{#if partnerTag}}
-            {{render profilePartners}}
-            {{/if}} 
-
-            {{#if followerTag}}
-            {{render profileFollowers}}
-            {{/if}} 
             
             {{/if}}
 
@@ -47,7 +35,17 @@
         </div>
         <!--END SECTION CONTROL BAR-->
 
+            {{#if collectionTag}}
+            {{view App.ProfileCollectionsView}}
+            {{/if}} 
 
+            {{#if partnerTag}}
+            {{render profilePartners}}
+            {{/if}} 
+
+            {{#if followerTag}}
+            {{render profileFollowers}}
+            {{/if}} 
 
 
 

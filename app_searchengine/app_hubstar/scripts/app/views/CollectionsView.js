@@ -1,12 +1,12 @@
 define([
     "ember",
-    "text!templates/userCollectionsTemplate.html"
-], function(Ember, userCollectionsTemplate) {
+    "text!templates/CollectionsTemplate.html"
+], function(Ember, CollectionsTemplate) {
 
-    Ember.TEMPLATES["userCollections"] = Ember.Handlebars.compile(userCollectionsTemplate);
+    Ember.TEMPLATES["Collections"] = Ember.Handlebars.compile(CollectionsTemplate);
 
-    var UserCollectionsView = Ember.View.extend({
-        template: Ember.Handlebars.compile(userCollectionsTemplate),
+    var CollectionsView = Ember.View.extend({
+        template: Ember.Handlebars.compile(CollectionsTemplate),
         editCollectionButton: function(id, desc) {
 
             var userController = this.get('controller');
@@ -53,5 +53,5 @@ define([
         }
     });
 
-    return UserCollectionsView;
+    return CollectionsView;
 });

@@ -16,12 +16,12 @@ class MegasController extends Controller {
 
             $temp = explode("?", $_SERVER['REQUEST_URI']);
             $request_string = $temp [sizeof($temp) - 1];
-            $response="";
+            $response = "";
 
             if (sizeof($temp) > 1) {
                 $response = $this->getRequestResult($request_string, self::JSON_RESPONSE_ROOT_PLURAL);
                 //    $response = $this->getRequestResultByID(self::JSON_RESPONSE_ROOT_PLURAL, $request_string);
-            } 
+            }
             $this->sendResponse(200, $response);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -67,7 +67,11 @@ class MegasController extends Controller {
         $newRecord['id'] = $id;
         if ($newRecord['mega']['type'] == 'user') {
             $this->updateUserRecord($newRecord);
+        }
+        elseif ($newRecord['mega']['type'] == 'profile') {
+            $this->updateProfileRecord($newRecord);
         } else {
+
             $this->updateMega($newRecord);
             //    $this->updateComment($newRecord);
         }
@@ -137,32 +141,11 @@ class MegasController extends Controller {
         ));
     }
 
-    public function updateComment($newRecord) {
-        try {
-            $cb = $this->couchBaseConnection();
-            $temp = explode("/", $_SERVER['REQUEST_URI']);
-            $id = $temp [sizeof($temp) - 1];
-            $type = $newRecord['mega']['type'];
-            $docID = $this->getDocId($type, $id);
-            $oldRecord = $cb->get($docID);
-            $oldRecord = CJSON::decode($oldRecord, true);
-            $oldRecord['comments'] = null;
-            $oldRecord['comments'] = $newRecord['mega']['comments'];
-            if ($cb->set($docID, CJSON::encode($oldRecord, true))) {
-                $this->sendResponse(204);
-            } else {
-                $this->sendResponse(500, "some thing wrong");
-            }
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }
-
     public function updateUserRecord($newRecord) {
         try {
             $cb = $this->couchBaseConnection();
             $id = $newRecord['mega']['user'][0]['id'];
-            $docID = substr($_SERVER['HTTP_HOST'], 4) . "/users/" . $id;
+            $docID = $this->getDomain() . "/users/" . $id;
             $oldRecord = $cb->get($docID);
             $oldRecord = CJSON::decode($oldRecord, true);
             $oldRecord['user'] = $newRecord['mega']['user'];
@@ -201,17 +184,16 @@ class MegasController extends Controller {
         $cb = $this->couchBaseConnection();
         $id = $newRecord['id'];
         $type = $newRecord['mega']['type'];
-        $this->getDocId($type, $id);
         $docID = $this->getDocId($type, $id);
         $oldRecord = $cb->get($docID);
         $oldRecord = CJSON::decode($oldRecord, true);
-        
-        if (!isset($oldRecord['comments'] )) {
+
+        if (!isset($oldRecord['comments'])) {
             $oldRecord['comments'] = array();
         }
-        if(sizeof($newRecord['mega']['comments'])>sizeof($oldRecord['comments'])){//insert comment
-        array_unshift($oldRecord['comments'], $newRecord['mega']['comments'][0]);        
-        }  
+        if (sizeof($newRecord['mega']['comments']) > sizeof($oldRecord['comments'])) {//insert comment
+            array_unshift($oldRecord['comments'], $newRecord['mega']['comments'][0]);
+        }
         if (!isset($oldRecord['likes_count']) || $oldRecord['likes_count'] != $newRecord['mega']['likes_count']) {//update count
             $oldRecord['likes_count'] = $newRecord['mega']['likes_count'];
             $oldRecord['people_like'] = $newRecord['mega']['people_like'];
@@ -232,5 +214,48 @@ class MegasController extends Controller {
         }
         return $docID;
     }
+
+    public function actionaddlike() {
+        $newRecord_arr = file_get_contents('php://input');
+        $newRecord = CJSON::decode($newRecord_arr, true);
+        $likes_count = $newRecord['likes_count'];
+        $people_like = $newRecord['people_like'];
+        $id = $newRecord['optional'];
+        $type = $newRecord['type'];
+        $docID = $this->getDocId($type, $id);
+        $cb = $this->couchBaseConnection();
+        $oldRecord_arr = $cb->get($docID);
+        $oldRecord = CJSON::decode($oldRecord_arr, true);
+        $oldRecord['likes_count'] = $likes_count;
+        $oldRecord['people_like'] = $people_like;
+        if ($cb->set($docID, CJSON::encode($oldRecord))) {
+            $this->sendResponse(204);
+        } else {
+            $this->sendResponse(500, "some thing wrong");
+        }
+    }
+    
+        public function updateComment() {
+//        try {
+//            $cb = $this->couchBaseConnection();
+//            $temp = explode("/", $_SERVER['REQUEST_URI']);
+//            $id = $temp [sizeof($temp) - 1];
+//            $type = $newRecord['mega']['type'];
+//            $docID = $this->getDocId($type, $id);
+//            $oldRecord = $cb->get($docID);
+//            $oldRecord = CJSON::decode($oldRecord, true);
+//            $oldRecord['comments'] = null;
+//            $oldRecord['comments'] = $newRecord['mega']['comments'];
+//            if ($cb->set($docID, CJSON::encode($oldRecord, true))) {
+//                $this->sendResponse(204);
+//            } else {
+//                $this->sendResponse(500, "some thing wrong");
+//            }
+//        } catch (Exception $exc) {
+//            echo $exc->getTraceAsString();
+//        }
+    }
+
 }
+
 ?>

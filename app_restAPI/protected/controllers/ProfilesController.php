@@ -31,11 +31,7 @@ class ProfilesController extends Controller {
           ->query("profile")
           ->boost(2.5);
 
-          //        $filter = null;
-          //custom_filters_score query allows to execute a query, and if the hit matches a provided filter (ordered)
-          //        $customFilterQuery = Sherlock\Sherlock::queryBuilder()->CustomFiltersScore()
-          //                ->query("match_all")
-          //                ->filters($filter);
+
           //Set the index, type and from/to parameters of the request.
           $request->index(Yii::app()->params['elasticSearchIndex'])
           ->type("couchbaseDocument")

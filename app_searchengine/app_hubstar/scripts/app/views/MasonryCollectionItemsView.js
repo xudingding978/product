@@ -1,12 +1,12 @@
 define([
     "ember",
-    "text!templates/insideCollectionTemplate.html",
+    "text!templates/masonryCollectionItemsTemplate.html",
     "jquery.ui"
 
-], function(Ember, insideCollectionTemplate) {
-    Ember.TEMPLATES["insideCollection"] = Ember.Handlebars.compile(insideCollectionTemplate);
-    var InsideCollectionView = Ember.View.extend({
-        template: Ember.Handlebars.compile(insideCollectionTemplate),
+], function(Ember, masonryCollectionItemsTemplate) {
+    Ember.TEMPLATES["masonryCollectionItems"] = Ember.Handlebars.compile(masonryCollectionItemsTemplate);
+    var MasonryCollectionItemsView = Ember.View.extend({
+        template: Ember.Handlebars.compile(masonryCollectionItemsTemplate),
         didInsertElement: function() {
 
             $(function() {
@@ -56,5 +56,5 @@ define([
         }
 
     });
-    return InsideCollectionView;
+    return MasonryCollectionItemsView;
 });

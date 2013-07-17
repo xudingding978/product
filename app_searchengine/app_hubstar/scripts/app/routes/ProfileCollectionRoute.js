@@ -21,10 +21,10 @@ define([
                 var id = model.id;
 
             }
-            this.controllerFor('insideCollection').selectModelForProfile(id);
+            this.controllerFor('masonryCollectionItems').selectModelForProfile(id);
             this.controllerFor('profile').set('switchPhoto', false);
-            this.controllerFor('insideCollection').set('uploadStuff', true);
-            this.controllerFor('insideCollection').set('canEditbyOwner', true);
+            this.controllerFor('masonryCollectionItems').set('uploadStuff', true);
+            this.controllerFor('masonryCollectionItems').set('canEditbyOwner', true);
         },
         model: function(params) {
             this.controllerFor('profile').set('switchPhoto', false);

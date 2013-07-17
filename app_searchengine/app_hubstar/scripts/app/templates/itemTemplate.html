@@ -294,7 +294,7 @@
 
             <div class="masonry-object_text">
                 <div class="masonry-object_text-container">
-                    <p style="font-size: 16px; font-weight: bold;">   {{#linkTo 'article' this}} {{object_title}}{{/linkTo}} </p>
+                    <p style="font-size: 16px; font-weight: bold;" {{action transitionToArticle id}}>{{object_title}}</p>
                     <p style="text-overflow: ellipsis;">{{{object_description}}}</p>
                 </div>
 

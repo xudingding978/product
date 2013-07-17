@@ -69,65 +69,7 @@ class ImageimportController extends Controller {
     
     public function actionResize() {
           echo "33333333333333";
-//        $url = "http://trendsideas.com/media/article/hero/83014.jpg";
-//        $width = '100';
-//        
-//        echo"11111111111111111111111111";
-//        // Loading the image and getting the original dimensions
-//        $ch = curl_init();
-//        $timeout = 0; 
-//        curl_setopt($ch, CURLOPT_URL, $url);
-//        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-//        
-//        // Getting binary data
-//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-//        curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
-//
-//        $im = curl_exec($ch);
-//        curl_close($ch); 
-//        
-//        $data = 'iVBORw0KGgoAAAANSUhEUgAAABwAAAASCAMAAAB/2U7WAAAABl'
-//       . 'BMVEUAAAD///+l2Z/dAAAASUlEQVR4XqWQUQoAIAxC2/0vXZDr'
-//       . 'EX4IJTRkb7lobNUStXsB0jIXIAMSsQnWlsV+wULF4Avk9fLq2r'
-//       . '8a5HSE35Q3eO2XP1A1wQkZSgETvDtKdQAAAABJRU5ErkJggg==';
-//        $data = base64_decode($data);
-//        
-//        $image = imagecreatefromstring($data);
-//        
-//        if ($image !== false) {
-//            header('Content-Type: image/png');
-//            imagepng($image);
-//            imagedestroy($image);
-//        }
-////        $tw = @imagesx($image);
-////        print_r($image); 
-//        
-//        echo ("222222222222222222222222");
-//        
-//        exit();
-//        $orig_width = imagesx($image);
-//        
-//        error_log("3333333333333333333333");
-//        $orig_height = imagesy($image);
-//        
-//        error_log("4444444444444444444444444444444");
-//        exit();
-//        
-//        // Calc the new height
-//        $height = (($orig_height * $width) / $orig_width);
-//
-//        // Create new image to display
-//        $new_image = imagecreatetruecolor($width, $height);
-//
-//        // Create new image with changed dimensions
-//        imagecopyresized($new_image, $image,
-//                0, 0, 0, 0,
-//                $width, $height,
-//                $orig_width, $orig_height);
 
-        // Print image
-//        imagejpeg($new_image);
-        
     }
     
     
@@ -148,34 +90,6 @@ class ImageimportController extends Controller {
     }
 
     
-//    public function photoSavingToS3($request_arr, $path) {
-//        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
-//        $key = explode(".", $_SERVER['HTTP_HOST']);
-//        $key = $key[1] . '.' . $key[2];
-//        $result = $cb->get($key);
-//        $result_arr = CJSON::decode($result, true);
-//        $response = false;
-//        error_log(var_export($request_arr ["mega"]['photos'][0], true));
-//        $data = $this->getInputData($request_arr ["object"]['photos'][0]['photo_type'], $request_arr ["object"]['photos'][0]['photo_url']);
-//        $client = Aws\S3\S3Client::factory(
-//                        $result_arr["providers"]["S3Client"]
-//        );
-////        if ($client->doesObjectExist('hubstar-dev', $path . $request_arr ["object"]['photos'][0]['photo_title'])) {
-////            $response = false;
-////        } else {
-////            $client->putObject(array(
-////                'Bucket' => "hubstar-dev",
-////                'Key' => $path . $request_arr ["object"]['photos'][0]['photo_title'],
-////                'Body' => $data,box/NetBeansProjects/hubstar/app_restAPI
-////                'ACL' => 'public-read'
-////            ));
-////            $response = true;
-////        }
-//
-//
-//
-//        return $response;
-//    }
 
     public function setImage($url) {
         

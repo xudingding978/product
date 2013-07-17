@@ -108,27 +108,24 @@ define([
                 }
             }
         },
-        changeProfileCollectionCover: function(id, collection_id) {
+        changeCollectionCover: function(id, collection_id, AppModel) {
             var Mega = App.Mega.find(id);
             var coverImge = Mega.get('photo').objectAt(0).get('photo_image_original_url');
             var address = document.URL;
             var owner_id = address.split("#")[1].split("/")[2];
 
-            var profile = App.Profile.find(owner_id).get('collections');
-            for (var i = 0; i < profile.get('content').length; i++) {
-                if (profile.objectAt(i).id === collection_id) {
-                    var currentCollection = profile.objectAt(i);
+            var userOrprofile = AppModel.find(owner_id).get('collections');
+            for (var i = 0; i < userOrprofile.get('content').length; i++) {
+                if (userOrprofile.objectAt(i).id === collection_id) {
+                    var currentCollection = userOrprofile.objectAt(i);
                     currentCollection.set('cover', coverImge);
-                    currentCollection.store.save();
+                    App.store.save();
                     break;
                 }
-
-
             }
 
 
-
-        }
+        },
     });
     return InsideCollectionController;
 });

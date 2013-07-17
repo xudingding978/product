@@ -67,7 +67,11 @@ class MegasController extends Controller {
         $newRecord['id'] = $id;
         if ($newRecord['mega']['type'] == 'user') {
             $this->updateUserRecord($newRecord);
+        }
+        elseif ($newRecord['mega']['type'] == 'profile') {
+            $this->updateProfileRecord($newRecord);
         } else {
+
             $this->updateMega($newRecord);
             //    $this->updateComment($newRecord);
         }
@@ -141,7 +145,7 @@ class MegasController extends Controller {
         try {
             $cb = $this->couchBaseConnection();
             $id = $newRecord['mega']['user'][0]['id'];
-            $docID = substr($_SERVER['HTTP_HOST'], 4) . "/users/" . $id;
+            $docID = $this->getDomain() . "/users/" . $id;
             $oldRecord = $cb->get($docID);
             $oldRecord = CJSON::decode($oldRecord, true);
             $oldRecord['user'] = $newRecord['mega']['user'];

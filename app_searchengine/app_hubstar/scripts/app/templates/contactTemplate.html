@@ -41,7 +41,11 @@
         <div class="contactme-table easing" style="text-align: center;">
 
             {{#if controller.secondStepOfContactEmail}}
-
+            <div>
+                <div class="panelcircle" style="position: relative; right: 100px;  margin: auto; font-weight: bold">1</div>
+                <div style="width: 400px; height: 2px; background-color:#ccc;"></div>
+                <div class="panelcircle" style="position: relative; left: 100px;  margin: auto; font-weight: bold">2</div>
+            </div>
 
             <table style="padding: 0 20px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;">
                 <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
@@ -97,14 +101,44 @@
             </table>    
 
 
+
+            <div class="checkbox-columncontainer" style="margin: 20px 0;">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkbox5" class="css-checkbox" checked="checked">
+                    <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Products</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkbox5" class="css-checkbox" checked="checked">
+                    <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Design</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkbox5" class="css-checkbox" checked="checked">
+                    <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Ideas</label>
+                </div>
+            </div>
+            <div class="checkbox-columncontainer">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkbox5" class="css-checkbox" checked="checked">
+                    <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Appliances</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkbox5" class="css-checkbox" checked="checked">
+                    <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Benchtops</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkbox5" class="css-checkbox" checked="checked">
+                    <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Layout</label>
+                </div>
+            </div>
+
             {{/if}}
 
 
         </div>
-        
-        
-            {{#unless controller.firstStepOfContactEmail}}
-        
+
+
+        {{#unless controller.firstStepOfContactEmail}}
+
         <div style="display: block;padding: 5px 0px;">
             <div>
                 <span style="display: inline-block; margin-bottom: 5px;">Message:</span>
@@ -114,31 +148,27 @@
                 </div>
             </div>
         </div>
-        
-        
-         {{/unless}}
-        
+
+
+        {{/unless}}
+
     </div>
-    
-    
+
+
     <div class="controlbtn-field">
+        {{#if controller.secondStepOfContactEmail}}
+        <span style="float: left;margin: 15px;position: relative;left: 15px;">
+            <div type="button" {{action proviousSendingEmailProcess}}  class="new-btn blue-btn">Previous</div>
+        </span>
+        {{/if}}
         <span class="controlbtn">
             <div type="button" {{action closeContact }} class="new-btn">Cancel</div>
-            
-            
-           {{#if controller.secondStepOfContactEmail}}
+            {{#if controller.secondStepOfContactEmail}}
             <div type="button" {{action emailSend }}  class="new-btn green-btn">Submit</div>
-              <div type="button" {{action proviousSendingEmailProcess}}  class="new-btn green-btn">Previous</div>
-            
             {{/if}}
-            
-             {{#unless controller.firstStepOfContactEmail}}
-         
+            {{#unless controller.firstStepOfContactEmail}}
             <div type="button" {{action nextSendingEmailProcess}}  class="new-btn green-btn">Next</div>
             {{/unless}}
-            
-            
-            
         </span>
     </div>
 </div>

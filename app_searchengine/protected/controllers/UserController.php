@@ -73,7 +73,7 @@ class UserController extends Controller {
             $model->COUCHBASE_ID = strval(rand(9999999999, 99999999999));
 
 
-            $cb = new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "develop", true);
+            $cb = new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "production", true);
             $rand_id = $model->COUCHBASE_ID;
             $temp = $this->getMega();
             $temp["id"] = $rand_id;

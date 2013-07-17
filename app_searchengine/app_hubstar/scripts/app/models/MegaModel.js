@@ -52,6 +52,7 @@ define(
         updated: DS.attr('string'),
         uri_url: DS.attr('string'),
         view_count: DS.attr('string'),
+        optional: DS.attr('string'),
         //--------------------------
         photo: DS.hasMany('App.Photo'),
         user: DS.hasMany('App.User'),
@@ -91,16 +92,19 @@ define(
         getDiscussion: function() {
             return this.get('type') === 'discussion';
         }.property('type'),
-        addComment: function()
+        addLike: function(mega)
         {
-                      $.ajax({
-                        url: 'http://api.develop.devbox/images/Test',
-                        type: 'POST',
-                        data: JSON.stringify(file),
-                        success: function(data) {
-                            console.log(data);
-                        }
-                    });
+            var tempurl = getRestAPIURL();
+           console.log(mega.get('people_like'));
+            var id = mega.get('id');
+            mega.set('optional', id);
+            $.ajax({
+                url: tempurl + '/megas/addlike',
+                type: 'POST',
+                data: JSON.stringify(mega),
+                success: function(data) {
+                }
+            });
         },
         didLoad: function() {
 

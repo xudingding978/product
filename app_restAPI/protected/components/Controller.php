@@ -286,7 +286,6 @@ class Controller extends CController {
                         }
                     ]
                 }
-    
             }');
 
         $response = $request->query($termQuery)->execute();

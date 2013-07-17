@@ -25,7 +25,6 @@ class UserController extends Controller {
      */
     public function accessRules() {
         return array(
-
         );
     }
 
@@ -73,11 +72,12 @@ class UserController extends Controller {
             $model->COUCHBASE_ID = strval(rand(9999999999, 99999999999));
 
 
-            $cb = new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "develop", true);
+            $cb = new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "production", true);
             $rand_id = $model->COUCHBASE_ID;
             $temp = $this->getMega();
             $temp["id"] = $rand_id;
             $temp["user"][0]["id"] = $rand_id;
+            $temp["created"] = $this->getCurrentUTC();
             $temp["user"][0]["photo_url"] = "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg";
             $temp["user"][0]["photo_url_large"] = "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg";
             $temp["user"][0]["display_name"] = $model->USER_NAME;
@@ -252,6 +252,12 @@ class UserController extends Controller {
   "user": []
 }';
         return json_decode($mega, true);
+    }
+        public function getCurrentUTC() {
+
+        $datetime = date("Y-m-d H:i:s");
+        $time_string = strtotime($datetime);
+        return $time_string;
     }
 
 }

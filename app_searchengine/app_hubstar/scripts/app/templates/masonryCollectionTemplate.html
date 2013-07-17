@@ -14,11 +14,8 @@
             <ul class="user-stats" id="user-stats">
                 <li id="defualt" ><a {{action selectCollection}}> Collections</a></li>
                 <li ><a {{action selectPartner this}}>Partners</a></li>
-                <!--                <li ><a {{action selectFollower this}}>Followers</a></li>-->
+<!--                <li ><a {{action selectFollower this}}>Followers</a></li>-->
             </ul>
-
-
-            
             {{/if}}
 
             {{#if controller.userTage}}
@@ -26,8 +23,8 @@
             <ul class="user-stats" id="user-stats">
                 <li id="defualt" ><a {{action selectCollection}}> Collections</a></li>
 
-                <!--                <li ><a {{action selectFollowing this}}>Following</a></li>
-                                <li ><a {{action selectFollower this}}>Followers</a></li>-->
+<!--                <li ><a {{action selectFollowing this}}>Following</a></li>
+                <li ><a {{action selectFollower this}}>Followers</a></li>-->
             </ul>
             {{/if}}    
 
@@ -35,18 +32,28 @@
         </div>
         <!--END SECTION CONTROL BAR-->
 
-            {{#if collectionTag}}
-            {{view App.ProfileCollectionsView}}
-            {{/if}} 
+   
 
-            {{#if partnerTag}}
-            {{render profilePartners}}
-            {{/if}} 
+<<<<<<< HEAD
+=======
+        
 
-            {{#if followerTag}}
-            {{render profileFollowers}}
-            {{/if}} 
+        {{#if collectionTag}}
+        {{view App.CollectionsView}}
+        {{/if}} 
 
+        {{#if partnerTag}}
+        {{render profilePartners}}
+        {{/if}} 
+
+        {{#if followerTag}}
+        {{render profileFollowers}}
+        {{/if}} 
+
+
+
+
+>>>>>>> 89d32ad22552f8931856188ff8638c90caf07005
         <div class="box style-box t-style-box"  style="opacity: 0; z-index: -1;">
             <div class="add-new-object-content">
             </div>

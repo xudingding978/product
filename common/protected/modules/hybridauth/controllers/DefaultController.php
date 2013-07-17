@@ -184,7 +184,7 @@ class DefaultController extends CController {
         $rand_id = $user->COUCHBASE_ID;
         $temp = $this->getMega();
         $temp["id"] = $rand_id;
-
+        $temp["created"] = $this->getCurrentUTC();
         $temp["user"][0]["id"] = $rand_id;
         $temp["user"][0]["identifier"] = $userProfile->IDENTIFIER;
         $temp["user"][0]["profile_url"] = $userProfile->PROFILE_URL;
@@ -287,6 +287,13 @@ class DefaultController extends CController {
   "user": []
 }';
         return json_decode($mega, true);
+    }
+
+    public function getCurrentUTC() {
+
+        $datetime = date("Y-m-d H:i:s");
+        $time_string = strtotime($datetime);
+        return $time_string;
     }
 
 }

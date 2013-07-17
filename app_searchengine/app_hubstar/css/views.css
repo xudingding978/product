@@ -1298,7 +1298,7 @@
     border: 1px solid #53a93f;
     color: #53a93f;
     box-shadow: none;
-    cursor: not-allowed;
+    cursor: auto;
 }
 
 

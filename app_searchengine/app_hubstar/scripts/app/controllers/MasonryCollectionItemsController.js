@@ -3,7 +3,7 @@ define([
     'models/MegaModel'
 ], function(Ember, MegaModel) {
 
-    var InsideCollectionController = Ember.ArrayController.extend({
+    var MasonryCollectionItemsController = Ember.ArrayController.extend({
         content: [],
         title: null,
         is_authentic_user: false,
@@ -127,5 +127,5 @@ define([
 
         },
     });
-    return InsideCollectionController;
+    return MasonryCollectionItemsController;
 });

@@ -237,7 +237,7 @@ class Controller extends CController {
     }
 
     protected function performMustSearch($requestArray, $returnType, $search_type = "should", $from = 0, $size = 50) {
-     $request = $this->getElasticSearch();
+        $request = $this->getElasticSearch();
         $request->from($from);
         $request->size($size);
         $max = sizeof($requestArray);
@@ -390,9 +390,9 @@ class Controller extends CController {
         }
 
         $rawRequest = $header . $tempRquestIDs . $footer;
-       $request=$this-> getElasticSearch();
+        $request = $this->getElasticSearch();
         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
-               $request ->query($termQuery);
+        $request->query($termQuery);
         $response = $request->execute();
         $results = $this->getReponseResult($response, $returnType);
         return $results;
@@ -438,6 +438,27 @@ class Controller extends CController {
         preg_match("/[^\.\/]+\.[^\.\/]+$/", $host, $matches);
 
         return trim($matches[0]);
+    }
+
+    public function convertToString64($image_string) {
+        $matchs = array();
+        preg_match_all('/\:(.*?)\;/', $image_string, $matchs);
+        $image_type = $matchs[1][0];
+
+        $input_image_string = $this->getInputData($image_type, $image_string);
+        $image_data['type'] = $image_type;
+        $image_data['data'] = $input_image_string;
+
+        return $image_data;
+    }
+
+    function compressPhotoData($type, $image) {
+        if ($type == "image/png") {
+            imagepng($image);
+        } elseif ($type == "image/jpeg") {
+            imagejpeg($image, null, 80);
+        }
+        return $image;
     }
 
 //    function array_put_to_position($array, $object, $position, $name = null) {

@@ -1,4 +1,15 @@
 <div class="contactmebox-wapper" style="width: 500px;font-size: 13px;background-color: white;margin-top: 20px;">
+
+
+    {{#unless controller.firstStepOfContactEmail}}
+
+    <div style="position: relative;margin-bottom: 20px;text-align: center;">
+        <div class="panelcircle" style="position: relative; display: inline-block;  margin: 0 65px; font-weight: bold;background-color: #427fed;z-index: 1;">1</div>
+        <div {{action nextSendingEmailProcess}} class="panelcircle" style="position: relative; display: inline-block;  margin: 0 65px; font-weight: bold; z-index: 1;">2</div>
+        <div style="width: 300px; height: 2px; border-radius: 20%;background-color:#ccc;position: absolute;margin: auto;left: 0;right: 0;top: 19px;z-index: 0;"></div>
+    </div>
+
+
     <div class="head controlbtn-field">
         <div class="poster_user" >
             <div style="display: block; font-size: 16px; font-weight: bold; margin-bottom: 5px;">
@@ -22,9 +33,6 @@
                 <a style="display: inline-block;cursor: pointer;" {{action setEditable "Email"}}>{{editEmailStatus}}</a>
             </div>
         </div>
-
-
-
         <div style="float: right;position: relative; display: inline-block; vertical-align: top;margin: 5px 0;">
             <a href="#"><img {{bindAttr src="controller.selectedMega.owner_profile_pic"}} class="profilepic"/></a>              
         </div>
@@ -35,17 +43,27 @@
             </div>
         </div>
     </div>
+    {{/unless}}
+
+
+    {{#if controller.secondStepOfContactEmail}}
+    <div style="position: relative;margin-bottom: 20px;">
+        <div {{action proviousSendingEmailProcess}} class="panelcircle" style="position: relative; display: inline-block;  margin: 0 65px; font-weight: bold; z-index:1;">1</div>
+        <div class="panelcircle" style="position: relative; display: inline-block;  margin: 0 65px; font-weight: bold; background-color: #427fed; z-index: 1;">2</div>
+        <div style="width: 300px; height: 2px; border-radius: 20%;background-color:#ccc;position: absolute;margin: auto;left: 0;right: 0;top: 19px;z-index: 0;"></div>
+    </div>
+    {{/if}}
+
+
+
+
 
 
     <div class="content" style="border-radius: 0; padding: 15px 30px 0px;">
         <div class="contactme-table easing" style="text-align: center;">
 
             {{#if controller.secondStepOfContactEmail}}
-            <div style="position: relative;margin-bottom: 20px;">
-                <div {{action proviousSendingEmailProcess}} class="panelcircle" style="position: relative; display: inline-block;  margin: 0 65px; font-weight: bold; z-index:1;">1</div>
-                <div class="panelcircle" style="position: relative; display: inline-block;  margin: 0 65px; font-weight: bold; background-color: #427fed; z-index: 1;">2</div>
-                <div style="width: 300px; height: 2px; border-radius: 20%;background-color:#ccc;position: absolute;margin: auto;left: 0;right: 0;top: 19px;z-index: 0;"></div>
-            </div>
+
 
             <table style="padding: 0 20px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;">
                 <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
@@ -104,21 +122,21 @@
 
             <div class="checkbox-columncontainer" style="margin: 20px 0;">
                 <div class="checkbox-container">
-                    <input type="checkbox" id="checkbox5" class="css-checkbox" checked="checked">
+                    <input type="checkbox" id="checkbox1" class="css-checkbox" checked="checked">
                     <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Products</label>
                 </div>
                 <div class="checkbox-container">
-                    <input type="checkbox" id="checkbox5" class="css-checkbox" checked="checked">
+                    <input type="checkbox" id="checkbox2" class="css-checkbox" checked="checked">
                     <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Design</label>
                 </div>
                 <div class="checkbox-container">
-                    <input type="checkbox" id="checkbox5" class="css-checkbox" checked="checked">
+                    <input type="checkbox" id="checkbox3" class="css-checkbox" checked="checked">
                     <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Ideas</label>
                 </div>
             </div>
             <div class="checkbox-columncontainer">
                 <div class="checkbox-container">
-                    <input type="checkbox" id="checkbox5" class="css-checkbox" checked="checked">
+                    <input type="checkbox" id="checkbox4" class="css-checkbox" checked="checked">
                     <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Appliances</label>
                 </div>
                 <div class="checkbox-container">
@@ -126,7 +144,7 @@
                     <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Benchtops</label>
                 </div>
                 <div class="checkbox-container">
-                    <input type="checkbox" id="checkbox5" class="css-checkbox" checked="checked">
+                    <input type="checkbox" id="checkbox6" class="css-checkbox" checked="checked">
                     <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Layout</label>
                 </div>
             </div>
@@ -139,11 +157,7 @@
 
         {{#unless controller.firstStepOfContactEmail}}
 
-        <div style="position: relative;margin-bottom: 20px;text-align: center;">
-            <div class="panelcircle" style="position: relative; display: inline-block;  margin: 0 65px; font-weight: bold;background-color: #427fed;z-index: 1;">1</div>
-            <div {{action nextSendingEmailProcess}} class="panelcircle" style="position: relative; display: inline-block;  margin: 0 65px; font-weight: bold; z-index: 1;">2</div>
-            <div style="width: 300px; height: 2px; border-radius: 20%;background-color:#ccc;position: absolute;margin: auto;left: 0;right: 0;top: 19px;z-index: 0;"></div>
-        </div>
+
 
         <div style="display: block;padding: 5px 0px;">
             <div>

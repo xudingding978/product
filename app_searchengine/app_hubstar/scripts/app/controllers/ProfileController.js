@@ -30,6 +30,7 @@ define([
                 partnerPage: true,
                 profileSelectionStatus: "Collections",
                 temp: [],
+                tempdesc: [],
                 selectedDesc: "",
                 selectedTitle: "",
                 editingTime: false,
@@ -79,15 +80,15 @@ define([
                     this.isFollowed();
                     this.checkAuthenticUser();
                 },
-                submit: function(){
-
+                submit: function() {
+                    var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
                     var id = this.checkingValidInput(this.selectedCollection.get('id'));
-                    this.checkingIdisExsinting(id, "create");
+                    this.checkingIdisExsinting(desc, id, "create");
                     if (isExsinting) {
                         this.selectedCollection.set('id', id);
                         this.selectedCollection.set('title', id);
 
-                                  this.selectedCollection.set('cover', this.model.get('profile_hero_url'));
+                        this.selectedCollection.set('cover', this.model.get('profile_hero_url'));
                         this.get("collections").insertAt(0, this.selectedCollection);
                         this.get("collections").store.commit();
                         $(".Targeting_Object_front").attr("style", "display:inline-block");
@@ -105,7 +106,7 @@ define([
                     }
                     return title;
                 },
-                checkingIdisExsinting: function(id, postOrPut) {
+                checkingIdisExsinting: function(desc, id, postOrPut) {
 
                     if (postOrPut === "update") {
                         for (var i = 0; i < this.get("temp").get('length'); i++) {
@@ -115,6 +116,22 @@ define([
                                 isExsinting = false;
                             }
                         }
+
+                        if (!isExsinting) {
+                            for (var i = 0; i < this.get("tempdesc").get('length'); i++) {
+                                if (this.get("tempdesc").objectAt(i) === desc) {
+                                    isExsinting = false;
+                                    break;
+
+                                } else {
+
+                                    isExsinting = true;
+
+                                }
+                            }
+
+                        }
+
                         if (!isExsinting) {
                             alert('This Collection is already exsiting!!!');
                         }
@@ -216,6 +233,7 @@ define([
                     for (var i = 0; i < this.get("collections").get("length"); i++) {
                         var thisCollection = this.get("collections").objectAt(i);
                         this.get('temp').pushObject(thisCollection.get("id"));
+                        this.get('tempdesc').pushObject(thisCollection.get("desc"));
                         if (id === thisCollection.get("id")) {
                             this.set("selectedCollection", thisCollection);
 
@@ -225,8 +243,9 @@ define([
                 updateCollectionInfo: function()
                 {
 
+                    var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
                     var id = this.checkingValidInput(this.selectedCollection.get('id'));
-                    this.checkingIdisExsinting(id, "update");
+                    this.checkingIdisExsinting(desc, id, "update");
                     if (isExsinting) {
                         var title = this.get("selectedCollection").get("id");
                         this.get("selectedCollection").set("title", title);

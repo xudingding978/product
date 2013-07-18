@@ -41,7 +41,7 @@
             </div>
 
         
-            <ul class="edit-btn edit-object-btn" id="dropdown_id_{{unbound id}}" style="display: none;position: absolute;right: 20px;top: 5px">     
+            <ul class=" edit-object-btn hideClass" id="dropdown_id_{{unbound id}}" style="position: absolute;right: 70px;top: 5px">
                 <li><k class="icon-trash"></k></li>
                 <li> <k class="icon-camera" {{action changeCollectionCover id controller.title App.Profile}}></k></li>
             </ul>
@@ -98,7 +98,7 @@
                 </div>
 
                 <div class="more_detail" {{bindAttr id="id"}} >
-                    <div class="more_text-container" > 
+                    <div class="more_text-container" >
                         <div style="display:block;">
                             {{object_description}}
                         </div>

@@ -92,22 +92,20 @@ define(
         getDiscussion: function() {
             return this.get('type') === 'discussion';
         }.property('type'),
-        addLike: function(mega)
+        updateMegaWithUrl: function(mega,url)
         {
             var tempurl = getRestAPIURL();
-           console.log(mega.get('people_like'));
             var id = mega.get('id');
             mega.set('optional', id);
             $.ajax({
-                url: tempurl + '/megas/addlike',
+                url: tempurl + '/megas/'+url,
                 type: 'POST',
                 data: JSON.stringify(mega),
-                success: function(data) {
+                success: function() {
                 }
             });
-        },
+        },        
         didLoad: function() {
-
         }
     });
     return MegaModel;

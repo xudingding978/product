@@ -21,6 +21,17 @@ define([
             }
 
         },
+        events: {
+            transitionToProfile: function() {
+                this.controllerFor('application').set("popup", true);
+            },
+            transitionToPhoto: function() {
+                this.controllerFor('application').set("popup", true);
+            },
+            transitionToArticle: function() {
+                this.controllerFor('application').set("popup", true);
+            }
+        },
         redirect: function() {
 
 

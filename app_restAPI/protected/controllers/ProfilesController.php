@@ -39,6 +39,8 @@ class ProfilesController extends Controller {
           ->to(10)
           ->size(100)
           ->query($termQuery);
+          
+          error_log($request->toJSON());
 
           //Execute the search and return results
           $response = $request->execute();

@@ -1,6 +1,6 @@
 
 {{#if getProfile}}
-<div class="box col2 noStyle1">
+<div class="box col2 noStyle1"  {{action checkingLoginStatus target="view" on="click"}}>
     <div class="masonry-object">
         {{render itemProfiles this}}
         {{render "comment" this}}
@@ -12,15 +12,15 @@
 
 
 {{#if getPhoto}}
-<div class="box col2 noStyle1">
+<div class="box col2 noStyle1" {{action checkingLoginStatus target="view" on="click"}}>
 
     <div class="masonry-object">
         <div class="masonry-object_poster">  
-            <a class="profilepic-on-masonry" {{bindAttr href="getProfile_id"}}>
+            <a class="profilepic-on-masonry" style="cursor: pointer">
                 <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
             </a>
             <div class="object_username">
-                <a class="poster-name" {{bindAttr href="getProfile_id"}}  {{action transitionToProfile owner_id}}>{{owner_title}}</a>
+                <a class="poster-name" style="cursor: pointer" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
                 <span class="posttime">{{date created}}</span>
             </div>
             {{#if controller.is_authentic_user}}
@@ -41,7 +41,7 @@
             </div>
 
         
-            <ul class="edit-btn edit-object-btn" id="dropdown_id_{{unbound id}}" style="display: none;position: absolute;right: 20px;top: 5px">     
+            <ul class=" edit-object-btn hideClass" id="dropdown_id_{{unbound id}}" style="position: absolute;right: 70px;top: 5px">
                 <li><k class="icon-trash"></k></li>
                 <li> <k class="icon-camera" {{action changeCollectionCover id controller.title App.Profile}}></k></li>
             </ul>
@@ -98,7 +98,7 @@
                 </div>
 
                 <div class="more_detail" {{bindAttr id="id"}} >
-                    <div class="more_text-container" > 
+                    <div class="more_text-container" >
                         <div style="display:block;">
                             {{object_description}}
                         </div>
@@ -240,17 +240,17 @@
 
 
 {{#if getArticle}}
-<div class="box col2 noStyle1">
+<div class="box col2 noStyle1"  {{action checkingLoginStatus target="view" on="click"}}>
 
     <div class="masonry-object">
         <div class="masonry-object_poster">  
-            <a {{bindAttr href="getProfile_id"}}>
+            <a style="cursor: pointer">
 
                 <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}} class="profilepic-on-masonry"/>
 
             </a>
             <div class="object_username">
-                <a class="poster-name" {{bindAttr href="getProfile_id"}}>{{creator}}</a>
+                <a class="poster-name" style="cursor: pointer">{{creator}}</a>
                 <span class="posttime">{{date created}}</span>
             </div>
 
@@ -294,7 +294,7 @@
 
             <div class="masonry-object_text">
                 <div class="masonry-object_text-container">
-                    <p style="font-size: 16px; font-weight: bold;">   {{#linkTo 'article' this}} {{object_title}}{{/linkTo}} </p>
+                    <a style="font-size: 16px; font-weight: bold;cursor: pointer" {{action transitionToArticle id}}>{{object_title}}</a>
                     <p style="text-overflow: ellipsis;">{{{object_description}}}</p>
                 </div>
 

@@ -1518,6 +1518,19 @@
     color: #333;
 } 
 
+.add-collection_select-collection{
+    width: 335px;
+    height: 250px;
+    padding: 15px;
+    position: absolute;
+    left: 130px;
+    top: 55px;
+    background: #fff;
+    -webkit-box-shadow: 0 0px 1px #888;
+    -moz-box-shadow: 0 0px 1px #888;
+    box-shadow: 0 0px 1px #888;
+}
+
 .edit-btn{
     cursor: pointer;
     color: #333;

@@ -68,7 +68,7 @@ define(['models/MegaModel',
                     var photoObj = megaObject.get('photo').objectAt(0);
                     console.log(megaObject.get('owner_id'));
                     var profile=App.Profile.find(megaObject.get('owner_id'));
-                    console.log(profile);
+                  console.log(megaObject);
                     this.set("currentUser", App.User.find(localStorage.loginStatus));
                     this.set("content", []);
                     this.set('image_no', 1);

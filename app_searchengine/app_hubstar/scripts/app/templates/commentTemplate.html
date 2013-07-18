@@ -22,8 +22,7 @@
 
         </div>
         <div style="display: inline-block;float: right; font-size: 13px;">
-            <div id="thumbUpBtn_{{unbound model.id}}"  class="new-btn" ><i class="icon-thumbs-up-alt" {{action addLike model.id}}>&nbsp</i>{{model.likes_count}}</div>
-           
+            <div id="thumbUpBtn_{{unbound model.id}}"  class="new-btn" {{action addLike model.id}}><i class="icon-thumbs-up-alt" {{action addLike model.id}}>&nbsp</i>{{model.likes_count}}</div>
             <!--<div class="new-btn" style=""><i class="icon-folder-close-alt">&nbsp</i> </div>-->
         </div>
     </div>
@@ -70,9 +69,9 @@
                         </div>
 
                         <div class="reply-comment">
-<!--                            <span {{action deleteComment this }} class="hideClass  user_comment_{{unbound commenter_id}} deletecomment-btn easing">
-                                <i class="icon-remove"></i>
-                            </span>-->
+                            <!--                            <span {{action deleteComment this }} class="hideClass  user_comment_{{unbound commenter_id}} deletecomment-btn easing">
+                                                            <i class="icon-remove"></i>
+                                                        </span>-->
                         </div>
                     </div>
 
@@ -104,4 +103,4 @@
 
 {{/if}}
 
- {{isThumbUped model.people_like model.id}}
+{{isThumbUped model.people_like model.id}}

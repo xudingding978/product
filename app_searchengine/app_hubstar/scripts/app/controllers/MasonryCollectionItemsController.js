@@ -113,7 +113,7 @@ define([
         },
         dropdownPhotoSetting: function(id) {
 
-            this.set('dropdownSetting', !this.get('dropdownSetting'));
+            $('#dropdown_id_'+id).toggleClass('hideClass');
         }, resetContent: function()
         {
             var proController = this.get('controllers.profile');

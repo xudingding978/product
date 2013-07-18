@@ -79,8 +79,7 @@ define([
                     this.isFollowed();
                     this.checkAuthenticUser();
                 },
-                submit: function()
-                {
+                submit: function(){
 
                     var id = this.checkingValidInput(this.selectedCollection.get('id'));
                     this.checkingIdisExsinting(id, "create");

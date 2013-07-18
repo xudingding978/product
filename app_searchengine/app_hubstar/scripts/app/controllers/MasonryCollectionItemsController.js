@@ -9,6 +9,11 @@ define([
         is_authentic_user: false,
         needs: ['photoCreate', 'profile'],
         user_id: null,
+        init: function() {
+   
+            this.checkAuthenticUser();
+
+        },
         selectModelForUser: function(collection_id) {
             this.set('content', []);
             var address = document.URL;
@@ -60,7 +65,7 @@ define([
             this.set("message", message);
             this.set('makeSureDelete', true);
 
-
+            this.dropdownPhotoSetting(itemID);
             if (this.get('willDelete')) {
 
 
@@ -106,17 +111,36 @@ define([
             App.set('data', null);
         },
         checkAuthenticUser: function() {
-            {
+            var authenticUsers = this.get("model").get("owner") + "," + this.get("model").get("profile_editors");
+            var currentUser = App.User.find(localStorage.loginStatus);
+            var that = this;
+            var email = currentUser.get('email');
+            if (authenticUsers !== null && authenticUsers !== undefined && email !== null && email !== undefined) {
+                this.setIsAuthenticUser(authenticUsers, email);
+            }
+            currentUser.addObserver('isLoaded', function() {
+                email = currentUser.get('email');
+                if (currentUser.get('isLoaded')) {
+                    that.setIsAuthenticUser(authenticUsers, email);
+                }
+            });
+        },
+        setIsAuthenticUser: function(authenticUsers, email)
+        {
 
-                if (localStorage.loginStatus === this.get('user_id')) {
-                    this.set('is_authentic_user', true);
-                }
-                else {
-                    this.set('is_authentic_user', false);
-                }
+            if (authenticUsers.indexOf(email) !== -1) {
+                this.set('is_authentic_user', true);
+            }
+            else if (email.indexOf('@trendsideas.com') !== -1) {
+                this.set('is_authentic_user', true);
+            }
+            else {
+                this.set('is_authentic_user', false);
             }
         },
         changeCollectionCover: function(id, collection_id, AppModel) {
+
+            this.dropdownPhotoSetting(id);
             var Mega = App.Mega.find(id);
             var coverImge = Mega.get('photo').objectAt(0).get('photo_image_original_url');
             var address = document.URL;

@@ -3,11 +3,11 @@ define(["ember"], function(Ember) {
         content: [],
         clientID: "",
         partnerID: "",
-        model:"",
+        model: "",
         addPartner: true,
         currentAddPartnerPic: null,
         selectedPartnerPic: "",
-        is_authentic_user:false,
+        is_authentic_user: false,
         init: function() {
         },
         addingPartnerObserver: function() {
@@ -17,13 +17,13 @@ define(["ember"], function(Ember) {
         }.observes('currentAddPartnerPic'),
         getClientId: function(model) {
             this.set('content', []);
-            this.set("model",model);
+            this.set("model", model);
             this.set('clientID', model.id);
             this.set('partnerID', model.get('profile_partner_ids'));
             var data = App.Mega.find({RequireType: "partner", profile_partner_ids: this.get('partnerID')});
             var that = this;
             data.addObserver('isLoaded', function() {
-             that.checkAuthenticUser();
+                that.checkAuthenticUser();
                 if (data.get('isLoaded')) {
                     for (var i = 0; i < data.get("length"); i++) {
                         var tempmega = data.objectAt(i);
@@ -96,33 +96,33 @@ define(["ember"], function(Ember) {
             App.store.get('adapter').updateRecord(App.store, App.Profile, profileOwner);
         },
         checkAuthenticUser: function() {
-                    var authenticUsers = this.get("model").get("owner") + "," + this.get("model").get("profile_editors");
-                    var currentUser = App.User.find(localStorage.loginStatus);
-                    var that = this;
-                    var email = currentUser.get('email');
-                    if (authenticUsers !== null && authenticUsers !== undefined && email !== null && email !== undefined) {
-                        this.setIsAuthenticUser(authenticUsers, email);
-                    }
-                    currentUser.addObserver('isLoaded', function() {
-                        email = currentUser.get('email');
-                        if (currentUser.get('isLoaded')) {
-                            that.setIsAuthenticUser(authenticUsers, email);
-                        }
-                    });
-                },
-                setIsAuthenticUser: function(authenticUsers, email)
-                {
+            var authenticUsers = this.get("model").get("owner") + "," + this.get("model").get("profile_editors");
+            var currentUser = App.User.find(localStorage.loginStatus);
+            var that = this;
+            var email = currentUser.get('email');
+            if (authenticUsers !== null && authenticUsers !== undefined && email !== null && email !== undefined) {
+                this.setIsAuthenticUser(authenticUsers, email);
+            }
+            currentUser.addObserver('isLoaded', function() {
+                email = currentUser.get('email');
+                if (currentUser.get('isLoaded')) {
+                    that.setIsAuthenticUser(authenticUsers, email);
+                }
+            });
+        },
+        setIsAuthenticUser: function(authenticUsers, email)
+        {
 
-                    if (authenticUsers.indexOf(email) !== -1) {
-                        this.set('is_authentic_user', true);
-                    }
-                    else if (email.indexOf('@trendsideas.com') !== -1) {
-                        this.set('is_authentic_user', true);
-                    }
-                    else {
-                        this.set('is_authentic_user', false);
-                    }
-                },
+            if (authenticUsers.indexOf(email) !== -1) {
+                this.set('is_authentic_user', true);
+            }
+            else if (email.indexOf('@trendsideas.com') !== -1) {
+                this.set('is_authentic_user', true);
+            }
+            else {
+                this.set('is_authentic_user', false);
+            }
+        },
     }
     );
     return ProfilePartnersController;

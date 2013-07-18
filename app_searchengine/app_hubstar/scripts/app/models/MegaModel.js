@@ -102,6 +102,7 @@ define(
                 type: 'POST',
                 data: JSON.stringify(mega),
                 success: function() {
+               App.store.save();
                 }
             });
         },        

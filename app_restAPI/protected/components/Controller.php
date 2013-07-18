@@ -243,8 +243,7 @@ class Controller extends CController {
 //populate a Term query to start
         $should = Sherlock\Sherlock::queryBuilder()->Term()->term($requestString)//$collection_id
                 ->field('couchbaseDocument.doc.id');
-        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->should($should)
-                ->boost(2.5);
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->should($should);
         $response = $request->query($bool)->execute();
         $results = $this->getReponseResult($response, $returnType);
         return $results;
@@ -421,5 +420,16 @@ class Controller extends CController {
 
         return trim($matches[0]);
     }
+    
+        public function getDocId($type, $id) {
+        $docID = "";
+        if ($type == "profile") {
+            $docID = $this->getDomain() . "/profiles/" . $id;
+        } elseif ($type == "photo") {
+            $docID = $this->getDomain() . "/" . $id;
+        }
+        return $docID;
+    }
+    
 
 }

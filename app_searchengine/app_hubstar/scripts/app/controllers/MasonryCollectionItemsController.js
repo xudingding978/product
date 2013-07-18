@@ -73,9 +73,9 @@ define([
             }
             for (var i = 0; i < this.get('content').length; i++) {
                 if (this.get('content').objectAt(i).get('id') === itemID) {
-
                     var tempItem = this.get('content').objectAt(i);
-                 tempItem.deleteRecord();
+                    tempItem.deleteRecord();
+                    App.store.save();
                     this.get('content').removeObject(tempItem);
                     break;
                 }
@@ -113,7 +113,7 @@ define([
         },
         dropdownPhotoSetting: function(id) {
 
-            $('#dropdown_id_'+id).toggleClass('hideClass');
+            $('#dropdown_id_' + id).toggleClass('hideClass');
         }, resetContent: function()
         {
             var proController = this.get('controllers.profile');

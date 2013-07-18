@@ -67,34 +67,43 @@ class MegasController extends Controller {
         } elseif ($newRecord['mega']['type'] == 'profile') {
             $this->updateProfileRecord($newRecord);
         } else {
-
             $this->updateMega($newRecord);
         }
     }
 
     public function actionDelete() {
         try {
-            
+            $temp = explode("/", $_SERVER['REQUEST_URI']);
+            $id = $temp [sizeof($temp) - 1];
+            $request_json = $this->getRequestResultByID('megas', $id);
+            $megas = CJSON::decode($request_json, true);
+            $mega = $megas['megas'][0];
+            $docID = $this->getDocId($mega['type'], $mega['id']);
+            $cb = $this->couchBaseConnection();
+            if ($cb->delete($docID)) {
+                $this->sendResponse(204);
+            } else {
+                $this->sendResponse(500, "some thing wrong");
+            }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
 
-    public function photoSavingToS3($request_arr, $path) {
-        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
-        $key = explode(".", $_SERVER['HTTP_HOST']);
-        $key = $key[1] . '.' . $key[2];
-        $result = $cb->get($key);
-        $result_arr = CJSON::decode($result, true);
-        $response = false;
-
-        $data = $this->getInputData($request_arr ["object"]['photos'][0]['photo_type'], $request_arr ["object"]['photos'][0]['photo_url']);
-        $client = Aws\S3\S3Client::factory(
-                        $result_arr["providers"]["S3Client"]
-        );
-        return $response;
-    }
-
+//    public function photoSavingToS3($request_arr, $path) {
+//        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
+//        $key = explode(".", $_SERVER['HTTP_HOST']);
+//        $key = $key[1] . '.' . $key[2];
+//        $result = $cb->get($key);
+//        $result_arr = CJSON::decode($result, true);
+//        $response = false;
+//
+//        $data = $this->getInputData($request_arr ["object"]['photos'][0]['photo_type'], $request_arr ["object"]['photos'][0]['photo_url']);
+//        $client = Aws\S3\S3Client::factory(
+//                        $result_arr["providers"]["S3Client"]
+//        );
+//        return $response;
+//    }
 //    public function setImage($url) {
 //        $ch = curl_init($url);
 //        curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -217,16 +226,6 @@ class MegasController extends Controller {
 //            $this->sendResponse(500, "some thing wrong");
 //        }
         $this->sendResponse(204);
-    }
-
-    public function getDocId($type, $id) {
-        $docID = "";
-        if ($type == "profile") {
-            $docID = $this->getDomain() . "/profiles/" . $id;
-        } elseif ($type == "photo") {
-            $docID = $this->getDomain() . "/" . $id;
-        }
-        return $docID;
     }
 
     public function actionaddlike() {

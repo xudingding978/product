@@ -26,7 +26,7 @@ define([
             var domain = address.split("/")[2];
             this.set('iframeURL', "http://" + domain + "/user/create/");
             this.set('iframeLoginURL', "http://" + domain + "/site/login/");
-             console.log( BrowserDetect.browser + ' ' + BrowserDetect.version + ' on ' + BrowserDetect.OS );
+
 
         },
         popupModal: function() {

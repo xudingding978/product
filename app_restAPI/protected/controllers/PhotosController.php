@@ -29,8 +29,6 @@ class PhotosController extends Controller {
         $isUrlExist = $this->isUrlExist($url);
         $this->is_image($url);
 
-//        print_r($request_arr); 
-//        exit();
 
         if ($isUrlExist == "true") {
             if (strpos($url, 'hero')) {
@@ -295,15 +293,15 @@ class PhotosController extends Controller {
     }
 
     protected function savePhotoInTypes($orig_size, $photo_type, $photo_name, $compressed_photo, $data_arr, $owner_id) {
+
         $new_size = $this->getNewPhotoSize($orig_size, $photo_type);
 
         $new_photo_data = $this->createNewImage($orig_size, $new_size, $compressed_photo, $data_arr['type']);
         $new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
         $bucket = 's3.hubsrv.com';
-        $url = "/" . $owner_id . "/" . $photo_type . "/" . $new_photo_name;
-
-        $this->saveImageToS3($url, $new_photo_data, $bucket);
-        $s3url = 'http://' . $bucket . '/' . $this->getDomain() . '/profiles' . $url;
+        $url = $this->getDomain() . '/profiles' ."/" . $owner_id . "/" . $photo_type . "/" . $new_photo_name;
+      $this->saveImageToS3($url, $new_photo_data, $bucket);
+        $s3url = 'http://' . $bucket . '/' .  $url;
         return $s3url;
     }
 
@@ -359,7 +357,6 @@ class PhotosController extends Controller {
         str_replace(' ', '', $docID);
         $mega["id"] = $id;
         $mega["photo"][0]["id"] = $id;
-
         $mega['created'] = $this->getCurrentUTC();
         $mega['updated'] = $this->getCurrentUTC();
 
@@ -405,6 +402,7 @@ class PhotosController extends Controller {
     }
 
         public function saveImageToS3($url, $data, $bucket) {
+           error_log($url);
         $provider_arr['key'] = 'AKIAJKVKLIJWCJBKMJUQ';
         $provider_arr['secret'] = '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';
         $provider_arr['region'] = 'ap-southeast-2';

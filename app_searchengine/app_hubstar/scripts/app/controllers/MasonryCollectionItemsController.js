@@ -10,7 +10,7 @@ define([
         needs: ['photoCreate', 'profile'],
         user_id: null,
         init: function() {
-   
+
             this.checkAuthenticUser();
 
         },
@@ -64,13 +64,8 @@ define([
             var message = "Do you wish to delete this photo ?";
             this.set("message", message);
             this.set('makeSureDelete', true);
-
             this.dropdownPhotoSetting(itemID);
             if (this.get('willDelete')) {
-
-
-
-
                 var currentUser = App.User.find(localStorage.loginStatus);
                 var currentCollection = null;
                 var collectedColletionids = null;
@@ -82,7 +77,6 @@ define([
                         var tempcollectedColletionids = collectedColletionids.replace(App.get('itemID') + ",", "");
                         tempcollectedColletionids = collectedColletionids.replace(App.get('itemID'), "");
                         currentCollection.set('collection_ids', tempcollectedColletionids);
-
                         App.store.save();
                         break;
                     }
@@ -92,11 +86,11 @@ define([
 
                         var tempItem = this.get('content').objectAt(i);
                         tempItem.deleteRecord();
+                        App.store.save();
                         this.get('content').removeObject(tempItem);
                         break;
                     }
                 }
-
                 this.cancelDelete();
             } else {
                 this.set('willDelete', true);

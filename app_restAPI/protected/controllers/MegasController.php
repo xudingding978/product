@@ -78,13 +78,18 @@ class MegasController extends Controller {
             $request_json = $this->getRequestResultByID('megas', $id);
             $megas = CJSON::decode($request_json, true);
             $mega = $megas['megas'][0];
+            if($mega['type']=='photo')
+            {
+                            $photoController = new PhotosController();
+                $photoController->removeS3Record($mega);
+            }
             $docID = $this->getDocId($mega['type'], $mega['id']);
             $cb = $this->couchBaseConnection();
-            if ($cb->delete($docID)) {
+          //  if ($cb->delete($docID)) {
                 $this->sendResponse(204);
-            } else {
-                $this->sendResponse(500, "some thing wrong");
-            }
+        //    } else {
+        //        $this->sendResponse(500, "some thing wrong");
+        //    }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -258,7 +263,6 @@ class MegasController extends Controller {
             $cb = $this->couchBaseConnection();
             $oldRecord_arr = $cb->get($docID);
             $oldRecord = CJSON::decode($oldRecord_arr, true);
-
             array_unshift($oldRecord['comments'], $newRecord);
             if ($cb->set($docID, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);

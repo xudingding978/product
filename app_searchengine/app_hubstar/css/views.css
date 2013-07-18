@@ -1485,6 +1485,9 @@
 
 .collect_descriptionbox {
     width:300px;
+    margin: 0px 0px 10px;
+    height: 143px;
+    resize: none;
 }
 
 .collect_newcollection-name{

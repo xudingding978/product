@@ -44,6 +44,12 @@ define([
                 controller.deletePartner();
 
             }
+              else if (controller._debugContainerKey.indexOf("masonryCollectionItems") !== -1) {
+
+
+                controller.removeCollectedItem();
+
+            }
             else {
                 console.log(controller);
             }
@@ -77,6 +83,11 @@ define([
 
             }
              else if (controller._debugContainerKey.indexOf("profilePartners") !== -1) {
+
+
+                controller.cancelDelete();
+
+            }  else if (controller._debugContainerKey.indexOf("masonryCollectionItems") !== -1) {
 
 
                 controller.cancelDelete();

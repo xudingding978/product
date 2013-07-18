@@ -278,7 +278,7 @@ class PhotosController extends Controller {
         $compressed_photo = $this->compressPhotoData($data_arr['type'], $photo);
         $orig_size['width'] = imagesx($compressed_photo);
         $orig_size['height'] = imagesy($compressed_photo);
-        $thambnailUrl = $this->savePhotoInTypes($orig_size, "thumbnail", $photo_name, $compressed_photo, $data_arr, $owner_id);
+        $thumbnailUrl = $this->savePhotoInTypes($orig_size, "thumbnail", $photo_name, $compressed_photo, $data_arr, $owner_id);
         
         $heroUrl = $this->savePhotoInTypes($orig_size, "hero", $photo_name, $compressed_photo, $data_arr, $owner_id);
         $previewUrl = $this->savePhotoInTypes($orig_size, "preview", $photo_name, $compressed_photo, $data_arr, $owner_id);
@@ -287,7 +287,7 @@ class PhotosController extends Controller {
         $mega['object_image_url'] = $heroUrl;
         $mega['photo'][0]['photo_image_original_url'] = $originalUrl;
         $mega['photo'][0]['photo_image_hero_url'] = $heroUrl;
-        $mega['photo'][0]['photo_image_thumbnail_url'] = $thambnailUrl;
+        $mega['photo'][0]['photo_image_thumbnail_url'] = $thumbnailUrl;
         $mega['photo'][0]['photo_image_preview_url'] = $previewUrl;
         $mega['photo'][0]['photo_original_height'] = $orig_size['height'];
         $mega['photo'][0]['photo_original_width'] = $orig_size['width'];
@@ -311,7 +311,7 @@ class PhotosController extends Controller {
     protected function getNewPhotoSize($photo_size, $photo_type) {
         $new_size = array();
         switch ($photo_type) {
-            case 'thambnail':
+            case 'thumbnail':
                 $new_size['width'] = 132;
                 $new_size['height'] = 132;
                 break;

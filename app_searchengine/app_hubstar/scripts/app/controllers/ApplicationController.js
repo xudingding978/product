@@ -1,7 +1,7 @@
 define([
     'models/MegaModel',
     'models/StatModel',
-    'ember'
+    'ember', 'browserdetecter'
 ], function(MegaModel, Stat, Ember) {
     var ApplicationController = Ember.ArrayController.extend({
         needs: ['status'],
@@ -26,7 +26,7 @@ define([
             var domain = address.split("/")[2];
             this.set('iframeURL', "http://" + domain + "/user/create/");
             this.set('iframeLoginURL', "http://" + domain + "/site/login/");
-
+             console.log( BrowserDetect.browser + ' ' + BrowserDetect.version + ' on ' + BrowserDetect.OS );
 
         },
         popupModal: function() {
@@ -102,7 +102,7 @@ define([
             stats.addObserver('isLoaded', function() {
                 if (stats.get('isLoaded')) {
                     var d = new Date();
-                    var end = d.getTime();                    
+                    var end = d.getTime();
                     var hit = Stat.find('hit');
                     var time = that.getResponseTime(start, end);
                     statusController.set("searchResultNum", hit.get("hits"));

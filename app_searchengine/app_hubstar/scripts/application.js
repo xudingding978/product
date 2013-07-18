@@ -24,6 +24,7 @@ require.config({
         'moment': 'libs/moment',
         'modernizr': 'libs/modernizer/modernizr-latest',
         'helper': 'libs/helper',
+        'browserdetecter':'libs/browerdetecter',
         'jquery.masonry': 'libs/jquery.masonry/jquery.masonry.min',
         /*requirejs-plugins*/
         'text': 'libs/requirejs-plugins/text',

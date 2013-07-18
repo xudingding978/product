@@ -2,15 +2,15 @@
 
 
     {{#unless controller.firstStepOfContactEmail}}
-
-    <div style="position: relative;margin-bottom: 20px;text-align: center;">
-        <div class="panelcircle" style="position: relative; display: inline-block;  margin: 0 65px; font-weight: bold;background-color: #427fed;z-index: 1;">1</div>
-        <div {{action nextSendingEmailProcess}} class="panelcircle" style="position: relative; display: inline-block;  margin: 0 65px; font-weight: bold; z-index: 1;">2</div>
-        <div style="width: 300px; height: 2px; border-radius: 20%;background-color:#ccc;position: absolute;margin: auto;left: 0;right: 0;top: 19px;z-index: 0;"></div>
+    <div class="head controlbtn-field">
+        <div style="position: relative;margin-bottom: 20px;text-align: center;">
+            <div class="panelcircle" style="position: relative; display: inline-block;  margin: 0 65px; font-weight: bold;background-color: #427fed;z-index: 1;">1</div>
+            <div {{action nextSendingEmailProcess}} class="panelcircle" style="position: relative; display: inline-block;  margin: 0 65px; font-weight: bold; z-index: 1;">2</div>
+            <div style="width: 300px; height: 2px; border-radius: 20%;background-color:#ccc;position: absolute;margin: auto;left: 0;right: 0;top: 19px;z-index: 0;"></div>
+        </div>
     </div>
 
-
-    <div class="head controlbtn-field">
+    <div class="head">
         <div class="poster_user" >
             <div style="display: block; font-size: 16px; font-weight: bold; margin-bottom: 5px;">
                 <span style="display: inline-block;margin-right: 5px;">Send an Email to</span>
@@ -47,10 +47,12 @@
 
 
     {{#if controller.secondStepOfContactEmail}}
-    <div style="position: relative;margin-bottom: 20px;">
-        <div {{action proviousSendingEmailProcess}} class="panelcircle" style="position: relative; display: inline-block;  margin: 0 65px; font-weight: bold; z-index:1;">1</div>
-        <div class="panelcircle" style="position: relative; display: inline-block;  margin: 0 65px; font-weight: bold; background-color: #427fed; z-index: 1;">2</div>
-        <div style="width: 300px; height: 2px; border-radius: 20%;background-color:#ccc;position: absolute;margin: auto;left: 0;right: 0;top: 19px;z-index: 0;"></div>
+    <div class="head controlbtn-field">
+        <div style="position: relative;margin-bottom: 20px;">
+            <div {{action proviousSendingEmailProcess}} class="panelcircle" style="position: relative; display: inline-block;  margin: 0 65px; font-weight: bold; z-index:1;">1</div>
+            <div class="panelcircle" style="position: relative; display: inline-block;  margin: 0 65px; font-weight: bold; background-color: #427fed; z-index: 1;">2</div>
+            <div style="width: 300px; height: 2px; border-radius: 20%;background-color:#ccc;position: absolute;margin: auto;left: 0;right: 0;top: 19px;z-index: 0;"></div>
+        </div>
     </div>
     {{/if}}
 

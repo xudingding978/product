@@ -66,15 +66,17 @@ define([
                     var tempcollectedColletionids = collectedColletionids.replace(itemID + ",", "");
                     tempcollectedColletionids = collectedColletionids.replace(itemID, "");
                     currentCollection.set('collection_ids', tempcollectedColletionids);
+
                     App.store.save();
                     break;
                 }
             }
             for (var i = 0; i < this.get('content').length; i++) {
                 if (this.get('content').objectAt(i).get('id') === itemID) {
-                    var tempItem = this.get('content').objectAt(i);
-                    this.get('content').removeObject(tempItem);
 
+                    var tempItem = this.get('content').objectAt(i);
+                 tempItem.deleteRecord();
+                    this.get('content').removeObject(tempItem);
                     break;
                 }
             }
@@ -84,8 +86,6 @@ define([
             {
 
                 if (localStorage.loginStatus === this.get('user_id')) {
-//                    console.log(localStorage.loginStatus);
-//                    console.log(this.get('user_id'));
                     this.set('is_authentic_user', true);
                 }
                 else {

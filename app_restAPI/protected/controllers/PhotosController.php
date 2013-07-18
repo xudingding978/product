@@ -303,7 +303,7 @@ class PhotosController extends Controller {
         $url = "/" . $owner_id . "/" . $photo_type . "/" . $new_photo_name;
 
         $this->saveImageToS3($url, $new_photo_data, $bucket);
-        $s3url = 'http://' . $bucket . '/' . $this->getDomain() . '/profiles/' . $url;
+        $s3url = 'http://' . $bucket . '/' . $this->getDomain() . '/profiles' . $url;
         return $s3url;
     }
 

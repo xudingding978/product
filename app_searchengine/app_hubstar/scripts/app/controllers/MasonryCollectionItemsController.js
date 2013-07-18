@@ -55,32 +55,55 @@ define([
         },
         removeCollectedItem: function(collectionID, itemID)
         {
-            var currentUser = App.User.find(localStorage.loginStatus);
-            var currentCollection = null;
-            var collectedColletionids = null;
-            for (var i = 0; i < currentUser.get('collections').get('length'); i++) {
-                if (currentUser.get('collections').objectAt(i).get('id') === collectionID)
-                {
-                    currentCollection = currentUser.get('collections').objectAt(i);
-                    collectedColletionids = currentCollection.get('collection_ids');
-                    var tempcollectedColletionids = collectedColletionids.replace(itemID + ",", "");
-                    tempcollectedColletionids = collectedColletionids.replace(itemID, "");
-                    currentCollection.set('collection_ids', tempcollectedColletionids);
 
-                    App.store.save();
-                    break;
+            var message = "Do you wish to delete this photo ?";
+            this.set("message", message);
+            this.set('makeSureDelete', true);
+
+
+            if (this.get('willDelete')) {
+
+
+
+
+                var currentUser = App.User.find(localStorage.loginStatus);
+                var currentCollection = null;
+                var collectedColletionids = null;
+                for (var i = 0; i < currentUser.get('collections').get('length'); i++) {
+                    if (currentUser.get('collections').objectAt(i).get('id') === App.get('collectionID'))
+                    {
+                        currentCollection = currentUser.get('collections').objectAt(i);
+                        collectedColletionids = currentCollection.get('collection_ids');
+                        var tempcollectedColletionids = collectedColletionids.replace(App.get('itemID') + ",", "");
+                        tempcollectedColletionids = collectedColletionids.replace(App.get('itemID'), "");
+                        currentCollection.set('collection_ids', tempcollectedColletionids);
+
+                        App.store.save();
+                        break;
+                    }
                 }
-            }
-            for (var i = 0; i < this.get('content').length; i++) {
-                if (this.get('content').objectAt(i).get('id') === itemID) {
+                for (var i = 0; i < this.get('content').length; i++) {
+                    if (this.get('content').objectAt(i).get('id') === App.get('itemID')) {
 
-                    var tempItem = this.get('content').objectAt(i);
-                 tempItem.deleteRecord();
-                    this.get('content').removeObject(tempItem);
-                    break;
+                        var tempItem = this.get('content').objectAt(i);
+                        tempItem.deleteRecord();
+                        this.get('content').removeObject(tempItem);
+                        break;
+                    }
                 }
+
+                this.cancelDelete();
+            } else {
+                this.set('willDelete', true);
+                App.set('collectionID', collectionID);
+                App.set('itemID', itemID);
             }
 
+        },
+        cancelDelete: function() {
+            this.set('willDelete', false);
+            this.set('makeSureDelete', false);
+            App.set('data', null);
         },
         checkAuthenticUser: function() {
             {
@@ -113,7 +136,7 @@ define([
         },
         dropdownPhotoSetting: function(id) {
 
-            $('#dropdown_id_'+id).toggleClass('hideClass');
+            $('#dropdown_id_' + id).toggleClass('hideClass');
         }, resetContent: function()
         {
             var proController = this.get('controllers.profile');

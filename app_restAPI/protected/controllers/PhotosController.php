@@ -311,7 +311,7 @@ class PhotosController extends Controller {
     protected function getNewPhotoSize($photo_size, $photo_type) {
         $new_size = array();
         switch ($photo_type) {
-            case 'a':
+            case 'thumbnail':
                 $new_size['width'] = 132;
                 $new_size['height'] = 132;
                 break;

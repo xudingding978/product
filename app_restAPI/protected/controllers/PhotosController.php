@@ -278,7 +278,7 @@ class PhotosController extends Controller {
         $compressed_photo = $this->compressPhotoData($data_arr['type'], $photo);
         $orig_size['width'] = imagesx($compressed_photo);
         $orig_size['height'] = imagesy($compressed_photo);
-        $thambnailUrl = $this->savePhotoInTypes($orig_size, "thambnail", $photo_name, $compressed_photo, $data_arr, $owner_id);
+        $thambnailUrl = $this->savePhotoInTypes($orig_size, "thumbnail", $photo_name, $compressed_photo, $data_arr, $owner_id);
         
         $heroUrl = $this->savePhotoInTypes($orig_size, "hero", $photo_name, $compressed_photo, $data_arr, $owner_id);
         $previewUrl = $this->savePhotoInTypes($orig_size, "preview", $photo_name, $compressed_photo, $data_arr, $owner_id);
@@ -303,7 +303,7 @@ class PhotosController extends Controller {
         $url = "/" . $owner_id . "/" . $photo_type . "/" . $new_photo_name;
 
         $this->saveImageToS3($url, $new_photo_data, $bucket);
-        $s3url = 'https://s3-ap-southeast-2.amazonaws.com/' . $bucket . $url;
+        $s3url = 'http://' . $bucket . '/' . $this->getDomain() . '/profiles/' . $url;
         return $s3url;
     }
 

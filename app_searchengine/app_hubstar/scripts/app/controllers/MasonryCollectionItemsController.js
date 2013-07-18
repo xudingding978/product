@@ -9,6 +9,11 @@ define([
         is_authentic_user: false,
         needs: ['photoCreate', 'profile'],
         user_id: null,
+        init: function() {
+
+            this.checkAuthenticUser();
+
+        },
         selectModelForUser: function(collection_id) {
             this.set('content', []);
             var address = document.URL;
@@ -55,45 +60,81 @@ define([
         },
         removeCollectedItem: function(collectionID, itemID)
         {
-            var currentUser = App.User.find(localStorage.loginStatus);
-            var currentCollection = null;
-            var collectedColletionids = null;
-            for (var i = 0; i < currentUser.get('collections').get('length'); i++) {
-                if (currentUser.get('collections').objectAt(i).get('id') === collectionID)
-                {
-                    currentCollection = currentUser.get('collections').objectAt(i);
-                    collectedColletionids = currentCollection.get('collection_ids');
-                    var tempcollectedColletionids = collectedColletionids.replace(itemID + ",", "");
-                    tempcollectedColletionids = collectedColletionids.replace(itemID, "");
-                    currentCollection.set('collection_ids', tempcollectedColletionids);
-                    App.store.save();
-                    break;
-                }
-            }
-            for (var i = 0; i < this.get('content').length; i++) {
-                if (this.get('content').objectAt(i).get('id') === itemID) {
-                    var tempItem = this.get('content').objectAt(i);
-                    this.get('content').removeObject(tempItem);
 
-                    break;
+            var message = "Do you wish to delete this photo ?";
+            this.set("message", message);
+            this.set('makeSureDelete', true);
+            this.dropdownPhotoSetting(itemID);
+            if (this.get('willDelete')) {
+                var currentUser = App.User.find(localStorage.loginStatus);
+                var currentCollection = null;
+                var collectedColletionids = null;
+                for (var i = 0; i < currentUser.get('collections').get('length'); i++) {
+                    if (currentUser.get('collections').objectAt(i).get('id') === App.get('collectionID'))
+                    {
+                        currentCollection = currentUser.get('collections').objectAt(i);
+                        collectedColletionids = currentCollection.get('collection_ids');
+                        var tempcollectedColletionids = collectedColletionids.replace(App.get('itemID') + ",", "");
+                        tempcollectedColletionids = collectedColletionids.replace(App.get('itemID'), "");
+                        currentCollection.set('collection_ids', tempcollectedColletionids);
+                        App.store.save();
+                        break;
+                    }
                 }
+                for (var i = 0; i < this.get('content').length; i++) {
+                    if (this.get('content').objectAt(i).get('id') === App.get('itemID')) {
+
+                        var tempItem = this.get('content').objectAt(i);
+                        tempItem.deleteRecord();
+                        App.store.save();
+                        this.get('content').removeObject(tempItem);
+                        break;
+                    }
+                }
+                this.cancelDelete();
+            } else {
+                this.set('willDelete', true);
+                App.set('collectionID', collectionID);
+                App.set('itemID', itemID);
             }
 
         },
+        cancelDelete: function() {
+            this.set('willDelete', false);
+            this.set('makeSureDelete', false);
+            App.set('data', null);
+        },
         checkAuthenticUser: function() {
-            {
+            var authenticUsers = this.get("model").get("owner") + "," + this.get("model").get("profile_editors");
+            var currentUser = App.User.find(localStorage.loginStatus);
+            var that = this;
+            var email = currentUser.get('email');
+            if (authenticUsers !== null && authenticUsers !== undefined && email !== null && email !== undefined) {
+                this.setIsAuthenticUser(authenticUsers, email);
+            }
+            currentUser.addObserver('isLoaded', function() {
+                email = currentUser.get('email');
+                if (currentUser.get('isLoaded')) {
+                    that.setIsAuthenticUser(authenticUsers, email);
+                }
+            });
+        },
+        setIsAuthenticUser: function(authenticUsers, email)
+        {
 
-                if (localStorage.loginStatus === this.get('user_id')) {
-//                    console.log(localStorage.loginStatus);
-//                    console.log(this.get('user_id'));
-                    this.set('is_authentic_user', true);
-                }
-                else {
-                    this.set('is_authentic_user', false);
-                }
+            if (authenticUsers.indexOf(email) !== -1) {
+                this.set('is_authentic_user', true);
+            }
+            else if (email.indexOf('@trendsideas.com') !== -1) {
+                this.set('is_authentic_user', true);
+            }
+            else {
+                this.set('is_authentic_user', false);
             }
         },
         changeCollectionCover: function(id, collection_id, AppModel) {
+
+            this.dropdownPhotoSetting(id);
             var Mega = App.Mega.find(id);
             var coverImge = Mega.get('photo').objectAt(0).get('photo_image_original_url');
             var address = document.URL;
@@ -113,7 +154,7 @@ define([
         },
         dropdownPhotoSetting: function(id) {
 
-            $('#dropdown_id_'+id).toggleClass('hideClass');
+            $('#dropdown_id_' + id).toggleClass('hideClass');
         }, resetContent: function()
         {
             var proController = this.get('controllers.profile');

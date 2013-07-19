@@ -12,7 +12,7 @@ require.config({
         /*libs*/
         'jquery': 'libs/jquery/1.9.1/jquery-1.9.1',
         'handlebars': 'libs/handlebars/1.0.0-rc.4/handlebars-1.0.0-rc.4',
-        'ember': 'libs/ember/1.0.0-rc.5/ember-latest',
+        'ember': 'libs/ember/1.0.0-rc.6/ember-1.0.0-rc.6',
         'emberData': 'libs/ember-data/0.13/ember-data-latest',
         'jquery.ui': 'libs/jquery.ui/1.9.2/jquery-ui-1.9.2.custom.min',
         'bootstrap': 'libs/bootstrap/2.2.2/js/bootstrap.min',

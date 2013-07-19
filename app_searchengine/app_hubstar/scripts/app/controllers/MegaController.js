@@ -70,13 +70,15 @@ define(['models/MegaModel',
 
                     megaObject.addObserver('isLoaded', function() {
                         if (megaObject.get('isLoaded')) {
-                            console.log('loaded');
+                        
                         }
                     });
 
 
+
                     //                 console.log(megaObject);
                     //     var that = this;
+
 //                    photoObj.addObserver('isLoaded', function() {
 //                        if (photoObj.get('isLoaded')) {
 //                            that.set("currentUser", App.User.find(localStorage.loginStatus));

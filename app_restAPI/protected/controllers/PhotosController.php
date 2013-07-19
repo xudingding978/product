@@ -166,28 +166,7 @@ class PhotosController extends Controller {
     }
 
     public function actionUpdate() {
-//        $request_json = file_get_contents('php://input');
-//        $request_arr = CJSON::decode($request_json, true);
-//        try {
-//            $cb = $this->couchBaseConnection();
-//            $temp = explode("/", $_SERVER['REQUEST_URI']);
-//            $id = $temp [sizeof($temp) - 1];
-//            $request_arr['user']['id'] = $id;
-//            $url = $this->getDomain()  . "/users/" . $id;
-//            $oldRecord = $cb->get($url);
-//            error_log(var_export($oldRecord,true));
-//            $oldRecord = CJSON::decode($oldRecord, true);
-//            $oldRecord['user'][0] = null;
-//            $oldRecord['user'][0] = $request_arr['user'];
-//
-//            if ($cb->set($url, CJSON::encode($oldRecord))) {
-//                $this->sendResponse(204);
-//            } else {
-//                $this->sendResponse(500, "some thing wrong");
-//            }
-//        } catch (Exception $exc) {
-//            echo $exc->getTraceAsString();
-//        }
+
     }
 
     public function updateCouchbasePhoto($id) {
@@ -416,7 +395,7 @@ class PhotosController extends Controller {
     }
 
     public function removeS3Record($mega) {
-   $bucket = 's3.hubsrv.com';
+        $bucket = 's3.hubsrv.com';
         $arr = $this->getProviderConfigurationByName($this->getDomain(), "S3Client");
         $client = Aws\S3\S3Client::factory(
                         $arr
@@ -428,6 +407,31 @@ class PhotosController extends Controller {
 //        $mega['photo'][0]['photo_image_hero_url'];
 //        $mega['photo'][0]['photo_image_thumbnail_url'];
 //        $mega['photo'][0]['photo_image_preview_url'];
+    }
+
+    public function photoUpdate($mega) {
+        try {
+            $cb = $this->couchBaseConnection();
+            $temp = explode("/", $_SERVER['REQUEST_URI']);
+            $id = $temp [sizeof($temp) - 1];
+
+error_log($mega['mega'][0],true);
+            $url = $this->getDomain() . "/" . $id;
+            $oldRecord = $cb->get($url);
+            error_log(var_export($oldRecord, true));
+            $oldRecord = CJSON::decode($oldRecord, true);
+//            $oldRecord['user'][0] = null;
+//            $oldRecord['user'][0] = $request_arr['user'];
+//
+//            if ($cb->set($url, CJSON::encode($oldRecord))) {
+//                $this->sendResponse(204);
+//            } else {
+//                $this->sendResponse(500, "some thing wrong");
+//            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+        
     }
 
 }

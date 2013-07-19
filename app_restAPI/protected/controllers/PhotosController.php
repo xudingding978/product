@@ -419,9 +419,7 @@ class PhotosController extends Controller {
         $client = Aws\S3\S3Client::factory(
                         $arr
         );
-        $client->delete_object(
-                $bucket, $mega['photo'][0]['photo_image_hero_url'];
-        );
+        $client->delete_object($bucket, $mega['photo'][0]['photo_image_hero_url']);
 
 //        error_log(var_export($mega['photo'][0], true));
 //        $mega['photo'][0]['photo_image_original_url'];

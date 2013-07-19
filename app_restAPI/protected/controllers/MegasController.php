@@ -66,6 +66,9 @@ class MegasController extends Controller {
             $this->updateUserRecord($newRecord);
         } elseif ($newRecord['mega']['type'] == 'profile') {
             $this->updateProfileRecord($newRecord);
+        } elseif ($newRecord['mega']['type'] == 'photo') {
+       $photoController = new PhotosController();
+            $photoController->photoUpdate($newRecord);
         } else {
             $this->updateMega($newRecord);
         }

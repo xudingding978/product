@@ -66,9 +66,33 @@ define(['models/MegaModel',
                 },
                 getInitData: function(megaObject) {
                     var photoObj = megaObject.get('photo').objectAt(0);
-                    console.log(megaObject.get('owner_id'));
-                    var profile=App.Profile.find(megaObject.get('owner_id'));
-                  console.log(megaObject);
+                    
+                    
+                                        megaObject.addObserver('isLoaded', function() {
+                        if (megaObject.get('isLoaded')) {
+                            console.log('loaded');
+                        }
+                    });
+                    
+                    
+                    console.log(megaObject);
+               //     var that = this;
+//                    photoObj.addObserver('isLoaded', function() {
+//                        if (photoObj.get('isLoaded')) {
+//                            that.set("currentUser", App.User.find(localStorage.loginStatus));
+//                            that.set("content", []);
+//                            that.set('image_no', 1);
+//                            that.set("selectedPhoto", photoObj);
+//                            that.get("content").pushObject(photoObj);
+//                            var megaResouce = MegaModel.find(megaObject.id);
+//                            that.set('megaResouce', megaResouce);
+//                            that.set("photo_album_id", "album_" + megaObject.id);
+//                            that.set("photo_thumb_id", "thumb_" + megaObject.id);
+//                            that.addRelatedData(megaObject);
+//                            that.getCommentsById(megaObject.id);
+//                        }
+//                    });
+                    //      var profile=App.Profile.find(megaObject.get('owner_id'));
                     this.set("currentUser", App.User.find(localStorage.loginStatus));
                     this.set("content", []);
                     this.set('image_no', 1);
@@ -76,8 +100,8 @@ define(['models/MegaModel',
                     this.get("content").pushObject(photoObj);
                     var megaResouce = MegaModel.find(megaObject.id);
                     this.set('megaResouce', megaResouce);
-                    this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
-                    this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
+                    this.set("photo_album_id", "album_" + megaObject.id);
+                    this.set("photo_thumb_id", "thumb_" + megaObject.id);
                     this.addRelatedData(megaObject);
                     this.getCommentsById(megaObject.id);
                 },
@@ -105,7 +129,7 @@ define(['models/MegaModel',
                             if (data.get('isLoaded')) {
                                 for (var i = 0; i < this.get("content").length; i++) {
                                     var id = this.get("content").objectAt(i).id;
-                                    if (MegaModel.find(id).get('photo').get('length') === 1&&mega.get('id')!==id)
+                                    if (MegaModel.find(id).get('photo').get('length') === 1 && mega.get('id') !== id)
                                     {
                                         that.get("content").pushObject(MegaModel.find(id).get("photo").objectAt(0));
                                     }

@@ -166,7 +166,7 @@ class PhotosController extends Controller {
     }
 
     public function actionUpdate() {
-
+        
     }
 
     public function updateCouchbasePhoto($id) {
@@ -414,24 +414,23 @@ class PhotosController extends Controller {
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
-
-error_log($mega['mega'][0],true);
+            $photoTitle = $mega['mega']['photo'][0]['photo_title'];
+            $photoCaption = $mega['mega']['photo'][0]['photo_caption'];
             $url = $this->getDomain() . "/" . $id;
-            $oldRecord = $cb->get($url);
-            error_log(var_export($oldRecord, true));
-            $oldRecord = CJSON::decode($oldRecord, true);
-//            $oldRecord['user'][0] = null;
-//            $oldRecord['user'][0] = $request_arr['user'];
-//
-//            if ($cb->set($url, CJSON::encode($oldRecord))) {
-//                $this->sendResponse(204);
-//            } else {
-//                $this->sendResponse(500, "some thing wrong");
-//            }
+            $tempRecord = $cb->get($url);
+            $oldRecord = CJSON::decode($tempRecord, true);
+            $oldRecord['object_description'] = $photoCaption;
+            $oldRecord['photo'][0]['photo_title'] = $photoTitle;
+            $oldRecord['photo'][0]['photo_caption'] = $photoCaption;
+
+            if ($cb->set($url, CJSON::encode($oldRecord))) {
+                $this->sendResponse(204);
+            } else {
+                $this->sendResponse(500, "some thing wrong");
+            }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
-        
     }
 
 }

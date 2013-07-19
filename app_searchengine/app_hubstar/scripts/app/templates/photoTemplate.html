@@ -63,7 +63,7 @@
                     <a class="profilepic" href="#"><img {{bindAttr src="controller.megaResouce.owner_profile_pic"}} /></a>              
                 </div>
                 <div class="poster_user" >
-                    <a class="poster-name" href="#">{{controller.megaResouce.owner_title}}</a>
+                    <a class="poster-name" href="#" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_title}}</a>
                     <span class="posttime">{{date controller.megaResouce.created}} </span>
                 </div>
                 <div class="contactmebtn" style="position: absolute; right: 15px; top: 23px; bottom: auto;">

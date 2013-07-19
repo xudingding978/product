@@ -10,9 +10,7 @@ define([
         needs: ['photoCreate', 'profile'],
         user_id: null,
         init: function() {
-
             this.checkAuthenticUser();
-
         },
         selectModelForUser: function(collection_id) {
             this.set('content', []);
@@ -109,13 +107,13 @@ define([
             var currentUser = App.User.find(localStorage.loginStatus);
             var that = this;
             var email = currentUser.get('email');
-            if (authenticUsers !== null && authenticUsers !== undefined && email !== null && email !== undefined) {
+            if (authenticUsers !== null && authenticUsers !== undefined && email !== null && email !== undefined&&App.get('editingMode')==="profile") {
                 this.setIsAuthenticUser(authenticUsers, email);
             }
             currentUser.addObserver('isLoaded', function() {
                 email = currentUser.get('email');
                 if (currentUser.get('isLoaded')) {
-                    that.setIsAuthenticUser(authenticUsers, email);
+                    that.checkAuthenticUser();
                 }
             });
         },

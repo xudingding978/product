@@ -166,26 +166,28 @@ class PhotosController extends Controller {
     }
 
     public function actionUpdate() {
-        try {
-
-            $returnType = "photo";
-            $temp = explode("?", $_SERVER['REQUEST_URI']);
-            $request_arr = array();
-
-            if (sizeof($temp) > 1) {
-                $request_string = $temp [sizeof($temp) - 1];
-                $request_arr = preg_split("/=|&/", $request_string);
-
-                $response = $this->getAllDoc($returnType, $request_arr[1], $request_arr[3]);
-                $this->sendResponse(200, $response);
-            }
-
-
-            $request_json = file_get_contents('php://input');
-            echo $request_json;
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
+//        $request_json = file_get_contents('php://input');
+//        $request_arr = CJSON::decode($request_json, true);
+//        try {
+//            $cb = $this->couchBaseConnection();
+//            $temp = explode("/", $_SERVER['REQUEST_URI']);
+//            $id = $temp [sizeof($temp) - 1];
+//            $request_arr['user']['id'] = $id;
+//            $url = $this->getDomain()  . "/users/" . $id;
+//            $oldRecord = $cb->get($url);
+//            error_log(var_export($oldRecord,true));
+//            $oldRecord = CJSON::decode($oldRecord, true);
+//            $oldRecord['user'][0] = null;
+//            $oldRecord['user'][0] = $request_arr['user'];
+//
+//            if ($cb->set($url, CJSON::encode($oldRecord))) {
+//                $this->sendResponse(204);
+//            } else {
+//                $this->sendResponse(500, "some thing wrong");
+//            }
+//        } catch (Exception $exc) {
+//            echo $exc->getTraceAsString();
+//        }
     }
 
     public function updateCouchbasePhoto($id) {

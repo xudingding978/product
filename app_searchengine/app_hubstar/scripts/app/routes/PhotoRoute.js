@@ -10,10 +10,25 @@ define([
     "use strict";
     var PhotoRoute = Ember.Route.extend({
         setupController: function(controller, model) {
-            var d = MegaModel.find(model.id);
-            this.controllerFor('mega').getInitData(d);
+
+
+
+            var megaModel = App.Mega.find(model.id);
+              console.log(model);
+            this.controllerFor('mega').getInitData(megaModel);
+
+            var that = this;
+            megaModel.addObserver('isLoaded', function() {
+                if (megaModel.get('isLoaded')) {
+                    console.log(megaModel);
+                    
+                }
+            });
+
+
         },
         model: function(params) {
+            console.log(App.Mega.find(params.photo_id));
             return MegaModel.find(params.photo_id);
         },
         activate: function() {

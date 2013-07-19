@@ -229,7 +229,6 @@ class PhotosController extends Controller {
         echo CJSON::encode("dddddddd");
     }
 
-
     public function getInputData($inputDataType, $inputData) {
         $tempInput = "";
         if ($inputDataType == "image/jpeg") {
@@ -245,27 +244,27 @@ class PhotosController extends Controller {
         return $data;
     }
 
-    public function photoSavingToS3($request_arr, $path, $domain, $bucket) {
-
-        $response = false;
-//important changement
-        //$array=getProviderConfigurationByName($domain,"S3Client");
-//            $client = Aws\S3\S3Client::factory($array);
-        $client = $this->getS3Connection($domain);
-        $data = $this->getInputData($request_arr['photo']['photo_type'], $request_arr ['photo']['photo_image_url']);
-        if ($client->doesObjectExist($bucket, $path . $request_arr ['photo']['photo_title'])) {
-            $response = false;
-        } else {
-            $client->putObject(array(
-                'Bucket' => "hubstar-dev",
-                'Key' => $path . $request_arr ['photo']['photo_title'],
-                'Body' => $data,
-                'ACL' => 'public-read'
-            ));
-            $response = true;
-        }
-        return $response;
-    }
+//    public function photoSavingToS3($request_arr, $path, $domain, $bucket) {
+//
+//        $response = false;
+////important changement
+//        //$array=getProviderConfigurationByName($domain,"S3Client");
+////            $client = Aws\S3\S3Client::factory($array);
+//        $client = $this->getS3Connection($domain);
+//        $data = $this->getInputData($request_arr['photo']['photo_type'], $request_arr ['photo']['photo_image_url']);
+//        if ($client->doesObjectExist($bucket, $path . $request_arr ['photo']['photo_title'])) {
+//            $response = false;
+//        } else {
+//            $client->putObject(array(
+//                'Bucket' => "hubstar-dev",
+//                'Key' => $path . $request_arr ['photo']['photo_title'],
+//                'Body' => $data,
+//                'ACL' => 'public-read'
+//            ));
+//            $response = true;
+//        }
+//        return $response;
+//    }
 
     public function doPhotoResizing($mega) {
 
@@ -274,16 +273,16 @@ class PhotosController extends Controller {
         $owner_id = $mega['owner_id'];
         $data_arr = $this->convertToString64($photo_string);
         $photo = imagecreatefromstring($data_arr['data']);
-      
+
         $compressed_photo = $this->compressPhotoData($data_arr['type'], $photo);
         $orig_size['width'] = imagesx($compressed_photo);
         $orig_size['height'] = imagesy($compressed_photo);
         $thumbnailUrl = $this->savePhotoInTypes($orig_size, "thumbnail", $photo_name, $compressed_photo, $data_arr, $owner_id);
-        
+
         $heroUrl = $this->savePhotoInTypes($orig_size, "hero", $photo_name, $compressed_photo, $data_arr, $owner_id);
         $previewUrl = $this->savePhotoInTypes($orig_size, "preview", $photo_name, $compressed_photo, $data_arr, $owner_id);
         $originalUrl = $this->savePhotoInTypes($orig_size, "original", $photo_name, $compressed_photo, $data_arr, $owner_id);
- 
+
         $mega['object_image_url'] = $heroUrl;
         $mega['photo'][0]['photo_image_original_url'] = $originalUrl;
         $mega['photo'][0]['photo_image_hero_url'] = $heroUrl;
@@ -301,13 +300,12 @@ class PhotosController extends Controller {
         $new_photo_data = $this->createNewImage($orig_size, $new_size, $compressed_photo, $data_arr['type']);
         $new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
         $bucket = 's3.hubsrv.com';
-        $url = $this->getDomain() . '/profiles' ."/" . $owner_id . "/" . $photo_type . "/" . $new_photo_name;
-      $this->saveImageToS3($url, $new_photo_data, $bucket);
-        $s3url = 'http://' . $bucket . '/' .  $url;
+        $url = $this->getDomain() . '/profiles' . "/" . $owner_id . "/" . $photo_type . "/" . $new_photo_name;
+        $this->saveImageToS3($url, $new_photo_data, $bucket);
+        $s3url = 'http://' . $bucket . '/' . $url;
         return $s3url;
     }
 
-    
     protected function getNewPhotoSize($photo_size, $photo_type) {
         $new_size = array();
         switch ($photo_type) {
@@ -392,7 +390,8 @@ class PhotosController extends Controller {
         }
         return $image;
     }
-       protected function addPhotoSizeToName($photo_name, $photo_size_arr) {
+
+    protected function addPhotoSizeToName($photo_name, $photo_size_arr) {
 
         $name_arr = explode(".", $photo_name);
         $new_name = "";
@@ -403,13 +402,10 @@ class PhotosController extends Controller {
         return $new_name;
     }
 
-        public function saveImageToS3($url, $data, $bucket) {
-           error_log($url);
-        $provider_arr['key'] = 'AKIAJKVKLIJWCJBKMJUQ';
-        $provider_arr['secret'] = '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';
-        $provider_arr['region'] = 'ap-southeast-2';
+    public function saveImageToS3($url, $data, $bucket) {
+        $arr = $this->getProviderConfigurationByName($this->getDomain(), "S3Client");
         $client = Aws\S3\S3Client::factory(
-                        $provider_arr
+                        $arr
         );
         $client->putObject(array(
             'Bucket' => $bucket, //"s3.hubsrv.com"
@@ -418,7 +414,22 @@ class PhotosController extends Controller {
             'ACL' => 'public-read'
         ));
     }
-    
+
+    public function removeS3Record($mega) {
+   $bucket = 's3.hubsrv.com';
+        $arr = $this->getProviderConfigurationByName($this->getDomain(), "S3Client");
+        $client = Aws\S3\S3Client::factory(
+                        $arr
+        );
+        $client->delete_object($bucket, $mega['photo'][0]['photo_image_hero_url']);
+
+//        error_log(var_export($mega['photo'][0], true));
+//        $mega['photo'][0]['photo_image_original_url'];
+//        $mega['photo'][0]['photo_image_hero_url'];
+//        $mega['photo'][0]['photo_image_thumbnail_url'];
+//        $mega['photo'][0]['photo_image_preview_url'];
+    }
+
 }
 
 ?>

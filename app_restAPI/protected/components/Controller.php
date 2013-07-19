@@ -245,8 +245,22 @@ class Controller extends CController {
                 ->field('couchbaseDocument.doc.id');
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->should($should);
         $response = $request->query($bool)->execute();
-        $results = $this->getReponseResult($response, $returnType);
+
+        $results = '{"' . $returnType . '":';
+        $i = 0;
+        foreach ($response as $hit) {
+
+            $results .= CJSON::encode($hit['source']['doc']);
+
+            if (++$i < count($response)) {
+                $results .= ',';
+            }
+        }
+        $results .= '}';
+
         return $results;
+
+
     }
 
     protected function getProfilePartner($returnType, $partner_id) {
@@ -279,7 +293,7 @@ class Controller extends CController {
         $must = Sherlock\Sherlock::queryBuilder()
                 ->QueryString()->query($collection_id)
                 ->default_field('couchbaseDocument.doc.collection_id');
-     
+
 
         $must2 = Sherlock\Sherlock::queryBuilder()
                 ->QueryString()->query($owner_profile_id)
@@ -289,7 +303,7 @@ class Controller extends CController {
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)
                 ->must($must2);
 
-       
+
         $response = $request->query($bool)->execute();
 
         $results = $this->getReponseResult($response, $returnType);
@@ -420,8 +434,8 @@ class Controller extends CController {
 
         return trim($matches[0]);
     }
-    
-        public function getDocId($type, $id) {
+
+    public function getDocId($type, $id) {
         $docID = "";
         if ($type == "profile") {
             $docID = $this->getDomain() . "/profiles/" . $id;
@@ -430,6 +444,5 @@ class Controller extends CController {
         }
         return $docID;
     }
-    
 
 }

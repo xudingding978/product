@@ -66,17 +66,19 @@ define(['models/MegaModel',
                 },
                 getInitData: function(megaObject) {
                     var photoObj = megaObject.get('photo').objectAt(0);
-                    
-                    
-                                        megaObject.addObserver('isLoaded', function() {
+
+
+                    megaObject.addObserver('isLoaded', function() {
                         if (megaObject.get('isLoaded')) {
                         
                         }
                     });
-                    
-                    
-              //      console.log(megaObject);
-               //     var that = this;
+
+
+
+                    //                 console.log(megaObject);
+                    //     var that = this;
+
 //                    photoObj.addObserver('isLoaded', function() {
 //                        if (photoObj.get('isLoaded')) {
 //                            that.set("currentUser", App.User.find(localStorage.loginStatus));
@@ -201,7 +203,7 @@ define(['models/MegaModel',
                     photoObject.store.save();
 //                      var update_profile_record = App.Profile.find(this.get('model.id'));
 //                    App.store.get('adapter').updateRecord(App.store, App.Profile, update_profile_record);
-                    console.log(photoObject);
+                    //            console.log(photoObject);
                     this.set('enableToEdit', !this.get('enableToEdit'));
                 },
                 no: function() {

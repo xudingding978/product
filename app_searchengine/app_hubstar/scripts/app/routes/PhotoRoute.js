@@ -10,8 +10,9 @@ define([
     "use strict";
     var PhotoRoute = Ember.Route.extend({
         setupController: function(controller, model) {
-            var d = MegaModel.find(model.id);
-            this.controllerFor('mega').getInitData(d);
+            var megaModel = App.Mega.find(model.id);
+            this.controllerFor('mega').getInitData(megaModel);
+
         },
         model: function(params) {
             return MegaModel.find(params.photo_id);
@@ -21,6 +22,12 @@ define([
                 $("body").css("overflow", "hidden");
                 $('#footer').attr("style", "display:none");
             }, 100);
+        },
+        events: {
+            transitionToProfile: function(id) {
+
+                this.transitionTo("profile", App.Profile.find(id));
+            }
         },
         deactivate: function() {
 

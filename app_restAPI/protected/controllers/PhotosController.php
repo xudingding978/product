@@ -166,26 +166,7 @@ class PhotosController extends Controller {
     }
 
     public function actionUpdate() {
-        try {
-
-            $returnType = "photo";
-            $temp = explode("?", $_SERVER['REQUEST_URI']);
-            $request_arr = array();
-
-            if (sizeof($temp) > 1) {
-                $request_string = $temp [sizeof($temp) - 1];
-                $request_arr = preg_split("/=|&/", $request_string);
-
-                $response = $this->getAllDoc($returnType, $request_arr[1], $request_arr[3]);
-                $this->sendResponse(200, $response);
-            }
-
-
-            $request_json = file_get_contents('php://input');
-            echo $request_json;
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
+        
     }
 
     public function updateCouchbasePhoto($id) {
@@ -414,7 +395,7 @@ class PhotosController extends Controller {
     }
 
     public function removeS3Record($mega) {
-   $bucket = 's3.hubsrv.com';
+        $bucket = 's3.hubsrv.com';
         $arr = $this->getProviderConfigurationByName($this->getDomain(), "S3Client");
         $client = Aws\S3\S3Client::factory(
                         $arr
@@ -426,6 +407,30 @@ class PhotosController extends Controller {
 //        $mega['photo'][0]['photo_image_hero_url'];
 //        $mega['photo'][0]['photo_image_thumbnail_url'];
 //        $mega['photo'][0]['photo_image_preview_url'];
+    }
+
+    public function photoUpdate($mega) {
+        try {
+            $cb = $this->couchBaseConnection();
+            $temp = explode("/", $_SERVER['REQUEST_URI']);
+            $id = $temp [sizeof($temp) - 1];
+            $photoTitle = $mega['mega']['photo'][0]['photo_title'];
+            $photoCaption = $mega['mega']['photo'][0]['photo_caption'];
+            $url = $this->getDomain() . "/" . $id;
+            $tempRecord = $cb->get($url);
+            $oldRecord = CJSON::decode($tempRecord, true);
+            $oldRecord['object_description'] = $photoCaption;
+            $oldRecord['photo'][0]['photo_title'] = $photoTitle;
+            $oldRecord['photo'][0]['photo_caption'] = $photoCaption;
+
+            if ($cb->set($url, CJSON::encode($oldRecord))) {
+                $this->sendResponse(204);
+            } else {
+                $this->sendResponse(500, "some thing wrong");
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
     }
 
 }

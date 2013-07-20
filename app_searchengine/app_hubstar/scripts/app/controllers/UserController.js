@@ -242,31 +242,13 @@ define(["ember"
             this.set("selectedCollection", collection);
         },
         checkAuthenticUser: function() {
-            var authenticUsers = this.get("model").get("owner") + "," + this.get("model").get("profile_editors");
-            var currentUser = App.User.find(localStorage.loginStatus);
-            var that = this;
-            var email = currentUser.get('email');
-            if (authenticUsers !== null && authenticUsers !== undefined && email !== null && email !== undefined) {
-                this.setIsAuthenticUser(authenticUsers, email);
-            }
-            currentUser.addObserver('isLoaded', function() {
-                email = currentUser.get('email');
-                if (currentUser.get('isLoaded')) {
-                    that.setIsAuthenticUser(authenticUsers, email);
+            {
+                if (localStorage.loginStatus === this.get('user').id) {
+                    this.set('is_authentic_user', true);
                 }
-            });
-        },
-        setIsAuthenticUser: function(authenticUsers, email)
-        {
-
-            if (authenticUsers.indexOf(email) !== -1) {
-                this.set('is_authentic_user', true);
-            }
-            else if (email.indexOf('@trendsideas.com') !== -1) {
-                this.set('is_authentic_user', true);
-            }
-            else {
-                this.set('is_authentic_user', false);
+                else {
+                    this.set('is_authentic_user', false);
+                }
             }
         },
         selectCollection: function() {

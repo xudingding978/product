@@ -66,9 +66,7 @@ define(['models/MegaModel',
                 },
                 getInitData: function(megaObject) {
                     var photoObj = megaObject.get('photo').objectAt(0);
-                    console.log(megaObject.get('owner_id'));
-                    var profile=App.Profile.find(megaObject.get('owner_id'));
-                  console.log(megaObject);
+                    //      var profile=App.Profile.find(megaObject.get('owner_id'));
                     this.set("currentUser", App.User.find(localStorage.loginStatus));
                     this.set("content", []);
                     this.set('image_no', 1);
@@ -76,12 +74,13 @@ define(['models/MegaModel',
                     this.get("content").pushObject(photoObj);
                     var megaResouce = MegaModel.find(megaObject.id);
                     this.set('megaResouce', megaResouce);
-                    this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
-                    this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
+                    this.set("photo_album_id", "album_" + megaObject.id);
+                    this.set("photo_thumb_id", "thumb_" + megaObject.id);
                     this.addRelatedData(megaObject);
                     this.getCommentsById(megaObject.id);
                 },
                 selectImage: function(e) {
+           
                     this.set('megaResouce', MegaModel.find(e));
                     this.set('selectedPhoto', MegaModel.find(e).get('photo').objectAt(0));
                     this.set("selectedPhoto", this.get('selectedPhoto'));
@@ -105,7 +104,7 @@ define(['models/MegaModel',
                             if (data.get('isLoaded')) {
                                 for (var i = 0; i < this.get("content").length; i++) {
                                     var id = this.get("content").objectAt(i).id;
-                                    if (MegaModel.find(id).get('photo').get('length') === 1&&mega.get('id')!==id)
+                                    if (MegaModel.find(id).get('photo').get('length') === 1 && mega.get('id') !== id)
                                     {
                                         that.get("content").pushObject(MegaModel.find(id).get("photo").objectAt(0));
                                     }
@@ -164,6 +163,24 @@ define(['models/MegaModel',
                     var mega = App.Mega.find(id);
                     var comments = mega.get('comments');
                     this.set('thisComments', comments);
+                },
+                editingPhotoMegaData: function() {
+                    this.set('enableToEdit', !this.get('enableToEdit'));
+
+                },
+                yes: function(photoObject) {
+                    var photo_title = this.get('selectedPhoto.photo_title');
+                    var photo_caption = this.get('selectedPhoto.photo_caption');
+                    photoObject.set('photo_title', photo_title);
+                    photoObject.set('photo_caption', photo_caption);
+                    photoObject.store.save();
+//                      var update_profile_record = App.Profile.find(this.get('model.id'));
+//                    App.store.get('adapter').updateRecord(App.store, App.Profile, update_profile_record);
+                    //            console.log(photoObject);
+                    this.set('enableToEdit', !this.get('enableToEdit'));
+                },
+                no: function() {
+                    this.set('enableToEdit', !this.get('enableToEdit'));
                 }
             });
             return MegaController;

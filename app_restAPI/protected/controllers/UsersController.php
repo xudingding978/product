@@ -152,33 +152,6 @@ class UsersController extends Controller {
         return $data;
     }
 
-    public function photoSavingToS3($request_arr, $path) {
-        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
-        $key = explode(".", $_SERVER['HTTP_HOST']);
-        $key = $key[1] . '.' . $key[2];
-        $result = $cb->get($key);
-        $result_arr = CJSON::decode($result, true);
-        $response = false;
-        $data = $this->getInputData($request_arr ["object"]['photos'][0]['photo_type'], $request_arr ["object"]['photos'][0]['photo_url']);
-        $client = Aws\S3\S3Client::factory(
-                        $result_arr["providers"]["S3Client"]
-        );
-//        if ($client->doesObjectExist('hubstar-dev', $path . $request_arr ["object"]['photos'][0]['photo_title'])) {
-//            $response = false;
-//        } else {
-//            $client->putObject(array(
-//                'Bucket' => "hubstar-dev",
-//                'Key' => $path . $request_arr ["object"]['photos'][0]['photo_title'],
-//                'Body' => $data,
-//                'ACL' => 'public-read'
-//            ));
-//            $response = true;
-//        }
-
-
-
-        return $response;
-    }
 
     public function test() {
         

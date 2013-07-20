@@ -13,7 +13,7 @@ define([
     //   var kink;
     var ProfileRoute = Ember.Route.extend({
         setupController: function(ProfileController, model) {
-            //    console.log(model.id);
+                App.set('editingMode', 'profile');
             ProfileController.setLocalLoginRecrod();
             //     console.log(model);
             ProfileController.setProfile(model.id);

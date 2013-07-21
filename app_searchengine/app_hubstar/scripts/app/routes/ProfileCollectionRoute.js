@@ -30,7 +30,7 @@ define([
             this.controllerFor('profile').set('switchPhoto', false);
             var address = document.URL;
             var owner_id = address.split("#")[1].split("/")[2];
-            console.log(params.profileCollection_id);
+    //        console.log(params.profileCollection_id);
             return MegaModel.find({RquireType: "collection", collection_id: params.profileCollection_id, owner_profile_id: owner_id});
 
         },

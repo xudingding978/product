@@ -32,7 +32,7 @@ define(["ember"
             var user = this.getCurrentUser();
             topics = user.get('selected_topics');
             this.set('selected_topics', []);
-            if (topics !== null && topics !== "") {
+            if (topics !== null && topics !== "" && topics !== undefined) {
                 var topics = topics.split(",");
                 for (var i = 0; i < topics.length; i++) {
                     this.get('selected_topics').pushObject({topics: topics[i]});

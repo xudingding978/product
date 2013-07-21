@@ -13,7 +13,7 @@ define([
         setupController: function(controller, model) {
             //        console.log(model);
             this.controller.set('model', null);
-            console.log(controller.get('model'));
+     //       console.log(controller.get('model'));
             controller.set('model', model);
             this.controllerFor('application').set('islogin', true);
             this.controllerFor('application').set('popup', false);
@@ -24,6 +24,14 @@ define([
         },
         activate: function() {
 
+        },
+        redirect: function() {
+
+            if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
+
+                this.transitionTo('indexIndex');
+                this.controllerFor('application').set('popup', true);
+            }
         },
         deactivate: function() {
 //            $('.nothingHere').attr('style', 'display:none');

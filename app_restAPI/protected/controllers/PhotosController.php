@@ -14,6 +14,7 @@ class PhotosController extends Controller {
     }
 
     public function actionIndex() {
+        
         $temp = explode("/", $_SERVER['REQUEST_URI']);
 
         $id = $temp[sizeof($temp) - 1];
@@ -22,10 +23,17 @@ class PhotosController extends Controller {
     }
 
     public function actionCreate() {
+        
         $response;
-        $request_json = file_get_contents('php://input');
+        $request_json = file_get_contents('php://input');        
         $request_arr = CJSON::decode($request_json, true);
+        
+        
         $url = $request_arr["url"];
+        $this->addResizedHeroPhoto($url);
+    }
+    
+    protected function addResizedHeroPhoto($url) {
         $isUrlExist = $this->isUrlExist($url);
         $this->is_image($url);
 
@@ -35,6 +43,7 @@ class PhotosController extends Controller {
                 $url = str_replace('http://', 'http://imageservice.', $url) . '?width=336&format=jpg';
                 $url = str_replace('hero', 'original', $url);
             }
+            
             $image_info = $this->getImageInfo($url);
             $name = $this->renamingImage($image_info, $url);
             if (strpos($url, 'original')) {
@@ -43,7 +52,7 @@ class PhotosController extends Controller {
                 $response = $this->getImageSource($url, $image_info);
             }
             $bucket = 's3.hubsrv.com';
-            $key = str_replace("http://s3.hubsrv.com/", "", $request_arr['hero_url']);
+            $key = str_replace("http://s3.hubsrv.com/", "", $request_arr['original_url']);
             $this->removeImageFromS3($key, $bucket);
 
             $key = 'trendsideas.com/' . $request_arr['id'] . '/photo/' . $request_arr['id'] . '/' . $request_arr['type'] . '/' . $name;
@@ -93,7 +102,6 @@ class PhotosController extends Controller {
     protected function getWatermarkImageSource($url, $imageInfo) {
         $stamp = $this->getStamp($url);
         try {
-
             $im = $this->getImageString($imageInfo['mime'], $url);
             $marge_right = 5;
             $marge_bottom = 5;
@@ -310,7 +318,6 @@ class PhotosController extends Controller {
     }
 
     public function createNewImage($orig_size, $new_size, $photo, $photo_type) {
-
 
         // Create new image to display
         $new_photo = imagecreatetruecolor($new_size['width'], $new_size['height']);

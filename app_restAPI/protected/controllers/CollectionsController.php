@@ -7,7 +7,7 @@ header('Access-Control-Request-Method: *');
 header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET');
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
-class TestController extends Controller {
+class CollectionsController extends Controller {
 
     const JSON_RESPONSE_ROOT_SINGLE = 'mega';
     const JSON_RESPONSE_ROOT_PLURAL = 'megas';

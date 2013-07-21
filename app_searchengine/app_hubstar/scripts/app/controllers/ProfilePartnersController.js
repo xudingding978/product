@@ -96,33 +96,20 @@ define(["ember"], function(Ember) {
             App.store.get('adapter').updateRecord(App.store, App.Profile, profileOwner);
         },
         checkAuthenticUser: function() {
-            var authenticUsers = this.get("model").get("owner") + "," + this.get("model").get("profile_editors");
             var currentUser = App.User.find(localStorage.loginStatus);
+            var current_user_email = currentUser.get('email');
+            var permissionController = this.get('controllers.permission');
             var that = this;
-            var email = currentUser.get('email');
-            if (authenticUsers !== null && authenticUsers !== undefined && email !== null && email !== undefined) {
-                this.setIsAuthenticUser(authenticUsers, email);
-            }
+            var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
+            that.set("is_authentic_user", is_authentic_user);
             currentUser.addObserver('isLoaded', function() {
-                email = currentUser.get('email');
+                var current_user_email = currentUser.get('email');
                 if (currentUser.get('isLoaded')) {
-                    that.setIsAuthenticUser(authenticUsers, email);
+                    var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
+                    that.set("is_authentic_user", is_authentic_user);
                 }
             });
-        },
-        setIsAuthenticUser: function(authenticUsers, email)
-        {
-
-            if (authenticUsers.indexOf(email) !== -1) {
-                this.set('is_authentic_user', true);
-            }
-            else if (email.indexOf('@trendsideas.com') !== -1) {
-                this.set('is_authentic_user', true);
-            }
-            else {
-                this.set('is_authentic_user', false);
-            }
-        },
+        }
     }
     );
     return ProfilePartnersController;

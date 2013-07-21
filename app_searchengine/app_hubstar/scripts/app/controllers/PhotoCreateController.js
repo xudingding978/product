@@ -4,6 +4,7 @@ define(["ember", "helper"],
                 content: [],
                 newMegas: [],
                 mode: null,
+                filesNumber: null,
                 profileMega: null,
                 nodifyBackGround: false,
                 collection_id: "",
@@ -16,7 +17,8 @@ define(["ember", "helper"],
                     var input = evt.target;
                     var files = input.files;
                     var that = this;
-
+                    App.set("totalFiles", 0);
+                    this.set("filesNumber", files.length);
                     for (var i = 0; i < files.length; i++) {
                         (function(file) {
                             var name = file.name;
@@ -34,6 +36,7 @@ define(["ember", "helper"],
                 },
                 submit: function()
                 {
+                    console.log(createGuid());
                     App.store.commit();
 
                     this.back();
@@ -111,14 +114,27 @@ define(["ember", "helper"],
                         "photo_keywords": that.get("profileMega").get("keywords")});
                     mega.get("photo").pushObject(file);
                     mega.addObserver('isSaving', function() {
+
                         if (mega.get('isSaving')) {
+
+
                             $('.' + file.get('photo_source_id')).attr("style", "display:block");
                         }
                         else {
+                            App.set("totalFiles", App.get("totalFiles") + 1);
                             $('.' + file.get('photo_source_id')).attr("style", "display:none");
+
                         }
                     });
+
+                    if (App.get("totalFiles") === this.get("filesNumber")) {
+
+
+                    }
+
                     that.get("content").addObject(file);
+
+
                 },
                 getTarget: function(obj) {
                     var targ;

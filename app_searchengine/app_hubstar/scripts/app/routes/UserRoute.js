@@ -14,6 +14,7 @@ define([
 
     var UsersRoute = Ember.Route.extend({
         setupController: function(controller, model) {
+            console.log("dddddd8dddddd");
             App.set('editingMode', 'user');
             this.controllerFor('application').set('islogin', true);
             this.controllerFor('application').set('popup', false);

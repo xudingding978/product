@@ -22,6 +22,7 @@ define(["ember"], function(Ember) {
                 this.resource("profileNew", {path: '/new'});
             });
             this.resource("user", {path: '/users/:user_id'},function(){
+
                    this.resource("userIndex", {path: '/'});
                     this.resource("collection", {path: ':collection_id'});
                 

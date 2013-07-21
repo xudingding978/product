@@ -60,20 +60,14 @@ define(["ember"], function(Ember) {
             $(selectedImage_id).addClass('selected_image_style');
         },
         getInitData: function(megaObject) {
-            //         var articleObj = megaObject.get('article').objectAt(0);
             this.set("currentUser", App.User.find(localStorage.loginStatus));
             this.set("content", []);
             this.set('image_no', 1);
-            // this.set('selectedPhoto', App.Mega.find(e).get('photo').objectAt(0))
             var megaResouce = App.Mega.find(megaObject.id);
-
-
             this.set('articleResouce', megaResouce.get('article').objectAt(0));
             this.set('megaResouce', megaResouce);
             this.addRelatedData(megaObject);
             this.getCommentsById(megaObject.id);
-//            this.set("photo_album_id", "album_" + this.get('selectedMega').id);
-//            this.set("photo_thumb_id", "thumb_" + this.get('selectedMega').id);
         },
         addComment: function() {
             var commentContent = this.get('commentContent');
@@ -137,7 +131,8 @@ define(["ember"], function(Ember) {
         switchCollection: function() {
 
             var addCollectionController = this.get('controllers.addCollection');
-            var selectid = this.get('selectedPhoto').id;
+
+            var selectid = this.get('articleResouce').id;
             addCollectionController.setImageID(selectid);
             var tempUrl = this.get('selectedPhoto').get('photo_image_thumbnail_url');
             addCollectionController.setThumbnailUrl(tempUrl);

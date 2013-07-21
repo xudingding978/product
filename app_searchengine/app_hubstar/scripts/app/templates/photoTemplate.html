@@ -129,7 +129,9 @@
 
                     {{#unless controller.enableToEdit}}
                     <div class="article-title">{{controller.selectedPhoto.photo_title}}</div>
+                    {{#if controller.is_authentic_user}}
                     <i class="icon-edit" {{action editingPhotoMegaData}}></i>
+                    {{/if}}
                     <div class="article-text">{{controller.selectedPhoto.photo_caption}}</div>
 
                     {{else}}

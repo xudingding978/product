@@ -10,12 +10,12 @@ define([
         nodifyBackground: function()
         {
             var bool = this.get("controller").get("nodifyBackGround");
-            console.log(bool);
-            if (bool) {
-                $('#dragAndDroppReviewArea').attr('style', "display:block");
+ 
+            if (bool===true) {
+                $('#dragAndDroppArea').attr('style', "display:block");
             }
             else {
-                $('#dragAndDroppReviewArea').attr('style', "display:none");
+                $('#dragAndDroppArea').attr('style', "display:none");
             }
         }.observes('controller.nodifyBackGround'),
         drop: function(event) {

@@ -7,12 +7,13 @@ define([
         content: [],
         title: null,
         is_authentic_user: false,
-        needs: ['photoCreate', 'profile'],
+        needs: ['photoCreate', 'profile','permission'],
         user_id: null,
         init: function() {
             this.checkAuthenticUser();
         },
         selectModelForUser: function(collection_id) {
+
             this.set('content', []);
             var address = document.URL;
             var user_id = address.split("#")[1].split("/")[2];
@@ -102,34 +103,23 @@ define([
             this.set('makeSureDelete', false);
             App.set('data', null);
         },
-        checkAuthenticUser: function() {
-            var authenticUsers = this.get("model").get("owner") + "," + this.get("model").get("profile_editors");
-            var currentUser = App.User.find(localStorage.loginStatus);
-            var that = this;
-            var email = currentUser.get('email');
-            if (authenticUsers !== null && authenticUsers !== undefined && email !== null && email !== undefined&&App.get('editingMode')==="profile") {
-                this.setIsAuthenticUser(authenticUsers, email);
-            }
-            currentUser.addObserver('isLoaded', function() {
-                email = currentUser.get('email');
-                if (currentUser.get('isLoaded')) {
-                    that.checkAuthenticUser();
-                }
-            });
-        },
-        setIsAuthenticUser: function(authenticUsers, email)
-        {
+          checkAuthenticUser: function() {
+                    var currentUser = App.User.find(localStorage.loginStatus);
+                    var current_user_email = currentUser.get('email');
+                    var permissionController = this.get('controllers.permission');
+                    var that = this;
+                    var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
+                    that.set("is_authentic_user", is_authentic_user);
+                    currentUser.addObserver('isLoaded', function() {
+                        var current_user_email = currentUser.get('email');
+                        if (currentUser.get('isLoaded')) {
+                            var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
+                            that.set("is_authentic_user", is_authentic_user);
+                        }
+                    });
 
-            if (authenticUsers.indexOf(email) !== -1) {
-                this.set('is_authentic_user', true);
-            }
-            else if (email.indexOf('@trendsideas.com') !== -1) {
-                this.set('is_authentic_user', true);
-            }
-            else {
-                this.set('is_authentic_user', false);
-            }
-        },
+
+                },
         changeCollectionCover: function(id, collection_id, AppModel) {
 
             this.dropdownPhotoSetting(id);

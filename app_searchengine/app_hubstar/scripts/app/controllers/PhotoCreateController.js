@@ -16,7 +16,7 @@ define(["ember", "helper"],
                     var input = evt.target;
                     var files = input.files;
                     var that = this;
-                    console.log('files.length'+files.length);
+             
                     for (var i = 0; i < files.length; i++) {
                         (function(file) {
                             var name = file.name;
@@ -41,6 +41,7 @@ define(["ember", "helper"],
                     this.set("nodifyBackGround", false);
                     var masonryCollectionItems = this.get('controllers.masonryCollectionItems');
                     masonryCollectionItems.back();
+
                 },
                 setMega: function() {
                     var profileController = this.get('controllers.profile');

@@ -1,3 +1,4 @@
+
 define([
     'ember',
     'models/UserModel',
@@ -20,10 +21,10 @@ define([
                 this.transitionTo('indexIndex');
                 this.controllerFor('application').set('popup', true);
             } else {
-
                 this.transitionTo('user');
             }
         }
+
     });
     return UserIndexRoute;
 });

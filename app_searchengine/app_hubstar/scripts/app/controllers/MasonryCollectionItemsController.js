@@ -13,7 +13,7 @@ define([
             this.checkAuthenticUser();
         },
         selectModelForUser: function(collection_id) {
-    console.log('ddddddddddddddddd  '+collection_id);
+
             this.set('content', []);
             var address = document.URL;
             var user_id = address.split("#")[1].split("/")[2];

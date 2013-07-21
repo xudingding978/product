@@ -43,167 +43,9 @@
                 <!--corpbanner-->
 
                 <div class="profilecorpbanner"    style="overflow:hidden;width: 100%; max-height: 650px; border-radius: 3px 3px 0 0; position: relative;min-height: 400px;">
-                    {{#if controller.uploadChecking}}
-                    <div  class="t-style-box"  style="width:100%;background-color: white;">
-                        <div class="tabbable">
-                            <div class="tabs-left">
-                                <ul class="nav nav-tabs easing">
-                                    <li class="active"><a href="#tab1" data-toggle="tab">Fast upload</a></li>
-                                    <li class="easing"><a href="#tab2" data-toggle="tab">Background Wallpaper</a></li>
-                                    <li class="easing"><a href="#tab3" data-toggle="tab">Profile Hero</a></li>
-                                    <li class="easing"><a href="#tab4" data-toggle="tab">Profile Picture</a></li>
-                                </ul>
-                            </div>
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="tab1">
-
-                                    <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 55px;">Fast Upload:</div>
-                                    <div style="width:80%;margin: auto;">
-                                        <div style="display: block;margin: 10px;">
-                                            <div style="display: inline-block;font-size: 16px;width: 29%;text-align: right;">Background Wallpaper: </div>
-                                            <div style="margin: 0 0 0 5px;width: 69%;display: inline-block;">
-                                                {{view Ember.TextField valueBinding="profile_bg_url"  class="background"  placeholder="http://yourBackgroundImage" }}
-                                            </div>
-                                        </div>
-                                        <div style="display: block;margin: 10px;">
-                                            <div style="display: inline-block;font-size: 16px;width: 29%;text-align: right;">Hero: </div>
-                                            <div style="margin: 0 0 0 5px;width: 69%;display: inline-block;">
-                                                {{view Ember.TextField valueBinding="profile_hero_url"  class="hero"  placeholder="http://yourHeroImage" }}
-                                            </div>
-                                        </div>
-                                        <div style="display: block;margin: 10px;">
-                                            <div style="display: inline-block;font-size: 16px;width: 29%;text-align: right;">Profile Picture: </div>
-                                            <div style="margin: 0 0 0 5px;width: 69%;display: inline-block;">
-                                                {{view Ember.TextField valueBinding="profile_pic_url"  class="picture"  placeholder="http://yourPictureImage" }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div style=" height: 100px; width: 80%; margin: auto; text-align: center;">
-                                        <img style="height: 100%;margin: auto 3px;display: inline-block; max-width: 300px;" {{bindAttr src="profile_bg_url"}} />
-                                        <img style="height: 100%;margin: auto 3px;display: inline-block;" {{bindAttr src="profile_hero_url"}} />
-                                        <img style="height: 100%;margin: auto 3px;display: inline-block;" {{bindAttr src="profile_pic_url"}} />
-                                    </div>
-
-
-                                    <div class="controlbtn" style="left: 34%;margin: 10px auto 20px;">
-                                        <span class="new-btn" {{action toggleUpload }}>Cancel</span>
-                                        <span class="new-btn green-btn" {{action uploadImage}}>Submit</span> 
-                                    </div>
-                                    <div style="position: absolute; width:100%; height: 50px; bottom: 0;"><img style="width: 100%;" src="../../../images/divbot.jpg"/></div>
-                                </div>
-
-
-
-                                <div class="tab-pane" id="tab2">
-                                    <div style="position: relative; margin: 0px auto;height: 450px; width: 90%; background-color: rgba(242,240,240,0.5);border: 3px dashed #aaa;"> 
-                                        <div style="top: 200px;position: relative;margin: auto;width: 80%;font-size: 26px; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;">
-                                            <i class="icon-upload" style="font-size: 45px;"></i>
-                                            <p style="font-weight: bold;">
-                                                Drag and drop. 
-                                            </p>
-                                        </div>
-
-                                        <div class="new-btn blue-btn" style="margin: auto; width: 200px; top: 480px; position: absolute;left: 0;right: 67%;">
-                                            Choose 
-                                            <div style="opacity:0;position: absolute;top: 0px;left: 0;"> {{view App.ImageInputButtonView }}</div> 
-                                        </div> 
-
-                                        <div id="dragAndDroppReviewArea" class="dragndropbox" style="display:none">
-                                            {{#each content}}
-                                            <div style="position: relative;margin:3px; display: inline-block; vertical-align: top; min-width: 150px;text-align: center;">
-                                                <div> <img  {{bindAttr src= "photo_image_url"}}  alt="Logo" style="max-width: 140px; max-height: 150px;"> </div>
-                                                <div style="margin: 2px 0 5px; font-size: 13px; text-overflow:ellipsis; text-align: center; width: 150px;overflow: hidden;word-wrap: break-word;line-height: 15px;">{{photo_title}}</div>
-                                            </div>
-                                            {{/each}}
-                                        </div>
-                                    </div>
-                                    <div style="margin: 20px auto;">
-                                        <div class="controlbtn" style="left: 34%;">
-                                            <span class="new-btn" {{action toggleUpload }}>Cancel</span>
-                                            <span class="new-btn green-btn" {{action submit}}>Submit</span> 
-                                        </div>
-                                    </div>
-                                    <div style="position: absolute; width:100%; height: 50px; bottom: 0;"><img style="width: 100%;" src="../../../images/divbot.jpg"/></div>
-                                </div>
-
-
-                                <div class="tab-pane" id="tab3">
-                                    <div style="position: relative; margin: 0px auto;height: 450px; width: 90%; background-color: rgba(242,240,240,0.5);border: 3px dashed #aaa;"> 
-                                        <div style="top: 200px;position: relative;margin: auto;width: 80%;font-size: 26px; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;">
-                                            <i class="icon-upload" style="font-size: 45px;"></i>
-                                            <p style="font-weight: bold;">
-                                                Drag and drop. 
-                                            </p>
-                                        </div>
-
-                                        <div class="new-btn blue-btn" style="margin: auto; width: 200px; top: 480px; position: absolute;left: 0;right: 67%;">
-                                            Choose 
-                                            <div style="opacity:0;position: absolute;top: 0px;left: 0;"> {{view App.ImageInputButtonView }}</div> 
-                                        </div> 
-
-                                        <div id="dragAndDroppReviewArea" class="dragndropbox" style="display:none">
-                                            {{#each content}}
-                                            <div style="position: relative;margin:3px; display: inline-block; vertical-align: top; min-width: 150px;text-align: center;">
-                                                <div> <img  {{bindAttr src= "photo_image_url"}}  alt="Logo" style="max-width: 140px; max-height: 150px;"> </div>
-                                                <div style="margin: 2px 0 5px; font-size: 13px; text-overflow:ellipsis; text-align: center; width: 150px;overflow: hidden;word-wrap: break-word;line-height: 15px;">{{photo_title}}</div>
-                                            </div>
-                                            {{/each}}
-                                        </div>
-                                    </div>
-                                    <div style="margin: 20px auto;">
-                                        <div class="controlbtn" style="left: 34%;">
-                                            <span class="new-btn" {{action toggleUpload }}>Cancel</span>
-                                            <span class="new-btn green-btn" {{action submit}}>Submit</span> 
-                                        </div>
-                                    </div>
-                                    <div style="position: absolute; width:100%; height: 50px; bottom: 0;"><img style="width: 100%;" src="../../../images/divbot.jpg"/></div>
-                                </div>
-
-
-
-                                <div class="tab-pane" id="tab4">
-                                    <div style="position: relative; margin: 0px auto;height: 450px; width: 90%; background-color: rgba(242,240,240,0.5);border: 3px dashed #aaa;"> 
-                                        <div style="top: 200px;position: relative;margin: auto;width: 80%;font-size: 26px; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;">
-                                            <i class="icon-upload" style="font-size: 45px;"></i>
-                                            <p style="font-weight: bold;">
-                                                Drag and drop. 
-                                            </p>
-                                        </div>
-
-                                        <div class="new-btn blue-btn" style="margin: auto; width: 200px; top: 480px; position: absolute;left: 0;right: 67%;">
-                                            Choose 
-                                            <div style="opacity:0;position: absolute;top: 0px;left: 0;"> {{view App.ImageInputButtonView }}</div> 
-                                        </div> 
-
-                                        <div id="dragAndDroppReviewArea" class="dragndropbox" style="display:none">
-                                            {{#each content}}
-                                            <div style="position: relative;margin:3px; display: inline-block; vertical-align: top; min-width: 150px;text-align: center;">
-                                                <div> <img  {{bindAttr src= "photo_image_url"}}  alt="Logo" style="max-width: 140px; max-height: 150px;"> </div>
-                                                <div style="margin: 2px 0 5px; font-size: 13px; text-overflow:ellipsis; text-align: center; width: 150px;overflow: hidden;word-wrap: break-word;line-height: 15px;">{{photo_title}}</div>
-                                            </div>
-                                            {{/each}}
-                                        </div>
-                                    </div>
-                                    <div style="margin: 20px auto;">
-                                        <div class="controlbtn" style="left: 34%;">
-                                            <span class="new-btn" {{action toggleUpload }}>Cancel</span>
-                                            <span class="new-btn green-btn" {{action submit}}>Submit</span> 
-                                        </div>
-                                    </div>
-                                    <div style="position: absolute; width:100%; height: 50px; bottom: 0;"><img style="width: 100%;" src="../../../images/divbot.jpg"/></div>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-                    </div>
-                    {{else}}
                     <img {{bindAttr src= model.profile_hero_url}} style="width:100%;"/>
-
-                    {{/if}}
                     {{#if controller.is_authentic_user}}
-                    <a style="background-image:url('../images/dogearhover.png');width: 30px;height: 29px;position: absolute;right: 0; top: 0;" href="" {{action toggleUpload}}></a>
+                    <a style="background-image:url('../images/dogearhover.png');width: 30px;height: 29px;position: absolute;right: 0; top: 0;"></a>
                     {{/if}}
                     <div class="corpbanner_mask" style="background: url('../images/bannershadow.png') repeat-x; position: absolute;bottom:0; width: 100%; height: 200px;">
                         <div class="corpbanner_content" style="position: absolute;bottom:0;margin-left: 30%;width: 70%;">
@@ -270,10 +112,10 @@
                                 </div>
                                 {{#if controller.follow_status}}
                                 <div href="#question_modal" role="button" class="followed-btn" data-toggle="modal"><i class='icon-circle-blank' >&nbsp; </i> Following</div>
-                                   {{else}}
-                                      <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin:10px auto;display: block;width: 150px;"{{action followThisProfile}}><i class='icon-plus' >&nbsp; </i> Follow</div>
+                                {{else}}
+                                <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin:10px auto;display: block;width: 150px;"{{action followThisProfile}}><i class='icon-plus' >&nbsp; </i> Follow</div>
 
-                                        {{/if}}
+                                {{/if}}
                             </div>
                             <!--PROFILE CONTACT SECTION-->
 
@@ -434,26 +276,26 @@
 
 
 
-                            <!--
-                            
-                            
-                                                        <div class="main_comments" style="padding:20px 0 30px 0; font-size: 16px;">
-                                                            <p style="font-size:18px;margin: 20px auto 0;">
-                                                                <i class='icon-comments-alt' style='margin-right: 10px;'></i>
-                                                                Comments
-                                                            </p>
-                                                            <div class="comment-item">
-                                                            </div>
-                                                            <div class="comment-item">
-                                                            </div>
-                                                        </div>
-                            
-                            
-                            
-                            
-                                                        <div id="flip-front" class='new-btn blue-btn' style="float: right;display: block;margin: 10px 0;">
-                                                            <i class="icon-map-marker"></i>
-                                                        </div>-->
+
+
+                            <!--                            
+                                                                                    <div class="main_comments" style="padding:20px 0 30px 0; font-size: 16px;">
+                                                                                        <p style="font-size:18px;margin: 20px auto 0;">
+                                                                                            <i class='icon-comments-alt' style='margin-right: 10px;'></i>
+                                                                                            Comments
+                                                                                        </p>
+                                                                                        <div class="comment-item">
+                                                                                        </div>
+                                                                                        <div class="comment-item">
+                                                                                        </div>
+                                                                                    </div>
+                            -->
+
+
+
+                            <div  id="flip-front" class='new-btn blue-btn' style="float: right;display: block; margin: 10px 0;">
+                                <i class="icon-cogs"></i>
+                            </div>
 
 
                         </div>
@@ -468,24 +310,482 @@
 
         </div>
 
-        <div class="back t-style-box"  style='width: 100%;height:auto;  background-color: white; border-radius: 3px;border:none; min-height: 1000px;'>
-
-            <div style="width:100%; height:650px; border-radius: 3px 3px 0 0; overflow: hidden;">
-                {{view App.MapView}}
-            </div>
-
-            <div class="main_Location" style="padding:20px 20px 30px ; font-size: 15px;text-shadow: none;">
-                <div><p style='margin-bottom: 20px;display: inline-block; font-size: 18px;'>
-                        <i class='icon-map-marker' style='margin-right: 10px;display: inline-block;'></i>
-                        Location
-                    </p>
-                    <p style="padding: 0 20px;">{{model.profile_physical_address}} </p>
-                </div>
-                <div style="padding: 10px 50px;">
+        <div class="back t-style-box"  style='width: 100%;height:auto;  background-color: white; border-radius: 3px;border:none;'>
+            <div style="position: relative; top: 0; width: 100%;height: 300px;overflow: hidden; border-radius: 3px 3px 0 0;"> 
+                <img {{bindAttr src= model.profile_hero_url}} style="width:100%;"/>
+                <div style="background: url('../images/bannershadow.png') repeat-x; position: absolute; width: 100%; height: 200px; bottom: 0;">
+                    <div style='font-size: 45px;color: white;font-weight: bold;line-height: 50px;margin: 40px  60px;bottom: 0;position: absolute;'>
+                        <k class='icon-cogs'>&nbsp;</k>Dashboard</div>
                 </div>
             </div>
 
-            <div id="flip-back" class='new-btn blue-btn' style="float: right;position: relative;top: 200px;right: 20px;text-shadow: none;">Back</div>
+
+
+
+
+
+            <div class="tabbable">
+                <div class="tabs-left">
+                    <ul class="nav nav-tabs easing">
+                        <li class="active"><a href="#tab1" data-toggle="tab">Style up!</a></li>
+                        <li class="easing"><a href="#tab2" data-toggle="tab">General Settings</a></li>
+                        <li class="easing"><a href="#tab3" data-toggle="tab">Account Settings</a></li>
+                        <li class="easing" style="display: none;"><a href="#tab4" data-toggle="tab">Background Wallpaper</a></li>
+                        <li class="easing" style="display: none;"><a href="#tab5" data-toggle="tab">Profile Hero</a></li>
+                        <li class="easing" style="display: none;"><a href="#tab6" data-toggle="tab">Profile Picture</a></li>
+                    </ul>
+                </div>
+
+
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab1">
+
+                        <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">Style up your profile!</div>
+                        <div style="width:87%;margin: auto;margin-bottom: 20px;">
+                            <div style="display: block;margin: 10px;">
+                                <div style="display: inline-block;font-size: 16px;width: 170px; text-align: right;">Background Wallpaper: </div>
+                                <div style="margin: 0 5px;width: 64%;display: inline-block;">
+                                    {{view Ember.TextField valueBinding="profile_bg_url"  class="background"  placeholder="http://yourBackgroundImage" }}
+                                </div>
+                                <a href="#tab4" data-toggle="tab"><div class='new-btn blue-btn' style="display: inline-block; vertical-align: middle; margin-top: 8px;"><k class='icon-upload'></k></div></a>
+                            </div>
+                            <div style="display: block;margin: 10px;">
+                                <div style="display: inline-block;font-size: 16px;width: 170px;text-align: right;">Hero: </div>
+                                <div style="margin: 0 5px;width: 64%;display: inline-block;">
+                                    {{view Ember.TextField valueBinding="profile_hero_url"  class="hero"  placeholder="http://yourHeroImage" }}
+                                </div>
+                                <a href="#tab5" data-toggle="tab"><div class='new-btn blue-btn' style="display: inline-block; vertical-align: middle; margin-top: 8px;"><k class='icon-upload'></k></div></a>
+                            </div>
+                            <div style="display: block;margin: 10px;">
+                                <div style="display: inline-block;font-size: 16px;width: 170px; text-align: right;">Profile Picture: </div>
+                                <div style="margin: 0 5px;width: 64%;display: inline-block;">
+                                    {{view Ember.TextField valueBinding="profile_pic_url"  class="picture"  placeholder="http://yourPictureImage" }}
+                                </div>
+                                <a href="#tab6" data-toggle="tab"><div class='new-btn blue-btn' style="display: inline-block; vertical-align: middle; margin-top: 8px;"><k class='icon-upload'></k></div></a>
+                            </div>
+                        </div>
+                        <div style=" height: 100px; width: 95%; margin: auto; text-align: center;">
+                            <img style="height: 100%;margin: auto 3px;display: inline-block; max-width: 300px;" {{bindAttr src="profile_bg_url"}} />
+                            <img style="height: 100%;margin: auto 3px;display: inline-block; max-width: 300px;" {{bindAttr src="profile_hero_url"}} />
+                            <img style="height: 100%;margin: auto 3px;display: inline-block; max-width: 200px;" {{bindAttr src="profile_pic_url"}} />
+                        </div>
+
+
+
+                        <div style="right: 0;margin: 30px auto 0;width: 150px;">
+                            <span class="new-btn green-btn" data-ember-action="14">Save</span> 
+                            <span id="flip-back" class='new-btn blue-btn'><k class='icon-group'> &nbsp;</k>Back</span>
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+
+
+
+                    <div class="tab-pane" id="tab2">
+
+                        <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">General Settings:</div>
+                        
+                        <table style="padding-right: 147px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
+                            <tbody class="profilesnew-table" style="display: table-row-group; vertical-align: middle; border-color: inherit;">
+
+                                <tr>
+                                    <td>Profile Name*: </td>                     
+                                    <td> 
+                                        <div style="display: block;">
+                                            {{view Ember.TextField valueBinding="profile_name"   class="mustFill1" placeholder="Heritage Tiles NZ"}} 
+                                        </div>
+                                        <div class="mustfull" id="mustFill1" style="display: none">please fill in info... </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Profile URL*:</td>
+                                    <td> 
+                                        <div style="display: block;">
+                                            {{view Ember.TextField valueBinding="profile_url"  class="mustFill2"  placeholder="ie: heritage-tiles-nz * no spaces, no underscores, no special characters, all lower case"}}
+                                        </div>
+                                        <div style="margin-bottom: 10px; color: #333;font-size: 13px;width: auto;display: inline-block;">
+                                            Note: Once the URL has been set, it cannot be changed nor undone.
+                                        </div>
+                                        <div class="mustfull" id="mustFill2" style="display: none">please fill in info... </div>
+                                    </td>
+                                </tr>
+
+
+
+
+                                <tr>
+                                    <td>boost*:</td>
+                                    <td> 
+                                        <div style="display: block;">
+                                            {{view Ember.TextField valueBinding="boost"  class="mustFill7"  placeholder="ie: number"}}
+                                        </div>
+                                        <div class="mustfull" id="number1" style="display: none">not a number....</div>
+                                        <div class="mustfull" id="mustFill7" style="display: none">please fill in info... </div>
+                                    </td>
+                                </tr>
+
+
+
+                                <tr>
+                                    <td>Profile Contact:</td>
+                                    <td> 
+                                        <div  style="display: block; margin-bottom: 5px;" >
+
+                                            <div  style="margin: 0 5px 0;width: 48%;display: inline-block;">
+                                                {{view Ember.TextField valueBinding="first_name"  placeholder="First Name"}}
+                                            </div>
+                                            <div style="margin: 0;width: 48%;display: inline-block;">
+                                                {{view Ember.TextField valueBinding="last_name"  placeholder="Last Name"}}
+                                            </div>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td> Package:</td>
+                                    <td> 
+                                        <div class="new-btn" style="display: block;" {{action dropdown controller.packgeSelection}}>
+                                             <span id="packgeSelection">Package</span>
+                                            <span class="caret"></span>
+                                        </div>
+                                        {{#if controller.packgetDropdown}}
+                                        {{view App.DropdownListView}}
+                                        {{/if}}
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>Category:</td>
+                                    <td> 
+                                        <div class="new-btn" style="display: block;" {{action dropdown controller.dropdownCategory}}>
+                                             <span id="dropdownCategory">Bathrooms</span>
+                                            <span class="caret"></span>
+                                        </div>
+                                        {{#if controller.projectCategoryDropdown}}
+                                        {{view App.DropdownListView}}
+                                        {{/if}}
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>Physical Address:</td>
+                                    <td> 
+                                        <div style="display: block;">
+                                            <div   style="margin: 0;width: 100%;height:100px;">
+                                                {{view Ember.TextArea valueBinding="address" class="no-resize" placeholder="Address" }}
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Contact Number:</td>
+                                    <td> 
+                                        <div style="display: block;">
+                                            <div   style="margin: 0;width: 100%;">
+                                                {{view Ember.TextField valueBinding="profile_contact_number" placeholder="0987364531"}}
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Website:</td>
+                                    <td> 
+                                        <div style="display: block;">
+                                            <div   style="margin: 0;width: 100%;">
+                                                {{view Ember.TextField valueBinding="website" placeholder="yourdomain.com"}}
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Website URL:</td>
+                                    <td> 
+                                        <div style="display: block;">
+                                            <div   style="margin: 0;width: 100%;">
+                                                {{view Ember.TextField valueBinding="website_url" placeholder="http://www.yourdomain.com"}}
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                        <div style="right: 0;margin: 30px auto 0;width: 150px;">
+                            <span class="new-btn green-btn" data-ember-action="14">Save</span> 
+                            <span id="flip-back" class='new-btn blue-btn'><k class='icon-group'> &nbsp;</k>Back</span>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                    <div class="tab-pane" id="tab3">
+                        <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">Account Setting:</div>
+                        
+                        <table style="padding-right: 147px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
+                            <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
+                                <tr>
+                                    <td>Client Name:</td>
+                                    <td> 
+                                        <div style="display: block;">
+                                            <div   style="margin: 0;width: 100%;">
+                                                {{view Ember.TextField valueBinding="client_name"  placeholder="John Key" }}
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Country*:</td>
+                                    <td> 
+                                        <div style="display: block;">
+                                            <div   style="margin: 0;width: 100%;">
+                                                {{view Ember.TextField valueBinding="country" class="country"  placeholder="New Zealand" value="New Zealand"}}
+                                            </div>
+                                        </div>     
+                                        <div class="mustfull" id="country" style="display: none">please fill in info... </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Region*:</td>
+                                    <td> 
+                                        <div style="display: block;">
+                                            <div   style="margin: 0;width: 100%;">
+                                                {{view Ember.TextField valueBinding="region" class="region"  placeholder="Auckland"}}
+                                            </div>
+                                        </div>
+                                        <div class="mustfull" id="region" style="display: none">please fill in info... </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Owner*:</td>
+
+                                    <td> 
+                                        <div style="display: block;">
+                                            <div   style="margin: 0;width: 100%;">
+                                                {{view Ember.TextField valueBinding="owner" class="mustFill3"  placeholder="John_Key@gg.com"}}
+                                            </div>
+                                        </div>   
+                                        <div class="mustfull" id="emailFormat3" style="display: none">not correct email format.....</div>
+                                        <div class="mustfull" id="mustFill3" style="display: none">please fill in info... </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Direct Enquiry Email*:</td>
+
+                                    <td> 
+                                        <div style="display: block;">
+                                            <div   style="margin: 0;width: 100%;">
+                                                {{view Ember.TextField valueBinding="direct_enquiry_emails"  class="mustFill4"  placeholder="superman@hubstar.com"}}
+                                            </div>
+                                        </div>     
+                                        <div class="mustfull" id="emailFormat4" style="display: none">not correct email format.....</div>
+                                        <div class="mustfull" id="mustFill4" style="display: none">please fill in info... </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Secondary  Email (cc):</td>
+                                    <td> 
+                                        <div style="display: block;">
+                                            <div   style="margin: 0;width: 100%;">
+                                                {{view Ember.TextField valueBinding="secondary_email"  class=""  placeholder="superman@hubstar.com"}}
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>DirectEnquiry Provide Email (bcc):</td>
+                                    <td> 
+                                        <div style="display: block;">
+                                            <div   style="margin: 0;width: 100%;">
+                                                {{view Ember.TextField valueBinding="direct_enquiry_provide_email"  class=""  placeholder="superman@hubstar.com"}}
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Creater*:</td>         
+                                    <td> 
+                                        <div style="display: block;">
+                                            <div   style="margin: 0;width: 100%;">
+                                                {{view Ember.TextField valueBinding="creater" class="mustFill5" placeholder="clientname@their-domain.com"}}
+                                            </div>
+                                        </div>
+                                        <div class="mustfull" id="emailFormat5" style="display: none">not correct email format.....</div>
+                                        <div class="mustfull" id="mustFill5" style="display: none">please fill in info... </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Editor*:</td>
+                                    <td> 
+                                        <div style="display: block;">
+                                            <div   style="margin: 0;width: 100%; height: 100px;">
+                                                {{view Ember.TextArea valueBinding="editors"   class="mustFill6 no-resize" placeholder="Ironman@hubstar.com, CaptainAmerica@hubstar.com, hulk@hubstar.com"}}
+                                            </div>
+                                        </div>                   
+                                        <div class="mustfill" id="emailFormat6" style="display: none">not correct email format.....</div>
+                                        <div class="mustfull" id="mustFill6" style="display: none">please fill in info... </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Keywords:</td>
+                                    <td> 
+                                        <div style="display: block;">
+                                            <div   style="margin: 0;width: 100%; height:100px;">
+                                                {{view Ember.TextArea valueBinding="keywords" class="no-resize"  placeholder="* Please ensure you use a commer seperated list!!! ie: bathroom, kitchen, living room"}}
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div style="right: 0;margin: 30px auto 0;width: 150px;">
+                            <span class="new-btn green-btn" data-ember-action="14">Save</span> 
+                            <span id="flip-back" class='new-btn blue-btn'><k class='icon-group'> &nbsp;</k>Back</span>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+                    <div class="tab-pane" id="tab4">
+                        <div style="position: relative; margin: 0px auto;height: 450px; width: 90%; background-color: rgba(242,240,240,0.5);border: 3px dashed #aaa;"> 
+                            <div style="top: 200px;position: relative;margin: auto;width: 80%;font-size: 26px; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;">
+                                <i class="icon-upload" style="font-size: 45px;"></i>
+                                <p style="font-weight: bold;">
+                                    Drag and drop. 
+                                </p>
+                            </div>
+
+                            <div class="new-btn blue-btn" style="margin: auto; width: 200px; top: 480px; position: absolute;left: 0;right: 67%;">
+                                Choose 
+                                <div style="opacity:0;position: absolute;top: 0px;left: 0;"> {{view App.ImageInputButtonView }}</div> 
+                            </div> 
+
+                            <div id="dragAndDroppReviewArea" class="dragndropbox" style="display:none">
+                                {{#each content}}
+                                <div style="position: relative;margin:3px; display: inline-block; vertical-align: top; min-width: 150px;text-align: center;">
+                                    <div> <img  {{bindAttr src= "photo_image_url"}}  alt="Logo" style="max-width: 140px; max-height: 150px;"> </div>
+                                    <div style="margin: 2px 0 5px; font-size: 13px; text-overflow:ellipsis; text-align: center; width: 150px;overflow: hidden;word-wrap: break-word;line-height: 15px;">{{photo_title}}</div>
+                                </div>
+                                {{/each}}
+                            </div>
+                        </div>
+                        <div style="margin: 20px auto;">
+                            <div class="controlbtn" style="left: 34%;">
+                                <a href="#tab1" data-toggle="tab"><div class='new-btn' style="display: inline-block;">Cancel</div></a>
+                                <span class="new-btn green-btn" {{action submit}}>Upload</span> 
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                    <div class="tab-pane" id="tab5">
+                        <div style="position: relative; margin: 0px auto;height: 450px; width: 90%; background-color: rgba(242,240,240,0.5);border: 3px dashed #aaa;"> 
+                            <div style="top: 200px;position: relative;margin: auto;width: 80%;font-size: 26px; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;">
+                                <i class="icon-upload" style="font-size: 45px;"></i>
+                                <p style="font-weight: bold;">
+                                    Drag and drop. 
+                                </p>
+                            </div>
+
+                            <div class="new-btn blue-btn" style="margin: auto; width: 200px; top: 480px; position: absolute;left: 0;right: 67%;">
+                                Choose 
+                                <div style="opacity:0;position: absolute;top: 0px;left: 0;"> {{view App.ImageInputButtonView }}</div> 
+                            </div> 
+
+                            <div id="dragAndDroppReviewArea" class="dragndropbox" style="display:none">
+                                {{#each content}}
+                                <div style="position: relative;margin:3px; display: inline-block; vertical-align: top; min-width: 150px;text-align: center;">
+                                    <div> <img  {{bindAttr src= "photo_image_url"}}  alt="Logo" style="max-width: 140px; max-height: 150px;"> </div>
+                                    <div style="margin: 2px 0 5px; font-size: 13px; text-overflow:ellipsis; text-align: center; width: 150px;overflow: hidden;word-wrap: break-word;line-height: 15px;">{{photo_title}}</div>
+                                </div>
+                                {{/each}}
+                            </div>
+                        </div>
+                        <div style="margin: 20px auto;">
+                            <div class="controlbtn" style="left: 34%;">
+                                <a href="#tab1" data-toggle="tab"><div class='new-btn' style="display: inline-block;">Cancel</div></a>
+                                <span class="new-btn green-btn" {{action submit}}>Upload</span> 
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+                    <div class="tab-pane" id="tab6">
+                        <div style="position: relative; margin: 0px auto;height: 450px; width: 90%; background-color: rgba(242,240,240,0.5);border: 3px dashed #aaa;"> 
+                            <div style="top: 200px;position: relative;margin: auto;width: 80%;font-size: 26px; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;">
+                                <i class="icon-upload" style="font-size: 45px;"></i>
+                                <p style="font-weight: bold;">
+                                    Drag and drop. 
+                                </p>
+                            </div>
+
+                            <div class="new-btn blue-btn" style="margin: auto; width: 200px; top: 480px; position: absolute;left: 0;right: 67%;">
+                                Choose 
+                                <div style="opacity:0;position: absolute;top: 0px;left: 0;"> {{view App.ImageInputButtonView }}</div> 
+                            </div> 
+
+                            <div id="dragAndDroppReviewArea" class="dragndropbox" style="display:none">
+                                {{#each content}}
+                                <div style="position: relative;margin:3px; display: inline-block; vertical-align: top; min-width: 150px;text-align: center;">
+                                    <div> <img  {{bindAttr src= "photo_image_url"}}  alt="Logo" style="max-width: 140px; max-height: 150px;"> </div>
+                                    <div style="margin: 2px 0 5px; font-size: 13px; text-overflow:ellipsis; text-align: center; width: 150px;overflow: hidden;word-wrap: break-word;line-height: 15px;">{{photo_title}}</div>
+                                </div>
+                                {{/each}}
+                            </div>
+                        </div>
+                        <div style="margin: 20px auto;">
+                            <div class="controlbtn" style="left: 34%;">
+                                <a href="#tab1" data-toggle="tab"><div class='new-btn' style="display: inline-block;">Cancel</div></a>
+                                <span class="new-btn green-btn" {{action submit}}>Upload</span> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
 
@@ -497,21 +797,16 @@
     {{#if controller.switchPhoto}}
 
 
-
     {{view App.MasonryCollectionView}}
-
 
 
     {{else}}
 
 
-
     {{render masonryCollectionItems}}
 
 
-
     {{/if}}
-
 
 
     {{#if controller.makeSureDelete}}

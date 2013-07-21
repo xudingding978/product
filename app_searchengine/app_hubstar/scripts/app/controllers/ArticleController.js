@@ -36,7 +36,6 @@ define(["ember"], function(Ember) {
             }
             var selectedIndex = this.findSelectedItemIndex();
             selectedIndex++;
-            console.log(selectedIndex);
             if (selectedIndex >= (this.get('content').get('length'))) {
                 this.set('image_no', 1);
                 selectedIndex = 0;
@@ -60,14 +59,17 @@ define(["ember"], function(Ember) {
             $(selectedImage_id).addClass('selected_image_style');
         },
         getInitData: function(megaObject) {
+             
             this.set("currentUser", App.User.find(localStorage.loginStatus));
             this.set("content", []);
+            this.set("selectedPhoto", '');
             this.set('image_no', 1);
             var megaResouce = App.Mega.find(megaObject.id);
             this.set('articleResouce', megaResouce.get('article').objectAt(0));
             this.set('megaResouce', megaResouce);
             this.addRelatedData(megaObject);
             this.getCommentsById(megaObject.id);
+
         },
         addComment: function() {
             var commentContent = this.get('commentContent');
@@ -87,26 +89,27 @@ define(["ember"], function(Ember) {
             }
         },
         addRelatedData: function(mega)
-        {
+        {           
             var collection_id = mega.get("collection_id");
             var owner_profile_id = mega.get("owner_id");
             var isProfileIDExist = this.isParamExist(owner_profile_id);
             var isCollectionIDExist = this.isParamExist(collection_id);
             var that = this;
             if (isProfileIDExist && isCollectionIDExist) {
+      
                 var data = App.Mega.find({RequireType: "articleRelatedImage", "article_id": collection_id, "owner_id": owner_profile_id});
+
                 data.addObserver('isLoaded', function() {
                     if (data.get('isLoaded')) {
                         for (var i = 0; i < this.get("content").length; i++) {
-                            var id = this.get("content").objectAt(i).id;
-                            if (i === 0) {
-                                that.set('megaResouce', App.Mega.find(id));
-                                that.set('selectedPhoto', App.Mega.find(id).get('photo').objectAt(0));
+                               
+                            var temp = this.get("content").objectAt(i);
+                            if (temp.data.photo !== undefined) {
+                                that.get("content").pushObject(temp.data.photo[0]);
+                                if (i === 1){    that.set('selectedPhoto', temp.data.photo[0]);                    
+                                }
                             }
-                            if (App.Mega.find(id)._data.hasMany.photo.length === 1)
-                            {
-                                that.get("content").pushObject(App.Mega.find(id).get("photo").objectAt(0));
-                            }
+
                         }
                     }
                 });
@@ -131,8 +134,7 @@ define(["ember"], function(Ember) {
         switchCollection: function() {
 
             var addCollectionController = this.get('controllers.addCollection');
-
-            var selectid = this.get('articleResouce').id;
+            var selectid = this.get('selectedPhoto').id;
             addCollectionController.setImageID(selectid);
             var tempUrl = this.get('selectedPhoto').get('photo_image_thumbnail_url');
             addCollectionController.setThumbnailUrl(tempUrl);
@@ -140,12 +142,12 @@ define(["ember"], function(Ember) {
             addCollectionController.setUser();
             this.set('collectable', !this.get('collectable'));
         },
-          editingContactForm: function() {
-                    var contactController = this.get('controllers.contact');
-                    var selectid = this.get('selectedPhoto').id;
-                    contactController.setSelectedMega(selectid);
-                    this.set('contact', !this.get('contact'));
-                }
+        editingContactForm: function() {
+            var contactController = this.get('controllers.contact');
+            var selectid = this.get('selectedPhoto').id;
+            contactController.setSelectedMega(selectid);
+            this.set('contact', !this.get('contact'));
+        }
     });
     return ArticleController;
 });

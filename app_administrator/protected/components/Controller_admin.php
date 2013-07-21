@@ -2,23 +2,39 @@
 
 class Controller_admin extends CConsoleCommand
 {
-       
-    protected function getData($url, $method ) {
+    protected  $error_path = "/home/devbox/NetBeansProjects/test/image.log";
+    
+    protected function getData($url, $list_arr) {
         try {
-            $ch = curl_init($url);
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+//            print_r(CJSON::encode($list_arr));
+            
+            if(isset($list_arr['method'])) {
+//                echo "-------------------------------------in getData function in controller_admin \r\n";
+                
+                $ch = curl_init($url);
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $list_arr['method']);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, CJSON::encode($list_arr));
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 
-            $result = curl_exec($ch);
-            curl_close($ch);
-            $data_arr = CJSON::decode($result, true);
-            return $data_arr;
+                $result = curl_exec($ch);
+                curl_close($ch);
+                
+                $data_arr = CJSON::decode($result, true);
+                
+//                echo "fffffffffffffffffffffffffffffffff \r\n";
+//                print_r($data_arr);
+                
+                return $data_arr;
+            } else {
+                return null;
+            }
         } catch (Exception $e) {
-            echo 'Caught exception: ' . $e->getMessage();
+            $message = 'Caught exception: ' . $e->getMessage();
+            $this->writeToLog($this->error_path, $message);
             return null;
         }
-    }
+    }   
         
     protected function writeToLog($fileName, $content) {
         //   $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_success.log';
@@ -27,7 +43,6 @@ class Controller_admin extends CConsoleCommand
         fwrite($handle, $output);
         fclose($handle);
 
-        unset($fileName, $content, $handle, $output);
     }
     
         
@@ -35,8 +50,17 @@ class Controller_admin extends CConsoleCommand
         return new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", $bucket, true);
     }
     
+    protected  function setCouchbaseObject($id, $photo_arr) {
+         $ch = $this->couchBaseConnection("production");
+          if ($ch->set($id, CJSON::encode($photo_arr))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     protected function addPhotoSourceId($id, $source_Id) {
-        $ch = $this->couchBaseConnection("production");
+        $ch = $this->couchBaseConnection("develop");
         $result = $ch->get($id);
         $result_arr = CJSON::decode($result, true);
         
@@ -52,7 +76,7 @@ class Controller_admin extends CConsoleCommand
     
     protected function validateImageUrl($url) {
         $is_vailable = FALSE;
-        
+       
         try {
             $file_headers = @get_headers($url);
 
@@ -128,7 +152,7 @@ class Controller_admin extends CConsoleCommand
         $cover_url = "";
         if (sizeof($data_arr) > 0) {
             $helim_id_str = $data_arr[0]['heliumMediaId'];
-            $url = "http://api.develop.devbox/GetResultByKeyValue/?type=photo&photo_heliumMediaId=" . $helim_id_str;
+            $url = "http://develop-api.trendsideas.com/GetResultByKeyValue/?type=photo&photo_heliumMediaId=" . $helim_id_str;
             $json_result = $this->getData($url);
 
             if (sizeof($json_result) > 0) {
@@ -208,7 +232,7 @@ class Controller_admin extends CConsoleCommand
         $handle_array = array();
         $return_array = array();
         foreach($url_json_arr as $k=>$list){
-            $ch = curl_init("http://api.develop.devbox/photos/");
+            $ch = curl_init("http://develop-api.trendsideas.com/photos/");
             
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
             curl_setopt($ch, CURLOPT_POSTFIELDS, $list);
@@ -246,7 +270,7 @@ class Controller_admin extends CConsoleCommand
     protected function importMegaObj($data_list) {
         $json_list = json_encode($data_list);
         try {
-            $ch = curl_init("http://api.develop.devbox/megaimport/");
+            $ch = curl_init("http://develop-api.trendsideas.com/megaimport/");
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
             curl_setopt($ch, CURLOPT_POSTFIELDS, $json_list);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -282,6 +306,57 @@ class Controller_admin extends CConsoleCommand
         
         return $image_arr;
     }
+    
+    protected function getImageString($url) {
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
+            $tim = curl_exec($ch);
+            
+//            return $tim;
+            return @$imageInfo = getimagesizefromstring($tim);
+               
+        }
+    
+        protected function renamingImage($imageInfo, $url) {
+            $tempname = "false";
+            $exteonsion = ".png";
+            $name_arr = explode("/", $url);
+            if (strpos($url, '.jpg')) {
+                $tempname = explode(".jpg", $name_arr[sizeof($name_arr) - 1]);
+            } elseif (strpos($url, '.png')) {
+                $tempname = explode(".png", $name_arr[sizeof($name_arr) - 1]);
+            }
+            if (strpos($imageInfo['mime'], 'jpeg')) {
+                $exteonsion = ".jpg";
+            } elseif (strpos($imageInfo['mime'], 'png')) {
+                $exteonsion = ".png";
+            }
+            $name = $tempname[0] . "_" . $imageInfo[0] . "x" . $imageInfo[1] . "$exteonsion"; //  $width  = $get[0]; $height = $get[1]; $type   = $get[2];  $attr   = $get[3];  $bits   = $get['bits']; $mime   = $get['mime'];
+            $name = str_replace('http://', '', $name);
 
+            return $name;
+        }
+    
+        protected function getWatermarkImageSource($url, $imageInfo) {
+            $stamp = $this->getStamp($url);
+            try {
+                $im = $this->getImageString($imageInfo['mime'], $url);
+                $marge_right = 5;
+                $marge_bottom = 5;
+
+                $sx = imagesx($stamp);
+                $sy = imagesy($stamp);
+
+                imagecopy($im, $stamp, imagesx($im) - $sx - $marge_right, imagesy($im) - $sy - $marge_bottom, 0, 0, imagesx($stamp), imagesy($stamp));
+                $response = $this->compressData($imageInfo['mime'], $im, $url);
+
+                return $response;
+            } catch (Exception $e) {
+                $response = 'Caught watermark exception: ' . $e->getMessage() . "\r\n" . $url;
+                $this->writeToLog($this->error_path, $response);
+            }
+        }
 
 }

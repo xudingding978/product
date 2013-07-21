@@ -37,10 +37,6 @@ define([
         },
         renderTemplate: function() {
             var controller = this.controllerFor('mega');
-//            this.render('photo', {
-//                into: "index",
-//                controller: controller
-//            });
 
 
             this.render("photo", {

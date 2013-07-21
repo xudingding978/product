@@ -28,7 +28,7 @@
            
             <k class="icon-camera" {{action changeCollectionCover id controller.title App.User}}></k>
             {{/unless}}
-    
+
 
             <div class="object-tags-box">
 
@@ -69,9 +69,9 @@
 
                 <span class='edit-object easing' style="position: absolute;margin: 10px; top:0;">
                     {{#if controller.is_authentic_user}}
-                   
-                   
-                    <div class="new-btn blue-btn" {{action dropdownPhotoSetting id}}>
+
+
+                    <div class="new-btn blue-btn hint--bottom hint--rounded" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
                          <k class="icon-cog" style="font-size: 16px; margin: 0px 5px"></k>
                         <k class='icon-caret-down'></k>
                     </div>
@@ -79,7 +79,7 @@
                         <li class="ite" {{action  removeCollectedItem controller.title id }}><k class="icon-trash" style="font-size: 16px; margin: 0px 5px;"></k>Delete</li>
                         <li class='ite'  {{action changeCollectionCover id controller.title App.Profile}}> <k class="icon-ok-sign" style="font-size: 16px;  margin: 0px 5px;"></k>Set as collection cover</li>
                     </ul>
-              
+
                     {{/if}}
                 </span>
 

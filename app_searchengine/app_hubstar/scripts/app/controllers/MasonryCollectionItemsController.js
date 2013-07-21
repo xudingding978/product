@@ -7,7 +7,7 @@ define([
         content: [],
         title: null,
         is_authentic_user: false,
-        needs: ['photoCreate', 'profile','permission'],
+        needs: ['photoCreate', 'profile', 'permission'],
         user_id: null,
         init: function() {
             this.checkAuthenticUser();
@@ -103,23 +103,24 @@ define([
             this.set('makeSureDelete', false);
             App.set('data', null);
         },
-          checkAuthenticUser: function() {
-                    var currentUser = App.User.find(localStorage.loginStatus);
-                    var current_user_email = currentUser.get('email');
-                    var permissionController = this.get('controllers.permission');
-                    var that = this;
+        checkAuthenticUser: function() {
+            var currentUser = App.User.find(localStorage.loginStatus);
+            var current_user_email = currentUser.get('email');
+            var permissionController = this.get('controllers.permission');
+            var that = this;
+            var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
+            that.set("is_authentic_user", is_authentic_user);
+            currentUser.addObserver('isLoaded', function() {
+                var current_user_email = currentUser.get('email');
+                if (currentUser.get('isLoaded')) {
                     var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
                     that.set("is_authentic_user", is_authentic_user);
-                    currentUser.addObserver('isLoaded', function() {
-                        var current_user_email = currentUser.get('email');
-                        if (currentUser.get('isLoaded')) {
-                            var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
-                            that.set("is_authentic_user", is_authentic_user);
-                        }
-                    });
+                }
+            });
 
 
-                },
+
+        },
         changeCollectionCover: function(id, collection_id, AppModel) {
 
             this.dropdownPhotoSetting(id);
@@ -144,7 +145,8 @@ define([
         dropdownPhotoSetting: function(id) {
 
             $('#dropdown_id_' + id).toggleClass('hideClass');
-        }, resetContent: function()
+        },
+        resetContent: function()
         {
             var proController = this.get('controllers.profile');
             this.set("is_authentic_user", proController.get("is_authentic_user"));

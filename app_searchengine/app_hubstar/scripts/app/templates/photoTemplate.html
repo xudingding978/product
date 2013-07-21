@@ -89,19 +89,19 @@
                                     </tr>
                                     <tr>
                                         <td>Category:</td>
-                                        <td>{{controller.megaResouce.category}}</td>
+                 
                                     </tr>
                                     <tr>
                                         <td>Address:</td>
-                                        <td>{{controller.megaResouce.category}}</td>
+     
                                     </tr>
                                     <tr>
                                         <td>Phone:</td>
-                                        <td>{{controller.megaResouce.category}}</td>
+                 
                                     </tr>
                                     <tr>
                                         <td>Website:</td>
-                                        <td>{{controller.megaResouce.uri_url}}</td>
+                        
                                     </tr>
                                 </tbody>
                             </table>                
@@ -111,7 +111,7 @@
         </div>
 
         <!-- OBJECT DESCRIBTION SECTION -->
-        <div   >
+        <div>
             <div class="object-collapes-title" {{action setTitleTag  on="click" target="view"}}>
                 <div class="collapes-title_inner">
                     About
@@ -160,133 +160,103 @@
 
         </div>
 
-        <!-- OBJECT PARTNER SECTION -->
-        <!--        <div>
-                    <div>
-                        <div class="object-collapes-title" {{action setPartnerTag on="click" target="view"}}>
-                            <div class="collapes-title_inner">
-                                Partner
-                            </div>
-                            <div class="dropdownicon" >
-                                <i class="icon-angle-down"></i>
-                            </div>      
-                        </div>
-                    </div>
-        
-        
-        
-                    <div class="collapes-container" style="height: 150px;overflow-y: auto;"  id="partner_action">
-                        <div class="collapes-container_inner">
-                            <a class="sml-partner" href="#" ><img src="../images/profilepic1.jpg" /></a>
-                            <a class="sml-partner" href="#" ><img src="../images/profilepic2.jpg" /></a>
-                            <a class="sml-partner" href="#" ><img src="../images/profilepic3.jpg" /></a>
-                            <a class="sml-partner" href="#" ><img src="../images/profilepic4.jpg" /></a>
-                            <a class="sml-partner" href="#" ><img src="../images/profilepic5.jpg" /></a>
-                            <a class="sml-partner" href="#" ><img src="../images/profilepic6.jpg" /></a>
-                            <a class="sml-partner" href="#" ><img src="../images/profilepic7.jpg" /></a>
-                            <a class="sml-partner" href="#" ><img src="../images/profilepic8.jpg" /></a>          
-                        </div>
-                    </div>
-        
-                </div>-->
-
 
 
 
         <!-- OBJECT DISCUSSION SECTION -->
+
         <div>
-            <div>
-                <div class="object-collapes-title" {{action setDiscussionTag on="click" target="view"}} >
-                    <div class="collapes-title_inner">
-                        Discussion
-                    </div>
-                    <div class="dropdownicon">
-                        <i class="icon-angle-down" style="height: 16px; width: 16px;"></i>
-                    </div>      
+            <div class="object-collapes-title" {{action setDiscussionTag on="click" target="view"}} >
+                <div class="collapes-title_inner">
+                    Discussion
                 </div>
+                <div class="dropdownicon">
+                    <i class="icon-angle-down" style="height: 16px; width: 16px;"></i>
+                </div>      
+            </div>
 
 
 
-                <div class="collapes-container"  id="discuss_action" style="display:block">
-                    <div class="collapes-container_inner">
+            <div class="collapes-container"  id="discuss_action" style="display:block">
+                <div class="collapes-container_inner">
 
-                        <div class="show-comment">
-                            <div class="show-comment_container">
-                                <span class="show-comment_inner">
-                                    <span class="comment-amount" > {{controller.megaResouce.comments.length}} </span>
-                                    <span class="comment-amount" > comments   </span> 
-                                </span>
-                            </div>
-
-                            <div class="object-like" style=""></div>
-                            <div class="object-save" style=""></div>
+                    <div class="show-comment">
+                        <div class="show-comment_container">
+                            <span class="show-comment_inner">
+                                <span class="comment-amount" > {{controller.megaResouce.comments.length}} </span>
+                                <span class="comment-amount" > comments   </span> 
+                            </span>
                         </div>
-                        <div class="addcommnetbox" role="button" {{action openComment target="view" on="click"}} id="addcommetBut" >
-                            add comment...
-                        </div >
-                        <div class="addcommnetbox-container" id="commentBox" style="display: none">
-                            <div style="margin:0 auto; padding: 0 0 15px 38px;">
-                                <a> 
-                                    <img class="profilepic_comment"  style="float: left; margin: 4px 0 0 -38px; margin-top: 0;"{{bindAttr src="controller.currentUser.photo_url"}} /> 
-                                </a>
 
-                                {{view App.SearchRequireTextFieldView valueBinding="commentContent"  id="AddRecord" class="comment-insert-field"  placeholder="" }}   
-                                <span class="" style="margin-top: 7px;float: right;">
-                                    <div  class="new-btn"{{action closeComment target="view" on="click"}}>Cancel</div>
-                                    <div class="new-btn green-btn" {{action addComment}}>Post</div>
-                                </span>
+                        <div class="object-like" style=""></div>
+                        <div class="object-save" style=""></div>
+                    </div>
+                    <div class="addcommnetbox" role="button" {{action openComment target="view" on="click"}} id="addcommetBut" >
+                        add comment...
+                    </div>
+                    <div class="addcommnetbox-container" id="commentBox" style="display: none">
+                        <div style="margin:0 auto; padding: 0 0 15px 38px;">
+                            <a> 
+                                <img class="profilepic_comment"  style="float: left; margin: 4px 0 0 -38px; margin-top: 0;"{{bindAttr src="controller.currentUser.photo_url"}} /> 
+                            </a>
 
-                            </div>
+                            {{view App.SearchRequireTextFieldView valueBinding="commentContent"  id="AddRecord" class="comment-insert-field"  placeholder="" }}   
+                            <span class="" style="margin-top: 7px;float: right;">
+                                <div  class="new-btn"{{action closeComment target="view" on="click"}}>Cancel</div>
+                                <div class="new-btn green-btn" {{action addComment}}>Post</div>
+                            </span>
+
                         </div>
-                        {{#each controller.megaResouce.comments}}
-                        <div class="comment-item">
+                    </div>
+                    {{#each controller.megaResouce.comments}}
+                    <div class="comment-item">
 
-                            <div class="comment-position">
-                                <a class="profilepic-comment-container" href="#">
-                                    <img class="profilepic_comment" {{bindAttr src="commenter_profile_pic_url"}} />
-                                </a>
-                                <div style="">
-                                    <div class="comment-namentime">
-                                        <div class="namentime_position">
-                                            <a class="comment-username" href="" >
-                                                {{name}}
-                                            </a>
-                                            <div class="posttime-container">
-                                                <span class="posttime">{{date time_stamp}}</span>                  
-                                            </div>
+                        <div class="comment-position">
+                            <a class="profilepic-comment-container" href="#">
+                                <img class="profilepic_comment" {{bindAttr src="commenter_profile_pic_url"}} />
+                            </a>
+                            <div style="">
+                                <div class="comment-namentime">
+                                    <div class="namentime_position">
+                                        <a class="comment-username" href="" >
+                                            {{name}}
+                                        </a>
+                                        <div class="posttime-container">
+                                            <span class="posttime">{{date time_stamp}}</span>                  
                                         </div>
-
-                                        <div class="reply-comment">
-                                            <!--this div for reply-->
-                                        </div>
-
                                     </div>
 
-                                    <div class="comment-content">
-                                        {{content}}
-
-                                        <!-- for +someone into the conversation-->
-                                        <span>
-                                            <span></span>
-                                            <a></a>
-                                        </span>
+                                    <div class="reply-comment">
+                                        <!--this div for reply-->
                                     </div>
 
                                 </div>
-                            </div>
 
+                                <div class="comment-content">
+                                    {{content}}
+
+                                    <!-- for +someone into the conversation-->
+                                    <span>
+                                        <span></span>
+                                        <a></a>
+                                    </span>
+                                </div>
+
+                            </div>
                         </div>
 
-
-                        {{/each}}
-
-
-
                     </div>
-                </div>
 
+
+                    {{/each}}
+
+
+
+                </div>
             </div>
+
         </div>
+
 
 
 

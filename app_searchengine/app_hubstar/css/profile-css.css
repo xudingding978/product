@@ -193,3 +193,15 @@
     color: #333;
     text-decoration: none;
 }
+
+.edit-dashboard-btn{
+    opacity: 0;
+    margin: 10px;
+    box-shadow: 0 0 10px #bbb;
+}
+
+
+.profilecorpbanner:hover .edit-dashboard-btn{
+    opacity: 1;
+    box-shadow: 0 0 10px #fff;
+}

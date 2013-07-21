@@ -30,7 +30,7 @@
 
             {{#if controller.islogin}}
 
-            <div id="login_detail">
+            <div id="login_detail" style="position: absolute;right: 170px;cursor: pointer;vertical-align: top;display: inline-block;">
                 {{view App.AfterLoginView}}
             </div>
 
@@ -38,7 +38,7 @@
             {{else}}
 
 
-            <div id="login_icon">
+            <div id="login_icon" style="position: absolute; right: 80px;">
 
                 {{view App.BeforeLoginView}}
 
@@ -66,7 +66,7 @@
     </div>
 </div>
 
-<!-- UserVoice JavaScript SDK (only needed once on a page) -->
+<!-- UserVoice JavaScript SDK (only needed once on a page) 
 <script>(function() {
         var uv = document.createElement('script');
         uv.type = 'text/javascript';
@@ -75,8 +75,9 @@
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(uv, s)
     })()</script>
+-->
 
-<!-- A tab to launch the Classic Widget -->
+<!-- A tab to launch the Classic Widget 
 <script>
     UserVoice = window.UserVoice || [];
     UserVoice.push(['showTab', 'classic_widget', {
@@ -91,7 +92,7 @@
             tab_inverted: false
         }]);
 </script>
-
+-->
 
 
 
@@ -200,7 +201,7 @@
         var left = (screen.width / 2) - (popupWidth / 2);
         var top = (screen.height / 2) - (popupHeight / 2);
         var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Google";
-        newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+        newwindow = window.open(api_url, 'name', 'height=' + popupHeight*1.5 + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
         if (window.focus) {
             newwindow.focus();
         }

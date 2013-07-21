@@ -16,12 +16,23 @@ define([
             this.controllerFor('status').set('islogin', false);
             this.controllerFor('application').set('isotherpage', false);
 
-            
-            
+            if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
+                this.controllerFor('application').newSearch();
+            }
+
+        },
+        events: {
+            transitionToProfile: function() {
+                this.controllerFor('application').set("popup", true);
+            },
+            transitionToPhoto: function() {
+                this.controllerFor('application').set("popup", true);
+            },
+            transitionToArticle: function() {
+                this.controllerFor('application').set("popup", true);
+            }
         },
         redirect: function() {
-
-
 
 
             if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
@@ -44,27 +55,7 @@ define([
         },
         deactivate: function() {
 
-
-
             App.set("isLogin", true);
-        },
-        renderTemplate: function() {
-            var controller = this.controllerFor('application');
-
-            this.render('index', {
-                into: "application"
-            });
-
-            this.render('default', {
-                into: "index"
-
-            });
-
-//            this.render('status', {
-//                into: "masonry",
-//                controller: controller
-//            });
-
         }
 
     });

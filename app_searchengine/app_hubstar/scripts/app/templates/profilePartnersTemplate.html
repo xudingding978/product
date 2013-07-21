@@ -1,5 +1,8 @@
 
-<div class="box style-box t-style-box" id="addNew">
+<div  style="height: 50px;margin:20px auto;left: 0;right: 0;position: relative;display: block; opacity: 0; z-index: -1;"></div>
+
+{{#if controller.is_authentic_user}}
+<div class="box style-box t-style-box" id="addNew" style="z-index: 1">
 
     <div id="uploadObject" {{action newCollection }}>
          <div class="add-new-object-hoverarea easing">
@@ -18,11 +21,16 @@
     </div>
     {{view App.EditCollectionView}}
 </div>
+{{/if}}
+
 
 {{#each  content}}
-
-{{render itemProfiles this}}
-
+<div class="box col2 noStyle1">
+    <div class="masonry-object">
+        {{render itemProfiles this}}
+        {{render "comment" this}}
+    </div>
+</div>
 
 <script>
     $(function() {
@@ -30,10 +38,19 @@
         window.setTimeout(function() {
             $container.masonry();
             $container.masonry('reload');
-        }, 100);
+        }, 10);
     });
 </script>
 {{/each}}
+
+
+
+
+
+
+
+
+
 
 {{#if controller.makeSureDelete}}
 

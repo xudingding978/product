@@ -9,7 +9,7 @@ define([
         template: Ember.Handlebars.compile(editCollectionTemplate),
         didInsertElement: function() {
             $(function() {
-           
+
                 $('#masonry_user_container').masonry({
                     itemSelector: '.box',
                     columnWidth: 0,
@@ -52,7 +52,7 @@ define([
                 });
 
             });
-
+   
             $('#user-stats > li').click(function() {
                 $('#user-stats > li').removeClass('selected-user-stats');
                 $(this).addClass('selected-user-stats');

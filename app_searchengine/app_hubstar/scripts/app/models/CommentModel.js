@@ -10,7 +10,8 @@ define('models/CommentModel',
                 content: DS.attr('string'),
                 time_stamp: DS.attr('string'),
                 is_delete: DS.attr('boolean'),
-
+                optional: DS.attr('string'),
+ 
                 didLoad: function() {
 
                 }

@@ -67,20 +67,12 @@ class ResizeImagesController extends Controller {
         imagecopyresized($new_image, $image,
                 0, 0, 0, 0,
                 $new_width, $new_height,
-                $orig_width, $orig_height);
-        
+                $orig_width, $orig_height);        
         ob_start();
         imagejpeg($new_image);
         $contents = ob_get_contents();
         ob_end_clean();
-        
         echo $contents;
-        
-//        if ($new_image !== false) {
-//            header('Content-Type: image/jpg');
-//            imagejpeg($new_image);
-//            imagedestroy($new_image);
-//        }
         
     }
     

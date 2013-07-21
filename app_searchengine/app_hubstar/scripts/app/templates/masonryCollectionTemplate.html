@@ -6,29 +6,59 @@
 
         <div class="style-box t-style-box" style="width: 100%; min-width: 796px; height: 50px; background: white;margin: -70px auto;left: 0;right: 0;position: relative;display: block;">
 
-            <div style="margin: 4px 20px 4px 40px; font-size: 18px; text-shadow: 0 1px 0 rgba(255,255,255,0.8);float: left;" >My Collections </div>
-            <i class="icon-level-up edit-btn" style="color: #555; text-shadow: 0 1px 0 rgba(255,255,255,0.8); font-size: 20px; margin: 15px 0; display: inline-block;"></i>
+            <div style="margin: 4px 20px 4px 40px; font-size: 18px; text-shadow: 0 1px 0 rgba(255,255,255,0.8);float: left;" >{{controller.profileSelectionStatus}}</div>
+
+
+            {{#if controller.partnerPage}}
+
             <ul class="user-stats" id="user-stats">
                 <li id="defualt" ><a {{action selectCollection}}> Collections</a></li>
                 <li ><a {{action selectPartner this}}>Partners</a></li>
-                <li ><a {{action selectFollower}}>Followers</a></li>
+<!--                <li ><a {{action selectFollower this}}>Followers</a></li>-->
             </ul>
+            {{/if}}
+
+            {{#if controller.userTage}}
+
+            <ul class="user-stats" id="user-stats">
+                <li id="defualt" ><a {{action selectCollection}}> Collections</a></li>
+
+<!--                <li ><a {{action selectFollowing this}}>Following</a></li>
+                <li ><a {{action selectFollower this}}>Followers</a></li>-->
+            </ul>
+            {{/if}}    
+
 
         </div>
+        <!--END SECTION CONTROL BAR-->
 
+   
+
+        
 
         {{#if collectionTag}}
-        {{view App.ProfileCollectionsView}}
+        {{view App.CollectionsView}}
         {{/if}} 
 
         {{#if partnerTag}}
         {{render profilePartners}}
         {{/if}} 
 
-        <!--END SECTION CONTROL BAR-->
+        {{#if followerTag}}
+        {{render profileFollowers}}
+        {{/if}} 
 
-        <div class="box style-box t-style-box" ></div>
-        <div class="box style-box t-style-box" style="opacity: 0;"></div>
+
+
+
+        <div class="box style-box t-style-box"  style="opacity: 0; z-index: -1;">
+            <div class="add-new-object-content">
+            </div>
+        </div>
+        <div class="box style-box t-style-box"  style="opacity: 0; z-index: -1;">
+            <div class="add-new-object-content">
+            </div>
+        </div>
 
 
     </div>

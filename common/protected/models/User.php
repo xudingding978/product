@@ -23,6 +23,9 @@ class User extends CActiveRecord {
      * @param string $className active record class name.
      * @return User the static model class
      */
+    public $repeat_password;
+    public $COUCHBASE_ID;
+
     public static function model($className = __CLASS__) {
         return parent::model($className);
     }
@@ -46,7 +49,9 @@ class User extends CActiveRecord {
             array('EMAIL_ADDRESS', 'email', 'message' => "The email isn't correct"),
             array('EMAIL_ADDRESS', 'unique', 'message' => 'Email already exists!'),
             array('USER_NAME, EMAIL_ADDRESS', 'length', 'max' => 255),
-            array('PWD_HASH', 'length', 'max' => 512),
+            array('PWD_HASH, repeat_password', "required", 'on' => 'insert'),
+            array('PWD_HASH, repeat_password', 'length', 'min' => 6, 'max' => 40),
+            array('PWD_HASH', 'compare', 'compareAttribute' => 'repeat_password'),
             array('FIRST_NAME, LAST_NAME, COUCHBASE_ID', 'length', 'max' => 45),
             array('REC_DATETIME, REC_TIMESTAMP, LAST_LOGIN', 'safe'),
             // The following rule is used by search().
@@ -75,7 +80,7 @@ class User extends CActiveRecord {
             'REC_DATETIME' => 'Rec Datetime',
             'REC_TIMESTAMP' => 'Rec Timestamp',
             'USER_NAME' => 'User Name',
-            'PWD_HASH' => 'Pwd Hash',
+            'PWD_HASH' => 'Password',
             'EMAIL_ADDRESS' => 'Email Address',
             'LAST_LOGIN' => 'Last Login',
             'FIRST_NAME' => 'First Name',
@@ -109,6 +114,11 @@ class User extends CActiveRecord {
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
+    }
+
+    public function check($content) {
+
+        return true;
     }
 
 }

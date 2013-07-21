@@ -13,17 +13,19 @@ define(["ember"
         selectedTitle: "",
         coverImg: "",
         display_name: "",
-        updateOrCreate: true,
+        userTage: true,
         currentUserID: "",
         needs: ['photoCreate'],
         makeSureDelete: false,
+        updateOrCreate: true,
+        collectionTag: true,
         selectedCollection: "",
+        profileSelectionStatus: "Collections",
         selected_topics: [],
         is_authentic_user: false,
         init: function()
         {
             this.setUser();
-
         },
         setUser: function()
         {
@@ -60,15 +62,19 @@ define(["ember"
             //   console.log(photo);
             photo.addObserver('isLoaded', function() {
                 if (photo.get('isLoaded')) {
-                    col.set("cover", photo.get('photo').objectAt(0).get("photo_image_hero_url"));
-                    col.store.save();
+
+                    if (col.get("cover") === null || col.get("cover") === "") {
+
+                        col.set("cover", photo.get('photo').objectAt(0).get("photo_image_hero_url"));
+                        col.store.save();
+
+                    }
                 }
             });
 
         },
         exit: function()
         {
-            console.log(" drop and grag controller");
         },
         getCurrentUser: function()
         {
@@ -106,22 +112,21 @@ define(["ember"
         },
         submit: function()
         {
+            if (this.selectedCollection.get('id') !== null && this.selectedCollection.get('id') !== "" && this.selectedCollection.get('id') !== undefined) {
+                var id = this.checkingValidInput(this.selectedCollection.get('id'));
+                this.checkingIdisExsinting(id, "create");
+                if (isExsinting) {
+                    this.selectedCollection.set('id', id);
+                    this.selectedCollection.set('title', id);
+                    this.get("collections").insertAt(0, this.selectedCollection);
+                    this.get("collections").store.commit();
+                    $(".Targeting_Object_front").attr("style", "display:inline-block");
+                    $(" #uploadArea").attr('style', "display:none");
+                    $(" #uploadObject").attr('style', "display:block");
 
-            var id = this.checkingValidInput(this.selectedCollection.get('id'));
-
-            this.checkingIdisExsinting(id, "create");
-
-            if (isExsinting) {
-                this.selectedCollection.set('id', id);
-                this.selectedCollection.set('title', id);
-                this.get("collections").insertAt(0, this.selectedCollection);
-                this.get("collections").store.commit();
-                $(".Targeting_Object_front").attr("style", "display:inline-block");
-                $(" #uploadArea").attr('style', "display:none");
-                $(" #uploadObject").attr('style', "display:block");
-
-            } else {
-                isExsinting = true;
+                } else {
+                    isExsinting = true;
+                }
             }
         },
         checkingValidInput: function(title) {
@@ -224,11 +229,10 @@ define(["ember"
         setSelectedCollection: function(id) {
             for (var i = 0; i < this.get("collections").get("length"); i++) {
                 var thisCollection = this.get("collections").objectAt(i);
-
                 this.get('temp').pushObject(thisCollection.get("id"));
                 if (id === thisCollection.get("id")) {
                     this.set("selectedCollection", thisCollection);
-                    //      console.log(  this.get("selectedCollection"));
+
                 }
             }
         },
@@ -246,6 +250,28 @@ define(["ember"
                     this.set('is_authentic_user', false);
                 }
             }
+        },
+        selectCollection: function() {
+            this.set('profileSelectionStatus', 'Collections');
+            this.set('partnerTag', false);
+            this.set('collectionTag', true);
+            this.set('followerTag', false);
+        },
+        selectFollowing: function(model) {
+
+            this.set('profileSelectionStatus', 'Following');
+            this.set('partnerTag', true);
+            this.set('collectionTag', false);
+            this.set('followerTag', false);
+            this.get('controllers.itemProfiles').setPartnerRemove();
+
+
+        },
+        selectFollower: function(model) {
+            this.set('profileSelectionStatus', 'Followers');
+            this.set('partnerTag', false);
+            this.set('collectionTag', false);
+            this.set('followerTag', true);
         }
     }
     );

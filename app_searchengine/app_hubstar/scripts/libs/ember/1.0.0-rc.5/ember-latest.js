@@ -19104,7 +19104,7 @@ define("metamorph",
 
     Metamorph.prototype.checkRemoved = function() {
       if (this.isRemoved()) {
-        throw new Error("Cannot perform operations on a Metamorph that is not in the DOM.");
+      throw new Error("Cannot perform operations on a Metamorph that is not in the DOM.");
       }
     };
 

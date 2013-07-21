@@ -1,5 +1,17 @@
-<div class="contactmebox-wapper" style="width: 500px;font-size: 13px;">
+<div class="contactmebox-wapper" style="width: 500px;font-size: 13px;background-color: white;margin-top: 20px;">
+
+
+    {{#unless controller.firstStepOfContactEmail}}
     <div class="head controlbtn-field">
+        <div style="position: relative; text-align: center;">
+            <div class="panelcircle" style="position: relative; display: inline-block;  margin: 0 65px; font-weight: bold;background-color: #427fed;z-index: 1;">1</div>
+            <div {{action nextSendingEmailProcess}} class="panelcircle" style="cursor:pointer; position: relative; display: inline-block;  margin: 0 65px; font-weight: bold; z-index: 1;">2</div>
+            <div style="width: 300px; height: 2px; border-radius: 20%;background-color:#ccc;position: absolute;margin: auto;left: 0;right: 0;top: 19px;z-index: 0;"></div>
+            <div style='font-size: 18px; text-shadow: 0 1px 0 rgba(255,255,255,0.8);position: relative;top: 10px;right: 87px;font-weight: bold;margin-bottom: 10px;'> Send a message.</div>
+        </div>
+    </div>
+
+    <div class="head" style='padding-bottom: 0;'>
         <div class="poster_user" >
             <div style="display: block; font-size: 16px; font-weight: bold; margin-bottom: 5px;">
                 <span style="display: inline-block;margin-right: 5px;">Send an Email to</span>
@@ -22,9 +34,6 @@
                 <a style="display: inline-block;cursor: pointer;" {{action setEditable "Email"}}>{{editEmailStatus}}</a>
             </div>
         </div>
-
-
-
         <div style="float: right;position: relative; display: inline-block; vertical-align: top;margin: 5px 0;">
             <a href="#"><img {{bindAttr src="controller.selectedMega.owner_profile_pic"}} class="profilepic"/></a>              
         </div>
@@ -35,11 +44,31 @@
             </div>
         </div>
     </div>
+    {{/unless}}
+
+
+    {{#if controller.secondStepOfContactEmail}}
+    <div class="head controlbtn-field">
+        <div style="position: relative;margin-bottom: 20px;text-align: center;">
+            <div class="panelcircle" style="position: relative; display: inline-block;  margin: 0 65px; font-weight: bold; z-index: 1;" {{action proviousSendingEmailProcess}}>1</div>
+            <div class="panelcircle" style="cursor:pointer; position: relative; display: inline-block;  margin: 0 65px; font-weight:bold; background-color: #427fed; z-index: 1;">2</div>
+            <div style="width: 300px; height: 2px; border-radius: 20%;background-color:#ccc;position: absolute;margin: auto;left: 0;right: 0;top: 19px;z-index: 0;"></div>
+            <div style='font-size: 18px; text-shadow: 0 1px 0 rgba(255,255,255,0.8);position: relative;top: 10px;left: 90px;font-weight: bold;margin-bottom: 10px;'>Help us help you.</div>
+        </div>
+    </div>
+    {{/if}}
+
+
+
 
 
 
     <div class="content" style="border-radius: 0; padding: 15px 30px 0px;">
         <div class="contactme-table easing" style="text-align: center;">
+
+            {{#if controller.secondStepOfContactEmail}}
+
+
             <table style="padding: 0 20px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;">
                 <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
                     <tr>
@@ -90,31 +119,81 @@
                             {{/if}}
                         </td>
                     </tr>
-
-                    <!--                    <tr>
-                                            <td>I want help on:</td>
-                                            <td>
-                                                (Select one or more)
-                                            </td>
-                                        </tr>-->
-
                 </tbody>
-            </table>        
+            </table>    
+
+
+
+            <div class="checkbox-columncontainer" style="margin: 20px 0;">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkbox1" class="css-checkbox" checked="checked">
+                    <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Products</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkbox2" class="css-checkbox" checked="checked">
+                    <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Design</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkbox3" class="css-checkbox" checked="checked">
+                    <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Ideas</label>
+                </div>
+            </div>
+            <div class="checkbox-columncontainer">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkbox4" class="css-checkbox" checked="checked">
+                    <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Appliances</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkbox5" class="css-checkbox" checked="checked">
+                    <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Benchtops</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkbox6" class="css-checkbox" checked="checked">
+                    <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Layout</label>
+                </div>
+            </div>
+
+            {{/if}}
+
+
         </div>
+
+
+        {{#unless controller.firstStepOfContactEmail}}
+
+
+
         <div style="display: block;padding: 5px 0px;">
             <div>
                 <span style="display: inline-block; margin-bottom: 5px;">Message:</span>
-                <div style="margin-bottom: 10px; width: 100%; height: 70px;">
-                    {{view Ember.TextArea valueBinding="controller.emailBody" rows="12" cols="70" class="" placeholder="I saw your profile, I'd love to talk to you about my project, Please reply if you are interested.........."}}
+                <div style="margin-bottom: 10px; width: 100%; height: 200px;resize: none;">
+                    {{view Ember.TextArea valueBinding="controller.emailBody" rows="12" cols="70" class="no-resize" placeholder="I saw your profile, I'd love to talk to you about my project, Please reply if you are interested.........."}}
 
                 </div>
             </div>
         </div>
+
+
+        {{/unless}}
+
     </div>
+
+
     <div class="controlbtn-field">
+        {{#if controller.secondStepOfContactEmail}}
+        <span style="float: left;margin: 15px;position: relative;left: 15px;">
+            <div type="button" {{action proviousSendingEmailProcess}}  class="new-btn blue-btn">
+                 <k class='icon-arrow-left'>&nbsp;</k>Previous</div>
+        </span>
+        {{/if}}
         <span class="controlbtn">
             <div type="button" {{action closeContact }} class="new-btn">Cancel</div>
+            {{#if controller.secondStepOfContactEmail}}
             <div type="button" {{action emailSend }}  class="new-btn green-btn">Submit</div>
+            {{/if}}
+            {{#unless controller.firstStepOfContactEmail}}
+            <div type="button" {{action nextSendingEmailProcess}}  class="new-btn green-btn">Next</div>
+            {{/unless}}
         </span>
     </div>
 </div>

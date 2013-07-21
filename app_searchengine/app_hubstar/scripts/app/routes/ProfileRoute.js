@@ -13,14 +13,13 @@ define([
     //   var kink;
     var ProfileRoute = Ember.Route.extend({
         setupController: function(ProfileController, model) {
-            //    console.log(model.id);
+                App.set('editingMode', 'profile');
             ProfileController.setLocalLoginRecrod();
             //     console.log(model);
             ProfileController.setProfile(model.id);
 
 /******************  partner cehcking*******************/
-            $('#user-stats > li').removeClass('selected-user-stats');
-            $('#defualt').addClass('selected-user-stats');
+
             ProfileController.set('contactChecking', false);
             ProfileController.set('collectionTag', true);
             ProfileController.set('partnerTag', false);

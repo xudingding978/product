@@ -6,6 +6,7 @@ class SiteController extends Controller {
      * Declares class-based actions.
      */
     public $footer;
+
     public function actions() {
         return array(
             // captcha action renders the CAPTCHA image displayed on the contact page
@@ -34,7 +35,7 @@ class SiteController extends Controller {
     public function actionIndex() {
         // renders the view file 'protected/views/site/index.php'
         // using the default layout 'protected/views/layouts/main.php'
-        
+
         $this->layout = '//layouts/frontEnd';
         $this->render('index');
     }
@@ -49,12 +50,16 @@ class SiteController extends Controller {
      * This is the action to handle external exceptions.
      */
     public function actionError() {
-        if ($error == Yii::app()->errorHandler->error) {
-            if (Yii::app()->request->isAjaxRequest)
-                echo $error['message'];
-            else
-                $this->render('error', $error);
-        }
+//        if ($error == Yii::app()->errorHandler->error) {
+//            if (Yii::app()->request->isAjaxRequest)
+//                echo $error['message'];
+//            else
+//                $this->render('error', $error);
+//        }
+    }
+
+    public function actionClose() {
+        $this->render('close');
     }
 
     /**
@@ -80,31 +85,41 @@ class SiteController extends Controller {
         $this->render('contact', array('model' => $model));
     }
 
-
-
     public function actionLogin() {
-        $model = new LoginForm;
-        $this->render('login', array('model' => $model));
+        $this->layout = '//layouts/signup';
+        error_log($this->layout);
+        $this->defaultLogin();
+    }
 
+//    public function actionLogin() {
 //        $model = new LoginForm;
+//        $this->render('login', array('model' => $model));
 //
-//        // if it is ajax validation request
-//        if (!Yii::app()->user->isGuest) {
-//            $this->redirect(Yii::app()->user->returnUrl);
-//        }
 //
-//        if (isset($_POST['ajax']) && $_POST['ajax'] === 'login-form') {
-//            echo CActiveForm::validate($model);
-//            Yii::app()->end();
-//        }
-//
-//        // collect user input data
-//        if (isset($_POST['LoginForm'])) {
-//            $model->attributes = $_POST['LoginForm'];
-//            // validate user input and redirect to the previous page if valid
-//            if ($model->validate() && $model->login())
-//                $this->redirect('index');
-//        }
+//    }
+    public function defaultLogin() {
+
+        $model = new LoginForm;
+
+        // if it is ajax validation request
+        if (!Yii::app()->user->isGuest) {
+            $this->redirect(Yii::app()->user->returnUrl);
+        }
+
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'login-form') {
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
+        }
+
+        // collect user input data
+        if (isset($_POST['LoginForm'])) {
+            $model->attributes = $_POST['LoginForm'];
+            // validate user input and redirect to the previous page if valid
+            if ($model->validate() && $model->login())
+                $this->render('//user/close');
+        }
+        // display the login form                
+        $this->render('login', array('model' => $model));
     }
 
     public function actionAjax() {
@@ -138,7 +153,7 @@ class SiteController extends Controller {
 
         Yii::app()->user->logout();
 
-    //    $this->redirect(Yii::app()->homeUrl);
+        //    $this->redirect(Yii::app()->homeUrl);
     }
 
     public function actionSet() {
@@ -159,13 +174,13 @@ class SiteController extends Controller {
 
     public function actionSearchStart() {
         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "Pa55word", "test", true);
-        $result_arr = $cb->getMulti(array('photo_1','photo_2','photo_3','photo_4','photo_5','photo_6','photo_7','photo_8','photo_9', 'photo_10'));
-        
-       foreach($result_arr as $key => $value){
-           $newvalue = CJSON::decode($value);
-           echo CJSON::encode($newvalue);
-       }
-       //echo var_dump($result_arr);
+        $result_arr = $cb->getMulti(array('photo_1', 'photo_2', 'photo_3', 'photo_4', 'photo_5', 'photo_6', 'photo_7', 'photo_8', 'photo_9', 'photo_10'));
+
+        foreach ($result_arr as $key => $value) {
+            $newvalue = CJSON::decode($value);
+            echo CJSON::encode($newvalue);
+        }
+        //echo var_dump($result_arr);
     }
 
     public function actionGetSlideImage() {

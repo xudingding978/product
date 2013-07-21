@@ -24,9 +24,13 @@ define([
                 galleryInsert: false,
                 contactChecking: false,
                 collectionTag: true,
-                updateOrCreate:true,
+                followerTag: false,
+                updateOrCreate: true,
                 partnerTag: false,
+                partnerPage: true,
+                profileSelectionStatus: "Collections",
                 temp: [],
+                tempdesc: [],
                 selectedDesc: "",
                 selectedTitle: "",
                 editingTime: false,
@@ -38,12 +42,12 @@ define([
                 currentUserID: "",
                 collections: [],
                 selectedCollection: "",
-                needs: ["application", "contact", "profilePartners", "itemProfiles"],
+                needs: ["application", "contact", "profilePartners", "itemProfiles", "profileFollowers"],
                 profile_bg_url: "",
                 profile_hero_url: "",
                 profile_pic_url: "",
                 hours: [],
-                follow_status: "Follow",
+                follow_status: "+ Follow",
                 is_authentic_user: false,
                 init: function() {
 
@@ -56,7 +60,6 @@ define([
                     return user;
                 },
                 setProfile: function(id) {
-
                     var profile = this.getCurrentClient(id);
                     this.set('profile_bg_url', profile.get('profile_bg_url'));
                     this.set('profile_hero_url', profile.get('profile_hero_url'));
@@ -66,25 +69,32 @@ define([
                     this.set("collections", profile.get("collections"));
                     var collections = profile.get("collections");
                     //           console.log(collections);
-                    for (var i = 0; i < collections.get("length"); i++)
-                    {
-                        var col = collections.objectAt(i);
-                        if ((col.get("collection_ids") !== null && col.get("collection_ids") !== "")) {
-                            var imgId = col.get("collection_ids").split(",").objectAt(0);
-                            this.getHeroImgae(imgId, col);
-                        }
-                    }
+//                    for (var i = 0; i < collections.get("length"); i++)
+//                    {
+//                        var col = collections.objectAt(i);
+//                        if ((col.get("collection_ids") !== null && col.get("collection_ids") !== "")) {
+//                            var imgId = col.get("collection_ids").split(",").objectAt(0);
+//                         this.getHeroImgae(imgId, col);
+//                        }
+//                    }
                     this.isFollowed();
                     this.checkAuthenticUser();
                 },
-                submit: function()
-                {
-
+                submit: function() {
+                    var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
                     var id = this.checkingValidInput(this.selectedCollection.get('id'));
-                    this.checkingIdisExsinting(id, "create");
+                    this.checkingIdisExsinting(desc, id, "create");
                     if (isExsinting) {
                         this.selectedCollection.set('id', id);
                         this.selectedCollection.set('title', id);
+                        this.selectedCollection.set('cover', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png");
+                        if (this.selectedCollection.get('desc') !== null && this.selectedCollection.get('desc') !== "") {
+                            this.selectedCollection.set('desc', desc);
+                        } else {
+
+                            this.selectedCollection.set('desc', "Add a short description to your Collection");
+                        }
+
                         this.get("collections").insertAt(0, this.selectedCollection);
                         this.get("collections").store.commit();
                         $(".Targeting_Object_front").attr("style", "display:inline-block");
@@ -96,13 +106,17 @@ define([
                 },
                 checkingValidInput: function(title) {
 
-                    if (title.indexOf(" ") !== -1) {
+                    if (title === null || title === "") {
 
-                        title = title.split(' ').join('-');
+                    } else {
+                        if (title.indexOf(" ") !== -1) {
+
+                            title = title.split(' ').join('-');
+                        }
                     }
                     return title;
                 },
-                checkingIdisExsinting: function(id, postOrPut) {
+                checkingIdisExsinting: function(desc, id, postOrPut) {
 
                     if (postOrPut === "update") {
                         for (var i = 0; i < this.get("temp").get('length'); i++) {
@@ -112,6 +126,22 @@ define([
                                 isExsinting = false;
                             }
                         }
+
+                        if (!isExsinting) {
+                            for (var i = 0; i < this.get("tempdesc").get('length'); i++) {
+                                if (this.get("tempdesc").objectAt(i) === desc) {
+                                    isExsinting = false;
+                                    break;
+
+                                } else {
+
+                                    isExsinting = true;
+
+                                }
+                            }
+
+                        }
+
                         if (!isExsinting) {
                             alert('This Collection is already exsiting!!!');
                         }
@@ -213,17 +243,19 @@ define([
                     for (var i = 0; i < this.get("collections").get("length"); i++) {
                         var thisCollection = this.get("collections").objectAt(i);
                         this.get('temp').pushObject(thisCollection.get("id"));
+                        this.get('tempdesc').pushObject(thisCollection.get("desc"));
                         if (id === thisCollection.get("id")) {
                             this.set("selectedCollection", thisCollection);
-                            //      console.log(  this.get("selectedCollection"));
+
                         }
                     }
                 },
                 updateCollectionInfo: function()
                 {
 
+                    var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
                     var id = this.checkingValidInput(this.selectedCollection.get('id'));
-                    this.checkingIdisExsinting(id, "update");
+                    this.checkingIdisExsinting(desc, id, "update");
                     if (isExsinting) {
                         var title = this.get("selectedCollection").get("id");
                         this.get("selectedCollection").set("title", title);
@@ -273,12 +305,11 @@ define([
                     var currentUser = App.User.find(localStorage.loginStatus);
                     var that = this;
                     var email = currentUser.get('email');
-                    if(authenticUsers!==null&&authenticUsers!==undefined&&email!==null&&email!==undefined){
-                    this.setIsAuthenticUser(authenticUsers, email);
+                    if (authenticUsers !== null && authenticUsers !== undefined && email !== null && email !== undefined) {
+                        this.setIsAuthenticUser(authenticUsers, email);
                     }
                     currentUser.addObserver('isLoaded', function() {
                         email = currentUser.get('email');
-               
                         if (currentUser.get('isLoaded')) {
                             that.setIsAuthenticUser(authenticUsers, email);
                         }
@@ -286,7 +317,7 @@ define([
                 },
                 setIsAuthenticUser: function(authenticUsers, email)
                 {
-         
+
                     if (authenticUsers.indexOf(email) !== -1) {
                         this.set('is_authentic_user', true);
                     }
@@ -301,16 +332,17 @@ define([
                 {
                     if (this.checkFollowStatus())
                     {
-                        this.set('follow_status', "Following");
+                        this.set('follow_status', true);
                     }
                     else {
-                        this.set('follow_status', "Follow");
+                        this.set('follow_status', false);
                     }
                 },
                 followThisProfile: function() {
-                    if (!this.checkFollowStatus()) {
+                    if (this.checkFollowStatus() === false) {
+
                         var currentUser = App.User.find(localStorage.loginStatus);
-                        var commenter_profile_pic_url = currentUser.get('photo_url');
+                        var commenter_profile_pic_url = currentUser.get('photo_url_large');
                         var commenter_id = currentUser.get('id');
                         var name = currentUser.get('display_name');
                         var date = new Date();
@@ -318,7 +350,7 @@ define([
                             "follower_id": commenter_id, "name": name, "time_stamp": date.toString(), "is_delete": false});
                         tempComment.store.save();
                         this.get("model").get("followers").insertAt(0, tempComment);
-                        this.set('follow_status', "following");
+                        this.set('follow_status', "Following");
                     }
                     else {
                         //dont delete this line
@@ -331,17 +363,20 @@ define([
                     var followers = this.get("model").get("followers");
                     for (var i = 0; i < followers.get('length'); i++) {
                         var follower_id = followers.get("content").objectAt(i).data.follower_id;
+
                         if (follower_id === localStorage.loginStatus)
                         {
+
                             isFollow = true;
                             break;
                         }
                     }
+
                     return isFollow;
                 },
                 unfollow: function() {
                     var currentUser = App.User.find(localStorage.loginStatus);
-                    var commenter_profile_pic_url = currentUser.get('photo_url');
+                    var commenter_profile_pic_url = currentUser.get('photo_url_large');
                     var commenter_id = currentUser.get('id');
                     var name = currentUser.get('display_name');
                     var date = new Date();
@@ -351,24 +386,31 @@ define([
                     //      tempComment.store.commit();
                 },
                 selectCollection: function() {
+                    this.set('profileSelectionStatus', 'Collections');
                     this.set('partnerTag', false);
                     this.set('collectionTag', true);
+                    this.set('followerTag', false);
                 },
                 selectPartner: function(model) {
 
+                    this.set('profileSelectionStatus', 'Partners');
 
-             
                     this.get('controllers.profilePartners').getClientId(model);
                     this.set('partnerTag', true);
                     this.set('collectionTag', false);
+                    this.set('followerTag', false);
 
 
                     this.get('controllers.itemProfiles').setPartnerRemove();
 
 
                 },
-                selectFollower: function() {
-
+                selectFollower: function(model) {
+                    this.set('profileSelectionStatus', 'Followers');
+                    this.get('controllers.profileFollowers').getClientId(model);
+                    this.set('partnerTag', false);
+                    this.set('collectionTag', false);
+                    this.set('followerTag', true);
                 }
 
             });

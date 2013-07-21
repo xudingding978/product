@@ -28,6 +28,8 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
 //
 //        $tplUserProfile = TplUserProfile::model()->findByPk(1);
 
+   
+        
         if (!$this->config["keys"]["id"] || !$this->config["keys"]["secret"]) {
             throw new Exception("Your application id and secret are required in order to connect to {$this->providerId}.", 4);
         }
@@ -71,9 +73,14 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
      * finish login step 
      */
     function loginFinish() {
+        
+        
+         
         // in case we get error_reason=user_denied&error=access_denied
         if (isset($_REQUEST['error']) && $_REQUEST['error'] == "access_denied") {
-            throw new Exception("Authentification failed! The user denied your request.", 5);
+            
+        Hybrid_Auth::redirect("http://develop.trendsideas.com/site/close");
+       //     throw new Exception("Authentification failed! The user denied your request.", 5);
         }
 
         // try to get the UID of the connected user from fb, should be > 0 
@@ -104,6 +111,9 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
      */
     function getUserProfile() {
         // request user profile from fb api
+        
+        
+           
         try {
             $data = $this->api->api('/me');
         } catch (FacebookApiException $e) {

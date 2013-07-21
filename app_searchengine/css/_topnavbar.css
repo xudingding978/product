@@ -35,7 +35,7 @@
     color: white;
     margin-bottom: 0px;
     position: fixed;
-    z-index: 7;
+    z-index: 1000;
     width: 100%;
     top:0;
     display: block;
@@ -231,6 +231,7 @@
 * {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 
 
@@ -311,7 +312,7 @@
     padding:0px;
     width:150px;
     top:35px;
-    left: -125px;
+    left: -60px;
 }
 
 

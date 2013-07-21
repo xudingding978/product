@@ -26,6 +26,12 @@ define([
             }, 100);
 
         },
+        events: {
+            transitionToProfile: function(id) {
+
+                this.transitionTo("profile", App.Profile.find(id));
+            }
+        },
         deactivate: function() {
 
 

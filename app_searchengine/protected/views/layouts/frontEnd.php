@@ -33,13 +33,10 @@
 
     </head>
     <body style="background:#fff url('../images/texture.png') repeat;width: 100%;height: auto;">
-        <script type="text/javascript"
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwl8LT_S7FsRP_yDcoxM72-U8x15l-alw&sensor=false">
-        </script>
+ 
 
         <div id="loading" class="loading-visible" >
-            <img style="width: 300px;position: absolute;margin: auto;left: 0;right: 0; top:27%;" src="../../../images/loading.gif" />
-
+            <img style="width: 300px;position: relative;margin: auto;left: 0;right: 0; " src="../../../images/loading.gif" />
             <div id="blurringTextG">
                 <div id="blurringTextG_1" class="blurringTextG">
                     C</div>
@@ -106,10 +103,12 @@
             </div>
         </div>
         <div id="main" class="container-fluid" style="padding:0;"></div>
-
+        <!--<script data-main="app_hubstar/scripts/main" src="app_hubstar/scripts/libs/browerdetecter.js"></script>-->
         <script data-main="app_hubstar/scripts/main" src="app_hubstar/scripts/libs/requirejs/2.1.2/require.js"></script>
-
-
+        
+        
+        
+        
     </body>
 </html>
 

@@ -7,13 +7,14 @@ define(["ember", "helper"],
                 profileMega: null,
                 nodifyBackGround: false,
                 collection_id: "",
-                needs: ['profile', 'insideCollection'],
+                needs: ['profile', 'masonryCollectionItems'],
                 init: function() {
-
                     this.setMega();
                 },
-                commitFiles: function(files) {
+                commitFiles: function(evt) {
                     this.set("nodifyBackGround", true);
+                    var input = evt.target;
+                    var files = input.files;
                     var that = this;
                     for (var i = 0; i < files.length; i++) {
                         (function(file) {
@@ -21,46 +22,41 @@ define(["ember", "helper"],
                             var type = file.type;
                             var reader = new FileReader();
                             reader.onload = function(e) {
+
                                 that.addPhotoObject(e, that, name, type);
                             }, reader.readAsDataURL(files[i]);
                         })(files[i]);
-                        event.preventDefault();
+                        evt.preventDefault();
                     }
                 },
                 setMode: function()
                 {
                 }, submit: function()
                 {
-
                     App.store.commit();
-
                 }, back: function()
                 {
+
                     this.set("content", []);
                     this.set("nodifyBackGround", false);
-                    var insideCollection = this.get('controllers.insideCollection');
-                    insideCollection.back();
+                    var masonryCollectionItems = this.get('controllers.masonryCollectionItems');
+                    masonryCollectionItems.back();
                 },
                 setMega: function() {
                     var profileController = this.get('controllers.profile');
                     var tempmega = profileController.get("model");
                     var that = this;
-
                     that.set("profileMega", tempmega);
                     if (that.get("profileMega") === null) {
                         tempmega.addObserver('isLoaded', function() {
                             if (tempmega.get('isLoaded')) {
                                 that.set("profileMega", tempmega);
-
                             }
                         });
                     }
-                    console.log('done');
                 },
                 createNewMega: function(ProfileMega)
                 {
-
-
                     var photoMega = App.Mega.createRecord({
                         "accessed": ProfileMega.get("accessed"),
                         "boost": ProfileMega.get("boost"),
@@ -72,7 +68,7 @@ define(["ember", "helper"],
                         "category": ProfileMega.get("category"),
                         "creator": localStorage.loginStatus,
                         "country": ProfileMega.get("country"),
-                        "collection_id": this.get('controllers.insideCollection').get('title'),
+                        "collection_id": this.get('controllers.masonryCollectionItems').get('title'),
                         "deleted": null,
                         "domains": getDomain(),
                         "editors": "",
@@ -97,16 +93,37 @@ define(["ember", "helper"],
                     });
                     return photoMega;
                 }, addPhotoObject: function(e, that, name, type) {
-                    var src = e.srcElement.result;
+                    var target = that.getTarget(e);
+                    var src = target.result;
                     var mega = that.createNewMega(that.get("profileMega"));
                     var file = App.Photo.createRecord({
                         "photo_title": name.toLowerCase(),
+                        "photo_source_id": name.toLowerCase().replace('.', "_"),
                         "photo_image_original_url": src,
-                        "photo_file_name":name.toLowerCase(),
+                        "photo_file_name": name.toLowerCase(),
                         "photo_type": type,
                         "photo_keywords": that.get("profileMega").get("keywords")});
                     mega.get("photo").pushObject(file);
+                    mega.addObserver('isSaving', function() {
+                        if (mega.get('isSaving')) {
+                            $('.' + file.get('photo_source_id')).attr("style", "display:block");
+                        }
+                        else {
+                            $('.' + file.get('photo_source_id')).attr("style", "display:none");
+                        }
+                    });
                     that.get("content").addObject(file);
+                },
+                getTarget: function(obj) {
+                    var targ;
+                    var e = obj;
+                    if (e.target)
+                        targ = e.target;
+                    else if (e.srcElement)
+                        targ = e.srcElement;
+                    if (targ.nodeType === 3) // defeat Safari bug
+                        targ = targ.parentNode;
+                    return targ;
                 }
             }
             );
@@ -123,5 +140,7 @@ define(["ember", "helper"],
                 }
 
             });
+
+
             return PhotoCreateController;
         });

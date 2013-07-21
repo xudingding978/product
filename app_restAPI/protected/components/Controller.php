@@ -53,21 +53,6 @@ class Controller extends CController {
         return $result_arr["providers"][$name];
     }
 
-    // function for connecting to s3. Using for move photo between buckets. (Tao)
-//    public function connectToS3() {
-//        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
-//        $key = explode(".", $_SERVER['HTTP_HOST']);
-//        $key = $key[1] . '.' . $key[2];
-//        $result = $cb->get($key);
-//        $result_arr = CJSON::decode($result, true);
-//
-//        $client = Aws\S3\S3Client::factory(
-//                        $result_arr["providers"]["S3Client"]
-//        );
-//
-//        return $client;
-//    }
-
     /**
      * Send raw HTTP response
      * @param int $status HTTP status code
@@ -144,28 +129,6 @@ class Controller extends CController {
         return (isset($codes[$status])) ? $codes[$status] : '';
     }
 
-    protected function processMultiGet($results_arr, $jsonRoot) {
-        $numItems = count($results_arr);
-        $i = 0;
-        $result = '{"' . $jsonRoot . '":[';
-        foreach ($results_arr as $key => $value) {
-            if (++$i === $numItems) {
-                $result .= $value;
-            } else {
-                $result .= $value . ',';
-            }
-        }
-        $result .= ']}';
-        return $result;
-    }
-
-    protected function processGet($results_arr, $jsonRoot) {
-        $result = '{"' . $jsonRoot . '":[';
-        $result .= $results_arr;
-        $result .= ']}';
-        return $result;
-    }
-
     protected function getNewID() {
         $myText = (string) microtime();
         $pieces = explode(" ", $myText);
@@ -191,13 +154,16 @@ class Controller extends CController {
         } elseif ($requireType == 'partner') {
             $partner_id_raw = $this->getUserInput($requireParams[1]);
             $partner_id = str_replace("%2C", ",", $partner_id_raw);
-            $response = $this->getProfilePartner($returnType, $partner_id);
-            //  error_log(var_export($requireType, true));
+            $partnerIds = explode(',', $partner_id);
+            $str_partnerIds = "";
+            for ($i = 0; $i < sizeof($partnerIds); $i++) {
+                $str_partnerIds = $str_partnerIds . '\"' . $partnerIds[$i] . '\"';
+                if ($i + 1 < sizeof($partnerIds)) {
+                    $str_partnerIds.=',';
+                }
+            }
+            $response = $this->getProfilePartner($returnType, $str_partnerIds);
         } elseif ($requireType == 'articleRelatedImage') {
-
-
-
-
             $article_id = $this->getUserInput($requireParams[1]);
             $owner_id = $this->getUserInput($requireParams[2]);
             $requestArray = array();
@@ -229,51 +195,32 @@ class Controller extends CController {
     }
 
     protected function performSearch($returnType, $region, $requestString, $from = 0, $size = 50) {
-        $request = $this->getElasticSearch();
-        $request
-                ->from($from)
-                ->size($size);
-//populate a Term query to start
-        $termQuery = Sherlock\Sherlock::queryBuilder()
-                ->QueryString()
-                ->fields("couchbaseDocument.doc.keywords")
-                ->query($requestString)
-                ->boost(2.5);
-        $request->query($termQuery);
-
-        $response = $request->execute();
-
-        $results = '{"' . $returnType . '":[';
-        $i = 0;
-        foreach ($response as $hit) {
-            $results .= CJSON::encode($hit['source']['doc']);
-            if (++$i < count($response)) {
-                $results .= ',';
-            }
+        $requestArray = array();
+        if ($region != null && $region != "") {
+            $requestStringOne = 'couchbaseDocument.doc.region=' . $region;
+            array_push($requestArray, $requestStringOne);
         }
-        $results .= ']}';
-        return $results;
+        if ($requestString != null && $requestString != "") {
+            $requestStringTwo = 'couchbaseDocument.doc.keywords=' . $requestString;
+            array_push($requestArray, $requestStringTwo);
+        }
+        $tempResult = $this->performMustSearch($requestArray, $returnType, 'must', $from, $size);
+        return $tempResult;
     }
 
     protected function getmustQuestWithQueryString($queryString) {
-
-
         $mustQuery = explode('=', $queryString);
-        $should = Sherlock\Sherlock::queryBuilder()->QueryString()->query($mustQuery[1])//$collection_id
+        $should = Sherlock\Sherlock::queryBuilder()->QueryString()->query('"' . $mustQuery[1] . '"')//$collection_id
                 ->field($mustQuery[0]);
         return $should;
     }
 
-    protected function performMustSearch($requestArray, $returnType, $search_type = "should") {
-        $settings['log.enabled'] = true;
-        $sherlock = new \Sherlock\Sherlock($settings);
-        $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
-        $request = $sherlock->search();
-        $request->index("develop")->type("couchbaseDocument")->from(0);
-        $request->index("develop")->type("couchbaseDocument")->size(50);
+    protected function performMustSearch($requestArray, $returnType, $search_type = "should", $from = 0, $size = 50) {
+        $request = $this->getElasticSearch();
+        $request->from($from);
+        $request->size($size);
         $max = sizeof($requestArray);
         $bool = Sherlock\Sherlock::queryBuilder()->Bool();
-
         for ($i = 0; $i < $max; $i++) {
             $must = $this->getmustQuestWithQueryString($requestArray[$i]);
             if ($search_type == "must") {
@@ -285,44 +232,41 @@ class Controller extends CController {
             }
         }
         $request->query($bool);
-
-  //      error_log($request->toJSON());
         $response = $request->execute();
 
-        $i = 0;
-
-        $results = '{"' . $returnType . '":[';
-        foreach ($response as $hit) {
-            $results .= CJSON::encode($hit['source']['doc']);
-            if (++$i < count($response)) {
-                $results .= ',';
-            }
-        }
-        $results .= ']}';
+        $results = $this->getReponseResult($response, $returnType);
         return $results;
     }
 
     protected function getRequestResultByID($returnType, $requestString) {
-
         $request = $this->getElasticSearch();
 //populate a Term query to start
         $should = Sherlock\Sherlock::queryBuilder()->Term()->term($requestString)//$collection_id
                 ->field('couchbaseDocument.doc.id');
-        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->should($should)
-                ->boost(2.5);
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->should($should);
         $response = $request->query($bool)->execute();
-        //     error_log($request->toJSON());
+
         $results = '{"' . $returnType . '":';
+        $i = 0;
         foreach ($response as $hit) {
-            $results .= CJSON::encode($hit['source'] ['doc']);
+
+            $results .= CJSON::encode($hit['source']['doc']);
+
+            if (++$i < count($response)) {
+                $results .= ',';
+            }
         }
         $results .= '}';
+
         return $results;
+
+
     }
 
     protected function getProfilePartner($returnType, $partner_id) {
-
         $request = $this->getElasticSearch();
+        $request->from(0)
+                ->size(500);
         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw('{
                 "bool": {
                     "must": [
@@ -334,78 +278,62 @@ class Controller extends CController {
                         }
                     ]
                 }
-    
             }');
+
         $response = $request->query($termQuery)->execute();
-
-
-        $results = '{"' . $returnType . '":[';
-        $i = 0;
-        foreach ($response as $hit) {
-
-            $results .= CJSON::encode($hit['source'] ['doc']);
-            if (++$i !== count($response)) {
-                $results .= ',';
-            }
-        }
-        $results .= ']}';
+        $results = $this->getReponseResult($response, $returnType);
 
         return $results;
     }
 
     protected function performRawSearch($returnType, $collection_id, $owner_profile_id) {
-        $request = $this->getElasticSearch();
 
+
+        $request = $this->getElasticSearch();
         $must = Sherlock\Sherlock::queryBuilder()
-                ->QueryString()
-                ->field('couchbaseDocument.doc.collection_id')
-                ->query($collection_id);
+                ->QueryString()->query($collection_id)
+                ->default_field('couchbaseDocument.doc.collection_id');
+
+
         $must2 = Sherlock\Sherlock::queryBuilder()
-                ->QueryString()
-                ->field('couchbaseDocument.doc.owner_id')
-                ->query($owner_profile_id);
+                ->QueryString()->query($owner_profile_id)
+                ->default_field('couchbaseDocument.doc.owner_id');
+
 
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)
-                ->must($must2)
-                ->boost(2.5);
+                ->must($must2);
+
+
         $response = $request->query($bool)->execute();
 
-        $results = '{"' . $returnType . '":[';
-
-//Iterate over the hits and print out some data
-        $i = 0;
-        foreach ($response as $hit) {
-
-            $results .= CJSON::encode($hit['source'] ['doc']);
-            if (++$i !== count($response)) {
-                $results .= ',';
-            }
-        }
-        $results .= ']}';
-
+        $results = $this->getReponseResult($response, $returnType);
         return $results;
     }
 
     protected function getSearchResultsTotal($returnType, $region, $requestString) {
-        $request = $this->getElasticSearch();
-        $request->type("couchbaseDocument")->from(1);
-        $request->type("couchbaseDocument")->size(50);
-        $termQuery = Sherlock\Sherlock::queryBuilder()
-                        ->QueryString()
-                        ->fields("couchbaseDocument.doc.keywords")
-                        ->query($requestString)->boost(2.5);
+        $requestArray = array();
+        if ($region != null && $region != "") {
+            $requestStringOne = 'couchbaseDocument.doc.region=' . $region;
+            array_push($requestArray, $requestStringOne);
+        }
+        if ($requestString != null && $requestString != "") {
+            $requestStringTwo = 'couchbaseDocument.doc.keywords=' . $requestString;
+            array_push($requestArray, $requestStringTwo);
+        }
 
-        $request->index(Yii::app()->params['elasticSearchIndex'])
-                ->type("couchbaseDocument")
-                ->query($termQuery);
+        $request = $this->getElasticSearch();
+        $max = sizeof($requestArray);
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool();
+
+        for ($i = 0; $i < $max; $i++) {
+            $must = $this->getmustQuestWithQueryString($requestArray[$i]);
+            $bool->must($must);
+        }
+        $request->query($bool);
 
         $response = $request->execute();
-// $result = "";
-//Iterate over the hits and print out some data
         $result = '{"' . $returnType . '":[{"id":"hit","hits":"' . $response->total;
-        $result .= '"}]}'
-
-        ;
+        $result .= '"}]}';
         return $result;
     }
 
@@ -445,100 +373,24 @@ class Controller extends CController {
 
     protected function getCollections($collections, $collection_id, $returnType) {
         $request_ids = $this->getSelectedCollectionIds($collections, $collection_id);
-        $request_ids = explode(',', $request_ids);
+        $id_arr = explode(',', $request_ids);
         $header = '{"ids": { "values": [';
         $footer = ']}}';
         $tempRquestIDs = "";
-        for ($i = 0; $i < sizeof($request_ids); $i++) {
-            $tempRquestIDs .= '"' . $this->getDomain() . "/" . trim($request_ids [$i]) . '"';
-            if ($i < sizeof($request_ids) - 1) {
+        for ($i = 0; $i < sizeof($id_arr); $i++) {
+            $tempRquestIDs .= '"' . $this->getDomain() . "/" . trim($id_arr[$i]) . '"';
+            if ($i < sizeof($id_arr) - 1) {
                 $tempRquestIDs.=',';
             }
         }
+
         $rawRequest = $header . $tempRquestIDs . $footer;
-        $settings['log.enabled'] = true;
-        $sherlock = new \Sherlock\Sherlock($settings);
-        $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
-        $request = $sherlock->search();
+        $request = $this->getElasticSearch();
         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
-        $request->index(Yii::app()->params['elasticSearchIndex'])
-                ->type("couchbaseDocument")
-                ->query($termQuery);
+        $request->query($termQuery);
         $response = $request->execute();
         $results = $this->getReponseResult($response, $returnType);
-
         return $results;
-    }
-    
-    protected function getAllProfiles($returnType){
-        $rawRequest = '{
-                                    "bool": {
-                                      "must": {
-                                        "text": {
-                                            "couchbaseDocument.doc.type": "profile"
-                                        }
-                                      }
-                                    }
-                                }';
-
-        $settings['log.enabled'] = true;
-        $settings['log.file'] = '../../sherlock.log';
-        $sherlock = new \Sherlock\Sherlock($settings);
-        $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
-        $request = $sherlock->search(); 
-        $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
-        $request->index("test")
-                ->from(0)
-                ->size(200)
-                ->type("couchbaseDocument")
-                ->query($termQuery);
-
-        $response = $request->execute();
-//        error_log($response);
-        $results = $this->modifyArticleResponseResult($response, $returnType);
-
-        return $results;
-        
-    }
-    
-    protected function getAllDoc($returnType, $from, $to) {
-        $rawRequest = '{
-                                    "bool": {
-                                      "must": {
-                                        "range": {
-                                          "couchbaseDocument.doc.accessed": {
-                                            "from": ' . $from . ',
-                                            "to": ' . $to . '
-                                          }
-                                        }
-                                      }
-                                    }
-                                }';
-
-        $settings['log.enabled'] = true;
-        $settings['log.file'] = '../../sherlock.log';
-        $sherlock = new \Sherlock\Sherlock($settings);
-        $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
-        $request = $sherlock->search(); 
-        $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
-        $request->index("develop")
-                ->from(0)
-                ->size(1000)
-                ->type("couchbaseDocument")
-                ->query($termQuery);
-
-        $response = $request->execute();
-
-        $results = $this->modifyArticleResponseResult($response, $returnType);
-
-        return $results;
-    }
-
-    protected function getDomain() {
-        $host = $_SERVER['HTTP_HOST'];
-        preg_match("/[^\.\/]+\.[^\.\/]+$/", $host, $matches);
-
-        return trim($matches[0]);
     }
 
     protected function getSelectedCollectionIds($collections, $collection_id) {
@@ -550,28 +402,7 @@ class Controller extends CController {
                 $request_ids = $thisCollection['collection_ids'];
             }
         }
-
         return $request_ids;
-    }
-
-    //update article 
-    protected function modifyArticleResponseResult($response, $returnType) {
-        $results = '{"' . $returnType . '":[';
-        $i = 0;
-        foreach ($response as $hit) {
-            $id = $hit['source']['meta']['id'];
-            $id = str_replace("trendsideas.com/", "", $id);
-            $hit['source']['doc']['id'] = $id;
-            $hit['source']['doc']['article'][0]['id'] = $id;
-
-            $results .= CJSON::encode($hit['source']['doc']);
-            if (++$i !== count($response)) {
-                $results .= ',';
-            }
-        }
-
-        $results .= ']}';
-        return $results;
     }
 
     protected function getReponseResult($response, $returnType) {
@@ -590,120 +421,6 @@ class Controller extends CController {
         return $results;
     }
 
-    protected function getImageString($type, $url) {
-        $im = "";
-        if ($type == "image/png") {
-            $im = imagecreatefrompng($url);
-        } elseif ($type == "image/jpeg") {
-            $im = imagecreatefromjpeg($url);
-        }
-
-        return $im;
-    }
-
-    protected function getImageInfo($url) {
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
-        $tim = curl_exec($ch);
-
-        if (@$imageInfo = getimagesizefromstring($tim)) {
-            return $imageInfo;
-        } else {
-            $message = $url . "\r\n" . date("Y-m-d H:i:s") . $tim . " \r\n";
-            $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $message);
-            return false;
-        }
-    }
-
-    public function convertToString64($image_string) {
-        $matchs = array();
-        preg_match_all('/\:(.*?)\;/', $image_string, $matchs);
-        $image_type = $matchs[1][0];
-
-        $input_image_string = $this->getInputData($image_type, $image_string);
-        $image_data['type'] = $image_type;
-        $image_data['data'] = $input_image_string;
-
-        return $image_data;
-    }
-
-    public function saveImageToS3($url, $data, $bucket) {
-        $provider_arr['key'] = 'AKIAJKVKLIJWCJBKMJUQ';
-        $provider_arr['secret'] = '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';
-        $provider_arr['region'] = 'ap-southeast-2';
-        $client = Aws\S3\S3Client::factory(
-                        $provider_arr
-        );
-        $client->putObject(array(
-            'Bucket' => $bucket, //"s3.hubsrv.com"
-            'Key' => $url,
-            'Body' => $data,
-            'ACL' => 'public-read'
-        ));
-    }
-
-    public function removeImageFromS3($key, $bucket) {
-//        $provider_arr = $this->getProviderConfigurationByName("trendsideas.com", "S3Client");
-//        print_r($provider_arr);
-//        exit();
-        
-        
-        $provider_arr['key'] = 'AKIAJKVKLIJWCJBKMJUQ';
-        $provider_arr['secret'] = '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';
-        $provider_arr['region'] = 'ap-southeast-2';
-        
-        try{
-            $client = Aws\S3\S3Client::factory(
-                $provider_arr
-            );
-            $client->deleteObject(array(
-                'Bucket' => $bucket, //"s3.hubsrv.com"
-                'Key' => $key
-            ));
-        } catch (Exception $e) {
-            $message = $e->getMessage();
-            error_log($message);
-        }
-    }
-
-    protected function addPhotoSizeToName($photo_name, $photo_size_arr) {
-        $name_arr = explode(".", $photo_name);
-        $new_name = "";
-        if (sizeof($name_arr > 0)) {
-            $temp_str = '_' . $photo_size_arr['width'] . 'x' . $photo_size_arr['height'];
-            $new_name = $name_arr[0] . $temp_str . '.' . $name_arr[1];
-        }
-
-        return $new_name;
-    }
-
-    public function getInputData($inputDataType, $inputData) {
-        $tempInput = "";
-        if ($inputDataType == "image/jpeg") {
-            $tempInput = str_replace('data:image/jpeg;base64,', '', $inputData);
-        } elseif ($inputDataType == "application/pdf") {
-            $tempInput = str_replace('data:application/pdf;base64,', '', $inputData);
-        } elseif ($inputDataType == "image/png") {
-            $tempInput = str_replace('data:image/png;base64,', '', $inputData);
-        } elseif ($inputDataType == "image/gif") {
-            $tempInput = str_replace('data:image/gif;base64,', '', $inputData);
-        }
-        $data = base64_decode($tempInput);
-        return $data;
-    }
-
-    function compressPhotoData($type, $image) {
-        if ($type == "image/png") {
-            imagepng($image);
-        } elseif ($type == "image/jpeg") {
-            imagejpeg($image, null, 80);
-        }
-
-        return $image;
-    }
-
     public function getCurrentUTC() {
 
         $datetime = date("Y-m-d H:i:s");
@@ -711,88 +428,21 @@ class Controller extends CController {
         return $time_string;
     }
 
-    function compressData($type, $data, $url) {
+    protected function getDomain() {
+        $host = $_SERVER['HTTP_HOST'];
+        preg_match("/[^\.\/]+\.[^\.\/]+$/", $host, $matches);
 
-//        error_log($url."--------------------- \r\n");
-        ob_start();
-        if ($type == "image/png") {
-            imagepng($data);
-        } elseif ($type == "image/jpeg") {
-            if (!strpos($url, 'imageservice') && strpos($url, 'original')) {
-                imagejpeg($data, null, 80);
-            } else {
-                imagejpeg($data, null, 100);
-            }
-        }
-        $return = ob_get_contents();
-        ob_end_clean();
-        return $return;
+        return trim($matches[0]);
     }
 
-    function isUrlExist($path) {
-        $file_headers = @get_headers($path);
-        if ($file_headers[0] == 'HTTP/1.1 404 Not Found') {
-            $response = 'HTTP/1.1 404 Not Found';
-        } else {
-            $response = "true";
+    public function getDocId($type, $id) {
+        $docID = "";
+        if ($type == "profile") {
+            $docID = $this->getDomain() . "/profiles/" . $id;
+        } elseif ($type == "photo") {
+            $docID = $this->getDomain() . "/" . $id;
         }
-        return $response;
-    }
-
-    function is_image($path) {
-        try {
-            if ($a = @getimagesize($path)) {
-//                $a = getimagesize($path);
-                $image_type = $a[2];
-                if (in_array($image_type, array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_BMP))) {
-                    return "true";
-                }
-            } else {
-                $message = "is not a image." . date("Y-m-d H:i:s") . $path . " \r\n";
-                $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $message);
-            }
-        } catch (Exception $e) {
-            $response = 'Caught exception: ' . $e->getMessage() . "\n";
-            $message = $response . "\n" . date("Y-m-d H:i:s") . $path . " \r\n";
-            $this->writeToLog("/home/devbox/NetBeansProjects/test/AddImage_unsucces.log", $message);
-        }
-
-        return "false";
-    }
-
-    protected function writeToLog($fileName, $content) {
-        //   $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_success.log';
-        $handle = fopen($fileName, 'a') or die('Cannot open file:  ' . $fileName);
-        $output = "\n" . $content;
-        fwrite($handle, $output);
-        fclose($handle);
-
-        unset($fileName, $content, $handle, $output);
-    }
-
-    function array_put_to_position($array, $object, $position, $name = null) {
-        $count = 0;
-        $inserted = false;
-        $return = array();
-
-        foreach ($array as $k => $v) {
-            // insert new object
-            if ($count == $position) {
-                if (!$name)
-                    $name = $count;
-                $return[$name] = $object;
-                $inserted = true;
-            }
-            // insert old object
-            $return[$k] = $v;
-            $count++;
-        }
-        if (!$name)
-            $name = $count;
-        if (!$inserted)
-            $return[$name];
-        $array = $return;
-        return $array;
+        return $docID;
     }
 
 }

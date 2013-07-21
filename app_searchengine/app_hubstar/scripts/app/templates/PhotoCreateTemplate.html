@@ -15,9 +15,19 @@
     </div> 
 
     <div id="dragAndDroppReviewArea" class="dragndropbox" style="display:none">
+
         {{#each content}}
+
+
+
+
         <div style="position: relative;margin:3px; display: inline-block; vertical-align: top; min-width: 150px;text-align: center;">
-            <div> <img  {{bindAttr src= "photo_image_original_url"}}  alt="Logo" style="max-width: 140px; max-height: 150px;"> </div>
+            <div> 
+                <img  {{bindAttr src= "photo_image_original_url"}}  alt="Logo" style="max-width: 140px; max-height: 150px;">
+                <div {{bindAttr class="photo_source_id"}} style="display: none;">
+                    <img style="width: 25px; height: 25px;position: absolute;top: 40%;left: 62px;" src="../../../images/uploadphotos_spinner.gif"/>
+                </div>
+            </div>
             <div style="margin: 2px 0 5px; font-size: 13px; text-overflow:ellipsis; text-align: center; width: 150px;overflow: hidden;word-wrap: break-word;line-height: 15px;">{{photo_title}}</div>
         </div>
         {{/each}}
@@ -25,7 +35,7 @@
 </div>
 <div class="controlbtn-field" style="margin-top: 20px;">
     <div class="controlbtn" style="left: 34%;">
-        <span class="new-btn" {{action back }}>Cancel</span>
+        <span class="new-btn" {{action back }}>Close</span>
         <span class="new-btn green-btn" {{action submit}}>Submit</span> 
     </div>
 </div>

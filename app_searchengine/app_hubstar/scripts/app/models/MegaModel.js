@@ -45,13 +45,14 @@ define(
         region: DS.attr('string'),
         suburb: DS.attr('string'),
         status_id: DS.attr('string'),
-        subcategories:DS.attr('string'),
+        subcategories: DS.attr('string'),
         timezone: DS.attr('string'),
         topic: DS.attr('string'),
         type: DS.attr('string'),
         updated: DS.attr('string'),
         uri_url: DS.attr('string'),
         view_count: DS.attr('string'),
+        optional: DS.attr('string'),
         //--------------------------
         photo: DS.hasMany('App.Photo'),
         user: DS.hasMany('App.User'),
@@ -91,12 +92,21 @@ define(
         getDiscussion: function() {
             return this.get('type') === 'discussion';
         }.property('type'),
-        //    articles: DS.hasMany('App.Article'),
-//        video: DS.hasMany('App.Video'),
-//        product: DS.hasMany('App.Product'),
+        updateMegaWithUrl: function(mega,url)
+        {
+            var tempurl = getRestAPIURL();
+            var id = mega.get('id');
+            mega.set('optional', id);
+            $.ajax({
+                url: tempurl + '/megas/'+url,
+                type: 'POST',
+                data: JSON.stringify(mega),
+                success: function() {
+               App.store.save();
+                }
+            });
+        },        
         didLoad: function() {
-//            console.log('model loaded', this.toJSON());
-            //     console.log('id: ' + this.id + ' ' + this.profile_name);
         }
     });
     return MegaModel;

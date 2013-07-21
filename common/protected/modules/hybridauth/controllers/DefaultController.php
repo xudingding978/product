@@ -83,7 +83,8 @@ class DefaultController extends CController {
                 if (isset($_POST['User'])) {
                     //Save the form
                     $user->attributes = $_POST['User'];
-
+                    $user->REC_DATETIME = new CDbExpression('NOW()');
+                    $user->REC_TIMESTAMP = new CDbExpression('NOW()');
                     if ($user->validate() && $user->save()) {
                         if ($this->module->withYiiUser == true) {
                             
@@ -129,11 +130,12 @@ class DefaultController extends CController {
 
         $user_profile = $adapter->getUserProfile();
         error_log(var_export($user_profile, true));
-        
+
         error_log(000000000000);
         $user = new User;
         $user->attributes = $_POST['User'];
         $user->TENANT_REC_ID = 1;
+
         $user_profile->email = $user->EMAIL_ADDRESS;
         $user_profile->displayName = $user->USER_NAME;
         $user_profile->lastName = $user->LAST_NAME;
@@ -178,11 +180,11 @@ class DefaultController extends CController {
         $userProfile->save();
 
 
-        $cb = new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "develop", true);
+        $cb = new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "production", true);
         $rand_id = $user->COUCHBASE_ID;
         $temp = $this->getMega();
         $temp["id"] = $rand_id;
-
+        $temp["created"] = $this->getCurrentUTC();
         $temp["user"][0]["id"] = $rand_id;
         $temp["user"][0]["identifier"] = $userProfile->IDENTIFIER;
         $temp["user"][0]["profile_url"] = $userProfile->PROFILE_URL;
@@ -285,6 +287,13 @@ class DefaultController extends CController {
   "user": []
 }';
         return json_decode($mega, true);
+    }
+
+    public function getCurrentUTC() {
+
+        $datetime = date("Y-m-d H:i:s");
+        $time_string = strtotime($datetime);
+        return $time_string;
     }
 
 }

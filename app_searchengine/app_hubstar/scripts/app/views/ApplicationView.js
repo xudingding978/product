@@ -9,23 +9,15 @@ define([
         defaultTemplate: Ember.Handlebars.compile(applicationTemplate),
         didInsertElement: function() {
             $("#loading").attr('style', 'display:none');
-
             var view = this;
             $(window).bind("scroll", function() {
                 view.didScroll();
             });
-
         },
         didScroll: function() {
-
             if (this.isScrolledToBottom() && App.get('isMansonryPageLoad')) {
                 this.get('controller').scrollDownAction();
-
-
             }
-
-
-
         },
         isScrolledToBottom: function() {
             var distanceToTop = $(document).height() - $(window).height(),
@@ -33,7 +25,6 @@ define([
             return top === distanceToTop;
         },
         willDestroyElement: function() {
-            //      $(window).unbind("scroll");
         },
         reaaarender: function() {
             this.rerender();

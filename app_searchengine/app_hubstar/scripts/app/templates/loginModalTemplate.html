@@ -1,10 +1,10 @@
 
 
-<div class="hover panel" style='width: 465px; text-align: center; color: rgb(51, 51, 51); border-radius: 3px;left: 500px;right: 0;margin: auto;'>
+<div class="hover panel" style='width: 465px; text-align: center; color: rgb(51, 51, 51); border-radius: 3px;right:55%;margin: auto;z-index: 1000;'>
     <div class="front easing">
 
 
-        <div class="head"  style="width: 465px;">
+        <div class="head controlbtn-field"  style="width: 465px;background-color: #f3f3f3;">
             <div type="button" {{action closeModal }} class="closeview"><i class="icon-remove"></i></div>
             <img class="logonew"  style="margin: 30px auto 0; width: 92px; display: block;" src="../../../images/trendslogo(black).png"></img>
             <div style="margin: 20px auto; width: 360px;s">
@@ -30,7 +30,7 @@
                     <li  onclick="LinkedIn(650, 400);" ><a style="color:rgb(0,172,237)" href="#"><i class="icon-linkedin-sign icon-large"></i>Sign in with LinkedIn</a></li>
                     <li  onclick="Google(650, 400);" ><a style="color:rgb(211,72,54)" href="#"><i class="icon-google-plus icon-large"></i>Sign in with Google+</a></li>
                     <li  onclick="Yahoo(650, 400);" ><a style="color:rgb(123,0,153)" href="#"><img src='../../../images/yahoo.png' style='width: auto; height: 35px; float:left;margin: -3% -5% 0 6%;'>Sign in with Yahoo</a></li>
-                    <li  onclick="Sina(650, 400);" ><a style="color:rgb(245,213,0)" href="#"><img src='../../../images/sina.png' style='width: auto; height: 35px; float:left;margin: -3% -3% 0 6%;'>Sign in with Sina</a></li>
+                    <!--                    <li  onclick="Sina(650, 400);" ><a style="color:rgb(245,213,0)" href="#"><img src='../../../images/sina.png' style='width: auto; height: 35px; float:left;margin: -3% -3% 0 6%;'>Sign in with Sina</a></li>-->
                     <li  onclick="QQ(650, 400);" ><a style="color:rgb(62,59,62)" href="#"><img src='../../../images/qq.png' style='width: auto; height: 35px; float:left;margin: -3% -2% 0 7%;'>Sign in with QQ</a></li>
                     <li  onclick="dismiss_modal_test();" ><a style="color:rgb(0,153,68)" href="#myModal"><i class="icon-envelope icon-large"></i>Sign in with Email</a></li>
                 </ul>
@@ -40,7 +40,7 @@
 
         <div class="panelcircle" style="position: absolute; right: 0; top: 300px; margin: auto;left: 0;"><b>OR</b></div>
 
-        <div class="content controlbtn-field" style="width: 465px;">
+        <div class="content " style="width: 465px;">
             {{#unless mail}}
             <div style="font-size: 12px; margin: 20px auto 0; font-weight: bold;">Other platform you might prefer:</div>
 
@@ -48,7 +48,7 @@
                 <a  class="square-button" href='#' onclick="LinkedIn(650, 400);" >
                     <div id="dropdown-cover" style="position: absolute; width: 45px; height: 45px; border-radius: 3px;"></div>
                     <div class="square-button-twitter"><i class="icon-linkedin-sign icon-large" style="float: left; margin: 11px 15px; width: auto; height:22px; line-height: 20px;"></i></div></a>
-        
+
                 <a  class="square-button"  href='#' onclick="Google(650, 400);" >
                     <div id="dropdown-cover" style="position: absolute; width: 45px; height: 45px; border-radius: 3px;"></div>
                     <div class="square-button-google"><i class="icon-google-plus icon-large" style="float: left; margin: 11px 15px; width: auto; height:22px; "></i></div></a>
@@ -57,9 +57,9 @@
                     <div id="dropdown-cover" style="position: absolute; width: 45px; height: 45px; border-radius: 3px;"></div>
                     <div class="square-button-yahoo"><img src="../../../images/yahoo(white).png" style="float: left; margin: 10px 0px; width: auto; height:22px;  "></img></div></a>
 
-                <a  class="square-button"  href='#' onclick="Sina(650, 400);">  
-                    <div id="dropdown-cover" style="position: absolute; width: 45px; height: 45px; border-radius: 3px;"></div>
-                    <div class="square-button-sina"><img src="../../../images/sina(white).png" style="float: left; margin: 10px 3px; width: auto; height:22px; "></img></div></a>
+                <!--                <a  class="square-button"  href='#' onclick="Sina(650, 400);">  
+                                    <div id="dropdown-cover" style="position: absolute; width: 45px; height: 45px; border-radius: 3px;"></div>
+                                    <div class="square-button-sina"><img src="../../../images/sina(white).png" style="float: left; margin: 10px 3px; width: auto; height:22px; "></img></div></a>-->
 
                 <a  class="square-button"  href='#' onclick="QQ(650, 400);">
                     <div id="dropdown-cover" style="position: absolute; width: 45px; height: 45px; border-radius: 3px;"></div>
@@ -71,19 +71,13 @@
 
             </div>
             {{else}}
-            <div style='margin: 30px auto 5px; display: block;'>
-                <p style='display: inline-block; vertical-align: middle;font-size: 16px;margin: 5px;'>Username:</p>
-                <input type="text" class="span3">
-            </div>
-            <div style='margin: 0 auto 5px; display: block;'>
-                <p style='display: inline-block; vertical-align: middle;font-size: 16px;margin: 5px;'>Password:</p>
-                <input type="text" class="span3">
-            </div>
-            <div style="margin: 15px 0 0px;">
-                <div  type="button" class="new-btn green-btn" >
-                    Login
-                </div>
 
+
+            <iframe style='height: 150px; width: 250px;margin-top: 25px;' {{bindAttr src="controller.iframeLoginURL"}}></iframe>
+
+
+
+            <div style="position: absolute;top: 488px;left: 180px;">
                 <div  type="button" class="new-btn" {{action email_login }}>
                       Cancel
             </div>
@@ -113,7 +107,7 @@
 
 <div class="back easing" style='width: 465px; text-align: center; color: rgb(51, 51, 51); border-radius: 3px; position: relative; bottom: 500px; height: auto;'>
 
-    <div class="head" style="width: 465px;">
+    <div class="head controlbtn-field" style="width: 465px;background-color: #f3f3f3;">
         <div type="button" {{action closeModal }} class="closeview"><i class="icon-remove"></i></div>
         <div style="font-size: 22px; font-weight: bold; margin: 20px auto 15px;"> 
             Sign Up for your Free Account!
@@ -135,7 +129,7 @@
                 <li  onclick="LinkedIn(650, 400);" ><a style="color:rgb(0,172,237)" href="#"><i class="icon-linkedin-sign icon-large"></i>Sign in with LinkedIn</a></li>
                 <li  onclick="Google(650, 400);" ><a style="color:rgb(211,72,54)" href="#"><i class="icon-google-plus icon-large"></i>Sign in with Google+</a></li>
                 <li  onclick="Yahoo(650, 400);" ><a style="color:rgb(123,0,153)" href="#"><img src='../../../images/yahoo.png' style='width: auto; height: 35px; float:left;margin: -3% -5% 0 6%;'>Sign in with Yahoo</a></li>
-                <li  onclick="Sina(650, 400);" ><a style="color:rgb(245,213,0)" href="#"><img src='../../../images/sina.png' style='width: auto; height: 35px; float:left;margin: -3% -3% 0 6%;'>Sign in with Sina</a></li>
+                <!--                <li  onclick="Sina(650, 400);" ><a style="color:rgb(245,213,0)" href="#"><img src='../../../images/sina.png' style='width: auto; height: 35px; float:left;margin: -3% -3% 0 6%;'>Sign in with Sina</a></li>-->
                 <li  onclick="QQ(650, 400);" ><a style="color:rgb(62,59,62)" href="#"><img src='../../../images/qq.png' style='width: auto; height: 35px; float:left;margin: -3% -2% 0 7%;'>Sign in with QQ</a></li>
             </ul>
         </div>
@@ -143,9 +137,9 @@
             Don't worry , we'll never post without your permission.
         </div>
     </div>
-    <div class="panelcircle" style="position: absolute; right: 0; top: 160px; margin: auto;left: 0;"><b>OR</b></div>
+    <div class="panelcircle" style="position: absolute; right: 0; top: 160px; margin: auto;left: 0; font-weight: bold">OR</div>
 
-    <div class="content controlbtn-field" style="width: 465px;">
+    <div class="content" style="width: 465px;">
 
         <div style="font-size: 14px; font-weight: bold; margin: 15px auto 10px;">
             Sign Up with your Email Address:
@@ -155,37 +149,28 @@
 
 
 
-        <div style="width: 50%; margin: 10px auto;">
+        <!--        <div style="width: 50%; margin: 10px auto;">
+        
+                    <input type="text" class="span3" placeholder="Email Address">
+        
+                    <input type="text" class="span3" placeholder="Username">
+        
+        
+                    <input type="password" class="span3"  placeholder="Password">
+        
+                    <input type="password" class="span3" placeholder="Confirm Password">
+        
+                </div>-->
 
-            <input type="text" class="span3" placeholder="Email Address">
-
-            <input type="text" class="span3" placeholder="Username">
 
 
-            <input type="text" class="span3" placeholder="Password">
+        <iframe style='background: transparent;width: 350px;height: 270px;overflow: hidden;' {{bindAttr src="controller.iframeURL"}}></iframe>
 
-            <input type="text" class="span3" placeholder="Confirm Password">
 
+        <div  type="button" class="new-btn" id="goback" style="position: absolute;top: 478px;left: 165px;">
+            Go Back
         </div>
 
-
-
-
-
-
-
-        <div style="font-size: 11px; width: 250px; margin: auto;">
-            By clicking Sign Up you indicate that you have read and agreed to the <a href='#'>Terms of Use</a> and <a href='#'>Privacy Policy </a>.
-        </div>
-        <div>
-            <div  type="button" class="new-btn green-btn" >
-                Sign Up
-            </div>
-
-            <div  type="button" class="new-btn" id="goback">
-                Go Back
-            </div>
-        </div>
     </div>
 
 

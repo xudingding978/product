@@ -10,28 +10,30 @@
 
 
 
-{{#each model.profile}}
-<div class="box col2 noStyle1">
-
-    <div class="masonry-object">
+        {{#each model.profile}}
         <div class="masonry-object_profile-cover">
             <div class="masonry-object_cover-wapper">
                 <img {{bindAttr src="profile_hero_url"}}/>
             </div>
         </div>
         <div style="position: relative; width: 100%; height: 70px; display: block;"></div>
+
         <div class="masonry-object_profilepic" style="cursor:pointer;" {{action toProfilePage this}}>
              <img class="easing" {{bindAttr src="profile_pic_url"}} />   
         </div>
+
+
         <div  type="button" class="new-btn green-btn object-followbtn-position" style="margin: 0 auto; left: 0;right: 0;width: 80px;display: block;top: -15px;">
             <i class="icon-plus">&nbsp;</i> Follow
         </div>
+
         <div class="masonry-object_name-position" style="margin-bottom: 5px;"> 
             <a {{bindAttr href="getProfile_id"}}  {{action toProfilePage this}}  style="cursor:pointer" >{{profile_name}} </a>
         </div>
 
 
         <!--TAGS-->
+
         <div class="object-tags-box">
 
             <div class="object-tags">
@@ -59,6 +61,7 @@
             </div>
 
         </div>
+
         <!--END TAGS-->
 
 
@@ -75,16 +78,13 @@
                 <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>
 
                 <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collapes</span>
-
+{{#if controller.is_authentic_user}}
                 <span style="float: right; display: inline-block;"><k class="icon-trash edit-btn easing" {{action deletePartner this}}></k> </span>
+                {{/if}}
             </div>
 
         </div>
-        {{render "comment" this}}
 
-    </div>
-
-</div>
+        {{/each}}
 
 
-{{/each}}

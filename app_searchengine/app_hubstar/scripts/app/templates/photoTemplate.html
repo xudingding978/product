@@ -18,7 +18,7 @@
         {{render addCollection}}
         {{/if}}
         <div class="top-controlbar" >
-            <div class="icon-on-black" style="left: 8px;"><i class="icon-thumbs-up"></i></div>
+            <!--            <div class="icon-on-black" style="left: 8px;"><i class="icon-thumbs-up"></i></div>-->
             <div class="icon-on-black" style="left: 50px;" ><i class="icon-folder-close" {{action switchCollection on="click" target="controller"}}></i></div>
             <!--    <div class="icon-on-black" style="height: 44px;position: absolute;width: 44px;"><i class="icon-share-alt"></i></div>     -->
         </div>
@@ -35,7 +35,7 @@
         <!--THIS IS THE ALBUM BOX-->
 
         <div class="bottom-controlbar" >
-            <div class="text-on-black" style="right: 132px;"> object Name </div>
+            <div class="text-on-black" style="right: 132px;"></div>
             <div class="icon-on-black"  {{action previesImage on="click" target="controller"}}>
                 <i class="icon-arrow-left"></i>
             </div>
@@ -60,19 +60,17 @@
         <div style="cursor: pointer;">
             <div class="object-poster easing" {{action setNameTag on="click" target="view"}}>
                 <div class="profilepic-container">
-                    <a class="profilepic" href="#"><img {{bindAttr src="controller.megaResouce.owner_profile_pic"}} /></a>              
+                    <a class="profilepic" href="#" {{action transitionToProfile megaResouce.owner_id}}><img {{bindAttr src="controller.megaResouce.owner_profile_pic"}} /></a>              
                 </div>
                 <div class="poster_user" >
-                    <a class="poster-name" href="#">{{controller.megaResouce.owner_title}}</a>
+                    <a class="poster-name" href="#" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_title}}</a>
                     <span class="posttime">{{date controller.megaResouce.created}} </span>
                 </div>
-
                 <div class="contactmebtn" style="position: absolute; right: 15px; top: 23px; bottom: auto;">
                     <a class="contactmeicon" href="#" style=" width: 35px; height: 35px;" {{action editingContactForm }}  >
 
                        <img src="../images/mail_24dark.png" style="vertical-align: 6px; width: 15px;"/>
                     </a>
-
                 </div>
             </div>
 
@@ -81,34 +79,34 @@
             {{/if}}
 
 
-
-            <div class="collapes-container" id="poster_action">
-                <table style="padding: 15px; width: 100%;font-size: 13px;  display: table;border-collapse: separate;border-spacing: 4px;">
-                    <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
-                        <tr>
-                            <td>Contact:</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Category:</td>
-                            <td>{{controller.selectedMega.id}}</td>
-                        </tr>
-                        <tr>
-                            <td>Address:</td>
-                            <td>--</td>
-                        </tr>
-                        <tr>
-                            <td>Phone:</td>
-                            <td>--</td>
-                        </tr>
-                        <tr>
-                            <td>Website:</td>
-                            <td>--</td>
-                        </tr>
-                    </tbody>
-                </table>                
-            </div>
-
+            <!--
+                        <div class="collapes-container" id="poster_action">
+                            <table style="padding: 15px; width: 100%;font-size: 13px;  display: table;border-collapse: separate;border-spacing: 4px;">
+                                <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
+                                    <tr>
+                                        <td>Contact:</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Category:</td>
+                                        <td>{{controller.megaResouce.category}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Address:</td>
+                                        <td>{{controller.megaResouce.category}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Phone:</td>
+                                        <td>{{controller.megaResouce.category}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Website:</td>
+                                        <td>{{controller.megaResouce.uri_url}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>                
+                        </div>
+            -->
 
         </div>
 
@@ -128,9 +126,33 @@
 
             <div class="collapes-container"   id="article_action" style="display:block">
                 <div  class="collapes-container_inner">
+
+                    {{#unless controller.enableToEdit}}
                     <div class="article-title">{{controller.selectedPhoto.photo_title}}</div>
+                    <i class="icon-edit" {{action editingPhotoMegaData}}></i>
                     <div class="article-text">{{controller.selectedPhoto.photo_caption}}</div>
+
+                    {{else}}
+
+                    {{view Ember.TextField valueBinding="controller.selectedPhoto.photo_title"  id="" class=""  }} 
+                    {{view Ember.TextArea valueBinding="controller.selectedPhoto.photo_caption"  id="" class=""  }} 
+
+                    <div class="buttons" style="position: relative;display: block;margin: 10px auto 0;text-align: center;">
+
+                        <div  type="button" class="new-btn blue-btn" {{action yes selectedPhoto}}> <i class="icon-ok icon-white"></i></div>
+
+                        <div  type="button" class="new-btn" {{action no }}> <i class="icon-remove"></i></div>
+
+                    </div>
+                    {{/unless}}
+
+
+
                 </div>
+
+
+
+
             </div>
 
 

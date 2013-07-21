@@ -4,7 +4,7 @@ define([
     "text!templates/PhotoCreateTemplate.html"
 ], function(Ember, PhotoCreateController, PhotoCreateTemplate) {
     Ember.TEMPLATES["PhotoCreate"] = Ember.Handlebars.compile(PhotoCreateTemplate);
-    var PhotoCreateView = Ember.View.extend(PhotoCreateController.Droppable, {
+    var DragNDropView = Ember.View.extend(PhotoCreateController.Droppable, {
         contentBinding: "photoUpload",
         template: Ember.Handlebars.compile(PhotoCreateTemplate),
         nodifyBackground: function()
@@ -39,5 +39,5 @@ define([
         }
 
     });
-    return PhotoCreateView;
+    return DragNDropView;
 });

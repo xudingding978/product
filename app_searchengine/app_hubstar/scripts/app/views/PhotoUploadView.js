@@ -10,6 +10,7 @@ define([
         nodifyBackground: function()
         {
             var bool = this.get("controller").get("nodifyBackGround");
+            console.log(bool);
             if (bool) {
                 $('#dragAndDroppReviewArea').attr('style', "display:block");
             }

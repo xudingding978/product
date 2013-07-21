@@ -62,12 +62,12 @@ define(["ember"], function(Ember) {
              
             this.set("currentUser", App.User.find(localStorage.loginStatus));
             this.set("content", []);
-                this.set("selectedPhoto", '');
+            this.set("selectedPhoto", '');
             this.set('image_no', 1);
             var megaResouce = App.Mega.find(megaObject.id);
             this.set('articleResouce', megaResouce.get('article').objectAt(0));
             this.set('megaResouce', megaResouce);
-
+            this.addRelatedData(megaObject);
             this.getCommentsById(megaObject.id);
 
         },
@@ -89,23 +89,24 @@ define(["ember"], function(Ember) {
             }
         },
         addRelatedData: function(mega)
-        {
+        {           
             var collection_id = mega.get("collection_id");
             var owner_profile_id = mega.get("owner_id");
             var isProfileIDExist = this.isParamExist(owner_profile_id);
             var isCollectionIDExist = this.isParamExist(collection_id);
             var that = this;
             if (isProfileIDExist && isCollectionIDExist) {
+      
                 var data = App.Mega.find({RequireType: "articleRelatedImage", "article_id": collection_id, "owner_id": owner_profile_id});
+
                 data.addObserver('isLoaded', function() {
                     if (data.get('isLoaded')) {
                         for (var i = 0; i < this.get("content").length; i++) {
+                               
                             var temp = this.get("content").objectAt(i);
                             if (temp.data.photo !== undefined) {
                                 that.get("content").pushObject(temp.data.photo[0]);
-                                if (i === 1){
-
-                             this.set('selectedPhoto', temp.data.photo[0]);
+                                if (i === 1){    that.set('selectedPhoto', temp.data.photo[0]);                    
                                 }
                             }
 

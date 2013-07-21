@@ -12,7 +12,6 @@
         {{#if controller.collectable}}
         {{render addCollection}}
         {{/if}}
-  <h1 style='color: whitesmoke'>wfadfasdf {{controller.selectedPhoto.photo_image_original_url}}</h1>
         <div class="top-controlbar" >
             <!--            <div class="icon-on-black" style="left: 8px;"><i class="icon-thumbs-up"></i></div>-->
             <div class="icon-on-black hint--rounded hint--bottom" data-hint="Collect this photo to your own collection." style="left: 50px;" >
@@ -43,7 +42,7 @@
             <div class="icon-on-black" style="left: 88px;" {{action nextImage on="click" target="controller"}}>
                 <i class="icon-arrow-right"></i>
             </div>
-            <div class="text-on-black" style="left: 132px;"> {{controller.image_no}}/{{content.length}} </div>
+            <div class="text-on-black" style="left: 132px; top:0;"> {{controller.image_no}}/{{content.length}} <h6 style='color: whitesmoke'>sssssssssssssssssssss</h6></div>
         </div>
 
 

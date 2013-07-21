@@ -16,7 +16,7 @@ define(["ember", "helper"],
                     var input = evt.target;
                     var files = input.files;
                     var that = this;
-             
+
                     for (var i = 0; i < files.length; i++) {
                         (function(file) {
                             var name = file.name;
@@ -31,10 +31,14 @@ define(["ember", "helper"],
                 },
                 setMode: function()
                 {
-                }, submit: function()
+                },
+                submit: function()
                 {
                     App.store.commit();
-                }, back: function()
+
+                    this.back();
+                },
+                back: function()
                 {
 
                     this.set("content", []);
@@ -94,7 +98,7 @@ define(["ember", "helper"],
                     });
                     return photoMega;
                 }, addPhotoObject: function(e, that, name, type) {
-                    
+
                     var target = that.getTarget(e);
                     var src = target.result;
                     var mega = that.createNewMega(that.get("profileMega"));
@@ -134,7 +138,6 @@ define(["ember", "helper"],
                 return false;
             };
             PhotoCreateController.Droppable = Ember.Mixin.create(PhotoCreateController, {
-
                 dragEnter: PhotoCreateController.cancel,
                 dragOver: PhotoCreateController.cancel,
                 test: function() {

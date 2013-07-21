@@ -43,9 +43,15 @@
 
             <div id="ownerUpload"  class="col4" style="display:none">
 
+                {{#unless controller.uploadOrsubmit}}
+
                 {{render PhotoCreate}}
-
-
+                {{else}}
+                
+                {{render PhotoCreateInfoSetting}}
+                
+                
+                {{/unless}}
             </div>
         </div>
         {{/if}}

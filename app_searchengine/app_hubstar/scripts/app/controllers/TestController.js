@@ -1,5 +1,5 @@
-define(["ember", 'models/PhotoModel'], function(Ember, ImageFile) {
-    var TestController = Ember.ArrayController.extend({
+define(["ember"], function(Ember) {
+    var TestController = Ember.Controller.extend({
       
     }
     );

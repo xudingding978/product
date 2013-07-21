@@ -1082,6 +1082,15 @@
     border-bottom: 1px solid rgba(0,0,0,.03)
 }
 
+.edit_photo-titile_field{
+    margin-bottom: 10px;
+}
+
+.edit_photo-caption_field{
+    height: 200px;
+    resize: none;
+    overflow: auto;
+}
 
 .collapes-container tr {
     display: table-row;

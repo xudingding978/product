@@ -24,7 +24,7 @@ define([
             ProfileController.set('collectionTag', true);
             ProfileController.set('partnerTag', false);
 
-            /*************************            partner cehcking           */
+            /*************************            partner cehcking           ***********8*/
 
 
             this.controllerFor('application').set('islogin', true);
@@ -33,9 +33,7 @@ define([
             this.controllerFor('searchs').setLoginImge();
             this.controllerFor('application').set('isotherpage', true);
             this.controllerFor('profile').set('switchPhoto', true);
-            setTimeout(function() {
-                $('.nothingHere').attr('style', 'display:none');
-            }, 10);
+
         },
         events: {
             transitionToCollectionPhoto: function(collection_id) {
@@ -47,14 +45,14 @@ define([
                 this.transitionTo("profileCollection", data);
             }
         },
-                        redirect: function() {
+        redirect: function() {
 
             if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
 
                 this.transitionTo('indexIndex');
-                  this.controllerFor('application').set('popup', true);
+                this.controllerFor('application').set('popup', true);
 
-            } 
+            }
 
 
         },

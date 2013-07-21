@@ -12,7 +12,7 @@ define([
         ) {
     "use strict";
 
-    var UsersRoute = Ember.Route.extend({
+    var UserRoute = Ember.Route.extend({
         setupController: function(controller, model) {
             App.set('editingMode', 'user');
             this.controllerFor('application').set('islogin', true);
@@ -30,14 +30,10 @@ define([
         events: {
             transitionToCollectionPhoto: function(collection_id) {
 
-
-                //     var data = MegaModel.find(collection_id);
                 var address = document.URL;
                 var user_id = address.split("#")[1].split("/")[2];
                 var data = App.Collection.find(collection_id);
                 this.transitionTo("collection", data);
-
-                //             console.log(data);
             }
         },
         redirect: function() {
@@ -70,5 +66,5 @@ define([
         }
 
     });
-    return UsersRoute;
+    return UserRoute;
 });

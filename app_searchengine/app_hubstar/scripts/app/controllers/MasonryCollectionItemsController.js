@@ -108,7 +108,7 @@ define([
             var currentUser = App.User.find(localStorage.loginStatus);
             var that = this;
             var email = currentUser.get('email');
-            if (authenticUsers !== null && authenticUsers !== undefined && email !== null && email !== undefined&&App.get('editingMode')==="profile") {
+            if (authenticUsers !== null && authenticUsers !== undefined && email !== null && email !== undefined && App.get('editingMode') === "profile") {
                 this.setIsAuthenticUser(authenticUsers, email);
             }
             currentUser.addObserver('isLoaded', function() {
@@ -155,7 +155,8 @@ define([
         dropdownPhotoSetting: function(id) {
 
             $('#dropdown_id_' + id).toggleClass('hideClass');
-        }, resetContent: function()
+        },
+        resetContent: function()
         {
             var proController = this.get('controllers.profile');
             this.set("is_authentic_user", proController.get("is_authentic_user"));

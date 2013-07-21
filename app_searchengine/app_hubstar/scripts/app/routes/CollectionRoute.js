@@ -13,17 +13,18 @@ define([
 
     var CollectionRoute = Ember.Route.extend({
         setupController: function(controller, model) {
-       
 
-            if (model.id === undefined ||model.id==="") {
+
+            if (model.id === undefined || model.id === "") {
                 var address = document.URL;
                 var id = address.split("#")[1].split("/")[3];
-   //             console.log(id);
+                //             console.log(id);
             } else {
                 var id = model.id;
 
             }
             this.controllerFor('user').set('switchPhoto', false);
+
             this.controllerFor('masonryCollectionItems').selectModelForUser(id);
             this.controllerFor('masonryCollectionItems').set('canEdit', true);
 

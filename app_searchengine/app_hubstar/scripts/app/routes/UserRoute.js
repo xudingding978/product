@@ -30,11 +30,14 @@ define([
         events: {
             transitionToCollectionPhoto: function(collection_id) {
 
+
+                //     var data = MegaModel.find(collection_id);
                 var address = document.URL;
                 var user_id = address.split("#")[1].split("/")[2];
-                console.log(collection_id);
-                var data = MegaModel.find(collection_id);
+                var data = App.Collection.find(collection_id);
                 this.transitionTo("collection", data);
+
+                //             console.log(data);
             }
         },
         redirect: function() {

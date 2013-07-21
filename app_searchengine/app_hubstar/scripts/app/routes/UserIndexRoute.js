@@ -21,7 +21,7 @@ define([
                 this.controllerFor('application').set('popup', true);
             } else {
 
-                this.transitionTo('user');
+         this.transitionTo('user');
             }
         },
 //        model: function(params) {

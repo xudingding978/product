@@ -13,18 +13,18 @@ define([
     //   var kink;
     var ProfileRoute = Ember.Route.extend({
         setupController: function(ProfileController, model) {
-                App.set('editingMode', 'profile');
+            App.set('editingMode', 'profile');
             ProfileController.setLocalLoginRecrod();
             //     console.log(model);
             ProfileController.setProfile(model.id);
 
-/******************  partner cehcking*******************/
+            /******************  partner cehcking*******************/
 
             ProfileController.set('contactChecking', false);
             ProfileController.set('collectionTag', true);
             ProfileController.set('partnerTag', false);
-        
-/*************************            partner cehcking           */   
+
+            /*************************            partner cehcking           */
 
 
             this.controllerFor('application').set('islogin', true);
@@ -42,8 +42,8 @@ define([
 
                 var address = document.URL;
                 var user_id = address.split("#")[1].split("/")[2];
-                //      console.log(collection_id);
-                var data = MegaModel.find(collection_id);
+
+                var data = App.Collection.find(collection_id);
                 this.transitionTo("profileCollection", data);
             }
         },

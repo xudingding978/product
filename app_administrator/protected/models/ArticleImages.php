@@ -183,7 +183,7 @@ class ArticleImages extends CActiveRecord {
      function startFrom ($start_id) {
         $data_list = array();
         try {
-            $sql = "select * from Trends.dbo.ArticleImages WHERE dbo.ArticleImages.id > " . $start_id . " order by dbo.ArticleImages.id asc";
+            $sql = "select TOP 1 * from Trends.dbo.ArticleImages WHERE dbo.ArticleImages.id > " . $start_id . " order by dbo.ArticleImages.id asc";
 //            error_log($sql);
             $data_list = Yii::app()->db->createCommand($sql)->queryAll();
         } catch (Exception $e) {
@@ -193,6 +193,19 @@ class ArticleImages extends CActiveRecord {
         }
         return $data_list;
         
+    }
+    
+    function getBrokenOriginal(){
+        $data_list = array();
+        try{
+            $sql = "SELECT * FROM Trends.dbo.ArticleImages WHERE dbo.ArticleImages.photo_image_original_url NOT LIKE '%.jpg' ORDER BY dbo.ArticleImages.id ASC";
+            $data_list = Yii::app()->db->createCommand($sql)->queryAll();
+        } catch(Exception $e){
+                  $response = $e->getMessage();
+            $message = date("Y-m-d H:i:s") . " ----cannot get broken original photos from db by function getBrokenOriginal()!! \r\n" . $response;
+            $this->writeToLog('/home/devbox/NetBeansProjects/test/error.log', $message);
+        }
+        return $data_list;
     }
     
 

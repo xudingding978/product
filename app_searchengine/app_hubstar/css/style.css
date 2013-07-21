@@ -411,6 +411,18 @@ div.search-loading-invisible{
     text-align: center;
 }
 
+.tab-content td:nth-child(1)  {
+    color: #555;
+    text-align: right;
+    width: 35%;
+}
+
+.tab-content td:nth-child(2)  {
+    padding: 0 0 5px 20px;
+    color: #555;
+    text-align: center;
+}
+
 .dropdown-contactme {
     width: 230px;
 }

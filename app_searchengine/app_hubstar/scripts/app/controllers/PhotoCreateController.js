@@ -112,10 +112,8 @@ define(["ember", "helper"],
                 }, addPhotoObject: function(e, that, name, type) {
                     var testID = createGuid();
 
-
                     this.set('uploadedImage', this.get('uploadedImage') + "," + testID);
                     App.set("UploadedImage", this.get('uploadedImage'));
-
 
                     var target = that.getTarget(e);
                     var src = target.result;

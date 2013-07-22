@@ -15,7 +15,7 @@ define(
         profile_pic_url: DS.attr('string'),
         
         didLoad: function() {
-            console.log('id: ' + this.id + ' ' + this.profile_title, this);
+
         }
     });
 

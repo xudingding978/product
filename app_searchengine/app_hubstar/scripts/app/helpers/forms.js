@@ -47,7 +47,7 @@ define(['ember', 'handlebars', 'moment'],
                 setTimeout(function() {
                     if (userids.indexOf(localStorage.loginStatus) !== -1)
                     {
-                        //           console.log(megaId);
+
                         var div_id = "#thumbUpBtn_" + megaId;
                         $(div_id).removeClass("new-btn");
 
@@ -55,19 +55,9 @@ define(['ember', 'handlebars', 'moment'],
                 }, 20);
             });
             Ember.Handlebars.registerBoundHelper('test', function(test) {
-       console.log(test);
+
             });
-//            Ember.Handlebars.registerHelper('comemntIDStringifyFunc', function(data) {
-//
-//                if (data.indexOf(" ") !== -1) {
-//                    
-//                  
-//                    return  "user_comment_"+data.replace(" ", "_");
-//                } else {
-//                    return  data;
-//
-//                }
-//            });
+
 
 
         });

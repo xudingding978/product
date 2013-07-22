@@ -11,9 +11,9 @@ define([
     var ProfilesRoute = Ember.Route.extend({
         //     controller: ApplicationController,
         setupController: function(controller, model) {
-            //        console.log(model);
+
             this.controller.set('model', null);
-     //       console.log(controller.get('model'));
+
             controller.set('model', model);
             this.controllerFor('application').set('islogin', true);
             this.controllerFor('application').set('popup', false);
@@ -34,7 +34,7 @@ define([
             }
         },
         deactivate: function() {
-//            $('.nothingHere').attr('style', 'display:none');
+
         },
         model: function() {
             return App.Profile.find();

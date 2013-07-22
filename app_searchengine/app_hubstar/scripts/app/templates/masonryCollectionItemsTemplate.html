@@ -20,7 +20,7 @@
         </div>
 
 
-        {{#if controller.is_authentic_user}}
+        {{#if controller.is_profile_editing_mode}}
         {{#if controller.uploadStuff}}
 
         <div class="box style-box t-style-box" id="addNew">
@@ -40,18 +40,13 @@
                 </div>
             </div>
 
-
-            <div id="ownerUpload"  class="col4" style="display:none">
-             
+            <div id="ownerUpload"  class="col4" style="display:none">             
                 {{#unless controller.uploadOrsubmit}}
                 
                 {{render PhotoCreate}}
                 
                 {{else}}
-
                 {{render PhotoCreateInfoSetting}}
-
-
                 {{/unless}}
             </div>
         </div>
@@ -87,10 +82,6 @@
     </div>
 
 </div>
-
-
-
-
 
 
 {{#if controller.makeSureDelete}}

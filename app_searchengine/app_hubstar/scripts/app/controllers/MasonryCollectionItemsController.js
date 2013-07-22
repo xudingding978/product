@@ -7,10 +7,13 @@ define([
         content: [],
         title: null,
         is_authentic_user: false,
+        is_profile_editing_mode: false,
+        is_user_editing_mode: false,
         needs: ['photoCreate', 'profile', 'permission'],
         user_id: null,
         init: function() {
-            this.checkAuthenticUser();
+
+
         },
         selectModelForUser: function(collection_id) {
 
@@ -33,12 +36,13 @@ define([
                 }
             });
             this.checkAuthenticUser();
+            this.checkEditingMode();
         },
         selectModelForProfile: function(collection_id) {
             this.set('title', collection_id);
             this.resetContent();
-
-
+            this.checkAuthenticUser();
+            this.checkEditingMode();
         },
         newUpload: function() {
             $('#ownerUpload').attr('style', 'display:block');
@@ -127,7 +131,7 @@ define([
             var Mega = App.Mega.find(id);
             var coverImge = Mega.get('photo').objectAt(0).get('photo_image_original_url');
             var address = document.URL;
-            console.log(address);
+
             var owner_id = address.split("#")[1].split("/")[2];
 
             var userOrprofile = AppModel.find(owner_id).get('collections');
@@ -168,6 +172,21 @@ define([
                     }
                 }
             });
+        },
+        checkEditingMode: function()
+        {
+            this.set('is_profile_editing_mode', false);
+            this.set('is_user_editing_mode', false);
+            if (App.get('editingMode') === 'profile') {
+                this.set('is_profile_editing_mode', true);
+            }
+            else if (App.get('editingMode') === 'user') {
+                this.set('is_user_editing_mode', true);
+            }
+            else {
+                this.set('is_profile_editing_mode', false);
+                this.set('is_user_editing_mode', false);
+            }
         }
     });
     return MasonryCollectionItemsController;

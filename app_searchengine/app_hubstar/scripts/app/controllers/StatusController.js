@@ -20,8 +20,7 @@ define(["ember"], function(Ember) {
         },
         changeDescription: function()
         {
-//          this.set('response','dddddddddddd')
-//console.log(3333333333333333);
+
          this.set('response',  "You've got "+this.get('searchResultNum')+" results in "+this.get('time')+".");
 
         }

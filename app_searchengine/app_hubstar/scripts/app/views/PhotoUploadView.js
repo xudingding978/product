@@ -10,8 +10,8 @@ define([
         nodifyBackground: function()
         {
             var bool = this.get("controller").get("nodifyBackGround");
- 
-            if (bool===true) {
+
+            if (bool === true) {
                 $('#dragAndDroppArea').attr('style', "display:block");
             }
             else {
@@ -22,7 +22,7 @@ define([
             var dataTransfer = event.originalEvent.dataTransfer;
             var files = dataTransfer.files;
             var controller = this.get("controller");
-
+            controller.fileChecking(files.length);
             for (var i = 0; i < files.length; i++) {
                 (function(file) {
                     var name = file.name;

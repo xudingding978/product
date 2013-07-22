@@ -3,19 +3,28 @@ define(["ember", "helper"],
             var PhotoCreateController = Ember.ArrayController.extend({
                 content: [],
                 newMegas: [],
+                uploadedImage: [],
                 mode: null,
+                filesNumber: null,
                 profileMega: null,
                 nodifyBackGround: false,
+                uploadOrsubmit: false,
                 collection_id: "",
                 needs: ['profile', 'masonryCollectionItems'],
                 init: function() {
                     this.setMega();
+                },
+                fileChecking: function(filesLength) {
+                    App.set("totalFiles", 0);
+                    this.set("filesNumber", filesLength);
+
                 },
                 commitFiles: function(evt) {
                     this.set("nodifyBackGround", true);
                     var input = evt.target;
                     var files = input.files;
                     var that = this;
+                    this.fileChecking(files.length);
 
                     for (var i = 0; i < files.length; i++) {
                         (function(file) {
@@ -34,9 +43,10 @@ define(["ember", "helper"],
                 },
                 submit: function()
                 {
+
                     App.store.commit();
 
-                    this.back();
+
                 },
                 back: function()
                 {
@@ -60,9 +70,10 @@ define(["ember", "helper"],
                         });
                     }
                 },
-                createNewMega: function(ProfileMega)
+                createNewMega: function(ProfileMega, testID)
                 {
                     var photoMega = App.Mega.createRecord({
+                        "id": testID,
                         "accessed": ProfileMega.get("accessed"),
                         "boost": ProfileMega.get("boost"),
                         "owner_type": "profiles",
@@ -98,11 +109,14 @@ define(["ember", "helper"],
                     });
                     return photoMega;
                 }, addPhotoObject: function(e, that, name, type) {
-
+                    var testID = createGuid();
+                    this.get('uploadedImage').pushObject(testID);
+                    console.log(this.get('uploadedImage'));
                     var target = that.getTarget(e);
                     var src = target.result;
-                    var mega = that.createNewMega(that.get("profileMega"));
+                    var mega = that.createNewMega(that.get("profileMega"), testID);
                     var file = App.Photo.createRecord({
+                        "id": testID,
                         "photo_title": name.toLowerCase(),
                         "photo_source_id": name.toLowerCase().replace('.', "_"),
                         "photo_image_original_url": src,
@@ -110,15 +124,27 @@ define(["ember", "helper"],
                         "photo_type": type,
                         "photo_keywords": that.get("profileMega").get("keywords")});
                     mega.get("photo").pushObject(file);
+                    var thatP = this;
                     mega.addObserver('isSaving', function() {
+
                         if (mega.get('isSaving')) {
+
+
                             $('.' + file.get('photo_source_id')).attr("style", "display:block");
                         }
                         else {
+                            App.set("totalFiles", App.get("totalFiles") + 1);
                             $('.' + file.get('photo_source_id')).attr("style", "display:none");
+//                            console.log(App.get("totalFiles"));
+//                            console.log(thatP.get("filesNumber"));
+                            if (App.get("totalFiles") === thatP.get("filesNumber")) {
+                                var masonryCollectionItems = thatP.get('controllers.masonryCollectionItems');
+                                masonryCollectionItems.set('uploadOrsubmit', !masonryCollectionItems.get('uploadOrsubmit'));
+                            }
                         }
                     });
                     that.get("content").addObject(file);
+
                 },
                 getTarget: function(obj) {
                     var targ;

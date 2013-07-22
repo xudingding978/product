@@ -111,15 +111,10 @@ define(["ember", "helper"],
                     return photoMega;
                 }, addPhotoObject: function(e, that, name, type) {
                     var testID = createGuid();
-<<<<<<< HEAD
 
                     this.set('uploadedImage', this.get('uploadedImage') + "," + testID);
                     App.set("UploadedImage", this.get('uploadedImage'));
-                    console.log(App.get("UploadedImage"));
-=======
-                    this.get('uploadedImage').pushObject(testID);
-           
->>>>>>> 248a44114ca64ff5268417fbaa10e4cb8edf2561
+
                     var target = that.getTarget(e);
                     var src = target.result;
                     var mega = that.createNewMega(that.get("profileMega"), testID);

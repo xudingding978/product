@@ -11,9 +11,6 @@ define(["ember"], function(Ember) {
             this.set("uploadedImage", App.get("UploadedImage"));
             this.set("uploadedImage", this.get("uploadedImage").substring(1, this.get("uploadedImage").length));
 
-            console.log(this.get("uploadedImage"));
-
-
 
             var data = App.Mega.find({RequireType: "uploadPhotoIDs", "uploadPhotoIDs": this.get("uploadedImage")});
             var that = this;
@@ -26,8 +23,6 @@ define(["ember"], function(Ember) {
                     }
                 }
             });
-            console.log(this.get('content'));
-
  
         },
         backToDragAndDrop: function() {

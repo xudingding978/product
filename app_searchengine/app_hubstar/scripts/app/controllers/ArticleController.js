@@ -2,6 +2,7 @@ define(["ember"], function(Ember) {
     var ArticleController = Ember.Controller.extend({
         content: [],
         image_no: 1,
+        selectedPhoto: null,
         needs: ['application', 'addCollection', 'contact'],
         findSelectedItemIndex: function() {
             content = this.get('content');
@@ -59,7 +60,7 @@ define(["ember"], function(Ember) {
             $(selectedImage_id).addClass('selected_image_style');
         },
         getInitData: function(megaObject) {
-             
+
             this.set("currentUser", App.User.find(localStorage.loginStatus));
             this.set("content", []);
             this.set("selectedPhoto", '');
@@ -89,25 +90,22 @@ define(["ember"], function(Ember) {
             }
         },
         addRelatedData: function(mega)
-        {           
+        {
+
             var collection_id = mega.get("collection_id");
             var owner_profile_id = mega.get("owner_id");
             var isProfileIDExist = this.isParamExist(owner_profile_id);
             var isCollectionIDExist = this.isParamExist(collection_id);
             var that = this;
             if (isProfileIDExist && isCollectionIDExist) {
-      
                 var data = App.Mega.find({RequireType: "articleRelatedImage", "article_id": collection_id, "owner_id": owner_profile_id});
-
                 data.addObserver('isLoaded', function() {
                     if (data.get('isLoaded')) {
-                        for (var i = 0; i < this.get("content").length; i++) {
-                               
-                            var temp = this.get("content").objectAt(i);
+                        for (var i = 0; i < data.get("content").length; i++) {
+                            var temp = data.get("content").objectAt(i);
                             if (temp.data.photo !== undefined) {
                                 that.get("content").pushObject(temp.data.photo[0]);
-                                if (i === 1){    that.set('selectedPhoto', temp.data.photo[0]);                    
-                                }
+                                that.set('selectedPhoto', temp.data.photo[0]);
                             }
 
                         }
@@ -134,9 +132,9 @@ define(["ember"], function(Ember) {
         switchCollection: function() {
 
             var addCollectionController = this.get('controllers.addCollection');
-            var selectid = this.get('selectedPhoto').id;
+            var selectid = this.get('articleResouce').id;
             addCollectionController.setImageID(selectid);
-            var tempUrl = this.get('selectedPhoto').get('photo_image_thumbnail_url');
+            var tempUrl = this.get('selectedPhoto').photo_image_thumbnail_url;
             addCollectionController.setThumbnailUrl(tempUrl);
             addCollectionController.setRelatedController('article');
             addCollectionController.setUser();
@@ -144,9 +142,13 @@ define(["ember"], function(Ember) {
         },
         editingContactForm: function() {
             var contactController = this.get('controllers.contact');
+            console.log('click');
             var selectid = this.get('selectedPhoto').id;
             contactController.setSelectedMega(selectid);
             this.set('contact', !this.get('contact'));
+        },
+        closeContact: function() {
+            this.set('contact', false);
         }
     });
     return ArticleController;

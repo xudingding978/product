@@ -42,7 +42,7 @@ define([
                 currentUserID: "",
                 collections: [],
                 selectedCollection: "",
-                needs: ["profilePartners", "itemProfiles", "profileFollowers", 'permission'],
+                needs: ["profilePartners", "itemProfiles", "profileFollowers", 'permission','contact'],
                 profile_bg_url: "",
                 profile_hero_url: "",
                 profile_pic_url: "",
@@ -246,13 +246,10 @@ define([
                         this.get('tempdesc').pushObject(thisCollection.get("desc"));
                         if (id === thisCollection.get("id")) {
                             this.set("selectedCollection", thisCollection);
-
                         }
                     }
                 },
-                updateCollectionInfo: function()
-                {
-
+                updateCollectionInfo: function(){
                     var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
                     var id = this.checkingValidInput(this.selectedCollection.get('id'));
                     this.checkingIdisExsinting(desc, id, "update");
@@ -278,7 +275,6 @@ define([
                     this.set('uploadChecking', !this.get('uploadChecking'));
                 },
                 editingContactForm: function() {
-
                     var contactController = this.get('controllers.contact');
                     contactController.setSelectedMega(this.get('currentUserID'));
                     this.set('contactChecking', !this.get('contactChecking'));
@@ -314,8 +310,6 @@ define([
                             that.set("is_authentic_user", is_authentic_user);
                         }
                     });
-
-
                 },
                 isFollowed: function()
                 {

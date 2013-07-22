@@ -25,7 +25,7 @@ define([
         projectTimeframe: null,
         projectBudget: null,
         projectExperience: null,
-        needs: ["mega", "profile"],
+        needs: ["mega", "profile",'article'],
         setSelectedMega: function(id)
         {
 
@@ -50,12 +50,15 @@ define([
         closeContact: function() {
             var megaController = this.get("controllers.mega");
             var profileController = this.get("controllers.profile");
+                 var articleController = this.get("controllers.article");
+
             this.set('projectCategoryDropdown', false);
             this.set('projectTimeframeDropdown', false);
             this.set('projectBudgetDropdown', false);
             this.set('projectExperienceDropdown', false);
             megaController.closeContact();
             profileController.closeContact();
+                   articleController.closeContact();
         },
         setEditable: function(attr) {
             var swtich = "isDisplay" + attr + "Editable";

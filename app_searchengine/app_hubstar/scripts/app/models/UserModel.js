@@ -33,16 +33,10 @@ define('models/UserModel',
                 address: DS.attr('string'),
                 selected_topics: DS.attr('string'),
                 collections: DS.hasMany('App.Collection')
-//                didLoad: function() {
-//                    console.log('model loaded', this.toJSON());
-//                    console.log('id: ' + this.id + ' ' + this.get('last_name'), this);
-//                }
+
             });
 
-//            UserModel.reopenClass({
-//                url: 'search', //this must match JSON_RESPONSE_ROOT_SINGLE constant in modules/api/controllers/ContactController.php
-//                pk: "id"
-//            });
+
             return UserModel;
         }
 );

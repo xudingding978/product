@@ -36,7 +36,7 @@ define([
             }
         },
         defaultSearch: function() {
-            console.log('new defaultSearch');
+
             this.set("loginInfo", localStorage.loginStatus);
             var ac = this.get("controllers.application");
             var st = this.get("controllers.status");

@@ -92,28 +92,28 @@ define([
         },
         dropdown: function(checking) {
             if (checking === "category") {
-                //    console.log(checking);
+ 
                 this.set('projectExperienceDropdown', false);
                 this.set('projectTimeframeDropdown', false);
                 this.set('projectBudgetDropdown', false);
                 this.set('projectCategoryDropdown', !this.get('projectCategoryDropdown'));
 
             } else if (checking === "Timeframe") {
-                //      console.log(checking);
+
                 this.set('projectExperienceDropdown', false);
                 this.set('projectBudgetDropdown', false);
                 this.set('projectCategoryDropdown', false);
                 this.set('projectTimeframeDropdown', !this.get('projectTimeframeDropdown'));
 
             } else if (checking === "Budget") {
-                //       console.log(checking);
+
                 this.set('projectExperienceDropdown', false);
                 this.set('projectCategoryDropdown', false);
                 this.set('projectTimeframeDropdown', false);
                 this.set('projectBudgetDropdown', !this.get('projectBudgetDropdown'));
 
             } else if (checking === "Experience") {
-                //       console.log(checking);
+
                 this.set('projectTimeframeDropdown', false);
                 this.set('projectCategoryDropdown', false);
                 this.set('projectBudgetDropdown', false);

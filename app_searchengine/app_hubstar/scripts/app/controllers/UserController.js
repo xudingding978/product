@@ -29,6 +29,7 @@ define(["ember"
         },
         setUser: function()
         {
+       
             var user = this.getCurrentUser();
             topics = user.get('selected_topics');
             this.set('selected_topics', []);
@@ -261,7 +262,6 @@ define(["ember"
             this.set('collectionTag', false);
             this.set('followerTag', false);
             this.get('controllers.itemProfiles').setPartnerRemove();
-
 
         },
         selectFollower: function(model) {

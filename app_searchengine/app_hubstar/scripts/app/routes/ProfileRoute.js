@@ -15,7 +15,7 @@ define([
         setupController: function(ProfileController, model) {
             App.set('editingMode', 'profile');
             ProfileController.setLocalLoginRecrod();
-            //     console.log(model);
+
             ProfileController.setProfile(model.id);
 
             /******************  partner cehcking*******************/
@@ -25,7 +25,6 @@ define([
             ProfileController.set('partnerTag', false);
 
             /*************************            partner cehcking           ***********8*/
-
 
             this.controllerFor('application').set('islogin', true);
             this.controllerFor('application').set('popup', false);
@@ -68,10 +67,7 @@ define([
                 $('#masonry_container').masonry('remove', $('.noStyle1'));
             });
         },
-//        model: function(params) {
-//
-//            return ProfileModel.find(params.profile_id);
-//        },
+
         renderTemplate: function() {
             this.render('profile', {
                 outlet: "profile",

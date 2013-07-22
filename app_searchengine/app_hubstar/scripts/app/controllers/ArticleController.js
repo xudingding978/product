@@ -142,7 +142,7 @@ define(["ember"], function(Ember) {
         },
         editingContactForm: function() {
             var contactController = this.get('controllers.contact');
-            console.log('click');
+
             var selectid = this.get('selectedPhoto').id;
             contactController.setSelectedMega(selectid);
             this.set('contact', !this.get('contact'));

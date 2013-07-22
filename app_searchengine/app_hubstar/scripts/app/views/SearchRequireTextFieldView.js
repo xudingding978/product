@@ -23,7 +23,7 @@ define([
                 controller.addComment();
             }
             else {
-                console.log(controller);
+
             }
         },
                 didInsertElement: function() {

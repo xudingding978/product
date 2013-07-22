@@ -7,11 +7,13 @@ define([
         content: [],
         title: null,
         is_authentic_user: false,
+        is_profile_editing_mode: false,
+        is_user_editing_mode: false,
         needs: ['photoCreate', 'profile', 'permission'],
         user_id: null,
         init: function() {
-            this.checkAuthenticUser();
-            this.checkEditingMode();
+
+
         },
         selectModelForUser: function(collection_id) {
 
@@ -34,10 +36,13 @@ define([
                 }
             });
             this.checkAuthenticUser();
+            this.checkEditingMode();
         },
         selectModelForProfile: function(collection_id) {
             this.set('title', collection_id);
             this.resetContent();
+            this.checkAuthenticUser();
+            this.checkEditingMode();
         },
         newUpload: function() {
             $('#ownerUpload').attr('style', 'display:block');
@@ -170,6 +175,18 @@ define([
         },
         checkEditingMode: function()
         {
+            this.set('is_profile_editing_mode', false);
+            this.set('is_user_editing_mode', false);
+            if (App.get('editingMode') === 'profile') {
+                this.set('is_profile_editing_mode', true);
+            }
+            else if (App.get('editingMode') === 'user') {
+                this.set('is_user_editing_mode', true);
+            }
+            else {
+                this.set('is_profile_editing_mode', false);
+                this.set('is_user_editing_mode', false);
+            }
         }
     });
     return MasonryCollectionItemsController;

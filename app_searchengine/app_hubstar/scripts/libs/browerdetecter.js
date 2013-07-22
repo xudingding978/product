@@ -117,7 +117,6 @@ var BrowserDetect = {
 };
 var browerAllow = false;
 BrowserDetect.init();
-console.log(BrowserDetect.browser + ' ' + BrowserDetect.version + ' on ' + BrowserDetect.OS);
 if (BrowserDetect.browser === "Chrome" && BrowserDetect.version >= 28)
 {
     browerAllow = true;

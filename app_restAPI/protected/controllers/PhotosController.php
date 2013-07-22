@@ -14,7 +14,7 @@ class PhotosController extends Controller {
     }
 
     public function actionIndex() {
-        
+
         $temp = explode("/", $_SERVER['REQUEST_URI']);
 
         $id = $temp[sizeof($temp) - 1];
@@ -23,16 +23,16 @@ class PhotosController extends Controller {
     }
 
     public function actionCreate() {
-        
+
         $response;
-        $request_json = file_get_contents('php://input');        
+        $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
-        
-        
+
+
         $url = $request_arr["url"];
         $this->addResizedHeroPhoto($url);
     }
-    
+
     protected function addResizedHeroPhoto($url) {
         $isUrlExist = $this->isUrlExist($url);
         $this->is_image($url);
@@ -43,7 +43,7 @@ class PhotosController extends Controller {
                 $url = str_replace('http://', 'http://imageservice.', $url) . '?width=336&format=jpg';
                 $url = str_replace('hero', 'original', $url);
             }
-            
+
             $image_info = $this->getImageInfo($url);
             $name = $this->renamingImage($image_info, $url);
             if (strpos($url, 'original')) {
@@ -337,12 +337,9 @@ class PhotosController extends Controller {
 
     public function photoCreate($mega) {
 
-        $id = $this->getNewID();
-
-        $docID = $this->getDomain() . "/" . $id;
-        str_replace(' ', '', $docID);
-        $mega["id"] = $id;
-        $mega["photo"][0]["id"] = $id;
+        $mega["id"] = str_replace("test", "", $mega["id"]);
+        $docID = $this->getDomain() . "/" . $mega["id"];
+        $mega["photo"][0]["id"] = $mega["id"];
         $mega['created'] = $this->getCurrentUTC();
         $mega['updated'] = $this->getCurrentUTC();
 

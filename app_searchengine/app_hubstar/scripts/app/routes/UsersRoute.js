@@ -15,24 +15,13 @@ define([
             this.controllerFor('application').set('isotherpage', true);
             this.controllerFor('searchs').setLoginImge();
             this.controllerFor('application').set('isotherpage', true);
-            //   controller.get('application').remove();
-        },
-//        model: function() {
-//            //   console.log( UserModel.find());
-//
-//            return UserModel.find();
-//        },
-        activate: function() {
 
         },
-//        renderTemplate: function() {
-//
-//            this.render('users', {
-//                outlet: 'users',
-//                into: "application"
-//            });
-//
-//        }
+
+        activate: function() {
+
+        }
+
 
     });
     return UsersRoute;

@@ -131,7 +131,7 @@ define([
             var Mega = App.Mega.find(id);
             var coverImge = Mega.get('photo').objectAt(0).get('photo_image_original_url');
             var address = document.URL;
-            console.log(address);
+
             var owner_id = address.split("#")[1].split("/")[2];
 
             var userOrprofile = AppModel.find(owner_id).get('collections');

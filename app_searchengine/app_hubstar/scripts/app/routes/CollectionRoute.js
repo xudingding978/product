@@ -18,7 +18,7 @@ define([
             if (model.id === undefined || model.id === "") {
                 var address = document.URL;
                 var id = address.split("#")[1].split("/")[3];
-                //             console.log(id);
+
             } else {
                 var id = model.id;
 
@@ -58,10 +58,6 @@ define([
         renderTemplate: function() {
 
 
-//            this.render('user', {
-//                outlet: "users",
-//                into: "application"
-//            });
 
         }
 

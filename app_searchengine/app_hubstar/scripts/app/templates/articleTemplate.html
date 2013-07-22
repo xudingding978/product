@@ -65,11 +65,11 @@
 
                 <div class="contactmebtn hint--rounded hint--left" data-hint="Contact us!" style="position: absolute; right: 15px; top: 23px; bottom: auto;">
                     <a class="contactmeicon" href="#" style=" width: 35px; height: 35px;" {{action editingContactForm }} >
-                        <img src="../images/mail_24dark.png" style="vertical-align: 6px; width: 15px;"/>
+                       <img src="../images/mail_24dark.png" style="vertical-align: 6px; width: 15px;"/>
                     </a>
                 </div>
             </div>
-       {{#if controller.contact}}
+            {{#if controller.contact}}
             {{render contact}}
             {{/if}}
 
@@ -99,10 +99,10 @@
                 <div class="closeReadbtn new-btn" {{action checkClosed on="click" target="view"}}>
                     Close
                 </div>
-
+                {{/unless}}
             </div>
 
-            {{/unless}}
+
         </div>
 
 

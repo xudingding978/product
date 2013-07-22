@@ -147,6 +147,22 @@ class Controller extends CController {
             $from = $this->getUserInput($requireParams[3]);
             $size = $this->getUserInput($requireParams[4]);
             $response = $this->performSearch($returnType, $region, $searchString, $from, $size);
+        } elseif ($requireType == 'uploadPhotoIDs') {
+
+            $upload_Image_ids = $this->getUserInput($requireParams[1]);
+            $raw_id = str_replace("test", "", $upload_Image_ids);
+
+            $imageIDs = explode('%2C', $raw_id);
+            error_log(var_export($imageIDs, true));
+            $str_ImageIds = "";
+            for ($i = 0; $i < sizeof($imageIDs); $i++) {
+                $str_ImageIds = $str_ImageIds . '\"' . $imageIDs[$i] . '\"';
+                if ($i + 1 < sizeof($imageIDs)) {
+                    $str_ImageIds.=',';
+                }
+            }
+            error_log(var_export($str_ImageIds, true));
+            //    $response = $this->getProfilePartner($returnType, $str_ImageIds);
         } elseif ($requireType == 'collection') {
             $collection_id = $this->getUserInput($requireParams[1]);
             $owner_profile_id = $this->getUserInput($requireParams[2]);
@@ -162,7 +178,15 @@ class Controller extends CController {
                     $str_partnerIds.=',';
                 }
             }
-            $response = $this->getProfilePartner($returnType, $str_partnerIds);
+
+            $requestArray = array();
+            $requestStringOne = 'couchbaseDocument.doc.id=' . $str_partnerIds;
+            array_push($requestArray, $requestStringOne);
+
+            $response = $this->performMustSearch($requestArray, $returnType, 'must');
+
+
+//            $response = $this->getProfilePartner($returnType, $str_partnerIds);
         } elseif ($requireType == 'articleRelatedImage') {
             $article_id = $this->getUserInput($requireParams[1]);
             $owner_id = $this->getUserInput($requireParams[2]);
@@ -259,8 +283,6 @@ class Controller extends CController {
         $results .= '}';
 
         return $results;
-
-
     }
 
     protected function getProfilePartner($returnType, $partner_id) {

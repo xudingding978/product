@@ -6,10 +6,10 @@ define(['ember', 'models/MegaModel']
         //   content: Ember.computed.alias('controllers.application.currentUser'),
 
         previesImage: function() {
-            console.log("previesImage");
+
         },
         nextImage: function() {
-            console.log("nextImage");
+
         },
         getTempArr: function() {
             return this.tempArr;

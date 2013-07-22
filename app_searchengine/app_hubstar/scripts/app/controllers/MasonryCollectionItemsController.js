@@ -167,6 +167,9 @@ define([
                     }
                 }
             });
+        },
+        checkEditingMode: function()
+        {
         }
     });
     return MasonryCollectionItemsController;

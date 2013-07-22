@@ -24,7 +24,7 @@
                 <span class="posttime">{{date created}}</span>
             </div>
 
-      
+
 
             <div class="object-tags-box">
 
@@ -72,8 +72,10 @@
                         <k class='icon-caret-down'></k>
                     </div>
                     <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}">
+
                         <li class="ite" {{action  removeCollectedItem controller.title id }}><k class="icon-trash" style="font-size: 16px; margin: 0px 5px;"></k>Delete</li>
                         <li class='ite'  {{action changeCollectionCover id controller.title App.Profile}}> <k class="icon-ok-sign" style="font-size: 16px;  margin: 0px 5px;"></k>Set as collection cover</li>
+                        <li class="ite" {{action changeCollectionCover id controller.title App.User}}><k class="icon-camera" style="font-size: 16px; margin: 0px 5px;"></k>{{controller}}</li>
                     </ul>
 
                     {{/if}}
@@ -251,7 +253,7 @@
                 <div class="object-tags">
                     <span class="tags-mark" style="background-color: #427fed"></span>
                     <div class="tags easing">
-                     
+
                         <div class="object-tpye">
                             <i class="icon-book"></i>
                         </div>                      
@@ -298,7 +300,7 @@
                 {{#linkTo 'article' this}}
                 <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>
                 {{/linkTo}}
-         
+
 
 
             </div>

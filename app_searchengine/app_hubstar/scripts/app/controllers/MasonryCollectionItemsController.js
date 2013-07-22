@@ -11,6 +11,7 @@ define([
         user_id: null,
         init: function() {
             this.checkAuthenticUser();
+            this.checkEditingMode();
         },
         selectModelForUser: function(collection_id) {
 
@@ -37,8 +38,6 @@ define([
         selectModelForProfile: function(collection_id) {
             this.set('title', collection_id);
             this.resetContent();
-
-
         },
         newUpload: function() {
             $('#ownerUpload').attr('style', 'display:block');

@@ -377,7 +377,6 @@ define([
                 selectPartner: function(model) {
 
                     this.set('profileSelectionStatus', 'Partners');
-
                     this.get('controllers.profilePartners').getClientId(model);
                     this.set('partnerTag', true);
                     this.set('collectionTag', false);

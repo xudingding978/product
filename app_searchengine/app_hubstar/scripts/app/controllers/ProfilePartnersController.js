@@ -8,8 +8,10 @@ define(["ember"], function(Ember) {
         currentAddPartnerPic: null,
         selectedPartnerPic: "",
         is_authentic_user: false,
-        init: function() {
-        },
+        needs:['permission'],
+//        init: function() {
+//         
+//        },
         addingPartnerObserver: function() {
 
             var addProfilePic = this.get('currentAddPartnerPic').split("/profiles/")[1];
@@ -31,6 +33,7 @@ define(["ember"], function(Ember) {
                     }
                 }
             });
+            this.checkAuthenticUser();
         },
         deletePartner: function(model) {
             var message = "Do you wish to remove this partner ?";
@@ -99,6 +102,7 @@ define(["ember"], function(Ember) {
             var currentUser = App.User.find(localStorage.loginStatus);
             var current_user_email = currentUser.get('email');
             var permissionController = this.get('controllers.permission');
+
             var that = this;
             var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
             that.set("is_authentic_user", is_authentic_user);

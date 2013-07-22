@@ -102,10 +102,13 @@
                 <div  class="collapes-container_inner">
 
                     {{#unless controller.enableToEdit}}
-                    <div class="article-title">{{controller.selectedPhoto.photo_title}}</div>
                     {{#if controller.is_authentic_user}}
-                    <i class="icon-edit" {{action editingPhotoMegaData}}></i>
+                    <div style="display: inline-block;">
+                        <i class="icon-edit" {{action editingPhotoMegaData}}></i>
+                    </div>
                     {{/if}}
+                    <div class="article-title">{{controller.selectedPhoto.photo_title}}</div>
+
                     <div class="article-text">{{controller.selectedPhoto.photo_caption}}</div>
 
                     {{else}}

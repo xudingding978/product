@@ -6,7 +6,7 @@
 function createGuid() {
 
     var dateObject = new Date();
-    var randomnumber = Math.random().toString().slice(2, 8);
+    var randomnumber = Math.random().toString().slice(2, 5);
     randomnumber = randomnumber.toString();
     randomnumber = removeZero(randomnumber);
     var result = randomnumber +

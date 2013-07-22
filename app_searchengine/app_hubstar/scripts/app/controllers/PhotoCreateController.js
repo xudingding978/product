@@ -3,15 +3,16 @@ define(["ember", "helper"],
             var PhotoCreateController = Ember.ArrayController.extend({
                 content: [],
                 newMegas: [],
-                uploadedImage: [],
                 mode: null,
                 filesNumber: null,
                 profileMega: null,
                 nodifyBackGround: false,
                 uploadOrsubmit: false,
                 collection_id: "",
-                needs: ['profile', 'masonryCollectionItems'],
+                uploadedImage: "",
+                needs: ['profile', 'masonryCollectionItems', 'photoCreateInfoSetting'],
                 init: function() {
+                    App.set("UploadedImage", "");
                     this.setMega();
                 },
                 fileChecking: function(filesLength) {
@@ -110,8 +111,10 @@ define(["ember", "helper"],
                     return photoMega;
                 }, addPhotoObject: function(e, that, name, type) {
                     var testID = createGuid();
-                    this.get('uploadedImage').pushObject(testID);
-                    console.log(this.get('uploadedImage'));
+
+                    this.set('uploadedImage', this.get('uploadedImage') + "," + testID);
+                    App.set("UploadedImage", this.get('uploadedImage'));
+                    console.log(App.get("UploadedImage"));
                     var target = that.getTarget(e);
                     var src = target.result;
                     var mega = that.createNewMega(that.get("profileMega"), testID);

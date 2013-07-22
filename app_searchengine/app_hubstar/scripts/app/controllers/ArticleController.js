@@ -89,9 +89,7 @@ define(["ember"], function(Ember) {
                 $('#commentBox').attr('style', 'display:none');
             }
         },
-        addRelatedData: function(mega)
-        {
-
+        addRelatedData: function(mega) {
             var collection_id = mega.get("collection_id");
             var owner_profile_id = mega.get("owner_id");
             var isProfileIDExist = this.isParamExist(owner_profile_id);
@@ -107,7 +105,10 @@ define(["ember"], function(Ember) {
                                 that.get("content").pushObject(temp.data.photo[0]);
                                 that.set('selectedPhoto', temp.data.photo[0]);
                             }
-
+                            else if (temp.record._data.hasMany.photo !== undefined) {
+                                that.get("content").pushObject(temp.record._data.hasMany.photo[0].data);
+                                that.set('selectedPhoto', temp.record._data.hasMany.photo[0].data);
+                            }
                         }
                     }
                 });

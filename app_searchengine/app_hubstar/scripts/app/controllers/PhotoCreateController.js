@@ -129,10 +129,7 @@ define(["ember", "helper"],
                     mega.get("photo").pushObject(file);
                     var thatP = this;
                     mega.addObserver('isSaving', function() {
-
                         if (mega.get('isSaving')) {
-
-
                             $('.' + file.get('photo_source_id')).attr("style", "display:block");
                         }
                         else {

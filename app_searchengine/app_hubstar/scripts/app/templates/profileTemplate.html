@@ -35,6 +35,21 @@
                     <i class="icon-cogs"></i>
                 </div>
 
+                <script  type="text/javascript">
+
+
+
+                    $('#flip-front').click(function() {
+     
+                        $(".hover").addClass('flip');
+                    });
+
+                    $('.flip-back').click(function() {
+                        $(".hover").removeClass('flip');
+                    });
+
+                </script>
+
 
                 {{/if}}
                 <div class="corpbanner_mask" style="background: url('../images/bannershadow.png') repeat-x; position: absolute;bottom:0; width: 100%; height: 200px;">
@@ -353,7 +368,7 @@
 
                     <div style="right: 0;margin: 30px auto 0;width: 150px;">
                         <span class="new-btn green-btn" data-ember-action="14">Save</span> 
-                        <span id="flip-back" class='new-btn blue-btn'><k class='icon-group'> &nbsp;</k>Back</span>
+                        <span class='new-btn blue-btn flip-back'><k class='icon-group'> &nbsp;</k>Back</span>
                     </div>
 
                 </div>
@@ -504,7 +519,7 @@
                     </table>
                     <div style="right: 0;margin: 30px auto 0;width: 150px;">
                         <span class="new-btn green-btn" data-ember-action="14">Save</span> 
-                        <span id="flip-back" class='new-btn blue-btn'><k class='icon-group'> &nbsp;</k>Back</span>
+                        <span class='new-btn blue-btn flip-back'><k class='icon-group'> &nbsp;</k>Back</span>
                     </div>
                 </div>
 
@@ -643,7 +658,7 @@
                     </table>
                     <div style="right: 0;margin: 30px auto 0;width: 150px;">
                         <span class="new-btn green-btn" data-ember-action="14">Save</span> 
-                        <span id="flip-back" class='new-btn blue-btn'><k class='icon-group'> &nbsp;</k>Back</span>
+                        <span class='new-btn blue-btn flip-back'><k class='icon-group'> &nbsp;</k>Back</span>
                     </div>
                 </div>
 
@@ -728,9 +743,6 @@
 
 
 
-
-
-
                 <div class="tab-pane" id="tab6">
                     <div style="position: relative; margin: 0px auto;height: 450px; width: 90%; background-color: rgba(242,240,240,0.5);border: 3px dashed #aaa;"> 
                         <div style="top: 200px;position: relative;margin: auto;width: 80%;font-size: 26px; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;">
@@ -769,20 +781,7 @@
 
 
 </div>
-<script  type="text/javascript">
 
-
-
-    $('#flip-front').click(function() {
-        console.log("click");
-        $(".hover").addClass('flip');
-    });
-
-    $('#flip-back').click(function() {
-        $(".hover").removeClass('flip');
-    });
-
-</script>
 
 
 

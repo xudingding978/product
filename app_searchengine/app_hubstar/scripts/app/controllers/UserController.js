@@ -29,7 +29,6 @@ define(["ember"
         },
         setUser: function()
         {
-       
             var user = this.getCurrentUser();
             topics = user.get('selected_topics');
             this.set('selected_topics', []);
@@ -54,9 +53,6 @@ define(["ember"
                 if ((col.get("collection_ids") !== null && col.get("collection_ids") !== "")) {
                     var imgId = col.get("collection_ids").split(",").objectAt(0);
                     this.getHeroImage(imgId, col);
-                } else{
-                    col.set('cover', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png");
-                    col.store.save();
                 }
             }
             this.checkAuthenticUser();
@@ -65,8 +61,9 @@ define(["ember"
             var photo = App.Mega.find(id);
             photo.addObserver('isLoaded', function() {
                 if (photo.get('isLoaded')) {
-                    if (col.get("cover") === null || col.get("cover") === "" || col.get("cover") === undefined||col.get("cover") ==='null') {
-                                 col.set("cover", photo.get('photo').objectAt(0).get("photo_image_hero_url"));           
+                    if (col.get("cover") === null || col.get("cover") === "" || col.get("cover") === undefined || col.get("cover") === 'null'
+                            || col.get("cover") === 'https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png') {
+                        col.set("cover", photo.get('photo').objectAt(0).get("photo_image_hero_url"));
                         col.store.save();
                     }
                 }
@@ -236,7 +233,9 @@ define(["ember"
         },
         newCollection: function()
         {
-            var collection = App.Collection.createRecord({"id": null, "title": null, "desc": null, "collection_ids": null, "createdAt": new Date()});
+            var collection = App.Collection.createRecord({"id": null, "title": null, "desc": null, "collection_ids": null, "createdAt": new Date(),
+                'cover': 'https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png'
+            });
             this.set("selectedCollection", collection);
         },
         checkAuthenticUser: function() {

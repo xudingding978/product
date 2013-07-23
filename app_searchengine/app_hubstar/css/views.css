@@ -557,6 +557,8 @@
 .albumcover{
     min-width: 350px;
     min-height: 350px;
+    max-width: none;
+    height: 100%;
 }
 
 .album-info{

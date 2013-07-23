@@ -60,7 +60,7 @@ class Controller extends CController {
      * @param string $contentType Header content-type
      * @return HTTP response
      */
-    protected function sendResponse($status = 200, $body = '', $contentType = 'application/json') {
+    protected function sendResponse($status = 204, $body = '', $contentType = 'application/json') {
 // Set the status
         $statusHeader = 'HTTP/1.1 ' . $status . ' ' . $this->getStatusCodeMessage($status);
         header($statusHeader);
@@ -153,7 +153,6 @@ class Controller extends CController {
             $raw_id = str_replace("test", "", $upload_Image_ids);
 
             $imageIDs = explode('%2C', $raw_id);
-            error_log(var_export($imageIDs, true));
             $str_ImageIds = "";
             for ($i = 0; $i < sizeof($imageIDs); $i++) {
                 $str_ImageIds = $str_ImageIds . '\"' . $imageIDs[$i] . '\"';
@@ -161,8 +160,8 @@ class Controller extends CController {
                     $str_ImageIds.=',';
                 }
             }
-            error_log(var_export($str_ImageIds, true));
-            //    $response = $this->getProfilePartner($returnType, $str_ImageIds);
+            $response = $this->QueryStringByIds($returnType, $str_ImageIds, "id");
+       
         } elseif ($requireType == 'collection') {
             $collection_id = $this->getUserInput($requireParams[1]);
             $owner_profile_id = $this->getUserInput($requireParams[2]);
@@ -178,15 +177,7 @@ class Controller extends CController {
                     $str_partnerIds.=',';
                 }
             }
-
-            $requestArray = array();
-            $requestStringOne = 'couchbaseDocument.doc.id=' . $str_partnerIds;
-            array_push($requestArray, $requestStringOne);
-
-            $response = $this->performMustSearch($requestArray, $returnType, 'must');
-
-
-//            $response = $this->getProfilePartner($returnType, $str_partnerIds);
+            $response = $this->QueryStringByIds($returnType, $str_partnerIds, "profile.id");
         } elseif ($requireType == 'articleRelatedImage') {
             $article_id = $this->getUserInput($requireParams[1]);
             $owner_id = $this->getUserInput($requireParams[2]);
@@ -245,6 +236,7 @@ class Controller extends CController {
         $request->size($size);
         $max = sizeof($requestArray);
         $bool = Sherlock\Sherlock::queryBuilder()->Bool();
+
         for ($i = 0; $i < $max; $i++) {
             $must = $this->getmustQuestWithQueryString($requestArray[$i]);
             if ($search_type == "must") {
@@ -255,6 +247,7 @@ class Controller extends CController {
                 echo "no such search type, please input: must or should as a search type.";
             }
         }
+
         $request->query($bool);
         $response = $request->execute();
 
@@ -285,7 +278,9 @@ class Controller extends CController {
         return $results;
     }
 
-    protected function getProfilePartner($returnType, $partner_id) {
+    protected function QueryStringByIds($returnType, $ids, $default_field) {
+         error_log($ids);
+                 
         $request = $this->getElasticSearch();
         $request->from(0)
                 ->size(500);
@@ -294,17 +289,19 @@ class Controller extends CController {
                     "must": [
                         {
                             "query_string": {
-                                "default_field": "couchbaseDocument.doc.profile.id",
-                                "query": "' . $partner_id . '"
+                                "default_field": "couchbaseDocument.doc.' . $default_field . '",
+                                "query": " '.$ids.' "
                             }
                         }
                     ]
                 }
             }');
-
+ error_log(var_export($termQuery->toJSON(), true));
         $response = $request->query($termQuery)->execute();
         $results = $this->getReponseResult($response, $returnType);
-
+//     error_log(var_export($response, true));
+//     error_log('ddddddddddddddddddd');
+    error_log(var_export($results, true));
         return $results;
     }
 

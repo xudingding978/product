@@ -9,10 +9,8 @@ define(["ember", "helper"],
                 nodifyBackGround: false,
                 uploadOrsubmit: false,
                 collection_id: "",
-                uploadedImage: "",
                 needs: ['profile', 'masonryCollectionItems', 'photoCreateInfoSetting'],
                 init: function() {
-                    App.set("UploadedImage", "");
                     this.setMega();
                 },
                 fileChecking: function(filesLength) {
@@ -45,7 +43,7 @@ define(["ember", "helper"],
                 submit: function()
                 {
 
-                    App.store.commit();
+               App.store.commit();
 
 
                 },
@@ -112,8 +110,6 @@ define(["ember", "helper"],
                 }, addPhotoObject: function(e, that, name, type) {
                     var testID = createGuid();
 
-                    this.set('uploadedImage', this.get('uploadedImage') + "," + testID);
-                    App.set("UploadedImage", this.get('uploadedImage'));
 
                     var target = that.getTarget(e);
                     var src = target.result;
@@ -127,12 +123,12 @@ define(["ember", "helper"],
                         "photo_type": type,
                         "photo_keywords": that.get("profileMega").get("keywords")});
                     mega.get("photo").pushObject(file);
+          //          console.log(mega);
+                    var photoCreateInfoSettingController = this.get('controllers.photoCreateInfoSetting');
+                    photoCreateInfoSettingController.get('content').pushObject( mega.get("photo").objectAt(0));
                     var thatP = this;
                     mega.addObserver('isSaving', function() {
-
                         if (mega.get('isSaving')) {
-
-
                             $('.' + file.get('photo_source_id')).attr("style", "display:block");
                         }
                         else {

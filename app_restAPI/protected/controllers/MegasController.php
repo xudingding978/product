@@ -30,11 +30,11 @@ class MegasController extends Controller {
     public function actionCreate() {
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
-
         $mega = $request_arr['mega'];
         if ($mega['type'] == "profile") {
             $this->createProfile($mega);
         } elseif ($mega['type'] == "photo") {
+
             $this->createUploadedPhoto($mega);
         }
 
@@ -67,7 +67,7 @@ class MegasController extends Controller {
         } elseif ($newRecord['mega']['type'] == 'profile') {
             $this->updateProfileRecord($newRecord);
         } elseif ($newRecord['mega']['type'] == 'photo') {
-       $photoController = new PhotosController();
+            $photoController = new PhotosController();
             $photoController->photoUpdate($newRecord);
         } else {
             $this->updateMega($newRecord);
@@ -80,7 +80,7 @@ class MegasController extends Controller {
             $id = $temp [sizeof($temp) - 1];
             $request_json = $this->getRequestResultByID(self::JSON_RESPONSE_ROOT_SINGLE, $id);
             $megas = CJSON::decode($request_json, true);
-                    $mega=$megas['mega'];
+            $mega = $megas['mega'];
             $docID = $this->getDocId($mega['type'], $mega['id']);
             $cb = $this->couchBaseConnection();
             if ($cb->delete($docID)) {
@@ -92,7 +92,6 @@ class MegasController extends Controller {
             echo $exc->getTraceAsString();
         }
     }
-
 
     public function updateProfileRecord($newRecord) {
         try {
@@ -133,6 +132,7 @@ class MegasController extends Controller {
     public function createUploadedPhoto($mega) {
         if (sizeof($mega) > 0) {
             $photoController = new PhotosController();
+
             $photoController->photoCreate($mega);
         }
     }

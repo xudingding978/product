@@ -387,7 +387,6 @@
 
                     <table style="padding-right: 147px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
                         <tbody class="profilesnew-table" style="display: table-row-group; vertical-align: middle; border-color: inherit;">
-
                             <tr>
                                 <td>Profile Name*: </td>                     
                                 <td> 
@@ -410,9 +409,6 @@
                                     <div class="mustfull" id="mustFill2" style="display: none">please fill in info... </div>
                                 </td>
                             </tr>
-
-
-
 
                             <tr>
                                 <td>boost*:</td>
@@ -534,16 +530,7 @@
 
                     <table style="padding-right: 147px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
                         <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
-                            <tr>
-                                <td>Client Name:</td>
-                                <td> 
-                                    <div style="display: block;">
-                                        <div   style="margin: 0;width: 100%;">
-                                            {{view Ember.TextField valueBinding="client_name"  placeholder="John Key" }}
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
+                
 
                             <tr>
                                 <td>Country*:</td>
@@ -570,26 +557,12 @@
                             </tr>
 
                             <tr>
-                                <td>Owner*:</td>
-
-                                <td> 
-                                    <div style="display: block;">
-                                        <div   style="margin: 0;width: 100%;">
-                                            {{view Ember.TextField valueBinding="owner" class="mustFill3"  placeholder="John_Key@gg.com"}}
-                                        </div>
-                                    </div>   
-                                    <div class="mustfull" id="emailFormat3" style="display: none">not correct email format.....</div>
-                                    <div class="mustfull" id="mustFill3" style="display: none">please fill in info... </div>
-                                </td>
-                            </tr>
-
-                            <tr>
                                 <td>Direct Enquiry Email*:</td>
 
                                 <td> 
                                     <div style="display: block;">
                                         <div   style="margin: 0;width: 100%;">
-                                            {{view Ember.TextField valueBinding="direct_enquiry_emails"  class="mustFill4"  placeholder="superman@hubstar.com"}}
+                                            {{view Ember.TextField valueBinding="contact_email"  class="mustFill4"  placeholder="superman@hubstar.com"}}
                                         </div>
                                     </div>     
                                     <div class="mustfull" id="emailFormat4" style="display: none">not correct email format.....</div>
@@ -618,18 +591,6 @@
                                 </td>
                             </tr>
 
-                            <tr>
-                                <td>Creater*:</td>         
-                                <td> 
-                                    <div style="display: block;">
-                                        <div   style="margin: 0;width: 100%;">
-                                            {{view Ember.TextField valueBinding="creater" class="mustFill5" placeholder="clientname@their-domain.com"}}
-                                        </div>
-                                    </div>
-                                    <div class="mustfull" id="emailFormat5" style="display: none">not correct email format.....</div>
-                                    <div class="mustfull" id="mustFill5" style="display: none">please fill in info... </div>
-                                </td>
-                            </tr>
 
                             <tr>
                                 <td>Editor*:</td>

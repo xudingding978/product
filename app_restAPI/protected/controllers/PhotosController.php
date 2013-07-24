@@ -150,9 +150,7 @@ class PhotosController extends Controller {
             } elseif (strpos($url, 'imageservice')) {
                 $stamp = imagecreatefrompng('https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/watermark4hero.png');
             }
-
             $message = "get water mark image faill from localhost: " . $e->getMessage() . "\r\n" . date("Y-m-d H:i:s") . $url . "\r\n";
-
 
             return $stamp;
         }
@@ -254,28 +252,6 @@ class PhotosController extends Controller {
         $data = base64_decode($tempInput);
         return $data;
     }
-
-//    public function photoSavingToS3($request_arr, $path, $domain, $bucket) {
-//
-//        $response = false;
-////important changement
-//        //$array=getProviderConfigurationByName($domain,"S3Client");
-////            $client = Aws\S3\S3Client::factory($array);
-//        $client = $this->getS3Connection($domain);
-//        $data = $this->getInputData($request_arr['photo']['photo_type'], $request_arr ['photo']['photo_image_url']);
-//        if ($client->doesObjectExist($bucket, $path . $request_arr ['photo']['photo_title'])) {
-//            $response = false;
-//        } else {
-//            $client->putObject(array(
-//                'Bucket' => "hubstar-dev",
-//                'Key' => $path . $request_arr ['photo']['photo_title'],
-//                'Body' => $data,
-//                'ACL' => 'public-read'
-//            ));
-//            $response = true;
-//        }
-//        return $response;
-//    }
 
     public function doPhotoResizing($mega) {
 

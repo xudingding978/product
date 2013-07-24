@@ -17,58 +17,76 @@ define([
             var seletedID = "";
             var ProfileController = Ember.ObjectController.extend({
                 model: null,
-                editing: false,
-                switchPhoto: false,
-                editingAbout: false,
-                editingContact: false,
-                galleryInsert: false,
-                contactChecking: false,
-                collectionTag: true,
-                followerTag: false,
-                updateOrCreate: true,
-                partnerTag: false,
-                partnerPage: true,
-                profileSelectionStatus: "Collections",
-                temp: [],
-                tempdesc: [],
-                selectedDesc: "",
-                selectedTitle: "",
-                editingTime: false,
                 aboutMe: "aboutMe",
-                profileName: "profileName",
-                contact: "contact",
-                timeSetting: "timeSetting",
-                uploadChecking: false,
                 currentUserID: "",
                 collections: [],
-                selectedCollection: "",
-                needs: ["profilePartners", "itemProfiles", "profileFollowers", 'permission','contact'],
+                contactChecking: false,
+                collectionTag: true,
+                contact: "contact",
+                country:"",
+                contact_email:"",
+                secondary_email:"",
+                direct_enquiry_provide_email:"",
+                editing: false,
+                editingAbout: false,
+                editingContact: false,
+                editingTime: false,
+                editors: "",
+                followerTag: false,
+                follow_status: "+ Follow",
+                galleryInsert: false,
+                hours: [],
+                is_authentic_user: false,
+                keywords: "",
+                needs: ["profilePartners", "itemProfiles", "profileFollowers", 'permission', 'contact'],
+                name:"",
+                profileName: "profileName",
                 profile_bg_url: "",
                 profile_hero_url: "",
                 profile_pic_url: "",
-                hours: [],
-                follow_status: "+ Follow",
-                is_authentic_user: false,
+                partnerTag: false,
+                partnerPage: true,
+                profileSelectionStatus: "Collections",
+                region:"",
+                selectedCollection: "",
+                switchPhoto: false,
+                selectedDesc: "",
+                selectedTitle: "",
+                timeSetting: "timeSetting",
+                temp: [],
+                tempdesc: [],
+                 profile_website: "",
+      profile_website_url:"",
+                uploadChecking: false,
+                updateOrCreate: true,
                 init: function() {
-
                     this.set('is_authentic_user', false);
                 },
-                getCurrentClient: function(id)
+                getCurrentProfile: function(id)
                 {
                     this.set('currentUserID', id);
                     var user = ProfileModel.find(id);
                     return user;
                 },
                 setProfile: function(id) {
-                    var profile = this.getCurrentClient(id);
+                    var profile = this.getCurrentProfile(id);
+                    console.log(profile);
+                    this.set("model", profile);
                     this.set('profile_bg_url', profile.get('profile_bg_url'));
                     this.set('profile_hero_url', profile.get('profile_hero_url'));
                     this.set('profile_pic_url', profile.get('profile_pic_url'));
+                    this.set('editors', profile.get('profile_editors'));
+                    this.set('keywords', profile.get('profile_keywords'));
+                    this.set('region', profile.get('profile_regoin'));
+                    this.set('country', profile.get('profile_country'));
+                    this.set('name', profile.get('profile_name'));
+                    this.set('direct_enquiry_provide_email', profile.get('owner_contact_bcc_emails'));
+                    this.set('secondary_email', profile.get('owner_contact_cc_emails'));
+                     this.set('contact_email', profile.get('owner_contact_email'));
+
                     this.updateWorkingHourData(profile.get('profile_hours'));
-                    this.set("model", this.getCurrentClient(id));
                     this.set("collections", profile.get("collections"));
                     var collections = profile.get("collections");
-
                     this.isFollowed();
                     this.checkAuthenticUser();
                 },
@@ -241,7 +259,7 @@ define([
                         }
                     }
                 },
-                updateCollectionInfo: function(){
+                updateCollectionInfo: function() {
                     var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
                     var id = this.checkingValidInput(this.selectedCollection.get('id'));
                     this.checkingIdisExsinting(desc, id, "update");
@@ -275,7 +293,7 @@ define([
                     this.set('contactChecking', false);
                 },
                 uploadImage: function() {
-                    var user = this.getCurrentClient(this.get('currentUserID'));
+                    var user = this.getCurrentProfile(this.get('currentUserID'));
                     if ($('.background').val() !== "") {
                         user.set("profile_bg_url", $('.background').val());
                     }

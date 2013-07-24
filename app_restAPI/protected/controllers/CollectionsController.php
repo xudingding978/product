@@ -21,7 +21,7 @@ class CollectionsController extends Controller {
     }
 
     public function actionRead() {
-        error_log("aaaaaaaaaaaaaaa");
+
         echo "aaaaaaaaaaa";
     }
 

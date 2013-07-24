@@ -127,7 +127,7 @@ class Controller_data extends Controller {
             }
 
             $message = "get water mark image faill from localhost: " . $e->getMessage() . "\r\n" . date("Y-m-d H:i:s") . $url . "\r\n";
-            error_log($message);
+
             return $stamp;
         }
     }

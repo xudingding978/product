@@ -288,11 +288,10 @@ class Controller extends CController {
     }
 
     protected function QueryStringByIds($returnType, $ids, $default_field) {
-        error_log($ids);
 
         $request = $this->getElasticSearch();
         $request->from(0)
-                ->size(500);
+                ->size(100);
         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw('{
                 "bool": {
                     "must": [
@@ -305,12 +304,10 @@ class Controller extends CController {
                     ]
                 }
             }');
-        error_log(var_export($termQuery->toJSON(), true));
+
         $response = $request->query($termQuery)->execute();
         $results = $this->getReponseResult($response, $returnType);
-//     error_log(var_export($response, true));
-//     error_log('ddddddddddddddddddd');
-        error_log(var_export($results, true));
+
         return $results;
     }
 
@@ -318,8 +315,10 @@ class Controller extends CController {
 
 
         $request = $this->getElasticSearch();
+        $request->from(0)
+                ->size(100);
         $must = Sherlock\Sherlock::queryBuilder()
-                ->QueryString()->query($collection_id)
+                ->QueryString()->query('"'.$collection_id.'"')
                 ->default_field('couchbaseDocument.doc.collection_id');
 
 
@@ -330,7 +329,6 @@ class Controller extends CController {
 
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)
                 ->must($must2);
-
 
         $response = $request->query($bool)->execute();
 

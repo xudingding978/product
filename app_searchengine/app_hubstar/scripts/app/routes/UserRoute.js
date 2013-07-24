@@ -31,7 +31,15 @@ define([
 
                 var address = document.URL;
                 var user_id = address.split("#")[1].split("/")[2];
-                var data = App.Collection.find(collection_id);
+                var user = App.User.find(user_id);
+                
+
+                for (var i = 0; i < user.get('collections').get("length"); i++) {
+                    var data = user.get('collections').objectAt(i);
+                    if (data.id === collection_id) {
+                        break;
+                    }
+                }                
                 this.transitionTo("collection", data);
             }
         },

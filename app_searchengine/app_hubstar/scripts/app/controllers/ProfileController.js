@@ -94,11 +94,8 @@ define([
                     this.set('address', profile.get('profile_physical_address'));
                     this.set('last_name', profile.get('profile_contact_last_name'));
                     this.set("profile_name", profile.get("profile_name"));
-
                     this.updateWorkingHourData(profile.get('profile_hours'));
                     this.set("collections", profile.get("collections"));
-
-
                     var collections = profile.get("collections");
                     this.isFollowed();
                     this.checkAuthenticUser();
@@ -288,6 +285,7 @@ define([
                 newCollection: function()
                 {
                     var collection = App.Collection.createRecord({"id": null, "title": null, "desc": null, "collection_ids": null, "createdAt": new Date()});
+               
                     this.set("selectedCollection", collection);
                 },
                 toggleUpload: function() {

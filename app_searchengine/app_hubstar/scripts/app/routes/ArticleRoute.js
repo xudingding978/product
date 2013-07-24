@@ -45,7 +45,7 @@ define([
 
             this.render("article", {
                 outlet: "articles",
-                into: "application",
+                into: "application"
             });
         }
 

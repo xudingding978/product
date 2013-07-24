@@ -7,7 +7,7 @@ define(['models/PhotoModel',
                 Ember
                 ) {
             var PhotoDisplayAreaController = Ember.Controller.extend({
-                content: [],
+                content: []
             });
 
             return PhotoDisplayAreaController;

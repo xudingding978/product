@@ -51,8 +51,6 @@ define(["ember", "helper"],
                 {
 
                     App.set('isNewUpload', true);
-                    console.log('dddddddddddddddddddddddd' + App.get('isNewUpload'));
-                    //      this.set("content", []);
                     $('#dragAndDroppArea').attr('style', "display:none");
                     var masonryCollectionItems = this.get('controllers.masonryCollectionItems');
                     masonryCollectionItems.back();

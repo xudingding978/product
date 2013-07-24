@@ -35,10 +35,9 @@ define(["ember"], function(Ember) {
                 var photoInfo = App.Photo.find(data.id);
                 this.photoSave(photoInfo, data);
             }
-            
+
             this.finishUploadingAndInfo();
         },
-
         photoSave: function(photoInfo, data)
 
         {
@@ -51,7 +50,8 @@ define(["ember"], function(Ember) {
             });
         },
         backToDragAndDrop: function() {
-
+            this.finishUploadingAndInfo();
+             $('#dragAndDroppArea').attr('style', "display:block");
 
         },
         finishUploadingAndInfo: function() {

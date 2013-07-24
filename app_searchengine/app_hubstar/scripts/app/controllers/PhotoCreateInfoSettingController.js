@@ -9,9 +9,6 @@ define(["ember"], function(Ember) {
 
 
             var content = App.get('UploadImageInfoData');
-
-            //   console.log(this.get("content"));
-
             if (this.get("photoInfo") !== undefined)
             {
                 this.set('photoInfo', []);
@@ -26,17 +23,13 @@ define(["ember"], function(Ember) {
                         title: content.objectAt(i).get('photo_title'),
                         caption: content.objectAt(i).get('photo_caption')
                     });
-                    console.log(this.get('photoInfo'));
-
                 }
-
             }
-            console.log(this.get('isEditingMode'));
+//            console.log(this.get('isEditingMode'));
             this.set('isEditingMode', false);
         },
         submitPhotoInfo: function() {
             var objectLength = this.get("photoInfo").get('length');
-            console.log(objectLength);
             for (var i = 0; i < objectLength; i++) {
                 var data = this.get('photoInfo').objectAt(i);
                 var photoInfo = App.Photo.find(data.id);
@@ -59,9 +52,7 @@ define(["ember"], function(Ember) {
         },
         backToDragAndDrop: function() {
 
-//            var photoCreate = this.get('controllers.photoCreate');
-//            photoCreate.set('uploadOrsubmit', !photoCreate.get('uploadOrsubmit'));
-            //     this.resetContent();
+
         },
         finishUploadingAndInfo: function() {
             var photoCreate = this.get('controllers.photoCreate');

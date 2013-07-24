@@ -10,10 +10,7 @@ define([
         aaddd: function()
         {
             var controller = this.get('controller');
-   
-console.log('31111111111111111111');
                 controller.setData();
-         
         }.observes('controller.isEditingMode')
     });
 

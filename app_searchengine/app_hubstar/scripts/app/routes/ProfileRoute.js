@@ -15,24 +15,18 @@ define([
         setupController: function(ProfileController, model) {
             App.set('editingMode', 'profile');
             ProfileController.setLocalLoginRecrod();
-
-            ProfileController.setProfile(model.id);
-
             /******************  partner cehcking*******************/
-
             ProfileController.set('contactChecking', false);
             ProfileController.set('collectionTag', true);
             ProfileController.set('partnerTag', false);
-
             /*************************            partner cehcking           ***********8*/
-
             this.controllerFor('application').set('islogin', true);
             this.controllerFor('application').set('popup', false);
             this.controllerFor('application').set('isotherpage', true);
             this.controllerFor('searchs').setLoginImge();
-            this.controllerFor('application').set('isotherpage', true);
             this.controllerFor('profile').set('switchPhoto', true);
-
+            this.controllerFor('application').init();
+            ProfileController.setProfile(model.id);
         },
         events: {
             transitionToCollectionPhoto: function(collection_id) {

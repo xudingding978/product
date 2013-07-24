@@ -41,7 +41,7 @@ define([
                 is_authentic_user: false,
                 keywords: "",
                 last_name: "",
-                needs: ["profilePartners", "itemProfiles", "profileFollowers", 'permission', 'contact'],
+                needs: ["profilePartners", "itemProfiles", "profileFollowers", 'permission', 'contact', 'photoCreate'],
                 name: "",
                 profileName: "profileName",
                 profile_bg_url: "",
@@ -65,7 +65,6 @@ define([
                 uploadChecking: false,
                 updateOrCreate: true,
                 init: function() {
-                    console.log("aaaaaaaaaaaaaaa");
                     this.set('is_authentic_user', false);
                 },
                 getCurrentProfile: function(id)
@@ -100,6 +99,8 @@ define([
                     var collections = profile.get("collections");
                     this.isFollowed();
                     this.checkAuthenticUser();
+                    var photoCreateController = this.get('controllers.photoCreate');
+                    photoCreateController.setMega();
                 },
                 submit: function() {
                     var desc = this.checkingValidInput(this.selectedCollection.get('desc'));

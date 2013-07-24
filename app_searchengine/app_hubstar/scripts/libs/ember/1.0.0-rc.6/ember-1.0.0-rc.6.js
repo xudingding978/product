@@ -25433,7 +25433,6 @@ Ember.Router = Ember.Object.extend({
 });
 
 function getHandlerFunction(router) {
-console.log(router);
   var seen = {}, container = router.container,
       DefaultRoute = container.resolve('route:basic');
 

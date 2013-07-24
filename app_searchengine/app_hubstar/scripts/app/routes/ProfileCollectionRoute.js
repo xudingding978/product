@@ -13,7 +13,6 @@ define([
 
     var CollectionRoute = Ember.Route.extend({
         setupController: function(controller, model) {
-
             if (model.id === undefined || model.id === "") {
                 var address = document.URL;
                 var id = address.split("#")[1].split("/")[3];
@@ -35,10 +34,10 @@ define([
         },
         events: {
             transitionToPhoto: function(id) {
+
                 this.transitionTo("photo", MegaModel.find(id));
             },
             transitionToProfile: function(id) {
-
                 this.transitionTo("profile", ProfileModel.find(id));
             }
         },

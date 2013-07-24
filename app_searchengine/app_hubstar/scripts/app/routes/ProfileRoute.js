@@ -40,7 +40,13 @@ define([
                 var address = document.URL;
                 var user_id = address.split("#")[1].split("/")[2];
 
-                var data = App.Collection.find(collection_id);
+                var profile = App.Profile.find(user_id);
+                for (var i = 0; i < profile.get('collections').get("length"); i++) {
+                    var data = profile.get('collections').objectAt(i);
+                    if (data.id === collection_id) {
+                        break;
+                    }
+                }
                 this.transitionTo("profileCollection", data);
             }
         },
@@ -67,7 +73,6 @@ define([
                 $('#masonry_container').masonry('remove', $('.noStyle1'));
             });
         },
-
         renderTemplate: function() {
             this.render('profile', {
                 outlet: "profile",

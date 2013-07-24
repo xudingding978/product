@@ -95,6 +95,9 @@ define([
                         break;
                     }
                 }
+                setTimeout(function() {
+                    $('#masonry_photo_collection_container').masonry("reload");
+                }, 200);
                 this.cancelDelete();
             } else {
                 this.set('willDelete', true);

@@ -35,10 +35,13 @@ define(["ember"], function(Ember) {
                 var photoInfo = App.Photo.find(data.id);
                 this.photoSave(photoInfo, data);
             }
-            
-            this.finishUploadingAndInfo();
-        },
 
+            var that = this;
+            setTimeout(function() {
+                that.finishUploadingAndInfo();
+            }, 2000);
+
+        },
         photoSave: function(photoInfo, data)
 
         {
@@ -51,6 +54,9 @@ define(["ember"], function(Ember) {
             });
         },
         backToDragAndDrop: function() {
+            this.finishUploadingAndInfo();
+            var masonryCollectionItems = this.get('controllers.masonryCollectionItems');
+            masonryCollectionItems.newUpload();
 
 
         },

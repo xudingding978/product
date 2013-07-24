@@ -5,7 +5,7 @@
 
 
         <div class="head controlbtn-field"  style="width: 465px;background-color: #f3f3f3;">
-            <div type="button" {{action closeModal }} class="closeview"><i class="icon-remove"></i></div>
+            <div type="button" {{action popupModal }} class="closeview"><i class="icon-remove"></i></div>
             <img class="logonew"  style="margin: 30px auto 0; width: 92px; display: block;" src="../../../images/trendslogo(black).png"></img>
             <div style="margin: 20px auto; width: 360px;s">
                 <p style="text-align:center; font-weight: bold; ">COLLECT YOUR ONLINE RESOURCE FOR KITCHENS, PRODUCTS, SERVICES & IDEAS</p>
@@ -32,7 +32,7 @@
                     <li  onclick="Yahoo(650, 400);" ><a style="color:rgb(123,0,153)" href="#"><img src='../../../images/yahoo.png' style='width: auto; height: 35px; float:left;margin: -3% -5% 0 6%;'>Sign in with Yahoo</a></li>
                     <!--                    <li  onclick="Sina(650, 400);" ><a style="color:rgb(245,213,0)" href="#"><img src='../../../images/sina.png' style='width: auto; height: 35px; float:left;margin: -3% -3% 0 6%;'>Sign in with Sina</a></li>-->
                     <li  onclick="QQ(650, 400);" ><a style="color:rgb(62,59,62)" href="#"><img src='../../../images/qq.png' style='width: auto; height: 35px; float:left;margin: -3% -2% 0 7%;'>Sign in with QQ</a></li>
-                    <li  onclick="dismiss_modal_test();" ><a style="color:rgb(0,153,68)" href="#myModal"><i class="icon-envelope icon-large"></i>Sign in with Email</a></li>
+                    <li  class='signup'><a style="color:rgb(0,153,68)" href="#"><i class="icon-envelope icon-large"></i>Sign in with Email</a></li>
                 </ul>
             </div>
 
@@ -90,7 +90,7 @@
         {{/unless}}
 
         <div style="position: relative; text-align: center; font-size: 12px; margin-bottom: 15px;"> 
-            Don't have an account? Click <a  href="#" id='signup'>here </a> to sign up!
+            Don't have an account? Click <a  href="#" class='signup'>here </a> to sign up!
         </div>
 
 
@@ -106,7 +106,7 @@
 <div class="back easing" style='width: 465px; text-align: center; color: rgb(51, 51, 51); border-radius: 3px; position: relative; bottom: 500px; height: auto;'>
 
     <div class="head controlbtn-field" style="width: 465px;background-color: #f3f3f3;">
-        <div type="button" {{action closeModal }} class="closeview"><i class="icon-remove"></i></div>
+        <div type="button" {{action popupModal }} class="closeview"><i class="icon-remove"></i></div>
         <div style="font-size: 22px; font-weight: bold; margin: 20px auto 15px;"> 
             Sign Up for your Free Account!
         </div>
@@ -173,7 +173,7 @@
 
 
 
-                        $('#signup').click(function() {
+                        $('.signup').click(function() {
                             $(".hover").addClass('flip');
                         });
 

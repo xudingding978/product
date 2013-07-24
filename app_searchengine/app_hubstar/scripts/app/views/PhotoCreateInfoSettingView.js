@@ -7,7 +7,7 @@ define([
 
     var PhotoCreateInfoSettingView = Ember.View.extend({
         template: Ember.Handlebars.compile(photoCreateInfoSettingTemplate),
-        aaddd: function()
+        observerSetData: function()
         {
             var controller = this.get('controller');
                 controller.setData();

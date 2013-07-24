@@ -51,7 +51,9 @@ define(["ember"], function(Ember) {
         },
         backToDragAndDrop: function() {
             this.finishUploadingAndInfo();
-             $('#dragAndDroppArea').attr('style', "display:block");
+            var masonryCollectionItems = this.get('controllers.masonryCollectionItems');
+            masonryCollectionItems.newUpload();
+
 
         },
         finishUploadingAndInfo: function() {

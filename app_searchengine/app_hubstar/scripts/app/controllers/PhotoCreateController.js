@@ -4,9 +4,9 @@ define(["ember", "helper"],
                 content: [],
                 newMegas: [],
                 mode: null,
+                //      isNewUpload:false,
                 filesNumber: null,
                 profileMega: null,
-                nodifyBackGround: false,
                 uploadOrsubmit: false,
                 collection_id: "",
                 needs: ['profile', 'masonryCollectionItems', 'photoCreateInfoSetting'],
@@ -19,7 +19,7 @@ define(["ember", "helper"],
 
                 },
                 commitFiles: function(evt) {
-                    this.set("nodifyBackGround", true);
+                    $('#dragAndDroppArea').attr('style', "display:block");
                     var input = evt.target;
                     var files = input.files;
                     var that = this;
@@ -43,18 +43,19 @@ define(["ember", "helper"],
                 submit: function()
                 {
 
-               App.store.commit();
+                    App.store.commit();
 
 
                 },
                 back: function()
                 {
 
-                    this.set("content", []);
-                    this.set("nodifyBackGround", false);
+                    App.set('isNewUpload', true);
+                    console.log('dddddddddddddddddddddddd' + App.get('isNewUpload'));
+                    //      this.set("content", []);
+                    $('#dragAndDroppArea').attr('style', "display:none");
                     var masonryCollectionItems = this.get('controllers.masonryCollectionItems');
                     masonryCollectionItems.back();
-
                 },
                 setMega: function() {
                     var profileController = this.get('controllers.profile');
@@ -123,9 +124,8 @@ define(["ember", "helper"],
                         "photo_type": type,
                         "photo_keywords": that.get("profileMega").get("keywords")});
                     mega.get("photo").pushObject(file);
-          //          console.log(mega);
-                    var photoCreateInfoSettingController = this.get('controllers.photoCreateInfoSetting');
-                    photoCreateInfoSettingController.get('content').pushObject( mega.get("photo").objectAt(0));
+              //      var photoCreateInfoSettingController = this.get('controllers.photoCreateInfoSetting');
+                    //   photoCreateInfoSettingController.get('content').pushObject(mega.get("photo").objectAt(0));
                     var thatP = this;
                     mega.addObserver('isSaving', function() {
                         if (mega.get('isSaving')) {
@@ -138,11 +138,14 @@ define(["ember", "helper"],
                             if (App.get("totalFiles") === thatP.get("filesNumber")) {
                                 var masonryCollectionItems = thatP.get('controllers.masonryCollectionItems');
                                 masonryCollectionItems.set('uploadOrsubmit', !masonryCollectionItems.get('uploadOrsubmit'));
+                    var photoCreateInfoSettingController = thatP.get('controllers.photoCreateInfoSetting');
+                      photoCreateInfoSettingController.setData(that.get("content"));
+
                             }
                         }
                     });
                     that.get("content").addObject(file);
-
+                 //   photoCreateInfoSettingController.setData(that.get("content"));
                 },
                 getTarget: function(obj) {
                     var targ;
@@ -154,9 +157,23 @@ define(["ember", "helper"],
                     if (targ.nodeType === 3) // defeat Safari bug
                         targ = targ.parentNode;
                     return targ;
+                },
+                checkingCleanBeforeUpload: function() {
+
+                    if (App.get('isNewUpload')) {
+                        this.set('content', []);
+//                        var photoCreateInfoSettingController = this.get('controllers.photoCreateInfoSetting');
+//                        console.log(photoCreateInfoSettingController.get('content'));
+//                        photoCreateInfoSettingController.set('content', []);
+//                        console.log(photoCreateInfoSettingController.get('content'));
+
+
+                        App.set('isNewUpload', false);
+                    }
                 }
-            }
-            );
+
+
+            });
             PhotoCreateController.cancel = function(event) {
                 event.preventDefault();
                 return false;

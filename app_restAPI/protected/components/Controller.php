@@ -161,7 +161,6 @@ class Controller extends CController {
                 }
             }
             $response = $this->QueryStringByIds($returnType, $str_ImageIds, "id");
-       
         } elseif ($requireType == 'collection') {
             $collection_id = $this->getUserInput($requireParams[1]);
             $owner_profile_id = $this->getUserInput($requireParams[2]);
@@ -262,25 +261,35 @@ class Controller extends CController {
                 ->field('couchbaseDocument.doc.id');
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->should($should);
         $response = $request->query($bool)->execute();
+        if ($returnType == "mega" || $returnType == "megas") {
+            $results = '{"' . $returnType . '":';
+            $i = 0;
+            foreach ($response as $hit) {
+                $results .= CJSON::encode($hit['source']['doc']);
 
-        $results = '{"' . $returnType . '":';
-        $i = 0;
-        foreach ($response as $hit) {
-
-            $results .= CJSON::encode($hit['source']['doc']);
-
-            if (++$i < count($response)) {
-                $results .= ',';
+                if (++$i < count($response)) {
+                    $results .= ',';
+                }
             }
-        }
-        $results .= '}';
+            $results .= '}';
+        } else {
+            $results = '{"' . $returnType . '":';
+            $i = 0;
+            foreach ($response as $hit) {
+                $results .= CJSON::encode($hit['source']['doc'][$returnType][0]);
 
+                if (++$i < count($response)) {
+                    $results .= ',';
+                }
+            }
+            $results .= '}';
+        }
         return $results;
     }
 
     protected function QueryStringByIds($returnType, $ids, $default_field) {
-         error_log($ids);
-                 
+        error_log($ids);
+
         $request = $this->getElasticSearch();
         $request->from(0)
                 ->size(500);
@@ -290,18 +299,18 @@ class Controller extends CController {
                         {
                             "query_string": {
                                 "default_field": "couchbaseDocument.doc.' . $default_field . '",
-                                "query": " '.$ids.' "
+                                "query": " ' . $ids . ' "
                             }
                         }
                     ]
                 }
             }');
- error_log(var_export($termQuery->toJSON(), true));
+        error_log(var_export($termQuery->toJSON(), true));
         $response = $request->query($termQuery)->execute();
         $results = $this->getReponseResult($response, $returnType);
 //     error_log(var_export($response, true));
 //     error_log('ddddddddddddddddddd');
-    error_log(var_export($results, true));
+        error_log(var_export($results, true));
         return $results;
     }
 

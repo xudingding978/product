@@ -12,11 +12,11 @@
 
 
 
-    {{#each content}}
-    <img {{bindAttr src="photo_image_original_url"}} />
+    {{#each photoInfo}}
+    <img {{bindAttr src="url"}} style="width: 30px"/>
 
-    {{view Ember.TextField valueBinding="photo_title"  id="" class="edit_photo-titile_field"  }} 
-    {{view Ember.TextArea valueBinding="photo_caption"  id="" class="edit_photo-caption_field"}} 
+    {{view Ember.TextField valueBinding="title"  id="" class="edit_photo-titile_field"  }} 
+    {{view Ember.TextArea valueBinding="caption"  id="" class="edit_photo-caption_field"}} 
 
     {{/each}}
 
@@ -28,7 +28,7 @@
     <div class="controlbtn" style="left: 34%;">
 
         <span class="new-btn" {{action backToDragAndDrop}}>Select more</span>
-        <span class="new-btn green-btn">Skip</span> 
+        <span class="new-btn green-btn" {{action finishUploadingAndInfo}}>Skip</span> 
         <span class="new-btn green-btn" {{action submitPhotoInfo}}>Submit</span> 
     </div>
 </div>

@@ -9,7 +9,7 @@ define([
         is_authentic_user: false,
         is_profile_editing_mode: false,
         is_user_editing_mode: false,
-        needs: ['photoCreate', 'profile', 'permission'],
+        needs: ['photoCreate', 'profile', 'permission', 'photoCreateInfoSetting'],
         user_id: null,
         init: function() {
 
@@ -57,6 +57,7 @@ define([
 
             $('#ownerUpload').attr('style', 'display:none');
             $('#tagetUplaod').attr('style', 'display:block');
+            this.set('uploadOrsubmit', false);
             setTimeout(function() {
                 $('#masonry_photo_collection_container').masonry("reload");
             }, 200);

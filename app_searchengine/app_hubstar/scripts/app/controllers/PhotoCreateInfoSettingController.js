@@ -36,7 +36,11 @@ define(["ember"], function(Ember) {
                 this.photoSave(photoInfo, data);
             }
 
-            this.finishUploadingAndInfo();
+            var that = this;
+            setTimeout(function() {
+                that.finishUploadingAndInfo();
+            }, 2000);
+
         },
         photoSave: function(photoInfo, data)
 

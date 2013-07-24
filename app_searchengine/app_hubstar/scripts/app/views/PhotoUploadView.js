@@ -7,22 +7,12 @@ define([
     var DragNDropView = Ember.View.extend(PhotoCreateController.Droppable, {
         contentBinding: "photoUpload",
         template: Ember.Handlebars.compile(PhotoCreateTemplate),
-        nodifyBackground: function()
-        {
-            var bool = this.get("controller").get("nodifyBackGround");
-
-            if (bool === true) {
-                $('#dragAndDroppArea').attr('style', "display:block");
-            }
-            else {
-                $('#dragAndDroppArea').attr('style', "display:none");
-            }
-        }.observes('controller.nodifyBackGround'),
         drop: function(event) {
             var dataTransfer = event.originalEvent.dataTransfer;
             var files = dataTransfer.files;
             var controller = this.get("controller");
             controller.fileChecking(files.length);
+            controller.checkingCleanBeforeUpload();
             for (var i = 0; i < files.length; i++) {
                 (function(file) {
                     var name = file.name;
@@ -34,7 +24,8 @@ define([
                 })(files[i]);
 
             }
-            controller.set("nodifyBackGround", true);
+  
+            $('#dragAndDroppArea').attr('style', "display:block");
             return false;
         }
 

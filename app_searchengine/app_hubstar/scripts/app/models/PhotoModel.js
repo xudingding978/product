@@ -30,6 +30,7 @@ define(
         photo_products: DS.attr('string'), // [ ] 
         photo_articleId: DS.attr('string'),
         photo_heliumId: DS.attr('string'),
+
         didLoad: function() {
 
         }

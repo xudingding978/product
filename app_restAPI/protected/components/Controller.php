@@ -292,7 +292,7 @@ class Controller extends CController {
 
         $request = $this->getElasticSearch();
         $request->from(0)
-                ->size(500);
+                ->size(100);
         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw('{
                 "bool": {
                     "must": [

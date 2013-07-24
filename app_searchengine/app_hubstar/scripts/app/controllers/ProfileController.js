@@ -65,6 +65,7 @@ define([
                 uploadChecking: false,
                 updateOrCreate: true,
                 init: function() {
+                    console.log("aaaaaaaaaaaaaaa");
                     this.set('is_authentic_user', false);
                 },
                 getCurrentProfile: function(id)
@@ -285,7 +286,7 @@ define([
                 newCollection: function()
                 {
                     var collection = App.Collection.createRecord({"id": null, "title": null, "desc": null, "collection_ids": null, "createdAt": new Date()});
-               
+
                     this.set("selectedCollection", collection);
                 },
                 toggleUpload: function() {
@@ -435,8 +436,13 @@ define([
 
 
                     App.store.get('adapter').updateRecord(App.store, App.Profile, update_profile_record);
+                },
+                flipFrontClick: function() {
+                    $(".hover").addClass('flip');
+                },
+                flipFrontBack: function() {
+                    $(".hover").removeClass('flip');
                 }
-
             });
             return ProfileController;
         });

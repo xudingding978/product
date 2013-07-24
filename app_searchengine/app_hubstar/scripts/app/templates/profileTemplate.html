@@ -31,24 +31,12 @@
                 <img {{bindAttr src= model.profile_hero_url}} style="width:100%;"/>
                 {{#if controller.is_authentic_user}}
 
-                <div  id="flip-front" class='new-btn hint--left hint--rounded edit-dashboard-btn' style="display: block; margin: 10px;position: absolute;top: 0;right: 0;" data-hint="Dashboard">
-                    <i class="icon-cogs"></i>
+                <div  id="flip-front" class='new-btn hint--left hint--rounded edit-dashboard-btn' style="display: block; margin: 10px;position: absolute;top: 0;right: 0;" data-hint="Dashboard"
+                      {{action flipFrontClick}}>
+                      <i class="icon-cogs"></i>
                 </div>
 
-                <script  type="text/javascript">
-
-
-
-                    $('#flip-front').click(function() {
      
-                        $(".hover").addClass('flip');
-                    });
-
-                    $('.flip-back').click(function() {
-                        $(".hover").removeClass('flip');
-                    });
-
-                </script>
 
 
                 {{/if}}
@@ -329,11 +317,8 @@
                 </ul>
             </div>
 
-
-
             <div class="tab-content">
                 <div class="tab-pane active" id="tab1">
-
                     <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">Style up your profile!</div>
                     <div style="width:87%;margin: auto;margin-bottom: 20px;">
                         <div style="display: block;margin: 10px;">
@@ -366,11 +351,10 @@
 
                     <div style="right: 0;margin: 30px auto 0;width: 150px;">
                         <span class="new-btn green-btn" {{action saveUpdate}}>Save</span> 
-                        <span class='new-btn blue-btn flip-back'><k class='icon-group'> &nbsp;</k>Back</span>
+                        <span class='new-btn blue-btn flip-back'{{action flipFrontBack }}><k class='icon-group'> &nbsp;</k>Back</span>
                     </div>
 
                 </div>
-
 
                 <div class="tab-pane" id="tab2">
 
@@ -386,22 +370,7 @@
                                     </div>
                                     <div class="mustfull" id="mustFill1" style="display: none">please fill in info... </div>
                                 </td>
-                            </tr>
-
-                            <tr>
-                                <td>Profile URL*:</td>
-                                <td> 
-                                    <div style="display: block;">
-                                        {{view Ember.TextField valueBinding="profile_url"  class="mustFill2"  placeholder="ie: heritage-tiles-nz * no spaces, no underscores, no special characters, all lower case"}}
-                                    </div>
-                                    <div style="margin-bottom: 10px; color: #333;font-size: 13px;width: auto;display: inline-block;">
-                                        Note: Once the URL has been set, it cannot be changed nor undone.
-                                    </div>
-                                    <div class="mustfull" id="mustFill2" style="display: none">please fill in info... </div>
-                                </td>
-                            </tr>
-
-         
+                            </tr>      
 
 
                             <tr>
@@ -496,7 +465,7 @@
                     </table>
                     <div style="right: 0;margin: 30px auto 0;width: 150px;">
                         <span class="new-btn green-btn" {{action saveUpdate}}>Save</span> 
-                        <span class='new-btn blue-btn flip-back'><k class='icon-group'> &nbsp;</k>Back</span>
+                        <span class='new-btn blue-btn flip-back' {{action flipFrontBack}}><k class='icon-group'> &nbsp;</k>Back</span>
                     </div>
                 </div>
 
@@ -511,7 +480,7 @@
 
                     <table style="padding-right: 147px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
                         <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
-                
+
 
                             <tr>
                                 <td>Country*:</td>
@@ -600,7 +569,7 @@
                     </table>
                     <div style="right: 0;margin: 30px auto 0;width: 150px;">
                         <span class="new-btn green-btn" {{action saveUpdate}} >Save</span> 
-                        <span class='new-btn blue-btn flip-back'><k class='icon-group'> &nbsp;</k>Back</span>
+                        <span class='new-btn blue-btn flip-back'{{action flipFrontBack}}}><k class='icon-group'> &nbsp;</k>Back</span>
                     </div>
                 </div>
 

@@ -4,12 +4,14 @@ define(["ember"], function(Ember) {
         uploadedImage: "",
         //  content: [],
         photoInfo: [],
+        isEditingMode: false,
         setData: function() {
-            
-            
-            var content=this.get("controllers.photoCreate").get('content');
-    //        App.set('infoData',content);
+
+
+            var content = App.get('UploadImageInfoData');
+
             //   console.log(this.get("content"));
+
             if (this.get("photoInfo") !== undefined)
             {
                 this.set('photoInfo', []);
@@ -25,17 +27,14 @@ define(["ember"], function(Ember) {
                         caption: content.objectAt(i).get('photo_caption')
                     });
                     console.log(this.get('photoInfo'));
+
                 }
 
             }
-        },
-        resetContent: function() {
-     
-           // this.set('photoInfo', []);
-
+            console.log(this.get('isEditingMode'));
+            this.set('isEditingMode', false);
         },
         submitPhotoInfo: function() {
-        //       this.setData(App.get('infoData')); 
             var objectLength = this.get("photoInfo").get('length');
             console.log(objectLength);
             for (var i = 0; i < objectLength; i++) {
@@ -43,11 +42,10 @@ define(["ember"], function(Ember) {
                 var photoInfo = App.Photo.find(data.id);
                 this.photoSave(photoInfo, data);
             }
-
-            //  this.finishUploadingAndInfo();
-
-
+            
+            this.finishUploadingAndInfo();
         },
+
         photoSave: function(photoInfo, data)
 
         {
@@ -66,14 +64,9 @@ define(["ember"], function(Ember) {
             //     this.resetContent();
         },
         finishUploadingAndInfo: function() {
-
             var photoCreate = this.get('controllers.photoCreate');
             photoCreate.back();
-      //      this.set('content', []);
-
         }
-
-
     });
     return PhotoCreateInfoSettingController;
 });

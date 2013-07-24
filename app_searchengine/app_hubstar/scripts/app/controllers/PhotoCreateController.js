@@ -124,8 +124,6 @@ define(["ember", "helper"],
                         "photo_type": type,
                         "photo_keywords": that.get("profileMega").get("keywords")});
                     mega.get("photo").pushObject(file);
-              //      var photoCreateInfoSettingController = this.get('controllers.photoCreateInfoSetting');
-                    //   photoCreateInfoSettingController.get('content').pushObject(mega.get("photo").objectAt(0));
                     var thatP = this;
                     mega.addObserver('isSaving', function() {
                         if (mega.get('isSaving')) {
@@ -137,15 +135,18 @@ define(["ember", "helper"],
 
                             if (App.get("totalFiles") === thatP.get("filesNumber")) {
                                 var masonryCollectionItems = thatP.get('controllers.masonryCollectionItems');
-                                masonryCollectionItems.set('uploadOrsubmit', !masonryCollectionItems.get('uploadOrsubmit'));
-                    var photoCreateInfoSettingController = thatP.get('controllers.photoCreateInfoSetting');
-                      photoCreateInfoSettingController.setData();
 
+                                var photoCreateInfoSettingController = thatP.get('controllers.photoCreateInfoSetting');
+                                App.set('UploadImageInfoData', that.get("content"));
+
+                                photoCreateInfoSettingController.setData();
+                                photoCreateInfoSettingController.set('isEditingMode', true);
+                                
+                                masonryCollectionItems.set('uploadOrsubmit', !masonryCollectionItems.get('uploadOrsubmit'));
                             }
                         }
                     });
                     that.get("content").addObject(file);
-                 //   photoCreateInfoSettingController.setData(that.get("content"));
                 },
                 getTarget: function(obj) {
                     var targ;
@@ -162,12 +163,6 @@ define(["ember", "helper"],
 
                     if (App.get('isNewUpload')) {
                         this.set('content', []);
-//                        var photoCreateInfoSettingController = this.get('controllers.photoCreateInfoSetting');
-//                        console.log(photoCreateInfoSettingController.get('content'));
-//                        photoCreateInfoSettingController.set('content', []);
-//                        console.log(photoCreateInfoSettingController.get('content'));
-
-
                         App.set('isNewUpload', false);
                     }
                 }

@@ -4,8 +4,11 @@ define(["ember"], function(Ember) {
         uploadedImage: "",
         //  content: [],
         photoInfo: [],
-        setData: function(content) {
-            App.set('infoData',content);
+        setData: function() {
+            
+            
+            var content=this.get("controllers.photoCreate").get('content');
+    //        App.set('infoData',content);
             //   console.log(this.get("content"));
             if (this.get("photoInfo") !== undefined)
             {
@@ -32,7 +35,7 @@ define(["ember"], function(Ember) {
 
         },
         submitPhotoInfo: function() {
-               this.setData(App.get('infoData')); 
+        //       this.setData(App.get('infoData')); 
             var objectLength = this.get("photoInfo").get('length');
             console.log(objectLength);
             for (var i = 0; i < objectLength; i++) {

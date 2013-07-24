@@ -139,7 +139,7 @@ define(["ember", "helper"],
                                 var masonryCollectionItems = thatP.get('controllers.masonryCollectionItems');
                                 masonryCollectionItems.set('uploadOrsubmit', !masonryCollectionItems.get('uploadOrsubmit'));
                     var photoCreateInfoSettingController = thatP.get('controllers.photoCreateInfoSetting');
-                      photoCreateInfoSettingController.setData(that.get("content"));
+                      photoCreateInfoSettingController.setData();
 
                             }
                         }

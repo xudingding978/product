@@ -18,7 +18,7 @@ define([
         iframeLoginURL: "",
         init: function() {
 
-             this.newSearch();
+            this.newSearch();
 
 
             var address = document.URL;
@@ -30,9 +30,8 @@ define([
         },
         popupModal: function() {
             this.set('popup', !this.get('popup'));
-            
-        },
 
+        },
         email_login: function() {
             this.set('mail', !this.get('mail'));
         },
@@ -126,6 +125,17 @@ define([
             totalTime += "ms";
             return totalTime;
         }
+        ,
+        flipFrontClick: function() {
+
+            $(".hover").addClass('flip');
+        },
+        flipFrontBack: function() {
+            $(".hover").removeClass('flip');
+        }
+
+
+
 
 
     });

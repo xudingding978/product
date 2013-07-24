@@ -57,7 +57,7 @@
                     <div id="dropdown-cover" style="position: absolute; width: 45px; height: 45px; border-radius: 3px;"></div>
                     <div class="square-button-yahoo"><img src="../../../images/yahoo(white).png" style="float: left; margin: 10px 0px; width: auto; height:22px;  "></img></div></a>
 
-    
+
 
                 <a  class="square-button"  href='#' onclick="QQ(650, 400);">
                     <div id="dropdown-cover" style="position: absolute; width: 45px; height: 45px; border-radius: 3px;"></div>
@@ -90,7 +90,7 @@
         {{/unless}}
 
         <div style="position: relative; text-align: center; font-size: 12px; margin-bottom: 15px;"> 
-            Don't have an account? Click <a  href="#" class='signup'>here </a> to sign up!
+            Don't have an account? Click <a  href="#" class='signup' {{action flipFrontClick}}>here </a> to sign up!
         </div>
 
 
@@ -151,11 +151,11 @@
         <iframe style='background: transparent;width: 350px;height: 270px;overflow: hidden;' {{bindAttr src="controller.iframeURL"}}></iframe>
 
 
-        <div  type="button" class="new-btn" id="goback" style="position: absolute;top: 478px;left: 165px;">
-            Go Back
-        </div>
-
+        <div  type="button" class="new-btn" id="goback" style="position: absolute;top: 478px;left: 165px;" {{action flipFrontBack}}>
+              Go Back
     </div>
+
+</div>
 
 
 
@@ -171,15 +171,6 @@
 
 <script>
 
-
-
-                        $('.signup').click(function() {
-                            $(".hover").addClass('flip');
-                        });
-
-                        $('#goback').click(function() {
-                            $(".hover").removeClass('flip');
-                        });
 
 
 

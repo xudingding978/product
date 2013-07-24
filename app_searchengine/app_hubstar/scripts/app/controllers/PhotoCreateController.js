@@ -40,12 +40,8 @@ define(["ember", "helper"],
                 setMode: function()
                 {
                 },
-                submit: function()
-                {
-
+                submit: function() {
                     App.store.commit();
-
-
                 },
                 back: function()
                 {
@@ -139,7 +135,7 @@ define(["ember", "helper"],
 
                                 photoCreateInfoSettingController.setData();
                                 photoCreateInfoSettingController.set('isEditingMode', true);
-                                
+
                                 masonryCollectionItems.set('uploadOrsubmit', !masonryCollectionItems.get('uploadOrsubmit'));
                             }
                         }

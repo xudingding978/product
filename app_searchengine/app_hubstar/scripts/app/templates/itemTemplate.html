@@ -20,8 +20,10 @@
                 <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
             </a>
             <div class="object_username">
-                <a class="poster-name" style="cursor: pointer" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
-                <span class="posttime">{{date created}}</span>
+                <a class="poster-name" style="cursor: pointer; width: auto;" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
+                <div class="posttime-container">
+                    <span class="posttime">{{date created}}</span>
+                </div>
             </div>
 
 
@@ -74,8 +76,8 @@
                         {{#if controller.is_profile_editing_mode}}
                         <li class="ite" {{action  removeCollectedItem controller.title id }}><k class="icon-trash" style="font-size: 16px; margin: 0px 5px;"></k>Delete</li>
                         <li class='ite'  {{action changeCollectionCover id controller.title App.Profile}}> <k class="icon-ok-sign" style="font-size: 16px;  margin: 0px 5px;"></k>Set as collection cover</li>
-                                     {{/if}}
-                           {{#if controller.is_user_editing_mode}}
+                        {{/if}}
+                        {{#if controller.is_user_editing_mode}}
                         <li class="ite" {{action changeCollectionCover id controller.title App.User}}><k class="icon-camera" style="font-size: 16px; margin: 0px 5px;"></k>Set as Cover</li>
                         {{/if}}
                     </ul>
@@ -126,8 +128,10 @@
                 <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}} class="profilepic-on-masonry"/>
             </a>   
             <div class="object_username">
-                <a class="poster-name" {{bindAttr href="getProfile_id"}}>{{profile_id}}</a>
-                <span class="posttime">yesterday 8:37</span>
+                <a class="poster-name" style="cursor: pointer; width: auto;" {{bindAttr href="getProfile_id"}}>{{profile_id}}</a>
+                <div class="posttime-container">
+                    <span class="posttime">yesterday 8:37</span>
+                </div>
             </div>
 
             <div class="object-tags-box">
@@ -246,8 +250,10 @@
 
             </a>
             <div class="object_username">
-                <a class="poster-name" style="cursor: pointer">{{creator}}</a>
-                <span class="posttime">{{date created}}</span>
+                <a class="poster-name" style="cursor: pointer; width: auto;">{{creator}}</a>
+                <div class="posttime-container">
+                    <span class="posttime">{{date created}}</span>
+                </div>
             </div>
 
             <div class="object-tags-box">

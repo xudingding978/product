@@ -23,6 +23,8 @@
         {{#if controller.is_profile_editing_mode}}
         {{#if controller.uploadStuff}}
 
+        <div  style="height: 50px;margin:20px auto;left: 0;right: 0;position: relative;display: block; opacity: 0; z-index: -1;"></div>
+
         <div class="box style-box t-style-box" id="addNew">
 
             <div id="tagetUplaod" {{action newUpload }}  >
@@ -36,15 +38,14 @@
                         <i class="icon-picture"></i>
                         <i class="icon-film"></i>
                     </div>
-
                 </div>
             </div>
 
             <div id="ownerUpload"  class="col4" style="display:none">             
                 {{#unless controller.uploadOrsubmit}}
-                
+
                 {{render PhotoCreate}}
-                
+
                 {{else}}
                 {{render PhotoCreateInfoSetting}}
                 {{/unless}}
@@ -52,6 +53,7 @@
         </div>
         {{/if}}
         {{/if}}
+
 
 
         {{#each controller.content}}
@@ -78,6 +80,7 @@
             <div class="add-new-object-content">
             </div>
         </div>
+
 
     </div>
 

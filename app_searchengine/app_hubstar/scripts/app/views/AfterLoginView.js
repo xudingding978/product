@@ -7,7 +7,7 @@ define([
 
     var AfterLoginView = Ember.View.extend({
 
-        template: Ember.Handlebars.compile(afertLoginTemplate),
+        template: Ember.Handlebars.compile(afertLoginTemplate)
 
 
     });

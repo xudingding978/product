@@ -364,21 +364,12 @@
                         <img style="height: 100%;margin: auto 3px;display: inline-block; max-width: 200px;" {{bindAttr src="profile_pic_url"}} />
                     </div>
 
-
-
                     <div style="right: 0;margin: 30px auto 0;width: 150px;">
-                        <span class="new-btn green-btn" data-ember-action="14">Save</span> 
+                        <span class="new-btn green-btn" {{action saveUpdate}}>Save</span> 
                         <span class='new-btn blue-btn flip-back'><k class='icon-group'> &nbsp;</k>Back</span>
                     </div>
 
                 </div>
-
-
-
-
-
-
-
 
 
                 <div class="tab-pane" id="tab2">
@@ -410,17 +401,7 @@
                                 </td>
                             </tr>
 
-                            <tr>
-                                <td>boost*:</td>
-                                <td> 
-                                    <div style="display: block;">
-                                        {{view Ember.TextField valueBinding="boost"  class="mustFill7"  placeholder="ie: number"}}
-                                    </div>
-                                    <div class="mustfull" id="number1" style="display: none">not a number....</div>
-                                    <div class="mustfull" id="mustFill7" style="display: none">please fill in info... </div>
-                                </td>
-                            </tr>
-
+         
 
 
                             <tr>
@@ -514,7 +495,7 @@
                         </tbody>
                     </table>
                     <div style="right: 0;margin: 30px auto 0;width: 150px;">
-                        <span class="new-btn green-btn" data-ember-action="14">Save</span> 
+                        <span class="new-btn green-btn" {{action saveUpdate}}>Save</span> 
                         <span class='new-btn blue-btn flip-back'><k class='icon-group'> &nbsp;</k>Back</span>
                     </div>
                 </div>
@@ -618,7 +599,7 @@
                         </tbody>
                     </table>
                     <div style="right: 0;margin: 30px auto 0;width: 150px;">
-                        <span class="new-btn green-btn" data-ember-action="14">Save</span> 
+                        <span class="new-btn green-btn" {{action saveUpdate}} >Save</span> 
                         <span class='new-btn blue-btn flip-back'><k class='icon-group'> &nbsp;</k>Back</span>
                     </div>
                 </div>

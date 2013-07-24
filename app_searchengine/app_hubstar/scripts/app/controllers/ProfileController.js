@@ -18,15 +18,16 @@ define([
             var ProfileController = Ember.ObjectController.extend({
                 model: null,
                 aboutMe: "aboutMe",
+                address: "",
                 currentUserID: "",
                 collections: [],
                 contactChecking: false,
                 collectionTag: true,
                 contact: "contact",
-                country:"",
-                contact_email:"",
-                secondary_email:"",
-                direct_enquiry_provide_email:"",
+                country: "",
+                contact_email: "",
+                secondary_email: "",
+                direct_enquiry_provide_email: "",
                 editing: false,
                 editingAbout: false,
                 editingContact: false,
@@ -34,20 +35,24 @@ define([
                 editors: "",
                 followerTag: false,
                 follow_status: "+ Follow",
+                first_name: "",
                 galleryInsert: false,
                 hours: [],
                 is_authentic_user: false,
                 keywords: "",
+                last_name: "",
                 needs: ["profilePartners", "itemProfiles", "profileFollowers", 'permission', 'contact'],
-                name:"",
+                name: "",
                 profileName: "profileName",
                 profile_bg_url: "",
                 profile_hero_url: "",
                 profile_pic_url: "",
+                profile_contact_number: "",
+                profile_name: "",
                 partnerTag: false,
                 partnerPage: true,
                 profileSelectionStatus: "Collections",
-                region:"",
+                region: "",
                 selectedCollection: "",
                 switchPhoto: false,
                 selectedDesc: "",
@@ -55,8 +60,8 @@ define([
                 timeSetting: "timeSetting",
                 temp: [],
                 tempdesc: [],
-                 profile_website: "",
-      profile_website_url:"",
+                website: "",
+                website_url: "",
                 uploadChecking: false,
                 updateOrCreate: true,
                 init: function() {
@@ -70,7 +75,6 @@ define([
                 },
                 setProfile: function(id) {
                     var profile = this.getCurrentProfile(id);
-                    console.log(profile);
                     this.set("model", profile);
                     this.set('profile_bg_url', profile.get('profile_bg_url'));
                     this.set('profile_hero_url', profile.get('profile_hero_url'));
@@ -82,10 +86,19 @@ define([
                     this.set('name', profile.get('profile_name'));
                     this.set('direct_enquiry_provide_email', profile.get('owner_contact_bcc_emails'));
                     this.set('secondary_email', profile.get('owner_contact_cc_emails'));
-                     this.set('contact_email', profile.get('owner_contact_email'));
+                    this.set('contact_email', profile.get('owner_contact_email'));
+                    this.set('website', profile.get('profile_website'));
+                    this.set('website_url', profile.get('profile_website_url'));
+                    this.set('profile_contact_number', profile.get('profile_contact_number'));
+                    this.set('first_name', profile.get('profile_contact_first_name'));
+                    this.set('address', profile.get('profile_physical_address'));
+                    this.set('last_name', profile.get('profile_contact_last_name'));
+                    this.set("profile_name", profile.get("profile_name"));
 
                     this.updateWorkingHourData(profile.get('profile_hours'));
                     this.set("collections", profile.get("collections"));
+
+
                     var collections = profile.get("collections");
                     this.isFollowed();
                     this.checkAuthenticUser();
@@ -142,9 +155,7 @@ define([
                                 if (this.get("tempdesc").objectAt(i) === desc) {
                                     isExsinting = false;
                                     break;
-
                                 } else {
-
                                     isExsinting = true;
 
                                 }
@@ -156,7 +167,6 @@ define([
                             alert('This Collection is already exsiting!!!');
                         }
                     } else if (postOrPut === "create") {
-
                         for (var i = 0; i < this.get("collections").get('length'); i++) {
                             if (this.get("collections").objectAt(i).id === id) {
                                 isExsinting = false;
@@ -403,6 +413,30 @@ define([
                     this.set('partnerTag', false);
                     this.set('collectionTag', false);
                     this.set('followerTag', true);
+                },
+                saveUpdate: function() {
+                    var update_profile_record = App.Profile.find(this.get('model.id'));
+                    update_profile_record.set('profile_bg_url', this.get('profile_bg_url'));
+                    update_profile_record.set('profile_hero_url', this.get('profile_hero_url'));
+                    update_profile_record.set('profile_pic_url', this.get('profile_pic_url'));
+                    update_profile_record.set('profile_editors', this.get('editors'));
+                    update_profile_record.set('profile_keywords', this.get('keywords'));
+                    update_profile_record.set('profile_regoin', this.get('region'));
+                    update_profile_record.set('profile_country', this.get('country'));
+                    update_profile_record.set('profile_name', this.get('name'));
+                    update_profile_record.set('owner_contact_bcc_emails', this.get('direct_enquiry_provide_email'));
+                    update_profile_record.set('owner_contact_cc_emails', this.get('secondary_email'));
+                    update_profile_record.set('owner_contact_email', this.get('contact_email'));
+                    update_profile_record.set('profile_website', this.get('website'));
+                    update_profile_record.set('profile_website_url', this.get('website_url'));
+                    update_profile_record.set('profile_contact_number', this.get('profile_contact_number'));
+                    update_profile_record.set('profile_contact_first_name', this.get('first_name'));
+                    update_profile_record.set('profile_physical_address', this.get('address'));
+                    update_profile_record.set('profile_contact_last_name', this.get('last_name'));
+                    update_profile_record.set("profile_name", this.get('profile_name'));
+
+
+                    App.store.get('adapter').updateRecord(App.store, App.Profile, update_profile_record);
                 }
 
             });

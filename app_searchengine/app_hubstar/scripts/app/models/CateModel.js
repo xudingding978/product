@@ -5,7 +5,7 @@ define(
             'emberData'
         ], function() {
     DS.RESTAdapter.map('App.Cate', {
-        subcate: {embedded: 'always'},
+        subcate: {embedded: 'always'}
     });
 
     var CateModel = DS.Model.extend({

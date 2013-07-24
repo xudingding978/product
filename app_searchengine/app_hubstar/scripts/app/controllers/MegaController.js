@@ -196,7 +196,7 @@ define(['models/MegaModel',
                     });
 
 
-                },
+                }
             });
             return MegaController;
         });

@@ -50,7 +50,7 @@ define([
             var totalTime = end - start;
             totalTime += "ms";
             this.set("time", totalTime);
-        },
+        }
 
 
 

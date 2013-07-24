@@ -133,7 +133,7 @@ define([
             this.set('firstStepOfContactEmail', false);
 
 
-        },
+        }
     });
 
     return ContactController;

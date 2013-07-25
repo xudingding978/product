@@ -85,33 +85,9 @@
     border-radius: 6px 6px 0 0;
 }
 
-#nav-ul ul li:first-child::before {
-    content: "";
-    position: absolute;
-    border-right: 13px solid rgba(0,0,0,.26);
-    border-top: 11px solid transparent;
-    border-bottom: 11px solid transparent;
-    font-size: 0;
-    height: 0;
-    margin: 0 auto;
-    top: 27px;
-    width: 0;
-    left: -14px;
-}
+#nav-ul ul li:first-child
 
-#nav-ul ul li:first-child::after {
-    content: "";
-    position: absolute;
-    border-right: 12px solid #f3f3f3;
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
-    font-size: 0;
-    height: 0;
-    margin: 0 auto;
-    top: 28px;
-    width: 0;
-    left: -12px;
-}
+#nav-ul ul li:first-child
 
 #nav-ul ul li:first-child:hover::after {
     border-right-color: #eaeced;
@@ -135,12 +111,36 @@
 }
 
 
-#navContainer ul li span:hover {
-
+#navContainer ul li span:hover::before {
+    content: "";
+    position: absolute;
+    border-right: 13px solid rgba(0,0,0,.26);
+    border-top: 11px solid transparent;
+    border-bottom: 11px solid transparent;
+    font-size: 0;
+    height: 0;
+    margin: 0 auto;
+    top: 10px;
+    width: 0;
+    right: -8px;
 }
 
+#navContainer ul li span:hover::after {
+    content: "";
+    position: absolute;
+    border-right: 12px solid #f3f3f3;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    font-size: 0;
+    height: 0;
+    margin: 0 auto;
+    top: 11px;
+    width: 0;
+    right: -10px;
+    z-index: 100;
+}
 
-#navContainer ul li a:hover{
+#navContainer ul li a:hover, #navContainer ul li a.clicked, #navContainer ul li a.current, #navContainer ul li a:focus{
     background: -webkit-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.01));
     background: -moz-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.01));
     background: -ms-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.01));
@@ -148,6 +148,7 @@
     background: linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.01));
     background-color: rgba(0,0,0,0.05);
 }
+
 
 #navContainer ul ul{
     position:absolute;
@@ -381,6 +382,7 @@ div.search-loading-invisible{
 .head { 
     border-radius: 3px 3px 0 0;
     padding: 20px 30px;
+    cursor: move;
 }
 
 .head > .closeview:hover{

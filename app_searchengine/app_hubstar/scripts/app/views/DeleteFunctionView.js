@@ -51,7 +51,7 @@ define([
 
             }
             else {
-                console.log(controller);
+
             }
         },
         cancelDelete: function() {
@@ -94,7 +94,7 @@ define([
 
             }
             else {
-                console.log(controller);
+
             }
 
 

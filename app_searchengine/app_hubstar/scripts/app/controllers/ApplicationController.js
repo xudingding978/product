@@ -8,7 +8,7 @@ define([
         content: [],
         loginInfo: "",
         search_area: "",
-        search_string: "homes",
+        search_string: "inspirational",
         firstTimeUser: false,
         test: false,
         user: null,
@@ -17,23 +17,16 @@ define([
         iframeURL: "",
         iframeLoginURL: "",
         init: function() {
-//            if (localStorage.loginStatus !== null && localStorage.loginStatus !== ""&&localStorage.loginStatus!==undefined) {
-//
-//                 this.newSearch();
-//            }
 
+            this.newSearch();
             var address = document.URL;
             var domain = address.split("/")[2];
             this.set('iframeURL', "http://" + domain + "/user/create/");
             this.set('iframeLoginURL', "http://" + domain + "/site/login/");
-
-
         },
         popupModal: function() {
             this.set('popup', !this.get('popup'));
-        },
-        closeModal: function() {
-            this.set('popup', !this.get('popup'));
+
         },
         email_login: function() {
             this.set('mail', !this.get('mail'));
@@ -48,7 +41,7 @@ define([
             this.set("test", !this.get("test"));
         },
         scrollDownAction: function() {
-            if (App.get("itemNumber") < 50) {
+            if (App.get("itemNumber") < this.get('size')) {
             } else {
                 this.set('loadingTime', true);
             }
@@ -72,7 +65,7 @@ define([
         newSearch: function() {
             this.set("content", []);
             this.set("from", 0);
-            this.set("size", 50);
+            this.set("size", 20);
             this.set('loadingTime', true);
             var d = new Date();
             var start = d.getTime();
@@ -128,6 +121,17 @@ define([
             totalTime += "ms";
             return totalTime;
         }
+        ,
+        flipFrontClick: function() {
+
+            $(".hover").addClass('flip');
+        },
+        flipFrontBack: function() {
+            $(".hover").removeClass('flip');
+        }
+
+
+
 
 
     });

@@ -30,11 +30,11 @@ class MegasController extends Controller {
     public function actionCreate() {
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
-
         $mega = $request_arr['mega'];
         if ($mega['type'] == "profile") {
             $this->createProfile($mega);
         } elseif ($mega['type'] == "photo") {
+
             $this->createUploadedPhoto($mega);
         }
 
@@ -43,7 +43,6 @@ class MegasController extends Controller {
 
     public function actionRead() {
         try {
-//            $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
 
@@ -67,7 +66,7 @@ class MegasController extends Controller {
         } elseif ($newRecord['mega']['type'] == 'profile') {
             $this->updateProfileRecord($newRecord);
         } elseif ($newRecord['mega']['type'] == 'photo') {
-       $photoController = new PhotosController();
+            $photoController = new PhotosController();
             $photoController->photoUpdate($newRecord);
         } else {
             $this->updateMega($newRecord);
@@ -78,10 +77,9 @@ class MegasController extends Controller {
         try {
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
-            $request_json = $this->getRequestResultByID('megas', $id);
+            $request_json = $this->getRequestResultByID(self::JSON_RESPONSE_ROOT_SINGLE, $id);
             $megas = CJSON::decode($request_json, true);
-            $mega = $megas['megas'][0];
-
+            $mega = $megas['mega'];
             $docID = $this->getDocId($mega['type'], $mega['id']);
             $cb = $this->couchBaseConnection();
             if ($cb->delete($docID)) {
@@ -93,61 +91,6 @@ class MegasController extends Controller {
             echo $exc->getTraceAsString();
         }
     }
-
-//    public function photoSavingToS3($request_arr, $path) {
-//        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
-//        $key = explode(".", $_SERVER['HTTP_HOST']);
-//        $key = $key[1] . '.' . $key[2];
-//        $result = $cb->get($key);
-//        $result_arr = CJSON::decode($result, true);
-//        $response = false;
-//
-//        $data = $this->getInputData($request_arr ["object"]['photos'][0]['photo_type'], $request_arr ["object"]['photos'][0]['photo_url']);
-//        $client = Aws\S3\S3Client::factory(
-//                        $result_arr["providers"]["S3Client"]
-//        );
-//        return $response;
-//    }
-//    public function setImage($url) {
-//        $ch = curl_init($url);
-//        curl_setopt($ch, CURLOPT_HEADER, 0);
-//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-//        curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
-//        $data = curl_exec($ch);
-//
-//        if (is_null($data) || strpos($data, '404') || empty($data)) {
-//            $my_file = '/home/devbox/NetBeansProjects/test/error.log';
-//            $handle = fopen($my_file, 'a') or die('Cannot open file:  ' . $my_file);
-//            $output = "\n" . 'New data ';
-//            $output = "\n" . $url . ' has error';
-//            fwrite($handle, $output);
-//            fclose($handle);
-//        } else {
-//            $my_file = '/home/devbox/NetBeansProjects/test/sucess.log';
-//            $handle = fopen($my_file, 'a') or die('Cannot open file:  ' . $my_file);
-//            $output = "\n" . $url . ' is create';
-//            fwrite($handle, $output);
-//            fclose($handle);
-//            $this->putImagetoS3($url, $data);
-//        }
-//    }
-//
-//    public function putImagetoS3($url, $data) {
-//        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
-//        $key = explode(".", $_SERVER['HTTP_HOST']);
-//        $key = $key[1] . '.' . $key[2];
-//        $result = $cb->get($key);
-//        $result_arr = CJSON::decode($result, true);
-//        $client = Aws\S3\S3Client::factory(
-//                        $result_arr["providers"]["S3Client"]
-//        );
-//        $client->putObject(array(
-//            'Bucket' => "hubstar-dev",
-//            'Key' => $url,
-//            'Body' => $data,
-//            'ACL' => 'public-read'
-//        ));
-//    }
 
     public function updateProfileRecord($newRecord) {
         try {
@@ -188,6 +131,7 @@ class MegasController extends Controller {
     public function createUploadedPhoto($mega) {
         if (sizeof($mega) > 0) {
             $photoController = new PhotosController();
+
             $photoController->photoCreate($mega);
         }
     }

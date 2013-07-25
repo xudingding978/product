@@ -26,13 +26,13 @@ define(["ember", "models/UserModel"], function(Ember, UserModel) {
                     this.set('selected_topics', this.get('selected_topics').replace(topic + ",", ""));
 
                 }
-                //       console.log(this.get('selected_topics'));
+      
                 App.set(id, false);
             } else {
                 $('#' + id).attr("style", "opacity:1;height: 350px; width: 300px;");
 
                 this.set('selected_topics', this.get('selected_topics') + topic + ",");
-                //      console.log(this.get('selected_topics'));
+
                 App.set(id, true);
             }
 
@@ -41,7 +41,7 @@ define(["ember", "models/UserModel"], function(Ember, UserModel) {
 
             var data = this.get('selected_topics');
             var user = UserModel.find(localStorage.loginStatus);
-            console.log(user);
+
             user.set('selected_topics', data.substring(0, data.length - 1));
             user.store.commit();
         }

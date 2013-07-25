@@ -25,7 +25,7 @@ define([
         projectTimeframe: null,
         projectBudget: null,
         projectExperience: null,
-        needs: ["mega", "profile"],
+        needs: ["mega", "profile",'article'],
         setSelectedMega: function(id)
         {
 
@@ -50,12 +50,15 @@ define([
         closeContact: function() {
             var megaController = this.get("controllers.mega");
             var profileController = this.get("controllers.profile");
+                 var articleController = this.get("controllers.article");
+
             this.set('projectCategoryDropdown', false);
             this.set('projectTimeframeDropdown', false);
             this.set('projectBudgetDropdown', false);
             this.set('projectExperienceDropdown', false);
             megaController.closeContact();
             profileController.closeContact();
+                   articleController.closeContact();
         },
         setEditable: function(attr) {
             var swtich = "isDisplay" + attr + "Editable";
@@ -89,28 +92,28 @@ define([
         },
         dropdown: function(checking) {
             if (checking === "category") {
-                //    console.log(checking);
+ 
                 this.set('projectExperienceDropdown', false);
                 this.set('projectTimeframeDropdown', false);
                 this.set('projectBudgetDropdown', false);
                 this.set('projectCategoryDropdown', !this.get('projectCategoryDropdown'));
 
             } else if (checking === "Timeframe") {
-                //      console.log(checking);
+
                 this.set('projectExperienceDropdown', false);
                 this.set('projectBudgetDropdown', false);
                 this.set('projectCategoryDropdown', false);
                 this.set('projectTimeframeDropdown', !this.get('projectTimeframeDropdown'));
 
             } else if (checking === "Budget") {
-                //       console.log(checking);
+
                 this.set('projectExperienceDropdown', false);
                 this.set('projectCategoryDropdown', false);
                 this.set('projectTimeframeDropdown', false);
                 this.set('projectBudgetDropdown', !this.get('projectBudgetDropdown'));
 
             } else if (checking === "Experience") {
-                //       console.log(checking);
+
                 this.set('projectTimeframeDropdown', false);
                 this.set('projectCategoryDropdown', false);
                 this.set('projectBudgetDropdown', false);
@@ -130,7 +133,7 @@ define([
             this.set('firstStepOfContactEmail', false);
 
 
-        },
+        }
     });
 
     return ContactController;

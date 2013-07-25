@@ -7,12 +7,16 @@ define([
         content: [],
         title: null,
         is_authentic_user: false,
-        needs: ['photoCreate', 'profile'],
+        is_profile_editing_mode: false,
+        is_user_editing_mode: false,
+        needs: ['photoCreate', 'profile', 'permission', 'photoCreateInfoSetting'],
         user_id: null,
         init: function() {
-            this.checkAuthenticUser();
+
+
         },
         selectModelForUser: function(collection_id) {
+
             this.set('content', []);
             var address = document.URL;
             var user_id = address.split("#")[1].split("/")[2];
@@ -32,12 +36,13 @@ define([
                 }
             });
             this.checkAuthenticUser();
+            this.checkEditingMode();
         },
         selectModelForProfile: function(collection_id) {
             this.set('title', collection_id);
             this.resetContent();
-
-
+            this.checkAuthenticUser();
+            this.checkEditingMode();
         },
         newUpload: function() {
             $('#ownerUpload').attr('style', 'display:block');
@@ -52,6 +57,7 @@ define([
 
             $('#ownerUpload').attr('style', 'display:none');
             $('#tagetUplaod').attr('style', 'display:block');
+            this.set('uploadOrsubmit', false);
             setTimeout(function() {
                 $('#masonry_photo_collection_container').masonry("reload");
             }, 200);
@@ -89,6 +95,9 @@ define([
                         break;
                     }
                 }
+                setTimeout(function() {
+                    $('#masonry_photo_collection_container').masonry("reload");
+                }, 200);
                 this.cancelDelete();
             } else {
                 this.set('willDelete', true);
@@ -103,32 +112,22 @@ define([
             App.set('data', null);
         },
         checkAuthenticUser: function() {
-            var authenticUsers = this.get("model").get("owner") + "," + this.get("model").get("profile_editors");
             var currentUser = App.User.find(localStorage.loginStatus);
+            var current_user_email = currentUser.get('email');
+            var permissionController = this.get('controllers.permission');
             var that = this;
-            var email = currentUser.get('email');
-            if (authenticUsers !== null && authenticUsers !== undefined && email !== null && email !== undefined&&App.get('editingMode')==="profile") {
-                this.setIsAuthenticUser(authenticUsers, email);
-            }
+            var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
+            that.set("is_authentic_user", is_authentic_user);
             currentUser.addObserver('isLoaded', function() {
-                email = currentUser.get('email');
+                var current_user_email = currentUser.get('email');
                 if (currentUser.get('isLoaded')) {
-                    that.checkAuthenticUser();
+                    var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
+                    that.set("is_authentic_user", is_authentic_user);
                 }
             });
-        },
-        setIsAuthenticUser: function(authenticUsers, email)
-        {
 
-            if (authenticUsers.indexOf(email) !== -1) {
-                this.set('is_authentic_user', true);
-            }
-            else if (email.indexOf('@trendsideas.com') !== -1) {
-                this.set('is_authentic_user', true);
-            }
-            else {
-                this.set('is_authentic_user', false);
-            }
+
+
         },
         changeCollectionCover: function(id, collection_id, AppModel) {
 
@@ -136,7 +135,7 @@ define([
             var Mega = App.Mega.find(id);
             var coverImge = Mega.get('photo').objectAt(0).get('photo_image_original_url');
             var address = document.URL;
-            console.log(address);
+
             var owner_id = address.split("#")[1].split("/")[2];
 
             var userOrprofile = AppModel.find(owner_id).get('collections');
@@ -154,7 +153,8 @@ define([
         dropdownPhotoSetting: function(id) {
 
             $('#dropdown_id_' + id).toggleClass('hideClass');
-        }, resetContent: function()
+        },
+        resetContent: function()
         {
             var proController = this.get('controllers.profile');
             this.set("is_authentic_user", proController.get("is_authentic_user"));
@@ -176,6 +176,21 @@ define([
                     }
                 }
             });
+        },
+        checkEditingMode: function()
+        {
+            this.set('is_profile_editing_mode', false);
+            this.set('is_user_editing_mode', false);
+            if (App.get('editingMode') === 'profile') {
+                this.set('is_profile_editing_mode', true);
+            }
+            else if (App.get('editingMode') === 'user') {
+                this.set('is_user_editing_mode', true);
+            }
+            else {
+                this.set('is_profile_editing_mode', false);
+                this.set('is_user_editing_mode', false);
+            }
         }
     });
     return MasonryCollectionItemsController;

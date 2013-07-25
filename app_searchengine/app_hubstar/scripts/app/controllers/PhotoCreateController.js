@@ -4,41 +4,47 @@ define(["ember", "helper"],
                 content: [],
                 newMegas: [],
                 mode: null,
+                //      isNewUpload:false,
+                filesNumber: null,
                 profileMega: null,
-                nodifyBackGround: false,
+                uploadOrsubmit: false,
                 collection_id: "",
-                needs: ['profile', 'masonryCollectionItems'],
+                needs: ['profile', 'masonryCollectionItems', 'photoCreateInfoSetting'],
                 init: function() {
                     this.setMega();
                 },
+                fileChecking: function(filesLength) {
+                    App.set("totalFiles", 0);
+                    this.set("filesNumber", filesLength);
+
+                },
                 commitFiles: function(evt) {
-                    this.set("nodifyBackGround", true);
+                    $('#dragAndDroppArea').attr('style', "display:block");
                     var input = evt.target;
                     var files = input.files;
                     var that = this;
+                    this.fileChecking(files.length);
+
                     for (var i = 0; i < files.length; i++) {
                         (function(file) {
                             var name = file.name;
                             var type = file.type;
                             var reader = new FileReader();
                             reader.onload = function(e) {
-
                                 that.addPhotoObject(e, that, name, type);
                             }, reader.readAsDataURL(files[i]);
                         })(files[i]);
                         evt.preventDefault();
                     }
                 },
-                setMode: function()
-                {
-                }, submit: function()
-                {
+                submit: function() {
                     App.store.commit();
-                }, back: function()
+                },
+                back: function()
                 {
 
-                    this.set("content", []);
-                    this.set("nodifyBackGround", false);
+                    App.set('isNewUpload', true);
+                    $('#dragAndDroppArea').attr('style', "display:none");
                     var masonryCollectionItems = this.get('controllers.masonryCollectionItems');
                     masonryCollectionItems.back();
                 },
@@ -55,9 +61,10 @@ define(["ember", "helper"],
                         });
                     }
                 },
-                createNewMega: function(ProfileMega)
+                createNewMega: function(ProfileMega, testID)
                 {
                     var photoMega = App.Mega.createRecord({
+                        "id": testID,
                         "accessed": ProfileMega.get("accessed"),
                         "boost": ProfileMega.get("boost"),
                         "owner_type": "profiles",
@@ -93,10 +100,14 @@ define(["ember", "helper"],
                     });
                     return photoMega;
                 }, addPhotoObject: function(e, that, name, type) {
+                    var testID = createGuid();
+
+
                     var target = that.getTarget(e);
                     var src = target.result;
-                    var mega = that.createNewMega(that.get("profileMega"));
+                    var mega = that.createNewMega(that.get("profileMega"), testID);
                     var file = App.Photo.createRecord({
+                        "id": testID,
                         "photo_title": name.toLowerCase(),
                         "photo_source_id": name.toLowerCase().replace('.', "_"),
                         "photo_image_original_url": src,
@@ -104,12 +115,26 @@ define(["ember", "helper"],
                         "photo_type": type,
                         "photo_keywords": that.get("profileMega").get("keywords")});
                     mega.get("photo").pushObject(file);
+                    var thatP = this;
                     mega.addObserver('isSaving', function() {
                         if (mega.get('isSaving')) {
                             $('.' + file.get('photo_source_id')).attr("style", "display:block");
                         }
                         else {
+                            App.set("totalFiles", App.get("totalFiles") + 1);
                             $('.' + file.get('photo_source_id')).attr("style", "display:none");
+
+                            if (App.get("totalFiles") === thatP.get("filesNumber")) {
+                                var masonryCollectionItems = thatP.get('controllers.masonryCollectionItems');
+
+                                var photoCreateInfoSettingController = thatP.get('controllers.photoCreateInfoSetting');
+                                App.set('UploadImageInfoData', that.get("content"));
+
+                                photoCreateInfoSettingController.setData();
+                                photoCreateInfoSettingController.set('isEditingMode', true);
+
+                                masonryCollectionItems.set('uploadOrsubmit', !masonryCollectionItems.get('uploadOrsubmit'));
+                            }
                         }
                     });
                     that.get("content").addObject(file);
@@ -124,19 +149,26 @@ define(["ember", "helper"],
                     if (targ.nodeType === 3) // defeat Safari bug
                         targ = targ.parentNode;
                     return targ;
+                },
+                checkingCleanBeforeUpload: function() {
+
+                    if (App.get('isNewUpload')) {
+                        this.set('content', []);
+                        App.set('isNewUpload', false);
+                    }
                 }
-            }
-            );
+
+
+            });
             PhotoCreateController.cancel = function(event) {
                 event.preventDefault();
                 return false;
             };
             PhotoCreateController.Droppable = Ember.Mixin.create(PhotoCreateController, {
-                content: [],
                 dragEnter: PhotoCreateController.cancel,
                 dragOver: PhotoCreateController.cancel,
                 test: function() {
-                    console.log("this is mixin test");
+
                 }
 
             });

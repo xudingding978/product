@@ -1,6 +1,6 @@
-define([
-    'ember'
 
+define([
+    'ember',
 ], function(
         Ember
 
@@ -17,22 +17,12 @@ define([
             if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
 
                 this.transitionTo('indexIndex');
-                  this.controllerFor('application').set('popup', true);
-
+                this.controllerFor('application').set('popup', true);
             } else {
-
                 this.transitionTo('profile');
-
             }
+        }
 
-
-        },
-//        renderTemplate: function() {
-//
-//            this.render('profiles', {
-//                into: "application"
-//            });
-//        }
 
     });
     return ProfileIndexRoute;

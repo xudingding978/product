@@ -13,16 +13,15 @@ class TestController extends Controller {
     const JSON_RESPONSE_ROOT_PLURAL = 'megas';
 
     public function actionIndex() {
-        echo $this->sendResponse(200, "aaaaaaaaaaaaa");
+     
     }
 
     public function actionCreate() {
-        echo "this is create method";
+
     }
 
     public function actionRead() {
-        error_log("aaaaaaaaaaaaaaa");
-        echo "aaaaaaaaaaa";
+
     }
 
     public function actionUpdate() {

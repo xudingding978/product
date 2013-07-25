@@ -60,7 +60,7 @@ class Controller extends CController {
      * @param string $contentType Header content-type
      * @return HTTP response
      */
-    protected function sendResponse($status = 200, $body = '', $contentType = 'application/json') {
+    protected function sendResponse($status = 204, $body = '', $contentType = 'application/json') {
 // Set the status
         $statusHeader = 'HTTP/1.1 ' . $status . ' ' . $this->getStatusCodeMessage($status);
         header($statusHeader);
@@ -147,6 +147,20 @@ class Controller extends CController {
             $from = $this->getUserInput($requireParams[3]);
             $size = $this->getUserInput($requireParams[4]);
             $response = $this->performSearch($returnType, $region, $searchString, $from, $size);
+        } elseif ($requireType == 'uploadPhotoIDs') {
+
+            $upload_Image_ids = $this->getUserInput($requireParams[1]);
+            $raw_id = str_replace("test", "", $upload_Image_ids);
+
+            $imageIDs = explode('%2C', $raw_id);
+            $str_ImageIds = "";
+            for ($i = 0; $i < sizeof($imageIDs); $i++) {
+                $str_ImageIds = $str_ImageIds . '\"' . $imageIDs[$i] . '\"';
+                if ($i + 1 < sizeof($imageIDs)) {
+                    $str_ImageIds.=',';
+                }
+            }
+            $response = $this->QueryStringByIds($returnType, $str_ImageIds, "id");
         } elseif ($requireType == 'collection') {
             $collection_id = $this->getUserInput($requireParams[1]);
             $owner_profile_id = $this->getUserInput($requireParams[2]);
@@ -162,7 +176,7 @@ class Controller extends CController {
                     $str_partnerIds.=',';
                 }
             }
-            $response = $this->getProfilePartner($returnType, $str_partnerIds);
+            $response = $this->QueryStringByIds($returnType, $str_partnerIds, "profile.id");
         } elseif ($requireType == 'articleRelatedImage') {
             $article_id = $this->getUserInput($requireParams[1]);
             $owner_id = $this->getUserInput($requireParams[2]);
@@ -221,6 +235,7 @@ class Controller extends CController {
         $request->size($size);
         $max = sizeof($requestArray);
         $bool = Sherlock\Sherlock::queryBuilder()->Bool();
+
         for ($i = 0; $i < $max; $i++) {
             $must = $this->getmustQuestWithQueryString($requestArray[$i]);
             if ($search_type == "must") {
@@ -231,6 +246,7 @@ class Controller extends CController {
                 echo "no such search type, please input: must or should as a search type.";
             }
         }
+
         $request->query($bool);
         $response = $request->execute();
 
@@ -245,35 +261,44 @@ class Controller extends CController {
                 ->field('couchbaseDocument.doc.id');
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->should($should);
         $response = $request->query($bool)->execute();
+        if ($returnType == "mega" || $returnType == "megas") {
+            $results = '{"' . $returnType . '":';
+            $i = 0;
+            foreach ($response as $hit) {
+                $results .= CJSON::encode($hit['source']['doc']);
 
-        $results = '{"' . $returnType . '":';
-        $i = 0;
-        foreach ($response as $hit) {
-
-            $results .= CJSON::encode($hit['source']['doc']);
-
-            if (++$i < count($response)) {
-                $results .= ',';
+                if (++$i < count($response)) {
+                    $results .= ',';
+                }
             }
+            $results .= '}';
+        } else {
+            $results = '{"' . $returnType . '":';
+            $i = 0;
+            foreach ($response as $hit) {
+                $results .= CJSON::encode($hit['source']['doc'][$returnType][0]);
+
+                if (++$i < count($response)) {
+                    $results .= ',';
+                }
+            }
+            $results .= '}';
         }
-        $results .= '}';
-
         return $results;
-
-
     }
 
-    protected function getProfilePartner($returnType, $partner_id) {
+    protected function QueryStringByIds($returnType, $ids, $default_field) {
+
         $request = $this->getElasticSearch();
         $request->from(0)
-                ->size(500);
+                ->size(100);
         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw('{
                 "bool": {
                     "must": [
                         {
                             "query_string": {
-                                "default_field": "couchbaseDocument.doc.profile.id",
-                                "query": "' . $partner_id . '"
+                                "default_field": "couchbaseDocument.doc.' . $default_field . '",
+                                "query": " ' . $ids . ' "
                             }
                         }
                     ]
@@ -290,8 +315,10 @@ class Controller extends CController {
 
 
         $request = $this->getElasticSearch();
+        $request->from(0)
+                ->size(100);
         $must = Sherlock\Sherlock::queryBuilder()
-                ->QueryString()->query($collection_id)
+                ->QueryString()->query('"'.$collection_id.'"')
                 ->default_field('couchbaseDocument.doc.collection_id');
 
 
@@ -302,7 +329,6 @@ class Controller extends CController {
 
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)
                 ->must($must2);
-
 
         $response = $request->query($bool)->execute();
 

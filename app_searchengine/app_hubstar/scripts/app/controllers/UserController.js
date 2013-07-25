@@ -32,7 +32,7 @@ define(["ember"
             var user = this.getCurrentUser();
             topics = user.get('selected_topics');
             this.set('selected_topics', []);
-            if (topics !== null && topics !== "") {
+            if (topics !== null && topics !== "" && topics !== undefined) {
                 var topics = topics.split(",");
                 for (var i = 0; i < topics.length; i++) {
                     this.get('selected_topics').pushObject({topics: topics[i]});
@@ -52,22 +52,19 @@ define(["ember"
                 var col = collections.objectAt(i);
                 if ((col.get("collection_ids") !== null && col.get("collection_ids") !== "")) {
                     var imgId = col.get("collection_ids").split(",").objectAt(0);
-                    this.getHeroImgae(imgId, col);
+                    this.getHeroImage(imgId, col);
                 }
             }
             this.checkAuthenticUser();
         },
-        getHeroImgae: function(id, col) {
+        getHeroImage: function(id, col) {
             var photo = App.Mega.find(id);
-            //   console.log(photo);
             photo.addObserver('isLoaded', function() {
                 if (photo.get('isLoaded')) {
-
-                    if (col.get("cover") === null || col.get("cover") === "") {
-
+                    if (col.get("cover") === null || col.get("cover") === "" || col.get("cover") === undefined || col.get("cover") === 'null'
+                            || col.get("cover") === 'https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png') {
                         col.set("cover", photo.get('photo').objectAt(0).get("photo_image_hero_url"));
                         col.store.save();
-
                     }
                 }
             });
@@ -211,7 +208,6 @@ define(["ember"
         {
 
             var id = this.checkingValidInput(this.selectedCollection.get('id'));
-
             this.checkingIdisExsinting(id, "update");
             if (isExsinting) {
                 var title = this.get("selectedCollection").get("id");
@@ -221,7 +217,6 @@ define(["ember"
                 $(".Targeting_Object_front").attr("style", "display:inline-block");
                 $(" #uploadArea").attr('style', "display:none");
                 $(" #uploadObject").attr('style', "display:block");
-
             } else {
                 isExsinting = true;
             }
@@ -238,7 +233,9 @@ define(["ember"
         },
         newCollection: function()
         {
-            var collection = App.Collection.createRecord({"id": null, "title": null, "desc": null, "collection_ids": null, "createdAt": new Date()});
+            var collection = App.Collection.createRecord({"id": null, "title": null, "desc": null, "collection_ids": null, "createdAt": new Date(),
+                'cover': 'https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png'
+            });
             this.set("selectedCollection", collection);
         },
         checkAuthenticUser: function() {
@@ -264,7 +261,6 @@ define(["ember"
             this.set('collectionTag', false);
             this.set('followerTag', false);
             this.get('controllers.itemProfiles').setPartnerRemove();
-
 
         },
         selectFollower: function(model) {

@@ -20,7 +20,7 @@ define([
             this.set("content", results);
             var stats = Stat.find({"RquireType": "status", "region": this.get("search_area"), "search_string": this.get("search_string")});
             var that = this;
-            console.log(Stat.find('hit').get("hits"));
+
         },
         defaultSearch: function() {
             this.set("loginInfo", localStorage.loginStatus);

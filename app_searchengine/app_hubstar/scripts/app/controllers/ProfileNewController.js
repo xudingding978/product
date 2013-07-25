@@ -83,16 +83,37 @@ define([
                     $(divInfo).attr('style', 'display:block');
                     return false;
                 },
+                specialCharactersChecking: function(str) {
+
+                    var re = /^[a-zA-Z-]*$/;
+                    return re.test(str);
+                },
+                spaceChecking: function(str) {
+
+                    if (str.indexOf(" ") !== -1) {
+                        str = str.split(' ').join('-');
+                    }
+                    return str;
+                },
                 fillInChecking: function() {
 
                     multiEmail2 = this.multiEmailChecking($('.mustFill6').val(), '#emailFormat6', multiEmail2);
                     var boost = this.numberChecking('#number1', $('.mustFill7').val());
-                    console.log(boost);
+
                     if ($('.mustFill1').val() !== "" && $('.mustFill2').val() !== "" && $('.country').val() !== "" && $('.region').val() !== "" && $('.mustFill3').val() !== "" && multiEmail1
                             && $('.mustFill5').val() !== "" && $('.mustFill4').val() !== "" && $('.mustFill6').val() !== "" && boost && $('.mustFill7').val() !== "" && multiEmail2 && this.validateEmail($('.mustFill5').val())
                             && this.validateEmail($('.mustFill3').val())) {
                         passSubmit = true;
                     } else {
+                        passSubmit = false;
+                    }
+
+                    if (this.specialCharactersChecking(this.spaceChecking($('.mustFill2').val()))) {
+
+                        $('#invalide').attr('style', 'display:none');
+                    } else {
+
+                        $('#invalide').attr('style', 'display:block');
                         passSubmit = false;
                     }
                     if (this.validateEmail($('.mustFill3').val())) {
@@ -188,7 +209,7 @@ define([
                     this.fillInChecking();
                     if (passSubmit) {
                         var newMega = App.store.createRecord(App.Mega, {//15
-                            "id": this.get("profile_url").toLowerCase(),
+                            "id": this.spaceChecking(this.get("profile_url").toLowerCase()),
                             "type": "profile",
                             accessed: null,
                             boost: this.get("boost"),
@@ -212,7 +233,7 @@ define([
                             updated: ""
                         });
                         var newProfile = App.store.createRecord(App.Profile, {
-                            id: this.get("profile_url").toLowerCase(),
+                            id: this.spaceChecking(this.get("profile_url").toLowerCase()),
                             profile_name: this.get("profile_name"),
                             profile_contact_last_name: this.get("last_name"),
                             profile_contact_first_name: this.get("first_name"),

@@ -557,6 +557,8 @@
 .albumcover{
     min-width: 350px;
     min-height: 350px;
+    max-width: none;
+    height: 100%;
 }
 
 .album-info{
@@ -914,6 +916,7 @@
 }
 
 .icon-on-black{
+    color: #aaa;
     cursor: pointer;
     height: 44px;
     position: absolute;
@@ -1081,6 +1084,21 @@
     border-bottom: 1px solid rgba(0,0,0,.03)
 }
 
+.edit_photo-titile_field{
+    margin-bottom: 7px;
+}
+
+.edit_photo-caption_field{
+    height: 200px;
+    resize: none;
+    overflow: auto;
+}
+
+.edit_photo-caption_field2{
+    height: 106px;
+    resize: none;
+    overflow: auto;
+}
 
 .collapes-container tr {
     display: table-row;
@@ -1454,9 +1472,10 @@
 }
 
 .posttime-container{
-    display: inline-block; 
-    white-space: nowrap; 
+    display: block;
+    white-space: nowrap;
     margin-bottom: 5px;
+    line-height: 10px;
 }
 
 .like-amount{

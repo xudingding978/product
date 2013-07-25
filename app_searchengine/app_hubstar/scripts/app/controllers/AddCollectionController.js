@@ -17,6 +17,7 @@ define([
         },
         setUser: function()
         {
+
             var user = App.User.find(localStorage.loginStatus);
             this.set("collections", user.get("collections"));
             if (this.get("collections").objectAt(0) !== null && this.get("collections").objectAt(0) !== undefined) {
@@ -67,7 +68,7 @@ define([
 
             else if (content.indexOf(this.get("objectID")) !== -1)
             {
-                console.log("already got that");
+     
             }
             else {
                 var ids = collection.get("collection_ids");
@@ -89,7 +90,9 @@ define([
                 title = this.checkingValidInput(title);
                 var isInputValid = this.checkInput(title);
                 if (isInputValid) {
-                    var tempCollection = App.Collection.createRecord({"id": title, "title": title, "desc": null, "collection_ids": null, "createdAt": new Date()});
+                    var tempCollection = App.Collection.createRecord({"id": title, "title": title, "desc": null, "collection_ids": null, "createdAt": new Date(),
+                     'cover':'https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png'                                
+                    });
                     this.get("collections").pushObject(tempCollection);
                     this.set('selectedTitle', tempCollection.get('title'));
                     $('#recordID').text(this.get('selectedTitle'));

@@ -23,9 +23,7 @@ define([
             });
         },
         setSelectCollection: function() {
-            //      var selectT = this.get("controller").get("selectedTitle");
-            //     $('select option:last').attr('selected', true);
-            //     console.log(errr);
+
         }.observes("controller.selectedTitle")
     });
     return DropDownView;

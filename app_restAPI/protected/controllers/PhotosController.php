@@ -14,7 +14,7 @@ class PhotosController extends Controller {
     }
 
     public function actionIndex() {
-        
+
         $temp = explode("/", $_SERVER['REQUEST_URI']);
 
         $id = $temp[sizeof($temp) - 1];
@@ -23,16 +23,16 @@ class PhotosController extends Controller {
     }
 
     public function actionCreate() {
-        
+
         $response;
-        $request_json = file_get_contents('php://input');        
+        $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
-        
-        
+
+
         $url = $request_arr["url"];
         $this->addResizedHeroPhoto($url);
     }
-    
+
     protected function addResizedHeroPhoto($url) {
         $isUrlExist = $this->isUrlExist($url);
         $this->is_image($url);
@@ -43,7 +43,7 @@ class PhotosController extends Controller {
                 $url = str_replace('http://', 'http://imageservice.', $url) . '?width=336&format=jpg';
                 $url = str_replace('hero', 'original', $url);
             }
-            
+
             $image_info = $this->getImageInfo($url);
             $name = $this->renamingImage($image_info, $url);
             if (strpos($url, 'original')) {
@@ -150,9 +150,7 @@ class PhotosController extends Controller {
             } elseif (strpos($url, 'imageservice')) {
                 $stamp = imagecreatefrompng('https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/watermark4hero.png');
             }
-
             $message = "get water mark image faill from localhost: " . $e->getMessage() . "\r\n" . date("Y-m-d H:i:s") . $url . "\r\n";
-
 
             return $stamp;
         }
@@ -160,21 +158,45 @@ class PhotosController extends Controller {
 
     public function actionRead() {
 
-        $temp = explode("/", $_SERVER['REQUEST_URI']);
 
-        $id = $temp[sizeof($temp) - 1];
-        $result = $this->getRequestResultByID(self::JSON_RESPONSE_ROOT_SINGLE, $id);
-        $this->sendResponse(null, $result);
 
         $temp = explode("/", $_SERVER['REQUEST_URI']);
 
         $id = $temp[sizeof($temp) - 1];
-        $result = $this->getRequestResultByID(self::JSON_RESPONSE_ROOT_SINGLE, $id);
-        $this->sendResponse(null, $result);
+        $photo = $this->getRequestResultByID(self::JSON_RESPONSE_ROOT_SINGLE, $id);
+//       $result_arr = CJSON::decode($mega, true);
+//        error_log(var_export($result_arr,true));
+//    $result=$result_arr['photo']['photo'][0];
+//      $result = CJSON::encode($result, true);
+        $this->sendResponse(200, $photo);
     }
 
     public function actionUpdate() {
-        
+
+
+        try {
+            $newRecord = file_get_contents('php://input');
+            $newRecord = CJSON::decode($newRecord, true);
+            $cb = $this->couchBaseConnection();
+            $temp = explode("/", $_SERVER['REQUEST_URI']);
+            $id = $temp[sizeof($temp) - 1];
+            $url = $this->getDomain() . "/" . $id;
+            $tempRecord = $cb->get($url);
+            $oldRecord = CJSON::decode($tempRecord, true);
+    
+            $oldRecord['object_description'] = $newRecord['photo']['photo_caption'];
+            $oldRecord['photo'][0]['photo_title'] = $newRecord['photo']['photo_title'];
+            $oldRecord['photo'][0]['photo_caption'] = $newRecord['photo']['photo_caption'];
+
+        error_log(var_export($oldRecord, true));
+            if ($cb->set($url, CJSON::encode($oldRecord))) {
+                $this->sendResponse(204);
+            } else {
+                $this->sendResponse(500, "some thing wrong");
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
     }
 
     public function updateCouchbasePhoto($id) {
@@ -230,28 +252,6 @@ class PhotosController extends Controller {
         $data = base64_decode($tempInput);
         return $data;
     }
-
-//    public function photoSavingToS3($request_arr, $path, $domain, $bucket) {
-//
-//        $response = false;
-////important changement
-//        //$array=getProviderConfigurationByName($domain,"S3Client");
-////            $client = Aws\S3\S3Client::factory($array);
-//        $client = $this->getS3Connection($domain);
-//        $data = $this->getInputData($request_arr['photo']['photo_type'], $request_arr ['photo']['photo_image_url']);
-//        if ($client->doesObjectExist($bucket, $path . $request_arr ['photo']['photo_title'])) {
-//            $response = false;
-//        } else {
-//            $client->putObject(array(
-//                'Bucket' => "hubstar-dev",
-//                'Key' => $path . $request_arr ['photo']['photo_title'],
-//                'Body' => $data,
-//                'ACL' => 'public-read'
-//            ));
-//            $response = true;
-//        }
-//        return $response;
-//    }
 
     public function doPhotoResizing($mega) {
 
@@ -337,12 +337,9 @@ class PhotosController extends Controller {
 
     public function photoCreate($mega) {
 
-        $id = $this->getNewID();
-
-        $docID = $this->getDomain() . "/" . $id;
-        str_replace(' ', '', $docID);
-        $mega["id"] = $id;
-        $mega["photo"][0]["id"] = $id;
+        $mega["id"] = str_replace("test", "", $mega["id"]);
+        $docID = $this->getDomain() . "/" . $mega["id"];
+        $mega["photo"][0]["id"] = $mega["id"];
         $mega['created'] = $this->getCurrentUTC();
         $mega['updated'] = $this->getCurrentUTC();
 

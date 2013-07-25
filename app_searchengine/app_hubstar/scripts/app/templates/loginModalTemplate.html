@@ -1,11 +1,11 @@
 
 
-<div class="hover panel" style='width: 465px; text-align: center; color: rgb(51, 51, 51); border-radius: 3px;right:55%;margin: auto;z-index: 1000;'>
+<div class="hover panel" style='width: 465px; text-align: center; color: rgb(51, 51, 51); border-radius: 3px;right: 35%;margin: auto;z-index: 1000;top: 10%;'>
     <div class="front easing">
 
 
         <div class="head controlbtn-field"  style="width: 465px;background-color: #f3f3f3;">
-            <div type="button" {{action closeModal }} class="closeview"><i class="icon-remove"></i></div>
+            <div type="button" {{action popupModal }} class="closeview"><i class="icon-remove"></i></div>
             <img class="logonew"  style="margin: 30px auto 0; width: 92px; display: block;" src="../../../images/trendslogo(black).png"></img>
             <div style="margin: 20px auto; width: 360px;s">
                 <p style="text-align:center; font-weight: bold; ">COLLECT YOUR ONLINE RESOURCE FOR KITCHENS, PRODUCTS, SERVICES & IDEAS</p>
@@ -32,7 +32,7 @@
                     <li  onclick="Yahoo(650, 400);" ><a style="color:rgb(123,0,153)" href="#"><img src='../../../images/yahoo.png' style='width: auto; height: 35px; float:left;margin: -3% -5% 0 6%;'>Sign in with Yahoo</a></li>
                     <!--                    <li  onclick="Sina(650, 400);" ><a style="color:rgb(245,213,0)" href="#"><img src='../../../images/sina.png' style='width: auto; height: 35px; float:left;margin: -3% -3% 0 6%;'>Sign in with Sina</a></li>-->
                     <li  onclick="QQ(650, 400);" ><a style="color:rgb(62,59,62)" href="#"><img src='../../../images/qq.png' style='width: auto; height: 35px; float:left;margin: -3% -2% 0 7%;'>Sign in with QQ</a></li>
-                    <li  onclick="dismiss_modal_test();" ><a style="color:rgb(0,153,68)" href="#myModal"><i class="icon-envelope icon-large"></i>Sign in with Email</a></li>
+                    <li  class='signup'><a style="color:rgb(0,153,68)" href="#"><i class="icon-envelope icon-large"></i>Sign in with Email</a></li>
                 </ul>
             </div>
 
@@ -57,9 +57,7 @@
                     <div id="dropdown-cover" style="position: absolute; width: 45px; height: 45px; border-radius: 3px;"></div>
                     <div class="square-button-yahoo"><img src="../../../images/yahoo(white).png" style="float: left; margin: 10px 0px; width: auto; height:22px;  "></img></div></a>
 
-                <!--                <a  class="square-button"  href='#' onclick="Sina(650, 400);">  
-                                    <div id="dropdown-cover" style="position: absolute; width: 45px; height: 45px; border-radius: 3px;"></div>
-                                    <div class="square-button-sina"><img src="../../../images/sina(white).png" style="float: left; margin: 10px 3px; width: auto; height:22px; "></img></div></a>-->
+
 
                 <a  class="square-button"  href='#' onclick="QQ(650, 400);">
                     <div id="dropdown-cover" style="position: absolute; width: 45px; height: 45px; border-radius: 3px;"></div>
@@ -92,7 +90,7 @@
         {{/unless}}
 
         <div style="position: relative; text-align: center; font-size: 12px; margin-bottom: 15px;"> 
-            Don't have an account? Click <a  href="#" id='signup'>here </a> to sign up!
+            Don't have an account? Click <a  href="#" class='signup' {{action flipFrontClick}}>here </a> to sign up!
         </div>
 
 
@@ -108,7 +106,7 @@
 <div class="back easing" style='width: 465px; text-align: center; color: rgb(51, 51, 51); border-radius: 3px; position: relative; bottom: 500px; height: auto;'>
 
     <div class="head controlbtn-field" style="width: 465px;background-color: #f3f3f3;">
-        <div type="button" {{action closeModal }} class="closeview"><i class="icon-remove"></i></div>
+        <div type="button" {{action popupModal }} class="closeview"><i class="icon-remove"></i></div>
         <div style="font-size: 22px; font-weight: bold; margin: 20px auto 15px;"> 
             Sign Up for your Free Account!
         </div>
@@ -149,29 +147,15 @@
 
 
 
-        <!--        <div style="width: 50%; margin: 10px auto;">
-        
-                    <input type="text" class="span3" placeholder="Email Address">
-        
-                    <input type="text" class="span3" placeholder="Username">
-        
-        
-                    <input type="password" class="span3"  placeholder="Password">
-        
-                    <input type="password" class="span3" placeholder="Confirm Password">
-        
-                </div>-->
-
-
 
         <iframe style='background: transparent;width: 350px;height: 270px;overflow: hidden;' {{bindAttr src="controller.iframeURL"}}></iframe>
 
 
-        <div  type="button" class="new-btn" id="goback" style="position: absolute;top: 478px;left: 165px;">
-            Go Back
-        </div>
-
+        <div  type="button" class="new-btn" id="goback" style="position: absolute;top: 478px;left: 165px;" {{action flipFrontBack}}>
+              Go Back
     </div>
+
+</div>
 
 
 
@@ -187,15 +171,6 @@
 
 <script>
 
-
-
-                        $('#signup').click(function() {
-                            $(".hover").addClass('flip');
-                        });
-
-                        $('#goback').click(function() {
-                            $(".hover").removeClass('flip');
-                        });
 
 
 

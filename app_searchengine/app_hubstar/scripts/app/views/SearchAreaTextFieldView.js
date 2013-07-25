@@ -21,7 +21,7 @@ define([
                 controller.setEditable("Email");
             }
             else {
-                console.log(controller);
+       
             }
         }
 

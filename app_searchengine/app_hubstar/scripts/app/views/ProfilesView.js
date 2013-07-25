@@ -11,7 +11,7 @@ define([
 
     var ProfilesView = Ember.View.extend({
         template: Ember.Handlebars.compile(profilesTemplate),
-        classNames: ["nothingHere"],
+        classNames: ["nothingHere"]
     });
     return ProfilesView;
 });

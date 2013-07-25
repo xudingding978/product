@@ -52,18 +52,6 @@
 
 <script type="text/javascript">
 
-//(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-//(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-//m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-//})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-//ga('create', 'the-ebusiness-company.com:trendsideas');
-//ga('send', 'pageview');
-
-
-
-
-
     function DropDown(el) {
         this.dd = el;
         this.placeholder = this.dd.children('span');
@@ -98,29 +86,16 @@
     };
 
     $(function() {
-
-
         var dd1 = new DropDown($('.dropdown_test_1'));
-
-        $(document).click(function() {
-            // all dropdowns
-            $('.wrapper-dropdown-3').removeClass('active');
-        });
-
-        var dd3 = new DropDown($('.dropdown_test_3'));
-
         $(document).click(function() {
             // all dropdowns
             $('.wrapper-dropdown-3').removeClass('active');
         });
         var dd4 = new DropDown($('.dropdown_test_4'));
-
         $(document).click(function() {
             // all dropdowns
             $('.wrapper-dropdown-3').removeClass('active');
         });
 
     });
-
-
 </script>

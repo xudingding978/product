@@ -9,7 +9,7 @@ define([
         tagName: 'img',
         viewName: 'previewImageView',
         printme: function() {
-            console.log('in previewImageView');
+
         }
     });
 

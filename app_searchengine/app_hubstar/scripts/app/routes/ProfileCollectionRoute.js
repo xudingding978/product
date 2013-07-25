@@ -13,7 +13,6 @@ define([
 
     var CollectionRoute = Ember.Route.extend({
         setupController: function(controller, model) {
-
             if (model.id === undefined || model.id === "") {
                 var address = document.URL;
                 var id = address.split("#")[1].split("/")[3];
@@ -30,16 +29,15 @@ define([
             this.controllerFor('profile').set('switchPhoto', false);
             var address = document.URL;
             var owner_id = address.split("#")[1].split("/")[2];
-            console.log(params.profileCollection_id);
             return MegaModel.find({RquireType: "collection", collection_id: params.profileCollection_id, owner_profile_id: owner_id});
 
         },
         events: {
             transitionToPhoto: function(id) {
+
                 this.transitionTo("photo", MegaModel.find(id));
             },
             transitionToProfile: function(id) {
-
                 this.transitionTo("profile", ProfileModel.find(id));
             }
         },

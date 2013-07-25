@@ -16,10 +16,11 @@ define(['models/MegaModel',
                 image_no: 1,
                 selectedPhoto: null,
                 isSelected: false,
-                needs: ['application', 'addCollection', 'contact'],
+                needs: ['application', 'addCollection', 'contact', 'permission'],
                 currentUser: null,
                 photo_album_id: null,
                 photo_thumb_id: null,
+                is_authentic_user: false,
                 findSelectedItemIndex: function() {
                     content = this.get('content');
                     for (var index = 0; index <= content.get('length'); index++) {
@@ -66,7 +67,6 @@ define(['models/MegaModel',
                 },
                 getInitData: function(megaObject) {
                     var photoObj = megaObject.get('photo').objectAt(0);
-                    //      var profile=App.Profile.find(megaObject.get('owner_id'));
                     this.set("currentUser", App.User.find(localStorage.loginStatus));
                     this.set("content", []);
                     this.set('image_no', 1);
@@ -77,10 +77,11 @@ define(['models/MegaModel',
                     this.set("photo_album_id", "album_" + megaObject.id);
                     this.set("photo_thumb_id", "thumb_" + megaObject.id);
                     this.addRelatedData(megaObject);
+                    this.checkAuthenticUser();
                     this.getCommentsById(megaObject.id);
                 },
                 selectImage: function(e) {
-           
+
                     this.set('megaResouce', MegaModel.find(e));
                     this.set('selectedPhoto', MegaModel.find(e).get('photo').objectAt(0));
                     this.set("selectedPhoto", this.get('selectedPhoto'));
@@ -144,15 +145,20 @@ define(['models/MegaModel',
                 addComment: function() {
                     var commentContent = this.get('commentContent');
                     if (commentContent) {
+
+
                         var comments = this.get('megaResouce').get('comments');
                         var commenter_profile_pic_url = this.get("currentUser").get('photo_url');
                         var commenter_id = this.get("currentUser").get('id');
                         var name = this.get("currentUser").get('display_name');
                         var date = new Date();
                         var tempComment = App.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url,
-                            "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(), "is_delete": false});
+                            "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(), 
+                            "is_delete": false, optional: this.get('megaResouce').get('type') + '/' +this.get('megaResouce').get('id')});
                         comments.insertAt(0, tempComment);
                         comments.store.save();
+
+
                         this.set('commentContent', '');
                         $('#addcommetBut').attr('style', 'display:block');
                         $('#commentBox').attr('style', 'display:none');
@@ -174,13 +180,27 @@ define(['models/MegaModel',
                     photoObject.set('photo_title', photo_title);
                     photoObject.set('photo_caption', photo_caption);
                     photoObject.store.save();
-//                      var update_profile_record = App.Profile.find(this.get('model.id'));
-//                    App.store.get('adapter').updateRecord(App.store, App.Profile, update_profile_record);
-                    //            console.log(photoObject);
                     this.set('enableToEdit', !this.get('enableToEdit'));
                 },
                 no: function() {
                     this.set('enableToEdit', !this.get('enableToEdit'));
+                },
+                checkAuthenticUser: function() {
+                    var currentUser = App.User.find(localStorage.loginStatus);
+                    var current_user_email = currentUser.get('email');
+                    var permissionController = this.get('controllers.permission');
+                    var that = this;
+                    var is_authentic_user = permissionController.checkAuthenticUser(that.get("megaResouce").get("owner_contact_email"), that.get("model").get("editors"), current_user_email);
+                    that.set("is_authentic_user", is_authentic_user);
+                    currentUser.addObserver('isLoaded', function() {
+                        var current_user_email = currentUser.get('email');
+                        if (currentUser.get('isLoaded')) {
+                            var is_authentic_user = permissionController.checkAuthenticUser(that.get("megaResouce").get("owner_contact_email"), that.get("model").get("editors"), current_user_email);
+                            that.set("is_authentic_user", is_authentic_user);
+                        }
+                    });
+
+
                 }
             });
             return MegaController;

@@ -11,9 +11,9 @@ define([
     var SearchRoute = Ember.Route.extend({
         setupController: function(controller, model) {
 
-            if (($('#search_key').val() == model.region) || ($('#search_business').val() == model.result)) {
+            if (($('#search_key').val() === model.region) || ($('#search_business').val() === model.result)) {
                 if (model.result !== "" || model.region !== "") {
-                    console.log("aaaaaaaaaaaa" + model);
+         
                     this.controllerFor('search').set('model', MegaModel.find({keywords: model.result, region: model.region}));
                 }
             }

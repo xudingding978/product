@@ -9,13 +9,14 @@
                 <i class="icon-remove"></i>
             </div>
         </div>
-       {{#if controller.collectable}}
+        {{#if controller.collectable}}
         {{render addCollection}}
         {{/if}}
-
         <div class="top-controlbar" >
             <!--            <div class="icon-on-black" style="left: 8px;"><i class="icon-thumbs-up"></i></div>-->
-            <div class="icon-on-black" style="left: 50px;" ><i class="icon-folder-close" {{action switchCollection on="click" target="controller"}}></i></div>
+            <div class="icon-on-black hint--rounded hint--bottom" data-hint="Collect this photo to your own collection." style="left: 50px;" >
+                <i class="icon-folder-close" {{action switchCollection on="click" target="controller"}}></i>
+            </div>
             <!--    <div class="icon-on-black" style="height: 44px;position: absolute;width: 44px;"><i class="icon-share-alt"></i></div>     -->
         </div>
 
@@ -35,13 +36,13 @@
             <div class="icon-on-black"  {{action previesImage on="click" target="controller"}}>
                 <i class="icon-arrow-left"></i>
             </div>
-            <div class="icon-on-black" style="left: 44px;" {{action popupAibum on="click" target="view"}}>
+            <div class="icon-on-black hint--rounded hint--top" data-hint="Show other photos in this collection." style="left: 44px;" {{action popupAibum on="click" target="view"}}>
                 <i class="icon-th"></i>
             </div>
             <div class="icon-on-black" style="left: 88px;" {{action nextImage on="click" target="controller"}}>
                 <i class="icon-arrow-right"></i>
             </div>
-            <div class="text-on-black" style="left: 132px;"> {{controller.image_no}}/{{content.length}} </div>
+            <div class="text-on-black" style="left: 132px; top:0;"> {{controller.image_no}}/{{content.length}} </div>
         </div>
 
 
@@ -62,40 +63,16 @@
                     <span class="posttime">{{date controller.megaResouce.created}}</span>
                 </div>
 
-                <div class="contactmebtn" style="position: absolute; right: 15px; top: 23px; bottom: auto;">
-                    <a class="contactmeicon" href="#" style=" width: 35px; height: 35px;">
-                        <img src="../images/mail_24dark.png" style="vertical-align: 6px; width: 15px;"/>
+                <div class="contactmebtn hint--rounded hint--left" data-hint="Contact us!" style="position: absolute; right: 15px; top: 23px; bottom: auto;">
+                    <a class="contactmeicon" href="#" style=" width: 35px; height: 35px;" {{action editingContactForm }} >
+                       <img src="../images/mail_24dark.png" style="vertical-align: 6px; width: 15px;"/>
                     </a>
                 </div>
             </div>
+            {{#if controller.contact}}
+            {{render contact}}
+            {{/if}}
 
-
-<!--            <div class="collapes-container" id="poster_action">
-                <table style="padding: 15px; width: 100%;font-size: 13px;  display: table;border-collapse: separate;border-spacing: 4px;">
-                    <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
-                        <tr>
-                            <td>Contact:</td>
-                            <td>--</td>
-                        </tr>
-                        <tr>
-                            <td>Category:</td>
-                            <td>--</td>
-                        </tr>
-                        <tr>
-                            <td>Address:</td>
-                            <td>--</td>
-                        </tr>
-                        <tr>
-                            <td>Phone:</td>
-                            <td>--</td>
-                        </tr>
-                        <tr>
-                            <td>Website:</td>
-                            <td>--</td>
-                        </tr>
-                    </tbody>
-                </table>                
-            </div>-->
 
 
         </div>
@@ -122,10 +99,10 @@
                 <div class="closeReadbtn new-btn" {{action checkClosed on="click" target="view"}}>
                     Close
                 </div>
-
+                {{/unless}}
             </div>
 
-            {{/unless}}
+
         </div>
 
 
@@ -138,39 +115,6 @@
         </div>
 
 
-
-
-
-
-        <!-- OBJECT PARTNER SECTION -->
-        <!--        <div>
-                    <div>
-                        <div class="object-collapes-title" {{action setPartnerTag on="click" target="view"}} >
-                            <div class="collapes-title_inner">
-                                Partner
-                            </div>
-                            <div class="dropdownicon" >
-                                <i class="icon-angle-down"></i>
-                            </div>      
-                        </div>
-                    </div>
-        
-        
-        
-                    <div class="collapes-container" style="height: 150px;overflow-y: auto;"  id="partner_action">
-                        <div class="collapes-container_inner">
-                            <a class="sml-partner" href="#" ><img src="../images/profilepic1.jpg" /></a>
-                            <a class="sml-partner" href="#" ><img src="../images/profilepic2.jpg" /></a>
-                            <a class="sml-partner" href="#" ><img src="../images/profilepic3.jpg" /></a>
-                            <a class="sml-partner" href="#" ><img src="../images/profilepic4.jpg" /></a>
-                            <a class="sml-partner" href="#" ><img src="../images/profilepic5.jpg" /></a>
-                            <a class="sml-partner" href="#" ><img src="../images/profilepic6.jpg" /></a>
-                            <a class="sml-partner" href="#" ><img src="../images/profilepic7.jpg" /></a>
-                            <a class="sml-partner" href="#" ><img src="../images/profilepic8.jpg" /></a>          
-                        </div>
-                    </div>
-        
-                </div>-->
 
 
 
@@ -247,7 +191,6 @@
                                     <div class="comment-content">
                                         {{content}}
 
-                                        <!-- for +someone into the conversation-->
                                         <span>
                                             <span></span>
                                             <a></a>

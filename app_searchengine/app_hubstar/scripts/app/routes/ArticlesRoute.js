@@ -11,7 +11,7 @@ define([
         //     controller: ApplicationController,
         setupController: function(IndexController, model) {
 
-        },
+        }
 
     });
     return LightBoxRoute;

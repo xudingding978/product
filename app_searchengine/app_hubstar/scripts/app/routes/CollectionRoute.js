@@ -13,24 +13,25 @@ define([
 
     var CollectionRoute = Ember.Route.extend({
         setupController: function(controller, model) {
-       
 
-            if (model.id === undefined ||model.id==="") {
+
+            if (model.id === undefined || model.id === "") {
                 var address = document.URL;
                 var id = address.split("#")[1].split("/")[3];
-   //             console.log(id);
+
             } else {
                 var id = model.id;
 
             }
             this.controllerFor('user').set('switchPhoto', false);
+
             this.controllerFor('masonryCollectionItems').selectModelForUser(id);
             this.controllerFor('masonryCollectionItems').set('canEdit', true);
 
 
         },
         model: function(params) {
-    
+
             this.controllerFor('user').set('switchPhoto', false);
             var address = document.URL;
             var user_id = address.split("#")[1].split("/")[2];
@@ -57,10 +58,6 @@ define([
         renderTemplate: function() {
 
 
-//            this.render('user', {
-//                outlet: "users",
-//                into: "application"
-//            });
 
         }
 

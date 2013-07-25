@@ -20,7 +20,6 @@ define(["ember"], function(Ember) {
                     "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(), "is_delete": false,optional:   this.get('mega').get('type')+'/'+ this.get('mega').get('id')});
                 comments.insertAt(0, tempComment);
                  comments.store.save();
-         //       this.pushComment(tempComment);
                 this.set('commentContent', '');
                 $('#addcommetBut').attr('style', 'display:block');
                 $('#commentBox').attr('style', 'display:none');

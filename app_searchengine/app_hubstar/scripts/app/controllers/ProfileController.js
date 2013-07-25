@@ -443,6 +443,9 @@ define([
                 },
                 flipFrontBack: function() {
                     $(".hover").removeClass('flip');
+                }, setUploadImage: function(mode)
+                {
+                    console.log(mode);
                 }
             });
             return ProfileController;

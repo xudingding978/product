@@ -25181,6 +25181,7 @@ DSL.prototype = {
   },
 
   route: function(name, options) {
+
     Ember.assert("You must use `this.resource` to nest", typeof options !== 'function');
 
     options = options || {};

@@ -7,7 +7,7 @@ define(
     DS.RESTAdapter.map('App.Mega', {
         photo: {embedded: 'always'},
         user: {embedded: 'always'},
-        comments: {embedded: 'always'},
+        comments: {embedded: 'load'},
         profile: {embedded: 'always'},
         article: {embedded: 'always'}
     });

@@ -7104,6 +7104,7 @@ DS.JSONSerializer = DS.Serializer.extend({
       if (record) { loader.updateId(record, json[root]); }
       this.extractRecordRepresentation(loader, type, json[root]);
     } else {
+
       Ember.Logger.warn("Extract requested, but no data given for " + type + ". This may cause weird problems.");
     }
   },

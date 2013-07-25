@@ -1,6 +1,23 @@
 define(["ember"], function(Ember) {
 
-    var Router = Ember.Router.extend();
+    var Router = Ember.Router.extend(
+            {
+                checkPath: function(path) {
+                    path = path.replace(this.get('rootURL'), '').replace(/^(?=[^\/])/, "/");
+                    var resolvedStates = this.get("states.root").resolvePath(this, path);
+                    var lastState = resolvedStates.get("lastObject");
+                    return lastState.match.remaining === "";
+                },
+                route: function(path) {
+                    if (this.checkPath(path)) {
+                        this._super(path);
+                    } else {
+                        this.transitionTo("404page");
+                    }
+                }
+            }
+
+    );
     Router.map(function() {
         this.resource("index", {path: '/'}, function() {
             this.resource("indexIndex", {path: '/'});
@@ -14,6 +31,7 @@ define(["ember"], function(Ember) {
             this.resource("ideabooks", {path: '/ideabooks/:ideabook_id'});
 
             this.resource("profile", {path: '/profiles/:profile_id'}, function() {
+
                 this.resource("profileCollection", {path: ':profileCollection_id'});
             });
             this.resource("profiles", function() {

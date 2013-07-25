@@ -46,26 +46,39 @@
                     </li>
                     <script>
 
+                        $("#navContainer > ul > li >span").hover(function() {
+                            $("#navContainer > ul > li").not(this).removeClass('sidebar-hover');
+                        });
+
+
+
                         $("#navContainer > ul > li> ul >li >span").hover(function() {
-                            $("#navContainer > ul > li> ul >li").not(this).removeClass('aaaaaa');
+
+                            $(this).parent().parent().parent().addClass("sidebar-hover");
+
+                        });
+
+
+                        $("#navContainer > ul > li> ul >li >span").hover(function() {
+                            $("#navContainer > ul > li> ul >li").not(this).removeClass('sidebar-hover');
                         });
 
 
 
                         $("#navContainer > ul > li> ul >li>ul> li>span").hover(function() {
 
-                            $(this).parent().parent().parent().addClass("aaaaaa");
+                            $(this).parent().parent().parent().addClass("sidebar-hover");
 
                         });
 
                         $("#navContainer > ul > li> ul >li> ul >li >span").hover(function() {
-                            $("#navContainer > ul > li> ul >li> ul >li").not(this).removeClass('aaaaaa');
+                            $("#navContainer > ul > li> ul >li> ul >li").not(this).removeClass('sidebar-hover');
                         });
 
 
 
                         $("#navContainer > ul > li> ul >li>ul> li > ul ").hover(function() {
-                            $(this).parent().addClass("aaaaaa");
+                            $(this).parent().addClass("sidebar-hover");
 
                         });
 
@@ -79,11 +92,33 @@
                     <li>&nbsp;</li>
                     {{#each controller.user.collections}}
 
-                    <li><a  href="{{unbound controller.myUserProfile}}/{{unbound id}}" > {{id}}</a></li>
+                    <li><span><a  href="{{unbound controller.myUserProfile}}/{{unbound id}}" > {{id}}</a></span></li>
 
                     {{/each}}
                 </ul>
             </li>
+
+            <script>
+
+                $("#navContainer > ul > li >span").hover(function() {
+                    $("#navContainer > ul > li").removeClass('sidebar-hover');
+                });
+
+
+
+                $("#navContainer > ul > li> ul >li >span").hover(function() {
+
+                    $(this).parent().parent().parent().addClass("sidebar-hover");
+
+                });
+
+
+
+            </script>
+
+
+
+
             <li> <div><a href="#"> <i class="icon-question-sign" style="font-size: 20px;"></i></a></div>   
             </li>
             <li> <div><a href="#" onclick="logout();"> <i class="icon-off" style="font-size: 20px;"></i></a></div>   
@@ -97,27 +132,27 @@
 
 <script>
 
-                        function logout() {
+                function logout() {
 
-                            var address = document.URL;
-                            var domain = address.split("/")[2];
+                    var address = document.URL;
+                    var domain = address.split("/")[2];
 
 
 
-                            $.ajax({
-                                type: 'POST',
-                                url: 'http://' + domain + '/site/logout',
-                                contentType: 'application/json; charset=uft-8',
-                                dataType: 'json',
-                                success: function() {
-
-                                }
-                            });
-
-                            localStorage.clear();
-
+                    $.ajax({
+                        type: 'POST',
+                        url: 'http://' + domain + '/site/logout',
+                        contentType: 'application/json; charset=uft-8',
+                        dataType: 'json',
+                        success: function() {
 
                         }
+                    });
+
+                    localStorage.clear();
+
+
+                }
 
 
 

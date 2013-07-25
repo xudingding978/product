@@ -46,13 +46,24 @@ class Controller_admin extends CConsoleCommand
     }
     
         
-    protected function couchBaseConnection($bucket = "test") {
+    protected function couchBaseConnection($bucket) {
         return new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", $bucket, true);
     }
     
-    protected  function setCouchbaseObject($id, $photo_arr) {
-         $ch = $this->couchBaseConnection("production");
+    protected  function setCouchbaseObject($id, $photo_arr, $bucket) {
+         $ch = $this->couchBaseConnection($bucket);
+         
           if ($ch->set($id, CJSON::encode($photo_arr))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    protected  function addCouchbaseObject($id, $photo_arr, $bucket) {
+         $ch = $this->couchBaseConnection($bucket);
+         
+          if ($ch->add($id, CJSON::encode($photo_arr))) {
             return true;
         } else {
             return false;
@@ -66,7 +77,6 @@ class Controller_admin extends CConsoleCommand
         
         $result_arr['photo'][0]['photo_source_id'] = $source_Id;
         
-//        print_r($result_arr); 
         if ($ch->set($id, CJSON::encode($result_arr))) {
             echo $id . " update successssssssssssssssssssssssss! \r\n";
         } else {

@@ -4,6 +4,7 @@ Yii::import("application.components.*");
 
 class ProfileCommand extends Controller_admin {
     
+    
     public function actionIndex ($action=null) {
         echo (isset($action) ? 'Your are do... ' . $action."\r\n" : 'No action defined \r\n');
                 
@@ -14,13 +15,169 @@ class ProfileCommand extends Controller_admin {
             $this->importProfile ();
         } else if ($action == 'insert') {
             $this->insertProfileToMSDB();
+        } elseif ($action=='gj-gardner') {
+            $this->importProfilesToCouchbase();
         } else {
             echo "please input an action!!";
         }
         
         echo "All finished: start from: " . "\r\n";
         $end_time = microtime(true);
-        echo "totally spend: " . ($end_time - $start_time);
+        echo "totally spend: " . ($end_time - $start_time); 
+    }
+    
+    protected function importProfilesToCouchbase() {
+        // select data from DB table
+        $profiles_arr = $this->selectProfilesFromSQLDB(Profiles_Gj_Gardner::model());
+        $message = "";
+        if($profiles_arr != null) {
+            $total_amount = sizeof($profiles_arr);
+            if($total_amount>0) {
+                for ($i=0;$i<$total_amount;$i++) {
+                    $couchbase_id='trendsideas.com/profiles/'.$profiles_arr[$i]['ProfileUrl'];
+                    $obj_arr = $this->createObjectArr($profiles_arr[$i]);
+                    
+                    if($this->addCouchbaseObject($couchbase_id, $obj_arr, 'production')) {
+                        $url = "http://develop-api.trendsideas.com/PhotoData";
+                        $list_arr = array(
+                                'method' => 'POST',
+                                'function' => 'addProfileFolder',
+                                'obj_ID' => $obj_arr['id']
+                            );
+                        
+                        if ($this->getData($url, $list_arr)) {
+                            $message = $couchbase_id." ---have been add to couchbase! \r\n";
+                        } else {
+                            $message = "add folder in S3 server fail------------------------------ \r\n";
+                        }
+                        
+                    } else {
+                        $message = "add object fail ------------------------------- \r\n";
+                    }
+                    
+//                    print_r($obj_arr);
+                    echo $message;
+//                    exit();
+                    
+                    $this->writeToLog($this->error_path, $message);
+                }
+            } else {
+                $message = 'cannot find any data from sql server!';
+            }
+        } else {
+            $message = 'cannot find any data from sql server!';
+//            $this->writeToLog($this->log_path, $message);
+        }
+        
+        $this->writeToLog($this->error_path, $message);
+    }
+    
+    
+    private function createObjectArr($profile_arr) {
+        $now = strtotime(date('Y-m-d H:i:s'));
+//        $profile_name_lower = strtolower($profile_arr['ProfileName']);
+        $profile_name_lower = strtolower(str_replace("---", "-", preg_replace("/\s|\// ", "-", $profile_arr['ProfileName'])));
+        $profile_bg_url='http://s3.hubsrv.com/trendsideas.com/profiles/'.$profile_arr['ProfileUrl'].'/profile_bg.jpg';
+        $profile_hero_url='http://s3.hubsrv.com/trendsideas.com/profiles/'.$profile_arr['ProfileUrl'].'/profile_hero.jpg';
+        $profile_pic_url='http://s3.hubsrv.com/trendsideas.com/profiles/'.$profile_arr['ProfileUrl'].'/profile_pic.jpg';
+                
+        $mega_arr = array(
+            "id" => $profile_arr['ProfileUrl'],
+            "accessed" => $now,
+            "boost" => 6,
+            "created" => $now,
+            "categories" => $profile_arr['ProfileCategory'],
+            "collection_id" => null,
+            "creator" => null,
+            "creator_type" => null,
+            "creator_profile_pic" => NULL,
+            "country" => $profile_arr['Country'],
+            "collection_count" => null,
+            "deleted" => null,
+            "domains" => "trendsideas.com",
+            "editors" => NULL,
+            "geography" => null,
+            "like_count" => null,
+            "is_indexed" => true,
+            "is_active" => true,
+            "keywords" => str_replace("-", ", ", $profile_name_lower),
+            "object_image_linkto" => null,
+            "object_image_url" => null,
+            "object_title" => null,
+            "object_description" => $profile_arr['ProfileAboutUs'],
+            "owner_profile_pic" => $profile_pic_url,
+            "owner_type" => 'profiles',
+            "owner_title" => $profile_arr['ProfileName'],
+            "owner_id" => $profile_arr['ProfileUrl'],
+            "owner_contact_email" => $profile_arr['ProfileContactEmail'],
+            "owner_contact_cc_emails" => null,
+            "owner_contact_bcc_emails" => null,
+            "people_like" => null,
+            "region" => $profile_arr['Region'],
+            "suburb" => null,
+            "status_id" => null,
+            "subcategories" => NULL,
+            "timezone" => NULL,
+            "topics" => NULL,
+            "type" => "profile",
+            "updated" => $now, 
+            "uri_url" => null,
+            "view_count" => null,
+            "photo" => array(),
+            "user" => array(),
+            "profile" => array()
+        );
+        
+        $name_arr = preg_split("/\s/", $profile_arr['ProfileContact']);
+        $model_arr = array(
+            "id"=> $profile_arr['ProfileUrl'],
+            "profile_name"=>$profile_arr['ProfileName'],
+            "profile_bg_url" => $profile_bg_url,
+            "profile_hero_url"=> $profile_hero_url,
+            "profile_pic_url"=> $profile_pic_url,
+            "profile_client_name"=>$profile_arr['ClientContact'],
+            "profile_contact_id"=>NULL,
+            "profile_contact_first_name"=>$name_arr[0],
+            "profile_contact_last_name"=>$name_arr[1],
+            "profile_contact_email"=>$profile_arr['ProfileContactEmail'],
+            "profile_category"=>$profile_arr['ProfileCategory'],
+            "profile_about_us"=>$profile_arr['ProfileAboutUs'],
+            "profile_physical_address"=>$profile_arr['ProfilePhysicalAddress'],
+            "profile_contact_number"=>$profile_arr['ProfileContactNumber'],
+            "profile_keywords"=>str_replace("-", ", ", $profile_name_lower),
+            "profile_package_name"=>"Platinum",
+            "profile_areas_serviced"=>null,
+            "profile_website"=>$profile_arr['ProfileWebsite'],
+            "profile_website_url"=>$profile_arr['ProfileWebsiteUrl'],
+            "profile_editors"=>null,
+            "owner_contact_email"=>$profile_arr['ProfileContactEmail'],
+            "owner_contact_cc_emails"=>null,
+            "owner_contact_bcc_emails"=>null,
+            "profile_region"=>$profile_arr['Region'],
+            "profile_country"=>$profile_arr['Country'],
+            "profile_hours"=>$profile_arr['ProfileHours']
+        );
+        array_push($mega_arr['profile'], $model_arr);
+        
+        return $mega_arr;
+    }
+    
+    private function selectProfilesFromSQLDB($model) {
+        $profiles_arr = array();
+        $profiles_data = $model->findAll();
+        
+        if(sizeof($profiles_data)>0) {
+            foreach ($profiles_data as $val) {
+//                print_r($val->attributes);
+//                break;
+                
+                array_push($profiles_arr, $val->attributes);
+            }
+            
+            return $profiles_arr;
+        } else {
+            return null;
+        }
         
     }
     
@@ -42,7 +199,7 @@ class ProfileCommand extends Controller_admin {
                 } else {
                     $message = 'import profile to couchbase is fail, id: '. $profile_arr['profile'][$i]['id'];
                     echo $message;
-                    $this->writeToLog($this->log_path, $message);
+                    $this->writeToLog($this->error_path, $message);
                 }
                     
 //                break;
@@ -59,7 +216,6 @@ class ProfileCommand extends Controller_admin {
         
         return $profile->save();
     }
-
 
     protected function importProfile() {
         $url = "http://api.develop.devbox/profiles/";

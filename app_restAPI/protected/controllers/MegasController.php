@@ -43,7 +43,6 @@ class MegasController extends Controller {
 
     public function actionRead() {
         try {
-//            $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
 

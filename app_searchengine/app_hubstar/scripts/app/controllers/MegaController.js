@@ -16,7 +16,7 @@ define(['models/MegaModel',
                 image_no: 1,
                 selectedPhoto: null,
                 isSelected: false,
-                needs: ['application', 'addCollection', 'contact','permission'],
+                needs: ['application', 'addCollection', 'contact', 'permission'],
                 currentUser: null,
                 photo_album_id: null,
                 photo_thumb_id: null,
@@ -145,15 +145,20 @@ define(['models/MegaModel',
                 addComment: function() {
                     var commentContent = this.get('commentContent');
                     if (commentContent) {
+
+
                         var comments = this.get('megaResouce').get('comments');
                         var commenter_profile_pic_url = this.get("currentUser").get('photo_url');
                         var commenter_id = this.get("currentUser").get('id');
                         var name = this.get("currentUser").get('display_name');
                         var date = new Date();
                         var tempComment = App.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url,
-                            "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(), "is_delete": false});
+                            "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(), 
+                            "is_delete": false, optional: this.get('megaResouce').get('type') + '/' +this.get('megaResouce').get('id')});
                         comments.insertAt(0, tempComment);
                         comments.store.save();
+
+
                         this.set('commentContent', '');
                         $('#addcommetBut').attr('style', 'display:block');
                         $('#commentBox').attr('style', 'display:none');
@@ -190,7 +195,7 @@ define(['models/MegaModel',
                     currentUser.addObserver('isLoaded', function() {
                         var current_user_email = currentUser.get('email');
                         if (currentUser.get('isLoaded')) {
-                             var is_authentic_user = permissionController.checkAuthenticUser(that.get("megaResouce").get("owner_contact_email"), that.get("model").get("editors"), current_user_email);
+                            var is_authentic_user = permissionController.checkAuthenticUser(that.get("megaResouce").get("owner_contact_email"), that.get("model").get("editors"), current_user_email);
                             that.set("is_authentic_user", is_authentic_user);
                         }
                     });

@@ -30,22 +30,20 @@ define([
         },
         events: {
             transitionToCollectionPhoto: function(collection_id) {
-
                 var address = document.URL;
                 var user_id = address.split("#")[1].split("/")[2];
-
                 var profile = App.Profile.find(user_id);
                 for (var i = 0; i < profile.get('collections').get("length"); i++) {
                     var data = profile.get('collections').objectAt(i);
                     if (data.id === collection_id) {
+                        this.transitionTo("profileCollection", data);
                         break;
                     }
                 }
-                this.transitionTo("profileCollection", data);
+
             }
         },
         redirect: function() {
-
             if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
 
                 this.transitionTo('indexIndex');

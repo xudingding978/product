@@ -19,14 +19,10 @@ define([
         init: function() {
 
             this.newSearch();
-
-
             var address = document.URL;
             var domain = address.split("/")[2];
             this.set('iframeURL', "http://" + domain + "/user/create/");
             this.set('iframeLoginURL', "http://" + domain + "/site/login/");
-
-
         },
         popupModal: function() {
             this.set('popup', !this.get('popup'));

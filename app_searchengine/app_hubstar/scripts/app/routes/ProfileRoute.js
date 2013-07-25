@@ -13,6 +13,7 @@ define([
     //   var kink;
     var ProfileRoute = Ember.Route.extend({
         setupController: function(ProfileController, model) {
+
             App.set('editingMode', 'profile');
             ProfileController.setLocalLoginRecrod();
             /******************  partner cehcking*******************/
@@ -20,12 +21,14 @@ define([
             ProfileController.set('collectionTag', true);
             ProfileController.set('partnerTag', false);
             /*************************            partner cehcking           ***********8*/
+
             this.controllerFor('application').set('islogin', true);
             this.controllerFor('application').set('popup', false);
             this.controllerFor('application').set('isotherpage', true);
             this.controllerFor('searchs').setLoginImge();
             this.controllerFor('profile').set('switchPhoto', true);
-            this.controllerFor('application').init();
+
+
             ProfileController.setProfile(model.id);
         },
         events: {
@@ -36,11 +39,10 @@ define([
                 for (var i = 0; i < profile.get('collections').get("length"); i++) {
                     var data = profile.get('collections').objectAt(i);
                     if (data.id === collection_id) {
-                        this.transitionTo("profileCollection", data);
                         break;
                     }
                 }
-
+                this.transitionTo("profileCollection", data);
             }
         },
         redirect: function() {

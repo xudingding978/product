@@ -37,9 +37,6 @@ define(["ember", "helper"],
                         evt.preventDefault();
                     }
                 },
-                setMode: function()
-                {
-                },
                 submit: function() {
                     App.store.commit();
                 },

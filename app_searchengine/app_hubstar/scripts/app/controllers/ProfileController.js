@@ -64,6 +64,7 @@ define([
                 website_url: "",
                 uploadChecking: false,
                 updateOrCreate: true,
+               singleFileUploaderMode:false,
                 init: function() {
                     this.set('is_authentic_user', false);
                 },
@@ -445,6 +446,7 @@ define([
                     $(".hover").removeClass('flip');
                 }, setUploadImage: function(mode)
                 {
+                    this.set('singleFileUploaderMode',true);
                     console.log(mode);
                 }
             });

@@ -1,14 +1,13 @@
 define([
     "ember",
-        "controllers/SingleFileUploaderController",
+    "controllers/SingleFileUploaderController",
     "text!templates/singleFileUploaderTemplate.html"
-], function(Ember,SingleFileUploaderController, singleFileUploaderTemplate) {
+], function(Ember, SingleFileUploaderController, singleFileUploaderTemplate) {
     Ember.TEMPLATES["SingleFileUploader"] = Ember.Handlebars.compile(singleFileUploaderTemplate);
-console.log(SingleFileUploaderController);  
-var SingleDragNDropView = Ember.View.extend({
-        contentBinding: "SingleFileUploader",
+        
+    var SingleDragNDropView = Ember.View.extend(SingleFileUploaderController.Droppable,{
+        contentBinding: "singleFileUploader",
         template: Ember.Handlebars.compile(singleFileUploaderTemplate),
-
         drop: function(event) {
 
             return false;

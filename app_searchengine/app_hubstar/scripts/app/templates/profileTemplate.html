@@ -36,7 +36,7 @@
                       <i class="icon-cogs"></i>
                 </div>
 
-     
+
 
 
                 {{/if}}
@@ -580,7 +580,6 @@
 
 
 
-           
 
 
 
@@ -588,7 +587,8 @@
 
 
 
-   
+
+
 
 
 
@@ -597,7 +597,10 @@
 
 
                 <div class="tab-pane" id="fileuploader">
-  {{render SingleFileUploader}}
+                    {{controller.singleFileUploaderMode}}
+                    {{#if controller.singleFileUploaderMode}}
+                    {{render singleFileUploader this}}
+                    {{/if}}
 
                 </div>
             </div>

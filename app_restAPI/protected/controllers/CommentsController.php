@@ -25,6 +25,9 @@ class CommentsController extends Controller {
         $cb = $this->couchBaseConnection();
         $oldRecord_arr = $cb->get($docID);
         $oldRecord = CJSON::decode($oldRecord_arr, true);
+        if (!isset($oldRecord['comments'])) {
+            $oldRecord['comments'] = array();
+        }
         array_unshift($oldRecord['comments'], $newRecord['comment']);
         if ($cb->set($docID, CJSON::encode($oldRecord))) {
             $this->sendResponse(204);

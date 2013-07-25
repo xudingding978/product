@@ -138,18 +138,18 @@ return CMap::mergeArray(
 //                    'enableParamLogging' => YII_DEBUG,
 //                    'charset' => 'utf8'
 //                ),
-                'db_live' => array(
-                    'class' => 'CDbConnection',
-                    'connectionString' => $params['db_live.connectionString'],
-                    'username' => $params['db_live.username'],
-                    'password' => $params['db_live.password'],
-                    'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
-                    'enableParamLogging' => YII_DEBUG,
-                    'charset' => 'utf8'
-                ),
-                'errorHandler' => array(
-                    'errorAction' => 'site/error',
-                ),
+//                'db_live' => array(
+//                    'class' => 'CDbConnection',
+//                    'connectionString' => $params['db_live.connectionString'],
+//                    'username' => $params['db_live.username'],
+//                    'password' => $params['db_live.password'],
+//                    'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
+//                    'enableParamLogging' => YII_DEBUG,
+//                    'charset' => 'utf8'
+//                ),
+//                'errorHandler' => array(
+//                    'errorAction' => 'site/error',
+//                ),
 //                'log' => array(
 //                    'class' => 'CLogRouter',
 //                    'routes' => array(

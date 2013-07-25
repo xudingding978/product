@@ -25,7 +25,7 @@ class PhotoCommand extends Controller_admin {
         } else if ($action == "replace-original") {
             $this->replacingOriginalPhotoURL();        // this get the original  image from Trends Web Server, sends the URL to API for watermarkmark and upload
         } else if ($action == "stamp-original") {
-            $this->stampOriginalPhotoURL();        // 
+            $this->stampOriginalPhotoURL();        //
         } else if ($action == "load-photo-obj") {
             $this->loadPhotoObj();
         } else if ($action == 'fix-url') {

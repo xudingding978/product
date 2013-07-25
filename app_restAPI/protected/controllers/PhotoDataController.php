@@ -26,6 +26,19 @@ class PhotoDataController extends Controller_data {
         echo $photo_arr;
     }
     
+    public function actionCreate() {
+        $request_str = file_get_contents('php://input'); 
+        $request_arr = CJSON::decode($request_str, true);
+        error_log("in actionUPdate, PhotoDataController--------------".gettype($request_arr));
+        error_log(var_export($request_arr, true));
+        
+       if ($request_arr['function']=='addProfileFolder') {
+            echo CJSON::encode($this->addProfileFolder($request_arr));
+        } else {
+            echo null;
+        }
+    }
+    
     public function actionUpdate() {
         $request_str = file_get_contents('php://input'); 
         $request_arr = CJSON::decode($request_str, true);
@@ -68,6 +81,12 @@ class PhotoDataController extends Controller_data {
         }
     }
     
+    private function addProfileFolder ($request_arr) {
+        $bucket = 's3.hubsrv.com';
+        $key = 'trendsideas.com/profiles/' . $request_arr['obj_ID'] . '/';
+        
+        return $result=$this->saveImageToS3($key, "", $bucket);
+    }
     
 }
 

@@ -24,7 +24,7 @@ define(["ember", "helper"],
                     var files = input.files;
                     var that = this;
                     this.fileChecking(files.length);
-
+                    this.checkingCleanBeforeUpload();
                     for (var i = 0; i < files.length; i++) {
                         (function(file) {
                             var name = file.name;

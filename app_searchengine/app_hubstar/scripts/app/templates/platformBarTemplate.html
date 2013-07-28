@@ -10,13 +10,11 @@
 
 
 <div class="plaform_bar">
-
-
-
+    <img src="../../../images/reflection.png"/>
     <div id="navContainer" class="easing">
 
         <ul id="nav-ul">
-            <div style="width:120%; height: 100%; position: absolute; z-index: -1;"></div>
+            <div style="width:90px; height: 100%; position: absolute; z-index: -1;"></div>
             <li> 
                 <div> <img {{bindAttr src="controller.user.photo_url"}} class="profilepic_user"/></div>
             </li>
@@ -90,9 +88,10 @@
             <li> <span><a href="#"> <i class="icon-folder-open" style="font-size: 20px;"></i></a></span>   
                 <ul>
                     <li>&nbsp;</li>
+                    <div style="width: 120%; height: 150%; position: absolute;margin-left: -20px; margin-top: -50px;  z-index: -1;"></div>
                     {{#each controller.user.collections}}
 
-                    <li><span><a  href="{{unbound controller.myUserProfile}}/{{unbound id}}" > {{id}}</a></span></li>
+                    <li><a  href="{{unbound controller.myUserProfile}}/{{unbound id}}" > {{id}}</a></li>
 
                     {{/each}}
                 </ul>
@@ -101,18 +100,14 @@
             <script>
 
                 $("#navContainer > ul > li >span").hover(function() {
-                    $("#navContainer > ul > li").removeClass('sidebar-hover');
+                    $("#navContainer > ul > li").not(this).removeClass('sidebar-hover');
                 });
 
 
-
-                $("#navContainer > ul > li> ul >li >span").hover(function() {
-
-                    $(this).parent().parent().parent().addClass("sidebar-hover");
+                $("#navContainer > ul > li> ul ").hover(function() {
+                    $(this).parent().addClass("sidebar-hover");
 
                 });
-
-
 
             </script>
 
@@ -124,7 +119,12 @@
             <li> <div><a href="#" onclick="logout();"> <i class="icon-off" style="font-size: 20px;"></i></a></div>   
             </li>
         </ul>
+
+
     </div>
+
+    <div class="showsidebar easing"><k class="icon-circle-arrow-right"></k></div>
+
 </div>
 
 

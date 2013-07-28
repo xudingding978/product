@@ -4,7 +4,6 @@
     top: 20%;
     z-index: 20;
     min-width: 10px;
-    background-image: url(../../../images/reflection.png);
     background-repeat: no-repeat;
     background-attachment: local;
     background-size: 100% 80%;
@@ -20,6 +19,44 @@
 
 .plaform_bar:hover #navContainer{
     opacity: 1;
+
+    margin: 0;
+    padding: 15px 0;
+    text-align: center;
+
+    width: 100px;
+    overflow: visible;
+    box-shadow: 0 0 5px #333;
+    border-radius: 0 10px 10px 0;
+}
+
+.plaform_bar > img{
+    width: 10px;
+    position: absolute; 
+    height: 250px;
+    display: none;
+}
+
+.plaform_bar:hover > img{
+    width: 100px;
+    display: block;
+}
+
+.showsidebar{
+    font-size: 30px;
+    text-align: right;
+    height: 250px;
+    line-height: 250px;
+    text-shadow: 0 0 10px #fff;
+    opacity: 1;
+    position: absolute;
+    right: -40px;
+    top: 0;
+}
+
+.plaform_bar:hover .showsidebar{
+    opacity: 0;
+    text-shadow: none;
 }
 
 #navContainer {
@@ -48,16 +85,8 @@
 }
 
 #navContainer:hover {
-    margin: 0;
-    padding: 15px 0;
-    text-align: center;
-
-    width: 100px;
-    overflow: visible;
-    box-shadow: 0 0 5px #333;
-    border-radius: 0 10px 10px 0;
-
 }
+
 #navContainer ul{
     margin:0;
     padding:0;

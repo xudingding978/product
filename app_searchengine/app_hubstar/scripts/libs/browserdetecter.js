@@ -119,9 +119,8 @@ var browerAllow = false;
 BrowserDetect.init();
 if (BrowserDetect.browser === "Chrome" && BrowserDetect.version >= 28)
 {
-    browerAllow = true;
-
-    // window.location = "http://develop.trendsideas.com/browser_upgrade.html";
+    browerAllow = true;    
+  //   window.location = "http://develop.trendsideas.com/browser_upgrade.html";
 
 } else if (BrowserDetect.browser === "Firefox" && BrowserDetect.version >= 23)
 {

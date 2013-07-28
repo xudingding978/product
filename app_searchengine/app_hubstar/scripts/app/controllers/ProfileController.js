@@ -62,9 +62,11 @@ define([
                 tempdesc: [],
                 website: "",
                 website_url: "",
+                UploadImageMode: "",
                 uploadChecking: false,
                 updateOrCreate: true,
-               singleFileUploaderMode:false,
+                isPhotoUploadMode: false,
+                //   singleFileUploaderMode: false,
                 init: function() {
                     this.set('is_authentic_user', false);
                 },
@@ -446,8 +448,8 @@ define([
                     $(".hover").removeClass('flip');
                 }, setUploadImage: function(mode)
                 {
-                    this.set('singleFileUploaderMode',true);
-                    console.log(mode);
+                    this.set('isPhotoUploadMode', true);
+                    this.set('UploadImageMode', mode);
                 }
             });
             return ProfileController;

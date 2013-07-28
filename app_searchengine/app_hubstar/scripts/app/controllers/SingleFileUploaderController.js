@@ -1,6 +1,6 @@
 define(["ember", "helper"],
         function(Ember) {
-            var SingleFileUploaderController = Ember.ArrayController.extend({
+            var SingleFileUploaderController = Ember.Controller.extend({
 
 
 

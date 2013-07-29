@@ -1,7 +1,7 @@
 .plaform_bar{
     position: fixed;
     left: 0px;
-    top: 20%;
+    top: 30%;
     z-index: 20;
     min-width: 10px;
     background-repeat: no-repeat;
@@ -48,10 +48,11 @@
     height: 250px;
     line-height: 250px;
     text-shadow: 0 0 10px #fff;
-    opacity: 1;
+    opacity: .7;
     position: absolute;
     right: -40px;
     top: 0;
+    color: #333;
 }
 
 .plaform_bar:hover .showsidebar{

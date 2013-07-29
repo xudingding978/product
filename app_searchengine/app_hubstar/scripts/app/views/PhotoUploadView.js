@@ -23,7 +23,6 @@ define([
                     }, reader.readAsDataURL(files[i]);
                 })(files[i]);
             }
-  
             $('#dragAndDroppArea').attr('style', "display:block");
             return false;
         }

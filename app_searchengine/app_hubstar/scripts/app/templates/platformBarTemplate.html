@@ -11,7 +11,7 @@
 
 <div class="plaform_bar" >
     <img src="../../../images/reflection.png"/>
-    <div id="navContainer" class="easing" >
+    <div id="navContainer" class="easing" {{action sidebarScroll target="view" on="mouseEnter"}}>
 
         <ul id="nav-ul" >
             <div style="width:90px; height: 100%; position: absolute; z-index: -1;"></div>
@@ -20,7 +20,7 @@
             </li>
 
             <li style="margin-top: 20px;"> <span><a href="#"> <i class="icon-eye-open" style="font-size: 20px;"></i></a></span>
-                <ul class="firstList" {{action test target="view" on="mouseEnter"}}>
+                <ul class="firstList" >
                     <li>&nbsp;</li>
                     <div style="width: 120%; height: 150%; position: absolute;margin-left: -20px; margin-top: -75%;  z-index: -1;"></div>
                     {{#each controller.categorys}}
@@ -44,9 +44,9 @@
                             {{/each}}
                         </ul>
                     </li>
-                    <script>
 
 
+<<<<<<< HEAD
                         $("#navContainer > ul > li >span").hover(function() {
                             $("#navContainer > ul > li").not(this).removeClass('sidebar-hover');
                         });
@@ -88,6 +88,8 @@
                                     </script>
                             
                 
+=======
+>>>>>>> 50961223aca8be56b4f6d585d68560e65488071d
                     {{/each}}
                 </ul>
             </li>

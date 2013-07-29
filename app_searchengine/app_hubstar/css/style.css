@@ -1,7 +1,7 @@
 .plaform_bar{
     position: fixed;
     left: 0px;
-    top: 20%;
+    top: 30%;
     z-index: 20;
     min-width: 10px;
     background-repeat: no-repeat;

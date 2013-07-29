@@ -13,55 +13,55 @@ class ProfilesController extends Controller {
     const JSON_RESPONSE_ROOT_PLURAL = 'profiles';
 
     public function actionIndex() {
-    //    $results = $this->getAllProfiles("profile");
-     
-          $settings['log.enabled'] = true;
-          // $settings['log.file'] = '/var/log/sherlock/newlogfile.log';
-          // $settings['log.level'] = 'debug';
-          $sherlock = new Sherlock\Sherlock($settings);
-          $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
+        //    $results = $this->getAllProfiles("profile");
 
-          //Build a new search request
-          $request = $sherlock->search();
+        $settings['log.enabled'] = true;
+        // $settings['log.file'] = '/var/log/sherlock/newlogfile.log';
+        // $settings['log.level'] = 'debug';
+        $sherlock = new Sherlock\Sherlock($settings);
+        $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
 
-          //populate a Term query to start
-          $termQuery = Sherlock\Sherlock::queryBuilder()
-          ->Match()
-          ->field("type")
-          ->query("profile")
-          ->boost(2.5);
+        //Build a new search request
+        $request = $sherlock->search();
 
-
-          //Set the index, type and from/to parameters of the request.
-          $request->index(Yii::app()->params['elasticSearchIndex'])
-          ->type("couchbaseDocument")
-          ->from(0)
-          ->to(10)
-          ->size(100)
-          ->query($termQuery);
-          
-          error_log($request->toJSON());
-
-          //Execute the search and return results
-          $response = $request->execute();
-
-          //echo "Took: " . $response->took . "\r\n";
-          //echo "Number of Hits: " . count($response) . "\r\n";
-          //echo var_export($response);
-
-          $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":[';
+        //populate a Term query to start
+        $termQuery = Sherlock\Sherlock::queryBuilder()
+                ->Match()
+                ->field("type")
+                ->query("profile")
+                ->boost(2.5);
 
 
-          //Iterate over the hits and print out some data
-          $i = 0;
-          foreach ($response as $hit) {
-          $results .= CJSON::encode($hit['source']['doc']['profile'][0]);
-          if (++$i !== count($response)) {
-          $results .= ',';
-          }
-          }
-          $results .= ']}';
-   
+        //Set the index, type and from/to parameters of the request.
+        $request->index(Yii::app()->params['elasticSearchIndex'])
+                ->type("couchbaseDocument")
+                ->from(0)
+                ->to(10)
+                ->size(100)
+                ->query($termQuery);
+
+        error_log($request->toJSON());
+
+        //Execute the search and return results
+        $response = $request->execute();
+
+        //echo "Took: " . $response->took . "\r\n";
+        //echo "Number of Hits: " . count($response) . "\r\n";
+        //echo var_export($response);
+
+        $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":[';
+
+
+        //Iterate over the hits and print out some data
+        $i = 0;
+        foreach ($response as $hit) {
+            $results .= CJSON::encode($hit['source']['doc']['profile'][0]);
+            if (++$i !== count($response)) {
+                $results .= ',';
+            }
+        }
+        $results .= ']}';
+
         echo $this->sendResponse(200, $results);
     }
 
@@ -117,8 +117,8 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0] = null;
             $oldRecord['profile'][0] = CJSON::decode($payload_json);
             if (isset($payloads_arr['profile']['followers'][0])) {
-                error_log('new '.sizeof($payloads_arr['profile']['followers']) );
-                                error_log('old '.sizeof($oldRecord['profile'][0]['followers']));
+                error_log('new ' . sizeof($payloads_arr['profile']['followers']));
+                error_log('old ' . sizeof($oldRecord['profile'][0]['followers']));
                 if (sizeof($payloads_arr['profile']['followers']) > sizeof($oldRecord['profile'][0]['followers'])) {//insert comment
                     array_unshift($oldRecord['profile'][0]['followers'], $payloads_arr['profile']['followers'][0]);
                 }
@@ -138,6 +138,12 @@ class ProfilesController extends Controller {
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
+    }
+
+    public function actionUpdateStyleImage() {
+                    $payloads_arr = CJSON::decode(file_get_contents('php://input'));
+                   error_log(var_export($payloads_arr,true));
+        
     }
 
 }

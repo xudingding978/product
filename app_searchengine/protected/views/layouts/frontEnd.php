@@ -103,7 +103,7 @@
             </div>
         </div>
         <div id="main" class="container-fluid" style="padding:0;"></div>
-        <!--<script data-main="app_hubstar/scripts/main" src="app_hubstar/scripts/libs/browerdetecter.js"></script>-->
+
         <script data-main="app_hubstar/scripts/main" src="app_hubstar/scripts/libs/requirejs/2.1.2/require.js"></script>
         
         

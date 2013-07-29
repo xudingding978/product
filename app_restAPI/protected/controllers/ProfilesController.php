@@ -141,9 +141,23 @@ class ProfilesController extends Controller {
     }
 
     public function actionUpdateStyleImage() {
-                    $payloads_arr = CJSON::decode(file_get_contents('php://input'));
-                   error_log(var_export($payloads_arr,true));
-        
+
+        $payloads_arr = CJSON::decode(file_get_contents('php://input'));
+        $photo_string = $payloads_arr['newStyleImageSource'];
+        $photo_name = $payloads_arr['newStyleImageName'];
+        $mode = $payloads_arr['mode'];
+        error_log($mode);
+        $owner_id = $payloads_arr['id'];
+        $photoController = new PhotosController();
+        $data_arr = $photoController->convertToString64($photo_string);
+        $photo = imagecreatefromstring($data_arr['data']);
+        $compressed_photo = $photoController->compressPhotoData($data_arr['type'], $photo);
+        $orig_size['width'] = imagesx($compressed_photo);
+        $orig_size['height'] = imagesy($compressed_photo);
+    //    $url = $photoController->savePhotoInTypes($orig_size, $mode, $photo_name, $compressed_photo, $data_arr, $owner_id);
+        $cb = $this->couchBaseConnection();
+        $oldRecord = CJSON::decode($cb->get($this->getDomain() . '/profiles/' . $owner_id));
+
     }
 
 }

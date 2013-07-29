@@ -444,6 +444,7 @@ define([
                     this.set('isPhotoUploadMode', true);
                     this.set('isPhotoEditingMode', false);
                     this.set('UploadImageMode', mode);
+
                 }, profileStyleImageDrop: function(e, name)
                 {
 
@@ -454,22 +455,24 @@ define([
 
                 }, photoUpload: function()
                 {
-                    this.set('isPhotoUploadMode', false);
-                    var tempurl = getRestAPIURL();
-                    var data = {"newStyleImageSource": this.get('newStyleImageSource'),
-                        'newStyleImageName': this.get('newStyleImageSource'),
-                    'id':this.get('model.id')};
+                    if (this.get('newStyleImageSource') !== null || this.get('newStyleImageSource') !== "")
+                    {
+                        this.set('isPhotoUploadMode', false);
+                        var tempurl = getRestAPIURL();
+                        var data = {"newStyleImageSource": this.get('newStyleImageSource'),
+                            'newStyleImageName': this.get('newStyleImageName'),
+                            'mode': this.get('UploadImageMode').replace("_"," ").toLowerCase(),
+                            'id': this.get('model.id')};
                     $.ajax({
                         url: tempurl + '/profiles/' + "updateStyleImage",
                         type: 'POST',
                         data: JSON.stringify(data),
                         success: function() {
 
-                            //         App.store.save();
                         }
                     });
-
-                    this.set('isPhotoEditingMode', true);
+                        this.set('isPhotoEditingMode', true);
+                    }
                 }
                 ,
                 getTarget: function(obj) {

@@ -9,6 +9,7 @@ define([
         dropdownBudget: "Budget",
         dropdownExperience: "Experience",
         selectedMega: null,
+        recieveProfile: null,
         displayName: null,
         displayEmail: null,
         currentUser: null,
@@ -25,7 +26,7 @@ define([
         projectTimeframe: null,
         projectBudget: null,
         projectExperience: null,
-        needs: ["mega", "profile",'article'],
+        needs: ["mega", "profile", 'article'],
         setSelectedMega: function(id)
         {
 
@@ -34,6 +35,7 @@ define([
             this.set("displayEmail", this.get("currentUser").get("email"));
             var tempMega = App.Mega.find(id);
             this.set("selectedMega", tempMega);
+            this.set("recieveProfile", this.get("selectedMega").get("id"));
             this.set("emailDestination", this.get("selectedMega").get("owner_contact_email"));
             this.set("emaiCCDestination", this.get("selectedMega").get("owner_contact_cc_emails"));
             var that = this;
@@ -50,7 +52,7 @@ define([
         closeContact: function() {
             var megaController = this.get("controllers.mega");
             var profileController = this.get("controllers.profile");
-                 var articleController = this.get("controllers.article");
+            var articleController = this.get("controllers.article");
 
             this.set('projectCategoryDropdown', false);
             this.set('projectTimeframeDropdown', false);
@@ -58,7 +60,7 @@ define([
             this.set('projectExperienceDropdown', false);
             megaController.closeContact();
             profileController.closeContact();
-                   articleController.closeContact();
+            articleController.closeContact();
         },
         setEditable: function(attr) {
             var swtich = "isDisplay" + attr + "Editable";
@@ -77,6 +79,7 @@ define([
             var tempEmail = App.Email.createRecord({
                 "displayName": this.get("displayName"),
                 "displayEmail": this.get("displayEmail"),
+                'recieveProfile': this.get('recieveProfile'),
                 "emailBody": this.get("emailBody"),
                 "emailSubject": this.get("emailSubject"),
                 "emailDestination": this.get("emailDestination"),
@@ -92,7 +95,7 @@ define([
         },
         dropdown: function(checking) {
             if (checking === "category") {
- 
+
                 this.set('projectExperienceDropdown', false);
                 this.set('projectTimeframeDropdown', false);
                 this.set('projectBudgetDropdown', false);

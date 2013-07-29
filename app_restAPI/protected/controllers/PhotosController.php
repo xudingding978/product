@@ -57,8 +57,6 @@ class PhotosController extends Controller {
 
             $key = 'trendsideas.com/' . $request_arr['id'] . '/photo/' . $request_arr['id'] . '/' . $request_arr['type'] . '/' . $name;
 
-//            echo $key. "\r\n";
-
             $this->saveImageToS3($key, $response, $bucket);
             $path = 'http://s3.hubsrv.com/' . $key;
 
@@ -69,8 +67,6 @@ class PhotosController extends Controller {
                 "name" => $name
             );
 
-//            print_r($tempArray);
-//            exit();
 
             $response = json_encode($tempArray, true);
         } else {
@@ -158,21 +154,14 @@ class PhotosController extends Controller {
 
     public function actionRead() {
 
-
-
         $temp = explode("/", $_SERVER['REQUEST_URI']);
 
         $id = $temp[sizeof($temp) - 1];
         $photo = $this->getRequestResultByID(self::JSON_RESPONSE_ROOT_SINGLE, $id);
-//       $result_arr = CJSON::decode($mega, true);
-//        error_log(var_export($result_arr,true));
-//    $result=$result_arr['photo']['photo'][0];
-//      $result = CJSON::encode($result, true);
         $this->sendResponse(200, $photo);
     }
 
     public function actionUpdate() {
-
 
         try {
             $newRecord = file_get_contents('php://input');
@@ -183,12 +172,12 @@ class PhotosController extends Controller {
             $url = $this->getDomain() . "/" . $id;
             $tempRecord = $cb->get($url);
             $oldRecord = CJSON::decode($tempRecord, true);
-    
+
             $oldRecord['object_description'] = $newRecord['photo']['photo_caption'];
             $oldRecord['photo'][0]['photo_title'] = $newRecord['photo']['photo_title'];
             $oldRecord['photo'][0]['photo_caption'] = $newRecord['photo']['photo_caption'];
 
-        error_log(var_export($oldRecord, true));
+            error_log(var_export($oldRecord, true));
             if ($cb->set($url, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);
             } else {
@@ -280,14 +269,15 @@ class PhotosController extends Controller {
         return $mega;
     }
 
-    protected function savePhotoInTypes($orig_size, $photo_type, $photo_name, $compressed_photo, $data_arr, $owner_id) {
-
+    public function savePhotoInTypes($orig_size, $photo_type, $photo_name, $compressed_photo, $data_arr, $owner_id) {
+        error_log('savePhotoInTypes');
         $new_size = $this->getNewPhotoSize($orig_size, $photo_type);
 
         $new_photo_data = $this->createNewImage($orig_size, $new_size, $compressed_photo, $data_arr['type']);
         $new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
         $bucket = 's3.hubsrv.com';
         $url = $this->getDomain() . '/profiles' . "/" . $owner_id . "/" . $photo_type . "/" . $new_photo_name;
+
         $this->saveImageToS3($url, $new_photo_data, $bucket);
         $s3url = 'http://' . $bucket . '/' . $url;
         return $s3url;
@@ -312,6 +302,9 @@ class PhotosController extends Controller {
                 $new_size['width'] = $photo_size['width'];
                 $new_size['height'] = $photo_size['height'];
                 break;
+            default:
+                $new_size['width'] = $photo_size['width'];
+                $new_size['height'] = $photo_size['height'];
         }
 
         return $new_size;
@@ -366,11 +359,13 @@ class PhotosController extends Controller {
     }
 
     function compressPhotoData($type, $image) {
+
         if ($type == "image/png") {
             imagepng($image);
         } elseif ($type == "image/jpeg") {
             imagejpeg($image, null, 80);
         }
+     
         return $image;
     }
 
@@ -405,12 +400,6 @@ class PhotosController extends Controller {
                         $arr
         );
         $client->delete_object($bucket, $mega['photo'][0]['photo_image_hero_url']);
-
-//        error_log(var_export($mega['photo'][0], true));
-//        $mega['photo'][0]['photo_image_original_url'];
-//        $mega['photo'][0]['photo_image_hero_url'];
-//        $mega['photo'][0]['photo_image_thumbnail_url'];
-//        $mega['photo'][0]['photo_image_preview_url'];
     }
 
     public function photoUpdate($mega) {

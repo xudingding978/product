@@ -8,6 +8,7 @@ define(
     var EmailModel = DS.Model.extend({
         displayName: DS.attr('string'),
         displayEmail: DS.attr('string'),
+        recieveProfile: DS.attr('string'),
         emailBody: DS.attr('string'),
         emailSubject: DS.attr('string'),
         emailDestination: DS.attr('string'),

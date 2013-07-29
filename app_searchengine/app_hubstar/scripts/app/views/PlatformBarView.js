@@ -6,7 +6,13 @@ define([
     Ember.TEMPLATES["platformBar"] = Ember.Handlebars.compile(platformBarTemplate);
 
     var PlatformBarView = Ember.View.extend({
-        template: Ember.Handlebars.compile(platformBarTemplate)
+        template: Ember.Handlebars.compile(platformBarTemplate),
+        didInsertElement: function() {
+
+
+
+
+        }
     });
 
     return PlatformBarView;

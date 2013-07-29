@@ -13,7 +13,7 @@ define([
 
 
         },
-        test: function() {
+        sidebarScroll: function() {
             function scrollTest(that) {
                 var screenYPix = $('.firstList').parent().offset().top;
                 if (Math.abs(screenYPix - $(that).offset().top) > 180) {
@@ -51,6 +51,43 @@ define([
 
                     $('.firstList').stop();
                 });
+
+            });
+
+
+            $("#navContainer > ul > li >span").hover(function() {
+                $("#navContainer > ul > li").not(this).removeClass('sidebar-hover');
+            });
+
+
+
+            $("#navContainer > ul > li> ul >li >span").hover(function() {
+
+                $(this).parent().parent().parent().addClass("sidebar-hover");
+
+            });
+
+
+            $("#navContainer > ul > li> ul >li >span").hover(function() {
+                $("#navContainer > ul > li> ul >li").not(this).removeClass('sidebar-hover');
+            });
+
+
+
+            $("#navContainer > ul > li> ul >li>ul> li>span").hover(function() {
+
+                $(this).parent().parent().parent().addClass("sidebar-hover");
+
+            });
+
+            $("#navContainer > ul > li> ul >li> ul >li >span").hover(function() {
+                $("#navContainer > ul > li> ul >li> ul >li").not(this).removeClass('sidebar-hover');
+            });
+
+
+
+            $("#navContainer > ul > li> ul >li>ul> li > ul ").hover(function() {
+                $(this).parent().addClass("sidebar-hover");
 
             });
         }

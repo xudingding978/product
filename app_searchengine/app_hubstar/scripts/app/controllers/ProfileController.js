@@ -66,7 +66,7 @@ define([
                 uploadChecking: false,
                 updateOrCreate: true,
                 isPhotoUploadMode: false,
-                //   singleFileUploaderMode: false,
+                isPhotoEditingMode: false,
                 init: function() {
                     this.set('is_authentic_user', false);
                 },
@@ -159,7 +159,6 @@ define([
                                     break;
                                 } else {
                                     isExsinting = true;
-
                                 }
                             }
 
@@ -290,7 +289,6 @@ define([
                 newCollection: function()
                 {
                     var collection = App.Collection.createRecord({"id": null, "title": null, "desc": null, "collection_ids": null, "createdAt": new Date()});
-
                     this.set("selectedCollection", collection);
                 },
                 toggleUpload: function() {
@@ -369,7 +367,6 @@ define([
                     var followers = this.get("model").get("followers");
                     for (var i = 0; i < followers.get('length'); i++) {
                         var follower_id = followers.get("content").objectAt(i).data.follower_id;
-
                         if (follower_id === localStorage.loginStatus)
                         {
 
@@ -404,11 +401,7 @@ define([
                     this.set('partnerTag', true);
                     this.set('collectionTag', false);
                     this.set('followerTag', false);
-
-
                     this.get('controllers.itemProfiles').setPartnerRemove();
-
-
                 },
                 selectFollower: function(model) {
                     this.set('profileSelectionStatus', 'Followers');
@@ -437,8 +430,6 @@ define([
                     update_profile_record.set('profile_physical_address', this.get('address'));
                     update_profile_record.set('profile_contact_last_name', this.get('last_name'));
                     update_profile_record.set("profile_name", this.get('profile_name'));
-
-
                     App.store.get('adapter').updateRecord(App.store, App.Profile, update_profile_record);
                 },
                 flipFrontClick: function() {
@@ -446,10 +437,31 @@ define([
                 },
                 flipFrontBack: function() {
                     $(".hover").removeClass('flip');
-                }, setUploadImage: function(mode)
+                }, setUploadImageMode: function(mode)
                 {
                     this.set('isPhotoUploadMode', true);
+                    this.set('isPhotoEditingMode', false);
                     this.set('UploadImageMode', mode);
+                }, profileStyleImageDrop: function(e, name)
+                {
+                    var target = this.getTarget(e);
+                    var src = target.result;
+                    console.log(src);
+                }, photoUpload: function()
+                {
+                    this.set('isPhotoUploadMode', false);
+                    this.set('isPhotoEditingMode', true);
+                },
+                getTarget: function(obj) {
+                    var targ;
+                    var e = obj;
+                    if (e.target)
+                        targ = e.target;
+                    else if (e.srcElement)
+                        targ = e.srcElement;
+                    if (targ.nodeType === 3) // defeat Safari bug
+                        targ = targ.parentNode;
+                    return targ;
                 }
             });
             return ProfileController;

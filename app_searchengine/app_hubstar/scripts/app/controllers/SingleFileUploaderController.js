@@ -1,9 +1,6 @@
 define(["ember", "helper"],
         function(Ember) {
             var SingleFileUploaderController = Ember.Controller.extend({
-
-
-
             });
             SingleFileUploaderController.cancel = function(event) {
                 event.preventDefault();
@@ -11,9 +8,7 @@ define(["ember", "helper"],
             };
             SingleFileUploaderController.Droppable = Ember.Mixin.create(SingleFileUploaderController, {
                 dragEnter: SingleFileUploaderController.cancel,
-                dragOver: SingleFileUploaderController.cancel,
-                test: function() {
-                }
+                dragOver: SingleFileUploaderController.cancel
 
             });
 

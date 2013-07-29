@@ -24,7 +24,6 @@ function removeZero(string)
     }
 
     return string;
-
 }
 
 function getDomain()
@@ -40,3 +39,5 @@ function getDomain()
     }
     return domain;
 }
+
+

@@ -22,7 +22,6 @@ define([
                         controller.addPhotoObject(e, controller, name, type);
                     }, reader.readAsDataURL(files[i]);
                 })(files[i]);
-
             }
   
             $('#dragAndDroppArea').attr('style', "display:block");

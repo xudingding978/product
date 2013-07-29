@@ -22,18 +22,18 @@
             <li style="margin-top: 20px;"> <span><a href="#"> <i class="icon-eye-open" style="font-size: 20px;"></i></a></span>  
                 <ul class="firstList">
                     <li>&nbsp;</li>
-                    <div style="width: 120%; height: 150%; position: absolute;margin-left: -20px; margin-top: -50px;  z-index: -1;"></div>
+                    <div style="width: 120%; height: 150%; position: absolute;margin-left: -20px; margin-top: -75%;  z-index: -1;"></div>
                     {{#each controller.categorys}}
 
                     <li> <span><a href="#" {{action topicSearch topic}} > {{topic}}</a></span>
                         <ul>
                             <li>&nbsp;</li>
-                            <div style="width: 120%; height: 150%; position: absolute;margin-left: -20px; margin-top: -50px;  z-index: -1;"></div>
+                            <div style="width: 120%; height: 150%; position: absolute;margin-left: -20px; margin-top: -75%;  z-index: -1;"></div>
                             {{#each subcate}}
                             <li> <span><a href="#" {{action topicSearch category_topic}} > {{category_topic}}</a></span>
                                 <ul>
                                     <li>&nbsp;</li>
-                                    <div style="width: 120%; height: 150%; position: absolute;margin-left: -20px; margin-top: -50px;  z-index: -1;"></div>
+                                    <div style="width: 140%; height: 150%; position: absolute;margin-left: -20px; margin-top: -35%;  z-index: -1;"></div>
                                     {{#each subcategories}}
                                     <li> <a href="#" {{action topicSearch search_topic}} >{{search_topic}}</a>
                                         {{/each}}
@@ -83,7 +83,7 @@
                         function scrollTest(that) {
 
                             var screenYPix = $('.firstList').parent().offset().top;
-                //            console.log(screenYPix - $(that).offset().top);
+                            //            console.log(screenYPix - $(that).offset().top);
                             if (Math.abs(screenYPix - $(that).offset().top) > 5) {
 
                                 if (screenYPix - $(that).offset().top < 0) {
@@ -128,7 +128,7 @@
                             $('#nav-ul').mouseleave(function() {
 
                                 $('.firstList').stop();
-                    //            console.log('sssssss');
+                                //            console.log('sssssss');
                             });
 
 

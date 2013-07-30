@@ -453,8 +453,7 @@ define([
                     this.set('newStyleImageSource', src);
                     this.set('newStyleImageName', name);
 
-                }, photoUpload: function()
-                {
+                }, photoUpload: function(){
                     if (this.get('newStyleImageSource') !== null || this.get('newStyleImageSource') !== "")
                     {
                         this.setTempImage();
@@ -476,14 +475,16 @@ define([
                 },
                 setTempImage: function() {
                     var model = this.get('model');
-                    if (this.get('UploadImageMode') === "background")
+
+                    if (this.get('UploadImageMode') === "Profile Picture")
                     {
                         model.set('profile_hero_url', this.get('newStyleImageSource'));
                     } else if (this.get('UploadImageMode') === "Profile Hero")
                     {
                         model.set('profile_pic_url', this.get('newStyleImageSource'));
-                    } else if (this.get('UploadImageMode') === "Profile Picture")
+                    } else if (this.get('UploadImageMode') === "Background")
                     {
+                        
                         model.set('profile_bg_url', this.get('newStyleImageSource'));
                     }
                 },

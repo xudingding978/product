@@ -4,7 +4,7 @@
 {{#if controller.projectCategoryDropdown}}
 <div id="dropItem1"  {{action dropdown controller.dropdownCategory}}>
      {{#each controller.categorys}}
-     <div  class="ite ">{{topic}}</div>
+     <div  class="ite " {{action topicSelection this}}>{{topic}}</div>
     {{/each}}
 
 </div>

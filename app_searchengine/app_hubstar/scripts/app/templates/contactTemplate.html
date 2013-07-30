@@ -129,8 +129,10 @@
                 {{#each controller.subcate}}
                 <div class="checkbox-container">
 
-                    <input type="checkbox" {{bindAttr id="list_id"}} class="css-checkbox" >
-                    <label for="{{unbound list_id}}" name="checkbox2_lbl" class="css-label lite-blue-check">{{category_topic}}</label>
+                    <input type="checkbox" {{bindAttr id="list_id" }} class="css-checkbox"   {{action checkedAction list_id}}>
+                    <label for="{{unbound list_id}}" name="{{unbound list_id}}" class="css-label lite-blue-check">{{category_topic}}</label>
+
+
                 </div>
                 {{/each}}
 

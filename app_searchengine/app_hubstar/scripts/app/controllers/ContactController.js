@@ -39,11 +39,15 @@ define([
 
             for (var i = 0; i < data.get('subcate').get('length'); i++) {
 
-      //          console.log(data.get('subcate').objectAt(i).get('category_topic'));
+                //          console.log(data.get('subcate').objectAt(i).get('category_topic'));
                 this.get('subcate').pushObject({'list_id': "checkbox" + i, 'category_topic': data.get('subcate').objectAt(i).get('category_topic')});
             }
 //            console.log(data.get('subcate').get('length'));
 //            console.log(this.get('subcate'));
+
+        },
+        checkedAction: function(checkedboxselection) {
+        console.log(checkedboxselection);
 
         },
         setSelectedMega: function(id)

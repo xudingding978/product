@@ -452,9 +452,11 @@ define([
                     var src = target.result;
                     this.set('newStyleImageSource', src);
                     this.set('newStyleImageName', name);
+                    $('#photoUploadbtn').removeClass("followed-btn");
+                    $("#photoUploadbtn").toggleClass("new-btn green-btn");
 
-                }, photoUpload: function(){
-                    if (this.get('newStyleImageSource') !== null || this.get('newStyleImageSource') !== "")
+                }, photoUpload: function() {
+                    if (this.get('newStyleImageSource') !== null && this.get('newStyleImageSource') !== "")
                     {
                         this.setTempImage();
                         this.set('isPhotoUploadMode', false);
@@ -478,13 +480,18 @@ define([
 
                     if (this.get('UploadImageMode') === "Profile Picture")
                     {
-                        model.set('profile_hero_url', this.get('newStyleImageSource'));
+                        this.set('profile_pic_url', this.get('newStyleImageSource'));
+                        model.set('profile_pic_url', this.get('newStyleImageSource'));
+
                     } else if (this.get('UploadImageMode') === "Profile Hero")
                     {
-                        model.set('profile_pic_url', this.get('newStyleImageSource'));
+                        this.set('profile_hero_url', this.get('newStyleImageSource'));
+                        model.set('profile_hero_url', this.get('newStyleImageSource'));
+
+
                     } else if (this.get('UploadImageMode') === "Background")
                     {
-                        
+                        this.set('profile_bg_url', this.get('newStyleImageSource'));
                         model.set('profile_bg_url', this.get('newStyleImageSource'));
                     }
                 },
@@ -498,6 +505,13 @@ define([
                     if (targ.nodeType === 3) // defeat Safari bug
                         targ = targ.parentNode;
                     return targ;
+                },
+                resetNewStyleImageSource: function()
+                {
+                    this.set('newStyleImageSource', "");
+                    this.set('newStyleImageName', "");
+                    $('#photoUploadbtn').removeClass("new-btn green-btn");
+                    $("#photoUploadbtn").toggleClass("followed-btn");
                 }
             });
             return ProfileController;

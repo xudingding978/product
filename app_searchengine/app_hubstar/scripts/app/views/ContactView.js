@@ -10,11 +10,11 @@ define([
       classNames: ["contact-container"],
         template: Ember.Handlebars.compile(contactTemplate),
         didInsertElement: function() {
-//            this.$().draggable({
-//                cursor: "move",
-//                scroll: true,
-//                scrollSensitivity: 100
-//            });
+            this.$().draggable({
+                cursor: "move",
+                scroll: true,
+                scrollSensitivity: 100
+            });
 
         }
     });

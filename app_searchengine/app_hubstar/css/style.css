@@ -484,6 +484,7 @@ div.search-loading-invisible{
     color: #555;
     text-align: right;
     width: 35%;
+    cursor: default;
 }
 
 .contactme-table td:nth-child(2)  {
@@ -514,12 +515,14 @@ div.search-loading-invisible{
 
 .checkbox-columncontainer{
     display: inline-block;
-    width: 40%;
+    width: 400px;
     text-align: left;
 }
 
 .checkbox-container{
     padding: 2px 8px;
+    float: left;
+    width: 199px;
 }
 
 /*CSS Checkboxes*/
@@ -529,15 +532,17 @@ input[type=checkbox].css-checkbox {
 }
 
 input[type=checkbox].css-checkbox + label.css-label {
-    padding-left:20px;
-    height:15px; 
-    display:inline-block;
-    line-height:15px;
-    background-repeat:no-repeat;
+    color: #555;
+    padding-left: 25px;
+    height: 15px;
+    display: inline-block;
+    line-height: 14px;
+    background-repeat: no-repeat;
     background-position: 0 0;
-    font-size:15px;
-    vertical-align:middle;
-    cursor:pointer;
+    font-size: 15px;
+    font-weight: bold;
+    vertical-align: middle;
+    cursor: pointer;
 }
 
 input[type=checkbox].css-checkbox:checked + label.css-label {

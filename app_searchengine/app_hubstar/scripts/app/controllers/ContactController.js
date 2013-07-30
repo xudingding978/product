@@ -24,7 +24,8 @@ define([
         emaiBCCDestination: null,
         projectCategory: null,
         projectTimeframe: null,
-        categorys:[],
+        categorys: [],
+        subcate: [],
         projectBudget: null,
         projectExperience: null,
         needs: ["mega", "profile", 'article'],
@@ -32,6 +33,19 @@ define([
             //     this.setTopicModel(App.Cate.find());
             this.set('categorys', null);
             this.set('categorys', App.Cate.find());
+        },
+        topicSelection: function(data) {
+
+            this.set('subcate', []);
+
+            for (var i = 0; i < data.get('subcate').get('length'); i++) {
+
+                console.log(data.get('subcate').objectAt(i).get('category_topic'));
+                this.get('subcate').pushObject({'list_id': "checkbox" + i, 'category_topic': data.get('subcate').objectAt(i).get('category_topic')});
+            }
+            console.log(data.get('subcate').get('length'));
+            console.log(this.get('subcate'));
+
         },
         setSelectedMega: function(id)
         {
@@ -134,7 +148,7 @@ define([
         nextSendingEmailProcess: function() {
             this.set('secondStepOfContactEmail', true);
             this.set('firstStepOfContactEmail', true);
-
+            this.set('subcate', []);
 
         },
         proviousSendingEmailProcess: function() {

@@ -124,41 +124,16 @@
 
 
 
-            <!--            <div class="checkbox-columncontainer" style="margin: 20px 0;">
-                            <div class="checkbox-container">
-                                <input type="checkbox" id="checkbox1" class="css-checkbox" checked="checked">
-                                <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Products</label>
-                            </div>
-                            <div class="checkbox-container">
-                                <input type="checkbox" id="checkbox2" class="css-checkbox" checked="checked">
-                                <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Design</label>
-                            </div>
-                            <div class="checkbox-container">
-                                <input type="checkbox" id="checkbox3" class="css-checkbox" checked="checked">
-                                <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Ideas</label>
-                            </div>
-                        </div>
-                        <div class="checkbox-columncontainer">
-                            <div class="checkbox-container">
-                                <input type="checkbox" id="checkbox4" class="css-checkbox" checked="checked">
-                                <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Appliances</label>
-                            </div>
-                            <div class="checkbox-container">
-                                <input type="checkbox" id="checkbox5" class="css-checkbox" checked="checked">
-                                <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Benchtops</label>
-                            </div>
-                            <div class="checkbox-container">
-                                <input type="checkbox" id="checkbox6" class="css-checkbox" checked="checked">
-                                <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Layout</label>
-                            </div>
-                        </div>-->
-
             <div class="checkbox-columncontainer" style="margin: 20px 0;">
+
+                {{#each controller.subcate}}
                 <div class="checkbox-container">
-                    <input type="checkbox" id="checkbox1" class="css-checkbox" checked="checked">
-                    <label for="checkbox5" name="checkbox2_lbl" class="css-label lite-blue-check">Kitchen Products</label>
+
+                    <input type="checkbox" {{bindAttr id="list_id"}} class="css-checkbox" >
+                    <label for="{{unbound list_id}}" name="checkbox2_lbl" class="css-label lite-blue-check">{{category_topic}}</label>
                 </div>
-     
+                {{/each}}
+
             </div>
 
 

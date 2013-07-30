@@ -30,8 +30,7 @@ define([
         projectExperience: null,
         needs: ["mega", "profile", 'article'],
         init: function() {
-            //     this.setTopicModel(App.Cate.find());
-            this.set('categorys', null);
+            this.set('categorys', []);
             this.set('categorys', App.Cate.find());
         },
         topicSelection: function(data) {
@@ -40,11 +39,11 @@ define([
 
             for (var i = 0; i < data.get('subcate').get('length'); i++) {
 
-                console.log(data.get('subcate').objectAt(i).get('category_topic'));
+      //          console.log(data.get('subcate').objectAt(i).get('category_topic'));
                 this.get('subcate').pushObject({'list_id': "checkbox" + i, 'category_topic': data.get('subcate').objectAt(i).get('category_topic')});
             }
-            console.log(data.get('subcate').get('length'));
-            console.log(this.get('subcate'));
+//            console.log(data.get('subcate').get('length'));
+//            console.log(this.get('subcate'));
 
         },
         setSelectedMega: function(id)
@@ -148,7 +147,7 @@ define([
         nextSendingEmailProcess: function() {
             this.set('secondStepOfContactEmail', true);
             this.set('firstStepOfContactEmail', true);
-            this.set('subcate', []);
+
 
         },
         proviousSendingEmailProcess: function() {

@@ -3,20 +3,10 @@
 
 {{#if controller.projectCategoryDropdown}}
 <div id="dropItem1"  {{action dropdown controller.dropdownCategory}}>
-     <div  class="ite ">Bathrooms</div>
-    <div  class="ite ">Home Theatre</div>
-    <div  class="ite ">Interior Living</div>
-    <div  class="ite ">Kitchens</div>
-    <div  class="ite ">New Homes</div>
-    <div  class="ite ">Outdoor Living</div>
-    <div  class="ite ">Renovation</div>
-    <div  class="ite ">Apartment Design</div>
-    <div  class="ite ">Civic Design</div>
-    <div  class="ite ">Educational Design</div>
-    <div  class="ite ">Hospitality Design</div>
-    <div  class="ite ">Office Design</div>
-    <div  class="ite ">Refurbishment</div>
-    <div  class="ite ">Retail design</div>
+     {{#each controller.categorys}}
+     <div  class="ite ">{{topic}}</div>
+    {{/each}}
+
 </div>
 {{/if}}
 
@@ -81,7 +71,7 @@
 
         $('#dropdownExperience').text($(this).text());
     });
-        $('#dropItem5 > .ite').click(function() {
+    $('#dropItem5 > .ite').click(function() {
 
         $('#packgeSelection').text($(this).text());
     });

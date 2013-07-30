@@ -24,9 +24,15 @@ define([
         emaiBCCDestination: null,
         projectCategory: null,
         projectTimeframe: null,
+        categorys:[],
         projectBudget: null,
         projectExperience: null,
         needs: ["mega", "profile", 'article'],
+        init: function() {
+            //     this.setTopicModel(App.Cate.find());
+            this.set('categorys', null);
+            this.set('categorys', App.Cate.find());
+        },
         setSelectedMega: function(id)
         {
 

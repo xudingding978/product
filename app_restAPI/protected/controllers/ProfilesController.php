@@ -141,12 +141,10 @@ class ProfilesController extends Controller {
     }
 
     public function actionUpdateStyleImage() {
-
         $payloads_arr = CJSON::decode(file_get_contents('php://input'));
         $photo_string = $payloads_arr['newStyleImageSource'];
         $photo_name = $payloads_arr['newStyleImageName'];
         $mode = $payloads_arr['mode'];
-        error_log($mode);
         $owner_id = $payloads_arr['id'];
         $photoController = new PhotosController();
         $data_arr = $photoController->convertToString64($photo_string);
@@ -154,10 +152,24 @@ class ProfilesController extends Controller {
         $compressed_photo = $photoController->compressPhotoData($data_arr['type'], $photo);
         $orig_size['width'] = imagesx($compressed_photo);
         $orig_size['height'] = imagesy($compressed_photo);
-    //    $url = $photoController->savePhotoInTypes($orig_size, $mode, $photo_name, $compressed_photo, $data_arr, $owner_id);
+        $url = $photoController->savePhotoInTypes($orig_size, $mode, $photo_name, $compressed_photo, $data_arr, $owner_id);
         $cb = $this->couchBaseConnection();
         $oldRecord = CJSON::decode($cb->get($this->getDomain() . '/profiles/' . $owner_id));
-
+        if ($mode == 'profile_hero') {
+            $photoController->savePhotoInTypes($orig_size, 'hero', $photo_name, $compressed_photo, $data_arr, $owner_id, $mode);
+            $oldRecord['profile'][0]['profile_hero_url'] = $url;
+        } elseif
+        ($mode == 'background') {
+            $oldRecord['profile'][0]['profile_bg_url'] = $url;
+        } elseif
+        ($mode == 'profile_picture') {
+            $oldRecord['profile'][0]['profile_pic_url'] = $url;
+        }
+        if ($cb->set($this->getDomain() . '/profiles/' . $owner_id, CJSON::encode($oldRecord, true))) {
+            $this->sendResponse(204);
+        } else {
+            $this->sendResponse(500, 'something wrong');
+        }
     }
 
 }

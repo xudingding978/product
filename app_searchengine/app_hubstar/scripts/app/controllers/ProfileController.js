@@ -457,24 +457,36 @@ define([
                 {
                     if (this.get('newStyleImageSource') !== null || this.get('newStyleImageSource') !== "")
                     {
+                        this.setTempImage();
                         this.set('isPhotoUploadMode', false);
                         var tempurl = getRestAPIURL();
                         var data = {"newStyleImageSource": this.get('newStyleImageSource'),
                             'newStyleImageName': this.get('newStyleImageName'),
-                            'mode': this.get('UploadImageMode').replace("_"," ").toLowerCase(),
+                            'mode': this.get('UploadImageMode').replace(" ", "_").toLowerCase(),
                             'id': this.get('model.id')};
-                    $.ajax({
-                        url: tempurl + '/profiles/' + "updateStyleImage",
-                        type: 'POST',
-                        data: JSON.stringify(data),
-                        success: function() {
-
-                        }
-                    });
+                        $.ajax({
+                            url: tempurl + '/profiles/' + "updateStyleImage",
+                            type: 'POST',
+                            data: JSON.stringify(data),
+                            success: function() {
+                            }
+                        });
                         this.set('isPhotoEditingMode', true);
                     }
-                }
-                ,
+                },
+                setTempImage: function() {
+                    var model = this.get('model');
+                    if (this.get('UploadImageMode') === "background")
+                    {
+                        model.set('profile_hero_url', this.get('newStyleImageSource'));
+                    } else if (this.get('UploadImageMode') === "Profile Hero")
+                    {
+                        model.set('profile_pic_url', this.get('newStyleImageSource'));
+                    } else if (this.get('UploadImageMode') === "Profile Picture")
+                    {
+                        model.set('profile_bg_url', this.get('newStyleImageSource'));
+                    }
+                },
                 getTarget: function(obj) {
                     var targ;
                     var e = obj;

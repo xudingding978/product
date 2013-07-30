@@ -106,24 +106,19 @@ define([
                     $('#masonry_container').masonry("reload");
                 }, 1800);
             });
-
-
             App.set('searchStart', true);
         },
         defaultSearch: function() {
             this.set("loginInfo", localStorage.loginStatus);
             var results = MegaModel.find({});
             this.set("content", results);
-
         },
         getResponseTime: function(start, end) {
             var totalTime = end - start;
             totalTime += "ms";
             return totalTime;
-        }
-        ,
+        },
         flipFrontClick: function() {
-
             $(".hover").addClass('flip');
         },
         flipFrontBack: function() {

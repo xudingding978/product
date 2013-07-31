@@ -218,3 +218,22 @@
     background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 85%,rgba(255,255,255,0) 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */
 }
+
+.latestebook{
+    display: inline-block;
+    position: relative;
+}
+
+.latestebook-control{
+    opacity: 0;
+    position: absolute;
+    bottom: 0;
+    width: 100px;
+    margin: auto;
+    left: 0;
+    right: 0;
+}
+
+.latestebook:hover .latestebook-control{
+    opacity: 1;    
+}

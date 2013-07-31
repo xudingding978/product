@@ -124,13 +124,10 @@ define(["ember", "helper"],
 
                             if (App.get("totalFiles") === thatP.get("filesNumber")) {
                                 var masonryCollectionItems = thatP.get('controllers.masonryCollectionItems');
-
                                 var photoCreateInfoSettingController = thatP.get('controllers.photoCreateInfoSetting');
                                 App.set('UploadImageInfoData', that.get("content"));
-
                                 photoCreateInfoSettingController.setData();
                                 photoCreateInfoSettingController.set('isEditingMode', true);
-
                                 masonryCollectionItems.set('uploadOrsubmit', !masonryCollectionItems.get('uploadOrsubmit'));
                             }
                         }
@@ -143,6 +140,7 @@ define(["ember", "helper"],
                     if (e.srcElement){
                         targ = e.srcElement;}
                     else {
+                        console.log('safari drop');
                         targ = e.target;
                     }
 //                    if (targ.nodeType === 3) // defeat Safari bug

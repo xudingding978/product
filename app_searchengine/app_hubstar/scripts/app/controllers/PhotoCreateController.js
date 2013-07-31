@@ -145,7 +145,8 @@ define(["ember", "helper"],
                     else if (e.srcElement)
                         targ = e.srcElement;
                     if (targ.nodeType === 3) // defeat Safari bug
-                        targ = targ.parentNode;
+                        console.log('safari drop');
+                        targ = e.targe;
                     return targ;
                 },
                 checkingCleanBeforeUpload: function() {

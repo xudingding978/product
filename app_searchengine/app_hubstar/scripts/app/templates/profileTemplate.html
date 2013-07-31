@@ -630,7 +630,7 @@
                     </div>
                     <div class="" style="margin-top: 20px;">
                         <div class="controlbtn" style="left: 300px;">
-                            <a href="#tab1" data-toggle="tab"><span class="new-btn">Close</span></a>                         
+                            <a href="#tab1" data-toggle="tab" {{action resetNewStyleImageSource}}><span class="new-btn">Close</span></a>                         
                             <span id="photoUploadbtn" class="followed-btn" {{action photoUpload}}>Upload</span>
                         </div>
                     </div>
@@ -650,10 +650,8 @@
                         </div>
                     </div>
                     <div class="" style="margin-top: 20px;">
-
                         <div class="controlbtn" style="left: 34%;">
                             <a href="#tab1" data-toggle="tab"{{action resetNewStyleImageSource}}>   <span class="new-btn" >Finish</span> </a>           
-
                         </div>
                     </div>
                     {{/if}}

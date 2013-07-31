@@ -39,5 +39,46 @@ function getDomain()
     }
     return domain;
 }
+function getImageWidth(imgSrc)
+{
 
 
+    var deferred = $.Deferred();
+    deferred.done(function(imgSrc) {
+        var img = new Image();
+
+        img.onload = function() {
+            return img.width;
+        };
+        img.src = imgSrc;
+    });
+
+    deferred.resolve(imgSrc);
+
+}
+
+function getImageWidth(imgSrc, callback) {
+    var img = new Image();
+    img.src = imgSrc;
+    img.onload = function() {
+        callback(this.width,this.height);
+    };
+
+}
+
+
+
+
+function getImageHeight(imgSrc)
+{
+    var img = new Image();
+    img.onload = function() {
+
+    };
+    img.src = imgSrc;
+    return img.height;
+}
+function callback(result)
+{
+    return result;
+}

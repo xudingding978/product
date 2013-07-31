@@ -12,7 +12,6 @@ define([
         setupController: function(controller, model) {
             var megaModel = App.Mega.find(model.id);
             this.controllerFor('mega').getInitData(megaModel);
-
         },
         model: function(params) {
             return MegaModel.find(params.photo_id);

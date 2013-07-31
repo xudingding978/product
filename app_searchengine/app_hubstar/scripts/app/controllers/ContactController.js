@@ -25,31 +25,45 @@ define([
         projectCategory: null,
         projectTimeframe: null,
         categorys: [],
+        temp: [],
         subcate: [],
         projectBudget: null,
         projectExperience: null,
         needs: ["mega", "profile", 'article'],
         init: function() {
-            //     this.setTopicModel(App.Cate.find());
-            this.set('categorys', null);
+            this.set('categorys', []);
             this.set('categorys', App.Cate.find());
+
+        },
+        selectionCheckBox: function() {
+            if (this.get('temp').get('subcate') !== undefined) {
+                this.set('subcate', []);
+                for (var i = 0; i < this.get('temp').get('subcate').get('length'); i++) {
+                    this.get('subcate').pushObject({'list_id': "checkbox" + i, 'category_topic': this.get('temp').get('subcate').objectAt(i).get('category_topic'), "isSelection": this.get("checkbox" + i)});
+                }
+
+            }
         },
         topicSelection: function(data) {
-
+            this.set('temp', []);
+            this.set('temp', data);
             this.set('subcate', []);
-
             for (var i = 0; i < data.get('subcate').get('length'); i++) {
-
-                console.log(data.get('subcate').objectAt(i).get('category_topic'));
-                this.get('subcate').pushObject({'list_id': "checkbox" + i, 'category_topic': data.get('subcate').objectAt(i).get('category_topic')});
+                this.set("checkbox" + i, false);
+                this.get('subcate').pushObject({'list_id': "checkbox" + i, 'category_topic': data.get('subcate').objectAt(i).get('category_topic'), "isSelection": this.get("checkbox" + i)});
             }
-            console.log(data.get('subcate').get('length'));
-            console.log(this.get('subcate'));
 
+        },
+        checkedAction: function(checkedboxselection, model) {
+            $("#" + checkedboxselection).prop('checked', !$("#" + checkedboxselection).prop('checked'));
+            if ($("#" + checkedboxselection).prop('checked') === false) {
+                this.set(checkedboxselection, false);
+            } else {
+                this.set(checkedboxselection, true);
+            }
         },
         setSelectedMega: function(id)
         {
-
             this.set("currentUser", App.User.find(localStorage.loginStatus));
             this.set("displayName", this.get("currentUser").get("first_name") + " " + this.get("currentUser").get("last_name"));
             this.set("displayEmail", this.get("currentUser").get("email"));
@@ -148,8 +162,7 @@ define([
         nextSendingEmailProcess: function() {
             this.set('secondStepOfContactEmail', true);
             this.set('firstStepOfContactEmail', true);
-            this.set('subcate', []);
-
+            this.selectionCheckBox();
         },
         proviousSendingEmailProcess: function() {
             this.set('secondStepOfContactEmail', false);

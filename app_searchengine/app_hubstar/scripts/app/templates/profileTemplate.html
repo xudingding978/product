@@ -96,7 +96,7 @@
                                 <img {{bindAttr src= model.profile_pic_url}} style="border:5px solid white;box-shadow: 0px 0px 5px #888;"> 
                             </div>
                             {{#if controller.follow_status}}
-                            <div href="#question_modal" role="button" class="followed-btn" data-toggle="modal"><i class='icon-circle-blank' >&nbsp; </i> Following</div>
+                            <div href="#question_modal" role="button" class="disabled-btn" data-toggle="modal" style="margin:10px auto;display: block;width: 150px;"><i class='icon-circle-blank' >&nbsp; </i> Following</div>
                             {{else}}
                             <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin:10px auto;display: block;width: 150px;"{{action followThisProfile}}><i class='icon-plus' >&nbsp; </i> Follow</div>
 
@@ -600,7 +600,7 @@
                     {{#if controller.isPhotoUploadMode}}
                     {{#view App.SingleFileUploaderView }}
                     <div style="position: relative; margin: 15px auto;height: 520px; width: 87%; background-color: rgba(242,240,240,0.5);border: 3px dashed #aaa;"> 
-                        <div style="top: 200px;position: relative;margin: auto;width: 80%;font-size: 26px; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;">
+                        <div style="top: 190px;position: relative;margin: auto;width: 80%;font-size: 26px; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;">
 
 
                             <i class="icon-upload" style="font-size: 45px;"></i>

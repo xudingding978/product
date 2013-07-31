@@ -1316,11 +1316,8 @@
 }
 
 
-.followed-btn{
-    margin: 10px auto;
-    display: block;
-    width: 150px;
-    padding: 2px;
+.disabled-btn{
+    display: inline-block;
     text-align: center;
     font-weight: bold;
     border-radius: 3px;
@@ -1328,7 +1325,13 @@
     border: 1px solid #53a93f;
     color: #53a93f;
     box-shadow: none;
-    cursor: auto;
+    top: -4px;
+    position: relative;
+    padding: 0 8px;
+    height: 28px;
+    line-height: 28px;
+    margin: 0 2px;
+    cursor: default;
 }
 
 

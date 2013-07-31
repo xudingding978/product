@@ -181,6 +181,7 @@ define([
                     }
                 },
                 setLocalLoginRecrod: function() {
+
                     App.set('afterSearch', true);
                     localStorage.user_id = this.get('model.id');
                 },
@@ -450,11 +451,13 @@ define([
 
                     var target = this.getTarget(e);
                     var src = target.result;
-                    this.set('newStyleImageSource', src);
-                    this.set('newStyleImageName', name);
+                    var that =this;
+                    getImageWidth(src, function(width,height) {
+                    that.set('newStyleImageSource', src);
+                    that.set('newStyleImageName', name);
                     $('#photoUploadbtn').removeClass("followed-btn");
-                    $("#photoUploadbtn").toggleClass("new-btn green-btn");
-
+                    $("#photoUploadbtn").toggleClass("new-btn green-btn");                                        
+                    });
                 }, photoUpload: function() {
                     if (this.get('newStyleImageSource') !== null && this.get('newStyleImageSource') !== "")
                     {
@@ -477,7 +480,6 @@ define([
                 },
                 setTempImage: function() {
                     var model = this.get('model');
-
                     if (this.get('UploadImageMode') === "Profile Picture")
                     {
                         this.set('profile_pic_url', this.get('newStyleImageSource'));
@@ -487,8 +489,6 @@ define([
                     {
                         this.set('profile_hero_url', this.get('newStyleImageSource'));
                         model.set('profile_hero_url', this.get('newStyleImageSource'));
-
-
                     } else if (this.get('UploadImageMode') === "Background")
                     {
                         this.set('profile_bg_url', this.get('newStyleImageSource'));

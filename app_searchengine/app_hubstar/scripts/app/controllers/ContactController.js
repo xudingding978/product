@@ -59,7 +59,7 @@ define([
             }
 
         },
-        checkedAction: function(checkedboxselection, model) {
+        checkedAction: function(checkedboxselection) {
             $("#" + checkedboxselection).prop('checked', !$("#" + checkedboxselection).prop('checked'));
             if ($("#" + checkedboxselection).prop('checked') === false) {
                 this.set(checkedboxselection, false);
@@ -115,6 +115,15 @@ define([
         },
         emailSend: function()
         {
+
+            var projectSubCategoryItem = "";
+            for (var i = 0; i < this.get('subcate').get('length'); i++) {
+                if (this.get("checkbox" + i) === true) {
+                    projectSubCategoryItem += $('.checkbox' + i).text() + ",";
+                }
+            }
+            projectSubCategoryItem = projectSubCategoryItem.substring(0, projectSubCategoryItem.length - 1);
+
             var tempEmail = App.Email.createRecord({
                 "displayName": this.get("displayName"),
                 "displayEmail": this.get("displayEmail"),
@@ -124,10 +133,11 @@ define([
                 "emailDestination": this.get("emailDestination"),
                 "emaiCCDestination": this.get("emaiCCDestination"),
                 "emaiBCCDestination": this.get("emaiBCCDestination"),
-                "projectCategory": $('#dropdownCategory').text().trim(),
-                "projectTimeframe": $('#dropdownTimeframe').text().trim(),
-                "projectBudget": $('#dropdownBudget').text().trim(),
-                "projectExperience": $('#dropdownExperience').text().trim()
+                "projectCategory": this.get('projectCategorySelection').trim(),
+                "projectTimeframe": this.get('timeframeSelection').trim(),
+                "projectBudget": this.get('projectBudgetSelection').trim(),
+                "projectExperience": this.get('projectExperienceSelection').trim(),
+                "projectSubCategoryItem": projectSubCategoryItem
             });
             tempEmail.store.commit();
             this.closeContact();

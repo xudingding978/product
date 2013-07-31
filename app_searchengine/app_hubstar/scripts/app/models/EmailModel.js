@@ -18,6 +18,7 @@ define(
         projectTimeframe: DS.attr('string'),
         projectBudget: DS.attr('string'),
         projectExperience: DS.attr('string'),
+        projectSubCategoryItem: DS.attr('string'),
         didLoad: function() {
 
         }

@@ -75,9 +75,9 @@ class EmailsController extends Controller {
         return '<div>
     <div style="position: relative;background: #fff; width: 600px; height: auto; margin: auto; box-shadow: 0px 0px 8px #555; border-radius: 3px 3px 0 0;">
         <div style="width:600px; height:132px;overflow:hidden; margin-bottom:20px;">
-            <img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/header2.jpg"/>
+            <img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/header.jpg"/>
         </div>
-        <table style="padding: 0 80px 0 130px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;">
+        <table style="padding: 0 80px 0 130px; width: 100%;  display: table;border-collapse: separate;border-spacing: 4px;color: #666; font-family: Arial; margin-bottom: 5px; font-size: 13px; line-height: 16px;">
             <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
                 <tr>
                     <td>Project Category:</td>
@@ -128,22 +128,20 @@ class EmailsController extends Controller {
             </tbody>
         </table>   
         <div style="width:350px;margin: auto;padding: 20px 0;">
-            <div style="color:#666;font-family:Arial;margin-bottom: 5px;font-size:13px;line-height:16px">Subject: ' . $subject . ' </div>
-                <div style="color:#666;font-family:Arial;margin-bottom: 5px;font-size:13px;line-height:16px">From: ' . $sendPersonName . ' </div>
-                    <div style="color:#666;font-family:Arial;margin-bottom: 5px;font-size:13px;line-height:16px">To: ' . $recieveProfile . ' </div>
+            <div style="color: #555;font-family:Arial;margin-bottom: 5px;font-size: 15px;line-height:16px;font-weight: bold;">Subject: ' . $subject . '</div>
+                <div style="color: #555;font-family:Arial;margin-bottom: 5px;font-size: 15px;line-height:16px;font-weight: bold;">From: ' . $sendPersonName . '</div>
+                    <div style="color: #555;font-family:Arial;margin-bottom: 5px;font-size: 15px;line-height:16px;font-weight: bold;">To: ' . $recieveProfile . '</div>
             <div style="color:#666;font-family:Arial;margin:0;font-size:11px;line-height:16px">
-               ' . $emailBody . '
+                WQNMLGB~~~~!Yeah
             </div> 
         </div>
         
-   <div style="width:600px; height:132px;overflow:hidden; margin-bottom:20px;">
+   <div style="width:600px; height: 20px;overflow:hidden;">
             <img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/contactus-botbar.png"/>
         </div>
         
     </div>
 </div>';
     }
-
-}
-
+}       
 ?>

@@ -32,7 +32,7 @@
         <link rel="shortcut icon" href="../../../images/favicon.ico" />
 
     </head>
-    <body style="background:#fff url('../images/texture.png') repeat;width: 100%;height: auto;">
+    <body style="background:#fff url('../images/bgtexture.jpg') repeat;width: 100%;height: auto;">
  
 
         <div id="loading" class="loading-visible" >

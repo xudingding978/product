@@ -13,6 +13,7 @@ define([
             $('#dropItem1 > .ite').click(function() {
 
                 $('#dropdownCategory').text($(this).text());
+                this.get('controller').set('projectCategory', $(this).text());
             });
 
             $('#dropItem2 > .ite').click(function() {

@@ -75,7 +75,7 @@
                         <td>Project Category:</td>
                         <td> 
                             <div class="new-btn" style="display: block;" {{action dropdown controller.dropdownCategory}}>
-                                 <span id="dropdownCategory">{{controller.projectCategory}}</span>
+                                 <span id="dropdownCategory">{{controller.projectCategorySelection}}</span>
                                 <span class="caret"></span>
                             </div>
                             {{#if controller.projectCategoryDropdown}}
@@ -87,7 +87,7 @@
                         <td>Project Timeframe:</td>
                         <td> 
                             <div class="new-btn" style="display: block;" {{action dropdown controller.dropdownTimeframe}}>
-                                 <span id="dropdownTimeframe">Please Select One ..</span>
+                                 <span id="dropdownTimeframe">{{controller.timeframeSelection}}</span>
                                 <span class="caret"></span>
                             </div>
                             {{#if controller.projectTimeframeDropdown}}
@@ -99,7 +99,7 @@
                         <td>Project Budget:</td>
                         <td> 
                             <div class="new-btn" style="display: block;" {{action dropdown controller.dropdownBudget}}>
-                                 <span id="dropdownBudget">Please Select One ..</span>
+                                 <span id="dropdownBudget">{{controller.projectBudgetSelection}}</span>
                                 <span class="caret"></span>
                             </div>
                             {{#if controller.projectBudgetDropdown}}
@@ -111,7 +111,7 @@
                         <td>Project Experience:</td>
                         <td>
                             <div class="new-btn" style="display: block;"  {{action dropdown controller.dropdownExperience}}>
-                                 <span id="dropdownExperience">Please Select One .. </span>
+                                 <span id="dropdownExperience">{{controller.projectExperienceSelection}} </span>
                                 <span class="caret"></span>
                             </div>
                             {{#if controller.projectExperienceDropdown}}

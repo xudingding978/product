@@ -34,6 +34,11 @@ define([
             this.set('categorys', []);
             this.set('categorys', App.Cate.find());
 
+            this.set('projectCategorySelection', 'Please Select One ...');
+            this.set('timeframeSelection', 'Please Select One ...');
+            this.set('projectBudgetSelection', 'Please Select One ...');
+            this.set('projectExperienceSelection', 'Please Select One ...');
+
         },
         selectionCheckBox: function() {
             if (this.get('temp').get('subcate') !== undefined) {

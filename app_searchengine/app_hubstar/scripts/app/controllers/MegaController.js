@@ -137,6 +137,7 @@ define(['models/MegaModel',
                     var contactController = this.get('controllers.contact');
                     var selectid = this.get('selectedPhoto').id;
                     contactController.setSelectedMega(selectid);
+                    contactController.selectionCheckBox();
                     this.set('contact', !this.get('contact'));
                 },
                 closeContact: function() {
@@ -153,8 +154,8 @@ define(['models/MegaModel',
                         var name = this.get("currentUser").get('display_name');
                         var date = new Date();
                         var tempComment = App.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url,
-                            "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(), 
-                            "is_delete": false, optional: this.get('megaResouce').get('type') + '/' +this.get('megaResouce').get('id')});
+                            "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(),
+                            "is_delete": false, optional: this.get('megaResouce').get('type') + '/' + this.get('megaResouce').get('id')});
                         comments.insertAt(0, tempComment);
                         comments.store.save();
 

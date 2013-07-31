@@ -87,7 +87,7 @@
                         <td>Project Timeframe:</td>
                         <td> 
                             <div class="new-btn" style="display: block;" {{action dropdown controller.dropdownTimeframe}}>
-                                 <span id="dropdownTimeframe">1-2 months</span>
+                                 <span id="dropdownTimeframe">Please Select One ..</span>
                                 <span class="caret"></span>
                             </div>
                             {{#if controller.projectTimeframeDropdown}}
@@ -99,7 +99,7 @@
                         <td>Project Budget:</td>
                         <td> 
                             <div class="new-btn" style="display: block;" {{action dropdown controller.dropdownBudget}}>
-                                 <span id="dropdownBudget">Less than 5k</span>
+                                 <span id="dropdownBudget">Please Select One ..</span>
                                 <span class="caret"></span>
                             </div>
                             {{#if controller.projectBudgetDropdown}}
@@ -111,7 +111,7 @@
                         <td>Project Experience:</td>
                         <td>
                             <div class="new-btn" style="display: block;"  {{action dropdown controller.dropdownExperience}}>
-                                 <span id="dropdownExperience"> First Time </span>
+                                 <span id="dropdownExperience">Please Select One .. </span>
                                 <span class="caret"></span>
                             </div>
                             {{#if controller.projectExperienceDropdown}}
@@ -127,10 +127,12 @@
             <ol class="checkbox-columncontainer" style="margin: 20px 0 10px 30px;">
 
                 {{#each controller.subcate}}
-                <li class="checkbox-container">
+                <li class="checkbox-container" {{action checkedAction list_id this}}>
 
-                    <input type="checkbox" {{bindAttr id="list_id"}} class="css-checkbox" >
-                    <label for="{{unbound list_id}}" name="checkbox2_lbl" class="css-label lite-blue-check">{{category_topic}}</label>
+                    <input type="checkbox" {{bindAttr id="list_id" checked="isSelection"}} class="css-checkbox"   >
+                    <label for="{{unbound list_id}}" name="{{unbound list_id}}" class="css-label lite-blue-check">{{category_topic}}</label>
+
+
                 </li>
                 {{/each}}
 

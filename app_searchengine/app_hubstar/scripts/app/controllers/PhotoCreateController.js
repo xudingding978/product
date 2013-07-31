@@ -140,13 +140,14 @@ define(["ember", "helper"],
                 getTarget: function(obj) {
                     var targ;
                     var e = obj;
-                    if (e.target)
+                    if (e.srcElement){
+                        targ = e.srcElement;}
+                    else {
                         targ = e.target;
-                    else if (e.srcElement)
-                        targ = e.srcElement;
-                    if (targ.nodeType === 3) // defeat Safari bug
-                        console.log('safari drop');
-                        targ = e.targe;
+                    }
+//                    if (targ.nodeType === 3) // defeat Safari bug
+//                        console.log('safari drop');
+//                        targ = e.targe;
                     return targ;
                 },
                 checkingCleanBeforeUpload: function() {

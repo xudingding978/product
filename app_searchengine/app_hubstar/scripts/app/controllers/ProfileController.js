@@ -445,37 +445,36 @@ define([
                     this.set('isPhotoUploadMode', true);
                     this.set('isPhotoEditingMode', false);
                     this.set('UploadImageMode', mode);
-
+                    var data = {"RequireIamgeType": mode};
+                    requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
+                    //       console.log(params.height);
+                     //            console.log(params.width);
+                    });
                 }, profileStyleImageDrop: function(e, name)
                 {
-
                     var target = this.getTarget(e);
                     var src = target.result;
-                    var that =this;
-                    getImageWidth(src, function(width,height) {
-                    that.set('newStyleImageSource', src);
-                    that.set('newStyleImageName', name);
-                    $('#photoUploadbtn').removeClass("followed-btn");
-                    $("#photoUploadbtn").toggleClass("new-btn green-btn");                                        
+                    var that = this;
+                    getImageWidth(src, function(width, height) {
+                        that.set('newStyleImageSource', src);
+                        that.set('newStyleImageName', name);
+                        $('#photoUploadbtn').removeClass("followed-btn");
+                        $("#photoUploadbtn").toggleClass("new-btn green-btn");
                     });
                 }, photoUpload: function() {
                     if (this.get('newStyleImageSource') !== null && this.get('newStyleImageSource') !== "")
                     {
                         this.setTempImage();
                         this.set('isPhotoUploadMode', false);
-                        var tempurl = getRestAPIURL();
                         var data = {"newStyleImageSource": this.get('newStyleImageSource'),
                             'newStyleImageName': this.get('newStyleImageName'),
                             'mode': this.get('UploadImageMode').replace(" ", "_").toLowerCase(),
                             'id': this.get('model.id')};
-                        $.ajax({
-                            url: tempurl + '/profiles/' + "updateStyleImage",
-                            type: 'POST',
-                            data: JSON.stringify(data),
-                            success: function() {
-                            }
+                        var that = this;
+                        requiredBackEnd('profiles', 'updateStyleImage', data, 'POST', function(params) {
+                            that.set('isPhotoEditingMode', true);
                         });
-                        this.set('isPhotoEditingMode', true);
+
                     }
                 },
                 setTempImage: function() {

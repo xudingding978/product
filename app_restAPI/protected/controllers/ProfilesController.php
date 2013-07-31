@@ -166,7 +166,7 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_pic_url'] = $url;
         }
         if ($cb->set($this->getDomain() . '/profiles/' . $owner_id, CJSON::encode($oldRecord, true))) {
-            $this->sendResponse(204);
+            $this->sendResponse(200);
         } else {
             $this->sendResponse(500, 'something wrong');
         }

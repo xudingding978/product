@@ -102,6 +102,7 @@ define(["ember", "helper"],
                 }, addPhotoObject: function(e, that, name, type) {
                     var testID = createGuid();
                     var target = that.getTarget(e);
+                    console.log(target);
                     var src = target.result;
                     var mega = that.createNewMega(that.get("profileMega"), testID);
                     var file = App.Photo.createRecord({
@@ -138,6 +139,7 @@ define(["ember", "helper"],
                     var targ;
                     var e = obj;
                     if (e.srcElement){
+                        console.log("src element");
                         targ = e.srcElement;}
                     else {
                         console.log('safari drop');

@@ -102,6 +102,7 @@ define(["ember", "helper"],
                 }, addPhotoObject: function(e, that, name, type) {
                     var testID = createGuid();
                     var target = that.getTarget(e);
+                    console.log(target);
                     var src = target.result;
                     var mega = that.createNewMega(that.get("profileMega"), testID);
                     var file = App.Photo.createRecord({
@@ -124,13 +125,10 @@ define(["ember", "helper"],
 
                             if (App.get("totalFiles") === thatP.get("filesNumber")) {
                                 var masonryCollectionItems = thatP.get('controllers.masonryCollectionItems');
-
                                 var photoCreateInfoSettingController = thatP.get('controllers.photoCreateInfoSetting');
                                 App.set('UploadImageInfoData', that.get("content"));
-
                                 photoCreateInfoSettingController.setData();
                                 photoCreateInfoSettingController.set('isEditingMode', true);
-
                                 masonryCollectionItems.set('uploadOrsubmit', !masonryCollectionItems.get('uploadOrsubmit'));
                             }
                         }
@@ -141,8 +139,10 @@ define(["ember", "helper"],
                     var targ;
                     var e = obj;
                     if (e.srcElement){
+                        console.log("src element");
                         targ = e.srcElement;}
                     else {
+                        console.log('safari drop');
                         targ = e.target;
                     }
 //                    if (targ.nodeType === 3) // defeat Safari bug

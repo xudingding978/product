@@ -1,0 +1,20 @@
+HubStar.StatusView = Ember.View.extend({
+
+        didInsertElement: function() {
+            if (HubStar.get('isLogin')) {
+
+                $('#login_button').attr("style", "display:none");
+                $('#afterLogin').attr("style", "display:block");
+                $('#welcome_message').attr("style", "display:none");
+
+
+            } else {
+
+                $('#login_button').attr("style", "display:inline-block");
+                $('#afterLogin').attr("style", "display:none");
+                $('#welcome_message').attr("style", "display:block");
+            }
+        }
+
+    });
+

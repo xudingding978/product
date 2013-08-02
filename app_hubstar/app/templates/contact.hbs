@@ -1,0 +1,186 @@
+<div class="contactmebox-wapper" style="width: 500px;font-size: 13px;background-color: white;margin-top: 20px;">
+
+
+    {{#unless controller.firstStepOfContactEmail}}
+    <div class="head controlbtn-field">
+        <div style="position: relative; text-align: center;">
+            <div class="panelcircle" style="position: relative; display: inline-block;  margin: 0 65px; font-weight: bold;background-color: #427fed;z-index: 1;">1</div>
+            <div {{action nextSendingEmailProcess}} class="panelcircle" style="cursor:pointer; position: relative; display: inline-block;  margin: 0 65px; font-weight: bold; z-index: 1;">2</div>
+            <div style="width: 300px; height: 2px; border-radius: 20%;background-color:#ccc;position: absolute;margin: auto;left: 0;right: 0;top: 19px;z-index: 0;"></div>
+            <div style='font-size: 18px; text-shadow: 0 1px 0 rgba(255,255,255,0.8);position: relative;top: 10px;right: 87px;font-weight: bold;margin-bottom: 10px;'> Send a message.</div>
+        </div>
+    </div>
+
+    <div class="head" style='padding-bottom: 0;'>
+        <div class="poster_user" >
+            <div style="display: block; font-size: 16px; font-weight: bold; margin-bottom: 5px;">
+                <span style="display: inline-block;margin-right: 5px;">Send an Email to</span>
+                <a style="max-width: 240px; display: inline-block; overflow: hidden; text-overflow: ellipsis;">{{controller.selectedMega.owner_title}}</a>
+            </div>
+            <div style="display: block;">
+                {{#unless controller.isDisplayNameEditable}}
+                <span style="display: inline-block;margin-right: 5px;">From: {{controller.displayName}}</span>
+                {{else}}
+                {{view HubStar.SearchRequireTextFieldView valueBinding="controller.displayName" class="lineuptextbox"}}
+                {{/unless}}
+                <a style="display: inline-block; cursor: pointer;" {{action setEditable "Name"}}>{{editNameStatus}}</a>
+            </div>
+            <div style="display: block; margin-bottom: 15px;">
+                {{#unless controller.isDisplayEmailEditable}}
+                <span style="display: inline-block;margin-right: 5px;">Email: {{controller.displayEmail}}</span>
+                {{else}}
+                {{view HubStar.SearchAreaTextFieldView valueBinding="controller.displayEmail" class="lineuptextbox"}}
+                {{/unless}}
+                <a style="display: inline-block;cursor: pointer;" {{action setEditable "Email"}}>{{editEmailStatus}}</a>
+            </div>
+        </div>
+        <div style="float: right;position: relative; display: inline-block; vertical-align: top;margin: 5px 0;">
+            <a href="#"><img {{bindAttr src="controller.selectedMega.owner_profile_pic"}} class="profilepic"/></a>              
+        </div>
+        <div>
+            <span style="display: inline-block; margin-right: 10px;">Subject:</span>
+            <div style="display: inline-block; width: 378px; vertical-align: middle;">
+                {{view Ember.TextField valueBinding="controller.emailSubject"}}
+            </div>
+        </div>
+    </div>
+    {{/unless}}
+
+
+    {{#if controller.secondStepOfContactEmail}}
+    <div class="head controlbtn-field">
+        <div style="position: relative;margin-bottom: 20px;text-align: center;">
+            <div class="panelcircle" style="position: relative; display: inline-block;  margin: 0 65px; font-weight: bold; z-index: 1;" {{action proviousSendingEmailProcess}}>1</div>
+            <div class="panelcircle" style="cursor:pointer; position: relative; display: inline-block;  margin: 0 65px; font-weight:bold; background-color: #427fed; z-index: 1;">2</div>
+            <div style="width: 300px; height: 2px; border-radius: 20%;background-color:#ccc;position: absolute;margin: auto;left: 0;right: 0;top: 19px;z-index: 0;"></div>
+            <div style='font-size: 18px; text-shadow: 0 1px 0 rgba(255,255,255,0.8);position: relative;top: 10px;left: 90px;font-weight: bold;margin-bottom: 10px;'>Help us help you.</div>
+        </div>
+    </div>
+    {{/if}}
+
+
+
+
+
+
+    <div class="content" style="border-radius: 0; padding: 15px 30px 0px;">
+        <div class="contactme-table easing" style="text-align: center;">
+
+            {{#if controller.secondStepOfContactEmail}}
+
+
+            <table style="padding: 0 20px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;">
+                <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
+                    <tr>
+                        <td>Project Category:</td>
+                        <td> 
+                            <div class="new-btn" style="display: block;" {{action dropdown controller.dropdownCategory}}>
+                                 <span id="dropdownCategory">{{controller.projectCategorySelection}}</span>
+                                <span class="caret"></span>
+                            </div>
+                            {{#if controller.projectCategoryDropdown}}
+                            {{view HubStar.DropdownListView}}
+                            {{/if}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Project Timeframe:</td>
+                        <td> 
+                            <div class="new-btn" style="display: block;" {{action dropdown controller.dropdownTimeframe}}>
+                                 <span id="dropdownTimeframe">{{controller.timeframeSelection}}</span>
+                                <span class="caret"></span>
+                            </div>
+                            {{#if controller.projectTimeframeDropdown}}
+                            {{view HubStar.DropdownListView}}
+                            {{/if}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Project Budget:</td>
+                        <td> 
+                            <div class="new-btn" style="display: block;" {{action dropdown controller.dropdownBudget}}>
+                                 <span id="dropdownBudget">{{controller.projectBudgetSelection}}</span>
+                                <span class="caret"></span>
+                            </div>
+                            {{#if controller.projectBudgetDropdown}}
+                            {{view HubStar.DropdownListView}}
+                            {{/if}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Project Experience:</td>
+                        <td>
+                            <div class="new-btn" style="display: block;"  {{action dropdown controller.dropdownExperience}}>
+                                 <span id="dropdownExperience">{{controller.projectExperienceSelection}} </span>
+                                <span class="caret"></span>
+                            </div>
+                            {{#if controller.projectExperienceDropdown}}
+                            {{view HubStar.DropdownListView}}
+                            {{/if}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>    
+
+             <span style='color: #555;text-align: right;cursor: default;font-size: 15px;float: left;margin: 5px 0 0 55px;'> I need help on: (Please choose your category)</span>
+            
+            <ol class="checkbox-columncontainer" style="margin: 20px 0 10px 30px;">
+
+                {{#each controller.subcate}}
+                <li class="checkbox-container" {{action checkedAction list_id this}}>
+
+                    <input type="checkbox" {{bindAttr id="list_id" checked="isSelection"}} class="css-checkbox"   >
+                    <label for="{{unbound list_id}}" name="{{unbound list_id}}" class="css-label lite-blue-check {{unbound list_id}}">{{category_topic}}</label>
+
+
+                </li>
+                {{/each}}
+
+            </ol>
+
+
+
+            {{/if}}
+
+
+        </div>
+
+
+        {{#unless controller.firstStepOfContactEmail}}
+
+
+
+        <div style="display: block;padding: 5px 0px;">
+            <div>
+                <span style="display: inline-block; margin-bottom: 5px;">Message:</span>
+                <div style="margin-bottom: 10px; width: 100%; height: 200px;resize: none;">
+                    {{view Ember.TextArea valueBinding="controller.emailBody" rows="12" cols="70" class="no-resize" placeholder="I saw your profile, I'd love to talk to you about my project, Please reply if you are interested.........."}}
+
+                </div>
+            </div>
+        </div>
+
+
+        {{/unless}}
+
+    </div>
+
+
+    <div class="controlbtn-field">
+        {{#if controller.secondStepOfContactEmail}}
+        <span style="float: left;margin: 15px;position: relative;left: 15px;">
+            <div type="button" {{action proviousSendingEmailProcess}}  class="new-btn blue-btn">
+                 <k class='icon-arrow-left'>&nbsp;</k>Previous</div>
+        </span>
+        {{/if}}
+        <span class="controlbtn">
+            <div type="button" {{action closeContact }} class="new-btn">Cancel</div>
+            {{#if controller.secondStepOfContactEmail}}
+            <div type="button" {{action emailSend }}  class="new-btn green-btn">Submit</div>
+            {{/if}}
+            {{#unless controller.firstStepOfContactEmail}}
+            <div type="button" {{action nextSendingEmailProcess}}  class="new-btn green-btn">Next</div>
+            {{/unless}}
+        </span>
+    </div>
+</div>

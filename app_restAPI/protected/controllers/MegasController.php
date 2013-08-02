@@ -144,7 +144,7 @@ class MegasController extends Controller {
         $docID = $domain . "/profiles/" . $id;
 
         if ($cb->add($docID, CJSON::encode($mega))) {
-            $this->sendResponse(200, "ok");
+            $this->sendResponse(204);
         } else {
             $this->sendResponse(500, "some thing wrong");
         }

@@ -75,8 +75,9 @@ define([
                 getCurrentProfile: function(id)
                 {
                     this.set('currentUserID', id);
-                    var user = ProfileModel.find(id);
-                    return user;
+                    var profile = ProfileModel.find(id);
+                    profile.get('stateManager').transitionTo('loaded.saved');
+                    return profile;
                 },
                 setProfile: function(id) {
                     var profile = this.getCurrentProfile(id);
@@ -118,10 +119,8 @@ define([
                         if (this.selectedCollection.get('desc') !== null && this.selectedCollection.get('desc') !== "") {
                             this.selectedCollection.set('desc', desc);
                         } else {
-
                             this.selectedCollection.set('desc', "Add a short description to your Collection");
                         }
-
                         this.get("collections").insertAt(0, this.selectedCollection);
                         this.get("collections").store.commit();
                         $(".Targeting_Object_front").attr("style", "display:inline-block");
@@ -447,8 +446,8 @@ define([
                     this.set('UploadImageMode', mode);
                     var data = {"RequireIamgeType": mode};
                     requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
-                    //       console.log(params.height);
-                     //            console.log(params.width);
+                        //       console.log(params.height);
+                        //            console.log(params.width);
                     });
                 }, profileStyleImageDrop: function(e, name)
                 {

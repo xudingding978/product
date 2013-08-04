@@ -12,15 +12,15 @@ define([
     "use strict";
 
     var CollectionRoute = Ember.Route.extend({
-        setupController: function(controller, model) {
+        setupController: function( model) {
             if (model.id === undefined || model.id === "") {
                 var address = document.URL;
                 var id = address.split("#")[1].split("/")[3];
             } else {
                 var id = model.id;
 
-            }
-            this.controllerFor('masonryCollectionItems').selectModelForProfile(id);
+            }console.log(model);
+            this.controllerFor('masonryCollectionItems').selectModelForProfile(id,App.Profile);
             this.controllerFor('profile').set('switchPhoto', false);
             this.controllerFor('masonryCollectionItems').set('uploadStuff', true);
             this.controllerFor('masonryCollectionItems').set('canEditbyOwner', true);

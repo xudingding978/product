@@ -346,7 +346,6 @@ define([
                 },
                 followThisProfile: function() {
                     if (this.checkFollowStatus() === false) {
-
                         var currentUser = App.User.find(localStorage.loginStatus);
                         var commenter_profile_pic_url = currentUser.get('photo_url_large');
                         var commenter_id = currentUser.get('id');
@@ -376,7 +375,6 @@ define([
                             break;
                         }
                     }
-
                     return isFollow;
                 },
                 unfollow: function() {

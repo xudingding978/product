@@ -466,16 +466,16 @@
 }
 
 .add-new-object-content{
-    width: 357px;
-    height: 357px;
+    width: 337px;
+    height: 337px;
     background-color: rgb(242,240,240);
     padding: 60px;
     margin: 5px;
 }
 
 .add-new-object-content > i{
-    font-size: 71px;
-    padding: 20px;
+    font-size: 69px;
+    padding: 16px;
     display: inline-block;
     text-shadow: 1px 1px 0px #fff, -1px -1px 0px #333;
     color: #555;

@@ -186,7 +186,6 @@ module.exports = function(grunt) {
                     src: [
                         '<%= yeoman.dist %>/scripts/{,*/}*.js',
                         '<%= yeoman.dist %>/styles/{,*/}*.css',
-                
                         '<%= yeoman.dist %>/fonts/*',
                         '<%= yeoman.dist %>/helpers/*.js',
                         '<%= yeoman.dist %>/styles/fonts/*'
@@ -227,6 +226,16 @@ module.exports = function(grunt) {
                     }]
             }
         },
+//        fontmin: {
+//            dist: {
+//                files: [{
+//                        expand: true,
+//                        cwd: '<%= yeoman.app %>/font',
+//                        src: '{,*,
+//                        dest: '<%= yeoman.dist %>/font'
+//                    }]
+//            }
+//        },
         cssmin: {
             dist: {
                 files: {

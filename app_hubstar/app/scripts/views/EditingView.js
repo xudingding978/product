@@ -1,4 +1,5 @@
 HubStar.EditingView = Ember.View.extend({
+      templateName: 'editing',
         classNames: ["window-container"],
         controller: HubStar.ProfilesController,
     

@@ -1,6 +1,7 @@
 HubStar.VideoView = Ember.View.extend({
+         templateName: 'video',
         classNames: ["lightbox"],
-        template: Ember.Handlebars.compile(videosTemplate),
+
         didInsertElement: function() {
 
 

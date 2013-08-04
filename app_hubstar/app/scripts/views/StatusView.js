@@ -1,5 +1,5 @@
 HubStar.StatusView = Ember.View.extend({
-
+    templateName: 'status',
         didInsertElement: function() {
             if (HubStar.get('isLogin')) {
 

@@ -1,4 +1,5 @@
 HubStar.PhotoView = Ember.View.extend({
+        templateName: 'photo',
         classNames: ["lightbox"],
         content: [],
         TitleTag: false,

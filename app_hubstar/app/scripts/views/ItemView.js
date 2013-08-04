@@ -1,5 +1,5 @@
 HubStar.ItemView = Ember.View.extend({
-
+   templateName: 'item',
         didInsertElement: function() {
 
 

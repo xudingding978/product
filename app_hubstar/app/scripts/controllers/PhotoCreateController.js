@@ -163,12 +163,5 @@
                 event.preventDefault();
                 return false;
             };
-            HubStar.PhotoCreateController.Droppable = Ember.Mixin.create(HubStar.PhotoCreateController, {
-                dragEnter: HubStar.PhotoCreateController.cancel,
-                dragOver: HubStar.PhotoCreateController.cancel,
-                test: function() {
-
-                }
-
-            });
+  
 

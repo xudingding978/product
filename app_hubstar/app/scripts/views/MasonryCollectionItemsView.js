@@ -1,5 +1,5 @@
 HubStar.MasonryCollectionItemsView = Ember.View.extend({
-    
+          templateName: 'masonryCollectionItems',
         didInsertElement: function() {
 
             $(function() {

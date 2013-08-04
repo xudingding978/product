@@ -1,5 +1,5 @@
-HubStar.ProfileNew = Ember.View.extend({
-        controller: ProfileNewController,
+HubStar.ProfileNewView = Ember.View.extend({
+
    
 
     });

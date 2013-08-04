@@ -1,4 +1,5 @@
 HubStar.SingleDragNDropView = Ember.View.extend(HubStar.SingleFileUploaderController.Droppable, {
+    
         contentBinding: "SingleFileUploader",
 
         drop: function(event) {

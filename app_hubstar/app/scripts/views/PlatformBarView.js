@@ -1,5 +1,5 @@
 HubStar.PlatformBarView = Ember.View.extend({
-      
+          templateName: 'platformBar',
         didInsertElement: function() {
 
 

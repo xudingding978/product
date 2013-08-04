@@ -1,4 +1,4 @@
-var HubStar = window.HubStar = Ember.Application.create({
+var HubStar = window.HubStar = Ember.Application.createWithMixins({
     LOG_TRANSITIONS: false,
     LOG_BINDINGS: false,
     ready: function() {
@@ -13,10 +13,10 @@ var HubStar = window.HubStar = Ember.Application.create({
 });
 
 /* Order and include as you please. */
-
-require('scripts/store');
+require('scripts/helper');
+require('scripts/models/*');
 require('scripts/routes/*');
 require('scripts/controllers/*');
-require('scripts/models/*');
 require('scripts/views/*');
 require('scripts/router');
+require('scripts/store');

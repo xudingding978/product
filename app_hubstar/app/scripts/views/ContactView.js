@@ -1,12 +1,12 @@
 HubStar.ContactView = Ember.View.extend({
-      classNames: ["contact-container"],
-   
-        didInsertElement: function() {
-            this.$().draggable({
-                cursor: "move",
-                scroll: true,
-                scrollSensitivity: 100
-            });
+    templateName: 'contact',
+    classNames: ["contact-container"],
+    didInsertElement: function() {
+        this.$().draggable({
+            cursor: "move",
+            scroll: true,
+            scrollSensitivity: 100
+        });
 
-        }
-    });
+    }
+});

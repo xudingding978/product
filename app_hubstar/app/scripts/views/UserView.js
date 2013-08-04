@@ -1,5 +1,5 @@
 HubStar.UserView = Ember.View.extend({
-     
+          templateName: 'user',
         didInsertElement: function() {
 
             $(function() {

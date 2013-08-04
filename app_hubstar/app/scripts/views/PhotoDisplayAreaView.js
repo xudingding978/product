@@ -1,9 +1,7 @@
 HubStar.PhotoDisplayAreaView = Ember.View.extend({
+    templateName: 'photoDisplayArea',
+    imgReturn: function() {
 
-                
-                
-        imgReturn: function() {
-
-        }.observes('content')
-    });
+    }.observes('content')
+});
 

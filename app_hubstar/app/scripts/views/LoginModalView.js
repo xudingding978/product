@@ -1,5 +1,5 @@
 HubStar.LoginModalView = Ember.View.extend({
-
+      templateName: 'loginModal',
  
         didInsertElement: function() {
 

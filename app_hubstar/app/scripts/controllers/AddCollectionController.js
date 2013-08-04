@@ -1,5 +1,5 @@
 
-    HubStar.AddCollectionTemplate = Ember.ObjectController.extend({
+    HubStar.AddCollectionController = Ember.ObjectController.extend({
         collections: [],
         selectedDesc: "",
         selectedTitle: "",

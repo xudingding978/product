@@ -1,5 +1,5 @@
 HubStar.ShowAlbumView = Ember.View.extend({
-     
+           templateName: 'showAlbum',
         didInsertElement: function() {
 
      

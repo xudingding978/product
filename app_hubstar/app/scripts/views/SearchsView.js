@@ -1,5 +1,5 @@
 HubStar.SearchView = Ember.View.extend({
-
+      templateName: 'search',
         didInsertElement: function() {
             if (HubStar.get('isLogin')) {
                 $('#login_icon').attr("style", "display:block;position:absolute;right:90px;");

@@ -1,11 +1,11 @@
 
-    HubStar.AddCollectionView = Ember.View.extend({
-        classNames: ["contact-container"],
+HubStar.AddCollectionView = Ember.View.extend({
+    templateName: 'addCollection',
+    classNames: ["contact-container"],
+    didInsertElement: function() {
+        if (HubStar.get('chooseCollection') !== null) {
 
-        didInsertElement: function() {
-            if (HubStar.get('chooseCollection') !== null) {
-
-                $('#recordID').text(HubStar.get('chooseCollection'));
-            }
+            $('#recordID').text(HubStar.get('chooseCollection'));
         }
-    });
+    }
+});

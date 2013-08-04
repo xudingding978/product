@@ -1,3 +1,3 @@
-HubStar.isLoadingView = Ember.View.extend({
-     
+HubStar.IsLoadingView = Ember.View.extend({
+        templateName: 'isLoading'
     });

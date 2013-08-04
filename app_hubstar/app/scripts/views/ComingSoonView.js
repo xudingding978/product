@@ -1,10 +1,9 @@
 HubStar.ComingSoonView = Ember.View.extend({
-  
-    
-        didInsertElement: function() {
-          
+    templateName: 'comingSoon',
+    didInsertElement: function() {
 
-        }
 
-    });
+    }
+
+});
 

@@ -5,7 +5,7 @@ HubStar.ArticleRoute = Ember.Route.extend({
             controller.getInitData(d);
         },
         model: function(params) {
-            return HubStar.Meg.find(params.article_id);
+            return HubStar.Mega.find(params.article_id);
         },
         activate: function() {
 

@@ -63,15 +63,14 @@
 
 {{#if controller.isActiveDropdown}}
 <div id="is_actvie" {{action dropdown controller.projectActiveDropdownType}}>
-     <div  class="ite ">Yes</div>
-    <div  class="ite ">No</div>
-        <div  class="ite ">{{controller}}</div>
+     <div  class="ite ">true</div>
+    <div  class="ite ">false</div>
 </div>
 {{/if}}
 
 {{#if controller.isDeleteDropdown}}
 <div id="is_delete" {{action dropdown controller.projectDeleteDropdownType}}>
-     <div  class="ite ">Yes</div>
-    <div  class="ite ">No</div>
+     <div  class="ite ">true</div>
+    <div  class="ite ">false</div>
 </div>
 {{/if}}

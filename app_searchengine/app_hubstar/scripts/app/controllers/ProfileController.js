@@ -19,6 +19,7 @@ define([
                 model: null,
                 aboutMe: "aboutMe",
                 address: "",
+                boost: '',
                 currentUserID: "",
                 collections: [],
                 contactChecking: false,
@@ -27,6 +28,7 @@ define([
                 country: "",
                 contact_email: "",
                 secondary_email: "",
+                domains: "",
                 direct_enquiry_provide_email: "",
                 editing: false,
                 editingAbout: false,
@@ -45,6 +47,7 @@ define([
                 name: "",
                 profileName: "profileName",
                 profile_bg_url: "",
+                profile_creator: '',
                 profile_hero_url: "",
                 profile_pic_url: "",
                 profile_contact_number: "",
@@ -72,13 +75,13 @@ define([
                 newStyleImageName: '',
                 isPackgetDropdown: false,
                 projectCategoryDropdownType: 'package',
-                projectCategoryDropdownContent: 'package',
+                projectCategoryDropdownContent: '',
                 isActiveDropdown: false,
                 projectActiveDropdownType: 'active',
-                projectActiveDropdownContent: 'Yes',
+                projectActiveDropdownContent: '',
                 isDeleteDropdown: false,
                 projectDeleteDropdownType: 'delete',
-                projectDeleteDropdownContent: 'No',
+                projectDeleteDropdownContent: '',
                 init: function() {
                     this.set('is_authentic_user', false);
                 },
@@ -91,6 +94,8 @@ define([
                 setProfile: function(id) {
                     var profile = this.getCurrentProfile(id);
                     this.set("model", profile);
+                    this.set("domains", profile.get('profile_domains'));
+                    this.set("boost", profile.get('profile_boost'));
                     this.set('profile_bg_url', profile.get('profile_bg_url'));
                     this.set('profile_hero_url', profile.get('profile_hero_url'));
                     this.set('profile_pic_url', profile.get('profile_pic_url'));
@@ -99,22 +104,25 @@ define([
                     this.set('region', profile.get('profile_regoin'));
                     this.set('country', profile.get('profile_country'));
                     this.set('name', profile.get('profile_name'));
+                    this.set('profile_creator', profile.get('profile_creater'));
                     this.set('direct_enquiry_provide_email', profile.get('owner_contact_bcc_emails'));
                     this.set('secondary_email', profile.get('owner_contact_cc_emails'));
                     this.set('contact_email', profile.get('owner_contact_email'));
                     this.set('website', profile.get('profile_website'));
                     this.set('website_url', profile.get('profile_website_url'));
                     this.set('profile_contact_number', profile.get('profile_contact_number'));
+                    this.set('projectCategoryDropdownContent', profile.get('profile_package_name'));
                     this.set('first_name', profile.get('profile_contact_first_name'));
                     this.set('address', profile.get('profile_physical_address'));
                     this.set('last_name', profile.get('profile_contact_last_name'));
                     this.set("profile_name", profile.get("profile_name"));
+                    this.set("projectActiveDropdownContent", profile.get("profile_isActive"));
+                    this.set("projectDeleteDropdownContent", profile.get("profile_isDeleted"));
                     this.updateWorkingHourData(profile.get('profile_hours'));
                     this.set("collections", profile.get("collections"));
                     var collections = profile.get("collections");
                     this.isFollowed();
                     this.checkAuthenticUser();
-
                     var photoCreateController = this.get('controllers.photoCreate');
                     photoCreateController.setMega();
                 },
@@ -156,13 +164,10 @@ define([
 
                     if (postOrPut === "update") {
                         for (var i = 0; i < this.get("temp").get('length'); i++) {
-
                             if (this.get("temp").objectAt(i) === id) {
-
                                 isExsinting = false;
                             }
                         }
-
                         if (!isExsinting) {
                             for (var i = 0; i < this.get("tempdesc").get('length'); i++) {
                                 if (this.get("tempdesc").objectAt(i) === desc) {
@@ -172,7 +177,6 @@ define([
                                     isExsinting = true;
                                 }
                             }
-
                         }
 
                         if (!isExsinting) {
@@ -388,7 +392,6 @@ define([
                         var follower_id = followers.get("content").objectAt(i).data.follower_id;
                         if (follower_id === localStorage.loginStatus)
                         {
-
                             isFollow = true;
                             break;
                         }
@@ -437,7 +440,11 @@ define([
                     update_profile_record.set('profile_keywords', this.get('keywords'));
                     update_profile_record.set('profile_regoin', this.get('region'));
                     update_profile_record.set('profile_country', this.get('country'));
+                    update_profile_record.set('profile_boost', this.get('boost'));
+                    update_profile_record.set('profile_domains', this.get('domains'));
+                    update_profile_record.set('profile_domains', this.get('domains'));
                     update_profile_record.set('profile_name', this.get('name'));
+                    update_profile_record.set('profile_package_name', this.get('projectCategoryDropdownContent'));
                     update_profile_record.set('owner_contact_bcc_emails', this.get('direct_enquiry_provide_email'));
                     update_profile_record.set('owner_contact_cc_emails', this.get('secondary_email'));
                     update_profile_record.set('owner_contact_email', this.get('contact_email'));
@@ -448,6 +455,9 @@ define([
                     update_profile_record.set('profile_physical_address', this.get('address'));
                     update_profile_record.set('profile_contact_last_name', this.get('last_name'));
                     update_profile_record.set("profile_name", this.get('profile_name'));
+                    update_profile_record.set("profile_isActive", this.get("projectActiveDropdownContent"));
+                    update_profile_record.set("profile_isDeleted", this.get("projectDeleteDropdownContent"));
+
                     App.store.get('adapter').updateRecord(App.store, App.Profile, update_profile_record);
                 },
                 flipFrontClick: function() {
@@ -527,11 +537,10 @@ define([
                     $('#photoUploadbtn').removeClass("new-btn green-btn");
                     $("#photoUploadbtn").toggleClass("followed-btn");
                 }, dropdown: function(checking) {
-                    console.log(checking);
                     if (checking === "package") {
                         this.set('isActiveDropdown', false);
                         this.set('isDeleteDropdown', false);
-                        
+
                         this.set('isPackgetDropdown', !this.get('isPackgetDropdown'));
                     } else if (checking === "active") {
                         this.set('isDeleteDropdown', false);

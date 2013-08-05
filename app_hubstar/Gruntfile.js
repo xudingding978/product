@@ -39,11 +39,11 @@ module.exports = function(grunt) {
 //                    timestamp: true
 //                },
                 src: [
-                    '*.html',
-                    'images/*',
-                    'styles/*.css',
-                    'styles/font/*',
-                    'scripts/*.js'
+                    'dist/*.html',
+                    'dist/images/*',
+                    'dist/styles/*.css',
+                    'dist/styles/font/*',
+                    'dist/scripts/*.js'
                 ],
                 dest: 'dist/cache.manifest'
             }

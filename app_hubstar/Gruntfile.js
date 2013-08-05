@@ -40,10 +40,10 @@ module.exports = function(grunt) {
                 },
                 src: [
                     '*.html',
-                    'images/*',
                     'styles/*.css',
                     'styles/font/*',
-                    'scripts/*.js'
+                    'scripts/*.js',
+                    'images/*'
                 ],
                 dest: "<%= yeoman.dist %>/cache.manifest"
             }

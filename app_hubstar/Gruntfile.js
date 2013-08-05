@@ -22,8 +22,8 @@ module.exports = function(grunt) {
         yeoman: yeomanConfig,
         manifest: {
             generate: {
-//                options: {
-//                    basePath: '../',
+                options: {
+                    basePath: "<%= yeoman.dist %>"
 //                    cache: [
 //                        'dist/*.html',
 //                        'dist/images/*',
@@ -37,13 +37,13 @@ module.exports = function(grunt) {
 //                    preferOnline: true,
 //                    verbose: true,
 //                    timestamp: true
-//                },
+                },
                 src: [
-                    'dist/*.html',
-                    'dist/images/*',
-                    'dist/styles/*.css',
-                    'dist/styles/font/*',
-                    'dist/scripts/*.js'
+                    '*.html',
+                    'images/*',
+                    'styles/*.css',
+                    'styles/font/*',
+                    'scripts/*.js'
                 ],
                 dest: 'dist/cache.manifest'
             }

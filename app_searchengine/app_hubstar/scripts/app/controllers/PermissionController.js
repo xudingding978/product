@@ -10,7 +10,7 @@ define(["ember"], function(Ember) {
             if (authenticUsers !== null && authenticUsers !== undefined && current_user_email !== null && current_user_email !== undefined) {
                 is_authentic_user = this.setIsAuthenticUser(authenticUsers, current_user_email);
             }
-
+      
             return is_authentic_user;
         },
         setIsAuthenticUser: function(authenticUsers, email)
@@ -28,7 +28,16 @@ define(["ember"], function(Ember) {
             }
 
             return  is_authentic_user;
+        },
+        setIsAdmin: function(email)
+        {
+            var IsAdmin = false;
+            if (email.indexOf('@trendsideas.com') !== -1) {
+                IsAdmin = true;
+            }
+            return  IsAdmin;
         }
+
     }
     );
     return PermissionController;

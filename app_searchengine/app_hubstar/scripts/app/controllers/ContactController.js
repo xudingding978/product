@@ -4,7 +4,7 @@ define([
 
 
     var ContactController = Ember.Controller.extend({
-        dropdownCategory: "category",
+        dropdownCategory: "Category",
         dropdownTimeframe: "Timeframe",
         dropdownBudget: "Budget",
         dropdownExperience: "Experience",
@@ -33,7 +33,6 @@ define([
         init: function() {
             this.set('categorys', []);
             this.set('categorys', App.Cate.find());
-
             this.set('projectCategorySelection', 'Please Select One ...');
             this.set('timeframeSelection', 'Please Select One ...');
             this.set('projectBudgetSelection', 'Please Select One ...');

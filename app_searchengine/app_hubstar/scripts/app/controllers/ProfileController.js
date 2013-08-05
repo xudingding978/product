@@ -67,13 +67,22 @@ define([
                 updateOrCreate: true,
                 isPhotoUploadMode: false,
                 isPhotoEditingMode: false,
+                isAdmin: false,
                 newStyleImageSource: '',
                 newStyleImageName: '',
+                isPackgetDropdown: false,
+                projectCategoryDropdownType: 'package',
+                projectCategoryDropdownContent: 'package',
+                isActiveDropdown: false,
+                projectActiveDropdownType: 'active',
+                projectActiveDropdownContent: 'Yes',
+                isDeleteDropdown: false,
+                projectDeleteDropdownType: 'delete',
+                projectDeleteDropdownContent: 'No',
                 init: function() {
                     this.set('is_authentic_user', false);
                 },
-                getCurrentProfile: function(id)
-                {
+                getCurrentProfile: function(id) {
                     this.set('currentUserID', id);
                     var profile = ProfileModel.find(id);
                     profile.get('stateManager').transitionTo('loaded.saved');
@@ -105,6 +114,7 @@ define([
                     var collections = profile.get("collections");
                     this.isFollowed();
                     this.checkAuthenticUser();
+
                     var photoCreateController = this.get('controllers.photoCreate');
                     photoCreateController.setMega();
                 },
@@ -325,14 +335,22 @@ define([
                     var permissionController = this.get('controllers.permission');
                     var that = this;
                     var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
-                    that.set("is_authentic_user", is_authentic_user);
-                    currentUser.addObserver('isLoaded', function() {
-                        var current_user_email = currentUser.get('email');
-                        if (currentUser.get('isLoaded')) {
-                            var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
-                            that.set("is_authentic_user", is_authentic_user);
-                        }
-                    });
+                    if (current_user_email !== null && current_user_email !== undefined && current_user_email !== "") {
+                        var isAdmin = permissionController.setIsAdmin(current_user_email);
+                        this.set('isAdmin', isAdmin);
+                        that.set("is_authentic_user", is_authentic_user);
+                    } else {
+                        currentUser.addObserver('isLoaded', function() {
+                            var current_user_email = currentUser.get('email');
+                            if (currentUser.get('isLoaded')) {
+                                var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
+                                that.set("is_authentic_user", is_authentic_user);
+                                var isAdmin = permissionController.setIsAdmin(current_user_email);
+                                that.set('isAdmin', isAdmin);
+                                isAdmin = permissionController.setIsAdmin(current_user_email);
+                            }
+                        });
+                    }
                 },
                 isFollowed: function()
                 {
@@ -508,7 +526,25 @@ define([
                     this.set('newStyleImageName', "");
                     $('#photoUploadbtn').removeClass("new-btn green-btn");
                     $("#photoUploadbtn").toggleClass("followed-btn");
+                }, dropdown: function(checking) {
+                    console.log(checking);
+                    if (checking === "package") {
+                        this.set('isActiveDropdown', false);
+                        this.set('isDeleteDropdown', false);
+                        
+                        this.set('isPackgetDropdown', !this.get('isPackgetDropdown'));
+                    } else if (checking === "active") {
+                        this.set('isDeleteDropdown', false);
+                        this.set('isPackgetDropdown', false);
+                        this.set('isActiveDropdown', !this.get('isActiveDropdown'));
+                    }
+                    else if (checking === "delete") {
+                        this.set('isPackgetDropdown', false);
+                        this.set('isActiveDropdown', false);
+                        this.set('isDeleteDropdown', !this.get('isDeleteDropdown'));
+                    }
                 }
+
             });
             return ProfileController;
         });

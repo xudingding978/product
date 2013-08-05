@@ -4,7 +4,6 @@ var lrSnippet = require('grunt-contrib-livereload/lib/utils').livereloadSnippet;
 var mountFolder = function(connect, dir) {
     return connect.static(require('path').resolve(dir));
 };
-
 // # Globbing
 // for performance reasons we're only matching one level down:
 // 'test/spec/{,*/}*.js'
@@ -12,17 +11,43 @@ var mountFolder = function(connect, dir) {
 // 'test/spec/**/*.js'
 
 module.exports = function(grunt) {
-    // load all grunt tasks
+// load all grunt tasks
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
-
     // configurable paths
     var yeomanConfig = {
         app: 'app',
         dist: 'dist'
     };
-
     grunt.initConfig({
         yeoman: yeomanConfig,
+        manifest: {
+            generate: {
+//                options: {
+//                    basePath: '../',
+//                    cache: [
+//                        'dist/*.html',
+//                        'dist/images/*',
+//                        'dist/styles/*.css',
+//                        'dist/styles/font/*',
+//                        'dist/scripts/*.js'
+//                    ],
+//                    network: ['http://*', 'https://*'],
+//                    fallback: ['/ /offline.html'],
+//                    exclude: ['js/jquery.min.js'],
+//                    preferOnline: true,
+//                    verbose: true,
+//                    timestamp: true
+//                },
+                src: [
+                    'dist/*.html',
+                    'dist/images/*',
+                    'dist/styles/*.css',
+                    'dist/styles/font/*',
+                    'dist/scripts/*.js'
+                ],
+                dest: 'dist/manifest.manifest'
+            }
+        },
         watch: {
             emberTemplates: {
                 files: '<%= yeoman.app %>/templates/**/*.hbs',
@@ -48,7 +73,7 @@ module.exports = function(grunt) {
                 files: [
                     '<%= yeoman.app %>/*.html',
                     '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
-                    '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+                    '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg,ico}'
                 ],
                 tasks: ['livereload']
             }
@@ -92,7 +117,7 @@ module.exports = function(grunt) {
         },
         open: {
             server: {
-                //   path: 'http://localhost:<%= connect.options.port %>'
+//   path: 'http://localhost:<%= connect.options.port %>'
                 path: 'http://develop.trendsideas.com:<%= connect.options.port %>'
             }
         },
@@ -185,10 +210,7 @@ module.exports = function(grunt) {
                 files: {
                     src: [
                         '<%= yeoman.dist %>/scripts/{,*/}*.js',
-                        '<%= yeoman.dist %>/styles/{,*/}*.css',
-                        '<%= yeoman.dist %>/fonts/*',
-                        '<%= yeoman.dist %>/helpers/*.js',
-                        '<%= yeoman.dist %>/styles/fonts/*'
+                        '<%= yeoman.dist %>/styles/{,*/}*.css'
                     ]
                 }
             }
@@ -211,7 +233,7 @@ module.exports = function(grunt) {
                 files: [{
                         expand: true,
                         cwd: '<%= yeoman.app %>/images',
-                        src: '{,*/}*.{png,jpg,jpeg}',
+                        src: '{,*/}*.{png,jpg,jpeg,ico}',
                         dest: '<%= yeoman.dist %>/images'
                     }]
             }
@@ -226,16 +248,6 @@ module.exports = function(grunt) {
                     }]
             }
         },
-//        fontmin: {
-//            dist: {
-//                files: [{
-//                        expand: true,
-//                        cwd: '<%= yeoman.app %>/font',
-//                        src: '{,*,
-//                        dest: '<%= yeoman.dist %>/font'
-//                    }]
-//            }
-//        },
         cssmin: {
             dist: {
                 files: {
@@ -278,8 +290,8 @@ module.exports = function(grunt) {
                         src: [
                             '*.{ico,txt}',
                             '.htaccess',
-                            'images/{,*/}*.{webp,gif}',
-                            'styles/fonts/*'
+                            'images/{,*/}*.{webp,gif,ico}',
+                            'styles/font/*'
                         ]
                     }]
             }
@@ -334,9 +346,7 @@ module.exports = function(grunt) {
             }
         }
     });
-
     grunt.renameTask('regarde', 'watch');
-
     grunt.registerTask('server', function(target) {
         if (target === 'dist') {
             return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
@@ -352,7 +362,6 @@ module.exports = function(grunt) {
             'watch'
         ]);
     });
-
     grunt.registerTask('test', [
         'clean:server',
         'concurrent:test',
@@ -360,7 +369,6 @@ module.exports = function(grunt) {
         'neuter:app',
         'mocha'
     ]);
-
     grunt.registerTask('build', [
         'clean:dist',
         'useminPrepare',
@@ -371,9 +379,9 @@ module.exports = function(grunt) {
         'uglify',
         'copy',
         'rev',
-        'usemin'
+        'usemin',
+        'manifest'
     ]);
-
     grunt.registerTask('default', [
         'jshint',
         'test',

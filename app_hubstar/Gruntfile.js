@@ -45,7 +45,7 @@ module.exports = function(grunt) {
                     'styles/font/*',
                     'scripts/*.js'
                 ],
-                dest: 'dist/cache.manifest'
+                dest: "<%= yeoman.dist %>/cache.manifest"
             }
         },
         watch: {

@@ -110,15 +110,20 @@ class ProfilesController extends Controller {
         try {
             $payloads_arr = CJSON::decode(file_get_contents('php://input'));
             $payload_json = CJSON::encode($payloads_arr['profile'], true);
+            $newRecord = CJSON::decode($payload_json);
             $cb = $this->couchBaseConnection();
             $oldRecord = CJSON::decode($cb->get($this->getDomain() . $_SERVER['REQUEST_URI']));
             $id = $oldRecord['profile'][0]['id'];
             $oldfollower = $oldRecord['profile'][0]['followers'];
+            $profile_bg_url = $oldRecord['profile'][0]['profile_bg_url'];
+            $profile_pic_url = $oldRecord['profile'][0]['profile_pic_url'];
+            $profile_hero_url = $oldRecord['profile'][0]['profile_hero_url'];
+            $newRecord['profile_hero_url'] = $profile_hero_url;
+            $newRecord['profile_bg_url'] = $profile_bg_url;
+            $newRecord['profile_pic_url'] = $profile_pic_url;
             $oldRecord['profile'][0] = null;
-            $oldRecord['profile'][0] = CJSON::decode($payload_json);
+            $oldRecord['profile'][0] = $newRecord;
             if (isset($payloads_arr['profile']['followers'][0])) {
-                error_log('new ' . sizeof($payloads_arr['profile']['followers']));
-                error_log('old ' . sizeof($oldRecord['profile'][0]['followers']));
                 if (sizeof($payloads_arr['profile']['followers']) > sizeof($oldRecord['profile'][0]['followers'])) {//insert comment
                     array_unshift($oldRecord['profile'][0]['followers'], $payloads_arr['profile']['followers'][0]);
                 }
@@ -146,7 +151,7 @@ class ProfilesController extends Controller {
         $photo_name = $payloads_arr['newStyleImageName'];
         $mode = $payloads_arr['mode'];
         $owner_id = $payloads_arr['id'];
-        error_log(var_export($payloads_arr,true));
+        error_log(var_export($payloads_arr, true));
         $photoController = new PhotosController();
         $data_arr = $photoController->convertToString64($photo_string);
         $photo = imagecreatefromstring($data_arr['data']);
@@ -170,7 +175,7 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_pic_url'] = null;
             $oldRecord['profile'][0]['profile_pic_url'] = $url;
         }
-     
+
         if ($cb->set($this->getDomain() . '/profiles/' . $owner_id, CJSON::encode($oldRecord, true))) {
             $this->sendResponse(204);
         } else {

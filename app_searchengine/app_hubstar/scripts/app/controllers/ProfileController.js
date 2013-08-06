@@ -433,7 +433,6 @@ define([
                 },
                 saveUpdate: function() {
                     var update_profile_record = App.Profile.find(this.get('model.id'));
-
                     update_profile_record.set('profile_editors', this.get('editors'));
                     update_profile_record.set('profile_keywords', this.get('keywords'));
                     update_profile_record.set('profile_regoin', this.get('region'));

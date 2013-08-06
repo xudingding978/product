@@ -296,15 +296,17 @@ class Controller extends CController {
                 "bool": {
                     "must": [
                         {
+
                             "query_string": {
                                 "default_field": "couchbaseDocument.doc.' . $default_field . '",
                                 "query": " ' . $ids . ' "
-                            }
+                                                    }
+  
                         }
                     ]
                 }
             }');
-
+error_log($termQuery->toJSON());
         $response = $request->query($termQuery)->execute();
         $results = $this->getReponseResult($response, $returnType);
 

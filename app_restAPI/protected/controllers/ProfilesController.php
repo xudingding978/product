@@ -146,6 +146,7 @@ class ProfilesController extends Controller {
         $photo_name = $payloads_arr['newStyleImageName'];
         $mode = $payloads_arr['mode'];
         $owner_id = $payloads_arr['id'];
+        error_log(var_export($payloads_arr,true));
         $photoController = new PhotosController();
         $data_arr = $photoController->convertToString64($photo_string);
         $photo = imagecreatefromstring($data_arr['data']);
@@ -153,7 +154,7 @@ class ProfilesController extends Controller {
         $orig_size['width'] = imagesx($compressed_photo);
         $orig_size['height'] = imagesy($compressed_photo);
         $url = $photoController->savePhotoInTypes($orig_size, $mode, $photo_name, $compressed_photo, $data_arr, $owner_id);
-        sleep(1);
+
         $cb = $this->couchBaseConnection();
         $oldRecord = CJSON::decode($cb->get($this->getDomain() . '/profiles/' . $owner_id));
         if ($mode == 'profile_hero') {
@@ -169,8 +170,9 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_pic_url'] = null;
             $oldRecord['profile'][0]['profile_pic_url'] = $url;
         }
+     
         if ($cb->set($this->getDomain() . '/profiles/' . $owner_id, CJSON::encode($oldRecord, true))) {
-            $this->sendResponse(200);
+            $this->sendResponse(204);
         } else {
             $this->sendResponse(500, 'something wrong');
         }

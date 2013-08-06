@@ -316,9 +316,7 @@
                     <div style="width:87%;margin: auto;margin-bottom: 20px;">
                         <div style="display: block;margin: 10px;">
                             <div style="display: inline-block;font-size: 16px;width: 170px; text-align: right;">Background Wallpaper: </div>
-                            <div style="margin: 0 5px;width: 64%;display: inline-block;">
-                                {{view Ember.TextField valueBinding="profile_bg_url"  class="background"  placeholder="http://yourBackgroundImage" }}
-                            </div>
+                      
                             <a href="#fileuploader" data-toggle="tab" {{action setUploadImageMode "Background"}}>
                                <div class='new-btn blue-btn hint--right hint--rounded' data-hint="Local-upload" style="display: inline-block; vertical-align: middle; margin-top: 8px;">
                                     <k class="icon-upload"></k>
@@ -327,9 +325,7 @@
                         </div>
                         <div style="display: block;margin: 10px;">
                             <div style="display: inline-block;font-size: 16px;width: 170px;text-align: right;">Hero: </div>
-                            <div style="margin: 0 5px;width: 64%;display: inline-block;">
-                                {{view Ember.TextField valueBinding="profile_hero_url"  class="hero"  placeholder="http://yourHeroImage" }}
-                            </div>
+                      
                             <a href="#fileuploader" data-toggle="tab" {{action setUploadImageMode "Profile Hero"}}>
                                <div class='new-btn blue-btn hint--right hint--rounded' data-hint="Local-upload" style="display: inline-block; vertical-align: middle; margin-top: 8px;">
                                     <k class="icon-upload"></k>
@@ -338,9 +334,7 @@
                         </div>
                         <div style="display: block;margin: 10px;">
                             <div style="display: inline-block;font-size: 16px;width: 170px; text-align: right;">Profile Picture: </div>
-                            <div style="margin: 0 5px;width: 64%;display: inline-block;">
-                                {{view Ember.TextField valueBinding="profile_pic_url"  class="picture"  placeholder="http://yourPictureImage" }}
-                            </div>
+                        
                             <a href="#fileuploader" data-toggle="tab" {{action setUploadImageMode "Profile Picture"}}>
                                <div class='new-btn blue-btn hint--right hint--rounded' data-hint="Local-upload" style="display: inline-block; vertical-align: middle; margin-top: 8px;">
                                     <k class="icon-upload"></k>
@@ -361,7 +355,6 @@
                     </div>
 
                     <div style="right: 0;margin: 30px auto 0;width: 150px;">
-                        <span class="new-btn green-btn" {{action saveUpdate}}>Save</span> 
                         <span class='new-btn blue-btn flip-back'{{action flipFrontBack }}><k class='icon-group'> &nbsp;</k>Back</span>
                     </div>
 
@@ -681,7 +674,7 @@
                     <div class="" style="margin-top: 20px;">
                         <div class="controlbtn" style="left: 300px;">
                             <a href="#tab1" data-toggle="tab" {{action resetNewStyleImageSource}}><span class="new-btn">Close</span></a>                         
-                            <span id="photoUploadbtn" class="followed-btn" {{action photoUpload}}>Upload</span>
+                            <span id="photoUploadbtn" class="disabled-btn" {{action photoUpload}}>Upload</span>
                         </div>
                     </div>
                     {{/view}}

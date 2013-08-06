@@ -43,7 +43,9 @@ module.exports = function(grunt) {
                     'styles/*.css',
                     'styles/font/*',
                     'scripts/*.js',
-                    'images/*'
+                    'images/*',
+                    'images/welcomepage/*',
+                    'images/defaultbg/*'
                 ],
                 dest: "<%= yeoman.dist %>/cache.manifest"
             }
@@ -291,7 +293,10 @@ module.exports = function(grunt) {
                             '*.{ico,txt}',
                             '.htaccess',
                             'images/{,*/}*.{webp,gif,ico}',
-                            'styles/font/*'
+                            'styles/font/*',
+                            'images/welcomepage/*',
+                            'images/defaultbg/*'
+
                         ]
                     }]
             }

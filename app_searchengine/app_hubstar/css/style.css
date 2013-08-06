@@ -411,7 +411,7 @@ div.search-loading-invisible{
 
 .dropdownViewStyle {
     overflow: visible;
-    position: fixed;
+    position: absolute;
     min-width: 233px;
     z-index: 102;
     background-color: white;
@@ -887,7 +887,6 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 .profilesnew-table  .dropdownViewStyle{
     max-height: none;
     width: 500px;
-    position: absolute;
 }
 
 .mustfull{

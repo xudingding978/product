@@ -9,7 +9,6 @@
  *
  * This file holds the configuration settings of the User Account application.
  * */
-error_log('ddddddddddddddddddddddddddddd');
 $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
 $result = $cb->get($_SERVER['HTTP_HOST']);
 $result_arr = CJSON::decode($result, true);

@@ -433,7 +433,6 @@ define([
                 },
                 saveUpdate: function() {
                     var update_profile_record = App.Profile.find(this.get('model.id'));
-
                     update_profile_record.set('profile_editors', this.get('editors'));
                     update_profile_record.set('profile_keywords', this.get('keywords'));
                     update_profile_record.set('profile_regoin', this.get('region'));
@@ -441,6 +440,9 @@ define([
                     update_profile_record.set('profile_boost', this.get('boost'));
                     update_profile_record.set('profile_domains', this.get('domains'));
                     update_profile_record.set('profile_domains', this.get('domains'));
+                    update_profile_record.set('profile_hero_url', '');
+                    update_profile_record.set('profile_pic_url', '');
+                    update_profile_record.set('profile_bg_url', '');
                     update_profile_record.set('profile_name', this.get('name'));
                     update_profile_record.set('profile_package_name', this.get('projectCategoryDropdownContent'));
                     update_profile_record.set('owner_contact_bcc_emails', this.get('direct_enquiry_provide_email'));
@@ -506,7 +508,6 @@ define([
                     {
                         this.set('profile_pic_url', this.get('newStyleImageSource'));
                         model.set('profile_pic_url', this.get('newStyleImageSource'));
-
                     } else if (this.get('UploadImageMode') === "Profile Hero")
                     {
                         this.set('profile_hero_url', this.get('newStyleImageSource'));

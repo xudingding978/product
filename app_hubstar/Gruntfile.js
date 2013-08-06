@@ -43,7 +43,7 @@ module.exports = function(grunt) {
                     'styles/*.css',
                     'styles/font/*',
                     'scripts/*.js',
-                    'images/*',
+                    'images/*.{jpg,png,gif}',
                     'images/welcomepage/*',
                     'images/defaultbg/*'
                 ],

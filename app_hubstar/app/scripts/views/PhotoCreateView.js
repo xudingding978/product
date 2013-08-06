@@ -1,8 +1,8 @@
 
 
-HubStar.DragNDropView = Ember.View.extend({
-    
-    contentBinding: "photoUpload",
+HubStar.PhotoCreateView = Ember.View.extend({
+ 
+    contentBinding: "photoCreate",
     drop: function(event) {
         var dataTransfer = event.originalEvent.dataTransfer;
         var files = dataTransfer.files;

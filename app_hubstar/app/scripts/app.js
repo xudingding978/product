@@ -16,7 +16,7 @@ var HubStar = window.HubStar = Ember.Application.createWithMixins({
 require('scripts/helper');
 require('scripts/models/*');
 require('scripts/routes/*');
+require('scripts/store');
 require('scripts/controllers/*');
 require('scripts/views/*');
 require('scripts/router');
-require('scripts/store');

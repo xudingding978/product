@@ -3,7 +3,7 @@
 //});
 
 
-HubStar.Store = DS.Store.extend({
+HubStar.store = DS.Store.create({
     revision: 13,
     adapter: DS.RESTAdapter.create({
         bulkCommit: false,

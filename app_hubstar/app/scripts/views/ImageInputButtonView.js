@@ -1,5 +1,5 @@
-HubStar.PhotoSelectButtonView = Ember.TextField.extend({
-      templateName: 'photoSelectButton',
+HubStar.ImageInputButtonView = Ember.TextField.extend({
+   
         type: 'file',
         classNameBindings: ['new-btn'],
         attributeBindings: ['multiple'],

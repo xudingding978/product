@@ -47,7 +47,8 @@ define([
         newUpload: function() {
             $('#ownerUpload').attr('style', 'display:block');
             $('#tagetUplaod').attr('style', 'display:none');
-
+            $('#addNew').toggleClass('col2');
+            $('#addNew').toggleClass('col4');
             setTimeout(function() {
                 $('#masonry_photo_collection_container').masonry("reload");
             }, 200);
@@ -58,6 +59,8 @@ define([
             $('#ownerUpload').attr('style', 'display:none');
             $('#tagetUplaod').attr('style', 'display:block');
             this.set('uploadOrsubmit', false);
+            $('#addNew').toggleClass('col2');
+            $('#addNew').toggleClass('col4');
             setTimeout(function() {
                 $('#masonry_photo_collection_container').masonry("reload");
             }, 200);

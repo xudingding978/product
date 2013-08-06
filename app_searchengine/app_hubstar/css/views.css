@@ -1323,8 +1323,8 @@
     font-weight: bold;
     border-radius: 3px;
     background-color: #fff;
-    border: 1px solid #53a93f;
-    color: #53a93f;
+    border: 1px solid #ddd;
+    color: #aaa;
     box-shadow: none;
     top: -4px;
     position: relative;
@@ -1335,7 +1335,10 @@
     cursor: default;
 }
 
-
+.disabled-green{
+    border: 1px solid #53a93f;
+    color: #53a93f;
+}
 
 
 

@@ -51,7 +51,7 @@ return CMap::mergeArray(
                 'application.components.RestController',
                 'application.components.HttpRequest',
                 'application.vendor.autoload',
-                'application.components.SearchEngine',
+            
                 'application.controllers.*'
             ),
             // application components

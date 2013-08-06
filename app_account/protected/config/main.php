@@ -9,7 +9,7 @@
  *
  * This file holds the configuration settings of the User Account application.
  * */
-
+error_log('ddddddddddddddddddddddddddddd');
 $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
 $result = $cb->get($_SERVER['HTTP_HOST']);
 $result_arr = CJSON::decode($result, true);
@@ -24,7 +24,7 @@ Yii::setPathOfAlias('common', $root . DIRECTORY_SEPARATOR . 'common' . DIRECTORY
 Yii::setPathOfAlias('app_administrator', $root . DIRECTORY_SEPARATOR . 'app_administrator');
 Yii::setPathOfAlias('app_authority', $root . DIRECTORY_SEPARATOR . 'app_authority');
 Yii::setPathOfAlias('app_dashboard', $root . DIRECTORY_SEPARATOR . 'app_dashboard');
-Yii::setPathOfAlias('app_searchengine', $root . DIRECTORY_SEPARATOR . 'app_searchengine');
+Yii::setPathOfAlias('app_authentication', $root . DIRECTORY_SEPARATOR . 'app_authentication');
 Yii::setPathOfAlias('app_useraccount', $root . DIRECTORY_SEPARATOR . 'app_useraccount');
 
 // The configuation tree overides in the following way...

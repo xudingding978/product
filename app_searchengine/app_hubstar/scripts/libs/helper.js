@@ -75,16 +75,6 @@ function getImageWidth(imgSrc, callback) {
 
 }
 
-//function getImageHeight(imgSrc)
-//{
-//    var img = new Image();
-//    img.onload = function() {
-//
-//    };
-//    img.src = imgSrc;
-//    return img.height;
-//}
-
 function requiredBackEnd(controller,method,para,ajaxType,callback) {
     {
         var tempurl = getRestAPIURL();

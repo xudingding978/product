@@ -3,15 +3,9 @@
 <div class="profilegb" style="background: #fff url('../images/texture.png') repeat;width: 100%;height: auto; margin-top: 45px;">
     <div class="profile-wallpaper" style="width: 100%; height: 500px; overflow: hidden; position: fixed;"> 
         <img  {{bindAttr src= model.profile_bg_url}} style="width: 100%; height:auto;">
-
     </div>
-
-
     <div style="width: 100%; height:170px; position: relative; display: block; opacity: 0;">  
-
     </div>
-
-
     <div style="position: absolute;">
         {{#if controller.contactChecking}}
         {{render contact}}
@@ -20,7 +14,7 @@
 
 </div>
 
-<div class="hover panel" style='z-index: 0; float: none;position: relative; width: 87%; height: auto; margin:  auto; background: #fff; box-shadow: 0px 0px 8px #555; border-radius: 3px 3px 0 0;max-width: 1260px;min-width: 1000px;'>
+<div class="hover panel" style='z-index: 0; float: none;position: relative; width: 87%; height: auto; margin:  auto; background: #fff; box-shadow: 0px 0px 8px #555; border-radius: 3px 3px 0 0;max-width: 1260px;min-width: 1250px;'>
 
     <div class="front" style="text-align: inherit; width: auto; height: auto; box-shadow: none; border: none; position: relative;">
 
@@ -190,9 +184,6 @@
                             {{/if}}
                             {{/unless}}
 
-
-
-
                             {{#each controller.hours}}
 
                             <table id="aside_contact">
@@ -311,7 +302,9 @@
                     <li class="active"><a href="#tab1" data-toggle="tab">Style up!</a></li>
                     <li class="easing"><a href="#tab2" data-toggle="tab">General Settings</a></li>
                     <li class="easing"><a href="#tab3" data-toggle="tab">Account Settings</a></li>
-                    <li class="easing" style="display: none;"><a href="#tab4" data-toggle="tab">Background Wallpaper</a></li>
+                    {{#if controller.isAdmin}}
+                    <li class="easing"><a href="#tab4" data-toggle="tab">Authority Settings</a></li>
+                    {{/if}}
                     <li class="easing" style="display: none;"><a href="#tab5" data-toggle="tab">Profile Hero</a></li>
                     <li class="easing" style="display: none;"><a href="#tab6" data-toggle="tab">Profile Picture</a></li>
                 </ul>
@@ -376,7 +369,7 @@
 
                 <div class="tab-pane" id="tab2">
 
-                    <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">General Settings:</div>
+                    <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">General Settings</div>
 
                     <table style="padding-right: 147px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
                         <tbody class="profilesnew-table" style="display: table-row-group; vertical-align: middle; border-color: inherit;">
@@ -406,33 +399,6 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
-                                <td> Package:</td>
-                                <td> 
-                                    <div class="new-btn" style="display: block;" {{action dropdown controller.packgeSelection}}>
-                                         <span id="packgeSelection">Package</span>
-                                        <span class="caret"></span>
-                                    </div>
-                                    {{#if controller.packgetDropdown}}
-                                    {{view App.DropdownListView}}
-                                    {{/if}}
-                                </td>
-                            </tr>
-
-
-                            <tr>
-                                <td>Category:</td>
-                                <td> 
-                                    <div class="new-btn" style="display: block;" {{action dropdown controller.dropdownCategory}}>
-                                         <span id="dropdownCategory">Bathrooms</span>
-                                        <span class="caret"></span>
-                                    </div>
-                                    {{#if controller.projectCategoryDropdown}}
-                                    {{view App.DropdownListView}}
-                                    {{/if}}
-                                </td>
-                            </tr>
-
 
                             <tr>
                                 <td>Physical Address:</td>
@@ -494,7 +460,7 @@
 
 
                 <div class="tab-pane" id="tab3">
-                    <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">Account Setting:</div>
+                    <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">Account Settings</div>
 
                     <table style="padding-right: 147px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
                         <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
@@ -590,6 +556,94 @@
                     </div>
                 </div>
 
+                <div class="tab-pane" id="tab4">
+                    <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">Authority Settings</div>
+                    <table style="padding-right: 147px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
+                        <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
+
+
+                            <tr>
+                                <td>Active*:</td>
+                                <td> 
+                                    <div class="new-btn" style="display: block;" {{action dropdown controller.projectActiveDropdownType}}>
+                                         <span> {{controller.projectActiveDropdownContent}}</span>
+                                        <span class="caret"></span>
+                                    </div>
+                                    {{#if controller.isActiveDropdown}}
+                                    {{view App.DropdownListView}}
+                                    {{/if}}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Deleted*:</td>
+
+                                <td> 
+                                    <div class="new-btn" style="display: block;" {{action dropdown controller.projectDeleteDropdownType}}>
+                                         <span> {{controller.projectDeleteDropdownContent}}</span>
+                                        <span class="caret"></span>
+                                    </div>
+                                    {{#if controller.isDeleteDropdown}}
+                                    {{view App.DropdownListView}}
+                                    {{/if}}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td> Package:</td>
+                                <td> 
+                                    <div class="new-btn" style="display: block;" {{action dropdown controller.projectCategoryDropdownType}}>
+                                         <span> {{controller.projectCategoryDropdownContent}}</span>
+                                        <span class="caret"></span>
+                                    </div>
+                                    {{#if controller.isPackgetDropdown}}
+                                    {{view App.DropdownListView}}
+                                    {{/if}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Creator:</td>
+                                <td> 
+                                    <div class="new-btn" style="display: block;">
+                                         <span> {{controller.profile_creator}}</span>
+                                        <span class="caret"></span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Boost:</td>
+                                <td> 
+                                    <div style="display: block;">
+                                        <div   style="margin: 0;width: 100%;">
+                                            {{view Ember.TextField valueBinding="boost"  class="mustFill4"  }}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Domains:</td>
+                                <td> 
+                                    <div style="display: block;">
+                                        <div   style="margin: 0;width: 100%; height: 100px;">
+                                            {{view Ember.TextField valueBinding="domains"  class="mustFill4"  }}
+                                        </div>
+                                    </div>                   
+                                    <div class="mustfill" id="emailFormat6" style="display: none">not correct email format.....</div>
+                                    <div class="mustfull" id="mustFill6" style="display: none">please fill in info... </div>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <div style="right: 0;margin: 30px auto 0;width: 150px;">
+                        <span class="new-btn green-btn" {{action saveUpdate}} >Save</span> 
+                        <span class='new-btn blue-btn flip-back'{{action flipFrontBack}}}><k class='icon-group'> &nbsp;</k>Back</span>
+                    </div>
+                </div>
+
+
+
                 <div class="tab-pane" id="fileuploader">
 
                     {{#if controller.isPhotoUploadMode}}
@@ -601,7 +655,7 @@
                             <i class="icon-upload" style="font-size: 45px;"></i>
                             <p style="font-weight: bold; margin: 10px;">
                                 {{controller.UploadImageMode}}
-                        
+
                             </p>
                             <span style='font-size: 20px;display: block;line-height: 25px;'>Please select one photo for your choice.</span>
                         </div>

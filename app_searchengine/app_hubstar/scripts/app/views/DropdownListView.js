@@ -12,7 +12,6 @@ define([
             var that = this;
             $('#dropItem1 > .ite').click(function() {
 
-                //        $('#dropdownCategory').text($(this).text());
 
                 that.get('controller').set('projectCategorySelection', $(this).text());
             });
@@ -29,10 +28,22 @@ define([
             });
             $('#dropItem4 > .ite').click(function() {
 
-                //        $('#dropdownExperience').text($(this).text());
                 that.get('controller').set('projectExperienceSelection', $(this).text());
             });
+           $('#packgetDropdown > .ite').click(function() {
 
+                that.get('controller').set('dropdownCategory', $(this).text());
+            });
+           $('#profilePackgetDropdown > .ite').click(function() {
+               console.log($(this).text());
+                that.get('controller').set('projectCategoryDropdownContent', $(this).text());
+            });
+              $('#is_actvie > .ite').click(function() {
+                that.get('controller').set('projectActiveDropdownContent', $(this).text());
+            });
+              $('#is_delete > .ite').click(function() {
+                that.get('controller').set('projectDeleteDropdownContent', $(this).text());
+            });
         }
     });
 

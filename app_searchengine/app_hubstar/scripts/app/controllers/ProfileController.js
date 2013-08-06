@@ -19,6 +19,7 @@ define([
                 model: null,
                 aboutMe: "aboutMe",
                 address: "",
+                boost: '',
                 currentUserID: "",
                 collections: [],
                 contactChecking: false,
@@ -27,6 +28,7 @@ define([
                 country: "",
                 contact_email: "",
                 secondary_email: "",
+                domains: "",
                 direct_enquiry_provide_email: "",
                 editing: false,
                 editingAbout: false,
@@ -45,6 +47,7 @@ define([
                 name: "",
                 profileName: "profileName",
                 profile_bg_url: "",
+                profile_creator: '',
                 profile_hero_url: "",
                 profile_pic_url: "",
                 profile_contact_number: "",
@@ -67,20 +70,32 @@ define([
                 updateOrCreate: true,
                 isPhotoUploadMode: false,
                 isPhotoEditingMode: false,
+                isAdmin: false,
                 newStyleImageSource: '',
                 newStyleImageName: '',
+                isPackgetDropdown: false,
+                projectCategoryDropdownType: 'package',
+                projectCategoryDropdownContent: '',
+                isActiveDropdown: false,
+                projectActiveDropdownType: 'active',
+                projectActiveDropdownContent: '',
+                isDeleteDropdown: false,
+                projectDeleteDropdownType: 'delete',
+                projectDeleteDropdownContent: '',
                 init: function() {
                     this.set('is_authentic_user', false);
                 },
-                getCurrentProfile: function(id)
-                {
+                getCurrentProfile: function(id) {
                     this.set('currentUserID', id);
-                    var user = ProfileModel.find(id);
-                    return user;
+                    var profile = ProfileModel.find(id);
+                    profile.get('stateManager').transitionTo('loaded.saved');
+                    return profile;
                 },
                 setProfile: function(id) {
                     var profile = this.getCurrentProfile(id);
                     this.set("model", profile);
+                    this.set("domains", profile.get('profile_domains'));
+                    this.set("boost", profile.get('profile_boost'));
                     this.set('profile_bg_url', profile.get('profile_bg_url'));
                     this.set('profile_hero_url', profile.get('profile_hero_url'));
                     this.set('profile_pic_url', profile.get('profile_pic_url'));
@@ -89,16 +104,20 @@ define([
                     this.set('region', profile.get('profile_regoin'));
                     this.set('country', profile.get('profile_country'));
                     this.set('name', profile.get('profile_name'));
+                    this.set('profile_creator', profile.get('profile_creater'));
                     this.set('direct_enquiry_provide_email', profile.get('owner_contact_bcc_emails'));
                     this.set('secondary_email', profile.get('owner_contact_cc_emails'));
                     this.set('contact_email', profile.get('owner_contact_email'));
                     this.set('website', profile.get('profile_website'));
                     this.set('website_url', profile.get('profile_website_url'));
                     this.set('profile_contact_number', profile.get('profile_contact_number'));
+                    this.set('projectCategoryDropdownContent', profile.get('profile_package_name'));
                     this.set('first_name', profile.get('profile_contact_first_name'));
                     this.set('address', profile.get('profile_physical_address'));
                     this.set('last_name', profile.get('profile_contact_last_name'));
                     this.set("profile_name", profile.get("profile_name"));
+                    this.set("projectActiveDropdownContent", profile.get("profile_isActive"));
+                    this.set("projectDeleteDropdownContent", profile.get("profile_isDeleted"));
                     this.updateWorkingHourData(profile.get('profile_hours'));
                     this.set("collections", profile.get("collections"));
                     var collections = profile.get("collections");
@@ -118,10 +137,8 @@ define([
                         if (this.selectedCollection.get('desc') !== null && this.selectedCollection.get('desc') !== "") {
                             this.selectedCollection.set('desc', desc);
                         } else {
-
                             this.selectedCollection.set('desc', "Add a short description to your Collection");
                         }
-
                         this.get("collections").insertAt(0, this.selectedCollection);
                         this.get("collections").store.commit();
                         $(".Targeting_Object_front").attr("style", "display:inline-block");
@@ -147,13 +164,10 @@ define([
 
                     if (postOrPut === "update") {
                         for (var i = 0; i < this.get("temp").get('length'); i++) {
-
                             if (this.get("temp").objectAt(i) === id) {
-
                                 isExsinting = false;
                             }
                         }
-
                         if (!isExsinting) {
                             for (var i = 0; i < this.get("tempdesc").get('length'); i++) {
                                 if (this.get("tempdesc").objectAt(i) === desc) {
@@ -163,7 +177,6 @@ define([
                                     isExsinting = true;
                                 }
                             }
-
                         }
 
                         if (!isExsinting) {
@@ -326,14 +339,22 @@ define([
                     var permissionController = this.get('controllers.permission');
                     var that = this;
                     var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
-                    that.set("is_authentic_user", is_authentic_user);
-                    currentUser.addObserver('isLoaded', function() {
-                        var current_user_email = currentUser.get('email');
-                        if (currentUser.get('isLoaded')) {
-                            var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
-                            that.set("is_authentic_user", is_authentic_user);
-                        }
-                    });
+                    if (current_user_email !== null && current_user_email !== undefined && current_user_email !== "") {
+                        var isAdmin = permissionController.setIsAdmin(current_user_email);
+                        this.set('isAdmin', isAdmin);
+                        that.set("is_authentic_user", is_authentic_user);
+                    } else {
+                        currentUser.addObserver('isLoaded', function() {
+                            var current_user_email = currentUser.get('email');
+                            if (currentUser.get('isLoaded')) {
+                                var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
+                                that.set("is_authentic_user", is_authentic_user);
+                                var isAdmin = permissionController.setIsAdmin(current_user_email);
+                                that.set('isAdmin', isAdmin);
+                                isAdmin = permissionController.setIsAdmin(current_user_email);
+                            }
+                        });
+                    }
                 },
                 isFollowed: function()
                 {
@@ -347,7 +368,6 @@ define([
                 },
                 followThisProfile: function() {
                     if (this.checkFollowStatus() === false) {
-
                         var currentUser = App.User.find(localStorage.loginStatus);
                         var commenter_profile_pic_url = currentUser.get('photo_url_large');
                         var commenter_id = currentUser.get('id');
@@ -372,12 +392,10 @@ define([
                         var follower_id = followers.get("content").objectAt(i).data.follower_id;
                         if (follower_id === localStorage.loginStatus)
                         {
-
                             isFollow = true;
                             break;
                         }
                     }
-
                     return isFollow;
                 },
                 unfollow: function() {
@@ -422,7 +440,11 @@ define([
                     update_profile_record.set('profile_keywords', this.get('keywords'));
                     update_profile_record.set('profile_regoin', this.get('region'));
                     update_profile_record.set('profile_country', this.get('country'));
+                    update_profile_record.set('profile_boost', this.get('boost'));
+                    update_profile_record.set('profile_domains', this.get('domains'));
+                    update_profile_record.set('profile_domains', this.get('domains'));
                     update_profile_record.set('profile_name', this.get('name'));
+                    update_profile_record.set('profile_package_name', this.get('projectCategoryDropdownContent'));
                     update_profile_record.set('owner_contact_bcc_emails', this.get('direct_enquiry_provide_email'));
                     update_profile_record.set('owner_contact_cc_emails', this.get('secondary_email'));
                     update_profile_record.set('owner_contact_email', this.get('contact_email'));
@@ -433,6 +455,9 @@ define([
                     update_profile_record.set('profile_physical_address', this.get('address'));
                     update_profile_record.set('profile_contact_last_name', this.get('last_name'));
                     update_profile_record.set("profile_name", this.get('profile_name'));
+                    update_profile_record.set("profile_isActive", this.get("projectActiveDropdownContent"));
+                    update_profile_record.set("profile_isDeleted", this.get("projectDeleteDropdownContent"));
+
                     App.store.get('adapter').updateRecord(App.store, App.Profile, update_profile_record);
                 },
                 flipFrontClick: function() {
@@ -447,8 +472,8 @@ define([
                     this.set('UploadImageMode', mode);
                     var data = {"RequireIamgeType": mode};
                     requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
-                    //       console.log(params.height);
-                     //            console.log(params.width);
+                        //       console.log(params.height);
+                        //            console.log(params.width);
                     });
                 }, profileStyleImageDrop: function(e, name)
                 {
@@ -511,7 +536,24 @@ define([
                     this.set('newStyleImageName', "");
                     $('#photoUploadbtn').removeClass("new-btn green-btn");
                     $("#photoUploadbtn").toggleClass("followed-btn");
+                }, dropdown: function(checking) {
+                    if (checking === "package") {
+                        this.set('isActiveDropdown', false);
+                        this.set('isDeleteDropdown', false);
+
+                        this.set('isPackgetDropdown', !this.get('isPackgetDropdown'));
+                    } else if (checking === "active") {
+                        this.set('isDeleteDropdown', false);
+                        this.set('isPackgetDropdown', false);
+                        this.set('isActiveDropdown', !this.get('isActiveDropdown'));
+                    }
+                    else if (checking === "delete") {
+                        this.set('isPackgetDropdown', false);
+                        this.set('isActiveDropdown', false);
+                        this.set('isDeleteDropdown', !this.get('isDeleteDropdown'));
+                    }
                 }
+
             });
             return ProfileController;
         });

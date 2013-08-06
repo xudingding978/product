@@ -205,7 +205,6 @@ define([
                     }
                 },
                 save: function() {
-
                     this.fillInChecking();
                     if (passSubmit) {
                         var newMega = App.store.createRecord(App.Mega, {//15
@@ -262,8 +261,26 @@ define([
                             profile_website: this.get("website")
                         });
                         newMega.get("profile").addObject(newProfile);
-                        App.store.commit();
-                        this.transitionToRoute('profile', newProfile);
+      
+                        App.store.save();
+//                        newMega.addObserver('didCreate', function() {
+//                            if (newMega.get('didCreate')) {
+//                                var tempP = App.Profile.find(newProfile.get('id'));
+//                                console.log(tempP);
+//                                this.transitionToRoute('profile', tempP);
+//                            } else {
+//                                console.log();
+//                            }
+//                        });
+                        var that=this;
+                        var tempP = App.Profile.find(newProfile.get('id'));
+                        tempP.addObserver('isLoaded', function() {
+                            if (tempP.get('isLoaded')) {
+                                that.transitionToRoute('profile', tempP);
+                            } else {
+                            }
+                        });
+                        //  this.transitionToRoute('profile', App.Profile.find(newProfile.get('id')));
                     }
 
                 },

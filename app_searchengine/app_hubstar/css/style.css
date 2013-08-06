@@ -792,8 +792,6 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     position: absolute;
 }
 
-
-
 #addnew{
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
     filter: alpha(opacity=0);

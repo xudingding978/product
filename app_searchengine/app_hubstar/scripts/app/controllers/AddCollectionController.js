@@ -68,7 +68,6 @@ define([
 
             else if (content.indexOf(this.get("objectID")) !== -1)
             {
-     
             }
             else {
                 var ids = collection.get("collection_ids");

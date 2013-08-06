@@ -30,7 +30,7 @@ HubStar.CollectionRoute = Ember.Route.extend({
             },
             transitionToProfile: function(id) {
 
-                this.transitionTo("profile", HubStar.Mega.find(id));
+                this.transitionTo("profile", HubStar.Profile.find(id));
             }
         },
         redirect: function() {

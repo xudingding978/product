@@ -41,14 +41,14 @@ define([
         },
         selectModelForProfile: function(collection_id) {
 
-   
-     
-                this.resetContent();
-                this.set('title', collection_id);
-                this.checkEditingMode();
-            }
-            ,
-                    newUpload: function() {
+
+
+            this.resetContent();
+            this.set('title', collection_id);
+            this.checkEditingMode();
+        }
+        ,
+        newUpload: function() {
             $('#ownerUpload').attr('style', 'display:block');
             $('#tagetUplaod').attr('style', 'display:none');
             $('#addNew').toggleClass('col2');

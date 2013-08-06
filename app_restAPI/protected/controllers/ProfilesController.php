@@ -151,21 +151,23 @@ class ProfilesController extends Controller {
         $photo_name = $payloads_arr['newStyleImageName'];
         $mode = $payloads_arr['mode'];
         $owner_id = $payloads_arr['id'];
-        error_log(var_export($payloads_arr, true));
         $photoController = new PhotosController();
         $data_arr = $photoController->convertToString64($photo_string);
         $photo = imagecreatefromstring($data_arr['data']);
         $compressed_photo = $photoController->compressPhotoData($data_arr['type'], $photo);
         $orig_size['width'] = imagesx($compressed_photo);
         $orig_size['height'] = imagesy($compressed_photo);
+        error_log('height           '.$orig_size['height'] );
         $url = $photoController->savePhotoInTypes($orig_size, $mode, $photo_name, $compressed_photo, $data_arr, $owner_id);
 
         $cb = $this->couchBaseConnection();
         $oldRecord = CJSON::decode($cb->get($this->getDomain() . '/profiles/' . $owner_id));
         if ($mode == 'profile_hero') {
-            $photoController->savePhotoInTypes($orig_size, 'hero', $photo_name, $compressed_photo, $data_arr, $owner_id, $mode);
             $oldRecord['profile'][0]['profile_hero_url'] = null;
             $oldRecord['profile'][0]['profile_hero_url'] = $url;
+            $smailimage = $photoController->savePhotoInTypes($orig_size, 'hero', $photo_name, $compressed_photo, $data_arr, $owner_id, $mode);
+            $oldRecord['profile'][0]['profile_hero_cover_url'] = $smailimage;
+            error_log(var_export($oldRecord['profile'][0]['profile_hero_cover_url'], true));
         } elseif
         ($mode == 'background') {
             $oldRecord['profile'][0]['profile_bg_url'] = null;

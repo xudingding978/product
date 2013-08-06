@@ -19,7 +19,7 @@ define([
                     }, reader.readAsDataURL(files[0]);
                 })(files[0]);
                 evt.preventDefault();
-  
+
         }
     });
     return PhotoSelectButton;

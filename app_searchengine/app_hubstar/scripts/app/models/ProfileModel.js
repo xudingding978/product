@@ -14,6 +14,7 @@ define(
         profile_hero_url: DS.attr('string'),
         profile_pic_url: DS.attr('string'),
         profile_bg_url: DS.attr('string'),
+        profile_hero_cover_url: DS.attr('string'),
         profile_physical_address: DS.attr('string'),
         profile_contact_number: DS.attr('string'),
         profile_contact_user: DS.attr('string'),

@@ -15,7 +15,7 @@ HubStar.ProfileNewRoute = Ember.Route.extend({
         },
         model: function() {
           
-            return ProfileModel;
+            return HubStar.Profile.find();
         },
         activate: function() {
 

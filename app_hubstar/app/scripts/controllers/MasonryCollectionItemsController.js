@@ -5,7 +5,7 @@
         is_authentic_user: false,
         is_profile_editing_mode: false,
         is_user_editing_mode: false,
-        needs: ['photoCreate', 'profile', 'permission', 'photoCreateInfoSetting'],
+        needs: ['photoCreate', 'profile', 'user', 'permission', 'photoCreateInfoSetting'],
         user_id: null,
         init: function() {
 
@@ -31,29 +31,35 @@
                     }
                 }
             });
-            this.checkAuthenticUser();
             this.checkEditingMode();
+
+
         },
         selectModelForProfile: function(collection_id) {
-            this.set('title', collection_id);
+
+
+
             this.resetContent();
-            this.checkAuthenticUser();
+            this.set('title', collection_id);
             this.checkEditingMode();
-        },
+        }
+        ,
         newUpload: function() {
             $('#ownerUpload').attr('style', 'display:block');
             $('#tagetUplaod').attr('style', 'display:none');
-
+            $('#addNew').toggleClass('col2');
+            $('#addNew').toggleClass('col4');
             setTimeout(function() {
                 $('#masonry_photo_collection_container').masonry("reload");
             }, 200);
         },
         back: function() {
             this.resetContent();
-
             $('#ownerUpload').attr('style', 'display:none');
             $('#tagetUplaod').attr('style', 'display:block');
             this.set('uploadOrsubmit', false);
+            $('#addNew').toggleClass('col2');
+            $('#addNew').toggleClass('col4');
             setTimeout(function() {
                 $('#masonry_photo_collection_container').masonry("reload");
             }, 200);
@@ -83,7 +89,6 @@
                 }
                 for (var i = 0; i < this.get('content').length; i++) {
                     if (this.get('content').objectAt(i).get('id') === HubStar.get('itemID')) {
-
                         var tempItem = this.get('content').objectAt(i);
                         tempItem.deleteRecord();
                         HubStar.store.save();
@@ -112,29 +117,25 @@
             var current_user_email = currentUser.get('email');
             var permissionController = this.get('controllers.permission');
             var that = this;
-            var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
-            that.set("is_authentic_user", is_authentic_user);
+            var is_authentic_user = permissionController.checkAuthenticUser(that.get("pageModel").get("owner"), that.get("pageModel").get("profile_editors"), current_user_email);
+
             currentUser.addObserver('isLoaded', function() {
                 var current_user_email = currentUser.get('email');
                 if (currentUser.get('isLoaded')) {
-                    var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
-                    that.set("is_authentic_user", is_authentic_user);
+                    is_authentic_user = permissionController.checkAuthenticUser(that.get("pageModel").get("owner"), that.get("pageModel").get("profile_editors"), current_user_email);
+
                 }
             });
-
-
-
+            return      is_authentic_user;
         },
-        changeCollectionCover: function(id, collection_id, AppModel) {
+        changeCollectionCover: function(id, collection_id, HubStarModel) {
 
             this.dropdownPhotoSetting(id);
             var Mega = HubStar.Mega.find(id);
             var coverImge = Mega.get('photo').objectAt(0).get('photo_image_original_url');
             var address = document.URL;
-
             var owner_id = address.split("#")[1].split("/")[2];
-
-            var userOrprofile = AppModel.find(owner_id).get('collections');
+            var userOrprofile = HubStarModel.find(owner_id).get('collections');
             for (var i = 0; i < userOrprofile.get('content').length; i++) {
                 if (userOrprofile.objectAt(i).id === collection_id) {
                     var currentCollection = userOrprofile.objectAt(i);
@@ -152,8 +153,7 @@
         },
         resetContent: function()
         {
-            var proController = this.get('controllers.profile');
-            this.set("is_authentic_user", proController.get("is_authentic_user"));
+
             this.set('content', []);
             var address = document.URL;
             var owner_id = address.split("#")[1].split("/")[2];
@@ -179,13 +179,19 @@
             this.set('is_user_editing_mode', false);
             if (HubStar.get('editingMode') === 'profile') {
                 this.set('is_profile_editing_mode', true);
+                var proController = this.get('controllers.profile');
+                this.set('pageModel', proController.get('model'));
+                this.set("is_authentic_user", this.checkAuthenticUser());
             }
             else if (HubStar.get('editingMode') === 'user') {
                 this.set('is_user_editing_mode', true);
+                var userController = this.get('controllers.user');
+                this.set('is_authentic_user', userController.get('is_authentic_user'));
             }
             else {
                 this.set('is_profile_editing_mode', false);
                 this.set('is_user_editing_mode', false);
             }
         }
+
     });

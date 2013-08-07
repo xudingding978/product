@@ -1,14 +1,13 @@
-
 /*BASIC STYLE*/
 
 .dropdownicon{
-    position: absolute; 
-    right: 15px; 
+    position: absolute;
+    right: 15px;
     top: 15px;
 }
 
 .dropdownicon > i{
-    height: 16px; 
+    height: 16px;
     width: 16px;
     font-size: 16px;
 }
@@ -396,7 +395,7 @@
 }
 
 .usersobject-hover{
-    width: 163px; 
+    width: 163px;
     height: 163px;
 }
 
@@ -462,20 +461,20 @@
 }
 
 .add-new-object-hoverarea:hover{
-    opacity: .7;  
+    opacity: .7;
 }
 
 .add-new-object-content{
-    width: 357px;
-    height: 357px;
+    width: 337px;
+    height: 337px;
     background-color: rgb(242,240,240);
     padding: 60px;
     margin: 5px;
 }
 
 .add-new-object-content > i{
-    font-size: 71px;
-    padding: 20px;
+    font-size: 69px;
+    padding: 16px;
     display: inline-block;
     text-shadow: 1px 1px 0px #fff, -1px -1px 0px #333;
     color: #555;
@@ -613,7 +612,7 @@
 }
 
 .masonry-object_profilepic img{
-    box-shadow: 0 0 10px #333; 
+    box-shadow: 0 0 10px #333;
     -webkit-border-radius: 6%;
     -o-border-radius: 6%;
     -ms-border-radius: 6%;
@@ -622,17 +621,17 @@
 }
 
 .masonry-object_profilepic img:hover{
-    box-shadow: 0 0 10px #fff; 
+    box-shadow: 0 0 10px #fff;
     opacity: 0.8;
 }
 
 .masonry-object_name-position{
     position: relative;
-    display: block; 
-    width: 80%; 
-    margin: auto; 
-    left: 0; 
-    right: 0; 
+    display: block;
+    width: 80%;
+    margin: auto;
+    left: 0;
+    right: 0;
     text-align: center;
 }
 
@@ -643,12 +642,12 @@
 
 .masonry-object{
     padding-bottom: 10px;
-    -webkit-border-radius:2px; 
+    -webkit-border-radius:2px;
     -o-border-radius: 2px;
     -ms-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;
-    background-color: #fff; 
+    background-color: #fff;
     box-shadow: inset 0px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07);
 }
 
@@ -662,10 +661,10 @@
 .profilepic-on-masonry{
     width: 46px;
     height: 46px;
-    float: left; 
-    margin: 20px 15px 0 0; 
+    float: left;
+    margin: 20px 15px 0 0;
     padding: 0;
-    -webkit-border-radius: 5px; 
+    -webkit-border-radius: 5px;
     -o-border-radius: 5px;
     -ms-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -674,13 +673,13 @@
 }
 
 .object_username{
-    margin: 0 0 15px 61px; 
-    padding: 23px 0 0 0; 
+    margin: 0 0 15px 61px;
+    padding: 23px 0 0 0;
     text-overflow: ellipsis;
 }
 
 .masonry-object_mainfeature{
-    padding: 0 20px 0 20px; 
+    padding: 0 20px 0 20px;
     text-overflow: ellipsis;
 }
 
@@ -702,18 +701,18 @@
 }
 
 .mainfeature-container{
-    background-color: #f5f5f5; 
+    background-color: #f5f5f5;
     line-height: 0;
     min-width: 70px;
-    overflow: hidden; 
+    overflow: hidden;
     position: relative;
 }
 
 .this-is-the-object{
     cursor: pointer;
     min-width: 338px;
-    max-height: 100%; 
-    max-width: 100%; 
+    max-height: 100%;
+    max-width: 100%;
     display: inline-block;
 }
 
@@ -721,7 +720,7 @@
     color: #404040;
     font-size: 13px;
     line-height: 1.4;
-    min-height: 0; 
+    min-height: 0;
     overflow: hidden;
 }
 
@@ -730,7 +729,7 @@
     text-overflow: ellipsis;
 }
 .more_detail{
-    height: 20px; 
+    height: 20px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -751,15 +750,15 @@
 }
 
 .masonry-object_interact{
-    margin: 20px 0 0 0; 
+    margin: 20px 0 0 0;
     overflow:hidden;
-    border-top: 1px solid #e5e5e5; 
-    border-bottom: 1px solid #e5e5e5; 
-    -webkit-border-radius: 0 0 2px 2px; 
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+    -webkit-border-radius: 0 0 2px 2px;
     -o-border-radius: 0 0 2px 2px;
     -ms-border-radius: 0 0 2px 2px;
     -moz-border-radius: 0 0 2px 2px;
-    border-radius: 0 0 2px 2px; 
+    border-radius: 0 0 2px 2px;
     background-color: #f8f8f8;
 }
 
@@ -812,13 +811,13 @@
 
 
 .objectview-left{
-    bottom: 0; 
-    top: 0; 
-    left: 0; 
-    margin: 0; 
-    position: absolute; 
-    right: 320px; 
-    overflow: hidden; 
+    bottom: 0;
+    top: 0;
+    left: 0;
+    margin: 0;
+    position: absolute;
+    right: 320px;
+    overflow: hidden;
 }
 
 
@@ -835,42 +834,42 @@
 }
 
 .top-controlbar{
-    height: 44px; 
-    left: 0; 
-    margin: 0 auto; 
-    position: absolute; 
-    right: 0px; 
-    width: 100px; 
+    height: 44px;
+    left: 0;
+    margin: 0 auto;
+    position: absolute;
+    right: 0px;
+    width: 100px;
     text-align: center;
 }
 
 .bottom-controlbar{
-    bottom: 0; 
-    height: 44px; 
-    left: 0; 
-    margin: 0 auto; 
-    position: absolute; 
-    right: 0px; 
+    bottom: 0;
+    height: 44px;
+    left: 0;
+    margin: 0 auto;
+    position: absolute;
+    right: 0px;
     width: 132px;
 }
 
 
 .mainfeature{
-    bottom: 44px; 
-    left: 0; 
-    overflow: hidden; 
-    position: absolute; 
-    right: 0px; 
+    bottom: 44px;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    right: 0px;
     top: 44px;
 }
 
 .mainfeature_object{
-    bottom: 0; 
-    left: 0; 
-    margin: auto; 
-    position: absolute; 
-    right: 0; 
-    top: 0; 
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
     max-height: 95%;
     max-width: 95%;
     z-index: -1;
@@ -888,10 +887,10 @@
 .closeview{
     cursor: pointer;
     font-size: 16px;
-    height: 44px; 
-    position: absolute; 
-    right: 0; 
-    top: 0; 
+    height: 44px;
+    position: absolute;
+    right: 0;
+    top: 0;
     width: 44px;
     color: #737373;
 
@@ -921,7 +920,7 @@
     cursor: pointer;
     height: 44px;
     position: absolute;
-    width: 44px; 
+    width: 44px;
 
     -webkit-transition: all 0.8s ease;
     -moz-transition: all 0.8s ease;
@@ -947,12 +946,12 @@
 }
 
 
-.text-on-black{  
-    color: #737373; 
-    font: normal 14px Roboto,arial,sans-serif; 
-    line-height: 44px; 
-    padding: 0 10px; 
-    position: absolute; 
+.text-on-black{
+    color: #737373;
+    font: normal 14px Roboto,arial,sans-serif;
+    line-height: 44px;
+    padding: 0 10px;
+    position: absolute;
     white-space: nowrap;
 }
 
@@ -973,19 +972,19 @@
 
 
 .objectview-right{
-    bottom: 0; 
-    position: absolute; 
-    right: 0; 
-    top: 0; 
-    width: 320px; 
-    background-color: white; 
-    overflow-y: scroll; 
+    bottom: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 320px;
+    background-color: white;
+    overflow-y: scroll;
 }
 
 
 .object-poster{
     padding: 15px;
-    width: 100%; 
+    width: 100%;
     margin:0;
 
 }
@@ -995,8 +994,8 @@
 }
 
 .profilepic-container{
-    position: relative; 
-    display: inline-block; 
+    position: relative;
+    display: inline-block;
     vertical-align: top;
     margin-right: 10px;
 }
@@ -1008,11 +1007,11 @@
     padding: 0px;
     border-radius: 5px 5px 5px 5px;
     overflow: hidden;
-} 
+}
 
 .profilepic_user{
     border-radius: 50%;
-    width: 46px; 
+    width: 46px;
     height: 46px;
 }
 
@@ -1026,7 +1025,7 @@
 }
 
 .poster_user{
-    position: relative; 
+    position: relative;
     top: 3px;
     display: inline-block;
 }
@@ -1040,7 +1039,7 @@
 }
 
 .posttime{
-    color: #aaa; 
+    color: #aaa;
     font-size: 11px;
 }
 
@@ -1051,10 +1050,10 @@
 .object-collapes-title {
     cursor: pointer;
     background-color: rgb(242,240,240);
-    color: #404040; 
-    padding: 15px; 
-    position: relative; 
-    -webkit-transition: 300ms; 
+    color: #404040;
+    padding: 15px;
+    position: relative;
+    -webkit-transition: 300ms;
     -moz-transition: 300ms;
     -o-transition: 300ms;
     transition: 300ms;
@@ -1079,8 +1078,8 @@
 }
 
 .collapes-container_inner{
-    padding: 15px 0; 
-    width: 87%; 
+    padding: 15px 0;
+    width: 87%;
     margin: auto;
     border-bottom: 1px solid rgba(0,0,0,.03)
 }
@@ -1165,7 +1164,7 @@
     border: 1px solid #d9d9d9;
     border: 1px solid rgba(0,0,0,.15);
 
-    /*font-style:*/ 
+    /*font-style:*/
     -webkit-border-radius: 2px;
     -o-border-radius: 2px;
     -ms-border-radius: 2px;
@@ -1323,8 +1322,8 @@
     font-weight: bold;
     border-radius: 3px;
     background-color: #fff;
-    border: 1px solid #53a93f;
-    color: #53a93f;
+    border: 1px solid #ddd;
+    color: #aaa;
     box-shadow: none;
     top: -4px;
     position: relative;
@@ -1335,7 +1334,10 @@
     cursor: default;
 }
 
-
+.disabled-green{
+    border: 1px solid #53a93f;
+    color: #53a93f;
+}
 
 
 
@@ -1359,7 +1361,7 @@
 
 .article-title{
     font-size: 18px;
-    font-weight: bold; 
+    font-weight: bold;
     line-height: 30px;
 }
 
@@ -1381,17 +1383,17 @@
 
 .show-comment_container{
     display: inline-block;
-    text-overflow: ellipsis; 
+    text-overflow: ellipsis;
     white-space: nowrap;
     color: #aaa;
 }
 
 .show-comment_inner{
-    -webkit-transition: color .218s; 
-    -o-transition: color .218s; 
-    -moz-transition: color .218s; 
-    transition: color .218s; 
-    font-size: 12px; 
+    -webkit-transition: color .218s;
+    -o-transition: color .218s;
+    -moz-transition: color .218s;
+    transition: color .218s;
+    font-size: 12px;
     padding-right: 5px;
 }
 
@@ -1406,13 +1408,13 @@
 }
 
 .addcommnetbox{
-    background-color: #fff; 
-    border: 1px solid #ddd; 
-    color: #999; 
-    cursor: text; 
-    font-size: 12px; 
-    height: auto; 
-    margin: 0 0 20px 0; 
+    background-color: #fff;
+    border: 1px solid #ddd;
+    color: #999;
+    cursor: text;
+    font-size: 12px;
+    height: auto;
+    margin: 0 0 20px 0;
     padding: 6px 8px;
 }
 
@@ -1427,12 +1429,12 @@
 }
 
 .comment-position{
-    padding: 0 0px 16px 45px; 
+    padding: 0 0px 16px 45px;
     vertical-align: top;
 }
 
 .profilepic-comment-container{
-    cursor: pointer; 
+    cursor: pointer;
     position: absolute;
     left: 0px;
     top: 5px;
@@ -1440,11 +1442,11 @@
 
 .profilepic_comment{
     border-radius: 50%;
-    width: 35px; 
+    width: 35px;
     height: 35px;
 }
 
-.comment-insert-field{    
+.comment-insert-field{
     cursor:text;
     word-wrap: break-word;
 
@@ -1457,7 +1459,7 @@
 
 
 .comment-namentime{
-    position: relative; 
+    position: relative;
     display: block;
 }
 
@@ -1467,8 +1469,8 @@
 
 .comment-username{
     -webkit-transition: color .218s;
-    -o-transition: color .218s; 
-    -moz-transition: color .218s; 
+    -o-transition: color .218s;
+    -moz-transition: color .218s;
     transition: color .218s;
     color: #404040;
     font-size: 13px;
@@ -1483,29 +1485,29 @@
 }
 
 .like-amount{
-    display: inline-block; 
-    float: none; 
-    font-size: 11px; 
-    margin-top: 2px; 
+    display: inline-block;
+    float: none;
+    font-size: 11px;
+    margin-top: 2px;
     vertical-align: top
 }
 
 .reply-comment{
-    display: inline-block; 
-    font-size: 11px; 
-    min-height: 16px; 
-    padding: 0 0 0 0; 
-    position: absolute; 
-    right: 0; 
-    text-align: right; 
-    top: 0; 
+    display: inline-block;
+    font-size: 11px;
+    min-height: 16px;
+    padding: 0 0 0 0;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    top: 0;
     width: 115px;
 }
 
 .comment-content{
-    color: #404040; 
-    font-size: 13px; 
-    margin: 0 0 0 0; 
+    color: #404040;
+    font-size: 13px;
+    margin: 0 0 0 0;
     overflow: hidden;
     word-wrap: break-word;
 }
@@ -1554,7 +1556,7 @@
 
 .contactmebox-wapper  .closeview:hover{
     color: #333;
-} 
+}
 
 .add-collection_select-collection{
     width: 335px;

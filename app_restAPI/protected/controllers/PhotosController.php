@@ -10,7 +10,7 @@ class PhotosController extends Controller {
     const JSON_RESPONSE_ROOT_PLURAL = 'photos';
 
     public function __construct() {
-        
+
     }
 
     public function actionIndex() {
@@ -214,7 +214,7 @@ class PhotosController extends Controller {
 
     public function actionDelete() {
         try {
-            
+
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -249,12 +249,10 @@ class PhotosController extends Controller {
         $owner_id = $mega['owner_id'];
         $data_arr = $this->convertToString64($photo_string);
         $photo = imagecreatefromstring($data_arr['data']);
-
         $compressed_photo = $this->compressPhotoData($data_arr['type'], $photo);
-        $orig_size['width'] = imagesx($compressed_photo);
-        $orig_size['height'] = imagesy($compressed_photo);
+        $orig_size['width'] =intval(imagesx($compressed_photo));
+        $orig_size['height'] =intval(imagesy($compressed_photo));
         $thumbnailUrl = $this->savePhotoInTypes($orig_size, "thumbnail", $photo_name, $compressed_photo, $data_arr, $owner_id);
-
         $heroUrl = $this->savePhotoInTypes($orig_size, "hero", $photo_name, $compressed_photo, $data_arr, $owner_id);
         $previewUrl = $this->savePhotoInTypes($orig_size, "preview", $photo_name, $compressed_photo, $data_arr, $owner_id);
         $originalUrl = $this->savePhotoInTypes($orig_size, "original", $photo_name, $compressed_photo, $data_arr, $owner_id);
@@ -295,19 +293,19 @@ class PhotosController extends Controller {
                 break;
             case 'preview':
                 $new_size['width'] = 118;
-                $new_size['height'] = (($photo_size['height'] * $new_size['width']) / $photo_size['width']);
+                $new_size['height'] = intval(($photo_size['height'] * $new_size['width']) / $photo_size['width']);
                 break;
             case 'hero':
                 $new_size['width'] = 338;
-                $new_size['height'] = (($photo_size['height'] * $new_size['width']) / $photo_size['width']);
+                $new_size['height'] = intval(($photo_size['height'] * $new_size['width']) / $photo_size['width']);
                 break;
             case 'original':
-                $new_size['width'] = $photo_size['width'];
-                $new_size['height'] = $photo_size['height'];
+                $new_size['width'] = intval($photo_size['width']);
+                $new_size['height'] = intval($photo_size['height']);
                 break;
             default:
-                $new_size['width'] = $photo_size['width'];
-                $new_size['height'] = $photo_size['height'];
+                $new_size['width'] = intval($photo_size['width']);
+                $new_size['height'] = intval($photo_size['height']);
         }
 
         return $new_size;

@@ -4,7 +4,7 @@ HubStar.IdeabooksRoute = Ember.Route.extend({
 
         },
         model: function(params) {
-            return ProfileModel.find(params.profile_id);
+            return HubStar.Profile.find(params.profile_id);
         },
         activate: function() {
              $("body").css("overflow", "hidden");

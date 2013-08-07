@@ -19,8 +19,8 @@ HubStar.EditCollectionView = Ember.View.extend({
             $('#uploadingObject').attr('style', "display:inline-block");
             $('#uploadArea').attr('style', "display:block");
             $('#addNew').animate({
-                height: 370,
-                width: 370
+                height: 350,
+                width: 350
             }, 400, function() {
                 $('#masonry_user_container').masonry({
                     itemSelector: '.box',
@@ -34,8 +34,8 @@ HubStar.EditCollectionView = Ember.View.extend({
             $('#uploadingObject').attr('style', "display:none");
             $('#uploadArea').attr('style', "display:none");
             $('#addNew').animate({
-                height: 370,
-                width: 370
+                height: 350,
+                width: 350
             }, 400, function() {
                 $('#masonry_user_container').masonry({
                     itemSelector: '.box',

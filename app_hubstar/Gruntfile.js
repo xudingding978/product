@@ -45,7 +45,9 @@ module.exports = function(grunt) {
                     'scripts/*.js',
                     'images/*.{jpg,png,gif}',
                     'images/welcomepage/*',
-                    'images/defaultbg/*'
+                    'images/defaultbg/*',
+                    'images/defaultpic/*',
+                    'images/defaultcover/*'
                 ],
                 dest: "<%= yeoman.dist %>/cache.manifest"
             }
@@ -295,7 +297,10 @@ module.exports = function(grunt) {
                             'images/{,*/}*.{webp,gif,ico}',
                             'styles/font/*',
                             'images/welcomepage/*',
-                            'images/defaultbg/*'
+                            'images/defaultbg/*',
+                            'images/defaultcover/*',
+                            'images/defaultpic/*'
+
 
                         ]
                     }]

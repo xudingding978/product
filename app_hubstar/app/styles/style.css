@@ -32,7 +32,7 @@
 
 .plaform_bar > img{
     width: 10px;
-    position: absolute; 
+    position: absolute;
     height: 250px;
     display: none;
 }
@@ -73,7 +73,7 @@
     background-image: -webkit-gradient( linear, left top, left bottom, from(rgba(20,20,20,0.2)), to(rgba(40,40,40,0.7)));
 
     /* Safari 5.1+, Mobile Safari, Chrome 10+ */
-    background-image: -webkit-linear-gradient(top, rgba(20,20,20,0.2), rgba(40,40,40,0.7)); 
+    background-image: -webkit-linear-gradient(top, rgba(20,20,20,0.2), rgba(40,40,40,0.7));
 
     /* Firefox 3.6+ */
     background-image: -moz-linear-gradient(top, rgba(20,20,20,0.2), rgba(40,40,40,0.7));
@@ -256,7 +256,7 @@
 }
 #navContainer > ul > li> ul > li > ul{
 
-    display:none; 
+    display:none;
 }
 #navContainer > ul > li> ul > li:hover> ul{
     margin-left: 10px;
@@ -271,7 +271,7 @@
     z-index: 22;
 }
 #navContainer > ul > li> ul > li> ul> li > ul{
-    display:none; 
+    display:none;
 }
 #navContainer > ul > li> ul > li> ul> li:hover> ul{
     margin-left: 10px;
@@ -332,7 +332,7 @@
 }
 
 .text-anchor:hover{
-    color: #333;  
+    color: #333;
 }
 
 div.search-loading-invisible{
@@ -411,7 +411,7 @@ div.search-loading-invisible{
 
 .dropdownViewStyle {
     overflow: visible;
-    position: fixed;
+    position: absolute;
     min-width: 233px;
     z-index: 102;
     background-color: white;
@@ -447,7 +447,7 @@ div.search-loading-invisible{
 
 
 
-.head { 
+.head {
     border-radius: 3px 3px 0 0;
     padding: 20px 30px;
     cursor: move;
@@ -557,7 +557,7 @@ input[type=checkbox].css-checkbox:checked + label.css-label {
 
 input[type=checkbox].css-checkbox.med + label.css-label.med {
     padding-left:22px;
-    height:17px; 
+    height:17px;
     display:inline-block;
     line-height:17px;
     background-repeat:no-repeat;
@@ -598,8 +598,8 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     background-color: #eaeaea;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#f6f6f6), to(#eaeaea));
     background-image: -webkit-linear-gradient(top, #f6f6f6, #eaeaea);
-    background-image: -moz-linear-gradient(top, #f6f6f6, #eaeaea); 
-    background-image: -ms-linear-gradient(top, #f6f6f6, #eaeaea); 
+    background-image: -moz-linear-gradient(top, #f6f6f6, #eaeaea);
+    background-image: -ms-linear-gradient(top, #f6f6f6, #eaeaea);
     background-image: -o-linear-gradient(top, #f6f6f6, #eaeaea);
     background-image: linear-gradient(top, #f6f6f6, #eaeaea);
     -moz-border-radius: 32px;
@@ -614,8 +614,8 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     top: 1px;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#eaeaea), to(#f6f6f6));
     background-image: -webkit-linear-gradient(top, #eaeaea, #f6f6f6);
-    background-image: -moz-linear-gradient(top, #eaeaea, #f6f6f6); 
-    background-image: -ms-linear-gradient(top, #eaeaea, #f6f6f6); 
+    background-image: -moz-linear-gradient(top, #eaeaea, #f6f6f6);
+    background-image: -ms-linear-gradient(top, #eaeaea, #f6f6f6);
     background-image: -o-linear-gradient(top, #eaeaea, #f6f6f6);
     background-image: linear-gradient(top, #eaeaea, #f6f6f6);
 }
@@ -634,7 +634,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     -moz-border-radius: 140px;
     -webkit-border-radius: 140px;
     border-radius: 140px;
-    opacity: 0.5;	
+    opacity: 0.5;
 
 
     display: block;
@@ -706,9 +706,9 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 .main_aboutus{
     text-align: left;
-    border-bottom: 1px solid rgba(0,0,0,.1); 
-    padding:20px 0 30px 0; 
-    font-size: 15px; 
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    padding:20px 0 30px 0;
+    font-size: 15px;
     min-height: 650px
 }
 
@@ -752,7 +752,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     width: 100%;
     min-width: 768px;
     background: none repeat scroll 0% 0% rgb(235, 235, 235);
-    border-bottom: 1px solid #AFAFAF; 
+    border-bottom: 1px solid #AFAFAF;
 }
 
 #discovery_search_bar{
@@ -791,8 +791,6 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     margin: 9px;
     position: absolute;
 }
-
-
 
 #addnew{
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
@@ -848,10 +846,10 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 .dragndropbox{
     position: absolute;
-    height: 100%; 
+    height: 100%;
     width: 100%;
-    bottom: 0; 
-    padding: 10px;  
+    bottom: 0;
+    padding: 10px;
     overflow: auto;
     background-color: rgba(0,0,0,0.3);
 }
@@ -889,7 +887,6 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 .profilesnew-table  .dropdownViewStyle{
     max-height: none;
     width: 500px;
-    position: absolute;
 }
 
 .mustfull{
@@ -978,11 +975,11 @@ div.loading-visible{
 
 
 .deletecomment-btn{
-    cursor: pointer; 
-    color: #888; 
-    opacity: .6; 
-    text-shadow: 0 0 10px #fff; 
-    font-size: 11px; 
+    cursor: pointer;
+    color: #888;
+    opacity: .6;
+    text-shadow: 0 0 10px #fff;
+    font-size: 11px;
     margin: 0 10px;
 }
 
@@ -1403,4 +1400,3 @@ div.loading-visible{
 }
 
 }
-

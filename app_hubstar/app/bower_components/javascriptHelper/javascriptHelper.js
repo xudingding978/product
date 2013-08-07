@@ -1,4 +1,4 @@
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -75,20 +75,10 @@ function getImageWidth(imgSrc, callback) {
 
 }
 
-//function getImageHeight(imgSrc)
-//{
-//    var img = new Image();
-//    img.onload = function() {
-//
-//    };
-//    img.src = imgSrc;
-//    return img.height;
-//}
-
 function requiredBackEnd(controller,method,para,ajaxType,callback) {
     {
         var tempurl = getRestAPIURL();
-       
+
         $.ajax({
             url: tempurl + '/'+controller+'/'+ method,
             type: ajaxType,

@@ -1,6 +1,5 @@
 
 
-
 {{#if controller.projectCategoryDropdown}}
 <div id="dropItem1"  {{action dropdown controller.dropdownCategory}}>
      {{#each controller.categorys}}
@@ -44,7 +43,7 @@
 {{/if}}
 
 {{#if controller.packgetDropdown}}
-<div id="dropItem5" {{action dropdown controller.packgeSelection}}>
+<div id="packgetDropdown" {{action dropdown controller.packgeSelection}}>
      <div  class="ite ">Platinum</div>
     <div  class="ite ">Gold</div>
     <div  class="ite ">Silver</div>
@@ -52,7 +51,25 @@
 </div>
 {{/if}}
 
+{{#if controller.isPackgetDropdown}}
+<div id="profilePackgetDropdown" {{action dropdown controller.projectCategoryDropdownType}}>
+     <div  class="ite ">Platinum</div>
+    <div  class="ite ">Gold</div>
+    <div  class="ite ">Silver</div>
+    <div  class="ite ">Bronze</div>
+</div>
+{{/if}}
 
-<script>
+{{#if controller.isActiveDropdown}}
+<div id="is_actvie" {{action dropdown controller.projectActiveDropdownType}}>
+     <div  class="ite ">true</div>
+    <div  class="ite ">false</div>
+</div>
+{{/if}}
 
-</script>
+{{#if controller.isDeleteDropdown}}
+<div id="is_delete" {{action dropdown controller.projectDeleteDropdownType}}>
+     <div  class="ite ">true</div>
+    <div  class="ite ">false</div>
+</div>
+{{/if}}

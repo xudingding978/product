@@ -8,7 +8,7 @@ define(
         photo: {embedded: 'always'},
         user: {embedded: 'always'},
         comments: {embedded: 'load'},
-        profile: {embedded: 'always'},
+        profile: {embedded: 'load'},
         article: {embedded: 'always'}
     });
 

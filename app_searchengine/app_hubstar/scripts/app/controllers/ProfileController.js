@@ -149,19 +149,15 @@ define([
                     }
                 },
                 checkingValidInput: function(title) {
-
                     if (title === null || title === "") {
-
                     } else {
                         if (title.indexOf(" ") !== -1) {
-
                             title = title.split(' ').join('-');
                         }
                     }
                     return title;
                 },
                 checkingIdisExsinting: function(desc, id, postOrPut) {
-
                     if (postOrPut === "update") {
                         for (var i = 0; i < this.get("temp").get('length'); i++) {
                             if (this.get("temp").objectAt(i) === id) {
@@ -178,7 +174,6 @@ define([
                                 }
                             }
                         }
-
                         if (!isExsinting) {
                             alert('This Collection is already exsiting!!!');
                         }
@@ -194,7 +189,6 @@ define([
                     }
                 },
                 setLocalLoginRecrod: function() {
-
                     App.set('afterSearch', true);
                     localStorage.user_id = this.get('model.id');
                 },
@@ -219,14 +213,11 @@ define([
                 },
                 yes: function(checkingInfo) {
                     if (checkingInfo === "profileName") {
-
                         this.set('editing', !this.get('editing'));
                     }
                     else if (checkingInfo === "aboutMe") {
-
                         this.set('editingAbout', !this.get('editingAbout'));
                     } else if (checkingInfo === "contact") {
-
                         this.set('editingContact', !this.get('editingContact'));
                     }
                     else if (checkingInfo === "timeSetting") {
@@ -243,6 +234,7 @@ define([
                 updateClient: function() {
                     var update_profile_record = App.Profile.find(this.get('model.id'));
                     App.store.get('adapter').updateRecord(App.store, App.Profile, update_profile_record);
+                          update_profile_record.get('stateManager').transitionTo('loaded.saved');
                 },
                 no: function(checkingInfo) {
                     if (checkingInfo === "profileName") {
@@ -439,7 +431,6 @@ define([
                     update_profile_record.set('profile_country', this.get('country'));
                     update_profile_record.set('profile_boost', this.get('boost'));
                     update_profile_record.set('profile_domains', this.get('domains'));
-                    update_profile_record.set('profile_domains', this.get('domains'));
                     update_profile_record.set('profile_hero_url', '');
                     update_profile_record.set('profile_pic_url', '');
                     update_profile_record.set('profile_bg_url', '');
@@ -457,8 +448,8 @@ define([
                     update_profile_record.set("profile_name", this.get('profile_name'));
                     update_profile_record.set("profile_isActive", this.get("projectActiveDropdownContent"));
                     update_profile_record.set("profile_isDeleted", this.get("projectDeleteDropdownContent"));
-
                     App.store.get('adapter').updateRecord(App.store, App.Profile, update_profile_record);
+                    update_profile_record.get('stateManager').transitionTo('loaded.saved');
                 },
                 flipFrontClick: function() {
                     $(".hover").addClass('flip');
@@ -499,7 +490,6 @@ define([
                         requiredBackEnd('profiles', 'updateStyleImage', data, 'POST', function(params) {
                             that.set('isPhotoEditingMode', true);
                         });
-
                     }
                 },
                 setTempImage: function() {
@@ -539,7 +529,6 @@ define([
                     if (checking === "package") {
                         this.set('isActiveDropdown', false);
                         this.set('isDeleteDropdown', false);
-
                         this.set('isPackgetDropdown', !this.get('isPackgetDropdown'));
                     } else if (checking === "active") {
                         this.set('isDeleteDropdown', false);

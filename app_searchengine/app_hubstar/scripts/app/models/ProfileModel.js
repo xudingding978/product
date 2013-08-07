@@ -6,7 +6,7 @@ define(
         ], function() {
 
     DS.RESTAdapter.map('App.Profile', {
-        collections: {embedded: 'always'},
+        collections: {embedded: 'load'},
         followers: {embedded: 'always'}
     });
     var ProfileModel = DS.Model.extend({

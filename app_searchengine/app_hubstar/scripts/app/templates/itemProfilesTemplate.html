@@ -10,81 +10,90 @@
 
 
 
-        {{#each model.profile}}
-        <div class="masonry-object_profile-cover">
-            <div class="masonry-object_cover-wapper">
-                <img {{bindAttr src="profile_hero_url"}}/>
+{{#each model.profile}}
+<div class="masonry-object_profile-cover">
+
+    {{#if profile_hero_cover_url}}
+    <div class="masonry-object_cover-wapper">
+        <img {{bindAttr src="profile_hero_cover_url"}}/>
+    </div>
+    {{else}}
+    <div class="masonry-object_cover-wapper">
+        <img {{bindAttr src="profile_hero_url"}}/>
+    </div>
+    {{/if}}
+
+
+</div>
+<div style="position: relative; width: 100%; height: 70px; display: block;"></div>
+
+<div class="masonry-object_profilepic" style="cursor:pointer;" {{action toProfilePage this}}>
+     <img class="easing" {{bindAttr src="profile_pic_url"}} />   
+</div>
+
+
+<div  type="button" class="new-btn green-btn object-followbtn-position" style="margin: 0 auto; left: 0;right: 0;width: 80px;display: block;top: -15px;">
+    <i class="icon-plus">&nbsp;</i> Follow
+</div>
+
+<div class="masonry-object_name-position" style="margin-bottom: 5px;"> 
+    <a {{bindAttr href="getProfile_id"}}  {{action toProfilePage this}}  style="cursor:pointer" >{{profile_name}} </a>
+</div>
+
+
+<!--TAGS-->
+
+<div class="object-tags-box">
+
+    <div class="object-tags">
+        <span class="tags-mark" style="background-color: #427fed"></span>
+        <div class="tags easing">
+            <div class="tags-new">New </div>
+            <div class="object-tpye">
+                <i class="icon-group"></i>
             </div>
         </div>
-        <div style="position: relative; width: 100%; height: 70px; display: block;"></div>
+    </div>
 
-        <div class="masonry-object_profilepic" style="cursor:pointer;" {{action toProfilePage this}}>
-             <img class="easing" {{bindAttr src="profile_pic_url"}} />   
+    <div class="object-tags ">
+        <span class="tags-mark" style="background-color: #76a7fa"></span>
+        <div class="tags easing tagsappear">
+            <div class="tags-new">#{{profile_regoin}}</div>                   
+        </div>
+    </div>
+
+    <div class="object-tags ">
+        <span class="tags-mark" style="background-color: #a0c3ff"></span>
+        <div class="tags easing tagsappear">
+            <div class="tags-new">#{{profile_category}}</div>                   
+        </div>
+    </div>
+
+</div>
+
+<!--END TAGS-->
+
+
+<div class="masonry-object_mainfeature" style="">
+
+    <div class="masonry-object_text">
+
+
+        <div class="more_detail" {{bindAttr id="id"}} >
+
+            {{profile_about_us}}
         </div>
 
+        <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>
 
-        <div  type="button" class="new-btn green-btn object-followbtn-position" style="margin: 0 auto; left: 0;right: 0;width: 80px;display: block;top: -15px;">
-            <i class="icon-plus">&nbsp;</i> Follow
-        </div>
+        <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collapes</span>
+        {{#if controller.is_authentic_user}}
+        <span style="float: right; display: inline-block;"><k class="icon-trash edit-btn easing" {{action deletePartner this}}></k> </span>
+        {{/if}}
+    </div>
 
-        <div class="masonry-object_name-position" style="margin-bottom: 5px;"> 
-            <a {{bindAttr href="getProfile_id"}}  {{action toProfilePage this}}  style="cursor:pointer" >{{profile_name}} </a>
-        </div>
+</div>
 
-
-        <!--TAGS-->
-
-        <div class="object-tags-box">
-
-            <div class="object-tags">
-                <span class="tags-mark" style="background-color: #427fed"></span>
-                <div class="tags easing">
-                    <div class="tags-new">New </div>
-                    <div class="object-tpye">
-                        <i class="icon-group"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="object-tags ">
-                <span class="tags-mark" style="background-color: #76a7fa"></span>
-                <div class="tags easing tagsappear">
-                    <div class="tags-new">#{{profile_regoin}}</div>                   
-                </div>
-            </div>
-
-            <div class="object-tags ">
-                <span class="tags-mark" style="background-color: #a0c3ff"></span>
-                <div class="tags easing tagsappear">
-                    <div class="tags-new">#{{profile_category}}</div>                   
-                </div>
-            </div>
-
-        </div>
-
-        <!--END TAGS-->
-
-
-        <div class="masonry-object_mainfeature" style="">
-
-            <div class="masonry-object_text">
-
-
-                <div class="more_detail" {{bindAttr id="id"}} >
-
-                    {{profile_about_us}}
-                </div>
-
-                <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>
-
-                <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collapes</span>
-{{#if controller.is_authentic_user}}
-                <span style="float: right; display: inline-block;"><k class="icon-trash edit-btn easing" {{action deletePartner this}}></k> </span>
-                {{/if}}
-            </div>
-
-        </div>
-
-        {{/each}}
+{{/each}}
 
 

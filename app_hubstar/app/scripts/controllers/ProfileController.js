@@ -81,7 +81,11 @@
                 },
                 getCurrentProfile: function(id) {
                     this.set('currentUserID', id);
+<<<<<<< HEAD:app_hubstar/app/scripts/controllers/ProfileController.js
                     var profile = HubStar.Profile.find(id);
+=======
+                    var profile = ProfileModel.find(id);
+>>>>>>> 3366b6f8a8d70ec0837bb44580b0ba781cf2ed2c:app_searchengine/app_hubstar/scripts/app/controllers/ProfileController.js
                     profile.get('stateManager').transitionTo('loaded.saved');
                     return profile;
                 },
@@ -183,7 +187,11 @@
                     }
                 },
                 setLocalLoginRecrod: function() {
+<<<<<<< HEAD:app_hubstar/app/scripts/controllers/ProfileController.js
                     HubStar.set('afterSearch', true);
+=======
+                    App.set('afterSearch', true);
+>>>>>>> 3366b6f8a8d70ec0837bb44580b0ba781cf2ed2c:app_searchengine/app_hubstar/scripts/app/controllers/ProfileController.js
                     localStorage.user_id = this.get('model.id');
                 },
                 toggleEditing: function(data, checkingInfo) {
@@ -226,8 +234,13 @@
                     this.updateClient();
                 },
                 updateClient: function() {
+<<<<<<< HEAD:app_hubstar/app/scripts/controllers/ProfileController.js
                     var update_profile_record = HubStar.Profile.find(this.get('model.id'));
                     HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
+=======
+                    var update_profile_record = App.Profile.find(this.get('model.id'));
+                    App.store.get('adapter').updateRecord(App.store, App.Profile, update_profile_record);
+>>>>>>> 3366b6f8a8d70ec0837bb44580b0ba781cf2ed2c:app_searchengine/app_hubstar/scripts/app/controllers/ProfileController.js
                     update_profile_record.get('stateManager').transitionTo('loaded.saved');
                 },
                 no: function(checkingInfo) {
@@ -354,7 +367,11 @@
                 },
                 followThisProfile: function() {
                     if (this.checkFollowStatus() === false) {
+<<<<<<< HEAD:app_hubstar/app/scripts/controllers/ProfileController.js
                         var currentUser = HubStar.User.find(localStorage.loginStatus);
+=======
+                        var currentUser = App.User.find(localStorage.loginStatus);
+>>>>>>> 3366b6f8a8d70ec0837bb44580b0ba781cf2ed2c:app_searchengine/app_hubstar/scripts/app/controllers/ProfileController.js
                         var commenter_profile_pic_url = currentUser.get('photo_url_large');
                         var commenter_id = currentUser.get('id');
                         var name = currentUser.get('display_name');
@@ -418,7 +435,11 @@
                     this.set('followerTag', true);
                 },
                 saveUpdate: function() {
+<<<<<<< HEAD:app_hubstar/app/scripts/controllers/ProfileController.js
                     var update_profile_record = HubStar.Profile.find(this.get('model.id'));
+=======
+                    var update_profile_record = App.Profile.find(this.get('model.id'));
+>>>>>>> 3366b6f8a8d70ec0837bb44580b0ba781cf2ed2c:app_searchengine/app_hubstar/scripts/app/controllers/ProfileController.js
                     update_profile_record.set('profile_editors', this.get('editors'));
                     update_profile_record.set('profile_keywords', this.get('keywords'));
                     update_profile_record.set('profile_regoin', this.get('region'));
@@ -442,7 +463,11 @@
                     update_profile_record.set("profile_name", this.get('profile_name'));
                     update_profile_record.set("profile_isActive", this.get("projectActiveDropdownContent"));
                     update_profile_record.set("profile_isDeleted", this.get("projectDeleteDropdownContent"));
+<<<<<<< HEAD:app_hubstar/app/scripts/controllers/ProfileController.js
                     HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
+=======
+                    App.store.get('adapter').updateRecord(App.store, App.Profile, update_profile_record);
+>>>>>>> 3366b6f8a8d70ec0837bb44580b0ba781cf2ed2c:app_searchengine/app_hubstar/scripts/app/controllers/ProfileController.js
                     update_profile_record.get('stateManager').transitionTo('loaded.saved');
                 },
                 flipFrontClick: function() {
@@ -477,8 +502,13 @@
                         this.setTempImage();
 
                         $('#uploadStyleImg').attr("style", "display:block");
+<<<<<<< HEAD:app_hubstar/app/scripts/controllers/ProfileController.js
 //
 //                            HubStar.set("totalFiles", HubStar.get("totalFiles") + 1);
+=======
+//            
+//                            App.set("totalFiles", App.get("totalFiles") + 1);
+>>>>>>> 3366b6f8a8d70ec0837bb44580b0ba781cf2ed2c:app_searchengine/app_hubstar/scripts/app/controllers/ProfileController.js
 //                            $('.' + file.get('photo_source_id')).attr("style", "display:none");
                         var data = {"newStyleImageSource": this.get('newStyleImageSource'),
                             'newStyleImageName': this.get('newStyleImageName'),
@@ -489,7 +519,11 @@
                             $('#uploadStyleImg').attr("style", "display:none");
                             that.set('isPhotoUploadMode', false);
                             that.set('isPhotoEditingMode', true);
+<<<<<<< HEAD:app_hubstar/app/scripts/controllers/ProfileController.js
                             HubStar.store.save();
+=======
+                            App.store.save();
+>>>>>>> 3366b6f8a8d70ec0837bb44580b0ba781cf2ed2c:app_searchengine/app_hubstar/scripts/app/controllers/ProfileController.js
                         });
                     }
                 },
@@ -542,4 +576,5 @@
                         this.set('isDeleteDropdown', !this.get('isDeleteDropdown'));
                     }
                 }
+
             });

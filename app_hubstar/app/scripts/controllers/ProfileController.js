@@ -229,6 +229,7 @@
                     var update_profile_record = HubStar.Profile.find(this.get('model.id'));
                     HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
                     update_profile_record.get('stateManager').transitionTo('loaded.saved');
+                    HubStar.store.save();
                 },
                 no: function(checkingInfo) {
                     if (checkingInfo === "profileName") {
@@ -444,6 +445,8 @@
                     update_profile_record.set("profile_isDeleted", this.get("projectDeleteDropdownContent"));
                     HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
                     update_profile_record.get('stateManager').transitionTo('loaded.saved');
+
+                       HubStar.store.save();
                 },
                 flipFrontClick: function() {
                     $(".hover").addClass('flip');

@@ -33,7 +33,7 @@ class EmailsController extends Controller {
             "Source" => $platformEmail,
             "Destination" => array(
                 "ToAddresses" => array(
-                    $email_destination
+                    $email_destination, 'enquiries@trendsideas.com', $display_email
                 )
             ),
             "Message" => array(
@@ -42,9 +42,8 @@ class EmailsController extends Controller {
                 ),
                 "Body" => array(
                     "Html" => array(
-                        "Data" => $this->getEmailForm($request_arr['email_subject'], $request_arr['email_body'],$request_arr['display_name'],
-                                $request_arr['recieve_profile']
-                                )
+                        "Data" => $this->getEmailForm($request_arr['email_subject'], $request_arr['email_body'], $request_arr['display_name'], $request_arr['recieve_profile']
+                        )
                     )
                 ),
             ),
@@ -52,7 +51,6 @@ class EmailsController extends Controller {
         );
         $response = $amazonSes->sendEmail($args);
         $this->sendResponse(200, $response);
-
     }
 
     public function actionRead() {
@@ -71,7 +69,7 @@ class EmailsController extends Controller {
         }
     }
 
-    public function getEmailForm($subject, $emailBody,$sendPersonName,$recieveProfile) {
+    public function getEmailForm($subject, $emailBody, $sendPersonName, $recieveProfile) {
         return '<div>
     <div style="position: relative;background: #fff; width: 600px; height: auto; margin: auto; box-shadow: 0px 0px 8px #555; border-radius: 3px 3px 0 0;">
         <div style="width:600px; height:132px;overflow:hidden; margin-bottom:20px;">
@@ -83,7 +81,7 @@ class EmailsController extends Controller {
                     <td>Project Category:</td>
                     <td> 
                         <div style="display: block;">
-                            Bathrooms
+
                         </div>
                     </td>
                 </tr>
@@ -91,7 +89,7 @@ class EmailsController extends Controller {
                     <td>Project Timeframe:</td>
                     <td> 
                         <div style="display: block;">
-                            1-2 months
+
                         </div>
                     </td>
                 </tr>
@@ -99,7 +97,7 @@ class EmailsController extends Controller {
                     <td>Project Budget:</td>
                     <td> 
                         <div style="display: block;">
-                            Less than 5k
+   
                         </div>
                     </td>
                 </tr>
@@ -107,7 +105,7 @@ class EmailsController extends Controller {
                     <td>Project Experience:</td>
                     <td>
                         <div style="display: block;">
-                            First Time 
+     
                         </div>
                     </td>
                 </tr>
@@ -115,13 +113,13 @@ class EmailsController extends Controller {
                     <td>I want help in:</td>
                     <td>
                         <div style="display: block;">
-                            Appliances                           
+                                     
                         </div>
                         <div style="display: block;">
-                            Design                            
+                                                
                         </div>
                         <div style="display: block;">
-                            Products                          
+                                       
                         </div>
                     </td>
                 </tr>
@@ -131,8 +129,8 @@ class EmailsController extends Controller {
             <div style="color: #555;font-family:Arial;margin-bottom: 5px;font-size: 15px;line-height:16px;font-weight: bold;">Subject: ' . $subject . '</div>
                 <div style="color: #555;font-family:Arial;margin-bottom: 5px;font-size: 15px;line-height:16px;font-weight: bold;">From: ' . $sendPersonName . '</div>
                     <div style="color: #555;font-family:Arial;margin-bottom: 5px;font-size: 15px;line-height:16px;font-weight: bold;">To: ' . $recieveProfile . '</div>
-            <div style="color:#666;font-family:Arial;margin:0;font-size:11px;line-height:16px">
-                WQNMLGB~~~~!Yeah
+            <div style="color:#666;font-family:Arial;margin:0;font-size:11px;line-height:16px">' .
+                $emailBody . '
             </div> 
         </div>
         
@@ -143,5 +141,7 @@ class EmailsController extends Controller {
     </div>
 </div>';
     }
-}       
+
+}
+
 ?>

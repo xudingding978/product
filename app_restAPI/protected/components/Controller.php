@@ -25,6 +25,10 @@ class Controller extends CController {
         $account = Yii::app()->params['couchBaseAccount'];
         $password = Yii::app()->params['couchBasePassword'];
         $node = Yii::app()->params['couchBaseNode'];
+        error_log('bucket '.$bucket);
+        error_log('account '.$account);
+        error_log('pa '.$password);
+        error_log('no '.$node);
         return new Couchbase($node, $account, $password, $bucket, true);
     }
 
@@ -306,7 +310,7 @@ class Controller extends CController {
                     ]
                 }
             }');
-error_log($termQuery->toJSON());
+        error_log($termQuery->toJSON());
         $response = $request->query($termQuery)->execute();
         $results = $this->getReponseResult($response, $returnType);
 
@@ -320,7 +324,7 @@ error_log($termQuery->toJSON());
         $request->from(0)
                 ->size(100);
         $must = Sherlock\Sherlock::queryBuilder()
-                ->QueryString()->query('"'.$collection_id.'"')
+                ->QueryString()->query('"' . $collection_id . '"')
                 ->default_field('couchbaseDocument.doc.collection_id');
 
 

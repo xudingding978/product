@@ -70,9 +70,18 @@ class ProfilesController extends Controller {
             $request_json = file_get_contents('php://input');
             $request_arr = CJSON::decode($request_json, true);
 
-            $cb = $this->couchBaseConnection();
-            if ($cb->add($this->getDomain() . $_SERVER['REQUEST_URI'] . '/' . $request_arr['profile']['id'], CJSON::encode($request_arr['profile']))) {
-                echo $this->sendResponse(200, var_dump($request_arr));
+                    $cb = $this->couchBaseConnection();
+        $id = $mega['id'];
+        $domain = $this->getDomain();
+        $docID = $domain . "/profiles/" . $id;
+
+        if ($cb->add($docID, CJSON::encode($mega))) {
+            $this->sendResponse(204);
+            
+            
+//            $cb = $this->couchBaseConnection();
+//            if ($cb->add($this->getDomain() . $_SERVER['REQUEST_URI'] . '/' . $request_arr['profile']['id'], CJSON::encode($request_arr['profile']))) {
+//                echo $this->sendResponse(200, var_dump($request_arr));
             } else {
                 echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
             }
@@ -133,7 +142,7 @@ class ProfilesController extends Controller {
                 $this->sendResponse(204);
             }
         } catch (Exception $exc) {
-            echo var_export($newdocument);
+           
         }
     }
 
@@ -157,9 +166,9 @@ class ProfilesController extends Controller {
         $compressed_photo = $photoController->compressPhotoData($data_arr['type'], $photo);
         $orig_size['width'] = imagesx($compressed_photo);
         $orig_size['height'] = imagesy($compressed_photo);
-        error_log('height           '.$orig_size['height'] );
+    
         $url = $photoController->savePhotoInTypes($orig_size, $mode, $photo_name, $compressed_photo, $data_arr, $owner_id);
-
+  
         $cb = $this->couchBaseConnection();
         $oldRecord = CJSON::decode($cb->get($this->getDomain() . '/profiles/' . $owner_id));
         if ($mode == 'profile_hero') {
@@ -167,7 +176,7 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_hero_url'] = $url;
             $smailimage = $photoController->savePhotoInTypes($orig_size, 'hero', $photo_name, $compressed_photo, $data_arr, $owner_id, $mode);
             $oldRecord['profile'][0]['profile_hero_cover_url'] = $smailimage;
-            error_log(var_export($oldRecord['profile'][0]['profile_hero_cover_url'], true));
+
         } elseif
         ($mode == 'background') {
             $oldRecord['profile'][0]['profile_bg_url'] = null;

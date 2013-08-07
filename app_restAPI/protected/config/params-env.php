@@ -30,7 +30,7 @@ return array(
     //CouchBase Configurations
     'couchBase.node' => 'cb1.hubsrv.com:8091',
     'couchBase.account' => 'Administrator',
-    'couchBase.password' => 'Pa55word',
+    'couchBase.password' => 'ddd',
     'couchBase.bucket' => 'develop',
     
     //CouchBase default bucket  Configurations

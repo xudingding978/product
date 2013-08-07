@@ -479,25 +479,10 @@
                     {
                         this.setTempImage();
                         $('#uploadStyleImg').attr("style", "display:block");
-                        var data = {"newStyleImageSource": this.get('newStyleImageSource'),
-                            'newStyleImageName': this.get('newStyleImageName'),
-                            'mode': this.get('UploadImageMode').replace(" ", "_").toLowerCase(),
-                            'id': this.get('model.id')};
-                        var that = this;
-                        requiredBackEnd('profiles', 'updateStyleImage', data, 'POST', function(params) {
-                            $('#uploadStyleImg').attr("style", "display:none");
-                            that.set('isPhotoUploadMode', false);
-                            that.set('isPhotoEditingMode', true);
+//
+//                            HubStar.set("totalFiles", HubStar.get("totalFiles") + 1);
+//                            $('.' + file.get('photo_source_id')).attr("style", "display:none");
                             HubStar.store.save();
-                        });
-                    }
-                },
-                setTempImage: function() {
-                    var model = this.get('model');
-                    if (this.get('UploadImageMode') === "Profile Picture")
-                    {
-                        this.set('profile_pic_url', this.get('newStyleImageSource'));
-                        model.set('profile_pic_url', this.get('newStyleImageSource'));
                     } else if (this.get('UploadImageMode') === "Profile Hero")
                     {
                         this.set('profile_hero_url', this.get('newStyleImageSource'));
@@ -541,4 +526,5 @@
                         this.set('isDeleteDropdown', !this.get('isDeleteDropdown'));
                     }
                 }
+
             });

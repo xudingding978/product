@@ -28,12 +28,11 @@ class Hybrid_Provider_Model_OpenID extends Hybrid_Provider_Model {
      */
     function initialize() {
         if (isset($this->params["openid_identifier"])) {
-
             $this->openidIdentifier = $this->params["openid_identifier"];
         }
 
+        // include LightOpenID lib
         require_once Hybrid_Auth::$config["path_libraries"] . "OpenID/LightOpenID.php";
-
         if (isset(Hybrid_Auth::$config["base_url"])) {
             $this->api = new LightOpenID(parse_url(Hybrid_Auth::$config["base_url"], PHP_URL_HOST));
         }

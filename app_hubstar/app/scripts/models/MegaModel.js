@@ -3,7 +3,7 @@
         photo: {embedded: 'always'},
         user: {embedded: 'always'},
         comments: {embedded: 'load'},
-        profile: {embedded: 'load'},
+        profile: {embedded: 'always'},
         article: {embedded: 'always'}
     });
 

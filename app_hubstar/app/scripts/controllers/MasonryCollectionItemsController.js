@@ -88,7 +88,11 @@
                     }
                 }
                 for (var i = 0; i < this.get('content').length; i++) {
+<<<<<<< HEAD:app_hubstar/app/scripts/controllers/MasonryCollectionItemsController.js
                     if (this.get('content').objectAt(i).get('id') === HubStar.get('itemID')) {
+=======
+                    if (this.get('content').objectAt(i).get('id') === App.get('itemID')) {
+>>>>>>> 3366b6f8a8d70ec0837bb44580b0ba781cf2ed2c:app_searchengine/app_hubstar/scripts/app/controllers/MasonryCollectionItemsController.js
                         var tempItem = this.get('content').objectAt(i);
                         tempItem.deleteRecord();
                         HubStar.store.save();
@@ -135,7 +139,11 @@
             var coverImge = Mega.get('photo').objectAt(0).get('photo_image_original_url');
             var address = document.URL;
             var owner_id = address.split("#")[1].split("/")[2];
+<<<<<<< HEAD:app_hubstar/app/scripts/controllers/MasonryCollectionItemsController.js
             var userOrprofile = HubStarModel.find(owner_id).get('collections');
+=======
+            var userOrprofile = AppModel.find(owner_id).get('collections');
+>>>>>>> 3366b6f8a8d70ec0837bb44580b0ba781cf2ed2c:app_searchengine/app_hubstar/scripts/app/controllers/MasonryCollectionItemsController.js
             for (var i = 0; i < userOrprofile.get('content').length; i++) {
                 if (userOrprofile.objectAt(i).id === collection_id) {
                     var currentCollection = userOrprofile.objectAt(i);

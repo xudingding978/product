@@ -1,6 +1,11 @@
 
+<<<<<<< HEAD:app_hubstar/app/scripts/controllers/ContactController.js
     HubStar.ContactController = Ember.Controller.extend({
         dropdownCategory: "category",
+=======
+    var ContactController = Ember.Controller.extend({
+        dropdownCategory: "Category",
+>>>>>>> 3366b6f8a8d70ec0837bb44580b0ba781cf2ed2c:app_searchengine/app_hubstar/scripts/app/controllers/ContactController.js
         dropdownTimeframe: "Timeframe",
         dropdownBudget: "Budget",
         dropdownExperience: "Experience",
@@ -28,13 +33,16 @@
         needs: ["mega", "profile", 'article'],
         init: function() {
             this.set('categorys', []);
+<<<<<<< HEAD:app_hubstar/app/scripts/controllers/ContactController.js
             this.set('categorys', HubStar.Cate.find());
 
+=======
+            this.set('categorys', App.Cate.find());
+>>>>>>> 3366b6f8a8d70ec0837bb44580b0ba781cf2ed2c:app_searchengine/app_hubstar/scripts/app/controllers/ContactController.js
             this.set('projectCategorySelection', 'Please Select One ...');
             this.set('timeframeSelection', 'Please Select One ...');
             this.set('projectBudgetSelection', 'Please Select One ...');
             this.set('projectExperienceSelection', 'Please Select One ...');
-
         },
         selectionCheckBox: function() {
             if (this.get('temp').get('subcate') !== undefined) {
@@ -139,7 +147,7 @@
             this.closeContact();
         },
         dropdown: function(checking) {
-            if (checking === "category") {
+            if (checking === "Category") {
 
                 this.set('projectExperienceDropdown', false);
                 this.set('projectTimeframeDropdown', false);
@@ -178,7 +186,5 @@
         proviousSendingEmailProcess: function() {
             this.set('secondStepOfContactEmail', false);
             this.set('firstStepOfContactEmail', false);
-
-
         }
     });

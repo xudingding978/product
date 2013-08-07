@@ -35,7 +35,6 @@ define([
                 that.get('controller').set('dropdownCategory', $(this).text());
             });
            $('#profilePackgetDropdown > .ite').click(function() {
-               console.log($(this).text());
                 that.get('controller').set('projectCategoryDropdownContent', $(this).text());
             });
               $('#is_actvie > .ite').click(function() {

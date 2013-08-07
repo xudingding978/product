@@ -2,7 +2,6 @@ define([
     'ember'
 ], function(Ember) {
 
-
     var ContactController = Ember.Controller.extend({
         dropdownCategory: "Category",
         dropdownTimeframe: "Timeframe",
@@ -37,7 +36,6 @@ define([
             this.set('timeframeSelection', 'Please Select One ...');
             this.set('projectBudgetSelection', 'Please Select One ...');
             this.set('projectExperienceSelection', 'Please Select One ...');
-
         },
         selectionCheckBox: function() {
             if (this.get('temp').get('subcate') !== undefined) {
@@ -142,7 +140,7 @@ define([
             this.closeContact();
         },
         dropdown: function(checking) {
-            if (checking === "category") {
+            if (checking === "Category") {
 
                 this.set('projectExperienceDropdown', false);
                 this.set('projectTimeframeDropdown', false);
@@ -181,8 +179,6 @@ define([
         proviousSendingEmailProcess: function() {
             this.set('secondStepOfContactEmail', false);
             this.set('firstStepOfContactEmail', false);
-
-
         }
     });
 

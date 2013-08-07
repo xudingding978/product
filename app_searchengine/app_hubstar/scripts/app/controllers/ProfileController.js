@@ -234,7 +234,7 @@ define([
                 updateClient: function() {
                     var update_profile_record = App.Profile.find(this.get('model.id'));
                     App.store.get('adapter').updateRecord(App.store, App.Profile, update_profile_record);
-                          update_profile_record.get('stateManager').transitionTo('loaded.saved');
+                    update_profile_record.get('stateManager').transitionTo('loaded.saved');
                 },
                 no: function(checkingInfo) {
                     if (checkingInfo === "profileName") {
@@ -474,21 +474,28 @@ define([
                     getImageWidth(src, function(width, height) {
                         that.set('newStyleImageSource', src);
                         that.set('newStyleImageName', name);
-                        $('#photoUploadbtn').removeClass("followed-btn");
+                        $('#photoUploadbtn').removeClass("disabled-btn");
                         $("#photoUploadbtn").toggleClass("new-btn green-btn");
                     });
                 }, photoUpload: function() {
                     if (this.get('newStyleImageSource') !== null && this.get('newStyleImageSource') !== "")
                     {
                         this.setTempImage();
-                        this.set('isPhotoUploadMode', false);
+
+                        $('#uploadStyleImg').attr("style", "display:block");
+//            
+//                            App.set("totalFiles", App.get("totalFiles") + 1);
+//                            $('.' + file.get('photo_source_id')).attr("style", "display:none");
                         var data = {"newStyleImageSource": this.get('newStyleImageSource'),
                             'newStyleImageName': this.get('newStyleImageName'),
                             'mode': this.get('UploadImageMode').replace(" ", "_").toLowerCase(),
                             'id': this.get('model.id')};
                         var that = this;
                         requiredBackEnd('profiles', 'updateStyleImage', data, 'POST', function(params) {
+                            $('#uploadStyleImg').attr("style", "display:none");
+                            that.set('isPhotoUploadMode', false);
                             that.set('isPhotoEditingMode', true);
+                            App.store.save();
                         });
                     }
                 },
@@ -524,7 +531,7 @@ define([
                     this.set('newStyleImageSource', "");
                     this.set('newStyleImageName', "");
                     $('#photoUploadbtn').removeClass("new-btn green-btn");
-                    $("#photoUploadbtn").toggleClass("followed-btn");
+                    $("#photoUploadbtn").toggleClass("disabled-btn");
                 }, dropdown: function(checking) {
                     if (checking === "package") {
                         this.set('isActiveDropdown', false);

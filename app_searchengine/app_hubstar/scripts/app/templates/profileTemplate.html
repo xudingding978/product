@@ -150,7 +150,7 @@
                                 </tr>
                                 <tr>
                                     <th>Website:</th>
-                                    {{#if controller.editingContact}}
+                                    {{#if controller.editingContact}}photo_source_id
                                     {{input type="text" class="insert-contactdetails" value=model.profile_website  }}
                                     {{else}}
                                     <th class="Contact_2child"><a href="{{unbound model.profile_website}}" target="blank">{{model.profile_website}}</a></th>
@@ -662,7 +662,7 @@
                             <div style="position: relative;margin:3px; display: inline-block; vertical-align: top; min-width: 150px;text-align: center;">
                                 <div> 
                                     <img  {{bindAttr src= "newStyleImageSource"}}  style="max-width: 140px; max-height: 150px;">
-                                    <div {{bindAttr class="photo_source_id"}} style="display: none;">
+                                    <div id='uploadStyleImg' style="display: none;">
                                         <img style="width: 25px; height: 25px;position: absolute;top: 40%;left: 62px;" src="../../../images/uploadphotos_spinner.gif"/>
                                     </div>
                                 </div>

@@ -14,10 +14,10 @@ HubStar.VideoRoute = Ember.Route.extend({
              $("body").css("overflow", "auto");
              $('#footer').attr("style", "display:block");
         },
-        renderTemplate: function() {
-            this.render('video', {
-                into: "index"
-            });
-        }
+//        renderTemplate: function() {
+//            this.render('video', {
+//                into: "index"
+//            });
+//        }
 
     });

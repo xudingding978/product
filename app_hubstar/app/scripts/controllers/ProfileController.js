@@ -487,9 +487,6 @@
                     {
                         this.setTempImage();
                         $('#uploadStyleImg').attr("style", "display:block");
-
-
-//                            $('.' + file.get('photo_source_id')).attr("style", "display:none");
                         var data = {"newStyleImageSource": this.get('newStyleImageSource'),
                             'newStyleImageName': this.get('newStyleImageName'),
                             'mode': this.get('UploadImageMode').replace(" ", "_").toLowerCase(),
@@ -500,7 +497,6 @@
                             that.set('isPhotoUploadMode', false);
                             that.set('isPhotoEditingMode', true);
                             HubStar.store.save();
-
                         });
                     }
                 },

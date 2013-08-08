@@ -229,6 +229,7 @@
                     var update_profile_record = HubStar.Profile.find(this.get('model.id'));
                     HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
                     update_profile_record.get('stateManager').transitionTo('loaded.saved');
+                    HubStar.store.save();
                 },
                 no: function(checkingInfo) {
                     if (checkingInfo === "profileName") {
@@ -444,6 +445,8 @@
                     update_profile_record.set("profile_isDeleted", this.get("projectDeleteDropdownContent"));
                     HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
                     update_profile_record.get('stateManager').transitionTo('loaded.saved');
+
+                       HubStar.store.save();
                 },
                 flipFrontClick: function() {
                     $(".hover").addClass('flip');
@@ -468,18 +471,14 @@
                     getImageWidth(src, function(width, height) {
                         that.set('newStyleImageSource', src);
                         that.set('newStyleImageName', name);
-                        $('#photoUploadbtn').removeClass("disabled-btn");
+                        $('#photoUploadbtn').removeClass();
                         $("#photoUploadbtn").toggleClass("new-btn green-btn");
                     });
                 }, photoUpload: function() {
                     if (this.get('newStyleImageSource') !== null && this.get('newStyleImageSource') !== "")
                     {
                         this.setTempImage();
-
                         $('#uploadStyleImg').attr("style", "display:block");
-//
-//                            HubStar.set("totalFiles", HubStar.get("totalFiles") + 1);
-//                            $('.' + file.get('photo_source_id')).attr("style", "display:none");
                         var data = {"newStyleImageSource": this.get('newStyleImageSource'),
                             'newStyleImageName': this.get('newStyleImageName'),
                             'mode': this.get('UploadImageMode').replace(" ", "_").toLowerCase(),
@@ -524,7 +523,7 @@
                 {
                     this.set('newStyleImageSource', "");
                     this.set('newStyleImageName', "");
-                    $('#photoUploadbtn').removeClass("new-btn green-btn");
+                    $('#photoUploadbtn').removeClass();
                     $("#photoUploadbtn").toggleClass("disabled-btn");
                 }, dropdown: function(checking) {
                     if (checking === "package") {
@@ -542,4 +541,5 @@
                         this.set('isDeleteDropdown', !this.get('isDeleteDropdown'));
                     }
                 }
+
             });

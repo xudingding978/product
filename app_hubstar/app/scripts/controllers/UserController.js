@@ -237,6 +237,7 @@
         },
         checkAuthenticUser: function() {
             {
+
                 if (localStorage.loginStatus === this.get('user').id) {
                     this.set('is_authentic_user', true);
                 }

@@ -9,7 +9,7 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
             }
 
 
-            this.controllerFor('masonryCollectionItems').selectModelForProfile(id, App.Profile);
+            this.controllerFor('masonryCollectionItems').selectModelForProfile(id, HubStar.Profile);
             this.controllerFor('profile').set('switchPhoto', false);
             this.controllerFor('masonryCollectionItems').set('uploadStuff', true);
             this.controllerFor('masonryCollectionItems').set('canEditbyOwner', true);

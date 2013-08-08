@@ -36,9 +36,6 @@
 
         },
         selectModelForProfile: function(collection_id) {
-
-
-
             this.resetContent();
             this.set('title', collection_id);
             this.checkEditingMode();
@@ -167,11 +164,12 @@
             var that = this;
             results.addObserver('isLoaded', function() {
                 if (results.get('isLoaded')) {
-                    for (var i = 0; i < this.get("content").length; i++) {
-                        var id = this.get("content").objectAt(i).id;
-                        if (HubStar.Mega.find(id)._data.hasMany.photo.length === 1)
+                    console.log(results);
+                    for (var i = 0; i < this.get("length"); i++) {
+                               var tempmega = results.objectAt(i);
+                        if (tempmega.get('photo').get('length') === 1)
                         {
-                            that.get("content").pushObject(HubStar.Mega.find(id));
+                            that.get("content").pushObject(tempmega);
                         }
                     }
                 }

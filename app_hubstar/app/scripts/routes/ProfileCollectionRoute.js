@@ -3,11 +3,13 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
             if (model.id === undefined || model.id === "") {
                 var address = document.URL;
                 var id = address.split("#")[1].split("/")[3];
-            } else {
-                var id = model.id;
-
             }
-            this.controllerFor('masonryCollectionItems').selectModelForProfile(id);
+            else {
+                var id = model.id;
+            }
+
+
+            this.controllerFor('masonryCollectionItems').selectModelForProfile(id, App.Profile);
             this.controllerFor('profile').set('switchPhoto', false);
             this.controllerFor('masonryCollectionItems').set('uploadStuff', true);
             this.controllerFor('masonryCollectionItems').set('canEditbyOwner', true);

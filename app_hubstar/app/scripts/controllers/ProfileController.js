@@ -541,4 +541,5 @@
                         this.set('isDeleteDropdown', !this.get('isDeleteDropdown'));
                     }
                 }
+
             });

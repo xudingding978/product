@@ -1,6 +1,8 @@
 
+
     HubStar.ContactController = Ember.Controller.extend({
         dropdownCategory: "category",
+
         dropdownTimeframe: "Timeframe",
         dropdownBudget: "Budget",
         dropdownExperience: "Experience",
@@ -28,13 +30,14 @@
         needs: ["mega", "profile", 'article'],
         init: function() {
             this.set('categorys', []);
+
             this.set('categorys', HubStar.Cate.find());
+
 
             this.set('projectCategorySelection', 'Please Select One ...');
             this.set('timeframeSelection', 'Please Select One ...');
             this.set('projectBudgetSelection', 'Please Select One ...');
             this.set('projectExperienceSelection', 'Please Select One ...');
-
         },
         selectionCheckBox: function() {
             if (this.get('temp').get('subcate') !== undefined) {
@@ -139,7 +142,7 @@
             this.closeContact();
         },
         dropdown: function(checking) {
-            if (checking === "category") {
+            if (checking === "Category") {
 
                 this.set('projectExperienceDropdown', false);
                 this.set('projectTimeframeDropdown', false);
@@ -178,7 +181,5 @@
         proviousSendingEmailProcess: function() {
             this.set('secondStepOfContactEmail', false);
             this.set('firstStepOfContactEmail', false);
-
-
         }
     });

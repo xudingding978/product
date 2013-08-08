@@ -164,7 +164,7 @@
             var that = this;
             results.addObserver('isLoaded', function() {
                 if (results.get('isLoaded')) {
-                    console.log(results);
+               
                     for (var i = 0; i < this.get("length"); i++) {
                                var tempmega = results.objectAt(i);
                         if (tempmega.get('photo').get('length') === 1)

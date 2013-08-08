@@ -1,7 +1,4 @@
-App.PostRoute = Ember.Route.extend(
+HubStar.LeoRoute = Ember.Route.extend(
   model: ->
-    App.Post.find()
-    
-  actived: ->
-    false
+    HubStar.Post.find()
 )   

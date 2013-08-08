@@ -203,6 +203,7 @@ module.exports = function(grunt) {
         concat: {
             dist: {
                 src: [
+                    '<%= yeoman.app %>/bower_components/javascriptHelper/browserdetecter.js',
                     '<%= yeoman.app %>/bower_components/jquery/jquery.min.js',
                     '<%= yeoman.app %>/bower_components/handlebars/handlebars.runtime.js',
                     '<%= yeoman.app %>/bower_components/jquery.ui/jquery-ui-1.9.2.custom.min.js',
@@ -312,7 +313,8 @@ module.exports = function(grunt) {
                             'images/welcomepage/*',
                             'images/defaultbg/*',
                             'images/defaultcover/*',
-                            'images/defaultpic/*'
+                            'images/defaultpic/*',
+                            'browser_upgrade.html'
 
 
                         ]

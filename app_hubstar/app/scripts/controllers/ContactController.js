@@ -1,5 +1,4 @@
 
-
     HubStar.ContactController = Ember.Controller.extend({
         dropdownCategory: "category",
 
@@ -32,8 +31,6 @@
             this.set('categorys', []);
 
             this.set('categorys', HubStar.Cate.find());
-
-
             this.set('projectCategorySelection', 'Please Select One ...');
             this.set('timeframeSelection', 'Please Select One ...');
             this.set('projectBudgetSelection', 'Please Select One ...');

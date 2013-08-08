@@ -60,6 +60,7 @@ HubStar.Router.map(function() {
         this.resource("comingSoon", {
             path: "/comingsoon"
         });
+
     });
 
 

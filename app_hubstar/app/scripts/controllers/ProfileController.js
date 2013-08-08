@@ -82,7 +82,7 @@
                 getCurrentProfile: function(id) {
                     this.set('currentUserID', id);
                     var profile = HubStar.Profile.find(id);
-                    profile.get('stateManager').transitionTo('loaded.saved');
+                  //  profile.get('stateManager').transitionTo('loaded.saved');
                     return profile;
                 },
                 setProfile: function(id) {

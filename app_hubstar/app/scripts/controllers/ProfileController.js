@@ -230,7 +230,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     updateClient: function() {
         var update_profile_record = HubStar.Profile.find(this.get('model.id'));
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
-        update_profile_record.get('stateManager').transitionTo('loaded.saved');
+    if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
+            update_profile_record.get('stateManager').transitionTo('loaded.saved');
+        }
         HubStar.store.save();
     },
     no: function(checkingInfo) {
@@ -446,7 +448,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set("profile_isActive", this.get("projectActiveDropdownContent"));
         update_profile_record.set("profile_isDeleted", this.get("projectDeleteDropdownContent"));
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
-        update_profile_record.get('stateManager').transitionTo('loaded.saved');
+    if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
+            update_profile_record.get('stateManager').transitionTo('loaded.saved');
+        }
 
         HubStar.store.save();
     },

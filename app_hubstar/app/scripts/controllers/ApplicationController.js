@@ -41,6 +41,7 @@
             } else {
                 this.set('loadingTime', true);
             }
+
             this.set("size", 20);
             this.set("from", this.get("from") + this.get("size"));
             var results = HubStar.Mega.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size")});

@@ -200,15 +200,28 @@ module.exports = function(grunt) {
         },
         // not used since Uglify task does concat,
         // but still available if needed
-        /*concat: {
-         dist: {}
-         },*/
+        concat: {
+            dist: {
+                src: [
+                    '<%= yeoman.app %>/bower_components/jquery/jquery.min.js',
+                    '<%= yeoman.app %>/bower_components/handlebars/handlebars.runtime.js',
+                    '<%= yeoman.app %>/bower_components/jquery.ui/jquery-ui-1.9.2.custom.min.js',
+                    '<%= yeoman.app %>/bower_components/jquery.masonry/jquery.masonry.min.js',
+                    '<%= yeoman.app %>/bower_components/bootstrap/bootstrap.min.js',
+                    '<%= yeoman.app %>/bower_components/ember/ember-1.0.0-rc.6.1.min.js',
+                    '<%= yeoman.app %>/bower_components/ember-data-shim/ember-data.min.js',
+                    '<%= yeoman.app %>/bower_components/moment/moment.min.js',
+                    '<%= yeoman.app %>/bower_components/javascriptHelper/javascriptHelper.js'
+                ],
+                dest: '<%= yeoman.dist %>/scripts/components.js'
+            }
+
+        },
         // not enabled since usemin task does concat and uglify
         // check index.html to edit your build targets
         // enable this task if you prefer defining your build targets here
-        /*uglify: {
-         dist: {}
-         },*/
+//        uglify: {
+//        },
         rev: {
             dist: {
                 files: {
@@ -377,7 +390,9 @@ module.exports = function(grunt) {
         'concurrent:test',
         'connect:test',
         'neuter:app',
-        'mocha'
+        'mocha',
+        'open',
+        'watch'
     ]);
     grunt.registerTask('build', [
         'clean:dist',
@@ -385,6 +400,7 @@ module.exports = function(grunt) {
         'concurrent:dist',
         'neuter:app',
         'concat',
+        'concat:dist',
         'cssmin',
         'uglify',
         'copy',

@@ -146,7 +146,7 @@ class MegasController extends Controller {
         if ($cb->add($docID, CJSON::encode($mega))) {
             $this->sendResponse(204);
         } else {
-            $this->sendResponse(500, "some thing wrong");
+            $this->sendResponse(200, "some thing wronggggggggggggggggg");
         }
     }
 

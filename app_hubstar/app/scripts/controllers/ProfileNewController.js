@@ -226,6 +226,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                 owner_contact_bcc_emails: this.get("direct_enquiry_provide_email"),
                 updated: ""
             });
+            newMega.store.save();
             var newProfile = HubStar.store.createRecord(HubStar.Profile, {
                 id: this.spaceChecking(this.get("profile_url").toLowerCase()),
                 profile_name: this.get("profile_name"),
@@ -255,13 +256,18 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                 profile_website_url: this.get("website_url"),
                 profile_website: this.get("website")
             });
+
             newMega.get("profile").addObject(newProfile);
-            HubStar.store.commit();
+
             var that = this;
-            var tempP = HubStar.Profile.find(newProfile.get('id'));
-            tempP.addObserver('isLoaded', function() {
-                if (tempP.get('isLoaded')) {
-                    that.transitionToRoute('profile', tempP);
+
+            newMega.addObserver('isDirty', function() {
+                if (!newMega.get('isDirty')) {
+                    setTimeout(function() {
+                        newProfile.store.save();
+                    }, 200);
+
+                    that.transitionToRoute('profile', newProfile);
                 } else {
                 }
             });

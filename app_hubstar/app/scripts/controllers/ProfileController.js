@@ -82,9 +82,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     getCurrentProfile: function(id) {
         this.set('currentUserID', id);
         var profile = HubStar.Profile.find(id);
-        if (profile.get('stateManager') !== null && profile.get('stateManager') !== undefined) {
-            profile.get('stateManager').transitionTo('loaded.saved');
-        }
+
+
         return profile;
     },
     setProfile: function(id) {
@@ -451,7 +450,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
             update_profile_record.get('stateManager').transitionTo('loaded.saved');
         }
-
+        console.log('ssssssssssssssssss');
         HubStar.store.save();
     },
     flipFrontClick: function() {

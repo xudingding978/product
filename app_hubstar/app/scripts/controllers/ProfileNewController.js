@@ -261,11 +261,13 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
 
             var that = this;
 
+            setTimeout(function() {
+                newProfile.store.save();
+            }, 500);
+
+
             newMega.addObserver('isDirty', function() {
                 if (!newMega.get('isDirty')) {
-                    setTimeout(function() {
-                        newProfile.store.save();
-                    }, 200);
 
                     that.transitionToRoute('profile', newProfile);
                 } else {

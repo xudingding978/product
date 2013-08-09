@@ -8,8 +8,6 @@
         needs: ['photoCreate', 'profile', 'user', 'permission', 'photoCreateInfoSetting'],
         user_id: null,
         init: function() {
-
-
         },
         selectModelForUser: function(collection_id) {
 
@@ -160,7 +158,6 @@
             var owner_id = address.split("#")[1].split("/")[2];
             var title = this.get('title');
             var results = HubStar.Mega.find({RquireType: "collection", "collection_id": title, "owner_profile_id": owner_id});
-
             var that = this;
             results.addObserver('isLoaded', function() {
                 if (results.get('isLoaded')) {

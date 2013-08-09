@@ -13,18 +13,18 @@ class ProfilesController extends Controller {
     const JSON_RESPONSE_ROOT_PLURAL = 'profiles';
 
     public function actionIndex() {
-        //    $results = $this->getAllProfiles("profile");
+//    $results = $this->getAllProfiles("profile");
 
         $settings['log.enabled'] = true;
-        // $settings['log.file'] = '/var/log/sherlock/newlogfile.log';
-        // $settings['log.level'] = 'debug';
+// $settings['log.file'] = '/var/log/sherlock/newlogfile.log';
+// $settings['log.level'] = 'debug';
         $sherlock = new Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
 
-        //Build a new search request
+//Build a new search request
         $request = $sherlock->search();
 
-        //populate a Term query to start
+//populate a Term query to start
         $termQuery = Sherlock\Sherlock::queryBuilder()
                 ->Match()
                 ->field("type")
@@ -32,7 +32,7 @@ class ProfilesController extends Controller {
                 ->boost(2.5);
 
 
-        //Set the index, type and from/to parameters of the request.
+//Set the index, type and from/to parameters of the request.
         $request->index(Yii::app()->params['elasticSearchIndex'])
                 ->type("couchbaseDocument")
                 ->from(0)
@@ -42,17 +42,17 @@ class ProfilesController extends Controller {
 
         error_log($request->toJSON());
 
-        //Execute the search and return results
+//Execute the search and return results
         $response = $request->execute();
 
-        //echo "Took: " . $response->took . "\r\n";
-        //echo "Number of Hits: " . count($response) . "\r\n";
-        //echo var_export($response);
+//echo "Took: " . $response->took . "\r\n";
+//echo "Number of Hits: " . count($response) . "\r\n";
+//echo var_export($response);
 
         $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":[';
 
 
-        //Iterate over the hits and print out some data
+//Iterate over the hits and print out some data
         $i = 0;
         foreach ($response as $hit) {
             $results .= CJSON::encode($hit['source']['doc']['profile'][0]);
@@ -69,19 +69,17 @@ class ProfilesController extends Controller {
         try {
             $request_json = file_get_contents('php://input');
             $request_arr = CJSON::decode($request_json, true);
-
-                    $cb = $this->couchBaseConnection();
-        $id = $mega['id'];
-        $domain = $this->getDomain();
-        $docID = $domain . "/profiles/" . $id;
-
-        if ($cb->add($docID, CJSON::encode($mega))) {
-            $this->sendResponse(204);
-            
-            
-//            $cb = $this->couchBaseConnection();
-//            if ($cb->add($this->getDomain() . $_SERVER['REQUEST_URI'] . '/' . $request_arr['profile']['id'], CJSON::encode($request_arr['profile']))) {
-//                echo $this->sendResponse(200, var_dump($request_arr));
+            $tempProfile = $request_arr['profile'];
+            $cb = $this->couchBaseConnection();
+            $id = $tempProfile['id'];
+            $domain = $this->getDomain();
+            $docID = $domain . "/profiles/" . $id;
+            $tempMega = $cb->get($docID);
+            $mega =CJSON::decode($tempMega, true);
+            error_log(var_export($mega,true));
+            $mega['profile'][0]=$tempProfile;
+            if ($cb->set($docID, CJSON::encode($mega))) {
+                $this->sendResponse(204);
             } else {
                 echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
             }
@@ -100,13 +98,13 @@ class ProfilesController extends Controller {
 
             $respone_client_data = str_replace("\/", "/", CJSON::encode($request_arr["profile"][0]));
             $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":';
-            //Iterate over the hits and print out some data
+//Iterate over the hits and print out some data
             $result .=$respone_client_data;
 
             $result .= '}';
 
 
-            //       error_log(var_export($result, true));
+//       error_log(var_export($result, true));
 
             echo $this->sendResponse(200, $result);
         } catch (Exception $exc) {
@@ -142,13 +140,13 @@ class ProfilesController extends Controller {
                 $this->sendResponse(204);
             }
         } catch (Exception $exc) {
-           
+            
         }
     }
 
     public function actionDelete() {
         try {
-
+            
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -166,9 +164,9 @@ class ProfilesController extends Controller {
         $compressed_photo = $photoController->compressPhotoData($data_arr['type'], $photo);
         $orig_size['width'] = imagesx($compressed_photo);
         $orig_size['height'] = imagesy($compressed_photo);
-    
+
         $url = $photoController->savePhotoInTypes($orig_size, $mode, $photo_name, $compressed_photo, $data_arr, $owner_id);
-  
+
         $cb = $this->couchBaseConnection();
         $oldRecord = CJSON::decode($cb->get($this->getDomain() . '/profiles/' . $owner_id));
         if ($mode == 'profile_hero') {
@@ -176,7 +174,6 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_hero_url'] = $url;
             $smailimage = $photoController->savePhotoInTypes($orig_size, 'hero', $photo_name, $compressed_photo, $data_arr, $owner_id, $mode);
             $oldRecord['profile'][0]['profile_hero_cover_url'] = $smailimage;
-
         } elseif
         ($mode == 'background') {
             $oldRecord['profile'][0]['profile_bg_url'] = null;

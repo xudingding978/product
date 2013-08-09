@@ -15,7 +15,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
             this.controllerFor('searchs').setLoginImge();
             this.controllerFor('profile').set('switchPhoto', true);
 
-
+console.log(model);
             ProfileController.setProfile(model.id);
         },
         events: {

@@ -70,11 +70,13 @@ class ProfilesController extends Controller {
             $request_json = file_get_contents('php://input');
             $request_arr = CJSON::decode($request_json, true);
             $tempProfile = $request_arr['profile'];
+            sleep(1);
             $cb = $this->couchBaseConnection();
             $id = $tempProfile['id'];
             $domain = $this->getDomain();
             $docID = $domain . "/profiles/" . $id;
             $tempMega = $cb->get($docID);
+            error_log($tempMega);
             $mega =CJSON::decode($tempMega, true);
             error_log(var_export($mega,true));
             $mega['profile'][0]=$tempProfile;

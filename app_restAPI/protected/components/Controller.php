@@ -25,10 +25,6 @@ class Controller extends CController {
         $account = Yii::app()->params['couchBaseAccount'];
         $password = Yii::app()->params['couchBasePassword'];
         $node = Yii::app()->params['couchBaseNode'];
-        error_log('bucket '.$bucket);
-        error_log('account '.$account);
-        error_log('pa '.$password);
-        error_log('no '.$node);
         return new Couchbase($node, $account, $password, $bucket, true);
     }
 

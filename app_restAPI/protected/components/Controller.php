@@ -377,7 +377,8 @@ class Controller extends CController {
 
     protected function getUserInput($request_string) {
         $returnString = null;
-        error_log('test        '.$request_string);
+                error_log('testttttttttttttttttt');
+        error_log(var_export($request_string,true));
         if ($request_string != null || $request_string != "") {
             $returnString = explode('=', $request_string)[1];
         }

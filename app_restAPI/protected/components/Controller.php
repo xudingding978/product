@@ -140,10 +140,6 @@ class Controller extends CController {
     protected function getRequestResult($searchString, $returnType) {
         $response = "";
         $requireParams = explode('&', $searchString);
-       
-        error_log("----------------------------");
-        error_log($searchString);
-        error_log(var_export($requireParams,true));
         $requireType = $this->getUserInput($requireParams[0]);
         if ($requireType == 'search') {
 
@@ -301,12 +297,10 @@ class Controller extends CController {
                 "bool": {
                     "must": [
                         {
-
                             "query_string": {
                                 "default_field": "couchbaseDocument.doc.' . $default_field . '",
                                 "query": " ' . $ids . ' "
                                                     }
-
                         }
                     ]
                 }

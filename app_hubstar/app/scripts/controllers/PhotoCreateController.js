@@ -3,7 +3,6 @@
                 content: [],
                 newMegas: [],
                 mode: null,
-                //      isNewUpload:false,
                 filesNumber: null,
                 profileMega: null,
                 uploadOrsubmit: false,
@@ -30,7 +29,7 @@
                             var type = file.type;
                             var reader = new FileReader();
                             reader.onload = function(e) {
-                                that.addPhotoObject(e, that, name, type);
+                                that.addPhotoObject(e, name, type);
                             }, reader.readAsDataURL(files[i]);
                         })(files[i]);
                         evt.preventDefault();
@@ -51,7 +50,7 @@
                     var profileController = this.get('controllers.profile');
                     var tempmega = profileController.get("model");
                     var that = this;
-                    that.set("profileMega", tempmega);
+                    that.set("profileMega", tempmega);                    
                     if (that.get("profileMega") === null) {
                         tempmega.addObserver('isLoaded', function() {
                             if (tempmega.get('isLoaded')) {
@@ -98,12 +97,12 @@
                         "view_count": null
                     });
                     return photoMega;
-                }, addPhotoObject: function(e, that, name, type) {
+                }, addPhotoObject: function(e, name, type) {
                     var testID = createGuid();
-                    var target = that.getTarget(e);
+                    var target = this.getTarget(e);
     
                     var src = target.result;
-                    var mega = that.createNewMega(that.get("profileMega"), testID);
+                    var mega = this.createNewMega(this.get("profileMega"), testID);
                     var file = HubStar.Photo.createRecord({
                         "id": testID,
                         "photo_title": name.toLowerCase(),
@@ -111,7 +110,7 @@
                         "photo_image_original_url": src,
                         "photo_file_name": name.toLowerCase(),
                         "photo_type": type,
-                        "photo_keywords": that.get("profileMega").get("keywords")});
+                        "photo_keywords": this.get("profileMega").get("keywords")});
                     mega.get("photo").pushObject(file);
                     var thatP = this;
                     mega.addObserver('isSaving', function() {
@@ -125,14 +124,15 @@
                             if (HubStar.get("totalFiles") === thatP.get("filesNumber")) {
                                 var masonryCollectionItems = thatP.get('controllers.masonryCollectionItems');
                                 var photoCreateInfoSettingController = thatP.get('controllers.photoCreateInfoSetting');
-                                HubStar.set('UploadImageInfoData', that.get("content"));
+                                HubStar.set('UploadImageInfoData', this.get("content"));
                                 photoCreateInfoSettingController.setData();
                                 photoCreateInfoSettingController.set('isEditingMode', true);
                                 masonryCollectionItems.set('uploadOrsubmit', !masonryCollectionItems.get('uploadOrsubmit'));
                             }
                         }
                     });
-                    that.get("content").addObject(file);
+       
+                    this.get("content").addObject(file);
                 },
                 getTarget: function(obj) {
                     var targ;
@@ -162,6 +162,9 @@
             HubStar.PhotoCreateController.cancel = function(event) {
                 event.preventDefault();
                 return false;
-            };
-  
+            };  
 
+            HubStar.PhotoCreateController.Droppable = Ember.Mixin.create(HubStar.PhotoCreateController, {
+                dragEnter: HubStar.PhotoCreateController.cancel,
+                dragOver: HubStar.PhotoCreateController.cancel
+            });

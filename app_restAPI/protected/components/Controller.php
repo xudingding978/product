@@ -377,10 +377,10 @@ class Controller extends CController {
 
     protected function getUserInput($request_string) {
         $returnString = null;
-        if ($request_string != null || $request_string != "") {
-            $returnString = explode('=', $request_string)[1];
-        }
-        return $returnString;
+//        if ($request_string != null || $request_string != "") {
+//            $returnString = explode('=', $request_string)[1];
+//        }
+        return 'home';
     }
 
     public function actionOptions() {

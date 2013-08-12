@@ -301,11 +301,7 @@ class Controller extends CController {
                                 "default_field": "couchbaseDocument.doc.' . $default_field . '",
                                 "query": " ' . $ids . ' "
                                                     }
-<<<<<<< HEAD
 
-=======
-  
->>>>>>> 3366b6f8a8d70ec0837bb44580b0ba781cf2ed2c
                         }
                     ]
                 }

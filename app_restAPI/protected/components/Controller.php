@@ -305,7 +305,6 @@ class Controller extends CController {
                     ]
                 }
             }');
-        error_log($termQuery->toJSON());
         $response = $request->query($termQuery)->execute();
         $results = $this->getReponseResult($response, $returnType);
 

@@ -142,6 +142,7 @@ class Controller extends CController {
         $requireParams = explode('&', $searchString);
         $requireType = $this->getUserInput($requireParams[0]);
         if ($requireType == 'search') {
+
             $region = $this->getUserInput($requireParams[1]);
             $searchString = $this->getUserInput($requireParams[2]);
             $from = $this->getUserInput($requireParams[3]);
@@ -296,21 +297,14 @@ class Controller extends CController {
                 "bool": {
                     "must": [
                         {
-
                             "query_string": {
                                 "default_field": "couchbaseDocument.doc.' . $default_field . '",
                                 "query": " ' . $ids . ' "
                                                     }
-<<<<<<< HEAD
-
-=======
-  
->>>>>>> 3366b6f8a8d70ec0837bb44580b0ba781cf2ed2c
                         }
                     ]
                 }
             }');
-        error_log($termQuery->toJSON());
         $response = $request->query($termQuery)->execute();
         $results = $this->getReponseResult($response, $returnType);
 
@@ -382,10 +376,12 @@ class Controller extends CController {
     protected function getUserInput($request_string) {
         $returnString = null;
         if ($request_string != null || $request_string != "") {
-            $returnString = explode('=', $request_string)[1];
+            $temp= explode('=', $request_string);
+            $returnString=$temp[1];
         }
         return $returnString;
     }
+    
 
     public function actionOptions() {
 

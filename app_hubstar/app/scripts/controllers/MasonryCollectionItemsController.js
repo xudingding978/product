@@ -33,9 +33,10 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
 
 
     },
-    selectModelForProfile: function(collection_id) {
+    selectModelForProfile: function(collection_id, title) {
+
         this.resetContent();
-        this.set('title', collection_id);
+        this.set('title', title);
         this.checkEditingMode();
     }
     ,

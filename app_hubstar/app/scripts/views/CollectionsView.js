@@ -1,6 +1,6 @@
 HubStar.CollectionsView = Ember.View.extend({
     templateName: 'collections',
-    editCollectionButton: function(id, desc) {
+    editCollectionButton: function(id, title, desc) {
 
         var userController = this.get('controller');
         userController.setSelectedCollection(id);
@@ -28,7 +28,7 @@ HubStar.CollectionsView = Ember.View.extend({
         $(updatebtn).attr('style', "display:inline-block");
         $(deletebtn).attr('style', "display:inline-block;left:15px;top:7px");
         $(createbtn).attr('style', "display:none");
-        $(collection_name_insert).val(id);
+        $(collection_name_insert).val(title);
         $(collection_area).val(desc);
         $('#masonry_user_container').masonry({
             itemSelector: '.box',

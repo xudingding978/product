@@ -117,12 +117,12 @@ var BrowserDetect = {
 };
 var browerAllow = false;
 BrowserDetect.init();
-if (BrowserDetect.browser === "Chrome" && BrowserDetect.version >= 28)
+if (BrowserDetect.browser === "Chrome" && BrowserDetect.version >= 27)
 {
     browerAllow = true;
 
 
-} else if (BrowserDetect.browser === "Firefox" && BrowserDetect.version >= 23)
+} else if (BrowserDetect.browser === "Firefox" && BrowserDetect.version >= 21)
 {
     browerAllow = true;
 } else if (BrowserDetect.browser === "Explorer" && BrowserDetect.version >= 10)

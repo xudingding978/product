@@ -16,7 +16,6 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         var user_id = address.split("#")[1].split("/")[2];
         this.set('user_id', user_id);
         this.set('title', collection_id);
-
         var results = HubStar.Mega.find({RquireType: "personalCollection", user_id: user_id, collection_id: collection_id});
         var that = this;
         results.addObserver('isLoaded', function() {
@@ -46,6 +45,8 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         $('#tagetUplaod').attr('style', 'display:none');
         $('#addNew').toggleClass('col2');
         $('#addNew').toggleClass('col4');
+        var photoCreate = this.get('controllers.photoCreate');
+        photoCreate.init();
         setTimeout(function() {
             $('#masonry_photo_collection_container').masonry("reload");
         }, 200);

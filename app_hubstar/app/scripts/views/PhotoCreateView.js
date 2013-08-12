@@ -1,21 +1,23 @@
 
 
-HubStar.PhotoCreateView = Ember.View.extend({
+HubStar.PhotoCreateView = Ember.View.extend(HubStar.PhotoCreateController.Droppable, {
  
     contentBinding: "photoCreate",
     drop: function(event) {
         var dataTransfer = event.originalEvent.dataTransfer;
         var files = dataTransfer.files;
         var controller = this.get("controller");
-        controller.fileChecking(files.length);
-        controller.checkingCleanBeforeUpload();
+                                 var photoCreateController = controller.get('controllers.photoCreate');
+                              
+        photoCreateController.fileChecking(files.length);
+        photoCreateController.checkingCleanBeforeUpload();
         for (var i = 0; i < files.length; i++) {
             (function(file) {
                 var name = file.name;
                 var type = file.type;
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                    controller.addPhotoObject(e, controller, name, type);
+                    photoCreateController.addPhotoObject(e, name, type);
                 }, reader.readAsDataURL(files[i]);
             })(files[i]);
         }

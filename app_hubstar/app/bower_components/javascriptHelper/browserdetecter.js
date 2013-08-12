@@ -131,6 +131,9 @@ if (BrowserDetect.browser === "Chrome" && BrowserDetect.version >= 27)
 } else if (BrowserDetect.browser === "Safari" && BrowserDetect.version >= 5.1)
 {
     browerAllow = true;
+} else if (BrowserDetect.browser === "Opera" && BrowserDetect.version >= 15)
+{
+    browerAllow = true;
 }
 
 if (!browerAllow) {

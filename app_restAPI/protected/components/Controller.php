@@ -144,13 +144,13 @@ class Controller extends CController {
         error_log("----------------------------");
         error_log($searchString);
         error_log(var_export($requireParams,true));
-        $requireType = $this->getTest($requireParams[0]);
+        $requireType = $this->getUserInput($requireParams[0]);
         if ($requireType == 'search') {
 
-            $region = $this->getTest($requireParams[1]);
-            $searchString = $this->getTest($requireParams[2]);
-            $from = $this->getTest($requireParams[3]);
-            $size = $this->getTest($requireParams[4]);
+            $region = $this->getUserInput($requireParams[1]);
+            $searchString = $this->getUserInput($requireParams[2]);
+            $from = $this->getUserInput($requireParams[3]);
+            $size = $this->getUserInput($requireParams[4]);
             $response = $this->performSearch($returnType, $region, $searchString, $from, $size);
         } elseif ($requireType == 'uploadPhotoIDs') {
 
@@ -383,18 +383,12 @@ class Controller extends CController {
     protected function getUserInput($request_string) {
         $returnString = null;
         if ($request_string != null || $request_string != "") {
-            $returnString = explode('=', $request_string)[1];
+            $temp= explode('=', $request_string);
+            $returnString=$temp[1];
         }
         return $returnString;
     }
     
-        protected function getTest($request_string) {
-        $returnString = null;
-        if ($request_string != null || $request_string != "") {
-            $returnString = explode('=', $request_string)[1];
-        }
-        return $returnString;
-    }
 
     public function actionOptions() {
 

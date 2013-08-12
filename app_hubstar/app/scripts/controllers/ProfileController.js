@@ -125,25 +125,38 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
         var id = this.checkingValidInput(this.selectedCollection.get('title'));
         this.checkingIdisExsinting(desc, id, "create");
+
         if (isExsinting) {
             var validID = this.checkingValidInput(id);
-        
-            this.selectedCollection.set('id', validID.toLowerCase());
-            this.selectedCollection.set('title', this.selectedCollection.get('title'));
-            this.selectedCollection.set('cover', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png");
-            if (this.selectedCollection.get('desc') !== null && this.selectedCollection.get('desc') !== "") {
-                this.selectedCollection.set('desc', desc);
+            var checkingCharater = this.specialCharactersChecking(validID);
+            if (checkingCharater) {
+                this.selectedCollection.set('id', validID.toLowerCase());
+                this.selectedCollection.set('title', this.selectedCollection.get('title'));
+                this.selectedCollection.set('cover', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png");
+                if (this.selectedCollection.get('desc') !== null && this.selectedCollection.get('desc') !== "") {
+                    this.selectedCollection.set('desc', desc);
+                } else {
+                    this.selectedCollection.set('desc', "Add a short description to your Collection");
+                }
+                this.get("collections").insertAt(0, this.selectedCollection);
+                this.get("collections").store.commit();
+                $(".Targeting_Object_front").attr("style", "display:inline-block");
+                $(" #uploadArea").attr('style', "display:none");
+                $(" #uploadObject").attr('style', "display:block");
             } else {
-                this.selectedCollection.set('desc', "Add a short description to your Collection");
+                alert('invalide characters...');
+
             }
-            this.get("collections").insertAt(0, this.selectedCollection);
-            this.get("collections").store.commit();
-            $(".Targeting_Object_front").attr("style", "display:inline-block");
-            $(" #uploadArea").attr('style', "display:none");
-            $(" #uploadObject").attr('style', "display:block");
+
+
         } else {
             isExsinting = true;
         }
+    },
+    specialCharactersChecking: function(str) {
+
+        var re = /^[a-zA-Z-]*$/;
+        return re.test(str);
     },
     checkingValidInput: function(title) {
         if (title === null || title === "") {

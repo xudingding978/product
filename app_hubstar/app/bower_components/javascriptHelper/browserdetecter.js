@@ -119,8 +119,8 @@ var browerAllow = false;
 BrowserDetect.init();
 if (BrowserDetect.browser === "Chrome" && BrowserDetect.version >= 28)
 {
-    browerAllow = true;    
-   //window.location = "http://develop.trendsideas.com/browser_upgrade.html";
+    browerAllow = true;
+
 
 } else if (BrowserDetect.browser === "Firefox" && BrowserDetect.version >= 23)
 {
@@ -128,4 +128,10 @@ if (BrowserDetect.browser === "Chrome" && BrowserDetect.version >= 28)
 } else if (BrowserDetect.browser === "Explorer" && BrowserDetect.version >= 10)
 {
     browerAllow = true;
+}
+
+if (!browerAllow) {
+    var api_url = document.domain;
+    window.location = "http://"+api_url + "/upgrade.html";
+
 }

@@ -123,11 +123,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     submit: function() {
         var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
-        var id = this.checkingValidInput(this.selectedCollection.get('id'));
+        var id = this.checkingValidInput(this.selectedCollection.get('title'));
         this.checkingIdisExsinting(desc, id, "create");
         if (isExsinting) {
-            this.selectedCollection.set('id', id);
-            this.selectedCollection.set('title', id);
+            var validID = this.checkingValidInput(id);
+        
+            this.selectedCollection.set('id', validID.toLowerCase());
+            this.selectedCollection.set('title', this.selectedCollection.get('title'));
             this.selectedCollection.set('cover', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png");
             if (this.selectedCollection.get('desc') !== null && this.selectedCollection.get('desc') !== "") {
                 this.selectedCollection.set('desc', desc);
@@ -229,7 +231,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     updateClient: function() {
         var update_profile_record = HubStar.Profile.find(this.get('model.id'));
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
-    if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
+        if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
             update_profile_record.get('stateManager').transitionTo('loaded.saved');
         }
         HubStar.store.save();
@@ -275,13 +277,16 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 this.set("selectedCollection", thisCollection);
             }
         }
+
+
     },
     updateCollectionInfo: function() {
         var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
         var id = this.checkingValidInput(this.selectedCollection.get('id'));
         this.checkingIdisExsinting(desc, id, "update");
         if (isExsinting) {
-            var title = this.get("selectedCollection").get("id");
+
+            var title = this.get("selectedCollection").get("title");
             this.get("selectedCollection").set("title", title);
             this.set("selectedTitle", title);
             this.get("selectedCollection").store.save();
@@ -447,7 +452,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set("profile_isActive", this.get("projectActiveDropdownContent"));
         update_profile_record.set("profile_isDeleted", this.get("projectDeleteDropdownContent"));
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
-    if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
+        if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
             update_profile_record.get('stateManager').transitionTo('loaded.saved');
         }
         console.log('ssssssssssssssssss');

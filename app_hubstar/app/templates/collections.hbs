@@ -43,7 +43,7 @@
             <div class="album-info_content">
                 {{#if controller.is_authentic_user}}
                 <div class="edit-btn edit-collection-btn easing hint--left hint--rounded" data-hint="Edit collection info.">
-                    <i class="icon-cog" {{action editCollectionButton id desc target="view" on="click"}}></i>
+                    <i class="icon-cog" {{action editCollectionButton id title desc target="view" on="click"}}></i>
                 </div>
                 {{/if}}
                 <span><a href="" {{action transitionToCollectionPhoto id}}> </a> photos</span>

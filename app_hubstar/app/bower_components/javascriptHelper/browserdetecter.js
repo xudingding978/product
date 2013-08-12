@@ -128,10 +128,13 @@ if (BrowserDetect.browser === "Chrome" && BrowserDetect.version >= 27)
 } else if (BrowserDetect.browser === "Explorer" && BrowserDetect.version >= 10)
 {
     browerAllow = true;
+} else if (BrowserDetect.browser === "Safari" && BrowserDetect.version >= 5.1)
+{
+    browerAllow = true;
 }
 
 if (!browerAllow) {
     var api_url = document.domain;
-    window.location = "http://"+api_url + "/upgrade.html";
+    window.location = "http://" + api_url + "/upgrade.html";
 
 }

@@ -140,6 +140,9 @@ class Controller extends CController {
     protected function getRequestResult($searchString, $returnType) {
         $response = "";
         $requireParams = explode('&', $searchString);
+       
+        error_log("----------------------------");
+        error_log($searchString);
         error_log(var_export($requireParams,true));
         $requireType = $this->getUserInput($requireParams[0]);
         if ($requireType == 'search') {

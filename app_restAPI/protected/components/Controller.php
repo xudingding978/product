@@ -142,7 +142,7 @@ class Controller extends CController {
         $requireParams = explode('&', $searchString);
         $requireType = $this->getUserInput($requireParams[0]);
         if ($requireType == 'search') {
-  utrurtuyrtuyrtu
+error_log(var_export($requireParams,true));
             $region = $this->getUserInput($requireParams[1]);
             $searchString = $this->getUserInput($requireParams[2]);
             $from = $this->getUserInput($requireParams[3]);

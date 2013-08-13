@@ -35,9 +35,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
             evt.preventDefault();
         }
     },
-//    submit: function() {
-//        HubStar.store.commit();
-//    },
+
     back: function()
     {
 
@@ -133,7 +131,6 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
         });
         var masonryCollectionItemsController = this.get('controllers.masonryCollectionItems');
         masonryCollectionItemsController.get("uploadImageContent").addObject(file);
-        console.log( masonryCollectionItemsController.get("uploadImageContent"));
 
     },
     getTarget: function(obj) {

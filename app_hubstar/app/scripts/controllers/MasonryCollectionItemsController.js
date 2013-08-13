@@ -5,6 +5,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     title: null,
     is_authentic_user: false,
     is_profile_editing_mode: false,
+    uploadOrsubmit: false,
     is_user_editing_mode: false,
     needs: ['photoCreate', 'profile', 'user', 'permission', 'photoCreateInfoSetting'],
     user_id: null,
@@ -97,7 +98,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                     var tempItem = this.get('content').objectAt(i);
                     tempItem.deleteRecord();
                     this.get('content').removeObject(tempItem);
-                     HubStar.store.save();
+                    HubStar.store.save();
                     break;
                 }
             }

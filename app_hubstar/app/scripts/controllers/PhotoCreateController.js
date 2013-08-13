@@ -35,7 +35,6 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
             evt.preventDefault();
         }
     },
-
     back: function()
     {
 
@@ -116,16 +115,17 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                 $('.' + file.get('photo_source_id')).attr("style", "display:block");
             }
             else {
+
                 HubStar.set("totalFiles", HubStar.get("totalFiles") + 1);
                 $('.' + file.get('photo_source_id')).attr("style", "display:none");
-
                 if (HubStar.get("totalFiles") === that.get("filesNumber")) {
                     var masonryCollectionItems = that.get('controllers.masonryCollectionItems');
                     var photoCreateInfoSettingController = that.get('controllers.photoCreateInfoSetting');
-                    HubStar.set('UploadImageInfoData', this.get("content"));
+                    HubStar.set('UploadImageInfoData', masonryCollectionItems.get("uploadImageContent"));
                     photoCreateInfoSettingController.setData();
                     photoCreateInfoSettingController.set('isEditingMode', true);
                     masonryCollectionItems.set('uploadOrsubmit', !masonryCollectionItems.get('uploadOrsubmit'));
+
                 }
             }
         });

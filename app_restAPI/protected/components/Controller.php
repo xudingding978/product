@@ -140,6 +140,8 @@ class Controller extends CController {
     protected function getRequestResult($searchString, $returnType) {
         $response = "";
         $requireParams = explode('&', $searchString);
+        error_log('dddddddddddddddd');
+        error_log(var_export($requireParams,true));
         $requireType = $this->getUserInput($requireParams[0]);
         if ($requireType == 'search') {
 
@@ -382,7 +384,6 @@ class Controller extends CController {
         return $returnString;
     }
     
-
     public function actionOptions() {
 
         $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);

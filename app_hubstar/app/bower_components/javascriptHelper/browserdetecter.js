@@ -122,7 +122,7 @@ if (BrowserDetect.browser === "Chrome" && BrowserDetect.version >= 27)
     browerAllow = true;
 
 
-} else if (BrowserDetect.browser === "Firefox" )
+} else if (BrowserDetect.browser === "Firefox" && BrowserDetect.version >= 21)
 {
     browerAllow = true;
 } else if (BrowserDetect.browser === "Explorer" && BrowserDetect.version >= 10)

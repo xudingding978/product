@@ -10,7 +10,7 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
 
         if (model.get('title') !== undefined) {
             var title = model.get('title');
-      
+
 
         }
         this.controllerFor('masonryCollectionItems').selectModelForProfile(id, title, HubStar.Profile);
@@ -22,6 +22,7 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
         this.controllerFor('profile').set('switchPhoto', false);
         var address = document.URL;
         var owner_id = address.split("#")[1].split("/")[2];
+
         return HubStar.Mega.find({RquireType: "collection", collection_id: params.profileCollection_id, owner_profile_id: owner_id});
 
     },

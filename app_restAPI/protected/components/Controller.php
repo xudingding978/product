@@ -382,7 +382,6 @@ class Controller extends CController {
         return $returnString;
     }
     
-
     public function actionOptions() {
 
         $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);

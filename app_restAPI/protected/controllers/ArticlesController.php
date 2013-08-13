@@ -21,7 +21,7 @@ class ArticlesController extends Controller {
         //populate a Term query to start
         $termQuery = Sherlock\Sherlock::queryBuilder()
                 ->Match()
-                ->field("type")
+                ->field("type")    
                 ->query("article")
                 ->boost(2.5);
 

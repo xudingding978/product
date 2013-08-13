@@ -117,15 +117,27 @@ var BrowserDetect = {
 };
 var browerAllow = false;
 BrowserDetect.init();
-if (BrowserDetect.browser === "Chrome" && BrowserDetect.version >= 28)
+if (BrowserDetect.browser === "Chrome" && BrowserDetect.version >= 27)
 {
-    browerAllow = true;    
-   //window.location = "http://develop.trendsideas.com/browser_upgrade.html";
+    browerAllow = true;
 
-} else if (BrowserDetect.browser === "Firefox" && BrowserDetect.version >= 23)
+
+} else if (BrowserDetect.browser === "Firefox" && BrowserDetect.version >= 21)
 {
     browerAllow = true;
 } else if (BrowserDetect.browser === "Explorer" && BrowserDetect.version >= 10)
 {
     browerAllow = true;
+} else if (BrowserDetect.browser === "Safari" && BrowserDetect.version >= 5.1)
+{
+    browerAllow = true;
+} else if (BrowserDetect.browser === "Opera" && BrowserDetect.version >= 15)
+{
+    browerAllow = true;
+}
+
+if (!browerAllow) {
+    var api_url = document.domain;
+    window.location = "http://" + api_url + "/upgrade.html";
+
 }

@@ -155,7 +155,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     specialCharactersChecking: function(str) {
 
-        var re = /^[a-zA-Z-]*$/;
+        var re = /^[a-zA-Z-][a-zA-Z0-9-]*$/;
         return re.test(str);
     },
     checkingValidInput: function(title) {

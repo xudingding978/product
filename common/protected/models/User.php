@@ -45,10 +45,11 @@ class User extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('TENANT_REC_ID', 'numerical', 'integerOnly' => true),
-            array('EMAIL_ADDRESS, USER_NAME', 'required'),
             array('EMAIL_ADDRESS', 'email', 'message' => "The email isn't correct"),
             array('EMAIL_ADDRESS', 'unique', 'message' => 'Email already exists!'),
+            array('USER_NAME', 'unique', 'message' => 'User Name already exists!'),
             array('USER_NAME, EMAIL_ADDRESS', 'length', 'max' => 255),
+            array('EMAIL_ADDRESS, USER_NAME', 'required'),
             array('PWD_HASH, repeat_password', "required", 'on' => 'insert'),
             array('PWD_HASH, repeat_password', 'length', 'min' => 6, 'max' => 40),
             array('PWD_HASH', 'compare', 'compareAttribute' => 'repeat_password'),
@@ -88,6 +89,7 @@ class User extends CActiveRecord {
             'COUCHBASE_ID' => 'Couchbase',
         );
     }
+    
 
     /**
      * Retrieves a list of models based on the current search/filter conditions.

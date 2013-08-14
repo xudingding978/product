@@ -53,25 +53,20 @@ class UserController extends Controller {
      */
     public function actionCreate() {
 
-        error_log('actionCreate');
-        $model = new User;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
-
+        $model = new User;
         if (isset($_POST['User'])) {
 
 
 
             $model->attributes = $_POST['User'];
-            error_log(var_export($_POST['User'], true));
             $model->REC_DATETIME = new CDbExpression('NOW()');
             $model->REC_TIMESTAMP = new CDbExpression('NOW()');
             $model->TENANT_REC_ID = "1";
             $model->PWD_HASH = $_POST['User']['PWD_HASH'];
             $model->COUCHBASE_ID = strval(rand(9999999999, 99999999999));
-
-
             $cb = new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "production", true);
             $rand_id = $model->COUCHBASE_ID;
             $temp = $this->getMega();
@@ -83,7 +78,7 @@ class UserController extends Controller {
             $temp["user"][0]["display_name"] = $model->USER_NAME;
             $temp["user"][0]["email"] = $model->EMAIL_ADDRESS;
             $temp["user"][0]["first_name"] = $model->FIRST_NAME;
-            $temp["user"][0]["last_name"] = $model->LAST_NAME;
+            $temp["user"][0]["last_name"] = $model->LAST_NAME;   
 
 
 
@@ -101,12 +96,6 @@ class UserController extends Controller {
                 $identity->authenticate();
                 Yii::app()->user->login($identity, 0);
 
-
-
-                //    $this->redirect(array('view', 'id' => $model->REC_ID));
-            }
-
-
             if (Yii::app()->session['newUser'] == "new") {
 
                 $this->render('welcome');
@@ -115,8 +104,11 @@ class UserController extends Controller {
 
                 $this->render('close');
             }
-        }
 
+             
+            }
+
+        }
         $this->render('create', array(
             'model' => $model,
         ));
@@ -253,7 +245,8 @@ class UserController extends Controller {
 }';
         return json_decode($mega, true);
     }
-        public function getCurrentUTC() {
+
+    public function getCurrentUTC() {
 
         $datetime = date("Y-m-d H:i:s");
         $time_string = strtotime($datetime);

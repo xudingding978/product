@@ -80,19 +80,6 @@ class AuthWebUser extends CWebUser {
 
             $user_couchbase_id = User::model()->findByPk(Yii::app()->user->id)->getAttribute('COUCHBASE_ID');
 
-//            error_log("Yii::app()->user->id".$couchbase_id);
-//            
-//            $ch = curl_init($couchbase_id);
-//            curl_setopt($ch, CURLOPT_HEADER, 0);
-//            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-//            curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
-//            curl_error($ch);
-//            $curl_data = curl_exec($ch);
-//            curl_error($ch);
-//            curl_close($ch);
-//            $data = json_decode($curl_data, true);
-//
-//            $this->user = $data['user']['id'];
         } else {
 
             $this->user = "";

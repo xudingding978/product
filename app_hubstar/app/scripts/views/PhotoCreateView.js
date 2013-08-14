@@ -7,8 +7,9 @@ HubStar.PhotoCreateView = Ember.View.extend(HubStar.PhotoCreateController.Droppa
         var dataTransfer = event.originalEvent.dataTransfer;
         var files = dataTransfer.files;
         var controller = this.get("controller");
-                                 var photoCreateController = controller.get('controllers.photoCreate');
-                              
+
+
+        var photoCreateController = controller.get('controllers.photoCreate');      
         photoCreateController.fileChecking(files.length);
         photoCreateController.checkingCleanBeforeUpload();
         for (var i = 0; i < files.length; i++) {

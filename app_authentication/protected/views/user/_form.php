@@ -7,14 +7,14 @@
 <div class="form" style=" width: 300px; overflow: hidden; text-align: right;">
     <?php
     $form = $this->beginWidget('CActiveForm', array(
-        'id' => 'user-form',
+        'id' => 'create-user-form',
         'enableAjaxValidation' => false,
     ));
     ?>
     <!--
         <p class="note">Fields with <span class="required">*</span> are required.</p>-->
 
-    <?php echo $form->errorSummary($model); ?>
+ 
 
     <div class="row">
 

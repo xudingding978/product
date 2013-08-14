@@ -10,8 +10,6 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
 
         if (model.get('title') !== undefined) {
             var title = model.get('title');
-
-
         }
         this.controllerFor('masonryCollectionItems').selectModelForProfile(id, title, HubStar.Profile);
         this.controllerFor('profile').set('switchPhoto', false);

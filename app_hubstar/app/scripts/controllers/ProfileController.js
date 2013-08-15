@@ -125,6 +125,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
         var id = this.checkingValidInput(this.selectedCollection.get('title'));
         this.checkingIdisExsinting(desc, id, "create");
+        var profile_id = this.get('model').get('id');
 
         if (isExsinting) {
             var validID = this.checkingValidInput(id);
@@ -132,6 +133,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             if (checkingCharater) {
                 this.selectedCollection.set('id', validID.toLowerCase());
                 this.selectedCollection.set('title', this.selectedCollection.get('title'));
+                          this.selectedCollection.set('optional', profile_id);
+
                 this.selectedCollection.set('cover', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png");
                 if (this.selectedCollection.get('desc') !== null && this.selectedCollection.get('desc') !== "") {
                     this.selectedCollection.set('desc', desc);

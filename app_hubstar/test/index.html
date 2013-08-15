@@ -8,20 +8,120 @@
 <body>
     <div id="mocha"></div>
     <script src="lib/mocha/mocha.js"></script>
-    <script>mocha.setup('bdd')</script>
+    <script src="../dist/scripts/fe8c3077.components.js"></script>
+    <script src="../app/bower_components/ember-mocha-adapter/adapter.js"></script>
+    <script>mocha.setup('bdd');</script>
     <!-- assertion framework -->
     <script src="lib/chai.js"></script>
+    <script src="lib/sinon-1.6.0.js"></script>
+    <script src="lib/sinon-chai.js"></script>
+    <script src="lib/chai-jquery.js"></script>
+
     <script>var expect = chai.expect;</script>
     <script>chai.should();</script>
 
     <!-- include source files here... -->
 
-    <script src="../dist/scripts/0de74bc5.components.js"></script>
 
-    <script src="../dist/scripts/cd22bdf8.templates.js"></script>
+    <!-- Mocha test output goes here. -->
+    <!-- Mocha test output goes here. -->
+    <div id="mocha"></div>
 
-    <script src="../dist/scripts/804b83b2.main.js"></script>
+    <!-- Handlebars templates for our application. -->
+    <script type="text/x-handlebars">
+        <h1>Testing Ember.js with Mocha</h1>
+        {{outlet}}
+    </script>
 
+    <script type="text/x-handlebars" data-template-name="index">
+        <p>{{#linkTo 'employees'}}Show employees{{/linkTo}}</p>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="employees">
+        <h2>Employees</h2>
+        <ul>
+        {{#each employee in controller}}
+        <li>{{#linkTo 'employee' employee}}{{employee.name}}{{/linkTo}}</li>
+        {{/each}}
+        </ul>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="employee">
+        <h2>{{name}}</h2>
+        <p>Salary: <span class="salary">${{salary}}</span></p>
+        <button {{action 'giveRaise'}}>Give Raise</button>
+        {{#if managedBy}}
+        <p class="managed-by">
+        Managed by: {{#linkTo 'employee' managedBy}}{{managedBy.name}}{{/linkTo}}
+        </p>
+        {{/if}}
+        {{#if manages}}
+        <h3>Manages</h3>
+        <ul class="manages">
+        {{#each employee in manages}}
+        <li>{{#linkTo 'employee' employee}}{{employee.name}}{{/linkTo}}</li>
+        {{/each}}
+        </ul>
+        {{/if}}
+        <p>{{#linkTo 'employees'}}All employees{{/linkTo}}</p>
+    </script>
+
+
+
+    <script>
+
+
+        //================================================================================
+// Application Code
+
+        window.App = Ember.Application.create();
+
+// Our normal data store, which we be overridden when testing.
+        App.Store = DS.Store.extend({
+            revision: 12,
+            adapter: DS.RESTAdapter.create()
+        });
+
+        App.Employee = DS.Model.extend({
+            name: DS.attr("string"),
+            salary: DS.attr("number"),
+            managedBy: DS.belongsTo("App.Employee"),
+            manages: DS.hasMany("App.Employee")
+        });
+
+        App.Router.map(function() {
+            this.route("index", {path: "/"});
+            this.route("employees", {path: "/employees"});
+            this.route("employee", {path: "/employee/:employee_id"});
+        });
+
+        App.EmployeesRoute = Ember.Route.extend({
+            model: function(params) {
+                return App.Employee.find();
+            }
+        });
+
+        App.EmployeeRoute = Ember.Route.extend({
+            model: function(params) {
+                return App.Employee.find(params.employee_id);
+            }
+        });
+
+        App.EmployeeController = Ember.ObjectController.extend({
+            giveRaise: function() {
+                this.set("salary", this.get("salary") * 1.10);
+            }
+        });
+
+// Declare this explicitly so we can test it.
+        App.EmployeeView = Ember.View.extend({
+            // Only needed so we can be called outside of a route by our unit tests.
+            templateName: 'employee'
+        });
+
+
+
+    </script>
     <!-- include spec files here... -->
     <script src="spec/test.js"></script>
 

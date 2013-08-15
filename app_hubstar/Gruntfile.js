@@ -392,9 +392,8 @@ module.exports = function(grunt) {
         'concurrent:test',
         'connect:test',
         'neuter:app',
-        'mocha',
-        'open',
-        'watch'
+        'mocha'
+
     ]);
     grunt.registerTask('build', [
         'clean:dist',

@@ -16,7 +16,8 @@ module.exports = function(grunt) {
     // configurable paths
     var yeomanConfig = {
         app: 'app',
-        dist: 'dist'
+        dist: 'dist',
+        test: 'test'
     };
     grunt.initConfig({
         yeoman: yeomanConfig,
@@ -133,6 +134,16 @@ module.exports = function(grunt) {
                             '.tmp',
                             '<%= yeoman.dist %>/*',
                             '!<%= yeoman.dist %>/.git*'
+                        ]
+                    }]
+            },
+            test: {
+                files: [{
+                        dot: true,
+                        src: [
+                            '<%= yeoman.test %>/images/*',
+                            '<%= yeoman.test %>/styles/*',
+                            '<%= yeoman.test %>/scripts/*'
                         ]
                     }]
             },
@@ -313,10 +324,27 @@ module.exports = function(grunt) {
                             'images/welcomepage/*',
                             'images/defaultbg/*',
                             'images/defaultcover/*',
+                            'images/defaultpic/*'
+
+
+                        ]
+                    }]
+            },
+            test: {
+                files: [{
+                        expand: true,
+                        dot: true,
+                        cwd: '<%= yeoman.dist %>',
+                        dest: '<%= yeoman.test %>',
+                        src: [
+                            'images/welcomepage/*',
+                            'images/defaultbg/*',
+                            'images/defaultcover/*',
                             'images/defaultpic/*',
-                            'browser_upgrade.html'
-
-
+                            'images/*',
+                            'scripts/*',
+                            'styles/*',
+                            'styles/font/*'
                         ]
                     }]
             }
@@ -392,6 +420,8 @@ module.exports = function(grunt) {
         'concurrent:test',
         'connect:test',
         'neuter:app',
+        'clean:test',
+        'copy:test',
         'mocha'
 
     ]);
@@ -404,7 +434,7 @@ module.exports = function(grunt) {
         'concat:dist',
         'cssmin',
         'uglify',
-        'copy',
+        'copy:dist',
         'rev',
         'usemin',
         'manifest'

@@ -1,6 +1,6 @@
 
     DS.RESTAdapter.map('HubStar.Profile', {
-        collections: {embedded: 'always'},
+        collections: {embedded: 'load'},
         followers: {embedded: 'always'}
     });
    HubStar.Profile= DS.Model.extend({

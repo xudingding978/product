@@ -17,7 +17,14 @@ class CollectionsController extends Controller {
     }
 
     public function actionCreate() {
+       
+        
         echo "this is create method";
+        
+        
+        
+        
+        
     }
 
     public function actionRead() {

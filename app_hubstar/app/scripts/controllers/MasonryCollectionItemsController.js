@@ -3,6 +3,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     content: [],
     uploadImageContent: [],
     title: null,
+    collection_id:null,
     is_authentic_user: false,
     is_profile_editing_mode: false,
     uploadOrsubmit: false,
@@ -34,7 +35,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         this.checkEditingMode();
 
     },
-    selectModelForProfile: function(collection_id, title, profile) {
+    selectModelForProfile: function(collection_id,title) {
 
         this.set('collection_id', collection_id);
         this.resetContent();
@@ -144,7 +145,10 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         var userOrprofile = HubStarModel.find(owner_id).get('collections');
 
         for (var i = 0; i < userOrprofile.get('content').length; i++) {
-            if (userOrprofile.objectAt(i).id === collection_id) {
+            var collectionID = userOrprofile.objectAt(i).get("id");
+
+            if (collectionID === collection_id) {
+
                 var currentCollection = userOrprofile.objectAt(i);
                 currentCollection.set('cover', coverImge);
                 HubStar.store.save();

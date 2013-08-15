@@ -76,9 +76,9 @@ class ProfilesController extends Controller {
             $domain = $this->getDomain();
             $docID = $domain . "/profiles/" . $id;
             $tempMega = $cb->get($docID);
-            error_log($tempMega);
+
             $mega = CJSON::decode($tempMega, true);
-            error_log(var_export($mega, true));
+
             $mega['profile'][0] = $tempProfile;
             if ($cb->set($docID, CJSON::encode($mega))) {
                 $this->sendResponse(204);
@@ -124,20 +124,23 @@ class ProfilesController extends Controller {
             $oldRecord = CJSON::decode($cb->get($this->getDomain() . $_SERVER['REQUEST_URI']));
             $id = $oldRecord['profile'][0]['id'];
             $oldfollower = $oldRecord['profile'][0]['followers'];
+            $collections = $oldRecord['profile'][0]['collections'];
             $profile_bg_url = $oldRecord['profile'][0]['profile_bg_url'];
             $profile_pic_url = $oldRecord['profile'][0]['profile_pic_url'];
             $profile_hero_url = $oldRecord['profile'][0]['profile_hero_url'];
             $newRecord['profile_hero_url'] = $profile_hero_url;
             $newRecord['profile_bg_url'] = $profile_bg_url;
             $newRecord['profile_pic_url'] = $profile_pic_url;
+            $newRecord['collections'] = $collections;
+             $newRecord['followers'] = $oldfollower;
             $oldRecord['profile'][0] = null;
             $oldRecord['profile'][0] = $newRecord;
 
-            if (isset($payloads_arr['profile']['followers'][0])) {
-                if (sizeof($payloads_arr['profile']['followers']) > sizeof($oldRecord['profile'][0]['followers'])) {//insert comment
-                    array_unshift($oldRecord['profile'][0]['followers'], $payloads_arr['profile']['followers'][0]);
-                }
-            }
+//            if (isset($payloads_arr['profile']['followers'][0])) {
+//                if (sizeof($payloads_arr['profile']['followers']) > sizeof($oldRecord['profile'][0]['followers'])) {//insert comment
+//                    array_unshift($oldRecord['profile'][0]['followers'], $payloads_arr['profile']['followers'][0]);
+//                }
+//            }
             $oldRecord['profile'][0]['id'] = $id;
             if ($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true))) {
                 $this->sendResponse(204);

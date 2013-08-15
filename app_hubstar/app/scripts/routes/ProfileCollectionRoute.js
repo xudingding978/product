@@ -26,7 +26,6 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
     },
     events: {
         transitionToPhoto: function(id) {
-
             this.transitionTo("photo", HubStar.Mega.find(id));
         },
         transitionToProfile: function(id) {

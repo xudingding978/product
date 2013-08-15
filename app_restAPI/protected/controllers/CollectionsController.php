@@ -13,11 +13,21 @@ class CollectionsController extends Controller {
     const JSON_RESPONSE_ROOT_PLURAL = 'megas';
 
     public function actionIndex() {
-        echo $this->sendResponse(200, "aaaaaaaaaaaaa");
+        
     }
 
     public function actionCreate() {
-        echo "this is create method";
+        $request_json = file_get_contents('php://input');
+        $request_arr = CJSON::decode($request_json, true);
+        $tempProfile = $request_arr['profile'];
+        $id = $tempProfile['id'];
+        error_log(var_export($request_json, true));
+//        $cb = $this->couchBaseConnection();
+//                    $domain = $this->getDomain();
+//            $docID = $domain . "/profiles/" . $id;
+//            $tempMega = $cb->get($docID);
+        
+        $this->sendResponse(200, $request_json);
     }
 
     public function actionRead() {

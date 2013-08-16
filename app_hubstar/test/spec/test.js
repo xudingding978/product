@@ -25,37 +25,47 @@ after(function() {
         HubStar.reset();
     });
 });
+describe('Controller', function() {
+    describe("App.ArticleControllerController", function() {
+        var controller;
 
+        beforeEach(function() {
+            Ember.run(function() {
+                controller = App.ArticleControllerController.create();
+            });
+        });
 
-describe('Array', function(){
-  describe('testingggggggggggg', function(){
-    it('should return -1 when the value is not present', function(){
-      [1,2,3].indexOf(5).should.equal(-1);
-      [1,2,3].indexOf(0).should.equal(-1);
+        it("can give the employee a raise", function() {
+
+            Ember.run(function() {
+                controller.getTestValue();
+            });
+            controller.getTestValue().should.be("test");
+        });
     });
-  });
 });
-describe('Array', function(){
-  describe('testingggggggggggg', function(){
-    it('should return -1 when the value is not present', function(){
-      [1,2,3].indexOf(5).should.equal(-1);
-      [1,2,3].indexOf(0).should.equal(-1);
+
+describe('Array', function() {
+    describe('testingggggggggggg', function() {
+        it('should return -1 when the value is not present', function() {
+            [1, 2, 3].indexOf(5).should.equal(-1);
+            [1, 2, 3].indexOf(0).should.equal(-1);
+        });
     });
-  });
 });
-describe('Array', function(){
-  describe('testingggggggggggg', function(){
-    it('should return -1 when the value is not present', function(){
-      [1,2,3].indexOf(5).should.equal(-1);
-      [1,2,3].indexOf(0).should.equal(-1);
+describe('Array', function() {
+    describe('testingggggggggggg', function() {
+        it('should return -1 when the value is not present', function() {
+            [1, 2, 3].indexOf(5).should.equal(-1);
+            [1, 2, 3].indexOf(0).should.equal(-1);
+        });
     });
-  });
 });
-describe('Array', function(){
-  describe('testingggggggggggg', function(){
-    it('should return -1 when the value is not present', function(){
-      [1,2,3].indexOf(5).should.equal(-1);
-      [1,2,3].indexOf(0).should.equal(-1);
+describe('Array', function() {
+    describe('testingggggggggggg', function() {
+        it('should return -1 when the value is not present', function() {
+            [1, 2, 3].indexOf(5).should.equal(-1);
+            [1, 2, 3].indexOf(0).should.equal(-1);
+        });
     });
-  });
 });

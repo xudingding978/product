@@ -3246,7 +3246,7 @@ function program5(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("\n\n\n\n\n\n\n\n\n\n\n<div class=\"plaform_bar\" >\n    <img src=\"../../../images/reflection.png\"/>\n    <div id=\"navContainer\" class=\"easing\" ");
+  data.buffer.push("\n\n\n\n\n\n\n\n\n<div class=\"plaform_bar\" >\n    <img src=\"../../../images/reflection.png\"/>\n    <div id=\"navContainer\" class=\"easing\" ");
   hashContexts = {'target': depth0,'on': depth0};
   hashTypes = {'target': "STRING",'on': "STRING"};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "sidebarScroll", {hash:{

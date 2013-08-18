@@ -368,7 +368,6 @@ div.search-loading-invisible{
 
 /*/WindowContainer-------------------/*/
 .window-container {
-
     overflow: visible;
     position: fixed;
     z-index: 100;

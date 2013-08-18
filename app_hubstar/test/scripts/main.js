@@ -3259,7 +3259,7 @@ HubStar.PlatformBarController = Ember.ArrayController.extend({
     needs: ["application"],
     init: function()
     {
-        this.setTopicModel(HubStar.Cate.find());
+        this.setTopicModel(HubStar.Cate.find({}));
 
 
     },
@@ -3272,11 +3272,13 @@ HubStar.PlatformBarController = Ember.ArrayController.extend({
 
     },
     setTopicModel: function(model) {
- //       console.log(model);
+        //       console.log(model);
         this.set("user", HubStar.User.find(localStorage.loginStatus));
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
         this.set('categorys', null);
         this.set('categorys', model);
+
+
 
     }
 });

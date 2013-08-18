@@ -4,6 +4,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     image_no: 1,
     selectedPhoto: null,
     needs: ['application', 'addCollection', 'contact'],
+    init:function(){},
     findSelectedItemIndex: function() {
         content = this.get('content');
         for (var index = 0; index <= content.get('length'); index++) {
@@ -150,10 +151,10 @@ HubStar.ArticleController = Ember.Controller.extend({
     },
     closeContact: function() {
         this.set('contact', false);
-    },
-    getTestValue: function()
-    {
-        console.log('dddddddddddd');
+    }
+, getTest: function() {
+
         return "test";
+
     }
 });

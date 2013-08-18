@@ -133,7 +133,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             if (checkingCharater) {
                 this.selectedCollection.set('id', validID.toLowerCase());
                 this.selectedCollection.set('title', this.selectedCollection.get('title'));
-                          this.selectedCollection.set('optional', profile_id);
+                this.selectedCollection.set('optional', profile_id);
 
                 this.selectedCollection.set('cover', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png");
                 if (this.selectedCollection.get('desc') !== null && this.selectedCollection.get('desc') !== "") {
@@ -566,6 +566,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('isActiveDropdown', false);
             this.set('isDeleteDropdown', !this.get('isDeleteDropdown'));
         }
+    }, getTest: function() {
+
+        return "test";
+
     }
+
 
 });

@@ -7,7 +7,11 @@ HubStar.Store = DS.Store.extend({
     adapter: DS.FixtureAdapter.create({simulateRemoteResponse: false})
 });
 
-
+HubStar.EmployeeController = Ember.ObjectController.extend({
+    getTest: function() {
+        return "test";
+    }
+});
 
 beforeEach(function() {
     Ember.run(function() {
@@ -26,22 +30,15 @@ after(function() {
     });
 });
 describe('Controller', function() {
-    describe("App.ArticleControllerController", function() {
-        var controller;
-
-        beforeEach(function() {
+    describe('first test', function() {
+        it('first test', function() {
+            var controller;
             Ember.run(function() {
-                controller = App.ArticleControllerController.create();
+                controller = HubStar.ArticleController.create();
+                console.log(controller.getTest());
+                controller.getTest().localeCompare("test").should.equal(0);
             });
         });
-
-        it("can give the employee a raise", function() {
-
-            Ember.run(function() {
-                controller.getTestValue();
-            });
-            controller.getTestValue().should.be("test");
-        });
     });
 });
 
@@ -53,19 +50,5 @@ describe('Array', function() {
         });
     });
 });
-describe('Array', function() {
-    describe('testingggggggggggg', function() {
-        it('should return -1 when the value is not present', function() {
-            [1, 2, 3].indexOf(5).should.equal(-1);
-            [1, 2, 3].indexOf(0).should.equal(-1);
-        });
-    });
-});
-describe('Array', function() {
-    describe('testingggggggggggg', function() {
-        it('should return -1 when the value is not present', function() {
-            [1, 2, 3].indexOf(5).should.equal(-1);
-            [1, 2, 3].indexOf(0).should.equal(-1);
-        });
-    });
-});
+
+

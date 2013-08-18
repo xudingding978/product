@@ -226,8 +226,50 @@ module.exports = function(grunt) {
                     '<%= yeoman.app %>/bower_components/javascriptHelper/javascriptHelper.min.js'
                 ],
                 dest: '<%= yeoman.dist %>/scripts/components.js'
-            }
+            },
+            testcomponent: {
+                src: [
+                    '<%= yeoman.app %>/bower_components/javascriptHelper/browserdetecter.js',
+                    '<%= yeoman.app %>/bower_components/jquery/jquery.min.js',
+                    '<%= yeoman.app %>/bower_components/handlebars/handlebars.runtime.js',
+                    '<%= yeoman.app %>/bower_components/jquery.ui/jquery-ui-1.9.2.custom.min.js',
+                    '<%= yeoman.app %>/bower_components/jquery.masonry/jquery.masonry.min.js',
+                    '<%= yeoman.app %>/bower_components/bootstrap/bootstrap.min.js',
+                    '<%= yeoman.app %>/bower_components/ember/ember-1.0.0-rc.6.1.min.js',
+                    '<%= yeoman.app %>/bower_components/ember-data-shim/ember-data.min.js',
+                    '<%= yeoman.app %>/bower_components/moment/moment.min.js',
+                    '<%= yeoman.app %>/bower_components/javascriptHelper/javascriptHelper.min.js'
+                ],
+                dest: '<%= yeoman.test %>/scripts/components.js'
+            },
+            testmain: {
+                src: [
+                    '.tmp/scripts/combined-scripts.js'
 
+                ],
+                dest: '<%= yeoman.test %>/scripts/main.js'
+            },
+            testtemplate: {
+                src: [
+                    '.tmp/scripts/compiled-templates.js'
+
+                ],
+                dest: '<%= yeoman.test %>/scripts/templates.js'
+            },
+            testcss: {
+                src: [
+                    '<%= yeoman.app %>/styles/masonry.css',
+                    '<%= yeoman.app %>/styles/bootstrap.css',
+                    '<%= yeoman.app %>/styles/font-awesome.min.css',
+                    '<%= yeoman.app %>/styles/style.css',
+                    '<%= yeoman.app %>/styles/views.css',
+                    '<%= yeoman.app %>/styles/profile-css.css',
+                    '<%= yeoman.app %>/styles/customstyle.css',
+                    '<%= yeoman.app %>/styles/_topnavbar.css',
+                    '<%= yeoman.app %>/styles/_footer.css'
+                ],
+                dest: '<%= yeoman.test %>/styles/main.css'
+            }
         },
         // not enabled since usemin task does concat and uglify
         // check index.html to edit your build targets
@@ -342,8 +384,6 @@ module.exports = function(grunt) {
                             'images/defaultcover/*',
                             'images/defaultpic/*',
                             'images/*',
-                            'scripts/*',
-                            'styles/*',
                             'styles/font/*'
                         ]
                     }]
@@ -421,8 +461,13 @@ module.exports = function(grunt) {
         'connect:test',
         'neuter:app',
         'clean:test',
+        'concat:testcomponent',
+        'concat:testmain',
+        'concat:testtemplate',
+        'concat:testcss',
         'copy:test',
         'mocha'
+
 
     ]);
     grunt.registerTask('build', [

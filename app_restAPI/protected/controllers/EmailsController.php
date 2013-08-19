@@ -13,16 +13,35 @@ class EmailsController extends Controller {
     const JSON_RESPONSE_ROOT_PLURAL = 'emails';
 
     public function actionIndex() {
-        
     }
 
+    public function linkCategory($sub_category){
+        
+         $description="";
+        for ($i=0;$i<sizeof($sub_category);$i++)
+        {
+            $description=$description . "<li>".$sub_category[$i]."</li>";
+        }
+        return $description;
+    }
     public function actionCreate() {
         $request_json = file_get_contents('php://input');
         $request = CJSON::decode($request_json, true);
-        $request_arr = $request['email'];
+     
         
+        $request_arr = $request['email'];
+              
         $display_email = $request_arr['display_email'];
+   
         $email_destination = $request_arr['email_destination'];
+
+       $sub_category=explode(",", $request_arr['project_sub_category_item']);
+              // error_log(var_export($sub_category , true));
+        
+       $description=$this->linkCategory($sub_category);
+               
+        
+         
         $domain = $this->getDomain();
         $configuration = $this->getProviderConfigurationByName($domain, "SES");
         $amazonSes = Aws\Ses\SesClient::factory($configuration);
@@ -42,7 +61,9 @@ class EmailsController extends Controller {
                 ),
                 "Body" => array(
                     "Html" => array(
-                        "Data" => $this->getEmailForm($request_arr['email_subject'], $request_arr['email_body'], $request_arr['display_name'], $request_arr['recieve_profile']
+                        "Data" => $this->getEmailForm($request_arr['email_subject'], $request_arr['email_body'], $request_arr['display_name'], $request_arr['recieve_profile'],
+                                $request_arr['project_timeframe'],$request_arr['project_category'],$request_arr['project_budget'] ,$request_arr['project_experience'],$description
+                             
                         )
                     )
                 ),
@@ -52,7 +73,7 @@ class EmailsController extends Controller {
         $response = $amazonSes->sendEmail($args);
         $this->sendResponse(200, $response);
     }
-
+    
     public function actionRead() {
         
     }
@@ -69,7 +90,7 @@ class EmailsController extends Controller {
         }
     }
 
-    public function getEmailForm($subject, $emailBody, $sendPersonName, $recieveProfile) {
+    public function getEmailForm($subject, $emailBody, $sendPersonName, $recieveProfile,$timeframe,$category,$budget,$experience,$description) {
         return '<div>
     <div style="position: relative;background: #fff; width: 600px; height: auto; margin: auto; box-shadow: 0px 0px 8px #555; border-radius: 3px 3px 0 0;">
         <div style="width:600px; height:132px;overflow:hidden; margin-bottom:20px;">
@@ -81,7 +102,7 @@ class EmailsController extends Controller {
                     <td>Project Category:</td>
                     <td> 
                         <div style="display: block;">
-
+                            ' . $category . '
                         </div>
                     </td>
                 </tr>
@@ -89,7 +110,7 @@ class EmailsController extends Controller {
                     <td>Project Timeframe:</td>
                     <td> 
                         <div style="display: block;">
-
+                            ' . $timeframe . '
                         </div>
                     </td>
                 </tr>
@@ -97,7 +118,7 @@ class EmailsController extends Controller {
                     <td>Project Budget:</td>
                     <td> 
                         <div style="display: block;">
-   
+                              ' . $budget . '
                         </div>
                     </td>
                 </tr>
@@ -105,7 +126,7 @@ class EmailsController extends Controller {
                     <td>Project Experience:</td>
                     <td>
                         <div style="display: block;">
-     
+                             ' . $experience . '
                         </div>
                     </td>
                 </tr>
@@ -113,7 +134,10 @@ class EmailsController extends Controller {
                     <td>I want help in:</td>
                     <td>
                         <div style="display: block;">
-                                     
+                        <ul style="padding:0;">                               
+                               '. $description.'                                              
+                         </ul>
+                                
                         </div>
                         <div style="display: block;">
                                                 

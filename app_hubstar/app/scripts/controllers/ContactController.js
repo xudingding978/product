@@ -1,7 +1,6 @@
 
     HubStar.ContactController = Ember.Controller.extend({
-        dropdownCategory: "category",
-
+        dropdownCategory: "Category",
         dropdownTimeframe: "Timeframe",
         dropdownBudget: "Budget",
         dropdownExperience: "Experience",

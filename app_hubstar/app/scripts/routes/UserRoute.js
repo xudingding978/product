@@ -1,5 +1,6 @@
 HubStar.UserRoute = Ember.Route.extend({
         setupController: function(controller, model) {
+            console.log("user setup");
             HubStar.set('editingMode', 'user');
             this.controllerFor('application').set('islogin', true);
             this.controllerFor('application').set('popup', false);
@@ -7,6 +8,7 @@ HubStar.UserRoute = Ember.Route.extend({
             this.controllerFor('searchs').setLoginImge();
             this.controllerFor('application').set('isotherpage', true);
             this.controller.set('switchPhoto', true);
+//            console.log(this.controllerFor('checkAuthorityStatus').);
             this.controllerFor('user').setUser();
         },
         model: function(params) {
@@ -30,6 +32,7 @@ HubStar.UserRoute = Ember.Route.extend({
             }
         },
         redirect: function() {
+    
             if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
 
                 this.transitionTo('indexIndex');

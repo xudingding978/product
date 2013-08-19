@@ -959,7 +959,7 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
         if (model.get('title') !== undefined) {
             var title = model.get('title');
         }
-        this.controllerFor('masonryCollectionItems').selectModelForProfile(id, title, HubStar.Profile);
+        this.controllerFor('masonryCollectionItems').selectModelForProfile(id, title);
         this.controllerFor('profile').set('switchPhoto', false);
         this.controllerFor('masonryCollectionItems').set('uploadStuff', true);
         this.controllerFor('masonryCollectionItems').set('canEditbyOwner', true);
@@ -2177,8 +2177,7 @@ HubStar.CommentController = Ember.Controller.extend({
 
 
     HubStar.ContactController = Ember.Controller.extend({
-        dropdownCategory: "category",
-
+        dropdownCategory: "Category",
         dropdownTimeframe: "Timeframe",
         dropdownBudget: "Budget",
         dropdownExperience: "Experience",
@@ -3431,8 +3430,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 } else {
                     this.selectedCollection.set('desc', "Add a short description to your Collection");
                 }
+                    
                 this.get("collections").insertAt(0, this.selectedCollection);
-                this.get("collections").store.commit();
+                HubStar.store.commit();
                 $(".Targeting_Object_front").attr("style", "display:inline-block");
                 $(" #uploadArea").attr('style', "display:none");
                 $(" #uploadObject").attr('style', "display:block");
@@ -3761,7 +3761,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
             update_profile_record.get('stateManager').transitionTo('loaded.saved');
         }
-        console.log('ssssssssssssssssss');
+
         HubStar.store.save();
     },
     flipFrontClick: function() {

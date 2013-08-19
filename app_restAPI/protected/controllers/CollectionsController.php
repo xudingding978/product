@@ -39,7 +39,7 @@ try{
    if (!isset($mega['profile'][0]['collections'])) {
           $mega['profile'][0]['collections']= array();
       }
-      // error_log(var_export($mega['profile'], true));
+//      error_log(var_export($mega['profile'], true));
   array_unshift($mega['profile'][0]['collections'], $tempCollection);
    //$mega['profile'][0]['collections']=$tempCollection;
    

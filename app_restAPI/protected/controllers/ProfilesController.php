@@ -76,10 +76,13 @@ class ProfilesController extends Controller {
             $domain = $this->getDomain();
             $docID = $domain . "/profiles/" . $id;
             $tempMega = $cb->get($docID);
-            error_log($tempMega);
-            $mega =CJSON::decode($tempMega, true);
-            error_log(var_export($mega,true));
-            $mega['profile'][0]=$tempProfile;
+
+            $mega = CJSON::decode($tempMega, true);
+
+            $mega['profile'][0] = $tempProfile;
+            
+            
+            
             if ($cb->set($docID, CJSON::encode($mega))) {
                 $this->sendResponse(204);
             } else {
@@ -124,19 +127,23 @@ class ProfilesController extends Controller {
             $oldRecord = CJSON::decode($cb->get($this->getDomain() . $_SERVER['REQUEST_URI']));
             $id = $oldRecord['profile'][0]['id'];
             $oldfollower = $oldRecord['profile'][0]['followers'];
+            $collections = $oldRecord['profile'][0]['collections'];
             $profile_bg_url = $oldRecord['profile'][0]['profile_bg_url'];
             $profile_pic_url = $oldRecord['profile'][0]['profile_pic_url'];
             $profile_hero_url = $oldRecord['profile'][0]['profile_hero_url'];
             $newRecord['profile_hero_url'] = $profile_hero_url;
             $newRecord['profile_bg_url'] = $profile_bg_url;
             $newRecord['profile_pic_url'] = $profile_pic_url;
+            $newRecord['collections'] = $collections;
+             $newRecord['followers'] = $oldfollower;
             $oldRecord['profile'][0] = null;
             $oldRecord['profile'][0] = $newRecord;
-            if (isset($payloads_arr['profile']['followers'][0])) {
-                if (sizeof($payloads_arr['profile']['followers']) > sizeof($oldRecord['profile'][0]['followers'])) {//insert comment
-                    array_unshift($oldRecord['profile'][0]['followers'], $payloads_arr['profile']['followers'][0]);
-                }
-            }
+
+//            if (isset($payloads_arr['profile']['followers'][0])) {
+//                if (sizeof($payloads_arr['profile']['followers']) > sizeof($oldRecord['profile'][0]['followers'])) {//insert comment
+//                    array_unshift($oldRecord['profile'][0]['followers'], $payloads_arr['profile']['followers'][0]);
+//                }
+//            }
             $oldRecord['profile'][0]['id'] = $id;
             if ($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true))) {
                 $this->sendResponse(204);
@@ -171,11 +178,10 @@ class ProfilesController extends Controller {
 
         $cb = $this->couchBaseConnection();
         $oldRecord = CJSON::decode($cb->get($this->getDomain() . '/profiles/' . $owner_id));
+        error_log(var_export($oldRecord['profile'][0], true));
         if ($mode == 'profile_hero') {
             $oldRecord['profile'][0]['profile_hero_url'] = null;
             $oldRecord['profile'][0]['profile_hero_url'] = $url;
-            $smailimage = $photoController->savePhotoInTypes($orig_size, 'hero', $photo_name, $compressed_photo, $data_arr, $owner_id, $mode);
-            $oldRecord['profile'][0]['profile_hero_cover_url'] = $smailimage;
         } elseif
         ($mode == 'background') {
             $oldRecord['profile'][0]['profile_bg_url'] = null;
@@ -186,9 +192,25 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_pic_url'] = $url;
         }
 
-        if ($cb->set($this->getDomain() . '/profiles/' . $owner_id, CJSON::encode($oldRecord, true))) {
-            $this->sendResponse(204);
+        if ($mode == 'profile_hero') {
+            $smallimage = $photoController->savePhotoInTypes($orig_size, 'hero', $photo_name, $compressed_photo, $data_arr, $owner_id, $mode);
+            $oldRecord['profile'][0]['profile_hero_cover_url'] = null;
+            $oldRecord['profile'][0]['profile_hero_cover_url'] = $smallimage;
+        }
+
+        $url = $this->getDomain() . '/profiles/' . $owner_id;
+
+        $copy_of_oldRecord = unserialize(serialize($oldRecord));
+        $tempUpdateResult = CJSON::encode($copy_of_oldRecord, true);
+
+        if ($cb->delete($url)) {
+            if ($cb->set($url, $tempUpdateResult)) {
+                $this->sendResponse(204);
+            } else {
+                $this->sendResponse(500, 'something wrong');
+            }
         } else {
+            $cb->set($url, $tempUpdateResult);
             $this->sendResponse(500, 'something wrong');
         }
     }

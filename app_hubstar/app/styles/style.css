@@ -368,7 +368,6 @@ div.search-loading-invisible{
 
 /*/WindowContainer-------------------/*/
 .window-container {
-
     overflow: visible;
     position: fixed;
     z-index: 100;
@@ -392,8 +391,15 @@ div.search-loading-invisible{
 
     overflow: visible;
     position: fixed;
-    left: 30%;
-    top:10%;
+    left: 0;
+    right: 0;
+    width: 500px;
+    height: 300px;
+    margin: auto;
+    top: 0;
+    bottom:-100%;
+
+
     z-index: 100;
     background-color: white;
     -webkit-border-radius: 3px;
@@ -408,6 +414,34 @@ div.search-loading-invisible{
     background-clip: padding-box;
     background:#fff url('../../../images/contactbg.png') repeat;
 }
+
+.addCollection-container{
+    overflow: visible;
+    position: fixed;
+    left: 20%;
+    top: 10%;
+    z-index: 100;
+    background-color: white;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    outline: none;
+    -webkit-box-shadow: 0 3px 7px #888;
+    -moz-box-shadow: 0 3px 7px #888;
+    box-shadow: 0 3px 7px #888;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+    background-clip: padding-box;
+}
+
+
+
+
+
+
+
+
+
 
 .dropdownViewStyle {
     overflow: visible;

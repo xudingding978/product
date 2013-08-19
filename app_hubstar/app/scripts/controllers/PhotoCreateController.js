@@ -58,6 +58,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
     },
     createNewMega: function(ProfileMega, testID)
     {
+
         var photoMega = HubStar.Mega.createRecord({
             "id": testID,
             "accessed": ProfileMega.get("accessed"),
@@ -70,7 +71,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
             "category": ProfileMega.get("category"),
             "creator": localStorage.loginStatus,
             "country": ProfileMega.get("country"),
-            "collection_id": this.get('controllers.masonryCollectionItems').get('title'),
+            "collection_id": this.get('controllers.masonryCollectionItems').get('collection_id'),
             "deleted": null,
             "domains": getDomain(),
             "editors": "",

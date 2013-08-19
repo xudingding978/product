@@ -1,11 +1,5 @@
 
-//
-//HubStar.Store = DS.Store.extend({
-//    revision: 12,
-//    adapter: DS.FixtureAdapter.create({ simulateRemoteResponse: false })
-//});
-//
-//
+
 //beforeEach(function() {
 //    Ember.run(function() {
 //        HubStar.reset();
@@ -22,44 +16,101 @@
 //        HubStar.reset();
 //    });
 //});
+function checkingLogin() {
+
+    if (localStorage.loginstatus === null || localStorage.loginstatus === undefined) {
+       $(".sign-in-with:contains('Sign In with Facebook')").click();
+
+    }
 
 
-describe("Platform side bar ", function() {
+}
+;
+
+
+
+describe("Platform  bar", function() {
     var controller;
-    var test;
+    var topics;
     var result;
-    beforeEach(function() {
+    beforeEach(function(done) {
+
+        checkingLogin();
+
         Ember.run(function() {
-            // Won't actually load until the end of the run-block.
             controller = HubStar.PlatformBarController.create();
-            test = controller.categorys;
-
-
-            test.addObserver('isLoaded', function() {
-                if (test.get('isLoaded')) {
-                    result = test.get('length');
-                    console.log(result);
+            topics = controller.categorys;
+            topics.addObserver('isLoaded', function() {
+                if (topics.get('isLoaded')) {
+                    result = topics.get('length');
+                    done();
                 }
             });
+        });
+    });
+    it("total topics", function() {
+        Ember.run(function() {
+            result.should.equal(14);
+        });
+    });
+});
+describe("profiles Routing ", function() {
+    beforeEach(function(done) {
+        Ember.run(function() {
+            route = HubStar.Router.create();
+            route.transitionTo("profiles");
+             setTimeout(function() {
+                $('.nothingHere').find('ul').eq(0).find('a').click();
+                done();
+            }, 600);
+
+
+
+
 
         });
     });
-
-
-    it("Side bar catagories length", function() {
-
-
+    afterEach(function() {
         Ember.run(function() {
-            setTimeout(function() {
-                console.log(result);
-
-            }, 10000);
-            result.should.equal(3);
+            route = HubStar.Router.create();
+            route.transitionTo("searchIndex");
         });
-
-
+    });
+    it("Routing", function() {
+        Ember.run(function() {
+            $('#aside_contact').find('tr').eq(1).find('th').eq(0).should.have.text("Category:");
+        });
     });
 });
 
+describe("testing platform side bar searching result", function() {
+    it("hover and click topics", function() {
+        $('.firstList').find('li').eq(1).find('a').eq(0).click();
+        $('.search_business').text().should.be($('.firstList').find('li').eq(1).find('a').eq(0).text().trim());
 
+    });
 
+    it("hover and click subtopics", function() {
+        $('.firstList').find('li').eq(1).find('ul').find('li').eq(1).find('ul').find('li').eq(1).find('a').click();
+        $('.search_business').text().should.be($('.firstList').find('li').eq(1).find('ul').find('li').eq(1).find('ul').find('li').eq(1).text().trim());
+    });
+});
+
+describe("user profies testing", function() {
+    var controller;
+
+    beforeEach(function() {
+
+        checkingLogin();
+
+        Ember.run(function() {
+            controller = HubStar.UserController.create();
+
+        });
+    });
+    it("user controller ", function() {
+        Ember.run(function() {
+
+        });
+    });
+});

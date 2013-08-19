@@ -56,7 +56,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     selectedTitle: "",
     timeSetting: "timeSetting",
     temp: [],
-    tempdesc: [],
+  //  tempdesc: [],
     website: "",
     website_url: "",
     UploadImageMode: "",
@@ -289,8 +289,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     setSelectedCollection: function(id) {
         for (var i = 0; i < this.get("collections").get("length"); i++) {
             var thisCollection = this.get("collections").objectAt(i);
-            this.get('temp').pushObject(thisCollection.get("id"));
-            this.get('tempdesc').pushObject(thisCollection.get("desc"));
+  //          this.get('temp').pushObject(thisCollection.get("id"));
+      //      this.get('tempdesc').pushObject(thisCollection.get("desc"));
             if (id === thisCollection.get("id")) {
                 this.set("selectedCollection", thisCollection);
             }

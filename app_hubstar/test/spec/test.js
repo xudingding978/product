@@ -96,6 +96,7 @@ describe("testing platform side bar searching result", function() {
     });
 });
 
+<<<<<<< HEAD
 describe("user profies testing", function() {
     var controller;
 
@@ -110,6 +111,16 @@ describe("user profies testing", function() {
     });
     it("user controller ", function() {
         Ember.run(function() {
+=======
+describe('Array', function() {
+    describe('testingggggggggggg', function() {
+        it('should return -1 when the value is not present', function() {
+            [1, 2, 3].indexOf(5).should.equal(-1);
+            [1, 2, 3].indexOf(0).should.equal(-1);
+        });
+    });
+});
+>>>>>>> ea8918f5165ec9a895e72e917c0ac40186b7a723
 
         });
     });

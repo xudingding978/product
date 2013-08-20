@@ -52,9 +52,9 @@ describe("Platform side bar ", function() {
         Ember.run(function() {
             setTimeout(function() {
                 console.log(result);
+                result.should.equal(3);
+            }, 1000);
 
-            }, 10000);
-            result.should.equal(3);
         });
 
 

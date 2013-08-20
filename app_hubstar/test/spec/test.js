@@ -16,7 +16,11 @@ describe("Platform  bar", function() {
     });
     it("total topics", function() {
         Ember.run(function() {
-            result.should.equal(14);
+            setTimeout(function() {
+                console.log(result);
+                result.should.equal(3);
+            }, 1000);
+
         });
     });
 });

@@ -163,7 +163,7 @@ class Controller extends CController {
             }
             $response = $this->QueryStringByIds($returnType, $str_ImageIds, "id");
         } elseif ($requireType == 'collection') {
-            $collection_id = '\"'.$this->getUserInput($requireParams[1]).'\"';
+            $collection_id = '"'.$this->getUserInput($requireParams[1]).'"';
             $owner_profile_id = '\"'.$this->getUserInput($requireParams[2]).'\"';
             $response = $this->performRawSearch($returnType, $collection_id, $owner_profile_id);
         } elseif ($requireType == 'partner') {

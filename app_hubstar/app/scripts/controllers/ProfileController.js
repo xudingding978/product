@@ -76,6 +76,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     isDeleteDropdown: false,
     projectDeleteDropdownType: 'delete',
     projectDeleteDropdownContent: '',
+    message:null,
+    makeSureDelete:false,
+    willDelete:false,
+    
     init: function() {
         this.set('is_authentic_user', false);
     },
@@ -298,6 +302,39 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
 
     },
+            
+            
+      deleteSelectedCollection: function()
+    {
+
+        var message = "Do you wish to delete " + this.get("selectedCollection").get('id') + " ?";
+        this.set("message", message);
+        this.set('makeSureDelete', true);
+
+        if (this.get('willDelete')) {
+            var tempCollection= this.get("selectedCollection");
+           console.log(tempCollection.id);
+           console.log(this.get('model').get('id'));
+           var delInfo=[tempCollection.id, this.get('model').get('id')];
+           console.log(delInfo[0]);
+
+                      
+            requiredBackEnd('collections', 'delete', delInfo, 'POST', function(params) {
+         
+            });
+
+
+            this.cancelDelete();
+        } else {
+            this.set('willDelete', true);
+        }
+    },
+           
+     cancelDelete: function() {
+        this.set('willDelete', false);
+        this.set('makeSureDelete', false);
+    },     
+            
     updateCollectionInfo: function() {
         var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
         var id = this.checkingValidInput(this.selectedCollection.get('id'));

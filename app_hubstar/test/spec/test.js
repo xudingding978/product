@@ -16,7 +16,7 @@ after(function(done) {
     Ember.run(function() {
         route = HubStar.Router.create();
         route.transitionTo("indexIndex");
-          done();
+        done();
     });
 
 });

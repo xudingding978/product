@@ -1,7 +1,7 @@
 
 var isExsinting = true;
 HubStar.UserController = Ember.Controller.extend({
-    user: null,
+    user: null,   
     uploadMode: null,
     newCollectionName: null,
     collections: [],
@@ -20,10 +20,9 @@ HubStar.UserController = Ember.Controller.extend({
     profileSelectionStatus: "Collections",
     selected_topics: [],
     is_authentic_user: false,
-    isEditingMode: false,
     init: function()
     {
-   //     this.setUser();
+        this.setUser();
     },
     setUser: function()
     {
@@ -140,6 +139,7 @@ HubStar.UserController = Ember.Controller.extend({
     setTitle: function(title) {
         this.set("selectedTitle", title);
     },
+
     checkInput: function(title) {
         var isInputValid = false;
         if (title !== null && title !== "")

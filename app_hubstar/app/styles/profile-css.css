@@ -64,13 +64,21 @@
 
 .user-board_left{
     background: white;
-    width: 69%;
+    width: 25%;
     display: inline-block;
     vertical-align: top;
-    height: 150px;
+    height: 450px;
     margin-right: 0.5%;
 }
 
+.user-board_right{
+background: white;
+width: 74%;
+height: 450px;
+display: inline-block;
+vertical-align: top;
+overflow: hidden;
+}
 
 .locationandlinks{
     -webkit-font-smoothing: antialiased;
@@ -79,7 +87,7 @@
     font-weight: bold;
     bottom: 15px;
     color: #777;
-    font-size: 13px;
+    font-size: 15px;
     position: relative;
     display: block;
     list-style-type: none;

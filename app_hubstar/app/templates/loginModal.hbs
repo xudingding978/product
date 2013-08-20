@@ -71,7 +71,7 @@
             {{else}}
 
 
-            <iframe style='height: 150px; width: 250px;margin-top: 25px; border:none;' {{bindAttr src="controller.iframeLoginURL"}}></iframe>
+            <iframe id="login_iframe" style='height: 150px; width: 250px;margin-top: 25px; border:none;' {{bindAttr src="controller.iframeLoginURL"}}></iframe>
 
 
 
@@ -148,7 +148,7 @@
 
 
 
-        <iframe style='background: transparent;width: 350px;height: 270px;overflow: hidden; border:none;' {{bindAttr src="controller.iframeURL"}}></iframe>
+        <iframe id="register_iframe" style='background: transparent;width: 350px;height: 270px;overflow: hidden; border:none;' {{bindAttr src="controller.iframeURL"}}></iframe>
 
 
         <div  type="button" class="new-btn" id="goback" style="position: absolute;top: 478px;left: 165px;" {{action flipFrontBack}}>

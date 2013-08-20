@@ -11,22 +11,48 @@
 //    Ember.testing = false;
 //});
 //
-//after(function() {
-//    Ember.run(function() {
-//        HubStar.reset();
-//    });
-//});
-function checkingLogin() {
+after(function(done) {
+    LoginOut();
+    Ember.run(function() {
+        route = HubStar.Router.create();
+        route.transitionTo("indexIndex");
+          done();
+    });
+
+});
+function LoginIn(done) {
 
     if (localStorage.loginstatus === null || localStorage.loginstatus === undefined) {
-       $(".sign-in-with:contains('Sign In with Facebook')").click();
+        $("a:contains('Login')").click();
+        $(".square-button").last().click();
+
+
+         setTimeout(function() {
+            var content = $('#login_iframe').contents();
+            content.find('#LoginForm_username').val('Jenny');
+            content.find('#LoginForm_password').val('test123');
+
+            content.find("input:submit.ifame_login").click();
+            done();
+        }, 1000);
 
     }
 
 
 }
 ;
+function LoginOut() {
+    $('.profilepic-container').find('a').eq(1).find('img').click();
 
+    //    $("a:contains('Logout')").click();
+
+     setTimeout(function() {
+        $("a:contains('Logout')").click();
+    }, 1000);
+
+
+}
+;
 
 
 describe("Platform  bar", function() {
@@ -35,9 +61,11 @@ describe("Platform  bar", function() {
     var result;
     beforeEach(function(done) {
 
-        checkingLogin();
+
 
         Ember.run(function() {
+            LoginIn(done);
+
             controller = HubStar.PlatformBarController.create();
             topics = controller.categorys;
             topics.addObserver('isLoaded', function() {
@@ -64,10 +92,6 @@ describe("profiles Routing ", function() {
                 done();
             }, 600);
 
-
-
-
-
         });
     });
     afterEach(function() {
@@ -78,7 +102,7 @@ describe("profiles Routing ", function() {
     });
     it("Routing", function() {
         Ember.run(function() {
-            $('#aside_contact').find('tr').eq(1).find('th').eq(0).should.have.text("Category:");
+            //         $('#aside_contact').find('tr').eq(1).find('th').eq(0).should.have.text("Category:");
         });
     });
 });
@@ -96,32 +120,22 @@ describe("testing platform side bar searching result", function() {
     });
 });
 
-<<<<<<< HEAD
 describe("user profies testing", function() {
     var controller;
 
     beforeEach(function() {
 
-        checkingLogin();
-
         Ember.run(function() {
-            controller = HubStar.UserController.create();
+            //           controller = HubStar.UserController.create();
 
         });
+    });
+    afterEach(function() {
+
     });
     it("user controller ", function() {
-        Ember.run(function() {
-=======
-describe('Array', function() {
-    describe('testingggggggggggg', function() {
-        it('should return -1 when the value is not present', function() {
-            [1, 2, 3].indexOf(5).should.equal(-1);
-            [1, 2, 3].indexOf(0).should.equal(-1);
-        });
-    });
-});
->>>>>>> ea8918f5165ec9a895e72e917c0ac40186b7a723
+        //     Ember.run(function() {
 
-        });
     });
 });
+

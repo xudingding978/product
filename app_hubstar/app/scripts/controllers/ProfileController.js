@@ -56,7 +56,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     selectedTitle: "",
     timeSetting: "timeSetting",
     temp: [],
-  //  tempdesc: [],
+    //  tempdesc: [],
     website: "",
     website_url: "",
     UploadImageMode: "",
@@ -141,7 +141,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 } else {
                     this.selectedCollection.set('desc', "Add a short description to your Collection");
                 }
-                    
+
                 this.get("collections").insertAt(0, this.selectedCollection);
                 HubStar.store.commit();
                 $(".Targeting_Object_front").attr("style", "display:inline-block");
@@ -192,7 +192,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 //                alert('This Collection is already exsiting!!!');
 //            }
 //        } else 
-            if (postOrPut === "create") {
+        if (postOrPut === "create") {
             for (var i = 0; i < this.get("collections").get('length'); i++) {
                 if (this.get("collections").objectAt(i).id === id) {
                     isExsinting = false;
@@ -289,8 +289,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     setSelectedCollection: function(id) {
         for (var i = 0; i < this.get("collections").get("length"); i++) {
             var thisCollection = this.get("collections").objectAt(i);
-  //          this.get('temp').pushObject(thisCollection.get("id"));
-      //      this.get('tempdesc').pushObject(thisCollection.get("desc"));
+            //          this.get('temp').pushObject(thisCollection.get("id"));
+            //      this.get('tempdesc').pushObject(thisCollection.get("desc"));
             if (id === thisCollection.get("id")) {
                 this.set("selectedCollection", thisCollection);
             }
@@ -303,13 +303,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var id = this.checkingValidInput(this.selectedCollection.get('id'));
 
 
-            var title = this.get("selectedCollection").get("title");
-            this.get("selectedCollection").set("title", title);
-            this.set("selectedTitle", title);
-            this.get("selectedCollection").store.save();
-            $(".Targeting_Object_front").attr("style", "display:inline-block");
-            $(" #uploadArea").attr('style', "display:none");
-            $(" #uploadObject").attr('style', "display:block");
+        var title = this.get("selectedCollection").get("title");
+        this.get("selectedCollection").set("title", title);
+        this.set("selectedTitle", title);
+        this.get("selectedCollection").store.save();
+        $(".Targeting_Object_front").attr("style", "display:inline-block");
+        $(" #uploadArea").attr('style', "display:none");
+        $(" #uploadObject").attr('style', "display:block");
 
     },
     newCollection: function()
@@ -475,9 +475,23 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     flipFrontClick: function() {
         $(".hover").addClass('flip');
+
+        this.selectionForDashborad();
+
     },
+    selectionForDashborad: function() {
+        $('.front').attr("style", "text-align: inherit; width: auto;  box-shadow: none; border: none; position: relative;height:" + $('.back').height() + "px");
+    },
+    changeSize: function() {
+        var that = this;
+        setTimeout(function() {
+            that.selectionForDashborad();
+        }, 1);
+    },
+
     flipFrontBack: function() {
         $(".hover").removeClass('flip');
+        $('.front').attr("style", "text-align: inherit; width: auto; height: auto; box-shadow: none; border: none; position: relative;");
     }, setUploadImageMode: function(mode)
     {
         this.set('isPhotoUploadMode', true);
@@ -550,6 +564,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('newStyleImageName', "");
         $('#photoUploadbtn').removeClass();
         $("#photoUploadbtn").toggleClass("disabled-btn");
+          this.changeSize();
     }, dropdown: function(checking) {
         if (checking === "package") {
             this.set('isActiveDropdown', false);

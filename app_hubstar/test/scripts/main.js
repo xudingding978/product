@@ -4584,7 +4584,11 @@ HubStar.TopicSelectionController = Ember.ArrayController.extend({
 
 var isExsinting = true;
 HubStar.UserController = Ember.Controller.extend({
+<<<<<<< HEAD
+    user: null,
+=======
     user: null,   
+>>>>>>> 17699298182f2a91108209f1cf7d0bb3d03c584c
     uploadMode: null,
     newCollectionName: null,
     collections: [],
@@ -4603,6 +4607,10 @@ HubStar.UserController = Ember.Controller.extend({
     profileSelectionStatus: "Collections",
     selected_topics: [],
     is_authentic_user: false,
+<<<<<<< HEAD
+    isEditingMode: false,
+=======
+>>>>>>> 17699298182f2a91108209f1cf7d0bb3d03c584c
     init: function()
     {
         this.setUser();
@@ -4722,6 +4730,14 @@ HubStar.UserController = Ember.Controller.extend({
     setTitle: function(title) {
         this.set("selectedTitle", title);
     },
+<<<<<<< HEAD
+    checkInput: function(title) {
+        var isInputValid = false;
+        if (title !== null && title !== "")
+        {
+            isInputValid = this.isTitleNotExist(title);
+
+=======
 
     checkInput: function(title) {
         var isInputValid = false;
@@ -4729,6 +4745,7 @@ HubStar.UserController = Ember.Controller.extend({
         {
             isInputValid = this.isTitleNotExist(title);
 
+>>>>>>> 17699298182f2a91108209f1cf7d0bb3d03c584c
         }
         else {
             isInputValid = false;
@@ -4850,6 +4867,13 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('partnerTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', true);
+<<<<<<< HEAD
+    },
+    flickButtonClick: function()
+    {
+        this.set("isEditingMode", !this.get("isEditingMode"));
+=======
+>>>>>>> 17699298182f2a91108209f1cf7d0bb3d03c584c
     }
 }
 );

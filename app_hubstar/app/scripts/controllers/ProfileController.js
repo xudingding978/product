@@ -317,8 +317,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
         if (this.get('willDelete')) {
            var tempCollection= this.get("selectedCollection");
-           var delInfo=[tempCollection.id, this.get('model').get('id')];
-            requiredBackEnd('collections', 'delete', delInfo, 'POST', function(params) {
+          var delInfo=[tempCollection.id, this.get('model').get('id')];        
+            requiredBackEnd('collections', 'delete', delInfo, 'POST', function(params) {    
+
+             
+
             });
             this.get("collections").removeObject(this.get("selectedCollection"));
             //HubStar.MasonryCollectionItems.resetContent();
@@ -327,7 +330,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         } else {
             this.set('willDelete', true);
         }
+
 //         setTimeout(function() {
+
 //        }, 200);
     },
 

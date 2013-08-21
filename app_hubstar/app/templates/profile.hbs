@@ -252,18 +252,7 @@
 
 
 
-                        <!--
-                                                                                <div class="main_comments" style="padding:20px 0 30px 0; font-size: 16px;">
-                                                                                    <p style="font-size:18px;margin: 20px auto 0;">
-                                                                                        <i class='icon-comments-alt' style='margin-right: 10px;'></i>
-                                                                                        Comments
-                                                                                    </p>
-                                                                                    <div class="comment-item">
-                                                                                    </div>
-                                                                                    <div class="comment-item">
-                                                                                    </div>
-                                                                                </div>
-                        -->
+
 
 
 
@@ -280,7 +269,7 @@
 
     </div>
 
-    <div class="back t-style-box"  style='width: 100%;height:auto;  background-color: white; border-radius: 3px;border:none;'>
+    <div class="back t-style-box"  style='width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;'>
         <div style="position: relative; top: 0; width: 100%;height: 300px;overflow: hidden; border-radius: 3px 3px 0 0;">
             <img {{bindAttr src= model.profile_hero_url}} style="width:100%;"/>
             <div style="background: url('../images/bannershadow.png') repeat-x; position: absolute; width: 100%; height: 200px; bottom: 0;">
@@ -297,14 +286,14 @@
         <div class="tabbable">
             <div class="tabs-left">
                 <ul class="nav nav-tabs easing">
-                    <li class="active"><a href="#tab1" data-toggle="tab">Style up!</a></li>
-                    <li class="easing"><a href="#tab2" data-toggle="tab">General Settings</a></li>
-                    <li class="easing"><a href="#tab3" data-toggle="tab">Account Settings</a></li>
+                    <li class="active" {{action changeSize}}><a href="#tab1" data-toggle="tab">Style up!</a></li>
+                    <li class="easing" {{action changeSize}}><a href="#tab2" data-toggle="tab">General Settings</a></li>
+                    <li class="easing" {{action changeSize}}><a href="#tab3" data-toggle="tab">Account Settings</a></li>
                     {{#if controller.isAdmin}}
-                    <li class="easing"><a href="#tab4" data-toggle="tab">Authority Settings</a></li>
+                    <li class="easing" {{action changeSize}}><a href="#tab4" data-toggle="tab">Authority Settings</a></li>
                     {{/if}}
-                    <li class="easing" style="display: none;"><a href="#tab5" data-toggle="tab">Profile Hero</a></li>
-                    <li class="easing" style="display: none;"><a href="#tab6" data-toggle="tab">Profile Picture</a></li>
+                    <li class="easing" style="display: none;" ><a href="#tab5" data-toggle="tab">Profile Hero</a></li>
+                    <li class="easing" style="display: none;" ><a href="#tab6" data-toggle="tab">Profile Picture</a></li>
                 </ul>
             </div>
 
@@ -314,7 +303,7 @@
 
                     <div class='styleup_section'>
                         <a href="#fileuploader" data-toggle="tab" {{action setUploadImageMode "Profile Picture"}}>
-                           <div class='styleup_uploadbox easing hint--right hint--rounded' data-hint='Upload'>
+                           <div class='styleup_uploadbox easing hint--right hint--rounded' data-hint='Upload' {{action changeSize}}>
                                 <i class='icon-upload icon-3x' style="width: 30px;margin: auto;display: block;position: relative;top: 40px;"></i>
                                 <span style="font-size: 13px;font-weight:bold;bottom: 20px;position: relative;">Profile Picture</span>
                             </div>
@@ -326,7 +315,7 @@
 
                     <div class='styleup_section easing'>
                         <a href="#fileuploader" data-toggle="tab" {{action setUploadImageMode "Profile Hero"}}>
-                           <div class='styleup_uploadbox easing hint--right hint--rounded' data-hint='Upload'>
+                           <div class='styleup_uploadbox easing hint--right hint--rounded' data-hint='Upload' {{action changeSize}}>
                                 <i class='icon-upload icon-3x' style="width: 30px;margin: auto;display: block;position: relative;top: 40px;"></i>
                                 <span style="font-size: 13px;font-weight:bold;bottom: 20px;position: relative;">Profile Hero</span>
                             </div>
@@ -338,7 +327,7 @@
 
                     <div class='styleup_section easing'>
                         <a href="#fileuploader" data-toggle="tab" {{action setUploadImageMode "Background"}}>
-                           <div class='styleup_uploadbox easing hint--right hint--rounded' data-hint='Upload'>
+                           <div class='styleup_uploadbox easing hint--right hint--rounded' data-hint='Upload' {{action changeSize}}>
                                 <i class='icon-upload icon-3x' style="width: 30px;margin: auto;display: block;position: relative;top: 40px;"></i>
                                 <span style="font-size: 13px;font-weight:bold;bottom: 20px;position: relative;">Profile Background</span>
                             </div>

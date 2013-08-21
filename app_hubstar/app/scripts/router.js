@@ -1,19 +1,6 @@
 var Router = Ember.Router.extend(
-        {
-            checkPath: function(path) {
-                path = path.replace(this.get('rootURL'), '').replace(/^(?=[^\/])/, "/");
-                var resolvedStates = this.get("states.root").resolvePath(this, path);
-                var lastState = resolvedStates.get("lastObject");
-                return lastState.match.remaining === "";
-            },
-            route: function(path) {
-                if (this.checkPath(path)) {
-                    this._super(path);
-                } else {
-                    this.transitionTo("404page");
-                }
-            }
-        }
+        
+
 
 );
 
@@ -49,7 +36,9 @@ HubStar.Router.map(function() {
             this.resource("searchIndex", {path: '/'});
             this.resource('search', {path: ':search_id'});
         });
-
+        
+ 
+   
 
         this.resource("welcome", {
             path: "/welcome"

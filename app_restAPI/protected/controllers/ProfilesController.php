@@ -79,9 +79,9 @@ class ProfilesController extends Controller {
             $mega = CJSON::decode($tempMega, true);
 
             $mega['profile'][0] = $tempProfile;
-            
-            
-            
+
+
+
             if ($cb->set($docID, CJSON::encode($mega))) {
                 $this->sendResponse(204);
             } else {
@@ -95,7 +95,6 @@ class ProfilesController extends Controller {
 
     public function actionRead() {
         try {
-            
             $cb = $this->couchBaseConnection();
             $fileName = $this->getDomain() . $_SERVER['REQUEST_URI'];
             $reponse = $cb->get($fileName);
@@ -134,7 +133,7 @@ class ProfilesController extends Controller {
             $newRecord['profile_bg_url'] = $profile_bg_url;
             $newRecord['profile_pic_url'] = $profile_pic_url;
             $newRecord['collections'] = $collections;
-             $newRecord['followers'] = $oldfollower;
+            $newRecord['followers'] = $oldfollower;
             $oldRecord['profile'][0] = null;
             $oldRecord['profile'][0] = $newRecord;
 

@@ -36,7 +36,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
 
     },
     selectModelForProfile: function(collection_id,title) {
-
+        console.log("selectModelForProfile");
         this.set('collection_id', collection_id);
         this.resetContent();
         this.set('title', title);
@@ -165,6 +165,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         var address = document.URL;
         var owner_id = address.split("#")[1].split("/")[2];
         var title = this.get('collection_id');
+        console.log("mansory");
         var results = HubStar.Mega.find({RquireType: "collection", "collection_id": title, "owner_profile_id": owner_id});
         var that = this;
         results.addObserver('isLoaded', function() {

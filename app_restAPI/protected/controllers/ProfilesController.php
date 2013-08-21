@@ -100,7 +100,6 @@ class ProfilesController extends Controller {
             $fileName = $this->getDomain() . $_SERVER['REQUEST_URI'];
             $reponse = $cb->get($fileName);
             $request_arr = CJSON::decode($reponse, true);
-
             $respone_client_data = str_replace("\/", "/", CJSON::encode($request_arr["profile"][0]));
             $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":';
 //Iterate over the hits and print out some data

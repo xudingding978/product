@@ -258,6 +258,10 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('partnerTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', true);
+    },
+    flickButtonClick: function()
+    {
+        this.set("isEditingMode", !this.get("isEditingMode"));
     }
 }
 );

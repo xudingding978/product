@@ -3346,11 +3346,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     selectedTitle: "",
     timeSetting: "timeSetting",
     temp: [],
-<<<<<<< HEAD
   //  tempdesc: [],
-=======
-    //  tempdesc: [],
->>>>>>> 402d814f5fdb040d51533ccb47ebbf7c04fc2439
     website: "",
     website_url: "",
     UploadImageMode: "",
@@ -3490,11 +3486,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 //                alert('This Collection is already exsiting!!!');
 //            }
 //        } else 
-<<<<<<< HEAD
             if (postOrPut === "create") {
-=======
-        if (postOrPut === "create") {
->>>>>>> 402d814f5fdb040d51533ccb47ebbf7c04fc2439
             for (var i = 0; i < this.get("collections").get('length'); i++) {
                 if (this.get("collections").objectAt(i).id === id) {
                     isExsinting = false;
@@ -3591,13 +3583,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     setSelectedCollection: function(id) {
         for (var i = 0; i < this.get("collections").get("length"); i++) {
             var thisCollection = this.get("collections").objectAt(i);
-<<<<<<< HEAD
   //          this.get('temp').pushObject(thisCollection.get("id"));
       //      this.get('tempdesc').pushObject(thisCollection.get("desc"));
-=======
-            //          this.get('temp').pushObject(thisCollection.get("id"));
-            //      this.get('tempdesc').pushObject(thisCollection.get("desc"));
->>>>>>> 402d814f5fdb040d51533ccb47ebbf7c04fc2439
             if (id === thisCollection.get("id")) {
                 this.set("selectedCollection", thisCollection);
             }
@@ -3646,7 +3633,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     updateCollectionInfo: function() {
         var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
         var id = this.checkingValidInput(this.selectedCollection.get('id'));
-<<<<<<< HEAD
 
 
             var title = this.get("selectedCollection").get("title");
@@ -3656,17 +3642,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             $(".Targeting_Object_front").attr("style", "display:inline-block");
             $(" #uploadArea").attr('style', "display:none");
             $(" #uploadObject").attr('style', "display:block");
-=======
-
-
-        var title = this.get("selectedCollection").get("title");
-        this.get("selectedCollection").set("title", title);
-        this.set("selectedTitle", title);
-        this.get("selectedCollection").store.save();
-        $(".Targeting_Object_front").attr("style", "display:inline-block");
-        $(" #uploadArea").attr('style', "display:none");
-        $(" #uploadObject").attr('style', "display:block");
->>>>>>> 402d814f5fdb040d51533ccb47ebbf7c04fc2439
 
     },
     newCollection: function()
@@ -4585,24 +4560,8 @@ HubStar.TopicSelectionController = Ember.ArrayController.extend({
 var isExsinting = true;
 HubStar.UserController = Ember.Controller.extend({
     user: null,
-    uploadMode: null,
-    newCollectionName: null,
-    collections: [],
-    temp: [],
-    selectedDesc: "",
-    selectedTitle: "",
-    coverImg: "",
-    display_name: "",
-    userTage: true,
-    currentUserID: "",
-    needs: ['photoCreate'],
-    makeSureDelete: false,
-    updateOrCreate: true,
-    collectionTag: true,
-    selectedCollection: "",
-    profileSelectionStatus: "Collections",
-    selected_topics: [],
-    is_authentic_user: false,
+    user: null,
+    isEditingMode: false,
     init: function()
     {
         this.setUser();
@@ -4728,118 +4687,11 @@ HubStar.UserController = Ember.Controller.extend({
         if (title !== null && title !== "")
         {
             isInputValid = this.isTitleNotExist(title);
-        }
-        else {
-            isInputValid = false;
-        }
-        return isInputValid;
+
     },
-    isTitleNotExist: function(title) {
-        var isContainsTitle = true;
-        for (var i = 0; i < this.get("collections").get("length"); i++)
-        {
-            var collection = this.get("collections").objectAt(i);
-            if (collection.get("title") === title)
-            {
-                isContainsTitle = false;
-            }
-        }
-        return isContainsTitle;
-    },
-    deleteSelectedCollection: function()
+    flickButtonClick: function()
     {
-
-        var message = "Do you wish to delete " + this.get("selectedCollection").get('id') + " ?";
-        this.set("message", message);
-        this.set('makeSureDelete', true);
-        if (this.get('willDelete')) {
-            this.get("collections").removeObject(this.get("selectedCollection"));
-            var user = this.getCurrentUser();
-            user.store.save();
-            this.cancelDelete();
-        } else {
-            this.set('willDelete', true);
-        }
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
-    },
-    deleteTopic: function(topic) {
-
-        var user = HubStar.User.find(localStorage.loginStatus);
-        user.set('selected_topics', user.get('selected_topics') + ',');
-        $('#' + topic).attr('style', 'display:none');
-        user.set('selected_topics', user.get('selected_topics').replace(topic + ",", ""));
-        user.set('selected_topics', user.get('selected_topics').substring(0, user.get('selected_topics').length - 1));
-        user.store.commit();
-    },
-    cancelDelete: function() {
-        this.set('willDelete', false);
-        this.set('makeSureDelete', false);
-    },
-    updateCollectionInfo: function()
-    {
-
-        var id = this.checkingValidInput(this.selectedCollection.get('id'));
-        this.checkingIdisExsinting(id, "update");
-        if (isExsinting) {
-            var title = this.get("selectedCollection").get("id");
-            this.get("selectedCollection").set("title", title);
-            this.set("selectedTitle", title);
-            this.get("selectedCollection").store.save();
-            $(".Targeting_Object_front").attr("style", "display:inline-block");
-            $(" #uploadArea").attr('style', "display:none");
-            $(" #uploadObject").attr('style', "display:block");
-        } else {
-            isExsinting = true;
-        }
-    },
-    setSelectedCollection: function(id) {
-        for (var i = 0; i < this.get("collections").get("length"); i++) {
-            var thisCollection = this.get("collections").objectAt(i);
-            this.get('temp').pushObject(thisCollection.get("id"));
-            if (id === thisCollection.get("id")) {
-                this.set("selectedCollection", thisCollection);
-            }
-        }
-    },
-    newCollection: function()
-    {
-        var collection = HubStar.Collection.createRecord({"id": null, "title": null, "desc": null, "collection_ids": null, "createdAt": new Date(),
-            'cover': 'https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png'
-        });
-        this.set("selectedCollection", collection);
-    },
-    checkAuthenticUser: function() {
-        {
-
-            if (localStorage.loginStatus === this.get('user').id) {
-                this.set('is_authentic_user', true);
-            }
-            else {
-                this.set('is_authentic_user', false);
-            }
-        }
-    },
-    selectCollection: function() {
-        this.set('profileSelectionStatus', 'Collections');
-        this.set('partnerTag', false);
-        this.set('collectionTag', true);
-        this.set('followerTag', false);
-    },
-    selectFollowing: function(model) {
-
-        this.set('profileSelectionStatus', 'Following');
-        this.set('partnerTag', true);
-        this.set('collectionTag', false);
-        this.set('followerTag', false);
-        this.get('controllers.itemProfiles').setPartnerRemove();
-    },
-    selectFollower: function(model) {
-        this.set('profileSelectionStatus', 'Followers');
-        this.set('partnerTag', false);
-        this.set('collectionTag', false);
-        this.set('followerTag', true);
+        this.set("isEditingMode", !this.get("isEditingMode"));
     }
 }
 );

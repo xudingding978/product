@@ -14,7 +14,6 @@ class ProfilesController extends Controller {
 
     public function actionIndex() {
 //    $results = $this->getAllProfiles("profile");
-
         $settings['log.enabled'] = true;
 // $settings['log.file'] = '/var/log/sherlock/newlogfile.log';
 // $settings['log.level'] = 'debug';
@@ -96,6 +95,7 @@ class ProfilesController extends Controller {
 
     public function actionRead() {
         try {
+            
             $cb = $this->couchBaseConnection();
             $fileName = $this->getDomain() . $_SERVER['REQUEST_URI'];
             $reponse = $cb->get($fileName);

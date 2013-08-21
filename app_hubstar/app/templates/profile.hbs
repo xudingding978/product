@@ -634,13 +634,16 @@
 
                             <i class="icon-upload" style="font-size: 45px;"></i>
                             <p style="font-weight: bold; margin: 10px;">
-                                {{controller.UploadImageMode}}
+                                {{controller.UploadImageMode}} 
 
                             </p>
-                            <span style='font-size: 20px;display: block;line-height: 25px;'>Please select one photo for your choice.</span>
+                            <span style='font-size: 20px;display: block;line-height: 25px;'>Please select one photo for your choice.</span>   
+                            <span style='font-size: 20px;display: block;line-height: 25px;'> {{controller.RequiredImageSize}}</span>
+                            <span style='font-size: 20px;display: block;line-height: 25px;'> {{controller.CurrentImageSize}}</span>
+                            
                         </div>
                         <div class="new-btn blue-btn" style="margin: auto; width: 200px; top: 550px; position: absolute;left: 0;">
-                            Choose
+                            Choose 
                             <div style="opacity:0;position: absolute;top: 0px;left: 0;"> {{view HubStar.SingleImageInputButtonView }}</div>
                             <div style="opacity:0;position: absolute;top: 0px;left: 0;"> </div>
                         </div>

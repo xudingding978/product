@@ -25,6 +25,8 @@ try{
         
        $tempCollection = $request_arr['collection'];
       $id = $tempCollection['optional'];
+      //error_log("sssssssssssssssssssssss");
+      //error_log($id);
      //$cid=$tempCollection['id'];
        //error_log("this is a error");
    //  error_log(var_export($request_arr, true));
@@ -39,7 +41,7 @@ try{
    if (!isset($mega['profile'][0]['collections'])) {
           $mega['profile'][0]['collections']= array();
       }
-      // error_log(var_export($mega['profile'], true));
+//      error_log(var_export($mega['profile'], true));
   array_unshift($mega['profile'][0]['collections'], $tempCollection);
    //$mega['profile'][0]['collections']=$tempCollection;
    
@@ -78,14 +80,72 @@ try{
 
     public function actionUpdate() {
         
+        $temp = explode("/", $_SERVER['REQUEST_URI']);
+        $id = $temp [sizeof($temp) - 1];
+        $request_json = file_get_contents('php://input');
+        $newRecord = CJSON::decode($request_json, true); 
+        $newRecord['collection']['id'] = $id;        
+        $owner_id = $newRecord ['collection']['optional'];
+        
+        try{
+            $cb = $this->couchBaseConnection();   
+            $docID = $this->getDomain() . "/profiles/" . $owner_id; 
+            $oldRecord = $cb->get($docID); // get the old profile record from the database according to the docID string
+            $oldRecord = CJSON::decode($oldRecord, true);
+            
+            $collection_num =0;
+            
+            /***Find the  changed  collection and replace the old vaule in collection with the new record value***/
+            foreach ( $oldRecord["profile"][0]["collections"] as $record_id) {//assign each collection in profile's collections to record_id
+            
+                if($record_id["id"]==$id)
+                {
+                    $oldRecord["profile"][0]["collections"] [$collection_num] = $newRecord["collection"]; //replace the old collection with the new record's collection
+                }
+                $collection_num++;
+            }
+            if ($cb->set($docID, CJSON::encode($oldRecord))) {
+                $this->sendResponse(204);                
+            } else {
+                $this->sendResponse(500, "some thing wrong");
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }  
     }
 
     public function actionDelete() {
-        
+          
+          $infoDel = CJSON::decode(file_get_contents('php://input'));
+          $collectionDel_id=$infoDel[0];
+          $collectionDelProfile=$infoDel[1];
+          //error_log(var_export($collectionDelProfile,true));
+          try{
+              $cb = $this->couchBaseConnection();
+              $docID = $this->getDomain() . "/profiles/" . $collectionDelProfile; 
+              $profileOwn= $cb->get($docID);           
+              $owner = CJSON::decode($profileOwn, true);
+               for ( $i=0; $i< sizeof($owner["profile"][0]["collections"]);$i++ ) {
+                if($owner["profile"][0]["collections"][$i]["id"]===$collectionDel_id)
+                {
+                    error_log(var_export($owner["profile"][0]["collections"][$i],true));
+                    array_splice($owner["profile"][0]["collections"], $i, 1);
+                }
+            }
+             if ($cb->set($docID, CJSON::encode($owner))) {
+                $this->sendResponse(204);                
+            } else {
+                $this->sendResponse(500, "some thing wrong");
+            }
+          }
+          catch(Exception $exc){
+              echo $exc->getTraceAsString();
+          }
+         //error_log(var_export($infoDel,true));
     }
 
     public function actionTest() {
-        
+         
     }
 
 }

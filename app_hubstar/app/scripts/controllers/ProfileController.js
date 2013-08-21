@@ -426,7 +426,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('followerTag', false);
     },
     selectPartner: function(model) {
-
+   
         this.set('profileSelectionStatus', 'Partners');
         this.get('controllers.profilePartners').getClientId(model);
         this.set('partnerTag', true);

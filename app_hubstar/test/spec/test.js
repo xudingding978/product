@@ -11,15 +11,23 @@
 //    Ember.testing = false;
 //});
 //
-after(function(done) {
-    LoginOut();
+//after(function(done) {
+//    LoginOut();
+//    Ember.run(function() {
+//        route = HubStar.Router.create();
+//        route.transitionTo("indexIndex");
+//        done();
+//    });
+//
+//});
+after(function() {
     Ember.run(function() {
         route = HubStar.Router.create();
         route.transitionTo("indexIndex");
-        done();
+        HubStar.reset();
     });
-
 });
+
 function LoginIn(done) {
 
     if (localStorage.loginstatus === null || localStorage.loginstatus === undefined) {
@@ -106,7 +114,7 @@ describe("profiles Routing ", function() {
         });
     });
 });
-
+//
 describe("testing platform side bar searching result", function() {
     it("hover and click topics", function() {
         $('.firstList').find('li').eq(1).find('a').eq(0).click();
@@ -123,19 +131,55 @@ describe("testing platform side bar searching result", function() {
 describe("user profies testing", function() {
     var controller;
 
-    beforeEach(function() {
+    beforeEach(function(done) {
 
-        Ember.run(function() {
-            //           controller = HubStar.UserController.create();
+        $(".profilepic_user").click();
 
-        });
+
+         setTimeout(function() {
+            controller = HubStar.UserController.create();
+            controller.userDashboardButton();
+            done();
+        }, 600);
+
     });
     afterEach(function() {
 
     });
     it("user controller ", function() {
-        //     Ember.run(function() {
+        (controller.get('colin') === "undefined").should.be(true);
 
     });
 });
 
+//describe.only("a test", function(){
+//  var foo = false;
+// 
+//  beforeEach(function(){
+// var deferred = new $.Deferred();
+//var promise = deferred.promise();
+// 
+//promise.state();  // "pending"
+//deferred.reject();
+//promise.state();  // "rejected"
+//
+//promise.done(function() {
+//  console.log("This will run if this Promise is resolved.");
+//});
+// 
+//promise.fail(function() {
+//  console.log("This will run if this Promise is rejected.");
+//});
+// 
+//promise.always(function() {
+//  console.log("And this will run either way.");
+//});
+//
+// 
+//  });
+// 
+//  it("should pass", function(){
+////    expect(foo).equals(true);
+//  });
+// 
+//});

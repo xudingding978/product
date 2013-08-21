@@ -138,6 +138,8 @@ class Controller extends CController {
     }
 
     protected function getRequestResult($searchString, $returnType) {
+        
+   
         $response = "";
         $requireParams = explode('&', $searchString);
         $requireType = $this->getUserInput($requireParams[0]);

@@ -128,7 +128,7 @@ try{
                for ( $i=0; $i< sizeof($owner["profile"][0]["collections"]);$i++ ) {
                 if($owner["profile"][0]["collections"][$i]["id"]===$collectionDel_id)
                 {
-                    error_log(var_export($owner["profile"][0]["collections"][$i],true));
+                    //error_log(var_export($owner["profile"][0]["collections"][$i],true));
                     array_splice($owner["profile"][0]["collections"], $i, 1);
                 }
             }

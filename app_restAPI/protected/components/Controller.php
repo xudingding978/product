@@ -171,8 +171,14 @@ class Controller extends CController {
             $partner_id = str_replace("%2C", ",", $partner_id_raw);
             $partnerIds = explode(',', $partner_id);
             $str_partnerIds = "";
+            $domain = $this->getDomain();
+            $trendsUrl = $domain . "/profiles/" ;
+            error_log(var_export($trendsUrl,true));
+           
             for ($i = 0; $i < sizeof($partnerIds); $i++) {
-                $str_partnerIds = $str_partnerIds . '"trendsideas.com/profiles/' . $partnerIds[$i] . '"';
+                $str_partnerIds = $str_partnerIds . '"'.$trendsUrl.''.$partnerIds[$i].'"';
+                error_log(var_export($str_partnerIds,true));
+                
                 if ($i + 1 < sizeof($partnerIds)) {
                     $str_partnerIds.=',';
                 }

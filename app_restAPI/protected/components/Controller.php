@@ -172,12 +172,12 @@ class Controller extends CController {
             $partnerIds = explode(',', $partner_id);
             $str_partnerIds = "";
             for ($i = 0; $i < sizeof($partnerIds); $i++) {
-                $str_partnerIds = $str_partnerIds . '\"' . $partnerIds[$i] . '\"';
+                $str_partnerIds = $str_partnerIds . '"trendsideas.com/profiles/' . $partnerIds[$i] . '"';
                 if ($i + 1 < sizeof($partnerIds)) {
                     $str_partnerIds.=',';
                 }
             }
-            $response = $this->QueryStringByIds($returnType, $str_partnerIds, "profile.id");
+            $response = $this->RequireByIds($returnType, $str_partnerIds, "profile.id");
         } elseif ($requireType == 'articleRelatedImage') {
             $article_id = $this->getUserInput($requireParams[1]);
             $owner_id = $this->getUserInput($requireParams[2]);
@@ -311,6 +311,30 @@ class Controller extends CController {
         return $results;
     }
 
+        protected function RequireByIds($returnType, $ids, $default_field) {
+
+        $request = $this->getElasticSearch();
+        $request->from(0)
+                ->size(100);
+
+        $header = '{"ids": { "values": [';
+        $footer = ']}}';
+        $tempRquestIDs = "";
+    
+
+        $rawRequest = $header . $ids . $footer;
+
+         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
+        $request->query($termQuery);
+        $response = $request->execute();
+        
+        $results = $this->getReponseResult($response, $returnType);
+
+        return $results;
+    }
+    
+    
+    
     protected function performRawSearch($returnType, $collection_id, $owner_profile_id) {
 
 

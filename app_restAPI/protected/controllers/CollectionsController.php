@@ -25,8 +25,8 @@ try{
         
        $tempCollection = $request_arr['collection'];
       $id = $tempCollection['optional'];
-      error_log("sssssssssssssssssssssss");
-      error_log($id);
+      //error_log("sssssssssssssssssssssss");
+      //error_log($id);
      //$cid=$tempCollection['id'];
        //error_log("this is a error");
    //  error_log(var_export($request_arr, true));
@@ -116,6 +116,32 @@ try{
 
     public function actionDelete() {
           
+          $infoDel = CJSON::decode(file_get_contents('php://input'));
+          $collectionDel_id=$infoDel[0];
+          $collectionDelProfile=$infoDel[1];
+          //error_log(var_export($collectionDelProfile,true));
+          try{
+              $cb = $this->couchBaseConnection();
+              $docID = $this->getDomain() . "/profiles/" . $collectionDelProfile; 
+              $profileOwn= $cb->get($docID);           
+              $owner = CJSON::decode($profileOwn, true);
+               for ( $i=0; $i< sizeof($owner["profile"][0]["collections"]);$i++ ) {
+                if($owner["profile"][0]["collections"][$i]["id"]===$collectionDel_id)
+                {
+                    error_log(var_export($owner["profile"][0]["collections"][$i],true));
+                    array_splice($owner["profile"][0]["collections"], $i, 1);
+                }
+            }
+             if ($cb->set($docID, CJSON::encode($owner))) {
+                $this->sendResponse(204);                
+            } else {
+                $this->sendResponse(500, "some thing wrong");
+            }
+          }
+          catch(Exception $exc){
+              echo $exc->getTraceAsString();
+          }
+         //error_log(var_export($infoDel,true));
     }
 
     public function actionTest() {

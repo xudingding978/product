@@ -3346,7 +3346,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     selectedTitle: "",
     timeSetting: "timeSetting",
     temp: [],
+<<<<<<< HEAD
+  //  tempdesc: [],
+=======
     //  tempdesc: [],
+>>>>>>> 402d814f5fdb040d51533ccb47ebbf7c04fc2439
     website: "",
     website_url: "",
     UploadImageMode: "",
@@ -3366,6 +3370,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     isDeleteDropdown: false,
     projectDeleteDropdownType: 'delete',
     projectDeleteDropdownContent: '',
+    message:null,
+    makeSureDelete:false,
+    willDelete:false,
+    
     init: function() {
         this.set('is_authentic_user', false);
     },
@@ -3482,7 +3490,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 //                alert('This Collection is already exsiting!!!');
 //            }
 //        } else 
+<<<<<<< HEAD
+            if (postOrPut === "create") {
+=======
         if (postOrPut === "create") {
+>>>>>>> 402d814f5fdb040d51533ccb47ebbf7c04fc2439
             for (var i = 0; i < this.get("collections").get('length'); i++) {
                 if (this.get("collections").objectAt(i).id === id) {
                     isExsinting = false;
@@ -3579,8 +3591,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     setSelectedCollection: function(id) {
         for (var i = 0; i < this.get("collections").get("length"); i++) {
             var thisCollection = this.get("collections").objectAt(i);
+<<<<<<< HEAD
+  //          this.get('temp').pushObject(thisCollection.get("id"));
+      //      this.get('tempdesc').pushObject(thisCollection.get("desc"));
+=======
             //          this.get('temp').pushObject(thisCollection.get("id"));
             //      this.get('tempdesc').pushObject(thisCollection.get("desc"));
+>>>>>>> 402d814f5fdb040d51533ccb47ebbf7c04fc2439
             if (id === thisCollection.get("id")) {
                 this.set("selectedCollection", thisCollection);
             }
@@ -3588,9 +3605,58 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
 
     },
+            
+            
+      deleteSelectedCollection: function()
+    {
+
+        var message = "Do you wish to delete " + this.get("selectedCollection").get('id') + " ?";
+        this.set("message", message);
+        this.set('makeSureDelete', true);
+
+        if (this.get('willDelete')) {
+            var tempCollection= this.get("selectedCollection");
+           console.log(tempCollection.id);
+           console.log(this.get('model').get('id'));
+           var delInfo=[tempCollection.id, this.get('model').get('id')];
+           console.log();
+           // this.get("collections").removeObject(this.get("selectedCollection"));
+//            var user = this.getCurrentUser();
+//            user.store.save();
+                      
+            requiredBackEnd('collections', 'delete', delInfo, 'POST', function(params) {
+//                $('#uploadStyleImg').attr("style", "display:none");
+//                that.set('isPhotoUploadMode', false);
+//                that.set('isPhotoEditingMode', true);
+//                HubStar.store.save();
+            });
+
+
+            this.cancelDelete();
+        } else {
+            this.set('willDelete', true);
+        }
+    },
+           
+     cancelDelete: function() {
+        this.set('willDelete', false);
+        this.set('makeSureDelete', false);
+    },     
+            
     updateCollectionInfo: function() {
         var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
         var id = this.checkingValidInput(this.selectedCollection.get('id'));
+<<<<<<< HEAD
+
+
+            var title = this.get("selectedCollection").get("title");
+            this.get("selectedCollection").set("title", title);
+            this.set("selectedTitle", title);
+            this.get("selectedCollection").store.save();
+            $(".Targeting_Object_front").attr("style", "display:inline-block");
+            $(" #uploadArea").attr('style', "display:none");
+            $(" #uploadObject").attr('style', "display:block");
+=======
 
 
         var title = this.get("selectedCollection").get("title");
@@ -3600,6 +3666,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         $(".Targeting_Object_front").attr("style", "display:inline-block");
         $(" #uploadArea").attr('style', "display:none");
         $(" #uploadObject").attr('style', "display:block");
+>>>>>>> 402d814f5fdb040d51533ccb47ebbf7c04fc2439
 
     },
     newCollection: function()
@@ -5162,7 +5229,13 @@ HubStar.DeleteFunctionView = Ember.View.extend({
 
             controller.deleteSelectedCollection();
 
+        } else if (controller._debugContainerKey.indexOf("profile") !== -1) {
+
+
+            controller.deleteSelectedCollection();
+
         }
+        
         else if (controller._debugContainerKey.indexOf("comment") !== -1) {
 
 

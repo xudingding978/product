@@ -75,13 +75,8 @@ class ProfilesController extends Controller {
             $domain = $this->getDomain();
             $docID = $domain . "/profiles/" . $id;
             $tempMega = $cb->get($docID);
-
             $mega = CJSON::decode($tempMega, true);
-
-            $mega['profile'][0] = $tempProfile;
-            
-            
-            
+            $mega['profile'][0] = $tempProfile;  
             if ($cb->set($docID, CJSON::encode($mega))) {
                 $this->sendResponse(204);
             } else {

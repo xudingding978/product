@@ -1,7 +1,7 @@
 
 var isExsinting = true;
 HubStar.UserController = Ember.Controller.extend({
-    user: null,   
+    user: null,
     uploadMode: null,
     newCollectionName: null,
     collections: [],
@@ -37,6 +37,7 @@ HubStar.UserController = Ember.Controller.extend({
         }
         this.set("collections", user.get("collections"));
         this.set("coverImg", user.get("photo_url"));
+        this.set("description", user.get("description"));
         this.set("display_name", user.get("display_name"));
         if (this.get("collections").objectAt(0) !== null && typeof this.get("collections").objectAt(0) !== 'undefined') {
             this.setDesc(this.get("collections").objectAt(0).get("desc"));
@@ -139,7 +140,6 @@ HubStar.UserController = Ember.Controller.extend({
     setTitle: function(title) {
         this.set("selectedTitle", title);
     },
-
     checkInput: function(title) {
         var isInputValid = false;
         if (title !== null && title !== "")

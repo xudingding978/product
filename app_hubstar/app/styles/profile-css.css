@@ -72,12 +72,12 @@
 }
 
 .user-board_right{
-background: white;
-width: 74%;
-height: 450px;
-display: inline-block;
-vertical-align: top;
-overflow: hidden;
+    background: white;
+    width: 74%;
+    height: 450px;
+    display: inline-block;
+    vertical-align: top;
+    overflow: hidden;
 }
 
 .locationandlinks{
@@ -87,7 +87,7 @@ overflow: hidden;
     font-weight: bold;
     bottom: 15px;
     color: #777;
-    font-size: 15px;
+    font-size: 17px;
     position: relative;
     display: block;
     list-style-type: none;
@@ -215,6 +215,43 @@ overflow: hidden;
     text-decoration: none;
 }
 
+.user-profilepic-container{
+    width: 180px; 
+    height: 180px; 
+    margin: auto;
+    margin-top: 40px;
+    position: relative;
+    display: block;
+    border: 5px solid #f3f3f3; 
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -o-border-radius:50%;
+    overflow: hidden;
+}
+
+.changeuserprofilepic{
+    opacity: 0;
+    background-color: #000;
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    overflow:hidden;
+}
+
+.user-profilepic-container:hover .changeuserprofilepic{
+    opacity: 0.6;
+}
+
+.changeuserprofilepic > k{
+    font-size: 35px;
+    color: #fff;
+    line-height: 180px;
+    margin: auto;
+    display: block;
+    width: 35px;
+}
+
 .edit-dashboard-btn{
     opacity: 0;
     margin: 10px;
@@ -227,6 +264,18 @@ overflow: hidden;
     box-shadow: 0 0 10px #fff;
 }
 
+/*USERPAGE*/
+.user-cover{
+    background:#fff url('../../../images/defaultcover/defaultcover6.jpg') ;
+    height: 150px; 
+    padding: 10px 40px;
+}
+
+.user-cover:hover .edit-dashboard-btn{
+    opacity: 1;
+    box-shadow: 0 0 10px #fff;
+}
+/*USERPAGE*/
 
 .profile-wallpaper{
     background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 85%, rgba(255,255,255,0) 100%); /* FF3.6+ */

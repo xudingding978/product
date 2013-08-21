@@ -577,12 +577,18 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if (this.get('newStyleImageSource') !== null && this.get('newStyleImageSource') !== "")
         {
                  var src =this.get('newStyleImageSource');
-                
+                 var maxWidth = 2000;
+                 var maxHeight = 1500;
                   var that=this;
-                 getImageWidth(src, function(width, height) {      
+                 getImageWidth(src, function(width, height) {    
+                that.set('currentWidth', width);
+                that.set('currentHeight', height);
+                     
                 var data = {"RequireIamgeType": that.get('UploadImageMode')};
                  requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {        
-          if(width >= params.width && height>= params.height){             
+          if( maxWidth >=width >= params.width && maxHeight >=height>= params.height){        
+                   console.log(width);
+                    console.log(height);
                    alert("Successfully!!!!");
                     that.setTempImage();
             $('#uploadStyleImg').attr("style", "display:block");
@@ -593,23 +599,25 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 requiredBackEnd('profiles', 'updateStyleImage', data1, 'POST', function(params) {
                 $('#uploadStyleImg').attr("style", "display:none");
                        that.set('isPhotoEditingMode', true);
-                that.set('isPhotoUploadMode', false);
+                      that.set('isPhotoUploadMode', false);
                 HubStar.store.save();
                  
             });
         }
          
-         else if( width < params.width || height < params.height){
+         else if( width < params.width ||  height < params.height){
+             
               alert("Please upload image size larger than  " + params.width + "x" + params.height + " !!!");
                that.set('newStyleImageSource', "");
              that.set('newStyleImageName', "");
              that.set('CurrentImageSize', "");
         $('#photoUploadbtn').removeClass();
         $("#photoUploadbtn").toggleClass("disabled-btn");
-            
-                
-         
-                }
+             }
+             else if(width >maxWidth || height > maxHeight)
+                 {
+                     alert("Small image please!!!!");
+                 }
      });   
     }); 
 

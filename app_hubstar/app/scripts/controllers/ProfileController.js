@@ -30,7 +30,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     editingTime: false,
     editors: "",
     followerTag: false,
-    follow_status: "+ Follow",
+    follow_status: false,
     first_name: "",
     galleryInsert: false,
     hours: [],
@@ -205,7 +205,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     setLocalLoginRecrod: function() {
         HubStar.set('afterSearch', true);
-        localStorage.user_id = this.get('model.id');
+        localStorage.user_id = this.get('model.id');     //??why model.id is user_id??
     },
     toggleEditing: function(data, checkingInfo) {
         if (checkingInfo === "profileName") {
@@ -377,7 +377,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
     },
     followThisProfile: function() {
-        if (this.checkFollowStatus() === false) {
+         if (this.checkFollowStatus() === false) {
             var currentUser = HubStar.User.find(localStorage.loginStatus);
             var commenter_profile_pic_url = currentUser.get('photo_url_large');
             var commenter_id = currentUser.get('id');
@@ -385,23 +385,62 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             var date = new Date();
             var tempComment = HubStar.Follower.createRecord({"follower_profile_pic_url": commenter_profile_pic_url,
                 "follower_id": commenter_id, "name": name, "time_stamp": date.toString(), "is_delete": false});
-            tempComment.store.save();
-            this.get("model").get("followers").insertAt(0, tempComment);
-            this.set('follow_status', "Following");
-        }
-        else {
-            //dont delete this line
-            //         this.unfollow();
-        }
-    },
+            var profile_id = this.get('model').get('profile_id')
+            var array = []
+           requiredBackEnd('followerController', 'actionCreate', param, 'POST', function(params) {
+                $('#uploadStyleImg').attr("style", "display:none");
+                that.set('isPhotoUploadMode', false);
+                that.set('isPhotoEditingMode', true);
+                HubStar.store.save();
+
+
+//        if (this.checkFollowStatus() === false) {
+//            var currentUser = HubStar.User.find(localStorage.loginStatus);
+//            var commenter_profile_pic_url = currentUser.get('photo_url_large');
+//            var commenter_id = currentUser.get('id');
+//            var name = currentUser.get('display_name');
+//            var date = new Date();
+//            var tempComment = HubStar.Follower.createRecord({"follower_profile_pic_url": commenter_profile_pic_url,
+//                "follower_id": commenter_id, "name": name, "time_stamp": date.toString(), "is_delete": false});
+//            tempComment.store.save();
+//            this.get("model").get("followers").insertAt(0, tempComment);
+//            this.set('follow_status', true);
+//        }
+//        else {
+//            //dont delete this line
+//            //         this.unfollow();             
+//                var currentUser = HubStar.User.find(localStorage.loginStatus);
+//                var commenter_id = currentUser.get('id');
+//                var update_record = this.get("model").get('followers');
+//                for(var i=0;i<update_record.get('length');i++)
+//                {   
+//                    if(update_record.objectAt(i).get("follower_id")===commenter_id)
+//                    {
+//                             update_record.removeObject(update_record.objectAt(i));                         
+//                    }
+//                 }
+//                 //  update_record.store.save();
+//  
+//               requiredBackEnd('profiles', 'actionFollow', param, 'POST', function(params) {
+//                $('#uploadStyleImg').attr("style", "display:none");
+//                that.set('isPhotoUploadMode', false);
+//                that.set('isPhotoEditingMode', true);
+//                HubStar.store.save();
+//            });
+//                this.set('follow_status', false);             
+//        }
+    },            
     checkFollowStatus: function()
     {
         var isFollow = false;
         var followers = this.get("model").get("followers");
+        console.log(followers);
         for (var i = 0; i < followers.get('length'); i++) {
-            var follower_id = followers.get("content").objectAt(i).data.follower_id;
+            var follower_id = followers.objectAt(i).get("follower_id");
+            console.log(follower_id);
             if (follower_id === localStorage.loginStatus)
             {
+                console.log('get into');
                 isFollow = true;
                 break;
             }
@@ -528,7 +567,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 that.set('isPhotoUploadMode', false);
                 that.set('isPhotoEditingMode', true);
                 HubStar.store.save();
-            });
+            })        ;
         }
     },
     setTempImage: function() {

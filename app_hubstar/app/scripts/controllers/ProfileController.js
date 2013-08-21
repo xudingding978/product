@@ -306,28 +306,24 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             
       deleteSelectedCollection: function()
     {
-
         var message = "Do you wish to delete " + this.get("selectedCollection").get('id') + " ?";
         this.set("message", message);
         this.set('makeSureDelete', true);
 
         if (this.get('willDelete')) {
-            var tempCollection= this.get("selectedCollection");
-           console.log(tempCollection.id);
-           console.log(this.get('model').get('id'));
-           var delInfo=[tempCollection.id, this.get('model').get('id')];
-           console.log(delInfo[0]);
-
-                      
-            requiredBackEnd('collections', 'delete', delInfo, 'POST', function(params) {
-         
+           var tempCollection= this.get("selectedCollection");
+           var delInfo=[tempCollection.id, this.get('model').get('id')];        
+            requiredBackEnd('collections', 'delete', delInfo, 'POST', function(params) {       
             });
-
-
+            this.get("collections").removeObject(this.get("selectedCollection"));
+            //HubStar.MasonryCollectionItems.resetContent();
+            $('#masonry_user_container').masonry("reload");
             this.cancelDelete();
         } else {
             this.set('willDelete', true);
         }
+//         setTimeout(function() {       
+//        }, 200);
     },
            
      cancelDelete: function() {

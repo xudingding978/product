@@ -469,7 +469,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('followerTag', false);
     },
     selectPartner: function(model) {
-
+   
         this.set('profileSelectionStatus', 'Partners');
         this.get('controllers.profilePartners').getClientId(model);
         this.set('partnerTag', true);
@@ -492,9 +492,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set('profile_country', this.get('country'));
         update_profile_record.set('profile_boost', this.get('boost'));
         update_profile_record.set('profile_domains', this.get('domains'));
-           // update_profile_record.set('profile_hero_url', '');
-           // update_profile_record.set('profile_pic_url', '');
-          //  update_profile_record.set('profile_bg_url', '');
+            update_profile_record.set('profile_hero_url', '');
+            update_profile_record.set('profile_pic_url', '');
+          update_profile_record.set('profile_bg_url', '');
         update_profile_record.set('profile_name', this.get('name'));
         update_profile_record.set('profile_package_name', this.get('projectCategoryDropdownContent'));
         update_profile_record.set('owner_contact_bcc_emails', this.get('direct_enquiry_provide_email'));
@@ -587,9 +587,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 var data = {"RequireIamgeType": that.get('UploadImageMode')};
                  requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {        
           if( (width >= params.width) && (height>= params.height)){        
-                   console.log(width);
-                    console.log(height);
-                   alert("Successfully!!!!");
+                 ////  console.log(width);
+                 //   console.log(height);
+                //   alert("Successfully!!!!");
                     that.setTempImage();
                     
             $('#uploadStyleImg').attr("style", "display:block");
@@ -597,7 +597,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                     'newStyleImageName': that.get('newStyleImageName'),
                     'mode': that.get('UploadImageMode').replace(" ", "_").toLowerCase(),
                     'id': that.get('model.id')};     
-                console.log(data1);
+         //       console.log(data1);
                 requiredBackEnd('profiles', 'updateStyleImage', data1, 'POST', function(params) {
                 $('#uploadStyleImg').attr("style", "display:none");
                        that.set('isPhotoEditingMode', true);

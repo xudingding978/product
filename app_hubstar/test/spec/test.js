@@ -139,3 +139,73 @@ describe("user profies testing", function() {
     });
 });
 
+
+describe("poster picture  testing", function() {
+    it("click poster picture", function() {
+
+        $('#masonry_container').find('.box').eq(1).find('.mainfeature-wrapper img').click();
+
+        var title = HubStar.Mega.find('2119904211372397730').get('owner_title');
+
+        $('.objectview-wrapper').find('.poster-name').should.have.text(title);
+
+    });
+    afterEach(function() {
+        route = HubStar.Router.create();
+          route.transitionTo("searchIndex");
+    });
+});
+
+describe("poster photo_title photo_caption  testing", function() {
+    it("click poster picture", function() {
+
+        $('#masonry_container').find('.box').eq(1).find('.mainfeature-wrapper img').click();
+
+
+        var photo_title = HubStar.Mega.find('2119904211372397730').get('photo').objectAt(0).get('photo_title');
+        var photo_caption = HubStar.Mega.find('2119904211372397730').get('photo').objectAt(0).get('photo_caption');
+
+
+        $('.objectview-wrapper').find('.article-title').should.have.text(photo_title);
+        $('.objectview-wrapper').find('.article-text').should.have.text(photo_caption);
+    });
+    afterEach(function() {
+        route = HubStar.Router.create();
+        route.transitionTo("searchIndex");
+    });
+});
+
+
+describe("poster photo_url  validation  testing", function() {
+    var validation;
+    var photo_image_original_url;
+    
+    beforeEach(function(done) {
+        
+        $('#masonry_container').find('.box').eq(1).find('.mainfeature-wrapper img').click();
+
+        photo_image_original_url = HubStar.Mega.find('2119904211372397730').get('photo').objectAt(0).get('photo_image_original_url');
+       
+        $("<img>", {
+            src: photo_image_original_url,
+            error: function() {
+                validation = false;
+                done();
+            },
+            load: function() {
+                validation = true;
+                done();}
+        });
+    });
+
+    it("click poster picture", function() {
+        (validation === true).should.equal(true);
+        $('.objectview-wrapper').find('.mainfeature img').attr("src").should.be(photo_image_original_url);
+    });
+
+
+    afterEach(function() {
+        route = HubStar.Router.create();
+        route.transitionTo("searchIndex");
+    });
+});

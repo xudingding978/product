@@ -163,7 +163,7 @@ module.exports = function(grunt) {
         mocha: {
             all: {
                 options: {
-               //     run: true,
+                    run: true,
                     urls: ['http://test.trendsideas.com']
                 }
             }

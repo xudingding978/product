@@ -138,8 +138,8 @@ class Controller extends CController {
     }
 
     protected function getRequestResult($searchString, $returnType) {
-        
-   
+
+
         $response = "";
         $requireParams = explode('&', $searchString);
         $requireType = $this->getUserInput($requireParams[0]);
@@ -165,8 +165,8 @@ class Controller extends CController {
             }
             $response = $this->QueryStringByIds($returnType, $str_ImageIds, "id");
         } elseif ($requireType == 'collection') {
-            $collection_id =  $this->getUserInput($requireParams[1]) ;
-            $owner_profile_id =   $this->getUserInput($requireParams[2]) ;
+            $collection_id = $this->getUserInput($requireParams[1]);
+            $owner_profile_id = $this->getUserInput($requireParams[2]);
             $response = $this->performRawSearch($returnType, $collection_id, $owner_profile_id);
         } elseif ($requireType == 'partner') {
             $partner_id_raw = $this->getUserInput($requireParams[1]);
@@ -313,7 +313,7 @@ class Controller extends CController {
         return $results;
     }
 
-        protected function RequireByIds($returnType, $ids, $default_field) {
+    protected function RequireByIds($returnType, $ids, $default_field) {
 
         $request = $this->getElasticSearch();
         $request->from(0)
@@ -322,28 +322,26 @@ class Controller extends CController {
         $header = '{"ids": { "values": [';
         $footer = ']}}';
         $tempRquestIDs = "";
-    
+
 
         $rawRequest = $header . $ids . $footer;
 
-         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
+        $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
         $request->query($termQuery);
         $response = $request->execute();
-        
+
         $results = $this->getReponseResult($response, $returnType);
 
         return $results;
     }
-    
-    
-    
+
     protected function performRawSearch($returnType, $collection_id, $owner_profile_id) {
 
 
         $request = $this->getElasticSearch();
         $request->from(0)
                 ->size(100);
-               $must = Sherlock\Sherlock::queryBuilder()->Term()->term($collection_id)
+        $must = Sherlock\Sherlock::queryBuilder()->Term()->term($collection_id)
                 ->field('couchbaseDocument.doc.collection_id');
 
 //        $must = Sherlock\Sherlock::queryBuilder()->QueryString()
@@ -360,7 +358,7 @@ class Controller extends CController {
                 ->must($must2);
         error_log($bool->tojson());
         $response = $request->query($bool)->execute();
-        
+
         $results = $this->getReponseResult($response, $returnType);
         return $results;
     }
@@ -393,6 +391,27 @@ class Controller extends CController {
     }
 
     protected function getElasticSearch() {
+
+//        $ch = curl_init('http://localhost:9200/develop/');
+//        curl_setopt($ch, CURLOPT_HEADER, 0);
+//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+//        curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
+//        curl_setopt($ch, CURLOPT_POSTFIELDS, ' {
+//    "mappings" : {
+//            "properties": {
+//                    "couchbaseDocument.doc.collection_id": {
+//                            "type": "string",
+//                            "index": "not_analyzed"
+//                    }
+//            }
+//    }
+//} ');
+//        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//        $tim = curl_exec($ch);
+//
+//           error_log();
+
         $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);

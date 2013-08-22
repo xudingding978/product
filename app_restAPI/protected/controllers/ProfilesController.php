@@ -76,7 +76,8 @@ class ProfilesController extends Controller {
             $docID = $domain . "/profiles/" . $id;
             $tempMega = $cb->get($docID);
             $mega = CJSON::decode($tempMega, true);
-            $mega['profile'][0] = $tempProfile;
+            $mega['profile'][0] = $tempProfile;  
+             $mega['profile'][0]['collections']= array();
             if ($cb->set($docID, CJSON::encode($mega))) {
                 $this->sendResponse(204);
             } else {
@@ -128,15 +129,10 @@ class ProfilesController extends Controller {
             $newRecord['profile_bg_url'] = $profile_bg_url;
             $newRecord['profile_pic_url'] = $profile_pic_url;
             $newRecord['collections'] = $collections;
-            $newRecord['followers'] = $oldfollower;
+             $newRecord['followers'] = $oldfollower;
             $oldRecord['profile'][0] = null;
             $oldRecord['profile'][0] = $newRecord;
 
-//            if (isset($payloads_arr['profile']['followers'][0])) {
-//                if (sizeof($payloads_arr['profile']['followers']) > sizeof($oldRecord['profile'][0]['followers'])) {//insert comment
-//                    array_unshift($oldRecord['profile'][0]['followers'], $payloads_arr['profile']['followers'][0]);
-//                }
-//            }
             $oldRecord['profile'][0]['id'] = $id;
             if ($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true))) {
                 $this->sendResponse(204);

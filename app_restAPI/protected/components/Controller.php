@@ -178,7 +178,7 @@ class Controller extends CController {
          
            
             for ($i = 0; $i < sizeof($partnerIds); $i++) {
-                $str_partnerIds = $str_partnerIds . $trendsUrl.$partnerIds[$i];
+                $str_partnerIds = $str_partnerIds . '"'.$trendsUrl.$partnerIds[$i].'"';
               
                 
                 if ($i + 1 < sizeof($partnerIds)) {

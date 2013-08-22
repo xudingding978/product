@@ -11,6 +11,9 @@
     background-color: rgba(50,50,50,0.4);
     box-shadow: 0 0 10px #fff;
 }
+.masonry_push_down{
+    margin-top: 85px;
+}
 
 .plaform_bar:hover{
     box-shadow: none;

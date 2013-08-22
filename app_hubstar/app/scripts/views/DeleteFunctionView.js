@@ -24,7 +24,13 @@ HubStar.DeleteFunctionView = Ember.View.extend({
 
             controller.deleteSelectedCollection();
 
+        } else if (controller._debugContainerKey.indexOf("profile") !== -1) {
+
+
+            controller.deleteSelectedCollection();
+
         }
+        
         else if (controller._debugContainerKey.indexOf("comment") !== -1) {
 
 
@@ -64,6 +70,12 @@ HubStar.DeleteFunctionView = Ember.View.extend({
             //    controller.addComment();
 
         } else if (controller._debugContainerKey.indexOf("user") !== -1) {
+
+
+            controller.cancelDelete();
+
+        }
+        else if (controller._debugContainerKey.indexOf("profile") !== -1) {
 
 
             controller.cancelDelete();

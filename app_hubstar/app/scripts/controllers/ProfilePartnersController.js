@@ -96,9 +96,10 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
     {
         var profileOwner = HubStar.Profile.find(this.get('clientID'));
         profileOwner.set('profile_partner_ids', this.get('partnerID'));
+        HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, profileOwner);
         var newPartner = HubStar.Mega.find(client_id);
         this.get("content").pushObject(newPartner);
-        HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, profileOwner);
+
     },
     checkAuthenticUser: function() {
         var currentUser = HubStar.User.find(localStorage.loginStatus);

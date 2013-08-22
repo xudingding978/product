@@ -175,11 +175,11 @@ class Controller extends CController {
             $str_partnerIds = "";
             $domain = $this->getDomain();
             $trendsUrl = $domain . "/profiles/" ;
-            error_log(var_export($trendsUrl,true));
+         
            
             for ($i = 0; $i < sizeof($partnerIds); $i++) {
-                $str_partnerIds = $str_partnerIds . '"'.$trendsUrl.''.$partnerIds[$i].'"';
-                error_log(var_export($str_partnerIds,true));
+                $str_partnerIds = $str_partnerIds . $trendsUrl.$partnerIds[$i];
+              
                 
                 if ($i + 1 < sizeof($partnerIds)) {
                     $str_partnerIds.=',';

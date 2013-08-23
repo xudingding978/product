@@ -256,7 +256,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.updateClient();
         this.get('controllers.application').set('feedback',true);
         console.log( this.get('controllers.application').get('feedback'));
-        
+
     },
     updateClient: function() {
         var update_profile_record = HubStar.Profile.find(this.get('model.id'));

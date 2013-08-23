@@ -5,6 +5,7 @@ HubStar.CommentView = Ember.View.extend({
     },
     openComment: function(id) {
 
+    if( localStorage.loginStatus){
         this.get('controller').getCommentsById(id);
         $('#comment_' + id).attr('style', 'display:none');
         $('#commentBox_' + id).attr('style', 'display:block');
@@ -13,6 +14,11 @@ HubStar.CommentView = Ember.View.extend({
             $('#masonry_container').masonry("reload");
             $('.comment-insert-field').focus();
         }, 200);
+        
+        
+    }
+        
+        
     },
     closeComment: function(id) {
 

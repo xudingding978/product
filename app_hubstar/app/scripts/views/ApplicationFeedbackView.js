@@ -11,8 +11,6 @@ HubStar.ApplicationFeedbackView = Ember.View.extend({
          test.fadeOut();
         });
 
-
-
     }
 });
 

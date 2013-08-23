@@ -10,8 +10,8 @@ header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 
 class CollectionsController extends Controller {
 
-    const JSON_RESPONSE_ROOT_SINGLE = 'mega';
-    const JSON_RESPONSE_ROOT_PLURAL = 'megas';
+    const JSON_RESPONSE_ROOT_SINGLE = 'collection';
+    const JSON_RESPONSE_ROOT_PLURAL = 'collections';
 
     public function actionIndex() {
         

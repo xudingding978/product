@@ -1,17 +1,18 @@
+
+
 HubStar.ApplicationFeedbackView = Ember.View.extend({
     templateName: 'applicationFeedback',
     didInsertElement: function() {
         var test = this.$();
-        test.fadeIn(800).delay(1200);
-        console.log($('#contactMeBlur').parent().attr('style'));
-        console.log($('#contactMeBlur').parent().length);
+        test.show(800);
 
 
-        $.when(test).done(function() {
-         test.fadeOut();
-        });
 
+    },
+    showup: function() {
 
+    },
+    closeup: function() {
 
     }
 });

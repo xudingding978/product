@@ -362,7 +362,6 @@ class Controller extends CController {
 
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)
                 ->must($must2);
-        error_log($bool->tojson());
         $response = $request->query($bool)->execute();
 
         $results = $this->getReponseResult($response, $returnType);

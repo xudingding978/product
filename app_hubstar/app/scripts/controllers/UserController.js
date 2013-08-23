@@ -1,5 +1,6 @@
 
 var isExsinting = true;
+
 HubStar.UserController = Ember.Controller.extend({
     user: null,
     uploadMode: null,
@@ -20,6 +21,7 @@ HubStar.UserController = Ember.Controller.extend({
     profileSelectionStatus: "Collections",
     selected_topics: [],
     is_authentic_user: false,
+    is_click:false,
     init: function()
     {
         this.setUser();
@@ -55,11 +57,20 @@ HubStar.UserController = Ember.Controller.extend({
         }
         this.checkAuthenticUser();
     },
+       
     userDashboardButton: function() {
-    
-    
-
+    if (this.get('is_click')===false){
+      
+    this.set('is_click',true);
+       $('.user-board_left').hide();
+    }
+   else if (this.get('is_click')===true){
+       
+ this.set('is_click',false);
+ $('.user-board_left').show();
+  }
     },
+ 
     getHeroImage: function(id, col) {
         var photo = HubStar.Mega.find(id);
         photo.addObserver('isLoaded', function() {

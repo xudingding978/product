@@ -1,4 +1,3 @@
-
 var profile_record;
 var about_record;
 var contact_record;
@@ -37,7 +36,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     is_authentic_user: false,
     keywords: "",
     last_name: "",
-    needs: ["profilePartners", "itemProfiles", "profileFollowers", 'permission', 'contact', 'photoCreate'],
+    needs: ["profilePartners", "itemProfiles", "profileFollowers", 'permission', 'contact', 'photoCreate','application'],
     name: "",
     profileName: "profileName",
     profile_bg_url: "",
@@ -64,9 +63,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     updateOrCreate: true,
     isPhotoUploadMode: false,
     isPhotoEditingMode: false,
+        CurrentImageSize:"",
+        RequiredImageSize:"",
     isAdmin: false,
     newStyleImageSource: '',
     newStyleImageName: '',
+
+        currentWidth: '',
+        currentHeight:'',
+
     isPackgetDropdown: false,
     projectCategoryDropdownType: 'package',
     projectCategoryDropdownContent: '',
@@ -79,7 +84,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     message:null,
     makeSureDelete:false,
     willDelete:false,
-    
+
     init: function() {
         this.set('is_authentic_user', false);
     },
@@ -195,7 +200,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 //            if (!isExsinting) {
 //                alert('This Collection is already exsiting!!!');
 //            }
-//        } else 
+//        } else
         if (postOrPut === "create") {
             for (var i = 0; i < this.get("collections").get('length'); i++) {
                 if (this.get("collections").objectAt(i).id === id) {
@@ -249,6 +254,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('editingTime', !this.get('editingTime'));
         }
         this.updateClient();
+        this.get('controllers.application').set('feedback',true);
+        console.log( this.get('controllers.application').get('feedback'));
+
     },
     updateClient: function() {
         var update_profile_record = HubStar.Profile.find(this.get('model.id'));
@@ -302,39 +310,40 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
 
     },
-            
-            
+
+
       deleteSelectedCollection: function()
     {
-
         var message = "Do you wish to delete " + this.get("selectedCollection").get('id') + " ?";
         this.set("message", message);
         this.set('makeSureDelete', true);
 
         if (this.get('willDelete')) {
-            var tempCollection= this.get("selectedCollection");
-           console.log(tempCollection.id);
-           console.log(this.get('model').get('id'));
-           var delInfo=[tempCollection.id, this.get('model').get('id')];
-           console.log(delInfo[0]);
+           var tempCollection= this.get("selectedCollection");
+          var delInfo=[tempCollection.id, this.get('model').get('id')];        
+            requiredBackEnd('collections', 'delete', delInfo, 'POST', function(params) {    
 
-                      
-            requiredBackEnd('collections', 'delete', delInfo, 'POST', function(params) {
-         
+             
+
             });
-
-
+            this.get("collections").removeObject(this.get("selectedCollection"));
+            //HubStar.MasonryCollectionItems.resetContent();
+            $('#masonry_user_container').masonry("reload");
             this.cancelDelete();
         } else {
             this.set('willDelete', true);
         }
+
+//         setTimeout(function() {
+
+//        }, 200);
     },
-           
+
      cancelDelete: function() {
         this.set('willDelete', false);
         this.set('makeSureDelete', false);
-    },     
-            
+    },
+
     updateCollectionInfo: function() {
         var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
         var id = this.checkingValidInput(this.selectedCollection.get('id'));
@@ -463,7 +472,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('followerTag', false);
     },
     selectPartner: function(model) {
-
+   
         this.set('profileSelectionStatus', 'Partners');
         this.get('controllers.profilePartners').getClientId(model);
         this.set('partnerTag', true);
@@ -486,9 +495,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set('profile_country', this.get('country'));
         update_profile_record.set('profile_boost', this.get('boost'));
         update_profile_record.set('profile_domains', this.get('domains'));
-        update_profile_record.set('profile_hero_url', '');
-        update_profile_record.set('profile_pic_url', '');
-        update_profile_record.set('profile_bg_url', '');
+            update_profile_record.set('profile_hero_url', '');
+            update_profile_record.set('profile_pic_url', '');
+          update_profile_record.set('profile_bg_url', '');
         update_profile_record.set('profile_name', this.get('name'));
         update_profile_record.set('profile_package_name', this.get('projectCategoryDropdownContent'));
         update_profile_record.set('owner_contact_bcc_emails', this.get('direct_enquiry_provide_email'));
@@ -535,9 +544,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('isPhotoEditingMode', false);
         this.set('UploadImageMode', mode);
         var data = {"RequireIamgeType": mode};
+            var that = this;
         requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
-            //       console.log(params.height);
-            //            console.log(params.width);
+                
+                 var requiredSize = "Your required image size is " +params.width + "x" +params.height;
+                     that.set('RequiredImageSize', requiredSize);            
         });
     }, profileStyleImageDrop: function(e, name)
     {
@@ -547,26 +558,75 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         getImageWidth(src, function(width, height) {
             that.set('newStyleImageSource', src);
             that.set('newStyleImageName', name);
+                that.set('currentWidth', width);
+                that.set('currentHeight', height);
+
+
+                if(that.get('newStyleImageSource') !== null && that.get('newStyleImageSource') !== "")
+                    {
+                        var size = "Your image size is " + width + "x" + height;
+                        that.set('CurrentImageSize', size);
+                        
+                        
             $('#photoUploadbtn').removeClass();
             $("#photoUploadbtn").toggleClass("new-btn green-btn");
+                    }    
         });
-    }, photoUpload: function() {
+     }, 
+
+   photoUpload: function() {
+       
+       
         if (this.get('newStyleImageSource') !== null && this.get('newStyleImageSource') !== "")
         {
-            this.setTempImage();
+                 var src =this.get('newStyleImageSource');
+                 var maxWidth = 2000;
+                 var maxHeight = 1500;
+                  var that=this;
+                 getImageWidth(src, function(width, height) {    
+                that.set('currentWidth', width);
+                that.set('currentHeight', height);
+                     
+                var data = {"RequireIamgeType": that.get('UploadImageMode')};
+                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {        
+          if( (width >= params.width) && (height>= params.height)){        
+                 ////  console.log(width);
+                 //   console.log(height);
+                //   alert("Successfully!!!!");
+                    that.setTempImage();
+                    
             $('#uploadStyleImg').attr("style", "display:block");
-            var data = {"newStyleImageSource": this.get('newStyleImageSource'),
-                'newStyleImageName': this.get('newStyleImageName'),
-                'mode': this.get('UploadImageMode').replace(" ", "_").toLowerCase(),
-                'id': this.get('model.id')};
-            var that = this;
-            requiredBackEnd('profiles', 'updateStyleImage', data, 'POST', function(params) {
+                   var data1 = {"newStyleImageSource": that.get('newStyleImageSource'),
+                    'newStyleImageName': that.get('newStyleImageName'),
+                    'mode': that.get('UploadImageMode').replace(" ", "_").toLowerCase(),
+                    'id': that.get('model.id')};     
+         //       console.log(data1);
+                requiredBackEnd('profiles', 'updateStyleImage', data1, 'POST', function(params) {
                 $('#uploadStyleImg').attr("style", "display:none");
-                that.set('isPhotoUploadMode', false);
-                that.set('isPhotoEditingMode', true);
+                       that.set('isPhotoEditingMode', true);
+                      that.set('isPhotoUploadMode', false);
                 HubStar.store.save();
+                 
             });
         }
+         
+         else if( width < params.width ||  height < params.height){
+             
+              alert("Please upload image size larger than  " + params.width + "x" + params.height + " !!!");
+               that.set('newStyleImageSource', "");
+             that.set('newStyleImageName', "");
+             that.set('CurrentImageSize', "");
+        $('#photoUploadbtn').removeClass();
+        $("#photoUploadbtn").toggleClass("disabled-btn");
+             }
+             else if(width >maxWidth || height > maxHeight)
+                 {
+                     alert("Small image please!!!!");
+                 }
+     });   
+    }); 
+
+            }      
     },
     setTempImage: function() {
         var model = this.get('model');
@@ -599,6 +659,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     {
         this.set('newStyleImageSource', "");
         this.set('newStyleImageName', "");
+             this.set('CurrentImageSize', "");
         $('#photoUploadbtn').removeClass();
         $("#photoUploadbtn").toggleClass("disabled-btn");
           this.changeSize();

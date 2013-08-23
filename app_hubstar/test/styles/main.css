@@ -7000,6 +7000,9 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
     background-color: rgba(50,50,50,0.4);
     box-shadow: 0 0 10px #fff;
 }
+.masonry_push_down{
+    margin-top: 85px;
+}
 
 .plaform_bar:hover{
     box-shadow: none;
@@ -8319,7 +8322,6 @@ div.loading-visible{
 
 .blurringTextG{
     color:transparent;
-    ;
     font-family:Arial;
     font-size:13px;
     text-decoration:none;
@@ -8743,7 +8745,7 @@ div.loading-visible{
     border: 1px solid #d9d9d9;
     border-radius: 2px;
     -webkit-border-radius: 2px;
-    background-color: #f5f5f5;
+    background-color: #FFF;
     color: #333;
     font-size: 11px;
     font-weight: bold;
@@ -10103,13 +10105,21 @@ div.loading-visible{
 
 .user-board_left{
     background: white;
-    width: 69%;
+    width: 25%;
     display: inline-block;
     vertical-align: top;
-    height: 150px;
+    height: 450px;
     margin-right: 0.5%;
 }
 
+.user-board_right{
+    background: white;
+    width: 74%;
+    height: 450px;
+    display: inline-block;
+    vertical-align: top;
+    overflow: hidden;
+}
 
 .locationandlinks{
     -webkit-font-smoothing: antialiased;
@@ -10118,7 +10128,7 @@ div.loading-visible{
     font-weight: bold;
     bottom: 15px;
     color: #777;
-    font-size: 13px;
+    font-size: 17px;
     position: relative;
     display: block;
     list-style-type: none;
@@ -10174,6 +10184,7 @@ div.loading-visible{
 
 
 .user-stats{
+    padding:0;
     margin:0;
     float: right;
     display: inline-block;
@@ -10246,6 +10257,43 @@ div.loading-visible{
     text-decoration: none;
 }
 
+.user-profilepic-container{
+    width: 180px; 
+    height: 180px; 
+    margin: auto;
+    margin-top: 40px;
+    position: relative;
+    display: block;
+    border: 5px solid #f3f3f3; 
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -o-border-radius:50%;
+    overflow: hidden;
+}
+
+.changeuserprofilepic{
+    opacity: 0;
+    background-color: #000;
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    overflow:hidden;
+}
+
+.user-profilepic-container:hover .changeuserprofilepic{
+    opacity: 0.6;
+}
+
+.changeuserprofilepic > k{
+    font-size: 35px;
+    color: #fff;
+    line-height: 180px;
+    margin: auto;
+    display: block;
+    width: 35px;
+}
+
 .edit-dashboard-btn{
     opacity: 0;
     margin: 10px;
@@ -10258,6 +10306,18 @@ div.loading-visible{
     box-shadow: 0 0 10px #fff;
 }
 
+/*USERPAGE*/
+.user-cover{
+    background:#fff url('../../../images/defaultcover/defaultcover6.jpg') ;
+    height: 150px; 
+    padding: 10px 40px;
+}
+
+.user-cover:hover .edit-dashboard-btn{
+    opacity: 1;
+    box-shadow: 0 0 10px #fff;
+}
+/*USERPAGE*/
 
 .profile-wallpaper{
     background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 85%, rgba(255,255,255,0) 100%); /* FF3.6+ */

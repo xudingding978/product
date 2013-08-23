@@ -17,9 +17,12 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         this.set('content', []);
         var address = document.URL;
         var user_id = address.split("#")[1].split("/")[2];
+       
         this.set('user_id', user_id);
         this.set('title', collection_id);
+       // console.log(collection_id);
         var results = HubStar.Mega.find({RquireType: "personalCollection", user_id: user_id, collection_id: collection_id});
+        
         var that = this;
         results.addObserver('isLoaded', function() {
             if (results.get('isLoaded')) {
@@ -35,11 +38,25 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         this.checkEditingMode();
 
     },
-    selectModelForProfile: function(collection_id,title) {
-
+    selectModelForProfile: function(collection_id,title) {  
         this.set('collection_id', collection_id);
-        this.resetContent();
-        this.set('title', title);
+        this.resetContent();    
+        if(title===undefined)
+        {
+               var arrayUrl;
+               arrayUrl= (document.URL).split("/");
+               var locationUrl=arrayUrl.get("length")-2;
+               var results = HubStar.Collection.find({RquireType: "personalCollection", profile_id: arrayUrl[locationUrl], collection_id: collection_id});
+                var that = this;
+                results.addObserver('isLoaded', function() {                   
+                     if (results.get('isLoaded')) {   
+                        var titleFill = results.objectAt(0).get("title");
+                        that.set('title', titleFill);     
+                        }
+                });
+        }
+        else{this.set('title', title);      
+            }
         this.checkEditingMode();
     }
     ,
@@ -165,7 +182,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         var address = document.URL;
         var owner_id = address.split("#")[1].split("/")[2];
         var title = this.get('collection_id');
-        console.log("mansory");
+        //console.log(title);
         var results = HubStar.Mega.find({RquireType: "collection", "collection_id": title, "owner_profile_id": owner_id});
         var that = this;
         results.addObserver('isLoaded', function() {

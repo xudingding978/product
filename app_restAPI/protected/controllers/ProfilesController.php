@@ -75,13 +75,9 @@ class ProfilesController extends Controller {
             $domain = $this->getDomain();
             $docID = $domain . "/profiles/" . $id;
             $tempMega = $cb->get($docID);
-
             $mega = CJSON::decode($tempMega, true);
-
-            $mega['profile'][0] = $tempProfile;
-            
-            
-            
+            $mega['profile'][0] = $tempProfile;  
+             $mega['profile'][0]['collections']= array();
             if ($cb->set($docID, CJSON::encode($mega))) {
                 $this->sendResponse(204);
             } else {
@@ -95,7 +91,6 @@ class ProfilesController extends Controller {
 
     public function actionRead() {
         try {
-            
             $cb = $this->couchBaseConnection();
             $fileName = $this->getDomain() . $_SERVER['REQUEST_URI'];
             $reponse = $cb->get($fileName);
@@ -141,11 +136,6 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0] = null;
             $oldRecord['profile'][0] = $newRecord;
 
-//            if (isset($payloads_arr['profile']['followers'][0])) {
-//                if (sizeof($payloads_arr['profile']['followers']) > sizeof($oldRecord['profile'][0]['followers'])) {//insert comment
-//                    array_unshift($oldRecord['profile'][0]['followers'], $payloads_arr['profile']['followers'][0]);
-//                }
-//            }
             $oldRecord['profile'][0]['id'] = $id;
             if ($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true))) {
                 $this->sendResponse(204);

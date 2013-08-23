@@ -21,19 +21,22 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
         this.set("model", model);
         this.set('clientID', model.id);
         this.set('partnerID', model.get('profile_partner_ids'));
-        var data = HubStar.Mega.find({RequireType: "partner", profile_partner_ids: this.get('partnerID')});
-        var that = this;
-        data.addObserver('isLoaded', function() {
-            that.checkAuthenticUser();
-            if (data.get('isLoaded')) {
-                for (var i = 0; i < data.get("length"); i++) {
-                    var tempmega = data.objectAt(i);
-                    that.get("content").pushObject(tempmega);
+        if (this.get('partnerID') !== null && this.get('partnerID') !== 'undefined' && this.get('partnerID') !== "") {
+            var data = HubStar.Mega.find({RequireType: "partner", profile_partner_ids: this.get('partnerID')});
+            var that = this;
+            data.addObserver('isLoaded', function() {
+                that.checkAuthenticUser();
+                if (data.get('isLoaded')) {
+                    for (var i = 0; i < data.get("length"); i++) {
+                        var tempmega = data.objectAt(i);
+                        that.get("content").pushObject(tempmega);
+                    }
                 }
-            }
-        });
+            });
+        }
         this.checkAuthenticUser();
-    },
+    }
+    ,
     deletePartner: function(model) {
         var message = "Do you wish to remove this partner ?";
         this.set("message", message);

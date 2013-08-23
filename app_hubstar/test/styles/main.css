@@ -7000,6 +7000,9 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
     background-color: rgba(50,50,50,0.4);
     box-shadow: 0 0 10px #fff;
 }
+.masonry_push_down{
+    margin-top: 85px;
+}
 
 .plaform_bar:hover{
     box-shadow: none;
@@ -10182,6 +10185,7 @@ div.loading-visible{
 
 
 .user-stats{
+    padding:0;
     margin:0;
     float: right;
     display: inline-block;

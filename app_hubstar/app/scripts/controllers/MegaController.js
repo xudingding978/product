@@ -12,6 +12,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     isSelected: false,
     needs: ['application', 'addCollection', 'contact', 'permission'],
     currentUser: null,
+    currentUserProfile: null,
     photo_album_id: null,
     photo_thumb_id: null,
     is_authentic_user: false,
@@ -62,6 +63,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
         this.selectedImage(this.get('selectedPhoto').id);
     },
+
     getInitData: function(megaObject) {
         var photoObj = megaObject.get('photo').objectAt(0);
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));

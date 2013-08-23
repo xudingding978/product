@@ -8,20 +8,21 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
 
 
         var that = this;
-        setTimeout(function() {
+        Ember.run.later(function() {
 
             $('#appfeedback').fadeOut(1000, function() {
 
                 that.set('feedback', false);
             });
-
-            console.log('ffffffffffffffffffffffffff');
+            console.log('aaaaaaaaaaaaaaaaaaa');
         }, 2000);
 
 
 
 
-
+        Ember.run.next(function() {
+            console.log('ssssssssssssssssss');
+        });
 
     },
     statusObserver: function(record) {
@@ -29,13 +30,13 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
         var noError = true;
         record.addObserver("isError", function() {
             if (record.get("isError")) {
-                console.log('isError');
+                console.log('isError:   Yes');
                 that.setFeedback("There is error");
                 noError = false;
             }
             else {
 
-                console.log('isNotError');
+                console.log('isError:  Not');
             }
 
             record.removeObserver("isError");
@@ -44,11 +45,11 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
         if (noError) {
             record.addObserver("isSaving", function() {
                 if (record.get("isSaving")) {
-                    console.log('true');
+                    console.log('isSaving:  true');
                     that.setFeedback("updateSucess");
                 }
                 else {
-                    console.log('false');
+                    console.log('isSaving:   false');
                 }
 
                 record.removeObserver("isSaving");

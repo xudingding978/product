@@ -29,9 +29,15 @@ HubStar.CommentController = Ember.Controller.extend({
             $('#commentBox').attr('style', 'display:none');
             setTimeout(function() {
                 $('#masonry_container').masonry("reload");
-                $('.user_comment_' + localStorage.loginStatus).attr('style', 'display:block');
+              $('.user_comment_' + localStorage.loginStatus).attr('style', 'display:block');
             }, 200);
         }
+    },
+            
+    linkingUser: function(id) {
+            
+            self.location="#/users/"+id;
+
     },
     getCommentsById: function(id)
     {

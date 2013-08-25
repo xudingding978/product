@@ -77,7 +77,11 @@ class ProfilesController extends Controller {
             $tempMega = $cb->get($docID);
             $mega = CJSON::decode($tempMega, true);
             $mega['profile'][0] = $tempProfile;  
+<<<<<<< HEAD
             $mega['profile'][0]['collections']= array();
+=======
+             $mega['profile'][0]['collections']= array();
+>>>>>>> 299599b4c33d26fcaf411d1a6eaefd1e6e928e67
             if ($cb->set($docID, CJSON::encode($mega))) {
                 $this->sendResponse(204);
             } else {
@@ -91,7 +95,6 @@ class ProfilesController extends Controller {
 
     public function actionRead() {
         try {
-            
             $cb = $this->couchBaseConnection();
             $fileName = $this->getDomain() . $_SERVER['REQUEST_URI'];
             $reponse = $cb->get($fileName);
@@ -113,13 +116,16 @@ class ProfilesController extends Controller {
     }
 
     public function actionUpdate() {
+        error_log("update!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
         try {
             $payloads_arr = CJSON::decode(file_get_contents('php://input'));
             $payload_json = CJSON::encode($payloads_arr['profile'], true);
             $newRecord = CJSON::decode($payload_json);
+            error_log(var_export($newRecord,true));
             $cb = $this->couchBaseConnection();
             $oldRecord = CJSON::decode($cb->get($this->getDomain() . $_SERVER['REQUEST_URI']));
+            error_log(var_export($newRecord,true));
             $id = $oldRecord['profile'][0]['id'];
             $oldfollower = $oldRecord['profile'][0]['followers'];
             $collections = $oldRecord['profile'][0]['collections'];
@@ -134,11 +140,6 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0] = null;
             $oldRecord['profile'][0] = $newRecord;
 
-//            if (isset($payloads_arr['profile']['followers'][0])) {
-//                if (sizeof($payloads_arr['profile']['followers']) > sizeof($oldRecord['profile'][0]['followers'])) {//insert comment
-//                    array_unshift($oldRecord['profile'][0]['followers'], $payloads_arr['profile']['followers'][0]);
-//                }
-//            }
             $oldRecord['profile'][0]['id'] = $id;
             if ($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true))) {
                 $this->sendResponse(204);
@@ -209,6 +210,8 @@ class ProfilesController extends Controller {
             $this->sendResponse(500, 'something wrong');
         }
     }
+    public function actionFollow ()
+    {}
 
 }
 

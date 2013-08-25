@@ -138,13 +138,12 @@ class Controller extends CController {
     }
 
     protected function getRequestResult($searchString, $returnType) {
-        
-   
+
+
         $response = "";
         $requireParams = explode('&', $searchString);
         $requireType = $this->getUserInput($requireParams[0]);
         if ($requireType == 'search') {
-
             $region = $this->getUserInput($requireParams[1]);
             $searchString = $this->getUserInput($requireParams[2]);
             $from = $this->getUserInput($requireParams[3]);
@@ -154,7 +153,6 @@ class Controller extends CController {
 
             $upload_Image_ids = $this->getUserInput($requireParams[1]);
             $raw_id = str_replace("test", "", $upload_Image_ids);
-
             $imageIDs = explode('%2C', $raw_id);
             $str_ImageIds = "";
             for ($i = 0; $i < sizeof($imageIDs); $i++) {
@@ -165,16 +163,20 @@ class Controller extends CController {
             }
             $response = $this->QueryStringByIds($returnType, $str_ImageIds, "id");
         } elseif ($requireType == 'collection') {
-            $collection_id =  $this->getUserInput($requireParams[1]) ;
-            $owner_profile_id =   $this->getUserInput($requireParams[2]) ;
+
+            $collection_id = $this->getUserInput($requireParams[1]);
+            $owner_profile_id = $this->getUserInput($requireParams[2]);
+
             $response = $this->performRawSearch($returnType, $collection_id, $owner_profile_id);
         } elseif ($requireType == 'partner') {
             $partner_id_raw = $this->getUserInput($requireParams[1]);
             $partner_id = str_replace("%2C", ",", $partner_id_raw);
             $partnerIds = explode(',', $partner_id);
             $str_partnerIds = "";
+            $domain = $this->getDomain();
+            $trendsUrl = $domain . "/profiles/";
             for ($i = 0; $i < sizeof($partnerIds); $i++) {
-                $str_partnerIds = $str_partnerIds . '"trendsideas.com/profiles/' . $partnerIds[$i] . '"';
+                $str_partnerIds = $str_partnerIds . '"' . $trendsUrl . $partnerIds[$i] . '"';
                 if ($i + 1 < sizeof($partnerIds)) {
                     $str_partnerIds.=',';
                 }
@@ -313,7 +315,7 @@ class Controller extends CController {
         return $results;
     }
 
-        protected function RequireByIds($returnType, $ids, $default_field) {
+    protected function RequireByIds($returnType, $ids, $default_field) {
 
         $request = $this->getElasticSearch();
         $request->from(0)
@@ -322,45 +324,35 @@ class Controller extends CController {
         $header = '{"ids": { "values": [';
         $footer = ']}}';
         $tempRquestIDs = "";
-    
+
 
         $rawRequest = $header . $ids . $footer;
 
-         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
+        $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
         $request->query($termQuery);
         $response = $request->execute();
-        
+
         $results = $this->getReponseResult($response, $returnType);
 
         return $results;
     }
-    
-    
-    
-    protected function performRawSearch($returnType, $collection_id, $owner_profile_id) {
 
+    protected function performRawSearch($returnType, $collection_id, $owner_profile_id) {
 
         $request = $this->getElasticSearch();
         $request->from(0)
                 ->size(100);
-               $must = Sherlock\Sherlock::queryBuilder()->Term()->term($collection_id)
-                ->field('couchbaseDocument.doc.collection_id');
-
-//        $must = Sherlock\Sherlock::queryBuilder()->QueryString()
-//                ->query('"' . $collection_id . '"')
-//                ->default_field('couchbaseDocument.doc.collection_id');
-
+        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query('"'.$collection_id.'"')
+                ->default_field('couchbaseDocument.doc.collection_id');
 
         $must2 = Sherlock\Sherlock::queryBuilder()
-                ->QueryString()->query($owner_profile_id)
+                ->QueryString()->query('"'.$owner_profile_id.'"')
                 ->default_field('couchbaseDocument.doc.owner_id');
 
-
-        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)
-                ->must($must2);
-        error_log($bool->tojson());
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)->
+                must($must2);
         $response = $request->query($bool)->execute();
-        
+
         $results = $this->getReponseResult($response, $returnType);
         return $results;
     }
@@ -393,6 +385,7 @@ class Controller extends CController {
     }
 
     protected function getElasticSearch() {
+
         $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
@@ -403,11 +396,14 @@ class Controller extends CController {
     }
 
     protected function getUserInput($request_string) {
+
         $returnString = null;
         if ($request_string != null || $request_string != "") {
             $temp = explode('=', $request_string);
-            $returnString = $temp[1];
+            $TempString = $temp[1];
+            $returnString = str_replace('-', '\-', $TempString);
         }
+
         return $returnString;
     }
 

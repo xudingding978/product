@@ -54,13 +54,13 @@
         <div class="comment-item">
 
             <div class="comment-position">
-                <a class="profilepic-comment-container" href="#/users/{{unbound commenter_id}}">
+                <a class="profilepic-comment-container" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}}>
                     <img class="profilepic_comment" {{bindAttr src="commenter_profile_pic_url"}} />
                 </a>
                 <div style="">
                     <div class="comment-namentime">
                         <div class="namentime_position">
-                            <a class="comment-username" href="#/users/{{unbound commenter_id}}" >
+                            <a class="comment-username" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}} >
                                 {{name}}  
                             </a>
                             <div class="posttime-container">

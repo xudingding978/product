@@ -79,7 +79,7 @@ class ProfilesController extends Controller {
             $mega['profile'][0] = $tempProfile;  
 
             $mega['profile'][0]['collections']= array();
-            
+
             if ($cb->set($docID, CJSON::encode($mega))) {
                 $this->sendResponse(204);
             } else {

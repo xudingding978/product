@@ -7,7 +7,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
     currentAddPartnerPic: null,
     selectedPartnerPic: "",
     is_authentic_user: false,
-    needs: ['permission'],
+    needs: ['permission', 'applicationFeedback'],
 //        init: function() {
 //         
 //        },
@@ -81,7 +81,8 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
                 this.pushUptoBackend(client_id);
             } else {
                 if (temp.indexOf(client_id) !== -1) {
-                    alert('this partner already in your list');
+                
+                      this.get('controllers.applicationFeedback').statusObserver(null, "this partner already in your list");
                 } else {
                     this.set('partnerID', client_id + "," + temp);
                     this.pushUptoBackend(client_id);
@@ -89,7 +90,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
             }
 
         } else {
-            alert('please input valid url!!!');
+               this.get('controllers.applicationFeedback').statusObserver(null, "please input valid url!!!");
         }
     },
     pushUptoBackend: function(client_id)

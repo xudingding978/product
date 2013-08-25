@@ -25,39 +25,45 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
         });
 
     },
-    statusObserver: function(record) {
+    statusObserver: function(record, infoChecking) {
         var that = this;
         var noError = true;
-        record.addObserver("isError", function() {
-            if (record.get("isError")) {
-                console.log('isError:   Yes');
-                that.setFeedback("There is error");
-                noError = false;
-            }
-            else {
 
-                console.log('isError:  Not');
-            }
+        if (infoChecking !== null)
+        {
+            that.setFeedback(infoChecking);
 
-            record.removeObserver("isError");
-        });
-
-        if (noError) {
-            record.addObserver("isSaving", function() {
-                if (record.get("isSaving")) {
-                    console.log('isSaving:  true');
-                    that.setFeedback("updateSucess");
+        } else {
+            record.addObserver("isError", function() {
+                if (record.get("isError")) {
+                    console.log('isError:   Yes');
+                    that.setFeedback("There is error");
+                    noError = false;
                 }
                 else {
-                    console.log('isSaving:   false');
+
+                    console.log('isError:  Not');
                 }
 
-                record.removeObserver("isSaving");
+                record.removeObserver("isError");
             });
 
+            if (noError) {
+                record.addObserver("isSaving", function() {
+                    if (record.get("isSaving")) {
+                        console.log('isSaving:  true');
+                        that.setFeedback("updateSucess");
+                    }
+                    else {
+                        console.log('isSaving:   false');
+                    }
+
+                    record.removeObserver("isSaving");
+                });
+
+            }
+
         }
-
-
     }
 
 });

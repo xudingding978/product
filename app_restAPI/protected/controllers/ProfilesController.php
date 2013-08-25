@@ -77,6 +77,7 @@ class ProfilesController extends Controller {
             $tempMega = $cb->get($docID);
             $mega = CJSON::decode($tempMega, true);
             $mega['profile'][0] = $tempProfile;  
+            $mega['profile'][0]['collections']= array();
             if ($cb->set($docID, CJSON::encode($mega))) {
                 $this->sendResponse(204);
             } else {
@@ -121,14 +122,14 @@ class ProfilesController extends Controller {
             $oldRecord = CJSON::decode($cb->get($this->getDomain() . $_SERVER['REQUEST_URI']));
             $id = $oldRecord['profile'][0]['id'];
             $oldfollower = $oldRecord['profile'][0]['followers'];
-          //  $collections = $oldRecord['profile'][0]['collections'];
+            $collections = $oldRecord['profile'][0]['collections'];
             $profile_bg_url = $oldRecord['profile'][0]['profile_bg_url'];
             $profile_pic_url = $oldRecord['profile'][0]['profile_pic_url'];
             $profile_hero_url = $oldRecord['profile'][0]['profile_hero_url'];
             $newRecord['profile_hero_url'] = $profile_hero_url;
             $newRecord['profile_bg_url'] = $profile_bg_url;
             $newRecord['profile_pic_url'] = $profile_pic_url;
-           // $newRecord['collections'] = $collections;
+            $newRecord['collections'] = $collections;
              $newRecord['followers'] = $oldfollower;
             $oldRecord['profile'][0] = null;
             $oldRecord['profile'][0] = $newRecord;

@@ -34,10 +34,8 @@ class MegasController extends Controller {
         if ($mega['type'] == "profile") {
             $this->createProfile($mega);
         } elseif ($mega['type'] == "photo") {
-
             $this->createUploadedPhoto($mega);
         }
-
         $this->sendResponse(204, $request_json);
     }
 
@@ -49,7 +47,6 @@ class MegasController extends Controller {
             $docID = $this->getDomain() . "/profiles/" . $id;
             $reponse = $cb->get($docID);
             $reponse = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $reponse . '}';
-
             $this->sendResponse(200, $reponse);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();

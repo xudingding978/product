@@ -62,13 +62,18 @@ HubStar.UserController = Ember.Controller.extend({
     if (this.get('is_click')===false){
       
     this.set('is_click',true);
-       $('.user-board_left').hide();
+    $('#user-board_right_front').hide();
+    $('#user-board_right_back').show(); 
     }
-   else if (this.get('is_click')===true){
-       
- this.set('is_click',false);
- $('.user-board_left').show();
-  }
+   
+    },
+  userDashboardBackButton: function() {
+    if (this.get('is_click')===true){
+         this.set('is_click',false);
+    $('#user-board_right_front').show();
+    $('#user-board_right_back').hide(); 
+   
+    }
     },
  
     getHeroImage: function(id, col) {

@@ -28,44 +28,24 @@
 
     <div class="user-board_right style-box" >
 
-        <div class="user-cover">
-             <div  id="flip-front" class='blue-btn new-btn hint--left hint--rounded edit-dashboard-btn' style="display: block; margin: 10px;position: absolute;top: 0;right: 0;" data-hint="Dashboard"{{action userDashboardButton}}> > 
-
-                 <i class="icon-cogs" ></i>
+       <div class="tabbable">
+            <div class="tabs-left">
+                <ul class="nav nav-tabs easing">
+                    <li class="active" {{action changeSize}}><a href="#tab1" data-toggle="tab">CHANGE COVER</a></li>
+                    <li class="easing" {{action changeSize}}><a href="#tab2" data-toggle="tab">SETTING</a></li>
+                    <li class="easing" {{action changeSize}}><a href="#tab3" data-toggle="tab">SECURITY</a></li>
+                    
+                </ul>
             </div>
+         <div class="tab-content easing">
+                <div class="tab-pane active" id="tab1">
+         </div>
+                <div style="right: 0;margin: 30px auto 0;width: 150px;">
+                        <span class='new-btn blue-btn flip-back'{{action flipFrontBack }}><k class='icon-group'> &nbsp;</k>Back</span>
+                    </div>
+       </div>
 
-            <div style="font-size: 26px;font-weight: bold; line-height: 30px; overflow: hidden; display: inline-block;color: white;position: relative;top: 90px;">{{controller.user.display_name}}</div>
-        </div>
-
-        <div style="height: 250px; padding: 10px 20px;display: inline-block;position: relative;width: 100%;">
-            <div style="font-size:15px;line-height: 20px;margin: 5px 20px;color: #888; overflow: hidden;height: 200px; text-overflow: ellipsis;">{{controller.user.description}}</div>
-        </div>
-
-        <div style="margin: 0 40px; overflow:hidden; width:90%; height:50px;">
-            <ul class="locationandlinks" style="margin-left: -10px;">
-                <li>
-                    <span class="locationIcon"><k class="icon-map-marker"></k></span>
-                    Auckland
-                </li>
-
-                <li class="location_li">
-                    <a href="#" target="_blank">&nbsp <k class="icon-facebook"> </k></a>
-                </li>
-                <li class="location_li">
-                    <a href="#" target="_blank">&nbsp <k class="icon-twitter"> </k></a>
-                </li>
-                <li class="location_li">
-                    <a href="#" target="_blank">&nbsp <k class="icon-google-plus"> </k></a>
-                </li>
-                <li class="location_li">
-                    <a href="#" target="_blank">&nbsp <k class="icon-pinterest"> </k></a>
-                </li>
-                <li class="location_li">
-                    <a href="#" target="_blank">&nbsp <k class="icon-youtube-play"> </k></a>
-                </li>
-
-            </ul>
-        </div>
+        
 
     </div>
 

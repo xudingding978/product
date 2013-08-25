@@ -26,6 +26,8 @@ describe("Platform  bar", function() {
         Ember.run(function() {
             //           controller = HubStar.UserController.create();
 });
+    });
+});
 //describe("profiles Routing ", function() {
 //    beforeEach(function(done) {
 //        Ember.run(function() {
@@ -74,7 +76,7 @@ describe("test user profile flick button", function() {
             thiscontroller.flickButtonClick();
             thiscontroller.get("isEditingMode").should.equal(true);
         });
-
+    });
 
 
 describe("poster picture  testing", function() {

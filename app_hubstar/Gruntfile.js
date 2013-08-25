@@ -164,7 +164,7 @@ module.exports = function(grunt) {
             all: {
                 options: {
                     run: true,
-                    urls: ['http://test.trendsideas.com']
+                    urls: ['http://localhost:<%= connect.options.port %>/index.html']
                 }
             }
         },

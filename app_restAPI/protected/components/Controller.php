@@ -144,7 +144,6 @@ class Controller extends CController {
         $requireParams = explode('&', $searchString);
         $requireType = $this->getUserInput($requireParams[0]);
         if ($requireType == 'search') {
-
             $region = $this->getUserInput($requireParams[1]);
             $searchString = $this->getUserInput($requireParams[2]);
             $from = $this->getUserInput($requireParams[3]);
@@ -154,7 +153,6 @@ class Controller extends CController {
 
             $upload_Image_ids = $this->getUserInput($requireParams[1]);
             $raw_id = str_replace("test", "", $upload_Image_ids);
-
             $imageIDs = explode('%2C', $raw_id);
             $str_ImageIds = "";
             for ($i = 0; $i < sizeof($imageIDs); $i++) {
@@ -165,8 +163,10 @@ class Controller extends CController {
             }
             $response = $this->QueryStringByIds($returnType, $str_ImageIds, "id");
         } elseif ($requireType == 'collection') {
+
             $collection_id = $this->getUserInput($requireParams[1]);
             $owner_profile_id = $this->getUserInput($requireParams[2]);
+
             $response = $this->performRawSearch($returnType, $collection_id, $owner_profile_id);
         } elseif ($requireType == 'partner') {
             $partner_id_raw = $this->getUserInput($requireParams[1]);
@@ -174,13 +174,9 @@ class Controller extends CController {
             $partnerIds = explode(',', $partner_id);
             $str_partnerIds = "";
             $domain = $this->getDomain();
-            $trendsUrl = $domain . "/profiles/" ;
-         
-           
+            $trendsUrl = $domain . "/profiles/";
             for ($i = 0; $i < sizeof($partnerIds); $i++) {
-                $str_partnerIds = $str_partnerIds . '"'.$trendsUrl.$partnerIds[$i].'"';
-              
-                
+                $str_partnerIds = $str_partnerIds . '"' . $trendsUrl . $partnerIds[$i] . '"';
                 if ($i + 1 < sizeof($partnerIds)) {
                     $str_partnerIds.=',';
                 }
@@ -343,25 +339,18 @@ class Controller extends CController {
 
     protected function performRawSearch($returnType, $collection_id, $owner_profile_id) {
 
-
         $request = $this->getElasticSearch();
         $request->from(0)
                 ->size(100);
-        $must = Sherlock\Sherlock::queryBuilder()->Term()->term($collection_id)
-                ->field('couchbaseDocument.doc.collection_id');
-
-//        $must = Sherlock\Sherlock::queryBuilder()->QueryString()
-//                ->query('"' . $collection_id . '"')
-//                ->default_field('couchbaseDocument.doc.collection_id');
-
+        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query('"'.$collection_id.'"')
+                ->default_field('couchbaseDocument.doc.collection_id');
 
         $must2 = Sherlock\Sherlock::queryBuilder()
-                ->QueryString()->query($owner_profile_id)
+                ->QueryString()->query('"'.$owner_profile_id.'"')
                 ->default_field('couchbaseDocument.doc.owner_id');
 
-
-        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)
-                ->must($must2);
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)->
+                must($must2);
         $response = $request->query($bool)->execute();
 
         $results = $this->getReponseResult($response, $returnType);
@@ -397,26 +386,6 @@ class Controller extends CController {
 
     protected function getElasticSearch() {
 
-//        $ch = curl_init('http://localhost:9200/develop/');
-//        curl_setopt($ch, CURLOPT_HEADER, 0);
-//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-//        curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
-//        curl_setopt($ch, CURLOPT_POSTFIELDS, ' {
-//    "mappings" : {
-//            "properties": {
-//                    "couchbaseDocument.doc.collection_id": {
-//                            "type": "string",
-//                            "index": "not_analyzed"
-//                    }
-//            }
-//    }
-//} ');
-//        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//        $tim = curl_exec($ch);
-//
-//           error_log();
-
         $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode(Yii::app()->params['elasticSearchNode']);
@@ -427,11 +396,14 @@ class Controller extends CController {
     }
 
     protected function getUserInput($request_string) {
+
         $returnString = null;
         if ($request_string != null || $request_string != "") {
             $temp = explode('=', $request_string);
-            $returnString = $temp[1];
+            $TempString = $temp[1];
+            $returnString = str_replace('-', '\-', $TempString);
         }
+
         return $returnString;
     }
 

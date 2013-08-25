@@ -5,10 +5,8 @@
 
 
            HubStar.User= DS.Model.extend({
-                identifier: DS.attr('string'),
-                
+                identifier: DS.attr('string'),               
                 active_status: false,
-                
                 profile_url: DS.attr('string'),
                 website_url: DS.attr('string'),
                 photo_url: DS.attr('string'),

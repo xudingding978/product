@@ -9,8 +9,8 @@
             {{#if controller.partnerPage}}
 
             <ul class="user-stats" id="user-stats">
-                <li id="defualt" ><a {{action selectCollection}}> Collections</a></li>
-                <li ><a {{action selectPartner this}}>Partners</a></li>
+                <li id="defualt" ><a {{action selectCollection}}> Collections{{controller.profileCollectionStatistics}}</a></li>
+                <li ><a {{action selectPartner this}}>Partners{{controller.profilePartnerStatistics}}</a></li>
             </ul>
             {{/if}}
 

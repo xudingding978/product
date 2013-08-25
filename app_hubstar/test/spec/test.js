@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-=======
-
 
 //beforeEach(function() {
 //    Ember.run(function() {
@@ -212,5 +209,3 @@ describe("poster photo_url  validation  testing", function() {
     });
 });
 
-
->>>>>>> 299599b4c33d26fcaf411d1a6eaefd1e6e928e67

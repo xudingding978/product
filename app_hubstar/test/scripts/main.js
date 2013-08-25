@@ -3710,8 +3710,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             var delInfo = [tempCollection.id, this.get('model').get('id')];
             requiredBackEnd('collections', 'delete', delInfo, 'POST', function(params) {
 
-
-
             });
             this.get("collections").removeObject(this.get("selectedCollection"));
             //HubStar.MasonryCollectionItems.resetContent();
@@ -3721,9 +3719,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('willDelete', true);
         }
 
-//         setTimeout(function() {
-
-//        }, 200);
     },
     cancelDelete: function() {
         this.set('willDelete', false);
@@ -3818,16 +3813,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 "follower_id": commenter_id, "name": name, "time_stamp": date.toString(), "is_delete": false});
             var profile_id = this.get('model').get('id');
             var followArray = [profile_id, tempComment];
-//            
-//            
-//            console.log(this.get("model").get("followers"));
-//            console.log(tempComment);
+
             this.get("model").get("followers").insertAt(0, tempComment);
-//            console.log(this.get("model").get("followers"));
+
             
             requiredBackEnd('followers', 'createFollower', followArray, 'POST', function() {});
-//            console.log('follow');
-           // HubStar.store.save();
             this.set('follow_status', true);
       }
       else {
@@ -3855,12 +3845,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var isFollow = false;
         var followers = this.get("model").get("followers");
         for (var i = 0; i < followers.get('length'); i++) {
-            var follower_id = followers.objectAt(i).get("follower_id");
-            console.log(follower_id);
-            
+            var follower_id = followers.objectAt(i).get("follower_id");          
             if (follower_id === localStorage.loginStatus)
             {
-                console.log('get into');
                 isFollow = true;
                 break;
             }

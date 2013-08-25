@@ -1297,7 +1297,7 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
     'class': ("search_business"),
     'placeholder': ("Search by your keywords")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("\n\n\n        <a  style=\"right: -35px;\" class=\"cancleIcon\"  href=\"#\" ><i class=\"icon-remove-sign\" ></i></a>\n    </div>\n    <div style=\"margin: auto; width: 200px; top: 450px; position: relative;\"></div>    \n\n    <div class=\"new-btn blue-btn\" style=\"margin: auto; width: 100px; display: block; position: absolute;left: 0;right: 0;top: 310px;\" ");
+  data.buffer.push("\n\n\n        <a  style=\"right: -35px;\" class=\"cancleIcon\"  href=\"#\" ><i class=\"icon-remove-sign\" ></i></a>\n    </div>\n    <div style=\"margin: auto; width: 200px; top: 450px; position: relative;\"></div>    \n\n    <div class=\"new-btn blue-btn\" style=\"margin: auto; width: 100px; display: block; position: absolute;left: 0;right: 0;top: 310px; cursor:pointer;\" ");
   hashContexts = {'on': depth0,'target': depth0};
   hashTypes = {'on': "STRING",'target': "STRING"};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "searching", {hash:{

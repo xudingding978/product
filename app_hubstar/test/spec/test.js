@@ -239,4 +239,3 @@ describe("poster photo_url  validation  testing", function() {
     });
 });
 
-

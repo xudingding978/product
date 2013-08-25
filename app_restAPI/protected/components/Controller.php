@@ -169,7 +169,7 @@ class Controller extends CController {
 
             $response = $this->performRawSearch($returnType, $collection_id, $owner_profile_id);
         } elseif ($requireType == 'partner') {
-            $partner_id_raw = $this->getUserInput($requireParams[1]);
+            $partner_id_raw = $this->getUserInput($requireParams[1], false);
             $partner_id = str_replace("%2C", ",", $partner_id_raw);
             $partnerIds = explode(',', $partner_id);
             $str_partnerIds = "";
@@ -327,9 +327,10 @@ class Controller extends CController {
 
 
         $rawRequest = $header . $ids . $footer;
-
+        error_log('$rawRequest   ' . $rawRequest);
         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
         $request->query($termQuery);
+        $request->tojson();
         $response = $request->execute();
 
         $results = $this->getReponseResult($response, $returnType);
@@ -342,11 +343,11 @@ class Controller extends CController {
         $request = $this->getElasticSearch();
         $request->from(0)
                 ->size(100);
-        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query('"'.$collection_id.'"')
+        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query('"' . $collection_id . '"')
                 ->default_field('couchbaseDocument.doc.collection_id');
 
         $must2 = Sherlock\Sherlock::queryBuilder()
-                ->QueryString()->query('"'.$owner_profile_id.'"')
+                ->QueryString()->query('"' . $owner_profile_id . '"')
                 ->default_field('couchbaseDocument.doc.owner_id');
 
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)->
@@ -395,15 +396,17 @@ class Controller extends CController {
         return $request;
     }
 
-    protected function getUserInput($request_string) {
+    protected function getUserInput($request_string, $isRelaceDash = true) {
 
         $returnString = null;
         if ($request_string != null || $request_string != "") {
             $temp = explode('=', $request_string);
-            $TempString = $temp[1];
-            $returnString = str_replace('-', '\-', $TempString);
+            $returnString = $temp[1];
         }
 
+        if ($isRelaceDash) {
+            $returnString = str_replace('-', '\-', $returnString);
+        }
         return $returnString;
     }
 

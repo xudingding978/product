@@ -25,7 +25,7 @@ describe("Platform  bar", function() {
         }, 600);
         Ember.run(function() {
             //           controller = HubStar.UserController.create();
-        });
+});
     });
 });
 describe("profiles Routing ", function() {
@@ -69,14 +69,14 @@ describe("testing platform side bar searching result", function() {
 describe("test user profile flick button", function() {
     it("test user profile flick button", function() {
         Ember.run(function() {
-            platformBarController = HubStar.PlatformBarController.create();
-            console.log(platformBarController);
+               platformBarController = HubStar.PlatformBarController.create();
+               console.log(platformBarController);
             var thiscontroller = HubStar.UserController.create();
             console.log(thiscontroller);
             thiscontroller.flickButtonClick();
             thiscontroller.get("isEditingMode").should.equal(true);
         });
-    });
+});
 });
 
 describe("poster picture  testing", function() {
@@ -91,7 +91,7 @@ describe("poster picture  testing", function() {
     });
     afterEach(function() {
         route = HubStar.Router.create();
-        route.transitionTo("searchIndex");
+          route.transitionTo("searchIndex");
     });
 });
 
@@ -118,13 +118,13 @@ describe("poster photo_title photo_caption  testing", function() {
 describe("poster photo_url  validation  testing", function() {
     var validation;
     var photo_image_original_url;
-
+    
     beforeEach(function(done) {
-
+        
         $('#masonry_container').find('.box').eq(1).find('.mainfeature-wrapper img').click();
 
         photo_image_original_url = HubStar.Mega.find('2119904211372397730').get('photo').objectAt(0).get('photo_image_original_url');
-
+       
         $("<img>", {
             src: photo_image_original_url,
             error: function() {
@@ -133,8 +133,7 @@ describe("poster photo_url  validation  testing", function() {
             },
             load: function() {
                 validation = true;
-                done();
-            }
+                done();}
         });
     });
 

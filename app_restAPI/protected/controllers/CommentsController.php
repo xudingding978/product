@@ -17,6 +17,7 @@ class CommentsController extends Controller {
     }
 
     public function actionCreate() {
+        error_log("create!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         $request_json = file_get_contents('php://input');
         $newRecord = CJSON::decode($request_json, true);
         $typeAndID = $newRecord['comment']['optional'];
@@ -37,19 +38,19 @@ class CommentsController extends Controller {
     }
 
     public function actionRead() {
-        
+        error_log("read!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     }
 
     public function actionUpdate() {
-        
+        error_log("update!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     }
 
     public function actionDelete() {
-        
+        error_log("delete!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     }
 
     public function actionTest() {
-        
+       
     }
 
 }

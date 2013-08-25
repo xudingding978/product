@@ -84,6 +84,7 @@ function requiredBackEnd(controller,method,para,ajaxType,callback) {
             type: ajaxType,
             data: JSON.stringify(para),
             success: function(feedback) {
+               HubStar.store.save(); 
                callback(feedback);
             }
         });

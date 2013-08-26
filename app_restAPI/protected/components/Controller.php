@@ -253,6 +253,7 @@ class Controller extends CController {
         }
 
         $request->query($bool);
+        error_log($request->tojson());
         $response = $request->execute();
 
         $results = $this->getReponseResult($response, $returnType);

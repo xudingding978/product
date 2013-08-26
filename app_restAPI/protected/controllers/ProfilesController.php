@@ -120,25 +120,42 @@ class ProfilesController extends Controller {
         try {
             $payloads_arr = CJSON::decode(file_get_contents('php://input'));
             $payload_json = CJSON::encode($payloads_arr['profile'], true);
-            $newRecord = CJSON::decode($payload_json);
-            //error_log(var_export($newRecord,true));
+
+
+            $newRecord = CJSON::decode($payload_json);         
             $cb = $this->couchBaseConnection();
             $oldRecord = CJSON::decode($cb->get($this->getDomain() . $_SERVER['REQUEST_URI']));
-            //error_log(var_export($newRecord,true));
+
             $id = $oldRecord['profile'][0]['id'];
+        
+           if(!isset($oldRecord['profile'][0]['followers']))
+           {
+               $oldfollower=array();
+           }
+           else{          
             $oldfollower = $oldRecord['profile'][0]['followers'];
-            $collections = $oldRecord['profile'][0]['collections'];
+           }          
+            if(!isset($oldRecord['profile'][0]['followers']))
+           {
+               $oldCollections=array();
+           }
+           else{          
+            $oldCollections = $oldRecord['profile'][0]['followers'];
+           } 
+         
             $profile_bg_url = $oldRecord['profile'][0]['profile_bg_url'];
             $profile_pic_url = $oldRecord['profile'][0]['profile_pic_url'];
             $profile_hero_url = $oldRecord['profile'][0]['profile_hero_url'];
             $newRecord['profile_hero_url'] = $profile_hero_url;
             $newRecord['profile_bg_url'] = $profile_bg_url;
             $newRecord['profile_pic_url'] = $profile_pic_url;
-            $newRecord['collections'] = $collections;
+
              $newRecord['followers'] = $oldfollower;
+             $newRecord['collections'] = $oldCollections;
+
             $oldRecord['profile'][0] = null;
             $oldRecord['profile'][0] = $newRecord;
-            //error_log("update!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
             
             $oldRecord['owner_title'] = $newRecord['profile_name'];
             //error_log(var_export( $oldRecord['owner_title'],true));
@@ -212,8 +229,7 @@ class ProfilesController extends Controller {
             $this->sendResponse(500, 'something wrong');
         }
     }
-    public function actionFollow ()
-    {}
+
 
 }
 

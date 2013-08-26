@@ -4,7 +4,8 @@ HubStar.ArticleController = Ember.Controller.extend({
     image_no: 1,
     selectedPhoto: null,
     needs: ['application', 'addCollection', 'contact'],
-    init:function(){},
+    init: function() {
+    },
     findSelectedItemIndex: function() {
         content = this.get('content');
         for (var index = 0; index <= content.get('length'); index++) {
@@ -91,6 +92,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         }
     },
     addRelatedData: function(mega) {
+        console.log("aaaaaaaaaaaaaa");
         var collection_id = mega.get("collection_id");
         var owner_profile_id = mega.get("owner_id");
         var isProfileIDExist = this.isParamExist(owner_profile_id);
@@ -152,7 +154,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     closeContact: function() {
         this.set('contact', false);
     }
-, getTest: function() {
+    , getTest: function() {
 
         return "test";
 

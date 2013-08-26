@@ -85,16 +85,18 @@
             //console.log(this.get("emailDestination")+"ssssssssssssssssss");
             tempMega.addObserver('isLoaded', function() {
                 if (tempMega.get('isLoaded')) {
-                    console.log(tempMega);
+                    //console.log(tempMega);
                     that.set("selectedMega", tempMega);
                     that.set("emailDestination", that.get("selectedMega").get("owner_contact_email"));
                     that.set("emaiCCDestination", that.get("selectedMega").get("owner_contact_cc_emails"));
                     idProfile = that.get("selectedMega").get("owner_id");
                     var tempProfile = HubStar.Profile.find(idProfile);
+                    var those = that;
                     tempProfile.addObserver('isLoaded', function() {
                           if (tempProfile.get('isLoaded')) {
-                              
-                              console.log(tempProfile);
+                              those.set(those.get('selectedMega').get('owner_title'),tempProfile.get('owner'));
+                             console.log(tempProfile);
+                              console.log(tempProfile.get('owner'));
                           }
                     });                   
                     //console.log(idProfile);

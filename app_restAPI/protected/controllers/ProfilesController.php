@@ -114,16 +114,16 @@ class ProfilesController extends Controller {
     }
 
     public function actionUpdate() {
-        error_log("update!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        
 
         try {
             $payloads_arr = CJSON::decode(file_get_contents('php://input'));
             $payload_json = CJSON::encode($payloads_arr['profile'], true);
             $newRecord = CJSON::decode($payload_json);
-            error_log(var_export($newRecord,true));
+            //error_log(var_export($newRecord,true));
             $cb = $this->couchBaseConnection();
             $oldRecord = CJSON::decode($cb->get($this->getDomain() . $_SERVER['REQUEST_URI']));
-            error_log(var_export($newRecord,true));
+            //error_log(var_export($newRecord,true));
             $id = $oldRecord['profile'][0]['id'];
             $oldfollower = $oldRecord['profile'][0]['followers'];
             $collections = $oldRecord['profile'][0]['collections'];
@@ -137,7 +137,10 @@ class ProfilesController extends Controller {
              //$newRecord['followers'] = $oldfollower;
             $oldRecord['profile'][0] = null;
             $oldRecord['profile'][0] = $newRecord;
-
+            error_log("update!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            error_log(var_export( $oldRecord,true));
+           // $oldRecord['owner_title'] = $newRecord['profile_name'];
+            
             $oldRecord['profile'][0]['id'] = $id;
             if ($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true))) {
                 $this->sendResponse(204);

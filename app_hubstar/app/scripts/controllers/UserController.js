@@ -12,7 +12,7 @@ HubStar.UserController = Ember.Controller.extend({
     display_name: "",
     userTage: true,
     currentUserID: "",
-    needs: ['photoCreate'],
+    needs: ['photoCreate', 'applicationFeedback'],
     makeSureDelete: false,
     updateOrCreate: true,
     collectionTag: true,
@@ -56,8 +56,8 @@ HubStar.UserController = Ember.Controller.extend({
         this.checkAuthenticUser();
     },
     userDashboardButton: function() {
-    
-    
+
+
 
     },
     getHeroImage: function(id, col) {
@@ -94,7 +94,8 @@ HubStar.UserController = Ember.Controller.extend({
                 }
             }
             if (!isExsinting) {
-                alert('This Collection is already exsiting!!!');
+
+                this.get('controllers.applicationFeedback').statusObserver(null, "This Collection is already exsiting!!!");
             }
         } else if (postOrPut === "create") {
 
@@ -105,7 +106,7 @@ HubStar.UserController = Ember.Controller.extend({
                 }
             }
             if (!isExsinting) {
-                alert('This Collection is already exsiting!!!');
+                this.get('controllers.applicationFeedback').statusObserver(null, "This Collection is already exsiting!!!");
             }
         }
     },

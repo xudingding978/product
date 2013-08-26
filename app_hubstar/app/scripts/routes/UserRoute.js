@@ -1,6 +1,5 @@
 HubStar.UserRoute = Ember.Route.extend({
         setupController: function(controller, model) {
-            console.log("user setup");
             HubStar.set('editingMode', 'user');
             this.controllerFor('application').set('islogin', true);
             this.controllerFor('application').set('popup', false);

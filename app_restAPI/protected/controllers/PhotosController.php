@@ -295,7 +295,7 @@ class PhotosController extends Controller {
                 $new_size['height'] = intval(($photo_size['height'] * $new_size['width']) / $photo_size['width']);
                 break;
             case 'hero':
-                $new_size['width'] = 338;
+                $new_size['width'] = 350;
                 $new_size['height'] = intval(($photo_size['height'] * $new_size['width']) / $photo_size['width']);
                 break;
             case 'original':

@@ -70,7 +70,7 @@
             this.set("displayEmail", this.get("currentUser").get("email"));
            var idProfile;
             var tempMega = HubStar.Mega.find(id);
-            console.log("sssssssssssssssssssssssss");
+           // console.log("sssssssssssssssssssssssss");
             
             this.set("selectedMega", tempMega);
    
@@ -79,12 +79,15 @@
             //console.log(this.get("recieveProfile"));
             
             this.set("emailDestination", this.get("selectedMega").get("owner_contact_email"));
+            console.log(tempMega);
             console.log(this.get("selectedMega").get("owner_contact_email"));
             
             this.set("emaiCCDestination", this.get("selectedMega").get("owner_contact_cc_emails"));
             var that = this;
-            
+//            console.log(this.get("selectedMega"));
+//            console.log( that.get("selectedMega").get("owner_id"));
             tempMega.addObserver('isLoaded', function() {
+                
                 if (tempMega.get('isLoaded')) {
                     //console.log(tempMega);
                     that.set("selectedMega", tempMega);
@@ -97,7 +100,7 @@
                     tempProfile.addObserver('isLoaded', function() {
                           if (tempProfile.get('isLoaded')) {
                              those.get('selectedMega').set('owner_title',tempProfile.get('profile_name'));
-                             console.log(those.get('selectedMega').get('owner_title'));
+                             //console.log(those.get('selectedMega').get('owner_title'));
                              //console.log(tempProfile.get('profile_name'));
                              those.set("emailDestination", tempProfile.get("owner_contact_email"));
                              

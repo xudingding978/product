@@ -114,7 +114,10 @@ class ProfilesController extends Controller {
     }
 
     public function actionUpdate() {
+<<<<<<< HEAD
         
+=======
+>>>>>>> d7a8b62ef6eabb2ecf7c1641e22687b8080f5d59
 
         try {
             $payloads_arr = CJSON::decode(file_get_contents('php://input'));

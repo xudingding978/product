@@ -62,7 +62,7 @@
     bottom: -5px;
     right: 2%;
     z-index: 100000;
-    opacity: 0.6;
+    opacity: 0.9;
 }
 
 #back-top a {
@@ -91,7 +91,7 @@
     margin-bottom: 7px;
     background:  #ddd url(../images/up-arrow.png) no-repeat center center;
     background-size: 45px;
-    opacity: 0.7;
+    opacity: 0.9;
 
 
     /* rounded corners */

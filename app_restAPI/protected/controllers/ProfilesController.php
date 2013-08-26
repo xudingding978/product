@@ -113,7 +113,6 @@ class ProfilesController extends Controller {
     }
 
     public function actionUpdate() {
-        error_log("update!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
         try {
             $payloads_arr = CJSON::decode(file_get_contents('php://input'));
@@ -133,7 +132,7 @@ class ProfilesController extends Controller {
             $newRecord['profile_bg_url'] = $profile_bg_url;
             $newRecord['profile_pic_url'] = $profile_pic_url;
             $newRecord['collections'] = $collections;
-             $newRecord['followers'] = $oldfollower;
+             //$newRecord['followers'] = $oldfollower;
             $oldRecord['profile'][0] = null;
             $oldRecord['profile'][0] = $newRecord;
 

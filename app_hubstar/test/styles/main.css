@@ -10383,6 +10383,38 @@ div.loading-visible{
     background-color: #e3e3e3;
 }
 
+.fresh-message{
+    padding: 10px;
+    font-size: 24px;
+    font-weight: normal;
+    color: #fff;
+    border-top: 1px solid #85aed3;
+    box-shadow: 0 0 20px #999;
+    background: #618fb9 url(../../images/alert-lines.png);
+    height: 50px;
+    width: 100%;
+    top: 45%;
+    position: fixed;
+    text-align: center;
+    z-index: 11;
+}
+
+
+.fresh_succeed{
+    border-top-color: #a4d178;
+    background-color: #8aba56;
+}
+
+.fresh_failed{
+    border-top-color: #fba69c;
+    background-color: #fa8072;
+}
+.fresh_warnning{
+    border-top-color: #f6f0ba;
+    background-color: #d8cf7e;
+}
+
+
 
 
 body {

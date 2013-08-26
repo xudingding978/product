@@ -77,8 +77,9 @@ class ProfilesController extends Controller {
             $tempMega = $cb->get($docID);
             $mega = CJSON::decode($tempMega, true);
             $mega['profile'][0] = $tempProfile;  
-
+           $mega['profile'][0]['followers']= array();
             $mega['profile'][0]['collections']= array();
+             
 
             if ($cb->set($docID, CJSON::encode($mega))) {
                 $this->sendResponse(204);
@@ -114,10 +115,7 @@ class ProfilesController extends Controller {
     }
 
     public function actionUpdate() {
-<<<<<<< HEAD
-        
-=======
->>>>>>> d7a8b62ef6eabb2ecf7c1641e22687b8080f5d59
+
 
         try {
             $payloads_arr = CJSON::decode(file_get_contents('php://input'));
@@ -137,13 +135,13 @@ class ProfilesController extends Controller {
             $newRecord['profile_bg_url'] = $profile_bg_url;
             $newRecord['profile_pic_url'] = $profile_pic_url;
             $newRecord['collections'] = $collections;
-             //$newRecord['followers'] = $oldfollower;
+             $newRecord['followers'] = $oldfollower;
             $oldRecord['profile'][0] = null;
             $oldRecord['profile'][0] = $newRecord;
-            error_log("update!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            error_log(var_export( $oldRecord,true));
-           // $oldRecord['owner_title'] = $newRecord['profile_name'];
+            //error_log("update!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             
+            $oldRecord['owner_title'] = $newRecord['profile_name'];
+            //error_log(var_export( $oldRecord['owner_title'],true));
             $oldRecord['profile'][0]['id'] = $id;
             if ($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true))) {
                 $this->sendResponse(204);

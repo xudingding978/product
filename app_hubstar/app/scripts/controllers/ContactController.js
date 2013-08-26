@@ -68,28 +68,39 @@
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
             this.set("displayName", this.get("currentUser").get("first_name") + " " + this.get("currentUser").get("last_name"));
             this.set("displayEmail", this.get("currentUser").get("email"));
-            //console.log(id);
+           var idProfile;
             var tempMega = HubStar.Mega.find(id);
-       //     var tempProfile= HubStar.Profile.find(id);
             //console.log(tempMega);
-           //this.email_title = this.get('controllers.profile').get('name');
-            //console.log(tempMega);
-            //tempMega.set('owner_title',email_title);
-            this.set("selectedMega", tempMega);
             
+            this.set("selectedMega", tempMega);
+   
             this.set("recieveProfile", this.get("selectedMega").get("id"));
+            
+            //console.log(this.get("recieveProfile"));
+            
             this.set("emailDestination", this.get("selectedMega").get("owner_contact_email"));
+            
             this.set("emaiCCDestination", this.get("selectedMega").get("owner_contact_cc_emails"));
             var that = this;
-
+            //console.log(this.get("emailDestination")+"ssssssssssssssssss");
             tempMega.addObserver('isLoaded', function() {
                 if (tempMega.get('isLoaded')) {
-
+                    console.log(tempMega);
                     that.set("selectedMega", tempMega);
                     that.set("emailDestination", that.get("selectedMega").get("owner_contact_email"));
                     that.set("emaiCCDestination", that.get("selectedMega").get("owner_contact_cc_emails"));
+                    idProfile = that.get("selectedMega").get("owner_id");
+                    var tempProfile = HubStar.Profile.find(idProfile);
+                    tempProfile.addObserver('isLoaded', function() {
+                          if (tempProfile.get('isLoaded')) {
+                              
+                              console.log(tempProfile);
+                          }
+                    });                   
+                    //console.log(idProfile);
                 }
             });
+            
         },
         closeContact: function() {
             var megaController = this.get("controllers.mega");

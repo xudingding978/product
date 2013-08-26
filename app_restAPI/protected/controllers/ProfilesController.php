@@ -76,8 +76,8 @@ class ProfilesController extends Controller {
             $docID = $domain . "/profiles/" . $id;
             $tempMega = $cb->get($docID);
             $mega = CJSON::decode($tempMega, true);
-            $mega['profile'][0] = $tempProfile;  
-            $mega['profile'][0]['collections']= array();
+            $mega['profile'][0] = $tempProfile;
+            $mega['profile'][0]['collections'] = array();
 
             if ($cb->set($docID, CJSON::encode($mega))) {
                 $this->sendResponse(204);
@@ -117,39 +117,38 @@ class ProfilesController extends Controller {
         try {
             $payloads_arr = CJSON::decode(file_get_contents('php://input'));
             $payload_json = CJSON::encode($payloads_arr['profile'], true);
-            $newRecord = CJSON::decode($payload_json);         
+            $newRecord = CJSON::decode($payload_json);
             $cb = $this->couchBaseConnection();
             $oldRecord = CJSON::decode($cb->get($this->getDomain() . $_SERVER['REQUEST_URI']));
-            $id = $oldRecord['profile'][0]['id'];
-        
-           if(!isset($oldRecord['profile'][0]['followers']))
-           {
-               $oldfollower=array();
-           }
-           else{          
-            $oldfollower = $oldRecord['profile'][0]['followers'];
-           }          
-            if(!isset($oldRecord['profile'][0]['followers']))
-           {
-               $oldCollections=array();
-           }
-           else{          
-            $oldCollections = $oldRecord['profile'][0]['followers'];
-           } 
-         
-            $profile_bg_url = $oldRecord['profile'][0]['profile_bg_url'];
-            $profile_pic_url = $oldRecord['profile'][0]['profile_pic_url'];
-            $profile_hero_url = $oldRecord['profile'][0]['profile_hero_url'];
-            $newRecord['profile_hero_url'] = $profile_hero_url;
-            $newRecord['profile_bg_url'] = $profile_bg_url;
-            $newRecord['profile_pic_url'] = $profile_pic_url;
- 
-             $newRecord['followers'] = $oldfollower;
-             $newRecord['collections'] = $oldCollections;
-            $oldRecord['profile'][0] = null;
-            $oldRecord['profile'][0] = $newRecord;
+            $oldRecord['profile'][0]['owner'] = $newRecord['owner'];
+            $oldRecord['profile'][0]['owner_contact_bcc_emails'] = $newRecord['owner_contact_bcc_emails'];
+            $oldRecord['profile'][0]['owner_contact_cc_emails'] = $newRecord['owner_contact_cc_emails'];
+            $oldRecord['profile'][0]['owner_contact_email'] = $newRecord['owner_contact_email'];
+            $oldRecord['profile'][0]['profile_about_us'] = $newRecord['profile_about_us'];
+            $oldRecord['profile'][0]['profile_areas_serviced'] = $newRecord['profile_areas_serviced'];
+            $oldRecord['profile'][0]['profile_boost'] = $newRecord['profile_boost'];
+            $oldRecord['profile'][0]['profile_category'] = $newRecord['profile_category'];
+            $oldRecord['profile'][0]['profile_contact_first_name'] = $newRecord['profile_contact_first_name'];
+            $oldRecord['profile'][0]['profile_contact_last_name'] = $newRecord['profile_contact_last_name'];
+            $oldRecord['profile'][0]['profile_contact_number'] = $newRecord['profile_contact_number'];
+            $oldRecord['profile'][0]['profile_country'] = $newRecord['profile_country'];
+            $oldRecord['profile'][0]['profile_domains'] = $newRecord['profile_domains'];
+            $oldRecord['profile'][0]['profile_country'] = $newRecord['profile_country'];
+            $oldRecord['profile'][0]['profile_editors'] = $newRecord['profile_editors'];
+            $oldRecord['profile'][0]['profile_hours'] = $newRecord['profile_hours'];
+            $oldRecord['profile'][0]['profile_is_active'] = $newRecord['profile_is_active'];
+            $oldRecord['profile'][0]['profile_is_deleted'] = $newRecord['profile_is_deleted'];
+            $oldRecord['profile'][0]['profile_keywords'] = $newRecord['profile_keywords'];
+            $oldRecord['profile'][0]['profile_name'] = $newRecord['profile_name'];
+            $oldRecord['profile'][0]['profile_package_name'] = $newRecord['profile_package_name'];
+            $oldRecord['profile'][0]['profile_partner_ids'] = $newRecord['profile_partner_ids'];
+            $oldRecord['profile'][0]['profile_physical_address'] = $newRecord['profile_physical_address'];
+            $oldRecord['profile'][0]['profile_regoin'] = $newRecord['profile_regoin'];
+            $oldRecord['profile'][0]['profile_website'] = $newRecord['profile_website'];
+            $oldRecord['profile'][0]['profile_website_url'] = $newRecord['profile_website_url'];
 
-            $oldRecord['profile'][0]['id'] = $id;
+            
+            
             if ($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true))) {
                 $this->sendResponse(204);
             }
@@ -219,7 +218,6 @@ class ProfilesController extends Controller {
             $this->sendResponse(500, 'something wrong');
         }
     }
-
 
 }
 

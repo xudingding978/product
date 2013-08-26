@@ -2,20 +2,47 @@
 
 
 
-
 {{#if controller.feedback}}
 
 
-<div id="appfeedback" class="blur_black" />
+<div id="appfeedback" class="blur_black"></div>
+
+{{#if controller.info}}
+
+<div class="fresh-message">
+<k class="icon-info-sign"></k>
+{{controller.status}}
+</div>
+
+{{/if}}
+
+{{#if controller.succeed}}
+
+<div class="fresh-message fresh_succeed">
+<k class="icon-ok-sign"></k>
+{{controller.status}}
+</div>
+
+{{/if}}
+
+{{#if controller.failed}}
+
+<div class="fresh-message fresh_failed">
+<k class="icon-remove-sign"></k>
+{{controller.status}}
+</div>
+
+{{/if}}
 
 
-<h1>{{controller.status}}</h1>
-<<h1>{{controller.status}}</h1>
-<h1>{{controller.status}}</h1>
-<h1>{{controller.status}}</h1>
-<h1>{{controller.status}}</h1>
+{{#if controller.warnning}}
 
+<div class="fresh-message fresh_warnning">
+<k class="icon-exclamation-sign"></k>
+{{controller.status}}
+</div>
 
+{{/if}}
 
 
 

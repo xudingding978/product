@@ -1,5 +1,4 @@
 
-
 //beforeEach(function() {
 //    Ember.run(function() {
 //        HubStar.reset();
@@ -107,6 +106,33 @@ describe("profiles Routing ", function() {
     });
 });
 
+
+describe("profiles Routing ", function() {
+    beforeEach(function(done) {
+        Ember.run(function() {
+            route = HubStar.Router.create();
+            route.transitionTo("profiles");
+            setTimeout(function() {
+                $('.nothingHere').find('ul').eq(0).find('a').click();
+                done();
+            }, 600);
+
+        });
+    });
+    afterEach(function() {
+        Ember.run(function() {
+            route = HubStar.Router.create();
+            route.transitionTo("searchIndex");
+        });
+    });
+    it("Routing", function() {
+        Ember.run(function() {
+            $('#aside_contact').find('tr').eq(1).find('th').eq(0).should.have.text("Category:");
+        });
+    });
+});
+
+
 describe("testing platform side bar searching result", function() {
     it("hover and click topics", function() {
         $('.firstList').find('li').eq(1).find('a').eq(0).click();
@@ -129,6 +155,7 @@ describe("user profies testing", function() {
             //           controller = HubStar.UserController.create();
 
         });
+
     });
     afterEach(function() {
 
@@ -138,6 +165,7 @@ describe("user profies testing", function() {
 
     });
 });
+
 
 
 describe("poster picture  testing", function() {

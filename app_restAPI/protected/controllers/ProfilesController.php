@@ -76,8 +76,10 @@ class ProfilesController extends Controller {
             $docID = $domain . "/profiles/" . $id;
             $tempMega = $cb->get($docID);
             $mega = CJSON::decode($tempMega, true);
-            $mega['profile'][0] = $tempProfile;
-            $mega['profile'][0]['collections'] = array();
+            $mega['profile'][0] = $tempProfile;  
+           $mega['profile'][0]['followers']= array();
+            $mega['profile'][0]['collections']= array();
+             
 
             if ($cb->set($docID, CJSON::encode($mega))) {
                 $this->sendResponse(204);
@@ -113,6 +115,7 @@ class ProfilesController extends Controller {
     }
 
     public function actionUpdate() {
+
 
         try {
             $payloads_arr = CJSON::decode(file_get_contents('php://input'));

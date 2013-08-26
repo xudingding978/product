@@ -14,11 +14,14 @@ HubStar.ContactView = Ember.View.extend({
         });
 
 
-//        this.$().draggable({
-//            cursor: "move",
-//            scroll: true,
-//            scrollSensitivity: 100
-//        });
+        this.$().draggable({
+          cursor: "move",
+           scroll: true,
+         scrollSensitivity: 100
+     });
+
+
+        
 
     }
 });

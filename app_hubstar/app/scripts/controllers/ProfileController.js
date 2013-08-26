@@ -131,8 +131,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.checkAuthenticUser();
         var photoCreateController = this.get('controllers.photoCreate');
         photoCreateController.setMega();
+       this.initStastics(profile);
        
-        this.set("profile_partner_ids",profile.get("profile_partner_ids"));
+    },
+    initStastics:function(profile){
+                 this.set("profile_partner_ids",profile.get("profile_partner_ids"));
         
         if(this.get("profile_partner_ids")!==null){
                if(this.get("profile_partner_ids").length!==0){
@@ -141,11 +144,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         else
             {
-                this.set('profilePartnerStatistics',null);
+                this.set('profilePartnerStatistics',0);
             }
         }
         else{
-            this.set('profilePartnerStatistics',null);
+//            this.set('profilePartnerStatistics',0);
         }
         //this.paternsStatistics();
         this.statstics();
@@ -324,15 +327,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
       statstics: function()
       {
           if(this.get("collections").get("length")!==0){
-           this.set('profileCollectionStatistics',"("+this.get("collections").get("length")+")");}
+           this.set('profileCollectionStatistics',this.get("collections").get("length"));}
        else
            {
-                this.set('profileCollectionStatistics',null);
+                this.set('profileCollectionStatistics',0);
            }
       },
      
      paternsStatistics:function(length){      
-           this.set('profilePartnerStatistics',"("+length+")");
+           this.set('profilePartnerStatistics',length);
      },
 
     deleteSelectedCollection: function()
@@ -381,6 +384,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     editingContactForm: function() {
         var contactController = this.get('controllers.contact');
+        //console.log("sssssssssssssssss");
         contactController.setSelectedMega(this.get('currentUserID'));
         this.set('contactChecking', !this.get('contactChecking'));
     },

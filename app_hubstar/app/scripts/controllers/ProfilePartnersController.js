@@ -10,6 +10,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
 
     needs: ['permission', 'applicationFeedback','profile'],
 
+
     addingPartnerObserver: function() {
         var addProfilePic = this.get('currentAddPartnerPic').split("/profiles/")[1];
         this.set('selectedPartnerPic', HubStar.Profile.find(addProfilePic).get('profile_pic_url'));

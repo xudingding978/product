@@ -70,7 +70,7 @@
             this.set("displayEmail", this.get("currentUser").get("email"));
            var idProfile;
             var tempMega = HubStar.Mega.find(id);
-            //console.log(tempMega);
+            console.log("sssssssssssssssssssssssss");
             
             this.set("selectedMega", tempMega);
    
@@ -79,10 +79,11 @@
             //console.log(this.get("recieveProfile"));
             
             this.set("emailDestination", this.get("selectedMega").get("owner_contact_email"));
+            console.log(this.get("selectedMega").get("owner_contact_email"));
             
             this.set("emaiCCDestination", this.get("selectedMega").get("owner_contact_cc_emails"));
             var that = this;
-            //console.log(this.get("emailDestination")+"ssssssssssssssssss");
+            
             tempMega.addObserver('isLoaded', function() {
                 if (tempMega.get('isLoaded')) {
                     //console.log(tempMega);
@@ -90,13 +91,17 @@
                     that.set("emailDestination", that.get("selectedMega").get("owner_contact_email"));
                     that.set("emaiCCDestination", that.get("selectedMega").get("owner_contact_cc_emails"));
                     idProfile = that.get("selectedMega").get("owner_id");
+                    //console.log(that.get('selectedMega').get('owner_title'));
                     var tempProfile = HubStar.Profile.find(idProfile);
                     var those = that;
                     tempProfile.addObserver('isLoaded', function() {
                           if (tempProfile.get('isLoaded')) {
-                              those.set(those.get('selectedMega').get('owner_title'),tempProfile.get('owner'));
-                             console.log(tempProfile);
-                              console.log(tempProfile.get('owner'));
+                             those.get('selectedMega').set('owner_title',tempProfile.get('profile_name'));
+                             console.log(those.get('selectedMega').get('owner_title'));
+                             //console.log(tempProfile.get('profile_name'));
+                             those.set("emailDestination", tempProfile.get("owner_contact_email"));
+                             
+                             those.set("emaiCCDestination", tempProfile.get("owner_contact_cc_emails"));
                           }
                     });                   
                     //console.log(idProfile);

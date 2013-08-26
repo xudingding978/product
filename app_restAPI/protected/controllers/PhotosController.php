@@ -252,9 +252,9 @@ class PhotosController extends Controller {
         $compressed_photo = $this->compressPhotoData($data_arr['type'], $photo);
         $orig_size['width'] =intval(imagesx($compressed_photo));
         $orig_size['height'] =intval(imagesy($compressed_photo));
-        $thumbnailUrl = $this->savePhotoInTypes($orig_size, "thumbnail", $photo_name, $compressed_photo, $data_arr, $owner_id);
-        $heroUrl = $this->savePhotoInTypes($orig_size, "hero", $photo_name, $compressed_photo, $data_arr, $owner_id);
-        $previewUrl = $this->savePhotoInTypes($orig_size, "preview", $photo_name, $compressed_photo, $data_arr, $owner_id);
+        $thumbnailUrl = $this->savePhotoInTypes($orig_size, "thumbnail", $photo_name, $photo, $data_arr, $owner_id);
+        $heroUrl = $this->savePhotoInTypes($orig_size, "hero", $photo_name, $photo, $data_arr, $owner_id);
+        $previewUrl = $this->savePhotoInTypes($orig_size, "preview", $photo_name, $photo, $data_arr, $owner_id);
         $originalUrl = $this->savePhotoInTypes($orig_size, "original", $photo_name, $compressed_photo, $data_arr, $owner_id);
 
         $mega['object_image_url'] = $heroUrl;
@@ -311,11 +311,10 @@ class PhotosController extends Controller {
     }
 
     public function createNewImage($orig_size, $new_size, $photo, $photo_type) {
-
         // Create new image to display
         $new_photo = imagecreatetruecolor($new_size['width'], $new_size['height']);
         // Create new image with changed dimensions
-        imagecopyresized($new_photo, $photo, 0, 0, 0, 0, $new_size['width'], $new_size['height'], $orig_size['width'], $orig_size['height']);
+        imagecopyresampled($new_photo, $photo, 0, 0, 0, 0, $new_size['width'], $new_size['height'], $orig_size['width'], $orig_size['height']);
         ob_start();
         if ($photo_type == "image/png") {
             imagepng($new_photo);
@@ -328,15 +327,12 @@ class PhotosController extends Controller {
     }
 
     public function photoCreate($mega) {
-
         $mega["id"] = str_replace("test", "", $mega["id"]);
         $docID = $this->getDomain() . "/" . $mega["id"];
         $mega["photo"][0]["id"] = $mega["id"];
         $mega['created'] = $this->getCurrentUTC();
         $mega['updated'] = $this->getCurrentUTC();
-
         $newMega = $this->doPhotoResizing($mega);
-
         $cb = $this->couchBaseConnection();
         if ($cb->add($docID, CJSON::encode($newMega))) {
             $this->sendResponse(204);
@@ -349,11 +345,9 @@ class PhotosController extends Controller {
         $matchs = array();
         preg_match_all('/\:(.*?)\;/', $image_string, $matchs);
         $image_type = $matchs[1][0];
-
         $input_image_string = $this->getInputData($image_type, $image_string);
         $image_data['type'] = $image_type;
         $image_data['data'] = $input_image_string;
-
         return $image_data;
     }
 
@@ -364,7 +358,6 @@ class PhotosController extends Controller {
         } elseif ($type == "image/jpeg") {
             imagejpeg($image, null, 80);
         }
-
         return $image;
     }
 

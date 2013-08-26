@@ -114,7 +114,6 @@ class ProfilesController extends Controller {
     }
 
     public function actionUpdate() {
-        error_log("update!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
         try {
             $payloads_arr = CJSON::decode(file_get_contents('php://input'));

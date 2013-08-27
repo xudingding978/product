@@ -106,7 +106,6 @@ describe("profiles Routing ", function() {
     });
 });
 
-
 describe("profiles Routing ", function() {
     beforeEach(function(done) {
         Ember.run(function() {
@@ -157,15 +156,7 @@ describe("user profies testing", function() {
         });
 
     });
-    afterEach(function() {
-
-    });
-    it("user controller ", function() {
-        //     Ember.run(function() {
-
-    });
 });
-
 
 
 describe("poster picture  testing", function() {

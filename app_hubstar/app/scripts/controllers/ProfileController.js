@@ -626,8 +626,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
                 var data = {"RequireIamgeType": that.get('UploadImageMode')};
                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
-                    if ((width >= params.width) && (height >= params.height)) {
-
+                    if ((width >= params.width) &&  (height >= params.height) && (width < maxWidth) && (height < maxHeight) )
+                        {
                         that.setTempImage();
 
                         $('#uploadStyleImg').attr("style", "display:block");
@@ -641,15 +641,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             that.set('isPhotoEditingMode', true);
                             that.set('isPhotoUploadMode', false);
                             HubStar.store.save();
-
-
                         });
 
                     }
 
                     else if (width < params.width || height < params.height) {
+                        
+                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + params.width + "x" + params.height + " !!!");
 
-                        alert("Please upload image size larger than  " + params.width + "x" + params.height + " !!!");
+                       
                         that.set('newStyleImageSource', "");
                         that.set('newStyleImageName', "");
                         that.set('CurrentImageSize', "");
@@ -658,7 +658,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                     }
                     else if (width > maxWidth || height > maxHeight)
                     {
-                        alert("Small image please!!!!");
+                         that.get('controllers.applicationFeedback').statusObserver(null,"Please upload image size smaller than  " + maxWidth + "x" + maxHeight + " !!!");
                     }
                 });
             });

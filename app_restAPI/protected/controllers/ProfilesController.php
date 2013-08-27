@@ -149,6 +149,7 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_regoin'] = $newRecord['profile_regoin'];
             $oldRecord['profile'][0]['profile_website'] = $newRecord['profile_website'];
             $oldRecord['profile'][0]['profile_website_url'] = $newRecord['profile_website_url'];
+            $oldRecord['profile'][0]['profile_cover_text'] = $newRecord['profile_cover_text'];
 
             
             

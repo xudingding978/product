@@ -30,6 +30,7 @@
 
 <div class="masonry-object_profilepic" style="cursor:pointer;" {{action toProfilePage this}}>
      <img class="easing" {{bindAttr src="profile_pic_url"}} />   
+
 </div>
 
 
@@ -82,7 +83,7 @@
 
         <div class="more_detail" {{bindAttr id="id"}} >
 
-            {{profile_about_us}}
+            {{{profile_about_us}}}
         </div>
 
         <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>

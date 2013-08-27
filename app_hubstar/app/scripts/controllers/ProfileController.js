@@ -131,8 +131,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.checkAuthenticUser();
         var photoCreateController = this.get('controllers.photoCreate');
         photoCreateController.setMega();
+       this.initStastics(profile);
        
-        this.set("profile_partner_ids",profile.get("profile_partner_ids"));
+    },
+    initStastics:function(profile){
+                 this.set("profile_partner_ids",profile.get("profile_partner_ids"));
         
         if(this.get("profile_partner_ids")!==null){
                if(this.get("profile_partner_ids").length!==0){
@@ -141,11 +144,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         else
             {
-                this.set('profilePartnerStatistics',null);
+                this.set('profilePartnerStatistics',0);
             }
         }
         else{
-            this.set('profilePartnerStatistics',null);
+//            this.set('profilePartnerStatistics',0);
         }
         //this.paternsStatistics();
         this.statstics();
@@ -277,13 +280,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         this.saveUpdate();
     },
-//    updateClient: function() {
-//        var update_profile_record = HubStar.Profile.find(this.get('model.id'));
-//        HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
-//        console.log('updateClient');
-//        HubStar.store.save();
-//        this.get('controllers.applicationFeedback').statusObserver(update_profile_record, null);
-//    },
+
     no: function(checkingInfo) {
         if (checkingInfo === "profileName") {
             this.set('model.profile_name', profile_record);
@@ -325,22 +322,20 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 this.set("selectedCollection", thisCollection);
             }
         }
-
-
     },
 
       statstics: function()
       {
           if(this.get("collections").get("length")!==0){
-           this.set('profileCollectionStatistics',"("+this.get("collections").get("length")+")");}
+           this.set('profileCollectionStatistics',this.get("collections").get("length"));}
        else
            {
-                this.set('profileCollectionStatistics',null);
+                this.set('profileCollectionStatistics',0);
            }
       },
      
      paternsStatistics:function(length){      
-           this.set('profilePartnerStatistics',"("+length+")");
+           this.set('profilePartnerStatistics',length);
      },
 
     deleteSelectedCollection: function()
@@ -348,7 +343,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var message = "Do you wish to delete " + this.get("selectedCollection").get('id') + " ?";
         this.set("message", message);
         this.set('makeSureDelete', true);
-
         if (this.get('willDelete')) {
             var tempCollection = this.get("selectedCollection");
             var delInfo = [tempCollection.id, this.get('model').get('id')];
@@ -369,8 +363,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     updateCollectionInfo: function() {
         var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
         var id = this.checkingValidInput(this.selectedCollection.get('id'));
-
-
         var title = this.get("selectedCollection").get("title");
         this.get("selectedCollection").set("title", title);
         this.set("selectedTitle", title);
@@ -392,6 +384,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     editingContactForm: function() {
         var contactController = this.get('controllers.contact');
+        //console.log("sssssssssssssssss");
         contactController.setSelectedMega(this.get('currentUserID'));
         this.set('contactChecking', !this.get('contactChecking'));
     },
@@ -409,7 +402,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if ($('.picture').val() !== "") {
             user.set("profile_pic_url", $('.picture').val());
         }
-        this.updateClient();
+        this.saveUpdate();
         this.toggleUpload();
     },
     checkAuthenticUser: function() {
@@ -546,7 +539,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set('profile_hero_url', '');
         update_profile_record.set('profile_pic_url', '');
         update_profile_record.set('profile_bg_url', '');
-        update_profile_record.set('profile_name', this.get('name'));
+
+
         update_profile_record.set('profile_package_name', this.get('projectCategoryDropdownContent'));
         update_profile_record.set('owner_contact_bcc_emails', this.get('direct_enquiry_provide_email'));
         update_profile_record.set('owner_contact_cc_emails', this.get('secondary_email'));
@@ -635,8 +629,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
                 var data = {"RequireIamgeType": that.get('UploadImageMode')};
                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
-                    if ((width >= params.width) && (height >= params.height)) {
-
+                    if ((width >= params.width) &&  (height >= params.height) && (width < maxWidth) && (height < maxHeight) )
+                        {
                         that.setTempImage();
 
                         $('#uploadStyleImg').attr("style", "display:block");
@@ -650,15 +644,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             that.set('isPhotoEditingMode', true);
                             that.set('isPhotoUploadMode', false);
                             HubStar.store.save();
-
-
                         });
 
                     }
 
                     else if (width < params.width || height < params.height) {
+                        
+                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + params.width + "x" + params.height + " !!!");
 
-                        alert("Please upload image size larger than  " + params.width + "x" + params.height + " !!!");
+                       
                         that.set('newStyleImageSource', "");
                         that.set('newStyleImageName', "");
                         that.set('CurrentImageSize', "");
@@ -667,7 +661,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                     }
                     else if (width > maxWidth || height > maxHeight)
                     {
-                        alert("Small image please!!!!");
+                         that.get('controllers.applicationFeedback').statusObserver(null,"Please upload image size smaller than  " + maxWidth + "x" + maxHeight + " !!!");
                     }
                 });
             });

@@ -728,7 +728,7 @@
     text-overflow: ellipsis;
 }
 .more_detail{
-    height: 20px;
+    height: 22px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -1353,12 +1353,6 @@
 
 
 
-
-
-
-
-
-
 .article-title{
     font-size: 18px;
     font-weight: bold;
@@ -1374,6 +1368,7 @@
 .comment-frame{
     width: 87%;
     margin: 0 auto;
+   
 }
 
 
@@ -1464,7 +1459,7 @@
 }
 
 .namentime_position{
-    margin-right: 100px;
+    margin-right: 70px;
 }
 
 .comment-username{

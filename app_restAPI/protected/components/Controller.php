@@ -197,7 +197,7 @@ class Controller extends CController {
             $response = $this->getSearchResultsTotal($returnType, $region, $searchString);
         } elseif ($requireType == 'personalCollection') {
             $userid = $this->getUserInput($requireParams[1]);
-            $collection_id = $this->getUserInput($requireParams[2]);
+            $collection_id = $this->getUserInput($requireParams[2],false);
             $requestArray = array();
             $requestStringOne = 'couchbaseDocument.doc.user.id=' . $userid;
             array_push($requestArray, $requestStringOne);
@@ -253,7 +253,7 @@ class Controller extends CController {
         }
 
         $request->query($bool);
-        error_log($request->tojson());
+
         $response = $request->execute();
 
         $results = $this->getReponseResult($response, $returnType);
@@ -328,7 +328,7 @@ class Controller extends CController {
 
 
         $rawRequest = $header . $ids . $footer;
-        error_log('$rawRequest   ' . $rawRequest);
+    
         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
         $request->query($termQuery);
         $request->tojson();
@@ -428,7 +428,9 @@ class Controller extends CController {
     }
 
     protected function getCollections($collections, $collection_id, $returnType) {
+
         $request_ids = $this->getSelectedCollectionIds($collections, $collection_id);
+        error_log($request_ids);
         $id_arr = explode(',', $request_ids);
         $header = '{"ids": { "values": [';
         $footer = ']}}';

@@ -101,19 +101,22 @@ HubStar.UserController = Ember.Controller.extend({
     },
     checkingIdisExsinting: function(id, postOrPut) {
 
-        if (postOrPut === "update") {
-            for (var i = 0; i < this.get("temp").get('length'); i++) {
+//        if (postOrPut === "update") {
+//            for (var i = 0; i < this.get("temp").get('length'); i++) {
+//
+//                if (this.get("temp").objectAt(i) === id) {
+//
+//                    isExsinting = false;
+//                }
+//            }
+//            if (!isExsinting) {
+//
+//                this.get('controllers.applicationFeedback').statusObserver(null, "This Collection is already exsiting!!!");
+//            }
+//        } else
 
-                if (this.get("temp").objectAt(i) === id) {
 
-                    isExsinting = false;
-                }
-            }
-            if (!isExsinting) {
-
-                this.get('controllers.applicationFeedback').statusObserver(null, "This Collection is already exsiting!!!");
-            }
-        } else if (postOrPut === "create") {
+        if (postOrPut === "create") {
 
             for (var i = 0; i < this.get("collections").get('length'); i++) {
                 if (this.get("collections").objectAt(i).id === id) {
@@ -129,29 +132,46 @@ HubStar.UserController = Ember.Controller.extend({
     submit: function()
     {
 
-        if (this.selectedCollection.get('id') !== null && this.selectedCollection.get('id') !== "" && this.selectedCollection.get('id') !== undefined) {
-            var id = this.checkingValidInput(this.selectedCollection.get('id'));
-            this.checkingIdisExsinting(id, "create");
-            if (isExsinting) {
-                this.selectedCollection.set('id', id);
-                this.selectedCollection.set('title', id);
+        var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
+        var id = this.checkingValidInput(this.selectedCollection.get('title'));
+        this.checkingIdisExsinting(id, "create");
+
+        if (isExsinting) {
+            var validID = this.checkingValidInput(id);
+            var checkingCharater = this.specialCharactersChecking(validID);
+            if (checkingCharater) {
+                this.selectedCollection.set('id', validID.toLowerCase());
+                this.selectedCollection.set('title', this.selectedCollection.get('title'));
+                this.selectedCollection.set('cover', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png");
+                if (this.selectedCollection.get('desc') !== null && this.selectedCollection.get('desc') !== "") {
+                    this.selectedCollection.set('desc', desc);
+                } else {
+                    this.selectedCollection.set('desc', "Add a short description to your Collection");
+                }
                 this.get("collections").insertAt(0, this.selectedCollection);
-                
-                this.get("collections").store.commit();
-                console.log(this.selectedCollection);
+                HubStar.store.commit();
                 $(".Targeting_Object_front").attr("style", "display:inline-block");
                 $(" #uploadArea").attr('style', "display:none");
                 $(" #uploadObject").attr('style', "display:block");
             } else {
-                isExsinting = true;
+                this.get('controllers.applicationFeedback').statusObserver(null, "invalide characters...");
             }
+
+        } else {
+            isExsinting = true;
         }
     },
+    specialCharactersChecking: function(str) {
+
+        var re = /^[a-zA-Z-][a-zA-Z0-9-]*$/;
+        return re.test(str);
+    },
     checkingValidInput: function(title) {
-
-        if (title.indexOf(" ") !== -1) {
-
-            title = title.split(' ').join('-');
+        if (title === null || title === "") {
+        } else {
+            if (title.indexOf(" ") !== -1) {
+                title = title.split(' ').join('-');
+            }
         }
         return title;
     },
@@ -219,18 +239,16 @@ HubStar.UserController = Ember.Controller.extend({
     {
 
         var id = this.checkingValidInput(this.selectedCollection.get('id'));
-        this.checkingIdisExsinting(id, "update");
-        if (isExsinting) {
-            var title = this.get("selectedCollection").get("id");
-            this.get("selectedCollection").set("title", title);
-            this.set("selectedTitle", title);
-            this.get("selectedCollection").store.save();
-            $(".Targeting_Object_front").attr("style", "display:inline-block");
-            $(" #uploadArea").attr('style', "display:none");
-            $(" #uploadObject").attr('style', "display:block");
-        } else {
-            isExsinting = true;
-        }
+
+
+        var title = this.get("selectedCollection").get("title");
+        this.get("selectedCollection").set("title", title);
+        this.set("selectedTitle", title);
+        this.get("selectedCollection").store.save();
+        $(".Targeting_Object_front").attr("style", "display:inline-block");
+        $(" #uploadArea").attr('style', "display:none");
+        $(" #uploadObject").attr('style', "display:block");
+
     },
     setSelectedCollection: function(id) {
         for (var i = 0; i < this.get("collections").get("length"); i++) {

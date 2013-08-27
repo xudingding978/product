@@ -611,7 +611,7 @@ sub {
 }
 
 img {
-    width: auto\9;
+    width: auto;
     height: auto;
     max-width: 100%;
     vertical-align: middle;
@@ -7541,14 +7541,14 @@ div.search-loading-invisible{
 
 .checkbox-columncontainer{
     display: inline-block;
-    width: 400px;
+    width: 420px;
     text-align: left;
 }
 
 .checkbox-container{
     padding: 2px 8px;
     float: left;
-    width: 199px;
+    width: 210px;
 }
 
 /*CSS Checkboxes*/
@@ -9156,7 +9156,7 @@ div.loading-visible{
     text-overflow: ellipsis;
 }
 .more_detail{
-    height: 20px;
+    height: 22px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -9781,12 +9781,6 @@ div.loading-visible{
 
 
 
-
-
-
-
-
-
 .article-title{
     font-size: 18px;
     font-weight: bold;
@@ -9802,6 +9796,7 @@ div.loading-visible{
 .comment-frame{
     width: 87%;
     margin: 0 auto;
+   
 }
 
 
@@ -9892,7 +9887,7 @@ div.loading-visible{
 }
 
 .namentime_position{
-    margin-right: 100px;
+    margin-right: 70px;
 }
 
 .comment-username{
@@ -11900,7 +11895,7 @@ div.form .rememberMe label
     bottom: -5px;
     right: 2%;
     z-index: 100000;
-    opacity: 0.6;
+    opacity: 0.9;
 }
 
 #back-top a {
@@ -11929,7 +11924,7 @@ div.form .rememberMe label
     margin-bottom: 7px;
     background:  #ddd url(../images/up-arrow.png) no-repeat center center;
     background-size: 45px;
-    opacity: 0.7;
+    opacity: 0.9;
 
 
     /* rounded corners */

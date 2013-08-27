@@ -7,12 +7,9 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
     currentAddPartnerPic: null,
     selectedPartnerPic: "",
     is_authentic_user: false,
-    needs: ['permission'],
-//        init: function() {
-//         
-//        },
-    addingPartnerObserver: function() {
 
+    needs: ['permission', 'applicationFeedback','profile'],
+    addingPartnerObserver: function() {
         var addProfilePic = this.get('currentAddPartnerPic').split("/profiles/")[1];
         this.set('selectedPartnerPic', HubStar.Profile.find(addProfilePic).get('profile_pic_url'));
     }.observes('currentAddPartnerPic'),
@@ -31,9 +28,10 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
                         var tempmega = data.objectAt(i);
                         that.get("content").pushObject(tempmega);
                     }
+                    //that.get('controllers.profile').statstics();
                 }
-            });
-        }
+            });      
+        }    
         this.checkAuthenticUser();
     }
     ,
@@ -49,12 +47,16 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
             profileOwner.set('profile_partner_ids', this.get('partnerID'));
             this.removePartnerObject(HubStar.get('data').id);
             HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, profileOwner);
+           
+            this.get('controllers.profile').paternsStatistics(this.get('content').get("length"));
+            
             this.cancelDelete();
         } else {
             this.set('willDelete', true);
             HubStar.set('data', model);
         }
     },
+    
     removePartnerObject: function(partner_id)
     {
         var data = this.get('content');
@@ -81,15 +83,18 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
                 this.pushUptoBackend(client_id);
             } else {
                 if (temp.indexOf(client_id) !== -1) {
-                    alert('this partner already in your list');
+                
+                      this.get('controllers.applicationFeedback').statusObserver(null, "this partner already in your list");
                 } else {
                     this.set('partnerID', client_id + "," + temp);
                     this.pushUptoBackend(client_id);
                 }
             }
-
+            
+             this.get('controllers.profile').paternsStatistics(this.get('content').get("length"));
+             
         } else {
-            alert('please input valid url!!!');
+               this.get('controllers.applicationFeedback').statusObserver(null, "please input valid url!!!");
         }
     },
     pushUptoBackend: function(client_id)

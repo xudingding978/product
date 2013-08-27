@@ -3,6 +3,10 @@
 HubStar.ApplicationFeedbackController = Ember.Controller.extend({
     needs: ['application'],
     setFeedback: function(status) {
+
+
+
+
         this.set('status', status);
         this.set('feedback', true);
 
@@ -15,7 +19,7 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
                 that.set('feedback', false);
             });
             console.log('aaaaaaaaaaaaaaaaaaa');
-        }, 2000);
+        }, 1000);
 
 
 
@@ -25,39 +29,60 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
         });
 
     },
-    statusObserver: function(record) {
+    statusObserver: function(record, infoChecking) {
         var that = this;
         var noError = true;
-        record.addObserver("isError", function() {
-            if (record.get("isError")) {
-                console.log('isError:   Yes');
-                that.setFeedback("There is error");
-                noError = false;
-            }
-            else {
 
-                console.log('isError:  Not');
-            }
+        if (infoChecking !== null)
+        {
+            that.set("info", false);
+            that.set("succeed", false);
+            that.set("warnning", true);
+            that.set("failed", false);
+            that.setFeedback(infoChecking);
 
-            record.removeObserver("isError");
-        });
 
-        if (noError) {
-            record.addObserver("isSaving", function() {
-                if (record.get("isSaving")) {
-                    console.log('isSaving:  true');
-                    that.setFeedback("updateSucess");
+        } else {
+            record.addObserver("isError", function() {
+                if (record.get("isError")) {
+                    console.log('isError:   Yes');
+                    that.set("info", false);
+                    that.set("succeed", false);
+                    that.set("warnning", false);
+                    that.set("failed", true);
+                    that.setFeedback("There is error");
+
+                    noError = false;
                 }
                 else {
-                    console.log('isSaving:   false');
+
+                    console.log('isError:  Not');
                 }
 
-                record.removeObserver("isSaving");
+                record.removeObserver("isError");
             });
 
+            if (noError) {
+                record.addObserver("isSaving", function() {
+                    if (record.get("isSaving")) {
+                        console.log('isSaving:  true');
+                        that.set("info", false);
+                        that.set("succeed", true);
+                        that.set("warnning", false);
+                        that.set("failed", false);
+                        that.setFeedback("updateSucess");
+
+                    }
+                    else {
+                        console.log('isSaving:   false');
+                    }
+
+                    record.removeObserver("isSaving");
+                });
+
+            }
+
         }
-
-
     }
 
 });

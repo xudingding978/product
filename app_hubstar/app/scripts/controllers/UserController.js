@@ -13,7 +13,7 @@ HubStar.UserController = Ember.Controller.extend({
     display_name: "",
     userTage: true,
     currentUserID: "",
-    needs: ['photoCreate'],
+    needs: ['photoCreate', 'applicationFeedback'],
     makeSureDelete: false,
     updateOrCreate: true,
     collectionTag: true,
@@ -110,7 +110,8 @@ HubStar.UserController = Ember.Controller.extend({
                 }
             }
             if (!isExsinting) {
-                alert('This Collection is already exsiting!!!');
+
+                this.get('controllers.applicationFeedback').statusObserver(null, "This Collection is already exsiting!!!");
             }
         } else if (postOrPut === "create") {
 
@@ -121,12 +122,13 @@ HubStar.UserController = Ember.Controller.extend({
                 }
             }
             if (!isExsinting) {
-                alert('This Collection is already exsiting!!!');
+                this.get('controllers.applicationFeedback').statusObserver(null, "This Collection is already exsiting!!!");
             }
         }
     },
     submit: function()
     {
+
         if (this.selectedCollection.get('id') !== null && this.selectedCollection.get('id') !== "" && this.selectedCollection.get('id') !== undefined) {
             var id = this.checkingValidInput(this.selectedCollection.get('id'));
             this.checkingIdisExsinting(id, "create");
@@ -134,7 +136,9 @@ HubStar.UserController = Ember.Controller.extend({
                 this.selectedCollection.set('id', id);
                 this.selectedCollection.set('title', id);
                 this.get("collections").insertAt(0, this.selectedCollection);
+                
                 this.get("collections").store.commit();
+                console.log(this.selectedCollection);
                 $(".Targeting_Object_front").attr("style", "display:inline-block");
                 $(" #uploadArea").attr('style', "display:none");
                 $(" #uploadObject").attr('style', "display:block");

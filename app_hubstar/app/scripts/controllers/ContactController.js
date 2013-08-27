@@ -79,8 +79,8 @@
             //console.log(this.get("recieveProfile"));
             
             this.set("emailDestination", this.get("selectedMega").get("owner_contact_email"));
-            console.log(tempMega);
-            console.log(this.get("selectedMega").get("owner_contact_email"));
+            //console.log(tempMega);
+            //console.log(this.get("selectedMega").get("owner_contact_email"));
             
             this.set("emaiCCDestination", this.get("selectedMega").get("owner_contact_cc_emails"));
             var that = this;

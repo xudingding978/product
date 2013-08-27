@@ -13,12 +13,28 @@ class MegasController extends Controller {
 
     public function actionIndex() {
         try {
-
             $temp = explode("?", $_SERVER['REQUEST_URI']);
             $request_string = $temp [sizeof($temp) - 1];
             $response = "";
-
+            
             if (sizeof($temp) > 1) {
+                $requireParams = explode('&', $request_string);
+                if ($this->getUserInput($requireParams[0]) == "photos") {                                //reload photo page, get information from couchbase, form request string;
+                    $photoID= $this ->getUserInput($requireParams[1]);
+                     $cb = $this->couchBaseConnection();
+                    $docID = $this->getDomain() . "/" . $photoID;
+                    $tempRecord = $cb->get($docID);
+                    $record =  CJSON::decode($tempRecord, true);
+                    $request_string= "RequireType=collection&collection_id=" . $record["collection_id"] . "&owner_profile_id=" . $record["owner_id"];
+                } elseif ($this->getUserInput($requireParams[0]) == "articles") {                       //reload article page, get information from couchbase, form request string;
+                    $articleID= $this ->getUserInput($requireParams[1]);
+                     $cb = $this->couchBaseConnection();
+                    $docID = $this->getDomain() . "/" . $articleID;
+                    $tempRecord = $cb->get($docID);
+                    $record =  CJSON::decode($tempRecord, true);
+                    $request_string= "RequireType=articleRelatedImage&collection_id=" . $record["collection_id"] . "&owner_profile_id=" . $record["owner_id"];
+                }
+                
                 $response = $this->getRequestResult($request_string, self::JSON_RESPONSE_ROOT_PLURAL);
             }
             $this->sendResponse(200, $response);

@@ -140,7 +140,7 @@ class Controller extends CController {
     protected function getRequestResult($searchString, $returnType) {
 
 
-        $response = "";
+        $response = "";        
         $requireParams = explode('&', $searchString);
         $requireType = $this->getUserInput($requireParams[0]);
         if ($requireType == 'search') {
@@ -354,7 +354,7 @@ class Controller extends CController {
                 must($must2);
         $response = $request->query($bool)->execute();
 
-        $results = $this->getReponseResult($response, $returnType);
+        $results = $this->getReponseResult($response, $returnType);        
         return $results;
     }
 

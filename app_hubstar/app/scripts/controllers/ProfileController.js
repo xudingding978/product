@@ -144,11 +144,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         else
             {
-                this.set('profilePartnerStatistics',0);
+                this.set('profilePartnerStatistics',0);                
             }
         }
-        else{
-//            this.set('profilePartnerStatistics',0);
+        else{   
+            this.set('profilePartnerStatistics',0);
         }
         //this.paternsStatistics();
         this.statstics();
@@ -346,6 +346,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if (this.get('willDelete')) {
             var tempCollection = this.get("selectedCollection");
             var delInfo = [tempCollection.id, this.get('model').get('id')];
+             delInfo=JSON.stringify(delInfo);
             requiredBackEnd('collections', 'delete', delInfo, 'POST', function(params) {
             });
             this.get("collections").removeObject(this.get("selectedCollection"));

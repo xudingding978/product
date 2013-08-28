@@ -101,6 +101,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
     },
     pushUptoBackend: function(client_id)
     {
+        //console.log('ssssssssssssssssssss');
         var profileOwner = HubStar.Profile.find(this.get('clientID'));
         profileOwner.set('profile_partner_ids', this.get('partnerID'));
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, profileOwner);

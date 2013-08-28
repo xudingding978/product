@@ -70,7 +70,7 @@
             this.set("displayEmail", this.get("currentUser").get("email"));
            var idProfile;
             var tempMega = HubStar.Mega.find(id);
-           // console.log("sssssssssssssssssssssssss");
+
             
             this.set("selectedMega", tempMega);
    

@@ -23,6 +23,21 @@
                         );
 
             });
+            
+            
+          Ember.Handlebars.registerBoundHelper('length', function(size) {
+                
+                     if (size === "" || size === null || size === undefined) {
+                    return 0;
+                     }
+                     else{
+                              var partnerlength =size.split(',');
+                        return partnerlength.length;
+                         }
+                     
+               
+            });
+            
             Ember.Handlebars.registerBoundHelper('date', function(date) {
                 if (date === "" || date === null||date === undefined) {
                     return "";

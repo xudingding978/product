@@ -1873,6 +1873,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('loadingTime', true);
         var d = new Date();
         var start = d.getTime();
+<<<<<<< HEAD
 //        var results = HubStar.Mega.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size")});
         var that = this;
 //        results.addObserver('isLoaded', function() {
@@ -1891,6 +1892,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 //        this.set("from", this.get("size"));
         var statusController = this.get('controllers.status');
         var stats = HubStar.Stat.find({"RquireType": "status", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size")});
+=======
+        var that = this;
+        var statusController = this.get('controllers.status');
+        var stats = HubStar.Stat.find({"RquireType": "firstsearch", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size")});
+>>>>>>> 4617074b15d3bac330aa6b963b32e5490c452718
         stats.addObserver('isLoaded', function() {
             if (stats.get('isLoaded')) {
                 var stat = stats.objectAt(0);
@@ -1906,6 +1912,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 
                 var d = new Date();
                 var end = d.getTime();
+<<<<<<< HEAD
 //                var hit = HubStar.Stat.find('hit');
                 var time = that.getResponseTime(start, end);
                 statusController.set("searchResultNum", stat.get('numberofresults'));
@@ -1913,6 +1920,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 
                 statusController.changeDescription();
                 
+=======
+                var time = that.getResponseTime(start, end);
+                statusController.set("searchResultNum", stat.get('numberofresults'));
+                statusController.set("time", time);                
+                statusController.changeDescription();                
+>>>>>>> 4617074b15d3bac330aa6b963b32e5490c452718
             }
             setTimeout(function() {
                 $('#masonry_container').masonry("reload");
@@ -2137,7 +2150,10 @@ HubStar.ArticleController = Ember.Controller.extend({
         }
     },
     addRelatedData: function(mega) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4617074b15d3bac330aa6b963b32e5490c452718
         var collection_id = mega.get("collection_id");
         var owner_profile_id = mega.get("owner_id");
         var isProfileIDExist = this.isParamExist(owner_profile_id);
@@ -2694,6 +2710,7 @@ HubStar.CommentController = Ember.Controller.extend({
          
           if (this.get("collections").get("length") !== 0) {
             this.set('itemProfileCollectionStatistics', this.get("collections").get("length"));
+<<<<<<< HEAD
         }
         else
         {
@@ -2718,6 +2735,32 @@ HubStar.CommentController = Ember.Controller.extend({
             }
 
         }
+=======
+        }
+        else
+        {
+            this.set('itemProfileCollectionStatistics', 0);
+        }
+         
+
+        },
+                
+         partnerStatistic:function(){
+         
+             
+          //  this.set("profile_partner_ids", profile.get("profile_partner_ids"));
+          
+           if (this.get('profile_partner_ids') !== null) {         
+                var ids = this.get('profile_partner_ids').split(",");
+               this.set('itemProfilePartnerStatistics', ids.get('length'));
+            }
+            else
+            {
+                this.set('itemProfilePartnerStatistics', 0);
+            }
+
+        }
+>>>>>>> 4617074b15d3bac330aa6b963b32e5490c452718
                
         
     });

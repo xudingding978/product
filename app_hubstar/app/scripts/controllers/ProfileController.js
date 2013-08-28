@@ -87,6 +87,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     willDelete: false,
     profile_partner_ids: null,
     init: function() {
+       
         this.set('is_authentic_user', false);
     },
     getCurrentProfile: function(id) {
@@ -97,6 +98,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         return profile;
     },
     setProfile: function(id) {
+
         var profile = this.getCurrentProfile(id);
         this.set("model", profile);
         this.set("domains", profile.get('profile_domains'));

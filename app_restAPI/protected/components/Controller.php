@@ -138,8 +138,6 @@ class Controller extends CController {
     }
 
     protected function getRequestResult($searchString, $returnType) {
-
-
         $response = "";
         $requireParams = explode('&', $searchString);
         $requireType = $this->getUserInput($requireParams[0]);
@@ -150,7 +148,6 @@ class Controller extends CController {
             $size = $this->getUserInput($requireParams[4]);
             $response = $this->performSearch($returnType, $region, $searchString, $from, $size);
         } elseif ($requireType == 'uploadPhotoIDs') {
-
             $upload_Image_ids = $this->getUserInput($requireParams[1]);
             $raw_id = str_replace("test", "", $upload_Image_ids);
             $imageIDs = explode('%2C', $raw_id);
@@ -163,10 +160,8 @@ class Controller extends CController {
             }
             $response = $this->QueryStringByIds($returnType, $str_ImageIds, "id");
         } elseif ($requireType == 'collection') {
-
             $collection_id = $this->getUserInput($requireParams[1]);
             $owner_profile_id = $this->getUserInput($requireParams[2]);
-
             $response = $this->performRawSearch($returnType, $collection_id, $owner_profile_id);
         } elseif ($requireType == 'partner') {
             $partner_id_raw = $this->getUserInput($requireParams[1], false);
@@ -253,7 +248,6 @@ class Controller extends CController {
         }
 
         $request->query($bool);
-
         $response = $request->execute();
 
         $results = $this->getReponseResult($response, $returnType);
@@ -328,10 +322,9 @@ class Controller extends CController {
 
 
         $rawRequest = $header . $ids . $footer;
-    
         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
         $request->query($termQuery);
-        $request->tojson();
+
         $response = $request->execute();
 
         $results = $this->getReponseResult($response, $returnType);
@@ -355,7 +348,7 @@ class Controller extends CController {
                 must($must2);
         $response = $request->query($bool)->execute();
 
-        $results = $this->getReponseResult($response, $returnType);
+        $results = $this->getReponseResult($response, $returnType);        
         return $results;
     }
 
@@ -369,20 +362,31 @@ class Controller extends CController {
             $requestStringTwo = 'couchbaseDocument.doc.keywords=' . $requestString;
             array_push($requestArray, $requestStringTwo);
         }
-
         $request = $this->getElasticSearch();
         $max = sizeof($requestArray);
         $bool = Sherlock\Sherlock::queryBuilder()->Bool();
-
         for ($i = 0; $i < $max; $i++) {
             $must = $this->getmustQuestWithQueryString($requestArray[$i]);
             $bool->must($must);
         }
         $request->query($bool);
-
         $response = $request->execute();
-        $result = '{"' . $returnType . '":[{"id":"hit","hits":"' . $response->total;
-        $result .= '"}]}';
+
+
+
+
+
+
+        $results = $this->getReponseResult($response, 'megas');
+        $results = CJSON::decode($results, true);
+        $arr = array();
+
+        $arr['id'] =$response->total;
+        $arr['megas'] = $results['megas'];
+        $arr['numberofresults'] = $response->total;
+        $result = CJSON::encode($arr, true);
+        $result = '{"stats":[' . $result;
+        $result .= ']}';
         return $result;
     }
 

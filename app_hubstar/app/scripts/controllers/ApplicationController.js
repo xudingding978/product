@@ -63,24 +63,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('loadingTime', true);
         var d = new Date();
         var start = d.getTime();
-//        var results = HubStar.Mega.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size")});
         var that = this;
-//        results.addObserver('isLoaded', function() {
-//            if (results.get('isLoaded')) {
-//                HubStar.set('itemNumber', results.get("length"));
-//                for (var i = 0; i < results.get("length"); i++) {
-//                    var tempmega = results.objectAt(i);
-//                    that.pushObject(tempmega);
-//                }
-//                setTimeout(function() {
-//                    $('#masonry_container').masonry("reload");
-//                }, 2200);
-//                that.set('loadingTime', false);
-//            }
-//        });
-//        this.set("from", this.get("size"));
         var statusController = this.get('controllers.status');
-        var stats = HubStar.Stat.find({"RquireType": "status", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size")});
+        var stats = HubStar.Stat.find({"RquireType": "firstsearch", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size")});
         stats.addObserver('isLoaded', function() {
             if (stats.get('isLoaded')) {
                 var stat = stats.objectAt(0);
@@ -96,13 +81,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 
                 var d = new Date();
                 var end = d.getTime();
-//                var hit = HubStar.Stat.find('hit');
                 var time = that.getResponseTime(start, end);
                 statusController.set("searchResultNum", stat.get('numberofresults'));
-                statusController.set("time", time);
-                
-                statusController.changeDescription();
-                
+                statusController.set("time", time);                
+                statusController.changeDescription();                
             }
             setTimeout(function() {
                 $('#masonry_container').masonry("reload");

@@ -189,7 +189,9 @@ class Controller extends CController {
         } elseif ($requireType == 'status') {
             $region = $this->getUserInput($requireParams[1]);
             $searchString = $this->getUserInput($requireParams[2]);
-            $response = $this->getSearchResultsTotal($returnType, $region, $searchString);
+            $from = $this->getUserInput($requireParams[3]);
+            $size = $this->getUserInput($requireParams[4]);
+            $response = $this->getSearchResultsTotal($returnType, $region, $searchString, $from, $size);
         } elseif ($requireType == 'personalCollection') {
             $userid = $this->getUserInput($requireParams[1]);
             $collection_id = $this->getUserInput($requireParams[2],false);
@@ -352,7 +354,7 @@ class Controller extends CController {
         return $results;
     }
 
-    protected function getSearchResultsTotal($returnType, $region, $requestString) {
+    protected function getSearchResultsTotal($returnType, $region, $requestString, $from = 0, $size = 50) {
         $requestArray = array();
         if ($region != null && $region != "") {
             $requestStringOne = 'couchbaseDocument.doc.region=' . $region;
@@ -371,23 +373,20 @@ class Controller extends CController {
         }
         $request->query($bool);
         $response = $request->execute();
+        
+        $megaResponse = $this->performSearch($returnType, $region, $requestString, $from, $size);
+        $megaResponse = CJSON::decode($megaResponse);
 
-
-
-
-
-
-        $results = $this->getReponseResult($response, 'megas');
-        $results = CJSON::decode($results, true);
-        $arr = array();
-
-        $arr['id'] =$response->total;
-        $arr['megas'] = $results['megas'];
-        $arr['numberofresults'] = $response->total;
-        $result = CJSON::encode($arr, true);
-        $result = '{"stats":[' . $result;
+       $megaResponse["id"]=time();
+       $megaResponse["numberofresults"]= $response->total;
+       
+       $megaResponse["megas"] = $megaResponse["stats"];
+        unset($megaResponse["stats"]);
+       
+        $result = CJSON::encode($megaResponse, true);
+        $result = '{"stats":[' . $result;             
         $result .= ']}';
-        return $result;
+        return $result;  
     }
 
     protected function getElasticSearch() {

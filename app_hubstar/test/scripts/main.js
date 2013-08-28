@@ -46,6 +46,21 @@ var HubStar = window.HubStar = Ember.Application.createWithMixins({
                         );
 
             });
+            
+            
+          Ember.Handlebars.registerBoundHelper('length', function(size) {
+                
+                     if (size === "" || size === null || size === undefined) {
+                    return 0;
+                     }
+                     else{
+                              var partnerlength =size.split(',');
+                        return partnerlength.length;
+                         }
+                     
+               
+            });
+            
             Ember.Handlebars.registerBoundHelper('date', function(date) {
                 if (date === "" || date === null||date === undefined) {
                     return "";
@@ -2615,12 +2630,28 @@ HubStar.CommentController = Ember.Controller.extend({
 (function() {
 
 
-    HubStar.ItemProfilesController = Ember.Controller.extend({
+       
+        HubStar.ItemProfilesController = Ember.Controller.extend({
         profiles: null,
         partnerRemove: "",
+        profile_partner_ids: null,
+        collections: [],
+        itemProfileCollectionStatistics:"",
+        itemProfilePartnerStatistics:"",
+          needs: ['profile'],
+        
+        
         init: function() {
-            this.set("profiles", HubStar.Mega.find());
+          this.set("profiles", HubStar.Mega.find());
+         //  this.set("profiles", HubStar.Mega.find());
+          //console.log(HubStar.Mega.find());
+         // this.partnerStatistic();
+         //  this.collectionStatistic();
+      
+ 
         },
+                
+   
         toProfilePage: function(model) {
     
      HubStar.set("scrollPartenerPosition",$(window).scrollTop());
@@ -2629,7 +2660,39 @@ HubStar.CommentController = Ember.Controller.extend({
         },
         setPartnerRemove: function() {
             this.set('partnerRemove', false);
+        },
+        
+        collectionStatistic: function(){
+          
+         
+          if (this.get("collections").get("length") !== 0) {
+            this.set('itemProfileCollectionStatistics', this.get("collections").get("length"));
         }
+        else
+        {
+            this.set('itemProfileCollectionStatistics', 0);
+        }
+         
+
+        },
+                
+         partnerStatistic:function(){
+         
+             
+          //  this.set("profile_partner_ids", profile.get("profile_partner_ids"));
+          
+           if (this.get('profile_partner_ids') !== null) {         
+                var ids = this.get('profile_partner_ids').split(",");
+               this.set('itemProfilePartnerStatistics', ids.get('length'));
+            }
+            else
+            {
+                this.set('itemProfilePartnerStatistics', 0);
+            }
+
+        }
+               
+        
     });
 
 
@@ -4145,6 +4208,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                     else if (width > maxWidth || height > maxHeight)
                     {
                         that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size smaller than  " + maxWidth + "x" + maxHeight + " !!!");
+                        
+                            that.set('newStyleImageSource', "");
+                        that.set('newStyleImageName', "");
+                        that.set('CurrentImageSize', "");
+                        $('#photoUploadbtn').removeClass();
+                        $("#photoUploadbtn").toggleClass("disabled-btn");
                     }
                 });
             });

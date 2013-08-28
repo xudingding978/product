@@ -20,24 +20,17 @@ after(function(done) {
 
 });
 function LoginIn(done) {
-
     if (localStorage.loginstatus === null || localStorage.loginstatus === undefined) {
         $("a:contains('Login')").click();
         $(".square-button").last().click();
-
-
          setTimeout(function() {
             var content = $('#login_iframe').contents();
             content.find('#LoginForm_username').val('Jenny');
             content.find('#LoginForm_password').val('test123');
-
             content.find("input:submit.ifame_login").click();
             done();
         }, 1000);
-
     }
-
-
 }
 ;
 function LoginOut() {
@@ -156,7 +149,7 @@ describe("user profies testing", function() {
         });
 
     });
-
+});
 
 
 describe("poster picture  testing", function() {

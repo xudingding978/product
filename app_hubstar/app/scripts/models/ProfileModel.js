@@ -8,11 +8,12 @@
         profile_hero_url: DS.attr('string'),
         profile_pic_url: DS.attr('string'),
         profile_bg_url: DS.attr('string'),
-        profile_hero_cover_url: DS.attr('string'),
+        profile_hero_cover_url: DS.attr('string'),   
         profile_physical_address: DS.attr('string'),
         profile_contact_number: DS.attr('string'),
         profile_contact_user: DS.attr('string'),
         profile_about_us: DS.attr('string'),
+        profile_cover_text:DS.attr('string'),
         profile_boost: DS.attr('string'),
         profile_name: DS.attr('string'), //
         profile_contact_first_name: DS.attr('string'),

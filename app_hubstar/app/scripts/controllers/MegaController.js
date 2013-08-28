@@ -146,8 +146,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
     addComment: function() {
         var commentContent = this.get('commentContent');
         if (commentContent) {
-
-
             var comments = this.get('megaResouce').get('comments');
             var commenter_profile_pic_url = this.get("currentUser").get('photo_url');
             var commenter_id = this.get("currentUser").get('id');
@@ -158,8 +156,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 "is_delete": false, optional: this.get('megaResouce').get('type') + '/' + this.get('megaResouce').get('id')});
             comments.insertAt(0, tempComment);
             comments.store.save();
-
-
             this.set('commentContent', '');
             $('#addcommetBut').attr('style', 'display:block');
             $('#commentBox').attr('style', 'display:none');

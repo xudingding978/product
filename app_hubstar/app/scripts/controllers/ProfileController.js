@@ -87,7 +87,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     willDelete: false,
     profile_partner_ids: null,
     init: function() {
-       
+
         this.set('is_authentic_user', false);
     },
     getCurrentProfile: function(id) {
@@ -138,7 +138,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     initStastics: function(profile) {
         this.set("profile_partner_ids", profile.get("profile_partner_ids"));
-
+        
         if (this.get("profile_partner_ids") !== null) {
             if (this.get("profile_partner_ids").length !== 0) {
                 var ids = this.get("profile_partner_ids").split(",");
@@ -150,7 +150,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             }
         }
         else {
-//            this.set('profilePartnerStatistics',0);
+            this.set('profilePartnerStatistics', 0);
         }
         //this.paternsStatistics();
         this.statstics();
@@ -513,7 +513,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     selectPartner: function(model) {
 
-   
+
         this.set('profileSelectionStatus', 'Partners');
 
         this.get('controllers.profilePartners').getClientId(model);

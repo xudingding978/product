@@ -149,7 +149,7 @@ describe("user profies testing", function() {
         });
 
     });
-
+});
 
 
 describe("poster picture  testing", function() {

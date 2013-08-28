@@ -7,6 +7,7 @@
         },
         toProfilePage: function(model) {
             this.transitionToRoute('profile', model);
+          $('#back-top a').click();
         },
         setPartnerRemove: function() {
             this.set('partnerRemove', false);

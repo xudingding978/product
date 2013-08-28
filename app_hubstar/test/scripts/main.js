@@ -632,11 +632,20 @@ HubStar.ApplicationRoute = Ember.Route.extend({
 HubStar.ArticleRoute = Ember.Route.extend({
         //     controller: HubStarlicationController,
         setupController: function(controller, model) {
-            var d = HubStar.Mega.find(model.id);
+             var temp;
+        if (model.id === undefined) {                        //reload page model id can not be find
+            var url =  window.location.href;
+            urlArray = url.split("/");
+            temp = urlArray[urlArray.length-1];
+        } else {
+            temp = model.id;
+        }
+            var d = HubStar.Mega.find(temp);
             controller.getInitData(d);
         },
         model: function(params) {
-            return HubStar.Mega.find(params.article_id);
+            var model = HubStar.Mega.find({"RequireType": "articles", "article_id": params.article_id});
+            return model;
         },
         activate: function() {
 
@@ -888,43 +897,53 @@ HubStar.IndexRoute = Ember.Route.extend({
 (function() {
 
 HubStar.PhotoRoute = Ember.Route.extend({
-        setupController: function(controller, model) {
-            var megaModel = HubStar.Mega.find(model.id);
-            this.controllerFor('mega').getInitData(megaModel);
-        },
-        model: function(params) {
-            return HubStar.Mega.find(params.photo_id);
-        },
-        activate: function() {
-            setTimeout(function() {
-                $("body").css("overflow", "hidden");
-                $('#footer').attr("style", "display:none");
-            }, 100);
-        },
-        events: {
-            transitionToProfile: function(id) {
-
-                this.transitionTo("profile", HubStar.Profile.find(id));
-            }
-        },
-        deactivate: function() {
-
-
-            $("body").css("overflow", "auto");
-            $('#footer').attr("style", "display:block");
-        },
-        renderTemplate: function() {
-            var controller = this.controllerFor('mega');
-
-
-            this.render("photo", {
-                outlet: "photos",
-                into: "application",
-                controller: controller
-            });
+    setupController: function(controller, model) {
+        var temp;
+        if (model.id === undefined) {                               //reload page model id can not be find
+            var url =  window.location.href;
+            urlArray = url.split("/");
+            temp = urlArray[urlArray.length-1];
+        } else {
+            temp = model.id;
         }
+        var megaModel = HubStar.Mega.find(temp);
+        this.controllerFor('mega').getInitData(megaModel);
 
-    });
+    },
+    model: function(params) {
+        var model = HubStar.Mega.find({"RequireType": "photos", "photo_id": params.photo_id});
+        return model;
+    },
+    activate: function() {
+        setTimeout(function() {
+            $("body").css("overflow", "hidden");
+            $('#footer').attr("style", "display:none");
+        }, 100);
+    },
+    events: {
+        transitionToProfile: function(id) {
+
+            this.transitionTo("profile", HubStar.Profile.find(id));
+        }
+    },
+    deactivate: function() {
+
+
+        $("body").css("overflow", "auto");
+        $('#footer').attr("style", "display:block");
+    },
+    renderTemplate: function() {
+        var controller = this.controllerFor('mega');
+
+
+        this.render("photo", {
+            outlet: "photos",
+            into: "application",
+            controller: controller
+        });
+    }
+
+});
 
 
 })();
@@ -1969,7 +1988,7 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
             if (noError) {
                 record.addObserver("isSaving", function() {
                     if (record.get("isSaving")) {
-                        console.log('isSaving:  true');
+//                        console.log('isSaving:  true');
                         that.set("info", false);
                         that.set("succeed", true);
                         that.set("warnning", false);
@@ -1991,6 +2010,7 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
 
 });
             
+
 
 })();
 
@@ -2099,18 +2119,22 @@ HubStar.ArticleController = Ember.Controller.extend({
         if (isProfileIDExist && isCollectionIDExist) {
             var data = HubStar.Mega.find({RequireType: "articleRelatedImage", "article_id": collection_id, "owner_id": owner_profile_id});
             data.addObserver('isLoaded', function() {
-                if (data.get('isLoaded')) {
-                    for (var i = 0; i < data.get("content").length; i++) {
+                if (data.get('isLoaded')) {          
+                var length=    data.get("content").get("length");
+                    for (var i = 0; i <length; i++) {
                         var temp = data.get("content").objectAt(i);
                         if (temp.data.photo !== undefined) {
-                            that.get("content").pushObject(temp.data.photo[0]);
-                            that.set('selectedPhoto', temp.data.photo[0]);
-                        }
-                        else if (temp.record._data.hasMany.photo !== undefined) {
-                            that.get("content").pushObject(temp.record._data.hasMany.photo[0].data);
-                            that.set('selectedPhoto', temp.record._data.hasMany.photo[0].data);
-                        }
+                            //console.log(temp.data.photo.objectAt(0));
+                            that.get("content").pushObject(temp.data.photo.objectAt(0));                                  //find the object which contain photos and push it into model
+                            //that.set('selectedPhoto', temp.data.photo.objectAt(0));
+                        }                        
+//                        else if (temp.record._data.article !== undefined) {                                                      // there is no hasMany in this object
+//                            console.log("record._data");
+//                            that.get("content").pushObject(temp.record._data.hasMany.photo.objectAt(0));
+//                            that.set('selectedPhoto', temp.record._data.hasMany.photo.objectAt(0));
+//                        }
                     }
+                    that.set('selectedPhoto', that.get('content').objectAt(0));                                                  //set selectedPhoto to the first photo
                 }
             });
         }
@@ -2614,6 +2638,7 @@ HubStar.CommentController = Ember.Controller.extend({
         },
         toProfilePage: function(model) {
             this.transitionToRoute('profile', model);
+          $('#back-top a').click();
         },
         setPartnerRemove: function() {
             this.set('partnerRemove', false);
@@ -2630,7 +2655,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     content: [],
     uploadImageContent: [],
     title: null,
-    collection_id:null,
+    collection_id: null,
     is_authentic_user: false,
     is_profile_editing_mode: false,
     uploadOrsubmit: false,
@@ -2644,46 +2669,41 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         this.set('content', []);
         var address = document.URL;
         var user_id = address.split("#")[1].split("/")[2];
-       
         this.set('user_id', user_id);
         this.set('title', collection_id);
-       // console.log(collection_id);
         var results = HubStar.Mega.find({RquireType: "personalCollection", user_id: user_id, collection_id: collection_id});
-        
+
         var that = this;
         results.addObserver('isLoaded', function() {
             if (results.get('isLoaded')) {
                 for (var i = 0; i < this.get("content").length; i++) {
-                    var id = this.get("content").objectAt(i).id;
-                    if (HubStar.Mega.find(id)._data.hasMany.photo.length === 1)
-                    {
-                        that.get("content").pushObject(HubStar.Mega.find(id));
-                    }
+                    that.get("content").pushObject(results.objectAt(i));
                 }
             }
         });
         this.checkEditingMode();
 
     },
-    selectModelForProfile: function(collection_id,title) {  
+    selectModelForProfile: function(collection_id, title) {
         this.set('collection_id', collection_id);
-        this.resetContent();    
-        if(title===undefined)
+        this.resetContent();
+        if (title === undefined)
         {
-               var arrayUrl;
-               arrayUrl= (document.URL).split("/");
-               var locationUrl=arrayUrl.get("length")-2;
-               var results = HubStar.Collection.find({RquireType: "personalCollection", profile_id: arrayUrl[locationUrl], collection_id: collection_id});
-                var that = this;
-                results.addObserver('isLoaded', function() {                   
-                     if (results.get('isLoaded')) {   
-                        var titleFill = results.objectAt(0).get("title");
-                        that.set('title', titleFill);     
-                        }
-                });
+            var arrayUrl;
+            arrayUrl = (document.URL).split("/");
+            var locationUrl = arrayUrl.get("length") - 2;
+            var results = HubStar.Collection.find({RquireType: "personalCollection", profile_id: arrayUrl[locationUrl], collection_id: collection_id});
+            var that = this;
+            results.addObserver('isLoaded', function() {
+                if (results.get('isLoaded')) {
+                    var titleFill = results.objectAt(0).get("title");
+                    that.set('title', titleFill);
+                }
+            });
         }
-        else{this.set('title', title);      
-            }
+        else {
+            this.set('title', title);
+        }
         this.checkEditingMode();
     }
     ,
@@ -2844,7 +2864,8 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             this.set('is_profile_editing_mode', false);
             this.set('is_user_editing_mode', false);
         }
-    }, photoUpload: function() {
+    },
+    photoUpload: function() {
 
         HubStar.store.save();
 
@@ -2922,8 +2943,9 @@ HubStar.MegaController = Ember.ArrayController.extend({
         this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
         this.selectedImage(this.get('selectedPhoto').id);
     },
-
     getInitData: function(megaObject) {
+
+       
         var photoObj = megaObject.get('photo').objectAt(0);
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         this.set("content", []);
@@ -3505,8 +3527,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     partnerTag: false,
     partnerPage: true,
     profileSelectionStatus: "Collections",
-    profileCollectionStatistics:"",
-    profilePartnerStatistics:"",
+    profileCollectionStatistics: "",
+    profilePartnerStatistics: "",
     region: "",
     selectedCollection: "",
     switchPhoto: false,
@@ -3538,12 +3560,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     isDeleteDropdown: false,
     projectDeleteDropdownType: 'delete',
     projectDeleteDropdownContent: '',
-
-    message:null,
-    makeSureDelete:false,
-    willDelete:false,
-    profile_partner_ids:null,
-
+    message: null,
+    makeSureDelete: false,
+    willDelete: false,
+    profile_partner_ids: null,
     init: function() {
         this.set('is_authentic_user', false);
     },
@@ -3588,25 +3608,25 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.checkAuthenticUser();
         var photoCreateController = this.get('controllers.photoCreate');
         photoCreateController.setMega();
-       this.initStastics(profile);
-       
+        this.initStastics(profile);
+
     },
-    initStastics:function(profile){
-                 this.set("profile_partner_ids",profile.get("profile_partner_ids"));
-        
-        if(this.get("profile_partner_ids")!==null){
-               if(this.get("profile_partner_ids").length!==0){
-        var ids= this.get("profile_partner_ids").split(",");
-        this.paternsStatistics(ids.get('length'));
-        }
-        else
+    initStastics: function(profile) {
+        this.set("profile_partner_ids", profile.get("profile_partner_ids"));
+
+        if (this.get("profile_partner_ids") !== null) {
+            if (this.get("profile_partner_ids").length !== 0) {
+                var ids = this.get("profile_partner_ids").split(",");
+                this.paternsStatistics(ids.get('length'));
+            }
+            else
             {
                 this.set('profilePartnerStatistics',0);                
             }
         }
         else{   
-            this.set('profilePartnerStatistics',0);
-        }
+            this.set('profilePartnerStatistics',0);     
+        }   
         //this.paternsStatistics();
         this.statstics();
     },
@@ -3737,7 +3757,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         this.saveUpdate();
     },
-
     no: function(checkingInfo) {
         if (checkingInfo === "profileName") {
             this.set('model.profile_name', profile_record);
@@ -3780,21 +3799,19 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             }
         }
     },
-
-      statstics: function()
-      {
-          if(this.get("collections").get("length")!==0){
-           this.set('profileCollectionStatistics',this.get("collections").get("length"));}
-       else
-           {
-                this.set('profileCollectionStatistics',0);
-           }
-      },
-     
-     paternsStatistics:function(length){      
-           this.set('profilePartnerStatistics',length);
-     },
-
+    statstics: function()
+    {
+        if (this.get("collections").get("length") !== 0) {
+            this.set('profileCollectionStatistics', this.get("collections").get("length"));
+        }
+        else
+        {
+            this.set('profileCollectionStatistics', 0);
+        }
+    },
+    paternsStatistics: function(length) {
+        this.set('profilePartnerStatistics', length);
+    },
     deleteSelectedCollection: function()
     {
         var message = "Do you wish to delete " + this.get("selectedCollection").get('id') + " ?";
@@ -3807,7 +3824,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             requiredBackEnd('collections', 'delete', delInfo, 'POST', function(params) {
             });
             this.get("collections").removeObject(this.get("selectedCollection"));
-             this.statstics();
+            this.statstics();
             $('#masonry_user_container').masonry("reload");
             this.cancelDelete();
         } else {
@@ -3910,8 +3927,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
             this.get("model").get("followers").insertAt(0, tempComment);
 
-            
-            requiredBackEnd('followers', 'createFollower', followArray, 'POST', function() {});
+
+            requiredBackEnd('followers', 'createFollower', followArray, 'POST', function() {
+            });
             this.set('follow_status', true);
         }
         else {
@@ -3939,7 +3957,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var isFollow = false;
         var followers = this.get("model").get("followers");
         for (var i = 0; i < followers.get('length'); i++) {
-            var follower_id = followers.objectAt(i).get("follower_id");          
+            var follower_id = followers.objectAt(i).get("follower_id");
             if (follower_id === localStorage.loginStatus)
             {
                 isFollow = true;
@@ -3961,20 +3979,27 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     selectCollection: function() {
         this.set('profileSelectionStatus', 'Collections');
- 
+
         this.set('partnerTag', false);
         this.set('collectionTag', true);
         this.set('followerTag', false);
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
     },
     selectPartner: function(model) {
 
-        this.set('profileSelectionStatus', 'Partners');
    
+        this.set('profileSelectionStatus', 'Partners');
+
         this.get('controllers.profilePartners').getClientId(model);
         this.set('partnerTag', true);
         this.set('collectionTag', false);
         this.set('followerTag', false);
         this.get('controllers.itemProfiles').setPartnerRemove();
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
     },
     selectFollower: function(model) {
         this.set('profileSelectionStatus', 'Followers');
@@ -4084,8 +4109,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
                 var data = {"RequireIamgeType": that.get('UploadImageMode')};
                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
-                    if ((width >= params.width) &&  (height >= params.height) && (width < maxWidth) && (height < maxHeight) )
-                        {
+                    if ((width >= params.width) && (height >= params.height) && (width < maxWidth) && (height < maxHeight))
+                    {
                         that.setTempImage();
 
                         $('#uploadStyleImg').attr("style", "display:block");
@@ -4104,10 +4129,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                     }
 
                     else if (width < params.width || height < params.height) {
-                        
+
                         that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + params.width + "x" + params.height + " !!!");
 
-                       
+
                         that.set('newStyleImageSource', "");
                         that.set('newStyleImageName', "");
                         that.set('CurrentImageSize', "");
@@ -4116,7 +4141,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                     }
                     else if (width > maxWidth || height > maxHeight)
                     {
-                         that.get('controllers.applicationFeedback').statusObserver(null,"Please upload image size smaller than  " + maxWidth + "x" + maxHeight + " !!!");
+                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size smaller than  " + maxWidth + "x" + maxHeight + " !!!");
                     }
                 });
             });
@@ -4519,7 +4544,6 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
 
     needs: ['permission', 'applicationFeedback','profile'],
 
-
     addingPartnerObserver: function() {
         var addProfilePic = this.get('currentAddPartnerPic').split("/profiles/")[1];
         this.set('selectedPartnerPic', HubStar.Profile.find(addProfilePic).get('profile_pic_url'));
@@ -4832,6 +4856,7 @@ HubStar.TopicSelectionController = Ember.ArrayController.extend({
 
 
 var isExsinting = true;
+
 HubStar.UserController = Ember.Controller.extend({
     user: null,
     uploadMode: null,
@@ -4852,6 +4877,7 @@ HubStar.UserController = Ember.Controller.extend({
     profileSelectionStatus: "Collections",
     selected_topics: [],
     is_authentic_user: false,
+    is_click:false,
     init: function()
     {
         this.setUser();
@@ -4887,11 +4913,25 @@ HubStar.UserController = Ember.Controller.extend({
         }
         this.checkAuthenticUser();
     },
+       
     userDashboardButton: function() {
-
-
-
+    if (this.get('is_click')===false){
+      
+    this.set('is_click',true);
+    $('#user-board_right_front').hide();
+    $('#user-board_right_back').show(); 
+    }
+   
     },
+  userDashboardBackButton: function() {
+    if (this.get('is_click')===true){
+         this.set('is_click',false);
+    $('#user-board_right_front').show();
+    $('#user-board_right_back').hide(); 
+   
+    }
+    },
+ 
     getHeroImage: function(id, col) {
         var photo = HubStar.Mega.find(id);
         photo.addObserver('isLoaded', function() {
@@ -4917,19 +4957,22 @@ HubStar.UserController = Ember.Controller.extend({
     },
     checkingIdisExsinting: function(id, postOrPut) {
 
-        if (postOrPut === "update") {
-            for (var i = 0; i < this.get("temp").get('length'); i++) {
+//        if (postOrPut === "update") {
+//            for (var i = 0; i < this.get("temp").get('length'); i++) {
+//
+//                if (this.get("temp").objectAt(i) === id) {
+//
+//                    isExsinting = false;
+//                }
+//            }
+//            if (!isExsinting) {
+//
+//                this.get('controllers.applicationFeedback').statusObserver(null, "This Collection is already exsiting!!!");
+//            }
+//        } else
 
-                if (this.get("temp").objectAt(i) === id) {
 
-                    isExsinting = false;
-                }
-            }
-            if (!isExsinting) {
-
-                this.get('controllers.applicationFeedback').statusObserver(null, "This Collection is already exsiting!!!");
-            }
-        } else if (postOrPut === "create") {
+        if (postOrPut === "create") {
 
             for (var i = 0; i < this.get("collections").get('length'); i++) {
                 if (this.get("collections").objectAt(i).id === id) {
@@ -4945,29 +4988,46 @@ HubStar.UserController = Ember.Controller.extend({
     submit: function()
     {
 
-        if (this.selectedCollection.get('id') !== null && this.selectedCollection.get('id') !== "" && this.selectedCollection.get('id') !== undefined) {
-            var id = this.checkingValidInput(this.selectedCollection.get('id'));
-            this.checkingIdisExsinting(id, "create");
-            if (isExsinting) {
-                this.selectedCollection.set('id', id);
-                this.selectedCollection.set('title', id);
+        var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
+        var id = this.checkingValidInput(this.selectedCollection.get('title'));
+        this.checkingIdisExsinting(id, "create");
+
+        if (isExsinting) {
+            var validID = this.checkingValidInput(id);
+            var checkingCharater = this.specialCharactersChecking(validID);
+            if (checkingCharater) {
+                this.selectedCollection.set('id', validID.toLowerCase());
+                this.selectedCollection.set('title', this.selectedCollection.get('title'));
+                this.selectedCollection.set('cover', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png");
+                if (this.selectedCollection.get('desc') !== null && this.selectedCollection.get('desc') !== "") {
+                    this.selectedCollection.set('desc', desc);
+                } else {
+                    this.selectedCollection.set('desc', "Add a short description to your Collection");
+                }
                 this.get("collections").insertAt(0, this.selectedCollection);
-                
-                this.get("collections").store.commit();
-                console.log(this.selectedCollection);
+                HubStar.store.commit();
                 $(".Targeting_Object_front").attr("style", "display:inline-block");
                 $(" #uploadArea").attr('style', "display:none");
                 $(" #uploadObject").attr('style', "display:block");
             } else {
-                isExsinting = true;
+                this.get('controllers.applicationFeedback').statusObserver(null, "invalide characters...");
             }
+
+        } else {
+            isExsinting = true;
         }
     },
+    specialCharactersChecking: function(str) {
+
+        var re = /^[a-zA-Z-][a-zA-Z0-9-]*$/;
+        return re.test(str);
+    },
     checkingValidInput: function(title) {
-
-        if (title.indexOf(" ") !== -1) {
-
-            title = title.split(' ').join('-');
+        if (title === null || title === "") {
+        } else {
+            if (title.indexOf(" ") !== -1) {
+                title = title.split(' ').join('-');
+            }
         }
         return title;
     },
@@ -5035,18 +5095,16 @@ HubStar.UserController = Ember.Controller.extend({
     {
 
         var id = this.checkingValidInput(this.selectedCollection.get('id'));
-        this.checkingIdisExsinting(id, "update");
-        if (isExsinting) {
-            var title = this.get("selectedCollection").get("id");
-            this.get("selectedCollection").set("title", title);
-            this.set("selectedTitle", title);
-            this.get("selectedCollection").store.save();
-            $(".Targeting_Object_front").attr("style", "display:inline-block");
-            $(" #uploadArea").attr('style', "display:none");
-            $(" #uploadObject").attr('style', "display:block");
-        } else {
-            isExsinting = true;
-        }
+
+
+        var title = this.get("selectedCollection").get("title");
+        this.get("selectedCollection").set("title", title);
+        this.set("selectedTitle", title);
+        this.get("selectedCollection").store.save();
+        $(".Targeting_Object_front").attr("style", "display:inline-block");
+        $(" #uploadArea").attr('style', "display:none");
+        $(" #uploadObject").attr('style', "display:block");
+
     },
     setSelectedCollection: function(id) {
         for (var i = 0; i < this.get("collections").get("length"); i++) {
@@ -6742,6 +6800,21 @@ HubStar.UploadResourceView = Ember.View.extend({
     });
 
 
+
+})();
+
+(function() {
+
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+HubStar.UserEditView = Ember.View.extend({
+          templateName: 'userEdit',
+     
+    });
 
 })();
 

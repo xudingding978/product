@@ -1104,6 +1104,8 @@ HubStar.ProfileRoute = Ember.Route.extend({
         },
         events: {
             transitionToCollectionPhoto: function(collection_id) {
+    
+                HubStar.set("scrollCollectionPosition",$(window).scrollTop());
                 var address = document.URL;
                 var user_id = address.split("#")[1].split("/")[2];
                 var profile = HubStar.Profile.find(user_id);
@@ -2619,8 +2621,10 @@ HubStar.CommentController = Ember.Controller.extend({
             this.set("profiles", HubStar.Mega.find());
         },
         toProfilePage: function(model) {
-            this.transitionToRoute('profile', model);
-          $('#back-top a').click();
+    
+     HubStar.set("scrollPartenerPosition",$(window).scrollTop());
+           this.transitionToRoute('profile', model);
+           $(window).scrollTop(0); 
         },
         setPartnerRemove: function() {
             this.set('partnerRemove', false);
@@ -2689,6 +2693,21 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         this.checkEditingMode();
     }
     ,
+            
+            goBack:function(){
+         
+         var lastposition=HubStar.get("scrollCollectionPosition");
+           window.history.back();
+           
+           setTimeout(function() {
+          
+             $(window).scrollTop(lastposition); 
+             
+        }, 200); 
+         
+       
+       
+            },
     newUpload: function() {
         $('#ownerUpload').attr('style', 'display:block');
         $('#tagetUplaod').attr('style', 'display:none');
@@ -3543,6 +3562,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     willDelete: false,
     profile_partner_ids: null,
     init: function() {
+       
         this.set('is_authentic_user', false);
     },
     getCurrentProfile: function(id) {
@@ -3553,6 +3573,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         return profile;
     },
     setProfile: function(id) {
+
         var profile = this.getCurrentProfile(id);
         this.set("model", profile);
         this.set("domains", profile.get('profile_domains'));

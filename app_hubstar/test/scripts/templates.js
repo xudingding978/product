@@ -2357,7 +2357,7 @@ function program1(depth0,data) {
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "toProfilePage", "", {hash:{},contexts:[depth0,depth0],types:["ID","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(">\n     <img class=\"easing\" ");
+  data.buffer.push(">\n\n     <img class=\"easing\" ");
   hashContexts = {'src': depth0};
   hashTypes = {'src': "STRING"};
   data.buffer.push(escapeExpression(helpers.bindAttr.call(depth0, {hash:{
@@ -2830,7 +2830,11 @@ function program12(depth0,data) {
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "controller.title", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("\n            </div>\n            <div class=\"hint--right hint--rounded\" data-hint=\"Go back\" style=\"margin: 4px 0; display: inline-block;\">\n                <i class=\"icon-level-up edit-btn\" style=\"color: #555; text-shadow: 0 1px 0 rgba(255,255,255,0.8); font-size: 20px;\" onclick=\"window.history.back();\"></i>\n            </div>\n\n\n        </div>\n\n    <div id=\"masonry_photo_collection_container\"  class=\"centered clearfix masonry_push_down\" >\n\n        <!--SECTION CONTROL BAR-->\n\n\n\n\n        ");
+  data.buffer.push("\n            </div>\n            <div class=\"hint--right hint--rounded\" data-hint=\"Go back\" style=\"margin: 4px 0; display: inline-block;\">\n                <i class=\"icon-level-up edit-btn\" style=\"color: #555; text-shadow: 0 1px 0 rgba(255,255,255,0.8); font-size: 20px;\" ");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "goBack", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("></i>\n            </div>\n\n\n        </div>\n\n    <div id=\"masonry_photo_collection_container\"  class=\"centered clearfix masonry_push_down\" >\n\n        <!--SECTION CONTROL BAR-->\n\n\n\n\n        ");
   hashTypes = {};
   hashContexts = {};
   stack1 = helpers['if'].call(depth0, "controller.is_profile_editing_mode", {hash:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
@@ -5010,7 +5014,7 @@ function program9(depth0,data) {
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "controller.user.description", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("</div>\n        </div>\n\n        <div style=\" margin-left:10px;overflow:hidden; width:90%; height:50px;\">\n            <ul class=\"locationandlinks\" style=\"margin-left: -10px;\">\n                <li>\n                    <span class=\"locationIcon\"><k class=\"icon-map-marker\"></k></span>\n                    Auckland\n                </li>\n\n                <li class=\"location_li\">\n                    <a href=\"#\" target=\"_blank\">&nbsp <k class=\"icon-facebook\"> </k></a>\n                </li>\n                <li class=\"location_li\">\n                    <a href=\"#\" target=\"_blank\">&nbsp <k class=\"icon-twitter\"> </k></a>\n                </li>\n                <li class=\"location_li\">\n                    <a href=\"#\" target=\"_blank\">&nbsp <k class=\"icon-google-plus\"> </k></a>\n                </li>\n                <li class=\"location_li\">\n                    <a href=\"#\" target=\"_blank\">&nbsp <k class=\"icon-pinterest\"> </k></a>\n                </li>\n                <li class=\"location_li\">\n                    <a href=\"#\" target=\"_blank\">&nbsp <k class=\"icon-youtube-play\"> </k></a>\n                </li>\n\n            </ul>\n        </div>\n</div>\n");
+  data.buffer.push("</div>\n        </div>\n\n        <div style=\"margin: -10px 40px 0;overflow:hidden; width:90%; height: 40px;\">\n            <ul class=\"locationandlinks\" style=\"margin-left: -10px;\">\n                <li>\n                    <span class=\"locationIcon\"><k class=\"icon-map-marker\"></k></span>\n                    Auckland\n                </li>\n\n                <li class=\"location_li\">\n                    <a href=\"#\" target=\"_blank\">&nbsp <k class=\"icon-facebook\"> </k></a>\n                </li>\n                <li class=\"location_li\">\n                    <a href=\"#\" target=\"_blank\">&nbsp <k class=\"icon-twitter\"> </k></a>\n                </li>\n                <li class=\"location_li\">\n                    <a href=\"#\" target=\"_blank\">&nbsp <k class=\"icon-google-plus\"> </k></a>\n                </li>\n                <li class=\"location_li\">\n                    <a href=\"#\" target=\"_blank\">&nbsp <k class=\"icon-pinterest\"> </k></a>\n                </li>\n                <li class=\"location_li\">\n                    <a href=\"#\" target=\"_blank\">&nbsp <k class=\"icon-youtube-play\"> </k></a>\n                </li>\n\n            </ul>\n        </div>\n</div>\n");
   hashTypes = {};
   hashContexts = {};
   stack1 = helpers['if'].call(depth0, "controller.is_click", {hash:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
@@ -5032,14 +5036,80 @@ function program9(depth0,data) {
 Ember.TEMPLATES["userEdit"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
-  var buffer = '', hashTypes, hashContexts, escapeExpression=this.escapeExpression;
+  var buffer = '', stack1, hashTypes, hashContexts, escapeExpression=this.escapeExpression, self=this;
 
+function program1(depth0,data) {
+  
+  var buffer = '', hashTypes, hashContexts;
+  data.buffer.push("\n                                    ");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "HubStar.DropdownListView", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("\n                                    ");
+  return buffer;
+  }
 
-  data.buffer.push("\n<div id=\"user-board_right_back\">\n       <div class=\"tabbable\">\n            <div class=\"tabs-left\">\n                <ul class=\"nav nav-tabs easing\">\n                    <li class=\"active\" ><a href=\"#tab1\" data-toggle=\"tab\">CHANGE COVER</a></li>\n                    <li class=\"easing\" ><a href=\"#tab2\" data-toggle=\"tab\">SETTING</a></li>\n                    <li class=\"easing\" ><a href=\"#tab3\" data-toggle=\"tab\">SECURITY</a></li>\n                </ul>\n            </div>\n         <div class=\"tab-content easing\">\n                <div class=\"tab-pane active\" id=\"tab1\">\n                     <div style=\"font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;\">CHANGE COVER</div>\n                     <div style=\"right: 0;margin: 30px auto 0;width: 150px;\">\n                        <span class='new-btn blue-btn flip-back'");
+  data.buffer.push("\n<div id=\"user-board_right_back\">\n       <div class=\"tabbable\">\n            <div class=\"tabs-left\">\n                <ul class=\"nav nav-tabs easing\">\n                    <li class=\"active\" ><a href=\"#tab1\" data-toggle=\"tab\">CHANGE COVER</a></li>\n                    <li class=\"easing\" ><a href=\"#tab2\" data-toggle=\"tab\">SETTING</a></li>\n                    <li class=\"easing\" ><a href=\"#tab3\" data-toggle=\"tab\">SECURITY</a></li>\n                </ul>\n            </div>\n         <div class=\"tab-content easing\">\n                <div class=\"tab-pane active\" id=\"tab1\">\n                     <div style=\"font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;\">CHANGE COVER</div>\n\n                    <div class='styleup_section'>\n                        <a href=\"#fileuploader\" data-toggle=\"tab\" ");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "setUploadImageMode", "Profile Picture", {hash:{},contexts:[depth0,depth0],types:["ID","STRING"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push(">\n                           <div class='styleup_uploadbox easing hint--right hint--rounded' data-hint='Upload' ");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "changeSize", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push(">\n                                <i class='icon-upload icon-3x' style=\"width: 30px;margin: auto;display: block;position: relative;top: 40px;\"></i>\n                                <span style=\"font-size: 13px;font-weight:bold;bottom: 20px;position: relative;\">Profile Picture</span>\n                            </div>\n                        </a>\n                        <div style='height: 150px;margin: 10px 15px;display: inline-block; width: auto;line-height: 150px;vertical-align: top;'>\n                            <img style=\"max-height: 100%; width: auto;max-width: 300px;\" ");
+  hashContexts = {'src': depth0};
+  hashTypes = {'src': "STRING"};
+  data.buffer.push(escapeExpression(helpers.bindAttr.call(depth0, {hash:{
+    'src': ("profile_pic_url")
+  },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push(" />\n                        </div>\n                    </div>\n\n                     <div style=\"right: 0;margin: 30px auto 0;width: 150px;\">\n                        <span class='new-btn blue-btn flip-back'");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "userDashboardBackButton", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("><k class='icon-group'> &nbsp;</k>Back</span>\n                    </div>  \n                </div>\n\n                <div class=\"tab-pane\" id=\"tab2\">\n\n                    <div style=\"font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;\">SETTING</div>\n\n                    <div style=\"right: 0;margin: 30px auto 0;width: 150px;\">\n                        <span class=\"new-btn green-btn\" ");
+  data.buffer.push("><k class='icon-group'> &nbsp;</k>Back</span>\n                    </div>  \n                </div>\n\n                <div class=\"tab-pane\" id=\"tab2\">\n\n                    <div style=\"font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: auto;\">SETTING</div>\n\n                    <table class='profilesnew-table' style=\"padding-right: 147px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin:auto;\">\n                        <tbody style=\"display: table-row-group; vertical-align: middle; border-color: inherit;\">\n\n                            <tr>\n                                <td>User Name:</td>\n                                <td>\n                                    <div style=\"display: block;\">\n                                        <div   style=\"margin: 0;width: 100%;\">\n                                            ");
+  hashContexts = {'valueBinding': depth0,'class': depth0};
+  hashTypes = {'valueBinding': "STRING",'class': "STRING"};
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
+    'valueBinding': ("boost"),
+    'class': ("mustFill4")
+  },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("\n                                        </div>\n                                    </div>\n                                </td>\n                            </tr>\n                             <tr>\n                                <td>About me:</td>\n                                <td>\n                                    <div style=\"display: block;\">\n                                        <div   style=\"margin: 0;width: 100%; height:100px;\">\n                                            ");
+  hashContexts = {'valueBinding': depth0,'class': depth0,'placeholder': depth0};
+  hashTypes = {'valueBinding': "STRING",'class': "STRING",'placeholder': "STRING"};
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextArea", {hash:{
+    'valueBinding': ("keywords"),
+    'class': ("no-resize"),
+    'placeholder': ("* Please ensure you use a commer seperated list!!! ie: bathroom, kitchen, living room")
+  },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("\n                                        </div>\n                                    </div>\n                                </td>\n                            </tr>\n\n                            <tr>\n                                <td> Location:</td>\n                                <td>\n                                    <div class=\"new-btn\" style=\"display: block;\" ");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "dropdown", "controller.projectCategoryDropdownType", {hash:{},contexts:[depth0,depth0],types:["ID","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push(">\n                                         <span> ");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "controller.projectCategoryDropdownContent", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("</span>\n                                        <span class=\"caret\"></span>\n                                    </div>\n                                    ");
+  hashTypes = {};
+  hashContexts = {};
+  stack1 = helpers['if'].call(depth0, "controller.isPackgetDropdown", {hash:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n                                </td>\n                            </tr>\n                           \n                            <tr>\n                                <td>Facebook:</td>\n                                <td>\n                                    <div style=\"display: block;\">\n                                        <div   style=\"margin: 0;width: 100%;\">\n                                            ");
+  hashContexts = {'valueBinding': depth0,'class': depth0};
+  hashTypes = {'valueBinding': "STRING",'class': "STRING"};
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
+    'valueBinding': ("boost"),
+    'class': ("mustFill4")
+  },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("\n                                        </div>\n                                    </div>\n                                </td>\n                            </tr>\n\n                            <tr>\n                                <td>Twitter:</td>\n                                <td>\n                                    <div style=\"display: block;\">\n                                        <div   style=\"margin: 0;width: 100%;\">\n                                            ");
+  hashContexts = {'valueBinding': depth0,'class': depth0};
+  hashTypes = {'valueBinding': "STRING",'class': "STRING"};
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
+    'valueBinding': ("domains"),
+    'class': ("mustFill4")
+  },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("\n                                        </div>\n                                    </div>\n                                </td>\n                            </tr>\n\n\n                        </tbody>\n                    </table>\n\n                    <div style=\"right: 0;margin:10px auto 0;width: 150px;\">\n                        <span class=\"new-btn green-btn\" ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "saveUpdate", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -5047,7 +5117,21 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "userDashboardBackButton", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("><k class='icon-group'> &nbsp;</k>Back</span>\n                    </div>\n\n                </div>\n\n\n                <div class=\"tab-pane\" id=\"tab3\">\n                    <div style=\"font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;\">SECURITY</div>\n                    <div style=\"right: 0;margin: 30px auto 0;width: 150px;\">\n                        <span class=\"new-btn green-btn\" ");
+  data.buffer.push("><k class='icon-group'> &nbsp;</k>Back</span>\n                    </div>\n\n                </div>\n\n\n                <div class=\"tab-pane\" id=\"tab3\">\n                    <div style=\"font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: auto;\">SECURITY</div>\n\n                    <table class='profilesnew-table' style=\"padding-right: 147px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;\">\n                        <tbody style=\"display: table-row-group; vertical-align: middle; border-color: inherit;\">\n\n                            <tr>\n                                <td>Email:</td>\n                                <td>\n                                    <div style=\"display: block;\">\n                                        <div   style=\"margin: 0;width: 100%;\">\n                                            ");
+  hashContexts = {'valueBinding': depth0,'class': depth0};
+  hashTypes = {'valueBinding': "STRING",'class': "STRING"};
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
+    'valueBinding': ("boost"),
+    'class': ("mustFill4")
+  },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("\n                                        </div>\n                                    </div>\n                                </td>\n                            </tr>\n                           \n                            <tr>\n                                <td>Passwords:</td>\n                                <td>\n                                    <div style=\"display: block;\">\n                                        <div   style=\"margin: 0;width: 100%;\">\n                                            ");
+  hashContexts = {'valueBinding': depth0,'class': depth0};
+  hashTypes = {'valueBinding': "STRING",'class': "STRING"};
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
+    'valueBinding': ("boost"),
+    'class': ("mustFill4")
+  },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("\n                                        </div>\n                                    </div>\n                                </td>\n                            </tr>\n\n                        </tbody>\n                    </table>\n\n                    <div style=\"right: 0;margin: 30px auto 0;width: 150px;\">\n                        <span class=\"new-btn green-btn\" ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "saveUpdate", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));

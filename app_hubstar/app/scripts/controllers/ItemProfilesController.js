@@ -14,8 +14,8 @@
           this.set("profiles", HubStar.Mega.find());
          //  this.set("profiles", HubStar.Mega.find());
           //console.log(HubStar.Mega.find());
-          this.partnerStatistic();
-           this.collectionStatistic();
+         // this.partnerStatistic();
+         //  this.collectionStatistic();
       
  
         },

@@ -55,6 +55,21 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         this.checkEditingMode();
     }
     ,
+            
+            goBack:function(){
+         
+         var lastposition=HubStar.get("scrollCollectionPosition");
+           window.history.back();
+           
+           setTimeout(function() {
+          
+             $(window).scrollTop(lastposition); 
+             
+        }, 200); 
+         
+       
+       
+            },
     newUpload: function() {
         $('#ownerUpload').attr('style', 'display:block');
         $('#tagetUplaod').attr('style', 'display:none');

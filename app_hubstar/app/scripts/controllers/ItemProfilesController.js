@@ -6,8 +6,10 @@
             this.set("profiles", HubStar.Mega.find());
         },
         toProfilePage: function(model) {
-            this.transitionToRoute('profile', model);
-          $('#back-top a').click();
+    
+     HubStar.set("scrollPartenerPosition",$(window).scrollTop());
+           this.transitionToRoute('profile', model);
+           $(window).scrollTop(0); 
         },
         setPartnerRemove: function() {
             this.set('partnerRemove', false);

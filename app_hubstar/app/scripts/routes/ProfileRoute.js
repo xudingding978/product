@@ -45,7 +45,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
 
         },
         deactivate: function() {
-
+    //       HubStar.get("scrollPartenerPosition");
         },
         activate: function() {
             $(window).scrollTop(0);

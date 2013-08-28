@@ -159,7 +159,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                 is_authentic_user = permissionController.checkAuthenticUser(that.get("pageModel").get("owner"), that.get("pageModel").get("profile_editors"), current_user_email);
             }
         });
-        return      is_authentic_user;
+        return is_authentic_user;
     },
     changeCollectionCover: function(id, collection_id, HubStarModel) {
 

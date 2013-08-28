@@ -17,7 +17,6 @@ class CommentsController extends Controller {
     }
 
     public function actionCreate() {
-        error_log("create!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         $request_json = file_get_contents('php://input');
         $newRecord = CJSON::decode($request_json, true);
         $typeAndID = $newRecord['comment']['optional'];

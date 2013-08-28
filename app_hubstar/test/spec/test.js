@@ -105,36 +105,6 @@ describe("profiles Routing ", function() {
         });
     });
 });
-<<<<<<< HEAD
-    });
-});
-//describe("profiles Routing ", function() {
-//    beforeEach(function(done) {
-//        Ember.run(function() {
-//            route = HubStar.Router.create();
-//            route.transitionTo("profiles");
-//            setTimeout(function() {
-//                $('.nothingHere').find('ul').eq(0).find('a').click();
-//                done();
-//            }, 600);
-//
-//        });
-//    });
-//    afterEach(function() {
-//        Ember.run(function() {
-//            route = HubStar.Router.create();
-//            route.transitionTo("searchIndex");
-//        });
-//    });
-//    it("Routing", function() {
-//        Ember.run(function() {
-//            $('#aside_contact').find('tr').eq(1).find('th').eq(0).should.have.text("Category:");
-//        });
-//    });
-//});
-=======
->>>>>>> 299599b4c33d26fcaf411d1a6eaefd1e6e928e67
-
 
 describe("profiles Routing ", function() {
     beforeEach(function(done) {
@@ -186,17 +156,6 @@ describe("user profies testing", function() {
         });
 
     });
-<<<<<<< HEAD
-=======
-    afterEach(function() {
-
-    });
-    it("user controller ", function() {
-        //     Ember.run(function() {
-
-    });
-});
->>>>>>> 299599b4c33d26fcaf411d1a6eaefd1e6e928e67
 
 
 

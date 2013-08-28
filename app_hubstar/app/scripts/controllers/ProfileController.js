@@ -662,6 +662,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                     else if (width > maxWidth || height > maxHeight)
                     {
                         that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size smaller than  " + maxWidth + "x" + maxHeight + " !!!");
+                        
+                            that.set('newStyleImageSource', "");
+                        that.set('newStyleImageName', "");
+                        that.set('CurrentImageSize', "");
+                        $('#photoUploadbtn').removeClass();
+                        $("#photoUploadbtn").toggleClass("disabled-btn");
                     }
                 });
             });

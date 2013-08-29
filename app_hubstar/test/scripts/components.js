@@ -2461,7 +2461,7 @@ function getRestAPIURL()
     var api_url = document.domain;
     var api_domain_start_pos = api_url.indexOf('.');
     var api_url = api_url.slice(api_domain_start_pos);
-    api_url = "http://api" + api_url;
+    api_url = "http://develop-api" + api_url;
     return api_url;
 }
 
@@ -2528,17 +2528,17 @@ function getImageWidth(imgSrc, callback) {
 
 }
 
-function requiredBackEnd(controller, method, para, ajaxType, callback) {
+function requiredBackEnd(controller,method,para,ajaxType,callback) {
     {
         var tempurl = getRestAPIURL();
 
         $.ajax({
-            url: tempurl + '/' + controller + '/' + method,
+            url: tempurl + '/'+controller+'/'+ method,
             type: ajaxType,
             data: JSON.stringify(para),
             success: function(feedback) {
-                HubStar.store.save();
-                callback(feedback);
+               HubStar.store.save(); 
+               callback(feedback);
             }
         });
     }

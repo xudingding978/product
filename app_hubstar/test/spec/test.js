@@ -86,18 +86,14 @@ describe("AddLike Test", function() {
         Ember.run(function() {
             LoginIn(done);
 
-           controller = HubStar.CommentController.create();
+          controller = HubStar.CommentController.create();
+           //console.log("ssssssssss");
+           controller.addLike("6939110571372460540");
            console.log("ssssssssss");
-           console.log(controller.addLike("1270944421372427691"));
-//            topics=controller.mega;
-//            topics.addObserver('isLoaded', function() {
-//                if (topics.get('isLoaded')) {
-//                    
-//                    result = topics.get('length');
-//                    done();
-//                }
-//            });
-        });
+          result = controller.get("count");
+                  //console.log(result);
+                  // done();
+         });
     });
     it("total topics", function() {
         Ember.run(function() {

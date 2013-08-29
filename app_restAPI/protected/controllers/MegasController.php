@@ -176,28 +176,7 @@ class MegasController extends Controller {
     }
 
     public function updateMega($newRecord) {
-//        $cb = $this->couchBaseConnection();
-//        $id = $newRecord['id'];
-//        $type = $newRecord['mega']['type'];
-//        $docID = $this->getDocId($type, $id);
-//        $oldRecord = $cb->get($docID);
-//        $oldRecord = CJSON::decode($oldRecord, true);
-//
-//        if (!isset($oldRecord['comments'])) {
-//            $oldRecord['comments'] = array();
-//        }
-//        if (sizeof($newRecord['mega']['comments']) > sizeof($oldRecord['comments'])) {//insert comment
-//            array_unshift($oldRecord['comments'], $newRecord['mega']['comments'][0]);
-//        }
-//        if (!isset($oldRecord['likes_count']) || $oldRecord['likes_count'] != $newRecord['mega']['likes_count']) {//update count
-//            $oldRecord['likes_count'] = $newRecord['mega']['likes_count'];
-//            $oldRecord['people_like'] = $newRecord['mega']['people_like'];
-//        }
-//        if ($cb->set($docID, CJSON::encode($oldRecord))) {
-//            $this->sendResponse(204);
-//        } else {
-//            $this->sendResponse(500, "some thing wrong");
-//        }
+
         $this->sendResponse(204);
     }
 

@@ -4,6 +4,7 @@ HubStar.CommentController = Ember.Controller.extend({
     thisComments: null,
     stringFiedTime_stamp: null,
     mega: null,
+    count:null,
     init: function()
     {
         if (localStorage.loginStatus) {
@@ -66,9 +67,10 @@ HubStar.CommentController = Ember.Controller.extend({
         this.set('makeSureDelete', false);
         HubStar.set('data', null);
     },
+    //test:function(){console.log('33333333333');},
     addLike: function(id)
     {
-        //console.log("addllike");
+        //console.log(id);
         var mega = HubStar.Mega.find(id); 
         var type = mega.get("type");
           var people_like = mega.get("people_like");
@@ -91,10 +93,11 @@ HubStar.CommentController = Ember.Controller.extend({
                  //console.log(localStorage.loginStatus);
                     requiredBackEnd('megas', 'addlike', likeArray, 'POST', function(params) {
                         params = params+"";
+                        //console.log(params);
                         var like = params.split(",");
-                        //console.log(like);
                         mega.set("likes_count", like.length);
                         mega.set("people_like",params);
+                        this.count = like.length;
                     });
                 //this.addPeopleLike(mega);         
             }

@@ -85,44 +85,24 @@ describe("AddLike Test", function() {
 
         Ember.run(function() {
             LoginIn(done);
-
           controller = HubStar.CommentController.create();
            //console.log("ssssssssss");
-           controller.addLike("6939110571372460540");
-           console.log("ssssssssss");
-          result = controller.get("count");
-                  //console.log(result);
+                controller.addLike("8911076791372397733");
+                    result = controller.get("count");
+                    console.log(result);
+                    done();
+            //controller.addLike("6939110571372460540");
+           
+       //    console.log("ssssssssss");
+        
                   // done();
          });
     });
     it("total topics", function() {
         Ember.run(function() {
-            //result.should.equal(14);
-        });
-    });
-});
-
-describe("profiles Routing ", function() {
-    beforeEach(function(done) {
-        Ember.run(function() {
-            route = HubStar.Router.create();
-            route.transitionTo("profiles");
-             setTimeout(function() {
-                $('.nothingHere').find('ul').eq(0).find('a').click();
-                done();
-            }, 600);
-
-        });
-    });
-    afterEach(function() {
-        Ember.run(function() {
-            route = HubStar.Router.create();
-            route.transitionTo("searchIndex");
-        });
-    });
-    it("Routing", function() {
-        Ember.run(function() {
-            //         $('#aside_contact').find('tr').eq(1).find('th').eq(0).should.have.text("Category:");
+          
+            result.should.equal("3");
+            
         });
     });
 });
@@ -132,7 +112,7 @@ describe("profiles Routing ", function() {
 //        Ember.run(function() {
 //            route = HubStar.Router.create();
 //            route.transitionTo("profiles");
-//            setTimeout(function() {
+//             setTimeout(function() {
 //                $('.nothingHere').find('ul').eq(0).find('a').click();
 //                done();
 //            }, 600);
@@ -147,37 +127,62 @@ describe("profiles Routing ", function() {
 //    });
 //    it("Routing", function() {
 //        Ember.run(function() {
-//            $('#aside_contact').find('tr').eq(1).find('th').eq(0).should.have.text("Category:");
+//            //         $('#aside_contact').find('tr').eq(1).find('th').eq(0).should.have.text("Category:");
 //        });
 //    });
 //});
-
-
-describe("testing platform side bar searching result", function() {
-    it("hover and click topics", function() {
-        $('.firstList').find('li').eq(1).find('a').eq(0).click();
-        $('.search_business').text().should.be($('.firstList').find('li').eq(1).find('a').eq(0).text().trim());
-
-    });
-
-    it("hover and click subtopics", function() {
-        $('.firstList').find('li').eq(1).find('ul').find('li').eq(1).find('ul').find('li').eq(1).find('a').click();
-        $('.search_business').text().should.be($('.firstList').find('li').eq(1).find('ul').find('li').eq(1).find('ul').find('li').eq(1).text().trim());
-    });
-});
-
-describe("user profies testing", function() {
-    var controller;
-
-    beforeEach(function() {
-
-        Ember.run(function() {
-            //           controller = HubStar.UserController.create();
-
-        });
-
-    });
-});
+//
+////describe("profiles Routing ", function() {
+////    beforeEach(function(done) {
+////        Ember.run(function() {
+////            route = HubStar.Router.create();
+////            route.transitionTo("profiles");
+////            setTimeout(function() {
+////                $('.nothingHere').find('ul').eq(0).find('a').click();
+////                done();
+////            }, 600);
+////
+////        });
+////    });
+////    afterEach(function() {
+////        Ember.run(function() {
+////            route = HubStar.Router.create();
+////            route.transitionTo("searchIndex");
+////        });
+////    });
+////    it("Routing", function() {
+////        Ember.run(function() {
+////            $('#aside_contact').find('tr').eq(1).find('th').eq(0).should.have.text("Category:");
+////        });
+////    });
+////});
+//
+//
+//describe("testing platform side bar searching result", function() {
+//    it("hover and click topics", function() {
+//        $('.firstList').find('li').eq(1).find('a').eq(0).click();
+//        $('.search_business').text().should.be($('.firstList').find('li').eq(1).find('a').eq(0).text().trim());
+//
+//    });
+//
+//    it("hover and click subtopics", function() {
+//        $('.firstList').find('li').eq(1).find('ul').find('li').eq(1).find('ul').find('li').eq(1).find('a').click();
+//        $('.search_business').text().should.be($('.firstList').find('li').eq(1).find('ul').find('li').eq(1).find('ul').find('li').eq(1).text().trim());
+//    });
+//});
+//
+//describe("user profies testing", function() {
+//    var controller;
+//
+//    beforeEach(function() {
+//
+//        Ember.run(function() {
+//            //           controller = HubStar.UserController.create();
+//
+//        });
+//
+//    });
+//});
 
 
 //describe("poster picture  testing", function() {

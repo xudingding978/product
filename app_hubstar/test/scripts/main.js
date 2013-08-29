@@ -2320,20 +2320,23 @@ HubStar.CommentController = Ember.Controller.extend({
                 //var like = people_like.split(",");
                 //mega.set("likes_count", like.length); 
                 //console.log(people_like);
+                this.count = mega.get('likes_count');
             }
             else{     
                 var likeArray = [localStorage.loginStatus,id,type];
                  
                  likeArray=JSON.stringify(likeArray);
                  //console.log(id);
-                 //console.log(localStorage.loginStatus);
+                 console.log(localStorage.loginStatus);
+                 var that = this;
                     requiredBackEnd('megas', 'addlike', likeArray, 'POST', function(params) {
                         params = params+"";
                         console.log(params);
                         var like = params.split(",");
                         mega.set("likes_count", like.length);
                         mega.set("people_like",params);
-                        this.count = like.length;
+                        that.count = like.length;
+                        console.log(that.count);
                     });
                 //this.addPeopleLike(mega);         
             }

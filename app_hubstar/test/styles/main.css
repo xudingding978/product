@@ -10177,7 +10177,8 @@ div.loading-visible{
 
 .itemprofile > li{
     display: inline-block;
-    padding-left: 15px;
+    padding-left: 10px;
+    color:#555;
 }
 
 

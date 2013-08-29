@@ -1819,7 +1819,7 @@ function program4(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("<div class=\"navbar\">\n    <div style=\"position: absolute;right: 0;z-index: 1;\"><img src=\"../../../images/beta-version.png\"/>0.2-3\n</div>\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <div class=\"brand\">\n                <a href=\"/#\">\n                    <img class=\"logonew\" style=\"position: relative; top: 0; margin:0;\" src=\"../../../images/landing-trends.png\">\n                </a>\n            </div>\n\n \n\n            <!-- show if not logged into platform-->\n\n\n            ");
+  data.buffer.push("<div class=\"navbar\">\n      <div style=\"position: absolute;right: 0;z-index: 1;\">\n        <img src=\"../../../images/beta-version.png\"/>\n        <span style=\"position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;\" id=\"lastidentifie\">0.2-1</span>\n      </div>\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <div class=\"brand\">\n                <a href=\"/#\">\n                    <img class=\"logonew\" style=\"position: relative; top: 0; margin:0;\" src=\"../../../images/landing-trends.png\">\n                </a>\n            </div>\n\n \n\n            <!-- show if not logged into platform-->\n\n\n            ");
   hashTypes = {};
   hashContexts = {};
   stack1 = helpers['if'].call(depth0, "controller.islogin", {hash:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
@@ -2377,7 +2377,7 @@ function program1(depth0,data) {
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "profile_name", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(" </a>\n</div>\n\n\n          <div style=\" margin-top:5px;overflow:hidden; width:100%; height:30px;\">\n            <ul class=\"itemprofile\" style= \"margin-left:75px;\">\n                <li class=\"location_li\">\n              <a>      <k class=\"icon-eye-open\"> &nbsp");
+  data.buffer.push(" </a>\n</div>\n\n\n          <div style=\" margin-top:5px;overflow:hidden; width:100%; height:30px; text-align:center;\">\n            <ul class=\"itemprofile\">\n                <li class=\"location_li\">\n              <a>      <k class=\"icon-eye-open\"> &nbsp");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "collections.length", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -5014,7 +5014,7 @@ function program9(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("<div style=\"width:100%; height:80px; display:block;\"></div>\n<div class=\"user-board\">\n    <div class=\"user-board_left style-box\">\n       <div class=\"user-profilepic-container\"> \n          <div class=\"changeuserprofilepic easing hint--right hint--rounded\" data-hint=\"Choose a profile picture\">\n             <k class=\"icon-edit\"></k>\n          </div>    \n          <img ");
+  data.buffer.push("<div style=\"width:100%; height:80px; display:block;\"></div>\n<div class=\"user-board\">\n    <div class=\"user-board_left style-box\">\n       <div class=\"user-profilepic-container\"> \n          <div class=\"changeuserprofilepic easing hint--right hint--rounded\" data-hint=\"Choose a profile picture\">\n            <k class=\"icon-edit\"></k>\n          </div>    \n        <img ");
   hashContexts = {'src': depth0};
   hashTypes = {'src': "STRING"};
   data.buffer.push(escapeExpression(helpers.bindAttr.call(depth0, {hash:{

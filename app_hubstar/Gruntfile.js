@@ -9,7 +9,7 @@ var mountFolder = function(connect, dir) {
 // 'test/spec/{,*/}*.js'
 // use this if you want to match all subfolders:
 // 'test/spec/**/*.js'
-
+var templ;
 module.exports = function(grunt) {
 // load all grunt tasks
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
@@ -42,16 +42,28 @@ module.exports = function(grunt) {
             }
         },
         replace: {
-            example: {
+            dist: {
                 src: '<%= yeoman.app %>/templates/header.hbs',
                 dest: '<%= yeoman.app %>/templates/header.hbs',
                 replacements: [{
-                        from: /png\"\/\>\d\.\d\-[0-9]{1,500}/g,
+                        from: /lastidentifie\"\>\d\.\d\-[0-9]{1,500}/g,
                         to: function(matchedWord) {
                             var temp = matchedWord.substring(0, matchedWord.indexOf("-") + 1);
                             var num = matchedWord.substring(matchedWord.indexOf("-") + 1);
                             num = parseInt(num) + 1;
                             return temp + num;
+
+                        }
+                    }]
+            },
+            cash: {
+                src: '<%= yeoman.dist %>/index.html',
+                dest: '<%= yeoman.dist %>/index.html',
+                replacements: [{
+                        from: /cache\.manifest/g,
+                        to: function(matchedWord, index, fullText, regexMatches, pathToSource, pathToDestination) {
+                            //        grunt.log.writeln(pathToDestination);
+                            return '{,*/}*.manifest';
 
                         }
                     }]
@@ -294,7 +306,7 @@ module.exports = function(grunt) {
             test: {
                 files: {
                     src: [
-                        '<%= yeoman.dist %>/cache.manifest'
+                        '<%= yeoman.dist %>/{,*/}*.manifest'
                     ]
                 }
 
@@ -310,6 +322,7 @@ module.exports = function(grunt) {
         usemin: {
             html: ['<%= yeoman.dist %>/{,*/}*.html'],
             css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
+            manifest: ['<%= yeoman.dist %>/{,*/}*.manifest'],
             options: {
                 dirs: ['<%= yeoman.dist %>']
             }
@@ -487,7 +500,7 @@ module.exports = function(grunt) {
     ]);
     grunt.registerTask('build', [
         'clean:dist',
-        'replace',
+    //    'replace:dist',
         'useminPrepare',
         'concurrent:dist',
         'neuter:app',
@@ -499,7 +512,9 @@ module.exports = function(grunt) {
         'rev',
         'usemin',
         'manifest',
-     //   'rev:test'
+        'rev:test',
+        'usemin:manifest'
+                //      'replace:cash'
     ]);
     grunt.registerTask('default', [
         'jshint',

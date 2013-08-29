@@ -61,8 +61,8 @@ Ember.Handlebars.registerBoundHelper('ebooklength', function(number) {
      if (number === "" || number === null || number === undefined) {
         return 0;
     }
-    else if (number.match(/ebooks.trendsideas.com/g) !== -1 && number.match(/ebooks.trendsideas.com/g) !==null){
-        return number.match(/ebooks.trendsideas.com/g).length;
+    else if (number.match(/library.trendsideas.com/g) !== -1 && number.match(/library.trendsideas.com/g) !==null){
+        return number.match(/library.trendsideas.com/g).length;
                      }
           
           else return 0;

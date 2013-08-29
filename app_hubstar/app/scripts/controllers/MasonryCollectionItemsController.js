@@ -8,7 +8,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     is_profile_editing_mode: false,
     uploadOrsubmit: false,
     is_user_editing_mode: false,
-    needs: ['photoCreate', 'profile', 'user', 'permission', 'photoCreateInfoSetting'],
+    needs: ['photoCreate', 'profile', 'user', 'permission', 'photoCreateInfoSetting', 'applicationFeedback'],
     user_id: null,
     init: function() {
     },
@@ -55,6 +55,20 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         this.checkEditingMode();
     }
     ,
+    goBack: function() {
+
+        var lastposition = HubStar.get("scrollCollectionPosition");
+        window.history.back();
+
+        setTimeout(function() {
+
+            $(window).scrollTop(lastposition);
+
+        }, 200);
+
+
+
+    },
     newUpload: function() {
         $('#ownerUpload').attr('style', 'display:block');
         $('#tagetUplaod').attr('style', 'display:none');
@@ -101,6 +115,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                     tempcollectedColletionids = collectedColletionids.replace(HubStar.get('itemID'), "");
                     currentCollection.set('collection_ids', tempcollectedColletionids);
                     HubStar.store.save();
+                     this.get('controllers.applicationFeedback').statusObserver(null, "Delete Successfully!!!");
                     break;
                 }
             }
@@ -144,7 +159,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                 is_authentic_user = permissionController.checkAuthenticUser(that.get("pageModel").get("owner"), that.get("pageModel").get("profile_editors"), current_user_email);
             }
         });
-        return      is_authentic_user;
+        return is_authentic_user;
     },
     changeCollectionCover: function(id, collection_id, HubStarModel) {
 
@@ -154,11 +169,13 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         var address = document.URL;
         var owner_id = address.split("#")[1].split("/")[2];
         var userOrprofile = HubStarModel.find(owner_id).get('collections');
+        // var that = this;
         for (var i = 0; i < userOrprofile.get('content').length; i++) {
             if (userOrprofile.objectAt(i).id === collection_id) {
                 var currentCollection = userOrprofile.objectAt(i);
                 currentCollection.set('cover', coverImge);
                 HubStar.store.save();
+                 this.get('controllers.applicationFeedback').statusObserver(null, "Cover Save Successfully!!!");
                 break;
             }
         }
@@ -212,11 +229,12 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             this.set('is_profile_editing_mode', false);
             this.set('is_user_editing_mode', false);
         }
-    },
-    photoUpload: function() {
+
+    }, photoUpload: function() {
+       
 
         HubStar.store.save();
-
+ this.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully!!!");  
     }
 
 });

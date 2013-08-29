@@ -9,13 +9,11 @@ HubStar.MasonryView = Ember.View.extend({
                     isFitWidth: true
                 });
             });
-
             if (HubStar.get('searchStart')) {
                 HubStar.set('isMansonryPageLoad', true);
             }
         },
         willDestroyElement: function() {
-            //      $(window).unbind("scroll");
             HubStar.set('isMansonryPageLoad', false);
         },
         moreContent: function(event) {
@@ -23,8 +21,6 @@ HubStar.MasonryView = Ember.View.extend({
             var id = "#" + event.id;
             var collape_button = "#collape_button_" + event.id;
             var more_button = "#more_button_" + event.id;
-
-            //     $(id).slideToggle(200);
             $(id).animate({
                 height: "100%"
 

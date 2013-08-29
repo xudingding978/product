@@ -1,4 +1,5 @@
 
+
 //beforeEach(function() {
 //    Ember.run(function() {
 //        HubStar.reset();
@@ -10,34 +11,27 @@
 //    Ember.testing = false;
 //});
 //
-after(function(done) {
-    LoginOut();
-    Ember.run(function() {
-        route = HubStar.Router.create();
-        route.transitionTo("indexIndex");
-        done();
-    });
-
-});
+//after(function(done) {
+//    //LoginOut();
+//    Ember.run(function() {
+//        route = HubStar.Router.create();
+//        route.transitionTo("indexIndex");
+//        done();
+//    });
+//
+//});
 function LoginIn(done) {
-
     if (localStorage.loginstatus === null || localStorage.loginstatus === undefined) {
         $("a:contains('Login')").click();
         $(".square-button").last().click();
-
-
          setTimeout(function() {
             var content = $('#login_iframe').contents();
             content.find('#LoginForm_username').val('Jenny');
             content.find('#LoginForm_password').val('test123');
-
             content.find("input:submit.ifame_login").click();
             done();
         }, 1000);
-
     }
-
-
 }
 ;
 function LoginOut() {
@@ -66,6 +60,7 @@ describe("Platform  bar", function() {
             LoginIn(done);
 
             controller = HubStar.PlatformBarController.create();
+             //console.log(controller);
             topics = controller.categorys;
             topics.addObserver('isLoaded', function() {
                 if (topics.get('isLoaded')) {
@@ -81,6 +76,36 @@ describe("Platform  bar", function() {
         });
     });
 });
+
+describe("AddLike Test", function() {
+    var controller;
+    var topics;
+    var result;
+    beforeEach(function(done) {
+
+        Ember.run(function() {
+            LoginIn(done);
+
+           controller = HubStar.CommentController.create();
+           console.log("ssssssssss");
+           console.log(controller.addLike("1270944421372427691"));
+//            topics=controller.mega;
+//            topics.addObserver('isLoaded', function() {
+//                if (topics.get('isLoaded')) {
+//                    
+//                    result = topics.get('length');
+//                    done();
+//                }
+//            });
+        });
+    });
+    it("total topics", function() {
+        Ember.run(function() {
+            //result.should.equal(14);
+        });
+    });
+});
+
 describe("profiles Routing ", function() {
     beforeEach(function(done) {
         Ember.run(function() {
@@ -106,30 +131,30 @@ describe("profiles Routing ", function() {
     });
 });
 
-describe("profiles Routing ", function() {
-    beforeEach(function(done) {
-        Ember.run(function() {
-            route = HubStar.Router.create();
-            route.transitionTo("profiles");
-            setTimeout(function() {
-                $('.nothingHere').find('ul').eq(0).find('a').click();
-                done();
-            }, 600);
-
-        });
-    });
-    afterEach(function() {
-        Ember.run(function() {
-            route = HubStar.Router.create();
-            route.transitionTo("searchIndex");
-        });
-    });
-    it("Routing", function() {
-        Ember.run(function() {
-            $('#aside_contact').find('tr').eq(1).find('th').eq(0).should.have.text("Category:");
-        });
-    });
-});
+//describe("profiles Routing ", function() {
+//    beforeEach(function(done) {
+//        Ember.run(function() {
+//            route = HubStar.Router.create();
+//            route.transitionTo("profiles");
+//            setTimeout(function() {
+//                $('.nothingHere').find('ul').eq(0).find('a').click();
+//                done();
+//            }, 600);
+//
+//        });
+//    });
+//    afterEach(function() {
+//        Ember.run(function() {
+//            route = HubStar.Router.create();
+//            route.transitionTo("searchIndex");
+//        });
+//    });
+//    it("Routing", function() {
+//        Ember.run(function() {
+//            $('#aside_contact').find('tr').eq(1).find('th').eq(0).should.have.text("Category:");
+//        });
+//    });
+//});
 
 
 describe("testing platform side bar searching result", function() {
@@ -156,76 +181,76 @@ describe("user profies testing", function() {
         });
 
     });
-
-
-
-describe("poster picture  testing", function() {
-    it("click poster picture", function() {
-
-        $('#masonry_container').find('.box').eq(1).find('.mainfeature-wrapper img').click();
-
-        var title = HubStar.Mega.find('2119904211372397730').get('owner_title');
-
-        $('.objectview-wrapper').find('.poster-name').should.have.text(title);
-
-    });
-    afterEach(function() {
-        route = HubStar.Router.create();
-          route.transitionTo("searchIndex");
-    });
-});
-
-describe("poster photo_title photo_caption  testing", function() {
-    it("click poster picture", function() {
-
-        $('#masonry_container').find('.box').eq(1).find('.mainfeature-wrapper img').click();
-
-
-        var photo_title = HubStar.Mega.find('2119904211372397730').get('photo').objectAt(0).get('photo_title');
-        var photo_caption = HubStar.Mega.find('2119904211372397730').get('photo').objectAt(0).get('photo_caption');
-
-
-        $('.objectview-wrapper').find('.article-title').should.have.text(photo_title);
-        $('.objectview-wrapper').find('.article-text').should.have.text(photo_caption);
-    });
-    afterEach(function() {
-        route = HubStar.Router.create();
-        route.transitionTo("searchIndex");
-    });
 });
 
 
-describe("poster photo_url  validation  testing", function() {
-    var validation;
-    var photo_image_original_url;
-    
-    beforeEach(function(done) {
-        
-        $('#masonry_container').find('.box').eq(1).find('.mainfeature-wrapper img').click();
+//describe("poster picture  testing", function() {
+//    it("click poster picture", function() {
+//
+//        $('#masonry_container').find('.box').eq(1).find('.mainfeature-wrapper img').click();
+//
+//        var title = HubStar.Mega.find('2119904211372397730').get('owner_title');
+//
+//        $('.objectview-wrapper').find('.poster-name').should.have.text(title);
+//
+//    });
+//    afterEach(function() {
+//        route = HubStar.Router.create();
+//          route.transitionTo("searchIndex");
+//    });
+//});
 
-        photo_image_original_url = HubStar.Mega.find('2119904211372397730').get('photo').objectAt(0).get('photo_image_original_url');
-       
-        $("<img>", {
-            src: photo_image_original_url,
-            error: function() {
-                validation = false;
-                done();
-            },
-            load: function() {
-                validation = true;
-                done();}
-        });
-    });
+//describe("poster photo_title photo_caption  testing", function() {
+//    it("click poster picture", function() {
+//
+//        $('#masonry_container').find('.box').eq(1).find('.mainfeature-wrapper img').click();
+//
+//
+//        var photo_title = HubStar.Mega.find('2119904211372397730').get('photo').objectAt(0).get('photo_title');
+//        var photo_caption = HubStar.Mega.find('2119904211372397730').get('photo').objectAt(0).get('photo_caption');
+//
+//
+//        $('.objectview-wrapper').find('.article-title').should.have.text(photo_title);
+//        $('.objectview-wrapper').find('.article-text').should.have.text(photo_caption);
+//    });
+//    afterEach(function() {
+//        route = HubStar.Router.create();
+//        route.transitionTo("searchIndex");
+//    });
+//});
 
-    it("click poster picture", function() {
-        (validation === true).should.equal(true);
-        $('.objectview-wrapper').find('.mainfeature img').attr("src").should.be(photo_image_original_url);
-    });
 
-
-    afterEach(function() {
-        route = HubStar.Router.create();
-        route.transitionTo("searchIndex");
-    });
-});
+//describe("poster photo_url  validation  testing", function() {
+//    var validation;
+//    var photo_image_original_url;
+//    
+//    beforeEach(function(done) {
+//        
+//        $('#masonry_container').find('.box').eq(1).find('.mainfeature-wrapper img').click();
+//
+//        photo_image_original_url = HubStar.Mega.find('2119904211372397730').get('photo').objectAt(0).get('photo_image_original_url');
+//       
+//        $("<img>", {
+//            src: photo_image_original_url,
+//            error: function() {
+//                validation = false;
+//                done();
+//            },
+//            load: function() {
+//                validation = true;
+//                done();}
+//        });
+//    });
+//
+//    it("click poster picture", function() {
+//        (validation === true).should.equal(true);
+//        $('.objectview-wrapper').find('.mainfeature img').attr("src").should.be(photo_image_original_url);
+//    });
+//
+//
+//    afterEach(function() {
+//        route = HubStar.Router.create();
+//        route.transitionTo("searchIndex");
+//    });
+//});
 

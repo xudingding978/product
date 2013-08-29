@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 
-=======
->>>>>>> 571b9323af3ee01f095a246edb64c5157070ef46
 <?php
 header("Access-Control-Allow-Origin: *");
 header('Content-type: *');
@@ -139,7 +136,8 @@ class CollectionsController extends Controller {
 
     public function actionDelete() {
 
-        $infoDel = CJSON::decode(file_get_contents('php://input'));
+        $info = CJSON::decode(file_get_contents('php://input'));
+        $infoDel = CJSON::decode($info, true);
         $collectionDel_id = $infoDel[0];
         $collectionDelProfile = $infoDel[1];
         //error_log(var_export($collectionDelProfile,true));

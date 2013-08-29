@@ -97,6 +97,8 @@
     -webkit-margin-end: 0px;
 }
 
+
+
 .locationandlinks > li{
     background: url(../../images/list-doc.png) no-repeat 5px 9px;
     display: inline-block;
@@ -116,6 +118,30 @@
     max-width: 180px;
     padding-left: 20px;
     position: relative;
+}
+
+
+.itemprofile{
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+    font-family: 'Helvetica', sans-serif;
+    font-weight: bold;
+     bottom: 12px;
+    color: #777;
+    font-size: 13px;
+    position: relative;
+    display: block;
+    list-style-type: none;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+
+.itemprofile > li{
+    display: inline-block;
+    padding-left: 10px;
+    color:#555;
 }
 
 

@@ -29,7 +29,9 @@
 
 
 <div class="masonry-object_profilepic" style="cursor:pointer;" {{action toProfilePage this}}>
+
      <img class="easing" {{bindAttr src="profile_pic_url"}} />   
+
 </div>
 
 
@@ -42,6 +44,25 @@
 </div>
 
 
+          <div style=" margin-top:5px;overflow:hidden; width:100%; height:30px;">
+            <ul class="itemprofile" style= "margin-left:80px;">
+                <li class="location_li">
+                    <a href="#" target="_blank"><k class="#"> </k>C  ( {{this.collections.length}})</a>
+                </li>
+                <li class="location_li">
+                    <a href="#" target="_blank">&nbsp <k class="#"> P ({{ length this.profile_partner_ids}})</k></a>
+                </li>
+                <li class="location_li">
+                    <a href="#" target="_blank">&nbsp <k class="#"> V</k></a>
+                </li>
+                <li class="location_li">
+                    <a href="#" target="_blank">&nbsp <k class="#">E </k></a>
+                </li>
+          
+            </ul>
+
+        </div>
+  
 <!--TAGS-->
 
 <div class="object-tags-box">
@@ -80,9 +101,11 @@
     <div class="masonry-object_text">
 
 
-        <div class="more_detail" {{bindAttr id="id"}} >
+        <div class="more_detail" {{bindAttr id="id"}}>
 
-            {{profile_about_us}}
+      {{profile_cover_text}}
+
+           
         </div>
 
         <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>

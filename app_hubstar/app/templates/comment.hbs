@@ -48,7 +48,7 @@
         </div>
     </div>
 
-    <div id="commentData_{{unbound model.id}}" class="comment-frame" style="max-height:120px">
+    <div id="commentData_{{unbound model.id}}" class="comment-frame" style="max-height:70px;">
 
         {{#each model.comments}}
         <div class="comment-item">
@@ -69,8 +69,8 @@
                         </div>
 
                         <div class="reply-comment">
-        
-                        </div>
+         <!--  <a class = "reply-comment-button" herf="#/users/{{unbound commenter_id}}"{{action linkingUser commenter_id}}>replay</a>
+                    -->    </div>
                     </div>
 
                     <div class="comment-content">
@@ -90,9 +90,14 @@
 
         {{/each}}
 
+
+
     </div>
 
+
+
 </div>
+
 
 
 {{#if controller.makeSureDelete}}

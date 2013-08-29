@@ -1,11 +1,20 @@
 HubStar.ArticleRoute = Ember.Route.extend({
         //     controller: HubStarlicationController,
         setupController: function(controller, model) {
-            var d = HubStar.Mega.find(model.id);
+             var temp;
+        if (model.id === undefined) {                        //reload page model id can not be find
+            var url =  window.location.href;
+            urlArray = url.split("/");
+            temp = urlArray[urlArray.length-1];
+        } else {
+            temp = model.id;
+        }
+            var d = HubStar.Mega.find(temp);
             controller.getInitData(d);
         },
         model: function(params) {
-            return HubStar.Mega.find(params.article_id);
+            var model = HubStar.Mega.find({"RequireType": "articles", "article_id": params.article_id});
+            return model;
         },
         activate: function() {
 

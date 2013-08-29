@@ -1,0 +1,149 @@
+
+<div id="user-board_right_back">
+       <div class="tabbable">
+            <div class="tabs-left">
+                <ul class="nav nav-tabs easing">
+                    <li class="active" ><a href="#tab1" data-toggle="tab">CHANGE COVER</a></li>
+                    <li class="easing" ><a href="#tab2" data-toggle="tab">SETTING</a></li>
+                    <li class="easing" ><a href="#tab3" data-toggle="tab">SECURITY</a></li>
+                </ul>
+            </div>
+         <div class="tab-content easing">
+                <div class="tab-pane active" id="tab1">
+                     <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">CHANGE COVER</div>
+
+                    <div class='styleup_section'>
+                        <a href="#fileuploader" data-toggle="tab" {{action setUploadImageMode "Profile Picture"}}>
+                           <div class='styleup_uploadbox easing hint--right hint--rounded' data-hint='Upload' {{action changeSize}}>
+                                <i class='icon-upload icon-3x' style="width: 30px;margin: auto;display: block;position: relative;top: 40px;"></i>
+                                <span style="font-size: 13px;font-weight:bold;bottom: 20px;position: relative;">Profile Picture</span>
+                            </div>
+                        </a>
+                        <div style='height: 150px;margin: 10px 15px;display: inline-block; width: auto;line-height: 150px;vertical-align: top;'>
+                            <img style="max-height: 100%; width: auto;max-width: 300px;" {{bindAttr src="profile_pic_url"}} />
+                        </div>
+                    </div>
+
+                     <div style="right: 0;margin: 30px auto 0;width: 150px;">
+                        <span class='new-btn blue-btn flip-back'{{action userDashboardBackButton }}><k class='icon-group'> &nbsp;</k>Back</span>
+                    </div>  
+                </div>
+
+                <div class="tab-pane" id="tab2">
+
+                    <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: auto;">SETTING</div>
+
+                    <table class='profilesnew-table' style="padding-right: 147px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin:auto;">
+                        <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
+
+                            <tr>
+                                <td>User Name:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div   style="margin: 0;width: 100%;">
+                                            {{view Ember.TextField valueBinding="boost"  class="mustFill4"  }}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                             <tr>
+                                <td>About me:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div   style="margin: 0;width: 100%; height:100px;">
+                                            {{view Ember.TextArea valueBinding="keywords" class="no-resize"  placeholder="* Please ensure you use a commer seperated list!!! ie: bathroom, kitchen, living room"}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td> Location:</td>
+                                <td>
+                                    <div class="new-btn" style="display: block;" {{action dropdown controller.projectCategoryDropdownType}}>
+                                         <span> {{controller.projectCategoryDropdownContent}}</span>
+                                        <span class="caret"></span>
+                                    </div>
+                                    {{#if controller.isPackgetDropdown}}
+                                    {{view HubStar.DropdownListView}}
+                                    {{/if}}
+                                </td>
+                            </tr>
+                           
+                            <tr>
+                                <td>Facebook:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div   style="margin: 0;width: 100%;">
+                                            {{view Ember.TextField valueBinding="boost"  class="mustFill4"  }}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Twitter:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div   style="margin: 0;width: 100%;">
+                                            {{view Ember.TextField valueBinding="domains"  class="mustFill4"  }}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+
+                    <div style="right: 0;margin:10px auto 0;width: 150px;">
+                        <span class="new-btn green-btn" {{action saveUpdate}}>Save</span>
+                        <span class='new-btn blue-btn flip-back' {{action userDashboardBackButton }}><k class='icon-group'> &nbsp;</k>Back</span>
+                    </div>
+
+                </div>
+
+
+                <div class="tab-pane" id="tab3">
+                    <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: auto;">SECURITY</div>
+
+                    <table class='profilesnew-table' style="padding-right: 147px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
+                        <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
+
+                            <tr>
+                                <td>Email:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div   style="margin: 0;width: 100%;">
+                                            {{view Ember.TextField valueBinding="boost"  class="mustFill4"  }}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                           
+                            <tr>
+                                <td>Passwords:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div   style="margin: 0;width: 100%;">
+                                            {{view Ember.TextField valueBinding="boost"  class="mustFill4"  }}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                    <div style="right: 0;margin: 30px auto 0;width: 150px;">
+                        <span class="new-btn green-btn" {{action saveUpdate}} >Save</span>
+                        <span class='new-btn blue-btn flip-back'{{action userDashboardBackButton }}><k class='icon-group'> &nbsp;</k>Back</span>
+                    </div>
+
+                </div>
+        </div>
+
+
+         </div>
+       </div>
+</div>

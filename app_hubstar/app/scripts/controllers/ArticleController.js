@@ -4,7 +4,8 @@ HubStar.ArticleController = Ember.Controller.extend({
     image_no: 1,
     selectedPhoto: null,
     needs: ['application', 'addCollection', 'contact'],
-    init:function(){},
+    init: function() {
+    },
     findSelectedItemIndex: function() {
         content = this.get('content');
         for (var index = 0; index <= content.get('length'); index++) {
@@ -99,18 +100,22 @@ HubStar.ArticleController = Ember.Controller.extend({
         if (isProfileIDExist && isCollectionIDExist) {
             var data = HubStar.Mega.find({RequireType: "articleRelatedImage", "article_id": collection_id, "owner_id": owner_profile_id});
             data.addObserver('isLoaded', function() {
-                if (data.get('isLoaded')) {
-                    for (var i = 0; i < data.get("content").length; i++) {
+                if (data.get('isLoaded')) {          
+                var length=    data.get("content").get("length");
+                    for (var i = 0; i <length; i++) {
                         var temp = data.get("content").objectAt(i);
                         if (temp.data.photo !== undefined) {
-                            that.get("content").pushObject(temp.data.photo[0]);
-                            that.set('selectedPhoto', temp.data.photo[0]);
-                        }
-                        else if (temp.record._data.hasMany.photo !== undefined) {
-                            that.get("content").pushObject(temp.record._data.hasMany.photo[0].data);
-                            that.set('selectedPhoto', temp.record._data.hasMany.photo[0].data);
-                        }
+                            //console.log(temp.data.photo.objectAt(0));
+                            that.get("content").pushObject(temp.data.photo.objectAt(0));                                  //find the object which contain photos and push it into model
+                            //that.set('selectedPhoto', temp.data.photo.objectAt(0));
+                        }                        
+//                        else if (temp.record._data.article !== undefined) {                                                      // there is no hasMany in this object
+//                            console.log("record._data");
+//                            that.get("content").pushObject(temp.record._data.hasMany.photo.objectAt(0));
+//                            that.set('selectedPhoto', temp.record._data.hasMany.photo.objectAt(0));
+//                        }
                     }
+                    that.set('selectedPhoto', that.get('content').objectAt(0));                                                  //set selectedPhoto to the first photo
                 }
             });
         }
@@ -152,7 +157,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     closeContact: function() {
         this.set('contact', false);
     }
-, getTest: function() {
+    , getTest: function() {
 
         return "test";
 

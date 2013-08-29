@@ -63,8 +63,9 @@ HubStar.MegaController = Ember.ArrayController.extend({
         this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
         this.selectedImage(this.get('selectedPhoto').id);
     },
-
     getInitData: function(megaObject) {
+
+       
         var photoObj = megaObject.get('photo').objectAt(0);
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         this.set("content", []);
@@ -145,8 +146,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
     addComment: function() {
         var commentContent = this.get('commentContent');
         if (commentContent) {
-
-
             var comments = this.get('megaResouce').get('comments');
             var commenter_profile_pic_url = this.get("currentUser").get('photo_url');
             var commenter_id = this.get("currentUser").get('id');
@@ -157,8 +156,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 "is_delete": false, optional: this.get('megaResouce').get('type') + '/' + this.get('megaResouce').get('id')});
             comments.insertAt(0, tempComment);
             comments.store.save();
-
-
             this.set('commentContent', '');
             $('#addcommetBut').attr('style', 'display:block');
             $('#commentBox').attr('style', 'display:none');
@@ -190,12 +187,12 @@ HubStar.MegaController = Ember.ArrayController.extend({
         var current_user_email = currentUser.get('email');
         var permissionController = this.get('controllers.permission');
         var that = this;
-        var is_authentic_user = permissionController.checkAuthenticUser(that.get("megaResouce").get("owner_contact_email"), that.get("model").get("editors"), current_user_email);
+        var is_authentic_user = permissionController.checkAuthenticUser(that.get("megaResouce").get("owner_contact_email"), that.get("megaResouce").get("editors"), current_user_email);
         that.set("is_authentic_user", is_authentic_user);
         currentUser.addObserver('isLoaded', function() {
             var current_user_email = currentUser.get('email');
             if (currentUser.get('isLoaded')) {
-                var is_authentic_user = permissionController.checkAuthenticUser(that.get("megaResouce").get("owner_contact_email"), that.get("model").get("editors"), current_user_email);
+                var is_authentic_user = permissionController.checkAuthenticUser(that.get("megaResouce").get("owner_contact_email"), that.get("megaResouce").get("editors"), current_user_email);
                 that.set("is_authentic_user", is_authentic_user);
             }
         });

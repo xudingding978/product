@@ -74,11 +74,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 for (var i = 0; i < megasResults.get("length"); i++) {
                     var tempmega = megasResults.objectAt(i);
                     that.pushObject(tempmega);
-                }
-                
+                }     
                 that.set('loadingTime', false);
                 this.set("from", this.get("size"));
-                
                 var d = new Date();
                 var end = d.getTime();
                 var time = that.getResponseTime(start, end);

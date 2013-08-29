@@ -233,7 +233,6 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
 
     }, photoUpload: function() {
        //this.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully!!!");
-
         HubStar.store.save();
 
     }

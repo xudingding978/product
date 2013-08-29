@@ -21,7 +21,7 @@ HubStar.UserController = Ember.Controller.extend({
     profileSelectionStatus: "Collections",
     selected_topics: [],
     is_authentic_user: false,
-    is_click:false,
+    is_click: false,
     init: function()
     {
         this.setUser();
@@ -52,31 +52,30 @@ HubStar.UserController = Ember.Controller.extend({
             var col = collections.objectAt(i);
             if ((col.get("collection_ids") !== null && col.get("collection_ids") !== "")) {
                 var imgId = col.get("collection_ids").split(",").objectAt(0);
-                this.getHeroImage(imgId, col);
+                //  this.getHeroImage(imgId, col);
             }
         }
         this.checkAuthenticUser();
     },
-       
     userDashboardButton: function() {
-    if (this.get('is_click')===false){
-      
-    this.set('is_click',true);
-    $('#user-board_right_front').hide();
-    $('#user-board_right_back').show(); 
-    }
-   
+        if (this.get('is_click') === false) {
+
+            this.set('is_click', true);
+            $('#user-board_right_front').hide();
+            $('#user-board_right_back').show();
+        }
+
     },
-  userDashboardBackButton: function() {
-    if (this.get('is_click')===true){
-         this.set('is_click',false);
-    $('#user-board_right_front').show();
-    $('#user-board_right_back').hide(); 
-   
-    }
+    userDashboardBackButton: function() {
+        if (this.get('is_click') === true) {
+            this.set('is_click', false);
+            $('#user-board_right_front').show();
+            $('#user-board_right_back').hide();
+
+        }
     },
- 
     getHeroImage: function(id, col) {
+
         var photo = HubStar.Mega.find(id);
         photo.addObserver('isLoaded', function() {
             if (photo.get('isLoaded')) {
@@ -87,6 +86,7 @@ HubStar.UserController = Ember.Controller.extend({
                 }
             }
         });
+
     },
     exit: function()
     {
@@ -239,8 +239,6 @@ HubStar.UserController = Ember.Controller.extend({
     {
 
         var id = this.checkingValidInput(this.selectedCollection.get('id'));
-
-
         var title = this.get("selectedCollection").get("title");
         this.get("selectedCollection").set("title", title);
         this.set("selectedTitle", title);

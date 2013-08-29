@@ -186,7 +186,7 @@ class Controller extends CController {
             $requestStringTwo = 'couchbaseDocument.doc.owner_id=' . $owner_id;
             array_push($requestArray, $requestStringTwo);
             $response = $this->performMustSearch($requestArray, $returnType, 'must');
-        } elseif ($requireType == 'status') {
+        } elseif ($requireType == 'firstsearch') {
             $region = $this->getUserInput($requireParams[1]);
             $searchString = $this->getUserInput($requireParams[2]);
             $from = $this->getUserInput($requireParams[3]);

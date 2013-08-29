@@ -3,9 +3,9 @@
     <div class="user-board_left style-box">
        <div class="user-profilepic-container"> 
           <div class="changeuserprofilepic easing hint--right hint--rounded" data-hint="Choose a profile picture">
-             <k class="icon-edit"></k>
+            <k class="icon-edit"></k>
           </div>    
-          <img {{bindAttr src="controller.user.photo_url_large"}}/>
+        <img {{bindAttr src="controller.user.photo_url_large"}}/>
        </div>
         <div  type="button" class="new-btn green-btn" style="margin: 30px auto 20px;width: 130px;display: block;">
             Follow
@@ -45,7 +45,7 @@
             <div style="font-size:15px;line-height: 20px;margin: 5px 20px;color: #888; overflow: hidden;height: 200px; text-overflow: ellipsis;">{{controller.user.description}}</div>
         </div>
 
-        <div style="margin: -10px 40px 0;overflow:hidden; width:90%; height: 40px;">
+        <div style="margin: 0 40px; width:90%; height: 40px; position:relative;">
             <ul class="locationandlinks" style="margin-left: -10px;">
                 <li>
                     <span class="locationIcon"><k class="icon-map-marker"></k></span>

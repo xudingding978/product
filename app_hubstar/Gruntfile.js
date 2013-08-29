@@ -24,20 +24,8 @@ module.exports = function(grunt) {
         manifest: {
             generate: {
                 options: {
-                    basePath: "<%= yeoman.dist %>"
-//                    cache: [
-//                        'dist/*.html',
-//                        'dist/images/*',
-//                        'dist/styles/*.css',
-//                        'dist/styles/font/*',
-//                        'dist/scripts/*.js'
-//                    ],
-//                    network: ['http://*', 'https://*'],
-//                    fallback: ['/ /offline.html'],
-//                    exclude: ['js/jquery.min.js'],
-//                    preferOnline: true,
-//                    verbose: true,
-//                    timestamp: true
+                    basePath: "<%= yeoman.dist %>",
+                    master: ['index.html']
                 },
                 src: [
                     '*.html',
@@ -51,6 +39,22 @@ module.exports = function(grunt) {
                     'images/defaultcover/*'
                 ],
                 dest: "<%= yeoman.dist %>/cache.manifest"
+            }
+        },
+        replace: {
+            example: {
+                src: '<%= yeoman.app %>/templates/header.hbs',
+                dest: '<%= yeoman.app %>/templates/header.hbs',
+                replacements: [{
+                        from: /png\"\/\>\d\.\d\-[0-9]{1,500}/g,
+                        to: function(matchedWord) {
+                            var temp = matchedWord.substring(0, matchedWord.indexOf("-") + 1);
+                            var num = matchedWord.substring(matchedWord.indexOf("-") + 1);
+                            num = parseInt(num) + 1;
+                            return temp + num;
+
+                        }
+                    }]
             }
         },
         watch: {
@@ -282,8 +286,19 @@ module.exports = function(grunt) {
                     src: [
                         '<%= yeoman.dist %>/scripts/{,*/}*.js',
                         '<%= yeoman.dist %>/styles/{,*/}*.css'
+
                     ]
                 }
+
+            },
+            test: {
+                files: {
+                    src: [
+                        '<%= yeoman.dist %>/cache.manifest'
+                    ]
+                }
+
+
             }
         },
         useminPrepare: {
@@ -472,6 +487,7 @@ module.exports = function(grunt) {
     ]);
     grunt.registerTask('build', [
         'clean:dist',
+        'replace',
         'useminPrepare',
         'concurrent:dist',
         'neuter:app',
@@ -482,7 +498,8 @@ module.exports = function(grunt) {
         'copy:dist',
         'rev',
         'usemin',
-        'manifest'
+        'manifest',
+     //   'rev:test'
     ]);
     grunt.registerTask('default', [
         'jshint',

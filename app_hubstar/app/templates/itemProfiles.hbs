@@ -1,15 +1,4 @@
 
-
-
-
-
-
-
-
-
-
-
-
         {{#each model.profile}}
         <div class="masonry-object_profile-cover">
   
@@ -45,18 +34,18 @@
 
 
           <div style=" margin-top:5px;overflow:hidden; width:100%; height:30px;">
-            <ul class="itemprofile" style= "margin-left:80px;">
+            <ul class="itemprofile" style= "margin-left:75px;">
                 <li class="location_li">
-                    <a href="#" target="_blank"><k class="#"> </k>C  ( {{this.collections.length}})</a>
+              <a>      <k class="icon-eye-open"> &nbsp{{this.collections.length}} </k></a>
                 </li>
                 <li class="location_li">
-                    <a href="#" target="_blank">&nbsp <k class="#"> P ({{ length this.profile_partner_ids}})</k></a>
+               <a>       &nbsp <k class="icon-group">&nbsp {{ length this.profile_partner_ids}}</k></a>  
                 </li>
                 <li class="location_li">
-                    <a href="#" target="_blank">&nbsp <k class="#"> V</k></a>
+              <a>        &nbsp <k class="icon-film">&nbsp {{ videolength this.profile_about_us}}</k></a>  
                 </li>
                 <li class="location_li">
-                    <a href="#" target="_blank">&nbsp <k class="#">E </k></a>
+              <a>        &nbsp <k class="icon-book">&nbsp {{ ebooklength this.profile_about_us}}</k></a>  
                 </li>
           
             </ul>

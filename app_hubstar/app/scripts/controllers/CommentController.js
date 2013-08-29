@@ -68,33 +68,53 @@ HubStar.CommentController = Ember.Controller.extend({
     },
     addLike: function(id)
     {
-        var mega = HubStar.Mega.find(id);
-        var people_like = mega.get("people_like");
-        if (people_like === null || people_like === undefined) {
+        //console.log("addllike");
+        var mega = HubStar.Mega.find(id); 
+        var type = mega.get("type");
+          var people_like = mega.get("people_like");
+          if (people_like === null || people_like === undefined) {
             people_like = "";
         }
         if (localStorage.loginStatus !== null && localStorage.loginStatus !== undefined && localStorage.loginStatus !== "")
         {
             if (people_like.indexOf(localStorage.loginStatus) !== -1)
             {
+                //var like = people_like.split(",");
+                //mega.set("likes_count", like.length); 
+                //console.log(people_like);
             }
-            else {
-                this.addPeopleLike(mega);
+            else{     
+                var likeArray = [localStorage.loginStatus,id,type];
+                 
+                 likeArray=JSON.stringify(likeArray);
+                 //console.log(id);
+                 //console.log(localStorage.loginStatus);
+                    requiredBackEnd('megas', 'addlike', likeArray, 'POST', function(params) {
+                        params = params+"";
+                        var like = params.split(",");
+                        //console.log(like);
+                        mega.set("likes_count", like.length);
+                        mega.set("people_like",params);
+                    });
+                //this.addPeopleLike(mega);         
             }
         }
-    }, addPeopleLike: function(mega) {
-        var people_like = mega.get("people_like");
-        if (people_like === null || people_like === undefined || people_like === "")
-        {
-            people_like = localStorage.loginStatus;
-            mega.set("likes_count", 1);
-        } else {
-            people_like = people_like + "," + localStorage.loginStatus;
-            mega.set("likes_count", people_like.split(",").length);
-        }
-        mega.set("people_like", people_like);
-        mega.updateMegaWithUrl(mega, 'addlike');
-    },
+    }, 
+//     addPeopleLike: function(mega) {
+//        var people_like = mega.get("people_like");
+//        //console.log("dddddddddddddddd");
+//        //console.log(mega);
+//        if (people_like === null || people_like === undefined || people_like === "")
+//        {
+//            people_like = localStorage.loginStatus;
+//            mega.set("likes_count", 1);
+//        } else {
+//            people_like = people_like + "," + localStorage.loginStatus;
+//            mega.set("likes_count", people_like.split(",").length);
+//        }
+//        mega.set("people_like", people_like);
+//        mega.updateMegaWithUrl(mega, 'addlike');
+//    },
     pushComment: function(comment)
     {
         var tempurl = getRestAPIURL();

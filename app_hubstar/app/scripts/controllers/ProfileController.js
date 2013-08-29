@@ -146,12 +146,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             }
             else
             {
-                this.set('profilePartnerStatistics', 0);
+                this.set('profilePartnerStatistics',0);                
             }
         }
         else {
             this.set('profilePartnerStatistics', 0);
         }
+
         //this.paternsStatistics();
         this.statstics();
     },
@@ -345,6 +346,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if (this.get('willDelete')) {
             var tempCollection = this.get("selectedCollection");
             var delInfo = [tempCollection.id, this.get('model').get('id')];
+             delInfo=JSON.stringify(delInfo);
             requiredBackEnd('collections', 'delete', delInfo, 'POST', function(params) {
             });
             this.get("collections").removeObject(this.get("selectedCollection"));
@@ -540,9 +542,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set('profile_country', this.get('country'));
         update_profile_record.set('profile_boost', this.get('boost'));
         update_profile_record.set('profile_domains', this.get('domains'));
-        update_profile_record.set('profile_hero_url', '');
-        update_profile_record.set('profile_pic_url', '');
-        update_profile_record.set('profile_bg_url', '');
+        update_profile_record.set('profile_hero_url', this.get('profile_hero_url'));
+        update_profile_record.set('profile_pic_url', this.get('profile_pic_url'));
+        update_profile_record.set('profile_bg_url', this.get('profile_bg_url'));
         update_profile_record.set('profile_package_name', this.get('projectCategoryDropdownContent'));
         update_profile_record.set('owner_contact_bcc_emails', this.get('direct_enquiry_provide_email'));
         update_profile_record.set('owner_contact_cc_emails', this.get('secondary_email'));

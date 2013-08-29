@@ -80,6 +80,7 @@ class MegasController extends Controller {
         if ($newRecord['mega']['type'] == 'user') {
             $this->updateUserRecord($newRecord);
         } elseif ($newRecord['mega']['type'] == 'profile') {
+            //error_log(var_export($newRecord['mega']['type'],true));
             $this->updateProfileRecord($newRecord);
         } elseif ($newRecord['mega']['type'] == 'photo') {
             $photoController = new PhotosController();
@@ -110,17 +111,25 @@ class MegasController extends Controller {
 
     public function updateProfileRecord($newRecord) {
         try {
-            $cb = $this->couchBaseConnection();
-            $id = $newRecord['mega']['profile'][0]['id'];
-            $docID = $this->getDomain() . "/profiles/" . $id;
-            $oldRecord = $cb->get($docID);
-            $oldRecord = CJSON::decode($oldRecord, true);
-            $oldRecord['profile'] = $newRecord['mega']['profile'];
-            if ($cb->set($docID, CJSON::encode($oldRecord))) {
-                $this->sendResponse(204);
-            } else {
-                $this->sendResponse(500, "some thing wrong");
-            }
+            $this->sendResponse(204);
+            
+//            $cb = $this->couchBaseConnection();
+//
+//            if (!isset($newRecord['mega']['profile'])) {
+//                //error_log(var_export($newRecord,true));
+//                //$id = $newRecord['mega']['owner_id'];
+//            } else {
+//                $id = $newRecord['mega']['profile'][0]['id'];
+//                $docID = $this->getDomain() . "/profiles/" . $id;
+//                $oldRecord = $cb->get($docID);
+//                $oldRecord = CJSON::decode($oldRecord, true);
+//                $oldRecord['profile'] = $newRecord['mega']['profile'];
+//                if ($cb->set($docID, CJSON::encode($oldRecord))) {
+//                    $this->sendResponse(204);
+//                } else {
+//                    $this->sendResponse(500, "some thing wrong");
+//                }
+//            }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -193,22 +202,75 @@ class MegasController extends Controller {
     }
 
     public function actionaddlike() {
-        $newRecord_arr = file_get_contents('php://input');
-        $newRecord = CJSON::decode($newRecord_arr, true);
-        $likes_count = $newRecord['likes_count'];
-        $people_like = $newRecord['people_like'];
-        $id = $newRecord['optional'];
-        $type = $newRecord['type'];
-        $docID = $this->getDocId($type, $id);
-        $cb = $this->couchBaseConnection();
-        $oldRecord_arr = $cb->get($docID);
-        $oldRecord = CJSON::decode($oldRecord_arr, true);
-        $oldRecord['likes_count'] = $likes_count;
-        $oldRecord['people_like'] = $people_like;
-        if ($cb->set($docID, CJSON::encode($oldRecord))) {
-            $this->sendResponse(204);
-        } else {
-            $this->sendResponse(500, "some thing wrong");
+        $like = CJSON::decode(file_get_contents('php://input'));
+        $like_arr = CJSON::decode($like, true);
+        //error_log(var_export($like_arr[0],true));
+        $like_people = $like_arr[0];
+        $like_profile = $like_arr[1];
+        $like_type = $like_arr[2];
+        if ($like_type === "profile") {
+            //error_log(var_export($like_type,true));
+            try {
+                $cb = $this->couchBaseConnection();
+                $docID = $this->getDomain() . "/profiles/" . $like_profile;
+                $old = $cb->get($docID); // get the old profile record from the database according to the docID string
+                $oldRecord = CJSON::decode($old, true);
+                if (!isset($oldRecord["people_like"])) {
+                    //error_log("ssssssssssssssssss");            
+                    $oldRecord["people_like"] = null;
+                }
+
+                $likeExist = strpos($oldRecord["people_like"], $like_people);
+                //error_log(var_export($oldRecord["people_like"],true));
+                if ($likeExist === false) {
+                    if ($oldRecord["people_like"] !== null && $oldRecord["people_like"] !== "") {
+                        $oldRecord["people_like"] = $oldRecord["people_like"] . ',' . $like_people;
+                    } else {
+                        $oldRecord["people_like"] = "" . $like_people;
+                    }
+                    //error_log(var_export($oldRecord["people_like"],true));            
+                }
+                $likeLength = sizeof(explode(",", $oldRecord["people_like"]));
+                $oldRecord["likes_count"] = $likeLength;
+                if ($cb->set($docID, CJSON::encode($oldRecord))) {
+                    $this->sendResponse(200, $oldRecord["people_like"]);
+                } else {
+                    $this->sendResponse(500, "some thing wrong");
+                }
+            } catch (Exception $exc) {
+                echo $exc->getTraceAsString();
+            }
+        } elseif ($like_type === "photo") {
+            try {
+                $cb = $this->couchBaseConnection();
+                $docID = $this->getDomain() . "/" . $like_profile;
+                $old = $cb->get($docID); // get the old profile record from the database according to the docID string
+                $oldRecord = CJSON::decode($old, true);
+                //error_log(var_export(is_array($oldRecord["people_like"]),true));
+                if (!isset($oldRecord["people_like"]) || is_array($oldRecord["people_like"])) {
+                    //error_log("ssssssssssssssssss");            
+                    $oldRecord["people_like"] = null;
+                }
+                //error_log(var_export($oldRecord["people_like"],true));
+                $likeExist = strpos($oldRecord["people_like"], $like_people);
+                //error_log(var_export($oldRecord["people_like"],true));
+                if ($likeExist === false) {
+                    if ($oldRecord["people_like"] !== null && $oldRecord["people_like"] !== "") {
+                        $oldRecord["people_like"] = $oldRecord["people_like"] . ',' . $like_people;
+                    } else {
+                        $oldRecord["people_like"] = "" . $like_people;
+                    }
+                }
+                $likeLength = sizeof(explode(",", $oldRecord["people_like"]));
+                $oldRecord["likes_count"] = $likeLength;
+                if ($cb->set($docID, CJSON::encode($oldRecord))) {
+                    $this->sendResponse(200, $oldRecord["people_like"]);
+                } else {
+                    $this->sendResponse(500, "some thing wrong");
+                }
+            } catch (Exception $exc) {
+                echo $exc->getTraceAsString();
+            }
         }
     }
 

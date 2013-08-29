@@ -255,3 +255,23 @@ describe("AddLike Test", function() {
 //    });
 //});
 
+describe("create profile", function() {
+    var controller;
+    var topics;
+    var result;
+    beforeEach(function(done) {
+
+        Ember.run(function() {
+            LoginIn(done);
+
+           controller = HubStar.ProfileNewController.create();
+           console.log("ssssssssss");
+           console.log(controller.addLike("1270944421372427691"));        
+        });
+    });
+    it("total topics", function() {
+        Ember.run(function() {
+            //result.should.equal(14);
+        });
+    });
+});

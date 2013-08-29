@@ -96,6 +96,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
         });
         return photoMega;
     }, addPhotoObject: function(e, name, type) {
+        var photoName = name.replace(/[)\(]/gi, '');
         var testID = createGuid();
         var target = this.getTarget(e);
         var src = target.result;
@@ -103,10 +104,10 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
         var keywords = this.get("profileMega").get("profile_keywords");
         var file = HubStar.Photo.createRecord({
             "id": testID,
-            "photo_title": name.toLowerCase(),
-            "photo_source_id": name.toLowerCase().replace('.', "_"),
+            "photo_title": photoName.toLowerCase(),
+            "photo_source_id": photoName.toLowerCase().replace('.', "_"),
             "photo_image_original_url": src,
-            "photo_file_name": name.toLowerCase(),
+            "photo_file_name": photoName.toLowerCase(),
             "photo_type": type,
             "photo_keywords": keywords});
         mega.get("photo").pushObject(file);

@@ -10149,7 +10149,7 @@ div.loading-visible{
 
 .location_li{
     white-space: nowrap;
-    overflow: hidden;
+   
     -ms-text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;

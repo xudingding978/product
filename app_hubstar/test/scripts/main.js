@@ -2810,10 +2810,9 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         this.checkEditingMode();
     }
     ,
+    goBack: function() {
 
-            goBack:function(){
-         
-         var lastposition=HubStar.get("scrollCollectionPosition");
+        var lastposition = HubStar.get("scrollCollectionPosition");
         window.history.back();
 
         setTimeout(function() {
@@ -2870,7 +2869,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                     var tempcollectedColletionids = collectedColletionids.replace(HubStar.get('itemID') + ",", "");
                     tempcollectedColletionids = collectedColletionids.replace(HubStar.get('itemID'), "");
                     currentCollection.set('collection_ids', tempcollectedColletionids);
-
+                    //   this.get('controllers.applicationFeedback').statusObserver(null, "Delete Successfully!!!");
                     HubStar.store.save();
                     break;
                 }
@@ -2931,15 +2930,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             if (userOrprofile.objectAt(i).id === collection_id) {
                 var currentCollection = userOrprofile.objectAt(i);
                 currentCollection.set('cover', coverImge);
-<<<<<<< HEAD
-          //    that.get('controllers.applicationFeedback').statusObserver(null, "Cover Save Successfully!!!");
-=======
-<<<<<<< HEAD
-          //    that.get('controllers.applicationFeedback').statusObserver(null, "Cover Save Successfully!!!");
-=======
                 currentCollection.set('optional', owner_id);
->>>>>>> b84b0aa3fef7cf4084f5fd23f1136efe8ed011ef
->>>>>>> 4727a444733bf9340774e40ebc6b1802b8f4a094
                 HubStar.store.save();
                 break;
             }
@@ -2996,15 +2987,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         }
 
     }, photoUpload: function() {
-<<<<<<< HEAD
-       //this.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully!!!");
-=======
-<<<<<<< HEAD
-       //this.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully!!!");
-=======
 
->>>>>>> b84b0aa3fef7cf4084f5fd23f1136efe8ed011ef
->>>>>>> 4727a444733bf9340774e40ebc6b1802b8f4a094
         HubStar.store.save();
        
     }

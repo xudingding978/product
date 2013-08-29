@@ -5,11 +5,11 @@
 
     {{#if profile_hero_cover_url}}
     <div class="masonry-object_cover-wapper">
-        <img {{bindAttr src="profile_hero_cover_url"}}/>
+        <img {{bindAttr src="profile_hero_cover_url"}} style="width: 100%";/>
     </div>
     {{else}}
     <div class="masonry-object_cover-wapper">
-        <img {{bindAttr src="profile_hero_url"}}/>
+        <img {{bindAttr src="profile_hero_url"}} style="width: 100%;"/>
     </div>
     {{/if}}
 
@@ -19,7 +19,7 @@
 
 <div class="masonry-object_profilepic" style="cursor:pointer;" {{action toProfilePage this}}>
 
-     <img class="easing" {{bindAttr src="profile_pic_url"}} />   
+     <img class="easing" {{bindAttr src="profile_pic_url"}}  />   
 
 </div>
 
@@ -33,7 +33,7 @@
 </div>
 
 
-          <div style=" margin-top:5px;overflow:hidden; width:100%; height:30px; text-align:center;">
+          <div style=" margin-top:5px;overflow:hidden; width:100%; height:35px; text-align:center;">
             <ul class="itemprofile">
                 <li class="location_li hint-top hint-rounded" data-hint="Collections">
               <a>      <k class="icon-eye-open"> &nbsp{{this.collections.length}} </k></a>

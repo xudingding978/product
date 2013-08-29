@@ -2485,7 +2485,7 @@ function program6(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("\n\n\n\n\n\n\n\n\n\n\n\n        ");
+  data.buffer.push("\n        ");
   hashTypes = {};
   hashContexts = {};
   stack1 = helpers.each.call(depth0, "model.profile", {hash:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
@@ -5037,7 +5037,7 @@ function program9(depth0,data) {
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "controller.user.description", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("</div>\n        </div>\n\n        <div style=\"margin: -10px 40px 0;overflow:hidden; width:90%; height: 40px;\">\n            <ul class=\"locationandlinks\" style=\"margin-left: -10px;\">\n                <li>\n                    <span class=\"locationIcon\"><k class=\"icon-map-marker\"></k></span>\n                    Auckland\n                </li>\n\n                <li class=\"location_li\">\n                    <a href=\"#\" target=\"_blank\">&nbsp <k class=\"icon-facebook\"> </k></a>\n                </li>\n                <li class=\"location_li\">\n                    <a href=\"#\" target=\"_blank\">&nbsp <k class=\"icon-twitter\"> </k></a>\n                </li>\n                <li class=\"location_li\">\n                    <a href=\"#\" target=\"_blank\">&nbsp <k class=\"icon-google-plus\"> </k></a>\n                </li>\n                <li class=\"location_li\">\n                    <a href=\"#\" target=\"_blank\">&nbsp <k class=\"icon-pinterest\"> </k></a>\n                </li>\n                <li class=\"location_li\">\n                    <a href=\"#\" target=\"_blank\">&nbsp <k class=\"icon-youtube-play\"> </k></a>\n                </li>\n\n            </ul>\n        </div>\n</div>\n");
+  data.buffer.push("</div>\n        </div>\n\n        <div style=\"margin: 0 40px; width:90%; height: 40px; position:relative;\">\n            <ul class=\"locationandlinks\" style=\"margin-left: -10px;\">\n                <li>\n                    <span class=\"locationIcon\"><k class=\"icon-map-marker\"></k></span>\n                    Auckland\n                </li>\n\n                <li class=\"location_li\">\n                    <a href=\"#\" target=\"_blank\">&nbsp <k class=\"icon-facebook\"> </k></a>\n                </li>\n                <li class=\"location_li\">\n                    <a href=\"#\" target=\"_blank\">&nbsp <k class=\"icon-twitter\"> </k></a>\n                </li>\n                <li class=\"location_li\">\n                    <a href=\"#\" target=\"_blank\">&nbsp <k class=\"icon-google-plus\"> </k></a>\n                </li>\n                <li class=\"location_li\">\n                    <a href=\"#\" target=\"_blank\">&nbsp <k class=\"icon-pinterest\"> </k></a>\n                </li>\n                <li class=\"location_li\">\n                    <a href=\"#\" target=\"_blank\">&nbsp <k class=\"icon-youtube-play\"> </k></a>\n                </li>\n\n            </ul>\n        </div>\n</div>\n");
   hashTypes = {};
   hashContexts = {};
   stack1 = helpers['if'].call(depth0, "controller.is_click", {hash:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});

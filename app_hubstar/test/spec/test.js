@@ -88,15 +88,7 @@ describe("AddLike Test", function() {
 
            controller = HubStar.CommentController.create();
            console.log("ssssssssss");
-           console.log(controller.addLike("1270944421372427691"));
-//            topics=controller.mega;
-//            topics.addObserver('isLoaded', function() {
-//                if (topics.get('isLoaded')) {
-//                    
-//                    result = topics.get('length');
-//                    done();
-//                }
-//            });
+           console.log(controller.addLike("1270944421372427691"));        
         });
     });
     it("total topics", function() {
@@ -254,3 +246,23 @@ describe("user profies testing", function() {
 //    });
 //});
 
+describe("create profile", function() {
+    var controller;
+    var topics;
+    var result;
+    beforeEach(function(done) {
+
+        Ember.run(function() {
+            LoginIn(done);
+
+           controller = HubStar.ProfileNewController.create();
+           console.log("ssssssssss");
+           console.log(controller.addLike("1270944421372427691"));        
+        });
+    });
+    it("total topics", function() {
+        Ember.run(function() {
+            //result.should.equal(14);
+        });
+    });
+});

@@ -55,18 +55,6 @@ module.exports = function(grunt) {
 
                         }
                     }]
-            },
-            cash: {
-                src: '<%= yeoman.dist %>/index.html',
-                dest: '<%= yeoman.dist %>/index.html',
-                replacements: [{
-                        from: /cache\.manifest/g,
-                        to: function(matchedWord, index, fullText, regexMatches, pathToSource, pathToDestination) {
-                            //        grunt.log.writeln(pathToDestination);
-                            return '{,*/}*.manifest';
-
-                        }
-                    }]
             }
         },
         watch: {
@@ -322,7 +310,6 @@ module.exports = function(grunt) {
         usemin: {
             html: ['<%= yeoman.dist %>/{,*/}*.html'],
             css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
-            manifest: ['<%= yeoman.dist %>/{,*/}*.manifest'],
             options: {
                 dirs: ['<%= yeoman.dist %>']
             }
@@ -500,7 +487,7 @@ module.exports = function(grunt) {
     ]);
     grunt.registerTask('build', [
         'clean:dist',
-    //    'replace:dist',
+ //       'replace:dist',
         'useminPrepare',
         'concurrent:dist',
         'neuter:app',
@@ -512,9 +499,8 @@ module.exports = function(grunt) {
         'rev',
         'usemin',
         'manifest',
-        'rev:test',
-        'usemin:manifest'
-                //      'replace:cash'
+        'rev:test'
+
     ]);
     grunt.registerTask('default', [
         'jshint',

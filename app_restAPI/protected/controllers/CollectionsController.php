@@ -1,4 +1,7 @@
+<<<<<<< HEAD
+=======
 
+>>>>>>> 37f76dfdeec180a4e794408f9636f22d6d325518
 <?php
 header("Access-Control-Allow-Origin: *");
 header('Content-type: *');

@@ -10164,10 +10164,8 @@ div.loading-visible{
 
 .itemprofile{
     -webkit-font-smoothing: antialiased;
-    overflow: hidden;
     font-family: 'Helvetica', sans-serif;
     font-weight: bold;
-    bottom: 12px;
     color: #777;
     font-size: 13px;
     position: relative;
@@ -10181,7 +10179,7 @@ div.loading-visible{
 
 .itemprofile > li{
     display: inline-block;
-    padding-left: 10px;
+    padding: 0 10px 0 0;
     color:#555;
 }
 

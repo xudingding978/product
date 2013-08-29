@@ -14,6 +14,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     iframeLoginURL: "",
     init: function() {
         this.newSearch();
+        this.set('search_string','');
         var address = document.URL;
         var domain = address.split("/")[2];
         this.set('iframeURL', "http://" + domain + "/user/create/");

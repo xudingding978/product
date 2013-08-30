@@ -85,12 +85,15 @@
     overflow: hidden;
     font-family: 'Helvetica', sans-serif;
     font-weight: bold;
-    bottom: 15px;
+    bottom: 0;
     color: #777;
     font-size: 17px;
-    position: relative;
+    position: absolute;
     display: block;
     list-style-type: none;
+    padding:0;
+    margin: 0;
+
     -webkit-margin-before: 1em;
     -webkit-margin-after: 1em;
     -webkit-margin-start: 0px;
@@ -102,7 +105,8 @@
 .locationandlinks > li{
     background: url(../../images/list-doc.png) no-repeat 5px 9px;
     display: inline-block;
-    padding-left: 12px;
+    padding: 0 12px;
+    vertical-align: middle;
 }
 
 
@@ -123,10 +127,8 @@
 
 .itemprofile{
     -webkit-font-smoothing: antialiased;
-    overflow: hidden;
     font-family: 'Helvetica', sans-serif;
     font-weight: bold;
-     bottom: 12px;
     color: #777;
     font-size: 13px;
     position: relative;
@@ -140,7 +142,8 @@
 
 .itemprofile > li{
     display: inline-block;
-    padding-left: 15px;
+    padding: 0 10px 0 0;
+    color:#555;
 }
 
 

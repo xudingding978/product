@@ -5,12 +5,14 @@ var category_record;
 var address_record;
 var phone_record;
 var website_record;
+var website_url_record;
 var workingtime;
 var isExsinting = true;
 var seletedID = "";
 HubStar.ProfileController = Ember.ObjectController.extend({
     model: null,
     aboutMe: "aboutMe",
+   
     address: "",
     boost: '',
     currentUserID: "",
@@ -247,16 +249,19 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     toggleEditing: function(data, checkingInfo) {
         if (checkingInfo === "profileName") {
             profile_record = data;
+           // console.log(data);
             this.set('editing', !this.get('editing'));
         } else if (checkingInfo === "aboutMe") {
             about_record = data;
             this.set('editingAbout', !this.get('editingAbout'));
+            console.log(data);
         } else if (checkingInfo === "contact") {
             contact_record = this.get('model.contact_user');
             category_record = this.get('model.profile_category');
             address_record = this.get('model.profile_physical_address');
             phone_record = this.get('model.phone_number');
-            website_record = this.get('model.website_url');
+            website_record = this.get('model.website');
+            website_url_record = this.get('model.website_url');
             this.set('editingContact', !this.get('editingContact'));
         }
         else if (checkingInfo === "timeSetting") {
@@ -286,21 +291,25 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     no: function(checkingInfo) {
         if (checkingInfo === "profileName") {
             //console.log(this.profile_name);
-            this.set('model.profile_name', profile_record);    
-           // this.set("profile_name",profile_record);
+         // this.set('model.profile_name', profile_record);    
+           this.set("profile_name",profile_record);
             this.set('editing', !this.get('editing'));
         }
         else if (checkingInfo === "aboutMe") {
-            this.set('model.about', about_record);
+            this.set('model.profile_about_us', about_record);
+          
+           //this.set("about", about_record);
             this.set('editingAbout', !this.get('editingAbout'));
         }
         else if (checkingInfo === "contact") {
-            this.set('model.contact_user', contact_record);
+           this.set('model.contact_user', contact_record);
             this.set('model.profile_category', category_record);
             this.set('model.profile_physical_address', address_record);
             this.set('model.phone_number', phone_record);
-            this.set('model.website_url', website_record);
-            this.set('editingContact', !this.get('editingContact'));
+             this.set('model.website', website_record);   
+            this.set('model.website_url', website_url_record);      
+            
+          
         }
         else if (checkingInfo === "timeSetting") {
             this.updateWorkingHourData(this.get('model.profile_hours'));

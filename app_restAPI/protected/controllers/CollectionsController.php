@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-
 <?php
-=======
- <?php
->>>>>>> 9ac14fcef4109cc663d47f52ff694f2cf99d5cb7
+
 header("Access-Control-Allow-Origin: *");
 header('Content-type: *');
 
@@ -160,13 +156,15 @@ class CollectionsController extends Controller {
                 if ($owner["profile"][0]["collections"][$i]["id"] === $collectionDel_id) {
                     //error_log(var_export($owner["profile"][0]["collections"][$i],true));
                     array_splice($owner["profile"][0]["collections"], $i, 1);
-                }
-            }
-            if ($cb->set($docID, CJSON::encode($owner))) {
+                    
+                     if ($cb->set($docID, CJSON::encode($owner))) {
                 $this->sendResponse(204);
             } else {
                 $this->sendResponse(500, "some thing wrong");
             }
+                }
+            }
+           
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

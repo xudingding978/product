@@ -148,7 +148,7 @@
                                  <tr>
                                     <th>Website URL:</th>
                                     {{#if controller.editingContact}}
-                                    {{input type="text" class="insert-contactdetails" value=website }}
+                                    {{input type="text" class="insert-contactdetails" value=website_url }}
                                     {{else}}
                                     <th class="Contact_2child"><a href="http://{{unbound model.profile_website_url}}" target="blank">http://{{website_url}}</a></th>
                                     {{/if}}
@@ -237,7 +237,7 @@
                                     </div>
                                     {{else}}
                                     {{#if controller.is_authentic_user}}
-                                    <div class="edit-btn hint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing model.about controller.aboutMe}}>
+                                    <div class="edit-btn hint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing model.profile_about_us controller.aboutMe}}>
                                          <i class="icon-edit"></i>
                                     </div>
                                     {{/if}}

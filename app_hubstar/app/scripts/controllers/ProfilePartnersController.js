@@ -1,5 +1,6 @@
 HubStar.ProfilePartnersController = Ember.Controller.extend({
     content: [],
+  
     clientID: "",
     partnerID: "",
     model: "",
@@ -8,7 +9,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
     selectedPartnerPic: "",
     is_authentic_user: false,
 
-    needs: ['permission', 'applicationFeedback','profile'],
+    needs: ['permission', 'applicationFeedback','profile','position'],
 
     addingPartnerObserver: function() {
         var addProfilePic = this.get('currentAddPartnerPic').split("/profiles/")[1];
@@ -28,7 +29,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
                     for (var i = 0; i < data.get("length"); i++) {
                         var tempmega = data.objectAt(i);
                         that.get("content").pushObject(tempmega);
-                    }
+                    }               
                     //that.get('controllers.profile').statstics();
                 }
             });      

@@ -22,12 +22,14 @@
 
 {{outlet "welcome"}}
 {{outlet "quickstart"}}        
+{{view HubStar.MasonryView}}
 {{else}}
 
-{{view HubStar.CarouselView}}
+{{render landingPage}}
+
 {{/if}}
 
-{{view HubStar.MasonryView}}
+
 
 {{/unless}}
 

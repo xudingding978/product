@@ -487,7 +487,7 @@ module.exports = function(grunt) {
     ]);
     grunt.registerTask('build', [
         'clean:dist',
- //       'replace:dist',
+        'replace:dist',
         'useminPrepare',
         'concurrent:dist',
         'neuter:app',

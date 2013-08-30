@@ -2238,6 +2238,7 @@ HubStar.CommentController = Ember.Controller.extend({
     thisComments: null,
     stringFiedTime_stamp: null,
     mega: null,
+    count:null,
     init: function()
     {
         if (localStorage.loginStatus) {
@@ -2300,9 +2301,10 @@ HubStar.CommentController = Ember.Controller.extend({
         this.set('makeSureDelete', false);
         HubStar.set('data', null);
     },
+    //test:function(){console.log('33333333333');},
     addLike: function(id)
     {
-        //console.log("addllike");
+        //console.log(id);
         var mega = HubStar.Mega.find(id); 
         var type = mega.get("type");
           var people_like = mega.get("people_like");
@@ -2316,6 +2318,7 @@ HubStar.CommentController = Ember.Controller.extend({
                 //var like = people_like.split(",");
                 //mega.set("likes_count", like.length); 
                 //console.log(people_like);
+                this.count = mega.get('likes_count');
             }
             else{     
                 var likeArray = [localStorage.loginStatus,id,type];
@@ -2323,14 +2326,15 @@ HubStar.CommentController = Ember.Controller.extend({
                  likeArray=JSON.stringify(likeArray);
                  //console.log(id);
                  //console.log(localStorage.loginStatus);
+                 var that = this;
                     requiredBackEnd('megas', 'addlike', likeArray, 'POST', function(params) {
                         params = params+"";
+                        console.log(params);
                         var like = params.split(",");
-                        //console.log(like);
                         mega.set("likes_count", like.length);
                         mega.set("people_like",params);
-                    });
-                //this.addPeopleLike(mega);         
+                        that.count = like.length;
+                    }); 
             }
         }
     }, 
@@ -2870,11 +2874,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                     var tempcollectedColletionids = collectedColletionids.replace(HubStar.get('itemID') + ",", "");
                     tempcollectedColletionids = collectedColletionids.replace(HubStar.get('itemID'), "");
                     currentCollection.set('collection_ids', tempcollectedColletionids);
-<<<<<<< HEAD
-                 //   this.get('controllers.applicationFeedback').statusObserver(null, "Delete Successfully!!!");
-=======
                     //   this.get('controllers.applicationFeedback').statusObserver(null, "Delete Successfully!!!");
->>>>>>> b84b0aa3fef7cf4084f5fd23f1136efe8ed011ef
                     HubStar.store.save();
                     break;
                 }
@@ -2935,11 +2935,10 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             if (userOrprofile.objectAt(i).id === collection_id) {
                 var currentCollection = userOrprofile.objectAt(i);
                 currentCollection.set('cover', coverImge);
-<<<<<<< HEAD
           //    that.get('controllers.applicationFeedback').statusObserver(null, "Cover Save Successfully!!!");
-=======
+
                 currentCollection.set('optional', owner_id);
->>>>>>> b84b0aa3fef7cf4084f5fd23f1136efe8ed011ef
+
                 HubStar.store.save();
                 break;
             }
@@ -2996,13 +2995,8 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         }
 
     }, photoUpload: function() {
-<<<<<<< HEAD
        //this.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully!!!");
-=======
-
->>>>>>> b84b0aa3fef7cf4084f5fd23f1136efe8ed011ef
-        HubStar.store.save();
-       
+        HubStar.store.save();      
     }
 
 });
@@ -3892,7 +3886,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     no: function(checkingInfo) {
         if (checkingInfo === "profileName") {
-            this.set('model.profile_name', profile_record);
+            //console.log(this.profile_name);
+            this.set('model.profile_name', profile_record);    
+           // this.set("profile_name",profile_record);
             this.set('editing', !this.get('editing'));
         }
         else if (checkingInfo === "aboutMe") {

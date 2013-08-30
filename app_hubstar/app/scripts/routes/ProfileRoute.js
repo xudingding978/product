@@ -14,9 +14,27 @@ HubStar.ProfileRoute = Ember.Route.extend({
             this.controllerFor('application').set('isotherpage', true);
             this.controllerFor('searchs').setLoginImge();
             this.controllerFor('profile').set('switchPhoto', true);
-
-
-            ProfileController.setProfile(model.id);
+          
+        
+               
+               
+              var lastPositionId= HubStar.get('lastPositionId');
+              var lastPosition=HubStar.get("scrollPartenerPosition");
+              if(model.id===lastPositionId)
+                  {
+                      this.controllerFor('profile').selectPartner(model);
+                        
+                     ProfileController.setProfile(lastPositionId);
+                     
+                     setTimeout(function() {
+                        $(window).scrollTop(lastPosition);
+                       }, 200);
+                
+                  }
+                else{
+                      ProfileController.setProfile(model.id);            
+                }
+                
         },
         events: {
             transitionToCollectionPhoto: function(collection_id) {
@@ -45,7 +63,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
 
         },
         deactivate: function() {
-    //       HubStar.get("scrollPartenerPosition");
+
         },
         activate: function() {
             $(window).scrollTop(0);
@@ -56,6 +74,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
                 $('#masonry_container').masonry('remove', $('.noStyle1'));
             });
         },
+
         renderTemplate: function() {
             this.render('profile', {
                 outlet: "profile",

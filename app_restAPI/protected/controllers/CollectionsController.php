@@ -1,3 +1,4 @@
+
 <?php
 header("Access-Control-Allow-Origin: *");
 header('Content-type: *');
@@ -140,9 +141,6 @@ class CollectionsController extends Controller {
     public function actionDelete() {
 
         $infoDel = CJSON::decode(file_get_contents('php://input'));
-        
-             error_log('$collectionDel_id    '.typeof($infoDel));
-              error_log('$collectionDel_id    '.var_export($infoDel,true));
         $collectionDel_id = $infoDel[0];
         $collectionDelProfile = $infoDel[1];
         //error_log(var_export($collectionDelProfile,true));
@@ -151,7 +149,6 @@ class CollectionsController extends Controller {
             $docID = $this->getDomain() . "/profiles/" . $collectionDelProfile;
             $profileOwn = $cb->get($docID);
             $owner = CJSON::decode($profileOwn, true);
-      
             for ($i = 0; $i < sizeof($owner["profile"][0]["collections"]); $i++) {
                 if ($owner["profile"][0]["collections"][$i]["id"] === $collectionDel_id) {
                     //error_log(var_export($owner["profile"][0]["collections"][$i],true));

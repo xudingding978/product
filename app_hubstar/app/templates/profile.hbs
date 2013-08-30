@@ -139,9 +139,18 @@
                                 <tr>
                                     <th>Website:</th>
                                     {{#if controller.editingContact}}
-                                    {{input type="text" class="insert-contactdetails" value=website  }}
+                                    {{input type="text" class="insert-contactdetails" value=website }}
                                     {{else}}
-                                    <th class="Contact_2child"><a href="http://{{unbound model.profile_website}}" target="blank">{{website}}</a></th>
+                                    <th class="Contact_2child">{{website}}</th>
+                                    {{/if}}
+                                </tr>
+
+                                 <tr>
+                                    <th>Website URL:</th>
+                                    {{#if controller.editingContact}}
+                                    {{input type="text" class="insert-contactdetails" value=website }}
+                                    {{else}}
+                                    <th class="Contact_2child"><a href="http://{{unbound model.profile_website_url}}" target="blank">http://{{website_url}}</a></th>
                                     {{/if}}
                                 </tr>
 

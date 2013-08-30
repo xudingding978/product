@@ -285,7 +285,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     no: function(checkingInfo) {
         if (checkingInfo === "profileName") {
-            this.set('model.profile_name', profile_record);
+            //console.log(this.profile_name);
+            this.set('model.profile_name', profile_record);    
+           // this.set("profile_name",profile_record);
             this.set('editing', !this.get('editing'));
         }
         else if (checkingInfo === "aboutMe") {

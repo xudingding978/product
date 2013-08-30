@@ -1819,6 +1819,7 @@ function program4(depth0,data) {
   return buffer;
   }
 
+<<<<<<< HEAD
   data.buffer.push("<div class=\"navbar\">\n      <div style=\"position: absolute;right: 0;z-index: 1;\">\n        <img src=\"../../../images/beta-version.png\"/>\n        <span style=\"position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;\" id=\"lastidentifie\">0.2-3</span>\n      </div>\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <div class=\"brand\">\n                <a href=\"/#\">\n                    <img class=\"logonew\" style=\"position: relative; top: 0; margin:0;\" src=\"../../../images/landing-trends.png\">\n                </a>\n            </div>\n\n \n\n            <!-- show if not logged into platform-->\n\n\n            ");
   hashTypes = {};
   hashContexts = {};
@@ -5390,4 +5391,8 @@ function program7(depth0,data) {
   data.buffer.push("\n</div>\n\n");
   return buffer;
   
+=======
+  data.buffer.push("<div class=\"navbar\">\n      <div style=\"position: absolute;right: 0;z-index: 1;\">\n        <img src=\"../../../images/beta-version.png\"/>\n        <span style=\"position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;\" id=\"lastidentifie\">0.2-1</span>\n      </div>\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <div class=\"brand\">\n                <a href=\"/#\">\n                    <img class=\"logonew\" style=\"position: relative; top: 0; margin:0;\" src=\"../../../images/landing-trends.png\">\n                </a>\n            </div>\n\n \n\n            <!-- show if not logged into platform-->\n\n\n            ");
+  data.buffer.push("<div class=\"navbar\">\n      <div style=\"position: absolute;right: 0;z-index: 1;\">\n        <img src=\"../../../images/beta-version.png\"/>\n        <span style=\"position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;\" id=\"lastidentifie\">0.2-1</span>\n      </div>\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <div class=\"brand\">\n                <a href=\"/#\">\n                    <img class=\"logonew\" style=\"position: relative; top: 0; margin:0;\" src=\"../../../images/landing-trends.png\">\n                </a>\n            </div>\n\n \n\n            <!-- show if not logged into platform-->\n\n\n            ");
+>>>>>>> 9ac14fcef4109cc663d47f52ff694f2cf99d5cb7
 });

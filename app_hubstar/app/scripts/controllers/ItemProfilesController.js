@@ -24,7 +24,9 @@
         toProfilePage: function(model) {
     
      HubStar.set("scrollPartenerPosition",$(window).scrollTop());
+   
            this.transitionToRoute('profile', model);
+         
            $(window).scrollTop(0); 
         },
         setPartnerRemove: function() {

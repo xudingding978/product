@@ -8,7 +8,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     is_profile_editing_mode: false,
     uploadOrsubmit: false,
     is_user_editing_mode: false,
-    needs: ['photoCreate', 'profile', 'user', 'permission', 'photoCreateInfoSetting'],
+    needs: ['photoCreate', 'profile', 'user', 'permission', 'photoCreateInfoSetting','applicationFeedback'],
     user_id: null,
     init: function() {
     },
@@ -186,6 +186,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                 currentCollection.set('cover', coverImge);
                 currentCollection.set('optional', owner_id);
                 HubStar.store.save();
+                  this.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully");
                 break;
             }
         }

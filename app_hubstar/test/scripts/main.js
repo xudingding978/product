@@ -1151,9 +1151,27 @@ HubStar.ProfileRoute = Ember.Route.extend({
             this.controllerFor('application').set('isotherpage', true);
             this.controllerFor('searchs').setLoginImge();
             this.controllerFor('profile').set('switchPhoto', true);
-
-
-            ProfileController.setProfile(model.id);
+          
+        
+               
+               
+              var lastPositionId= HubStar.get('lastPositionId');
+              var lastPosition=HubStar.get("scrollPartenerPosition");
+              if(model.id===lastPositionId)
+                  {
+                      this.controllerFor('profile').selectPartner(model);
+                        
+                     ProfileController.setProfile(lastPositionId);
+                     
+                     setTimeout(function() {
+                        $(window).scrollTop(lastPosition);
+                       }, 200);
+                
+                  }
+                else{
+                      ProfileController.setProfile(model.id);            
+                }
+                
         },
         events: {
             transitionToCollectionPhoto: function(collection_id) {
@@ -1193,6 +1211,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
                 $('#masonry_container').masonry('remove', $('.noStyle1'));
             });
         },
+
         renderTemplate: function() {
             this.render('profile', {
                 outlet: "profile",
@@ -1861,6 +1880,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     iframeLoginURL: "",
     init: function() {
         this.newSearch();
+        this.set('search_string','');
         var address = document.URL;
         var domain = address.split("/")[2];
         this.set('iframeURL', "http://" + domain + "/user/create/");
@@ -1966,18 +1986,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
 (function() {
 
-
-
 HubStar.ApplicationFeedbackController = Ember.Controller.extend({
     needs: ['application'],
     setFeedback: function(status) {
 
-
-
-
         this.set('status', status);
         this.set('feedback', true);
-
 
         var that = this;
         Ember.run.later(function() {
@@ -1987,9 +2001,6 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
                 that.set('feedback', false);
             });
         }, 1000);
-
-
-
 
         Ember.run.next(function() {
 
@@ -2006,13 +2017,11 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
             that.set("succeed", false);
             that.set("warnning", true);
             that.set("failed", false);
+
             that.setFeedback(infoChecking);
-
-
         } else {
             record.addObserver("isError", function() {
                 if (record.get("isError")) {
-
                     that.set("info", false);
                     that.set("succeed", false);
                     that.set("warnning", false);
@@ -2022,17 +2031,13 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
                     noError = false;
                 }
                 else {
-
-
                 }
 
                 record.removeObserver("isError");
             });
-
             if (noError) {
                 record.addObserver("isSaving", function() {
                     if (record.get("isSaving")) {
-//                        console.log('isSaving:  true');
                         that.set("info", false);
                         that.set("succeed", true);
                         that.set("warnning", false);
@@ -2703,7 +2708,9 @@ HubStar.CommentController = Ember.Controller.extend({
         toProfilePage: function(model) {
     
      HubStar.set("scrollPartenerPosition",$(window).scrollTop());
+   
            this.transitionToRoute('profile', model);
+         
            $(window).scrollTop(0); 
         },
         setPartnerRemove: function() {
@@ -2758,7 +2765,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     is_profile_editing_mode: false,
     uploadOrsubmit: false,
     is_user_editing_mode: false,
-    needs: ['photoCreate', 'profile', 'user', 'permission', 'photoCreateInfoSetting'],
+    needs: ['photoCreate', 'profile', 'user', 'permission', 'photoCreateInfoSetting','applicationFeedback'],
     user_id: null,
     init: function() {
     },
@@ -2934,15 +2941,13 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             if (userOrprofile.objectAt(i).id === collection_id) {
                 var currentCollection = userOrprofile.objectAt(i);
                 currentCollection.set('cover', coverImge);
-<<<<<<< HEAD
-                currentCollection.set('optional', owner_id);
-=======
-          //    that.get('controllers.applicationFeedback').statusObserver(null, "Cover Save Successfully!!!");
+
 
                 currentCollection.set('optional', owner_id);
 
->>>>>>> 9ac14fcef4109cc663d47f52ff694f2cf99d5cb7
+
                 HubStar.store.save();
+                  this.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully");
                 break;
             }
         }
@@ -2999,6 +3004,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
 
     }, photoUpload: function() {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
         HubStar.store.save();
        
@@ -3006,6 +3012,11 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
        //this.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully!!!");
         HubStar.store.save();      
 >>>>>>> 9ac14fcef4109cc663d47f52ff694f2cf99d5cb7
+=======
+
+        HubStar.store.save();
+       
+>>>>>>> 89f0920906aa9de8a365d997ac8f56a4acef378d
     }
 
 });
@@ -4127,7 +4138,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     selectPartner: function(model) {
 
-
+        HubStar.set("lastPositionId",model.id);
         this.set('profileSelectionStatus', 'Partners');
 
         this.get('controllers.profilePartners').getClientId(model);
@@ -4676,6 +4687,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
 
 HubStar.ProfilePartnersController = Ember.Controller.extend({
     content: [],
+  
     clientID: "",
     partnerID: "",
     model: "",
@@ -4684,7 +4696,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
     selectedPartnerPic: "",
     is_authentic_user: false,
 
-    needs: ['permission', 'applicationFeedback','profile'],
+    needs: ['permission', 'applicationFeedback','profile','position'],
 
     addingPartnerObserver: function() {
         var addProfilePic = this.get('currentAddPartnerPic').split("/profiles/")[1];
@@ -4704,7 +4716,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
                     for (var i = 0; i < data.get("length"); i++) {
                         var tempmega = data.objectAt(i);
                         that.get("content").pushObject(tempmega);
-                    }
+                    }               
                     //that.get('controllers.profile').statstics();
                 }
             });      

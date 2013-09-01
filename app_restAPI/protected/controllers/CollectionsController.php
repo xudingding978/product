@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> 37f76dfdeec180a4e794408f9636f22d6d325518
-<?php
+ <?php
 header("Access-Control-Allow-Origin: *");
 header('Content-type: *');
 
@@ -16,12 +12,12 @@ class CollectionsController extends Controller {
     const JSON_RESPONSE_ROOT_PLURAL = 'collections';
 
     public function actionIndex() {
-        //error_log("aaaaaaaaaaaaaaaaaaaaaa");
+      
         $infoRefresh = explode("?", $_SERVER['REQUEST_URI']);
         $infoRefreshDeep = explode("&", $infoRefresh[1]);
         $profile_id = explode("=", $infoRefreshDeep[1]);
         $collection_id = explode("=", $infoRefreshDeep[2]);
-        //error_log(var_export($infoRefreshDeep, true));
+
 
         try {
             $cb = $this->couchBaseConnection();
@@ -115,13 +111,17 @@ class CollectionsController extends Controller {
         try {
             $cb = $this->couchBaseConnection();
             $docID = $this->getDomain() . "/profiles/" . $owner_id;
-            $oldRecord = $cb->get($docID); // get the old profile record from the database according to the docID string
-            $oldRecord = CJSON::decode($oldRecord, true);
+                      error_log($docID);
+            $cbRecord = $cb->get($docID); // get the old profile record from the database according to the docID string
+       
+            $oldRecord = CJSON::decode($cbRecord, true);
 
             $collection_num = 0;
-
             /*             * *Find the  changed  collection and replace the old vaule in collection with the new record value** */
+
+   //error_log(var_export($oldRecord['keywords'], true));
             foreach ($oldRecord["profile"][0]["collections"] as $record_id) {//assign each collection in profile's collections to record_id
+                error_log(var_export($record_id, true));
                 if ($record_id["id"] == $id) {
                     $oldRecord["profile"][0]["collections"] [$collection_num] = $newRecord["collection"]; //replace the old collection with the new record's collection
                 }
@@ -140,10 +140,12 @@ class CollectionsController extends Controller {
     public function actionDelete() {
 
         $info = CJSON::decode(file_get_contents('php://input'));
-        $infoDel = CJSON::decode($info, true);
+        //$info = file_get_contents('php://input');
+         $infoDel = CJSON::decode($info, true);
+        //$newRecord = CJSON::decode($request_json, true);
         $collectionDel_id = $infoDel[0];
         $collectionDelProfile = $infoDel[1];
-        //error_log(var_export($collectionDelProfile,true));
+        //error_log(var_export($infoDel[0],true));
         try {
             $cb = $this->couchBaseConnection();
             $docID = $this->getDomain() . "/profiles/" . $collectionDelProfile;

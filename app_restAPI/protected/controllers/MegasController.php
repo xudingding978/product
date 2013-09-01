@@ -16,26 +16,26 @@ class MegasController extends Controller {
             $temp = explode("?", $_SERVER['REQUEST_URI']);
             $request_string = $temp [sizeof($temp) - 1];
             $response = "";
-            
+
             if (sizeof($temp) > 1) {
                 $requireParams = explode('&', $request_string);
                 if ($this->getUserInput($requireParams[0]) == "photos") {                                //reload photo page, get information from couchbase, form request string;
-                    $photoID= $this ->getUserInput($requireParams[1]);
-                     $cb = $this->couchBaseConnection();
+                    $photoID = $this->getUserInput($requireParams[1]);
+                    $cb = $this->couchBaseConnection();
                     $docID = $this->getDomain() . "/" . $photoID;
                     $tempRecord = $cb->get($docID);
-                    $record =  CJSON::decode($tempRecord, true);
-                    $request_string= "RequireType=collection&collection_id=" . $record["collection_id"] . "&owner_profile_id=" . $record["owner_id"];
+                    $record = CJSON::decode($tempRecord, true);
+                    $request_string = "RequireType=collection&collection_id=" . $record["collection_id"] . "&owner_profile_id=" . $record["owner_id"];
                 } elseif ($this->getUserInput($requireParams[0]) == "articles") {                       //reload article page, get information from couchbase, form request string;
-                    $articleID= $this ->getUserInput($requireParams[1]);
-                     $cb = $this->couchBaseConnection();
+                    $articleID = $this->getUserInput($requireParams[1]);
+                    $cb = $this->couchBaseConnection();
                     $docID = $this->getDomain() . "/" . $articleID;
                     $tempRecord = $cb->get($docID);
-                    $record =  CJSON::decode($tempRecord, true);
-                    $request_string= "RequireType=articleRelatedImage&collection_id=" . $record["collection_id"] . "&owner_profile_id=" . $record["owner_id"];
+                    $record = CJSON::decode($tempRecord, true);
+                    $request_string = "RequireType=articleRelatedImage&collection_id=" . $record["collection_id"] . "&owner_profile_id=" . $record["owner_id"];
+                } else {
+                    $response = $this->getRequestResult($request_string, self::JSON_RESPONSE_ROOT_PLURAL);
                 }
-                
-                $response = $this->getRequestResult($request_string, self::JSON_RESPONSE_ROOT_PLURAL);
             }
             $this->sendResponse(200, $response);
         } catch (Exception $exc) {
@@ -176,28 +176,7 @@ class MegasController extends Controller {
     }
 
     public function updateMega($newRecord) {
-//        $cb = $this->couchBaseConnection();
-//        $id = $newRecord['id'];
-//        $type = $newRecord['mega']['type'];
-//        $docID = $this->getDocId($type, $id);
-//        $oldRecord = $cb->get($docID);
-//        $oldRecord = CJSON::decode($oldRecord, true);
-//
-//        if (!isset($oldRecord['comments'])) {
-//            $oldRecord['comments'] = array();
-//        }
-//        if (sizeof($newRecord['mega']['comments']) > sizeof($oldRecord['comments'])) {//insert comment
-//            array_unshift($oldRecord['comments'], $newRecord['mega']['comments'][0]);
-//        }
-//        if (!isset($oldRecord['likes_count']) || $oldRecord['likes_count'] != $newRecord['mega']['likes_count']) {//update count
-//            $oldRecord['likes_count'] = $newRecord['mega']['likes_count'];
-//            $oldRecord['people_like'] = $newRecord['mega']['people_like'];
-//        }
-//        if ($cb->set($docID, CJSON::encode($oldRecord))) {
-//            $this->sendResponse(204);
-//        } else {
-//            $this->sendResponse(500, "some thing wrong");
-//        }
+
         $this->sendResponse(204);
     }
 

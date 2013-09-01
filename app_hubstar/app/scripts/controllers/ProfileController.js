@@ -285,7 +285,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     no: function(checkingInfo) {
         if (checkingInfo === "profileName") {
-            this.set('model.profile_name', profile_record);
+            //console.log(this.profile_name);
+            this.set('model.profile_name', profile_record);    
+           // this.set("profile_name",profile_record);
             this.set('editing', !this.get('editing'));
         }
         else if (checkingInfo === "aboutMe") {
@@ -515,7 +517,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     selectPartner: function(model) {
 
-
+        HubStar.set("lastPositionId",model.id);
         this.set('profileSelectionStatus', 'Partners');
 
         this.get('controllers.profilePartners').getClientId(model);
@@ -542,9 +544,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set('profile_country', this.get('country'));
         update_profile_record.set('profile_boost', this.get('boost'));
         update_profile_record.set('profile_domains', this.get('domains'));
-        update_profile_record.set('profile_hero_url', '');
-        update_profile_record.set('profile_pic_url', '');
-        update_profile_record.set('profile_bg_url', '');
+        update_profile_record.set('profile_hero_url', this.get('profile_hero_url'));
+        update_profile_record.set('profile_pic_url', this.get('profile_pic_url'));
+        update_profile_record.set('profile_bg_url', this.get('profile_bg_url'));
         update_profile_record.set('profile_package_name', this.get('projectCategoryDropdownContent'));
         update_profile_record.set('owner_contact_bcc_emails', this.get('direct_enquiry_provide_email'));
         update_profile_record.set('owner_contact_cc_emails', this.get('secondary_email'));

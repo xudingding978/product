@@ -6,8 +6,6 @@
         photoInfo: [],
         isEditingMode: false,
         setData: function() {
-
-
             var content = HubStar.get('UploadImageInfoData');
             if (this.get("photoInfo") !== undefined)
             {
@@ -25,7 +23,6 @@
                     });
                 }
             }
-//            console.log(this.get('isEditingMode'));
             this.set('isEditingMode', false);
         },
         submitPhotoInfo: function() {

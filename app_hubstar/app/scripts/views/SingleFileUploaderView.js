@@ -9,11 +9,11 @@ HubStar.SingleFileUploaderView = Ember.View.extend(HubStar.SingleFileUploaderCon
             var totalFileSize = 0;
             (function(file) {
                 var name = file.name;
-               // var size = file.size;
+               var size = file.size;
                 var reader = new FileReader();
                 reader.onload = function(e) {
                     
-                    controller.profileStyleImageDrop(e, name);
+                    controller.profileStyleImageDrop(e, name,size);
                 }, reader.readAsDataURL(files[0]);
             })(files[0]);
             return false;

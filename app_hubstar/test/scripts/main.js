@@ -2765,7 +2765,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     is_profile_editing_mode: false,
     uploadOrsubmit: false,
     is_user_editing_mode: false,
-    needs: ['photoCreate', 'profile', 'user', 'permission', 'photoCreateInfoSetting','applicationFeedback'],
+    needs: ['photoCreate', 'profile', 'user', 'permission', 'photoCreateInfoSetting', 'applicationFeedback'],
     user_id: null,
     init: function() {
     },
@@ -2782,12 +2782,12 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
 
 
         results.addObserver('isLoaded', function() {
-            
+
 
             if (results.get('isLoaded')) {
-         
+
                 for (var i = 0; i < this.get("content").length; i++) {
-                   var tempObject= results.objectAt(i);
+                    var tempObject = results.objectAt(i);
                     that.get("content").pushObject(tempObject);
                 }
             }
@@ -2863,8 +2863,8 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     },
     removeCollectedItem: function(collectionID, itemID)
     {
-
         var message = "Do you wish to delete this photo ?";
+
         this.set("message", message);
         this.set('makeSureDelete', true);
         this.dropdownPhotoSetting(itemID);
@@ -2872,15 +2872,18 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             var currentUser = HubStar.User.find(localStorage.loginStatus);
             var currentCollection = null;
             var collectedColletionids = null;
+            console.log("delete");
             for (var i = 0; i < currentUser.get('collections').get('length'); i++) {
                 if (currentUser.get('collections').objectAt(i).get('id') === HubStar.get('collectionID'))
                 {
                     currentCollection = currentUser.get('collections').objectAt(i);
                     collectedColletionids = currentCollection.get('collection_ids');
+                    if (collectedColletionids === null) {
+                        collectedColletionids = "";
+                    }
                     var tempcollectedColletionids = collectedColletionids.replace(HubStar.get('itemID') + ",", "");
                     tempcollectedColletionids = collectedColletionids.replace(HubStar.get('itemID'), "");
                     currentCollection.set('collection_ids', tempcollectedColletionids);
-
                     //   this.get('controllers.applicationFeedback').statusObserver(null, "Delete Successfully!!!");
                     HubStar.store.save();
                     break;
@@ -2929,7 +2932,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         return is_authentic_user;
     },
     changeCollectionCover: function(id, collection_id, HubStarModel) {
-    
+
         this.dropdownPhotoSetting(id);
         var Mega = HubStar.Mega.find(id);
         var coverImge = Mega.get('photo').objectAt(0).get('photo_image_original_url');
@@ -2948,7 +2951,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
 
 
                 HubStar.store.save();
-                  this.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully");
+                this.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully");
                 break;
             }
         }
@@ -3016,8 +3019,12 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
 =======
 
         HubStar.store.save();
+<<<<<<< HEAD
        
 >>>>>>> 89f0920906aa9de8a365d997ac8f56a4acef378d
+=======
+
+>>>>>>> ea84cb2df42875d8831ac0bc07a8b62a17b8de09
     }
 
 });
@@ -3540,7 +3547,7 @@ HubStar.PhotoCreateController.Droppable = Ember.Mixin.create(HubStar.PhotoCreate
             var that = this;
             setTimeout(function() {
                 that.finishUploadingAndInfo();
-            }, 2000);
+            }, objectLength*500);
 
         },
         photoSave: function(photoInfo, data)
@@ -4721,7 +4728,16 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
                     //that.get('controllers.profile').statstics();
                 }
             });      
-        }    
+        }
+             var lastPositionId= HubStar.get('lastPositionId');
+              var lastPosition=HubStar.get("scrollPartenerPosition");
+              if(model.id===lastPositionId)
+                  {
+                     
+                        $(window).scrollTop(lastPosition);
+                                           
+        }
+        
         this.checkAuthenticUser();
     }
     ,

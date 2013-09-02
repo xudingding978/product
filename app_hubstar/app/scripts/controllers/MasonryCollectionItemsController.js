@@ -241,7 +241,10 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             this.set('is_user_editing_mode', false);
         }
 
-    }, photoUpload: function() {
+    }, photoUpload: function(e) {
+
+        
+        
 
         HubStar.store.save();
        

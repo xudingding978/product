@@ -552,14 +552,15 @@ div.search-loading-invisible{
 
 .checkbox-columncontainer{
     display: inline-block;
-    width: 420px;
+    width: 440px;
     text-align: left;
+    padding-left: 25px;
 }
 
 .checkbox-container{
     padding: 2px 8px;
     float: left;
-    width: 210px;
+    width: 200px;
 }
 
 /*CSS Checkboxes*/
@@ -576,7 +577,7 @@ input[type=checkbox].css-checkbox + label.css-label {
     line-height: 14px;
     background-repeat: no-repeat;
     background-position: 0 0;
-    font-size: 15px;
+    font-size: 13px;
     font-weight: bold;
     vertical-align: middle;
     cursor: pointer;

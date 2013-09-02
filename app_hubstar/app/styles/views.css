@@ -830,6 +830,7 @@
     right: 0px;
     top: 0;
 
+    z-index: 1;
 }
 
 .top-controlbar{
@@ -838,8 +839,9 @@
     margin: 0 auto;
     position: absolute;
     right: 0px;
-    width: 100px;
     text-align: center;
+    background-color: rgba(0,0,0,.6);
+    opacity: 0;
 }
 
 .bottom-controlbar{
@@ -849,17 +851,28 @@
     margin: 0 auto;
     position: absolute;
     right: 0px;
-    width: 132px;
+    background-color: rgba(0,0,0,.6);
+    opacity: 0;
+    text-align: center;
+}
+
+
+.objectview-left:hover > .top-controlbar{
+    opacity: 1;
+}
+
+.objectview-left:hover > .bottom-controlbar{
+    opacity: 1;
 }
 
 
 .mainfeature{
-    bottom: 44px;
+    bottom: 0px;
     left: 0;
     overflow: hidden;
     position: absolute;
     right: 0px;
-    top: 44px;
+    top: 0px;
 }
 
 .mainfeature_object{
@@ -1368,7 +1381,7 @@
 .comment-frame{
     width: 87%;
     margin: 0 auto;
-   
+
 }
 
 

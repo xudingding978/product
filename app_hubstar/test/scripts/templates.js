@@ -507,7 +507,7 @@ function program9(depth0,data) {
     'on': ("click"),
     'target': ("controller")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(" style=\"display:inline-block; vertical-align: top; position:relative; left:44px;\">\n                <i class=\"icon-arrow-left\"></i>\n            </div>\n            <div class=\"icon-on-black hint--rounded hint--top\" data-hint=\"Show other photos in this collection.\" style=\"left: 44px; display:inline-block; vertical-align: top;\" ");
+  data.buffer.push(" style=\"display:inline-block; vertical-align: top; position:relative; left:44px;\">\n                <i class=\"icon-arrow-left\"></i>\n            </div>\n            <div class=\"icon-on-black hint--rounded hint--top\" data-hint=\"Show other photos in this collection.\" style=\"left: 44px; display:inline-block; vertical-align: top; position:relative;\" ");
   hashContexts = {'on': depth0,'target': depth0};
   hashTypes = {'on': "STRING",'target': "STRING"};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "popupAibum", {hash:{
@@ -1819,7 +1819,7 @@ function program4(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("<div class=\"navbar\">\n      <div style=\"position: absolute;right: 0;z-index: 1;\">\n        <img src=\"../../../images/beta-version.png\"/>\n        <span style=\"position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;\" id=\"lastidentifie\">0.2-7</span>\n      </div>\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <div class=\"brand\">\n                <a href=\"/#\">\n                    <img class=\"logonew\" style=\"position: relative; top: 0; margin:0;\" src=\"../../../images/landing-trends.png\">\n                </a>\n            </div>\n\n \n\n            <!-- show if not logged into platform-->\n\n\n            ");
+  data.buffer.push("<div class=\"navbar\">\n      <div style=\"position: absolute;right: 0;z-index: 1;\">\n        <img src=\"../../../images/beta-version.png\"/>\n        <span style=\"position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;\" id=\"lastidentifie\">0.2-8</span>\n      </div>\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <div class=\"brand\">\n                <a href=\"/#\">\n                    <img class=\"logonew\" style=\"position: relative; top: 0; margin:0;\" src=\"../../../images/landing-trends.png\">\n                </a>\n            </div>\n\n \n\n            <!-- show if not logged into platform-->\n\n\n            ");
   hashTypes = {};
   hashContexts = {};
   stack1 = helpers['if'].call(depth0, "controller.islogin", {hash:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
@@ -3055,7 +3055,7 @@ function program10(depth0,data) {
     'on': ("click"),
     'target': ("controller")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(" style=\"display:inline-block; vertical-align: top; position:relative; left:44px;\">\n                <i class=\"icon-arrow-left\"></i>\n            </div>\n            <div class=\"icon-on-black hint--rounded hint--top\" data-hint=\"Show other photos in this collection.\" style=\"left: 44px; display:inline-block; vertical-align: top;\" ");
+  data.buffer.push(" style=\"display:inline-block; vertical-align: top; position:relative; left:44px;\">\n                <i class=\"icon-arrow-left\"></i>\n            </div>\n            <div class=\"icon-on-black hint--rounded hint--top\" data-hint=\"Show other photos in this collection.\" style=\"left: 44px; display:inline-block; vertical-align: top; position:relative;\" ");
   hashContexts = {'on': depth0,'target': depth0};
   hashTypes = {'on': "STRING",'target': "STRING"};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "popupAibum", {hash:{

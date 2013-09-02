@@ -31,7 +31,27 @@ class TenantConfigurationController extends Controller {
     public function actionDelete() {
 
     }
-
+    /*
+   public function actionGetImageSize()
+   {  
+       $request_json = file_get_contents('php://input');
+        //error_log($request_json);
+      $request_arr=  CJSON::decode($request_json, true);
+error_log(var_export($request_arr,true));
+     $requireType=$request_arr['imageSrc'];
+    
+       
+      //error_log(var_export($requireType, true));
+        $domain = $this->getDomain();
+        $configuration = $this->getProviderConfigurationByName($domain, "image_required_sizes");
+        $imageSize = getimagesize($requireType);
+        error_log(var_export($imageSize, true));
+        $feedback = CJSON::encode($configuration[$imageSize], true);
+        $this->sendResponse(200, $feedback);
+         
+   }
+     * */
+     */
     public function actionGetRequireIamgeSize() {
         $request_json = file_get_contents('php://input');
         //error_log($request_json);

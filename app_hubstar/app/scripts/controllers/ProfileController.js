@@ -629,10 +629,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             var maxWidth = 2000;
             var maxHeight = 1500;
             var that = this;
+
             getImageWidth(src, function(width, height) {
                 that.set('currentWidth', width);
                 that.set('currentHeight', height);
-
+                
                 var data = {"RequireIamgeType": that.get('UploadImageMode')};
                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
                     if ((width >= params.width) && (height >= params.height) && (width < maxWidth) && (height < maxHeight))

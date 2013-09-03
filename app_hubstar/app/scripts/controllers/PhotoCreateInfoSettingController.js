@@ -36,7 +36,7 @@
             var that = this;
             setTimeout(function() {
                 that.finishUploadingAndInfo();
-            }, 2000);
+            }, objectLength*500);
 
         },
         photoSave: function(photoInfo, data)

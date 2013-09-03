@@ -69,11 +69,24 @@ function getImageWidth(imgSrc)
 function getImageWidth(imgSrc, callback) {
     var img = new Image();
     img.src = imgSrc;
+    console.log(img.size);
     img.onload = function() {
      
         callback(this.width, this.height);
+        console.log(this.width, this.height, this.src.length );
+       
     };
+<<<<<<< HEAD
 }
+=======
+    
+  }  
+  
+
+   
+
+
+>>>>>>> d049a5d69ac021a968086c533a2ded87ee340bd6
 
 function requiredBackEnd(controller, method, para, ajaxType, callback) {
     {

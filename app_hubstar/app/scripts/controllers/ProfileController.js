@@ -1,6 +1,8 @@
 var profile_record;
 var about_record;
-var contact_record;
+//var contact_record;
+var first_name_record;
+var last_name_record;
 var category_record;
 var address_record;
 var phone_record;
@@ -8,9 +10,12 @@ var website_record;
 var workingtime;
 var isExsinting = true;
 var seletedID = "";
+var collection_title_record;
+var collection_desc_record;
 HubStar.ProfileController = Ember.ObjectController.extend({
     model: null,
     aboutMe: "aboutMe",
+    about_me: "",
     address: "",
     boost: '',
     currentUserID: "",
@@ -98,9 +103,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         return profile;
     },
     setProfile: function(id) {
-
         var profile = this.getCurrentProfile(id);
         this.set("model", profile);
+        this.set("about_me", profile.get('profile_about_us'));
         this.set("domains", profile.get('profile_domains'));
         this.set("boost", profile.get('profile_boost'));
         this.set('profile_bg_url', profile.get('profile_bg_url'));
@@ -153,7 +158,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('profilePartnerStatistics', 0);
         }
 
-        //this.paternsStatistics();
         this.statstics();
     },
     submit: function() {
@@ -252,11 +256,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             about_record = data;
             this.set('editingAbout', !this.get('editingAbout'));
         } else if (checkingInfo === "contact") {
-            contact_record = this.get('model.contact_user');
+            first_name_record = this.get('first_name');
+            last_name_record = this.get('last_name');
+            
+            //contact_record = this.get('model.contact_user');
             category_record = this.get('model.profile_category');
-            address_record = this.get('model.profile_physical_address');
-            phone_record = this.get('model.phone_number');
-            website_record = this.get('model.website_url');
+            address_record = this.get('address');
+            phone_record = this.get('profile_contact_number');
+            website_record = this.get('website');
             this.set('editingContact', !this.get('editingContact'));
         }
         else if (checkingInfo === "timeSetting") {
@@ -285,21 +292,21 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     no: function(checkingInfo) {
         if (checkingInfo === "profileName") {
-            //console.log(this.profile_name);
-            this.set('model.profile_name', profile_record);    
-           // this.set("profile_name",profile_record);
+            this.set('profile_name', profile_record);
             this.set('editing', !this.get('editing'));
         }
         else if (checkingInfo === "aboutMe") {
-            this.set('model.about', about_record);
+            this.set('about_me', about_record);
             this.set('editingAbout', !this.get('editingAbout'));
         }
         else if (checkingInfo === "contact") {
-            this.set('model.contact_user', contact_record);
+            //this.set('model.contact_user', contact_record);
+            this.set('first_name', first_name_record);
+            this.set('last_name', last_name_record);
             this.set('model.profile_category', category_record);
-            this.set('model.profile_physical_address', address_record);
-            this.set('model.phone_number', phone_record);
-            this.set('model.website_url', website_record);
+            this.set('address', address_record);
+            this.set('profile_contact_number', phone_record);
+            this.set('website', website_record);
             this.set('editingContact', !this.get('editingContact'));
         }
         else if (checkingInfo === "timeSetting") {
@@ -516,10 +523,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }, 200);
     },
     selectPartner: function(model) {
-
         HubStar.set("lastPositionId",model.id);
         this.set('profileSelectionStatus', 'Partners');
-
         this.get('controllers.profilePartners').getClientId(model);
         this.set('partnerTag', true);
         this.set('collectionTag', false);
@@ -561,6 +566,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set("profile_name", this.get('profile_name'));
         update_profile_record.set("profile_isActive", this.get("projectActiveDropdownContent"));
         update_profile_record.set("profile_isDeleted", this.get("projectDeleteDropdownContent"));
+        update_profile_record.set("profile_about_us", this.get("about_me"));
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
         if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
             update_profile_record.get('stateManager').transitionTo('loaded.saved');
@@ -636,6 +642,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 that.set('currentWidth', width);
                 that.set('currentHeight', height);
                 
+
                 var data = {"RequireIamgeType": that.get('UploadImageMode')};
                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
                     if ((width >= params.width) && (height >= params.height) && (width < maxWidth) && (height < maxHeight))
@@ -737,6 +744,16 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
         return "test";
 
+    },
+    
+    setCollectionAttr: function() {
+        collection_title_record = this.get('selectedCollection').get('title');
+        collection_desc_record = this.get('selectedCollection').get('desc');
+    },
+    
+    getCollectionAttr: function() {
+        this.get('selectedCollection').set('title', collection_title_record);
+        this.get('selectedCollection').set('desc', collection_desc_record);
     }
 
 

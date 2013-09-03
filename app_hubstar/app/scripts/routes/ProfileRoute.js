@@ -22,14 +22,8 @@ HubStar.ProfileRoute = Ember.Route.extend({
               var lastPosition=HubStar.get("scrollPartenerPosition");
               if(model.id===lastPositionId)
                   {
-                      this.controllerFor('profile').selectPartner(model);
-                        
-                     ProfileController.setProfile(lastPositionId);
-                     
-                     setTimeout(function() {
-                        $(window).scrollTop(lastPosition);
-                       }, 200);
-                
+                      this.controllerFor('profile').selectPartner(model);                       
+                     ProfileController.setProfile(lastPositionId);   
                   }
                 else{
                       ProfileController.setProfile(model.id);            

@@ -1,4 +1,4 @@
-<div class="profilegb" style="background: #fff url('../images/texture.png') repeat;width: 100%;height: auto; margin-top: 45px;">
+<div class="profilegb" style="background: #fff url('../images/texture.png') repeat;width: 100%;height: auto; ">
     <div class="profile-wallpaper" style="width: 100%; height: 500px; overflow: hidden; position: fixed;">
         <img  {{bindAttr src= model.profile_bg_url}} style="width: 100%; height:auto;">
     </div>
@@ -106,10 +106,10 @@
                                 <tr>
                                     <th>Contact:</th>
                                     {{#if controller.editingContact}}
-                                    {{input type="text" class="insert-contactdetails" value=model.profile_contact_first_name}}
+                                    {{input type="text" class="insert-contactdetails" value=first_name}}
                                     {{input type="text" class="insert-contactdetails" value=last_name}}
                                     {{else}}
-                                    <th class="Contact_2child">{{model.profile_contact_first_name}} {{last_name}}</th>
+                                    <th class="Contact_2child">{{first_name}} {{last_name}}</th>
                                     {{/if}}
                                 </tr>
                                 <tr>
@@ -229,7 +229,7 @@
 
                                     {{#if controller.editingAbout}}
                                     <div style="height: 300px;">
-                                        {{view Ember.TextArea valueBinding="model.profile_about_us"  id="" class=""  }}
+                                        {{view Ember.TextArea valueBinding="about_me"  id="" class=""  }}
                                     </div>
                                     <div style="float: right;">
                                         <div class="new-btn blue-btn" {{action yes controller.aboutMe}}><i class="icon-ok icon-white"></i></div>
@@ -237,12 +237,14 @@
                                     </div>
                                     {{else}}
                                     {{#if controller.is_authentic_user}}
-                                    <div class="edit-btn hint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing model.profile_about_us controller.aboutMe}}>
+
+                                    <div class="edit-btn hint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing controller.about_me controller.aboutMe}}>
+
                                          <i class="icon-edit"></i>
                                     </div>
                                     {{/if}}
                                 </div>
-                                <div style="display: block;">{{{model.profile_about_us}}}</div>
+                                <div style="display: block;">{{{about_me}}}</div>
                                 {{/if}}
                             </div>
                         </div>

@@ -92,7 +92,7 @@
     display: block;
     list-style-type: none;
     padding:0;
-    margin: 0;
+    margin: 0 0 0 -10px;
 
     -webkit-margin-before: 1em;
     -webkit-margin-after: 1em;
@@ -263,9 +263,13 @@
     opacity: 0;
     background-color: #000;
     position: absolute;
-    width: 180px;
-    height: 180px;
+    width: 170px;
+    height: 170px;
     overflow:hidden;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -o-border-radius:50%;
 }
 
 .user-profilepic-container:hover .changeuserprofilepic{

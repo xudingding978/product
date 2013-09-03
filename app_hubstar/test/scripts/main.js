@@ -623,6 +623,13 @@ HubStar.Subcategories = DS.Model.extend({
                 active_status: false,
                 profile_url: DS.attr('string'),
                 website_url: DS.attr('string'),
+                about_me:DS.attr('string'),
+                facebook_link:DS.attr('string'),
+                twitter_link:DS.attr('string'),
+                googleplus_link:DS.attr('string'),
+                pinterest_link:DS.attr('string'),
+                linkedin_link:DS.attr('string'),
+                youtube_link:DS.attr('string'),
                 photo_url: DS.attr('string'),
                 photo_url_large: DS.attr('string'),
                 display_name: DS.attr('string'),
@@ -638,6 +645,7 @@ HubStar.Subcategories = DS.Model.extend({
                 email: DS.attr('string'),
                 phone: DS.attr('string'),
                 email_verified: DS.attr('string'),
+                interests:DS.attr('string'),
                 country: DS.attr('string'),
                 region: DS.attr('string'),
                 city: DS.attr('string'),
@@ -3002,7 +3010,10 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             this.set('is_user_editing_mode', false);
         }
 
-    }, photoUpload: function() {
+    }, photoUpload: function(e) {
+
+        
+        
 
         HubStar.store.save();
 
@@ -3610,7 +3621,9 @@ HubStar.PlatformBarController = Ember.ArrayController.extend({
 
 var profile_record;
 var about_record;
-var contact_record;
+//var contact_record;
+var first_name_record;
+var last_name_record;
 var category_record;
 var address_record;
 var phone_record;
@@ -3622,7 +3635,8 @@ var seletedID = "";
 HubStar.ProfileController = Ember.ObjectController.extend({
     model: null,
     aboutMe: "aboutMe",
-   
+
+
     address: "",
     boost: '',
     currentUserID: "",
@@ -3713,6 +3727,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
         var profile = this.getCurrentProfile(id);
         this.set("model", profile);
+        this.set("about_me", profile.get('profile_about_us'));
         this.set("domains", profile.get('profile_domains'));
         this.set("boost", profile.get('profile_boost'));
         this.set('profile_bg_url', profile.get('profile_bg_url'));
@@ -3866,12 +3881,17 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('editingAbout', !this.get('editingAbout'));
             console.log(data);
         } else if (checkingInfo === "contact") {
-            contact_record = this.get('model.contact_user');
+            first_name_record = this.get('first_name');
+            last_name_record = this.get('last_name');
+            
+            //contact_record = this.get('model.contact_user');
             category_record = this.get('model.profile_category');
+
             address_record = this.get('model.profile_physical_address');
             phone_record = this.get('model.phone_number');
             website_record = this.get('model.website');
             website_url_record = this.get('model.website_url');
+
             this.set('editingContact', !this.get('editingContact'));
         }
         else if (checkingInfo === "timeSetting") {
@@ -3900,6 +3920,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     no: function(checkingInfo) {
         if (checkingInfo === "profileName") {
+<<<<<<< HEAD
             //console.log(this.profile_name);
          // this.set('model.profile_name', profile_record);    
            this.set("profile_name",profile_record);
@@ -3920,6 +3941,24 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('model.website_url', website_url_record);      
             
           
+=======
+            this.set('profile_name', profile_record);
+            this.set('editing', !this.get('editing'));
+        }
+        else if (checkingInfo === "aboutMe") {
+            this.set('about_me', about_record);
+            this.set('editingAbout', !this.get('editingAbout'));
+        }
+        else if (checkingInfo === "contact") {
+            //this.set('model.contact_user', contact_record);
+            this.set('first_name', first_name_record);
+            this.set('last_name', last_name_record);
+            this.set('model.profile_category', category_record);
+            this.set('address', address_record);
+            this.set('profile_contact_number', phone_record);
+            this.set('website', website_record);
+            this.set('editingContact', !this.get('editingContact'));
+>>>>>>> f0232f36e6b040e798d2b1f02d63d8bbdcc6e23f
         }
         else if (checkingInfo === "timeSetting") {
             this.updateWorkingHourData(this.get('model.profile_hours'));
@@ -4251,7 +4290,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             getImageWidth(src, function(width, height) {
                 that.set('currentWidth', width);
                 that.set('currentHeight', height);
-
+                
+                
                 var data = {"RequireIamgeType": that.get('UploadImageMode')};
                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
                     if ((width >= params.width) && (height >= params.height) && (width < maxWidth) && (height < maxHeight))
@@ -5016,6 +5056,7 @@ HubStar.TopicSelectionController = Ember.ArrayController.extend({
 
 
 var isExsinting = true;
+var interest_record;
 
 HubStar.UserController = Ember.Controller.extend({
     user: null,
@@ -5036,6 +5077,9 @@ HubStar.UserController = Ember.Controller.extend({
     selectedCollection: "",
     profileSelectionStatus: "Collections",
     selected_topics: [],
+    interests:"",
+    editingInterest: false,
+    interest: "interest",
     is_authentic_user: false,
     is_click: false,
     init: function()
@@ -5056,7 +5100,10 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("collections", user.get("collections"));
         this.set("coverImg", user.get("photo_url"));
         this.set("description", user.get("description"));
+         this.set("interests", user.get("interests"));
+        
         this.set("display_name", user.get("display_name"));
+        
         if (this.get("collections").objectAt(0) !== null && typeof this.get("collections").objectAt(0) !== 'undefined') {
             this.setDesc(this.get("collections").objectAt(0).get("desc"));
             this.setTitle(this.get("collections").objectAt(0).get("title"));
@@ -5145,6 +5192,29 @@ HubStar.UserController = Ember.Controller.extend({
             }
         }
     },
+    interestEdit: function(data, checkingInfo) {
+        if (checkingInfo === "interest") {
+            interest_record = data;
+            this.set('editingInterest', !this.get('editingInterest'));
+            console.log();
+        }
+    },
+    yes: function(checkingInfo) {
+        if (checkingInfo === "interest") {
+            this.set('editingInterest', !this.get('editingInterest'));
+        }
+
+        this.saveUpdate();
+    },
+    no: function(checkingInfo) {
+        if (checkingInfo === "interest") {
+            //console.log(this.profile_name);
+            this.set('model.interest', interest_record);
+            // this.set("profile_name",profile_record);
+            this.set('editingInterest', !this.get('editingInterest'));
+        }
+
+    },
     submit: function()
     {
 
@@ -5177,6 +5247,19 @@ HubStar.UserController = Ember.Controller.extend({
             isExsinting = true;
         }
     },
+            
+            
+             saveUpdate: function() {
+        var update_interest_record = HubStar.User.find(this.get('id'));
+        update_interest_record.set('interests', this.get('interests'));
+
+        HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.User, update_interest_record);       
+         this.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully!!!");
+        HubStar.store.save();
+    },
+            
+            
+            
     specialCharactersChecking: function(str) {
 
         var re = /^[a-zA-Z-][a-zA-Z0-9-]*$/;

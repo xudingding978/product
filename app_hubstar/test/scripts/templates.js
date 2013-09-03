@@ -1819,7 +1819,7 @@ function program4(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("<div class=\"navbar\">\n      <div style=\"position: absolute;right: 0;z-index: 1;\">\n        <img src=\"../../../images/beta-version.png\"/>\n        <span style=\"position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;\" id=\"lastidentifie\">0.2-8</span>\n      </div>\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <div class=\"brand\">\n                <a href=\"/#\">\n                    <img class=\"logonew\" style=\"position: relative; top: 0; margin:0;\" src=\"../../../images/landing-trends.png\">\n                </a>\n            </div>\n\n \n\n            <!-- show if not logged into platform-->\n\n\n            ");
+  data.buffer.push("<div class=\"navbar\">\n      <div style=\"position: absolute;right: 0;z-index: 1;\">\n        <img src=\"../../../images/beta-version.png\"/>\n        <span style=\"position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;\" id=\"lastidentifie\">0.2-9</span>\n      </div>\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <div class=\"brand\">\n                <a href=\"/#\">\n                    <img class=\"logonew\" style=\"position: relative; top: 0; margin:0;\" src=\"../../../images/landing-trends.png\">\n                </a>\n            </div>\n\n            <!-- show if not logged into platform-->\n            ");
   hashTypes = {};
   hashContexts = {};
   stack1 = helpers['if'].call(depth0, "controller.islogin", {hash:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
@@ -2883,7 +2883,7 @@ function program12(depth0,data) {
 Ember.TEMPLATES["photo"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
-  var buffer = '', stack1, stack2, hashContexts, hashTypes, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
+  var buffer = '', stack1, stack2, hashTypes, hashContexts, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
 
 function program1(depth0,data) {
   
@@ -3007,14 +3007,7 @@ function program10(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("\n\n\n<div class=\"objectview-wrapper\">\n\n\n\n\n\n    <div class=\"objectview-left\">\n\n        <div class=\"exit\">\n            <div class=\"closeview\" ");
-  hashContexts = {'on': depth0,'target': depth0};
-  hashTypes = {'on': "STRING",'target': "STRING"};
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "closeWindow", {hash:{
-    'on': ("click"),
-    'target': ("controller")
-  },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(" >\n                <i class=\"icon-remove\"></i>\n            </div>\n        </div>\n        ");
+  data.buffer.push(" \n\n\n<div class=\"objectview-wrapper\">\n\n\n\n\n\n    <div class=\"objectview-left\">\n\n\n        ");
   hashTypes = {};
   hashContexts = {};
   stack1 = helpers['if'].call(depth0, "controller.collectable", {hash:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
@@ -3026,7 +3019,14 @@ function program10(depth0,data) {
     'on': ("click"),
     'target': ("controller")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("></i>\n            </div>\n            <!--    <div class=\"icon-on-black\" style=\"height: 44px;position: absolute;width: 44px;\"><i class=\"icon-share-alt\"></i></div>     -->\n        </div>\n\n        <div class=\"mainfeature\">\n            <div class=\"previous\" style=\"width: 50%; height: 100%; float: left;\" ");
+  data.buffer.push("></i>\n            </div>\n            <!--    <div class=\"icon-on-black\" style=\"height: 44px;position: absolute;width: 44px;\"><i class=\"icon-share-alt\"></i></div>     -->\n            <div class=\"closeview\" ");
+  hashContexts = {'on': depth0,'target': depth0};
+  hashTypes = {'on': "STRING",'target': "STRING"};
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "closeWindow", {hash:{
+    'on': ("click"),
+    'target': ("controller")
+  },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push(" >\n                <i class=\"icon-remove\"></i>\n            </div>\n        </div>\n\n        <div class=\"mainfeature\">\n            <div class=\"previous\" style=\"width: 50%; height: 100%; float: left;\" ");
   hashContexts = {'on': depth0,'target': depth0};
   hashTypes = {'on': "STRING",'target': "STRING"};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "previesImage", {hash:{
@@ -3893,7 +3893,7 @@ function program61(depth0,data) {
 function program62(depth0,data) {
   
   var buffer = '', hashTypes, hashContexts;
-  data.buffer.push("\n\n                                    <div class=\"edit-btn hint--rounded hint--bottom\" data-hint=\"Edit content\" ");
+  data.buffer.push("\n                                    <div class=\"edit-btn hint--rounded hint--bottom\" data-hint=\"Edit content\" ");
   hashTypes = {};
   hashContexts = {};
 <<<<<<< HEAD
@@ -3901,8 +3901,12 @@ function program62(depth0,data) {
   data.buffer.push(">\n                                         <i class=\"icon-edit\"></i>\n                                    </div>\n                                    ");
 =======
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "toggleEditing", "controller.about_me", "controller.aboutMe", {hash:{},contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+<<<<<<< HEAD
   data.buffer.push(">\n\n                                         <i class=\"icon-edit\"></i>\n                                    </div>\n                                    ");
 >>>>>>> f0232f36e6b040e798d2b1f02d63d8bbdcc6e23f
+=======
+  data.buffer.push(">\n                                         <i class=\"icon-edit\"></i>\n                                    </div>\n                                    ");
+>>>>>>> cc48ee129959cd2a1f30b7a2d13ff61688a11c19
   return buffer;
   }
 
@@ -4031,7 +4035,7 @@ function program77(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("<div class=\"profilegb\" style=\"background: #fff url('../images/texture.png') repeat;width: 100%;height: auto; margin-top: 45px;\">\n    <div class=\"profile-wallpaper\" style=\"width: 100%; height: 500px; overflow: hidden; position: fixed;\">\n        <img  ");
+  data.buffer.push("<div class=\"profilegb\" style=\"background: #fff url('../images/texture.png') repeat;width: 100%;height: auto; \">\n    <div class=\"profile-wallpaper\" style=\"width: 100%; height: 500px; overflow: hidden; position: fixed;\">\n        <img  ");
   hashContexts = {'src': depth0};
   hashTypes = {'src': "ID"};
   data.buffer.push(escapeExpression(helpers.bindAttr.call(depth0, {hash:{
@@ -5138,7 +5142,7 @@ function program14(depth0,data) {
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "controller.user.description", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("</div>\n            </div>\n\n            <div style=\"margin: 0 40px; width:90%; height: 40px; position:relative;\">\n                <ul class=\"locationandlinks\" style=\"margin-left: -10px;\">\n                    <li>\n                        <span class=\"locationIcon\"><k class=\"icon-map-marker\"></k></span>\n                        Auckland\n                    </li>\n\n                    <li class=\"location_li\">\n                        <a href=\"#\" target=\"_blank\">&nbsp <k class=\"icon-facebook\"> </k></a>\n                    </li>\n                    <li class=\"location_li\">\n                        <a href=\"#\" target=\"_blank\">&nbsp <k class=\"icon-twitter\"> </k></a>\n                    </li>\n                    <li class=\"location_li\">\n                        <a href=\"#\" target=\"_blank\">&nbsp <k class=\"icon-google-plus\"> </k></a>\n                    </li>\n                    <li class=\"location_li\">\n                        <a href=\"#\" target=\"_blank\">&nbsp <k class=\"icon-pinterest\"> </k></a>\n                    </li>\n                    <li class=\"location_li\">\n                        <a href=\"#\" target=\"_blank\">&nbsp <k class=\"icon-youtube-play\"> </k></a>\n                    </li>\n\n                </ul>\n            </div>\n        </div>\n        ");
+  data.buffer.push("</div>\n            </div>\n\n            <div style=\"margin: 0 40px; width:90%; height: 40px; position:relative;\">\n                <ul class=\"locationandlinks\">\n                    <li>\n                        <span class=\"locationIcon\"><k class=\"icon-map-marker\"></k></span>\n                        Auckland\n                    </li>\n\n                    <li class=\"location_li\">\n                        <a href=\"#\" target=\"_blank\">&nbsp <k class=\"icon-facebook\"> </k></a>\n                    </li>\n                    <li class=\"location_li\">\n                        <a href=\"#\" target=\"_blank\">&nbsp <k class=\"icon-twitter\"> </k></a>\n                    </li>\n                    <li class=\"location_li\">\n                        <a href=\"#\" target=\"_blank\">&nbsp <k class=\"icon-google-plus\"> </k></a>\n                    </li>\n                    <li class=\"location_li\">\n                        <a href=\"#\" target=\"_blank\">&nbsp <k class=\"icon-pinterest\"> </k></a>\n                    </li>\n                    <li class=\"location_li\">\n                        <a href=\"#\" target=\"_blank\">&nbsp <k class=\"icon-youtube-play\"> </k></a>\n                    </li>\n\n                </ul>\n            </div>\n        </div>\n        ");
   hashTypes = {};
   hashContexts = {};
   stack1 = helpers['if'].call(depth0, "controller.is_click", {hash:{},inverse:self.noop,fn:self.program(8, program8, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});

@@ -100,7 +100,7 @@ class CollectionsController extends Controller {
     }
 
     public function actionUpdate() {
-
+     
         $temp = explode("/", $_SERVER['REQUEST_URI']);
         $id = $temp [sizeof($temp) - 1];
         $request_json = file_get_contents('php://input');

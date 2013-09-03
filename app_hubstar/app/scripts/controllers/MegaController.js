@@ -120,6 +120,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         return result;
     },
     switchCollection: function() {
+console.log("sdfsdfdsfdfsddf");
         var addCollectionController = this.get('controllers.addCollection');
         var selectid = this.get('selectedPhoto').id;
         addCollectionController.setImageID(selectid);
@@ -131,6 +132,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     closeWindow: function() {
         this.set('collectable', false);
         this.set('contact', false);
+              console.log("111111112222");
         window.history.back();
     },
     editingContactForm: function() {

@@ -6,8 +6,6 @@
         photoInfo: [],
         isEditingMode: false,
         setData: function() {
-
-
             var content = HubStar.get('UploadImageInfoData');
             if (this.get("photoInfo") !== undefined)
             {
@@ -25,10 +23,10 @@
                     });
                 }
             }
-//            console.log(this.get('isEditingMode'));
             this.set('isEditingMode', false);
         },
         submitPhotoInfo: function() {
+        console.log("111111111");
             var objectLength = this.get("photoInfo").get('length');
             for (var i = 0; i < objectLength; i++) {
                 var data = this.get('photoInfo').objectAt(i);
@@ -55,6 +53,7 @@
         },
         backToDragAndDrop: function() {
             this.finishUploadingAndInfo();
+                         console.log("sdf22222222ds");
             var masonryCollectionItems = this.get('controllers.masonryCollectionItems');
             masonryCollectionItems.newUpload();
 
@@ -62,6 +61,7 @@
         },
         finishUploadingAndInfo: function() {
             var photoCreate = this.get('controllers.photoCreate');
+             console.log("sdfds333333");
             photoCreate.back();
         }
     });

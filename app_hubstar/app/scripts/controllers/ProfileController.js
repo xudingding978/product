@@ -597,12 +597,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             var requiredSize = "Your required image size is " + params.width + "x" + params.height;
             that.set('RequiredImageSize', requiredSize);
         });
-    }, profileStyleImageDrop: function(e, name,imageSize)
+    }, profileStyleImageDrop: function(e, name,size)
     {
         var target = this.getTarget(e);
         var src = target.result;
         var that = this;
-        var imageSize = imageSize /1000;
+        var imageSize = size /1000;
         console.log(imageSize);
         getImageWidth(src, function(width, height) {
             that.set('newStyleImageSource', src);
@@ -613,7 +613,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
             if (that.get('newStyleImageSource') !== null && that.get('newStyleImageSource') !== "")
             {
-                var size = "Your image size is " + width + "x" + height;
+                var size = "Your image size is " + width + "x" + height+":" + imageSize+"KB";
                 that.set('CurrentImageSize', size);
 
 

@@ -131,6 +131,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     closeWindow: function() {
         this.set('collectable', false);
         this.set('contact', false);
+              console.log("111111112222");
         window.history.back();
     },
     editingContactForm: function() {

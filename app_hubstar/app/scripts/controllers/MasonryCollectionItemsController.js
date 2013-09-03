@@ -92,6 +92,8 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     },
     back: function() {
         this.resetContent();
+         var photoCreateController = this.get('controllers.photoCreate');
+        photoCreateController.set("fileSize",0);
         $('#ownerUpload').attr('style', 'display:none');
         $('#tagetUplaod').attr('style', 'display:block');
         this.set('uploadOrsubmit', false);
@@ -100,7 +102,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         setTimeout(function() {
             $('#masonry_photo_collection_container').masonry("reload");
         }, 200);
-
+       
         HubStar.set('isNewUpload', true);
         $('#dragAndDroppArea').attr('style', "display:none");
 

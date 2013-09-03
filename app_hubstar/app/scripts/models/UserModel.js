@@ -31,7 +31,6 @@
                 email: DS.attr('string'),
                 phone: DS.attr('string'),
                 email_verified: DS.attr('string'),
-                interests:DS.attr('string'),
                 country: DS.attr('string'),
                 region: DS.attr('string'),
                 city: DS.attr('string'),

@@ -4,7 +4,7 @@ HubStar.CollectionsView = Ember.View.extend({
 
         var userController = this.get('controller');
         userController.setSelectedCollection(id);
-
+        this.get('controller').setCollectionAttr();
 
 
         var div_id = "#" + id;

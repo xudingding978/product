@@ -76,17 +76,13 @@ function getImageWidth(imgSrc, callback) {
         console.log(this.width, this.height, this.src.length );
        
     };
-<<<<<<< HEAD
-}
-=======
+
     
   }  
   
 
    
 
-
->>>>>>> d049a5d69ac021a968086c533a2ded87ee340bd6
 
 function requiredBackEnd(controller, method, para, ajaxType, callback) {
     {

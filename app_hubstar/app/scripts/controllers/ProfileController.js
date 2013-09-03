@@ -565,7 +565,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
             update_profile_record.get('stateManager').transitionTo('loaded.saved');
         }
-         this.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully!!!");
+         this.get('controllers.applicationFeedback').statusObserver(null, "Update Successful");
         HubStar.store.save();
     },
     flipFrontClick: function() {

@@ -833,7 +833,7 @@ div.form .rememberMe label
 
 
 /* Login lightbox BEGINS, Clint Rex Lewis 4/9/13 */
-    div#login_icon > div.ember-view
+    div#login_icon > div..ui-draggable
     {
         position: fixed!important;
         top: 10%;

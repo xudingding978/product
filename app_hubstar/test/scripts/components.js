@@ -2524,10 +2524,12 @@ function getImageWidth(imgSrc, callback) {
     img.src = imgSrc;
     console.log(img.size);
     img.onload = function() {
+     
         callback(this.width, this.height);
         console.log(this.width, this.height, this.src.length );
        
     };
+
     
   }  
   
@@ -2535,18 +2537,17 @@ function getImageWidth(imgSrc, callback) {
    
 
 
-
-function requiredBackEnd(controller,method,para,ajaxType,callback) {
+function requiredBackEnd(controller, method, para, ajaxType, callback) {
     {
         var tempurl = getRestAPIURL();
 
         $.ajax({
-            url: tempurl + '/'+controller+'/'+ method,
+            url: tempurl + '/' + controller + '/' + method,
             type: ajaxType,
             data: JSON.stringify(para),
             success: function(feedback) {
-               HubStar.store.save(); 
-               callback(feedback);
+                HubStar.store.save();
+                callback(feedback);
             }
         });
     }

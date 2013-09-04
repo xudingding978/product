@@ -106,10 +106,10 @@
                                 <tr>
                                     <th>Contact:</th>
                                     {{#if controller.editingContact}}
-                                    {{input type="text" class="insert-contactdetails" value=first_name}}
+                                    {{input type="text" class="insert-contactdetails" value=model.profile_contact_first_name}}
                                     {{input type="text" class="insert-contactdetails" value=last_name}}
                                     {{else}}
-                                    <th class="Contact_2child">{{first_name}} {{last_name}}</th>
+                                    <th class="Contact_2child">{{model.profile_contact_first_name}} {{last_name}}</th>
                                     {{/if}}
                                 </tr>
                                 <tr>
@@ -175,7 +175,7 @@
 
                             {{#unless controller.editingTime}}
                             {{#if controller.is_authentic_user}}
-                            <div class="edit-btn easing hint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing  model.profile_name controller.timeSetting}}>
+                            <div class="edit-btn easinghint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing  model.profile_name controller.timeSetting}}>
                                  <i class="icon-edit"></i>
                             </div>
                             {{/if}}
@@ -717,7 +717,6 @@
 
 
 {{view HubStar.MasonryCollectionView}}
-
 
 {{else}}
 

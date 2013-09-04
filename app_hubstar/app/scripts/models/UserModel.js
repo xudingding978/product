@@ -9,6 +9,8 @@
                 active_status: false,
                 profile_url: DS.attr('string'),
                 website_url: DS.attr('string'),
+                follower: DS.attr('string'),
+                following: DS.attr('string'),
                 about_me:DS.attr('string'),
                 facebook_link:DS.attr('string'),
                 twitter_link:DS.attr('string'),

@@ -12,6 +12,7 @@ HubStar.UserController = Ember.Controller.extend({
     temp: [],
     follower: "",
     following:"",
+    follow_status: false,
     selectedDesc: "",
     selectedTitle: "",
     coverImg: "",
@@ -359,14 +360,40 @@ HubStar.UserController = Ember.Controller.extend({
     setIntersetsArr: function(user) {
         interests = user.get('selected_topics');
         this.set('interests', user.get('selected_topics'));
+        this.set('selected_topics', []);
         if (interests !== null && interests !== "" && interests !== undefined) {
-            var interests = interests.split(",");
-            this.set('selected_topics', []);
+            var interests = interests.split(",");            
             for (var i = 0; i < interests.length; i++) { 
                 this.get('selected_topics').pushObject({interests: interests[i]});
                 
+            } 
+        } 
+    },
+            
+    isFollowed: function()
+    {
+        if (this.checkFollowStatus())
+        {
+            this.set('follow_status', true);
+        }
+        else {
+            this.set('follow_status', false);
+        }
+    },
+    
+    checkFollowStatus: function()
+    {
+        var isFollow = false;
+        var followers = this.get("model").get("followers");
+        for (var i = 0; i < followers.get('length'); i++) {
+            var follower_id = followers.objectAt(i).get("follower_id");
+            if (follower_id === localStorage.loginStatus)
+            {
+                isFollow = true;
+                break;
             }
         }
+        return isFollow;
     }
     
 }

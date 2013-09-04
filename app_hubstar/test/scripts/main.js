@@ -1999,10 +1999,8 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
 
         this.set('status', status);
         this.set('feedback', true);
-
         var that = this;
         Ember.run.later(function() {
-
             $('#appfeedback').fadeOut(1000, function() {
 
                 that.set('feedback', false);
@@ -2313,10 +2311,8 @@ HubStar.CommentController = Ember.Controller.extend({
         this.set('makeSureDelete', false);
         HubStar.set('data', null);
     },
-    //test:function(){console.log('33333333333');},
     addLike: function(id)
     {
-        //console.log(id);
         var mega = HubStar.Mega.find(id); 
         var type = mega.get("type");
           var people_like = mega.get("people_like");
@@ -2327,21 +2323,14 @@ HubStar.CommentController = Ember.Controller.extend({
         {
             if (people_like.indexOf(localStorage.loginStatus) !== -1)
             {
-                //var like = people_like.split(",");
-                //mega.set("likes_count", like.length); 
-                //console.log(people_like);
                 this.count = mega.get('likes_count');
             }
             else{     
                 var likeArray = [localStorage.loginStatus,id,type];
-                 
                  likeArray=JSON.stringify(likeArray);
-                 //console.log(id);
-                 //console.log(localStorage.loginStatus);
                  var that = this;
                     requiredBackEnd('megas', 'addlike', likeArray, 'POST', function(params) {
                         params = params+"";
-                        console.log(params);
                         var like = params.split(",");
                         mega.set("likes_count", like.length);
                         mega.set("people_like",params);
@@ -2350,21 +2339,7 @@ HubStar.CommentController = Ember.Controller.extend({
             }
         }
     }, 
-//     addPeopleLike: function(mega) {
-//        var people_like = mega.get("people_like");
-//        //console.log("dddddddddddddddd");
-//        //console.log(mega);
-//        if (people_like === null || people_like === undefined || people_like === "")
-//        {
-//            people_like = localStorage.loginStatus;
-//            mega.set("likes_count", 1);
-//        } else {
-//            people_like = people_like + "," + localStorage.loginStatus;
-//            mega.set("likes_count", people_like.split(",").length);
-//        }
-//        mega.set("people_like", people_like);
-//        mega.updateMegaWithUrl(mega, 'addlike');
-//    },
+
     pushComment: function(comment)
     {
         var tempurl = getRestAPIURL();
@@ -3830,26 +3805,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         return title;
     },
     checkingIdisExsinting: function(desc, id, postOrPut) {
-//        if (postOrPut === "update") {
-//            for (var i = 0; i < this.get("temp").get('length'); i++) {
-//                if (this.get("temp").objectAt(i) === id) {
-//                    isExsinting = false;
-//                }
-//            }
-//            if (!isExsinting) {
-//                for (var i = 0; i < this.get("tempdesc").get('length'); i++) {
-//                    if (this.get("tempdesc").objectAt(i) === desc) {
-//                        isExsinting = false;
-//                        break;
-//                    } else {
-//                        isExsinting = true;
-//                    }
-//                }
-//            }
-//            if (!isExsinting) {
-//                alert('This Collection is already exsiting!!!');
-//            }
-//        } else
         if (postOrPut === "create") {
             for (var i = 0; i < this.get("collections").get('length'); i++) {
                 if (this.get("collections").objectAt(i).id === id) {
@@ -3944,8 +3899,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     setSelectedCollection: function(id) {
         for (var i = 0; i < this.get("collections").get("length"); i++) {
             var thisCollection = this.get("collections").objectAt(i);
-            //          this.get('temp').pushObject(thisCollection.get("id"));
-            //      this.get('tempdesc').pushObject(thisCollection.get("desc"));
             if (id === thisCollection.get("id")) {
                 this.set("selectedCollection", thisCollection);
             }
@@ -4011,7 +3964,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     editingContactForm: function() {
         var contactController = this.get('controllers.contact');
-        //console.log("sssssssssssssssss");
         contactController.setSelectedMega(this.get('currentUserID'));
         this.set('contactChecking', !this.get('contactChecking'));
     },

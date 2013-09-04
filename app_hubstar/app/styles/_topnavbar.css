@@ -833,20 +833,33 @@ div.form .rememberMe label
 
 
 /* Login lightbox BEGINS, Clint Rex Lewis 4/9/13 */
+    div#login_lightbox{
+        position:fixed;
+        top:0;
+        left:0;
+        height:3000px;
+        width:3000px;
+        opacity:0.7;
+        background:#000;
+        z-index:999;
+    }
     div#login_icon > div.ui-draggable
     {
         position: fixed!important;
         top: 10%;
-        width: 25%;
+        left: 37%;
+        width:25%;
         
     }
      div#login_icon > div.ember-view > div.panel
      {
          width:100%;
-         margin:0;
+         color:#333333;
+         float:left;
          -moz-border-radius:3px;
         -webkit-border-radius:3px;
         border-radius:3px;
+        z-index:1000;
          
      }
 

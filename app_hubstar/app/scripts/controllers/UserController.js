@@ -28,25 +28,39 @@ HubStar.UserController = Ember.Controller.extend({
     interest: "interest",
     is_authentic_user: false,
     is_click: false,
-    init: function()
+    init: function(id)
     {
-        this.setUser();
+        this.setUser(id);
     },
-    setUser: function()
+          getCurrentUser: function(user_id)
     {
-        var user = this.getCurrentUser();
-        topics = user.get('selected_topics');
-        this.set('selected_topics', []);
-        if (topics !== null && topics !== "" && topics !== undefined) {
-            var topics = topics.split(",");
-            for (var i = 0; i < topics.length; i++) {
-                this.get('selected_topics').pushObject({topics: topics[i]});
+        var address = document.URL;
+        var user_id = address.split("#")[1].split("/")[2];
+        this.set('currentUserID', user_id);
+        var user = HubStar.User.find(user_id);
+        return user;
+    },
+    setUser: function(id)
+    {
+        var user = this.getCurrentUser(id);
+          this.set("model", user);
+      interests = user.get('selected_topics');
+       console.log(interests);
+        this.set('interests', user.get('selected_topics'));
+        //console.log(interests);
+        if (interests !== null && interests !== "" && interests !== undefined) {
+            var interests = interests.split(",");
+            for (var i = 0; i < interests.length; i++) {  
+                //console.log(interests);
+                this.get('selected_topics').pushObject({interests: interests[i]});
+   
+                
             }
         }
         this.set("collections", user.get("collections"));
         this.set("coverImg", user.get("photo_url"));
         this.set("description", user.get("description"));
-         this.set("interests", user.get("interests"));
+       
         
         this.set("display_name", user.get("display_name"));
         
@@ -100,14 +114,7 @@ HubStar.UserController = Ember.Controller.extend({
     exit: function()
     {
     },
-    getCurrentUser: function()
-    {
-        var address = document.URL;
-        var user_id = address.split("#")[1].split("/")[2];
-        this.set('currentUserID', user_id);
-        var user = HubStar.User.find(user_id);
-        return user;
-    },
+    
     checkingIdisExsinting: function(id, postOrPut) {
 
 //        if (postOrPut === "update") {
@@ -142,7 +149,7 @@ HubStar.UserController = Ember.Controller.extend({
         if (checkingInfo === "interest") {
             interest_record = data;
             this.set('editingInterest', !this.get('editingInterest'));
-            console.log();
+            //console.log();
         }
     },
     yes: function(checkingInfo) {
@@ -150,12 +157,12 @@ HubStar.UserController = Ember.Controller.extend({
             this.set('editingInterest', !this.get('editingInterest'));
         }
 
-        this.saveUpdate();
+      
     },
     no: function(checkingInfo) {
         if (checkingInfo === "interest") {
             //console.log(this.profile_name);
-            this.set('model.interest', interest_record);
+            this.set('interests', interest_record);
             // this.set("profile_name",profile_record);
             this.set('editingInterest', !this.get('editingInterest'));
         }
@@ -196,11 +203,13 @@ HubStar.UserController = Ember.Controller.extend({
             
             
              saveUpdate: function() {
-        var update_interest_record = HubStar.User.find(this.get('id'));
-        update_interest_record.set('interests', this.get('interests'));
+        var update_interest_record = HubStar.User.find(this.get('model.id'));
+      
+        update_interest_record.set('selected_topics', this.get('interests'));
+          //console.log(this.get('selected_topics'));
 
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.User, update_interest_record);       
-         this.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully!!!");
+      //   this.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully!!!");
         HubStar.store.save();
     },
             
@@ -268,7 +277,7 @@ HubStar.UserController = Ember.Controller.extend({
         }, 200);
     },
     deleteTopic: function(topic) {
-
+        console.log(topic);
         var user = HubStar.User.find(localStorage.loginStatus);
         user.set('selected_topics', user.get('selected_topics') + ',');
         $('#' + topic).attr('style', 'display:none');

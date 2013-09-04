@@ -524,7 +524,7 @@
     -ms-filter: progid:DXImageTransform.Microsoft.gradient(
         startColorstr=rgba(255, 255, 255, 0.15), endColorstr=rgba(255, 255, 255, 0)
         );
-}      
+}     
 
 
 #dropdown-cover:hover{
@@ -571,6 +571,10 @@
     -ms-filter: progid:DXImageTransform.Microsoft.gradient(
         startColorstr=rgba(0,0,0,0.45), endColorstr=rgba(0,0,0,0.05)
         );
+}
+
+#dropdown-cover:last-child{
+    max-width:202px;
 }
 
 
@@ -825,3 +829,25 @@ div.form .rememberMe label
     display: inline;
     font-size: 12px;
 }
+
+
+
+/* Login lightbox BEGINS, Clint Rex Lewis 4/9/13 */
+    div#login_icon > div.ui-draggable
+    {
+        position: fixed!important;
+        top: 10%;
+        width: 25%;
+        
+    }
+     div#login_icon > div.ember-view > div.panel
+     {
+         width:100%;
+         margin:0;
+         -moz-border-radius:3px;
+        -webkit-border-radius:3px;
+        border-radius:3px;
+         
+     }
+
+/* Login lightbox ENDS, Clint Rex Lewis 4/9/13 */

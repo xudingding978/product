@@ -10,6 +10,8 @@ HubStar.UserController = Ember.Controller.extend({
     newCollectionName: null,
     collections: [],
     temp: [],
+    follower: "",
+    following:"",
     selectedDesc: "",
     selectedTitle: "",
     coverImg: "",

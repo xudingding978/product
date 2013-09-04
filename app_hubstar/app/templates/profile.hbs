@@ -106,10 +106,10 @@
                                 <tr>
                                     <th>Contact:</th>
                                     {{#if controller.editingContact}}
-                                    {{input type="text" class="insert-contactdetails" value=first_name}}
+                                    {{input type="text" class="insert-contactdetails" value=model.profile_contact_first_name}}
                                     {{input type="text" class="insert-contactdetails" value=last_name}}
                                     {{else}}
-                                    <th class="Contact_2child">{{first_name}} {{last_name}}</th>
+                                    <th class="Contact_2child">{{model.profile_contact_first_name}} {{last_name}}</th>
                                     {{/if}}
                                 </tr>
                                 <tr>
@@ -139,9 +139,18 @@
                                 <tr>
                                     <th>Website:</th>
                                     {{#if controller.editingContact}}
-                                    {{input type="text" class="insert-contactdetails" value=website  }}
+                                    {{input type="text" class="insert-contactdetails" value=website }}
                                     {{else}}
-                                    <th class="Contact_2child"><a href="http://{{unbound model.profile_website}}" target="blank">{{website}}</a></th>
+                                    <th class="Contact_2child">{{website}}</th>
+                                    {{/if}}
+                                </tr>
+
+                                 <tr>
+                                    <th>Website URL:</th>
+                                    {{#if controller.editingContact}}
+                                    {{input type="text" class="insert-contactdetails" value=website_url }}
+                                    {{else}}
+                                    <th class="Contact_2child"><a href="http://{{unbound model.profile_website_url}}" target="blank">http://{{website_url}}</a></th>
                                     {{/if}}
                                 </tr>
 
@@ -166,7 +175,7 @@
 
                             {{#unless controller.editingTime}}
                             {{#if controller.is_authentic_user}}
-                            <div class="edit-btn easing hint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing  model.profile_name controller.timeSetting}}>
+                            <div class="edit-btn easinghint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing  model.profile_name controller.timeSetting}}>
                                  <i class="icon-edit"></i>
                             </div>
                             {{/if}}
@@ -228,7 +237,9 @@
                                     </div>
                                     {{else}}
                                     {{#if controller.is_authentic_user}}
+
                                     <div class="edit-btn hint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing controller.about_me controller.aboutMe}}>
+
                                          <i class="icon-edit"></i>
                                     </div>
                                     {{/if}}
@@ -706,7 +717,6 @@
 
 
 {{view HubStar.MasonryCollectionView}}
-
 
 {{else}}
 

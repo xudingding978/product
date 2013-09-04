@@ -166,7 +166,7 @@
 
                             {{#unless controller.editingTime}}
                             {{#if controller.is_authentic_user}}
-                            <div class="edit-btn easing hint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing  model.profile_name controller.timeSetting}}>
+                            <div class="edit-btn easinghint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing  model.profile_name controller.timeSetting}}>
                                  <i class="icon-edit"></i>
                             </div>
                             {{/if}}
@@ -706,8 +706,7 @@
 
 
 {{view HubStar.MasonryCollectionView}}
-
-
+{{controller}}
 {{else}}
 
 

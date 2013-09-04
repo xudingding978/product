@@ -9271,9 +9271,12 @@ div.loading-visible{
     text-align: center;
     background-color: rgba(0,0,0,.6);
     opacity: 0;
+<<<<<<< HEAD
+=======
 
     cursor: pointer;
     z-index: 1;
+>>>>>>> d049a5d69ac021a968086c533a2ded87ee340bd6
 }
 
 .bottom-controlbar{
@@ -9286,9 +9289,12 @@ div.loading-visible{
     background-color: rgba(0,0,0,.6);
     opacity: 0;
     text-align: center;
+<<<<<<< HEAD
+=======
 
     cursor: pointer;
     z-index: 1;
+>>>>>>> d049a5d69ac021a968086c533a2ded87ee340bd6
 }
 
 
@@ -11581,7 +11587,7 @@ body{
     -ms-filter: progid:DXImageTransform.Microsoft.gradient(
         startColorstr=rgba(255, 255, 255, 0.15), endColorstr=rgba(255, 255, 255, 0)
         );
-}      
+}     
 
 
 #dropdown-cover:hover{
@@ -11628,6 +11634,10 @@ body{
     -ms-filter: progid:DXImageTransform.Microsoft.gradient(
         startColorstr=rgba(0,0,0,0.45), endColorstr=rgba(0,0,0,0.05)
         );
+}
+
+#dropdown-cover:last-child{
+    max-width:202px;
 }
 
 
@@ -11883,6 +11893,27 @@ div.form .rememberMe label
     font-size: 12px;
 }
 
+
+
+/* Login lightbox BEGINS, Clint Rex Lewis 4/9/13 */
+    div#login_icon > div.ember-view
+    {
+        position: fixed!important;
+        top: 10%;
+        width: 25%;
+        
+    }
+     div#login_icon > div.ember-view > div.panel
+     {
+         width:100%;
+         margin:0;
+         -moz-border-radius:3px;
+        -webkit-border-radius:3px;
+        border-radius:3px;
+         
+     }
+
+/* Login lightbox ENDS, Clint Rex Lewis 4/9/13 */
 * {
     box-sizing: border-box;
     -moz-box-sizing: border-box;

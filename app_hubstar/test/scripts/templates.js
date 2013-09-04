@@ -471,8 +471,10 @@ function program9(depth0,data) {
   hashContexts = {};
   stack1 = helpers['if'].call(depth0, "controller.collectable", {hash:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+
   data.buffer.push("\n        <div class=\"top-controlbar easing\" >\n            <!--            <div class=\"icon-on-black\" style=\"left: 8px;\"><i class=\"icon-thumbs-up\"></i></div>-->\n\n\
 \n            <div class=\"icon-on-black hint--rounded hint--bottom\" data-hint=\"Collect this photo to your own collection.\" style=\"position:relative;\" >\n              <i class=\"icon-folder-close\" ");
+
   hashContexts = {'on': depth0,'target': depth0};
   hashTypes = {'on': "STRING",'target': "STRING"};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "switchCollection", {hash:{

@@ -360,14 +360,14 @@ HubStar.UserController = Ember.Controller.extend({
     setIntersetsArr: function(user) {
         interests = user.get('selected_topics');
         this.set('interests', user.get('selected_topics'));
+        this.set('selected_topics', []);
         if (interests !== null && interests !== "" && interests !== undefined) {
-            var interests = interests.split(",");
-            this.set('selected_topics', []);
+            var interests = interests.split(",");            
             for (var i = 0; i < interests.length; i++) { 
                 this.get('selected_topics').pushObject({interests: interests[i]});
                 
-            }
-        }
+            } 
+        } 
     },
             
     isFollowed: function()

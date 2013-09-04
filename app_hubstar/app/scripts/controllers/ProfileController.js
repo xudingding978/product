@@ -264,10 +264,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             
             //contact_record = this.get('model.contact_user');
             category_record = this.get('model.profile_category');
-            address_record = this.get('model.profile_physical_address');
-            phone_record = this.get('model.phone_number');
-            website_record = this.get('model.website');
-            website_url_record = this.get('model.website_url');
+            address_record = this.get('address');
+            phone_record = this.get('profile_contact_number');
+            website_record = this.get('website');
+            website_url_record = this.get('website_url');
 
             this.set('editingContact', !this.get('editingContact'));
         }

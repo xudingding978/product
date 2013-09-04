@@ -4,10 +4,8 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
 
         this.set('status', status);
         this.set('feedback', true);
-
         var that = this;
         Ember.run.later(function() {
-
             $('#appfeedback').fadeOut(1000, function() {
 
                 that.set('feedback', false);

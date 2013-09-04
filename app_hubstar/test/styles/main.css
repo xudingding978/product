@@ -9271,12 +9271,11 @@ div.loading-visible{
     text-align: center;
     background-color: rgba(0,0,0,.6);
     opacity: 0;
-<<<<<<< HEAD
-=======
+
 
     cursor: pointer;
     z-index: 1;
->>>>>>> d049a5d69ac021a968086c533a2ded87ee340bd6
+
 }
 
 .bottom-controlbar{
@@ -9289,12 +9288,10 @@ div.loading-visible{
     background-color: rgba(0,0,0,.6);
     opacity: 0;
     text-align: center;
-<<<<<<< HEAD
-=======
 
     cursor: pointer;
     z-index: 1;
->>>>>>> d049a5d69ac021a968086c533a2ded87ee340bd6
+
 }
 
 

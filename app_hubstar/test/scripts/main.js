@@ -622,6 +622,8 @@ HubStar.Subcategories = DS.Model.extend({
                 active_status: false,
                 profile_url: DS.attr('string'),
                 website_url: DS.attr('string'),
+                follower: DS.attr('string'),
+                following: DS.attr('string'),
                 about_me:DS.attr('string'),
                 facebook_link:DS.attr('string'),
                 twitter_link:DS.attr('string'),
@@ -1494,7 +1496,7 @@ HubStar.UserRoute = Ember.Route.extend({
             this.controllerFor('application').set('isotherpage', true);
             this.controller.set('switchPhoto', true);
 //            console.log(this.controllerFor('checkAuthorityStatus').);
-            this.controllerFor('user').setUser();
+            //this.controllerFor('user').setUser();
         },
         model: function(params) {
             return HubStar.User.find(params.user_id);
@@ -1999,10 +2001,8 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
 
         this.set('status', status);
         this.set('feedback', true);
-
         var that = this;
         Ember.run.later(function() {
-
             $('#appfeedback').fadeOut(1000, function() {
 
                 that.set('feedback', false);
@@ -2313,10 +2313,8 @@ HubStar.CommentController = Ember.Controller.extend({
         this.set('makeSureDelete', false);
         HubStar.set('data', null);
     },
-    //test:function(){console.log('33333333333');},
     addLike: function(id)
     {
-        //console.log(id);
         var mega = HubStar.Mega.find(id); 
         var type = mega.get("type");
           var people_like = mega.get("people_like");
@@ -2327,21 +2325,14 @@ HubStar.CommentController = Ember.Controller.extend({
         {
             if (people_like.indexOf(localStorage.loginStatus) !== -1)
             {
-                //var like = people_like.split(",");
-                //mega.set("likes_count", like.length); 
-                //console.log(people_like);
                 this.count = mega.get('likes_count');
             }
             else{     
                 var likeArray = [localStorage.loginStatus,id,type];
-                 
                  likeArray=JSON.stringify(likeArray);
-                 //console.log(id);
-                 //console.log(localStorage.loginStatus);
                  var that = this;
                     requiredBackEnd('megas', 'addlike', likeArray, 'POST', function(params) {
                         params = params+"";
-                        console.log(params);
                         var like = params.split(",");
                         mega.set("likes_count", like.length);
                         mega.set("people_like",params);
@@ -2350,21 +2341,7 @@ HubStar.CommentController = Ember.Controller.extend({
             }
         }
     }, 
-//     addPeopleLike: function(mega) {
-//        var people_like = mega.get("people_like");
-//        //console.log("dddddddddddddddd");
-//        //console.log(mega);
-//        if (people_like === null || people_like === undefined || people_like === "")
-//        {
-//            people_like = localStorage.loginStatus;
-//            mega.set("likes_count", 1);
-//        } else {
-//            people_like = people_like + "," + localStorage.loginStatus;
-//            mega.set("likes_count", people_like.split(",").length);
-//        }
-//        mega.set("people_like", people_like);
-//        mega.updateMegaWithUrl(mega, 'addlike');
-//    },
+
     pushComment: function(comment)
     {
         var tempurl = getRestAPIURL();
@@ -3671,6 +3648,7 @@ var category_record;
 var address_record;
 var phone_record;
 var website_record;
+var website_url_record;
 var workingtime;
 var isExsinting = true;
 var seletedID = "";
@@ -3877,26 +3855,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         return title;
     },
     checkingIdisExsinting: function(desc, id, postOrPut) {
-//        if (postOrPut === "update") {
-//            for (var i = 0; i < this.get("temp").get('length'); i++) {
-//                if (this.get("temp").objectAt(i) === id) {
-//                    isExsinting = false;
-//                }
-//            }
-//            if (!isExsinting) {
-//                for (var i = 0; i < this.get("tempdesc").get('length'); i++) {
-//                    if (this.get("tempdesc").objectAt(i) === desc) {
-//                        isExsinting = false;
-//                        break;
-//                    } else {
-//                        isExsinting = true;
-//                    }
-//                }
-//            }
-//            if (!isExsinting) {
-//                alert('This Collection is already exsiting!!!');
-//            }
-//        } else
         if (postOrPut === "create") {
             for (var i = 0; i < this.get("collections").get('length'); i++) {
                 if (this.get("collections").objectAt(i).id === id) {
@@ -3915,10 +3873,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     toggleEditing: function(data, checkingInfo) {
         if (checkingInfo === "profileName") {
             profile_record = data;
+           // console.log(data);
             this.set('editing', !this.get('editing'));
         } else if (checkingInfo === "aboutMe") {
             about_record = data;
             this.set('editingAbout', !this.get('editingAbout'));
+            console.log(data);
         } else if (checkingInfo === "contact") {
             first_name_record = this.get('first_name');
             last_name_record = this.get('last_name');
@@ -3928,6 +3888,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             address_record = this.get('address');
             phone_record = this.get('profile_contact_number');
             website_record = this.get('website');
+            website_url_record = this.get('website_url');
+
             this.set('editingContact', !this.get('editingContact'));
         }
         else if (checkingInfo === "timeSetting") {
@@ -3956,6 +3918,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     no: function(checkingInfo) {
         if (checkingInfo === "profileName") {
+
             this.set('profile_name', profile_record);
             this.set('editing', !this.get('editing'));
         }
@@ -3972,6 +3935,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('profile_contact_number', phone_record);
             this.set('website', website_record);
             this.set('editingContact', !this.get('editingContact'));
+
         }
         else if (checkingInfo === "timeSetting") {
             this.updateWorkingHourData(this.get('model.profile_hours'));
@@ -3991,8 +3955,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     setSelectedCollection: function(id) {
         for (var i = 0; i < this.get("collections").get("length"); i++) {
             var thisCollection = this.get("collections").objectAt(i);
-            //          this.get('temp').pushObject(thisCollection.get("id"));
-            //      this.get('tempdesc').pushObject(thisCollection.get("desc"));
             if (id === thisCollection.get("id")) {
                 this.set("selectedCollection", thisCollection);
             }
@@ -4058,7 +4020,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     editingContactForm: function() {
         var contactController = this.get('controllers.contact');
-        //console.log("sssssssssssssssss");
         contactController.setSelectedMega(this.get('currentUserID'));
         this.set('contactChecking', !this.get('contactChecking'));
     },
@@ -5102,6 +5063,9 @@ HubStar.UserController = Ember.Controller.extend({
     newCollectionName: null,
     collections: [],
     temp: [],
+    follower: "",
+    following:"",
+    follow_status: false,
     selectedDesc: "",
     selectedTitle: "",
     coverImg: "",
@@ -5120,25 +5084,27 @@ HubStar.UserController = Ember.Controller.extend({
     interest: "interest",
     is_authentic_user: false,
     is_click: false,
-    init: function()
+    init: function(id)
     {
-        this.setUser();
+        this.setUser(id);
     },
-    setUser: function()
+          getCurrentUser: function(user_id)
     {
-        var user = this.getCurrentUser();
-        topics = user.get('selected_topics');
-        this.set('selected_topics', []);
-        if (topics !== null && topics !== "" && topics !== undefined) {
-            var topics = topics.split(",");
-            for (var i = 0; i < topics.length; i++) {
-                this.get('selected_topics').pushObject({topics: topics[i]});
-            }
-        }
+        var address = document.URL;
+        var user_id = address.split("#")[1].split("/")[2];
+        this.set('currentUserID', user_id);
+        var user = HubStar.User.find(user_id);
+        return user;
+    },
+    setUser: function(id)
+    {
+        var user = this.getCurrentUser(id);
+        this.set("model", user);
+        this.setIntersetsArr(user);
         this.set("collections", user.get("collections"));
         this.set("coverImg", user.get("photo_url"));
         this.set("description", user.get("description"));
-         this.set("interests", user.get("interests"));
+       
         
         this.set("display_name", user.get("display_name"));
         
@@ -5192,14 +5158,7 @@ HubStar.UserController = Ember.Controller.extend({
     exit: function()
     {
     },
-    getCurrentUser: function()
-    {
-        var address = document.URL;
-        var user_id = address.split("#")[1].split("/")[2];
-        this.set('currentUserID', user_id);
-        var user = HubStar.User.find(user_id);
-        return user;
-    },
+    
     checkingIdisExsinting: function(id, postOrPut) {
 
 //        if (postOrPut === "update") {
@@ -5234,7 +5193,7 @@ HubStar.UserController = Ember.Controller.extend({
         if (checkingInfo === "interest") {
             interest_record = data;
             this.set('editingInterest', !this.get('editingInterest'));
-            console.log();
+            //console.log();
         }
     },
     yes: function(checkingInfo) {
@@ -5242,12 +5201,12 @@ HubStar.UserController = Ember.Controller.extend({
             this.set('editingInterest', !this.get('editingInterest'));
         }
 
-        this.saveUpdate();
+      this.saveUpdate();
     },
     no: function(checkingInfo) {
         if (checkingInfo === "interest") {
             //console.log(this.profile_name);
-            this.set('model.interest', interest_record);
+            this.set('interests', interest_record);
             // this.set("profile_name",profile_record);
             this.set('editingInterest', !this.get('editingInterest'));
         }
@@ -5287,13 +5246,17 @@ HubStar.UserController = Ember.Controller.extend({
     },
             
             
-             saveUpdate: function() {
-        var update_interest_record = HubStar.User.find(this.get('id'));
-        update_interest_record.set('interests', this.get('interests'));
+   saveUpdate: function() {
+        var update_interest_record = HubStar.User.find(this.get('model.id'));
+      
+        update_interest_record.set('selected_topics', this.get('interests'));
+          //console.log(this.get('selected_topics'));
 
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.User, update_interest_record);       
-         this.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully!!!");
+      //   this.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully!!!");
         HubStar.store.save();
+        this.setIntersetsArr(update_interest_record);
+        
     },
             
             
@@ -5360,13 +5323,13 @@ HubStar.UserController = Ember.Controller.extend({
         }, 200);
     },
     deleteTopic: function(topic) {
-
         var user = HubStar.User.find(localStorage.loginStatus);
         user.set('selected_topics', user.get('selected_topics') + ',');
         $('#' + topic).attr('style', 'display:none');
         user.set('selected_topics', user.get('selected_topics').replace(topic + ",", ""));
         user.set('selected_topics', user.get('selected_topics').substring(0, user.get('selected_topics').length - 1));
         user.store.commit();
+        this.setIntersetsArr(user);
     },
     cancelDelete: function() {
         this.set('willDelete', false);
@@ -5445,6 +5408,45 @@ HubStar.UserController = Ember.Controller.extend({
     getCollectionAttr: function() {
         this.get('selectedCollection').set('title', collection_title_record);
         this.get('selectedCollection').set('desc', collection_desc_record);
+    },
+            
+    setIntersetsArr: function(user) {
+        interests = user.get('selected_topics');
+        this.set('interests', user.get('selected_topics'));
+        if (interests !== null && interests !== "" && interests !== undefined) {
+            var interests = interests.split(",");
+            this.set('selected_topics', []);
+            for (var i = 0; i < interests.length; i++) { 
+                this.get('selected_topics').pushObject({interests: interests[i]});
+                
+            }
+        }
+    },
+            
+    isFollowed: function()
+    {
+        if (this.checkFollowStatus())
+        {
+            this.set('follow_status', true);
+        }
+        else {
+            this.set('follow_status', false);
+        }
+    },
+    
+    checkFollowStatus: function()
+    {
+        var isFollow = false;
+        var followers = this.get("model").get("followers");
+        for (var i = 0; i < followers.get('length'); i++) {
+            var follower_id = followers.objectAt(i).get("follower_id");
+            if (follower_id === localStorage.loginStatus)
+            {
+                isFollow = true;
+                break;
+            }
+        }
+        return isFollow;
     }
     
 }

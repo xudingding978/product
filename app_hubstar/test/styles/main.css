@@ -9271,12 +9271,9 @@ div.loading-visible{
     text-align: center;
     background-color: rgba(0,0,0,.6);
     opacity: 0;
-<<<<<<< HEAD
-=======
 
     cursor: pointer;
     z-index: 1;
->>>>>>> d049a5d69ac021a968086c533a2ded87ee340bd6
 }
 
 .bottom-controlbar{
@@ -9289,12 +9286,10 @@ div.loading-visible{
     background-color: rgba(0,0,0,.6);
     opacity: 0;
     text-align: center;
-<<<<<<< HEAD
-=======
 
     cursor: pointer;
     z-index: 1;
->>>>>>> d049a5d69ac021a968086c533a2ded87ee340bd6
+
 }
 
 
@@ -10175,7 +10170,7 @@ div.loading-visible{
 
 .location_li{
     white-space: nowrap;
-    overflow: hidden;
+   
     -ms-text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
@@ -11896,7 +11891,7 @@ div.form .rememberMe label
 
 
 /* Login lightbox BEGINS, Clint Rex Lewis 4/9/13 */
-    div#login_icon > div.ember-view
+    div#login_icon > div.ui-draggable
     {
         position: fixed!important;
         top: 10%;

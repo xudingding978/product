@@ -42,11 +42,25 @@
                                 <td>
                                     <div style="display: block;">
                                         <div   style="margin: 0;width: 100%;">
-                                            {{view Ember.TextField valueBinding="boost"  class="mustFill4"  }}
+                                           {{input type="text" value=display_name }}
+
                                         </div>
                                     </div>
                                 </td>
                             </tr>
+
+
+                            <tr>
+                                <td>Email:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div   style="margin: 0;width: 100%;">
+                                             {{input type="text" value=email }}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
                              <tr>
                                 <td>About me:</td>
                                 <td>
@@ -63,7 +77,7 @@
                                 <td>
                                     <div style="display: block;" >
                                         <div   style="margin: 0;width: 100%;">
-                                        {{view Ember.TextField valueBinding="boost"  class="mustFill4"  }}
+                                         {{input type="text" value=location }}
                                         </div>
                                     </div>
                                     
@@ -92,7 +106,7 @@
                                 <td>
                                     <div style="display: block;">
                                         <div   style="margin: 0;width: 100%;">
-                                            {{view Ember.TextField valueBinding="boost"  class="mustFill4"  }}
+                                             {{input type="text" value=facebook }}
                                         </div>
                                     </div>
                                 </td>
@@ -103,7 +117,7 @@
                                 <td>
                                     <div style="display: block;">
                                         <div   style="margin: 0;width: 100%;">
-                                            {{view Ember.TextField valueBinding="boost"  class="mustFill4"  }}
+                                             {{input type="text" value=twitter }}
                                         </div>
                                     </div>
                                 </td>
@@ -114,7 +128,7 @@
                                 <td>
                                     <div style="display: block;">
                                         <div   style="margin: 0;width: 100%;">
-                                            {{view Ember.TextField valueBinding="boost"  class="mustFill4"  }}
+                                            {{input type="text" value=googleplus }}
                                         </div>
                                     </div>
                                 </td>
@@ -125,20 +139,18 @@
                                 <td>
                                     <div style="display: block;">
                                         <div   style="margin: 0;width: 100%;">
-                                            {{view Ember.TextField valueBinding="boost"  class="mustFill4"  }}
+                                            {{input type="text" value=pinterest }}
                                         </div>
                                     </div>
                                 </td>
                             </tr>
 
-
-
-                            <tr>
+                           <tr>
                                 <td>Linkedin:</td>
                                 <td>
                                     <div style="display: block;">
                                         <div   style="margin: 0;width: 100%;">
-                                            {{view Ember.TextField valueBinding="boost"  class="mustFill4"  }}
+                                            {{input type="text" value=linkedin }}
                                         </div>
                                     </div>
                                 </td>
@@ -149,7 +161,7 @@
                                 <td>
                                     <div style="display: block;">
                                         <div   style="margin: 0;width: 100%;">
-                                            {{view Ember.TextField valueBinding="boost"  class="mustFill4"  }}
+                                            {{input type="text" value=youtube }}
                                         </div>
                                     </div>
                                 </td>
@@ -171,23 +183,13 @@
                     <table class='profilesnew-table' style="padding-right: 147px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
                         <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
 
-                            <tr>
-                                <td>Email:</td>
-                                <td>
-                                    <div style="display: block;">
-                                        <div   style="margin: 0;width: 100%;">
-                                            {{view Ember.TextField valueBinding="boost"  class="mustFill4"  }}
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
                            
                             <tr>
-                                <td>Passwords:</td>
+                                <td>Password:</td>
                                 <td>
                                     <div style="display: block;">
                                         <div   style="margin: 0;width: 100%;">
-                                            {{view Ember.TextField valueBinding="boost"  class="mustFill4"  }}
+                                           {{input type="text" value=controller.user.password }}
                                         </div>
                                     </div>
                                 </td>

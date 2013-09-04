@@ -36,6 +36,7 @@
                 city: DS.attr('string'),
                 zip: DS.attr('string'),
                 address: DS.attr('string'),
+                password: DS.attr('string'),
                 selected_topics: DS.attr('string'),
                 collections: DS.hasMany('HubStar.Collection')
 

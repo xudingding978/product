@@ -91,9 +91,6 @@ class UsersController extends Controller {
     public function actionUpdate() {
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
-         $payload_json = CJSON::encode($request_arr['user'], true);
-         $newRecord = CJSON::decode($payload_json);
-        
         try {
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
@@ -105,7 +102,6 @@ class UsersController extends Controller {
             $oldRecord = CJSON::decode($oldRecord, true);
             $oldRecord['user'][0] = null;
             $oldRecord['user'][0] = $request_arr['user'];
-            $oldRecord['user'][0]['selected_topics'] = $newRecord['selected_topics'];
 
             if ($cb->set($url, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);

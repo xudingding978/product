@@ -146,7 +146,7 @@ class Controller extends CController {
             $searchString = $this->getUserInput($requireParams[2]);
             $from = $this->getUserInput($requireParams[3]);
             $size = $this->getUserInput($requireParams[4]);
-            $response = $this->performSearch($returnType, $region, $searchString, $from, $size);
+            $response = $this->performSearch($returnType, $region, $searchString, $from, $size,true);
         } elseif ($requireType == 'uploadPhotoIDs') {
             $upload_Image_ids = $this->getUserInput($requireParams[1]);
             $raw_id = str_replace("test", "", $upload_Image_ids);
@@ -191,10 +191,10 @@ class Controller extends CController {
             $searchString = $this->getUserInput($requireParams[2]);
             $from = $this->getUserInput($requireParams[3]);
             $size = $this->getUserInput($requireParams[4]);
-            $response = $this->getSearchResultsTotal($returnType, $region, $searchString, $from, $size);
+            $response = $this->getSearchResultsTotal($returnType, $region, $searchString, $from, $size, true);
         } elseif ($requireType == 'personalCollection') {
             $userid = $this->getUserInput($requireParams[1]);
-            $collection_id = $this->getUserInput($requireParams[2],false);
+            $collection_id = $this->getUserInput($requireParams[2], false);
             $requestArray = array();
             $requestStringOne = 'couchbaseDocument.doc.user.id=' . $userid;
             array_push($requestArray, $requestStringOne);
@@ -210,7 +210,8 @@ class Controller extends CController {
         return $response;
     }
 
-    protected function performSearch($returnType, $region, $requestString, $from = 0, $size = 50) {
+    protected function performSearch($returnType, $region, $requestString, $from = 0, $size = 50, $noUser = false) {
+        error_log('$noUser ' . $noUser);
         $requestArray = array();
         if ($region != null && $region != "") {
             $requestStringOne = 'couchbaseDocument.doc.region=' . $region;
@@ -220,7 +221,8 @@ class Controller extends CController {
             $requestStringTwo = 'couchbaseDocument.doc.keywords=' . $requestString;
             array_push($requestArray, $requestStringTwo);
         }
-        $tempResult = $this->performMustSearch($requestArray, $returnType, 'must', $from, $size);
+
+        $tempResult = $this->performMustSearch($requestArray, $returnType, 'must', $from, $size, $noUser);
         return $tempResult;
     }
 
@@ -231,13 +233,12 @@ class Controller extends CController {
         return $should;
     }
 
-    protected function performMustSearch($requestArray, $returnType, $search_type = "should", $from = 0, $size = 50) {
+    protected function performMustSearch($requestArray, $returnType, $search_type = "should", $from = 0, $size = 50, $noUser = false) {
         $request = $this->getElasticSearch();
         $request->from($from);
         $request->size($size);
         $max = sizeof($requestArray);
         $bool = Sherlock\Sherlock::queryBuilder()->Bool();
-
         for ($i = 0; $i < $max; $i++) {
             $must = $this->getmustQuestWithQueryString($requestArray[$i]);
             if ($search_type == "must") {
@@ -248,10 +249,16 @@ class Controller extends CController {
                 echo "no such search type, please input: must or should as a search type.";
             }
         }
+        error_log($noUser);
+        if ($noUser == true) {
+
+            $must = $this->getmustQuestWithQueryString('couchbaseDocument.doc.type=user');
+            $bool->must_not($must);
+        }
 
         $request->query($bool);
         $response = $request->execute();
-
+        error_log($request->toJSON());
         $results = $this->getReponseResult($response, $returnType);
         return $results;
     }
@@ -350,11 +357,11 @@ class Controller extends CController {
                 must($must2);
         $response = $request->query($bool)->execute();
 
-        $results = $this->getReponseResult($response, $returnType);        
+        $results = $this->getReponseResult($response, $returnType);
         return $results;
     }
 
-    protected function getSearchResultsTotal($returnType, $region, $requestString, $from = 0, $size = 50) {
+    protected function getSearchResultsTotal($returnType, $region, $requestString, $from = 0, $size = 50, $noUser) {
         $requestArray = array();
         if ($region != null && $region != "") {
             $requestStringOne = 'couchbaseDocument.doc.region=' . $region;
@@ -373,20 +380,20 @@ class Controller extends CController {
         }
         $request->query($bool);
         $response = $request->execute();
-        
-        $megaResponse = $this->performSearch($returnType, $region, $requestString, $from, $size);
+
+        $megaResponse = $this->performSearch($returnType, $region, $requestString, $from, $size, $noUser);
         $megaResponse = CJSON::decode($megaResponse);
 
-       $megaResponse["id"]=time();
-       $megaResponse["numberofresults"]= $response->total;
-       
-       $megaResponse["megas"] = $megaResponse["stats"];
+        $megaResponse["id"] = time();
+        $megaResponse["numberofresults"] = $response->total;
+
+        $megaResponse["megas"] = $megaResponse["stats"];
         unset($megaResponse["stats"]);
-       
+
         $result = CJSON::encode($megaResponse, true);
-        $result = '{"stats":[' . $result;             
+        $result = '{"stats":[' . $result;
         $result .= ']}';
-        return $result;  
+        return $result;
     }
 
     protected function getElasticSearch() {

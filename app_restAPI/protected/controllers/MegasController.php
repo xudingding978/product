@@ -243,7 +243,8 @@ class MegasController extends Controller {
                 $likeLength = sizeof(explode(",", $oldRecord["people_like"]));
                 $oldRecord["likes_count"] = $likeLength;
                 if ($cb->set($docID, CJSON::encode($oldRecord))) {
-                    $this->sendResponse(200, $oldRecord["people_like"]);
+                  $people_like=   CJSON::encode($oldRecord["people_like"], true);
+                    $this->sendResponse(200, $people_like);
                 } else {
                     $this->sendResponse(500, "some thing wrong");
                 }

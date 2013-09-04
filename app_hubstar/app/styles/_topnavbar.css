@@ -80,7 +80,7 @@
 .tile_img .wrapper-dropdown-3 {
     left: 0px;
     color: white;
-    width:270px;
+    width:272px!important;
     text-align: center;
     position:relative;
 
@@ -105,7 +105,7 @@
 .head .wrapper-dropdown-3 {
     /*    left: 25%;*/
     color: white;
-    width:270px;
+    width:272px;
     text-align: center;
     position:relative;
 
@@ -126,7 +126,6 @@
     -webkit-border-radius:3px;
     border-radius:3px;
 }
-
 
 .tile_img  .sign-in-with{
     text-shadow: -1px -1px 1px #000000; 
@@ -342,6 +341,7 @@
 .wrapper-dropdown-3:after {
     border-color:  #fff  transparent;
     left:15px;
+    width:272px!important;
 }
 
 
@@ -574,7 +574,7 @@
 }
 
 #dropdown-cover:last-child{
-    max-width:202px;
+    /*max-width:202px; */
 }
 
 
@@ -640,7 +640,7 @@
 /*square button*/
 .square-button {
     display: inline-block;
-    margin: 10px;
+    margin: 2px 10px;
 
 }
 
@@ -812,18 +812,6 @@
     float: right;
 }
 
-
-.panelcircle {
-    width:40px;
-    height:40px;
-    border-radius:50px;
-    font-size:18px;
-    color:#fff;
-    line-height:40px;
-    text-align:center;
-    background:rgb(201,202,202)
-}
-
 div.form .rememberMe label
 {
     display: inline;
@@ -841,12 +829,12 @@ div.form .rememberMe label
         width:3000px;
         opacity:0.7;
         background:#000;
-        z-index:999;
+        z-index:1001;
     }
     div#login_icon > div.ui-draggable
     {
         position: fixed!important;
-        top: 10%;
+        top: 6.5%;
         left: 37%;
         width:25%;
         
@@ -859,8 +847,73 @@ div.form .rememberMe label
          -moz-border-radius:3px;
         -webkit-border-radius:3px;
         border-radius:3px;
-        z-index:1000;
+        z-index:1002;
+        margin:0;
          
      }
+     .back{display:none;}
+     
+     div#login_container > div.front, 
+     div#login_container > div.back
+     {
+        position:relative;
+        float:left;
+        width:100%;
+        height:auto;
+        top:auto;
+        left:auto;
+        z-index:inherit;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0;
+        background:#fff;
+        
+     }
+     div #login_container > div.front > .head, 
+     div #login_container > div.back > .head
+     {
+         float:left;
+         width:100%;
+         background:#f3f3f3;
+         position:relative;
+     }
+    div #login_container > div.front > .head > .logincopy
+     {
+         margin:20px auto;
+         width:90%;
+     }
+     div #login_container > div.front > .head > .logincopy > p
+     {
+        line-height:150%;
+        text-align:center;
+        font-size:1em;
+     }
+     div #login_container > div.front > .content
+     {
+         float:left;
+         width:100%;
+     }
+     .panelcircle 
+     {
+         width:40px;
+         height:40px;
+         border-radius:50px;
+         font-size:1.4em;
+         color:#fff;
+         line-height:40px;
+         text-align:center;
+         background:rgb(201,202,202)
+    }
+    div #login_container > div.front > .head > .panelcircle
+    {
+        position:relative;
+        margin:auto auto -40px auto;
+    }
+    
+ /* fail safe styles for small screened devices begins */
+    #login_continer div > .head .wrapper-dropdown-3{ max-width:95%;}
+    #login_continer div > .head .wrapper-dropdown-3 > div > #dropdown-cover{max-width:30%;}
+    #login_continer div > .head .wrapper-dropdown-3 > div > div:last-child{max-width:70%;}
+/* fail safe styles for small screened devices ends */
 
 /* Login lightbox ENDS, Clint Rex Lewis 4/9/13 */

@@ -60,7 +60,7 @@
     position: fixed;
     bottom: -5px;
     right: 2%;
-    z-index: 100000;
+    z-index: 999;
     opacity: 0.9;
 }
 

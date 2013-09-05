@@ -109,8 +109,4 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         $(".hover").removeClass('flip');
     }
 
-
-
-
-
 });

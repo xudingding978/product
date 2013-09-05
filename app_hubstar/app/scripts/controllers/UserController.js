@@ -4,7 +4,7 @@ var interest_record;
 
 HubStar.UserController = Ember.Controller.extend({
     user: null,
-    identifier:"",
+    identifier: "",
     uploadMode: null,
     newCollectionName: null,
     collections: [],
@@ -15,15 +15,15 @@ HubStar.UserController = Ember.Controller.extend({
     display_name: "",
     userTage: true,
     currentUserID: "",
-    facebook:"",
-    twitter:"",
-    googleplus:"",
-    pinterest:"",
-    linkedin:"",
-    youtube:"",
-    location:"",
-    email:"",
-    password:"",
+    facebook: "",
+    twitter: "",
+    googleplus: "",
+    pinterest: "",
+    linkedin: "",
+    youtube: "",
+    location: "",
+    email: "",
+    password: "",
     needs: ['photoCreate', 'applicationFeedback'],
     makeSureDelete: false,
     updateOrCreate: true,
@@ -31,12 +31,13 @@ HubStar.UserController = Ember.Controller.extend({
     selectedCollection: "",
     profileSelectionStatus: "Collections",
     selected_topics: [],
-    interests:"",
+    interests: "",
     editingInterest: false,
     interest: "interest",
     is_authentic_user: false,
+    has_facebook: false,
     is_click: false,
-    aboutMe:"",
+    aboutMe: "",
     init: function()
     {
         this.setUser();
@@ -44,40 +45,39 @@ HubStar.UserController = Ember.Controller.extend({
     setUser: function()
     {
         var user = this.getCurrentUser();
-    //    topics = user.get('selected_topics');
-      //  this.set('selected_topics', []);
+        //    topics = user.get('selected_topics');
+        //  this.set('selected_topics', []);
 //        if (topics !== null && topics !== "" && topics !== undefined) {
 //            var topics = topics.split(",");
 //            for (var i = 0; i < topics.length; i++) {
 //                this.get('selected_topics').pushObject({topics: topics[i]});
 //            }
 //        }
-console.log(user);
+//console.log(user);
         this.set("user", user);
         this.set("collections", user.get("collections"));
         this.set("coverImg", user.get("photo_url"));
         this.set("description", user.get("description"));
-  //       this.set("interests", user.get("interests"));      
+        //       this.set("interests", user.get("interests"));      
         this.set("display_name", user.get("display_name"));
-        
-      this.set("identifier", user.get("identifier"));
-        this.set("aboutMe",user.get("about_me"));
-        this.set("facebook",user.get("profile_url"));
-        this.set("twitter",user.get("twitter_link"));
-        this.set("googleplus",user.get("googleplus_link"));
-        this.set("pinterest",user.get("pinterest_link"));
-        this.set("linkedin",user.get("linkedin_link"));
-        this.set("youtube",user.get("youtube_link"));
-        this.set("location",user.get("region"));
-       
-        this.set("email",user.get("email"));
-        this.set("password",user.get("password"));
-       
+
+        this.set("identifier", user.get("identifier"));
+        this.set("aboutMe", user.get("about_me"));
+        this.set("facebook", user.get("facebook_link"));
+        this.set("twitter", user.get("twitter_link"));
+        this.set("googleplus", user.get("googleplus_link"));
+        this.set("pinterest", user.get("pinterest_link"));
+        this.set("linkedin", user.get("linkedin_link"));
+        this.set("youtube", user.get("youtube_link"));
+        this.set("location", user.get("region"));
+        this.set("email", user.get("email"));
+        this.set("password", user.get("password"));
+
         if (this.get("collections").objectAt(0) !== null && typeof this.get("collections").objectAt(0) !== 'undefined') {
             this.setDesc(this.get("collections").objectAt(0).get("desc"));
             this.setTitle(this.get("collections").objectAt(0).get("title"));
         }
-        
+
         var collections = user.get("collections");
         for (var i = 0; i < collections.get("length"); i++)
         {
@@ -88,12 +88,14 @@ console.log(user);
             }
         }
         this.checkAuthenticUser();
+
     },
     userDashboardButton: function() {
         if (this.get('is_click') === false) {
             this.set('is_click', true);
             $('#user-board_right_front').hide();
             $('#user-board_right_back').show();
+
         }
 
     },
@@ -101,10 +103,10 @@ console.log(user);
 
         if (this.get('is_click') === true) {
             this.set('is_click', false);
-         this.setUser();
+            this.setUser();
             $('#user-board_right_front').show();
             $('#user-board_right_back').hide();
-          
+
         }
     },
     getHeroImage: function(id, col) {
@@ -217,47 +219,84 @@ console.log(user);
             isExsinting = true;
         }
     },
-            
-            
+    socialLink: function(link) {
 
-             saveUpdate: function() {
-        var update_profile_record = HubStar.Profile.find(this.get('model.id'));
-         console.log(update_profile_record);
-         update_user_record.set('interests', this.get('interests'));
-        update_profile_record.set('profile_editors', this.get('editors'));
-        update_profile_record.set('profile_keywords', this.get('keywords'));
-        update_profile_record.set('profile_regoin', this.get('region'));
-        update_profile_record.set('profile_country', this.get('country'));
-        update_profile_record.set('profile_boost', this.get('boost'));
-        update_profile_record.set('profile_domains', this.get('domains'));
-        update_profile_record.set('profile_hero_url', this.get('profile_hero_url'));
-        update_profile_record.set('profile_pic_url', this.get('profile_pic_url'));
-        update_profile_record.set('profile_bg_url', this.get('profile_bg_url'));
-        update_profile_record.set('profile_package_name', this.get('projectCategoryDropdownContent'));
-        update_profile_record.set('owner_contact_bcc_emails', this.get('direct_enquiry_provide_email'));
-        update_profile_record.set('owner_contact_cc_emails', this.get('secondary_email'));
-        update_profile_record.set('owner_contact_email', this.get('contact_email'));
-        update_profile_record.set('profile_website', this.get('website'));
-        update_profile_record.set('profile_website_url', this.get('website_url'));
-        update_profile_record.set('profile_cover_text', this.get('profile_cover_text'));
-        update_profile_record.set('profile_contact_number', this.get('profile_contact_number'));
-        update_profile_record.set('profile_contact_first_name', this.get('first_name'));
-        update_profile_record.set('profile_physical_address', this.get('address'));
-        update_profile_record.set('profile_contact_last_name', this.get('last_name'));
-        update_profile_record.set("profile_name", this.get('profile_name'));
-        update_profile_record.set("profile_isActive", this.get("projectActiveDropdownContent"));
-        update_profile_record.set("profile_isDeleted", this.get("projectDeleteDropdownContent"));
-        update_profile_record.set("profile_about_us", this.get("about_me"));
-        HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
-        if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
-            update_profile_record.get('stateManager').transitionTo('loaded.saved');
+        if (link === 'facebook') {
+            window.open(this.get("facebook"));
         }
-         this.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully!!!");
+        else if (link === 'twitter') {
+            window.open(this.get("twitter"));
+        }
+        else if (link === 'googleplus') {
+            window.open(this.get("googleplus"));
+
+        }
+
+        else if (link === 'pinterest') {
+            window.open(this.get("pinterest"));
+        }
+        else if (link === 'youtube') {
+            window.open(this.get("youtube"));
+        }
+        else if (link === 'linkedin') {
+            window.open(this.get("linkedin"));
+        }
+    },
+    saveUpdate: function() {
+        var update_user_record = this.getCurrentUser();
+        var http = "http://";
+        // if(this.get('facebook').slice(0,5))
+        //    console.log(update_user_record);
+        update_user_record.set('collections', this.get('collections'));
+        update_user_record.set('photo_url', this.get('coverImg'));
+        update_user_record.set('description', this.get('description'));
+        update_user_record.set('display_name', this.get('display_name'));
+        update_user_record.set('about_me', this.get('aboutMe'));
+        if (this.get('facebook').slice(0, 5) === 'http:' || this.get('facebook').slice(0, 5) === 'https'|| this.get('facebook')==='') {
+            update_user_record.set('facebook_link', this.get('facebook'));
+        } else {
+
+            update_user_record.set('facebook_link', http.concat(this.get('facebook')));
+        }
+        if (this.get('twitter').slice(0, 5) === 'http:' || this.get('twitter').slice(0, 5) === 'https'|| this.get('twitter')==='') {
+            update_user_record.set('twitter_link', this.get('twitter'));
+        } else {
+            update_user_record.set('twitter_link', http.concat(this.get('twitter')));
+        }
+        if (this.get('googleplus').slice(0, 5) === 'http:' || this.get('googleplus').slice(0, 5) === 'https'|| this.get('googleplus')==='') {
+            update_user_record.set('googleplus_link', this.get('googleplus'));
+        } else {
+            update_user_record.set('googleplus_link', http.concat(this.get('googleplus')));
+        }
+        if (this.get('pinterest').slice(0, 5) === 'http:' || this.get('pinterest').slice(0, 5) === 'https'|| this.get('pinterest')==='') {
+            update_user_record.set('pinterest_link', this.get('pinterest'));
+        } else {
+            update_user_record.set('pinterest_link',http.concat(this.get('pinterest')));
+        }
+//        if (this.get('linkedin').slice(0, 5) === 'http:' || this.get('linkedin').slice(0, 5) === 'https'|| this.get('linkedin')==='') {
+//            update_user_record.set('linkedin_link', this.get('linkedin'));
+//        } else {
+//            update_user_record.set('linkedin_link', http.concat(this.get('linkedin')));
+//        }
+        if (this.get('youtube').slice(0, 5) === 'http:' || this.get('youtube').slice(0, 5) === 'https'|| this.get('youtube')==='') {
+            update_user_record.set('youtube_link', this.get('youtube'));
+        } else {
+            update_user_record.set('youtube_link',http.concat(this.get('youtube')));
+        }
+        update_user_record.set('region', this.get('location'));
+        update_user_record.set('email', this.get('email'));
+        update_user_record.set('password', this.get('password'));
+
+// 
+// 
+//        HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
+//        if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
+//            update_profile_record.get('stateManager').transitionTo('loaded.saved');
+//        }
+//      
+        this.get('controllers.applicationFeedback').statusObserver(null, "Updated Successfully!!!");
         HubStar.store.save();
     },
-            
-            
-            
     specialCharactersChecking: function(str) {
 
         var re = /^[a-zA-Z-][a-zA-Z0-9-]*$/;

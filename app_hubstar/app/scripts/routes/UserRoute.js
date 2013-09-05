@@ -8,7 +8,7 @@ HubStar.UserRoute = Ember.Route.extend({
             this.controllerFor('application').set('isotherpage', true);
             this.controller.set('switchPhoto', true);
 //            console.log(this.controllerFor('checkAuthorityStatus').);
-            this.controllerFor('user').setUser();
+    //        this.controllerFor('user').setUser();
         },
         model: function(params) {
             return HubStar.User.find(params.user_id);
@@ -30,6 +30,8 @@ HubStar.UserRoute = Ember.Route.extend({
                 this.transitionTo("collection", data);
             }
         },
+              
+       
         redirect: function() {
     
             if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {

@@ -229,7 +229,8 @@ class Controller extends CController {
     protected function getmustQuestWithQueryString($queryString) {
         $mustQuery = explode('=', $queryString);
         $should = Sherlock\Sherlock::queryBuilder()->QueryString()->query( $mustQuery[1] )//$collection_id
-                ->field($mustQuery[0]);
+                ->default_field($mustQuery[0])
+                ->default_operator('AND');
         return $should;
     }
 

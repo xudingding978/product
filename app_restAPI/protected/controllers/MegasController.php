@@ -227,7 +227,7 @@ class MegasController extends Controller {
                 $oldRecord = CJSON::decode($old, true);
                 //error_log(var_export(is_array($oldRecord["people_like"]),true));
                 if (!isset($oldRecord["people_like"]) || is_array($oldRecord["people_like"])) {
-                    //error_log("ssssssssssssssssss");            
+                 
                     $oldRecord["people_like"] = null;
                 }
                 //error_log(var_export($oldRecord["people_like"],true));
@@ -243,7 +243,8 @@ class MegasController extends Controller {
                 $likeLength = sizeof(explode(",", $oldRecord["people_like"]));
                 $oldRecord["likes_count"] = $likeLength;
                 if ($cb->set($docID, CJSON::encode($oldRecord))) {
-                    $this->sendResponse(200, $oldRecord["people_like"]);
+                  $people_like=   CJSON::encode($oldRecord["people_like"], true);
+                    $this->sendResponse(200, $people_like);
                 } else {
                     $this->sendResponse(500, "some thing wrong");
                 }

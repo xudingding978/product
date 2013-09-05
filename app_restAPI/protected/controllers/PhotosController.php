@@ -177,7 +177,6 @@ class PhotosController extends Controller {
             $oldRecord['photo'][0]['photo_title'] = $newRecord['photo']['photo_title'];
             $oldRecord['photo'][0]['photo_caption'] = $newRecord['photo']['photo_caption'];
 
-            error_log(var_export($oldRecord, true));
             if ($cb->set($url, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);
             } else {
@@ -407,7 +406,6 @@ class PhotosController extends Controller {
             $oldRecord['object_description'] = $photoCaption;
             $oldRecord['photo'][0]['photo_title'] = $photoTitle;
             $oldRecord['photo'][0]['photo_caption'] = $photoCaption;
-
             if ($cb->set($url, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);
             } else {

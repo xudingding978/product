@@ -13,6 +13,7 @@ class UsersController extends Controller {
     const JSON_RESPONSE_ROOT_PLURAL = 'users';
 
     public function actionIndex() {
+        console.log('actionIndex into');
         $settings['log.enabled'] = true;
         // $settings['log.file'] = '/var/log/sherlock/newlogfile.log';
         $settings['log.level'] = 'debug';
@@ -70,7 +71,7 @@ class UsersController extends Controller {
 
     public function actionRead() {
         try {
-
+            error_log('actionRead into');
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1]; 
@@ -91,6 +92,8 @@ class UsersController extends Controller {
     public function actionUpdate() {
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
+        $payload_json = CJSON::encode($request_arr['user'], true);
+         $newRecord = CJSON::decode($payload_json);
         try {
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
@@ -100,8 +103,11 @@ class UsersController extends Controller {
             $oldRecord = $cb->get($url);
             error_log(var_export($oldRecord,true));
             $oldRecord = CJSON::decode($oldRecord, true);
-//            $oldRecord['user'][0] = null;
-//           $oldRecord['user'][0] = $request_arr['user'];
+
+//  
+            $oldRecord['user'][0] = null;
+            $oldRecord['user'][0] = $request_arr['user'];
+            $oldRecord['user'][0]['selected_topics'] = $newRecord['selected_topics'];
 
             $oldRecord['user'][0]['collections'] = $request_arr['user']['collections'];
             $oldRecord['user'][0]['photo_url'] = $request_arr['user']['photo_url'];
@@ -118,8 +124,7 @@ class UsersController extends Controller {
             $oldRecord['user'][0]['email'] = $request_arr['user']['email'];
             $oldRecord['user'][0]['password'] = $request_arr['user']['password'];
             
-            
-            
+
             if ($cb->set($url, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);
             } else {

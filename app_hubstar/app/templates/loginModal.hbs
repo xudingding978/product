@@ -1,19 +1,20 @@
 
-
-<div class="hover panel" style='width: 465px; text-align: center; color: rgb(51, 51, 51); border-radius: 3px;right: 65%;margin: auto;z-index: 1000;top: 10%;'>
+<div id="login_lightbox" onclick="document.getElementById('login_lightbox').style.display='none';document.getElementById('login_container').style.display='none';">&nbsp;</div>
+<div class="hover panel" id="login_container">
     <div class="front easing">
 
 
-        <div class="head controlbtn-field"  style="width: 465px;background-color: #f3f3f3;">
+        <div class="head controlbtn-field">
             <div type="button" {{action popupModal }} class="closeview"><i class="icon-remove"></i></div>
             <img class="logonew"  style="margin: 30px auto 0; width: 92px; display: block;" src="../../../images/trendslogo(black).png"></img>
-            <div style="margin: 20px auto; width: 360px;s">
-                <p style="text-align:center; font-weight: bold; ">COLLECT YOUR ONLINE RESOURCE FOR KITCHENS, PRODUCTS, SERVICES & IDEAS</p>
-                <p style="font-size: 12px; text-align: center;">
-                    Hundreds of videos, thousands of articles and tens of thousands of high quality images from around the world showcasing: Architecture, Kitchen Design, Bathroom Design, Interiors, Landscape Design and Commercial Design. 
+            <div class="logincopy">
+                <p><strong>COLLECT YOUR ONLINE RESOURCE FOR KITCHENS, PRODUCTS, SERVICES & IDEAS</strong></p>
+                <p>
+                    Hundreds of videos+, thousands of articles and tens of thousands of high quality images from around the world showcasing: Architecture, Kitchen Design, Bathroom Design, Interiors, Landscape Design and Commercial Design. 
                 </p>
             </div>
-            <div id="dd" class="wrapper-dropdown-3" tabindex="1" style=" width:270px; height:45px;">
+
+            <div id="dd" class="wrapper-dropdown-3" tabindex="1" style="height:45px;">
 
                 <div>
                     <div id="dropdown-cover" class="dropdown_test"  style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -11px; padding-left: 35px; border-radius: 3px 0 0 3px;">
@@ -35,14 +36,11 @@
                     <li  class='signup'><a style="color:rgb(0,153,68)" href="#"><i class="icon-envelope icon-large"></i>Sign in with Email</a></li>
                 </ul>
             </div>
-
+            <div class="panelcircle"><strong>OR</strong></div>
         </div>
-
-        <div class="panelcircle" style="position: absolute; right: 0; top: 300px; margin: auto;left: 0;"><b>OR</b></div>
-
-        <div class="content " style="width: 465px;">
+        <div class="content ">
             {{#unless mail}}
-            <div style="font-size: 12px; margin: 20px auto 0; font-weight: bold;">Other platforms you might prefer:</div>
+            <div style="margin: 20px auto 0; font-weight: bold;">Other platforms you might prefer:</div>
 
             <div style="margin: 10px auto 5px; width: 100%;">
                 <a  class="square-button" href='#' onclick="LinkedIn(650, 400);" >
@@ -103,12 +101,12 @@
 
 
 
-<div class="back easing" style='width: 465px; text-align: center; color: rgb(51, 51, 51); border-radius: 3px; position: relative; bottom: 500px; height: auto;'>
+<div class="back easing">
 
-    <div class="head controlbtn-field" style="width: 465px;background-color: #f3f3f3;">
+    <div class="head controlbtn-field">
         <div type="button" {{action popupModal }} class="closeview"><i class="icon-remove"></i></div>
-        <div style="font-size: 22px; font-weight: bold; margin: 20px auto 15px;"> 
-            Sign Up for your Free Account!
+        <div style="font-size: 22px;margin: 20px auto 15px;"> 
+            <strong>Sign Up for your Free Account!</strong>
         </div>
 
         <div id="dd2" class="wrapper-dropdown-3" tabindex="1" style="top: 3px; height: 45px;">
@@ -137,7 +135,7 @@
     </div>
     <div class="panelcircle" style="position: absolute; right: 0; top: 160px; margin: auto;left: 0; font-weight: bold">OR</div>
 
-    <div class="content" style="width: 465px;">
+    <div class="content">
 
         <div style="font-size: 14px; font-weight: bold; margin: 15px auto 10px;">
             Sign Up with your Email Address:

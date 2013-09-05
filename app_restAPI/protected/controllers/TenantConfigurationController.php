@@ -30,8 +30,7 @@ class TenantConfigurationController extends Controller {
 
     public function actionDelete() {
 
-    }
-
+    }   
     public function actionGetRequireIamgeSize() {
         $request_json = file_get_contents('php://input');
         //error_log($request_json);

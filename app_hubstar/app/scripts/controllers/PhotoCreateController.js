@@ -6,6 +6,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
     filesNumber: null,
     profileMega: null,
     uploadOrsubmit: false,
+    fileSize:null,
     collection_id: "",
     needs: ['profile', 'masonryCollectionItems', 'photoCreateInfoSetting'],
     init: function() {
@@ -37,11 +38,21 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
     },
     back: function()
     {
-
         HubStar.set('isNewUpload', true);
         $('#dragAndDroppArea').attr('style', "display:none");
         var masonryCollectionItems = this.get('controllers.masonryCollectionItems');
+        
         masonryCollectionItems.back();
+    },
+            
+                photoUpload: function()
+    {
+
+        HubStar.set('isNewUpload', false);
+       
+        var masonryCollectionItems = this.get('controllers.masonryCollectionItems');
+        this.set("fileSize",0);
+        masonryCollectionItems.photoUpload();
     },
     setMega: function() {
         var profileController = this.get('controllers.profile');
@@ -95,7 +106,28 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
             "view_count": null
         });
         return photoMega;
-    }, addPhotoObject: function(e, name, type) {
+    }, addPhotoObject: function(e, name, type,size) {
+              var fileSize=this.get("fileSize");
+              var addPhoto = true;
+            if(fileSize===null)
+            {
+                  this.set("fileSize", size);
+            }
+            else 
+            {
+                if(fileSize+size>25000000)
+                 {
+                     addPhoto = false;
+                   //  alert("please select a small image");
+                 }
+                 else
+                {
+                        this.set("fileSize", size+fileSize);
+                }
+            }
+         fileSize=this.get("fileSize");
+        if((fileSize<=25000000)&&(addPhoto===true))
+           { 
         var photoName = name.replace(/[)\(]/gi, '');
         var testID = createGuid();
         var target = this.getTarget(e);
@@ -127,13 +159,20 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                     photoCreateInfoSettingController.setData();
                     photoCreateInfoSettingController.set('isEditingMode', true);
                     masonryCollectionItems.set('uploadOrsubmit', !masonryCollectionItems.get('uploadOrsubmit'));
-
+                    
+                    this.set("fileSize", 0);
                 }
             }
         });
         var masonryCollectionItemsController = this.get('controllers.masonryCollectionItems');
         masonryCollectionItemsController.get("uploadImageContent").addObject(file);
-
+           }
+           else
+            {
+                addPhoto = true;
+                //this.set("fileSize", 0);
+                 alert("The limit size of uploading is 25MB");
+            }
     },
     getTarget: function(obj) {
         var targ;
@@ -156,7 +195,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
         if (HubStar.get('isNewUpload')) {
             this.set('content', []);
             HubStar.set('isNewUpload', false);
-        }
+        } 
     }
 
 

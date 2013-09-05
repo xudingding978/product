@@ -140,23 +140,25 @@
                                                     <th class="Contact_2child">{{profile_contact_number}}</th>
                                                     {{/if}}
                                                 </tr>
-                                                <tr>
-                                                    <th>Website:</th>
-                                                    {{#if controller.editingContact}}
-                                                    {{input type="text" class="insert-contactdetails" value=website }}
-                                                    {{else}}
-                                                    <th class="Contact_2child">{{website}}</th>
-                                                    {{/if}}
-                                                </tr>
+                                                 <tr>
+                                    <th>Website:</th>
+                                    {{#if controller.editingContact}}
+                                    {{input type="text" class="insert-contactdetails" value=website }}
+                                  
+                                    {{else}}
+                                    <th class="Contact_2child"><a href="http://{{unbound model.profile_website_url}}" target="blank">{{website}}</a></th>
+                                    {{/if}}
+                                </tr>
 
-                                                <tr>
-                                                    <th>Website URL:</th>
-                                                    {{#if controller.editingContact}}
-                                                    {{input type="text" class="insert-contactdetails" value=website_url }}
-                                                    {{else}}
-                                                    <th class="Contact_2child"><a href="http://{{unbound model.profile_website_url}}" target="blank">http://{{website_url}}</a></th>
-                                                    {{/if}}
-                                                </tr>
+                                 <tr>
+                                 
+                                    {{#if controller.editingContact}}   
+                                     <th style = "color: #aaa; text-align: right;padding-bottom: 10px;font-size: 14px;font-weight: normal;width: 90px;">Website URL:</th>       
+                                 {{input type="text" class="insert-contactdetails" value=website_url }}                        
+                                    {{else}}
+                                   
+                                    {{/if}}
+                                </tr>
 
                                             </table>
                                             {{#unless controller.editingContact}}

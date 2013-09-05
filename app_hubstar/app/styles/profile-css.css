@@ -403,3 +403,56 @@
     border-top-color: #f6f0ba;
     background-color: #d8cf7e;
 }
+
+
+/* paid profile BEGINS, Clint Rex Lewis 4/9/13 */
+#premium > div > table tr td.left_col{background:#F2F0F0;}
+#premium > div > table tr td.right_col{background:#FFFFFF;}
+
+#premium > div > table  .profileaside
+{
+    background-color: rgb(242,240,240);
+    width:100%;
+    min-width:230px;
+    border-radius:3px 0 0 0;
+    display:inline-block;
+    vertical-align: top;
+    position:relative;
+    
+}
+#premium > div > table .profileaside > .profileaside_content
+{
+
+   margin:0 6.5%;
+   position: relative; 
+   width:87%;
+   padding-top:119px;
+}
+#premium > div > table  .profileaside > .profileaside_content .aside-profilepic
+{
+    padding: 20px 5px; 
+    position:absolute;
+    width:65%;
+    top:-180px;
+    left:17.5%;
+}
+#premium > div > table  .profileaside > .profileaside_content .aside-profilepic div,
+#premium > div > table  .profileaside > .profileaside_content .aside-profilepic div img{width:100%;margin-bottom:1em;}
+
+#premium > div > table .profilemain
+{
+    display: inline-block;
+    width: 100%;
+    left:0;
+    right:0;
+    margin:auto;
+    min-width:553px;
+}
+#premium > div > table  .profileaside > .profileaside_content .aside-container{
+    padding: 20px 0;
+    border-bottom: 1px solid #ccc;
+    font-size: 14px;
+    margin: auto;
+    width: 95%;
+}
+/* paid profile ENDS, Clint Rex Lewis 4/9/13 */

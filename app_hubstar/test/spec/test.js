@@ -48,64 +48,64 @@ function LoginOut() {
 ;
 
 
-describe("Platform  bar", function() {
-    var controller;
-    var topics;
-    var result;
-    beforeEach(function(done) {
+//describe("Platform  bar", function() {
+//    var controller;
+//    var topics;
+//    var result;
+//    beforeEach(function(done) {
+//
+//
+//
+//        Ember.run(function() {
+//            LoginIn(done);
+//
+//            controller = HubStar.PlatformBarController.create();
+//             //console.log(controller);
+//            topics = controller.categorys;
+//            topics.addObserver('isLoaded', function() {
+//                if (topics.get('isLoaded')) {
+//                    result = topics.get('length');
+//                    done();
+//                }
+//            });
+//        });
+//    });
+//    it("total topics", function() {
+//        Ember.run(function() {
+//            result.should.equal(14);
+//        });
+//    });
+//});
 
-
-
-        Ember.run(function() {
-            LoginIn(done);
-
-            controller = HubStar.PlatformBarController.create();
-             //console.log(controller);
-            topics = controller.categorys;
-            topics.addObserver('isLoaded', function() {
-                if (topics.get('isLoaded')) {
-                    result = topics.get('length');
-                    done();
-                }
-            });
-        });
-    });
-    it("total topics", function() {
-        Ember.run(function() {
-            result.should.equal(14);
-        });
-    });
-});
-
-describe("AddLike Test", function() {
-    var controller;
-    var topics;
-    var result;
-    beforeEach(function(done) {
-
-        Ember.run(function() {
-            LoginIn(done);
-          controller = HubStar.CommentController.create();
-           //console.log("ssssssssss");
-                controller.addLike("8911076791372397733");
-                    result = controller.get("count");
-                    console.log(result);
-                    done();
-            //controller.addLike("6939110571372460540");
-           
-       //    console.log("ssssssssss");
-        
-                  // done();
-         });
-    });
-    it("total topics", function() {
-        Ember.run(function() {
-          
-            result.should.equal("3");
-            
-        });
-    });
-});
+//describe("AddLike Test", function() {
+//    var controller;
+//    var topics;
+//    var result;
+//    beforeEach(function(done) {
+//
+//        Ember.run(function() {
+//            LoginIn(done);
+//          controller = HubStar.CommentController.create();
+//           //console.log("ssssssssss");
+//                controller.addLike("8911076791372397733");
+//                    result = controller.get("count");
+//                    console.log(result);
+//                    done();
+//            //controller.addLike("6939110571372460540");
+//           
+//       //    console.log("ssssssssss");
+//        
+//                  // done();
+//         });
+//    });
+//    it("total topics", function() {
+//        Ember.run(function() {
+//          
+//            result.should.equal("3");
+//            
+//        });
+//    });
+//});
 
 //describe("profiles Routing ", function() {
 //    beforeEach(function(done) {
@@ -131,33 +131,33 @@ describe("AddLike Test", function() {
 //        });
 //    });
 //});
+
+//describe("profiles Routing ", function() {
+//    beforeEach(function(done) {
+//        Ember.run(function() {
+//            route = HubStar.Router.create();
+//            route.transitionTo("profiles");
+//            setTimeout(function() {
+//                $('.nothingHere').find('ul').eq(0).find('a').click();
+//                done();
+//            }, 600);
 //
-////describe("profiles Routing ", function() {
-////    beforeEach(function(done) {
-////        Ember.run(function() {
-////            route = HubStar.Router.create();
-////            route.transitionTo("profiles");
-////            setTimeout(function() {
-////                $('.nothingHere').find('ul').eq(0).find('a').click();
-////                done();
-////            }, 600);
-////
-////        });
-////    });
-////    afterEach(function() {
-////        Ember.run(function() {
-////            route = HubStar.Router.create();
-////            route.transitionTo("searchIndex");
-////        });
-////    });
-////    it("Routing", function() {
-////        Ember.run(function() {
-////            $('#aside_contact').find('tr').eq(1).find('th').eq(0).should.have.text("Category:");
-////        });
-////    });
-////});
-//
-//
+//        });
+//    });
+//    afterEach(function() {
+//        Ember.run(function() {
+//            route = HubStar.Router.create();
+//            route.transitionTo("searchIndex");
+//        });
+//    });
+//    it("Routing", function() {
+//        Ember.run(function() {
+//            $('#aside_contact').find('tr').eq(1).find('th').eq(0).should.have.text("Category:");
+//        });
+//    });
+//});
+
+
 //describe("testing platform side bar searching result", function() {
 //    it("hover and click topics", function() {
 //        $('.firstList').find('li').eq(1).find('a').eq(0).click();
@@ -170,7 +170,53 @@ describe("AddLike Test", function() {
 //        $('.search_business').text().should.be($('.firstList').find('li').eq(1).find('ul').find('li').eq(1).find('ul').find('li').eq(1).text().trim());
 //    });
 //});
-//
+
+describe("profile page cancel saving test", function() {
+     var controller, model;
+     controller = HubStar.ProfileController.create();
+     model = HubStar.Profile.find('sean');
+     controller.set('model', model);
+
+    it ("cancel saving profile_name test in profile page", function() {
+
+        var temp_name_record = controller.profile_name;
+        controller.toggleEditing(controller.profile_name, controller.profileName);        
+        controller.profile_name = '11111111111111111';
+        controller.no(controller.profileName);
+        controller.profile_name.should.equal(temp_name_record);
+    });
+    
+    it ("cancel saving about us test in profile page", function() {
+
+        var temp_about_record = controller.about_me;
+        controller.toggleEditing(controller.about_me, controller.aboutMe);        
+        controller.profile_name = '11111111111111111';
+        controller.no(controller.aboutMe);
+        controller.about_me.should.equal(temp_about_record);
+    });
+    
+    it ("cancel saving contact test in profile page", function() {
+
+        var temp_first_name_record = controller.first_name;
+        var temp_last_name_record = controller.last_name;
+        var temp_address_record = controller.address;
+        var temp_contact_number_record = controller.profile_contact_number;
+        var temp_website_record = controller.website;
+        controller.toggleEditing(controller.profile_contact_number, controller.contact);
+        controller.first_name = '9999999999999999999999';
+        controller.last_name = '999999999999999999999999';
+        controller.address = '999999999999999999999999999';
+        controller.profile_contact_number = '99999999999999999999999999999';        
+        controller.website = '99999999999999999999999';
+        controller.no(controller.contact);
+        controller.first_name.should.equal(temp_first_name_record);
+        controller.last_name.should.equal(temp_last_name_record);
+        controller.address.should.equal(temp_address_record);
+        controller.profile_contact_number.should.equal(temp_contact_number_record);
+        controller.website.should.equal(temp_website_record);
+    });
+});
+
 //describe("user profies testing", function() {
 //    var controller;
 //
@@ -219,8 +265,8 @@ describe("AddLike Test", function() {
 //        route.transitionTo("searchIndex");
 //    });
 //});
-
-
+//
+//
 //describe("poster photo_url  validation  testing", function() {
 //    var validation;
 //    var photo_image_original_url;
@@ -255,23 +301,23 @@ describe("AddLike Test", function() {
 //    });
 //});
 
-describe("create profile", function() {
-    var controller;
-    var topics;
-    var result;
-    beforeEach(function(done) {
-
-        Ember.run(function() {
-            LoginIn(done);
-
-           controller = HubStar.ProfileNewController.create();
-           console.log("ssssssssss");
-           console.log(controller.addLike("1270944421372427691"));        
-        });
-    });
-    it("total topics", function() {
-        Ember.run(function() {
-            //result.should.equal(14);
-        });
-    });
-});
+//describe("create profile", function() {
+//    var controller;
+//    var topics;
+//    var result;
+//    beforeEach(function(done) {
+//
+//        Ember.run(function() {
+//            LoginIn(done);
+//
+//           controller = HubStar.ProfileNewController.create();
+//           console.log("ssssssssss");
+//           console.log(controller.addLike("1270944421372427691"));        
+//        });
+//    });
+//    it("total topics", function() {
+//        Ember.run(function() {
+//            //result.should.equal(14);
+//        });
+//    });
+//});

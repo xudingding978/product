@@ -7541,14 +7541,15 @@ div.search-loading-invisible{
 
 .checkbox-columncontainer{
     display: inline-block;
-    width: 420px;
+    width: 440px;
     text-align: left;
+    padding-left: 25px;
 }
 
 .checkbox-container{
     padding: 2px 8px;
     float: left;
-    width: 210px;
+    width: 200px;
 }
 
 /*CSS Checkboxes*/
@@ -7565,7 +7566,7 @@ input[type=checkbox].css-checkbox + label.css-label {
     line-height: 14px;
     background-repeat: no-repeat;
     background-position: 0 0;
-    font-size: 15px;
+    font-size: 13px;
     font-weight: bold;
     vertical-align: middle;
     cursor: pointer;
@@ -9258,6 +9259,7 @@ div.loading-visible{
     right: 0px;
     top: 0;
 
+    z-index: 1;
 }
 
 .top-controlbar{
@@ -9266,8 +9268,13 @@ div.loading-visible{
     margin: 0 auto;
     position: absolute;
     right: 0px;
-    width: 100px;
     text-align: center;
+    background-color: rgba(0,0,0,.6);
+    opacity: 0;
+
+    cursor: pointer;
+    z-index: 1;
+
 }
 
 .bottom-controlbar{
@@ -9277,17 +9284,32 @@ div.loading-visible{
     margin: 0 auto;
     position: absolute;
     right: 0px;
-    width: 132px;
+    background-color: rgba(0,0,0,.6);
+    opacity: 0;
+    text-align: center;
+
+    cursor: pointer;
+    z-index: 1;
+
+}
+
+
+.objectview-left:hover > .top-controlbar{
+    opacity: 1;
+}
+
+.objectview-left:hover > .bottom-controlbar{
+    opacity: 1;
 }
 
 
 .mainfeature{
-    bottom: 44px;
+    bottom: 0px;
     left: 0;
     overflow: hidden;
     position: absolute;
     right: 0px;
-    top: 44px;
+    top: 0px;
 }
 
 .mainfeature_object{
@@ -9796,7 +9818,7 @@ div.loading-visible{
 .comment-frame{
     width: 87%;
     margin: 0 auto;
-   
+
 }
 
 
@@ -10129,7 +10151,7 @@ div.loading-visible{
     display: block;
     list-style-type: none;
     padding:0;
-    margin: 0;
+    margin: 0 0 0 -10px;
 
     -webkit-margin-before: 1em;
     -webkit-margin-after: 1em;
@@ -10149,7 +10171,7 @@ div.loading-visible{
 
 .location_li{
     white-space: nowrap;
-    overflow: hidden;
+   
     -ms-text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
@@ -10300,9 +10322,13 @@ div.loading-visible{
     opacity: 0;
     background-color: #000;
     position: absolute;
-    width: 180px;
-    height: 180px;
+    width: 170px;
+    height: 170px;
     overflow:hidden;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -o-border-radius:50%;
 }
 
 .user-profilepic-container:hover .changeuserprofilepic{
@@ -11557,7 +11583,7 @@ body{
     -ms-filter: progid:DXImageTransform.Microsoft.gradient(
         startColorstr=rgba(255, 255, 255, 0.15), endColorstr=rgba(255, 255, 255, 0)
         );
-}      
+}     
 
 
 #dropdown-cover:hover{
@@ -11604,6 +11630,10 @@ body{
     -ms-filter: progid:DXImageTransform.Microsoft.gradient(
         startColorstr=rgba(0,0,0,0.45), endColorstr=rgba(0,0,0,0.05)
         );
+}
+
+#dropdown-cover:last-child{
+    max-width:202px;
 }
 
 
@@ -11859,12 +11889,32 @@ div.form .rememberMe label
     font-size: 12px;
 }
 
+
+
+/* Login lightbox BEGINS, Clint Rex Lewis 4/9/13 */
+    div#login_icon > div.ember-view
+    {
+        position: fixed!important;
+        top: 10%;
+        width: 25%;
+        
+    }
+     div#login_icon > div.ember-view > div.panel
+     {
+         width:100%;
+         margin:0;
+         -moz-border-radius:3px;
+        -webkit-border-radius:3px;
+        border-radius:3px;
+         
+     }
+
+/* Login lightbox ENDS, Clint Rex Lewis 4/9/13 */
 * {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
 }
-
 
 #footer
 {

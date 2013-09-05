@@ -1,13 +1,14 @@
 
 
 HubStar.PhotoCreateView = Ember.View.extend(HubStar.PhotoCreateController.Droppable, {
- 
+
     contentBinding: "photoCreate",
+  
     drop: function(event) {
         var dataTransfer = event.originalEvent.dataTransfer;
         var files = dataTransfer.files;
         var controller = this.get("controller");
-
+       var  filesize = 0;
 
         var photoCreateController = controller.get('controllers.photoCreate');      
         photoCreateController.fileChecking(files.length);
@@ -16,12 +17,22 @@ HubStar.PhotoCreateView = Ember.View.extend(HubStar.PhotoCreateController.Droppa
             (function(file) {
                 var name = file.name;
                 var type = file.type;
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    photoCreateController.addPhotoObject(e, name, type);
-                }, reader.readAsDataURL(files[i]);
+                filesize = file.size;
+                if(filesize>=25000000)
+                {
+                  alert("The limit size of uploading is 25MB");
+                }
+                else
+                {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                    photoCreateController.addPhotoObject(e, name, type, filesize);
+                      
+                    }, reader.readAsDataURL(files[i]);
+              }
             })(files[i]);
         }
+   //    console.log(filesize);
         $('#dragAndDroppArea').attr('style', "display:block");
         return false;
     }

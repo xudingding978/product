@@ -1,5 +1,8 @@
 
 var isExsinting = true;
+var interest_record;
+var collection_title_record;
+var collection_desc_record;
 
 HubStar.UserController = Ember.Controller.extend({
     user: null,
@@ -7,6 +10,8 @@ HubStar.UserController = Ember.Controller.extend({
     newCollectionName: null,
     collections: [],
     temp: [],
+    follower: "",
+    following:"",
     selectedDesc: "",
     selectedTitle: "",
     coverImg: "",
@@ -20,6 +25,9 @@ HubStar.UserController = Ember.Controller.extend({
     selectedCollection: "",
     profileSelectionStatus: "Collections",
     selected_topics: [],
+    interests:"",
+    editingInterest: false,
+    interest: "interest",
     is_authentic_user: false,
     is_click: false,
     init: function()
@@ -40,7 +48,10 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("collections", user.get("collections"));
         this.set("coverImg", user.get("photo_url"));
         this.set("description", user.get("description"));
+         this.set("interests", user.get("interests"));
+        
         this.set("display_name", user.get("display_name"));
+        
         if (this.get("collections").objectAt(0) !== null && typeof this.get("collections").objectAt(0) !== 'undefined') {
             this.setDesc(this.get("collections").objectAt(0).get("desc"));
             this.setTitle(this.get("collections").objectAt(0).get("title"));
@@ -129,6 +140,29 @@ HubStar.UserController = Ember.Controller.extend({
             }
         }
     },
+    interestEdit: function(data, checkingInfo) {
+        if (checkingInfo === "interest") {
+            interest_record = data;
+            this.set('editingInterest', !this.get('editingInterest'));
+            console.log();
+        }
+    },
+    yes: function(checkingInfo) {
+        if (checkingInfo === "interest") {
+            this.set('editingInterest', !this.get('editingInterest'));
+        }
+
+        this.saveUpdate();
+    },
+    no: function(checkingInfo) {
+        if (checkingInfo === "interest") {
+            //console.log(this.profile_name);
+            this.set('model.interest', interest_record);
+            // this.set("profile_name",profile_record);
+            this.set('editingInterest', !this.get('editingInterest'));
+        }
+
+    },
     submit: function()
     {
 
@@ -161,6 +195,19 @@ HubStar.UserController = Ember.Controller.extend({
             isExsinting = true;
         }
     },
+            
+            
+             saveUpdate: function() {
+        var update_interest_record = HubStar.User.find(this.get('id'));
+        update_interest_record.set('interests', this.get('interests'));
+
+        HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.User, update_interest_record);       
+         this.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully!!!");
+        HubStar.store.save();
+    },
+            
+            
+            
     specialCharactersChecking: function(str) {
 
         var re = /^[a-zA-Z-][a-zA-Z0-9-]*$/;
@@ -298,6 +345,17 @@ HubStar.UserController = Ember.Controller.extend({
     flickButtonClick: function()
     {
         this.set("isEditingMode", !this.get("isEditingMode"));
+    },
+            
+    setCollectionAttr: function() {
+        collection_title_record = this.get('selectedCollection').get('title');
+        collection_desc_record = this.get('selectedCollection').get('desc');
+    },
+    
+    getCollectionAttr: function() {
+        this.get('selectedCollection').set('title', collection_title_record);
+        this.get('selectedCollection').set('desc', collection_desc_record);
     }
+    
 }
 );

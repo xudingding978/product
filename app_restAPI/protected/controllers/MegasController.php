@@ -33,10 +33,10 @@ class MegasController extends Controller {
                     $tempRecord = $cb->get($docID);
                     $record = CJSON::decode($tempRecord, true);
                     $request_string = "RequireType=articleRelatedImage&collection_id=" . $record["collection_id"] . "&owner_profile_id=" . $record["owner_id"];
-                } else {
+                } 
+                
                     $response = $this->getRequestResult($request_string, self::JSON_RESPONSE_ROOT_PLURAL);
-                }
-            }
+            }            
             $this->sendResponse(200, $response);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();

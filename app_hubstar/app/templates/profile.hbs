@@ -16,7 +16,7 @@
 
     <div class="front" style="text-align: inherit; width: auto; height: auto; box-shadow: none; border: none; position: relative;">
 
-        <div class="profilewrapper" style="">
+        <div id="premium" class="profilewrapper">
             <!--corpbanner-->
 
             <div class="profilecorpbanner"    style="overflow:hidden;width: 100%; max-height: 650px; border-radius: 3px 3px 0 0; position: relative;min-height: 400px;">
@@ -37,8 +37,8 @@
 
                                 {{#if controller.editing}}
                                 <div style="display: inline-block; width: 350px;">
-                             
-                {{input type="text" class="insert-contactdetails" value=profile_name}}
+
+                                    {{input type="text" class="insert-contactdetails" value=profile_name}}
                                 </div>
                                 <div style="display: inline-block;vertical-align: bottom; margin-left:20px">
                                     <div class="new-btn blue-btn"{{action yes controller.profileName}}><i class="icon-ok icon-white"></i></div>
@@ -72,198 +72,209 @@
 
                 <!--PROFILE PAGE LEFT SIDE-->
 
-                <div class="profileaside" style="background-color: rgb(242,240,240); width: 29.5%; min-width: 230px;height: auto; border-radius:3px 0 0 0; display: inline-block;vertical-align: top;">
-                    <div class="profileaside_content" style="margin:auto; margin-top: -200px; position: relative; width:87%;">
+                <table cellpadding="0" cellspacing="0" width="100%">
+                    <tbody>
+                        <tr>
+                            <!--LEFT COL BEGINS -->
+                            <td class="left_col" width="29%" valign="top">
+                                <div class="profileaside">
+                                    <div class="profileaside_content">
+                                        <div class="aside-profilepic">
+                                            <div>
+                                                <img {{bindAttr src= model.profile_pic_url}} style="border:5px solid white;box-shadow: 0px 0px 5px #888;">
+                                            </div>
+                                            {{#if controller.follow_status}}
+                                            <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin:10px auto;display: block;width: 150px;"{{action followThisProfile}}><i class='icon-circle-blank' >&nbsp; </i> Following</div>
+                                            {{else}}
+                                            <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin:10px auto;display: block;width: 150px;"{{action followThisProfile}}><i class='icon-plus' >&nbsp; </i> Follow</div>
 
-                        <div class="aside-profilepic" style="padding: 20px 5px; border-bottom: 1px solid #ccc;">
-                            <div style="width: 200px; min-height: 200px; display: block;margin: 20px auto; line-height: 200px;">
-                                <img {{bindAttr src= model.profile_pic_url}} style="border:5px solid white;box-shadow: 0px 0px 5px #888;">
-                            </div>
-                            {{#if controller.follow_status}}
-                            <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin:10px auto;display: block;width: 150px;"{{action followThisProfile}}><i class='icon-circle-blank' >&nbsp; </i> Following</div>
-                            {{else}}
-                            <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin:10px auto;display: block;width: 150px;"{{action followThisProfile}}><i class='icon-plus' >&nbsp; </i> Follow</div>
+                                            {{/if}}
+                                        </div>
+                                        <!--PROFILE CONTACT SECTION-->
+                                         <div style="padding: 0;border-top:1px solid #ccc;border-bottom: 1px solid #fff;font-size: 14px;margin: auto;width: 95%;"></div>
+                                        <div class="aside-container">
 
-                            {{/if}}
-                        </div>
-                        <!--PROFILE CONTACT SECTION-->
+                                            {{#unless controller.editingContact}}
+                                            <div>
+                                                <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-phone' style='margin-right: 10px;'></i>Contact Detail</div>
+                                                {{#if controller.is_authentic_user}}
+                                                <div class="edit-btn easing hint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing model.phone_number controller.contact}}>
+                                                     <i class="icon-edit" ></i>
+                                                </div>
+                                                {{/if}}
+                                            </div>
 
-                        <div class="aside-container" style="padding: 20px 0; border-bottom: 1px solid #ccc; border-top: 1px solid #fff; font-size: 14px;margin: auto;width: 95%;">
+                                            {{/unless}}
 
-                            {{#unless controller.editingContact}}
-                            <div>
-                                <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-phone' style='margin-right: 10px;'></i>Contact Detail</div>
-                                {{#if controller.is_authentic_user}}
-                                <div class="edit-btn easing hint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing model.phone_number controller.contact}}>
-                                     <i class="icon-edit" ></i>
+                                            <table id="aside_contact">
+                                                <tr>
+                                                    <th>Contact:</th>
+                                                    {{#if controller.editingContact}}
+                                                    {{input type="text" class="insert-contactdetails" value=first_name}}
+                                                    {{input type="text" class="insert-contactdetails" value=last_name}}
+                                                    {{else}}
+                                                    <th class="Contact_2child">{{first_name}} {{last_name}}</th>
+                                                    {{/if}}
+                                                </tr>
+                                                <tr>
+                                                    <th>Category:</th>
+                                                    {{#if controller.editingContact}}
+                                                    {{input type="text" class="insert-contactdetails" value=model.profile_category  }}
+                                                    {{else}}
+                                                    <th class="Contact_2child"><a >{{model.profile_category}}</a></th>
+                                                    {{/if}}
+                                                </tr>
+                                                <tr>
+                                                    <th>Address:</th>
+                                                    {{#if controller.editingContact}}
+                                                    {{input type="text" class="insert-contactdetails" value=address  }}
+                                                    {{else}}
+                                                    <th class="Contact_2child">{{address}}</th>
+                                                    {{/if}}
+                                                </tr>
+                                                <tr>
+                                                    <th>Phone:</th>
+                                                    {{#if controller.editingContact}}
+                                                    {{input type="text" class="insert-contactdetails" value=profile_contact_number  }}
+                                                    {{else}}
+                                                    <th class="Contact_2child">{{profile_contact_number}}</th>
+                                                    {{/if}}
+                                                </tr>
+                                                <tr>
+                                                    <th>Website:</th>
+                                                    {{#if controller.editingContact}}
+                                                    {{input type="text" class="insert-contactdetails" value=website }}
+                                                    {{else}}
+                                                    <th class="Contact_2child">{{website}}</th>
+                                                    {{/if}}
+                                                </tr>
+
+                                                <tr>
+                                                    <th>Website URL:</th>
+                                                    {{#if controller.editingContact}}
+                                                    {{input type="text" class="insert-contactdetails" value=website_url }}
+                                                    {{else}}
+                                                    <th class="Contact_2child"><a href="http://{{unbound model.profile_website_url}}" target="blank">http://{{website_url}}</a></th>
+                                                    {{/if}}
+                                                </tr>
+
+                                            </table>
+                                            {{#unless controller.editingContact}}
+
+                                            {{else}}
+                                            <div class="buttons" style="position: relative;display: block;margin: 10px auto 0;text-align: center;">
+
+                                                <div  type="button" class="new-btn blue-btn" {{action yes controller.contact }}> <i class="icon-ok icon-white"></i></div>
+
+                                                <div  type="button" class="new-btn" {{action no controller.contact}}> <i class="icon-remove"></i></div>
+
+                                            </div>
+                                            {{/unless}}
+
+                                        </div>
+                                        <!--PROFILE HOURS SECTION-->
+
+                                        <div class="aside-container" style="border-bottom:0 none;border-top: 1px solid #fff;">
+                                            <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-time' style='margin-right: 10px;'></i>Hours</div>
+
+                                            {{#unless controller.editingTime}}
+                                            {{#if controller.is_authentic_user}}
+                                            <div class="edit-btn easinghint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing  model.profile_name controller.timeSetting}}>
+                                                 <i class="icon-edit"></i>
+                                            </div>
+                                            {{/if}}
+                                            {{/unless}}
+
+                                            {{#each controller.hours}}
+
+                                            <table id="aside_contact">
+                                                {{#unless controller.editingTime}}
+                                                <tbody style="display: inline-block; vertical-align: top;">
+                                                    <tr style="">
+                                                        <th>{{day}}</th>
+                                                        {{else}}
+                                                        {{input type="text" class="inserthours-day" value=day}}
+                                                        {{/unless}}
+
+                                                        {{#unless controller.editingTime}}
+                                                        <th class="Contact_2child">{{time}}</th>
+                                                        {{else}}
+                                                        {{input type="text" class="inserthours-time" value=time  }}
+                                                        {{/unless}}
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+
+                                            {{/each}}
+                                            {{#if controller.editingTime}}
+
+                                            <div style="width: 75px;margin: auto;">
+                                                <div class="new-btn blue-btn"{{action yes controller.timeSetting}}><i class="icon-ok icon-white"></i></div>
+                                                <div class="new-btn"{{action no controller.timeSetting}}><i class="icon-remove icon-white"></i></div>
+                                            </div>
+                                            {{/if}}
+                                        </div>
+                                    </div>
                                 </div>
-                                {{/if}}
-                            </div>
+                            </td><!--LEFT COL ENDS -->
+                            
+                            <!--RIGHT COL BEGINS -->
+                            <td class="right_col" width="70%" valign="top">
+                                <!--PROFILE PAGE MAIN PART-->
 
-                            {{/unless}}
+                                <div class="profilemain" style="display: inline-block; width: 100%;left: 0;right: 0; background-color: white;margin: auto; min-width: 553px;">
 
-                            <table id="aside_contact">
-                                <tr>
-                                    <th>Contact:</th>
-                                    {{#if controller.editingContact}}
-                                    {{input type="text" class="insert-contactdetails" value=first_name}}
-                                    {{input type="text" class="insert-contactdetails" value=last_name}}
-                                    {{else}}
-                                    <th class="Contact_2child">{{first_name}} {{last_name}}</th>
-                                    {{/if}}
-                                </tr>
-                                <tr>
-                                    <th>Category:</th>
-                                    {{#if controller.editingContact}}
-                                    {{input type="text" class="insert-contactdetails" value=model.profile_category  }}
-                                    {{else}}
-                                    <th class="Contact_2child"><a >{{model.profile_category}}</a></th>
-                                    {{/if}}
-                                </tr>
-                                <tr>
-                                    <th>Address:</th>
-                                    {{#if controller.editingContact}}
-                                    {{input type="text" class="insert-contactdetails" value=address  }}
-                                    {{else}}
-                                    <th class="Contact_2child">{{address}}</th>
-                                    {{/if}}
-                                </tr>
-                                <tr>
-                                    <th>Phone:</th>
-                                    {{#if controller.editingContact}}
-                                    {{input type="text" class="insert-contactdetails" value=profile_contact_number  }}
-                                    {{else}}
-                                    <th class="Contact_2child">{{profile_contact_number}}</th>
-                                    {{/if}}
-                                </tr>
-                                <tr>
-                                    <th>Website:</th>
-                                    {{#if controller.editingContact}}
-                                    {{input type="text" class="insert-contactdetails" value=website }}
-                                    {{else}}
-                                    <th class="Contact_2child">{{website}}</th>
-                                    {{/if}}
-                                </tr>
+                                    <div class="profile-main-content" style="margin: 20px auto;width: 90%;">
 
-                                 <tr>
-                                    <th>Website URL:</th>
-                                    {{#if controller.editingContact}}
-                                    {{input type="text" class="insert-contactdetails" value=website_url }}
-                                    {{else}}
-                                    <th class="Contact_2child"><a href="http://{{unbound model.profile_website_url}}" target="blank">http://{{website_url}}</a></th>
-                                    {{/if}}
-                                </tr>
+                                        <div class="main_aboutus" style="">
+                                            <div>
+                                                <div style="display: inline-block;">
+                                                    <p style='margin-bottom: 20px;display: inline-block; font-size: 18px;'>
+                                                        <i class='icon-group' style='margin-right: 10px;display: inline-block;'></i>About Us
+                                                    </p>
 
-                            </table>
-                            {{#unless controller.editingContact}}
+                                                    {{#if controller.editingAbout}}
+                                                    <div style="height: 300px;">
+                                                        {{view Ember.TextArea valueBinding="about_me"  id="" class=""  }}
+                                                    </div>
+                                                    <div style="float: right;">
+                                                        <div class="new-btn blue-btn" {{action yes controller.aboutMe}}><i class="icon-ok icon-white"></i></div>
+                                                        <div class="new-btn" {{action no controller.aboutMe}}><i class="icon-remove"></i></div>
+                                                    </div>
+                                                    {{else}}
+                                                    {{#if controller.is_authentic_user}}
 
-                            {{else}}
-                            <div class="buttons" style="position: relative;display: block;margin: 10px auto 0;text-align: center;">
+                                                    <div class="edit-btn hint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing controller.about_me controller.aboutMe}}>
 
-                                <div  type="button" class="new-btn blue-btn" {{action yes controller.contact }}> <i class="icon-ok icon-white"></i></div>
-
-                                <div  type="button" class="new-btn" {{action no controller.contact}}> <i class="icon-remove"></i></div>
-
-                            </div>
-                            {{/unless}}
-
-                        </div>
-                        <!--PROFILE HOURS SECTION-->
-
-                        <div class="aside-container" style="padding: 20px 0; border-top: 1px solid #fff; font-size: 14px;margin: auto;width: 95%;">
-                            <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-time' style='margin-right: 10px;'></i>Hours</div>
-
-                            {{#unless controller.editingTime}}
-                            {{#if controller.is_authentic_user}}
-                            <div class="edit-btn easinghint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing  model.profile_name controller.timeSetting}}>
-                                 <i class="icon-edit"></i>
-                            </div>
-                            {{/if}}
-                            {{/unless}}
-
-                            {{#each controller.hours}}
-
-                            <table id="aside_contact">
-                                {{#unless controller.editingTime}}
-                                <tbody style="display: inline-block; vertical-align: top;">
-                                    <tr style="">
-                                        <th>{{day}}</th>
-                                        {{else}}
-                                        {{input type="text" class="inserthours-day" value=day}}
-                                        {{/unless}}
-
-                                        {{#unless controller.editingTime}}
-                                        <th class="Contact_2child">{{time}}</th>
-                                        {{else}}
-                                        {{input type="text" class="inserthours-time" value=time  }}
-                                        {{/unless}}
-                                    </tr>
-                                </tbody>
-                            </table>
+                                                         <i class="icon-edit"></i>
+                                                    </div>
+                                                    {{/if}}
+                                                </div>
+                                                <div style="display: block;">{{{about_me}}}</div>
+                                                {{/if}}
+                                            </div>
+                                        </div>
 
 
-                            {{/each}}
-                            {{#if controller.editingTime}}
 
-                            <div style="width: 75px;margin: auto;">
-                                <div class="new-btn blue-btn"{{action yes controller.timeSetting}}><i class="icon-ok icon-white"></i></div>
-                                <div class="new-btn"{{action no controller.timeSetting}}><i class="icon-remove icon-white"></i></div>
-                            </div>
-                            {{/if}}
-                        </div>
-                    </div>
-                </div>
 
-                <!--PROFILE PAGE MAIN PART-->
 
-                <div class="profilemain" style="display: inline-block; width: 70%;left: 0;right: 0; background-color: white;margin: auto; min-width: 553px;">
 
-                    <div class="profile-main-content" style="margin: 20px auto;width: 90%;">
 
-                        <div class="main_aboutus" style="">
-                            <div>
-                                <div style="display: inline-block;">
-                                    <p style='margin-bottom: 20px;display: inline-block; font-size: 18px;'>
-                                        <i class='icon-group' style='margin-right: 10px;display: inline-block;'></i>About Us
-                                    </p>
 
-                                    {{#if controller.editingAbout}}
-                                    <div style="height: 300px;">
-                                        {{view Ember.TextArea valueBinding="about_me"  id="" class=""  }}
+
+
                                     </div>
-                                    <div style="float: right;">
-                                        <div class="new-btn blue-btn" {{action yes controller.aboutMe}}><i class="icon-ok icon-white"></i></div>
-                                        <div class="new-btn" {{action no controller.aboutMe}}><i class="icon-remove"></i></div>
-                                    </div>
-                                    {{else}}
-                                    {{#if controller.is_authentic_user}}
 
-                                    <div class="edit-btn hint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing controller.about_me controller.aboutMe}}>
 
-                                         <i class="icon-edit"></i>
-                                    </div>
-                                    {{/if}}
+
+
                                 </div>
-                                <div style="display: block;">{{{about_me}}}</div>
-                                {{/if}}
-                            </div>
-                        </div>
-
-
-
-
-
-
-
-
-
-
-                    </div>
-
-
-
-
-                </div>
+                            </td><!--RIGHT COL ENDS -->
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <!-- wrapper   end-->
@@ -305,7 +316,7 @@
                     <div class='styleup_section'>
                         <a href="#fileuploader" data-toggle="tab" {{action setUploadImageMode "Profile Picture"}}>
                            <div class='styleup_uploadbox easing hint--right hint--rounded' data-hint='Upload' {{action changeSize}}>
-                                <i class='icon-upload icon-3x' style="width: 30px;margin: auto;display: block;position: relative;top: 40px;"></i>
+                             <i class='icon-upload icon-3x' style="width: 30px;margin: auto;display: block;position: relative;top: 40px;"></i>
                                 <span style="font-size: 13px;font-weight:bold;bottom: 20px;position: relative;">Profile Picture</span>
                             </div>
                         </a>
@@ -317,7 +328,7 @@
                     <div class='styleup_section easing'>
                         <a href="#fileuploader" data-toggle="tab" {{action setUploadImageMode "Profile Hero"}}>
                            <div class='styleup_uploadbox easing hint--right hint--rounded' data-hint='Upload' {{action changeSize}}>
-                                <i class='icon-upload icon-3x' style="width: 30px;margin: auto;display: block;position: relative;top: 40px;"></i>
+                             <i class='icon-upload icon-3x' style="width: 30px;margin: auto;display: block;position: relative;top: 40px;"></i>
                                 <span style="font-size: 13px;font-weight:bold;bottom: 20px;position: relative;">Profile Hero</span>
                             </div>
                         </a>
@@ -329,7 +340,7 @@
                     <div class='styleup_section easing'>
                         <a href="#fileuploader" data-toggle="tab" {{action setUploadImageMode "Background"}}>
                            <div class='styleup_uploadbox easing hint--right hint--rounded' data-hint='Upload' {{action changeSize}}>
-                                <i class='icon-upload icon-3x' style="width: 30px;margin: auto;display: block;position: relative;top: 40px;"></i>
+                             <i class='icon-upload icon-3x' style="width: 30px;margin: auto;display: block;position: relative;top: 40px;"></i>
                                 <span style="font-size: 13px;font-weight:bold;bottom: 20px;position: relative;">Profile Background</span>
                             </div>
                         </a>
@@ -423,7 +434,7 @@
                                     </div>
                                 </td>
                             </tr>
-                             <tr>
+                            <tr>
                                 <td>Profile Cover Text:</td>
                                 <td>
                                     <div style="display: block;">
@@ -613,7 +624,7 @@
                                     <div class="mustfull" id="mustFill6" style="display: none">please fill in info... </div>
                                 </td>
                             </tr>
-                             <tr>
+                            <tr>
                                 <td>Keywords:</td>
                                 <td>
                                     <div style="display: block;">
@@ -651,7 +662,7 @@
                             <span style='font-size: 20px;display: block;line-height: 25px;'>Please select one photo for your choice.</span>   
                             <span style='font-size: 20px;display: block;line-height: 25px;'> {{controller.RequiredImageSize}}</span>
                             <span style='font-size: 20px;display: block;line-height: 25px;'> {{controller.CurrentImageSize}}</span>
-                            
+
                         </div>
                         <div class="new-btn blue-btn" style="margin: auto; width: 200px; top: 550px; position: absolute;left: 0;">
                             Choose 

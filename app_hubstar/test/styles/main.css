@@ -7733,8 +7733,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 .main_aboutus{
     text-align: left;
-    border-bottom: 1px solid rgba(0,0,0,.1);
-    padding:20px 0 30px 0;
+    padding:20px 0;
     font-size: 15px;
     min-height: 650px
 }
@@ -10463,6 +10462,58 @@ div.loading-visible{
 }
 
 
+/* paid profile BEGINS, Clint Rex Lewis 4/9/13 */
+#premium > div > table tr td.left_col{background:#F2F0F0;}
+#premium > div > table tr td.right_col{background:#FFFFFF;}
+
+#premium > div > table  .profileaside
+{
+    background-color: rgb(242,240,240);
+    width:100%;
+    min-width:230px;
+    border-radius:3px 0 0 0;
+    display:inline-block;
+    vertical-align: top;
+    position:relative;
+    
+}
+#premium > div > table .profileaside > .profileaside_content
+{
+
+   margin:0 6.5%;
+   position: relative; 
+   width:87%;
+   padding-top:119px;
+}
+#premium > div > table  .profileaside > .profileaside_content .aside-profilepic
+{
+    padding: 20px 5px; 
+    position:absolute;
+    width:65%;
+    top:-180px;
+    left:17.5%;
+}
+#premium > div > table  .profileaside > .profileaside_content .aside-profilepic div,
+#premium > div > table  .profileaside > .profileaside_content .aside-profilepic div img{width:100%;margin-bottom:1em;}
+
+#premium > div > table .profilemain
+{
+    display: inline-block;
+    width: 100%;
+    left:0;
+    right:0;
+    margin:auto;
+    min-width:553px;
+}
+#premium > div > table  .profileaside > .profileaside_content .aside-container{
+    padding: 20px 0;
+    border-bottom: 1px solid #ccc;
+    font-size: 14px;
+    margin: auto;
+    width: 95%;
+}
+/* paid profile ENDS, Clint Rex Lewis 4/9/13 */
+
 
 
 body {
@@ -11138,7 +11189,7 @@ body{
 .tile_img .wrapper-dropdown-3 {
     left: 0px;
     color: white;
-    width:270px;
+    width:272px!important;
     text-align: center;
     position:relative;
 
@@ -11163,7 +11214,7 @@ body{
 .head .wrapper-dropdown-3 {
     /*    left: 25%;*/
     color: white;
-    width:270px;
+    width:272px;
     text-align: center;
     position:relative;
 
@@ -11184,7 +11235,6 @@ body{
     -webkit-border-radius:3px;
     border-radius:3px;
 }
-
 
 .tile_img  .sign-in-with{
     text-shadow: -1px -1px 1px #000000; 
@@ -11400,6 +11450,7 @@ body{
 .wrapper-dropdown-3:after {
     border-color:  #fff  transparent;
     left:15px;
+    width:272px!important;
 }
 
 
@@ -11632,7 +11683,7 @@ body{
 }
 
 #dropdown-cover:last-child{
-    max-width:202px;
+    /*max-width:202px; */
 }
 
 
@@ -11698,7 +11749,7 @@ body{
 /*square button*/
 .square-button {
     display: inline-block;
-    margin: 10px;
+    margin: 2px 10px;
 
 }
 
@@ -11870,18 +11921,6 @@ body{
     float: right;
 }
 
-
-.panelcircle {
-    width:40px;
-    height:40px;
-    border-radius:50px;
-    font-size:18px;
-    color:#fff;
-    line-height:40px;
-    text-align:center;
-    background:rgb(201,202,202)
-}
-
 div.form .rememberMe label
 {
     display: inline;
@@ -11891,22 +11930,100 @@ div.form .rememberMe label
 
 
 /* Login lightbox BEGINS, Clint Rex Lewis 4/9/13 */
+    div#login_lightbox{
+        position:fixed;
+        top:0;
+        left:0;
+        height:3000px;
+        width:3000px;
+        opacity:0.7;
+        background:#000;
+        z-index:1001;
+    }
     div#login_icon > div.ui-draggable
     {
         position: fixed!important;
-        top: 10%;
-        width: 25%;
+        top: 6.5%;
+        left: 37%;
+        width:25%;
         
     }
      div#login_icon > div.ember-view > div.panel
      {
          width:100%;
-         margin:0;
+         color:#333333;
+         float:left;
          -moz-border-radius:3px;
         -webkit-border-radius:3px;
         border-radius:3px;
+        z-index:1002;
+        margin:0;
          
      }
+     .back{display:none;}
+     
+     div#login_container > div.front, 
+     div#login_container > div.back
+     {
+        position:relative;
+        float:left;
+        width:100%;
+        height:auto;
+        top:auto;
+        left:auto;
+        z-index:inherit;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0;
+        background:#fff;
+        
+     }
+     div #login_container > div.front > .head, 
+     div #login_container > div.back > .head
+     {
+         float:left;
+         width:100%;
+         background:#f3f3f3;
+         position:relative;
+     }
+    div #login_container > div.front > .head > .logincopy
+     {
+         margin:20px auto;
+         width:90%;
+     }
+     div #login_container > div.front > .head > .logincopy > p
+     {
+        line-height:150%;
+        text-align:center;
+        font-size:1.1em;
+     }
+     div #login_container > div.front > .content
+     {
+         float:left;
+         width:100%;
+     }
+     .panelcircle 
+     {
+         width:40px;
+         height:40px;
+         border-radius:50px;
+         font-size:1.4em;
+         color:#fff;
+         line-height:40px;
+         text-align:center;
+         background:rgb(201,202,202)
+    }
+    div #login_container > div.front > .head > .panelcircle
+    {
+        position:relative;
+        margin:auto auto -40px auto;
+    }
+    
+ /* fail safe styles for small screened devices begins */
+    #login_continer div > .head .wrapper-dropdown-3{ max-width:95%;}
+    #login_continer div > .head .wrapper-dropdown-3 > div > #dropdown-cover{max-width:30%;}
+    #login_continer div > .head .wrapper-dropdown-3 > div > div:last-child{max-width:70%;}
+/* fail safe styles for small screened devices ends */
 
 /* Login lightbox ENDS, Clint Rex Lewis 4/9/13 */
 * {
@@ -11971,7 +12088,7 @@ div.form .rememberMe label
     position: fixed;
     bottom: -5px;
     right: 2%;
-    z-index: 100000;
+    z-index: 999;
     opacity: 0.9;
 }
 

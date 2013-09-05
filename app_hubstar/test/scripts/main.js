@@ -5064,7 +5064,7 @@ HubStar.UserController = Ember.Controller.extend({
     collections: [],
     temp: [],
     follower: "",
-    following:"",
+    following: "",
     follow_status: false,
     selectedDesc: "",
     selectedTitle: "",
@@ -5079,16 +5079,17 @@ HubStar.UserController = Ember.Controller.extend({
     selectedCollection: "",
     profileSelectionStatus: "Collections",
     selected_topics: [],
-    interests:"",
+    interests: "",
     editingInterest: false,
     interest: "interest",
     is_authentic_user: false,
+    is_Photoclick: false,
     is_click: false,
     init: function(id)
     {
         this.setUser(id);
     },
-          getCurrentUser: function(user_id)
+    getCurrentUser: function(user_id)
     {
         var address = document.URL;
         var user_id = address.split("#")[1].split("/")[2];
@@ -5104,10 +5105,10 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("collections", user.get("collections"));
         this.set("coverImg", user.get("photo_url"));
         this.set("description", user.get("description"));
-       
-        
+
+
         this.set("display_name", user.get("display_name"));
-        
+
         if (this.get("collections").objectAt(0) !== null && typeof this.get("collections").objectAt(0) !== 'undefined') {
             this.setDesc(this.get("collections").objectAt(0).get("desc"));
             this.setTitle(this.get("collections").objectAt(0).get("title"));
@@ -5141,6 +5142,26 @@ HubStar.UserController = Ember.Controller.extend({
 
         }
     },
+    userPhotoEditButton: function() {
+
+
+        if (this.get('is_Photoclick') === false) {
+            console.log("fdsdsgdsfgsd");
+            this.set('is_Photoclick', true);
+
+            $('#user-photo_left').hide();
+            $('#user-photo_left-back').show();
+        }
+
+    },
+    userPhotoEditBackButton: function() {
+        if (this.get('is_Photoclick') === true) {
+            this.set('is_Photoclick', false);
+            $('#user-photo_left').show();
+            $('#user-photo_left-back').hide();
+
+        }
+    },
     getHeroImage: function(id, col) {
 
         var photo = HubStar.Mega.find(id);
@@ -5158,7 +5179,6 @@ HubStar.UserController = Ember.Controller.extend({
     exit: function()
     {
     },
-    
     checkingIdisExsinting: function(id, postOrPut) {
 
 //        if (postOrPut === "update") {
@@ -5201,7 +5221,7 @@ HubStar.UserController = Ember.Controller.extend({
             this.set('editingInterest', !this.get('editingInterest'));
         }
 
-      this.saveUpdate();
+        this.saveUpdate();
     },
     no: function(checkingInfo) {
         if (checkingInfo === "interest") {
@@ -5244,23 +5264,18 @@ HubStar.UserController = Ember.Controller.extend({
             isExsinting = true;
         }
     },
-            
-            
-   saveUpdate: function() {
+    saveUpdate: function() {
         var update_interest_record = HubStar.User.find(this.get('model.id'));
-      
-        update_interest_record.set('selected_topics', this.get('interests'));
-          //console.log(this.get('selected_topics'));
 
-        HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.User, update_interest_record);       
-      //   this.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully!!!");
+        update_interest_record.set('selected_topics', this.get('interests'));
+        //console.log(this.get('selected_topics'));
+
+        HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.User, update_interest_record);
+        //   this.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully!!!");
         HubStar.store.save();
         this.setIntersetsArr(update_interest_record);
-        
+
     },
-            
-            
-            
     specialCharactersChecking: function(str) {
 
         var re = /^[a-zA-Z-][a-zA-Z0-9-]*$/;
@@ -5399,30 +5414,26 @@ HubStar.UserController = Ember.Controller.extend({
     {
         this.set("isEditingMode", !this.get("isEditingMode"));
     },
-            
     setCollectionAttr: function() {
         collection_title_record = this.get('selectedCollection').get('title');
         collection_desc_record = this.get('selectedCollection').get('desc');
     },
-    
     getCollectionAttr: function() {
         this.get('selectedCollection').set('title', collection_title_record);
         this.get('selectedCollection').set('desc', collection_desc_record);
     },
-            
     setIntersetsArr: function(user) {
         interests = user.get('selected_topics');
         this.set('interests', user.get('selected_topics'));
+        this.set('selected_topics', []);
         if (interests !== null && interests !== "" && interests !== undefined) {
             var interests = interests.split(",");
-            this.set('selected_topics', []);
-            for (var i = 0; i < interests.length; i++) { 
+            for (var i = 0; i < interests.length; i++) {
                 this.get('selected_topics').pushObject({interests: interests[i]});
-                
+
             }
         }
     },
-            
     isFollowed: function()
     {
         if (this.checkFollowStatus())
@@ -5433,7 +5444,6 @@ HubStar.UserController = Ember.Controller.extend({
             this.set('follow_status', false);
         }
     },
-    
     checkFollowStatus: function()
     {
         var isFollow = false;
@@ -5447,9 +5457,16 @@ HubStar.UserController = Ember.Controller.extend({
             }
         }
         return isFollow;
+    },
+    uploadUserPhoto: function() 
+     {
+ 
     }
-    
+
 }
+
+
+
 );
 
 
@@ -7111,6 +7128,21 @@ HubStar.UploadResourceView = Ember.View.extend({
 
 HubStar.UserEditView = Ember.View.extend({
           templateName: 'userEdit',
+     
+    });
+
+})();
+
+(function() {
+
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+HubStar.UserPhotoEditView = Ember.View.extend({
+          templateName: 'userPhotoEdit',
      
     });
 

@@ -848,8 +848,7 @@ div.form .rememberMe label
         -webkit-border-radius:3px;
         border-radius:3px;
         z-index:1002;
-        margin:0;
-         
+        margin:0; 
      }
 
      
@@ -862,11 +861,11 @@ div.form .rememberMe label
         height:auto;
         top:0;
         left:0;
-        z-index:inherit;
         -webkit-border-radius: 0;
         -moz-border-radius: 0;
         border-radius: 0;
         background:#fff;
+        min-width:400px;
         
      }
      div #login_container > div.front > .head, 

@@ -3,9 +3,10 @@
 <div style="width:100%; height:80px; display:block;"></div>
 <div class="user-board">
     <div class="user-board_left style-box">
+          <div id="user-photo_left">
         <div class="user-profilepic-container"> 
             <div class="changeuserprofilepic easing hint--right hint--rounded" data-hint="Choose a profile picture">
-                <k class="icon-edit"></k>
+                <k class="icon-edit" {{action userPhotoEditButton}}></k>
             </div>    
             <img {{bindAttr src="controller.user.photo_url_large"}}/>
         </div>
@@ -18,7 +19,7 @@
             {{#if controller.editingInterest}}
 
             <div style="height: 45px; width: 90%;">
-                {{view Ember.TextArea valueBinding="model.interest"  id="" class=""  }}
+                {{view Ember.TextArea valueBinding="interests"  id="" class=""  }}
             </div>
             <div style="text-align: center;">
                 <div class="new-btn" {{action no controller.interest}}><i class="icon-remove"></i></div>
@@ -28,22 +29,29 @@
 
             {{else}}
             {{#if controller.is_authentic_user}}
-            <div class="edit-btn hint--rounded hint--bottom" data-hint="Edit Interest" {{action interestEdit model.interest controller.interest}}>
+            <div class="edit-btn hint--rounded hint--bottom" data-hint="Edit Interest" {{action interestEdit controller.interests controller.interest}}>
                  <i class="icon-plus edit-btn" style="font-size:13px;" ></i>
+
+               
             </div>
 
             {{/if}}
-            <div style="display: block;">{{model.interest}}</div>             
-            {{/if}}
-            <div style="padding: 0 8px; line-height: 25px;">
-                {{#each controller.selected_topics}}
-                <div class='hashtags' {{bindAttr id="topics"}}>{{topics}}<i class='remove-hashtages' {{action deleteTopic topics}}>x</i></div>
+             {{#each controller.selected_topics}}
+                <div class='hashtags' {{bindAttr id="interests"}}>{{interests}}<i class='remove-hashtages' {{action deleteTopic interests}}>x</i></div>
 
-                {{/each}}
-            </div>
+                {{/each}}          
+            {{/if}}
+            
         </div>
 
     </div>
+{{#if controller.is_Photoclick}}
+
+
+        {{view HubStar.UserPhotoEditView}}
+
+        {{/if}}
+</div>
     <div  class="user-board_right style-box" >
 
 
@@ -93,6 +101,10 @@
         {{view HubStar.UserEditView}}
 
         {{/if}}
+
+
+
+ 
 
     </div>
 

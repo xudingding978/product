@@ -211,7 +211,7 @@ class Controller extends CController {
     }
 
     protected function performSearch($returnType, $region, $requestString, $from = 0, $size = 50, $noUser = false) {
-        error_log('$noUser ' . $noUser);
+
         $requestArray = array();
         if ($region != null && $region != "") {
             $requestStringOne = 'couchbaseDocument.doc.region=' . $region;
@@ -228,8 +228,9 @@ class Controller extends CController {
 
     protected function getmustQuestWithQueryString($queryString) {
         $mustQuery = explode('=', $queryString);
-        $should = Sherlock\Sherlock::queryBuilder()->QueryString()->query('"' . $mustQuery[1] . '"')//$collection_id
-                ->field($mustQuery[0]);
+        $should = Sherlock\Sherlock::queryBuilder()->QueryString()->query($mustQuery[1])//$collection_id
+                ->default_field($mustQuery[0])
+                ->default_operator('AND');
         return $should;
     }
 
@@ -249,16 +250,16 @@ class Controller extends CController {
                 echo "no such search type, please input: must or should as a search type.";
             }
         }
-        error_log($noUser);
         if ($noUser == true) {
 
-            $must = $this->getmustQuestWithQueryString('couchbaseDocument.doc.type=user');
-            $bool->must_not($must);
+            $user = $this->getmustQuestWithQueryString('couchbaseDocument.doc.type=user');
+            $bool->must_not($user);
         }
 
         $request->query($bool);
+
         $response = $request->execute();
-        error_log($request->toJSON());
+
         $results = $this->getReponseResult($response, $returnType);
         return $results;
     }
@@ -440,7 +441,6 @@ class Controller extends CController {
     protected function getCollections($collections, $collection_id, $returnType) {
 
         $request_ids = $this->getSelectedCollectionIds($collections, $collection_id);
-        error_log($request_ids);
         $id_arr = explode(',', $request_ids);
         $header = '{"ids": { "values": [';
         $footer = ']}}';

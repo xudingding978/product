@@ -262,6 +262,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         else if (checkingInfo === "aboutMe") {
             this.set('editingAbout', !this.get('editingAbout'));
         } else if (checkingInfo === "contact") {
+            if(this.get("website_url").match(/[http]/g)===-1 || this.get("website_url").match(/[http]/g)===null)
+                {
+                    this.set("website_url", "http://" + this.get("website_url"));
+                }
+                
+                
             this.set('editingContact', !this.get('editingContact'));
         }
         else if (checkingInfo === "timeSetting") {
@@ -293,6 +299,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('address', address_record);
             this.set('profile_contact_number', phone_record);
             this.set('website', website_record);
+            this.set('website_url', website_url_record);
             this.set('editingContact', !this.get('editingContact'));
 
         }

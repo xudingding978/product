@@ -1,4 +1,11 @@
 
+.insetbox-shadow {
+    -moz-box-shadow:    inset 1px 1px 3px #aaa;
+    -webkit-box-shadow: inset 1px 1px 3px #aaa;
+    box-shadow:        inset 1px 1px 3px #aaa;
+}
+
+
 .nav-tabs a {
     color: #999;
 }

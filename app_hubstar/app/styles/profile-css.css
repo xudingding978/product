@@ -148,6 +148,10 @@
     color:#555;
 }
 
+.itemprofile > li > a{
+    color:#777;
+}
+
 
 .album-name{
     margin: 2px 20px 2px 40px;

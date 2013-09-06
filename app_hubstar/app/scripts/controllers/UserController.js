@@ -40,7 +40,6 @@ HubStar.UserController = Ember.Controller.extend({
     editingInterest: false,
     interest: "interest",
     is_authentic_user: false,
-
     aboutMe: "",
     is_Photoclick: false,
     is_click: false,
@@ -82,7 +81,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("email", user.get("email"));
         this.set("password", user.get("password"));
 
-       // this.isFollowed();
+        // this.isFollowed();
         if (this.get("collections").objectAt(0) !== null && typeof this.get("collections").objectAt(0) !== 'undefined') {
             this.setDesc(this.get("collections").objectAt(0).get("desc"));
             this.setTitle(this.get("collections").objectAt(0).get("title"));
@@ -240,7 +239,6 @@ HubStar.UserController = Ember.Controller.extend({
             isExsinting = true;
         }
     },
-
     socialLink: function(link) {
 
         if (link === 'facebook') {
@@ -266,44 +264,19 @@ HubStar.UserController = Ember.Controller.extend({
     },
     saveUpdate: function() {
         var update_user_record = this.getCurrentUser();
-        var http = "http://";
-    
+
+
         update_user_record.set('collections', this.get('collections'));
         update_user_record.set('photo_url', this.get('coverImg'));
         update_user_record.set('description', this.get('description'));
         update_user_record.set('display_name', this.get('display_name'));
         update_user_record.set('about_me', this.get('aboutMe'));
-        if (this.get('facebook').slice(0, 5) === 'http:' || this.get('facebook').slice(0, 5) === 'https'|| this.get('facebook')==='') {
-            update_user_record.set('facebook_link', this.get('facebook'));
-        } else {
+        this.saveLink('facebook_link', this.get('facebook'));
+        this.saveLink('twitter_link', this.get('twitter'));
+        this.saveLink('googleplus_link', this.get('googleplus'));
+        this.saveLink('pinterest_link', this.get('pinterest'));
+        this.saveLink('youtube_link', this.get('youtube'));
 
-            update_user_record.set('facebook_link', http.concat(this.get('facebook')));
-        }
-        if (this.get('twitter').slice(0, 5) === 'http:' || this.get('twitter').slice(0, 5) === 'https'|| this.get('twitter')==='') {
-            update_user_record.set('twitter_link', this.get('twitter'));
-        } else {
-            update_user_record.set('twitter_link', http.concat(this.get('twitter')));
-        }
-        if (this.get('googleplus').slice(0, 5) === 'http:' || this.get('googleplus').slice(0, 5) === 'https'|| this.get('googleplus')==='') {
-            update_user_record.set('googleplus_link', this.get('googleplus'));
-        } else {
-            update_user_record.set('googleplus_link', http.concat(this.get('googleplus')));
-        }
-        if (this.get('pinterest').slice(0, 5) === 'http:' || this.get('pinterest').slice(0, 5) === 'https'|| this.get('pinterest')==='') {
-            update_user_record.set('pinterest_link', this.get('pinterest'));
-        } else {
-            update_user_record.set('pinterest_link',http.concat(this.get('pinterest')));
-        }
-//        if (this.get('linkedin').slice(0, 5) === 'http:' || this.get('linkedin').slice(0, 5) === 'https'|| this.get('linkedin')==='') {
-//            update_user_record.set('linkedin_link', this.get('linkedin'));
-//        } else {
-//            update_user_record.set('linkedin_link', http.concat(this.get('linkedin')));
-//        }
-        if (this.get('youtube').slice(0, 5) === 'http:' || this.get('youtube').slice(0, 5) === 'https'|| this.get('youtube')==='') {
-            update_user_record.set('youtube_link', this.get('youtube'));
-        } else {
-            update_user_record.set('youtube_link',http.concat(this.get('youtube')));
-        }
         update_user_record.set('region', this.get('location'));
         update_user_record.set('email', this.get('email'));
         update_user_record.set('password', this.get('password'));
@@ -311,12 +284,27 @@ HubStar.UserController = Ember.Controller.extend({
         this.get('controllers.applicationFeedback').statusObserver(null, "Updated Successfully!!!");
         HubStar.store.save();
     },
-            
+    saveLink: function(link_url, link) {
+        var http = "http://";
+        var update_user_record = this.getCurrentUser();
+
+        if (link === null)
+        {
+            link = "";
+        }
+
+        else if (link.slice(0, 5) === 'https' || link.slice(0, 5) === 'http:') {
+            update_user_record.set(link_url, link);
+        } else {
+            update_user_record.set(link_url, http.concat(link));
+        }
+        return update_user_record;
+    },
     saveUpdateInterest: function() {
         var update_interest_record = HubStar.User.find(this.get('user.id'));
 
         update_interest_record.set('selected_topics', this.get('interests'));
-    
+
         HubStar.store.save();
         this.setIntersetsArr(update_interest_record);
     },
@@ -502,9 +490,9 @@ HubStar.UserController = Ember.Controller.extend({
 //        }
 //        return isFollow;
 //    },
-    uploadUserPhoto: function() 
-     {
- 
+    uploadUserPhoto: function()
+    {
+
     }
 
 }

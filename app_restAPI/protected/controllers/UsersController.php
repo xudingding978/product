@@ -114,12 +114,12 @@ class UsersController extends Controller {
             $oldRecord['user'][0]['description'] = $request_arr['user']['description'];
             $oldRecord['user'][0]['display_name'] = $request_arr['user']['display_name'];
             $oldRecord['user'][0]['about_me'] = $request_arr['user']['about_me'];
-            $oldRecord['user'][0]['facebook_link'] = $request_arr['user']['facebook_link'];
-            $oldRecord['user'][0]['twitter_link'] = $request_arr['user']['twitter_link'];
-            $oldRecord['user'][0]['googleplus_link'] = $request_arr['user']['googleplus_link'];
-            $oldRecord['user'][0]['pinterest_link'] = $request_arr['user']['pinterest_link'];
-            $oldRecord['user'][0]['linkedin_link'] = $request_arr['user']['linkedin_link'];
-            $oldRecord['user'][0]['youtube_link'] = $request_arr['user']['youtube_link'];
+            $oldRecord['user'][0]['facebook_link'] = $newRecord['facebook_link'];
+            $oldRecord['user'][0]['twitter_link'] = $newRecord['twitter_link'];
+            $oldRecord['user'][0]['googleplus_link'] = $newRecord['googleplus_link'];
+            $oldRecord['user'][0]['pinterest_link'] = $newRecord['pinterest_link'];
+            
+            $oldRecord['user'][0]['youtube_link'] = $newRecord['youtube_link'];
             $oldRecord['user'][0]['region'] = $request_arr['user']['region'];
             $oldRecord['user'][0]['email'] = $request_arr['user']['email'];
             $oldRecord['user'][0]['password'] = $request_arr['user']['password'];

@@ -9,7 +9,7 @@ HubStar.UserRoute = Ember.Route.extend({
             this.controller.set('switchPhoto', true);
 //            console.log(this.controllerFor('checkAuthorityStatus').);
 
-    //        this.controllerFor('user').setUser();
+            this.controllerFor('user').setUser();
 
         },
         model: function(params) {

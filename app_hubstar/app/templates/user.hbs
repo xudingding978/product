@@ -3,67 +3,67 @@
 <div style="width:100%; height:80px; display:block;"></div>
 <div class="user-board">
     <div class="user-board_left style-box">
-          <div id="user-photo_left">
-        <div class="user-profilepic-container"> 
-            <div class="changeuserprofilepic easing hint--right hint--rounded" data-hint="Choose a profile picture">
-                <k class="icon-edit" {{action userPhotoEditButton}}></k>
-            </div>    
-            <img {{bindAttr src="controller.user.photo_url_large"}}/>
-        </div>
-        <div  type="button" class="new-btn green-btn" style="margin: 30px auto 20px;width: 130px;display: block;">
-            Follow
-        </div>
-
-        <div style="padding: 10px 20px;  width: 115%; height: 150px; overflow: auto;background: #F3F3F3;">
-            <div style="font-weight: bold;line-height: 20px; color: #777; font-size: 17px;margin-bottom: 5px; display:inline-block;">INTEREST</div>
-            {{#if controller.editingInterest}}
-
-            <div style="height: 45px; width: 90%;">
-                {{view Ember.TextArea valueBinding="interests"  id="" class=""  }}
+        <div id="user-photo_left">
+            <div class="user-profilepic-container"> 
+                <div class="changeuserprofilepic easing hint--right hint--rounded" data-hint="Choose a profile picture" {{action userPhotoEditButton}}>
+                    <k class="icon-edit"></k>
+                </div>    
+                <img {{bindAttr src="controller.user.photo_url_large"}}/>
             </div>
-            <div style="text-align: center;">
-                <div class="new-btn" {{action no controller.interest}}><i class="icon-remove"></i></div>
-                <div class="new-btn blue-btn" {{action yes controller.interest}}><i class="icon-ok icon-white"></i></div>
-
+            <div  type="button" class="new-btn green-btn" style="margin: 30px auto 20px;width: 130px;display: block;">
+                Follow
             </div>
 
-            {{else}}
-            {{#if controller.is_authentic_user}}
-            <div class="edit-btn hint--rounded hint--bottom" data-hint="Edit Interest" {{action interestEdit controller.interests controller.interest}}>
-                 <i class="icon-plus edit-btn" style="font-size:13px;" ></i>
+            <div style="padding: 5px 20px 0;  width: 100%; height: 150px; overflow: hidden;background: #F3F3F3;">
+                <div style="font-weight: bold;line-height: 20px; color: #777; font-size: 17px;margin-bottom: 5px; display:inline-block;">INTEREST</div>
 
-               
+                {{#if controller.is_authentic_user}}
+                <div class="edit-btn hint--rounded hint--bottom" style="height: 20px;line-height: 20px;" data-hint="Edit Interest" {{action interestEdit controller.interests controller.interest}}>
+                     <i class="icon-plus edit-btn" style="font-size:13px;" ></i>
+                </div>
+                {{/if}}
+
+                <div style="width: 115%;overflow: auto;height: 100px;line-height: 25px;padding: 0 20px 0 0;margin-top: -5px;">
+
+                    {{#if controller.editingInterest}}
+                    <div style="height: 70px; width: 90%;margin-bottom: 5px;">
+                        {{view Ember.TextArea valueBinding="interests"  id="" class=""  }}
+                    </div>
+                    <div style="text-align: center;right: 15px;position: relative;">
+                        <div class="new-btn" {{action no controller.interest}}><i class="icon-remove"></i></div>
+                        <div class="new-btn blue-btn" {{action yes controller.interest}}><i class="icon-ok icon-white"></i></div>
+                    </div>
+
+                    {{else}}
+
+                    {{#each controller.selected_topics}}
+                    <div class='hashtags' {{bindAttr id="interests"}}>{{interests}}<i class='remove-hashtages' {{action deleteTopic interests}}>x</i></div>
+                    {{/each}}     
+
+                    {{/if}}
+                </div>
             </div>
 
-            {{/if}}
-             {{#each controller.selected_topics}}
-                <div class='hashtags' {{bindAttr id="interests"}}>{{interests}}<i class='remove-hashtages' {{action deleteTopic interests}}>x</i></div>
-
-                {{/each}}          
-            {{/if}}
-            
         </div>
-
-    </div>
-{{#if controller.is_Photoclick}}
+        {{#if controller.is_Photoclick}}
 
 
         {{view HubStar.UserPhotoEditView}}
 
         {{/if}}
-</div>
+    </div>
     <div  class="user-board_right style-box" >
 
 
         <div id="user-board_right_front">
             <div class="user-cover">
 
-{{#if controller.is_authentic_user}}
+                {{#if controller.is_authentic_user}}
                 <div  id="flip-front" class='blue-btn new-btn hint--left hint--rounded edit-dashboard-btn' style="display: block; margin: 10px;position: absolute;top: 0;right: 0;" data-hint="Dashboard"{{action userDashboardButton}}>  
 
                       <i class="icon-cogs" ></i>
                 </div>
-{{/if}}
+                {{/if}}
                 <div style="font-size: 26px;font-weight: bold; line-height: 30px; overflow: hidden; display: inline-block;color: white;position: relative;top: 90px;">{{display_name}}</div>
             </div>
 
@@ -77,31 +77,31 @@
                         <span class="locationIcon"><k class="icon-map-marker"></k></span>
                         {{location}}
                     </li>
-{{#if facebook}}
+                    {{#if facebook}}
                     <li class="location_li">
                         <a href="#" target="_blank" {{action socialLink 'facebook'}}>&nbsp <k class="icon-facebook"> </k></a>
                     </li>
-{{/if}}
-{{#if twitter}}
+                    {{/if}}
+                    {{#if twitter}}
                     <li class="location_li">
                         <a href="#" target="_blank" {{action socialLink 'twitter'}}>&nbsp <k class="icon-twitter"> </k></a>
                     </li>
-{{/if}}
-{{#if googleplus}}
+                    {{/if}}
+                    {{#if googleplus}}
                     <li class="location_li">
                         <a href="#" target="_blank"{{action socialLink 'googleplus'}}>&nbsp <k class="icon-google-plus"> </k></a>
                     </li>
-{{/if}}
-{{#if pinterest}}
+                    {{/if}}
+                    {{#if pinterest}}
                     <li class="location_li">
                         <a href="#" target="_blank" {{action socialLink 'pinterest'}}>&nbsp <k class="icon-pinterest"> </k></a>
                     </li>
-{{/if}}
-{{#if youtube}}
+                    {{/if}}
+                    {{#if youtube}}
                     <li class="location_li">
                         <a href="#" target="_blank" {{action socialLink 'youtube'}}>&nbsp <k class="icon-youtube-play"> </k></a>
                     </li>
-{{/if}}
+                    {{/if}}
 
 
                 </ul>
@@ -116,7 +116,7 @@
 
 
 
- 
+
 
     </div>
 

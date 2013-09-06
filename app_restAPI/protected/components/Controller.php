@@ -378,13 +378,13 @@ class Controller extends CController {
             $bool->must($must);
         }
         $request->query($bool);
-        $response = $request->execute();
-        $numberofresults = $response->total;
-        $response = CJSON::encode($response);
-        $response = CJSON::decode($response);
+        $tempResponse = $request->execute();
+        $numberofresults = $tempResponse->total;
+        $tempResponse = CJSON::encode($tempResponse);
+        $tempResponse = CJSON::decode($tempResponse);
         $array = array();
-        for ($int = 0; $int < sizeof($response); $int++) {
-            $tempObject = $response[$int]['source']['doc'];
+        for ($int = 0; $int < sizeof($tempResponse); $int++) {
+            $tempObject = $tempResponse[$int]['source']['doc'];
             array_push($array, $tempObject);
         }
 

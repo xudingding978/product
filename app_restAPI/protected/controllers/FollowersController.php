@@ -108,21 +108,17 @@ class FollowersController extends Controller {
            $request_array = CJSON::decode(file_get_contents('php://input'));
            $profile_id = $request_array[0];
            $user_id = $request_array[1];      
-           error_log(var_export($user_id,true));
            $cb = $this->couchBaseConnection();
            
            
             //delete follower in profile
            $domain_profile = $this->getDomain();
            $docID_profile = $domain_profile . "/profiles/" . $profile_id;
-           error_log(var_export($docID_profile,true));
            $tempMega_profile = $cb->get($docID_profile);    
            $mega_profile = CJSON::decode($tempMega_profile, true);
-           error_log(var_export($mega_profile,true));
            for ( $i=0; $i< sizeof($mega_profile["profile"][0]["followers"]);$i++ ) {
               if($mega_profile["profile"][0]["followers"][$i]["follower_id"]===$user_id)
                 {
-                   error_log(var_export($mega_profile["profile"][0]["followers"][$i]["follower_id"],true));
                   array_splice($mega_profile["profile"][0]["followers"], $i, 1);
                 }
            }

@@ -103,9 +103,27 @@ class UsersController extends Controller {
             $oldRecord = $cb->get($url);
             error_log(var_export($oldRecord,true));
             $oldRecord = CJSON::decode($oldRecord, true);
-            $oldRecord['user'][0] = null;
-            $oldRecord['user'][0] = $request_arr['user'];
-             $oldRecord['user'][0]['selected_topics'] = $newRecord['selected_topics'];
+
+//  
+//            $oldRecord['user'][0] = null;
+//            $oldRecord['user'][0] = $request_arr['user'];
+            $oldRecord['user'][0]['selected_topics'] = $newRecord['selected_topics'];
+
+            $oldRecord['user'][0]['collections'] = $request_arr['user']['collections'];
+            $oldRecord['user'][0]['photo_url'] = $request_arr['user']['photo_url'];
+            $oldRecord['user'][0]['description'] = $request_arr['user']['description'];
+            $oldRecord['user'][0]['display_name'] = $request_arr['user']['display_name'];
+            $oldRecord['user'][0]['about_me'] = $request_arr['user']['about_me'];
+            $oldRecord['user'][0]['facebook_link'] = $request_arr['user']['facebook_link'];
+            $oldRecord['user'][0]['twitter_link'] = $request_arr['user']['twitter_link'];
+            $oldRecord['user'][0]['googleplus_link'] = $request_arr['user']['googleplus_link'];
+            $oldRecord['user'][0]['pinterest_link'] = $request_arr['user']['pinterest_link'];
+            $oldRecord['user'][0]['linkedin_link'] = $request_arr['user']['linkedin_link'];
+            $oldRecord['user'][0]['youtube_link'] = $request_arr['user']['youtube_link'];
+            $oldRecord['user'][0]['region'] = $request_arr['user']['region'];
+            $oldRecord['user'][0]['email'] = $request_arr['user']['email'];
+            $oldRecord['user'][0]['password'] = $request_arr['user']['password'];
+            
 
             if ($cb->set($url, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);

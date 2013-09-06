@@ -749,7 +749,7 @@
 }
 
 .masonry-object_interact{
-    margin: 20px 0 0 0;
+    margin: 20px 0 10px 0;
     overflow:hidden;
     border-top: 1px solid #e5e5e5;
     border-bottom: 1px solid #e5e5e5;
@@ -1376,7 +1376,8 @@
 .article-title{
     font-size: 18px;
     font-weight: bold;
-    line-height: 30px;
+    line-height: 20px;
+    margin-bottom: 10px;
 }
 
 

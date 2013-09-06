@@ -1,7 +1,7 @@
 
-        {{#each model.profile}}
-        <div class="masonry-object_profile-cover">
-  
+{{#each model.profile}}
+<div class="masonry-object_profile-cover">
+
 
     {{#if profile_hero_cover_url}}
     <div class="masonry-object_cover-wapper">
@@ -13,8 +13,8 @@
     </div>
     {{/if}}
 
-        </div>
-        <div style="position: relative; width: 100%; height: 70px; display: block;"></div>
+</div>
+<div style="position: relative; width: 100%; height: 70px; display: block;"></div>
 
 
 <div class="masonry-object_profilepic" style="cursor:pointer;" {{action toProfilePage this}}>
@@ -29,29 +29,29 @@
 </div>
 
 <div class="masonry-object_name-position" style="margin-bottom: 5px;"> 
-    <a {{bindAttr href="getProfile_id"}}  {{action toProfilePage this}}  style="cursor:pointer" >{{profile_name}} </a>
+    <a class="comment-username" style="cursor:pointer; font-size:18px;"{{bindAttr href="getProfile_id"}}  {{action toProfilePage this}}>{{profile_name}} </a>
 </div>
 
 
-          <div style=" margin-top:5px;overflow:hidden; width:100%; height:35px; text-align:center;">
-            <ul class="itemprofile">
-                <li class="location_li hint-top hint-rounded" data-hint="Collections">
-              <a>      <k class="icon-eye-open"> &nbsp{{this.collections.length}} </k></a>
-                </li>
-                <li class="location_li hint-top hint-rounded" data-hint="Partners">
-               <a>       &nbsp <k class="icon-group">&nbsp {{ length this.profile_partner_ids}}</k></a>  
-                </li>
-                <li class="location_li hint-top hint-rounded" data-hint="Videos">
-              <a>        &nbsp <k class="icon-film">&nbsp {{ videolength this.profile_about_us}}</k></a>  
-                </li>
-                <li class="location_li hint-top hint-rounded" data-hint="Ebooks">
-              <a>        &nbsp <k class="icon-book">&nbsp {{ ebooklength this.profile_about_us}}</k></a>  
-                </li>
-          
-            </ul>
+<div style="overflow:hidden; width:100%; text-align:center; margin-bottom: 5px;">
+    <ul class="itemprofile">
+        <li class="location_li hint-top hint-rounded" data-hint="Collections">
+            <a>      <k class="icon-eye-open"> &nbsp{{this.collections.length}} </k></a>
+        </li>
+        <li class="location_li hint-top hint-rounded" data-hint="Partners">
+            <a>       &nbsp <k class="icon-group">&nbsp {{ length this.profile_partner_ids}}</k></a>  
+        </li>
+        <li class="location_li hint-top hint-rounded" data-hint="Videos">
+            <a>        &nbsp <k class="icon-film">&nbsp {{ videolength this.profile_about_us}}</k></a>  
+        </li>
+        <li class="location_li hint-top hint-rounded" data-hint="Ebooks">
+            <a>        &nbsp <k class="icon-book">&nbsp {{ ebooklength this.profile_about_us}}</k></a>  
+        </li>
 
-        </div>
-  
+    </ul>
+
+</div>
+
 <!--TAGS-->
 
 <div class="object-tags-box">
@@ -92,9 +92,9 @@
 
         <div class="more_detail" {{bindAttr id="id"}}>
 
-      {{profile_cover_text}}
+            {{profile_cover_text}}
 
-           
+
         </div>
 
         <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>

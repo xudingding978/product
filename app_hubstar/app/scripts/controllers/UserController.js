@@ -285,6 +285,7 @@ HubStar.UserController = Ember.Controller.extend({
         HubStar.store.save();
     },
     saveLink: function(link_url, link) {
+    
         var http = "http://";
         var update_user_record = this.getCurrentUser();
 

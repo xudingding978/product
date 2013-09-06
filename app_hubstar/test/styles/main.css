@@ -233,7 +233,7 @@ button {
     margin: 10px;
     float: left;
     position: relative;
-    background: #888;
+    background: #fff;
     color: #222;
     border-radius: 3px;
     border: 1px solid #d8d8d8;
@@ -9177,7 +9177,7 @@ div.loading-visible{
 }
 
 .masonry-object_interact{
-    margin: 20px 0 0 0;
+    margin: 20px 0 10px 0;
     overflow:hidden;
     border-top: 1px solid #e5e5e5;
     border-bottom: 1px solid #e5e5e5;
@@ -9804,7 +9804,8 @@ div.loading-visible{
 .article-title{
     font-size: 18px;
     font-weight: bold;
-    line-height: 30px;
+    line-height: 20px;
+    margin-bottom: 10px;
 }
 
 
@@ -10056,6 +10057,13 @@ div.loading-visible{
     margin: 0;
 }
 
+.insetbox-shadow {
+    -moz-box-shadow:    inset 1px 1px 3px #aaa;
+    -webkit-box-shadow: inset 1px 1px 3px #aaa;
+    box-shadow:        inset 1px 1px 3px #aaa;
+}
+
+
 .nav-tabs a {
     color: #999;
 }
@@ -10169,7 +10177,7 @@ div.loading-visible{
 
 .location_li{
     white-space: nowrap;
-   
+
     -ms-text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
@@ -10185,22 +10193,21 @@ div.loading-visible{
 .itemprofile{
     -webkit-font-smoothing: antialiased;
     font-family: 'Helvetica', sans-serif;
-    font-weight: bold;
-    color: #777;
-    font-size: 13px;
+    font-size: 12px;
     position: relative;
     display: block;
     list-style-type: none;
-    -webkit-margin-before: 1em;
-    -webkit-margin-after: 1em;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
+    margin: 0 0 0 0;
 }
 
 .itemprofile > li{
     display: inline-block;
     padding: 0 10px 0 0;
     color:#555;
+}
+
+.itemprofile > li > a{
+    color:#777;
 }
 
 
@@ -10475,15 +10482,15 @@ div.loading-visible{
     display:inline-block;
     vertical-align: top;
     position:relative;
-    
+
 }
 .premium > div > table .profileaside > .profileaside_content
 {
 
-   margin:0 6.5%;
-   position: relative; 
-   width:87%;
-   padding-top:119px;
+    margin:0 6.5%;
+    position: relative; 
+    width:87%;
+    padding-top:119px;
 }
 .premium > div > table  .profileaside > .profileaside_content .aside-profilepic
 {
@@ -10517,6 +10524,7 @@ div.loading-visible{
     display:none;
 }
 /* paid profile ENDS, Clint Rex Lewis 4/9/13 */
+
 
 
 

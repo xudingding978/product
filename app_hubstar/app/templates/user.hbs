@@ -10,9 +10,14 @@
             </div>    
             <img {{bindAttr src="controller.user.photo_url_large"}}/>
         </div>
-        <div  type="button" class="new-btn green-btn" style="margin: 30px auto 20px;width: 130px;display: block;">
-            Follow
-        </div>
+        
+        {{#if controller.follow_status}}
+        <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;"{{action followThisUser}}><i class='icon-circle-blank' >&nbsp; </i> Following</div>
+        {{else}}
+        <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;"{{action followThisUser}}><i class='icon-plus' >&nbsp; </i> Follow</div>
+
+        {{/if}}
+       
 
         <div style="padding: 10px 20px;  width: 115%; height: 150px; overflow: auto;background: #F3F3F3;">
             <div style="font-weight: bold;line-height: 20px; color: #777; font-size: 17px;margin-bottom: 5px; display:inline-block;">INTEREST</div>

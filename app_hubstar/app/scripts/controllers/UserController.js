@@ -290,14 +290,15 @@ HubStar.UserController = Ember.Controller.extend({
         var http = "http://";
         var update_user_record = this.getCurrentUser();
 
-        if (link === null)
+        if (link === null||link==="")
         {
-            link = "";
+            link ==="";
+            update_user_record.set(link_url, link);
         }
 
         else if (link.slice(0, 5) === 'https' || link.slice(0, 5) === 'http:') {
             update_user_record.set(link_url, link);
-        } else {
+        } else if(link!==""){
             update_user_record.set(link_url, http.concat(link));
         }
         return update_user_record;

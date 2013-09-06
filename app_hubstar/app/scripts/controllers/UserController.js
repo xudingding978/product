@@ -398,6 +398,9 @@ HubStar.UserController = Ember.Controller.extend({
         var followers = this.get("model").get("followers");
         for (var i = 0; i < followers.get('length'); i++) {
             var follower_id = followers.objectAt(i).get("follower_id");
+            console.log(follower_id);
+            console.log(localStorage.loginStatus);
+             console.log(this.get("model").get("followers").objectAt(i));
             if (follower_id === localStorage.loginStatus)
             {
                 isFollow = true;
@@ -406,6 +409,52 @@ HubStar.UserController = Ember.Controller.extend({
         }
         return isFollow;
     },
+            
+    followThisUser: function() {        
+        var user_id = this.get('model').get('id');
+        if (this.checkFollowStatus() === false) {
+            this.followUser(user_id);
+        } else {
+            this.unFollowUser(user_id);
+        }
+    },
+            
+    followUser: function(user_id) {
+        
+        var date = new Date();
+        var currentUser = localStorage.loginStatus;
+        var tempComment = HubStar.Follower.createRecord({"follower_profile_pic_url": null,
+            "follower_id": currentUser, "name": null, "type": "user", "time_stamp": date.toString(), "is_delete": false});
+        
+        var followArray = [user_id, tempComment];
+        
+        this.get("model").get("followers").insertAt(0, tempComment);
+        console.log('follow');
+        console.log(this.get("model").get("followers").objectAt(0));
+
+        requiredBackEnd('followers', 'createUserFollower', followArray, 'POST', function() {
+        });
+        this.set('follow_status', true);
+    },
+            
+    unFollowUser: function(user_id) {
+        var currentUser = localStorage.loginStatus;
+        var followArray = [currentUser, user_id];
+        console.log(followArray);
+        var update_record = this.get("model").get('followers');        
+        for (var i = 0; i < update_record.get('length'); i++)
+        {
+            if (update_record.objectAt(i).get("follower_id") === currentUser)
+            {
+                this.get("model").get('followers').removeObject(update_record.objectAt(i));
+            }
+        }
+        requiredBackEnd('followers', 'deleteUserFollower', followArray, 'POST', function(params) {
+        });
+        //  console.log('unfollow');
+        this.set('follow_status', false);
+    },    
+            
     uploadUserPhoto: function() 
      {
  

@@ -99,8 +99,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     getCurrentProfile: function(id) {
         this.set('currentUserID', id);
         var profile = HubStar.Profile.find(id);
-
-
         return profile;
     },
     setProfile: function(id) {
@@ -625,8 +623,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if (this.get('newStyleImageSource') !== null && this.get('newStyleImageSource') !== "")
         {
             var src = this.get('newStyleImageSource');
-            var maxWidth = 2000;
-            var maxHeight = 1500;
+
             var that = this;
 
             getImageWidth(src, function(width, height) {
@@ -636,7 +633,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
                 var data = {"RequireIamgeType": that.get('UploadImageMode')};
                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
-                    if ((width >= params.width) && (height >= params.height) && (width < maxWidth) && (height < maxHeight))
+                    if ((width >= params.width) && (height >= params.height))
                     {
                         that.setTempImage();
 
@@ -666,16 +663,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                         $('#photoUploadbtn').removeClass();
                         $("#photoUploadbtn").toggleClass("disabled-btn");
                     }
-                    else if (width > maxWidth || height > maxHeight)
-                    {
-                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size smaller than  " + maxWidth + "x" + maxHeight + " !!!");
-                        
-                            that.set('newStyleImageSource', "");
-                        that.set('newStyleImageName', "");
-                        that.set('CurrentImageSize', "");
-                        $('#photoUploadbtn').removeClass();
-                        $("#photoUploadbtn").toggleClass("disabled-btn");
-                    }
+                
                 });
             });
 

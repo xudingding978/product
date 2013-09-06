@@ -3139,7 +3139,6 @@ console.log("sdfsdfdsfdfsddf");
     closeWindow: function() {
         this.set('collectable', false);
         this.set('contact', false);
-              console.log("111111112222");
         window.history.back();
     },
     editingContactForm: function() {
@@ -3740,8 +3739,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     getCurrentProfile: function(id) {
         this.set('currentUserID', id);
         var profile = HubStar.Profile.find(id);
-
-
         return profile;
     },
     setProfile: function(id) {
@@ -3903,6 +3900,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         else if (checkingInfo === "aboutMe") {
             this.set('editingAbout', !this.get('editingAbout'));
         } else if (checkingInfo === "contact") {
+            if(this.get("website_url").match(/[http]/g)===-1 || this.get("website_url").match(/[http]/g)===null)
+                {
+                    this.set("website_url", "http://" + this.get("website_url"));
+                }
+                
+                
             this.set('editingContact', !this.get('editingContact'));
         }
         else if (checkingInfo === "timeSetting") {
@@ -3934,6 +3937,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('address', address_record);
             this.set('profile_contact_number', phone_record);
             this.set('website', website_record);
+            this.set('website_url', website_url_record);
             this.set('editingContact', !this.get('editingContact'));
 
         }
@@ -4259,8 +4263,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if (this.get('newStyleImageSource') !== null && this.get('newStyleImageSource') !== "")
         {
             var src = this.get('newStyleImageSource');
-            var maxWidth = 2000;
-            var maxHeight = 1500;
+
             var that = this;
 
             getImageWidth(src, function(width, height) {
@@ -4270,7 +4273,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
                 var data = {"RequireIamgeType": that.get('UploadImageMode')};
                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
-                    if ((width >= params.width) && (height >= params.height) && (width < maxWidth) && (height < maxHeight))
+                    if ((width >= params.width) && (height >= params.height))
                     {
                         that.setTempImage();
 
@@ -4300,16 +4303,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                         $('#photoUploadbtn').removeClass();
                         $("#photoUploadbtn").toggleClass("disabled-btn");
                     }
-                    else if (width > maxWidth || height > maxHeight)
-                    {
-                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size smaller than  " + maxWidth + "x" + maxHeight + " !!!");
-                        
-                            that.set('newStyleImageSource', "");
-                        that.set('newStyleImageName', "");
-                        that.set('CurrentImageSize', "");
-                        $('#photoUploadbtn').removeClass();
-                        $("#photoUploadbtn").toggleClass("disabled-btn");
-                    }
+                
                 });
             });
 
@@ -5108,7 +5102,8 @@ HubStar.UserController = Ember.Controller.extend({
 
 
         this.set("display_name", user.get("display_name"));
-
+        
+        this.isFollowed();
         if (this.get("collections").objectAt(0) !== null && typeof this.get("collections").objectAt(0) !== 'undefined') {
             this.setDesc(this.get("collections").objectAt(0).get("desc"));
             this.setTitle(this.get("collections").objectAt(0).get("title"));

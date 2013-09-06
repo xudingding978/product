@@ -266,6 +266,7 @@
 }
 
 .changeuserprofilepic{
+    cursor: pointer;
     opacity: 0;
     background-color: #000;
     position: absolute;

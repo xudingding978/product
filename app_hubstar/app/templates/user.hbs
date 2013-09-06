@@ -3,16 +3,21 @@
 <div style="width:100%; height:80px; display:block;"></div>
 <div class="user-board">
     <div class="user-board_left style-box">
-        <div id="user-photo_left">
-            <div class="user-profilepic-container"> 
-                <div class="changeuserprofilepic easing hint--right hint--rounded" data-hint="Choose a profile picture" {{action userPhotoEditButton}}>
-                    <k class="icon-edit"></k>
-                </div>    
-                <img {{bindAttr src="controller.user.photo_url_large"}}/>
-            </div>
-            <div  type="button" class="new-btn green-btn" style="margin: 30px auto 20px;width: 130px;display: block;">
-                Follow
-            </div>
+          <div id="user-photo_left">
+        <div class="user-profilepic-container"> 
+            <div class="changeuserprofilepic easing hint--right hint--rounded" data-hint="Choose a profile picture" {{action userPhotoEditButton}}>
+                <k class="icon-edit"></k>
+            </div>    
+            <img {{bindAttr src="controller.user.photo_url_large"}}/>
+        </div>
+        
+        {{#if controller.follow_status}}
+        <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;"{{action followThisUser}}><i class='icon-circle-blank' >&nbsp; </i> Following</div>
+        {{else}}
+        <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;"{{action followThisUser}}><i class='icon-plus' >&nbsp; </i> Follow</div>
+
+        {{/if}}
+       
 
             <div style="padding: 5px 20px 0;  width: 100%; height: 150px; overflow: hidden;background: #F3F3F3;">
                 <div style="font-weight: bold;line-height: 20px; color: #777; font-size: 17px;margin-bottom: 5px; display:inline-block;">INTEREST</div>

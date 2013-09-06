@@ -1,57 +1,75 @@
-HubStar.ProfilePartnersController = Ember.Controller.extend({
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+HubStar.UserFollowersController = Ember.Controller.extend({
     content: [],
-  
     clientID: "",
-    partnerID: "",
+    followerID: "",
     model: "",
     addPartner: true,
     currentAddPartnerPic: null,
     selectedPartnerPic: "",
     is_authentic_user: false,
-
-    needs: ['permission', 'applicationFeedback','profile'],
-
-    addingPartnerObserver: function() {
-        var addProfilePic = this.get('currentAddPartnerPic').split("/profiles/")[1];
-        this.set('selectedPartnerPic', HubStar.Profile.find(addProfilePic).get('profile_pic_url'));
-    }.observes('currentAddPartnerPic'),
+    needs: ['permission', 'applicationFeedback','user'],
+    test:"test",
     getClientId: function(model) {
-        this.set('content', []);
+        //console.log(model);
         this.set("model", model);
         this.set('clientID', model.id);
-        this.set('partnerID', model.get('profile_partner_ids'));
-        if (this.get('partnerID') !== null && this.get('partnerID') !== 'undefined' && this.get('partnerID') !== "") {
-            var data = HubStar.Mega.find({RequireType: "partner", profile_partner_ids: this.get('partnerID')});
+        //console.log(model.id);
+  //      this.set('followerID', model.get('profile_partner_ids'));
+//        this.get("content").push("tempmega1");
+//        this.get("content").push("tempmega2");
+//        this.get("content").push("tempmega3");
+//        this.get("content").push("tempmega4");
+//        this.get("content").push("tempmega5");
+//        this.get("content").push("tempmega6");
+       // console.log(this.get("content"));
+   //     if (this.get('followerID') !== null && this.get('followerID') !== 'undefined' && this.get('followerID') !== "") {
+            var data =  this.get('clientID');
+           var dataNew = new Array();
             var that = this;
-            data.addObserver('isLoaded', function() {
-                that.checkAuthenticUser();
-                if (data.get('isLoaded')) {
-                    for (var i = 0; i < data.get("length"); i++) {
-                        var tempmega = data.objectAt(i);
-                        that.get("content").pushObject(tempmega);
-                    }      
-                        var lastPositionId= HubStar.get('lastPositionId');
-              var lastPosition=HubStar.get("scrollPartenerPosition");
-              if(model.id===lastPositionId)
-                  {
+             requiredBackEnd('followers', 'Read', data, 'POST', function(params) {
           
-                        $(window).scrollTop(lastPosition);
+                 that.set("content",[]);
+                        for(var i=0;i<params.length;i++)
+                        {
+                            dataNew["id"]=params[i]["record_id"];
+                            dataNew["name"]= params[i]["name"];
+                            dataNew["photo_url"]= params[i]["photo_url"];
+                            dataNew["photo_url_large"]= params[i]["photo_url_large"];
+                            dataNew["collections_size"]=params[i]["collections_size"];
+                            dataNew["follower_size"]= params[i]["follower_size"];
+                            //console.log(dataNew);
+                            that.get("content").pushObject(dataNew);
+                           dataNew = new Array();
+                        }
+                         //console.log(that.get("content"));
+                    }); 
+                //console.log(this.get("content"));
 
-                  }
-
-                }
-            });      
+             
+//            var that = this;
+//            data.addObserver('isLoaded', function() {
+//                //that.checkAuthenticUser();
+//                if (data.get('isLoaded')) {
+//                    console.log(data);
+//                    for (var i = 0; i < data.get("length"); i++) {
+//                        var tempmega = data.objectAt(i);
+//                        that.get("content").pushObject(tempmega);
+//                    }      
+//      
+                    
+                    //that.get('controllers.profile').statstics();
+                
+//            });      
         }
-             var lastPositionId= HubStar.get('lastPositionId');
-              var lastPosition=HubStar.get("scrollPartenerPosition");
-              if(model.id===lastPositionId)
-                  {
-                     
-                        $(window).scrollTop(lastPosition);
-                                           
-        }        
-        this.checkAuthenticUser();
-    }
+    //    this.checkAuthenticUser();
+  //  }
+    /*
     ,
     deletePartner: function(model) {
         var message = "Do you wish to remove this partner ?";
@@ -139,6 +157,6 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
                 that.set("is_authentic_user", is_authentic_user);
             }
         });
-    }
+    }*/
 }
 );

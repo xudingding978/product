@@ -1,6 +1,8 @@
 
             DS.RESTAdapter.map('HubStar.User', {
-                collections: {embedded: 'always'}
+                collections: {embedded: 'load'},
+                followers: {embedded: 'load'},
+                followings: {embedded: 'load'}
             });
 
 
@@ -9,8 +11,6 @@
                 active_status: false,
                 profile_url: DS.attr('string'),
                 website_url: DS.attr('string'),
-                follower: DS.attr('string'),
-                following: DS.attr('string'),
                 about_me:DS.attr('string'),
                 facebook_link:DS.attr('string'),
                 twitter_link:DS.attr('string'),
@@ -40,8 +40,9 @@
                 zip: DS.attr('string'),
                 address: DS.attr('string'),
                 selected_topics: DS.attr('string'),
-                collections: DS.hasMany('HubStar.Collection')
-
+                collections: DS.hasMany('HubStar.Collection'),
+                followers: DS.hasMany('HubStar.Follower'),
+                followings:DS.hasMany('HubStar.Follower')
             });
 
 

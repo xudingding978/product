@@ -34,14 +34,11 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
               var lastPosition=HubStar.get("scrollPartenerPosition");
               if(model.id===lastPositionId)
                   {
-
           
                         $(window).scrollTop(lastPosition);
 
                   }
-      
-                    
-                    //that.get('controllers.profile').statstics();
+
                 }
             });      
         }
@@ -52,8 +49,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
                      
                         $(window).scrollTop(lastPosition);
                                            
-        }
-        
+        }        
         this.checkAuthenticUser();
     }
     ,

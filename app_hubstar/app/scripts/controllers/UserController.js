@@ -11,15 +11,19 @@ HubStar.UserController = Ember.Controller.extend({
     newCollectionName: null,
     collections: [],
     temp: [],
-    follower: "",
-    following: "",
-    follow_status: false,
+
+    followerTag: false,
+    followingTag: false,
+
     selectedDesc: "",
     selectedTitle: "",
     coverImg: "",
     display_name: "",
     userTage: true,
     currentUserID: "",
+
+    needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings'],
+
     facebook: "",
     twitter: "",
     googleplus: "",
@@ -29,7 +33,7 @@ HubStar.UserController = Ember.Controller.extend({
     location: "",
     email: "",
     password: "",
-    needs: ['photoCreate', 'applicationFeedback'],
+
     makeSureDelete: false,
     updateOrCreate: true,
     collectionTag: true,
@@ -47,6 +51,10 @@ HubStar.UserController = Ember.Controller.extend({
 
     {
         this.setUser();
+  
+    //    this.selectCollection();
+//        this.selectFollowing(this.get('model'));
+//        this.selectFollower(this.get('model'));
     },
     getCurrentUser: function()
     {
@@ -59,6 +67,7 @@ HubStar.UserController = Ember.Controller.extend({
     },
     setUser: function()
     {
+
         var user = this.getCurrentUser();
         this.setIntersetsArr(user);
         this.set("collections", user.get("collections"));
@@ -100,6 +109,27 @@ HubStar.UserController = Ember.Controller.extend({
         this.checkAuthenticUser();
 
     },
+    /*
+     selectFollower: function(model) {
+     this.set('profileSelectionStatus', 'Partners');
+     this.get('controllers.profilePartners').getClientId(model);
+     this.set('collectionTag', false);
+     this.set('followerTag', true);
+     this.set('followingTag', false);
+     setTimeout(function() {
+     $('#masonry_user_container').masonry("reload");
+     }, 200);
+     },
+     selectFollowing: function(model) {
+     
+     this.get('controllers.profilePartners').getClientId(model);
+     this.set('collectionTag', false);
+     this.set('followerTag', false);
+     this.set('followingTag', true);
+     setTimeout(function() {
+     $('#masonry_user_container').masonry("reload");
+     }, 200);
+     },*/
     userDashboardButton: function() {
         if (this.get('is_click') === false) {
             this.set('is_click', true);
@@ -155,6 +185,17 @@ HubStar.UserController = Ember.Controller.extend({
     exit: function()
     {
     },
+
+    getCurrentPage: function()
+    {
+        var address = document.URL;
+        var user_id = address.split("#")[1].split("/")[2];
+        this.set('currentUserID', user_id);
+        var user = HubStar.User.find(user_id);
+        this.set('model', user);
+        return user;
+    },
+
     checkingIdisExsinting: function(id, postOrPut) {
 
 //        if (postOrPut === "update") {
@@ -240,6 +281,7 @@ HubStar.UserController = Ember.Controller.extend({
             isExsinting = true;
         }
     },
+
     socialLink: function(link) {
 
         if (link === 'facebook') {
@@ -311,6 +353,7 @@ HubStar.UserController = Ember.Controller.extend({
         HubStar.store.save();
         this.setIntersetsArr(update_interest_record);
     },
+
     specialCharactersChecking: function(str) {
 
         var re = /^[a-zA-Z-][a-zA-Z0-9-]*$/;
@@ -362,7 +405,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('makeSureDelete', true);
         if (this.get('willDelete')) {
             this.get("collections").removeObject(this.get("selectedCollection"));
-            var user = this.getCurrentUser();
+            var user = this.getCurrentPage();
             user.store.save();
             this.cancelDelete();
         } else {
@@ -427,23 +470,35 @@ HubStar.UserController = Ember.Controller.extend({
     },
     selectCollection: function() {
         this.set('profileSelectionStatus', 'Collections');
-        this.set('partnerTag', false);
+        this.set('followingTag', false);
         this.set('collectionTag', true);
         this.set('followerTag', false);
+
     },
     selectFollowing: function(model) {
-
+      
         this.set('profileSelectionStatus', 'Following');
-        this.set('partnerTag', true);
+        this.get('controllers.userFollowings').getClientId(model);
+        this.set('followingTag', true);
         this.set('collectionTag', false);
         this.set('followerTag', false);
-        this.get('controllers.itemProfiles').setPartnerRemove();
+        
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
     },
     selectFollower: function(model) {
+        //console.log(model);
+     
         this.set('profileSelectionStatus', 'Followers');
-        this.set('partnerTag', false);
+        this.get('controllers.userFollowers').getClientId(model);
+        this.set('followingTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', true);
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+
     },
     flickButtonClick: function()
     {

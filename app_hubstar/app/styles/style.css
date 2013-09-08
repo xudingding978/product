@@ -928,7 +928,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 /* style fix for edit screen  */
 .profilesnew-table tbody tr td div.new-btn{top:0;}
-.profilesnew-table tbody tr td{line-height:inherit;}
+.profilesnew-table tbody tr td{line-height:30px;}
 
 
 .mustfull{

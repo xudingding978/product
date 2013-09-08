@@ -22,52 +22,64 @@ class FollowersController extends Controller {
     }
 
     public function actionCreateFollower(){
-       try{
-            
-            $request_array =CJSON::decode(file_get_contents('php://input'));
-            $profile_id = $request_array[0];           
-            $request_arr = $request_array[1];    
-
-           $cb = $this->couchBaseConnection();
-           
-           //save follower in profile
-           $domain_profile = $this->getDomain();
-           $docID_profile = $domain_profile . "/profiles/" . $profile_id;
-      //     $cb ->getAndLock($docID_profile, 16);
-           //error_log(var_export($casValue,true))
+        $request_array =CJSON::decode(file_get_contents('php://input'));
+        $profile_id = $request_array[0];           
+        $request_arr = $request_array[1];
+        $following = $this->followingProfile($profile_id, $request_arr);
+        $follower = $this->followerProfile($profile_id, $request_arr);
+        if ($following && $follower) {
+            $this->sendResponse(204);
+        }
+        else {
+            echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+        }
+    }
+    
+    public function followerProfile($profile_id,$request_arr) {                       //saving follower in profile
+        $isSaving = false;
+        try{
+            $cb = $this->couchBaseConnection(); 
+            $domain = $this->getDomain();
+             $docID_profile = $domain . "/profiles/" . $profile_id;
           $tempMega_profile = $cb->get($docID_profile);    
            $mega_profile = CJSON::decode($tempMega_profile, true);
            if (!isset($mega_profile['profile'][0]['followers'])) {
                   $mega_profile['profile'][0]['followers']= array();
               }
           array_unshift($mega_profile['profile'][0]['followers'], $request_arr);        
-          if ($cb->set($docID_profile, CJSON::encode($mega_profile))) {
-                $this->sendResponse(204);               
-          }
-          else {
-             echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
-          }
-          
-           //save profile_id in user
-          /**
-          $domain_user = $this->getDomain();
-          $docID_user = $domain_user . "/users" . $request_arr['follower_id'];
-          $tempMega_user = $cb -> get($docID_user);
-          $mega_user = CJSON::decode($tempMega_user, true);
-           if (!isset($mega_user['user'][0]['profile_id'])) {
-                  $mega_user['user'][0]['profile_id']= array();
-              }
-          array_unshift($mega_user['user'][0]['profile_id'], $profile_id);        
-          if ($cb->set($docID_user, CJSON::encode($mega_user))) {
-                $this->sendResponse(204);               
-          }
-          else {
-             echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
-          }
-          
-          **/
-    }    
-    catch (Exception $exc) {
+            if ($cb->set($docID_profile, CJSON::encode($mega_profile)) ) {
+                $isSaving = true;             
+            } else {
+            }
+           return $isSaving;
+        }    
+        catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+            echo json_decode(file_get_contents('php://input'));
+        }
+    }
+    
+    public function followingProfile($profile_id,$request_arr) {                      //saving following profile in follower user
+        $isSaving = false;
+        try{
+            $cb = $this->couchBaseConnection(); 
+            $domain = $this->getDomain();
+            $docID_currentUser = $domain . "/users/" . $request_arr['follower_id'];
+            $tempMega_currentUser = $cb->get($docID_currentUser);    
+            $mega_currentUser = CJSON::decode($tempMega_currentUser, true);
+            
+            if (!isset($mega_currentUser['user'][0]['followings'])) {
+                  $mega_currentUser['user'][0]['followings']= array();
+            }
+            $follower_arr = $request_arr;
+            $follower_arr['follower_id']=$profile_id;   
+            array_unshift($mega_currentUser['user'][0]['followings'], $follower_arr);
+            if ($cb->set($docID_currentUser, CJSON::encode($mega_currentUser))) {
+                $isSaving = true;;               
+            }
+            return $isSaving;          
+        }    
+        catch (Exception $exc) {
             echo $exc->getTraceAsString();
             echo json_decode(file_get_contents('php://input'));
         }
@@ -103,17 +115,27 @@ class FollowersController extends Controller {
         echo "test";
     }
     
-    public function actionDeleteFollower(){
-        try{          
-           $request_array = CJSON::decode(file_get_contents('php://input'));
-           $profile_id = $request_array[0];
-           $user_id = $request_array[1];      
-           $cb = $this->couchBaseConnection();
-           
-           
-            //delete follower in profile
-           $domain_profile = $this->getDomain();
-           $docID_profile = $domain_profile . "/profiles/" . $profile_id;
+    public function actionDeleteFollower(){ 
+       $request_array = CJSON::decode(file_get_contents('php://input'));
+       $profile_id = $request_array[0];
+       $user_id = $request_array[1];
+       $unFollowing = $this->unFollowingProfile($profile_id, $user_id);
+       $unFollower = $this->unFollowerProfile($profile_id, $user_id);
+       if ($unFollowing && $unFollower) {
+          $this->sendResponse(204);
+       }
+       else {
+          echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+       }
+       
+    }
+    
+    public function unFollowerProfile($profile_id,$user_id) {                                               //unfollow follower user in profile
+        $isDelete = false;
+        try{
+           $cb = $this->couchBaseConnection();            
+           $domain = $this->getDomain();
+           $docID_profile = $domain . "/profiles/" . $profile_id;
            $tempMega_profile = $cb->get($docID_profile);    
            $mega_profile = CJSON::decode($tempMega_profile, true);
            for ( $i=0; $i< sizeof($mega_profile["profile"][0]["followers"]);$i++ ) {
@@ -123,36 +145,36 @@ class FollowersController extends Controller {
                 }
            }
            if ($cb->set($docID_profile, CJSON::encode($mega_profile))) {
-                $this->sendResponse(204);                
-            } else {
-                $this->sendResponse(500, "some thing wrong");
-            }
-            
-          //delete profile_id in user
-          /**
-          $domain_user = $this->getDomain();
-          $docID_user = $domain_user . "/users" . $user_id;
-          $tempMega_user = $cb -> get($docID_user);
-          $mega_user = CJSON::decode($tempMega_user, true);
-          for ( $i=0; $i< sizeof($mega_user["user"][0]["profile_id"]);$i++ ) {
-              if($mega_profile["user"][0]["profile_id"][$i]===$user_id)
-                {
-                   //error_log(var_export($owner["profile"][0]["collections"][$i],true));
-                   array_splice($mega_profile["user"][0]["profile_id"], $i, 1);
-                }
-           } 
-          
-          
-          if ($cb->set($docID_user, CJSON::encode($mega_user))) {
-                $this->sendResponse(204);               
-          }
-          else {
-             echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
-          }
-            **/
+                $isDelete = true;             
+            }             
+           return $isDelete;
         }    
         catch (Exception $exc) {
-            //$cb->unlock($docID_profile);
+            echo $exc->getTraceAsString();
+            echo json_decode(file_get_contents('php://input'));
+        }
+    }
+    
+    public function unFollowingProfile($profile_id,$user_id) {                                            //unfollow following profile in user
+        $isDelete = false;
+        try{
+           $cb = $this->couchBaseConnection();
+           $domain = $this->getDomain();
+           $docID_currentUser = $domain . "/users/" . $user_id;
+           $tempMega_currentUser = $cb->get($docID_currentUser);    
+           $mega_currentUser = CJSON::decode($tempMega_currentUser, true);
+           for ( $i=0; $i< sizeof($mega_currentUser["user"][0]["followings"]);$i++ ) {
+              if($mega_currentUser["user"][0]["followings"][$i]["follower_id"]===$profile_id)
+                {
+                  array_splice($mega_currentUser["user"][0]["followings"], $i, 1);
+                }
+           }
+           if ($cb->set($docID_currentUser, CJSON::encode($mega_currentUser))) {
+                $isDelete = true;                
+            }             
+           return $isDelete;
+        }    
+        catch (Exception $exc) {
             echo $exc->getTraceAsString();
             echo json_decode(file_get_contents('php://input'));
         }

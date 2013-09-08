@@ -446,7 +446,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             var name = currentUser.get('display_name');
             var date = new Date();
             var tempComment = HubStar.Follower.createRecord({"follower_profile_pic_url": commenter_profile_pic_url,
-                "follower_id": commenter_id, "name": name, "time_stamp": date.toString(), "is_delete": false});
+                "follower_id": commenter_id, "name": name, "type": "profile", "time_stamp": date.toString(), "is_delete": false});
             var profile_id = this.get('model').get('id');
             var followArray = [profile_id, tempComment];
 

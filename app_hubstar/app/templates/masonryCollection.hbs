@@ -16,12 +16,14 @@
 
         {{#if controller.userTage}}
 
-        <ul class="user-stats" id="user-stats">
-            <li id="defualt" ><a {{action selectCollection}}> Collections</a></li>
 
+            <ul class="user-stats" id="user-stats">
+                <li id="defualt" ><a {{action selectCollection}}> Collections</a></li>
+                <li ><a {{action selectFollowing this}}> Following</a></li>
+                <li><a {{action selectFollower this}}> Follower</a></li>
+            </ul>
+            {{/if}}    
 
-        </ul>
-        {{/if}}    
 
 
     </div>
@@ -32,10 +34,7 @@
 
 
 
-
-
         {{#if collectionTag}}
-
         {{view HubStar.CollectionsView}}
         {{/if}} 
 
@@ -44,8 +43,13 @@
         {{/if}} 
 
         {{#if followerTag}}
-        {{render profileFollowers}}
+        {{render userFollowers}}
         {{/if}} 
+
+        {{#if followingTag}}
+        {{render userFollowings}}
+        {{/if}} 
+
 
 
 

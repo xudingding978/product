@@ -939,7 +939,7 @@
     cursor: pointer;
     height: 44px;
     position: absolute;
-    width: 44px;
+    min-width: 44px;
 
     -webkit-transition: all 0.8s ease;
     -moz-transition: all 0.8s ease;
@@ -962,8 +962,23 @@
     top: 0;
     width: 20px;
     font-size: 21px;
+    float:left;
 }
+/* top naviagtion specific styling */
+.top-controlbar div.icon-on-black{height:auto;}
+.top-controlbar .icon-on-black > i, .top-controlbar .icon-on-black > span{margin:4px 0;}
+.top-controlbar .icon-on-black > span
+ {
+    text-indent:28px;
+    line-height:20px;
+    font-size:14px;
+}
+ 
 
+/* top navigation specific styling ends */
+.icon-on-black > .pretooltip{
+    float:left;
+}
 
 .text-on-black{
     color: #737373;

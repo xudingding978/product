@@ -926,6 +926,11 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     width: 500px;
 }
 
+/* style fix for edit screen  */
+.profilesnew-table tbody tr td div.new-btn{top:0;}
+.profilesnew-table tbody tr td{line-height:inherit;}
+
+
 .mustfull{
     display: block;
     color: #3B5998;

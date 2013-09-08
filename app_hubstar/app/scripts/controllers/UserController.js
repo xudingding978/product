@@ -346,12 +346,20 @@ HubStar.UserController = Ember.Controller.extend({
         return update_user_record;
     },
     saveUpdateInterest: function() {
-        var update_interest_record = HubStar.User.find(this.get('user.id'));
-
+        var update_interest_record = HubStar.User.find(this.get('user.id'));       
+        interests = this.get('interests');
+        var tempInterest = '';
+        this.set('selected_topics', []);
+        if (interests !== null && interests !== "" && interests !== undefined) {
+            var interests = interests.split(",");
+            for (var i = 0; i < interests.length; i++) {
+                this.get('selected_topics').pushObject({interests: interests[i].trim()});
+                tempInterest = tempInterest + ',' + interests[i].trim();
+            }
+        }
+        this.set('interests', tempInterest.substring(1, tempInterest.length));
         update_interest_record.set('selected_topics', this.get('interests'));
-
-        HubStar.store.save();
-        this.setIntersetsArr(update_interest_record);
+        HubStar.store.save();        
     },
 
     specialCharactersChecking: function(str) {

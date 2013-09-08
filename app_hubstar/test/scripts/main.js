@@ -2313,10 +2313,8 @@ HubStar.CommentController = Ember.Controller.extend({
         this.set('makeSureDelete', false);
         HubStar.set('data', null);
     },
-    //test:function(){console.log('33333333333');},
     addLike: function(id)
     {
-        //console.log(id);
         var mega = HubStar.Mega.find(id); 
         var type = mega.get("type");
           var people_like = mega.get("people_like");
@@ -2327,21 +2325,14 @@ HubStar.CommentController = Ember.Controller.extend({
         {
             if (people_like.indexOf(localStorage.loginStatus) !== -1)
             {
-                //var like = people_like.split(",");
-                //mega.set("likes_count", like.length); 
-                //console.log(people_like);
                 this.count = mega.get('likes_count');
             }
             else{     
                 var likeArray = [localStorage.loginStatus,id,type];
-                 
                  likeArray=JSON.stringify(likeArray);
-                 //console.log(id);
-                 //console.log(localStorage.loginStatus);
                  var that = this;
                     requiredBackEnd('megas', 'addlike', likeArray, 'POST', function(params) {
                         params = params+"";
-                        console.log(params);
                         var like = params.split(",");
                         mega.set("likes_count", like.length);
                         mega.set("people_like",params);
@@ -2350,21 +2341,7 @@ HubStar.CommentController = Ember.Controller.extend({
             }
         }
     }, 
-//     addPeopleLike: function(mega) {
-//        var people_like = mega.get("people_like");
-//        //console.log("dddddddddddddddd");
-//        //console.log(mega);
-//        if (people_like === null || people_like === undefined || people_like === "")
-//        {
-//            people_like = localStorage.loginStatus;
-//            mega.set("likes_count", 1);
-//        } else {
-//            people_like = people_like + "," + localStorage.loginStatus;
-//            mega.set("likes_count", people_like.split(",").length);
-//        }
-//        mega.set("people_like", people_like);
-//        mega.updateMegaWithUrl(mega, 'addlike');
-//    },
+
     pushComment: function(comment)
     {
         var tempurl = getRestAPIURL();
@@ -4273,7 +4250,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             $('#uploadStyleImg').attr("style", "display:none");
                             that.set('isPhotoEditingMode', true);
                             that.set('isPhotoUploadMode', false);
+                            crop();
                             HubStar.store.save();
+             
                         });
 
                     }

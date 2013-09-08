@@ -749,7 +749,7 @@
 }
 
 .masonry-object_interact{
-    margin: 20px 0 0 0;
+    margin: 20px 0 10px 0;
     overflow:hidden;
     border-top: 1px solid #e5e5e5;
     border-bottom: 1px solid #e5e5e5;

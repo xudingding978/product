@@ -146,7 +146,7 @@ class Controller extends CController {
             $searchString = $this->getUserInput($requireParams[2]);
             $from = $this->getUserInput($requireParams[3]);
             $size = $this->getUserInput($requireParams[4]);
-            $response = $this->performSearch($returnType, $region, $searchString, $from, $size,true);
+            $response = $this->performSearch($returnType, $region, $searchString, $from, $size, true);
         } elseif ($requireType == 'uploadPhotoIDs') {
             $upload_Image_ids = $this->getUserInput($requireParams[1]);
             $raw_id = str_replace("test", "", $upload_Image_ids);
@@ -228,8 +228,9 @@ class Controller extends CController {
 
     protected function getmustQuestWithQueryString($queryString) {
         $mustQuery = explode('=', $queryString);
-        $should = Sherlock\Sherlock::queryBuilder()->QueryString()->query( $mustQuery[1] )//$collection_id
-                ->field($mustQuery[0]);
+        $should = Sherlock\Sherlock::queryBuilder()->QueryString()->query($mustQuery[1])//$collection_id
+                // ->default_field($mustQuery[0])
+                ->default_operator('AND');
         return $should;
     }
 
@@ -249,12 +250,14 @@ class Controller extends CController {
                 echo "no such search type, please input: must or should as a search type.";
             }
         }
-        if ($noUser == true) {
-            $must = $this->getmustQuestWithQueryString('couchbaseDocument.doc.type=user');
-            $bool->must_not($must);
-        }
+//        if ($noUser == true) {
+//            $must = $this->getmustQuestWithQueryString('couchbaseDocument.doc.type=user');
+//            $bool->must_not($must);
+//        }
         $request->query($bool);
         $response = $request->execute();
+        //    CJSON::encode($hit['source']['doc']);
+        //   return $response;
         $results = $this->getReponseResult($response, $returnType);
         return $results;
     }
@@ -375,18 +378,21 @@ class Controller extends CController {
             $bool->must($must);
         }
         $request->query($bool);
-        $response = $request->execute();
+        $tempResponse = $request->execute();
+        $numberofresults = $tempResponse->total;
+        $tempResponse = CJSON::encode($tempResponse);
+        $tempResponse = CJSON::decode($tempResponse);
+        $array = array();
+        for ($int = 0; $int < sizeof($tempResponse); $int++) {
+            $tempObject = $tempResponse[$int]['source']['doc'];
+            array_push($array, $tempObject);
+        }
 
-        $megaResponse = $this->performSearch($returnType, $region, $requestString, $from, $size, $noUser);
-        $megaResponse = CJSON::decode($megaResponse);
-
-        $megaResponse["id"] = time();
-        $megaResponse["numberofresults"] = $response->total;
-
-        $megaResponse["megas"] = $megaResponse["stats"];
-        unset($megaResponse["stats"]);
-
-        $result = CJSON::encode($megaResponse, true);
+        $tempId = time();
+        $response["megas"] = $array;
+        $response["id"] = $tempId;
+        $response["numberofresults"] = $numberofresults;
+        $result = CJSON::encode($response, true);
         $result = '{"stats":[' . $result;
         $result .= ']}';
         return $result;

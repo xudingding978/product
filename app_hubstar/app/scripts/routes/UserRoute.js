@@ -7,6 +7,11 @@ HubStar.UserRoute = Ember.Route.extend({
             this.controllerFor('searchs').setLoginImge();
             this.controllerFor('application').set('isotherpage', true);
             this.controller.set('switchPhoto', true);
+            this.controller.set('collectionTag', true);
+          //  this.controller.set('partnerTag', false);
+          $('#default').toggle('selected-user-stats');
+            this.controller.set('followerTag', false);
+            this.controller.set('followingTag', false);
 //            console.log(this.controllerFor('checkAuthorityStatus').);
 
             this.controllerFor('user').setUser();

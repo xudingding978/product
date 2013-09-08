@@ -34,7 +34,7 @@ HubStar.UserController = Ember.Controller.extend({
     {
         this.setUser();
   
-        //this.selectCollection();
+    //    this.selectCollection();
 //        this.selectFollowing(this.get('model'));
 //        this.selectFollower(this.get('model'));
     },

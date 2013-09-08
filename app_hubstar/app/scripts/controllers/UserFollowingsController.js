@@ -7,36 +7,39 @@
 HubStar.UserFollowingsController = Ember.Controller.extend({
     content: [],
     clientID: "",
-    followingID: "",
+    followerID: "",
     model: "",
     addPartner: true,
     currentAddPartnerPic: null,
     selectedPartnerPic: "",
     is_authentic_user: false,
-
-    needs: ['permission', 'applicationFeedback','user'],
-
+    needs: ['permission', 'applicationFeedback', 'user'],
+    test: "test",
     getClientId: function(model) {
-//        this.set('content', []);
-//        this.set("model", model);
-//        this.set('clientID', model.id);
-//        this.set('followingID', model.get('profile_partner_ids'));
-//        if (this.get('followingID') !== null && this.get('followingID') !== 'undefined' && this.get('followingID') !== "") {
-//            var data = HubStar.Mega.find({RequireType: "follower", profile_partner_ids: this.get('followingID')});
-//            var that = this;
-//            data.addObserver('isLoaded', function() {
-//             //   that.checkAuthenticUser();
-//                if (data.get('isLoaded')) {
-//                    for (var i = 0; i < data.get("length"); i++) {
-//                        var tempmega = data.objectAt(i);
-//                        that.get("content").pushObject(tempmega);
-//                    }      
-//                        
-//                    
-//                    //that.get('controllers.profile').statstics();
-//                }
-//            });      
-//        }
-     //   this.checkAuthenticUser();
+        //console.log(model);
+        this.set("model", model);
+        this.set('clientID', model.id);
+        var data = this.get('clientID');
+        var dataNew = new Array();
+        var that = this;
+        requiredBackEnd('followers', 'ReadFollowing', data, 'POST', function(params) {
+
+            that.set("content", []);
+            for (var i = 0; i < params.length; i++)
+            {
+                dataNew["id"] = params[i]["record_id"];
+                dataNew["name"] = params[i]["name"];
+                dataNew["photo_url"] = params[i]["photo_url"];
+                dataNew["photo_url_large"] = params[i]["photo_url_large"];
+                dataNew["collections_size"] = params[i]["collections_size"];
+                dataNew["follower_size"] = params[i]["follower_size"];
+                //console.log(dataNew);
+                that.get("content").pushObject(dataNew);
+                dataNew = new Array();
+            }
+            //console.log(that.get("content"));
+        });
+
     }
-});
+}
+);

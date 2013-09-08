@@ -14,7 +14,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     iframeLoginURL: "",
     init: function() {
         this.newSearch();
-        this.set('search_string','');
+        this.set('search_string', '');
         var address = document.URL;
         var domain = address.split("/")[2];
         this.set('iframeURL', "http://" + domain + "/user/create/");
@@ -36,10 +36,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("test", !this.get("test"));
     },
     scrollDownAction: function() {
-        if (HubStar.get("itemNumber") < this.get('size')) {
-        } else {
-            this.set('loadingTime', true);
-        }
+
+
+        this.set('loadingTime', true);
+
         this.set("size", 20);
         this.set("from", this.get("from") + this.get("size"));
         var results = HubStar.Mega.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size")});
@@ -70,26 +70,26 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         stats.addObserver('isLoaded', function() {
             if (stats.get('isLoaded')) {
                 var stat = stats.objectAt(0);
-                var megasResults = stat.get("megas");                
+                var megasResults = stat.get("megas");
                 HubStar.set('itemNumber', megasResults.get("length"));
                 for (var i = 0; i < megasResults.get("length"); i++) {
                     var tempmega = megasResults.objectAt(i);
                     that.pushObject(tempmega);
-                }     
+                }
                 that.set('loadingTime', false);
                 this.set("from", this.get("size"));
                 var d = new Date();
                 var end = d.getTime();
                 var time = that.getResponseTime(start, end);
                 statusController.set("searchResultNum", stat.get('numberofresults'));
-                statusController.set("time", time);                
-                statusController.changeDescription();                
+                statusController.set("time", time);
+                statusController.changeDescription();
             }
             setTimeout(function() {
                 $('#masonry_container').masonry("reload");
             }, 1800);
         });
-    
+
         HubStar.set('searchStart', true);
     },
     defaultSearch: function() {
@@ -108,9 +108,5 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     flipFrontBack: function() {
         $(".hover").removeClass('flip');
     }
-
-
-
-
 
 });

@@ -13,7 +13,9 @@ HubStar.UserRoute = Ember.Route.extend({
             this.controller.set('followerTag', false);
             this.controller.set('followingTag', false);
 //            console.log(this.controllerFor('checkAuthorityStatus').);
+
             this.controllerFor('user').setUser();
+
         },
         model: function(params) {
             return HubStar.User.find(params.user_id);
@@ -35,6 +37,8 @@ HubStar.UserRoute = Ember.Route.extend({
                 this.transitionTo("collection", data);
             }
         },
+              
+       
         redirect: function() {
     
             if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {

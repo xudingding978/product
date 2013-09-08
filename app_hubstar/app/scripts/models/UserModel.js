@@ -1,8 +1,10 @@
 
             DS.RESTAdapter.map('HubStar.User', {
+
                 collections: {embedded: 'load'},
                 followers: {embedded: 'load'},
                 followings: {embedded: 'load'}
+
             });
 
 
@@ -33,16 +35,18 @@
                 email: DS.attr('string'),
                 phone: DS.attr('string'),
                 email_verified: DS.attr('string'),
-                interests:DS.attr('string'),
                 country: DS.attr('string'),
                 region: DS.attr('string'),
                 city: DS.attr('string'),
                 zip: DS.attr('string'),
                 address: DS.attr('string'),
+                password: DS.attr('string'),
                 selected_topics: DS.attr('string'),
                 collections: DS.hasMany('HubStar.Collection'),
                 followers: DS.hasMany('HubStar.Follower'),
+
                 followings:DS.hasMany('HubStar.Follower')
+
             });
 
 

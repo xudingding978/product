@@ -1,4 +1,11 @@
 
+.insetbox-shadow {
+    -moz-box-shadow:    inset 1px 1px 3px #aaa;
+    -webkit-box-shadow: inset 1px 1px 3px #aaa;
+    box-shadow:        inset 1px 1px 3px #aaa;
+}
+
+
 .nav-tabs a {
     color: #999;
 }
@@ -112,7 +119,7 @@
 
 .location_li{
     white-space: nowrap;
-    overflow: hidden;
+
     -ms-text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
@@ -128,22 +135,21 @@
 .itemprofile{
     -webkit-font-smoothing: antialiased;
     font-family: 'Helvetica', sans-serif;
-    font-weight: bold;
-    color: #777;
-    font-size: 13px;
+    font-size: 12px;
     position: relative;
     display: block;
     list-style-type: none;
-    -webkit-margin-before: 1em;
-    -webkit-margin-after: 1em;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
+    margin: 0 0 0 0;
 }
 
 .itemprofile > li{
     display: inline-block;
     padding: 0 10px 0 0;
     color:#555;
+}
+
+.itemprofile > li > a{
+    color:#777;
 }
 
 
@@ -260,6 +266,7 @@
 }
 
 .changeuserprofilepic{
+    cursor: pointer;
     opacity: 0;
     background-color: #000;
     position: absolute;
@@ -402,4 +409,85 @@
 .fresh_warnning{
     border-top-color: #f6f0ba;
     background-color: #d8cf7e;
+}
+
+
+/* paid profile BEGINS, Clint Rex Lewis 4/9/13 */
+.premium > div > table tr td.left_col{background:#F2F0F0;}
+.premium > div > table tr td.right_col{background:#FFFFFF;}
+
+.premium > div > table  .profileaside
+{
+    background-color: rgb(242,240,240);
+    width:100%;
+    min-width:230px;
+    border-radius:3px 0 0 0;
+    display:inline-block;
+    vertical-align: top;
+    position:relative;
+
+}
+.premium > div > table .profileaside > .profileaside_content
+{
+
+    margin:0 6.5%;
+    position: relative; 
+    width:87%;
+    padding-top:119px;
+}
+.premium > div > table  .profileaside > .profileaside_content .aside-profilepic
+{
+    padding: 20px 5px; 
+    position:absolute;
+    width:65%;
+    top:-180px;
+    left:17.5%;
+}
+.premium > div > table  .profileaside > .profileaside_content .aside-profilepic div,
+.premium > div > table  .profileaside > .profileaside_content .aside-profilepic div img{width:100%;margin-bottom:1em;}
+
+.premium > div > table .profilemain
+{
+    display: inline-block;
+    width: 100%;
+    left:0;
+    right:0;
+    margin:auto;
+    min-width:553px;
+}
+.premium > div > table  .profileaside > .profileaside_content .aside-container{
+    padding: 20px 0;
+    border-bottom: 1px solid #ccc;
+    font-size: 14px;
+    margin: auto;
+    width: 95%;
+}
+.flip .front .main_aboutus
+{
+    display:none;
+}
+/* paid profile ENDS, Clint Rex Lewis 4/9/13 */
+
+
+
+
+.show-interest{
+    background-color: #f3f3f3;
+    height: 30px;
+    line-height: 33px;
+    margin: 5px 0 10px;
+    cursor: pointer;
+}
+
+.show-interest:hover{
+    background-color: #fff;
+}
+
+.unvisible{
+    color: #777;
+    opacity: 0;
+}
+
+.show-interest:hover .unvisible{
+    opacity: .7
 }

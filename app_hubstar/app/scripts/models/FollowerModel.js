@@ -4,6 +4,7 @@ HubStar.Follower = DS.Model.extend({
                 follower_id: DS.attr('string'),
                 type: DS.attr('string'),
                 name: DS.attr('string'),
+                type: DS.attr('string'),
                 time_stamp: DS.attr('string'),
                 is_delete: DS.attr('boolean'),
                 didLoad: function() {

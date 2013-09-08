@@ -7,6 +7,7 @@ var category_record;
 var address_record;
 var phone_record;
 var website_record;
+var website_url_record;
 var workingtime;
 var isExsinting = true;
 var seletedID = "";
@@ -98,8 +99,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     getCurrentProfile: function(id) {
         this.set('currentUserID', id);
         var profile = HubStar.Profile.find(id);
-
-
         return profile;
     },
     setProfile: function(id) {
@@ -213,26 +212,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         return title;
     },
     checkingIdisExsinting: function(desc, id, postOrPut) {
-//        if (postOrPut === "update") {
-//            for (var i = 0; i < this.get("temp").get('length'); i++) {
-//                if (this.get("temp").objectAt(i) === id) {
-//                    isExsinting = false;
-//                }
-//            }
-//            if (!isExsinting) {
-//                for (var i = 0; i < this.get("tempdesc").get('length'); i++) {
-//                    if (this.get("tempdesc").objectAt(i) === desc) {
-//                        isExsinting = false;
-//                        break;
-//                    } else {
-//                        isExsinting = true;
-//                    }
-//                }
-//            }
-//            if (!isExsinting) {
-//                alert('This Collection is already exsiting!!!');
-//            }
-//        } else
         if (postOrPut === "create") {
             for (var i = 0; i < this.get("collections").get('length'); i++) {
                 if (this.get("collections").objectAt(i).id === id) {
@@ -251,10 +230,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     toggleEditing: function(data, checkingInfo) {
         if (checkingInfo === "profileName") {
             profile_record = data;
+           // console.log(data);
             this.set('editing', !this.get('editing'));
         } else if (checkingInfo === "aboutMe") {
             about_record = data;
             this.set('editingAbout', !this.get('editingAbout'));
+            console.log(data);
         } else if (checkingInfo === "contact") {
             first_name_record = this.get('first_name');
             last_name_record = this.get('last_name');
@@ -264,6 +245,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             address_record = this.get('address');
             phone_record = this.get('profile_contact_number');
             website_record = this.get('website');
+            website_url_record = this.get('website_url');
+
             this.set('editingContact', !this.get('editingContact'));
         }
         else if (checkingInfo === "timeSetting") {
@@ -277,6 +260,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         else if (checkingInfo === "aboutMe") {
             this.set('editingAbout', !this.get('editingAbout'));
         } else if (checkingInfo === "contact") {
+            if(this.get("website_url").match(/[http]/g)===-1 || this.get("website_url").match(/[http]/g)===null)
+                {
+                    this.set("website_url", "http://" + this.get("website_url"));
+                }
+                
+                
             this.set('editingContact', !this.get('editingContact'));
         }
         else if (checkingInfo === "timeSetting") {
@@ -292,6 +281,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     no: function(checkingInfo) {
         if (checkingInfo === "profileName") {
+
             this.set('profile_name', profile_record);
             this.set('editing', !this.get('editing'));
         }
@@ -307,7 +297,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('address', address_record);
             this.set('profile_contact_number', phone_record);
             this.set('website', website_record);
+            this.set('website_url', website_url_record);
             this.set('editingContact', !this.get('editingContact'));
+
         }
         else if (checkingInfo === "timeSetting") {
             this.updateWorkingHourData(this.get('model.profile_hours'));
@@ -327,8 +319,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     setSelectedCollection: function(id) {
         for (var i = 0; i < this.get("collections").get("length"); i++) {
             var thisCollection = this.get("collections").objectAt(i);
-            //          this.get('temp').pushObject(thisCollection.get("id"));
-            //      this.get('tempdesc').pushObject(thisCollection.get("desc"));
             if (id === thisCollection.get("id")) {
                 this.set("selectedCollection", thisCollection);
             }
@@ -394,7 +384,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     editingContactForm: function() {
         var contactController = this.get('controllers.contact');
-        //console.log("sssssssssssssssss");
+
         contactController.setSelectedMega(this.get('currentUserID'));
         this.set('contactChecking', !this.get('contactChecking'));
     },
@@ -544,6 +534,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     saveUpdate: function() {
         var update_profile_record = HubStar.Profile.find(this.get('model.id'));
+         console.log(update_profile_record);
         update_profile_record.set('profile_editors', this.get('editors'));
         update_profile_record.set('profile_keywords', this.get('keywords'));
         update_profile_record.set('profile_regoin', this.get('region'));
@@ -572,7 +563,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
             update_profile_record.get('stateManager').transitionTo('loaded.saved');
         }
+
          this.get('controllers.applicationFeedback').statusObserver(null, "Update Successful");
+
         HubStar.store.save();
     },
     flipFrontClick: function() {
@@ -635,8 +628,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if (this.get('newStyleImageSource') !== null && this.get('newStyleImageSource') !== "")
         {
             var src = this.get('newStyleImageSource');
-            var maxWidth = 2000;
-            var maxHeight = 1500;
+
             var that = this;
 
             getImageWidth(src, function(width, height) {
@@ -646,7 +638,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
                 var data = {"RequireIamgeType": that.get('UploadImageMode')};
                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
-                    if ((width >= params.width) && (height >= params.height) && (width < maxWidth) && (height < maxHeight))
+                    if ((width >= params.width) && (height >= params.height))
                     {
                         that.setTempImage();
 
@@ -676,16 +668,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                         $('#photoUploadbtn').removeClass();
                         $("#photoUploadbtn").toggleClass("disabled-btn");
                     }
-                    else if (width > maxWidth || height > maxHeight)
-                    {
-                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size smaller than  " + maxWidth + "x" + maxHeight + " !!!");
-                        
-                            that.set('newStyleImageSource', "");
-                        that.set('newStyleImageName', "");
-                        that.set('CurrentImageSize', "");
-                        $('#photoUploadbtn').removeClass();
-                        $("#photoUploadbtn").toggleClass("disabled-btn");
-                    }
+                
                 });
             });
 

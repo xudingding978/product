@@ -37,6 +37,15 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
                 dataNew["follower_size"] = params[i]["follower_size"];
                 dataNew["follow_status"] = params[i]["follow_status"];
                 dataNew["type"] = params[i]["type"];
+                
+                if(dataNew["type"]==="user")
+                    {
+                        dataNew["displayOrNot"]=true;
+                    }
+                    else
+                        {
+                            dataNew["displayOrNot"]=false;
+                        }
                 //console.log(dataNew);
                 that.get("content").pushObject(dataNew);
                 dataNew = new Array();
@@ -55,7 +64,7 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
             }
             else
             {
-
+                this.followProfile(follow_object.get("id"));
             }
             follow_object.set('follow_status', true);
         }
@@ -66,6 +75,7 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
             }
             else
             {
+                this.unFollowProfile(follow_object.get("id"));
             }
             follow_object.set('follow_status', false);
         }
@@ -76,18 +86,62 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
         var currentUser = localStorage.loginStatus;
         var tempComment = HubStar.Follower.createRecord({"follower_profile_pic_url": null,
             "follower_id": currentUser, "name": null, "type": "user", "time_stamp": date.toString(), "is_delete": false});
-
         var followArray = [user_id, tempComment];
-
+        var tempUser = HubStar.User.find(user_id);
+        tempUser.get("followers").insertAt(0, tempComment);
         requiredBackEnd('followers', 'createUserFollower', followArray, 'POST', function() {
         });
     },
     unFollowUser: function(user_id) {
         var currentUser = localStorage.loginStatus;
-        var followArray = [currentUser, user_id];
-        //var update_record = this.get("model").get('followers');        
 
+        var followArray = [currentUser, user_id];
+
+        var tempUser = HubStar.User.find(user_id);
+
+        var update_record = tempUser.get('followers');
+        for (var i = 0; i < update_record.get('length'); i++)
+        {
+            if (update_record.objectAt(i).get("follower_id") === currentUser)
+            {
+                update_record.removeObject(update_record.objectAt(i));
+            }
+        }
         requiredBackEnd('followers', 'deleteUserFollower', followArray, 'POST', function(params) {
+        });
+    },
+    followProfile: function(profile_id) {
+        //console.log(profile_id);
+        //var currentUser = HubStar.User.find(localStorage.loginStatus);
+       var tempUser = HubStar.Profile.find(profile_id);
+       var commenter_profile_pic_url = null;
+        var commenter_id =  localStorage.loginStatus;
+        var name = null;
+        var date = new Date();
+        var tempComment = HubStar.Follower.createRecord({"follower_profile_pic_url": commenter_profile_pic_url,
+            "follower_id": commenter_id, "name": name, "type": "profile", "time_stamp": date.toString(), "is_delete": false});
+        var followArray = [profile_id, tempComment];
+       
+         tempUser.get("followers").insertAt(0, tempComment);
+        requiredBackEnd('followers', 'createFollower', followArray, 'POST', function() {
+        });
+    },
+    unFollowProfile: function(profile_id) {
+        //console.log(profile_id);
+        var tempUser = HubStar.Profile.find(profile_id);
+        //var currentUser = HubStar.User.find(localStorage.loginStatus);
+        var commenter_id = localStorage.loginStatus;
+        //console.log(tempUser);
+        var followArray = [profile_id, commenter_id];
+         var update_record = tempUser.get('followers');
+            for (var i = 0; i < update_record.get('length'); i++)
+            {
+                if (update_record.objectAt(i).get("follower_id") === commenter_id)
+                {
+                    update_record.removeObject(update_record.objectAt(i));
+                }
+            }
+        requiredBackEnd('followers', 'deleteFollower', followArray, 'POST', function(params) {
         });
     }
 }

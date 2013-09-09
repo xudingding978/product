@@ -4,12 +4,15 @@
            
                      if(Istate == 0){
                         $('#show_interest').animate({top:50, height:400}, 400 );
-                      
-                        $('#profile-picture')
-                        .delay(800)
-                        .queue( function(next){ 
-                          $(this).css('display','none'); 
-                          next(); 
+                        $('#profile-picture').delay(200).animate({top:-50, height:50}, 0 );
+                        setTimeout(function() { 
+                            $("#profile-picture").css('margin','0'); 
+                            $("#profile-picture").css('width','50px'); 
+                            $('#change_profile').css('height','50px';)
+                            $('#change_profile').css('width','50px');
+                        }, 200);
+                         $('#profile-picture').delay(150).animate({top:0}, 200);
+                        
                         $('#interest_btn').removeClass('icon-double-angle-up');
                         $('#interest_btn').addClass('icon-double-angle-down'); 
                         Istate = 1;
@@ -30,7 +33,7 @@
     <div class="user-board_left style-box">
         <div id="user-photo_left">
             <div class="user-profilepic-container" id="profile-picture"> 
-                <div class="changeuserprofilepic easing hint--right hint--rounded" data-hint="Choose a profile picture" {{action userPhotoEditButton}}>
+                <div id="change_profile" class="changeuserprofilepic easing hint--right hint--rounded" data-hint="Choose a profile picture" {{action userPhotoEditButton}}>
                      <k class="icon-edit"></k>
                 </div>    
                 <img {{bindAttr src="controller.user.photo_url_large"}}/>

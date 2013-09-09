@@ -1,17 +1,34 @@
 <div id="user-photo_left-back">
-
+    {{#if controller.isPhotoUploadMode}}
+    {{#view HubStar.SingleFileUploaderView }}
     <div class='' style="height: 375px;">
         <a href="#ddddd" data-toggle="tab" style="width: 70%; position: relative; margin: auto; display: block; text-align: center;">
             <div class='styleup_uploadbox easing hint--right hint--rounded' data-hint='Upload'  style="margin: 85px 0;">
                 <i class='icon-upload icon-3x' style="width: 30px;margin: auto;display: block;position: relative;top: 40px;" ></i>
-                <span style="font-size: 13px;font-weight:bold;bottom: 20px;position: relative;">Profile Picture </span>
+
+                <span style="font-size: 13px;font-weight:bold;bottom: 20px;position: relative;">User Picture </span>
+
             </div>
         </a>
         <div style='height: 150px;margin: 10px 15px;display: inline-block; width: auto;line-height: 150px;vertical-align: top;'>
-            <img style="max-height: 100%; width: auto;max-width: 300px;" {{bindAttr src="profile_pic_url"}} />
+
         </div>
 
     </div>   
+
+
+    <div id="dragAndDroppArea" class="dragndropbox" style="display:block">
+        <div style="position: relative;margin:3px; display: inline-block; vertical-align: top; min-width: 150px;text-align: center;">
+            <div>
+                <img  {{bindAttr src= "newStyleImageSource"}}  style="max-width: 140px; max-height: 150px;">
+                <div id='uploadStyleImg' style="display: none;">
+                    <img style="width: 25px; height: 25px;position: absolute;top: 40%;left: 62px;" src="../../../images/uploadphotos_spinner.gif"/>
+                </div>
+            </div>
+            <div style="margin: 2px 0 5px; font-size: 13px; text-overflow:ellipsis; text-align: center; width: 150px;overflow: hidden;word-wrap: break-word;line-height: 15px;">{{newStyleImageName}}</div>
+        </div>
+
+    </div>
 
 
 
@@ -21,10 +38,14 @@
             <div style="opacity:0;position: absolute;top: 0px;left: 0;"> {{view HubStar.SingleImageInputButtonView }}</div>
         </div>
         <div style="margin: auto;width: 150px;float: right;">
-            <span class="new-btn green-btn" {{action saveUpdate}} >Save</span>
+            <span class="new-btn green-btn " {{action savePhotoUpdate}} >Save</span>
             <span class='new-btn flip-back'{{action userPhotoEditBackButton }}><k class='icon-user'> &nbsp;</k>Back</span>
         </div>
 
     </div>
-
+    {{/view}}
+    {{/if}}
 </div>
+
+
+

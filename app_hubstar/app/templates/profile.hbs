@@ -91,7 +91,7 @@
                                             {{/if}}
                                         </div>
                                         <!--PROFILE CONTACT SECTION-->
-                                         <div style="padding: 0;border-top:1px solid #ccc;border-bottom: 1px solid #fff;font-size: 14px;margin: auto;width: 95%;"></div>
+                                        <div style="padding: 0;border-top:1px solid #ccc;border-bottom: 1px solid #fff;font-size: 14px;margin: auto;width: 95%;"></div>
                                         <div class="aside-container">
 
                                             {{#unless controller.editingContact}}
@@ -140,25 +140,25 @@
                                                     <th class="Contact_2child">{{profile_contact_number}}</th>
                                                     {{/if}}
                                                 </tr>
-                                                 <tr>
-                                    <th>Website:</th>
-                                    {{#if controller.editingContact}}
-                                    {{input type="text" class="insert-contactdetails" value=website }}
-                                  
-                                    {{else}}
-                                    <th class="Contact_2child"><a href="{{unbound model.profile_website_url}}" target="blank">{{website}}</a></th>
-                                    {{/if}}
-                                </tr>
+                                                <tr>
+                                                    <th>Website:</th>
+                                                    {{#if controller.editingContact}}
+                                                    {{input type="text" class="insert-contactdetails" value=website }}
 
-                                 <tr>
-                                 
-                                    {{#if controller.editingContact}}   
-                                     <th style = "color: #aaa; text-align: right;padding-bottom: 10px;font-size: 14px;font-weight: normal;width: 90px;">Website URL:</th>       
-                                 {{input type="text" class="insert-contactdetails" value=website_url }}                        
-                                    {{else}}
-                                   
-                                    {{/if}}
-                                </tr>
+                                                    {{else}}
+                                                    <th class="Contact_2child"><a href="{{unbound model.profile_website_url}}" target="blank">{{website}}</a></th>
+                                                    {{/if}}
+                                                </tr>
+
+                                                <tr>
+
+                                                    {{#if controller.editingContact}}   
+                                                    <th style = "color: #aaa; text-align: right;padding-bottom: 10px;font-size: 14px;font-weight: normal;width: 90px;">Website URL:</th>       
+                                                    {{input type="text" class="insert-contactdetails" value=website_url }}                        
+                                                    {{else}}
+
+                                                    {{/if}}
+                                                </tr>
 
                                             </table>
                                             {{#unless controller.editingContact}}
@@ -220,7 +220,7 @@
                                     </div>
                                 </div>
                             </td><!--LEFT COL ENDS -->
-                            
+
                             <!--RIGHT COL BEGINS -->
                             <td class="right_col" width="70%" valign="top">
                                 <!--PROFILE PAGE MAIN PART-->
@@ -259,7 +259,40 @@
                                         </div>
 
 
+                                        <div style="height: 40px; position:relative;">
+                                            <ul class="locationandlinks">
+                                                <li>
+                                                    <span class="locationIcon"><k class="icon-map-marker"></k></span>
+                                                    {{location}}
+                                                </li>
+                                                {{#if facebook}}
+                                                <li class="location_li">
+                                                    <a href="#" target="_blank" {{action socialLink 'facebook'}}>&nbsp <k class="icon-facebook"> </k></a>
+                                                </li>
+                                                {{/if}}
+                                                {{#if twitter}}
+                                                <li class="location_li">
+                                                    <a href="#" target="_blank" {{action socialLink 'twitter'}}>&nbsp <k class="icon-twitter"> </k></a>
+                                                </li>
+                                                {{/if}}
+                                                {{#if googleplus}}
+                                                <li class="location_li">
+                                                    <a href="#" target="_blank"{{action socialLink 'googleplus'}}>&nbsp <k class="icon-google-plus"> </k></a>
+                                                </li>
+                                                {{/if}}
+                                                {{#if pinterest}}
+                                                <li class="location_li">
+                                                    <a href="#" target="_blank" {{action socialLink 'pinterest'}}>&nbsp <k class="icon-pinterest"> </k></a>
+                                                </li>
+                                                {{/if}}
+                                                {{#if youtube}}
+                                                <li class="location_li">
+                                                    <a href="#" target="_blank" {{action socialLink 'youtube'}}>&nbsp <k class="icon-youtube-play"> </k></a>
+                                                </li>
+                                                {{/if}}
 
+                                            </ul>
+                                        </div>
 
 
 

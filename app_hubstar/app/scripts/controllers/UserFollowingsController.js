@@ -16,10 +16,12 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
     needs: ['permission', 'applicationFeedback', 'user'],
     test: "test",
     getClientId: function(model) {
-        //console.log(model);
+        //console.log(localStorage.loginStatus);
         this.set("model", model);
         this.set('clientID', model.id);
-        var data = this.get('clientID');
+
+        var data = [localStorage.loginStatus, this.get('clientID')];
+        data = JSON.stringify(data);
         var dataNew = new Array();
         var that = this;
         requiredBackEnd('followers', 'ReadFollowing', data, 'POST', function(params) {
@@ -33,6 +35,8 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
                 dataNew["photo_url_large"] = params[i]["photo_url_large"];
                 dataNew["collections_size"] = params[i]["collections_size"];
                 dataNew["follower_size"] = params[i]["follower_size"];
+                dataNew["follow_status"] = params[i]["follow_status"];
+                dataNew["type"] = params[i]["type"];
                 //console.log(dataNew);
                 that.get("content").pushObject(dataNew);
                 dataNew = new Array();
@@ -40,6 +44,51 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
             //console.log(that.get("content"));
         });
 
+    },
+    followThisUser: function(follow_object)
+    {
+        //console.log(follow_object.get("id"));
+        if (follow_object.get("follow_status") === false)
+        {
+            if (follow_object.get("type") === "user") {
+                this.followUser(follow_object.get("id"));
+            }
+            else
+            {
+
+            }
+            follow_object.set('follow_status', true);
+        }
+        else
+        {
+            if (follow_object.get("type") === "user") {
+                this.unFollowUser(follow_object.get("id"));
+            }
+            else
+            {
+            }
+            follow_object.set('follow_status', false);
+        }
+    },
+    followUser: function(user_id) {
+
+        var date = new Date();
+        var currentUser = localStorage.loginStatus;
+        var tempComment = HubStar.Follower.createRecord({"follower_profile_pic_url": null,
+            "follower_id": currentUser, "name": null, "type": "user", "time_stamp": date.toString(), "is_delete": false});
+
+        var followArray = [user_id, tempComment];
+
+        requiredBackEnd('followers', 'createUserFollower', followArray, 'POST', function() {
+        });
+    },
+    unFollowUser: function(user_id) {
+        var currentUser = localStorage.loginStatus;
+        var followArray = [currentUser, user_id];
+        //var update_record = this.get("model").get('followers');        
+
+        requiredBackEnd('followers', 'deleteUserFollower', followArray, 'POST', function(params) {
+        });
     }
 }
 );

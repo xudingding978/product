@@ -570,6 +570,7 @@ HubStar.UserController = Ember.Controller.extend({
         requiredBackEnd('followers', 'createUserFollower', followArray, 'POST', function() {
         });
         this.set('follow_status', true);
+        console.log(this.get());
     },
             
     unFollowUser: function(user_id) {

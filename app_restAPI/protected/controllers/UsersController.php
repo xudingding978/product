@@ -198,11 +198,11 @@ class UsersController extends Controller {
             
         } 
 
-//        if ($mode == 'profile_hero') {
-//            $smallimage = $photoController->savePhotoInTypes($orig_size, 'hero', $photo_name, $compressed_photo, $data_arr, $owner_id, $mode);
-//            $oldRecord['profile'][0]['profile_hero_cover_url'] = null;
-//            $oldRecord['profile'][0]['profile_hero_cover_url'] = $smallimage;
-//        }
+        if ($mode == 'user_picture') {
+            $smallimage = $photoController->savePhotoInTypes($orig_size, 'user_small', $photo_name, $compressed_photo, $data_arr, $user_id);
+            $oldRecord['user'][0]['photo_url'] = null;
+            $oldRecord['user'][0]['photo_url'] = $smallimage;
+        }
 
         $url = $this->getDomain() . '/users/' . $user_id;
 

@@ -13,7 +13,7 @@ HubStar.UserFollowersController = Ember.Controller.extend({
     currentAddPartnerPic: null,
     selectedPartnerPic: "",
     is_authentic_user: false,
-    needs: ['permission', 'applicationFeedback', 'user'],
+    needs: ['permission', 'applicationFeedback', 'user','userFollowings'],
     test: "test",
     getClientId: function(model) {
         //console.log(localStorage.loginStatus);
@@ -50,17 +50,17 @@ HubStar.UserFollowersController = Ember.Controller.extend({
         //console.log(follow_object.get("id"));
         if (follow_object.get("follow_status") === false)
         {
-            this.followUser(follow_object.get("id"));
+            this.followUser(follow_object.get("id"), null);
             // this.get('controllers.user')
             follow_object.set('follow_status', true);
         }
         else
         {
-            this.unFollowUser(follow_object.get("id"));
+            this.unFollowUser(follow_object.get("id"), null);
             follow_object.set('follow_status', false);
         }
     },
-    followUser: function(user_id) {
+    followUser: function(user_id, that) {
 
         var date = new Date();
         var currentUser = localStorage.loginStatus;
@@ -69,10 +69,20 @@ HubStar.UserFollowersController = Ember.Controller.extend({
         var followArray = [user_id, tempComment];
         var tempUser = HubStar.User.find(user_id);
         tempUser.get("followers").insertAt(0, tempComment);
+        var thatNew = that;
         requiredBackEnd('followers', 'createUserFollower', followArray, 'POST', function() {
+            if (thatNew !== null) {
+                if (thatNew.get('followerTag') === true)
+                {
+                    thatNew.get('controllers.userFollowers').getClientId(thatNew.get("model"));
+                    thatNew.set('follow_status', true);
+                }
+            }
         });
+
+
     },
-    unFollowUser: function(user_id) {
+    unFollowUser: function(user_id, that) {
         var currentUser = localStorage.loginStatus;
 
         var followArray = [currentUser, user_id];
@@ -87,7 +97,15 @@ HubStar.UserFollowersController = Ember.Controller.extend({
                 update_record.removeObject(update_record.objectAt(i));
             }
         }
+        var thatNew = that;
         requiredBackEnd('followers', 'deleteUserFollower', followArray, 'POST', function(params) {
+            if (thatNew !== null) {
+                if (thatNew.get('followerTag') === true)
+                {
+                    thatNew.get('controllers.userFollowers').getClientId(that.get("model"));
+                    thatNew.set('follow_status', false);
+                }
+            }
         });
     }
 }

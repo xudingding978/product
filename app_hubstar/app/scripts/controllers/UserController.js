@@ -551,49 +551,50 @@ HubStar.UserController = Ember.Controller.extend({
     followThisUser: function() {
         var user_id = this.get('model').get('id');
         if (this.checkFollowStatus() === false) {
-            this.followUser(user_id);
+            this.get("controllers.userFollowers").followUser(user_id,this);
+            //this.get('controllers.profile')
         } else {
-            this.unFollowUser(user_id);
+            this.get("controllers.userFollowers").unFollowUser(user_id,this);
         }
     },
-    followUser: function(user_id) {
-
-        var date = new Date();
-        var currentUser = localStorage.loginStatus;
-        var tempComment = HubStar.Follower.createRecord({"follower_profile_pic_url": null,
-            "follower_id": currentUser, "name": null, "type": "user", "time_stamp": date.toString(), "is_delete": false});
-
-        var followArray = [user_id, tempComment];
-        this.get("model").get("followers").insertAt(0, tempComment);
-        var that =this;
-        requiredBackEnd('followers', 'createUserFollower', followArray, 'POST', function() {
-            if (that.get('followerTag') === true)
-            {
-                that.get('controllers.userFollowers').getClientId(that.get("model"));
-            }
-        });
-        this.set('follow_status', true);
-    },
-    unFollowUser: function(user_id) {
-        var currentUser = localStorage.loginStatus;
-        var followArray = [currentUser, user_id];
-        var update_record = this.get("model").get('followers');
-        for (var i = 0; i < update_record.get('length'); i++)
-        {
-            if (update_record.objectAt(i).get("follower_id") === currentUser)
-            {
-                this.get("model").get('followers').removeObject(update_record.objectAt(i));
-            }
-        }
-        var that = this;
-        requiredBackEnd('followers', 'deleteUserFollower', followArray, 'POST', function(params) {
-            if (that.get('followerTag') === true)
-            {
-                that.get('controllers.userFollowers').getClientId(that.get("model"));
-            }    
-        });
-        this.set('follow_status', false);
-    },
+//    followUser: function(user_id) {
+//
+//        var date = new Date();
+//        var currentUser = localStorage.loginStatus;
+//        var tempComment = HubStar.Follower.createRecord({"follower_profile_pic_url": null,
+//            "follower_id": currentUser, "name": null, "type": "user", "time_stamp": date.toString(), "is_delete": false});
+//
+//        var followArray = [user_id, tempComment];
+//        this.get("model").get("followers").insertAt(0, tempComment);
+//        var that =this;
+//        requiredBackEnd('followers', 'createUserFollower', followArray, 'POST', function() {
+//            if (that.get('followerTag') === true)
+//            {
+//                that.get('controllers.userFollowers').getClientId(that.get("model"));
+//            }
+//        });
+//        this.set('follow_status', true);
+//    },
+//    unFollowUser: function(user_id) {
+//        var currentUser = localStorage.loginStatus;
+//        var followArray = [currentUser, user_id];
+//        var update_record = this.get("model").get('followers');
+//        for (var i = 0; i < update_record.get('length'); i++)
+//        {
+//            if (update_record.objectAt(i).get("follower_id") === currentUser)
+//            {
+//                this.get("model").get('followers').removeObject(update_record.objectAt(i));
+//            }
+//        }
+//        var that = this;
+//        requiredBackEnd('followers', 'deleteUserFollower', followArray, 'POST', function(params) {
+//            if (that.get('followerTag') === true)
+//            {
+//                that.get('controllers.userFollowers').getClientId(that.get("model"));
+//            }    
+//        });
+//        this.set('follow_status', false);
+//    },
     uploadUserPhoto: function()
     {
 

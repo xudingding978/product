@@ -12,7 +12,7 @@
             </div>
 
             {{#if controller.follow_status}}
-            <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;"{{action followThisUser}}><i class='icon-circle-blank' >&nbsp; </i> Following</div>
+            <div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;"{{action followThisUser}}><i class='icon-circle-blank' >&nbsp; </i> Following</div>
             {{else}}
             <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;"{{action followThisUser}}><i class='icon-plus' >&nbsp; </i> Follow</div>
 

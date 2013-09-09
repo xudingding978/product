@@ -1,10 +1,35 @@
-
+<script type='text/javascript"'>
+                    var Istate = 0;
+                 function showInterests(){
+           
+                     if(Istate == 0){
+                        $('#show_interest').animate({top:50, height:400}, 400 );
+                      
+                        $('#profile-picture')
+                        .delay(800)
+                        .queue( function(next){ 
+                          $(this).css('display','none'); 
+                          next(); 
+                        $('#interest_btn').removeClass('icon-double-angle-up');
+                        $('#interest_btn').addClass('icon-double-angle-down'); 
+                        Istate = 1;
+    
+                     }
+                      else{
+                        $('#show_interest').animate({top:298, height:150,}, 400);
+                        $('#interest_btn').addClass('icon-double-angle-up');
+                        $('#interest_btn').removeClass('icon-double-angle-down'); 
+                        Istate = 0;
+                     }
+                    
+                   }
+</script>
 
 <div style="width:100%; height:80px; display:block;"></div>
 <div class="user-board">
     <div class="user-board_left style-box">
         <div id="user-photo_left">
-            <div class="user-profilepic-container"> 
+            <div class="user-profilepic-container" id="profile-picture"> 
                 <div class="changeuserprofilepic easing hint--right hint--rounded" data-hint="Choose a profile picture" {{action userPhotoEditButton}}>
                      <k class="icon-edit"></k>
                 </div>    
@@ -19,9 +44,9 @@
             {{/if}}
 
 
-            <div style="padding: 5px 20px 0;  width: 100%; height: 150px; overflow: hidden;background: #F3F3F3;">
+            <div id="show_interest">
 
-                <div class="show-interest easing">
+                <div class="show-interest easing" onclick="showInterests()">
                     <div style="font-weight: bold;line-height: 20px; color: #777; font-size: 17px;margin-bottom: 5px; display:inline-block;">INTEREST</div>
 
                     {{#if controller.is_authentic_user}}
@@ -29,8 +54,7 @@
                          <i class="icon-plus edit-btn" style="font-size:13px;" ></i>
                     </div>
                     {{/if}}
-                    
-                    <k class="icon-double-angle-up unvisible" style=" float: right; margin: 7px;"></k>
+                    <k id="interest_btn" class="icon-double-angle-up unvisible" style=" float: right; margin: 7px;"></k>
                     
                 </div>
 

@@ -1290,6 +1290,7 @@
 
 
 
+
 .blue-btn:active{
     -webkit-box-shadow: inset 0 1px 0 #21448d;
     -o-box-shadow: inset 0 1px 0 #21448d;
@@ -1358,6 +1359,38 @@
     border: 1px solid #53a93f;
     color: #53a93f;
 }
+
+.disabled-green:hover{
+    -webkit-box-shadow: inset 0 -1px 0 #a2cf8f;
+    -o-box-shadow: inset 0 -1px 0 #a2cf8f;
+    -ms-box-shadow: inset 0 -1px 0 #a2cf8f;
+    -moz-box-shadow: inset 0 -1px 0 #a2cf8f;
+    box-shadow: inset 0px -1px 0 #a2cf8f;
+    background-color: #eff7ec;
+    background-image: -webkit-linear-gradient(top, transparent, transparent);
+    background-image: linear-gradient(top,transparent,transparent);
+    border: 1px solid transparent;
+    border-bottom: 1px solid #a2cf8f;
+    text-shadow: none;
+    color: #a2cf8f;
+}
+
+.disabled-green:active{
+    -webkit-box-shadow: inset 0 2px 0 #74b757;
+    -o-box-shadow: inset 0 2px 0 #74b757;
+    -ms-box-shadow: inset 0 2px 0 #74b757;
+    -moz-box-shadow: inset 0 2px 0 #74b757;
+    box-shadow: inset 0 2px 0 #74b757;
+    background-color: #a2cf8f;
+    border: 1px solid transparent;
+    border-top: #74b757;
+    color: white;
+}
+
+
+
+
+
 
 
 

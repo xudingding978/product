@@ -5,10 +5,14 @@
     <div class="user-board_left style-box">
         <div id="user-photo_left">
             <div class="user-profilepic-container"> 
+                 {{#if controller.is_authentic_user}}
                 <div class="changeuserprofilepic easing hint--right hint--rounded" data-hint="Choose a profile picture" {{action userPhotoEditButton "User Picture"}}>
                      <k class="icon-edit"></k>
-                </div>    
+                    
+                </div>  
+                 {{/if}}
                 <img {{bindAttr src="controller.user.photo_url_large"}}/>
+                 
             </div>
 
             {{#if controller.follow_status}}

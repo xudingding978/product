@@ -4296,7 +4296,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             $('#uploadStyleImg').attr("style", "display:none");
                             that.set('isPhotoEditingMode', true);
                             that.set('isPhotoUploadMode', false);
+                            crop();
                             HubStar.store.save();
+             
                         });
 
                     }

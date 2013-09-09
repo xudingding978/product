@@ -238,20 +238,7 @@
                             </div>
                         </div>
 
-
-
-
-
-
-
-
-
-
                     </div>
-
-
-
-
                 </div>
             </div>
         </div>
@@ -678,11 +665,19 @@
                             <span style='font-size: 13px;margin: auto;  display: block;line-height: 16px;'></span>
                         </span>
                     </div>
-                    <div style="position: relative; margin: auto;height: 520px; width: 690px; overflow: hidden;line-height: 510px;">
-                        <div style="position: relative;margin:3px;text-align: center;overflow: hidden;">
-                            <img  {{bindAttr src= "newStyleImageSource"}} >
-                        </div>
-                    </div>
+               <div class="container">
+            <div class="contr">
+                <button onclick="getResults()">Crop</button>
+            </div>
+            <canvas id="panel" width="779" height="519"></canvas>
+            <div id="results">
+                <h2>Please make selection for cropping and click 'Crop' button.</h2>
+                <img id="crop_result" />
+            </div>
+        </div>
+                    
+                    
+                    
                     <div class="" style="margin-top: 20px;">
                         <div class="controlbtn" style="left: 34%;">
                             <a href="#tab1" data-toggle="tab"{{action resetNewStyleImageSource}}>   <span class="new-btn" >Finish</span> </a>

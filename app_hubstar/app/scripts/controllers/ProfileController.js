@@ -179,7 +179,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 } else {
                     this.selectedCollection.set('desc', "Add a short description to your Collection");
                 }
-
+               // this.selectedCollection.set('type', "profile");
                 this.get("collections").insertAt(0, this.selectedCollection);
 
                 this.statstics();
@@ -446,7 +446,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             var name = currentUser.get('display_name');
             var date = new Date();
             var tempComment = HubStar.Follower.createRecord({"follower_profile_pic_url": commenter_profile_pic_url,
-                "follower_id": commenter_id, "name": name, "time_stamp": date.toString(), "is_delete": false});
+                "follower_id": commenter_id, "name": name, "type": "profile", "time_stamp": date.toString(), "is_delete": false});
             var profile_id = this.get('model').get('id');
             var followArray = [profile_id, tempComment];
 
@@ -597,13 +597,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             var requiredSize = "Your required image size is " + params.width + "x" + params.height;
             that.set('RequiredImageSize', requiredSize);
         });
-    }, profileStyleImageDrop: function(e, name,size)
+    }, profileStyleImageDrop: function(e, name)
     {
         var target = this.getTarget(e);
         var src = target.result;
         var that = this;
-        var imageSize = size /1000;
-        console.log(imageSize);
+     //   var imageSize = size /1000;
+       // console.log(imageSize);
         getImageWidth(src, function(width, height) {
             that.set('newStyleImageSource', src);
             that.set('newStyleImageName', name);
@@ -613,7 +613,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
             if (that.get('newStyleImageSource') !== null && that.get('newStyleImageSource') !== "")
             {
-                var size = "Your image size is " + width + "x" + height+":" + imageSize+"KB";
+                var size = "Your image size is " + width + "x" + height;
                 that.set('CurrentImageSize', size);
 
 

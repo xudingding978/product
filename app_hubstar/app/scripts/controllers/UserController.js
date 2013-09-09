@@ -11,19 +11,15 @@ HubStar.UserController = Ember.Controller.extend({
     newCollectionName: null,
     collections: [],
     temp: [],
-
     followerTag: false,
     followingTag: false,
-
     selectedDesc: "",
     selectedTitle: "",
     coverImg: "",
     display_name: "",
     userTage: true,
     currentUserID: "",
-
     needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings'],
-
     facebook: "",
     twitter: "",
     googleplus: "",
@@ -33,7 +29,6 @@ HubStar.UserController = Ember.Controller.extend({
     location: "",
     email: "",
     password: "",
-
     makeSureDelete: false,
     updateOrCreate: true,
     collectionTag: true,
@@ -47,12 +42,22 @@ HubStar.UserController = Ember.Controller.extend({
     aboutMe: "",
     is_Photoclick: false,
     is_click: false,
+    photo_url_large: "",
+    photo_url: "",
+    isPhotoUploadMode: false,
+    newStyleImageSource: '',
+    newStyleImageName: '',
+    currentWidth: '',
+    currentHeight: '',
+    CurrentImageSize: "",
+    RequiredImageSize: "",
+    UploadImageMode: "",
     init: function()
 
     {
         this.setUser();
-  
-    //    this.selectCollection();
+
+        //    this.selectCollection();
 //        this.selectFollowing(this.get('model'));
 //        this.selectFollower(this.get('model'));
     },
@@ -90,6 +95,9 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("location", user.get("region"));
         this.set("email", user.get("email"));
         this.set("password", user.get("password"));
+
+        this.set('photo_url', user.get('photo_url'));
+        this.set('photo_url_large', user.get('photo_url_large'));
 
         this.isFollowed();
         if (this.get("collections").objectAt(0) !== null && typeof this.get("collections").objectAt(0) !== 'undefined') {
@@ -149,7 +157,7 @@ HubStar.UserController = Ember.Controller.extend({
 
         }
     },
-    userPhotoEditButton: function() {
+    userPhotoEditButton: function(mode) {
 
 
         if (this.get('is_Photoclick') === false) {
@@ -157,6 +165,19 @@ HubStar.UserController = Ember.Controller.extend({
 
             $('#user-photo_left').hide();
             $('#user-photo_left-back').show();
+
+            this.set('isPhotoUploadMode', true);
+            //  console.log("requiredSize");
+            // this.set('isPhotoEditingMode', false);
+            this.set('UploadImageMode', mode);
+            var data = {"RequireIamgeType": mode};
+            var that = this;
+            requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
+
+                var requiredSize = " " + params.width + "x" + params.height;
+                // console.log(requiredSize);
+                that.set('RequiredImageSize', requiredSize);
+            });
         }
 
     },
@@ -165,6 +186,10 @@ HubStar.UserController = Ember.Controller.extend({
             this.set('is_Photoclick', false);
             $('#user-photo_left').show();
             $('#user-photo_left-back').hide();
+
+            this.set('newStyleImageSource', "");
+            this.set('newStyleImageName', "");
+            this.set('CurrentImageSize', "");
 
         }
     },
@@ -185,7 +210,6 @@ HubStar.UserController = Ember.Controller.extend({
     exit: function()
     {
     },
-
     getCurrentPage: function()
     {
         var address = document.URL;
@@ -195,7 +219,6 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('model', user);
         return user;
     },
-
     checkingIdisExsinting: function(id, postOrPut) {
 
 //        if (postOrPut === "update") {
@@ -281,7 +304,6 @@ HubStar.UserController = Ember.Controller.extend({
             isExsinting = true;
         }
     },
-
     socialLink: function(link) {
 
         if (link === 'facebook') {
@@ -322,6 +344,8 @@ if(this.isInputValid() )
         update_user_record.set('region', this.get('location'));
         update_user_record.set('email', this.get('email'));
         update_user_record.set('password', this.get('password'));
+        update_user_record.set('photo_url', user.get('photo_url'));
+        update_user_record.set('photo_url_large', user.get('photo_url_large'));
 
         this.get('controllers.applicationFeedback').statusObserver(null, "Updated Successfully!!!");
         HubStar.store.save();
@@ -427,32 +451,44 @@ if(this.isInputValid() )
 //            },
                     
     saveLink: function(link_url, link) {
-    
+
         var http = "http://";
         var update_user_record = this.getCurrentUser();
 
-        if (link === null||link==="")
+        if (link === null || link === "")
         {
-            link ==="";
+            link === "";
             update_user_record.set(link_url, link);
         }
 
         else if (link.slice(0, 5) === 'https' || link.slice(0, 5) === 'http:') {
             update_user_record.set(link_url, link);
-        } else if(link!==""){
+        } else if (link !== "") {
             update_user_record.set(link_url, http.concat(link));
         }
         return update_user_record;
     },
     saveUpdateInterest: function() {
-        var update_interest_record = HubStar.User.find(this.get('user.id'));
-
-        update_interest_record.set('selected_topics', this.get('interests'));
-
-        HubStar.store.save();
-        this.setIntersetsArr(update_interest_record);
+        var checkString = this.get('interests').trim();
+        if ((checkString.substring(checkString.length - 1, checkString.length) !== ',') && (!/,,/.test(checkString))) {
+            var update_interest_record = HubStar.User.find(this.get('user.id'));
+            interests = this.get('interests');
+            var tempInterest = '';
+            this.set('selected_topics', []);
+            if (interests !== null && interests !== "" && interests !== undefined) {
+                var interests = interests.split(",");
+                for (var i = 0; i < interests.length; i++) {
+                    this.get('selected_topics').pushObject({interests: interests[i].trim()});
+                    tempInterest = tempInterest + ',' + interests[i].trim();
+                }
+            }
+            this.set('interests', tempInterest.substring(1, tempInterest.length));
+            update_interest_record.set('selected_topics', this.get('interests'));
+            HubStar.store.save();
+        } else {
+            this.get('controllers.applicationFeedback').statusObserver(null, "Too much comma");
+        }
     },
-
     specialCharactersChecking: function(str) {
 
         var re = /^[a-zA-Z-][a-zA-Z0-9-]*$/;
@@ -576,20 +612,20 @@ if(this.isInputValid() )
 
     },
     selectFollowing: function(model) {
-      
+
         this.set('profileSelectionStatus', 'Following');
         this.get('controllers.userFollowings').getClientId(model);
         this.set('followingTag', true);
         this.set('collectionTag', false);
         this.set('followerTag', false);
-        
+
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
     },
     selectFollower: function(model) {
         //console.log(model);
-     
+
         this.set('profileSelectionStatus', 'Followers');
         this.get('controllers.userFollowers').getClientId(model);
         this.set('followingTag', false);
@@ -648,8 +684,7 @@ if(this.isInputValid() )
         }
         return isFollow;
     },
-            
-    followThisUser: function() {        
+    followThisUser: function() {
         var user_id = this.get('model').get('id');
         if (this.checkFollowStatus() === false) {
             this.followUser(user_id);
@@ -657,25 +692,23 @@ if(this.isInputValid() )
             this.unFollowUser(user_id);
         }
     },
-            
     followUser: function(user_id) {
-        
+
         var date = new Date();
         var currentUser = localStorage.loginStatus;
         var tempComment = HubStar.Follower.createRecord({"follower_profile_pic_url": null,
             "follower_id": currentUser, "name": null, "type": "user", "time_stamp": date.toString(), "is_delete": false});
-        
-        var followArray = [user_id, tempComment];        
+
+        var followArray = [user_id, tempComment];
         this.get("model").get("followers").insertAt(0, tempComment);
         requiredBackEnd('followers', 'createUserFollower', followArray, 'POST', function() {
         });
         this.set('follow_status', true);
     },
-            
     unFollowUser: function(user_id) {
         var currentUser = localStorage.loginStatus;
         var followArray = [currentUser, user_id];
-        var update_record = this.get("model").get('followers');        
+        var update_record = this.get("model").get('followers');
         for (var i = 0; i < update_record.get('length'); i++)
         {
             if (update_record.objectAt(i).get("follower_id") === currentUser)
@@ -686,11 +719,98 @@ if(this.isInputValid() )
         requiredBackEnd('followers', 'deleteUserFollower', followArray, 'POST', function(params) {
         });
         this.set('follow_status', false);
-    },    
-            
-    uploadUserPhoto: function() 
-     {
- 
+    },
+    profileStyleImageDrop: function(e, name)
+    {
+        var target = this.getTarget(e);
+        var src = target.result;
+        var that = this;
+
+        getImageWidth(src, function(width, height) {
+            that.set('newStyleImageSource', src);
+            that.set('newStyleImageName', name);
+            that.set('currentWidth', width);
+            that.set('currentHeight', height);
+
+
+            if (that.get('newStyleImageSource') !== null && that.get('newStyleImageSource') !== "")
+            {
+                var size = " size is " + width + "x" + height;
+                that.set('CurrentImageSize', size);
+
+
+                //   $('#photoUploadbtn').removeClass();
+                //    $("#photoUploadbtn").toggleClass("new-btn green-btn");
+            }
+        });
+    },
+    getTarget: function(obj) {
+        var targ;
+        var e = obj;
+        if (e.target)
+            targ = e.target;
+        else if (e.srcElement)
+            targ = e.srcElement;
+        if (targ.nodeType === 3) // defeat Safari bug
+            targ = targ.parentNode;
+        return targ;
+    },
+    savePhotoUpdate: function()
+    {
+        if (this.get('newStyleImageSource') !== null && this.get('newStyleImageSource') !== "")
+        {
+            var src = this.get('newStyleImageSource');
+
+            var that = this;
+
+            getImageWidth(src, function(width, height) {
+                that.set('currentWidth', width);
+                that.set('currentHeight', height);
+
+
+                var data = {"RequireIamgeType": that.get('UploadImageMode')};
+                requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
+                    if ((width >= params.width) && (height >= params.height))
+                    {
+
+                        that.set('photo_url_large', that.get('newStyleImageSource'));
+                        that.get('model').set('photo_url_large', that.get('newStyleImageSource'));
+
+                        $('#uploadStyleImg').attr("style", "display:block");
+                        var data1 = {"newStyleImageSource": that.get('newStyleImageSource'),
+                            'newStyleImageName': that.get('newStyleImageName'),
+                            'mode': that.get('UploadImageMode').replace(" ", "_").toLowerCase(),
+                            'id': that.get('model.id')};
+
+                        requiredBackEnd('users', 'updateStyleImage', data1, 'POST', function(params) {
+                            $('#uploadStyleImg').attr("style", "display:none");
+                            //  that.set('isPhotoEditingMode', true);
+                            that.set('isPhotoUploadMode', false);
+                            HubStar.store.save();
+                        });
+
+                        that.userPhotoEditBackButton();
+  that.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully!!!");
+
+                    }
+
+
+
+                    else if (width < params.width || height < params.height) {
+
+                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + params.width + "x" + params.height + " !!!");
+
+
+                        that.set('newStyleImageSource', "");
+                        that.set('newStyleImageName', "");
+                        that.set('CurrentImageSize', "");
+
+                    }
+
+                });
+            });
+
+        }
     }
 
 }

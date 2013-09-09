@@ -1,7 +1,7 @@
 
             DS.RESTAdapter.map('HubStar.User', {
 
-                collections: {embedded: 'load'},
+                collections: {embedded: 'always'},
                 followers: {embedded: 'load'},
                 followings: {embedded: 'load'}
 

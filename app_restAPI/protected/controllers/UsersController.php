@@ -36,17 +36,6 @@ class UsersController extends Controller {
                 ->size(100)
                 ->query($termQuery);
 
-//        $json = '{"query":
-//                            {"bool":
-//                                {"must":[
-//                                    {"query_string":
-//                                        {"default_field":"couchbaseDocument.doc.keywords","query":"home"}}],
-//                                            "must_not":[],"should":[]
-//                                                }},
-//                                                "from":0,"size":50,"sort":[],"facets":{}}';
-//        $json = '{"query":{"bool":{"must":[{"query_string":{"default_field":"couchbaseDocument.doc.type","query":"user"}}],"must_not":[],"should":[]}},"from":0,"size":50,"sort":[],"facets":{}}';
-//        $rawTermQuery = Sherlock\Sherlock::queryBuilder()->Raw($json);
-
         $response = $request->execute();
         $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":[';
 
@@ -109,7 +98,7 @@ class UsersController extends Controller {
 //            $oldRecord['user'][0] = $request_arr['user'];
             $oldRecord['user'][0]['selected_topics'] = $newRecord['selected_topics'];
 
-            $oldRecord['user'][0]['collections'] = $request_arr['user']['collections'];
+       //     $oldRecord['user'][0]['collections'] = $request_arr['user']['collections'];
             $oldRecord['user'][0]['photo_url'] = $request_arr['user']['photo_url'];
             $oldRecord['user'][0]['description'] = $request_arr['user']['description'];
             $oldRecord['user'][0]['display_name'] = $request_arr['user']['display_name'];

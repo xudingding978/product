@@ -181,7 +181,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 }
 
                 this.get("collections").insertAt(0, this.selectedCollection);
-
                 this.statstics();
                 HubStar.store.commit();
 

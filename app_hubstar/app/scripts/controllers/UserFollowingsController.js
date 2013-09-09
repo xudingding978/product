@@ -13,7 +13,7 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
     currentAddPartnerPic: null,
     selectedPartnerPic: "",
     is_authentic_user: false,
-    needs: ['permission', 'applicationFeedback', 'user','userFollowers'],
+    needs: ['permission', 'applicationFeedback', 'user','userFollowers','profile'],
     test: "test",
     getClientId: function(model) {
         //console.log(localStorage.loginStatus);
@@ -61,10 +61,11 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
         {
             if (follow_object.get("type") === "user") {
                 //this.followUser(follow_object.get("id"));
-                this.get("controllers.userFollowers").followUser((follow_object.get("id")),null);
+                this.get("controllers.userFollowers").followUser((follow_object.get("id")));
             }
             else
             {
+                
                 this.followProfile(follow_object.get("id"));
             }
             follow_object.set('follow_status', true);
@@ -73,7 +74,7 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
         {
             if (follow_object.get("type") === "user") {
                // this.unFollowUser(follow_object.get("id"));
-                 this.get("controllers.userFollowers").unFollowUser((follow_object.get("id")),null);
+                 this.get("controllers.userFollowers").unFollowUser((follow_object.get("id")));
             }
             else
             {

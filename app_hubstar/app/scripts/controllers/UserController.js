@@ -220,27 +220,10 @@ HubStar.UserController = Ember.Controller.extend({
         return user;
     },
     checkingIdisExsinting: function(id, postOrPut) {
-
-//        if (postOrPut === "update") {
-//            for (var i = 0; i < this.get("temp").get('length'); i++) {
-//
-//                if (this.get("temp").objectAt(i) === id) {
-//
-//                    isExsinting = false;
-//                }
-//            }
-//            if (!isExsinting) {
-//
-//                this.get('controllers.applicationFeedback').statusObserver(null, "This Collection is already exsiting!!!");
-//            }
-//        } else
-
-
         if (postOrPut === "create") {
 
             for (var i = 0; i < this.get("collections").get('length'); i++) {
                 if (this.get("collections").objectAt(i).id === id) {
-
                     isExsinting = false;
                 }
             }
@@ -566,31 +549,74 @@ HubStar.UserController = Ember.Controller.extend({
     },
     isFollowed: function()
     {
-        if (this.checkFollowStatus())
-        {
-            this.set('follow_status', true);
-        }
-        else {
-            this.set('follow_status', false);
-        }
-    },
-    checkFollowStatus: function()
-    {
-        var isFollow = false;
-        var followers = this.get("model").get("followers");
-        for (var i = 0; i < followers.get('length'); i++) {
-            var follower_id = followers.objectAt(i).get("follower_id");
-            if (follower_id === localStorage.loginStatus)
-            {
-                isFollow = true;
-                break;
+        var currentUser = HubStar.User.find(localStorage.loginStatus);
+        var that = this;
+        currentUser.addObserver('isLoaded', function() {
+            if (currentUser.get('isLoaded')) {
+                
+                that.get("controllers.userFollowers").checkFollowStatus(currentUser,that);
+                console.log("ssssssssssssssssss");
             }
-        }
-        return isFollow;
+        });
+
+
+
+
+        //this.set('follow_status', this.checkFollowStatus());
+//        if (this.checkFollowStatus())
+//        {
+//            this.set('follow_status', true);
+//        }
+//        else {
+//            this.set('follow_status', false);
+//        }
     },
+//    checkFollowStatus: function(currentUser)
+//    {
+//        var isFollow = 0;
+//        var followers = this.get("model").get("followers");
+//
+//        var followersCurrent = currentUser.get("followers");
+//        var followerIdCurrent;
+//
+//        for (var i = 0; i < followers.get('length'); i++) {
+//            var follower_id = followers.objectAt(i).get("follower_id");
+//            if (follower_id === localStorage.loginStatus)
+//            {
+//                isFollow = 1;
+//                //console.log( followersCurrent.objectAt(0).get("follower_id"));
+//                for (var j = 0; j < followersCurrent.get("length"); j++)
+//                {
+//
+//                    followerIdCurrent = followersCurrent.objectAt(j).get("follower_id");
+//                    //console.log(followerIdCurrent);
+//                    if (followerIdCurrent === this.get("model").get("id"))
+//                    {
+//                        isFollow = 3;
+//                        break;
+//                    }
+//                }
+//                break;
+//            }
+//        }
+//        if (isFollow === 0)
+//        {
+//            for (var j = 0; j < followersCurrent.get("length"); j++)
+//            {
+//                followerIdCurrent = followersCurrent.objectAt(j), get("follower_id");
+//                if (followerIdCurrent === this.get("model").get("id"))
+//                {
+//                    isFollow = 2;
+//                    break;
+//                }
+//            }
+//        }
+//        return isFollow;
+//
+//    },
     followThisUser: function() {
         var user_id = this.get('model').get('id');
-        if (this.checkFollowStatus() === false) {
+        if (this.get("follow_status") === false) {
             this.get("controllers.userFollowers").followUser(user_id, this);
             //this.get('controllers.profile')
         } else {
@@ -598,44 +624,6 @@ HubStar.UserController = Ember.Controller.extend({
             this.get("controllers.userFollowers").unFollowUser(user_id, this);
         }
     },
-//    followUser: function(user_id) {
-//
-//        var date = new Date();
-//        var currentUser = localStorage.loginStatus;
-//        var tempComment = HubStar.Follower.createRecord({"follower_profile_pic_url": null,
-//            "follower_id": currentUser, "name": null, "type": "user", "time_stamp": date.toString(), "is_delete": false});
-//
-//        var followArray = [user_id, tempComment];
-//        this.get("model").get("followers").insertAt(0, tempComment);
-//        var that =this;
-//        requiredBackEnd('followers', 'createUserFollower', followArray, 'POST', function() {
-//            if (that.get('followerTag') === true)
-//            {
-//                that.get('controllers.userFollowers').getClientId(that.get("model"));
-//            }
-//        });
-//        this.set('follow_status', true);
-//    },
-//    unFollowUser: function(user_id) {
-//        var currentUser = localStorage.loginStatus;
-//        var followArray = [currentUser, user_id];
-//        var update_record = this.get("model").get('followers');
-//        for (var i = 0; i < update_record.get('length'); i++)
-//        {
-//            if (update_record.objectAt(i).get("follower_id") === currentUser)
-//            {
-//                this.get("model").get('followers').removeObject(update_record.objectAt(i));
-//            }
-//        }
-//        var that = this;
-//        requiredBackEnd('followers', 'deleteUserFollower', followArray, 'POST', function(params) {
-//            if (that.get('followerTag') === true)
-//            {
-//                that.get('controllers.userFollowers').getClientId(that.get("model"));
-//            }    
-//        });
-//        this.set('follow_status', false);
-//    },
     uploadUserPhoto: function()
     {
 

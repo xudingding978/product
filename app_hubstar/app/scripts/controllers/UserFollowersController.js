@@ -13,7 +13,7 @@ HubStar.UserFollowersController = Ember.Controller.extend({
     currentAddPartnerPic: null,
     selectedPartnerPic: "",
     is_authentic_user: false,
-    needs: ['permission', 'applicationFeedback', 'user','userFollowings'],
+    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings'],
     test: "test",
     getClientId: function(model) {
         //console.log(localStorage.loginStatus);
@@ -51,14 +51,66 @@ HubStar.UserFollowersController = Ember.Controller.extend({
         if (follow_object.get("follow_status") === false)
         {
             this.followUser(follow_object.get("id"), null);
-            // this.get('controllers.user')
-            follow_object.set('follow_status', true);
+            var currentUser = HubStar.User.find(localStorage.loginStatus);   
+            this.checkFollowStatus(currentUser,follow_object);
         }
         else
         {
             this.unFollowUser(follow_object.get("id"), null);
-            follow_object.set('follow_status', false);
+            var currentUser = HubStar.User.find(localStorage.loginStatus);
+            
+              this.checkFollowStatus(currentUser,follow_object);
+            //console.log(currentUser.get("followers").get("length"));
+            //follow_object.set('follow_status', false);
         }
+    },
+    checkFollowStatus: function(currentUser,that)
+    {
+      
+        
+        var isFollow = 0;
+        that.set("follow_status",false);
+        that.set("following_status",false);
+        var followers = that.get("model").get("followers");
+
+        var followersCurrent = currentUser.get("followers");
+        var followerIdCurrent;
+
+        for (var i = 0; i < followers.get('length'); i++) {
+            var follower_id = followers.objectAt(i).get("follower_id");
+            if (follower_id === localStorage.loginStatus)
+            {
+                 that.set("follow_status",true);
+                //console.log( followersCurrent.objectAt(0).get("follower_id"));
+                for (var j = 0; j < followersCurrent.get("length"); j++)
+                {
+
+                    followerIdCurrent = followersCurrent.objectAt(j).get("follower_id");
+                    //console.log(followerIdCurrent);
+                    
+                    if (followerIdCurrent === that.get("model").get("id"))
+                    {
+                         that.set("following_status",true);
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+        if (that.get("follow_status") === false)
+        {
+            for (var j = 0; j < followersCurrent.get("length"); j++)
+            {
+                followerIdCurrent = followersCurrent.objectAt(j).get("follower_id");
+                if (followerIdCurrent === that.get("model").get("id"))
+                {
+                    that.set("following_status",true);
+                    break;
+                }
+            }
+        }
+        return isFollow;
+
     },
     followUser: function(user_id, that) {
 
@@ -75,7 +127,9 @@ HubStar.UserFollowersController = Ember.Controller.extend({
                 if (thatNew.get('followerTag') === true)
                 {
                     thatNew.get('controllers.userFollowers').getClientId(thatNew.get("model"));
-                    thatNew.set('follow_status', true);
+                    var currentUserNew = HubStar.User.find(localStorage.loginStatus);   
+                    this.checkFollowStatus(currentUserNew,thatNew);
+                    //thatNew.set('follow_status', true);
                 }
             }
         });
@@ -103,7 +157,9 @@ HubStar.UserFollowersController = Ember.Controller.extend({
                 if (thatNew.get('followerTag') === true)
                 {
                     thatNew.get('controllers.userFollowers').getClientId(that.get("model"));
-                    thatNew.set('follow_status', false);
+                     var currentUserNew = HubStar.User.find(localStorage.loginStatus);   
+                   this.checkFollowStatus(currentUserNew,thatNew);
+                    //thatNew.set('follow_status', false);
                 }
             }
         });

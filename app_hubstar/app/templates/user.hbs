@@ -53,7 +53,9 @@
                     {{else}}
 
                     {{#each controller.selected_topics}}
-                    <div class='hashtags' {{bindAttr id="interests"}}>{{interests}} {{#if controller.is_authentic_user}}<i class='remove-hashtages' {{action deleteTopic interests}}>x</i>{{/if}}</div>
+
+                    <div class='hashtags' {{bindAttr id="interests"}}>{{interests}}{{#if controller.is_authentic_user}}<i class='remove-hashtages' {{action deleteTopic interests}}>x</i>{{/if}}</div>
+
                     {{/each}}     
 
                     {{/if}}
@@ -111,6 +113,11 @@
                     {{#if pinterest}}
                     <li class="location_li">
                         <a href="#" target="_blank" {{action socialLink 'pinterest'}}>&nbsp <k class="icon-pinterest"> </k></a>
+                    </li>
+                    {{/if}}
+                    {{#if linkedin}}
+                    <li class="location_li">
+                        <a href="#" target="_blank"{{action socialLink 'linkedin'}}>&nbsp <k class="icon-linkedin"> </k></a>
                     </li>
                     {{/if}}
                     {{#if youtube}}

@@ -1,5 +1,4 @@
 
-var isExsinting = true;
 var interest_record;
 var collection_title_record;
 var collection_desc_record;
@@ -220,22 +219,7 @@ HubStar.UserController = Ember.Controller.extend({
         return user;
     },
     checkingIdisExsinting: function(id, postOrPut) {
-
-//        if (postOrPut === "update") {
-//            for (var i = 0; i < this.get("temp").get('length'); i++) {
-//
-//                if (this.get("temp").objectAt(i) === id) {
-//
-//                    isExsinting = false;
-//                }
-//            }
-//            if (!isExsinting) {
-//
-//                this.get('controllers.applicationFeedback').statusObserver(null, "This Collection is already exsiting!!!");
-//            }
-//        } else
-
-
+        var isExsinting;
         if (postOrPut === "create") {
 
             for (var i = 0; i < this.get("collections").get('length'); i++) {
@@ -243,11 +227,12 @@ HubStar.UserController = Ember.Controller.extend({
 
                     isExsinting = false;
                 }
-            }
+            }            
             if (!isExsinting) {
                 this.get('controllers.applicationFeedback').statusObserver(null, "This Collection is already exsiting!!!");
             }
         }
+        return isExsinting;
     },
     interestEdit: function(data, checkingInfo) {
         if (checkingInfo === "interest") {
@@ -277,7 +262,7 @@ HubStar.UserController = Ember.Controller.extend({
 
         var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
         var id = this.checkingValidInput(this.selectedCollection.get('title'));
-        this.checkingIdisExsinting(id, "create");
+        var isExsinting = this.checkingIdisExsinting(id, "create");
 
         if (isExsinting) {
             var validID = this.checkingValidInput(id);
@@ -300,9 +285,10 @@ HubStar.UserController = Ember.Controller.extend({
                 this.get('controllers.applicationFeedback').statusObserver(null, "invalide characters...");
             }
 
-        } else {
-            isExsinting = true;
-        }
+        } 
+//        else {
+//            isExsinting = true;
+//        }
     },
     socialLink: function(link) {
 
@@ -726,7 +712,7 @@ HubStar.UserController = Ember.Controller.extend({
     },
     profileStyleImageDrop: function(e, name)
     {
-        var target = this.getTarget(e);
+        var target = getTarget(e);
         var src = target.result;
         var that = this;
 
@@ -748,17 +734,17 @@ HubStar.UserController = Ember.Controller.extend({
             }
         });
     },
-    getTarget: function(obj) {
-        var targ;
-        var e = obj;
-        if (e.target)
-            targ = e.target;
-        else if (e.srcElement)
-            targ = e.srcElement;
-        if (targ.nodeType === 3) // defeat Safari bug
-            targ = targ.parentNode;
-        return targ;
-    },
+//    getTarget: function(obj) {
+//        var targ;
+//        var e = obj;
+//        if (e.target)
+//            targ = e.target;
+//        else if (e.srcElement)
+//            targ = e.srcElement;
+//        if (targ.nodeType === 3) // defeat Safari bug
+//            targ = targ.parentNode;
+//        return targ;
+//    },
     savePhotoUpdate: function()
     {
         if (this.get('newStyleImageSource') !== null && this.get('newStyleImageSource') !== "")

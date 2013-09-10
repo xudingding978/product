@@ -9,7 +9,6 @@ var phone_record;
 var website_record;
 var website_url_record;
 var workingtime;
-var isExsinting = true;
 var seletedID = "";
 var collection_title_record;
 var collection_desc_record;
@@ -162,7 +161,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     submit: function() {
         var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
         var id = this.checkingValidInput(this.selectedCollection.get('title'));
-        this.checkingIdisExsinting(desc, id, "create");
+        var isExsinting = this.checkingIdisExsinting(desc, id, "create");
         var profile_id = this.get('model').get('id');
 
         if (isExsinting) {
@@ -193,9 +192,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             }
 
 
-        } else {
-            isExsinting = true;
-        }
+        } 
+//        else {
+//            isExsinting = true;
+//        }
     },
     specialCharactersChecking: function(str) {
 
@@ -212,6 +212,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         return title;
     },
     checkingIdisExsinting: function(desc, id, postOrPut) {
+        var isExsinting;
         if (postOrPut === "create") {
             for (var i = 0; i < this.get("collections").get('length'); i++) {
                 if (this.get("collections").objectAt(i).id === id) {
@@ -222,6 +223,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 this.get('controllers.applicationFeedback').statusObserver(null, "This Collection is already exsiting!!!");
             }
         }
+        return isExsinting;
     },
     setLocalLoginRecrod: function() {
         HubStar.set('afterSearch', true);

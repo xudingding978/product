@@ -6,9 +6,12 @@
         <div id="user-photo_left">
             <div class="user-profilepic-container" id="profile-picture"> 
                 <div id="change_profile" class="changeuserprofilepic easing hint--right hint--rounded" data-hint="Choose a profile picture" {{action userPhotoEditButton}}>
-                     <k class="icon-edit"></k>
-                </div>    
+                     <k class="icon-edit" {{action showInterests  target="view" on="click"}}></k>
+                    
+                </div>  
+                
                 <img {{bindAttr src="controller.user.photo_url_large"}}/>
+                 
             </div>
 
             {{#if controller.follow_status}}
@@ -26,7 +29,7 @@
 
                     {{#if controller.is_authentic_user}}
                     <div class="edit-btn hint--rounded hint--bottom" style="height: 20px;line-height: 20px;" data-hint="Edit Interest" {{action interestEdit controller.interests controller.interest}}>
-                         <i class="icon-plus edit-btn" style="font-size:13px;"  {{action showInterestsDown  target="view" on="click"}}></i>
+                         <i class="icon-plus edit-btn" style="font-size:13px;"  {{action showInterestsUp  target="view" on="click"}}></i>
                     </div>
                     {{/if}}
                     <k id="interest_btn" class="icon-double-angle-up unvisible" style=" float: right;padding: 7px;" {{action showInterests target="view" on="click"}}></k>
@@ -47,7 +50,7 @@
                     {{else}}
 
                     {{#each controller.selected_topics}}
-                    <div class='hashtags' {{bindAttr id="interests"}}>{{interests}}<i class='remove-hashtages' {{action deleteTopic interests}}>x</i></div>
+                    <div class='hashtags' {{bindAttr id="interests"}}>{{interests}} {{#if controller.is_authentic_user}}<i class='remove-hashtages' {{action deleteTopic interests}}>x</i>{{/if}}</div>
                     {{/each}}     
 
                     {{/if}}

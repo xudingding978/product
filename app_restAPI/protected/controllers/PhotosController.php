@@ -272,8 +272,10 @@ class PhotosController extends Controller {
         $new_photo_data = $this->createNewImage($orig_size, $new_size, $compressed_photo, $data_arr['type']);
         $new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
         $bucket = 's3.hubsrv.com';
-        if ($optional == null) {
-            $url = $this->getDomain() . '/profiles' . "/" . $owner_id . "/" . $photo_type . "/" . $new_photo_name;
+        error_log("fdffdgdggfsd");
+        error_log(var_export($optional,true));
+        if ($optional == null || $optional =='undefined' || $optional =="") {
+            $url = $this->getDomain() . '/users' . "/" . $owner_id . "/" . $photo_type . "/" . $new_photo_name;
         } else {
             $url = $this->getDomain() . '/profiles' . "/" . $owner_id . "/" . $optional . "/" . $new_photo_name;
         }
@@ -294,7 +296,7 @@ class PhotosController extends Controller {
                 $new_size['height'] = intval(($photo_size['height'] * $new_size['width']) / $photo_size['width']);
                 break;
             case 'hero':
-                $new_size['width'] = 350;
+                $new_size['width'] = 338;
                 $new_size['height'] = intval(($photo_size['height'] * $new_size['width']) / $photo_size['width']);
                 break;
             case 'original':

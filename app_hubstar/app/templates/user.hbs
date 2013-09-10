@@ -9,8 +9,11 @@
                 <div id="change_profile" class="changeuserprofilepic easing hint--right hint--rounded" data-hint="Choose a profile picture" {{action userPhotoEditButton}}>
                      <k class="icon-edit" {{action showInterests  target="view" on="click"}}></k>         
                 </div>  
-                <img {{bindAttr src="controller.user.photo_url_large"}}/>
-                 {{/if}}
+
+                
+                <img {{bindAttr src="controller.user.photo_url_large"}} style="vertical-align: top"/>
+                 
+                {{/if}}
             </div>
 
             {{#if controller.follow_status}}
@@ -35,11 +38,14 @@
                     
                 </div>
 
-                <div style="width: 100%;height: 100px;line-height: 25px;padding: 0 20px 0 0;margin-top: -5px;">
+                <div class="interesttags-container" style="">
 
                     {{#if controller.editingInterest}}
-                    <div style="height: 70px; width: 100%;margin-bottom: 5px;">
-                        {{view Ember.TextArea valueBinding="interests"  id="" class="add-interests"   }}
+                    <div class="interest-textarea" style="">
+                        {{view Ember.TextArea valueBinding="interests"  id="" class="add-interests" }}
+                    </div>
+                    <div class="interest-insert-hint" style="">
+                        Inset interest tags rules remind paragraph...
                     </div>
                     <div style="text-align: center;right: 15px;position: relative;">
                         <div class="new-btn" {{action no controller.interest}}><i class="icon-remove"></i></div>
@@ -49,7 +55,9 @@
                     {{else}}
 
                     {{#each controller.selected_topics}}
-                    <div class='hashtags' {{bindAttr id="interests"}}>{{interests}} {{#if controller.is_authentic_user}}<i class='remove-hashtages' {{action deleteTopic interests}}>x</i>{{/if}}</div>
+
+                    <div class='hashtags' {{bindAttr id="interests"}}>{{interests}}{{#if controller.is_authentic_user}}<i class='remove-hashtages' {{action deleteTopic interests}}>x</i>{{/if}}</div>
+
                     {{/each}}     
 
                     {{/if}}
@@ -107,6 +115,11 @@
                     {{#if pinterest}}
                     <li class="location_li">
                         <a href="#" target="_blank" {{action socialLink 'pinterest'}}>&nbsp <k class="icon-pinterest"> </k></a>
+                    </li>
+                    {{/if}}
+                    {{#if linkedin}}
+                    <li class="location_li">
+                        <a href="#" target="_blank"{{action socialLink 'linkedin'}}>&nbsp <k class="icon-linkedin"> </k></a>
                     </li>
                     {{/if}}
                     {{#if youtube}}

@@ -18,6 +18,7 @@ HubStar.PhotoCreateView = Ember.View.extend(HubStar.PhotoCreateController.Droppa
                 var name = file.name;
                 var type = file.type;
                 filesize = file.size;
+               // console.log(filesize);
                 if(filesize>=25000000)
                 {
                   alert("The limit size of uploading is 25MB");

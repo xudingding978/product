@@ -106,6 +106,7 @@ class UsersController extends Controller {
             $oldRecord['user'][0]['about_me'] = $request_arr['user']['about_me'];
             $oldRecord['user'][0]['facebook_link'] = $newRecord['facebook_link'];
             $oldRecord['user'][0]['twitter_link'] = $newRecord['twitter_link'];
+            $oldRecord['user'][0]['linkedin_link'] = $newRecord['linkedin_link'];
             $oldRecord['user'][0]['googleplus_link'] = $newRecord['googleplus_link'];
             $oldRecord['user'][0]['pinterest_link'] = $newRecord['pinterest_link'];
             

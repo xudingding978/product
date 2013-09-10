@@ -10,13 +10,14 @@
                      <k class="icon-edit" {{action showInterests  target="view" on="click"}}></k>         
                 </div>  
 
-                
+
                 <img {{bindAttr src="controller.user.photo_url_large"}} style="vertical-align: top"/>
-                 
+
                 {{/if}}
             </div>
 
             {{#if controller.follow_status}}
+            <div href="#question_modal" role="button" class="disabled-btn disabled-green follow-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;"{{action followThisUser}}><i class='icon-circle-blank' >&nbsp; </i> Following</div>
             {{else}}
             <div href="#question_modal" role="button" class="new-btn green-btn follow-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;"{{action followThisUser}}><i class='icon-plus' >&nbsp; </i> Follow</div>
 
@@ -34,7 +35,7 @@
                     </div>
                     {{/if}}
                     <k id="interest_btn" class="icon-double-angle-up unvisible" style=" float: right;padding: 7px;" {{action showInterests target="view" on="click"}}></k>
-                    
+
                 </div>
 
                 <div class="interesttags-container" style="">

@@ -394,7 +394,7 @@ HubStar.UserController = Ember.Controller.extend({
                      var patternUrl = /^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([\w]+)(.[\w]+){1,2}$/;
                       var patternEmail=/^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
                      document.getElementById(checkList[i].id).style.border='';
-                   console.log(checkList[i].id);
+                 
                      if(checkList[i].input.length>checkList[i].length)
                         {       
                             
@@ -550,7 +550,6 @@ HubStar.UserController = Ember.Controller.extend({
     },
     updateCollectionInfo: function()
     {
-
         var id = this.checkingValidInput(this.selectedCollection.get('id'));
         var title = this.get("selectedCollection").get("title");
         this.get("selectedCollection").set("title", title);

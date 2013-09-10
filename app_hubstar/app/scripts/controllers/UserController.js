@@ -772,6 +772,7 @@ HubStar.UserController = Ember.Controller.extend({
 
 
                 var data = {"RequireIamgeType": that.get('UploadImageMode')};
+                console.log(data);
                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
                     if ((width >= params.width) && (height >= params.height))
                     {

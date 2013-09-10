@@ -3335,9 +3335,10 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
             (function(file) {
                 var name = file.name;
                 var type = file.type;
+                var fileSize = file.size;
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                    that.addPhotoObject(e, name, type);
+                    that.addPhotoObject(e, name, type,fileSize);
                 }, reader.readAsDataURL(files[i]);
             })(files[i]);
             evt.preventDefault();

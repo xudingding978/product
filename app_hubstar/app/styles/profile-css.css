@@ -507,4 +507,27 @@
     background: #F3F3F3;
     
 }
+div.profile-picture-active
+{
+    margin:5px 12px 0 5px!important;
+    width:50px!important;
+    height:50px!important;
+    z-index:1!important;
+    float:left!important;
+    border-width:4px!important;
+}
+.follow-btn-active
+{
+    float:left!important;
+    top:13px!important;
+    margin:0!important;
+}
+
+textarea.add-interests{
+    max-width:100%;
+    max-height:67px;
+}
+
+.user-profilepic-container > div#change_profile{max-width:100%;max-height:100%;}
+
 /* interest ENDS */

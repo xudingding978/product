@@ -56,29 +56,34 @@ HubStar.UserView = Ember.View.extend({
 
     },
     showInterestsUp: function() {
-        if ($('#interest_btn').hasClass('icon-double-angle-up')) {
 
 
-            $('#show_interest').animate({top: 55, height: 393}, 400);
-            // Main slide animation (interest div)
-            $('#profile-picture').delay(200).animate({top: -55}, 0);
-            //Moves profile picture to top, ready for slide down. 
 
-            setTimeout(function() {
-                $("#profile-picture").addClass('profile-picture-active');
+        $('#show_interest').animate({top: 55, height: 393}, 400);
+        // Main slide animation (interest div)
+        $('#profile-picture').delay(200).animate({top: -55}, 0);
+        //Moves profile picture to top, ready for slide down. 
 
-                $(".follow-btn").addClass('follow-btn-active');
-            }, 200);
-            // Adds required class styles prior to slide down animation.
+        $('.interest-insert-hint').css('display', 'block');
+        $('.interesttags-container').css('height', '335px');
+        $('.interest-textarea').css('height', '210px');
+        alert('its working');
 
-            $('#profile-picture').delay(200).animate({top: -2.5}, 200);
-            // Slide down animation.
+        setTimeout(function() {
+            $("#profile-picture").addClass('profile-picture-active');
 
-            $('#interest_btn').removeClass('icon-double-angle-up');
-            $('#interest_btn').addClass('icon-double-angle-down');
-            // Changes the active state position of the slide up/down arrow.
+            $(".follow-btn").addClass('follow-btn-active');
+        }, 200);
+        // Adds required class styles prior to slide down animation.
 
-        }// Slide up (open)
+        $('#profile-picture').delay(200).animate({top: -2.5}, 200);
+        // Slide down animation.
 
-    }
+        $('#interest_btn').removeClass('icon-double-angle-up');
+        $('#interest_btn').addClass('icon-double-angle-down');
+        // Changes the active state position of the slide up/down arrow.
+
+    }// Slide up (open)
+
+
 });

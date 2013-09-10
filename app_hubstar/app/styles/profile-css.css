@@ -487,7 +487,10 @@
     color: #777;
     opacity: 0;
 }
-
+.user-photo_left{
+    float:left;
+    width:100%;
+}
 
 
 .show-interest:hover .unvisible{

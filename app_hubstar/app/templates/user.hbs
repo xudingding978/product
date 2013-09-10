@@ -6,7 +6,7 @@
         <div id="user-photo_left">
             <div class="user-profilepic-container" id="profile-picture"> 
                 {{#if controller.is_authentic_user}}
-                <div id="change_profile" class="changeuserprofilepic easing hint--right hint--rounded" data-hint="Choose a profile picture" {{action userPhotoEditButton}}>
+                <div id="change_profile" class="changeuserprofilepic easing hint--right hint--rounded" data-hint="Choose a profile picture" {{action userPhotoEditButton "User Picture"}}>
                      <k class="icon-edit" {{action showInterests  target="view" on="click"}}></k>         
                 </div>  
 

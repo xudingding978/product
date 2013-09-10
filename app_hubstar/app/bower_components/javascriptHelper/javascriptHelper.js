@@ -70,8 +70,9 @@ function getImageWidth(imgSrc, callback) {
     var img = new Image();
     img.src = imgSrc;
     img.onload = function() {
-     
+  
         callback(this.width, this.height);
+       
     };
 
     

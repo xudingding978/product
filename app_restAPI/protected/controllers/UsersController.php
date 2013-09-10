@@ -36,6 +36,7 @@ class UsersController extends Controller {
                 ->size(100)
                 ->query($termQuery);
 
+
         $response = $request->execute();
         $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":[';
 
@@ -166,6 +167,58 @@ class UsersController extends Controller {
 
     public function test() {
         
+    }
+    
+      public function actionUpdateStyleImage() {
+        $payloads_arr = CJSON::decode(file_get_contents('php://input'));
+        $photo_string = $payloads_arr['newStyleImageSource'];
+         error_log(var_export( $photo_string, true));
+        $photo_name = $payloads_arr['newStyleImageName'];
+        $mode = $payloads_arr['mode'];
+        $user_id = $payloads_arr['id'];
+        $photoController = new PhotosController();
+        $data_arr = $photoController->convertToString64($photo_string);
+        $photo = imagecreatefromstring($data_arr['data']);
+        $compressed_photo = $photoController->compressPhotoData($data_arr['type'], $photo);
+        $orig_size['width'] = imagesx($compressed_photo);
+        $orig_size['height'] = imagesy($compressed_photo);
+
+        $url = $photoController->savePhotoInTypes($orig_size, $mode, $photo_name, $compressed_photo, $data_arr, $user_id);
+
+        error_log(var_export( $url,true));
+        $cb = $this->couchBaseConnection();
+        $oldRecord = CJSON::decode($cb->get($this->getDomain() . '/users/' . $user_id));
+
+         error_log(var_export( $mode,true));
+      //  error_log(var_export($oldRecord['user'][0], true));
+        if ($mode == 'user_picture') {
+
+            $oldRecord['user'][0]['photo_url_large'] = null;
+            $oldRecord['user'][0]['photo_url_large'] = $url;
+            
+        } 
+
+        if ($mode == 'user_picture') {
+            $smallimage = $photoController->savePhotoInTypes($orig_size, 'user_small', $photo_name, $compressed_photo, $data_arr, $user_id);
+            $oldRecord['user'][0]['photo_url'] = null;
+            $oldRecord['user'][0]['photo_url'] = $smallimage;
+        }
+
+        $url = $this->getDomain() . '/users/' . $user_id;
+
+        $copy_of_oldRecord = unserialize(serialize($oldRecord));
+        $tempUpdateResult = CJSON::encode($copy_of_oldRecord, true);
+
+        if ($cb->delete($url)) {
+            if ($cb->set($url, $tempUpdateResult)) {
+                $this->sendResponse(204);
+            } else {
+                $this->sendResponse(500, 'something wrong');
+            }
+        } else {
+            $cb->set($url, $tempUpdateResult);
+            $this->sendResponse(500, 'something wrong');
+        }
     }
 
 }

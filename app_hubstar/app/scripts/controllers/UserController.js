@@ -685,7 +685,9 @@ HubStar.UserController = Ember.Controller.extend({
                     {
 
                         that.set('photo_url_large', that.get('newStyleImageSource'));
+                       that.set('photo_url', that.get('newStyleImageSource'));
                         that.get('model').set('photo_url_large', that.get('newStyleImageSource'));
+                        that.get('model').set('photo_url', that.get('newStyleImageSource'));
 
                         $('#uploadStyleImg').attr("style", "display:block");
                         var data1 = {"newStyleImageSource": that.get('newStyleImageSource'),

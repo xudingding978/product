@@ -6,7 +6,7 @@
             <div class='styleup_uploadbox easing hint--right hint--rounded' data-hint='Upload'  style="margin: 85px 0;">
                 <i class='icon-upload icon-3x' style="width: 30px;margin: auto;display: block;position: relative;top: 40px;" ></i>
            
-                <span style="font-size: 13px;font-weight:bold;bottom: 20px;position: relative;">User Picture </span>
+                <span style="font-size: 13px;font-weight:bold;bottom: 20px;position: relative;">User Picture{{controller}} </span>
                 
             </div>
         </a>
@@ -39,8 +39,9 @@
         </div>
         <div class="new-btn blue-btn" style="margin: 28px 1px; width:67px; float: left;">
             Camera
-           
+            {{action userPhotoEditButton "User Picture"}}
         </div>
+        
         <div style="margin: auto;width: 150px;float: right;">
             <span class="new-btn green-btn " {{action savePhotoUpdate}} >Save</span>
             <span class='new-btn flip-back'{{action userPhotoEditBackButton }}><k class='icon-user'> &nbsp;</k>Back</span>

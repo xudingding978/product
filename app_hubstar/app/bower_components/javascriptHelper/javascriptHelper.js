@@ -97,17 +97,18 @@ function requiredBackEnd(controller, method, para, ajaxType, callback) {
         });
     }
 
-function getTarget(obj) {
+
+}
+function getTarget(obj,type) {
         var targ;
         var e = obj;
         if (e.target)
             targ = e.target;
         else if (e.srcElement)
             targ = e.srcElement;
-        if (targ.nodeType === 3) // defeat Safari bug
-            targ = targ.parentNode;
+        if (type === "single") {
+            if (targ.nodeType === 3) // defeat Safari bug
+                targ = targ.parentNode;
+        }
         return targ;
     }
-
-
-}

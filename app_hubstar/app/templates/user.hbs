@@ -56,7 +56,7 @@
 
                     {{#each controller.selected_topics}}
 
-                    <div class='hashtags' {{bindAttr id="interests"}}>{{interests}}{{#if controller.is_authentic_user}}<i class='remove-hashtages' {{action deleteTopic interests}}>x</i>{{/if}}</div>
+                    <div class='hashtags' >{{interests}}{{#if controller.is_authentic_user}}<i class='remove-hashtages' {{action deleteTopic interests}}>x</i>{{/if}}</div>
 
                     {{/each}}     
 

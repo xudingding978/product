@@ -612,7 +612,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         });
     }, profileStyleImageDrop: function(e, name)
     {
-        var target = this.getTarget(e);
+        var target = getTarget(e,"single");
         var src = target.result;
         var that = this;
      //   var imageSize = size /1000;
@@ -703,17 +703,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             model.set('profile_bg_url', this.get('newStyleImageSource'));
         }
     },
-    getTarget: function(obj) {
-        var targ;
-        var e = obj;
-        if (e.target)
-            targ = e.target;
-        else if (e.srcElement)
-            targ = e.srcElement;
-        if (targ.nodeType === 3) // defeat Safari bug
-            targ = targ.parentNode;
-        return targ;
-    },
+
     resetNewStyleImageSource: function()
     {
         this.set('newStyleImageSource', "");

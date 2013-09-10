@@ -703,16 +703,10 @@ HubStar.UserController = Ember.Controller.extend({
 //        });
 //        this.set('follow_status', false);
 //    },
-    uploadUserPhoto: function()
-    {
 
-
-
-
-    },
     profileStyleImageDrop: function(e, name)
     {
-        var target = getTarget(e);
+        var target = getTarget(e,"single");
         var src = target.result;
         var that = this;
 
@@ -734,17 +728,7 @@ HubStar.UserController = Ember.Controller.extend({
             }
         });
     },
-//    getTarget: function(obj) {
-//        var targ;
-//        var e = obj;
-//        if (e.target)
-//            targ = e.target;
-//        else if (e.srcElement)
-//            targ = e.srcElement;
-//        if (targ.nodeType === 3) // defeat Safari bug
-//            targ = targ.parentNode;
-//        return targ;
-//    },
+
     savePhotoUpdate: function()
     {
         if (this.get('newStyleImageSource') !== null && this.get('newStyleImageSource') !== "")

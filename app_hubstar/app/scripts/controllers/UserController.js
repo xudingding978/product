@@ -330,8 +330,9 @@ HubStar.UserController = Ember.Controller.extend({
     saveUpdate: function() {
         var update_user_record = this.getCurrentUser();
 
-if(this.isInputValid() )
-      {  update_user_record.set('collections', this.get('collections'));
+     if(this.isInputValid() )
+      {
+        update_user_record.set('collections', this.get('collections'));
         update_user_record.set('photo_url', this.get('coverImg'));
         update_user_record.set('description', this.get('description'));
         update_user_record.set('display_name', this.get('display_name'));
@@ -344,112 +345,70 @@ if(this.isInputValid() )
         update_user_record.set('region', this.get('location'));
         update_user_record.set('email', this.get('email'));
         update_user_record.set('password', this.get('password'));
-        update_user_record.set('photo_url', user.get('photo_url'));
-        update_user_record.set('photo_url_large', user.get('photo_url_large'));
-
+        update_user_record.set('photo_url', this.get('photo_url'));
+        update_user_record.set('photo_url_large', this.get('photo_url_large'));
         this.get('controllers.applicationFeedback').statusObserver(null, "Updated Successfully!!!");
         HubStar.store.save();
       }
-      
     },
-              isInputValid:function(){
-   function checkObject(id,input,length,isValid)
+           isInputValid:function(){
+       
+   function checkObject(input,length,isValid)
    {
-       this.id=id;
        this.input=input;
        this.length=length;
        this.isValid=isValid;
    }
               var checkList= new Array();
               
-              var displayName=new checkObject(displayName,this.get('display_name'),128,null);
+              var displayName=new checkObject(this.get('display_name'),128,null);
               checkList.push(displayName);
-              var email=new checkObject(email,this.get('email'),128,null);
+              var email=new checkObject(this.get('email'),128,null);
               checkList.push(email);
-              var aboutMe=new checkObject(aboutMe,this.get('aboutMe'),560,null);
+              var aboutMe=new checkObject(this.get('aboutMe'),560,null);
               checkList.push(aboutMe);
-              var location=new checkObject(location,this.get('location'),128,null);
-              checkList.push(location);
-              var facebook=new checkObject(facebook,this.get('facebook'),128,isValid);
-              checkList.push(facebook);
-              var twitter=new checkObject(twitter,this.get('twitter'),128,isValid);
+              var location=new checkObject(this.get('location'),128,null);
+              checkList.push(location);   
+              var facebook=new checkObject(this.get('facebook'),128,true);
+              checkList.push(facebook);      
+              var twitter=new checkObject(this.get('twitter'),128,true);
               checkList.push(twitter);
-              var googleplus=new checkObject(googleplus,this.get('googleplus'),128,isValid);
+              var googleplus=new checkObject(this.get('googleplus'),128,true);
               checkList.push(googleplus);
-              var pinterest=new checkObject(pinterest,this.get('pinterest'),128,isValid);
+              var pinterest=new checkObject(this.get('pinterest'),128,true);
               checkList.push(pinterest);
-              var youtube=new checkObject(youtube,this.get('youtube'),128,isValid);
+              var youtube=new checkObject(this.get('youtube'),128,true);
               checkList.push(youtube);
-              var password=new checkObject(password,this.get('password'),128,null);
+              var password=new checkObject(this.get('password'),128,null);
               checkList.push(password);
-              
-              
+         
+             var result;
+                    
              for(var i=0;i<checkList.length;i++)
                  {
-                           this.checkingObject(checkList[i].id,checkList[i].input,checkList[i].length,checkList[i].isValid);
-                 }
-       },
-       
-       checkingObject:function(id,input,length,isValid){
-   
-            if(input.length>=length)
-                {
-                       return false; 
-                  }
-                  else {return true;}
-                  
-                  
-            if(isValid)
-                      {
-                          this.checkingValidUrl(input);
-                      }
-               
-       },
-      
-       
-       checkObject:function(id,input,length,isValid){
-   
-            if(input.length>=length)
-                {
-                       return false; 
-                  }
-                  else {
-                      return true;
-                  }
-                  
-                                 
-            if(isValid)
-                      {
-                          checkingValidUrl(input);
-                      }
-               
-       },
-            
-//            isValidInput:function(){
-//        if(this.checkingValidLength(this.get('facebook')) &&this. checkingValidUrl() )
-//           {
-//               return true;
-//           }
-//            },
-            checkingValidUrl:function(url) {
-       
-        var pattern = /^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([\w]+)(.[\w]+){1,2}$/;
-        if (pattern.test(url)) {
-          
-            return true;
-        } 
-            alert("Url is not valid!");
-            return false;
-
-    },
-//             checkingValidLength:function(input){
-//        if(input.length>=128 ){
-//          return false;
-//        }else{
-//            return true;
-//        }
-//            },
+                     var pattern = /^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([\w]+)(.[\w]+){1,2}$/;
                     
+                     if(checkList[i].input.length>checkList[i].length)
+                        {                  
+                       result= false; 
+                       break;
+                          }
+
+                     if(checkList[i].isValid===true)
+                      {
+                      
+                          if (pattern.test(checkList[i].input)|| checkList[i].input==="") {
+                                  result= true;
+                               } 
+                           else{
+                              result= false;
+                               break;
+                            }
+                      }
+                 }      
+             return result;   
+       },
+    
     saveLink: function(link_url, link) {
 
         var http = "http://";

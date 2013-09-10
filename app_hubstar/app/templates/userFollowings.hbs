@@ -2,16 +2,23 @@
 
 {{#each  content}}
 
- <div class="col1 box style-box t-style-box" style="text-align: center;">
+<div class="col1 box style-box t-style-box" style="text-align: center;">
     <div style="position:relative;">
         <img {{bindAttr src= this.photo_url}} style="width:100%;"/>
     </div>
 
     <div class="user-profilepic-container" style="position:absolute; top: 50px;margin: 0 auto;width: 100px;height: 100px;border: 2px solid #f3f3f3;left: 0;right: 0;">
+        {{#if displayOrNot}}
         <a href="#/users/{{unbound this.id}}">
-  
-               <img {{bindAttr src= this.photo_url}} style="width: 100%; height: 100%"/>
+
+            <img {{bindAttr src= this.photo_url}} style="width: 100%; height: 100%"/>
         </a>
+        {{else}}
+        <a href="#/profiles/{{unbound this.id}}">
+
+            <img {{bindAttr src= this.photo_url}} style="width: 100%; height: 100%"/>
+        </a>
+        {{/if}}
     </div>
 
     <div style="position:relative; height:35px; line-height: 35px;margin: 50px auto 5px;">
@@ -20,9 +27,13 @@
         </span>
     </div>
 
-    <div  type="button" class="new-btn green-btn" style="margin: auto;width: 80px;display: block;height: 22px;line-height: 20px;">
-        <k class="icon-plus" style="font-size:11px">&nbsp;</k>Follow
-    </div>
+    {{#if this.follow_status}}
+
+    <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;"{{action followThisUser this}}><i class='icon-circle-blank' >&nbsp; </i> Following</div>
+    {{else}}
+    <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;"{{action followThisUser this}}><i class='icon-plus' >&nbsp; </i> Follow</div>
+
+    {{/if}}
 
     <div style="position:relative; background-color: #f3f3f3; height: 25px; width:100%;margin-top: 10px;">
         <ul class="locationandlinks" style="font-size: 12px;height: 20px;margin: 2px auto;width: 100%;line-height: 10px;">

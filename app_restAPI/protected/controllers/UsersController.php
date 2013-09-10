@@ -106,6 +106,7 @@ class UsersController extends Controller {
             $oldRecord['user'][0]['about_me'] = $request_arr['user']['about_me'];
             $oldRecord['user'][0]['facebook_link'] = $newRecord['facebook_link'];
             $oldRecord['user'][0]['twitter_link'] = $newRecord['twitter_link'];
+            $oldRecord['user'][0]['linkedin_link'] = $newRecord['linkedin_link'];
             $oldRecord['user'][0]['googleplus_link'] = $newRecord['googleplus_link'];
             $oldRecord['user'][0]['pinterest_link'] = $newRecord['pinterest_link'];
             
@@ -198,11 +199,11 @@ class UsersController extends Controller {
             
         } 
 
-//        if ($mode == 'profile_hero') {
-//            $smallimage = $photoController->savePhotoInTypes($orig_size, 'hero', $photo_name, $compressed_photo, $data_arr, $owner_id, $mode);
-//            $oldRecord['profile'][0]['profile_hero_cover_url'] = null;
-//            $oldRecord['profile'][0]['profile_hero_cover_url'] = $smallimage;
-//        }
+        if ($mode == 'user_picture') {
+            $smallimage = $photoController->savePhotoInTypes($orig_size, 'user_small', $photo_name, $compressed_photo, $data_arr, $user_id);
+            $oldRecord['user'][0]['photo_url'] = null;
+            $oldRecord['user'][0]['photo_url'] = $smallimage;
+        }
 
         $url = $this->getDomain() . '/users/' . $user_id;
 

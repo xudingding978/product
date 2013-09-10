@@ -131,7 +131,7 @@ if (BrowserDetect.browser === "Chrome" && BrowserDetect.version >= 25)
 } else if (BrowserDetect.browser === "Safari" && BrowserDetect.version >= 5.1)
 {
     browerAllow = true;
-} else if (BrowserDetect.browser === "Opera" && BrowserDetect.version >= 15)
+} else if (BrowserDetect.browser === "Opera" && BrowserDetect.version >= 12) /* WAS '15' temp fix need to double check browser css3/htm5 prior to push */
 {
     browerAllow = true;
 }

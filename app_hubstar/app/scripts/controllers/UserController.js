@@ -56,17 +56,17 @@ HubStar.UserController = Ember.Controller.extend({
     CurrentImageSize: "",
     RequiredImageSize: "",
     UploadImageMode: "",
-    userSelf: false,
+    isUserSelf: false,
     init: function()
 
     {
         //console.log("ssssssssssss");
         this.setUser();       
     },
-    userSelfOrNot: function(currentUserID) {
-        this.set("userSelf",false);
+    isUserSelfOrNot: function(currentUserID) {
+        this.set("isUserSelf",false);
         if(currentUserID===localStorage.loginStatus){
-             this.set("userSelf",true);
+             this.set("isUserSelf",true);
         }
     },
     getCurrentUser: function()
@@ -104,7 +104,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('cover_url', user.get('cover_url'));
         this.set('photo_url', user.get('photo_url'));
         this.set('photo_url_large', user.get('photo_url_large'));
-        this.userSelfOrNot(this.get("currentUserID"));
+        this.isUserSelfOrNot(this.get("currentUserID"));
         this.isFollowed();
         if (this.get("collections").objectAt(0) !== null && typeof this.get("collections").objectAt(0) !== 'undefined') {
             this.setDesc(this.get("collections").objectAt(0).get("desc"));

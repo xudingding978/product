@@ -46,9 +46,10 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
                 {
                     dataNew["displayOrNot"] = false;
                 }
-                dataNew["userSelf"]=false;
+                dataNew["isUserSelf"]=false;
                 if (dataNew["id"] === localStorage.loginStatus) {
-                    dataNew["userSelf"]=true;
+                    
+                    dataNew["isUserSelf"]=true;
                 }
                 //console.log(dataNew);
                 that.get("content").pushObject(dataNew);

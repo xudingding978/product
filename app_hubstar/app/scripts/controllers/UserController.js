@@ -152,7 +152,7 @@ HubStar.UserController = Ember.Controller.extend({
 
         if (this.get('is_Photoclick') === false) {
             this.set('is_Photoclick', true);
-            $('#lip-front').hide();
+            $('#flip-front').hide();
             $('#user-photo_left').hide();
             $('#user-photo_left-back').show();
             this.setUploadImageMode(mode);
@@ -163,7 +163,7 @@ HubStar.UserController = Ember.Controller.extend({
     userPhotoEditBackButton: function() {
         if (this.get('is_Photoclick') === true) {
             this.set('is_Photoclick', false);
-           $('#lip-front').show();
+           $('#flip-front').show();
             $('#user-photo_left').show();
             $('#user-photo_left-back').hide();
 
@@ -364,7 +364,7 @@ HubStar.UserController = Ember.Controller.extend({
             var patternUrl = /^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([\w]+)(.[\w]+){1,2}$/;
             var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
             document.getElementById(checkList[i].id).style.border = '';
-            console.log(checkList[i].id);
+           // console.log(checkList[i].id);
             if (checkList[i].input.length > checkList[i].length)
             {
 
@@ -652,7 +652,7 @@ HubStar.UserController = Ember.Controller.extend({
     {
         var target = getTarget(e, "single");
         var src = target.result;
-        console.log(src);
+       // console.log(src);
         var that = this;
         
       

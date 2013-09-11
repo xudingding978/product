@@ -216,8 +216,8 @@ class FollowersController extends Controller {
         //error_log(var_export($like_arr[0],true));
         $like_user = $likeArr[0];
         $like_arr = $likeArr[1];
-        error_log(var_export($like_user, true));
-        error_log(var_export($like_arr, true));
+        //error_log(var_export($like_user, true));
+        //error_log(var_export($like_arr, true));
         // $like = CJSON::decode(file_get_contents('php://input'));
         //$like_arr = CJSON::decode($like, true);
         //error_log(var_export($like_arr, true));

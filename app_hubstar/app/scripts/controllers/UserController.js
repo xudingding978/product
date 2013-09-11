@@ -125,17 +125,22 @@ HubStar.UserController = Ember.Controller.extend({
         else {
             this.set('userFollowerStatistics', 0);
         }
-
+          if (user.get("followings") !== null) {
+            this.set('userFollowingStatistics', user.get("followings").get("length"));
+        }
+        else {
+            this.set('userFollowingStatistics', 0);
+        }
         this.statstics();
     },
     statstics: function()
     {
         if (this.get("collections").get("length") !== 0) {
-            this.set('profileCollectionStatistics', this.get("collections").get("length"));
+            this.set('userCollectionStatistics', this.get("collections").get("length"));
         }
         else
         {
-            this.set('profileCollectionStatistics', 0);
+            this.set('userCollectionStatistics', 0);
         }
     },
     userDashboardButton: function(mode) {
@@ -285,7 +290,7 @@ HubStar.UserController = Ember.Controller.extend({
             } else {
                 this.get('controllers.applicationFeedback').statusObserver(null, "invalide characters...");
             }
-
+             this.statstics();
         }
 //        else {
 //            isExsinting = true;
@@ -372,8 +377,8 @@ HubStar.UserController = Ember.Controller.extend({
         checkList.push(linkedin);
         var youtube = new checkObject("youtube", this.get('youtube'), 128, true, null);
         checkList.push(youtube);
-        var password = new checkObject("password", this.get('password'), 128, null, null);
-        checkList.push(password);
+//        var password = new checkObject("password", this.get('password'), 128, null, null);
+//        checkList.push(password);
 
         var result;
 
@@ -382,16 +387,18 @@ HubStar.UserController = Ember.Controller.extend({
             var patternUrl = /^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([\w]+)(.[\w]+){1,2}$/;
             var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
             document.getElementById(checkList[i].id).style.border = '';
-            // console.log(checkList[i].id);
-            if (checkList[i].input.length > checkList[i].length)
+
+
+    if (checkList[i].input!==null&&checkList[i].input.length > checkList[i].length)
+
             {
 
                 result = false;
                 document.getElementById(checkList[i].id).style.border = '2px solid red';
                 break;
             }
-
-            if (checkList[i].isUrlValid === true)
+ 
+            if (checkList[i].input!==null&&checkList[i].isUrlValid === true)
             {
 
                 if (patternUrl.test(checkList[i].input) || checkList[i].input === "") {
@@ -403,10 +410,10 @@ HubStar.UserController = Ember.Controller.extend({
                     break;
                 }
             }
-            if (checkList[i].isEmailValid === true)
+            if (checkList[i].input!==null&&checkList[i].isEmailValid === true)
             {
 
-                if (patternEmail.test(checkList[i].input)) {
+                if (patternEmail.test(checkList[i].input|| checkList[i].input === "")) {
                     result = true;
                 }
                 else {
@@ -516,6 +523,7 @@ HubStar.UserController = Ember.Controller.extend({
         } else {
             this.set('willDelete', true);
         }
+         this.statstics();
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
@@ -766,3 +774,27 @@ HubStar.UserController = Ember.Controller.extend({
 
 
 );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -389,8 +389,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     newCollection: function()
     {
         var collection = HubStar.Collection.createRecord({"id": null, "title": null, "desc": null, "collection_ids": null, "createdAt": new Date()});
-        this.set("selectedCollection", collection);
-        // this.statstics();
+        this.set("selectedCollection", collection);        
     },
     toggleUpload: function() {
         $('.corpbanner_mask').toggleClass('hideClass');
@@ -587,6 +586,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
         HubStar.store.save();
     },
+                  
+            
     flipFrontClick: function() {
         $(".hover").addClass('flip');
         this.selectionForDashborad();

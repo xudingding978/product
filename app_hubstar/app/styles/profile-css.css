@@ -5,6 +5,13 @@
     box-shadow:        inset 1px 1px 3px #aaa;
 }
 
+.radius-circle{
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+}
 
 .nav-tabs a {
     color: #999;

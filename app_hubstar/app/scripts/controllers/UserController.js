@@ -123,27 +123,6 @@ HubStar.UserController = Ember.Controller.extend({
         this.checkAuthenticUser();
 
     },
-    /*
-     selectFollower: function(model) {
-     this.set('profileSelectionStatus', 'Partners');
-     this.get('controllers.profilePartners').getClientId(model);
-     this.set('collectionTag', false);
-     this.set('followerTag', true);
-     this.set('followingTag', false);
-     setTimeout(function() {
-     $('#masonry_user_container').masonry("reload");
-     }, 200);
-     },
-     selectFollowing: function(model) {
-     
-     this.get('controllers.profilePartners').getClientId(model);
-     this.set('collectionTag', false);
-     this.set('followerTag', false);
-     this.set('followingTag', true);
-     setTimeout(function() {
-     $('#masonry_user_container').masonry("reload");
-     }, 200);
-     },*/
     userDashboardButton: function() {
         if (this.get('is_click') === false) {
             this.set('is_click', true);

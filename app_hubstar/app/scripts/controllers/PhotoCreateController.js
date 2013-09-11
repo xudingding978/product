@@ -6,7 +6,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
     filesNumber: null,
     profileMega: null,
     uploadOrsubmit: false,
-    fileSize:null,
+    fileSize: null,
     collection_id: "",
     needs: ['profile', 'masonryCollectionItems', 'photoCreateInfoSetting'],
     init: function() {
@@ -31,7 +31,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                 var fileSize = file.size;
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                    that.addPhotoObject(e, name, type,fileSize);
+                    that.addPhotoObject(e, name, type, fileSize);
                 }, reader.readAsDataURL(files[i]);
             })(files[i]);
             evt.preventDefault();
@@ -42,17 +42,16 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
         HubStar.set('isNewUpload', true);
         $('#dragAndDroppArea').attr('style', "display:none");
         var masonryCollectionItems = this.get('controllers.masonryCollectionItems');
-        
+
         masonryCollectionItems.back();
     },
-            
-                photoUpload: function()
+    photoUpload: function()
     {
 
         HubStar.set('isNewUpload', false);
-       
+
         var masonryCollectionItems = this.get('controllers.masonryCollectionItems');
-        this.set("fileSize",0);
+        this.set("fileSize", 0);
         masonryCollectionItems.photoUpload();
     },
     setMega: function() {
@@ -107,77 +106,88 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
             "view_count": null
         });
         return photoMega;
-    }, addPhotoObject: function(e, name, type,size) {
-              var fileSize=this.get("fileSize");
-              var addPhoto = true;
-             //  console.log(fileSize+"size");
-            if((fileSize===null)||(fileSize==="undefined")||(fileSize==="NaN"))
-            {
-                  this.set("fileSize", size);
+    }, setFileSize: function(size)
+    {
+        var fileSize = this.get("fileSize");
+        var addPhoto = true;
+        //  console.log(fileSize+"size");
+        if ((fileSize === null) || (fileSize === "undefined") || (fileSize === "NaN"))
+        {
+            this.set("fileSize", size);
 
-            }
-            else 
+        }
+        else
+        {
+            if (fileSize + size > 25000000)
             {
-                if(fileSize+size>25000000)
-                 {
-                     addPhoto = false;
-                   //  alert("please select a small image");
-                 }
-                 else
-                {
-                        this.set("fileSize", size+fileSize);
-                }
+                addPhoto = false;
+                //  alert("please select a small image");
             }
-         fileSize=this.get("fileSize");
-  
+            else
+            {
+                this.set("fileSize", size + fileSize);
+            }
+        }
+        fileSize = this.get("fileSize");
+
         //   console.log(fileSize+"sdfdsf");
-        if((fileSize<=25000000)&&(addPhoto===true))
-           { 
-        var photoName = name.replace(/[)\(]/gi, '');
-        var testID = createGuid();
-        var target = this.getTarget(e);
-        var src = target.result;
-        var mega = this.createNewMega(this.get("profileMega"), testID);
-        var keywords = this.get("profileMega").get("profile_keywords");
-        var file = HubStar.Photo.createRecord({
-            "id": testID,
-            "photo_title": photoName.toLowerCase(),
-            "photo_source_id": photoName.toLowerCase().replace('.', "_"),
-            "photo_image_original_url": src,
-            "photo_file_name": photoName.toLowerCase(),
-            "photo_type": type,
-            "photo_keywords": keywords});
-        mega.get("photo").pushObject(file);
-        var that = this;
-        mega.addObserver('isSaving', function() {
-            if (mega.get('isSaving')) {
-                $('.' + file.get('photo_source_id')).attr("style", "display:block");
-            }
-            else {
-
-                HubStar.set("totalFiles", HubStar.get("totalFiles") + 1);
-                $('.' + file.get('photo_source_id')).attr("style", "display:none");
-                if (HubStar.get("totalFiles") === that.get("filesNumber")) {
-                    var masonryCollectionItems = that.get('controllers.masonryCollectionItems');
-                    var photoCreateInfoSettingController = that.get('controllers.photoCreateInfoSetting');
-                    HubStar.set('UploadImageInfoData', masonryCollectionItems.get("uploadImageContent"));
-                    photoCreateInfoSettingController.setData();
-                    photoCreateInfoSettingController.set('isEditingMode', true);
-                    masonryCollectionItems.set('uploadOrsubmit', !masonryCollectionItems.get('uploadOrsubmit'));
-                    
-                    this.set("fileSize", 0);
+        if ((fileSize <= 25000000) && (addPhoto === true))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    },
+    addPhotoObject: function(e, name, type, size) {
+        if (this.setFileSize(size))
+        {
+            var photoName = name.replace(/[)\(]/gi, '');
+            var testID = createGuid();
+            var target = this.getTarget(e);
+            var src = target.result;
+            var mega = this.createNewMega(this.get("profileMega"), testID);
+            var keywords = this.get("profileMega").get("profile_keywords");
+            var file = HubStar.Photo.createRecord({
+                "id": testID,
+                "photo_title": photoName.toLowerCase(),
+                "photo_source_id": photoName.toLowerCase().replace('.', "_"),
+                "photo_image_original_url": src,
+                "photo_file_name": photoName.toLowerCase(),
+                "photo_type": type,
+                "photo_keywords": keywords});
+            mega.get("photo").pushObject(file);
+            var that = this;
+            mega.addObserver('isSaving', function() {
+                if (mega.get('isSaving')) {
+                    $('.' + file.get('photo_source_id')).attr("style", "display:block");
                 }
-            }
-        });
-        var masonryCollectionItemsController = this.get('controllers.masonryCollectionItems');
-        masonryCollectionItemsController.get("uploadImageContent").addObject(file);
-           }
-           else
-            {
-                addPhoto = true;
-                //this.set("fileSize", 0);
-                 alert("The limit size of uploading is 25MB");
-            }
+                else {
+
+                    HubStar.set("totalFiles", HubStar.get("totalFiles") + 1);
+                    $('.' + file.get('photo_source_id')).attr("style", "display:none");
+                    if (HubStar.get("totalFiles") === that.get("filesNumber")) {
+                        var masonryCollectionItems = that.get('controllers.masonryCollectionItems');
+                        var photoCreateInfoSettingController = that.get('controllers.photoCreateInfoSetting');
+                        HubStar.set('UploadImageInfoData', masonryCollectionItems.get("uploadImageContent"));
+                        photoCreateInfoSettingController.setData();
+                        photoCreateInfoSettingController.set('isEditingMode', true);
+                        masonryCollectionItems.set('uploadOrsubmit', !masonryCollectionItems.get('uploadOrsubmit'));
+
+                        this.set("fileSize", 0);
+                    }
+                }
+            });
+            var masonryCollectionItemsController = this.get('controllers.masonryCollectionItems');
+            masonryCollectionItemsController.get("uploadImageContent").addObject(file);
+        }
+        else
+        {
+            addPhoto = true;
+            //this.set("fileSize", 0);
+            alert("The limit size of uploading is 25MB");
+        }
     },
     getTarget: function(obj) {
         var targ;
@@ -200,7 +210,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
         if (HubStar.get('isNewUpload')) {
             this.set('content', []);
             HubStar.set('isNewUpload', false);
-        } 
+        }
     }
 
 

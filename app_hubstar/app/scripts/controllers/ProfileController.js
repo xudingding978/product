@@ -507,7 +507,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             "follower_id": commenter_id, "name": name, "time_stamp": date.toString(), "is_delete": false});
     },
     selectCollection: function() {
-        this.set('profileSelectionStatus', 'Collections');
+        this.set('partnerPage', 'Collections');
+
         this.set('partnerTag', false);
         this.set('collectionTag', true);
         this.set('followerTag', false);
@@ -579,6 +580,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
         HubStar.store.save();
     },
+                  
+            
     flipFrontClick: function() {
         $(".hover").addClass('flip');
         this.selectionForDashborad();

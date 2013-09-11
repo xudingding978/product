@@ -966,12 +966,13 @@
 }
 /* top naviagtion specific styling */
 .top-controlbar div.icon-on-black{height:auto;}
-.top-controlbar .icon-on-black > i, .top-controlbar .icon-on-black > span{margin:4px 0;}
+.top-controlbar .icon-on-black > i, .top-controlbar .icon-on-black > span{margin:10px 0;}
 .top-controlbar .icon-on-black > span
 {
-    text-indent:28px;
-    line-height:20px;
-    font-size:14px;
+    text-indent: 25px;
+    line-height: 23px;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 

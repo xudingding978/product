@@ -116,7 +116,9 @@ HubStar.UserController = Ember.Controller.extend({
         this.checkAuthenticUser();
 
     },
+
     userDashboardButton: function(mode) {
+
         if (this.get('is_click') === false) {
             this.set('is_click', true);
  
@@ -344,8 +346,8 @@ HubStar.UserController = Ember.Controller.extend({
         checkList.push(linkedin);
         var youtube = new checkObject("youtube", this.get('youtube'), 128, true, null);
         checkList.push(youtube);
-        var password = new checkObject("password", this.get('password'), 128, null, null);
-        checkList.push(password);
+//        var password = new checkObject("password", this.get('password'), 128, null, null);
+//        checkList.push(password);
 
         var result;
 
@@ -354,16 +356,16 @@ HubStar.UserController = Ember.Controller.extend({
             var patternUrl = /^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([\w]+)(.[\w]+){1,2}$/;
             var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
             document.getElementById(checkList[i].id).style.border = '';
-           // console.log(checkList[i].id);
-            if (checkList[i].input.length > checkList[i].length)
+
+    if (checkList[i].input!==null&&checkList[i].input.length > checkList[i].length)
             {
 
                 result = false;
                 document.getElementById(checkList[i].id).style.border = '2px solid red';
                 break;
             }
-
-            if (checkList[i].isUrlValid === true)
+ 
+            if (checkList[i].input!==null&&checkList[i].isUrlValid === true)
             {
 
                 if (patternUrl.test(checkList[i].input) || checkList[i].input === "") {
@@ -375,10 +377,10 @@ HubStar.UserController = Ember.Controller.extend({
                     break;
                 }
             }
-            if (checkList[i].isEmailValid === true)
+            if (checkList[i].input!==null&&checkList[i].isEmailValid === true)
             {
 
-                if (patternEmail.test(checkList[i].input)) {
+                if (patternEmail.test(checkList[i].input|| checkList[i].input === "")) {
                     result = true;
                 }
                 else {
@@ -729,3 +731,27 @@ HubStar.UserController = Ember.Controller.extend({
 
 
 );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

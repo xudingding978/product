@@ -20,6 +20,11 @@ HubStar.UserController = Ember.Controller.extend({
     needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings'],
     facebook: "",
     twitter: "",
+    follow_status: false,
+    following_status: false,
+    userCollectionStatistics:"",
+    userFollowingStatistics:"",
+    userFollowerStatistics:"",
     googleplus: "",
     pinterest: "",
     linkedin: "",
@@ -54,6 +59,7 @@ HubStar.UserController = Ember.Controller.extend({
     init: function()
 
     {
+        
         this.setUser();
 
     },
@@ -109,7 +115,10 @@ HubStar.UserController = Ember.Controller.extend({
             }
         }
         this.checkAuthenticUser();
-
+       
+    },
+    initStastics: function(){
+         this.set('profilePartnerStatistics', 0);
     },
     userDashboardButton: function(mode) {
         if (this.get('is_click') === false) {
@@ -117,7 +126,7 @@ HubStar.UserController = Ember.Controller.extend({
  
             $('#user-board_right_front').hide();
             $('#user-board_right_back').show();
-            $('.#change_profile').hide();
+            $('#change_profile').hide();
             this.setUploadImageMode(mode);
 
         }
@@ -191,12 +200,13 @@ HubStar.UserController = Ember.Controller.extend({
         return user;
     },
     checkingIdisExsinting: function(id, postOrPut) {
+
         var isExsinting;
+
         if (postOrPut === "create") {
 
             for (var i = 0; i < this.get("collections").get('length'); i++) {
                 if (this.get("collections").objectAt(i).id === id) {
-
                     isExsinting = false;
                 }
             }
@@ -287,6 +297,7 @@ HubStar.UserController = Ember.Controller.extend({
     },
     saveUpdate: function() {
         var update_user_record = this.getCurrentUser();
+
 
         if (this.isInputValid())
         {
@@ -389,6 +400,10 @@ HubStar.UserController = Ember.Controller.extend({
         }
         return result;
     },
+
+    
+    
+
     saveLink: function(link_url, link) {
 
         var http = "http://";
@@ -507,7 +522,6 @@ HubStar.UserController = Ember.Controller.extend({
     },
     updateCollectionInfo: function()
     {
-
         var id = this.checkingValidInput(this.selectedCollection.get('id'));
         var title = this.get("selectedCollection").get("title");
         this.get("selectedCollection").set("title", title);
@@ -602,38 +616,38 @@ HubStar.UserController = Ember.Controller.extend({
     },
     isFollowed: function()
     {
-        if (this.checkFollowStatus())
-        {
-            this.set('follow_status', true);
+
+
+        var currentUser = HubStar.User.find(localStorage.loginStatus);
+        var that = this;
+        if (currentUser.get('isLoaded')) {
+            //console.log('is foollwwed ');
+            that.get("controllers.userFollowers").checkFollowStatus(currentUser, that, null);
         }
         else {
-            this.set('follow_status', false);
+            currentUser.addObserver('isLoaded', function() {
+                if (currentUser.get('isLoaded')) {
+                    //console.log('is foollwwed ');
+                    that.get("controllers.userFollowers").checkFollowStatus(currentUser, that, null);
+                }
+            });
         }
+
     },
-    checkFollowStatus: function()
-    {
-        var isFollow = false;
-        var followers = this.get("model").get("followers");
-        for (var i = 0; i < followers.get('length'); i++) {
-            var follower_id = followers.objectAt(i).get("follower_id");
-            if (follower_id === localStorage.loginStatus)
-            {
-                isFollow = true;
-                break;
-            }
-        }
-        return isFollow;
-    },
+
+
+
     followThisUser: function() {
         var user_id = this.get('model').get('id');
-        if (this.checkFollowStatus() === false) {
-            this.get("controllers.userFollowers").followUser(user_id, this);
+        if (this.get("follow_status") === false) {
+            this.get("controllers.userFollowers").followUser(user_id, this, null);
             //this.get('controllers.profile')
         } else {
 
-            this.get("controllers.userFollowers").unFollowUser(user_id, this);
+            this.get("controllers.userFollowers").unFollowUser(user_id, this, null);
         }
     },
+ 
     profileStyleImageDrop: function(e, name)
     {
         var target = getTarget(e, "single");
@@ -672,7 +686,9 @@ HubStar.UserController = Ember.Controller.extend({
                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
                     if ((width >= params.width) && (height >= params.height))
                     {
+
                         that.setTempImage();
+
                         $('#uploadStyleImg').attr("style", "display:block");
                         var data1 = {"newStyleImageSource": that.get('newStyleImageSource'),
                             'newStyleImageName': that.get('newStyleImageName'),

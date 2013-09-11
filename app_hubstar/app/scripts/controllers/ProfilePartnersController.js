@@ -31,13 +31,11 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
                         that.get("content").pushObject(tempmega);
                     }      
                         var lastPositionId= HubStar.get('lastPositionId');
-              var lastPosition=HubStar.get("scrollPartenerPosition");
-              if(model.id===lastPositionId)
-                  {
-          
-                        $(window).scrollTop(lastPosition);
-
-                  }
+                        var lastPosition=HubStar.get("scrollPartenerPosition");
+                        if(model.id===lastPositionId)
+                      {
+                            $(window).scrollTop(lastPosition);
+                      }
 
                 }
             });      

@@ -306,9 +306,9 @@
 
 /*USERPAGE*/
 .user-cover{
-    background:#fff url('../../../images/defaultcover/defaultcover6.jpg') ;
+
     height: 150px; 
-    padding: 10px 40px;
+    overflow: hidden;
 }
 
 .user-cover:hover .edit-dashboard-btn{

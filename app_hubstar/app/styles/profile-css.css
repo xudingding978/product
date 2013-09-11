@@ -306,9 +306,9 @@
 
 /*USERPAGE*/
 .user-cover{
-    background:#fff url('../../../images/defaultcover/defaultcover6.jpg') ;
+
     height: 150px; 
-    padding: 10px 40px;
+    overflow: hidden;
 }
 
 .user-cover:hover .edit-dashboard-btn{
@@ -538,6 +538,21 @@ textarea.add-interests{
 
 .interest-textarea{width: 100%;margin-bottom: 5px;height: 70px;}
 
-.interest-insert-hint{display: none;height: 70px; width: 100%; margin: 5px auto 20px; border-radius: 6px; border: 1px solid #999;background-color: rgba(30,30,30,.3); color: #fff;line-height: 20px;text-align: center;padding: 6px 8px;font-weight: bold;font-size: 13px;}
+.interest-insert-hint{
+    display: none;
+    height: 80px; 
+    width: 100%; 
+    border-radius: 6px; 
+    border: 1px solid #999;
+    background-color: rgba(30,30,30,.3); 
+    color: #fff;
+    line-height: 15px;
+    text-align: center;
+    font-weight: bold;
+
+    margin: 5px auto 15px;
+    padding: 6px 20px;
+    font-size: 11px;
+}
 
 /* interest ENDS */

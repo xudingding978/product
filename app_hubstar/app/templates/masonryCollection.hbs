@@ -18,7 +18,9 @@
 
 
             <ul class="user-stats" id="user-stats">
-               
+                <li id="defualt" ><a {{action selectCollection}}> Collections<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.userCollectionStatistics}}</a></li>
+                <li ><a {{action selectFollowing this}}> Following<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.userFollowingStatistics}}</a></li>
+                <li><a {{action selectFollower this}}> Follower<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.userFollowerStatistics}}</a></li>
             </ul>
             {{/if}}    
 

@@ -149,7 +149,7 @@ HubStar.UserFollowersController = Ember.Controller.extend({
         }
     },
     followUser: function(user_id, that, follow_object) {
-
+        //console.log("ssssssssssssssssss");
         var date = new Date();
         var currentUser = localStorage.loginStatus;
         var tempComment = HubStar.Follower.createRecord({"follower_profile_pic_url": null,
@@ -164,11 +164,11 @@ HubStar.UserFollowersController = Ember.Controller.extend({
                 if (thatNew.get('followerTag') === true)
                 {
                     thisThis.getClientId(thatNew.get("model"));
-                    var currentUserNew = HubStar.User.find(localStorage.loginStatus);
-                    thisThis.checkFollowStatus(currentUserNew, thatNew, null);
-
+                       
                     //thatNew.set('follow_status', true);
                 }
+                var currentUserNew = HubStar.User.find(localStorage.loginStatus);            
+                thisThis.checkFollowStatus(currentUserNew, thatNew, null);
             }
             else
             {
@@ -182,7 +182,7 @@ HubStar.UserFollowersController = Ember.Controller.extend({
                 else
                 {
                     followers.addObserver('isLoaded', function() {
-                        console.log("following");
+                      
                         if (followers.get('isLoaded')) {
                             thisThis.checkFollowStatus(currentUser, followers, follow_object);
                            
@@ -217,10 +217,11 @@ HubStar.UserFollowersController = Ember.Controller.extend({
                 if (thatNew.get('followerTag') === true)
                 {
                     thatNew.get('controllers.userFollowers').getClientId(that.get("model"));
-                    var currentUserNew = HubStar.User.find(localStorage.loginStatus);
-                    thisThis.checkFollowStatus(currentUserNew, thatNew, null);
+                           
                     //thatNew.set('follow_status', false);
                 }
+                 var currentUserNew = HubStar.User.find(localStorage.loginStatus);           
+                thisThis.checkFollowStatus(currentUserNew, thatNew, null);
             }
             else
             {
@@ -233,7 +234,7 @@ HubStar.UserFollowersController = Ember.Controller.extend({
                 }
                 else {
                     followers.addObserver('isLoaded', function() {
-                        console.log("following");
+                        
                         if (followers.get('isLoaded')) {
                             thisThis.checkFollowStatus(currentUser, followers, follow_object);
                             

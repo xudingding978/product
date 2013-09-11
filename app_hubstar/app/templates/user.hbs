@@ -10,31 +10,41 @@
                      <k class="icon-edit" {{action showInterests  target="view" on="click"}}></k>         
                 </div>  
 
-
+                {{/if}}
                 <img {{bindAttr src="controller.user.photo_url_large"}} style="vertical-align: top"/>
 
-                {{/if}}
+
+
             </div>
 
             {{#if controller.follow_status}}
+            {{#if controller.following_status}}
+            <div href="#question_modal" role="button" class="disabled-btn disabled-green follow-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;"{{action followThisUser}}><i class='icon-exchange' >&nbsp; </i> Following</div>
+            {{else}}
             <div href="#question_modal" role="button" class="disabled-btn disabled-green follow-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;"{{action followThisUser}}><i class='icon-circle-blank' >&nbsp; </i> Following</div>
+            {{/if}}
+
+            {{else}}
+            {{#if controller.following_status}}
+            <div href="#question_modal" role="button" class="new-btn green-btn follow-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;"{{action followThisUser}}><i class='icon-ok' >&nbsp; </i> Follow</div>
             {{else}}
             <div href="#question_modal" role="button" class="new-btn green-btn follow-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;"{{action followThisUser}}><i class='icon-plus' >&nbsp; </i> Follow</div>
-
+            {{/if}}
             {{/if}}
 
 
-            <div id="show_interest">
+            <div id="show_interest" >
 
                 <div class="show-interest easing">
                     <div style="font-weight: bold;line-height: 20px; color: #777; font-size: 17px;margin-bottom: 5px; display:inline-block;">INTEREST</div>
 
                     {{#if controller.is_authentic_user}}
+
                     <div class="edit-btn hint--rounded hint--bottom" style="height: 20px;line-height: 20px;margin:0;" data-hint="Edit Interest" {{action interestEdit controller.interests controller.interest}}>
                          <i class="icon-plus edit-btn" style="font-size:13px;margin:0;padding:9px 10px;"  {{action showInterestsUp  target="view" on="click"}}></i>
                     </div>
                     {{/if}}
-                    <k id="interest_btn" class="icon-double-angle-up unvisible" style=" float: right;padding: 7px;" {{action showInterests target="view" on="click"}}></k>
+                    <k id="interest_btn" class="icon-double-angle-up unvisible"  style=" float: right;padding: 7px;" {{action showInterests target="view" on="click"}}></k>
 
                 </div>
 
@@ -42,22 +52,22 @@
 
                     {{#if controller.editingInterest}}
                     <div class="interest-textarea" style="">
-                        {{view Ember.TextArea valueBinding="interests"  id="" class="add-interests" }}
+                        {{view Ember.TextArea valueBinding="interests"  id="" class="add-interests"  }}
                     </div>
                     <div class="interest-insert-hint" style="">
                         Inset interest tags rules remind paragraph...
+
                     </div>
                     <div style="text-align: center;right: 15px;position: relative;">
                         <div class="new-btn" {{action no controller.interest}}><i style="position:absolute;top:0;left:0;width:33px;height:26px;line-height:26px;text-align:center;" class="icon-remove" {{action showInterestsUp target="view" on="click"}}></i></div>
                         <div class="new-btn blue-btn" {{action yes controller.interest}}><i style="position:absolute;top:0;left:0;width:33px;height:26px;line-height:26px;text-align:center;" class="icon-ok icon-white" {{action showInterestsUp target="view" on="click"}}></i></div>
                     </div>
 
+
                     {{else}}
 
                     {{#each controller.selected_topics}}
-
-                    <div class='hashtags' {{bindAttr id="interests"}}>{{interests}}{{#if controller.is_authentic_user}}<i class='remove-hashtages' {{action deleteTopic interests}}>x</i>{{/if}}</div>
-
+                    <div class='hashtags' {{bindAttr id="interests"}}>{{interests}} {{#if controller.is_authentic_user}}<i class='remove-hashtages' {{action deleteTopic interests}}>x</i>{{/if}}</div>
                     {{/each}}     
 
                     {{/if}}

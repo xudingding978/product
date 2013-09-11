@@ -464,6 +464,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
 
 
+
 //        if (this.checkFollowStatus() === false) {
 //            var currentUser = HubStar.User.find(localStorage.loginStatus);
 //            var commenter_profile_pic_url = currentUser.get('photo_url_large');
@@ -501,6 +502,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 //            this.set('follow_status', false);
 //        }
 //      HubStar.store.save();
+
     },
     socialLink: function(link) {
         var profile = HubStar.Profile.find(this.get('currentUserID'));
@@ -622,95 +624,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
         HubStar.store.save();
     },
-            
-//             isInputValid: function() {
-//
-//        function checkObject(id, input, length, isUrlValid, isEmailValid)
-//        {
-//            this.id = id;
-//            this.input = input;
-//            this.length = length;
-//            this.isUrlValid = isUrlValid;
-//            this.isEmailValid = isEmailValid;
-//        }
-//        var checkList = new Array();
-//
-//
-//        var name = new checkObject("name", this.get('name'), 128, null, null);
-//        checkList.push(name);
-//        var address = new checkObject("address", this.get('address'), 256, null, null);
-//        checkList.push(address);
-//        var contact_email = new checkObject("contact_email", this.get('contact_email'), 128, null, true);
-//        checkList.push(contact_email);
-//        var secondary_email = new checkObject("secondary_email", this.get('secondary_email'), 128, null, true);
-//        checkList.push(secondary_email);
-//        var direct_enquiry_provide_email = new checkObject("direct_enquiry_provide_email", this.get('direct_enquiry_provide_email'), 128, null, true);
-//        checkList.push(direct_enquiry_provide_email);
-//        var editors = new checkObject("editors", this.get('editors'), 128, null, true);
-//        checkList.push(editors);
-//        var direct_enquiry_provide_email = new checkObject("direct_enquiry_provide_email", this.get('direct_enquiry_provide_email'), 128, null, true);
-//        checkList.push(direct_enquiry_provide_email);
-//        
-//        var facebook = new checkObject("facebook", this.get('facebook'), 128, true, null);
-//        checkList.push(facebook);
-//        var twitter = new checkObject("twitter", this.get('twitter'), 128, true, null);
-//        checkList.push(twitter);
-//        var googleplus = new checkObject("googleplus", this.get('googleplus'), 128, true, null);
-//        checkList.push(googleplus);
-//        var pinterest = new checkObject("pinterest", this.get('pinterest'), 128, true, null);
-//        checkList.push(pinterest);
-//        var linkedin = new checkObject("linkedin", this.get('linkedin'), 128, true, null);
-//        checkList.push(linkedin);
-//        var youtube = new checkObject("youtube", this.get('youtube'), 128, true, null);
-//        checkList.push(youtube);
-////        var password = new checkObject("password", this.get('password'), 128, null, null);
-////        checkList.push(password);
-//
-//        var result;
-//
-//        for (var i = 0; i < checkList.length; i++)
-//        {
-//            var patternUrl = /^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([\w]+)(.[\w]+){1,2}$/;
-//            var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
-//            document.getElementById(checkList[i].id).style.border = '';
-//
-//            if (checkList[i].input.length > checkList[i].length)
-//            {
-//
-//                result = false;
-//                document.getElementById(checkList[i].id).style.border = '2px solid red';
-//                break;
-//            }
-//
-//            if (checkList[i].isUrlValid === true)
-//            {
-//
-//                if (patternUrl.test(checkList[i].input) || checkList[i].input === "") {
-//                    result = true;
-//                }
-//                else {
-//                    result = false;
-//                    document.getElementById(checkList[i].id).style.border = '2px solid red';
-//                    break;
-//                }
-//            }
-//            if (checkList[i].isEmailValid === true)
-//            {
-//
-//                if (patternEmail.test(checkList[i].input)) {
-//                    result = true;
-//                }
-//                else {
-//                    result = false;
-//                    document.getElementById(checkList[i].id).style.border = '2px solid red';
-//                    break;
-//                }
-//            }
-//        }
-//        return result;
-//    },
-            
-            
+                  
             
     flipFrontClick: function() {
         $(".hover").addClass('flip');

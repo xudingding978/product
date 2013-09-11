@@ -84,7 +84,7 @@
                                                 <img {{bindAttr src= model.profile_pic_url}} style="border:5px solid white;box-shadow: 0px 0px 5px #888;">
                                             </div>
                                             {{#if controller.follow_status}}
-                                            <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin:10px auto;display: block;width: 150px;"{{action followThisProfile}}><i class='icon-circle-blank' >&nbsp; </i> Following</div>
+                                            <div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin:10px auto;display: block;width: 150px;"{{action followThisProfile}}><i class='icon-circle-blank' >&nbsp; </i> Following</div>
                                             {{else}}
                                             <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin:10px auto;display: block;width: 150px;"{{action followThisProfile}}><i class='icon-plus' >&nbsp; </i> Follow</div>
 
@@ -694,9 +694,9 @@
                                 {{controller.UploadImageMode}} 
 
                             </p>
-                            <span style='font-size: 20px;display: block;line-height: 25px;'>Please select one photo for your choice.</span>   
-                            <span style='font-size: 20px;display: block;line-height: 25px;'> {{controller.RequiredImageSize}}</span>
-                            <span style='font-size: 20px;display: block;line-height: 25px;'> {{controller.CurrentImageSize}}</span>
+                            <span style='font-size: 17px;display: block;line-height: 25px;'>Please select one photo for your choice.</span>   
+                            <span style='font-size: 17px;display: block;line-height: 25px;'> {{controller.RequiredImageSize}}</span>
+                            <span style='font-size: 17px;display: block;line-height: 25px;'> {{controller.CurrentImageSize}}</span>
 
                         </div>
                         <div class="new-btn blue-btn" style="margin: auto; width: 200px; top: 550px; position: absolute;left: 0;">

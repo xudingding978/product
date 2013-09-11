@@ -100,7 +100,7 @@ class UsersController extends Controller {
             $oldRecord['user'][0]['selected_topics'] = $newRecord['selected_topics'];
 
             $oldRecord['user'][0]['collections'] = $request_arr['user']['collections'];
-            $oldRecord['user'][0]['photo_url'] = $request_arr['user']['photo_url'];
+           // $oldRecord['user'][0]['photo_url'] = $request_arr['user']['photo_url'];
             $oldRecord['user'][0]['description'] = $request_arr['user']['description'];
             $oldRecord['user'][0]['display_name'] = $request_arr['user']['display_name'];
             $oldRecord['user'][0]['about_me'] = $request_arr['user']['about_me'];
@@ -196,6 +196,11 @@ class UsersController extends Controller {
 
             $oldRecord['user'][0]['photo_url_large'] = null;
             $oldRecord['user'][0]['photo_url_large'] = $url;
+            
+        }  else  if ($mode == 'user_cover') {
+
+            $oldRecord['user'][0]['cover_url'] = null;
+            $oldRecord['user'][0]['cover_url'] = $url;
             
         } 
 

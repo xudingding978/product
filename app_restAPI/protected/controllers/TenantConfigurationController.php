@@ -50,6 +50,9 @@ class TenantConfigurationController extends Controller {
        elseif($requireType=="User Picture"){
                $requireType='photo_url_large';
       }
+      elseif($requireType=="User Cover"){
+               $requireType='cover_url';
+      }
       
 
         $domain = $this->getDomain();

@@ -211,7 +211,7 @@ class Controller extends CController {
     }
 
     protected function performSearch($returnType, $region, $requestString, $from = 0, $size = 50, $noUser = false) {
-        error_log('$noUser ' . $noUser);
+
         $requestArray = array();
         if ($region != null && $region != "") {
             $requestStringOne = 'couchbaseDocument.doc.region=' . $region;
@@ -255,6 +255,7 @@ class Controller extends CController {
 //            $bool->must_not($must);
 //        }
         $request->query($bool);
+
         $response = $request->execute();
         //    CJSON::encode($hit['source']['doc']);
         //   return $response;
@@ -442,7 +443,6 @@ class Controller extends CController {
     protected function getCollections($collections, $collection_id, $returnType) {
 
         $request_ids = $this->getSelectedCollectionIds($collections, $collection_id);
-        error_log($request_ids);
         $id_arr = explode(',', $request_ids);
         $header = '{"ids": { "values": [';
         $footer = ']}}';

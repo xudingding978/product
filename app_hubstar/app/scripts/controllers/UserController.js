@@ -117,7 +117,9 @@ HubStar.UserController = Ember.Controller.extend({
         this.checkAuthenticUser();
 
     },
+
     userDashboardButton: function(mode) {
+
         if (this.get('is_click') === false) {
             this.set('is_click', true);
  

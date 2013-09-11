@@ -514,7 +514,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         //      tempComment.store.commit();
     },
     selectCollection: function() {
-        this.set('profileSelectionStatus', 'Collections');
+        this.set('partnerPage', 'Collections');
 
         this.set('partnerTag', false);
         this.set('collectionTag', true);

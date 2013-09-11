@@ -118,7 +118,6 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                 if(fileSize+size>25000000)
                  {
                      addPhoto = false;
-                   //  alert("please select a small image");
                  }
                  else
                 {
@@ -149,7 +148,6 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                 $('.' + file.get('photo_source_id')).attr("style", "display:block");
             }
             else {
-
                 HubStar.set("totalFiles", HubStar.get("totalFiles") + 1);
                 $('.' + file.get('photo_source_id')).attr("style", "display:none");
                 if (HubStar.get("totalFiles") === that.get("filesNumber")) {
@@ -158,8 +156,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                     HubStar.set('UploadImageInfoData', masonryCollectionItems.get("uploadImageContent"));
                     photoCreateInfoSettingController.setData();
                     photoCreateInfoSettingController.set('isEditingMode', true);
-                    masonryCollectionItems.set('uploadOrsubmit', !masonryCollectionItems.get('uploadOrsubmit'));
-                    
+                    masonryCollectionItems.set('uploadOrsubmit', !masonryCollectionItems.get('uploadOrsubmit')); 
                     this.set("fileSize", 0);
                 }
             }
@@ -170,7 +167,6 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
            else
             {
                 addPhoto = true;
-                //this.set("fileSize", 0);
                  alert("The limit size of uploading is 25MB");
             }
     },

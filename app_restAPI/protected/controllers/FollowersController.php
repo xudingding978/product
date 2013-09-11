@@ -136,8 +136,12 @@ class FollowersController extends Controller {
                     $newRecord[$i]['record_id'] = $id;
                     $newRecord[$i]['name'] = $oldRecordDeep['user'][0]["first_name"] . " " . $oldRecordDeep['user'][0]["last_name"];
                     $newRecord[$i]['photo_url'] = $oldRecordDeep['user'][0]["photo_url"];
-                    $newRecord[$i]['photo_url_large'] = $oldRecordDeep['user'][0]["cover_url"];
-                    
+                    if (isset($oldRecordDeep['user'][0]["cover_url"])) {
+                        $newRecord[$i]['photo_url_large'] = $oldRecordDeep['user'][0]["cover_url"];
+                    } else {
+                        $newRecord[$i]['photo_url_large'] = null;
+                    }
+
                     if (!isset($oldRecordDeep['user'][0]["collections"])) {
                         $newRecord[$i]['collections_size'] = 0;
                     } else {
@@ -212,8 +216,8 @@ class FollowersController extends Controller {
         //error_log(var_export($like_arr[0],true));
         $like_user = $likeArr[0];
         $like_arr = $likeArr[1];
-        error_log(var_export($like_user, true));
-        error_log(var_export($like_arr, true));
+        //error_log(var_export($like_user, true));
+        //error_log(var_export($like_arr, true));
         // $like = CJSON::decode(file_get_contents('php://input'));
         //$like_arr = CJSON::decode($like, true);
         //error_log(var_export($like_arr, true));
@@ -249,7 +253,11 @@ class FollowersController extends Controller {
                         $newRecord[$i]['record_id'] = $id;
                         $newRecord[$i]['name'] = $oldRecordDeep['user'][0]["first_name"] . " " . $oldRecordDeep['user'][0]["last_name"];
                         $newRecord[$i]['photo_url'] = $oldRecordDeep['user'][0]["photo_url"];
-                        $newRecord[$i]['photo_url_large'] = $oldRecordDeep['user'][0]["cover_url"];
+                        if (isset($oldRecordDeep['user'][0]["cover_url"])) {
+                            $newRecord[$i]['photo_url_large'] = $oldRecordDeep['user'][0]["cover_url"];
+                        } else {
+                            $newRecord[$i]['photo_url_large'] = null;
+                        }
                         if (!isset($oldRecordDeep['user'][0]["collections"])) {
                             $newRecord[$i]['collections_size'] = 0;
                         } else {
@@ -308,7 +316,7 @@ class FollowersController extends Controller {
                         $newRecord[$i]['name'] = $oldRecordDeep['profile'][0]["profile_name"];
                         $newRecord[$i]['photo_url'] = $oldRecordDeep['profile'][0]["profile_pic_url"];
                         $newRecord[$i]['photo_url_large'] = $oldRecordDeep['profile'][0]["profile_bg_url"];
-                        $newRecord[$i]['following_status']=false;
+                        $newRecord[$i]['following_status'] = false;
                         if (!isset($oldRecordDeep['profile'][0]["collections"])) {
                             $newRecord[$i]['collections_size'] = 0;
                         } else {

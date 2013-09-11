@@ -51,11 +51,12 @@ HubStar.UserFollowersController = Ember.Controller.extend({
 
         if (follow_object.get("follow_status") === false)
         {
-            this.followUser(follow_object.get("id"), null, follow_object);
+            this.followUser(follow_object.get("id"), null, follow_object);            
         }
         else
         {
             this.unFollowUser(follow_object.get("id"), null, follow_object);
+            
         }
     },
     checkFollowStatus: function(currentUser, that, follow_object)

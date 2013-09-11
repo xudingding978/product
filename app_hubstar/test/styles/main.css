@@ -12181,44 +12181,6 @@ div.form .rememberMe label
     clear:both;
 }
 
-.footer_contentbox {
-    width: 1000px;
-    margin: auto;
-    height: 220px;
-    position: relative;
-    top: 15px;
-}
-
-.footer-text-left {
-    text-align: right;
-    padding: 20px 0;
-    margin-right: 13px;
-    float: left;
-    font-size: 14px;
-    line-height: 20px;
-    color: #ccc;
-    width: 150px;
-
-}
-
-.footer-text-right {
-    text-align: left;
-    padding: 20px 0;
-    margin-left: 0px;
-    float: left;
-    font-size: 14px;
-    line-height: 20px;
-    color: #ccc;
-    width: 150px;
-}
-
-#footer ul {
-    list-style: none;
-
-}
-
-
-
 
 #back-top {
     position: fixed;

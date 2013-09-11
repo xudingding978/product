@@ -24,6 +24,9 @@ HubStar.UserController = Ember.Controller.extend({
     twitter: "",
     follow_status: false,
     following_status: false,
+    userCollectionStatistics:"",
+    userFollowingStatistics:"",
+    userFollowerStatistics:"",
     googleplus: "",
     pinterest: "",
     linkedin: "",
@@ -116,7 +119,10 @@ HubStar.UserController = Ember.Controller.extend({
             }
         }
         this.checkAuthenticUser();
-
+       
+    },
+    initStastics: function(){
+         this.set('profilePartnerStatistics', 0);
     },
     /*
      selectFollower: function(model) {

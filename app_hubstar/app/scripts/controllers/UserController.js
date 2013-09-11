@@ -22,6 +22,8 @@ HubStar.UserController = Ember.Controller.extend({
     needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings'],
     facebook: "",
     twitter: "",
+    follow_status: false,
+    following_status: false,
     googleplus: "",
     pinterest: "",
     linkedin: "",
@@ -55,6 +57,7 @@ HubStar.UserController = Ember.Controller.extend({
     init: function()
 
     {
+        
         this.setUser();
 
         //    this.selectCollection();
@@ -207,27 +210,10 @@ HubStar.UserController = Ember.Controller.extend({
         return user;
     },
     checkingIdisExsinting: function(id, postOrPut) {
-
-//        if (postOrPut === "update") {
-//            for (var i = 0; i < this.get("temp").get('length'); i++) {
-//
-//                if (this.get("temp").objectAt(i) === id) {
-//
-//                    isExsinting = false;
-//                }
-//            }
-//            if (!isExsinting) {
-//
-//                this.get('controllers.applicationFeedback').statusObserver(null, "This Collection is already exsiting!!!");
-//            }
-//        } else
-
-
         if (postOrPut === "create") {
 
             for (var i = 0; i < this.get("collections").get('length'); i++) {
                 if (this.get("collections").objectAt(i).id === id) {
-
                     isExsinting = false;
                 }
             }
@@ -314,6 +300,9 @@ HubStar.UserController = Ember.Controller.extend({
     },
     saveUpdate: function() {
         var update_user_record = this.getCurrentUser();
+
+     if(this.isInputValid() )
+      {
         update_user_record.set('collections', this.get('collections'));
         update_user_record.set('photo_url', this.get('coverImg'));
         update_user_record.set('description', this.get('description'));
@@ -323,15 +312,96 @@ HubStar.UserController = Ember.Controller.extend({
         this.saveLink('twitter_link', this.get('twitter'));
         this.saveLink('googleplus_link', this.get('googleplus'));
         this.saveLink('pinterest_link', this.get('pinterest'));
+        this.saveLink('linkedin_link', this.get('linkedin'));
         this.saveLink('youtube_link', this.get('youtube'));
         update_user_record.set('region', this.get('location'));
         update_user_record.set('email', this.get('email'));
         update_user_record.set('password', this.get('password'));
-        update_user_record.set('photo_url', user.get('photo_url'));
-        update_user_record.set('photo_url_large', user.get('photo_url_large'));
+        update_user_record.set('photo_url', this.get('photo_url'));
+        update_user_record.set('photo_url_large', this.get('photo_url_large'));
         this.get('controllers.applicationFeedback').statusObserver(null, "Updated Successfully!!!");
         HubStar.store.save();
+      }
     },
+           isInputValid:function(){
+       
+   function checkObject(id,input,length,isUrlValid,isEmailValid)
+   {
+       this.id=id;
+       this.input=input;
+       this.length=length;
+       this.isUrlValid=isUrlValid;
+       this.isEmailValid=isEmailValid;
+   }
+              var checkList= new Array();
+              
+              var displayName=new checkObject("displayName",this.get('display_name'),128,null,null);
+              checkList.push(displayName);
+              var email=new checkObject("email",this.get('email'),128,null,true);
+              checkList.push(email);
+              var aboutMe=new checkObject("aboutMe",this.get('aboutMe'),4096,null,null);
+              checkList.push(aboutMe);
+              var location=new checkObject("location",this.get('location'),128,null,null);
+              checkList.push(location);   
+              var facebook=new checkObject("facebook",this.get('facebook'),128,true,null);
+              checkList.push(facebook);      
+              var twitter=new checkObject("twitter",this.get('twitter'),128,true,null);
+              checkList.push(twitter);
+              var googleplus=new checkObject("googleplus",this.get('googleplus'),128,true,null);
+              checkList.push(googleplus);
+              var pinterest=new checkObject("pinterest",this.get('pinterest'),128,true,null);
+              checkList.push(pinterest);
+              var linkedin=new checkObject("linkedin",this.get('linkedin'),128,true,null);
+              checkList.push(linkedin);
+              var youtube=new checkObject("youtube",this.get('youtube'),128,true,null);
+              checkList.push(youtube);
+              var password=new checkObject("password",this.get('password'),128,null,null);
+              checkList.push(password);
+         
+             var result;
+                    
+             for(var i=0;i<checkList.length;i++)
+                 {
+                     var patternUrl = /^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([\w]+)(.[\w]+){1,2}$/;
+                      var patternEmail=/^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
+                     document.getElementById(checkList[i].id).style.border='';
+                 
+                     if(checkList[i].input.length>checkList[i].length)
+                        {       
+                            
+                       result= false; 
+                   document.getElementById(checkList[i].id).style.border='2px solid red';
+                       break;
+                          }
+
+                     if(checkList[i].isUrlValid===true)
+                      {
+                      
+                          if (patternUrl.test(checkList[i].input)|| checkList[i].input==="") {
+                                  result= true;
+                               } 
+                           else{
+                              result= false;
+                               document.getElementById(checkList[i].id).style.border='2px solid red';
+                               break;
+                            }
+                      }
+                      if(checkList[i].isEmailValid===true)
+                      {
+                      
+                          if (patternEmail.test(checkList[i].input)) {
+                                  result= true;
+                               } 
+                           else{
+                              result= false;
+                               document.getElementById(checkList[i].id).style.border='2px solid red';
+                               break;
+                            }
+                      }
+                 }      
+             return result;   
+       },
+    
     saveLink: function(link_url, link) {
 
         var http = "http://";
@@ -376,6 +446,7 @@ HubStar.UserController = Ember.Controller.extend({
         var re = /^[a-zA-Z-][a-zA-Z0-9-]*$/;
         return re.test(str);
     },
+           
     checkingValidInput: function(title) {
         if (title === null || title === "") {
         } else {
@@ -534,74 +605,88 @@ HubStar.UserController = Ember.Controller.extend({
     },
     isFollowed: function()
     {
-        if (this.checkFollowStatus())
-        {
-            this.set('follow_status', true);
+
+
+        var currentUser = HubStar.User.find(localStorage.loginStatus);
+        var that = this;
+        if (currentUser.get('isLoaded')) {
+            //console.log('is foollwwed ');
+            that.get("controllers.userFollowers").checkFollowStatus(currentUser, that, null);
         }
         else {
-            this.set('follow_status', false);
+            currentUser.addObserver('isLoaded', function() {
+                if (currentUser.get('isLoaded')) {
+                    //console.log('is foollwwed ');
+                    that.get("controllers.userFollowers").checkFollowStatus(currentUser, that, null);
+                }
+            });
         }
-    },
-    checkFollowStatus: function()
-    {
-        var isFollow = false;
-        var followers = this.get("model").get("followers");
-        for (var i = 0; i < followers.get('length'); i++) {
-            var follower_id = followers.objectAt(i).get("follower_id");
-            if (follower_id === localStorage.loginStatus)
-            {
-                isFollow = true;
-                break;
-            }
-        }
-        return isFollow;
-    },
-    followThisUser: function() {
-        var user_id = this.get('model').get('id');
-        if (this.checkFollowStatus() === false) {
-            this.get("controllers.userFollowers").followUser(user_id, this);
-        } else {
-            this.get("controllers.userFollowers").unFollowUser(user_id, this);
-        }
-    },
-//    followUser: function(user_id) {
-//
-//        var date = new Date();
-//        var currentUser = localStorage.loginStatus;
-//        var tempComment = HubStar.Follower.createRecord({"follower_profile_pic_url": null,
-//            "follower_id": currentUser, "name": null, "type": "user", "time_stamp": date.toString(), "is_delete": false});
-//
-//        var followArray = [user_id, tempComment];
-//        this.get("model").get("followers").insertAt(0, tempComment);
-//        var that =this;
-//        requiredBackEnd('followers', 'createUserFollower', followArray, 'POST', function() {
-//            if (that.get('followerTag') === true)
-//            {
-//                that.get('controllers.userFollowers').getClientId(that.get("model"));
-//            }
-//        });
-//        this.set('follow_status', true);
-//    },
-//    unFollowUser: function(user_id) {
-//        var currentUser = localStorage.loginStatus;
-//        var followArray = [currentUser, user_id];
-//        var update_record = this.get("model").get('followers');
-//        for (var i = 0; i < update_record.get('length'); i++)
+
+
+
+
+        //this.set('follow_status', this.checkFollowStatus());
+//        if (this.checkFollowStatus())
 //        {
-//            if (update_record.objectAt(i).get("follower_id") === currentUser)
+//            this.set('follow_status', true);
+//        }
+//        else {
+//            this.set('follow_status', false);
+//        }
+    },
+//    checkFollowStatus: function(currentUser)
+//    {
+//        var isFollow = 0;
+//        var followers = this.get("model").get("followers");
+//
+//        var followersCurrent = currentUser.get("followers");
+//        var followerIdCurrent;
+//
+//        for (var i = 0; i < followers.get('length'); i++) {
+//            var follower_id = followers.objectAt(i).get("follower_id");
+//            if (follower_id === localStorage.loginStatus)
 //            {
-//                this.get("model").get('followers').removeObject(update_record.objectAt(i));
+//                isFollow = 1;
+//                //console.log( followersCurrent.objectAt(0).get("follower_id"));
+//                for (var j = 0; j < followersCurrent.get("length"); j++)
+//                {
+//
+//                    followerIdCurrent = followersCurrent.objectAt(j).get("follower_id");
+//                    //console.log(followerIdCurrent);
+//                    if (followerIdCurrent === this.get("model").get("id"))
+//                    {
+//                        isFollow = 3;
+//                        break;
+//                    }
+//                }
+//                break;
 //            }
 //        }
-//        var that = this;
-//        requiredBackEnd('followers', 'deleteUserFollower', followArray, 'POST', function(params) {
-//            if (that.get('followerTag') === true)
+//        if (isFollow === 0)
+//        {
+//            for (var j = 0; j < followersCurrent.get("length"); j++)
 //            {
-//                that.get('controllers.userFollowers').getClientId(that.get("model"));
-//            }    
-//        });
-//        this.set('follow_status', false);
+//                followerIdCurrent = followersCurrent.objectAt(j), get("follower_id");
+//                if (followerIdCurrent === this.get("model").get("id"))
+//                {
+//                    isFollow = 2;
+//                    break;
+//                }
+//            }
+//        }
+//        return isFollow;
+//
 //    },
+    followThisUser: function() {
+        var user_id = this.get('model').get('id');
+        if (this.get("follow_status") === false) {
+            this.get("controllers.userFollowers").followUser(user_id, this, null);
+            //this.get('controllers.profile')
+        } else {
+
+            this.get("controllers.userFollowers").unFollowUser(user_id, this, null);
+        }
+    },
     uploadUserPhoto: function()
     {
 
@@ -648,11 +733,12 @@ HubStar.UserController = Ember.Controller.extend({
                 that.set('currentHeight', height);
 
                 var data = {"RequireIamgeType": that.get('UploadImageMode')};
+                console.log(data);
                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
                     if ((width >= params.width) && (height >= params.height))
                     {
                         that.set('photo_url_large', that.get('newStyleImageSource'));
-                       that.set('photo_url', that.get('newStyleImageSource'));
+                        that.set('photo_url', that.get('newStyleImageSource'));
                         that.get('model').set('photo_url_large', that.get('newStyleImageSource'));
                         that.get('model').set('photo_url', that.get('newStyleImageSource'));
                         $('#uploadStyleImg').attr("style", "display:block");

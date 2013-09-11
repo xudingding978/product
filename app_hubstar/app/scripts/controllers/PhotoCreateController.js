@@ -28,9 +28,10 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
             (function(file) {
                 var name = file.name;
                 var type = file.type;
+                var fileSize = file.size;
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                    that.addPhotoObject(e, name, type);
+                    that.addPhotoObject(e, name, type,fileSize);
                 }, reader.readAsDataURL(files[i]);
             })(files[i]);
             evt.preventDefault();
@@ -109,9 +110,11 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
     }, addPhotoObject: function(e, name, type,size) {
               var fileSize=this.get("fileSize");
               var addPhoto = true;
-            if(fileSize===null)
+             //  console.log(fileSize+"size");
+            if((fileSize===null)||(fileSize==="undefined")||(fileSize==="NaN"))
             {
                   this.set("fileSize", size);
+
             }
             else 
             {
@@ -125,6 +128,8 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                 }
             }
          fileSize=this.get("fileSize");
+  
+        //   console.log(fileSize+"sdfdsf");
         if((fileSize<=25000000)&&(addPhoto===true))
            { 
         var photoName = name.replace(/[)\(]/gi, '');

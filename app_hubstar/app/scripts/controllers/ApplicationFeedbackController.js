@@ -24,10 +24,9 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
         if (infoChecking !== null)
         {
             that.set("info", false);
-            that.set("succeed", false);
-            that.set("warnning", true);
+            that.set("succeed", true);
+            that.set("warnning", false);
             that.set("failed", false);
-
             that.setFeedback(infoChecking);
         } else {
             record.addObserver("isError", function() {

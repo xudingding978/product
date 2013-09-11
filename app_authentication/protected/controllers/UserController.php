@@ -59,8 +59,6 @@ class UserController extends Controller {
         $model = new User;
         if (isset($_POST['User'])) {
 
-
-
             $model->attributes = $_POST['User'];
             $model->REC_DATETIME = new CDbExpression('NOW()');
             $model->REC_TIMESTAMP = new CDbExpression('NOW()');
@@ -78,15 +76,9 @@ class UserController extends Controller {
             $temp["user"][0]["display_name"] = $model->USER_NAME;
             $temp["user"][0]["email"] = $model->EMAIL_ADDRESS;
             $temp["user"][0]["first_name"] = $model->FIRST_NAME;
-            $temp["user"][0]["last_name"] = $model->LAST_NAME;   
-
-
-
-
-
+            $temp["user"][0]["last_name"] = $model->LAST_NAME;
 
             $cb->add(substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.') + 1) . "/users/" . $rand_id, CJSON::encode($temp));
-
             Yii::app()->session['newUser'] = "new";
 
             if ($model->save()) {
@@ -96,18 +88,15 @@ class UserController extends Controller {
                 $identity->authenticate();
                 Yii::app()->user->login($identity, 0);
 
-            if (Yii::app()->session['newUser'] == "new") {
+                if (Yii::app()->session['newUser'] == "new") {
 
-                $this->render('welcome');
-                unset(Yii::app()->session['newUser']);
-            } else {
+                    $this->render('welcome');
+                    unset(Yii::app()->session['newUser']);
+                } else {
 
-                $this->render('close');
+                    $this->render('close');
+                }
             }
-
-             
-            }
-
         }
         $this->render('create', array(
             'model' => $model,
@@ -120,7 +109,6 @@ class UserController extends Controller {
      * @param integer $id the ID of the model to be updated
      */
     public function actionUpdate($id) {
-
 
         $model = $this->loadModel($id);
 
@@ -251,6 +239,10 @@ class UserController extends Controller {
         $datetime = date("Y-m-d H:i:s");
         $time_string = strtotime($datetime);
         return $time_string;
+    }
+
+    public function actionTest() {
+      $this->render('test');
     }
 
 }

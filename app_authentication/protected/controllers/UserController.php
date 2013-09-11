@@ -242,7 +242,7 @@ class UserController extends Controller {
     }
 
     public function actionTest() {
-        echo 'test';
+      $this->render('test');
     }
 
 }

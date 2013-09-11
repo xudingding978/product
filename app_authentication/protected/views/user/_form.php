@@ -43,6 +43,7 @@
 
 
     <div style="font-size: 11px; width: 250px; margin: auto;">
+
         By clicking Sign Up you indicate that you have read and agreed to the <a href='#'>Terms of Use</a> and <a href='#'>Privacy Policy </a>.
     </div>
 

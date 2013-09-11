@@ -733,15 +733,23 @@ HubStar.UserController = Ember.Controller.extend({
     },
     setTempImage: function() {
         var model = this.get('model');
+        var imageName=this.get('newStyleImageName').split('.');
+        var type = imageName[imageName.length-1];
         if (this.get('UploadImageMode') === "User Picture")
         {
             this.set('photo_url_large', this.get('newStyleImageSource'));
             this.set('photo_url', this.get('newStyleImageSource'));
+            
+            this.set('newStyleImageName', 'user_picture.'+type);
+            
             model.set('photo_url_large', this.get('newStyleImageSource'));
             model.set('photo_url', this.get('newStyleImageSource'));
         } else if (this.get('UploadImageMode') === "User Cover")
         {
             this.set('cover_url', this.get('newStyleImageSource'));
+            
+            this.set('newStyleImageName', 'user_cover.'+type);
+            
             model.set('cover_url', this.get('newStyleImageSource'));
         }
     }

@@ -111,7 +111,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
               var fileSize=this.get("fileSize");
               var addPhoto = true;
              //  console.log(fileSize+"size");
-            if((fileSize===null)||(fileSize==="undefined")||(fileSize==="NaN"))
+            if((fileSize===null)||(fileSize==="undefined")||(fileSize===""))
             {
                   this.set("fileSize", size);
 
@@ -129,12 +129,11 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
             }
          fileSize=this.get("fileSize");
   
-        //   console.log(fileSize+"sdfdsf");
         if((fileSize<=25000000)&&(addPhoto===true))
            { 
         var photoName = name.replace(/[)\(]/gi, '');
         var testID = createGuid();
-        var target = this.getTarget(e);
+        var target = getTarget(e,"pural");
         var src = target.result;
         var mega = this.createNewMega(this.get("profileMega"), testID);
         var keywords = this.get("profileMega").get("profile_keywords");
@@ -175,22 +174,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                  alert("The limit size of uploading is 25MB");
             }
     },
-    getTarget: function(obj) {
-        var targ;
-        var e = obj;
-        if (e.srcElement) {
 
-            targ = e.srcElement;
-        }
-        else {
-
-            targ = e.target;
-        }
-//                    if (targ.nodeType === 3) // defeat Safari bug
-//                        console.log('safari drop');
-//                        targ = e.targe;
-        return targ;
-    },
     checkingCleanBeforeUpload: function() {
 
         if (HubStar.get('isNewUpload')) {

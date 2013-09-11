@@ -11,6 +11,7 @@
            HubStar.User= DS.Model.extend({
                 identifier: DS.attr('string'),               
                 active_status: false,
+                cover_url:DS.attr('string'),
                 profile_url: DS.attr('string'),
                 website_url: DS.attr('string'),
                 about_me:DS.attr('string'),
@@ -44,7 +45,6 @@
                 selected_topics: DS.attr('string'),
                 collections: DS.hasMany('HubStar.Collection'),
                 followers: DS.hasMany('HubStar.Follower'),
-
                 followings:DS.hasMany('HubStar.Follower')
 
             });

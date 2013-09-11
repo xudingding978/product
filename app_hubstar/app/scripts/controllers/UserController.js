@@ -330,107 +330,106 @@ HubStar.UserController = Ember.Controller.extend({
     saveUpdate: function() {
         var update_user_record = this.getCurrentUser();
 
-     if(this.isInputValid() )
-      {
-        update_user_record.set('collections', this.get('collections'));
-        update_user_record.set('photo_url', this.get('coverImg'));
-        update_user_record.set('description', this.get('description'));
-        update_user_record.set('display_name', this.get('display_name'));
-        update_user_record.set('about_me', this.get('aboutMe'));
-        this.saveLink('facebook_link', this.get('facebook'));
-        this.saveLink('twitter_link', this.get('twitter'));
-        this.saveLink('googleplus_link', this.get('googleplus'));
-        this.saveLink('pinterest_link', this.get('pinterest'));
-        this.saveLink('linkedin_link', this.get('linkedin'));
-        this.saveLink('youtube_link', this.get('youtube'));
-        update_user_record.set('region', this.get('location'));
-        update_user_record.set('email', this.get('email'));
-        update_user_record.set('password', this.get('password'));
-        update_user_record.set('photo_url', this.get('photo_url'));
-        update_user_record.set('photo_url_large', this.get('photo_url_large'));
-        this.get('controllers.applicationFeedback').statusObserver(null, "Updated Successfully!!!");
-        HubStar.store.save();
-      }
+        if (this.isInputValid())
+        {
+            update_user_record.set('collections', this.get('collections'));
+            update_user_record.set('photo_url', this.get('coverImg'));
+            update_user_record.set('description', this.get('description'));
+            update_user_record.set('display_name', this.get('display_name'));
+            update_user_record.set('about_me', this.get('aboutMe'));
+            this.saveLink('facebook_link', this.get('facebook'));
+            this.saveLink('twitter_link', this.get('twitter'));
+            this.saveLink('googleplus_link', this.get('googleplus'));
+            this.saveLink('pinterest_link', this.get('pinterest'));
+            this.saveLink('linkedin_link', this.get('linkedin'));
+            this.saveLink('youtube_link', this.get('youtube'));
+            update_user_record.set('region', this.get('location'));
+            update_user_record.set('email', this.get('email'));
+            update_user_record.set('password', this.get('password'));
+            update_user_record.set('photo_url', this.get('photo_url'));
+            update_user_record.set('photo_url_large', this.get('photo_url_large'));
+            this.get('controllers.applicationFeedback').statusObserver(null, "Updated Successfully!!!");
+            HubStar.store.save();
+        }
     },
-           isInputValid:function(){
-       
-   function checkObject(id,input,length,isUrlValid,isEmailValid)
-   {
-       this.id=id;
-       this.input=input;
-       this.length=length;
-       this.isUrlValid=isUrlValid;
-       this.isEmailValid=isEmailValid;
-   }
-              var checkList= new Array();
-              
-              var displayName=new checkObject("displayName",this.get('display_name'),128,null,null);
-              checkList.push(displayName);
-              var email=new checkObject("email",this.get('email'),128,null,true);
-              checkList.push(email);
-              var aboutMe=new checkObject("aboutMe",this.get('aboutMe'),4096,null,null);
-              checkList.push(aboutMe);
-              var location=new checkObject("location",this.get('location'),128,null,null);
-              checkList.push(location);   
-              var facebook=new checkObject("facebook",this.get('facebook'),128,true,null);
-              checkList.push(facebook);      
-              var twitter=new checkObject("twitter",this.get('twitter'),128,true,null);
-              checkList.push(twitter);
-              var googleplus=new checkObject("googleplus",this.get('googleplus'),128,true,null);
-              checkList.push(googleplus);
-              var pinterest=new checkObject("pinterest",this.get('pinterest'),128,true,null);
-              checkList.push(pinterest);
-              var linkedin=new checkObject("linkedin",this.get('linkedin'),128,true,null);
-              checkList.push(linkedin);
-              var youtube=new checkObject("youtube",this.get('youtube'),128,true,null);
-              checkList.push(youtube);
-              var password=new checkObject("password",this.get('password'),128,null,null);
-              checkList.push(password);
-         
-             var result;
-                    
-             for(var i=0;i<checkList.length;i++)
-                 {
-                     var patternUrl = /^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([\w]+)(.[\w]+){1,2}$/;
-                      var patternEmail=/^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
-                     document.getElementById(checkList[i].id).style.border='';
-                 
-                     if(checkList[i].input.length>checkList[i].length)
-                        {       
-                            
-                       result= false; 
-                   document.getElementById(checkList[i].id).style.border='2px solid red';
-                       break;
-                          }
+    isInputValid: function() {
 
-                     if(checkList[i].isUrlValid===true)
-                      {
-                      
-                          if (patternUrl.test(checkList[i].input)|| checkList[i].input==="") {
-                                  result= true;
-                               } 
-                           else{
-                              result= false;
-                               document.getElementById(checkList[i].id).style.border='2px solid red';
-                               break;
-                            }
-                      }
-                      if(checkList[i].isEmailValid===true)
-                      {
-                      
-                          if (patternEmail.test(checkList[i].input)) {
-                                  result= true;
-                               } 
-                           else{
-                              result= false;
-                               document.getElementById(checkList[i].id).style.border='2px solid red';
-                               break;
-                            }
-                      }
-                 }      
-             return result;   
-       },
-    
+        function checkObject(id, input, length, isUrlValid, isEmailValid)
+        {
+            this.id = id;
+            this.input = input;
+            this.length = length;
+            this.isUrlValid = isUrlValid;
+            this.isEmailValid = isEmailValid;
+        }
+        var checkList = new Array();
+
+        var displayName = new checkObject("displayName", this.get('display_name'), 128, null, null);
+        checkList.push(displayName);
+        var email = new checkObject("email", this.get('email'), 128, null, true);
+        checkList.push(email);
+        var aboutMe = new checkObject("aboutMe", this.get('aboutMe'), 4096, null, null);
+        checkList.push(aboutMe);
+        var location = new checkObject("location", this.get('location'), 128, null, null);
+        checkList.push(location);
+        var facebook = new checkObject("facebook", this.get('facebook'), 128, true, null);
+        checkList.push(facebook);
+        var twitter = new checkObject("twitter", this.get('twitter'), 128, true, null);
+        checkList.push(twitter);
+        var googleplus = new checkObject("googleplus", this.get('googleplus'), 128, true, null);
+        checkList.push(googleplus);
+        var pinterest = new checkObject("pinterest", this.get('pinterest'), 128, true, null);
+        checkList.push(pinterest);
+        var linkedin = new checkObject("linkedin", this.get('linkedin'), 128, true, null);
+        checkList.push(linkedin);
+        var youtube = new checkObject("youtube", this.get('youtube'), 128, true, null);
+        checkList.push(youtube);
+//        var password = new checkObject("password", this.get('password'), 128, null, null);
+//        checkList.push(password);
+
+        var result;
+
+        for (var i = 0; i < checkList.length; i++)
+        {
+            var patternUrl = /^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([\w]+)(.[\w]+){1,2}$/;
+            var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
+            document.getElementById(checkList[i].id).style.border = '';
+
+    if (checkList[i].input!==null&&checkList[i].input.length > checkList[i].length)
+            {
+
+                result = false;
+                document.getElementById(checkList[i].id).style.border = '2px solid red';
+                break;
+            }
+ 
+            if (checkList[i].isUrlValid === true)
+            {
+
+                if (patternUrl.test(checkList[i].input) || checkList[i].input === "") {
+                    result = true;
+                }
+                else {
+                    result = false;
+                    document.getElementById(checkList[i].id).style.border = '2px solid red';
+                    break;
+                }
+            }
+            if (checkList[i].isEmailValid === true)
+            {
+
+                if (patternEmail.test(checkList[i].input)) {
+                    result = true;
+                }
+                else {
+                    result = false;
+                    document.getElementById(checkList[i].id).style.border = '2px solid red';
+                    break;
+                }
+            }
+        }
+        return result;
+    },
     saveLink: function(link_url, link) {
 
         var http = "http://";
@@ -478,7 +477,6 @@ HubStar.UserController = Ember.Controller.extend({
         var re = /^[a-zA-Z-][a-zA-Z0-9-]*$/;
         return re.test(str);
     },
-           
     checkingValidInput: function(title) {
         if (title === null || title === "") {
         } else {
@@ -778,7 +776,7 @@ HubStar.UserController = Ember.Controller.extend({
                     {
 
                         that.set('photo_url_large', that.get('newStyleImageSource'));
-                       that.set('photo_url', that.get('newStyleImageSource'));
+                        that.set('photo_url', that.get('newStyleImageSource'));
                         that.get('model').set('photo_url_large', that.get('newStyleImageSource'));
                         that.get('model').set('photo_url', that.get('newStyleImageSource'));
 
@@ -825,3 +823,27 @@ HubStar.UserController = Ember.Controller.extend({
 
 
 );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

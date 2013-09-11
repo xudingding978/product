@@ -61,12 +61,13 @@ HubStar.UserController = Ember.Controller.extend({
 
     {
         //console.log("ssssssssssss");
-        this.setUser();       
+        this.setUser();
+        
     },
     isUserSelfOrNot: function(currentUserID) {
-        this.set("isUserSelf",false);
-        if(currentUserID===localStorage.loginStatus){
-             this.set("isUserSelf",true);
+        this.set("isUserSelf", false);
+        if (currentUserID === localStorage.loginStatus) {
+            this.set("isUserSelf", true);
         }
     },
     getCurrentUser: function()

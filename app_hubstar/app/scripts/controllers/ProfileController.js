@@ -464,6 +464,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('follow_status', false);
         }
 
+
     },
     socialLink: function(link) {
         var profile = HubStar.Profile.find(this.get('currentUserID'));

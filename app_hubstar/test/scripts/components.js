@@ -131,7 +131,7 @@ if (BrowserDetect.browser === "Chrome" && BrowserDetect.version >= 25)
 } else if (BrowserDetect.browser === "Safari" && BrowserDetect.version >= 5.1)
 {
     browerAllow = true;
-} else if (BrowserDetect.browser === "Opera" && BrowserDetect.version >= 15)
+} else if (BrowserDetect.browser === "Opera" && BrowserDetect.version >= 12) /* WAS '15' temp fix need to double check browser css3/htm5 prior to push */
 {
     browerAllow = true;
 }
@@ -2522,21 +2522,15 @@ function getImageWidth(imgSrc)
 function getImageWidth(imgSrc, callback) {
     var img = new Image();
     img.src = imgSrc;
-    console.log(img.size);
     img.onload = function() {
-     
+  
         callback(this.width, this.height);
-        console.log(this.width, this.height, this.src.length );
        
     };
 
     
   }  
   
-
-   
-
-
 function requiredBackEnd(controller, method, para, ajaxType, callback) {
     {
         var tempurl = getRestAPIURL();
@@ -2556,3 +2550,4 @@ function requiredBackEnd(controller, method, para, ajaxType, callback) {
 
 
 }
+

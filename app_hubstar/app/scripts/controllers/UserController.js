@@ -36,9 +36,9 @@ HubStar.UserController = Ember.Controller.extend({
     profileSelectionStatus: "Collections",
     selected_topics: [],
     interests: "",
-    userCollectionStatistics:"",
-    userFollowingStatistics:"",
-    userFollowerStatistics:"",
+    userCollectionStatistics: "",
+    userFollowingStatistics: "",
+    userFollowerStatistics: "",
     editingInterest: false,
     interest: "interest",
     is_authentic_user: false,
@@ -56,12 +56,16 @@ HubStar.UserController = Ember.Controller.extend({
     CurrentImageSize: "",
     RequiredImageSize: "",
     UploadImageMode: "",
+    isUserSelf: false,
     init: function()
-
     {
-        //console.log("ssssssssssss");
-        this.setUser();
-
+        this.setUser();       
+    },
+    isUserSelfOrNot: function(currentUserID) {
+        this.set("isUserSelf",false);
+        if(currentUserID===localStorage.loginStatus){
+             this.set("isUserSelf",true);
+        }
     },
     getCurrentUser: function()
     {
@@ -98,7 +102,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('cover_url', user.get('cover_url'));
         this.set('photo_url', user.get('photo_url'));
         this.set('photo_url_large', user.get('photo_url_large'));
-
+        this.isUserSelfOrNot(this.get("currentUserID"));
         this.isFollowed();
         if (this.get("collections").objectAt(0) !== null && typeof this.get("collections").objectAt(0) !== 'undefined') {
             this.setDesc(this.get("collections").objectAt(0).get("desc"));
@@ -114,15 +118,40 @@ HubStar.UserController = Ember.Controller.extend({
                 //  this.getHeroImage(imgId, col);
             }
         }
+        this.initStastics(user);
         this.checkAuthenticUser();
 
     },
-
+    initStastics: function(user) {
+        if (user.get("followers") !== null) {
+            this.set('userFollowerStatistics', user.get("followers").get("length"));
+        }
+        else {
+            this.set('userFollowerStatistics', 0);
+        }
+        if (user.get("followings") !== null) {
+            this.set('userFollowingStatistics', user.get("followings").get("length"));
+        }
+        else {
+            this.set('userFollowingStatistics', 0);
+        }
+        this.statstics();
+    },
+    statstics: function()
+    {
+        if (this.get("collections").get("length") !== 0) {
+            this.set('userCollectionStatistics', this.get("collections").get("length"));
+        }
+        else
+        {
+            this.set('userCollectionStatistics', 0);
+        }
+    },
     userDashboardButton: function(mode) {
 
         if (this.get('is_click') === false) {
             this.set('is_click', true);
- 
+
             $('#user-board_right_front').hide();
             $('#user-board_right_back').show();
             $('#change_profile').hide();
@@ -132,14 +161,13 @@ HubStar.UserController = Ember.Controller.extend({
 
     },
     userDashboardBackButton: function() {
-
         if (this.get('is_click') === true) {
             this.set('is_click', false);
-        
+
             this.setUser();
             $('#user-board_right_front').show();
             $('#user-board_right_back').hide();
-             $('#change_profile').show();
+            $('#change_profile').show();
             this.set('newStyleImageSource', "");
             this.set('newStyleImageName', "");
             this.set('CurrentImageSize', "");
@@ -162,10 +190,9 @@ HubStar.UserController = Ember.Controller.extend({
     userPhotoEditBackButton: function() {
         if (this.get('is_Photoclick') === true) {
             this.set('is_Photoclick', false);
-           $('#flip-front').show();
+            $('#flip-front').show();
             $('#user-photo_left').show();
             $('#user-photo_left-back').hide();
-
             this.set('newStyleImageSource', "");
             this.set('newStyleImageName', "");
             this.set('CurrentImageSize', "");
@@ -173,7 +200,6 @@ HubStar.UserController = Ember.Controller.extend({
         }
     },
     getHeroImage: function(id, col) {
-
         var photo = HubStar.Mega.find(id);
         photo.addObserver('isLoaded', function() {
             if (photo.get('isLoaded')) {
@@ -219,7 +245,6 @@ HubStar.UserController = Ember.Controller.extend({
         if (checkingInfo === "interest") {
             interest_record = data;
             this.set('editingInterest', !this.get('editingInterest'));
-            //console.log();
         }
     },
     yes: function(checkingInfo) {
@@ -265,7 +290,7 @@ HubStar.UserController = Ember.Controller.extend({
             } else {
                 this.get('controllers.applicationFeedback').statusObserver(null, "invalide characters...");
             }
-
+            this.statstics();
         }
 //        else {
 //            isExsinting = true;
@@ -281,7 +306,6 @@ HubStar.UserController = Ember.Controller.extend({
         }
         else if (link === 'googleplus') {
             window.open(this.get("googleplus"));
-
         }
 
         else if (link === 'pinterest') {
@@ -363,15 +387,17 @@ HubStar.UserController = Ember.Controller.extend({
             var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
             document.getElementById(checkList[i].id).style.border = '';
 
-    if (checkList[i].input!==null&&checkList[i].input.length > checkList[i].length)
+
+            if (checkList[i].input !== null && checkList[i].input.length > checkList[i].length)
+
             {
 
                 result = false;
                 document.getElementById(checkList[i].id).style.border = '2px solid red';
                 break;
             }
- 
-            if (checkList[i].input!==null&&checkList[i].isUrlValid === true)
+
+            if (checkList[i].input !== null && checkList[i].isUrlValid === true)
             {
 
                 if (patternUrl.test(checkList[i].input) || checkList[i].input === "") {
@@ -383,10 +409,10 @@ HubStar.UserController = Ember.Controller.extend({
                     break;
                 }
             }
-            if (checkList[i].input!==null&&checkList[i].isEmailValid === true)
+            if (checkList[i].input !== null && checkList[i].isEmailValid === true)
             {
 
-                if (patternEmail.test(checkList[i].input|| checkList[i].input === "")) {
+                if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
                     result = true;
                 }
                 else {
@@ -398,14 +424,10 @@ HubStar.UserController = Ember.Controller.extend({
         }
         return result;
     },
-
-    
-  
     saveLink: function(link_url, link) {
 
         var http = "http://";
         var update_user_record = this.getCurrentUser();
-
         if (link === null || link === "")
         {
             link === "";
@@ -433,7 +455,6 @@ HubStar.UserController = Ember.Controller.extend({
                     this.get('selected_topics').pushObject({interests: interests[i].trim()});
                     tempInterest = tempInterest + ',' + interests[i].trim();
                 }
-
             }
             this.set('interests', tempInterest.substring(1, tempInterest.length));
             update_interest_record.set('selected_topics', this.get('interests'));
@@ -444,7 +465,6 @@ HubStar.UserController = Ember.Controller.extend({
 
     },
     specialCharactersChecking: function(str) {
-
         var re = /^[a-zA-Z-][a-zA-Z0-9-]*$/;
         return re.test(str);
     },
@@ -488,7 +508,6 @@ HubStar.UserController = Ember.Controller.extend({
     },
     deleteSelectedCollection: function()
     {
-
         var message = "Do you wish to delete " + this.get("selectedCollection").get('id') + " ?";
         this.set("message", message);
         this.set('makeSureDelete', true);
@@ -500,6 +519,7 @@ HubStar.UserController = Ember.Controller.extend({
         } else {
             this.set('willDelete', true);
         }
+        this.statstics();
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
@@ -548,7 +568,6 @@ HubStar.UserController = Ember.Controller.extend({
     },
     checkAuthenticUser: function() {
         {
-
             if (localStorage.loginStatus === this.get('user').id) {
                 this.set('is_authentic_user', true);
             }
@@ -562,16 +581,13 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('followingTag', false);
         this.set('collectionTag', true);
         this.set('followerTag', false);
-
     },
     selectFollowing: function(model) {
-
         this.set('profileSelectionStatus', 'Following');
         this.get('controllers.userFollowings').getClientId(model);
         this.set('followingTag', true);
         this.set('collectionTag', false);
         this.set('followerTag', false);
-
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
@@ -579,14 +595,12 @@ HubStar.UserController = Ember.Controller.extend({
     selectFollower: function(model) {
         this.set('profileSelectionStatus', 'Followers');
         this.get('controllers.userFollowers').getClientId(model);
-
         this.set('followingTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', true);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
-
     },
     flickButtonClick: function()
     {
@@ -608,7 +622,6 @@ HubStar.UserController = Ember.Controller.extend({
             var interests = interests.split(",");
             for (var i = 0; i < interests.length; i++) {
                 this.get('selected_topics').pushObject({interests: interests[i]});
-
             }
         }
     },
@@ -616,7 +629,7 @@ HubStar.UserController = Ember.Controller.extend({
     {
 
 
-        var currentUser = HubStar.User.find(localStorage.loginStatus);    
+        var currentUser = HubStar.User.find(localStorage.loginStatus);
         if (currentUser.get('isLoaded')) {
             //console.log('is foollwwed ');
             this.get("controllers.userFollowers").checkFollowStatus(currentUser, this, null);
@@ -632,11 +645,9 @@ HubStar.UserController = Ember.Controller.extend({
         }
 
     },
-
-
     followThisUser: function() {
         var user_id = this.get('model').get('id');
-        
+
         if (this.get("follow_status") === false) {
             //console.log(this.get("controllers.userFollowers"));
             this.get("controllers.userFollowers").followUser(user_id, this, null);
@@ -646,23 +657,20 @@ HubStar.UserController = Ember.Controller.extend({
             this.get("controllers.userFollowers").unFollowUser(user_id, this, null);
         }
     },
- 
     profileStyleImageDrop: function(e, name)
     {
         var target = getTarget(e, "single");
         var src = target.result;
-       // console.log(src);
+        // console.log(src);
         var that = this;
-        
-      
+
+
 
         getImageWidth(src, function(width, height) {
             that.set('newStyleImageSource', src);
             that.set('newStyleImageName', name);
             that.set('currentWidth', width);
             that.set('currentHeight', height);
-
-
             if (that.get('newStyleImageSource') !== null && that.get('newStyleImageSource') !== "")
             {
                 var size = " size is " + width + "x" + height;
@@ -695,11 +703,9 @@ HubStar.UserController = Ember.Controller.extend({
                             'id': that.get('model.id')};
                         requiredBackEnd('users', 'updateStyleImage', data1, 'POST', function(params) {
                             $('#uploadStyleImg').attr("style", "display:none");
-                            //  that.set('isPhotoEditingMode', true);
                             that.set('isPhotoUploadMode', false);
                             HubStar.store.save();
                         });
-
                         that.userPhotoEditBackButton();
                         that.userDashboardBackButton();
                         that.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully!!!");
@@ -709,7 +715,6 @@ HubStar.UserController = Ember.Controller.extend({
                         that.set('newStyleImageSource', "");
                         that.set('newStyleImageName', "");
                         that.set('CurrentImageSize', "");
-
                     }
 
                 });

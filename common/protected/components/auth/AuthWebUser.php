@@ -23,10 +23,10 @@ class AuthWebUser extends CWebUser {
      * Initializes the component.
      */
     public function init() {
-        if (Yii::app()->authManager->admins !== '' && $this->name !== '') {
+      //  if (Yii::app()->authManager->admins !== '' && $this->name !== '') {
             parent::init();
             $this->setIsAdmin(in_array($this->name, Yii::app()->authManager->admins));
-        }
+  //      }
         $conf = Yii::app()->session->cookieParams;
         $this->identityCookie = array(
             'path' => $conf['path'],

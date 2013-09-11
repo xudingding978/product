@@ -359,7 +359,10 @@ HubStar.UserController = Ember.Controller.extend({
 
         for (var i = 0; i < checkList.length; i++)
         {
-            var patternUrl = /^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([\w]+)(.[\w]+){1,2}$/;
+    //       var patternUrl = /^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([\w]+)(.[\w]+){1,2}$/;
+    //       var patternUrl= /^(([\w]+:)?\/\/)?(([\d\w]|%[a-fA-f\d]{2,2})+(:([\d\w]|%[a-fA-f\d]{2,2})+)?@)?([\d\w][-\d\w]{0,253}[\d\w]\.)+[\w]{2,4}(:[\d]+)?(\/([-+_~.\d\w]|%[a-fA-f\d]{2,2})*)*(\?(&?([-+_~.\d\w]|%[a-fA-f\d]{2,2})=?)*)?(#([-+_~.\d\w]|%[a-fA-f\d]{2,2})*)?$/; 
+  //    var patternUrl = /^(https?:\/\/)?'+'((([a-z\d]([a-z\d-]*[a-z\d])*)\.)+[a-z]{2,}|'+ '((\d{1,3}\.){3}\d{1,3}))'+ '(\:\d+)?(\/[-a-z\d%_.~+]*)*'+ '(\?[;&a-z\d%_.~+=-]*)?'+'(\#[-a-z\d_]*)?$','i'/;
+   //         var patternUrl=new RegExp('^(https?:\/\/)?'+'((([a-z\d]([a-z\d-]*[a-z\d])*)\.)+[a-z]{2,}|'+ '((\d{1,3}\.){3}\d{1,3}))'+ '(\:\d+)?(\/[-a-z\d%_.~+]*)*'+ '(\?[;&a-z\d%_.~+=-]*)?'+'(\#[-a-z\d_]*)?$','i');
             var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
             document.getElementById(checkList[i].id).style.border = '';
 
@@ -368,20 +371,32 @@ HubStar.UserController = Ember.Controller.extend({
 
                 result = false;
                 document.getElementById(checkList[i].id).style.border = '2px solid red';
-                break;
+               break;
             }
  
             if (checkList[i].input!==null&&checkList[i].isUrlValid === true)
             {
-
-                if (patternUrl.test(checkList[i].input) || checkList[i].input === "") {
-                    result = true;
-                }
-                else {
-                    result = false;
-                    document.getElementById(checkList[i].id).style.border = '2px solid red';
-                    break;
-                }
+                
+$.ajax({
+    url:'https://www.facebook.com/shuai.yang.9',
+    type:'HEAD',
+    error: function()
+    {
+       console.log('not ');
+    },
+    success: function()
+    {
+      console.log('exists ');  //file exists
+    }
+});
+//                if (patternUrl.test(checkList[i].input) || checkList[i].input === "") {
+//                    result = true;
+//                }
+//                else {
+//                    result = false;
+//                    document.getElementById(checkList[i].id).style.border = '2px solid red';
+//                   break;
+//                }
             }
             if (checkList[i].input!==null&&checkList[i].isEmailValid === true)
             {
@@ -392,7 +407,7 @@ HubStar.UserController = Ember.Controller.extend({
                 else {
                     result = false;
                     document.getElementById(checkList[i].id).style.border = '2px solid red';
-                    break;
+                   break;
                 }
             }
         }

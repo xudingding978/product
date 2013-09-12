@@ -9,6 +9,7 @@ HubStar.UserRoute = Ember.Route.extend({
             this.controller.set('switchPhoto', true);
             this.controller.set('collectionTag', true);
           //  this.controller.set('partnerTag', false);
+          
           $('#default').toggle('selected-user-stats');
             this.controller.set('followerTag', false);
             this.controller.set('followingTag', false);

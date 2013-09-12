@@ -100,8 +100,12 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("location", user.get("region"));
         this.set("email", user.get("email"));
         this.set("password", user.get("password"));
-        this.set('cover_url', user.get('cover_url'));
-        console.log(user.get('cover_url'));
+        if(user.get('cover_url')===null||user.get('cover_url')===""){
+            user.set('cover_url', '../../../images/defaultcover/defaultcover6.jpg');
+        }
+        else
+        {this.set('cover_url', user.get('cover_url'));
+        }
         this.set('photo_url', user.get('photo_url'));
         this.set('photo_url_large', user.get('photo_url_large'));
         this.isUserSelfOrNot(this.get("currentUserID"));

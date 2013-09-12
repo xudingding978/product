@@ -440,15 +440,20 @@
     margin:0 6.5%;
     position: relative; 
     width:87%;
-    padding-top:119px;
+
 }
 .premium > div > table  .profileaside > .profileaside_content .aside-profilepic
 {
-    padding: 20px 5px; 
+    position:relative;
+    margin:-160px 17.5% 0 17.5%;
+    float:left;
+    width:65%;
+    padding:0 5px;
+   /* padding: 20px 5px; 
     position:absolute;
     width:65%;
     top:-180px;
-    left:17.5%;
+    left:17.5%; */
 }
 .premium > div > table  .profileaside > .profileaside_content .aside-profilepic div,
 .premium > div > table  .profileaside > .profileaside_content .aside-profilepic div img{width:100%;margin-bottom:1em;}

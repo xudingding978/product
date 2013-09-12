@@ -184,8 +184,8 @@ class UsersController extends Controller {
         $orig_size['width'] = imagesx($compressed_photo);
         $orig_size['height'] = imagesy($compressed_photo);
 
+        $photoController->savePhotoInTypes($orig_size, $mode.'_original', $photo_name, $compressed_photo, $data_arr, $user_id);
         $url = $photoController->savePhotoInTypes($orig_size, $mode, $photo_name, $compressed_photo, $data_arr, $user_id);
-
         error_log(var_export( $url,true));
         $cb = $this->couchBaseConnection();
         $oldRecord = CJSON::decode($cb->get($this->getDomain() . '/users/' . $user_id));
@@ -204,8 +204,8 @@ class UsersController extends Controller {
             
         } 
 
-        if ($mode == 'user_picture') {
-            $smallimage = $photoController->savePhotoInTypes($orig_size, 'user_small', $photo_name, $compressed_photo, $data_arr, $user_id);
+        if ($mode == 'user_cover') {
+            $smallimage = $photoController->savePhotoInTypes($orig_size, 'user_cover_small', $photo_name, $compressed_photo, $data_arr, $user_id);
             $oldRecord['user'][0]['photo_url'] = null;
             $oldRecord['user'][0]['photo_url'] = $smallimage;
         }

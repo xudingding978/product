@@ -7915,6 +7915,11 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     width: 500px;
 }
 
+/* style fix for edit screen  */
+.profilesnew-table tbody tr td div.new-btn{top:0;}
+.profilesnew-table tbody tr td{line-height:30px;}
+
+
 .mustfull{
     display: block;
     color: #3B5998;
@@ -9367,7 +9372,7 @@ div.loading-visible{
     cursor: pointer;
     height: 44px;
     position: absolute;
-    width: 44px;
+    min-width: 44px;
 
     -webkit-transition: all 0.8s ease;
     -moz-transition: all 0.8s ease;
@@ -9390,8 +9395,23 @@ div.loading-visible{
     top: 0;
     width: 20px;
     font-size: 21px;
+    float:left;
+}
+/* top naviagtion specific styling */
+.top-controlbar div.icon-on-black{height:auto;}
+.top-controlbar .icon-on-black > i, .top-controlbar .icon-on-black > span{margin:4px 0;}
+.top-controlbar .icon-on-black > span
+{
+    text-indent:28px;
+    line-height:20px;
+    font-size:14px;
 }
 
+
+/* top navigation specific styling ends */
+.icon-on-black > .pretooltip{
+    float:left;
+}
 
 .text-on-black{
     color: #737373;
@@ -9718,6 +9738,7 @@ div.loading-visible{
 
 
 
+
 .blue-btn:active{
     -webkit-box-shadow: inset 0 1px 0 #21448d;
     -o-box-shadow: inset 0 1px 0 #21448d;
@@ -9780,12 +9801,43 @@ div.loading-visible{
     line-height: 28px;
     margin: 0 2px;
     cursor: default;
+
+    font-size: 12px;
 }
 
 .disabled-green{
     border: 1px solid #53a93f;
     color: #53a93f;
 }
+
+.disabled-green:hover{
+    -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0,.1);
+    -o-box-shadow: 0 1px 0 rgba(0,0,0,.1);
+    -ms-box-shadow: 0 1px 0 rgba(0,0,0,.1);
+    -moz-box-shadow: 0 1px 0 rgba(0,0,0,.1);
+    box-shadow: 0px 1px 0 rgba(0, 0, 0,.1);
+    background-color: #fff;
+    background-image: -webkit-linear-gradient(top, transparent, transparent);
+    background-image: linear-gradient(top,transparent,transparent);
+    color: #404040;
+    border: 1px solid #a2cf8f;
+    color: #74b757;
+}
+
+.disabled-green:active{
+    -webkit-box-shadow: inset 0 2px 0 #74b757;
+    -o-box-shadow: inset 0 2px 0 #74b757;
+    -ms-box-shadow: inset 0 2px 0 #74b757;
+    -moz-box-shadow: inset 0 2px 0 #74b757;
+    box-shadow: inset 0 2px 0 #ddd;
+    background-color: #f3f3f3;
+    border-color: #74b757;
+}
+
+
+
+
+
 
 
 
@@ -10526,6 +10578,78 @@ div.loading-visible{
 }
 /* paid profile ENDS, Clint Rex Lewis 4/9/13 */
 
+
+
+/* interest BEGINS */
+.show-interest{
+    background-color: #f3f3f3;
+    height: 30px;
+    line-height: 33px;
+    margin: 5px 0 10px;
+    cursor: pointer;
+}
+
+.show-interest:hover{
+    background-color: #fff;
+}
+
+.unvisible{
+    color: #777;
+    opacity: 0;
+}
+.user-photo_left{
+    float:left;
+    width:100%;
+}
+
+
+.show-interest:hover .unvisible{
+    opacity: .7
+}
+
+#show_interest
+{
+    position:absolute;
+    top:298px;
+    left:0;
+    padding: 5px 20px 0;
+    width: 100%;
+    height: 150px;
+    float:left;
+    overflow: hidden;
+    background: #F3F3F3;
+
+}
+div.profile-picture-active
+{
+    margin:5px 12px 0 20px!important;
+    width:50px!important;
+    height:50px!important;
+    z-index:1!important;
+    float:left!important;
+    border-width:4px!important;
+}
+.follow-btn-active
+{
+    float: right!important;
+    top: 13px!important;
+    margin: 0 20px 0 0!important;
+    width: auto !important;
+}
+
+textarea.add-interests{
+    max-width:100%;
+}
+
+.user-profilepic-container > div#change_profile{max-width:100%;max-height:100%;}
+
+.interesttags-container{width: 100%;height: 100px;line-height: 25px;padding: 0 20px 0 0;margin-top: -5px;overflow: hidden;}
+
+.interest-textarea{width: 108%;margin-bottom: 5px;height: 70px;}
+
+.interest-insert-hint{display: none;height: 70px; width: 100%; margin: 5px auto 20px; border-radius: 6px; border: 1px solid #999;background-color: rgba(30,30,30,.3); color: #fff;line-height: 20px;text-align: center;padding: 6px 8px;font-weight: bold;font-size: 13px;}
+
+/* interest ENDS */
 
 
 

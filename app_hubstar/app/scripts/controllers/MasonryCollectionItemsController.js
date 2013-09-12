@@ -86,7 +86,6 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         var photoCreate = this.get('controllers.photoCreate');
         photoCreate.init();
         setTimeout(function() {
-            console.log("sdf");
             $('#masonry_photo_collection_container').masonry("reload");
         }, 200);
     },
@@ -118,7 +117,6 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             var currentUser = HubStar.User.find(localStorage.loginStatus);
             var currentCollection = null;
             var collectedColletionids = null;
-            console.log("delete");
             for (var i = 0; i < currentUser.get('collections').get('length'); i++) {
                 if (currentUser.get('collections').objectAt(i).get('id') === HubStar.get('collectionID'))
                 {

@@ -25,6 +25,8 @@ Handlebars.registerHelper('checkInputFilesSize', function(object) {
 });
 
 
+
+
 Ember.Handlebars.registerBoundHelper('length', function(size) {
 
     if (size === "" || size === null || size === undefined) {

@@ -32,7 +32,9 @@
             <div class="album-description-bg">{{desc}}</div>
         </a>
         <div class="albumcover-container"  > 
-            <img class="albumcover" {{bindAttr src="cover"}} />        
+            <div class="">
+                <img class="albumcover" {{bindAttr src="cover"}} />     
+            </div>
         </div>
         <div class="album-info">
             <div class="album-info_name"><i class="icon-picture" >&nbsp;</i>{{title}}</div>
@@ -43,7 +45,7 @@
                 </div>
                 {{/if}}
                 <span><a href="" {{action transitionToCollectionPhoto id}}> </a> photos</span>
-                <span><img src="../../images/list-doc.png"/>{{date created_at}}</span>
+                <span><img src="../../images/list-doc.png"/>{{date created_at}}</span>               
             </div>
         </div>
     </div>

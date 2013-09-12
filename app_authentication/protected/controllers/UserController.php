@@ -245,4 +245,6 @@ class UserController extends Controller {
       $this->render('test');
     }
 
+
 }
+

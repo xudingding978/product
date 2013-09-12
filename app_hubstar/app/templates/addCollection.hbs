@@ -4,7 +4,7 @@
 <div class="t-style-box">
     <div class="contactmebox-wapper" style="width: 700px;height: 270px;font-size: 13px;padding: 20px;">
         <div>
-            <div style=' color: #333; font-size: 20px; font-weight: bold; margin: 5px 0 30px; text-align: center;'>Add to Collections</div>
+            <div style=' color: #333; font-size: 20px; font-weight: bold; margin: 5px 0 30px; text-align: center;'>Save to Collections</div>
             <div class="exit">
                 <div class="closeview" {{action exit }}>
                      <i class="icon-remove"></i>
@@ -25,7 +25,7 @@
                 &nbsp;<i class="icon-caret-down"></i>
             </div>
             <div style="height: 150px;">
-                {{view Ember.TextArea valueBinding="controller.selectedDesc" rows="12" cols="70" class="collect_descriptionbox" placeholder="please inout your description........."}}
+                {{view Ember.TextArea valueBinding="controller.selectedDesc" rows="12" cols="70" class="collect_descriptionbox" placeholder="please input your description........."}}
             </div>
 
             {{#if controller.selectionPop}}

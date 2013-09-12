@@ -343,9 +343,11 @@ class Controller extends CController {
 
     protected function performRawSearch($returnType, $collection_id, $owner_profile_id) {
 
+         error_log(var_export($collection_id, true));
         $request = $this->getElasticSearch();
         $request->from(0)
                 ->size(100);
+                      
         $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query('"' . $collection_id . '"')
                 ->default_field('couchbaseDocument.doc.collection_id');
         $must2 = Sherlock\Sherlock::queryBuilder()
@@ -354,9 +356,11 @@ class Controller extends CController {
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)->
                 must($must2);
         $response = $request->query($bool)->execute();
-
+               
         $results = $this->getReponseResult($response, $returnType);
+
         return $results;
+
     }
 
     protected function getSearchResultsTotal($returnType, $region, $requestString, $from = 0, $size = 50, $noUser) {

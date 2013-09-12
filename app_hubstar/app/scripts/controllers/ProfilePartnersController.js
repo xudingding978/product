@@ -3,6 +3,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
     clientID: "",
     partnerID: "",
     model: "",
+    delID: "",
     addPartner: true,
     currentAddPartnerPic: null,
     selectedPartnerPic: "",
@@ -48,46 +49,47 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
         this.checkAuthenticUser();
     }
     ,
-    deleteSelectedPartner: function(idDel) {
-        console.log(idDel);
+    deleteSelectedPartner: function(idDel) {       
+        if (idDel !== undefined)
+        {
+            this.set("delID", idDel);
+        }
+        else
+        {
+            idDel = this.get("delID");
+        }        
         var message = "Do you wish to remove this partner ?";
         this.set("message", message);
         this.set('makeSureDelete', true);
         //console.log(this.get('partnerID'));       
-        if (this.get('willDelete')) {         
-            var ids = this.get("partnerID").split(",");          
+        if (this.get('willDelete')) {
+            var ids = this.get("partnerID").split(",");
             var delResult = "";
             for (var i = 0; i < ids.length; i++)
             {
                 if (idDel !== ids[i])
-                {
-                    console.log(ids[i]);
-                    console.log(idDel);
-                    if (i !== ids.length - 1) {
-                        delResult = delResult + ids[i] + ",";
-                    }
-                    else {
-                        delResult = delResult + ids[i];
-                    }
+                {                 
+                    delResult = delResult + ids[i]+",";                    
                 }
             }
-            //this.set('partnerID', delResult);
-            console.log(this.get('partnerID'));
+            delResult=delResult.substr(0,delResult.length-1);
+            this.set('partnerID', delResult);
+            //console.log(this.get('partnerID'));
 
-            //var profileOwner = HubStar.Profile.find(this.get('clientID'));
-            //profileOwner.set('profile_partner_ids', this.get('partnerID'));
-            //this.removePartnerObject(id);
-            //HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, profileOwner);
-
+            var profileOwner = HubStar.Profile.find(this.get('clientID'));           
+            profileOwner.set('profile_partner_ids', this.get('partnerID'));
+            //+console.log(profileOwner.get("profile_partner_ids"));
+            this.removePartnerObject(idDel);
+          // HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, profileOwner);
+          HubStar.store.commit();
             this.get('controllers.profile').paternsStatistics(this.get('content').get("length"));
-
+            $('#masonry_user_container').masonry("reload");
             this.cancelDelete();
-        } else {            
+        } else {
             this.set('willDelete', true);
             //HubStar.set('data', model);
         }
     },
-    
     removePartnerObject: function(partner_id)
     {
         var data = this.get('content');
@@ -104,7 +106,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
         this.set('makeSureDelete', false);
         //HubStar.set('data', null);
     },
-            submit: function() {
+    submit: function() {
         var client_input = $('.new-collection-name_insert').val();
         if (client_input.indexOf("/profiles/") !== -1) {
             var client_id = client_input.split("/profiles/")[1];
@@ -132,7 +134,8 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
     {
         var profileOwner = HubStar.Profile.find(this.get('clientID'));
         profileOwner.set('profile_partner_ids', this.get('partnerID'));
-        HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, profileOwner);
+       // HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, profileOwner);
+      HubStar.store.commit();
         var newPartner = HubStar.Mega.find(client_id);
         this.get("content").pushObject(newPartner);
 

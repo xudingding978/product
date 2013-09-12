@@ -117,7 +117,9 @@
 
         <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collape</span>
         {{#if controller.is_authentic_user}}
-        <span style="float: right; display: inline-block;"><k class="icon-trash edit-btn easing" {{action deletePartner this}}></k> </span>
+        {{#if controller.is_profile_editing_mode}}
+        <span style="float: right; display: inline-block;"><k class="icon-trash edit-btn easing"  {{action  removeCollectedItem this.id}}></k> </span>
+        {{/if}}
         {{/if}}
     </div>
 

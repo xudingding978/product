@@ -512,6 +512,11 @@
     overflow: hidden;
     padding: 5px;
 }
+.albumcover-container > div{
+    float:left;
+    width:auto;
+    height:343px;
+}
 
 .album-description{
     position: absolute;
@@ -556,9 +561,9 @@
 
 .albumcover{
     min-width: 350px;
+    max-width:420px;
     min-height: 350px;
-    max-width: none;
-    height: 100%;
+    max-height:425px;
 }
 
 .album-info{

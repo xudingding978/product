@@ -49,16 +49,9 @@ class CollectionsController extends Controller {
         try {
             $request_json = file_get_contents('php://input');
             $request_arr = CJSON::decode($request_json, true);
-            //    $tempProfile = $request_arr['profile'];
-            // $id = $tempProfile['id'];
-
             $tempCollection = $request_arr['collection'];
             $id = $tempCollection['optional'];
-            //error_log("sssssssssssssssssssssss");
-            //error_log($id);
-            //$cid=$tempCollection['id'];
-            //error_log("this is a error");
-            //  error_log(var_export($request_arr, true));
+
             $cb = $this->couchBaseConnection();
             $domain = $this->getDomain();
             $docID = $domain . "/profiles/" . $id;

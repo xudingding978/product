@@ -12,12 +12,12 @@
 
                 {{/if}}
 
-                <img {{bindAttr src="controller.user.photo_url_large"}} style="vertical-align: top"/>
+                <img {{bindAttr src="controller.photo_url_large"}} style="vertical-align: top"/>
 
 
             </div>
-            {{#if controller.userSelf}}
-            <div href="#question_modal" role="button" class="disabled-btn follow-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;"> That is me</div>
+            {{#if controller.isUserSelf}}
+            <div href="#question_modal" role="button" class="disabled-btn follow-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;">Follow</div>
                     
             {{else}}
                 {{#if controller.follow_status}}
@@ -92,7 +92,7 @@
 
         <div id="user-board_right_front">
             <div class="user-cover">
-                <img {{bindAttr src= controller.user.cover_url}} style="width:100%;"/>
+                <img {{bindAttr src= controller.cover_url}} style="width:100%;"/>
 
                 {{#if controller.is_authentic_user}}
                 <div  id="flip-front" class='blue-btn new-btn hint--left hint--rounded edit-dashboard-btn' style="display: block; margin: 10px;position: absolute;top: 0;right: 0;" data-hint="Dashboard"{{action userDashboardButton "User Cover"}}>  

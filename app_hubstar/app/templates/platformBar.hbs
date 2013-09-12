@@ -1,12 +1,3 @@
-
-
-
-
-
-
-
-
-
 <div class="plaform_bar" >
     <img src="../../../images/reflection.png"/>
     <div id="navContainer" class="easing" {{action sidebarScroll target="view" on="mouseEnter"}}>
@@ -14,7 +5,7 @@
         <ul id="nav-ul" >
             <div style="width:90px; height: 100%; position: absolute; z-index: -1;"></div>
             <li> 
-                <div> <img {{bindAttr src="controller.user.photo_url"}} class="profilepic_user"/></div>
+                <div> <img {{bindAttr src="controller.user.photo_url_large"}} class="profilepic_user"/></div>
             </li>
 
             <li style="margin-top: 20px;"> <span><a href="#"> <i class="icon-eye-open" style="font-size: 20px;"></i></a></span>
@@ -45,6 +36,22 @@
                     {{/each}}
                 </ul>
             </li>
+            <li><div><a href="#"> <i class="icon-globe" style="font-size: 20px;"></i></a></div>
+                <ul>
+                    <li>&nbsp;</li>
+                    <div style="width: 120%; height: 150%; position: absolute;margin-left: -20px; margin-top: -50px;  z-index: -1;"></div>
+
+
+                    <li><a  href="#" {{action topicSearch userLocation}} >Your location</br>
+                            ({{userLocation}})
+                        </a></li>
+                    <li><a  href="#" {{action topicSearch 'Global'}} >Global</a></li>
+                    <li><a  href="#" {{action topicSearch 'Australia'}} >Australia</a></li>
+                    <li><a  href="#" {{action topicSearch 'New Zealand'}} >New Zealand</a></li>
+                </ul>
+            </li>
+
+
             <li> <span><a href="#"> <i class="icon-folder-open" style="font-size: 20px;"></i></a></span>   
                 <ul>
                     <li>&nbsp;</li>
@@ -67,10 +74,9 @@
                 });</script>
 
 
-
-
             <li> <div><a href="#"> <i class="icon-question-sign" style="font-size: 20px;"></i></a></div>   
             </li>
+
             <li> <div><a href="#" onclick="logout();"> <i class="icon-off" style="font-size: 20px;"></i></a></div>   
             </li>
         </ul>
@@ -102,8 +108,6 @@
                     });
                     localStorage.clear();
                 }
-
-
 
 
 </script>

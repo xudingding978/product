@@ -31,8 +31,12 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
             {
                 dataNew["id"] = params[i]["record_id"];
                 dataNew["name"] = params[i]["name"];
-                dataNew["photo_url"] = params[i]["photo_url"];
-                dataNew["photo_url_large"] = params[i]["photo_url_large"];
+//                dataNew["photo_url"] = params[i]["photo_url"];
+//                dataNew["photo_url_large"] = params[i]["photo_url_large"];
+
+                dataNew["photo_url_large"] = HubStar.get('photoDomain')+'/users/'+dataNew["id"]+'/user_cover_small/user_cover';
+                dataNew["photo_url"] = HubStar.get('photoDomain')+'/users/'+dataNew["id"]+'/user_picture/user_picture';
+                
                 dataNew["collections_size"] = params[i]["collections_size"];
                 dataNew["follower_size"] = params[i]["follower_size"];
                 dataNew["follow_status"] = params[i]["follow_status"];
@@ -46,9 +50,10 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
                 {
                     dataNew["displayOrNot"] = false;
                 }
-                dataNew["userSelf"]=false;
+                dataNew["isUserSelf"]=false;
                 if (dataNew["id"] === localStorage.loginStatus) {
-                    dataNew["userSelf"]=true;
+                    
+                    dataNew["isUserSelf"]=true;
                 }
                 //console.log(dataNew);
                 that.get("content").pushObject(dataNew);

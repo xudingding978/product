@@ -146,10 +146,20 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var collections = profile.get("collections");
         this.isFollowed();
         this.checkAuthenticUser();
+        this.labelBarRefresh();
         var photoCreateController = this.get('controllers.photoCreate');
         photoCreateController.setMega();
         this.initStastics(profile);
 
+    },
+    labelBarRefresh: function() {
+        this.set("profileSelectionStatus", "Collections");
+        $('#user-stats > li').removeClass('selected-user-stats');
+        $('#defualt').addClass('selected-user-stats');
+        $('#user-stats > li').click(function() {
+            $('#user-stats > li').removeClass('selected-user-stats');
+            $(this).addClass('selected-user-stats');
+        });
     },
     initStastics: function(profile) {
         this.set("profile_partner_ids", profile.get("profile_partner_ids"));
@@ -202,7 +212,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             }
 
 
-        } 
+        }
 //        else {
 //            isExsinting = true;
 //        }
@@ -385,7 +395,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     newCollection: function()
     {
         var collection = HubStar.Collection.createRecord({"id": null, "title": null, "desc": null, "collection_ids": null, "createdAt": new Date()});
-        this.set("selectedCollection", collection);        
+        this.set("selectedCollection", collection);
     },
     toggleUpload: function() {
         $('.corpbanner_mask').toggleClass('hideClass');
@@ -579,8 +589,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
         HubStar.store.save();
     },
-                  
-            
     flipFrontClick: function() {
         $(".hover").addClass('flip');
         this.selectionForDashborad();
@@ -612,7 +620,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         });
     }, profileStyleImageDrop: function(e, name)
     {
-        var target = getTarget(e,"single");
+        var target = getTarget(e, "single");
         var src = target.result;
         var that = this;
         //   var imageSize = size /1000;
@@ -719,7 +727,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             model.set('profile_bg_url', this.get('newStyleImageSource'));
         }
     },
-
     resetNewStyleImageSource: function()
     {
         this.set('newStyleImageSource', "");

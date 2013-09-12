@@ -340,7 +340,7 @@ HubStar.UserController = Ember.Controller.extend({
     },
     saveUpdate: function() {
         var update_user_record = this.getCurrentUser();
-
+console.log(update_user_record);
         if (this.isInputValid())
         {
             update_user_record.set('collections', this.get('collections'));

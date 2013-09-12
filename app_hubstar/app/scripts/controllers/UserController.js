@@ -245,11 +245,8 @@ HubStar.UserController = Ember.Controller.extend({
         return user;
     },
     checkingIdisExsinting: function(id, postOrPut) {
-
-        var isExsinting;
-
+        var isExsinting=true;
         if (postOrPut === "create") {
-
             for (var i = 0; i < this.get("collections").get('length'); i++) {
                 if (this.get("collections").objectAt(i).id === id) {
                     isExsinting = false;
@@ -289,7 +286,6 @@ HubStar.UserController = Ember.Controller.extend({
         var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
         var id = this.checkingValidInput(this.selectedCollection.get('title'));
         var isExsinting = this.checkingIdisExsinting(id, "create");
-
         if (isExsinting) {
             var validID = this.checkingValidInput(id);
             var checkingCharater = this.specialCharactersChecking(validID);

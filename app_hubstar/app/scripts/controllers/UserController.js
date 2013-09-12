@@ -36,9 +36,9 @@ HubStar.UserController = Ember.Controller.extend({
     profileSelectionStatus: "Collections",
     selected_topics: [],
     interests: "",
-    userCollectionStatistics:"",
-    userFollowingStatistics:"",
-    userFollowerStatistics:"",
+    userCollectionStatistics: "",
+    userFollowingStatistics: "",
+    userFollowerStatistics: "",
     editingInterest: false,
     interest: "interest",
     is_authentic_user: false,
@@ -117,12 +117,11 @@ HubStar.UserController = Ember.Controller.extend({
         this.checkAuthenticUser();
 
     },
-
     userDashboardButton: function(mode) {
 
         if (this.get('is_click') === false) {
             this.set('is_click', true);
- 
+
             $('#user-board_right_front').hide();
             $('#user-board_right_back').show();
             $('#change_profile').hide();
@@ -135,11 +134,11 @@ HubStar.UserController = Ember.Controller.extend({
 
         if (this.get('is_click') === true) {
             this.set('is_click', false);
-        
+
             this.setUser();
             $('#user-board_right_front').show();
             $('#user-board_right_back').hide();
-             $('#change_profile').show();
+            $('#change_profile').show();
             this.set('newStyleImageSource', "");
             this.set('newStyleImageName', "");
             this.set('CurrentImageSize', "");
@@ -162,7 +161,7 @@ HubStar.UserController = Ember.Controller.extend({
     userPhotoEditBackButton: function() {
         if (this.get('is_Photoclick') === true) {
             this.set('is_Photoclick', false);
-           $('#flip-front').show();
+            $('#flip-front').show();
             $('#user-photo_left').show();
             $('#user-photo_left-back').hide();
 
@@ -322,100 +321,82 @@ HubStar.UserController = Ember.Controller.extend({
     },
     isInputValid: function() {
 
-        function checkObject(id, input, length, isUrlValid, isEmailValid)
+        function checkObject(id, input, length, isUrlValid, isEmailValid, shouldInclude)
         {
             this.id = id;
             this.input = input;
             this.length = length;
             this.isUrlValid = isUrlValid;
             this.isEmailValid = isEmailValid;
+            this.shouldInclude = shouldInclude;
         }
         var checkList = new Array();
-
-        var displayName = new checkObject("displayName", this.get('display_name'), 128, null, null);
+        var result;
+        var displayName = new checkObject("displayName", this.get('display_name'), 128, null, null, null);
         checkList.push(displayName);
-        var email = new checkObject("email", this.get('email'), 128, null, true);
+        var email = new checkObject("email", this.get('email'), 128, null, true, null);
         checkList.push(email);
-        var aboutMe = new checkObject("aboutMe", this.get('aboutMe'), 4096, null, null);
+        var aboutMe = new checkObject("aboutMe", this.get('aboutMe'), 4096, null, null, null);
         checkList.push(aboutMe);
-        var location = new checkObject("location", this.get('location'), 128, null, null);
+        var location = new checkObject("location", this.get('location'), 128, null, null, null);
         checkList.push(location);
-        var facebook = new checkObject("facebook", this.get('facebook'), 128, true, null);
+        var facebook = new checkObject("facebook", this.get('facebook'), 128, true, null, "facebook");
         checkList.push(facebook);
-        var twitter = new checkObject("twitter", this.get('twitter'), 128, true, null);
+        var twitter = new checkObject("twitter", this.get('twitter'), 128, true, null, "twitter");
         checkList.push(twitter);
-        var googleplus = new checkObject("googleplus", this.get('googleplus'), 128, true, null);
+        var googleplus = new checkObject("googleplus", this.get('googleplus'), 128, true, null, "plus.google");
         checkList.push(googleplus);
-        var pinterest = new checkObject("pinterest", this.get('pinterest'), 128, true, null);
+        var pinterest = new checkObject("pinterest", this.get('pinterest'), 128, true, null, "pinterest");
         checkList.push(pinterest);
-        var linkedin = new checkObject("linkedin", this.get('linkedin'), 128, true, null);
+        var linkedin = new checkObject("linkedin", this.get('linkedin'), 128, true, null, "linkedin");
         checkList.push(linkedin);
-        var youtube = new checkObject("youtube", this.get('youtube'), 128, true, null);
+        var youtube = new checkObject("youtube", this.get('youtube'), 128, true, null, "youtube");
         checkList.push(youtube);
 //        var password = new checkObject("password", this.get('password'), 128, null, null);
 //        checkList.push(password);
 
-        var result;
 
         for (var i = 0; i < checkList.length; i++)
         {
-    //       var patternUrl = /^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([\w]+)(.[\w]+){1,2}$/;
-    //       var patternUrl= /^(([\w]+:)?\/\/)?(([\d\w]|%[a-fA-f\d]{2,2})+(:([\d\w]|%[a-fA-f\d]{2,2})+)?@)?([\d\w][-\d\w]{0,253}[\d\w]\.)+[\w]{2,4}(:[\d]+)?(\/([-+_~.\d\w]|%[a-fA-f\d]{2,2})*)*(\?(&?([-+_~.\d\w]|%[a-fA-f\d]{2,2})=?)*)?(#([-+_~.\d\w]|%[a-fA-f\d]{2,2})*)?$/; 
-  //    var patternUrl = /^(https?:\/\/)?'+'((([a-z\d]([a-z\d-]*[a-z\d])*)\.)+[a-z]{2,}|'+ '((\d{1,3}\.){3}\d{1,3}))'+ '(\:\d+)?(\/[-a-z\d%_.~+]*)*'+ '(\?[;&a-z\d%_.~+=-]*)?'+'(\#[-a-z\d_]*)?$','i'/;
-   //         var patternUrl=new RegExp('^(https?:\/\/)?'+'((([a-z\d]([a-z\d-]*[a-z\d])*)\.)+[a-z]{2,}|'+ '((\d{1,3}\.){3}\d{1,3}))'+ '(\:\d+)?(\/[-a-z\d%_.~+]*)*'+ '(\?[;&a-z\d%_.~+=-]*)?'+'(\#[-a-z\d_]*)?$','i');
+            //       var patternUrl = /^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([\w]+)(.[\w]+){1,2}$/;
+
             var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
             document.getElementById(checkList[i].id).style.border = '';
 
-    if (checkList[i].input!==null&&checkList[i].input.length > checkList[i].length)
+            if (checkList[i].input !== null && checkList[i].input.length > checkList[i].length)
             {
 
                 result = false;
                 document.getElementById(checkList[i].id).style.border = '2px solid red';
-               break;
+                break;
             }
- 
-            if (checkList[i].input!==null&&checkList[i].isUrlValid === true)
-            {
-                
-$.ajax({
-    url:'https://www.facebook.com/shuai.yang.9',
-    type:'HEAD',
-    error: function()
-    {
-       console.log('not ');
-    },
-    success: function()
-    {
-      console.log('exists ');  //file exists
-    }
-});
-//                if (patternUrl.test(checkList[i].input) || checkList[i].input === "") {
-//                    result = true;
-//                }
-//                else {
-//                    result = false;
-//                    document.getElementById(checkList[i].id).style.border = '2px solid red';
-//                   break;
-//                }
-            }
-            if (checkList[i].input!==null&&checkList[i].isEmailValid === true)
-            {
 
-                if (patternEmail.test(checkList[i].input|| checkList[i].input === "")) {
+            if (checkList[i].input !== null && checkList[i].isUrlValid === true)
+            {
+                if (checkList[i].input.indexOf(checkList[i].shouldInclude) !== -1 || checkList[i].input === "") {
                     result = true;
                 }
                 else {
                     result = false;
                     document.getElementById(checkList[i].id).style.border = '2px solid red';
-                   break;
+                    break;
+                }
+            }
+            if (checkList[i].input !== null && checkList[i].isEmailValid === true)
+            {
+
+                if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
+                    result = true;
+                }
+                else {
+                    result = false;
+                    document.getElementById(checkList[i].id).style.border = '2px solid red';
+                    break;
                 }
             }
         }
         return result;
     },
-
-    
-  
     saveLink: function(link_url, link) {
 
         var http = "http://";
@@ -631,7 +612,7 @@ $.ajax({
     {
 
 
-        var currentUser = HubStar.User.find(localStorage.loginStatus);    
+        var currentUser = HubStar.User.find(localStorage.loginStatus);
         if (currentUser.get('isLoaded')) {
             //console.log('is foollwwed ');
             this.get("controllers.userFollowers").checkFollowStatus(currentUser, this, null);
@@ -647,11 +628,9 @@ $.ajax({
         }
 
     },
-
-
     followThisUser: function() {
         var user_id = this.get('model').get('id');
-        
+
         if (this.get("follow_status") === false) {
             //console.log(this.get("controllers.userFollowers"));
             this.get("controllers.userFollowers").followUser(user_id, this, null);
@@ -661,15 +640,14 @@ $.ajax({
             this.get("controllers.userFollowers").unFollowUser(user_id, this, null);
         }
     },
- 
     profileStyleImageDrop: function(e, name)
     {
         var target = getTarget(e, "single");
         var src = target.result;
-       // console.log(src);
+        // console.log(src);
         var that = this;
-        
-      
+
+
 
         getImageWidth(src, function(width, height) {
             that.set('newStyleImageSource', src);

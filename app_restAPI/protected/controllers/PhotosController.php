@@ -266,7 +266,7 @@ class PhotosController extends Controller {
         return $mega;
     }
 
-    public function savePhotoInTypes($orig_size, $photo_type, $photo_name, $compressed_photo, $data_arr, $owner_id, $optional = null) {
+    public function savePhotoInTypes($orig_size, $photo_type, $photo_name, $compressed_photo, $data_arr, $owner_id, $optional = null, $type = null) {
 
         $new_size = $this->getNewPhotoSize($orig_size, $photo_type);
         $new_photo_data = $this->createNewImage($orig_size, $new_size, $compressed_photo, $data_arr['type']);
@@ -278,7 +278,7 @@ class PhotosController extends Controller {
             $new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
             $url = $this->getDomain() . '/profiles' . "/" . $owner_id . "/" . $optional . "/" . $new_photo_name;
         }
-        $this->saveImageToS3($url, $new_photo_data, $bucket);
+        $this->saveImageToS3($url, $new_photo_data, $bucket, $type);
         $s3url = 'http://' . $bucket . '/' . $url;
         return $s3url;
     }
@@ -384,17 +384,27 @@ class PhotosController extends Controller {
         return $new_name;
     }
 
-    public function saveImageToS3($url, $data, $bucket) {
+    public function saveImageToS3($url, $data, $bucket, $type) {
         $arr = $this->getProviderConfigurationByName($this->getDomain(), "S3Client");
         $client = Aws\S3\S3Client::factory(
                         $arr
         );
-        $client->putObject(array(
-            'Bucket' => $bucket, //"s3.hubsrv.com"
-            'Key' => $url,
-            'Body' => $data,
-            'ACL' => 'public-read'
-        ));
+        if ($type == null || $type =='undefined' || $type =="") {
+            $client->putObject(array(
+                'Bucket' => $bucket, //"s3.hubsrv.com"
+                'Key' => $url,
+                'Body' => $data,             
+                'ACL' => 'public-read'
+            ));
+        } else {
+            $client->putObject(array(
+                'Bucket' => $bucket, //"s3.hubsrv.com"
+                'Key' => $url,
+                'Body' => $data,             
+                'ContentType'=>$type,
+                'ACL' => 'public-read'
+            ));
+        }
     }
 
     public function removeS3Record($mega) {

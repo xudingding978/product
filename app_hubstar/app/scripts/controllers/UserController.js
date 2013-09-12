@@ -100,14 +100,18 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("location", user.get("region"));
         this.set("email", user.get("email"));
         this.set("password", user.get("password"));
-        if(user.get('cover_url')===null||user.get('cover_url')===""){
+
+ if(user.get('cover_url')===null||user.get('cover_url')===""){
             user.set('cover_url', '../../../images/defaultcover/defaultcover6.jpg');
         }
-        else
-        {this.set('cover_url', user.get('cover_url'));
+ else
+        {this.set('cover_url', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_cover/user_cover');
         }
-        this.set('photo_url', user.get('photo_url'));
-        this.set('photo_url_large', user.get('photo_url_large'));
+        
+        this.set('photo_url', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_cover_small/user_cover');
+        this.set('photo_url_large', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_picture/user_picture');
+
+
         this.isUserSelfOrNot(this.get("currentUserID"));
         
         this.isFollowed();
@@ -698,7 +702,7 @@ HubStar.UserController = Ember.Controller.extend({
     savePhotoUpdate: function()
     {
         if (this.get('newStyleImageSource') !== null && this.get('newStyleImageSource') !== "")
-        {
+        {            
             var src = this.get('newStyleImageSource');
             var that = this;
             getImageWidth(src, function(width, height) {
@@ -708,7 +712,8 @@ HubStar.UserController = Ember.Controller.extend({
 
                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
                     if ((width >= params.width) && (height >= params.height))
-                    {
+                    {   var imageName=that.get('newStyleImageName').split('.');
+                         var type = imageName[imageName.length-1];
 
                         that.setTempImage();
 
@@ -716,7 +721,8 @@ HubStar.UserController = Ember.Controller.extend({
                         var data1 = {"newStyleImageSource": that.get('newStyleImageSource'),
                             'newStyleImageName': that.get('newStyleImageName'),
                             'mode': that.get('UploadImageMode').replace(" ", "_").toLowerCase(),
-                            'id': that.get('model.id')};
+                            'id': that.get('model.id'),'type': type};
+                        console.log(data1);
                         requiredBackEnd('users', 'updateStyleImage', data1, 'POST', function(params) {
                             $('#uploadStyleImg').attr("style", "display:none");
                             that.set('isPhotoUploadMode', false);
@@ -754,14 +760,13 @@ HubStar.UserController = Ember.Controller.extend({
     },
     setTempImage: function() {
         var model = this.get('model');
-        var imageName=this.get('newStyleImageName').split('.');
-        var type = imageName[imageName.length-1];
+
         if (this.get('UploadImageMode') === "User Picture")
         {
             this.set('photo_url_large', this.get('newStyleImageSource'));
             this.set('photo_url', this.get('newStyleImageSource'));
             
-            this.set('newStyleImageName', 'user_picture.'+type);
+            this.set('newStyleImageName', 'user_picture');
             
             model.set('photo_url_large', this.get('newStyleImageSource'));
             model.set('photo_url', this.get('newStyleImageSource'));
@@ -769,7 +774,7 @@ HubStar.UserController = Ember.Controller.extend({
         {
             this.set('cover_url', this.get('newStyleImageSource'));
             
-            this.set('newStyleImageName', 'user_cover.'+type);
+            this.set('newStyleImageName', 'user_cover');
             
             model.set('cover_url', this.get('newStyleImageSource'));
         }

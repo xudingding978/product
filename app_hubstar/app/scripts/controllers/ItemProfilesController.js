@@ -63,8 +63,7 @@ HubStar.ItemProfilesController = Ember.Controller.extend({
 
     },
     removeCollectedItem: function(idDel) {
-        console.log(idDel);
-        console.log("ssssssssssssssssssssssssss");
+        
         this.get('controllers.profilePartners').deleteSelectedPartner(idDel);
         //console.log();
     },

@@ -708,6 +708,10 @@
     opacity: 1;
 }
 
+.masonry-object_profile-cover:hover .edit-object{
+    opacity: 1;
+}
+
 .mainfeature-container{
     background-color: #f5f5f5;
     line-height: 0;

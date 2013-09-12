@@ -100,9 +100,18 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("location", user.get("region"));
         this.set("email", user.get("email"));
         this.set("password", user.get("password"));
-        this.set('cover_url', user.get('cover_url'));
-        this.set('photo_url', user.get('photo_url'));
-        this.set('photo_url_large', user.get('photo_url_large'));
+
+ if(user.get('cover_url')===null||user.get('cover_url')===""){
+            user.set('cover_url', '../../../images/defaultcover/defaultcover6.jpg');
+        }
+ else
+        {this.set('cover_url', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_cover/user_cover');
+        }
+        
+        this.set('photo_url', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_cover_small/user_cover');
+        this.set('photo_url_large', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_picture/user_picture');
+
+
         this.isUserSelfOrNot(this.get("currentUserID"));
         
         this.isFollowed();
@@ -236,11 +245,8 @@ HubStar.UserController = Ember.Controller.extend({
         return user;
     },
     checkingIdisExsinting: function(id, postOrPut) {
-
-        var isExsinting;
-
+        var isExsinting=true;
         if (postOrPut === "create") {
-
             for (var i = 0; i < this.get("collections").get('length'); i++) {
                 if (this.get("collections").objectAt(i).id === id) {
                     isExsinting = false;
@@ -280,7 +286,6 @@ HubStar.UserController = Ember.Controller.extend({
         var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
         var id = this.checkingValidInput(this.selectedCollection.get('title'));
         var isExsinting = this.checkingIdisExsinting(id, "create");
-
         if (isExsinting) {
             var validID = this.checkingValidInput(id);
             var checkingCharater = this.specialCharactersChecking(validID);
@@ -357,44 +362,45 @@ HubStar.UserController = Ember.Controller.extend({
     },
     isInputValid: function() {
 
-        function checkObject(id, input, length, isUrlValid, isEmailValid)
+        function checkObject(id, input, length, isUrlValid, isEmailValid, shouldInclude)
         {
             this.id = id;
             this.input = input;
             this.length = length;
             this.isUrlValid = isUrlValid;
             this.isEmailValid = isEmailValid;
+            this.shouldInclude = shouldInclude;
         }
         var checkList = new Array();
-
-        var displayName = new checkObject("displayName", this.get('display_name'), 128, null, null);
+        var result;
+        var displayName = new checkObject("displayName", this.get('display_name'), 128, null, null, null);
         checkList.push(displayName);
-        var email = new checkObject("email", this.get('email'), 128, null, true);
+        var email = new checkObject("email", this.get('email'), 128, null, true, null);
         checkList.push(email);
-        var aboutMe = new checkObject("aboutMe", this.get('aboutMe'), 4096, null, null);
+        var aboutMe = new checkObject("aboutMe", this.get('aboutMe'), 4096, null, null, null);
         checkList.push(aboutMe);
-        var location = new checkObject("location", this.get('location'), 128, null, null);
+        var location = new checkObject("location", this.get('location'), 128, null, null, null);
         checkList.push(location);
-        var facebook = new checkObject("facebook", this.get('facebook'), 128, true, null);
+        var facebook = new checkObject("facebook", this.get('facebook'), 128, true, null, "facebook");
         checkList.push(facebook);
-        var twitter = new checkObject("twitter", this.get('twitter'), 128, true, null);
+        var twitter = new checkObject("twitter", this.get('twitter'), 128, true, null, "twitter");
         checkList.push(twitter);
-        var googleplus = new checkObject("googleplus", this.get('googleplus'), 128, true, null);
+        var googleplus = new checkObject("googleplus", this.get('googleplus'), 128, true, null, "plus.google");
         checkList.push(googleplus);
-        var pinterest = new checkObject("pinterest", this.get('pinterest'), 128, true, null);
+        var pinterest = new checkObject("pinterest", this.get('pinterest'), 128, true, null, "pinterest");
         checkList.push(pinterest);
-        var linkedin = new checkObject("linkedin", this.get('linkedin'), 128, true, null);
+        var linkedin = new checkObject("linkedin", this.get('linkedin'), 128, true, null, "linkedin");
         checkList.push(linkedin);
-        var youtube = new checkObject("youtube", this.get('youtube'), 128, true, null);
+        var youtube = new checkObject("youtube", this.get('youtube'), 128, true, null, "youtube");
         checkList.push(youtube);
 //        var password = new checkObject("password", this.get('password'), 128, null, null);
 //        checkList.push(password);
 
-        var result;
 
         for (var i = 0; i < checkList.length; i++)
         {
-            var patternUrl = /^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([\w]+)(.[\w]+){1,2}$/;
+            //       var patternUrl = /^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([\w]+)(.[\w]+){1,2}$/;
+
             var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
             document.getElementById(checkList[i].id).style.border = '';
 
@@ -410,8 +416,7 @@ HubStar.UserController = Ember.Controller.extend({
 
             if (checkList[i].input !== null && checkList[i].isUrlValid === true)
             {
-
-                if (patternUrl.test(checkList[i].input) || checkList[i].input === "") {
+                if (checkList[i].input.indexOf(checkList[i].shouldInclude) !== -1 || checkList[i].input === "") {
                     result = true;
                 }
                 else {
@@ -693,7 +698,7 @@ HubStar.UserController = Ember.Controller.extend({
     savePhotoUpdate: function()
     {
         if (this.get('newStyleImageSource') !== null && this.get('newStyleImageSource') !== "")
-        {
+        {            
             var src = this.get('newStyleImageSource');
             var that = this;
             getImageWidth(src, function(width, height) {
@@ -703,7 +708,8 @@ HubStar.UserController = Ember.Controller.extend({
 
                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
                     if ((width >= params.width) && (height >= params.height))
-                    {
+                    {   var imageName=that.get('newStyleImageName').split('.');
+                         var type = imageName[imageName.length-1];
 
                         that.setTempImage();
 
@@ -711,7 +717,8 @@ HubStar.UserController = Ember.Controller.extend({
                         var data1 = {"newStyleImageSource": that.get('newStyleImageSource'),
                             'newStyleImageName': that.get('newStyleImageName'),
                             'mode': that.get('UploadImageMode').replace(" ", "_").toLowerCase(),
-                            'id': that.get('model.id')};
+                            'id': that.get('model.id'),'type': type};
+                        console.log(data1);
                         requiredBackEnd('users', 'updateStyleImage', data1, 'POST', function(params) {
                             $('#uploadStyleImg').attr("style", "display:none");
                             that.set('isPhotoUploadMode', false);
@@ -749,14 +756,13 @@ HubStar.UserController = Ember.Controller.extend({
     },
     setTempImage: function() {
         var model = this.get('model');
-        var imageName=this.get('newStyleImageName').split('.');
-        var type = imageName[imageName.length-1];
+
         if (this.get('UploadImageMode') === "User Picture")
         {
             this.set('photo_url_large', this.get('newStyleImageSource'));
             this.set('photo_url', this.get('newStyleImageSource'));
             
-            this.set('newStyleImageName', 'user_picture.'+type);
+            this.set('newStyleImageName', 'user_picture');
             
             model.set('photo_url_large', this.get('newStyleImageSource'));
             model.set('photo_url', this.get('newStyleImageSource'));
@@ -764,7 +770,7 @@ HubStar.UserController = Ember.Controller.extend({
         {
             this.set('cover_url', this.get('newStyleImageSource'));
             
-            this.set('newStyleImageName', 'user_cover.'+type);
+            this.set('newStyleImageName', 'user_cover');
             
             model.set('cover_url', this.get('newStyleImageSource'));
         }

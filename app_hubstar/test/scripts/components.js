@@ -2547,7 +2547,17 @@ function requiredBackEnd(controller, method, para, ajaxType, callback) {
     }
 
 
-
-
 }
-
+function getTarget(obj,type) {
+        var targ;
+        var e = obj;
+        if (e.target)
+            targ = e.target;
+        else if (e.srcElement)
+            targ = e.srcElement;
+        if (type === "single") {
+            if (targ.nodeType === 3) // defeat Safari bug
+                targ = targ.parentNode;
+        }
+        return targ;
+    }

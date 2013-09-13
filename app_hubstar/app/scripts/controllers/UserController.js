@@ -112,6 +112,7 @@ HubStar.UserController = Ember.Controller.extend({
           this.set("photo_url_large", user.get("photo_url_large"));
 //        this.set('photo_url', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_cover_small/user_cover');
 //        this.set('photo_url_large', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_picture/user_picture');
+
         this.get('controllers.applicationFeedback').set('photo_url', this.get('photo_url_large'));
 //        var ac = this.get("controllers.application");
 //        var pb = this.get("controllers.platformBar");
@@ -132,7 +133,6 @@ HubStar.UserController = Ember.Controller.extend({
             var col = collections.objectAt(i);
             if ((col.get("collection_ids") !== null && col.get("collection_ids") !== "")) {
                 var imgId = col.get("collection_ids").split(",").objectAt(0);
-                //  this.getHeroImage(imgId, col);
             }
         }
         this.initStastics(user);
@@ -344,7 +344,6 @@ HubStar.UserController = Ember.Controller.extend({
     },
     saveUpdate: function() {
         var update_user_record = this.getCurrentUser();
-console.log(update_user_record);
         if (this.isInputValid())
         {
             update_user_record.set('collections', this.get('collections'));

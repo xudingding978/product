@@ -110,6 +110,7 @@ HubStar.UserController = Ember.Controller.extend({
         
         this.set('photo_url', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_cover_small/user_cover');
         this.set('photo_url_large', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_picture/user_picture');
+        this.get('controllers.applicationFeedback').set('photo_url', this.get('photo_url_large'));
 //        var ac = this.get("controllers.application");
 //        var pb = this.get("controllers.platformBar");
 //        ac.changeImage(this.get('photo_url_large'));
@@ -135,6 +136,8 @@ HubStar.UserController = Ember.Controller.extend({
         this.initStastics(user);
         this.checkAuthenticUser();
         this.labelBarRefresh();
+        this.userPhotoEditBackButton();
+        this.userDashboardBackButton();
     },
     labelBarRefresh: function() {
         this.set("profileSelectionStatus", "Collections");

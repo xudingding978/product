@@ -26,10 +26,6 @@ HubStar.PlatformBarController = Ember.ArrayController.extend({
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
         this.set('categorys', null);
         this.set('categorys', model);
-    },
-            
-    changeImage: function(imageSrc)
-    {
-        this.set('photo_url', imageSrc);
+
     }
 });

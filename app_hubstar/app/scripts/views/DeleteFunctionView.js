@@ -5,6 +5,7 @@ HubStar.DeleteFunctionView = Ember.View.extend({
     },
     deleteSelection: function() {
         var controller = this.get('controller');
+        
         if (controller._debugContainerKey.indexOf("addCollection") !== -1)
         {
             //     controller.addNewCollection();
@@ -24,25 +25,26 @@ HubStar.DeleteFunctionView = Ember.View.extend({
 
             controller.deleteSelectedCollection();
 
-        } else if (controller._debugContainerKey.indexOf("profile") !== -1) {
+        }
+        else if (controller._debugContainerKey.indexOf("profilePartners") !== -1) {
+
+            controller.deleteSelectedPartner();
+
+        }
+        else if (controller._debugContainerKey.indexOf("profile") !== -1) {
 
 
             controller.deleteSelectedCollection();
 
         }
-        
+
         else if (controller._debugContainerKey.indexOf("comment") !== -1) {
 
 
             controller.deleteComment();
 
         }
-        else if (controller._debugContainerKey.indexOf("profilePartners") !== -1) {
 
-
-            controller.deletePartner();
-
-        }
         else if (controller._debugContainerKey.indexOf("masonryCollectionItems") !== -1) {
 
 
@@ -50,7 +52,7 @@ HubStar.DeleteFunctionView = Ember.View.extend({
 
         }
         else {
-
+            console.log("this is a deleete");
         }
     },
     cancelDelete: function() {
@@ -75,6 +77,12 @@ HubStar.DeleteFunctionView = Ember.View.extend({
             controller.cancelDelete();
 
         }
+        else if (controller._debugContainerKey.indexOf("profilePartners") !== -1) {
+
+
+            controller.cancelDelete();
+
+        }
         else if (controller._debugContainerKey.indexOf("profile") !== -1) {
 
 
@@ -87,12 +95,7 @@ HubStar.DeleteFunctionView = Ember.View.extend({
             controller.cancelDelete();
 
         }
-        else if (controller._debugContainerKey.indexOf("profilePartners") !== -1) {
-
-
-            controller.cancelDelete();
-
-        } else if (controller._debugContainerKey.indexOf("masonryCollectionItems") !== -1) {
+        else if (controller._debugContainerKey.indexOf("masonryCollectionItems") !== -1) {
 
 
             controller.cancelDelete();

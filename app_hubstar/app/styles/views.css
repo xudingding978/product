@@ -512,6 +512,11 @@
     overflow: hidden;
     padding: 5px;
 }
+.albumcover-container > div{
+    float:left;
+    width:auto;
+    height:343px;
+}
 
 .album-description{
     position: absolute;
@@ -556,9 +561,9 @@
 
 .albumcover{
     min-width: 350px;
+    max-width:420px;
     min-height: 350px;
-    max-width: none;
-    height: 100%;
+    max-height:425px;
 }
 
 .album-info{
@@ -688,7 +693,11 @@
     line-height: 0;
     overflow: hidden;
     position: relative;
-    padding: 0 0 20px 0;
+    /*padding: 0 0 20px 0;*/
+    margin: 0 0 20px 0;
+    min-height:215px;
+    vertical-align:central;
+    background:#e5e5e5;
 }
 
 .edit-object{
@@ -696,6 +705,10 @@
 }
 
 .mainfeature-wrapper:hover .edit-object{
+    opacity: 1;
+}
+
+.masonry-object_profile-cover:hover .edit-object{
     opacity: 1;
 }
 

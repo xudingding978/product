@@ -100,13 +100,16 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("location", user.get("region"));
         this.set("email", user.get("email"));
         this.set("password", user.get("password"));
-//        this.set('cover_url', user.get('cover_url'));
-//        this.set('photo_url', user.get('photo_url'));
-//        this.set('photo_url_large', user.get('photo_url_large'));
-        this.set('cover_url', HubStar.get('photoDomain') + '/users/' + user.get('id') + '/user_cover/user_cover');
-        this.set('photo_url', HubStar.get('photoDomain') + '/users/' + user.get('id') + '/user_cover_small/user_cover');
-        this.set('photo_url_large', HubStar.get('photoDomain') + '/users/' + user.get('id') + '/user_picture/user_picture');
 
+        if(user.get('cover_url')===null||user.get('cover_url')===""){
+                   user.set('cover_url', '../../../images/defaultcover/defaultcover6.jpg');
+               }
+        else
+               {this.set('cover_url', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_cover/user_cover');
+               }
+        
+        this.set('photo_url', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_cover_small/user_cover');
+        this.set('photo_url_large', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_picture/user_picture');
         var ac = this.get("controllers.application");
         var pb = this.get("controllers.platformBar");
         ac.changeImage(this.get('photo_url_large'));
@@ -245,11 +248,8 @@ HubStar.UserController = Ember.Controller.extend({
         return user;
     },
     checkingIdisExsinting: function(id, postOrPut) {
-
-        var isExsinting;
-
+        var isExsinting=true;
         if (postOrPut === "create") {
-
             for (var i = 0; i < this.get("collections").get('length'); i++) {
                 if (this.get("collections").objectAt(i).id === id) {
                     isExsinting = false;
@@ -289,7 +289,6 @@ HubStar.UserController = Ember.Controller.extend({
         var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
         var id = this.checkingValidInput(this.selectedCollection.get('title'));
         var isExsinting = this.checkingIdisExsinting(id, "create");
-
         if (isExsinting) {
             var validID = this.checkingValidInput(id);
             var checkingCharater = this.specialCharactersChecking(validID);
@@ -340,7 +339,7 @@ HubStar.UserController = Ember.Controller.extend({
     },
     saveUpdate: function() {
         var update_user_record = this.getCurrentUser();
-
+console.log(update_user_record);
         if (this.isInputValid())
         {
             update_user_record.set('collections', this.get('collections'));

@@ -770,7 +770,7 @@ HubStar.UserController = Ember.Controller.extend({
         } else if (this.get('UploadImageMode') === "User Cover") {
 
             this.set('cover_url', this.get('newStyleImageSource'));
-
+            this.set('cover_url_small', this.get('newStyleImageSource'));
             this.set('newStyleImageName', 'user_cover');
 
             model.set('cover_url', this.get('newStyleImageSource'));

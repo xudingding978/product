@@ -726,6 +726,7 @@ console.log(update_user_record);
                         });
                         that.userPhotoEditBackButton();
                         that.userDashboardBackButton();
+                        that.get('controllers.applicationFeedback').set('photo_url', src);
                         that.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully!!!");
                     }
                     else if (width < params.width || height < params.height) {

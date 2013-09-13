@@ -1,5 +1,6 @@
 HubStar.ApplicationFeedbackController = Ember.Controller.extend({
     needs: ['application'],
+    photo_url: '',
     setFeedback: function(status) {
 
         this.set('status', status);

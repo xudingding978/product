@@ -110,10 +110,10 @@ HubStar.UserController = Ember.Controller.extend({
         
         this.set('photo_url', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_cover_small/user_cover');
         this.set('photo_url_large', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_picture/user_picture');
-        var ac = this.get("controllers.application");
-        var pb = this.get("controllers.platformBar");
-        ac.changeImage(this.get('photo_url_large'));
-        pb.changeImage(this.get('photo_url_large'));
+//        var ac = this.get("controllers.application");
+//        var pb = this.get("controllers.platformBar");
+//        ac.changeImage(this.get('photo_url_large'));
+//        pb.changeImage(this.get('photo_url_large'));
 
         this.isUserSelfOrNot(this.get("currentUserID"));
 

@@ -17,7 +17,7 @@ HubStar.UserController = Ember.Controller.extend({
     display_name: "",
     userTage: true,
     currentUserID: "",
-    needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings'],
+    needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings','collectionCreate'],
     facebook: "",
     twitter: "",
     follow_status: false,
@@ -60,7 +60,6 @@ HubStar.UserController = Ember.Controller.extend({
     init: function()
     {
         this.setUser();       
-
     },
     isUserSelfOrNot: function(currentUserID) {
         this.set("isUserSelf", false);
@@ -308,9 +307,6 @@ HubStar.UserController = Ember.Controller.extend({
             }
             this.statstics();
         }
-//        else {
-//            isExsinting = true;
-//        }
     },
     socialLink: function(link) {
 

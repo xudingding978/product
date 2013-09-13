@@ -5,6 +5,7 @@ var collection_desc_record;
 
 HubStar.UserController = Ember.Controller.extend({
     user: null,
+    isFirst:0,
     identifier: "",
     uploadMode: null,
     newCollectionName: null,
@@ -99,13 +100,18 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("location", user.get("region"));
         this.set("email", user.get("email"));
         this.set("password", user.get("password"));
+console.log(user.get('cover_url'));
 
-        if (user.get('cover_url') === null || user.get('cover_url') === "") {
-            user.set('cover_url', '../../../images/defaultcover/defaultcover6.jpg');
+        if (user.get('cover_url') === null || user.get('cover_url') === ""||user.get('cover_url') === undefined) {
+            user.set('cover_url', 'http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg');
+            this.set('cover_url', user.get('cover_url'));
+            console.log(this.get('cover_url'));
         }
         else
         {
+           
             this.set('cover_url', HubStar.get('photoDomain') + '/users/' + user.get('id') + '/user_cover/user_cover');
+            console.log('dddd');
         }
 
         this.set('photo_url', HubStar.get('photoDomain') + '/users/' + user.get('id') + '/user_cover_small/user_cover');

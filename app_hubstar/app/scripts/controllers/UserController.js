@@ -101,7 +101,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("email", user.get("email"));
         this.set("password", user.get("password"));
 
- if(user.get('cover_url')===null||user.get('cover_url')===""){
+ if(user.get('cover_url')===null||user.get('cover_url')===""||user.get('cover_url')===undefined){
             user.set('cover_url', '../../../images/defaultcover/defaultcover6.jpg');
         }
  else

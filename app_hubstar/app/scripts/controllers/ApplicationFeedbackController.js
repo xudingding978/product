@@ -10,7 +10,7 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
 
                 that.set('feedback', false);
             });
-        }, 1000);
+        }, 5000);
 
         Ember.run.next(function() {
 

@@ -10,11 +10,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     user: null,
     from: null,
     size: null,
+    photo_url: null,
     iframeURL: "",
     iframeLoginURL: "",
     init: function() {
         this.newSearch();
-        this.set('search_string', '');
+        this.set('search_string','');
         var address = document.URL;
         var domain = address.split("/")[2];
         this.set('iframeURL', "http://" + domain + "/user/create/");
@@ -31,6 +32,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     grapData: function() {
         this.set("user", HubStar.User.find(localStorage.loginStatus));
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
+        this.set('photo_url', HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus + '/user_picture/user_picture');
     },
     reloadPage: function() {
         this.set("test", !this.get("test"));
@@ -107,6 +109,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     flipFrontBack: function() {
         $(".hover").removeClass('flip');
+    },
+    changeImage: function(imageSrc)
+    {
+        this.set('photo_url', imageSrc);
     }
 
 });

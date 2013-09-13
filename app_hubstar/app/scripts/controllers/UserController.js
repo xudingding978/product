@@ -17,7 +17,7 @@ HubStar.UserController = Ember.Controller.extend({
     display_name: "",
     userTage: true,
     currentUserID: "",
-    needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings'],
+    needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings', 'application', 'platformBar'],
     facebook: "",
     twitter: "",
     follow_status: false,
@@ -59,7 +59,7 @@ HubStar.UserController = Ember.Controller.extend({
     isUserSelf: false,
     init: function()
     {
-        this.setUser();       
+        this.setUser();
 
     },
     isUserSelfOrNot: function(currentUserID) {
@@ -101,6 +101,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("email", user.get("email"));
         this.set("password", user.get("password"));
 
+
  if(user.get('cover_url')===null||user.get('cover_url')===""||user.get('cover_url')===undefined){
             user.set('cover_url', '../../../images/defaultcover/defaultcover6.jpg');
         }
@@ -108,12 +109,17 @@ HubStar.UserController = Ember.Controller.extend({
         {this.set('cover_url', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_cover/user_cover');
         }
         
+
         this.set('photo_url', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_cover_small/user_cover');
         this.set('photo_url_large', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_picture/user_picture');
-
+        this.get('controllers.applicationFeedback').set('photo_url', this.get('photo_url_large'));
+//        var ac = this.get("controllers.application");
+//        var pb = this.get("controllers.platformBar");
+//        ac.changeImage(this.get('photo_url_large'));
+//        pb.changeImage(this.get('photo_url_large'));
 
         this.isUserSelfOrNot(this.get("currentUserID"));
-        
+
         this.isFollowed();
         if (this.get("collections").objectAt(0) !== null && typeof this.get("collections").objectAt(0) !== 'undefined') {
             this.setDesc(this.get("collections").objectAt(0).get("desc"));
@@ -126,21 +132,22 @@ HubStar.UserController = Ember.Controller.extend({
             var col = collections.objectAt(i);
             if ((col.get("collection_ids") !== null && col.get("collection_ids") !== "")) {
                 var imgId = col.get("collection_ids").split(",").objectAt(0);
-                //  this.getHeroImage(imgId, col);
             }
         }
         this.initStastics(user);
         this.checkAuthenticUser();
         this.labelBarRefresh();
+        this.userPhotoEditBackButton();
+        this.userDashboardBackButton();
     },
-    labelBarRefresh:function(){
-          this.set("profileSelectionStatus", "Collections");
-          $('#user-stats > li').removeClass('selected-user-stats');    
-          $('#defualt').addClass('selected-user-stats');
-            $('#user-stats > li').click(function() {
-                $('#user-stats > li').removeClass('selected-user-stats');               
-                $(this).addClass('selected-user-stats');
-         });
+    labelBarRefresh: function() {
+        this.set("profileSelectionStatus", "Collections");
+        $('#user-stats > li').removeClass('selected-user-stats');
+        $('#defualt').addClass('selected-user-stats');
+        $('#user-stats > li').click(function() {
+            $('#user-stats > li').removeClass('selected-user-stats');
+            $(this).addClass('selected-user-stats');
+        });
     },
     initStastics: function(user) {
         if (user.get("followers") !== null) {
@@ -184,7 +191,7 @@ HubStar.UserController = Ember.Controller.extend({
         if (this.get('is_click') === true) {
             this.set('is_click', false);
 
-            this.setUser();
+            //this.setUser();
             $('#user-board_right_front').show();
             $('#user-board_right_back').hide();
             $('#change_profile').show();
@@ -336,7 +343,6 @@ HubStar.UserController = Ember.Controller.extend({
     },
     saveUpdate: function() {
         var update_user_record = this.getCurrentUser();
-console.log(update_user_record);
         if (this.isInputValid())
         {
             update_user_record.set('collections', this.get('collections'));
@@ -352,9 +358,9 @@ console.log(update_user_record);
             update_user_record.set('region', this.get('location'));
             update_user_record.set('email', this.get('email'));
             update_user_record.set('password', this.get('password'));
-            update_user_record.set('photo_url', this.get('photo_url'));
-            update_user_record.set('photo_url_large', this.get('photo_url_large'));
-            update_user_record.set('cover_url', this.get('cover_url'));
+//            update_user_record.set('photo_url', this.get('photo_url'));
+//            update_user_record.set('photo_url_large', this.get('photo_url_large'));
+//            update_user_record.set('cover_url', this.get('cover_url'));
 
             this.get('controllers.applicationFeedback').statusObserver(null, "Updated Successfully!!!");
             HubStar.store.save();
@@ -677,10 +683,7 @@ console.log(update_user_record);
     {
         var target = getTarget(e, "single");
         var src = target.result;
-        // console.log(src);
         var that = this;
-
-
 
         getImageWidth(src, function(width, height) {
             that.set('newStyleImageSource', src);
@@ -698,7 +701,7 @@ console.log(update_user_record);
     savePhotoUpdate: function()
     {
         if (this.get('newStyleImageSource') !== null && this.get('newStyleImageSource') !== "")
-        {            
+        {
             var src = this.get('newStyleImageSource');
             var that = this;
             getImageWidth(src, function(width, height) {
@@ -708,8 +711,9 @@ console.log(update_user_record);
 
                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
                     if ((width >= params.width) && (height >= params.height))
-                    {   var imageName=that.get('newStyleImageName').split('.');
-                         var type = imageName[imageName.length-1];
+                    {
+                        var imageName = that.get('newStyleImageName').split('.');
+                        var type = imageName[imageName.length - 1];
 
                         that.setTempImage();
 
@@ -717,8 +721,7 @@ console.log(update_user_record);
                         var data1 = {"newStyleImageSource": that.get('newStyleImageSource'),
                             'newStyleImageName': that.get('newStyleImageName'),
                             'mode': that.get('UploadImageMode').replace(" ", "_").toLowerCase(),
-                            'id': that.get('model.id'),'type': type};
-                        console.log(data1);
+                            'id': that.get('model.id'), 'type': type};
                         requiredBackEnd('users', 'updateStyleImage', data1, 'POST', function(params) {
                             $('#uploadStyleImg').attr("style", "display:none");
                             that.set('isPhotoUploadMode', false);
@@ -726,6 +729,7 @@ console.log(update_user_record);
                         });
                         that.userPhotoEditBackButton();
                         that.userDashboardBackButton();
+                        that.get('controllers.applicationFeedback').set('photo_url', src);
                         that.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully!!!");
                     }
                     else if (width < params.width || height < params.height) {
@@ -760,18 +764,18 @@ console.log(update_user_record);
         if (this.get('UploadImageMode') === "User Picture")
         {
             this.set('photo_url_large', this.get('newStyleImageSource'));
-            this.set('photo_url', this.get('newStyleImageSource'));
-            
             this.set('newStyleImageName', 'user_picture');
-            
+            var ac = this.get("controllers.application");
+            var pb = this.get("controllers.platformBar");
+            ac.changeImage(this.get('photo_url_large'));
+            pb.changeImage(this.get('photo_url_large'));
             model.set('photo_url_large', this.get('newStyleImageSource'));
-            model.set('photo_url', this.get('newStyleImageSource'));
-        } else if (this.get('UploadImageMode') === "User Cover")
-        {
+        } else if (this.get('UploadImageMode') === "User Cover") {
+
             this.set('cover_url', this.get('newStyleImageSource'));
-            
+            this.set('cover_url_small', this.get('newStyleImageSource'));
             this.set('newStyleImageName', 'user_cover');
-            
+
             model.set('cover_url', this.get('newStyleImageSource'));
         }
     }

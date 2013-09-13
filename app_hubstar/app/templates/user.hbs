@@ -18,22 +18,22 @@
             </div>
             {{#if controller.isUserSelf}}
             <div href="#question_modal" role="button" class="disabled-btn follow-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;">Follow</div>
-                    
-            {{else}}
-                {{#if controller.follow_status}}
-                    {{#if controller.following_status}}
-                    <div href="#question_modal" role="button" class="disabled-btn disabled-green follow-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;"{{action followThisUser}}><i class='icon-exchange' >&nbsp; </i> Following</div>
-                    {{else}}
-                    <div href="#question_modal" role="button" class="disabled-btn disabled-green follow-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;"{{action followThisUser}}><i class='icon-circle-blank' >&nbsp; </i> Following</div>
-                    {{/if}}
 
-                {{else}}
-                    {{#if controller.following_status}}
-                    <div href="#question_modal" role="button" class="new-btn green-btn follow-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;"{{action followThisUser}}><i class='icon-ok' >&nbsp; </i> Follow</div>
-                    {{else}}
-                    <div href="#question_modal" role="button" class="new-btn green-btn follow-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;"{{action followThisUser}}><i class='icon-plus' >&nbsp; </i> Follow</div>
-                    {{/if}}
-                {{/if}}
+            {{else}}
+            {{#if controller.follow_status}}
+            {{#if controller.following_status}}
+            <div href="#question_modal" role="button" class="disabled-btn disabled-green follow-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;"{{action followThisUser}}><i class='icon-exchange' >&nbsp; </i> Following</div>
+            {{else}}
+            <div href="#question_modal" role="button" class="disabled-btn disabled-green follow-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;"{{action followThisUser}}><i class='icon-circle-blank' >&nbsp; </i> Following</div>
+            {{/if}}
+
+            {{else}}
+            {{#if controller.following_status}}
+            <div href="#question_modal" role="button" class="new-btn green-btn follow-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;"{{action followThisUser}}><i class='icon-ok' >&nbsp; </i> Follow</div>
+            {{else}}
+            <div href="#question_modal" role="button" class="new-btn green-btn follow-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;"{{action followThisUser}}><i class='icon-plus' >&nbsp; </i> Follow</div>
+            {{/if}}
+            {{/if}}
             {{/if}}
 
             <div id="show_interest" >
@@ -92,8 +92,9 @@
 
         <div id="user-board_right_front">
             <div class="user-cover">
-                <img {{bindAttr src= controller.cover_url}} style="width:100%;"/>
-
+            
+                <img {{bindAttr src= "cover_url"}} style="width:100%;"/>
+      
                 {{#if controller.is_authentic_user}}
                 <div  id="flip-front" class='blue-btn new-btn hint--left hint--rounded edit-dashboard-btn' style="display: block; margin: 10px;position: absolute;top: 0;right: 0;" data-hint="Dashboard"{{action userDashboardButton "User Cover"}}>  
 
@@ -111,7 +112,7 @@
                 <ul class="locationandlinks">
                     <li>
                         <span class="locationIcon"><k class="icon-map-marker"></k></span>
-                        {{location}}
+                        {{location}} 
                     </li>
                     {{#if facebook}}
                     <li class="location_li">

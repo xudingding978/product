@@ -20,7 +20,8 @@ HubStar.CollectionController = Ember.Controller.extend({
                     collection.set('desc', "Add a short description to your Collection");
                 }
             } else {
-                this.get('controllers.applicationFeedback').statusObserver(null, "invalide characters...");
+                console.log("asdfasdfasdf");
+            //    this.get('controllers.applicationFeedback').statusObserver(null, "invalide characters...");
             }
         }
         return collection;

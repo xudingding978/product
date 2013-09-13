@@ -26,7 +26,5 @@ HubStar.PlatformBarController = Ember.ArrayController.extend({
         this.set('categorys', null);
         this.set('categorys', model);
 
-
-
     }
 });

@@ -6066,10 +6066,10 @@ HubStar.UserFollowersController = Ember.Controller.extend({
             {
                 dataNew["id"] = params[i]["record_id"];
                 dataNew["name"] = params[i]["name"];
-//                dataNew["photo_url"] = params[i]["photo_url"];
-//                dataNew["photo_url_large"] = params[i]["photo_url_large"];
-                dataNew["photo_url_large"] = HubStar.get('photoDomain')+'/users/'+dataNew["id"]+'/user_cover_small/user_cover';
-                dataNew["photo_url"] = HubStar.get('photoDomain')+'/users/'+dataNew["id"]+'/user_picture/user_picture';
+                dataNew["photo_url"] = params[i]["photo_url"];
+                dataNew["photo_url_large"] = params[i]["photo_url_large"];
+         //       dataNew["photo_url_large"] = HubStar.get('photoDomain')+'/users/'+dataNew["id"]+'/user_cover_small/user_cover';
+         //       dataNew["photo_url"] = HubStar.get('photoDomain')+'/users/'+dataNew["id"]+'/user_picture/user_picture';
                 
                 dataNew["collections_size"] = params[i]["collections_size"];
                 dataNew["follower_size"] = params[i]["follower_size"];
@@ -6378,11 +6378,11 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
             {
                 dataNew["id"] = params[i]["record_id"];
                 dataNew["name"] = params[i]["name"];
-//                dataNew["photo_url"] = params[i]["photo_url"];
-//                dataNew["photo_url_large"] = params[i]["photo_url_large"];
+                dataNew["photo_url"] = params[i]["photo_url"];
+                dataNew["photo_url_large"] = params[i]["photo_url_large"];
 
-                dataNew["photo_url_large"] = HubStar.get('photoDomain')+'/users/'+dataNew["id"]+'/user_cover_small/user_cover';
-                dataNew["photo_url"] = HubStar.get('photoDomain')+'/users/'+dataNew["id"]+'/user_picture/user_picture';
+//                dataNew["photo_url_large"] = HubStar.get('photoDomain')+'/users/'+dataNew["id"]+'/user_cover_small/user_cover';
+//                dataNew["photo_url"] = HubStar.get('photoDomain')+'/users/'+dataNew["id"]+'/user_picture/user_picture';
                 
                 dataNew["collections_size"] = params[i]["collections_size"];
                 dataNew["follower_size"] = params[i]["follower_size"];

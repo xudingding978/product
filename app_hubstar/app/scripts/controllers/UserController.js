@@ -103,7 +103,7 @@ HubStar.UserController = Ember.Controller.extend({
 
 
  if(user.get('cover_url')===null||user.get('cover_url')===""||user.get('cover_url')===undefined){
-            user.set('cover_url', '../../../images/defaultcover/defaultcover6.jpg');
+            user.set('cover_url', 'https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_bg/default/defaultbg6.jpg');
         }
  else
         {this.set('cover_url', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_cover/user_cover');

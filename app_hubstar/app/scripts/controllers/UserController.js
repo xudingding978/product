@@ -101,19 +101,23 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("email", user.get("email"));
         this.set("password", user.get("password"));
 
-        if(user.get('cover_url')===null||user.get('cover_url')===""){
-                   user.set('cover_url', 'http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg');
-               }
-        else
-               {this.set('cover_url', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_cover/user_cover');
-               }
+
+
+ if(user.get('cover_url')===null||user.get('cover_url')===""||user.get('cover_url')===undefined){
+            user.set('cover_url', 'http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg');
+        }
+ else
+        {this.set('cover_url', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_cover/user_cover');
+        }
         
+
         this.set('photo_url', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_cover_small/user_cover');
         this.set('photo_url_large', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_picture/user_picture');
-        var ac = this.get("controllers.application");
-        var pb = this.get("controllers.platformBar");
-        ac.changeImage(this.get('photo_url_large'));
-        pb.changeImage(this.get('photo_url_large'));
+        this.get('controllers.applicationFeedback').set('photo_url', this.get('photo_url_large'));
+//        var ac = this.get("controllers.application");
+//        var pb = this.get("controllers.platformBar");
+//        ac.changeImage(this.get('photo_url_large'));
+//        pb.changeImage(this.get('photo_url_large'));
 
         this.isUserSelfOrNot(this.get("currentUserID"));
 
@@ -129,12 +133,13 @@ HubStar.UserController = Ember.Controller.extend({
             var col = collections.objectAt(i);
             if ((col.get("collection_ids") !== null && col.get("collection_ids") !== "")) {
                 var imgId = col.get("collection_ids").split(",").objectAt(0);
-                //  this.getHeroImage(imgId, col);
             }
         }
         this.initStastics(user);
         this.checkAuthenticUser();
         this.labelBarRefresh();
+        this.userPhotoEditBackButton();
+        this.userDashboardBackButton();
     },
     labelBarRefresh: function() {
         this.set("profileSelectionStatus", "Collections");
@@ -339,7 +344,6 @@ HubStar.UserController = Ember.Controller.extend({
     },
     saveUpdate: function() {
         var update_user_record = this.getCurrentUser();
-console.log(update_user_record);
         if (this.isInputValid())
         {
             update_user_record.set('collections', this.get('collections'));
@@ -726,6 +730,7 @@ console.log(update_user_record);
                         });
                         that.userPhotoEditBackButton();
                         that.userDashboardBackButton();
+                        that.get('controllers.applicationFeedback').set('photo_url', src);
                         that.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully!!!");
                     }
                     else if (width < params.width || height < params.height) {
@@ -769,7 +774,7 @@ console.log(update_user_record);
         } else if (this.get('UploadImageMode') === "User Cover") {
 
             this.set('cover_url', this.get('newStyleImageSource'));
-
+            this.set('cover_url_small', this.get('newStyleImageSource'));
             this.set('newStyleImageName', 'user_cover');
 
             model.set('cover_url', this.get('newStyleImageSource'));

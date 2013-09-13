@@ -1,48 +1,57 @@
 
+    {{#if controller.feedback}}
+    <div id='appfeedback' style='position:fixed;'>
+
+    {{#if controller.info}}
+
+    <div style="overflow: hidden; position: fixed;height: 80px;width: 80px;background-color: #fff;border-radius: 50%;z-index: 12;margin: auto;left: 0;right: 1000px;top: 25px;box-shadow: 0 0 10px #777;border: 3px solid #f3f3f3;">
+        <img {{bindAttr src= this.photo_url}} style="width: 100%;height:100%"/>
+    </div>
+    <div class="fresh-message">
+        <k class="icon-info-sign"></k>
+        {{controller.status}}
+    </div>
+
+    {{/if}}
 
 
 
-{{#if controller.feedback}}
+    {{#if controller.succeed}}
 
 
-<div id="appfeedback" class="blur_black"></div>
+    <div style="overflow: hidden; position: fixed;height: 80px;width: 80px;background-color: #fff;border-radius: 50%;z-index: 12;margin: auto;left: 0;right: 1000px;top: 25px;box-shadow: 0 0 10px #777;border: 3px solid #f3f3f3;">
+        <img {{bindAttr src= this.photo_url}} style="width: 100%;height:100%"/>
+    </div>
+    <div class="fresh-message fresh_succeed">
+        <k class="icon-ok-sign"></k>
+        {{controller.status}}
+    </div>
 
-{{#if controller.info}}
+    {{/if}}
 
-<div class="fresh-message">
-<k class="icon-info-sign"></k>
-{{controller.status}}
-</div>
+    {{#if controller.failed}}
 
-{{/if}}
+    <div style="overflow: hidden; position: fixed;height: 80px;width: 80px;background-color: #fff;border-radius: 50%;z-index: 12;margin: auto;left: 0;right: 1000px;top: 25px;box-shadow: 0 0 10px #777;border: 3px solid #f3f3f3;">
+        <img {{bindAttr src= this.photo_url}} style="width: 100%;height:100%"/>
+    </div>
+    <div class="fresh-message fresh_failed">
+        <k class="icon-remove-sign"></k>
+        {{controller.status}}
+    </div>
 
-{{#if controller.succeed}}
-
-
-<div class="fresh-message fresh_succeed">
-<k class="icon-ok-sign"></k>
-{{controller.status}}
-</div>
-
-{{/if}}
-
-{{#if controller.failed}}
-
-<div class="fresh-message fresh_failed">
-<k class="icon-remove-sign"></k>
-{{controller.status}}
-</div>
-
-{{/if}}
+    {{/if}}
 
 
-{{#if controller.warnning}}
+    {{#if controller.warnning}}
 
-<div class="fresh-message fresh_warnning">
-<k class="icon-exclamation-sign"></k>
-{{controller.status}}
-</div>
+    <div style="overflow: hidden; position: fixed;height: 80px;width: 80px;background-color: #fff;border-radius: 50%;z-index: 12;margin: auto;left: 0;right: 1000px;top: 25px;box-shadow: 0 0 10px #777;border: 3px solid #f3f3f3;">
+        <img {{bindAttr src= this.photo_url}} style="width: 100%;height:100%"/>
+    </div>
+    <div class="fresh-message fresh_warnning">
+        <k class="icon-exclamation-sign"></k>
+        {{controller.status}}
+    </div>
 
-{{/if}}
-
-{{/if}}
+    {{/if}}
+    </div>
+    {{/if}}

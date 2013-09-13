@@ -32,6 +32,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     grapData: function() {
         this.set("user", HubStar.User.find(localStorage.loginStatus));
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
+        this.set('photo_url', HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus + '/user_picture/user_picture');
     },
     reloadPage: function() {
         this.set("test", !this.get("test"));

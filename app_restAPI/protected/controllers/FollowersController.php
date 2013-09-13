@@ -119,9 +119,13 @@ class FollowersController extends Controller {
             $docIDUser = $this->getDomain() . "/users/" . $like_user;
             $oldUser = $cb->get($docIDUser); // get the old user record from the database according to the docID string
             $oldRecordUser = CJSON::decode($oldUser, true);
-            $userFollower = $oldRecordUser['user'][0]["followers"];
+            
             if (!isset($oldRecordUser['user'][0]["followers"]) || $oldRecordUser['user'][0]["followers"] === "") {
                 $userFollower = null;
+            }
+            else
+            {
+                $userFollower = $oldRecordUser['user'][0]["followers"];
             }
 
             $newRecord = array();
@@ -235,9 +239,13 @@ class FollowersController extends Controller {
             $docIDUser = $this->getDomain() . "/users/" . $like_user;
             $oldUser = $cb->get($docIDUser); // get the old user record from the database according to the docID string
             $oldRecordUser = CJSON::decode($oldUser, true);
-            $userFollower = $oldRecordUser['user'][0]["followers"];
+            
             if (!isset($oldRecordUser['user'][0]["followers"]) || $oldRecordUser['user'][0]["followers"] === "") {
                 $userFollower = null;
+            }
+            else
+            {
+                $userFollower = $oldRecordUser['user'][0]["followers"];
             }
 
             $newRecord = array();

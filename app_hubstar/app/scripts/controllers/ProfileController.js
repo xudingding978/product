@@ -623,8 +623,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var target = getTarget(e, "single");
         var src = target.result;
         var that = this;
-        //   var imageSize = size /1000;
-        // console.log(imageSize);
         getImageWidth(src, function(width, height) {
             that.set('newStyleImageSource', src);
             that.set('newStyleImageName', name);
@@ -666,14 +664,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if (this.get('newStyleImageSource') !== null && this.get('newStyleImageSource') !== "")
         {
             var src = this.get('newStyleImageSource');
-
             var that = this;
-
             getImageWidth(src, function(width, height) {
                 that.set('currentWidth', width);
                 that.set('currentHeight', height);
-
-
                 var data = {"RequireIamgeType": that.get('UploadImageMode')};
                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
                     if ((width >= params.width) && (height >= params.height))

@@ -92,8 +92,9 @@
 
         <div id="user-board_right_front">
             <div class="user-cover">
-                <img {{bindAttr src= controller.cover_url}} style="width:100%;"/>
-
+            
+                <img {{bindAttr src= "cover_url"}} style="width:100%;"/>
+      
                 {{#if controller.is_authentic_user}}
                 <div  id="flip-front" class='blue-btn new-btn hint--left hint--rounded edit-dashboard-btn' style="display: block; margin: 10px;position: absolute;top: 0;right: 0;" data-hint="Dashboard"{{action userDashboardButton "User Cover"}}>  
 
@@ -111,7 +112,7 @@
                 <ul class="locationandlinks">
                     <li>
                         <span class="locationIcon"><k class="icon-map-marker"></k></span>
-                        {{location}}
+                        {{location}}  {{cover_url}}
                     </li>
                     {{#if facebook}}
                     <li class="location_li">

@@ -1,12 +1,9 @@
 
-
 {{#each  content}}
-
 <div class="col1 box style-box t-style-box" style="text-align: center;">
     <div style="position:relative;height: 100px;overflow: hidden;">
         <img {{bindAttr src= this.photo_url_large}} style="width:100%;"/>
     </div>
-
     <div class="user-profilepic-container" style="position:absolute; top: 50px;margin: 0 auto;width: 100px;height: 100px;border: 2px solid #f3f3f3;left: 0;right: 0;">
         {{#if displayOrNot}}
         <a class='radius-circle' href="#/users/{{unbound this.id}}">
@@ -20,17 +17,13 @@
         </a>
         {{/if}}
     </div>
-
     <div style="position:relative; height:35px; line-height: 35px;margin: 50px auto 5px;">
         <span style="font-size: 13px;line-height: 15px; text-shadow: 0 1px 0 rgba(255,255,255,0.8); font-weight: bold;">
             {{this.name}}
         </span>
     </div>
-
-    {{#if this.isUserSelf}}
-    
-         <div href="#question_modal" role="button" class="disabled-btn" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;">Follow</div>
-            
+    {{#if this.isUserSelf}}    
+         <div href="#question_modal" role="button" class="disabled-btn" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;">Follow</div>            
     {{else}}
         {{#if this.follow_status}}
             {{#if this.following_status}}
@@ -68,9 +61,4 @@
 </script>
 {{/each}}
 
-<!--
-{{#if controller.makeSureDelete}}
 
-{{view HubStar.DeleteFunctionView}}
-
-{{/if}}-->

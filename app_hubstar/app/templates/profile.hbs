@@ -89,9 +89,11 @@
                                             <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin:10px auto;display: block;width: 150px;"{{action followThisProfile}}><i class='icon-plus' >&nbsp; </i> Follow</div>
 
                                             {{/if}}
+                                             
                                         </div>
+                                        <div style="padding: 0;border-top:1px solid #ccc;border-bottom: 1px solid #fff;font-size: 14px;width:139%;float:left;width:95%;margin:20px 2.5%;height:2px;"></div>
                                         <!--PROFILE CONTACT SECTION-->
-                                        <div style="padding: 0;border-top:1px solid #ccc;border-bottom: 1px solid #fff;font-size: 14px;margin: auto;width: 95%;"></div>
+
                                         <div class="aside-container">
 
                                             {{#unless controller.editingContact}}
@@ -110,8 +112,8 @@
                                                 <tr>
                                                     <th>Contact:</th>
                                                     {{#if controller.editingContact}}
-                                                    {{input type="text" class="insert-contactdetails" value=first_name}}
-                                                    {{input type="text" class="insert-contactdetails" value=last_name}}
+                                                    {{input type="text" class="insert-contactdetails" value=first_name placeholder="First Name "}}
+                                                    {{input type="text" class="insert-contactdetails" value=last_name placeholder="Last Name"}}
                                                     {{else}}
                                                     <th class="Contact_2child">{{first_name}} {{last_name}}</th>
                                                     {{/if}}
@@ -127,11 +129,26 @@
                                                 <tr>
                                                     <th>Address:</th>
                                                     {{#if controller.editingContact}}
-                                                    {{input type="text" class="insert-contactdetails" value=address  }}
+                                                    {{input type="text" class="insert-contactdetails" value=address placeholder="Street Address" }}
+                                                    {{input type="text" class="insert-contactdetails" value=suburb  placeholder="Suburb"}}
+                                                    {{input type="text" class="insert-contactdetails" value=region  placeholder="Region"}}
+                                                    {{input type="text" class="insert-contactdetails" value=country placeholder="country" }}
                                                     {{else}}
-                                                    <th class="Contact_2child">{{address}}</th>
+                                                    {{#if controller.address}}
+                                                    <th class="Contact_2child">{{address}},</th>
+                                                    {{/if}}
+                                                    {{#if controller.suburb}}
+                                                    <th class="Contact_2child">{{suburb}},</th>
+                                                    {{/if}}
+                                                    {{#if controller.region}}
+                                                    <th class="Contact_2child">{{region}},</th>
+                                                    {{/if}}
+                                                    {{#if controller.country}}
+                                                    <th class="Contact_2child">{{country}}</th>
+                                                    {{/if}}
                                                     {{/if}}
                                                 </tr>
+
                                                 <tr>
                                                     <th>Phone:</th>
                                                     {{#if controller.editingContact}}
@@ -259,12 +276,9 @@
                                         </div>
 
 
-                                        <div style="height: 40px; position:relative;">
+                                        <div style="height: 40px; bottom: 0;width: 800px;position: absolute;margin-bottom: 15px;">
                                             <ul class="locationandlinks">
-                                                <li>
-                                                    <span class="locationIcon"><k class="icon-map-marker"></k></span>
-                                                    {{location}}
-                                                </li>
+
                                                 {{#if facebook}}
                                                 <li class="location_li">
                                                     <a href="#" target="_blank" {{action socialLink 'facebook'}}>&nbsp <k class="icon-facebook"> </k></a>
@@ -283,6 +297,11 @@
                                                 {{#if pinterest}}
                                                 <li class="location_li">
                                                     <a href="#" target="_blank" {{action socialLink 'pinterest'}}>&nbsp <k class="icon-pinterest"> </k></a>
+                                                </li>
+                                                {{/if}}
+                                                {{#if linkedin}}
+                                                <li class="location_li">
+                                                    <a href="#" target="_blank"{{action socialLink 'linkedin'}}>&nbsp <k class="icon-linkedin"> </k></a>
                                                 </li>
                                                 {{/if}}
                                                 {{#if youtube}}
@@ -325,17 +344,13 @@
             </div>
         </div>
 
-
-
-
-
-
         <div class="tabbable">
             <div class="tabs-left">
                 <ul class="nav nav-tabs easing">
                     <li class="active" {{action changeSize}}><a href="#tab1" data-toggle="tab">Style up!</a></li>
                     <li class="easing" {{action changeSize}}><a href="#tab2" data-toggle="tab">General Settings</a></li>
                     <li class="easing" {{action changeSize}}><a href="#tab3" data-toggle="tab">Account Settings</a></li>
+                    <li class="easing" {{action changeSize}}><a href="#tab7" data-toggle="tab">Social Link</a></li>
                     {{#if controller.isAdmin}}
                     <li class="easing" {{action changeSize}}><a href="#tab4" data-toggle="tab">Authority Settings</a></li>
                     {{/if}}
@@ -429,13 +444,19 @@
                             <tr>
                                 <td>Physical Address:</td>
                                 <td>
-                                    <div style="display: block;">
-                                        <div   style="margin: 0;width: 100%;height:100px;">
-                                            {{view Ember.TextArea valueBinding="address" class="no-resize" placeholder="Address" }}
+                                    <div  style="display: block; margin-bottom: 5px;" >
+
+                                        <div  style="margin: 0 5px 0;width: 48%;display: inline-block;">
+                                            {{view Ember.TextField valueBinding="address"  placeholder="Street Address"}}
                                         </div>
+                                        <div style="margin: 0;width: 48%;display: inline-block;">
+                                            {{view Ember.TextField valueBinding="suburb"  placeholder="Suburb"}}
+                                        </div>
+
                                     </div>
                                 </td>
                             </tr>
+                            <tr>
 
                             <tr>
                                 <td>Contact Number:</td>
@@ -582,6 +603,89 @@
                         <span class='new-btn blue-btn flip-back'{{action flipFrontBack}}}><k class='icon-group'> &nbsp;</k>Back</span>
                     </div>
                 </div>
+
+                <div class="tab-pane" id="tab7">
+                    <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">Social Link</div>
+
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="padding-right: 147px; font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
+                        <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
+
+                            <tr>
+                                <td>Facebook:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div  id="facebook" style="margin: 0;width: 100%;">
+                                            {{input type="text" value=facebook placeholder="eg:www.facebook.com"}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Twitter:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div  id="twitter" style="margin: 0;width: 100%;">
+                                            {{input type="text" value=twitter placeholder="eg:www.twitter.com"}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Google+:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div id="googleplus"  style="margin: 0;width: 100%;">
+                                            {{input type="text" value=googleplus placeholder="eg:plus.google.com"}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Pinterest:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div  id="pinterest"  style="margin: 0;width: 100%;">
+                                            {{input type="text" value=pinterest placeholder="eg:www.pinterest.com"}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Linkedin:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div id="linkedin"  style="margin: 0;width: 100%;">
+                                            {{input type="text" value=linkedin placeholder="eg:www.linkedin.com"}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td>Youtube:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div  id="youtube" style="margin: 0;width: 100%;">
+                                            {{input type="text" value=youtube placeholder="eg:www.youtube.com"}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    <div style="right: 0;margin: 30px auto 0;width: 150px;">
+                        <span class="new-btn green-btn" {{action saveUpdate}} >Save</span>
+                        <span class='new-btn blue-btn flip-back'{{action flipFrontBack}}}><k class='icon-group'> &nbsp;</k>Back</span>
+                    </div>
+                </div>
+
+
 
                 <div class="tab-pane" id="tab4">
                     <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">Authority Settings</div>
@@ -735,25 +839,25 @@
                             <span style='font-size: 13px;margin: auto;  display: block;line-height: 16px;'></span>
                         </span>
                     </div>
-                          <div style="position: relative; margin: auto;height: 520px; width: 690px; overflow: hidden;line-height: 510px;">
+                    <div style="position: relative; margin: auto;height: 520px; width: 690px; overflow: hidden;line-height: 510px;">
                         <div style="position: relative;margin:3px;text-align: center;overflow: hidden;">
                             <img  {{bindAttr src= "newStyleImageSource"}} >
                         </div>
                     </div>
                     <--crop function here, dont delete-->
-<!--               <div class="container">
-            <div class="contr">
-                <button onclick="getResults()">Crop</button>
-            </div>
-            <canvas id="panel" width="779" height="519"></canvas>
-            <div id="results">
-                <h2>Please make selection for cropping and click 'Crop' button.</h2>
-                <img id="crop_result" />
-            </div>
-        </div>-->
-                    
-                    
-                    
+                    <!--               <div class="container">
+                                <div class="contr">
+                                    <button onclick="getResults()">Crop</button>
+                                </div>
+                                <canvas id="panel" width="779" height="519"></canvas>
+                                <div id="results">
+                                    <h2>Please make selection for cropping and click 'Crop' button.</h2>
+                                    <img id="crop_result" />
+                                </div>
+                            </div>-->
+
+
+
                     <div class="" style="margin-top: 20px;">
                         <div class="controlbtn" style="left: 34%;">
                             <a href="#tab1" data-toggle="tab"{{action resetNewStyleImageSource}}>   <span class="new-btn" >Finish</span> </a>

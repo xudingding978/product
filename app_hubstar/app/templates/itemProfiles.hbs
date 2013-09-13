@@ -13,8 +13,26 @@
     </div>
     {{/if}}
 
+    <span class='edit-object easing' style="position: absolute;margin: 10px; top:0;z-index: 2;">
+
+        {{#if controller.is_authentic_user}}
+        <div class="new-btn blue-btn hint--right hint--rounded" style="margin: 4px 0px;" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
+             <k class="icon-cog" style="font-size: 16px; margin: 0px 5px"></k>
+            <k class='icon-caret-down'></k>
+        </div>
+        <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}">
+            {{#if controller.is_profile_editing_mode}}
+            <li class="ite" {{action  removeCollectedItem this.id}}><k class="icon-trash" style="font-size: 16px; margin: 0px 5px;"></k>Delete</li>       
+            {{/if}}
+        </ul>
+        {{/if}}
+
+    </span>
+
 </div>
-<div style="position: relative; width: 100%; height: 70px; display: block;"></div>
+
+
+<div style="position: relative; width: 100%; height: 70px; display: block; z-index: 1"></div>
 
 
 <div class="masonry-object_profilepic" style="cursor:pointer;" {{action toProfilePage this}}>
@@ -22,7 +40,6 @@
      <img class="easing" {{bindAttr src="profile_pic_url"}}  />   
 
 </div>
-
 
 <div  type="button" class="new-btn green-btn object-followbtn-position" style="margin: 0 auto; left: 0;right: 0;width: 80px;display: block;top: -15px;">
     <i class="icon-plus">&nbsp;</i> Follow
@@ -90,8 +107,7 @@
     <div class="masonry-object_text">
 
 
-        <div class="more_detail" {{bindAttr id="id"}}>
-
+        <div class="more_detail" {{bindAttr id="id"}}>          
             {{profile_cover_text}}
 
 
@@ -100,9 +116,7 @@
         <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>
 
         <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collape</span>
-        {{#if controller.is_authentic_user}}
-        <span style="float: right; display: inline-block;"><k class="icon-trash edit-btn easing" {{action deletePartner this}}></k> </span>
-        {{/if}}
+       
     </div>
 
 </div>

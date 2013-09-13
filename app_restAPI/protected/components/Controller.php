@@ -341,26 +341,58 @@ class Controller extends CController {
         return $results;
     }
 
-    protected function performRawSearch($returnType, $collection_id, $owner_profile_id) {
+    protected function performRawsetting($returnType, $collection_id, $owner_profile_id) {
 
+         error_log(var_export($collection_id, true));
+         error_log(var_export($owner_profile_id, true));
         $request = $this->getElasticSearch();
         $request->from(0)
                 ->size(100);
+                      
+          $header = '{"$owner_profile_id": { "values": [';
+        $footer = ']}}';
+
+        $rawRequest = $header . $owner_profile_id . $footer;
+        $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
+        $request->query($termQuery);
+
+        $response = $request->execute();
+
+        $results = $this->getReponseResult($response, $returnType);
+ error_log(var_export($results, true));
+        return $results;
+    
+
+    }
+
+    
+        protected function performRawSearch($returnType, $collection_id, $owner_profile_id) {
+
+         error_log(var_export($collection_id, true));
+         error_log(var_export($owner_profile_id, true));
+        $request = $this->getElasticSearch();
+        $request->from(0)
+                ->size(100);
+                      
         $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query('"' . $collection_id . '"')
                 ->default_field('couchbaseDocument.doc.collection_id');
-
         $must2 = Sherlock\Sherlock::queryBuilder()
                 ->QueryString()->query('"' . $owner_profile_id . '"')
                 ->default_field('couchbaseDocument.doc.owner_id');
-
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)->
                 must($must2);
         $response = $request->query($bool)->execute();
-
+               
         $results = $this->getReponseResult($response, $returnType);
+ error_log(var_export($results, true));
         return $results;
-    }
 
+    }
+    
+    
+    
+    
+          
     protected function getSearchResultsTotal($returnType, $region, $requestString, $from = 0, $size = 50, $noUser) {
         $requestArray = array();
         if ($region != null && $region != "") {

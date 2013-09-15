@@ -40,29 +40,30 @@ class TenantConfigurationController extends Controller {
       
       if($requireType=="Background"){
           $requireType='profile_bg';
+          
       }elseif($requireType=="Profile Hero"){
                $requireType='profile_hero';
       }
       elseif($requireType=="Profile Picture"){
                $requireType='profile_pic';
       }
+       elseif($requireType=="User Picture"){
+               $requireType='photo_url_large';
+      }
+      elseif($requireType=="User Cover"){
+               $requireType='cover_url';
+      }
       
-       
-      //error_log(var_export($requireType, true));
+
         $domain = $this->getDomain();
         $configuration = $this->getProviderConfigurationByName($domain, "image_required_sizes");
-     //   $newConfig = $this->getProviderConfigurationByName($domain, "image_current_sizes");
-     //   error_log(var_export($newConfig, true));
-        $feedback = CJSON::encode($configuration[$requireType], true);
-     //   $newFeedback = CJSON::encode($newConfig[$requireType], true);
-     //    error_log(var_export($newFeedback, true));
-     //   if($feedback>=$newFeedback){
-            $this->sendResponse(200, $feedback);
-      //    } elseif($feedback<$newFeedback ) {
-     //         echo "please upload large pic";
-          }
-    //}
 
+        $feedback = CJSON::encode($configuration[$requireType], true);
+
+            $this->sendResponse(200, $feedback);
+
+          }
+    
 }
 
 ?>

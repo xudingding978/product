@@ -1,7 +1,7 @@
 
 
 {{#if controller.is_authentic_user}}
-<div class="box style-box t-style-box" id="addNew" style="z-index: 1">
+<div class="box style-box t-style-box" id="addNew" style="z-index: 0">
 
     <div id="uploadObject" {{action newCollection }}>
          <div class="add-new-object-hoverarea easing">
@@ -26,6 +26,7 @@
 <div class="box col2 noStyle1">
     <div class="masonry-object">
         {{render itemProfiles this}}
+
         {{render "comment" this}}
     </div>
 </div>

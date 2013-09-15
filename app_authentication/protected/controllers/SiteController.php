@@ -41,9 +41,11 @@ class SiteController extends Controller {
     }
 
     public function actionTest() {
+        
+        error_log('ddddddddddddddddd');
         // renders the view file 'protected/views/site/index.php'
         // using the default layout 'protected/views/layouts/main.php'
-        $this->render('test');
+    //    $this->render('test');
     }
 
     /**
@@ -187,6 +189,7 @@ class SiteController extends Controller {
         $dataProvider = Client::model()->findAll();
         echo CJSON::encode($dataProvider);
     }
+
 
 }
 

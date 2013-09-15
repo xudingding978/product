@@ -145,11 +145,18 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_name'] = $newRecord['profile_name'];
             $oldRecord['profile'][0]['profile_package_name'] = $newRecord['profile_package_name'];
             $oldRecord['profile'][0]['profile_partner_ids'] = $newRecord['profile_partner_ids'];
-            $oldRecord['profile'][0]['profile_physical_address'] = $newRecord['profile_physical_address'];
+            $oldRecord['profile'][0]['profile_street_address'] = $newRecord['profile_street_address'];
+            $oldRecord['profile'][0]['profile_suburb'] = $newRecord['profile_suburb'];
             $oldRecord['profile'][0]['profile_regoin'] = $newRecord['profile_regoin'];
             $oldRecord['profile'][0]['profile_website'] = $newRecord['profile_website'];
             $oldRecord['profile'][0]['profile_website_url'] = $newRecord['profile_website_url'];
             $oldRecord['profile'][0]['profile_cover_text'] = $newRecord['profile_cover_text'];
+            $oldRecord['profile'][0]['profile_facebook_link'] = $newRecord['profile_facebook_link'];
+            $oldRecord['profile'][0]['profile_twitter_link'] = $newRecord['profile_twitter_link'];
+            $oldRecord['profile'][0]['profile_googleplus_link'] = $newRecord['profile_googleplus_link'];
+            $oldRecord['profile'][0]['profile_pinterest_link'] = $newRecord['profile_pinterest_link'];
+            $oldRecord['profile'][0]['profile_linkedin_link'] = $newRecord['profile_linkedin_link'];
+            $oldRecord['profile'][0]['profile_youtube_link'] = $newRecord['profile_youtube_link'];
 
             
             

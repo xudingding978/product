@@ -74,6 +74,7 @@
 
                 <!--PROFILE PAGE LEFT SIDE-->
 
+<<<<<<< HEAD
                 <div class="profileaside" style="background-color: rgb(242,240,240); width: 29.5%; min-width: 230px;height: auto; border-radius:3px 0 0 0; display: inline-block;vertical-align: top;">
                     <div class="profileaside_content" style="margin:auto; margin-top: -200px; position: relative; width:87%;">
 
@@ -159,6 +160,112 @@
                                     <th class="Contact_2child"><a href="http://{{unbound model.profile_website_url}}" target="blank">http://{{website_url}}</a></th>
                                     {{/if}}
                                 </tr>
+=======
+                <table cellpadding="0" cellspacing="0" width="100%">
+                    <tbody>
+                        <tr>
+                            <!--LEFT COL BEGINS -->
+                            <td class="left_col" width="29%" valign="top">
+                                <div class="profileaside">
+                                    <div class="profileaside_content">
+                                        <div class="aside-profilepic">
+                                            <div>
+                                                <img {{bindAttr src= model.profile_pic_url}} style="border:5px solid white;box-shadow: 0px 0px 5px #888;">
+                                            </div>
+                                            {{#if controller.follow_status}}
+                                            <div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin:10px auto;display: block;width: 150px;"{{action followThisProfile}}><i class='icon-circle-blank' >&nbsp; </i> Following</div>
+                                            {{else}}
+                                            <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin:10px auto;display: block;width: 150px;"{{action followThisProfile}}><i class='icon-plus' >&nbsp; </i> Follow</div>
+
+                                            {{/if}}
+                                             
+                                        </div>
+                                        <div style="padding: 0;border-top:1px solid #ccc;border-bottom: 1px solid #fff;font-size: 14px;width:139%;float:left;width:95%;margin:20px 2.5%;height:2px;"></div>
+                                        <!--PROFILE CONTACT SECTION-->
+
+                                        <div class="aside-container">
+
+                                            {{#unless controller.editingContact}}
+                                            <div>
+                                                <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-phone' style='margin-right: 10px;'></i>Contact Detail</div>
+                                                {{#if controller.is_authentic_user}}
+                                                <div class="edit-btn easing hint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing model.phone_number controller.contact}}>
+                                                     <i class="icon-edit" ></i>
+                                                </div>
+                                                {{/if}}
+                                            </div>
+
+                                            {{/unless}}
+
+                                            <table id="aside_contact">
+                                                <tr>
+                                                    <th>Contact:</th>
+                                                    {{#if controller.editingContact}}
+                                                    {{input type="text" class="insert-contactdetails" value=first_name placeholder="First Name "}}
+                                                    {{input type="text" class="insert-contactdetails" value=last_name placeholder="Last Name"}}
+                                                    {{else}}
+                                                    <th class="Contact_2child">{{first_name}} {{last_name}}</th>
+                                                    {{/if}}
+                                                </tr>
+                                                <tr>
+                                                    <th>Category:</th>
+                                                    {{#if controller.editingContact}}
+                                                    {{input type="text" class="insert-contactdetails" value=model.profile_category  }}
+                                                    {{else}}
+                                                    <th class="Contact_2child"><a >{{model.profile_category}}</a></th>
+                                                    {{/if}}
+                                                </tr>
+                                                <tr>
+                                                    <th>Address:</th>
+                                                    {{#if controller.editingContact}}
+                                                    {{input type="text" class="insert-contactdetails" value=address placeholder="Street Address" }}
+                                                    {{input type="text" class="insert-contactdetails" value=suburb  placeholder="Suburb"}}
+                                                    {{input type="text" class="insert-contactdetails" value=region  placeholder="Region"}}
+                                                    {{input type="text" class="insert-contactdetails" value=country placeholder="country" }}
+                                                    {{else}}
+                                                    {{#if controller.address}}
+                                                    <th class="Contact_2child">{{address}},</th>
+                                                    {{/if}}
+                                                    {{#if controller.suburb}}
+                                                    <th class="Contact_2child">{{suburb}},</th>
+                                                    {{/if}}
+                                                    {{#if controller.region}}
+                                                    <th class="Contact_2child">{{region}},</th>
+                                                    {{/if}}
+                                                    {{#if controller.country}}
+                                                    <th class="Contact_2child">{{country}}</th>
+                                                    {{/if}}
+                                                    {{/if}}
+                                                </tr>
+
+                                                <tr>
+                                                    <th>Phone:</th>
+                                                    {{#if controller.editingContact}}
+                                                    {{input type="text" class="insert-contactdetails" value=profile_contact_number  }}
+                                                    {{else}}
+                                                    <th class="Contact_2child">{{profile_contact_number}}</th>
+                                                    {{/if}}
+                                                </tr>
+                                                <tr>
+                                                    <th>Website:</th>
+                                                    {{#if controller.editingContact}}
+                                                    {{input type="text" class="insert-contactdetails" value=website }}
+
+                                                    {{else}}
+                                                    <th class="Contact_2child"><a href="#"{{action gotoSize}}>{{website}}</a></th>
+                                                    {{/if}}
+                                                </tr>
+
+                                                <tr>
+
+                                                    {{#if controller.editingContact}}   
+                                                    <th style = "color: #aaa; text-align: right;padding-bottom: 10px;font-size: 14px;font-weight: normal;width: 90px;">Website URL:</th>       
+                                                    {{input type="text" class="insert-contactdetails" value=website_url }}                        
+                                                    {{else}}
+
+                                                    {{/if}}
+                                                </tr>
+>>>>>>> d3b4278de56b67a170074e35cd9a1d09c6504ef0
 
                             </table>
                             {{#unless controller.editingContact}}
@@ -250,13 +357,84 @@
                                     </div>
                                     {{/if}}
                                 </div>
-                                <div style="display: block;">{{{about_me}}}</div>
-                                {{/if}}
-                            </div>
-                        </div>
+
+                            </td><!--LEFT COL ENDS -->
+
+                            <!--RIGHT COL BEGINS -->
+                            <td class="right_col" width="70%" valign="top">
+                                <!--PROFILE PAGE MAIN PART-->
+
+                                <div class="profilemain" style="display: inline-block; width: 100%;left: 0;right: 0; background-color: white;margin: auto; min-width: 553px;">
+
+                                    <div class="profile-main-content" style="margin: 20px auto;width: 90%;">
+
+                                        <div class="main_aboutus" style="">
+                                            <div>
+                                                <div style="display: inline-block;">
+                                                    <p style='margin-bottom: 20px;display: inline-block; font-size: 18px;'>
+                                                        <i class='icon-group' style='margin-right: 10px;display: inline-block;'></i>About Us
+                                                    </p>
+
+                                                    {{#if controller.editingAbout}}
+                                                    <div style="height: 300px;">
+                                                        {{view Ember.TextArea valueBinding="about_me"  id="" class=""  }}
+                                                    </div>
+                                                    <div style="float: right;">
+                                                        <div class="new-btn blue-btn" {{action yes controller.aboutMe}}><i class="icon-ok icon-white"></i></div>
+                                                        <div class="new-btn" {{action no controller.aboutMe}}><i class="icon-remove"></i></div>
+                                                    </div>
+                                                    {{else}}
+                                                    {{#if controller.is_authentic_user}}
+
+                                                    <div class="edit-btn hint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing controller.about_me controller.aboutMe}}>
+
+                                                         <i class="icon-edit"></i>
+                                                    </div>
+                                                    {{/if}}
+                                                </div>
+                                                <div style="display: block;">{{{about_me}}}</div>
+                                                {{/if}}
+                                            </div>
+                                        </div>
 
 
 
+                                        <div style="height: 40px; bottom: 0;width: 800px;position: absolute;margin-bottom: 15px;">
+                                            <ul class="locationandlinks">
+
+                                                {{#if facebook}}
+                                                <li class="location_li">
+                                                    <a href="#" target="_blank" {{action socialLink 'facebook'}}>&nbsp <k class="icon-facebook"> </k></a>
+                                                </li>
+                                                {{/if}}
+                                                {{#if twitter}}
+                                                <li class="location_li">
+                                                    <a href="#" target="_blank" {{action socialLink 'twitter'}}>&nbsp <k class="icon-twitter"> </k></a>
+                                                </li>
+                                                {{/if}}
+                                                {{#if googleplus}}
+                                                <li class="location_li">
+                                                    <a href="#" target="_blank"{{action socialLink 'googleplus'}}>&nbsp <k class="icon-google-plus"> </k></a>
+                                                </li>
+                                                {{/if}}
+                                                {{#if pinterest}}
+                                                <li class="location_li">
+                                                    <a href="#" target="_blank" {{action socialLink 'pinterest'}}>&nbsp <k class="icon-pinterest"> </k></a>
+                                                </li>
+                                                {{/if}}
+                                                {{#if linkedin}}
+                                                <li class="location_li">
+                                                    <a href="#" target="_blank"{{action socialLink 'linkedin'}}>&nbsp <k class="icon-linkedin"> </k></a>
+                                                </li>
+                                                {{/if}}
+                                                {{#if youtube}}
+                                                <li class="location_li">
+                                                    <a href="#" target="_blank" {{action socialLink 'youtube'}}>&nbsp <k class="icon-youtube-play"> </k></a>
+                                                </li>
+                                                {{/if}}
+
+                                            </ul>
+                                        </div>
 
 
 
@@ -286,17 +464,13 @@
             </div>
         </div>
 
-
-
-
-
-
         <div class="tabbable">
             <div class="tabs-left">
                 <ul class="nav nav-tabs easing">
                     <li class="active" {{action changeSize}}><a href="#tab1" data-toggle="tab">Style up!</a></li>
                     <li class="easing" {{action changeSize}}><a href="#tab2" data-toggle="tab">General Settings</a></li>
                     <li class="easing" {{action changeSize}}><a href="#tab3" data-toggle="tab">Account Settings</a></li>
+                    <li class="easing" {{action changeSize}}><a href="#tab7" data-toggle="tab">Social Link</a></li>
                     {{#if controller.isAdmin}}
                     <li class="easing" {{action changeSize}}><a href="#tab4" data-toggle="tab">Authority Settings</a></li>
                     {{/if}}
@@ -358,7 +532,7 @@
 
                     <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">General Settings</div>
 
-                    <table style="padding-right: 147px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="padding-right: 147px; font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
                         <tbody class="profilesnew-table" style="display: table-row-group; vertical-align: middle; border-color: inherit;">
                             <tr>
                                 <td>Profile Name*: </td>
@@ -390,13 +564,19 @@
                             <tr>
                                 <td>Physical Address:</td>
                                 <td>
-                                    <div style="display: block;">
-                                        <div   style="margin: 0;width: 100%;height:100px;">
-                                            {{view Ember.TextArea valueBinding="address" class="no-resize" placeholder="Address" }}
+                                    <div  style="display: block; margin-bottom: 5px;" >
+
+                                        <div  style="margin: 0 5px 0;width: 48%;display: inline-block;">
+                                            {{view Ember.TextField valueBinding="address"  placeholder="Street Address"}}
                                         </div>
+                                        <div style="margin: 0;width: 48%;display: inline-block;">
+                                            {{view Ember.TextField valueBinding="suburb"  placeholder="Suburb"}}
+                                        </div>
+
                                     </div>
                                 </td>
                             </tr>
+                            <tr>
 
                             <tr>
                                 <td>Contact Number:</td>
@@ -458,7 +638,7 @@
                 <div class="tab-pane" id="tab3">
                     <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">Account Settings</div>
 
-                    <table style="padding-right: 147px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="padding-right: 147px; font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
                         <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
 
 
@@ -543,9 +723,92 @@
                     </div>
                 </div>
 
+                <div class="tab-pane" id="tab7">
+                    <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">Social Link</div>
+
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="padding-right: 147px; font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
+                        <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
+
+                            <tr>
+                                <td>Facebook:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div  id="facebook" style="margin: 0;width: 100%;">
+                                            {{input type="text" value=facebook placeholder="eg:www.facebook.com"}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Twitter:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div  id="twitter" style="margin: 0;width: 100%;">
+                                            {{input type="text" value=twitter placeholder="eg:www.twitter.com"}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Google+:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div id="googleplus"  style="margin: 0;width: 100%;">
+                                            {{input type="text" value=googleplus placeholder="eg:plus.google.com"}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Pinterest:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div  id="pinterest"  style="margin: 0;width: 100%;">
+                                            {{input type="text" value=pinterest placeholder="eg:www.pinterest.com"}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Linkedin:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div id="linkedin"  style="margin: 0;width: 100%;">
+                                            {{input type="text" value=linkedin placeholder="eg:www.linkedin.com"}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td>Youtube:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div  id="youtube" style="margin: 0;width: 100%;">
+                                            {{input type="text" value=youtube placeholder="eg:www.youtube.com"}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    <div style="right: 0;margin: 30px auto 0;width: 150px;">
+                        <span class="new-btn green-btn" {{action saveUpdate}} >Save</span>
+                        <span class='new-btn blue-btn flip-back'{{action flipFrontBack}}}><k class='icon-group'> &nbsp;</k>Back</span>
+                    </div>
+                </div>
+
+
+
                 <div class="tab-pane" id="tab4">
                     <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">Authority Settings</div>
-                    <table class='profilesnew-table' style="padding-right: 147px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%" class='profilesnew-table' style="padding-right: 147px; font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
                         <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
 
 
@@ -654,10 +917,12 @@
                                 {{controller.UploadImageMode}} 
 
                             </p>
-                            <span style='font-size: 20px;display: block;line-height: 25px;'>Please select one photo for your choice.</span>   
-                            <span style='font-size: 20px;display: block;line-height: 25px;'> {{controller.RequiredImageSize}}</span>
-                            <span style='font-size: 20px;display: block;line-height: 25px;'> {{controller.CurrentImageSize}}</span>
-                            
+
+                            <span style='font-size: 17px;display: block;line-height: 25px;'>Please select one photo for your choice.</span>   
+                            <span style='font-size: 17px;display: block;line-height: 25px;'> {{controller.RequiredImageSize}}</span>
+                            <span style='font-size: 17px;display: block;line-height: 25px;'> {{controller.CurrentImageSize}}</span>
+
+
                         </div>
                         <div class="new-btn blue-btn" style="margin: auto; width: 200px; top: 550px; position: absolute;left: 0;">
                             Choose 
@@ -700,6 +965,20 @@
                             <img  {{bindAttr src= "newStyleImageSource"}} >
                         </div>
                     </div>
+                    <--crop function here, dont delete-->
+                    <!--               <div class="container">
+                                <div class="contr">
+                                    <button onclick="getResults()">Crop</button>
+                                </div>
+                                <canvas id="panel" width="779" height="519"></canvas>
+                                <div id="results">
+                                    <h2>Please make selection for cropping and click 'Crop' button.</h2>
+                                    <img id="crop_result" />
+                                </div>
+                            </div>-->
+
+
+
                     <div class="" style="margin-top: 20px;">
                         <div class="controlbtn" style="left: 34%;">
                             <a href="#tab1" data-toggle="tab"{{action resetNewStyleImageSource}}>   <span class="new-btn" >Finish</span> </a>

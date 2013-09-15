@@ -1,5 +1,6 @@
 HubStar.ApplicationFeedbackController = Ember.Controller.extend({
     needs: ['application'],
+    photo_url: '',
     setFeedback: function(status) {
 
         this.set('status', status);
@@ -10,7 +11,7 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
 
                 that.set('feedback', false);
             });
-        }, 1000);
+        }, 5000);
 
         Ember.run.next(function() {
 
@@ -24,10 +25,9 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
         if (infoChecking !== null)
         {
             that.set("info", false);
-            that.set("succeed", false);
-            that.set("warnning", true);
+            that.set("succeed", true);
+            that.set("warnning", false);
             that.set("failed", false);
-
             that.setFeedback(infoChecking);
         } else {
             record.addObserver("isError", function() {

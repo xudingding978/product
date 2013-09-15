@@ -211,7 +211,7 @@ class Controller extends CController {
     }
 
     protected function performSearch($returnType, $region, $requestString, $from = 0, $size = 50, $noUser = false) {
-        error_log('$noUser ' . $noUser);
+
         $requestArray = array();
         if ($region != null && $region != "") {
             $requestStringOne = 'couchbaseDocument.doc.region=' . $region;
@@ -255,6 +255,7 @@ class Controller extends CController {
 //            $bool->must_not($must);
 //        }
         $request->query($bool);
+
         $response = $request->execute();
         //    CJSON::encode($hit['source']['doc']);
         //   return $response;
@@ -340,26 +341,32 @@ class Controller extends CController {
         return $results;
     }
 
-    protected function performRawSearch($returnType, $collection_id, $owner_profile_id) {
-
+   protected function performRawSearch($returnType, $collection_id, $owner_profile_id) {
         $request = $this->getElasticSearch();
         $request->from(0)
                 ->size(100);
+                      
         $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query('"' . $collection_id . '"')
                 ->default_field('couchbaseDocument.doc.collection_id');
-
         $must2 = Sherlock\Sherlock::queryBuilder()
                 ->QueryString()->query('"' . $owner_profile_id . '"')
                 ->default_field('couchbaseDocument.doc.owner_id');
-
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)->
                 must($must2);
         $response = $request->query($bool)->execute();
-
+                //   error_log(var_export(   $response['0']['took'], true));
+     
+       //   error_log(var_export($returnType, true));
+        
+        
+        // error_log(var_export($response, true));
+        
         $results = $this->getReponseResult($response, $returnType);
+        // error_log(var_export($results, true));
+     //   $results = $results['profile'];
         return $results;
-    }
 
+    }
     protected function getSearchResultsTotal($returnType, $region, $requestString, $from = 0, $size = 50, $noUser) {
         $requestArray = array();
         if ($region != null && $region != "") {
@@ -442,7 +449,6 @@ class Controller extends CController {
     protected function getCollections($collections, $collection_id, $returnType) {
 
         $request_ids = $this->getSelectedCollectionIds($collections, $collection_id);
-        error_log($request_ids);
         $id_arr = explode(',', $request_ids);
         $header = '{"ids": { "values": [';
         $footer = ']}}';

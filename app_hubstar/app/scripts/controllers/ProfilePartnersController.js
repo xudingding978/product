@@ -1,16 +1,14 @@
 HubStar.ProfilePartnersController = Ember.Controller.extend({
     content: [],
-  
     clientID: "",
     partnerID: "",
     model: "",
+    delID: "",
     addPartner: true,
     currentAddPartnerPic: null,
     selectedPartnerPic: "",
     is_authentic_user: false,
-
-    needs: ['permission', 'applicationFeedback','profile'],
-
+    needs: ['permission', 'applicationFeedback', 'profile'],
     addingPartnerObserver: function() {
         var addProfilePic = this.get('currentAddPartnerPic').split("/profiles/")[1];
         this.set('selectedPartnerPic', HubStar.Profile.find(addProfilePic).get('profile_pic_url'));
@@ -29,56 +27,69 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
                     for (var i = 0; i < data.get("length"); i++) {
                         var tempmega = data.objectAt(i);
                         that.get("content").pushObject(tempmega);
-                    }      
-                        var lastPositionId= HubStar.get('lastPositionId');
-              var lastPosition=HubStar.get("scrollPartenerPosition");
-              if(model.id===lastPositionId)
-                  {
-
-          
+                    }
+                    var lastPositionId = HubStar.get('lastPositionId');
+                    var lastPosition = HubStar.get("scrollPartenerPosition");
+                    if (model.id === lastPositionId)
+                    {
                         $(window).scrollTop(lastPosition);
+                    }
 
-                  }
-      
-                    
-                    //that.get('controllers.profile').statstics();
                 }
-            });      
+            });
         }
-             var lastPositionId= HubStar.get('lastPositionId');
-              var lastPosition=HubStar.get("scrollPartenerPosition");
-              if(model.id===lastPositionId)
-                  {
-                     
-                        $(window).scrollTop(lastPosition);
-                                           
+        var lastPositionId = HubStar.get('lastPositionId');
+        var lastPosition = HubStar.get("scrollPartenerPosition");
+        if (model.id === lastPositionId)
+        {
+
+            $(window).scrollTop(lastPosition);
+
         }
-        
         this.checkAuthenticUser();
     }
     ,
-    deletePartner: function(model) {
+    deleteSelectedPartner: function(idDel) {       
+        if (idDel !== undefined)
+        {
+            this.set("delID", idDel);
+        }
+        else
+        {
+            idDel = this.get("delID");
+        }        
         var message = "Do you wish to remove this partner ?";
         this.set("message", message);
         this.set('makeSureDelete', true);
-
+        //console.log(this.get('partnerID'));       
         if (this.get('willDelete')) {
-            this.set('partnerID', (this.get('partnerID') + ",").replace(HubStar.get('data').id + ",", ""));
-            this.set('partnerID', this.get('partnerID').substring(0, this.get('partnerID').length - 1));
-            var profileOwner = HubStar.Profile.find(this.get('clientID'));
+            var ids = this.get("partnerID").split(",");
+            var delResult = "";
+            for (var i = 0; i < ids.length; i++)
+            {
+                if (idDel !== ids[i])
+                {                 
+                    delResult = delResult + ids[i]+",";                    
+                }
+            }
+            delResult=delResult.substr(0,delResult.length-1);
+            this.set('partnerID', delResult);
+            //console.log(this.get('partnerID'));
+
+            var profileOwner = HubStar.Profile.find(this.get('clientID'));           
             profileOwner.set('profile_partner_ids', this.get('partnerID'));
-            this.removePartnerObject(HubStar.get('data').id);
-            HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, profileOwner);
-           
+            //+console.log(profileOwner.get("profile_partner_ids"));
+            this.removePartnerObject(idDel);
+          // HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, profileOwner);
+          HubStar.store.commit();
             this.get('controllers.profile').paternsStatistics(this.get('content').get("length"));
-            
+            $('#masonry_user_container').masonry("reload");
             this.cancelDelete();
         } else {
             this.set('willDelete', true);
-            HubStar.set('data', model);
+            //HubStar.set('data', model);
         }
     },
-    
     removePartnerObject: function(partner_id)
     {
         var data = this.get('content');
@@ -93,7 +104,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
     cancelDelete: function() {
         this.set('willDelete', false);
         this.set('makeSureDelete', false);
-        HubStar.set('data', null);
+        //HubStar.set('data', null);
     },
     submit: function() {
         var client_input = $('.new-collection-name_insert').val();
@@ -105,25 +116,26 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
                 this.pushUptoBackend(client_id);
             } else {
                 if (temp.indexOf(client_id) !== -1) {
-                
-                      this.get('controllers.applicationFeedback').statusObserver(null, "this partner already in your list");
+
+                    this.get('controllers.applicationFeedback').statusObserver(null, "this partner already in your list");
                 } else {
                     this.set('partnerID', client_id + "," + temp);
                     this.pushUptoBackend(client_id);
                 }
             }
-            
-             this.get('controllers.profile').paternsStatistics(this.get('content').get("length"));
-             
+
+            this.get('controllers.profile').paternsStatistics(this.get('content').get("length"));
+
         } else {
-               this.get('controllers.applicationFeedback').statusObserver(null, "please input valid url!!!");
+            this.get('controllers.applicationFeedback').statusObserver(null, "please input valid url!!!");
         }
     },
     pushUptoBackend: function(client_id)
     {
         var profileOwner = HubStar.Profile.find(this.get('clientID'));
         profileOwner.set('profile_partner_ids', this.get('partnerID'));
-        HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, profileOwner);
+       // HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, profileOwner);
+      HubStar.store.commit();
         var newPartner = HubStar.Mega.find(client_id);
         this.get("content").pushObject(newPartner);
 

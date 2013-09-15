@@ -512,6 +512,11 @@
     overflow: hidden;
     padding: 5px;
 }
+.albumcover-container > div{
+    float:left;
+    width:auto;
+    height:343px;
+}
 
 .album-description{
     position: absolute;
@@ -556,9 +561,9 @@
 
 .albumcover{
     min-width: 350px;
+    max-width:420px;
     min-height: 350px;
-    max-width: none;
-    height: 100%;
+    max-height:425px;
 }
 
 .album-info{
@@ -683,12 +688,14 @@
 }
 
 .mainfeature-wrapper{
-    margin: 0 -14px 0 -14px;
+    margin: 0 -14px 20px -14px;
     clear: both;
     line-height: 0;
     overflow: hidden;
     position: relative;
-    padding: 0 0 20px 0;
+    min-height:215px;
+    vertical-align:central;
+    background:#e5e5e5;
 }
 
 .edit-object{
@@ -696,6 +703,10 @@
 }
 
 .mainfeature-wrapper:hover .edit-object{
+    opacity: 1;
+}
+
+.masonry-object_profile-cover:hover .edit-object{
     opacity: 1;
 }
 
@@ -939,7 +950,7 @@
     cursor: pointer;
     height: 44px;
     position: absolute;
-    width: 44px;
+    min-width: 44px;
 
     -webkit-transition: all 0.8s ease;
     -moz-transition: all 0.8s ease;
@@ -962,8 +973,24 @@
     top: 0;
     width: 20px;
     font-size: 21px;
+    float:left;
+}
+/* top naviagtion specific styling */
+.top-controlbar div.icon-on-black{height:auto;}
+.top-controlbar .icon-on-black > i, .top-controlbar .icon-on-black > span{margin:10px 0;}
+.top-controlbar .icon-on-black > span
+{
+    text-indent: 25px;
+    line-height: 23px;
+    font-size: 14px;
+    font-weight: bold;
 }
 
+
+/* top navigation specific styling ends */
+.icon-on-black > .pretooltip{
+    float:left;
+}
 
 .text-on-black{
     color: #737373;
@@ -1290,6 +1317,7 @@
 
 
 
+
 .blue-btn:active{
     -webkit-box-shadow: inset 0 1px 0 #21448d;
     -o-box-shadow: inset 0 1px 0 #21448d;
@@ -1352,12 +1380,43 @@
     line-height: 28px;
     margin: 0 2px;
     cursor: default;
+
+    font-size: 12px;
 }
 
 .disabled-green{
     border: 1px solid #53a93f;
     color: #53a93f;
 }
+
+.disabled-green:hover{
+    -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0,.1);
+    -o-box-shadow: 0 1px 0 rgba(0,0,0,.1);
+    -ms-box-shadow: 0 1px 0 rgba(0,0,0,.1);
+    -moz-box-shadow: 0 1px 0 rgba(0,0,0,.1);
+    box-shadow: 0px 1px 0 rgba(0, 0, 0,.1);
+    background-color: #fff;
+    background-image: -webkit-linear-gradient(top, transparent, transparent);
+    background-image: linear-gradient(top,transparent,transparent);
+    color: #404040;
+    border: 1px solid #a2cf8f;
+    color: #74b757;
+}
+
+.disabled-green:active{
+    -webkit-box-shadow: inset 0 2px 0 #74b757;
+    -o-box-shadow: inset 0 2px 0 #74b757;
+    -ms-box-shadow: inset 0 2px 0 #74b757;
+    -moz-box-shadow: inset 0 2px 0 #74b757;
+    box-shadow: inset 0 2px 0 #ddd;
+    background-color: #f3f3f3;
+    border-color: #74b757;
+}
+
+
+
+
+
 
 
 

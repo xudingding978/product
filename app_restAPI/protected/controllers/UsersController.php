@@ -36,16 +36,6 @@ class UsersController extends Controller {
                 ->size(100)
                 ->query($termQuery);
 
-//        $json = '{"query":
-//                            {"bool":
-//                                {"must":[
-//                                    {"query_string":
-//                                        {"default_field":"couchbaseDocument.doc.keywords","query":"home"}}],
-//                                            "must_not":[],"should":[]
-//                                                }},
-//                                                "from":0,"size":50,"sort":[],"facets":{}}';
-//        $json = '{"query":{"bool":{"must":[{"query_string":{"default_field":"couchbaseDocument.doc.type","query":"user"}}],"must_not":[],"should":[]}},"from":0,"size":50,"sort":[],"facets":{}}';
-//        $rawTermQuery = Sherlock\Sherlock::queryBuilder()->Raw($json);
 
         $response = $request->execute();
         $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":[';
@@ -104,18 +94,19 @@ class UsersController extends Controller {
             error_log(var_export($oldRecord,true));
             $oldRecord = CJSON::decode($oldRecord, true);
 
-//  
+//   this is nothing else
 //            $oldRecord['user'][0] = null;
 //            $oldRecord['user'][0] = $request_arr['user'];
             $oldRecord['user'][0]['selected_topics'] = $newRecord['selected_topics'];
 
             $oldRecord['user'][0]['collections'] = $request_arr['user']['collections'];
-            $oldRecord['user'][0]['photo_url'] = $request_arr['user']['photo_url'];
+           // $oldRecord['user'][0]['photo_url'] = $request_arr['user']['photo_url'];
             $oldRecord['user'][0]['description'] = $request_arr['user']['description'];
             $oldRecord['user'][0]['display_name'] = $request_arr['user']['display_name'];
             $oldRecord['user'][0]['about_me'] = $request_arr['user']['about_me'];
             $oldRecord['user'][0]['facebook_link'] = $newRecord['facebook_link'];
             $oldRecord['user'][0]['twitter_link'] = $newRecord['twitter_link'];
+            $oldRecord['user'][0]['linkedin_link'] = $newRecord['linkedin_link'];
             $oldRecord['user'][0]['googleplus_link'] = $newRecord['googleplus_link'];
             $oldRecord['user'][0]['pinterest_link'] = $newRecord['pinterest_link'];
             
@@ -177,6 +168,64 @@ class UsersController extends Controller {
 
     public function test() {
         
+    }
+    
+      public function actionUpdateStyleImage() {
+        $payloads_arr = CJSON::decode(file_get_contents('php://input'));
+        $photo_string = $payloads_arr['newStyleImageSource'];
+         error_log(var_export( $photo_string, true));
+        $photo_name = $payloads_arr['newStyleImageName'];
+        $mode = $payloads_arr['mode'];
+        $user_id = $payloads_arr['id'];
+        $type = $payloads_arr['type'];
+        $photoController = new PhotosController();
+        $data_arr = $photoController->convertToString64($photo_string);
+        $photo = imagecreatefromstring($data_arr['data']);
+        $compressed_photo = $photoController->compressPhotoData($data_arr['type'], $photo);
+        $orig_size['width'] = imagesx($compressed_photo);
+        $orig_size['height'] = imagesy($compressed_photo);
+
+        $photoController->savePhotoInTypes($orig_size, $mode.'_original', $photo_name, $compressed_photo, $data_arr, $user_id, null, $type);
+        $url = $photoController->savePhotoInTypes($orig_size, $mode, $photo_name, $compressed_photo, $data_arr, $user_id, null, $type);
+        error_log(var_export( $url,true));
+        $cb = $this->couchBaseConnection();
+        $oldRecord = CJSON::decode($cb->get($this->getDomain() . '/users/' . $user_id));
+
+         error_log(var_export( $mode,true));
+      //  error_log(var_export($oldRecord['user'][0], true));
+        if ($mode == 'user_picture') {
+
+            $oldRecord['user'][0]['photo_url_large'] = null;
+            $oldRecord['user'][0]['photo_url_large'] = $url;
+            
+        }  else  if ($mode == 'user_cover') {
+
+            $oldRecord['user'][0]['cover_url'] = null;
+            $oldRecord['user'][0]['cover_url'] = $url;
+            
+        } 
+
+        if ($mode == 'user_cover') {
+            $smallimage = $photoController->savePhotoInTypes($orig_size, 'user_cover_small', $photo_name, $compressed_photo, $data_arr, $user_id, null, $type);
+            $oldRecord['user'][0]['photo_url'] = null;
+            $oldRecord['user'][0]['photo_url'] = $smallimage;
+        }
+
+        $url = $this->getDomain() . '/users/' . $user_id;
+
+        $copy_of_oldRecord = unserialize(serialize($oldRecord));
+        $tempUpdateResult = CJSON::encode($copy_of_oldRecord, true);
+
+        if ($cb->delete($url)) {
+            if ($cb->set($url, $tempUpdateResult)) {
+                $this->sendResponse(204);
+            } else {
+                $this->sendResponse(500, 'something wrong');
+            }
+        } else {
+            $cb->set($url, $tempUpdateResult);
+            $this->sendResponse(500, 'something wrong');
+        }
     }
 
 }

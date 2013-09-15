@@ -5,6 +5,13 @@
     box-shadow:        inset 1px 1px 3px #aaa;
 }
 
+.radius-circle{
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+}
 
 .nav-tabs a {
     color: #999;
@@ -65,13 +72,13 @@
     margin: 0 auto 20px;
     left: 0;
     right: 0;
-    min-width: 796px;
+    min-width: 1000px;
     max-width: 1260px;
 }
 
 .user-board_left{
     background: white;
-    width: 25%;
+    width: 26%;
     display: inline-block;
     vertical-align: top;
     height: 450px;
@@ -80,7 +87,7 @@
 
 .user-board_right{
     background: white;
-    width: 74%;
+    width: 73%;
     height: 450px;
     display: inline-block;
     vertical-align: top;
@@ -306,9 +313,9 @@
 
 /*USERPAGE*/
 .user-cover{
-    background:#fff url('../../../images/defaultcover/defaultcover6.jpg') ;
+
     height: 150px; 
-    padding: 10px 40px;
+    overflow: hidden;
 }
 
 .user-cover:hover .edit-dashboard-btn{
@@ -381,19 +388,34 @@
 }
 
 .fresh-message{
-    padding: 10px;
-    font-size: 24px;
+    line-height: 50px;
+    font-size: 18px;
     font-weight: normal;
     color: #fff;
     border-top: 1px solid #85aed3;
-    box-shadow: 0 0 20px #999;
     background: #618fb9 url(../../images/alert-lines.png);
     height: 50px;
-    width: 100%;
-    top: 45%;
     position: fixed;
     text-align: center;
     z-index: 11;
+
+    top: 45px;
+    box-shadow: 0 0 10px #000;
+    width: 1000px;
+    margin: auto;
+    display: block;
+    border-radius: 0 0 3px 3px;
+    -webkit-border-radius: 0 0 3px 3px;
+    -moz-border-radius: 0 0 3px 3px;
+    -o-border-radius: 0 0 3px 3px;
+    left: 0;
+    right: 0;
+}
+
+.fresh-message > k{
+    font-size: 23px;
+    margin: 0 10px;
+    vertical-align: middle;
 }
 
 
@@ -433,15 +455,20 @@
     margin:0 6.5%;
     position: relative; 
     width:87%;
-    padding-top:119px;
+
 }
 .premium > div > table  .profileaside > .profileaside_content .aside-profilepic
 {
-    padding: 20px 5px; 
+    position:relative;
+    margin:-160px 17.5% 0 17.5%;
+    float:left;
+    width:65%;
+    padding:0 5px;
+   /* padding: 20px 5px; 
     position:absolute;
     width:65%;
     top:-180px;
-    left:17.5%;
+    left:17.5%; */
 }
 .premium > div > table  .profileaside > .profileaside_content .aside-profilepic div,
 .premium > div > table  .profileaside > .profileaside_content .aside-profilepic div img{width:100%;margin-bottom:1em;}
@@ -467,3 +494,92 @@
     display:none;
 }
 /* paid profile ENDS, Clint Rex Lewis 4/9/13 */
+
+
+
+/* interest BEGINS */
+.show-interest{
+    background-color: #f3f3f3;
+    height: 30px;
+    line-height: 33px;
+    margin: 5px -20px 10px;
+    cursor: pointer;
+    padding: 0 20px;
+}
+
+.show-interest:hover{
+    background-color: #fff;
+}
+
+.unvisible{
+    color: #777;
+    opacity: 0;
+}
+.user-photo_left{
+    float:left;
+    width:100%;
+}
+
+
+#show_interest:hover .unvisible{
+    opacity: .7
+}
+
+#show_interest
+{
+    position:absolute;
+    top:298px;
+    left:0;
+    padding: 5px 20px 0;
+    width: 100%;
+    height: 150px;
+    float:left;
+    overflow: hidden;
+    background: #F3F3F3;
+
+}
+div.profile-picture-active
+{
+    margin:5px 12px 0 20px!important;
+    width:50px!important;
+    height:50px!important;
+    z-index:1!important;
+    float:left!important;
+    border-width:4px!important;
+}
+.follow-btn-active
+{
+    float: right!important;
+    top: 13px!important;
+    margin: 0 20px 0 0!important;
+    width: auto !important;
+}
+
+textarea.add-interests{
+    max-width:100%;
+}
+
+.user-profilepic-container > div#change_profile{max-width:100%;max-height:100%;}
+
+.interesttags-container{width: 100%;height: 100px;line-height: 25px;padding: 0 0 0 0;margin-top: -5px;overflow: hidden;}
+
+.interest-textarea{width: 100%;margin-bottom: 5px;height: 70px;}
+
+.interest-insert-hint{
+    display: none;
+    height: 80px; 
+    width: 100%; 
+    border-radius: 6px; 
+    border: 1px solid #999;
+    background-color: rgba(30,30,30,.3); 
+    color: #fff;
+    line-height: 15px;
+    text-align: center;
+    font-weight: bold;
+
+    margin: 5px auto 15px;
+    padding: 6px 20px;
+    font-size: 11px;
+}
+
+/* interest ENDS */

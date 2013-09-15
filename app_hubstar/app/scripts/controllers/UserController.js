@@ -323,25 +323,25 @@ console.log('ssssssss');
 //        }
     },
     socialLink: function(link) {
-
+var user = this.getCurrentUser();
         if (link === 'facebook') {
-            window.open(this.get("facebook"));
+            window.open(user.get("facebook_link"));
         }
         else if (link === 'twitter') {
-            window.open(this.get("twitter"));
+            window.open(user.get("twitter_link"));
         }
         else if (link === 'googleplus') {
-            window.open(this.get("googleplus"));
+            window.open(user.get("googleplus_link"));
         }
 
         else if (link === 'pinterest') {
-            window.open(this.get("pinterest"));
+            window.open(user.get("pinterest_link"));
         }
         else if (link === 'youtube') {
-            window.open(this.get("youtube"));
+            window.open(user.get("youtube_link"));
         }
         else if (link === 'linkedin') {
-            window.open(this.get("linkedin"));
+            window.open(user.get("linkedin_link"));
         }
     },
     saveUpdate: function() {
@@ -361,6 +361,7 @@ console.log('ssssssss');
             update_user_record.set('region', this.get('location'));
             update_user_record.set('email', this.get('email'));
             update_user_record.set('password', this.get('password'));
+            
 //            update_user_record.set('photo_url', this.get('photo_url'));
 //            update_user_record.set('photo_url_large', this.get('photo_url_large'));
 //            update_user_record.set('cover_url', this.get('cover_url'));

@@ -207,8 +207,8 @@ class UsersController extends Controller {
 
         if ($mode == 'user_cover') {
             $smallimage = $photoController->savePhotoInTypes($orig_size, 'user_cover_small', $photo_name, $compressed_photo, $data_arr, $user_id, null, $type);
-            $oldRecord['user'][0]['photo_url'] = null;
-            $oldRecord['user'][0]['photo_url'] = $smallimage;
+            $oldRecord['user'][0]['cover_url_small'] = null;
+            $oldRecord['user'][0]['cover_url_small'] = $smallimage;
         }
 
         $url = $this->getDomain() . '/users/' . $user_id;

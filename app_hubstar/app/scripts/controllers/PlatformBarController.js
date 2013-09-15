@@ -8,11 +8,11 @@ HubStar.PlatformBarController = Ember.ArrayController.extend({
     myUserProfile: null,
     needs: ["application"],
     init: function()
-    {
-        
+    {  
+//      this.set("photo_url", HubStar.User.find(localStorage.loginStatus).get('photo_url_large'));
         this.setTopicModel(HubStar.Cate.find({}));
-         this.set('userLocation',geoip_city());
-          this.set('photo_url', HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus + '/user_picture/user_picture');
+        
+
     },
     topicSearch: function(search_topic) {
         this.transitionToRoute('searchIndex');
@@ -22,7 +22,24 @@ HubStar.PlatformBarController = Ember.ArrayController.extend({
     },
     setTopicModel: function(model) {
         //       console.log(model);
-        this.set("user", HubStar.User.find(localStorage.loginStatus));
+        
+  //      this.set("user", HubStar.User.find(localStorage.loginStatus));
+            var user =HubStar.User.find(localStorage.loginStatus);
+        this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
+//        this.set('photo_url', HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus + '/user_picture/user_picture');
+       var that =this;
+        that.set("user",user);
+                 that.set("photo_url", user.get("photo_url_large"));
+          user.addObserver('isLoaded', function() {
+                if (user.get('isLoaded')) {          
+                     that.set("user",user);
+                 that.set("photo_url", user.get("photo_url_large"));
+                }
+          });    
+        
+        
+        
+        
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
         this.set('categorys', null);
         this.set('categorys', model);

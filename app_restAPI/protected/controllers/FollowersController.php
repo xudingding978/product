@@ -145,11 +145,9 @@ class FollowersController extends Controller {
                     } else {
                         $newRecord[$i]['photo_url_large'] = null;
                     }
-
                     if (!isset($oldRecordDeep['user'][0]["collections"])) {
                         $newRecord[$i]['collections_size'] = 0;
                     } else {
-                        // error_log(var_export($oldRecordDeep['user'][0]["collections"], true));
                         if (($oldRecordDeep['user'][0]["collections"] === null) || ($oldRecordDeep['user'][0]["collections"] === "")) {
 
                             $newRecord[$i]['collections_size'] = 0;

@@ -1933,9 +1933,18 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     loginStatus: function() {
     },
     grapData: function() {
-        this.set("user", HubStar.User.find(localStorage.loginStatus));
+        var user =HubStar.User.find(localStorage.loginStatus);
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
-        this.set('photo_url', HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus + '/user_picture/user_picture');
+//        this.set('photo_url', HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus + '/user_picture/user_picture');
+       var that =this;
+        that.set("user",user);
+                 that.set("photo_url", user.get("photo_url_large"));
+          user.addObserver('isLoaded', function() {
+                if (user.get('isLoaded')) {          
+                     that.set("user",user);
+                 that.set("photo_url", user.get("photo_url_large"));
+                }
+          });
     },
     reloadPage: function() {
         this.set("test", !this.get("test"));
@@ -3686,11 +3695,11 @@ HubStar.PlatformBarController = Ember.ArrayController.extend({
     myUserProfile: null,
     needs: ["application"],
     init: function()
-    {
-        
+    {  
+//      this.set("photo_url", HubStar.User.find(localStorage.loginStatus).get('photo_url_large'));
         this.setTopicModel(HubStar.Cate.find({}));
-         this.set('userLocation',geoip_city());
-          this.set('photo_url', HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus + '/user_picture/user_picture');
+        
+
     },
     topicSearch: function(search_topic) {
         this.transitionToRoute('searchIndex');
@@ -3700,7 +3709,24 @@ HubStar.PlatformBarController = Ember.ArrayController.extend({
     },
     setTopicModel: function(model) {
         //       console.log(model);
-        this.set("user", HubStar.User.find(localStorage.loginStatus));
+        
+  //      this.set("user", HubStar.User.find(localStorage.loginStatus));
+            var user =HubStar.User.find(localStorage.loginStatus);
+        this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
+//        this.set('photo_url', HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus + '/user_picture/user_picture');
+       var that =this;
+        that.set("user",user);
+                 that.set("photo_url", user.get("photo_url_large"));
+          user.addObserver('isLoaded', function() {
+                if (user.get('isLoaded')) {          
+                     that.set("user",user);
+                 that.set("photo_url", user.get("photo_url_large"));
+                }
+          });    
+        
+        
+        
+        
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
         this.set('categorys', null);
         this.set('categorys', model);
@@ -5081,10 +5107,18 @@ HubStar.StatusController = Ember.Controller.extend({
             this.set("time", "Time: " + time);
         },
         grapData: function() {
-            this.set("user", HubStar.User.find(localStorage.loginStatus));
+            var user = HubStar.User.find(localStorage.loginStatus);
             this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
-            this.set('photo_url', HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus + '/user_picture/user_picture');
-           
+//            this.set('photo_url', HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus + '/user_picture/user_picture');
+        var that =this;
+         that.set("user",user);
+                 that.set("photo_url", user.get("photo_url_large"));
+          user.addObserver('isLoaded', function() {
+                if (user.get('isLoaded')) {          
+                     that.set("user",user);
+                 that.set("photo_url", user.get("photo_url_large"));
+                }
+          });
         },
         changeDescription: function()
         {
@@ -5286,10 +5320,14 @@ HubStar.UserController = Ember.Controller.extend({
                    user.set('cover_url', '../../../images/defaultcover/defaultcover6.jpg');
                }
         else
-               {this.set('cover_url', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_cover/user_cover');
+               {//this.set('cover_url', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_cover/user_cover');
+                   this.set("cover_url", user.get("cover_url"));
                }
-        this.set('photo_url', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_cover_small/user_cover');
-        this.set('photo_url_large', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_picture/user_picture');
+         this.set("photo_url", user.get("photo_url"));
+          this.set("photo_url_large", user.get("photo_url_large"));
+//        this.set('photo_url', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_cover_small/user_cover');
+//        this.set('photo_url_large', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_picture/user_picture');
+
         this.get('controllers.applicationFeedback').set('photo_url', this.get('photo_url_large'));
 //        var ac = this.get("controllers.application");
 //        var pb = this.get("controllers.platformBar");
@@ -6028,10 +6066,10 @@ HubStar.UserFollowersController = Ember.Controller.extend({
             {
                 dataNew["id"] = params[i]["record_id"];
                 dataNew["name"] = params[i]["name"];
-//                dataNew["photo_url"] = params[i]["photo_url"];
-//                dataNew["photo_url_large"] = params[i]["photo_url_large"];
-                dataNew["photo_url_large"] = HubStar.get('photoDomain')+'/users/'+dataNew["id"]+'/user_cover_small/user_cover';
-                dataNew["photo_url"] = HubStar.get('photoDomain')+'/users/'+dataNew["id"]+'/user_picture/user_picture';
+                dataNew["photo_url"] = params[i]["photo_url"];
+                dataNew["photo_url_large"] = params[i]["photo_url_large"];
+         //       dataNew["photo_url_large"] = HubStar.get('photoDomain')+'/users/'+dataNew["id"]+'/user_cover_small/user_cover';
+         //       dataNew["photo_url"] = HubStar.get('photoDomain')+'/users/'+dataNew["id"]+'/user_picture/user_picture';
                 
                 dataNew["collections_size"] = params[i]["collections_size"];
                 dataNew["follower_size"] = params[i]["follower_size"];
@@ -6340,11 +6378,11 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
             {
                 dataNew["id"] = params[i]["record_id"];
                 dataNew["name"] = params[i]["name"];
-//                dataNew["photo_url"] = params[i]["photo_url"];
-//                dataNew["photo_url_large"] = params[i]["photo_url_large"];
+                dataNew["photo_url"] = params[i]["photo_url"];
+                dataNew["photo_url_large"] = params[i]["photo_url_large"];
 
-                dataNew["photo_url_large"] = HubStar.get('photoDomain')+'/users/'+dataNew["id"]+'/user_cover_small/user_cover';
-                dataNew["photo_url"] = HubStar.get('photoDomain')+'/users/'+dataNew["id"]+'/user_picture/user_picture';
+//                dataNew["photo_url_large"] = HubStar.get('photoDomain')+'/users/'+dataNew["id"]+'/user_cover_small/user_cover';
+//                dataNew["photo_url"] = HubStar.get('photoDomain')+'/users/'+dataNew["id"]+'/user_picture/user_picture';
                 
                 dataNew["collections_size"] = params[i]["collections_size"];
                 dataNew["follower_size"] = params[i]["follower_size"];

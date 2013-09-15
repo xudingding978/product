@@ -139,17 +139,15 @@ class FollowersController extends Controller {
                     $oldRecordDeep = CJSON::decode($oldDeep, true);
                     $newRecord[$i]['record_id'] = $id;
                     $newRecord[$i]['name'] = $oldRecordDeep['user'][0]["first_name"] . " " . $oldRecordDeep['user'][0]["last_name"];
-                    $newRecord[$i]['photo_url'] = $oldRecordDeep['user'][0]["photo_url"];
+                    $newRecord[$i]['photo_url'] = $oldRecordDeep['user'][0]["photo_url_large"];
                     if (isset($oldRecordDeep['user'][0]["cover_url"])) {
                         $newRecord[$i]['photo_url_large'] = $oldRecordDeep['user'][0]["cover_url"];
                     } else {
                         $newRecord[$i]['photo_url_large'] = null;
                     }
-
                     if (!isset($oldRecordDeep['user'][0]["collections"])) {
                         $newRecord[$i]['collections_size'] = 0;
                     } else {
-                        // error_log(var_export($oldRecordDeep['user'][0]["collections"], true));
                         if (($oldRecordDeep['user'][0]["collections"] === null) || ($oldRecordDeep['user'][0]["collections"] === "")) {
 
                             $newRecord[$i]['collections_size'] = 0;
@@ -260,7 +258,7 @@ class FollowersController extends Controller {
                         $oldRecordDeep = CJSON::decode($oldDeep, true);
                         $newRecord[$i]['record_id'] = $id;
                         $newRecord[$i]['name'] = $oldRecordDeep['user'][0]["first_name"] . " " . $oldRecordDeep['user'][0]["last_name"];
-                        $newRecord[$i]['photo_url'] = $oldRecordDeep['user'][0]["photo_url"];
+                        $newRecord[$i]['photo_url'] = $oldRecordDeep['user'][0]["photo_url_large"];
                         if (isset($oldRecordDeep['user'][0]["cover_url"])) {
                             $newRecord[$i]['photo_url_large'] = $oldRecordDeep['user'][0]["cover_url"];
                         } else {

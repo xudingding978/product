@@ -102,8 +102,8 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("email", user.get("email"));
         this.set("password", user.get("password"));
 
-        if(user.get('cover_url')===null||user.get('cover_url')===""){
-                   user.set('cover_url', '../../../images/defaultcover/defaultcover6.jpg');
+        if(user.get('cover_url')===null||user.get('cover_url')===""||user.get('cover_url')===undefined){
+                   user.set('cover_url', 'http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg');
                }
         else
                {//this.set('cover_url', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_cover/user_cover');
@@ -113,6 +113,7 @@ HubStar.UserController = Ember.Controller.extend({
           this.set("photo_url_large", user.get("photo_url_large"));
 //        this.set('photo_url', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_cover_small/user_cover');
 //        this.set('photo_url_large', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_picture/user_picture');
+
 
         this.get('controllers.applicationFeedback').set('photo_url', this.get('photo_url_large'));
 //        var ac = this.get("controllers.application");
@@ -322,25 +323,25 @@ HubStar.UserController = Ember.Controller.extend({
 //        }
     },
     socialLink: function(link) {
-
+var user = this.getCurrentUser();
         if (link === 'facebook') {
-            window.open(this.get("facebook"));
+            window.open(user.get("facebook_link"));
         }
         else if (link === 'twitter') {
-            window.open(this.get("twitter"));
+            window.open(user.get("twitter_link"));
         }
         else if (link === 'googleplus') {
-            window.open(this.get("googleplus"));
+            window.open(user.get("googleplus_link"));
         }
 
         else if (link === 'pinterest') {
-            window.open(this.get("pinterest"));
+            window.open(user.get("pinterest_link"));
         }
         else if (link === 'youtube') {
-            window.open(this.get("youtube"));
+            window.open(user.get("youtube_link"));
         }
         else if (link === 'linkedin') {
-            window.open(this.get("linkedin"));
+            window.open(user.get("linkedin_link"));
         }
     },
     saveUpdate: function() {
@@ -360,6 +361,7 @@ HubStar.UserController = Ember.Controller.extend({
             update_user_record.set('region', this.get('location'));
             update_user_record.set('email', this.get('email'));
             update_user_record.set('password', this.get('password'));
+            
 //            update_user_record.set('photo_url', this.get('photo_url'));
 //            update_user_record.set('photo_url_large', this.get('photo_url_large'));
 //            update_user_record.set('cover_url', this.get('cover_url'));
@@ -756,7 +758,7 @@ HubStar.UserController = Ember.Controller.extend({
         var that = this;
         requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
 
-            var requiredSize = "Your required image size is " + params.width + "x" + params.height;
+            var requiredSize = "Best Results Require A Minimum Image Size of " + params.width+ "px" + " x " + params.height + "px";
             that.set('RequiredImageSize', requiredSize);
         });
     },

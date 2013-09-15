@@ -1,5 +1,6 @@
 
 {{#each  content}}
+{{#if displayOrNot}}
 <div class="col1 box style-box t-style-box" style="text-align: center;">
     <div style="position:relative;height: 100px;overflow: hidden;">
         <img {{bindAttr src= this.photo_url_large}} style="width:100%;"/>
@@ -48,7 +49,17 @@
     </div>
 
 </div>
+{{else}}
+<div class="box col2 noStyle1"  {{action checkingLoginStatus target="view" on="click"}}>
+    <div class="masonry-object">
+        {{render itemProfiles this}}
+        {{this}}
+        {{render "comment" this}}
+    </div>
+</div>
 
+
+{{/if}}
 
 <script>
     $(function() {

@@ -12,6 +12,9 @@ class MegasController extends Controller {
     const JSON_RESPONSE_ROOT_PLURAL = 'megas';
 
     public function actionIndex() {
+          error_log("12325");
+        
+        
         try {
             $temp = explode("?", $_SERVER['REQUEST_URI']);
             $request_string = $temp [sizeof($temp) - 1];
@@ -44,6 +47,7 @@ class MegasController extends Controller {
     }
 
     public function actionCreate() {
+        error_log("fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
         $mega = $request_arr['mega'];
@@ -57,13 +61,15 @@ class MegasController extends Controller {
 
     public function actionRead() {
         try {
-
+            error_log("ddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
             $cb = $this->couchBaseConnection();
             $docID = $this->getDomain() . "/profiles/" . $id;
             $reponse = $cb->get($docID);
             $reponse = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $reponse . '}';
+            error_log(var_export($reponse,true));
+            
             $this->sendResponse(200, $reponse);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -73,7 +79,7 @@ class MegasController extends Controller {
     public function actionUpdate() {
         $temp = explode("/", $_SERVER['REQUEST_URI']);
         $id = $temp [sizeof($temp) - 1];
-
+        error_log("ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
         $newRecord = file_get_contents('php://input');
         $newRecord = CJSON::decode($newRecord, true);
         $newRecord['id'] = $id;

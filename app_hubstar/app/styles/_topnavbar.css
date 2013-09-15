@@ -887,7 +887,8 @@ div.form .rememberMe label
         text-align:center;
         font-size:1.1em;
      }
-     div #login_container > div.front > .content
+     div #login_container > div.front > .content,
+     div #login_container > div.back > .content
      {
          float:left;
          width:100%;

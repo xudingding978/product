@@ -143,7 +143,7 @@ class FollowersController extends Controller {
                     if (isset($oldRecordDeep['user'][0]["cover_url_small"])) {
                         $newRecord[$i]['photo_url_large'] = $oldRecordDeep['user'][0]["cover_url_small"];
                     } else {
-                        $newRecord[$i]['photo_url_large'] = null;
+                        $newRecord[$i]['photo_url_large'] = "http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg";
                     }
                     if (!isset($oldRecordDeep['user'][0]["collections"])) {
                         $newRecord[$i]['collections_size'] = 0;

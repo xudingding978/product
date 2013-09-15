@@ -140,10 +140,10 @@ class FollowersController extends Controller {
                     $newRecord[$i]['record_id'] = $id;
                     $newRecord[$i]['name'] = $oldRecordDeep['user'][0]["first_name"] . " " . $oldRecordDeep['user'][0]["last_name"];
                     $newRecord[$i]['photo_url'] = $oldRecordDeep['user'][0]["photo_url_large"];
-                    if (isset($oldRecordDeep['user'][0]["cover_url"])) {
-                        $newRecord[$i]['photo_url_large'] = $oldRecordDeep['user'][0]["cover_url"];
+                    if (isset($oldRecordDeep['user'][0]["cover_url_small"])) {
+                        $newRecord[$i]['photo_url_large'] = $oldRecordDeep['user'][0]["cover_url_small"];
                     } else {
-                        $newRecord[$i]['photo_url_large'] = null;
+                        $newRecord[$i]['photo_url_large'] = "http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg";
                     }
                     if (!isset($oldRecordDeep['user'][0]["collections"])) {
                         $newRecord[$i]['collections_size'] = 0;
@@ -259,10 +259,10 @@ class FollowersController extends Controller {
                         $newRecord[$i]['record_id'] = $id;
                         $newRecord[$i]['name'] = $oldRecordDeep['user'][0]["first_name"] . " " . $oldRecordDeep['user'][0]["last_name"];
                         $newRecord[$i]['photo_url'] = $oldRecordDeep['user'][0]["photo_url_large"];
-                        if (isset($oldRecordDeep['user'][0]["cover_url"])) {
-                            $newRecord[$i]['photo_url_large'] = $oldRecordDeep['user'][0]["cover_url"];
+                        if (isset($oldRecordDeep['user'][0]["cover_url_small"])) {
+                            $newRecord[$i]['photo_url_large'] = $oldRecordDeep['user'][0]["cover_url_small"];
                         } else {
-                            $newRecord[$i]['photo_url_large'] = null;
+                            $newRecord[$i]['photo_url_large'] =  "http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg";
                         }
                         if (!isset($oldRecordDeep['user'][0]["collections"])) {
                             $newRecord[$i]['collections_size'] = 0;

@@ -757,7 +757,7 @@ var user = this.getCurrentUser();
         var that = this;
         requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
 
-            var requiredSize = "Your required image size is " + params.width + "x" + params.height;
+            var requiredSize = "Best Results Require A Minimum Image Size of " + params.width+ "px" + " x " + params.height + "px";
             that.set('RequiredImageSize', requiredSize);
         });
     },

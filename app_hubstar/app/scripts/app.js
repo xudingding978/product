@@ -9,11 +9,8 @@ var HubStar = window.HubStar = Ember.Application.createWithMixins({
         HubStar.set('isMansonryPageLoad', false);
         HubStar.set('searchStart', false);
         HubStar.set('photoDomain', "http://s3.hubsrv.com/trendsideas.com");
-    }, 
-    getPhotoURL: function() {
-        
-    }
-});
+            }
+        });
 
 /* Order and include as you please. */
 require('scripts/helper');

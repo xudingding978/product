@@ -8,12 +8,12 @@
         {{#if displayOrNot}}
         <a class='radius-circle' href="#/users/{{unbound this.id}}">
 
-            <img {{bindAttr src= this.photo_url}} style="min-width: 100px; min-height: 100px; max-width: 120px; max-height: 120px;"/>
+            <img {{bindAttr src= this.photo_url}} style="width: 100px; height: 100px;"/>
         </a>
         {{else}}
         <a class='radius-circle' href="#/profiles/{{unbound this.id}}">
 
-            <img {{bindAttr src= this.photo_url}} style="min-width: 100px; min-height: 100px; max-width: 120px; max-height: 120px;"/>
+            <img {{bindAttr src= this.photo_url}} style="width: 100px; height: 100px;"/>
         </a>
         {{/if}}
     </div>

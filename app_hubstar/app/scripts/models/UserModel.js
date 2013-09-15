@@ -12,6 +12,7 @@
                 identifier: DS.attr('string'),               
                 active_status: false,
                 cover_url:DS.attr('string'),
+                cover_url_large:DS.attr('string'),
                 profile_url: DS.attr('string'),
                 website_url: DS.attr('string'),
                 about_me:DS.attr('string'),

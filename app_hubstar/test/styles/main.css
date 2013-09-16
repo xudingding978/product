@@ -9193,6 +9193,11 @@ j
     cursor:pointer;
 }
 
+/* clint */
+.masonry-brick .masonry_more-btn{
+    padding-bottom:12.5px;
+    
+}
 .masonry_more-btn:hover{
     color: #333;
 }
@@ -9500,6 +9505,7 @@ j
     border-radius: 50%;
     width: 46px;
     height: 46px;
+    background:#efeded;
 }
 
 .profilepic_effect{
@@ -9888,7 +9894,8 @@ j
 
 
 .comment-frame{
-    width: 87%;
+    width: 100%;
+    padding:0 6.5%;
     margin: 0 auto;
     overflow:hidden;
     border-bottom:12.5px solid #f8f8f8;
@@ -9924,7 +9931,7 @@ j
 
 .addcommnetbox-container{
     /* padding: 0 0 20px 0; */
-    padding:0;
+    padding:0 6.5%;
 }
 
 .addcommnetbox{
@@ -10207,7 +10214,7 @@ j
     margin: 0 auto 20px;
     left: 0;
     right: 0;
-    min-width: 1060pxpx;
+    min-width: 1060px;
     max-width: 1260px;
 }
 

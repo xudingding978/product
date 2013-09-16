@@ -29,7 +29,7 @@
 
                         <div style="position: absolute;  vertical-align: top; text-align: center;width: 100%;height: 270px;top: 0;line-height: 270px;background-color: Rgba(30,30,30,.2);">
                             <div>
-                                <img  {{bindAttr src= "newStyleImageSource"}}  style="max-width: 170px; max-height: 170px;border: 5px solid #f3f3f3;">
+                                <img  {{bindAttr src= "newStyleImageSource"}}  style="max-width: 170px; max-height: 170px;">
                                 <div id='uploadStyleImg' style="display: none;">
                                     <img style="width: 25px; height: 25px;position: absolute;top: 40%;left: 62px;" src="../../../images/uploadphotos_spinner.gif"/>
                                 </div>
@@ -43,13 +43,13 @@
 
 
                 <div style="text-align: center;height: 75px;line-height: 85px;bottom: 0;position: relative;width: 98%;">
-                    <div class="new-btn blue-btn" style="margin: 28px 20px; width: 67px; float: left;">
-                        Choose 
+                    <div class="new-btn blue-btn" style="margin: 28px 20px; width: 83px; float: left;">
+                        <k class='icon-upload'> &nbsp;Choose 
                         <div style="opacity:0;position: absolute;top: 0px;left: 0;"> {{view HubStar.SingleImageInputButtonView }}</div>
                     </div>
 
                     <div style="margin: auto;width: 150px;float: right;">
-                        <span class="new-btn green-btn " {{action savePhotoUpdate}} >Save</span>
+                        <span class="new-btn green-btn " {{action savePhotoUpdate}} ><k class='icon-save'> &nbsp;Save</span>
                         <span class='new-btn flip-back'{{action userDashboardBackButton }}><k class='icon-group'> &nbsp;</k>Back</span>
                     </div>
 

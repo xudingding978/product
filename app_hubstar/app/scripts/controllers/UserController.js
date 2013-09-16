@@ -485,7 +485,7 @@ var user = this.getCurrentUser();
             update_interest_record.set('selected_topics', this.get('interests'));
             HubStar.store.save();
         } else {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Too much comma");
+            this.get('controllers.applicationFeedback').statusObserver(null, "invalid input");
         }
 
     },

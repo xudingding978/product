@@ -142,9 +142,13 @@ class FollowersController extends Controller {
                     $newRecord[$i]['name'] = $oldRecordDeep['user'][0]["first_name"] . " " . $oldRecordDeep['user'][0]["last_name"];
                     $newRecord[$i]['photo_url'] = $oldRecordDeep['user'][0]["photo_url_large"];
                     if (isset($oldRecordDeep['user'][0]["cover_url_small"])) {
-                        $newRecord[$i]['photo_url_large'] = $oldRecordDeep['user'][0]["cover_url_small"];
-                    } else {
-                        $newRecord[$i]['photo_url_large'] = "http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg";
+                        $newRecord[$i]['cover_url_small'] = $oldRecordDeep['user'][0]["cover_url_small"];
+                    } else if (isset($oldRecordDeep['user'][0]["cover_url"]))
+                    {
+                          $newRecord[$i]['cover_url_small'] =  $oldRecordDeep['user'][0]["cover_url"];
+                    }else 
+                     {
+                        $newRecord[$i]['cover_url_small'] = "http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg";
                     }
                     if (!isset($oldRecordDeep['user'][0]["collections"])) {
                         $newRecord[$i]['collections_size'] = 0;
@@ -261,10 +265,16 @@ class FollowersController extends Controller {
                         $newRecord[$i]['name'] = $oldRecordDeep['user'][0]["first_name"] . " " . $oldRecordDeep['user'][0]["last_name"];
                         $newRecord[$i]['photo_url'] = $oldRecordDeep['user'][0]["photo_url_large"];
                         if (isset($oldRecordDeep['user'][0]["cover_url_small"])) {
-                            $newRecord[$i]['photo_url_large'] = $oldRecordDeep['user'][0]["cover_url_small"];
-                        } else {
-                            $newRecord[$i]['photo_url_large'] =  "http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg";
+                            $newRecord[$i]['cover_url_small'] = $oldRecordDeep['user'][0]["cover_url_small"];
+                        } else if(isset($oldRecordDeep['user'][0]["cover_url"]))
+                        {
+                            $newRecord[$i]['cover_url_small'] =   $oldRecordDeep['user'][0]["cover_url"];
                         }
+                         else{
+                              $newRecord[$i]['cover_url_small'] = "http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg";
+                           
+                        }
+                        
                         if (!isset($oldRecordDeep['user'][0]["collections"])) {
                             $newRecord[$i]['collections_size'] = 0;
                         } else {
@@ -328,9 +338,9 @@ class FollowersController extends Controller {
                         $newRecord[$i]['photo_url'] = $oldRecordDeep['profile'][0]["profile_pic_url"];
                         //$newRecord[$i]['photo_url_large'] = $oldRecordDeep['profile'][0]["profile_hero_cover_url"];
                         if (isset($oldRecordDeep['profile'][0]["profile_hero_cover_url"])&&$oldRecordDeep['profile'][0]["profile_hero_cover_url"]!==""&&$oldRecordDeep['profile'][0]["profile_hero_cover_url"]!==null) {
-                            $newRecord[$i]['photo_url_large'] = $oldRecordDeep['profile'][0]["profile_hero_cover_url"];
+                            $newRecord[$i]['cover_url_small'] = $oldRecordDeep['profile'][0]["profile_hero_cover_url"];
                         } else {
-                            $newRecord[$i]['photo_url_large'] = $oldRecordDeep['profile'][0]["profile_hero_url"];
+                            $newRecord[$i]['cover_url_small'] = $oldRecordDeep['profile'][0]["profile_hero_url"];
                         }
                         $newRecord[$i]['following_status'] = false;
                         if (!isset($oldRecordDeep['profile'][0]["collections"])) {

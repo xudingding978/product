@@ -36,7 +36,7 @@
     <div class="addcommnetbox-container comment-frame" id="commentBox_{{unbound model.id}}" style="display: none">
         <div style="margin:0 auto; padding: 0 0 15px 45px;">
             <a>
-                <img class="profilepic_comment"  style="float: left; margin: 4px 0 0 -45px; margin-top: 0;"{{bindAttr src="controller.currentUser.photo_url"}} /> 
+                <img class="profilepic_comment"  style="float: left; margin: 4px 0 0 -45px; margin-top: 0;"{{bindAttr src="controller.currentUser.photo_url_large"}} /> 
             </a>
 
             {{view HubStar.SearchRequireTextFieldView valueBinding="commentContent"  id="" class="comment-insert-field"  placeholder="" }}
@@ -55,7 +55,7 @@
 
             <div class="comment-position">
                 <a class="profilepic-comment-container" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}}>
-                    <img class="profilepic_comment" {{bindAttr src="commenter_profile_pic_url"}} />
+                    <img class="profilepic_comment" {{bindAttr src="controller.currentUser.photo_url_large"}} />
                 </a>
                 <div style="">
                     <div class="comment-namentime">

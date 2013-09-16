@@ -766,10 +766,10 @@ j
 }
 
 .masonry-object_interact{
-    margin: 20px 0 10px 0;
+    margin: 20px 0 0 0; /* was margin: 20px 0 10px 0; */
     overflow:hidden;
     border-top: 1px solid #e5e5e5;
-    border-bottom: 1px solid #e5e5e5;
+    /* border-bottom: 1px solid #e5e5e5; */
     -webkit-border-radius: 0 0 2px 2px;
     -o-border-radius: 0 0 2px 2px;
     -ms-border-radius: 0 0 2px 2px;
@@ -792,8 +792,9 @@ j
 }
 
 .masonry_addcommnetbox-container{
-    margin: 0 20px 0 20px;
-    padding: 0 0 20px 0;
+   /* margin: 0 20px 0 20px; */
+   padding: 0 20px 8.5px 20px;
+
 }
 
 
@@ -990,6 +991,8 @@ j
     line-height: 23px;
     font-size: 14px;
     font-weight: bold;
+    font-family: FontAwesome, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    
 }
 
 
@@ -1093,6 +1096,7 @@ j
 .posttime{
     color: #aaa;
     font-size: 11px;
+    line-height:140%;
 }
 
 
@@ -1454,6 +1458,8 @@ j
 .comment-frame{
     width: 87%;
     margin: 0 auto;
+    overflow:hidden;
+    border-bottom:12.5px solid #f8f8f8;
 
 }
 
@@ -1485,7 +1491,8 @@ j
 }
 
 .addcommnetbox-container{
-    padding: 0 0 20px 0;
+    /* padding: 0 0 20px 0; */
+    padding:0;
 }
 
 .addcommnetbox{
@@ -1495,7 +1502,7 @@ j
     cursor: text;
     font-size: 12px;
     height: auto;
-    margin: 0 0 20px 0;
+    margin: 0 0 0 0;
     padding: 6px 8px;
 }
 
@@ -1510,7 +1517,7 @@ j
 }
 
 .comment-position{
-    padding: 0 0px 16px 45px;
+    padding: 4.50px 0px 4.5px 43px;
     vertical-align: top;
 }
 
@@ -1523,8 +1530,8 @@ j
 
 .profilepic_comment{
     border-radius: 50%;
-    width: 35px;
-    height: 35px;
+    width: 33px;
+    height: 33px;
 }
 
 .comment-insert-field{
@@ -1561,7 +1568,7 @@ j
 .posttime-container{
     display: block;
     white-space: nowrap;
-    margin-bottom: 5px;
+    /* margin-bottom: 5px; */
     line-height: 10px;
 }
 
@@ -1588,6 +1595,7 @@ j
 .comment-content{
     color: #404040;
     font-size: 13px;
+    line-height:16px;
     margin: 0 0 0 0;
     overflow: hidden;
     word-wrap: break-word;

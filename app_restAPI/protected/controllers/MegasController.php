@@ -12,8 +12,7 @@ class MegasController extends Controller {
     const JSON_RESPONSE_ROOT_PLURAL = 'megas';
 
     public function actionIndex() {
-          error_log("12325");
-        
+
         
         try {
             $temp = explode("?", $_SERVER['REQUEST_URI']);
@@ -37,8 +36,10 @@ class MegasController extends Controller {
                     $record = CJSON::decode($tempRecord, true);
                     $request_string = "RequireType=articleRelatedImage&collection_id=" . $record["collection_id"] . "&owner_profile_id=" . $record["owner_id"];
                 } 
-                
+                    //error_log(var_export($request_string,true));
                     $response = $this->getRequestResult($request_string, self::JSON_RESPONSE_ROOT_PLURAL);
+                    //$r=CJSON::decode($response, true);
+                    //error_log(var_export($r['megas'][0]['profile'],true));
             }            
             $this->sendResponse(200, $response);
         } catch (Exception $exc) {

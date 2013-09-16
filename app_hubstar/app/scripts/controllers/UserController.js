@@ -482,7 +482,7 @@ HubStar.UserController = Ember.Controller.extend({
             update_interest_record.set('selected_topics', this.get('interests'));
             HubStar.store.save();
         } else {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Too much comma");
+            this.get('controllers.applicationFeedback').statusObserver(null, "invalid input");
         }
 
     },
@@ -729,7 +729,7 @@ HubStar.UserController = Ember.Controller.extend({
                         });
                         that.userPhotoEditBackButton();
                         that.userDashboardBackButton();
-                        that.get('controllers.applicationFeedback').set('photo_url', src);
+//                        that.get('controllers.applicationFeedback').set('photo_url', src);
                         that.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully!!!");
                     }
                     else if (width < params.width || height < params.height) {
@@ -769,6 +769,7 @@ HubStar.UserController = Ember.Controller.extend({
             var pb = this.get("controllers.platformBar");
             ac.changeImage(this.get('photo_url_large'));
             pb.changeImage(this.get('photo_url_large'));
+            this.get('controllers.applicationFeedback').set('photo_url', this.get('photo_url_large'));
             model.set('photo_url_large', this.get('newStyleImageSource'));
         } else if (this.get('UploadImageMode') === "User Cover") {
 

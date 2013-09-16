@@ -21,10 +21,10 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
                     top:25      
                 }, 400);
     
-                $('.fresh-message').show().delay(500000).animate({
+                $('.fresh-message').show().delay(5000).animate({
                   top:-20              
                 }, 400);        
-                $('.fresh-profile-pic').show().delay(500000).animate({
+                $('.fresh-profile-pic').show().delay(5000).animate({
                     top:-40                 
                 }, 400);
            
@@ -44,12 +44,11 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
     },
     
      removeButton:function(){
-      
-      // console.log(this.get('is_remove'));
+
        if(this.get('is_remove')===true){
    
             $('.fresh-message').hide("slow").animate({
-                        
+        
                 }, 400);
              $('.fresh-profile-pic').hide("slow").animate({
                                

@@ -4,11 +4,10 @@
     -webkit-box-sizing: border-box;
 }
 
-#footer
-{
+#footer{
     background: #333333 url('../images/footerbg.png') repeat-x;
     color: white;
-
+    position: relative;
 }
 
 .footer_contentbox {

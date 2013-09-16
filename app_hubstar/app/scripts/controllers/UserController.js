@@ -254,7 +254,7 @@ HubStar.UserController = Ember.Controller.extend({
         return user;
     },
     checkingIdisExsinting: function(id, postOrPut) {
-        var isExsinting=true;
+        var isExsinting = true;
         if (postOrPut === "create") {
             for (var i = 0; i < this.get("collections").get('length'); i++) {
                 if (this.get("collections").objectAt(i).id === id) {
@@ -292,33 +292,42 @@ HubStar.UserController = Ember.Controller.extend({
     submit: function()
     {
 
-        var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
-        var id = this.checkingValidInput(this.selectedCollection.get('title'));
-        var isExsinting = this.checkingIdisExsinting(id, "create");
-        if (isExsinting) {
-            var validID = this.checkingValidInput(id);
-            var checkingCharater = this.specialCharactersChecking(validID);
-            if (checkingCharater) {
-                this.selectedCollection.set('id', validID.toLowerCase());
-                this.selectedCollection.set('title', this.selectedCollection.get('title'));
-                this.selectedCollection.set('cover', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png");
-                if (this.selectedCollection.get('desc') !== null && this.selectedCollection.get('desc') !== "") {
-                    this.selectedCollection.set('desc', desc);
-                } else {
-                    this.selectedCollection.set('desc', "Add a short description to your Collection");
-                }
-                this.get("collections").insertAt(0, this.selectedCollection);
-                HubStar.store.commit();
-                $(".Targeting_Object_front").attr("style", "display:inline-block");
-                $(" #uploadArea").attr('style', "display:none");
-                $(" #uploadObject").attr('style', "display:block");
-            } else {
-                this.get('controllers.applicationFeedback').statusObserver(null, "invalide characters...");
-            }
+        var collectionController = this.get('controllers.collection');
+        var collection = collectionController.getCreateCollection(this.selectedCollection.get('desc'), this.selectedCollection.get('title'),this.get("collections"));
+
+        if (collection !== null && collection !== "") {
+            this.get("collections").insertAt(0, this.selectedCollection);
+            HubStar.store.commit();
+            $(".Targeting_Object_front").attr("style", "display:inline-block");
+            $(" #uploadArea").attr('style', "display:none");
+            $(" #uploadObject").attr('style', "display:block");
             this.statstics();
         }
-//        else {
-//            isExsinting = true;
+//        var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
+//        var id = this.checkingValidInput(this.selectedCollection.get('title'));
+//        var isExsinting = this.checkingIdisExsinting(id, "create");
+//        if (isExsinting) {
+//            var validID = this.checkingValidInput(id);
+//            var checkingCharater = this.specialCharactersChecking(validID);
+//            if (checkingCharater) {
+//                this.selectedCollection.set('id', validID.toLowerCase());
+//                this.selectedCollection.set('title', this.selectedCollection.get('title'));
+//                this.selectedCollection.set('cover', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png");
+//                if (this.selectedCollection.get('desc') !== null && this.selectedCollection.get('desc') !== "") {
+//                    this.selectedCollection.set('desc', desc);
+//                } else {
+//                    this.selectedCollection.set('desc', "Add a short description to your Collection");
+//                }
+//                this.get("collections").insertAt(0, this.selectedCollection);
+//                HubStar.store.commit();
+//                $(".Targeting_Object_front").attr("style", "display:inline-block");
+//                $(" #uploadArea").attr('style', "display:none");
+//                $(" #uploadObject").attr('style', "display:block");
+//                this.statstics();
+//            } else {
+//                this.get('controllers.applicationFeedback').statusObserver(null, "invalide characters...");
+//            }
+//
 //        }
     },
     socialLink: function(link) {

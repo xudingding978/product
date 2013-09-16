@@ -83,7 +83,8 @@ class DefaultController extends CController {
                 if (isset($_POST['User'])) {
                     //Save the form
                     $user->attributes = $_POST['User'];
-
+                    $user->REC_DATETIME = new CDbExpression('NOW()');
+                    $user->REC_TIMESTAMP = new CDbExpression('NOW()');
                     if ($user->validate() && $user->save()) {
                         if ($this->module->withYiiUser == true) {
                             
@@ -123,16 +124,30 @@ class DefaultController extends CController {
         require_once( Yii::app()->getBasePath() . '/../../common/protected/modules/hybridauth/Hybrid/Auth.php');
 
         $hybridauth = new Hybrid_Auth($config);
+
         $adapter = $hybridauth->authenticate($_GET['provider']);
+
+
         $user_profile = $adapter->getUserProfile();
+        error_log(var_export($user_profile, true));
+
+        error_log(000000000000);
         $user = new User;
         $user->attributes = $_POST['User'];
         $user->TENANT_REC_ID = 1;
+
         $user_profile->email = $user->EMAIL_ADDRESS;
         $user_profile->displayName = $user->USER_NAME;
         $user_profile->lastName = $user->LAST_NAME;
         $user_profile->firstName = $user->FIRST_NAME;
+        if ($user_profile->photoURL === null || $user_profile->photoURL === "") {
 
+            $user_profile->photoURL = "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg";
+        }
+        if ($user_profile->photoURL_large === null || $user_profile->photoURL_large === "") {
+
+            $user_profile->photoURL_large = "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg";
+        }
         $userProfile = new UserProfile;
         $userProfile->LOGIN_PROVIDER_IDENTIFIER = $identity->loginProviderIdentifier;
         $userProfile->LOGIN_PROVIDER = $identity->loginProvider;
@@ -165,13 +180,11 @@ class DefaultController extends CController {
         $userProfile->save();
 
 
-        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "Pa55word", "test", true);
+        $cb = new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "production", true);
         $rand_id = $user->COUCHBASE_ID;
         $temp = $this->getMega();
         $temp["id"] = $rand_id;
-
-
-
+        $temp["created"] = $this->getCurrentUTC();
         $temp["user"][0]["id"] = $rand_id;
         $temp["user"][0]["identifier"] = $userProfile->IDENTIFIER;
         $temp["user"][0]["profile_url"] = $userProfile->PROFILE_URL;
@@ -188,6 +201,8 @@ class DefaultController extends CController {
         $temp["user"][0]["birth_day"] = $userProfile->BIRTH_DAY;
         $temp["user"][0]["birth_month"] = $userProfile->BIRTH_MONTH;
         $temp["user"][0]["birth_year"] = $userProfile->BIRTH_YEAR;
+        $temp["user"][0]["selected_topics"] = "";
+
 
         $temp["user"][0]["email"] = $userProfile->EMAIL;
         $temp["user"][0]["phone"] = $userProfile->PHONE;
@@ -198,20 +213,26 @@ class DefaultController extends CController {
         $temp["user"][0]["zip"] = $userProfile->ZIP;
 
 
+        Yii::app()->session['newUser'] = "new";
 
 
 
 
-
-
-
-        $cb->add(substr($_SERVER['HTTP_HOST'], 8) . "/users/" . $rand_id, CJSON::encode($temp));
+        $cb->add(substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.') + 1) . "/users/" . $rand_id, CJSON::encode($temp));
     }
 
     private function _loginUser($identity) {
         Yii::app()->user->login($identity, 0);
 
-        $this->render('close');
+
+        if (Yii::app()->session['newUser'] == "new") {
+
+            $this->render('welcome');
+            unset(Yii::app()->session['newUser']);
+        } else {
+
+            $this->render('close');
+        }
     }
 
     /**
@@ -246,8 +267,8 @@ class DefaultController extends CController {
   "followers": null,
   "following": null,
   "following_count": null,
-  "country": "new zealand",
-  "region": "auckland",
+  "country": null,
+  "region": null,
   "geography": null,
   "indexed_yn": null,
   "object_image_linkto": null,
@@ -266,6 +287,13 @@ class DefaultController extends CController {
   "user": []
 }';
         return json_decode($mega, true);
+    }
+
+    public function getCurrentUTC() {
+
+        $datetime = date("Y-m-d H:i:s");
+        $time_string = strtotime($datetime);
+        return $time_string;
     }
 
 }

@@ -25,17 +25,22 @@
  */
 return array(
     'env.code' => 'private',
-    // DB connection configurations
-    'tablePrefix' => 'yii_',
-    // live database
+    
+    //ElasticSearch Configurations
+    'elasticSearch.node' => 'es1.hubsrv.com',
+    'elasticSearch.index' => 'test',
+    
+    //CouchBase Configurations
+    'couchBase.node'=>'cb1.hubsrv.com:8091',
+    'couchBase.bucket'=>'test',
+    
+      //MySQL Database Configurations
     'db_live.name' => 'db_live',
     'db_live.connectionString' => 'mysql:host=db1.hubsrv.com;dbname=hubstar_live',
     'db_live.username' => 'db_user',
     'db_live.password' => 'Pa55word',
-    'adminEmail' => 'localwebmaster@example.com',
-    'mongodb' => array(
-        'class' => 'EMongoClient',
-        'server' => 'mongodb://localhost:27017',
-        'db' => 'super_test'
-    ),
+    
+    //Platform Administrator Email
+    'adminEmail' => 'localwebmaster@example.com',  
+
 );

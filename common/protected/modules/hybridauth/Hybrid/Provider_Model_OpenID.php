@@ -1,9 +1,10 @@
 <?php
-/*!
-* HybridAuth
-* http://hybridauth.sourceforge.net | https://github.com/hybridauth/hybridauth
-*  (c) 2009-2011 HybridAuth authors | hybridauth.sourceforge.net/licenses.html
-*/
+
+/* !
+ * HybridAuth
+ * http://hybridauth.sourceforge.net | https://github.com/hybridauth/hybridauth
+ *  (c) 2009-2011 HybridAuth authors | hybridauth.sourceforge.net/licenses.html
+ */
 
 /**
  * To implement an OpenID based service provider, Hybrid_Provider_Model_OpenID
@@ -15,155 +16,148 @@
  * Hybrid_Provider_Model_OpenID use LightOpenID lib which can be found on
  * Hybrid/thirdparty/OpenID/LightOpenID.php
  */
-class Hybrid_Provider_Model_OpenID extends Hybrid_Provider_Model
-{
-	/* Openid provider identifier */
-	public $openidIdentifier = ""; 
+class Hybrid_Provider_Model_OpenID extends Hybrid_Provider_Model {
+    /* Openid provider identifier */
 
-	// --------------------------------------------------------------------
+    public $openidIdentifier = "";
 
-	/**
-	* adapter initializer 
-	*/
-	function initialize()
-	{
-		if( isset( $this->params["openid_identifier"] ) ){
-			$this->openidIdentifier = $this->params["openid_identifier"];
-		}
+    // --------------------------------------------------------------------
 
-		// include LightOpenID lib
-		require_once Hybrid_Auth::$config["path_libraries"] . "OpenID/LightOpenID.php"; 
+    /**
+     * adapter initializer 
+     */
+    function initialize() {
+        if (isset($this->params["openid_identifier"])) {
+            $this->openidIdentifier = $this->params["openid_identifier"];
+        }
 
-		$this->api = new LightOpenID( parse_url( Hybrid_Auth::$config["base_url"], PHP_URL_HOST) ); 
-	}
+        // include LightOpenID lib
+        require_once Hybrid_Auth::$config["path_libraries"] . "OpenID/LightOpenID.php";
+        if (isset(Hybrid_Auth::$config["base_url"])) {
+            $this->api = new LightOpenID(parse_url(Hybrid_Auth::$config["base_url"], PHP_URL_HOST));
+        }
+    }
 
-	// --------------------------------------------------------------------
+    // --------------------------------------------------------------------
 
-	/**
-	* begin login step 
-	*/
-	function loginBegin()
-	{
-		if( empty( $this->openidIdentifier ) ){
-			throw new Exception( "OpenID adapter require the identity provider identifier 'openid_identifier' as an extra parameter.", 4 );
-		}
+    /**
+     * begin login step 
+     */
+    function loginBegin() {
+        if (empty($this->openidIdentifier)) {
+            throw new Exception("OpenID adapter require the identity provider identifier 'openid_identifier' as an extra parameter.", 4);
+        }
 
-		$this->api->identity  = $this->openidIdentifier;
-		$this->api->returnUrl = $this->endpoint;
-		$this->api->required  = ARRAY( 
-			'namePerson/first'       ,
-			'namePerson/last'        ,
-			'namePerson/friendly'    ,
-			'namePerson'             ,
+        $this->api->identity = $this->openidIdentifier;
+        $this->api->returnUrl = $this->endpoint;
+        $this->api->required = ARRAY(
+            'namePerson/first',
+            'namePerson/last',
+            'namePerson/friendly',
+            'namePerson',
+            'contact/email',
+            'birthDate',
+            'birthDate/birthDay',
+            'birthDate/birthMonth',
+            'birthDate/birthYear',
+            'person/gender',
+            'pref/language',
+            'contact/postalCode/home',
+            'contact/city/home',
+            'contact/country/home',
+            'media/image/default',
+        );
 
-			'contact/email'          ,
+        # redirect the user to the provider authentication url
+        Hybrid_Auth::redirect($this->api->authUrl());
+    }
 
-			'birthDate'              ,
-			'birthDate/birthDay'     ,
-			'birthDate/birthMonth'   ,
-			'birthDate/birthYear'    ,
+    // --------------------------------------------------------------------
 
-			'person/gender'          ,
-			'pref/language'          , 
+    /**
+     * finish login step 
+     */
+    function loginFinish() {
+        # if user don't garant acess of their data to your site, halt with an Exception
+        if ($this->api->mode == 'cancel') {
+            throw new Exception("Authentification failed! User has canceled authentication!", 5);
+        }
 
-			'contact/postalCode/home',
-			'contact/city/home'      ,
-			'contact/country/home'   , 
+        # if something goes wrong
+        if (!$this->api->validate()) {
+            throw new Exception("Authentification failed. Invalid request recived!", 5);
+        }
 
-			'media/image/default'    ,
-		);
+        # fetch recived user data
+        $response = $this->api->getAttributes();
 
-		# redirect the user to the provider authentication url
-		Hybrid_Auth::redirect( $this->api->authUrl() );
-	}
+        # sotre the user profile
+        $this->user->profile->identifier = $this->api->identity;
 
-	// --------------------------------------------------------------------
+        $this->user->profile->firstName = (array_key_exists("namePerson/first", $response)) ? $response["namePerson/first"] : "";
+        $this->user->profile->lastName = (array_key_exists("namePerson/last", $response)) ? $response["namePerson/last"] : "";
+        $this->user->profile->displayName = (array_key_exists("namePerson", $response)) ? $response["namePerson"] : "";
+        $this->user->profile->email = (array_key_exists("contact/email", $response)) ? $response["contact/email"] : "";
+        $this->user->profile->language = (array_key_exists("pref/language", $response)) ? $response["pref/language"] : "";
+        $this->user->profile->country = (array_key_exists("contact/country/home", $response)) ? $response["contact/country/home"] : "";
+        $this->user->profile->zip = (array_key_exists("contact/postalCode/home", $response)) ? $response["contact/postalCode/home"] : "";
+        $this->user->profile->gender = (array_key_exists("person/gender", $response)) ? $response["person/gender"] : "";
+        $this->user->profile->photoURL = (array_key_exists("media/image/default", $response)) ? $response["media/image/default"] : "";
 
-	/**
-	* finish login step 
-	*/
-	function loginFinish()
-	{
-		# if user don't garant acess of their data to your site, halt with an Exception
-		if( $this->api->mode == 'cancel'){
-			throw new Exception( "Authentification failed! User has canceled authentication!", 5 );
-		}
+        $this->user->profile->birthDay = (array_key_exists("birthDate/birthDay", $response)) ? $response["birthDate/birthDay"] : "";
+        $this->user->profile->birthMonth = (array_key_exists("birthDate/birthMonth", $response)) ? $response["birthDate/birthMonth"] : "";
+        $this->user->profile->birthYear = (array_key_exists("birthDate/birthDate", $response)) ? $response["birthDate/birthDate"] : "";
 
-		# if something goes wrong
-		if( ! $this->api->validate() ){
-			throw new Exception( "Authentification failed. Invalid request recived!", 5 );
-		}
+        if (!$this->user->profile->displayName) {
+            $this->user->profile->displayName = trim($this->user->profile->lastName . " " . $this->user->profile->firstName);
+        }
 
-		# fetch recived user data
-		$response = $this->api->getAttributes();
+        if (isset($response['namePerson/friendly']) && !empty($response['namePerson/friendly']) && !$this->user->profile->displayName) {
+            $this->user->profile->displayName = (array_key_exists("namePerson/friendly", $response)) ? $response["namePerson/friendly"] : "";
+        }
 
-		# sotre the user profile
-		$this->user->profile->identifier  = $this->api->identity;
+        if (isset($response['birthDate']) && !empty($response['birthDate']) && !$this->user->profile->birthDay) {
+            list( $birthday_year, $birthday_month, $birthday_day ) = (array_key_exists('birthDate', $response)) ? $response['birthDate'] : "";
 
-		$this->user->profile->firstName   = (array_key_exists("namePerson/first",$response))?$response["namePerson/first"]:"";
-		$this->user->profile->lastName    = (array_key_exists("namePerson/last",$response))?$response["namePerson/last"]:"";
-		$this->user->profile->displayName = (array_key_exists("namePerson",$response))?$response["namePerson"]:"";
-		$this->user->profile->email       = (array_key_exists("contact/email",$response))?$response["contact/email"]:"";
-		$this->user->profile->language    = (array_key_exists("pref/language",$response))?$response["pref/language"]:"";
-		$this->user->profile->country     = (array_key_exists("contact/country/home",$response))?$response["contact/country/home"]:""; 
-		$this->user->profile->zip         = (array_key_exists("contact/postalCode/home",$response))?$response["contact/postalCode/home"]:""; 
-		$this->user->profile->gender      = (array_key_exists("person/gender",$response))?$response["person/gender"]:""; 
-		$this->user->profile->photoURL    = (array_key_exists("media/image/default",$response))?$response["media/image/default"]:""; 
+            $this->user->profile->birthDay = (int) $birthday_day;
+            $this->user->profile->birthMonth = (int) $birthday_month;
+            $this->user->profile->birthYear = (int) $birthday_year;
+        }
 
-		$this->user->profile->birthDay    = (array_key_exists("birthDate/birthDay",$response))?$response["birthDate/birthDay"]:""; 
-		$this->user->profile->birthMonth  = (array_key_exists("birthDate/birthMonth",$response))?$response["birthDate/birthMonth"]:""; 
-		$this->user->profile->birthYear   = (array_key_exists("birthDate/birthDate",$response))?$response["birthDate/birthDate"]:"";  
+        if (!$this->user->profile->displayName) {
+            $this->user->profile->displayName = trim($this->user->profile->firstName . " " . $this->user->profile->lastName);
+        }
 
-		if( ! $this->user->profile->displayName ) {
-			$this->user->profile->displayName = trim( $this->user->profile->lastName . " " . $this->user->profile->firstName ); 
-		}
+        if ($this->user->profile->gender == "f") {
+            $this->user->profile->gender = "female";
+        }
 
-		if( isset( $response['namePerson/friendly'] ) && ! empty( $response['namePerson/friendly'] ) && ! $this->user->profile->displayName ) { 
-			$this->user->profile->displayName = (array_key_exists("namePerson/friendly",$response))?$response["namePerson/friendly"]:"" ; 
-		}
+        if ($this->user->profile->gender == "m") {
+            $this->user->profile->gender = "male";
+        }
 
-		if( isset( $response['birthDate'] ) && ! empty( $response['birthDate'] ) && ! $this->user->profile->birthDay ) {
-			list( $birthday_year, $birthday_month, $birthday_day ) = (array_key_exists('birthDate',$response))?$response['birthDate']:"";
+        // set user as logged in
+        $this->setUserConnected();
 
-			$this->user->profile->birthDay      = (int) $birthday_day;
-			$this->user->profile->birthMonth    = (int) $birthday_month;
-			$this->user->profile->birthYear     = (int) $birthday_year;
-		}
+        // with openid providers we get the user profile only once, so store it 
+        Hybrid_Auth::storage()->set("hauth_session.{$this->providerId}.user", $this->user);
+    }
 
-		if( ! $this->user->profile->displayName ){
-			$this->user->profile->displayName = trim( $this->user->profile->firstName . " " . $this->user->profile->lastName );
-		}
+    // --------------------------------------------------------------------
 
-		if( $this->user->profile->gender == "f" ){
-			$this->user->profile->gender = "female";
-		}
+    /**
+     * load the user profile from the IDp api client
+     */
+    function getUserProfile() {
+        // try to get the user profile from stored data
+        $this->user = Hybrid_Auth::storage()->get("hauth_session.{$this->providerId}.user");
 
-		if( $this->user->profile->gender == "m" ){
-			$this->user->profile->gender = "male";
-		} 
+        // if not found
+        if (!is_object($this->user)) {
+            throw new Exception("User profile request failed! User is not connected to {$this->providerId} or his session has expired.", 6);
+        }
 
-		// set user as logged in
-		$this->setUserConnected();
+        return $this->user->profile;
+    }
 
-		// with openid providers we get the user profile only once, so store it 
-		Hybrid_Auth::storage()->set( "hauth_session.{$this->providerId}.user", $this->user );
-	}
-
-	// --------------------------------------------------------------------
-
-	/**
-	* load the user profile from the IDp api client
-	*/
-	function getUserProfile()
-	{
-		// try to get the user profile from stored data
-		$this->user = Hybrid_Auth::storage()->get( "hauth_session.{$this->providerId}.user" ) ;
-
-		// if not found
-		if ( ! is_object( $this->user ) ){
-			throw new Exception( "User profile request failed! User is not connected to {$this->providerId} or his session has expired.", 6 );
-		} 
-
-		return $this->user->profile;
-	}
 }

@@ -180,6 +180,53 @@ class Article extends CActiveRecord {
         ));
     }
     
+    function getAll() {
+            $data_list = array();
+            $sql = "select * from Trends.dbo.Articles order by Trends.dbo.Articles.id asc";
+            
+//                        echo $sql;
+            $data_list = Yii::app() ->db->createCommand($sql)->queryAll();
+            
+//            print_r("<pre>");
+//            echo sizeof($data_list);
+            
+            return $data_list;
+    }
+    
+    function getFirstPhotoHlmID($id) {
+        $data_list = array();
+        $sql = 'select
+                    AI.* 
+                from
+                    dbo.ArticleImages as AI, dbo.Articles AS Ar 
+                where
+                    AI.articleId=Ar.id 
+                and 
+                    AI.sequence = 1
+                and 
+                    Ar.id = '.$id;
+        
+        $data_list = Yii::app() ->db->createCommand($sql)->queryAll();
+        return $data_list;
+        
+    }
+    
+    function getArticalID() {
+            $data_list = array();  
+            $sql = 'select
+                            Ar.id as article, AI.heliumMediaId as image 
+                        from
+                            dbo.ArticleImages as AI, dbo.Articles AS Ar 
+                        where
+                            AI.articleId=Ar.id
+                        AND AI.sequence = 1
+                        ORDER BY Ar.id asc';
+                        
+            $data_list = Yii::app() ->db->createCommand($sql)->queryAll();
+          
+            return $data_list;
+    }
+    
     public function  getObjData(){
           
                  $data_list = array();  
@@ -191,4 +238,19 @@ class Article extends CActiveRecord {
                  $data_list = Yii::app() ->db->createCommand($sql)->queryAll(); 
                  return $data_list;
          }
+         
+    public function getCoverPage($article_id) {
+        $data_arr = array();
+        $sql = "select * from 
+                        dbo.ArticleImages as AI, 
+                        dbo.Articles as Ar
+                    where 
+                        Ar.id = AI.articleId 
+                    and 
+                        AI.sequence = 1
+                    and 
+                    Ar.id = ". $article_id;
+        $data_arr = Yii::app()->db->createCommand($sql)->queryAll();
+        return $data_arr;
+    }
 }

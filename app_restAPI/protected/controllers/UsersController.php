@@ -4,7 +4,7 @@ header("Access-Control-Allow-Origin: *");
 header('Content-type: *');
 
 header('Access-Control-Request-Method: *');
-header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET');
+header('Access-Control-Allow-Methods: PUT, POST, OPTIONS, GET, DELETE');
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
 class UsersController extends Controller {
@@ -13,6 +13,7 @@ class UsersController extends Controller {
     const JSON_RESPONSE_ROOT_PLURAL = 'users';
 
     public function actionIndex() {
+        console.log('actionIndex into');
         $settings['log.enabled'] = true;
         // $settings['log.file'] = '/var/log/sherlock/newlogfile.log';
         $settings['log.level'] = 'debug';
@@ -21,19 +22,22 @@ class UsersController extends Controller {
 
         //Build a new search request
         $request = $sherlock->search();
-//        $json = '{"query":
-//                            {"bool":
-//                                {"must":[
-//                                    {"query_string":
-//                                        {"default_field":"couchbaseDocument.doc.keywords","query":"home"}}],
-//                                            "must_not":[],"should":[]
-//                                                }},
-//                                                "from":0,"size":50,"sort":[],"facets":{}}';
-        
-    $json =  '{"query":{"bool":{"must":[{"query_string":{"default_field":"couchbaseDocument.doc.type","query":"user"}}],"must_not":[],"should":[]}},"from":0,"size":50,"sort":[],"facets":{}}';
-        $rawTermQuery = Sherlock\Sherlock::queryBuilder()->Raw($json);
 
-        $response = $request->query($rawTermQuery)->execute();
+        $termQuery = Sherlock\Sherlock::queryBuilder()
+                ->Match()
+                ->field("type")
+                ->query("user")
+                ->boost(2.5);
+
+        $request->index(Yii::app()->params['elasticSearchIndex'])
+                ->type("couchbaseDocument")
+                ->from(0)
+                ->to(10)
+                ->size(100)
+                ->query($termQuery);
+
+
+        $response = $request->execute();
         $results = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":[';
 
         //Iterate over the hits and print out some data
@@ -47,77 +51,76 @@ class UsersController extends Controller {
         $results .= ']}';
 
         echo $this->sendResponse(200, $results);
-
     }
 
     public function actionCreate() {
         $request_json = file_get_contents('php://input');
-        $request_arr = CJSON::decode($request_json, true);
-        $request_arr["mega"]["id"] = str_replace('test', '', $request_arr["mega"]["id"]);
-        $path = 'this_is/folder_path/';
-//      $s3response = $this->photoSavingToS3($request_arr, $path);
-        $response = "ok";
-        error_log(var_export($request_arr, true));
-//      if ($s3response) {
-// $fileName = explode('.', $request_arr['photo']['photo_title'])[0];
-//           $request_arr["mega"]['photos'][0]['image_url'] = "https://s3-ap-southeast-2.amazonaws.com/" . $path . $request_arr["mega"]['photos'][0]['photo_title'];
-        $request_arr["mega"]['type'] = "photos";
-        $request_arr["mega"]['photos'][0]['id'] = $request_arr["mega"]["id"];
-//        try {
-//            $cb = $this->couchBaseConnection();
-//            if ($cb->add(substr($_SERVER['HTTP_HOST'], 4) . '/' . $request_arr["mega"]["id"], CJSON::encode($request_arr["mega"]))) {
-//                echo $this->sendResponse(200, var_dump($request_arr));
-//            } else {
-//                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '"rrrrr  rrrr already exists');
-//            }
-//        } catch (Exception $exc) {
-//            echo $exc->getTraceAsString();
-//            echo json_decode(file_get_contents('php://input'));
-//        }
-//        } else {
-//            echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
-//        }
 
-        $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);
-        header($statusHeader);
-        header('Content-type: *');
-        header("Access-Control-Allow-Origin: *");
-        header('Access-Control-Request-Method: *');
-        header('Access-Control-Allow-Methods: PUT, POST, OPTIONS, GET');
-        header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
-        echo $response;
-        Yii::app()->end();
+        $request_arr = CJSON::decode($request_json, true);
     }
 
     public function actionRead() {
         try {
+            error_log('actionRead into');
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
+            $id = $temp [sizeof($temp) - 1]; 
+         $doc_id  = $this->getDomain() . "/users/" . $id;
 
-
-            $id = $temp [sizeof($temp) - 1];
-
-            $reponse = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . "/users/" . $id);
-
-            $respone_user = json_decode($reponse, true)['user'][0];
-
-    //        error_log("eeeeeeeeeeeeee     " . var_export($respone_user, true));
-
-
-
-            $respone_user_data = str_replace("\/", "/", CJSON::encode($respone_user));
-      //      error_log("hhhhhhhhhhhhhh  " . $respone_user_data);
+            $reponse = $cb->get($doc_id);    
+            $respone_user =  CJSON::decode($reponse, true);
+              //          error_log(var_export($respone_user,true));
+            $respone_user_data = CJSON::encode($respone_user['user'][0]);
 
             $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $respone_user_data . '}';
-            echo $this->sendResponse(200, $result);
+            $this->sendResponse(200, $result);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
 
     public function actionUpdate() {
+        $request_json = file_get_contents('php://input');
+        $request_arr = CJSON::decode($request_json, true);
+        $payload_json = CJSON::encode($request_arr['user'], true);
+         $newRecord = CJSON::decode($payload_json);
         try {
+            $cb = $this->couchBaseConnection();
+            $temp = explode("/", $_SERVER['REQUEST_URI']);
+            $id = $temp [sizeof($temp) - 1];
+            $request_arr['user']['id'] = $id;
+            $url = $this->getDomain()  . "/users/" . $id;
+            $oldRecord = $cb->get($url);
+            error_log(var_export($oldRecord,true));
+            $oldRecord = CJSON::decode($oldRecord, true);
+
+//   this is nothing else
+//            $oldRecord['user'][0] = null;
+//            $oldRecord['user'][0] = $request_arr['user'];
+            $oldRecord['user'][0]['selected_topics'] = $newRecord['selected_topics'];
+
+            $oldRecord['user'][0]['collections'] = $request_arr['user']['collections'];
+           // $oldRecord['user'][0]['photo_url'] = $request_arr['user']['photo_url'];
+            $oldRecord['user'][0]['description'] = $request_arr['user']['description'];
+            $oldRecord['user'][0]['display_name'] = $request_arr['user']['display_name'];
+            $oldRecord['user'][0]['about_me'] = $request_arr['user']['about_me'];
+            $oldRecord['user'][0]['facebook_link'] = $newRecord['facebook_link'];
+            $oldRecord['user'][0]['twitter_link'] = $newRecord['twitter_link'];
+            $oldRecord['user'][0]['linkedin_link'] = $newRecord['linkedin_link'];
+            $oldRecord['user'][0]['googleplus_link'] = $newRecord['googleplus_link'];
+            $oldRecord['user'][0]['pinterest_link'] = $newRecord['pinterest_link'];
             
+            $oldRecord['user'][0]['youtube_link'] = $newRecord['youtube_link'];
+            $oldRecord['user'][0]['region'] = $request_arr['user']['region'];
+            $oldRecord['user'][0]['email'] = $request_arr['user']['email'];
+            $oldRecord['user'][0]['password'] = $request_arr['user']['password'];
+            
+
+            if ($cb->set($url, CJSON::encode($oldRecord))) {
+                $this->sendResponse(204);
+            } else {
+                $this->sendResponse(500, "some thing wrong");
+            }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -131,13 +134,6 @@ class UsersController extends Controller {
         }
     }
 
-    public function actionTest() {
-
-        header('Content-type: application/json');
-
-        echo CJSON::encode("dddddddd");
-    }
-
     public function actionOptions() {
 
         $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);
@@ -147,14 +143,11 @@ class UsersController extends Controller {
 // Set the Access Control for permissable domains
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Request-Method:*');
-        header('Access-Control-Allow-Methods:*');
+        header('Access-Control-Allow-Methods: DELETE, PUT, POST, OPTIONS, GET');
         header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
         echo "";
         Yii::app()->end();
-
-
-//                echo $this->sendResponse(200, "OK");
     }
 
     public function getInputData($inputDataType, $inputData) {
@@ -172,33 +165,67 @@ class UsersController extends Controller {
         return $data;
     }
 
-    public function photoSavingToS3($request_arr, $path) {
-        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
-        $key = explode(".", $_SERVER['HTTP_HOST']);
-        $key = $key[1] . '.' . $key[2];
-        $result = $cb->get($key);
-        $result_arr = CJSON::decode($result, true);
-        $response = false;
-        error_log(var_export($request_arr ["mega"]['photos'][0], true));
-        $data = $this->getInputData($request_arr ["object"]['photos'][0]['photo_type'], $request_arr ["object"]['photos'][0]['photo_url']);
-        $client = Aws\S3\S3Client::factory(
-                        $result_arr["providers"]["S3Client"]
-        );
-//        if ($client->doesObjectExist('hubstar-dev', $path . $request_arr ["object"]['photos'][0]['photo_title'])) {
-//            $response = false;
-//        } else {
-//            $client->putObject(array(
-//                'Bucket' => "hubstar-dev",
-//                'Key' => $path . $request_arr ["object"]['photos'][0]['photo_title'],
-//                'Body' => $data,
-//                'ACL' => 'public-read'
-//            ));
-//            $response = true;
-//        }
 
+    public function test() {
+        
+    }
+    
+      public function actionUpdateStyleImage() {
+        $payloads_arr = CJSON::decode(file_get_contents('php://input'));
+        $photo_string = $payloads_arr['newStyleImageSource'];
+         error_log(var_export( $photo_string, true));
+        $photo_name = $payloads_arr['newStyleImageName'];
+        $mode = $payloads_arr['mode'];
+        $user_id = $payloads_arr['id'];
+        $type = $payloads_arr['type'];
+        $photoController = new PhotosController();
+        $data_arr = $photoController->convertToString64($photo_string);
+        $photo = imagecreatefromstring($data_arr['data']);
+        $compressed_photo = $photoController->compressPhotoData($data_arr['type'], $photo);
+        $orig_size['width'] = imagesx($compressed_photo);
+        $orig_size['height'] = imagesy($compressed_photo);
 
+        $photoController->savePhotoInTypes($orig_size, $mode.'_original', $photo_name, $compressed_photo, $data_arr, $user_id, null, $type);
+        $url = $photoController->savePhotoInTypes($orig_size, $mode, $photo_name, $compressed_photo, $data_arr, $user_id, null, $type);
+        error_log(var_export( $url,true));
+        $cb = $this->couchBaseConnection();
+        $oldRecord = CJSON::decode($cb->get($this->getDomain() . '/users/' . $user_id));
 
-        return $response;
+         error_log(var_export( $mode,true));
+      //  error_log(var_export($oldRecord['user'][0], true));
+        if ($mode == 'user_picture') {
+
+            $oldRecord['user'][0]['photo_url_large'] = null;
+            $oldRecord['user'][0]['photo_url_large'] = $url;
+            
+        }  else  if ($mode == 'user_cover') {
+
+            $oldRecord['user'][0]['cover_url'] = null;
+            $oldRecord['user'][0]['cover_url'] = $url;
+            
+        } 
+
+        if ($mode == 'user_cover') {
+            $smallimage = $photoController->savePhotoInTypes($orig_size, 'user_cover_small', $photo_name, $compressed_photo, $data_arr, $user_id, null, $type);
+            $oldRecord['user'][0]['cover_url_small'] = null;
+            $oldRecord['user'][0]['cover_url_small'] = $smallimage;
+        }
+
+        $url = $this->getDomain() . '/users/' . $user_id;
+
+        $copy_of_oldRecord = unserialize(serialize($oldRecord));
+        $tempUpdateResult = CJSON::encode($copy_of_oldRecord, true);
+
+        if ($cb->delete($url)) {
+            if ($cb->set($url, $tempUpdateResult)) {
+                $this->sendResponse(204);
+            } else {
+                $this->sendResponse(500, 'something wrong');
+            }
+        } else {
+            $cb->set($url, $tempUpdateResult);
+            $this->sendResponse(500, 'something wrong');
+        }
     }
 
 }

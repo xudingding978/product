@@ -9,9 +9,9 @@
  *
  * This file holds the configuration settings of the Search Engine application.
  * */
-$app_searchengineConfigDir = dirname(__FILE__);
+$app_authenticationConfigDir = dirname(__FILE__);
 //
-$root = $app_searchengineConfigDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..';
+$root = $app_authenticationConfigDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..';
 //
 //// Setup some default path aliases. These alias may vary from projects.
 Yii::setPathOfAlias('root', $root);
@@ -19,18 +19,18 @@ Yii::setPathOfAlias('common', $root . DIRECTORY_SEPARATOR . 'common' . DIRECTORY
 Yii::setPathOfAlias('app_administrator', $root . DIRECTORY_SEPARATOR . 'app_administrator');
 Yii::setPathOfAlias('app_authority', $root . DIRECTORY_SEPARATOR . 'app_authority');
 Yii::setPathOfAlias('app_dashboard', $root . DIRECTORY_SEPARATOR . 'app_dashboard');
-Yii::setPathOfAlias('app_searchengine', $root . DIRECTORY_SEPARATOR . 'app_searchengine');
+Yii::setPathOfAlias('app_authentication', $root . DIRECTORY_SEPARATOR . 'app_authentication');
 Yii::setPathOfAlias('app_account', $root . DIRECTORY_SEPARATOR . 'app_account');
 
 // The configuation tree overides in the following way...
 // local settings below > environment specific > main configuration
 
-$params = require_once($app_searchengineConfigDir . DIRECTORY_SEPARATOR . 'params.php');
+$params = require_once($app_authenticationConfigDir . DIRECTORY_SEPARATOR . 'params.php');
 
-$mainLocalFile = $app_searchengineConfigDir . DIRECTORY_SEPARATOR . 'main-local.php';
+$mainLocalFile = $app_authenticationConfigDir . DIRECTORY_SEPARATOR . 'main-local.php';
 $mainLocalConfiguration = file_exists($mainLocalFile) ? require($mainLocalFile) : array();
 
-$mainEnvFile = $app_searchengineConfigDir . DIRECTORY_SEPARATOR . 'main-env.php';
+$mainEnvFile = $app_authenticationConfigDir . DIRECTORY_SEPARATOR . 'main-env.php';
 $mainEnvConfiguration = file_exists($mainEnvFile) ? require($mainEnvFile) : array();
 
 // This is the main Web application configuration. Any writable

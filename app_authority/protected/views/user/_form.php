@@ -36,9 +36,9 @@
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'repeatPassword'); ?>
-<?php echo $form->textField($model, 'repeatPassword', array('size' => 60, 'maxlength' => 512)); ?>
-<?php echo $form->error($model, 'repeatPassword'); ?>
+        <?php echo $form->labelEx($model, 'repeat_password'); ?>
+        <?php echo $form->textField($model, 'repeat_password', array('size' => 60, 'maxlength' => 512)); ?>
+        <?php echo $form->error($model, 'repeat_password'); ?>
     </div>
 
     <div class="row">

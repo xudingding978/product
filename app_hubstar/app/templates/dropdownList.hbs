@@ -1,0 +1,75 @@
+
+
+{{#if controller.projectCategoryDropdown}}
+<div id="dropItem1"  {{action dropdown controller.dropdownCategory}}>
+     {{#each controller.categorys}}
+     <div  class="ite " {{action topicSelection this}}>{{topic}}</div>
+    {{/each}}
+
+</div>
+{{/if}}
+
+
+{{#if controller.projectTimeframeDropdown}}
+<div id="dropItem2" {{action dropdown controller.dropdownTimeframe}}>
+     <div  class="ite ">1-2 months</div>
+    <div  class="ite ">Next 6 months</div>
+    <div  class="ite ">Within 12 months</div>
+    <div  class="ite ">1-2 years</div>
+    <div  class="ite ">Within 3 years</div>
+</div>
+{{/if}}
+
+{{#if controller.projectBudgetDropdown}}
+<div id="dropItem3" {{action dropdown controller.dropdownBudget}}>
+     <div  class="ite ">Less than 5k</div>
+    <div  class="ite ">5k-10k</div>
+    <div  class="ite ">10k-50k</div>
+    <div  class="ite ">50k-100k</div>
+    <div  class="ite ">100k-250k</div>
+    <div  class="ite ">250k-500k</div>
+    <div  class="ite ">500k- 1M</div>
+    <div  class="ite ">1M+</div>
+</div>
+{{/if}}
+
+{{#if controller.projectExperienceDropdown}}
+<div id="dropItem4" {{action dropdown controller.dropdownExperience}}>
+     <div  class="ite ">First Time</div>
+    <div  class="ite ">Helped someone do this</div>
+    <div  class="ite ">Have done this once before</div>
+    <div  class="ite ">Experienced at this type of project</div>
+</div>
+{{/if}}
+
+{{#if controller.packgetDropdown}}
+<div id="packgetDropdown" {{action dropdown controller.packgeSelection}}>
+     <div  class="ite ">Platinum</div>
+    <div  class="ite ">Gold</div>
+    <div  class="ite ">Silver</div>
+    <div  class="ite ">Bronze</div>
+</div>
+{{/if}}
+
+{{#if controller.isPackgetDropdown}}
+<div id="profilePackgetDropdown" {{action dropdown controller.projectCategoryDropdownType}}>
+     <div  class="ite ">Platinum</div>
+    <div  class="ite ">Gold</div>
+    <div  class="ite ">Silver</div>
+    <div  class="ite ">Bronze</div>
+</div>
+{{/if}}
+
+{{#if controller.isActiveDropdown}}
+<div id="is_actvie" {{action dropdown controller.projectActiveDropdownType}}>
+     <div  class="ite ">true</div>
+    <div  class="ite ">false</div>
+</div>
+{{/if}}
+
+{{#if controller.isDeleteDropdown}}
+<div id="is_delete" {{action dropdown controller.projectDeleteDropdownType}}>
+     <div  class="ite ">true</div>
+    <div  class="ite ">false</div>
+</div>
+{{/if}}

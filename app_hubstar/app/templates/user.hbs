@@ -1,0 +1,192 @@
+
+
+<div style="width:100%; height:80px; display:block;"></div>
+<div class="user-board">
+    <div class="user-board_left style-box">
+        <div id="user-photo_left">
+            <div class="user-profilepic-container" id="profile-picture"> 
+                {{#if controller.is_authentic_user}}
+                <div id="change_profile" class="changeuserprofilepic easing hint--right hint--rounded" data-hint="Choose a profile picture" {{action userPhotoEditButton "User Picture"}}>
+                     <k class="icon-edit" {{action showInterests  target="view" on="click"}}></k>         
+                </div>  
+
+                {{/if}}
+
+                <img {{bindAttr src="controller.photo_url_large"}} style="vertical-align: top"/>
+
+
+            </div>
+            {{#if controller.isUserSelf}}
+            <div href="#question_modal" role="button" class="disabled-btn follow-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;">Follow</div>
+
+            {{else}}
+            {{#if controller.follow_status}}
+            {{#if controller.following_status}}
+            <div href="#question_modal" role="button" class="disabled-btn disabled-green follow-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;"{{action followThisUser}}><i class='icon-exchange' >&nbsp; </i> Following</div>
+            {{else}}
+            <div href="#question_modal" role="button" class="disabled-btn disabled-green follow-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;"{{action followThisUser}}><i class='icon-circle-blank' >&nbsp; </i> Following</div>
+            {{/if}}
+
+            {{else}}
+            {{#if controller.following_status}}
+            <div href="#question_modal" role="button" class="new-btn green-btn follow-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;"{{action followThisUser}}><i class='icon-ok' >&nbsp; </i> Follow</div>
+            {{else}}
+            <div href="#question_modal" role="button" class="new-btn green-btn follow-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;"{{action followThisUser}}><i class='icon-plus' >&nbsp; </i> Follow</div>
+            {{/if}}
+            {{/if}}
+            {{/if}}
+
+            <div id="show_interest" >
+
+                <div class="show-interest easing">
+                    <div style="font-weight: bold;line-height: 20px; color: #777; font-size: 17px;margin-bottom: 5px; display:inline-block;">INTEREST</div>
+
+                    {{#if controller.is_authentic_user}}
+
+                    <div class="edit-btn hint--rounded hint--bottom" style="height: 20px;line-height: 20px;margin:0;" data-hint="Edit Interest" {{action interestEdit controller.interests controller.interest}}>
+                         <i class="icon-plus edit-btn" style="font-size:13px;margin:0;padding:9px 10px;"  {{action showInterestsUp  target="view" on="click"}}></i>
+                    </div>
+                    {{/if}}
+                    <k id="interest_btn" class="icon-double-angle-up unvisible"  style=" float: right;padding: 7px;" {{action showInterests target="view" on="click"}}></k>
+
+                </div>
+
+                <div class="interesttags-container" style="">
+
+                    {{#if controller.editingInterest}}
+                    <div class="interest-textarea" style="">
+                        {{view Ember.TextArea valueBinding="interests"  id="" class="add-interests"  }}
+                    </div>
+                    <div class="interest-insert-hint" style="">
+                        Do not use plural comma together or left a comma at the end of string, the right example is "Kitchen,Bathroom,Roof,Entrance"
+                    </div>
+                    <div style="text-align: center;right: 15px;position: relative;">
+                        <div class="new-btn" {{action no controller.interest}}><i style="position:absolute;top:0;left:0;width:33px;height:26px;line-height:26px;text-align:center;" class="icon-remove" {{action showInterestsUp target="view" on="click"}}></i></div>
+                        <div class="new-btn blue-btn" {{action yes controller.interest}}><i style="position:absolute;top:0;left:0;width:33px;height:26px;line-height:26px;text-align:center;" class="icon-ok icon-white" {{action showInterestsUp target="view" on="click"}}></i></div>
+                    </div>
+
+
+                    {{else}}
+
+                    {{#each controller.selected_topics}}
+
+                    <div class='hashtags' >{{interests}}{{#if controller.is_authentic_user}}<i class='remove-hashtages' {{action deleteTopic interests}}>x</i>{{/if}}</div>
+
+
+                    {{/each}}     
+
+                    {{/if}}
+                </div>
+            </div>
+
+        </div>
+        {{#if controller.is_Photoclick}}
+
+
+        {{view HubStar.UserPhotoEditView}}
+
+        {{/if}}
+    </div>
+    <div  class="user-board_right style-box" >
+
+
+        <div id="user-board_right_front">
+            <div class="user-cover">
+            
+                <img {{bindAttr src= "cover_url"}} style="width:100%;"/>
+      
+                {{#if controller.is_authentic_user}}
+                <div  id="flip-front" class='blue-btn new-btn hint--left hint--rounded edit-dashboard-btn' style="display: block; margin: 10px;position: absolute;top: 0;right: 0;" data-hint="Dashboard"{{action userDashboardButton "User Cover"}}>  
+
+                      <i class="icon-cogs" ></i>
+                </div>
+                {{/if}}
+                <div style="font-size: 26px;font-weight: bold; line-height: 30px;  color: white;position: absolute;top: 100px;margin:0 30px;text-shadow: 0 0 10px #777;">{{display_name}}</div>
+            </div>
+
+            <div style="height: 240px; padding: 10px 20px;display: inline-block;position: relative;width: 100%;">
+                <div style="font-size:15px;line-height: 20px;margin: 5px 20px;color: #888; overflow: hidden;height: 200px; text-overflow: ellipsis;">{{aboutMe}}</div>
+            </div>
+
+            <div style="margin: 0 30px; width:90%; height: 40px; position:relative; overflow: hidden;">
+                <ul class="locationandlinks">
+                    <li>
+                        <span class="locationIcon"><k class="icon-map-marker"></k></span>
+                        {{location}} 
+                    </li>
+                    {{#if facebook}}
+                    <li class="location_li">
+                        <a href="#" target="_blank" {{action socialLink 'facebook'}}>&nbsp <k class="icon-facebook"> </k></a>
+                    </li>
+                    {{/if}}
+                    {{#if twitter}}
+                    <li class="location_li">
+                        <a href="#" target="_blank" {{action socialLink 'twitter'}}>&nbsp <k class="icon-twitter"> </k></a>
+                    </li>
+                    {{/if}}
+                    {{#if googleplus}}
+                    <li class="location_li">
+                        <a href="#" target="_blank"{{action socialLink 'googleplus'}}>&nbsp <k class="icon-google-plus"> </k></a>
+                    </li>
+                    {{/if}}
+                    {{#if pinterest}}
+                    <li class="location_li">
+                        <a href="#" target="_blank" {{action socialLink 'pinterest'}}>&nbsp <k class="icon-pinterest"> </k></a>
+                    </li>
+                    {{/if}}
+                    {{#if linkedin}}
+                    <li class="location_li">
+                        <a href="#" target="_blank"{{action socialLink 'linkedin'}}>&nbsp <k class="icon-linkedin"> </k></a>
+                    </li>
+                    {{/if}}
+                    {{#if youtube}}
+                    <li class="location_li">
+                        <a href="#" target="_blank" {{action socialLink 'youtube'}}>&nbsp <k class="icon-youtube-play"> </k></a>
+                    </li>
+                    {{/if}}
+
+
+                </ul>
+            </div>
+        </div>
+        {{#if controller.is_click}}
+
+
+        {{view HubStar.UserEditView}}
+
+        {{/if}}
+
+
+
+
+
+    </div>
+
+</div>
+
+
+{{#if controller.switchPhoto}}
+
+
+
+{{view HubStar.MasonryCollectionView}}
+
+
+
+{{else}}
+
+
+
+{{render masonryCollectionItems}}
+
+
+
+{{/if}}
+
+
+{{#if controller.makeSureDelete}}
+
+{{view HubStar.DeleteFunctionView}}
+
+
+{{/if}}

@@ -21,7 +21,7 @@ class ArticlesController extends Controller {
         //populate a Term query to start
         $termQuery = Sherlock\Sherlock::queryBuilder()
                 ->Match()
-                ->field("type")
+                ->field("type")    
                 ->query("article")
                 ->boost(2.5);
 
@@ -84,6 +84,7 @@ class ArticlesController extends Controller {
 
             if ($results_arr) {
                 $result = $this->processGet($results_arr, self::JSON_RESPONSE_ROOT_SINGLE);
+                error_log(var_export($result,true));
                 echo $this->sendResponse(200, $result);
             } else {
                 echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $_POST['id'] . '" already exists');
@@ -94,20 +95,36 @@ class ArticlesController extends Controller {
     }
 
     public function actionUpdate() {
-
         try {
-            $payloads_arr = CJSON::decode(file_get_contents('php://input'));
-            $payload_json = CJSON::encode($payloads_arr['article']);
-            $payload_arr = CJSON::decode($payload_json);
-            $cb = $this->couchBaseConnection();
-            $document_arr = CJSON::decode($cb->get(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI']));
-            $newdocument = array_merge($document_arr, $payload_arr);
-            if ($cb->set(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'], CJSON::encode($newdocument))) {
-                echo $this->sendResponse(201,var_export($newdocument));
+            $returnType = "article";
+            $temp = explode("?", $_SERVER['REQUEST_URI']);
+            $request_arr = array();
+            
+            if (sizeof($temp) > 1) {
+                $request_string = $temp [sizeof($temp) - 1];
+                $request_arr = preg_split("/=|&/", $request_string);
+                
+                $response = $this->getAllDoc($returnType, $request_arr[1], $request_arr[3]);
+                $this->sendResponse(200, $response);
             }
         } catch (Exception $exc) {
-            echo var_export($newdocument);
+            echo $exc->getTraceAsString();
         }
+        
+
+//        try {
+//            $payloads_arr = CJSON::decode(file_get_contents('php://input'));
+//            $payload_json = CJSON::encode($payloads_arr['article']);
+//            $payload_arr = CJSON::decode($payload_json);
+//            $cb = $this->couchBaseConnection();
+//            $document_arr = CJSON::decode($cb->get(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI']));
+//            $newdocument = array_merge($document_arr, $payload_arr);
+//            if ($cb->set(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'], CJSON::encode($newdocument))) {
+//                echo $this->sendResponse(201,var_export($newdocument));
+//            }
+//        } catch (Exception $exc) {
+//            echo var_export($newdocument);
+//        }
     }
 
     public function actionDelete() {

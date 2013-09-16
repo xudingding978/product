@@ -110,5 +110,40 @@ class TopicSearchNames extends CActiveRecord
                     
                     return $topic_list;
                 }
+                
+                
+                public function selectTopicNameByArticalID($id) {
+                    $data_list = array();
+                    $topic_list = array();
+                    
+                    $sql = "select 
+                                    dbo.TopicSearchNames.* 
+                                from 
+                                    dbo.TopicSearchNames
+                                inner join 
+                                    dbo.ArticleTopicMaps
+                                on 
+                                    dbo.TopicSearchNames.topicId = dbo.ArticleTopicMaps.topicId 
+                                inner join 
+                                    dbo.Articles
+                                on 
+                                    dbo.ArticleTopicMaps.articleId = dbo.Articles.id
+                                where 
+                                    dbo.Articles.id = ".$id;
+                    try {
+                        $data_list = Yii::app() ->db->createCommand($sql)->queryAll(); 
+                        if(sizeof($data_list)>0) {
+                            foreach($data_list as $val) {
+                                array_push($topic_list, $val['name']);                       
+                            }
+                        }
+                    } catch (Exception $e) {
+                         $response = $e->getMessage();
+                        $message = date("Y-m-d H:i:s")." ----cannot get photo from topicsearchname -> selectTopicNameByArticalID!! \r\n".$response;
+                        $this->writeToLog('/home/devbox/NetBeansProjects/test/error.log', $message);
+                    }
+                    
+                    return $topic_list;
+                }
         
 }

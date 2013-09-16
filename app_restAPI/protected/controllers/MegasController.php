@@ -1,10 +1,9 @@
 <?php
 
-header("Access-Control-Allow-Origin: *");
+header('Access-Control-Allow-Origin: *');
 header('Content-type: *');
-
 header('Access-Control-Request-Method: *');
-header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET');
+header('Access-Control-Allow-Methods: PUT, POST, OPTIONS, GET');
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
 class MegasController extends Controller {
@@ -14,18 +13,30 @@ class MegasController extends Controller {
 
     public function actionIndex() {
         try {
-          
             $temp = explode("?", $_SERVER['REQUEST_URI']);
             $request_string = $temp [sizeof($temp) - 1];
-            //  error_log(var_export($temp, true)."       ".sizeof($temp));
-            $response;
+            $response = "";
+
             if (sizeof($temp) > 1) {
-                $response = $this->getRequestResult($request_string, self::JSON_RESPONSE_ROOT_PLURAL);
-           
-            } else {//default search       
-                //       $response = $this->performSearch(self::JSON_RESPONSE_ROOT_PLURAL, "", "dean");
-                $response = $this->getRequestResultByID(self::JSON_RESPONSE_ROOT_PLURAL, "9567440181370840021");
-            }
+                $requireParams = explode('&', $request_string);
+                if ($this->getUserInput($requireParams[0]) == "photos") {                                //reload photo page, get information from couchbase, form request string;
+                    $photoID = $this->getUserInput($requireParams[1]);
+                    $cb = $this->couchBaseConnection();
+                    $docID = $this->getDomain() . "/" . $photoID;
+                    $tempRecord = $cb->get($docID);
+                    $record = CJSON::decode($tempRecord, true);
+                    $request_string = "RequireType=collection&collection_id=" . $record["collection_id"] . "&owner_profile_id=" . $record["owner_id"];
+                } elseif ($this->getUserInput($requireParams[0]) == "articles") {                       //reload article page, get information from couchbase, form request string;
+                    $articleID = $this->getUserInput($requireParams[1]);
+                    $cb = $this->couchBaseConnection();
+                    $docID = $this->getDomain() . "/" . $articleID;
+                    $tempRecord = $cb->get($docID);
+                    $record = CJSON::decode($tempRecord, true);
+                    $request_string = "RequireType=articleRelatedImage&collection_id=" . $record["collection_id"] . "&owner_profile_id=" . $record["owner_id"];
+                } 
+                
+                    $response = $this->getRequestResult($request_string, self::JSON_RESPONSE_ROOT_PLURAL);
+            }            
             $this->sendResponse(200, $response);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -35,189 +46,231 @@ class MegasController extends Controller {
     public function actionCreate() {
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
-        $request_arr["mega"]["id"] = str_replace('test', '', $request_arr["mega"]["id"]);
-        $path = 'this_is/folder_path/';
-//      $s3response = $this->photoSavingToS3($request_arr, $path);
-        $response = "ok";
-        error_log(var_export($request_arr, true));
-//      if ($s3response) {
-// $fileName = explode('.', $request_arr['photo']['photo_title'])[0];
-//           $request_arr["mega"]['photos'][0]['image_url'] = "https://s3-ap-southeast-2.amazonaws.com/" . $path . $request_arr["mega"]['photos'][0]['photo_title'];
-        $request_arr["mega"]['type'] = "photos";
-        $request_arr["mega"]['photos'][0]['id'] = $request_arr["mega"]["id"];
-//        try {
-//            $cb = $this->couchBaseConnection();
-//            if ($cb->add(substr($_SERVER['HTTP_HOST'], 4) . '/' . $request_arr["mega"]["id"], CJSON::encode($request_arr["mega"]))) {
-//                echo $this->sendResponse(200, var_dump($request_arr));
-//            } else {
-//                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '"rrrrr  rrrr already exists');
-//            }
-//        } catch (Exception $exc) {
-//            echo $exc->getTraceAsString();
-//            echo json_decode(file_get_contents('php://input'));
-//        }
-//        } else {
-//            echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
-//        }
-
-        $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);
-        header($statusHeader);
-        header('Content-type: *');
-        header("Access-Control-Allow-Origin: *");
-        header('Access-Control-Request-Method: *');
-        header('Access-Control-Allow-Methods: PUT, POST, OPTIONS, GET');
-        header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
-        echo $response;
-        Yii::app()->end();
+        $mega = $request_arr['mega'];
+        if ($mega['type'] == "profile") {
+            $this->createProfile($mega);
+        } elseif ($mega['type'] == "photo") {
+            $this->createUploadedPhoto($mega);
+        }
+        $this->sendResponse(204, $request_json);
     }
 
     public function actionRead() {
         try {
-            $cb = $this->couchBaseConnection();
+
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
-            $reponse = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . "/" . $id);
-            $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $reponse . '}';
-            echo $this->sendResponse(200, $result);
+            $cb = $this->couchBaseConnection();
+            $docID = $this->getDomain() . "/profiles/" . $id;
+            $reponse = $cb->get($docID);
+            $reponse = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $reponse . '}';
+            $this->sendResponse(200, $reponse);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
 
     public function actionUpdate() {
-        try {
-            
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
+        $temp = explode("/", $_SERVER['REQUEST_URI']);
+        $id = $temp [sizeof($temp) - 1];
+
+        $newRecord = file_get_contents('php://input');
+        $newRecord = CJSON::decode($newRecord, true);
+        $newRecord['id'] = $id;
+        if ($newRecord['mega']['type'] == 'user') {
+            $this->updateUserRecord($newRecord);
+        } elseif ($newRecord['mega']['type'] == 'profile') {
+            //error_log(var_export($newRecord['mega']['type'],true));
+            $this->updateProfileRecord($newRecord);
+        } elseif ($newRecord['mega']['type'] == 'photo') {
+            $photoController = new PhotosController();
+            $photoController->photoUpdate($newRecord);
+        } else {
+            $this->updateMega($newRecord);
         }
     }
 
     public function actionDelete() {
         try {
-            
+            $temp = explode("/", $_SERVER['REQUEST_URI']);
+            $id = $temp [sizeof($temp) - 1];
+            $request_json = $this->getRequestResultByID(self::JSON_RESPONSE_ROOT_SINGLE, $id);
+            $megas = CJSON::decode($request_json, true);
+            $mega = $megas['mega'];
+            $docID = $this->getDocId($mega['type'], $mega['id']);
+            $cb = $this->couchBaseConnection();
+            if ($cb->delete($docID)) {
+                $this->sendResponse(204);
+            } else {
+                $this->sendResponse(500, "some thing wrong");
+            }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
 
-    public function actionTest() {
-
-        header('Content-type: application/json');
-
-        echo CJSON::encode("dddddddd");
-    }
-
-    public function actionOptions() {
-
-        $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);
-        header($statusHeader);
-// Set the content type
-        header('Content-type:*');
-// Set the Access Control for permissable domains
-        header("Access-Control-Allow-Origin:*");
-        header('Access-Control-Request-Method:*');
-        header('Access-Control-Allow-Methods:*');
-        header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
-
-        echo "";
-        Yii::app()->end();
-
-
-//                echo $this->sendResponse(200, "OK");
-    }
-
-    public function getInputData($inputDataType, $inputData) {
-        $tempInput = "";
-        if ($inputDataType == "image/jpeg") {
-            $tempInput = str_replace('data:image/jpeg;base64,', '', $inputData);
-        } elseif ($inputDataType == "application/pdf") {
-            $tempInput = str_replace('data:application/pdf;base64,', '', $inputData);
-        } elseif ($inputDataType == "image/png") {
-            $tempInput = str_replace('data:image/png;base64,', '', $inputData);
-        } elseif ($inputDataType == "image/gif") {
-            $tempInput = str_replace('data:image/gif;base64,', '', $inputData);
+    public function updateProfileRecord($newRecord) {
+        try {
+            $this->sendResponse(204);
+            
+//            $cb = $this->couchBaseConnection();
+//
+//            if (!isset($newRecord['mega']['profile'])) {
+//                //error_log(var_export($newRecord,true));
+//                //$id = $newRecord['mega']['owner_id'];
+//            } else {
+//                $id = $newRecord['mega']['profile'][0]['id'];
+//                $docID = $this->getDomain() . "/profiles/" . $id;
+//                $oldRecord = $cb->get($docID);
+//                $oldRecord = CJSON::decode($oldRecord, true);
+//                $oldRecord['profile'] = $newRecord['mega']['profile'];
+//                if ($cb->set($docID, CJSON::encode($oldRecord))) {
+//                    $this->sendResponse(204);
+//                } else {
+//                    $this->sendResponse(500, "some thing wrong");
+//                }
+//            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
         }
-        $data = base64_decode($tempInput);
-        return $data;
     }
 
-    public function photoSavingToS3($request_arr, $path) {
-        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
-        $key = explode(".", $_SERVER['HTTP_HOST']);
-        $key = $key[1] . '.' . $key[2];
-        $result = $cb->get($key);
-        $result_arr = CJSON::decode($result, true);
-        $response = false;
-        error_log(var_export($request_arr ["mega"]['photos'][0], true));
-        $data = $this->getInputData($request_arr ["object"]['photos'][0]['photo_type'], $request_arr ["object"]['photos'][0]['photo_url']);
-        $client = Aws\S3\S3Client::factory(
-                        $result_arr["providers"]["S3Client"]
-        );
-//        if ($client->doesObjectExist('hubstar-dev', $path . $request_arr ["object"]['photos'][0]['photo_title'])) {
-//            $response = false;
-//        } else {
-//            $client->putObject(array(
-//                'Bucket' => "hubstar-dev",
-//                'Key' => $path . $request_arr ["object"]['photos'][0]['photo_title'],
-//                'Body' => $data,
-//                'ACL' => 'public-read'
-//            ));
-//            $response = true;
-//        }
-
-
-
-        return $response;
+    public function updateUserRecord($newRecord) {
+        try {
+            $cb = $this->couchBaseConnection();
+            $id = $newRecord['mega']['user'][0]['id'];
+            $docID = $this->getDomain() . "/users/" . $id;
+            $oldRecord = $cb->get($docID);
+            $oldRecord = CJSON::decode($oldRecord, true);
+            $oldRecord['user'] = $newRecord['mega']['user'];
+            if ($cb->set($docID, CJSON::encode($oldRecord))) {
+                $this->sendResponse(204);
+            } else {
+                $this->sendResponse(500, "some thing wrong");
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
     }
 
-    public function setImage($url) {
+    public function createUploadedPhoto($mega) {
+        if (sizeof($mega) > 0) {
+            $photoController = new PhotosController();
 
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
-        $data = curl_exec($ch);
-        if (is_null($data) || strpos($data, '404') || empty($data)) {
-            $my_file = '/home/devbox/NetBeansProjects/test/error.log';
-            $handle = fopen($my_file, 'a') or die('Cannot open file:  ' . $my_file);
-            $output = "\n" . 'New data ';
-            $output = "\n" . $url . ' has error';
-            fwrite($handle, $output);
-            fclose($handle);
+            $photoController->photoCreate($mega);
+        }
+    }
+
+    public function createProfile($mega) {
+
+        $cb = $this->couchBaseConnection();
+        $id = $mega['id'];
+        $domain = $this->getDomain();
+        $docID = $domain . "/profiles/" . $id;
+
+        if ($cb->add($docID, CJSON::encode($mega))) {
+            $this->sendResponse(204);
         } else {
-            $my_file = '/home/devbox/NetBeansProjects/test/sucess.log';
-            $handle = fopen($my_file, 'a') or die('Cannot open file:  ' . $my_file);
-            $output = "\n" . $url . ' is create';
-            fwrite($handle, $output);
-            fclose($handle);
-            $this->putImagetoS3($url, $data);
+            $this->sendResponse(200, "some thing wronggggggggggggggggg");
         }
     }
 
-    public function putImagetoS3($url, $data) {
-        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
-        $key = explode(".", $_SERVER['HTTP_HOST']);
-        $key = $key[1] . '.' . $key[2];
-        $result = $cb->get($key);
-        $result_arr = CJSON::decode($result, true);
-        $client = Aws\S3\S3Client::factory(
-                        $result_arr["providers"]["S3Client"]
-        );
-        $client->putObject(array(
-            'Bucket' => "hubstar-dev",
-            'Key' => $url,
-            'Body' => $data,
-            'ACL' => 'public-read'
-        ));
+    public function updateMega($newRecord) {
+
+        $this->sendResponse(204);
     }
 
-    protected function getUserInput($request_string) {
+    public function actionaddlike() {
+        $like = CJSON::decode(file_get_contents('php://input'));
+        $like_arr = CJSON::decode($like, true);
+        //error_log(var_export($like_arr[0],true));
+        $like_people = $like_arr[0];
+        $like_profile = $like_arr[1];
+        $like_type = $like_arr[2];
+        if ($like_type === "profile") {
+            //error_log(var_export($like_type,true));
+            try {
+                $cb = $this->couchBaseConnection();
+                $docID = $this->getDomain() . "/profiles/" . $like_profile;
+                $old = $cb->get($docID); // get the old profile record from the database according to the docID string
+                $oldRecord = CJSON::decode($old, true);
+                if (!isset($oldRecord["people_like"])) {
+                    //error_log("ssssssssssssssssss");            
+                    $oldRecord["people_like"] = null;
+                }
 
-        $returnString = "";
-        if ($request_string != null || $request_string != "") {
-            $returnString = explode('=', $request_string)[1];
+                $likeExist = strpos($oldRecord["people_like"], $like_people);
+                //error_log(var_export($oldRecord["people_like"],true));
+                if ($likeExist === false) {
+                    if ($oldRecord["people_like"] !== null && $oldRecord["people_like"] !== "") {
+                        $oldRecord["people_like"] = $oldRecord["people_like"] . ',' . $like_people;
+                    } else {
+                        $oldRecord["people_like"] = "" . $like_people;
+                    }
+                    //error_log(var_export($oldRecord["people_like"],true));            
+                }
+                $likeLength = sizeof(explode(",", $oldRecord["people_like"]));
+                $oldRecord["likes_count"] = $likeLength;
+                if ($cb->set($docID, CJSON::encode($oldRecord))) {
+                    $this->sendResponse(200, $oldRecord["people_like"]);
+                } else {
+                    $this->sendResponse(500, "some thing wrong");
+                }
+            } catch (Exception $exc) {
+                echo $exc->getTraceAsString();
+            }
+        } elseif ($like_type === "photo") {
+            try {
+                $cb = $this->couchBaseConnection();
+                $docID = $this->getDomain() . "/" . $like_profile;
+                $old = $cb->get($docID); // get the old profile record from the database according to the docID string
+                $oldRecord = CJSON::decode($old, true);
+                //error_log(var_export(is_array($oldRecord["people_like"]),true));
+                if (!isset($oldRecord["people_like"]) || is_array($oldRecord["people_like"])) {
+                 
+                    $oldRecord["people_like"] = null;
+                }
+                //error_log(var_export($oldRecord["people_like"],true));
+                $likeExist = strpos($oldRecord["people_like"], $like_people);
+                //error_log(var_export($oldRecord["people_like"],true));
+                if ($likeExist === false) {
+                    if ($oldRecord["people_like"] !== null && $oldRecord["people_like"] !== "") {
+                        $oldRecord["people_like"] = $oldRecord["people_like"] . ',' . $like_people;
+                    } else {
+                        $oldRecord["people_like"] = "" . $like_people;
+                    }
+                }
+                $likeLength = sizeof(explode(",", $oldRecord["people_like"]));
+                $oldRecord["likes_count"] = $likeLength;
+                if ($cb->set($docID, CJSON::encode($oldRecord))) {
+                  $people_like=   CJSON::encode($oldRecord["people_like"], true);
+                    $this->sendResponse(200, $people_like);
+                } else {
+                    $this->sendResponse(500, "some thing wrong");
+                }
+            } catch (Exception $exc) {
+                echo $exc->getTraceAsString();
+            }
         }
-        return $returnString;
+    }
+
+    public function actionaddcomment() {
+        $newRecord_arr = file_get_contents('php://input');
+        $newRecord = CJSON::decode($newRecord_arr, true);
+        $optional = $newRecord['optional'];
+        $idData = explode("/", $optional);
+        if (sizeof($idData) > 0) {
+            $docID = $this->getDocId($idData[0], $idData[1]);
+            $cb = $this->couchBaseConnection();
+            $oldRecord_arr = $cb->get($docID);
+            $oldRecord = CJSON::decode($oldRecord_arr, true);
+            array_unshift($oldRecord['comments'], $newRecord);
+            if ($cb->set($docID, CJSON::encode($oldRecord))) {
+                $this->sendResponse(204);
+            } else {
+                $this->sendResponse(500, "some thing wrong");
+            }
+        }
     }
 
 }

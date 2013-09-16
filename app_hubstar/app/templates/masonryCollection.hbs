@@ -1,0 +1,58 @@
+<div style="width: 100%; margin: 100px auto; left: 0;right: 0;position: relative;display: block;">
+
+
+    <div class="style-box t-style-box" style="width: 87%; min-width: 796px; height: 50px; background: white;margin: -70px auto;left: 0;right: 0;position: relative;display: block;">
+
+        <div style="margin: 4px 20px 4px 40px; font-size: 18px; text-shadow: 0 1px 0 rgba(255,255,255,0.8);float: left;" >{{controller.profileSelectionStatus}}</div>
+
+        
+        {{#if controller.partnerPage}}
+        <ul class="user-stats" id="user-stats">
+            <li id="defualt" ><a {{action selectCollection}}> Collections <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profileCollectionStatistics}}</a></li>
+            <li ><a {{action selectPartner this}}>Partners <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profilePartnerStatistics}}</a></li>
+        </ul>
+        {{/if}}
+
+        {{#if controller.userTage}}
+            <ul class="user-stats" id="user-stats">
+                <li id="defualt" ><a {{action selectCollection}}> Collections<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.userCollectionStatistics}}</a></li>
+                <li ><a {{action selectFollowing this}}> Following<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.userFollowingStatistics}}</a></li>
+                <li><a {{action selectFollower this}}> Follower<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.userFollowerStatistics}}</a></li>
+            </ul>
+            {{/if}}    
+
+
+
+    </div>
+
+    <div id="masonry_user_container"  class="centered clearfix masonry_push_down">
+
+        <!-- masonry from here -->
+
+
+
+        {{#if collectionTag}}
+        {{view HubStar.CollectionsView}}
+        {{/if}} 
+
+        {{#if partnerTag}}
+        {{render profilePartners}}
+        {{/if}} 
+
+        {{#if followerTag}}
+        {{render userFollowers}}
+        {{/if}} 
+
+        {{#if followingTag}}
+        {{render userFollowings}}
+        {{/if}} 
+
+
+
+
+
+
+
+    </div>
+
+</div>

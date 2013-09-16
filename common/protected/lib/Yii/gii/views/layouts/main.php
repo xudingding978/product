@@ -15,13 +15,13 @@ $cs->registerCssFile($baseUrl.'/js/fancybox/jquery.fancybox-1.3.1.css');
 	<meta name="language" content="en" />
 
 	<!-- blueprint CSS framework -->
-	<link rel="stylesheet" type="text/css" href="<?php echo $this->module->assetsUrl; ?>/css/screen.css" media="screen, projection" />
-	<link rel="stylesheet" type="text/css" href="<?php echo $this->module->assetsUrl; ?>/css/print.css" media="print" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->module->assetsUrl; ?>/yiicss/screen.css" media="screen, projection" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->module->assetsUrl; ?>/yiicss/print.css" media="print" />
 	<!--[if lt IE 8]>
-	<link rel="stylesheet" type="text/css" href="<?php echo $this->module->assetsUrl; ?>/css/ie.css" media="screen, projection" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->module->assetsUrl; ?>/yiicss/ie.css" media="screen, projection" />
 	<![endif]-->
 
-	<link rel="stylesheet" type="text/css" href="<?php echo $this->module->assetsUrl; ?>/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->module->assetsUrl; ?>/yiicss/main.css" />
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 

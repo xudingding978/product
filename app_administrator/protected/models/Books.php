@@ -136,7 +136,7 @@ class Books extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-        
+                
                 public function getBookByPhotoID($id) {
                     $data_list = array();
                     $sql = "select 
@@ -161,19 +161,45 @@ class Books extends CActiveRecord
                     try {
                          $data_list = Yii::app() ->db->createCommand($sql)->queryAll(); 
                          return $data_list;
-//                        print_r("<pre>");
-//                        print_r($data_list);
-                        
-//                        if(sizeof($data_list)>0) {
-//                            foreach($data_list as $val) {
-//                                array_push($topic_list, $val['name']);               
-//                            } 
-//                        }
                     } catch (Exception $e) {
-                        error_log("Cannot get topic infor: ".$e->getMessage());
-                        return null;
+                         $response = $e->getMessage();
+                        $message = date("Y-m-d H:i:s")." ----cannot get photo from book -> getBookByPhotoID!! \r\n".$response;
+                        $this->writeToLog('/home/devbox/NetBeansProjects/test/error.log', $message);
+                    }        
+                }
+                
+                public function getBookByArticalID($id) {
+                    $data_list = array();
+                    $sql = "select 
+                                    Bs.*, IR.regionId as region, Pu.name as publication
+                                 from 
+                                    dbo.Publications as Pu,
+                                    dbo.Books as Bs,
+                                    dbo.SparkJobInternalReferenceMaps as SJIRM,
+                                    dbo.Articles as Ar,
+                                    dbo.InternalReferences as IR
+                                where 
+                                    Bs.internalReferenceId = SJIRM.internalReferenceId 
+                                and
+                                    IR.id = SJIRM.internalReferenceId
+                                and
+                                    Bs.PublicationId = Pu.id
+                                and
+                                    SJIRM.sparkJobId = Ar.sparkJobId
+                                and
+                                    Ar.id = ".$id; 
+                    
+//                    error_log($sql); 
+                    try {
+                         $data_list = Yii::app() ->db->createCommand($sql)->queryAll(); 
+//                         print_r($data_list);
+                    } catch (Exception $e) {
+                         $response = $e->getMessage();
+                        $message = date("Y-m-d H:i:s")." ----cannot get photo from book -> getBookByArticalID!! \r\n".$response;
+                        error_log($message);
                     }
                     
                     
+                    return $data_list;
                 }
 }

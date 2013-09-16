@@ -23,10 +23,10 @@ class AuthWebUser extends CWebUser {
      * Initializes the component.
      */
     public function init() {
-        if (Yii::app()->authManager->admins !== '' && $this->name !== '') {
+      //  if (Yii::app()->authManager->admins !== '' && $this->name !== '') {
             parent::init();
             $this->setIsAdmin(in_array($this->name, Yii::app()->authManager->admins));
-        }
+  //      }
         $conf = Yii::app()->session->cookieParams;
         $this->identityCookie = array(
             'path' => $conf['path'],
@@ -66,31 +66,25 @@ class AuthWebUser extends CWebUser {
         return parent::checkAccess($operation, $params, $allowCaching);
     }
 
-    public function getUserData() {
+    protected function getDomain() {
+        $host = $_SERVER['HTTP_HOST'];
+        preg_match("/[^\.\/]+\.[^\.\/]+$/", $host, $matches);
+        return $matches[0];
+    }
 
-   
+    public function getUserData() {
 
 
         if (Yii::app()->user->id) {
-            $couchbase_id = "http://api.develop.devbox/users/" . User::model()->findByPk(Yii::app()->user->id)->getAttribute('COUCHBASE_ID');
 
 
+            $user_couchbase_id = User::model()->findByPk(Yii::app()->user->id)->getAttribute('COUCHBASE_ID');
 
-            $ch = curl_init($couchbase_id);
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
-            $curl_data = curl_exec($ch);
-            $data = json_decode($curl_data, true);
-
-            $this->user = $data['user']['id'];
-        
         } else {
 
             $this->user = "";
-            
         }
-        return CJSON::encode($this->user);
+        return CJSON::encode($user_couchbase_id);
     }
 
 }

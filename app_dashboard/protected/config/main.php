@@ -18,7 +18,7 @@ Yii::setPathOfAlias('root', $root);
 Yii::setPathOfAlias('common', $root . DIRECTORY_SEPARATOR . 'common' . DIRECTORY_SEPARATOR . 'protected');
 Yii::setPathOfAlias('app_administrator', $root . DIRECTORY_SEPARATOR . 'app_administrator');
 Yii::setPathOfAlias('app_dashboard', $root . DIRECTORY_SEPARATOR . 'app_dashboard');
-Yii::setPathOfAlias('app_searchengine', $root . DIRECTORY_SEPARATOR . 'app_searchengine');
+Yii::setPathOfAlias('app_authentication', $root . DIRECTORY_SEPARATOR . 'app_authentication');
 Yii::setPathOfAlias('app_account', $root . DIRECTORY_SEPARATOR . 'app_account');
 
 // The configuation tree overides in the following way...

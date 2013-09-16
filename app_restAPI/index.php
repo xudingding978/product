@@ -17,6 +17,13 @@ use Aws\Common\Aws;
 use Aws\S3\S3Client;
 use Aws\S3\Enum\CannedAcl;
 use Aws\S3\Exception\S3Exception;
+use Aws\Ses\SesClient;
+
 
 require_once($yii);
 Yii::createWebApplication($config)->run();
+
+
+
+
+

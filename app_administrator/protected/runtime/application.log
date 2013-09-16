@@ -2169,3 +2169,95 @@ REQUEST_URI=/ImportData
 in /home/devbox/NetBeansProjects/hubstar/app_administrator/protected/views/importData/index.php (4)
 in /home/devbox/NetBeansProjects/hubstar/app_administrator/protected/controllers/ImportDataController.php (10)
 in /home/devbox/NetBeansProjects/hubstar/app_administrator/index.php (20)
+2013/06/19 15:49:47 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY000]: General error: 102 General SQL Server error: Check messages from the SQL Server [102] (severity 15) [(null)]. The SQL statement executed was: select 
+                                    dbo.TopicSearchNames.* 
+                                from 
+                                    dbo.TopicSearchNames
+                                inner join 
+                                    dbo.ArticleTopicMaps
+                                on 
+                                    dbo.TopicSearchNames.topicId = dbo.ArticleTopicMaps.topicId 
+                                inner join 
+                                    dbo.Articles
+                                on 
+                                    dbo.ArticleTopicMaps.articleId = dbo.Articles.id
+                                where 
+                                    dbo.Articles.id 5000.
+2013/06/28 08:35:40 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY000]: General error: 102 General SQL Server error: Check messages from the SQL Server [102] (severity 15) [(null)]. The SQL statement executed was: select dbo.ArticleImages.*, dbo.HeliumMedia.keywords from dbo.ArticleImages
+                                    inner join  dbo.HeliumMedia on
+                                   Trends.dbo.ArticleImages  = dbo.HeliumMedia.heliumId Trends.dbo.ArticleImages >80087
+                                    order by dbo.ArticleImages.id asc.
+2013/06/28 08:37:14 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY000]: General error: 102 General SQL Server error: Check messages from the SQL Server [102] (severity 15) [(null)]. The SQL statement executed was: select dbo.ArticleImages.*, dbo.HeliumMedia.keywords from dbo.ArticleImages
+                                    inner join  dbo.HeliumMedia on
+                                   Trends.dbo.ArticleImages  = dbo.HeliumMedia.heliumId Trends.dbo.ArticleImages >80087
+                                    order by dbo.ArticleImages.id asc.
+2013/06/28 08:51:12 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY000]: General error: 4104 General SQL Server error: Check messages from the SQL Server [4104] (severity 16) [(null)]. The SQL statement executed was: select dbo.ArticleImages.*, dbo.HeliumMedia.keywords from dbo.ArticleImages
+                                    inner join  dbo.HeliumMedia on
+                                   Trends.dbo.ArticleImages  = dbo.HeliumMedia.heliumId where Trends.dbo.ArticleImages.id >80087
+                                    order by dbo.ArticleImages.id asc.
+2013/06/28 08:52:04 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY000]: General error: 102 General SQL Server error: Check messages from the SQL Server [102] (severity 15) [(null)]. The SQL statement executed was: select dbo.ArticleImages.*, dbo.HeliumMedia.keywords from dbo.ArticleImages
+                                    inner join  dbo.HeliumMedia on
+                                   Trends.dbo.ArticleImages  = dbo.HeliumMedia.heliumId Trends.dbo.ArticleImages.id >80087
+                                    order by dbo.ArticleImages.id asc.
+2013/06/28 08:52:36 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY000]: General error: 102 General SQL Server error: Check messages from the SQL Server [102] (severity 15) [(null)]. The SQL statement executed was: select dbo.ArticleImages.*, dbo.HeliumMedia.keywords from dbo.ArticleImages
+                                    inner join  dbo.HeliumMedia on
+                                   Trends.dbo.ArticleImages  = dbo.HeliumMedia.heliumId Trends.dbo.ArticleImages.id >80087
+                                    order by dbo.ArticleImages.id asc.
+2013/06/28 08:54:03 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY000]: General error: 4104 General SQL Server error: Check messages from the SQL Server [4104] (severity 16) [(null)]. The SQL statement executed was: select dbo.ArticleImages.*, dbo.HeliumMedia.keywords from dbo.ArticleImages
+                                    inner join  dbo.HeliumMedia on
+                                   Trends.dbo.ArticleImages  = dbo.HeliumMedia.heliumId and Trends.dbo.ArticleImages.id >80087
+                                    order by dbo.ArticleImages.id asc.
+2013/07/11 10:37:32 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY000]: General error: 102 General SQL Server error: Check messages from the SQL Server [102] (severity 15) [(null)]. The SQL statement executed was: select 
+                                    Bs.*, IR.regionId as region, Pu."name" as publication
+                                 from 
+                                    dbo.Publications as Pu,
+                                    dbo.Books as Bs,
+                                    dbo.SparkJobInternalReferenceMaps as SJIRM,
+                                    dbo.Articles as Ar,
+                                    dbo.InternalReferences as IR
+                                where 
+                                    Bs.internalReferenceId = SJIRM.internalReferenceId 
+                                and
+                                    IR.id = SJIRM.internalReferenceId
+                                and
+                                    Bs.PublicationId = Pu.id
+                                and
+                                    SJIRM.sparkJobId = Ar.sparkJobId
+                                and
+                                    Ar.id = 5448.
+2013/07/11 10:41:51 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY000]: General error: 102 General SQL Server error: Check messages from the SQL Server [102] (severity 15) [(null)]. The SQL statement executed was: select 
+                                    Bs.*, IR.regionId as region, Pu."name" as publication
+                                 from 
+                                    dbo.Publications as Pu,
+                                    dbo.Books as Bs,
+                                    dbo.SparkJobInternalReferenceMaps as SJIRM,
+                                    dbo.Articles as Ar,
+                                    dbo.InternalReferences as IR
+                                where 
+                                    Bs.internalReferenceId = SJIRM.internalReferenceId 
+                                and
+                                    IR.id = SJIRM.internalReferenceId
+                                and
+                                    Bs.PublicationId = Pu.id
+                                and
+                                    SJIRM.sparkJobId = Ar.sparkJobId
+                                and
+                                    Ar.id = 5448.
+2013/07/11 10:44:28 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY000]: General error: 102 General SQL Server error: Check messages from the SQL Server [102] (severity 15) [(null)]. The SQL statement executed was: select 
+                                    Bs.*, IR.regionId as region, Pu."name" as publication
+                                 from 
+                                    dbo.Publications as Pu,
+                                    dbo.Books as Bs,
+                                    dbo.SparkJobInternalReferenceMaps as SJIRM,
+                                    dbo.Articles as Ar,
+                                    dbo.InternalReferences as IR
+                                where 
+                                    Bs.internalReferenceId = SJIRM.internalReferenceId 
+                                and
+                                    IR.id = SJIRM.internalReferenceId
+                                and
+                                    Bs.PublicationId = Pu.id
+                                and
+                                    SJIRM.sparkJobId = Ar.sparkJobId
+                                and
+                                    Ar.id = 5448.

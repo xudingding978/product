@@ -1,0 +1,28 @@
+
+
+
+
+
+<div id="discovery_search_bar_wrapper" style="margin: 0 0 100px 0;">
+
+    <p style="position: absolute; font-size: 20px; top: 190px;z-index: 600; width: 600px; color: white; left:0; right: 0; margin: auto; line-height: 25px; text-align: center;text-shadow: 0 0 15px #000;">
+        Your online resource for homes, products, services & ideas   
+    </p>
+
+    <div id="discovery_search_bar">
+
+        {{view HubStar.SearchAreaTextFieldView valueBinding="search_area"  id="search_key" class="search_input" placeholder="All regions in New Zealand" name="search_key"}}
+        {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_business" class="search_business" placeholder="Search by your keywords" }}
+
+
+        <a  style="right: -35px;" class="cancleIcon"  href="#" ><i class="icon-remove-sign" ></i></a>
+    </div>
+    <div style="margin: auto; width: 200px; top: 450px; position: relative;"></div>    
+
+    <div class="new-btn blue-btn" style="margin: auto; width: 100px; display: block; position: absolute;left: 0;right: 0;top: 310px; cursor:pointer;" {{action searching on="click" target="view"}}>
+        <i class="icon-search" style="margin-right: 10px;"></i> Search
+    </div>
+
+
+</div>
+

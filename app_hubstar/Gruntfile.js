@@ -52,7 +52,6 @@ module.exports = function(grunt) {
                             var num = matchedWord.substring(matchedWord.indexOf("-") + 1);
                             num = parseInt(num) + 1;
                             return temp + num;
-
                         }
                     }]
             }

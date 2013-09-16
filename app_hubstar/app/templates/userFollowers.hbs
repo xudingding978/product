@@ -3,7 +3,7 @@
 {{#each  content}}
 
 <div class="col1 box style-box t-style-box" style="text-align: center;">
-    <div style="position:relative;height: 100px;overflow: hidden;">
+    <div style="position:relative;height: 100px;overflow: hidden;line-height: 0;">
         <img {{bindAttr src= this.photo_url_large}} style="width:100%;"/>
     </div>
 
@@ -21,22 +21,22 @@
     </div>
 
     {{#if this.isUserSelf}}
-        <div href="#question_modal" role="button" class="disabled-btn" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;">Follow</div>
-            
+    <div href="#question_modal" role="button" class="disabled-btn" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;">Follow</div>
+
     {{else}}
-        {{#if this.follow_status}}
-            {{#if this.following_status}}
-            <div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='icon-exchange' >&nbsp; </i> Following</div>
-            {{else}}
-            <div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='icon-circle-blank' >&nbsp; </i> Following</div>
-            {{/if}}
-        {{else}}
-            {{#if this.following_status}}
-            <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='icon-ok' >&nbsp; </i> Follow</div>
-            {{else}}
-            <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='icon-plus' >&nbsp; </i> Follow</div>
-            {{/if}}
-        {{/if}}
+    {{#if this.follow_status}}
+    {{#if this.following_status}}
+    <div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='icon-exchange' >&nbsp; </i> Following</div>
+    {{else}}
+    <div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='icon-circle-blank' >&nbsp; </i> Following</div>
+    {{/if}}
+    {{else}}
+    {{#if this.following_status}}
+    <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='icon-ok' >&nbsp; </i> Follow</div>
+    {{else}}
+    <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='icon-plus' >&nbsp; </i> Follow</div>
+    {{/if}}
+    {{/if}}
     {{/if}}
 
     <div style="position:relative; background-color: #f3f3f3; height: 25px; width:100%;margin-top: 10px;">

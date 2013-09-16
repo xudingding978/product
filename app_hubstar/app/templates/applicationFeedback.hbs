@@ -4,12 +4,13 @@
 
     {{#if controller.info}}
 
-    <div style="overflow: hidden; position: fixed;height: 80px;width: 80px;background-color: #fff;border-radius: 50%;z-index: 12;margin: auto;left: 0;right: 1000px;top: 25px;box-shadow: 0 0 10px #777;border: 3px solid #f3f3f3;">
+    <div  class="fresh-profile-pic"style="">
         <img {{bindAttr src= this.photo_url}} style="height: 80px;width: 80px"/>
     </div>
     <div class="fresh-message">
         <k class="icon-info-sign"></k>
         {{controller.status}}
+        <k class="icon-remove" style="float: right;margin: 16px;font-size: 15px;" {{action removeButton }}></k>
     </div>
 
     {{/if}}
@@ -19,24 +20,26 @@
     {{#if controller.succeed}}
 
 
-    <div style="overflow: hidden; position: fixed;height: 80px;width: 80px;background-color: #fff;border-radius: 50%;z-index: 12;margin: auto;left: 0;right: 1000px;top: 25px;box-shadow: 0 0 10px #777;border: 3px solid #f3f3f3;">
+    <div class="fresh-profile-pic" style="">
         <img {{bindAttr src= this.photo_url}} style="height: 80px;width: 80px"/>
     </div>
     <div class="fresh-message fresh_succeed">
         <k class="icon-ok-sign"></k>
         {{controller.status}}
+        <k class="icon-remove" style="float: right;margin: 16px;font-size: 15px;" {{action removeButton }}></k>
     </div>
 
     {{/if}}
 
     {{#if controller.failed}}
 
-    <div style="overflow: hidden; position: fixed;height: 80px;width: 80px;background-color: #fff;border-radius: 50%;z-index: 12;margin: auto;left: 0;right: 1000px;top: 25px;box-shadow: 0 0 10px #777;border: 3px solid #f3f3f3;">
+    <div class="fresh-profile-pic" style="">
         <img {{bindAttr src= this.photo_url}} style="height: 80px;width: 80px"/>
     </div>
     <div class="fresh-message fresh_failed">
         <k class="icon-remove-sign"></k>
         {{controller.status}}
+        <k class="icon-remove" style="float: right;margin: 16px;font-size: 15px;" {{action removeButton }}></k>
     </div>
 
     {{/if}}
@@ -44,12 +47,13 @@
 
     {{#if controller.warnning}}
 
-    <div style="overflow: hidden; position: fixed;height: 80px;width: 80px;background-color: #fff;border-radius: 50%;z-index: 12;margin: auto;left: 0;right: 1000px;top: 25px;box-shadow: 0 0 10px #777;border: 3px solid #f3f3f3;">
+    <div class="fresh-profile-pic" style="">
         <img {{bindAttr src= this.photo_url}} style="height: 80px;width: 80px"/>
     </div>
     <div class="fresh-message fresh_warnning">
         <k class="icon-exclamation-sign"></k>
         {{controller.status}}
+        <k class="icon-remove" style="float: right;margin: 16px;font-size: 15px;" {{action removeButton }}></k>
     </div>
 
     {{/if}}

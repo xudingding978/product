@@ -13,7 +13,7 @@
 }
 
 
-
+j
 
 
 .easing {
@@ -74,6 +74,12 @@
     -moz-transition: all .4s ease-in-out;
     -webkit-transition: all .4s ease-in-out;
     transition: all .4s ease-in-out;
+}
+#login_icon .panel .front{
+    -moz-box-shadow: 0 0 0 0;
+    -webkit-box-shadow: 0 0 0 0;
+    box-shadow:0 0 0 0;
+    
 }
 .panel.flip .front {
     z-index: 900;
@@ -693,7 +699,6 @@
     line-height: 0;
     overflow: hidden;
     position: relative;
-    min-height:215px;
     vertical-align:central;
     background:#e5e5e5;
 }
@@ -760,10 +765,10 @@
 }
 
 .masonry-object_interact{
-    margin: 20px 0 10px 0;
+    margin: 20px 0 0 0; /* was margin: 20px 0 10px 0; */
     overflow:hidden;
     border-top: 1px solid #e5e5e5;
-    border-bottom: 1px solid #e5e5e5;
+    /* border-bottom: 1px solid #e5e5e5; */
     -webkit-border-radius: 0 0 2px 2px;
     -o-border-radius: 0 0 2px 2px;
     -ms-border-radius: 0 0 2px 2px;
@@ -786,8 +791,9 @@
 }
 
 .masonry_addcommnetbox-container{
-    margin: 0 20px 0 20px;
-    padding: 0 0 20px 0;
+   /* margin: 0 20px 0 20px; */
+   padding: 0 20px 8.5px 20px;
+
 }
 
 
@@ -984,6 +990,8 @@
     line-height: 23px;
     font-size: 14px;
     font-weight: bold;
+    font-family: FontAwesome, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    
 }
 
 
@@ -1087,6 +1095,7 @@
 .posttime{
     color: #aaa;
     font-size: 11px;
+    line-height:140%;
 }
 
 
@@ -1448,6 +1457,8 @@
 .comment-frame{
     width: 87%;
     margin: 0 auto;
+    overflow:hidden;
+    border-bottom:12.5px solid #f8f8f8;
 
 }
 
@@ -1479,7 +1490,8 @@
 }
 
 .addcommnetbox-container{
-    padding: 0 0 20px 0;
+    /* padding: 0 0 20px 0; */
+    padding:0;
 }
 
 .addcommnetbox{
@@ -1489,7 +1501,7 @@
     cursor: text;
     font-size: 12px;
     height: auto;
-    margin: 0 0 20px 0;
+    margin: 0 0 0 0;
     padding: 6px 8px;
 }
 
@@ -1504,7 +1516,7 @@
 }
 
 .comment-position{
-    padding: 0 0px 16px 45px;
+    padding: 4.50px 0px 4.5px 43px;
     vertical-align: top;
 }
 
@@ -1517,8 +1529,8 @@
 
 .profilepic_comment{
     border-radius: 50%;
-    width: 35px;
-    height: 35px;
+    width: 33px;
+    height: 33px;
 }
 
 .comment-insert-field{
@@ -1555,7 +1567,7 @@
 .posttime-container{
     display: block;
     white-space: nowrap;
-    margin-bottom: 5px;
+    /* margin-bottom: 5px; */
     line-height: 10px;
 }
 
@@ -1582,6 +1594,7 @@
 .comment-content{
     color: #404040;
     font-size: 13px;
+    line-height:16px;
     margin: 0 0 0 0;
     overflow: hidden;
     word-wrap: break-word;

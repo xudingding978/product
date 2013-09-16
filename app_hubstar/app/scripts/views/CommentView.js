@@ -81,28 +81,28 @@ HubStar.CommentView = Ember.View.extend({
         /* this will need to be cleaned up, using a timed for loop etc (to not repeat code) */
         setTimeout(function() {
             $('#masonry_container').masonry("reload");
-        }, 52.5);
+        }, 47.5);
         setTimeout(function() {
             $('#masonry_container').masonry("reload");
-        }, 105);
+        }, 95);
         setTimeout(function() {
             $('#masonry_container').masonry("reload");
-        }, 158);
+        }, 142.5);
         setTimeout(function() {
             $('#masonry_container').masonry("reload");
-        }, 210.5);
+        }, 190);
         setTimeout(function() {
             $('#masonry_container').masonry("reload");
-        }, 263);
+        }, 237.5);
         setTimeout(function() {
             $('#masonry_container').masonry("reload");
-        }, 315);
+        }, 285);
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+        }, 332.5);
         setTimeout(function() {
             $('#masonry_container').masonry("reload");
         }, 368);
-        setTimeout(function() {
-            $('#masonry_container').masonry("reload");
-        }, 420);
 
     }
 });

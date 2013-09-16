@@ -76,7 +76,6 @@ HubStar.CommentView = Ember.View.extend({
         $('#showMoreComment_' + id).attr('style', 'display:block');
         
         $('#commentData_' + id).stop().animate({
-            height: '88px',
             maxHeight: '88px'
         }, 380, function(){$('#commentData_' + id).css('overflow','hidden');$('#masonry_container').masonry("reload");});
         

@@ -24,12 +24,12 @@ HubStar.UserView = Ember.View.extend({
             $('#profile-picture').delay(200).animate({top: -55}, 0);
             //Moves profile picture to top, ready for slide down. 
 
-
+            var that = this;
             setTimeout(function() {
                 $("#profile-picture").addClass('profile-picture-active');
                 $(".follow-btn").addClass('follow-btn-active');
                 
-                this.set('interestsActive',true);
+                that.set('interestsActive',true);
             }, 200);
 
             setTimeout(function() {

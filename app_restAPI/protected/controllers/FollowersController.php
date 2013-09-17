@@ -119,9 +119,13 @@ class FollowersController extends Controller {
             $docIDUser = $this->getDomain() . "/users/" . $like_user;
             $oldUser = $cb->get($docIDUser); // get the old user record from the database according to the docID string
             $oldRecordUser = CJSON::decode($oldUser, true);
-            $userFollower = $oldRecordUser['user'][0]["followers"];
+            
             if (!isset($oldRecordUser['user'][0]["followers"]) || $oldRecordUser['user'][0]["followers"] === "") {
                 $userFollower = null;
+            }
+            else
+            {
+                $userFollower = $oldRecordUser['user'][0]["followers"];
             }
 
             $newRecord = array();
@@ -135,17 +139,15 @@ class FollowersController extends Controller {
                     $oldRecordDeep = CJSON::decode($oldDeep, true);
                     $newRecord[$i]['record_id'] = $id;
                     $newRecord[$i]['name'] = $oldRecordDeep['user'][0]["first_name"] . " " . $oldRecordDeep['user'][0]["last_name"];
-                    $newRecord[$i]['photo_url'] = $oldRecordDeep['user'][0]["photo_url"];
-                    if (isset($oldRecordDeep['user'][0]["cover_url"])) {
-                        $newRecord[$i]['photo_url_large'] = $oldRecordDeep['user'][0]["cover_url"];
+                    $newRecord[$i]['photo_url'] = $oldRecordDeep['user'][0]["photo_url_large"];
+                    if (isset($oldRecordDeep['user'][0]["cover_url_small"])) {
+                        $newRecord[$i]['photo_url_large'] = $oldRecordDeep['user'][0]["cover_url_small"];
                     } else {
-                        $newRecord[$i]['photo_url_large'] = null;
+                        $newRecord[$i]['photo_url_large'] = "http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg";
                     }
-
                     if (!isset($oldRecordDeep['user'][0]["collections"])) {
                         $newRecord[$i]['collections_size'] = 0;
                     } else {
-                        // error_log(var_export($oldRecordDeep['user'][0]["collections"], true));
                         if (($oldRecordDeep['user'][0]["collections"] === null) || ($oldRecordDeep['user'][0]["collections"] === "")) {
 
                             $newRecord[$i]['collections_size'] = 0;
@@ -235,9 +237,13 @@ class FollowersController extends Controller {
             $docIDUser = $this->getDomain() . "/users/" . $like_user;
             $oldUser = $cb->get($docIDUser); // get the old user record from the database according to the docID string
             $oldRecordUser = CJSON::decode($oldUser, true);
-            $userFollower = $oldRecordUser['user'][0]["followers"];
+            
             if (!isset($oldRecordUser['user'][0]["followers"]) || $oldRecordUser['user'][0]["followers"] === "") {
                 $userFollower = null;
+            }
+            else
+            {
+                $userFollower = $oldRecordUser['user'][0]["followers"];
             }
 
             $newRecord = array();
@@ -252,11 +258,11 @@ class FollowersController extends Controller {
                         $oldRecordDeep = CJSON::decode($oldDeep, true);
                         $newRecord[$i]['record_id'] = $id;
                         $newRecord[$i]['name'] = $oldRecordDeep['user'][0]["first_name"] . " " . $oldRecordDeep['user'][0]["last_name"];
-                        $newRecord[$i]['photo_url'] = $oldRecordDeep['user'][0]["photo_url"];
-                        if (isset($oldRecordDeep['user'][0]["cover_url"])) {
-                            $newRecord[$i]['photo_url_large'] = $oldRecordDeep['user'][0]["cover_url"];
+                        $newRecord[$i]['photo_url'] = $oldRecordDeep['user'][0]["photo_url_large"];
+                        if (isset($oldRecordDeep['user'][0]["cover_url_small"])) {
+                            $newRecord[$i]['photo_url_large'] = $oldRecordDeep['user'][0]["cover_url_small"];
                         } else {
-                            $newRecord[$i]['photo_url_large'] = null;
+                            $newRecord[$i]['photo_url_large'] =  "http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg";
                         }
                         if (!isset($oldRecordDeep['user'][0]["collections"])) {
                             $newRecord[$i]['collections_size'] = 0;

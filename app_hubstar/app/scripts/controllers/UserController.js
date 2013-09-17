@@ -18,7 +18,7 @@ HubStar.UserController = Ember.Controller.extend({
     display_name: "",
     userTage: true,
     currentUserID: "",
-    needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings', 'collection'],
+    needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings', 'application', 'platformBar'],
     facebook: "",
     twitter: "",
     follow_status: false,
@@ -61,6 +61,7 @@ HubStar.UserController = Ember.Controller.extend({
     init: function()
     {
         this.setUser();
+
     },
     isUserSelfOrNot: function(currentUserID) {
         this.set("isUserSelf", false);
@@ -102,21 +103,24 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("password", user.get("password"));
 console.log(user.get('cover_url'));
 
-        if (user.get('cover_url') === null || user.get('cover_url') === ""||user.get('cover_url') === undefined) {
-            user.set('cover_url', 'http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg');
-            this.set('cover_url', user.get('cover_url'));
-            console.log(this.get('cover_url'));
-        }
+        if(user.get('cover_url')===null||user.get('cover_url')===""||user.get('cover_url')===undefined){
+                   user.set('cover_url', 'http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg');
+               }
         else
-        {
-           
-            this.set('cover_url', HubStar.get('photoDomain') + '/users/' + user.get('id') + '/user_cover/user_cover');
-            console.log('dddd');
-        }
+               {//this.set('cover_url', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_cover/user_cover');
+                   this.set("cover_url", user.get("cover_url"));
+               }
+         this.set("photo_url", user.get("photo_url"));
+          this.set("photo_url_large", user.get("photo_url_large"));
+//        this.set('photo_url', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_cover_small/user_cover');
+//        this.set('photo_url_large', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_picture/user_picture');
 
-        this.set('photo_url', HubStar.get('photoDomain') + '/users/' + user.get('id') + '/user_cover_small/user_cover');
-        this.set('photo_url_large', HubStar.get('photoDomain') + '/users/' + user.get('id') + '/user_picture/user_picture');
 
+        this.get('controllers.applicationFeedback').set('photo_url', this.get('photo_url_large'));
+//        var ac = this.get("controllers.application");
+//        var pb = this.get("controllers.platformBar");
+//        ac.changeImage(this.get('photo_url_large'));
+//        pb.changeImage(this.get('photo_url_large'));
 
         this.isUserSelfOrNot(this.get("currentUserID"));
 
@@ -132,12 +136,13 @@ console.log(user.get('cover_url'));
             var col = collections.objectAt(i);
             if ((col.get("collection_ids") !== null && col.get("collection_ids") !== "")) {
                 var imgId = col.get("collection_ids").split(",").objectAt(0);
-                //  this.getHeroImage(imgId, col);
             }
         }
         this.initStastics(user);
         this.checkAuthenticUser();
         this.labelBarRefresh();
+        this.userPhotoEditBackButton();
+        this.userDashboardBackButton();
     },
     labelBarRefresh: function() {
         this.set("profileSelectionStatus", "Collections");
@@ -333,30 +338,29 @@ console.log(user.get('cover_url'));
     
             
     socialLink: function(link) {
-
+var user = this.getCurrentUser();
         if (link === 'facebook') {
-            window.open(this.get("facebook"));
+            window.open(user.get("facebook_link"));
         }
         else if (link === 'twitter') {
-            window.open(this.get("twitter"));
+            window.open(user.get("twitter_link"));
         }
         else if (link === 'googleplus') {
-            window.open(this.get("googleplus"));
+            window.open(user.get("googleplus_link"));
         }
 
         else if (link === 'pinterest') {
-            window.open(this.get("pinterest"));
+            window.open(user.get("pinterest_link"));
         }
         else if (link === 'youtube') {
-            window.open(this.get("youtube"));
+            window.open(user.get("youtube_link"));
         }
         else if (link === 'linkedin') {
-            window.open(this.get("linkedin"));
+            window.open(user.get("linkedin_link"));
         }
     },
     saveUpdate: function() {
         var update_user_record = this.getCurrentUser();
-console.log(update_user_record);
         if (this.isInputValid())
         {
             update_user_record.set('collections', this.get('collections'));
@@ -372,6 +376,7 @@ console.log(update_user_record);
             update_user_record.set('region', this.get('location'));
             update_user_record.set('email', this.get('email'));
             update_user_record.set('password', this.get('password'));
+            
 //            update_user_record.set('photo_url', this.get('photo_url'));
 //            update_user_record.set('photo_url_large', this.get('photo_url_large'));
 //            update_user_record.set('cover_url', this.get('cover_url'));
@@ -746,7 +751,6 @@ console.log(update_user_record);
                             'newStyleImageName': that.get('newStyleImageName'),
                             'mode': that.get('UploadImageMode').replace(" ", "_").toLowerCase(),
                             'id': that.get('model.id'), 'type': type};
-                        console.log(data1);
                         requiredBackEnd('users', 'updateStyleImage', data1, 'POST', function(params) {
                             $('#uploadStyleImg').attr("style", "display:none");
                             that.set('isPhotoUploadMode', false);
@@ -754,6 +758,7 @@ console.log(update_user_record);
                         });
                         that.userPhotoEditBackButton();
                         that.userDashboardBackButton();
+                        that.get('controllers.applicationFeedback').set('photo_url', src);
                         that.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully!!!");
                     }
                     else if (width < params.width || height < params.height) {
@@ -778,7 +783,7 @@ console.log(update_user_record);
         var that = this;
         requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
 
-            var requiredSize = "Your required image size is " + params.width + "x" + params.height;
+            var requiredSize = "Best Results Require A Minimum Image Size of " + params.width+ "px" + " x " + params.height + "px";
             that.set('RequiredImageSize', requiredSize);
         });
     },
@@ -788,15 +793,16 @@ console.log(update_user_record);
         if (this.get('UploadImageMode') === "User Picture")
         {
             this.set('photo_url_large', this.get('newStyleImageSource'));
-            this.set('photo_url', this.get('newStyleImageSource'));
-
             this.set('newStyleImageName', 'user_picture');
-
+            var ac = this.get("controllers.application");
+            var pb = this.get("controllers.platformBar");
+            ac.changeImage(this.get('photo_url_large'));
+            pb.changeImage(this.get('photo_url_large'));
             model.set('photo_url_large', this.get('newStyleImageSource'));
         } else if (this.get('UploadImageMode') === "User Cover") {
 
             this.set('cover_url', this.get('newStyleImageSource'));
-
+            this.set('cover_url_small', this.get('newStyleImageSource'));
             this.set('newStyleImageName', 'user_cover');
 
             model.set('cover_url', this.get('newStyleImageSource'));

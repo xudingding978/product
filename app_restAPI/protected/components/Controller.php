@@ -341,35 +341,7 @@ class Controller extends CController {
         return $results;
     }
 
-    protected function performRawsetting($returnType, $collection_id, $owner_profile_id) {
-
-         error_log(var_export($collection_id, true));
-         error_log(var_export($owner_profile_id, true));
-        $request = $this->getElasticSearch();
-        $request->from(0)
-                ->size(100);
-                      
-          $header = '{"$owner_profile_id": { "values": [';
-        $footer = ']}}';
-
-        $rawRequest = $header . $owner_profile_id . $footer;
-        $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
-        $request->query($termQuery);
-
-        $response = $request->execute();
-
-        $results = $this->getReponseResult($response, $returnType);
- error_log(var_export($results, true));
-        return $results;
-    
-
-    }
-
-    
-        protected function performRawSearch($returnType, $collection_id, $owner_profile_id) {
-
-         error_log(var_export($collection_id, true));
-         error_log(var_export($owner_profile_id, true));
+   protected function performRawSearch($returnType, $collection_id, $owner_profile_id) {
         $request = $this->getElasticSearch();
         $request->from(0)
                 ->size(100);
@@ -382,17 +354,19 @@ class Controller extends CController {
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)->
                 must($must2);
         $response = $request->query($bool)->execute();
-               
+                //   error_log(var_export(   $response['0']['took'], true));
+     
+       //   error_log(var_export($returnType, true));
+        
+        
+        // error_log(var_export($response, true));
+        
         $results = $this->getReponseResult($response, $returnType);
- error_log(var_export($results, true));
+        // error_log(var_export($results, true));
+     //   $results = $results['profile'];
         return $results;
 
     }
-    
-    
-    
-    
-          
     protected function getSearchResultsTotal($returnType, $region, $requestString, $from = 0, $size = 50, $noUser) {
         $requestArray = array();
         if ($region != null && $region != "") {

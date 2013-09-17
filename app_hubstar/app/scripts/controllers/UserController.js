@@ -18,7 +18,7 @@ HubStar.UserController = Ember.Controller.extend({
     display_name: "",
     userTage: true,
     currentUserID: "",
-    needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings', 'application', 'platformBar'],
+    needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings', 'application', 'platformBar','collection'],
     facebook: "",
     twitter: "",
     follow_status: false,
@@ -549,13 +549,10 @@ console.log(user.get('cover_url'));
         var message = "Do you wish to delete " + this.get("selectedCollection").get('id') + " ?";
         this.set("message", message);
         this.set('makeSureDelete', true);
-        if (this.get('willDelete')) {
-            var tempCollection = this.get("selectedCollection");
-            var delInfo = [tempCollection.id, this.get('model').get('id'), 'user'];
-            delInfo = JSON.stringify(delInfo);
-            requiredBackEnd('collections', 'delete', delInfo, 'POST', function(params) {
-            });
+        if (this.get('willDelete')) {            
             this.get("collections").removeObject(this.get("selectedCollection"));
+            
+            this.get("collections").store.save();
             var user = this.getCurrentPage();
             this.cancelDelete();
         } else {

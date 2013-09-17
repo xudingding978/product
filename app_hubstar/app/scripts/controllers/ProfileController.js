@@ -381,13 +381,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var message = "Do you wish to delete " + this.get("selectedCollection").get('id') + " ?";
         this.set("message", message);
         this.set('makeSureDelete', true);
-        if (this.get('willDelete')) {
-            var tempCollection = this.get("selectedCollection");
-            var delInfo = [tempCollection.id, this.get('model').get('id'), 'profile'];
-            delInfo = JSON.stringify(delInfo);
-            requiredBackEnd('collections', 'delete', delInfo, 'POST', function(params) {
-            });
+        if (this.get('willDelete')) {            
+            console.log("dddddddddddddddddddd");
             this.get("collections").removeObject(this.get("selectedCollection"));
+        this.get("selectedCollection").deleteRecord();
+                this.get("selectedCollection").store.save();
+
+        //        this.get("collections").store.save();
             this.statstics();
             $('#masonry_user_container').masonry("reload");
             this.cancelDelete();

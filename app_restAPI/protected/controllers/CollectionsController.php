@@ -153,49 +153,47 @@ class CollectionsController extends Controller {
     }
 
     public function actionDelete() {
+        error_log('delete~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
 
-        $info = CJSON::decode(file_get_contents('php://input'));
-        //$info = file_get_contents('php://input');
-         $infoDel = CJSON::decode($info, true);
+        $temp = explode("/", $_SERVER['REQUEST_URI']);
+        $id = $temp [sizeof($temp) - 1];
+        $request_json = file_get_contents('php://input');
+        $newRecord = CJSON::decode($request_json, true);   
+                error_log(var_export($newRecord,true));
+        $newRecord['collection']['id'] = $id;
+        $owner_id = $newRecord ['collection']['optional'];
+        $type = $newRecord ['collection']['type'];
         //$newRecord = CJSON::decode($request_json, true);
-        $collectionDel_id = $infoDel[0];
-        $collectionDelProfile = $infoDel[1];
-        $type = $infoDel[2];
-        //error_log(var_export($infoDel[0],true));
-        try {
-            $cb = $this->couchBaseConnection();
-            if ($type === 'profile') {
-                $docID = $this->getDomain() . "/profiles/" . $collectionDelProfile;
-                $profileOwn = $cb->get($docID);
-                $owner = CJSON::decode($profileOwn, true);
-                $records =  $owner["profile"][0]["collections"];
-                $collection_num = $this -> getSelectedcollection($records ,$collectionDel_id);
-                array_splice($owner["profile"][0]["collections"], $collection_num, 1);
-//                for ($i = 0; $i < sizeof($owner["profile"][0]["collections"]); $i++) {
-//                    if ($owner["profile"][0]["collections"][$i]["id"] === $collectionDel_id) {
-//                        //error_log(var_export($owner["profile"][0]["collections"][$i],true));
-//                        array_splice($owner["profile"][0]["collections"], $i, 1);
-//                    }
-//                }
-            } else {
-                $docID = $this->getDomain() . "/users/" . $collectionDelProfile;
-                $profileOwn = $cb->get($docID);
-                $owner = CJSON::decode($profileOwn, true);
-                $records =  $owner["user"][0]["collections"];
-                $collection_num = $this -> getSelectedcollection($records ,$collectionDel_id);
-                array_splice($owner["user"][0]["collections"], $collection_num, 1);
-            }
-                    
-                     if ($cb->set($docID, CJSON::encode($owner))) {
+//
+
+//        try {
+//            $cb = $this->couchBaseConnection();
+//            if ($type === 'profile') {
+//                $docID = $this->getDomain() . "/profiles/" . $owner_id;
+//                $tempCollection = $cb->get($docID);
+//                $collection = CJSON::decode($tempCollection, true);
+//                $records =  $collection["profile"][0]["collections"];
+//                $collection_num = $this -> getSelectedcollection($records ,$id);
+//                array_splice($collection["profile"][0]["collections"], $collection_num, 1);
+//            } else {
+//                $docID = $this->getDomain() . "/users/" . $owner_id;
+//                $tempCollection = $cb->get($docID);
+//                $collection = CJSON::decode($tempCollection, true);
+//                $records =  $collection["user"][0]["collections"];
+//                $collection_num = $this -> getSelectedcollection($records ,$id);
+//                array_splice($collection["user"][0]["collections"], $collection_num, 1);
+//            }
+//                    
+//                     if ($cb->set($docID, CJSON::encode($collection))) {
                 $this->sendResponse(204);
-            } else {
-                $this->sendResponse(500, "some thing wrong");
-            }
-                
-           
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
+//            } else {
+//                $this->sendResponse(500, "some thing wrong");
+//            }
+//                
+//           
+//        } catch (Exception $exc) {
+//            echo $exc->getTraceAsString();
+//        }
         //error_log(var_export($infoDel,true));
     }
 

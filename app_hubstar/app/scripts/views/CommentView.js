@@ -33,9 +33,12 @@ HubStar.CommentView = Ember.View.extend({
     seeMore: function(id) {
         $('#closeComment_' + id).attr('style', 'display:block');
         $('#showMoreComment_' + id).attr('style', 'display:none');
+        $('#commentData_' + id).attr('style', 'max-height: 88px;');
+        
         $('#commentData_' + id).stop().animate({
-            height: '350px',
             maxHeight: '350px'
+            
+            
         }, 420, function(){$('#commentData_' + id).css('overflow','auto');$('#masonry_container').masonry("reload");});
         
 
@@ -73,7 +76,6 @@ HubStar.CommentView = Ember.View.extend({
         $('#showMoreComment_' + id).attr('style', 'display:block');
         
         $('#commentData_' + id).stop().animate({
-            height: '88px',
             maxHeight: '88px'
         }, 380, function(){$('#commentData_' + id).css('overflow','hidden');$('#masonry_container').masonry("reload");});
         

@@ -83,6 +83,7 @@ HubStar.CommentController = Ember.Controller.extend({
             if (people_like.indexOf(localStorage.loginStatus) !== -1)
             {
                 this.count = mega.get('likes_count');
+                
             }
             else{     
                 var likeArray = [localStorage.loginStatus,id,type];
@@ -94,6 +95,8 @@ HubStar.CommentController = Ember.Controller.extend({
                         mega.set("likes_count", like.length);
                         mega.set("people_like",params);
                         that.count = like.length;
+                        //console.log(that.count);
+                        //console.log("sssssssssssssssssssss");
                     }); 
             }
         }

@@ -19,11 +19,14 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
     followings: "",
     getClientId: function(model) {
         //console.log(localStorage.loginStatus);
+        this.set('loadingTime', true);
         this.set("model", model);
         this.set('clientID', model.id);
+        this.contentUser = new Array();
+        this.contentProfile = new Array();
         this.set('followings', model.get("followings"));
         var data = [localStorage.loginStatus, this.get('clientID')];
-        var currentProfile;
+        //var currentProfile;
         data = JSON.stringify(data);
         //console.log(this.get('followings'));
         var dataNew = new Array();
@@ -41,7 +44,7 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
                     dataNew["name"] = params[i]["name"];
                     dataNew["photo_url"] = params[i]["photo_url"];
                     dataNew["photo_url_large"] = params[i]["cover_url_small"];
-                     console.log(dataNew["photo_url_large"]);
+                     //console.log(dataNew["photo_url_large"]);
                     dataNew["collections_size"] = params[i]["collections_size"];
                     dataNew["follower_size"] = params[i]["follower_size"];
                     dataNew["follow_status"] = params[i]["follow_status"];
@@ -59,7 +62,7 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
                     dataNew["name"] = params[i]["name"];
                     dataNew["photo_url"] = params[i]["photo_url"];
                     dataNew["photo_url_large"] = params[i]["cover_url_small"];
-                     console.log(dataNew["photo_url_large"]);
+                     //console.log(dataNew["photo_url_large"]);
                     dataNew["collections_size"] = params[i]["collections_size"];
                     dataNew["follower_size"] = params[i]["follower_size"];
                     dataNew["follow_status"] = params[i]["follow_status"];
@@ -76,9 +79,10 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
 
                 //console.log(dataNew);
 
-                dataNew = new Array();
+                dataNew = new Array();              
             }
             //console.log(that.get("content"));
+             that.set('loadingTime', false);
         });
         
     },

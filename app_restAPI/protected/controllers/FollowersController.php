@@ -138,7 +138,7 @@ class FollowersController extends Controller {
                     $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
                     $oldRecordDeep = CJSON::decode($oldDeep, true);
                     $newRecord[$i]['record_id'] = $id;
-                    $newRecord[$i]['name'] = $oldRecordDeep['user'][0]["first_name"] . " " . $oldRecordDeep['user'][0]["last_name"];
+                    $newRecord[$i]['name'] = $oldRecordDeep['user'][0]["display_name"];
                     $newRecord[$i]['photo_url'] = $oldRecordDeep['user'][0]["photo_url_large"];
                     if (isset($oldRecordDeep['user'][0]["cover_url_small"])) {
                         $newRecord[$i]['photo_url_large'] = $oldRecordDeep['user'][0]["cover_url_small"];
@@ -257,7 +257,7 @@ class FollowersController extends Controller {
                         $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
                         $oldRecordDeep = CJSON::decode($oldDeep, true);
                         $newRecord[$i]['record_id'] = $id;
-                        $newRecord[$i]['name'] = $oldRecordDeep['user'][0]["first_name"] . " " . $oldRecordDeep['user'][0]["last_name"];
+                        $newRecord[$i]['name'] = $oldRecordDeep['user'][0]["display_name"];
                         $newRecord[$i]['photo_url'] = $oldRecordDeep['user'][0]["photo_url_large"];
                         if (isset($oldRecordDeep['user'][0]["cover_url_small"])) {
                             $newRecord[$i]['photo_url_large'] = $oldRecordDeep['user'][0]["cover_url_small"];

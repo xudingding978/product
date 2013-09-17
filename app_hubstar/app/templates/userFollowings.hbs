@@ -20,7 +20,7 @@
                 <img class="easing" {{bindAttr src=this.photo_url}}  />   
             </a>
         </div>
-<br><br>
+        <br><br>
 
         <div class="masonry-object_name-position" style="margin-bottom: 5px;"> 
             <a class="comment-username" style="cursor:pointer; font-size:18px;">{{this.name}} </a>
@@ -109,8 +109,11 @@
             </div>
 
         </div>
-      {{render comment this.current}}
-      <script>
+        {{render comment this.current}}
+
+    </div>
+</div>
+<script>
     $(function() {
         var $container = $('#masonry_user_container');
         window.setTimeout(function() {
@@ -119,11 +122,10 @@
         }, 10);
     });
 </script>
-    </div>
-</div>
 {{/each}}
+
 {{#each  contentUser}}
-<div class="col1 box style-box t-style-box" style="text-align: center;">
+<div class=" box col1 style-box t-style-box" style="text-align: center; ">
     <div style="position:relative;height: 100px;overflow: hidden;line-height: 0;">
         <img {{bindAttr src= this.photo_url_large}} style="width:100%;"/>
     </div>

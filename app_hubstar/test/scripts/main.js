@@ -1441,7 +1441,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
             $(function() {
                 $('#masonry_container').masonry({
                     itemSelector: '.box',
-                    columnWidth: 0,
+                    columnWidth: 1,
                     isInitLayout: false,
                     isFitWidth: true
                 });
@@ -6875,7 +6875,7 @@ HubStar.CollectionsView = Ember.View.extend({
         $(collection_area).val(desc);
         $('#masonry_user_container').masonry({
             itemSelector: '.box',
-            columnWidth: 0,
+            columnWidth: 1,
             isFitWidth: true
         });
 

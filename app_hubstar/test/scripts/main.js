@@ -1441,7 +1441,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
             $(function() {
                 $('#masonry_container').masonry({
                     itemSelector: '.box',
-                    columnWidth: 1,
+                    columnWidth: 185,
                     isInitLayout: false,
                     isFitWidth: true
                 });
@@ -6875,7 +6875,7 @@ HubStar.CollectionsView = Ember.View.extend({
         $(collection_area).val(desc);
         $('#masonry_user_container').masonry({
             itemSelector: '.box',
-            columnWidth: 1,
+            columnWidth: 185,
             isFitWidth: true
         });
 
@@ -7288,7 +7288,7 @@ HubStar.EditCollectionView = Ember.View.extend({
 
             $('#masonry_user_container').masonry({
                 itemSelector: '.box',
-                columnWidth: 0,
+                columnWidth: 185,
                 isFitWidth: true
             });
         });
@@ -7307,7 +7307,7 @@ HubStar.EditCollectionView = Ember.View.extend({
             }, 400, function() {
                 $('#masonry_user_container').masonry({
                     itemSelector: '.box',
-                    columnWidth: 0,
+                    columnWidth: 185,
                     isFitWidth: true
                 });
             });
@@ -7322,7 +7322,7 @@ HubStar.EditCollectionView = Ember.View.extend({
             }, 400, function() {
                 $('#masonry_user_container').masonry({
                     itemSelector: '.box',
-                    columnWidth: 0,
+                    columnWidth: 185,
                     isFitWidth: true
                 });
             });
@@ -7344,7 +7344,7 @@ HubStar.EditCollectionView = Ember.View.extend({
         $(div_class).attr('style', "display:none");
         $('#masonry_user_container').masonry({
             itemSelector: '.box',
-            columnWidth: 0,
+            columnWidth: 185,
             isFitWidth: true
         });
 
@@ -7467,7 +7467,7 @@ HubStar.ItemView = Ember.View.extend({
             $(function() {
                 $('#masonry_container').masonry({
                     itemSelector: '.box',
-                    columnWidth: 0,
+                    columnWidth: 185,
                     isInitLayout: false,
                     isFitWidth: true
                 });
@@ -7607,7 +7607,7 @@ HubStar.MasonryCollectionItemsView = Ember.View.extend({
             $(function() {
                 $('#masonry_photo_collection_container').masonry({
                     itemSelector: '.box',
-                    columnWidth: 0,
+                    columnWidth: 185,
                     isFitWidth: true
                 });
             });
@@ -7621,7 +7621,7 @@ HubStar.MasonryCollectionItemsView = Ember.View.extend({
                 }, 400, function() {
                     $('#masonry_photo_collection_container').masonry({
                         itemSelector: '.box',
-                        columnWidth: 0,
+                        columnWidth: 185,
                         isFitWidth: true
                     });
                 });
@@ -7636,7 +7636,7 @@ HubStar.MasonryCollectionItemsView = Ember.View.extend({
                 }, 400, function() {
                     $('#masonry_photo_collection_container').masonry({
                         itemSelector: '.box',
-                        columnWidth: 0,
+                        columnWidth: 185,
                         isFitWidth: true
                     });
                 });
@@ -7665,7 +7665,7 @@ HubStar.MasonryCollectionView = Ember.View.extend({
             $(function() {
                 $('#masonry_user_container').masonry({
                     itemSelector: '.box',
-                    columnWidth: 0,
+                    columnWidth: 185,
                     isInitLayout: false,
                     isFitWidth: true
                 });
@@ -7707,7 +7707,7 @@ HubStar.MasonryCollectionView = Ember.View.extend({
             $(collection_area).val(desc);
             $('#masonry_user_container').masonry({
                 itemSelector: '.box',
-                columnWidth: 0,
+                columnWidth: 185,
                 isFitWidth: true
             });
             
@@ -7732,7 +7732,7 @@ HubStar.MasonryView = Ember.View.extend({
             $(function() {
                 $('#masonry_container').masonry({
                     itemSelector: '.box',
-                    columnWidth: 0,
+                    columnWidth: 185,
                     isInitLayout: false,
                     isFitWidth: true
                 });
@@ -8052,7 +8052,7 @@ HubStar.ProfilePartnersView = Ember.View.extend({
             $(function() {
                 $('#masonry_profile_partner_container').masonry({
                     itemSelector: '.box',
-                    columnWidth: 0,
+                    columnWidth: 185,
                     isInitLayout: false,
                     isFitWidth: true
                 });
@@ -8072,7 +8072,7 @@ HubStar.ProfileView = Ember.View.extend({
         $(function() {
             $('#masonry_profile_container').masonry({
                 itemSelector: '.box',
-                columnWidth: 0,
+                columnWidth: 185,
                 isFitWidth: true
             });
         });
@@ -8384,7 +8384,7 @@ HubStar.UserView = Ember.View.extend({
         $(function() {
             $('#masonry_user_container').masonry({
                 itemSelector: '.box',
-                columnWidth: 0,
+                columnWidth: 185,
                 isFitWidth: true
             });
         });
@@ -8559,7 +8559,7 @@ HubStar.WelcomeView = Ember.View.extend({
         $(function() {
             $('#masonry_welcome_container').masonry({
                 itemSelector: '.box',
-                columnWidth: 0,
+                columnWidth: 185,
                 isFitWidth: true
             });
         });

@@ -290,11 +290,14 @@ console.log(user.get('cover_url'));
     {
 
         var collectionController = this.get('controllers.collection');
-        var collection = collectionController.getCreateCollection(this.selectedCollection.get('desc'), this.selectedCollection.get('title'),this.get("collections"));
-
+        var collection = collectionController.getCreateCollection(this.get('selectedCollection'), this.get("collections"));
+    //    console.log(collection);
+//        collection.set('type', 'user');
+//        collection.set('optional', this.get('model').get('id'));
         if (collection !== null && collection !== "") {
-            this.get("collections").insertAt(0, this.selectedCollection);
-            HubStar.store.commit();
+      
+            this.get("collections").insertAt(0, collection);
+            HubStar.store.save();
             $(".Targeting_Object_front").attr("style", "display:inline-block");
             $(" #uploadArea").attr('style', "display:none");
             $(" #uploadObject").attr('style', "display:block");
@@ -327,6 +330,8 @@ console.log(user.get('cover_url'));
 //
 //        }
     },
+    
+            
     socialLink: function(link) {
 
         if (link === 'facebook') {
@@ -543,9 +548,13 @@ console.log(update_user_record);
         this.set("message", message);
         this.set('makeSureDelete', true);
         if (this.get('willDelete')) {
+            var tempCollection = this.get("selectedCollection");
+            var delInfo = [tempCollection.id, this.get('model').get('id'), 'user'];
+            delInfo = JSON.stringify(delInfo);
+            requiredBackEnd('collections', 'delete', delInfo, 'POST', function(params) {
+            });
             this.get("collections").removeObject(this.get("selectedCollection"));
             var user = this.getCurrentPage();
-            user.store.save();
             this.cancelDelete();
         } else {
             this.set('willDelete', true);
@@ -570,11 +579,16 @@ console.log(update_user_record);
     },
     updateCollectionInfo: function()
     {
+        var collectionController = this.get('controllers.collection');
+        var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
 
-        var id = this.checkingValidInput(this.selectedCollection.get('id'));
-        var title = this.get("selectedCollection").get("title");
-        this.get("selectedCollection").set("title", title);
-        this.set("selectedTitle", title);
+//        var id = this.checkingValidInput(this.selectedCollection.get('id'));
+//        var title = this.get("selectedCollection").get("title");
+//        this.get("selectedCollection").set("title", title);
+        collection.set('optional', this.get('model').get('id'));
+        collection.set('type', 'user');
+        this.set('selectedCollection', collection);
+//        this.set("selectedTitle", title);
         this.get("selectedCollection").store.save();
         $(".Targeting_Object_front").attr("style", "display:inline-block");
         $(" #uploadArea").attr('style', "display:none");
@@ -592,8 +606,9 @@ console.log(update_user_record);
     },
     newCollection: function()
     {
+       
         var collection = HubStar.Collection.createRecord({"id": null, "title": null, "desc": null, "collection_ids": null, "createdAt": new Date(),
-            'cover': 'https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png'
+            'cover': 'https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png', "optional": this.get('model').get('id'), 'type': 'user'
         });
         this.set("selectedCollection", collection);
     },

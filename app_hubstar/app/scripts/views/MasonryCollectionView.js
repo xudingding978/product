@@ -6,7 +6,7 @@ HubStar.MasonryCollectionView = Ember.View.extend({
             $(function() {
                 $('#masonry_user_container').masonry({
                     itemSelector: '.box',
-                    columnWidth: 1,
+                    columnWidth: 185,
                     isInitLayout: false,
                     isFitWidth: true
                 });
@@ -48,7 +48,7 @@ HubStar.MasonryCollectionView = Ember.View.extend({
             $(collection_area).val(desc);
             $('#masonry_user_container').masonry({
                 itemSelector: '.box',
-                columnWidth: 1,
+                columnWidth: 185,
                 isFitWidth: true
             });
             

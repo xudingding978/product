@@ -5,5 +5,15 @@
 
 
 HubStar.UserFollowingsView = Ember.View.extend({
-  templateName: 'userFollowings'
+  templateName: 'userFollowings',
+  didInsertElement: function() {
+            $(function() {
+                $('#masonry_profile_partner_container').masonry({
+                    itemSelector: '.box',
+                   columnWidth: 1,
+                    isInitLayout: false,
+                    isFitWidth: true
+                });
+            });
+        }
     });

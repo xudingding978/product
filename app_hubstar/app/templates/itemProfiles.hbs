@@ -14,13 +14,13 @@
     {{/if}}
 
     <span class='edit-object easing' style="position: absolute;margin: 10px; top:0;z-index: 2;">
-  
+
         {{#if controller.is_authentic_user}}
         <div class="new-btn blue-btn hint--right hint--rounded" style="margin: 4px 0px;" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
              <k class="icon-cog" style="font-size: 16px; margin: 0px 5px"></k>
             <k class='icon-caret-down'></k>
         </div>
-   
+
         <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}">
             {{#if controller.is_profile_editing_mode}}
             <li class="ite" {{action  removeCollectedItem this.id}}><k class="icon-trash" style="font-size: 16px; margin: 0px 5px;"></k>Delete</li>       
@@ -42,14 +42,19 @@
 
 </div>
 
-<div  type="button" class="new-btn green-btn object-followbtn-position" style="margin: 0 auto; left: 0;right: 0;width: 80px;display: block;top: -15px;">
-    <i class="icon-plus">&nbsp;</i> Follow
-</div>
-
 <div class="masonry-object_name-position" style="margin-bottom: 5px;"> 
     <a class="comment-username" style="cursor:pointer; font-size:18px;"{{bindAttr href="getProfile_id"}}  {{action toProfilePage this}}>{{profile_name}} </a>
 </div>
+{{#if follow_status}}
 
+<div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this.followers}}><i class='icon-circle-blank' >&nbsp; </i> Following</div>
+
+{{else}}
+
+
+<div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this.followers}}><i class='icon-plus' >&nbsp; </i> Follow</div>
+
+{{/if}}
 
 <div style="overflow:hidden; width:100%; text-align:center; margin-bottom: 5px;">
     <ul class="itemprofile">
@@ -117,7 +122,7 @@
         <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>
 
         <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collape</span>
-       
+
     </div>
 
 </div>

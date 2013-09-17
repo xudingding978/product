@@ -5,7 +5,7 @@ HubStar.ProfileView = Ember.View.extend({
         $(function() {
             $('#masonry_profile_container').masonry({
                 itemSelector: '.box',
-                columnWidth: 0,
+                columnWidth: 1,
                 isFitWidth: true
             });
         });

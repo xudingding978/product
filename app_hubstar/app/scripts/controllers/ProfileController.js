@@ -498,24 +498,24 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
     },
     socialLink: function(link) {
-        var profile = HubStar.Profile.find(this.get('currentUserID'));
+//        var profile = HubStar.Profile.find(this.get('currentUserID'));
         if (link === 'facebook') {
-            window.open(profile.get("profile_facebook_link"));
+            window.open(this.get("facebook"));
         }
         else if (link === 'twitter') {
-            window.open(profile.get("profile_twitter_link"));
+            window.open(this.get("twitter"));
         }
         else if (link === 'googleplus') {
-            window.open(profile.get("profile_googleplus_link"));
+            window.open(this.get("googleplus"));
         }
         else if (link === 'pinterest') {
-            window.open(profile.get("profile_pinterest_link"));
+            window.open(this.get("pinterest"));
         }
         else if (link === 'youtube') {
-            window.open(profile.get("profile_youtube_link"));
+            window.open(this.get("youtube"));
         }
         else if (link === 'linkedin') {
-            window.open(profile.get("profile_linkedin_link"));
+            window.open(this.get("linkedin"));
         }
 
     },
@@ -584,12 +584,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set('profile_pic_url', this.get('profile_pic_url'));
         update_profile_record.set('profile_bg_url', this.get('profile_bg_url'));
 
-        this.saveLink('profile_facebook_link', this.get('facebook'));
-        this.saveLink('profile_twitter_link', this.get('twitter'));
-        this.saveLink('profile_googleplus_link', this.get('googleplus'));
-        this.saveLink('profile_pinterest_link', this.get('pinterest'));
-        this.saveLink('profile_linkedin_link', this.get('linkedin'));
-        this.saveLink('profile_youtube_link', this.get('youtube'));
+        this.saveLink('profile_facebook_link', 'facebook');
+        this.saveLink('profile_twitter_link', 'twitter');
+        this.saveLink('profile_googleplus_link','googleplus');
+        this.saveLink('profile_pinterest_link', 'pinterest');
+        this.saveLink('profile_linkedin_link', 'linkedin');
+        this.saveLink('profile_youtube_link', 'youtube');
 
         update_profile_record.set('profile_package_name', this.get('projectCategoryDropdownContent'));
         update_profile_record.set('owner_contact_bcc_emails', this.get('direct_enquiry_provide_email'));
@@ -655,8 +655,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             that.set('newStyleImageName', name);
             that.set('currentWidth', width);
             that.set('currentHeight', height);
-
-
             if (that.get('newStyleImageSource') !== null && that.get('newStyleImageSource') !== "")
             {
                 var size = "Your image size is " + width + "x" + height;
@@ -671,19 +669,19 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     saveLink: function(link_url, link) {
 
         var http = "http://";
-//        var update_user_record = this.getCurrentUser();
         var update_profile_record = HubStar.Profile.find(this.get('model.id'));
-
-        if (link === null || link === "" || link=== undefined)
+        if (this.get(link)  === null || this.get(link)  === "" || this.get(link) === undefined)
         {
-            link === "";
-            update_profile_record.set(link_url, link);
+            this.get(link)  === "";
+            update_profile_record.set(link_url, this.get(link) );
+            this.set(link,this.get(link)); 
         }
-
-        else if (link.slice(0, 5) === 'https' || link.slice(0, 5) === 'http:') {
-            update_profile_record.set(link_url, link);
+        else if (this.get(link) .slice(0, 5) === 'https' || this.get(link) .slice(0, 5) === 'http:') {
+            update_profile_record.set(link_url, this.get(link) );
+            this.set(link,this.get(link)); 
         } else if (link !== "") {
-            update_profile_record.set(link_url, http.concat(link));
+            update_profile_record.set(link_url, http.concat(this.get(link) ));
+             this.set(link,http.concat(this.get(link)));            
         }
         return update_profile_record;
     },

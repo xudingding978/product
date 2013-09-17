@@ -5,20 +5,20 @@ HubStar.CommentView = Ember.View.extend({
     },
     openComment: function(id) {
 
-    if( localStorage.loginStatus){
-        this.get('controller').getCommentsById(id);
-        $('#comment_' + id).attr('style', 'display:none');
-        $('#commentBox_' + id).attr('style', 'display:block');
+        if (localStorage.loginStatus) {
+            this.get('controller').getCommentsById(id);
+            $('#comment_' + id).attr('style', 'display:none');
+            $('#commentBox_' + id).attr('style', 'display:block');
 
-        setTimeout(function() {
-            $('#masonry_container').masonry("reload");
-            $('.comment-insert-field').focus();
-        }, 200);
-        
-        
-    }
-        
-        
+            setTimeout(function() {
+                $('#masonry_container').masonry("reload");
+                $('.comment-insert-field').focus();
+            }, 200);
+
+
+        }
+
+
     },
     closeComment: function(id) {
 
@@ -29,21 +29,82 @@ HubStar.CommentView = Ember.View.extend({
             $('#masonry_container').masonry("reload");
         }, 200);
     },
+                
     seeMore: function(id) {
         $('#closeComment_' + id).attr('style', 'display:block');
         $('#showMoreComment_' + id).attr('style', 'display:none');
-        $('#commentData_' + id).attr('style', 'max-height:350px;overflow:auto');
+        $('#commentData_' + id).attr('style', 'max-height: 88px;');
+        
+        $('#commentData_' + id).stop().animate({
+            maxHeight: '350px'
+            
+            
+        }, 420, function(){$('#commentData_' + id).css('overflow','auto');$('#masonry_container').masonry("reload");});
+        
+
+        /* this will need to be cleaned up, using a timed for loop etc (to not repeat code) */
         setTimeout(function() {
             $('#masonry_container').masonry("reload");
-        }, 200);
+        }, 52.5);
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+        }, 105);
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+        }, 158);
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+        }, 210.5);
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+        }, 263);
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+        }, 315);
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+        }, 368);
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+        }, 420);
+        
+
 
     },
     closeMore: function(id) {
         $('#closeComment_' + id).attr('style', 'display:none');
         $('#showMoreComment_' + id).attr('style', 'display:block');
-        $('#commentData_' + id).attr('style', 'max-height:70px');
+        
+        $('#commentData_' + id).stop().animate({
+            maxHeight: '88px'
+        }, 380, function(){$('#commentData_' + id).css('overflow','hidden');$('#masonry_container').masonry("reload");});
+        
+        
+        /* this will need to be cleaned up, using a timed for loop etc (to not repeat code) */
         setTimeout(function() {
             $('#masonry_container').masonry("reload");
-        }, 200);
+        }, 47.5);
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+        }, 95);
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+        }, 142.5);
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+        }, 190);
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+        }, 237.5);
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+        }, 285);
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+        }, 332.5);
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+        }, 368);
+
     }
 });

@@ -195,7 +195,6 @@ console.log(user.get('cover_url'));
         if (this.get('is_click') === true) {
             this.set('is_click', false);
 
-            //this.setUser();
             $('#user-board_right_front').show();
             $('#user-board_right_back').hide();
             $('#change_profile').show();
@@ -284,9 +283,7 @@ console.log(user.get('cover_url'));
     },
     no: function(checkingInfo) {
         if (checkingInfo === "interest") {
-            //console.log(this.profile_name);
             this.set('interests', interest_record);
-            // this.set("profile_name",profile_record);
             this.set('editingInterest', !this.get('editingInterest'));
         }
 
@@ -338,25 +335,24 @@ console.log(user.get('cover_url'));
     
             
     socialLink: function(link) {
-var user = this.getCurrentUser();
         if (link === 'facebook') {
-            window.open(user.get("facebook_link"));
+            window.open(this.get("facebook"));
         }
         else if (link === 'twitter') {
-            window.open(user.get("twitter_link"));
+            window.open(this.get("twitter"));
         }
         else if (link === 'googleplus') {
-            window.open(user.get("googleplus_link"));
+            window.open(this.get("googleplus"));
         }
 
         else if (link === 'pinterest') {
-            window.open(user.get("pinterest_link"));
+            window.open(this.get("pinterest"));
         }
         else if (link === 'youtube') {
-            window.open(user.get("youtube_link"));
+            window.open(this.get("youtube"));
         }
         else if (link === 'linkedin') {
-            window.open(user.get("linkedin_link"));
+            window.open(this.get("linkedin"));
         }
     },
     saveUpdate: function() {
@@ -367,21 +363,19 @@ var user = this.getCurrentUser();
             update_user_record.set('description', this.get('description'));
             update_user_record.set('display_name', this.get('display_name'));
             update_user_record.set('about_me', this.get('aboutMe'));
-            this.saveLink('facebook_link', this.get('facebook'));
-            this.saveLink('twitter_link', this.get('twitter'));
-            this.saveLink('googleplus_link', this.get('googleplus'));
-            this.saveLink('pinterest_link', this.get('pinterest'));
-            this.saveLink('linkedin_link', this.get('linkedin'));
-            this.saveLink('youtube_link', this.get('youtube'));
+            this.saveLink('facebook_link', 'facebook');
+         
+            this.saveLink('twitter_link','twitter');
+            this.saveLink('googleplus_link', 'googleplus');
+            this.saveLink('pinterest_link', 'pinterest');
+            this.saveLink('linkedin_link','linkedin');
+            this.saveLink('youtube_link', 'youtube');
             update_user_record.set('region', this.get('location'));
             update_user_record.set('email', this.get('email'));
             update_user_record.set('password', this.get('password'));
             
-//            update_user_record.set('photo_url', this.get('photo_url'));
-//            update_user_record.set('photo_url_large', this.get('photo_url_large'));
-//            update_user_record.set('cover_url', this.get('cover_url'));
-
             this.get('controllers.applicationFeedback').statusObserver(null, "Updated Successfully!!!");
+       
             HubStar.store.save();
         }
     },
@@ -465,20 +459,23 @@ var user = this.getCurrentUser();
         }
         return result;
     },
-    saveLink: function(link_url, link) {
-
+    saveLink: function(link_url,link) {//link =param; this,get('facebook')
+                                                                            
         var http = "http://";
         var update_user_record = this.getCurrentUser();
-        if (link === null || link === "")
+        if (this.get(link) === null || this.get(link) === "")
         {
-            link === "";
-            update_user_record.set(link_url, link);
+            this.get(link)  === "";      
+            update_user_record.set(link_url, this.get(link));
+            this.set(link,this.get(link)); 
         }
-
-        else if (link.slice(0, 5) === 'https' || link.slice(0, 5) === 'http:') {
-            update_user_record.set(link_url, link);
-        } else if (link !== "") {
-            update_user_record.set(link_url, http.concat(link));
+        else if (this.get(link).slice(0, 5) === 'https' || this.get(link).slice(0, 5) === 'http:') {
+            update_user_record.set(link_url, this.get(link));
+            
+             this.set(link,this.get(link)); 
+        } else if (this.get(link) !== "") {      
+            update_user_record.set(link_url,http.concat(this.get(link)));
+           this.set(link,http.concat(this.get(link))); 
         }
         return update_user_record;
     },
@@ -501,7 +498,7 @@ var user = this.getCurrentUser();
             update_interest_record.set('selected_topics', this.get('interests'));
             HubStar.store.save();
         } else {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Too much comma");
+            this.get('controllers.applicationFeedback').statusObserver(null, "invalid input");
         }
 
     },
@@ -758,7 +755,7 @@ var user = this.getCurrentUser();
                         });
                         that.userPhotoEditBackButton();
                         that.userDashboardBackButton();
-                        that.get('controllers.applicationFeedback').set('photo_url', src);
+//                        that.get('controllers.applicationFeedback').set('photo_url', src);
                         that.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully!!!");
                     }
                     else if (width < params.width || height < params.height) {
@@ -798,6 +795,7 @@ var user = this.getCurrentUser();
             var pb = this.get("controllers.platformBar");
             ac.changeImage(this.get('photo_url_large'));
             pb.changeImage(this.get('photo_url_large'));
+            this.get('controllers.applicationFeedback').set('photo_url', this.get('photo_url_large'));
             model.set('photo_url_large', this.get('newStyleImageSource'));
         } else if (this.get('UploadImageMode') === "User Cover") {
 

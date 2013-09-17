@@ -8446,7 +8446,7 @@ div.loading-visible{
 }
 
 
-
+j
 
 
 .easing {
@@ -8507,6 +8507,12 @@ div.loading-visible{
     -moz-transition: all .4s ease-in-out;
     -webkit-transition: all .4s ease-in-out;
     transition: all .4s ease-in-out;
+}
+#login_icon .panel .front{
+    -moz-box-shadow: 0 0 0 0;
+    -webkit-box-shadow: 0 0 0 0;
+    box-shadow:0 0 0 0;
+    
 }
 .panel.flip .front {
     z-index: 900;
@@ -9126,7 +9132,6 @@ div.loading-visible{
     line-height: 0;
     overflow: hidden;
     position: relative;
-    min-height:215px;
     vertical-align:central;
     background:#e5e5e5;
 }
@@ -9188,15 +9193,20 @@ div.loading-visible{
     cursor:pointer;
 }
 
+/* clint */
+.masonry-brick .masonry_more-btn{
+    padding-bottom:12.5px;
+    
+}
 .masonry_more-btn:hover{
     color: #333;
 }
 
 .masonry-object_interact{
-    margin: 20px 0 10px 0;
+    margin: 20px 0 0 0; /* was margin: 20px 0 10px 0; */
     overflow:hidden;
     border-top: 1px solid #e5e5e5;
-    border-bottom: 1px solid #e5e5e5;
+    /* border-bottom: 1px solid #e5e5e5; */
     -webkit-border-radius: 0 0 2px 2px;
     -o-border-radius: 0 0 2px 2px;
     -ms-border-radius: 0 0 2px 2px;
@@ -9219,8 +9229,9 @@ div.loading-visible{
 }
 
 .masonry_addcommnetbox-container{
-    margin: 0 20px 0 20px;
-    padding: 0 0 20px 0;
+   /* margin: 0 20px 0 20px; */
+   padding: 0 20px 8.5px 20px;
+
 }
 
 
@@ -9417,6 +9428,8 @@ div.loading-visible{
     line-height: 23px;
     font-size: 14px;
     font-weight: bold;
+    font-family: FontAwesome, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    
 }
 
 
@@ -9492,6 +9505,7 @@ div.loading-visible{
     border-radius: 50%;
     width: 46px;
     height: 46px;
+    background:#efeded;
 }
 
 .profilepic_effect{
@@ -9520,6 +9534,7 @@ div.loading-visible{
 .posttime{
     color: #aaa;
     font-size: 11px;
+    line-height:140%;
 }
 
 
@@ -9879,8 +9894,11 @@ div.loading-visible{
 
 
 .comment-frame{
-    width: 87%;
+    width: 100%;
+    padding:0 6.5%;
     margin: 0 auto;
+    overflow:hidden;
+    border-bottom:12.5px solid #f8f8f8;
 
 }
 
@@ -9912,7 +9930,8 @@ div.loading-visible{
 }
 
 .addcommnetbox-container{
-    padding: 0 0 20px 0;
+    /* padding: 0 0 20px 0; */
+    padding:0 6.5%;
 }
 
 .addcommnetbox{
@@ -9922,7 +9941,7 @@ div.loading-visible{
     cursor: text;
     font-size: 12px;
     height: auto;
-    margin: 0 0 20px 0;
+    margin: 0 0 0 0;
     padding: 6px 8px;
 }
 
@@ -9937,7 +9956,7 @@ div.loading-visible{
 }
 
 .comment-position{
-    padding: 0 0px 16px 45px;
+    padding: 4.50px 0px 4.5px 43px;
     vertical-align: top;
 }
 
@@ -9950,8 +9969,8 @@ div.loading-visible{
 
 .profilepic_comment{
     border-radius: 50%;
-    width: 35px;
-    height: 35px;
+    width: 33px;
+    height: 33px;
 }
 
 .comment-insert-field{
@@ -9988,7 +10007,7 @@ div.loading-visible{
 .posttime-container{
     display: block;
     white-space: nowrap;
-    margin-bottom: 5px;
+    /* margin-bottom: 5px; */
     line-height: 10px;
 }
 
@@ -10015,6 +10034,7 @@ div.loading-visible{
 .comment-content{
     color: #404040;
     font-size: 13px;
+    line-height:16px;
     margin: 0 0 0 0;
     overflow: hidden;
     word-wrap: break-word;
@@ -10194,13 +10214,13 @@ div.loading-visible{
     margin: 0 auto 20px;
     left: 0;
     right: 0;
-    min-width: 796px;
+    min-width: 1060px;
     max-width: 1260px;
 }
 
 .user-board_left{
     background: white;
-    width: 25%;
+    width: 26%;
     display: inline-block;
     vertical-align: top;
     height: 450px;
@@ -10209,7 +10229,7 @@ div.loading-visible{
 
 .user-board_right{
     background: white;
-    width: 74%;
+    width: 73%;
     height: 450px;
     display: inline-block;
     vertical-align: top;
@@ -10229,11 +10249,6 @@ div.loading-visible{
     list-style-type: none;
     padding:0;
     margin: 0 0 0 -10px;
-
-    -webkit-margin-before: 1em;
-    -webkit-margin-after: 1em;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
 }
 
 
@@ -10509,6 +10524,22 @@ div.loading-visible{
     background-color: #e3e3e3;
 }
 
+.fresh-profile-pic{
+    overflow: hidden; 
+    position: fixed;
+    height: 80px;
+    width: 80px;
+    background-color: #fff;
+    border-radius: 50%;
+    z-index: 12;
+    margin: auto;
+    left: 0;
+    right: 1000px;
+    top: -40PX;
+    box-shadow: 0 0 10px #777;
+    border: 3px solid #f3f3f3;
+}
+
 .fresh-message{
     line-height: 50px;
     font-size: 18px;
@@ -10521,7 +10552,7 @@ div.loading-visible{
     text-align: center;
     z-index: 11;
 
-    top: 45px;
+    top: -20px;
     box-shadow: 0 0 10px #000;
     width: 1000px;
     margin: auto;
@@ -12188,7 +12219,8 @@ div.form .rememberMe label
         text-align:center;
         font-size:1.1em;
      }
-     div #login_container > div.front > .content
+     div #login_container > div.front > .content,
+     div #login_container > div.back > .content
      {
          float:left;
          width:100%;
@@ -12223,11 +12255,10 @@ div.form .rememberMe label
     -webkit-box-sizing: border-box;
 }
 
-#footer
-{
+#footer{
     background: #333333 url('../images/footerbg.png') repeat-x;
     color: white;
-
+    position: relative;
 }
 
 .footer_contentbox {

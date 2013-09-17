@@ -9,7 +9,8 @@ header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET');
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
 class FollowersController extends Controller {
-
+     
+    const JSON_RESPONSE_ROOT_SINGLE_MEGA = 'mega';
     const JSON_RESPONSE_ROOT_SINGLE = 'follower';
     const JSON_RESPONSE_ROOT_PLURAL = 'followers';
 
@@ -141,9 +142,13 @@ class FollowersController extends Controller {
                     $newRecord[$i]['name'] = $oldRecordDeep['user'][0]["first_name"] . " " . $oldRecordDeep['user'][0]["last_name"];
                     $newRecord[$i]['photo_url'] = $oldRecordDeep['user'][0]["photo_url_large"];
                     if (isset($oldRecordDeep['user'][0]["cover_url_small"])) {
-                        $newRecord[$i]['photo_url_large'] = $oldRecordDeep['user'][0]["cover_url_small"];
-                    } else {
-                        $newRecord[$i]['photo_url_large'] = "http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg";
+                        $newRecord[$i]['cover_url_small'] = $oldRecordDeep['user'][0]["cover_url_small"];
+                    } else if (isset($oldRecordDeep['user'][0]["cover_url"]))
+                    {
+                          $newRecord[$i]['cover_url_small'] =  $oldRecordDeep['user'][0]["cover_url"];
+                    }else 
+                     {
+                        $newRecord[$i]['cover_url_small'] = "http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg";
                     }
                     if (!isset($oldRecordDeep['user'][0]["collections"])) {
                         $newRecord[$i]['collections_size'] = 0;
@@ -260,10 +265,16 @@ class FollowersController extends Controller {
                         $newRecord[$i]['name'] = $oldRecordDeep['user'][0]["first_name"] . " " . $oldRecordDeep['user'][0]["last_name"];
                         $newRecord[$i]['photo_url'] = $oldRecordDeep['user'][0]["photo_url_large"];
                         if (isset($oldRecordDeep['user'][0]["cover_url_small"])) {
-                            $newRecord[$i]['photo_url_large'] = $oldRecordDeep['user'][0]["cover_url_small"];
-                        } else {
-                            $newRecord[$i]['photo_url_large'] =  "http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg";
+                            $newRecord[$i]['cover_url_small'] = $oldRecordDeep['user'][0]["cover_url_small"];
+                        } else if(isset($oldRecordDeep['user'][0]["cover_url"]))
+                        {
+                            $newRecord[$i]['cover_url_small'] =   $oldRecordDeep['user'][0]["cover_url"];
                         }
+                         else{
+                              $newRecord[$i]['cover_url_small'] = "http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg";
+                           
+                        }
+                        
                         if (!isset($oldRecordDeep['user'][0]["collections"])) {
                             $newRecord[$i]['collections_size'] = 0;
                         } else {
@@ -317,11 +328,20 @@ class FollowersController extends Controller {
                     } else {
                         $docIDDeep = $this->getDomain() . "/profiles/" . $id;
                         $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+                         $oldRecordDeep = CJSON::decode($oldDeep, true);
+                        //$newRecord[$i]['type'] = 'profile';
+                         $newRecord[$i]["profile"]= '{"' . self::JSON_RESPONSE_ROOT_SINGLE_MEGA . '":' . $oldDeep . '}';
+                        $newRecord[$i]["profile"]= CJSON::decode($newRecord[$i]["profile"], true);
                         $oldRecordDeep = CJSON::decode($oldDeep, true);
                         $newRecord[$i]['record_id'] = $id;
                         $newRecord[$i]['name'] = $oldRecordDeep['profile'][0]["profile_name"];
                         $newRecord[$i]['photo_url'] = $oldRecordDeep['profile'][0]["profile_pic_url"];
-                        $newRecord[$i]['photo_url_large'] = $oldRecordDeep['profile'][0]["profile_bg_url"];
+                        //$newRecord[$i]['photo_url_large'] = $oldRecordDeep['profile'][0]["profile_hero_cover_url"];
+                        if (isset($oldRecordDeep['profile'][0]["profile_hero_cover_url"])&&$oldRecordDeep['profile'][0]["profile_hero_cover_url"]!==""&&$oldRecordDeep['profile'][0]["profile_hero_cover_url"]!==null) {
+                            $newRecord[$i]['cover_url_small'] = $oldRecordDeep['profile'][0]["profile_hero_cover_url"];
+                        } else {
+                            $newRecord[$i]['cover_url_small'] = $oldRecordDeep['profile'][0]["profile_hero_url"];
+                        }
                         $newRecord[$i]['following_status'] = false;
                         if (!isset($oldRecordDeep['profile'][0]["collections"])) {
                             $newRecord[$i]['collections_size'] = 0;
@@ -352,6 +372,17 @@ class FollowersController extends Controller {
                                 $newRecord[$i]['follower_size'] = sizeof($oldRecordDeep['profile'][0]["followers"]);
                             }
                         }
+                        
+                          if (($oldRecordDeep['profile'][0]["profile_about_us"] === null) || ($oldRecordDeep['profile'][0]["profile_about_us"] === "")) {
+                                $newRecord[$i]['profile_about_us'] = "";
+                            } else {
+                                 $newRecord[$i]['profile_about_us']=$oldRecordDeep['profile'][0]["profile_about_us"] ;
+                            }
+                              if ((!isset($oldRecordDeep['profile'][0]["profile_cover_text"]))||($oldRecordDeep['profile'][0]["profile_cover_text"] === null) || ($oldRecordDeep['profile'][0]["profile_cover_text"] === "") ){
+                                $newRecord[$i]['profile_cover_text'] = "";
+                            } else {
+                                 $newRecord[$i]['profile_cover_text']=$oldRecordDeep['profile'][0]["profile_cover_text"] ;
+                            }
                     }
                 }
                 //error_log(var_export($newRecord[$i], true));

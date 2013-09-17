@@ -42,7 +42,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
             $(function() {
                 $('#masonry_container').masonry({
                     itemSelector: '.box',
-                    columnWidth: 0,
+                    columnWidth: 1,
                     isInitLayout: false,
                     isFitWidth: true
                 });

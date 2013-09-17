@@ -5,7 +5,7 @@ HubStar.EditCollectionView = Ember.View.extend({
 
             $('#masonry_user_container').masonry({
                 itemSelector: '.box',
-                columnWidth: 0,
+                columnWidth: 1,
                 isFitWidth: true
             });
         });
@@ -24,7 +24,7 @@ HubStar.EditCollectionView = Ember.View.extend({
             }, 400, function() {
                 $('#masonry_user_container').masonry({
                     itemSelector: '.box',
-                    columnWidth: 0,
+                    columnWidth: 1,
                     isFitWidth: true
                 });
             });
@@ -39,7 +39,7 @@ HubStar.EditCollectionView = Ember.View.extend({
             }, 400, function() {
                 $('#masonry_user_container').masonry({
                     itemSelector: '.box',
-                    columnWidth: 0,
+                    columnWidth: 1,
                     isFitWidth: true
                 });
             });
@@ -61,7 +61,7 @@ HubStar.EditCollectionView = Ember.View.extend({
         $(div_class).attr('style', "display:none");
         $('#masonry_user_container').masonry({
             itemSelector: '.box',
-            columnWidth: 0,
+            columnWidth: 1,
             isFitWidth: true
         });
 

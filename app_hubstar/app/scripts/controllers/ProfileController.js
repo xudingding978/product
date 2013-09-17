@@ -102,6 +102,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     init: function() {
 
         this.set('is_authentic_user', false);
+        //console.log("ssssssssssssssss");
     },
     getCurrentProfile: function(id) {
         this.set('currentUserID', id);
@@ -150,6 +151,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.isFollowed();
         this.checkAuthenticUser();
         this.labelBarRefresh();
+        
+        this.selectCollection();
         var photoCreateController = this.get('controllers.photoCreate');
         photoCreateController.setMega();
         this.initStastics(profile);
@@ -157,6 +160,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     labelBarRefresh: function() {
         this.set("profileSelectionStatus", "Collections");
+        //console.log(this.get("profileSelectionStatus"));
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#defualt').addClass('selected-user-stats');
         $('#user-stats > li').click(function() {
@@ -520,10 +524,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     selectCollection: function() {
         this.set('partnerPage', 'Collections');
-
+         this.set('profileSelectionStatus', 'Collections');
         this.set('partnerTag', false);
-        this.set('collectionTag', true);
-        this.set('followerTag', false);
+        this.set('collectionTag', true);       
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
@@ -534,7 +537,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.get('controllers.profilePartners').getClientId(model);
         this.set('partnerTag', true);
         this.set('collectionTag', false);
-        this.set('followerTag', false);
+        //this.set('followerTag', false);
         this.get('controllers.itemProfiles').setPartnerRemove();
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");

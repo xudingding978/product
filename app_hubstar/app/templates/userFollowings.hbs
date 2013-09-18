@@ -25,11 +25,9 @@
                 <img class="easing" {{bindAttr src=this.photo_url}}  />   
             </a>
         </div>
-        <br><br>
+        <br>
 
-        <div class="masonry-object_name-position" style="margin-bottom: 5px;"> 
-            <a class="comment-username" style="cursor:pointer; font-size:18px;">{{this.name}}</a>
-        </div>
+
 
         {{#if this.follow_status}}
         {{#if this.following_status}}
@@ -45,7 +43,9 @@
         {{/if}}
         {{/if}}
 
-
+        <div class="masonry-object_name-position" style="margin-bottom: 5px;"> 
+            <a class="comment-username" style="cursor:pointer; font-size:18px;">{{this.name}}</a>
+        </div>
 
         <div style="overflow:hidden; width:100%; text-align:center; margin-bottom: 5px;">
             <ul class="itemprofile">

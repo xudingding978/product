@@ -24,7 +24,8 @@
                 {{#unless controller.isDisplayNameEditable}}
                 <span style="display: inline-block;margin-right: 5px;">From: {{controller.displayName}}</span>
                 {{else}}
-                {{view HubStar.SearchRequireTextFieldView valueBinding="controller.displayName" class="lineuptextbox"}}
+                
+                {{view HubStar.SearchRequireTextFieldView valueBinding="controller.displayName" class="lineuptextbox"}}{{controller}}
                 {{/unless}}
                 <a style="display: inline-block; cursor: pointer;" {{action setEditable "Name"}}>{{editNameStatus}}</a>
             </div>

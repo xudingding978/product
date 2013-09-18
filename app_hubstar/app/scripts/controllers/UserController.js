@@ -44,6 +44,8 @@ HubStar.UserController = Ember.Controller.extend({
     interest: "interest",
     is_authentic_user: false,
     aboutMe: "",
+    first_name:"",
+    last_name:"",
     is_Photoclick: false,
     is_click: false,
     photo_url_large: "",
@@ -90,6 +92,8 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("collections", user.get("collections"));
         this.set("description", user.get("description"));
         this.set("display_name", user.get("display_name"));
+         this.set("first_name", user.get("first_name"));
+          this.set("last_name", user.get("last_name"));
         this.set("identifier", user.get("identifier"));
         this.set("aboutMe", user.get("about_me"));
         this.set("facebook", user.get("facebook_link"));
@@ -362,6 +366,8 @@ console.log(user.get('cover_url'));
             update_user_record.set('collections', this.get('collections'));
             update_user_record.set('description', this.get('description'));
             update_user_record.set('display_name', this.get('display_name'));
+            update_user_record.set('first_name', this.get('first_name'));
+            update_user_record.set('last_name', this.get('last_name'));
             update_user_record.set('about_me', this.get('aboutMe'));
             this.saveLink('facebook_link', 'facebook');
          

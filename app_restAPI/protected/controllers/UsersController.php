@@ -61,7 +61,7 @@ class UsersController extends Controller {
 
     public function actionRead() {
         try {
-            error_log('actionRead into');
+          
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1]; 

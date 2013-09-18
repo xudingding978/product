@@ -27,6 +27,20 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
                 if (data.get('isLoaded')) {
                     for (var i = 0; i < data.get("length"); i++) {
                         var tempmega = data.objectAt(i);
+                        //   var isFollow = tempmega.get("profile").objectAt(0).get("isFollowCurrentUser");
+                        //console.log(tempmega.get("profile").objectAt(0).get("isFollowCurrentUser"));
+                        var isFollow = false;
+                        for (var j = 0; j < tempmega.get("profile").objectAt(0).get("followers").get("length"); j++)
+                        {
+                            if (tempmega.get("profile").objectAt(0).get("followers").objectAt(j).get("follower_id") === localStorage.loginStatus)
+                            {
+                                isFollow = true;
+                                break;
+                            }
+                        }
+                        tempmega.get("profile").objectAt(0).set("isFollowCurrentUser", isFollow);
+                        //    tempmega.set("isFollow", true);
+                        //console.log( tempmega.get("profile").objectAt(0).get("isFollowCurrentUser"));
                         that.get("content").pushObject(tempmega);
                         //console.log(tempmega);
                     }
@@ -151,11 +165,13 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
         var that = this;
         var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
         that.set("is_authentic_user", is_authentic_user);
+
         currentUser.addObserver('isLoaded', function() {
             var current_user_email = currentUser.get('email');
             if (currentUser.get('isLoaded')) {
                 var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
                 that.set("is_authentic_user", is_authentic_user);
+          
             }
         });
     }

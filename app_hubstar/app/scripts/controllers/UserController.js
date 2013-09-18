@@ -2,6 +2,7 @@
 var interest_record;
 var collection_title_record;
 var collection_desc_record;
+var about_record;
 
 HubStar.UserController = Ember.Controller.extend({
     user: null,
@@ -42,7 +43,8 @@ HubStar.UserController = Ember.Controller.extend({
     editingInterest: false,
     interest: "interest",
     is_authentic_user: false,
-    aboutMe: "",
+    aboutMe: "aboutMe",
+    about_me: "",
     is_Photoclick: false,
     is_click: false,
     photo_url_large: "",
@@ -90,7 +92,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("description", user.get("description"));
         this.set("display_name", user.get("display_name"));
         this.set("identifier", user.get("identifier"));
-        this.set("aboutMe", user.get("about_me"));
+        this.set("about_me", user.get("about_me"));
         this.set("facebook", user.get("facebook_link"));
         this.set("twitter", user.get("twitter_link"));
         this.set("googleplus", user.get("googleplus_link"));
@@ -266,15 +268,22 @@ HubStar.UserController = Ember.Controller.extend({
         }
         return isExsinting;
     },
-    interestEdit: function(data, checkingInfo) {
+    toggleEditing: function(data, checkingInfo) {
         if (checkingInfo === "interest") {
             interest_record = data;
             this.set('editingInterest', !this.get('editingInterest'));
+        
+        } else if (checkingInfo === "aboutMe") {
+            about_record = data;
+            this.set('editingAbout', !this.get('editingAbout'));
+           
         }
     },
     yes: function(checkingInfo) {
         if (checkingInfo === "interest") {
             this.set('editingInterest', !this.get('editingInterest'));
+        }else if (checkingInfo === "aboutMe") {
+            this.set('editingAbout', !this.get('editingAbout'));
         }
 
         this.saveUpdateInterest();
@@ -283,6 +292,9 @@ HubStar.UserController = Ember.Controller.extend({
         if (checkingInfo === "interest") {
             this.set('interests', interest_record);
             this.set('editingInterest', !this.get('editingInterest'));
+        } else if (checkingInfo === "aboutMe") {
+            this.set('about_me', about_record);
+            this.set('editingAbout', !this.get('editingAbout'));
         }
 
     },
@@ -346,7 +358,7 @@ HubStar.UserController = Ember.Controller.extend({
             update_user_record.set('collections', this.get('collections'));
             update_user_record.set('description', this.get('description'));
             update_user_record.set('display_name', this.get('display_name'));
-            update_user_record.set('about_me', this.get('aboutMe'));
+            update_user_record.set('about_me', this.get('about_me'));
             this.saveLink('facebook_link', 'facebook');
          
             this.saveLink('twitter_link','twitter');
@@ -380,8 +392,8 @@ HubStar.UserController = Ember.Controller.extend({
         checkList.push(displayName);
         var email = new checkObject("email", this.get('email'), 128, null, true, null);
         checkList.push(email);
-        var aboutMe = new checkObject("aboutMe", this.get('aboutMe'), 4096, null, null, null);
-        checkList.push(aboutMe);
+//        var aboutMe = new checkObject("aboutMe", this.get('aboutMe'), 4096, null, null, null);
+//        checkList.push(aboutMe);
         var location = new checkObject("location", this.get('location'), 128, null, null, null);
         checkList.push(location);
         var facebook = new checkObject("facebook", this.get('facebook'), 128, true, null, "facebook");

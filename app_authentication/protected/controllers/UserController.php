@@ -244,6 +244,8 @@ class UserController extends Controller {
     }
 
     public function actionTest() {
+        
+        error_log("aaaaaaaaaaaaaaaa");
       $this->render('test');
     }
 

@@ -87,14 +87,14 @@
 
         {{/if}}
     </div>
-    <div  class="user-board_right style-box" >
+    <div  class="user-board_right style-box" style="height:800px;">
 
 
-        <div id="user-board_right_front">
+        <div id="user-board_right_front" style="height:600px;">
             <div class="user-cover">
-            
+
                 <img {{bindAttr src= "cover_url"}} style="width:100%;"/>
-      
+
                 {{#if controller.is_authentic_user}}
                 <div  id="flip-front" class='blue-btn new-btn hint--left hint--rounded edit-dashboard-btn' style="display: block; margin: 10px;position: absolute;top: 0;right: 0;" data-hint="Dashboard"{{action userDashboardButton "User Cover"}}>  
 
@@ -104,63 +104,94 @@
                 <div style="font-size: 26px;font-weight: bold; line-height: 30px;  color: white;position: absolute;top: 100px;margin:0 30px;text-shadow: 0 0 10px #777;">{{display_name}}</div>
             </div>
 
-            <div style="height: 240px; padding: 10px 20px;display: inline-block;position: relative;width: 100%;">
-                <div style="font-size:15px;line-height: 20px;margin: 5px 20px;color: #888; overflow: hidden;height: 200px; text-overflow: ellipsis;">{{aboutMe}}</div>
-            </div>
+            <div style="height: 540px; padding: 10px 20px;display: inline-block;position: relative;width: 100%;">
 
-            <div style="margin: 0 30px; width:90%; height: 40px; position:relative; overflow: hidden;">
-                <ul class="locationandlinks">
-                    <li>
-                        <span class="locationIcon"><k class="icon-map-marker"></k></span>
-                        {{location}} 
-                    </li>
-                    {{#if facebook}}
-                    <li class="location_li">
-                        <a href="#" target="_blank" {{action socialLink 'facebook'}}>&nbsp <k class="icon-facebook"> </k></a>
-                    </li>
-                    {{/if}}
-                    {{#if twitter}}
-                    <li class="location_li">
-                        <a href="#" target="_blank" {{action socialLink 'twitter'}}>&nbsp <k class="icon-twitter"> </k></a>
-                    </li>
-                    {{/if}}
-                    {{#if googleplus}}
-                    <li class="location_li">
-                        <a href="#" target="_blank"{{action socialLink 'googleplus'}}>&nbsp <k class="icon-google-plus"> </k></a>
-                    </li>
-                    {{/if}}
-                    {{#if pinterest}}
-                    <li class="location_li">
-                        <a href="#" target="_blank" {{action socialLink 'pinterest'}}>&nbsp <k class="icon-pinterest"> </k></a>
-                    </li>
-                    {{/if}}
-                    {{#if linkedin}}
-                    <li class="location_li">
-                        <a href="#" target="_blank"{{action socialLink 'linkedin'}}>&nbsp <k class="icon-linkedin"> </k></a>
-                    </li>
-                    {{/if}}
-                    {{#if youtube}}
-                    <li class="location_li">
-                        <a href="#" target="_blank" {{action socialLink 'youtube'}}>&nbsp <k class="icon-youtube-play"> </k></a>
-                    </li>
-                    {{/if}}
+               
+                <div class="main_aboutus" style="">
+                    <div>
+                        <div style="display: inline-block;">
+                            <p style='margin-bottom: 20px;display: inline-block; font-size: 18px;'>
+                                <i class='icon-group' style='margin-right: 10px;display: inline-block;'></i>About Me
+                            </p>
 
+                            {{#if controller.editingAbout}}
+                            <div style="height: 400px;">
+                                <div >  {{view  HubStar.HtmlEditorView}}</div>
+                            </div>
+                            <div style="float: right;">
+                                <div class="new-btn blue-btn" {{action yes controller.aboutMe}}><i class="icon-ok icon-white"></i></div>
+                                <div class="new-btn" {{action no controller.aboutMe}}><i class="icon-remove"></i></div>
+                            </div>
+                            {{else}}
+                            {{#if controller.is_authentic_user}}
 
-                </ul>
+                            <div class="edit-btn hint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing controller.about_me controller.aboutMe}}>
+
+                                 <i class="icon-edit"></i>
+                            </div>
+                            {{/if}}
+                        </div>
+                        <div style="display: block;">{{{about_me}}}</div>
+                        {{/if}}
+                    </div>
+                </div>
+               
             </div>
         </div>
-        {{#if controller.is_click}}
+
+        <div style="margin: 0 30px; width:90%; height: 40px; position:relative; overflow: hidden;">
+            <ul class="locationandlinks">
+                <li>
+                    <span class="locationIcon"><k class="icon-map-marker"></k></span>
+                    {{location}} 
+                </li>
+                {{#if facebook}}
+                <li class="location_li">
+                    <a href="#" target="_blank" {{action socialLink 'facebook'}}>&nbsp <k class="icon-facebook"> </k></a>
+                </li>
+                {{/if}}
+                {{#if twitter}}
+                <li class="location_li">
+                    <a href="#" target="_blank" {{action socialLink 'twitter'}}>&nbsp <k class="icon-twitter"> </k></a>
+                </li>
+                {{/if}}
+                {{#if googleplus}}
+                <li class="location_li">
+                    <a href="#" target="_blank"{{action socialLink 'googleplus'}}>&nbsp <k class="icon-google-plus"> </k></a>
+                </li>
+                {{/if}}
+                {{#if pinterest}}
+                <li class="location_li">
+                    <a href="#" target="_blank" {{action socialLink 'pinterest'}}>&nbsp <k class="icon-pinterest"> </k></a>
+                </li>
+                {{/if}}
+                {{#if linkedin}}
+                <li class="location_li">
+                    <a href="#" target="_blank"{{action socialLink 'linkedin'}}>&nbsp <k class="icon-linkedin"> </k></a>
+                </li>
+                {{/if}}
+                {{#if youtube}}
+                <li class="location_li">
+                    <a href="#" target="_blank" {{action socialLink 'youtube'}}>&nbsp <k class="icon-youtube-play"> </k></a>
+                </li>
+                {{/if}}
 
 
-        {{view HubStar.UserEditView}}
-
-        {{/if}}
-
-
-
-
-
+            </ul>
+        </div>
     </div>
+    {{#if controller.is_click}}
+
+
+    {{view HubStar.UserEditView}}
+
+    {{/if}}
+
+
+
+
+
+</div>
 
 </div>
 

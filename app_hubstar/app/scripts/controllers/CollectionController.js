@@ -3,31 +3,26 @@ HubStar.CollectionController = Ember.Controller.extend({
      needs: ['applicationFeedback'],
     getCreateCollection: function(selectedCollection,  collections)
     {
-//        console.log(title);
         this.set('collections',collections);
         var title = selectedCollection.get('title');
         var desc = selectedCollection.get('desc');
-        var isExsinting = this.checkingIdisExsinting(title, "create");
-        console.log(isExsinting);
-        var collection = null;
+        var isExsinting = this.checkingIdisExsinting(title, "create");       
         if (isExsinting) {
             var validID = this.checkingValidInput(title);
             var checkingCharater = this.specialCharactersChecking(title);
-            if (checkingCharater) {
-//                collection = HubStar.Collection.createRecord({});
+            if (checkingCharater && validID !== null && validID !=='') {
                 selectedCollection.set('id', validID.toLowerCase());
-//                collection.set('title', title);
-//                selectedCollection.set('cover', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png");
-//                collection.set('type', type);
-//                collection.set('optional', owner_id);
                 if (desc !== null && desc !== "") {
                     selectedCollection.set('desc', desc);
                 } else {
                     selectedCollection.set('desc', "Add a short description to your Collection");
                 }
             } else {
+                selectedCollection = null;
                 this.get('controllers.applicationFeedback').statusObserver(null, "invalide characters...");
             }
+        } else {
+            selectedCollection = null;
         }
         return selectedCollection;
 
@@ -42,7 +37,6 @@ HubStar.CollectionController = Ember.Controller.extend({
         return title;
     },
     checkingIdisExsinting: function(id, postOrPut) {
-        console.log(this.get('collections'));
         var isExsinting = true;
         if (postOrPut === "create") {
             for (var i = 0; i < this.get("collections").get('length'); i++) {
@@ -64,7 +58,9 @@ HubStar.CollectionController = Ember.Controller.extend({
         var desc = this.checkingValidInput(selectedCollection.get('desc'));
         var id = this.checkingValidInput(selectedCollection.get('id'));
         var title = selectedCollection.get("title");
+        selectedCollection.set("id", id);
         selectedCollection.set("title", title);
+        selectedCollection.set("desc", desc);
         return selectedCollection;
     },
             

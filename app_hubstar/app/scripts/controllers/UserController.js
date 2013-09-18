@@ -550,9 +550,12 @@ console.log(user.get('cover_url'));
         this.set("message", message);
         this.set('makeSureDelete', true);
         if (this.get('willDelete')) {            
+            var tempCollection = this.get("selectedCollection");
+            var delInfo = [tempCollection.id, this.get('model').get('id'), 'user'];
+            delInfo = JSON.stringify(delInfo);
+            requiredBackEnd('collections', 'delete', delInfo, 'POST', function(params) {
+            });
             this.get("collections").removeObject(this.get("selectedCollection"));
-            
-            this.get("collections").store.save();
             var user = this.getCurrentPage();
             this.cancelDelete();
         } else {
@@ -580,14 +583,9 @@ console.log(user.get('cover_url'));
     {
         var collectionController = this.get('controllers.collection');
         var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
-
-//        var id = this.checkingValidInput(this.selectedCollection.get('id'));
-//        var title = this.get("selectedCollection").get("title");
-//        this.get("selectedCollection").set("title", title);
         collection.set('optional', this.get('model').get('id'));
         collection.set('type', 'user');
         this.set('selectedCollection', collection);
-//        this.set("selectedTitle", title);
         this.get("selectedCollection").store.save();
         $(".Targeting_Object_front").attr("style", "display:inline-block");
         $(" #uploadArea").attr('style', "display:none");

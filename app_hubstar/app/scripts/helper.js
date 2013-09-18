@@ -47,12 +47,13 @@ Ember.Handlebars.registerBoundHelper('videolength', function(number) {
     if (number === "" || number === null || number === undefined) {
         return 0;
     }
- else if (number.match(/www.youtube.com/g) !== -1 && number.match(/www.youtube.com/g) !==null){
-        return number.match(/www.youtube.com/g).length-1;
-                     }
-          
-          else return 0;
-   
+    else if (number.match(/www.youtube.com/g) !== -1 && number.match(/www.youtube.com/g) !== null) {
+        return number.match(/www.youtube.com/g).length - 1;
+    }
+
+    else
+        return 0;
+
 
 });
 
@@ -60,18 +61,22 @@ Ember.Handlebars.registerBoundHelper('videolength', function(number) {
 
 Ember.Handlebars.registerBoundHelper('ebooklength', function(number) {
 
-     if (number === "" || number === null || number === undefined) {
+    if (number === "" || number === null || number === undefined) {
         return 0;
     }
-    else if (number.match(/library.trendsideas.com/g) !== -1 && number.match(/library.trendsideas.com/g) !==null){
+    else if (number.match(/library.trendsideas.com/g) !== -1 && number.match(/library.trendsideas.com/g) !== null) {
         return number.match(/library.trendsideas.com/g).length;
-                     }
-          
-          else return 0;
-          
-   
+    }
+
+    else
+        return 0;
+
+
 
 });
+
+
+
 
 Ember.Handlebars.registerBoundHelper('date', function(date) {
     if (date === "" || date === null || date === undefined) {

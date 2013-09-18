@@ -11,6 +11,8 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
              
            this.set('status', status);
         this.set('feedback', true);
+        var currentUser = HubStar.User.find(localStorage.loginStatus);
+        this.set('photo_url', currentUser.get('photo_url_large'));
         Ember.run.later(function() {
 
     

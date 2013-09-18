@@ -61,7 +61,7 @@ class UsersController extends Controller {
 
     public function actionRead() {
         try {
-            error_log('actionRead into');
+          
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1]; 
@@ -69,7 +69,6 @@ class UsersController extends Controller {
 
             $reponse = $cb->get($doc_id);    
             $respone_user =  CJSON::decode($reponse, true);
-              //          error_log(var_export($respone_user,true));
             $respone_user_data = CJSON::encode($respone_user['user'][0]);
 
             $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $respone_user_data . '}';
@@ -99,17 +98,18 @@ class UsersController extends Controller {
 //            $oldRecord['user'][0] = $request_arr['user'];
             $oldRecord['user'][0]['selected_topics'] = $newRecord['selected_topics'];
 
-            $oldRecord['user'][0]['collections'] = $request_arr['user']['collections'];
+//            $oldRecord['user'][0]['collections'] = $request_arr['user']['collections'];
            // $oldRecord['user'][0]['photo_url'] = $request_arr['user']['photo_url'];
             $oldRecord['user'][0]['description'] = $request_arr['user']['description'];
             $oldRecord['user'][0]['display_name'] = $request_arr['user']['display_name'];
+            $oldRecord['user'][0]['first_name'] = $request_arr['user']['first_name'];
+            $oldRecord['user'][0]['last_name'] = $request_arr['user']['last_name'];
             $oldRecord['user'][0]['about_me'] = $request_arr['user']['about_me'];
             $oldRecord['user'][0]['facebook_link'] = $newRecord['facebook_link'];
             $oldRecord['user'][0]['twitter_link'] = $newRecord['twitter_link'];
             $oldRecord['user'][0]['linkedin_link'] = $newRecord['linkedin_link'];
             $oldRecord['user'][0]['googleplus_link'] = $newRecord['googleplus_link'];
             $oldRecord['user'][0]['pinterest_link'] = $newRecord['pinterest_link'];
-            
             $oldRecord['user'][0]['youtube_link'] = $newRecord['youtube_link'];
             $oldRecord['user'][0]['region'] = $request_arr['user']['region'];
             $oldRecord['user'][0]['email'] = $request_arr['user']['email'];

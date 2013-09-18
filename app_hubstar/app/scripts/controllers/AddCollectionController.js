@@ -3,8 +3,9 @@
         collections: [],
         selectedDesc: "",
         selectedTitle: "",
+        selectedCollection: "",
         selectionPop: false,
-        needs: ["mega", "article"],
+        needs: ["mega", "article","collection"],
         newCollectionName: null,
         objectID: "",
         selectedPhotoThumbnailUrl: "",
@@ -35,27 +36,25 @@
             this.set("selectedPhotoThumbnailUrl", photo_image_thumbnail_url);
         },
         submit: function()
-        {
-            for (var i = 0; i < this.get("collections").get("length"); i++)
-            {
-                var collection = this.get("collections").objectAt(i);
-                if (collection.get("title") === this.get("selectedTitle"))
-                {
-                    collection.set("desc", this.get("selectedDesc"));
-                    var content = collection.get("collection_ids");
-                    this.addCollection(collection, content);
+        {            
+            var collectionController = this.get('controllers.collection');
+            var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
+            var content = collection.get("collection_ids");
+            this.addCollection(collection, content);
+            collection.set('optional', localStorage.loginStatus);
+            collection.set('type', 'user');
+            collection.store.save();
+            this.exit();
+        },
+        setSelectedCollection: function(id) {
+            var selectedCollection = null;
+            for (var i = 0; i < this.get("collections").get("length"); i++) {
+                var thisCollection = this.get("collections").objectAt(i);
+                if (id === thisCollection.get("id")) {
+                    selectedCollection = thisCollection;
                 }
             }
-            var that = this;
-            var user = HubStar.User.find(localStorage.loginStatus);
-            user.store.save();
-            user.addObserver('isSaving', function() {
-                if (!user.get('isSaving')) {
-                }
-                else {
-                }
-            });
-            this.exit();
+            this.set('selectedCollection', selectedCollection);
         },
         addCollection: function(collection, content)
         {
@@ -79,21 +78,20 @@
             this.get("controllers.mega").switchCollection();
         }},
         addNewCollection: function()
-        {
-
-            var title = this.get("newCollectionName");
-            if (title !== null) {
-                title = this.checkingValidInput(title);
-                var isInputValid = this.checkInput(title);
-                if (isInputValid) {
-                    var tempCollection = HubStar.Collection.createRecord({"id": title, "title": title, "desc": null, "collection_ids": null, "createdAt": new Date(),
-                     'cover':'https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png'                                
-                    });
-                    this.get("collections").pushObject(tempCollection);
-                    this.set('selectedTitle', tempCollection.get('title'));
-                    $('#recordID').text(this.get('selectedTitle'));
-                    this.set('selectedDesc', "");
-                }
+        {            
+            var user = HubStar.User.find(localStorage.loginStatus);
+            var selectedCollection = HubStar.Collection.createRecord({"id": null, "title": this.get("newCollectionName"), "desc": null, "collection_ids": null, "createdAt": new Date(),
+            'cover': 'https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png', "optional": user.get('id'), 'type': 'user'}); 
+            var collectionController = this.get('controllers.collection');
+            var collection = collectionController.getCreateCollection(selectedCollection, user.get("collections"));
+            if (collection !== null && collection !== "") {
+                this.get("collections").insertAt(0, collection);
+                this.get("collections").store.save();
+                this.set('selectedTitle', collection.get('title'));
+                this.set('selectedCollection', collection);
+                $('#recordID').text(this.get('selectedTitle'));
+            } else {
+                selectedCollection.deleteRecord();
             }
             this.set('newCollectionName', null);
             this.set('selectionPop', !this.get('selectionPop'));
@@ -102,8 +100,9 @@
             this.set('selectionPop', !this.get('selectionPop'));
 
         },
-        chooseRecord: function(record) {
-            this.set('selectedTitle', record);
+        chooseRecord: function(title,id) {
+            this.set('selectedTitle', title);
+            this.setSelectedCollection(id);
             this.selectSelectedDesc();
             $('#recordID').text(this.get('selectedTitle'));
             HubStar.set('chooseCollection', this.get('selectedTitle'));

@@ -59,6 +59,7 @@ HubStar.EditCollectionView = Ember.View.extend({
         var div_class = "." + id + "  #uploadArea";
         $(div_id).attr("style", "display:block");
         $(div_class).attr('style', "display:none");
+        this.get('controller').get('selectedCollection').deleteRecord();
         $('#masonry_user_container').masonry({
             itemSelector: '.box',
             columnWidth: 185,

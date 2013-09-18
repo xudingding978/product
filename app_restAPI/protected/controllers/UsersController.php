@@ -69,7 +69,6 @@ class UsersController extends Controller {
 
             $reponse = $cb->get($doc_id);    
             $respone_user =  CJSON::decode($reponse, true);
-              //          error_log(var_export($respone_user,true));
             $respone_user_data = CJSON::encode($respone_user['user'][0]);
 
             $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $respone_user_data . '}';
@@ -109,7 +108,6 @@ class UsersController extends Controller {
             $oldRecord['user'][0]['linkedin_link'] = $newRecord['linkedin_link'];
             $oldRecord['user'][0]['googleplus_link'] = $newRecord['googleplus_link'];
             $oldRecord['user'][0]['pinterest_link'] = $newRecord['pinterest_link'];
-            
             $oldRecord['user'][0]['youtube_link'] = $newRecord['youtube_link'];
             $oldRecord['user'][0]['region'] = $request_arr['user']['region'];
             $oldRecord['user'][0]['email'] = $request_arr['user']['email'];

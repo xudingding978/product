@@ -2,6 +2,7 @@
 {{#if getProfile}}
 <div class="box col2 noStyle1"  {{action checkingLoginStatus target="view" on="click"}}>
     <div class="masonry-object">
+
         {{render itemProfiles this}}
         {{render "comment" this}}
     </div>

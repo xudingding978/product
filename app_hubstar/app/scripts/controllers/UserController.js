@@ -5,6 +5,7 @@ var collection_desc_record;
 
 HubStar.UserController = Ember.Controller.extend({
     user: null,
+    isFirst:0,
     identifier: "",
     uploadMode: null,
     newCollectionName: null,
@@ -17,7 +18,7 @@ HubStar.UserController = Ember.Controller.extend({
     display_name: "",
     userTage: true,
     currentUserID: "",
-    needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings', 'application', 'platformBar'],
+    needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings', 'application', 'platformBar','collection'],
     facebook: "",
     twitter: "",
     follow_status: false,
@@ -43,6 +44,8 @@ HubStar.UserController = Ember.Controller.extend({
     interest: "interest",
     is_authentic_user: false,
     aboutMe: "",
+    first_name:"",
+    last_name:"",
     is_Photoclick: false,
     is_click: false,
     photo_url_large: "",
@@ -90,6 +93,9 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("description", user.get("description"));
         this.set("display_name", user.get("display_name"));
 
+         this.set("first_name", user.get("first_name"));
+          this.set("last_name", user.get("last_name"));
+
         this.set("identifier", user.get("identifier"));
         this.set("aboutMe", user.get("about_me"));
         this.set("facebook", user.get("facebook_link"));
@@ -101,6 +107,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("location", user.get("region"));
         this.set("email", user.get("email"));
         this.set("password", user.get("password"));
+console.log(user.get('cover_url'));
 
         if(user.get('cover_url')===null||user.get('cover_url')===""||user.get('cover_url')===undefined){
                    user.set('cover_url', 'http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg');
@@ -254,7 +261,7 @@ HubStar.UserController = Ember.Controller.extend({
         return user;
     },
     checkingIdisExsinting: function(id, postOrPut) {
-        var isExsinting=true;
+        var isExsinting = true;
         if (postOrPut === "create") {
             for (var i = 0; i < this.get("collections").get('length'); i++) {
                 if (this.get("collections").objectAt(i).id === id) {
@@ -290,35 +297,49 @@ HubStar.UserController = Ember.Controller.extend({
     submit: function()
     {
 
-        var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
-        var id = this.checkingValidInput(this.selectedCollection.get('title'));
-        var isExsinting = this.checkingIdisExsinting(id, "create");
-        if (isExsinting) {
-            var validID = this.checkingValidInput(id);
-            var checkingCharater = this.specialCharactersChecking(validID);
-            if (checkingCharater) {
-                this.selectedCollection.set('id', validID.toLowerCase());
-                this.selectedCollection.set('title', this.selectedCollection.get('title'));
-                this.selectedCollection.set('cover', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png");
-                if (this.selectedCollection.get('desc') !== null && this.selectedCollection.get('desc') !== "") {
-                    this.selectedCollection.set('desc', desc);
-                } else {
-                    this.selectedCollection.set('desc', "Add a short description to your Collection");
-                }
-                this.get("collections").insertAt(0, this.selectedCollection);
-                HubStar.store.commit();
-                $(".Targeting_Object_front").attr("style", "display:inline-block");
-                $(" #uploadArea").attr('style', "display:none");
-                $(" #uploadObject").attr('style', "display:block");
-            } else {
-                this.get('controllers.applicationFeedback').statusObserver(null, "invalide characters...");
-            }
+        var collectionController = this.get('controllers.collection');
+        var collection = collectionController.getCreateCollection(this.get('selectedCollection'), this.get("collections"));
+    //    console.log(collection);
+//        collection.set('type', 'user');
+//        collection.set('optional', this.get('model').get('id'));
+        if (collection !== null && collection !== "") {
+      
+            this.get("collections").insertAt(0, collection);
+            HubStar.store.save();
+            $(".Targeting_Object_front").attr("style", "display:inline-block");
+            $(" #uploadArea").attr('style', "display:none");
+            $(" #uploadObject").attr('style', "display:block");
             this.statstics();
         }
-//        else {
-//            isExsinting = true;
+//        var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
+//        var id = this.checkingValidInput(this.selectedCollection.get('title'));
+//        var isExsinting = this.checkingIdisExsinting(id, "create");
+//        if (isExsinting) {
+//            var validID = this.checkingValidInput(id);
+//            var checkingCharater = this.specialCharactersChecking(validID);
+//            if (checkingCharater) {
+//                this.selectedCollection.set('id', validID.toLowerCase());
+//                this.selectedCollection.set('title', this.selectedCollection.get('title'));
+//                this.selectedCollection.set('cover', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png");
+//                if (this.selectedCollection.get('desc') !== null && this.selectedCollection.get('desc') !== "") {
+//                    this.selectedCollection.set('desc', desc);
+//                } else {
+//                    this.selectedCollection.set('desc', "Add a short description to your Collection");
+//                }
+//                this.get("collections").insertAt(0, this.selectedCollection);
+//                HubStar.store.commit();
+//                $(".Targeting_Object_front").attr("style", "display:inline-block");
+//                $(" #uploadArea").attr('style', "display:none");
+//                $(" #uploadObject").attr('style', "display:block");
+//                this.statstics();
+//            } else {
+//                this.get('controllers.applicationFeedback').statusObserver(null, "invalide characters...");
+//            }
+//
 //        }
     },
+    
+            
     socialLink: function(link) {
         if (link === 'facebook') {
             window.open(this.get("facebook"));
@@ -347,6 +368,8 @@ HubStar.UserController = Ember.Controller.extend({
             update_user_record.set('collections', this.get('collections'));
             update_user_record.set('description', this.get('description'));
             update_user_record.set('display_name', this.get('display_name'));
+            update_user_record.set('first_name', this.get('first_name'));
+            update_user_record.set('last_name', this.get('last_name'));
             update_user_record.set('about_me', this.get('aboutMe'));
             this.saveLink('facebook_link', 'facebook');
          
@@ -483,7 +506,7 @@ HubStar.UserController = Ember.Controller.extend({
             update_interest_record.set('selected_topics', this.get('interests'));
             HubStar.store.save();
         } else {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Too much comma");
+            this.get('controllers.applicationFeedback').statusObserver(null, "invalid input");
         }
 
     },
@@ -534,10 +557,14 @@ HubStar.UserController = Ember.Controller.extend({
         var message = "Do you wish to delete " + this.get("selectedCollection").get('id') + " ?";
         this.set("message", message);
         this.set('makeSureDelete', true);
-        if (this.get('willDelete')) {
+        if (this.get('willDelete')) {            
+            var tempCollection = this.get("selectedCollection");
+            var delInfo = [tempCollection.id, this.get('model').get('id'), 'user'];
+            delInfo = JSON.stringify(delInfo);
+            requiredBackEnd('collections', 'delete', delInfo, 'POST', function(params) {
+            });
             this.get("collections").removeObject(this.get("selectedCollection"));
             var user = this.getCurrentPage();
-            user.store.save();
             this.cancelDelete();
         } else {
             this.set('willDelete', true);
@@ -562,11 +589,11 @@ HubStar.UserController = Ember.Controller.extend({
     },
     updateCollectionInfo: function()
     {
-
-        var id = this.checkingValidInput(this.selectedCollection.get('id'));
-        var title = this.get("selectedCollection").get("title");
-        this.get("selectedCollection").set("title", title);
-        this.set("selectedTitle", title);
+        var collectionController = this.get('controllers.collection');
+        var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
+        collection.set('optional', this.get('model').get('id'));
+        collection.set('type', 'user');
+        this.set('selectedCollection', collection);
         this.get("selectedCollection").store.save();
         $(".Targeting_Object_front").attr("style", "display:inline-block");
         $(" #uploadArea").attr('style', "display:none");
@@ -585,7 +612,7 @@ HubStar.UserController = Ember.Controller.extend({
     newCollection: function()
     {
         var collection = HubStar.Collection.createRecord({"id": null, "title": null, "desc": null, "collection_ids": null, "createdAt": new Date(),
-            'cover': 'https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png'
+            'cover': 'https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png', "optional": this.get('model').get('id'), 'type': 'user'
         });
         this.set("selectedCollection", collection);
     },
@@ -730,7 +757,7 @@ HubStar.UserController = Ember.Controller.extend({
                         });
                         that.userPhotoEditBackButton();
                         that.userDashboardBackButton();
-                        that.get('controllers.applicationFeedback').set('photo_url', src);
+//                        that.get('controllers.applicationFeedback').set('photo_url', src);
                         that.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully!!!");
                     }
                     else if (width < params.width || height < params.height) {
@@ -770,6 +797,7 @@ HubStar.UserController = Ember.Controller.extend({
             var pb = this.get("controllers.platformBar");
             ac.changeImage(this.get('photo_url_large'));
             pb.changeImage(this.get('photo_url_large'));
+            this.get('controllers.applicationFeedback').set('photo_url', this.get('photo_url_large'));
             model.set('photo_url_large', this.get('newStyleImageSource'));
         } else if (this.get('UploadImageMode') === "User Cover") {
 

@@ -5,7 +5,7 @@ HubStar.EditCollectionView = Ember.View.extend({
 
             $('#masonry_user_container').masonry({
                 itemSelector: '.box',
-                columnWidth: 0,
+                columnWidth: 185,
                 isFitWidth: true
             });
         });
@@ -24,7 +24,7 @@ HubStar.EditCollectionView = Ember.View.extend({
             }, 400, function() {
                 $('#masonry_user_container').masonry({
                     itemSelector: '.box',
-                    columnWidth: 0,
+                    columnWidth: 185,
                     isFitWidth: true
                 });
             });
@@ -39,7 +39,7 @@ HubStar.EditCollectionView = Ember.View.extend({
             }, 400, function() {
                 $('#masonry_user_container').masonry({
                     itemSelector: '.box',
-                    columnWidth: 0,
+                    columnWidth: 185,
                     isFitWidth: true
                 });
             });
@@ -59,9 +59,10 @@ HubStar.EditCollectionView = Ember.View.extend({
         var div_class = "." + id + "  #uploadArea";
         $(div_id).attr("style", "display:block");
         $(div_class).attr('style', "display:none");
+        this.get('controller').get('selectedCollection').deleteRecord();
         $('#masonry_user_container').masonry({
             itemSelector: '.box',
-            columnWidth: 0,
+            columnWidth: 185,
             isFitWidth: true
         });
 

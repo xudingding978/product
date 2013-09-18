@@ -66,8 +66,14 @@
         setSelectedMega: function(id)
         {
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+            if(this.get("currentUser").get("first_name")!=="" ||this.get("currentUser").get("last_name")!=="")
+                {
             this.set("displayName", this.get("currentUser").get("first_name") + " " + this.get("currentUser").get("last_name"));
-            this.set("displayEmail", this.get("currentUser").get("email"));
+                }
+                else{
+                    this.set("displayName", this.get("currentUser").get("display_name") );
+                }
+                this.set("displayEmail", this.get("currentUser").get("email"));
            var idProfile;
             var tempMega = HubStar.Mega.find(id);
 

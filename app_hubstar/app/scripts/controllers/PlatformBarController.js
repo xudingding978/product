@@ -9,10 +9,9 @@ HubStar.PlatformBarController = Ember.ArrayController.extend({
     needs: ["application"],
     init: function()
     {  
-//      this.set("photo_url", HubStar.User.find(localStorage.loginStatus).get('photo_url_large'));
         this.setTopicModel(HubStar.Cate.find({}));
-        
-
+         this.set('userLocation',geoip_city());
+       
     },
     topicSearch: function(search_topic) {
         this.transitionToRoute('searchIndex');

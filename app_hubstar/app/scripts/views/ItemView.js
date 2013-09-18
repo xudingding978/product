@@ -6,7 +6,7 @@ HubStar.ItemView = Ember.View.extend({
             $(function() {
                 $('#masonry_container').masonry({
                     itemSelector: '.box',
-                    columnWidth: 0,
+                    columnWidth: 185,
                     isInitLayout: false,
                     isFitWidth: true
                 });

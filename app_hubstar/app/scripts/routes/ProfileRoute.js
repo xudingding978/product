@@ -1,6 +1,6 @@
 HubStar.ProfileRoute = Ember.Route.extend({
         setupController: function(ProfileController, model) {
-   
+          //  console.log("sssssssssssss");
             HubStar.set('editingMode', 'profile');
             ProfileController.setLocalLoginRecrod();
             /******************  partner cehcking*******************/

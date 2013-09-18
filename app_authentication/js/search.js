@@ -45,7 +45,7 @@ $(function() {
     $container.isotope({
         itemSelector: '.element',
         masonry: {
-            columnWidth: 118,
+            columnWidth: 118, 
             cornerStampSelector: '.corner-stamp'
         },
         getSortData: {

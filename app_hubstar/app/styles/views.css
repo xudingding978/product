@@ -735,7 +735,7 @@ j
 .masonry-object_text{
     color: #404040;
     font-size: 13px;
-    line-height: 1.4;
+    line-height: 141%;
     min-height: 0;
     overflow: hidden;
 }

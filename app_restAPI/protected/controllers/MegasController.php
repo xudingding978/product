@@ -12,6 +12,8 @@ class MegasController extends Controller {
     const JSON_RESPONSE_ROOT_PLURAL = 'megas';
 
     public function actionIndex() {
+
+        
         try {
             $temp = explode("?", $_SERVER['REQUEST_URI']);
             $request_string = $temp [sizeof($temp) - 1];
@@ -34,8 +36,10 @@ class MegasController extends Controller {
                     $record = CJSON::decode($tempRecord, true);
                     $request_string = "RequireType=articleRelatedImage&collection_id=" . $record["collection_id"] . "&owner_profile_id=" . $record["owner_id"];
                 } 
-                
+                    //error_log(var_export($request_string,true));
                     $response = $this->getRequestResult($request_string, self::JSON_RESPONSE_ROOT_PLURAL);
+                    //$r=CJSON::decode($response, true);
+                    //error_log(var_export($r['megas'][0]['profile'],true));
             }            
             $this->sendResponse(200, $response);
         } catch (Exception $exc) {
@@ -44,6 +48,7 @@ class MegasController extends Controller {
     }
 
     public function actionCreate() {
+        error_log("fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
         $mega = $request_arr['mega'];
@@ -57,13 +62,15 @@ class MegasController extends Controller {
 
     public function actionRead() {
         try {
-
+            error_log("ddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
             $cb = $this->couchBaseConnection();
             $docID = $this->getDomain() . "/profiles/" . $id;
             $reponse = $cb->get($docID);
             $reponse = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $reponse . '}';
+            error_log(var_export($reponse,true));
+            
             $this->sendResponse(200, $reponse);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -73,7 +80,7 @@ class MegasController extends Controller {
     public function actionUpdate() {
         $temp = explode("/", $_SERVER['REQUEST_URI']);
         $id = $temp [sizeof($temp) - 1];
-
+        error_log("ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
         $newRecord = file_get_contents('php://input');
         $newRecord = CJSON::decode($newRecord, true);
         $newRecord['id'] = $id;
@@ -212,7 +219,8 @@ class MegasController extends Controller {
                 $likeLength = sizeof(explode(",", $oldRecord["people_like"]));
                 $oldRecord["likes_count"] = $likeLength;
                 if ($cb->set($docID, CJSON::encode($oldRecord))) {
-                    $this->sendResponse(200, $oldRecord["people_like"]);
+                    $people_like=   CJSON::encode($oldRecord["people_like"], true);
+                    $this->sendResponse(200, $people_like);
                 } else {
                     $this->sendResponse(500, "some thing wrong");
                 }

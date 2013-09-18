@@ -5,7 +5,7 @@ HubStar.MasonryCollectionItemsView = Ember.View.extend({
             $(function() {
                 $('#masonry_photo_collection_container').masonry({
                     itemSelector: '.box',
-                    columnWidth: 0,
+                    columnWidth: 185,
                     isFitWidth: true
                 });
             });
@@ -19,7 +19,7 @@ HubStar.MasonryCollectionItemsView = Ember.View.extend({
                 }, 400, function() {
                     $('#masonry_photo_collection_container').masonry({
                         itemSelector: '.box',
-                        columnWidth: 0,
+                        columnWidth: 185,
                         isFitWidth: true
                     });
                 });
@@ -34,7 +34,7 @@ HubStar.MasonryCollectionItemsView = Ember.View.extend({
                 }, 400, function() {
                     $('#masonry_photo_collection_container').masonry({
                         itemSelector: '.box',
-                        columnWidth: 0,
+                        columnWidth: 185,
                         isFitWidth: true
                     });
                 });

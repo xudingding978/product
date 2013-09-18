@@ -1,21 +1,138 @@
+{{#if controller.loadingTime}}
 
-{{#each  content}}
-<div class="col1 box style-box t-style-box" style="text-align: center;">
+{{render loadingSpinner}}
+
+{{/if}}
+{{#each contentProfile}}
+
+<div class="box col2 noStyle1" >
+    <div class="masonry-object">
+
+        <div class="masonry-object_profile-cover">
+            <div class="masonry-object_cover-wapper">
+                <img {{bindAttr src= this.photo_url_large}} style="width: 100%";/>
+            </div>
+        </div>
+
+
+        <div style="position: relative; width: 100%; height: 70px; display: block; z-index: 1"></div>
+
+
+        <div class="masonry-object_profilepic" style="cursor:pointer;" >
+
+            <a class='radius-circle' href="#/profiles/{{unbound this.id}}">
+
+                <img class="easing" {{bindAttr src=this.photo_url}}  />   
+            </a>
+        </div>
+        <br><br>
+
+        <div class="masonry-object_name-position" style="margin-bottom: 5px;"> 
+            <a class="comment-username" style="cursor:pointer; font-size:18px;">{{this.name}} </a>
+        </div>
+
+        {{#if this.follow_status}}
+        {{#if this.following_status}}
+        <div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='icon-exchange' >&nbsp; </i> Following</div>
+        {{else}}
+        <div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='icon-circle-blank' >&nbsp; </i> Following</div>
+        {{/if}}
+        {{else}}
+        {{#if this.following_status}}
+        <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='icon-ok' >&nbsp; </i> Follow</div>
+        {{else}}
+        <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='icon-plus' >&nbsp; </i> Follow</div>
+        {{/if}}
+        {{/if}}
+
+
+
+        <div style="overflow:hidden; width:100%; text-align:center; margin-bottom: 5px;">
+            <ul class="itemprofile">
+                <li class="location_li hint-top hint-rounded" data-hint="Collections">
+                    <a>      <k class="icon-eye-open"> &nbsp{{this.collections_size}} </k></a>
+                </li>
+                <li class="location_li hint-top hint-rounded" data-hint="Partners">
+                    <a>       &nbsp <k class="icon-group">&nbsp {{ this.follower_size}}</k></a>  
+                </li>
+                <li class="location_li hint-top hint-rounded" data-hint="Videos">
+                    <a>        &nbsp <k class="icon-film">&nbsp {{ videolength this.profile_about_us}}</k></a>  
+                </li>
+                <li class="location_li hint-top hint-rounded" data-hint="Ebooks">
+                    <a>        &nbsp <k class="icon-book">&nbsp {{ ebooklength this.profile_about_us}}</k></a>  
+                </li>
+
+            </ul>
+
+        </div>
+        <!--TAGS-->
+
+        <div class="object-tags-box">
+
+            <div class="object-tags">
+                <span class="tags-mark" style="background-color: #427fed"></span>
+                <div class="tags easing">
+                    <div class="tags-new">New </div>
+                    <div class="object-tpye">
+                        <i class="icon-group"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="object-tags ">
+                <span class="tags-mark" style="background-color: #76a7fa"></span>
+                <div class="tags easing tagsappear">
+                    <div class="tags-new">#{{profile_regoin}}</div>                   
+                </div>
+            </div>
+
+            <div class="object-tags ">
+                <span class="tags-mark" style="background-color: #a0c3ff"></span>
+                <div class="tags easing tagsappear">
+                    <div class="tags-new">#{{profile_category}}</div>                   
+                </div>
+            </div>
+
+        </div>
+
+        <!--END TAGS-->
+        <div class="masonry-object_mainfeature" style="">
+
+            <div class="masonry-object_text">
+
+
+                <div class="more_detail" {{bindAttr id="id"}}>          
+                    {{this.profile_cover_text}}
+
+
+                </div>
+
+                <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>
+
+                <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collape</span>
+
+            </div>
+
+        </div>
+        {{render comment this.current}}
+
+    </div>
+</div>
+
+{{/each}}
+
+{{#each  contentUser}}
+<div class=" box col1 style-box t-style-box" style="text-align: center; ">
     <div style="position:relative;height: 100px;overflow: hidden;line-height: 0;">
         <img {{bindAttr src= this.photo_url_large}} style="width:100%;"/>
     </div>
     <div class="user-profilepic-container" style="position:absolute; top: 50px;margin: 0 auto;width: 100px;height: 100px;border: 2px solid #f3f3f3;left: 0;right: 0;">
-        {{#if displayOrNot}}
+
         <a class='radius-circle' href="#/users/{{unbound this.id}}">
 
             <img {{bindAttr src= this.photo_url}} style="width: 100px; height: 100px;"/>
         </a>
-        {{else}}
-        <a class='radius-circle' href="#/profiles/{{unbound this.id}}">
 
-            <img {{bindAttr src= this.photo_url}} style="width: 100px; height: 100px;"/>
-        </a>
-        {{/if}}
     </div>
     <div style="position:relative; height:35px; line-height: 35px;margin: 50px auto 5px;">
         <span style="font-size: 13px;line-height: 15px; text-shadow: 0 1px 0 rgba(255,255,255,0.8); font-weight: bold;">
@@ -23,23 +140,23 @@
         </span>
     </div>
     {{#if this.isUserSelf}}    
-         <div href="#question_modal" role="button" class="disabled-btn" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;">Follow</div>            
+    <div href="#question_modal" role="button" class="disabled-btn" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;">Follow</div>            
     {{else}}
-        {{#if this.follow_status}}
-            {{#if this.following_status}}
-            <div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='icon-exchange' >&nbsp; </i> Following</div>
-            {{else}}
-            <div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='icon-circle-blank' >&nbsp; </i> Following</div>
-            {{/if}}
-        {{else}}
-            {{#if this.following_status}}
-            <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='icon-ok' >&nbsp; </i> Follow</div>
-            {{else}}
-            <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='icon-plus' >&nbsp; </i> Follow</div>
-            {{/if}}
-        {{/if}}
+    {{#if this.follow_status}}
+    {{#if this.following_status}}
+    <div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='icon-exchange' >&nbsp; </i> Following</div>
+    {{else}}
+    <div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='icon-circle-blank' >&nbsp; </i> Following</div>
     {{/if}}
-    
+    {{else}}
+    {{#if this.following_status}}
+    <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='icon-ok' >&nbsp; </i> Follow</div>
+    {{else}}
+    <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='icon-plus' >&nbsp; </i> Follow</div>
+    {{/if}}
+    {{/if}}
+    {{/if}}
+
     <div style="position:relative; background-color: #f3f3f3; height: 25px; width:100%;margin-top: 10px;">
         <ul class="locationandlinks" style="font-size: 12px;height: 20px;margin: 2px auto;width: 100%;line-height: 10px;">
             <li><k class="icon-eye-open">&nbsp;</k>{{this.collections_size}}</li>
@@ -48,7 +165,6 @@
     </div>
 
 </div>
-
 
 <script>
     $(function() {

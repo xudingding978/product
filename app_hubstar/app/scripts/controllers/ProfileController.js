@@ -190,19 +190,17 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     submit: function() {
 
         var collectionController = this.get('controllers.collection');
-        console.log(collectionController);
         var collection = collectionController.getCreateCollection(this.get('selectedCollection'), this.get("collections"));
 //        collection.set('type', 'profile');
 //        collection.set('optional', this.get('model').get('id'));
         if (collection !== null && collection !== "") {
             this.get("collections").insertAt(0, collection);
-            console.log(this.get('collections'));
             HubStar.store.commit();
             $(".Targeting_Object_front").attr("style", "display:inline-block");
             $(" #uploadArea").attr('style', "display:none");
             $(" #uploadObject").attr('style', "display:block");
             this.statstics();
-        }
+        } 
 
 //        var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
 //        var id = this.checkingValidInput(this.selectedCollection.get('title'));

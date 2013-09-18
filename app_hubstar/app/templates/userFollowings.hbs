@@ -1,3 +1,8 @@
+{{#if controller.loadingTime}}
+
+{{render loadingSpinner}}
+
+{{/if}}
 {{#each contentProfile}}
 
 <div class="box col2 noStyle1" >
@@ -113,15 +118,7 @@
 
     </div>
 </div>
-<script>
-    $(function() {
-        var $container = $('#masonry_user_container');
-        window.setTimeout(function() {
-            $container.masonry();
-            $container.masonry('reload');
-        }, 10);
-    });
-</script>
+
 {{/each}}
 
 {{#each  contentUser}}

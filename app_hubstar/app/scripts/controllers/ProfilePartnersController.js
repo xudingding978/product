@@ -17,6 +17,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
         this.set('content', []);
         this.set("model", model);
         this.set('clientID', model.id);
+        this.set('loadingTime', true);
         this.set('partnerID', model.get('profile_partner_ids'));
         if (this.get('partnerID') !== null && this.get('partnerID') !== 'undefined' && this.get('partnerID') !== "") {
             var data = HubStar.Mega.find({RequireType: "partner", profile_partner_ids: this.get('partnerID')});
@@ -29,14 +30,14 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
                         that.get("content").pushObject(tempmega);
                         //console.log(tempmega);
                     }
-                    
+
                     var lastPositionId = HubStar.get('lastPositionId');
                     var lastPosition = HubStar.get("scrollPartenerPosition");
                     if (model.id === lastPositionId)
                     {
                         $(window).scrollTop(lastPosition);
                     }
-
+                    that.set('loadingTime', false);
                 }
             });
         }
@@ -51,7 +52,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
         this.checkAuthenticUser();
     }
     ,
-    deleteSelectedPartner: function(idDel) {       
+    deleteSelectedPartner: function(idDel) {
         if (idDel !== undefined)
         {
             this.set("delID", idDel);
@@ -59,7 +60,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
         else
         {
             idDel = this.get("delID");
-        }        
+        }
         var message = "Do you wish to remove this partner ?";
         this.set("message", message);
         this.set('makeSureDelete', true);
@@ -70,20 +71,20 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
             for (var i = 0; i < ids.length; i++)
             {
                 if (idDel !== ids[i])
-                {                 
-                    delResult = delResult + ids[i]+",";                    
+                {
+                    delResult = delResult + ids[i] + ",";
                 }
             }
-            delResult=delResult.substr(0,delResult.length-1);
+            delResult = delResult.substr(0, delResult.length - 1);
             this.set('partnerID', delResult);
             //console.log(this.get('partnerID'));
 
-            var profileOwner = HubStar.Profile.find(this.get('clientID'));           
+            var profileOwner = HubStar.Profile.find(this.get('clientID'));
             profileOwner.set('profile_partner_ids', this.get('partnerID'));
             //+console.log(profileOwner.get("profile_partner_ids"));
             this.removePartnerObject(idDel);
-          // HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, profileOwner);
-          HubStar.store.commit();
+            // HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, profileOwner);
+            HubStar.store.commit();
             this.get('controllers.profile').paternsStatistics(this.get('content').get("length"));
             $('#masonry_user_container').masonry("reload");
             this.cancelDelete();
@@ -136,8 +137,8 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
     {
         var profileOwner = HubStar.Profile.find(this.get('clientID'));
         profileOwner.set('profile_partner_ids', this.get('partnerID'));
-       // HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, profileOwner);
-      HubStar.store.commit();
+        // HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, profileOwner);
+        HubStar.store.commit();
         var newPartner = HubStar.Mega.find(client_id);
         this.get("content").pushObject(newPartner);
 

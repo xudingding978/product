@@ -299,7 +299,7 @@ HubStar.UserController = Ember.Controller.extend({
 
         var collectionController = this.get('controllers.collection');
         var collection = collectionController.getCreateCollection(this.get('selectedCollection'), this.get("collections"));
-    //    console.log(collection);
+        console.log(collection);
 //        collection.set('type', 'user');
 //        collection.set('optional', this.get('model').get('id'));
         if (collection !== null && collection !== "") {
@@ -615,6 +615,7 @@ HubStar.UserController = Ember.Controller.extend({
         var collection = HubStar.Collection.createRecord({"id": null, "title": null, "desc": null, "collection_ids": null, "createdAt": new Date(),
             'cover': 'https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png', "optional": this.get('model').get('id'), 'type': 'user'
         });
+        console.log("sssssssssss");
         this.set("selectedCollection", collection);
     },
     checkAuthenticUser: function() {

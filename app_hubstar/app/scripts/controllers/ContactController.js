@@ -26,7 +26,7 @@
         projectBudget: null,
         projectExperience: null,
         email_title:"",
-        needs: ["mega", "profile", 'article'],
+        needs: ["mega", "profile", 'article','applicationFeedback'],
         init: function() {
             this.set('categorys', []);
 
@@ -170,6 +170,7 @@
                 "projectSubCategoryItem": projectSubCategoryItem
             });
             tempEmail.store.commit();
+            this.get('controllers.applicationFeedback').statusObserver(null, "Email has been Sent!!!");
             this.closeContact();
         },
         dropdown: function(checking) {

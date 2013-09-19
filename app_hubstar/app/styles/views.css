@@ -1,5 +1,16 @@
 /*BASIC STYLE*/
 
+#master_bg
+{
+    background:#fff url('../images/bgtexture.png') repeat;
+    width:100%;
+    height:100%;
+    position:fixed;
+    z-index:1;
+    top:0;
+    left:0;
+}
+
 .dropdownicon{
     position: absolute;
     right: 15px;
@@ -735,7 +746,7 @@ j
 .masonry-object_text{
     color: #404040;
     font-size: 13px;
-    line-height: 1.4;
+    line-height: 144%;
     min-height: 0;
     overflow: hidden;
 }

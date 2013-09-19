@@ -27,13 +27,12 @@ class CommonUserIdentity extends CUserIdentity {
         if ($user === null)
             $this->errorCode = self::ERROR_USERNAME_INVALID;
         else
-        if ($user->check($this->password)) {
+        if ($user->PWD_HASH===$this->password) {
+            
+            error_log(var_export($user->check($this->password),true));
             $this->_id = $user->REC_ID;
             $this->errorCode = self::ERROR_NONE;
         } else {
-
-
-
             //         $_SESSION['user_REC_ID'] = $user->REC_ID;
             $this->errorCode = self::ERROR_PASSWORD_INVALID;
         }

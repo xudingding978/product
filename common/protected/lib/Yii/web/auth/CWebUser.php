@@ -222,6 +222,7 @@ class CWebUser extends CApplicationComponent implements IWebUser
 	{
 		$id=$identity->getId();
 		$states=$identity->getPersistentStates();
+                error_log('kkkkkkkkkkkkkkkkkk');
 		if($this->beforeLogin($id,$states,false))
 		{
 			$this->changeIdentity($id,$identity->getName(),$states);

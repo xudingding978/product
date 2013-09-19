@@ -53,21 +53,37 @@ class LoginForm extends CFormModel {
                 $this->addError('password', 'Incorrect username or password.');
         }
     }
-
+ 
     /**
      * Logs in the user using the given username and password in the model.
      * @return boolean whether login is successful
      */
     public function login() {
-          error_log('login'.var_export( $this->_identity,true));
-        
-        if ($this->_identity !== null) {
+          error_log('login'.var_export( $this->username,true));
+//         $user = User::model()
+//                ->findByAttributes(array('USER_NAME'=>$this->username));
+//         error_log(var_export($user->PWD_HASH,true));
+//         
+//              if ($this->password !== $user->PWD_HASH) {
+//                  error_log('false');
+//            return false;
+//            
+//        }
+//      else  if ($this->password === $user->PWD_HASH) {
+//        error_log('true');
+//            $duration = $this->rememberMe ? 3600 * 24 * 30 : 300; // 30 days
+//            Yii::app()->user->login($this->_identity, $duration);
+//            return true;
+//          }
+//         
+         
+         
+        if ($this->_identity === null) {
             $this->_identity = new CommonUserIdentity($this->username, $this->password);
             $this->_identity->authenticate();
-            error_log('false'.var_export( $this->_identity->authenticate(),true));
-            error_log('false'.var_export( $this->password,true));
+            
         }
-      else  if ($this->_identity->errorCode === CommonUserIdentity::ERROR_NONE) {
+      if ($this->_identity->errorCode === CommonUserIdentity::ERROR_NONE) {
           error_log('true'.var_export( CommonUserIdentity::ERROR_NONE,true));
             $duration = $this->rememberMe ? 3600 * 24 * 30 : 300; // 30 days
             Yii::app()->user->login($this->_identity, $duration);

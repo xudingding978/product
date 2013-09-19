@@ -6,28 +6,29 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
     
     setFeedback: function(status) {
      
-          this.set('is_remove',false);
+       
+          console.log("false");
        if(this.get('is_remove')===false){
-             
+             console.log("11111");
            this.set('status', status);
         this.set('feedback', true);
         var currentUser = HubStar.User.find(localStorage.loginStatus);
         this.set('photo_url', currentUser.get('photo_url_large'));
         Ember.run.later(function() {
-
-    
+         console.log("2222");
+             
           $('.fresh-message').show().animate({
-                    top:45      
+                    top:20      
                 }, 400);
               $('.fresh-profile-pic').show().animate({
-                    top:25      
+                    top:5      
                 }, 400);
-    
+    console.log("33333");
                 $('.fresh-message').show().delay(5000).animate({
-                  top:-20              
+                  top:-85              
                 }, 400);        
                 $('.fresh-profile-pic').show().delay(5000).animate({
-                    top:-40                 
+                    top:-110                 
                 }, 400);
            
           
@@ -49,15 +50,24 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
 
        if(this.get('is_remove')===true){
    
-            $('.fresh-message').hide("slow").animate({
-        
+//            $('.fresh-message').attr('style', "display:none").animate({
+//       
+//                }, 400);
+//             $('.fresh-profile-pic').attr('style', "display:none").animate({
+//                            
+//                }, 400);        
+//
+                $('.fresh-message').hide('1000').animate({                        
                 }, 400);
-             $('.fresh-profile-pic').hide("slow").animate({
-                               
-                }, 400);        
+             $('.fresh-profile-pic').hide('1000').animate({                        
+             }, 400);  
+
+               
           this.set('is_remove',false);
 
-     }},
+     }
+ 
+     },
             
             
             

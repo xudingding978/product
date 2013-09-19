@@ -11,6 +11,25 @@
     background-color: rgba(50,50,50,0.4);
     box-shadow: 0 0 10px #fff;
 }
+#masonry_user_container
+{
+    min-height:400px;
+    /* these styles might break masonry TESTING*/
+    clear:both;
+    width:0;
+    overflow:hidden;
+}
+#masonry_user_container[style="position: relative; height: 0px; width: 185px;"],
+#masonry_user_container[style="position:relative;height:0px;width: 185px;"],
+#masonry_user_container[style='position: relative; height: 0px; width: 185px;'],
+#masonry_user_container[style='position:relative;height:0px;width: 185px;'],
+#masonry_container[style="position: relative; height: 177px; width: 370px;"],
+#masonry_container[style="position:relative;height:177px;width:370px;"],
+#masonry_container[style='position: relative; height: 177px; width: 370px;'],
+#masonry_container[style='position:relative;height:177px;width:370px;']{
+       width:0!important;
+       overflow:hidden;
+}
 .masonry_push_down{
     margin-top: 85px;
 }

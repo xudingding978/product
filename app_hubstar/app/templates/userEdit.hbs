@@ -17,8 +17,7 @@
 
             <div class="tab-pane active" id="tab1">
                 <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold">CHANGE COVER</div>
-
-                
+  
                 <div id="dragAndDroppArea" class="dragndropbox" style="display:block;height: 290px;width: 100%;top: 0;background-color: #fff; padding: 0;overflow: hidden;position: relative;">
 
                     <div class='styleup_uploadbox easing' style="height: 275px; width: 95%;position: absolute;">
@@ -80,24 +79,21 @@
                         </tr>
 
                           <tr>
-                                <td>Name:</td>
+                                <td>Name*:</td>
                                 <td>
                                     <div  style="display: block; margin-bottom: 5px;" >
 
-                                        <div  style="margin: 0;width: 48%;display: inline-block;">
+                                        <div  id="first_name" style="margin: 0;width: 49%;display: inline-block;">
                                             {{view Ember.TextField valueBinding="first_name"  placeholder="First Name"}}
                                         </div>
-                                        <div style="margin: 0;width: 48%;display: inline-block;">
+                                        <div id="last_name" style="margin: 0;width: 49%;display: inline-block;">
                                             {{view Ember.TextField valueBinding="last_name"  placeholder="Last Name"}}
                                         </div>
 
                                     </div>
                                 </td>
                         </tr>
-                            
-                            
-                            
-                            
+                  
                         <tr>
                             <td>Email:</td>
                             <td>
@@ -105,7 +101,7 @@
 
                                     <div  id="email" class="disabled-btn" style="margin: 0;width: 100%;">
 
-                                        {{email  }}
+                                        {{email}}
                                     </div>
                                 </div>
                             </td>

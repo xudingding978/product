@@ -59,7 +59,7 @@
         },
         addCollection: function(collection, content)
         {
-            if (content === null) {
+            if (content === null||content===undefined||content==="") {
                 collection.set("collection_ids", this.get("objectID"));
             }
 

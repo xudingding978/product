@@ -108,7 +108,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("location", user.get("region"));
         this.set("email", user.get("email"));
         this.set("password", user.get("password"));
-console.log(user.get('cover_url'));
+//console.log(user.get('cover_url'));
 
         if(user.get('cover_url')===null||user.get('cover_url')===""||user.get('cover_url')===undefined){
                    user.set('cover_url', 'http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg');
@@ -595,6 +595,7 @@ console.log(user.get('cover_url'));
         this.setIntersetsArr(user);
     },
     cancelDelete: function() {
+    //console.log("sssssssssssssssssssssssssssss");
         this.set('willDelete', false);
         this.set('makeSureDelete', false);
     },

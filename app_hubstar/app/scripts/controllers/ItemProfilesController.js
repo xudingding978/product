@@ -10,29 +10,37 @@ HubStar.ItemProfilesController = Ember.Controller.extend({
     isPartner: false,
     is_authentic_user: false,
     is_profile_editing_mode: false,
-    needs: ['profile', 'permission','profilePartners'],
-    init: function() {
-        //console.log("sssssssssssssssssssss");
+    follow_status:false,
+    needs: ['profile', 'permission','profilePartners','userFollowings'],
+    init: function() {      
         var address = document.URL;
-        //this.is_authentic_user= false;
-        // this.is_profile_editing_mode= false;
         if (address.indexOf('profile') !== -1)
         {
-            //console.log("partner");
             isPartner = true;
             this.checkEditingMode();
         }
-        this.set("profiles", HubStar.Mega.find());
-        //  this.set("profiles", HubStar.Mega.find());
-        //console.log(HubStar.Mega.find());
-        // this.partnerStatistic();
-        //  this.collectionStatistic();      
+        this.set("profiles", HubStar.Mega.find([]));
     },
+
+    followThisUser:function(profile)
+    {       
+         if (profile.get("isFollowCurrentUser") === false)
+        {          
+                  this.get("controllers.userFollowings").followProfile(profile.get("id"));
+                profile.set('isFollowCurrentUser', true);           
+        }
+        else
+        {          
+               this.get("controllers.userFollowings").unFollowProfile(profile.get("id"));
+              profile.set('isFollowCurrentUser', false);          
+        }       
+    },
+     
     checkAuthenticUser: function() {
         var currentUser = HubStar.User.find(localStorage.loginStatus);
         var current_user_email = currentUser.get('email');
         var permissionController = this.get('controllers.permission');
-        var that = this;
+        var that = this;      
         var is_authentic_user = permissionController.checkAuthenticUser(that.get("pageModel").get("owner"), that.get("pageModel").get("profile_editors"), current_user_email);
 
         currentUser.addObserver('isLoaded', function() {

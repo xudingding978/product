@@ -39,7 +39,7 @@
             <div id="show_interest" >
 
                 <div class="show-interest easing">
-                    <div style="font-weight: bold;line-height: 20px; color: #777; font-size: 17px;margin-bottom: 5px; display:inline-block;">INTEREST</div>
+                    <div style="font-weight: bold;line-height: 20px; color: #777; font-size: 17px;margin-bottom: 5px; display:inline-block;">INTERESTS</div>
 
                     {{#if controller.is_authentic_user}}
 
@@ -87,10 +87,8 @@
 
         {{/if}}
     </div>
-    <div  class="user-board_right style-box" style="height:800px;">
-
-
-        <div id="user-board_right_front" style="height:600px;">
+    <div  class="user-board_right style-box" >
+        <div id="user-board_right_front" >
             <div class="user-cover">
 
                 <img {{bindAttr src= "cover_url"}} style="width:100%;"/>
@@ -104,38 +102,8 @@
                 <div style="font-size: 26px;font-weight: bold; line-height: 30px;  color: white;position: absolute;top: 100px;margin:0 30px;text-shadow: 0 0 10px #777;">{{display_name}}</div>
             </div>
 
-            <div style="height: 540px; padding: 10px 20px;display: inline-block;position: relative;width: 100%;">
-
-               
-                <div class="main_aboutus" style="">
-                    <div>
-                        <div style="display: inline-block;">
-                            <p style='margin-bottom: 20px;display: inline-block; font-size: 18px;'>
-                                <i class='icon-group' style='margin-right: 10px;display: inline-block;'></i>About Me
-                            </p>
-
-                            {{#if controller.editingAbout}}
-                            <div style="height: 400px;">
-                                <div >  {{view  HubStar.HtmlEditorView}}</div>
-                            </div>
-                            <div style="float: right;">
-                                <div class="new-btn blue-btn" {{action yes controller.aboutMe}}><i class="icon-ok icon-white"></i></div>
-                                <div class="new-btn" {{action no controller.aboutMe}}><i class="icon-remove"></i></div>
-                            </div>
-                            {{else}}
-                            {{#if controller.is_authentic_user}}
-
-                            <div class="edit-btn hint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing controller.about_me controller.aboutMe}}>
-
-                                 <i class="icon-edit"></i>
-                            </div>
-                            {{/if}}
-                        </div>
-                        <div style="display: block;">{{{about_me}}}</div>
-                        {{/if}}
-                    </div>
-                </div>
-               
+            <div style="height: 240px; padding: 10px 20px;display: inline-block;position: relative;width: 100%;">
+                <div style="font-size:15px;line-height: 20px;margin: 5px 20px;color: #888; overflow: hidden;height: 200px; text-overflow: ellipsis;">{{{aboutMe}}}</div>
             </div>
         </div>
 

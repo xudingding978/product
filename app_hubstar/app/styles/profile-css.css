@@ -393,7 +393,7 @@
     margin: auto;
     left: 0;
     right: 1000px;
-    top: -40PX;
+    top: -110PX;
     box-shadow: 0 0 10px #777;
     border: 3px solid #f3f3f3;
 }
@@ -410,15 +410,15 @@
     text-align: center;
     z-index: 11;
 
-    top: -20px;
-    box-shadow: 0 0 10px #000;
+    top: -85px;
+    box-shadow: 0px 1px 5px #555;
     width: 1000px;
     margin: auto;
     display: block;
-    border-radius: 0 0 3px 3px;
-    -webkit-border-radius: 0 0 3px 3px;
-    -moz-border-radius: 0 0 3px 3px;
-    -o-border-radius: 0 0 3px 3px;
+    border-radius: 0 3px 3px 0;
+    -webkit-border-radius: 0 3px 3px 0;
+    -moz-border-radius: 0 3px 3px 0;
+    -o-border-radius: 0 3px 3px 0;
     left: 0;
     right: 0;
 }

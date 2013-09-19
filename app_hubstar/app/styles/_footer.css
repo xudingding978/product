@@ -8,6 +8,10 @@
     background: #333333 url('../images/footerbg.png') repeat-x;
     color: white;
     position: relative;
+    
+    float:left;
+    clear:both;
+    width:100%;
 }
 
 .footer_contentbox {

@@ -5,7 +5,6 @@ var collection_desc_record;
 
 HubStar.UserController = Ember.Controller.extend({
     user: null,
-    isFirst:0,
     identifier: "",
     uploadMode: null,
     newCollectionName: null,
@@ -85,8 +84,6 @@ HubStar.UserController = Ember.Controller.extend({
 
         var user = this.getCurrentUser();
         this.setIntersetsArr(user);
-        this.set("collections", user.get("collections"));
-        this.set("description", user.get("description"));
         this.set("model", user);
         this.set("user", user);
         this.set("collections", user.get("collections"));
@@ -107,7 +104,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("location", user.get("region"));
         this.set("email", user.get("email"));
         this.set("password", user.get("password"));
-console.log(user.get('cover_url'));
+        
 
         if(user.get('cover_url')===null||user.get('cover_url')===""||user.get('cover_url')===undefined){
                    user.set('cover_url', 'http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg');
@@ -299,9 +296,6 @@ console.log(user.get('cover_url'));
 
         var collectionController = this.get('controllers.collection');
         var collection = collectionController.getCreateCollection(this.get('selectedCollection'), this.get("collections"));
-    //    console.log(collection);
-//        collection.set('type', 'user');
-//        collection.set('optional', this.get('model').get('id'));
         if (collection !== null && collection !== "") {
       
             this.get("collections").insertAt(0, collection);
@@ -311,32 +305,6 @@ console.log(user.get('cover_url'));
             $(" #uploadObject").attr('style', "display:block");
             this.statstics();
         }
-//        var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
-//        var id = this.checkingValidInput(this.selectedCollection.get('title'));
-//        var isExsinting = this.checkingIdisExsinting(id, "create");
-//        if (isExsinting) {
-//            var validID = this.checkingValidInput(id);
-//            var checkingCharater = this.specialCharactersChecking(validID);
-//            if (checkingCharater) {
-//                this.selectedCollection.set('id', validID.toLowerCase());
-//                this.selectedCollection.set('title', this.selectedCollection.get('title'));
-//                this.selectedCollection.set('cover', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png");
-//                if (this.selectedCollection.get('desc') !== null && this.selectedCollection.get('desc') !== "") {
-//                    this.selectedCollection.set('desc', desc);
-//                } else {
-//                    this.selectedCollection.set('desc', "Add a short description to your Collection");
-//                }
-//                this.get("collections").insertAt(0, this.selectedCollection);
-//                HubStar.store.commit();
-//                $(".Targeting_Object_front").attr("style", "display:inline-block");
-//                $(" #uploadArea").attr('style', "display:none");
-//                $(" #uploadObject").attr('style', "display:block");
-//                this.statstics();
-//            } else {
-//                this.get('controllers.applicationFeedback').statusObserver(null, "invalide characters...");
-//            }
-//
-//        }
     },
     
             
@@ -371,8 +339,7 @@ console.log(user.get('cover_url'));
             update_user_record.set('first_name', this.get('first_name'));
             update_user_record.set('last_name', this.get('last_name'));
             update_user_record.set('about_me', this.get('aboutMe'));
-            this.saveLink('facebook_link', 'facebook');
-         
+            this.saveLink('facebook_link', 'facebook'); 
             this.saveLink('twitter_link','twitter');
             this.saveLink('googleplus_link', 'googleplus');
             this.saveLink('pinterest_link', 'pinterest');
@@ -397,13 +364,20 @@ console.log(user.get('cover_url'));
             this.isUrlValid = isUrlValid;
             this.isEmailValid = isEmailValid;
             this.shouldInclude = shouldInclude;
+      
         }
         var checkList = new Array();
         var result;
-        var displayName = new checkObject("displayName", this.get('display_name'), 128, null, null, null);
+        var displayName = new checkObject("displayName", this.get('display_name'), 128, null, null, null,true);
         checkList.push(displayName);
         var email = new checkObject("email", this.get('email'), 128, null, true, null);
         checkList.push(email);
+        
+        var first_name = new checkObject("first_name", this.get('first_name'), 128, null, null, null);
+        checkList.push(first_name);
+        var last_name = new checkObject("last_name", this.get('last_name'), 128, null, null, null);
+        checkList.push(last_name);
+        
         var aboutMe = new checkObject("aboutMe", this.get('aboutMe'), 4096, null, null, null);
         checkList.push(aboutMe);
         var location = new checkObject("location", this.get('location'), 128, null, null, null);
@@ -431,15 +405,22 @@ console.log(user.get('cover_url'));
             var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
             document.getElementById(checkList[i].id).style.border = '';
 
-
             if (checkList[i].input !== null && checkList[i].input.length > checkList[i].length)
-
             {
-
                 result = false;
                 document.getElementById(checkList[i].id).style.border = '2px solid red';
                 break;
             }
+
+if (checkList[i].id === 'first_name' || checkList[i].id === 'last_name')
+            {
+                if( checkList[i].input===null ||checkList[i].input===""){
+                result = false;
+                document.getElementById(checkList[i].id).style.border = '2px solid red';
+                break;
+                }
+            }
+
 
             if (checkList[i].input !== null && checkList[i].isUrlValid === true)
             {
@@ -584,6 +565,7 @@ console.log(user.get('cover_url'));
         this.setIntersetsArr(user);
     },
     cancelDelete: function() {
+    //console.log("sssssssssssssssssssssssssssss");
         this.set('willDelete', false);
         this.set('makeSureDelete', false);
     },
@@ -614,6 +596,7 @@ console.log(user.get('cover_url'));
         var collection = HubStar.Collection.createRecord({"id": null, "title": null, "desc": null, "collection_ids": null, "createdAt": new Date(),
             'cover': 'https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png', "optional": this.get('model').get('id'), 'type': 'user'
         });
+        console.log("sssssssssss");
         this.set("selectedCollection", collection);
     },
     checkAuthenticUser: function() {

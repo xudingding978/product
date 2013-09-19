@@ -116,9 +116,13 @@ class SiteController extends Controller {
         // collect user input data
         if (isset($_POST['LoginForm'])) {
             $model->attributes = $_POST['LoginForm'];
+            error_log(var_export($model->attributes ,true));
             // validate user input and redirect to the previous page if valid
             if ($model->validate() && $model->login())
-                $this->render('//user/close');
+            {
+                echo "ok";
+            }
+//                $this->render('//user/close');
         }
         // display the login form                
         $this->render('login', array('model' => $model));

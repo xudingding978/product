@@ -593,10 +593,10 @@ if (checkList[i].id === 'first_name' || checkList[i].id === 'last_name')
     },
     newCollection: function()
     {
-//        var collection = HubStar.Collection.createRecord({"id": null, "title": null, "desc": null, "collection_ids": null, "createdAt": new Date(),
-//            'cover': 'https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png', "optional": this.get('model').get('id'), 'type': 'user'
-//        });
-//        this.set("selectedCollection", collection);
+        var collection = HubStar.Collection.createRecord({"id": null, "title": null, "desc": null, "collection_ids": null, "createdAt": new Date(),
+            'cover': 'https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png', "optional": this.get('model').get('id'), 'type': 'user'
+        });
+        this.set("selectedCollection", collection);
     },
     checkAuthenticUser: function() {
         {

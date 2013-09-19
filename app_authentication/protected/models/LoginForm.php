@@ -64,12 +64,14 @@ class LoginForm extends CFormModel
 		{
 			$this->_identity=new CommonUserIdentity($this->username,$this->password);
 			$this->_identity->authenticate();
+                              error_log(var_export($this->username);
 		}
 		if($this->_identity->errorCode===CommonUserIdentity::ERROR_NONE)
 		{
 			$duration=$this->rememberMe ? 3600*24*30 : 300; // 30 days
 			Yii::app()->user->login($this->_identity,$duration);
 			return true;
+                        
 		}
 		else
 			return false;

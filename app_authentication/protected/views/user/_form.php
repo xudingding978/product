@@ -25,14 +25,14 @@
 
     <div class="row">
         <?php echo $form->labelEx($model, 'PWD_HASH', array('class' => '', 'style' => 'display:inline-block;')); ?>
-        <?php echo $form->passwordField($model, 'PWD_HASH', array('class' => 'inputbox', 'style' => 'display:inline-block;')); ?>
-        <?php echo $form->error($model, 'PWD_HASH'); ?>
+        <?php echo $form->passwordField($model, 'PWD_HASH', array('class' => 'inputbox', 'style' => 'display:inline-block;','placeholder'=>"Minimum 6 characters")); ?>
+   
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($model, 'repeat_password', array('class' => '', 'style' => 'display:inline-block;')); ?>
-        <?php echo $form->passwordField($model, 'repeat_password', array('class' => 'inputbox', 'style' => 'display:inline-block;')); ?>
-        <?php echo $form->error($model, 'repeat_password'); ?>
+        <?php echo $form->passwordField($model, 'repeat_password', array('class' => 'inputbox', 'style' => 'display:inline-block;','placeholder'=>"Minimum 6 characters")); ?>
+
     </div>
 
     <div class="row">

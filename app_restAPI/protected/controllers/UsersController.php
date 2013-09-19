@@ -134,7 +134,7 @@ class UsersController extends Controller {
             echo $exc->getTraceAsString();
         }
     }
-
+   
     public function actionOptions() {
 
         $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);

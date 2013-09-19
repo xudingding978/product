@@ -5,7 +5,7 @@
         selectedTitle: "",
         selectedCollection: "",
         selectionPop: false,
-        needs: ["mega", "article","collection"],
+        needs: ["mega", "article","collection","applicationFeedback"],
         newCollectionName: null,
         objectID: "",
         selectedPhotoThumbnailUrl: "",
@@ -44,6 +44,7 @@
             collection.set('optional', localStorage.loginStatus);
             collection.set('type', 'user');
             collection.store.save();
+            this.get('controllers.applicationFeedback').statusObserver(null, "Save photo Successfully!!!");
             this.exit();
         },
         setSelectedCollection: function(id) {
@@ -58,7 +59,7 @@
         },
         addCollection: function(collection, content)
         {
-            if (content === null) {
+            if (content === null||content===undefined||content==="") {
                 collection.set("collection_ids", this.get("objectID"));
             }
 

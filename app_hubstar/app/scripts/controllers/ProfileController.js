@@ -1,5 +1,5 @@
 var profile_record;
-var about_record;
+
 //var contact_record;
 var first_name_record;
 var last_name_record;
@@ -102,7 +102,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     init: function() {
 
         this.set('is_authentic_user', false);
-        //console.log("ssssssssssssssss");
+  
     },
     getCurrentProfile: function(id) {
         this.set('currentUserID', id);
@@ -598,7 +598,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set("profile_name", this.get('profile_name'));
         update_profile_record.set("profile_isActive", this.get("projectActiveDropdownContent"));
         update_profile_record.set("profile_isDeleted", this.get("projectDeleteDropdownContent"));
-        update_profile_record.set("profile_about_us", this.get("about_me"));
+        update_profile_record.set("profile_about_us", editor.getValue());
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
         if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
             update_profile_record.get('stateManager').transitionTo('loaded.saved');

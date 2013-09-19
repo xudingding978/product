@@ -89,7 +89,7 @@
                                             <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin:10px auto;display: block;width: 150px;"{{action followThisProfile}}><i class='icon-plus' >&nbsp; </i> Follow</div>
 
                                             {{/if}}
-                                             
+
                                         </div>
                                         <div style="padding: 0;border-top:1px solid #ccc;border-bottom: 1px solid #fff;font-size: 14px;width:139%;float:left;width:95%;margin:20px 2.5%;height:2px;"></div>
                                         <!--PROFILE CONTACT SECTION-->
@@ -247,16 +247,17 @@
                                     <div class="profile-main-content" style="margin: 20px auto;width: 90%;">
 
                                         <div class="main_aboutus" style="">
-                                            <div>
-                                                <div style="display: inline-block;">
-                                                    <p style='margin-bottom: 20px;display: inline-block; font-size: 18px;'>
-                                                        <i class='icon-group' style='margin-right: 10px;display: inline-block;'></i>About Us
-                                                    </p>
+                                            <div class="main_aboutus" style="">
+                                                <div>
+                                                    <div style="display: inline-block;">
+                                                        <p style='margin-bottom: 20px;display: inline-block; font-size: 18px;'>
+                                                            <i class='icon-group' style='margin-right: 10px;display: inline-block;'></i>About Us
+                                                        </p>
 
-                                                    {{#if controller.editingAbout}}
-                                                    <div style="height: 300px;">
-                                                        {{view Ember.TextArea valueBinding="about_me"  id="" class=""  }}
-                                                    </div>
+                                                        {{#if controller.editingAbout}}
+                                                        <div style="height: 300px;">
+                                                            {{view HubStar.HtmlEditorView}}
+                                                        </div>   </div>
                                                     <div style="float: right;">
                                                         <div class="new-btn blue-btn" {{action yes controller.aboutMe}}><i class="icon-ok icon-white"></i></div>
                                                         <div class="new-btn" {{action no controller.aboutMe}}><i class="icon-remove"></i></div>
@@ -270,9 +271,11 @@
                                                     </div>
                                                     {{/if}}
                                                 </div>
-                                                <div style="display: block;">{{{about_me}}}</div>
+                                                <div style="display: block;" id="wysihtml5-editor">{{{about_me}}}</div>
                                                 {{/if}}
                                             </div>
+
+
                                         </div>
 
 

@@ -38,7 +38,7 @@ HubStar.CollectionController = Ember.Controller.extend({
     },
     checkingIdisExsinting: function(id, postOrPut) {
         var isExsinting = true;
-        console.log(this.get("collections"));
+        //console.log(this.get("collections"));
         if (postOrPut === "create") {
             for (var i = 0; i < this.get("collections").get('length'); i++) {
                 if (this.get("collections").objectAt(i).get("id") === id) {
@@ -56,7 +56,7 @@ HubStar.CollectionController = Ember.Controller.extend({
     },
             
     getUpdateCollection: function(selectedCollection) {
-        console.log(selectedCollection);
+        //console.log(selectedCollection);
         var desc = this.checkingValidInput(selectedCollection.get('desc'));
         var id = this.checkingValidInput(selectedCollection.get('id'));
         var title = selectedCollection.get("title");

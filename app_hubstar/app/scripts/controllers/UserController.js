@@ -89,8 +89,10 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("collections", user.get("collections"));
         this.set("description", user.get("description"));
         this.set("display_name", user.get("display_name"));
-        this.set("first_name", user.get("first_name"));
-        this.set("last_name", user.get("last_name"));
+
+         this.set("first_name", user.get("first_name"));
+          this.set("last_name", user.get("last_name"));
+
         this.set("identifier", user.get("identifier"));
         this.set("aboutMe", user.get("about_me"));
         this.set("facebook", user.get("facebook_link"));

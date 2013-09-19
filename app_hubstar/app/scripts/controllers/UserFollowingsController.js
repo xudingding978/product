@@ -77,8 +77,6 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
 
                 }
 
-                //console.log(dataNew);
-
                 dataNew = new Array();              
             }
             //console.log(that.get("content"));
@@ -192,8 +190,6 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
         var tempUser = HubStar.Profile.find(profile_id);
         if (tempUser.get('isLoaded')) {
 
-            //console.log(tempUser.get("isLoaded"));
-            //var currentUser = HubStar.User.find(localStorage.loginStatus);
             var commenter_id = localStorage.loginStatus;
             //console.log(tempUser);
             var followArray = [profile_id, commenter_id];

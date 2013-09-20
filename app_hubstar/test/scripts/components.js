@@ -2455,7 +2455,6 @@ var e=function(){},t=0,r=this.document,n=r&&"createRange"in r&&"undefined"!=type
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 function getRestAPIURL()
 {
     var api_url = document.domain;
@@ -2561,3 +2560,7 @@ function getTarget(obj,type) {
         }
         return targ;
     }
+    
+    
+ 
+    

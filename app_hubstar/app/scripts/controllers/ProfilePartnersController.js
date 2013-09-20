@@ -17,9 +17,10 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
         this.set('content', []);
         this.set("model", model);
         this.set('clientID', model.id);
-        this.set('loadingTime', true);
+        this.set('loadingTime', false);
         this.set('partnerID', model.get('profile_partner_ids'));
         if (this.get('partnerID') !== null && this.get('partnerID') !== 'undefined' && this.get('partnerID') !== "") {
+             this.set('loadingTime', true);
             var data = HubStar.Mega.find({RequireType: "partner", profile_partner_ids: this.get('partnerID')});
             var that = this;
             data.addObserver('isLoaded', function() {

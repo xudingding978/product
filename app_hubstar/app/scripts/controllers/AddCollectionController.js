@@ -5,7 +5,7 @@
         selectedTitle: "",
         selectedCollection: "",
         selectionPop: false,
-        needs: ["mega", "article","collection"],
+        needs: ["mega", "article","collection","applicationFeedback"],
         newCollectionName: null,
         objectID: "",
         selectedPhotoThumbnailUrl: "",
@@ -44,6 +44,7 @@
             collection.set('optional', localStorage.loginStatus);
             collection.set('type', 'user');
             collection.store.save();
+            this.get('controllers.applicationFeedback').statusObserver(null, "Save photo Successfully!!!");
             this.exit();
         },
         setSelectedCollection: function(id) {
@@ -58,7 +59,7 @@
         },
         addCollection: function(collection, content)
         {
-            if (content === null) {
+            if (content === null||content===undefined||content==="") {
                 collection.set("collection_ids", this.get("objectID"));
             }
 
@@ -78,18 +79,17 @@
             this.get("controllers.mega").switchCollection();
         }},
         addNewCollection: function()
-        {            
-            var user = HubStar.User.find(localStorage.loginStatus);
-            var selectedCollection = HubStar.Collection.createRecord({"id": null, "title": this.get("newCollectionName"), "desc": null, "collection_ids": null, "createdAt": new Date(),
-            'cover': 'https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png', "optional": user.get('id'), 'type': 'user'}); 
-            var collectionController = this.get('controllers.collection');
-            var collection = collectionController.getCreateCollection(selectedCollection, user.get("collections"));
+        {             
+            var collectionController = this.get('controllers.collection');            
+            var collection = collectionController.getCreateCollection(this.get('newCollectionName'),'',  this.get("collections"));
             if (collection !== null && collection !== "") {
+                collection.set('type', 'user');
+                collection.set('optional', localStorage.loginStatus);
                 this.get("collections").insertAt(0, collection);
-                this.get("collections").store.save();
-                this.set('selectedTitle', collection.get('title'));
+                HubStar.store.save();
                 this.set('selectedCollection', collection);
-                $('#recordID').text(this.get('selectedTitle'));
+                $('#recordID').text(this.get('newCollectionName'));
+                
             } else {
                 selectedCollection.deleteRecord();
             }

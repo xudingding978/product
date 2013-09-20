@@ -284,7 +284,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         } else if (checkingInfo === "aboutMe") {
             about_record = data;
             this.set('editingAbout', !this.get('editingAbout'));
-            console.log(data);
+          
         } else if (checkingInfo === "contact") {
             first_name_record = this.get('first_name');
             last_name_record = this.get('last_name');
@@ -308,6 +308,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('editing', !this.get('editing'));
         }
         else if (checkingInfo === "aboutMe") {
+             console.log(this.model.get('profile_about_us'));
             this.set('editingAbout', !this.get('editingAbout'));
         } else if (checkingInfo === "contact") {
             if (this.get("website_url").match(/[http]/g) === -1 || this.get("website_url").match(/[http]/g) === null)
@@ -412,14 +413,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     updateCollectionInfo: function() {
         var collectionController = this.get('controllers.collection');
         var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
-//        var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
-//        var id = this.checkingValidInput(this.selectedCollection.get('id'));
-//        var title = this.get("selectedCollection").get("title");
-//        this.get("selectedCollection").set("title", title);
         collection.set('optional', this.get('model').get('id'));
         collection.set('type', 'profile');
         this.set('selectedCollection', collection);
-//        this.set("selectedTitle", title);
         this.get("selectedCollection").store.save();
         $(".Targeting_Object_front").attr("style", "display:inline-block");
         $(" #uploadArea").attr('style', "display:none");
@@ -606,7 +602,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set("profile_name", this.get('profile_name'));
         update_profile_record.set("profile_isActive", this.get("projectActiveDropdownContent"));
         update_profile_record.set("profile_isDeleted", this.get("projectDeleteDropdownContent"));
-        update_profile_record.set("profile_about_us", editor.getValue());
+      update_profile_record.set("profile_about_us", editor.getValue());
+     
+     
        //update_profile_record.set("profile_about_us", this.get("about_me"));
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
         if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {

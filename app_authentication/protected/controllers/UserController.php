@@ -77,7 +77,8 @@ class UserController extends Controller {
             $temp["user"][0]["first_name"] = $model->FIRST_NAME;
             $temp["user"][0]["last_name"] = $model->LAST_NAME;
 
-            $cb->add(substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.') + 1) . "/users/" . $rand_id, CJSON::encode($temp));
+           if( $cb->add(substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.') + 1) . "/users/" . $rand_id, CJSON::encode($temp)))
+           {
             Yii::app()->session['newUser'] = "new";
 
             if ($model->save()) {
@@ -100,6 +101,7 @@ class UserController extends Controller {
         $this->render('create', array(
             'model' => $model,
         ));
+        }
     }
 
 

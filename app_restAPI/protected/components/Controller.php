@@ -354,16 +354,9 @@ class Controller extends CController {
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)->
                 must($must2);
         $response = $request->query($bool)->execute();
-                //   error_log(var_export(   $response['0']['took'], true));
-     
-       //   error_log(var_export($returnType, true));
-        
-        
-        // error_log(var_export($response, true));
-        
+
         $results = $this->getReponseResult($response, $returnType);
-        // error_log(var_export($results, true));
-     //   $results = $results['profile'];
+
         return $results;
 
     }

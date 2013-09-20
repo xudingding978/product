@@ -12,6 +12,8 @@ HubStar.UserController = Ember.Controller.extend({
     temp: [],
     followerTag: false,
     followingTag: false,
+    newDesc:'',
+    newTitle:'',
     selectedDesc: "",
     selectedTitle: "",
     display_name: "",
@@ -137,7 +139,7 @@ HubStar.UserController = Ember.Controller.extend({
         for (var i = 0; i < collections.get("length"); i++)
         {
             var col = collections.objectAt(i);
-            if ((col.get("collection_ids") !== null && col.get("collection_ids") !== "")) {
+            if (col.get("collection_ids") !== undefined&&col.get("collection_ids") !== null && col.get("collection_ids") !== "") {
                 var imgId = col.get("collection_ids").split(",").objectAt(0);
             }
         }
@@ -295,9 +297,13 @@ HubStar.UserController = Ember.Controller.extend({
     {
 
         var collectionController = this.get('controllers.collection');
-        var collection = collectionController.getCreateCollection(this.get('selectedCollection'), this.get("collections"));
+        console.log(this.get('newTitle'));
+        var collection = collectionController.getCreateCollection(this.get('newTitle'),this.get('newDesc'),  this.get("collections"));
+        console.log(collection);
+        
         if (collection !== null && collection !== "") {
-      
+            collection.set('type', 'user');
+            collection.set('optional', this.get('model').get('id'));
             this.get("collections").insertAt(0, collection);
             HubStar.store.save();
             $(".Targeting_Object_front").attr("style", "display:inline-block");
@@ -593,11 +599,10 @@ if (checkList[i].id === 'first_name' || checkList[i].id === 'last_name')
     },
     newCollection: function()
     {
-        var collection = HubStar.Collection.createRecord({"id": null, "title": null, "desc": null, "collection_ids": null, "createdAt": new Date(),
-            'cover': 'https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png', "optional": this.get('model').get('id'), 'type': 'user'
-        });
-        console.log("sssssssssss");
-        this.set("selectedCollection", collection);
+//        var collection = HubStar.Collection.createRecord({"id": null, "title": null, "desc": null, "collection_ids": null, "createdAt": new Date(),
+//            'cover': 'https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png', "optional": this.get('model').get('id'), 'type': 'user'
+//        });
+//        this.set("selectedCollection", collection);
     },
     checkAuthenticUser: function() {
         {

@@ -74,8 +74,7 @@ class CollectionsController extends Controller {
                 array_unshift($mega['user'][0]['collections'], $tempCollection);
    
             }
-                $cb->set($docID.'backup', CJSON::encode($mega));
-
+               
             if ($cb->set($docID, CJSON::encode($mega))) {
                 $this->sendResponse(204);
             } else {

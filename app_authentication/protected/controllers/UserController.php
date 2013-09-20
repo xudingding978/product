@@ -249,17 +249,14 @@ class UserController extends Controller {
 
     public function actionTest() {
       
-        
-       
-        
                 $request_json = file_get_contents('php://input');
       //  $request_arr = CJSON::decode($request_json, true);
-         error_log(var_export($request_json,true));
+        
         
           $model = User::model()
                 ->findByAttributes(array('EMAIL_ADDRESS'=>'286949639@qq.com'));
      //      $model = $this->loadModel('22');
-           error_log(var_export($model->USER_NAME,true));
+    
     }
 
 

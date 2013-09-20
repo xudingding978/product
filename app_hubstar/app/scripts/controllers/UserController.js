@@ -591,7 +591,10 @@ if (checkList[i].id === 'first_name' || checkList[i].id === 'last_name')
     },
     updateCollectionInfo: function()
     {
+        this.get('selectedCollection').set('title',this.get('newTitle'));
+        this.get('selectedCollection').set('desc',this.get('newDesc'));
         var collectionController = this.get('controllers.collection');
+        console.log(this.get('selectedCollection'));
         var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
         collection.set('optional', this.get('model').get('id'));
         collection.set('type', 'user');

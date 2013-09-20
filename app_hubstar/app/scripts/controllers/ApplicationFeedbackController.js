@@ -6,23 +6,20 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
     
     setFeedback: function(status) {
      
-          this.set('is_remove',false);
+       this.set('is_remove',false);
        if(this.get('is_remove')===false){
-             
            this.set('status', status);
         this.set('feedback', true);
         var currentUser = HubStar.User.find(localStorage.loginStatus);
         this.set('photo_url', currentUser.get('photo_url_large'));
         Ember.run.later(function() {
-
-    
+             
           $('.fresh-message').show().animate({
                     top:20      
                 }, 400);
               $('.fresh-profile-pic').show().animate({
                     top:5      
                 }, 400);
-    
                 $('.fresh-message').show().delay(5000).animate({
                   top:-85              
                 }, 400);        
@@ -55,7 +52,7 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
 //             $('.fresh-profile-pic').attr('style', "display:none").animate({
 //                            
 //                }, 400);        
-
+//
                 $('.fresh-message').hide('1000').animate({                        
                 }, 400);
              $('.fresh-profile-pic').hide('1000').animate({                        
@@ -64,7 +61,9 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
                
           this.set('is_remove',false);
 
-     }},
+     }
+ 
+     },
             
             
             

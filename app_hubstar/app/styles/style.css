@@ -241,10 +241,11 @@
 
 
 #navContainer ul ul{
-    position:absolute;
-    display:none;
+    position:static;
+    margin-left:-1000px;
+    float:left;
 }
-
+#navContainer > ul > li> ul{}
 
 #navContainer ul ul li a{
     color: rgba(0,0,0,0.63);
@@ -259,12 +260,12 @@
     word-wrap: break-word;
     overflow: hidden;
     text-overflow: ellipsis;
+    float:none;
 }
 
-#navContainer > ul > li> ul{
-    display:none;
-}
-#navContainer > ul > li:hover> ul{
+
+#navContainer > ul > li:hover> ul, 
+#navContainer > ul > li:focus> ul{
     margin-left: 10px;
     width: 200px;
     position: absolute;
@@ -280,7 +281,8 @@
 
     display:none;
 }
-#navContainer > ul > li> ul > li:hover> ul{
+#navContainer > ul > li> ul > li:hover> ul,
+#navContainer > ul > li> ul > li:focus > ul{
     margin-left: 10px;
     width: 200px;
     position: absolute;
@@ -295,7 +297,8 @@
 #navContainer > ul > li> ul > li> ul> li > ul{
     display:none;
 }
-#navContainer > ul > li> ul > li> ul> li:hover> ul{
+#navContainer > ul > li> ul > li> ul> li:hover> ul,
+#navContainer > ul > li> ul > li> ul> li:focus > ul{
     margin-left: 10px;
     width: 200px;
     position: absolute;
@@ -369,7 +372,7 @@ div.search-loading-invisible{
     top: 0;
     width: 100%;
     height:100%;
-    z-index: 1000050;
+    z-index: 10000;
     background-color: rgba(0,0,0,1);
     border: 1px solid #999;
     border: 1px solid rgba(0, 0, 0, 0.3);

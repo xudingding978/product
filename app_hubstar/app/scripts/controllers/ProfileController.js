@@ -67,6 +67,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     region: "",
     selectedCollection: "",
     switchPhoto: false,
+    newDesc:'',
+    newTitle:'',
     selectedDesc: "",
     selectedTitle: "",
     timeSetting: "timeSetting",
@@ -188,19 +190,21 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.statstics();
     },
     submit: function() {
-
-        var collectionController = this.get('controllers.collection');
-        var collection = collectionController.getCreateCollection(this.get('selectedCollection'), this.get("collections"));
-//        collection.set('type', 'profile');
-//        collection.set('optional', this.get('model').get('id'));
+         var collectionController = this.get('controllers.collection');
+        //console.log(this.get('newTitle'));
+        var collection = collectionController.getCreateCollection(this.get('newTitle'),this.get('newDesc'),  this.get("collections"));
+       // console.log(collection);
+        
         if (collection !== null && collection !== "") {
+            collection.set('type', 'profile');
+            collection.set('optional', this.get('model').get('id'));
             this.get("collections").insertAt(0, collection);
             HubStar.store.commit();
             $(".Targeting_Object_front").attr("style", "display:inline-block");
             $(" #uploadArea").attr('style', "display:none");
             $(" #uploadObject").attr('style', "display:block");
             this.statstics();
-        }
+        }        
 
 //        var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
 //        var id = this.checkingValidInput(this.selectedCollection.get('title'));
@@ -418,14 +422,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         $(" #uploadObject").attr('style', "display:block");
 
     },
-    newCollection: function()
-    {
-
-        var collection = HubStar.Collection.createRecord({"id": null, "title": null, "desc": null, "collection_ids": null, "createdAt": new Date(),
-            'cover': 'https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png', "optional": this.get('model').get('id'), 'type': 'profile'
-        });
-        this.set("selectedCollection", collection);
-    },
+//    newCollection: function()
+//    {
+//
+//        var collection = HubStar.Collection.createRecord({"id": null, "title": null, "desc": null, "collection_ids": null, "createdAt": new Date(),
+//            'cover': 'https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png', "optional": this.get('model').get('id'), 'type': 'profile'
+//        });
+//        this.set("selectedCollection", collection);
+//    },
     toggleUpload: function() {
         $('.corpbanner_mask').toggleClass('hideClass');
         this.set('uploadChecking', !this.get('uploadChecking'));

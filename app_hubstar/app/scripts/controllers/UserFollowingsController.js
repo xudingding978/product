@@ -58,6 +58,7 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
                 }
                 else
                 {
+                    
                     dataNew["id"] = params[i]["record_id"];
                     dataNew["name"] = params[i]["name"];
                     dataNew["photo_url"] = params[i]["photo_url"];
@@ -70,16 +71,15 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
                     dataNew["profile_about_us"] = params[i]["profile_about_us"];
                     dataNew["profile_cover_text"] = params[i]["profile_cover_text"];
                      dataNew["current"] = HubStar.Mega.find(dataNew["id"]);
+                    // console.log(dataNew["current"]);
                     //dataNew["current"] = params[i]["profile"];
                    // dataNew["current"]=currentProfile;
                    // console.log(dataNew["current"] );
                     that.get("contentProfile").pushObject(dataNew);
-
+                    //console.log(dataNew);
                 }
-
                 dataNew = new Array();              
-            }
-            //console.log(that.get("content"));
+            }           
              that.set('loadingTime', false);
         });
         
@@ -94,7 +94,7 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
             }
             else
             {
-                this.followProfile(follow_object.get("id"));
+                this.followProfile(follow_object.get("id"),"user");
                 follow_object.set('follow_status', true);
             }
         }
@@ -105,13 +105,13 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
             }
             else
             {
-                this.unFollowProfile(follow_object.get("id"));
+                this.unFollowProfile(follow_object.get("id"),"user");
                 follow_object.set('follow_status', false);
             }
         }
 
     },
-    followProfile: function(profile_id) {
+    followProfile: function(profile_id,type) {
         //console.log(profile_id);
         //var currentUser = HubStar.User.find(localStorage.loginStatus);
         var tempUser = HubStar.Profile.find(profile_id);
@@ -135,11 +135,13 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
                              
             currentUser.get("followings").insertAt(0, tempFollowing);
             
-//            if (localStorage.loginStatus === this.get("controllers.user").get('user').id)
-//            {
-//
-//                this.get("controllers.user").set("userFollowingStatistics", currentUser.get("followings").get("length"));
-//            }
+            //console.log(this.get("controllers.user"));
+            
+            if (type==="user"&&localStorage.loginStatus === this.get("controllers.user").get('user').id)
+            {
+
+                this.get("controllers.user").set("userFollowingStatistics", currentUser.get("followings").get("length"));
+            }
 
 
             requiredBackEnd('followers', 'createFollower', followArray, 'POST', function() {
@@ -152,7 +154,7 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
             tempUser.addObserver('isLoaded', function() {
 
                 if (tempUser.get('isLoaded')) {
-                    console.log(tempUser.get("isLoaded"));
+                    //console.log(tempUser.get("isLoaded"));
                     var commenter_profile_pic_url = null;
                     var commenter_id = localStorage.loginStatus;
                     var name = null;
@@ -170,10 +172,10 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
                     //thisThis.get("controllers.user").set("userFollowingStatistics", thisThis.get("controllers.user").get("userFollowingStatistics") + 1);
                     var currentUser = HubStar.User.find(localStorage.loginStatus);
                     currentUser.get("followings").insertAt(0, tempFollowing);
-//                    if (localStorage.loginStatus === thisThis.get("controllers.user").get('user').id)
-//                    {
-//                        thisThis.get("controllers.user").set("userFollowingStatistics", currentUser.get("followings").get("length"));
-//                    }
+                    if (type==="user"&&localStorage.loginStatus === thisThis.get("controllers.user").get('user').id)
+                    {
+                        thisThis.get("controllers.user").set("userFollowingStatistics", currentUser.get("followings").get("length"));
+                    }
 
 
                     requiredBackEnd('followers', 'createFollower', followArray, 'POST', function() {
@@ -185,7 +187,7 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
 
 
     },
-    unFollowProfile: function(profile_id) {
+    unFollowProfile: function(profile_id,type) {
         //console.log(profile_id);
         var tempUser = HubStar.Profile.find(profile_id);
         if (tempUser.get('isLoaded')) {
@@ -214,10 +216,10 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
                     update_following.removeObject(update_following.objectAt(i));
                 }
             }
-//            if (localStorage.loginStatus === this.get("controllers.user").get('user').id)
-//            {
-//                this.get("controllers.user").set("userFollowingStatistics", currentUser.get("followings").get("length"));
-//            }
+            if (type==="user"&&localStorage.loginStatus === this.get("controllers.user").get('user').id)
+            {
+                this.get("controllers.user").set("userFollowingStatistics", currentUser.get("followings").get("length"));
+            }
 
         }
         else {
@@ -250,10 +252,10 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
                         update_following.removeObject(update_following.objectAt(i));
                     }
                 }
-//                if (localStorage.loginStatus === thisThis.get("controllers.user").get('user').id)
-//                {
-//                    thisThis.get("controllers.user").set("userFollowingStatistics", currentUser.get("followings").get("length"));
-//                }
+                if (type==="user"&&localStorage.loginStatus === thisThis.get("controllers.user").get('user').id)
+                {
+                    thisThis.get("controllers.user").set("userFollowingStatistics", currentUser.get("followings").get("length"));
+                }
             });
         }
 

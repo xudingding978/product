@@ -360,7 +360,7 @@ HubStar.UserController = Ember.Controller.extend({
             HubStar.store.save();
         }
         else{
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please check you have already filled the mandatory field!");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please check you have already filled the mandatory field");
         }
     },
     isInputValid: function() {

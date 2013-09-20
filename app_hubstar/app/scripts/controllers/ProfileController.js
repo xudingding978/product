@@ -280,7 +280,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         } else if (checkingInfo === "aboutMe") {
             about_record = data;
             this.set('editingAbout', !this.get('editingAbout'));
-            console.log(data);
+          
         } else if (checkingInfo === "contact") {
             first_name_record = this.get('first_name');
             last_name_record = this.get('last_name');
@@ -410,14 +410,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.get('selectedCollection').set('desc',this.get('newDesc'));
         var collectionController = this.get('controllers.collection');
         var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
-//        var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
-//        var id = this.checkingValidInput(this.selectedCollection.get('id'));
-//        var title = this.get("selectedCollection").get("title");
-//        this.get("selectedCollection").set("title", title);
         collection.set('optional', this.get('model').get('id'));
         collection.set('type', 'profile');
         this.set('selectedCollection', collection);
-//        this.set("selectedTitle", title);
         this.get("selectedCollection").store.save();
         $(".Targeting_Object_front").attr("style", "display:inline-block");
         $(" #uploadArea").attr('style', "display:none");

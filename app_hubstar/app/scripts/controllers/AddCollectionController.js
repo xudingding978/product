@@ -19,7 +19,7 @@
             var user = HubStar.User.find(localStorage.loginStatus);
             this.set("collections", user.get("collections"));
             if (this.get("collections").objectAt(0) !== null && this.get("collections").objectAt(0) !== undefined) {
-                this.setDesc(this.get("collections").objectAt(0).get("desc"));
+                //this.setDesc(this.get("collections").objectAt(0).get("desc"));
                 this.setTitle(this.get("collections").objectAt(0).get("title"));
             }
         },
@@ -41,6 +41,12 @@
             var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
             var content = collection.get("collection_ids");
             this.addCollection(collection, content);
+            var CommentObject=HubStar.Mega.find(this.get("objectID"));
+            if(CommentObject.get("type")==="photo")
+                {
+                    
+                }
+            console.log(CommentObject.get("type"));
             collection.set('optional', localStorage.loginStatus);
             collection.set('type', 'user');
             collection.store.save();

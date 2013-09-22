@@ -79,7 +79,7 @@ HubStar.ItemProfilesController = Ember.Controller.extend({
 
         HubStar.set("scrollPartenerPosition", $(window).scrollTop());      
         this.transitionToRoute('profile', model);
-         console.log(model);
+        console.log(model);
         $(window).scrollTop(0);
     },
     setPartnerRemove: function() {

@@ -98,10 +98,12 @@ class UserController extends Controller {
                 }
             }
         }
+        }
+        error_log('ssssssss');
         $this->render('create', array(
             'model' => $model,
         ));
-        }
+        
     }
 
 

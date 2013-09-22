@@ -16,7 +16,7 @@ HubStar.UserRoute = Ember.Route.extend({
 //            console.log(this.controllerFor('checkAuthorityStatus').);
 
         this.controllerFor('user').setUser();
-
+ $(window).scrollTop(0);
         },
         model: function(params) {
             return HubStar.User.find(params.user_id);

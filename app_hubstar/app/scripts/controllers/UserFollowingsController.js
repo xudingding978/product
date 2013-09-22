@@ -111,6 +111,7 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
         }
 
     },
+            
     followProfile: function(profile_id,type) {
         //console.log(profile_id);
         //var currentUser = HubStar.User.find(localStorage.loginStatus);

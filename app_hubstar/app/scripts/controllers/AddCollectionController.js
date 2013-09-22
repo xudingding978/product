@@ -103,6 +103,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
         }
     },
     exit: function() {
+        console.log(this.get('parentController'));
         if (this.get('parentController') === 'article')
         {
             this.get("controllers.article").switchCollection();

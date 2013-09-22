@@ -341,11 +341,11 @@ class Controller extends CController {
         return $results;
     }
 
-   protected function performRawSearch($returnType, $collection_id, $owner_profile_id) {
+    protected function performRawSearch($returnType, $collection_id, $owner_profile_id) {
         $request = $this->getElasticSearch();
         $request->from(0)
                 ->size(100);
-                      
+
         $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query('"' . $collection_id . '"')
                 ->default_field('couchbaseDocument.doc.collection_id');
         $must2 = Sherlock\Sherlock::queryBuilder()
@@ -354,19 +354,16 @@ class Controller extends CController {
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)->
                 must($must2);
         $response = $request->query($bool)->execute();
-                //   error_log(var_export(   $response['0']['took'], true));
-     
-       //   error_log(var_export($returnType, true));
-        
-        
+        //   error_log(var_export(   $response['0']['took'], true));
+        //   error_log(var_export($returnType, true));
         // error_log(var_export($response, true));
-        
+
         $results = $this->getReponseResult($response, $returnType);
         // error_log(var_export($results, true));
-     //   $results = $results['profile'];
+        //   $results = $results['profile'];
         return $results;
-
     }
+
     protected function getSearchResultsTotal($returnType, $region, $requestString, $from = 0, $size = 50, $noUser) {
         $requestArray = array();
         if ($region != null && $region != "") {
@@ -514,9 +511,12 @@ class Controller extends CController {
     public function getDocId($type, $id) {
         $docID = "";
         if ($type == "profile") {
-            $docID = $this->getDomain() . "/profiles/" . $id;
-        } elseif ($type == "photo") {
-            $docID = $this->getDomain() . "/" . $id;
+            $docID = $this->getDomain () . "/profiles/" . $id;
+            } elseif ($type == "photo") {
+            $docID = $this->getDomain () . "/" . $id;
+            }
+            elseif ($type == "article") {
+            $docID = $this->getDomain () . "/" . $id;
         }
         return $docID;
     }

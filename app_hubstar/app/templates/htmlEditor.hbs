@@ -44,14 +44,16 @@
     </div>
     
     <section>
-    
+    {{#if controller.isAboutUs}}
  {{view Ember.TextArea valueBinding="model.profile_about_us" id="wysihtml5-editor"  }}
- {{view Ember.TextArea valueBinding="model.about_me" id="wysihtml5-editor"  }}
-
+{{else}}
+  {{view Ember.TextArea valueBinding="model.about_me" id="wysihtml5-editor"  }}
+   {{/if}}
      
     </section>
     <script>
-     var editor = new wysihtml5.Editor("wysihtml5-editor", {
+    
+  var editor = new wysihtml5.Editor("wysihtml5-editor", {
         toolbar:     "wysihtml5-editor-toolbar",
         stylesheets: ["http://yui.yahooapis.com/2.9.0/build/reset/reset-min.css", "bower_components/wysihtml5/css/editor.css"],
         parserRules: wysihtml5ParserRules
@@ -61,4 +63,6 @@
         var composer = editor.composer;
         composer.selection.selectNode(editor.composer.element.querySelector("h1"));
       });
+      
+     
     </script>

@@ -2,6 +2,7 @@
 var interest_record;
 var collection_title_record;
 var collection_desc_record;
+var about_record;
 
 HubStar.UserController = Ember.Controller.extend({
     user: null,
@@ -96,7 +97,7 @@ HubStar.UserController = Ember.Controller.extend({
           this.set("last_name", user.get("last_name"));
 
         this.set("identifier", user.get("identifier"));
-        this.set("aboutMe", user.get("about_me"));
+        this.set("about_me", user.get("about_me"));
         this.set("facebook", user.get("facebook_link"));
         this.set("twitter", user.get("twitter_link"));
         this.set("googleplus", user.get("googleplus_link"));
@@ -273,15 +274,22 @@ HubStar.UserController = Ember.Controller.extend({
         }
         return isExsinting;
     },
-    interestEdit: function(data, checkingInfo) {
+    toggleEditing: function(data, checkingInfo) {
         if (checkingInfo === "interest") {
             interest_record = data;
             this.set('editingInterest', !this.get('editingInterest'));
+        
+        } else if (checkingInfo === "aboutMe") {
+            about_record = data;
+            this.set('editingAbout', !this.get('editingAbout'));
+           
         }
     },
     yes: function(checkingInfo) {
         if (checkingInfo === "interest") {
             this.set('editingInterest', !this.get('editingInterest'));
+        }else if (checkingInfo === "aboutMe") {
+            this.set('editingAbout', !this.get('editingAbout'));
         }
 
         this.saveUpdateInterest();
@@ -290,6 +298,9 @@ HubStar.UserController = Ember.Controller.extend({
         if (checkingInfo === "interest") {
             this.set('interests', interest_record);
             this.set('editingInterest', !this.get('editingInterest'));
+        } else if (checkingInfo === "aboutMe") {
+            this.set('about_me', about_record);
+            this.set('editingAbout', !this.get('editingAbout'));
         }
 
     },
@@ -580,7 +591,10 @@ if (checkList[i].id === 'first_name' || checkList[i].id === 'last_name')
     },
     updateCollectionInfo: function()
     {
+        this.get('selectedCollection').set('title',this.get('newTitle'));
+        this.get('selectedCollection').set('desc',this.get('newDesc'));
         var collectionController = this.get('controllers.collection');
+        console.log(this.get('selectedCollection'));
         var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
         collection.set('optional', this.get('model').get('id'));
         collection.set('type', 'user');

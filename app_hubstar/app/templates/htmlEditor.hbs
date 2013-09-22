@@ -1,9 +1,13 @@
+<<<<<<< HEAD
 
 
 
                                                         
 
 <div id="wysihtml5-editor-toolbar">
+=======
+ <div id="wysihtml5-editor-toolbar">
+>>>>>>> ae58bbce6e20d06064e30b4f2a9ceb464e45715e
       <header>
         <ul class="commands">
           <li data-wysihtml5-command="bold" title="Make text bold (CTRL + B)" class="command"></li>
@@ -50,6 +54,7 @@
     
     <section>
     
+<<<<<<< HEAD
 
      {{view Ember.TextArea valueBinding="about_me"  id="wysihtml5-editor" class=""   }}  
      
@@ -58,6 +63,14 @@
 
 <script>
     var editor = new wysihtml5.Editor("wysihtml5-editor", {
+=======
+ {{view Ember.TextArea valueBinding="aboutMe" id="wysihtml5-editor" class="no-resize" placeholder="Enter something ..." }}
+
+     
+    </section>
+    <script>
+     var editor = new wysihtml5.Editor("wysihtml5-editor", {
+>>>>>>> ae58bbce6e20d06064e30b4f2a9ceb464e45715e
         toolbar:     "wysihtml5-editor-toolbar",
         stylesheets: ["http://yui.yahooapis.com/2.9.0/build/reset/reset-min.css", "bower_components/wysihtml5/css/editor.css"],
         parserRules: wysihtml5ParserRules
@@ -67,5 +80,8 @@
         var composer = editor.composer;
         composer.selection.selectNode(editor.composer.element.querySelector("h1"));
       });
+<<<<<<< HEAD
       
+=======
+>>>>>>> ae58bbce6e20d06064e30b4f2a9ceb464e45715e
     </script>

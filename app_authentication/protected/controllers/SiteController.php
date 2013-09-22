@@ -120,7 +120,7 @@ class SiteController extends Controller {
             // validate user input and redirect to the previous page if valid
             if ($model->validate() && $model->login())
             {
-                echo "ok";
+               $this->render('//user/close');
             }
 //                $this->render('//user/close');
         }

@@ -1,5 +1,18 @@
+<<<<<<< HEAD
 
 
+=======
+html {
+  overflow: hidden;
+}
+
+
+
+strong {
+  font-weight: bold;
+}
+
+>>>>>>> ae58bbce6e20d06064e30b4f2a9ceb464e45715e
 .get-started {
   margin: 20px 0;
   color: #666;
@@ -56,7 +69,11 @@ header {
 [data-wysihtml5-action]::after,
 .fore-color::after {
   content: "";
+<<<<<<< HEAD
   background-image: url(../img/spr_toolbar_icons_r1.png);
+=======
+  background-image: url(../../../images/spr_toolbar_icons_r1.png);
+>>>>>>> ae58bbce6e20d06064e30b4f2a9ceb464e45715e
   background-repeat: no-repeat;
   position: absolute;
   left: 0;

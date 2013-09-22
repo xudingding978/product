@@ -986,6 +986,7 @@ j
 }
 
 
+
 .icon-on-black > i{
     bottom: 0;
     height: 20px;
@@ -1718,4 +1719,6 @@ j
     -moz-background-clip: padding-box;
     background-clip: padding-box;
     margin: 0;
+    
+    text-align: left;
 }

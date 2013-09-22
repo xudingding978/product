@@ -27,8 +27,8 @@
 #masonry_container[style="position:relative;height:177px;width:370px;"],
 #masonry_container[style='position: relative; height: 177px; width: 370px;'],
 #masonry_container[style='position:relative;height:177px;width:370px;']{
-       width:0!important;
-       overflow:hidden;
+    width:0!important;
+    overflow:hidden;
 }
 .masonry_push_down{
     margin-top: 85px;
@@ -494,6 +494,7 @@ div.search-loading-invisible{
     cursor: pointer;
     font-weight: bold;
     font-size: 13px;
+    list-style: none;
 }
 
 .ite:hover{

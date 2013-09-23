@@ -71,11 +71,10 @@ class CollectionsController extends Controller {
                 if (!isset($mega['user'][0]['collections'])) {
                     $mega['user'][0]['collections'] = array();
                 }
-            
                 array_unshift($mega['user'][0]['collections'], $tempCollection);
    
             }
-
+               
             if ($cb->set($docID, CJSON::encode($mega))) {
                 $this->sendResponse(204);
             } else {

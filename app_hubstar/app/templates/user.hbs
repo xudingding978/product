@@ -43,7 +43,7 @@
 
                     {{#if controller.is_authentic_user}}
 
-                    <div class="edit-btn hint--rounded hint--bottom" style="height: 20px;line-height: 20px;margin:0;" data-hint="Edit Interest" {{action interestEdit controller.interests controller.interest}}>
+                    <div class="edit-btn hint--rounded hint--bottom" style="height: 20px;line-height: 20px;margin:0;" data-hint="Edit Interest" {{action toggleEditing controller.interests controller.interest}}>
                          <i class="icon-plus edit-btn" style="font-size:13px;margin:0;padding:9px 10px;"  {{action showInterestsUp  target="view" on="click"}}></i>
                     </div>
                     {{/if}}
@@ -167,22 +167,13 @@
 
 {{#if controller.switchPhoto}}
 
-
-
 {{view HubStar.MasonryCollectionView}}
-
-
 
 {{else}}
 
-
-
 {{render masonryCollectionItems}}
 
-
-
 {{/if}}
-
 
 {{#if controller.makeSureDelete}}
 

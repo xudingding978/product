@@ -8,39 +8,43 @@ HubStar.ItemProfilesController = Ember.Controller.extend({
     itemProfileCollectionStatistics: "",
     itemProfilePartnerStatistics: "",
     isPartner: false,
+    profileUrl: "",
     is_authentic_user: false,
     is_profile_editing_mode: false,
-    follow_status:false,
-    needs: ['profile', 'permission','profilePartners','userFollowings'],
-    init: function() {      
+    follow_status: false,
+    needs: ['profile', 'permission', 'profilePartners', 'userFollowings'],
+    init: function() {
         var address = document.URL;
+
         if (address.indexOf('profile') !== -1)
         {
             isPartner = true;
             this.checkEditingMode();
         }
         this.set("profiles", HubStar.Mega.find([]));
-    },
 
-    followThisUser:function(profile)
-    {       
-         if (profile.get("isFollowCurrentUser") === false)
-        {          
-                  this.get("controllers.userFollowings").followProfile(profile.get("id"));
-                profile.set('isFollowCurrentUser', true);           
+        var temp = address.indexOf("profiles");
+        temp = address.substr(0, temp + 8);
+        this.set("profileUrl", temp);
+    },
+    followThisUser: function(profile)
+    {
+        if (profile.get("isFollowCurrentUser") === false)
+        {
+            this.get("controllers.userFollowings").followProfile(profile.get("id"));
+            profile.set('isFollowCurrentUser', true);
         }
         else
-        {          
-               this.get("controllers.userFollowings").unFollowProfile(profile.get("id"));
-              profile.set('isFollowCurrentUser', false);          
-        }       
+        {
+            this.get("controllers.userFollowings").unFollowProfile(profile.get("id"));
+            profile.set('isFollowCurrentUser', false);
+        }
     },
-     
     checkAuthenticUser: function() {
         var currentUser = HubStar.User.find(localStorage.loginStatus);
         var current_user_email = currentUser.get('email');
         var permissionController = this.get('controllers.permission');
-        var that = this;      
+        var that = this;
         var is_authentic_user = permissionController.checkAuthenticUser(that.get("pageModel").get("owner"), that.get("pageModel").get("profile_editors"), current_user_email);
 
         currentUser.addObserver('isLoaded', function() {
@@ -71,15 +75,15 @@ HubStar.ItemProfilesController = Ember.Controller.extend({
 
     },
     removeCollectedItem: function(idDel) {
-        
+
         this.get('controllers.profilePartners').deleteSelectedPartner(idDel);
         //console.log();
     },
     toProfilePage: function(model) {
 
-        HubStar.set("scrollPartenerPosition", $(window).scrollTop());      
+        HubStar.set("scrollPartenerPosition", $(window).scrollTop());
         this.transitionToRoute('profile', model);
-         console.log(model);
+        console.log(model);
         $(window).scrollTop(0);
     },
     setPartnerRemove: function() {

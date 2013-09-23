@@ -281,9 +281,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             // console.log(data);
             this.set('editing', !this.get('editing'));
         } else if (checkingInfo === "aboutMe") {
+             this.set('isAboutUs',true);
             about_record = data;
             this.set('editingAbout', !this.get('editingAbout'));
-            this.set('isAboutUs',true);
+           
           
         } else if (checkingInfo === "contact") {
             first_name_record = this.get('first_name');

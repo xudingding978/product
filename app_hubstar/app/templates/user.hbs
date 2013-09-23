@@ -1,5 +1,3 @@
-
-
 <div style="width:100%; height:80px; display:block;"></div>
 <div class="user-board">
     <div class="user-board_left style-box">
@@ -92,9 +90,9 @@
 
         <div id="user-board_right_front" >
             <div class="user-cover">
-            
+
                 <img {{bindAttr src= "cover_url"}} style="width:100%;"/>
-      
+
                 {{#if controller.is_authentic_user}}
                 <div  id="flip-front" class='blue-btn new-btn hint--left hint--rounded edit-dashboard-btn' style="display: block; margin: 10px;position: absolute;top: 0;right: 0;" data-hint="Dashboard"{{action userDashboardButton "User Cover"}}>  
 
@@ -104,11 +102,44 @@
                 <div style="font-size: 26px;font-weight: bold; line-height: 30px;  color: white;position: absolute;top: 100px;margin:0 30px;text-shadow: 0 0 10px #777;">{{display_name}}</div>
             </div>
 
+
+
+
+
             <div style="height: 240px; padding: 10px 20px;display: inline-block;position: relative;width: 100%;">
-                <div style="font-size:15px;line-height: 20px;margin: 5px 20px;color: #888; overflow: hidden;height: 200px; text-overflow: ellipsis;">{{{aboutMe}}}</div>
+                <div style="font-size:15px;line-height: 20px;margin: 5px 20px;color: #888; overflow: hidden;height: 250px; text-overflow: ellipsis;">  
+
+
+                    <p style='margin-bottom: 5px;display: inline-block; font-size: 18px;'>
+                        <i class='icon-group' style='margin-right: 10px;display: inline-block;'></i>About me
+                    </p>
+
+                    {{#if controller.editingAbout}}
+                    <div style="height: 200px;border-radius: 3px;border: 1px solid #f3f3f3;">
+                        {{view HubStar.HtmlEditorView}}
+                    </div>   
+
+                    <div style="right: 40px;bottom: -49px;position: absolute;">
+                        <div class="new-btn blue-btn" {{action yes controller.aboutMe}}><i class="icon-ok icon-white"></i></div>
+                        <div class="new-btn" {{action no controller.aboutMe}}><i class="icon-remove"></i></div>
+                    </div>
+                    {{else}}
+                    {{#if controller.is_authentic_user}}
+
+                    <div class="edit-btn hint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing controller.about_me controller.aboutMe}}>
+
+                         <i class="icon-edit"></i>
+                    </div>
+                    {{/if}}
+
+                    <div style="display: block;" >{{{model.about_me}}}</div>
+                    {{/if}}
+                </div>
             </div>
 
-            <div style="margin: 0 30px; width:90%; height: 40px; position:relative; overflow: hidden;">
+
+
+            <div style="margin: 10px 30px; width:750px; height: 40px; position:relative; overflow: hidden;">
                 <ul class="locationandlinks">
                     <li>
                         <span class="locationIcon"><k class="icon-map-marker"></k></span>
@@ -181,3 +212,5 @@
 
 
 {{/if}}
+
+

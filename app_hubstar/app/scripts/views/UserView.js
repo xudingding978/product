@@ -92,6 +92,9 @@ HubStar.UserView = Ember.View.extend({
     },
             
     showInterests: function() {
+
+
+
         if ($('#interest_btn').hasClass('icon-double-angle-up')) {
 
             $('#show_interest').animate({top: 55, height: 393}, 400);

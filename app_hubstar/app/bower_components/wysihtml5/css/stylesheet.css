@@ -22,6 +22,7 @@ header {
     text-align: center;
     font-size: 0;
     margin-left: -32px;
+    height:35px;
 }
 
 .commands {
@@ -122,6 +123,7 @@ header > ul.commands li.fore-color ul li {
     width: auto;
     border: 0;
     height: 15px;
+    float:none!Important;
 }
 
 

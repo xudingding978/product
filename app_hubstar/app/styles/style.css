@@ -507,6 +507,7 @@ div.search-loading-invisible{
     cursor: pointer;
     font-weight: bold;
     font-size: 13px;
+    list-style: none;
 }
 
 .ite:hover{

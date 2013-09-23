@@ -810,6 +810,9 @@ j
 .masonry_addcommnetbox-container{
    /* margin: 0 20px 0 20px; */
    padding: 0 20px 8.5px 20px;
+   width:100%;
+   clear:both;
+   float:left;
 
 }
 
@@ -984,6 +987,7 @@ j
 .icon-on-black:hover{
     color: #fff;
 }
+
 
 
 .icon-on-black > i{
@@ -1718,4 +1722,6 @@ j
     -moz-background-clip: padding-box;
     background-clip: padding-box;
     margin: 0;
+    
+    text-align: left;
 }

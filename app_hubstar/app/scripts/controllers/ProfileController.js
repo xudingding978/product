@@ -1,7 +1,5 @@
 var profile_record;
 var about_record;
-
-//var contact_record;
 var first_name_record;
 var last_name_record;
 var category_record;
@@ -15,11 +13,12 @@ var seletedID = "";
 var collection_title_record;
 var collection_desc_record;
 
-  
+
       
 HubStar.ProfileController = Ember.ObjectController.extend({
     model: null,
     aboutMe: "aboutMe",
+    isAboutUs:false,
     about_me: "",
     address: "",
     suburb: "",
@@ -282,8 +281,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             // console.log(data);
             this.set('editing', !this.get('editing'));
         } else if (checkingInfo === "aboutMe") {
+             this.set('isAboutUs',true);
             about_record = data;
             this.set('editingAbout', !this.get('editingAbout'));
+           
           
         } else if (checkingInfo === "contact") {
             first_name_record = this.get('first_name');
@@ -792,3 +793,4 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
 }
 );
+

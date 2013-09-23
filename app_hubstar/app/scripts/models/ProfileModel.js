@@ -41,19 +41,13 @@ HubStar.Profile = DS.Model.extend({
     profile_pinterest_link: DS.attr('string'),
     profile_linkedin_link: DS.attr('string'),
     profile_youtube_link: DS.attr('string'),
-    //   isFollowCurrentUser: DS.attr('string'),
 
     owner: DS.attr('string'),
     owner_contact_email: DS.attr('string'),
     owner_contact_cc_emails: DS.attr('string'),
     owner_contact_bcc_emails: DS.attr('string'),
     followers: DS.hasMany('HubStar.Follower'),
-    collections: DS.hasMany('HubStar.Collection'),
-//    init: function()
-//    {
-//    //   console.log(this.get('id'));
-//    }
-
+    collections: DS.hasMany('HubStar.Collection')
 });
 
 

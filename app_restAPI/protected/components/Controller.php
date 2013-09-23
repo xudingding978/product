@@ -388,13 +388,9 @@ class Controller extends CController {
         $profile_id = "";
         foreach ($response as $hit) {
             $profile_id = $hit['source']['doc']['owner_id'];
-            if (isset($profile_id)) {
-                break;
-            }
         }
+       
         $results = $this->profileSetting($response, $profile_id, $returnType);
-
-        //   $results = $results['profile'];
         return $results;
     }
 
@@ -416,11 +412,11 @@ class Controller extends CController {
 
         $results = '{"' . $returnType . '":[';
         $i = 0;
-
         foreach ($tempResult as $hit) {
 
             $hit['source']['doc']['editors'] = $profile_editors;
             $hit['source']['doc']['owner_title'] = $profile_name;
+               error_log(var_export($hit['source']['doc']['owner_title'] , true));
             $hit['source']['doc']['owner_contact_email'] = $owner_contact_email;
             $hit['source']['doc']['owner_contact_cc_emails'] = $owner_contact_cc_emails;
             $hit['source']['doc']['owner_contact_bcc_emails'] = $owner_contact_bcc_emails;
@@ -432,6 +428,7 @@ class Controller extends CController {
         }
 
         $results .= ']}';
+        
         return $results;
     }
 

@@ -50,7 +50,6 @@ class CollectionsController extends Controller {
 
     public function actionCreate() {
         try {
-            
             $request_json = file_get_contents('php://input');
             $request_arr = CJSON::decode($request_json, true);
             $tempCollection = $request_arr['collection'];
@@ -100,9 +99,9 @@ class CollectionsController extends Controller {
     }
 
     public function actionUpdate() {
-     
         $temp = explode("/", $_SERVER['REQUEST_URI']);
         $id = $temp [sizeof($temp) - 1];
+        error_log(var_export($id, true));
         $request_json = file_get_contents('php://input');
         $newRecord = CJSON::decode($request_json, true);       
         $newRecord['collection']['id'] = $id;
@@ -120,16 +119,18 @@ class CollectionsController extends Controller {
               if ($collection_num !== -1) {
                 $oldRecord["profile"][0]["collections"] [$collection_num] = $newRecord["collection"]; 
               }
-            } else {
-              $docID = $this->getDomain() . "/users/" . $owner_id;                         
-              $cbRecord = $cb->get($docID); // get the old profile record from the database according to the docID string
-              $oldRecord = CJSON::decode($cbRecord, true);
-              $records =  $oldRecord["user"][0]["collections"];
-              $collection_num = $this ->getSelectedcollection($records,$id);
-              if ($collection_num !== -1) {
-                $oldRecord["user"][0]["collections"] [$collection_num] = $newRecord["collection"]; 
+              } else {
+                $docID = $this->getDomain() . "/users/" . $owner_id;                         
+                $cbRecord = $cb->get($docID); // get the old profile record from the database according to the docID string
+                $oldRecord = CJSON::decode($cbRecord, true);
+                $records =  $oldRecord["user"][0]["collections"];
+                $collection_num = $this ->getSelectedcollection($records,$id);
+                error_log(var_export($collection_num, true));
+                if ($collection_num !== -1) {
+                  $oldRecord["user"][0]["collections"] [$collection_num] = $newRecord["collection"]; 
+                }
+                error_log(var_export($oldRecord["user"][0]["collections"], true));
               }
-            }
             if ($cb->set($docID, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);
             } else {
@@ -144,7 +145,7 @@ class CollectionsController extends Controller {
         $i = 0;
         $collection_num=-1;
         foreach ($records as $record_id) {//assign each collection in profile's collections to record_id
-            error_log(var_export($record_id, true));
+            //error_log(var_export($record_id, true));
             if ($record_id["id"] == $id) {
                 //$records [$collection_num] = $collection; //replace the old collection with the new record's collection
                 $collection_num=$i;
@@ -155,7 +156,6 @@ class CollectionsController extends Controller {
     }
 
     public function actionDelete() {
-
         $info = CJSON::decode(file_get_contents('php://input'));
         //$info = file_get_contents('php://input');
          $infoDel = CJSON::decode($info, true);

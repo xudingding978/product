@@ -8,6 +8,9 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     is_profile_editing_mode: false,
     uploadOrsubmit: false,
     is_user_editing_mode: false,
+    collectionID: "",
+    itemID: "",
+    type: "",
     needs: ['photoCreate', 'profile', 'user', 'permission', 'photoCreateInfoSetting', 'applicationFeedback'],
     user_id: null,
     init: function() {
@@ -107,10 +110,9 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         $('#dragAndDroppArea').attr('style', "display:none");
 
     },
-    removeCollectedItem: function(collectionID, itemID)
-    {
+    removeCollectedItem: function(collectionID, itemID, type)
+    {        
         var message = "Do you wish to delete this photo ?";
-
         this.set("message", message);
         this.set('makeSureDelete', true);
         this.dropdownPhotoSetting(itemID);
@@ -119,15 +121,15 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             var currentCollection = null;
             var collectedColletionids = null;
             for (var i = 0; i < currentUser.get('collections').get('length'); i++) {
-                if (currentUser.get('collections').objectAt(i).get('id') === HubStar.get('collectionID'))
+                    if (currentUser.get('collections').objectAt(i).get('id') === this.get('collectionID'))
                 {
                     currentCollection = currentUser.get('collections').objectAt(i);
                     collectedColletionids = currentCollection.get('collection_ids');
                     if (collectedColletionids === null) {
                         collectedColletionids = "";
                     }
-                    var tempcollectedColletionids = collectedColletionids.replace(HubStar.get('itemID') + ",", "");
-                    tempcollectedColletionids = collectedColletionids.replace(HubStar.get('itemID'), "");
+                        var tempcollectedColletionids = collectedColletionids.replace(this.get('itemID') + ",", "");
+                        tempcollectedColletionids = tempcollectedColletionids.replace(this.get('itemID'), "");
                     currentCollection.set('collection_ids', tempcollectedColletionids);
                     //   this.get('controllers.applicationFeedback').statusObserver(null, "Delete Successfully!!!");
                     HubStar.store.save();
@@ -135,27 +137,28 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                 }
             }
             for (var i = 0; i < this.get('content').length; i++) {
-
-                if (this.get('content').objectAt(i).get('id') === HubStar.get('itemID')) {
-
+                if (this.get('content').objectAt(i).get('id') === this.get('itemID')) {
                     var tempItem = this.get('content').objectAt(i);
-                    tempItem.deleteRecord();
+                    if (this.get('type')==='profile'){
+                        tempItem.deleteRecord();
+                    }
                     this.get('content').removeObject(tempItem);
                     HubStar.store.save();
                     break;
                 }
             }
+        
             setTimeout(function() {
                 $('#masonry_photo_collection_container').masonry("reload");
             }, 200);
             this.cancelDelete();
         } else {
             this.set('willDelete', true);
-            HubStar.set('collectionID', collectionID);
-            HubStar.set('itemID', itemID);
+            this.set('collectionID', collectionID);
+            this.set('itemID', itemID);
+            this.set('type', type);
         }
-
-    },
+    },    
     cancelDelete: function() {
         this.set('willDelete', false);
         this.set('makeSureDelete', false);

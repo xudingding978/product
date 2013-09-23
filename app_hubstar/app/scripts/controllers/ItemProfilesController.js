@@ -22,7 +22,6 @@ HubStar.ItemProfilesController = Ember.Controller.extend({
             this.checkEditingMode();
         }
         this.set("profiles", HubStar.Mega.find([]));
-
         var temp = address.indexOf("profiles");
         temp = address.substr(0, temp + 8);
         this.set("profileUrl", temp);

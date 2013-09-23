@@ -529,6 +529,7 @@
     float:left;
     width:100%;
 }
+#interest_btn{cursor:pointer;}
 
 
 #show_interest:hover .unvisible{
@@ -556,6 +557,7 @@ div.profile-picture-active
     z-index:1!important;
     float:left!important;
     border-width:4px!important;
+    position:absolute;
 }
 .follow-btn-active
 {
@@ -593,3 +595,5 @@ textarea.add-interests{
 }
 
 /* interest ENDS */
+
+

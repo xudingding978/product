@@ -103,11 +103,44 @@
                 {{/if}}
                 <div style="font-size: 26px;font-weight: bold; line-height: 30px;  color: white;position: absolute;top: 100px;margin:0 30px;text-shadow: 0 0 10px #777;">{{display_name}}</div>
             </div>
+            
+            
+            
+            
 
             <div style="height: 240px; padding: 10px 20px;display: inline-block;position: relative;width: 100%;">
-                <div style="font-size:15px;line-height: 20px;margin: 5px 20px;color: #888; overflow: hidden;height: 200px; text-overflow: ellipsis;">{{{aboutMe}}}</div>
+                <div style="font-size:15px;line-height: 20px;margin: 5px 20px;color: #888; overflow: hidden;height: 200px; text-overflow: ellipsis;">  
+                    
+                     <div>
+                                                    <div style="display: inline-block;">
+                                                        <p style='margin-bottom: 20px;display: inline-block; font-size: 18px;'>
+                                                            <i class='icon-group' style='margin-right: 10px;display: inline-block;'></i>About Us
+                                                        </p>
+
+                                                        {{#if controller.editingAbout}}
+                                                        <div style="height: 300px;">
+                                                            {{view HubStar.HtmlEditorView}}
+                                                        </div>   
+                                                    </div>
+                                                    <div style="float: right;">
+                                                        <div class="new-btn blue-btn" {{action yes controller.aboutMe}}><i class="icon-ok icon-white"></i></div>
+                                                        <div class="new-btn" {{action no controller.aboutMe}}><i class="icon-remove"></i></div>
+                                                    </div>
+                                                    {{else}}
+                                                    {{#if controller.is_authentic_user}}
+
+                                                    <div class="edit-btn hint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing controller.about_me controller.aboutMe}}>
+
+                                                         <i class="icon-edit"></i>
+                                                    </div>
+                                                    {{/if}}
+                                                </div>
+                                                <div style="display: block;" id="wysihtml5-editor">{{{model.about_me}}}</div>
+                                                {{/if}}</div>
             </div>
 
+       
+            
             <div style="margin: 0 30px; width:90%; height: 40px; position:relative; overflow: hidden;">
                 <ul class="locationandlinks">
                     <li>

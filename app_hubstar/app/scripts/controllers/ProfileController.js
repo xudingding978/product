@@ -13,6 +13,8 @@ var seletedID = "";
 var collection_title_record;
 var collection_desc_record;
 
+  var editor;
+
 
       
 HubStar.ProfileController = Ember.ObjectController.extend({
@@ -304,12 +306,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('editingTime', !this.get('editingTime'));
         }
     },
+            
+      
     yes: function(checkingInfo) {
         if (checkingInfo === "profileName") {
             this.set('editing', !this.get('editing'));
         }
         else if (checkingInfo === "aboutMe") {
-             console.log(this.model.get('profile_about_us'));
+             //console.log(this.model.get('profile_about_us'));
             this.set('editingAbout', !this.get('editingAbout'));
         } else if (checkingInfo === "contact") {
             if (this.get("website_url").match(/[http]/g) === -1 || this.get("website_url").match(/[http]/g) === null)
@@ -605,10 +609,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set("profile_name", this.get('profile_name'));
         update_profile_record.set("profile_isActive", this.get("projectActiveDropdownContent"));
         update_profile_record.set("profile_isDeleted", this.get("projectDeleteDropdownContent"));
-      update_profile_record.set("profile_about_us", editor.getValue());
-     
-     
-       //update_profile_record.set("profile_about_us", this.get("about_me"));
+      update_profile_record.set("profile_about_us", $('iframe').contents().find('.wysihtml5-editor').html());
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
         if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
             update_profile_record.get('stateManager').transitionTo('loaded.saved');

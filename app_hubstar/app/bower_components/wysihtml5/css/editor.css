@@ -1,13 +1,13 @@
-html {
+div.editor-content html {
   background: transparent;
 }
 
-body {
+div.editor-content body {
   margin-bottom: 25px;
   font-family: Helvetica, Arial, Verdana !important;
 }
 
-h1, h2 {
+div.editor-content h1, div.editor-content h2 {
   line-height: 1;
   font-family: Rockwell, "Courier New", Courier, Georgia;
   border-bottom: 1px solid #999;
@@ -16,111 +16,117 @@ h1, h2 {
   padding: 0 0 8px;
 }
 
-h1 {
+div.editor-content h1 {
   font-size: 27px;
 }
 
-h2 {
+div.editor-content h2 {
   font-size: 18px;
 }
 
-p, li {
+div.editor-content p,div.editor-content  li {
   line-height: 1.5;
 }
 
-p, ul, ol {
+div.editor-content p, div.editor-content ul, div.editor-content ol {
   padding-bottom: 25px;
 }
 
-a {
+div.editor-content a {
   color: inherit;
 }
 
-strong, b {
-  font-weight: bold;
-}
-
-i, em {
+div.editor-content em {
   font-style: italic;
 }
 
-li {
+div.editor-content li {
   margin-left: 30px;
 }
 
-ul li {
+div.editor-content ul li {
   list-style: disc outside;
 }
 
-ol li {
+div.editor-content ol li {
   list-style: decimal outside;
 }
 
-li img {
+div.editor-content li img {
   vertical-align: middle;
   margin: 2px 5px 5px 0;
 }
 
-.wysiwyg-color-black {
+div.editor-content .wysiwyg-color-black {
   color: black;
 }
 
-.wysiwyg-color-silver {
+div.editor-content .wysiwyg-color-silver {
   color: silver;
 }
 
-.wysiwyg-color-gray {
+div.editor-content .wysiwyg-color-gray {
   color: gray;
 }
 
-.wysiwyg-color-white {
+div.editor-content .wysiwyg-color-white {
   color: white;
 }
 
-.wysiwyg-color-maroon {
+div.editor-content .wysiwyg-color-maroon {
   color: maroon;
 }
 
-.wysiwyg-color-red {
+div.editor-content .wysiwyg-color-red {
   color: red;
 }
 
-.wysiwyg-color-purple {
+div.editor-content .wysiwyg-color-purple {
   color: purple;
 }
 
-.wysiwyg-color-fuchsia {
+div.editor-content .wysiwyg-color-fuchsia {
   color: fuchsia;
 }
 
-.wysiwyg-color-green {
+div.editor-content .wysiwyg-color-green {
   color: green;
 }
 
-.wysiwyg-color-lime {
+div.editor-content .wysiwyg-color-lime {
   color: lime;
 }
 
-.wysiwyg-color-olive {
+div.editor-content .wysiwyg-color-olive {
   color: olive;
 }
 
-.wysiwyg-color-yellow {
+div.editor-content .wysiwyg-color-yellow {
   color: yellow;
 }
 
-.wysiwyg-color-navy {
+div.editor-content .wysiwyg-color-navy {
   color: navy;
 }
 
-.wysiwyg-color-blue {
+div.editor-content .wysiwyg-color-blue {
   color: blue;
 }
 
-.wysiwyg-color-teal {
+div.editor-content .wysiwyg-color-teal {
   color: teal;
 }
 
-.wysiwyg-color-aqua {
+div.editor-content .wysiwyg-color-aqua {
   color: aqua;
+}
+
+
+/* editor ui */
+header > ul.commands{padding:0;}
+header > ul.commands li
+{
+    margin:0;
+    line-height:35px;
+    float:left;
 }

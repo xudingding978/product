@@ -63,6 +63,7 @@ HubStar.UserController = Ember.Controller.extend({
     RequiredImageSize: "",
     UploadImageMode: "",
     isUserSelf: false,
+    interestsActive:false,
     init: function()
     {
         this.setUser();
@@ -144,6 +145,19 @@ HubStar.UserController = Ember.Controller.extend({
             if (col.get("collection_ids") !== undefined&&col.get("collection_ids") !== null && col.get("collection_ids") !== "") {
                 var imgId = col.get("collection_ids").split(",").objectAt(0);
             }
+        }
+        if (this.get('editingInterest')===true) {
+            this.set('editingInterest', false);
+            this.set('interestsActive', false);
+            $('#show_interest').animate({top: 298, height: 150}, 400,  function(){ $('.interesttags-container').css('height', '100px');});
+            $('#interest_btn').addClass('icon-double-angle-up');
+            $('#interest_btn').removeClass('icon-double-angle-down');
+            setTimeout(function() {
+                $("#profile-picture").removeClass('profile-picture-active');
+                $(".follow-btn").removeClass('follow-btn-active');
+                $('#interest_btn').css('display', 'block');
+                $('.interesttags-container').css('height', '100px');
+            }, 120);
         }
         this.initStastics(user);
         this.checkAuthenticUser();

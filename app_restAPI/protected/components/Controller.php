@@ -578,9 +578,12 @@ class Controller extends CController {
     public function getDocId($type, $id) {
         $docID = "";
         if ($type == "profile") {
-            $docID = $this->getDomain() . "/profiles/" . $id;
-        } elseif ($type == "photo") {
-            $docID = $this->getDomain() . "/" . $id;
+            $docID = $this->getDomain () . "/profiles/" . $id;
+            } elseif ($type == "photo") {
+            $docID = $this->getDomain () . "/" . $id;
+            }
+            elseif ($type == "article") {
+            $docID = $this->getDomain () . "/" . $id;
         }
         return $docID;
     }

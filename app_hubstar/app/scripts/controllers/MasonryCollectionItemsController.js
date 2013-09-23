@@ -54,6 +54,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             results.addObserver('isLoaded', function() {
                 if (results.get('isLoaded')) {
                     var titleFill = results.objectAt(0).get("title");
+                    console.log(titleFill);
                     that.set('title', titleFill);
                 }
             });

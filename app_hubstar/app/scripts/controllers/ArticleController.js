@@ -83,7 +83,8 @@ HubStar.ArticleController = Ember.Controller.extend({
             var name = this.get("currentUser").get('display_name');
             var date = new Date();
             var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url,
-                "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(), "is_delete": false});
+                "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(),
+                "is_delete": false, optional: this.get('megaResouce').get('type') + '/' + this.get('megaResouce').get('id')});
             comments.insertAt(0, tempComment);
             comments.store.save();
             this.set('commentContent', '');
@@ -101,15 +102,15 @@ HubStar.ArticleController = Ember.Controller.extend({
         if (isProfileIDExist && isCollectionIDExist) {
             var data = HubStar.Mega.find({RequireType: "articleRelatedImage", "article_id": collection_id, "owner_id": owner_profile_id});
             data.addObserver('isLoaded', function() {
-                if (data.get('isLoaded')) {          
-                var length=    data.get("content").get("length");
-                    for (var i = 0; i <length; i++) {
+                if (data.get('isLoaded')) {
+                    var length = data.get("content").get("length");
+                    for (var i = 0; i < length; i++) {
                         var temp = data.get("content").objectAt(i);
                         if (temp.data.photo !== undefined) {
                             //console.log(temp.data.photo.objectAt(0));
                             that.get("content").pushObject(temp.data.photo.objectAt(0));                                  //find the object which contain photos and push it into model
                             //that.set('selectedPhoto', temp.data.photo.objectAt(0));
-                        }                        
+                        }
 //                        else if (temp.record._data.article !== undefined) {                                                      // there is no hasMany in this object
 //                            console.log("record._data");
 //                            that.get("content").pushObject(temp.record._data.hasMany.photo.objectAt(0));

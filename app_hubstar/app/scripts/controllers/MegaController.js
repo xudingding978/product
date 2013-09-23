@@ -16,8 +16,10 @@ HubStar.MegaController = Ember.ArrayController.extend({
     photo_album_id: null,
     photo_thumb_id: null,
     is_authentic_user: false,
+    address:"",
     init: function()
     {
+         this.address = document.URL;
     },
     findSelectedItemIndex: function() {
         content = this.get('content');

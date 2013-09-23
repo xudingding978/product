@@ -353,6 +353,7 @@ class Controller extends CController {
                 ->default_field('couchbaseDocument.doc.owner_id');
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)->
                 must($must2);
+                  error_log(var_export($bool->toJSON(), true));
         $response = $request->query($bool)->execute();
                 //   error_log(var_export(   $response['0']['took'], true));
      

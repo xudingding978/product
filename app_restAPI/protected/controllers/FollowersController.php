@@ -315,7 +315,6 @@ class FollowersController extends Controller {
                         } else {
              
                             if (($oldRecordDeep['profile'][0]["collections"] === null) || ($oldRecordDeep['profile'][0]["collections"] === "")) {
-
                                 $newRecord[$i]['collections_size'] = 0;
                             } else {
                                 $newRecord[$i]['collections_size'] = sizeof($oldRecordDeep['profile'][0]["collections"]);

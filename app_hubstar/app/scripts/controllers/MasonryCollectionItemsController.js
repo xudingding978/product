@@ -202,7 +202,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
 
     },
     dropdownPhotoSetting: function(id) {
-
+    console.log(id);
         $('#dropdown_id_' + id).toggleClass('hideClass');
     },
     resetContent: function()

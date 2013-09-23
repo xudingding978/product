@@ -118,6 +118,10 @@ HubStar.MegaController = Ember.ArrayController.extend({
         var result = (param !== null && param !== undefined);
         return result;
     },
+    dropdownPhotoSetting: function() {
+        console.log();
+        $('#dropdown_id_' ).toggleClass('hideClass');
+    },
     switchCollection: function() {
         var addCollectionController = this.get('controllers.addCollection');
         var selectid = this.get('selectedPhoto').id;

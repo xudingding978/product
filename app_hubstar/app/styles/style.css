@@ -23,12 +23,20 @@
 #masonry_user_container[style="position:relative;height:0px;width: 185px;"],
 #masonry_user_container[style='position: relative; height: 0px; width: 185px;'],
 #masonry_user_container[style='position:relative;height:0px;width: 185px;'],
+
+#masonry_photo_collection_container[style="position: relative; height: 0px; width: 185px;"],
+#masonry_photo_collection_container[style="position:relative;height:0px;width: 185px;"],
+#masonry_photo_collection_container[style='position: relative; height: 0px; width: 185px;'],
+#masonry_photo_collection_container[style='position:relative;height:0px;width: 185px;'],
+
 #masonry_container[style="position: relative; height: 177px; width: 370px;"],
 #masonry_container[style="position:relative;height:177px;width:370px;"],
 #masonry_container[style='position: relative; height: 177px; width: 370px;'],
 #masonry_container[style='position:relative;height:177px;width:370px;']{
        width:0!important;
        overflow:hidden;
+       margin-left:4000px;
+
 }
 .masonry_push_down{
     margin-top: 85px;
@@ -141,7 +149,8 @@
 
 #nav-ul ul li:first-child
 
-#nav-ul ul li:first-child:hover::after {
+#nav-ul ul li:first-child:hover::after,
+#nav-ul ul li:first-child:focus::after{
     border-right-color: #eaeced;
 }
 
@@ -163,7 +172,8 @@
 }
 
 
-#navContainer ul li span:hover::before {
+#navContainer ul li span:hover::before,
+#navContainer ul li span:focus::before{
     content: "";
     position: absolute;
     border-right: 13px solid rgba(0,0,0,.26);
@@ -177,7 +187,8 @@
     right: -8px;
 }
 
-#navContainer ul li span:hover::after {
+#navContainer ul li span:hover::after,
+#navContainer ul li span:focus::after{
     content: "";
     position: absolute;
     border-right: 12px solid #f3f3f3;
@@ -210,7 +221,8 @@
     background-color: rgba(0,0,0,0.05);
 }
 
-.sidebar-hover:hover::before {
+.sidebar-hover:hover::before,
+.sidebar-hover:focus::before{
     content: "";
     position: absolute;
     border-right: 13px solid rgba(0,0,0,.26);
@@ -224,7 +236,8 @@
     right: -8px;
 }
 
-.sidebar-hover:hover::after {
+.sidebar-hover:hover::after,
+.sidebar-hover:focus::after{
     content: "";
     position: absolute;
     border-right: 12px solid #f3f3f3;
@@ -494,6 +507,7 @@ div.search-loading-invisible{
     cursor: pointer;
     font-weight: bold;
     font-size: 13px;
+    list-style: none;
 }
 
 .ite:hover{

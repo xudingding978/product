@@ -202,9 +202,16 @@ class Controller extends CController {
             array_push($requestArray, $requestStringTwo);
             $tempResult = $this->performMustSearch($requestArray, $returnType, 'must');
             $mega = CJSON::decode($tempResult, true);
-            $mega = CJSON::encode($tempResult, true);
+            // $mega = CJSON::encode($tempResult, true);
             // echo $mega;
-            $collections = $mega['megas'][0]['user'][0]['collections'];
+             if(!isset($mega['megas'][0]['user'][0]['collections']))
+             {
+                 $collections = array();
+             }
+             else
+             {
+                $collections = $mega['megas'][0]['user'][0]['collections'];
+             }
             $response = $this->getCollections($collections, $collection_id, $returnType);
         } else {
             $response = $this->performSearch($returnType, "", "huang");
@@ -363,7 +370,7 @@ class Controller extends CController {
     }
 
     protected function performEdit($returnType, $collection_id, $owner_profile_id) {
-        
+
         $request = $this->getElasticSearch();
         $request->from(0)
                 ->size(100);
@@ -378,8 +385,12 @@ class Controller extends CController {
         $response = $request->query($bool)->execute();
 
         //$ownId = $response[0];//[0]['source']['doc']['owner_id'];
+        $profile_id = "";
         foreach ($response as $hit) {
             $profile_id = $hit['source']['doc']['owner_id'];
+            if (isset($profile_id)) {
+                break;
+            }
         }
         $results = $this->profileSetting($response, $profile_id, $returnType);
 
@@ -388,12 +399,13 @@ class Controller extends CController {
     }
 
     protected function profileSetting($tempResult, $profile_id, $returnType) {
-
+    
         $cb = $this->couchBaseConnection();
         $domain = $this->getDomain();
         $docID_profile = $domain . "/profiles/" . $profile_id;
         $tempMega_profile = $cb->get($docID_profile);
         $mega_profile = CJSON::decode($tempMega_profile, true);
+
 
         $profile_editors = $mega_profile["profile"][0]["profile_editors"];
         $profile_name = $mega_profile["profile"][0]["profile_name"];
@@ -401,10 +413,10 @@ class Controller extends CController {
         $owner_contact_cc_emails = $mega_profile["profile"][0]["owner_contact_email"];
         $owner_contact_bcc_emails = $mega_profile["profile"][0]["owner_contact_bcc_emails"];
         $profile_regoin = $mega_profile["profile"][0]["profile_regoin"];
-       
+
         $results = '{"' . $returnType . '":[';
         $i = 0;
-        
+
         foreach ($tempResult as $hit) {
 
             $hit['source']['doc']['editors'] = $profile_editors;
@@ -418,7 +430,7 @@ class Controller extends CController {
                 $results .= ',';
             }
         }
-        
+
         $results .= ']}';
         return $results;
     }

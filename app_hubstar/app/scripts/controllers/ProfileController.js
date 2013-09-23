@@ -304,17 +304,19 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('editingTime', !this.get('editingTime'));
         }
     },
-    yesAbout: function(checkingInfo) {
-        if (checkingInfo === "aboutMe") {
-
-            this.set('editingAbout', !this.get('editingAbout'));
-        }
-        this.saveUpdateAboutUs();
-    },
+//    yesAbout: function(checkingInfo) {
+//        if (checkingInfo === "aboutMe") {
+//
+//            this.set('editingAbout', !this.get('editingAbout'));
+//        }
+//        this.saveUpdateAboutUs();
+//    },
     yes: function(checkingInfo) {
         if (checkingInfo === "profileName") {
             this.set('editing', !this.get('editing'));
-        }
+        }else  if (checkingInfo === "aboutMe") {
+         this.set('editingAbout', !this.get('editingAbout'));       
+     }
         else if (checkingInfo === "contact") {
             if (this.get("website_url").match(/[http]/g) === -1 || this.get("website_url").match(/[http]/g) === null)
             {
@@ -574,13 +576,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('collectionTag', false);
         this.set('followerTag', true);
     },
-    saveUpdateAboutUs: function() {
-        var update_About_record = HubStar.Profile.find(this.get('model.id'));
-        update_About_record.set("profile_about_us", editor.getValue());
-        this.get('controllers.applicationFeedback').statusObserver(null, "Update Successful");
-        HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_About_record);
-        HubStar.store.save();
-    },
+//    saveUpdateAboutUs: function() {
+//        var update_About_record = HubStar.Profile.find(this.get('model.id'));
+//        update_About_record.set("profile_about_us", editor.getValue());
+//        this.get('controllers.applicationFeedback').statusObserver(null, "Update Successful");
+//        HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_About_record);
+//        HubStar.store.save();
+//    },
     saveUpdate: function() {
         var update_profile_record = HubStar.Profile.find(this.get('model.id'));
         update_profile_record.set('profile_editors', this.get('editors'));

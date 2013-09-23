@@ -144,6 +144,7 @@ HubStar.UserController = Ember.Controller.extend({
                 var imgId = col.get("collection_ids").split(",").objectAt(0);
             }
         }
+        this.set('editingInterest', false);        
         this.initStastics(user);
         this.checkAuthenticUser();
         this.labelBarRefresh();

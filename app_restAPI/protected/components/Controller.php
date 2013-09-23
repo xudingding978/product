@@ -202,8 +202,8 @@ class Controller extends CController {
             array_push($requestArray, $requestStringTwo);
             $tempResult = $this->performMustSearch($requestArray, $returnType, 'must');
             $mega = CJSON::decode($tempResult, true);
-            $mega = CJSON::encode($tempResult, true);
-            // echo $mega;
+    //        $mega = CJSON::encode($tempResult, true);
+            // echo $mega; 
             $collections = $mega['megas'][0]['user'][0]['collections'];
             $response = $this->getCollections($collections, $collection_id, $returnType);
         } else {

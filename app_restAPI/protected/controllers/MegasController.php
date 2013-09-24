@@ -48,7 +48,7 @@ class MegasController extends Controller {
     }
 
     public function actionCreate() {
-        error_log("fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+        //error_log("fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
         $mega = $request_arr['mega'];
@@ -62,7 +62,7 @@ class MegasController extends Controller {
 
     public function actionRead() {
         try {
-            error_log("ddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
+            //error_log("ddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
             $cb = $this->couchBaseConnection();
@@ -80,7 +80,7 @@ class MegasController extends Controller {
     public function actionUpdate() {
         $temp = explode("/", $_SERVER['REQUEST_URI']);
         $id = $temp [sizeof($temp) - 1];
-        error_log("ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
+        //error_log("ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
         $newRecord = file_get_contents('php://input');
         $newRecord = CJSON::decode($newRecord, true);
         $newRecord['id'] = $id;

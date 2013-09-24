@@ -4921,11 +4921,15 @@ wysihtml5.dom.parse = (function() {
     
     if (checkAttributes) {
       for (attributeName in checkAttributes) {
-        method = attributeCheckMethods[checkAttributes[attributeName]];
+        if(checkAttributes[attributeName] == 'allow')
+          method = 'allow';
+        else
+          method = attributeCheckMethods[checkAttributes[attributeName]];
+
         if (!method) {
           continue;
         }
-        newAttributeValue = method(_getAttribute(oldNode, attributeName));
+        newAttributeValue = (method == 'allow' ? _getAttribute(oldNode, attributeName) : method(_getAttribute(oldNode, attributeName)));
         if (typeof(newAttributeValue) === "string") {
           attributes[attributeName] = newAttributeValue;
         }
@@ -8018,7 +8022,7 @@ wysihtml5.views.View = Base.extend(
 
     isEmpty: function() {
       var innerHTML               = this.element.innerHTML,
-          elementsWithVisualValue = "blockquote, ul, ol, img, embed, object, table, iframe, svg, video, audio, button, input, select, textarea";
+          elementsWithVisualValue = "blockquote, ul, ol, img object, table, svg, video, audio, button, input, select, textarea";
       return innerHTML === ""              || 
              innerHTML === this.CARET_HACK ||
              this.hasPlaceholderSet()      ||

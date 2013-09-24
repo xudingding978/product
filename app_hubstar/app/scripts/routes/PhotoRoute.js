@@ -24,7 +24,7 @@ HubStar.PhotoRoute = Ember.Route.extend({
     },
     events: {
         transitionToProfile: function(id) {
-
+            
             this.transitionTo("profile", HubStar.Profile.find(id));
         }
     },

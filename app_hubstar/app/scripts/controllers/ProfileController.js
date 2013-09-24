@@ -308,6 +308,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('editingTime', !this.get('editingTime'));
         }
     },
+//    yesAbout: function(checkingInfo) {
+//        if (checkingInfo === "aboutMe") {
+//
+//            this.set('editingAbout', !this.get('editingAbout'));
+//        }
+//        this.saveUpdateAboutUs();
+//    },
     yes: function(checkingInfo) {
         if (checkingInfo === "profileName") {
             this.set('editing', !this.get('editing'));
@@ -573,6 +580,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('collectionTag', false);
         this.set('followerTag', true);
     },
+//    saveUpdateAboutUs: function() {
+//        var update_About_record = HubStar.Profile.find(this.get('model.id'));
+//        update_About_record.set("profile_about_us", editor.getValue());
+//        this.get('controllers.applicationFeedback').statusObserver(null, "Update Successful");
+//        HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_About_record);
+//        HubStar.store.save();
+//    },
     saveUpdate: function() {
         var update_profile_record = HubStar.Profile.find(this.get('model.id'));
         //   console.log(update_profile_record);
@@ -626,7 +640,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
             update_profile_record.get('stateManager').transitionTo('loaded.saved');
         }
-
         this.get('controllers.applicationFeedback').statusObserver(null, "Update Successful");
 
         HubStar.store.save();

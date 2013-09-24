@@ -257,11 +257,11 @@
 
                                                     {{#if controller.editingAbout}}
                                                     <div style="height: 300px;">
-                                                         {{view Ember.TextArea valueBinding="model.profile_about_us" id=""  }}
+                                                         {{view HubStar.HtmlEditorView}}
                                                     </div>   
                                                 </div>
                                                 <div style="right: 40px;bottom: 40px;position: absolute;">
-                                                    <div class="new-btn blue-btn" {{action yes controller.aboutMe}}><i class="icon-ok icon-white"></i></div>
+                                                    <div class="new-btn blue-btn" {{action yesAbout controller.aboutMe}}><i class="icon-ok icon-white"></i></div>
                                                     <div class="new-btn" {{action no controller.aboutMe}}><i class="icon-remove"></i></div>
                                                 </div>
                                                 {{else}}

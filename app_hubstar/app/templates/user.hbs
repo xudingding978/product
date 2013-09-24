@@ -108,7 +108,32 @@
 
             <div class="editor-content" style="height: 240px; padding: 10px 20px;display: inline-block;position: relative;width: 100%;">
                 <div style="font-size:15px;line-height: 20px;margin: 5px 20px;color: #888; overflow: hidden;height: 250px; text-overflow: ellipsis;">  
-                    {{{model.about_me}}}
+
+
+                    <p style='margin-bottom: 5px;display: inline-block; font-size: 18px;padding:0'>
+                        <i class='icon-group' style='margin-right: 10px;display: inline-block;'></i>About me
+                    </p>
+
+                    {{#if controller.editingAbout}}
+                    <div style="height: 200px;border-radius: 3px;border: 1px solid #f3f3f3;">
+                        {{view HubStar.HtmlEditorView}}
+                </div>
+
+                    <div style="right: 40px;bottom: -49px;position: absolute;">
+                        <div class="new-btn blue-btn" {{action yes controller.aboutMe}}><i class="icon-ok icon-white"></i></div>
+                        <div class="new-btn" {{action no controller.aboutMe}}><i class="icon-remove"></i></div>
+            </div>
+                    {{else}}
+                    {{#if controller.is_authentic_user}}
+
+                    <div class="edit-btn hint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing controller.about_me controller.aboutMe}}>
+
+                         <i class="icon-edit"></i>
+                    </div>
+                    {{/if}}
+
+                    <div style="display: block;" >{{{model.about_me}}}</div>
+                    {{/if}}
                 </div>
             </div>
 

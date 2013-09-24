@@ -109,7 +109,7 @@ class FollowersController extends Controller {
             $old = $cb->get($docID); // get the old user record from the database according to the docID string
             $oldRecord = CJSON::decode($old, true);
             if (!isset($oldRecord['user'][0]["followers"])) {
-                
+     
                 $oldRecord['user'][0]["followers"] = array();
             }
             $docIDUser = $this->getDomain() . "/users/" . $like_user;
@@ -364,7 +364,6 @@ class FollowersController extends Controller {
     public function actionTest() {
         echo "test";
     }
-
     public function actionDeleteFollower() {
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $profile_id = $request_array[0];

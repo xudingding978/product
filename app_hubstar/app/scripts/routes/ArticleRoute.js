@@ -1,7 +1,7 @@
 HubStar.ArticleRoute = Ember.Route.extend({
         //     controller: HubStarlicationController,
         setupController: function(controller, model) {
-             var temp;
+            var temp;
         if (model.id === undefined) {                        //reload page model id can not be find
             var url =  window.location.href;
             urlArray = url.split("/");
@@ -29,7 +29,9 @@ HubStar.ArticleRoute = Ember.Route.extend({
 
                 this.transitionTo("profile", HubStar.Profile.find(id));
             }
+            
         },
+                
         deactivate: function() {
 
 

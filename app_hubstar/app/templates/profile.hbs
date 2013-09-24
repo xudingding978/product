@@ -257,7 +257,7 @@
 
                                                     {{#if controller.editingAbout}}
                                                     <div style="height: 300px;">
-                                                        {{view HubStar.HtmlEditorView}}
+                                                         {{view Ember.TextArea valueBinding="model.profile_about_us" id=""  }}
                                                     </div>   
                                                 </div>
                                                 <div style="right: 40px;bottom: 40px;position: absolute;">

@@ -11,9 +11,7 @@ class MegasController extends Controller {
     const JSON_RESPONSE_ROOT_SINGLE = 'mega';
     const JSON_RESPONSE_ROOT_PLURAL = 'megas';
 
-    public function actionIndex() {
-
-        
+    public function actionIndex() {    
         try {
             $temp = explode("?", $_SERVER['REQUEST_URI']);
             $request_string = $temp [sizeof($temp) - 1];
@@ -62,14 +60,14 @@ class MegasController extends Controller {
 
     public function actionRead() {
         try {
-            //error_log("ddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
+            
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
             $cb = $this->couchBaseConnection();
             $docID = $this->getDomain() . "/profiles/" . $id;
             $reponse = $cb->get($docID);
             $reponse = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $reponse . '}';
-            error_log(var_export($reponse,true));
+            //error_log(var_export($reponse,true));
             
             $this->sendResponse(200, $reponse);
         } catch (Exception $exc) {

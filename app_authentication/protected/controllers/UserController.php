@@ -52,6 +52,7 @@ class UserController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate() {
+
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
         $model = new User;
@@ -95,8 +96,7 @@ class UserController extends Controller {
                 }
             }
         }
-        }
-        error_log('ssssssss');
+        
         $this->render('create', array(
             'model' => $model,
         ));

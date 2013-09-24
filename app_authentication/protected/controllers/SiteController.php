@@ -1,5 +1,12 @@
 <?php
 
+header("Access-Control-Allow-Origin: *");
+header('Content-type: *');
+
+header('Access-Control-Request-Method: *');
+header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET');
+header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+
 class SiteController extends Controller {
 
     /**
@@ -88,6 +95,7 @@ class SiteController extends Controller {
     }
 
     public function actionLogin() {
+          
         $this->layout = '//layouts/signup';
         
         $this->defaultLogin();
@@ -99,10 +107,86 @@ class SiteController extends Controller {
 //
 //
 //    }
+    
+    
+    public function actionCreate() {
+
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
+        
+        
+       
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+    
+            error_log(var_export($request_array[3],true));
+            
+//            $newUser = User::model()
+//                ->findByAttributes(array('USER_NAME' => 'shuai3'));
+//            
+//   $model->PWD_HASH='654321';
+//    $model->save();
+             $model = new User;
+      
+            error_log(var_export($model->attributes ,true));
+            
+        
+            $model->REC_DATETIME = new CDbExpression('NOW()');
+            $model->REC_TIMESTAMP = new CDbExpression('NOW()');
+            $model->TENANT_REC_ID = "1";
+            $model->USER_NAME=$request_array[0];
+            error_log(var_export($request_array[0],0));
+            $model->PWD_HASH =$request_array[1];
+            $model->EMAIL_ADDRESS=$request_array[3];
+            $model->COUCHBASE_ID = strval(rand(9999999999, 99999999999));
+            $cb = new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "production", true);
+            $rand_id = $model->COUCHBASE_ID;
+            $temp = $this->getMega();
+            $temp["id"] = $rand_id;
+            $temp["user"][0]["id"] = $rand_id;
+            $temp["created"] = $this->getCurrentUTC();
+            $temp["user"][0]["photo_url"] = "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg";
+            $temp["user"][0]["photo_url_large"] = "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg";
+            $temp["user"][0]["password"] = $model->PWD_HASH;
+            $temp["user"][0]["display_name"] = $model->USER_NAME;
+            $temp["user"][0]["first_name"] = $model->FIRST_NAME;
+            $temp["user"][0]["last_name"] = $model->LAST_NAME;
+            
+             if ($cb->add(substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.') + 1) . "/users/" . $rand_id, CJSON::encode($temp))) {
+                Yii::app()->session['newUser'] = "new";
+
+                if ($model->save()) {
+
+                    $identity = new CommonUserIdentity($model->USER_NAME, $model->PWD_HASH);
+                    $identity->authenticate();
+                    Yii::app()->user->login($identity, 0);
+
+                    if (Yii::app()->session['newUser'] == "new") {
+
+                        $this->render('welcome');
+                        unset(Yii::app()->session['newUser']);
+                    } else {
+                        $this->render('close');
+                    }
+                }
+            }
+         
+         
+      
+    }
+
+
+    
+    
+    
+    
+    
     public function defaultLogin() {
 
         $model = new LoginForm;
 
+        
+        
+        
         // if it is ajax validation request
         if (!Yii::app()->user->isGuest) {
             $this->redirect(Yii::app()->user->returnUrl);
@@ -225,4 +309,5 @@ class ListingCast {
     }
 
 }
+
 

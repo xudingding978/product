@@ -11,6 +11,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     from: null,
     size: null,
     photo_url: null,
+    
+    userName:"",
+    password:"",
+    repeat:"",
+    email:"",
+    
     iframeURL: "",
     iframeLoginURL: "",
     init: function() {
@@ -138,6 +144,23 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     changeImage: function(imageSrc)
     {
         this.set('photo_url', imageSrc);
+    },
+            
+    validateEmail: function(email)
+    {
+
+        var re = /\S+@\S+\.\S+/;
+        return re.test(email);
+    },         
+            
+    signUp: function() {
+
+       var createInfo=[this.get('username'),this.get('password'),this.get('repeat'),this.get('email')]; 
+       requiredBackEnd('site','create',createInfo,'POST',function(params){});
+        
+
     }
+            
+            
 
 });

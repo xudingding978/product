@@ -127,9 +127,8 @@ div.editor-content .wysiwyg-color-aqua, .wysihtml5-editor .wysiwyg-color-aqua {
 
 
 /* editor ui */
-header > ul.commands{padding:0;}
-header > ul.commands li
-{
+header > ul.commands, main_aboutus > .editor-content p{padding:0;}
+header > ul.commands li{
     margin:0;
     line-height:35px;
     float:left;

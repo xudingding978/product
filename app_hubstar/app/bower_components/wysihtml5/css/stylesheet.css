@@ -244,7 +244,7 @@ section {
     width: 85%;
 }
 
-textarea {
+.wysihtml5_text-area > textarea {
     font-family: "Courier New", Courier, monospace;
     width: 112%;
     background: transparent;
@@ -262,7 +262,7 @@ textarea {
     box-sizing: border-box;
 }
 
-textarea:focus {
+.wysihtml5_text-area > textarea:focus {
     box-shadow: none;
     background: rgba(255, 255, 255, 0.4);
     outline: 0;

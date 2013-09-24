@@ -1,4 +1,4 @@
-stvar profile_record;
+var profile_record;
 var about_record;
 var first_name_record;
 var last_name_record;

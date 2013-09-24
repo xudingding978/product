@@ -1,4 +1,15 @@
 
+textarea{
+    padding: 3px 8px !important;
+    line-height: 22px!important;
+    font-size: 14px !important;
+}
+
+input{
+    height: 30px;
+    line-height: 30px !important;
+}
+
 .insetbox-shadow {
     -moz-box-shadow:    inset 1px 1px 3px #aaa;
     -webkit-box-shadow: inset 1px 1px 3px #aaa;
@@ -475,11 +486,11 @@
     float:left;
     width:65%;
     padding:0 5px;
-   /* padding: 20px 5px; 
-    position:absolute;
-    width:65%;
-    top:-180px;
-    left:17.5%; */
+    /* padding: 20px 5px; 
+     position:absolute;
+     width:65%;
+     top:-180px;
+     left:17.5%; */
 }
 .premium > div > table  .profileaside > .profileaside_content .aside-profilepic div,
 .premium > div > table  .profileaside > .profileaside_content .aside-profilepic div img{width:100%;margin-bottom:1em;}
@@ -591,7 +602,7 @@ textarea.add-interests{
 
     margin: 5px auto 15px;
     padding: 6px 20px;
-    font-size: 11px;
+    font-size: 12px;
 }
 
 /* interest ENDS */

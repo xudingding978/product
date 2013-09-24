@@ -138,7 +138,7 @@ class Controller extends CController {
     }
 
     protected function getRequestResult($searchString, $returnType) {
-        error_log(var_export("sdddddddddddddddddddssss"  , true));
+     
         $response = "";
         $requireParams = explode('&', $searchString);
         $requireType = $this->getUserInput($requireParams[0]);
@@ -163,7 +163,7 @@ class Controller extends CController {
         } elseif ($requireType == 'collection') {
             $collection_id = $this->getUserInput($requireParams[1]);
             $owner_profile_id = $this->getUserInput($requireParams[2]);
-            error_log(var_export("sddddddddddddddd111111111111111ddddssss"  , true));
+
             $response = $this->performEdit($returnType, $collection_id, $owner_profile_id);
         } elseif ($requireType == 'partner') {
             $partner_id_raw = $this->getUserInput($requireParams[1], false);
@@ -366,12 +366,12 @@ class Controller extends CController {
                 ->default_field('couchbaseDocument.doc.owner_id');
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)->
                 must($must2);
-                  error_log(var_export($bool->toJSON(), true));
+         
         $response = $request->query($bool)->execute();
 
 
         $results = $this->getReponseResult($response, $returnType);
-        // error_log(var_export($results, true));
+     
         //   $results = $results['profile'];
 
 
@@ -381,11 +381,11 @@ class Controller extends CController {
     }
 
     protected function performEdit($returnType, $collection_id, $owner_profile_id) {
-  error_log(var_export("sdddddddddddddddddddssss"  , true));
+
         $request = $this->getElasticSearch();
         $request->from(0)
                 ->size(100);
-        // error_log(var_export($owner_profile_id, true));
+
         $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query('"' . $collection_id . '"')
                 ->default_field('couchbaseDocument.doc.collection_id');
         $must2 = Sherlock\Sherlock::queryBuilder()
@@ -412,8 +412,7 @@ class Controller extends CController {
         $docID_profile = $domain . "/profiles/" . $profile_id;
         $tempMega_profile = $cb->get($docID_profile);
         $mega_profile = CJSON::decode($tempMega_profile, true);
-  error_log(var_export("sssss"  , true));
-
+ 
         $profile_editors = $mega_profile["profile"][0]["profile_editors"];
         $profile_name = $mega_profile["profile"][0]["profile_name"];
         $owner_contact_email = $mega_profile["profile"][0]["owner_contact_email"];
@@ -427,7 +426,7 @@ class Controller extends CController {
 
             $hit['source']['doc']['editors'] = $profile_editors;
             $hit['source']['doc']['owner_title'] = $profile_name;
-               error_log(var_export($hit['source']['doc']['owner_title'] , true));
+           
             $hit['source']['doc']['owner_contact_email'] = $owner_contact_email;
             $hit['source']['doc']['owner_contact_cc_emails'] = $owner_contact_cc_emails;
             $hit['source']['doc']['owner_contact_bcc_emails'] = $owner_contact_bcc_emails;

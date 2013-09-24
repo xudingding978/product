@@ -16,8 +16,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
     photo_album_id: null,
     photo_thumb_id: null,
     is_authentic_user: false,
+    sharePhotoUrl:'',
+    sharePhotoName:'',
     init: function()
     {
+         
     },
     findSelectedItemIndex: function() {
         content = this.get('content');
@@ -117,6 +120,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
     {
         var result = (param !== null && param !== undefined);
         return result;
+    },
+    dropdownPhotoSetting: function() {
+        this.set('sharePhotoUrl',this.get('selectedPhoto').get('photo_image_thumbnail_url'));
+        this.set('sharePhotoName',this.get('selectedPhoto').get('photo_title'));
+        $('#dropdown_id_' ).toggleClass('hideClass');
     },
     switchCollection: function() {
         var addCollectionController = this.get('controllers.addCollection');

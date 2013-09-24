@@ -81,7 +81,7 @@ var wysihtml5ParserRules = {
      *    - add_class:        converts and deletes the given HTML4 attribute (align, clear, ...) via the given method to a css class
      *                        The following methods are implemented in wysihtml5.dom.parse:
      *                          - align_text:  converts align attribute values (right/left/center/justify) to their corresponding css class "wysiwyg-text-align-*")
-                                  <p align="center">foo</p> ... becomes ... <p> class="wysiwyg-text-align-center">foo</p>
+     <p align="center">foo</p> ... becomes ... <p> class="wysiwyg-text-align-center">foo</p>
      *                          - clear_br:    converts clear attribute values left/right/all/both to their corresponding css class "wysiwyg-clear-*"
      *                            <br clear="all"> ... becomes ... <br class="wysiwyg-clear-both">
      *                          - align_img:    converts align attribute values (right/left) on <img> to their corresponding css class "wysiwyg-float-*"
@@ -129,6 +129,11 @@ var wysihtml5ParserRules = {
         "h4": {
             "add_class": {
                 "align": "align_text"
+            },
+            "check_attributes": {
+                "style": "allow",
+                "class": "allow"
+
             }
         },
         "em": {},
@@ -171,14 +176,23 @@ var wysihtml5ParserRules = {
             "rename_tag": "span"
         },
         "iframe": {
-            "remove": 1
+            "check_attributes": {
+                'width': 'allow',
+                'height': 'allow',
+                'src': 'allow',
+                'frameborder': 'allow',
+                'allowfullscreen': 'allow'
+            }
         },
         "figcaption": {
             "rename_tag": "div"
         },
         "a": {
             "check_attributes": {
-                "href": "url"
+                "href": "url",
+                "style": "allow",
+                "class": "allow"
+
             },
             "set_attributes": {
                 "rel": "nofollow",
@@ -190,7 +204,9 @@ var wysihtml5ParserRules = {
                 "width": "numbers",
                 "alt": "alt",
                 "src": "url",
-                "height": "numbers"
+                "height": "numbers",
+                'style': 'allow',
+                'class': 'allow'
             },
             "add_class": {
                 "align": "align_img"
@@ -259,6 +275,11 @@ var wysihtml5ParserRules = {
         "div": {
             "add_class": {
                 "align": "align_text"
+
+            },
+            "check_attributes": {
+                'style': 'allow',
+                'class': 'allow'
             }
         },
         "option": {
@@ -410,15 +431,16 @@ var wysihtml5ParserRules = {
             "rename_tag": "span"
         },
         "embed": {
-            "remove": 1
+            "rename_tag": "embed"
         },
         "hgroup": {
             "rename_tag": "div"
         },
         "font": {
-            "rename_tag": "span",
-            "add_class": {
-                "size": "size_font"
+            "check_attributes": {
+                "style": "allow",
+                "class": "allow",
+                "color": "allow"
             }
         },
         "tt": {

@@ -1,5 +1,5 @@
-
-
+//
+//
 //beforeEach(function() {
 //    Ember.run(function() {
 //        HubStar.reset();
@@ -12,7 +12,7 @@
 //});
 //
 //after(function(done) {
-//    //LoginOut();
+//    LoginOut();
 //    Ember.run(function() {
 //        route = HubStar.Router.create();
 //        route.transitionTo("indexIndex");
@@ -20,62 +20,62 @@
 //    });
 //
 //});
-function LoginIn(done) {
-    if (localStorage.loginstatus === null || localStorage.loginstatus === undefined) {
-        $("a:contains('Login')").click();
-        $(".square-button").last().click();
-         setTimeout(function() {
-            var content = $('#login_iframe').contents();
-            content.find('#LoginForm_username').val('Jenny');
-            content.find('#LoginForm_password').val('test123');
-            content.find("input:submit.ifame_login").click();
-            done();
-        }, 1000);
-    }
-}
-;
-function LoginOut() {
-    $('.profilepic-container').find('a').eq(1).find('img').click();
-
-    //    $("a:contains('Logout')").click();
-
-     setTimeout(function() {
-        $("a:contains('Logout')").click();
-    }, 1000);
-
-
-}
-;
-
-
-//describe("Platform  bar", function() {
-//    var controller;
-//    var topics;
-//    var result;
-//    beforeEach(function(done) {
+//function LoginIn(done) {
+//    if (localStorage.loginstatus === null || localStorage.loginstatus === undefined) {
+//        $("a:contains('Login')").click();
+//        $(".square-button").last().click();
+//         setTimeout(function() {
+//            var content = $('#login_iframe').contents();
+//            content.find('#LoginForm_username').val('Jenny');
+//            content.find('#LoginForm_password').val('test123');
+//            content.find("input:submit.ifame_login").click();
+//            done();
+//        }, 1000);
+//    }
+//}
+//;
+//function LoginOut() {
+//    $('.profilepic-container').find('a').eq(1).find('img').click();
+//
+//    //    $("a:contains('Logout')").click();
+//
+//     setTimeout(function() {
+//        $("a:contains('Logout')").click();
+//    }, 1000);
 //
 //
-//
-//        Ember.run(function() {
-//            LoginIn(done);
-//
-//            controller = HubStar.PlatformBarController.create();
-//             //console.log(controller);
-//            topics = controller.categorys;
-//            topics.addObserver('isLoaded', function() {
-//                if (topics.get('isLoaded')) {
-//                    result = topics.get('length');
-//                    done();
-//                }
-//            });
-//        });
-//    });
-//    it("total topics", function() {
-//        Ember.run(function() {
-//            result.should.equal(14);
-//        });
-//    });
-//});
+//}
+//;
+
+
+describe("Platform  bar", function() {
+    var controller;
+    var topics;
+    var result;
+
+    beforeEach(function(done) {
+
+
+
+        Ember.run(function() {
+            LoginIn(done);
+
+            controller = HubStar.PlatformBarController.create();
+            topics = controller.categorys;
+            topics.addObserver('isLoaded', function() {
+                if (topics.get('isLoaded')) {
+                    result = topics.get('length');
+                    done();
+                }
+            });
+        });
+    });
+    it("total topics", function() {
+        Ember.run(function() {
+            result.should.equal(14);
+        });
+    });
+});
 
 //describe("AddLike Test", function() {
 //    var controller;

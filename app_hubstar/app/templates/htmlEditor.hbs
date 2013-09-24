@@ -1,63 +1,74 @@
- <div id="wysihtml5-editor-toolbar">
-      <header>
+<div id="wysihtml5-editor-toolbar" style="background-color: #f3f3f3;border-bottom: 1px dashed #999;background-clip: padding-box;">
+    <header>
         <ul class="commands">
-          <li data-wysihtml5-command="bold" title="Make text bold (CTRL + B)" class="command"></li>
-          <li data-wysihtml5-command="italic" title="Make text italic (CTRL + I)" class="command"></li>
-          <li data-wysihtml5-command="insertUnorderedList" title="Insert an unordered list" class="command"></li>
-          <li data-wysihtml5-command="insertOrderedList" title="Insert an ordered list" class="command"></li>
-          <li data-wysihtml5-command="createLink" title="Insert a link" class="command"></li>
-          <li data-wysihtml5-command="insertImage" title="Insert an image" class="command"></li>
-          <li data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1" title="Insert headline 1" class="command"></li>
-          <li data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h2" title="Insert headline 2" class="command"></li>
-          <li data-wysihtml5-command-group="foreColor" class="fore-color" title="Color the selected text" class="command">
-            <ul>
-              <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="silver"></li>
-              <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="gray"></li>
-              <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="maroon"></li>
-              <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="red"></li>
-              <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="purple"></li>
-              <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="green"></li>
-              <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="olive"></li>
-              <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="navy"></li>
-              <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="blue"></li>
-            </ul>
-          </li>
-          <li data-wysihtml5-command="insertSpeech" title="Insert speech" class="command"></li>
-          <li data-wysihtml5-action="change_view" title="Show HTML" class="action"></li>
+            <li data-wysihtml5-command="bold" title="Make text bold (CTRL + B)" class="command easing"><i class="icon-bold editor-icon">&nbsp;</i></li>
+            <li data-wysihtml5-command="italic" title="Make text italic (CTRL + I)" class="command easing"><i class="icon-italic editor-icon">&nbsp;</i></li>
+            <li data-wysihtml5-command="insertUnorderedList" title="Insert an unordered list" class="command easing"><i class="icon-list-ul editor-icon">&nbsp;</i></li>
+            <li data-wysihtml5-command="insertOrderedList" title="Insert an ordered list" class="command easing"><i class="icon-list-ol editor-icon">&nbsp;</i></li>
+            <li data-wysihtml5-command="createLink" title="Insert a link" class="command easing"><i class="icon-link editor-icon">&nbsp;</i></li>
+            <li data-wysihtml5-command="insertImage" title="Insert an image" class="command easing"><i class="icon-picture editor-icon">&nbsp;</i></li>
+            <li data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1" title="Insert headline 1" class="command easing"><i class="editor-icon">H1</i></li>
+            <li data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h2" title="Insert headline 2" class="command easing"><i class="editor-icon">H2</i></li>
+            <li data-wysihtml5-command-group="foreColor" class="fore-color" title="Color the selected text" class="command easing"><i class="editor-icon"> T </i>
+                <ul>
+                    <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="silver"></li>
+                    <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="gray"></li>
+                    <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="maroon"></li>
+                    <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="red"></li>
+                    <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="purple"></li>
+                    <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="green"></li>
+                    <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="olive"></li>
+                    <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="navy"></li>
+                    <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="blue"></li>
+                </ul>
+            </li>
+            <li data-wysihtml5-command="insertSpeech" title="Insert speech" class="command easing"><i class="icon-microphone editor-icon">&nbsp;</i></li>
+            <li data-wysihtml5-action="change_view" title="Show HTML" class="action easing"><i class="icon-code editor-icon">&nbsp;</i></li>
         </ul>
-      </header>
-      <div data-wysihtml5-dialog="createLink" style="display: none;">
-        <label>
-          Link:
-          <input data-wysihtml5-dialog-field="href" value="http://">
-        </label>
-        <a data-wysihtml5-dialog-action="save">OK</a>&nbsp;<a data-wysihtml5-dialog-action="cancel">Cancel</a>
-      </div>
-
-      <div data-wysihtml5-dialog="insertImage" style="display: none;">
-        <label>
-          Image:
-          <input data-wysihtml5-dialog-field="src" value="http://">
-        </label>
-        <a data-wysihtml5-dialog-action="save">OK</a>&nbsp;<a data-wysihtml5-dialog-action="cancel">Cancel</a>
-      </div>
+    </header>
+    <div data-wysihtml5-dialog="createLink" class="easing" style="display: none;z-index: 10;opacity: .9">
+        <div style="display: inline-block; margin: 0 10px;font-weight: bold; color: #888;">
+            Link:
+            <input class="disabled-btn" style="top:0" data-wysihtml5-dialog-field="href" value="http://">
+        </div>
+        <a class="new-btn blue-btn" data-wysihtml5-dialog-action="save" style="top:0">OK</a>&nbsp;<a class="new-btn" data-wysihtml5-dialog-action="cancel" style="top:0">Cancel</a>
     </div>
-    
-    <section>
-    
- {{view Ember.TextArea valueBinding="aboutMe" id="wysihtml5-editor" class="no-resize" placeholder="Enter something ..." }}
 
-     
-    </section>
-    <script>
-     var editor = new wysihtml5.Editor("wysihtml5-editor", {
-        toolbar:     "wysihtml5-editor-toolbar",
+    <div data-wysihtml5-dialog="insertImage" class="easing" style="display: none;z-index: 10;opacity: .9">
+        <div style="display: inline-block; margin: 0 10px;font-weight: bold; color: #888;">
+            Image:
+            <input class="disabled-btn" style="top:0" data-wysihtml5-dialog-field="src" value="http://">
+        </div>
+        <a class="new-btn blue-btn" data-wysihtml5-dialog-action="save" style="top:0">OK</a>&nbsp;<a class="new-btn" data-wysihtml5-dialog-action="cancel" style="top:0">Cancel</a>
+    </div>
+</div>
+
+
+<section>
+    {{#if controller.isAboutUs}}
+    <div style="overflow: hidden">
+        {{view Ember.TextArea valueBinding="model.profile_about_us" id="wysihtml5-editor"  }}
+    </div>
+    {{else}}
+    <div style="overflow: hidden">
+        {{view Ember.TextArea valueBinding="model.about_me" id="wysihtml5-editor"  }}
+    </div>
+    {{/if}}
+
+
+</section>
+<script>
+
+    var editor = new wysihtml5.Editor("wysihtml5-editor", {
+        toolbar: "wysihtml5-editor-toolbar",
         stylesheets: ["http://yui.yahooapis.com/2.9.0/build/reset/reset-min.css", "bower_components/wysihtml5/css/editor.css"],
         parserRules: wysihtml5ParserRules
-      });
-      
-      editor.on("load", function() {
+    });
+
+    editor.on("load", function() {
         var composer = editor.composer;
         composer.selection.selectNode(editor.composer.element.querySelector("h1"));
-      });
-    </script>
+    });
+
+
+</script>

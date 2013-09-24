@@ -16,14 +16,43 @@
         <div class="top-controlbar easing" >
             <!--            <div class="icon-on-black" style="left: 8px;"><i class="icon-thumbs-up"></i></div>-->
 
-            <div class="icon-on-black hint--rounded hint--bottom" data-hint="Save this photo to your own collection." style="position:relative;"  {{action switchCollection on="click" target="controller"}}>
-                <i class="icon-save">
-                </i>
-                    <span class="pretooltip">
-                        Save
-                    </span>
+            <div class="icon-on-black hint--rounded hint--bottom" data-hint="Save this photo to your own collection." style="position:relative;margin: 0 5px;"  {{action switchCollection on="click" target="controller"}}>
+                <i class="icon-save"></i><span class="pretooltip">Save</span>
             </div>
-            <!--    <div class="icon-on-black" style="height: 44px;position: absolute;width: 44px;"><i class="icon-share-alt"></i></div>     -->
+            <div class="icon-on-black hint--rounded hint--bottom" data-hint="Share this photo to other social platform." style="position:relative;margin: 0 5px;" {{action dropdownPhotoSetting}}>
+                 <i class="icon-share-alt"></i><span class="pretooltip">Share</span> 
+            </div>
+            <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}" style="width: 200px; margin: 0 auto; left: 100px;">
+                
+                <li class="ite"  
+                    onclick="
+                            window.open(
+                                    'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(location.href),
+                                    'facebook-share-dialog',
+                                    'width=626,height=436');
+                            return false;">
+                    <a href="#">
+                        <k class="icon-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Facebook</span>
+                    </a></li>
+                <li class='ite'   
+                    onclick="
+                            window.open(
+                                    'https://twitter.com/share?url=' + encodeURIComponent(location.href),
+                                    'tweet', 'height=300,width=550,resizable=1');
+                            return false;">
+                    <a href="#">
+                        <k class="icon-twitter" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Twitter</span></a></li>
+
+                <li class="ite" onclick="
+                            var tt = 'https://plus.google.com/share?url=' + location.href;
+                            window.open(tt,
+                                    '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=626,width=436');
+                            return false;"><a href="#">
+                        <k class="icon-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Google+</span></a></li>
+            </ul>
+
+
+
             <div class="closeview" {{action closeWindow on="click" target="controller"}} >
                 <i class="icon-remove"></i>
             </div>
@@ -111,7 +140,7 @@
                     {{#unless controller.enableToEdit}}
 
                     <div class="article-title">{{controller.selectedPhoto.photo_title}}
-                        
+
                         {{#if controller.is_authentic_user}}
                         <div class='hint--left hint--rounded' data-hint='Edit Photo Info' style="position: absolute;font-size: 15px;right: 10px;margin: 1px;">
                             <i class="icon-edit" {{action editingPhotoMegaData}}></i>

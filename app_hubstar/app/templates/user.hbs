@@ -116,13 +116,13 @@
 
                     {{#if controller.editingAbout}}
                     <div  style="height: 100px;border-radius: 3px;">
-                       {{view Ember.TextArea valueBinding="about_me" class="no-resize" placeholder="Say something about yourself. Maximum 600 characters."}}
-                </div>
+                        {{view Ember.TextArea valueBinding="about_me" class="no-resize" placeholder="Say something interesting about yourself (Maximum 600 characters)."}}
+                    </div>
 
                     <div style="right: 40px;bottom: -49px;position: absolute;">
                         <div class="new-btn blue-btn" {{action yes controller.aboutMe}}><i class="icon-ok icon-white"></i></div>
                         <div class="new-btn" {{action no controller.aboutMe}}><i class="icon-remove"></i></div>
-            </div>
+                    </div>
                     {{else}}
                     {{#if controller.is_authentic_user}}
 
@@ -136,7 +136,7 @@
                     {{/if}}
                 </div>
             </div>
-            
+
 
 
 

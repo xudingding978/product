@@ -45,15 +45,12 @@
 
 
 <section>
-    {{#if controller.isAboutUs}}
-    <div style="overflow: hidden">
+
+    <div class="wysihtml5_text-area" style="overflow: hidden;width: 99%;">
         {{view Ember.TextArea valueBinding="model.profile_about_us" id="wysihtml5-editor"  }}
     </div>
-    {{else}}
-    <div style="overflow: hidden">
-        {{view Ember.TextArea valueBinding="model.about_me" id="wysihtml5-editor"  }}
-    </div>
-    {{/if}}
+
+
 
 
 </section>

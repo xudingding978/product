@@ -217,6 +217,22 @@ describe("profile page cancel saving test", function() {
     });
 });
 
+describe("user collection test", function() {
+     var controller, model;
+     
+     model = HubStar.Profile.find('25180585742');
+
+    it ("add collection test", function() {
+        
+        controller = HubStar.UserController.create();
+        controller.newTitle='mocha test tile';
+        controller.newDesc='mocha test desc';
+        controller.collections=model.collections;
+    });
+    
+   
+});
+
 //describe("user profies testing", function() {
 //    var controller;
 //

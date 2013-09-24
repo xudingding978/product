@@ -241,17 +241,17 @@ header > ul.commands li.fore-color ul li {
 
 section {
     position: absolute;
-    width: 90%;
+    width: 85%;
 }
 
-textarea {
+.wysihtml5_text-area > textarea {
     font-family: "Courier New", Courier, monospace;
     width: 112%;
     background: transparent;
     height: 165px;
     border: 0;
     resize: none;
-    white-space: pre;
+    white-space: pre-line;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
     padding: 10px;
@@ -262,7 +262,7 @@ textarea {
     box-sizing: border-box;
 }
 
-textarea:focus {
+.wysihtml5_text-area > textarea:focus {
     box-shadow: none;
     background: rgba(255, 255, 255, 0.4);
     outline: 0;
@@ -280,7 +280,7 @@ a.fork {
     width: 64%;
 }
 
-.main_aboutus section .wysihtml5-sandbox{
+.main_aboutus section .wysihtml5-sandbox, .main_aboutus section #wysihtml5-editor{
     width: 100% !important;
     height: 500px !important;
 }

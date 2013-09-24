@@ -64,15 +64,33 @@ class FollowersController extends Controller {
             $cb = $this->couchBaseConnection();
             $domain = $this->getDomain();
             $docID_currentUser = $domain . "/users/" . $request_arr['follower_id'];
+            error_log(var_export($request_arr['follower_id'], true));
             $tempMega_currentUser = $cb->get($docID_currentUser);
             $mega_currentUser = CJSON::decode($tempMega_currentUser, true);
-
+              
+            
+          
+   
             if (!isset($mega_currentUser['user'][0]['followings'])) {
                 $mega_currentUser['user'][0]['followings'] = array();
             }
+             
             $follower_arr = $request_arr;
             $follower_arr['follower_id'] = $profile_id;
-            array_unshift($mega_currentUser['user'][0]['followings'], $follower_arr);
+            $bool = 0;
+               for($i=0;$i<sizeof($mega_currentUser['user'][0]['followings']);$i++)
+             {
+                 if($profile_id===$mega_currentUser['user'][0]['followings'][$i]["follower_id"])
+                 {
+                     $bool =1;
+                   break;
+                 }
+             }
+             if(!$bool)
+             {
+                     array_unshift($mega_currentUser['user'][0]['followings'], $follower_arr);
+             }
+          
             if ($cb->set($docID_currentUser, CJSON::encode($mega_currentUser))) {
                 $isSaving = true;
                 ;
@@ -495,7 +513,22 @@ class FollowersController extends Controller {
             }
             $follower_arr = $request_arr;
             $follower_arr['follower_id'] = $user_id;
-            array_unshift($mega_currentUser['user'][0]['followings'], $follower_arr);
+            
+             $bool = 0;
+               for($i=0;$i<sizeof($mega_currentUser['user'][0]['followings']);$i++)
+             {
+                 if($user_id===$mega_currentUser['user'][0]['followings'][$i]["follower_id"])
+                 {
+                     $bool =1;
+                   break;
+                 }
+             }
+             if(!$bool)
+             {
+                       array_unshift($mega_currentUser['user'][0]['followings'], $follower_arr);
+             }
+ 
+         
             if ($cb->set($docID_currentUser, CJSON::encode($mega_currentUser))) {
                 $isSaving = true;
                 ;

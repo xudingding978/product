@@ -3924,7 +3924,7 @@ HubStar.PlatformBarController = Ember.ArrayController.extend({
     init: function()
     {  
         this.setTopicModel(HubStar.Cate.find({}));
-         this.set('userLocation',geoip_city());
+         //this.set('userLocation',geoip_city());
        
     },
     topicSearch: function(search_topic) {

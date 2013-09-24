@@ -9,7 +9,9 @@ HubStar.CollectionController = Ember.Controller.extend({
         var collection = null;
         if (isExsinting) {
             var validID = this.checkingValidInput(title);
-            var checkingCharater = this.specialCharactersChecking(title);
+            var checkingCharater = this.specialCharactersChecking(validID);
+            console.log(validID);
+            console.log(checkingCharater);
             if (checkingCharater && validID !== null && validID !== '') {
                 collection = HubStar.Collection.createRecord({});
                 collection.set('id', validID.toLowerCase());

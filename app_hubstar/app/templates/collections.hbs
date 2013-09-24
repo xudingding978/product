@@ -35,6 +35,7 @@
 
 
 {{#each collections}}
+
 <div class="box col2 style-box t-style-box">
     <div class="masonry-object Targeting_Object_front" {{bindAttr id="id"}}>
         <a class="album-description-hoverarea easing" href="" {{action transitionToCollectionPhoto id}}>
@@ -46,6 +47,7 @@
             <div class="">
                 <img class="albumcover" {{bindAttr src="cover"}} />     
             </div>
+
         </div>
         <div class="album-info">
             <div class="album-info_name"><i class="icon-picture" >&nbsp;</i>{{title}}</div>
@@ -53,8 +55,10 @@
                 {{#if controller.is_authentic_user}}
                 <div class="edit-btn edit-collection-btn easing hint--left hint--rounded" data-hint="Edit collection info.">
                     <i class="icon-cog" {{action editCollectionButton id title desc target="view" on="click"}} ></i>
-                </div>
+
+         </div>
                 {{/if}}
+
                 <span><a href="" {{action transitionToCollectionPhoto id}}> </a> photos</span>
                 <span><img src="../../images/list-doc.png"/>{{date created_at}}</span>               
             </div>

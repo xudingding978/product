@@ -38,6 +38,8 @@ HubStar.CollectionController = Ember.Controller.extend({
         }
         return title;
     },
+            
+
     checkingIdisExsinting: function(id, postOrPut) {
         var isExsinting = true;
         //console.log(this.get("collections"));
@@ -52,18 +54,24 @@ HubStar.CollectionController = Ember.Controller.extend({
             }
         }
         return isExsinting;
-    }, specialCharactersChecking: function(str) {
+    }, 
+        specialCharactersChecking: function(str) {
         var re = /^[a-zA-Z-][a-zA-Z0-9-]*$/;
         return re.test(str);
     },
     getUpdateCollection: function(selectedCollection) {
         //console.log(selectedCollection);
+
+        var desc = selectedCollection.get('desc');
+
         var desc = "";
         if (selectedCollection.get('desc') !== undefined) {
             desc = this.checkingValidInput(selectedCollection.get('desc'));
         }
+
         var id = this.checkingValidInput(selectedCollection.get('id'));
         var title = selectedCollection.get("title");
+        
         selectedCollection.set("id", id);
         selectedCollection.set("title", title);
         selectedCollection.set("desc", desc);

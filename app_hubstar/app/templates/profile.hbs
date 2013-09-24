@@ -1,5 +1,9 @@
+
+
+
   
 <div class="profilegb" style="background: #fff url('../images/texture.png') repeat;width: 100%;height: auto; ">
+
     <div class="profile-wallpaper" style="width: 100%; height: 500px; overflow: hidden; position: fixed;">
         <img  {{bindAttr src= model.profile_bg_url}} style="width: 100%; height:auto;">
     </div>
@@ -249,19 +253,19 @@
 
                                         <div class="main_aboutus" style="">
 
-                                            <div>
+                                            <div class="editor-content">
                                                 <div style="display: inline-block;">
-                                                    <p style='margin-bottom: 20px;display: inline-block; font-size: 18px;'>
+                                                    <p style='display: inline-block; font-size: 18px;'>
                                                         <i class='icon-group' style='margin-right: 10px;display: inline-block;'></i>About Us
                                                     </p>
 
                                                     {{#if controller.editingAbout}}
                                                     <div style="height: 300px;">
-                                                         {{view Ember.TextArea valueBinding="model.profile_about_us" id=""  }}
+                                                        {{view HubStar.HtmlEditorView}}
                                                     </div>   
                                                 </div>
-                                                <div style="right: 40px;bottom: 40px;position: absolute;">
-                                                    <div class="new-btn blue-btn" {{action yes controller.aboutMe}}><i class="icon-ok icon-white"></i></div>
+                                                <div style="right: 40px;bottom: 25px;position: absolute;">
+                                                    <div class="new-btn blue-btn" {{action yesAbout controller.aboutMe}}><i class="icon-ok icon-white"></i></div>
                                                     <div class="new-btn" {{action no controller.aboutMe}}><i class="icon-remove"></i></div>
                                                 </div>
                                                 {{else}}
@@ -280,7 +284,7 @@
 
 
 
-                                        <div style="height: 40px; bottom: 0;width: 800px;position: absolute;margin-bottom: 15px;">
+                                        <div style="height: 40px; bottom: 0;width: 700px;position: absolute;margin-bottom: 15px;">
                                             <ul class="locationandlinks">
 
                                                 {{#if facebook}}

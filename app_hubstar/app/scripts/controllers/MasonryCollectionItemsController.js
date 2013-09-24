@@ -198,6 +198,17 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
 
 
     },
+            
+
+
+        
+            transitionToArticle: function(id) {
+
+                this.transitionTo("article", HubStar.Article.find(id));
+            },
+            
+
+            
     dropdownPhotoSetting: function(id) {
 
         $('#dropdown_id_' + id).toggleClass('hideClass');

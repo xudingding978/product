@@ -9,8 +9,7 @@ header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET');
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
 class FollowersController extends Controller {
-     
-    const JSON_RESPONSE_ROOT_SINGLE_MEGA = 'mega';
+
     const JSON_RESPONSE_ROOT_SINGLE = 'follower';
     const JSON_RESPONSE_ROOT_PLURAL = 'followers';
 
@@ -101,26 +100,21 @@ class FollowersController extends Controller {
     public function actionRead() {
         $like = CJSON::decode(file_get_contents('php://input'));
         $likeArr = CJSON::decode($like, true);
-        //error_log(var_export($like_arr[0],true));
+ 
         $like_user = $likeArr[0];
         $like_arr = $likeArr[1];
-        //error_log(var_export($like_user, true));
-        //error_log(var_export($like_arr, true));
-        //error_log(var_export($like_arr, true));
         try {
             $cb = $this->couchBaseConnection();
             $docID = $this->getDomain() . "/users/" . $like_arr;
             $old = $cb->get($docID); // get the old user record from the database according to the docID string
             $oldRecord = CJSON::decode($old, true);
             if (!isset($oldRecord['user'][0]["followers"])) {
-                //error_log("ssssssssssssssssss");            
+                
                 $oldRecord['user'][0]["followers"] = array();
             }
-
             $docIDUser = $this->getDomain() . "/users/" . $like_user;
             $oldUser = $cb->get($docIDUser); // get the old user record from the database according to the docID string
             $oldRecordUser = CJSON::decode($oldUser, true);
-            
             if (!isset($oldRecordUser['user'][0]["followers"]) || $oldRecordUser['user'][0]["followers"] === "") {
                 $userFollower = null;
             }
@@ -143,11 +137,7 @@ class FollowersController extends Controller {
                     $newRecord[$i]['photo_url'] = $oldRecordDeep['user'][0]["photo_url_large"];
                     if (isset($oldRecordDeep['user'][0]["cover_url_small"])) {
                         $newRecord[$i]['cover_url_small'] = $oldRecordDeep['user'][0]["cover_url_small"];
-                    } else if (isset($oldRecordDeep['user'][0]["cover_url"]))
-                    {
-                          $newRecord[$i]['cover_url_small'] =  $oldRecordDeep['user'][0]["cover_url"];
-                    }else 
-                     {
+                    } else {
                         $newRecord[$i]['cover_url_small'] = "http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg";
                     }
                     if (!isset($oldRecordDeep['user'][0]["collections"])) {
@@ -198,17 +188,15 @@ class FollowersController extends Controller {
                                     break;
                                 }
                             }
-                            //     error_log(var_export($newRecord[$i]['follow_status'], true));
+                        
                         }
                     }
                 }
-                //error_log(var_export($newRecord[$i], true));
+  
             }
             if ($newRecord === null) {
                 $this->sendResponse(204);
             } else {
-                //error_log(var_export(CJSON::encode($newRecord), true));
-                // error_log(var_export(CJSON::encode($newRecord), true));
                 $this->sendResponse(200, CJSON::encode($newRecord));
             }
         } catch (Exception $exc) {
@@ -220,22 +208,15 @@ class FollowersController extends Controller {
 
         $like = CJSON::decode(file_get_contents('php://input'));
         $likeArr = CJSON::decode($like, true);
-        //error_log(var_export($like_arr[0],true));
         $like_user = $likeArr[0];
         $like_arr = $likeArr[1];
-        //error_log(var_export($like_user, true));
-        //error_log(var_export($like_arr, true));
-        // $like = CJSON::decode(file_get_contents('php://input'));
-        //$like_arr = CJSON::decode($like, true);
-        //error_log(var_export($like_arr, true));
 
         try {
             $cb = $this->couchBaseConnection();
             $docID = $this->getDomain() . "/users/" . $like_arr;
             $old = $cb->get($docID); // get the old user record from the database according to the docID string
             $oldRecord = CJSON::decode($old, true);
-            if (!isset($oldRecord['user'][0]["followings"])) {
-                //error_log("ssssssssssssssssss");            
+            if (!isset($oldRecord['user'][0]["followings"])) {        
                 $oldRecord['user'][0]["followings"] = array();
             }
 
@@ -266,15 +247,9 @@ class FollowersController extends Controller {
                         $newRecord[$i]['photo_url'] = $oldRecordDeep['user'][0]["photo_url_large"];
                         if (isset($oldRecordDeep['user'][0]["cover_url_small"])) {
                             $newRecord[$i]['cover_url_small'] = $oldRecordDeep['user'][0]["cover_url_small"];
-                        } else if(isset($oldRecordDeep['user'][0]["cover_url"]))
-                        {
-                            $newRecord[$i]['cover_url_small'] =   $oldRecordDeep['user'][0]["cover_url"];
+                        } else {
+                            $newRecord[$i]['cover_url_small'] =  "http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg";
                         }
-                         else{
-                              $newRecord[$i]['cover_url_small'] = "http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg";
-                           
-                        }
-                        
                         if (!isset($oldRecordDeep['user'][0]["collections"])) {
                             $newRecord[$i]['collections_size'] = 0;
                         } else {
@@ -328,25 +303,16 @@ class FollowersController extends Controller {
                     } else {
                         $docIDDeep = $this->getDomain() . "/profiles/" . $id;
                         $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
-                         $oldRecordDeep = CJSON::decode($oldDeep, true);
-                        //$newRecord[$i]['type'] = 'profile';
-                         $newRecord[$i]["profile"]= '{"' . self::JSON_RESPONSE_ROOT_SINGLE_MEGA . '":' . $oldDeep . '}';
-                        $newRecord[$i]["profile"]= CJSON::decode($newRecord[$i]["profile"], true);
                         $oldRecordDeep = CJSON::decode($oldDeep, true);
                         $newRecord[$i]['record_id'] = $id;
                         $newRecord[$i]['name'] = $oldRecordDeep['profile'][0]["profile_name"];
                         $newRecord[$i]['photo_url'] = $oldRecordDeep['profile'][0]["profile_pic_url"];
-                        //$newRecord[$i]['photo_url_large'] = $oldRecordDeep['profile'][0]["profile_hero_cover_url"];
-                        if (isset($oldRecordDeep['profile'][0]["profile_hero_cover_url"])&&$oldRecordDeep['profile'][0]["profile_hero_cover_url"]!==""&&$oldRecordDeep['profile'][0]["profile_hero_cover_url"]!==null) {
-                            $newRecord[$i]['cover_url_small'] = $oldRecordDeep['profile'][0]["profile_hero_cover_url"];
-                        } else {
-                            $newRecord[$i]['cover_url_small'] = $oldRecordDeep['profile'][0]["profile_hero_url"];
-                        }
+                        $newRecord[$i]['cover_url_small'] = $oldRecordDeep['profile'][0]["profile_bg_url"];
                         $newRecord[$i]['following_status'] = false;
                         if (!isset($oldRecordDeep['profile'][0]["collections"])) {
                             $newRecord[$i]['collections_size'] = 0;
                         } else {
-                            //error_log(var_export($oldRecordDeep['profile'][0]["collections"], true));
+             
                             if (($oldRecordDeep['profile'][0]["collections"] === null) || ($oldRecordDeep['profile'][0]["collections"] === "")) {
 
                                 $newRecord[$i]['collections_size'] = 0;
@@ -372,25 +338,13 @@ class FollowersController extends Controller {
                                 $newRecord[$i]['follower_size'] = sizeof($oldRecordDeep['profile'][0]["followers"]);
                             }
                         }
-                        
-                          if (($oldRecordDeep['profile'][0]["profile_about_us"] === null) || ($oldRecordDeep['profile'][0]["profile_about_us"] === "")) {
-                                $newRecord[$i]['profile_about_us'] = "";
-                            } else {
-                                 $newRecord[$i]['profile_about_us']=$oldRecordDeep['profile'][0]["profile_about_us"] ;
-                            }
-                              if ((!isset($oldRecordDeep['profile'][0]["profile_cover_text"]))||($oldRecordDeep['profile'][0]["profile_cover_text"] === null) || ($oldRecordDeep['profile'][0]["profile_cover_text"] === "") ){
-                                $newRecord[$i]['profile_cover_text'] = "";
-                            } else {
-                                 $newRecord[$i]['profile_cover_text']=$oldRecordDeep['profile'][0]["profile_cover_text"] ;
-                            }
                     }
                 }
-                //error_log(var_export($newRecord[$i], true));
             }
             if ($newRecord === null) {
                 $this->sendResponse(204);
             } else {
-                //error_log(var_export(CJSON::encode($newRecord), true));
+      
                 $this->sendResponse(200, CJSON::encode($newRecord));
             }
         } catch (Exception $exc) {

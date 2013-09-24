@@ -191,9 +191,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     submit: function() {
          var collectionController = this.get('controllers.collection');
-        console.log(this.get('newTitle'));
+        //console.log(this.get('newTitle'));
         var collection = collectionController.getCreateCollection(this.get('newTitle'),this.get('newDesc'),  this.get("collections"));
-        console.log(collection);
+       // console.log(collection);
         
         if (collection !== null && collection !== "") {
             collection.set('type', 'profile');
@@ -205,55 +205,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             $(" #uploadObject").attr('style', "display:block");
             this.statstics();
         }        
+    },
 
-//        var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
-//        var id = this.checkingValidInput(this.selectedCollection.get('title'));
-//        var isExsinting = this.checkingIdisExsinting(desc, id, "create");
-//        var profile_id = this.get('model').get('id');
-//
-//        if (isExsinting) {
-//            var validID = this.checkingValidInput(id);
-//            var checkingCharater = this.specialCharactersChecking(validID);
-//            if (checkingCharater) {
-//                this.selectedCollection.set('id', validID.toLowerCase());
-//                this.selectedCollection.set('title', this.selectedCollection.get('title'));
-//                this.selectedCollection.set('optional', profile_id);
-//                this.selectedCollection.set('cover', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png");
-//                if (this.selectedCollection.get('desc') !== null && this.selectedCollection.get('desc') !== "") {
-//                    this.selectedCollection.set('desc', desc);
-//                } else {
-//                    this.selectedCollection.set('desc', "Add a short description to your Collection");
-//                }
-//                this.get("collections").insertAt(0, this.selectedCollection);
-//                this.statstics();
-//                HubStar.store.commit();
-//                $(".Targeting_Object_front").attr("style", "display:inline-block");
-//                $(" #uploadArea").attr('style', "display:none");
-//                $(" #uploadObject").attr('style', "display:block");
-//            } else {
-//                this.get('controllers.applicationFeedback').statusObserver(null, "invalide characters...");
-//            }
-//
-//
-//        }
-//        else {
-//            isExsinting = true;
-//        }
-    },
-    specialCharactersChecking: function(str) {
+            
 
-        var re = /^[a-zA-Z-][a-zA-Z0-9-]*$/;
-        return re.test(str);
-    },
-    checkingValidInput: function(title) {
-        if (title === null || title === "") {
-        } else {
-            if (title.indexOf(" ") !== -1) {
-                title = title.split(' ').join('-');
-            }
-        }
-        return title;
-    },
+            
     checkingIdisExsinting: function(desc, id, postOrPut) {
         var isExsinting = true;
         if (postOrPut === "create") {
@@ -280,7 +236,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         } else if (checkingInfo === "aboutMe") {
             about_record = data;
             this.set('editingAbout', !this.get('editingAbout'));
-            console.log(data);
+          
         } else if (checkingInfo === "contact") {
             first_name_record = this.get('first_name');
             last_name_record = this.get('last_name');
@@ -406,16 +362,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('makeSureDelete', false);
     },
     updateCollectionInfo: function() {
+        this.get('selectedCollection').set('title',this.get('newTitle'));
+
+        this.get('selectedCollection').set('desc',this.get('newDesc'));
         var collectionController = this.get('controllers.collection');
         var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
-//        var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
-//        var id = this.checkingValidInput(this.selectedCollection.get('id'));
-//        var title = this.get("selectedCollection").get("title");
-//        this.get("selectedCollection").set("title", title);
         collection.set('optional', this.get('model').get('id'));
         collection.set('type', 'profile');
         this.set('selectedCollection', collection);
-//        this.set("selectedTitle", title);
         this.get("selectedCollection").store.save();
         $(".Targeting_Object_front").attr("style", "display:inline-block");
         $(" #uploadArea").attr('style', "display:none");
@@ -569,7 +523,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     saveUpdate: function() {
         var update_profile_record = HubStar.Profile.find(this.get('model.id'));
-        console.log(update_profile_record);
+
         update_profile_record.set('profile_editors', this.get('editors'));
         update_profile_record.set('profile_keywords', this.get('keywords'));
         update_profile_record.set('profile_regoin', this.get('region'));
@@ -772,11 +726,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     setCollectionAttr: function() {
         collection_title_record = this.get('selectedCollection').get('title');
+
         collection_desc_record = this.get('selectedCollection').get('desc');
+        //       console.log(this.get(desc));
     },
     getCollectionAttr: function() {
         this.get('selectedCollection').set('title', collection_title_record);
-        this.get('selectedCollection').set('desc', collection_desc_record);
+                console.log(this.get(collection_desc_record));
+       this.get('selectedCollection').set('desc', collection_desc_record);
     },
     gotoSize: function()
     {

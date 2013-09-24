@@ -94,6 +94,9 @@ HubStar.ItemProfilesController = Ember.Controller.extend({
             this.set('itemProfileCollectionStatistics', 0);
         }
     },
+            
+          
+            
     partnerStatistic: function() {
         //  this.set("profile_partner_ids", profile.get("profile_partner_ids"));
         if (this.get('profile_partner_ids') !== null) {

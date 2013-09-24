@@ -229,7 +229,6 @@ class FollowersController extends Controller {
         $like_user = $likeArr[0];
         $like_arr = $likeArr[1];
 
-
         try {
             $cb = $this->couchBaseConnection();
             $docID = $this->getDomain() . "/users/" . $like_arr;

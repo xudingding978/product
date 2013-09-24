@@ -1,6 +1,6 @@
 HubStar.UserView = Ember.View.extend({
     templateName: 'user',
-       interestsActive:false,
+//       interestsActive:false,
     didInsertElement: function() {
         $(function() {
             $('#masonry_user_container').masonry({
@@ -17,7 +17,7 @@ HubStar.UserView = Ember.View.extend({
          });
     },
         showInterestsUp: function() {
-        if ($('#interest_btn').hasClass('icon-double-angle-up') && this.get('interestsActive') === false) {
+        if ($('#interest_btn').hasClass('icon-double-angle-up') && this.get('controller').get('interestsActive') === false) {
             
             $('#show_interest').animate({top: 55, height: 393}, 400);
             // Main slide animation (interest div)
@@ -29,7 +29,7 @@ HubStar.UserView = Ember.View.extend({
                 $("#profile-picture").addClass('profile-picture-active');
                 $(".follow-btn").addClass('follow-btn-active');
                 
-                that.set('interestsActive',true);
+                that.get('controller').set('interestsActive',true);
             }, 200);
 
             setTimeout(function() {
@@ -51,8 +51,8 @@ HubStar.UserView = Ember.View.extend({
         
         
         
-         if ($('#interest_btn').hasClass('icon-double-angle-down') && this.get('interestsActive') === false) {
-             this.set('interestsActive',true);
+         if ($('#interest_btn').hasClass('icon-double-angle-down') && this.get('controller').get('interestsActive') === false) {
+             this.get('controller').set('interestsActive',true);
             setTimeout(function() {
                 $('.interesttags-container').css('height', '335px');
                 $('.interest-insert-hint').css('display', 'block');
@@ -71,7 +71,7 @@ HubStar.UserView = Ember.View.extend({
         
         
         else{
-            this.set('interestsActive',false);
+            this.get('controller').set('interestsActive',false);
             
             $('#show_interest').animate({top: 298, height: 150}, 400,  function(){ $('.interesttags-container').css('height', '100px');});
             // Main slide animation (interest div)

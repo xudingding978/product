@@ -1,16 +1,16 @@
 HubStar.CollectionController = Ember.Controller.extend({
     collections: null,
-     needs: ['applicationFeedback'],
+    needs: ['applicationFeedback'],
     getCreateCollection: function(title, desc, collections)
     {
-        this.set('collections',collections);
+        this.set('collections', collections);
         //console.log(this.get("collections"));
-        var isExsinting = this.checkingIdisExsinting(title, "create");       
+        var isExsinting = this.checkingIdisExsinting(title, "create");
         var collection = null;
         if (isExsinting) {
             var validID = this.checkingValidInput(title);
             var checkingCharater = this.specialCharactersChecking(title);
-            if (checkingCharater && validID !== null && validID !=='') {
+            if (checkingCharater && validID !== null && validID !== '') {
                 collection = HubStar.Collection.createRecord({});
                 collection.set('id', validID.toLowerCase());
                 collection.set('title', title);
@@ -23,7 +23,7 @@ HubStar.CollectionController = Ember.Controller.extend({
             } else {
                 this.get('controllers.applicationFeedback').statusObserver(null, "invalide characters...");
             }
-        } 
+        }
         return collection;
 
     },
@@ -54,10 +54,12 @@ HubStar.CollectionController = Ember.Controller.extend({
         var re = /^[a-zA-Z-][a-zA-Z0-9-]*$/;
         return re.test(str);
     },
-            
     getUpdateCollection: function(selectedCollection) {
         //console.log(selectedCollection);
-        var desc = this.checkingValidInput(selectedCollection.get('desc'));
+        var desc = "";
+        if (selectedCollection.get('desc') !== undefined) {
+            desc = this.checkingValidInput(selectedCollection.get('desc'));
+        }
         var id = this.checkingValidInput(selectedCollection.get('id'));
         var title = selectedCollection.get("title");
         selectedCollection.set("id", id);
@@ -65,9 +67,8 @@ HubStar.CollectionController = Ember.Controller.extend({
         selectedCollection.set("desc", desc);
         return selectedCollection;
     },
-            
     getDeleteCollection: function() {
-        
+
     }
 }
 );

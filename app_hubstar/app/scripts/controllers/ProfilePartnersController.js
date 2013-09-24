@@ -45,7 +45,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
                         that.get("content").pushObject(tempmega);
                         //console.log(tempmega);
                     }
-
+                    that.get('controllers.profile').paternsStatistics(this.get('content').get("length"));
                     var lastPositionId = HubStar.get('lastPositionId');
                     var lastPosition = HubStar.get("scrollPartenerPosition");
                     if (model.id === lastPositionId)

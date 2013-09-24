@@ -25,7 +25,10 @@ class CollectionsController extends Controller {
             $docID = $this->getDomain() . "/profiles/" . $profile_id[1];
             $profileOwn = $cb->get($docID);
             $owner = CJSON::decode($profileOwn, true);
+            //error_log(var_export($owner["profile"][0]["collections"][2]["id"],true));
             for ($i = 0; $i < sizeof($owner["profile"][0]["collections"]); $i++) {
+                //error_log(var_export($i,true));
+                 //error_log(var_export($owner["profile"][0]["collections"][$i]["id"],true));
                 if ($owner["profile"][0]["collections"][$i]["id"] === $collection_id[1]) {
                     $title = $owner["profile"][0]["collections"][$i];
                     //  $title = $owner["profile"][0]["collections"][$i]["title"];

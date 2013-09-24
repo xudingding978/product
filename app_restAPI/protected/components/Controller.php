@@ -138,6 +138,7 @@ class Controller extends CController {
     }
 
     protected function getRequestResult($searchString, $returnType) {
+        error_log(var_export("sdddddddddddddddddddssss"  , true));
         $response = "";
         $requireParams = explode('&', $searchString);
         $requireType = $this->getUserInput($requireParams[0]);
@@ -162,7 +163,8 @@ class Controller extends CController {
         } elseif ($requireType == 'collection') {
             $collection_id = $this->getUserInput($requireParams[1]);
             $owner_profile_id = $this->getUserInput($requireParams[2]);
-            $response = $this->performRawSearch($returnType, $collection_id, $owner_profile_id);
+            error_log(var_export("sddddddddddddddd111111111111111ddddssss"  , true));
+            $response = $this->performEdit($returnType, $collection_id, $owner_profile_id);
         } elseif ($requireType == 'partner') {
             $partner_id_raw = $this->getUserInput($requireParams[1], false);
             $partner_id = str_replace("%2C", ",", $partner_id_raw);
@@ -379,7 +381,7 @@ class Controller extends CController {
     }
 
     protected function performEdit($returnType, $collection_id, $owner_profile_id) {
-
+  error_log(var_export("sdddddddddddddddddddssss"  , true));
         $request = $this->getElasticSearch();
         $request->from(0)
                 ->size(100);
@@ -410,7 +412,7 @@ class Controller extends CController {
         $docID_profile = $domain . "/profiles/" . $profile_id;
         $tempMega_profile = $cb->get($docID_profile);
         $mega_profile = CJSON::decode($tempMega_profile, true);
-
+  error_log(var_export("sssss"  , true));
 
         $profile_editors = $mega_profile["profile"][0]["profile_editors"];
         $profile_name = $mega_profile["profile"][0]["profile_name"];

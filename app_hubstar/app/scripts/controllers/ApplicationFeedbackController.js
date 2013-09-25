@@ -64,7 +64,7 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
     statusObserver: function(record, infoChecking, status) {
         var that = this;
         var noError = true;
-        
+        // added the ability to show different flash message colours #371
         if (status === "info") {
             that.set("info", true);
             that.set("succeed", false);

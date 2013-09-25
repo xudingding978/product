@@ -69,7 +69,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }, 2200);
                 that.set('loadingTime', false);
                 if (results.get("length") === 0) {
-                    that.get('controllers.applicationFeedback').statusObserver(null, "You Have Reached The End Of Your Search Results", "info");
+                    that.get('controllers.applicationFeedback').statusObserver(null, "You Have Reached The End Of Your Search Results", "info"); //added user flash message
                 }
             }
         });
@@ -86,7 +86,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var stats = HubStar.Stat.find({"RquireType": "firstsearch", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size")});
         stats.addObserver('isLoaded', function() {
             if (stats.get('isLoaded')) {
-                ;
                 var stat = stats.objectAt(0);
                 var megasResults = stat.get("megas");
                 HubStar.set('itemNumber', megasResults.get("length"));

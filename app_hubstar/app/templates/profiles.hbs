@@ -96,14 +96,38 @@
 
                 <div id="register-btn" style="width: 300px;height: 45px;margin: 0 auto 20px;background-color: #fff;text-align: center;color: #888;font-weight: bold; font-size: 15px;line-height: 45px; border-radius: 0 0 5px 5px"> Register</div>
             </div>
+
+
             <div id="register-with-email-step-2" style="width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;">
-                hello
+                <div style="padding: 0 8px;">
+
+                    <div  class="login-textfield" style="margin: 0;width: 100%;height: 45px;line-height: 45px;border-bottom: 1px solid #e3e3e3;">
+                        {{view Ember.TextField valueBinding="youremail" placeholder="Region" }}
+                    </div>
+
+                    <div style="border-bottom: 1px solid #e3e3e3; border-top:1px solid #e3e3e3;">
+                        <div class="login-textfield" style="width: 49%;display: inline-block;vertical-align: top;height: 45px;line-height: 45px;">
+                            {{view Ember.TextField valueBinding="firstname" placeholder="First Name" }}
+                        </div>
+
+                        <div class="login-textfield" style="width: 49%;display: inline-block;vertical-align: top;height: 45px;line-height: 45px;">
+                            {{view Ember.TextField valueBinding="lastname" placeholder="Last Name" }}
+                        </div>
+                    </div>
+
+                    <div class="login-textfield"  style="margin: 0;width: 100%;height: 45px;line-height: 45px;border-bottom: 1px solid #e3e3e3;">
+                        {{view Ember.TextField valueBinding="password" placeholder="How old are you?" }}
+                    </div>
+                </div>
+
+                <div style="width: 300px;height: 45px;margin: 0 auto 20px;background-color: #fff;text-align: center;color: #888;font-weight: bold; font-size: 15px;line-height: 45px; border-radius: 0 0 5px 5px">Done</div>
+
             </div>
 
         </div>
         <!--End of email register section-->
 
-        <span style="font-family: 'Montserrat', sans-serif; font-size: 14px;color: #fff;margin: 15px auto;opacity: .7;display: block;">Learn more</span>
+        <span style="font-family: 'Montserrat', sans-serif; font-size: 14px;color: #fff;margin: 15px auto;opacity: .9;display: block;">Learn more</span>
     </div>
 
 
@@ -120,10 +144,11 @@
     $("#click-register").click(function() {
         $('#social-link').animate({height: 'toggle'});
         $('#register-with-email-drop-down').animate({height: 'toggle'});
-        
-        if($('#register-with-email-step-2').css('display') == 'none'){/* do nothing */}
-        
-        if($('#register-with-email-step-2').css('display') == 'block'){
+
+        if ($('#register-with-email-step-2').css('display') == 'none') {/* do nothing */
+        }
+
+        if ($('#register-with-email-step-2').css('display') == 'block') {
             $('#register-with-email-step-2').animate({height: 'toggle'});
         }
     });
@@ -131,7 +156,7 @@
         $('#social-link').animate({height: 'toggle'});
         $('#register-with-email-drop-down').animate({height: 'toggle'});
         $('#register-with-email-step-2').animate({height: 'toggle'});
-        
+
     });
 
 </script>

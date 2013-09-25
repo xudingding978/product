@@ -7,6 +7,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
     addPartner: true,
     currentAddPartnerPic: null,
     selectedPartnerPic: "",
+    partnerNew: "",
     is_authentic_user: false,
     needs: ['permission', 'applicationFeedback', 'profile'],
     addingPartnerObserver: function() {
@@ -14,22 +15,29 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
         this.set('selectedPartnerPic', HubStar.Profile.find(addProfilePic).get('profile_pic_url'));
     }.observes('currentAddPartnerPic'),
     getClientId: function(model) {
+        this.set("partnerNew", "");
         this.set('content', []);
         this.set("model", model);
         this.set('clientID', model.id);
         this.set('loadingTime', false);
         this.set('partnerID', model.get('profile_partner_ids'));
         if (this.get('partnerID') !== null && this.get('partnerID') !== 'undefined' && this.get('partnerID') !== "") {
-             this.set('loadingTime', true);
+            this.set('loadingTime', true);
             var data = HubStar.Mega.find({RequireType: "partner", profile_partner_ids: this.get('partnerID')});
             var that = this;
             data.addObserver('isLoaded', function() {
                 that.checkAuthenticUser();
+                //var partnerNew = '';
                 if (data.get('isLoaded')) {
                     for (var i = 0; i < data.get("length"); i++) {
                         var tempmega = data.objectAt(i);
-                        //   var isFollow = tempmega.get("profile").objectAt(0).get("isFollowCurrentUser");
-                        //console.log(tempmega.get("profile").objectAt(0).get("isFollowCurrentUser"));
+                        if (i !== data.get("length") - 1) {
+                            that.set("partnerNew", that.get('partnerNew') + tempmega.get("profile").objectAt(0).get("id") + ",");
+                        }
+                        else
+                        {
+                            that.set("partnerNew", that.get('partnerNew') + tempmega.get("profile").objectAt(0).get("id"));
+                        }
                         var isFollow = false;
                         for (var j = 0; j < tempmega.get("profile").objectAt(0).get("followers").get("length"); j++)
                         {
@@ -45,6 +53,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
                         that.get("content").pushObject(tempmega);
                         //console.log(tempmega);
                     }
+                    //console.log(that.get('partnerNew'));
                     that.get('controllers.profile').paternsStatistics(this.get('content').get("length"));
                     var lastPositionId = HubStar.get('lastPositionId');
                     var lastPosition = HubStar.get("scrollPartenerPosition");
@@ -172,7 +181,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
             if (currentUser.get('isLoaded')) {
                 var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
                 that.set("is_authentic_user", is_authentic_user);
-          
+
             }
         });
     }

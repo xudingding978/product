@@ -75,14 +75,14 @@ HubStar.UserController = Ember.Controller.extend({
             this.set("isUserSelf", true);
         }
     },
-//    getCurrentUser: function()
-//    {            
-//        var address = document.URL;
-//        var user_id = address.split("#")[1].split("/")[2];
-//        this.set('currentUserID', user_id);
-//        var user = HubStar.User.find(user_id);
-//        return user;
-//    },
+    getCurrentUser: function()
+    {            
+        var address = document.URL;
+        var user_id = address.split("#")[1].split("/")[2];
+        this.set('currentUserID', user_id);
+        var user = HubStar.User.find(user_id);
+        return user;
+    },
     setUser: function()
     {
         console.log(this.get('model'));

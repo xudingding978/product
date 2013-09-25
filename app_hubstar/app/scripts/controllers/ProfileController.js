@@ -301,10 +301,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('editingTime', !this.get('editingTime'));
         }
     },
-<<<<<<< HEAD
-            
-      
-=======
+
     yesAbout: function(checkingInfo) {
         if (checkingInfo === "aboutMe") {
 
@@ -312,20 +309,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         this.saveUpdateAboutUs();
     },
->>>>>>> 467acb04fe325f12ec228548e0ebe2639473fdd9
+
     yes: function(checkingInfo) {
         if (checkingInfo === "profileName") {
             this.set('editing', !this.get('editing'));
         }
-<<<<<<< HEAD
-        else if (checkingInfo === "aboutMe") {
-             //console.log(this.model.get('profile_about_us'));
-            this.set('editingAbout', !this.get('editingAbout'));
-        } else if (checkingInfo === "contact") {
-=======
-
         else if (checkingInfo === "contact") {
->>>>>>> 467acb04fe325f12ec228548e0ebe2639473fdd9
+
             if (this.get("website_url").match(/[http]/g) === -1 || this.get("website_url").match(/[http]/g) === null)
             {
                 this.set("website_url", "http://" + this.get("website_url"));
@@ -644,14 +634,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set("profile_name", this.get('profile_name'));
         update_profile_record.set("profile_isActive", this.get("projectActiveDropdownContent"));
         update_profile_record.set("profile_isDeleted", this.get("projectDeleteDropdownContent"));
-<<<<<<< HEAD
       update_profile_record.set("profile_about_us", $('iframe').contents().find('.wysihtml5-editor').html());
-=======
-        // update_profile_record.set("profile_about_us", editor.getValue());
-
-
-        //update_profile_record.set("profile_about_us", this.get("about_me"));
->>>>>>> 467acb04fe325f12ec228548e0ebe2639473fdd9
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
         if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
             update_profile_record.get('stateManager').transitionTo('loaded.saved');

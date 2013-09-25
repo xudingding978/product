@@ -217,6 +217,25 @@ describe("profile page cancel saving test", function() {
     });
 });
 
+describe("user collection test", function() {
+     var controller, model;
+     localStorage.loginStatus = '79151924042';
+//     controller = HubStar.UserController.create();
+     model = HubStar.User.find('79151924042');
+//     controller.set('model', model);
+
+    it ("add collection test", function() {
+        controller = HubStar.UserController.create();
+//        controller.newTitle='mocha test title';
+//        controller.newDesc='mocha test desc';
+//        controller.collections=model.collections;
+//        controller.submit();
+//        var model2=HubStar.User.find('79151924042');
+//        model2.collections.lengthshould.equal(model.collections.length+1);
+    });  
+    
+});
+
 //describe("user profies testing", function() {
 //    var controller;
 //

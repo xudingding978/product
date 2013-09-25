@@ -69,7 +69,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }, 2200);
                 that.set('loadingTime', false);
                 if (results.get("length") === 0) {
-                    console.log("dddddddddd");
                     that.get('controllers.applicationFeedback').statusObserver(null, "You Have Reached The End Of Your Search Results", "info");
                 }
             }

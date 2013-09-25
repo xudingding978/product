@@ -64,9 +64,8 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
     statusObserver: function(record, infoChecking, status) {
         var that = this;
         var noError = true;
-        console.log(status);
+        
         if (status === "info") {
-            console.log("ssssssssss");
             that.set("info", true);
             that.set("succeed", false);
             that.set("warnning", false);
@@ -108,7 +107,7 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
 
                         }
                         else {
-                            //    console.log('isSaving:   false');
+
                         }
 
                         record.removeObserver("isSaving");

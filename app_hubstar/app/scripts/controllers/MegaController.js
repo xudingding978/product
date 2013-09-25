@@ -209,18 +209,51 @@ HubStar.MegaController = Ember.ArrayController.extend({
     fbShare: function() {
         var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
         appID = '358102574293594';
-       //https://www.facebook.com/dialog/feed?app_id=143965932308817&link=http%3A%2F%2Fwww.houzz.com%2Fphotos%2F819542%2FComfortable-Luxury-eclectic-living-room-charleston&caption=&redirect_uri=http%3A%2F%2Fwww.houzz.com%2FfbFeed%2F&display=popup 
-       //https://www.facebook.com/dialog/feed?app_id=368065846635755&link=http%3A%2F%2Fbeta.trendsideas.com%2F%23%2Fphotos%2F9461379974225359&picture=http://s3.hubsrv.com/trendsideas.com/users/trends-media-sales-marketing-services/thumbnail/africa-burkina-faso-mountain-wallpaper.jpg&name=africa-burkina-faso-mountain-wallpaper.jpg&caption=Trends%20Ideas&description=content%20writing%2C%20content%20creation%2C%20publishing%2C%20photography%2C%20writing%2Ctrends%2Cservices%2Cbusiness%2Chome%20and%20design%2Cinspirational%2Cstrategy%2Cbusiness%20strategy%2Carchitecture%2Cdesign%2Ctrends%2Ctrend%2Cmedia%2Csales%2Cmarketing%2Cvideo%2Canimation%2C%20&display=popup
-        var url = 'http://www.facebook.com/dialog/feed?app_id=' +appID+
+        var url = 'http://www.facebook.com/dialog/feed?app_id=' + appID +
                 '&link=' + encodeURIComponent(currntUrl) +
                 '&picture=' + encodeURIComponent(this.get('selectedPhoto').get('photo_image_thumbnail_url')) +
                 '&name=' + encodeURIComponent(this.get('selectedPhoto').get('photo_title')) +
                 '&caption=' + encodeURIComponent('Trends Ideas') +
-                '&description=' + encodeURIComponent(this.get('selectedPhoto').get('photo_keywords')) +
-                '&redirect_uri='  + encodeURIComponent("http://www.facebook.com/") +
+                '&description=' + encodeURIComponent(this.get('selectedPhoto').get('photo_caption')) +
+                '&redirect_uri=' + encodeURIComponent("http://www.facebook.com/") +
                 '&display=popup';
         window.open(url,
                 'feedDialog',
                 'toolbar=0,status=0,width=626,height=436');
+    },
+    gpShare: function() {
+
+        var metas = document.getElementsByTagName("meta");
+        $("meta[property='og\\:title']").attr("content", this.get('selectedPhoto').get('photo_title'));
+        $("meta[property='og\\:description']").attr("content", this.get('selectedPhoto').get('photo_caption'));
+        $("meta[property='og\\:image']").attr("content", this.get('selectedPhoto').get('photo_image_thumbnail_url'));
+//$("meta[property='og\\:url']").attr("content", 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id'));
+//        
+//        for (var i = 0; i < metas.length; i++) {
+////            if (metas[i].getAttribute("itemprop") && metas[i].getAttribute("itemprop") == "image") {
+////
+////                metas[i].setAttribute("content", "http://s3.hubsrv.com/trendsideas.com/7336815531372415644/photo/7336815531372415644/thumbnail/65569_132x132.jpg");
+////           }
+//            console.log(metas[i]);        }
+
+        var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
+        var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
+        window.open(
+                url,
+                'popupwindow',
+                'scrollbars=yes,width=800,height=400'
+                ).focus();
+
+        return false;
+    },
+    tShare: function() {
+        var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
+        var url = 'https://twitter.com/share?text=' + this.get('selectedPhoto').get('photo_title') + '&url=' + encodeURIComponent(currntUrl);
+        window.open(
+                url,
+                'popupwindow',
+                'height=436,width=626'
+                ).focus();
+        return false;
     }
 });

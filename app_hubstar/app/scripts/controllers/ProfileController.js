@@ -13,6 +13,8 @@ var seletedID = "";
 var collection_title_record;
 var collection_desc_record;
 
+  var editor;
+
 
 
 HubStar.ProfileController = Ember.ObjectController.extend({
@@ -299,6 +301,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('editingTime', !this.get('editingTime'));
         }
     },
+
     yesAbout: function(checkingInfo) {
         if (checkingInfo === "aboutMe") {
 
@@ -306,12 +309,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         this.saveUpdateAboutUs();
     },
+
     yes: function(checkingInfo) {
         if (checkingInfo === "profileName") {
             this.set('editing', !this.get('editing'));
         }
-
         else if (checkingInfo === "contact") {
+
             if (this.get("website_url").match(/[http]/g) === -1 || this.get("website_url").match(/[http]/g) === null)
             {
                 this.set("website_url", "http://" + this.get("website_url"));
@@ -578,7 +582,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     saveUpdateAboutUs: function() {
         var update_About_record = HubStar.Profile.find(this.get('model.id'));
-        update_About_record.set("profile_about_us", editor.getValue());
+       update_About_record.set("profile_about_us", $('iframe').contents().find('.wysihtml5-editor').html());
         this.get('controllers.applicationFeedback').statusObserver(null, "Update Successful");
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_About_record);
         HubStar.store.save();

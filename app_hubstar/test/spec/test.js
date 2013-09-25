@@ -16,6 +16,15 @@ console.log(HubStar.TestController);
 });
 
 
+test("testTwoController", function() {
+
+    console.log(HubStar.TestController);
+    var testTwoController = HubStar.TestController.create();
+    var result = testTwoController.test();
+    equal(result, 'aaaaaaaaaaaaa', "testTwoController is truthy");
+});
+
+
 //
 //beforeEach(function() {
 //    Ember.run(function() {

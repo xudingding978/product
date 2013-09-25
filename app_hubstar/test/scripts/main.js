@@ -5482,6 +5482,20 @@ HubStar.TestController = Ember.Controller.extend({
 
 (function() {
 
+HubStar.TestTwoController = Ember.Controller.extend({
+    testtwo: function()
+    {
+        return 'testtwo';
+    }
+    
+}
+);
+
+
+})();
+
+(function() {
+
 HubStar.TopicSelectionController = Ember.ArrayController.extend({
         selected_topics: "",
         content: [

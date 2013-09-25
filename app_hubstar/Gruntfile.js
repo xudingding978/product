@@ -20,6 +20,7 @@ module.exports = function(grunt) {
         test: 'test'
     };
     grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'),
         yeoman: yeomanConfig,
         manifest: {
             generate: {
@@ -83,7 +84,7 @@ module.exports = function(grunt) {
                     '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
                     '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg,ico}'
                 ],
-                tasks: ['livereload']
+                tasks: ['livereload', 'buildTest', 'test']
             }
         },
         connect: {
@@ -162,6 +163,9 @@ module.exports = function(grunt) {
                 '!<%= yeoman.app %>/scripts/vendor/*',
                 'test/spec/{,*/}*.js'
             ]
+        },
+        qunit: {
+            all: ['tests/*.html']
         },
         mocha: {
             all: {
@@ -242,7 +246,7 @@ module.exports = function(grunt) {
                     '<%= yeoman.app %>/bower_components/ember-data-shim/ember-data.min.js',
                     '<%= yeoman.app %>/bower_components/moment/moment.min.js',
                     '<%= yeoman.app %>/bower_components/javascriptHelper/javascriptHelper.js',
-                       '<%= yeoman.app %>/bower_components/javascriptHelper/jquery-2.0.3.min.map'
+                    '<%= yeoman.app %>/bower_components/javascriptHelper/jquery-2.0.3.min.map'
                 ],
                 dest: '<%= yeoman.test %>/scripts/components.js'
             },
@@ -454,6 +458,7 @@ module.exports = function(grunt) {
             }
         }
     });
+    grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.renameTask('regarde', 'watch');
     grunt.registerTask('server', function(target) {
         if (target === 'dist') {
@@ -482,8 +487,6 @@ module.exports = function(grunt) {
         'concat:testcss',
         'copy:test',
         'mocha'
-
-
     ]);
     grunt.registerTask('build', [
         'clean:dist',
@@ -504,7 +507,8 @@ module.exports = function(grunt) {
     ]);
     grunt.registerTask('default', [
         'jshint',
-        'test',
-        'build'
+
+        'qunit'
     ]);
+
 };

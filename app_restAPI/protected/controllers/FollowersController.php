@@ -64,33 +64,27 @@ class FollowersController extends Controller {
             $cb = $this->couchBaseConnection();
             $domain = $this->getDomain();
             $docID_currentUser = $domain . "/users/" . $request_arr['follower_id'];
-            error_log(var_export($request_arr['follower_id'], true));
+
             $tempMega_currentUser = $cb->get($docID_currentUser);
             $mega_currentUser = CJSON::decode($tempMega_currentUser, true);
-              
-            
-          
-   
+
             if (!isset($mega_currentUser['user'][0]['followings'])) {
                 $mega_currentUser['user'][0]['followings'] = array();
             }
-             
+
             $follower_arr = $request_arr;
             $follower_arr['follower_id'] = $profile_id;
             $bool = 0;
-               for($i=0;$i<sizeof($mega_currentUser['user'][0]['followings']);$i++)
-             {
-                 if($profile_id===$mega_currentUser['user'][0]['followings'][$i]["follower_id"])
-                 {
-                     $bool =1;
-                   break;
-                 }
-             }
-             if(!$bool)
-             {
-                     array_unshift($mega_currentUser['user'][0]['followings'], $follower_arr);
-             }
-          
+            for ($i = 0; $i < sizeof($mega_currentUser['user'][0]['followings']); $i++) {
+                if ($profile_id === $mega_currentUser['user'][0]['followings'][$i]["follower_id"]) {
+                    $bool = 1;
+                    break;
+                }
+            }
+            if (!$bool) {
+                array_unshift($mega_currentUser['user'][0]['followings'], $follower_arr);
+            }
+
             if ($cb->set($docID_currentUser, CJSON::encode($mega_currentUser))) {
                 $isSaving = true;
                 ;
@@ -115,19 +109,97 @@ class FollowersController extends Controller {
         }
     }
 
+    public function setFollowStatus($newRecord, $oldRecordDeep, $userFollower, $id, $like_user) {
+        if (!isset($oldRecordDeep['user'][0]["followers"])) {
+            $newRecord['follower_size'] = 0;
+            $newRecord['follow_status'] = false;
+            $newRecord['following_status'] = false;
+            for ($j = 0; $j < sizeof($userFollower); $j++) {
+                if ($userFollower !== null && $userFollower[$j]["follower_id"] === $id) {
+                    $newRecord['following_status'] = true;
+                    break;
+                }
+            }
+        } else {
+            if (($oldRecordDeep['user'][0]["followers"] === null) || ($oldRecordDeep['user'][0]["followers"] === "")) {
+                $newRecord['follower_size'] = 0;
+                $newRecord['follow_status'] = false;
+                $newRecord['following_status'] = false;
+                for ($j = 0; $j < sizeof($userFollower); $j++) {
+                    if ($userFollower !== null && $userFollower[$j]["follower_id"] === $id) {
+                        $newRecord['following_status'] = true;
+                        break;
+                    }
+                }
+            } else {
+
+                $newRecord['follow_status'] = false;
+                for ($j = 0; $j < sizeof($oldRecordDeep['user'][0]["followers"]); $j++) {
+                    if ($oldRecordDeep['user'][0]["followers"][$j]["follower_id"] === $like_user) {
+                        $newRecord['follow_status'] = true;
+                        break;
+                    }
+                }
+                $newRecord['follower_size'] = sizeof($oldRecordDeep['user'][0]["followers"]);
+                $newRecord['following_status'] = false;
+                for ($j = 0; $j < sizeof($userFollower); $j++) {
+                    if ($userFollower !== null && $userFollower[$j]["follower_id"] === $id) {
+                        $newRecord['following_status'] = true;
+                        break;
+                    }
+                }
+            }
+        }
+        return $newRecord;
+    }
+
+    public function getGeneralParam($cb, $oldRecord, $userFollower, $like_user) {
+        $newRecord = array();
+        for ($i = 0; $i < sizeof($oldRecord['user'][0]["followers"]); $i++) {
+            if ($oldRecord['user'][0]["followers"][$i]["follower_id"] !== null) {
+                $id = $oldRecord['user'][0]["followers"][$i]["follower_id"];
+
+                $docIDDeep = $this->getDomain() . "/users/" . $id;
+                $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+                $oldRecordDeep = CJSON::decode($oldDeep, true);
+                $newRecord[$i]['record_id'] = $id;
+                $newRecord[$i]['name'] = $oldRecordDeep['user'][0]["display_name"];
+                $newRecord[$i]['photo_url'] = $oldRecordDeep['user'][0]["photo_url_large"];
+                if (isset($oldRecordDeep['user'][0]["cover_url_small"])) {
+                    $newRecord[$i]['cover_url_small'] = $oldRecordDeep['user'][0]["cover_url_small"];
+                } else {
+                    $newRecord[$i]['cover_url_small'] = "http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg";
+                }
+                if (!isset($oldRecordDeep['user'][0]["collections"])) {
+                    $newRecord[$i]['collections_size'] = 0;
+                } else {
+                    if (($oldRecordDeep['user'][0]["collections"] === null) || ($oldRecordDeep['user'][0]["collections"] === "")) {
+
+                        $newRecord[$i]['collections_size'] = 0;
+                    } else {
+                        $newRecord[$i]['collections_size'] = sizeof($oldRecordDeep['user'][0]["collections"]);
+                    }
+                }
+                $newRecord[$i] = $this->setFollowStatus($newRecord[$i], $oldRecordDeep, $userFollower, $id, $like_user);  //set follow status
+            }
+        }
+        return $newRecord;
+    }
+
     public function actionRead() {
         $like = CJSON::decode(file_get_contents('php://input'));
         $likeArr = CJSON::decode($like, true);
- 
+
         $like_user = $likeArr[0];
         $like_arr = $likeArr[1];
         try {
             $cb = $this->couchBaseConnection();
+
             $docID = $this->getDomain() . "/users/" . $like_arr;
             $old = $cb->get($docID); // get the old user record from the database according to the docID string
             $oldRecord = CJSON::decode($old, true);
             if (!isset($oldRecord['user'][0]["followers"])) {
-     
+
                 $oldRecord['user'][0]["followers"] = array();
             }
             $docIDUser = $this->getDomain() . "/users/" . $like_user;
@@ -135,83 +207,13 @@ class FollowersController extends Controller {
             $oldRecordUser = CJSON::decode($oldUser, true);
             if (!isset($oldRecordUser['user'][0]["followers"]) || $oldRecordUser['user'][0]["followers"] === "") {
                 $userFollower = null;
-            }
-            else
-            {
+            } else {
                 $userFollower = $oldRecordUser['user'][0]["followers"];
             }
 
-            $newRecord = array();
 
-            for ($i = 0; $i < sizeof($oldRecord['user'][0]["followers"]); $i++) {
-                if ($oldRecord['user'][0]["followers"][$i]["follower_id"] !== null) {
-                    $id = $oldRecord['user'][0]["followers"][$i]["follower_id"];
+            $newRecord = $this->getGeneralParam($cb, $oldRecord, $userFollower, $like_user);
 
-                    $docIDDeep = $this->getDomain() . "/users/" . $id;
-                    $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
-                    $oldRecordDeep = CJSON::decode($oldDeep, true);
-                    $newRecord[$i]['record_id'] = $id;
-                    $newRecord[$i]['name'] = $oldRecordDeep['user'][0]["display_name"];
-                    $newRecord[$i]['photo_url'] = $oldRecordDeep['user'][0]["photo_url_large"];
-                    if (isset($oldRecordDeep['user'][0]["cover_url_small"])) {
-                        $newRecord[$i]['cover_url_small'] = $oldRecordDeep['user'][0]["cover_url_small"];
-                    } else {
-                        $newRecord[$i]['cover_url_small'] = "http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg";
-                    }
-                    if (!isset($oldRecordDeep['user'][0]["collections"])) {
-                        $newRecord[$i]['collections_size'] = 0;
-                    } else {
-                        if (($oldRecordDeep['user'][0]["collections"] === null) || ($oldRecordDeep['user'][0]["collections"] === "")) {
-
-                            $newRecord[$i]['collections_size'] = 0;
-                        } else {
-                            $newRecord[$i]['collections_size'] = sizeof($oldRecordDeep['user'][0]["collections"]);
-                        }
-                    }
-                    if (!isset($oldRecordDeep['user'][0]["followers"])) {
-                        $newRecord[$i]['follower_size'] = 0;
-                        $newRecord[$i]['follow_status'] = false;
-                        $newRecord[$i]['following_status'] = false;
-                        for ($j = 0; $j < sizeof($userFollower); $j++) {
-                            if ($userFollower !== null && $userFollower[$j]["follower_id"] === $id) {
-                                $newRecord[$i]['following_status'] = true;
-                                break;
-                            }
-                        }
-                    } else {
-                        if (($oldRecordDeep['user'][0]["followers"] === null) || ($oldRecordDeep['user'][0]["followers"] === "")) {
-                            $newRecord[$i]['follower_size'] = 0;
-                            $newRecord[$i]['follow_status'] = false;
-                            $newRecord[$i]['following_status'] = false;
-                            for ($j = 0; $j < sizeof($userFollower); $j++) {
-                                if ($userFollower !== null && $userFollower[$j]["follower_id"] === $id) {
-                                    $newRecord[$i]['following_status'] = true;
-                                    break;
-                                }
-                            }
-                        } else {
-
-                            $newRecord[$i]['follow_status'] = false;
-                            for ($j = 0; $j < sizeof($oldRecordDeep['user'][0]["followers"]); $j++) {
-                                if ($oldRecordDeep['user'][0]["followers"][$j]["follower_id"] === $like_user) {
-                                    $newRecord[$i]['follow_status'] = true;
-                                    break;
-                                }
-                            }
-                            $newRecord[$i]['follower_size'] = sizeof($oldRecordDeep['user'][0]["followers"]);
-                            $newRecord[$i]['following_status'] = false;
-                            for ($j = 0; $j < sizeof($userFollower); $j++) {
-                                if ($userFollower !== null && $userFollower[$j]["follower_id"] === $id) {
-                                    $newRecord[$i]['following_status'] = true;
-                                    break;
-                                }
-                            }
-                        
-                        }
-                    }
-                }
-  
-            }
             if ($newRecord === null) {
                 $this->sendResponse(204);
             } else {
@@ -220,6 +222,139 @@ class FollowersController extends Controller {
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
+    }
+
+    public function setFollowParam($id, $like_user, $oldRecordDeep, $userFollower, $newRecord) {
+        if (!isset($oldRecordDeep['user'][0]["followers"])) {
+            $newRecord['follower_size'] = 0;
+            $newRecord['follow_status'] = false;
+            $newRecord['following_status'] = false;
+            for ($j = 0; $j < sizeof($userFollower); $j++) {
+                if ($userFollower !== null && $userFollower[$j]["follower_id"] === $id) {
+                    $newRecord['following_status'] = true;
+                    break;
+                }
+            }
+        } else {
+            if (($oldRecordDeep['user'][0]["followers"] === null) || ($oldRecordDeep['user'][0]["followers"] === "")) {
+                $newRecord['follower_size'] = 0;
+                $newRecord['follow_status'] = false;
+                $newRecord['following_status'] = false;
+                for ($j = 0; $j < sizeof($userFollower); $j++) {
+                    if ($userFollower !== null && $userFollower[$j]["follower_id"] === $id) {
+                        $newRecord['following_status'] = true;
+                        break;
+                    }
+                }
+            } else {
+                $newRecord['follow_status'] = false;
+                for ($j = 0; $j < sizeof($oldRecordDeep['user'][0]["followers"]); $j++) {
+                    if ($oldRecordDeep['user'][0]["followers"][$j]["follower_id"] === $like_user) {
+                        $newRecord['follow_status'] = true;
+                        break;
+                    }
+                }
+                $newRecord['following_status'] = false;
+                for ($j = 0; $j < sizeof($userFollower); $j++) {
+                    if ($userFollower !== null && $userFollower[$j]["follower_id"] === $id) {
+                        $newRecord['following_status'] = true;
+                        break;
+                    }
+                }
+                $newRecord['follower_size'] = sizeof($oldRecordDeep['user'][0]["followers"]);
+            }
+        }
+        return $newRecord;
+    }
+
+    public function setUserFollowStatus($cb, $id, $like_user, $newRecord, $userFollower) {
+
+        $docIDDeep = $this->getDomain() . "/users/" . $id;
+        $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+        $oldRecordDeep = CJSON::decode($oldDeep, true);
+        $newRecord['record_id'] = $id;
+        $newRecord['name'] = $oldRecordDeep['user'][0]["display_name"];
+        $newRecord['photo_url'] = $oldRecordDeep['user'][0]["photo_url_large"];
+        if (isset($oldRecordDeep['user'][0]["cover_url_small"])) {
+            $newRecord['cover_url_small'] = $oldRecordDeep['user'][0]["cover_url_small"];
+        } else {
+            $newRecord['cover_url_small'] = "http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg";
+        }
+        if (!isset($oldRecordDeep['user'][0]["collections"])) {
+            $newRecord['collections_size'] = 0;
+        } else {
+
+            if (($oldRecordDeep['user'][0]["collections"] === null) || ($oldRecordDeep['user'][0]["collections"] === "")) {
+
+                $newRecord['collections_size'] = 0;
+            } else {
+                $newRecord['collections_size'] = sizeof($oldRecordDeep['user'][0]["collections"]);
+            }
+        }
+        $newRecord = $this->setFollowParam($id, $like_user, $oldRecordDeep, $userFollower, $newRecord);
+        return $newRecord;
+    }
+
+    public function setProfileFollowStaus($cb, $id, $like_user, $newRecord) {
+
+        $docIDDeep = $this->getDomain() . "/profiles/" . $id;
+        $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+        $oldRecordDeep = CJSON::decode($oldDeep, true);
+        $newRecord['record_id'] = $id;
+        $newRecord['name'] = $oldRecordDeep['profile'][0]["profile_name"];
+        $newRecord['photo_url'] = $oldRecordDeep['profile'][0]["profile_pic_url"];
+        $newRecord['cover_url_small'] = $oldRecordDeep['profile'][0]["profile_bg_url"];
+        $newRecord['following_status'] = false;
+        if (!isset($oldRecordDeep['profile'][0]["collections"])) {
+            $newRecord['collections_size'] = 0;
+        } else {
+
+            if (($oldRecordDeep['profile'][0]["collections"] === null) || ($oldRecordDeep['profile'][0]["collections"] === "")) {
+
+                $newRecord['collections_size'] = 0;
+            } else {
+                $newRecord['collections_size'] = sizeof($oldRecordDeep['profile'][0]["collections"]);
+            }
+        }
+        if (!isset($oldRecordDeep['profile'][0]["followers"])) {
+            $newRecord['follower_size'] = 0;
+            $newRecord['follow_status'] = false;
+        } else {
+            if (($oldRecordDeep['profile'][0]["followers"] === null) || ($oldRecordDeep['profile'][0]["followers"] === "")) {
+                $newRecord['follower_size'] = 0;
+                $newRecord['follow_status'] = false;
+            } else {
+                $newRecord['follow_status'] = false;
+                for ($j = 0; $j < sizeof($oldRecordDeep['profile'][0]["followers"]); $j++) {
+                    if ($oldRecordDeep['profile'][0]["followers"][$j]["follower_id"] === $like_user) {
+                        $newRecord['follow_status'] = true;
+                        break;
+                    }
+                }
+                $newRecord['follower_size'] = sizeof($oldRecordDeep['profile'][0]["followers"]);
+            }
+        }
+        return $newRecord;
+    }
+
+    public function setUserOrProfile($cb, $oldRecord, $like_user, $userFollower) {
+        $newRecord = array();
+
+        for ($i = 0; $i < sizeof($oldRecord['user'][0]["followings"]); $i++) {
+            if ($oldRecord['user'][0]["followings"][$i]["follower_id"] !== null) {
+                $id = $oldRecord['user'][0]["followings"][$i]["follower_id"];
+                $newRecord[$i]['type'] = $oldRecord['user'][0]["followings"][$i]['type'];
+
+
+                if ($oldRecord['user'][0]["followings"][$i]['type'] === "user") {
+
+                    $newRecord[$i] = $this->setUserFollowStatus($cb, $id, $like_user, $newRecord[$i], $userFollower);
+                } else {
+                    $newRecord[$i] = $this->setProfileFollowStaus($cb, $id, $like_user, $newRecord[$i]);
+                }
+            }
+        }
+        return $newRecord;
     }
 
     public function actionReadFollowing() {
@@ -234,135 +369,26 @@ class FollowersController extends Controller {
             $docID = $this->getDomain() . "/users/" . $like_arr;
             $old = $cb->get($docID); // get the old user record from the database according to the docID string
             $oldRecord = CJSON::decode($old, true);
-            if (!isset($oldRecord['user'][0]["followings"])) {        
+            if (!isset($oldRecord['user'][0]["followings"])) {
                 $oldRecord['user'][0]["followings"] = array();
             }
 
             $docIDUser = $this->getDomain() . "/users/" . $like_user;
             $oldUser = $cb->get($docIDUser); // get the old user record from the database according to the docID string
             $oldRecordUser = CJSON::decode($oldUser, true);
-            
+
             if (!isset($oldRecordUser['user'][0]["followers"]) || $oldRecordUser['user'][0]["followers"] === "") {
                 $userFollower = null;
-            }
-            else
-            {
+            } else {
                 $userFollower = $oldRecordUser['user'][0]["followers"];
             }
 
-            $newRecord = array();
+            $newRecord = $this->setUserOrProfile($cb, $oldRecord, $like_user, $userFollower);
 
-            for ($i = 0; $i < sizeof($oldRecord['user'][0]["followings"]); $i++) {
-                if ($oldRecord['user'][0]["followings"][$i]["follower_id"] !== null) {
-                    $id = $oldRecord['user'][0]["followings"][$i]["follower_id"];
-                    $newRecord[$i]['type'] = $oldRecord['user'][0]["followings"][$i]['type'];
-                    if ($oldRecord['user'][0]["followings"][$i]['type'] === "user") {
-                        $docIDDeep = $this->getDomain() . "/users/" . $id;
-                        $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
-                        $oldRecordDeep = CJSON::decode($oldDeep, true);
-                        $newRecord[$i]['record_id'] = $id;
-                        $newRecord[$i]['name'] = $oldRecordDeep['user'][0]["display_name"];
-                        $newRecord[$i]['photo_url'] = $oldRecordDeep['user'][0]["photo_url_large"];
-                        if (isset($oldRecordDeep['user'][0]["cover_url_small"])) {
-                            $newRecord[$i]['cover_url_small'] = $oldRecordDeep['user'][0]["cover_url_small"];
-                        } else {
-                            $newRecord[$i]['cover_url_small'] =  "http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg";
-                        }
-                        if (!isset($oldRecordDeep['user'][0]["collections"])) {
-                            $newRecord[$i]['collections_size'] = 0;
-                        } else {
-                            //error_log(var_export($oldRecordDeep['user'][0]["collections"], true));
-                            if (($oldRecordDeep['user'][0]["collections"] === null) || ($oldRecordDeep['user'][0]["collections"] === "")) {
-
-                                $newRecord[$i]['collections_size'] = 0;
-                            } else {
-                                $newRecord[$i]['collections_size'] = sizeof($oldRecordDeep['user'][0]["collections"]);
-                            }
-                        }
-                        if (!isset($oldRecordDeep['user'][0]["followers"])) {
-                            $newRecord[$i]['follower_size'] = 0;
-                            $newRecord[$i]['follow_status'] = false;
-                            $newRecord[$i]['following_status'] = false;
-                            for ($j = 0; $j < sizeof($userFollower); $j++) {
-                                if ($userFollower !== null && $userFollower[$j]["follower_id"] === $id) {
-                                    $newRecord[$i]['following_status'] = true;
-                                    break;
-                                }
-                            }
-                        } else {
-                            if (($oldRecordDeep['user'][0]["followers"] === null) || ($oldRecordDeep['user'][0]["followers"] === "")) {
-                                $newRecord[$i]['follower_size'] = 0;
-                                $newRecord[$i]['follow_status'] = false;
-                                $newRecord[$i]['following_status'] = false;
-                                for ($j = 0; $j < sizeof($userFollower); $j++) {
-                                    if ($userFollower !== null && $userFollower[$j]["follower_id"] === $id) {
-                                        $newRecord[$i]['following_status'] = true;
-                                        break;
-                                    }
-                                }
-                            } else {
-                                $newRecord[$i]['follow_status'] = false;
-                                for ($j = 0; $j < sizeof($oldRecordDeep['user'][0]["followers"]); $j++) {
-                                    if ($oldRecordDeep['user'][0]["followers"][$j]["follower_id"] === $like_user) {
-                                        $newRecord[$i]['follow_status'] = true;
-                                        break;
-                                    }
-                                }
-                                $newRecord[$i]['following_status'] = false;
-                                for ($j = 0; $j < sizeof($userFollower); $j++) {
-                                    if ($userFollower !== null && $userFollower[$j]["follower_id"] === $id) {
-                                        $newRecord[$i]['following_status'] = true;
-                                        break;
-                                    }
-                                }
-                                $newRecord[$i]['follower_size'] = sizeof($oldRecordDeep['user'][0]["followers"]);
-                            }
-                        }
-                    } else {
-                        $docIDDeep = $this->getDomain() . "/profiles/" . $id;
-                        $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
-                        $oldRecordDeep = CJSON::decode($oldDeep, true);
-                        $newRecord[$i]['record_id'] = $id;
-                        $newRecord[$i]['name'] = $oldRecordDeep['profile'][0]["profile_name"];
-                        $newRecord[$i]['photo_url'] = $oldRecordDeep['profile'][0]["profile_pic_url"];
-                        $newRecord[$i]['cover_url_small'] = $oldRecordDeep['profile'][0]["profile_bg_url"];
-                        $newRecord[$i]['following_status'] = false;
-                        if (!isset($oldRecordDeep['profile'][0]["collections"])) {
-                            $newRecord[$i]['collections_size'] = 0;
-                        } else {
-             
-                            if (($oldRecordDeep['profile'][0]["collections"] === null) || ($oldRecordDeep['profile'][0]["collections"] === "")) {
-
-                                $newRecord[$i]['collections_size'] = 0;
-                            } else {
-                                $newRecord[$i]['collections_size'] = sizeof($oldRecordDeep['profile'][0]["collections"]);
-                            }
-                        }
-                        if (!isset($oldRecordDeep['profile'][0]["followers"])) {
-                            $newRecord[$i]['follower_size'] = 0;
-                            $newRecord[$i]['follow_status'] = false;
-                        } else {
-                            if (($oldRecordDeep['profile'][0]["followers"] === null) || ($oldRecordDeep['profile'][0]["followers"] === "")) {
-                                $newRecord[$i]['follower_size'] = 0;
-                                $newRecord[$i]['follow_status'] = false;
-                            } else {
-                                $newRecord[$i]['follow_status'] = false;
-                                for ($j = 0; $j < sizeof($oldRecordDeep['profile'][0]["followers"]); $j++) {
-                                    if ($oldRecordDeep['profile'][0]["followers"][$j]["follower_id"] === $like_user) {
-                                        $newRecord[$i]['follow_status'] = true;
-                                        break;
-                                    }
-                                }
-                                $newRecord[$i]['follower_size'] = sizeof($oldRecordDeep['profile'][0]["followers"]);
-                            }
-                        }
-                    }
-                }
-            }
             if ($newRecord === null) {
                 $this->sendResponse(204);
             } else {
-      
+
                 $this->sendResponse(200, CJSON::encode($newRecord));
             }
         } catch (Exception $exc) {
@@ -382,6 +408,7 @@ class FollowersController extends Controller {
     public function actionTest() {
         echo "test";
     }
+
     public function actionDeleteFollower() {
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $profile_id = $request_array[0];
@@ -514,22 +541,19 @@ class FollowersController extends Controller {
             }
             $follower_arr = $request_arr;
             $follower_arr['follower_id'] = $user_id;
-            
-             $bool = 0;
-               for($i=0;$i<sizeof($mega_currentUser['user'][0]['followings']);$i++)
-             {
-                 if($user_id===$mega_currentUser['user'][0]['followings'][$i]["follower_id"])
-                 {
-                     $bool =1;
-                   break;
-                 }
-             }
-             if(!$bool)
-             {
-                       array_unshift($mega_currentUser['user'][0]['followings'], $follower_arr);
-             }
- 
-         
+
+            $bool = 0;
+            for ($i = 0; $i < sizeof($mega_currentUser['user'][0]['followings']); $i++) {
+                if ($user_id === $mega_currentUser['user'][0]['followings'][$i]["follower_id"]) {
+                    $bool = 1;
+                    break;
+                }
+            }
+            if (!$bool) {
+                array_unshift($mega_currentUser['user'][0]['followings'], $follower_arr);
+            }
+
+
             if ($cb->set($docID_currentUser, CJSON::encode($mega_currentUser))) {
                 $isSaving = true;
                 ;

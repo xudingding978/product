@@ -42,7 +42,6 @@ class LoginForm extends CFormModel {
      * This is the 'authenticate' validator as declared in rules().
      */
     public function authenticate($attribute, $params) {
-<<<<<<< HEAD
         if (!$this->hasErrors()) {
             $this->_identity = new CommonUserIdentity($this->username, $this->password);
             if (!$this->_identity->authenticate())
@@ -50,25 +49,11 @@ class LoginForm extends CFormModel {
         }
     }
 
-=======
-    
-        
-        if (!$this->hasErrors()) {
-            $this->_identity = new CommonUserIdentity($this->username, $this->password);
-           
-            if (!$this->_identity->authenticate())
-               
-                $this->addError('password', 'Incorrect username or password.');
-        }
-    }
- 
->>>>>>> ed315fc14a8beac3817aeda2b1bf7f03e6b5c01d
     /**
      * Logs in the user using the given username and password in the model.
      * @return boolean whether login is successful
      */
     public function login() {
-<<<<<<< HEAD
         if ($this->_identity === null) {
             $this->_identity = new CommonUserIdentity($this->username, $this->password);
             $this->_identity->authenticate();
@@ -78,21 +63,6 @@ class LoginForm extends CFormModel {
             Yii::app()->user->login($this->_identity, $duration);
             return true;
         }
-=======
-     
-         
-        if ($this->_identity === null) {
-            $this->_identity = new CommonUserIdentity($this->username, $this->password);
-            $this->_identity->authenticate();
-            
-        }
-      if ($this->_identity->errorCode === CommonUserIdentity::ERROR_NONE) {
-       
-            $duration = $this->rememberMe ? 3600 * 24 * 30 : 300; // 30 days
-            Yii::app()->user->login($this->_identity, $duration);
-            return true;
-          }
->>>>>>> ed315fc14a8beac3817aeda2b1bf7f03e6b5c01d
         else
             return false;
     }

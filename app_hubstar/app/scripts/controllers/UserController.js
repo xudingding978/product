@@ -93,7 +93,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("collections", user.get("collections"));
         this.set("description", user.get("description"));
         this.set("display_name", user.get("display_name"));
-
+        this.set('currentUserID', this.get('model').get('id'));
          this.set("first_name", user.get("first_name"));
           this.set("last_name", user.get("last_name"));
 
@@ -359,7 +359,7 @@ HubStar.UserController = Ember.Controller.extend({
         }
     },
     saveUpdate: function() {
-        var update_user_record = this.getCurrentUser();
+        var update_user_record = this.get('model');
         if (this.isInputValid())
         {
             update_user_record.set('collections', this.get('collections'));
@@ -483,7 +483,7 @@ if (checkList[i].id === 'first_name' || checkList[i].id === 'last_name')
     saveLink: function(link_url,link) {//link =param; this,get('facebook')
                                                                             
         var http = "http://";
-        var update_user_record = this.getCurrentUser();
+        var update_user_record = this.get('model');
         if (this.get(link) === null || this.get(link) === "")
         {
             this.get(link)  === "";      

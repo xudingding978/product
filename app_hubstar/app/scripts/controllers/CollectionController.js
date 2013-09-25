@@ -1,6 +1,8 @@
 HubStar.CollectionController = Ember.Controller.extend({
     collections: null,
     needs: ['applicationFeedback'],
+    init: function() {
+    },
     getCreateCollection: function(title, desc, collections)
     {
         this.set('collections', collections);
@@ -23,7 +25,7 @@ HubStar.CollectionController = Ember.Controller.extend({
                     collection.set('desc', "Add a short description to your Collection");
                 }
             } else {
-                this.get('controllers.applicationFeedback').statusObserver(null, "invalidate characters...");
+                this.get('controllers.applicationFeedback').statusObserver(null, "invalid characters...");
             }
         }
         return collection;

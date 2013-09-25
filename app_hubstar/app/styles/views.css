@@ -24,7 +24,7 @@
 }
 
 
-j
+
 
 
 .easing {
@@ -495,10 +495,6 @@ j
     display: inline-block;
     text-shadow: 1px 1px 0px #fff, -1px -1px 0px #333;
     color: #555;
-}
-
-.new-collection-name_insert{
-    height: 30px;
 }
 
 .controlbtn-field{
@@ -987,7 +983,6 @@ j
 .icon-on-black:hover{
     color: #fff;
 }
-
 
 
 .icon-on-black > i{

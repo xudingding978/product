@@ -3573,6 +3573,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
     gpShare: function() {
 
         var metas = document.getElementsByTagName("meta");
+        $("meta[property='og\\:title']").attr("content", "dingdingxu");
+        $("meta[property='og\\:site_name']").attr("content", "dingdingxu123456789");
+        $("meta[property='og\\:image']").attr("content", "http://s3.hubsrv.com/trendsideas.com/7336815531372415644/photo/7336815531372415644/thumbnail/65569_132x132.jpg");
+        $("meta[property='og\\:url']").attr("content", 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id'));
+        
         for (var i = 0; i < metas.length; i++) {
             if (metas[i].getAttribute("itemprop") && metas[i].getAttribute("itemprop") == "image") {
 

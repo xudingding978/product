@@ -923,6 +923,23 @@ div #login_container > div.front > .head > .panelcircle
 
 
 /*new login style Colin Shaw 25/9/2013*/
+.register-with{
+    width: 300px;
+    height: 45px;
+    margin: 0 auto;
+    background-color: #fff;
+    text-align: center;
+    color: #888;
+    font-weight: bold; 
+    line-height: 45px; 
+    font-size: 15px;
+
+    cursor: pointer;
+    opacity: .7;
+}
+
+.register-with:hover{opacity: 1}
+
 .login-textfield > input{
     padding: 0 10px;
     border: 0 none !important;
@@ -938,18 +955,72 @@ div #login_container > div.front > .head > .panelcircle
     border-radius: 3px; 
     display: inline-block;
     vertical-align: top; 
-    background-color: #f3f3f3;
+    background-color: #fff;
     line-height: 36px;
     color: #555;
     margin: 0 3px;
 }
+
+.login-select{
+    width: 49%;
+    display: inline-block;
+    vertical-align: top;
+    height: 45px;
+    line-height: 45px;
+    color: #888;
+    font-weight: bold;
+    text-align: left;
+    padding-left: 10px;
+
+    cursor: pointer;
+}
+
+.login-select:hover{
+    background-color: #f3f3f3;
+}
+
+.login-selected{
+    border-top: 1px solid rgba(0,0,0,.16);
+    border-right: 1px solid rgba(0,0,0,0.16);
+    border-bottom: 1px solid rgba(0,0,0,.05);
+    margin-bottom: -1px;
+
+    background: rgba(0,0,0,0.05);
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
+    -ms-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
+    -o-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
+}
+
+
 .social-login-iconbox:hover, .social-login-iconbox:focus{
-    opacity:.8;
+    background-color: #f3f3f3;
     /* just a set up class for ya colin! */
 }
-.social-login-iconbox:active{opacity:.5; }
+.social-login-iconbox:active{color: #fff;background-color: #08c; }
 
 div > div > i.icon-envelope, div > div > a#click-register
 {
     cursor:pointer;
 }
+
+.register-btn{
+    width: 300px;
+    height: 45px;
+    margin: 0 auto 20px;
+    background-color: #fff;
+    text-align: center;
+    color: #888;
+    font-weight: bold; 
+    font-size: 15px;
+    line-height: 45px; 
+    border-radius: 0 0 5px 5px;
+    
+    cursor: pointer;
+}
+
+.register-btn:hover, .register-btn:focus{background-color: #f3f3f3;}
+
+.register-btn:active{background-color: #08c;color: #fff;}
+

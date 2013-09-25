@@ -6,6 +6,7 @@ HubStar.Collection = DS.Model.extend({
     cover: DS.attr('string'),
     parent_type: DS.attr('string'),
     optional:DS.attr('string'),
+    type:DS.attr('string'),
     didLoad: function() {
     }
 });

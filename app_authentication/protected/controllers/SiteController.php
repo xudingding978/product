@@ -46,7 +46,7 @@ class SiteController extends Controller {
 
     public function actionTest() {
         
-        error_log('ddddddddddddddddd');
+  
         // renders the view file 'protected/views/site/index.php'
         // using the default layout 'protected/views/layouts/main.php'
     //    $this->render('test');
@@ -93,7 +93,7 @@ class SiteController extends Controller {
 
     public function actionLogin() {
         $this->layout = '//layouts/signup';
-        error_log($this->layout);
+        
         $this->defaultLogin();
     }
 
@@ -120,9 +120,13 @@ class SiteController extends Controller {
         // collect user input data
         if (isset($_POST['LoginForm'])) {
             $model->attributes = $_POST['LoginForm'];
+        
             // validate user input and redirect to the previous page if valid
             if ($model->validate() && $model->login())
-                $this->render('//user/close');
+            {
+               $this->render('//user/close');
+            }
+//                $this->render('//user/close');
         }
         // display the login form                
         $this->render('login', array('model' => $model));

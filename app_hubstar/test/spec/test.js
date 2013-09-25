@@ -1,5 +1,5 @@
-
-
+//
+//
 //beforeEach(function() {
 //    Ember.run(function() {
 //        HubStar.reset();
@@ -12,7 +12,7 @@
 //});
 //
 //after(function(done) {
-//    //LoginOut();
+//    LoginOut();
 //    Ember.run(function() {
 //        route = HubStar.Router.create();
 //        route.transitionTo("indexIndex");
@@ -48,34 +48,34 @@ function LoginOut() {
 ;
 
 
-//describe("Platform  bar", function() {
-//    var controller;
-//    var topics;
-//    var result;
-//    beforeEach(function(done) {
-//
-//
-//
-//        Ember.run(function() {
-//            LoginIn(done);
-//
-//            controller = HubStar.PlatformBarController.create();
-//             //console.log(controller);
-//            topics = controller.categorys;
-//            topics.addObserver('isLoaded', function() {
-//                if (topics.get('isLoaded')) {
-//                    result = topics.get('length');
-//                    done();
-//                }
-//            });
-//        });
-//    });
-//    it("total topics", function() {
-//        Ember.run(function() {
-//            result.should.equal(14);
-//        });
-//    });
-//});
+describe("Platform  bar", function() {
+    var controller;
+    var topics;
+    var result;
+
+    beforeEach(function(done) {
+
+
+
+        Ember.run(function() {
+            LoginIn(done);
+
+            controller = HubStar.PlatformBarController.create();
+            topics = controller.categorys;
+            topics.addObserver('isLoaded', function() {
+                if (topics.get('isLoaded')) {
+                    result = topics.get('length');
+                    done();
+                }
+            });
+        });
+    });
+    it("total topics", function() {
+        Ember.run(function() {
+            result.should.equal(14);
+        });
+    });
+});
 
 //describe("AddLike Test", function() {
 //    var controller;
@@ -215,6 +215,22 @@ describe("profile page cancel saving test", function() {
         controller.profile_contact_number.should.equal(temp_contact_number_record);
         controller.website.should.equal(temp_website_record);
     });
+});
+
+describe("user collection test", function() {
+     var controller, model;
+     
+     model = HubStar.Profile.find('25180585742');
+
+    it ("add collection test", function() {
+        
+        controller = HubStar.UserController.create();
+        controller.newTitle='mocha test tile';
+        controller.newDesc='mocha test desc';
+        controller.collections=model.collections;
+    });
+    
+   
 });
 
 //describe("user profies testing", function() {

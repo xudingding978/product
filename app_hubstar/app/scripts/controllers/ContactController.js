@@ -26,7 +26,7 @@
         projectBudget: null,
         projectExperience: null,
         email_title:"",
-        needs: ["mega", "profile", 'article'],
+        needs: ["mega", "profile", 'article','applicationFeedback'],
         init: function() {
             this.set('categorys', []);
 
@@ -68,7 +68,7 @@
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
             this.set("displayName", this.get("currentUser").get("first_name") + " " + this.get("currentUser").get("last_name"));
             this.set("displayEmail", this.get("currentUser").get("email"));
-           var idProfile;
+            var idProfile;
             var tempMega = HubStar.Mega.find(id);
 
             
@@ -164,6 +164,7 @@
                 "projectSubCategoryItem": projectSubCategoryItem
             });
             tempEmail.store.commit();
+            this.get('controllers.applicationFeedback').statusObserver(null, "Email has been Sent!!!");
             this.closeContact();
         },
         dropdown: function(checking) {

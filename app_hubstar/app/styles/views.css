@@ -1,5 +1,16 @@
 /*BASIC STYLE*/
 
+#master_bg
+{
+    background:#fff url('../images/bgtexture.png') repeat;
+    width:100%;
+    height:100%;
+    position:fixed;
+    z-index:1;
+    top:0;
+    left:0;
+}
+
 .dropdownicon{
     position: absolute;
     right: 15px;
@@ -13,7 +24,7 @@
 }
 
 
-j
+
 
 
 .easing {
@@ -271,7 +282,7 @@ j
     position: absolute;
     right: 0;
     top: 0;
-    cursor: pointer;
+/*    cursor: pointer;*/
     z-index: 1;
 }
 
@@ -486,10 +497,6 @@ j
     color: #555;
 }
 
-.new-collection-name_insert{
-    height: 30px;
-}
-
 .controlbtn-field{
     border-top: 1px solid rgba(0,0,0,0.05);
     border-bottom: 1px solid rgba(0,0,0,0.05);
@@ -700,7 +707,8 @@ j
     overflow: hidden;
     position: relative;
     vertical-align:central;
-    background:#e5e5e5;
+    /* background:#e5e5e5; */
+    min-height:150px
 }
 
 .edit-object{
@@ -726,7 +734,7 @@ j
 .this-is-the-object{
     cursor: pointer;
     min-width: 338px;
-    max-height: 100%;
+    /* max-height: 100%; */
     max-width: 100%;
     display: inline-block;
 }
@@ -734,7 +742,7 @@ j
 .masonry-object_text{
     color: #404040;
     font-size: 13px;
-    line-height: 1.4;
+    line-height: 144%;
     min-height: 0;
     overflow: hidden;
 }
@@ -798,6 +806,9 @@ j
 .masonry_addcommnetbox-container{
    /* margin: 0 20px 0 20px; */
    padding: 0 20px 8.5px 20px;
+   width:100%;
+   clear:both;
+   float:left;
 
 }
 
@@ -1706,4 +1717,8 @@ j
     -moz-background-clip: padding-box;
     background-clip: padding-box;
     margin: 0;
+    
+    text-align: left;
 }
+
+

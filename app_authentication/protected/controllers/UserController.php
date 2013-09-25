@@ -6,7 +6,7 @@ class UserController extends Controller {
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
-    public $layout = '//layouts/column2';
+    public $layout = '//layouts/platform';
 
     /**
      * @return array action filters
@@ -33,6 +33,7 @@ class UserController extends Controller {
      * @param integer $id the ID of the model to be displayed
      */
     public function actionView($id) {
+        $this->layout = '//layouts/main';
         if (Yii::app()->user->id == $id) {
 //            $user = User::model()->findByPk($id);
 //            //$userprofile = UserProfile::model()->findAllByAttributes(array('USER_REC_ID'=>$id));
@@ -148,7 +149,7 @@ class UserController extends Controller {
      * Lists all models.
      */
     public function actionIndex() {
-
+        $this->layout = '//layouts/main';
         $dataProvider = new CActiveDataProvider('User');
         $this->render('index', array(
             'dataProvider' => $dataProvider,
@@ -159,6 +160,7 @@ class UserController extends Controller {
      * Manages all models.
      */
     public function actionAdmin() {
+        $this->layout = '//layouts/main';
         $model = new User('search');
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['User']))

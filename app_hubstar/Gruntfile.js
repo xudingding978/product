@@ -165,7 +165,7 @@ module.exports = function(grunt) {
             ]
         },
         qunit: {
-            all: ['tests/*.html']
+            all: ['test/*.html']
         },
         mocha: {
             all: {
@@ -486,7 +486,8 @@ module.exports = function(grunt) {
         'concat:testtemplate',
         'concat:testcss',
         'copy:test',
-        'mocha'
+   //     'mocha'
+      'qunit'
     ]);
     grunt.registerTask('build', [
         'clean:dist',
@@ -503,12 +504,11 @@ module.exports = function(grunt) {
         'usemin',
         'manifest',
         'rev:test'
-
     ]);
     grunt.registerTask('default', [
-        'jshint',
-
+     //   'jshint',
         'qunit'
     ]);
+
 
 };

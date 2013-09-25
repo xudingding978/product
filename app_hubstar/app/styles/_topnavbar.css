@@ -943,3 +943,13 @@ div #login_container > div.front > .head > .panelcircle
     color: #555;
     margin: 0 3px;
 }
+.social-login-iconbox:hover, .social-login-iconbox:focus{
+    opacity:.8;
+    /* just a set up class for ya colin! */
+}
+.social-login-iconbox:active{opacity:.5; }
+
+div > div > i.icon-envelope, div > div > a#click-register
+{
+    cursor:pointer;
+}

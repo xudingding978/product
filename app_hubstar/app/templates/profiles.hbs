@@ -72,7 +72,7 @@
                 <i class="icon-envelope">&nbsp </i><a id="click-register" style="color: #888"> Register with Email</a>
             </div>
 
-            <div   id="register-with-email-drop-down" style="width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px">
+            <div   id="register-with-email-drop-down" style="width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;">
                 <div style="padding: 0 8px;">
 
                     <div style="border-bottom: 1px solid #e3e3e3; border-top:1px solid #e3e3e3;">
@@ -94,7 +94,10 @@
                     </div>
                 </div>
 
-                <div style="width: 300px;height: 45px;margin: 0 auto 20px;background-color: #fff;text-align: center;color: #888;font-weight: bold; font-size: 15px;line-height: 45px; border-radius: 0 0 5px 5px"> Register</div>
+                <div id="register-btn" style="width: 300px;height: 45px;margin: 0 auto 20px;background-color: #fff;text-align: center;color: #888;font-weight: bold; font-size: 15px;line-height: 45px; border-radius: 0 0 5px 5px"> Register</div>
+            </div>
+            <div id="register-with-email-step-2" style="width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;">
+                hello
             </div>
 
         </div>
@@ -117,6 +120,18 @@
     $("#click-register").click(function() {
         $('#social-link').animate({height: 'toggle'});
         $('#register-with-email-drop-down').animate({height: 'toggle'});
+        
+        if($('#register-with-email-step-2').css('display') == 'none'){/* do nothing */}
+        
+        if($('#register-with-email-step-2').css('display') == 'block'){
+            $('#register-with-email-step-2').animate({height: 'toggle'});
+        }
+    });
+    $("#register-btn").click(function() {
+        $('#social-link').animate({height: 'toggle'});
+        $('#register-with-email-drop-down').animate({height: 'toggle'});
+        $('#register-with-email-step-2').animate({height: 'toggle'});
+        
     });
 
 </script>

@@ -506,8 +506,9 @@ module.exports = function(grunt) {
         'rev:test'
     ]);
     grunt.registerTask('default', [
-     //   'jshint',
-        'qunit'
+        'jshint',
+        'test',
+        'build'
     ]);
 
 

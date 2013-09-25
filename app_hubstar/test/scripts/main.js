@@ -1768,7 +1768,6 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
     },
     setUser: function()
     {
-
         var user = HubStar.User.find(localStorage.loginStatus);
         this.set("collections", user.get("collections"));
         if (this.get("collections").objectAt(0) !== null && this.get("collections").objectAt(0) !== undefined) {

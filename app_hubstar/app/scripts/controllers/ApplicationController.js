@@ -1,6 +1,6 @@
 
 HubStar.ApplicationController = Ember.ArrayController.extend({
-    needs: ['status'],
+    needs: ['status', 'applicationFeedback'],
     content: [],
     loginInfo: "",
     search_area: "",
@@ -68,6 +68,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     $('#masonry_container').masonry("reload");
                 }, 2200);
                 that.set('loadingTime', false);
+                if (results.get("length") === 0) {
+                    console.log("dddddddddd");
+                    that.get('controllers.applicationFeedback').statusObserver(null, "You Have Reached The End Of Your Search Results", "info");
+                }
             }
         });
     },
@@ -83,12 +87,13 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var stats = HubStar.Stat.find({"RquireType": "firstsearch", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size")});
         stats.addObserver('isLoaded', function() {
             if (stats.get('isLoaded')) {
+                ;
                 var stat = stats.objectAt(0);
                 var megasResults = stat.get("megas");
                 HubStar.set('itemNumber', megasResults.get("length"));
                 for (var i = 0; i < megasResults.get("length"); i++) {
                     var tempmega = megasResults.objectAt(i);
-                     //console.log(tempmega.get("profile").objectAt(0));
+                    //console.log(tempmega.get("profile").objectAt(0));
                     if (tempmega.get("profile").objectAt(0) !== undefined) {
                         var isFollow = false;
                         for (var j = 0; j < tempmega.get("profile").objectAt(0).get("followers").get("length"); j++)

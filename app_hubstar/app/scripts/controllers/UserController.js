@@ -66,7 +66,7 @@ HubStar.UserController = Ember.Controller.extend({
     interestsActive:false,
     init: function()
     {
-        this.setUser();
+        //this.setUser();
 
     },
     isUserSelfOrNot: function(currentUserID) {
@@ -75,20 +75,20 @@ HubStar.UserController = Ember.Controller.extend({
             this.set("isUserSelf", true);
         }
     },
-    getCurrentUser: function()
-    {            
-        var address = document.URL;
-        var user_id = address.split("#")[1].split("/")[2];
-        this.set('currentUserID', user_id);
-        var user = HubStar.User.find(user_id);
-        return user;
-    },
+//    getCurrentUser: function()
+//    {            
+//        var address = document.URL;
+//        var user_id = address.split("#")[1].split("/")[2];
+//        this.set('currentUserID', user_id);
+//        var user = HubStar.User.find(user_id);
+//        return user;
+//    },
     setUser: function()
     {
-        //console.log(this.get('model'));
-        var user = this.getCurrentUser();
+        console.log(this.get('model'));
+        var user = this.get('model');
         this.setIntersetsArr(user);
-        this.set("model", user);
+//        this.set("model", user);
         this.set("user", user);
         this.set("collections", user.get("collections"));
         this.set("description", user.get("description"));
@@ -111,7 +111,7 @@ HubStar.UserController = Ember.Controller.extend({
         
 
         if(user.get('cover_url')===null||user.get('cover_url')===""||user.get('cover_url')===undefined){
-                   user.set('cover_url', 'http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg');
+                   this.set('cover_url', 'http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg');
                }
         else
                {//this.set('cover_url', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_cover/user_cover');
@@ -322,10 +322,8 @@ HubStar.UserController = Ember.Controller.extend({
     },
     submit: function()
     {
-
         var collectionController = this.get('controllers.collection');
         var collection = collectionController.getCreateCollection(this.get('newTitle'),this.get('newDesc'),  this.get("collections"));
-        
         if (collection !== null && collection !== "") {
             collection.set('type', 'user');
             collection.set('optional', this.get('model').get('id'));

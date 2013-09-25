@@ -428,7 +428,7 @@ HubStar.UserController = Ember.Controller.extend({
         checkList.push(youtube);
 //        var password = new checkObject("password", this.get('password'), 128, null, null);
 //        checkList.push(password);
-
+    
 
         for (var i = 0; i < checkList.length; i++)
         {

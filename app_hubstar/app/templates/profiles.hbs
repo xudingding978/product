@@ -118,20 +118,33 @@
     });
 
     $("#click-register").click(function() {
-        $('#social-link').animate({height: 'toggle'});
-        $('#register-with-email-drop-down').animate({height: 'toggle'});
-        
-        if($('#register-with-email-step-2').css('display') == 'none'){/* do nothing */}
-        
-        if($('#register-with-email-step-2').css('display') == 'block'){
+        if( $('#register-with-email-step-2').hasClass('active-step')){
+            $('#social-link').animate({height: 'toggle'});
             $('#register-with-email-step-2').animate({height: 'toggle'});
         }
+        if ($('#register-with-email-step-2').css('display') == 'block' && $('#register-with-email-step-2').hasClass('')) {
+            $('#social-link').animate({height: 'toggle'});
+            $('#register-with-email-step-2').animate({height: 'toggle'});
+        }
+        if ($('#register-with-email-step-2').css('display') == 'none' && $('#register-with-email-step-2').hasClass('')) {
+            $('#social-link').animate({height: 'toggle'});
+            $('#register-with-email-drop-down').animate({height: 'toggle'});
+        }
+        
+
     });
     $("#register-btn").click(function() {
-        $('#social-link').animate({height: 'toggle'});
-        $('#register-with-email-drop-down').animate({height: 'toggle'});
-        $('#register-with-email-step-2').animate({height: 'toggle'});
-        
+        if ($('#register-with-email-step-2').css('display') == 'none') { 
+            $('#register-with-email-step-2').addClass('active-step');
+            $('#register-with-email-step-2').animate({height: 'toggle'});
+            $('#register-with-email-drop-down').animate({height: 'toggle'});
+            
+             if ($('#social-link').css('display') == 'block') {
+                $('#social-link').animate({height: 'toggle'});
+            }
+        }
+
     });
+    /* this is for moving onto step two  of the register process */
 
 </script>

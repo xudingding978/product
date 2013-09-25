@@ -1,3 +1,4 @@
+
 <div id="wysihtml5-editor-toolbar" style="background-color: #f3f3f3;border-bottom: 1px dashed #999;background-clip: padding-box;">
     <header>
         <ul class="commands">
@@ -34,9 +35,10 @@
         <a class="new-btn blue-btn" data-wysihtml5-dialog-action="save" style="top:0">OK</a>&nbsp;<a class="new-btn" data-wysihtml5-dialog-action="cancel" style="top:0">Cancel</a>
     </div>
 
+
     <div data-wysihtml5-dialog="insertImage" class="easing" style="display: none;z-index: 10;opacity: .9">
         <div style="display: inline-block; margin: 0 10px;font-weight: bold; color: #888;">
-            Image:
+            Image: {{controller}}
             <input class="disabled-btn" style="top:0" data-wysihtml5-dialog-field="src" value="http://">
         </div>
         <a class="new-btn blue-btn" data-wysihtml5-dialog-action="save" style="top:0">OK</a>&nbsp;<a class="new-btn" data-wysihtml5-dialog-action="cancel" style="top:0">Cancel</a>
@@ -45,13 +47,10 @@
 
 
 <section>
-    {{#if controller.isAboutUs}}
+
     <div class="wysihtml5_text-area" style="overflow: hidden;width: 99%;">
         {{view Ember.TextArea valueBinding="model.profile_about_us" id="wysihtml5-editor"  }}
     </div>
-
-    {{/if}}
-
 
 </section>
 <script>

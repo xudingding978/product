@@ -24,7 +24,7 @@
 }
 
 
-j
+
 
 
 .easing {
@@ -497,10 +497,6 @@ j
     color: #555;
 }
 
-.new-collection-name_insert{
-    height: 30px;
-}
-
 .controlbtn-field{
     border-top: 1px solid rgba(0,0,0,0.05);
     border-bottom: 1px solid rgba(0,0,0,0.05);
@@ -810,6 +806,9 @@ j
 .masonry_addcommnetbox-container{
    /* margin: 0 20px 0 20px; */
    padding: 0 20px 8.5px 20px;
+   width:100%;
+   clear:both;
+   float:left;
 
 }
 
@@ -1718,4 +1717,8 @@ j
     -moz-background-clip: padding-box;
     background-clip: padding-box;
     margin: 0;
+    
+    text-align: left;
 }
+
+

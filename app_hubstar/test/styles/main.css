@@ -770,7 +770,7 @@ body {
     font-size: 14px;
     line-height: 20px;
     color: #333333;
-    background-color: #ffffff;
+    background-color: #E7E7E7;
 }
 
 a {
@@ -7011,12 +7011,20 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
 #masonry_user_container[style="position:relative;height:0px;width: 185px;"],
 #masonry_user_container[style='position: relative; height: 0px; width: 185px;'],
 #masonry_user_container[style='position:relative;height:0px;width: 185px;'],
+
+#masonry_photo_collection_container[style="position: relative; height: 0px; width: 185px;"],
+#masonry_photo_collection_container[style="position:relative;height:0px;width: 185px;"],
+#masonry_photo_collection_container[style='position: relative; height: 0px; width: 185px;'],
+#masonry_photo_collection_container[style='position:relative;height:0px;width: 185px;'],
+
 #masonry_container[style="position: relative; height: 177px; width: 370px;"],
 #masonry_container[style="position:relative;height:177px;width:370px;"],
 #masonry_container[style='position: relative; height: 177px; width: 370px;'],
 #masonry_container[style='position:relative;height:177px;width:370px;']{
-       width:0!important;
-       overflow:hidden;
+    width:0!important;
+    overflow:hidden;
+    margin-left:4000px;
+
 }
 .masonry_push_down{
     margin-top: 85px;
@@ -7129,7 +7137,8 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
 
 #nav-ul ul li:first-child
 
-#nav-ul ul li:first-child:hover::after {
+#nav-ul ul li:first-child:hover::after,
+#nav-ul ul li:first-child:focus::after{
     border-right-color: #eaeced;
 }
 
@@ -7151,7 +7160,8 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
 }
 
 
-#navContainer ul li span:hover::before {
+#navContainer ul li span:hover::before,
+#navContainer ul li span:focus::before{
     content: "";
     position: absolute;
     border-right: 13px solid rgba(0,0,0,.26);
@@ -7165,7 +7175,8 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
     right: -8px;
 }
 
-#navContainer ul li span:hover::after {
+#navContainer ul li span:hover::after,
+#navContainer ul li span:focus::after{
     content: "";
     position: absolute;
     border-right: 12px solid #f3f3f3;
@@ -7198,7 +7209,8 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
     background-color: rgba(0,0,0,0.05);
 }
 
-.sidebar-hover:hover::before {
+.sidebar-hover:hover::before,
+.sidebar-hover:focus::before{
     content: "";
     position: absolute;
     border-right: 13px solid rgba(0,0,0,.26);
@@ -7212,7 +7224,8 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
     right: -8px;
 }
 
-.sidebar-hover:hover::after {
+.sidebar-hover:hover::after,
+.sidebar-hover:focus::after{
     content: "";
     position: absolute;
     border-right: 12px solid #f3f3f3;
@@ -7482,6 +7495,7 @@ div.search-loading-invisible{
     cursor: pointer;
     font-weight: bold;
     font-size: 13px;
+    list-style: none;
 }
 
 .ite:hover{
@@ -7756,7 +7770,9 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     text-align: left;
     padding:20px 0;
     font-size: 15px;
-    min-height: 650px
+    min-height: 650px;
+    max-width: 800px;
+    word-wrap:break-word;
 }
 
 .main_aboutus p{
@@ -8478,7 +8494,7 @@ div.loading-visible{
 }
 
 
-j
+
 
 
 .easing {
@@ -8951,10 +8967,6 @@ j
     color: #555;
 }
 
-.new-collection-name_insert{
-    height: 30px;
-}
-
 .controlbtn-field{
     border-top: 1px solid rgba(0,0,0,0.05);
     border-bottom: 1px solid rgba(0,0,0,0.05);
@@ -9264,6 +9276,9 @@ j
 .masonry_addcommnetbox-container{
    /* margin: 0 20px 0 20px; */
    padding: 0 20px 8.5px 20px;
+   width:100%;
+   clear:both;
+   float:left;
 
 }
 
@@ -10172,6 +10187,22 @@ j
     -moz-background-clip: padding-box;
     background-clip: padding-box;
     margin: 0;
+    
+    text-align: left;
+}
+
+
+
+
+textarea{
+    padding: 3px 8px !important;
+    line-height: 22px!important;
+    font-size: 14px !important;
+}
+
+input{
+    height: 30px;
+    line-height: 30px !important;
 }
 
 .insetbox-shadow {
@@ -10256,14 +10287,14 @@ j
     width: 26%;
     display: inline-block;
     vertical-align: top;
-    height: 450px;
+    height: 500px;
     margin-right: 0.5%;
 }
 
 .user-board_right{
     background: white;
     width: 73%;
-    height: 450px;
+    height: 500px;
     display: inline-block;
     vertical-align: top;
     overflow: hidden;
@@ -10484,7 +10515,7 @@ j
 /*USERPAGE*/
 .user-cover{
 
-    height: 150px; 
+    height: 300px; 
     overflow: hidden;
 }
 
@@ -10650,11 +10681,11 @@ j
     float:left;
     width:65%;
     padding:0 5px;
-   /* padding: 20px 5px; 
-    position:absolute;
-    width:65%;
-    top:-180px;
-    left:17.5%; */
+    /* padding: 20px 5px; 
+     position:absolute;
+     width:65%;
+     top:-180px;
+     left:17.5%; */
 }
 .premium > div > table  .profileaside > .profileaside_content .aside-profilepic div,
 .premium > div > table  .profileaside > .profileaside_content .aside-profilepic div img{width:100%;margin-bottom:1em;}
@@ -10689,7 +10720,6 @@ j
     height: 30px;
     line-height: 33px;
     margin: 5px -20px 10px;
-    cursor: pointer;
     padding: 0 20px;
 }
 
@@ -10705,6 +10735,7 @@ j
     float:left;
     width:100%;
 }
+#interest_btn{cursor:pointer;}
 
 
 #show_interest:hover .unvisible{
@@ -10718,7 +10749,7 @@ j
     left:0;
     padding: 5px 20px 0;
     width: 100%;
-    height: 150px;
+    height: 200px;
     float:left;
     overflow: hidden;
     background: #F3F3F3;
@@ -10732,6 +10763,7 @@ div.profile-picture-active
     z-index:1!important;
     float:left!important;
     border-width:4px!important;
+    position:absolute;
 }
 .follow-btn-active
 {
@@ -10765,10 +10797,13 @@ textarea.add-interests{
 
     margin: 5px auto 15px;
     padding: 6px 20px;
-    font-size: 11px;
+    font-size: 12px;
 }
 
 /* interest ENDS */
+
+
+
 
 
 
@@ -11259,7 +11294,7 @@ body{
 #discovery_search_bar > #search_key {
     padding: 6px;
     height: 35px;
-    width: 29%;
+    width: 28%;
 
 }
 

@@ -15,6 +15,7 @@ var wysihtml5ParserRules = {
     br:     {},
     p:      {},
     div:    {},
+    class: {},
     span:   {},
     ul:     {},
     ol:     {},

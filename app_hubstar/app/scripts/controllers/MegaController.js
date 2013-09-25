@@ -16,8 +16,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
     photo_album_id: null,
     photo_thumb_id: null,
     is_authentic_user: false,
+    sharePhotoUrl: '',
+    sharePhotoName: '',
     init: function()
     {
+
     },
     findSelectedItemIndex: function() {
         content = this.get('content');
@@ -118,6 +121,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
         var result = (param !== null && param !== undefined);
         return result;
     },
+    dropdownPhotoSetting: function() {
+        this.set('sharePhotoUrl', this.get('selectedPhoto').get('photo_image_thumbnail_url'));
+        this.set('sharePhotoName', this.get('selectedPhoto').get('photo_title'));
+        $('#dropdown_id_').toggleClass('hideClass');
+    },
     switchCollection: function() {
         var addCollectionController = this.get('controllers.addCollection');
         var selectid = this.get('selectedPhoto').id;
@@ -197,5 +205,22 @@ HubStar.MegaController = Ember.ArrayController.extend({
         });
 
 
+    },
+    fbShare: function() {
+        var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
+        appID = '358102574293594';
+       //https://www.facebook.com/dialog/feed?app_id=143965932308817&link=http%3A%2F%2Fwww.houzz.com%2Fphotos%2F819542%2FComfortable-Luxury-eclectic-living-room-charleston&caption=&redirect_uri=http%3A%2F%2Fwww.houzz.com%2FfbFeed%2F&display=popup 
+       //https://www.facebook.com/dialog/feed?app_id=368065846635755&link=http%3A%2F%2Fbeta.trendsideas.com%2F%23%2Fphotos%2F9461379974225359&picture=http://s3.hubsrv.com/trendsideas.com/users/trends-media-sales-marketing-services/thumbnail/africa-burkina-faso-mountain-wallpaper.jpg&name=africa-burkina-faso-mountain-wallpaper.jpg&caption=Trends%20Ideas&description=content%20writing%2C%20content%20creation%2C%20publishing%2C%20photography%2C%20writing%2Ctrends%2Cservices%2Cbusiness%2Chome%20and%20design%2Cinspirational%2Cstrategy%2Cbusiness%20strategy%2Carchitecture%2Cdesign%2Ctrends%2Ctrend%2Cmedia%2Csales%2Cmarketing%2Cvideo%2Canimation%2C%20&display=popup
+        var url = 'http://www.facebook.com/dialog/feed?app_id=' +appID+
+                '&link=' + encodeURIComponent(currntUrl) +
+                '&picture=' + encodeURIComponent(this.get('selectedPhoto').get('photo_image_thumbnail_url')) +
+                '&name=' + encodeURIComponent(this.get('selectedPhoto').get('photo_title')) +
+                '&caption=' + encodeURIComponent('Trends Ideas') +
+                '&description=' + encodeURIComponent(this.get('selectedPhoto').get('photo_keywords')) +
+                '&redirect_uri='  + encodeURIComponent("http://www.facebook.com/") +
+                '&display=popup';
+        window.open(url,
+                'feedDialog',
+                'toolbar=0,status=0,width=626,height=436');
     }
 });

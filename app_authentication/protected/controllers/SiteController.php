@@ -94,12 +94,12 @@ class SiteController extends Controller {
         $this->render('contact', array('model' => $model));
     }
 
-    public function actionLogin() {
-          
-        $this->layout = '//layouts/signup';
-        
-        $this->defaultLogin();
-    }
+//    public function actionLogin() {
+//          
+//        $this->layout = '//layouts/signup';
+//        
+//        $this->defaultLogin();
+//    }
 
 //    public function actionLogin() {
 //        $model = new LoginForm;
@@ -113,31 +113,28 @@ class SiteController extends Controller {
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
-        
-        
-       
-        $request_array = CJSON::decode(file_get_contents('php://input'));
-    
-            error_log(var_export($request_array[3],true));
-            
+                
 //            $newUser = User::model()
 //                ->findByAttributes(array('USER_NAME' => 'shuai3'));
-//            
+//            error_log(var_export($newUser->attributes,true));
 //   $model->PWD_HASH='654321';
 //    $model->save();
-             $model = new User;
-      
-            error_log(var_export($model->attributes ,true));
-            
+
+
         
+             $model = new User;
+ 
+            $request_array = CJSON::decode(file_get_contents('php://input'));
+            error_log(var_export($request_array[3],true));
             $model->REC_DATETIME = new CDbExpression('NOW()');
             $model->REC_TIMESTAMP = new CDbExpression('NOW()');
             $model->TENANT_REC_ID = "1";
-            $model->USER_NAME=$request_array[0];
-            error_log(var_export($request_array[0],0));
-            $model->PWD_HASH =$request_array[1];
+            $model->FIRST_NAME=$request_array[0];
+            $model->LAST_NAME=$request_array[0];
+            $model->PWD_HASH =$request_array[2];
             $model->EMAIL_ADDRESS=$request_array[3];
             $model->COUCHBASE_ID = strval(rand(9999999999, 99999999999));
+             
             $cb = new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "production", true);
             $rand_id = $model->COUCHBASE_ID;
             $temp = $this->getMega();
@@ -150,12 +147,14 @@ class SiteController extends Controller {
             $temp["user"][0]["display_name"] = $model->USER_NAME;
             $temp["user"][0]["first_name"] = $model->FIRST_NAME;
             $temp["user"][0]["last_name"] = $model->LAST_NAME;
-            
-             if ($cb->add(substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.') + 1) . "/users/" . $rand_id, CJSON::encode($temp))) {
+
+   //          error_log(var_export($model->attributes ,true));
+//             if ($cb->add(substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.') + 1) . "/users/" . $rand_id, CJSON::encode($temp))) {
                 Yii::app()->session['newUser'] = "new";
+  
+           if ($model->save(false) ) {
 
-                if ($model->save()) {
-
+                 error_log(var_export($model->attributes,true));
                     $identity = new CommonUserIdentity($model->USER_NAME, $model->PWD_HASH);
                     $identity->authenticate();
                     Yii::app()->user->login($identity, 0);
@@ -166,51 +165,164 @@ class SiteController extends Controller {
                         unset(Yii::app()->session['newUser']);
                     } else {
                         $this->render('close');
-                    }
-                }
-            }
-         
-         
-      
+                   }
+               }
+//           }
+         //}
+ 
     }
 
-
+    
+     public function actionUpdate() {
+         
+          $request_array = CJSON::decode(file_get_contents('php://input'));
+       
+         $currentUser = User::model()
+                ->findByAttributes(array('COUCHBASE_ID' => $request_array[0]));
+         
+          
+          if($currentUser->PWD_HASH===$request_array[1]&&$request_array[2]===$request_array[3])
+          {   $currentUser->PWD_HASH=$request_array[2];
+          
+//         $currentUser->save(false);
+         
+//          $this->sendResponse(200, CJSON::encode($newRecord));
+         
+          }
+         
+     }
     
     
     
     
-    
-    public function defaultLogin() {
-
-        $model = new LoginForm;
-
-        
-        
-        
-        // if it is ajax validation request
-        if (!Yii::app()->user->isGuest) {
-            $this->redirect(Yii::app()->user->returnUrl);
-        }
-
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'login-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
-
-        // collect user input data
-        if (isset($_POST['LoginForm'])) {
-            $model->attributes = $_POST['LoginForm'];
-        
-            // validate user input and redirect to the previous page if valid
-            if ($model->validate() && $model->login())
-            {
-               $this->render('//user/close');
-            }
-//                $this->render('//user/close');
-        }
-        // display the login form                
-        $this->render('login', array('model' => $model));
+    public function getMega() {
+        $mega = '{
+  "id": "",
+  "type": "user",
+  "accessed": null,
+  "active_yn": null,
+  "article_id": null,
+  "category": null,
+  "created": null,
+  "creator": "",
+  "deleted": null,
+  "domains": null,
+  "editors": null,
+  "follower_count": null,
+  "followers": null,
+  "following": null,
+  "following_count": null,
+  "country": null,
+  "region": null,
+  "geography": null,
+  "indexed_yn": null,
+  "object_image_linkto": null,
+  "object_image_url": null,
+  "object_title": null,
+  "owner_profile_pic": null,
+  "owner_title": null,
+  "owner_url": null,
+  "owners": null,
+  "status_id": null,
+  "updated": null,
+  "uri_url": null,
+  "view_count": null,
+  "keywords": "",
+  "photo": [],
+  "user": []
+}';
+        return json_decode($mega, true);
     }
+    
+    
+    
+
+    public function getCurrentUTC() {
+
+        $datetime = date("Y-m-d H:i:s");
+        $time_string = strtotime($datetime);
+        return $time_string;
+    }
+    
+    
+    
+    
+    
+      public function actionLogin() {
+          
+          
+ $request_array = CJSON::decode(file_get_contents('php://input'));
+ error_log(var_export($request_array[0],true));
+         error_log(var_export($request_array[1],true));
+         
+   $currentUser = User::model()
+                ->findByAttributes(array('USER_NAME' => $request_array[0]));
+           
+           
+           if($currentUser->PWD_HASH===$request_array[1])
+           {
+               error_log('bbbbbbb');
+               $this->sendResponse(200, 3);
+           }
+          
+         
+         
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+//    public function defaultLogin() {
+//
+//        $model = new LoginForm;
+//
+//        
+//        
+//        
+//        // if it is ajax validation request
+//        if (!Yii::app()->user->isGuest) {
+//            $this->redirect(Yii::app()->user->returnUrl);
+//        }
+//
+//        if (isset($_POST['ajax']) && $_POST['ajax'] === 'login-form') {
+//            echo CActiveForm::validate($model);
+//            Yii::app()->end();
+//        }
+//
+//        // collect user input data
+//        if (isset($_POST['LoginForm'])) {
+//            $model->attributes = $_POST['LoginForm'];
+//        
+//            // validate user input and redirect to the previous page if valid
+//            if ($model->validate() && $model->login())
+//            {
+//               $this->render('//user/close');
+//            }
+////                $this->render('//user/close');
+//        }
+//        // display the login form                
+//        $this->render('login', array('model' => $model));
+//    }
 
     public function actionAjax() {
         $model = new LoginForm;

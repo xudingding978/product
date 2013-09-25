@@ -7,7 +7,7 @@
 
 
 
-
+/home/devbox/NetBeansProjects/hubstar/common/protected/modules/hybridauth/views/default/welcome.php
 
 
     window.onload = function()

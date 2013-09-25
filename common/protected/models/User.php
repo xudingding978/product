@@ -133,5 +133,6 @@ class User extends CActiveRecord {
 
         return true;
     }
+  
 
 }

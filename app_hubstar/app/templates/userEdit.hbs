@@ -234,7 +234,7 @@
                             <td>
                                 <div style="display: block;">
                                     <div id="password"  style="margin: 0;width: 100%;">
-                                        {{input type="password" }}
+                                        {{input type="password" value=oldpassword placeholder="Your old password"}}
                                     </div>
                                 </div>
                             </td>
@@ -245,7 +245,7 @@
                             <td>
                                 <div style="display: block;">
                                     <div   style="margin: 0;width: 100%;">
-                                        {{input type="password" }}
+                                        {{input type="password" value=newpassword placeholder="Your new password"}}
                                     </div>
                                 </div>
                             </td>
@@ -256,7 +256,7 @@
                             <td>
                                 <div style="display: block;">
                                     <div   style="margin: 0;width: 100%;">
-                                        {{input type="password" }}
+                                        {{input type="password" value=repeatnew placeholder="Repeat your new password"}}
                                     </div>
                                 </div>
                             </td>
@@ -266,7 +266,7 @@
                 </table>
 
                 <div style="right: 0;margin: 30px auto 0;width: 150px;">
-                    <span class="new-btn green-btn" {{action saveUpdate}} >Save</span>
+                    <span class="new-btn green-btn" {{action savePassword}} >Save</span>
                     <span class='new-btn flip-back'{{action userDashboardBackButton }}><k class='icon-group'> &nbsp;</k>Back</span>
                 </div>
 

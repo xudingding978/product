@@ -32,6 +32,9 @@ HubStar.UserController = Ember.Controller.extend({
     location: "",
     email: "",
     password: "",
+    oldpassword: "",
+    newpassword: "",
+    repeatnew: "",
     makeSureDelete: false,
     updateOrCreate: true,
     collectionTag: true,
@@ -346,6 +349,20 @@ HubStar.UserController = Ember.Controller.extend({
             window.open(this.get("linkedin"));
         }
     },
+           
+            
+            savePassword:function(){
+        
+        var user = this.getCurrentUser();
+            
+            var updateInfo=[user.get('id'),this.get('oldpassword'),this.get('newpassword'),this.get('repeatnew')]; 
+       requiredBackEnd('site','update',updateInfo,'POST',function(params){
+           
+        
+       });
+            
+            },
+            
     saveUpdate: function() {
         var update_user_record = this.getCurrentUser();
         if (this.isInputValid())

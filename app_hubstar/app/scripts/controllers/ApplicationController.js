@@ -155,12 +155,27 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             
     signUp: function() {
 
-       var createInfo=[this.get('username'),this.get('password'),this.get('repeat'),this.get('email')]; 
+       var createInfo=[this.get('first_name'),this.get('last_name'),this.get('password'),this.get('email')]; 
        requiredBackEnd('site','create',createInfo,'POST',function(params){});
-        
+      
 
+    },
+         
+   
+   login: function() {
+
+       var loginInfo=[this.get('username'),this.get('password')]; 
+       requiredBackEnd('site','login',loginInfo,'POST',function(params){
+           if(params===3)
+               {
+                   console.log(params);
+                   console.log('yangggggggggg');
+                   this.transitionTo('searchIndex');
+               }
+           
+       });
+      
     }
-            
             
 
 });

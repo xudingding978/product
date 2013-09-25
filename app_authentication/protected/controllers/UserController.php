@@ -87,7 +87,6 @@ class UserController extends Controller {
                     Yii::app()->user->login($identity, 0);
 
                     if (Yii::app()->session['newUser'] == "new") {
-
                         $this->render('welcome');
                         unset(Yii::app()->session['newUser']);
                     } else {

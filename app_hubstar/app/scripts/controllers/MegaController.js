@@ -16,11 +16,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
     photo_album_id: null,
     photo_thumb_id: null,
     is_authentic_user: false,
-    sharePhotoUrl:'',
-    sharePhotoName:'',
+    sharePhotoUrl: '',
+    sharePhotoName: '',
     init: function()
     {
-         
+
     },
     findSelectedItemIndex: function() {
         content = this.get('content');
@@ -122,9 +122,9 @@ HubStar.MegaController = Ember.ArrayController.extend({
         return result;
     },
     dropdownPhotoSetting: function() {
-        this.set('sharePhotoUrl',this.get('selectedPhoto').get('photo_image_thumbnail_url'));
-        this.set('sharePhotoName',this.get('selectedPhoto').get('photo_title'));
-        $('#dropdown_id_' ).toggleClass('hideClass');
+        this.set('sharePhotoUrl', this.get('selectedPhoto').get('photo_image_thumbnail_url'));
+        this.set('sharePhotoName', this.get('selectedPhoto').get('photo_title'));
+        $('#dropdown_id_').toggleClass('hideClass');
     },
     switchCollection: function() {
         var addCollectionController = this.get('controllers.addCollection');
@@ -205,5 +205,59 @@ HubStar.MegaController = Ember.ArrayController.extend({
         });
 
 
+    },
+    // share to social facebook
+    fbShare: function() {
+        var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
+        appID = '358102574293594';
+        var url = 'http://www.facebook.com/dialog/feed?app_id=' + appID +
+                '&link=' + encodeURIComponent(currntUrl) +
+                '&picture=' + encodeURIComponent(this.get('selectedPhoto').get('photo_image_thumbnail_url')) +
+                '&name=' + encodeURIComponent(this.get('selectedPhoto').get('photo_title')) +
+                '&caption=' + encodeURIComponent('Trends Ideas') +
+                '&description=' + encodeURIComponent(this.get('selectedPhoto').get('photo_caption')) +
+                '&redirect_uri=' + encodeURIComponent("http://www.facebook.com/") +
+                '&display=popup';
+        window.open(url,
+                'feedDialog',
+                'toolbar=0,status=0,width=626,height=436');
+    },
+    //share to social google plus
+    gpShare: function() {
+
+        var metas = document.getElementsByTagName("meta");
+        $("meta[property='og\\:title']").attr("content", this.get('selectedPhoto').get('photo_title'));
+        $("meta[property='og\\:description']").attr("content", this.get('selectedPhoto').get('photo_caption'));
+        $("meta[property='og\\:image']").attr("content", this.get('selectedPhoto').get('photo_image_thumbnail_url'));
+        //test code of change information
+//$("meta[property='og\\:url']").attr("content", 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id'));
+//        
+//        for (var i = 0; i < metas.length; i++) {
+////            if (metas[i].getAttribute("itemprop") && metas[i].getAttribute("itemprop") == "image") {
+////
+////                metas[i].setAttribute("content", "http://s3.hubsrv.com/trendsideas.com/7336815531372415644/photo/7336815531372415644/thumbnail/65569_132x132.jpg");
+////           }
+//            console.log(metas[i]);        }
+
+        var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
+        var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
+        window.open(
+                url,
+                'popupwindow',
+                'scrollbars=yes,width=800,height=400'
+                ).focus();
+
+        return false;
+    },
+        //share to social twitter
+    tShare: function() {
+        var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
+        var url = 'https://twitter.com/share?text=' + this.get('selectedPhoto').get('photo_title') + '&url=' + encodeURIComponent(currntUrl);
+        window.open(
+                url,
+                'popupwindow',
+                'height=436,width=626'
+                ).focus();
+        return false;
     }
 });

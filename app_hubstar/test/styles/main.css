@@ -8494,7 +8494,7 @@ div.loading-visible{
 }
 
 
-j
+
 
 
 .easing {
@@ -8965,10 +8965,6 @@ j
     display: inline-block;
     text-shadow: 1px 1px 0px #fff, -1px -1px 0px #333;
     color: #555;
-}
-
-.new-collection-name_insert{
-    height: 30px;
 }
 
 .controlbtn-field{
@@ -9457,7 +9453,6 @@ j
 .icon-on-black:hover{
     color: #fff;
 }
-
 
 
 .icon-on-black > i{
@@ -10199,6 +10194,17 @@ j
 
 
 
+textarea{
+    padding: 3px 8px !important;
+    line-height: 22px!important;
+    font-size: 14px !important;
+}
+
+input{
+    height: 30px;
+    line-height: 30px !important;
+}
+
 .insetbox-shadow {
     -moz-box-shadow:    inset 1px 1px 3px #aaa;
     -webkit-box-shadow: inset 1px 1px 3px #aaa;
@@ -10281,14 +10287,14 @@ j
     width: 26%;
     display: inline-block;
     vertical-align: top;
-    height: 450px;
+    height: 500px;
     margin-right: 0.5%;
 }
 
 .user-board_right{
     background: white;
     width: 73%;
-    height: 450px;
+    height: 500px;
     display: inline-block;
     vertical-align: top;
     overflow: hidden;
@@ -10509,7 +10515,7 @@ j
 /*USERPAGE*/
 .user-cover{
 
-    height: 150px; 
+    height: 300px; 
     overflow: hidden;
 }
 
@@ -10675,12 +10681,13 @@ j
     float:left;
     width:65%;
     padding:0 5px;
-   /* padding: 20px 5px; 
-    position:absolute;
-    width:65%;
-    top:-180px;
-    left:17.5%; */
+    /* padding: 20px 5px; 
+     position:absolute;
+     width:65%;
+     top:-180px;
+     left:17.5%; */
 }
+.premium > div > table  .profileaside > .profileaside_content .aside-profilepic > div > img{ min-height:195px;}
 .premium > div > table  .profileaside > .profileaside_content .aside-profilepic div,
 .premium > div > table  .profileaside > .profileaside_content .aside-profilepic div img{width:100%;margin-bottom:1em;}
 
@@ -10743,7 +10750,7 @@ j
     left:0;
     padding: 5px 20px 0;
     width: 100%;
-    height: 150px;
+    height: 200px;
     float:left;
     overflow: hidden;
     background: #F3F3F3;
@@ -10791,12 +10798,50 @@ textarea.add-interests{
 
     margin: 5px auto 15px;
     padding: 6px 20px;
-    font-size: 11px;
+    font-size: 12px;
 }
 
 /* interest ENDS */
 
+/* client profile content styling BEGINS */
+.main_aboutus .editor-content iframe{margin:0!important;}
 
+.main_aboutus .editor-content h5{font-weight:bold;margin:.4em 0;}
+.main_aboutus .editor-content h4
+{
+    font-size:17.5px;
+    font-weight:bold;
+    margin:.4em 0;
+}
+.main_aboutus .editor-content p{font-size:13px;}
+
+.main_aboutus .editor-content a > h4,
+.main_aboutus .editor-content h4 > a,
+.main_aboutus .editor-content a > h5,
+.main_aboutus .editor-content h5 > a
+{
+    color:#0088CC;
+    font-weight:bold;
+}
+.main_aboutus .editor-content a p, .main_aboutus .editor-content p a{color:#0088CC;}
+
+.main_aboutus .editor-content a > h4:hover, .main_aboutus .editor-content a > h4:focus,
+.main_aboutus .editor-content h4 > a:hover, .main_aboutus .editor-content h4 > a:focus,
+.main_aboutus .editor-content a > h5:hover, .main_aboutus .editor-content a > h5:focus,
+.main_aboutus .editor-content h5 > a:hover, .main_aboutus .editor-content h5 > a:focus,
+.main_aboutus .editor-content a p:hover,     .main_aboutus .editor-content a p:focus,
+.main_aboutus .editor-content p a:hover,     .main_aboutus .editor-content p a:focus
+{
+    color:#005580!important;
+}
+.main_aboutus .editor-content font{font-size:14px;line-height:150%;}
+.main_aboutus .editor-content .green-btn{color:#fff;}
+
+.main_aboutus .editor-content a{
+   display:inline-block;
+    
+}
+/* client profile content styling ENDS */
 
 
 
@@ -11288,7 +11333,7 @@ body{
 #discovery_search_bar > #search_key {
     padding: 6px;
     height: 35px;
-    width: 29%;
+    width: 28%;
 
 }
 
@@ -12215,102 +12260,210 @@ div.form .rememberMe label
 
 
 /* Login lightbox BEGINS, Clint Rex Lewis 4/9/13 */
-    div#login_lightbox{
-        position:fixed;
-        top:0;
-        left:0;
-        height:3000px;
-        width:3000px;
-        opacity:0.7;
-        background:#000;
-        z-index:1001;
-    }
-    div#login_icon > div.ui-draggable
-    {
-        position: fixed!important;
-        top: 6.5%;
-        left: 37%;
-        width:25%;
-        
-    }
-     div#login_icon > div.ember-view > div.panel
-     {
-         width:100%;
-         color:#333333;
-         float:left;
-         -moz-border-radius:3px;
-        -webkit-border-radius:3px;
-        border-radius:3px;
-        z-index:1002;
-        margin:0; 
-     }
+div#login_lightbox{
+    position:fixed;
+    top:0;
+    left:0;
+    height:3000px;
+    width:3000px;
+    opacity:0.7;
+    background:#000;
+    z-index:1001;
+}
+div#login_icon > div.ui-draggable
+{
+    position: fixed!important;
+    top: 6.5%;
+    left: 37%;
+    width:25%;
 
-     
-     div#login_container > div.front, 
-     div#login_container > div.back
-     {
-        position:absolute;
-        float:left;
-        width:100%;
-        height:auto;
-        top:0;
-        left:0;
-        -webkit-border-radius: 0;
-        -moz-border-radius: 0;
-        border-radius: 0;
-        background:#fff;
-        min-width:400px;
-        
-     }
-     div #login_container > div.front > .head, 
-     div #login_container > div.back > .head
-     {
-         float:left;
-         width:100%;
-         background:#f3f3f3;
-         position:relative;
-     }
-    div #login_container > div.front > .head > .logincopy
-     {
-         margin:20px auto;
-         width:90%;
-     }
-     div #login_container > div.front > .head > .logincopy > p
-     {
-        line-height:150%;
-        text-align:center;
-        font-size:1.1em;
-     }
-     div #login_container > div.front > .content,
-     div #login_container > div.back > .content
-     {
-         float:left;
-         width:100%;
-     }
-     .panelcircle 
-     {
-         width:40px;
-         height:40px;
-         border-radius:50px;
-         font-size:1.4em;
-         color:#fff;
-         line-height:40px;
-         text-align:center;
-         background:rgb(201,202,202)
-    }
-    div #login_container > div.front > .head > .panelcircle
-    {
-        position:relative;
-        margin:auto auto -40px auto;
-    }
-    
- /* fail safe styles for small screened devices begins */
-    #login_continer div > .head .wrapper-dropdown-3{ max-width:95%;}
-    #login_continer div > .head .wrapper-dropdown-3 > div > #dropdown-cover{max-width:30%;}
-    #login_continer div > .head .wrapper-dropdown-3 > div > div:last-child{max-width:70%;}
+}
+div#login_icon > div.ember-view > div.panel
+{
+    width:100%;
+    color:#333333;
+    float:left;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border-radius:3px;
+    z-index:1002;
+    margin:0; 
+}
+
+
+div#login_container > div.front, 
+div#login_container > div.back
+{
+    position:absolute;
+    float:left;
+    width:100%;
+    height:auto;
+    top:0;
+    left:0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    background:#fff;
+    min-width:400px;
+
+}
+div #login_container > div.front > .head, 
+div #login_container > div.back > .head
+{
+    float:left;
+    width:100%;
+    background:#f3f3f3;
+    position:relative;
+}
+div #login_container > div.front > .head > .logincopy
+{
+    margin:20px auto;
+    width:90%;
+}
+div #login_container > div.front > .head > .logincopy > p
+{
+    line-height:150%;
+    text-align:center;
+    font-size:1.1em;
+}
+div #login_container > div.front > .content,
+div #login_container > div.back > .content
+{
+    float:left;
+    width:100%;
+}
+.panelcircle 
+{
+    width:40px;
+    height:40px;
+    border-radius:50px;
+    font-size:1.4em;
+    color:#fff;
+    line-height:40px;
+    text-align:center;
+    background:rgb(201,202,202)
+}
+div #login_container > div.front > .head > .panelcircle
+{
+    position:relative;
+    margin:auto auto -40px auto;
+}
+
+/* fail safe styles for small screened devices begins */
+#login_continer div > .head .wrapper-dropdown-3{ max-width:95%;}
+#login_continer div > .head .wrapper-dropdown-3 > div > #dropdown-cover{max-width:30%;}
+#login_continer div > .head .wrapper-dropdown-3 > div > div:last-child{max-width:70%;}
 /* fail safe styles for small screened devices ends */
 
 /* Login lightbox ENDS, Clint Rex Lewis 4/9/13 */
+
+
+
+
+
+/*new login style Colin Shaw 25/9/2013*/
+.register-with{
+    width: 300px;
+    height: 45px;
+    margin: 0 auto;
+    background-color: #fff;
+    text-align: center;
+    color: #888;
+    font-weight: bold; 
+    line-height: 45px; 
+    font-size: 15px;
+
+    cursor: pointer;
+    opacity: .7;
+}
+
+.register-with:hover{opacity: 1}
+
+.login-textfield > input{
+    padding: 0 10px;
+    border: 0 none !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    -o-box-shadow: none !important;
+}
+
+.social-login-iconbox{
+    width: 35px; 
+    height: 35px; 
+    border-radius: 3px; 
+    display: inline-block;
+    vertical-align: top; 
+    background-color: #fff;
+    line-height: 36px;
+    color: #555;
+    margin: 0 3px;
+}
+
+.login-select{
+    width: 49%;
+    display: inline-block;
+    vertical-align: top;
+    height: 45px;
+    line-height: 45px;
+    color: #888;
+    font-weight: bold;
+    text-align: left;
+    padding-left: 10px;
+
+    cursor: pointer;
+}
+
+.login-select:hover{
+    background-color: #f3f3f3;
+}
+
+.login-selected{
+    border-top: 1px solid rgba(0,0,0,.16);
+    border-right: 1px solid rgba(0,0,0,0.16);
+    border-bottom: 1px solid rgba(0,0,0,.05);
+    margin-bottom: -1px;
+
+    background: rgba(0,0,0,0.05);
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
+    -ms-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
+    -o-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
+}
+
+
+.social-login-iconbox:hover, .social-login-iconbox:focus{
+    background-color: #f3f3f3;
+    /* just a set up class for ya colin! */
+}
+.social-login-iconbox:active{color: #fff;background-color: #08c; }
+
+div > div > i.icon-envelope, div > div > a#click-register
+{
+    cursor:pointer;
+}
+
+.register-btn{
+    width: 300px;
+    height: 45px;
+    margin: 0 auto 20px;
+    background-color: #fff;
+    text-align: center;
+    color: #888;
+    font-weight: bold; 
+    font-size: 15px;
+    line-height: 45px; 
+    border-radius: 0 0 5px 5px;
+    
+    cursor: pointer;
+}
+
+.register-btn:hover, .register-btn:focus{background-color: #f3f3f3;}
+
+.register-btn:active{background-color: #08c;color: #fff;}
+
+
 * {
     box-sizing: border-box;
     -moz-box-sizing: border-box;

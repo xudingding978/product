@@ -13,6 +13,8 @@ var seletedID = "";
 var collection_title_record;
 var collection_desc_record;
 
+  var editor;
+
 
 
 HubStar.ProfileController = Ember.ObjectController.extend({
@@ -274,10 +276,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     toggleEditing: function(data, checkingInfo) {
         if (checkingInfo === "profileName") {
             profile_record = data;
-            // console.log(data);
             this.set('editing', !this.get('editing'));
         } else if (checkingInfo === "aboutMe") {
-            this.set('isAboutUs', true);
+       
             about_record = data;
             this.set('editingAbout', !this.get('editingAbout'));
 
@@ -300,20 +301,21 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('editingTime', !this.get('editingTime'));
         }
     },
-//    yesAbout: function(checkingInfo) {
-//        if (checkingInfo === "aboutMe") {
-//
-//            this.set('editingAbout', !this.get('editingAbout'));
-//        }
-//        this.saveUpdateAboutUs();
-//    },
+
+    yesAbout: function(checkingInfo) {
+        if (checkingInfo === "aboutMe") {
+
+            this.set('editingAbout', !this.get('editingAbout'));
+        }
+        this.saveUpdateAboutUs();
+    },
+
     yes: function(checkingInfo) {
         if (checkingInfo === "profileName") {
             this.set('editing', !this.get('editing'));
         }
-        else if (checkingInfo === "aboutMe") {
-            this.set('editingAbout', !this.get('editingAbout'));
-        } else if (checkingInfo === "contact") {
+        else if (checkingInfo === "contact") {
+
             if (this.get("website_url").match(/[http]/g) === -1 || this.get("website_url").match(/[http]/g) === null)
             {
                 this.set("website_url", "http://" + this.get("website_url"));
@@ -578,18 +580,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('collectionTag', false);
         this.set('followerTag', true);
     },
-//    saveUpdateAboutUs: function() {
-//        var update_About_record = HubStar.Profile.find(this.get('model.id'));
-//        update_About_record.set("profile_about_us", editor.getValue());
-//        this.get('controllers.applicationFeedback').statusObserver(null, "Update Successful");
-//        HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_About_record);
-//        HubStar.store.save();
-//    },
+    saveUpdateAboutUs: function() {
+        var update_About_record = HubStar.Profile.find(this.get('model.id'));
+       update_About_record.set("profile_about_us", $('iframe').contents().find('.wysihtml5-editor').html());
+        this.get('controllers.applicationFeedback').statusObserver(null, "Update Successful");
+        HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_About_record);
+        HubStar.store.save();
+    },
     saveUpdate: function() {
         var update_profile_record = HubStar.Profile.find(this.get('model.id'));
-
-        //   console.log(update_profile_record);
-
         update_profile_record.set('profile_editors', this.get('editors'));
         update_profile_record.set('profile_keywords', this.get('keywords'));
         update_profile_record.set('profile_regoin', this.get('region'));
@@ -632,10 +631,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set("profile_name", this.get('profile_name'));
         update_profile_record.set("profile_isActive", this.get("projectActiveDropdownContent"));
         update_profile_record.set("profile_isDeleted", this.get("projectDeleteDropdownContent"));
-        // update_profile_record.set("profile_about_us", editor.getValue());
-
-
-        //update_profile_record.set("profile_about_us", this.get("about_me"));
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
         if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
             update_profile_record.get('stateManager').transitionTo('loaded.saved');

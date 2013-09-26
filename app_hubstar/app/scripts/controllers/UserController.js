@@ -66,7 +66,7 @@ HubStar.UserController = Ember.Controller.extend({
     interestsActive:false,
     init: function()
     {
-        this.setUser();
+        //this.setUser();
 
     },
     isUserSelfOrNot: function(currentUserID) {
@@ -76,26 +76,32 @@ HubStar.UserController = Ember.Controller.extend({
         }
     },
     getCurrentUser: function()
+<<<<<<< HEAD
     {
 
 //        var address = document.URL;
 //        var user_id = address.split("#")[1].split("/")[2];
         user_id = localStorage.loginStatus;
+=======
+    {            
+        var address = document.URL;
+        var user_id = address.split("#")[1].split("/")[2];
+>>>>>>> 64f57a55e33dfe8ca81da8e5d79cfefddc243052
         this.set('currentUserID', user_id);
         var user = HubStar.User.find(user_id);
         return user;
     },
     setUser: function()
     {
-
-        var user = this.getCurrentUser();
+        console.log(this.get('model'));
+        var user = this.get('model');
         this.setIntersetsArr(user);
-        this.set("model", user);
+//        this.set("model", user);
         this.set("user", user);
         this.set("collections", user.get("collections"));
         this.set("description", user.get("description"));
         this.set("display_name", user.get("display_name"));
-
+        this.set('currentUserID', this.get('model').get('id'));
          this.set("first_name", user.get("first_name"));
           this.set("last_name", user.get("last_name"));
 
@@ -113,7 +119,7 @@ HubStar.UserController = Ember.Controller.extend({
         
 
         if(user.get('cover_url')===null||user.get('cover_url')===""||user.get('cover_url')===undefined){
-                   user.set('cover_url', 'http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg');
+                   this.set('cover_url', 'http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg');
                }
         else
                {//this.set('cover_url', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_cover/user_cover');
@@ -296,11 +302,11 @@ HubStar.UserController = Ember.Controller.extend({
             this.set('editingInterest', !this.get('editingInterest'));
         
         } 
-//        else if (checkingInfo === "aboutMe") {
-//            about_record = data;
-//            this.set('editingAbout', !this.get('editingAbout'));
-//           
-//        }
+        else if (checkingInfo === "aboutMe") {
+            about_record = data;
+            this.set('editingAbout', !this.get('editingAbout'));
+           
+        }
     },
     yes: function(checkingInfo) {
         if (checkingInfo === "interest") {
@@ -316,20 +322,16 @@ HubStar.UserController = Ember.Controller.extend({
             this.set('interests', interest_record);
             this.set('editingInterest', !this.get('editingInterest'));
         } 
-//        else if (checkingInfo === "aboutMe") {
-//            this.set('about_me', about_record);
-//            this.set('editingAbout', !this.get('editingAbout'));
-//        }
+        else if (checkingInfo === "aboutMe") {
+            this.set('about_me', about_record);
+            this.set('editingAbout', !this.get('editingAbout'));
+        }
 
     },
     submit: function()
     {
-
         var collectionController = this.get('controllers.collection');
-        console.log(this.get('newTitle'));
         var collection = collectionController.getCreateCollection(this.get('newTitle'),this.get('newDesc'),  this.get("collections"));
-        console.log(collection);
-        
         if (collection !== null && collection !== "") {
             collection.set('type', 'user');
             collection.set('optional', this.get('model').get('id'));
@@ -365,7 +367,7 @@ HubStar.UserController = Ember.Controller.extend({
         }
     },
     saveUpdate: function() {
-        var update_user_record = this.getCurrentUser();
+        var update_user_record = this.get('model');
         if (this.isInputValid())
         {
             update_user_record.set('collections', this.get('collections'));
@@ -373,7 +375,7 @@ HubStar.UserController = Ember.Controller.extend({
             update_user_record.set('display_name', this.get('display_name'));
             update_user_record.set('first_name', this.get('first_name'));
             update_user_record.set('last_name', this.get('last_name'));
-             update_user_record.set('about_me', this.get('about_me'));
+           
             this.saveLink('facebook_link', 'facebook'); 
             this.saveLink('twitter_link','twitter');
             this.saveLink('googleplus_link', 'googleplus');
@@ -434,7 +436,7 @@ HubStar.UserController = Ember.Controller.extend({
         checkList.push(youtube);
 //        var password = new checkObject("password", this.get('password'), 128, null, null);
 //        checkList.push(password);
-
+    
 
         for (var i = 0; i < checkList.length; i++)
         {
@@ -489,7 +491,7 @@ if (checkList[i].id === 'first_name' || checkList[i].id === 'last_name')
     saveLink: function(link_url,link) {//link =param; this,get('facebook')
                                                                             
         var http = "http://";
-        var update_user_record = this.getCurrentUser();
+        var update_user_record = this.get('model');
         if (this.get(link) === null || this.get(link) === "")
         {
             this.get(link)  === "";      
@@ -523,7 +525,7 @@ if (checkList[i].id === 'first_name' || checkList[i].id === 'last_name')
             }
             this.set('interests', tempInterest.substring(1, tempInterest.length));
             update_interest_record.set('selected_topics', this.get('interests'));
-             // update_interest_record.set('about_me', editor.getValue());
+             update_interest_record.set('about_me', this.get('about_me'));
             HubStar.store.save();
         } else {
             this.get('controllers.applicationFeedback').statusObserver(null, "invalid input");
@@ -604,7 +606,6 @@ if (checkList[i].id === 'first_name' || checkList[i].id === 'last_name')
         this.setIntersetsArr(user);
     },
     cancelDelete: function() {
-    //console.log("sssssssssssssssssssssssssssss");
         this.set('willDelete', false);
         this.set('makeSureDelete', false);
     },

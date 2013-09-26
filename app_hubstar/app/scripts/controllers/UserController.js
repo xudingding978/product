@@ -76,17 +76,17 @@ HubStar.UserController = Ember.Controller.extend({
         }
     },
     getCurrentUser: function()
-<<<<<<< HEAD
+
     {
 
 //        var address = document.URL;
 //        var user_id = address.split("#")[1].split("/")[2];
         user_id = localStorage.loginStatus;
-=======
+
     {            
         var address = document.URL;
         var user_id = address.split("#")[1].split("/")[2];
->>>>>>> 64f57a55e33dfe8ca81da8e5d79cfefddc243052
+
         this.set('currentUserID', user_id);
         var user = HubStar.User.find(user_id);
         return user;

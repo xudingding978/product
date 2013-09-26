@@ -195,7 +195,7 @@ $this->sendResponse(200, CJSON::encode($currentUser));
        error_log(var_export($request_array [0],true));
          $currentUser = User::model()
                 ->findByAttributes(array('EMAIL_ADDRESS' => $request_array[0]));
-         error_log(var_export($currentUser->COUCHBASE_ID,true));
+         error_log(var_export(isset($currentUser),true));
              if(isset($currentUser) ){
 $this->sendResponse(200, true);
 

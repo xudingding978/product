@@ -74,7 +74,7 @@ class UsersController extends Controller {
             $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $respone_user_data . '}';
             $this->sendResponse(200, $result);
         } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
+            echo $exc->getTraceAsString(); 
         }
     }
 

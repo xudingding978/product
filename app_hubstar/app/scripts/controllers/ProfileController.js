@@ -582,7 +582,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     saveUpdateAboutUs: function() {
         var update_About_record = HubStar.Profile.find(this.get('model.id'));
-        update_About_record.set("profile_about_us", editor.getValue());
+        update_About_record.set("profile_about_us", $('iframe').contents().find('.wysihtml5-editor').html());
         this.get('controllers.applicationFeedback').statusObserver(null, "Update Successful");
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_About_record);
         HubStar.store.save();
@@ -634,7 +634,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set("profile_name", this.get('profile_name'));
         update_profile_record.set("profile_isActive", this.get("projectActiveDropdownContent"));
         update_profile_record.set("profile_isDeleted", this.get("projectDeleteDropdownContent"));
-      update_profile_record.set("profile_about_us", $('iframe').contents().find('.wysihtml5-editor').html());
+    
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
         if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
             update_profile_record.get('stateManager').transitionTo('loaded.saved');
@@ -734,13 +734,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             $('#uploadStyleImg').attr("style", "display:none");
                             that.set('isPhotoEditingMode', true);
                             that.set('isPhotoUploadMode', false);
-                            HubStar.store.save();
+                           
 //                            Ember.run.later(null, function() {
 //                                crop(that.get('newStyleImageSource'));
 //                            }, 500);
-
+                            
+                             HubStar.store.save();
                         });
-
+                         
                     }
 
                     else if (width < params.width || height < params.height) {

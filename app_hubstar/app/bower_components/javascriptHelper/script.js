@@ -71,7 +71,7 @@ function crop(imageSrc) {
     ctx = canvas.getContext('2d');
 
     // create initial selection
-    theSelection = new Selection(200, 200, 200, 200);
+    theSelection = new Selection(20, 20,100, 100);
 
     $('#panel').mousemove(function(e) { // binding mouse move event
         var canvasOffset = $(canvas).offset();
@@ -214,6 +214,8 @@ function getResults() {
     temp_ctx.drawImage(image, theSelection.x*2, theSelection.y*2, theSelection.w*2, theSelection.h*2, 0, 0, theSelection.w, theSelection.h);
 
     var vData = temp_canvas.toDataURL();
-    $('#crop_result').attr('src', vData);
-    $('#results h2').text('Well done, we have prepared our cropped image, now you can save it if you wish');
+    //$('#crop_result').attr('src', vData);
+  //  $('#results h2').text('Well done, we have prepared our cropped image, now you can save it if you wish');
+    
+    return vData;
 }

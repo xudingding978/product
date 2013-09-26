@@ -1,5 +1,5 @@
-
-
+//
+//
 //beforeEach(function() {
 //    Ember.run(function() {
 //        HubStar.reset();
@@ -12,7 +12,7 @@
 //});
 //
 //after(function(done) {
-//    //LoginOut();
+//    LoginOut();
 //    Ember.run(function() {
 //        route = HubStar.Router.create();
 //        route.transitionTo("indexIndex");
@@ -48,34 +48,34 @@ function LoginOut() {
 ;
 
 
-//describe("Platform  bar", function() {
-//    var controller;
-//    var topics;
-//    var result;
-//    beforeEach(function(done) {
-//
-//
-//
-//        Ember.run(function() {
-//            LoginIn(done);
-//
-//            controller = HubStar.PlatformBarController.create();
-//             //console.log(controller);
-//            topics = controller.categorys;
-//            topics.addObserver('isLoaded', function() {
-//                if (topics.get('isLoaded')) {
-//                    result = topics.get('length');
-//                    done();
-//                }
-//            });
-//        });
-//    });
-//    it("total topics", function() {
-//        Ember.run(function() {
-//            result.should.equal(14);
-//        });
-//    });
-//});
+describe("Platform  bar", function() {
+    var controller;
+    var topics;
+    var result;
+
+    beforeEach(function(done) {
+
+
+
+        Ember.run(function() {
+            LoginIn(done);
+
+            controller = HubStar.PlatformBarController.create();
+            topics = controller.categorys;
+            topics.addObserver('isLoaded', function() {
+                if (topics.get('isLoaded')) {
+                    result = topics.get('length');
+                    done();
+                }
+            });
+        });
+    });
+    it("total topics", function() {
+        Ember.run(function() {
+            result.should.equal(14);
+        });
+    });
+});
 
 //describe("AddLike Test", function() {
 //    var controller;
@@ -215,6 +215,66 @@ describe("profile page cancel saving test", function() {
         controller.profile_contact_number.should.equal(temp_contact_number_record);
         controller.website.should.equal(temp_website_record);
     });
+});
+
+//describe("user collection test", function() {
+//     var controller, model;
+//     controller = HubStar.UserController.create();
+//     model = HubStar.User.find('25180585742');
+//     controller.set("model", model);
+//
+//    it ("add collection test", function() {
+//        console.log(controller.get('needs'))
+//        controller.newTitle='mocha test tile';
+//        controller.newDesc='mocha test desc';
+//        controller.set('collections', model.get('collections'));
+//        controller.submit();
+//        var model2=HubStar.User.find('25180585742');
+//        controller.get('collections').get('length').should.equal(model2.get("collections").get('length'));
+//        controller.get('collections').get('length').should.equal(model.get('collections').get('length')+1);
+//        controller.get('collections').objectAt(0).get('id').should.equal('mocha-test-title');
+//        controller.get('collections').objectAt(0).get('title').should.equal('mocha test title');
+//        controller.get('collections').objectAt(0).get('desc').should.equal('mocha test desc');
+//    });  
+//});
+
+describe("collectionController test", function() {
+     var controller, model;
+     controller = HubStar.CollectionController.create();
+     model = HubStar.User.find('25180585742');
+
+    it ("getCreateCollection function test", function() {
+        var newTitle='mocha test title';
+        var newDesc='mocha test desc';
+        var collections = model.get('collections');
+        var collection = controller.getCreateCollection(newTitle,newDesc,collections);        
+        collection.get('id').should.equal('mocha-test-title');
+        collection.get('title').should.equal('mocha test title');
+        collection.get('desc').should.equal('mocha test desc');
+    });  
+    
+    it ("checkingValidInput function test", function() {
+        var newTitle='mocha test title';
+        var title = controller.checkingValidInput(newTitle); 
+        title.should.equal('mocha-test-title');
+    });
+    
+    it ("checkingIdisExsinting function test", function() {
+        
+    });
+    
+    it ("specialCharactersChecking function test", function() {
+        var str = 'mocha-test-title123';
+        var str2 = 'mocha-test-title@#$';
+        controller.specialCharactersChecking(str).should.equal(true);
+        controller.specialCharactersChecking(str2).should.equal(false);
+    });
+    
+    it ("getUpdateCollection function test", function() {
+        var collection = model.get('collections').objectAt(0);
+        controller.getUpdateCollection(collection).should.equal(collection);
+    });
+    
 });
 
 //describe("user profies testing", function() {

@@ -26,22 +26,12 @@
             </a>
         </div>
         <br>
-
-
-
         {{#if this.follow_status}}
-        {{#if this.following_status}}
-        <div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='icon-exchange' >&nbsp; </i> Following</div>
+         <div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='icon-circle-blank' >&nbsp; </i> Following</div>
         {{else}}
-        <div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='icon-circle-blank' >&nbsp; </i> Following</div>
+            <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='icon-plus' >&nbsp; </i> Follow</div>
         {{/if}}
-        {{else}}
-        {{#if this.following_status}}
-        <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='icon-ok' >&nbsp; </i> Follow</div>
-        {{else}}
-        <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='icon-plus' >&nbsp; </i> Follow</div>
-        {{/if}}
-        {{/if}}
+    
 
         <div class="masonry-object_name-position" style="margin-bottom: 5px;"> 
             <a class="comment-username" style="cursor:pointer; font-size:18px;">{{this.name}}</a>

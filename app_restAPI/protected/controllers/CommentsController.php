@@ -24,6 +24,7 @@ class CommentsController extends Controller {
         $docID = $this->getDocId($typeAndID[0], $typeAndID[1]);
         $cb = $this->couchBaseConnection();
         $oldRecord_arr = $cb->get($docID);
+        error_log(var_export($docID,true));
         $oldRecord = CJSON::decode($oldRecord_arr, true);
         if (!isset($oldRecord['comments'])) {
             $oldRecord['comments'] = array();

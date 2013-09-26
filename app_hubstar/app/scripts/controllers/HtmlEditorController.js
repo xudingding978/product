@@ -1,3 +1,7 @@
-HubStar.HtmlEditorController = Ember.Controller.extend({
-
+ 
+     HubStar.HtmlEditorController = Ember.Controller.extend({
+   
+    
+   
+    
     });

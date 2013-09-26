@@ -1,6 +1,6 @@
 HubStar.UserView = Ember.View.extend({
     templateName: 'user',
-       interestsActive:false,
+//       interestsActive:false,
     didInsertElement: function() {
         $(function() {
             $('#masonry_user_container').masonry({
@@ -17,9 +17,9 @@ HubStar.UserView = Ember.View.extend({
          });
     },
         showInterestsUp: function() {
-        if ($('#interest_btn').hasClass('icon-double-angle-up') && this.get('interestsActive') === false) {
+        if ($('#interest_btn').hasClass('icon-double-angle-up') && this.get('controller').get('interestsActive') === false) {
             
-            $('#show_interest').animate({top: 55, height: 393}, 400);
+            $('#show_interest').animate({top: 55, height: 445}, 400);
             // Main slide animation (interest div)
             $('#profile-picture').delay(200).animate({top: -55}, 0);
             //Moves profile picture to top, ready for slide down. 
@@ -29,13 +29,13 @@ HubStar.UserView = Ember.View.extend({
                 $("#profile-picture").addClass('profile-picture-active');
                 $(".follow-btn").addClass('follow-btn-active');
                 
-                that.set('interestsActive',true);
+                that.get('controller').set('interestsActive',true);
             }, 200);
 
             setTimeout(function() {
                 $('.interesttags-container').css('height', '335px');
                 $('.interest-insert-hint').css('display', 'block');
-                $('.interest-textarea').css('height', '210px');
+                $('.interest-textarea').css('height', '250px');
                 $('#interest_btn').css('display', 'none');
             }, 200);
             // Adds required class styles prior to slide down animation.
@@ -51,12 +51,12 @@ HubStar.UserView = Ember.View.extend({
         
         
         
-         if ($('#interest_btn').hasClass('icon-double-angle-down') && this.get('interestsActive') === false) {
-             this.set('interestsActive',true);
+         if ($('#interest_btn').hasClass('icon-double-angle-down') && this.get('controller').get('interestsActive') === false) {
+             this.get('controller').set('interestsActive',true);
             setTimeout(function() {
-                $('.interesttags-container').css('height', '335px');
+                $('.interesttags-container').css('height', '375px');
                 $('.interest-insert-hint').css('display', 'block');
-                $('.interest-textarea').css('height', '210px');
+                $('.interest-textarea').css('height', '250px');
                 $('#interest_btn').css('display', 'none');
                   
             }, 200);
@@ -71,9 +71,9 @@ HubStar.UserView = Ember.View.extend({
         
         
         else{
-            this.set('interestsActive',false);
+            this.get('controller').set('interestsActive',false);
             
-            $('#show_interest').animate({top: 298, height: 150}, 400,  function(){ $('.interesttags-container').css('height', '100px');});
+            $('#show_interest').animate({top: 298, height: 200}, 400,  function(){ $('.interesttags-container').css('height', '125px');});
             // Main slide animation (interest div)
 
             $('#interest_btn').addClass('icon-double-angle-up');
@@ -92,16 +92,19 @@ HubStar.UserView = Ember.View.extend({
     },
             
     showInterests: function() {
+
+
+
         if ($('#interest_btn').hasClass('icon-double-angle-up')) {
 
-            $('#show_interest').animate({top: 55, height: 393}, 400);
+            $('#show_interest').animate({top: 55, height: 445}, 400);
             // Main slide animation (interest div)
             $('#profile-picture').delay(200).animate({top: -55}, 0);
             //Moves profile picture to top, ready for slide down. 
 
-            $('.interesttags-container').css('height', '335px');
+            $('.interesttags-container').css('height', '375px');
             $('.interest-insert-hint').css('display', 'block');
-            $('.interest-textarea').css('height', '210px');
+            $('.interest-textarea').css('height', '250px');
             //Coin's
 
             setTimeout(function() {
@@ -120,7 +123,7 @@ HubStar.UserView = Ember.View.extend({
 
         }// Slide up (open)
         else {
-            $('#show_interest').animate({top: 298, height: 150}, 400, function(){ $('.interesttags-container').css('height', '100px');});
+            $('#show_interest').animate({top: 298, height: 200}, 400, function(){ $('.interesttags-container').css('height', '125px');});
             // Main slide animation (interest div)
 
             $('#interest_btn').addClass('icon-double-angle-up');

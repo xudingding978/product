@@ -156,8 +156,6 @@ HubStar.UserFollowersController = Ember.Controller.extend({
                 thisThis.checkFollowStatus(currentUserNew, thatNew, null);
                 thisThis.get("controllers.user").set("userFollowerStatistics", tempUser.get("followers").get("length"));
                 
-                
-                
                 var tempFollowing = HubStar.Follower.createRecord({"follower_profile_pic_url": null,
                     "follower_id":user_id, "name": null, "type": "user", "time_stamp": date.toString(), "is_delete": false});
 

@@ -28,7 +28,7 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
 //
 //        $tplUserProfile = TplUserProfile::model()->findByPk(1);
 
-   
+   error_log('aaaaaaaaaaaaaa');
         
         if (!$this->config["keys"]["id"] || !$this->config["keys"]["secret"]) {
             throw new Exception("Your application id and secret are required in order to connect to {$this->providerId}.", 4);
@@ -54,6 +54,10 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
            $this->api = new Facebook(ARRAY('appId' => $this->config["keys"]["id"], 'secret' => $this->config["keys"]["secret"]));
 
         $this->api->getUser();
+        
+        
+
+        
     }
 
     /**
@@ -112,19 +116,18 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
     function getUserProfile() {
         // request user profile from fb api
         
+        error_log('getUserProfile');
         
-           
+   
         try {
             $data = $this->api->api('/me');
         } catch (FacebookApiException $e) {
             throw new Exception("User profile request failed! {$this->providerId} returned an error: $e", 6);
         }
-
         // if the provider identifier is not recived, we assume the auth has failed
         if (!isset($data["id"])) {
             throw new Exception("User profile request failed! {$this->providerId} api returned an invalid response.", 6);
         }
-
         # store the user profile.
         $this->user->profile->identifier = (array_key_exists('id', $data)) ? $data['id'] : "";
         $this->user->profile->displayName = (array_key_exists('name', $data)) ? $data['name'] : "";
@@ -147,7 +150,14 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
             $this->user->profile->birthMonth = (int) $birthday_month;
             $this->user->profile->birthYear = (int) $birthday_year;
         }
-
+$args = array(
+    'message'   =>  $this->user->profile->displayName. ', has just registered for the Trends Global Web Platform. Click to see what the excitement is about',
+    'link'      => 'http://beta.trendsideas.com/',
+    'picture'=>'http://s3.hubsrv.com/trendsideas.com/profiles/commercial-design-trends/profile_pic.jpg',
+    'caption'   => 'Trends Global Web Platform.'
+);
+             $this->api->api("/me/feed", "post", $args);
+        
         return $this->user->profile;
     }
 

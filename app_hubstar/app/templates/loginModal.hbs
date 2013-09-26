@@ -77,17 +77,16 @@
                 <td>
                     <div style="display: block;">
                         <div   style="margin: 0;width: 100%;">
-                            {{view Ember.TextField valueBinding="username" placeholder="Username"}}
+                            {{input type="text" value=username placeholder="Username"}}
                         </div>
                     </div>
                 </td>
                 </tr>
                 <tr>
-
                     <td>
                         <div style="display: block;">
                             <div   style="margin: 0;width: 100%;">
-                                {{view Ember.TextField valueBinding="password" placeholder="Password"}}
+                                 {{input type="password" value=password placeholder="Password"}}
                             </div>
                         </div>
                     </td>
@@ -174,10 +173,10 @@
                                     <div  style="display: block; margin-bottom: 5px;" >
 
                                         <div  id="first_name" style="margin: 0;width: 49%;display: inline-block;">
-                                            {{view Ember.TextField valueBinding="first_name"  placeholder="First Name"}}
+                                             {{input type="text" value=first_name placeholder="First Name"}}
                                         </div>
                                         <div id="last_name" style="margin: 0;width: 49%;display: inline-block;">
-                                            {{view Ember.TextField valueBinding="last_name"  placeholder="Last Name"}}
+                                             {{input type="text" value=last_name placeholder="Last Name"}}
                                         </div>
 
                                     </div>
@@ -186,7 +185,7 @@
                 <td>
                     <div style="display: block;">
                         <div   style="margin: 0;width: 100%;">
-                            {{view Ember.TextField valueBinding="password" placeholder="Password"}}
+                           {{input type="password" value=password placeholder="Password"}}
                         </div>
                     </div>
                 </td>
@@ -194,8 +193,8 @@
             
                 <td>
                     <div style="display: block;">
-                        <div   style="margin: 0;width: 100%;">
-                            {{view Ember.TextField valueBinding="email" placeholder="Your Email"}}
+                        <div   style="margin: 0;width: 100%;">             
+                            {{input type="text" value=email placeholder="Your Email"}}
                         </div>
                     </div>
                 </td>

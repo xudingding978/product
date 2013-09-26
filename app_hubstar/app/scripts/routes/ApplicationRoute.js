@@ -4,5 +4,8 @@ HubStar.ApplicationRoute = Ember.Route.extend({
 
 
         }
+     
 
+               
+              
     });

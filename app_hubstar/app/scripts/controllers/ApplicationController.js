@@ -11,12 +11,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     from: null,
     size: null,
     photo_url: null,
-    
-    userName:"",
-    password:"",
-    repeat:"",
-    email:"",
-    
+    userName: "",
+    password: "",
+    repeat: "",
+    email: "",
     iframeURL: "",
     iframeLoginURL: "",
     init: function() {
@@ -24,8 +22,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('search_string', '');
         var address = document.URL;
         var domain = address.split("/")[2];
-        this.set('iframeURL', "http://" + domain + "/user/create/");
-        this.set('iframeLoginURL', "http://" + domain + "/site/login/");
+
     },
     popupModal: function() {
         this.set('popup', !this.get('popup'));
@@ -94,7 +91,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 HubStar.set('itemNumber', megasResults.get("length"));
                 for (var i = 0; i < megasResults.get("length"); i++) {
                     var tempmega = megasResults.objectAt(i);
-                     //console.log(tempmega.get("profile").objectAt(0));
+                    //console.log(tempmega.get("profile").objectAt(0));
                     if (tempmega.get("profile").objectAt(0) !== undefined) {
                         var isFollow = false;
                         for (var j = 0; j < tempmega.get("profile").objectAt(0).get("followers").get("length"); j++)
@@ -145,37 +142,143 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     {
         this.set('photo_url', imageSrc);
     },
-            
     validateEmail: function(email)
     {
 
         var re = /\S+@\S+\.\S+/;
         return re.test(email);
-    },         
-            
+    },
     signUp: function() {
 
-       var createInfo=[this.get('first_name'),this.get('last_name'),this.get('password'),this.get('email')]; 
-       requiredBackEnd('site','create',createInfo,'POST',function(params){});
-      
+
+        if (this.checkSignupInfo()) {
+
+            var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email')];
+            var that=this;
+            requiredBackEnd('site', 'create', createInfo, 'POST', function(params) {
+                console.log(params.COUCHBASE_ID);
+                localStorage.loginStatus = params.COUCHBASE_ID;
+                that.transitionToRoute('search');
+            });
+        }
+    },
+            
+    checkSignupInfo: function() {
+        function checkObject(id, input, lengthMin, lengthMax, isEmailValid)
+        {
+            this.id = id;
+            this.input = input;
+            this.lengthMin = lengthMin;
+            this.lengthMax = lengthMax;
+            this.isEmailValid = isEmailValid;
+
+        }
+        var checkList = new Array();
+        var result;
+        var first_name = new checkObject("first_name", this.get('first_name'), 0, 128, null);
+        checkList.push(first_name);
+        var last_name = new checkObject("last_name", this.get('last_name'), 0, 128, null);
+        checkList.push(last_name);
+        var email = new checkObject("email", this.get('email'), 0, 45, true);
+        checkList.push(email);
+        var password = new checkObject("password", this.get('password'), 6, 40, null);
+        checkList.push(password);
+
+
+
+
+        for (var i = 0; i < checkList.length; i++)
+        {
+
+            var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
+//            document.getElementById(checkList[i].id).style.border = '';
+            if (checkList[i].input !== null && checkList[i].input !== "")
+            {
+                console.log(checkList[i].input);
+                if (checkList[i].input.length > checkList[i].lengthMax || checkList[i].input.length < checkList[i].lengthMin)
+                {
+                    result = false;
+//                document.getElementById(checkList[i].id).style.border = '2px solid red';
+                    break;
+                }
+            }
+            if (checkList[i].id === 'first_name' || checkList[i].id === 'last_name' || checkList[i].id === 'email' || checkList[i].id === 'password')
+            {
+                if (checkList[i].input === null || checkList[i].input === "") {
+                    result = false;
+//                    document.getElementById(checkList[i].id).style.border = '2px solid red';
+                    break;
+                }
+            }
+            if (checkList[i].input !== null && checkList[i].isEmailValid === true)
+            {
+
+                if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
+                    result = true;
+                }
+                else {
+                    result = false;
+//                    document.getElementById(checkList[i].id).style.border = '2px solid red';
+                    break;
+                }
+            }
+//
+//            if (checkList[i].input !== null && checkList[i].isEmailExists === true)
+//            {
+//              var signupInfo=[ checkList[i].input]; 
+//       console.log( this.get(checkList[i].input));
+//      var that=this;
+//            requiredBackEnd('site','getemaill',signupInfo,'POST',function(params){
+//                if(params===false){
+//               
+//                    result = false;
+//                    document.getElementById(checkList[i].id).style.border = '2px solid red';
+//                }
+//                else {
+//                    result = true;
+////                                      break;
+//                }
+//            });
+//            }
+
+
+        }
+        console.log(result);
+        return result;
+    },
+    checkEmailExists: function() {
+        var signupInfo = [this.get('email')];
+        console.log(this.get('email'));
+        var result;
+        requiredBackEnd('site', 'getemail', signupInfo, 'POST', function(params) {
+            console.log(params);
+            if (params === false) {
+                result = false;
+//                    document.getElementById(checkList[i].id).style.border = '2px solid red';
+            }
+            else {
+                result = true;
+            }
+            return result;
+            console.log(result);
+        });
 
     },
-         
-   
-   login: function() {
+    login: function() {
 
-       var loginInfo=[this.get('username'),this.get('password')]; 
-       requiredBackEnd('site','login',loginInfo,'POST',function(params){
-           if(params===3)
-               {
-                   console.log(params);
-                   console.log('yangggggggggg');
-                   this.transitionTo('searchIndex');
-               }
-           
-       });
-      
+        var loginInfo = [this.get('username'), this.get('password')];
+        var that = this;
+        requiredBackEnd('site', 'login', loginInfo, 'POST', function(params) {
+            if (that.get('password') === params.PWD_HASH) {
+                localStorage.loginStatus = params.COUCHBASE_ID;
+                that.transitionToRoute('search');
+            }
+
+        });
+
     }
-            
+
+
+
 
 });

@@ -67,10 +67,10 @@ HubStar.CollectionController = Ember.Controller.extend({
 
         var desc = selectedCollection.get('desc');
 
-        var desc = "";
-        if (selectedCollection.get('desc') !== undefined) {
-            desc = this.checkingValidInput(selectedCollection.get('desc'));
-        }
+//        var desc = "";
+//        if (selectedCollection.get('desc') !== undefined) {
+//            desc = this.checkingValidInput(selectedCollection.get('desc'));
+//        }
 
         var id = this.checkingValidInput(selectedCollection.get('id'));
         var title = selectedCollection.get("title");

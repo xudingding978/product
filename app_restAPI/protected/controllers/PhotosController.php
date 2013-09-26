@@ -333,6 +333,9 @@ class PhotosController extends Controller {
         } else if ($photo_type == "image/jpeg") {
             imagejpeg($new_photo);
         }
+            else if($photo_type== "image/gif"){
+                imagegif($new_photo);
+            }
         $contents = ob_get_contents();
         ob_end_clean();
         return $contents;
@@ -370,6 +373,9 @@ class PhotosController extends Controller {
         } elseif ($type == "image/jpeg") {
             imagejpeg($image, null, 80);
         }
+            else if($type=="image/gif"){
+            imagegif($image);
+            }
         return $image;
     }
 
@@ -385,6 +391,7 @@ class PhotosController extends Controller {
     }
 
     public function saveImageToS3($url, $data, $bucket, $type) {
+     //   error_log('aaaaaaaaaaaaaaaaaa '.$type);
         $arr = $this->getProviderConfigurationByName($this->getDomain(), "S3Client");
         $client = Aws\S3\S3Client::factory(
                         $arr

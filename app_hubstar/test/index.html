@@ -1,4 +1,4 @@
-<!doctype html>
+<!--<!doctype html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -15,7 +15,7 @@ position: relative;"></div>
     <script>mocha.setup('bdd');</script>
     <script>mocha.setup({ignoreLeaks: true});</script>
 
-    <!-- assertion framework -->
+     assertion framework 
     <script src="lib/chai.js"></script>
     <script src="lib/sinon-1.6.0.js"></script>
     <script src="lib/sinon-chai.js"></script>
@@ -23,11 +23,9 @@ position: relative;"></div>
 
     
 
-    <script>var expect = chai.expect;</script>
-    <script>chai.should();</script>
 
-    <!-- include source files here... -->
-    <!-- Mocha test output goes here. -->
+     include source files here... 
+     Mocha test output goes here. 
 
     <script>
 
@@ -42,9 +40,46 @@ position: relative;"></div>
 
     <script src="/scripts/main.js"></script>
      
-    <!-- include spec files here... -->
+     include spec files here... 
     <script src="spec/test.js"></script>
 
     <script>mocha.run();</script>
 </body>
+</html>-->
+
+
+<html>
+    <head>
+        <meta charset='UTF-8' />
+        <meta http-equiv='content-type' content='text/html; charset=utf-8' />
+
+        <title>jQuery.simpleFAQ QUnit Test Runner</title>
+
+        <link rel='stylesheet' href='spec/lib/qunit.css'>
+
+        <!-- add any external libraries your code needs -->
+        <script src='spec/lib/jquery.min.js'></script>
+        <script src="spec/lib/handlebars/handlebars.runtime.js"></script>
+        <script src="spec/lib/javascriptHelper/javascriptHelper.js"></script>
+        <script src="spec/lib/jquery.masonry/jquery.masonry.min.js"></script>
+        <script src="spec/lib/ember/ember-1.0.0-rc.6.1.js"></script>
+        <script src="spec/lib/ember-data-shim/ember-data.js"></script>
+
+        <script src='scripts/main.js'></script>
+        <!-- add any JS files under test (or put them in different .html files) -->
+
+        <script src='spec/lib/qunit.js'></script>
+
+        <!-- your tests, any and all to run with the given fixtures below -->
+        <script src='spec/test.js'></script>
+   <script src='spec/testTwoController.js'></script>
+    </head>
+    <body>
+        <div id="qunit"></div> <!-- QUnit fills this with results, etc -->
+        <div id='qunit-fixture'>
+
+            <!-- any HTML you want to be present in each test (will be reset for each test) -->
+
+        </div>
+    </body>
 </html>

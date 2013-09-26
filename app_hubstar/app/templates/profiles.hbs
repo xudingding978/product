@@ -173,8 +173,8 @@
         //alert('opening step 2');
         $('#register-with-email-step-2').addClass('active-step');
         $('#click-register').addClass('active-tab');
-        $('#register-with-email-step-2').stop().animate({height: 'toggle'});
-        $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+        $('#register-with-email-step-2').animate({height: 'toggle'});
+        $('#register-with-email-drop-down').animate({height: 'toggle'});
 
         checkSocial();
 
@@ -184,8 +184,8 @@
 
     $('.back-btn').click(function() {
         $('#register-with-email-step-2').removeClass('active-step');
-        $('#register-with-email-step-2').stop().animate({height: 'toggle'});
-        $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+        $('#register-with-email-step-2').animate({height: 'toggle'});
+        $('#register-with-email-drop-down').animate({height: 'toggle'});
 
 
         checkSocial();
@@ -198,8 +198,8 @@
         if ($('#register-with-email-step-2').hasClass('active-step')) {
             //alert('closing step2');
 
-            $('#social-link').stop().animate({height: 'toggle'});
-            $('#register-with-email-step-2').stop().animate({height: 'toggle'});
+            $('#social-link').animate({height: 'toggle'});
+            $('#register-with-email-step-2').animate({height: 'toggle'});
 
             if ($('#click-register').hasClass('active-tab')) {
                 $('#click-register').removeClass('active-tab');
@@ -210,7 +210,7 @@
                 $('#click-register').addClass('active-tab');
                 /* opening step */
             }
-            checkSocial();
+
         }
         /* closing/opening register section while on step 2 function */
 
@@ -218,10 +218,9 @@
         if ($('#register-with-email-drop-down').css('display') == 'block' && $('#click-register').hasClass('active-tab')) {
             //alert('closing step1');
             $('#click-register').removeClass('active-tab');
-            $('#social-link').stop().animate({height: 'toggle'});
-            $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+            $('#social-link').animate({height: 'toggle'});
+            $('#register-with-email-drop-down').animate({height: 'toggle'});
             $('#click-register-social').addClass('social-active');
-            checkSocial();
 
         }
         /* closing register section while on step 1 function */
@@ -231,7 +230,7 @@
             //alert('opening step 1');
             $('#click-register-social').removeClass('social-active');
             $('#click-register').addClass('active-tab');
-            $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+            $('#register-with-email-drop-down').animate({height: 'toggle'});
             checkSocial();
 
         }
@@ -241,7 +240,7 @@
 
     function checkSocial() {
         if ($('#social-link').css('display') == 'block') {
-            $('#social-link').stop().animate({height: 'toggle'});
+            $('#social-link').animate({height: 'toggle'});
         }
         else {
         }
@@ -252,6 +251,7 @@
     $('.login-select').click(function(){
         $('.login-select').removeClass('login-selected');
         $(this).addClass('login-selected');
+
     });
     /* select gender function */
 </script>

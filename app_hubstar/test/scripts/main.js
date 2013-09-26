@@ -1803,7 +1803,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
         collection.set('optional', localStorage.loginStatus);
         collection.set('type', 'user');
         collection.store.save();
-        this.get('controllers.applicationFeedback').statusObserver(null, "Save photo Successfully!!!");
+        this.get('controllers.applicationFeedback').statusObserver(null, "saved photo successfully!!!");
         this.exit();
     },
     addComment: function() {
@@ -2411,8 +2411,8 @@ HubStar.CollectionController = Ember.Controller.extend({
         if (isExsinting) {
             var validID = this.checkingValidInput(title);
             var checkingCharater = this.specialCharactersChecking(validID);
-            console.log(validID);
-            console.log(checkingCharater);
+            //console.log(validID);
+            //console.log(checkingCharater);
             if (checkingCharater && validID !== null && validID !== '') {
                 collection = HubStar.Collection.createRecord({});
                 collection.set('id', validID.toLowerCase());
@@ -2424,7 +2424,8 @@ HubStar.CollectionController = Ember.Controller.extend({
                     collection.set('desc', "Add a short description to your Collection");
                 }
             } else {
-                this.get('controllers.applicationFeedback').statusObserver(null, "invalidate characters...");
+                this.get('controllers.applicationFeedback').statusObserver(null, "Please try to type name with upper case and space");
+
             }
         }
         return collection;
@@ -2435,7 +2436,7 @@ HubStar.CollectionController = Ember.Controller.extend({
         } else {
             if (title.indexOf(" ") !== -1) {
                 title = title.split(' ').join('-');
-            }
+            } 
         }
         return title;
     },
@@ -2678,7 +2679,13 @@ HubStar.CommentController = Ember.Controller.extend({
         setSelectedMega: function(id)
         {
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
-            this.set("displayName", this.get("currentUser").get("first_name") + " " + this.get("currentUser").get("last_name"));
+            if(this.get("currentUser").get("first_name")!==null && this.get("currentUser").get("last_name")){
+                 this.set("displayName", this.get("currentUser").get("first_name") + " " + this.get("currentUser").get("last_name"));
+            }
+            else{
+                this.set("displayName",this.get("currentUser").get("display_name"));
+            }
+           
             this.set("displayEmail", this.get("currentUser").get("email"));
             var idProfile;
             var tempMega = HubStar.Mega.find(id);
@@ -2857,9 +2864,7 @@ HubStar.CommentController = Ember.Controller.extend({
 (function() {
 
  
-
-      
-HubStar.HtmlEditorController = Ember.Controller.extend({
+     HubStar.HtmlEditorController = Ember.Controller.extend({
    
     
    
@@ -3555,22 +3560,59 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
 
     },
+    // share to social facebook
     fbShare: function() {
         var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
         appID = '358102574293594';
-       //https://www.facebook.com/dialog/feed?app_id=143965932308817&link=http%3A%2F%2Fwww.houzz.com%2Fphotos%2F819542%2FComfortable-Luxury-eclectic-living-room-charleston&caption=&redirect_uri=http%3A%2F%2Fwww.houzz.com%2FfbFeed%2F&display=popup 
-       //https://www.facebook.com/dialog/feed?app_id=368065846635755&link=http%3A%2F%2Fbeta.trendsideas.com%2F%23%2Fphotos%2F9461379974225359&picture=http://s3.hubsrv.com/trendsideas.com/users/trends-media-sales-marketing-services/thumbnail/africa-burkina-faso-mountain-wallpaper.jpg&name=africa-burkina-faso-mountain-wallpaper.jpg&caption=Trends%20Ideas&description=content%20writing%2C%20content%20creation%2C%20publishing%2C%20photography%2C%20writing%2Ctrends%2Cservices%2Cbusiness%2Chome%20and%20design%2Cinspirational%2Cstrategy%2Cbusiness%20strategy%2Carchitecture%2Cdesign%2Ctrends%2Ctrend%2Cmedia%2Csales%2Cmarketing%2Cvideo%2Canimation%2C%20&display=popup
-        var url = 'http://www.facebook.com/dialog/feed?app_id=' +appID+
+        var url = 'http://www.facebook.com/dialog/feed?app_id=' + appID +
                 '&link=' + encodeURIComponent(currntUrl) +
                 '&picture=' + encodeURIComponent(this.get('selectedPhoto').get('photo_image_thumbnail_url')) +
                 '&name=' + encodeURIComponent(this.get('selectedPhoto').get('photo_title')) +
                 '&caption=' + encodeURIComponent('Trends Ideas') +
-                '&description=' + encodeURIComponent(this.get('selectedPhoto').get('photo_keywords')) +
-                '&redirect_uri='  + encodeURIComponent("http://www.facebook.com/") +
+                '&description=' + encodeURIComponent(this.get('selectedPhoto').get('photo_caption')) +
+                '&redirect_uri=' + encodeURIComponent("http://www.facebook.com/") +
                 '&display=popup';
         window.open(url,
                 'feedDialog',
                 'toolbar=0,status=0,width=626,height=436');
+    },
+    //share to social google plus
+    gpShare: function() {
+
+        var metas = document.getElementsByTagName("meta");
+        $("meta[property='og\\:title']").attr("content", this.get('selectedPhoto').get('photo_title'));
+        $("meta[property='og\\:description']").attr("content", this.get('selectedPhoto').get('photo_caption'));
+        $("meta[property='og\\:image']").attr("content", this.get('selectedPhoto').get('photo_image_thumbnail_url'));
+        //test code of change information
+//$("meta[property='og\\:url']").attr("content", 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id'));
+//        
+//        for (var i = 0; i < metas.length; i++) {
+////            if (metas[i].getAttribute("itemprop") && metas[i].getAttribute("itemprop") == "image") {
+////
+////                metas[i].setAttribute("content", "http://s3.hubsrv.com/trendsideas.com/7336815531372415644/photo/7336815531372415644/thumbnail/65569_132x132.jpg");
+////           }
+//            console.log(metas[i]);        }
+
+        var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
+        var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
+        window.open(
+                url,
+                'popupwindow',
+                'scrollbars=yes,width=800,height=400'
+                ).focus();
+
+        return false;
+    },
+        //share to social twitter
+    tShare: function() {
+        var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
+        var url = 'https://twitter.com/share?text=' + this.get('selectedPhoto').get('photo_title') + '&url=' + encodeURIComponent(currntUrl);
+        window.open(
+                url,
+                'popupwindow',
+                'height=436,width=626'
+                ).focus();
+        return false;
     }
 });
 
@@ -3977,7 +4019,7 @@ HubStar.PlatformBarController = Ember.ArrayController.extend({
     init: function()
     {  
         this.setTopicModel(HubStar.Cate.find({}));
-//         this.set('userLocation',geoip_city());
+         this.set('userLocation',geoip_city());
        
     },
     topicSearch: function(search_topic) {
@@ -4019,6 +4061,8 @@ var workingtime;
 var seletedID = "";
 var collection_title_record;
 var collection_desc_record;
+
+  var editor;
 
 
 
@@ -4306,6 +4350,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('editingTime', !this.get('editingTime'));
         }
     },
+
     yesAbout: function(checkingInfo) {
         if (checkingInfo === "aboutMe") {
 
@@ -4313,12 +4358,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         this.saveUpdateAboutUs();
     },
+
     yes: function(checkingInfo) {
         if (checkingInfo === "profileName") {
             this.set('editing', !this.get('editing'));
         }
-
         else if (checkingInfo === "contact") {
+
             if (this.get("website_url").match(/[http]/g) === -1 || this.get("website_url").match(/[http]/g) === null)
             {
                 this.set("website_url", "http://" + this.get("website_url"));
@@ -4585,16 +4631,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     saveUpdateAboutUs: function() {
         var update_About_record = HubStar.Profile.find(this.get('model.id'));
-        update_About_record.set("profile_about_us", editor.getValue());
+       update_About_record.set("profile_about_us", $('iframe').contents().find('.wysihtml5-editor').html());
         this.get('controllers.applicationFeedback').statusObserver(null, "Update Successful");
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_About_record);
         HubStar.store.save();
     },
     saveUpdate: function() {
         var update_profile_record = HubStar.Profile.find(this.get('model.id'));
-
-        //   console.log(update_profile_record);
-
         update_profile_record.set('profile_editors', this.get('editors'));
         update_profile_record.set('profile_keywords', this.get('keywords'));
         update_profile_record.set('profile_regoin', this.get('region'));
@@ -4637,10 +4680,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set("profile_name", this.get('profile_name'));
         update_profile_record.set("profile_isActive", this.get("projectActiveDropdownContent"));
         update_profile_record.set("profile_isDeleted", this.get("projectDeleteDropdownContent"));
-        // update_profile_record.set("profile_about_us", editor.getValue());
-
-
-        //update_profile_record.set("profile_about_us", this.get("about_me"));
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
         if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
             update_profile_record.get('stateManager').transitionTo('loaded.saved');
@@ -5626,14 +5665,14 @@ HubStar.UserController = Ember.Controller.extend({
             this.set("isUserSelf", true);
         }
     },
-//    getCurrentUser: function()
-//    {            
-//        var address = document.URL;
-//        var user_id = address.split("#")[1].split("/")[2];
-//        this.set('currentUserID', user_id);
-//        var user = HubStar.User.find(user_id);
-//        return user;
-//    },
+    getCurrentUser: function()
+    {            
+        var address = document.URL;
+        var user_id = address.split("#")[1].split("/")[2];
+        this.set('currentUserID', user_id);
+        var user = HubStar.User.find(user_id);
+        return user;
+    },
     setUser: function()
     {
         console.log(this.get('model'));
@@ -5644,7 +5683,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("collections", user.get("collections"));
         this.set("description", user.get("description"));
         this.set("display_name", user.get("display_name"));
-
+        this.set('currentUserID', this.get('model').get('id'));
          this.set("first_name", user.get("first_name"));
           this.set("last_name", user.get("last_name"));
 
@@ -5910,7 +5949,7 @@ HubStar.UserController = Ember.Controller.extend({
         }
     },
     saveUpdate: function() {
-        var update_user_record = this.getCurrentUser();
+        var update_user_record = this.get('model');
         if (this.isInputValid())
         {
             update_user_record.set('collections', this.get('collections'));
@@ -5979,7 +6018,7 @@ HubStar.UserController = Ember.Controller.extend({
         checkList.push(youtube);
 //        var password = new checkObject("password", this.get('password'), 128, null, null);
 //        checkList.push(password);
-
+    
 
         for (var i = 0; i < checkList.length; i++)
         {
@@ -6034,7 +6073,7 @@ if (checkList[i].id === 'first_name' || checkList[i].id === 'last_name')
     saveLink: function(link_url,link) {//link =param; this,get('facebook')
                                                                             
         var http = "http://";
-        var update_user_record = this.getCurrentUser();
+        var update_user_record = this.get('model');
         if (this.get(link) === null || this.get(link) === "")
         {
             this.get(link)  === "";      
@@ -7866,8 +7905,7 @@ HubStar.HeaderView = Ember.View.extend({
 
 HubStar.HtmlEditorView = Ember.View.extend({
     templateName: 'htmlEditor',
-    
-    
+
 });
 
 

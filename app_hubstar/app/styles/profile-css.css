@@ -485,7 +485,6 @@ input{
     margin:-160px 17.5% 0 17.5%;
     float:left;
     width:65%;
-    min-height:195px;
     padding:0 5px;
     /* padding: 20px 5px; 
      position:absolute;
@@ -493,6 +492,7 @@ input{
      top:-180px;
      left:17.5%; */
 }
+.premium > div > table  .profileaside > .profileaside_content .aside-profilepic > div > img{ min-height:195px;}
 .premium > div > table  .profileaside > .profileaside_content .aside-profilepic div,
 .premium > div > table  .profileaside > .profileaside_content .aside-profilepic div img{width:100%;margin-bottom:1em;}
 

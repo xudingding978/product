@@ -1867,7 +1867,7 @@ function program4(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("<div class=\"navbar\">\n      <div style=\"position: absolute;right: 0;z-index: 1;\">\n        <img src=\"../../../images/beta-version.png\"/>\n        <span style=\"position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;\" id=\"lastidentifie\">0.3-10</span>\n      </div>\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <div class=\"brand\">\n                <a href=\"/#\">\n                    <img class=\"logonew\" style=\"position: relative; top: 0; margin:0;\" src=\"../../../images/landing-trends.png\">\n                </a>\n            </div>\n\n            <!-- show if not logged into platform-->\n            ");
+  data.buffer.push("<div class=\"navbar\">\n      <div style=\"position: absolute;right: 0;z-index: 1;\">\n        <img src=\"../../../images/beta-version.png\"/>\n        <span style=\"position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;\" id=\"lastidentifie\">0.3-12</span>\n      </div>\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <div class=\"brand\">\n                <a href=\"/#\">\n                    <img class=\"logonew\" style=\"position: relative; top: 0; margin:0;\" src=\"../../../images/landing-trends.png\">\n                </a>\n            </div>\n\n            <!-- show if not logged into platform-->\n            ");
   hashTypes = {};
   hashContexts = {};
   stack1 = helpers['if'].call(depth0, "controller.islogin", {hash:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
@@ -1890,7 +1890,7 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
     'valueBinding': ("model.profile_about_us"),
     'id': ("wysihtml5-editor")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("\n    </div>\n\n</section>\n<script>\n\n    var editor = new wysihtml5.Editor(\"wysihtml5-editor\", {\n        toolbar: \"wysihtml5-editor-toolbar\",\n        stylesheets: [\"http://yui.yahooapis.com/2.9.0/build/reset/reset-min.css\", \"bower_components/wysihtml5/css/editor.css\"],\n        parserRules: wysihtml5ParserRules\n    });\n\n    editor.on(\"load\", function() {\n        var composer = editor.composer;\n        composer.selection.selectNode(editor.composer.element.querySelector(\"h1\"));\n    });\n\n\n</script>\n");
+  data.buffer.push("\n    </div>\n\n</section>\n<script>\n\n    var editor = new wysihtml5.Editor(\"wysihtml5-editor\", {\n        toolbar: \"wysihtml5-editor-toolbar\",\n        stylesheets: [\"http://yui.yahooapis.com/2.9.0/build/reset/reset-min.css\", \"styles/editor.css\"],\n        parserRules: wysihtml5ParserRules\n    });\n\n    editor.on(\"load\", function() {\n        var composer = editor.composer;\n        composer.selection.selectNode(editor.composer.element.querySelector(\"h1\"));\n    });\n\n\n</script>\n");
   return buffer;
   
 });
@@ -2087,7 +2087,7 @@ function program7(depth0,data) {
   data.buffer.push("><k class=\"icon-trash\" style=\"font-size: 16px; margin: 0px 5px;\"></k>Remove</li>\n                        <li class=\"ite\" ");
   hashTypes = {};
   hashContexts = {};
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "changeCollectionCover", "id", "controller.title", "user", {hash:{},contexts:[depth0,depth0,depth0,depth0],types:["ID","ID","ID","STRING"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "changeCollectionCover", "id", "controller.title", "HubStar.User", {hash:{},contexts:[depth0,depth0,depth0,depth0],types:["ID","ID","ID","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
   data.buffer.push("><k class=\"icon-camera\" style=\"font-size: 16px; margin: 0px 5px;\"></k>Set as Cover</li>\n                        ");
   return buffer;
   }
@@ -2984,11 +2984,7 @@ function program5(depth0,data) {
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "photoUpload", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(">Upload</span> \n                    </div>\n                </div>\n");
-  hashTypes = {};
-  hashContexts = {};
-  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "controller", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("\n                ");
+  data.buffer.push(">Upload</span> \n                    </div>\n                </div>\n\n                ");
   return buffer;
   }
 function program6(depth0,data) {
@@ -4369,7 +4365,7 @@ function program90(depth0,data) {
   data.buffer.push(escapeExpression(helpers.bindAttr.call(depth0, {hash:{
     'src': ("newStyleImageSource")
   },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(" >\n                        </div>\n                    </div>\n                    <--crop function here, dont delete-->\n                    <!--               <div class=\"container\">\n                                <div class=\"contr\">\n                                    <button onclick=\"getResults()\">Crop</button>\n                                </div>\n                                <canvas id=\"panel\" width=\"779\" height=\"519\"></canvas>\n                                <div id=\"results\">\n                                    <h2>Please make selection for cropping and click 'Crop' button.</h2>\n                                    <img id=\"crop_result\" />\n                                </div>\n                            </div>-->\n\n\n\n                    <div class=\"\" style=\"margin-top: 20px;\">\n                        <div class=\"controlbtn\" style=\"left: 34%;\">\n                            <a href=\"#tab1\" data-toggle=\"tab\"");
+  data.buffer.push(" >\n                        </div>\n                    </div>\n \n                    <!--               <div class=\"container\">\n                                <div class=\"contr\">\n                                    <button onclick=\"getResults()\">Crop</button>\n                                </div>\n                                <canvas id=\"panel\" width=\"779\" height=\"519\"></canvas>\n                                <div id=\"results\">\n                                    <h2>Please make selection for cropping and click 'Crop' button.</h2>\n                                    <img id=\"crop_result\" />\n                                </div>\n                            </div>-->\n\n\n\n                    <div class=\"\" style=\"margin-top: 20px;\">\n                        <div class=\"controlbtn\" style=\"left: 34%;\">\n                            <a href=\"#tab1\" data-toggle=\"tab\"");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "resetNewStyleImageSource", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -5433,17 +5429,12 @@ function program1(depth0,data) {
 Ember.TEMPLATES["singleFileUploader"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
-  var buffer = '', stack1, hashTypes, hashContexts, escapeExpression=this.escapeExpression, self=this;
+  var buffer = '', stack1, hashTypes, hashContexts, self=this;
 
 function program1(depth0,data) {
   
-  var buffer = '', hashTypes, hashContexts;
-  data.buffer.push("\n\n\n<div style=\"position: relative; margin: 15px auto;height: 520px; width: 690px; background-color: rgba(242,240,240,0.5);border: 3px dashed #aaa;\"> \n    <div style=\"top: 200px;position: relative;margin: auto;width: 80%;font-size: 26px; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;\">\n        <i class=\"icon-upload\" style=\"font-size: 45px;\"></i>\n        <p style=\"font-weight: bold;\">\n            Drag and drop.\n        </p>\n    </div>\n\n    <div class=\"new-btn blue-btn\" style=\"margin: auto; width: 200px; top: 557px; position: absolute;left: 0;right: 67%;\">\n        Choose \n        <div style=\"opacity:0;position: absolute;top: 0px;left: 0;\"> </div> \n    </div> \n\n    <div id=\"dragAndDroppArea\" class=\"dragndropbox\" style=\"display:none\">\n\n   \n    </div>\n</div>\n<div class=\"controlbtn-field\" style=\"margin-top: 20px;\">\n    <div class=\"controlbtn\" style=\"left: 34%;\">\n        ");
-  hashTypes = {};
-  hashContexts = {};
-  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "controller", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("\n        <span class=\"new-btn\" >Close</span>\n        <span class=\"new-btn green-btn\" >Upload</span> \n    </div>\n</div>\n");
-  return buffer;
+  
+  data.buffer.push("\n\n\n<div style=\"position: relative; margin: 15px auto;height: 520px; width: 690px; background-color: rgba(242,240,240,0.5);border: 3px dashed #aaa;\"> \n    <div style=\"top: 200px;position: relative;margin: auto;width: 80%;font-size: 26px; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;\">\n        <i class=\"icon-upload\" style=\"font-size: 45px;\"></i>\n        <p style=\"font-weight: bold;\">\n            Drag and drop.\n        </p>\n    </div>\n\n    <div class=\"new-btn blue-btn\" style=\"margin: auto; width: 200px; top: 557px; position: absolute;left: 0;right: 67%;\">\n        Choose \n        <div style=\"opacity:0;position: absolute;top: 0px;left: 0;\"> </div> \n    </div> \n\n    <div id=\"dragAndDroppArea\" class=\"dragndropbox\" style=\"display:none\">\n\n   \n    </div>\n</div>\n<div class=\"controlbtn-field\" style=\"margin-top: 20px;\">\n    <div class=\"controlbtn\" style=\"left: 34%;\">\n        <span class=\"new-btn\" >Close</span>\n        <span class=\"new-btn green-btn\" >Upload</span> \n    </div>\n</div>\n");
   }
 
   hashTypes = {};

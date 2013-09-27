@@ -149,13 +149,13 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
             $this->user->profile->birthMonth = (int) $birthday_month;
             $this->user->profile->birthYear = (int) $birthday_year;
         }
-$args = array(
-    'message'   =>  $this->user->profile->displayName. ', has just registered for the Trends Global Web Platform. Click to see what the excitement is about',
-    'link'      => 'http://beta.trendsideas.com/',
-    'picture'=>'http://s3.hubsrv.com/trendsideas.com/profiles/commercial-design-trends/profile_pic.jpg',
-    'caption'   => 'Trends Global Web Platform.'
-);
-             $this->api->api("/me/feed", "post", $args);
+
+        
+            if ($isRegist === true) {
+            $this->shareFacebookRegist($this->user->profile->displayName);
+        } 
+
+          
         
         return $this->user->profile;
     }

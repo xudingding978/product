@@ -675,6 +675,8 @@ if (checkList[i].id === 'first_name' || checkList[i].id === 'last_name')
     {
         this.set("isEditingMode", !this.get("isEditingMode"));
     },
+            
+            
     setCollectionAttr: function() {
         this.set("newTitle", this.get('selectedCollection').get('title'));
         this.set("newDesc", this.get('selectedCollection').get('desc'));

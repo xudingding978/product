@@ -391,7 +391,7 @@ class PhotosController extends Controller {
     }
 
     public function saveImageToS3($url, $data, $bucket, $type) {
-     //   error_log('aaaaaaaaaaaaaaaaaa '.$type);
+
         $arr = $this->getProviderConfigurationByName($this->getDomain(), "S3Client");
         $client = Aws\S3\S3Client::factory(
                         $arr

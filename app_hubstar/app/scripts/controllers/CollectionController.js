@@ -59,6 +59,9 @@ HubStar.CollectionController = Ember.Controller.extend({
         }
         return isExsinting;
     }, 
+            
+ 
+            
         specialCharactersChecking: function(str) {
         var re = /^[a-zA-Z-][a-zA-Z0-9-]*$/;
         return re.test(str);

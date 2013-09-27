@@ -15,7 +15,6 @@ class DefaultController extends CController {
     public function actionLogin() {
         //try {
 
-error_log('actionLogin');
         $this->layout = '//layouts/signup';
 
         if (!isset(Yii::app()->session['hybridauth-ref'])) {

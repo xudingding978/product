@@ -50,7 +50,7 @@ function program2(depth0,data) {
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "exit", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(">\n                     <i class=\"icon-remove\"></i>\n                </div> \n            </div>  \n        </div> \n\n\n        <div style=\"display: inline-block; color:#555; font-size: 16px; font-weight: bold;vertical-align: top;margin-right: 20px;\"> \n            <div style=\"margin-bottom: 10px;\">Collections</div>\n            <div>Comment</div>\n        </div>\n\n        <div style=\"display:inline-block; margin: 0 15px;\">\n\n            <div ");
+  data.buffer.push(">\n                     <i class=\"icon-remove\"></i>\n                </div> \n            </div>  \n        </div> \n\n\n        <div style=\"display: inline-block; color:#555; font-size: 16px; font-weight: bold;vertical-align: top;margin-right: 20px;\"> \n            <div style=\"margin-bottom: 10px;\">Collections</div>\n            <div> </div>\n        </div>\n\n        <div style=\"display:inline-block; margin: 0 15px;\">\n\n            <div ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "collectionSwitch", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -68,7 +68,7 @@ function program2(depth0,data) {
     'rows': ("12"),
     'cols': ("70"),
     'class': ("collect_descriptionbox"),
-    'placeholder': ("please input your comment.........")
+    'placeholder': ("Say something about it!")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
   data.buffer.push("\n            </div>\n\n            ");
   hashTypes = {};
@@ -1867,7 +1867,7 @@ function program4(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("<div class=\"navbar\">\n      <div style=\"position: absolute;right: 0;z-index: 1;\">\n        <img src=\"../../../images/beta-version.png\"/>\n        <span style=\"position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;\" id=\"lastidentifie\">0.3-10</span>\n      </div>\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <div class=\"brand\">\n                <a href=\"/#\">\n                    <img class=\"logonew\" style=\"position: relative; top: 0; margin:0;\" src=\"../../../images/landing-trends.png\">\n                </a>\n            </div>\n\n            <!-- show if not logged into platform-->\n            ");
+  data.buffer.push("<div class=\"navbar\">\n      <div style=\"position: absolute;right: 0;z-index: 1;\">\n        <img src=\"../../../images/beta-version.png\"/>\n        <span style=\"position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;\" id=\"lastidentifie\">0.3-11</span>\n      </div>\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <div class=\"brand\">\n                <a href=\"/#\">\n                    <img class=\"logonew\" style=\"position: relative; top: 0; margin:0;\" src=\"../../../images/landing-trends.png\">\n                </a>\n            </div>\n\n            <!-- show if not logged into platform-->\n            ");
   hashTypes = {};
   hashContexts = {};
   stack1 = helpers['if'].call(depth0, "controller.islogin", {hash:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
@@ -3227,7 +3227,7 @@ function program10(depth0,data) {
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.unbound.call(depth0, "id", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("\" style=\"width: 200px; margin: 0 auto; left: 100px;\">\n\n             <li class=\"ite\" ");
+  data.buffer.push("\" style=\"width: 170px; margin: 0 auto; left: 100px;padding: 0\">\n\n                <li class=\"ite\" ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "fbShare", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -3235,61 +3235,61 @@ function program10(depth0,data) {
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "tShare", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(" >\n                    <k class=\"icon-twitter\" style=\"font-size: 16px;  margin: 0px 5px;position: absolute\"></k><span style=\"margin-left: 2.5em\">Twitter</span></li>\n\n            <li class=\"ite\" ");
+  data.buffer.push(" >\n        <k class=\"icon-twitter\" style=\"font-size: 16px;  margin: 0px 5px;position: absolute\"></k><span style=\"margin-left: 2.5em\">Twitter</span></li>\n\n        <li class=\"ite\" ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "gpShare", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(">\n                    <k class=\"icon-google-plus\" style=\"font-size: 16px; margin: 0px 5px;position: absolute\"></k><span style=\"margin-left: 2.5em\">Google+</span></li>\n        </ul>\n\n\n\n        <div class=\"closeview\" ");
+  data.buffer.push(">\n    <k class=\"icon-google-plus\" style=\"font-size: 16px; margin: 0px 5px;position: absolute\"></k><span style=\"margin-left: 2.5em\">Google+</span></li>\n</ul>\n\n\n\n<div class=\"closeview\" ");
   hashContexts = {'on': depth0,'target': depth0};
   hashTypes = {'on': "STRING",'target': "STRING"};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "closeWindow", {hash:{
     'on': ("click"),
     'target': ("controller")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(" >\n            <i class=\"icon-remove\"></i>\n        </div>\n    </div>\n\n    <div class=\"mainfeature\">\n        <div class=\"previous\" style=\"width: 50%; height: 100%; float: left;\" ");
+  data.buffer.push(" >\n    <i class=\"icon-remove\"></i>\n</div>\n</div>\n\n<div class=\"mainfeature\">\n    <div class=\"previous\" style=\"width: 50%; height: 100%; float: left;\" ");
   hashContexts = {'on': depth0,'target': depth0};
   hashTypes = {'on': "STRING",'target': "STRING"};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "previesImage", {hash:{
     'on': ("click"),
     'target': ("controller")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("></div>\n        <div class=\"next\" style=\"width: 50%; height: 100%; float: right;\"  ");
+  data.buffer.push("></div>\n    <div class=\"next\" style=\"width: 50%; height: 100%; float: right;\"  ");
   hashContexts = {'on': depth0,'target': depth0};
   hashTypes = {'on': "STRING",'target': "STRING"};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "nextImage", {hash:{
     'on': ("click"),
     'target': ("controller")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("></div>\n        ");
+  data.buffer.push("></div>\n    ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "HubStar.PhotoDisplayAreaView", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("\n    </div>\n    <!--THIS IS THE ALBUM BOX-->\n\n    ");
+  data.buffer.push("\n</div>\n<!--THIS IS THE ALBUM BOX-->\n\n");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "HubStar.ShowAlbumView", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("\n\n    <!--THIS IS THE ALBUM BOX-->\n\n    <div class=\"bottom-controlbar easing\" >\n        <div class=\"text-on-black\" style=\"right: 132px;\"></div>\n        <div class=\"icon-on-black\"  ");
+  data.buffer.push("\n\n<!--THIS IS THE ALBUM BOX-->\n\n<div class=\"bottom-controlbar easing\" >\n    <div class=\"text-on-black\" style=\"right: 132px;\"></div>\n    <div class=\"icon-on-black\"  ");
   hashContexts = {'on': depth0,'target': depth0};
   hashTypes = {'on': "STRING",'target': "STRING"};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "previesImage", {hash:{
     'on': ("click"),
     'target': ("controller")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(" style=\"display:inline-block; vertical-align: top; position:relative; left:44px;\">\n            <i class=\"icon-arrow-left\"></i>\n        </div>\n        <div class=\"icon-on-black hint--rounded hint--top\" data-hint=\"Show other photos in this collection.\" style=\"left: 44px; display:inline-block; vertical-align: top; position:relative;\" ");
+  data.buffer.push(" style=\"display:inline-block; vertical-align: top; position:relative; left:44px;\">\n        <i class=\"icon-arrow-left\"></i>\n    </div>\n    <div class=\"icon-on-black hint--rounded hint--top\" data-hint=\"Show other photos in this collection.\" style=\"left: 44px; display:inline-block; vertical-align: top; position:relative;\" ");
   hashContexts = {'on': depth0,'target': depth0};
   hashTypes = {'on': "STRING",'target': "STRING"};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "popupAibum", {hash:{
     'on': ("click"),
     'target': ("view")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(">\n            <i class=\"icon-th\"></i>\n        </div>\n        <div class=\"icon-on-black\" style=\"left: 44px;position: relative;vertical-align: top;display: inline-block;\" ");
+  data.buffer.push(">\n        <i class=\"icon-th\"></i>\n    </div>\n    <div class=\"icon-on-black\" style=\"left: 44px;position: relative;vertical-align: top;display: inline-block;\" ");
   hashContexts = {'on': depth0,'target': depth0};
   hashTypes = {'on': "STRING",'target': "STRING"};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "nextImage", {hash:{
     'on': ("click"),
     'target': ("controller")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(">\n            <i class=\"icon-arrow-right\"></i>\n        </div>\n        <div class=\"text-on-black\" style=\"left: 88px; top:0;position: relative;display: inline-block;vertical-align: top;\"> ");
+  data.buffer.push(">\n        <i class=\"icon-arrow-right\"></i>\n    </div>\n    <div class=\"text-on-black\" style=\"left: 88px; top:0;position: relative;display: inline-block;vertical-align: top;\"> ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "controller.image_no", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -3297,7 +3297,7 @@ function program10(depth0,data) {
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "content.length", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(" </div>\n    </div>\n\n\n\n\n</div>\n\n\n<div class=\"objectview-right\">\n\n    <!-- USER SECTION -->\n    <div style=\"cursor: pointer;\">\n        <div class=\"object-poster easing\" ");
+  data.buffer.push(" </div>\n</div>\n\n\n\n\n</div>\n\n\n<div class=\"objectview-right\">\n\n    <!-- USER SECTION -->\n    <div style=\"cursor: pointer;\">\n        <div class=\"object-poster easing\" ");
   hashContexts = {'on': depth0,'target': depth0};
   hashTypes = {'on': "STRING",'target': "STRING"};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "setNameTag", {hash:{

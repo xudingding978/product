@@ -139,10 +139,19 @@ class Controller extends CController {
 
     protected function getRequestResult($searchString, $returnType) {
      
+        
+           error_log('getRequestResult             ');
+        
+        
+        $user=Yii::app()->user->getId(); 
+        error_log('aaaaaaaaaaaa             '.$user);
+        
         $response = "";
         $requireParams = explode('&', $searchString);
         $requireType = $this->getUserInput($requireParams[0]);
         if ($requireType == 'search') {
+            
+                       error_log('getRequestResult             ');
             $region = $this->getUserInput($requireParams[1]);
             $searchString = $this->getUserInput($requireParams[2]);
             $from = $this->getUserInput($requireParams[3]);

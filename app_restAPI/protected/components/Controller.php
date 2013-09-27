@@ -181,7 +181,7 @@ class Controller extends CController {
             $article_id = $this->getUserInput($requireParams[1]);
             $owner_id = $this->getUserInput($requireParams[2]);
             $requestArray = array();
-            $requestStringOne = 'couchbaseDocument.doc.photo.photo_articleId=' . $article_id;
+            $requestStringOne = 'couchbaseDocument.doc.collection_id=' . $article_id;
             array_push($requestArray, $requestStringOne);
             $requestStringTwo = 'couchbaseDocument.doc.owner_id=' . $owner_id;
             array_push($requestArray, $requestStringTwo);
@@ -238,6 +238,7 @@ class Controller extends CController {
     protected function getmustQuestWithQueryString($queryString) {
         $mustQuery = explode('=', $queryString);
         $should = Sherlock\Sherlock::queryBuilder()->QueryString()->query($mustQuery[1])//$collection_id
+                ->default_field($mustQuery[0])
                 // ->default_field($mustQuery[0])
                 ->default_operator('AND');
         return $should;
@@ -382,6 +383,7 @@ class Controller extends CController {
                 ->default_field('couchbaseDocument.doc.owner_id');
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)->
                 must($must2);
+        error_log($bool->toJSON());
         $response = $request->query($bool)->execute();
 
         //$ownId = $response[0];//[0]['source']['doc']['owner_id'];

@@ -181,7 +181,7 @@ class Controller extends CController {
             $article_id = $this->getUserInput($requireParams[1]);
             $owner_id = $this->getUserInput($requireParams[2]);
             $requestArray = array();
-            $requestStringOne = 'couchbaseDocument.doc.photo.photo_articleId=' . $article_id;
+            $requestStringOne = 'couchbaseDocument.doc.collection_id=' . $article_id;
             array_push($requestArray, $requestStringOne);
             $requestStringTwo = 'couchbaseDocument.doc.owner_id=' . $owner_id;
             array_push($requestArray, $requestStringTwo);
@@ -238,6 +238,7 @@ class Controller extends CController {
     protected function getmustQuestWithQueryString($queryString) {
         $mustQuery = explode('=', $queryString);
         $should = Sherlock\Sherlock::queryBuilder()->QueryString()->query($mustQuery[1])//$collection_id
+                ->default_field($mustQuery[0])
                 // ->default_field($mustQuery[0])
                 ->default_operator('AND');
         return $should;
@@ -250,7 +251,7 @@ class Controller extends CController {
         $max = sizeof($requestArray);
         $bool = Sherlock\Sherlock::queryBuilder()->Bool();
         for ($i = 0; $i < $max; $i++) {
-            $must = $this->getmustQuestWithQueryString($requestArray[$i]);
+            $must = $this->getmustQuestWithQueryString($requestArray[$i]);   
             if ($search_type == "must") {
                 $bool->must($must);
             } else if ($search_type == "should") {

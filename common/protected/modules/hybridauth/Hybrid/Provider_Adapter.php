@@ -266,17 +266,11 @@ class Hybrid_Provider_Adapter {
      * return the provider config by id; insensitive
      */
     function getProviderCiId($id) {
-        //                    foreach( Hybrid_Auth::$config["modules"]["hybridauth"]["providers"] as $idpid => $params ){
-        error_log('sssssssssssssssssssssssssss');
-   //     error_log(var_export(Hybrid_Auth::$config["providers"], true));
         foreach (Hybrid_Auth::$config["providers"] as $idpid => $params) {
-
-
             if (strtolower($idpid) == strtolower($id)) {
                 return $idpid;
             }
         }
-
         return NULL;
     }
 

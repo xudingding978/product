@@ -50,7 +50,7 @@ function program2(depth0,data) {
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "exit", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(">\n                     <i class=\"icon-remove\"></i>\n                </div> \n            </div>  \n        </div> \n\n\n        <div style=\"display: inline-block; color:#555; font-size: 16px; font-weight: bold;vertical-align: top;margin-right: 20px;\"> \n            <div style=\"margin-bottom: 10px;\">Collections</div>\n            <div>Comment</div>\n        </div>\n\n        <div style=\"display:inline-block; margin: 0 15px;\">\n\n            <div ");
+  data.buffer.push(">\n                     <i class=\"icon-remove\"></i>\n                </div> \n            </div>  \n        </div> \n\n\n        <div style=\"display: inline-block; color:#555; font-size: 16px; font-weight: bold;vertical-align: top;margin-right: 20px;\"> \n            <div style=\"margin-bottom: 10px;\">Collections</div>\n            <div> </div>\n        </div>\n\n        <div style=\"display:inline-block; margin: 0 15px;\">\n\n            <div ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "collectionSwitch", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -68,7 +68,7 @@ function program2(depth0,data) {
     'rows': ("12"),
     'cols': ("70"),
     'class': ("collect_descriptionbox"),
-    'placeholder': ("please input your comment.........")
+    'placeholder': ("Say something about it!")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
   data.buffer.push("\n            </div>\n\n            ");
   hashTypes = {};
@@ -1880,7 +1880,7 @@ function program4(depth0,data) {
 Ember.TEMPLATES["htmlEditor"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
-  var buffer = '', hashContexts, hashTypes, escapeExpression=this.escapeExpression;
+  var buffer = '', hashTypes, hashContexts, escapeExpression=this.escapeExpression;
 
 
   data.buffer.push("\n<div id=\"wysihtml5-editor-toolbar\" style=\"background-color: #f3f3f3;border-bottom: 1px dashed #999;background-clip: padding-box;\">\n    <header>\n        <ul class=\"commands\">\n            <li data-wysihtml5-command=\"bold\" title=\"Make text bold (CTRL + B)\" class=\"command easing\"><i class=\"icon-bold editor-icon\">&nbsp;</i></li>\n            <li data-wysihtml5-command=\"italic\" title=\"Make text italic (CTRL + I)\" class=\"command easing\"><i class=\"icon-italic editor-icon\">&nbsp;</i></li>\n            <li data-wysihtml5-command=\"insertUnorderedList\" title=\"Insert an unordered list\" class=\"command easing\"><i class=\"icon-list-ul editor-icon\">&nbsp;</i></li>\n            <li data-wysihtml5-command=\"insertOrderedList\" title=\"Insert an ordered list\" class=\"command easing\"><i class=\"icon-list-ol editor-icon\">&nbsp;</i></li>\n            <li data-wysihtml5-command=\"createLink\" title=\"Insert a link\" class=\"command easing\"><i class=\"icon-link editor-icon\">&nbsp;</i></li>\n            <li data-wysihtml5-command=\"insertImage\" title=\"Insert an image\" class=\"command easing\"><i class=\"icon-picture editor-icon\">&nbsp;</i></li>\n            <li data-wysihtml5-command=\"formatBlock\" data-wysihtml5-command-value=\"h1\" title=\"Insert headline 1\" class=\"command easing\"><i class=\"editor-icon\">H1</i></li>\n            <li data-wysihtml5-command=\"formatBlock\" data-wysihtml5-command-value=\"h2\" title=\"Insert headline 2\" class=\"command easing\"><i class=\"editor-icon\">H2</i></li>\n            <li data-wysihtml5-command-group=\"foreColor\" class=\"fore-color\" title=\"Color the selected text\" class=\"command easing\"><i class=\"editor-icon\"> T </i>\n                <ul>\n                    <li data-wysihtml5-command=\"foreColor\" data-wysihtml5-command-value=\"silver\"></li>\n                    <li data-wysihtml5-command=\"foreColor\" data-wysihtml5-command-value=\"gray\"></li>\n                    <li data-wysihtml5-command=\"foreColor\" data-wysihtml5-command-value=\"maroon\"></li>\n                    <li data-wysihtml5-command=\"foreColor\" data-wysihtml5-command-value=\"red\"></li>\n                    <li data-wysihtml5-command=\"foreColor\" data-wysihtml5-command-value=\"purple\"></li>\n                    <li data-wysihtml5-command=\"foreColor\" data-wysihtml5-command-value=\"green\"></li>\n                    <li data-wysihtml5-command=\"foreColor\" data-wysihtml5-command-value=\"olive\"></li>\n                    <li data-wysihtml5-command=\"foreColor\" data-wysihtml5-command-value=\"navy\"></li>\n                    <li data-wysihtml5-command=\"foreColor\" data-wysihtml5-command-value=\"blue\"></li>\n                </ul>\n            </li>\n            <li data-wysihtml5-command=\"insertSpeech\" title=\"Insert speech\" class=\"command easing\"><i class=\"icon-microphone editor-icon\">&nbsp;</i></li>\n            <li data-wysihtml5-action=\"change_view\" title=\"Show HTML\" class=\"action easing\"><i class=\"icon-code editor-icon\">&nbsp;</i></li>\n        </ul>\n    </header>\n    <div data-wysihtml5-dialog=\"createLink\" class=\"easing\" style=\"display: none;z-index: 10;opacity: .9\">\n        <div style=\"display: inline-block; margin: 0 10px;font-weight: bold; color: #888;\">\n            Link:\n            <input class=\"disabled-btn\" style=\"top:0\" data-wysihtml5-dialog-field=\"href\" value=\"http://\">\n        </div>\n        <a class=\"new-btn blue-btn\" data-wysihtml5-dialog-action=\"save\" style=\"top:0\">OK</a>&nbsp;<a class=\"new-btn\" data-wysihtml5-dialog-action=\"cancel\" style=\"top:0\">Cancel</a>\n    </div>\n\n\n    <div data-wysihtml5-dialog=\"insertImage\" class=\"easing\" style=\"display: none;z-index: 10;opacity: .9\">\n        <div style=\"display: inline-block; margin: 0 10px;font-weight: bold; color: #888;\">\n            Image:\n            <input class=\"disabled-btn\" style=\"top:0\" data-wysihtml5-dialog-field=\"src\" value=\"http://\">\n        </div>\n        <a class=\"new-btn blue-btn\" data-wysihtml5-dialog-action=\"save\" style=\"top:0\">OK</a>&nbsp;<a class=\"new-btn\" data-wysihtml5-dialog-action=\"cancel\" style=\"top:0\">Cancel</a>\n    </div>\n</div>\n\n\n<section>\n\n    <div class=\"wysihtml5_text-area\" style=\"overflow: hidden;width: 99%;\">\n        ");
@@ -3223,7 +3223,7 @@ function program10(depth0,data) {
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.unbound.call(depth0, "id", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("\" style=\"width: 200px; margin: 0 auto; left: 100px;\">\n\n             <li class=\"ite\" ");
+  data.buffer.push("\" style=\"width: 170px; margin: 0 auto; left: 100px;padding: 0\">\n\n                <li class=\"ite\" ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "fbShare", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -3231,61 +3231,61 @@ function program10(depth0,data) {
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "tShare", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(" >\n                    <k class=\"icon-twitter\" style=\"font-size: 16px;  margin: 0px 5px;position: absolute\"></k><span style=\"margin-left: 2.5em\">Twitter</span></li>\n\n            <li class=\"ite\" ");
+  data.buffer.push(" >\n        <k class=\"icon-twitter\" style=\"font-size: 16px;  margin: 0px 5px;position: absolute\"></k><span style=\"margin-left: 2.5em\">Twitter</span></li>\n\n        <li class=\"ite\" ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "gpShare", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(">\n                    <k class=\"icon-google-plus\" style=\"font-size: 16px; margin: 0px 5px;position: absolute\"></k><span style=\"margin-left: 2.5em\">Google+</span></li>\n        </ul>\n\n\n\n        <div class=\"closeview\" ");
+  data.buffer.push(">\n    <k class=\"icon-google-plus\" style=\"font-size: 16px; margin: 0px 5px;position: absolute\"></k><span style=\"margin-left: 2.5em\">Google+</span></li>\n</ul>\n\n\n\n<div class=\"closeview\" ");
   hashContexts = {'on': depth0,'target': depth0};
   hashTypes = {'on': "STRING",'target': "STRING"};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "closeWindow", {hash:{
     'on': ("click"),
     'target': ("controller")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(" >\n            <i class=\"icon-remove\"></i>\n        </div>\n    </div>\n\n    <div class=\"mainfeature\">\n        <div class=\"previous\" style=\"width: 50%; height: 100%; float: left;\" ");
+  data.buffer.push(" >\n    <i class=\"icon-remove\"></i>\n</div>\n</div>\n\n<div class=\"mainfeature\">\n    <div class=\"previous\" style=\"width: 50%; height: 100%; float: left;\" ");
   hashContexts = {'on': depth0,'target': depth0};
   hashTypes = {'on': "STRING",'target': "STRING"};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "previesImage", {hash:{
     'on': ("click"),
     'target': ("controller")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("></div>\n        <div class=\"next\" style=\"width: 50%; height: 100%; float: right;\"  ");
+  data.buffer.push("></div>\n    <div class=\"next\" style=\"width: 50%; height: 100%; float: right;\"  ");
   hashContexts = {'on': depth0,'target': depth0};
   hashTypes = {'on': "STRING",'target': "STRING"};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "nextImage", {hash:{
     'on': ("click"),
     'target': ("controller")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("></div>\n        ");
+  data.buffer.push("></div>\n    ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "HubStar.PhotoDisplayAreaView", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("\n    </div>\n    <!--THIS IS THE ALBUM BOX-->\n\n    ");
+  data.buffer.push("\n</div>\n<!--THIS IS THE ALBUM BOX-->\n\n");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "HubStar.ShowAlbumView", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("\n\n    <!--THIS IS THE ALBUM BOX-->\n\n    <div class=\"bottom-controlbar easing\" >\n        <div class=\"text-on-black\" style=\"right: 132px;\"></div>\n        <div class=\"icon-on-black\"  ");
+  data.buffer.push("\n\n<!--THIS IS THE ALBUM BOX-->\n\n<div class=\"bottom-controlbar easing\" >\n    <div class=\"text-on-black\" style=\"right: 132px;\"></div>\n    <div class=\"icon-on-black\"  ");
   hashContexts = {'on': depth0,'target': depth0};
   hashTypes = {'on': "STRING",'target': "STRING"};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "previesImage", {hash:{
     'on': ("click"),
     'target': ("controller")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(" style=\"display:inline-block; vertical-align: top; position:relative; left:44px;\">\n            <i class=\"icon-arrow-left\"></i>\n        </div>\n        <div class=\"icon-on-black hint--rounded hint--top\" data-hint=\"Show other photos in this collection.\" style=\"left: 44px; display:inline-block; vertical-align: top; position:relative;\" ");
+  data.buffer.push(" style=\"display:inline-block; vertical-align: top; position:relative; left:44px;\">\n        <i class=\"icon-arrow-left\"></i>\n    </div>\n    <div class=\"icon-on-black hint--rounded hint--top\" data-hint=\"Show other photos in this collection.\" style=\"left: 44px; display:inline-block; vertical-align: top; position:relative;\" ");
   hashContexts = {'on': depth0,'target': depth0};
   hashTypes = {'on': "STRING",'target': "STRING"};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "popupAibum", {hash:{
     'on': ("click"),
     'target': ("view")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(">\n            <i class=\"icon-th\"></i>\n        </div>\n        <div class=\"icon-on-black\" style=\"left: 44px;position: relative;vertical-align: top;display: inline-block;\" ");
+  data.buffer.push(">\n        <i class=\"icon-th\"></i>\n    </div>\n    <div class=\"icon-on-black\" style=\"left: 44px;position: relative;vertical-align: top;display: inline-block;\" ");
   hashContexts = {'on': depth0,'target': depth0};
   hashTypes = {'on': "STRING",'target': "STRING"};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "nextImage", {hash:{
     'on': ("click"),
     'target': ("controller")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(">\n            <i class=\"icon-arrow-right\"></i>\n        </div>\n        <div class=\"text-on-black\" style=\"left: 88px; top:0;position: relative;display: inline-block;vertical-align: top;\"> ");
+  data.buffer.push(">\n        <i class=\"icon-arrow-right\"></i>\n    </div>\n    <div class=\"text-on-black\" style=\"left: 88px; top:0;position: relative;display: inline-block;vertical-align: top;\"> ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "controller.image_no", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -3293,7 +3293,7 @@ function program10(depth0,data) {
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "content.length", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(" </div>\n    </div>\n\n\n\n\n</div>\n\n\n<div class=\"objectview-right\">\n\n    <!-- USER SECTION -->\n    <div style=\"cursor: pointer;\">\n        <div class=\"object-poster easing\" ");
+  data.buffer.push(" </div>\n</div>\n\n\n\n\n</div>\n\n\n<div class=\"objectview-right\">\n\n    <!-- USER SECTION -->\n    <div style=\"cursor: pointer;\">\n        <div class=\"object-poster easing\" ");
   hashContexts = {'on': depth0,'target': depth0};
   hashTypes = {'on': "STRING",'target': "STRING"};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "setNameTag", {hash:{

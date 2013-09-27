@@ -209,13 +209,25 @@ HubStar.MegaController = Ember.ArrayController.extend({
     // share to social facebook
     fbShare: function() {
         var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
+        var caption='';
+       
+        if(this.get('selectedPhoto').get('photo_caption')!==null)
+            {
+                caption =this.get('selectedPhoto').get('photo_caption');
+            }
+            else
+                {
+                    caption='';
+                }
+                
+         //console.log(caption);
         appID = '358102574293594';
         var url = 'http://www.facebook.com/dialog/feed?app_id=' + appID +
                 '&link=' + encodeURIComponent(currntUrl) +
                 '&picture=' + encodeURIComponent(this.get('selectedPhoto').get('photo_image_thumbnail_url')) +
                 '&name=' + encodeURIComponent(this.get('selectedPhoto').get('photo_title')) +
                 '&caption=' + encodeURIComponent('Trends Ideas') +
-                '&description=' + encodeURIComponent(this.get('selectedPhoto').get('photo_caption')) +
+                '&description=' + encodeURIComponent(caption) +
                 '&redirect_uri=' + encodeURIComponent("http://www.facebook.com/") +
                 '&display=popup';
         window.open(url,
@@ -224,10 +236,18 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     //share to social google plus
     gpShare: function() {
-
+          var caption='';
+        if(this.get('selectedPhoto').get('photo_caption')!==null)
+            {
+                caption =this.get('selectedPhoto').get('photo_caption');
+            }
+             else
+                {
+                    caption='';
+                }
         var metas = document.getElementsByTagName("meta");
         $("meta[property='og\\:title']").attr("content", this.get('selectedPhoto').get('photo_title'));
-        $("meta[property='og\\:description']").attr("content", this.get('selectedPhoto').get('photo_caption'));
+        $("meta[property='og\\:description']").attr("content", caption);
         $("meta[property='og\\:image']").attr("content", this.get('selectedPhoto').get('photo_image_thumbnail_url'));
         //test code of change information
 //$("meta[property='og\\:url']").attr("content", 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id'));

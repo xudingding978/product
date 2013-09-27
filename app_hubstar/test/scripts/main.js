@@ -724,7 +724,7 @@ HubStar.ArticleRoute = Ember.Route.extend({
         //     controller: HubStarlicationController,
         setupController: function(controller, model) {
             var temp;
-        if (model.id === undefined) {                        //reload page model id can not be find
+        if (model.id === undefined) {                        //reload the page model id can not be find...
             var url =  window.location.href;
             urlArray = url.split("/");
             temp = urlArray[urlArray.length-1];
@@ -1790,21 +1790,26 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
     },
     submit: function()
     {
-        var collectionController = this.get('controllers.collection');
-        var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
-        var content = collection.get("collection_ids");
-        this.addCollection(collection, content);
+        console.log(this.get('selectionPop'));
+        if (this.get("selectionPop") !==true) {
+            var collectionController = this.get('controllers.collection');
+            var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
+            var content = collection.get("collection_ids");
+            this.addCollection(collection, content);
 
-        this.set("commentObject", HubStar.Mega.find(this.get("objectID")));
+            this.set("commentObject", HubStar.Mega.find(this.get("objectID")));
 
-        this.addComment();
+            this.addComment();
 
 
-        collection.set('optional', localStorage.loginStatus);
-        collection.set('type', 'user');
-        collection.store.save();
-        this.get('controllers.applicationFeedback').statusObserver(null, "saved photo successfully!!!");
-        this.exit();
+            collection.set('optional', localStorage.loginStatus);
+            collection.set('type', 'user');
+            collection.store.save();
+            this.get('controllers.applicationFeedback').statusObserver(null, "Saved photo successfully!!!");
+            this.exit();
+        } else {
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please choose a collection!!!");
+        }
     },
     addComment: function() {
 
@@ -1949,8 +1954,12 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
 (function() {
 
 
+ /*global HubStar */
+ /*global Ember */
+/*global $:false */
+
 HubStar.ApplicationController = Ember.ArrayController.extend({
-    needs: ['status'],
+    needs: ['status', 'applicationFeedback'],
     content: [],
     loginInfo: "",
     search_area: "",
@@ -2018,6 +2027,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     $('#masonry_container').masonry("reload");
                 }, 2200);
                 that.set('loadingTime', false);
+                if (results.get("length") === 0) {
+                    that.get('controllers.applicationFeedback').statusObserver(null, "You Have Reached The End Of Your Search Results", "info"); //added user flash message
+                }
             }
         });
     },
@@ -2038,7 +2050,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 HubStar.set('itemNumber', megasResults.get("length"));
                 for (var i = 0; i < megasResults.get("length"); i++) {
                     var tempmega = megasResults.objectAt(i);
-                     //console.log(tempmega.get("profile").objectAt(0));
+                    //console.log(tempmega.get("profile").objectAt(0));
                     if (tempmega.get("profile").objectAt(0) !== undefined) {
                         var isFollow = false;
                         for (var j = 0; j < tempmega.get("profile").objectAt(0).get("followers").get("length"); j++)
@@ -2100,51 +2112,48 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 HubStar.ApplicationFeedbackController = Ember.Controller.extend({
     needs: ['application'],
     photo_url: '',
-    is_remove:false,
-
-    
+    is_remove: false,
     setFeedback: function(status) {
-     
-       this.set('is_remove',false);
-       if(this.get('is_remove')===false){
-           this.set('status', status);
-        this.set('feedback', true);
-        var currentUser = HubStar.User.find(localStorage.loginStatus);
-        this.set('photo_url', currentUser.get('photo_url_large'));
-        Ember.run.later(function() {
-             
-          $('.fresh-message').show().animate({
-                    top:20      
+
+        this.set('is_remove', false);
+        if (this.get('is_remove') === false) {
+            this.set('status', status);
+            this.set('feedback', true);
+            var currentUser = HubStar.User.find(localStorage.loginStatus);
+            this.set('photo_url', currentUser.get('photo_url_large'));
+            Ember.run.later(function() {
+
+                $('.fresh-message').show().animate({
+                    top: 20
                 }, 400);
-              $('.fresh-profile-pic').show().animate({
-                    top:5      
+                $('.fresh-profile-pic').show().animate({
+                    top: 5
                 }, 400);
                 $('.fresh-message').show().delay(5000).animate({
-                  top:-85              
-                }, 400);        
-                $('.fresh-profile-pic').show().delay(5000).animate({
-                    top:-110                 
+                    top: -85
                 }, 400);
-           
-          
-          /*  $('#appfeedback').fadeOut(1000, function() {
+                $('.fresh-profile-pic').show().delay(5000).animate({
+                    top: -110
+                }, 400);
 
-                that.set('feedback', false); 
-            });*/
-        }, 500);
-       }
-        this.set('is_remove',true);
-       // console.log("true");
+
+                /*  $('#appfeedback').fadeOut(1000, function() {
+                 
+                 that.set('feedback', false); 
+                 });*/
+            }, 500);
+        }
+        this.set('is_remove', true);
+        // console.log("true");
         Ember.run.next(function() {
 
         });
 
     },
-    
-     removeButton:function(){
+    removeButton: function() {
 
-       if(this.get('is_remove')===true){
-   
+        if (this.get('is_remove') === true) {
+
 //            $('.fresh-message').attr('style', "display:none").animate({
 //       
 //                }, 400);
@@ -2152,67 +2161,72 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
 //                            
 //                }, 400);        
 //
-                $('.fresh-message').hide('1000').animate({                        
-                }, 400);
-             $('.fresh-profile-pic').hide('1000').animate({                        
-             }, 400);  
+            $('.fresh-message').hide('1000').animate({
+            }, 400);
+            $('.fresh-profile-pic').hide('1000').animate({
+            }, 400);
 
-               
-          this.set('is_remove',false);
 
-     }
- 
-     },
-            
-            
-            
-            
-    statusObserver: function(record, infoChecking) {
+            this.set('is_remove', false);
+
+        }
+
+    },
+    statusObserver: function(record, infoChecking, status) {
         var that = this;
         var noError = true;
-
-        if (infoChecking !== null)
-        {
-            that.set("info", false);
-            that.set("succeed", true);
+        // added the ability to show different flash message colours #371
+        if (status === "info") {
+            that.set("info", true);
+            that.set("succeed", false);
             that.set("warnning", false);
             that.set("failed", false);
             that.setFeedback(infoChecking);
-        } else {
-            record.addObserver("isError", function() {
-                if (record.get("isError")) {
-                    that.set("info", false);
-                    that.set("succeed", false);
-                    that.set("warnning", false);
-                    that.set("failed", true);
-                    that.setFeedback("There is error");
-
-                    noError = false;
-                }
-                else {
-                }
-
-                record.removeObserver("isError");
-            });
-            if (noError) {
-                record.addObserver("isSaving", function() {
-                    if (record.get("isSaving")) {
+        }
+        else {
+            if (infoChecking !== null)
+            {
+                that.set("info", false);
+                that.set("succeed", true);
+                that.set("warnning", false);
+                that.set("failed", false);
+                that.setFeedback(infoChecking);
+            } else {
+                record.addObserver("isError", function() {
+                    if (record.get("isError")) {
                         that.set("info", false);
-                        that.set("succeed", true);
+                        that.set("succeed", false);
                         that.set("warnning", false);
-                        that.set("failed", false);
-                        that.setFeedback("updateSucess");
+                        that.set("failed", true);
+                        that.setFeedback("There is error");
 
+                        noError = false;
                     }
                     else {
-                        //    console.log('isSaving:   false');
                     }
 
-                    record.removeObserver("isSaving");
+                    record.removeObserver("isError");
                 });
+                if (noError) {
+                    record.addObserver("isSaving", function() {
+                        if (record.get("isSaving")) {
+                            that.set("info", false);
+                            that.set("succeed", true);
+                            that.set("warnning", false);
+                            that.set("failed", false);
+                            that.setFeedback("updateSucess");
+
+                        }
+                        else {
+
+                        }
+
+                        record.removeObserver("isSaving");
+                    });
+
+                }
 
             }
-
         }
     }
 
@@ -2245,7 +2259,6 @@ HubStar.ArticleController = Ember.Controller.extend({
         if (!this.get('selectedPhoto')) {
             this.set('selectedPhoto', this.get('content').get('lastObject'));
         }
-
         var selectedIndex = this.findSelectedItemIndex();
         selectedIndex--;
         if (selectedIndex < 0) {
@@ -2458,6 +2471,9 @@ HubStar.CollectionController = Ember.Controller.extend({
         }
         return isExsinting;
     }, 
+            
+ 
+            
         specialCharactersChecking: function(str) {
         var re = /^[a-zA-Z-][a-zA-Z0-9-]*$/;
         return re.test(str);
@@ -3594,7 +3610,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 }
         var metas = document.getElementsByTagName("meta");
         $("meta[property='og\\:title']").attr("content", this.get('selectedPhoto').get('photo_title'));
-        $("meta[property='og\\:description']").attr("content", this.get('selectedPhoto').get('photo_caption'));
+        $("meta[property='og\\:description']").attr("content", caption);
         $("meta[property='og\\:image']").attr("content", this.get('selectedPhoto').get('photo_image_thumbnail_url'));
         //test code of change information
 //$("meta[property='og\\:url']").attr("content", 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id'));
@@ -6052,8 +6068,9 @@ HubStar.UserController = Ember.Controller.extend({
             //       var patternUrl = /^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([\w]+)(.[\w]+){1,2}$/;
 
             var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
+          
             document.getElementById(checkList[i].id).style.border = '';
-
+//console.log(checkList[i].id);
             if (checkList[i].input !== null && checkList[i].input.length > checkList[i].length)
             {
                 result = false;
@@ -6290,6 +6307,8 @@ if (checkList[i].id === 'first_name' || checkList[i].id === 'last_name')
     {
         this.set("isEditingMode", !this.get("isEditingMode"));
     },
+            
+            
     setCollectionAttr: function() {
         this.set("newTitle", this.get('selectedCollection').get('title'));
         this.set("newDesc", this.get('selectedCollection').get('desc'));
@@ -6641,8 +6660,6 @@ HubStar.UserFollowersController = Ember.Controller.extend({
                 var currentUserNew = HubStar.User.find(localStorage.loginStatus);
                 thisThis.checkFollowStatus(currentUserNew, thatNew, null);
                 thisThis.get("controllers.user").set("userFollowerStatistics", tempUser.get("followers").get("length"));
-                
-                
                 
                 var tempFollowing = HubStar.Follower.createRecord({"follower_profile_pic_url": null,
                     "follower_id":user_id, "name": null, "type": "user", "time_stamp": date.toString(), "is_delete": false});

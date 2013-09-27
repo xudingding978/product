@@ -200,8 +200,6 @@ class DefaultController extends CController {
         $temp["user"][0]["birth_month"] = $userProfile->BIRTH_MONTH;
         $temp["user"][0]["birth_year"] = $userProfile->BIRTH_YEAR;
         $temp["user"][0]["selected_topics"] = "";
-
-
         $temp["user"][0]["email"] = $userProfile->EMAIL;
         $temp["user"][0]["phone"] = $userProfile->PHONE;
         $temp["user"][0]["email_verified"] = $userProfile->EMAIL_VERIFIED;

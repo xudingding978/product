@@ -71,7 +71,7 @@ function crop(imageSrc) {
     ctx = canvas.getContext('2d');
 
     // create initial selection
-    theSelection = new Selection(20, 20,100, 100);
+    theSelection = new Selection(20, 20,150, 150);
 
     $('#panel').mousemove(function(e) { // binding mouse move event
         var canvasOffset = $(canvas).offset();

@@ -773,18 +773,19 @@ HubStar.UserController = Ember.Controller.extend({
     {
         var cropData = getResults();
         this.set('newStyleImageSource', cropData);
+        
 
-        // console.log(this.get('newStyleImageSource') );
+       console.log(this.get('newStyleImageSource') );
         if (this.get('newStyleImageSource') !== null && this.get('newStyleImageSource') !== "")
         {
-            //       console.log(this.get('newStyleImageSource') );
+                 console.log(this.get('newStyleImageSource') );
             var src = this.get('newStyleImageSource');
             var that = this;
             getImageWidth(src, function(width, height) {
                 that.set('currentWidth', width);
                 that.set('currentHeight', height);
                 var data = {"RequireIamgeType": that.get('UploadImageMode')};
-                //   console.log(that.get('newStyleImageSource') );
+                 console.log(that.get('newStyleImageSource') );
                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
                     if ((width >= params.width) && (height >= params.height))
                     {
@@ -792,7 +793,7 @@ HubStar.UserController = Ember.Controller.extend({
                         var type = imageName[imageName.length - 1];
 
                         that.setTempImage();
-                        //      console.log(that.get('newStyleImageSource') );
+                            console.log(that.get('newStyleImageSource') );
                         $('#uploadStyleImg').attr("style", "display:block");
                         var data1 = {"newStyleImageSource": that.get('newStyleImageSource'),
                             'newStyleImageName': that.get('newStyleImageName'),
@@ -801,7 +802,7 @@ HubStar.UserController = Ember.Controller.extend({
                         requiredBackEnd('users', 'updateStyleImage', data1, 'POST', function(params) {
                             $('#uploadStyleImg').attr("style", "display:none");
                             that.set('isPhotoUploadMode', false);
-                            //  console.log("4"+that.get('newStyleImageSource') );
+                            console.log("4"+that.get('newStyleImageSource') );
                             HubStar.store.save();
                         });
                         that.userPhotoEditBackButton();

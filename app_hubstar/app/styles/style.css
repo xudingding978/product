@@ -513,6 +513,10 @@ div.search-loading-invisible{
     list-style: none;
 }
 
+.edit-object-ul > .ite{
+    padding:6px 15px 6px 30px;
+}
+
 .ite:hover{
     background-color: rgba(0,0,0,0.1);
 }

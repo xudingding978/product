@@ -15,7 +15,6 @@ class DefaultController extends CController {
     public function actionLogin() {
         //try {
 
-
         $this->layout = '//layouts/signup';
 
         if (!isset(Yii::app()->session['hybridauth-ref'])) {
@@ -40,6 +39,8 @@ class DefaultController extends CController {
      */
     private function _doLogin() {
 
+      
+        
         if (!isset($_GET['provider']))
             throw new Exception("You haven't supplied a provider");
 
@@ -48,21 +49,13 @@ class DefaultController extends CController {
         }
 
         $identity = new RemoteUserIdentity($_GET['provider'], $this->module->getHybridauth());
-
-
-        if ($identity->authenticate()) {
-
-
-
+        if ($identity->authenticate()) {       
             // They have authenticated AND we have a user record associated with that provider
+
             if (Yii::app()->user->isGuest) {
 
                 $this->_loginUser($identity);
             } else {
-
-
-
-
                 //        Yii::app()->session['data'] = Yii::app()->user->id;
                 $this->render('close');
             }
@@ -71,7 +64,7 @@ class DefaultController extends CController {
             if (Yii::app()->user->isGuest) {
 
                 // They aren't logged in => display a form to choose their username & email 
-                // (we might not get it from the provider)
+                // (we might not get it from the provider) 
                 if ($this->module->withYiiUser == true) {
                     Yii::import('application.modules.user.models.*');
                 } else {
@@ -79,22 +72,29 @@ class DefaultController extends CController {
                 }
 
                 $user = new User;
-
                 if (isset($_POST['User'])) {
                     //Save the form
                     $user->attributes = $_POST['User'];
                     $user->REC_DATETIME = new CDbExpression('NOW()');
                     $user->REC_TIMESTAMP = new CDbExpression('NOW()');
+
+                    // creating the users record in the Users table - DingDing to investigate
                     if ($user->validate() && $user->save()) {
-                        if ($this->module->withYiiUser == true) {
-                            
-                        }
-
-
+//                        if ($this->module->withYiiUser == true) {
+//                            
+//                        }
                         $identity->id = $user->REC_ID;
                         $identity->username = $user->USER_NAME;
-                        $this->_linkProvider($identity);
-                        $this->_loginUser($identity);
+                        
+                        // creates the Users Profile record in the userprofile table
+                        $this->_linkProvider($identity);  
+                        
+                        // post to facebook on successful registration
+                        
+                        // login in the user and redirect 
+                        $this->_loginUser($identity); 
+                        
+                        
                     } // } else { do nothing } => the form will get redisplayed
                 } else {
                     //Display the form with some entries prefilled if we have the info.
@@ -128,10 +128,8 @@ class DefaultController extends CController {
         $adapter = $hybridauth->authenticate($_GET['provider']);
 
 
-        $user_profile = $adapter->getUserProfile();
-        error_log(var_export($user_profile, true));
-
-        error_log(000000000000);
+        $user_profile = $adapter->getUserProfile(true);
+       
         $user = new User;
         $user->attributes = $_POST['User'];
         $user->TENANT_REC_ID = 1;
@@ -221,16 +219,17 @@ class DefaultController extends CController {
         $cb->add(substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.') + 1) . "/users/" . $rand_id, CJSON::encode($temp));
     }
 
+    
+       /**
+     * Action for successful authenication with their SocialMedia provider
+     *  
+     */
     private function _loginUser($identity) {
         Yii::app()->user->login($identity, 0);
-
-
         if (Yii::app()->session['newUser'] == "new") {
-
             $this->render('welcome');
             unset(Yii::app()->session['newUser']);
         } else {
-
             $this->render('close');
         }
     }

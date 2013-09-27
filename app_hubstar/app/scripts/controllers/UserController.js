@@ -82,8 +82,7 @@ HubStar.UserController = Ember.Controller.extend({
 //        var address = document.URL;
 //        var user_id = address.split("#")[1].split("/")[2];
         user_id = localStorage.loginStatus;
-
-    {            
+            
         var address = document.URL;
         var user_id = address.split("#")[1].split("/")[2];
 
@@ -93,7 +92,7 @@ HubStar.UserController = Ember.Controller.extend({
     },
     setUser: function()
     {
-        console.log(this.get('model'));
+     //   console.log(this.get('model'));
         var user = this.get('model');
         this.setIntersetsArr(user);
 //        this.set("model", user);
@@ -341,6 +340,8 @@ HubStar.UserController = Ember.Controller.extend({
             $(" #uploadArea").attr('style', "display:none");
             $(" #uploadObject").attr('style', "display:block");
             this.statstics();
+            this.set('newTitle','');
+            this.set('newDesc','');
         }
     },
     
@@ -614,7 +615,7 @@ if (checkList[i].id === 'first_name' || checkList[i].id === 'last_name')
         this.get('selectedCollection').set('title',this.get('newTitle'));
         this.get('selectedCollection').set('desc',this.get('newDesc'));
         var collectionController = this.get('controllers.collection');
-        console.log(this.get('selectedCollection'));
+//        console.log(this.get('selectedCollection'));
         var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
         collection.set('optional', this.get('model').get('id'));
         collection.set('type', 'user');
@@ -623,6 +624,10 @@ if (checkList[i].id === 'first_name' || checkList[i].id === 'last_name')
         $(".Targeting_Object_front").attr("style", "display:inline-block");
         $(" #uploadArea").attr('style', "display:none");
         $(" #uploadObject").attr('style', "display:block");
+        
+        this.set('newTitle','');
+        this.set('newDesc','');
+
 
     },
     setSelectedCollection: function(id) {

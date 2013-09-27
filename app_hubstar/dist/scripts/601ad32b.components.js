@@ -2455,12 +2455,13 @@ var e=function(){},t=0,r=this.document,n=r&&"createRange"in r&&"undefined"!=type
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 function getRestAPIURL()
 {
     var api_url = document.domain;
     var api_domain_start_pos = api_url.indexOf('.');
     var api_url = api_url.slice(api_domain_start_pos);
-    api_url = "http://test-api" + api_url;
+    api_url = "http://api" + api_url;
     return api_url;
 }
 
@@ -2522,14 +2523,11 @@ function getImageWidth(imgSrc, callback) {
     var img = new Image();
     img.src = imgSrc;
     img.onload = function() {
-  
         callback(this.width, this.height);
-       
     };
 
-    
-  }  
-  
+}
+
 function requiredBackEnd(controller, method, para, ajaxType, callback) {
     {
         var tempurl = getRestAPIURL();
@@ -2545,7 +2543,6 @@ function requiredBackEnd(controller, method, para, ajaxType, callback) {
         });
     }
 
-
 }
 function getTarget(obj,type) {
         var targ;
@@ -2560,7 +2557,3 @@ function getTarget(obj,type) {
         }
         return targ;
     }
-    
-    
- 
-    

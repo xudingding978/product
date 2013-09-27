@@ -107,10 +107,15 @@ and open the template in the editor.
     </style>
 
     <script>
+    try {
         document.getElementById("vendor").textContent = "Vendor: " + navigator.vendor;
         document.getElementById("browser").textContent = "Browser: " +  navigator.userAgent;
         document.getElementById("system").textContent = "System: " +  navigator.platform;
         document.getElementById("version").textContent = "Version:  " +  navigator.appVersion;
+    }
+    catch(err){
+        
+    };
     </script>
 
 </html>

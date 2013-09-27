@@ -156,9 +156,10 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
 
     function shareFacebook($name) {
         $args = array(
-            'message' => $name . ', has just login for the Trends Global Web Platform. Click to see what the excitement is about',
+            'message' =>  'I\'m creating new ideas over on the new Trends Ideas Space. Here\'s your inviatation to come and join me. Thanks '.$name.'.',
             'picture' => 'http://s3.hubsrv.com/trendsideas.com/profiles/commercial-design-trends/profile_pic.jpg',
             'link' => 'http://beta.trendsideas.com',
+            'description' =>'Join the design community; CONNECT with products and services, COLLECT and SHARE Ideas and COLLABORATE with professionals - Become a part of Trends Ideas Space',
             'caption' => 'Trends Global Web Platform'
         );
         $post_id = $this->api->api("/me/feed", "post", $args);
@@ -169,6 +170,7 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
             'message' => $name . ', has just registered for the Trends Global Web Platform. Click to see what the excitement is about',
             'picture' => 'http://s3.hubsrv.com/trendsideas.com/profiles/commercial-design-trends/profile_pic.jpg',
             'link' => 'http://beta.trendsideas.com',
+            'description' =>'Join the design community; CONNECT with products and services, COLLECT and SHARE Ideas and COLLABORATE with professionals - Become a part of Trends Ideas Space',
             'caption' => 'Trends Global Web Platform'
         );
         $post_id = $this->api->api("/me/feed", "post", $args);

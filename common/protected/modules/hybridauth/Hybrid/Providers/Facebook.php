@@ -28,8 +28,8 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
 //
 //        $tplUserProfile = TplUserProfile::model()->findByPk(1);
 
-   
-        
+
+
         if (!$this->config["keys"]["id"] || !$this->config["keys"]["secret"]) {
             throw new Exception("Your application id and secret are required in order to connect to {$this->providerId}.", 4);
         }
@@ -49,11 +49,15 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
             require_once Hybrid_Auth::$config["path_libraries"] . "Facebook/facebook.php";
         }
 
-       // $this->api = new Facebook(ARRAY('appId' => $tplUserProfile->facebook_id, 'secret' => $tplUserProfile->facebook_secret));
-        
-           $this->api = new Facebook(ARRAY('appId' => $this->config["keys"]["id"], 'secret' => $this->config["keys"]["secret"]));
+        // $this->api = new Facebook(ARRAY('appId' => $tplUserProfile->facebook_id, 'secret' => $tplUserProfile->facebook_secret));
+
+        $this->api = new Facebook(ARRAY('appId' => $this->config["keys"]["id"], 'secret' => $this->config["keys"]["secret"]));
 
         $this->api->getUser();
+        
+        
+
+        
     }
 
     /**
@@ -73,14 +77,14 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
      * finish login step 
      */
     function loginFinish() {
-        
-        
-         
+
+
+
         // in case we get error_reason=user_denied&error=access_denied
         if (isset($_REQUEST['error']) && $_REQUEST['error'] == "access_denied") {
-            
-        Hybrid_Auth::redirect("http://develop.trendsideas.com/site/close");
-       //     throw new Exception("Authentification failed! The user denied your request.", 5);
+
+            Hybrid_Auth::redirect("http://develop.trendsideas.com/site/close");
+            //     throw new Exception("Authentification failed! The user denied your request.", 5);
         }
 
         // try to get the UID of the connected user from fb, should be > 0 
@@ -109,22 +113,20 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
     /**
      * load the user profile from the IDp api client
      */
-    function getUserProfile() {
+    function getUserProfile($isRegist = null) {
         // request user profile from fb api
-        
-        
-           
+
+
+
         try {
             $data = $this->api->api('/me');
         } catch (FacebookApiException $e) {
             throw new Exception("User profile request failed! {$this->providerId} returned an error: $e", 6);
         }
-
         // if the provider identifier is not recived, we assume the auth has failed
         if (!isset($data["id"])) {
             throw new Exception("User profile request failed! {$this->providerId} api returned an invalid response.", 6);
         }
-
         # store the user profile.
         $this->user->profile->identifier = (array_key_exists('id', $data)) ? $data['id'] : "";
         $this->user->profile->displayName = (array_key_exists('name', $data)) ? $data['name'] : "";
@@ -148,7 +150,36 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
             $this->user->profile->birthYear = (int) $birthday_year;
         }
 
+        
+            if ($isRegist === true) {
+            $this->shareFacebookRegist($this->user->profile->displayName);
+        } 
+
+          
+        
         return $this->user->profile;
+    }
+
+    function shareFacebook($name) {
+        $args = array(
+            'message' =>  'I\'m creating new ideas over on the new Trends Ideas Space. Here\'s your inviatation to come and join me. Thanks '.$name.'.',
+            'picture' => 'http://s3.hubsrv.com/trendsideas.com/profiles/commercial-design-trends/profile_pic.jpg',
+            'link' => 'http://beta.trendsideas.com',
+            'description' =>'Join the design community; CONNECT with products and services, COLLECT and SHARE Ideas and COLLABORATE with professionals - Become a part of Trends Ideas Space',
+            'caption' => 'Trends Global Web Platform'
+        );
+        $post_id = $this->api->api("/me/feed", "post", $args);
+    }
+
+    function shareFacebookRegist($name) {
+        $args = array(
+            'message' => $name . ', has just registered for the Trends Global Web Platform. Click to see what the excitement is about',
+            'picture' => 'http://s3.hubsrv.com/trendsideas.com/profiles/commercial-design-trends/profile_pic.jpg',
+            'link' => 'http://beta.trendsideas.com',
+            'description' =>'Join the design community; CONNECT with products and services, COLLECT and SHARE Ideas and COLLABORATE with professionals - Become a part of Trends Ideas Space',
+            'caption' => 'Trends Global Web Platform'
+        );
+        $post_id = $this->api->api("/me/feed", "post", $args);
     }
 
     /**

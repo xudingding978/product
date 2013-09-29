@@ -4835,6 +4835,7 @@ rangy.createModule("DomRange", function(api, module) {
                                                     for (attributeName in checkAttributes) {
                                                         if (checkAttributes[attributeName] === 'allow') {
                                                             method = 'allow';
+                                                            /* test comment */
                                                         }
                                                         else {
                                                             method = attributeCheckMethods[checkAttributes[attributeName]];

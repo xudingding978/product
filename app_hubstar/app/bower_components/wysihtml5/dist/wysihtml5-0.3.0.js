@@ -4833,7 +4833,7 @@ rangy.createModule("DomRange", function(api, module) {
 
                                                 if (checkAttributes) {
                                                     for (attributeName in checkAttributes) {
-                                                        if (checkAttributes[attributeName] == 'allow') {
+                                                        if (checkAttributes[attributeName] === 'allow') {
                                                             method = 'allow';
                                                         }
                                                         else {
@@ -4842,7 +4842,7 @@ rangy.createModule("DomRange", function(api, module) {
                                                         if (!method) {
                                                             continue;
                                                         }
-                                                        newAttributeValue = (method == 'allow' ? _getAttribute(oldNode, attributeName) : method(_getAttribute(oldNode, attributeName)));
+                                                        newAttributeValue = (method === 'allow' ? _getAttribute(oldNode, attributeName) : method(_getAttribute(oldNode, attributeName)));
                                                         if (typeof(newAttributeValue) === "string") {
                                                             attributes[attributeName] = newAttributeValue;
                                                         }

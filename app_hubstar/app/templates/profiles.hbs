@@ -135,6 +135,22 @@
 </div>    
 
 <script>
+    
+    
+    
+    
+    
+    /* NOTE:************
+     * 
+     *   IF THIS BEHAVES ODDLY SIMPLY REMOVE/ADD "stop()" before all the animate functions EG
+     * 
+     *  $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+     */
+    
+    
+    
+    
+    
     $("#click-register-social").click(function() {
 
         $('#click-register-social').removeClass('social-active');
@@ -144,10 +160,10 @@
             $('#social-link').animate({height: 'toggle'});
             
             if ($('#register-with-email-drop-down').css('display') == 'block') {
-                $('#register-with-email-drop-down').animate({height: 'toggle'});
+                $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
             }
             if ($('#register-with-email-step-2').css('display') == 'block') {
-                $('#register-with-email-step-2').animate({height: 'toggle'});
+                $('#register-with-email-step-2').stop().animate({height: 'toggle'});
             }
         }
         /* hiding social login */
@@ -157,10 +173,10 @@
             $('#click-register-social').addClass('social-active');
 
             if ($('#register-with-email-drop-down').css('display') == 'block') {
-                $('#register-with-email-drop-down').animate({height: 'toggle'});
+                $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
             }
             if ($('#register-with-email-step-2').css('display') == 'block') {
-                $('#register-with-email-step-2').animate({height: 'toggle'});
+                $('#register-with-email-step-2').stop().animate({height: 'toggle'});
             }
         }
         /* showing social login section*/
@@ -198,7 +214,7 @@
         if ($('#register-with-email-step-2').hasClass('active-step')) {
             //alert('closing step2');
 
-            $('#social-link').stop().animate({height: 'toggle'});
+            $('#social-link').animate({height: 'toggle'});
             $('#register-with-email-step-2').stop().animate({height: 'toggle'});
 
             if ($('#click-register').hasClass('active-tab')) {
@@ -210,7 +226,7 @@
                 $('#click-register').addClass('active-tab');
                 /* opening step */
             }
-            checkSocial();
+
         }
         /* closing/opening register section while on step 2 function */
 
@@ -221,7 +237,6 @@
             $('#social-link').stop().animate({height: 'toggle'});
             $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
             $('#click-register-social').addClass('social-active');
-            checkSocial();
 
         }
         /* closing register section while on step 1 function */
@@ -241,7 +256,7 @@
 
     function checkSocial() {
         if ($('#social-link').css('display') == 'block') {
-            $('#social-link').stop().animate({height: 'toggle'});
+            $('#social-link').animate({height: 'toggle'});
         }
         else {
         }
@@ -252,6 +267,7 @@
     $('.login-select').click(function(){
         $('.login-select').removeClass('login-selected');
         $(this).addClass('login-selected');
+
     });
     /* select gender function */
 </script>

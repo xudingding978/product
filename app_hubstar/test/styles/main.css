@@ -7000,6 +7000,7 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
     border-radius: 0 10px 10px 0;
     background-color: rgba(50,50,50,0.4);
     box-shadow: 0 0 10px #fff;
+    height:256px;
 }
 #masonry_user_container
 {

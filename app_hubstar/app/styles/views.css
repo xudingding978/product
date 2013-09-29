@@ -90,7 +90,7 @@
     -moz-box-shadow: 0 0 0 0;
     -webkit-box-shadow: 0 0 0 0;
     box-shadow:0 0 0 0;
-    
+
 }
 .panel.flip .front {
     z-index: 900;
@@ -282,7 +282,7 @@
     position: absolute;
     right: 0;
     top: 0;
-/*    cursor: pointer;*/
+    /*    cursor: pointer;*/
     z-index: 1;
 }
 
@@ -771,7 +771,7 @@
 /* clint */
 .masonry-brick .masonry_more-btn{
     padding-bottom:12.5px;
-    
+
 }
 .masonry_more-btn:hover{
     color: #333;
@@ -804,11 +804,11 @@
 }
 
 .masonry_addcommnetbox-container{
-   /* margin: 0 20px 0 20px; */
-   padding: 0 20px 8.5px 20px;
-   width:100%;
-   clear:both;
-   float:left;
+    /* margin: 0 20px 0 20px; */
+    padding: 0 20px 8.5px 20px;
+    width:100%;
+    clear:both;
+    float:left;
 
 }
 
@@ -1007,7 +1007,7 @@
     font-size: 14px;
     font-weight: bold;
     font-family: FontAwesome, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    
+
 }
 
 
@@ -1717,8 +1717,9 @@
     -moz-background-clip: padding-box;
     background-clip: padding-box;
     margin: 0;
-    
+
     text-align: left;
+    padding: 0;
 }
 
 

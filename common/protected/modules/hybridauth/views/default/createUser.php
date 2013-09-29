@@ -17,7 +17,9 @@
 
         $hybridauth = new Hybrid_Auth($config);
         $adapter = $hybridauth->authenticate($_GET['provider']);
-        $user_profile = $adapter->getUserProfile();
+        $user_profile = $adapter->getUserProfile(false);
+       
+        
         $rand_id = strval(rand(9999999999, 99999999999));
 
         $user->COUCHBASE_ID = $rand_id;

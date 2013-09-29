@@ -31,14 +31,10 @@ class CollectionsController extends Controller {
                  //error_log(var_export($owner["profile"][0]["collections"][$i]["id"],true));
                 if ($owner["profile"][0]["collections"][$i]["id"] === $collection_id[1]) {
                     $title = $owner["profile"][0]["collections"][$i];
-                    //  $title = $owner["profile"][0]["collections"][$i]["title"];
-                    //error_log(var_export($owner["profile"][0]["collections"][$i],true));
-                    //$collectionName = $owner["profile"][0]["collections"][$i]["id"][""];
                     break;
                 }
             }
             $title = CJSON::encode($title, true);
-            //error_log(var_export($title, true));
             $title = '{"'.self::JSON_RESPONSE_ROOT_PLURAL.'":['.$title.']}';
       //      $response = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":' . CJSON::encode($topicSelection, true) . '}';
             

@@ -38,7 +38,7 @@
 
     <div data-wysihtml5-dialog="insertImage" class="easing" style="display: none;z-index: 10;opacity: .9">
         <div style="display: inline-block; margin: 0 10px;font-weight: bold; color: #888;">
-            Image: {{controller}}
+            Image:
             <input class="disabled-btn" style="top:0" data-wysihtml5-dialog-field="src" value="http://">
         </div>
         <a class="new-btn blue-btn" data-wysihtml5-dialog-action="save" style="top:0">OK</a>&nbsp;<a class="new-btn" data-wysihtml5-dialog-action="cancel" style="top:0">Cancel</a>
@@ -57,7 +57,7 @@
 
     var editor = new wysihtml5.Editor("wysihtml5-editor", {
         toolbar: "wysihtml5-editor-toolbar",
-        stylesheets: ["http://yui.yahooapis.com/2.9.0/build/reset/reset-min.css", "bower_components/wysihtml5/css/editor.css"],
+        stylesheets: ["http://yui.yahooapis.com/2.9.0/build/reset/reset-min.css", "styles/editor.css"],
         parserRules: wysihtml5ParserRules
     });
 

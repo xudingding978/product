@@ -1,4 +1,8 @@
 
+ /*global HubStar */
+ /*global Ember */
+/*global $:false */
+
 HubStar.ApplicationController = Ember.ArrayController.extend({
     needs: ['status', 'applicationFeedback'],
     content: [],

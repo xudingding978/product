@@ -20,7 +20,7 @@
     <div style="width: 87%;margin: 40px auto;display: block;line-height: 45px;">
         <img class="logonew" style="position: relative; height: 30px;display: inline-block;vertical-align: top;margin: 8px;" src="../../../images/landing-trends.png">
         <div style="position:relative; float:right; color:white; font-size:15px;font-weight: bold;">
-            <span style="letter-spacing: 1px; margin: 0 0 0 10px;">LOGIN</span>
+            <span style="letter-spacing: 1px; margin: 0 0 0 10px;" onClick="loginPane();">LOGIN</span>
             <span>&nbsp | &nbsp</span>
             <span style="letter-spacing: 1px; margin: 0 0 0 10px;">HELP</span>
         </div>
@@ -34,7 +34,7 @@
         <span>5,000 SERVICES</span>
     </div>
 
-    <div style="position:absolute;width: 33%;text-align: center;top: 21%;margin: auto;display: block;left: 0;right: 0;">
+    <div id="profiles-main-container" style="position:absolute;width: 33%;text-align: center;top: 21%;margin: auto;display: block;left: 0;right: 0;">
         <img style="position: relative;margin: 10px auto 40px -10px; min-width: 320px;width: 70%;" src="../../../images/landing-trends.png">
 
         <div id="click-register-social" class="register-with easing social-active" style="border-radius: 5px 5px 0 0; border-bottom:1px solid #e3e3e3;">
@@ -127,6 +127,13 @@
         </div>
         <!--End of email register section-->
 
+
+        <div id="user-login-pane" class="register-with" style="display:none;">
+            <p>Login</p>
+
+            <div>login with facebook</div>
+            <div>login with email</div>
+        </div>
         <a href="http://trendsideas.com/ViewPage.aspx?pageName=Contact%20Us&region=1" target="blank">
             <span style="font-family: 'Montserrat', sans-serif; font-size: 13px;color: #fff;margin: 15px auto;opacity: .9;display: block;">Learn more</span>
         </a>
@@ -135,139 +142,149 @@
 </div>    
 
 <script>
-    
-    
-    
-    
-    
-    /* NOTE:************
-     * 
-     *   IF THIS BEHAVES ODDLY SIMPLY REMOVE/ADD "stop()" before all the animate functions EG
-     * 
-     *  $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
-     */
-    
-    
-    
-    
-    
-    $("#click-register-social").click(function() {
-
-        $('#click-register-social').removeClass('social-active');
-        $('#click-register').removeClass('active-tab');
-        
-        if ($('#social-link').css('display') == 'block') {
-            $('#social-link').animate({height: 'toggle'});
-            
-            if ($('#register-with-email-drop-down').css('display') == 'block') {
-                $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
-            }
-            if ($('#register-with-email-step-2').css('display') == 'block') {
-                $('#register-with-email-step-2').stop().animate({height: 'toggle'});
-            }
-        }
-        /* hiding social login */
-
-        if ($('#social-link').css('display') == 'none') {
-            $('#social-link').animate({height: 'toggle'});
-            $('#click-register-social').addClass('social-active');
-
-            if ($('#register-with-email-drop-down').css('display') == 'block') {
-                $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
-            }
-            if ($('#register-with-email-step-2').css('display') == 'block') {
-                $('#register-with-email-step-2').stop().animate({height: 'toggle'});
-            }
-        }
-        /* showing social login section*/
-
-    });
-    /* social login slider function */
 
 
-    $("#register-btn").click(function() {
-        //alert('opening step 2');
-        $('#register-with-email-step-2').addClass('active-step');
-        $('#click-register').addClass('active-tab');
-        $('#register-with-email-step-2').stop().animate({height: 'toggle'});
-        $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
-
-        checkSocial();
-
-    });
-    /* clicking register step 2 function*/
 
 
-    $('.back-btn').click(function() {
-        $('#register-with-email-step-2').removeClass('active-step');
-        $('#register-with-email-step-2').stop().animate({height: 'toggle'});
-        $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+
+                /* NOTE:************
+                 * 
+                 *   IF THIS BEHAVES ODDLY SIMPLY REMOVE/ADD "stop()" before all the animate functions EG
+                 * 
+                 *  $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+                 */
 
 
-        checkSocial();
-    });
-    /* going back to step 1 function*/
 
 
-    $(".register-clicker").click(function() {
 
-        if ($('#register-with-email-step-2').hasClass('active-step')) {
-            //alert('closing step2');
+                $("#click-register-social").click(function() {
 
-            $('#social-link').animate({height: 'toggle'});
-            $('#register-with-email-step-2').stop().animate({height: 'toggle'});
+                    $('#click-register-social').removeClass('social-active');
+                    $('#click-register').removeClass('active-tab');
 
-            if ($('#click-register').hasClass('active-tab')) {
-                $('#click-register').removeClass('active-tab');
-                /* closing step */
-            }
+                    if ($('#social-link').css('display') === 'block') {
+                        $('#social-link').animate({height: 'toggle'});
 
-            else {
-                $('#click-register').addClass('active-tab');
-                /* opening step */
-            }
+                        if ($('#register-with-email-drop-down').css('display') === 'block') {
+                            $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+                        }
+                        if ($('#register-with-email-step-2').css('display') === 'block') {
+                            $('#register-with-email-step-2').stop().animate({height: 'toggle'});
+                        }
+                    }
+                    /* hiding social login */
 
-        }
-        /* closing/opening register section while on step 2 function */
+                    if ($('#social-link').css('display') === 'none') {
+                        $('#social-link').animate({height: 'toggle'});
+                        $('#click-register-social').addClass('social-active');
+
+                        if ($('#register-with-email-drop-down').css('display') === 'block') {
+                            $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+                        }
+                        if ($('#register-with-email-step-2').css('display') === 'block') {
+                            $('#register-with-email-step-2').stop().animate({height: 'toggle'});
+                        }
+                    }
+                    /* showing social login section*/
+
+                });
+                /* social login slider function */
 
 
-        if ($('#register-with-email-drop-down').css('display') == 'block' && $('#click-register').hasClass('active-tab')) {
-            //alert('closing step1');
-            $('#click-register').removeClass('active-tab');
-            $('#social-link').stop().animate({height: 'toggle'});
-            $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
-            $('#click-register-social').addClass('social-active');
+                $("#register-btn").click(function() {
+                    //alert('opening step 2');
+                    $('#register-with-email-step-2').addClass('active-step');
+                    $('#click-register').addClass('active-tab');
+                    $('#register-with-email-step-2').stop().animate({height: 'toggle'});
+                    $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
 
-        }
-        /* closing register section while on step 1 function */
+                    checkSocial();
+
+                });
+                /* clicking register step 2 function*/
 
 
-        if ($('#register-with-email-drop-down').css('display') == 'none' && $('#register-with-email-step-2').hasClass('')) {
-            //alert('opening step 1');
-            $('#click-register-social').removeClass('social-active');
-            $('#click-register').addClass('active-tab');
-            $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
-            checkSocial();
+                $('.back-btn').click(function() {
+                    $('#register-with-email-step-2').removeClass('active-step');
+                    $('#register-with-email-step-2').stop().animate({height: 'toggle'});
+                    $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
 
-        }
-        /* clicking register step 1 function*/
 
-    });
+                    checkSocial();
+                });
+                /* going back to step 1 function*/
 
-    function checkSocial() {
-        if ($('#social-link').css('display') == 'block') {
-            $('#social-link').animate({height: 'toggle'});
-        }
-        else {
-        }
-    }
-    /* close social login checker function */
-    
-    
-    $('.login-select').click(function(){
-        $('.login-select').removeClass('login-selected');
-        $(this).addClass('login-selected');
 
-    });
-    /* select gender function */
+                $(".register-clicker").click(function() {
+
+                    if ($('#register-with-email-step-2').hasClass('active-step')) {
+                        //alert('closing step2');
+
+                        $('#social-link').animate({height: 'toggle'});
+                        $('#register-with-email-step-2').stop().animate({height: 'toggle'});
+
+                        if ($('#click-register').hasClass('active-tab')) {
+                            $('#click-register').removeClass('active-tab');
+                            /* closing step */
+                        }
+
+                        else {
+                            $('#click-register').addClass('active-tab');
+                            /* opening step */
+                        }
+
+                    }
+                    /* closing/opening register section while on step 2 function */
+
+
+                    if ($('#register-with-email-drop-down').css('display') === 'block' && $('#click-register').hasClass('active-tab')) {
+                        //alert('closing step1');
+                        $('#click-register').removeClass('active-tab');
+                        $('#social-link').stop().animate({height: 'toggle'});
+                        $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+                        $('#click-register-social').addClass('social-active');
+
+                    }
+                    /* closing register section while on step 1 function */
+
+
+                    if ($('#register-with-email-drop-down').css('display') === 'none' && $('#register-with-email-step-2').hasClass('')) {
+                        //alert('opening step 1');
+                        $('#click-register-social').removeClass('social-active');
+                        $('#click-register').addClass('active-tab');
+                        $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+                        checkSocial();
+
+                    }
+                    /* clicking register step 1 function*/
+
+                });
+
+                function checkSocial() {
+                    if ($('#social-link').css('display') === 'block') {
+                        $('#social-link').animate({height: 'toggle'});
+                    }
+                    else {
+                    }
+                }
+                /* close social login checker function */
+
+
+                $('.login-select').click(function() {
+                    $('.login-select').removeClass('login-selected');
+                    $(this).addClass('login-selected');
+
+                });
+                /* select gender function */
+
+
+                function loginPane() {
+                    $('#profiles-main-container div').css('display', 'none');
+
+                    $('#user-login-pane').css('display', 'block');
+
+
+
+                }
 </script>

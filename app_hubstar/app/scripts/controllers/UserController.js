@@ -66,7 +66,7 @@ HubStar.UserController = Ember.Controller.extend({
     interestsActive: false,
     init: function()
     {
-        //this.setUser();
+       // this.setUser();
 
     },
     isUserSelfOrNot: function(currentUserID) {
@@ -804,6 +804,7 @@ HubStar.UserController = Ember.Controller.extend({
                             that.set('isPhotoUploadMode', false);
                             console.log("4"+that.get('newStyleImageSource') );
                             HubStar.store.save();
+                            console.log("5");
                         });
                         that.userPhotoEditBackButton();
                         that.userDashboardBackButton();

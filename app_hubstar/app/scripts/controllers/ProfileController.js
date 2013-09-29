@@ -586,8 +586,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     saveUpdateAboutUs: function() {
         var update_About_record = HubStar.Profile.find(this.get('model.id'));
-       update_About_record.set("profile_about_us", $('iframe').contents().find('.wysihtml5-editor').html());
-
+          update_About_record.set("profile_about_us", $('iframe').contents().find('.wysihtml5-editor').html());
+      
         this.get('controllers.applicationFeedback').statusObserver(null, "Update Successful");
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_About_record);
         HubStar.store.save();

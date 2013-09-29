@@ -173,7 +173,7 @@ class UsersController extends Controller {
       public function actionUpdateStyleImage() {
         $payloads_arr = CJSON::decode(file_get_contents('php://input'));
         $photo_string = $payloads_arr['newStyleImageSource'];
-         error_log(var_export( $photo_string, true));
+       //  error_log(var_export( $photo_string, true));
        //  console.log($photo_string);
          
         $photo_name = $payloads_arr['newStyleImageName'];

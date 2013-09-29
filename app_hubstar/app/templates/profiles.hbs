@@ -20,7 +20,7 @@
     <div style="width: 87%;margin: 40px auto;display: block;line-height: 45px;">
         <img class="logonew" style="position: relative; height: 30px;display: inline-block;vertical-align: top;margin: 8px;" src="../../../images/landing-trends.png">
         <div style="position:relative; float:right; color:white; font-size:15px;font-weight: bold;">
-            <span style="letter-spacing: 1px; margin: 0 0 0 10px;" onClick="loginPane();">LOGIN</span>
+            <span style="letter-spacing: 1px; margin: 0 0 0 10px;" onClick="loginPane();" id="login-btn">LOGIN</span>
             <span>&nbsp | &nbsp</span>
             <span style="letter-spacing: 1px; margin: 0 0 0 10px;">HELP</span>
         </div>
@@ -208,7 +208,7 @@
                  * 
                  *  $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
                  */
-
+                 var loginState= false;
 
 
 
@@ -335,11 +335,35 @@
 
 
                 function loginPane() {
-                    $('#profiles-main-container div').css('display', 'none');
-
-                    $('#user-login-pane').css('display', 'block');
-
-
+                     
+                    if (loginState === false) {
+                        
+                        $('#login-btn').text('REGISTER');
+                        $('#click-register-social').css('display', 'none');
+                        $('#click-register').css('display', 'none');
+                        
+                        $('#social-link').css('display', 'none');
+                        $('#register-with-email-drop-down').css('display', 'none');
+                        $('#register-with-email-step-2').css('display', 'none');
+                        
+                        
+                        $('#user-login-pane').css('display', 'block');
+                        loginState=true;
+                        alert(loginState); 
+                    }
+                    else{
+                       
+                        $('#login-btn').text('LOGIN');
+                        
+                        $('#click-register-social').css('display', 'block');
+                        $('#social-link').css('display', 'block');
+                        $('#click-register').css('display', 'block');
+                        
+                        $('#user-login-pane').css('display', 'none');
+                        loginState=false;
+                        alert(loginState); 
+                    }
+                   
 
                 }
 </script>

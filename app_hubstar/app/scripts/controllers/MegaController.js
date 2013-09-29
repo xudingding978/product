@@ -220,6 +220,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         window.open(url,
                 'feedDialog',
                 'toolbar=0,status=0,width=626,height=436');
+                return false;
     },
     gpShare: function() {
 

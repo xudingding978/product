@@ -12,7 +12,6 @@
             var d = new Date();
             var start = d.getTime();
             var results = HubStar.Mega.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string")});
-
             this.set("content", results);
             var stats = Stat.find({"RquireType": "status", "region": this.get("search_area"), "search_string": this.get("search_string")});
             var that = this;
@@ -31,7 +30,6 @@
             }
         },
         defaultSearch: function() {
-
             this.set("loginInfo", localStorage.loginStatus);
             var ac = this.get("controllers.application");
             var st = this.get("controllers.status");
@@ -46,10 +44,4 @@
             totalTime += "ms";
             this.set("time", totalTime);
         }
-
-
-
-
     });
-
-

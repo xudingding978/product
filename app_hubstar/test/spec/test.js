@@ -48,34 +48,34 @@ function LoginOut() {
 ;
 
 
-describe("Platform  bar", function() {
-    var controller;
-    var topics;
-    var result;
-
-    beforeEach(function(done) {
-
-
-
-        Ember.run(function() {
-            LoginIn(done);
-
-            controller = HubStar.PlatformBarController.create();
-            topics = controller.categorys;
-            topics.addObserver('isLoaded', function() {
-                if (topics.get('isLoaded')) {
-                    result = topics.get('length');
-                    done();
-                }
-            });
-        });
-    });
-    it("total topics", function() {
-        Ember.run(function() {
-            result.should.equal(14);
-        });
-    });
-});
+//describe("Platform  bar", function() {
+//    var controller;
+//    var topics;
+//    var result;
+//
+//    beforeEach(function(done) {
+//
+//
+//
+//        Ember.run(function() {
+//            LoginIn(done);
+//
+//            controller = HubStar.PlatformBarController.create();
+//            topics = controller.categorys;
+//            topics.addObserver('isLoaded', function() {
+//                if (topics.get('isLoaded')) {
+//                    result = topics.get('length');
+//                    done();
+//                }
+//            });
+//        });
+//    });
+//    it("total topics", function() {
+//        Ember.run(function() {
+//            result.should.equal(14);
+//        });
+//    });
+//});
 
 //describe("AddLike Test", function() {
 //    var controller;

@@ -1,4 +1,6 @@
 .plaform_bar{
+    height: 280px;
+
     position: fixed;
     left: 0px;
     top: 30%;
@@ -91,6 +93,7 @@
 }
 
 #navContainer {
+    height: 280px;
     margin:0;
     padding:15px 0;
     opacity: 0;
@@ -508,6 +511,10 @@ div.search-loading-invisible{
     font-weight: bold;
     font-size: 13px;
     list-style: none;
+}
+
+.edit-object-ul > .ite{
+    padding:6px 15px 6px 30px;
 }
 
 .ite:hover{

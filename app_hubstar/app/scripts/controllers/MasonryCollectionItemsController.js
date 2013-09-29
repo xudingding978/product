@@ -186,8 +186,10 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         var coverImge = Mega.get('photo').objectAt(0).get('photo_image_original_url');
         var address = document.URL;
         var owner_id = address.split("#")[1].split("/")[2];
-
-        var userOrprofile = HubStarModel.find(owner_id).get('collections');
+        console.log("coverImge");
+       // var userOrprofile = HubStarModel.find(owner_id).get('collections');
+        var currentUser = HubStar.User.find(localStorage.loginStatus);
+          var userOrprofile =HubStarModel.get('collections');
         // var that = this;
         for (var i = 0; i < userOrprofile.get('content').length; i++) {
             if (userOrprofile.objectAt(i).id === collection_id) {

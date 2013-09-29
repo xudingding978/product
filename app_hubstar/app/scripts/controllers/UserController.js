@@ -340,8 +340,10 @@ HubStar.UserController = Ember.Controller.extend({
             $(" #uploadArea").attr('style', "display:none");
             $(" #uploadObject").attr('style', "display:block");
             this.statstics();
+
             this.set('newTitle','');
             this.set('newDesc','');
+
         }
     },
     
@@ -443,9 +445,9 @@ HubStar.UserController = Ember.Controller.extend({
         {
             //       var patternUrl = /^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([\w]+)(.[\w]+){1,2}$/;
 
-            var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
+            var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;         
             document.getElementById(checkList[i].id).style.border = '';
-
+//console.log(checkList[i].id);
             if (checkList[i].input !== null && checkList[i].input.length > checkList[i].length)
             {
                 result = false;
@@ -686,14 +688,21 @@ if (checkList[i].id === 'first_name' || checkList[i].id === 'last_name')
     {
         this.set("isEditingMode", !this.get("isEditingMode"));
     },
+              
     setCollectionAttr: function() {
+        this.set("newTitle", this.get('selectedCollection').get('title'));
+        this.set("newDesc", this.get('selectedCollection').get('desc'));
         collection_title_record = this.get('selectedCollection').get('title');
         collection_desc_record = this.get('selectedCollection').get('desc');
     },
+            
     getCollectionAttr: function() {
         this.get('selectedCollection').set('title', collection_title_record);
         this.get('selectedCollection').set('desc', collection_desc_record);
+        this.set("newTitle", collection_title_record);
+        this.set("newDesc", collection_desc_record);
     },
+            
     setIntersetsArr: function(user) {
         interests = user.get('selected_topics');
         this.set('interests', user.get('selected_topics'));

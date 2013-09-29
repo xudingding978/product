@@ -169,6 +169,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.initStastics(profile);
 
     },
+            
+            
+            
     labelBarRefresh: function() {
         this.set("profileSelectionStatus", "Collections");
         //console.log(this.get("profileSelectionStatus"));
@@ -213,8 +216,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             $(" #uploadArea").attr('style', "display:none");
             $(" #uploadObject").attr('style', "display:block");
             this.statstics();
+            this.set("newTitle","");
+            this.set("newDesc","");
 
         }
+
 
 //        var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
 //        var id = this.checkingValidInput(this.selectedCollection.get('title'));
@@ -252,9 +258,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
     },
 
-            
 
-            
     checkingIdisExsinting: function(desc, id, postOrPut) {
         var isExsinting = true;
         if (postOrPut === "create") {
@@ -794,7 +798,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         return "test";
 
     },
+            
+
+            
+            
     setCollectionAttr: function() {
+        this.set("newTitle", this.get('selectedCollection').get('title'));
+        this.set("newDesc", this.get('selectedCollection').get('desc'));
         collection_title_record = this.get('selectedCollection').get('title');
 
         collection_desc_record = this.get('selectedCollection').get('desc');
@@ -802,8 +812,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     getCollectionAttr: function() {
         this.get('selectedCollection').set('title', collection_title_record);
-                console.log(this.get(collection_desc_record));
+
        this.get('selectedCollection').set('desc', collection_desc_record);
+               this.set("newTitle", collection_title_record);
+        this.set("newDesc", collection_desc_record);
     },
     gotoSize: function()
     {

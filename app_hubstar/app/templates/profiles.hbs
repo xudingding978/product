@@ -294,7 +294,6 @@
                         
                         $('#user-login-pane').css('display', 'block');
                         loginState=true;
-                        alert(loginState); 
                     }
                     else{
                        
@@ -303,10 +302,13 @@
                         $('#click-register-social').css('display', 'block');
                         $('#social-link').css('display', 'block');
                         $('#click-register').css('display', 'block');
+                        $('#click-register-social').addClass('social-active');
+                        $('#click-register').removeClass('active-tab');
+                        $('#register-with-email-step-2').removeClass('active-step');
                         
                         $('#user-login-pane').css('display', 'none');
                         loginState=false;
-                        alert(loginState); 
+
                     }
                    
 

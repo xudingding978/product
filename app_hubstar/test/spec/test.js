@@ -1,19 +1,19 @@
 //var expect = require('../lib/chai').expect;
 
-module("Basic Tests");
-
-test("truthy", function() {
-//  ok(true, "true is truthy");
-//  var t="test";
-//   var s="test";
-//  equal(t, s, "1 is truthy");
-//  notEqual(0, true, "0 is NOT truthy");
-
-console.log(HubStar.TestController);
-    var testController = HubStar.TestController.create();
-    var result = testController.test();
-    equal(result, 'aaaaaaaaaaaaa', "test is truthy");
-});
+//module("Basic Tests");
+//
+//test("truthy", function() {
+////  ok(true, "true is truthy");
+////  var t="test";
+////   var s="test";
+////  equal(t, s, "1 is truthy");
+////  notEqual(0, true, "0 is NOT truthy");
+//
+//console.log(HubStar.TestController);
+//    var testController = HubStar.TestController.create();
+//    var result = testController.test();
+//    equal(result, 'aaaaaaaaaaaaa', "test is truthy");
+//});
 
 
 //

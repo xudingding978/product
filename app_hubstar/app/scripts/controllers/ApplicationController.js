@@ -1,6 +1,10 @@
 
+ /*global HubStar */
+ /*global Ember */
+/*global $:false */
+
 HubStar.ApplicationController = Ember.ArrayController.extend({
-    needs: ['status'],
+    needs: ['status', 'applicationFeedback'],
     content: [],
     loginInfo: "",
     search_area: "",
@@ -71,6 +75,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     $('#masonry_container').masonry("reload");
                 }, 2200);
                 that.set('loadingTime', false);
+                if (results.get("length") === 0) {
+                    that.get('controllers.applicationFeedback').statusObserver(null, "You Have Reached The End Of Your Search Results", "info"); //added user flash message
+                }
             }
         });
     },

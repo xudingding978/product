@@ -4,8 +4,9 @@
     <div style="width: 87%;margin: 40px auto;display: block;">
         <img class="logonew" style="position: relative; height: 30px;display: inline-block;vertical-align: top;margin: 8px;" src="../../../images/landing-trends.png">
         <div style="position:relative; float:right; color:white; font-size:15px;font-weight: bold;">
-            <div style="margin-right:10px;display: inline-block;background-color: #777;padding: 0 20px;text-align: center;height: 45px;line-height: 45px;letter-spacing: 1px;">SIGN UP</div>
-            <span style="letter-spacing: 1px; margin: 0 0 0 10px;">LOGIN</span>
+            <span style="letter-spacing: 1px; margin: 0 0 0 10px;" onClick="loginPane();" id="login-btn">LOGIN</span>
+            <span>&nbsp | &nbsp</span>
+            <span style="letter-spacing: 1px; margin: 0 0 0 10px;">HELP</span>
         </div>
     </div>
     
@@ -15,79 +16,283 @@
         <span>1,200,000 PRODUCTS</span>
     </div>
 
-    <div style="position:absolute;width: 40%;text-align: center;top: 30%;margin: auto;display: block;left: 0;right: 0;">
-        <span style="font-family: 'Chronicle SSm A', 'Chronicle SSm B', Georgia, serif;font-style: italic; font-size: 30px; color: #222;display: block;line-height: 1em;margin: 0 0 15px 0;opacity: .7;">Collect, collaberate and connect</span>
-        <span style="font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: bolder;color: #222;display: block;line-height: 30px;letter-spacing: 5px; opacity:.7;">YOUR</span>
-        <span style="font-family: 'Montserrat', sans-serif; font-size: 130px; font-weight:bold;color: #222;display: block;height: 130px;line-height: 130px;letter-spacing: 35px;padding-left: 30px;"> IDEAS</span>
+    <div id="profiles-main-container" style="position:absolute;width: 33%;text-align: center;top: 21%;margin: auto;display: block;left: 0;right: 0;">
+        <img style="position: relative;margin: 10px auto 40px -10px; min-width: 320px;width: 70%;" src="../../../images/landing-trends.png">
+
+        <div id="click-register-social" class="register-with easing social-active" style="border-radius: 5px 5px 0 0; border-bottom:1px solid #e3e3e3;">
+            <i class="icon-facebook">&nbsp</i><a style="color: #888"> Register with social account</a>
+        </div>
+
+        <div id="social-link" style="display: block; width: 300px; height: 60px; line-height: 60px; margin: 0px auto; background-color: white;padding:12px;border-bottom: 1px solid #e3e3e3;">
+
+            <div class="social-login-iconbox">
+                <i class="icon-facebook"></i>
+            </div>
+
+            <div class="social-login-iconbox">
+                <i class="icon-twitter"></i>
+            </div>
+
+            <div class="social-login-iconbox" style="">
+                <i class="icon-google-plus"></i>
+            </div>
+
+            <div class="social-login-iconbox">
+                <i class="icon-linkedin"></i>
+            </div>
+
+            <div class="social-login-iconbox">
+                <i class="icon-weibo"></i>
+            </div>
+
+        </div>
 
 
-        <div style="background-color: #666; border-radius:50px; width: 200px; height: 45px;display: block;line-height: 45px;color: white;font-size: 15px;font-weight: bold;letter-spacing: 2px;margin: 10px auto;"> START TODAY</div>
-        <span style="font-family: 'Montserrat', sans-serif; font-size: 14px;color: #222;margin: 15px auto;opacity: .7;display: block;">
-            <k class="icon-info-sign" style="margin:5px;font-size: 20px;vertical-align: middle;"></k>
-            Explore more
-        </span>
-        <tr>
-                               
-                                <td>
-                                    <div  style="display: block; margin-bottom: 5px;" >
+        <!--This is the email register section-->
+        <div>
+            <div id="click-register" class="register-with easing register-clicker">
+                <i class="icon-envelope">&nbsp </i><a style="color: #888"> Register with Email</a>
+            </div>
 
-                                        <div  id="first_name" style="margin: 0;width: 49%;display: inline-block;">
-                                            {{view Ember.TextField valueBinding="first_name"  placeholder="First Name"}}
-                                        </div>
-                                        <div id="last_name" style="margin: 0;width: 49%;display: inline-block;">
-                                            {{view Ember.TextField valueBinding="last_name"  placeholder="Last Name"}}
-                                        </div>
-                                    </div>
-                                </td>
-                        </tr>
-                        <tr>
-                            
-                            <td>
-                                <div style="display: block;" >
-                                    <div id="location"  style="margin: 0;width: 100%;">
-                                       {{view Ember.TextField valueBinding="email"  placeholder="Email"}}
-                                    </div>
-                                </div>
+            <div   id="register-with-email-drop-down" style="width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;">
+                <div style="padding: 0 8px;">
 
-                            </td>
-                        </tr>
-                        <tr>
-                            
-                            <td>
-                                <div style="display: block;" >
-                                    <div id="location"  style="margin: 0;width: 100%;">
-                                       {{view Ember.TextField valueBinding="password"  placeholder="Password"}}
-                                    </div>
-                                </div>
+                    <div style="border-bottom: 1px solid #e3e3e3; border-top:1px solid #e3e3e3;">
+                        <div class="login-textfield" style="width: 49%;display: inline-block;vertical-align: top;height: 45px;line-height: 45px;">
+                            {{view Ember.TextField valueBinding="firstname" placeholder="First Name" }}
+                        </div>
 
-                            </td>
-                        </tr>
-                  
+                        <div class="login-textfield" style="width: 49%;display: inline-block;vertical-align: top;height: 45px;line-height: 45px;">
+                            {{view Ember.TextField valueBinding="lastname" placeholder="Last Name" }}
+                        </div>
+                    </div>
+
+                    <div  class="login-textfield" style="margin: 0;width: 100%;height: 45px;line-height: 45px;border-bottom: 1px solid #e3e3e3;">
+                        {{view Ember.TextField valueBinding="youremail" placeholder="Your Email" }}
+                    </div>
+
+                    <div class="login-textfield"  style="margin: 0;width: 100%;height: 45px;line-height: 45px;border-bottom: 1px solid #e3e3e3;">
+                        {{view Ember.TextField valueBinding="password" placeholder="Password" }}
+                    </div>
+                </div>
+
+                <div id="register-btn" class="register-btn easing" style=""> Register</div>
+            </div>
+
+
+            <div id="register-with-email-step-2" style="width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;">
+                <div style="padding: 0 8px;">
+
+                    <div  class="login-textfield" style="margin: 0;width: 100%;height: 45px;line-height: 45px;border-bottom: 1px solid #e3e3e3;border-top:1px solid #e3e3e3;">
+                        {{view Ember.TextField valueBinding="youremail" placeholder="Region" }}
+                    </div>
+
+                    <div style="border-bottom: 1px solid #e3e3e3;">
+                        <div class="login-select easing" style="">
+                            Male
+                        </div>
+
+                        <div class="login-select easing" style="">
+                            Female
+                        </div>
+                    </div>
+
+                    <div class="login-textfield"  style="margin: 0;width: 100%;height: 45px;line-height: 45px;border-bottom: 1px solid #e3e3e3;">
+                        {{view Ember.TextField valueBinding="password" placeholder="How old are you?" }}
+                    </div>
+                </div>
+                <div class="back-btn easing" style="" >Back</div>
+                <div class="register-btn easing register-btn-small" >Done</div>
+
+            </div>
+
+        </div>
+        <!--End of email register section-->
+
+
+        <div id="user-login-pane" class="register-with" style="display:none;">
+            <p>Login</p>
+
+            <div>login with facebook</div>
+            <div>login with email</div>
+        </div>
+        <a href="http://trendsideas.com/ViewPage.aspx?pageName=Contact%20Us&region=1" target="blank">
+            <span style="font-family: 'Montserrat', sans-serif; font-size: 13px;color: #fff;margin: 15px auto;opacity: .9;display: block;">Learn more</span>
+        </a>
     </div>
 
-<div style="width:87%; position: absolute; margin:auto;bottom: 40px;left: 0;right: 0;">
-<div style="position:relative;display: inline-block;background-color: rgba(255,255,255,.2);">
-<div style="border: 2px solid #333;border-radius: 50%;width: 40px;height: 40px;text-align: center;line-height: 38px;padding: 0px 13px;position: absolute;top: 30px;left: 66px;box-shadow: 0 0 25px #999;"><k class="icon-play"></k></div>
-<img src="http://i1.ytimg.com/vi/TXk-8NyS2fc/mqdefault.jpg" style="display:inline-block;height: 100px;border: 3px solid rgba(30,30,30,.5);"/>
-<div style="display:inline-block;font-size: 14px;font-family: 'Chronicle SSm A', 'Chronicle SSm B', Georgia, serif;font-style: italic; opacity: .9;width: 170px;height: 100px;vertical-align: top;padding: 30px 0;margin: 0 0 0 10px;">Introduction of the </br>New Trendsideas Platform</div>
-</div>
-</div>
+</div>    
 
-</div>
-
-
-<h1> profiles</h1>
-
-
-{{#each model}}
-<ul>
-    <li>
-        <h3> id | {{#linkTo 'profile' this}}{{id}}{{/linkTo}}   |   {{profile_name}}</h3>
-    </li>
-</ul>
-
-
-{{/each}}
+<script>
 
 
 
+
+
+                /* NOTE:************
+                 * 
+                 *   IF THIS BEHAVES ODDLY SIMPLY REMOVE/ADD "stop()" before all the animate functions EG
+                 * 
+                 *  $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+                 */
+                 var loginState= false;
+
+
+
+
+                $("#click-register-social").click(function() {
+
+                    $('#click-register-social').removeClass('social-active');
+                    $('#click-register').removeClass('active-tab');
+
+                    if ($('#social-link').css('display') === 'block') {
+                        $('#social-link').animate({height: 'toggle'});
+
+                        if ($('#register-with-email-drop-down').css('display') === 'block') {
+                            $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+                        }
+                        if ($('#register-with-email-step-2').css('display') === 'block') {
+                            $('#register-with-email-step-2').stop().animate({height: 'toggle'});
+                        }
+                    }
+                    /* hiding social login */
+
+                    if ($('#social-link').css('display') === 'none') {
+                        $('#social-link').animate({height: 'toggle'});
+                        $('#click-register-social').addClass('social-active');
+
+                        if ($('#register-with-email-drop-down').css('display') === 'block') {
+                            $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+                        }
+                        if ($('#register-with-email-step-2').css('display') === 'block') {
+                            $('#register-with-email-step-2').stop().animate({height: 'toggle'});
+                        }
+                    }
+                    /* showing social login section*/
+
+                });
+                /* social login slider function */
+
+
+                $("#register-btn").click(function() {
+                    //alert('opening step 2');
+                    $('#register-with-email-step-2').addClass('active-step');
+                    $('#click-register').addClass('active-tab');
+                    $('#register-with-email-step-2').stop().animate({height: 'toggle'});
+                    $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+
+                    checkSocial();
+
+                });
+                /* clicking register step 2 function*/
+
+
+                $('.back-btn').click(function() {
+                    $('#register-with-email-step-2').removeClass('active-step');
+                    $('#register-with-email-step-2').stop().animate({height: 'toggle'});
+                    $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+
+
+                    checkSocial();
+                });
+                /* going back to step 1 function*/
+
+
+                $(".register-clicker").click(function() {
+
+                    if ($('#register-with-email-step-2').hasClass('active-step')) {
+                        //alert('closing step2');
+
+                        $('#social-link').animate({height: 'toggle'});
+                        $('#register-with-email-step-2').stop().animate({height: 'toggle'});
+
+                        if ($('#click-register').hasClass('active-tab')) {
+                            $('#click-register').removeClass('active-tab');
+                            /* closing step */
+                        }
+
+                        else {
+                            $('#click-register').addClass('active-tab');
+                            /* opening step */
+                        }
+
+                    }
+                    /* closing/opening register section while on step 2 function */
+
+
+                    if ($('#register-with-email-drop-down').css('display') === 'block' && $('#click-register').hasClass('active-tab')) {
+                        //alert('closing step1');
+                        $('#click-register').removeClass('active-tab');
+                        $('#social-link').stop().animate({height: 'toggle'});
+                        $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+                        $('#click-register-social').addClass('social-active');
+
+                    }
+                    /* closing register section while on step 1 function */
+
+
+                    if ($('#register-with-email-drop-down').css('display') === 'none' && $('#register-with-email-step-2').hasClass('')) {
+                        //alert('opening step 1');
+                        $('#click-register-social').removeClass('social-active');
+                        $('#click-register').addClass('active-tab');
+                        $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+                        checkSocial();
+
+                    }
+                    /* clicking register step 1 function*/
+
+                });
+
+                function checkSocial() {
+                    if ($('#social-link').css('display') === 'block') {
+                        $('#social-link').animate({height: 'toggle'});
+                    }
+                    else {
+                    }
+                }
+                /* close social login checker function */
+
+
+                $('.login-select').click(function() {
+                    $('.login-select').removeClass('login-selected');
+                    $(this).addClass('login-selected');
+
+                });
+                /* select gender function */
+
+
+                function loginPane() {
+                     
+                    if (loginState === false) {
+                        
+                        $('#login-btn').text('REGISTER');
+                        $('#click-register-social').css('display', 'none');
+                        $('#click-register').css('display', 'none');
+                        
+                        $('#social-link').css('display', 'none');
+                        $('#register-with-email-drop-down').css('display', 'none');
+                        $('#register-with-email-step-2').css('display', 'none');
+                        
+                        
+                        $('#user-login-pane').css('display', 'block');
+                        loginState=true;
+                    }
+                    else{
+                       
+                        $('#login-btn').text('LOGIN');
+                        
+                        $('#click-register-social').css('display', 'block');
+                        $('#social-link').css('display', 'block');
+                        $('#click-register').css('display', 'block');
+                        $('#click-register-social').addClass('social-active');
+                        $('#click-register').removeClass('active-tab');
+                        $('#register-with-email-step-2').removeClass('active-step');
+                        
+                        $('#user-login-pane').css('display', 'none');
+                        loginState=false;
+
+                    }
+                   
+
+                }
+</script>

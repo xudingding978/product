@@ -23,7 +23,7 @@
             <div class="object_username">
                 <a class="poster-name" style="cursor: pointer; width: auto;" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
                 <div class="posttime-container">
-                    <span class="posttime">{{date created}}</span>
+                    <!--<span class="posttime">{{date created}}</span>-->
                 </div>
             </div>
 
@@ -47,12 +47,12 @@
                     </div>
                 </div>
 
-                <div class="object-tags ">
+<!--                <div class="object-tags ">
                     <span class="tags-mark" style="background-color: #a0c3ff"></span>
                     <div class="tags easing tagsappear">
                         <div class="tags-new">#{{timezone}} </div>                   
                     </div>
-                </div>
+                </div>-->
 
             </div>
 
@@ -81,7 +81,7 @@
                         {{/if}}
                         {{#if controller.is_user_editing_mode}}
                         <li class="ite" {{action  removeCollectedItem  controller.title id "user"}}><k class="icon-trash" style="font-size: 16px; margin: 0px 5px;"></k>Remove</li>
-                        <li class="ite" {{action changeCollectionCover id controller.title "user"}}><k class="icon-camera" style="font-size: 16px; margin: 0px 5px;"></k>Set as Cover</li>
+                        <li class="ite" {{action changeCollectionCover id controller.title HubStar.User}}><k class="icon-camera" style="font-size: 16px; margin: 0px 5px;"></k>Set as Cover</li>
                         {{/if}}
                     </ul>
 
@@ -254,9 +254,9 @@
             </a>
             <div class="object_username">
                 <a class="poster-name" {{action transitionToProfile owner_id}} style="cursor: pointer; width: auto;">   {{creator}}</a>
-                <div class="posttime-container">
+<!--                <div class="posttime-container">
                     <span class="posttime">{{date created}}</span>
-                </div>
+                </div>-->
             </div>
 
             <div class="object-tags-box">
@@ -271,12 +271,12 @@
                     </div>
                 </div>
 
-                <div class="object-tags ">
+<!--                <div class="object-tags ">
                     <span class="tags-mark" style="background-color: #76a7fa"></span>
                     <div class="tags easing tagsappear">
                         <div class="tags-new">#{{region}}</div>                   
                     </div>
-                </div>
+                </div>-->
 
                 <div class="object-tags ">
                     <span class="tags-mark" style="background-color: #a0c3ff"></span>

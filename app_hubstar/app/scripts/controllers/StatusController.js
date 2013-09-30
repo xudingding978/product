@@ -26,9 +26,7 @@ HubStar.StatusController = Ember.Controller.extend({
                 
        changeImage: function(imageSrc)
         {
-            console.log("change image");
             this.set('photo_url', imageSrc);
-            console.log( this.get('photo_url'));
         }
 
     });

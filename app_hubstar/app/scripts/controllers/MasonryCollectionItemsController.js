@@ -213,7 +213,6 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
 
             
     dropdownPhotoSetting: function(id) {
-    console.log(id);
         $('#dropdown_id_' + id).toggleClass('hideClass');
     },
     resetContent: function()
@@ -229,10 +228,9 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         var that = this;
         results.addObserver('isLoaded', function() {
             if (results.get('isLoaded')) {
-
                 for (var i = 0; i < this.get("length"); i++) {
                     var tempmega = results.objectAt(i);
-                    if (tempmega.get('photo').get('length') === 1)
+                    if ((tempmega.get('photo').get('length') === 1) && (tempmega.get('collection_id')===that.get('collection_id')))
                     {
                         that.get("content").pushObject(tempmega);
                     }

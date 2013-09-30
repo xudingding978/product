@@ -9,7 +9,7 @@ var model = HubStar.User.find("10242305480");
 model.addObserver('isLoaded', function() {
     if (model.get('isLoaded')) {
     }
-    
+
 });
 
 module("Basic Tests");
@@ -68,8 +68,8 @@ test("addCollectionController", function() {
 
     asyncTest("asynchronous test for setSelectedCollection : one second later!", function() {
         expect(1);
-var addCollectionController = HubStar.AddCollectionController.create();
-var model = HubStar.User.find("10242305480");
+        var addCollectionController = HubStar.AddCollectionController.create();
+        var model = HubStar.User.find("10242305480");
         setTimeout(function() {
             addCollectionController.set("collections", model.get("collections"));
             addCollectionController.setSelectedCollection("trends");
@@ -91,11 +91,13 @@ var model = HubStar.User.find("10242305480");
     });
 
 
-//addCollection
+////addCollection
 //module("group addCollection");
 //asyncTest( "asynchronous test for addCollection : one second later!", function() {
 //  expect( 1 );
-//
+//    localStorage.loginStatus = "10242305480";
+//    var collection = model.collection;
+//    var content = "7275334791372526835, 3149680881372505467, 2379513971372451786, 1463488341373671381, 7902975431372479406, 8041043911372337297, 3495646151372546288, 8417355201372516646, 6456483831372278304, 1115627351372522724, 8209818051372495232, 5965204721372492939, 6606287561372546281, 6795672391372521645, 9329785151372270156, 8525407111372399532, 6535491261372413838, 3972156951372506506, 7077209071372536516, 2318145851372505464, 8452143731372270150, 3657337311372288406, 6328733331373671534, 6112804421373671044, 5078179431372390091, 4193423561372288417, 2535979541372406002, 7918880591373671170, 8870732031372435993";
 //  setTimeout(function() {
 //      addCollectionController.set("collections", model.get("collections"));
 //      var collection = addCollectionController.get("collections").objectAt(0);
@@ -107,7 +109,7 @@ var model = HubStar.User.find("10242305480");
 //    start();
 //  }, 1000);
 //});
-//
+
 
 //addComment
     module("group addComment");
@@ -213,8 +215,42 @@ var model = HubStar.User.find("10242305480");
 //        equal(checkInput, true, "set thumbnail url successful");
 //    });
 //    
-    
+
     //set users
+    module("group set users");
+    test("asynchronous test for setUser: one second later!", function() {
+
+        localStorage.loginStatus = "10242305480";
+        addCollectionController.setUser();
+        var desc = addCollectionController.get("selectedDesc");
+        var title = addCollectionController.get("selectedTitle");
+        var titleResult = "Trends";
+        var colelctions = [
+            {
+                "title": "Trends",
+                "desc": "Projects--that-I-have-had-published-in-Trends-",
+                "collection_ids": "7275334791372526835, 3149680881372505467, 2379513971372451786, 1463488341373671381, 7902975431372479406, 8041043911372337297, 3495646151372546288, 8417355201372516646, 6456483831372278304, 1115627351372522724, 8209818051372495232, 5965204721372492939, 6606287561372546281, 6795672391372521645, 9329785151372270156, 8525407111372399532, 6535491261372413838, 3972156951372506506, 7077209071372536516, 2318145851372505464, 8452143731372270150, 3657337311372288406, 6328733331373671534, 6112804421373671044, 5078179431372390091, 4193423561372288417, 2535979541372406002, 7918880591373671170, 8870732031372435993",
+                "created_at": null,
+                "cover": "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png",
+                "parent_type": null,
+                "optional": "10242305480",
+                "type": "user",
+                "id": "trends"
+            }
+        ];
+        var collectionsResult = addCollectionController.get("collections").objectAt(0);
+        equal(desc, "", "set setUser desc successful");
+        equal(title, titleResult, "set setUser title successful");
+        equal("Trends", collectionsResult.get("title"), "set setUser colelctions successful");
+        equal(null, collectionsResult.get("parent_type"), "set setUser colelctions successful");
+        equal(null, collectionsResult.get("created_at"), "set setUser colelctions successful");
+        equal("user", collectionsResult.get("type"), "set setUser colelctions successful");
+        equal("trends", collectionsResult.get("id"), "set setUser colelctions successful");
+        equal("10242305480", collectionsResult.get("optional"), "set setUser colelctions successful");
+        equal("Projects--that-I-have-had-published-in-Trends-", collectionsResult.get("desc"), "set setUser colelctions successful");
+        equal("https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png", collectionsResult.get("cover"), "set setUser colelctions successful");
+        equal("7275334791372526835, 3149680881372505467, 2379513971372451786, 1463488341373671381, 7902975431372479406, 8041043911372337297, 3495646151372546288, 8417355201372516646, 6456483831372278304, 1115627351372522724, 8209818051372495232, 5965204721372492939, 6606287561372546281, 6795672391372521645, 9329785151372270156, 8525407111372399532, 6535491261372413838, 3972156951372506506, 7077209071372536516, 2318145851372505464, 8452143731372270150, 3657337311372288406, 6328733331373671534, 6112804421373671044, 5078179431372390091, 4193423561372288417, 2535979541372406002, 7918880591373671170, 8870732031372435993", collectionsResult.get("collection_ids"), "set setUser colelctions successful");
+    });
 //asyncTest("asynchronous test for setUser: one second later!", function() {
 //        expect(1);
 //
@@ -224,13 +260,13 @@ var model = HubStar.User.find("10242305480");
 //        addCollectionController.setUser();
 //            var desc = addCollectionController.get("selectedDesc");
 //            var title = addCollectionController.get("selectedTitle");
-//            var titleResult = 
-//            equal(desc, "", "set uyuyu url successful");
-//            equal(title, "", "set uyuyu url successful");
+//            var titleResult = "Trends";
+//           // equal(desc, "", "set setUser desc successful");
+//            equal(title,titleResult, "set setUser title successful");
 //            start();
 //        }, 1000);
 //    });
-// 
+
 
     equal("control", "control", "set thumbnail url successful");
 });

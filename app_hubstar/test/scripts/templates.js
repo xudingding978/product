@@ -1962,20 +1962,20 @@ function program3(depth0,data) {
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "owner_title", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("</a>\n                <div class=\"posttime-container\">\n                    <!--<span class=\"posttime\">");
+  data.buffer.push("</a>\n                <div class=\"posttime-container\">\n                    <span class=\"posttime\" style=\"display:none;\">");
   hashTypes = {};
   hashContexts = {};
   options = {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
   data.buffer.push(escapeExpression(((stack1 = helpers.date),stack1 ? stack1.call(depth0, "created", options) : helperMissing.call(depth0, "date", "created", options))));
-  data.buffer.push("</span>-->\n                </div>\n            </div>\n\n\n            <div class=\"object-tags-box\">\n\n                <div class=\"object-tags\">\n                    <span class=\"tags-mark\" style=\"background-color: #427fed\"></span>\n                    <div class=\"tags easing\">\n                        <!--                        <div class=\"tags-new\">New </div>-->\n                        <div class=\"object-tpye\">\n                            <i class=\"icon-picture\"></i>\n                        </div>\n                    </div>\n                </div>\n\n                <div class=\"object-tags \">\n                    <span class=\"tags-mark\" style=\"background-color: #76a7fa\"></span>\n                    <div class=\"tags easing tagsappear\">\n                        <div class=\"tags-new\">#");
+  data.buffer.push("</span>\n                </div>\n            </div>\n\n\n            <div class=\"object-tags-box\">\n\n                <div class=\"object-tags\">\n                    <span class=\"tags-mark\" style=\"background-color: #427fed\"></span>\n                    <div class=\"tags easing\">\n                        <!--                        <div class=\"tags-new\">New </div>-->\n                        <div class=\"object-tpye\">\n                            <i class=\"icon-picture\"></i>\n                        </div>\n                    </div>\n                </div>\n\n                <div class=\"object-tags \">\n                    <span class=\"tags-mark\" style=\"background-color: #76a7fa\"></span>\n                    <div class=\"tags easing tagsappear\">\n                        <div class=\"tags-new\">#");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "region", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("</div>                   \n                    </div>\n                </div>\n\n<!--                <div class=\"object-tags \">\n                    <span class=\"tags-mark\" style=\"background-color: #a0c3ff\"></span>\n                    <div class=\"tags easing tagsappear\">\n                        <div class=\"tags-new\">#");
+  data.buffer.push("</div>                   \n                    </div>\n                </div>\n                <div class=\"object-tags \" style=\"display:none;\">\n                    <span class=\"tags-mark\" style=\"background-color: #a0c3ff\"></span>\n                    <div class=\"tags easing tagsappear\">\n                        <div class=\"tags-new\">#");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "timezone", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(" </div>                   \n                    </div>\n                </div>-->\n\n            </div>\n\n\n        </div>\n        <div class=\"masonry-object_mainfeature\">             \n            <div class=\"mainfeature-wrapper\">\n                <a class=\"mainfeature-container\" style=\"cursor: pointer\">\n\n                    <img class=\"this-is-the-object\"");
+  data.buffer.push(" </div>                   \n                    </div>\n                </div>\n\n            </div>\n\n\n        </div>\n        <div class=\"masonry-object_mainfeature\">             \n            <div class=\"mainfeature-wrapper\">\n                <a class=\"mainfeature-container\" style=\"cursor: pointer\">\n\n                    <img class=\"this-is-the-object\"");
   hashContexts = {'src': depth0};
   hashTypes = {'src': "STRING"};
   data.buffer.push(escapeExpression(helpers.bindAttr.call(depth0, {hash:{
@@ -1985,7 +1985,7 @@ function program3(depth0,data) {
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "transitionToPhoto", "id", {hash:{},contexts:[depth0,depth0],types:["ID","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(" />\n                </a>            \n\n                <span class='edit-object easing' style=\"position: absolute;margin: 10px; top:0;\">\n                    \n                    ");
+  data.buffer.push(" />\n                </a>            \n\n                <span class='edit-object easing' style=\"position: absolute;margin: 10px; top:0;\">\n\n                    ");
   hashTypes = {};
   hashContexts = {};
   stack2 = helpers['if'].call(depth0, "controller.is_authentic_user", {hash:{},inverse:self.noop,fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
@@ -2041,7 +2041,7 @@ function program3(depth0,data) {
 function program4(depth0,data) {
   
   var buffer = '', stack1, hashTypes, hashContexts;
-  data.buffer.push("\n                     \n\n                    <div class=\"new-btn blue-btn hint--right hint--rounded\" data-hint=\"Edit object\" ");
+  data.buffer.push("\n\n\n                    <div class=\"new-btn blue-btn hint--right hint--rounded\" data-hint=\"Edit object\" ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "dropdownPhotoSetting", "id", {hash:{},contexts:[depth0,depth0],types:["ID","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -2252,16 +2252,16 @@ function program17(depth0,data) {
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "creator", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("</a>\n<!--                <div class=\"posttime-container\">\n                    <span class=\"posttime\">");
+  data.buffer.push("</a>\n                               <div class=\"posttime-container\" style=\"display:none;\">\n                                    <span class=\"posttime\">");
   hashTypes = {};
   hashContexts = {};
   options = {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
   data.buffer.push(escapeExpression(((stack1 = helpers.date),stack1 ? stack1.call(depth0, "created", options) : helperMissing.call(depth0, "date", "created", options))));
-  data.buffer.push("</span>\n                </div>-->\n            </div>\n\n            <div class=\"object-tags-box\">\n\n                <div class=\"object-tags\">\n                    <span class=\"tags-mark\" style=\"background-color: #427fed\"></span>\n                    <div class=\"tags easing\">\n\n                        <div class=\"object-tpye\">\n                            <i class=\"icon-book\"></i>\n                        </div>                      \n                    </div>\n                </div>\n\n<!--                <div class=\"object-tags \">\n                    <span class=\"tags-mark\" style=\"background-color: #76a7fa\"></span>\n                    <div class=\"tags easing tagsappear\">\n                        <div class=\"tags-new\">#");
+  data.buffer.push("</span>\n                                </div>\n            </div>\n\n            <div class=\"object-tags-box\">\n\n                <div class=\"object-tags\">\n                    <span class=\"tags-mark\" style=\"background-color: #427fed\"></span>\n                    <div class=\"tags easing\">\n\n                        <div class=\"object-tpye\">\n                            <i class=\"icon-book\"></i>\n                        </div>                      \n                    </div>\n                </div>\n\n                <div class=\"object-tags \" style=\"display:none;\">\n                    <span class=\"tags-mark\" style=\"background-color: #76a7fa\"></span>\n                    <div class=\"tags easing tagsappear\">\n                        <div class=\"tags-new\">#");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "region", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("</div>                   \n                    </div>\n                </div>-->\n\n                <div class=\"object-tags \">\n                    <span class=\"tags-mark\" style=\"background-color: #a0c3ff\"></span>\n                    <div class=\"tags easing tagsappear\">\n                        <div class=\"tags-new\">#");
+  data.buffer.push("</div>                   \n                    </div>\n                </div>\n\n                <div class=\"object-tags \">\n                    <span class=\"tags-mark\" style=\"background-color: #a0c3ff\"></span>\n                    <div class=\"tags easing tagsappear\">\n                        <div class=\"tags-new\">#");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "categories", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -2275,7 +2275,7 @@ function program17(depth0,data) {
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "transitionToArticle", "id", {hash:{},contexts:[depth0,depth0],types:["ID","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(" />\n\n                </a>          \n      \n            </div>\n\n\n            <div class=\"masonry-object_text\">\n                <div class=\"masonry-object_text-container\">\n                    <a style=\"font-size: 16px; font-weight: bold;cursor: pointer\" ");
+  data.buffer.push(" />\n\n                </a>          \n\n            </div>\n\n\n            <div class=\"masonry-object_text\">\n                <div class=\"masonry-object_text-container\">\n                    <a style=\"font-size: 16px; font-weight: bold;cursor: pointer\" ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "transitionToArticle", "id", {hash:{},contexts:[depth0,depth0],types:["ID","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -2294,36 +2294,36 @@ function program17(depth0,data) {
     'unescaped': ("true")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
   if(stack2 || stack2 === 0) { data.buffer.push(stack2); }
-  data.buffer.push("</p>\n                </div>\n\n                <div class=\"more_detail\" ");
+  data.buffer.push("</p>\n                       </div>\n\n                       <div class=\"more_detail\" ");
   hashContexts = {'id': depth0};
   hashTypes = {'id': "STRING"};
   data.buffer.push(escapeExpression(helpers.bindAttr.call(depth0, {hash:{
     'id': ("id")
   },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(" style=\"display:none;width:auto\">\n                    <h1>");
+  data.buffer.push(" style=\"display:none;width:auto\">\n                <h1>");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "object_title", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("</h1>\n                    ");
+  data.buffer.push("</h1>\n                ");
   hashContexts = {'unescaped': depth0};
   hashTypes = {'unescaped': "STRING"};
   stack2 = helpers._triageMustache.call(depth0, "object_description", {hash:{
     'unescaped': ("true")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
   if(stack2 || stack2 === 0) { data.buffer.push(stack2); }
-  data.buffer.push("\n\n                </div>\n                ");
+  data.buffer.push("\n\n            </div>\n            ");
   hashTypes = {};
   hashContexts = {};
   options = {hash:{},inverse:self.noop,fn:self.program(18, program18, data),contexts:[depth0,depth0],types:["STRING","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
   stack2 = ((stack1 = helpers.linkTo),stack1 ? stack1.call(depth0, "article", "", options) : helperMissing.call(depth0, "linkTo", "article", "", options));
   if(stack2 || stack2 === 0) { data.buffer.push(stack2); }
-  data.buffer.push("\n            </div>\n        </div>\n\n\n\n    </div>\n\n</div>\n");
+  data.buffer.push("\n        </div>\n    </div>\n\n\n\n</div>\n\n</div>\n");
   return buffer;
   }
 function program18(depth0,data) {
   
   var buffer = '', hashContexts, hashTypes;
-  data.buffer.push("\n                <span role=\"button\" class=\"masonry_more-btn easing\"  ");
+  data.buffer.push("\n            <span role=\"button\" class=\"masonry_more-btn easing\"  ");
   hashContexts = {'id': depth0};
   hashTypes = {'id': "STRING"};
   data.buffer.push(escapeExpression(helpers.bindAttr.call(depth0, {hash:{
@@ -2336,7 +2336,7 @@ function program18(depth0,data) {
     'target': ("view"),
     'on': ("click")
   },contexts:[depth0,depth0],types:["STRING","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(">more</span>\n                ");
+  data.buffer.push(">more</span>\n            ");
   return buffer;
   }
 

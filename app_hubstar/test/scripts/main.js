@@ -724,7 +724,7 @@ HubStar.ArticleRoute = Ember.Route.extend({
         //     controller: HubStarlicationController,
         setupController: function(controller, model) {
             var temp;
-        if (model.id === undefined) {                        //reload page model id can not be find
+        if (model.id === undefined) {                        //reload the page model id can not be find...
             var url =  window.location.href;
             urlArray = url.split("/");
             temp = urlArray[urlArray.length-1];
@@ -1790,21 +1790,26 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
     },
     submit: function()
     {
-        var collectionController = this.get('controllers.collection');
-        var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
-        var content = collection.get("collection_ids");
-        this.addCollection(collection, content);
+        console.log(this.get('selectionPop'));
+        if (this.get("selectionPop") !==true) {
+            var collectionController = this.get('controllers.collection');
+            var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
+            var content = collection.get("collection_ids");
+            this.addCollection(collection, content);
 
-        this.set("commentObject", HubStar.Mega.find(this.get("objectID")));
+            this.set("commentObject", HubStar.Mega.find(this.get("objectID")));
 
-        this.addComment();
+            this.addComment();
 
 
-        collection.set('optional', localStorage.loginStatus);
-        collection.set('type', 'user');
-        collection.store.save();
-        this.get('controllers.applicationFeedback').statusObserver(null, "saved photo successfully!!!");
-        this.exit();
+            collection.set('optional', localStorage.loginStatus);
+            collection.set('type', 'user');
+            collection.store.save();
+            this.get('controllers.applicationFeedback').statusObserver(null, "Saved photo successfully!!!");
+            this.exit();
+        } else {
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please choose a collection!!!");
+        }
     },
     addComment: function() {
 
@@ -2458,6 +2463,9 @@ HubStar.CollectionController = Ember.Controller.extend({
         }
         return isExsinting;
     }, 
+            
+ 
+            
         specialCharactersChecking: function(str) {
         var re = /^[a-zA-Z-][a-zA-Z0-9-]*$/;
         return re.test(str);
@@ -6278,6 +6286,8 @@ if (checkList[i].id === 'first_name' || checkList[i].id === 'last_name')
     {
         this.set("isEditingMode", !this.get("isEditingMode"));
     },
+            
+            
     setCollectionAttr: function() {
         this.set("newTitle", this.get('selectedCollection').get('title'));
         this.set("newDesc", this.get('selectedCollection').get('desc'));

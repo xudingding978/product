@@ -10,7 +10,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     image_no: 1,
     selectedPhoto: null,
     isSelected: false,
-    needs: ['application', 'addCollection', 'contact', 'permission'],
+    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission'],
     currentUser: null,
     currentUserProfile: null,
     photo_album_id: null,
@@ -133,6 +133,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         var tempUrl = this.get('selectedPhoto').get('photo_image_thumbnail_url');
         addCollectionController.setThumbnailUrl(tempUrl);
         addCollectionController.setUser();
+        addCollectionController.setRelatedController('photo');
         this.set('collectable', !this.get('collectable'));
     },
     closeWindow: function() {
@@ -208,44 +209,56 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     // share to social facebook
     fbShare: function() {
+        var that = this;
         var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
-        var caption='';
-       
-        if(this.get('selectedPhoto').get('photo_caption')!==null)
-            {
-                caption =this.get('selectedPhoto').get('photo_caption');
+        var caption = '';
+
+        if (this.get('selectedPhoto').get('photo_caption') !== null)
+        {
+            caption = this.get('selectedPhoto').get('photo_caption');
+        }
+        else
+        {
+            caption = '';
+        }
+
+        var obj = {
+            method: 'feed',
+            link: currntUrl,
+            picture: this.get('selectedPhoto').get('photo_image_thumbnail_url'),
+            name: this.get('selectedPhoto').get('photo_title'),
+            caption: 'Trends Ideas',
+            description: caption
+        };
+
+        function callback(response) {
+            if (response && response.post_id) {
+                that.get('controllers.applicationFeedback').statusObserver(null, "Shared Successfully");
+            } else {
+                that.get('controllers.applicationFeedback').statusObserver(null, "Shared Unsuccessfully", "failed");
             }
-            else
-                {
-                    caption='';
-                }
-                
-         //console.log(caption);
-        appID = '358102574293594';
-        var url = 'http://www.facebook.com/dialog/feed?app_id=' + appID +
-                '&link=' + encodeURIComponent(currntUrl) +
-                '&picture=' + encodeURIComponent(this.get('selectedPhoto').get('photo_image_thumbnail_url')) +
-                '&name=' + encodeURIComponent(this.get('selectedPhoto').get('photo_title')) +
-                '&caption=' + encodeURIComponent('Trends Ideas') +
-                '&description=' + encodeURIComponent(caption) +
-                '&redirect_uri=' + encodeURIComponent("http://www.facebook.com/") +
-                '&display=popup';
-        window.open(url,
-                'feedDialog',
-                'toolbar=0,status=0,width=626,height=436');
+        }
+
+        FB.ui(obj, callback);
+
+        return false;
     },
     //share to social google plus
     gpShare: function() {
-          var caption='';
-        if(this.get('selectedPhoto').get('photo_caption')!==null)
-            {
-                caption =this.get('selectedPhoto').get('photo_caption');
-            }
-             else
-                {
-                    caption='';
-                }
-        var metas = document.getElementsByTagName("meta");
+        var caption = '';
+        if (this.get('selectedPhoto').get('photo_caption') !== null)
+        {
+            caption = this.get('selectedPhoto').get('photo_caption');
+        }
+        else
+        {
+            caption = '';
+        }
+
+//        var meta = document.getElementsByTagName('meta');
+//        for (var i = 0; i < meta.length; i++) {
+//            console.log(meta[i]);
+//        }
         $("meta[property='og\\:title']").attr("content", this.get('selectedPhoto').get('photo_title'));
         $("meta[property='og\\:description']").attr("content", caption);
         $("meta[property='og\\:image']").attr("content", this.get('selectedPhoto').get('photo_image_thumbnail_url'));
@@ -253,6 +266,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
         var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
         var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
+
         window.open(
                 url,
                 'popupwindow',
@@ -261,7 +275,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
         return false;
     },
-        //share to social twitter
+    //share to social twitter
     tShare: function() {
         var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
         var url = 'https://twitter.com/share?text=' + this.get('selectedPhoto').get('photo_title') + '&url=' + encodeURIComponent(currntUrl);

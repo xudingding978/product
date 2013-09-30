@@ -1026,6 +1026,20 @@
 }
 
 
+.caption-container{
+background-color: rgba(0,0,0,.4);
+padding: 15px 15px;
+color: #fff;
+position: absolute;
+bottom: 60px;
+border-radius: 5px;
+box-shadow: 0 0 10px #999;
+width: 350px;
+}
+
+
+
+
 
 
 /*OBJECT VIEW LEFT               END*/

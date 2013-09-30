@@ -28,6 +28,7 @@ HubStar.CollectionController = Ember.Controller.extend({
                 this.get('controllers.applicationFeedback').statusObserver(null, "Please try to type name with upper case and space");
             }
         }
+
         return collection;
 
     },
@@ -56,6 +57,9 @@ HubStar.CollectionController = Ember.Controller.extend({
         }
         return isExsinting;
     }, 
+            
+ 
+            
         specialCharactersChecking: function(str) {
         var re = /^[a-zA-Z-][a-zA-Z0-9-]*$/;
         return re.test(str);
@@ -66,7 +70,7 @@ HubStar.CollectionController = Ember.Controller.extend({
 
         var desc = "";
         if (selectedCollection.get('desc') !== undefined) {
-            desc = this.checkingValidInput(selectedCollection.get('desc'));
+            desc = selectedCollection.get('desc');
         }
 
         var id = this.checkingValidInput(selectedCollection.get('id'));

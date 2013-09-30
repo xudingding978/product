@@ -6987,6 +6987,8 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
 .icon-renren:before{content:"\f18b";}
 
 .plaform_bar{
+    height: 280px;
+
     position: fixed;
     left: 0px;
     top: 30%;
@@ -6998,6 +7000,7 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
     border-radius: 0 10px 10px 0;
     background-color: rgba(50,50,50,0.4);
     box-shadow: 0 0 10px #fff;
+    height:256px;
 }
 #masonry_user_container
 {
@@ -7079,6 +7082,7 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
 }
 
 #navContainer {
+    height: 280px;
     margin:0;
     padding:15px 0;
     opacity: 0;
@@ -7496,6 +7500,10 @@ div.search-loading-invisible{
     font-weight: bold;
     font-size: 13px;
     list-style: none;
+}
+
+.edit-object-ul > .ite{
+    padding:6px 15px 6px 30px;
 }
 
 .ite:hover{
@@ -12373,6 +12381,10 @@ div #login_container > div.front > .head > .panelcircle
     line-height: 45px; 
     font-size: 15px;
 
+<<<<<<< HEAD
+=======
+    background-clip:border-box;
+>>>>>>> 44ce8ac977ee15c06b4568e83d963f5153868aef
     cursor: pointer;
     opacity: .7;
 }
@@ -12386,6 +12398,13 @@ div #login_container > div.front > .head > .panelcircle
     -webkit-box-shadow: none !important;
     -moz-box-shadow: none !important;
     -o-box-shadow: none !important;
+<<<<<<< HEAD
+=======
+
+    font-weight: bold;
+    color: #333;
+    font-size: 15px;
+>>>>>>> 44ce8ac977ee15c06b4568e83d963f5153868aef
 }
 
 .social-login-iconbox{
@@ -12398,6 +12417,13 @@ div #login_container > div.front > .head > .panelcircle
     line-height: 36px;
     color: #555;
     margin: 0 3px;
+<<<<<<< HEAD
+=======
+
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+>>>>>>> 44ce8ac977ee15c06b4568e83d963f5153868aef
 }
 
 .login-select{
@@ -12430,7 +12456,11 @@ div #login_container > div.front > .head > .panelcircle
     -ms-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
     -o-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
     box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
+<<<<<<< HEAD
 }
+=======
+}/* this is the active gender class use this */
+>>>>>>> 44ce8ac977ee15c06b4568e83d963f5153868aef
 
 
 .social-login-iconbox:hover, .social-login-iconbox:focus{
@@ -12439,21 +12469,38 @@ div #login_container > div.front > .head > .panelcircle
 }
 .social-login-iconbox:active{color: #fff;background-color: #08c; }
 
+<<<<<<< HEAD
 div > div > i.icon-envelope, div > div > a#click-register
 {
     cursor:pointer;
+=======
+div > div > i.icon-envelope, div > div > #click-register
+{
+    cursor:pointer;
+
+    -webkit-border-bottom-right-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+>>>>>>> 44ce8ac977ee15c06b4568e83d963f5153868aef
 }
 
 .register-btn{
     width: 300px;
     height: 45px;
+<<<<<<< HEAD
     margin: 0 auto 20px;
+=======
+>>>>>>> 44ce8ac977ee15c06b4568e83d963f5153868aef
     background-color: #fff;
     text-align: center;
     color: #888;
     font-weight: bold; 
     font-size: 15px;
     line-height: 45px; 
+<<<<<<< HEAD
     border-radius: 0 0 5px 5px;
     
     cursor: pointer;
@@ -12462,6 +12509,61 @@ div > div > i.icon-envelope, div > div > a#click-register
 .register-btn:hover, .register-btn:focus{background-color: #f3f3f3;}
 
 .register-btn:active{background-color: #08c;color: #fff;}
+=======
+    -webkit-border-radius: 0 0 5px 5px;
+    -moz-border-radius: 0 0 5px 5px;
+    border-radius: 0 0 5px 5px;
+
+    cursor: pointer;
+    background-clip:border-box;
+}
+div.register-btn-small{
+    width:148px;
+    -webkit-border-radius: 0 0 5px 0;
+    -moz-border-radius: 0 0 5px 0;
+    border-radius: 0 0 5px 0;
+    display:inline-block;  
+    //background-color: #DEF1F7;
+
+}
+.back-btn{
+    width: 148px;
+    height: 45px;
+    background:#fff;
+    text-align: center;
+    color: #9c9c9c;
+    font-weight: bold; 
+    font-size: 15px;
+    line-height: 45px; 
+    -webkit-border-radius: 0 0 0 5px;
+    -moz-border-radius: 0 0 0 5px;
+    border-radius: 0 0 0 5px;
+    display:inline-block;
+
+    cursor: pointer;
+    background-clip:border-box;
+
+}
+
+.register-btn:hover, .register-btn:focus, .back-btn:hover, .back-btn:focus{background-color: #f3f3f3;}
+
+.register-btn:active, .back-btn:active{background-color: #08c;color: #fff;}
+
+.social-active{opacity:1;}
+
+
+div >div.active-tab
+{
+    -webkit-border-bottom-right-radius: 0!important;
+    -webkit-border-bottom-left-radius: 0!important;
+    -moz-border-radius-bottomright: 0!important;
+    -moz-border-radius-bottomleft: 0!important;
+    border-bottom-right-radius: 0!important;
+    border-bottom-left-radius: 0!important;
+    opacity:1;
+
+}
+>>>>>>> 44ce8ac977ee15c06b4568e83d963f5153868aef
 
 
 * {

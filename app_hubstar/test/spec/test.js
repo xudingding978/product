@@ -48,6 +48,7 @@ test("testTwoController", function() {
 //});
 
 
+<<<<<<< HEAD
 //describe('Array', function(){
 //    describe('#indexOf()', function(){
 //        it('should return -1 when the value is not present', function(){
@@ -92,6 +93,12 @@ test("testTwoController", function() {
 //;
 //
 //
+=======
+}
+;
+
+
+>>>>>>> 44ce8ac977ee15c06b4568e83d963f5153868aef
 //describe("Platform  bar", function() {
 //    var controller;
 //    var topics;

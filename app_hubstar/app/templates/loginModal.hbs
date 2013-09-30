@@ -73,20 +73,21 @@
 
             <div>
 
-
-                <td>
-                    <div style="display: block;">
-                        <div   style="margin: 0;width: 100%;">
-                            {{input type="text" value=username placeholder="Username"}}
-                        </div>
-                    </div>
-                </td>
-                </tr>
                 <tr>
                     <td>
                         <div style="display: block;">
                             <div   style="margin: 0;width: 100%;">
-                                 {{input type="password" value=password placeholder="Password"}}
+                                {{input type="text" value=username placeholder="Username"}}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <div style="display: block;">
+                            <div   style="margin: 0;width: 100%;">
+                                {{input type="password" value=password placeholder="Password"}}
                             </div>
                         </div>
                     </td>
@@ -100,24 +101,24 @@
                       Cancel 
             </div>
             <div  type="button" class="new-btn green-btn"{{action login }} >
-                Login
-            </div>
+                  Login
         </div>
-        <div style="font-size: 11px;">
-            <a href='#'>Forgot your username or password?</a>
-        </div>
-
-
-
-
-        {{/unless}}
-
-        <div style="position: relative; text-align: center; font-size: 12px; margin-bottom: 15px;"> 
-            Don't have an account? Click <a  href="#" class='signup' {{action flipFrontClick}}>here </a> to sign up!
-        </div>
-
-
     </div>
+    <div style="font-size: 11px;">
+        <a href='#'>Forgot your username or password?</a>
+    </div>
+
+
+
+
+    {{/unless}}
+
+    <div style="position: relative; text-align: center; font-size: 12px; margin-bottom: 15px;"> 
+        Don't have an account? Click <a  href="#" class='signup' {{action flipFrontClick}}>here </a> to sign up!
+    </div>
+
+
+</div>
 
 
 </div>
@@ -168,36 +169,36 @@
 
 
         <div>
-             <tr>
-                                <td>
-                                    <div  style="display: block; margin-bottom: 5px;" >
-
-                                        <div  id="first_name" style="margin: 0;width: 49%;display: inline-block;">
-                                             {{input type="text" value=first_name placeholder="First Name"}}
-                                        </div>
-                                        <div id="last_name" style="margin: 0;width: 49%;display: inline-block;">
-                                             {{input type="text" value=last_name placeholder="Last Name"}}
-                                        </div>
-
-                                    </div>
-                                </td>
-                        </tr>
+            <tr>
                 <td>
-                    <div style="display: block;">
-                        <div   style="margin: 0;width: 100%;">
-                           {{input type="password" value=password placeholder="Password"}}
+                    <div  style="display: block; margin-bottom: 5px;" >
+
+                        <div  id="first_name" style="margin: 0;width: 49%;display: inline-block;">
+                            {{input type="text" value=first_name placeholder="First Name"}}
                         </div>
+                        <div id="last_name" style="margin: 0;width: 49%;display: inline-block;">
+                            {{input type="text" value=last_name placeholder="Last Name"}}
+                        </div>
+
                     </div>
                 </td>
+            </tr>
+            <td>
+                <div style="display: block;">
+                    <div   style="margin: 0;width: 100%;">
+                        {{input type="password" value=password placeholder="Password"}}
+                    </div>
+                </div>
+            </td>
             </tr>  
-            
-                <td>
-                    <div style="display: block;">
-                        <div   style="margin: 0;width: 100%;">             
-                            {{input type="text" value=email placeholder="Your Email"}}
-                        </div>
+
+            <td>
+                <div style="display: block;">
+                    <div   style="margin: 0;width: 100%;">             
+                        {{input type="text" value=email placeholder="Your Email"}}
                     </div>
-                </td>
+                </div>
+            </td>
             <tr>
         </div>
 
@@ -208,8 +209,8 @@
               Go Back
     </div>
     <div  type="button" class="new-btn green-btn" id="goback" style="position: absolute;top: 473px;left:284px;" {{action signUp}}>
-        Sign Up
-    </div>
+          Sign Up
+</div>
 
 </div>
 

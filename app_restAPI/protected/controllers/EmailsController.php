@@ -26,15 +26,67 @@ class EmailsController extends Controller {
     }
 
     public function actionCreate() {
-        $request_json = file_get_contents('php://input');
+        
+        
+        
+        
+//        $request_json = file_get_contents('php://input');
+//        $request = CJSON::decode($request_json, true);
+//
+//
+//        $request_arr = $request['email'];
+//
+//        $display_email = $request_arr['display_email'];
+//
+//        $email_destination = $request_arr['email_destination'];
+//
+//        $sub_category = explode(",", $request_arr['project_sub_category_item']);
+//        // error_log(var_export($sub_category , true));
+//
+//        $description = $this->linkCategory($sub_category);
+//
+//
+//
+//        $domain = $this->getDomain();
+//        $configuration = $this->getProviderConfigurationByName($domain, "SES");
+//        $amazonSes = Aws\Ses\SesClient::factory($configuration);
+//        $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");
+//        $platformEmail = $platformSettings['direct_enquiries']['email'];
+//        $subject_prefix = $platformSettings['direct_enquiries']['subject_prefix'];
+//        $args = array(
+//            "Source" => $platformEmail,
+//            "Destination" => array(
+//                "ToAddresses" => array(
+//                    $email_destination, 'enquiries@trendsideas.com', $display_email
+//                )
+//            ),
+//            "Message" => array(
+//                "Subject" => array(
+//                    "Data" => $subject_prefix . $request_arr['email_subject']
+//                ),
+//                "Body" => array(
+//                    "Html" => array(
+//                        "Data" => $this->getEmailForm($request_arr['email_subject'], $request_arr['email_body'], $request_arr['display_name'], $request_arr['recieve_profile'], $request_arr['project_timeframe'], $request_arr['project_category'], $request_arr['project_budget'], $request_arr['project_experience'], $description
+//                        )
+//                    )
+//                ),
+//            ),
+//            "ReplyToAddresses" => array($display_email)
+//        );
+//        $response = $amazonSes->sendEmail($args);
+//        $this->sendResponse(200, $response);
+    }
+
+    public function actionForgetpassword() {
+          $request_json = file_get_contents('php://input');
         $request = CJSON::decode($request_json, true);
 
 
         $request_arr = $request['email'];
 
-        $display_email = $request_arr['display_email'];
-
-        $email_destination = $request_arr['email_destination'];
+//        $display_email = $request_arr['display_email'];
+//
+//        $email_destination = $request_arr['email_destination'];
 
         $sub_category = explode(",", $request_arr['project_sub_category_item']);
         // error_log(var_export($sub_category , true));
@@ -48,17 +100,17 @@ class EmailsController extends Controller {
         $amazonSes = Aws\Ses\SesClient::factory($configuration);
         $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");
         $platformEmail = $platformSettings['direct_enquiries']['email'];
-        $subject_prefix = $platformSettings['direct_enquiries']['subject_prefix'];
+        $subject_prefix ='good afternoon';
         $args = array(
             "Source" => $platformEmail,
             "Destination" => array(
                 "ToAddresses" => array(
-                    $email_destination, 'enquiries@trendsideas.com', $display_email
+                     'shuai@hubstar.co'
                 )
             ),
             "Message" => array(
                 "Subject" => array(
-                    "Data" => $subject_prefix . $request_arr['email_subject']
+                    "Data" => $subject_prefix 
                 ),
                 "Body" => array(
                     "Html" => array(
@@ -67,12 +119,13 @@ class EmailsController extends Controller {
                     )
                 ),
             ),
-            "ReplyToAddresses" => array($display_email)
+//            "ReplyToAddresses" => array($display_email)
         );
         $response = $amazonSes->sendEmail($args);
         $this->sendResponse(200, $response);
+        
     }
-
+    
     public function actionRead() {
         
     }

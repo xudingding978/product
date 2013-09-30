@@ -52,7 +52,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             if (results.get('isLoaded')) {
                 for (var i = 0; i < results.get("length"); i++) {
                     var tempmega = results.objectAt(i);
-                    //console.log(tempmega.get("profile").objectAt(0));
+                 
                     if (tempmega.get("profile").objectAt(0) !== undefined) {
                         var isFollow = false;
                         for (var j = 0; j < tempmega.get("profile").objectAt(0).get("followers").get("length"); j++)
@@ -135,6 +135,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     flipFrontClick: function() {
         $(".hover").addClass('flip');
     },
+             shuaitest: function() {
+         var result=true;
+        console.log('shuaishuaitest');
+        return result;
+    },
     flipFrontBack: function() {
         $(".hover").removeClass('flip');
     },
@@ -151,18 +156,47 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     signUp: function() {
 
 
-        if (this.checkSignupInfo()) {
+        //alert('opening step 2');
+      
 
-            var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email')];
-            var that=this;
-            requiredBackEnd('site', 'create', createInfo, 'POST', function(params) {
-                console.log(params.COUCHBASE_ID);
-                localStorage.loginStatus = params.COUCHBASE_ID;
-                that.transitionToRoute('search');
+    
+        if (this.checkSignupInfo()) {
+ 
+            var signupInfo = [this.get('email')];
+          
+            var that = this;
+            requiredBackEnd('site', 'getemail', signupInfo, 'POST', function(params) {
+                
+                if (params === 1) {
+                     $('#register-with-email-step-2').addClass('active-step');
+        $('#click-register').addClass('active-tab');
+        $('#register-with-email-step-2').animate({height: 'toggle'});
+        $('#register-with-email-drop-down').animate({height: 'toggle'});
+
+        checkSocial();
+//                    var createInfo = [that.get('first_name'), that.get('last_name'), that.get('password'), that.get('email'),that.get('region'),that.get('gender'),that.get('age')];
+//                    var thatthat = that;
+//                    requiredBackEnd('site', 'create', createInfo, 'POST', function(params) {
+//                       
+//                        localStorage.loginStatus = params.COUCHBASE_ID;
+//                        thatthat.transitionToRoute('search');
+//                    });
+                }
+                else {
+                    
+                }
             });
         }
     },
-            
+            done:function(){
+        var createInfo = [that.get('first_name'), that.get('last_name'), that.get('password'), that.get('email'),that.get('region'),that.get('gender'),that.get('age')];
+                    var thatthat = that;
+                    requiredBackEnd('site', 'create', createInfo, 'POST', function(params) {
+                       
+                        localStorage.loginStatus = params.COUCHBASE_ID;
+                        thatthat.transitionToRoute('search');
+                    });
+            },
     checkSignupInfo: function() {
         function checkObject(id, input, lengthMin, lengthMax, isEmailValid)
         {
@@ -171,7 +205,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             this.lengthMin = lengthMin;
             this.lengthMax = lengthMax;
             this.isEmailValid = isEmailValid;
-
         }
         var checkList = new Array();
         var result;
@@ -184,17 +217,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var password = new checkObject("password", this.get('password'), 6, 40, null);
         checkList.push(password);
 
-
-
-
         for (var i = 0; i < checkList.length; i++)
         {
-
             var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
 //            document.getElementById(checkList[i].id).style.border = '';
             if (checkList[i].input !== null && checkList[i].input !== "")
             {
-                console.log(checkList[i].input);
                 if (checkList[i].input.length > checkList[i].lengthMax || checkList[i].input.length < checkList[i].lengthMin)
                 {
                     result = false;
@@ -222,48 +250,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     break;
                 }
             }
-//
-//            if (checkList[i].input !== null && checkList[i].isEmailExists === true)
-//            {
-//              var signupInfo=[ checkList[i].input]; 
-//       console.log( this.get(checkList[i].input));
-//      var that=this;
-//            requiredBackEnd('site','getemaill',signupInfo,'POST',function(params){
-//                if(params===false){
-//               
-//                    result = false;
-//                    document.getElementById(checkList[i].id).style.border = '2px solid red';
-//                }
-//                else {
-//                    result = true;
-////                                      break;
-//                }
-//            });
-//            }
-
 
         }
-        console.log(result);
         return result;
     },
-    checkEmailExists: function() {
-        var signupInfo = [this.get('email')];
-        console.log(this.get('email'));
-        var result;
-        requiredBackEnd('site', 'getemail', signupInfo, 'POST', function(params) {
-            console.log(params);
-            if (params === false) {
-                result = false;
-//                    document.getElementById(checkList[i].id).style.border = '2px solid red';
-            }
-            else {
-                result = true;
-            }
-            return result;
-            console.log(result);
-        });
-
-    },
+            
     login: function() {
 
         var loginInfo = [this.get('username'), this.get('password')];
@@ -273,12 +264,31 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 localStorage.loginStatus = params.COUCHBASE_ID;
                 that.transitionToRoute('search');
             }
-
         });
+    },
+            
+            emailSend: function()
+        {
+console.log('shuai');
 
-    }
+            var projectSubCategoryItem = "";
+          
+            projectSubCategoryItem = projectSubCategoryItem.substring(0, projectSubCategoryItem.length - 1);
 
-
-
+            var tempEmail = HubStar.Email.createRecord({
+                "displayName": this.get("displayName"),
+                "displayEmail": this.get("displayEmail"),
+                'recieveProfile': this.get('recieveProfile'),
+                "emailBody": this.get("emailBody"),
+                "emailSubject": this.get("emailSubject"),
+                "emailDestination": this.get("emailDestination"),
+                "emaiCCDestination": this.get("emaiCCDestination"),
+                "emaiBCCDestination": this.get("emaiBCCDestination"),
+               
+                "projectSubCategoryItem": projectSubCategoryItem
+            });
+            tempEmail.store.commit();
+ 
+        }
 
 });

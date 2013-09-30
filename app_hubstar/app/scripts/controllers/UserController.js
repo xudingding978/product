@@ -18,6 +18,8 @@ HubStar.UserController = Ember.Controller.extend({
     selectedDesc: "",
     selectedTitle: "",
     display_name: "",
+    gender:"",
+    age:"",
     userTage: true,
     currentUserID: "",
     needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings', 'application', 'platformBar','collection','htmlEditor'],
@@ -49,7 +51,7 @@ HubStar.UserController = Ember.Controller.extend({
     interest: "interest",
     is_authentic_user: false,
     aboutMe:"aboutMe",
-  // about_me:"",
+   about_me:"",
     first_name:"",
     last_name:"",
     is_Photoclick: false,
@@ -88,7 +90,7 @@ HubStar.UserController = Ember.Controller.extend({
     },
     setUser: function()
     {
-        console.log(this.get('model'));
+       
         var user = this.get('model');
         this.setIntersetsArr(user);
 //        this.set("model", user);
@@ -110,7 +112,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("youtube", user.get("youtube_link"));
         this.set("location", user.get("region"));
         this.set("email", user.get("email"));
-        console.log(user.get("email"));
+      
         this.set("password", user.get("password"));
 
         if(user.get('cover_url')===null||user.get('cover_url')===""||user.get('cover_url')===undefined){
@@ -520,7 +522,9 @@ HubStar.UserController = Ember.Controller.extend({
         return update_user_record;
     },
     saveUpdateInterest: function() {
-
+if (interests === null ){
+    interests="";
+}else{
         var checkString = this.get('interests').trim();
         if ((checkString.substring(checkString.length - 1, checkString.length) !== ',') && (!/,,/.test(checkString))) {
             var update_interest_record = HubStar.User.find(this.get('user.id'));
@@ -541,7 +545,7 @@ HubStar.UserController = Ember.Controller.extend({
         } else {
             this.get('controllers.applicationFeedback').statusObserver(null, "invalid input");
         }
-
+      }
     },
     specialCharactersChecking: function(str) {
         var re = /^[a-zA-Z-][a-zA-Z0-9-]*$/;
@@ -625,7 +629,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.get('selectedCollection').set('title', this.get('newTitle'));
         this.get('selectedCollection').set('desc', this.get('newDesc'));
         var collectionController = this.get('controllers.collection');
-        console.log(this.get('selectedCollection'));
+    
         var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
         collection.set('optional', this.get('model').get('id'));
         collection.set('type', 'user');

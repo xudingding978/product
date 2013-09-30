@@ -48,11 +48,11 @@ class SiteController extends Controller {
     }
 
     public function actionTest() {
-        
-  
+
+
         // renders the view file 'protected/views/site/index.php'
         // using the default layout 'protected/views/layouts/main.php'
-    //    $this->render('test');
+        //    $this->render('test');
     }
 
     /**
@@ -100,142 +100,101 @@ class SiteController extends Controller {
 //        
 //        $this->defaultLogin();
 //    }
-
 //    public function actionLogin() {
 //        $model = new LoginForm;
 //        $this->render('login', array('model' => $model));
 //
 //
 //    }
-    
-    
+
+
     public function actionCreate() {
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
-                
-//            $newUser = User::model()
-//                ->findByAttributes(array('USER_NAME' => 'shuai3'));
-//            error_log(var_export($newUser->attributes,true));
-//   $model->PWD_HASH='654321';
-//    $model->save();
 
+        $model = new User;
 
+        $request_array = CJSON::decode(file_get_contents('php://input'));
         
-             $model = new User;
- 
-            $request_array = CJSON::decode(file_get_contents('php://input'));
-            error_log(var_export($request_array[3],true));
-            $model->REC_DATETIME = new CDbExpression('NOW()');
-            $model->REC_TIMESTAMP = new CDbExpression('NOW()');
-            $model->TENANT_REC_ID = "1";
-            $model->FIRST_NAME=$request_array[0];
-            $model->LAST_NAME=$request_array[1];
-            $model->PWD_HASH =$request_array[2];
-            $model->EMAIL_ADDRESS=$request_array[3];
-            $model->COUCHBASE_ID = strval(rand(9999999999, 99999999999));
-             
-            $cb = new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "production", true);
-            $rand_id = $model->COUCHBASE_ID;
-            $temp = $this->getMega();
-            $temp["id"] = $rand_id;
-            $temp["user"][0]["id"] = $rand_id;
-            $temp["created"] = $this->getCurrentUTC();
-            $temp["user"][0]["photo_url"] = "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg";
-            $temp["user"][0]["photo_url_large"] = "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg";        
-            $temp["user"][0]["display_name"] = $model->USER_NAME;
-            $temp["user"][0]["first_name"] = $model->FIRST_NAME;
-            $temp["user"][0]["last_name"] = $model->LAST_NAME;
-            $temp["user"][0]["email"] = $model->EMAIL_ADDRESS;
-error_log('saved');
-             error_log(var_export($model->attributes ,true));
-   
-             if ($cb->add(substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.') + 1) . "/users/" . $rand_id, CJSON::encode($temp))) {
-                    $model->save(false);
-//                    Yii::app()->session['newUser'] = "new";
+        $model->REC_DATETIME = new CDbExpression('NOW()');
+        $model->REC_TIMESTAMP = new CDbExpression('NOW()');
+        $model->TENANT_REC_ID = "1";
+        $model->USER_NAME = $request_array[3];
+        $model->FIRST_NAME = $request_array[0];
+        $model->LAST_NAME = $request_array[1];
+        $model->PWD_HASH = $request_array[2];
+        $model->EMAIL_ADDRESS = $request_array[3];
+        $model->COUCHBASE_ID = strval(rand(9999999999, 99999999999));
+
+        $cb = new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "production", true);
+        $rand_id = $model->COUCHBASE_ID;
+        $temp = $this->getMega();
+        $temp["id"] = $rand_id;
+        $temp["user"][0]["id"] = $rand_id;
+        $temp["created"] = $this->getCurrentUTC();
+        $temp["user"][0]["photo_url"] = "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg";
+        $temp["user"][0]["photo_url_large"] = "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg";
+        $temp["user"][0]["display_name"] = $model->FIRST_NAME;
+        $temp["user"][0]["first_name"] = $model->FIRST_NAME;
+        $temp["user"][0]["last_name"] = $model->LAST_NAME;
+        $temp["user"][0]["email"] = $model->EMAIL_ADDRESS;
+
+        $temp['user'][0]['selected_topics'] = null;
+        $temp['user'][0]['gender'] = $request_array[5];
+        $temp['user'][0]['age'] =$request_array[6];
+        $temp['user'][0]['description'] = null;
+        $temp['user'][0]['about_me'] = null;
+        $temp['user'][0]['facebook_link'] = null;
+        $temp['user'][0]['twitter_link'] = null;
+        $temp['user'][0]['linkedin_link'] = null;
+        $temp['user'][0]['googleplus_link'] = null;
+        $temp['user'][0]['pinterest_link'] = null;
+        $temp['user'][0]['youtube_link'] = null;
+        $temp['user'][0]['region'] =$request_array[4];
+        $temp['user'][0]['password'] = null;
+
+
+        if ($cb->add(substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.') + 1) . "/users/" . $rand_id, CJSON::encode($temp))) {
+     
+            if($model->save(false)){        
             $this->sendResponse(200, CJSON::encode($model));
-//           if ($model->save(false) ) {
-//
-//                 error_log(var_export($model->attributes,true));
-//                    $identity = new CommonUserIdentity($model->USER_NAME, $model->PWD_HASH);
-//                    $identity->authenticate();
-//                    Yii::app()->user->login($identity, 0);
-//
-//                    if (Yii::app()->session['newUser'] == "new") {
-//
-//                        $this->render('welcome');
-//                        unset(Yii::app()->session['newUser']);
-//                    } else {
-//                        $this->render('close');
-//                   }
-//               }
-           }
-         //}
- 
+            }
+        }
     }
 
-    
-      public function actionGetmodel() {
-         
-          $request_array = CJSON::decode(file_get_contents('php://input'));
-       
-         $currentUser = User::model()
-                ->findByAttributes(array('COUCHBASE_ID' => $request_array));
-         error_log(var_export($request_array[0],true));
-$this->sendResponse(200, CJSON::encode($currentUser));
-              
-         
-     }
-    
-     
-     public function actionGetemail() {
-         
-          $request_array = CJSON::decode(file_get_contents('php://input'));
-     
-       error_log(var_export($request_array [0],true));
-         $currentUser = User::model()
-                ->findByAttributes(array('EMAIL_ADDRESS' => $request_array[0]));
-         error_log(var_export(isset($currentUser),true));
-             if(isset($currentUser) ){
-$this->sendResponse(200, true);
+    public function actionGetmodel() {
 
-error_log('return false');
-             }
-             else{
-                 $this->sendResponse(200, false);
-                 error_log('return true');
-             }
-         
-     }
-     
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $currentUser = User::model()
+                ->findByAttributes(array('COUCHBASE_ID' => $request_array));
+        $this->sendResponse(200, CJSON::encode($currentUser));
+    }
     
-    
-    
-    
-     public function actionUpdate() {
-         
-          $request_array = CJSON::decode(file_get_contents('php://input'));
-       
-         $currentUser = User::model()
+    public function actionGetemail() {
+
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $currentUser = User::model()
+                ->findByAttributes(array('EMAIL_ADDRESS' => $request_array[0]));
+        if (isset($currentUser)) {
+            $this->sendResponse(200, 0);
+        } else {
+            $this->sendResponse(200, 1);
+        }
+    }
+
+    public function actionUpdate() {
+
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $currentUser = User::model()
                 ->findByAttributes(array('COUCHBASE_ID' => $request_array[0]));
-        
-          
 //          if($currentUser->PWD_HASH===$request_array[1]&&$request_array[2]===$request_array[3])
 //          {   
-          error_log(var_export($request_array[4],true));
-              $currentUser->PWD_HASH=$request_array[2];
-          
+        $currentUser->PWD_HASH = $request_array[2];
         $currentUser->save($request_array[4]);
-         
-
-         
 //          }
-         
-     }
-    
-    
-    
-    
+    }
+
     public function getMega() {
         $mega = '{
   "id": "",
@@ -274,9 +233,6 @@ error_log('return false');
 }';
         return json_decode($mega, true);
     }
-    
-    
-    
 
     public function getCurrentUTC() {
 
@@ -284,55 +240,18 @@ error_log('return false');
         $time_string = strtotime($datetime);
         return $time_string;
     }
-    
-    
-    
-    
-    
-      public function actionLogin() {
-          
-          
- $request_array = CJSON::decode(file_get_contents('php://input'));
- error_log(var_export($request_array[0],true));
-         error_log(var_export($request_array[1],true));
-         
-   $currentUser = User::model()
-                ->findByAttributes(array('EMAIL_ADDRESS' => $request_array[0]));
-           
-           
-           if($currentUser->PWD_HASH===$request_array[1])
-           {
-               error_log('bbbbbbb');
-               $this->sendResponse(200, CJSON::encode($currentUser));
-           }
-          
-         
-         
+
+    public function actionLogin() {
+
+
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $currentUser = User::model()
+                ->findByAttributes(array('USER_NAME' => $request_array[0]));
+        if ($currentUser->PWD_HASH === $request_array[1]) {
+            $this->sendResponse(200, CJSON::encode($currentUser));
+        }
     }
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 //    public function defaultLogin() {
 //
 //        $model = new LoginForm;
@@ -374,13 +293,10 @@ error_log('return false');
 //            Yii::app()->end();
 //        }
 
-
-
         if (isset($_POST['LoginForm'])) {
             $model->attributes = $_POST['LoginForm'];
 
             if ($model->validate() && $model->login()) {
-
                 return;
             } else {
                 echo CActiveForm::validate($model);
@@ -396,7 +312,7 @@ error_log('return false');
 
         Yii::app()->user->logout();
 
-        //    $this->redirect(Yii::app()->homeUrl);
+            $this->redirect(Yii::app()->homeUrl);
     }
 
     public function actionSet() {
@@ -431,7 +347,6 @@ error_log('return false');
         echo CJSON::encode($dataProvider);
     }
 
-
 }
 
 class ListingCast {
@@ -462,5 +377,4 @@ class ListingCast {
     }
 
 }
-
 

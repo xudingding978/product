@@ -14,7 +14,7 @@
 
 
 
-<div style="width:100%;height:100%;z-index: 1000;position: fixed;">
+<div style="width:100%;height:100%;z-index: 1000;position: fixed;min-width: 1100px;min-height: 728px;">
     <img src="../../../images/landingpagebg.jpg" style="width:100%; position:fixed;"/>
 
     <div style="width: 87%;margin: 40px auto;display: block;line-height: 45px;">
@@ -26,7 +26,7 @@
         </div>
     </div>
 
-    <div style="position: absolute; vertical-align: middle; color: #fff; width: 40%; text-align: center;margin: auto;left: 0;right: 0;top: 55px;font-size: 14px; font-family: 'Montserrat', sans-serif; letter-spacing: 2px;opacity: .9;">
+    <div style="position: absolute; vertical-align: middle; color: #fff; width: 600px; text-align: center;margin: auto;left: 0;right: 0;top: 55px;font-size: 13px; font-family: 'Montserrat', sans-serif; letter-spacing: 2px;opacity: .9;">
         <span>2,100,000 IDEAS</span>
         <span>&nbsp | &nbsp</span>
         <span>1,200,000 PRODUCTS</span>
@@ -34,42 +34,42 @@
         <span>5,000 SERVICES</span>
     </div>
 
-    <div style="position:absolute;width: 40%;text-align: center;top: 21%;margin: auto;display: block;left: 0;right: 0;">
-        <img style="position: relative;margin: 8px auto;min-width: 300px;width: 70%;" src="../../../images/landing-trends.png">
+    <div style="position:absolute;width: 33%;text-align: center;top: 21%;margin: auto;display: block;left: 0;right: 0;">
+        <img style="position: relative;margin: 10px auto 40px -10px; min-width: 320px;width: 70%;" src="../../../images/landing-trends.png">
 
-        <div class="register-with easing" style="border-radius: 5px 5px 0 0; border-bottom:1px solid #e3e3e3;">
-            <i class="icon-facebook">&nbsp</i><a id="click-register-social" style="color: #888"> Register with social account</a>
+        <div id="click-register-social" class="register-with easing social-active" style="border-radius: 5px 5px 0 0; border-bottom:1px solid #e3e3e3;">
+            <i class="icon-facebook">&nbsp</i><a style="color: #888"> Register with social account</a>
         </div>
 
-        <div id="social-link easing" style="display: block; width: 300px; height: 60px; margin: 0px auto; background-color: white;padding: 0 12px;">
-            <div style="border-bottom: 1px solid #e3e3e3;padding:11px 0">
-                <div class="social-login-iconbox">
-                    <i class="icon-facebook"></i>
-                </div>
+        <div id="social-link" style="display: block; width: 300px; height: 60px; line-height: 60px; margin: 0px auto; background-color: white;padding:12px;border-bottom: 1px solid #e3e3e3;">
 
-                <div class="social-login-iconbox">
-                    <i class="icon-twitter"></i>
-                </div>
-
-                <div class="social-login-iconbox" style="">
-                    <i class="icon-google-plus"></i>
-                </div>
-
-                <div class="social-login-iconbox">
-                    <i class="icon-linkedin"></i>
-                </div>
-
-                <div class="social-login-iconbox">
-                    <i class="icon-weibo"></i>
-                </div>
+            <div class="social-login-iconbox">
+                <i class="icon-facebook"></i>
             </div>
+
+            <div class="social-login-iconbox">
+                <i class="icon-twitter"></i>
+            </div>
+
+            <div class="social-login-iconbox" style="">
+                <i class="icon-google-plus"></i>
+            </div>
+
+            <div class="social-login-iconbox">
+                <i class="icon-linkedin"></i>
+            </div>
+
+            <div class="social-login-iconbox">
+                <i class="icon-weibo"></i>
+            </div>
+
         </div>
 
 
         <!--This is the email register section-->
         <div>
-            <div class="register-with easing" style="">
-                <i class="icon-envelope">&nbsp </i><a id="click-register" style="color: #888"> Register with Email</a>
+            <div id="click-register" class="register-with easing register-clicker">
+                <i class="icon-envelope">&nbsp </i><a style="color: #888"> Register with Email</a>
             </div>
 
             <div   id="register-with-email-drop-down" style="width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;">
@@ -119,56 +119,155 @@
                         {{view Ember.TextField valueBinding="password" placeholder="How old are you?" }}
                     </div>
                 </div>
-
-                <div class="register-btn easing" >Done</div>
+                <div class="back-btn easing" style="" >Back</div>
+                <div class="register-btn easing register-btn-small" >Done</div>
 
             </div>
 
         </div>
         <!--End of email register section-->
 
-        <span style="font-family: 'Montserrat', sans-serif; font-size: 14px;color: #fff;margin: 15px auto;opacity: .9;display: block;">Learn more</span>
+        <a href="http://trendsideas.com/ViewPage.aspx?pageName=Contact%20Us&region=1" target="blank">
+            <span style="font-family: 'Montserrat', sans-serif; font-size: 13px;color: #fff;margin: 15px auto;opacity: .9;display: block;">Learn more</span>
+        </a>
     </div>
-
 
 </div>    
 
 <script>
-    // $('#register-with-email-drop-down').hide('1000').attr("display:none");
+    
+    
+    
+    
+    
+    /* NOTE:************
+     * 
+     *   IF THIS BEHAVES ODDLY SIMPLY REMOVE/ADD "stop()" before all the animate functions EG
+     * 
+     *  $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+     */
+    
+    
+    
+    
+    
     $("#click-register-social").click(function() {
-        $('#social-link').animate({height: 'toggle'});
 
-
-    });
-
-    $("#click-register").click(function() {
-        if ($('#register-with-email-step-2').hasClass('active-step')) {
+        $('#click-register-social').removeClass('social-active');
+        $('#click-register').removeClass('active-tab');
+        
+        if ($('#social-link').css('display') == 'block') {
             $('#social-link').animate({height: 'toggle'});
-            $('#register-with-email-step-2').animate({height: 'toggle'});
-        }
-        if ($('#register-with-email-step-2').css('display') == 'block' && $('#register-with-email-step-2').hasClass('')) {
-            $('#social-link').animate({height: 'toggle'});
-            $('#register-with-email-step-2').animate({height: 'toggle'});
-        }
-        if ($('#register-with-email-step-2').css('display') == 'none' && $('#register-with-email-step-2').hasClass('')) {
-            $('#social-link').animate({height: 'toggle'});
-            $('#register-with-email-drop-down').animate({height: 'toggle'});
-        }
-
-
-    });
-    $("#register-btn").click(function() {
-        if ($('#register-with-email-step-2').css('display') == 'none') {
-            $('#register-with-email-step-2').addClass('active-step');
-            $('#register-with-email-step-2').animate({height: 'toggle'});
-            $('#register-with-email-drop-down').animate({height: 'toggle'});
-
-            if ($('#social-link').css('display') == 'block') {
-                $('#social-link').animate({height: 'toggle'});
+            
+            if ($('#register-with-email-drop-down').css('display') == 'block') {
+                $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+            }
+            if ($('#register-with-email-step-2').css('display') == 'block') {
+                $('#register-with-email-step-2').stop().animate({height: 'toggle'});
             }
         }
+        /* hiding social login */
+
+        if ($('#social-link').css('display') == 'none') {
+            $('#social-link').animate({height: 'toggle'});
+            $('#click-register-social').addClass('social-active');
+
+            if ($('#register-with-email-drop-down').css('display') == 'block') {
+                $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+            }
+            if ($('#register-with-email-step-2').css('display') == 'block') {
+                $('#register-with-email-step-2').stop().animate({height: 'toggle'});
+            }
+        }
+        /* showing social login section*/
 
     });
-    /* this is for moving onto step two  of the register process */
+    /* social login slider function */
 
+
+    $("#register-btn").click(function() {
+        //alert('opening step 2');
+        $('#register-with-email-step-2').addClass('active-step');
+        $('#click-register').addClass('active-tab');
+        $('#register-with-email-step-2').stop().animate({height: 'toggle'});
+        $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+
+        checkSocial();
+
+    });
+    /* clicking register step 2 function*/
+
+
+    $('.back-btn').click(function() {
+        $('#register-with-email-step-2').removeClass('active-step');
+        $('#register-with-email-step-2').stop().animate({height: 'toggle'});
+        $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+
+
+        checkSocial();
+    });
+    /* going back to step 1 function*/
+
+
+    $(".register-clicker").click(function() {
+
+        if ($('#register-with-email-step-2').hasClass('active-step')) {
+            //alert('closing step2');
+
+            $('#social-link').animate({height: 'toggle'});
+            $('#register-with-email-step-2').stop().animate({height: 'toggle'});
+
+            if ($('#click-register').hasClass('active-tab')) {
+                $('#click-register').removeClass('active-tab');
+                /* closing step */
+            }
+
+            else {
+                $('#click-register').addClass('active-tab');
+                /* opening step */
+            }
+
+        }
+        /* closing/opening register section while on step 2 function */
+
+
+        if ($('#register-with-email-drop-down').css('display') == 'block' && $('#click-register').hasClass('active-tab')) {
+            //alert('closing step1');
+            $('#click-register').removeClass('active-tab');
+            $('#social-link').stop().animate({height: 'toggle'});
+            $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+            $('#click-register-social').addClass('social-active');
+
+        }
+        /* closing register section while on step 1 function */
+
+
+        if ($('#register-with-email-drop-down').css('display') == 'none' && $('#register-with-email-step-2').hasClass('')) {
+            //alert('opening step 1');
+            $('#click-register-social').removeClass('social-active');
+            $('#click-register').addClass('active-tab');
+            $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+            checkSocial();
+
+        }
+        /* clicking register step 1 function*/
+
+    });
+
+    function checkSocial() {
+        if ($('#social-link').css('display') == 'block') {
+            $('#social-link').animate({height: 'toggle'});
+        }
+        else {
+        }
+    }
+    /* close social login checker function */
+    
+    
+    $('.login-select').click(function(){
+        $('.login-select').removeClass('login-selected');
+        $(this).addClass('login-selected');
+
+    });
+    /* select gender function */
 </script>

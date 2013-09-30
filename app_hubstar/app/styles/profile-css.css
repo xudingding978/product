@@ -492,6 +492,7 @@ input{
      top:-180px;
      left:17.5%; */
 }
+.premium > div > table  .profileaside > .profileaside_content .aside-profilepic > div > img{ min-height:195px;}
 .premium > div > table  .profileaside > .profileaside_content .aside-profilepic div,
 .premium > div > table  .profileaside > .profileaside_content .aside-profilepic div img{width:100%;margin-bottom:1em;}
 
@@ -607,4 +608,42 @@ textarea.add-interests{
 
 /* interest ENDS */
 
+/* client profile content styling BEGINS */
+.main_aboutus .editor-content iframe{margin:0!important;}
 
+.main_aboutus .editor-content h5{font-weight:bold;margin:.4em 0;}
+.main_aboutus .editor-content h4
+{
+    font-size:17.5px;
+    font-weight:bold;
+    margin:.4em 0;
+}
+.main_aboutus .editor-content p{font-size:13px;}
+
+.main_aboutus .editor-content a > h4,
+.main_aboutus .editor-content h4 > a,
+.main_aboutus .editor-content a > h5,
+.main_aboutus .editor-content h5 > a
+{
+    color:#0088CC;
+    font-weight:bold;
+}
+.main_aboutus .editor-content a p, .main_aboutus .editor-content p a{color:#0088CC;}
+
+.main_aboutus .editor-content a > h4:hover, .main_aboutus .editor-content a > h4:focus,
+.main_aboutus .editor-content h4 > a:hover, .main_aboutus .editor-content h4 > a:focus,
+.main_aboutus .editor-content a > h5:hover, .main_aboutus .editor-content a > h5:focus,
+.main_aboutus .editor-content h5 > a:hover, .main_aboutus .editor-content h5 > a:focus,
+.main_aboutus .editor-content a p:hover,     .main_aboutus .editor-content a p:focus,
+.main_aboutus .editor-content p a:hover,     .main_aboutus .editor-content p a:focus
+{
+    color:#005580!important;
+}
+.main_aboutus .editor-content font{font-size:14px;line-height:150%;}
+.main_aboutus .editor-content .green-btn{color:#fff;}
+
+.main_aboutus .editor-content a{
+   display:inline-block;
+    
+}
+/* client profile content styling ENDS */

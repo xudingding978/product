@@ -16,6 +16,15 @@
 //});
 
 
+test("testTwoController", function() {
+
+    console.log(HubStar.TestController);
+    var testTwoController = HubStar.TestController.create();
+    var result = testTwoController.test();
+    equal(result, 'aaaaaaaaaaaaa', "testTwoController is truthy");
+});
+
+
 //
 //beforeEach(function() {
 //    Ember.run(function() {
@@ -251,21 +260,65 @@
 //        controller.website.should.equal(temp_website_record);
 //    });
 //});
-//
+
 //describe("user collection test", function() {
 //     var controller, model;
-//     
-//     model = HubStar.Profile.find('25180585742');
+//     controller = HubStar.UserController.create();
+//     model = HubStar.User.find('25180585742');
+//     controller.set("model", model);
 //
 //    it ("add collection test", function() {
-//        
-//        controller = HubStar.UserController.create();
+//        console.log(controller.get('needs'))
 //        controller.newTitle='mocha test tile';
 //        controller.newDesc='mocha test desc';
-//        controller.collections=model.collections;
+//        controller.set('collections', model.get('collections'));
+//        controller.submit();
+//        var model2=HubStar.User.find('25180585742');
+//        controller.get('collections').get('length').should.equal(model2.get("collections").get('length'));
+//        controller.get('collections').get('length').should.equal(model.get('collections').get('length')+1);
+//        controller.get('collections').objectAt(0).get('id').should.equal('mocha-test-title');
+//        controller.get('collections').objectAt(0).get('title').should.equal('mocha test title');
+//        controller.get('collections').objectAt(0).get('desc').should.equal('mocha test desc');
+//    });  
+//});
+
+//describe("collectionController test", function() {
+//     var controller, model;
+//     controller = HubStar.CollectionController.create();
+//     model = HubStar.User.find('25180585742');
+//
+//    it ("getCreateCollection function test", function() {
+//        var newTitle='mocha test title';
+//        var newDesc='mocha test desc';
+//        var collections = model.get('collections');
+//        var collection = controller.getCreateCollection(newTitle,newDesc,collections);        
+//        collection.get('id').should.equal('mocha-test-title');
+//        collection.get('title').should.equal('mocha test title');
+//        collection.get('desc').should.equal('mocha test desc');
+//    });  
+//    
+//    it ("checkingValidInput function test", function() {
+//        var newTitle='mocha test title';
+//        var title = controller.checkingValidInput(newTitle); 
+//        title.should.equal('mocha-test-title');
 //    });
 //    
-//   
+//    it ("checkingIdisExsinting function test", function() {
+//        
+//    });
+//    
+//    it ("specialCharactersChecking function test", function() {
+//        var str = 'mocha-test-title123';
+//        var str2 = 'mocha-test-title@#$';
+//        controller.specialCharactersChecking(str).should.equal(true);
+//        controller.specialCharactersChecking(str2).should.equal(false);
+//    });
+//    
+//    it ("getUpdateCollection function test", function() {
+//        var collection = model.get('collections').objectAt(0);
+//        controller.getUpdateCollection(collection).should.equal(collection);
+//    });
+//    
 //});
 
 //describe("user profies testing", function() {

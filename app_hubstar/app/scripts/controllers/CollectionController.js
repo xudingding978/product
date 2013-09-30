@@ -1,9 +1,9 @@
 HubStar.CollectionController = Ember.Controller.extend({
     collections: null,
     needs: ['applicationFeedback'],
-     init: function()
-    {
-        //without it can not using  HubStar.AddCollectionController.create();
+
+    init: function() {
+
     },
     getCreateCollection: function(title, desc, collections)
     {
@@ -13,6 +13,7 @@ HubStar.CollectionController = Ember.Controller.extend({
         if (isExsinting) {
             var validID = this.checkingValidInput(title);
             var checkingCharater = this.specialCharactersChecking(validID);
+
             if (checkingCharater && validID !== null && validID !== '') {
                 collection = HubStar.Collection.createRecord({});
                 collection.set('id', validID.toLowerCase());
@@ -24,7 +25,8 @@ HubStar.CollectionController = Ember.Controller.extend({
                     collection.set('desc', "Add a short description to your Collection");
                 }
             } else {
-                this.get('controllers.applicationFeedback').statusObserver(null, "invalidate characters...");
+                this.get('controllers.applicationFeedback').statusObserver(null, "Please try to type name with upper case and space");
+
             }
         }
         return collection;
@@ -35,7 +37,7 @@ HubStar.CollectionController = Ember.Controller.extend({
         } else {
             if (title.indexOf(" ") !== -1) {
                 title = title.split(' ').join('-');
-            }
+            } 
         }
         return title;
     },

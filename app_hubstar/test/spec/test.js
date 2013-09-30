@@ -48,57 +48,7 @@ test("testTwoController", function() {
 //});
 
 
-<<<<<<< HEAD
-//describe('Array', function(){
-//    describe('#indexOf()', function(){
-//        it('should return -1 when the value is not present', function(){
-//        //    [1,2,3].indexOf(5)===(-1);
-//            expect([1,2,3].indexOf(5)).to.equal(-1);
-//      //      assert.equal([1,2,3].indexOf(5),-1);
-//        })
-//    })
-//});
-//
-//
-//
-//
-//
-//
-//
-//function LoginIn(done) {
-//    if (localStorage.loginstatus === null || localStorage.loginstatus === undefined) {
-//        $("a:contains('Login')").click();
-//        $(".square-button").last().click();
-//         setTimeout(function() {
-//            var content = $('#login_iframe').contents();
-//            content.find('#LoginForm_username').val('Jenny');
-//            content.find('#LoginForm_password').val('test123');
-//            content.find("input:submit.ifame_login").click();
-//            done();
-//        }, 1000);
-//    }
-//}
-//;
-//function LoginOut() {
-//    $('.profilepic-container').find('a').eq(1).find('img').click();
-//
-//    //    $("a:contains('Logout')").click();
-//
-//     setTimeout(function() {
-//        $("a:contains('Logout')").click();
-//    }, 1000);
-//
-//
-//}
-//;
-//
-//
-=======
-}
-;
 
-
->>>>>>> 44ce8ac977ee15c06b4568e83d963f5153868aef
 //describe("Platform  bar", function() {
 //    var controller;
 //    var topics;

@@ -40,8 +40,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
         this.set("selectedPhotoThumbnailUrl", photo_image_thumbnail_url);
     },
     submit: function()
-    {
-        console.log(this.get('selectionPop'));
+    {        
         if (this.get("selectionPop") !==true) {
             var collectionController = this.get('controllers.collection');
             var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
@@ -112,7 +111,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
         }
     },
     exit: function() {
-       
+
         if (this.get('parentController') === 'article')
         {
             this.get("controllers.article").switchCollection();

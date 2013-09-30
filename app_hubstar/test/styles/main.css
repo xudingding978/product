@@ -9165,6 +9165,7 @@ div.loading-visible{
     -moz-border-radius: 5px;
     border-radius: 5px;
     overflow: hidden;
+    margin-bottom:12px;
 }
 
 .object_username{
@@ -12381,10 +12382,7 @@ div #login_container > div.front > .head > .panelcircle
     line-height: 45px; 
     font-size: 15px;
 
-<<<<<<< HEAD
-=======
     background-clip:border-box;
->>>>>>> 44ce8ac977ee15c06b4568e83d963f5153868aef
     cursor: pointer;
     opacity: .7;
 }
@@ -12398,13 +12396,10 @@ div #login_container > div.front > .head > .panelcircle
     -webkit-box-shadow: none !important;
     -moz-box-shadow: none !important;
     -o-box-shadow: none !important;
-<<<<<<< HEAD
-=======
 
     font-weight: bold;
     color: #333;
     font-size: 15px;
->>>>>>> 44ce8ac977ee15c06b4568e83d963f5153868aef
 }
 
 .social-login-iconbox{
@@ -12417,13 +12412,10 @@ div #login_container > div.front > .head > .panelcircle
     line-height: 36px;
     color: #555;
     margin: 0 3px;
-<<<<<<< HEAD
-=======
 
     -webkit-transition: all 0.2s ease;
     -moz-transition: all 0.2s ease;
     -o-transition: all 0.2s ease;
->>>>>>> 44ce8ac977ee15c06b4568e83d963f5153868aef
 }
 
 .login-select{
@@ -12456,11 +12448,7 @@ div #login_container > div.front > .head > .panelcircle
     -ms-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
     -o-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
     box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
-<<<<<<< HEAD
-}
-=======
 }/* this is the active gender class use this */
->>>>>>> 44ce8ac977ee15c06b4568e83d963f5153868aef
 
 
 .social-login-iconbox:hover, .social-login-iconbox:focus{
@@ -12469,11 +12457,6 @@ div #login_container > div.front > .head > .panelcircle
 }
 .social-login-iconbox:active{color: #fff;background-color: #08c; }
 
-<<<<<<< HEAD
-div > div > i.icon-envelope, div > div > a#click-register
-{
-    cursor:pointer;
-=======
 div > div > i.icon-envelope, div > div > #click-register
 {
     cursor:pointer;
@@ -12484,32 +12467,17 @@ div > div > i.icon-envelope, div > div > #click-register
     -moz-border-radius-bottomleft: 5px;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
->>>>>>> 44ce8ac977ee15c06b4568e83d963f5153868aef
 }
 
 .register-btn{
     width: 300px;
     height: 45px;
-<<<<<<< HEAD
-    margin: 0 auto 20px;
-=======
->>>>>>> 44ce8ac977ee15c06b4568e83d963f5153868aef
     background-color: #fff;
     text-align: center;
     color: #888;
     font-weight: bold; 
     font-size: 15px;
     line-height: 45px; 
-<<<<<<< HEAD
-    border-radius: 0 0 5px 5px;
-    
-    cursor: pointer;
-}
-
-.register-btn:hover, .register-btn:focus{background-color: #f3f3f3;}
-
-.register-btn:active{background-color: #08c;color: #fff;}
-=======
     -webkit-border-radius: 0 0 5px 5px;
     -moz-border-radius: 0 0 5px 5px;
     border-radius: 0 0 5px 5px;
@@ -12563,7 +12531,6 @@ div >div.active-tab
     opacity:1;
 
 }
->>>>>>> 44ce8ac977ee15c06b4568e83d963f5153868aef
 
 
 * {

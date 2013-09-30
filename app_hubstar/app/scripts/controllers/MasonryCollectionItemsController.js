@@ -194,7 +194,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                 currentCollection.set('cover', coverImge);
                 currentCollection.set('optional', owner_id);
                 HubStar.store.save();
-                this.get('controllers.applicationFeedback').statusObserver(null, "Updated Successfully");
+                this.get('controllers.applicationFeedback').statusObserver(null, "Updated successfully");
                 break;
             }
         }

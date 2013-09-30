@@ -52,10 +52,10 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
             collection.set('optional', localStorage.loginStatus);
             collection.set('type', 'user');
             collection.store.save();
-            this.get('controllers.applicationFeedback').statusObserver(null, "Saved photo successfully!!!");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Saved photo successfully");
             this.exit();
         } else {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please choose a collection!!!");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please choose a collection");
         }
     },
     addComment: function() {

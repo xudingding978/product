@@ -22,7 +22,33 @@
     <div class="new-btn blue-btn" style="margin: auto; width: 100px; display: block; position: absolute;left: 0;right: 0;top: 310px; cursor:pointer;" {{action searching on="click" target="view"}}>
         <i class="icon-search" style="margin-right: 10px;"></i> Search
     </div>
-
+    <button
+        id="thisdumbbutton"
+        class="g-interactivepost"
+        data-contenturl="https://plus.google.com/pages/"
+        data-contentdeeplinkid="/pages"
+        data-clientid="xxxxx.apps.googleusercontent.com"
+        data-cookiepolicy="single_host_origin"
+        data-prefilltext="Engage your users today, create a Google+ page for your business."
+        data-calltoactionlabel="CREATE"
+        data-calltoactionurl="http://plus.google.com/pages/create"
+        data-calltoactiondeeplinkid="/pages/create">
+        Tell your friends
+    </button>
 
 </div>
 
+<script type="text/javascript">
+    (function() {
+        var po = document.createElement('script');
+        po.type = 'text/javascript';
+        po.async = true;
+        po.src = 'https://apis.google.com/js/client:plusone.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(po, s);
+
+        $('#something').hover(function() {
+            $('#thisdumbbutton').click();
+        });
+    })();
+</script>

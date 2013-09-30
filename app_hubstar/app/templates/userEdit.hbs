@@ -47,7 +47,7 @@
                             <div style="opacity:0;position: absolute;top: 0px;left: 0;"> {{view HubStar.SingleImageInputButtonView }}</div>
                     </div>
 
-                    <div style="margin: auto;width: 150px;float: right;">
+                    <div style="margin: auto;width: 180px;float: right;">
                         <span class="new-btn green-btn " {{action cropButton}} ><k class='icon-save'> &nbsp;Upload</span>
                         <span class='new-btn flip-back'{{action userDashboardBackButton }}><k class='icon-group'> &nbsp;</k>Back</span>
                     </div>
@@ -291,16 +291,14 @@
                                                         </div>
                                                     </div>-->
 
-                                <div class="container">
-                                    <div class="contr">
+                                <div class="container" style="width: 850px;height: 350px;margin: 10px auto; text-align: center">
+                                    <div class="contr"></div>
+                                    <canvas id="panel" class="crop-canvas" style="height: 100%;width: auto;margin: 0 auto; max-width: 850px;"><img  {{bindAttr src= "newStyleImageSource"}} ></canvas>
 
-                                        <div style="margin: auto;width: 150px;float: right;">
-                                            <span class="new-btn green-btn " {{action savePhotoUpdate}} ><k class='icon-save'> &nbsp;Save</span>
-                                            <span class='new-btn flip-back'{{action userDashboardBackButton }}><k class='icon-group'> &nbsp;</k>Back</span>
-                                        </div>
-                                    </div>
-                                    <canvas id="panel" width="800" height="500"><img  {{bindAttr src= "newStyleImageSource"}} ></canvas>
-                                    
+                                </div>
+                                <div style="margin: auto;width: 150px;float: right;">
+                                    <span class="new-btn green-btn " {{action savePhotoUpdate}} ><k class='icon-save'> &nbsp;Save</span>
+                                    <span class='new-btn flip-back'{{action userDashboardBackButton }}><k class='icon-group'> &nbsp;</k>Back</span>
                                 </div>
                                 {{/if}}
                                 </div>

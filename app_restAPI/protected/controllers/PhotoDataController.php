@@ -20,7 +20,6 @@ class PhotoDataController extends Controller_data {
     //put your code here
     
     public function actionIndex() {
-//        echo "111111111111111111111";
 //        $temp = explode("/", $_SERVER['REQUEST_URI']);
         $photo_arr = $this->getDataFromElastic('photo');
         echo $photo_arr;

@@ -65,9 +65,8 @@ HubStar.UserController = Ember.Controller.extend({
     isUserSelf: false,
     interestsActive: false,
     init: function()
-    {
-       // this.setUser();
-
+    {     
+        
     },
     isUserSelfOrNot: function(currentUserID) {
         this.set("isUserSelf", false);
@@ -88,7 +87,6 @@ HubStar.UserController = Ember.Controller.extend({
 
         var user = this.get('model');
         this.setIntersetsArr(user);
-//        this.set("model", user);
         this.set("user", user);
         this.set("collections", user.get("collections"));
         this.set("description", user.get("description"));
@@ -851,10 +849,12 @@ HubStar.UserController = Ember.Controller.extend({
         } else if (this.get('UploadImageMode') === "User Cover") {
 
             this.set('cover_url', this.get('newStyleImageSource'));
+             console.log('cover_url'+this.get('newStyleImageSource') );
             this.set('cover_url_small', this.get('newStyleImageSource'));
+             console.log('cover_url_small'+ this.get('newStyleImageSource') );
             this.set('newStyleImageName', 'user_cover');
 
-            model.set('cover_url', this.get('newStyleImageSource'));
+          model.set('cover_url', this.get('newStyleImageSource'));
         }
     }
 

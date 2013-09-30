@@ -3609,9 +3609,17 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 }
         var metas = document.getElementsByTagName("meta");
         $("meta[property='og\\:title']").attr("content", this.get('selectedPhoto').get('photo_title'));
-        $("meta[property='og\\:description']").attr("content", caption);
+        $("meta[property='og\\:description']").attr("content", this.get('selectedPhoto').get('photo_caption'));
         $("meta[property='og\\:image']").attr("content", this.get('selectedPhoto').get('photo_image_thumbnail_url'));
-
+        //test code of change information
+//$("meta[property='og\\:url']").attr("content", 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id'));
+//        
+//        for (var i = 0; i < metas.length; i++) {
+////            if (metas[i].getAttribute("itemprop") && metas[i].getAttribute("itemprop") == "image") {
+////
+////                metas[i].setAttribute("content", "http://s3.hubsrv.com/trendsideas.com/7336815531372415644/photo/7336815531372415644/thumbnail/65569_132x132.jpg");
+////           }
+//            console.log(metas[i]);        }
 
         var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
         var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
@@ -4039,7 +4047,7 @@ HubStar.PlatformBarController = Ember.ArrayController.extend({
     init: function()
     {  
         this.setTopicModel(HubStar.Cate.find({}));
-         this.set('userLocation',geoip_city());
+//         this.set('userLocation',geoip_city());
        
     },
     topicSearch: function(search_topic) {

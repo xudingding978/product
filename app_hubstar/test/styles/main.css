@@ -12381,7 +12381,6 @@ div #login_container > div.front > .head > .panelcircle
     line-height: 45px; 
     font-size: 15px;
 
-    background-clip:border-box;
     cursor: pointer;
     opacity: .7;
 }
@@ -12395,10 +12394,6 @@ div #login_container > div.front > .head > .panelcircle
     -webkit-box-shadow: none !important;
     -moz-box-shadow: none !important;
     -o-box-shadow: none !important;
-
-    font-weight: bold;
-    color: #333;
-    font-size: 15px;
 }
 
 .social-login-iconbox{
@@ -12411,10 +12406,6 @@ div #login_container > div.front > .head > .panelcircle
     line-height: 36px;
     color: #555;
     margin: 0 3px;
-
-    -webkit-transition: all 0.2s ease;
-    -moz-transition: all 0.2s ease;
-    -o-transition: all 0.2s ease;
 }
 
 .login-select{
@@ -12447,7 +12438,7 @@ div #login_container > div.front > .head > .panelcircle
     -ms-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
     -o-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
     box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
-}/* this is the active gender class use this */
+}
 
 
 .social-login-iconbox:hover, .social-login-iconbox:focus{
@@ -12456,80 +12447,29 @@ div #login_container > div.front > .head > .panelcircle
 }
 .social-login-iconbox:active{color: #fff;background-color: #08c; }
 
-div > div > i.icon-envelope, div > div > #click-register
+div > div > i.icon-envelope, div > div > a#click-register
 {
     cursor:pointer;
-
-    -webkit-border-bottom-right-radius: 5px;
-    -webkit-border-bottom-left-radius: 5px;
-    -moz-border-radius-bottomright: 5px;
-    -moz-border-radius-bottomleft: 5px;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
 }
 
 .register-btn{
     width: 300px;
     height: 45px;
+    margin: 0 auto 20px;
     background-color: #fff;
     text-align: center;
     color: #888;
     font-weight: bold; 
     font-size: 15px;
     line-height: 45px; 
-    -webkit-border-radius: 0 0 5px 5px;
-    -moz-border-radius: 0 0 5px 5px;
     border-radius: 0 0 5px 5px;
-
+    
     cursor: pointer;
-    background-clip:border-box;
-}
-div.register-btn-small{
-    width:148px;
-    -webkit-border-radius: 0 0 5px 0;
-    -moz-border-radius: 0 0 5px 0;
-    border-radius: 0 0 5px 0;
-    display:inline-block;  
-    //background-color: #DEF1F7;
-
-}
-.back-btn{
-    width: 148px;
-    height: 45px;
-    background:#fff;
-    text-align: center;
-    color: #9c9c9c;
-    font-weight: bold; 
-    font-size: 15px;
-    line-height: 45px; 
-    -webkit-border-radius: 0 0 0 5px;
-    -moz-border-radius: 0 0 0 5px;
-    border-radius: 0 0 0 5px;
-    display:inline-block;
-
-    cursor: pointer;
-    background-clip:border-box;
-
 }
 
-.register-btn:hover, .register-btn:focus, .back-btn:hover, .back-btn:focus{background-color: #f3f3f3;}
+.register-btn:hover, .register-btn:focus{background-color: #f3f3f3;}
 
-.register-btn:active, .back-btn:active{background-color: #08c;color: #fff;}
-
-.social-active{opacity:1;}
-
-
-div >div.active-tab
-{
-    -webkit-border-bottom-right-radius: 0!important;
-    -webkit-border-bottom-left-radius: 0!important;
-    -moz-border-radius-bottomright: 0!important;
-    -moz-border-radius-bottomleft: 0!important;
-    border-bottom-right-radius: 0!important;
-    border-bottom-left-radius: 0!important;
-    opacity:1;
-
-}
+.register-btn:active{background-color: #08c;color: #fff;}
 
 
 * {

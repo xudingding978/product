@@ -267,7 +267,7 @@ HubStar.UserController = Ember.Controller.extend({
                 }
             }
             if (!isExsinting) {
-                this.get('controllers.applicationFeedback').statusObserver(null, "This Collection is already exsiting!!!");
+                this.get('controllers.applicationFeedback').statusObserver(null, "This Collection is already exsiting");
             }
         }
         return isExsinting;
@@ -364,7 +364,7 @@ HubStar.UserController = Ember.Controller.extend({
             update_user_record.set('email', this.get('email'));
             update_user_record.set('password', this.get('password'));
             
-            this.get('controllers.applicationFeedback').statusObserver(null, "Updated Successfully!!!");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Updated successfully");
        
             HubStar.store.save();
         }
@@ -507,7 +507,7 @@ if (checkList[i].id === 'first_name' || checkList[i].id === 'last_name')
              update_interest_record.set('about_me', this.get('about_me'));
             HubStar.store.save();
         } else {
-            this.get('controllers.applicationFeedback').statusObserver(null, "invalid input");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Invalid input");
         }
 
     },
@@ -763,10 +763,10 @@ if (checkList[i].id === 'first_name' || checkList[i].id === 'last_name')
                         that.userPhotoEditBackButton();
                         that.userDashboardBackButton();
 //                        that.get('controllers.applicationFeedback').set('photo_url', src);
-                        that.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully!!!");
+                        that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
                     }
                     else if (width < params.width || height < params.height) {
-                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + params.width + "x" + params.height + " !!!");
+                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + params.width + "x" + params.height);
                         that.set('newStyleImageSource', "");
                         that.set('newStyleImageName', "");
                         that.set('CurrentImageSize', "");

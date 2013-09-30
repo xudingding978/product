@@ -6987,6 +6987,8 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
 .icon-renren:before{content:"\f18b";}
 
 .plaform_bar{
+    height: 280px;
+
     position: fixed;
     left: 0px;
     top: 30%;
@@ -6998,6 +7000,7 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
     border-radius: 0 10px 10px 0;
     background-color: rgba(50,50,50,0.4);
     box-shadow: 0 0 10px #fff;
+    height:256px;
 }
 #masonry_user_container
 {
@@ -7079,6 +7082,7 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
 }
 
 #navContainer {
+    height: 280px;
     margin:0;
     padding:15px 0;
     opacity: 0;
@@ -7496,6 +7500,10 @@ div.search-loading-invisible{
     font-weight: bold;
     font-size: 13px;
     list-style: none;
+}
+
+.edit-object-ul > .ite{
+    padding:6px 15px 6px 30px;
 }
 
 .ite:hover{

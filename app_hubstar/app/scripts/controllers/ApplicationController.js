@@ -173,7 +173,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
           
             var that = this;
             requiredBackEnd('site', 'getemail', signupInfo, 'POST', function(params) {
-                
+                console.log(params);
                 if (params === 1) {
                      $('#register-with-email-step-2').addClass('active-step');
         $('#click-register').addClass('active-tab');

@@ -165,6 +165,7 @@ class SiteController extends Controller {
 
     public function actionGetmodel() {
 
+
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $currentUser = User::model()
                 ->findByAttributes(array('COUCHBASE_ID' => $request_array));
@@ -172,15 +173,26 @@ class SiteController extends Controller {
     }
     
     public function actionGetemail() {
+        
+        
+            $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    $count = mb_strlen($chars);
 
-        $request_array = CJSON::decode(file_get_contents('php://input'));
-        $currentUser = User::model()
-                ->findByAttributes(array('EMAIL_ADDRESS' => $request_array[0]));
-        if (isset($currentUser)) {
-            $this->sendResponse(200, 0);
-        } else {
-            $this->sendResponse(200, 1);
-        }
+    for ($i = 0, $result = ''; $i < 8; $i++) {
+        $index = rand(0, $count - 1);
+        $result .= mb_substr($chars, $index, 1);
+    }
+$this->sendResponse(200, CJSON::encode($result));
+        
+
+//        $request_array = CJSON::decode(file_get_contents('php://input'));
+//        $currentUser = User::model()
+//                ->findByAttributes(array('EMAIL_ADDRESS' => $request_array[0]));
+//        if (isset($currentUser)) {
+//            $this->sendResponse(200, 0);
+//        } else {
+//            $this->sendResponse(200, 1);
+//        }
     }
 
     public function actionUpdate() {

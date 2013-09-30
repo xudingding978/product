@@ -1403,7 +1403,7 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
     'on': ("click"),
     'target': ("view")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(">\n        <i class=\"icon-search\" style=\"margin-right: 10px;\"></i> Search\n    </div>\n    <button\n        id=\"thisdumbbutton\"\n        class=\"g-interactivepost\"\n        data-contenturl=\"https://plus.google.com/pages/\"\n        data-contentdeeplinkid=\"/pages\"\n        data-clientid=\"xxxxx.apps.googleusercontent.com\"\n        data-cookiepolicy=\"single_host_origin\"\n        data-prefilltext=\"Engage your users today, create a Google+ page for your business.\"\n        data-calltoactionlabel=\"CREATE\"\n        data-calltoactionurl=\"http://plus.google.com/pages/create\"\n        data-calltoactiondeeplinkid=\"/pages/create\">\n        Tell your friends\n    </button>\n\n</div>\n\n<script type=\"text/javascript\">\n    (function() {\n        var po = document.createElement('script');\n        po.type = 'text/javascript';\n        po.async = true;\n        po.src = 'https://apis.google.com/js/client:plusone.js';\n        var s = document.getElementsByTagName('script')[0];\n        s.parentNode.insertBefore(po, s);\n\n        $('#something').hover(function() {\n            $('#thisdumbbutton').click();\n        });\n    })();\n</script>");
+  data.buffer.push(">\n        <i class=\"icon-search\" style=\"margin-right: 10px;\"></i> Search\n    </div>\n\n\n</div>\n\n");
   return buffer;
   
 });
@@ -1867,7 +1867,7 @@ function program4(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("<div class=\"navbar\">\n      <div style=\"position: absolute;right: 0;z-index: 1;\">\n        <img src=\"../../../images/beta-version.png\"/>\n\n\n        <span style=\"position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;\" id=\"lastidentifie\">0.3-16</span>\n\n      </div>\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <div class=\"brand\">\n                <a href=\"/#\">\n                    <img class=\"logonew\" style=\"position: relative; top: 0; margin:0;\" src=\"../../../images/landing-trends.png\">\n                </a>\n            </div>\n\n            <!-- show if not logged into platform-->\n            ");
+  data.buffer.push("<div class=\"navbar\">\n      <div style=\"position: absolute;right: 0;z-index: 1;\">\n        <img src=\"../../../images/beta-version.png\"/>\n\n\n        <span style=\"position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;\" id=\"lastidentifie\">0.3-17</span>\n\n      </div>\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <div class=\"brand\">\n                <a href=\"/#\">\n                    <img class=\"logonew\" style=\"position: relative; top: 0; margin:0;\" src=\"../../../images/landing-trends.png\">\n                </a>\n            </div>\n\n            <!-- show if not logged into platform-->\n            ");
   hashTypes = {};
   hashContexts = {};
   stack1 = helpers['if'].call(depth0, "controller.islogin", {hash:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});

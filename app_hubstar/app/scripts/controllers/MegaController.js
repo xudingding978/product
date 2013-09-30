@@ -233,9 +233,9 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
         function callback(response) {
             if (response && response.post_id) {
-                that.get('controllers.applicationFeedback').statusObserver(null, "Shared Successfully!!!");
+                that.get('controllers.applicationFeedback').statusObserver(null, "Shared Successfully");
             } else {
-                that.get('controllers.applicationFeedback').statusObserver(null, "Shared Unsuccessfully!!!", "failed");
+                that.get('controllers.applicationFeedback').statusObserver(null, "Shared Unsuccessfully", "failed");
             }
         }
 

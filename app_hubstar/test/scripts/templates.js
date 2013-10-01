@@ -1,5 +1,4 @@
-Ember.TEMPLATES["addCollection"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["addCollection"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, hashTypes, hashContexts, escapeExpression=this.escapeExpression, self=this;
@@ -95,8 +94,7 @@ function program2(depth0,data) {
   
 });
 
-Ember.TEMPLATES["afterLogin"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["afterLogin"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', hashContexts, hashTypes, escapeExpression=this.escapeExpression;
@@ -125,8 +123,7 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   
 });
 
-Ember.TEMPLATES["application"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["application"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, hashTypes, hashContexts, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
@@ -235,7 +232,7 @@ function program7(depth0,data) {
   data.buffer.push("\n\n    ");
   hashTypes = {};
   hashContexts = {};
-  data.buffer.push(escapeExpression(helpers.view.call(depth0, "HubStar.RegisterView", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "HubStar.CarouselView", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
   data.buffer.push("\n    ");
   return buffer;
   }
@@ -289,8 +286,7 @@ function program11(depth0,data) {
   
 });
 
-Ember.TEMPLATES["applicationFeedback"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["applicationFeedback"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, hashTypes, hashContexts, escapeExpression=this.escapeExpression, self=this;
@@ -415,8 +411,7 @@ function program8(depth0,data) {
   
 });
 
-Ember.TEMPLATES["article"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["article"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, stack2, hashTypes, hashContexts, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
@@ -435,6 +430,34 @@ function program1(depth0,data) {
 
 function program3(depth0,data) {
   
+  var buffer = '', hashContexts, hashTypes;
+  data.buffer.push("\n                    <i class=\"icon-double-angle-left\"");
+  hashContexts = {'on': depth0,'target': depth0};
+  hashTypes = {'on': "STRING",'target': "STRING"};
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "setCaption", {hash:{
+    'on': ("click"),
+    'target': ("controller")
+  },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("></i>\n                    ");
+  return buffer;
+  }
+
+function program5(depth0,data) {
+  
+  var buffer = '', hashContexts, hashTypes;
+  data.buffer.push("\n                    <i class=\"icon-double-angle-right\"");
+  hashContexts = {'on': depth0,'target': depth0};
+  hashTypes = {'on': "STRING",'target': "STRING"};
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "setCaption", {hash:{
+    'on': ("click"),
+    'target': ("controller")
+  },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("></i>\n                    ");
+  return buffer;
+  }
+
+function program7(depth0,data) {
+  
   var buffer = '', stack1, hashTypes, hashContexts, options;
   data.buffer.push("\n            ");
   hashTypes = {};
@@ -445,7 +468,7 @@ function program3(depth0,data) {
   return buffer;
   }
 
-function program5(depth0,data) {
+function program9(depth0,data) {
   
   var buffer = '', hashContexts, hashTypes;
   data.buffer.push("\n\n                <div class=\"readbtn new-btn\" ");
@@ -459,7 +482,7 @@ function program5(depth0,data) {
   return buffer;
   }
 
-function program7(depth0,data) {
+function program11(depth0,data) {
   
   var buffer = '', hashContexts, hashTypes;
   data.buffer.push("\n\n                <div class=\"closeReadbtn new-btn\" ");
@@ -473,7 +496,7 @@ function program7(depth0,data) {
   return buffer;
   }
 
-function program9(depth0,data) {
+function program13(depth0,data) {
   
   var buffer = '', stack1, hashContexts, hashTypes, options;
   data.buffer.push("\n                        <div class=\"comment-item\">\n\n                            <div class=\"comment-position\">\n                                <a class=\"profilepic-comment-container\" href=\"#\">\n                                    <img class=\"profilepic_comment\" ");
@@ -518,7 +541,7 @@ function program9(depth0,data) {
     'on': ("click"),
     'target': ("controller")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("></i>\n                <span class=\"pretooltip\">\n                        Save\n                </span>          \n            </div>\n            <!--    <div class=\"icon-on-black\" style=\"height: 44px;position: absolute;width: 44px;\"><i class=\"icon-share-alt\"></i></div>     -->\n            <div class=\"closeview\" ");
+  data.buffer.push("></i>\n                <span class=\"pretooltip\">\n                    Save\n                </span>          \n            </div>\n            <!--    <div class=\"icon-on-black\" style=\"height: 44px;position: absolute;width: 44px;\"><i class=\"icon-share-alt\"></i></div>     -->\n            <div class=\"closeview\" ");
   hashContexts = {'on': depth0,'target': depth0};
   hashTypes = {'on': "STRING",'target': "STRING"};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "closeWindow", {hash:{
@@ -543,7 +566,20 @@ function program9(depth0,data) {
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "HubStar.PhotoDisplayAreaView", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("\n        </div>\n        <!--THIS IS THE ALBUM BOX-->\n\n        ");
+  data.buffer.push("\n        </div>\n\n\n        <div class=\"caption-container\" id=\"caption_action\">\n            <div style=\"margin-bottom: 5px;\">\n                <span class=\"article-title\">");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "captionTitle", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("</span>\n                <span class=\"hover-opacity easing\" style=\"float: right; cursor:pointer;\">\n                    ");
+  hashTypes = {};
+  hashContexts = {};
+  stack1 = helpers['if'].call(depth0, "controller.readCaption", {hash:{},inverse:self.program(5, program5, data),fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("                       \n                </span>\n            </div>\n            <div class=\"article-text\" style=\"width: 300px;\">");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "caption", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push(" </div>\n        </div>\n\n\n        <!--THIS IS THE ALBUM BOX-->\n\n        ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "HubStar.ShowAlbumView", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -613,21 +649,14 @@ function program9(depth0,data) {
   data.buffer.push(" >\n                       <img src=\"../images/mail_24dark.png\" style=\"vertical-align: 6px; width: 15px;\"/>\n                    </a>\n                </div>\n            </div>\n            ");
   hashTypes = {};
   hashContexts = {};
-  stack2 = helpers['if'].call(depth0, "controller.contact", {hash:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
+  stack2 = helpers['if'].call(depth0, "controller.contact", {hash:{},inverse:self.noop,fn:self.program(7, program7, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
   if(stack2 || stack2 === 0) { data.buffer.push(stack2); }
-  data.buffer.push("\n\n\n\n        </div>\n\n        <!-- OBJECT DESCRIBTION SECTION -->\n        <div>\n            <div class=\"object-collapes-title\" ");
-  hashContexts = {'on': depth0,'target': depth0};
-  hashTypes = {'on': "STRING",'target': "STRING"};
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "setTitleTag", {hash:{
-    'on': ("click"),
-    'target': ("view")
-  },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(">\n                <div class=\"collapes-title_inner\">\n                    Article\n                </div>\n\n\n\n\n\n\n                ");
+  data.buffer.push("\n\n\n\n        </div>\n\n        <!-- OBJECT DESCRIBTION SECTION -->\n        <div>\n            <div class=\"object-collapes-title\" >\n                <div class=\"collapes-title_inner\">\n                    Article\n                </div>\n\n\n\n\n\n\n                ");
   hashTypes = {};
   hashContexts = {};
-  stack2 = helpers.unless.call(depth0, "view.readContent", {hash:{},inverse:self.program(7, program7, data),fn:self.program(5, program5, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
+  stack2 = helpers.unless.call(depth0, "view.readContent", {hash:{},inverse:self.program(11, program11, data),fn:self.program(9, program9, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
   if(stack2 || stack2 === 0) { data.buffer.push(stack2); }
-  data.buffer.push("\n            </div>\n\n\n        </div>\n\n\n\n        <div class=\"collapes-container\"  id=\"article_action\">\n            <div class=\"collapes-container_inner\">\n                <div class=\"article-title\" >");
+  data.buffer.push("\n            </div>\n\n\n        </div>\n\n\n\n        <div class=\"collapes-container\"  id=\"article_action\" style=\"display:block;\">\n            <div class=\"collapes-container_inner\">\n                <div class=\"article-title\" >");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "controller.articleResouce.article_headline", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -685,15 +714,14 @@ function program9(depth0,data) {
   data.buffer.push(">Post</div>\n                                </span>\n\n                            </div>\n                        </div>\n                        ");
   hashTypes = {};
   hashContexts = {};
-  stack2 = helpers.each.call(depth0, "controller.megaResouce.comments", {hash:{},inverse:self.noop,fn:self.program(9, program9, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
+  stack2 = helpers.each.call(depth0, "controller.megaResouce.comments", {hash:{},inverse:self.noop,fn:self.program(13, program13, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
   if(stack2 || stack2 === 0) { data.buffer.push(stack2); }
   data.buffer.push("\n\n\n\n                    </div>\n                </div>\n\n            </div>\n        </div>\n\n\n\n\n    </div>\n\n\n</div>\n");
   return buffer;
   
 });
 
-Ember.TEMPLATES["beforeLogin"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["beforeLogin"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', hashTypes, hashContexts, escapeExpression=this.escapeExpression;
@@ -703,17 +731,12 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "popupModal", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(">\n    <li><a href=\"#\">Login");
-  hashTypes = {};
-  hashContexts = {};
-  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "controller", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("</a></li>\n</ul>\n\n\n\n");
+  data.buffer.push(">\n    <li><a href=\"#\">Login</a></li>\n</ul>\n\n\n\n");
   return buffer;
   
 });
 
-Ember.TEMPLATES["camera"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["camera"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   
@@ -723,8 +746,7 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   
 });
 
-Ember.TEMPLATES["carousel"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["carousel"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', hashTypes, hashContexts, escapeExpression=this.escapeExpression;
@@ -739,8 +761,7 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   
 });
 
-Ember.TEMPLATES["collections"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["collections"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, hashTypes, hashContexts, escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
@@ -843,23 +864,7 @@ function program4(depth0,data) {
   
 });
 
-<<<<<<< HEAD
 Ember.TEMPLATES["comment"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
-=======
-Ember.TEMPLATES["comingSoon"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
-this.compilerInfo = [3,'>= 1.0.0-rc.4'];
-helpers = helpers || Ember.Handlebars.helpers; data = data || {};
-  
-
-
-  data.buffer.push("\n\n\n\n<div style=\"position: absolute;z-index: 10;box-shadow: 0px 1px 30px 5px #555;width: 100%; height: 100%; overflow: hidden;\">\n    <img style=\"width: 100%; position: absolute; min-width: 1260px;\" src=\"../images/coming-soon.jpg\"/>\n\n    <div style=\"font-size: 160px; line-height: 200px; font-weight: bold;color: white;margin: auto;display: block;left: 0;text-shadow: 1px 1px 40px #555;right: 0;text-align: CENTER;position: absolute;top: 200px;opacity: 0.2;\">\n        COMING SOON\n    </div>\n\n    <div style=\"text-align: center;position: relative;top: 100px;\">\n        <div style=\"font-size: 30px; line-height: 50px; font-weight: bold;width: 800px;color: white;margin: auto;display: block;left: 0;text-shadow: 1px 1px 40px #555;right: 0;\">\n            100, 000 MORE IDEAS AT\n        </div>\n        <img style=\"width: 415px;   left: 0; right: 0; margin: auto;margin: -40px auto -47px;display: block;\" src=\"../images/trendsbigbrand.png\">\n        <div style=\"font-size: 35px; line-height: 50px;width: 800px;color: white;margin: 0px auto;display: block;left: 0;text-shadow: 1px 1px 30px #333;right: 0;\">\n            — <b>trendsideas.com</b> —\n        </div>\n\n        <div style=\"font-size: 13px; line-height: 18px;width: 380px;color: white;margin: auto;display: block;left: 0;text-shadow: 0px 0px 5px #333;right: 0;\">\n            Hundreds of videos, thousands of articles and tens of thousands of high quality images from around the world showcasing: Architecture, Kitchen Design, Bathroom Design, Interiors, Landscape Design and Commercial Design. \n        </div>\n\n        <div style=\"text-align: center;position: relative;top: 80px;\">\n            <div class=\"tile_img\" style=\"right: 0; left: 0; position: relative;\">\n                <div id=\"dd7\" class=\"wrapper-dropdown-3\" tabindex=\"1\" style=\" width:270px; height:45px;\">\n                    <div>\n                        <div id=\"dropdown-cover\" class=\"dropdown_test_3\" style=\"float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -10.5px; padding-left: 35px;\">\n                            <div class=\"login-icon\">\n                                <i class=\"icon-facebook icon-large\">\n                                </i>\n                            </div>   \n                        </div>\n                        <div  id=\"dropdown-cover\" onclick=\"Facebook(650, 400);\" style=\"float: right; bottom: 10px; position: relative; width: 204px; height: 45px; margin-right: -10px;\">\n                            <div class=\"sign-in-with\" >Register with Facebook</div>\n                        </div>\n                    </div>\n                    <ul class=\"dropdown\" style=\"width:270px\">\n                        <li  onclick=\"LinkedIn(650, 400);\" ><a style=\"color:rgb(0,172,237)\" href=\"#\"><i class=\"icon-twitter icon-large\"></i>Sign in with LinkedIn</a></li>\n                        <li  onclick=\"Google(650, 400);\" ><a style=\"color:rgb(211,72,54)\" href=\"#\"><i class=\"icon-google-plus icon-large\"></i>Sign in with Google+</a></li>\n                        <li  onclick=\"Yahoo(650, 400);\" ><a style=\"color:rgb(123,0,153)\" href=\"#\"><img src='../../../images/yahoo.png' style='width: auto; height: 35px; float:left;margin: -3% -5% 0 6%;'>Sign in with Yahoo</a></li>\n\n                        <li  onclick=\"QQ(650, 400);\" ><a style=\"color:rgb(62,59,62)\" href=\"#\"><img src='../../../images/qq.png' style='width: auto; height: 35px; float:left;margin: -3% -2% 0 7%;'>Sign in with QQ</a></li>\n                    </ul>\n                </div>\n            </div>\n            <div style=\"font-size: 14px; line-height: 20px;width: 280px;color: white;margin: auto;display: block;left: 0;text-shadow: 0px 0px 5px #555;right: 0;font-weight: bold;\">\n                Register now to be one of the first users of our platform!\n            </div>\n            <div style=\"font-size: 20px; line-height: 20px;width: 280px;color: white;margin: 20px auto;display: block;left: 0;text-shadow: 0px 0px 5px #555;right: 0;font-weight: bold;\">\n                <a href=\"https://www.facebook.com/TrendsIdeas\" target=\"blank\" style=\"color: white; text-decoration: none; margin: 10px;\"> <i class=\"icon-facebook\"></i></a>\n                <a href=\"https://twitter.com/Trendsideas\" target=\"blank\" style=\"color: white;text-decoration: none; margin: 10px;\"> <i class=\"icon-twitter\"></i></a>\n            </div>\n\n        </div>\n\n\n    </div>\n</div>\n");
-  
-});
-
-Ember.TEMPLATES["comment"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
->>>>>>> 5dc657ab0a8a679582a22c7d643ef957455648b0
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, hashTypes, hashContexts, options, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
@@ -1041,8 +1046,7 @@ function program5(depth0,data) {
   
 });
 
-Ember.TEMPLATES["contact"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["contact"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, hashTypes, hashContexts, escapeExpression=this.escapeExpression, self=this;
@@ -1362,8 +1366,7 @@ function program23(depth0,data) {
   
 });
 
-Ember.TEMPLATES["deleteFunction"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["deleteFunction"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', hashTypes, hashContexts, escapeExpression=this.escapeExpression;
@@ -1392,8 +1395,7 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   
 });
 
-Ember.TEMPLATES["discoveryBar"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["discoveryBar"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', hashContexts, hashTypes, escapeExpression=this.escapeExpression;
@@ -1425,13 +1427,12 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
     'on': ("click"),
     'target': ("view")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(">\n        <i class=\"icon-search\" style=\"margin-right: 10px;\"></i> Search\n    </div>\n    <button\n        id=\"thisdumbbutton\"\n        class=\"g-interactivepost\"\n        data-contenturl=\"https://plus.google.com/pages/\"\n        data-contentdeeplinkid=\"/pages\"\n        data-clientid=\"xxxxx.apps.googleusercontent.com\"\n        data-cookiepolicy=\"single_host_origin\"\n        data-prefilltext=\"Engage your users today, create a Google+ page for your business.\"\n        data-calltoactionlabel=\"CREATE\"\n        data-calltoactionurl=\"http://plus.google.com/pages/create\"\n        data-calltoactiondeeplinkid=\"/pages/create\">\n        Tell your friends\n    </button>\n\n</div>\n\n<script type=\"text/javascript\">\n    (function() {\n        var po = document.createElement('script');\n        po.type = 'text/javascript';\n        po.async = true;\n        po.src = 'https://apis.google.com/js/client:plusone.js';\n        var s = document.getElementsByTagName('script')[0];\n        s.parentNode.insertBefore(po, s);\n\n        $('#something').hover(function() {\n            $('#thisdumbbutton').click();\n        });\n    })();\n</script>");
+  data.buffer.push(">\n        <i class=\"icon-search\" style=\"margin-right: 10px;\"></i> Search\n    </div>\n\n\n</div>\n\n");
   return buffer;
   
 });
 
-Ember.TEMPLATES["dropdownList"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["dropdownList"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, hashTypes, hashContexts, escapeExpression=this.escapeExpression, self=this;
@@ -1587,8 +1588,7 @@ function program16(depth0,data) {
   
 });
 
-Ember.TEMPLATES["editCollection"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["editCollection"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, hashTypes, hashContexts, escapeExpression=this.escapeExpression, self=this;
@@ -1780,8 +1780,7 @@ function program19(depth0,data) {
   
 });
 
-Ember.TEMPLATES["edting"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["edting"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, hashContexts, hashTypes, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
@@ -1808,8 +1807,7 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   
 });
 
-Ember.TEMPLATES["edtingAbout"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["edtingAbout"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', hashContexts, hashTypes, escapeExpression=this.escapeExpression;
@@ -1841,8 +1839,7 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   
 });
 
-Ember.TEMPLATES["footer"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["footer"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   
@@ -1852,8 +1849,7 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   
 });
 
-Ember.TEMPLATES["header"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["header"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, hashTypes, hashContexts, escapeExpression=this.escapeExpression, self=this;
@@ -1895,22 +1891,17 @@ function program4(depth0,data) {
   return buffer;
   }
 
-<<<<<<< HEAD
-  data.buffer.push("<div class=\"navbar\">\n      <div style=\"position: absolute;right: 0;z-index: 1;\">\n        <img src=\"../../../images/beta-version.png\"/>\n\n\n        <span style=\"position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;\" id=\"lastidentifie\">0.3-17</span>\n\n      </div>\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <div class=\"brand\">\n                <a href=\"/#\">\n                    <img class=\"logonew\" style=\"position: relative; top: 0; margin:0;\" src=\"../../../images/landing-trends.png\">\n                </a>\n            </div>\n\n            <!-- show if not logged into platform-->\n            ");
-=======
-  data.buffer.push("<div class=\"navbar\">\n      <div style=\"position: absolute;right: 0;z-index: 1;\">\n        <img src=\"../../../images/beta-version.png\"/>\n\n\n        <span style=\"position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;\" id=\"lastidentifie\">0.3-18</span>\n\n      </div>\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <div class=\"brand\">\n                <a href=\"/#\">\n                    <img class=\"logonew\" style=\"position: relative; top: 0; margin:0;\" src=\"../../../images/landing-trends.png\">\n                </a>\n            </div>\n\n            <!-- show if not logged into platform-->\n            ");
->>>>>>> 5dc657ab0a8a679582a22c7d643ef957455648b0
+  data.buffer.push("<div class=\"navbar\">\n    <div style=\"position: absolute;right: 0;z-index: 1;\">\n        <img src=\"../../../images/beta-version.png\"/>\n<<<<<<< HEAD\n\n\n        <span style=\"position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;\" id=\"lastidentifie\">0.3-18</span>\n\n      </div>\n=======\n        <span style=\"position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;\" id=\"lastidentifie\">0.3-19</span>\n    </div>\n>>>>>>> 5dc657ab0a8a679582a22c7d643ef957455648b0\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <div class=\"brand\">\n                <a href=\"/#\">\n                    <img class=\"logonew\" style=\"position: relative; top: 0; margin:0;\" src=\"../../../images/landing-trends.png\">\n                </a>\n            </div>\n\n            <!-- show if not logged into platform-->\n            ");
   hashTypes = {};
   hashContexts = {};
   stack1 = helpers['if'].call(depth0, "controller.islogin", {hash:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n\n\n            <!-- user is logged in -->\n\n            <div class=\"smallIcon\">\n                <a href=\"#\" class=\"icon_c\"><i class=\"icon-search icon-large\"></i></a>\n            </div>\n\n        </div>\n    </div>\n</div>\n\n\n\n\n<script type=\"text/javascript\">\n\n    $(document).ready(function() {\n        $('.smallIcon').attr(\"style\", \"display:none\");\n        $('#main-nav span').removeClass('caret');\n\n\n        // left hiding menu bar\n\n        $('.main-nav ').attr(\"style\", \"opacity:0.4;width:10px;overflow:hidden\");\n        // hide #back-top first\n        $(\"#back-top\").hide();\n        $(window).scroll(function() {\n\n            if ($(this).scrollTop() > 150) {\n                $('#back-top').fadeIn();\n            } else {\n                $('#back-top').fadeOut();\n            }\n\n            if ($(this).scrollTop() > 150) {\n                $('.smallIcon').fadeIn();\n            } else {\n                $('.smallIcon').fadeOut();\n            }\n        });\n        $('#back-top a').click(function() {\n            $('body,html').animate({\n                scrollTop: 0\n            }, 800);\n            return false;\n        });\n    });\n\n\n\n\n\n\n    function setDomain() {\n\n        var api_url = document.domain;\n        var api_domain_start_pos = api_url.indexOf('.');\n        var api_url = api_url.slice(api_domain_start_pos);\n\n        return api_url;\n    }\n\n\n\n\n\n    function Facebook(popupWidth, popupHeight) {\n        var left = (screen.width / 2) - (popupWidth / 2);\n        var top = (screen.height / 2) - (popupHeight / 2);\n        var api_url = \"http://\" + document.domain + \"/hybridauth/default/login/?provider=Facebook\";\n        newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');\n        if (window.focus) {\n            newwindow.focus();\n        }\n\n\n    }\n    function Yahoo(popupWidth, popupHeight) {\n        var left = (screen.width / 2) - (popupWidth / 2);\n        var top = (screen.height / 2) - (popupHeight / 2);\n        var api_url = \"http://\" + document.domain + \"/hybridauth/default/login/?provider=Yahoo\";\n        newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');\n        if (window.focus) {\n            newwindow.focus();\n        }\n    }\n    function QQ(popupWidth, popupHeight) {\n        var left = (screen.width / 2) - (popupWidth / 2);\n        var top = (screen.height / 2) - (popupHeight / 2);\n        var api_url = \"http://\" + document.domain + \"/hybridauth/default/login/?provider=QQ\";\n        newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');\n        if (window.focus) {\n            newwindow.focus();\n        }\n    }\n    function Sina(popupWidth, popupHeight) {\n        var left = (screen.width / 2) - (popupWidth / 2);\n        var top = (screen.height / 2) - (popupHeight / 2);\n\n        var api_url = \"http://\" + document.domain + \"/hybridauth/default/login/?provider=Sina\";\n        newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');\n        if (window.focus) {\n            newwindow.focus();\n        }\n    }\n    function LinkedIn(popupWidth, popupHeight) {\n        var left = (screen.width / 2) - (popupWidth / 2);\n        var top = (screen.height / 2) - (popupHeight / 2);\n        var api_url = \"http://\" + document.domain + \"/hybridauth/default/login/?provider=LinkedIn\";\n        newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');\n        if (window.focus) {\n            newwindow.focus();\n        }\n    }\n    function Google(popupWidth, popupHeight) {\n        var left = (screen.width / 2) - (popupWidth / 2);\n        var top = (screen.height / 2) - (popupHeight / 2);\n        var api_url = \"http://\" + document.domain + \"/hybridauth/default/login/?provider=Google\";\n        newwindow = window.open(api_url, 'name', 'height=' + popupHeight*1.5 + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');\n        if (window.focus) {\n            newwindow.focus();\n        }\n    }\n</script>\n");
+  data.buffer.push("\n\n\n            <!-- user is logged in -->\n\n            <div class=\"smallIcon\">\n                <a href=\"#\" class=\"icon_c\"><i class=\"icon-search icon-large\"></i></a>\n            </div>\n\n        </div>\n    </div>\n</div>\n\n\n\n\n<script type=\"text/javascript\">\n\n    $(document).ready(function() {\n        $('.smallIcon').attr(\"style\", \"display:none\");\n        $('#main-nav span').removeClass('caret');\n\n\n        // left hiding menu bar\n\n        $('.main-nav ').attr(\"style\", \"opacity:0.4;width:10px;overflow:hidden\");\n        // hide #back-top first\n        $(\"#back-top\").hide();\n        $(window).scroll(function() {\n\n            if ($(this).scrollTop() > 150) {\n                $('#back-top').fadeIn();\n            } else {\n                $('#back-top').fadeOut();\n            }\n\n            if ($(this).scrollTop() > 150) {\n                $('.smallIcon').fadeIn();\n            } else {\n                $('.smallIcon').fadeOut();\n            }\n        });\n        $('#back-top a').click(function() {\n            $('body,html').animate({\n                scrollTop: 0\n            }, 800);\n            return false;\n        });\n    });\n\n\n\n\n\n\n    function setDomain() {\n\n        var api_url = document.domain;\n        var api_domain_start_pos = api_url.indexOf('.');\n        var api_url = api_url.slice(api_domain_start_pos);\n\n        return api_url;\n    }\n\n\n\n\n\n    function Facebook(popupWidth, popupHeight) {\n        var left = (screen.width / 2) - (popupWidth / 2);\n        var top = (screen.height / 2) - (popupHeight / 2);\n        var api_url = \"http://\" + document.domain + \"/hybridauth/default/login/?provider=Facebook\";\n        newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');\n        if (window.focus) {\n            newwindow.focus();\n        }\n\n\n    }\n    function Yahoo(popupWidth, popupHeight) {\n        var left = (screen.width / 2) - (popupWidth / 2);\n        var top = (screen.height / 2) - (popupHeight / 2);\n        var api_url = \"http://\" + document.domain + \"/hybridauth/default/login/?provider=Yahoo\";\n        newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');\n        if (window.focus) {\n            newwindow.focus();\n        }\n    }\n    function QQ(popupWidth, popupHeight) {\n        var left = (screen.width / 2) - (popupWidth / 2);\n        var top = (screen.height / 2) - (popupHeight / 2);\n        var api_url = \"http://\" + document.domain + \"/hybridauth/default/login/?provider=QQ\";\n        newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');\n        if (window.focus) {\n            newwindow.focus();\n        }\n    }\n    function Sina(popupWidth, popupHeight) {\n        var left = (screen.width / 2) - (popupWidth / 2);\n        var top = (screen.height / 2) - (popupHeight / 2);\n\n        var api_url = \"http://\" + document.domain + \"/hybridauth/default/login/?provider=Sina\";\n        newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');\n        if (window.focus) {\n            newwindow.focus();\n        }\n    }\n    function LinkedIn(popupWidth, popupHeight) {\n        var left = (screen.width / 2) - (popupWidth / 2);\n        var top = (screen.height / 2) - (popupHeight / 2);\n        var api_url = \"http://\" + document.domain + \"/hybridauth/default/login/?provider=LinkedIn\";\n        newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');\n        if (window.focus) {\n            newwindow.focus();\n        }\n    }\n    function Google(popupWidth, popupHeight) {\n        var left = (screen.width / 2) - (popupWidth / 2);\n        var top = (screen.height / 2) - (popupHeight / 2);\n        var api_url = \"http://\" + document.domain + \"/hybridauth/default/login/?provider=Google\";\n        newwindow = window.open(api_url, 'name', 'height=' + popupHeight * 1.5 + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');\n        if (window.focus) {\n            newwindow.focus();\n        }\n    }\n</script>\n");
   return buffer;
   
 });
 
-Ember.TEMPLATES["htmlEditor"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["htmlEditor"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', hashContexts, hashTypes, escapeExpression=this.escapeExpression;
@@ -1928,8 +1919,7 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   
 });
 
-Ember.TEMPLATES["index"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["index"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   
@@ -1939,8 +1929,7 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   
 });
 
-Ember.TEMPLATES["item"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["item"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, hashTypes, hashContexts, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
@@ -2292,7 +2281,7 @@ function program17(depth0,data) {
   hashContexts = {};
   options = {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
   data.buffer.push(escapeExpression(((stack1 = helpers.date),stack1 ? stack1.call(depth0, "created", options) : helperMissing.call(depth0, "date", "created", options))));
-  data.buffer.push("</span>\n                                </div>\n            </div>\n\n            <div class=\"object-tags-box\">\n\n                <div class=\"object-tags\">\n                    <span class=\"tags-mark\" style=\"background-color: #427fed\"></span>\n                    <div class=\"tags easing\">\n\n                        <div class=\"object-tpye\">\n                            <i class=\"icon-book\"></i>\n                        </div>                      \n                    </div>\n                </div>\n\n                <div class=\"object-tags \" style=\"display:none;\">\n                    <span class=\"tags-mark\" style=\"background-color: #76a7fa\"></span>\n                    <div class=\"tags easing tagsappear\">\n                        <div class=\"tags-new\">#");
+  data.buffer.push("</span>\n                                </div>\n            </div>\n            <div class=\"object-tags-box\">\n\n                <div class=\"object-tags\">\n                    <span class=\"tags-mark\" style=\"background-color: #427fed\"></span>\n                    <div class=\"tags easing\">\n\n                        <div class=\"object-tpye\">\n                            <i class=\"icon-book\"></i>\n                        </div>                      \n                    </div>\n                </div>\n\n                <div class=\"object-tags \" style=\"display:none;\">\n                    <span class=\"tags-mark\" style=\"background-color: #76a7fa\"></span>\n                    <div class=\"tags easing tagsappear\">\n                        <div class=\"tags-new\">#");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "region", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -2453,8 +2442,7 @@ function program22(depth0,data) {
   
 });
 
-Ember.TEMPLATES["itemFollow"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["itemFollow"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', hashTypes, hashContexts, escapeExpression=this.escapeExpression;
@@ -2473,8 +2461,7 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   
 });
 
-Ember.TEMPLATES["itemProfiles"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["itemProfiles"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, hashTypes, hashContexts, escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
@@ -2683,8 +2670,7 @@ function program11(depth0,data) {
   
 });
 
-Ember.TEMPLATES["landingPage"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["landingPage"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   
@@ -2694,8 +2680,7 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   
 });
 
-Ember.TEMPLATES["loadingSpinner"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["loadingSpinner"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   
@@ -2705,8 +2690,7 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   
 });
 
-Ember.TEMPLATES["loginModal"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["loginModal"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, hashTypes, hashContexts, options, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
@@ -2730,7 +2714,7 @@ function program3(depth0,data) {
   hashTypes = {'type': "STRING",'value': "ID",'placeholder': "STRING"};
   options = {hash:{
     'type': ("text"),
-    'value': ("username"),
+    'value': ("loginusername"),
     'placeholder': ("Username")
   },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
   data.buffer.push(escapeExpression(((stack1 = helpers.input),stack1 ? stack1.call(depth0, options) : helperMissing.call(depth0, "input", options))));
@@ -2739,7 +2723,7 @@ function program3(depth0,data) {
   hashTypes = {'type': "STRING",'value': "ID",'placeholder': "STRING"};
   options = {hash:{
     'type': ("password"),
-    'value': ("password"),
+    'value': ("loginpassword"),
     'placeholder': ("Password")
   },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
   data.buffer.push(escapeExpression(((stack1 = helpers.input),stack1 ? stack1.call(depth0, options) : helperMissing.call(depth0, "input", options))));
@@ -2825,8 +2809,7 @@ function program3(depth0,data) {
   
 });
 
-Ember.TEMPLATES["masonry"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["masonry"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, stack2, hashTypes, hashContexts, options, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
@@ -2861,8 +2844,7 @@ function program1(depth0,data) {
   
 });
 
-Ember.TEMPLATES["masonryCollection"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["masonryCollection"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, hashTypes, hashContexts, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
@@ -3007,8 +2989,7 @@ function program11(depth0,data) {
   
 });
 
-Ember.TEMPLATES["masonryCollectionItems"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["masonryCollectionItems"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, hashTypes, hashContexts, escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
@@ -3169,8 +3150,7 @@ function program12(depth0,data) {
   
 });
 
-Ember.TEMPLATES["photo"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["photo"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, stack2, hashTypes, hashContexts, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
@@ -3317,7 +3297,7 @@ function program10(depth0,data) {
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.unbound.call(depth0, "id", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("\" style=\"width: 170px; margin: 0 auto; left: 100px;padding: 0\">\n\n                <li class=\"ite\" ");
+  data.buffer.push("\" style=\"width: 150px; margin: 0 auto; left: 70px;padding: 0\">\n\n                <li class=\"ite\" ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "fbShare", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -3492,8 +3472,7 @@ function program10(depth0,data) {
   
 });
 
-Ember.TEMPLATES["photoCreate"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["photoCreate"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, hashTypes, hashContexts, escapeExpression=this.escapeExpression, self=this;
@@ -3553,8 +3532,7 @@ function program2(depth0,data) {
   
 });
 
-Ember.TEMPLATES["photoCreateInfoSetting"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["photoCreateInfoSetting"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, hashTypes, hashContexts, escapeExpression=this.escapeExpression, self=this;
@@ -3610,8 +3588,7 @@ function program1(depth0,data) {
   
 });
 
-Ember.TEMPLATES["photoDisplayArea"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["photoDisplayArea"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', hashContexts, hashTypes, escapeExpression=this.escapeExpression;
@@ -3628,8 +3605,7 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   
 });
 
-Ember.TEMPLATES["platformBar"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["platformBar"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, hashContexts, hashTypes, escapeExpression=this.escapeExpression, self=this;
@@ -3754,8 +3730,7 @@ function program5(depth0,data) {
   
 });
 
-Ember.TEMPLATES["profile"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["profile"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, stack2, hashContexts, hashTypes, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
@@ -5004,8 +4979,7 @@ function program96(depth0,data) {
   
 });
 
-Ember.TEMPLATES["profileFollowers"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["profileFollowers"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, hashTypes, hashContexts, escapeExpression=this.escapeExpression, self=this;
@@ -5041,8 +5015,7 @@ function program1(depth0,data) {
   
 });
 
-Ember.TEMPLATES["profileNew"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["profileNew"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, hashContexts, hashTypes, escapeExpression=this.escapeExpression, self=this;
@@ -5284,8 +5257,7 @@ function program1(depth0,data) {
   
 });
 
-Ember.TEMPLATES["profilePartners"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["profilePartners"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, hashTypes, hashContexts, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
@@ -5374,23 +5346,13 @@ function program7(depth0,data) {
   
 });
 
-Ember.TEMPLATES["profiles"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["profiles"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', hashContexts, hashTypes, escapeExpression=this.escapeExpression;
 
 
-<<<<<<< HEAD
-  data.buffer.push("<div style=\"width:100%;height:100%;z-index: 1000;position: fixed;\">\n    <img src=\"../../../images/landingbg.jpg\" style=\"width:100%; position:fixed;\"/>\n\n    <div style=\"width: 87%;margin: 40px auto;display: block;\">\n        <img class=\"logonew\" style=\"position: relative; height: 30px;display: inline-block;vertical-align: top;margin: 8px;\" src=\"../../../images/landing-trends.png\">\n        <div style=\"position:relative; float:right; color:white; font-size:15px;font-weight: bold;\">\n            <span style=\"letter-spacing: 1px; margin: 0 0 0 10px;\" onClick=\"loginPane();\" id=\"login-btn\">LOGIN</span>\n            <span>&nbsp | &nbsp</span>\n            <span style=\"letter-spacing: 1px; margin: 0 0 0 10px;\">HELP</span>\n        </div>\n    </div>\n    \n    <div style=\"position: absolute; vertical-align: middle; color: #fff; width: 40%; text-align: center;margin: auto;left: 0;right: 0;top: 50px;font-size: 14px; font-family: 'Montserrat', sans-serif; letter-spacing: 2px;opacity: .9;\">\n        <span>2,100,000 IDEAS</span>\n        <span>&nbsp | &nbsp</span>\n        <span>1,200,000 PRODUCTS</span>\n    </div>\n\n    <div id=\"profiles-main-container\" style=\"position:absolute;width: 33%;text-align: center;top: 21%;margin: auto;display: block;left: 0;right: 0;\">\n        <img style=\"position: relative;margin: 10px auto 40px -10px; min-width: 320px;width: 70%;\" src=\"../../../images/landing-trends.png\">\n\n        <div id=\"click-register-social\" class=\"register-with easing social-active\" style=\"border-radius: 5px 5px 0 0; border-bottom:1px solid #e3e3e3;\">\n            <i class=\"icon-facebook\">&nbsp</i><a style=\"color: #888\"> Register with social account</a>\n        </div>\n\n        <div id=\"social-link\" style=\"display: block; width: 300px; height: 60px; line-height: 60px; margin: 0px auto; background-color: white;padding:12px;border-bottom: 1px solid #e3e3e3;\">\n\n            <div class=\"social-login-iconbox\">\n                <i class=\"icon-facebook\"></i>\n            </div>\n\n            <div class=\"social-login-iconbox\">\n                <i class=\"icon-twitter\"></i>\n            </div>\n\n            <div class=\"social-login-iconbox\" style=\"\">\n                <i class=\"icon-google-plus\"></i>\n            </div>\n\n            <div class=\"social-login-iconbox\">\n                <i class=\"icon-linkedin\"></i>\n            </div>\n\n            <div class=\"social-login-iconbox\">\n                <i class=\"icon-weibo\"></i>\n            </div>\n\n        </div>\n\n\n        <!--This is the email register section-->\n        <div>\n            <div id=\"click-register\" class=\"register-with easing register-clicker\">\n                <i class=\"icon-envelope\">&nbsp </i><a style=\"color: #888\"> Register with Email</a>\n            </div>\n\n            <div   id=\"register-with-email-drop-down\" style=\"width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;\">\n                <div style=\"padding: 0 8px;\">\n\n                    <div style=\"border-bottom: 1px solid #e3e3e3; border-top:1px solid #e3e3e3;\">\n                        <div class=\"login-textfield\" style=\"width: 49%;display: inline-block;vertical-align: top;height: 45px;line-height: 45px;\">\n                            ");
-=======
-  data.buffer.push("\n<h1> profiles</h1>\n\n\n");
-  hashTypes = {};
-  hashContexts = {};
-  stack1 = helpers.each.call(depth0, "model", {hash:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n\n\n\n<div style=\"width:100%;height:100%;z-index: 1000;position: fixed;min-width: 1100px;min-height: 728px;\">\n    <img src=\"../../../images/landingpagebg.jpg\" style=\"width:100%; position:fixed;\"/>\n\n    <div style=\"width: 87%;margin: 40px auto;display: block;line-height: 45px;\">\n        <img class=\"logonew\" style=\"position: relative; height: 30px;display: inline-block;vertical-align: top;margin: 8px;\" src=\"../../../images/landing-trends.png\">\n        <div style=\"position:relative; float:right; color:white; font-size:15px;font-weight: bold;\">\n            <span style=\"letter-spacing: 1px; margin: 0 0 0 10px;\" onClick=\"loginPane();\" id=\"login-btn\">LOGIN</span>\n            <span>&nbsp | &nbsp</span>\n            <span style=\"letter-spacing: 1px; margin: 0 0 0 10px;\">HELP</span>\n        </div>\n    </div>\n\n    <div style=\"position: absolute; vertical-align: middle; color: #fff; width: 600px; text-align: center;margin: auto;left: 0;right: 0;top: 55px;font-size: 13px; font-family: 'Montserrat', sans-serif; letter-spacing: 2px;opacity: .9;\">\n        <span>2,100,000 IDEAS</span>\n        <span>&nbsp | &nbsp</span>\n        <span>1,200,000 PRODUCTS</span>\n        <span>&nbsp | &nbsp</span>\n        <span>5,000 SERVICES</span>\n    </div>\n\n    <div id=\"profiles-main-container\" style=\"position:absolute;width: 33%;text-align: center;top: 21%;margin: auto;display: block;left: 0;right: 0;\">\n        <img style=\"position: relative;margin: 10px auto 40px -10px; min-width: 320px;width: 70%;\" src=\"../../../images/landing-trends.png\">\n\n        <div id=\"click-register-social\" class=\"register-with easing social-active\" style=\"border-radius: 5px 5px 0 0; border-bottom:1px solid #e3e3e3;\">\n            <i class=\"icon-facebook\">&nbsp</i><a style=\"color: #888\"> Register with social account</a>\n        </div>\n\n        <div id=\"social-link\" style=\"display: block; width: 300px; height: 60px; line-height: 60px; margin: 0px auto; background-color: white;padding:12px;border-bottom: 1px solid #e3e3e3;\">\n\n            <div class=\"social-login-iconbox\">\n                <i class=\"icon-facebook\"></i>\n            </div>\n\n            <div class=\"social-login-iconbox\">\n                <i class=\"icon-twitter\"></i>\n            </div>\n\n            <div class=\"social-login-iconbox\" style=\"\">\n                <i class=\"icon-google-plus\"></i>\n            </div>\n\n            <div class=\"social-login-iconbox\">\n                <i class=\"icon-linkedin\"></i>\n            </div>\n\n            <div class=\"social-login-iconbox\">\n                <i class=\"icon-weibo\"></i>\n            </div>\n\n        </div>\n\n\n        <!--This is the email register section-->\n        <div>\n            <div id=\"click-register\" class=\"register-with easing register-clicker\">\n                <i class=\"icon-envelope\">&nbsp </i><a style=\"color: #888\"> Register with Email</a>\n            </div>\n\n            <div   id=\"register-with-email-drop-down\" style=\"width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;\">\n                <div style=\"padding: 0 8px;\">\n\n                    <div style=\"border-bottom: 1px solid #e3e3e3; border-top:1px solid #e3e3e3;\">\n                        <div class=\"login-textfield\" style=\"width: 49%;display: inline-block;vertical-align: top;height: 45px;line-height: 45px;\">\n                            ");
->>>>>>> 5dc657ab0a8a679582a22c7d643ef957455648b0
+  data.buffer.push("<div style=\"width:100%;height:100%;z-index: 1000;position: fixed;\">\n    <img src=\"../../../images/landingbg.jpg\" style=\"width:100%; position:fixed;\"/>\n\n    <div style=\"width: 87%;margin: 40px auto;display: block;\">\n        <img class=\"logonew\" style=\"position: relative; height: 30px;display: inline-block;vertical-align: top;margin: 8px;\" src=\"../../../images/landing-trends.png\">\n        <div style=\"position:relative; float:right; color:white; font-size:15px;font-weight: bold;\">\n            <span style=\"letter-spacing: 1px; margin: 0 0 0 10px;cursor:pointer;\" onClick=\"loginPane();\" id=\"login-btn\">LOGIN</span>\n            <span>&nbsp | &nbsp</span>\n            <span style=\"letter-spacing: 1px; margin: 0 0 0 10px;\">HELP</span>\n        </div>\n    </div>\n    \n    <div style=\"position: absolute; vertical-align: middle; color: #fff; width: 40%; text-align: center;margin: auto;left: 0;right: 0;top: 50px;font-size: 14px; font-family: 'Montserrat', sans-serif; letter-spacing: 2px;opacity: .9;\">\n        <span>2,100,000 IDEAS</span>\n        <span>&nbsp | &nbsp</span>\n        <span>1,200,000 PRODUCTS</span>\n    </div>\n\n    <div id=\"profiles-main-container\" style=\"position:absolute;width: 33%;text-align: center;top: 21%;margin: auto;display: block;left: 0;right: 0;\">\n        <img style=\"position: relative;margin: 10px auto 40px -10px; min-width: 320px;width: 70%;\" src=\"../../../images/landing-trends.png\">\n\n        <div id=\"click-register-social\" class=\"register-with easing social-active\" style=\"border-radius: 5px 5px 0 0; border-bottom:1px solid #e3e3e3;\">\n            <i class=\"icon-facebook\">&nbsp</i><a style=\"color: #888\"> Register with social account</a>\n        </div>\n\n        <div id=\"social-link\" style=\"display: block; width: 300px; height: 60px; line-height: 60px; margin: 0px auto; background-color: white;padding:12px;border-bottom: 1px solid #e3e3e3;\">\n\n            <div class=\"social-login-iconbox\">\n                <i class=\"icon-facebook\"></i>\n            </div>\n\n            <div class=\"social-login-iconbox\">\n                <i class=\"icon-twitter\"></i>\n            </div>\n\n            <div class=\"social-login-iconbox\" style=\"\">\n                <i class=\"icon-google-plus\"></i>\n            </div>\n\n            <div class=\"social-login-iconbox\">\n                <i class=\"icon-linkedin\"></i>\n            </div>\n\n            <div class=\"social-login-iconbox\">\n                <i class=\"icon-weibo\"></i>\n            </div>\n\n        </div>\n\n\n        <!--This is the email register section-->\n        <div>\n            <div id=\"click-register\" class=\"register-with easing register-clicker\">\n                <i class=\"icon-envelope\">&nbsp </i><a style=\"color: #888\"> Register with Email</a>\n            </div>\n\n            <div   id=\"register-with-email-drop-down\" style=\"width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;\">\n                <div style=\"padding: 0 8px;\">\n\n                    <div style=\"border-bottom: 1px solid #e3e3e3; border-top:1px solid #e3e3e3;\">\n                        <div class=\"login-textfield\" style=\"width: 49%;display: inline-block;vertical-align: top;height: 45px;line-height: 45px;\">\n                            ");
   hashContexts = {'valueBinding': depth0,'placeholder': depth0};
   hashTypes = {'valueBinding': "STRING",'placeholder': "STRING"};
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
@@ -5432,13 +5394,26 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
     'valueBinding': ("password"),
     'placeholder': ("How old are you?")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("\n                    </div>\n                </div>\n                <div class=\"back-btn easing\" style=\"\" >Back</div>\n                <div class=\"register-btn easing register-btn-small\" >Done</div>\n\n            </div>\n\n        </div>\n        <!--End of email register section-->\n\n\n        <div id=\"user-login-pane\" class=\"register-with\" style=\"display:none;\">\n            <p>Login</p>\n\n            <div>login with facebook</div>\n            <div>login with email</div>\n        </div>\n        <a href=\"http://trendsideas.com/ViewPage.aspx?pageName=Contact%20Us&region=1\" target=\"blank\">\n            <span style=\"font-family: 'Montserrat', sans-serif; font-size: 13px;color: #fff;margin: 15px auto;opacity: .9;display: block;\">Learn more</span>\n        </a>\n    </div>\n\n</div>    \n\n<script>\n\n\n\n\n\n                /* NOTE:************\n                 * \n                 *   IF THIS BEHAVES ODDLY SIMPLY REMOVE/ADD \"stop()\" before all the animate functions EG\n                 * \n                 *  $('#register-with-email-drop-down').stop().animate({height: 'toggle'});\n                 */\n                 var loginState= false;\n\n\n\n\n                $(\"#click-register-social\").click(function() {\n\n                    $('#click-register-social').removeClass('social-active');\n                    $('#click-register').removeClass('active-tab');\n\n                    if ($('#social-link').css('display') === 'block') {\n                        $('#social-link').animate({height: 'toggle'});\n\n                        if ($('#register-with-email-drop-down').css('display') === 'block') {\n                            $('#register-with-email-drop-down').stop().animate({height: 'toggle'});\n                        }\n                        if ($('#register-with-email-step-2').css('display') === 'block') {\n                            $('#register-with-email-step-2').stop().animate({height: 'toggle'});\n                        }\n                    }\n                    /* hiding social login */\n\n                    if ($('#social-link').css('display') === 'none') {\n                        $('#social-link').animate({height: 'toggle'});\n                        $('#click-register-social').addClass('social-active');\n\n                        if ($('#register-with-email-drop-down').css('display') === 'block') {\n                            $('#register-with-email-drop-down').stop().animate({height: 'toggle'});\n                        }\n                        if ($('#register-with-email-step-2').css('display') === 'block') {\n                            $('#register-with-email-step-2').stop().animate({height: 'toggle'});\n                        }\n                    }\n                    /* showing social login section*/\n\n                });\n                /* social login slider function */\n\n\n                $(\"#register-btn\").click(function() {\n                    //alert('opening step 2');\n                    $('#register-with-email-step-2').addClass('active-step');\n                    $('#click-register').addClass('active-tab');\n                    $('#register-with-email-step-2').stop().animate({height: 'toggle'});\n                    $('#register-with-email-drop-down').stop().animate({height: 'toggle'});\n\n                    checkSocial();\n\n                });\n                /* clicking register step 2 function*/\n\n\n                $('.back-btn').click(function() {\n                    $('#register-with-email-step-2').removeClass('active-step');\n                    $('#register-with-email-step-2').stop().animate({height: 'toggle'});\n                    $('#register-with-email-drop-down').stop().animate({height: 'toggle'});\n\n\n                    checkSocial();\n                });\n                /* going back to step 1 function*/\n\n\n                $(\".register-clicker\").click(function() {\n\n                    if ($('#register-with-email-step-2').hasClass('active-step')) {\n                        //alert('closing step2');\n\n                        $('#social-link').animate({height: 'toggle'});\n                        $('#register-with-email-step-2').stop().animate({height: 'toggle'});\n\n                        if ($('#click-register').hasClass('active-tab')) {\n                            $('#click-register').removeClass('active-tab');\n                            /* closing step */\n                        }\n\n                        else {\n                            $('#click-register').addClass('active-tab');\n                            /* opening step */\n                        }\n\n                    }\n                    /* closing/opening register section while on step 2 function */\n\n\n                    if ($('#register-with-email-drop-down').css('display') === 'block' && $('#click-register').hasClass('active-tab')) {\n                        //alert('closing step1');\n                        $('#click-register').removeClass('active-tab');\n                        $('#social-link').stop().animate({height: 'toggle'});\n                        $('#register-with-email-drop-down').stop().animate({height: 'toggle'});\n                        $('#click-register-social').addClass('social-active');\n\n                    }\n                    /* closing register section while on step 1 function */\n\n\n                    if ($('#register-with-email-drop-down').css('display') === 'none' && $('#register-with-email-step-2').hasClass('')) {\n                        //alert('opening step 1');\n                        $('#click-register-social').removeClass('social-active');\n                        $('#click-register').addClass('active-tab');\n                        $('#register-with-email-drop-down').stop().animate({height: 'toggle'});\n                        checkSocial();\n\n                    }\n                    /* clicking register step 1 function*/\n\n                });\n\n                function checkSocial() {\n                    if ($('#social-link').css('display') === 'block') {\n                        $('#social-link').animate({height: 'toggle'});\n                    }\n                    else {\n                    }\n                }\n                /* close social login checker function */\n\n\n                $('.login-select').click(function() {\n                    $('.login-select').removeClass('login-selected');\n                    $(this).addClass('login-selected');\n\n                });\n                /* select gender function */\n\n\n                function loginPane() {\n                     \n                    if (loginState === false) {\n                        \n                        $('#login-btn').text('REGISTER');\n                        $('#click-register-social').css('display', 'none');\n                        $('#click-register').css('display', 'none');\n                        \n                        $('#social-link').css('display', 'none');\n                        $('#register-with-email-drop-down').css('display', 'none');\n                        $('#register-with-email-step-2').css('display', 'none');\n                        \n                        \n                        $('#user-login-pane').css('display', 'block');\n                        loginState=true;\n                    }\n                    else{\n                       \n                        $('#login-btn').text('LOGIN');\n                        \n                        $('#click-register-social').css('display', 'block');\n                        $('#social-link').css('display', 'block');\n                        $('#click-register').css('display', 'block');\n                        $('#click-register-social').addClass('social-active');\n                        $('#click-register').removeClass('active-tab');\n                        $('#register-with-email-step-2').removeClass('active-step');\n                        \n                        $('#user-login-pane').css('display', 'none');\n                        loginState=false;\n\n                    }\n                   \n\n                }\n</script>\n");
+  data.buffer.push("\n                    </div>\n                </div>\n                <div class=\"back-btn easing\" style=\"\" >Back</div>\n                <div class=\"register-btn easing register-btn-small\" >Done</div>\n\n            </div>\n\n        </div>\n        <!--End of email register section-->\n\n\n        <div id=\"user-login-pane\"  style=\"display:none;border-radius: 5px 5px 0 0;\">\n\n            <div id=\"social-login\" class=\"register-with easing\" style=\"border-radius: 5px 5px 0 0; border-bottom:1px solid #e3e3e3;\">\n                <i id=\"social-login\" class=\"icon-facebook\">&nbsp</i><a style=\"color: #888\"> Login with social account</a>\n            </div>\n            <div id=\"social-login-container\" style=\"display: none; width: 300px; height: 60px; line-height: 60px; margin: 0px auto; background-color: white;padding:12px;border-bottom: 1px solid #e3e3e3;\">\n\n                <div class=\"social-login-iconbox\">\n                    <i class=\"icon-facebook\"></i>\n                </div>\n\n                <div class=\"social-login-iconbox\">\n                    <i class=\"icon-twitter\"></i>\n                </div>\n\n                <div class=\"social-login-iconbox\" style=\"\">\n                    <i class=\"icon-google-plus\"></i>\n                </div>\n\n                <div class=\"social-login-iconbox\">\n                    <i class=\"icon-linkedin\"></i>\n                </div>\n\n                <div class=\"social-login-iconbox\">\n                    <i class=\"icon-weibo\"></i>\n                </div>\n\n            </div>\n\n            <div id=\"click-login\" class=\"register-with easing active-tab\" style=\"border-bottom: 1px solid #e3e3e3;\">\n                <i class=\"icon-envelope\">&nbsp </i><a style=\"color: #888\"> Login with Email</a>\n            </div>\n\n            <div id=\"login-with-email-drop-down\" style=\"width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;\">\n                <div style=\"padding: 0 8px;\">\n\n                    <div  class=\"login-textfield\" style=\"margin: 0;width: 100%;height: 45px;line-height: 45px;border-bottom: 1px solid #e3e3e3;\">\n                        ");
+  hashContexts = {'valueBinding': depth0,'placeholder': depth0};
+  hashTypes = {'valueBinding': "STRING",'placeholder': "STRING"};
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
+    'valueBinding': ("youremail"),
+    'placeholder': ("Your Email")
+  },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("\n                    </div>\n\n                    <div class=\"login-textfield\"  style=\"margin: 0;width: 100%;height: 45px;line-height: 45px;border-bottom: 1px solid #e3e3e3;\">\n                        ");
+  hashContexts = {'valueBinding': depth0,'placeholder': depth0};
+  hashTypes = {'valueBinding': "STRING",'placeholder': "STRING"};
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
+    'valueBinding': ("password"),
+    'placeholder': ("Password")
+  },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("\n                        <i class=\"icon-question-sign\" style=\"position: relative;top: -30px;right: 7px;left: 120px;display: block;\">&nbsp </i>\n                    </div>\n                </div>\n\n                <div id=\"register-btn\" class=\"register-btn easing\" style=\"\"> Login</div>\n            </div>\n\n        </div>\n\n\n\n        <a href=\"http://trendsideas.com/ViewPage.aspx?pageName=Contact%20Us&region=1\" target=\"blank\">\n            <span style=\"font-family: 'Montserrat', sans-serif; font-size: 13px;color: #fff;margin: 15px auto;opacity: .9;display: block;\">Learn more</span>\n        </a>\n    </div>\n\n</div>    \n\n<script>\n\n\n\n\n\n                /* NOTE:************\n                 * \n                 *   IF THIS BEHAVES ODDLY SIMPLY REMOVE/ADD \"stop()\" before all the animate functions EG\n                 *   $('#register-with-email-drop-down').stop().animate({height: 'toggle'});\n                 *   This javascript will need to be cleaned up via setting some of the elements as preset variables etc, once 100% tested.\n                 */\n                \n                var loginState = false;\n                $(\"#social-login\").click(function() {\n\n                    $('#social-login').removeClass('social-active');\n                    $('#click-login').removeClass('active-tab');\n                    if ($('#social-login-container').css('display') === 'block') {\n                        $('#social-login-container').animate({height: 'toggle'});\n                    }\n                    /* hiding social login */\n\n                    if ($('#social-login-container').css('display') === 'none') {\n                        $('#social-login-container').animate({height: 'toggle'});\n                        $('#social-login').addClass('social-active');\n                        if ($('#login-with-email-drop-down').css('display') === 'block') {\n                            $('#login-with-email-drop-down').animate({height: 'toggle'});\n                        }\n\n                    }\n                });\n                $(\"#click-login\").click(function() {\n                    if ($('#login-with-email-drop-down').css('display') === 'block' && $('#click-login').hasClass('active-tab')) {\n                        $('#click-login').removeClass('active-tab');\n\n                        $('#login-with-email-drop-down').stop().animate({height: 'toggle'});\n\n                        if ($('#social-login-container').css('display') === 'block') {\n                            $('#social-login-container').stop().animate({height: 'toggle'});\n                        }\n                    }\n                    /* closing login with email */\n\n\n                    if ($('#login-with-email-drop-down').css('display') === 'none') {\n                        $('#social-login').removeClass('social-active');\n                        $('#click-login').addClass('active-tab');\n                        $('#login-with-email-drop-down').stop().animate({height: 'toggle'});\n\n                        if ($('#social-login-container').css('display') === 'block') {\n                            $('#social-login-container').stop().animate({height: 'toggle'});\n                        }\n                    } /* clicking register step 1 function*/\n                });\n               \n\n\n                /*  LOGIN TAB: showing social login section*/\n\n\n\n\n\n\n                $(\"#click-register-social\").click(function() {\n\n                    $('#click-register-social').removeClass('social-active');\n                    $('#click-register').removeClass('active-tab');\n                    if ($('#social-link').css('display') === 'block') {\n                        $('#social-link').animate({height: 'toggle'});\n                        if ($('#register-with-email-drop-down').css('display') === 'block') {\n                            $('#register-with-email-drop-down').stop().animate({height: 'toggle'});\n                        }\n                        if ($('#register-with-email-step-2').css('display') === 'block') {\n                            $('#register-with-email-step-2').stop().animate({height: 'toggle'});\n                        }\n                    }\n                    /* hiding social login */\n\n                    if ($('#social-link').css('display') === 'none') {\n                        $('#social-link').animate({height: 'toggle'});\n                        $('#click-register-social').addClass('social-active');\n                        if ($('#register-with-email-drop-down').css('display') === 'block') {\n                            $('#register-with-email-drop-down').stop().animate({height: 'toggle'});\n                        }\n                        if ($('#register-with-email-step-2').css('display') === 'block') {\n                            $('#register-with-email-step-2').stop().animate({height: 'toggle'});\n                        }\n                    }\n                    /*  REGISTER TAB: showing social login section*/\n\n                });\n                /* social login slider function */\n\n\n                $(\"#register-btn\").click(function() {\n                    //alert('opening step 2');\n                    $('#register-with-email-step-2').addClass('active-step');\n                    $('#click-register').addClass('active-tab');\n                    $('#register-with-email-step-2').stop().animate({height: 'toggle'});\n                    $('#register-with-email-drop-down').stop().animate({height: 'toggle'});\n                    checkSocial();\n                });\n                /* clicking register step 2 function*/\n\n\n                $('.back-btn').click(function() {\n                    $('#register-with-email-step-2').removeClass('active-step');\n                    $('#register-with-email-step-2').stop().animate({height: 'toggle'});\n                    $('#register-with-email-drop-down').stop().animate({height: 'toggle'});\n                    checkSocial();\n                });\n                /* going back to step 1 function*/\n\n\n                $(\".register-clicker\").click(function() {\n\n                    if ($('#register-with-email-step-2').hasClass('active-step')) {\n                        //alert('closing step2');\n\n                        $('#social-link').animate({height: 'toggle'});\n                        $('#register-with-email-step-2').stop().animate({height: 'toggle'});\n                        if ($('#click-register').hasClass('active-tab')) {\n                            $('#click-register').removeClass('active-tab');\n                            /* closing step */\n                        }\n\n                        else {\n                            $('#click-register').addClass('active-tab');\n                            /* opening step */\n                        }\n\n                    }\n                    /* closing/opening register section while on step 2 function */\n\n                    if ($('#register-with-email-drop-down').css('display') === 'block' && $('#click-register').hasClass('active-tab')) {\n                        //alert('closing step1');\n                        $('#click-register').removeClass('active-tab');\n                        $('#social-link').stop().animate({height: 'toggle'});\n                        $('#register-with-email-drop-down').stop().animate({height: 'toggle'});\n                        $('#click-register-social').addClass('social-active');\n                    }\n                    /* closing register section while on step 1 function */\n\n\n                    if ($('#register-with-email-drop-down').css('display') === 'none' && $('#register-with-email-step-2').hasClass('')) {\n                        //alert('opening step 1');\n                        $('#click-register-social').removeClass('social-active');\n                        $('#click-register').addClass('active-tab');\n                        $('#register-with-email-drop-down').stop().animate({height: 'toggle'});\n                        checkSocial();\n                    }\n                    /* clicking register step 1 function*/\n\n                });\n                function checkSocial() {\n                    if ($('#social-link').css('display') === 'block') {\n                        $('#social-link').animate({height: 'toggle'});\n                    }\n                    else {\n                    }\n                }\n                /* close social login checker function */\n\n\n                $('.login-select').click(function() {\n                    $('.login-select').removeClass('login-selected');\n                    $(this).addClass('login-selected');\n                });\n                /* select gender function */\n\n\n                function loginPane() {\n\n                    if (loginState === false) {\n\n                        $('#login-btn').text('REGISTER');\n                        $('#click-register-social').css('display', 'none');\n                        $('#click-register').css('display', 'none');\n                        $('#social-link').css('display', 'none');\n                        $('#login-with-email-drop-down').css('display', 'block');\n                        $('#social-login-container').css('display', 'none');\n                        $('#click-login').addClass('active-tab');\n                        $('#social-login').removeClass('social-active');\n                        \n                        $('#register-with-email-drop-down').css('display', 'none');\n                        $('#register-with-email-step-2').css('display', 'none');\n                        $('#user-login-pane').css('display', 'block');\n                        loginState = true;\n                    }\n                    else {\n\n                        $('#login-btn').text('LOGIN');\n                        $('#click-register-social').css('display', 'block');\n                        $('#social-link').css('display', 'block');\n                        $('#click-register').css('display', 'block');\n                        $('#click-register-social').addClass('social-active');\n                        $('#click-register').removeClass('active-tab');\n                        $('#register-with-email-step-2').removeClass('active-step');\n                        $('#user-login-pane').css('display', 'none');\n                        loginState = false;\n                    }\n\n\n                }\n</script>\n");
   return buffer;
   
 });
 
-Ember.TEMPLATES["quickstart"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["quickstart"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, stack2, hashTypes, hashContexts, options, self=this, helperMissing=helpers.helperMissing;
@@ -5472,7 +5447,6 @@ function program3(depth0,data) {
   
 });
 
-<<<<<<< HEAD
 Ember.TEMPLATES["register"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
@@ -5539,10 +5513,6 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
 });
 
 Ember.TEMPLATES["showAlbum"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
-=======
-Ember.TEMPLATES["showAlbum"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
->>>>>>> 5dc657ab0a8a679582a22c7d643ef957455648b0
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, hashTypes, hashContexts, escapeExpression=this.escapeExpression, self=this;
@@ -5589,8 +5559,7 @@ function program1(depth0,data) {
   
 });
 
-Ember.TEMPLATES["singleFileUploader"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["singleFileUploader"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, hashTypes, hashContexts, self=this;
@@ -5610,8 +5579,7 @@ function program1(depth0,data) {
   
 });
 
-Ember.TEMPLATES["status"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["status"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, hashTypes, hashContexts, escapeExpression=this.escapeExpression, self=this;
@@ -5659,8 +5627,7 @@ function program3(depth0,data) {
   
 });
 
-Ember.TEMPLATES["test"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["test"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', hashTypes, hashContexts, escapeExpression=this.escapeExpression;
@@ -5679,8 +5646,7 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   
 });
 
-Ember.TEMPLATES["uploadResource"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["uploadResource"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', hashTypes, hashContexts, escapeExpression=this.escapeExpression;
@@ -5695,8 +5661,7 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   
 });
 
-Ember.TEMPLATES["user"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["user"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, hashTypes, hashContexts, escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
@@ -6190,8 +6155,7 @@ function program51(depth0,data) {
   
 });
 
-Ember.TEMPLATES["userEdit"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["userEdit"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, hashTypes, hashContexts, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
@@ -6267,11 +6231,7 @@ function program2(depth0,data) {
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "email", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-<<<<<<< HEAD
-  data.buffer.push("\n                                    </div>\n                                    </div>\n                                </td>\n                                </tr>\n                                    <tr>\n                                        <td>About me:</td>\n                                        <td>\n                                            <div style=\"display: block;\">\n                                                <div  id=\"about_me\" style=\"margin: 0;width: 100%; height:100px;\">\n                                                    ");
-=======
-  data.buffer.push("\n                                    </div>\n                                    <tr>\n                                        <td>About me:</td>\n                                        <td>\n                                            <div style=\"display: block;\">\n                                                <div  id=\"about_me\" style=\"margin: 0;width: 100%; height:100px;\">\n                                                    ");
->>>>>>> 5dc657ab0a8a679582a22c7d643ef957455648b0
+  data.buffer.push("\n                                    </div>\n\n                                    </div>\n                                </td>\n                                </tr>\n\n                                    <tr>\n                                        <td>About me:</td>\n                                        <td>\n                                            <div style=\"display: block;\">\n                                                <div  id=\"about_me\" style=\"margin: 0;width: 100%; height:100px;\">\n                                                    ");
   hashContexts = {'valueBinding': depth0,'class': depth0,'placeholder': depth0};
   hashTypes = {'valueBinding': "STRING",'class': "STRING",'placeholder': "STRING"};
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextArea", {hash:{
@@ -6287,7 +6247,7 @@ function program2(depth0,data) {
     'value': ("location")
   },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
   data.buffer.push(escapeExpression(((stack1 = helpers.input),stack1 ? stack1.call(depth0, options) : helperMissing.call(depth0, "input", options))));
-  data.buffer.push("\n                                                </div>\n                                            </div>\n\n                                        </td>\n                                    </tr>\n\n\n                    </tbody>\n                </table>\n\n                <div style=\"right: 0;margin:10px auto 0;width: 150px;\">\n                    <span class=\"new-btn green-btn\" ");
+  data.buffer.push("\n                                                </div>\n                                            </div>\n\n                                        </td>\n                                    </tr>\n\n                    </tbody>\n                </table>\n\n                <div style=\"right: 0;margin:10px auto 0;width: 150px;\">\n                    <span class=\"new-btn green-btn\" ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "saveUpdate", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -6352,7 +6312,7 @@ function program2(depth0,data) {
   data.buffer.push("\n                                    </div>\n                                </div>\n                            </td>\n                        </tr>\n\n                    </tbody>\n                </table>\n\n                <div style=\"right: 0;margin: 30px auto 0;width: 150px;\">\n                    <span class=\"new-btn green-btn\" ");
   hashTypes = {};
   hashContexts = {};
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "saveUpdate", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "saveSociallinkUpdate", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
   data.buffer.push(" >Save</span>\n                    <span class='new-btn flip-back'");
   hashTypes = {};
   hashContexts = {};
@@ -6423,8 +6383,7 @@ function program5(depth0,data) {
   
 });
 
-Ember.TEMPLATES["userFollowers"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["userFollowers"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, hashTypes, hashContexts, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
@@ -6593,8 +6552,7 @@ function program17(depth0,data) {
   
 });
 
-Ember.TEMPLATES["userFollowings"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["userFollowings"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, hashTypes, hashContexts, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
@@ -6872,8 +6830,7 @@ function program20(depth0,data) {
   
 });
 
-Ember.TEMPLATES["userPhotoEdit"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["userPhotoEdit"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, hashTypes, hashContexts, escapeExpression=this.escapeExpression, self=this;
@@ -6932,8 +6889,7 @@ function program2(depth0,data) {
   
 });
 
-Ember.TEMPLATES["users"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["users"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, hashTypes, hashContexts, escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
@@ -6972,8 +6928,7 @@ function program2(depth0,data) {
   
 });
 
-Ember.TEMPLATES["video"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["video"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, hashContexts, hashTypes, escapeExpression=this.escapeExpression, self=this;
@@ -7066,8 +7021,7 @@ function program7(depth0,data) {
   
 });
 
-Ember.TEMPLATES["welcome"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/**/) {
+Ember.TEMPLATES["welcome"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, stack2, hashTypes, hashContexts, options, escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;

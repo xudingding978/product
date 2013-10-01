@@ -208,8 +208,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         {
             var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
 //            document.getElementById(checkList[i].id).style.border = '';
-            if (checkList[i].input !== null && checkList[i].input !== "")
+            if (checkList[i].input !== null && checkList[i].input !== "" && checkList[i].input !==undefined)
             {
+                console.log(checkList[i].input);
                 if (checkList[i].input.length > checkList[i].lengthMax || checkList[i].input.length < checkList[i].lengthMin)
                 {
                     result = false;

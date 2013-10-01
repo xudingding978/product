@@ -1,19 +1,19 @@
 HubStar.CollectionController = Ember.Controller.extend({
     collections: null,
     needs: ['applicationFeedback'],
+
     init: function() {
+
     },
     getCreateCollection: function(title, desc, collections)
     {
         this.set('collections', collections);
-        //console.log(this.get("collections"));
         var isExsinting = this.checkingIdisExsinting(title, "create");
         var collection = null;
         if (isExsinting) {
             var validID = this.checkingValidInput(title);
             var checkingCharater = this.specialCharactersChecking(validID);
-            //console.log(validID);
-            //console.log(checkingCharater);
+
             if (checkingCharater && validID !== null && validID !== '') {
                 collection = HubStar.Collection.createRecord({});
                 collection.set('id', validID.toLowerCase());
@@ -26,7 +26,6 @@ HubStar.CollectionController = Ember.Controller.extend({
                 }
             } else {
                 this.get('controllers.applicationFeedback').statusObserver(null, "Please try to type name with upper case and space");
-
             }
         }
 
@@ -46,7 +45,6 @@ HubStar.CollectionController = Ember.Controller.extend({
 
     checkingIdisExsinting: function(id, postOrPut) {
         var isExsinting = true;
-        //console.log(this.get("collections"));
         if (postOrPut === "create") {
             for (var i = 0; i < this.get("collections").get('length'); i++) {
                 if (this.get("collections").objectAt(i).get("id") === id) {
@@ -67,7 +65,6 @@ HubStar.CollectionController = Ember.Controller.extend({
         return re.test(str);
     },
     getUpdateCollection: function(selectedCollection) {
-        //console.log(selectedCollection);
 
         var desc = selectedCollection.get('desc');
 

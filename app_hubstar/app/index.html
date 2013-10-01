@@ -30,7 +30,7 @@
         <link media="screen, projection" rel="stylesheet" type="text/css" href="/styles/_topnavbar.css"/>
         <link media="screen, projection" rel="stylesheet" type="text/css" href="/styles/_footer.css"/>
         <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-        <!-- GoSquared Analytics section -->
+
 
         <link rel="shortcut icon" href="/images/favicon.ico" />
         <link rel="stylesheet" href="styles/profile-css.css" type="text/css">
@@ -55,8 +55,32 @@
         <script src="bower_components/javascriptHelper/javascriptHelper.js"></script>
         <script src="bower_components/javascriptHelper/script.js"></script>
 
+
+        <script src="bower_components/wysihtml5/parser_rules/advanced.js" ></script>
+
+        <script src="bower_components/wysihtml5/dist/wysihtml5-0.3.0.js" ></script>
+
+
         <!-- GoSquared Analytics section -->
-        <script src="scripts/goSquared.js"></script>
+        <script type="text/javascript">
+            var GoSquared = {};
+            GoSquared.acct = "GSN-987901-W";
+            (function(w) {
+                function gs() {
+                    w._gstc_lt = +new Date;
+                    var d = document, g = d.createElement("script");
+                    g.type = "text/javascript";
+                    g.src = "//d1l6p2sc9645hc.cloudfront.net/tracker.js";
+                    var s = d.getElementsByTagName("script")[0];
+                    s.parentNode.insertBefore(g, s);
+                }
+                w.addEventListener ?
+                        w.addEventListener("load", gs, false) :
+                        w.attachEvent("onload", gs);
+            })(window);
+        </script>
+
+
         <!-- endbuild -->
 
         <!-- build:js(.tmp) scripts/templates.js -->

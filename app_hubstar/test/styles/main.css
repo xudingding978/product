@@ -8511,7 +8511,8 @@ div.loading-visible{
     -o-transition: all 0.5s ease;
 }
 
-
+.hover-opacity{opacity:.6}
+.hover-opacity:hover{opacity:1}
 
 
 
@@ -8568,7 +8569,7 @@ div.loading-visible{
     -moz-box-shadow: 0 0 0 0;
     -webkit-box-shadow: 0 0 0 0;
     box-shadow:0 0 0 0;
-    
+
 }
 .panel.flip .front {
     z-index: 900;
@@ -8760,7 +8761,7 @@ div.loading-visible{
     position: absolute;
     right: 0;
     top: 0;
-/*    cursor: pointer;*/
+    /*    cursor: pointer;*/
     z-index: 1;
 }
 
@@ -9250,7 +9251,7 @@ div.loading-visible{
 /* clint */
 .masonry-brick .masonry_more-btn{
     padding-bottom:12.5px;
-    
+
 }
 .masonry_more-btn:hover{
     color: #333;
@@ -9283,11 +9284,11 @@ div.loading-visible{
 }
 
 .masonry_addcommnetbox-container{
-   /* margin: 0 20px 0 20px; */
-   padding: 0 20px 8.5px 20px;
-   width:100%;
-   clear:both;
-   float:left;
+    /* margin: 0 20px 0 20px; */
+    padding: 0 20px 8.5px 20px;
+    width:100%;
+    clear:both;
+    float:left;
 
 }
 
@@ -9327,7 +9328,7 @@ div.loading-visible{
     left: 0;
     margin: 0;
     position: absolute;
-    right: 320px;
+    right: 45%;
     overflow: hidden;
 }
 
@@ -9486,7 +9487,7 @@ div.loading-visible{
     font-size: 14px;
     font-weight: bold;
     font-family: FontAwesome, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    
+
 }
 
 
@@ -9503,6 +9504,20 @@ div.loading-visible{
     position: absolute;
     white-space: nowrap;
 }
+
+
+.caption-container{
+    background-color: rgba(0,0,0,.4);
+    padding: 20px 13px 20px 15px;
+    color: #fff;
+    position: absolute;
+    bottom: 60px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #999;
+    width: 350px;
+}
+
+
 
 
 
@@ -9525,7 +9540,7 @@ div.loading-visible{
     position: absolute;
     right: 0;
     top: 0;
-    width: 320px;
+    width: 45%;
     background-color: white;
     overflow-y: scroll;
 }
@@ -9649,28 +9664,6 @@ div.loading-visible{
     height: 106px;
     resize: none;
     overflow: auto;
-}
-
-.collapes-container tr {
-    display: table-row;
-    vertical-align: top;
-    border-color: inherit;
-
-}
-
-.collapes-container td:nth-child(1)  {
-    color: #aaa;
-    text-align: left;
-    width: 45%;
-
-}
-
-.collapes-container td:nth-child(2)  {
-    color: #404040;
-    word-break: break-all;
-
-    display: table-cell;
-    vertical-align: inherit;
 }
 
 .sml-partner {
@@ -10196,8 +10189,9 @@ div.loading-visible{
     -moz-background-clip: padding-box;
     background-clip: padding-box;
     margin: 0;
-    
+
     text-align: left;
+    padding: 0;
 }
 
 
@@ -12382,10 +12376,7 @@ div #login_container > div.front > .head > .panelcircle
     line-height: 45px; 
     font-size: 15px;
 
-<<<<<<< HEAD
-=======
     background-clip:border-box;
->>>>>>> b668a24fd87eb6c2a74f2bf0921ba74c10952a0d
     cursor: pointer;
     opacity: .7;
 }
@@ -12399,13 +12390,10 @@ div #login_container > div.front > .head > .panelcircle
     -webkit-box-shadow: none !important;
     -moz-box-shadow: none !important;
     -o-box-shadow: none !important;
-<<<<<<< HEAD
-=======
 
     font-weight: bold;
     color: #333;
     font-size: 15px;
->>>>>>> b668a24fd87eb6c2a74f2bf0921ba74c10952a0d
 }
 
 .social-login-iconbox{
@@ -12418,13 +12406,10 @@ div #login_container > div.front > .head > .panelcircle
     line-height: 36px;
     color: #555;
     margin: 0 3px;
-<<<<<<< HEAD
-=======
 
     -webkit-transition: all 0.2s ease;
     -moz-transition: all 0.2s ease;
     -o-transition: all 0.2s ease;
->>>>>>> b668a24fd87eb6c2a74f2bf0921ba74c10952a0d
 }
 
 .login-select{
@@ -12457,11 +12442,7 @@ div #login_container > div.front > .head > .panelcircle
     -ms-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
     -o-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
     box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
-<<<<<<< HEAD
-}
-=======
 }/* this is the active gender class use this */
->>>>>>> b668a24fd87eb6c2a74f2bf0921ba74c10952a0d
 
 
 .social-login-iconbox:hover, .social-login-iconbox:focus{
@@ -12470,11 +12451,6 @@ div #login_container > div.front > .head > .panelcircle
 }
 .social-login-iconbox:active{color: #fff;background-color: #08c; }
 
-<<<<<<< HEAD
-div > div > i.icon-envelope, div > div > a#click-register
-{
-    cursor:pointer;
-=======
 div > div > i.icon-envelope, div > div > #click-register
 {
     cursor:pointer;
@@ -12485,32 +12461,17 @@ div > div > i.icon-envelope, div > div > #click-register
     -moz-border-radius-bottomleft: 5px;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
->>>>>>> b668a24fd87eb6c2a74f2bf0921ba74c10952a0d
 }
 
 .register-btn{
     width: 300px;
     height: 45px;
-<<<<<<< HEAD
-    margin: 0 auto 20px;
-=======
->>>>>>> b668a24fd87eb6c2a74f2bf0921ba74c10952a0d
     background-color: #fff;
     text-align: center;
     color: #888;
     font-weight: bold; 
     font-size: 15px;
     line-height: 45px; 
-<<<<<<< HEAD
-    border-radius: 0 0 5px 5px;
-    
-    cursor: pointer;
-}
-
-.register-btn:hover, .register-btn:focus{background-color: #f3f3f3;}
-
-.register-btn:active{background-color: #08c;color: #fff;}
-=======
     -webkit-border-radius: 0 0 5px 5px;
     -moz-border-radius: 0 0 5px 5px;
     border-radius: 0 0 5px 5px;
@@ -12564,7 +12525,6 @@ div >div.active-tab
     opacity:1;
 
 }
->>>>>>> b668a24fd87eb6c2a74f2bf0921ba74c10952a0d
 
 
 * {

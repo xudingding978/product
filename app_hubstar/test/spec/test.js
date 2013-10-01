@@ -1,19 +1,19 @@
 //var expect = require('../lib/chai').expect;
 
-module("Basic Tests");
-
-test("truthy", function() {
-//  ok(true, "true is truthy");
-//  var t="test";
-//   var s="test";
-//  equal(t, s, "1 is truthy");
-//  notEqual(0, true, "0 is NOT truthy");
-
-console.log(HubStar.TestController);
-    var testController = HubStar.TestController.create();
-    var result = testController.test();
-    equal(result, 'aaaaaaaaaaaaa', "test is truthy");
-});
+//module("Basic Tests");
+//
+//test("truthy", function() {
+////  ok(true, "true is truthy");
+////  var t="test";
+////   var s="test";
+////  equal(t, s, "1 is truthy");
+////  notEqual(0, true, "0 is NOT truthy");
+//
+//console.log(HubStar.TestController);
+//    var testController = HubStar.TestController.create();
+//    var result = testController.test();
+//    equal(result, 'aaaaaaaaaaaaa', "test is truthy");
+//});
 
 
 test("testTwoController", function() {
@@ -48,6 +48,7 @@ test("testTwoController", function() {
 //});
 
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 //describe('Array', function(){
 //    describe('#indexOf()', function(){
@@ -104,6 +105,9 @@ test("testTwoController", function() {
 
 
 >>>>>>> b668a24fd87eb6c2a74f2bf0921ba74c10952a0d
+=======
+
+>>>>>>> c6e2cfb4269c12d0d231dec28c899437e6cabad5
 //describe("Platform  bar", function() {
 //    var controller;
 //    var topics;

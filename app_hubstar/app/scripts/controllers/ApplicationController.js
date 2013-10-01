@@ -258,9 +258,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         console.log('shuai');
   var signupInfo = [this.get('email')];
             requiredBackEnd('site', 'getemail', signupInfo, 'POST', function(params) {
-                
-                
-                
+  
                var emailInfo = ["shuai@hubstar.co"];
             
             requiredBackEnd('emails', 'forgetpassword', emailInfo, 'POST', function(params) {

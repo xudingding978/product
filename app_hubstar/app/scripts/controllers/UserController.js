@@ -510,9 +510,10 @@ HubStar.UserController = Ember.Controller.extend({
         return update_user_record;
     },
     saveUpdateInterest: function() {
-if (interests === null ){
-    interests="";
-}else{
+console.log('interests');
+if (this.get('interests') === null )
+    this.set('interests',"");
+
         var checkString = this.get('interests').trim();
         if ((checkString.substring(checkString.length - 1, checkString.length) !== ',') && (!/,,/.test(checkString))) {
             var update_interest_record = HubStar.User.find(this.get('user.id'));
@@ -533,7 +534,7 @@ if (interests === null ){
         } else {
             this.get('controllers.applicationFeedback').statusObserver(null, "invalid input");
         }
-      }
+      
     },
     specialCharactersChecking: function(str) {
         var re = /^[a-zA-Z-][a-zA-Z0-9-]*$/;

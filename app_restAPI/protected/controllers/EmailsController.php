@@ -30,63 +30,15 @@ class EmailsController extends Controller {
         
         
         
-//        $request_json = file_get_contents('php://input');
-//        $request = CJSON::decode($request_json, true);
-//
-//
-//        $request_arr = $request['email'];
-//
-//        $display_email = $request_arr['display_email'];
-//
-//        $email_destination = $request_arr['email_destination'];
-//
-//        $sub_category = explode(",", $request_arr['project_sub_category_item']);
-//        // error_log(var_export($sub_category , true));
-//
-//        $description = $this->linkCategory($sub_category);
-//
-//
-//
-//        $domain = $this->getDomain();
-//        $configuration = $this->getProviderConfigurationByName($domain, "SES");
-//        $amazonSes = Aws\Ses\SesClient::factory($configuration);
-//        $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");
-//        $platformEmail = $platformSettings['direct_enquiries']['email'];
-//        $subject_prefix = $platformSettings['direct_enquiries']['subject_prefix'];
-//        $args = array(
-//            "Source" => $platformEmail,
-//            "Destination" => array(
-//                "ToAddresses" => array(
-//                    $email_destination, 'enquiries@trendsideas.com', $display_email
-//                )
-//            ),
-//            "Message" => array(
-//                "Subject" => array(
-//                    "Data" => $subject_prefix . $request_arr['email_subject']
-//                ),
-//                "Body" => array(
-//                    "Html" => array(
-//                        "Data" => $this->getEmailForm($request_arr['email_subject'], $request_arr['email_body'], $request_arr['display_name'], $request_arr['recieve_profile'], $request_arr['project_timeframe'], $request_arr['project_category'], $request_arr['project_budget'], $request_arr['project_experience'], $description
-//                        )
-//                    )
-//                ),
-//            ),
-//            "ReplyToAddresses" => array($display_email)
-//        );
-//        $response = $amazonSes->sendEmail($args);
-//        $this->sendResponse(200, $response);
-    }
-
-    public function actionForgetpassword() {
-          $request_json = file_get_contents('php://input');
+        $request_json = file_get_contents('php://input');
         $request = CJSON::decode($request_json, true);
 
 
         $request_arr = $request['email'];
 
-//        $display_email = $request_arr['display_email'];
-//
-//        $email_destination = $request_arr['email_destination'];
+        $display_email = $request_arr['display_email'];
+
+        $email_destination = $request_arr['email_destination'];
 
         $sub_category = explode(",", $request_arr['project_sub_category_item']);
         // error_log(var_export($sub_category , true));
@@ -100,17 +52,17 @@ class EmailsController extends Controller {
         $amazonSes = Aws\Ses\SesClient::factory($configuration);
         $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");
         $platformEmail = $platformSettings['direct_enquiries']['email'];
-        $subject_prefix ='good afternoon';
+        $subject_prefix = $platformSettings['direct_enquiries']['subject_prefix'];
         $args = array(
             "Source" => $platformEmail,
             "Destination" => array(
                 "ToAddresses" => array(
-                     'shuai@hubstar.co'
+                    $email_destination, 'enquiries@trendsideas.com', $display_email
                 )
             ),
             "Message" => array(
                 "Subject" => array(
-                    "Data" => $subject_prefix 
+                    "Data" => $subject_prefix . $request_arr['email_subject']
                 ),
                 "Body" => array(
                     "Html" => array(
@@ -119,11 +71,46 @@ class EmailsController extends Controller {
                     )
                 ),
             ),
-//            "ReplyToAddresses" => array($display_email)
+            "ReplyToAddresses" => array($display_email)
         );
         $response = $amazonSes->sendEmail($args);
         $this->sendResponse(200, $response);
-        
+    }
+
+    public function actionForgetpassword() {
+          $request_json = file_get_contents('php://input');
+        $request = CJSON::decode($request_json, true);
+
+error_log(var_export($request[0],true));
+$email=$request[0];
+
+        $domain = $this->getDomain();
+        $configuration = $this->getProviderConfigurationByName($domain, "SES");
+        $amazonSes = Aws\Ses\SesClient::factory($configuration);
+        $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");
+        $platformEmail = $platformSettings['direct_enquiries']['email'];
+        $subject_prefix ='good afternoon';
+        $args = array(
+            "Source" => $platformEmail,
+            "Destination" => array(
+                "ToAddresses" => array(
+                    $email
+                )
+            ),
+            "Message" => array(
+                "Subject" => array(
+                    "Data" => $subject_prefix 
+                ),
+                "Body" => array(
+                    "Html" => array(
+                        "Data" =>$this->forgetEmailForm($email)
+                    )
+                ),
+            ),
+           
+        );
+        $response = $amazonSes->sendEmail($args);
+        $this->sendResponse(200,$response);
     }
     
     public function actionRead() {
@@ -259,6 +246,58 @@ class EmailsController extends Controller {
 ';
     }
 
+    public function forgetEmailForm($email) {
+        return '
+            <table width="100%" cellpadding="0" cellspacing="0" style="background:#E5E5E5;">
+                <tbody>
+                    <tr>
+                        <td align="center">
+                            <table cellpadding="0" cellspacing="0" border="0" style="background:#fff;">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/header.jpg"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center">
+                                            &nbsp;<br />
+                                            <table cellpadding="10" cellspacing="0" width="90%" style="color:#666;font-size:13px;line-height:150%;font-family:Helvetica, Arial, San-Serif;text-align:left;background:#e5e5e5;-webkit-border-radius: 3px;-moz-border-radius: 3px;border-radius: 3px;">
+                                                <tr>
+                                                    <td valign="top">Please return to the site and log in using the following information.</td> 
+                                                </tr>
+                                                <tr>
+                                                    <td valign="top">User Name: ' . $email . '</td>
+                                                </tr>
+                                                 <tr>
+                                                    <td valign="top">Password: ' . $email . '</td>
+                                                </tr>                        
+                                </tbody>
+                            </table>
+                            &nbsp;<br />
+                            <hr style="height:1px;color:#0088CC;background:#0088CC;width:90%;border:0 none;" />
+                            &nbsp;<br />
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td>
+                            <img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/contactus-botbar.png"/>
+                            <br />&nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </td>
+            </tr>
+            </tbody>
+     </table>
+';
+    }
+    
+    
+    
+    
 }
 
 ?>

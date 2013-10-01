@@ -140,7 +140,7 @@ class SiteController extends Controller {
         $temp["user"][0]["last_name"] = $model->LAST_NAME;
         $temp["user"][0]["email"] = $model->EMAIL_ADDRESS;
 
-        $temp['user'][0]['selected_topics'] = null;
+        $temp['user'][0]['selected_topics'] = "";
         $temp['user'][0]['gender'] = $request_array[5];
         $temp['user'][0]['age'] =$request_array[6];
         $temp['user'][0]['description'] = null;
@@ -174,25 +174,25 @@ class SiteController extends Controller {
     
     public function actionGetemail() {
         
+//        
+//            $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+//    $count = mb_strlen($chars);
+//
+//    for ($i = 0, $result = ''; $i < 6; $i++) {
+//        $index = rand(0, $count - 1);
+//        $result .= mb_substr($chars, $index, 1);
+//    }
+//$this->sendResponse(200, CJSON::encode($result));
         
-            $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    $count = mb_strlen($chars);
 
-    for ($i = 0, $result = ''; $i < 8; $i++) {
-        $index = rand(0, $count - 1);
-        $result .= mb_substr($chars, $index, 1);
-    }
-$this->sendResponse(200, CJSON::encode($result));
-        
-
-//        $request_array = CJSON::decode(file_get_contents('php://input'));
-//        $currentUser = User::model()
-//                ->findByAttributes(array('EMAIL_ADDRESS' => $request_array[0]));
-//        if (isset($currentUser)) {
-//            $this->sendResponse(200, 0);
-//        } else {
-//            $this->sendResponse(200, 1);
-//        }
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $currentUser = User::model()
+                ->findByAttributes(array('EMAIL_ADDRESS' => $request_array[0]));
+        if (isset($currentUser)) {
+            $this->sendResponse(200, 0);
+        } else {
+            $this->sendResponse(200, 1);
+        }
     }
 
     public function actionUpdate() {

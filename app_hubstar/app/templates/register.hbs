@@ -79,7 +79,7 @@
                     </div>
                 </div>
 
-                <div id="register-btn" class="register-btn easing" style="" {{action signUp}}> Register</div>
+                <div id="register-btn" class="register-btn easing" style="" {{action signUp}} > Register</div>
             </div>
 
 
@@ -87,7 +87,7 @@
                 <div style="padding: 0 8px;">
 
                     <div  class="login-textfield" style="margin: 0;width: 100%;height: 45px;line-height: 45px;border-bottom: 1px solid #e3e3e3;border-top:1px solid #e3e3e3;">
-                        {{view Ember.TextField valueBinding="youremail" placeholder="Region" }}
+                        {{view Ember.TextField valueBinding="region" placeholder="Region" }}
                     </div>
 
                     <div style="border-bottom: 1px solid #e3e3e3;">
@@ -105,7 +105,7 @@
                     </div>
                 </div>
                 <div class="back-btn easing" style="" >Back</div>
-                <div class="register-btn easing register-btn-small" >Done</div>
+                <div class="register-btn easing register-btn-small"  {{action done}}>Done</div>
 
             </div>
 

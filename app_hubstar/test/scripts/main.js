@@ -1794,8 +1794,11 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
     submit: function()
     {        
         if (this.get("selectionPop") !==true) {
+            console.log("ssss");
             var collectionController = this.get('controllers.collection');
+            console.log("bbbbbbb");
             var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
+            console.log("ccccc");
             var content = collection.get("collection_ids");
             this.addCollection(collection, content);
 
@@ -1805,7 +1808,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
 
 
 
-            collection.set('optional', localStorage.loginStatus);
+            collection.set('optional', localStorage.loginStatus+"222");
             collection.set('type', 'user');
             collection.store.save();
             this.get('controllers.applicationFeedback').statusObserver(null, "Saved photo successfully");

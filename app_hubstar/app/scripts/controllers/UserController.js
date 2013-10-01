@@ -478,7 +478,7 @@ HubStar.UserController = Ember.Controller.extend({
             {
                 if (checkList[i].input.indexOf(checkList[i].shouldInclude) !== -1 || checkList[i].input === "") {
                     result = true;
-                }
+                }  
                 else {
                     result = false;
                     document.getElementById(checkList[i].id).style.border = '2px solid red';

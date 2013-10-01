@@ -437,7 +437,7 @@ HubStar.UserController = Ember.Controller.extend({
             HubStar.store.save();
         }
         else {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please check you have filled right Link!","warnning");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please check you have filled right links!","warnning");
         }
     },
     isSociallinkInputValid: function() {

@@ -167,11 +167,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     $('#click-register').addClass('active-tab');
                     $('#register-with-email-step-2').animate({height: 'toggle'});
                     $('#register-with-email-drop-down').animate({height: 'toggle'});
-
                     checkSocial();
-
                 }
-                else { }
+                else { 
+                }
             });
         }
     },
@@ -244,19 +243,26 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     login: function() {
 
-        var loginInfo = [this.get('username'), this.get('password'),this.validateEmail(this.get('username'))];
+        var loginInfo = [this.get('loginusername'), this.get('loginpassword'),this.validateEmail(this.get('username'))];
         var that = this;
          requiredBackEnd('site', 'login', loginInfo, 'POST', function(params) {
-       
-             that.get('controllers.applicationFeedback').statusObserver(null, "email not exits");
-
-       
-            if (that.get('password') === params.PWD_HASH) {
+       if(params===1){
+           console.log('email not exits');
+             that.get('controllers.applicationFeedback').statusObserver(null, "Username not exits.");
+       }
+       else if (params===0){
+           console.log('you have registered');
+           that.get('controllers.applicationFeedback').statusObserver(null, "You have registered this email using social media account.");
+       }
+       else{
+           console.log('good to go');
+            if (that.get('loginpassword') === params.PWD_HASH) {
                 localStorage.loginStatus = params.COUCHBASE_ID;
                 that.transitionToRoute('search');
             }
-
+           }
          });
+         
         
     },
             
@@ -264,13 +270,26 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     {
         console.log('shuai');
   var signupInfo = [this.get('email')];
-            requiredBackEnd('site', 'getemail', signupInfo, 'POST', function(params) {
-  
-               var emailInfo = ["shuai@hubstar.co"];
+  var that=this;
+            requiredBackEnd('site', 'resetemail', signupInfo, 'POST', function(params) {
+      if(params===1){
+           console.log('email not exits');
+             that.get('controllers.applicationFeedback').statusObserver(null, "Username not exits.");
+       }
+       else if (params===0){
+           console.log('you have registered');
+           that.get('controllers.applicationFeedback').statusObserver(null, "You have registered this email using social media account.");
+       }
+       
+       else{
+       
+               var emailInfo = [that.get('email')];
             
             requiredBackEnd('emails', 'forgetpassword', emailInfo, 'POST', function(params) {
                 console.log(params);
             });
+            
+       }
             });
            
 

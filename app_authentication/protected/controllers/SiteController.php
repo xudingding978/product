@@ -116,7 +116,7 @@ class SiteController extends Controller {
         $model = new User;
 
         $request_array = CJSON::decode(file_get_contents('php://input'));
-        
+
         $model->REC_DATETIME = new CDbExpression('NOW()');
         $model->REC_TIMESTAMP = new CDbExpression('NOW()');
         $model->TENANT_REC_ID = "1";
@@ -142,7 +142,7 @@ class SiteController extends Controller {
 
         $temp['user'][0]['selected_topics'] = "";
         $temp['user'][0]['gender'] = $request_array[5];
-        $temp['user'][0]['age'] =$request_array[6];
+        $temp['user'][0]['age'] = $request_array[6];
         $temp['user'][0]['description'] = null;
         $temp['user'][0]['about_me'] = null;
         $temp['user'][0]['facebook_link'] = null;
@@ -151,14 +151,14 @@ class SiteController extends Controller {
         $temp['user'][0]['googleplus_link'] = null;
         $temp['user'][0]['pinterest_link'] = null;
         $temp['user'][0]['youtube_link'] = null;
-        $temp['user'][0]['region'] =$request_array[4];
+        $temp['user'][0]['region'] = $request_array[4];
         $temp['user'][0]['password'] = null;
 
 
         if ($cb->add(substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.') + 1) . "/users/" . $rand_id, CJSON::encode($temp))) {
-     
-            if($model->save(false)){        
-            $this->sendResponse(200, CJSON::encode($model));
+
+            if ($model->save(false)) {
+                $this->sendResponse(200, CJSON::encode($model));
             }
         }
     }
@@ -171,28 +171,42 @@ class SiteController extends Controller {
                 ->findByAttributes(array('COUCHBASE_ID' => $request_array));
         $this->sendResponse(200, CJSON::encode($currentUser));
     }
-    
+
     public function actionGetemail() {
-        
-//        
-//            $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-//    $count = mb_strlen($chars);
-//
-//    for ($i = 0, $result = ''; $i < 6; $i++) {
-//        $index = rand(0, $count - 1);
-//        $result .= mb_substr($chars, $index, 1);
-//    }
-//$this->sendResponse(200, CJSON::encode($result));
-        
 
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $currentUser = User::model()
                 ->findByAttributes(array('EMAIL_ADDRESS' => $request_array[0]));
         if (isset($currentUser)) {
-            if($currentUser->PWD_HASH==="blankblankblank"){
-            $this->sendResponse(200, 0);
-            }else{
-                 $this->sendResponse(200, 2);
+            if ($currentUser->PWD_HASH === "blankblankblank") {
+                $this->sendResponse(200, 0);
+            } else {
+                $this->sendResponse(200, 2);
+            }
+        } else {
+            $this->sendResponse(200, 1);
+        }
+    }
+
+    public function actionResetemail() {
+
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $currentUser = User::model()
+                ->findByAttributes(array('EMAIL_ADDRESS' => $request_array[0]));
+        if (isset($currentUser)) {
+            if ($currentUser->PWD_HASH === "blankblankblank") {
+                $this->sendResponse(200, 0);
+            } else {
+                $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+                $count = mb_strlen($chars);
+
+                for ($i = 0, $result = ''; $i < 6; $i++) {
+                    $index = rand(0, $count - 1);
+                    $result .= mb_substr($chars, $index, 1);
+                }
+                 $currentUser->PWD_HASH = $result;
+        //$currentUser->save(false);
+                $this->sendResponse(200, CJSON::encode($result));
             }
         } else {
             $this->sendResponse(200, 1);
@@ -261,21 +275,39 @@ class SiteController extends Controller {
 
 
         $request_array = CJSON::decode(file_get_contents('php://input'));
-        
-        if($request_array[0]==='true')
-        {
-             $currentUser = User::model()
-                ->findByAttributes(array('EMAIL_ADDRESS' => $request_array[0]));
-        if ($currentUser->PWD_HASH === $request_array[1]) {
-            $this->sendResponse(200, CJSON::encode($currentUser));
+
+        if ($request_array[2] === true) {
+            error_log('true');
+            $currentUser = User::model()
+                    ->findByAttributes(array('EMAIL_ADDRESS' => $request_array[0]));
+
+            if (isset($currentUser)) {
+                if ($currentUser->PWD_HASH === "blankblankblank") {
+                    $this->sendResponse(200, 0);
+                } else if ($currentUser->PWD_HASH === $request_array[1]) {
+                    $this->sendResponse(200, CJSON::encode($currentUser));
+                }
+            } else {
+                $this->sendResponse(200, 1);
+            }
         }
-        }
-        
-        
-        $currentUser = User::model()
-                ->findByAttributes(array('USER_NAME' => $request_array[0]));
-        if ($currentUser->PWD_HASH === $request_array[1]) {
-            $this->sendResponse(200, CJSON::encode($currentUser));
+
+
+        if ($request_array[2] === false) {
+            error_log('false');
+            $currentUser = User::model()
+                    ->findByAttributes(array('USER_NAME' => $request_array[0]));
+            error_log(var_export(isset($currentUser), true));
+            if (isset($currentUser)) {
+                if ($currentUser->PWD_HASH === "blankblankblank") {
+                    $this->sendResponse(200, 0);
+                } else if ($currentUser->PWD_HASH === $request_array[1]) {
+                    $this->sendResponse(200, CJSON::encode($currentUser));
+                }
+            } else {
+                error_log("bu cun zai");
+                $this->sendResponse(200, 1);
+            }
         }
     }
 
@@ -339,7 +371,7 @@ class SiteController extends Controller {
 
         Yii::app()->user->logout();
 
-            $this->redirect(Yii::app()->homeUrl);
+        $this->redirect(Yii::app()->homeUrl);
     }
 
     public function actionSet() {

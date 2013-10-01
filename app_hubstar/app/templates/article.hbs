@@ -27,21 +27,21 @@
             {{view HubStar.PhotoDisplayAreaView}}
         </div>
 
-        
+
         <div class="caption-container" id="caption_action">
             <div style="margin-bottom: 5px;">
                 <span class="article-title">{{captionTitle}}</span>
                 <span class="hover-opacity easing" style="float: right; cursor:pointer;">
                     {{#if controller.readCaption}}
-                        <i class="icon-double-angle-left"{{action setCaption  on="click" target="controller"}}></i>
+                    <i class="icon-double-angle-left"{{action setCaption  on="click" target="controller"}}></i>
                     {{else}}
-                        <i class="icon-double-angle-right"{{action setCaption  on="click" target="controller"}}></i>
+                    <i class="icon-double-angle-right"{{action setCaption  on="click" target="controller"}}></i>
                     {{/if}}                       
                 </span>
             </div>
-            <span class="article-text">{{caption}} </span>
+            <div class="article-text" style="width: 300px;">{{caption}} </div>
         </div>
-      
+
 
         <!--THIS IS THE ALBUM BOX-->
 

@@ -177,7 +177,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         {
             $('#caption_action').animate({
                 left: -320
-            }, 2000);
+            }, 800);
 
             this.set("readCaption", false);
         }
@@ -185,7 +185,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         {
             $('#caption_action').animate({
                 left: 0
-            }, 2000);
+            }, 800);
             this.set("readCaption", true);
         }
     },

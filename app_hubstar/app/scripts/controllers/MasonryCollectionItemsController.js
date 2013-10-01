@@ -26,7 +26,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         var results = HubStar.Mega.find({RquireType: "personalCollection", user_id: user_id, collection_id: collection_id});
         var that = this;
 
-
+  
         results.addObserver('isLoaded', function() {
 
 
@@ -35,6 +35,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                 for (var i = 0; i < this.get("content").length; i++) {
                     var tempObject = results.objectAt(i);
                     that.get("content").pushObject(tempObject);
+
                 }
             }
         });
@@ -189,7 +190,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         console.log("coverImge");
        // var userOrprofile = HubStarModel.find(owner_id).get('collections');
         var currentUser = HubStar.User.find(localStorage.loginStatus);
-          var userOrprofile =HubStarModel.get('collections');
+          var userOrprofile = this.currentUser.get('collections').objectAt(0);
         // var that = this;
         for (var i = 0; i < userOrprofile.get('content').length; i++) {
             if (userOrprofile.objectAt(i).id === collection_id) {

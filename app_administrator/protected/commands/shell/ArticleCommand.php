@@ -5,53 +5,52 @@ Yii::import("application.components.*");
 class ArticleCommand extends Controller_admin {
     protected $log_path = '/home/devbox/NetBeansProjects/test/error_loadingarticle.log';
     
-    public function actionIndex ($action=null) {
+    public function actionIndex ($action=null) {              //inhertance of two actions,
         echo (isset($action) ? 'Your are do... ' . $action."\r\n" : 'No action defined \r\n');
         Yii::import("application.models.*");
         
         $start_time = microtime(true);
         echo $start_time . "\r\n";        
         
-        if ($action == "update") {
+        if ($action == "update") {                //update calls updateArticles function,
             $this->updateArticles ();
-        } else if ($action =="import") {
+        } else if ($action =="import") {                //import calls importArticleToProduction function.
             $this->importArticleToProduction();
         }
         
         echo "All finished: start from: " . "\r\n";
         $end_time = microtime(true);
-        echo "totally spend: " . ($end_time - $start_time);
+        echo "totally spend: " . ($end_time - $start_time);      //time spend
         
     }
     
     protected function importArticleToProduction() {
-        $artical_data_arr = Article::model()->getAll();
-        $total_amount = sizeof($artical_data_arr);
+        $artical_data_arr = Article::model()->getAll();    //gets all from Trends.dbo.Articles and create array of queries 
+        $total_amount = sizeof($artical_data_arr);    
         echo "totally: ". $total_amount . "\r\n";
 
-        if ($total_amount > 0) {
-            for ($i=0; $i<$total_amount; $i++) {
+        if ($total_amount > 0) {                      //if there is articles in there
+            for ($i=0; $i<$total_amount; $i++) {   //for each query
 //                echo $this->getNewID() . "\r\n";
                 
-                $obj = $this->structureArray($artical_data_arr[$i]);
+                $obj = $this->structureArray($artical_data_arr[$i]);  //pass this artical_data_array and return a structured array of aritcle attributes
 //                print_r($obj);
 //                exit();
-                if ($this->importMegaObj($obj)) {
-                    $id_arr['couchBaseId'] = "trendsideas.com/".$obj['id'];
-                    $id_arr['objectId'] = $obj['id'];
+                if ($this->importMegaObj($obj)) {   //add $obj to couchbase
+                    $id_arr['couchBaseId'] = "trendsideas.com/".$obj['id'];   //set couchbase id
+                    $id_arr['objectId'] = $obj['id'];    //set objectid
                     
                     $update_bool = Article::model()->updateByPk($artical_data_arr[$i]['id'], $id_arr);
                      if($update_bool) {
                         $message = 'update sql server  is success with article id: '.$artical_data_arr[$i]['id'] . " ----------------- ".$i."/".$total_amount. "\r\n";
-                        echo $message;
-                    } else {
+                        echo $message; //successful
                         $message = 'update sql server  is NOT success with article id: '.$artical_data_arr[$i]['id']."\r\n";
-                        echo $message;
+                        echo $message;//unsuccessful
                         
                         $this->writeToLog($this->log_path, $message);
                     }
                     
-                } else {
+                } else {    //import to couchbase failed
                     $message = 'import object to couchbase is fail, id: '. $artical_data_arr[$i]['id'];
                     echo $message;
                     $this->writeToLog($this->log_path, $message);
@@ -59,14 +58,14 @@ class ArticleCommand extends Controller_admin {
                 
 //                if($i >1) break;
             }
-        } else {
+        } else {   //no article found
             echo "cannot find any articles";
         }
 
     }
         
     protected function  updateArticles () {
-        $utc_now_utc = strtotime(date('Y-m-d H:i:s'));
+        $utc_now_utc = strtotime(date('Y-m-d H:i:s'));     //start time
         $from_utc = 1372740000;
         
         $url_str = "http://api.develop.devbox/Articles/update?from=";
@@ -74,19 +73,19 @@ class ArticleCommand extends Controller_admin {
         
         while (TRUE) {
             $to_utc = $from_utc + 100;
-            $new_url_str = $url_str . $from_utc . '&to=' . $to_utc;
+            $new_url_str = $url_str . $from_utc . '&to=' . $to_utc;   //new url
 
 //            echo $new_url_str."\r\n";
 
-            $result_arr = $this->getData($new_url_str, "POST");
-            $amount_int = sizeof($result_arr['article']);
+            $result_arr = $this->getData($new_url_str, "POST");//import JSON array, return result
+            $amount_int = sizeof($result_arr['article']);   //number of elements in article
             
             $i = 0;
             if ($amount_int > 0) {
 //                echo $amount_int."\r\n";
                 
                 foreach ($result_arr['article'] as $var_arr) {
-                    $this->updateCouchbaseArticle($var_arr['id']);
+                    $this->updateCouchbaseArticle($var_arr['id']);     //call function to update each article
            
                     $i++;
                     echo ($total_amount_int + $i) . " / " . ($total_amount_int + $amount_int) . "\r\n";
@@ -105,15 +104,15 @@ class ArticleCommand extends Controller_admin {
     }
     
     public function updateCouchbaseArticle($id) {
-         $id_string = 'trendsideas.com/' . $id;
-        $ch = $this->couchBaseConnection("develop");
+         $id_string = 'trendsideas.com/' . $id;     //sets the id
+        $ch = $this->couchBaseConnection("develop");    //connection to develop
         $result = $ch->get($id_string);
-        $result_arr = CJSON::decode($result, true);
+        $result_arr = CJSON::decode($result, true);   //result array from given JSON $result string
         
 //        print_r($result_arr);
 //        exit();
         
-        $result_arr['creator_title'] = 'Trends Ideas';
+        $result_arr['creator_title'] = 'Trends Ideas'; //sets attributes
         $result_arr['id'] = $id;
         $result_arr['article'][0]['id']=$id;
         $result_arr['follower_count'] = null;
@@ -121,7 +120,7 @@ class ArticleCommand extends Controller_admin {
         
         $result_arr['view_count'] = null;
 
-        if ($ch->set($id_string, CJSON::encode($result_arr))) {
+        if ($ch->set($id_string, CJSON::encode($result_arr))) {    //update couchbase record of $id_string
             echo $id_string . " update successssssssssssssssssssssssss! \r\n";
         } else {
             echo $id_string . " update failllllllllllllllllllllllllllllllllllllllllllllll! \r\n";
@@ -173,14 +172,14 @@ class ArticleCommand extends Controller_admin {
 //            exit();
         }
         
-         $obj = array(
+         $obj = array(                                   //gets all these attribute as an array 
             "id" => $id,
             "accessed" => $now,
-            "boost" => null,  // serach engine ranking... integer ie 6
-            "created" => $book_arr['date'],  // UTC date time timezone format
+            "boost" => null,  // serach engine ranking... integer ie 6(?)
+            "created" => $book_arr['date'],  // UTC date time timezone format(?)
             "categories" => $category,
             "collection_id" => $val['id'],
-            "creator" => $book_arr['title'],  //Book Title ie: Home & Architectural Trends - Atlanta
+            "creator" => $book_arr['title'],  //Book Title ie: Home & Architectural Trends - Atlanta(?)
             "creator_type" => 'user', 
             "creator_profile_pic" => "http://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small.jpg",
             "country" => $book_arr['country'],
@@ -218,7 +217,7 @@ class ArticleCommand extends Controller_admin {
             "article" => array()
         );
 
-        $article_list = array(
+        $article_list = array(                                                  //gets all these attribute as an array 
             "id" => $id,
             "article_id" => $val['id'],
             "article_spark_job_id" => $val['sparkJobId'],
@@ -245,10 +244,10 @@ class ArticleCommand extends Controller_admin {
             "article_image_url" => $cover,
         );
 
-        array_push($obj['article'], $article_list);
+        array_push($obj['article'], $article_list);   //add articles_list array to article array
         
         $domains_arr = array("beta.trendsides.com", "trendsideas.com");        
-        array_push($obj['domains'], $domains_arr);
+        array_push($obj['domains'], $domains_arr);    //add two domains to article domains array
         
         return $obj;
     }

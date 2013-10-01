@@ -12,7 +12,7 @@
             <div class="icon-on-black hint--rounded hint--bottom" data-hint="Save this photo to your own collection." style="position:relative;" {{action switchCollection on="click" target="controller"}}>
                 <i class="icon-save" {{action switchCollection on="click" target="controller"}}></i>
                 <span class="pretooltip">
-                        Save
+                    Save
                 </span>          
             </div>
             <!--    <div class="icon-on-black" style="height: 44px;position: absolute;width: 44px;"><i class="icon-share-alt"></i></div>     -->
@@ -26,6 +26,23 @@
             <div class="next" style="width: 50%; height: 100%; float: right;"  {{action nextImage on="click" target="controller"}}></div>
             {{view HubStar.PhotoDisplayAreaView}}
         </div>
+
+
+        <div class="caption-container" id="caption_action">
+            <div style="margin-bottom: 5px;">
+                <span class="article-title">{{captionTitle}}</span>
+                <span class="hover-opacity easing" style="float: right; cursor:pointer;">
+                    {{#if controller.readCaption}}
+                    <i class="icon-double-angle-left"{{action setCaption  on="click" target="controller"}}></i>
+                    {{else}}
+                    <i class="icon-double-angle-right"{{action setCaption  on="click" target="controller"}}></i>
+                    {{/if}}                       
+                </span>
+            </div>
+            <div class="article-text" style="width: 300px;">{{caption}} </div>
+        </div>
+
+
         <!--THIS IS THE ALBUM BOX-->
 
         {{view HubStar.ShowAlbumView}}
@@ -80,7 +97,7 @@
 
         <!-- OBJECT DESCRIBTION SECTION -->
         <div>
-            <div class="object-collapes-title" {{action setTitleTag  on="click" target="view"}}>
+            <div class="object-collapes-title" >
                 <div class="collapes-title_inner">
                     Article
                 </div>
@@ -108,7 +125,7 @@
 
 
 
-        <div class="collapes-container"  id="article_action">
+        <div class="collapes-container"  id="article_action" style="display:block;">
             <div class="collapes-container_inner">
                 <div class="article-title" >{{controller.articleResouce.article_headline}}</div>
                 <div class="article-text">{{{controller.articleResouce.article_body}}</div>

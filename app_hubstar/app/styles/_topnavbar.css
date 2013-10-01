@@ -1009,7 +1009,8 @@ div #login_container > div.front > .head > .panelcircle
 }
 .social-login-iconbox:active{color: #fff;background-color: #08c; }
 
-div > div > i.icon-envelope, div > div > #click-register
+div > div > i.icon-envelope, div > div > #click-register,
+div > div > i.icon-envelope, div > div > #click-login
 {
     cursor:pointer;
 

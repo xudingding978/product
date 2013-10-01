@@ -50,17 +50,12 @@ HubStar.UserController = Ember.Controller.extend({
     editingInterest: false,
     interest: "interest",
     is_authentic_user: false,
-<<<<<<< HEAD
+
     aboutMe:"aboutMe",
    about_me:"",
     first_name:"",
     last_name:"",
-=======
-    aboutMe: "aboutMe",
-    // about_me:"",
-    first_name: "",
-    last_name: "",
->>>>>>> 5dc657ab0a8a679582a22c7d643ef957455648b0
+
     is_Photoclick: false,
     is_click: false,
     photo_url_large: "",
@@ -388,25 +383,7 @@ HubStar.UserController = Ember.Controller.extend({
             update_user_record.set('display_name', this.get('display_name'));
             update_user_record.set('first_name', this.get('first_name'));
             update_user_record.set('last_name', this.get('last_name'));
-<<<<<<< HEAD
-           
-            this.saveLink('facebook_link', 'facebook'); 
-            this.saveLink('twitter_link','twitter');
-            this.saveLink('googleplus_link', 'googleplus');
-            this.saveLink('pinterest_link', 'pinterest');
-            this.saveLink('linkedin_link', 'linkedin');
-            this.saveLink('youtube_link', 'youtube');
-            update_user_record.set('region', this.get('location'));
-            update_user_record.set('email', this.get('email'));
-            update_user_record.set('password', this.get('password'));
 
-            this.get('controllers.applicationFeedback').statusObserver(null, "Updated Successfully!!!");
-
-            HubStar.store.save();
-        }
-        else {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please check you have already filled the mandatory field");
-=======
             update_user_record.set('region', this.get('location'));
             update_user_record.set('email', this.get('email'));
             update_user_record.set('password', this.get('password'));
@@ -417,7 +394,7 @@ HubStar.UserController = Ember.Controller.extend({
         }
         else {
             this.get('controllers.applicationFeedback').statusObserver(null, "Please check you have already filled the mandatory field","warnning");
->>>>>>> 5dc657ab0a8a679582a22c7d643ef957455648b0
+
         }
     },
     isInputValid: function() {
@@ -428,27 +405,18 @@ HubStar.UserController = Ember.Controller.extend({
             this.input = input;
             this.length = length;
             this.isEmailValid = isEmailValid;
-<<<<<<< HEAD
-            this.shouldInclude = shouldInclude;
 
         }
         var checkList = new Array();
         var result;
-        var displayName = new checkObject("displayName", this.get('display_name'), 128, null, null, null);
-=======
-        }
-        var checkList = new Array();
-        var result;
         var displayName = new checkObject("displayName", this.get('display_name'), 128, null);
->>>>>>> 5dc657ab0a8a679582a22c7d643ef957455648b0
+
         checkList.push(displayName);
         var email = new checkObject("email", this.get('email'), 128, true);
         checkList.push(email);
-<<<<<<< HEAD
-        var first_name = new checkObject("first_name", this.get('first_name'), 128, null, null, null);
-=======
+
         var first_name = new checkObject("first_name", this.get('first_name'), 128, null);
->>>>>>> 5dc657ab0a8a679582a22c7d643ef957455648b0
+
         checkList.push(first_name);
         var last_name = new checkObject("last_name", this.get('last_name'), 128, null);
         checkList.push(last_name);
@@ -456,22 +424,6 @@ HubStar.UserController = Ember.Controller.extend({
         checkList.push(about_me);
         var location = new checkObject("location", this.get('location'), 128, null);
         checkList.push(location);
-<<<<<<< HEAD
-        var facebook = new checkObject("facebook", this.get('facebook'), 128, true, null, "facebook");
-        checkList.push(facebook);
-        var twitter = new checkObject("twitter", this.get('twitter'), 128, true, null, "twitter");
-        checkList.push(twitter);
-        var googleplus = new checkObject("googleplus", this.get('googleplus'), 128, true, null, "plus.google");
-        checkList.push(googleplus);
-        var pinterest = new checkObject("pinterest", this.get('pinterest'), 128, true, null, "pinterest");
-        checkList.push(pinterest);
-        var linkedin = new checkObject("linkedin", this.get('linkedin'), 128, true, null, "linkedin");
-        checkList.push(linkedin);
-        var youtube = new checkObject("youtube", this.get('youtube'), 128, true, null, "youtube");
-        checkList.push(youtube);
-
-=======
->>>>>>> 5dc657ab0a8a679582a22c7d643ef957455648b0
 
         for (var i = 0; i < checkList.length; i++)
         {
@@ -572,11 +524,9 @@ HubStar.UserController = Ember.Controller.extend({
         }
         return result;
     },
-<<<<<<< HEAD
+
     saveLink: function(link_url, link) {
-=======
-    saveLink: function(link_url, link) {//link =param; this,get('facebook')
->>>>>>> 5dc657ab0a8a679582a22c7d643ef957455648b0
+
 
         var http = "http://";
         var update_user_record = this.get('model');

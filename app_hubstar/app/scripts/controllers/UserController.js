@@ -357,7 +357,7 @@ HubStar.UserController = Ember.Controller.extend({
             update_user_record.set('email', this.get('email'));
             update_user_record.set('password', this.get('password'));
             
-            this.get('controllers.applicationFeedback').statusObserver(null, "Updated successfully");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
        
             HubStar.store.save();
         }
@@ -433,7 +433,7 @@ HubStar.UserController = Ember.Controller.extend({
             this.saveLink('pinterest_link', 'pinterest');
             this.saveLink('linkedin_link', 'linkedin');
             this.saveLink('youtube_link', 'youtube');
-            this.get('controllers.applicationFeedback').statusObserver(null, "Updated Successfully!!!");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully");
             HubStar.store.save();
         }
         else {

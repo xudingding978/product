@@ -189,7 +189,11 @@ class SiteController extends Controller {
         $currentUser = User::model()
                 ->findByAttributes(array('EMAIL_ADDRESS' => $request_array[0]));
         if (isset($currentUser)) {
+            if($currentUser->PWD_HASH==="blankblankblank"){
             $this->sendResponse(200, 0);
+            }else{
+                 $this->sendResponse(200, 2);
+            }
         } else {
             $this->sendResponse(200, 1);
         }

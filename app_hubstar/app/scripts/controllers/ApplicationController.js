@@ -243,17 +243,30 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         return result;
     },
     login: function() {
-this.validateEmail(this.get('username'));
-console.log(this.validateEmail(this.get('username')));
-        var loginInfo = [this.get('username'), this.get('password')];
+
+        var loginInfo = [this.get('username'), this.get('password'),this.validateEmail(this.get('username'))];
         var that = this;
-//        requiredBackEnd('site', 'login', loginInfo, 'POST', function(params) {
-//            if (that.get('password') === params.PWD_HASH) {
-//                localStorage.loginStatus = params.COUCHBASE_ID;
-//                that.transitionToRoute('search');
-//            }
-//        });
+         requiredBackEnd('site', 'login', loginInfo, 'POST', function(params) {
+        if(params===1)
+        {
+             that.get('controllers.applicationFeedback').statusObserver(null, "email not exits");
+        }
+        else if(params===0)
+            {
+                 that.get('controllers.applicationFeedback').statusObserver(null, "you have already register with social media account");
+            }
+           else{ 
+        requiredBackEnd('site', 'login', loginInfo, 'POST', function(params) {
+            if (that.get('password') === params.PWD_HASH) {
+                localStorage.loginStatus = params.COUCHBASE_ID;
+                that.transitionToRoute('search');
+            }
+        });
+           }
+         });
+        
     },
+            
     emailSend: function()
     {
         console.log('shuai');

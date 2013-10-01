@@ -1095,13 +1095,26 @@ div#forgot-password-container{
     right:-120px;
     padding:5px;
 
+
+
+
+}
+.login-textfield > .hint--right{background:#fff;}
+
+.login-textfield .hint--right:before
+{
+    border-right-color:#e3e3e3;
+
+}
+.login-textfield .hint--right:after
+{
+    background:#fff;
+    color:#666;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
     -moz-box-shadow: 0 0 5px #888;
     -webkit-box-shadow: 0 0 5px#888;
     box-shadow: 0 0 5px #888;
-
-    
+    text-shadow:0 0 0;
 }
-

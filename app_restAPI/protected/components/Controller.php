@@ -221,6 +221,7 @@ class Controller extends CController {
         $request = $this->getElasticSearch();
         $request->from($from);
         $request->size($size);
+        $request->sort([1]);
         $max = sizeof($conditions);
         $bool = Sherlock\Sherlock::queryBuilder()->Bool();
         for ($i = 0; $i < $max; $i++) {
@@ -234,6 +235,7 @@ class Controller extends CController {
             }
         }
         $request->query($bool);
+        error_log($request->toJSON());
         $response = $request->execute();
 
         return $response;

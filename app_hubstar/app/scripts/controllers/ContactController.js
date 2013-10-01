@@ -170,7 +170,7 @@
                 "projectSubCategoryItem": projectSubCategoryItem
             });
             tempEmail.store.commit();
-            this.get('controllers.applicationFeedback').statusObserver(null, "Email has been Sent!!!");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Email has been sent");
             this.closeContact();
         },
         dropdown: function(checking) {

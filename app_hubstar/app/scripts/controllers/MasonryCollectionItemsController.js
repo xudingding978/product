@@ -57,7 +57,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             results.addObserver('isLoaded', function() {
                 if (results.get('isLoaded')) {
                     var titleFill = results.objectAt(0).get("title");
-                    console.log(titleFill);
+                    
                     that.set('title', titleFill);
                 }
             });
@@ -83,6 +83,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
 
     },
     newUpload: function() {
+         
         $('#ownerUpload').attr('style', 'display:block');
         $('#tagetUplaod').attr('style', 'display:none');
         $('#addNew').toggleClass('col2');
@@ -158,7 +159,12 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             this.set('itemID', itemID);
             this.set('type', type);
         }
-    },    
+    },
+    reLayout:function(){
+         setTimeout(function() {
+                $('#masonry_photo_collection_container').masonry("reload");
+            }, 200);
+    },
     cancelDelete: function() {
         this.set('willDelete', false);
         this.set('makeSureDelete', false);
@@ -194,7 +200,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                 currentCollection.set('cover', coverImge);
                 currentCollection.set('optional', owner_id);
                 HubStar.store.save();
-                this.get('controllers.applicationFeedback').statusObserver(null, "Updated Successfully");
+                this.get('controllers.applicationFeedback').statusObserver(null, "Updated successfully");
                 break;
             }
         }

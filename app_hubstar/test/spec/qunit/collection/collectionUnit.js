@@ -17,7 +17,7 @@ test("collectionController", function() {
     module("group getCreateCollection");
     test("getCreateCollection a", function()
     {
-
+ 
         var title = "hubstarcom";
         var desc = "trendsideasGood";
         var cover = "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png";

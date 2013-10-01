@@ -205,7 +205,7 @@ HubStar.UserController = Ember.Controller.extend({
     userDashboardBackButton: function() {
         if (this.get('is_click') === true) {
             this.set('is_click', false);
-
+            this.setUser();
             $('#user-board_right_front').show();
             $('#user-board_right_back').hide();
             $('#change_profile').show();
@@ -282,7 +282,7 @@ HubStar.UserController = Ember.Controller.extend({
                 }
             }
             if (!isExsinting) {
-                this.get('controllers.applicationFeedback').statusObserver(null, "This Collection is already exsiting");
+                this.get('controllers.applicationFeedback').statusObserver(null, "This Collection is already exsiting.");
             }
         }
         return isExsinting;
@@ -368,78 +368,47 @@ HubStar.UserController = Ember.Controller.extend({
             update_user_record.set('display_name', this.get('display_name'));
             update_user_record.set('first_name', this.get('first_name'));
             update_user_record.set('last_name', this.get('last_name'));
-
-            this.saveLink('facebook_link', 'facebook');
-            this.saveLink('twitter_link', 'twitter');
-            this.saveLink('googleplus_link', 'googleplus');
-            this.saveLink('pinterest_link', 'pinterest');
-            this.saveLink('linkedin_link', 'linkedin');
-            this.saveLink('youtube_link', 'youtube');
             update_user_record.set('region', this.get('location'));
             update_user_record.set('email', this.get('email'));
             update_user_record.set('password', this.get('password'));
-
-
-            this.get('controllers.applicationFeedback').statusObserver(null, "Updated successfully");
-
+            
+            this.get('controllers.applicationFeedback').statusObserver(null, "Update successfully.");
+       
             HubStar.store.save();
         }
         else {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please check you have already filled the mandatory field");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please check you have already filled the mandatory field.","warnning");
         }
     },
     isInputValid: function() {
 
-        function checkObject(id, input, length, isUrlValid, isEmailValid, shouldInclude)
+        function checkObject(id, input, length, isEmailValid)
         {
             this.id = id;
             this.input = input;
             this.length = length;
-            this.isUrlValid = isUrlValid;
             this.isEmailValid = isEmailValid;
-            this.shouldInclude = shouldInclude;
-
         }
         var checkList = new Array();
         var result;
-        var displayName = new checkObject("displayName", this.get('display_name'), 128, null, null, null, true);
+        var displayName = new checkObject("displayName", this.get('display_name'), 128, null);
         checkList.push(displayName);
-        var email = new checkObject("email", this.get('email'), 128, null, true, null);
+        var email = new checkObject("email", this.get('email'), 128, true);
         checkList.push(email);
-
-        var first_name = new checkObject("first_name", this.get('first_name'), 128, null, null, null);
+        var first_name = new checkObject("first_name", this.get('first_name'), 128, null);
         checkList.push(first_name);
-        var last_name = new checkObject("last_name", this.get('last_name'), 128, null, null, null);
+        var last_name = new checkObject("last_name", this.get('last_name'), 128, null);
         checkList.push(last_name);
-
-        var about_me = new checkObject("about_me", this.get('about_me'), 4096, null, null, null);
+        var about_me = new checkObject("about_me", this.get('about_me'), 4096, null);
         checkList.push(about_me);
-        var location = new checkObject("location", this.get('location'), 128, null, null, null);
+        var location = new checkObject("location", this.get('location'), 128, null);
         checkList.push(location);
-        var facebook = new checkObject("facebook", this.get('facebook'), 128, true, null, "facebook");
-        checkList.push(facebook);
-        var twitter = new checkObject("twitter", this.get('twitter'), 128, true, null, "twitter");
-        checkList.push(twitter);
-        var googleplus = new checkObject("googleplus", this.get('googleplus'), 128, true, null, "plus.google");
-        checkList.push(googleplus);
-        var pinterest = new checkObject("pinterest", this.get('pinterest'), 128, true, null, "pinterest");
-        checkList.push(pinterest);
-        var linkedin = new checkObject("linkedin", this.get('linkedin'), 128, true, null, "linkedin");
-        checkList.push(linkedin);
-        var youtube = new checkObject("youtube", this.get('youtube'), 128, true, null, "youtube");
-        checkList.push(youtube);
-//        var password = new checkObject("password", this.get('password'), 128, null, null);
-//        checkList.push(password);
-
 
         for (var i = 0; i < checkList.length; i++)
         {
-            //       var patternUrl = /^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([\w]+)(.[\w]+){1,2}$/;
-
             var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
 
             document.getElementById(checkList[i].id).style.border = '';
-
             if (checkList[i].input !== null && checkList[i].input.length > checkList[i].length)
             {
                 result = false;
@@ -456,10 +425,9 @@ HubStar.UserController = Ember.Controller.extend({
                 }
             }
 
-
-            if (checkList[i].input !== null && checkList[i].isUrlValid === true)
+            if (checkList[i].input !== null && checkList[i].isEmailValid === true)
             {
-                if (checkList[i].input.indexOf(checkList[i].shouldInclude) !== -1 || checkList[i].input === "") {
+                if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
                     result = true;
                 }
                 else {
@@ -468,12 +436,65 @@ HubStar.UserController = Ember.Controller.extend({
                     break;
                 }
             }
-            if (checkList[i].input !== null && checkList[i].isEmailValid === true)
-            {
+        }
+        return result;
+    },
+    saveSociallinkUpdate: function() {
 
-                if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
+        if (this.isSociallinkInputValid())
+        {
+            this.saveLink('facebook_link', 'facebook');
+            this.saveLink('twitter_link', 'twitter');
+            this.saveLink('googleplus_link', 'googleplus');
+            this.saveLink('pinterest_link', 'pinterest');
+            this.saveLink('linkedin_link', 'linkedin');
+            this.saveLink('youtube_link', 'youtube');
+            this.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully.");
+            HubStar.store.save();
+        }
+        else {
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please check you have filled right links.","warnning");
+        }
+    },
+    isSociallinkInputValid: function() {
+
+        function checkObject(id, input, length, isUrlValid, shouldInclude)
+        {
+            this.id = id;
+            this.input = input;
+            this.length = length;
+            this.isUrlValid = isUrlValid;
+            this.shouldInclude = shouldInclude;
+        }
+        var result;
+        var checkList = new Array();
+        var facebook = new checkObject("facebook", this.get('facebook'), 128, true, "facebook");
+        checkList.push(facebook);
+        var twitter = new checkObject("twitter", this.get('twitter'), 128, true,  "twitter");
+        checkList.push(twitter);
+        var googleplus = new checkObject("googleplus", this.get('googleplus'), 128, true, "plus.google");
+        checkList.push(googleplus);
+        var pinterest = new checkObject("pinterest", this.get('pinterest'), 128, true,  "pinterest");
+        checkList.push(pinterest);
+        var linkedin = new checkObject("linkedin", this.get('linkedin'), 128, true,"linkedin");
+        checkList.push(linkedin);
+        var youtube = new checkObject("youtube", this.get('youtube'), 128, true, "youtube");
+        checkList.push(youtube);
+
+        for (var i = 0; i < checkList.length; i++)
+        {
+            document.getElementById(checkList[i].id).style.border = '';
+            if (checkList[i].input !== null && checkList[i].input.length > checkList[i].length)
+            {
+                result = false;
+                document.getElementById(checkList[i].id).style.border = '2px solid red';
+                break;
+            }
+            if (checkList[i].input !== null && checkList[i].isUrlValid === true)
+            {
+                if (checkList[i].input.indexOf(checkList[i].shouldInclude) !== -1 || checkList[i].input === "") {
                     result = true;
-                }
+                }  
                 else {
                     result = false;
                     document.getElementById(checkList[i].id).style.border = '2px solid red';

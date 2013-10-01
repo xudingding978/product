@@ -1,7 +1,7 @@
 Sherlock
 ========
 
-_Sherlock_ is a PHP (>=5.3.0) client for [ElasticSearch](http://www.elasticsearch.org/).  _Sherlock_ can be used to search and manage ElasticSearch clusters.
+_Sherlock_ is a PHP (>=5.3.9) client for [ElasticSearch](http://www.elasticsearch.org/).  _Sherlock_ can be used to search and manage ElasticSearch clusters.
 
 Features
 --------
@@ -12,6 +12,11 @@ Features
  - Autodetection of cluster nodes and subsequent round-robin requests to the entire cluster
  - Configurable logging capabilities
 
+Disclaimer
+--------
+Sherlock should be considered **Alpha** status.  Use in production at your own risk!  The current 0.1 branch is in maintenance mode - I'm only fixing bugs and accepting PRs.
+
+The new 0.2 branch that is coming *will* break backwards compatibility in places.  The new 0.2 branch, however, should be a lot easier to maintain and I'll likely be promoting it to true 1.0 status soon after release (along with associated SemVer, backwards compatibility, etc).
 
 Resources
 ---------------
@@ -80,7 +85,7 @@ The library interface is still under flux...this section will be updated once _S
    $request = $sherlock->search();
 
    //Set the index, type and from/to parameters of the request.
-   //The query is at at the end of the chain, although it could be placed anywhere
+   //The query is at the end of the chain, although it could be placed anywhere
    $request->index("test")
             ->type("tweet")
             ->from(0)

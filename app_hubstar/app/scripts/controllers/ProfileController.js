@@ -40,15 +40,16 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     editingContact: false,
     editingTime: false,
     editors: "",
-    followerTag: false,
+    followerProfileTag: false,
     follow_status: false,
+    followers:'',
     first_name: "",
     galleryInsert: false,
     hours: [],
     is_authentic_user: false,
     keywords: "",
     last_name: "",
-    needs: ["profilePartners", "itemProfiles", "profileFollowers", 'permission', 'contact', 'photoCreate', 'application', 'applicationFeedback', 'userFollowings', 'collection', 'htmlEditor'],
+    needs: ["profilePartners", "itemProfiles", "userFollowers", 'permission', 'contact', 'photoCreate', 'application', 'applicationFeedback', 'userFollowings', 'collection', 'htmlEditor'],
     name: "",
     facebook: "",
     twitter: "",
@@ -66,9 +67,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     profile_name: "",
     partnerTag: false,
     partnerPage: true,
+    
     profileSelectionStatus: "Collections",
     profileCollectionStatistics: "",
     profilePartnerStatistics: "",
+    profileFollowerStatistics:"",
     region: "",
     selectedCollection: "",
     switchPhoto: false,
@@ -151,9 +154,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('last_name', profile.get('profile_contact_last_name'));
         this.set("profile_name", profile.get("profile_name"));
         this.set("projectActiveDropdownContent", profile.get("profile_isActive"));
-        this.set("projectDeleteDropdownContent", profile.get("profile_isDeleted"));
+        this.set("projectDeleteDropdownContent", profile.get("profile_isDeleted"));      
         this.updateWorkingHourData(profile.get('profile_hours'));
         this.set("collections", profile.get("collections"));
+        
         var collections = profile.get("collections");
         if (this.get('controllers.profilePartners').get("partnerNew") !== undefined && this.get('controllers.profilePartners').get("partnerNew") !== null && this.get('controllers.profilePartners').get("partnerNew") !== "")
         {
@@ -198,7 +202,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         else {
             this.set('profilePartnerStatistics', 0);
         }
-
+        this.set("followers",profile.get("followers"));
+       
+        if(this.get("followers")!==null)
+            {
+                this.followersStatistics(this.get('followers').get("length"));
+            }
+            else{
+                this.followersStatistics(0);
+            }
         this.statstics();
     },
     submit: function() {
@@ -396,6 +408,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     paternsStatistics: function(length) {
         this.set('profilePartnerStatistics', length);
     },
+    followersStatistics:function(length){
+        this.set('profileFollowerStatistics',length);
+    },
     deleteSelectedCollection: function()
     {
         var message = "Do you wish to delete " + this.get("selectedCollection").get('id') + " ?";
@@ -560,6 +575,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('partnerPage', 'Collections');
         this.set('profileSelectionStatus', 'Collections');
         this.set('partnerTag', false);
+        this.set('followerProfileTag',false);
         this.set('collectionTag', true);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
@@ -571,7 +587,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.get('controllers.profilePartners').getClientId(model);
         this.set('partnerTag', true);
         this.set('collectionTag', false);
-        //this.set('followerTag', false);
+        this.set('followerProfileTag', false);
         this.get('controllers.itemProfiles').setPartnerRemove();
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
@@ -579,10 +595,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     selectFollower: function(model) {
         this.set('profileSelectionStatus', 'Followers');
-        this.get('controllers.profileFollowers').getClientId(model);
+        this.get('controllers.userFollowers').getProfileId(model);
         this.set('partnerTag', false);
         this.set('collectionTag', false);
-        this.set('followerTag', true);
+        console.log("dddddfd");
+        this.set('followerProfileTag', true);
+         setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
     },
     saveUpdateAboutUs: function() {
         var update_About_record = HubStar.Profile.find(this.get('model.id'));

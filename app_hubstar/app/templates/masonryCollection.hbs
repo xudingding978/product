@@ -10,6 +10,7 @@
         <ul class="user-stats" id="user-stats">
             <li id="defualt" ><a {{action selectCollection}}> Collections <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profileCollectionStatistics}}</a></li>
             <li ><a {{action selectPartner this}}>Partners <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profilePartnerStatistics}}</a></li>
+            <li ><a {{action selectFollower this}}>Followers <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profileFollowerStatistics}}</a></li>           
         </ul>
         {{/if}}
 
@@ -36,6 +37,10 @@
 
         {{/if}} 
 
+        {{#if followerProfileTag}}
+        {{render userFollowers}}
+        {{/if}} 
+        
         {{#if followerTag}}
         {{render userFollowers}}
         {{/if}} 

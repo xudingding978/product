@@ -247,7 +247,7 @@ module.exports = function(grunt) {
                     '<%= yeoman.app %>/bower_components/ember/ember-1.0.0-rc.6.1.min.js',
                     '<%= yeoman.app %>/bower_components/ember-data-shim/ember-data.min.js',
                     '<%= yeoman.app %>/bower_components/moment/moment.min.js',
-                    '<%= yeoman.app %>/bower_components/javascriptHelper/javascriptHelper.js',
+                    '<%= yeoman.app %>/bower_components/javascriptHelper/javascriptHelper.test.js',
                     '<%= yeoman.app %>/bower_components/javascriptHelper/jquery-2.0.3.min.map'
                 ],
                 dest: '<%= yeoman.test %>/scripts/components.js'

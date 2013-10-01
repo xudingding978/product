@@ -186,6 +186,39 @@ class FollowersController extends Controller {
         return $newRecord;
     }
 
+    public function getGeneralParamProfile($cb, $oldRecord, $userFollower, $like_user) {
+        $newRecord = array();
+        for ($i = 0; $i < sizeof($oldRecord['profile'][0]["followers"]); $i++) {
+            if ($oldRecord['profile'][0]["followers"][$i]["follower_id"] !== null) {
+                $id = $oldRecord['profile'][0]["followers"][$i]["follower_id"];
+
+                $docIDDeep = $this->getDomain() . "/users/" . $id;
+                $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+                $oldRecordDeep = CJSON::decode($oldDeep, true);
+                $newRecord[$i]['record_id'] = $id;
+                $newRecord[$i]['name'] = $oldRecordDeep['user'][0]["display_name"];
+                $newRecord[$i]['photo_url'] = $oldRecordDeep['user'][0]["photo_url_large"];
+                if (isset($oldRecordDeep['user'][0]["cover_url_small"])) {
+                    $newRecord[$i]['cover_url_small'] = $oldRecordDeep['user'][0]["cover_url_small"];
+                } else {
+                    $newRecord[$i]['cover_url_small'] = "http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg";
+                }
+                if (!isset($oldRecordDeep['user'][0]["collections"])) {
+                    $newRecord[$i]['collections_size'] = 0;
+                } else {
+                    if (($oldRecordDeep['user'][0]["collections"] === null) || ($oldRecordDeep['user'][0]["collections"] === "")) {
+
+                        $newRecord[$i]['collections_size'] = 0;
+                    } else {
+                        $newRecord[$i]['collections_size'] = sizeof($oldRecordDeep['user'][0]["collections"]);
+                    }
+                }
+                $newRecord[$i] = $this->setFollowStatus($newRecord[$i], $oldRecordDeep, $userFollower, $id, $like_user);  //set follow status
+            }
+        }
+        return $newRecord;
+    }
+    
     public function actionRead() {
         $like = CJSON::decode(file_get_contents('php://input'));
         $likeArr = CJSON::decode($like, true);
@@ -224,6 +257,44 @@ class FollowersController extends Controller {
         }
     }
 
+       public function actionReadProfileFollower() {
+        $like = CJSON::decode(file_get_contents('php://input'));
+        $likeArr = CJSON::decode($like, true);
+
+        $like_user = $likeArr[0];
+        $like_arr = $likeArr[1];
+        try {
+            $cb = $this->couchBaseConnection();
+
+            $docID = $this->getDomain() . "/profiles/" . $like_arr;
+            $old = $cb->get($docID); // get the old user record from the database according to the docID string
+            $oldRecord = CJSON::decode($old, true);
+            if (!isset($oldRecord['profile'][0]["followers"])) {
+
+                $oldRecord['profile'][0]["followers"] = array();
+            }
+            $docIDUser = $this->getDomain() . "/users/" . $like_user;
+            $oldUser = $cb->get($docIDUser); // get the old user record from the database according to the docID string
+            $oldRecordUser = CJSON::decode($oldUser, true);
+            if (!isset($oldRecordUser['user'][0]["followers"]) || $oldRecordUser['user'][0]["followers"] === "") {
+                $userFollower = null;
+            } else {
+                $userFollower = $oldRecordUser['user'][0]["followers"];
+            }
+
+
+            $newRecord = $this->getGeneralParamProfile($cb, $oldRecord, $userFollower, $like_user);
+
+            if ($newRecord === null) {
+                $this->sendResponse(204);
+            } else {
+                $this->sendResponse(200, CJSON::encode($newRecord));
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+    
     public function setFollowParam($id, $like_user, $oldRecordDeep, $userFollower, $newRecord) {
         if (!isset($oldRecordDeep['user'][0]["followers"])) {
             $newRecord['follower_size'] = 0;

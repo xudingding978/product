@@ -10,14 +10,14 @@ HubStar.ArticleView = Ember.View.extend({
 
     },
     checkReading: function() {
-        $('.objectview-right').animate({
+        $('.article-objectview-right').animate({
             width: '45%'
         }, 500, function() {
             // Animation complete.
         });
 
 
-        $('.objectview-left').animate({
+        $('.article-objectview-left').animate({
             width: '55%'
         }, 500, function() {
             // Animation complete.
@@ -28,20 +28,20 @@ HubStar.ArticleView = Ember.View.extend({
     },
     checkClosed: function() {
 
-        $('.objectview-right').animate({
+        $('.article-objectview-right').animate({
             width: '320px'
         }, 500, function() {
             // Animation complete.
         });
 
 
-        $('.objectview-left').animate({
+        $('.article-objectview-left').animate({
             width: 'auto'
         }, 500, function() {
             // Animation complete.
         });
 
-        $('.objectview-left').attr("style", "bottom: 0; top: 0; left: 0; margin: 0; position: absolute; right: 320px; overflow: hidden; transition:all 0.5 ease; ");
+        $('.article-objectview-left').attr("style", "bottom: 0; top: 0; left: 0; margin: 0; position: absolute; right: 320px; overflow: hidden; transition:all 0.5 ease; ");
         this.set('readContent', !this.get("readContent"));
         $('#article_action').slideToggle(1000);
     },

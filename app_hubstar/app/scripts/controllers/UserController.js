@@ -191,7 +191,7 @@ HubStar.UserController = Ember.Controller.extend({
 
         if (this.get('is_click') === false) {
             this.set('is_click', true);
-
+    
             $('#user-board_right_front').hide();
             $('#user-board_right_back').show();
             $('#change_profile').hide();
@@ -205,7 +205,7 @@ HubStar.UserController = Ember.Controller.extend({
     userDashboardBackButton: function() {
         if (this.get('is_click') === true) {
             this.set('is_click', false);
-
+      
             $('#user-board_right_front').show();
             $('#user-board_right_back').hide();
             $('#change_profile').show();
@@ -220,6 +220,7 @@ HubStar.UserController = Ember.Controller.extend({
 
         if (this.get('is_Photoclick') === false) {
             this.set('is_Photoclick', true);
+          
             $('#flip-front').hide();
             $('#user-photo_left').hide();
             $('#user-photo_left-back').show();
@@ -232,6 +233,7 @@ HubStar.UserController = Ember.Controller.extend({
     userPhotoEditBackButton: function() {
         if (this.get('is_Photoclick') === true) {
             this.set('is_Photoclick', false);
+            
             $('#flip-front').show();
             $('#user-photo_left').show();
             $('#user-photo_left-back').hide();
@@ -774,8 +776,8 @@ HubStar.UserController = Ember.Controller.extend({
                 var data = {"RequireIamgeType": that.get('UploadImageMode')};
     //             console.log(that.get('newStyleImageSource') );
                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
-                    if ((width >= params.width) && (height >= params.height))
-                    {
+               //     if ((width >= params.width) && (height >= params.height))
+                //    {
                         var imageName = that.get('newStyleImageName').split('.');
                         var type = imageName[imageName.length - 1];
 
@@ -794,20 +796,21 @@ HubStar.UserController = Ember.Controller.extend({
                  //           console.log("5");
                         });
                         that.userPhotoEditBackButton();
+                        
                         that.userDashboardBackButton();
 
                         that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
 
-                    }
-                    else if (width < params.width || height < params.height) {
-                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + params.width + "x" + params.height);
-                        that.set('newStyleImageSource', "");
-                        that.set('newStyleImageName', "");
-                        that.set('CurrentImageSize', "");
-                        
-                         $('#photoUploadbtn').removeClass();
-                        $("#photoUploadbtn").toggleClass("disabled-btn");
-                    }
+                   // }
+//                    else if (width < params.width || height < params.height) {
+//                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + params.width + "x" + params.height);
+//                        that.set('newStyleImageSource', "");
+//                        that.set('newStyleImageName', "");
+//                        that.set('CurrentImageSize', "");
+//                        
+//                         $('#photoUploadbtn').removeClass();
+//                        $("#photoUploadbtn").toggleClass("disabled-btn");
+//                    }
 
                 });
             });

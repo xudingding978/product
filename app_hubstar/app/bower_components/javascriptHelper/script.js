@@ -3,8 +3,10 @@ var canvas, ctx;
 var image;
 var iMouseX, iMouseY = 1;
 var theSelection;
-var xRation = 2;
-var yRation = 2;
+var xRation;
+var yRation;
+var defaultWidth;
+var defaultHeight;
 
 // define Selection constructor
 function Selection(x, y, w, h) {
@@ -32,9 +34,10 @@ Selection.prototype.draw = function() {
     ctx.strokeRect(this.x, this.y, this.w, this.h);
 
     // draw part of original image
- 
+
     if (this.w > 0 && this.h > 0) {
-        ctx.drawImage(image, this.x * xRation, this.y * yRation, this.w * xRation, this.h * yRation, this.x, this.y, this.w, this.h);
+      ctx.drawImage(image, this.x * xRation, this.y * yRation, this.w * xRation, this.h * yRation, this.x, this.y, this.w, this.h);
+        //ctx.drawImage(image, 2,2, 2, 2, 20, 20, 20, 20);
     }
 
     // draw resize cubes
@@ -46,6 +49,8 @@ Selection.prototype.draw = function() {
 };
 
 function drawScene() { // main drawScene function
+
+
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // clear canvas
 
     // draw source image
@@ -63,34 +68,51 @@ function crop(imageSrc) {
     // loading source image
     image = new Image();
     image.src = imageSrc;
-    var defaultWidth= document.getElementById('crop-container').offsetWidth;
-    var defaultHeight= document.getElementById('crop-container').offsetHeight;
+
+    defaultWidth = document.getElementById('crop-container').offsetWidth;
+    defaultHeight = document.getElementById('crop-container').offsetHeight;
+
     image.onload = function() {
-        ctx.canvas.width = image.width / xRation;
-        console.log( ctx.canvas.width);
-        
+             xRation =2;
+              yRation =2;
+            ctx.canvas.width = image.width/xRation;
+            ctx.canvas.height = image.height/xRation;
+ 
         if (ctx.canvas.width > defaultWidth)
         {
              ctx.canvas.width = defaultWidth;
-            xRation = image.width / defaultWidth;     
+            xRation = image.width / defaultWidth;
+           
+            
+            console.log(xRation);
         }
-        ctx.canvas.height = image.height / yRation;
-        console.log( ctx.canvas.height);
+
+      
         if (ctx.canvas.height > defaultHeight)
         {
-             ctx.canvas.height = defaultHeight;
+            ctx.canvas.height = defaultHeight;
             yRation = image.height / defaultHeight;
            
+            console.log(yRation);
+
         }
     };
 
     // creating canvas and context objects
     canvas = document.getElementById('panel');
-   
+
     ctx = canvas.getContext('2d');
 
     // create initial selection
+    if(document.getElementById('crop-container').offsetWidth===300){
     theSelection = new Selection(20, 20, 200, 200);
+    }
+     if(document.getElementById('crop-container').offsetWidth===600){
+         
+            theSelection = new Selection(10,10, 490,300);
+        
+    
+    }
 
     $('#panel').mousemove(function(e) { // binding mouse move event
         var canvasOffset = $(canvas).offset();
@@ -99,47 +121,48 @@ function crop(imageSrc) {
 
         // in case of drag of whole selector
         if (theSelection.bDragAll) {
-            
-            theSelection.x = iMouseX - theSelection.px;  
-           theSelection.y = iMouseY - theSelection.py; 
-              var theSelectionX = ctx.canvas.width - iMouseX  + theSelection.px;  - 200;
-           var theSelectionY =ctx.canvas.height - iMouseY  +  theSelection.py- 200;     
 
-           if( theSelection.x <0 &&  theSelection.y< 0){
-           theSelection.x = 0;
-            theSelection.y = 0;
-           } else if(theSelection.x <0 &&  theSelection.y > 0)
-               {
-                   theSelection.x = 0;
-               }
-               else if(theSelection.x  >0 &&  theSelection.y < 0)
-               {
-                   theSelection.y = 0;
-               }
-   
-          
-               if(theSelectionX <0   && theSelectionY < 0)
-               {
-                   theSelectionX =0;
-                 //
-                   theSelectionY = 0;
-                    
-               }
-              else if(theSelectionX < 0 && theSelectionY > 0)
-               {
-                   
-                   theSelectionX = 0;
-                //   console.log("0    " + theSelectionX);
-               }
-            else if(theSelectionX> 0 && theSelectionY< 0)
-               {
-                   theSelectionY  = 0;
-                 //  console.log("0   " + theSelectionY);
-                  
-               }
-               
+            theSelection.x = iMouseX - theSelection.px;
+            theSelection.y = iMouseY - theSelection.py;
+//            var theSelectionX = defaultWidth - iMouseX + theSelection.px -200;
+//            var theSelectionY = defaultHeight - iMouseY + theSelection.py - 200;
+
+            if (theSelection.x < 0 && theSelection.y < 0) {
+                theSelection.x = 0;
+                theSelection.y = 0;
+            } else if (theSelection.x < 0 && theSelection.y > 0)
+            {
+                theSelection.x = 0;
             }
-        
+            else if (theSelection.x > 0 && theSelection.y < 0)
+            {
+                theSelection.y = 0;
+            }
+
+//
+//            if (theSelectionX < 0 && theSelectionY < 0)
+//            {
+//                theSelectionX = 0;
+//                //
+//                theSelectionY = 0;
+//
+//            }
+//            else if (theSelectionX < 0 && theSelectionY > 0)
+//            {
+//
+//                theSelectionX = 0;
+//                //   console.log("0    " + theSelectionX);
+//            }
+//            else if (theSelectionX > 0 && theSelectionY < 0)
+//            {
+//                theSelectionY = 0;
+//                //  console.log("0   " + theSelectionY);
+//
+//            }
+
+        }
+      
+
         for (i = 0; i < 4; i++) {
             theSelection.bHow[i] = false;
             theSelection.iCSize[i] = theSelection.csize;
@@ -149,28 +172,28 @@ function crop(imageSrc) {
         if (iMouseX > theSelection.x - theSelection.csizeh && iMouseX < theSelection.x + theSelection.csizeh &&
                 iMouseY > theSelection.y - theSelection.csizeh && iMouseY < theSelection.y + theSelection.csizeh) {
 
-            theSelection.bHow[0] = true;
+            theSelection.bHow[0] = false;
             theSelection.iCSize[0] = theSelection.csizeh;
         }
         if (iMouseX > theSelection.x + theSelection.w - theSelection.csizeh && iMouseX < theSelection.x + theSelection.w + theSelection.csizeh &&
                 iMouseY > theSelection.y - theSelection.csizeh && iMouseY < theSelection.y + theSelection.csizeh) {
 
-            theSelection.bHow[1] = true;
+            theSelection.bHow[1] = false;
             theSelection.iCSize[1] = theSelection.csizeh;
         }
         if (iMouseX > theSelection.x + theSelection.w - theSelection.csizeh && iMouseX < theSelection.x + theSelection.w + theSelection.csizeh &&
                 iMouseY > theSelection.y + theSelection.h - theSelection.csizeh && iMouseY < theSelection.y + theSelection.h + theSelection.csizeh) {
 
-            theSelection.bHow[2] = true;
+            theSelection.bHow[2] = false;
             theSelection.iCSize[2] = theSelection.csizeh;
         }
         if (iMouseX > theSelection.x - theSelection.csizeh && iMouseX < theSelection.x + theSelection.csizeh &&
                 iMouseY > theSelection.y + theSelection.h - theSelection.csizeh && iMouseY < theSelection.y + theSelection.h + theSelection.csizeh) {
 
-            theSelection.bHow[3] = true;
+            theSelection.bHow[3] = false;
             theSelection.iCSize[3] = theSelection.csizeh;
         }
-      
+
 
         // in case of dragging of resize cubes
         var iFW, iFH;
@@ -271,7 +294,7 @@ function getResults() {
     temp_canvas.width = theSelection.w;
     temp_canvas.height = theSelection.h;
     temp_ctx.drawImage(image, theSelection.x * xRation, theSelection.y * yRation, theSelection.w * xRation, theSelection.h * yRation, 0, 0, theSelection.w, theSelection.h);
-
+   console.log(xRation,yRation);
     var vData = temp_canvas.toDataURL();
     //$('#crop_result').attr('src', vData);
     //  $('#results h2').text('Well done, we have prepared our cropped image, now you can save it if you wish');

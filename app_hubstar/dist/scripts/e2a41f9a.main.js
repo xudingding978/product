@@ -1768,16 +1768,13 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
     },
     setUser: function()
     {
+
         var user = HubStar.User.find(localStorage.loginStatus);
-      //  user.addObserver('isLoaded', function() {
-       //     if (user.get('isLoaded')) {
         this.set("collections", user.get("collections"));
         if (this.get("collections").objectAt(0) !== null && this.get("collections").objectAt(0) !== undefined) {
             this.setDesc("");
             this.setTitle(this.get("collections").objectAt(0).get("title"));
         }
-        //    }
-      //  });
     },
     setImageID: function(id) {
         this.set("objectID", id);
@@ -1804,7 +1801,6 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
             this.addComment();
 
 
-
             collection.set('optional', localStorage.loginStatus);
             collection.set('type', 'user');
             collection.store.save();
@@ -1813,11 +1809,11 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
         } else {
             this.get('controllers.applicationFeedback').statusObserver(null, "Please choose a collection");
         }
-
     },
     addComment: function() {
 
         var currentUser = HubStar.User.find(localStorage.loginStatus);
+
         var commentContent = this.get('selectedDesc');
 
         if (commentContent) {
@@ -1863,7 +1859,6 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
         }
     },
     exit: function() {
-
         if (this.get('parentController') === 'article')
         {
             this.get("controllers.article").switchCollection();
@@ -1928,7 +1923,6 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
         if (title !== null && title !== "")
         {
             isInputValid = this.isTitleNotExist(title);
-   
         }
         else {
             isInputValid = false;
@@ -1937,15 +1931,11 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
     },
     isTitleNotExist: function(title) {
         var isContainsTitle = true;
-         
         for (var i = 0; i < this.get("collections").get("length"); i++)
         {
-                
             var collection = this.get("collections").objectAt(i);
             if (collection.get("title") === title)
             {
-//                console.log("sssssssssssssss");
-//                console.log(collection.get("title") );
                 isContainsTitle = false;
             }
         }
@@ -2429,19 +2419,19 @@ HubStar.ArticleController = Ember.Controller.extend({
 HubStar.CollectionController = Ember.Controller.extend({
     collections: null,
     needs: ['applicationFeedback'],
-
     init: function() {
-
     },
     getCreateCollection: function(title, desc, collections)
     {
         this.set('collections', collections);
+        //console.log(this.get("collections"));
         var isExsinting = this.checkingIdisExsinting(title, "create");
         var collection = null;
         if (isExsinting) {
             var validID = this.checkingValidInput(title);
             var checkingCharater = this.specialCharactersChecking(validID);
-
+            //console.log(validID);
+            //console.log(checkingCharater);
             if (checkingCharater && validID !== null && validID !== '') {
                 collection = HubStar.Collection.createRecord({});
                 collection.set('id', validID.toLowerCase());
@@ -2454,6 +2444,7 @@ HubStar.CollectionController = Ember.Controller.extend({
                 }
             } else {
                 this.get('controllers.applicationFeedback').statusObserver(null, "Please try to type name with upper case and space");
+
             }
         }
 
@@ -2473,6 +2464,7 @@ HubStar.CollectionController = Ember.Controller.extend({
 
     checkingIdisExsinting: function(id, postOrPut) {
         var isExsinting = true;
+        //console.log(this.get("collections"));
         if (postOrPut === "create") {
             for (var i = 0; i < this.get("collections").get('length'); i++) {
                 if (this.get("collections").objectAt(i).get("id") === id) {
@@ -2493,6 +2485,7 @@ HubStar.CollectionController = Ember.Controller.extend({
         return re.test(str);
     },
     getUpdateCollection: function(selectedCollection) {
+        //console.log(selectedCollection);
 
         var desc = selectedCollection.get('desc');
 
@@ -5573,27 +5566,11 @@ HubStar.StatusController = Ember.Controller.extend({
 (function() {
 
 HubStar.TestController = Ember.Controller.extend({
-    test: function()
-    {
-        return 'aaaaaaaaaaaaa';
+        test: function()
+        {console.log("test");
+        }
     }
-    
-}
-);
-
-
-})();
-
-(function() {
-
-HubStar.TestTwoController = Ember.Controller.extend({
-    testtwo: function()
-    {
-        return 'testtwo';
-    }
-    
-}
-);
+    );
 
 
 })();

@@ -20,6 +20,7 @@ module.exports = function(grunt) {
         test: 'test'
     };
     grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'),
         yeoman: yeomanConfig,
         manifest: {
             generate: {
@@ -83,7 +84,7 @@ module.exports = function(grunt) {
                     '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
                     '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg,ico}'
                 ],
-                tasks: ['livereload']
+                tasks: ['livereload', 'buildTest', 'test']
             }
         },
         connect: {
@@ -162,6 +163,9 @@ module.exports = function(grunt) {
                 '!<%= yeoman.app %>/scripts/vendor/*',
                 'test/spec/{,*/}*.js'
             ]
+        },
+        qunit: {
+            all: ['test/*.html']
         },
         mocha: {
             all: {
@@ -456,6 +460,7 @@ module.exports = function(grunt) {
             }
         }
     });
+    grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.renameTask('regarde', 'watch');
     grunt.registerTask('server', function(target) {
         if (target === 'dist') {
@@ -483,9 +488,8 @@ module.exports = function(grunt) {
         'concat:testtemplate',
         'concat:testcss',
         'copy:test',
-        'mocha'
-
-
+   //     'mocha'
+      'qunit'
     ]);
     grunt.registerTask('build', [
         'clean:dist',
@@ -502,11 +506,11 @@ module.exports = function(grunt) {
         'usemin',
         'manifest',
         'rev:test'
-
     ]);
     grunt.registerTask('default', [
         'jshint',
         'test',
         'build'
     ]);
+
 };

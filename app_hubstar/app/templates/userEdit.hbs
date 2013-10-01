@@ -48,7 +48,7 @@
                     </div>
 
                     <div style="margin: auto;width: 180px;float: right;">
-                        <span  id="photoUploadbtn" class="disabled-btn" {{action cropButton}} ><k class='icon-save '> &nbsp;Upload</span>
+                        <span id="photoUploadbtn" class="disabled-btn" {{action cropButton}}><k class='icon-save '> &nbsp;Upload</span>                   
                         <span class='new-btn flip-back'{{action userDashboardBackButton }}><k class='icon-group'> &nbsp;</k>Back</span>
                     </div>
 
@@ -337,12 +337,12 @@
 
 
                                 {{#if controller.isPhotoEditingMode}}
-                                <div class='' style='position:relative;height: 85px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 10px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>
-                                    <span style="position: relative;display: inline-block;font-size: 40px;margin: 10px 0;vertical-align: top;"><k class='icon-ok-circle'></k></span>
-                                    <span style="position: relative;width: 87%;display: inline-block;margin: 10px 15px;">
-                                        <span style='font-size: 20px;display: block;line-height: 25px;'>Cropping Time</span>
-                                        <span style='font-size: 13px;margin: auto;  display: block;line-height: 16px;'></span>
-                                    </span>
+                                <div class='' style='position:relative;height: 5px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 10px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>
+                                    <!--                                    <span style="position: relative;display: inline-block;font-size: 40px;margin: 10px 0;vertical-align: top;"><k class='icon-ok-circle'></k></span>
+                                                                        <span style="position: relative;width: 87%;display: inline-block;margin: 10px 15px;">
+                                                                            <span style='font-size: 20px;display: block;line-height: 25px;'>Cropping Time</span>
+                                                                            <span style='font-size: 13px;margin: auto;  display: block;line-height: 16px;'></span>
+                                                                        </span>-->
                                 </div>
 
                                 <!--                  <div style="position: relative; margin: auto;height: 520px; width: 690px; overflow: hidden;line-height: 510px;">
@@ -351,9 +351,9 @@
                                                         </div>
                                                     </div>-->
 
-                                <div id="crop-container" style="width: 600px;height: 350px;margin: 10px auto; text-align: center">
+                                <div id="crop-container" style="width: 800px;height: 420px;margin: 10px auto; text-align: center">
                                     <div class="contr"></div>
-                                    <canvas id="panel" class="crop-canvas" style="height: 100%;width: auto;margin: 0 auto; max-width: 850px;"><img  {{bindAttr src= "newStyleImageSource"}} ></canvas>
+                                    <canvas id="panel" class="crop-canvas" style="height: 100%;width: auto;margin: 0 auto; "><img  {{bindAttr src= "newStyleImageSource"}} ></canvas>
 
                                 </div>
                                 <div style="margin: auto;width: 150px;float: right;">

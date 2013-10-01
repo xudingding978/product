@@ -162,7 +162,7 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
 
     function shareFacebook($name) {
         $args = array(
-            'message' =>  'I\'m creating new ideas over on the new Trends Ideas Space. Here\'s your inviatation to come and join me. Thanks '.$name.'.',
+            'message' =>  'I\'m creating new ideas over on the new Trends Ideas Space. Here\'s your invitation to come and join me. Thanks '.$name.'.',
             'picture' => 'http://s3.hubsrv.com/trendsideas.com/profiles/commercial-design-trends/profile_pic.jpg',
             'link' => 'http://beta.trendsideas.com',
             'description' =>'Join the design community; CONNECT with products and services, COLLECT and SHARE Ideas and COLLABORATE with professionals - Become a part of Trends Ideas Space',

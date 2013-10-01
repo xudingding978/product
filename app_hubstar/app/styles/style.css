@@ -12,6 +12,7 @@
     border-radius: 0 10px 10px 0;
     background-color: rgba(50,50,50,0.4);
     box-shadow: 0 0 10px #fff;
+    height:256px;
 }
 #masonry_user_container
 {
@@ -511,6 +512,10 @@ div.search-loading-invisible{
     font-weight: bold;
     font-size: 13px;
     list-style: none;
+}
+
+.edit-object-ul > .ite{
+    padding:6px 15px 6px 30px;
 }
 
 .ite:hover{

@@ -60,14 +60,14 @@ test("addCollectionController", function() {
     {
         var checkingValidInput = addCollectionController.checkingValidInput("beta.trendsideas.com photos 23423234");
         var result = "beta.trendsideas.com-photos-23423234";
-        equal(checkingValidInput, result, "set thumbnail url successful");
+        equal(checkingValidInput, result, "checking Valid Input  successful");
     });
 
 
     //set Selected Collection
 
     asyncTest("asynchronous test for setSelectedCollection : one second later!", function() {
-        expect(1);
+        expect(7);
         var addCollectionController = HubStar.AddCollectionController.create();
         var model = HubStar.User.find("10242305480");
         setTimeout(function() {
@@ -85,7 +85,13 @@ test("addCollectionController", function() {
                 "type": "user",
                 "id": "trends"
             };
-            equal(electedCollection.get("id"), "trends", "set ee url successful");
+            equal(electedCollection.get("id"), "trends", "set Selected Collection successful");
+            equal(electedCollection.get("desc"), "Projects--that-I-have-had-published-in-Trends-", "set Selected Collection successful");
+            equal(electedCollection.get("collection_ids"), "7275334791372526835, 3149680881372505467, 2379513971372451786, 1463488341373671381, 7902975431372479406, 8041043911372337297, 3495646151372546288, 8417355201372516646, 6456483831372278304, 1115627351372522724, 8209818051372495232, 5965204721372492939, 6606287561372546281, 6795672391372521645, 9329785151372270156, 8525407111372399532, 6535491261372413838, 3972156951372506506, 7077209071372536516, 2318145851372505464, 8452143731372270150, 3657337311372288406, 6328733331373671534, 6112804421373671044, 5078179431372390091, 4193423561372288417, 2535979541372406002, 7918880591373671170, 8870732031372435993", "set Selected Collection successful");
+            equal(electedCollection.get("cover"), "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png", "set Selected Collection successful");
+            equal(electedCollection.get("parent_type"), null, "set Selected Collection successful");
+            equal(electedCollection.get("optional"), "10242305480", "set Selected Collection successful");
+            equal(electedCollection.get("type"), "user", "set Selected Collection successful");
             start();
         }, 1000);
     });
@@ -119,7 +125,7 @@ test("addCollectionController", function() {
             addCollectionController.addCollection(collection, content);
             var content2 = content + ", 1111111";
             var collection_ids = collection.get("collection_ids");
-            equal(collection_ids, content2, "set ee url successful");
+            equal(collection_ids, content2, "add Collection successful");
             start();
         }, 1000);
     });
@@ -136,7 +142,7 @@ test("addCollectionController", function() {
         addCollectionController.addComment();
         setTimeout(function() {
             var currentComment = addCollectionController.get("commentObject").get('comments').objectAt(0).get("content");
-            equal(currentComment, "good", "set thumbnail url successful");
+            equal(currentComment, "good", " add Comment successful");
             start();
         }, 1000);
 
@@ -152,7 +158,7 @@ test("addCollectionController", function() {
             addCollectionController.set("collections", model.get("collections"));
             var checkInput = addCollectionController.checkInput("sdfgsdfgsdf");
 
-            equal(checkInput, true, "set ee url successful");
+            equal(checkInput, true, "check Input a successful");
             start();
         }, 1000);
     });
@@ -163,20 +169,20 @@ test("addCollectionController", function() {
             addCollectionController.set("collections", model.get("collections"));
             var checkInput = addCollectionController.checkInput("Trends");
 
-            equal(checkInput, true, "set sss url successful");
+            equal(checkInput, true, "check Input b successful");
             start();
         }, 1000);
     });
-    test("asynchronous test for checkInput : one second later!", function() {
+    test(" test for checkInput : one second later!", function() {
 
         var checkInput = addCollectionController.checkInput(null);
-        equal(checkInput, false, "set cc url successful");
+        equal(checkInput, false, "check Input c successful");
     });
 
-    test("asynchronous test for checkInput : one second later!", function() {
+    test(" test for checkInput : one second later!", function() {
 
         var checkInput = addCollectionController.checkInput("");
-        equal(checkInput, false, "set bb url successful");
+        equal(checkInput, false, "check Input d successful");
     });
 
     module("group isTitleNotExist");
@@ -186,7 +192,7 @@ test("addCollectionController", function() {
         setTimeout(function() {
             addCollectionController.set("collections", model.get("collections"));
             var isTitleNotExist = addCollectionController.isTitleNotExist("Trends");
-            equal(isTitleNotExist, true, "set title url successful");
+            equal(isTitleNotExist, true, "isTitleNotExist exist successful");
             start();
         }, 1000);
     });
@@ -197,7 +203,7 @@ test("addCollectionController", function() {
         setTimeout(function() {
             addCollectionController.set("collections", model.get("collections"));
             var isTitleNotExist = addCollectionController.isTitleNotExist("Trenddds");
-            equal(isTitleNotExist, true, "set uyuyu url successful");
+            equal(isTitleNotExist, true, "isTitleNotExist not eixt successful");
             start();
         }, 1000);
     });

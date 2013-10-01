@@ -26,9 +26,9 @@ test("collectionController", function() {
         var titleResult = collection.get("title");
         var descResult = collection.get("desc");
         var coverResult = collection.get("cover");
-        equal(title, titleResult, " title successful");
-        equal(desc, descResult, " desc successful");
-        equal(cover, coverResult, " cover successful");
+        equal(title, titleResult, "getCreateCollection a title successful");
+        equal(desc, descResult, "getCreateCollection a desc successful");
+        equal(cover, coverResult, " getCreateCollection a cover successful");
     });
     test("getCreateCollection b", function()
     {
@@ -40,9 +40,9 @@ test("collectionController", function() {
         var titleResult = collection.get("title");
         var descResult = collection.get("desc");
         var coverResult = collection.get("cover");
-        equal(title, titleResult, " title successful");
-        equal("Add a short description to your Collection", descResult, " desc successful");
-        equal(cover, coverResult, " cover successful");
+        equal(title, titleResult, " getCreateCollection b title successful");
+        equal("Add a short description to your Collection", descResult, " getCreateCollection b desc successful");
+        equal(cover, coverResult, " getCreateCollection b cover successful");
     });
 
 
@@ -53,20 +53,20 @@ test("collectionController", function() {
     {
         var title = CollectionController.checkingValidInput("http://trendsideas.com/profiles/tom auckland nez zeanland");
         var titleResult = "http://trendsideas.com/profiles/tom-auckland-nez-zeanland";
-        equal(title, titleResult, "checking ValidInput successful");
+        equal(title, titleResult, "checking ValidInput a  successful");
     });
     test("checkingValidInput ", function()
     {
         var title = "";
         var titleResult = CollectionController.checkingValidInput(title);
-        equal(title, titleResult, "checking ValidInput null successful");
+        equal(title, titleResult, "checking ValidInput b  successful");
     });
     test("checkingValidInput ", function()
     {
         var title = null;
         ;
         var titleResult = CollectionController.checkingValidInput(title);
-        equal(title, titleResult, "checking ValidInput null successful");
+        equal(title, titleResult, "checking ValidInput c successful");
     });
 
 
@@ -95,9 +95,9 @@ test("collectionController", function() {
         var descResult = newRecord.get("desc");
         var idResult = newRecord.get("id");
         var titleResult = newRecord.get("title");
-        equal(title, titleResult, "title successful");
-        equal(id, idResult, "id successful");
-        equal(desc, descResult, "desc successful");
+        equal(title, titleResult, "getUpdateCollection title successful");
+        equal(id, idResult, "getUpdateCollection id successful");
+        equal(desc, descResult, "getUpdateCollection desc successful");
     });
 
 

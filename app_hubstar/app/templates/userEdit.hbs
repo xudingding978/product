@@ -48,7 +48,7 @@
                     </div>
 
                     <div style="margin: auto;width: 180px;float: right;">
-                        <span class="new-btn green-btn " {{action cropButton}} ><k class='icon-save'> &nbsp;Upload</span>
+                        <span  id="photoUploadbtn" class="disabled-btn" {{action cropButton}} ><k class='icon-save '> &nbsp;Upload</span>
                         <span class='new-btn flip-back'{{action userDashboardBackButton }}><k class='icon-group'> &nbsp;</k>Back</span>
                     </div>
 
@@ -291,7 +291,7 @@
                                                         </div>
                                                     </div>-->
 
-                                <div class="container" style="width: 850px;height: 350px;margin: 10px auto; text-align: center">
+                                <div id="crop-container" style="width: 850px;height: 350px;margin: 10px auto; text-align: center">
                                     <div class="contr"></div>
                                     <canvas id="panel" class="crop-canvas" style="height: 100%;width: auto;margin: 0 auto; max-width: 850px;"><img  {{bindAttr src= "newStyleImageSource"}} ></canvas>
 

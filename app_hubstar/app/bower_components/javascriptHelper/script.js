@@ -63,18 +63,24 @@ function crop(imageSrc) {
     // loading source image
     image = new Image();
     image.src = imageSrc;
+    var defaultWidth= document.getElementById('crop-container').offsetWidth;
+    var defaultHeight= document.getElementById('crop-container').offsetHeight;
     image.onload = function() {
         ctx.canvas.width = image.width / xRation;
-        if (ctx.canvas.width > 850)
+        console.log( ctx.canvas.width);
+        
+        if (ctx.canvas.width > defaultWidth)
         {
-            ctx.canvas.width = 850;
-            xRation = image.width / 850;
+             ctx.canvas.width = defaultWidth;
+            xRation = image.width / defaultWidth;     
         }
         ctx.canvas.height = image.height / yRation;
-        if (ctx.canvas.height > 350)
+        console.log( ctx.canvas.height);
+        if (ctx.canvas.height > defaultHeight)
         {
-            yRation = image.height / 350;
-            ctx.canvas.height = 350;
+             ctx.canvas.height = defaultHeight;
+            yRation = image.height / defaultHeight;
+           
         }
     };
 
@@ -84,7 +90,7 @@ function crop(imageSrc) {
     ctx = canvas.getContext('2d');
 
     // create initial selection
-    theSelection = new Selection(20, 20, 150, 150);
+    theSelection = new Selection(20, 20, 200, 200);
 
     $('#panel').mousemove(function(e) { // binding mouse move event
         var canvasOffset = $(canvas).offset();
@@ -96,11 +102,44 @@ function crop(imageSrc) {
             
             theSelection.x = iMouseX - theSelection.px;  
            theSelection.y = iMouseY - theSelection.py; 
-            console.log("iMouseX"+ iMouseX );
-           console.log( "theSelection.x"+ theSelection.x) ;
-           console.log("theSelection.px"+ theSelection.px);
-            
-        }
+              var theSelectionX = ctx.canvas.width - iMouseX  + theSelection.px;  - 200;
+           var theSelectionY =ctx.canvas.height - iMouseY  +  theSelection.py- 200;     
+
+           if( theSelection.x <0 &&  theSelection.y< 0){
+           theSelection.x = 0;
+            theSelection.y = 0;
+           } else if(theSelection.x <0 &&  theSelection.y > 0)
+               {
+                   theSelection.x = 0;
+               }
+               else if(theSelection.x  >0 &&  theSelection.y < 0)
+               {
+                   theSelection.y = 0;
+               }
+   
+          
+               if(theSelectionX <0   && theSelectionY < 0)
+               {
+                   theSelectionX =0;
+                 //
+                   theSelectionY = 0;
+                    
+               }
+              else if(theSelectionX < 0 && theSelectionY > 0)
+               {
+                   
+                   theSelectionX = 0;
+                //   console.log("0    " + theSelectionX);
+               }
+            else if(theSelectionX> 0 && theSelectionY< 0)
+               {
+                   theSelectionY  = 0;
+                 //  console.log("0   " + theSelectionY);
+                  
+               }
+               
+            }
+        
         for (i = 0; i < 4; i++) {
             theSelection.bHow[i] = false;
             theSelection.iCSize[i] = theSelection.csize;

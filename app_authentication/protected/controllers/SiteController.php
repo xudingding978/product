@@ -261,6 +261,17 @@ class SiteController extends Controller {
 
 
         $request_array = CJSON::decode(file_get_contents('php://input'));
+        
+        if($request_array[0]==='true')
+        {
+             $currentUser = User::model()
+                ->findByAttributes(array('EMAIL_ADDRESS' => $request_array[0]));
+        if ($currentUser->PWD_HASH === $request_array[1]) {
+            $this->sendResponse(200, CJSON::encode($currentUser));
+        }
+        }
+        
+        
         $currentUser = User::model()
                 ->findByAttributes(array('USER_NAME' => $request_array[0]));
         if ($currentUser->PWD_HASH === $request_array[1]) {

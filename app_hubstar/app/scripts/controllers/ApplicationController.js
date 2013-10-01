@@ -247,22 +247,15 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var loginInfo = [this.get('username'), this.get('password'),this.validateEmail(this.get('username'))];
         var that = this;
          requiredBackEnd('site', 'login', loginInfo, 'POST', function(params) {
-        if(params===1)
-        {
+       
              that.get('controllers.applicationFeedback').statusObserver(null, "email not exits");
-        }
-        else if(params===0)
-            {
-                 that.get('controllers.applicationFeedback').statusObserver(null, "you have already register with social media account");
-            }
-           else{ 
-        requiredBackEnd('site', 'login', loginInfo, 'POST', function(params) {
+
+       
             if (that.get('password') === params.PWD_HASH) {
                 localStorage.loginStatus = params.COUCHBASE_ID;
                 that.transitionToRoute('search');
             }
-        });
-           }
+
          });
         
     },

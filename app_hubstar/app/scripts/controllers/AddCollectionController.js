@@ -48,12 +48,9 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
             this.addCollection(collection, content);
 
             this.set("commentObject", HubStar.Mega.find(this.get("objectID")));
-
             this.addComment();
 
-
-
-            collection.set('optional', localStorage.loginStatus+"222");
+            collection.set('optional', localStorage.loginStatus);
             collection.set('type', 'user');
             collection.store.save();
             this.get('controllers.applicationFeedback').statusObserver(null, "Saved photo successfully");

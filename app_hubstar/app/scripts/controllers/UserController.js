@@ -200,7 +200,7 @@ HubStar.UserController = Ember.Controller.extend({
     userDashboardBackButton: function() {
         if (this.get('is_click') === true) {
             this.set('is_click', false);
-
+            this.setUser();
             $('#user-board_right_front').show();
             $('#user-board_right_back').hide();
             $('#change_profile').show();
@@ -437,7 +437,7 @@ HubStar.UserController = Ember.Controller.extend({
             HubStar.store.save();
         }
         else {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please check you have filled right Link!","warnning");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please check you have filled right links!","warnning");
         }
     },
     isSociallinkInputValid: function() {

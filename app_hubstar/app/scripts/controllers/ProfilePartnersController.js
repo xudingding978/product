@@ -144,7 +144,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
             } else {
                 if (temp.indexOf(client_id) !== -1) {
 
-                    this.get('controllers.applicationFeedback').statusObserver(null, "this partner already in your list");
+                    this.get('controllers.applicationFeedback').statusObserver(null, "This partner already in your list");
                 } else {
                     this.set('partnerID', client_id + "," + temp);
                     this.pushUptoBackend(client_id);
@@ -154,7 +154,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
             this.get('controllers.profile').paternsStatistics(this.get('content').get("length"));
 
         } else {
-            this.get('controllers.applicationFeedback').statusObserver(null, "please input valid url!!!");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please input valid url");
         }
     },
     pushUptoBackend: function(client_id)

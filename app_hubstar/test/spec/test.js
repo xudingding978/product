@@ -48,6 +48,7 @@ test("testTwoController", function() {
 //});
 
 
+<<<<<<< HEAD
 //describe('Array', function(){
 //    describe('#indexOf()', function(){
 //        it('should return -1 when the value is not present', function(){
@@ -92,6 +93,17 @@ test("testTwoController", function() {
 //;
 //
 //
+=======
+     setTimeout(function() {
+        $("a:contains('Logout')").click();
+    }, 1000);
+
+
+}
+;
+
+
+>>>>>>> b668a24fd87eb6c2a74f2bf0921ba74c10952a0d
 //describe("Platform  bar", function() {
 //    var controller;
 //    var topics;

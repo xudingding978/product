@@ -29,6 +29,7 @@ HubStar.CollectionController = Ember.Controller.extend({
 
             }
         }
+
         return collection;
 
     },
@@ -53,11 +54,14 @@ HubStar.CollectionController = Ember.Controller.extend({
                 }
             }
             if (!isExsinting) {
-                this.get('controllers.applicationFeedback').statusObserver(null, "This Collection is already exsiting!!!");
+                this.get('controllers.applicationFeedback').statusObserver(null, "This Collection is already exsiting");
             }
         }
         return isExsinting;
     }, 
+            
+ 
+            
         specialCharactersChecking: function(str) {
         var re = /^[a-zA-Z-][a-zA-Z0-9-]*$/;
         return re.test(str);
@@ -69,7 +73,7 @@ HubStar.CollectionController = Ember.Controller.extend({
 
         var desc = "";
         if (selectedCollection.get('desc') !== undefined) {
-            desc = this.checkingValidInput(selectedCollection.get('desc'));
+            desc = selectedCollection.get('desc');
         }
 
         var id = this.checkingValidInput(selectedCollection.get('id'));

@@ -7000,6 +7000,7 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
     border-radius: 0 10px 10px 0;
     background-color: rgba(50,50,50,0.4);
     box-shadow: 0 0 10px #fff;
+    height:256px;
 }
 #masonry_user_container
 {
@@ -7499,6 +7500,10 @@ div.search-loading-invisible{
     font-weight: bold;
     font-size: 13px;
     list-style: none;
+}
+
+.edit-object-ul > .ite{
+    padding:6px 15px 6px 30px;
 }
 
 .ite:hover{
@@ -9160,6 +9165,7 @@ div.loading-visible{
     -moz-border-radius: 5px;
     border-radius: 5px;
     overflow: hidden;
+    margin-bottom:12px;
 }
 
 .object_username{
@@ -12506,9 +12512,15 @@ div.register-btn-small{
     background-clip:border-box;
 
 }
+<<<<<<< HEAD
 
 .register-btn:hover, .register-btn:focus, .back-btn:hover, .back-btn:focus{background-color: #f3f3f3;}
 
+=======
+
+.register-btn:hover, .register-btn:focus, .back-btn:hover, .back-btn:focus{background-color: #f3f3f3;}
+
+>>>>>>> 6036025d5d705085697f3cd4403895cb6e263364
 .register-btn:active, .back-btn:active{background-color: #08c;color: #fff;}
 
 .social-active{opacity:1;}

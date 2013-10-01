@@ -29,7 +29,7 @@ class Controller extends CController {
     }
 
     protected function couchBaseConnection_production() {
-        return new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "production", true);
+        return new Couchbase("cb1.hubsrv.com:8091", "", "", "production", true);
     }
 
     protected function getS3Connection($domain) {

@@ -36,7 +36,6 @@ Selection.prototype.draw = function() {
 
     if (this.w > 0 && this.h > 0) {
         ctx.drawImage(image, this.x * xRation, this.y * yRation, this.w * xRation, this.h * yRation, this.x, this.y, this.w, this.h);
-        //ctx.drawImage(image, 2,2, 2, 2, 20, 20, 20, 20);
     }
 
     // draw resize cubes
@@ -110,46 +109,22 @@ function crop(imageSrc) {
         iMouseY = Math.floor(e.pageY - canvasOffset.top);
 
         // in case of drag of whole selector
-        if (theSelection.bDragAll)
+        if (theSelection.bDragAll) {
             theSelection.x = iMouseX - theSelection.px;
-        theSelection.y = iMouseY - theSelection.py;
-//            var theSelectionX = defaultWidth - iMouseX + theSelection.px -200;
-//            var theSelectionY = defaultHeight - iMouseY + theSelection.py - 200;
+            theSelection.y = iMouseY - theSelection.py;
 
-        if (theSelection.x < 0 && theSelection.y < 0) {
-            theSelection.x = 0;
-            theSelection.y = 0;
-        } else if (theSelection.x < 0 && theSelection.y > 0)
-        {
-            theSelection.x = 0;
+            if (theSelection.x < 0 && theSelection.y < 0) {
+                theSelection.x = 0;
+                theSelection.y = 0;
+            } else if (theSelection.x < 0 && theSelection.y > 0)
+            {
+                theSelection.x = 0;
+            }
+            else if (theSelection.x > 0 && theSelection.y < 0)
+            {
+                theSelection.y = 0;
+            }
         }
-        else if (theSelection.x > 0 && theSelection.y < 0)
-        {
-            theSelection.y = 0;
-        }
-
-        if (theSelectionX < 0 && theSelectionY < 0)
-        {
-            theSelectionX = 0;
-            //
-            theSelectionY = 0;
-
-        }
-        else if (theSelectionX < 0 && theSelectionY > 0)
-        {
-
-            theSelectionX = 0;
-            //   console.log("0    " + theSelectionX);
-        }
-        else if (theSelectionX > 0 && theSelectionY < 0)
-        {
-            theSelectionY = 0;
-            //  console.log("0   " + theSelectionY);
-
-        }
-
-        }
-
 
         for (i = 0; i < 4; i++) {
             theSelection.bHow[i] = false;

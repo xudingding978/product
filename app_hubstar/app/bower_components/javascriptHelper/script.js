@@ -113,9 +113,7 @@ function crop(imageSrc) {
         if (theSelection.bDragAll)
             theSelection.x = iMouseX - theSelection.px;
         theSelection.y = iMouseY - theSelection.py;
-//            var theSelectionX = defaultWidth - iMouseX + theSelection.px -200;
-//            var theSelectionY = defaultHeight - iMouseY + theSelection.py - 200;
-
+        
         if (theSelection.x < 0 && theSelection.y < 0) {
             theSelection.x = 0;
             theSelection.y = 0;
@@ -128,30 +126,10 @@ function crop(imageSrc) {
             theSelection.y = 0;
         }
 
-        if (theSelectionX < 0 && theSelectionY < 0)
-        {
-            theSelectionX = 0;
-            //
-            theSelectionY = 0;
-
-        }
-        else if (theSelectionX < 0 && theSelectionY > 0)
-        {
-
-            theSelectionX = 0;
-            //   console.log("0    " + theSelectionX);
-        }
-        else if (theSelectionX > 0 && theSelectionY < 0)
-        {
-            theSelectionY = 0;
-            //  console.log("0   " + theSelectionY);
-
-        }
-
-        }
+       
 
 
-        for (i = 0; i < 4; i++) {
+        for(i = 0; i < 4; i++) {
             theSelection.bHow[i] = false;
             theSelection.iCSize[i] = theSelection.csize;
         }

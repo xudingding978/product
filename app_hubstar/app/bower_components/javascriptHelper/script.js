@@ -3,8 +3,8 @@ var canvas, ctx;
 var image;
 var iMouseX, iMouseY = 1;
 var theSelection;
-var xRation =1;
-var yRation =1;
+var xRation;
+var yRation;
 var defaultWidth;
 var defaultHeight;
 
@@ -68,7 +68,9 @@ function crop(imageSrc) {
     // loading source image
     image = new Image();
     image.src = imageSrc;
-
+    
+    xRation=1;
+     yRation=1;
     defaultWidth = document.getElementById('crop-container').offsetWidth;
     defaultHeight = document.getElementById('crop-container').offsetHeight;
 
@@ -77,7 +79,8 @@ function crop(imageSrc) {
          //     yRation =2;
             ctx.canvas.width = image.width/xRation;
             ctx.canvas.height = image.height/yRation;
- 
+ console.log(xRation);
+  console.log(yRation);
         if (ctx.canvas.width > defaultWidth)
         {
              ctx.canvas.width = defaultWidth;
@@ -321,7 +324,7 @@ function getResults() {
     temp_canvas.width = theSelection.w* xRation;
     temp_canvas.height = theSelection.h* yRation;
     temp_ctx.drawImage(image, theSelection.x * xRation, theSelection.y * yRation, theSelection.w * xRation, theSelection.h * yRation, 0, 0, theSelection.w* xRation,  theSelection.h* yRation);
-   console.log(theSelection.w * xRation,theSelection.h * yRation);
+   console.log( xRation, yRation);
     var vData = temp_canvas.toDataURL();
     //$('#crop_result').attr('src', vData);
     //  $('#results h2').text('Well done, we have prepared our cropped image, now you can save it if you wish');

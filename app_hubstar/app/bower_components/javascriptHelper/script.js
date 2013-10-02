@@ -79,15 +79,15 @@ function crop(imageSrc) {
          //     yRation =2;
             ctx.canvas.width = image.width/xRation;
             ctx.canvas.height = image.height/yRation;
- console.log(xRation);
-  console.log(yRation);
+ //console.log(xRation);
+  //console.log(yRation);
         if (ctx.canvas.width > defaultWidth)
         {
              ctx.canvas.width = defaultWidth;
           //   ctx.canvas.height = image.height/2;
             xRation = image.width/ ctx.canvas.width ;
             //ctx.canvas.width = image.width/xRation;   
-            console.log(xRation);
+      //      console.log(xRation);
         }
 
       
@@ -97,7 +97,7 @@ function crop(imageSrc) {
             ctx.canvas.height = defaultHeight;
             yRation = image.height/ ctx.canvas.height ;
            
-            console.log(yRation);
+    //        console.log(yRation);
 
         }
     };
@@ -324,7 +324,7 @@ function getResults() {
     temp_canvas.width = theSelection.w* xRation;
     temp_canvas.height = theSelection.h* yRation;
     temp_ctx.drawImage(image, theSelection.x * xRation, theSelection.y * yRation, theSelection.w * xRation, theSelection.h * yRation, 0, 0, theSelection.w* xRation,  theSelection.h* yRation);
-   console.log( xRation, yRation);
+  // console.log( xRation, yRation);
     var vData = temp_canvas.toDataURL();
     //$('#crop_result').attr('src', vData);
     //  $('#results h2').text('Well done, we have prepared our cropped image, now you can save it if you wish');

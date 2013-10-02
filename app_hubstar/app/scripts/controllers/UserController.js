@@ -778,8 +778,8 @@ HubStar.UserController = Ember.Controller.extend({
                         that.set('CurrentImageSize', "");
                     }
                     else if (width >800 || height > 250) { 
-                        console.log(width);
-                console.log(height);
+           //             console.log(width);
+          //      console.log(height);
                         
                         $('#photoUploadbtn').removeClass();
                         $("#photoUploadbtn").toggleClass("new-btn green-btn");
@@ -801,8 +801,8 @@ HubStar.UserController = Ember.Controller.extend({
                     else if ( width > 150 ||  height > 150) {
                         $('#photoUploadbtn').removeClass();
                         $("#photoUploadbtn").toggleClass("new-btn green-btn");
-                         console.log(width);
-                console.log(height);
+               //          console.log(width);
+             //   console.log(height);
                     }
                 }
 
@@ -843,8 +843,8 @@ HubStar.UserController = Ember.Controller.extend({
             getImageWidth(src, function(width, height) {
                 that.set('currentWidth', width);
                 that.set('currentHeight', height);
-                console.log("source"+ width);
-                console.log("source"+height);
+   //             console.log("source"+ width);
+   //             console.log("source"+height);
                 var data = {"RequireIamgeType": that.get('UploadImageMode')};
                 //             console.log(that.get('newStyleImageSource') );
                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {

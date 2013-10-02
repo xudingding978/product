@@ -2127,16 +2127,16 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
             Ember.run.later(function() {
 
                 $('.fresh-message').show().animate({
-                    top: 20
+                    top: 100
                 }, 400);
                 $('.fresh-profile-pic').show().animate({
-                    top: 5
+                    top: 85
                 }, 400);
                 $('.fresh-message').show().delay(5000).animate({
-                    top: -85
+                    top: -5
                 }, 400);
                 $('.fresh-profile-pic').show().delay(5000).animate({
-                    top: -110
+                    top: -30
                 }, 400);
 
 
@@ -3940,6 +3940,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
         if (this.setFileSize(size))
         {
             var photoName = name.replace(/[)\(]/gi, ''); 
+            photoName = photoName.replace(/\s/g,'_');    
             var testID = createGuid();
             var target = getTarget(e, "pural");
             var src = target.result;
@@ -3954,7 +3955,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                 "photo_type": type,
                 "photo_keywords": keywords});
             mega.get("photo").pushObject(file);
-            var that = this;           
+            var that = this;      
             mega.addObserver('isSaving', function() {
                 if (mega.get('isSaving')) {
                     $('.' + file.get('photo_source_id')).attr("style", "display:block");

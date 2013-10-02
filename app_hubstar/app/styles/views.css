@@ -539,13 +539,13 @@
     color: white;
     text-align: center;
     top: 42%;
-    padding:10px 15px;
+    padding:0 15px;
     z-index: 2;
 
     word-wrap: normal;
     line-height: 24px;
     
-    max-height:80px;
+    max-height:72px;
     overflow:auto;
 }
 

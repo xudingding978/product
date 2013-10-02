@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="description" content="Your online resource for homes, products, services & ideas">
-        
+
         <!--facebook sharing -->
         <meta property="og:title" content="Trends Global Web Platform" />
         <meta property="og:site_name" content="Trends Global Web Platform"/>
@@ -11,7 +11,7 @@
         <meta property="og:image" content="http://s3.hubsrv.com/trendsideas.com/profiles/commercial-design-trends/profile_pic.jpg" /> 
         <meta property="og:description" content="Your online resource for homes, products, services & ideas" /> 
         <meta property="og:url" content="http://beta.trendsideas.com" />
-     
+
         <title>Trends Global Web Platform</title>
 
         <!-- build:css styles/main.css -->
@@ -30,8 +30,8 @@
         <link media="screen, projection" rel="stylesheet" type="text/css" href="/styles/_topnavbar.css"/>
         <link media="screen, projection" rel="stylesheet" type="text/css" href="/styles/_footer.css"/>
         <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-        <!-- GoSquared Analytics section -->
-   
+
+
         <link rel="shortcut icon" href="/images/favicon.ico" />
         <link rel="stylesheet" href="styles/profile-css.css" type="text/css">
         <link rel="stylesheet" href="http://yui.yahooapis.com/2.9.0/build/reset/reset-min.css">
@@ -41,13 +41,15 @@
     </head>
     <body>
         <!-- build:js scripts/components.js -->
+        <script src="bower_components/wysihtml5/dist/wysihtml5-0.3.0.js"></script>
+        <script src="bower_components/wysihtml5/parser_rules/advanced.js"></script>
         <script src="bower_components/javascriptHelper/browserdetecter.js"></script>
         <script src="bower_components/jquery/jquery.js"></script>
         <script src="bower_components/handlebars/handlebars.runtime.js"></script>
         <script src="bower_components/jquery.ui/jquery-ui-1.9.2.custom.min.js"></script>
         <script src="bower_components/jquery.masonry/jquery.masonry.min.js"></script>
         <script src="bower_components/bootstrap/bootstrap.min.js"></script>
-        <script src="bower_components/ember/ember-1.0.0-rc.6.1.js"></script>
+        <script src="bower_components/ember/ember-1.0.0-rc.6.1.min.js"></script>
         <script src="bower_components/ember-data-shim/ember-data.js"></script>
         <script src="bower_components/moment/moment.js"></script>
         <script src="bower_components/javascriptHelper/javascriptHelper.js"></script>
@@ -57,8 +59,28 @@
         <script src="bower_components/wysihtml5/parser_rules/advanced.js" ></script>
 
         <script src="bower_components/wysihtml5/dist/wysihtml5-0.3.0.js" ></script>
-       <!-- GoSquared Analytics section -->
-         <script src="scripts/goSquared.js"></script>
+
+
+        <!-- GoSquared Analytics section -->
+        <script type="text/javascript">
+            var GoSquared = {};
+            GoSquared.acct = "GSN-987901-W";
+            (function(w) {
+                function gs() {
+                    w._gstc_lt = +new Date;
+                    var d = document, g = d.createElement("script");
+                    g.type = "text/javascript";
+                    g.src = "//d1l6p2sc9645hc.cloudfront.net/tracker.js";
+                    var s = d.getElementsByTagName("script")[0];
+                    s.parentNode.insertBefore(g, s);
+                }
+                w.addEventListener ?
+                        w.addEventListener("load", gs, false) :
+                        w.attachEvent("onload", gs);
+            })(window);
+        </script>
+
+
         <!-- endbuild -->
 
         <!-- build:js(.tmp) scripts/templates.js -->
@@ -73,6 +95,32 @@
 
 
     </body>
+    <div id="fb-root"></div>
+    <script>
+        window.fbAsyncInit = function() {
+            // init the FB JS SDK
+            FB.init({
+                appId: '358102574293594', // App ID from the app dashboard
+                channelUrl: '//WWW.YOUR_DOMAIN.COM/channel.html', // Channel file for x-domain comms
+                status: true, // Check Facebook Login status
+                xfbml: true                                  // Look for social plugins on the page
+            });
+
+            // Additional initialization code such as adding Event Listeners goes here
+        };
+
+        // Load the SDK asynchronously
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/all.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
 </html>
 
 

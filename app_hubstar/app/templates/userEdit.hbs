@@ -79,6 +79,7 @@
                             </td>
                         </tr>
 
+
                         <tr>
                             <td>Name*:</td>
                             <td>
@@ -95,215 +96,287 @@
                             </td>
                         </tr>
 
+
                         <tr>
-                            <td>Email:</td>
+                            <td>Name*:</td>
                             <td>
+
                                 <div style="display: block;">
 
                                     <div  id="email" class="disabled-btn" style="margin: 0;width: 100%;top:0">
+                                        {{email}}
+                                    </div>
 
-                                        <tr>
-                                            <td>About me:</td>
-                                            <td>
-                                                <div style="display: block;">
-                                                    <div  id="about_me" style="margin: 0;width: 100%; height:100px;">
-                                                        {{view Ember.TextArea valueBinding="about_me" class="no-resize" placeholder="Say something interesting about yourself (Maximum 600 characters)." }}
-                                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>About me:</td>
+                            <td>
+                                <div style="display: block;">
+                                    <div  id="about_me" style="margin: 0;width: 100%; height:100px;">
+                                        {{view Ember.TextArea valueBinding="about_me" class="no-resize" placeholder="Say something interesting about yourself (Maximum 600 characters)." }}
+                                    </div>
+                                </div>
+                            </td>
+                        </tr> 
+
+                        <tr>
+                            <td> Location:</td>
+                            <td>
+                                <div style="display: block;" >
+                                    <div id="location"  style="margin: 0;width: 100%;">
+                                        {{input type="text" value=location }}
+                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+
+            </div>
+            </td>
+            </tr>
+
+            <tr>
+                <td>Email:</td>
+                <td>
+                    <div style="display: block;">
+
+                        <div  id="email" class="disabled-btn" style="margin: 0;width: 100%;top:0">
+
+                            <tr>
+                                <td>About me:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div  id="about_me" style="margin: 0;width: 100%; height:100px;">
+                                            {{view Ember.TextArea valueBinding="about_me" class="no-resize" placeholder="Say something interesting about yourself (Maximum 600 characters)." }}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr> 
+
+                            <tr>
+                                <td> Location:</td>
+                                <td>
+                                    <div style="display: block;" >
+                                        <div id="location"  style="margin: 0;width: 100%;">
+                                            {{input type="text" value=location }}
+                                        </div>
+                                    </div>
+
+                                </td>
+                            </tr>
+
+
+                            </tbody>
+                            </table>
+
+                            <div style="right: 0;margin:10px auto 0;width: 150px;">
+                                <span class="new-btn green-btn" {{action saveUpdate}}>Save</span>
+                                <span class='new-btn flip-back' {{action userDashboardBackButton }}><k class='icon-group'> &nbsp;</k>Back</span>
+                            </div>
+
+                        </div>
+
+                        <div class="tab-pane" id="tab3">
+                            <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: auto;">SOCIAL LINKS</div>
+
+                            <table class='profilesnew-table' style="padding-right: 147px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 10px auto;">
+                                <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
+
+                                    <tr>
+                                        <td>Facebook:</td>
+                                        <td>
+                                            <div style="display: block;">
+                                                <div  id="facebook" style="margin: 0;width: 100%;">
+                                                    {{input type="text" value=facebook placeholder="eg:www.facebook.com"}}
                                                 </div>
-                                            </td>
-                                        </tr> 
+                                            </div>
+                                        </td>
+                                    </tr>
 
-                                        <tr>
-                                            <td> Location:</td>
-                                            <td>
-                                                <div style="display: block;" >
-                                                    <div id="location"  style="margin: 0;width: 100%;">
-                                                        {{input type="text" value=location }}
-                                                    </div>
+                                    <tr>
+                                        <td>Twitter:</td>
+                                        <td>
+                                            <div style="display: block;">
+                                                <div  id="twitter" style="margin: 0;width: 100%;">
+                                                    {{input type="text" value=twitter placeholder="eg:www.twitter.com"}}
                                                 </div>
+                                            </div>
+                                        </td>
+                                    </tr>
 
-                                            </td>
-                                        </tr>
+                                    <tr>
+                                        <td>Google+:</td>
+                                        <td>
+                                            <div style="display: block;">
+                                                <div id="googleplus"  style="margin: 0;width: 100%;">
+                                                    {{input type="text" value=googleplus placeholder="eg:plus.google.com"}}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
 
-
-                                        </tbody>
-                                        </table>
-
-                                        <div style="right: 0;margin:10px auto 0;width: 150px;">
-                                            <span class="new-btn green-btn" {{action saveUpdate}}>Save</span>
-                                            <span class='new-btn flip-back' {{action userDashboardBackButton }}><k class='icon-group'> &nbsp;</k>Back</span>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="tab-pane" id="tab3">
-                                        <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: auto;">SOCIAL LINKS</div>
-
-                                        <table class='profilesnew-table' style="padding-right: 147px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 10px auto;">
-                                            <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
-
-                                                <tr>
-                                                    <td>Facebook:</td>
-                                                    <td>
-                                                        <div style="display: block;">
-                                                            <div  id="facebook" style="margin: 0;width: 100%;">
-                                                                {{input type="text" value=facebook placeholder="eg:www.facebook.com"}}
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>Twitter:</td>
-                                                    <td>
-                                                        <div style="display: block;">
-                                                            <div  id="twitter" style="margin: 0;width: 100%;">
-                                                                {{input type="text" value=twitter placeholder="eg:www.twitter.com"}}
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>Google+:</td>
-                                                    <td>
-                                                        <div style="display: block;">
-                                                            <div id="googleplus"  style="margin: 0;width: 100%;">
-                                                                {{input type="text" value=googleplus placeholder="eg:plus.google.com"}}
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>Pinterest:</td>
-                                                    <td>
-                                                        <div style="display: block;">
-                                                            <div  id="pinterest"  style="margin: 0;width: 100%;">
-                                                                {{input type="text" value=pinterest placeholder="eg:www.pinterest.com"}}
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Linkedin:</td>
-                                                    <td>
-                                                        <div style="display: block;">
-                                                            <div id="linkedin"  style="margin: 0;width: 100%;">
-                                                                {{input type="text" value=linkedin placeholder="eg:www.linkedin.com"}}
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                    <tr>
+                                        <td>Pinterest:</td>
+                                        <td>
+                                            <div style="display: block;">
+                                                <div  id="pinterest"  style="margin: 0;width: 100%;">
+                                                    {{input type="text" value=pinterest placeholder="eg:www.pinterest.com"}}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Linkedin:</td>
+                                        <td>
+                                            <div style="display: block;">
+                                                <div id="linkedin"  style="margin: 0;width: 100%;">
+                                                    {{input type="text" value=linkedin placeholder="eg:www.linkedin.com"}}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
 
 
-                                                <tr>
-                                                    <td>Youtube:</td>
-                                                    <td>
-                                                        <div style="display: block;">
-                                                            <div  id="youtube" style="margin: 0;width: 100%;">
-                                                                {{input type="text" value=youtube placeholder="eg:www.youtube.com" }}
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                    <tr>
+                                        <td>Youtube:</td>
+                                        <td>
+                                            <div style="display: block;">
+                                                <div  id="youtube" style="margin: 0;width: 100%;">
+                                                    {{input type="text" value=youtube placeholder="eg:www.youtube.com" }}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
 
-                                            </tbody>
-                                        </table>
+                                </tbody>
+                            </table>
 
-                                        <div style="right: 0;margin: 30px auto 0;width: 150px;">
-                                            <span class="new-btn green-btn" {{action saveUpdate}} >Save</span>
-                                            <span class='new-btn flip-back'{{action userDashboardBackButton }}><k class='icon-group'> &nbsp;</k>Back</span>
-                                        </div>
+                            <div style="right: 0;margin: 30px auto 0;width: 150px;">
+                                <span class="new-btn green-btn" {{action saveUpdate}} >Save</span>
+                                <span class='new-btn flip-back'{{action userDashboardBackButton }}><k class='icon-group'> &nbsp;</k>Back</span>
+                            </div>
 
-                                    </div>
-                                    {{#unless identifier}}
-                                    <div class="tab-pane" id="tab4">
-                                        <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: auto;">SECURITY</div>
+                        </div>
+                        {{#unless identifier}}
+                        <div class="tab-pane" id="tab4">
+                            <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: auto;">SECURITY</div>
 
-                                        <table class='profilesnew-table' style="padding-right: 147px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
-                                            <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
+                            <table class='profilesnew-table' style="padding-right: 147px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
+                                <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
 
-                                                <tr>
-                                                    <td>Old Password:</td>
-                                                    <td>
-                                                        <div style="display: block;">
-                                                            <div id="password"  style="margin: 0;width: 100%;">
-                                                                {{input type="password" }}
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                    <tr>
+                                        <td>Old Password:</td>
+                                        <td>
+                                            <div style="display: block;">
+                                                <div id="password"  style="margin: 0;width: 100%;">
+                                                    {{input type="password" }}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
 
-                                                <tr>
-                                                    <td>New Password:</td>
-                                                    <td>
-                                                        <div style="display: block;">
-                                                            <div   style="margin: 0;width: 100%;">
-                                                                {{input type="password" }}
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                    <tr>
+                                        <td>New Password:</td>
+                                        <td>
+                                            <div style="display: block;">
+                                                <div   style="margin: 0;width: 100%;">
+                                                    {{input type="password" }}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
 
-                                                <tr>
-                                                    <td>Repeat New Password:</td>
-                                                    <td>
-                                                        <div style="display: block;">
-                                                            <div   style="margin: 0;width: 100%;">
-                                                                {{input type="password" }}
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                    <tr>
+                                        <td>Repeat New Password:</td>
+                                        <td>
+                                            <div style="display: block;">
+                                                <div   style="margin: 0;width: 100%;">
+                                                    {{input type="password" }}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
 
-                                            </tbody>
-                                        </table>
+                                </tbody>
+                            </table>
 
-                                        <div style="right: 0;margin: 30px auto 0;width: 150px;">
-                                            <span class="new-btn green-btn" {{action saveUpdate}} >Save</span>
-                                            <span class='new-btn flip-back'{{action userDashboardBackButton }}><k class='icon-group'> &nbsp;</k>Back</span>
-                                        </div>
+                            <div style="right: 0;margin: 30px auto 0;width: 150px;">
+                                <span class="new-btn green-btn" {{action saveUpdate}} >Save</span>
+                                <span class='new-btn flip-back'{{action userDashboardBackButton }}><k class='icon-group'> &nbsp;</k>Back</span>
+                            </div>
 
-                                    </div>
-                                    {{/unless}}       
+                        </div>
+                        {{/unless}}       
 
+                    </div>
+
+
+        </div>
+        {{/view}}
+        {{/if}}
+
+
+
+        {{#if controller.isPhotoEditingMode}}
+        <div class='' style='position:relative;height: 85px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 10px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>
+            <span style="position: relative;display: inline-block;font-size: 40px;margin: 10px 0;vertical-align: top;"><k class='icon-ok-circle'></k></span>
+            <span style="position: relative;width: 87%;display: inline-block;margin: 10px 15px;">
+                <span style='font-size: 20px;display: block;line-height: 25px;'>Croping Time</span>
+                <span style='font-size: 13px;margin: auto;  display: block;line-height: 16px;'></span>
+            </span>
+        </div>
+
+
+        <!--                  <div style="position: relative; margin: auto;height: 520px; width: 690px; overflow: hidden;line-height: 510px;">
+                                <div style="position: relative;margin:3px;text-align: center;overflow: hidden;">
+                                   <img  {{bindAttr src= "newStyleImageSource"}} >
                                 </div>
+                            </div>-->
+
+        <div class="container">
+            <div class="contr">
+
+                <div style="margin: auto;width: 150px;float: right;">
+                    <span class="new-btn green-btn " {{action savePhotoUpdate}} ><k class='icon-save'> &nbsp;Save</span>
+                    <span class='new-btn flip-back'{{action userDashboardBackButton }}><k class='icon-group'> &nbsp;</k>Back</span>
+                </div>
+            </div>
+            <canvas id="panel" width="1000" height="500"></canvas>
+            <div id="results">         
+                <img  {{bindAttr src= "newStyleImageSource"}} >
+            </div>
+        </div>
+        {{/if}}
+    </div>
+
+</td>
+</tr>
+
+</tbody>
+</table>
+
+<div style="right: 0;margin: 30px auto 0;width: 150px;">
+    <span class="new-btn green-btn" {{action saveUpdate}} >Save</span>
+    <span class='new-btn flip-back'{{action userDashboardBackButton }}><k class='icon-group'> &nbsp;</k>Back</span>
+</div>
+
+</div>
+{{/unless}}       
+
+</div>
 
 
-                                </div>
-                                {{/view}}
-                                {{/if}}
-
-
-                                {{#if controller.isPhotoEditingMode}}
-                                <div class='' style='position:relative;height: 85px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 10px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>
-                                    <span style="position: relative;display: inline-block;font-size: 40px;margin: 10px 0;vertical-align: top;"><k class='icon-ok-circle'></k></span>
-                                    <span style="position: relative;width: 87%;display: inline-block;margin: 10px 15px;">
-                                        <span style='font-size: 20px;display: block;line-height: 25px;'>Croping Time</span>
-                                        <span style='font-size: 13px;margin: auto;  display: block;line-height: 16px;'></span>
-                                    </span>
-                                </div>
-
-                                <!--                  <div style="position: relative; margin: auto;height: 520px; width: 690px; overflow: hidden;line-height: 510px;">
-                                                        <div style="position: relative;margin:3px;text-align: center;overflow: hidden;">
-                                                           <img  {{bindAttr src= "newStyleImageSource"}} >
-                                                        </div>
-                                                    </div>-->
-
-                                <div class="container">
-                                    <div class="contr">
-
-                                        <div style="margin: auto;width: 150px;float: right;">
-                                            <span class="new-btn green-btn " {{action savePhotoUpdate}} ><k class='icon-save'> &nbsp;Save</span>
-                                            <span class='new-btn flip-back'{{action userDashboardBackButton }}><k class='icon-group'> &nbsp;</k>Back</span>
-                                        </div>
-                                    </div>
-                                    <canvas id="panel" width="1000" height="500"></canvas>
-                                    <div id="results">         
-                                        <img  {{bindAttr src= "newStyleImageSource"}} >
-                                    </div>
-                                </div>
-                                {{/if}}
-                                </div>
+</div>
+{{/view}}
+{{/if}}
+</div>
 

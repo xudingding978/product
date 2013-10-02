@@ -22,49 +22,51 @@
             <div class="icon-on-black hint--rounded hint--bottom" data-hint="Share this photo to other social platform." style="position:relative;margin: 0 5px;" {{action dropdownPhotoSetting}}>
                  <i class="icon-share-alt"></i><span class="pretooltip">Share</span> 
             </div>
-            <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}" style="width: 200px; margin: 0 auto; left: 100px;">
 
-             <li class="ite" {{action  fbShare}}>
+            <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}" style="width: 150px; margin: 0 auto; left: 70px;padding: 0">
+
+
+                <li class="ite" {{action  fbShare}}>
             <k class="icon-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Facebook</span>
             </li>
             <li class='ite' {{action tShare}} >
-                    <k class="icon-twitter" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Twitter</span></li>
+        <k class="icon-twitter" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Twitter</span></li>
 
-            <li class="ite" {{action gpShare}}>
-                    <k class="icon-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Google+</span></li>
-        </ul>
+        <li class="ite" {{action gpShare}}>
+    <k class="icon-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Google+</span></li>
+</ul>
 
 
 
-        <div class="closeview" {{action closeWindow on="click" target="controller"}} >
-            <i class="icon-remove"></i>
-        </div>
+<div class="closeview" {{action closeWindow on="click" target="controller"}} >
+    <i class="icon-remove"></i>
+</div>
+</div>
+
+<div class="mainfeature">
+    <div class="previous" style="width: 50%; height: 100%; float: left;" {{action previesImage on="click" target="controller"}}></div>
+    <div class="next" style="width: 50%; height: 100%; float: right;"  {{action nextImage on="click" target="controller"}}></div>
+    {{view HubStar.PhotoDisplayAreaView}}
+</div>
+<!--THIS IS THE ALBUM BOX-->
+
+{{view HubStar.ShowAlbumView}}
+
+<!--THIS IS THE ALBUM BOX-->
+
+<div class="bottom-controlbar easing" >
+    <div class="text-on-black" style="right: 132px;"></div>
+    <div class="icon-on-black"  {{action previesImage on="click" target="controller"}} style="display:inline-block; vertical-align: top; position:relative; left:44px;">
+        <i class="icon-arrow-left"></i>
     </div>
-
-    <div class="mainfeature">
-        <div class="previous" style="width: 50%; height: 100%; float: left;" {{action previesImage on="click" target="controller"}}></div>
-        <div class="next" style="width: 50%; height: 100%; float: right;"  {{action nextImage on="click" target="controller"}}></div>
-        {{view HubStar.PhotoDisplayAreaView}}
+    <div class="icon-on-black hint--rounded hint--top" data-hint="Show other photos in this collection." style="left: 44px; display:inline-block; vertical-align: top; position:relative;" {{action popupAibum on="click" target="view"}}>
+        <i class="icon-th"></i>
     </div>
-    <!--THIS IS THE ALBUM BOX-->
-
-    {{view HubStar.ShowAlbumView}}
-
-    <!--THIS IS THE ALBUM BOX-->
-
-    <div class="bottom-controlbar easing" >
-        <div class="text-on-black" style="right: 132px;"></div>
-        <div class="icon-on-black"  {{action previesImage on="click" target="controller"}} style="display:inline-block; vertical-align: top; position:relative; left:44px;">
-            <i class="icon-arrow-left"></i>
-        </div>
-        <div class="icon-on-black hint--rounded hint--top" data-hint="Show other photos in this collection." style="left: 44px; display:inline-block; vertical-align: top; position:relative;" {{action popupAibum on="click" target="view"}}>
-            <i class="icon-th"></i>
-        </div>
-        <div class="icon-on-black" style="left: 44px;position: relative;vertical-align: top;display: inline-block;" {{action nextImage on="click" target="controller"}}>
-            <i class="icon-arrow-right"></i>
-        </div>
-        <div class="text-on-black" style="left: 88px; top:0;position: relative;display: inline-block;vertical-align: top;"> {{controller.image_no}}/{{content.length}} </div>
+    <div class="icon-on-black" style="left: 44px;position: relative;vertical-align: top;display: inline-block;" {{action nextImage on="click" target="controller"}}>
+        <i class="icon-arrow-right"></i>
     </div>
+    <div class="text-on-black" style="left: 88px; top:0;position: relative;display: inline-block;vertical-align: top;"> {{controller.image_no}}/{{content.length}} </div>
+</div>
 
 
 

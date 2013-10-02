@@ -28,12 +28,4 @@ $this->pageTitle = 'User Account | ' . Yii::app()->name;
     echo 'dddd' . Yii::app()->user->id . '</br>';
     echo 'dddd' . Yii::app()->user->name;
     ?>
-
-    
-
-
-    
-    
-    
-
 </p>

@@ -1,7 +1,7 @@
 
 
 
-  
+
 <div class="profilegb" style="background: #fff url('../images/texture.png') repeat;width: 100%;height: auto; ">
 
     <div class="profile-wallpaper" style="width: 100%; height: 500px; overflow: hidden; position: fixed;">
@@ -85,8 +85,8 @@
                                 <div class="profileaside">
                                     <div class="profileaside_content">
                                         <div class="aside-profilepic">
-                                            <div>
-                                                <img {{bindAttr src= model.profile_pic_url}} style="border:5px solid white;box-shadow: 0px 0px 5px #888;">
+                                            <div style="min-height: 175px; overflow: visible; line-height: 175px;margin-bottom: 20px;">
+                                                <img {{bindAttr src= model.profile_pic_url}} style="border:5px solid white;box-shadow: 0px 0px 5px #888;min-height: 0;width: 100%">
                                             </div>
                                             {{#if controller.follow_status}}
                                             <div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin:10px auto;display: block;width: 150px;"{{action followThisProfile}}><i class='icon-circle-blank' >&nbsp; </i> Following</div>
@@ -854,7 +854,9 @@
                            <img  {{bindAttr src= "newStyleImageSource"}} >
                         </div>
                     </div>
+\
                    <div class="" style="margin-top: 20px;">
+
                         <div class="controlbtn" style="left: 34%;">
                             <a href="#tab1" data-toggle="tab"{{action resetNewStyleImageSource}}>   <span class="new-btn" >Finish</span> </a>
                         </div>

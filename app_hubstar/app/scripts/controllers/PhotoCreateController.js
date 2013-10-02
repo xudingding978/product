@@ -107,8 +107,8 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
         });
         return photoMega;
 
-    }, 
-     setFileSize: function(size)
+    },
+    setFileSize: function(size)
     {
         var fileSize = this.get("fileSize");
         var addPhoto = true;
@@ -145,41 +145,41 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
     addPhotoObject: function(e, name, type, size) {
         if (this.setFileSize(size))
         {
-
-        var photoName = name.replace(/[)\(]/gi, '');
-        var testID = createGuid();
-        var target = getTarget(e,"pural");
-        var src = target.result;
-        var mega = this.createNewMega(this.get("profileMega"), testID);
-        var keywords = this.get("profileMega").get("profile_keywords");
-        var file = HubStar.Photo.createRecord({
-            "id": testID,
-            "photo_title": photoName.toLowerCase(),
-            "photo_source_id": photoName.toLowerCase().replace('.', "_"),
-            "photo_image_original_url": src,
-            "photo_file_name": photoName.toLowerCase(),
-            "photo_type": type,
-            "photo_keywords": keywords});
-        mega.get("photo").pushObject(file);
-        var that = this;
-        mega.addObserver('isSaving', function() {
-            if (mega.get('isSaving')) {
-                $('.' + file.get('photo_source_id')).attr("style", "display:block");
-            }
-            else {
-                HubStar.set("totalFiles", HubStar.get("totalFiles") + 1);
-                $('.' + file.get('photo_source_id')).attr("style", "display:none");
-                if (HubStar.get("totalFiles") === that.get("filesNumber")) {
-                    var masonryCollectionItems = that.get('controllers.masonryCollectionItems');
-                    var photoCreateInfoSettingController = that.get('controllers.photoCreateInfoSetting');
-                    HubStar.set('UploadImageInfoData', masonryCollectionItems.get("uploadImageContent"));
-                    photoCreateInfoSettingController.setData();
-                    photoCreateInfoSettingController.set('isEditingMode', true);
-                    masonryCollectionItems.set('uploadOrsubmit', !masonryCollectionItems.get('uploadOrsubmit')); 
-                    this.set("fileSize", 0);
-
+            var photoName = name.replace(/[)\(]/gi, ''); 
+            photoName = photoName.replace(/\s/g,'_');    
+            var testID = createGuid();
+            var target = getTarget(e, "pural");
+            var src = target.result;
+            var mega = this.createNewMega(this.get("profileMega"), testID);
+            var keywords = this.get("profileMega").get("profile_keywords");
+            var file = HubStar.Photo.createRecord({
+                "id": testID,
+                "photo_title": photoName.toLowerCase(),
+                "photo_source_id": photoName.toLowerCase().replace('.', "_"),
+                "photo_image_original_url": src,
+                "photo_file_name": photoName.toLowerCase(),
+                "photo_type": type,
+                "photo_keywords": keywords});
+            mega.get("photo").pushObject(file);
+            var that = this;      
+            mega.addObserver('isSaving', function() {
+                if (mega.get('isSaving')) {
+                    $('.' + file.get('photo_source_id')).attr("style", "display:block");
                 }
-            }
+                else {
+                    HubStar.set("totalFiles", HubStar.get("totalFiles") + 1);
+                    $('.' + file.get('photo_source_id')).attr("style", "display:none");
+                    if (HubStar.get("totalFiles") === that.get("filesNumber")) {
+                        var masonryCollectionItems = that.get('controllers.masonryCollectionItems');
+                        var photoCreateInfoSettingController = that.get('controllers.photoCreateInfoSetting');
+                        HubStar.set('UploadImageInfoData', masonryCollectionItems.get("uploadImageContent"));
+                        photoCreateInfoSettingController.setData();
+                        photoCreateInfoSettingController.set('isEditingMode', true);
+                        masonryCollectionItems.set('uploadOrsubmit', !masonryCollectionItems.get('uploadOrsubmit'));
+                        this.set("fileSize", 0);
+
+                    }
+                }
             });
             var masonryCollectionItemsController = this.get('controllers.masonryCollectionItems');
             masonryCollectionItemsController.get("uploadImageContent").addObject(file);

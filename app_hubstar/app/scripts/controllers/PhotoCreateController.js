@@ -146,7 +146,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
         if (this.setFileSize(size))
         {
             var photoName = name.replace(/[)\(]/gi, ''); 
-            photoName = photoName.replace(/\s/g,'');    
+            photoName = photoName.replace(/\s/g,'_');    
             var testID = createGuid();
             var target = getTarget(e, "pural");
             var src = target.result;

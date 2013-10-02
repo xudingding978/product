@@ -332,13 +332,26 @@
     vertical-align: top;
     margin-right: -4px;
 }
-.tags-new .hint--rounded:after
-{
-    border-color:#fff;
-}
-.tags-new .hint--rounded:before
+.object-tags-box .hint--top:after, .object-tags-box .hint--left:after
 {
     background:#fff;
+    border-color:#fff;
+    color:#666;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow: 0 0 5px#888;
+    box-shadow: 0 0 5px #888;
+    text-shadow:0 0 0;
+}
+.object-tags-box .hint--left:before
+{
+    border-left-color:#ccc!important;
+}
+.object-tags-box .hint--top:before
+{
+    border-top-color:#ccc!important;
 }
 
 .hashtags{

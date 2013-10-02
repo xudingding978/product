@@ -144,11 +144,12 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
                     this.get("controllers.user").set("userFollowingStatistics", currentUser.get("followings").get("length"));
                 }
             }
-
+            
             var profilethis= this;
             requiredBackEnd('followers', 'createFollower', followArray, 'POST', function() {
                 profilethis.get("controllers.userFollowers").getProfileId(tempUser);
                 profilethis.get("controllers.profile").followersStatistics(tempUser.get("followers").get("length"));
+                profilethis.get("controllers.profile").followerPhoto(profile_id);
             });
         }
         else
@@ -210,10 +211,12 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
                     update_record.removeObject(update_record.objectAt(i));
                 }
             }
+            
             var profilethis=this;
             requiredBackEnd('followers', 'deleteFollower', followArray, 'POST', function(params) {
                  profilethis.get("controllers.profile").followersStatistics(tempUser.get("followers").get("length"));
-                 profilethis.get("controllers.userFollowers").getProfileId(tempUser);
+                 profilethis.get("controllers.userFollowers").getProfileId(tempUser);               
+             profilethis.get("controllers.profile").followerPhoto(profile_id);
             });
 
             var currentUser = HubStar.User.find(localStorage.loginStatus);
@@ -233,7 +236,7 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
 
                     this.get("controllers.user").set("userFollowingStatistics", currentUser.get("followings").get("length"));
                 }
-            }
+            }           
         }
         else {
             var thisThis = this;

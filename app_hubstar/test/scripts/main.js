@@ -5941,6 +5941,7 @@ HubStar.UserController = Ember.Controller.extend({
             this.set('CurrentImageSize', "");
             $('#photoUploadbtn').removeClass();
             $("#photoUploadbtn").toggleClass("disabled-btn");
+            $('#photoUploadbtn').attr('disabled', true);
 
 
         }
@@ -5972,6 +5973,7 @@ HubStar.UserController = Ember.Controller.extend({
 
             $('#photoUploadbtn').removeClass();
             $("#photoUploadbtn").toggleClass("disabled-btn");
+             $('#photoUploadbtn').attr('disabled', true);
 
         }
     },
@@ -6357,7 +6359,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.get('selectedCollection').set('title', this.get('newTitle'));
         this.get('selectedCollection').set('desc', this.get('newDesc'));
         var collectionController = this.get('controllers.collection');
-        console.log(this.get('selectedCollection'));
+        //console.log(this.get('selectedCollection'));
         var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
         collection.set('optional', this.get('model').get('id'));
         collection.set('type', 'user');
@@ -6491,18 +6493,21 @@ HubStar.UserController = Ember.Controller.extend({
                 that.set('CurrentImageSize', size);
 
                 if (that.get('UploadImageMode') === "User Cover") {
-                    if (width < 400 || height < 250) {
-                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + 400 + "x" + 250);
+                    if (width < 800 || height < 250) {
+                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + 800 + "x" + 250,"warnning");
                         that.set('newStyleImageSource', "");
                         that.set('newStyleImageName', "");
                         that.set('CurrentImageSize', "");
-                    } else if (width > 5500 || height > 5000) {
-                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size smaller than  " + 5500 + "x" + 5000);
+                    } else if (width > 2500 || height > 1500) {
+                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size smaller than  " +2500 + "x" + 1500,"warnning");
                         that.set('newStyleImageSource', "");
                         that.set('newStyleImageName', "");
                         that.set('CurrentImageSize', "");
                     }
-                    else if (width > 400 || height > 250) {
+                    else if (width >800 || height > 250) { 
+                        console.log(width);
+                console.log(height);
+                        
                         $('#photoUploadbtn').removeClass();
                         $("#photoUploadbtn").toggleClass("new-btn green-btn");
                     }
@@ -6510,19 +6515,21 @@ HubStar.UserController = Ember.Controller.extend({
 
                 else if (that.get('UploadImageMode') === "User Picture") {
                     if (width < 150 || height < 150) {
-                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + 150 + "x" + 150);
+                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + 150 + "x" + 150,"warnning");
                         that.set('newStyleImageSource', "");
                         that.set('newStyleImageName', "");
                         that.set('CurrentImageSize', "");
-                    } else if (width > 350 || height < 350) {
-                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size smaller than  " + 350 + "x" + 350);
+                    } else if (width > 1050 || height >1050) {
+                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size smaller than  " + 1050 + "x" + 1050,"warnning");
                         that.set('newStyleImageSource', "");
                         that.set('newStyleImageName', "");
                         that.set('CurrentImageSize', "");
                     }
-                    else if (350 > width > 150 || 350 > height > 150) {
+                    else if ( width > 150 ||  height > 150) {
                         $('#photoUploadbtn').removeClass();
                         $("#photoUploadbtn").toggleClass("new-btn green-btn");
+                         console.log(width);
+                console.log(height);
                     }
                 }
 
@@ -6563,8 +6570,8 @@ HubStar.UserController = Ember.Controller.extend({
             getImageWidth(src, function(width, height) {
                 that.set('currentWidth', width);
                 that.set('currentHeight', height);
-                console.log(width);
-                console.log(height);
+                console.log("source"+ width);
+                console.log("source"+height);
                 var data = {"RequireIamgeType": that.get('UploadImageMode')};
                 //             console.log(that.get('newStyleImageSource') );
                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {

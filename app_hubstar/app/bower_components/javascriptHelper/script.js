@@ -110,26 +110,23 @@ function crop(imageSrc) {
         iMouseY = Math.floor(e.pageY - canvasOffset.top);
 
         // in case of drag of whole selector
-        if (theSelection.bDragAll)
+        if (theSelection.bDragAll) {
             theSelection.x = iMouseX - theSelection.px;
-        theSelection.y = iMouseY - theSelection.py;
-        
-        if (theSelection.x < 0 && theSelection.y < 0) {
-            theSelection.x = 0;
-            theSelection.y = 0;
-        } else if (theSelection.x < 0 && theSelection.y > 0)
-        {
-            theSelection.x = 0;
+            theSelection.y = iMouseY - theSelection.py;
+
+            if (theSelection.x < 0 && theSelection.y < 0) {
+                theSelection.x = 0;
+                theSelection.y = 0;
+            } else if (theSelection.x < 0 && theSelection.y > 0)
+            {
+                theSelection.x = 0;
+            }
+            else if (theSelection.x > 0 && theSelection.y < 0)
+            {
+                theSelection.y = 0;
+            }
         }
-        else if (theSelection.x > 0 && theSelection.y < 0)
-        {
-            theSelection.y = 0;
-        }
-
-       
-
-
-        for(i = 0; i < 4; i++) {
+        for (i = 0; i < 4; i++) {
             theSelection.bHow[i] = false;
             theSelection.iCSize[i] = theSelection.csize;
         }
@@ -138,8 +135,7 @@ function crop(imageSrc) {
         if (iMouseX > theSelection.x - theSelection.csizeh
                 && iMouseX < theSelection.x + theSelection.csizeh
                 && iMouseY > theSelection.y - theSelection.csizeh
-                && iMouseY < theSelection.y + theSelection.csizeh
-                )
+                && iMouseY < theSelection.y + theSelection.csizeh)
         {
 
             theSelection.bHow[0] = true;

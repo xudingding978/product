@@ -135,8 +135,7 @@ function crop(imageSrc) {
         if (iMouseX > theSelection.x - theSelection.csizeh
                 && iMouseX < theSelection.x + theSelection.csizeh
                 && iMouseY > theSelection.y - theSelection.csizeh
-                && iMouseY < theSelection.y + theSelection.csizeh
-                )
+                && iMouseY < theSelection.y + theSelection.csizeh)
         {
 
             theSelection.bHow[0] = true;

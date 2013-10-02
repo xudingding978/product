@@ -203,12 +203,13 @@ class SiteController extends Controller {
                 $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
                 $count = mb_strlen($chars);
 
-                for ($i = 0, $result = ''; $i < 6; $i++) {
+                for ($i = 0, $result = ''; $i < 8; $i++) {
                     $index = rand(0, $count - 1);
                     $result .= mb_substr($chars, $index, 1);
                 }
                 $currentUser->PWD_HASH = $result;
-                //$currentUser->save(false);
+                
+                $currentUser->save(false);
                 $this->sendResponse(200, CJSON::encode($currentUser));
             }
         } else {

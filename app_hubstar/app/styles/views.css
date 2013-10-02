@@ -286,12 +286,14 @@
     /*    cursor: pointer;*/
     z-index: 100;
 }
-
+.object-tags-box div{position:relative;z-index:100;}
 .object-tags{
     clear: both;
     height: 26px;
     line-height: 26px;
     word-wrap: normal;
+    position:relative;
+    z-index:2;
 }
 
 .tags-mark{
@@ -329,6 +331,14 @@
     font-size: 12px;
     vertical-align: top;
     margin-right: -4px;
+}
+.tags-new .hint--rounded:after
+{
+    border-color:#fff;
+}
+.tags-new .hint--rounded:before
+{
+    background:#fff;
 }
 
 .hashtags{
@@ -689,6 +699,8 @@
     border-radius: 5px;
     overflow: hidden;
     margin-bottom:12px;
+    position:relative;
+    z-index:1;
 }
 
 .object_username{

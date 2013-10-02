@@ -13,7 +13,11 @@ class TestController extends Controller {
     const JSON_RESPONSE_ROOT_PLURAL = 'megas';
 
     public function actionIndex() {
-     
+     //   date_default_timezone_set('Pacific/Auckland'); 
+    // echo phpinfo();
+             date_default_timezone_set('Pacific/Auckland'); 
+        echo "Testing Couchbase";
+        $cb = new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "develop");
     }
 
     public function actionCreate() {
@@ -33,7 +37,7 @@ class TestController extends Controller {
     }
 
     public function actionTest() {
-        echo "test";
+
     }
 
 }

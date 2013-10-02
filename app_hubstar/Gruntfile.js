@@ -20,6 +20,7 @@ module.exports = function(grunt) {
         test: 'test'
     };
     grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'),
         yeoman: yeomanConfig,
         manifest: {
             generate: {
@@ -52,7 +53,6 @@ module.exports = function(grunt) {
                             var num = matchedWord.substring(matchedWord.indexOf("-") + 1);
                             num = parseInt(num) + 1;
                             return temp + num;
-
                         }
                     }]
             }
@@ -84,7 +84,7 @@ module.exports = function(grunt) {
                     '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
                     '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg,ico}'
                 ],
-                tasks: ['livereload']
+                tasks: ['livereload', 'buildTest', 'test']
             }
         },
         connect: {
@@ -164,6 +164,9 @@ module.exports = function(grunt) {
                 'test/spec/{,*/}*.js'
             ]
         },
+        qunit: {
+            all: ['test/*.html']
+        },
         mocha: {
             all: {
                 options: {
@@ -227,7 +230,9 @@ module.exports = function(grunt) {
                     '<%= yeoman.app %>/bower_components/ember/ember-1.0.0-rc.6.1.min.js',
                     '<%= yeoman.app %>/bower_components/ember-data-shim/ember-data.min.js',
                     '<%= yeoman.app %>/bower_components/moment/moment.min.js',
-                    '<%= yeoman.app %>/bower_components/javascriptHelper/javascriptHelper.min.js'
+                    '<%= yeoman.app %>/bower_components/javascriptHelper/javascriptHelper.min.js',
+                    '<%= yeoman.app %>/bower_components/wysihtml5/dist/wysihtml5-0.3.0.js',
+                    '<%= yeoman.app %>/bower_components/wysihtml5/parser_rules/advanced.js'
                 ],
                 dest: '<%= yeoman.dist %>/scripts/components.js'
             },
@@ -242,7 +247,8 @@ module.exports = function(grunt) {
                     '<%= yeoman.app %>/bower_components/ember/ember-1.0.0-rc.6.1.min.js',
                     '<%= yeoman.app %>/bower_components/ember-data-shim/ember-data.min.js',
                     '<%= yeoman.app %>/bower_components/moment/moment.min.js',
-                    '<%= yeoman.app %>/bower_components/javascriptHelper/javascriptHelper.js'
+                    '<%= yeoman.app %>/bower_components/javascriptHelper/javascriptHelper.test.js',
+                    '<%= yeoman.app %>/bower_components/javascriptHelper/jquery-2.0.3.min.map'
                 ],
                 dest: '<%= yeoman.test %>/scripts/components.js'
             },
@@ -454,6 +460,7 @@ module.exports = function(grunt) {
             }
         }
     });
+    grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.renameTask('regarde', 'watch');
     grunt.registerTask('server', function(target) {
         if (target === 'dist') {
@@ -481,9 +488,8 @@ module.exports = function(grunt) {
         'concat:testtemplate',
         'concat:testcss',
         'copy:test',
-        'mocha'
-
-
+   //     'mocha'
+      'qunit'
     ]);
     grunt.registerTask('build', [
         'clean:dist',
@@ -500,11 +506,11 @@ module.exports = function(grunt) {
         'usemin',
         'manifest',
         'rev:test'
-
     ]);
     grunt.registerTask('default', [
         'jshint',
         'test',
         'build'
     ]);
+
 };

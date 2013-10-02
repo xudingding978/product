@@ -6,7 +6,7 @@ HubStar.ItemView = Ember.View.extend({
             $(function() {
                 $('#masonry_container').masonry({
                     itemSelector: '.box',
-                    columnWidth: 0,
+                    columnWidth: 185,
                     isInitLayout: false,
                     isFitWidth: true
                 });
@@ -26,13 +26,17 @@ HubStar.ItemView = Ember.View.extend({
                 }
             }
         },
+                
+        transitionToArticle:function(){
+
+        },
+
         moreContent: function(event) {
 
             var id = "#" + event.id;
             var collape_button = "#collape_button_" + event.id;
             var more_button = "#more_button_" + event.id;
 
-            //     $(id).slideToggle(200);
             $(id).animate({
                 height: "100%"
 

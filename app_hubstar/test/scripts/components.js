@@ -2455,13 +2455,12 @@ var e=function(){},t=0,r=this.document,n=r&&"createRange"in r&&"undefined"!=type
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 function getRestAPIURL()
 {
     var api_url = document.domain;
     var api_domain_start_pos = api_url.indexOf('.');
     var api_url = api_url.slice(api_domain_start_pos);
-    api_url = "http://develop-api" + api_url;
+    api_url = "http://test-api" + api_url;
     return api_url;
 }
 
@@ -2561,3 +2560,7 @@ function getTarget(obj,type) {
         }
         return targ;
     }
+    
+    
+ 
+    

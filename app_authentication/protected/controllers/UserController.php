@@ -6,7 +6,7 @@ class UserController extends Controller {
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
-    public $layout = '//layouts/column2';
+    public $layout = '//layouts/platform';
 
     /**
      * @return array action filters
@@ -33,6 +33,7 @@ class UserController extends Controller {
      * @param integer $id the ID of the model to be displayed
      */
     public function actionView($id) {
+        $this->layout = '//layouts/main';
         if (Yii::app()->user->id == $id) {
 //            $user = User::model()->findByPk($id);
 //            //$userprofile = UserProfile::model()->findAllByAttributes(array('USER_REC_ID'=>$id));
@@ -52,8 +53,6 @@ class UserController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate() {
-
-
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
         $model = new User;
@@ -78,23 +77,22 @@ class UserController extends Controller {
             $temp["user"][0]["first_name"] = $model->FIRST_NAME;
             $temp["user"][0]["last_name"] = $model->LAST_NAME;
 
-            $cb->add(substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.') + 1) . "/users/" . $rand_id, CJSON::encode($temp));
-            Yii::app()->session['newUser'] = "new";
+            if ($cb->add(substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.') + 1) . "/users/" . $rand_id, CJSON::encode($temp))) {
+                Yii::app()->session['newUser'] = "new";
 
-            if ($model->save()) {
+                if ($model->save()) {
 
+                    $identity = new CommonUserIdentity($model->USER_NAME, $model->PWD_HASH);
+                    $identity->authenticate();
+                    Yii::app()->user->login($identity, 0);
 
-                $identity = new CommonUserIdentity($model->USER_NAME, $model->PWD_HASH);
-                $identity->authenticate();
-                Yii::app()->user->login($identity, 0);
+                    if (Yii::app()->session['newUser'] == "new") {
 
-                if (Yii::app()->session['newUser'] == "new") {
-
-                    $this->render('welcome');
-                    unset(Yii::app()->session['newUser']);
-                } else {
-
-                    $this->render('close');
+                        $this->render('welcome');
+                        unset(Yii::app()->session['newUser']);
+                    } else {
+                        $this->render('close');
+                    }
                 }
             }
         }
@@ -148,17 +146,23 @@ class UserController extends Controller {
      * Lists all models.
      */
     public function actionIndex() {
-
+        $this->layout = '//layouts/main';
         $dataProvider = new CActiveDataProvider('User');
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));
     }
 
+    public function actionRead() {
+
+        echo "aaaaaaaaaaaa";
+    }
+
     /**
      * Manages all models.
      */
     public function actionAdmin() {
+        $this->layout = '//layouts/main';
         $model = new User('search');
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['User']))
@@ -242,9 +246,15 @@ class UserController extends Controller {
     }
 
     public function actionTest() {
-      $this->render('test');
-    }
 
+        $request_json = file_get_contents('php://input');
+        //  $request_arr = CJSON::decode($request_json, true);
+
+
+        $model = User::model()
+                ->findByAttributes(array('EMAIL_ADDRESS' => '286949639@qq.com'));
+        //      $model = $this->loadModel('22');
+    }
 
 }
 

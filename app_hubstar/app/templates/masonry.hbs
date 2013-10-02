@@ -7,17 +7,19 @@
         {{view HubStar.ItemView}}
         <script>
             $(function() {
-            var $container = $('#masonry_container');
-            window.setTimeout(function() {
-            $container.masonry();
-            $container.masonry('reload');
-            }, 1000);
+                var $container = $('#masonry_container');
+                window.setTimeout(function() {
+                    $container.masonry();
+                    $container.masonry('reload');
+                }, 1000);
             });
         </script>
         {{/each}}
     </div> <!-- #container -->
 </div><!-- #wrapper -->
 
-
-<div class="new-btn" style=' width: 200px;margin: 60px auto;display: block; box-shadow: 0 0 10px #fff;'><k class="icon-long-arrow-down" style="margin-right: 8px"></k>Show more result!</div>
+<div style="width:100%;float:left;clear:both;">
+    <div class="new-btn" style=' width: 200px;margin: 60px auto;display: block; box-shadow: 0 0 10px #fff;'{{action scrollDownAction}}><k class="icon-long-arrow-down" style="margin-right: 8px"></k>Show more results!
+    </div>
+</div>
 

@@ -8,25 +8,36 @@ HubStar.ItemProfilesController = Ember.Controller.extend({
     itemProfileCollectionStatistics: "",
     itemProfilePartnerStatistics: "",
     isPartner: false,
+    profileUrl: "",
     is_authentic_user: false,
     is_profile_editing_mode: false,
-    needs: ['profile', 'permission','profilePartners'],
+    follow_status: false,
+    needs: ['profile', 'permission', 'profilePartners', 'userFollowings'],
     init: function() {
-        //console.log("sssssssssssssssssssss");
         var address = document.URL;
-        //this.is_authentic_user= false;
-        // this.is_profile_editing_mode= false;
+
         if (address.indexOf('profile') !== -1)
         {
-            //console.log("partner");
             isPartner = true;
             this.checkEditingMode();
         }
-        this.set("profiles", HubStar.Mega.find());
-        //  this.set("profiles", HubStar.Mega.find());
-        //console.log(HubStar.Mega.find());
-        // this.partnerStatistic();
-        //  this.collectionStatistic();      
+        this.set("profiles", HubStar.Mega.find([]));
+        var temp = address.indexOf("profiles");
+        temp = address.substr(0, temp + 8);
+        this.set("profileUrl", temp);
+    },
+    followThisUser: function(profile)
+    {
+        if (profile.get("isFollowCurrentUser") === false)
+        {
+            this.get("controllers.userFollowings").followProfile(profile.get("id"));
+            profile.set('isFollowCurrentUser', true);
+        }
+        else
+        {
+            this.get("controllers.userFollowings").unFollowProfile(profile.get("id"));
+            profile.set('isFollowCurrentUser', false);
+        }
     },
     checkAuthenticUser: function() {
         var currentUser = HubStar.User.find(localStorage.loginStatus);
@@ -63,16 +74,15 @@ HubStar.ItemProfilesController = Ember.Controller.extend({
 
     },
     removeCollectedItem: function(idDel) {
-        
+
         this.get('controllers.profilePartners').deleteSelectedPartner(idDel);
         //console.log();
     },
     toProfilePage: function(model) {
 
         HubStar.set("scrollPartenerPosition", $(window).scrollTop());
-
         this.transitionToRoute('profile', model);
-
+        console.log(model);
         $(window).scrollTop(0);
     },
     setPartnerRemove: function() {
@@ -87,6 +97,9 @@ HubStar.ItemProfilesController = Ember.Controller.extend({
             this.set('itemProfileCollectionStatistics', 0);
         }
     },
+            
+          
+            
     partnerStatistic: function() {
         //  this.set("profile_partner_ids", profile.get("profile_partner_ids"));
         if (this.get('profile_partner_ids') !== null) {

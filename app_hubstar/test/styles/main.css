@@ -255,7 +255,6 @@ button {
 }
 
 
-
 .col1 { width: 165px; }
 .col2 { width: 350px; }
 .col3 { width: 300px; margin: 10px; }
@@ -771,7 +770,7 @@ body {
     font-size: 14px;
     line-height: 20px;
     color: #333333;
-    background-color: #ffffff;
+    background-color: #E7E7E7;
 }
 
 a {
@@ -6988,6 +6987,8 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
 .icon-renren:before{content:"\f18b";}
 
 .plaform_bar{
+    height: 280px;
+
     position: fixed;
     left: 0px;
     top: 30%;
@@ -6999,6 +7000,34 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
     border-radius: 0 10px 10px 0;
     background-color: rgba(50,50,50,0.4);
     box-shadow: 0 0 10px #fff;
+    height:256px;
+}
+#masonry_user_container
+{
+    min-height:400px;
+    /* these styles might break masonry TESTING*/
+    clear:both;
+    width:0;
+    overflow:hidden;
+}
+#masonry_user_container[style="position: relative; height: 0px; width: 185px;"],
+#masonry_user_container[style="position:relative;height:0px;width: 185px;"],
+#masonry_user_container[style='position: relative; height: 0px; width: 185px;'],
+#masonry_user_container[style='position:relative;height:0px;width: 185px;'],
+
+#masonry_photo_collection_container[style="position: relative; height: 0px; width: 185px;"],
+#masonry_photo_collection_container[style="position:relative;height:0px;width: 185px;"],
+#masonry_photo_collection_container[style='position: relative; height: 0px; width: 185px;'],
+#masonry_photo_collection_container[style='position:relative;height:0px;width: 185px;'],
+
+#masonry_container[style="position: relative; height: 177px; width: 370px;"],
+#masonry_container[style="position:relative;height:177px;width:370px;"],
+#masonry_container[style='position: relative; height: 177px; width: 370px;'],
+#masonry_container[style='position:relative;height:177px;width:370px;']{
+    width:0!important;
+    overflow:hidden;
+    margin-left:4000px;
+
 }
 .masonry_push_down{
     margin-top: 85px;
@@ -7053,6 +7082,7 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
 }
 
 #navContainer {
+    height: 280px;
     margin:0;
     padding:15px 0;
     opacity: 0;
@@ -7111,7 +7141,8 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
 
 #nav-ul ul li:first-child
 
-#nav-ul ul li:first-child:hover::after {
+#nav-ul ul li:first-child:hover::after,
+#nav-ul ul li:first-child:focus::after{
     border-right-color: #eaeced;
 }
 
@@ -7133,7 +7164,8 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
 }
 
 
-#navContainer ul li span:hover::before {
+#navContainer ul li span:hover::before,
+#navContainer ul li span:focus::before{
     content: "";
     position: absolute;
     border-right: 13px solid rgba(0,0,0,.26);
@@ -7147,7 +7179,8 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
     right: -8px;
 }
 
-#navContainer ul li span:hover::after {
+#navContainer ul li span:hover::after,
+#navContainer ul li span:focus::after{
     content: "";
     position: absolute;
     border-right: 12px solid #f3f3f3;
@@ -7180,7 +7213,8 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
     background-color: rgba(0,0,0,0.05);
 }
 
-.sidebar-hover:hover::before {
+.sidebar-hover:hover::before,
+.sidebar-hover:focus::before{
     content: "";
     position: absolute;
     border-right: 13px solid rgba(0,0,0,.26);
@@ -7194,7 +7228,8 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
     right: -8px;
 }
 
-.sidebar-hover:hover::after {
+.sidebar-hover:hover::after,
+.sidebar-hover:focus::after{
     content: "";
     position: absolute;
     border-right: 12px solid #f3f3f3;
@@ -7211,10 +7246,11 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
 
 
 #navContainer ul ul{
-    position:absolute;
-    display:none;
+    position:static;
+    margin-left:-1000px;
+    float:left;
 }
-
+#navContainer > ul > li> ul{}
 
 #navContainer ul ul li a{
     color: rgba(0,0,0,0.63);
@@ -7229,12 +7265,12 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
     word-wrap: break-word;
     overflow: hidden;
     text-overflow: ellipsis;
+    float:none;
 }
 
-#navContainer > ul > li> ul{
-    display:none;
-}
-#navContainer > ul > li:hover> ul{
+
+#navContainer > ul > li:hover> ul, 
+#navContainer > ul > li:focus> ul{
     margin-left: 10px;
     width: 200px;
     position: absolute;
@@ -7250,7 +7286,8 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
 
     display:none;
 }
-#navContainer > ul > li> ul > li:hover> ul{
+#navContainer > ul > li> ul > li:hover> ul,
+#navContainer > ul > li> ul > li:focus > ul{
     margin-left: 10px;
     width: 200px;
     position: absolute;
@@ -7265,7 +7302,8 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
 #navContainer > ul > li> ul > li> ul> li > ul{
     display:none;
 }
-#navContainer > ul > li> ul > li> ul> li:hover> ul{
+#navContainer > ul > li> ul > li> ul> li:hover> ul,
+#navContainer > ul > li> ul > li> ul> li:focus > ul{
     margin-left: 10px;
     width: 200px;
     position: absolute;
@@ -7339,7 +7377,7 @@ div.search-loading-invisible{
     top: 0;
     width: 100%;
     height:100%;
-    z-index: 1000050;
+    z-index: 10000;
     background-color: rgba(0,0,0,1);
     border: 1px solid #999;
     border: 1px solid rgba(0, 0, 0, 0.3);
@@ -7461,6 +7499,11 @@ div.search-loading-invisible{
     cursor: pointer;
     font-weight: bold;
     font-size: 13px;
+    list-style: none;
+}
+
+.edit-object-ul > .ite{
+    padding:6px 15px 6px 30px;
 }
 
 .ite:hover{
@@ -7735,7 +7778,9 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     text-align: left;
     padding:20px 0;
     font-size: 15px;
-    min-height: 650px
+    min-height: 650px;
+    max-width: 800px;
+    word-wrap:break-word;
 }
 
 .main_aboutus p{
@@ -8433,6 +8478,17 @@ div.loading-visible{
 
 /*BASIC STYLE*/
 
+#master_bg
+{
+    background:#fff url('../images/bgtexture.png') repeat;
+    width:100%;
+    height:100%;
+    position:fixed;
+    z-index:1;
+    top:0;
+    left:0;
+}
+
 .dropdownicon{
     position: absolute;
     right: 15px;
@@ -8455,7 +8511,8 @@ div.loading-visible{
     -o-transition: all 0.5s ease;
 }
 
-
+.hover-opacity{opacity:.6}
+.hover-opacity:hover{opacity:1}
 
 
 
@@ -8507,6 +8564,12 @@ div.loading-visible{
     -moz-transition: all .4s ease-in-out;
     -webkit-transition: all .4s ease-in-out;
     transition: all .4s ease-in-out;
+}
+#login_icon .panel .front{
+    -moz-box-shadow: 0 0 0 0;
+    -webkit-box-shadow: 0 0 0 0;
+    box-shadow:0 0 0 0;
+
 }
 .panel.flip .front {
     z-index: 900;
@@ -8698,7 +8761,7 @@ div.loading-visible{
     position: absolute;
     right: 0;
     top: 0;
-    cursor: pointer;
+    /*    cursor: pointer;*/
     z-index: 1;
 }
 
@@ -8913,10 +8976,6 @@ div.loading-visible{
     color: #555;
 }
 
-.new-collection-name_insert{
-    height: 30px;
-}
-
 .controlbtn-field{
     border-top: 1px solid rgba(0,0,0,0.05);
     border-bottom: 1px solid rgba(0,0,0,0.05);
@@ -9107,6 +9166,7 @@ div.loading-visible{
     -moz-border-radius: 5px;
     border-radius: 5px;
     overflow: hidden;
+    margin-bottom:12px;
 }
 
 .object_username{
@@ -9126,9 +9186,9 @@ div.loading-visible{
     line-height: 0;
     overflow: hidden;
     position: relative;
-    min-height:215px;
     vertical-align:central;
-    background:#e5e5e5;
+    /* background:#e5e5e5; */
+    min-height:150px
 }
 
 .edit-object{
@@ -9154,7 +9214,7 @@ div.loading-visible{
 .this-is-the-object{
     cursor: pointer;
     min-width: 338px;
-    max-height: 100%;
+    /* max-height: 100%; */
     max-width: 100%;
     display: inline-block;
 }
@@ -9162,7 +9222,7 @@ div.loading-visible{
 .masonry-object_text{
     color: #404040;
     font-size: 13px;
-    line-height: 1.4;
+    line-height: 144%;
     min-height: 0;
     overflow: hidden;
 }
@@ -9188,15 +9248,20 @@ div.loading-visible{
     cursor:pointer;
 }
 
+/* clint */
+.masonry-brick .masonry_more-btn{
+    padding-bottom:12.5px;
+
+}
 .masonry_more-btn:hover{
     color: #333;
 }
 
 .masonry-object_interact{
-    margin: 20px 0 10px 0;
+    margin: 20px 0 0 0; /* was margin: 20px 0 10px 0; */
     overflow:hidden;
     border-top: 1px solid #e5e5e5;
-    border-bottom: 1px solid #e5e5e5;
+    /* border-bottom: 1px solid #e5e5e5; */
     -webkit-border-radius: 0 0 2px 2px;
     -o-border-radius: 0 0 2px 2px;
     -ms-border-radius: 0 0 2px 2px;
@@ -9219,8 +9284,12 @@ div.loading-visible{
 }
 
 .masonry_addcommnetbox-container{
-    margin: 0 20px 0 20px;
-    padding: 0 0 20px 0;
+    /* margin: 0 20px 0 20px; */
+    padding: 0 20px 8.5px 20px;
+    width:100%;
+    clear:both;
+    float:left;
+
 }
 
 
@@ -9417,6 +9486,8 @@ div.loading-visible{
     line-height: 23px;
     font-size: 14px;
     font-weight: bold;
+    font-family: FontAwesome, "Helvetica Neue", Helvetica, Arial, sans-serif;
+
 }
 
 
@@ -9433,6 +9504,20 @@ div.loading-visible{
     position: absolute;
     white-space: nowrap;
 }
+
+
+.caption-container{
+    background-color: rgba(0,0,0,.4);
+    padding: 20px 13px 20px 15px;
+    color: #fff;
+    position: absolute;
+    bottom: 60px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #999;
+    width: 350px;
+}
+
+
 
 
 
@@ -9460,6 +9545,13 @@ div.loading-visible{
     overflow-y: scroll;
 }
 
+.article-objectview-right{
+    width: 45%;
+}
+
+.article-objectview-left{
+    right: 45%;
+}
 
 .object-poster{
     padding: 15px;
@@ -9492,6 +9584,7 @@ div.loading-visible{
     border-radius: 50%;
     width: 46px;
     height: 46px;
+    background:#efeded;
 }
 
 .profilepic_effect{
@@ -9520,6 +9613,7 @@ div.loading-visible{
 .posttime{
     color: #aaa;
     font-size: 11px;
+    line-height:140%;
 }
 
 
@@ -9577,28 +9671,6 @@ div.loading-visible{
     height: 106px;
     resize: none;
     overflow: auto;
-}
-
-.collapes-container tr {
-    display: table-row;
-    vertical-align: top;
-    border-color: inherit;
-
-}
-
-.collapes-container td:nth-child(1)  {
-    color: #aaa;
-    text-align: left;
-    width: 45%;
-
-}
-
-.collapes-container td:nth-child(2)  {
-    color: #404040;
-    word-break: break-all;
-
-    display: table-cell;
-    vertical-align: inherit;
 }
 
 .sml-partner {
@@ -9879,8 +9951,11 @@ div.loading-visible{
 
 
 .comment-frame{
-    width: 87%;
+    width: 100%;
+    padding:0 6.5%;
     margin: 0 auto;
+    overflow:hidden;
+    border-bottom:12.5px solid #f8f8f8;
 
 }
 
@@ -9912,7 +9987,8 @@ div.loading-visible{
 }
 
 .addcommnetbox-container{
-    padding: 0 0 20px 0;
+    /* padding: 0 0 20px 0; */
+    padding:0 6.5%;
 }
 
 .addcommnetbox{
@@ -9922,7 +9998,7 @@ div.loading-visible{
     cursor: text;
     font-size: 12px;
     height: auto;
-    margin: 0 0 20px 0;
+    margin: 0 0 0 0;
     padding: 6px 8px;
 }
 
@@ -9937,7 +10013,7 @@ div.loading-visible{
 }
 
 .comment-position{
-    padding: 0 0px 16px 45px;
+    padding: 4.50px 0px 4.5px 43px;
     vertical-align: top;
 }
 
@@ -9950,8 +10026,8 @@ div.loading-visible{
 
 .profilepic_comment{
     border-radius: 50%;
-    width: 35px;
-    height: 35px;
+    width: 33px;
+    height: 33px;
 }
 
 .comment-insert-field{
@@ -9988,7 +10064,7 @@ div.loading-visible{
 .posttime-container{
     display: block;
     white-space: nowrap;
-    margin-bottom: 5px;
+    /* margin-bottom: 5px; */
     line-height: 10px;
 }
 
@@ -10015,6 +10091,7 @@ div.loading-visible{
 .comment-content{
     color: #404040;
     font-size: 13px;
+    line-height:16px;
     margin: 0 0 0 0;
     overflow: hidden;
     word-wrap: break-word;
@@ -10119,6 +10196,23 @@ div.loading-visible{
     -moz-background-clip: padding-box;
     background-clip: padding-box;
     margin: 0;
+
+    text-align: left;
+    padding: 0;
+}
+
+
+
+
+textarea{
+    padding: 3px 8px !important;
+    line-height: 22px!important;
+    font-size: 14px !important;
+}
+
+input{
+    height: 30px;
+    line-height: 30px !important;
 }
 
 .insetbox-shadow {
@@ -10194,23 +10288,23 @@ div.loading-visible{
     margin: 0 auto 20px;
     left: 0;
     right: 0;
-    min-width: 796px;
+    min-width: 1060px;
     max-width: 1260px;
 }
 
 .user-board_left{
     background: white;
-    width: 25%;
+    width: 26%;
     display: inline-block;
     vertical-align: top;
-    height: 450px;
+    height: 500px;
     margin-right: 0.5%;
 }
 
 .user-board_right{
     background: white;
-    width: 74%;
-    height: 450px;
+    width: 73%;
+    height: 500px;
     display: inline-block;
     vertical-align: top;
     overflow: hidden;
@@ -10229,11 +10323,6 @@ div.loading-visible{
     list-style-type: none;
     padding:0;
     margin: 0 0 0 -10px;
-
-    -webkit-margin-before: 1em;
-    -webkit-margin-after: 1em;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
 }
 
 
@@ -10436,7 +10525,7 @@ div.loading-visible{
 /*USERPAGE*/
 .user-cover{
 
-    height: 150px; 
+    height: 300px; 
     overflow: hidden;
 }
 
@@ -10509,6 +10598,22 @@ div.loading-visible{
     background-color: #e3e3e3;
 }
 
+.fresh-profile-pic{
+    overflow: hidden; 
+    position: fixed;
+    height: 80px;
+    width: 80px;
+    background-color: #fff;
+    border-radius: 50%;
+    z-index: 12;
+    margin: auto;
+    left: 0;
+    right: 1000px;
+    top: -110PX;
+    box-shadow: 0 0 10px #777;
+    border: 3px solid #f3f3f3;
+}
+
 .fresh-message{
     line-height: 50px;
     font-size: 18px;
@@ -10521,15 +10626,15 @@ div.loading-visible{
     text-align: center;
     z-index: 11;
 
-    top: 45px;
-    box-shadow: 0 0 10px #000;
+    top: -85px;
+    box-shadow: 0px 1px 5px #555;
     width: 1000px;
     margin: auto;
     display: block;
-    border-radius: 0 0 3px 3px;
-    -webkit-border-radius: 0 0 3px 3px;
-    -moz-border-radius: 0 0 3px 3px;
-    -o-border-radius: 0 0 3px 3px;
+    border-radius: 0 3px 3px 0;
+    -webkit-border-radius: 0 3px 3px 0;
+    -moz-border-radius: 0 3px 3px 0;
+    -o-border-radius: 0 3px 3px 0;
     left: 0;
     right: 0;
 }
@@ -10586,14 +10691,13 @@ div.loading-visible{
     float:left;
     width:65%;
     padding:0 5px;
-   /* padding: 20px 5px; 
-    position:absolute;
-    width:65%;
-    top:-180px;
-    left:17.5%; */
+    /* padding: 20px 5px; 
+     position:absolute;
+     width:65%;
+     top:-180px;
+     left:17.5%; */
 }
-.premium > div > table  .profileaside > .profileaside_content .aside-profilepic div,
-.premium > div > table  .profileaside > .profileaside_content .aside-profilepic div img{width:100%;margin-bottom:1em;}
+
 
 .premium > div > table .profilemain
 {
@@ -10625,7 +10729,6 @@ div.loading-visible{
     height: 30px;
     line-height: 33px;
     margin: 5px -20px 10px;
-    cursor: pointer;
     padding: 0 20px;
 }
 
@@ -10641,6 +10744,7 @@ div.loading-visible{
     float:left;
     width:100%;
 }
+#interest_btn{cursor:pointer;}
 
 
 #show_interest:hover .unvisible{
@@ -10654,7 +10758,7 @@ div.loading-visible{
     left:0;
     padding: 5px 20px 0;
     width: 100%;
-    height: 150px;
+    height: 200px;
     float:left;
     overflow: hidden;
     background: #F3F3F3;
@@ -10668,6 +10772,7 @@ div.profile-picture-active
     z-index:1!important;
     float:left!important;
     border-width:4px!important;
+    position:absolute;
 }
 .follow-btn-active
 {
@@ -10701,10 +10806,51 @@ textarea.add-interests{
 
     margin: 5px auto 15px;
     padding: 6px 20px;
-    font-size: 11px;
+    font-size: 12px;
 }
 
 /* interest ENDS */
+
+/* client profile content styling BEGINS */
+.main_aboutus .editor-content iframe{margin:0!important;}
+
+.main_aboutus .editor-content h5{font-weight:bold;margin:.4em 0;}
+.main_aboutus .editor-content h4
+{
+    font-size:17.5px;
+    font-weight:bold;
+    margin:.4em 0;
+}
+.main_aboutus .editor-content p{font-size:13px;}
+
+.main_aboutus .editor-content a > h4,
+.main_aboutus .editor-content h4 > a,
+.main_aboutus .editor-content a > h5,
+.main_aboutus .editor-content h5 > a
+{
+    color:#0088CC;
+    font-weight:bold;
+}
+.main_aboutus .editor-content a p, .main_aboutus .editor-content p a{color:#0088CC;}
+
+.main_aboutus .editor-content a > h4:hover, .main_aboutus .editor-content a > h4:focus,
+.main_aboutus .editor-content h4 > a:hover, .main_aboutus .editor-content h4 > a:focus,
+.main_aboutus .editor-content a > h5:hover, .main_aboutus .editor-content a > h5:focus,
+.main_aboutus .editor-content h5 > a:hover, .main_aboutus .editor-content h5 > a:focus,
+.main_aboutus .editor-content a p:hover,     .main_aboutus .editor-content a p:focus,
+.main_aboutus .editor-content p a:hover,     .main_aboutus .editor-content p a:focus
+{
+    color:#005580!important;
+}
+.main_aboutus .editor-content font{font-size:14px;line-height:150%;}
+.main_aboutus .editor-content .green-btn{color:#fff;}
+
+.main_aboutus .editor-content a{
+   display:inline-block;
+    
+}
+/* client profile content styling ENDS */
+
 
 
 
@@ -11195,7 +11341,7 @@ body{
 #discovery_search_bar > #search_key {
     padding: 6px;
     height: 35px;
-    width: 29%;
+    width: 28%;
 
 }
 
@@ -12122,112 +12268,284 @@ div.form .rememberMe label
 
 
 /* Login lightbox BEGINS, Clint Rex Lewis 4/9/13 */
-    div#login_lightbox{
-        position:fixed;
-        top:0;
-        left:0;
-        height:3000px;
-        width:3000px;
-        opacity:0.7;
-        background:#000;
-        z-index:1001;
-    }
-    div#login_icon > div.ui-draggable
-    {
-        position: fixed!important;
-        top: 6.5%;
-        left: 37%;
-        width:25%;
-        
-    }
-     div#login_icon > div.ember-view > div.panel
-     {
-         width:100%;
-         color:#333333;
-         float:left;
-         -moz-border-radius:3px;
-        -webkit-border-radius:3px;
-        border-radius:3px;
-        z-index:1002;
-        margin:0; 
-     }
+div#login_lightbox{
+    position:fixed;
+    top:0;
+    left:0;
+    height:3000px;
+    width:3000px;
+    opacity:0.7;
+    background:#000;
+    z-index:1001;
+}
+div#login_icon > div.ui-draggable
+{
+    position: fixed!important;
+    top: 6.5%;
+    left: 37%;
+    width:25%;
 
-     
-     div#login_container > div.front, 
-     div#login_container > div.back
-     {
-        position:absolute;
-        float:left;
-        width:100%;
-        height:auto;
-        top:0;
-        left:0;
-        -webkit-border-radius: 0;
-        -moz-border-radius: 0;
-        border-radius: 0;
-        background:#fff;
-        min-width:400px;
-        
-     }
-     div #login_container > div.front > .head, 
-     div #login_container > div.back > .head
-     {
-         float:left;
-         width:100%;
-         background:#f3f3f3;
-         position:relative;
-     }
-    div #login_container > div.front > .head > .logincopy
-     {
-         margin:20px auto;
-         width:90%;
-     }
-     div #login_container > div.front > .head > .logincopy > p
-     {
-        line-height:150%;
-        text-align:center;
-        font-size:1.1em;
-     }
-     div #login_container > div.front > .content
-     {
-         float:left;
-         width:100%;
-     }
-     .panelcircle 
-     {
-         width:40px;
-         height:40px;
-         border-radius:50px;
-         font-size:1.4em;
-         color:#fff;
-         line-height:40px;
-         text-align:center;
-         background:rgb(201,202,202)
-    }
-    div #login_container > div.front > .head > .panelcircle
-    {
-        position:relative;
-        margin:auto auto -40px auto;
-    }
-    
- /* fail safe styles for small screened devices begins */
-    #login_continer div > .head .wrapper-dropdown-3{ max-width:95%;}
-    #login_continer div > .head .wrapper-dropdown-3 > div > #dropdown-cover{max-width:30%;}
-    #login_continer div > .head .wrapper-dropdown-3 > div > div:last-child{max-width:70%;}
+}
+div#login_icon > div.ember-view > div.panel
+{
+    width:100%;
+    color:#333333;
+    float:left;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border-radius:3px;
+    z-index:1002;
+    margin:0; 
+}
+
+
+div#login_container > div.front, 
+div#login_container > div.back
+{
+    position:absolute;
+    float:left;
+    width:100%;
+    height:auto;
+    top:0;
+    left:0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    background:#fff;
+    min-width:400px;
+
+}
+div #login_container > div.front > .head, 
+div #login_container > div.back > .head
+{
+    float:left;
+    width:100%;
+    background:#f3f3f3;
+    position:relative;
+}
+div #login_container > div.front > .head > .logincopy
+{
+    margin:20px auto;
+    width:90%;
+}
+div #login_container > div.front > .head > .logincopy > p
+{
+    line-height:150%;
+    text-align:center;
+    font-size:1.1em;
+}
+div #login_container > div.front > .content,
+div #login_container > div.back > .content
+{
+    float:left;
+    width:100%;
+}
+.panelcircle 
+{
+    width:40px;
+    height:40px;
+    border-radius:50px;
+    font-size:1.4em;
+    color:#fff;
+    line-height:40px;
+    text-align:center;
+    background:rgb(201,202,202)
+}
+div #login_container > div.front > .head > .panelcircle
+{
+    position:relative;
+    margin:auto auto -40px auto;
+}
+
+/* fail safe styles for small screened devices begins */
+#login_continer div > .head .wrapper-dropdown-3{ max-width:95%;}
+#login_continer div > .head .wrapper-dropdown-3 > div > #dropdown-cover{max-width:30%;}
+#login_continer div > .head .wrapper-dropdown-3 > div > div:last-child{max-width:70%;}
 /* fail safe styles for small screened devices ends */
 
 /* Login lightbox ENDS, Clint Rex Lewis 4/9/13 */
+
+
+
+
+
+/*new login style Colin Shaw 25/9/2013*/
+.register-with{
+    width: 300px;
+    height: 45px;
+    margin: 0 auto;
+    background-color: #fff;
+    text-align: center;
+    color: #888;
+    font-weight: bold; 
+    line-height: 45px; 
+    font-size: 15px;
+
+    background-clip:border-box;
+    cursor: pointer;
+    opacity: .7;
+}
+
+.register-with:hover{opacity: 1}
+
+.login-textfield > input{
+    padding: 0 10px;
+    border: 0 none !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    -o-box-shadow: none !important;
+
+    font-weight: bold;
+    color: #333;
+    font-size: 15px;
+}
+
+.social-login-iconbox{
+    width: 35px; 
+    height: 35px; 
+    border-radius: 3px; 
+    display: inline-block;
+    vertical-align: top; 
+    background-color: #fff;
+    line-height: 36px;
+    color: #555;
+    margin: 0 3px;
+
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+}
+
+.login-select{
+    width: 49%;
+    display: inline-block;
+    vertical-align: top;
+    height: 45px;
+    line-height: 45px;
+    color: #888;
+    font-weight: bold;
+    text-align: left;
+    padding-left: 10px;
+
+    cursor: pointer;
+}
+
+.login-select:hover{
+    background-color: #f3f3f3;
+}
+
+.login-selected{
+    border-top: 1px solid rgba(0,0,0,.16);
+    border-right: 1px solid rgba(0,0,0,0.16);
+    border-bottom: 1px solid rgba(0,0,0,.05);
+    margin-bottom: -1px;
+
+    background: rgba(0,0,0,0.05);
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
+    -ms-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
+    -o-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
+}/* this is the active gender class use this */
+
+
+.social-login-iconbox:hover, .social-login-iconbox:focus{
+    background-color: #f3f3f3;
+    /* just a set up class for ya colin! */
+}
+.social-login-iconbox:active{color: #fff;background-color: #08c; }
+
+div > div > i.icon-envelope, div > div > #click-register
+{
+    cursor:pointer;
+
+    -webkit-border-bottom-right-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.register-btn{
+    width: 300px;
+    height: 45px;
+    background-color: #fff;
+    text-align: center;
+    color: #888;
+    font-weight: bold; 
+    font-size: 15px;
+    line-height: 45px; 
+    -webkit-border-radius: 0 0 5px 5px;
+    -moz-border-radius: 0 0 5px 5px;
+    border-radius: 0 0 5px 5px;
+
+    cursor: pointer;
+    background-clip:border-box;
+}
+div.register-btn-small{
+    width:148px;
+    -webkit-border-radius: 0 0 5px 0;
+    -moz-border-radius: 0 0 5px 0;
+    border-radius: 0 0 5px 0;
+    display:inline-block;  
+    //background-color: #DEF1F7;
+
+}
+.back-btn{
+    width: 148px;
+    height: 45px;
+    background:#fff;
+    text-align: center;
+    color: #9c9c9c;
+    font-weight: bold; 
+    font-size: 15px;
+    line-height: 45px; 
+    -webkit-border-radius: 0 0 0 5px;
+    -moz-border-radius: 0 0 0 5px;
+    border-radius: 0 0 0 5px;
+    display:inline-block;
+
+    cursor: pointer;
+    background-clip:border-box;
+
+}
+
+.register-btn:hover, .register-btn:focus, .back-btn:hover, .back-btn:focus{background-color: #f3f3f3;}
+
+.register-btn:active, .back-btn:active{background-color: #08c;color: #fff;}
+
+.social-active{opacity:1;}
+
+
+div >div.active-tab
+{
+    -webkit-border-bottom-right-radius: 0!important;
+    -webkit-border-bottom-left-radius: 0!important;
+    -moz-border-radius-bottomright: 0!important;
+    -moz-border-radius-bottomleft: 0!important;
+    border-bottom-right-radius: 0!important;
+    border-bottom-left-radius: 0!important;
+    opacity:1;
+
+}
+
+
 * {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
 }
 
-#footer
-{
+#footer{
     background: #333333 url('../images/footerbg.png') repeat-x;
     color: white;
-
+    position: relative;
+    
+    float:left;
+    clear:both;
+    width:100%;
 }
 
 .footer_contentbox {

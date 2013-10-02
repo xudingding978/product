@@ -14,9 +14,9 @@ HubStar.UserRoute = Ember.Route.extend({
             this.controller.set('followerTag', false);
             this.controller.set('followingTag', false);
 //            console.log(this.controllerFor('checkAuthorityStatus').);
-
+        this.controllerFor('user').set("model", model);
         this.controllerFor('user').setUser();
-
+$(window).scrollTop(0);
         },
         model: function(params) {
             return HubStar.User.find(params.user_id);

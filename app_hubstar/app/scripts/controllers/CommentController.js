@@ -7,6 +7,7 @@ HubStar.CommentController = Ember.Controller.extend({
     count:null,
     init: function()
     {
+        
         if (localStorage.loginStatus) {
 
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
@@ -17,7 +18,7 @@ HubStar.CommentController = Ember.Controller.extend({
         var commentContent = this.get('commentContent');
         if (commentContent) {
             var comments = this.get('mega').get('comments');
-            var commenter_profile_pic_url = this.get("currentUser").get('photo_url');
+            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
             var commenter_id = this.get("currentUser").get('id');
             var name = this.get("currentUser").get('display_name');
             var date = new Date();
@@ -25,7 +26,7 @@ HubStar.CommentController = Ember.Controller.extend({
                 "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(), "is_delete": false, optional: this.get('mega').get('type') + '/' + this.get('mega').get('id')});
             comments.insertAt(0, tempComment);
             comments.store.save();
-            this.set('commentContent', '');
+            this.set('commentContent', "");
             $('#addcommetBut').attr('style', 'display:block');
             $('#commentBox').attr('style', 'display:none');
             setTimeout(function() {
@@ -42,6 +43,7 @@ HubStar.CommentController = Ember.Controller.extend({
     },
     getCommentsById: function(id)
     {
+        //console.log(id);
         var mega = HubStar.Mega.find(id);
         var comments = mega.get('comments');
         this.set('mega', mega);
@@ -80,6 +82,7 @@ HubStar.CommentController = Ember.Controller.extend({
             if (people_like.indexOf(localStorage.loginStatus) !== -1)
             {
                 this.count = mega.get('likes_count');
+                
             }
             else{     
                 var likeArray = [localStorage.loginStatus,id,type];
@@ -91,6 +94,8 @@ HubStar.CommentController = Ember.Controller.extend({
                         mega.set("likes_count", like.length);
                         mega.set("people_like",params);
                         that.count = like.length;
+                        //console.log(that.count);
+                        //console.log("sssssssssssssssssssss");
                     }); 
             }
         }

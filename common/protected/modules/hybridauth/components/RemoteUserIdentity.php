@@ -36,18 +36,26 @@ class RemoteUserIdentity extends CBaseUserIdentity {
 
         $adapter = $this->_hybridAuth->authenticate($this->loginProvider, $params);
         if ($adapter->isUserConnected()) {
+            
             $this->_adapter = $adapter;
             $this->loginProviderIdentifier = $this->_adapter->getUserProfile()->identifier;
-
+           
             $user = UserProfile::getUser($this->loginProvider, $this->loginProviderIdentifier);
 
             if ($user == null) {
                 $this->errorCode = self::ERROR_USERNAME_INVALID;
             } else {
+                
                 $this->id = $user->REC_ID;
                 $this->username = $user->USER_NAME;
-                $this->errorCode = self::ERROR_NONE;
+                error_log(var_export($this->loginProvider,true));
+                 if ($this->loginProvider == 'Facebook') {
+                     
+                $this->_adapter->shareFacebook($this->username);
             }
+                $this->errorCode = self::ERROR_NONE;
+                
+            }          
             return $this->errorCode == self::ERROR_NONE;
         }
     }

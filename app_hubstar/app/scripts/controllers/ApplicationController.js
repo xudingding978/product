@@ -1,6 +1,10 @@
 
+ /*global HubStar */
+ /*global Ember */
+/*global $:false */
+
 HubStar.ApplicationController = Ember.ArrayController.extend({
-    needs: ['status'],
+    needs: ['status', 'applicationFeedback'],
     content: [],
     loginInfo: "",
     search_area: "",
@@ -15,7 +19,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     iframeLoginURL: "",
     init: function() {
         this.newSearch();
-        this.set('search_string','');
+        this.set('search_string', '');
         var address = document.URL;
         var domain = address.split("/")[2];
         this.set('iframeURL', "http://" + domain + "/user/create/");
@@ -30,18 +34,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     loginStatus: function() {
     },
     grapData: function() {
-        var user =HubStar.User.find(localStorage.loginStatus);
+        this.set("user", HubStar.User.find(localStorage.loginStatus));
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
-//        this.set('photo_url', HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus + '/user_picture/user_picture');
-       var that =this;
-        that.set("user",user);
-                 that.set("photo_url", user.get("photo_url_large"));
-          user.addObserver('isLoaded', function() {
-                if (user.get('isLoaded')) {          
-                     that.set("user",user);
-                 that.set("photo_url", user.get("photo_url_large"));
-                }
-          });
     },
     reloadPage: function() {
         this.set("test", !this.get("test"));
@@ -59,12 +53,28 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             if (results.get('isLoaded')) {
                 for (var i = 0; i < results.get("length"); i++) {
                     var tempmega = results.objectAt(i);
+                    //console.log(tempmega.get("profile").objectAt(0));
+                    if (tempmega.get("profile").objectAt(0) !== undefined) {
+                        var isFollow = false;
+                        for (var j = 0; j < tempmega.get("profile").objectAt(0).get("followers").get("length"); j++)
+                        {
+                            if (tempmega.get("profile").objectAt(0).get("followers").objectAt(j).get("follower_id") === localStorage.loginStatus)
+                            {
+                                isFollow = true;
+                                break;
+                            }
+                        }
+                        tempmega.get("profile").objectAt(0).set("isFollowCurrentUser", isFollow);
+                    }
                     that.pushObject(tempmega);
                 }
                 setTimeout(function() {
                     $('#masonry_container').masonry("reload");
                 }, 2200);
                 that.set('loadingTime', false);
+                if (results.get("length") === 0) {
+                    that.get('controllers.applicationFeedback').statusObserver(null, "You have reached the end of your search results.", "info"); //added user flash message
+                }
             }
         });
     },
@@ -85,6 +95,19 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 HubStar.set('itemNumber', megasResults.get("length"));
                 for (var i = 0; i < megasResults.get("length"); i++) {
                     var tempmega = megasResults.objectAt(i);
+                    //console.log(tempmega.get("profile").objectAt(0));
+                    if (tempmega.get("profile").objectAt(0) !== undefined) {
+                        var isFollow = false;
+                        for (var j = 0; j < tempmega.get("profile").objectAt(0).get("followers").get("length"); j++)
+                        {
+                            if (tempmega.get("profile").objectAt(0).get("followers").objectAt(j).get("follower_id") === localStorage.loginStatus)
+                            {
+                                isFollow = true;
+                                break;
+                            }
+                        }
+                        tempmega.get("profile").objectAt(0).set("isFollowCurrentUser", isFollow);
+                    }
                     that.pushObject(tempmega);
                 }
                 that.set('loadingTime', false);

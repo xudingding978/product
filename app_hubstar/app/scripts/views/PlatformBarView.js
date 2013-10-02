@@ -13,12 +13,12 @@ HubStar.PlatformBarView = Ember.View.extend({
                     if (screenYPix - $(that).offset().top < 0) {
                         $(that).parent().stop().animate({
                             top: '-=' + (Math.abs(screenYPix - $(that).offset().top) - 180)
-                        }, 70, function() {
+                        }, 135, function() {
                         });
                     } else {
                         $(that).parent().stop().animate({
                             top: '+=' + (Math.abs(screenYPix - $(that).offset().top) - 180)
-                        }, 70, function() {
+                        }, 135, function() {
                         });
                     }
                 }

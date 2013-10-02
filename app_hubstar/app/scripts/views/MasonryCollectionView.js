@@ -6,7 +6,7 @@ HubStar.MasonryCollectionView = Ember.View.extend({
             $(function() {
                 $('#masonry_user_container').masonry({
                     itemSelector: '.box',
-                    columnWidth: 0,
+                    columnWidth: 185,
                     isInitLayout: false,
                     isFitWidth: true
                 });
@@ -17,7 +17,7 @@ HubStar.MasonryCollectionView = Ember.View.extend({
         },
         editCollectionButton: function(id, desc) {
     
-
+        console.log('masonry');
             var userController = this.get('controller');
             userController.setSelectedCollection(id);
            
@@ -48,7 +48,7 @@ HubStar.MasonryCollectionView = Ember.View.extend({
             $(collection_area).val(desc);
             $('#masonry_user_container').masonry({
                 itemSelector: '.box',
-                columnWidth: 0,
+                columnWidth: 185,
                 isFitWidth: true
             });
             

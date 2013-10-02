@@ -51,19 +51,19 @@ class Controller_admin extends CConsoleCommand
     }
     
     protected  function setCouchbaseObject($id, $photo_arr, $bucket) {
-         $ch = $this->couchBaseConnection($bucket);
+         $cb = $this->couchBaseConnection($bucket);
          
-          if ($ch->set($id, CJSON::encode($photo_arr))) {
+          if ($cb->set($id, CJSON::encode($photo_arr))) {
             return true;
         } else {
             return false;
         }
     }
     
-    protected  function addCouchbaseObject($id, $photo_arr, $bucket) {
-         $ch = $this->couchBaseConnection($bucket);
+    protected  function addCouchbaseObject($id, $document_arr, $bucket_str) {
+         $cb_obj = $this->couchBaseConnection($bucket_str);
          
-          if ($ch->add($id, CJSON::encode($photo_arr))) {
+          if ($cb_obj->add($id, CJSON::encode($document_arr))) {
             return true;
         } else {
             return false;

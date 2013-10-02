@@ -6,17 +6,19 @@ class ProfileCommand extends Controller_admin {
     
     
     public function actionIndex ($action=null) {
-        echo (isset($action) ? 'Your are do... ' . $action."\r\n" : 'No action defined \r\n');
-                
+        echo (isset($action) ? 'Your are do... ' . $action."\r\n" : 'No action defined \r\n');      
         $start_time = microtime(true);
         echo $start_time . "\r\n";        
         
         if ($action == "import") {
-            $this->importProfile ();
+            //$this->importProfile ();
         } else if ($action == 'insert') {
-            $this->insertProfileToMSDB();
+            //$this->insertProfileToMSDB();
         } elseif ($action=='gj-gardner') {
-            $this->importProfilesToCouchbase();
+            //$this->importProfilesToCouchbase();
+            } elseif ($action=='nkba') {
+    
+            $this->outputData();
         } else {
             echo "please input an action!!";
         }
@@ -25,6 +27,14 @@ class ProfileCommand extends Controller_admin {
         $end_time = microtime(true);
         echo "totally spend: " . ($end_time - $start_time); 
     }
+    
+    protected function outputData(){
+        echo "I am outputting data..... ";
+        $profiles_arr = $this->selectProfilesFromSQLDB(Profiles_Nkba::model());
+      // $profiles_arr = $this->selectProfilesFromSQLDB(Profiles_Gj_Gardner::model());
+        echo var_export($profiles_arr, true);
+    } 
+    
     
     protected function importProfilesToCouchbase() {
         // select data from DB table
@@ -37,7 +47,7 @@ class ProfileCommand extends Controller_admin {
                     $couchbase_id='trendsideas.com/profiles/'.$profiles_arr[$i]['ProfileUrl'];
                     $obj_arr = $this->createObjectArr($profiles_arr[$i]);
                     
-                    if($this->addCouchbaseObject($couchbase_id, $obj_arr, 'production')) {
+                    if($this->addCouchbaseObject($couchbase_id, $obj_arr, 'temp')) {
                         $url = "http://develop-api.trendsideas.com/PhotoData";
                         $list_arr = array(
                                 'method' => 'POST',
@@ -83,30 +93,31 @@ class ProfileCommand extends Controller_admin {
                 
         $mega_arr = array(
             "id" => $profile_arr['ProfileUrl'],
+            "authority"=> "*@trendsideas.com, sarah@domain.com",
             "accessed" => $now,
             "boost" => 6,
             "created" => $now,
             "categories" => $profile_arr['ProfileCategory'],
             "collection_id" => null,
-            "creator" => null,
-            "creator_type" => null,
-            "creator_profile_pic" => NULL,
+            "creator" => $profile_arr['ProfileContactEmail'],
+            "creator_type" => 'user',
+            "creator_profile_pic" => "",
             "country" => $profile_arr['Country'],
             "collection_count" => null,
             "deleted" => null,
             "domains" => "trendsideas.com",
-            "editors" => NULL,
+            "editors" => "*@trendsideas.com ",
             "geography" => null,
-            "like_count" => null,
-            "is_indexed" => true,
+            "likes_count" => null,
             "is_active" => true,
+            "is_indexed" => true,
             "keywords" => str_replace("-", ", ", $profile_name_lower),
-            "object_image_linkto" => null,
+            "object_image_linkto" => return_hero,
             "object_image_url" => null,
             "object_title" => null,
             "object_description" => $profile_arr['ProfileAboutUs'],
-            "owner_profile_pic" => $profile_pic_url,
             "owner_type" => 'profiles',
+            "owner_profile_pic" => $profile_pic_url,  
             "owner_title" => $profile_arr['ProfileName'],
             "owner_id" => $profile_arr['ProfileUrl'],
             "owner_contact_email" => $profile_arr['ProfileContactEmail'],
@@ -125,7 +136,10 @@ class ProfileCommand extends Controller_admin {
             "view_count" => null,
             "photo" => array(),
             "user" => array(),
-            "profile" => array()
+            "profile" => array(),
+            "optional"=>null,
+            "category"=>null,
+            
         );
         
         $name_arr = preg_split("/\s/", $profile_arr['ProfileContact']);
@@ -145,7 +159,7 @@ class ProfileCommand extends Controller_admin {
             "profile_physical_address"=>$profile_arr['ProfilePhysicalAddress'],
             "profile_contact_number"=>$profile_arr['ProfileContactNumber'],
             "profile_keywords"=>str_replace("-", ", ", $profile_name_lower),
-            "profile_package_name"=>"Platinum",
+            "profile_package_name"=>"Gold",
             "profile_areas_serviced"=>null,
             "profile_website"=>$profile_arr['ProfileWebsite'],
             "profile_website_url"=>$profile_arr['ProfileWebsiteUrl'],

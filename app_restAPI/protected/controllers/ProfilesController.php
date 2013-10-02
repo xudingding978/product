@@ -39,7 +39,6 @@ class ProfilesController extends Controller {
                 ->size(100)
                 ->query($termQuery);
 
-        error_log($request->toJSON());
 
 //Execute the search and return results
         $response = $request->execute();
@@ -104,9 +103,6 @@ class ProfilesController extends Controller {
             $result .=$respone_client_data;
 
             $result .= '}';
-
-
-//       error_log(var_export($result, true));
 
             echo $this->sendResponse(200, $result);
         } catch (Exception $exc) {
@@ -191,7 +187,7 @@ class ProfilesController extends Controller {
 
         $cb = $this->couchBaseConnection();
         $oldRecord = CJSON::decode($cb->get($this->getDomain() . '/profiles/' . $owner_id));
-        error_log(var_export($oldRecord['profile'][0], true));
+
         if ($mode == 'profile_hero') {
             $oldRecord['profile'][0]['profile_hero_url'] = null;
             $oldRecord['profile'][0]['profile_hero_url'] = $url;

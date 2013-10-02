@@ -34,10 +34,10 @@ class MegasController extends Controller {
                     $record = CJSON::decode($tempRecord, true);
                     $request_string = "RequireType=articleRelatedImage&collection_id=" . $record["collection_id"] . "&owner_profile_id=" . $record["owner_id"];
                 } 
-                    //error_log(var_export($request_string,true));
+
                     $response = $this->getRequestResult($request_string, self::JSON_RESPONSE_ROOT_PLURAL);
                     //$r=CJSON::decode($response, true);
-                    //error_log(var_export($r['megas'][0]['profile'],true));
+
             }            
             $this->sendResponse(200, $response);
         } catch (Exception $exc) {
@@ -46,7 +46,7 @@ class MegasController extends Controller {
     }
 
     public function actionCreate() {
-        //error_log("fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
         $mega = $request_arr['mega'];
@@ -67,7 +67,6 @@ class MegasController extends Controller {
             $docID = $this->getDomain() . "/profiles/" . $id;
             $reponse = $cb->get($docID);
             $reponse = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $reponse . '}';
-            //error_log(var_export($reponse,true));
             
             $this->sendResponse(200, $reponse);
         } catch (Exception $exc) {
@@ -78,14 +77,14 @@ class MegasController extends Controller {
     public function actionUpdate() {
         $temp = explode("/", $_SERVER['REQUEST_URI']);
         $id = $temp [sizeof($temp) - 1];
-        //error_log("ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
+
         $newRecord = file_get_contents('php://input');
         $newRecord = CJSON::decode($newRecord, true);
         $newRecord['id'] = $id;
         if ($newRecord['mega']['type'] == 'user') {
             $this->updateUserRecord($newRecord);
         } elseif ($newRecord['mega']['type'] == 'profile') {
-            //error_log(var_export($newRecord['mega']['type'],true));
+
             $this->updateProfileRecord($newRecord);
         } elseif ($newRecord['mega']['type'] == 'photo') {
             $photoController = new PhotosController();
@@ -121,7 +120,7 @@ class MegasController extends Controller {
 //            $cb = $this->couchBaseConnection();
 //
 //            if (!isset($newRecord['mega']['profile'])) {
-//                //error_log(var_export($newRecord,true));
+
 //                //$id = $newRecord['mega']['owner_id'];
 //            } else {
 //                $id = $newRecord['mega']['profile'][0]['id'];
@@ -188,31 +187,28 @@ class MegasController extends Controller {
     public function actionaddlike() {
         $like = CJSON::decode(file_get_contents('php://input'));
         $like_arr = CJSON::decode($like, true);
-        //error_log(var_export($like_arr[0],true));
+ 
         $like_people = $like_arr[0];
         $like_profile = $like_arr[1];
         $like_type = $like_arr[2];
         if ($like_type === "profile") {
-            //error_log(var_export($like_type,true));
+       
             try {
                 $cb = $this->couchBaseConnection();
                 $docID = $this->getDomain() . "/profiles/" . $like_profile;
                 $old = $cb->get($docID); // get the old profile record from the database according to the docID string
                 $oldRecord = CJSON::decode($old, true);
-                if (!isset($oldRecord["people_like"])) {
-                    //error_log("ssssssssssssssssss");            
+                if (!isset($oldRecord["people_like"])) {     
                     $oldRecord["people_like"] = null;
                 }
 
                 $likeExist = strpos($oldRecord["people_like"], $like_people);
-                //error_log(var_export($oldRecord["people_like"],true));
                 if ($likeExist === false) {
                     if ($oldRecord["people_like"] !== null && $oldRecord["people_like"] !== "") {
                         $oldRecord["people_like"] = $oldRecord["people_like"] . ',' . $like_people;
                     } else {
                         $oldRecord["people_like"] = "" . $like_people;
-                    }
-                    //error_log(var_export($oldRecord["people_like"],true));            
+                    }      
                 }
                 $likeLength = sizeof(explode(",", $oldRecord["people_like"]));
                 $oldRecord["likes_count"] = $likeLength;
@@ -231,14 +227,14 @@ class MegasController extends Controller {
                 $docID = $this->getDomain() . "/" . $like_profile;
                 $old = $cb->get($docID); // get the old profile record from the database according to the docID string
                 $oldRecord = CJSON::decode($old, true);
-                //error_log(var_export(is_array($oldRecord["people_like"]),true));
+
                 if (!isset($oldRecord["people_like"]) || is_array($oldRecord["people_like"])) {
                  
                     $oldRecord["people_like"] = null;
                 }
-                //error_log(var_export($oldRecord["people_like"],true));
+       
                 $likeExist = strpos($oldRecord["people_like"], $like_people);
-                //error_log(var_export($oldRecord["people_like"],true));
+
                 if ($likeExist === false) {
                     if ($oldRecord["people_like"] !== null && $oldRecord["people_like"] !== "") {
                         $oldRecord["people_like"] = $oldRecord["people_like"] . ',' . $like_people;

@@ -17,7 +17,7 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
 
     // default permissions, and alot of them. You can change them from the configuration by setting the scope to what you want/need
     public $scope = "email, user_about_me, user_birthday, user_hometown, user_website, offline_access, read_stream, publish_stream, read_friendlists";
-    public $display = "page";
+    public $display = "popup";
 
     /**
      * IDp wrappers initializer 
@@ -41,6 +41,7 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
 
         // override requested display
         if (isset($this->config["display"]) && !empty($this->config["display"])) {
+       
             $this->display = $this->config["display"];
         }
 
@@ -54,10 +55,6 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
         $this->api = new Facebook(ARRAY('appId' => $this->config["keys"]["id"], 'secret' => $this->config["keys"]["secret"]));
 
         $this->api->getUser();
-        
-        
-
-        
     }
 
     /**
@@ -67,8 +64,8 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
      */
     function loginBegin() {
         // get the login url 
-        $url = $this->api->getLoginUrl(array('scope' => $this->scope, 'display' => $this->display, 'redirect_uri' => $this->endpoint));
 
+        $url = $this->api->getLoginUrl(array('scope' => $this->scope, 'display' => $this->display, 'redirect_uri' => $this->endpoint));
         // redirect to facebook
         Hybrid_Auth::redirect($url);
     }
@@ -77,8 +74,6 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
      * finish login step 
      */
     function loginFinish() {
-
-
 
         // in case we get error_reason=user_denied&error=access_denied
         if (isset($_REQUEST['error']) && $_REQUEST['error'] == "access_denied") {
@@ -150,22 +145,22 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
             $this->user->profile->birthYear = (int) $birthday_year;
         }
 
-        
-            if ($isRegist === true) {
-            $this->shareFacebookRegist($this->user->profile->displayName);
-        } 
 
-          
-        
+        if ($isRegist === true) {
+            $this->shareFacebookRegist($this->user->profile->displayName);
+        }
+
+
+
         return $this->user->profile;
     }
 
     function shareFacebook($name) {
         $args = array(
-            'message' =>  'I\'m creating new ideas over on the new Trends Ideas Space. Here\'s your invitation to come and join me. Thanks '.$name.'.',
+            'message' => 'I\'m creating new ideas over on the new Trends Ideas Space. Here\'s your invitation to come and join me. Thanks ' . $name . '.',
             'picture' => 'http://s3.hubsrv.com/trendsideas.com/profiles/commercial-design-trends/profile_pic.jpg',
             'link' => 'http://beta.trendsideas.com',
-            'description' =>'Join the design community; CONNECT with products and services, COLLECT and SHARE Ideas and COLLABORATE with professionals - Become a part of Trends Ideas Space',
+            'description' => 'Join the design community; CONNECT with products and services, COLLECT and SHARE Ideas and COLLABORATE with professionals - Become a part of Trends Ideas Space',
             'caption' => 'Trends Global Web Platform'
         );
         $post_id = $this->api->api("/me/feed", "post", $args);
@@ -176,7 +171,7 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
             'message' => $name . ', has just registered for the Trends Global Web Platform. Click to see what the excitement is about',
             'picture' => 'http://s3.hubsrv.com/trendsideas.com/profiles/commercial-design-trends/profile_pic.jpg',
             'link' => 'http://beta.trendsideas.com',
-            'description' =>'Join the design community; CONNECT with products and services, COLLECT and SHARE Ideas and COLLABORATE with professionals - Become a part of Trends Ideas Space',
+            'description' => 'Join the design community; CONNECT with products and services, COLLECT and SHARE Ideas and COLLABORATE with professionals - Become a part of Trends Ideas Space',
             'caption' => 'Trends Global Web Platform'
         );
         $post_id = $this->api->api("/me/feed", "post", $args);

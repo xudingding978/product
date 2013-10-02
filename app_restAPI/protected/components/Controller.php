@@ -247,7 +247,6 @@ class Controller extends CController {
             }
         }
         $request->query($bool);
-        error_log($request->toJSON());
         $response = $request->execute();
 
         return $response;

@@ -3,8 +3,8 @@ var canvas, ctx;
 var image;
 var iMouseX, iMouseY = 1;
 var theSelection;
-var xRation =2;
-var yRation =2;
+var xRation =1;
+var yRation =1;
 var defaultWidth;
 var defaultHeight;
 
@@ -108,7 +108,7 @@ function crop(imageSrc) {
     if(document.getElementById('crop-container').offsetWidth===300){
     theSelection = new Selection(20, 20, 200, 200);
     }
-     if(document.getElementById('crop-container').offsetWidth===800){
+     if(document.getElementById('crop-container').offsetWidth===600){
          
             theSelection = new Selection(10,10, 400,250);
         
@@ -208,7 +208,7 @@ function crop(imageSrc) {
             var iFY = iMouseY - theSelection.py;
             iFW = theSelection.w + theSelection.x - iFX;
            // iFH = theSelection.h + theSelection.y - iFY;
-            if(document.getElementById('crop-container').offsetWidth===800){
+            if(document.getElementById('crop-container').offsetWidth===600){
            iFH = iFW/1.63;
             }else if(document.getElementById('crop-container').offsetWidth===300){
                 iFH = iFW;
@@ -220,7 +220,7 @@ function crop(imageSrc) {
             var iFY = iMouseY - theSelection.py;
             iFW = iMouseX - theSelection.px - iFX;
            // iFH = theSelection.h + theSelection.y - iFY;
-            if(document.getElementById('crop-container').offsetWidth===800){
+            if(document.getElementById('crop-container').offsetWidth===600){
            iFH = iFW/1.63;
             }else if(document.getElementById('crop-container').offsetWidth===300){
                 iFH = iFW;
@@ -231,7 +231,7 @@ function crop(imageSrc) {
             var iFY = theSelection.y;
             iFW = iMouseX - theSelection.px - iFX;
           //  iFH = iMouseY - theSelection.py - iFY;
-            if(document.getElementById('crop-container').offsetWidth===800){
+            if(document.getElementById('crop-container').offsetWidth===600){
            iFH = iFW/1.63;
             }else if(document.getElementById('crop-container').offsetWidth===300){
                 iFH = iFW;
@@ -242,7 +242,7 @@ function crop(imageSrc) {
             var iFY = theSelection.y;
             iFW = theSelection.w + theSelection.x - iFX;
           //  iFH = iMouseY - theSelection.py - iFY;
-            if(document.getElementById('crop-container').offsetWidth===800){
+            if(document.getElementById('crop-container').offsetWidth===600){
            iFH = iFW/1.63;
             }else if(document.getElementById('crop-container').offsetWidth===300){
                 iFH = iFW;
@@ -318,10 +318,10 @@ function getResults() {
     var temp_ctx, temp_canvas;
     temp_canvas = document.createElement('canvas');
     temp_ctx = temp_canvas.getContext('2d');
-    temp_canvas.width = theSelection.w;
-    temp_canvas.height = theSelection.h;
-    temp_ctx.drawImage(image, theSelection.x * xRation, theSelection.y * yRation, theSelection.w * xRation, theSelection.h * yRation, 0, 0, theSelection.w, theSelection.h);
-   console.log(xRation,yRation);
+    temp_canvas.width = theSelection.w* xRation;
+    temp_canvas.height = theSelection.h* yRation;
+    temp_ctx.drawImage(image, theSelection.x * xRation, theSelection.y * yRation, theSelection.w * xRation, theSelection.h * yRation, 0, 0, theSelection.w* xRation,  theSelection.h* yRation);
+   console.log(theSelection.w * xRation,theSelection.h * yRation);
     var vData = temp_canvas.toDataURL();
     //$('#crop_result').attr('src', vData);
     //  $('#results h2').text('Well done, we have prepared our cropped image, now you can save it if you wish');

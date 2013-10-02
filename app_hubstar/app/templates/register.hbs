@@ -6,7 +6,7 @@
         <div style="position:relative; float:right; color:white; font-size:15px;font-weight: bold;">
             <span style="letter-spacing: 1px; margin: 0 0 0 10px;cursor:pointer;" onClick="loginPane();" id="login-btn">LOGIN</span>
             <span>&nbsp | &nbsp</span>
-            <span style="letter-spacing: 1px; margin: 0 0 0 10px;">HELP</span>
+            <span style="letter-spacing: 1px; margin: 0 0 0 10px;"{{action emailSend}}}>HELP</span>
         </div>
     </div>
 
@@ -147,12 +147,12 @@
             <div id="login-with-email-drop-down" style="width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;">
                 <div style="padding: 0 8px;">
 
-                    <div id="loginusername" class="login-textfield" style="margin: 0;width: 100%;height: 45px;line-height: 45px;border-bottom: 1px solid #e3e3e3;">
-                        {{view Ember.TextField valueBinding="loginusername" placeholder="Your Email" }}
+                    <div id="loginUsername" class="login-textfield" style="margin: 0;width: 100%;height: 45px;line-height: 45px;border-bottom: 1px solid #e3e3e3;">
+                        {{view Ember.TextField valueBinding="loginUsername" placeholder="Your Email" }}
                     </div>
 
-                    <div id="loginpassword"class="login-textfield"  style="margin: 0;width: 100%;height: 45px;line-height: 45px;border-bottom: 1px solid #e3e3e3;">
-                        {{view Ember.TextField type="password" valueBinding="loginpassword" placeholder="Password" }}
+                    <div id="loginPassword"class="login-textfield"  style="margin: 0;width: 100%;height: 45px;line-height: 45px;border-bottom: 1px solid #e3e3e3;">
+                        {{view Ember.TextField type="password" valueBinding="loginPassword" placeholder="Password" }}
                         <i class="icon-question-sign" style="position: relative;top: -30px;right: 7px;left: 120px;display: block;">&nbsp </i>
                     </div>
                 </div>

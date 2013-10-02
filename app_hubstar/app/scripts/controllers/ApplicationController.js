@@ -19,6 +19,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     password: "",
     repeat: "",
     email: "",
+    loginUsername:"",
+    loginPassword:"",
+    resetPasswordEmail:"",
     gender:"",
     iframeURL: "",
     iframeLoginURL: "",
@@ -176,9 +179,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     document.getElementById('email').style.border = '2px solid red';
                     that.get('controllers.applicationFeedback').statusObserver(null, "You have registered with this email using social media account.","warnning");
                 }
-                else if(params===0) { 
+                else if(params===2) { 
                     document.getElementById('email').style.border = '2px solid red';
-                    that.get('controllers.applicationFeedback').statusObserver(null, "Invalid Username.","warnning");
+                    that.get('controllers.applicationFeedback').statusObserver(null, "Email already exists.","warnning");
                 }
             });
         }
@@ -195,6 +198,14 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             localStorage.loginStatus = params.COUCHBASE_ID;
                             setTimeout(function() {
               that.transitionToRoute('search');
+              that.set('first_name',"");
+               that.set('last_name',"");
+               that.set('email',"");
+               that.set('password',"");
+               that.set('region',"");
+               that.set('gender',"");
+               that.set('age',"");
+               
                 }, 2000);
             
 
@@ -271,29 +282,31 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             
             
     login: function() {
-document.getElementById('loginusername').style.border = '';
-document.getElementById('loginpassword').style.border = '';
-        var loginInfo = [this.get('loginusername'), this.get('loginpassword'),this.validateEmail(this.get('loginusername'))];
+document.getElementById('loginUsername').style.border = '';
+document.getElementById('loginPassword').style.border = '';
+        var loginInfo = [this.get('loginUsername'), this.get('loginPassword'),this.validateEmail(this.get('loginUsername'))];
         var that = this;
          requiredBackEnd('site', 'login', loginInfo, 'POST', function(params) {
        if(params===1){
            console.log('email not exits');
-           document.getElementById('loginusername').style.border = '2px solid red';
+           document.getElementById('loginUsername').style.border = '2px solid red';
              that.get('controllers.applicationFeedback').statusObserver(null, "Invalid Username.","warnning");
        }
        else if (params===0){
            console.log('you have registered');
-           document.getElementById('loginusername').style.border = '2px solid red';
+           document.getElementById('loginUsername').style.border = '2px solid red';
            that.get('controllers.applicationFeedback').statusObserver(null, "You have registered with this email using social media account.","warnning");
        }
        else{
-            if (that.get('loginpassword') === params.PWD_HASH && that.get('loginpassword')!==undefined) {
-                console.log(that.get('loginpassword'));
+            if (that.get('loginPassword') === params.PWD_HASH && that.get('loginPassword')!==undefined) {
+                console.log(that.get('loginPassword'));
                 localStorage.loginStatus = params.COUCHBASE_ID;
                 that.transitionToRoute('search');
+                that.set('loginUsername',"");
+               that.set('loginPassword',"");
             }
             else{
-                document.getElementById('loginpassword').style.border = '2px solid red';
+                document.getElementById('loginPassword').style.border = '2px solid red';
                 that.get('controllers.applicationFeedback').statusObserver(null, " Invalid password.","warnning");
             }
            }
@@ -304,8 +317,8 @@ document.getElementById('loginpassword').style.border = '';
             
     emailSend: function()
     {
-        console.log('shuai');
-  var signupInfo = [this.get('email')];
+        
+  var signupInfo = [this.get('resetPasswordEmail')];
   var that=this;
             requiredBackEnd('site', 'resetemail', signupInfo, 'POST', function(params) {
       if(params===1){
@@ -319,8 +332,10 @@ document.getElementById('loginpassword').style.border = '';
        
        else{
        
-               var emailInfo = [that.get('email'),params.USER_NAME,params.COUCHBASE_ID];
-            
+               var emailInfo = [that.get('resetPasswordEmail'),params.USER_NAME,params.PWD_HASH];
+               console.log(that.get('resetPasswordEmail'));
+            console.log(params.USER_NAME);
+            console.log(params.PWD_HASH);
             requiredBackEnd('emails', 'forgetpassword', emailInfo, 'POST', function(params) {
                 console.log(params);
             });

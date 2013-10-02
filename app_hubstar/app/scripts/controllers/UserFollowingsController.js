@@ -70,7 +70,7 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
                     dataNew["following_status"] = params[i]["following_status"];
                     dataNew["profile_about_us"] = params[i]["profile_about_us"];
                     dataNew["profile_cover_text"] = params[i]["profile_cover_text"];
-                    dataNew["current"] = HubStar.Mega.find(dataNew["id"]);
+                    //dataNew["current"] = HubStar.Mega.find(dataNew["id"]);
                     // console.log(dataNew["current"]);
                     //dataNew["current"] = params[i]["profile"];
                     // dataNew["current"]=currentProfile;

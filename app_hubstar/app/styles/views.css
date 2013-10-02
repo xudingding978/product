@@ -284,7 +284,7 @@
     right: 0;
     top: 0;
     /*    cursor: pointer;*/
-    z-index: 1;
+    z-index: 100;
 }
 
 .object-tags{
@@ -308,7 +308,7 @@
     display: block;
     float: right;
     max-width: 180px;
-    overflow: hidden;
+    /*overflow: hidden; this was removed for the tool tips 3/10/13 */
     text-overflow: ellipsis;
     white-space: nowrap;
     background-color: #eee;

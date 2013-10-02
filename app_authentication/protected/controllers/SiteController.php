@@ -42,9 +42,8 @@ class SiteController extends Controller {
     public function actionIndex() {
         // renders the view file 'protected/views/site/index.php'
         // using the default layout 'protected/views/layouts/main.php'
-
         //$this->layout = '//layouts/frontEnd';
-        if(Yii::app()->user->isGuest) {
+        if (Yii::app()->user->isGuest) {
             $this->actionLogin();
         } else {
             $this->render('index');
@@ -208,9 +207,9 @@ class SiteController extends Controller {
                     $index = rand(0, $count - 1);
                     $result .= mb_substr($chars, $index, 1);
                 }
-                 $currentUser->PWD_HASH = $result;
-        //$currentUser->save(false);
-                $this->sendResponse(200, CJSON::encode($result));
+                $currentUser->PWD_HASH = $result;
+                //$currentUser->save(false);
+                $this->sendResponse(200, CJSON::encode($currentUser));
             }
         } else {
             $this->sendResponse(200, 1);

@@ -83,6 +83,8 @@ class EmailsController extends Controller {
 
 error_log(var_export($request[0],true));
 $email=$request[0];
+$username=$request[1];
+$password=$request[2];
 
         $domain = $this->getDomain();
         $configuration = $this->getProviderConfigurationByName($domain, "SES");
@@ -103,7 +105,7 @@ $email=$request[0];
                 ),
                 "Body" => array(
                     "Html" => array(
-                        "Data" =>$this->forgetEmailForm($email)
+                        "Data" =>$this->forgetEmailForm($username,$password)
                     )
                 ),
             ),
@@ -246,7 +248,7 @@ $email=$request[0];
 ';
     }
 
-    public function forgetEmailForm($email) {
+    public function forgetEmailForm($username,$password) {
         return '
             <table width="100%" cellpadding="0" cellspacing="0" style="background:#E5E5E5;">
                 <tbody>
@@ -267,10 +269,10 @@ $email=$request[0];
                                                     <td valign="top">Please return to the site and log in using the following information.</td> 
                                                 </tr>
                                                 <tr>
-                                                    <td valign="top">User Name: ' . $email . '</td>
+                                                    <td valign="top">User Name: ' . $username . '</td>
                                                 </tr>
                                                  <tr>
-                                                    <td valign="top">Password: ' . $email . '</td>
+                                                    <td valign="top">Password: ' . $password . '</td>
                                                 </tr>                        
                                 </tbody>
                             </table>

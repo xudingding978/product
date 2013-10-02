@@ -18,6 +18,8 @@ HubStar.UserController = Ember.Controller.extend({
     selectedDesc: "",
     selectedTitle: "",
     display_name: "",
+    gender:"",
+    age:"",
     userTage: true,
     currentUserID: "",
     needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings', 'application', 'platformBar', 'collection', 'htmlEditor'],
@@ -32,6 +34,9 @@ HubStar.UserController = Ember.Controller.extend({
     location: "",
     email: "",
     password: "",
+    oldpassword: "",
+    newpassword: "",
+    repeatnew: "",
     makeSureDelete: false,
     updateOrCreate: true,
     collectionTag: true,
@@ -45,10 +50,12 @@ HubStar.UserController = Ember.Controller.extend({
     editingInterest: false,
     interest: "interest",
     is_authentic_user: false,
-    aboutMe: "aboutMe",
-    // about_me:"",
-    first_name: "",
-    last_name: "",
+
+    aboutMe:"aboutMe",
+   about_me:"",
+    first_name:"",
+    last_name:"",
+
     is_Photoclick: false,
     is_click: false,
     photo_url_large: "",
@@ -106,6 +113,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("youtube", user.get("youtube_link"));
         this.set("location", user.get("region"));
         this.set("email", user.get("email"));
+      
         this.set("password", user.get("password"));
 
 
@@ -344,6 +352,28 @@ HubStar.UserController = Ember.Controller.extend({
             window.open(this.get("linkedin"));
         }
     },
+    savePassword: function() {
+
+        var user = this.getCurrentUser();
+        var isSave = true;
+        var that = this;
+        var getmodelInfo = [user.get('id')];
+        requiredBackEnd('site', 'getmodel', getmodelInfo, 'POST', function(params) {
+    
+            if ( that.get('oldpassword') === params.PWD_HASH&&that.get('newpassword') === that.get('repeatnew')  &&that.get('newpassword').length >=6&&that.get('newpassword').length<=40 ) {
+              
+                isSave = false;
+                var updateInfo = [user.get('id'), that.get('oldpassword'), that.get('newpassword'), that.get('repeatnew'), isSave];
+                requiredBackEnd('site', 'update', updateInfo, 'POST', function(params) { });
+              
+                that.get('controllers.applicationFeedback').statusObserver(null, "Updated Successfully!!!");    
+            }
+            else{
+                that.get('controllers.applicationFeedback').statusObserver(null, "Please check your input");
+            }
+        });
+    },
+ 
     saveUpdate: function() {
         var update_user_record = this.get('model');
         if (this.isInputValid())
@@ -353,6 +383,7 @@ HubStar.UserController = Ember.Controller.extend({
             update_user_record.set('display_name', this.get('display_name'));
             update_user_record.set('first_name', this.get('first_name'));
             update_user_record.set('last_name', this.get('last_name'));
+
             update_user_record.set('region', this.get('location'));
             update_user_record.set('email', this.get('email'));
             update_user_record.set('password', this.get('password'));
@@ -373,14 +404,18 @@ HubStar.UserController = Ember.Controller.extend({
             this.input = input;
             this.length = length;
             this.isEmailValid = isEmailValid;
+
         }
         var checkList = new Array();
         var result;
         var displayName = new checkObject("displayName", this.get('display_name'), 128, null);
+
         checkList.push(displayName);
         var email = new checkObject("email", this.get('email'), 128, true);
         checkList.push(email);
+
         var first_name = new checkObject("first_name", this.get('first_name'), 128, null);
+
         checkList.push(first_name);
         var last_name = new checkObject("last_name", this.get('last_name'), 128, null);
         checkList.push(last_name);
@@ -488,7 +523,9 @@ HubStar.UserController = Ember.Controller.extend({
         }
         return result;
     },
-    saveLink: function(link_url, link) {//link =param; this,get('facebook')
+
+    saveLink: function(link_url, link) {
+
 
         var http = "http://";
         var update_user_record = this.get('model');
@@ -530,7 +567,7 @@ HubStar.UserController = Ember.Controller.extend({
         } else {
             this.get('controllers.applicationFeedback').statusObserver(null, "Invalid input");
         }
-
+      
     },
     specialCharactersChecking: function(str) {
         var re = /^[a-zA-Z-][a-zA-Z0-9-]*$/;
@@ -614,7 +651,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.get('selectedCollection').set('title', this.get('newTitle'));
         this.get('selectedCollection').set('desc', this.get('newDesc'));
         var collectionController = this.get('controllers.collection');
-        console.log(this.get('selectedCollection'));
+    
         var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
         collection.set('optional', this.get('model').get('id'));
         collection.set('type', 'user');
@@ -787,7 +824,7 @@ HubStar.UserController = Ember.Controller.extend({
                         that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
                     }
                     else if (width < params.width || height < params.height) {
-                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + params.width + "x" + params.height);
+                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + params.width + "x" + params.height,"warnning");
                         that.set('newStyleImageSource', "");
                         that.set('newStyleImageName', "");
                         that.set('CurrentImageSize', "");

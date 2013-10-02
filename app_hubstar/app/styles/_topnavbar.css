@@ -1118,3 +1118,13 @@ div#forgot-password-container{
     box-shadow: 0 0 5px #888;
     text-shadow:0 0 0;
 }
+
+
+.white-text-hover{
+    color: #fff;
+    opacity: .7;
+}
+
+.white-text-hover:hover{
+    opacity: 1;
+}

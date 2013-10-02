@@ -1,6 +1,6 @@
 
- /*global HubStar */
- /*global Ember */
+/*global HubStar */
+/*global Ember */
 /*global $:false */
 
 HubStar.ApplicationController = Ember.ArrayController.extend({
@@ -15,6 +15,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     from: null,
     size: null,
     photo_url: null,
+    userName: "",
+    password: "",
+    repeat: "",
+    email: "",
+    gender:"",
     iframeURL: "",
     iframeLoginURL: "",
     init: function() {
@@ -22,8 +27,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('search_string', '');
         var address = document.URL;
         var domain = address.split("/")[2];
-        this.set('iframeURL', "http://" + domain + "/user/create/");
-        this.set('iframeLoginURL', "http://" + domain + "/site/login/");
+
     },
     popupModal: function() {
         this.set('popup', !this.get('popup'));
@@ -53,7 +57,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             if (results.get('isLoaded')) {
                 for (var i = 0; i < results.get("length"); i++) {
                     var tempmega = results.objectAt(i);
-                    //console.log(tempmega.get("profile").objectAt(0));
+
                     if (tempmega.get("profile").objectAt(0) !== undefined) {
                         var isFollow = false;
                         for (var j = 0; j < tempmega.get("profile").objectAt(0).get("followers").get("length"); j++)
@@ -145,6 +149,187 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     changeImage: function(imageSrc)
     {
         this.set('photo_url', imageSrc);
+    },
+    validateEmail: function(email)
+    {
+
+        var re = /\S+@\S+\.\S+/;
+        return re.test(email);
+    },
+    signUp: function() {
+
+        if (this.checkSignupInfo()) {
+
+            var signupInfo = [this.get('email')];
+            var that=this;
+            requiredBackEnd('site', 'getemail', signupInfo, 'POST', function(params) {
+                console.log(params);
+                if (params === 1) {
+                    $('#register-with-email-step-2').addClass('active-step');
+                    $('#click-register').addClass('active-tab');
+                    $('#register-with-email-step-2').animate({height: 'toggle'});
+                    $('#register-with-email-drop-down').animate({height: 'toggle'});
+                    checkSocial();
+                }
+                
+                else if(params===0) { 
+                    document.getElementById('email').style.border = '2px solid red';
+                    that.get('controllers.applicationFeedback').statusObserver(null, "You have registered with this email using social media account.","warnning");
+                }
+                else if(params===0) { 
+                    document.getElementById('email').style.border = '2px solid red';
+                    that.get('controllers.applicationFeedback').statusObserver(null, "Invalid Username.","warnning");
+                }
+            });
+        }
+    },
+    done: function() {
+
+
+        var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age')];
+        var that = this;
+
+        requiredBackEnd('site', 'create', createInfo, 'POST', function(params) {
+            
+            console.log( params.COUCHBASE_ID);
+            localStorage.loginStatus = params.COUCHBASE_ID;
+                            setTimeout(function() {
+              that.transitionToRoute('search');
+                }, 2000);
+            
+
+        });
+    },
+    checkSignupInfo: function() {
+        function checkObject(id, input, lengthMin, lengthMax, isEmailValid)
+        {
+            this.id = id;
+            this.input = input;
+            this.lengthMin = lengthMin;
+            this.lengthMax = lengthMax;
+            this.isEmailValid = isEmailValid;
+        }
+        var checkList = new Array();
+        var result;
+        var first_name = new checkObject("first_name", this.get('first_name'), 0, 128, null);
+        checkList.push(first_name);
+        var last_name = new checkObject("last_name", this.get('last_name'), 0, 128, null);
+        checkList.push(last_name);
+        var email = new checkObject("email", this.get('email'), 0, 45, true);
+        checkList.push(email);
+        var password = new checkObject("password", this.get('password'), 6, 40, null);
+        checkList.push(password);
+
+        for (var i = 0; i < checkList.length; i++)
+        {
+            var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
+            document.getElementById(checkList[i].id).style.border = '';
+            if (checkList[i].input !== null && checkList[i].input !== "" && checkList[i].input !==undefined)
+            {
+                console.log(checkList[i].input);
+                if (checkList[i].input.length > checkList[i].lengthMax || checkList[i].input.length < checkList[i].lengthMin)
+                {
+                    result = false;
+                    this.get('controllers.applicationFeedback').statusObserver(null, "Your length should be between "+checkList[i].lengthMin+" and "+ checkList[i].lengthMax+".","warnning");
+                document.getElementById(checkList[i].id).style.border = '2px solid red';
+                    break;
+                }
+            }
+            if (checkList[i].id === 'first_name' || checkList[i].id === 'last_name' || checkList[i].id === 'email' || checkList[i].id === 'password')
+            {
+                if (checkList[i].input === null || checkList[i].input === ""||checkList[i].input ===undefined) {
+                    result = false;
+                    this.get('controllers.applicationFeedback').statusObserver(null, "Please fill the mandory field.","warnning");
+                    document.getElementById(checkList[i].id).style.border = '2px solid red';
+                    break;
+                }
+            }
+            if (checkList[i].input !== null && checkList[i].isEmailValid === true)
+            {
+
+                if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
+                    result = true;
+                }
+                else {
+                    result = false;
+                     this.get('controllers.applicationFeedback').statusObserver(null, "Invalid Email.","warnning");
+                    document.getElementById(checkList[i].id).style.border = '2px solid red';
+                    break;
+                }
+            }
+
+        }
+        return result;
+    },
+            setmale:function(){
+         this.set('gender',"male");
+            },
+           
+             setfemale:function(){
+         this.set('gender',"female");
+            },
+            
+            
+    login: function() {
+document.getElementById('loginusername').style.border = '';
+document.getElementById('loginpassword').style.border = '';
+        var loginInfo = [this.get('loginusername'), this.get('loginpassword'),this.validateEmail(this.get('loginusername'))];
+        var that = this;
+         requiredBackEnd('site', 'login', loginInfo, 'POST', function(params) {
+       if(params===1){
+           console.log('email not exits');
+           document.getElementById('loginusername').style.border = '2px solid red';
+             that.get('controllers.applicationFeedback').statusObserver(null, "Invalid Username.","warnning");
+       }
+       else if (params===0){
+           console.log('you have registered');
+           document.getElementById('loginusername').style.border = '2px solid red';
+           that.get('controllers.applicationFeedback').statusObserver(null, "You have registered with this email using social media account.","warnning");
+       }
+       else{
+            if (that.get('loginpassword') === params.PWD_HASH && that.get('loginpassword')!==undefined) {
+                console.log(that.get('loginpassword'));
+                localStorage.loginStatus = params.COUCHBASE_ID;
+                that.transitionToRoute('search');
+            }
+            else{
+                document.getElementById('loginpassword').style.border = '2px solid red';
+                that.get('controllers.applicationFeedback').statusObserver(null, " Invalid password.","warnning");
+            }
+           }
+         });
+         
+        
+    },
+            
+    emailSend: function()
+    {
+        console.log('shuai');
+  var signupInfo = [this.get('email')];
+  var that=this;
+            requiredBackEnd('site', 'resetemail', signupInfo, 'POST', function(params) {
+      if(params===1){
+           console.log('email not exits');
+             that.get('controllers.applicationFeedback').statusObserver(null, "Invalid Username.","warnning");
+       }
+       else if (params===0){
+           console.log('you have registered');
+           that.get('controllers.applicationFeedback').statusObserver(null, "You have registered this email using social media account.","warnning");
+       }
+       
+       else{
+       
+               var emailInfo = [that.get('email'),params.USER_NAME,params.COUCHBASE_ID];
+            
+            requiredBackEnd('emails', 'forgetpassword', emailInfo, 'POST', function(params) {
+                console.log(params);
+            });
+            
+       }
+            });
+           
+
+
     }
 
 });

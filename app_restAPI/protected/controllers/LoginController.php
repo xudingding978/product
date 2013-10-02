@@ -1,12 +1,20 @@
 <?php
 
-class UserController extends Controller {
+header("Access-Control-Allow-Origin: *");
+header('Content-type: *');
+
+header('Access-Control-Request-Method: *');
+header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET');
+header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+
+
+class LoginController extends Controller {
 
     /**
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
-    public $layout = '//layouts/platform';
+    public $layout = '//layouts/column2';
 
     /**
      * @return array action filters
@@ -33,7 +41,6 @@ class UserController extends Controller {
      * @param integer $id the ID of the model to be displayed
      */
     public function actionView($id) {
-        $this->layout = '//layouts/main';
         if (Yii::app()->user->id == $id) {
 //            $user = User::model()->findByPk($id);
 //            //$userprofile = UserProfile::model()->findAllByAttributes(array('USER_REC_ID'=>$id));
@@ -56,50 +63,87 @@ class UserController extends Controller {
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
-        $model = new User;
-        if (isset($_POST['User'])) {
-
-            $model->attributes = $_POST['User'];
-            $model->REC_DATETIME = new CDbExpression('NOW()');
-            $model->REC_TIMESTAMP = new CDbExpression('NOW()');
-            $model->TENANT_REC_ID = "1";
-            $model->PWD_HASH = $_POST['User']['PWD_HASH'];
-            $model->COUCHBASE_ID = strval(rand(9999999999, 99999999999));
-            $cb = new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "production", true);
-            $rand_id = $model->COUCHBASE_ID;
-            $temp = $this->getMega();
-            $temp["id"] = $rand_id;
-            $temp["user"][0]["id"] = $rand_id;
-            $temp["created"] = $this->getCurrentUTC();
-            $temp["user"][0]["photo_url"] = "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg";
-            $temp["user"][0]["photo_url_large"] = "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg";
-            $temp["user"][0]["display_name"] = $model->USER_NAME;
-            $temp["user"][0]["email"] = $model->EMAIL_ADDRESS;
-            $temp["user"][0]["first_name"] = $model->FIRST_NAME;
-            $temp["user"][0]["last_name"] = $model->LAST_NAME;
-
-            if ($cb->add(substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.') + 1) . "/users/" . $rand_id, CJSON::encode($temp))) {
-                Yii::app()->session['newUser'] = "new";
-
-                if ($model->save()) {
-
-                    $identity = new CommonUserIdentity($model->USER_NAME, $model->PWD_HASH);
-                    $identity->authenticate();
-                    Yii::app()->user->login($identity, 0);
-
-                    if (Yii::app()->session['newUser'] == "new") {
-                        $this->render('welcome');
-                        unset(Yii::app()->session['newUser']);
-                    } else {
-                        $this->render('close');
-                    }
-                }
-            }
-        }
         
-        $this->render('create', array(
-            'model' => $model,
-        ));
+        
+       
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+    
+            error_log(var_export($request_array[3],true));
+            
+            $model = User::model()
+                ->findByAttributes(array('EMAIL_ADDRESS' => $request_array[3]));
+   
+            error_log(var_export($model ,true));
+            
+            
+//        $model = new User;
+//        
+//         $request_array=CJSON::decode(file_get_contents('php://input'));
+//         error_log(var_export($request_array,0));
+//        
+//        $model->REC_DATETIME = new CDbExpression('NOW()');
+//            $model->REC_TIMESTAMP = new CDbExpression('NOW()');
+//            $model->TENANT_REC_ID = "1";
+//            $model->USER_NAME=$request_array[0];
+//            error_log(var_export($request_array[0],0));
+//            $model->PWD_HASH =$request_array[1];
+//            $model->EMAIL_ADDRESS=$request_array[3];
+//            $model->COUCHBASE_ID = strval(rand(9999999999, 99999999999));
+//            $cb = new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "production", true);
+//            $rand_id = $model->COUCHBASE_ID;
+//            $temp = $this->getMega();
+//            $temp["id"] = $rand_id;
+//            $temp["user"][0]["id"] = $rand_id;
+//            $temp["created"] = $this->getCurrentUTC();
+//            $temp["user"][0]["photo_url"] = "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg";
+//            $temp["user"][0]["photo_url_large"] = "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg";
+//            $temp["user"][0]["password"] = $model->PWD_HASH;
+//            $temp["user"][0]["display_name"] = $model->USER_NAME;
+//            $temp["user"][0]["first_name"] = $model->FIRST_NAME;
+//            $temp["user"][0]["last_name"] = $model->LAST_NAME;
+         
+         
+      
+//        $model = new User;
+//  
+//
+//            $model->attributes = $_POST['User'];
+//            $model->REC_DATETIME = new CDbExpression('NOW()');
+//            $model->REC_TIMESTAMP = new CDbExpression('NOW()');
+//            $model->TENANT_REC_ID = "1";
+//            $model->PWD_HASH = $_POST['User']['PWD_HASH'];
+//            $model->COUCHBASE_ID = strval(rand(9999999999, 99999999999));
+//            $cb = new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "production", true);
+//            $rand_id = $model->COUCHBASE_ID;
+//            $temp = $this->getMega();
+//            $temp["id"] = $rand_id;
+//            $temp["user"][0]["id"] = $rand_id;
+//            $temp["created"] = $this->getCurrentUTC();
+//            $temp["user"][0]["photo_url"] = "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg";
+//            $temp["user"][0]["photo_url_large"] = "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg";
+//            $temp["user"][0]["display_name"] = $model->USER_NAME;
+//            $temp["user"][0]["email"] = $model->EMAIL_ADDRESS;
+//            $temp["user"][0]["first_name"] = $model->FIRST_NAME;
+//            $temp["user"][0]["last_name"] = $model->LAST_NAME;
+
+//            if ($cb->add(substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.') + 1) . "/users/" . $rand_id, CJSON::encode($temp))) {
+//                Yii::app()->session['newUser'] = "new";
+//
+//                if ($model->save()) {
+//
+//                    $identity = new CommonUserIdentity($model->USER_NAME, $model->PWD_HASH);
+//                    $identity->authenticate();
+//                    Yii::app()->user->login($identity, 0);
+//
+//                    if (Yii::app()->session['newUser'] == "new") {
+//
+//                        $this->render('welcome');
+//                        unset(Yii::app()->session['newUser']);
+//                    } else {
+//                        $this->render('close');
+//                    }
+//                }
+//            }
     }
 
     /**
@@ -147,7 +191,7 @@ class UserController extends Controller {
      * Lists all models.
      */
     public function actionIndex() {
-        $this->layout = '//layouts/main';
+
         $dataProvider = new CActiveDataProvider('User');
         $this->render('index', array(
             'dataProvider' => $dataProvider,
@@ -163,7 +207,6 @@ class UserController extends Controller {
      * Manages all models.
      */
     public function actionAdmin() {
-        $this->layout = '//layouts/main';
         $model = new User('search');
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['User']))
@@ -258,4 +301,3 @@ class UserController extends Controller {
     }
 
 }
-

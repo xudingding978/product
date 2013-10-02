@@ -14,9 +14,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
             this.controllerFor('application').set('isotherpage', true);
             this.controllerFor('searchs').setLoginImge();
             this.controllerFor('profile').set('switchPhoto', true);
-          
-        
-               
+
                
               var lastPositionId= HubStar.get('lastPositionId');
               var lastPosition=HubStar.get("scrollPartenerPosition");

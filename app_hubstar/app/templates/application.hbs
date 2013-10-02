@@ -1,8 +1,8 @@
 <div style="width: 100%;height: auto;position:relative;z-index:2;">
 
-    {{#if controller.comingsoon}}
+    {{#if controller.register}}
 
-    {{outlet comingsoon}}
+    {{outlet register}}
 
     {{else}}
 
@@ -23,7 +23,7 @@
     {{outlet "quickstart"}}        
     {{else}}
 
-    {{view HubStar.CarouselView}}
+    {{view HubStar.RegisterView}}
     {{/if}}
 
     {{view HubStar.MasonryView}}

@@ -93,6 +93,17 @@ test("testTwoController", function() {
 //;
 //
 //
+<<<<<<< HEAD
+=======
+
+//     setTimeout(function() {
+//        $("a:contains('Logout')").click();
+//    }, 1000);
+//
+//
+//}
+//;
+>>>>>>> b644d34c98a02d3e360aabac428536d2d5da0d37
 
 
 

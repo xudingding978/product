@@ -65,6 +65,7 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
                     //console.log(dataNew["photo_url_large"]);
                     dataNew["collections_size"] = params[i]["collections_size"];
                     dataNew["follower_size"] = params[i]["follower_size"];
+                    dataNew["partner_size"] = params[i]["partner_size"];
                     dataNew["follow_status"] = params[i]["follow_status"];
                     dataNew["following_status"] = params[i]["following_status"];
                     dataNew["profile_about_us"] = params[i]["profile_about_us"];

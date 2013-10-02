@@ -598,7 +598,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.get('controllers.userFollowers').getProfileId(model);
         this.set('partnerTag', false);
         this.set('collectionTag', false);
-        console.log("dddddfd");
+        
         this.set('followerProfileTag', true);
          setTimeout(function() {
             $('#masonry_user_container').masonry("reload");

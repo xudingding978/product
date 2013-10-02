@@ -26,10 +26,10 @@ class EmailsController extends Controller {
     }
 
     public function actionCreate() {
-        
-        
-        
-        
+
+
+
+
         $request_json = file_get_contents('php://input');
         $request = CJSON::decode($request_json, true);
 
@@ -78,20 +78,21 @@ class EmailsController extends Controller {
     }
 
     public function actionForgetpassword() {
-          $request_json = file_get_contents('php://input');
+        $request_json = file_get_contents('php://input');
         $request = CJSON::decode($request_json, true);
 
-error_log(var_export($request[0],true));
-$email=$request[0];
-$username=$request[1];
-$password=$request[2];
+
+        $email = $request[0];
+        $username = $request[1];
+        $password = $request[2];
 
         $domain = $this->getDomain();
         $configuration = $this->getProviderConfigurationByName($domain, "SES");
         $amazonSes = Aws\Ses\SesClient::factory($configuration);
         $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");
         $platformEmail = $platformSettings['direct_enquiries']['email'];
-        $subject_prefix ='Forget your password';
+        $subject_prefix = 'Forget your password';
+        error_log(var_export($platformSettings,0));
         $args = array(
             "Source" => $platformEmail,
             "Destination" => array(
@@ -101,20 +102,19 @@ $password=$request[2];
             ),
             "Message" => array(
                 "Subject" => array(
-                    "Data" => $subject_prefix 
+                    "Data" => $subject_prefix
                 ),
                 "Body" => array(
                     "Html" => array(
-                        "Data" =>$this->forgetEmailForm($username,$password)
+                        "Data" => $this->forgetEmailForm($username, $password)
                     )
                 ),
             ),
-           
         );
         $response = $amazonSes->sendEmail($args);
-        $this->sendResponse(200,$response);
+        $this->sendResponse(200, $response);
     }
-    
+
     public function actionRead() {
         
     }
@@ -248,7 +248,7 @@ $password=$request[2];
 ';
     }
 
-    public function forgetEmailForm($username,$password) {
+    public function forgetEmailForm($username, $password) {
         return '
             <table width="100%" cellpadding="0" cellspacing="0" style="background:#E5E5E5;">
                 <tbody>
@@ -296,10 +296,7 @@ $password=$request[2];
      </table>
 ';
     }
-    
-    
-    
-    
+
 }
 
 ?>

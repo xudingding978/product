@@ -19,10 +19,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     password: "",
     repeat: "",
     email: "",
-    loginUsername:"",
-    loginPassword:"",
-    resetPasswordEmail:"",
-    gender:"",
+    loginUsername: "",
+    loginPassword: "",
+    resetPasswordEmail: "",
+    gender: "",
     iframeURL: "",
     iframeLoginURL: "",
     init: function() {
@@ -164,7 +164,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         if (this.checkSignupInfo()) {
 
             var signupInfo = [this.get('email')];
-            var that=this;
+            var that = this;
             requiredBackEnd('site', 'getemail', signupInfo, 'POST', function(params) {
                 console.log(params);
                 if (params === 1) {
@@ -174,14 +174,14 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     $('#register-with-email-drop-down').animate({height: 'toggle'});
                     checkSocial();
                 }
-                
-                else if(params===0) { 
+
+                else if (params === 0) {
                     document.getElementById('email').style.border = '2px solid red';
-                    that.get('controllers.applicationFeedback').statusObserver(null, "You have registered with this email using social media account.","warnning");
+                    that.get('controllers.applicationFeedback').statusObserver(null, "You have registered with this email using social media account.", "warnning");
                 }
-                else if(params===2) { 
+                else if (params === 2) {
                     document.getElementById('email').style.border = '2px solid red';
-                    that.get('controllers.applicationFeedback').statusObserver(null, "Email already exists.","warnning");
+                    that.get('controllers.applicationFeedback').statusObserver(null, "Email already exists.", "warnning");
                 }
             });
         }
@@ -193,21 +193,21 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var that = this;
 
         requiredBackEnd('site', 'create', createInfo, 'POST', function(params) {
-            
-            console.log( params.COUCHBASE_ID);
+
+            console.log(params.COUCHBASE_ID);
             localStorage.loginStatus = params.COUCHBASE_ID;
-                            setTimeout(function() {
-              that.transitionToRoute('search');
-              that.set('first_name',"");
-               that.set('last_name',"");
-               that.set('email',"");
-               that.set('password',"");
-               that.set('region',"");
-               that.set('gender',"");
-               that.set('age',"");
-               
-                }, 2000);
-            
+            setTimeout(function() {
+                that.transitionToRoute('search');
+                that.set('first_name', "");
+                that.set('last_name', "");
+                that.set('email', "");
+                that.set('password', "");
+                that.set('region', "");
+                that.set('gender', "");
+                that.set('age', "");
+
+            }, 2000);
+
 
         });
     },
@@ -235,22 +235,22 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         {
             var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
             document.getElementById(checkList[i].id).style.border = '';
-            if (checkList[i].input !== null && checkList[i].input !== "" && checkList[i].input !==undefined)
+            if (checkList[i].input !== null && checkList[i].input !== "" && checkList[i].input !== undefined)
             {
                 console.log(checkList[i].input);
                 if (checkList[i].input.length > checkList[i].lengthMax || checkList[i].input.length < checkList[i].lengthMin)
                 {
                     result = false;
-                    this.get('controllers.applicationFeedback').statusObserver(null, "Your length should be between "+checkList[i].lengthMin+" and "+ checkList[i].lengthMax+".","warnning");
-                document.getElementById(checkList[i].id).style.border = '2px solid red';
+                    this.get('controllers.applicationFeedback').statusObserver(null, "Your length should be between " + checkList[i].lengthMin + " and " + checkList[i].lengthMax + ".", "warnning");
+                    document.getElementById(checkList[i].id).style.border = '2px solid red';
                     break;
                 }
             }
             if (checkList[i].id === 'first_name' || checkList[i].id === 'last_name' || checkList[i].id === 'email' || checkList[i].id === 'password')
             {
-                if (checkList[i].input === null || checkList[i].input === ""||checkList[i].input ===undefined) {
+                if (checkList[i].input === null || checkList[i].input === "" || checkList[i].input === undefined) {
                     result = false;
-                    this.get('controllers.applicationFeedback').statusObserver(null, "Please fill the mandory field.","warnning");
+                    this.get('controllers.applicationFeedback').statusObserver(null, "Please fill the mandory field.", "warnning");
                     document.getElementById(checkList[i].id).style.border = '2px solid red';
                     break;
                 }
@@ -263,7 +263,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
                 else {
                     result = false;
-                     this.get('controllers.applicationFeedback').statusObserver(null, "Invalid Email.","warnning");
+                    this.get('controllers.applicationFeedback').statusObserver(null, "Invalid Email.", "warnning");
                     document.getElementById(checkList[i].id).style.border = '2px solid red';
                     break;
                 }
@@ -272,77 +272,73 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         }
         return result;
     },
-            setmale:function(){
-         this.set('gender',"male");
-            },
-           
-             setfemale:function(){
-         this.set('gender',"female");
-            },
-            
-            
-    login: function() {
-document.getElementById('loginUsername').style.border = '';
-document.getElementById('loginPassword').style.border = '';
-        var loginInfo = [this.get('loginUsername'), this.get('loginPassword'),this.validateEmail(this.get('loginUsername'))];
-        var that = this;
-         requiredBackEnd('site', 'login', loginInfo, 'POST', function(params) {
-       if(params===1){
-           console.log('email not exits');
-           document.getElementById('loginUsername').style.border = '2px solid red';
-             that.get('controllers.applicationFeedback').statusObserver(null, "Invalid Username.","warnning");
-       }
-       else if (params===0){
-           console.log('you have registered');
-           document.getElementById('loginUsername').style.border = '2px solid red';
-           that.get('controllers.applicationFeedback').statusObserver(null, "You have registered with this email using social media account.","warnning");
-       }
-       else{
-            if (that.get('loginPassword') === params.PWD_HASH && that.get('loginPassword')!==undefined) {
-                console.log(that.get('loginPassword'));
-                localStorage.loginStatus = params.COUCHBASE_ID;
-                that.transitionToRoute('search');
-                that.set('loginUsername',"");
-               that.set('loginPassword',"");
-            }
-            else{
-                document.getElementById('loginPassword').style.border = '2px solid red';
-                that.get('controllers.applicationFeedback').statusObserver(null, " Invalid password.","warnning");
-            }
-           }
-         });
-         
-        
+    setmale: function() {
+        this.set('gender', "male");
     },
-            
+    setfemale: function() {
+        this.set('gender', "female");
+    },
+    login: function() {
+        document.getElementById('loginUsername').style.border = '';
+        document.getElementById('loginPassword').style.border = '';
+        var loginInfo = [this.get('loginUsername'), this.get('loginPassword'), this.validateEmail(this.get('loginUsername'))];
+        var that = this;
+        requiredBackEnd('site', 'login', loginInfo, 'POST', function(params) {
+            if (params === 1) {
+                console.log('email not exits');
+                document.getElementById('loginUsername').style.border = '2px solid red';
+                that.get('controllers.applicationFeedback').statusObserver(null, "Invalid Username.", "warnning");
+            }
+            else if (params === 0) {
+                console.log('you have registered');
+                document.getElementById('loginUsername').style.border = '2px solid red';
+                that.get('controllers.applicationFeedback').statusObserver(null, "You have registered with this email using social media account.", "warnning");
+            }
+            else {
+                if (that.get('loginPassword') === params.PWD_HASH && that.get('loginPassword') !== undefined) {
+                    console.log(that.get('loginPassword'));
+                    localStorage.loginStatus = params.COUCHBASE_ID;
+                    that.transitionToRoute('search');
+                    that.set('loginUsername', "");
+                    that.set('loginPassword', "");
+                }
+                else {
+                    document.getElementById('loginPassword').style.border = '2px solid red';
+                    that.get('controllers.applicationFeedback').statusObserver(null, " Invalid password.", "warnning");
+                }
+            }
+        });
+
+
+    },
     emailSend: function()
     {
-        
-  var signupInfo = [this.get('resetPasswordEmail')];
-  var that=this;
-            requiredBackEnd('site', 'resetemail', signupInfo, 'POST', function(params) {
-      if(params===1){
-           console.log('email not exits');
-             that.get('controllers.applicationFeedback').statusObserver(null, "Invalid Username.","warnning");
-       }
-       else if (params===0){
-           console.log('you have registered');
-           that.get('controllers.applicationFeedback').statusObserver(null, "You have registered this email using social media account.","warnning");
-       }
-       
-       else{
-       
-               var emailInfo = [that.get('resetPasswordEmail'),params.USER_NAME,params.PWD_HASH];
-               console.log(that.get('resetPasswordEmail'));
-            console.log(params.USER_NAME);
-            console.log(params.PWD_HASH);
-            requiredBackEnd('emails', 'forgetpassword', emailInfo, 'POST', function(params) {
-                console.log(params);
-            });
-            
-       }
-            });
-           
+
+        var signupInfo = [this.get('resetPasswordEmail')];
+        var that = this;
+        requiredBackEnd('site', 'resetemail', signupInfo, 'POST', function(params) {
+            if (params === 1) {
+                console.log('email not exits');
+                that.get('controllers.applicationFeedback').statusObserver(null, "Invalid Username.", "warnning");
+            }
+            else if (params === 0) {
+                console.log('you have registered');
+                that.get('controllers.applicationFeedback').statusObserver(null, "You have registered this email using social media account.", "warnning");
+            }
+
+            else {
+
+                var emailInfo = [that.get('resetPasswordEmail'), params.USER_NAME, params.PWD_HASH];
+                console.log(that.get('resetPasswordEmail'));
+                console.log(params.USER_NAME);
+                console.log(params.PWD_HASH);
+                requiredBackEnd('emails', 'forgetpassword', emailInfo, 'POST', function(params) {
+                    console.log(params);
+                });
+
+            }
+        });
+
 
 
     }

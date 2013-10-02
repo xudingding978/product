@@ -9328,7 +9328,7 @@ div.loading-visible{
     left: 0;
     margin: 0;
     position: absolute;
-    right: 45%;
+    right: 320px;
     overflow: hidden;
 }
 
@@ -9540,11 +9540,18 @@ div.loading-visible{
     position: absolute;
     right: 0;
     top: 0;
-    width: 45%;
+    width: 320px;
     background-color: white;
     overflow-y: scroll;
 }
 
+.article-objectview-right{
+    width: 45%;
+}
+
+.article-objectview-left{
+    right: 45%;
+}
 
 .object-poster{
     padding: 15px;
@@ -10690,9 +10697,7 @@ input{
      top:-180px;
      left:17.5%; */
 }
-.premium > div > table  .profileaside > .profileaside_content .aside-profilepic > div > img{ min-height:195px;}
-.premium > div > table  .profileaside > .profileaside_content .aside-profilepic div,
-.premium > div > table  .profileaside > .profileaside_content .aside-profilepic div img{width:100%;margin-bottom:1em;}
+
 
 .premium > div > table .profilemain
 {

@@ -362,9 +362,7 @@
                     <li class="easing" {{action changeSize}}><a href="#tab7" data-toggle="tab">Social Link</a></li>
                     {{#if controller.isAdmin}}
                     <li class="easing" {{action changeSize}}><a href="#tab4" data-toggle="tab">Authority Settings</a></li>
-                    {{/if}}
-                    <li class="easing" style="display: none;" ><a href="#tab5" data-toggle="tab">Profile Hero</a></li>
-                    <li class="easing" style="display: none;" ><a href="#tab6" data-toggle="tab">Profile Picture</a></li>
+                    {{/if}}   
                 </ul>
             </div>
 
@@ -833,18 +831,23 @@
                     </div>
                     <div class="" style="margin-top: 20px;">
                         <div class="controlbtn" style="left: 300px;">
+                              
+                            {{#if controller.isCrop}}
+                            <span id="photoUploadbtn" class="new-btn green-btn" {{action cropButton}}>Upload</span>
+                            {{else}}
+                            <span  class="disabled-btn" >Upload</span>
+                           {{/if}} 
                             <a href="#tab1" data-toggle="tab" {{action resetNewStyleImageSource}}><span class="new-btn">Close</span></a>
-
-                            <span id="photoUploadbtn" class="disabled-btn" {{action cropButton}}>Upload</span>
+                         
                         </div>
                     </div>
                     {{/view}}
                     {{/if}}
                     {{#if controller.isPhotoEditingMode}}
-                    <div class='' style='position:relative;height: 35px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 10px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>
+                    <div class='' style='position:relative;height: 85px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 10px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>
                         <span style="position: relative;display: inline-block;font-size: 40px;margin: 10px 0;vertical-align: top;"><k class='icon-ok-circle'></k></span>
                         <span style="position: relative;width: 87%;display: inline-block;margin: 10px 15px;">
-                            <span style='font-size: 20px;display: block;line-height: 25px;'>Congratulations! Your Photos have been uploaded!</span>
+                            <span style='font-size: 20px;display: block;line-height: 15px;'>Congratulations! Your Photos have been uploaded!</span>
                             <span style='font-size: 13px;margin: auto;  display: block;line-height: 16px;'></span>
                         </span>
                     </div>
@@ -854,13 +857,21 @@
                                                <img  {{bindAttr src= "newStyleImageSource"}} >
                                             </div>
                                         </div>-->
-
-                    <div id="crop-container" style="width: 800px;height: 450px;margin: 10px auto; text-align: center">
-                        <div class="contr"></div>
+                    
+                    {{#if controller.isProfilePicture}}
+                    <div id="crop-container" style="width: 820px;height: 500px;margin: 10px auto; text-align: center">          
+                        {{/if}}
+                    {{#if controller.isProfileHero}}
+                    <div id="crop-container" style="width: 830px;height: 500px;margin: 10px auto; text-align: center">
+                        {{/if}}
+                    {{#if controller.isProfileBackground}}
+                    <div id="crop-container" style="width: 850px;height: 500px;margin: 10px auto; text-align: center">
+                         {{/if}}
                         <canvas id="panel" class="crop-canvas" style="height: 100%;width: auto;margin: 0 auto; "><img  {{bindAttr src= "newStyleImageSource"}} ></canvas>
-
                     </div>
-
+                      
+                        
+           
                     <div class="" style="margin-top: 20px;">
 
                         <div class="controlbtn" style="left: 34%;">

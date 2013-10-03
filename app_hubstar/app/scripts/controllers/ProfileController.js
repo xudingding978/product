@@ -60,6 +60,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     youtube: "",
     profileName: "profileName",
     profile_cover_text: "",
+    profile_analytics_code: "",
     profile_bg_url: "",
     profile_creator: '',
     profile_hero_url: "",
@@ -146,6 +147,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('website', profile.get('profile_website'));
         this.set('website_url', profile.get('profile_website_url'));
         this.set('profile_cover_text', profile.get('profile_cover_text'));
+        this.set('profile_analytics_code', profile.get('profile_analytics_code'));
         this.set('profile_contact_number', profile.get('profile_contact_number'));
         this.set('projectCategoryDropdownContent', profile.get('profile_package_name'));
         this.set('first_name', profile.get('profile_contact_first_name'));
@@ -664,6 +666,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set('profile_website', this.get('website'));
         update_profile_record.set('profile_website_url', this.get('website_url'));
         update_profile_record.set('profile_cover_text', this.get('profile_cover_text'));
+        update_profile_record.set('profile_analytics_code', this.get('profile_analytics_code'));
         update_profile_record.set('profile_contact_number', this.get('profile_contact_number'));
         update_profile_record.set('profile_contact_first_name', this.get('first_name'));
         update_profile_record.set('profile_street_address', this.get('address'));

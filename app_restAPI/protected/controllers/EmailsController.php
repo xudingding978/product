@@ -26,10 +26,10 @@ class EmailsController extends Controller {
     }
 
     public function actionCreate() {
-        
-        
-        
-        
+
+
+
+
         $request_json = file_get_contents('php://input');
         $request = CJSON::decode($request_json, true);
 
@@ -41,7 +41,6 @@ class EmailsController extends Controller {
         $email_destination = $request_arr['email_destination'];
 
         $sub_category = explode(",", $request_arr['project_sub_category_item']);
-        // error_log(var_export($sub_category , true));
 
         $description = $this->linkCategory($sub_category);
 
@@ -78,43 +77,44 @@ class EmailsController extends Controller {
     }
 
     public function actionForgetpassword() {
-          $request_json = file_get_contents('php://input');
+        $request_json = file_get_contents('php://input');
+        
         $request = CJSON::decode($request_json, true);
 
-error_log(var_export($request[0],true));
-$email=$request[0];
-$username=$request[1];
-$password=$request[2];
+
+        $email = $request[0];
+        $username = $request[1];
+        $password = $request[2];
 
         $domain = $this->getDomain();
         $configuration = $this->getProviderConfigurationByName($domain, "SES");
         $amazonSes = Aws\Ses\SesClient::factory($configuration);
         $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");
-        $platformEmail = $platformSettings['direct_enquiries']['email'];
-        $subject_prefix ='good afternoon';
+        $platformEmail = $platformSettings['support']['email'];
+        $subject_prefix = 'Forget your password';
         $args = array(
             "Source" => $platformEmail,
             "Destination" => array(
                 "ToAddresses" => array(
-                    $email
-                )
+                    $email),
+                "BccAddresses"=>array(
+                   $platformEmail)
             ),
             "Message" => array(
                 "Subject" => array(
-                    "Data" => $subject_prefix 
+                    "Data" => $subject_prefix
                 ),
                 "Body" => array(
                     "Html" => array(
-                        "Data" =>$this->forgetEmailForm($username,$password)
+                        "Data" => $this->forgetEmailForm($username, $password)
                     )
                 ),
             ),
-           
         );
         $response = $amazonSes->sendEmail($args);
-        $this->sendResponse(200,$response);
+        $this->sendResponse(200, $response);
     }
-    
+
     public function actionRead() {
         
     }
@@ -248,7 +248,7 @@ $password=$request[2];
 ';
     }
 
-    public function forgetEmailForm($username,$password) {
+    public function forgetEmailForm($username, $password) {
         return '
             <table width="100%" cellpadding="0" cellspacing="0" style="background:#E5E5E5;">
                 <tbody>
@@ -282,12 +282,6 @@ $password=$request[2];
                         </td>
                     </tr>
             
-                    <tr>
-                        <td>
-                            <img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/contactus-botbar.png"/>
-                            <br />&nbsp;
-                        </td>
-                    </tr>
                 </tbody>
             </table>
             </td>
@@ -296,10 +290,7 @@ $password=$request[2];
      </table>
 ';
     }
-    
-    
-    
-    
+
 }
 
 ?>

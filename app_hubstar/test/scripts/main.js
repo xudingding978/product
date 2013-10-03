@@ -2116,6 +2116,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         if (this.checkSignupInfo()) {
 
             var signupInfo = [this.get('email')];
+            var that=this;
             requiredBackEnd('site', 'getemail', signupInfo, 'POST', function(params) {
                 console.log(params);
                 if (params === 1) {
@@ -2125,20 +2126,33 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     $('#register-with-email-drop-down').animate({height: 'toggle'});
                     checkSocial();
                 }
-                else { 
+                
+                else if(params===0) { 
+                    document.getElementById('email').style.border = '2px solid red';
+                    that.get('controllers.applicationFeedback').statusObserver(null, "You have registered with this email using social media account.","warnning");
+                }
+                else if(params===0) { 
+                    document.getElementById('email').style.border = '2px solid red';
+                    that.get('controllers.applicationFeedback').statusObserver(null, "Invalid Username.","warnning");
                 }
             });
         }
     },
     done: function() {
 
+
         var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age')];
         var that = this;
 
         requiredBackEnd('site', 'create', createInfo, 'POST', function(params) {
-
+            
+            console.log( params.COUCHBASE_ID);
             localStorage.loginStatus = params.COUCHBASE_ID;
-            that.transitionToRoute('search');
+                            setTimeout(function() {
+              that.transitionToRoute('search');
+                }, 2000);
+            
+
         });
     },
     checkSignupInfo: function() {
@@ -2164,22 +2178,24 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         for (var i = 0; i < checkList.length; i++)
         {
             var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
-//            document.getElementById(checkList[i].id).style.border = '';
+            document.getElementById(checkList[i].id).style.border = '';
             if (checkList[i].input !== null && checkList[i].input !== "" && checkList[i].input !==undefined)
             {
                 console.log(checkList[i].input);
                 if (checkList[i].input.length > checkList[i].lengthMax || checkList[i].input.length < checkList[i].lengthMin)
                 {
                     result = false;
-//                document.getElementById(checkList[i].id).style.border = '2px solid red';
+                    this.get('controllers.applicationFeedback').statusObserver(null, "Your length should be between "+checkList[i].lengthMin+" and "+ checkList[i].lengthMax+".","warnning");
+                document.getElementById(checkList[i].id).style.border = '2px solid red';
                     break;
                 }
             }
             if (checkList[i].id === 'first_name' || checkList[i].id === 'last_name' || checkList[i].id === 'email' || checkList[i].id === 'password')
             {
-                if (checkList[i].input === null || checkList[i].input === "") {
+                if (checkList[i].input === null || checkList[i].input === ""||checkList[i].input ===undefined) {
                     result = false;
-//                    document.getElementById(checkList[i].id).style.border = '2px solid red';
+                    this.get('controllers.applicationFeedback').statusObserver(null, "Please fill the mandory field.","warnning");
+                    document.getElementById(checkList[i].id).style.border = '2px solid red';
                     break;
                 }
             }
@@ -2191,7 +2207,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
                 else {
                     result = false;
-//                    document.getElementById(checkList[i].id).style.border = '2px solid red';
+                     this.get('controllers.applicationFeedback').statusObserver(null, "Invalid Email.","warnning");
+                    document.getElementById(checkList[i].id).style.border = '2px solid red';
                     break;
                 }
             }
@@ -2200,10 +2217,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         return result;
     },
             setmale:function(){
-      
          this.set('gender',"male");
-      
-     
             },
            
              setfemale:function(){
@@ -2212,23 +2226,30 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             
             
     login: function() {
-
+document.getElementById('loginusername').style.border = '';
+document.getElementById('loginpassword').style.border = '';
         var loginInfo = [this.get('loginusername'), this.get('loginpassword'),this.validateEmail(this.get('loginusername'))];
         var that = this;
          requiredBackEnd('site', 'login', loginInfo, 'POST', function(params) {
        if(params===1){
            console.log('email not exits');
-             that.get('controllers.applicationFeedback').statusObserver(null, "Username not exits.");
+           document.getElementById('loginusername').style.border = '2px solid red';
+             that.get('controllers.applicationFeedback').statusObserver(null, "Invalid Username.","warnning");
        }
        else if (params===0){
            console.log('you have registered');
-           that.get('controllers.applicationFeedback').statusObserver(null, "You have registered this email using social media account.");
+           document.getElementById('loginusername').style.border = '2px solid red';
+           that.get('controllers.applicationFeedback').statusObserver(null, "You have registered with this email using social media account.","warnning");
        }
        else{
-           console.log('good to go');
-            if (that.get('loginpassword') === params.PWD_HASH) {
+            if (that.get('loginpassword') === params.PWD_HASH && that.get('loginpassword')!==undefined) {
+                console.log(that.get('loginpassword'));
                 localStorage.loginStatus = params.COUCHBASE_ID;
                 that.transitionToRoute('search');
+            }
+            else{
+                document.getElementById('loginpassword').style.border = '2px solid red';
+                that.get('controllers.applicationFeedback').statusObserver(null, " Invalid password.","warnning");
             }
            }
          });
@@ -2244,16 +2265,16 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             requiredBackEnd('site', 'resetemail', signupInfo, 'POST', function(params) {
       if(params===1){
            console.log('email not exits');
-             that.get('controllers.applicationFeedback').statusObserver(null, "Username not exits.");
+             that.get('controllers.applicationFeedback').statusObserver(null, "Invalid Username.","warnning");
        }
        else if (params===0){
            console.log('you have registered');
-           that.get('controllers.applicationFeedback').statusObserver(null, "You have registered this email using social media account.");
+           that.get('controllers.applicationFeedback').statusObserver(null, "You have registered this email using social media account.","warnning");
        }
        
        else{
        
-               var emailInfo = [that.get('email')];
+               var emailInfo = [that.get('email'),params.USER_NAME,params.COUCHBASE_ID];
             
             requiredBackEnd('emails', 'forgetpassword', emailInfo, 'POST', function(params) {
                 console.log(params);
@@ -4896,10 +4917,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('partnerTag', false);
         this.set('collectionTag', false);
 <<<<<<< HEAD
+<<<<<<< HEAD
         
 =======
         console.log("dddddfd");
 >>>>>>> b644d34c98a02d3e360aabac428536d2d5da0d37
+=======
+        
+>>>>>>> a2b2e3dbeb1b99e2a1fcbac658dcb20a32b13238
         this.set('followerProfileTag', true);
          setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
@@ -6434,9 +6459,6 @@ HubStar.UserController = Ember.Controller.extend({
         return update_user_record;
     },
     saveUpdateInterest: function() {
-console.log('interests');
-if (this.get('interests') === null )
-    this.set('interests',"");
 
         var checkString = this.get('interests').trim();
         if ((checkString.substring(checkString.length - 1, checkString.length) !== ',') && (!/,,/.test(checkString))) {

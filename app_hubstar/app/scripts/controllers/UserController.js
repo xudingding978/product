@@ -18,8 +18,8 @@ HubStar.UserController = Ember.Controller.extend({
     selectedDesc: "",
     selectedTitle: "",
     display_name: "",
-    gender:"",
-    age:"",
+    gender: "",
+    age: "",
     userTage: true,
     currentUserID: "",
     needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings', 'application', 'platformBar', 'collection', 'htmlEditor'],
@@ -50,12 +50,10 @@ HubStar.UserController = Ember.Controller.extend({
     editingInterest: false,
     interest: "interest",
     is_authentic_user: false,
-
-    aboutMe:"aboutMe",
-   about_me:"",
-    first_name:"",
-    last_name:"",
-
+    aboutMe: "aboutMe",
+    about_me: "",
+    first_name: "",
+    last_name: "",
     is_Photoclick: false,
     is_click: false,
     photo_url_large: "",
@@ -113,7 +111,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("youtube", user.get("youtube_link"));
         this.set("location", user.get("region"));
         this.set("email", user.get("email"));
-      
+
         this.set("password", user.get("password"));
 
 
@@ -121,11 +119,11 @@ HubStar.UserController = Ember.Controller.extend({
             this.set('cover_url', 'http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg');
         }
         else
-               {//this.set('cover_url', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_cover/user_cover');
-                   this.set("cover_url", user.get("cover_url"));
-               }
-         this.set("photo_url", user.get("photo_url"));
-          this.set("photo_url_large", user.get("photo_url_large"));
+        {//this.set('cover_url', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_cover/user_cover');
+            this.set("cover_url", user.get("cover_url"));
+        }
+        this.set("photo_url", user.get("photo_url"));
+        this.set("photo_url_large", user.get("photo_url_large"));
 
         this.get('controllers.applicationFeedback').set('photo_url', this.get('photo_url_large'));
         this.isUserSelfOrNot(this.get("currentUserID"));
@@ -136,8 +134,8 @@ HubStar.UserController = Ember.Controller.extend({
         }
 
         var collections = user.get("collections");
- 
-        if (this.get('editingInterest')===true) {
+
+        if (this.get('editingInterest') === true) {
             this.set('editingInterest', false);
             this.set('interestsActive', false);
             $('#show_interest').animate({top: 298, height: 150}, 400, function() {
@@ -327,8 +325,8 @@ HubStar.UserController = Ember.Controller.extend({
             $(" #uploadArea").attr('style', "display:none");
             $(" #uploadObject").attr('style', "display:block");
             this.statstics();
-            this.set("newTitle","");
-            this.set("newDesc","");
+            this.set("newTitle", "");
+            this.set("newDesc", "");
         }
     },
     socialLink: function(link) {
@@ -359,21 +357,31 @@ HubStar.UserController = Ember.Controller.extend({
         var that = this;
         var getmodelInfo = [user.get('id')];
         requiredBackEnd('site', 'getmodel', getmodelInfo, 'POST', function(params) {
-    
-            if ( that.get('oldpassword') === params.PWD_HASH&&that.get('newpassword') === that.get('repeatnew')  &&that.get('newpassword').length >=6&&that.get('newpassword').length<=40 ) {
-              
+
+            if (that.get('oldpassword') === params.PWD_HASH && that.get('newpassword') === that.get('repeatnew') && that.get('newpassword').length >= 6 && that.get('newpassword').length <= 40) {
+
                 isSave = false;
+                var thatthat = that;
                 var updateInfo = [user.get('id'), that.get('oldpassword'), that.get('newpassword'), that.get('repeatnew'), isSave];
-                requiredBackEnd('site', 'update', updateInfo, 'POST', function(params) { });
-              
-                that.get('controllers.applicationFeedback').statusObserver(null, "Updated Successfully!!!");    
+                requiredBackEnd('site', 'update', updateInfo, 'POST', function(params) {
+                    var thatthatthat = thatthat;
+                    setTimeout(function() {
+                        thatthatthat.set('oldpassword', "");
+                        thatthatthat.set('newpassword', "");
+                        thatthatthat.set('repeatnew', "");
+                    }, 1000);
+
+                    thatthat.get('controllers.applicationFeedback').statusObserver(null, "Updated Successfully.","warnning");
+                });
+
+
+
             }
-            else{
-                that.get('controllers.applicationFeedback').statusObserver(null, "Please check your input");
+            else {
+                that.get('controllers.applicationFeedback').statusObserver(null, "Please check your input","warnning");
             }
         });
     },
- 
     saveUpdate: function() {
         var update_user_record = this.get('model');
         if (this.isInputValid())
@@ -383,17 +391,17 @@ HubStar.UserController = Ember.Controller.extend({
             update_user_record.set('display_name', this.get('display_name'));
             update_user_record.set('first_name', this.get('first_name'));
             update_user_record.set('last_name', this.get('last_name'));
-
+            update_user_record.set('about_me', this.get('about_me'));
             update_user_record.set('region', this.get('location'));
             update_user_record.set('email', this.get('email'));
             update_user_record.set('password', this.get('password'));
-            
+
             this.get('controllers.applicationFeedback').statusObserver(null, "Update successfully.");
-       
+
             HubStar.store.save();
         }
         else {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please check you have already filled the mandatory field.","warnning");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please check you have already filled the mandatory field.", "warnning");
         }
     },
     isInputValid: function() {
@@ -472,7 +480,7 @@ HubStar.UserController = Ember.Controller.extend({
             HubStar.store.save();
         }
         else {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please check you have filled right links.","warnning");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please check you have filled right links.", "warnning");
         }
     },
     isSociallinkInputValid: function() {
@@ -489,13 +497,13 @@ HubStar.UserController = Ember.Controller.extend({
         var checkList = new Array();
         var facebook = new checkObject("facebook", this.get('facebook'), 128, true, "facebook");
         checkList.push(facebook);
-        var twitter = new checkObject("twitter", this.get('twitter'), 128, true,  "twitter");
+        var twitter = new checkObject("twitter", this.get('twitter'), 128, true, "twitter");
         checkList.push(twitter);
         var googleplus = new checkObject("googleplus", this.get('googleplus'), 128, true, "plus.google");
         checkList.push(googleplus);
-        var pinterest = new checkObject("pinterest", this.get('pinterest'), 128, true,  "pinterest");
+        var pinterest = new checkObject("pinterest", this.get('pinterest'), 128, true, "pinterest");
         checkList.push(pinterest);
-        var linkedin = new checkObject("linkedin", this.get('linkedin'), 128, true,"linkedin");
+        var linkedin = new checkObject("linkedin", this.get('linkedin'), 128, true, "linkedin");
         checkList.push(linkedin);
         var youtube = new checkObject("youtube", this.get('youtube'), 128, true, "youtube");
         checkList.push(youtube);
@@ -513,7 +521,7 @@ HubStar.UserController = Ember.Controller.extend({
             {
                 if (checkList[i].input.indexOf(checkList[i].shouldInclude) !== -1 || checkList[i].input === "") {
                     result = true;
-                }  
+                }
                 else {
                     result = false;
                     document.getElementById(checkList[i].id).style.border = '2px solid red';
@@ -523,7 +531,6 @@ HubStar.UserController = Ember.Controller.extend({
         }
         return result;
     },
-
     saveLink: function(link_url, link) {
 
 
@@ -567,7 +574,7 @@ HubStar.UserController = Ember.Controller.extend({
         } else {
             this.get('controllers.applicationFeedback').statusObserver(null, "Invalid input");
         }
-      
+
     },
     specialCharactersChecking: function(str) {
         var re = /^[a-zA-Z-][a-zA-Z0-9-]*$/;
@@ -651,7 +658,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.get('selectedCollection').set('title', this.get('newTitle'));
         this.get('selectedCollection').set('desc', this.get('newDesc'));
         var collectionController = this.get('controllers.collection');
-    
+
         var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
         collection.set('optional', this.get('model').get('id'));
         collection.set('type', 'user');
@@ -718,8 +725,6 @@ HubStar.UserController = Ember.Controller.extend({
     {
         this.set("isEditingMode", !this.get("isEditingMode"));
     },
-            
-            
     setCollectionAttr: function() {
         this.set("newTitle", this.get('selectedCollection').get('title'));
         this.set("newDesc", this.get('selectedCollection').get('desc'));
@@ -824,7 +829,7 @@ HubStar.UserController = Ember.Controller.extend({
                         that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
                     }
                     else if (width < params.width || height < params.height) {
-                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + params.width + "x" + params.height,"warnning");
+                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + params.width + "x" + params.height, "warnning");
                         that.set('newStyleImageSource', "");
                         that.set('newStyleImageName', "");
                         that.set('CurrentImageSize', "");

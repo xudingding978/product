@@ -284,14 +284,16 @@
     right: 0;
     top: 0;
     /*    cursor: pointer;*/
-    z-index: 1;
+    z-index: 100;
 }
-
+.object-tags-box div{position:relative;z-index:100;}
 .object-tags{
     clear: both;
     height: 26px;
     line-height: 26px;
     word-wrap: normal;
+    position:relative;
+    z-index:2;
 }
 
 .tags-mark{
@@ -308,7 +310,7 @@
     display: block;
     float: right;
     max-width: 180px;
-    overflow: hidden;
+    /*overflow: hidden; this was removed for the tool tips 3/10/13 */
     text-overflow: ellipsis;
     white-space: nowrap;
     background-color: #eee;
@@ -329,6 +331,27 @@
     font-size: 12px;
     vertical-align: top;
     margin-right: -4px;
+}
+.object-tags-box .hint--top:after, .object-tags-box .hint--left:after
+{
+    background:#fff;
+    border-color:#fff;
+    color:#666;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow: 0 0 5px#888;
+    box-shadow: 0 0 5px #888;
+    text-shadow:0 0 0;
+}
+.object-tags-box .hint--left:before
+{
+    border-left-color:#ccc!important;
+}
+.object-tags-box .hint--top:before
+{
+    border-top-color:#ccc!important;
 }
 
 .hashtags{
@@ -539,11 +562,14 @@
     color: white;
     text-align: center;
     top: 42%;
-    padding:10px 15px;
+    padding:0 15px;
     z-index: 2;
 
     word-wrap: normal;
     line-height: 24px;
+    
+    max-height:72px;
+    overflow:auto;
 }
 
 .album-description-bg{
@@ -554,12 +580,18 @@
     opacity: 0.7;
     background-color: black;
     top: 42%;
-    padding: 10px 15px;
+    padding: 0 15px;
     z-index: 1;
-
     word-wrap: normal;
     line-height: 24px;
     box-shadow: 0 0 20px 4px #000;
+    
+     height:72px;
+     overflow:hidden;
+     
+     font-size:0;
+     
+     /* may need to delete this element in the template */
 }
 
 .album-description-hoverarea{
@@ -689,6 +721,8 @@
     border-radius: 5px;
     overflow: hidden;
     margin-bottom:12px;
+    position:relative;
+    z-index:1;
 }
 
 .object_username{

@@ -84,7 +84,7 @@ class ArticlesController extends Controller {
 
             if ($results_arr) {
                 $result = $this->processGet($results_arr, self::JSON_RESPONSE_ROOT_SINGLE);
-                error_log(var_export($result,true));
+     
                 echo $this->sendResponse(200, $result);
             } else {
                 echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $_POST['id'] . '" already exists');

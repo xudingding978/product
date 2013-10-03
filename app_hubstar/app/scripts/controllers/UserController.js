@@ -786,13 +786,14 @@ HubStar.UserController = Ember.Controller.extend({
                         that.set('newStyleImageName', "");
                         that.set('CurrentImageSize', "");
                          that.set('isCrop', false);
-                    } else if (width > 1050 || height >1050) {
-                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size smaller than  " + 1050 + "x" + 1050,"warnning");
-                        that.set('newStyleImageSource', "");
-                        that.set('newStyleImageName', "");
-                        that.set('CurrentImageSize', "");
-                         that.set('isCrop', false);
-                    }
+                    } 
+//                    else if (width > 1050 || height >1050) {
+//                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size smaller than  " + 1050 + "x" + 1050,"warnning");
+//                        that.set('newStyleImageSource', "");
+//                        that.set('newStyleImageName', "");
+//                        that.set('CurrentImageSize', "");
+//                         that.set('isCrop', false);
+//                    }
                     else if ( width > 150 ||  height > 150) {
                       that.set('isCrop', true);
 

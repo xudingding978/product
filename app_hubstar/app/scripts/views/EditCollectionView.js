@@ -9,8 +9,7 @@ HubStar.EditCollectionView = Ember.View.extend({
                 isFitWidth: true
             });
         });
-        $('#uploadObject').click(function() {
-
+        $('#uploadObject').click(function() {           
             $('.new-collection-name_insert').val("");
             $('.new-collection-area').val("");
             $(".Targeting_Object_front").attr("style", "display:inline-block");

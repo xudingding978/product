@@ -47,7 +47,7 @@ $("#click-login").click(function() {
         }
     } /* clicking register step 1 function*/
 });
-$('#loginpassword > div').click(function() {
+$('#loginPassword > div').click(function() {
      if ($('#login-with-email-drop-down').css('display') === 'block' && $('#click-login').hasClass('active-tab')) {
         $('#click-login').removeClass('active-tab');
 
@@ -60,6 +60,18 @@ $('#loginpassword > div').click(function() {
             
         }
     }
+});
+
+
+$('#user-forgot-password-pane .back-btn').click(function() {
+    $('#user-forgot-password-pane').animate({height: 'toggle'});
+    $('#login-with-email-drop-down').animate({height: 'toggle'});
+    
+     if ($('#social-login-container').css('display') === 'block') {
+            $('#social-login-container').animate({height: 'toggle'});
+            
+        }
+    
 });
 
 
@@ -101,7 +113,7 @@ $("#click-register-social").click(function() {
 
 
 
-$('.back-btn').click(function() {
+$('#register-with-email-step-2 .back-btn').click(function() {
     $('#register-with-email-step-2').removeClass('active-step');
     $('#register-with-email-step-2').stop().animate({height: 'toggle'});
     $('#register-with-email-drop-down').stop().animate({height: 'toggle'});

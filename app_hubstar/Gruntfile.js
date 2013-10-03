@@ -53,8 +53,8 @@ module.exports = function(grunt) {
                     'git commit -a -m "ready to pull"',
                     'git checkout develop',
                     'git fetch origin',
-                    'git pull origin develop',
-                    'git push origin develop'
+                    'git pull origin develop'
+        //           'git push origin develop'
                 ].join('&&')
             }
 
@@ -430,14 +430,13 @@ module.exports = function(grunt) {
         },
         concurrent: {
             server: [
-                'emberTemplates',
-                'coffee:dist',
-                'compass:server'
+                'emberTemplates'
+   
+
             ],
             test: [
-                'emberTemplates',
-                'coffee',
-                'compass'
+                'emberTemplates'
+           
             ],
             dist: [
                 'emberTemplates',

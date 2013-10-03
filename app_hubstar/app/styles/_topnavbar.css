@@ -937,6 +937,13 @@ div #login_container > div.front > .head > .panelcircle
 
 .Register-Page .ember-text-field{background-color: rgba(255,255,255,0)}
 
+.error-textfield{
+    box-shadow: 0 0 10px rgba(255,0,0,.5);
+    -webkit-box-shadow: 0 0 10px rgba(255,0,0,.5);
+    -moz-box-shadow: 0 0 10px rgba(255,0,0,.5);
+    -o-box-shadow: 0 0 10px rgba(255,0,0,.5);
+}
+
 
 .register-with{
     width: 300px;
@@ -1059,7 +1066,6 @@ div.register-btn-small{
     -moz-border-radius: 0 0 5px 0;
     border-radius: 0 0 5px 0;
     display:inline-block;  
-    //background-color: #DEF1F7;
 
 }
 .back-btn{

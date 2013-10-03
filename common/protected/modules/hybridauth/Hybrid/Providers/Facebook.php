@@ -17,7 +17,7 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
 
     // default permissions, and alot of them. You can change them from the configuration by setting the scope to what you want/need
     public $scope = "email, user_about_me, user_birthday, user_hometown, user_website, offline_access, read_stream, publish_stream, read_friendlists";
-    public $display = "page";
+    public $display = "popup";
 
     /**
      * IDp wrappers initializer 
@@ -41,6 +41,7 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
 
         // override requested display
         if (isset($this->config["display"]) && !empty($this->config["display"])) {
+       
             $this->display = $this->config["display"];
         }
 
@@ -63,8 +64,8 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
      */
     function loginBegin() {
         // get the login url 
-        $url = $this->api->getLoginUrl(array('scope' => $this->scope, 'display' => $this->display, 'redirect_uri' => $this->endpoint));
 
+        $url = $this->api->getLoginUrl(array('scope' => $this->scope, 'display' => $this->display, 'redirect_uri' => $this->endpoint));
         // redirect to facebook
         Hybrid_Auth::redirect($url);
     }
@@ -73,8 +74,6 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
      * finish login step 
      */
     function loginFinish() {
-
-
 
         // in case we get error_reason=user_denied&error=access_denied
         if (isset($_REQUEST['error']) && $_REQUEST['error'] == "access_denied") {

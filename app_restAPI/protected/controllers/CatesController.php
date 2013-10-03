@@ -23,7 +23,6 @@ class CatesController extends Controller {
 //        $i = 0;
 //        foreach ($response as $hit) {
 //            $results .= CJSON::encode($hit['source']['doc']);
-//              error_log(var_export($results, true));
 //            if (++$i < count($response)) {
 //                $results .= ',';
 //            }

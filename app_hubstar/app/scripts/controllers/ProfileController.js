@@ -27,6 +27,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     boost: '',
     currentUserID: "",
     collections: [],
+    contentFollowerPhoto: [], 
     contactChecking: false,
     collectionTag: true,
     contact: "contact",
@@ -59,6 +60,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     youtube: "",
     profileName: "profileName",
     profile_cover_text: "",
+    profile_analytics_code: "",
     profile_bg_url: "",
     profile_creator: '',
     profile_hero_url: "",
@@ -149,6 +151,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('website', profile.get('profile_website'));
         this.set('website_url', profile.get('profile_website_url'));
         this.set('profile_cover_text', profile.get('profile_cover_text'));
+        this.set('profile_analytics_code', profile.get('profile_analytics_code'));
         this.set('profile_contact_number', profile.get('profile_contact_number'));
         this.set('projectCategoryDropdownContent', profile.get('profile_package_name'));
         this.set('first_name', profile.get('profile_contact_first_name'));
@@ -174,11 +177,30 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var photoCreateController = this.get('controllers.photoCreate');
         photoCreateController.setMega();
         this.initStastics(profile);
+        this.followerPhoto(id);
+    },
+    followerPhoto: function(id)
+    {
+        var dataNew = new Array();
+        var that = this;
+        requiredBackEnd('followers', 'ReadPhoto', id, 'POST', function(params) {
+            that.set("contentFollowerPhoto", []);
+           
+            for (var i = 0; i < params.length; i++)
+            {
+                dataNew["id"] = params[i]["record_id"];
+                dataNew["name"] = params[i]["name"];
+                dataNew["photo_url"] = params[i]["photo_url"];
 
+                that.get("contentFollowerPhoto").pushObject(dataNew);
+               
+                dataNew = new Array();
+            }
+        });
     },
     labelBarRefresh: function() {
         this.set("profileSelectionStatus", "Collections");
-        //console.log(this.get("profileSelectionStatus"));
+      
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#defualt').addClass('selected-user-stats');
         $('#user-stats > li').click(function() {
@@ -568,6 +590,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         return isFollow;
     },
     selectCollection: function() {
+        $(window).scrollTop(1500);
         this.set('partnerPage', 'Collections');
         this.set('profileSelectionStatus', 'Collections');
         this.set('partnerTag', false);
@@ -578,6 +601,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }, 200);
     },
     selectPartner: function(model) {
+        $(window).scrollTop(1500);
         HubStar.set("lastPositionId", model.id);
         this.set('profileSelectionStatus', 'Partners');
         this.get('controllers.profilePartners').getClientId(model);
@@ -590,6 +614,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }, 200);
     },
     selectFollower: function(model) {
+        $(window).scrollTop(1500);
+        $('#user-stats > li').removeClass('selected-user-stats');
+        $('#follow').addClass('selected-user-stats');
         this.set('profileSelectionStatus', 'Followers');
         this.get('controllers.userFollowers').getProfileId(model);
         this.set('partnerTag', false);
@@ -643,6 +670,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set('profile_website', this.get('website'));
         update_profile_record.set('profile_website_url', this.get('website_url'));
         update_profile_record.set('profile_cover_text', this.get('profile_cover_text'));
+        update_profile_record.set('profile_analytics_code', this.get('profile_analytics_code'));
         update_profile_record.set('profile_contact_number', this.get('profile_contact_number'));
         update_profile_record.set('profile_contact_first_name', this.get('first_name'));
         update_profile_record.set('profile_street_address', this.get('address'));

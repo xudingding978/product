@@ -144,10 +144,10 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
             } else {
                 if (temp.indexOf(client_id) !== -1) {
 
-                    this.get('controllers.applicationFeedback').statusObserver(null, "This partner already in your list","warnning");
+                    this.get('controllers.applicationFeedback').statusObserver(null, "This partner already in your list", "warnning");
                 }
-                else if(this.get("clientID")===client_id){
-                    this.get('controllers.applicationFeedback').statusObserver(null, "Please do not add yourself","warnning");
+                else if (this.get("clientID") === client_id) {
+                    this.get('controllers.applicationFeedback').statusObserver(null, "Please do not add yourself", "warnning");
                 }
                 else {
                     this.set('partnerID', client_id + "," + temp);
@@ -158,7 +158,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
             this.get('controllers.profile').paternsStatistics(this.get('content').get("length"));
 
         } else {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please input valid url","warnning");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please input valid url", "warnning");
         }
     },
     pushUptoBackend: function(client_id)
@@ -168,9 +168,17 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
         // HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, profileOwner);
         HubStar.store.commit();
         var newPartner = HubStar.Mega.find(client_id);
-        this.get("content").pushObject(newPartner);       
-         $('#masonry_user_container').masonry("reload");
-         
+        this.get("content").pushObject(newPartner);
+        $('#masonry_user_container').masonry("reload");
+
+        $('#masonry_user_container').imagesLoaded(function() {
+            $('#masonry_user_container').masonry({
+                itemSelector: '.box',
+                columnWidth: 185,
+                isFitWidth: true
+            });
+        });
+
     },
     checkAuthenticUser: function() {
         var currentUser = HubStar.User.find(localStorage.loginStatus);

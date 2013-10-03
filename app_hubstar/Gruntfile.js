@@ -10,6 +10,8 @@ var mountFolder = function(connect, dir) {
 // use this if you want to match all subfolders:
 // 'test/spec/**/*.js'
 var templ;
+
+
 module.exports = function(grunt) {
 // load all grunt tasks
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
@@ -41,6 +43,22 @@ module.exports = function(grunt) {
                 ],
                 dest: "<%= yeoman.dist %>/cache.manifest"
             }
+        },
+        shell: {// Task
+
+
+            multiple: {
+                command: [
+                    'git add .',
+                    'git commit -a -m "ready to pull"',
+                    'git checkout develop',
+                    'git fetch origin',
+                    'git pull origin develop',
+                    'git push origin develop'
+                ].join('&&')
+            }
+
+
         },
         replace: {
             dist: {
@@ -488,8 +506,8 @@ module.exports = function(grunt) {
         'concat:testtemplate',
         'concat:testcss',
         'copy:test',
-   //     'mocha'
-      'qunit'
+        //     'mocha'
+        'qunit'
     ]);
     grunt.registerTask('build', [
         'clean:dist',
@@ -510,7 +528,10 @@ module.exports = function(grunt) {
     grunt.registerTask('default', [
         'jshint',
         'test',
-        'build'
+        'shell'
+    ]);
+    grunt.registerTask('gitcommit', [
+        'shell'
     ]);
 
 };

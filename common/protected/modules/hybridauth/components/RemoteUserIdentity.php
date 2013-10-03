@@ -45,10 +45,9 @@ class RemoteUserIdentity extends CBaseUserIdentity {
             if ($user == null) {
                 $this->errorCode = self::ERROR_USERNAME_INVALID;
             } else {
-                
                 $this->id = $user->REC_ID;
                 $this->username = $user->USER_NAME;
-                error_log(var_export($this->loginProvider,true));
+                
                  if ($this->loginProvider == 'Facebook') {
                      
                 $this->_adapter->shareFacebook($this->username);

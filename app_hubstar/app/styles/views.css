@@ -567,7 +567,7 @@
 
     word-wrap: normal;
     line-height: 24px;
-    
+
     max-height:72px;
     overflow:auto;
 }
@@ -585,13 +585,13 @@
     word-wrap: normal;
     line-height: 24px;
     box-shadow: 0 0 20px 4px #000;
-    
-     height:72px;
-     overflow:hidden;
-     
-     font-size:0;
-     
-     /* may need to delete this element in the template */
+
+    height:72px;
+    overflow:hidden;
+
+    font-size:0;
+
+    /* may need to delete this element in the template */
 }
 
 .album-description-hoverarea{
@@ -684,6 +684,8 @@
     left: 0;
     right: 0;
     text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 
@@ -788,7 +790,11 @@
     text-overflow: ellipsis;
 }
 .more_detail{
-    height: 22px;
+    color: #555;
+    width: 300px;
+    margin: 0 auto;
+    height: auto;
+    max-height: 50px;
     overflow: hidden;
     text-overflow: ellipsis;
 }

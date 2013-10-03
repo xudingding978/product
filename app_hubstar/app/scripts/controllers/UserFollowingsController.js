@@ -180,10 +180,10 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
                     currentUser.get("followings").insertAt(0, tempFollowing);
                     if (type === "user")
                     {
-                        if (localStorage.loginStatus === this.get("controllers.user").get('user').id)
+                        if (localStorage.loginStatus === thisThis.get("controllers.user").get('user').id)
                         {
 
-                            this.get("controllers.user").set("userFollowingStatistics", currentUser.get("followings").get("length"));
+                            thisThis.get("controllers.user").set("userFollowingStatistics", currentUser.get("followings").get("length"));
                         }
                     }
 
@@ -272,10 +272,10 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
                 }
                 if (type === "user")
                 {
-                    if (localStorage.loginStatus === this.get("controllers.user").get('user').id)
+                    if (localStorage.loginStatus === thisThis.get("controllers.user").get('user').id)
                     {
 
-                        this.get("controllers.user").set("userFollowingStatistics", currentUser.get("followings").get("length"));
+                        thisThis.get("controllers.user").set("userFollowingStatistics", currentUser.get("followings").get("length"));
                     }
                 }
             });

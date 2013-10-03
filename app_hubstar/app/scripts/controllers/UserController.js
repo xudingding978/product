@@ -54,6 +54,7 @@ HubStar.UserController = Ember.Controller.extend({
     photo_url_large: "",
     photo_url: "",
     cover_url: "",
+     isCrop:false,
     isPhotoUploadMode: false,
     newStyleImageSource: '',
     newStyleImageName: '',
@@ -208,9 +209,7 @@ HubStar.UserController = Ember.Controller.extend({
             this.set('newStyleImageSource', "");
             this.set('newStyleImageName', "");
             this.set('CurrentImageSize', "");
-            $('#photoUploadbtn').removeClass();
-            $("#photoUploadbtn").toggleClass("disabled-btn");
-            $('#photoUploadbtn').attr('disabled', true);
+           this.set('isCrop', false);
 
 
         }
@@ -240,9 +239,7 @@ HubStar.UserController = Ember.Controller.extend({
             this.set('newStyleImageName', "");
             this.set('CurrentImageSize', "");
 
-            $('#photoUploadbtn').removeClass();
-            $("#photoUploadbtn").toggleClass("disabled-btn");
-             $('#photoUploadbtn').attr('disabled', true);
+            this.set('isCrop', false);
 
         }
     },
@@ -768,16 +765,17 @@ HubStar.UserController = Ember.Controller.extend({
                         that.set('newStyleImageSource', "");
                         that.set('newStyleImageName', "");
                         that.set('CurrentImageSize', "");
+                        that.set('isCrop', false);
                     } else if (width > 2500 || height > 1500) {
                         that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size smaller than  " +2500 + "x" + 1500,"warnning");
                         that.set('newStyleImageSource', "");
                         that.set('newStyleImageName', "");
                         that.set('CurrentImageSize', "");
+                        that.set('isCrop', false);
                     }
                     else if (width >800 || height > 250) { 
   
-                        $('#photoUploadbtn').removeClass();
-                        $("#photoUploadbtn").toggleClass("new-btn green-btn");
+                       that.set('isCrop', true);
                     }
                 }
 
@@ -787,15 +785,17 @@ HubStar.UserController = Ember.Controller.extend({
                         that.set('newStyleImageSource', "");
                         that.set('newStyleImageName', "");
                         that.set('CurrentImageSize', "");
-                    } else if (width > 1050 || height >1050) {
-                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size smaller than  " + 1050 + "x" + 1050,"warnning");
-                        that.set('newStyleImageSource', "");
-                        that.set('newStyleImageName', "");
-                        that.set('CurrentImageSize', "");
-                    }
+                         that.set('isCrop', false);
+                    } 
+//                    else if (width > 1050 || height >1050) {
+//                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size smaller than  " + 1050 + "x" + 1050,"warnning");
+//                        that.set('newStyleImageSource', "");
+//                        that.set('newStyleImageName', "");
+//                        that.set('CurrentImageSize', "");
+//                         that.set('isCrop', false);
+//                    }
                     else if ( width > 150 ||  height > 150) {
-                        $('#photoUploadbtn').removeClass();
-                        $("#photoUploadbtn").toggleClass("new-btn green-btn");
+                      that.set('isCrop', true);
 
                     }
                 }
@@ -855,8 +855,7 @@ HubStar.UserController = Ember.Controller.extend({
                         that.set('newStyleImageSource', "");
                         that.set('newStyleImageName', "");
                         that.set('CurrentImageSize', "");
-                        $('#photoUploadbtn').removeClass();
-                        $("#photoUploadbtn").toggleClass("disabled-btn");
+                        that.set('isCrop', false);
 
                     }
 

@@ -645,3 +645,43 @@ textarea.add-interests{
 
 }
 /* client profile content styling ENDS */
+
+
+
+.LatestFollower{
+    text-align: center;
+    width: 275px;
+    height: 35px;
+    margin: 10px auto;
+
+    display: block;
+    clear: both;
+}
+
+.LatestFollower  img{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -o-border-radius: 50%;
+
+    border: 2px solid #fff;
+    margin: 0 4px;
+}
+
+.Followed-by{
+    display: block;
+    text-align: center;
+    font-size: 13px;
+    font-weight: bold;
+    color: #888;
+    position: relative;
+    width: 100%;
+    clear: both;
+    margin: 0 auto;
+    opacity: .8;
+    cursor: pointer;
+}
+
+.Followed-by:hover{opacity: 1}   

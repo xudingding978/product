@@ -41,7 +41,6 @@ class EmailsController extends Controller {
         $email_destination = $request_arr['email_destination'];
 
         $sub_category = explode(",", $request_arr['project_sub_category_item']);
-        // error_log(var_export($sub_category , true));
 
         $description = $this->linkCategory($sub_category);
 
@@ -91,29 +90,29 @@ class EmailsController extends Controller {
         $configuration = $this->getProviderConfigurationByName($domain, "SES");
         $amazonSes = Aws\Ses\SesClient::factory($configuration);
         $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");
-        $platformEmail = $platformSettings['direct_enquiries']['email'];
+        $platformEmail = $platformSettings['support']['email'];
         $subject_prefix = 'Forget your password';
         $args = array(
-//            "Source" => $platformEmail,
-//            "Destination" => array(
-//                "ToAddresses" => array(
-//                    $email),
-//                "BccAddresses"=>array(
-//                    '286949639@qq.com')
-//            ),
-//            "Message" => array(
-//                "Subject" => array(
-//                    "Data" => $subject_prefix
-//                ),
-//                "Body" => array(
-//                    "Html" => array(
-//                        "Data" => $this->forgetEmailForm($username, $password)
-//                    )
-//                ),
-//            ),
-//        );
-//        $response = $amazonSes->sendEmail($args);
-//        $this->sendResponse(200, $response);
+            "Source" => $platformEmail,
+            "Destination" => array(
+                "ToAddresses" => array(
+                    $email),
+                "BccAddresses"=>array(
+                    '286949639@qq.com')
+            ),
+            "Message" => array(
+                "Subject" => array(
+                    "Data" => $subject_prefix
+                ),
+                "Body" => array(
+                    "Html" => array(
+                        "Data" => $this->forgetEmailForm($username, $password)
+                    )
+                ),
+            ),
+        );
+        $response = $amazonSes->sendEmail($args);
+        $this->sendResponse(200, $response);
     }
 
     public function actionRead() {

@@ -77,10 +77,8 @@ class UserController extends Controller {
             $temp["user"][0]["email"] = $model->EMAIL_ADDRESS;
             $temp["user"][0]["first_name"] = $model->FIRST_NAME;
             $temp["user"][0]["last_name"] = $model->LAST_NAME;
-
             if ($cb->add(substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.') + 1) . "/users/" . $rand_id, CJSON::encode($temp))) {
                 Yii::app()->session['newUser'] = "new";
-
                 if ($model->save()) {
 
                     $identity = new CommonUserIdentity($model->USER_NAME, $model->PWD_HASH);
@@ -108,9 +106,7 @@ class UserController extends Controller {
      * @param integer $id the ID of the model to be updated
      */
     public function actionUpdate($id) {
-
         $model = $this->loadModel($id);
-
         if (isset($_POST['User'])) {
             $model->attributes = $_POST['User'];
             $model->REC_TIMESTAMP = new CDbExpression('NOW()');

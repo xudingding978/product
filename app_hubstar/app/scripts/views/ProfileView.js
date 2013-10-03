@@ -13,7 +13,6 @@ HubStar.ProfileView = Ember.View.extend({
         $('#user-stats > li').click(function() {
             $('#user-stats > li').removeClass('selected-user-stats');
             $(this).addClass('selected-user-stats');
-
         });
     }
 });

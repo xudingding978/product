@@ -162,11 +162,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     signUp: function() {
 
         if (this.checkSignupInfo()) {
-
             var signupInfo = [this.get('email')];
             var that = this;
             requiredBackEnd('site', 'getemail', signupInfo, 'POST', function(params) {
-                console.log(params);
                 if (params === 1) {
                     $('#register-with-email-step-2').addClass('active-step');
                     $('#click-register').addClass('active-tab');
@@ -174,7 +172,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     $('#register-with-email-drop-down').animate({height: 'toggle'});
                     checkSocial();
                 }
-
                 else if (params === 0) {
                     document.getElementById('email').style.border = '2px solid red';
                     that.get('controllers.applicationFeedback').statusObserver(null, "You have registered with this email using social media account.", "warnning");
@@ -187,14 +184,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         }
     },
     done: function() {
-
-
         var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age')];
         var that = this;
-
         requiredBackEnd('site', 'create', createInfo, 'POST', function(params) {
-
-            console.log(params.COUCHBASE_ID);
             localStorage.loginStatus = params.COUCHBASE_ID;
             setTimeout(function() {
                 that.transitionToRoute('search');
@@ -205,10 +197,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 that.set('region', "");
                 that.set('gender', "");
                 that.set('age', "");
-
             }, 2000);
-
-
         });
     },
     checkSignupInfo: function() {
@@ -237,7 +226,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             document.getElementById(checkList[i].id).style.border = '';
             if (checkList[i].input !== null && checkList[i].input !== "" && checkList[i].input !== undefined)
             {
-                console.log(checkList[i].input);
                 if (checkList[i].input.length > checkList[i].lengthMax || checkList[i].input.length < checkList[i].lengthMin)
                 {
                     result = false;
@@ -257,7 +245,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             }
             if (checkList[i].input !== null && checkList[i].isEmailValid === true)
             {
-
                 if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
                     result = true;
                 }
@@ -268,7 +255,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     break;
                 }
             }
-
         }
         return result;
     },
@@ -305,39 +291,24 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
             }
         });
-
-
     },
     emailSend: function()
     {
-console.log(this.get('resetPasswordEmail'));
         var signupInfo = [this.get('resetPasswordEmail')];
         var that = this;
         requiredBackEnd('site', 'resetemail', signupInfo, 'POST', function(params) {
             if (params === 1) {
-                console.log('email not exits');
                 that.get('controllers.applicationFeedback').statusObserver(null, "Invalid Username.", "warnning");
             }
             else if (params === 0) {
-                console.log('you have registered');
                 that.get('controllers.applicationFeedback').statusObserver(null, "You have registered this email using social media account.", "warnning");
             }
-
             else {
-
                 var emailInfo = [that.get('resetPasswordEmail'), params.USER_NAME, params.PWD_HASH];
-                console.log(that.get('resetPasswordEmail'));
-                console.log(params.USER_NAME);
-                console.log(params.PWD_HASH);
                 requiredBackEnd('emails', 'forgetpassword', emailInfo, 'POST', function(params) {
-                    console.log(params);
-                });
 
+                });
             }
         });
-
-
-
     }
-
 });

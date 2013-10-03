@@ -61,11 +61,12 @@
 
         <script src="bower_components/wysihtml5/dist/wysihtml5-0.3.0.js" ></script>
 
+ <!-- endbuild -->
 
-        <!-- GoSquared Analytics section -->
         <script type="text/javascript">
+            // implement gosquared
             var GoSquared = {};
-            GoSquared.acct = "GSN-987901-W";
+            GoSquared.acct = "GSN-958782-H";
             (function(w) {
                 function gs() {
                     w._gstc_lt = +new Date;
@@ -79,12 +80,35 @@
                         w.addEventListener("load", gs, false) :
                         w.attachEvent("onload", gs);
             })(window);
+            
+            
+            //facebook
+            window.fbAsyncInit = function() {
+                // init the FB JS SDK
+                FB.init({
+                    appId: '358102574293594', // App ID from the app dashboard
+                    channelUrl: '//WWW.YOUR_DOMAIN.COM/channel.html', // Channel file for x-domain comms
+                    status: true, // Check Facebook Login status
+                    xfbml: true                                  // Look for social plugins on the page
+                });
+
+                // Additional initialization code such as adding Event Listeners goes here
+            };
+
+            // Load the SDK asynchronously
+            (function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {
+                    return;
+                }
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "//connect.facebook.net/en_US/all.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
         </script>
 
-
-        <!-- endbuild -->
-
-        <!-- build:js(.tmp) scripts/templates.js -->
+         <!-- build:js(.tmp) scripts/templates.js -->
         <script src="scripts/compiled-templates.js"></script>
         <!-- endbuild -->
 

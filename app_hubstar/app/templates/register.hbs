@@ -171,10 +171,14 @@
             {{view Ember.TextField valueBinding="resetPasswordEmail" placeholder="Your Email" }}
         </div>
         <div class="back-btn easing" style="" >Back</div>
-        <div class="register-btn easing register-btn-small" {{action emailSend}}>Reset password</div>
+        <div id='reset-btn' class="register-btn easing register-btn-small" {{action emailSend}}>Reset password</div>
     </div>
-
+    <div id="forgot-message-container" style="display:none;">
+    hello
 </div>
+</div>
+
+
 
  {{#if controller.isWaiting}}
     <div id="loading" class="loading-visible" >

@@ -1143,3 +1143,9 @@ div#forgot-password-container{
 .white-text-hover:hover{
     opacity: 1;
 }
+
+#forgot-message-container{
+    background:#fff;
+    width:300px;
+    height:150px;
+}

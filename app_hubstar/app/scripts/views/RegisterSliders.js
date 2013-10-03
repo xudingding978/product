@@ -48,16 +48,16 @@ $("#click-login").click(function() {
     } /* clicking register step 1 function*/
 });
 $('#loginPassword > div').click(function() {
-     if ($('#login-with-email-drop-down').css('display') === 'block' && $('#click-login').hasClass('active-tab')) {
+    if ($('#login-with-email-drop-down').css('display') === 'block' && $('#click-login').hasClass('active-tab')) {
         $('#click-login').removeClass('active-tab');
 
         $('#login-with-email-drop-down').stop().animate({height: 'toggle'});
-         $('#user-forgot-password-pane').animate({height: 'toggle'});
-         $('#click-login').animate({height: 'toggle'});
+        $('#user-forgot-password-pane').animate({height: 'toggle'});
+        $('#click-login').animate({height: 'toggle'});
 
         if ($('#social-login-container').css('display') === 'block') {
             $('#social-login-container').animate({height: 'toggle'});
-            
+
         }
     }
 });
@@ -66,12 +66,12 @@ $('#loginPassword > div').click(function() {
 $('#user-forgot-password-pane .back-btn').click(function() {
     $('#user-forgot-password-pane').animate({height: 'toggle'});
     $('#login-with-email-drop-down').animate({height: 'toggle'});
-    
-     if ($('#social-login-container').css('display') === 'block') {
-            $('#social-login-container').animate({height: 'toggle'});
-            
-        }
-    
+
+    if ($('#social-login-container').css('display') === 'block') {
+        $('#social-login-container').animate({height: 'toggle'});
+
+    }
+
 });
 
 
@@ -211,6 +211,12 @@ function loginPane() {
         loginState = false;
     }
 }
+
+$('#reset-btn').click(function() {
+    
+    $('#forgot-message-container').stop().animate({opacity: 'toggle'}).delay(5000).animate({opacity: 'toggle'});
+
+});
 
 
 

@@ -190,9 +190,13 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var that = this;
         requiredBackEnd('site', 'create', createInfo, 'POST', function(params) {
             localStorage.loginStatus = params.COUCHBASE_ID;
+//              var emailInfo = [ params.USER_NAME, params.PWD_HASH];
+//             requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function(params) {
+//
+//                });
             setTimeout(function() {
                 that.transitionToRoute('search');
-                that.set('isWaiting',true);
+                that.set('isWaiting',false);
                 that.set('first_name', "");
                 that.set('last_name', "");
                 that.set('email', "");

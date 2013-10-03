@@ -213,9 +213,9 @@ function loginPane() {
 }
 
 $('#reset-btn').click(function() {
-    
-    $('#forgot-message-container').stop().animate({opacity: 'toggle'}).delay(5000).animate({opacity: 'toggle'});
-
+    if ($('#register-with-email-drop-down').css('display') === 'none') {
+        $('#forgot-message-container').stop().animate({opacity: 'toggle'}).delay(5000).animate({opacity: 'toggle'});
+    }
 });
 
 

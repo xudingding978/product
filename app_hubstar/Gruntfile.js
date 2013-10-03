@@ -52,7 +52,7 @@ module.exports = function(grunt) {
                     'git checkout develop',
                     'git fetch origin',
                     'git pull origin develop',
-           //         'git push origin develop'
+                            //         'git push origin develop'
                 ].join('&&')
             }
         },
@@ -493,13 +493,13 @@ module.exports = function(grunt) {
         }
 
         grunt.task.run([
+            'shell',
             'clean:server',
             'concurrent:server',
             'neuter:app',
             'livereload-start',
             'connect:livereload',
             'open',
-            'shell',
             'watch'
         ]);
     });

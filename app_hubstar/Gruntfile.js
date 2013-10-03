@@ -45,8 +45,6 @@ module.exports = function(grunt) {
             }
         },
         shell: {// Task
-
-
             multiple: {
                 command: [
                     'git add .',
@@ -54,12 +52,21 @@ module.exports = function(grunt) {
                     'git checkout develop',
                     'git fetch origin',
                     'git pull origin develop',
-                    'git push origin develop'
+           //         'git push origin develop'
                 ].join('&&')
             }
-
-
         },
+//        gitpull: {// Task
+//            multiple: {
+//                command: [
+//                    'git add .',
+//                    'git commit -a -m "ready to pull"',
+//                    'git checkout develop',
+//                    'git fetch origin',
+//                    'git pull origin develop'
+//                ].join('&&')
+//            }
+//        },
         replace: {
             dist: {
                 src: '<%= yeoman.app %>/templates/header.hbs',
@@ -492,6 +499,7 @@ module.exports = function(grunt) {
             'livereload-start',
             'connect:livereload',
             'open',
+            'shell',
             'watch'
         ]);
     });

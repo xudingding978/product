@@ -170,6 +170,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
         var newPartner = HubStar.Mega.find(client_id);
         this.get("content").pushObject(newPartner);       
          $('#masonry_user_container').masonry("reload");
+         
     },
     checkAuthenticUser: function() {
         var currentUser = HubStar.User.find(localStorage.loginStatus);

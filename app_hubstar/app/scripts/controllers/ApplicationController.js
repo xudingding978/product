@@ -310,7 +310,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     emailSend: function()
     {
-
+console.log(this.get('resetPasswordEmail'));
         var signupInfo = [this.get('resetPasswordEmail')];
         var that = this;
         requiredBackEnd('site', 'resetemail', signupInfo, 'POST', function(params) {

@@ -94,26 +94,26 @@ class EmailsController extends Controller {
         $platformEmail = $platformSettings['direct_enquiries']['email'];
         $subject_prefix = 'Forget your password';
         $args = array(
-            "Source" => $platformEmail,
-            "Destination" => array(
-                "ToAddresses" => array(
-                    $email),
-                "BccAddresses"=>array(
-                    '286949639@qq.com')
-            ),
-            "Message" => array(
-                "Subject" => array(
-                    "Data" => $subject_prefix
-                ),
-                "Body" => array(
-                    "Html" => array(
-                        "Data" => $this->forgetEmailForm($username, $password)
-                    )
-                ),
-            ),
-        );
-        $response = $amazonSes->sendEmail($args);
-        $this->sendResponse(200, $response);
+//            "Source" => $platformEmail,
+//            "Destination" => array(
+//                "ToAddresses" => array(
+//                    $email),
+//                "BccAddresses"=>array(
+//                    '286949639@qq.com')
+//            ),
+//            "Message" => array(
+//                "Subject" => array(
+//                    "Data" => $subject_prefix
+//                ),
+//                "Body" => array(
+//                    "Html" => array(
+//                        "Data" => $this->forgetEmailForm($username, $password)
+//                    )
+//                ),
+//            ),
+//        );
+//        $response = $amazonSes->sendEmail($args);
+//        $this->sendResponse(200, $response);
     }
 
     public function actionRead() {

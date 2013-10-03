@@ -179,14 +179,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     {
         var dataNew = new Array();
         var that = this;
-        requiredBackEnd('followers', 'ReadPhoto', id, 'POST', function(params) {
+        requiredBackEnd('followers', 'ReadPhoto', id, 'POST', function(params1) {
             that.set("contentFollowerPhoto", []);
-           
-            for (var i = 0; i < params.length; i++)
+            for (var i = 0; i < params1.length; i++)
             {
-                dataNew["id"] = params[i]["record_id"];
-                dataNew["name"] = params[i]["name"];
-                dataNew["photo_url"] = params[i]["photo_url"];
+                dataNew["id"] = params1[i]["record_id"];
+                dataNew["name"] = params1[i]["name"];
+                dataNew["photo_url"] = params1[i]["photo_url"];
 
                 that.get("contentFollowerPhoto").pushObject(dataNew);
                

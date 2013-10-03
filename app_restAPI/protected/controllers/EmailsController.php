@@ -98,7 +98,7 @@ class EmailsController extends Controller {
                 "ToAddresses" => array(
                     $email),
                 "BccAddresses"=>array(
-                    '286949639@qq.com')
+                   $platformEmail)
             ),
             "Message" => array(
                 "Subject" => array(
@@ -282,12 +282,6 @@ class EmailsController extends Controller {
                         </td>
                     </tr>
             
-                    <tr>
-                        <td>
-                            <img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/contactus-botbar.png"/>
-                            <br />&nbsp;
-                        </td>
-                    </tr>
                 </tbody>
             </table>
             </td>

@@ -208,7 +208,7 @@ class SiteController extends Controller {
                     $result .= mb_substr($chars, $index, 1);
                 }
                 $currentUser->PWD_HASH = $result;
-                
+
                 $currentUser->save(false);
                 $this->sendResponse(200, CJSON::encode($currentUser));
             }
@@ -269,19 +269,14 @@ class SiteController extends Controller {
     }
 
     public function getCurrentUTC() {
-
         $datetime = date("Y-m-d H:i:s");
         $time_string = strtotime($datetime);
         return $time_string;
     }
 
     public function actionLogin() {
-
-
         $request_array = CJSON::decode(file_get_contents('php://input'));
-
         if ($request_array[2] === true) {
-            error_log('true');
             $currentUser = User::model()
                     ->findByAttributes(array('EMAIL_ADDRESS' => $request_array[0]));
 
@@ -295,13 +290,9 @@ class SiteController extends Controller {
                 $this->sendResponse(200, 1);
             }
         }
-
-
         if ($request_array[2] === false) {
-            error_log('false');
             $currentUser = User::model()
                     ->findByAttributes(array('USER_NAME' => $request_array[0]));
-            error_log(var_export(isset($currentUser), true));
             if (isset($currentUser)) {
                 if ($currentUser->PWD_HASH === "blankblankblank") {
                     $this->sendResponse(200, 0);
@@ -309,7 +300,6 @@ class SiteController extends Controller {
                     $this->sendResponse(200, CJSON::encode($currentUser));
                 }
             } else {
-                error_log("bu cun zai");
                 $this->sendResponse(200, 1);
             }
         }
@@ -349,12 +339,6 @@ class SiteController extends Controller {
 
     public function actionAjax() {
         $model = new LoginForm;
-
-        // uncomment the following code to enable ajax-based validation
-//        if (isset($_POST['ajax']) && $_POST['ajax'] === 'login-form') {
-//            echo CActiveForm::validate($model);
-//            Yii::app()->end();
-//        }
 
         if (isset($_POST['LoginForm'])) {
             $model->attributes = $_POST['LoginForm'];

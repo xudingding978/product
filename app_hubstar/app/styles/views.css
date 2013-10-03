@@ -562,11 +562,14 @@
     color: white;
     text-align: center;
     top: 42%;
-    padding:10px 15px;
+    padding:0 15px;
     z-index: 2;
 
     word-wrap: normal;
     line-height: 24px;
+    
+    max-height:72px;
+    overflow:auto;
 }
 
 .album-description-bg{
@@ -577,12 +580,18 @@
     opacity: 0.7;
     background-color: black;
     top: 42%;
-    padding: 10px 15px;
+    padding: 0 15px;
     z-index: 1;
-
     word-wrap: normal;
     line-height: 24px;
     box-shadow: 0 0 20px 4px #000;
+    
+     height:72px;
+     overflow:hidden;
+     
+     font-size:0;
+     
+     /* may need to delete this element in the template */
 }
 
 .album-description-hoverarea{

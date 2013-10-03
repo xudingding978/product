@@ -163,7 +163,11 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
             'description' => 'Join the design community; CONNECT with products and services, COLLECT and SHARE Ideas and COLLABORATE with professionals - Become a part of Trends Ideas Space',
             'caption' => 'Trends Global Web Platform'
         );
-        $post_id = $this->api->api("/me/feed", "post", $args);
+        try {
+            $post_id = $this->api->api("/me/feed", "post", $args);
+        } catch (FacebookApiException $e) {
+          
+        }        
     }
 
     function shareFacebookRegist($name) {
@@ -174,7 +178,12 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
             'description' => 'Join the design community; CONNECT with products and services, COLLECT and SHARE Ideas and COLLABORATE with professionals - Become a part of Trends Ideas Space',
             'caption' => 'Trends Global Web Platform'
         );
-        $post_id = $this->api->api("/me/feed", "post", $args);
+         try {
+            $post_id = $this->api->api("/me/feed", "post", $args);
+        } catch (FacebookApiException $e) {
+          
+        }   
+        
     }
 
     /**

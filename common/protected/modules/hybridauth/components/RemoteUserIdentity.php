@@ -47,7 +47,7 @@ class RemoteUserIdentity extends CBaseUserIdentity {
             } else {
                 $this->id = $user->REC_ID;
                 $this->username = $user->USER_NAME;
-          
+                
                  if ($this->loginProvider == 'Facebook') {
                      
                 $this->_adapter->shareFacebook($this->username);

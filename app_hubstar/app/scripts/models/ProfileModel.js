@@ -41,6 +41,7 @@ HubStar.Profile = DS.Model.extend({
     profile_pinterest_link: DS.attr('string'),
     profile_linkedin_link: DS.attr('string'),
     profile_youtube_link: DS.attr('string'),
+    profile_analytics_code: DS.attr('string'),
 
     owner: DS.attr('string'),
     owner_contact_email: DS.attr('string'),

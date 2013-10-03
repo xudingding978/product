@@ -51,6 +51,8 @@ module.exports = function(grunt) {
                 command: [
                     'git add .',
                     'git commit -a -m "ready to pull"',
+                    'git checkout develop',
+                    'git fetch origin',
                     'git pull origin develop',
                     'git push origin develop'
                 ].join('&&')

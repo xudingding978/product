@@ -290,81 +290,82 @@ class EmailsController extends Controller {
     public function forgetEmailForm($username, $password) {
         return '
             <table width="100%" cellpadding="0" cellspacing="0" style="background: #e5e5e5;">
-<tbody>
-<tr>
-<td align="center">
-<table width="100%" cellpadding="2" cellspacing="0" style="background: #05B1E5; height: 45px;
-box-shadow: 0 0 10px #000000;">
-<tr>
-<td align="center">
-<table width="100%" cellpadding="0" cellspacing="0">
-<tr>
-<td>
-&nbsp;&nbsp;<a href="http://trendsideas.co.nz"><img height="25" src="http://beta.trendsideas.com/images/landing-trends.png"
-alt="Trends" style="border: 0 none;" /></a>
-</td>
-</tr>
-</table>
-</td>
-</tr>
-</table>
-<br />
-<br />
-<table cellpadding="0" cellspacing="0" border="0" style="background: #fff;" width="600">
-<tbody>
-<tr>
-<td>
-<img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/header.jpg" />
-</td>
-</tr>
-<tr>
-<td align="center">
-&nbsp;<br />
-<table cellpadding="10" cellspacing="0" width="90%" style="color: #666; font-size: 13px;
-line-height: 150%; font-family: Helvetica, Arial, San-Serif; text-align: left;">
-<tr>
-<td valign="top">
-<h1 style="color: #05B1E5;">
-Forgot your password?</h1>
-No problem, your password has now been reset. <br /><br />See below:
-</td>
-</tr>
-<tr>
-<td>
-<table align="left" style="color: #666; font-size: 13px; line-height: 150%; font-family: Helvetica, Arial, San-Serif;
-text-align: left; background: #e5e5e5; -webkit-border-radius: 3px; -moz-border-radius: 3px;
-border-radius: 3px;" cellpadding="5" cellspacing="0">
-<tr>
-<td valign="top">
-User name: ' . $username . '
-</td>
-</tr>
-<tr>
-<td valign="top">
-New password: <span style="font-weight: bold;">' . $password . '</span>
-</td>
-</tr>
-</table>
-</td>
-</tr>
-<tr>
-<td>
-<br />
-<br />
-If this prompt was not you, please immediately contact: <a href="mailto:support@trendsideas.com"
-style="color: #05B1E5;">support@trendsideas.com</a>
-</td>
-</tr>
-<tr>
-<td>
-<hr style="height: 1px; color: #0088CC; background: #0088CC; width: 100%; border: 0 none;" />
-&nbsp;<br />
-</td>
-</tr>
-</tbody>
-</table>
+    <tbody>
+        <tr>
+            <td align="center">
+                <table width="100%" cellpadding="2" cellspacing="0" style="background: #05B1E5; height: 45px;
+                       box-shadow: 0 0 10px #000000;">
+                    <tr>
+                        <td align="center">
+                            <table width="100%" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        &nbsp;&nbsp;<a href="http://trendsideas.co.nz"><img height="25" src="http://beta.trendsideas.com/images/landing-trends.png"
+                                                                                            alt="Trends" style="border: 0 none;" /></a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <br />
+                <br />
+                <table cellpadding="0" cellspacing="0" border="0" style="background: #fff;" width="600">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/header.jpg" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center">
+                                &nbsp;<br />
+                                <table cellpadding="10" cellspacing="0" width="90%" style="color: #666; font-size: 13px;
+                                       line-height: 150%; font-family: Helvetica, Arial, San-Serif; text-align: left;">
+                                    <tr>
+                                        <td valign="top">
+                                            <h1 style="color: #05B1E5;">
+                                                Forgot your password?</h1>
+                                            No problem, your password has now been reset. <br /><br />See below:
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <table align="left" style="color: #fff; font-size: 13px; line-height: 150%; font-family: Helvetica, Arial, San-Serif;
+                                                   text-align: left; background: #05B1E5; -webkit-border-radius: 3px; -moz-border-radius: 3px;
+                                                   border-radius: 3px;" cellpadding="5" cellspacing="0">
+                                                <tr>
+                                                    <td valign="top">
+                                                        User name: ' . $username . '
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="top">
+                                                        New password: <span style="font-weight: bold;">' . $password . '</span>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <br />
+                                            <br />
+                                            If this prompt was not you, please immediately contact: <a href="mailto:support@trendsideas.com"
+                                                                                                       style="color: #05B1E5;">support@trendsideas.com</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <hr style="height: 1px; color: #0088CC; background: #0088CC; width: 100%; border: 0 none;" />
+                                            &nbsp;<br />
+                                        </td>
+                                    </tr>
+                    </tbody>
+                </table>
+                <br /><br />&nbsp;
 
-</tbody>
+    </tbody>
 </table>
 ';
     }

@@ -213,7 +213,7 @@ function loginPane() {
 }
 
 $('#reset-btn').click(function() {
-    if ($('#register-with-email-drop-down').css('display') === 'none') {
+    if ($('#forgot-message-container').css('display') === 'none') {
         $('#forgot-message-container').stop().animate({opacity: 'toggle'}).delay(5000).animate({opacity: 'toggle'});
     }
 });

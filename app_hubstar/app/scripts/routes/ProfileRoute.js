@@ -14,8 +14,8 @@ HubStar.ProfileRoute = Ember.Route.extend({
             this.controllerFor('application').set('isotherpage', true);
             this.controllerFor('searchs').setLoginImge();
             this.controllerFor('profile').set('switchPhoto', true);
-          
-        
+            
+            this.sendGAMessage(model.get('profile_analytics_code'));
                
                
               var lastPositionId= HubStar.get('lastPositionId');
@@ -74,6 +74,13 @@ HubStar.ProfileRoute = Ember.Route.extend({
                 outlet: "profile",
                 into: "application"
             });
+        },
+        sendGAMessage: function(profile_analytics_code) {
+            try{
+               eval(profile_analytics_code);
+            } catch(err) {
+                console.log('error out');
+            }
         }
 
     });

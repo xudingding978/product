@@ -88,14 +88,14 @@ class MegaimportController extends Controller {
 //        $request_arr = $this->modifyArrayProperty(CJSON::decode($request_json, true), $id); 
 //        $url = substr($_SERVER['HTTP_HOST'], 4) . '/' . $request_arr["id"];
 //        $url = 'trendsideas.com/' . $id;
-//        error_log($url);
+
         
         try {
             $cb = $this->couchBaseConnection_production();
             if ($cb->add($id, CJSON::encode($request_arr))) {
                 $response="ok";
             } else {
-                error_log("inport article faill, ID:". $request_arr["id"]);
+  
             }
 
         } catch (Exception $exc) {

@@ -45,7 +45,6 @@ class RemoteUserIdentity extends CBaseUserIdentity {
             if ($user == null) {
                 $this->errorCode = self::ERROR_USERNAME_INVALID;
             } else {
-                
                 $this->id = $user->REC_ID;
                 $this->username = $user->USER_NAME;
                 

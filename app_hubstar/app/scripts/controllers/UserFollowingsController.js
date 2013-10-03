@@ -34,6 +34,8 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
         requiredBackEnd('followers', 'ReadFollowing', data, 'POST', function(params) {
             that.set("contentUser", []);
             that.set("contentProfile", []);
+            console.log(params.length+"sssssssss");
+
             for (var i = 0; i < params.length; i++)
             {
                 dataNew["type"] = params[i]["type"];

@@ -218,7 +218,7 @@ class FollowersController extends Controller {
         }
         return $newRecord;
     }
-    
+
     public function actionRead() {
         $like = CJSON::decode(file_get_contents('php://input'));
         $likeArr = CJSON::decode($like, true);
@@ -257,7 +257,7 @@ class FollowersController extends Controller {
         }
     }
 
-       public function actionReadProfileFollower() {
+    public function actionReadProfileFollower() {
         $like = CJSON::decode(file_get_contents('php://input'));
         $likeArr = CJSON::decode($like, true);
 
@@ -294,7 +294,7 @@ class FollowersController extends Controller {
             echo $exc->getTraceAsString();
         }
     }
-    
+
     public function setFollowParam($id, $like_user, $oldRecordDeep, $userFollower, $newRecord) {
         if (!isset($oldRecordDeep['user'][0]["followers"])) {
             $newRecord['follower_size'] = 0;
@@ -440,6 +440,45 @@ class FollowersController extends Controller {
             }
         }
         return $newRecord;
+    }
+
+    public function actionReadPhoto() {
+        $like_arr = CJSON::decode(file_get_contents('php://input'));
+        
+        try {
+            $cb = $this->couchBaseConnection();
+            $docID = $this->getDomain() . "/profiles/" . $like_arr;
+            $old = $cb->get($docID); // get the old user record from the database according to the docID string
+            $oldRecord = CJSON::decode($old, true);
+            
+            $newRecord = null;
+            if (!isset($oldRecord['profile'][0]["followers"])) {
+                $oldRecord['profile'][0]["followers"] = array();
+            }
+            if (sizeof($oldRecord['profile'][0]["followers"]) < 6) {
+                $followerLength = sizeof($oldRecord['profile'][0]["followers"]);
+            } else {
+                $followerLength = 6;
+            }
+            for ($i = 0; $i < $followerLength; $i++) {
+                $id = $oldRecord['profile'][0]["followers"][$i]["follower_id"];               
+                $docIDDeep = $this->getDomain() . "/users/" . $id;
+                $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+                $oldRecordDeep = CJSON::decode($oldDeep, true);
+                $newRecord[$i]['record_id'] = $id;
+                $newRecord[$i]['name'] = $oldRecordDeep['user'][0]["display_name"];
+                $newRecord[$i]['photo_url'] = $oldRecordDeep['user'][0]["photo_url_large"];
+            }
+            
+            if ($newRecord === null) {
+                $this->sendResponse(204);
+            } else {
+
+                $this->sendResponse(200, CJSON::encode($newRecord));
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
     }
 
     public function actionReadFollowing() {

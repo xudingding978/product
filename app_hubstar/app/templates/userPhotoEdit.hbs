@@ -32,7 +32,7 @@
                 <div style="opacity:0;position: absolute;top: 0px;left: 0;"> {{view HubStar.SingleImageInputButtonView }}</div>
         </div>
 
-        <div style="margin: auto;width: 150px;float: right;">
+        <div style="margin: auto 10px;width: 150px;float: right;">
             
             <span id="photoUploadbtn" class="disabled-btn"{{action cropButton}} ><k class='icon-save '> &nbsp;</k>Upload</span>
             <span class='new-btn flip-back'{{action userPhotoEditBackButton }}><k class='icon-user'> &nbsp;</k>Back</span>
@@ -60,7 +60,7 @@
             <canvas id="panel" style="max-width: 300px; max-height: 350px;width: auto; height: auto;"><img  {{bindAttr src= "newStyleImageSource"}} ></canvas>
         </div>
     </div>
-    <div style="margin: auto;width: 150px;float: left;">
+    <div style="margin: auto;width: 150px;">
         <span class="new-btn green-btn " {{action savePhotoUpdate}} ><k class='icon-save'> &nbsp;</k>Save</span>
         <span class='new-btn flip-back'{{action userPhotoEditBackButton }}><k class='icon-group'> &nbsp;</k>Back</span>
     </div>

@@ -47,15 +47,15 @@ module.exports = function(grunt) {
         shell: {// Task
 
 
-                multiple: {
-                    command: [
-                        'git add .',
-                        'git commit -a -m "ready to pull"',
-                        'git pull origin develop',
-                        'ls'
-                    ].join('&&')
-                }
-            
+            multiple: {
+                command: [
+                    'git add .',
+                    'git commit -a -m "ready to pull"',
+                    'git pull origin develop',
+                    'git push origin develop'
+                ].join('&&')
+            }
+
 
         },
         replace: {
@@ -531,6 +531,5 @@ module.exports = function(grunt) {
     grunt.registerTask('gitcommit', [
         'shell'
     ]);
-
 
 };

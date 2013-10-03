@@ -47,10 +47,23 @@ $("#click-login").click(function() {
         }
     } /* clicking register step 1 function*/
 });
+$('#loginpassword > div').click(function() {
+     if ($('#login-with-email-drop-down').css('display') === 'block' && $('#click-login').hasClass('active-tab')) {
+        $('#click-login').removeClass('active-tab');
+
+        $('#login-with-email-drop-down').stop().animate({height: 'toggle'});
+         $('#user-forgot-password-pane').animate({height: 'toggle'});
+         $('#click-login').animate({height: 'toggle'});
+
+        if ($('#social-login-container').css('display') === 'block') {
+            $('#social-login-container').animate({height: 'toggle'});
+            
+        }
+    }
+});
 
 
-
-/*  LOGIN TAB: showing social login section*/
+/*  LOGIN TAB: showing social login section ends */
 
 
 
@@ -85,11 +98,7 @@ $("#click-register-social").click(function() {
     /*  REGISTER TAB: showing social login section*/
 
 });
-/* social login slider function */
 
-
-
-/* clicking register step 2 function*/
 
 
 $('.back-btn').click(function() {
@@ -141,6 +150,7 @@ $(".register-clicker").click(function() {
     /* clicking register step 1 function*/
 
 });
+
 function checkSocial() {
     if ($('#social-link').css('display') === 'block') {
         $('#social-link').animate({height: 'toggle'});
@@ -189,6 +199,14 @@ function loginPane() {
         loginState = false;
     }
 }
+
+
+
+
+
+
+
+
 
 
 

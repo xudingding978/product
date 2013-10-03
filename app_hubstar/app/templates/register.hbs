@@ -162,8 +162,17 @@
 
         <div id="register-btn" class="register-btn easing" style="" {{action login}}> Login</div>
     </div>
+    <div id="user-forgot-password-pane" style="width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;">
+        <div  id="email"class="login-textfield" style="margin: 0;width: 100%;height: 45px;line-height: 45px;border-bottom: 1px solid #e3e3e3;padding: 0 10px">
+            {{view Ember.TextField valueBinding="email" placeholder="Your Email" }}
+        </div>
+        <div class="back-btn easing" style="" >Back</div>
+        <div class="register-btn easing register-btn-small" >Reset password</div>
+    </div>
 
 </div>
+
+
 
 
 <a href="http://trendsideas.com/ViewPage.aspx?pageName=Contact%20Us&region=1" target="blank">
@@ -171,4 +180,7 @@
 </a>
 </div>
 
-</div>    
+</div>   
+
+
+

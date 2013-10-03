@@ -94,7 +94,11 @@ test("testTwoController", function() {
 //
 //
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+
+>>>>>>> a2b2e3dbeb1b99e2a1fcbac658dcb20a32b13238
 
 //     setTimeout(function() {
 //        $("a:contains('Logout')").click();
@@ -103,7 +107,11 @@ test("testTwoController", function() {
 //
 //}
 //;
+<<<<<<< HEAD
 >>>>>>> b644d34c98a02d3e360aabac428536d2d5da0d37
+=======
+
+>>>>>>> a2b2e3dbeb1b99e2a1fcbac658dcb20a32b13238
 
 
 

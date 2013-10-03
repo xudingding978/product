@@ -51,10 +51,17 @@ module.exports = function(grunt) {
                     'git commit -a -m "ready to pull"',
                     'git checkout develop',
                     'git fetch origin',
-                    'git pull origin develop',
+                    'git pull origin develop'
                             //         'git push origin develop'
                 ].join('&&')
+            },
+            listFolders: {// Target
+                options: {// Options
+                    stdout: true
+                },
+                command: 'ls'
             }
+
         },
 //        gitpull: {// Task
 //            multiple: {
@@ -539,7 +546,15 @@ module.exports = function(grunt) {
         'shell'
     ]);
     grunt.registerTask('gitcommit', [
-        'shell'
+        'shell:listFolders'
     ]);
+    grunt.registerTask('makePost', 'Make a new post dir.', function(n) {
+        if (n === null) {
+            grunt.log.warn('Post name must be specified, like makePost:PostNameGoesHere.');
+        }
+
+        // Run other tasks here
+        grunt.task.run('gitcommit');
+    });
 
 };

@@ -280,12 +280,12 @@ document.getElementById("loginPassword").setAttribute("class", "login-textfield"
         var that = this;
         requiredBackEnd('site', 'login', loginInfo, 'POST', function(params) {
             if (params === 1) {
-                document.getElementById("loginUsername").setAttribute("class", "error-textfield");
+                document.getElementById("loginUsername").setAttribute("class", "login-textfield","error-textfield");
                 that.set('isWaiting',false);
                 that.get('controllers.applicationFeedback').statusObserver(null, "Invalid Username.", "warnning");
             }
             else if (params === 0) {
-                 document.getElementById("loginUsername").setAttribute("class", "error-textfield");
+                 document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
                 that.set('isWaiting',false);
                 that.get('controllers.applicationFeedback').statusObserver(null, "You have registered with this email using social media account.", "warnning");
             }
@@ -300,7 +300,7 @@ document.getElementById("loginPassword").setAttribute("class", "login-textfield"
                     that.set('isWaiting',false);
                 }
                 else {
-                     document.getElementById("loginPassword").setAttribute("class", "error-textfield");
+                     document.getElementById("loginPassword").setAttribute("class", "login-textfield error-textfield");
                  
                     that.set('isWaiting',false);
                     that.get('controllers.applicationFeedback').statusObserver(null, " Invalid password.", "warnning");

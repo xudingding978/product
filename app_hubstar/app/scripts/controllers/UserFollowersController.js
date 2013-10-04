@@ -228,7 +228,9 @@ HubStar.UserFollowersController = Ember.Controller.extend({
 
                 var followers = HubStar.User.find(follow_object.get("id"));
                 if (followers.get('isLoaded')) {
+
                     followers.get("followers").insertAt(0, tempComment);
+
                     thisThis.checkFollowStatus(currentUser, followers, follow_object);
                     if (thatNew === "follower") {
                         for (var j = 0; j < thisThis.get("contentUser").get("length"); j++)
@@ -253,11 +255,12 @@ HubStar.UserFollowersController = Ember.Controller.extend({
                 else
                 {
                     var thisThisThis = thisThis;
+
                     var thatNewNew = thatNew;
                     followers.addObserver('isLoaded', function() {
 
-                        if (followers.get('isLoaded')) {
-                            followers.get("followers").insertAt(0, tempComment);
+                        if (followers.get('isLoaded')) {                            
+                            //followers.get("followers").insertAt(0, tempComment);                         
                             thisThisThis.checkFollowStatus(currentUser, followers, follow_object);
                             if (thatNewNew === "follower") {
                                 for (var j = 0; j < thisThisThis.get("contentUser").get("length"); j++)
@@ -270,7 +273,7 @@ HubStar.UserFollowersController = Ember.Controller.extend({
                             }
                             else if (thatNewNew === "following")
                             {
-                                
+
                                 for (var j = 0; j < thisThisThis.get("controllers.userFollowings").get("contentUser").get("length"); j++)
                                 {
                                     if (follow_object.get("id") === thisThisThis.get("controllers.userFollowings").get("contentUser").objectAt(j).get("id"))
@@ -411,7 +414,7 @@ HubStar.UserFollowersController = Ember.Controller.extend({
                                     }
                                 }
                             }
-                             else if (thatNewNew === "following")
+                            else if (thatNewNew === "following")
                             {
                                 for (var j = 0; j < thisThisThis.get("controllers.userFollowings").get("contentUser").get("length"); j++)
                                 {

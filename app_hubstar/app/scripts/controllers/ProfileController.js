@@ -528,10 +528,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var profile_id = this.get('model').get('id');
         if (this.checkFollowStatus() === false) {
             this.get("controllers.userFollowings").followProfile(profile_id);
+            ga('send', 'Follow', 'button', 'click');
             this.set('follow_status', true);
             //this.get('controllers.profile')
         } else {
             this.get("controllers.userFollowings").unFollowProfile(profile_id);
+            ga('send', 'unFollow', 'button', 'click');
             this.set('follow_status', false);
         }
 

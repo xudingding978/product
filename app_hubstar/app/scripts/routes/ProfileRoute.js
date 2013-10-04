@@ -16,7 +16,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
         this.controllerFor('profile').set('switchPhoto', true);
 
         if (model.get('profile_analytics_code') !== null && model.get('profile_analytics_code') !== '' && model.get('profile_analytics_code') !== undefined) {
-            this.sendGAMessage(model.get('profile_analytics_code'), 'trendsideas.com');
+            this.sendGAMessage(model.get('profile_analytics_code'), model.get('id'));
         }
 
 
@@ -76,7 +76,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
             into: "application"
         });
     },
-    sendGAMessage: function(profile_analytics_code,dom_url) {
+    sendGAMessage: function(profile_analytics_code, dom_url) {
         try {
             (function(i, s, o, g, r, a, m) {
                 i['GoogleAnalyticsObject'] = r;
@@ -89,9 +89,14 @@ HubStar.ProfileRoute = Ember.Route.extend({
                 a.src = g;
                 m.parentNode.insertBefore(a, m)
             })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+//            window['ga-disable-UA-44590900-1'] = false;
+            console.log(profile_analytics_code);
+            ga('create', profile_analytics_code, {'cookieDomain': dom_url});
+            setTimeout(function() {
+                console.log();
+                ga('send', 'pageview');
+            }, 2000);
 
-            ga('create', profile_analytics_code, dom_url);
-            ga('send', 'pageview');
         } catch (err) {
             console.log('error out');
         }

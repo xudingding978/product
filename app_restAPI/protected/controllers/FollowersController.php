@@ -385,8 +385,22 @@ class FollowersController extends Controller {
         $newRecord['record_id'] = $id;
         $newRecord['name'] = $oldRecordDeep['profile'][0]["profile_name"];
         $newRecord['photo_url'] = $oldRecordDeep['profile'][0]["profile_pic_url"];
-        $newRecord['cover_url_small'] = $oldRecordDeep['profile'][0]["profile_bg_url"];
+        if (isset($oldRecordDeep['profile'][0]["profile_hero_cover_url"])) {
+            $newRecord['cover_url_small'] = $oldRecordDeep['profile'][0]["profile_hero_cover_url"];
+        } else {
+            $newRecord['cover_url_small'] = $oldRecordDeep['profile'][0]["profile_hero_url"];
+        }
         $newRecord['following_status'] = false;
+        if (!isset($oldRecordDeep['profile'][0]["profile_partner_ids"]) ){
+            $newRecord['partner_size']=0;
+        } else {
+            if ($oldRecordDeep['profile'][0]["profile_partner_ids"] === null || $oldRecordDeep['profile'][0]["profile_partner_ids"] ==='') {
+                $newRecord['partner_size']=0;
+            } else {
+                $partner = explode(",", $oldRecordDeep['profile'][0]["profile_partner_ids"]);
+                $newRecord['partner_size']=sizeof($partner);
+            }
+        }
         if (!isset($oldRecordDeep['profile'][0]["collections"])) {
             $newRecord['collections_size'] = 0;
         } else {

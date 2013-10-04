@@ -1161,6 +1161,7 @@ div#forgot-password-container{
 
 .white-text-hover:hover{
     opacity: 1;
+    color: #fff;
 }
 
 #forgot-message-container{
@@ -1168,7 +1169,6 @@ div#forgot-password-container{
     color: white;
     font-size: 13px;
     line-height: 17px;
-    font-weight: bold;
     background-color: rgba(0,0,0,.5);
     padding: 20px 20px;
     margin: 10px auto;

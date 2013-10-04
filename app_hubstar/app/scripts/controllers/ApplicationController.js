@@ -275,7 +275,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('gender', "female");
     },
     login: function() {
- 
+ this.set('isWaiting',true);
 document.getElementById("loginUsername").setAttribute("class", "login-textfield");
 document.getElementById("loginPassword").setAttribute("class", "login-textfield");
 
@@ -295,12 +295,12 @@ document.getElementById("loginPassword").setAttribute("class", "login-textfield"
             else {
              
                 if (that.get('loginPassword') === params.PWD_HASH && that.get('loginPassword') !== undefined) {
-                     that.set('isWaiting',true);
+         
                     localStorage.loginStatus = params.COUCHBASE_ID;
                     that.transitionToRoute('search');
                     that.set('loginUsername', "");
                     that.set('loginPassword', "");
-                   
+                   that.set('isWaiting',false);
                 }
                 else {
                      document.getElementById("loginPassword").setAttribute("class", "login-textfield error-textfield");

@@ -1,11 +1,7 @@
 <div style="width: 100%;height: auto;position:relative;z-index:2;">
 
-    {{#if controller.register}}
-
-    {{outlet register}}
-
-    {{else}}
-
+    
+{{#if controller.islogin}}
     {{view HubStar.HeaderView}}
 
     {{outlet profile}}
@@ -15,18 +11,14 @@
     {{outlet user}}
 
     {{#unless controller.isotherpage}}
-    {{#if controller.islogin}}
+    
 
     {{view HubStar.DiscoveryView}}
 
     {{outlet "welcome"}}
-    {{outlet "quickstart"}}        
-    {{else}}
-
-    {{view HubStar.RegisterView}}
-    {{/if}}
-
+    {{outlet "quickstart"}}     
     {{view HubStar.MasonryView}}
+      
 
     {{/unless}}
 
@@ -35,6 +27,9 @@
     {{outlet "profileNew"}}
     {{render "footer"}}
 
+    {{else}}
+
+    {{view HubStar.RegisterView}}
     {{/if}}
 
     {{#if controller.islogin}}

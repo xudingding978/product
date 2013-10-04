@@ -977,8 +977,21 @@ div #login_container > div.front > .head > .panelcircle
     -o-box-shadow: none !important;
 
     font-weight: bold;
-    color: #333;
+    color: #555;
     font-size: 15px;
+}
+
+.login-textfield > input::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #ccc;
+}
+.login-textfield > input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #ccc;
+}
+.login-textfield > input::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #ccc;
+}
+.login-textfield > input:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #ccc;
 }
 
 .social-login-iconbox{
@@ -1153,10 +1166,20 @@ div#forgot-password-container{
 
 .white-text-hover:hover{
     opacity: 1;
+    color: #fff;
 }
 
 #forgot-message-container{
-    background:#fff;
-    width:300px;
-    height:150px;
+    width: 300px;
+    color: white;
+    font-size: 13px;
+    line-height: 17px;
+    background-color: rgba(0,0,0,.5);
+    padding: 20px 20px;
+    margin: 10px auto;
+
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
 }

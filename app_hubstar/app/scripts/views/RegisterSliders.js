@@ -13,7 +13,7 @@ $("#social-login").click(function() {
     if ($('#social-login-container').css('display') === 'block') {
         $('#social-login-container').animate({height: 'toggle'});
     }
-    /* hiding social login */
+    /* LOGIN TAB:  hiding social login */
 
     if ($('#social-login-container').css('display') === 'none') {
         $('#social-login-container').animate({height: 'toggle'});
@@ -21,6 +21,17 @@ $("#social-login").click(function() {
         if ($('#login-with-email-drop-down').css('display') === 'block') {
             $('#login-with-email-drop-down').animate({height: 'toggle'});
         }
+        if ($('#forgot-message-container').css('display') === 'block') {
+            $('#forgot-message-container').animate({opacity: 'toggle'});
+        }
+        if ($('#click-login').css('display') === 'none') {
+            $('#click-login').animate({opacity: 'toggle'});
+        }
+        if ($('#user-forgot-password-pane').css('display') === 'block') {
+            $('#user-forgot-password-pane').animate({height: 'toggle'});
+        }
+
+        /* LOGIN TAB:  showing social login */
 
     }
 });
@@ -28,40 +39,46 @@ $("#click-login").click(function() {
     if ($('#login-with-email-drop-down').css('display') === 'block' && $('#click-login').hasClass('active-tab')) {
         $('#click-login').removeClass('active-tab');
 
-        $('#login-with-email-drop-down').stop().animate({height: 'toggle'});
+        $('#login-with-email-drop-down').animate({height: 'toggle'});
 
         if ($('#social-login-container').css('display') === 'block') {
-            $('#social-login-container').stop().animate({height: 'toggle'});
+            $('#social-login-container').animate({height: 'toggle'});
         }
     }
-    /* closing login with email */
+    /* LOGIN TAB: closing login with email */
 
 
     if ($('#login-with-email-drop-down').css('display') === 'none') {
         $('#social-login').removeClass('social-active');
         $('#click-login').addClass('active-tab');
-        $('#login-with-email-drop-down').stop().animate({height: 'toggle'});
+        $('#login-with-email-drop-down').animate({height: 'toggle'});
 
         if ($('#social-login-container').css('display') === 'block') {
-            $('#social-login-container').stop().animate({height: 'toggle'});
+            $('#social-login-container').animate({height: 'toggle'});
         }
-    } /* clicking register step 1 function*/
+    } /* LOGIN TAB: clicking login*/
 });
 $('#loginPassword > div').click(function() {
-    if ($('#login-with-email-drop-down').css('display') === 'block' && $('#click-login').hasClass('active-tab')) {
+    if ($('#login-with-email-drop-down').css('display')) {
         $('#click-login').removeClass('active-tab');
 
-        $('#login-with-email-drop-down').stop().animate({height: 'toggle'});
+        $('#login-with-email-drop-down').animate({height: 'toggle'});
         $('#user-forgot-password-pane').animate({height: 'toggle'});
-        $('#click-login').animate({height: 'toggle'});
 
         if ($('#social-login-container').css('display') === 'block') {
             $('#social-login-container').animate({height: 'toggle'});
 
         }
+        if ($('#forgot-message-container').css('display') === 'block') {
+            $('#forgot-message-container').animate({opacity: 'toggle'});
+        }
+        if ($('#click-login').css('display') === 'block') {
+            $('#click-login').animate({height: 'toggle'});
+
+        }
     }
 });
-
+/*  LOGIN TAB: show forget password pane */
 
 $('#user-forgot-password-pane .back-btn').click(function() {
     $('#user-forgot-password-pane').animate({height: 'toggle'});
@@ -72,10 +89,25 @@ $('#user-forgot-password-pane .back-btn').click(function() {
 
     }
 
+
 });
+/* Back to login with email from forget password pane */
 
 
-/*  LOGIN TAB: showing social login section ends */
+$('#reset-btn').click(function() {
+    if ($('#forgot-message-container').css('display') === 'none') {
+        $('#forgot-message-container').animate({opacity: 'toggle'});
+    }
+});
+/* forgot password function showing thank you message */
+
+
+$('#user-forgot-password-pane .back-btn').click(function() {
+    if ($('#forgot-message-container').css('display') === 'block') {
+        $('#forgot-message-container').animate({opacity: 'toggle'});
+    }
+});
+/* hiding thank you message when the user clicks the back btn */
 
 
 
@@ -89,10 +121,10 @@ $("#click-register-social").click(function() {
     if ($('#social-link').css('display') === 'block') {
         $('#social-link').animate({height: 'toggle'});
         if ($('#register-with-email-drop-down').css('display') === 'block') {
-            $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+            $('#register-with-email-drop-down').animate({height: 'toggle'});
         }
         if ($('#register-with-email-step-2').css('display') === 'block') {
-            $('#register-with-email-step-2').stop().animate({height: 'toggle'});
+            $('#register-with-email-step-2').animate({height: 'toggle'});
         }
     }
     /* hiding social login */
@@ -101,10 +133,10 @@ $("#click-register-social").click(function() {
         $('#social-link').animate({height: 'toggle'});
         $('#click-register-social').addClass('social-active');
         if ($('#register-with-email-drop-down').css('display') === 'block') {
-            $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+            $('#register-with-email-drop-down').animate({height: 'toggle'});
         }
         if ($('#register-with-email-step-2').css('display') === 'block') {
-            $('#register-with-email-step-2').stop().animate({height: 'toggle'});
+            $('#register-with-email-step-2').animate({height: 'toggle'});
         }
     }
     /*  REGISTER TAB: showing social login section*/
@@ -115,8 +147,8 @@ $("#click-register-social").click(function() {
 
 $('#register-with-email-step-2 .back-btn').click(function() {
     $('#register-with-email-step-2').removeClass('active-step');
-    $('#register-with-email-step-2').stop().animate({height: 'toggle'});
-    $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+    $('#register-with-email-step-2').animate({height: 'toggle'});
+    $('#register-with-email-drop-down').animate({height: 'toggle'});
     checkSocial();
 });
 /* going back to step 1 function*/
@@ -128,7 +160,7 @@ $(".register-clicker").click(function() {
         //alert('closing step2');
 
         $('#social-link').animate({height: 'toggle'});
-        $('#register-with-email-step-2').stop().animate({height: 'toggle'});
+        $('#register-with-email-step-2').animate({height: 'toggle'});
         if ($('#click-register').hasClass('active-tab')) {
             $('#click-register').removeClass('active-tab');
             /* closing step */
@@ -145,8 +177,8 @@ $(".register-clicker").click(function() {
     if ($('#register-with-email-drop-down').css('display') === 'block' && $('#click-register').hasClass('active-tab')) {
         //alert('closing step1');
         $('#click-register').removeClass('active-tab');
-        $('#social-link').stop().animate({height: 'toggle'});
-        $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+        $('#social-link').animate({height: 'toggle'});
+        $('#register-with-email-drop-down').animate({height: 'toggle'});
         $('#click-register-social').addClass('social-active');
     }
     /* closing register section while on step 1 function */
@@ -156,7 +188,7 @@ $(".register-clicker").click(function() {
         //alert('opening step 1');
         $('#click-register-social').removeClass('social-active');
         $('#click-register').addClass('active-tab');
-        $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+        $('#register-with-email-drop-down').animate({height: 'toggle'});
         checkSocial();
     }
     /* clicking register step 1 function*/
@@ -192,6 +224,8 @@ function loginPane() {
         $('#social-login-container').css('display', 'none');
         $('#click-login').addClass('active-tab');
         $('#social-login').removeClass('social-active');
+        $('#user-forgot-password-pane').css('display', 'none');
+        $('#forgot-message-container').css('display', 'none');
 
         $('#register-with-email-drop-down').css('display', 'none');
         $('#register-with-email-step-2').css('display', 'none');
@@ -212,11 +246,6 @@ function loginPane() {
     }
 }
 
-$('#reset-btn').click(function() {
-    if ($('#register-with-email-drop-down').css('display') === 'none') {
-        $('#forgot-message-container').stop().animate({opacity: 'toggle'}).delay(5000).animate({opacity: 'toggle'});
-    }
-});
 
 
 

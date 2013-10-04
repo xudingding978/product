@@ -26,7 +26,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     iframeURL: "",
     iframeLoginURL: "",
     isWaiting:"",
-    hasEmailsend:"",
     init: function() {
         this.newSearch();
         this.set('search_string', '');
@@ -298,7 +297,7 @@ document.getElementById("loginPassword").setAttribute("class", "login-textfield"
                     that.transitionToRoute('search');
                     that.set('loginUsername', "");
                     that.set('loginPassword', "");
-                   
+                    that.set('isWaiting',false);
                 }
                 else {
                      document.getElementById("loginPassword").setAttribute("class", "error-textfield");
@@ -311,7 +310,6 @@ document.getElementById("loginPassword").setAttribute("class", "login-textfield"
     },
     emailSend: function()
     {
-        
         var signupInfo = [this.get('resetPasswordEmail')];
         var that = this;
         requiredBackEnd('site', 'resetemail', signupInfo, 'POST', function(params) {
@@ -322,13 +320,11 @@ document.getElementById("loginPassword").setAttribute("class", "login-textfield"
                 that.get('controllers.applicationFeedback').statusObserver(null, "You have registered this email using social media account.", "warnning");
             }
             else {
-                var thatthat=that;
                 var emailInfo = [that.get('resetPasswordEmail'), params.USER_NAME, params.PWD_HASH];
                 requiredBackEnd('emails', 'forgetpassword', emailInfo, 'POST', function(params) {
 
                 });
             }
         });
-
     }
 });

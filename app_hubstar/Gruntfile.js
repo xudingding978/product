@@ -500,7 +500,7 @@ module.exports = function(grunt) {
         }
 
         grunt.task.run([
-            'shell',
+        
             'clean:server',
             'concurrent:server',
             'neuter:app',

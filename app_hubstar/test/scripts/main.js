@@ -4344,9 +4344,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var that = this;
         requiredBackEnd('followers', 'ReadPhoto', id, 'POST', function(params) {
             that.set("contentFollowerPhoto", []);
+
             if (params === undefined)
             {
-
             }
             else
             {
@@ -5880,6 +5880,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.setIntersetsArr(user);
 //        this.set("model", user);
         this.set("user", user);
+        //console.log(this.get("user"));
         this.set("collections", user.get("collections"));
         this.set("description", user.get("description"));
         this.set("display_name", user.get("display_name"));
@@ -6405,7 +6406,6 @@ HubStar.UserController = Ember.Controller.extend({
         this.get('selectedCollection').set('title', this.get('newTitle'));
         this.get('selectedCollection').set('desc', this.get('newDesc'));
         var collectionController = this.get('controllers.collection');
-        console.log(this.get('selectedCollection'));
         var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
         collection.set('optional', this.get('model').get('id'));
         collection.set('type', 'user');
@@ -6893,7 +6893,9 @@ HubStar.UserFollowersController = Ember.Controller.extend({
 
                 var followers = HubStar.User.find(follow_object.get("id"));
                 if (followers.get('isLoaded')) {
+
                     followers.get("followers").insertAt(0, tempComment);
+
                     thisThis.checkFollowStatus(currentUser, followers, follow_object);
                     if (thatNew === "follower") {
                         for (var j = 0; j < thisThis.get("contentUser").get("length"); j++)
@@ -6918,11 +6920,12 @@ HubStar.UserFollowersController = Ember.Controller.extend({
                 else
                 {
                     var thisThisThis = thisThis;
+
                     var thatNewNew = thatNew;
                     followers.addObserver('isLoaded', function() {
 
-                        if (followers.get('isLoaded')) {
-                            followers.get("followers").insertAt(0, tempComment);
+                        if (followers.get('isLoaded')) {                            
+                            //followers.get("followers").insertAt(0, tempComment);                         
                             thisThisThis.checkFollowStatus(currentUser, followers, follow_object);
                             if (thatNewNew === "follower") {
                                 for (var j = 0; j < thisThisThis.get("contentUser").get("length"); j++)
@@ -6935,7 +6938,7 @@ HubStar.UserFollowersController = Ember.Controller.extend({
                             }
                             else if (thatNewNew === "following")
                             {
-                                
+
                                 for (var j = 0; j < thisThisThis.get("controllers.userFollowings").get("contentUser").get("length"); j++)
                                 {
                                     if (follow_object.get("id") === thisThisThis.get("controllers.userFollowings").get("contentUser").objectAt(j).get("id"))
@@ -7076,7 +7079,7 @@ HubStar.UserFollowersController = Ember.Controller.extend({
                                     }
                                 }
                             }
-                             else if (thatNewNew === "following")
+                            else if (thatNewNew === "following")
                             {
                                 for (var j = 0; j < thisThisThis.get("controllers.userFollowings").get("contentUser").get("length"); j++)
                                 {
@@ -7245,6 +7248,7 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
 
             if (type === "user")
             {
+                console.log(this.get("controllers.user").get('user'));
                 if (localStorage.loginStatus === this.get("controllers.user").get('user').id)
                 {
                     this.get("controllers.user").set("userFollowingStatistics", currentUser.get("followings").get("length"));

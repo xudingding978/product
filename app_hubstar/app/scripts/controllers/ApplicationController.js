@@ -26,6 +26,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     iframeURL: "",
     iframeLoginURL: "",
     isWaiting:"",
+    hasEmailsend:"",
     init: function() {
         this.newSearch();
         this.set('search_string', '');
@@ -230,14 +231,14 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         for (var i = 0; i < checkList.length; i++)
         {
             var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
-            document.getElementById(checkList[i].id).style.borderBottomColor = '1px solid #e3e3e3';
+            document.getElementById(checkList[i].id).setAttribute("class", "login-textfield");
             if (checkList[i].input !== null && checkList[i].input !== "" && checkList[i].input !== undefined)
             {
                 if (checkList[i].input.length > checkList[i].lengthMax || checkList[i].input.length < checkList[i].lengthMin)
                 {
                     result = false;
                     this.get('controllers.applicationFeedback').statusObserver(null, "Your length should be between " + checkList[i].lengthMin + " and " + checkList[i].lengthMax + ".", "warnning");
-                    document.getElementById(checkList[i].id).style.border = '2px solid red';
+                    document.getElementById(checkList[i].id).style.setAttribute("class", "error-textfield");
                     break;
                 }
             }
@@ -246,7 +247,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 if (checkList[i].input === null || checkList[i].input === "" || checkList[i].input === undefined) {
                     result = false;
                     this.get('controllers.applicationFeedback').statusObserver(null, "Please fill the mandory field.", "warnning");
-                    document.getElementById(checkList[i].id).style.border = '2px solid red';
+                    document.getElementById(checkList[i].id).setAttribute("class", "error-textfield");
                     break;
                 }
             }
@@ -258,7 +259,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 else {
                     result = false;
                     this.get('controllers.applicationFeedback').statusObserver(null, "Invalid Email.", "warnning");
-                    document.getElementById(checkList[i].id).style.border = '2px solid red';
+                    document.getElementById(checkList[i].id).setAttribute("class", "error-textfield");
                     break;
                 }
             }
@@ -272,35 +273,36 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('gender', "female");
     },
     login: function() {
- this.set('isWaiting',true);
-console.log(this.get('isWaiting'));
-        document.getElementById('loginUsername').style.border = '';
-        document.getElementById('loginPassword').style.borderBottomColor = '1px solid #e3e3e3';
-    
+ 
+document.getElementById("loginUsername").setAttribute("class", "login-textfield");
+document.getElementById("loginPassword").setAttribute("class", "login-textfield");
+
         var loginInfo = [this.get('loginUsername'), this.get('loginPassword'), this.validateEmail(this.get('loginUsername'))];
         var that = this;
         requiredBackEnd('site', 'login', loginInfo, 'POST', function(params) {
             if (params === 1) {
-                document.getElementById('loginUsername').style.border = '2px solid red';
+                document.getElementById("loginUsername").setAttribute("class", "error-textfield");
                 that.set('isWaiting',false);
                 that.get('controllers.applicationFeedback').statusObserver(null, "Invalid Username.", "warnning");
             }
             else if (params === 0) {
-                document.getElementById('loginUsername').style.border = '2px solid red';
+                 document.getElementById("loginUsername").setAttribute("class", "error-textfield");
                 that.set('isWaiting',false);
                 that.get('controllers.applicationFeedback').statusObserver(null, "You have registered with this email using social media account.", "warnning");
             }
             else {
+             
                 if (that.get('loginPassword') === params.PWD_HASH && that.get('loginPassword') !== undefined) {
-                   
+                     that.set('isWaiting',true);
                     localStorage.loginStatus = params.COUCHBASE_ID;
                     that.transitionToRoute('search');
                     that.set('loginUsername', "");
                     that.set('loginPassword', "");
-                    that.set('isWaiting',false);
+                   
                 }
                 else {
-                    document.getElementById('loginPassword').style.border = '2px solid red';
+                     document.getElementById("loginPassword").setAttribute("class", "error-textfield");
+                 
                     that.set('isWaiting',false);
                     that.get('controllers.applicationFeedback').statusObserver(null, " Invalid password.", "warnning");
                 }
@@ -309,6 +311,7 @@ console.log(this.get('isWaiting'));
     },
     emailSend: function()
     {
+        
         var signupInfo = [this.get('resetPasswordEmail')];
         var that = this;
         requiredBackEnd('site', 'resetemail', signupInfo, 'POST', function(params) {
@@ -319,11 +322,13 @@ console.log(this.get('isWaiting'));
                 that.get('controllers.applicationFeedback').statusObserver(null, "You have registered this email using social media account.", "warnning");
             }
             else {
+                var thatthat=that;
                 var emailInfo = [that.get('resetPasswordEmail'), params.USER_NAME, params.PWD_HASH];
                 requiredBackEnd('emails', 'forgetpassword', emailInfo, 'POST', function(params) {
 
                 });
             }
         });
+
     }
 });

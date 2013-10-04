@@ -112,7 +112,7 @@ class EmailsController extends Controller {
             ),
         );
         $response = $amazonSes->sendEmail($args);
-        $this->sendResponse(200, $response);
+        $this->sendResponse(200, 1);
     }
 
     public function actionConfirmationemail() {

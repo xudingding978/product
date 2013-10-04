@@ -60,7 +60,7 @@
             </div>
 
             <div   id="register-with-email-drop-down" style="width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;">
-                <div style="padding: 0 8px;">
+                <div style="padding: 0 8px;position: relative;">
 
                     <div style="border-bottom: 1px solid #e3e3e3; border-top:1px solid #e3e3e3;">
                         <div id="first_name"class="login-textfield" style="width: 49%;display: inline-block;border: none">
@@ -86,7 +86,7 @@
 
 
             <div id="register-with-email-step-2" style="width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;">
-                <div style="padding: 0 8px;">
+                <div style="padding: 0 8px;position: relative;">
 
                     <div  class="login-textfield" style="border-top:1px solid #e3e3e3;">
                         {{view Ember.TextField valueBinding="region" placeholder="Region" }}
@@ -149,7 +149,7 @@
     </div>
 
     <div id="login-with-email-drop-down" style="width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;">
-        <div style="padding: 0 8px;">
+        <div style="padding: 0 8px;position: relative;">
 
 
             <div id="loginUsername" class="login-textfield" style="">
@@ -158,7 +158,7 @@
 
             <div id="loginPassword"class="login-textfield"  style="">
                 {{view Ember.TextField type="password" valueBinding="loginPassword" placeholder="Password" }}
-                <div class="hint--right hint--rounded" data-hint="forgot password?" style="cursor:pointer;float: right;margin-top: -45px;height: 41px;color:#888;">
+                <div class="hint--right hint--rounded" data-hint="forgot password?" style="cursor:pointer;float: right;margin-top: -40px;height: 30px;color:#888;">
                     <i class="icon-question-sign">&nbsp</i>
                 </div>
             </div>
@@ -173,62 +173,84 @@
         <div class="back-btn easing" style="" >Back</div>
         <div id='reset-btn' class="register-btn easing register-btn-small" {{action emailSend}}>Reset password</div>
     </div>
+   
     <div id="forgot-message-container" style="display:none;">
         <p>  We've sent you an email with instructions to reset your password.</p><br/>
         <p>Please make sure it didn't wind up in your Junk Mail. If you aren't receiving our password reset emails, see our
             <a class="white-text-hover easing" href="http://trendsideas.com/ViewPage.aspx?pageName=Contact%20Us&region=1" target="blank" style="text-decoration: underline"><b>help documents.</b></a>
         </p>
     </div>
+   
 </div>
 
 
 
-{{#if controller.isWaiting}}
-<div id="loading" class="loading-visible" >
-    <img style="width: 300px;position: relative;margin: auto;left: 0;right: 0; " src="../images/loading.gif" />
-    <div id="blurringTextG">
-        <div id="blurringTextG_1" class="blurringTextG">
-            C</div>
-        <div id="blurringTextG_2" class="blurringTextG">
-            r</div>
-        <div id="blurringTextG_3" class="blurringTextG">
-            e</div>
-        <div id="blurringTextG_4" class="blurringTextG">
-            a</div>
-        <div id="blurringTextG_5" class="blurringTextG">
-            t</div>
-        <div id="blurringTextG_6" class="blurringTextG">
-            i</div>
-        <div id="blurringTextG_7" class="blurringTextG">
-            n</div>
-        <div id="blurringTextG_8" class="blurringTextG">
-            g</div>
-        <div id="blurringTextG_9" class="blurringTextG">
-            &nbsp;
-        </div>
-        <div id="blurringTextG_10" class="blurringTextG">
-            y</div>
-        <div id="blurringTextG_11" class="blurringTextG">
-            o</div>
-        <div id="blurringTextG_12" class="blurringTextG">
-            u</div>
-        <div id="blurringTextG_13" class="blurringTextG">
-            r</div>
-        <div id="blurringTextG_14" class="blurringTextG">
-            &nbsp;
-        </div>
-        <div id="blurringTextG_15" class="blurringTextG">
-            i</div>
-        <div id="blurringTextG_16" class="blurringTextG">
-            d</div>
-        <div id="blurringTextG_17" class="blurringTextG">
-            e</div>
-        <div id="blurringTextG_18" class="blurringTextG">
-            a</div>
-        <div id="blurringTextG_19" class="blurringTextG">
-            s</div>
-        <div id="blurringTextG_20" class="blurringTextG">
-            &nbsp;
+ {{#if controller.isWaiting}}
+    <div id="loading" class="loading-visible" >
+
+        <div id="blurringTextG">
+            <div id="blurringTextG_1" class="blurringTextG">
+                C</div>
+            <div id="blurringTextG_2" class="blurringTextG">
+                r</div>
+            <div id="blurringTextG_3" class="blurringTextG">
+                e</div>
+            <div id="blurringTextG_4" class="blurringTextG">
+                a</div>
+            <div id="blurringTextG_5" class="blurringTextG">
+                t</div>
+            <div id="blurringTextG_6" class="blurringTextG">
+                i</div>
+            <div id="blurringTextG_7" class="blurringTextG">
+                n</div>
+            <div id="blurringTextG_8" class="blurringTextG">
+                g</div>
+            <div id="blurringTextG_9" class="blurringTextG">
+                &nbsp;
+            </div>
+            <div id="blurringTextG_10" class="blurringTextG">
+                y</div>
+            <div id="blurringTextG_11" class="blurringTextG">
+                o</div>
+            <div id="blurringTextG_12" class="blurringTextG">
+                u</div>
+            <div id="blurringTextG_13" class="blurringTextG">
+                r</div>
+            <div id="blurringTextG_14" class="blurringTextG">
+                &nbsp;
+            </div>
+            <div id="blurringTextG_15" class="blurringTextG">
+                i</div>
+            <div id="blurringTextG_16" class="blurringTextG">
+                d</div>
+            <div id="blurringTextG_17" class="blurringTextG">
+                e</div>
+            <div id="blurringTextG_18" class="blurringTextG">
+                a</div>
+            <div id="blurringTextG_19" class="blurringTextG">
+                s</div>
+            <div id="blurringTextG_20" class="blurringTextG">
+                &nbsp;
+            </div>
+            <div id="blurringTextG_21" class="blurringTextG">
+                s</div>
+            <div id="blurringTextG_22" class="blurringTextG">
+                p</div>
+            <div id="blurringTextG_23" class="blurringTextG">
+                a</div>
+            <div id="blurringTextG_24" class="blurringTextG">
+                c</div>
+            <div id="blurringTextG_25" class="blurringTextG">
+                e</div>
+            <div id="blurringTextG_26" class="blurringTextG">
+                &nbsp;
+            </div>
+            <div id="blurringTextG_27" class="blurringTextG">
+                .</div>
+            <div id="blurringTextG_28" class="blurringTextG">
+                .</div>
+            <div id="blurringTextG_29" class="blurringTextG">
+                .</div>
         </div>
         <div id="blurringTextG_21" class="blurringTextG">
             s</div>

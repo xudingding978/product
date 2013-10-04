@@ -935,7 +935,12 @@ div #login_container > div.front > .head > .panelcircle
     min-height: 728px;
 }
 
-.Register-Page .ember-text-field{background-color: rgba(255,255,255,0)}
+.Register-Page .ember-text-field, .Register-Page .ember-text-field:focus{
+    background-color: rgba(255,255,255,0);
+    box-shadow: none;
+    border: none;
+    margin: 0 0 0 0;
+}
 
 .error-textfield{
     box-shadow: 0 0 10px rgba(255,0,0,.5);

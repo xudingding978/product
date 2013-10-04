@@ -174,11 +174,13 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     checkSocial();
                 }
                 else if (params === 0) {
-                    document.getElementById('email').style.border = '2px solid red';
+               //     document.getElementById('email').style.border = '2px solid red';
+                    document.getElementById('email').style.setAttribute("class", "login-textfield error-textfield");
                     that.get('controllers.applicationFeedback').statusObserver(null, "You have registered with this email using social media account.", "warnning");
                 }
                 else if (params === 2) {
-                    document.getElementById('email').style.border = '2px solid red';
+           //         document.getElementById('email').style.border = '2px solid red';
+                    document.getElementById('email').style.setAttribute("class", "login-textfield error-textfield");
                     that.get('controllers.applicationFeedback').statusObserver(null, "Email already exists.", "warnning");
                 }
             });
@@ -237,7 +239,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 {
                     result = false;
                     this.get('controllers.applicationFeedback').statusObserver(null, "Your length should be between " + checkList[i].lengthMin + " and " + checkList[i].lengthMax + ".", "warnning");
-                    document.getElementById(checkList[i].id).style.setAttribute("class", "error-textfield");
+                    document.getElementById(checkList[i].id).style.setAttribute("class", "login-textfield error-textfield");
                     break;
                 }
             }
@@ -246,7 +248,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 if (checkList[i].input === null || checkList[i].input === "" || checkList[i].input === undefined) {
                     result = false;
                     this.get('controllers.applicationFeedback').statusObserver(null, "Please fill the mandory field.", "warnning");
-                    document.getElementById(checkList[i].id).setAttribute("class", "error-textfield");
+                    document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
                     break;
                 }
             }
@@ -258,7 +260,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 else {
                     result = false;
                     this.get('controllers.applicationFeedback').statusObserver(null, "Invalid Email.", "warnning");
-                    document.getElementById(checkList[i].id).setAttribute("class", "error-textfield");
+                    document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
                     break;
                 }
             }

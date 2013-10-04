@@ -26,6 +26,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     iframeURL: "",
     iframeLoginURL: "",
     isWaiting:"",
+    hasEmailsend:"",
     init: function() {
         this.newSearch();
         this.set('search_string', '');
@@ -230,7 +231,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         for (var i = 0; i < checkList.length; i++)
         {
             var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
-//            document.getElementById(checkList[i].id).style.borderBottomColor = '1px solid #e3e3e3';
             document.getElementById(checkList[i].id).setAttribute("class", "login-textfield");
             if (checkList[i].input !== null && checkList[i].input !== "" && checkList[i].input !== undefined)
             {
@@ -273,7 +273,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('gender', "female");
     },
     login: function() {
-  this.set('isWaiting',true);
+ 
 document.getElementById("loginUsername").setAttribute("class", "login-textfield");
 document.getElementById("loginPassword").setAttribute("class", "login-textfield");
 
@@ -293,12 +293,12 @@ document.getElementById("loginPassword").setAttribute("class", "login-textfield"
             else {
              
                 if (that.get('loginPassword') === params.PWD_HASH && that.get('loginPassword') !== undefined) {
-                   
+                     that.set('isWaiting',true);
                     localStorage.loginStatus = params.COUCHBASE_ID;
                     that.transitionToRoute('search');
                     that.set('loginUsername', "");
                     that.set('loginPassword', "");
-                    that.set('isWaiting',false);
+                   
                 }
                 else {
                      document.getElementById("loginPassword").setAttribute("class", "error-textfield");
@@ -311,6 +311,7 @@ document.getElementById("loginPassword").setAttribute("class", "login-textfield"
     },
     emailSend: function()
     {
+        
         var signupInfo = [this.get('resetPasswordEmail')];
         var that = this;
         requiredBackEnd('site', 'resetemail', signupInfo, 'POST', function(params) {
@@ -321,11 +322,13 @@ document.getElementById("loginPassword").setAttribute("class", "login-textfield"
                 that.get('controllers.applicationFeedback').statusObserver(null, "You have registered this email using social media account.", "warnning");
             }
             else {
+                var thatthat=that;
                 var emailInfo = [that.get('resetPasswordEmail'), params.USER_NAME, params.PWD_HASH];
                 requiredBackEnd('emails', 'forgetpassword', emailInfo, 'POST', function(params) {
 
                 });
             }
         });
+
     }
 });

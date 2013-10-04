@@ -63,20 +63,20 @@
                 <div style="padding: 0 8px;position: relative;">
 
                     <div style="border-bottom: 1px solid #e3e3e3; border-top:1px solid #e3e3e3;">
-                        <div id="first_name"class="login-textfield" style="width: 49%;display: inline-block;border: none">
+                        <div id="first_name" class="login-textfield" style="width: 49%;display: inline-block;border: none">
                             {{view Ember.TextField valueBinding="first_name" placeholder="First Name" }}
                         </div>
 
-                        <div id="last_name"class="login-textfield" style="width: 49%;display: inline-block;border: none">
+                        <div id="last_name" class="login-textfield" style="width: 49%;display: inline-block;border: none">
                             {{view Ember.TextField valueBinding="last_name" placeholder="Last Name" }}
                         </div>
                     </div>
 
-                    <div  id="email"class="login-textfield" style="">
+                    <div  id="email" class="login-textfield" style="">
                         {{view Ember.TextField valueBinding="email" placeholder="Your Email" }}
                     </div>
 
-                    <div id="password"class="login-textfield"  style="">
+                    <div id="password" class="login-textfield"  style="">
                         {{view Ember.TextField type="password" valueBinding="password" placeholder="Password" }}
                     </div>
                 </div>
@@ -156,7 +156,7 @@
                 {{view Ember.TextField valueBinding="loginUsername" placeholder="Your Email" }}
             </div>
 
-            <div id="loginPassword"class="login-textfield"  style="">
+            <div id="loginPassword" class="login-textfield"  style="">
                 {{view Ember.TextField type="password" valueBinding="loginPassword" placeholder="Password" }}
                 <div class="hint--right hint--rounded" data-hint="forgot password?" style="cursor:pointer;float: right;margin-top: -40px;height: 30px;color:#888;">
                     <i class="icon-question-sign">&nbsp</i>
@@ -167,7 +167,7 @@
         <div id="register-btn" class="register-btn easing" style="" {{action login}}> Login</div>
     </div>
     <div id="user-forgot-password-pane" style="width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;">
-        <div  id="email"class="login-textfield" style="padding: 0 10px">
+        <div  id="resetPasswordEmail"class="login-textfield" style="padding: 0 10px">
             {{view Ember.TextField valueBinding="resetPasswordEmail" placeholder="Your Email" }}
         </div>
         <div class="back-btn easing" style="" >Back</div>

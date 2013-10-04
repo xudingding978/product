@@ -25,7 +25,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     gender: "",
     iframeURL: "",
     iframeLoginURL: "",
-    isWaiting:"",
+    isWaiting: "",
     init: function() {
         this.newSearch();
         this.set('search_string', '');
@@ -174,20 +174,20 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     checkSocial();
                 }
                 else if (params === 0) {
-               //     document.getElementById('email').style.border = '2px solid red';
-                    document.getElementById('email').style.setAttribute("class", "login-textfield error-textfield");
+
+                    document.getElementById("email").setAttribute("class", "login-textfield error-textfield");
                     that.get('controllers.applicationFeedback').statusObserver(null, "You have registered with this email using social media account.", "warnning");
                 }
                 else if (params === 2) {
-           //         document.getElementById('email').style.border = '2px solid red';
-                    document.getElementById('email').style.setAttribute("class", "login-textfield error-textfield");
+
+                    document.getElementById("email").setAttribute("class", "login-textfield error-textfield");
                     that.get('controllers.applicationFeedback').statusObserver(null, "Email already exists.", "warnning");
                 }
             });
         }
     },
     done: function() {
-        this.set('isWaiting',true);
+        this.set('isWaiting', true);
         var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age')];
         var that = this;
         requiredBackEnd('site', 'create', createInfo, 'POST', function(params) {
@@ -198,7 +198,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 //                });
             setTimeout(function() {
                 that.transitionToRoute('search');
-                that.set('isWaiting',false);
+                that.set('isWaiting', false);
                 that.set('first_name', "");
                 that.set('last_name', "");
                 that.set('email', "");
@@ -239,7 +239,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 {
                     result = false;
                     this.get('controllers.applicationFeedback').statusObserver(null, "Your length should be between " + checkList[i].lengthMin + " and " + checkList[i].lengthMax + ".", "warnning");
-                    document.getElementById(checkList[i].id).style.setAttribute("class", "login-textfield error-textfield");
+                    document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
                     break;
                 }
             }
@@ -274,37 +274,37 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('gender', "female");
     },
     login: function() {
- 
-document.getElementById("loginUsername").setAttribute("class", "login-textfield");
-document.getElementById("loginPassword").setAttribute("class", "login-textfield");
+
+        document.getElementById("loginUsername").setAttribute("class", "login-textfield");
+        document.getElementById("loginPassword").setAttribute("class", "login-textfield");
 
         var loginInfo = [this.get('loginUsername'), this.get('loginPassword'), this.validateEmail(this.get('loginUsername'))];
         var that = this;
         requiredBackEnd('site', 'login', loginInfo, 'POST', function(params) {
             if (params === 1) {
                 document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
-                that.set('isWaiting',false);
+                that.set('isWaiting', false);
                 that.get('controllers.applicationFeedback').statusObserver(null, "Invalid Username.", "warnning");
             }
             else if (params === 0) {
-                 document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
-                that.set('isWaiting',false);
+                document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
+                that.set('isWaiting', false);
                 that.get('controllers.applicationFeedback').statusObserver(null, "You have registered with this email using social media account.", "warnning");
             }
             else {
-             
+
                 if (that.get('loginPassword') === params.PWD_HASH && that.get('loginPassword') !== undefined) {
-                     that.set('isWaiting',true);
+                    that.set('isWaiting', true);
                     localStorage.loginStatus = params.COUCHBASE_ID;
                     that.transitionToRoute('search');
                     that.set('loginUsername', "");
                     that.set('loginPassword', "");
-                    that.set('isWaiting',false);
+                    that.set('isWaiting', false);
                 }
                 else {
-                     document.getElementById("loginPassword").setAttribute("class", "login-textfield error-textfield");
-                 
-                    that.set('isWaiting',false);
+                    document.getElementById("loginPassword").setAttribute("class", "login-textfield error-textfield");
+
+                    that.set('isWaiting', false);
                     that.get('controllers.applicationFeedback').statusObserver(null, " Invalid password.", "warnning");
                 }
             }

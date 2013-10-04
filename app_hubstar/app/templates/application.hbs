@@ -20,13 +20,14 @@
     {{view HubStar.DiscoveryView}}
 
     {{outlet "welcome"}}
-    {{outlet "quickstart"}}        
+    {{outlet "quickstart"}}   
+    {{view HubStar.MasonryView}}
     {{else}}
 
     {{view HubStar.RegisterView}}
     {{/if}}
 
-    {{view HubStar.MasonryView}}
+    
 
     {{/unless}}
 

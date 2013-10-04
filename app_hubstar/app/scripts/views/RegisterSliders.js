@@ -13,7 +13,7 @@ $("#social-login").click(function() {
     if ($('#social-login-container').css('display') === 'block') {
         $('#social-login-container').animate({height: 'toggle'});
     }
-    /* hiding social login */
+    /* LOGIN TAB:  hiding social login */
 
     if ($('#social-login-container').css('display') === 'none') {
         $('#social-login-container').animate({height: 'toggle'});
@@ -21,6 +21,17 @@ $("#social-login").click(function() {
         if ($('#login-with-email-drop-down').css('display') === 'block') {
             $('#login-with-email-drop-down').animate({height: 'toggle'});
         }
+        if ($('#forgot-message-container').css('display') === 'block') {
+            $('#forgot-message-container').stop().animate({opacity: 'toggle'});
+        }
+        if ($('#click-login').css('display') === 'none') {
+            $('#click-login').stop().animate({opacity: 'toggle'});
+        }
+        if ($('#user-forgot-password-pane').css('display') === 'block') {
+            $('#user-forgot-password-pane').stop().animate({height: 'toggle'});
+        }
+
+        /* LOGIN TAB:  showing social login */
 
     }
 });
@@ -34,7 +45,7 @@ $("#click-login").click(function() {
             $('#social-login-container').stop().animate({height: 'toggle'});
         }
     }
-    /* closing login with email */
+    /* LOGIN TAB: closing login with email */
 
 
     if ($('#login-with-email-drop-down').css('display') === 'none') {
@@ -45,7 +56,7 @@ $("#click-login").click(function() {
         if ($('#social-login-container').css('display') === 'block') {
             $('#social-login-container').stop().animate({height: 'toggle'});
         }
-    } /* clicking register step 1 function*/
+    } /* LOGIN TAB: clicking login*/
 });
 $('#loginPassword > div').click(function() {
     if ($('#login-with-email-drop-down').css('display') === 'block' && $('#click-login').hasClass('active-tab')) {
@@ -53,15 +64,21 @@ $('#loginPassword > div').click(function() {
 
         $('#login-with-email-drop-down').stop().animate({height: 'toggle'});
         $('#user-forgot-password-pane').animate({height: 'toggle'});
-        $('#click-login').animate({height: 'toggle'});
 
         if ($('#social-login-container').css('display') === 'block') {
             $('#social-login-container').animate({height: 'toggle'});
 
         }
+        if ($('#forgot-message-container').css('display') === 'block') {
+            $('#forgot-message-container').stop().animate({opacity: 'toggle'});
+        }
+        if ($('#click-login').css('display') === 'block') {
+            $('#click-login').animate({height: 'toggle'});
+
+        }
     }
 });
-
+/*  LOGIN TAB: show forget password pane */
 
 $('#user-forgot-password-pane .back-btn').click(function() {
     $('#user-forgot-password-pane').animate({height: 'toggle'});
@@ -72,10 +89,25 @@ $('#user-forgot-password-pane .back-btn').click(function() {
 
     }
 
+
 });
+/* Back to login with email from forget password pane */
 
 
-/*  LOGIN TAB: showing social login section ends */
+$('#reset-btn').click(function() {
+    if ($('#forgot-message-container').css('display') === 'none') {
+        $('#forgot-message-container').stop().animate({opacity: 'toggle'});
+    }
+});
+/* forgot password function showing thank you message */
+
+
+$('#user-forgot-password-pane .back-btn').click(function() {
+    if ($('#forgot-message-container').css('display') === 'block') {
+        $('#forgot-message-container').stop().animate({opacity: 'toggle'});
+    }
+});
+/* hiding thank you message when the user clicks the back btn */
 
 
 
@@ -192,6 +224,8 @@ function loginPane() {
         $('#social-login-container').css('display', 'none');
         $('#click-login').addClass('active-tab');
         $('#social-login').removeClass('social-active');
+        $('#user-forgot-password-pane').css('display', 'none');
+        $('#forgot-message-container').css('display', 'none');
 
         $('#register-with-email-drop-down').css('display', 'none');
         $('#register-with-email-step-2').css('display', 'none');
@@ -212,11 +246,6 @@ function loginPane() {
     }
 }
 
-$('#reset-btn').click(function() {
-    if ($('#forgot-message-container').css('display') === 'none') {
-        $('#forgot-message-container').stop().animate({opacity: 'toggle'}).delay(5000).animate({opacity: 'toggle'});
-    }
-});
 
 
 

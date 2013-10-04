@@ -289,7 +289,7 @@ class EmailsController extends Controller {
 
     public function forgetEmailForm($username, $password) {
         return '
-            <table width="100%" cellpadding="0" cellspacing="0" style="background: #e5e5e5;">
+           <table width="100%" cellpadding="0" cellspacing="0" style="background: #e5e5e5;">
     <tbody>
         <tr>
             <td align="center">
@@ -331,9 +331,8 @@ class EmailsController extends Controller {
                                     </tr>
                                     <tr>
                                         <td>
-                                            <table align="left" style="color: #fff; font-size: 13px; line-height: 150%; font-family: Helvetica, Arial, San-Serif;
-                                                   text-align: left; background: #05B1E5; -webkit-border-radius: 3px; -moz-border-radius: 3px;
-                                                   border-radius: 3px;" cellpadding="5" cellspacing="0">
+                                            <table align="left" style="color: #05B1E5; font-size: 13px; line-height: 150%; font-family: Helvetica, Arial, San-Serif;
+                                                   text-align: left;" cellpadding="0" cellspacing="0">
                                                 <tr>
                                                     <td valign="top">
                                                         User name: ' . $username . '
@@ -351,7 +350,7 @@ class EmailsController extends Controller {
                                         <td>
                                             <br />
                                             <br />
-                                            If this prompt was not you, please immediately contact: <a href="mailto:support@trendsideas.com"
+                                            If this was not prompt was not you, please immediately contact: <a href="mailto:support@trendsideas.com"
                                                                                                        style="color: #05B1E5;">support@trendsideas.com</a>
                                         </td>
                                     </tr>
@@ -361,11 +360,15 @@ class EmailsController extends Controller {
                                             &nbsp;<br />
                                         </td>
                                     </tr>
+                                </table>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
-                <br /><br />&nbsp;
-
-    </tbody>
+                <br /><br />
+            </td>
+       </tr>
+   </tbody>
 </table>
 ';
     }

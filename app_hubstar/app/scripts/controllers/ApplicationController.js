@@ -273,7 +273,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('gender', "female");
     },
     login: function() {
-
+  this.set('isWaiting',true);
 document.getElementById("loginUsername").setAttribute("class", "login-textfield");
 document.getElementById("loginPassword").setAttribute("class", "login-textfield");
 
@@ -291,7 +291,7 @@ document.getElementById("loginPassword").setAttribute("class", "login-textfield"
                 that.get('controllers.applicationFeedback').statusObserver(null, "You have registered with this email using social media account.", "warnning");
             }
             else {
-               that.set('isWaiting',true);
+             
                 if (that.get('loginPassword') === params.PWD_HASH && that.get('loginPassword') !== undefined) {
                    
                     localStorage.loginStatus = params.COUCHBASE_ID;

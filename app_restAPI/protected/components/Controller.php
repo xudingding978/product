@@ -227,7 +227,7 @@ class Controller extends CController {
         $request = $this->getElasticSearch();
         $request->from($from);
         $request->size($size);
-        $sortArray=array('couchbaseDocument.doc.boost','couchbaseDocument.doc.created');
+        $sortArray=array('couchbaseDocument.doc.created');
         $length = sizeof($sortArray);
         for ($i = 0; $i < $length; $i++) {
             $sort = $this->getsortQuestWithQueryString($sortArray[$i]);

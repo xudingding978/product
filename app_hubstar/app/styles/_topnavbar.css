@@ -972,8 +972,21 @@ div #login_container > div.front > .head > .panelcircle
     -o-box-shadow: none !important;
 
     font-weight: bold;
-    color: #333;
+    color: #555;
     font-size: 15px;
+}
+
+.login-textfield > input::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #ccc;
+}
+.login-textfield > input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #ccc;
+}
+.login-textfield > input::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #ccc;
+}
+.login-textfield > input:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #ccc;
 }
 
 .social-login-iconbox{

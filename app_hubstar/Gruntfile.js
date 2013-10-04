@@ -420,8 +420,6 @@ module.exports = function(grunt) {
                             'images/defaultbg/*',
                             'images/defaultcover/*',
                             'images/defaultpic/*'
-
-
                         ]
                     }]
             },
@@ -511,6 +509,7 @@ module.exports = function(grunt) {
         ]);
     });
     grunt.registerTask('test', [
+        'shell',
         'clean:server',
         'concurrent:test',
         'connect:test',

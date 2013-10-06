@@ -216,8 +216,8 @@ $('.login-select').click(function() {
 function loginPane() {
 
     if (loginState === false) {
-
         $('#login-btn').text('REGISTER');
+        $('.black-tool-tip').css('display', 'none');
         $('#click-register-social').css('display', 'none');
         $('#click-register').css('display', 'none');
         $('#social-link').css('display', 'none');
@@ -237,6 +237,7 @@ function loginPane() {
     else {
 
         $('#login-btn').text('LOGIN');
+        $('.black-tool-tip').css('display', 'none');
         $('#click-register-social').css('display', 'block');
         $('#social-link').css('display', 'block');
         $('#click-register').css('display', 'block');

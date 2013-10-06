@@ -92,11 +92,8 @@ HubStar.ProfileRoute = Ember.Route.extend({
             })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 //            window['ga-disable-UA-44590900-1'] = false;
             console.log(profile_analytics_code);
-            ga('create', profile_analytics_code, {'cookieName': dom_url, 'cookieDomain': 'trendsideas.com', 'cookieExpires': 60 * 60 * 24 * 28});
-            setTimeout(function() {
-                console.log();
-                ga('send', 'pageview');
-            }, 2000);
+            ga('create', profile_analytics_code, {'name': dom_url});
+            ga(dom_url+'.send', 'pageview');
 
         } catch (err) {
             console.log('error out');

@@ -274,9 +274,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('gender', "female");
     },
     login: function() {
-
-        document.getElementById("loginUsername").setAttribute("class", "login-textfield");
-        document.getElementById("loginPassword").setAttribute("class", "login-textfield");
+ this.set('isWaiting',true);
+document.getElementById("loginUsername").setAttribute("class", "login-textfield");
+document.getElementById("loginPassword").setAttribute("class", "login-textfield");
 
         var loginInfo = [this.get('loginUsername'), this.get('loginPassword'), this.validateEmail(this.get('loginUsername'))];
         var that = this;
@@ -294,12 +294,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             else {
 
                 if (that.get('loginPassword') === params.PWD_HASH && that.get('loginPassword') !== undefined) {
-                    that.set('isWaiting', true);
+         
                     localStorage.loginStatus = params.COUCHBASE_ID;
                     that.transitionToRoute('search');
                     that.set('loginUsername', "");
                     that.set('loginPassword', "");
-                    that.set('isWaiting', false);
+                   that.set('isWaiting',false);
                 }
                 else {
                     document.getElementById("loginPassword").setAttribute("class", "login-textfield error-textfield");
@@ -324,6 +324,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             else {
                 var emailInfo = [that.get('resetPasswordEmail'), params.USER_NAME, params.PWD_HASH];
                 requiredBackEnd('emails', 'forgetpassword', emailInfo, 'POST', function(params) {
+                    if(params===1)
+                        {
+                             if ($('#forgot-message-container').css('display') === 'none') {
+        $('#forgot-message-container').animate({opacity: 'toggle'});
+    }
+                        }
 
                 });
             }

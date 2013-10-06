@@ -24,6 +24,9 @@ $("#social-login").click(function() {
         if ($('#forgot-message-container').css('display') === 'block') {
             $('#forgot-message-container').animate({opacity: 'toggle'});
         }
+         if ($('#invalid-username').css('display') === 'block') {
+            $('#invalid-username').animate({opacity: 'toggle'});
+        }
         if ($('#click-login').css('display') === 'none') {
             $('#click-login').animate({opacity: 'toggle'});
         }
@@ -95,9 +98,7 @@ $('#user-forgot-password-pane .back-btn').click(function() {
 
 
 $('#reset-btn').click(function() {
-    if ($('#forgot-message-container').css('display') === 'none') {
-        $('#forgot-message-container').animate({opacity: 'toggle'});
-    }
+   
 });
 /* forgot password function showing thank you message */
 
@@ -226,6 +227,7 @@ function loginPane() {
         $('#social-login').removeClass('social-active');
         $('#user-forgot-password-pane').css('display', 'none');
         $('#forgot-message-container').css('display', 'none');
+        $('#invalid-username').css('display', 'none');
 
         $('#register-with-email-drop-down').css('display', 'none');
         $('#register-with-email-step-2').css('display', 'none');
@@ -242,6 +244,7 @@ function loginPane() {
         $('#click-register').removeClass('active-tab');
         $('#register-with-email-step-2').removeClass('active-step');
         $('#user-login-pane').css('display', 'none');
+        
         loginState = false;
     }
 }

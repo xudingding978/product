@@ -8762,14 +8762,16 @@ div.loading-visible{
     right: 0;
     top: 0;
     /*    cursor: pointer;*/
-    z-index: 1;
+    z-index: 100;
 }
-
+.object-tags-box div{position:relative;z-index:100;}
 .object-tags{
     clear: both;
     height: 26px;
     line-height: 26px;
     word-wrap: normal;
+    position:relative;
+    z-index:2;
 }
 
 .tags-mark{
@@ -8786,7 +8788,7 @@ div.loading-visible{
     display: block;
     float: right;
     max-width: 180px;
-    overflow: hidden;
+    /*overflow: hidden; this was removed for the tool tips 3/10/13 */
     text-overflow: ellipsis;
     white-space: nowrap;
     background-color: #eee;
@@ -8807,6 +8809,27 @@ div.loading-visible{
     font-size: 12px;
     vertical-align: top;
     margin-right: -4px;
+}
+.object-tags-box .hint--top:after, .object-tags-box .hint--left:after
+{
+    background:#fff;
+    border-color:#fff;
+    color:#666;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow: 0 0 5px#888;
+    box-shadow: 0 0 5px #888;
+    text-shadow:0 0 0;
+}
+.object-tags-box .hint--left:before
+{
+    border-left-color:#ccc!important;
+}
+.object-tags-box .hint--top:before
+{
+    border-top-color:#ccc!important;
 }
 
 .hashtags{
@@ -9017,11 +9040,14 @@ div.loading-visible{
     color: white;
     text-align: center;
     top: 42%;
-    padding:10px 15px;
+    padding:0 15px;
     z-index: 2;
 
     word-wrap: normal;
     line-height: 24px;
+    
+    max-height:72px;
+    overflow:auto;
 }
 
 .album-description-bg{
@@ -9032,12 +9058,18 @@ div.loading-visible{
     opacity: 0.7;
     background-color: black;
     top: 42%;
-    padding: 10px 15px;
+    padding: 0 15px;
     z-index: 1;
-
     word-wrap: normal;
     line-height: 24px;
     box-shadow: 0 0 20px 4px #000;
+    
+     height:72px;
+     overflow:hidden;
+     
+     font-size:0;
+     
+     /* may need to delete this element in the template */
 }
 
 .album-description-hoverarea{
@@ -9167,6 +9199,8 @@ div.loading-visible{
     border-radius: 5px;
     overflow: hidden;
     margin-bottom:12px;
+    position:relative;
+    z-index:1;
 }
 
 .object_username{
@@ -9328,7 +9362,7 @@ div.loading-visible{
     left: 0;
     margin: 0;
     position: absolute;
-    right: 45%;
+    right: 320px;
     overflow: hidden;
 }
 
@@ -9540,11 +9574,18 @@ div.loading-visible{
     position: absolute;
     right: 0;
     top: 0;
-    width: 45%;
+    width: 320px;
     background-color: white;
     overflow-y: scroll;
 }
 
+.article-objectview-right{
+    width: 45%;
+}
+
+.article-objectview-left{
+    right: 45%;
+}
 
 .object-poster{
     padding: 15px;
@@ -10593,18 +10634,17 @@ input{
 
 .fresh-profile-pic{
     overflow: hidden; 
-    position: fixed;
     height: 80px;
-    width: 80px;
     background-color: #fff;
     border-radius: 50%;
     z-index: 12;
-    margin: auto;
-    left: 0;
-    right: 1000px;
-    top: -110PX;
+
+    top: -30PX;
     box-shadow: 0 0 10px #777;
     border: 3px solid #f3f3f3;
+
+    display: inline-block;
+    position: relative;
 }
 
 .fresh-message{
@@ -10615,21 +10655,22 @@ input{
     border-top: 1px solid #85aed3;
     background: #618fb9 url(../../images/alert-lines.png);
     height: 50px;
-    position: fixed;
     text-align: center;
     z-index: 11;
-
-    top: -85px;
+    top: -5px;
     box-shadow: 0px 1px 5px #555;
-    width: 1000px;
-    margin: auto;
-    display: block;
+
     border-radius: 0 3px 3px 0;
     -webkit-border-radius: 0 3px 3px 0;
     -moz-border-radius: 0 3px 3px 0;
     -o-border-radius: 0 3px 3px 0;
-    left: 0;
-    right: 0;
+
+    display: inline-block;
+    width: auto;
+    min-width: 500px;
+    position: relative;
+    vertical-align: top;
+    margin-left: -20px;
 }
 
 .fresh-message > k{
@@ -10690,9 +10731,7 @@ input{
      top:-180px;
      left:17.5%; */
 }
-.premium > div > table  .profileaside > .profileaside_content .aside-profilepic > div > img{ min-height:195px;}
-.premium > div > table  .profileaside > .profileaside_content .aside-profilepic div,
-.premium > div > table  .profileaside > .profileaside_content .aside-profilepic div img{width:100%;margin-bottom:1em;}
+
 
 .premium > div > table .profilemain
 {
@@ -10841,11 +10880,50 @@ textarea.add-interests{
 .main_aboutus .editor-content .green-btn{color:#fff;}
 
 .main_aboutus .editor-content a{
-   display:inline-block;
-    
+    display:inline-block;
+
 }
 /* client profile content styling ENDS */
 
+
+
+.LatestFollower{
+    text-align: center;
+    width: 275px;
+    height: 35px;
+    margin: 10px auto;
+
+    display: block;
+    clear: both;
+}
+
+.LatestFollower  img{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -o-border-radius: 50%;
+
+    border: 2px solid #fff;
+    margin: 0 4px;
+}
+
+.Followed-by{
+    display: block;
+    text-align: center;
+    font-size: 13px;
+    font-weight: bold;
+    color: #888;
+    position: relative;
+    width: 100%;
+    clear: both;
+    margin: 0 auto;
+    opacity: .8;
+    cursor: pointer;
+}
+
+.Followed-by:hover{opacity: 1}   
 
 
 

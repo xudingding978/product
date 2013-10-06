@@ -89,6 +89,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.setIntersetsArr(user);
 //        this.set("model", user);
         this.set("user", user);
+        //console.log(this.get("user"));
         this.set("collections", user.get("collections"));
         this.set("description", user.get("description"));
         this.set("display_name", user.get("display_name"));
@@ -269,7 +270,7 @@ HubStar.UserController = Ember.Controller.extend({
                 }
             }
             if (!isExsinting) {
-                this.get('controllers.applicationFeedback').statusObserver(null, "This Collection is already exsiting");
+                this.get('controllers.applicationFeedback').statusObserver(null, "This Collection is already exsiting.");
             }
         }
         return isExsinting;
@@ -357,12 +358,12 @@ HubStar.UserController = Ember.Controller.extend({
             update_user_record.set('email', this.get('email'));
             update_user_record.set('password', this.get('password'));
             
-            this.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Update successfully.");
        
             HubStar.store.save();
         }
         else {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please check you have already filled the mandatory field","warnning");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please check you have already filled the mandatory field.","warnning");
         }
     },
     isInputValid: function() {
@@ -433,11 +434,11 @@ HubStar.UserController = Ember.Controller.extend({
             this.saveLink('pinterest_link', 'pinterest');
             this.saveLink('linkedin_link', 'linkedin');
             this.saveLink('youtube_link', 'youtube');
-            this.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully.");
             HubStar.store.save();
         }
         else {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please check you have filled right links!","warnning");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please check you have filled right links.","warnning");
         }
     },
     isSociallinkInputValid: function() {
@@ -614,7 +615,6 @@ HubStar.UserController = Ember.Controller.extend({
         this.get('selectedCollection').set('title', this.get('newTitle'));
         this.get('selectedCollection').set('desc', this.get('newDesc'));
         var collectionController = this.get('controllers.collection');
-        console.log(this.get('selectedCollection'));
         var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
         collection.set('optional', this.get('model').get('id'));
         collection.set('type', 'user');

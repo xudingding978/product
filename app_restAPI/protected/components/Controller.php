@@ -216,11 +216,24 @@ class Controller extends CController {
                 ->default_operator('AND');
         return $should;
     }
-
+    
+    protected function getsortQuestWithQueryString($sortString) {
+        $should = Sherlock\Sherlock::sortBuilder()->Field()->name($sortString)
+                ->order('desc');
+        return $should;
+    }
+    
     protected function searchWithCondictions($conditions, $search_type = "should", $from = 0, $size = 50) {
         $request = $this->getElasticSearch();
         $request->from($from);
         $request->size($size);
+        $sortArray=array('couchbaseDocument.doc.created');
+        $length = sizeof($sortArray);
+        for ($i = 0; $i < $length; $i++) {
+            $sort = $this->getsortQuestWithQueryString($sortArray[$i]);
+                $request->sort($sort);            
+        }
+        $request->sort($sortArray);
         $max = sizeof($conditions);
         $bool = Sherlock\Sherlock::queryBuilder()->Bool();
         for ($i = 0; $i < $max; $i++) {

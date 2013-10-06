@@ -25,7 +25,7 @@ HubStar.CollectionController = Ember.Controller.extend({
                     collection.set('desc', "Add a short description to your Collection");
                 }
             } else {
-                this.get('controllers.applicationFeedback').statusObserver(null, "Please try to type name with upper case and space");
+                this.get('controllers.applicationFeedback').statusObserver(null, "Please try to type name with upper case and space.","warnning");
             }
         }
 
@@ -52,7 +52,7 @@ HubStar.CollectionController = Ember.Controller.extend({
                 }
             }
             if (!isExsinting) {
-                this.get('controllers.applicationFeedback').statusObserver(null, "This Collection is already exsiting");
+                this.get('controllers.applicationFeedback').statusObserver(null, "This Collection is already exsiting.","warnning");
             }
         }
         return isExsinting;
@@ -68,7 +68,7 @@ HubStar.CollectionController = Ember.Controller.extend({
 
         var desc = selectedCollection.get('desc');
 
-        var desc = "";
+        
         if (selectedCollection.get('desc') !== undefined) {
             desc = selectedCollection.get('desc');
         }

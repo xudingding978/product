@@ -395,18 +395,17 @@ input{
 
 .fresh-profile-pic{
     overflow: hidden; 
-    position: fixed;
     height: 80px;
-    width: 80px;
     background-color: #fff;
     border-radius: 50%;
     z-index: 12;
-    margin: auto;
-    left: 0;
-    right: 1000px;
-    top: -110PX;
+
+    top: -30PX;
     box-shadow: 0 0 10px #777;
     border: 3px solid #f3f3f3;
+
+    display: inline-block;
+    position: relative;
 }
 
 .fresh-message{
@@ -417,21 +416,22 @@ input{
     border-top: 1px solid #85aed3;
     background: #618fb9 url(../../images/alert-lines.png);
     height: 50px;
-    position: fixed;
     text-align: center;
     z-index: 11;
-
-    top: -85px;
+    top: -5px;
     box-shadow: 0px 1px 5px #555;
-    width: 1000px;
-    margin: auto;
-    display: block;
+
     border-radius: 0 3px 3px 0;
     -webkit-border-radius: 0 3px 3px 0;
     -moz-border-radius: 0 3px 3px 0;
     -o-border-radius: 0 3px 3px 0;
-    left: 0;
-    right: 0;
+
+    display: inline-block;
+    width: auto;
+    min-width: 500px;
+    position: relative;
+    vertical-align: top;
+    margin-left: -20px;
 }
 
 .fresh-message > k{
@@ -492,9 +492,7 @@ input{
      top:-180px;
      left:17.5%; */
 }
-.premium > div > table  .profileaside > .profileaside_content .aside-profilepic > div > img{ min-height:195px;}
-.premium > div > table  .profileaside > .profileaside_content .aside-profilepic div,
-.premium > div > table  .profileaside > .profileaside_content .aside-profilepic div img{width:100%;margin-bottom:1em;}
+
 
 .premium > div > table .profilemain
 {
@@ -643,7 +641,47 @@ textarea.add-interests{
 .main_aboutus .editor-content .green-btn{color:#fff;}
 
 .main_aboutus .editor-content a{
-   display:inline-block;
-    
+    display:inline-block;
+
 }
 /* client profile content styling ENDS */
+
+
+
+.LatestFollower{
+    text-align: center;
+    width: 275px;
+    height: 35px;
+    margin: 10px auto;
+
+    display: block;
+    clear: both;
+}
+
+.LatestFollower  img{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -o-border-radius: 50%;
+
+    border: 2px solid #fff;
+    margin: 0 4px;
+}
+
+.Followed-by{
+    display: block;
+    text-align: center;
+    font-size: 13px;
+    font-weight: bold;
+    color: #888;
+    position: relative;
+    width: 100%;
+    clear: both;
+    margin: 0 auto;
+    opacity: .8;
+    cursor: pointer;
+}
+
+.Followed-by:hover{opacity: 1}   

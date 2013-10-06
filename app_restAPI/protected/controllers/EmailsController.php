@@ -37,7 +37,6 @@ class EmailsController extends Controller {
         $email_destination = $request_arr['email_destination'];
 
         $sub_category = explode(",", $request_arr['project_sub_category_item']);
-        // error_log(var_export($sub_category , true));
 
         $description = $this->linkCategory($sub_category);
 

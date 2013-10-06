@@ -45,7 +45,18 @@ class FollowersController extends Controller {
             if (!isset($mega_profile['profile'][0]['followers'])) {
                 $mega_profile['profile'][0]['followers'] = array();
             }
-            array_unshift($mega_profile['profile'][0]['followers'], $request_arr);
+            
+            $bool = 0;
+            for ($i = 0; $i < sizeof($mega_profile['profile'][0]['followers']); $i++) {
+                if ($request_arr["follower_id"] === $mega_profile['profile'][0]['followers'][$i]["follower_id"]) {
+                    $bool = 1;
+                    break;
+                }
+            }
+            if (!$bool) {
+                 array_unshift($mega_profile['profile'][0]['followers'], $request_arr);
+            }
+                   
             if ($cb->set($docID_profile, CJSON::encode($mega_profile))) {
                 $isSaving = true;
             } else {
@@ -699,9 +710,19 @@ class FollowersController extends Controller {
             $mega_user = CJSON::decode($tempMega_user, true);
             if (!isset($mega_user['user'][0]['followers'])) {
                 $mega_user['user'][0]['followers'] = array();
+            }  
+             $bool = 0;
+            for ($i = 0; $i < sizeof($mega_user['user'][0]['followers']); $i++) {
+                if ($request_arr['follower_id'] === $mega_user['user'][0]['followers'][$i]["follower_id"]) {
+                    $bool = 1;
+                    break;
+                }
             }
 
-            array_unshift($mega_user['user'][0]['followers'], $request_arr);
+            if (!$bool) {
+                     array_unshift($mega_user['user'][0]['followers'], $request_arr);
+            }
+      
             if ($cb->set($docID_user, CJSON::encode($mega_user))) {
                 $isSaving = true;
             } else {

@@ -177,11 +177,18 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
                     document.getElementById("email").setAttribute("class", "login-textfield error-textfield");
                     that.get('controllers.applicationFeedback').statusObserver(null, "You have registered with this email using social media account.", "warnning");
+                
+                    // clint here needs 'You have registered with this email using social media account.' message when signup
+                
                 }
                 else if (params === 2) {
 
                     document.getElementById("email").setAttribute("class", "login-textfield error-textfield");
                     that.get('controllers.applicationFeedback').statusObserver(null, "Email already exists.", "warnning");
+                    
+                    
+                      // clint here needs 'Email already exists.' message when signup
+                    
                 }
             });
         }
@@ -239,6 +246,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 {
                     result = false;
                     this.get('controllers.applicationFeedback').statusObserver(null, "Your length should be between " + checkList[i].lengthMin + " and " + checkList[i].lengthMax + ".", "warnning");
+                    
+                    
+                           
+                     // clint here needs 'Your password length should be between 6 and 40' message when login
+                    
+                    
                     document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
                     break;
                 }
@@ -248,7 +261,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 if (checkList[i].input === null || checkList[i].input === "" || checkList[i].input === undefined) {
                     result = false;
                     this.get('controllers.applicationFeedback').statusObserver(null, "Please fill the mandory field.", "warnning");
+                    
+                     // clint here needs 'Please fill the mandory field.' message when login
+                    
                     document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
+                    $('#forgot-message-container').animate({opacity: 'toggle'});
                     break;
                 }
             }
@@ -260,7 +277,13 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 else {
                     result = false;
                     this.get('controllers.applicationFeedback').statusObserver(null, "Invalid Email.", "warnning");
+                    
+                         // clint here needs 'Invalid Email..' message when login
+                    
+                    
                     document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
+                    
+                    
                     break;
                 }
             }
@@ -285,11 +308,19 @@ document.getElementById("loginPassword").setAttribute("class", "login-textfield"
                 document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
                 that.set('isWaiting', false);
                 that.get('controllers.applicationFeedback').statusObserver(null, "Invalid Username.", "warnning");
+              //    if ($('#forgot-message-container').css('display') === 'none') {
+              // clint here needs 'Invalid Username.' message when login
+              
+        $('#forgot-message-container').animate({opacity: 'toggle'});
             }
             else if (params === 0) {
                 document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
                 that.set('isWaiting', false);
                 that.get('controllers.applicationFeedback').statusObserver(null, "You have registered with this email using social media account.", "warnning");
+           
+          
+             // clint here needs 'You have registered with this email using social media account' message when login
+           
             }
             else {
 
@@ -306,20 +337,23 @@ document.getElementById("loginPassword").setAttribute("class", "login-textfield"
 
                     that.set('isWaiting', false);
                     that.get('controllers.applicationFeedback').statusObserver(null, " Invalid password.", "warnning");
+                    
+                      // clint here needs ' Invalid password.' message when login
+                    
                 }
             }
         });
     },
     emailSend: function()
     {
-                if ($('#forgot-message-container').css('display') === 'none') {
-        $('#forgot-message-container').animate({opacity: 'toggle'});
-    }
+       
         var signupInfo = [this.get('resetPasswordEmail')];
         var that = this;
         requiredBackEnd('site', 'resetemail', signupInfo, 'POST', function(params) {
             if (params === 1) {
                 that.get('controllers.applicationFeedback').statusObserver(null, "Invalid Username.", "warnning");
+                      // clint here needs 'Invalid Username.' message when resetpassword
+                
             }
             else if (params === 0) {
                 that.get('controllers.applicationFeedback').statusObserver(null, "You have registered this email using social media account.", "warnning");
@@ -328,7 +362,9 @@ document.getElementById("loginPassword").setAttribute("class", "login-textfield"
                 var emailInfo = [that.get('resetPasswordEmail'), params.USER_NAME, params.PWD_HASH];
                 requiredBackEnd('emails', 'forgetpassword', emailInfo, 'POST', function(params) {
                     if(params===1)
-                        {
+                        {         if ($('#forgot-message-container').css('display') === 'none') {
+        $('#forgot-message-container').animate({opacity: 'toggle'});
+    }
                                    }
 
                 });

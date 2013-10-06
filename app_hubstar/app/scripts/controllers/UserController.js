@@ -372,7 +372,7 @@ HubStar.UserController = Ember.Controller.extend({
                         thatthatthat.set('repeatnew', "");
                     }, 1000);
 
-                    thatthat.get('controllers.applicationFeedback').statusObserver(null, "Updated Successfully.","warnning");
+                    thatthat.get('controllers.applicationFeedback').statusObserver(null, "Updated Successfully.");
                 });
 
 

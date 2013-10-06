@@ -48,10 +48,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
             this.addCollection(collection, content);
 
             this.set("commentObject", HubStar.Mega.find(this.get("objectID")));
-
             this.addComment();
-
-
 
             collection.set('optional', localStorage.loginStatus);
             collection.set('type', 'user');
@@ -192,8 +189,6 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
             var collection = this.get("collections").objectAt(i);
             if (collection.get("title") === title)
             {
-//                console.log("sssssssssssssss");
-//                console.log(collection.get("title") );
                 isContainsTitle = false;
             }
         }

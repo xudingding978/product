@@ -4344,9 +4344,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var that = this;
         requiredBackEnd('followers', 'ReadPhoto', id, 'POST', function(params) {
             that.set("contentFollowerPhoto", []);
+<<<<<<< HEAD
             if (params === undefined)
             {
 
+=======
+
+            if (params === undefined)
+            {
+>>>>>>> develop
             }
             else
             {
@@ -5875,6 +5881,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.setIntersetsArr(user);
 //        this.set("model", user);
         this.set("user", user);
+        //console.log(this.get("user"));
         this.set("collections", user.get("collections"));
         this.set("description", user.get("description"));
         this.set("display_name", user.get("display_name"));
@@ -6400,7 +6407,6 @@ HubStar.UserController = Ember.Controller.extend({
         this.get('selectedCollection').set('title', this.get('newTitle'));
         this.get('selectedCollection').set('desc', this.get('newDesc'));
         var collectionController = this.get('controllers.collection');
-        console.log(this.get('selectedCollection'));
         var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
         collection.set('optional', this.get('model').get('id'));
         collection.set('type', 'user');
@@ -7243,6 +7249,7 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
 
             if (type === "user")
             {
+                console.log(this.get("controllers.user").get('user'));
                 if (localStorage.loginStatus === this.get("controllers.user").get('user').id)
                 {
                     this.get("controllers.user").set("userFollowingStatistics", currentUser.get("followings").get("length"));

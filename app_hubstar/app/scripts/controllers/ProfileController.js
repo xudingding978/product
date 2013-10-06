@@ -181,9 +181,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var that = this;
         requiredBackEnd('followers', 'ReadPhoto', id, 'POST', function(params) {
             that.set("contentFollowerPhoto", []);
+
             if (params === undefined)
             {
-
             }
             else
             {

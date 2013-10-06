@@ -27,7 +27,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     boost: '',
     currentUserID: "",
     collections: [],
-    contentFollowerPhoto: [], 
+    contentFollowerPhoto: [],
     contactChecking: false,
     collectionTag: true,
     contact: "contact",
@@ -181,22 +181,29 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var that = this;
         requiredBackEnd('followers', 'ReadPhoto', id, 'POST', function(params) {
             that.set("contentFollowerPhoto", []);
-           
-            for (var i = 0; i < params.length; i++)
-            {
-                dataNew["id"] = params[i]["record_id"];
-                dataNew["name"] = params[i]["name"];
-                dataNew["photo_url"] = params[i]["photo_url"];
 
-                that.get("contentFollowerPhoto").pushObject(dataNew);
-               
-                dataNew = new Array();
+            if (params === undefined)
+            {
+            }
+            else
+            {
+                for (var i = 0; i < params.length; i++)
+                {
+                    dataNew["id"] = params[i]["record_id"];
+                    dataNew["name"] = params[i]["name"];
+                    dataNew["photo_url"] = params[i]["photo_url"];
+
+                    that.get("contentFollowerPhoto").pushObject(dataNew);
+
+                    dataNew = new Array();
+                }
             }
         });
+
     },
     labelBarRefresh: function() {
         this.set("profileSelectionStatus", "Collections");
-      
+
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#defualt').addClass('selected-user-stats');
         $('#user-stats > li').click(function() {
@@ -586,7 +593,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         return isFollow;
     },
     selectCollection: function() {
-        $(window).scrollTop(1500);
+        //$(window).scrollTop(1500);
         this.set('partnerPage', 'Collections');
         this.set('profileSelectionStatus', 'Collections');
         this.set('partnerTag', false);

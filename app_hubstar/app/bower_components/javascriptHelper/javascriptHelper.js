@@ -6,6 +6,7 @@ function getRestAPIURL()
 {
     var api_url = document.domain;
     api_url = "http://api." + api_url;
+    console.log(api_url);
     return api_url;
 }
 
@@ -67,14 +68,14 @@ function getImageWidth(imgSrc, callback) {
     var img = new Image();
     img.src = imgSrc;
     img.onload = function() {
-  
+
         callback(this.width, this.height);
-       
+
     };
 
-    
-  }  
-  
+
+}
+
 function requiredBackEnd(controller, method, para, ajaxType, callback) {
     {
         var tempurl = getRestAPIURL();
@@ -92,20 +93,20 @@ function requiredBackEnd(controller, method, para, ajaxType, callback) {
 
 
 }
-function getTarget(obj,type) {
-        var targ;
-        var e = obj;
-        if (e.target)
-            targ = e.target;
-        else if (e.srcElement)
-            targ = e.srcElement;
-        if (type === "single") {
-            if (targ.nodeType === 3) // defeat Safari bug
-                targ = targ.parentNode;
-        }
-        return targ;
+function getTarget(obj, type) {
+    var targ;
+    var e = obj;
+    if (e.target)
+        targ = e.target;
+    else if (e.srcElement)
+        targ = e.srcElement;
+    if (type === "single") {
+        if (targ.nodeType === 3) // defeat Safari bug
+            targ = targ.parentNode;
     }
-    
-    
- 
+    return targ;
+}
+
+
+
     

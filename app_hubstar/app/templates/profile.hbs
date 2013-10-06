@@ -96,6 +96,22 @@
                                             {{/if}}
 
                                         </div>
+
+
+                                        <div class="LatestFollower">
+
+                                            {{#each contentFollowerPhoto}}                                             
+                                            <a class='radius-circle' href="#/users/{{unbound this.id}}">
+                                                <div class="hint--bottom hint--rounded" data-hint="{{unbound this.name}}">
+                                                    <img {{bindAttr src= this.photo_url}}/>
+                                                </div>
+                                            </a>                                             
+                                            {{/each}}
+                                        </div>
+                                        <div class="Followed-by easing"{{action selectFollower this }}>Followed by {{controller.profileFollowerStatistics}} people.</div>
+
+
+
                                         <div style="padding: 0;border-top:1px solid #ccc;border-bottom: 1px solid #fff;font-size: 14px;width:139%;float:left;width:95%;margin:20px 2.5%;height:2px;"></div>
                                         <!--PROFILE CONTACT SECTION-->
 

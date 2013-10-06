@@ -39,8 +39,7 @@ class DefaultController extends CController {
      */
     private function _doLogin() {
 
-      
-        
+
         if (!isset($_GET['provider']))
             throw new Exception("You haven't supplied a provider");
 
@@ -49,77 +48,17 @@ class DefaultController extends CController {
         }
 
         $identity = new RemoteUserIdentity($_GET['provider'], $this->module->getHybridauth());
-        if ($identity->authenticate()) {       
+        if ($identity->authenticate()) {
             // They have authenticated AND we have a user record associated with that provider
-
-            if (Yii::app()->user->isGuest) {
-
-                $this->_loginUser($identity);
-            } else {
-                //        Yii::app()->session['data'] = Yii::app()->user->id;
-                $this->render('close');
-            }
+            $this->loginWithOldUserFromSocialPlatfrom($identity);
         } else if ($identity->errorCode == RemoteUserIdentity::ERROR_USERNAME_INVALID) {
+            $this->loginWithNewUserFromSocialPlatfrom($identity);
+
             // They have authenticated to their provider but we don't have a matching HaLogin entry
-            if (Yii::app()->user->isGuest) {
-
-                // They aren't logged in => display a form to choose their username & email 
-                // (we might not get it from the provider) 
-                if ($this->module->withYiiUser == true) {
-                    Yii::import('application.modules.user.models.*');
-                } else {
-                    Yii::import('application.models.*');
-                }
-
-                $user = new User;
-                if (isset($_POST['User'])) {
-                    //Save the form
-                    $user->attributes = $_POST['User'];
-                    $user->REC_DATETIME = new CDbExpression('NOW()');
-                    $user->REC_TIMESTAMP = new CDbExpression('NOW()');
-
-                    // creating the users record in the Users table - DingDing to investigate
-                    if ($user->validate() && $user->save()) {
-//                        if ($this->module->withYiiUser == true) {
-//                            
-//                        }
-                        $identity->id = $user->REC_ID;
-                        $identity->username = $user->USER_NAME;
-                        
-                        // creates the Users Profile record in the userprofile table
-                        $this->_linkProvider($identity);  
-                        
-                        // post to facebook on successful registration
-                        
-                        // login in the user and redirect 
-                        $this->_loginUser($identity); 
-                        
-                        
-                    } // } else { do nothing } => the form will get redisplayed
-                } else {
-                    //Display the form with some entries prefilled if we have the info.
-                    if (isset($identity->userData->email)) {
-                        $user->EMAIL_ADDRESS = $identity->userData->email;
-                        $email = explode('@', $user->email);
-                        $user->username = $email[0];
-                    }
-                }
-
-                $this->render('createUser', array(
-                    'user' => $user,
-                ));
-            } else {
-                // They are already logged in, link their user account with new provider
-
-                $identity->id = Yii::app()->user->id;
-                $this->_linkProvider($identity);
-                $this->redirect(Yii::app()->session['hybridauth-ref']);
-                unset(Yii::app()->session['hybridauth-ref']);
-            }
+            // 
         }
     }
 
-    
     private function _linkProvider($identity) {
         $config = Yii::app()->getBasePath() . '/../../common/protected/modules/hybridauth/config/provider_config.php';
         require_once( Yii::app()->getBasePath() . '/../../common/protected/modules/hybridauth/Hybrid/Auth.php');
@@ -130,7 +69,7 @@ class DefaultController extends CController {
 
 
         $user_profile = $adapter->getUserProfile(true);
-       
+
         $user = new User;
         $user->attributes = $_POST['User'];
         $user->TENANT_REC_ID = 1;
@@ -188,7 +127,6 @@ class DefaultController extends CController {
         $temp["user"][0]["identifier"] = $userProfile->IDENTIFIER;
         $temp["user"][0]["profile_url"] = $userProfile->PROFILE_URL;
         $temp["user"][0]["website_url"] = $userProfile->WEBSITE_URL;
-
         $temp["user"][0]["photo_url"] = $userProfile->PHOTO_URL;
         $temp["user"][0]["photo_url_large"] = $userProfile->PHOTO_URL_LARGE;
         $temp["user"][0]["display_name"] = $userProfile->DISPLAY_NAME;
@@ -218,8 +156,7 @@ class DefaultController extends CController {
         $cb->add(substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.') + 1) . "/users/" . $rand_id, CJSON::encode($temp));
     }
 
-    
-       /**
+    /**
      * Action for successful authenication with their SocialMedia provider
      *  
      */
@@ -292,6 +229,65 @@ class DefaultController extends CController {
         $datetime = date("Y-m-d H:i:s");
         $time_string = strtotime($datetime);
         return $time_string;
+    }
+
+    public function loginWithOldUserFromSocialPlatfrom($identity) {
+        if (Yii::app()->user->isGuest) {
+            $this->_loginUser($identity);
+        } else {
+            $this->render('close');
+        }
+    }
+
+    public function loginWithNewUserFromSocialPlatfrom($identity) {
+        if (Yii::app()->user->isGuest) {
+            // They aren't logged in => display a form to choose their username & email 
+            // (we might not get it from the provider) 
+            $this->createNewUser($identity);
+        } else {
+            // They are already logged in, link their user account with new provider
+            $identity->id = Yii::app()->user->id;
+            $this->_linkProvider($identity);
+            $this->redirect(Yii::app()->session['hybridauth-ref']);
+            unset(Yii::app()->session['hybridauth-ref']);
+        }
+    }
+
+    public function createNewUser($identity) {
+        if ($this->module->withYiiUser == true) {
+            Yii::import('application.modules.user.models.*');
+        } else {
+            Yii::import('application.models.*');
+        }
+
+        $user = new User;
+        if (isset($_POST['User'])) {
+            //Save the form
+            $user->attributes = $_POST['User'];
+            $user->REC_DATETIME = new CDbExpression('NOW()');
+            $user->REC_TIMESTAMP = new CDbExpression('NOW()');
+            // creating the users record in the Users table - DingDing to investigate
+            if ($user->validate() && $user->save()) {
+                $identity->id = $user->REC_ID;
+                $identity->username = $user->USER_NAME;
+                // creates the Users Profile record in the userprofile table
+                $this->_linkProvider($identity);
+                // post to facebook on successful registration
+                // login in the user and redirect 
+                $this->_loginUser($identity);
+            } // } else { do nothing } => the form will get redisplayed
+        } else {
+            //Display the form with some entries prefilled if we have the info.
+            if (isset($identity->userData->email)) {
+                $user->EMAIL_ADDRESS = $identity->userData->email;
+                $email = explode('@', $user->email);
+                $user->username = $email[0];
+            }
+        }
+
+        $this->render('createUser', array(
+            'user' => $user,
+        ));
     }
 
 }

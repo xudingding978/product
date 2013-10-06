@@ -54,9 +54,11 @@ class ProfilesController extends Controller {
 //Iterate over the hits and print out some data
         $i = 0;
         foreach ($response as $hit) {
-            $results .= CJSON::encode($hit['source']['doc']['profile'][0]);
-            if (++$i !== count($response)) {
-                $results .= ',';
+            if(isset($hit['source']['doc']['profile'][0])) {
+                $results .= CJSON::encode($hit['source']['doc']['profile'][0]);
+                if (++$i !== count($response)) {
+                    $results .= ',';
+                }
             }
         }
         $results .= ']}';
@@ -76,10 +78,10 @@ class ProfilesController extends Controller {
             $docID = $domain . "/profiles/" . $id;
             $tempMega = $cb->get($docID);
             $mega = CJSON::decode($tempMega, true);
-            $mega['profile'][0] = $tempProfile;  
-           $mega['profile'][0]['followers']= array();
-            $mega['profile'][0]['collections']= array();
-             
+            $mega['profile'][0] = $tempProfile;
+            $mega['profile'][0]['followers'] = array();
+            $mega['profile'][0]['collections'] = array();
+
 
             if ($cb->set($docID, CJSON::encode($mega))) {
                 $this->sendResponse(204);
@@ -157,7 +159,7 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_pinterest_link'] = $newRecord['profile_pinterest_link'];
             $oldRecord['profile'][0]['profile_linkedin_link'] = $newRecord['profile_linkedin_link'];
             $oldRecord['profile'][0]['profile_youtube_link'] = $newRecord['profile_youtube_link'];
-            
+
             if ($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true))) {
                 $this->sendResponse(204);
             }

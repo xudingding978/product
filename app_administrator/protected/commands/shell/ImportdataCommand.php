@@ -210,7 +210,11 @@ class ImportdataCommand extends CConsoleCommand {
         }
     }
 
+    
+    
     public function importMegaObj($data_list, $id) {
+        
+
         $json_list = json_encode($data_list);
         try {
             $ch = curl_init("http://api.develop.devbox/megaimport/");
@@ -260,7 +264,7 @@ class ImportdataCommand extends CConsoleCommand {
 
         // get book infor 
         $book_id = array();
-        $book_date = 0;
+    //   $book_date = 0;
         $book_title = "";
         $book_list = Books::model()->getBookByPhotoID($val['id']);
         $timezone="";
@@ -275,19 +279,19 @@ class ImportdataCommand extends CConsoleCommand {
                 if(sizeof($time_array)>0) {
                     $UTC = $time_array['utc'];
                     $timezone = $time_array['timezone'];
-                    if ((int)$UTC>$book_date) {
-                       $book_date = $UTC;
+//                    if ((int)$UTC>$book_date) {
+//                       $book_date = $UTC;
                         $region_book = str_replace(" & ", "-", $region_book);
                         $region_book = str_replace(" ", "-", $region_book);
                         $book_title =$region_book."-".$title;
     //                    $book_title = strtolower($book_title);
-                    }
+              //      }
                 }
             }
         }
         
         // get current datetime
-        $accessed = strtotime(date('Y-m-d H:i:s'));
+        $accessed = date('Y-m-d H:i:s');
         
         // get keywords imfor
         $keywords = mb_check_encoding($val['keywords'], 'UTF-8') ? $val['keywords'] : utf8_encode($val['keywords']);
@@ -296,7 +300,7 @@ class ImportdataCommand extends CConsoleCommand {
             "type" => "photo",
             "accessed" => $accessed,
             "active_yn" => "y",
-            "created" => $book_date,
+            "created" => $UTC,
             "timezone" =>$timezone,
             "creator" => $book_title,
             "creator_type" => 'user',
@@ -356,7 +360,7 @@ class ImportdataCommand extends CConsoleCommand {
             "photo_brands" => null,
             "photo_products" => null,
             "photo_time_zone" =>$timezone,
-            "photo_created" => $book_date,
+            "photo_created" => $UTC,
             "photo_original_filename" => $original_size,
             "photo_original_width" => $return_original->width,
             "photo_original_height" => $return_original->height,
@@ -374,7 +378,7 @@ class ImportdataCommand extends CConsoleCommand {
         return $obj;
     }
 
-    public function getUTC($datetime, $region) {
+    public function UTC($datetime, $region) {
         $time_zone = '';
         switch ($region) {
             case "New Zealand": 
@@ -396,8 +400,8 @@ class ImportdataCommand extends CConsoleCommand {
         };
         $time_array = array();
         date_default_timezone_set($time_zone);
-        $time_string = strtotime($datetime);
-        $time_array['utc']=$time_string;
+     //   $time_string = strtotime($datetime);
+        $time_array['time']=$datetime;
         $time_array['timezone']=$time_zone;
         
         return $time_array;

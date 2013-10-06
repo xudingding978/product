@@ -45,7 +45,18 @@ class FollowersController extends Controller {
             if (!isset($mega_profile['profile'][0]['followers'])) {
                 $mega_profile['profile'][0]['followers'] = array();
             }
-            array_unshift($mega_profile['profile'][0]['followers'], $request_arr);
+            
+            $bool = 0;
+            for ($i = 0; $i < sizeof($mega_profile['profile'][0]['followers']); $i++) {
+                if ($request_arr["follower_id"] === $mega_profile['profile'][0]['followers'][$i]["follower_id"]) {
+                    $bool = 1;
+                    break;
+                }
+            }
+            if (!$bool) {
+                 array_unshift($mega_profile['profile'][0]['followers'], $request_arr);
+            }
+                   
             if ($cb->set($docID_profile, CJSON::encode($mega_profile))) {
                 $isSaving = true;
             } else {
@@ -218,7 +229,7 @@ class FollowersController extends Controller {
         }
         return $newRecord;
     }
-    
+
     public function actionRead() {
         $like = CJSON::decode(file_get_contents('php://input'));
         $likeArr = CJSON::decode($like, true);
@@ -257,7 +268,7 @@ class FollowersController extends Controller {
         }
     }
 
-       public function actionReadProfileFollower() {
+    public function actionReadProfileFollower() {
         $like = CJSON::decode(file_get_contents('php://input'));
         $likeArr = CJSON::decode($like, true);
 
@@ -294,7 +305,7 @@ class FollowersController extends Controller {
             echo $exc->getTraceAsString();
         }
     }
-    
+
     public function setFollowParam($id, $like_user, $oldRecordDeep, $userFollower, $newRecord) {
         if (!isset($oldRecordDeep['user'][0]["followers"])) {
             $newRecord['follower_size'] = 0;
@@ -374,8 +385,22 @@ class FollowersController extends Controller {
         $newRecord['record_id'] = $id;
         $newRecord['name'] = $oldRecordDeep['profile'][0]["profile_name"];
         $newRecord['photo_url'] = $oldRecordDeep['profile'][0]["profile_pic_url"];
-        $newRecord['cover_url_small'] = $oldRecordDeep['profile'][0]["profile_bg_url"];
+        if (isset($oldRecordDeep['profile'][0]["profile_hero_cover_url"])) {
+            $newRecord['cover_url_small'] = $oldRecordDeep['profile'][0]["profile_hero_cover_url"];
+        } else {
+            $newRecord['cover_url_small'] = $oldRecordDeep['profile'][0]["profile_hero_url"];
+        }
         $newRecord['following_status'] = false;
+        if (!isset($oldRecordDeep['profile'][0]["profile_partner_ids"]) ){
+            $newRecord['partner_size']=0;
+        } else {
+            if ($oldRecordDeep['profile'][0]["profile_partner_ids"] === null || $oldRecordDeep['profile'][0]["profile_partner_ids"] ==='') {
+                $newRecord['partner_size']=0;
+            } else {
+                $partner = explode(",", $oldRecordDeep['profile'][0]["profile_partner_ids"]);
+                $newRecord['partner_size']=sizeof($partner);
+            }
+        }
         if (!isset($oldRecordDeep['profile'][0]["collections"])) {
             $newRecord['collections_size'] = 0;
         } else {
@@ -426,6 +451,45 @@ class FollowersController extends Controller {
             }
         }
         return $newRecord;
+    }
+
+    public function actionReadPhoto() {
+        $like_arr = CJSON::decode(file_get_contents('php://input'));
+        
+        try {
+            $cb = $this->couchBaseConnection();
+            $docID = $this->getDomain() . "/profiles/" . $like_arr;
+            $old = $cb->get($docID); // get the old user record from the database according to the docID string
+            $oldRecord = CJSON::decode($old, true);
+            
+            $newRecord = null;
+            if (!isset($oldRecord['profile'][0]["followers"])) {
+                $oldRecord['profile'][0]["followers"] = array();
+            }
+            if (sizeof($oldRecord['profile'][0]["followers"]) < 6) {
+                $followerLength = sizeof($oldRecord['profile'][0]["followers"]);
+            } else {
+                $followerLength = 6;
+            }
+            for ($i = 0; $i < $followerLength; $i++) {
+                $id = $oldRecord['profile'][0]["followers"][$i]["follower_id"];               
+                $docIDDeep = $this->getDomain() . "/users/" . $id;
+                $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+                $oldRecordDeep = CJSON::decode($oldDeep, true);
+                $newRecord[$i]['record_id'] = $id;
+                $newRecord[$i]['name'] = $oldRecordDeep['user'][0]["display_name"];
+                $newRecord[$i]['photo_url'] = $oldRecordDeep['user'][0]["photo_url_large"];
+            }
+            
+            if ($newRecord === null) {
+                $this->sendResponse(204);
+            } else {
+
+                $this->sendResponse(200, CJSON::encode($newRecord));
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
     }
 
     public function actionReadFollowing() {
@@ -646,9 +710,19 @@ class FollowersController extends Controller {
             $mega_user = CJSON::decode($tempMega_user, true);
             if (!isset($mega_user['user'][0]['followers'])) {
                 $mega_user['user'][0]['followers'] = array();
+            }  
+             $bool = 0;
+            for ($i = 0; $i < sizeof($mega_user['user'][0]['followers']); $i++) {
+                if ($request_arr['follower_id'] === $mega_user['user'][0]['followers'][$i]["follower_id"]) {
+                    $bool = 1;
+                    break;
+                }
             }
 
-            array_unshift($mega_user['user'][0]['followers'], $request_arr);
+            if (!$bool) {
+                     array_unshift($mega_user['user'][0]['followers'], $request_arr);
+            }
+      
             if ($cb->set($docID_user, CJSON::encode($mega_user))) {
                 $isSaving = true;
             } else {

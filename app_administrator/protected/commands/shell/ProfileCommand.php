@@ -27,6 +27,49 @@ class ProfileCommand extends Controller_admin {
         $end_time = microtime(true);
         echo "totally spend: " . ($end_time - $start_time);
     }
+    
+    
+    protected function categorychange(){
+
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "query_string": {
+            "default_field": "couchbaseDocument.doc.type",
+            "query": "profile"
+          }
+        }
+      ],
+      "must_not": [],
+      "should": []
+    }
+  },
+  "from": 0,
+  "size": 500,
+  "sort": [],
+  "facets": {}
+
+    }
+    
+    
+    protected function modify(){
+        $cb->couchBaseConnection('temp');
+        $results -$cb->view('profile_category', arrary());
+        $profile_categories = array();
+        
+        
+        foreach($results['rows'] as $row){
+            $doc - $cb ->get($row['id']);
+            if($doc){
+                $doc -jason_decode($doc,true);
+                $profile_categories[] - array(
+                    'category' =>$doc['category']
+                );
+            }
+        }
+        $cb ->prepend($["profile_category"], null);
+    }
 
     
     
@@ -35,7 +78,7 @@ class ProfileCommand extends Controller_admin {
         $profiles_arr = $this->selectProfilesFromSQLDB(profiles_flooring_foundation::model());
         // $profiles_arr = $this->selectProfilesFromSQLDB(Profiles_Gj_Gardner::model());
         //  echo var_export($profiles_arr, true);
-        if (isset($profiles_arr['keywords'])) {
+     //   if (isset($profiles_arr['keywords'])) {
 
             // build the CURL object to access the API's endpoint
 //            $cb = curl_init($url);
@@ -43,7 +86,7 @@ class ProfileCommand extends Controller_admin {
 //            curl_setopt($cb, CURLOPT_POSTFIELDS, CJSON::encode($profiles_arr));
 //            curl_setopt($cb, CURLOPT_RETURNTRANSFER, true);
 //            curl_setopt($cb, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-        }
+    //    }
 
         if ($profiles_arr != null) {
             $total_amount = sizeof($profiles_arr);
@@ -231,36 +274,36 @@ class ProfileCommand extends Controller_admin {
             $obj_arr['owner_title'] = $obj_arr['profile'][0]['profile_name'];
         }
 
-        // get current datetime
-        $now = strtotime(date('Y-m-d H:i:s'));
-//        if (array_key_exists('accessed', $obj_arr)) {
-        $obj_arr['accessed'] = $now;
-//        } else $obj_arr['accessed'] = $now;
-//         if (array_key_exists('created', $obj_arr)) {
-        $obj_arr['created'] = $now;
-//        } else $obj_arr['created'] = $now;
-//        if (array_key_exists('updated', $obj_arr)) {
-        $obj_arr['updated'] = $now;
-//        } else $obj_arr['updated'] = $now;
-
-        if (!array_key_exists('boost', $obj_arr)) {
-            $obj_arr['boost'] = "5";
-        }
-
-//        if(isset($obj_arr['profile'][0]['profile_editors'])) {
-        $obj_arr['profile'][0]['profile_editors'] = '*@trendsideas.com, support@trendsideas.com';
+//        // get current datetime
+//        $now = strtotime(date('Y-m-d H:i:s'));
+////        if (array_key_exists('accessed', $obj_arr)) {
+//        $obj_arr['accessed'] = $now;
+////        } else $obj_arr['accessed'] = $now;
+////         if (array_key_exists('created', $obj_arr)) {
+//        $obj_arr['created'] = $now;
+////        } else $obj_arr['created'] = $now;
+////        if (array_key_exists('updated', $obj_arr)) {
+//        $obj_arr['updated'] = $now;
+////        } else $obj_arr['updated'] = $now;
+//
+//        if (!array_key_exists('boost', $obj_arr)) {
+//            $obj_arr['boost'] = "5";
 //        }
 
-        if (!array_key_exists('profile_package_name', $obj_arr['profile'][0])) {
-            $obj_arr['profile'][0]['profile_package_name'] = 'Gold';
-        }
+////        if(isset($obj_arr['profile'][0]['profile_editors'])) {
+//        $obj_arr['profile'][0]['profile_editors'] = '*@trendsideas.com, support@trendsideas.com';
+////        }
 
-        if (array_key_exists('profile_regoin', $obj_arr['profile'][0])) {
-            $temp_str = $obj_arr['profile'][0]['profile_regoin'];
-            $obj_arr['profile'][0]['profile_region'] = $temp_str;
-
-            unset($obj_arr['profile'][0]['profile_regoin']);
-        }
+//        if (!array_key_exists('profile_package_name', $obj_arr['profile'][0])) {
+//            $obj_arr['profile'][0]['profile_package_name'] = 'Gold';
+//        }
+//
+//        if (array_key_exists('profile_regoin', $obj_arr['profile'][0])) {
+//            $temp_str = $obj_arr['profile'][0]['profile_regoin'];
+//            $obj_arr['profile'][0]['profile_region'] = $temp_str;
+//
+//            unset($obj_arr['profile'][0]['profile_regoin']);
+//        }
 
         return $obj_arr;
     }

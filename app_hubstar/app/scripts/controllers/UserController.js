@@ -379,7 +379,7 @@ HubStar.UserController = Ember.Controller.extend({
 
             }
             else {
-                that.get('controllers.applicationFeedback').statusObserver(null, "Please check your input","warnning");
+                that.get('controllers.applicationFeedback').statusObserver(null, "Please check your input", "warnning");
             }
         });
     },
@@ -438,12 +438,12 @@ HubStar.UserController = Ember.Controller.extend({
             var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
 //            document.getElementById(checkList[i].id).style.border = '';
 
-if(checkList[i].id==='email'){
-     document.getElementById(checkList[i].id).setAttribute("class", "disabled-btn");
-}
-else{
-            document.getElementById(checkList[i].id).setAttribute("class", "");
-}
+            if (checkList[i].id === 'email') {
+                document.getElementById(checkList[i].id).setAttribute("class", "disabled-btn");
+            }
+            else {
+                document.getElementById(checkList[i].id).setAttribute("class", "");
+            }
             if (checkList[i].input !== null && checkList[i].input.length > checkList[i].length)
             {
                 result = false;

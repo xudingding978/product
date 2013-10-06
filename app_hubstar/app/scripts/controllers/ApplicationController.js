@@ -310,8 +310,7 @@ document.getElementById("loginPassword").setAttribute("class", "login-textfield"
                 that.get('controllers.applicationFeedback').statusObserver(null, "Invalid Username.", "warnning");
               //    if ($('#forgot-message-container').css('display') === 'none') {
               // clint here needs 'Invalid Username.' message when login
-              
-        $('#forgot-message-container').animate({opacity: 'toggle'});
+      
             }
             else if (params === 0) {
                 document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
@@ -353,7 +352,7 @@ document.getElementById("loginPassword").setAttribute("class", "login-textfield"
             if (params === 1) {
                 that.get('controllers.applicationFeedback').statusObserver(null, "Invalid Username.", "warnning");
                       // clint here needs 'Invalid Username.' message when resetpassword
-                
+
             }
             else if (params === 0) {
                 that.get('controllers.applicationFeedback').statusObserver(null, "You have registered this email using social media account.", "warnning");
@@ -363,10 +362,9 @@ document.getElementById("loginPassword").setAttribute("class", "login-textfield"
                 requiredBackEnd('emails', 'forgetpassword', emailInfo, 'POST', function(params) {
                     if(params===1)
                         {         if ($('#forgot-message-container').css('display') === 'none') {
-        $('#forgot-message-container').animate({opacity: 'toggle'});
-    }
+                                     $('#forgot-message-container').animate({opacity: 'toggle'});
                                    }
-
+                         }
                 });
             }
         });

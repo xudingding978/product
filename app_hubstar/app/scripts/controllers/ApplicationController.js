@@ -177,19 +177,24 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
                     document.getElementById("email").setAttribute("class", "login-textfield error-textfield");
                     that.get('controllers.applicationFeedback').statusObserver(null, "You have registered with this email using social media account.", "warnning");
+
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#email-used-by-social').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+
+                   
+
+                } // EMAIL ALREADY IN USE; The use has attempted to register with an email address that has already been used via 'register with social account'
                 
-                    // clint here needs 'You have registered with this email using social media account.' message when signup
                 
-                }
                 else if (params === 2) {
 
                     document.getElementById("email").setAttribute("class", "login-textfield error-textfield");
                     that.get('controllers.applicationFeedback').statusObserver(null, "Email already exists.", "warnning");
-                    
-                    
-                      // clint here needs 'Email already exists.' message when signup
-                    
-                }
+
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#email-in-use').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+
+                }// EMAIL ALREADY IN USE; The user as attempted to register with an email address that is already in use
             });
         }
     },
@@ -246,29 +251,35 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 {
                     result = false;
                     this.get('controllers.applicationFeedback').statusObserver(null, "Your length should be between " + checkList[i].lengthMin + " and " + checkList[i].lengthMax + ".", "warnning");
-                    
-                    
-                           
-                     // clint here needs 'Your password length should be between 6 and 40' message when login
-                    
-                    
+
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#invalid-password').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+
                     document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
                     break;
+
                 }
-            }
+            }// INVALID PASSWORD; the user has entered a  password that does not meet the requirements (6-40 characters long)
+
+
             if (checkList[i].id === 'first_name' || checkList[i].id === 'last_name' || checkList[i].id === 'email' || checkList[i].id === 'password')
             {
                 if (checkList[i].input === null || checkList[i].input === "" || checkList[i].input === undefined) {
                     result = false;
                     this.get('controllers.applicationFeedback').statusObserver(null, "Please fill the mandory field.", "warnning");
-                    
-                     // clint here needs 'Please fill the mandory field.' message when login
+
+
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#missing-fields').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
                     
                     document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
-                    $('#forgot-message-container').animate({opacity: 'toggle'});
                     break;
+
+
                 }
-            }
+            }//MISSING FIELDS; the user has not filled in all the mandatory fields
+
+
             if (checkList[i].input !== null && checkList[i].isEmailValid === true)
             {
                 if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
@@ -277,15 +288,14 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 else {
                     result = false;
                     this.get('controllers.applicationFeedback').statusObserver(null, "Invalid Email.", "warnning");
-                    
-                         // clint here needs 'Invalid Email..' message when login
-                    
-                    
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#invalid-user-name-register').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+
+
+
                     document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
-                    
-                    
                     break;
-                }
+                }// INVALID user name when the user attempts to login.
             }
         }
         return result;
@@ -297,9 +307,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('gender', "female");
     },
     login: function() {
- this.set('isWaiting',true);
-document.getElementById("loginUsername").setAttribute("class", "login-textfield");
-document.getElementById("loginPassword").setAttribute("class", "login-textfield");
+        this.set('isWaiting', true);
+        document.getElementById("loginUsername").setAttribute("class", "login-textfield");
+        document.getElementById("loginPassword").setAttribute("class", "login-textfield");
 
         var loginInfo = [this.get('loginUsername'), this.get('loginPassword'), this.validateEmail(this.get('loginUsername'))];
         var that = this;
@@ -308,63 +318,75 @@ document.getElementById("loginPassword").setAttribute("class", "login-textfield"
                 document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
                 that.set('isWaiting', false);
                 that.get('controllers.applicationFeedback').statusObserver(null, "Invalid Username.", "warnning");
-              //    if ($('#forgot-message-container').css('display') === 'none') {
-              // clint here needs 'Invalid Username.' message when login
-      
-            }
+
+                $('.black-tool-tip').css('display', 'none');
+                $('#invalid-user-name').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+            }// INVALID user name when the user attempts to login.
+
+
             else if (params === 0) {
                 document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
                 that.set('isWaiting', false);
                 that.get('controllers.applicationFeedback').statusObserver(null, "You have registered with this email using social media account.", "warnning");
-           
-          
-             // clint here needs 'You have registered with this email using social media account' message when login
-           
-            }
+
+                $('.black-tool-tip').css('display', 'none');
+                $('#invalid-account-type').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+
+
+            } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is a social network login account
             else {
 
                 if (that.get('loginPassword') === params.PWD_HASH && that.get('loginPassword') !== undefined) {
-         
                     localStorage.loginStatus = params.COUCHBASE_ID;
                     that.transitionToRoute('search');
                     that.set('loginUsername', "");
                     that.set('loginPassword', "");
-                   that.set('isWaiting',false);
+                    that.set('isWaiting', false);
                 }
                 else {
                     document.getElementById("loginPassword").setAttribute("class", "login-textfield error-textfield");
 
                     that.set('isWaiting', false);
                     that.get('controllers.applicationFeedback').statusObserver(null, " Invalid password.", "warnning");
-                    
-                      // clint here needs ' Invalid password.' message when login
-                    
+                    if ($('#incorrect-password').css('display') === 'none') {
+
+                        $('.black-tool-tip').css('display', 'none');
+                        $('#incorrect-password').animate({opacity: 'toggle'});
+                    }// INCORRECT PASSWORD; User is trying to login with incorrect password
+
+
+
                 }
             }
         });
     },
     emailSend: function()
     {
-       
+
         var signupInfo = [this.get('resetPasswordEmail')];
         var that = this;
         requiredBackEnd('site', 'resetemail', signupInfo, 'POST', function(params) {
             if (params === 1) {
                 that.get('controllers.applicationFeedback').statusObserver(null, "Invalid Username.", "warnning");
-                      // clint here needs 'Invalid Username.' message when resetpassword
 
-            }
+
+                $('.black-tool-tip').css('display', 'none');
+                $('#invalid-user-name').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+
+
+            }// INVALID EMAIL; The user has forgotten their password and inputted an invalid email address
             else if (params === 0) {
                 that.get('controllers.applicationFeedback').statusObserver(null, "You have registered this email using social media account.", "warnning");
             }
             else {
                 var emailInfo = [that.get('resetPasswordEmail'), params.USER_NAME, params.PWD_HASH];
                 requiredBackEnd('emails', 'forgetpassword', emailInfo, 'POST', function(params) {
-                    if(params===1)
-                        {         if ($('#forgot-message-container').css('display') === 'none') {
-                                     $('#forgot-message-container').animate({opacity: 'toggle'});
-                                   }
-                         }
+                    if (params === 1) {
+                        $('.black-tool-tip').css('display', 'none');
+                        $('#new-password').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+                        /* forgotten password email sent */
+                    }
+
                 });
             }
         });

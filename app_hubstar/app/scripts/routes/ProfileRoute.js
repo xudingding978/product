@@ -77,6 +77,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
         });
     },
     sendGAMessage: function(profile_analytics_code, dom_url) {
+//        document.cookie = "_ga" + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         try {
             (function(i, s, o, g, r, a, m) {
                 i['GoogleAnalyticsObject'] = r;
@@ -91,7 +92,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
             })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 //            window['ga-disable-UA-44590900-1'] = false;
             console.log(profile_analytics_code);
-            ga('create', profile_analytics_code, {'cookieDomain': dom_url});
+            ga('create', profile_analytics_code, {'cookieName': dom_url, 'cookieDomain': 'trendsideas.com', 'cookieExpires': 60 * 60 * 24 * 28});
             setTimeout(function() {
                 console.log();
                 ga('send', 'pageview');

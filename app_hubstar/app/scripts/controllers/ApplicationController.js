@@ -312,6 +312,9 @@ document.getElementById("loginPassword").setAttribute("class", "login-textfield"
     },
     emailSend: function()
     {
+                if ($('#forgot-message-container').css('display') === 'none') {
+        $('#forgot-message-container').animate({opacity: 'toggle'});
+    }
         var signupInfo = [this.get('resetPasswordEmail')];
         var that = this;
         requiredBackEnd('site', 'resetemail', signupInfo, 'POST', function(params) {
@@ -326,10 +329,7 @@ document.getElementById("loginPassword").setAttribute("class", "login-textfield"
                 requiredBackEnd('emails', 'forgetpassword', emailInfo, 'POST', function(params) {
                     if(params===1)
                         {
-                             if ($('#forgot-message-container').css('display') === 'none') {
-        $('#forgot-message-container').animate({opacity: 'toggle'});
-    }
-                        }
+                                   }
 
                 });
             }

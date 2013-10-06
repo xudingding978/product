@@ -1187,7 +1187,7 @@ div#forgot-password-container{
     color: #fff;
 }
 
-#forgot-message-container{
+.black-tool-tip{
     width: 300px;
     color: white;
     font-size: 13px;

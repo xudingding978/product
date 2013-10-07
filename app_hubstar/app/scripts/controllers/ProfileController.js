@@ -13,8 +13,6 @@ var seletedID = "";
 var collection_title_record;
 var collection_desc_record;
 
-var editor;
-
 
 
 HubStar.ProfileController = Ember.ObjectController.extend({
@@ -91,6 +89,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     isPhotoUploadMode: false,
     isPhotoEditingMode: false,
     isCrop:false,
+    isFinished:false,
     isProfilePicture:false,
     isProfileHero:false,
     isProfileBackground:false,
@@ -636,7 +635,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     saveUpdateAboutUs: function() {
         var update_About_record = HubStar.Profile.find(this.get('model.id'));
-        update_About_record.set("profile_about_us", $('iframe').contents().find('.wysihtml5-editor').html());
+        //update_About_record.set("profile_about_us", $('iframe').contents().find('.wysihtml5-editor').html());
+        update_About_record.set("profile_about_us", editor.getValue());
+        
         this.get('controllers.applicationFeedback').statusObserver(null, "Update successful");
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_About_record);
         HubStar.store.save();
@@ -698,6 +699,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     flipFrontClick: function() {
         $(".hover").addClass('flip');
         this.selectionForDashborad();
+         
 
     },
     selectionForDashborad: function() {
@@ -716,6 +718,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     {
         this.set('isPhotoUploadMode', true);
         this.set('isPhotoEditingMode', false);
+        this.set('isFinished', false);
         this.set('UploadImageMode', mode);
         var data = {"RequireIamgeType": mode};
         var that = this;
@@ -767,6 +770,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     {
         this.set('isPhotoUploadMode', false);
         this.set('isPhotoEditingMode', true);
+        this.set('isFinished', false);
          if (this.get('UploadImageMode') === "Profile Picture")
         {
             this.set('isProfilePicture',true);
@@ -803,10 +807,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             getImageWidth(src, function(width, height) {
                 that.set('currentWidth', width);
                 that.set('currentHeight', height);
-                console.log(width);
-               console.log(height);
-                
-                var data = {"RequireIamgeType": that.get('UploadImageMode')};
+          var data = {"RequireIamgeType": that.get('UploadImageMode')};
                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
                     if ((width >= params.width) && (height >= params.height))
                     {
@@ -819,13 +820,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             'id': that.get('model.id')};
                         requiredBackEnd('profiles', 'updateStyleImage', data1, 'POST', function(params) {
                             $('#uploadStyleImg').attr("style", "display:none");
-                            that.set('isPhotoEditingMode', true);
-                            that.set('isPhotoUploadMode', false);                    
+                            that.set('isPhotoEditingMode', false);
+                            that.set('isPhotoUploadMode', false);          
+                            that.set('isFinished', true);
                             HubStar.store.save();
+                            
                         });
                         
                         that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
-                        that.changeSize();
+                       
                     }
 
                     else if (width < params.width || height < params.height) {
@@ -875,8 +878,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('newStyleImageName', "");
         this.set('CurrentImageSize', "");
           this.set('isCrop', false);
-    
-        this.changeSize();
+         this.changeSize();
     }, dropdown: function(checking) {
         if (checking === "package") {
             this.set('isActiveDropdown', false);

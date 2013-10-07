@@ -19,7 +19,7 @@ function Selection(x, y, w, h) {
     this.py = y;
 
     this.csize = 3; // resize cubes size
-    this.csizeh = 5; // resize cubes size (on hover)
+    this.csizeh = 15; // resize cubes size (on hover)
 
     this.bHow = [false, false, false, false]; // hover statuses
     this.iCSize = [this.csize, this.csize, this.csize, this.csize]; // resize cubes sizes
@@ -148,24 +148,21 @@ function crop(imageSrc) {
             {
                 theSelection.y = 0;
             }
-
-
-
-
-            var theSelectionX = ctx.canvas.width - theSelection.x - theSelection.w;
-            var theSelectionY = ctx.canvas.height - theSelection.y - theSelection.h;
-
-            if (theSelectionX < 0 && theSelectionY < 0) {
-                theSelectionX = 0;
-                theSelectionX = 0;
-            } else if (theSelectionX < 0 && theSelectionY > 0)
+            
+             if (theSelection.x + theSelection.w - ctx.canvas.width> 0 && theSelection.y + theSelection.h - ctx.canvas.height> 0) {
+                 
+                theSelection.x = ctx.canvas.width -  theSelection.w ;
+                theSelection.y   = ctx.canvas.height - theSelection.h;
+                
+            } else if (theSelection.x + theSelection.w - ctx.canvas.width> 0 && theSelection.y + theSelection.h - ctx.canvas.height< 0)
             {
-                theSelectionX = 0;
+                 theSelection.x  = ctx.canvas.width - theSelection.w;
             }
-            else if (theSelectionX > 0 && theSelectionY < 0)
+            else if (theSelection.x + theSelection.w - ctx.canvas.width< 0 && theSelection.y + theSelection.h - ctx.canvas.height> 0)
             {
-                theSelectionY = 0;
+                 theSelection.y = ctx.canvas.height - theSelection.h; 
             }
+
 
 
 
@@ -185,26 +182,26 @@ function crop(imageSrc) {
         {
 
             theSelection.bHow[0] = true;
-            theSelection.iCSize[0] = theSelection.csizeh;
+            theSelection.iCSize[0] = theSelection.csizeh/3;
 
         }
         if (iMouseX > theSelection.x + theSelection.w - theSelection.csizeh && iMouseX < theSelection.x + theSelection.w + theSelection.csizeh &&
                 iMouseY > theSelection.y - theSelection.csizeh && iMouseY < theSelection.y + theSelection.csizeh) {
 
             theSelection.bHow[1] = true;
-            theSelection.iCSize[1] = theSelection.csizeh;
+            theSelection.iCSize[1] = theSelection.csizeh/3;
         }
         if (iMouseX > theSelection.x + theSelection.w - theSelection.csizeh && iMouseX < theSelection.x + theSelection.w + theSelection.csizeh &&
                 iMouseY > theSelection.y + theSelection.h - theSelection.csizeh && iMouseY < theSelection.y + theSelection.h + theSelection.csizeh) {
 
             theSelection.bHow[2] = true;
-            theSelection.iCSize[2] = theSelection.csizeh;
+            theSelection.iCSize[2] = theSelection.csizeh/3;
         }
         if (iMouseX > theSelection.x - theSelection.csizeh && iMouseX < theSelection.x + theSelection.csizeh &&
                 iMouseY > theSelection.y + theSelection.h - theSelection.csizeh && iMouseY < theSelection.y + theSelection.h + theSelection.csizeh) {
 
             theSelection.bHow[3] = true;
-            theSelection.iCSize[3] = theSelection.csizeh;
+            theSelection.iCSize[3] = theSelection.csizeh/3;
         }
 
 

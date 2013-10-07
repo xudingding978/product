@@ -54,7 +54,7 @@ HubStar.UserController = Ember.Controller.extend({
     photo_url_large: "",
     photo_url: "",
     cover_url: "",
-     isCrop:false,
+    isCrop: false,
     isPhotoUploadMode: false,
     newStyleImageSource: '',
     newStyleImageName: '',
@@ -195,8 +195,6 @@ HubStar.UserController = Ember.Controller.extend({
             $('#change_profile').hide();
             this.setUploadImageMode(mode);
 
-
-
         }
 
     },
@@ -210,7 +208,7 @@ HubStar.UserController = Ember.Controller.extend({
             this.set('newStyleImageSource', "");
             this.set('newStyleImageName', "");
             this.set('CurrentImageSize', "");
-           this.set('isCrop', false);
+            this.set('isCrop', false);
 
 
         }
@@ -366,13 +364,13 @@ HubStar.UserController = Ember.Controller.extend({
             update_user_record.set('region', this.get('location'));
             update_user_record.set('email', this.get('email'));
             update_user_record.set('password', this.get('password'));
-            
+
             this.get('controllers.applicationFeedback').statusObserver(null, "Update successfully.");
-       
+
             HubStar.store.save();
         }
         else {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please check you have already filled the mandatory field.","warnning");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please check you have already filled the mandatory field.", "warnning");
         }
     },
     isInputValid: function() {
@@ -450,7 +448,7 @@ HubStar.UserController = Ember.Controller.extend({
             HubStar.store.save();
         }
         else {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please check you have filled right links.","warnning");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please check you have filled right links.", "warnning");
         }
     },
     isSociallinkInputValid: function() {
@@ -467,13 +465,13 @@ HubStar.UserController = Ember.Controller.extend({
         var checkList = new Array();
         var facebook = new checkObject("facebook", this.get('facebook'), 128, true, "facebook");
         checkList.push(facebook);
-        var twitter = new checkObject("twitter", this.get('twitter'), 128, true,  "twitter");
+        var twitter = new checkObject("twitter", this.get('twitter'), 128, true, "twitter");
         checkList.push(twitter);
         var googleplus = new checkObject("googleplus", this.get('googleplus'), 128, true, "plus.google");
         checkList.push(googleplus);
-        var pinterest = new checkObject("pinterest", this.get('pinterest'), 128, true,  "pinterest");
+        var pinterest = new checkObject("pinterest", this.get('pinterest'), 128, true, "pinterest");
         checkList.push(pinterest);
-        var linkedin = new checkObject("linkedin", this.get('linkedin'), 128, true,"linkedin");
+        var linkedin = new checkObject("linkedin", this.get('linkedin'), 128, true, "linkedin");
         checkList.push(linkedin);
         var youtube = new checkObject("youtube", this.get('youtube'), 128, true, "youtube");
         checkList.push(youtube);
@@ -491,7 +489,7 @@ HubStar.UserController = Ember.Controller.extend({
             {
                 if (checkList[i].input.indexOf(checkList[i].shouldInclude) !== -1 || checkList[i].input === "") {
                     result = true;
-                }  
+                }
                 else {
                     result = false;
                     document.getElementById(checkList[i].id).style.border = '2px solid red';
@@ -761,32 +759,32 @@ HubStar.UserController = Ember.Controller.extend({
 
                 if (that.get('UploadImageMode') === "User Cover") {
                     if (width < 800 || height < 250) {
-                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + 800 + "x" + 250,"warnning");
+                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + 800 + "x" + 250, "warnning");
                         that.set('newStyleImageSource', "");
                         that.set('newStyleImageName', "");
                         that.set('CurrentImageSize', "");
                         that.set('isCrop', false);
                     } else if (width > 2500 || height > 1500) {
-                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size smaller than  " +2500 + "x" + 1500,"warnning");
+                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size smaller than  " + 2500 + "x" + 1500, "warnning");
                         that.set('newStyleImageSource', "");
                         that.set('newStyleImageName', "");
                         that.set('CurrentImageSize', "");
                         that.set('isCrop', false);
                     }
-                    else if (width >800 || height > 250) { 
-  
-                       that.set('isCrop', true);
+                    else if (width > 800 || height > 250) {
+
+                        that.set('isCrop', true);
                     }
                 }
 
                 else if (that.get('UploadImageMode') === "User Picture") {
                     if (width < 150 || height < 150) {
-                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + 150 + "x" + 150,"warnning");
+                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + 150 + "x" + 150, "warnning");
                         that.set('newStyleImageSource', "");
                         that.set('newStyleImageName', "");
                         that.set('CurrentImageSize', "");
-                         that.set('isCrop', false);
-                    } 
+                        that.set('isCrop', false);
+                    }
 //                    else if (width > 1050 || height >1050) {
 //                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size smaller than  " + 1050 + "x" + 1050,"warnning");
 //                        that.set('newStyleImageSource', "");
@@ -794,8 +792,8 @@ HubStar.UserController = Ember.Controller.extend({
 //                        that.set('CurrentImageSize', "");
 //                         that.set('isCrop', false);
 //                    }
-                    else if ( width > 150 ||  height > 150) {
-                      that.set('isCrop', true);
+                    else if (width > 150 || height > 150) {
+                        that.set('isCrop', true);
 
                     }
                 }
@@ -842,12 +840,14 @@ HubStar.UserController = Ember.Controller.extend({
                             'id': that.get('model.id'), 'type': type};
                         requiredBackEnd('users', 'updateStyleImage', data1, 'POST', function(params) {
                             $('#uploadStyleImg').attr("style", "display:none");
-                            that.set('isPhotoUploadMode', false);
+                            that.set('isPhotoUploadMode', false);                        
                             HubStar.store.save();
+
                         });
-                        that.userPhotoEditBackButton();
-                        that.userDashboardBackButton();
+                         that.userPhotoEditBackButton();
+                            that.userDashboardBackButton();
                         that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
+
 
                     }
                     else if (width < params.width || height < params.height) {
@@ -861,7 +861,6 @@ HubStar.UserController = Ember.Controller.extend({
 
                 });
             });
-
         }
     },
     setUploadImageMode: function(mode)

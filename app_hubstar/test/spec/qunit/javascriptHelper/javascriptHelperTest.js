@@ -8,8 +8,7 @@ module("JavascriptHelper Tests");
 
 test("getRestAPIURL", function() {
 
-
-
     var result = getRestAPIURL();
-    equal(result, 'api'+ document.domain, "testTwoController is truthy");
+ 
+    equal(result, 'http://api.'+ document.domain, "Api url is correct.");
 });

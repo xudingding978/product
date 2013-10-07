@@ -47,6 +47,7 @@ return CMap::mergeArray(
             // 'preload' => array('log'),
             // autoloading model and component classes
             'import' => array(
+                'common.components.*',
                 'application.components.Controller',
                 'application.components.RestController',
                 'application.components.HttpRequest',

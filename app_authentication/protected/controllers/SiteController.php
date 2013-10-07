@@ -155,16 +155,23 @@ class SiteController extends Controller {
         $temp['user'][0]['region'] = $request_array[4];
         $temp['user'][0]['password'] = null;
 
-        error_log(var_export(strpos($_SERVER['HTTP_HOST'], '.'), true));
+        $urlController = new UrlController();
+        $link = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        $domain = $urlController->getDomain($link);
 
-        error_log('$rand_id      ' . substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.') + 1) . "/users/" . $rand_id);
+
+
         $this->sendResponse(200, CJSON::encode($model));
-//        if ($cb->add(substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.') + 1) . "/users/" . $rand_id, CJSON::encode($temp))) {
-//
-//            if ($model->save(false)) {
-//                $this->sendResponse(200, CJSON::encode($model));
-//            }
-//        }
+        if ($cb->add($domain . "/users/" . $rand_id, CJSON::encode($temp))) {
+            if ($model->save(false)) {
+
+                            error_log('ok   '.$domain . "/users/" . $rand_id);
+                $this->sendResponse(200, CJSON::encode($model));
+            }
+
+        } else {
+            error_log('false');
+        }
     }
 
     public function actionGetmodel() {

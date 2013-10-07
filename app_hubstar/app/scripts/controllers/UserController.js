@@ -364,7 +364,7 @@ HubStar.UserController = Ember.Controller.extend({
             update_user_record.set('region', this.get('location'));
             update_user_record.set('email', this.get('email'));
             update_user_record.set('password', this.get('password'));
-
+            update_user_record.set('about_me', this.get('about_me'));
             this.get('controllers.applicationFeedback').statusObserver(null, "Update successfully.");
 
             HubStar.store.save();
@@ -840,12 +840,12 @@ HubStar.UserController = Ember.Controller.extend({
                             'id': that.get('model.id'), 'type': type};
                         requiredBackEnd('users', 'updateStyleImage', data1, 'POST', function(params) {
                             $('#uploadStyleImg').attr("style", "display:none");
-                            that.set('isPhotoUploadMode', false);                        
+                            that.set('isPhotoUploadMode', false);
                             HubStar.store.save();
 
                         });
-                         that.userPhotoEditBackButton();
-                            that.userDashboardBackButton();
+                        that.userPhotoEditBackButton();
+                        that.userDashboardBackButton();
                         that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
 
 

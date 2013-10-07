@@ -203,53 +203,40 @@ function changeImage() {
      $('#fadein-image').fadeIn("slow",function(){
               setTimeout(function() {
                    $('#fadein-image').fadeOut("slow",toImage2);
-            }, 1800);
-    
+            }, 5000);
         });
     function toImage2() {
         image.src = "../../../images/landing-page-title(IDEAS).png";
         $('#fadein-image').fadeIn("slow",function(){
              setTimeout(function() {
                    $('#fadein-image').fadeOut("slow",toImage3);
-            }, 1800);
-         
-      //      setTimeout(toImage3,5000);
+            }, 5000);
         });
-        
     }
      function toImage3() {
         image.src = "../../../images/landing-page-title(PRODUCTS).png";
-       
         $('#fadein-image').fadeIn("slow",function(){
               setTimeout(function() {
                    $('#fadein-image').fadeOut("slow",toImage4);
-            }, 1800);
-        
+            }, 5000);
         });
     }
      function toImage4() {
         image.src = "../../../images/landing-page-title(SERVICES).png";
-      
         $('#fadein-image').fadeIn("slow",function(){
               setTimeout(function() {
                    $('#fadein-image').fadeOut("slow",toImage1);
-            }, 1800);
-      
+            }, 5000);
         });
     }
     function toImage1() {
-    image.src = "../../../images/landing-trends.png";
-       
+    image.src = "../../../images/landing-page-title(LOGO).png";      
         $('#fadein-image').fadeIn("slow",function(){
               setTimeout(function() {
                    $('#fadein-image').fadeOut("slow",toImage2);
-            }, 1800);
-            
-          //  setTimeout(toImage2,5000);
+            }, 5000);
         });
-    } 
-  
-   //  setTimeout(toImage2,5000);
+    }  
 }
  /* ideas, products, services img animation*/
 

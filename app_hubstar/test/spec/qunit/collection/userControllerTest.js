@@ -17,7 +17,7 @@ model.addObserver('isLoaded', function() {
     }
 });
 module("Basic Tests");
-test("collectionController", function() {
+test("userController", function() {
 
 //getCreateCollection
     module("group getCreateCollection");

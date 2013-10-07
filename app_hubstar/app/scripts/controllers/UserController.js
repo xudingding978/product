@@ -842,12 +842,12 @@ HubStar.UserController = Ember.Controller.extend({
                             $('#uploadStyleImg').attr("style", "display:none");
                             that.set('isPhotoUploadMode', false);
                             HubStar.store.save();
+                          
 
                         });
-                        that.userPhotoEditBackButton();
-                        that.userDashboardBackButton();
-                        that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
-
+                          that.userPhotoEditBackButton();
+                            that.userDashboardBackButton();
+                            that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
 
                     }
                     else if (width < params.width || height < params.height) {
@@ -862,6 +862,8 @@ HubStar.UserController = Ember.Controller.extend({
                 });
             });
         }
+
+
     },
     setUploadImageMode: function(mode)
     {

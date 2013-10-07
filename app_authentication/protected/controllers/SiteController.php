@@ -154,24 +154,17 @@ class SiteController extends Controller {
         $temp['user'][0]['youtube_link'] = null;
         $temp['user'][0]['region'] = $request_array[4];
         $temp['user'][0]['password'] = null;
-
+        
         $urlController = new UrlController();
         $link = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
         $domain = $urlController->getDomain($link);
 
-
-
-        $this->sendResponse(200, CJSON::encode($model));
         if ($cb->add($domain . "/users/" . $rand_id, CJSON::encode($temp))) {
             if ($model->save(false)) {
 
-                            error_log('ok   '.$domain . "/users/" . $rand_id);
                 $this->sendResponse(200, CJSON::encode($model));
             }
-
-        } else {
-            error_log('false');
-        }
+        } 
     }
 
     public function actionGetmodel() {
@@ -313,37 +306,6 @@ class SiteController extends Controller {
         }
     }
 
-//    public function defaultLogin() {
-//
-//        $model = new LoginForm;
-//
-//        
-//        
-//        
-//        // if it is ajax validation request
-//        if (!Yii::app()->user->isGuest) {
-//            $this->redirect(Yii::app()->user->returnUrl);
-//        }
-//
-//        if (isset($_POST['ajax']) && $_POST['ajax'] === 'login-form') {
-//            echo CActiveForm::validate($model);
-//            Yii::app()->end();
-//        }
-//
-//        // collect user input data
-//        if (isset($_POST['LoginForm'])) {
-//            $model->attributes = $_POST['LoginForm'];
-//        
-//            // validate user input and redirect to the previous page if valid
-//            if ($model->validate() && $model->login())
-//            {
-//               $this->render('//user/close');
-//            }
-////                $this->render('//user/close');
-//        }
-//        // display the login form                
-//        $this->render('login', array('model' => $model));
-//    }
 
     public function actionAjax() {
         $model = new LoginForm;

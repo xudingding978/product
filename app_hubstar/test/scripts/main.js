@@ -1164,11 +1164,57 @@ HubStar.ProfileRoute = Ember.Route.extend({
         ProfileController.set('partnerTag', false);
         /*************************            partner cehcking           ***********8*/
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+            this.controllerFor('application').set('islogin', true);
+            this.controllerFor('application').set('popup', false);
+            this.controllerFor('application').set('isotherpage', true);
+            this.controllerFor('searchs').setLoginImge();
+            this.controllerFor('profile').set('switchPhoto', true);
+
+               
+              var lastPositionId= HubStar.get('lastPositionId');
+              var lastPosition=HubStar.get("scrollPartenerPosition");
+              if(model.id===lastPositionId)
+                  {
+                      this.controllerFor('profile').selectPartner(model);                       
+                     ProfileController.setProfile(lastPositionId);   
+                  }
+                else{
+                      ProfileController.setProfile(model.id);            
+                }
+                
+        },
+        events: {
+            transitionToCollectionPhoto: function(collection_id) {
+    
+                HubStar.set("scrollCollectionPosition",$(window).scrollTop());
+                var address = document.URL;
+                var user_id = address.split("#")[1].split("/")[2];
+                var profile = HubStar.Profile.find(user_id);
+                for (var i = 0; i < profile.get('collections').get("length"); i++) {
+                    var data = profile.get('collections').objectAt(i);
+                    if (data.id === collection_id) {
+                        break;
+                    }
+                }
+                this.transitionTo("profileCollection", data);
+            }
+        },
+        redirect: function() {
+            if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
+=======
+>>>>>>> develop-286-New-Front-Page-UXUI
         this.controllerFor('application').set('islogin', true);
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', true);
         this.controllerFor('searchs').setLoginImge();
         this.controllerFor('profile').set('switchPhoto', true);
+<<<<<<< HEAD
+=======
+>>>>>>> 62985369ab849c7b58801f431876c5c87c3b585a
+>>>>>>> develop-286-New-Front-Page-UXUI
 
         if (model.get('profile_analytics_code') !== null && model.get('profile_analytics_code') !== '' && model.get('profile_analytics_code') !== undefined) {
             this.sendGAMessage(model.get('profile_analytics_code'), 'trendsideas.com');
@@ -4965,7 +5011,23 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.get('controllers.userFollowers').getProfileId(model);
         this.set('partnerTag', false);
         this.set('collectionTag', false);
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+        
+=======
+        console.log("dddddfd");
+>>>>>>> b644d34c98a02d3e360aabac428536d2d5da0d37
+=======
+        
+>>>>>>> a2b2e3dbeb1b99e2a1fcbac658dcb20a32b13238
+=======
+
+>>>>>>> 62985369ab849c7b58801f431876c5c87c3b585a
+>>>>>>> develop-286-New-Front-Page-UXUI
         this.set('followerProfileTag', true);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
@@ -6623,6 +6685,13 @@ HubStar.UserController = Ember.Controller.extend({
         this.get('selectedCollection').set('title', this.get('newTitle'));
         this.get('selectedCollection').set('desc', this.get('newDesc'));
         var collectionController = this.get('controllers.collection');
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    
+=======
+>>>>>>> 62985369ab849c7b58801f431876c5c87c3b585a
+>>>>>>> develop-286-New-Front-Page-UXUI
         var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
         collection.set('optional', this.get('model').get('id'));
         collection.set('type', 'user');

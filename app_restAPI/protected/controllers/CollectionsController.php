@@ -15,10 +15,11 @@ class CollectionsController extends Controller {
     public function actionIndex() {
       
         $infoRefresh = explode("?", $_SERVER['REQUEST_URI']);
+        
         $infoRefreshDeep = explode("&", $infoRefresh[1]);
         $profile_id = explode("=", $infoRefreshDeep[1]);
         $collection_id = explode("=", $infoRefreshDeep[2]);
-
+        
 
         try {
             $cb = $this->couchBaseConnection();
@@ -29,6 +30,7 @@ class CollectionsController extends Controller {
 
                 if ($owner["profile"][0]["collections"][$i]["id"] === $collection_id[1]) {
                     $title = $owner["profile"][0]["collections"][$i];
+                   
                     break;
                 }
             }

@@ -56,7 +56,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             var arrayUrl;
             arrayUrl = (document.URL).split("/");
             var locationUrl = arrayUrl.get("length") - 2;
-
+            
             var results = HubStar.Collection.find({RquireType: "personalCollection", profile_id: arrayUrl[locationUrl], collection_id: collection_id});
             var that = this;
             results.addObserver('isLoaded', function() {
@@ -196,11 +196,12 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         var Mega = HubStar.Mega.find(id);
         var coverImge = Mega.get('photo').objectAt(0).get('photo_image_original_url');
         var address = document.URL;
-        var owner_id = address.split("#")[1].split("/")[2];
+        var owner_id = address.split("#")[1].split("/")[2];     
         var userOrprofile = HubStarModel.find(owner_id).get('collections');
         // var that = this;
         for (var i = 0; i < userOrprofile.get('content').length; i++) {
             if (userOrprofile.objectAt(i).id === collection_id) {
+                
                 var currentCollection = userOrprofile.objectAt(i);
                 currentCollection.set('cover', coverImge);
                 currentCollection.set('optional', owner_id);
@@ -241,10 +242,12 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             if (results.get('isLoaded')) {
                 for (var i = 0; i < this.get("length"); i++) {
                     var tempmega = results.objectAt(i);
-                    if ((tempmega.get('photo').get('length') === 1) && (tempmega.get('collection_id')===that.get('collection_id')))
-                    {
-                        that.get("content").pushObject(tempmega);
-                    }
+                    var tempID = tempmega.get('collection_id').toLowerCase().replace('.', "-");
+                    var tempCollectionID = that.get('collection_id').toLowerCase().replace('.', "-");
+                    if ((tempmega.get('photo').get('length') === 1) && (tempID===tempCollectionID))
+                    {                        
+                        that.get("content").pushObject(tempmega);                        
+                    }        
                 }
             }
         });

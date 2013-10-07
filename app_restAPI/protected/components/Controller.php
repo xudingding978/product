@@ -153,8 +153,6 @@ class Controller extends CController {
             $owner_profile_id = $this->getUserInput($requireParams[2]);
             $response = $this->getCollectionReults($collection_id, $owner_profile_id);
             $response = $this->profileSetting($response, $returnType);
-            error_log(var_export("ssssssssssssss", true));
-            error_log(var_export($response, true));
         } elseif ($requireType == 'partner') {
             $response = $this->getPartnerResults($requireParams[1]);
             $response = $this->getReponseResult($response, $returnType);
@@ -374,7 +372,6 @@ class Controller extends CController {
 
             $hit['source']['doc']['editors'] = $profile_editors;
             $hit['source']['doc']['owner_title'] = $profile_name;
-            error_log(var_export( $hit['source']['doc']['owner_title'] ,true));
             $hit['source']['doc']['owner_contact_email'] = $owner_contact_email;
             $hit['source']['doc']['owner_contact_cc_emails'] = $owner_contact_cc_emails;
             $hit['source']['doc']['owner_contact_bcc_emails'] = $owner_contact_bcc_emails;

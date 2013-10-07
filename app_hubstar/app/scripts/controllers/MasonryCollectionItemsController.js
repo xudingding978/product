@@ -202,8 +202,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         for (var i = 0; i < userOrprofile.get('content').length; i++) {
           
             if (userOrprofile.objectAt(i).id === collection_id) {
-                console.log(userOrprofile.objectAt(i).id);
-                console.log(collection_id);
+                
                 var currentCollection = userOrprofile.objectAt(i);
                 currentCollection.set('cover', coverImge);
                 currentCollection.set('optional', owner_id);

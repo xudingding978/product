@@ -1,5 +1,5 @@
 <script src="scripts/views/RegisterSliders.js"></script>
-<div style="width:100%;height:100%;z-index: 1000;position: fixed;min-width: 1100px;min-height: 728px;">
+<div class="Register-Page" style="">
     <img src="../../../images/landingpagebg.jpg" style="width:100%; position:fixed;"/>
 
     <div style="width: 87%;margin: 40px auto;display: block;line-height: 45px;">
@@ -14,21 +14,21 @@
     </div>
 
     <div style="position: absolute; vertical-align: middle; color: #fff; width: 600px; text-align: center;margin: auto;left: 0;right: 0;top: 55px;font-size: 13px; font-family: 'Montserrat', sans-serif; letter-spacing: 2px;opacity: .9;">
-        <span>2,100,000 IDEAS</span>
+        <span>83,000 IDEAS</span>
         <span>&nbsp | &nbsp</span>
-        <span>1,200,000 PRODUCTS</span>
+        <span>210,000 PRODUCTS</span>
         <span>&nbsp | &nbsp</span>
-        <span>5,000 SERVICES</span>
+        <span>650 SERVICES</span>
     </div>
 
     <div id="profiles-main-container" style="position:absolute;width: 33%;text-align: center;top: 21%;margin: auto;display: block;left: 0;right: 0;">
-        <img style="position: relative;margin: 10px auto 40px -10px; min-width: 320px;width: 70%;" src="../../../images/landing-trends.png">
+        <img id="fadein-image" style="position: relative;margin: 10px auto 40px -10px; min-width: 320px;width: 70%;" src="../../../images/landing-trends.png">
 
         <div id="click-register-social" class="register-with easing social-active" style="border-radius: 5px 5px 0 0; border-bottom:1px solid #e3e3e3;">
             <i class="icon-facebook">&nbsp</i><a style="color: #888"> Register with social account</a>
         </div>
 
-        <div id="social-link" style="display: block; width: 300px; height: 60px; line-height: 60px; margin: 0px auto; background-color: white;padding:12px;border-bottom: 1px solid #e3e3e3;">
+        <div id="social-link" class="social-links-container" style="display: block;">
 
             <div onclick="Facebook(650, 400);"class="social-login-iconbox">
                 <i  class="icon-facebook"></i>
@@ -60,23 +60,23 @@
             </div>
 
             <div   id="register-with-email-drop-down" style="width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;">
-                <div style="padding: 0 8px;">
+                <div style="padding: 0 8px;position: relative;">
 
                     <div style="border-bottom: 1px solid #e3e3e3; border-top:1px solid #e3e3e3;">
-                        <div id="first_name"class="login-textfield" style="width: 49%;display: inline-block;vertical-align: top;height: 45px;line-height: 45px;">
+                        <div id="first_name" class="login-textfield" style="width: 49%;display: inline-block;border: none">
                             {{view Ember.TextField valueBinding="first_name" placeholder="First Name" }}
                         </div>
 
-                        <div id="last_name"class="login-textfield" style="width: 49%;display: inline-block;vertical-align: top;height: 45px;line-height: 45px;">
+                        <div id="last_name" class="login-textfield" style="width: 49%;display: inline-block;border: none">
                             {{view Ember.TextField valueBinding="last_name" placeholder="Last Name" }}
                         </div>
                     </div>
 
-                    <div  id="email"class="login-textfield" style="margin: 0;width: 100%;height: 45px;line-height: 45px;border-bottom: 1px solid #e3e3e3;">
+                    <div  id="email" class="login-textfield" style="">
                         {{view Ember.TextField valueBinding="email" placeholder="Your Email" }}
                     </div>
 
-                    <div id="password"class="login-textfield"  style="margin: 0;width: 100%;height: 45px;line-height: 45px;border-bottom: 1px solid #e3e3e3;">
+                    <div id="password" class="login-textfield"  style="">
                         {{view Ember.TextField type="password" valueBinding="password" placeholder="Password" }}
                     </div>
                 </div>
@@ -86,9 +86,9 @@
 
 
             <div id="register-with-email-step-2" style="width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;">
-                <div style="padding: 0 8px;">
+                <div style="padding: 0 8px;position: relative;">
 
-                    <div  class="login-textfield" style="margin: 0;width: 100%;height: 45px;line-height: 45px;border-bottom: 1px solid #e3e3e3;border-top:1px solid #e3e3e3;">
+                    <div  class="login-textfield" style="border-top:1px solid #e3e3e3;">
                         {{view Ember.TextField valueBinding="region" placeholder="Region" }}
                     </div>
 
@@ -110,6 +110,21 @@
         <div class="register-btn easing register-btn-small"  {{action done}}>Done</div>
 
     </div>
+    <div id="missing-fields" class="black-tool-tip" style="display:none;">
+        <p>Please fill the mandatory fields.</p>
+    </div>
+    <div id="invalid-user-name-register" class="black-tool-tip" style="display:none;">
+        <p>The email address  you have entered is invalid.</p>
+    </div>
+    <div id="invalid-password" class="black-tool-tip" style="display:none;">
+        <p>Your password length should be between 6-40 characters long.</p>
+    </div>
+    <div id="email-in-use" class="black-tool-tip" style="display:none;">
+        <p>The email address you have entered is already in use.</p>
+    </div>
+    <div id="email-used-by-social" class="black-tool-tip" style="display:none;">
+        <p>The email address you have entered is already in use by a social account.</p>
+    </div>
 
 </div>
 <!--End of email register section-->
@@ -119,7 +134,7 @@
     <div id="social-login" class="register-with easing" style="border-radius: 5px 5px 0 0; border-bottom:1px solid #e3e3e3;">
         <i id="social-login" class="icon-facebook">&nbsp</i><a style="color: #888"> Login with social account</a>
     </div>
-    <div id="social-login-container" style="display: none; width: 300px; height: 60px; line-height: 60px; margin: 0px auto; background-color: white;padding:12px;border-bottom: 1px solid #e3e3e3;">
+    <div id="social-login-container" class="social-links-container" style="display: none;">
 
         <div onclick="Facebook(650, 400);" class="social-login-iconbox">
             <i  class="icon-facebook"></i>
@@ -129,7 +144,7 @@
             <i class="icon-twitter"></i>
         </div>
 
-        <div onclick="Google(650, 400);" class="social-login-iconbox" style="">
+        <div onclick="Google(650, 400);" class="social-login-iconbox" >
             <i  class="icon-google-plus"></i>
         </div>
 
@@ -149,16 +164,16 @@
     </div>
 
     <div id="login-with-email-drop-down" style="width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;">
-        <div style="padding: 0 8px;">
+        <div style="padding: 0 8px;position: relative;">
 
 
-            <div id="loginUsername" class="login-textfield" style="margin: 0;width: 100%;height: 45px;line-height: 45px;border-bottom: 1px solid #e3e3e3;">
+            <div id="loginUsername" class="login-textfield" style="">
                 {{view Ember.TextField valueBinding="loginUsername" placeholder="Your Email" }}
             </div>
 
-            <div id="loginPassword"class="login-textfield"  style="margin: 0;width: 100%;height: 45px;line-height: 45px;border-bottom: 1px solid #e3e3e3;">
+            <div id="loginPassword" class="login-textfield"  style="">
                 {{view Ember.TextField type="password" valueBinding="loginPassword" placeholder="Password" }}
-                <div class="hint--right hint--rounded" data-hint="forgot password?" style="cursor:pointer;float: right;margin-top: -45px;height: 41px;color:#888;">
+                <div class="hint--right hint--rounded" data-hint="forgot password?" style="cursor:pointer;float: right;margin-top: -40px;height: 30px;color:#888;">
                     <i class="icon-question-sign">&nbsp</i>
                 </div>
             </div>
@@ -167,85 +182,117 @@
         <div id="register-btn" class="register-btn easing" style="" {{action login}}> Login</div>
     </div>
     <div id="user-forgot-password-pane" style="width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;">
-        <div  id="email"class="login-textfield" style="margin: 0;width: 100%;height: 45px;line-height: 45px;border-bottom: 1px solid #e3e3e3;padding: 0 10px">
+        <div  id="resetPasswordEmail"class="login-textfield" style="padding: 0 10px">
             {{view Ember.TextField valueBinding="resetPasswordEmail" placeholder="Your Email" }}
         </div>
         <div class="back-btn easing" style="" >Back</div>
-        <div class="register-btn easing register-btn-small" {{action emailSend}}>Reset password</div>
+        <div id='reset-btn' class="register-btn easing register-btn-small" {{action emailSend}}>Reset password</div>
     </div>
+
+    <div class="black-tool-tip"id="forgot-message-container" style="display:none;">
+        <p>  We've sent you an email with instructions to reset your password.</p><br/>
+        <p>Please make sure it didn't wind up in your Junk Mail. If you aren't receiving our password reset emails, see our
+            <a class="white-text-hover easing" href="http://trendsideas.com/ViewPage.aspx?pageName=Contact%20Us&region=1" target="blank" style="text-decoration: underline"><b>help documents.</b></a>
+        </p>
+    </div>
+
+
+    <div id="invalid-user-name" class="black-tool-tip" style="display:none;">
+        <p>The email address  you have entered is invalid.</p>
+    </div>
+    <div id="invalid-account-type" class="black-tool-tip" style="display:none;">
+        <p>You are attempting to login with a social network account, please use the "Login with social account" link above.</p>
+    </div>
+    <div id="incorrect-password" class="black-tool-tip" style="display:none;">
+        <p>Incorrect password.</p>
+    </div>
+    <div id="invalid-account-type-reset" class="black-tool-tip" style="display:none;">
+        <p>You are attempting to reset your password with a social network account, please use the "Login with social account" link above.</p>
+    </div>
+    <div id="new-password" class="black-tool-tip" style="display:none;">
+        <p>  We've sent you an email with instructions to reset your password.</p><br/>
+        <p>Please make sure it didn't wind up in your Junk Mail. If you aren't receiving our password reset emails, see our
+            <a class="white-text-hover easing" href="http://trendsideas.com/ViewPage.aspx?pageName=Contact%20Us&region=1" target="blank" style="text-decoration: underline"><b>help documents.</b></a>
+        </p>
+    </div>
+
+
 
 </div>
 
- {{#if controller.isWaiting}}
-    <div id="loading" class="loading-visible" >
-        <img style="width: 300px;position: relative;margin: auto;left: 0;right: 0; " src="../images/loading.gif" />
-        <div id="blurringTextG">
-            <div id="blurringTextG_1" class="blurringTextG">
-                C</div>
-            <div id="blurringTextG_2" class="blurringTextG">
-                r</div>
-            <div id="blurringTextG_3" class="blurringTextG">
-                e</div>
-            <div id="blurringTextG_4" class="blurringTextG">
-                a</div>
-            <div id="blurringTextG_5" class="blurringTextG">
-                t</div>
-            <div id="blurringTextG_6" class="blurringTextG">
-                i</div>
-            <div id="blurringTextG_7" class="blurringTextG">
-                n</div>
-            <div id="blurringTextG_8" class="blurringTextG">
-                g</div>
-            <div id="blurringTextG_9" class="blurringTextG">
-                &nbsp;
-            </div>
-            <div id="blurringTextG_10" class="blurringTextG">
-                y</div>
-            <div id="blurringTextG_11" class="blurringTextG">
-                o</div>
-            <div id="blurringTextG_12" class="blurringTextG">
-                u</div>
-            <div id="blurringTextG_13" class="blurringTextG">
-                r</div>
-            <div id="blurringTextG_14" class="blurringTextG">
-                &nbsp;
-            </div>
-            <div id="blurringTextG_15" class="blurringTextG">
-                i</div>
-            <div id="blurringTextG_16" class="blurringTextG">
-                d</div>
-            <div id="blurringTextG_17" class="blurringTextG">
-                e</div>
-            <div id="blurringTextG_18" class="blurringTextG">
-                a</div>
-            <div id="blurringTextG_19" class="blurringTextG">
-                s</div>
-            <div id="blurringTextG_20" class="blurringTextG">
-                &nbsp;
-            </div>
-            <div id="blurringTextG_21" class="blurringTextG">
-                s</div>
-            <div id="blurringTextG_22" class="blurringTextG">
-                p</div>
-            <div id="blurringTextG_23" class="blurringTextG">
-                a</div>
-            <div id="blurringTextG_24" class="blurringTextG">
-                c</div>
-            <div id="blurringTextG_25" class="blurringTextG">
-                e</div>
-            <div id="blurringTextG_26" class="blurringTextG">
-                &nbsp;
-            </div>
-            <div id="blurringTextG_27" class="blurringTextG">
-                .</div>
-            <div id="blurringTextG_28" class="blurringTextG">
-                .</div>
-            <div id="blurringTextG_29" class="blurringTextG">
-                .</div>
-        </div>
-    </div>
 
-    {{/if}}
+
+{{#if controller.isWaiting}}
+<div id="loading" class="loading-visible" >
+
+    <div id="blurringTextG">
+        <div id="blurringTextG_1" class="blurringTextG">
+            C</div>
+        <div id="blurringTextG_2" class="blurringTextG">
+            r</div>
+        <div id="blurringTextG_3" class="blurringTextG">
+            e</div>
+        <div id="blurringTextG_4" class="blurringTextG">
+            a</div>
+        <div id="blurringTextG_5" class="blurringTextG">
+            t</div>
+        <div id="blurringTextG_6" class="blurringTextG">
+            i</div>
+        <div id="blurringTextG_7" class="blurringTextG">
+            n</div>
+        <div id="blurringTextG_8" class="blurringTextG">
+            g</div>
+        <div id="blurringTextG_9" class="blurringTextG">
+            &nbsp;
+        </div>
+        <div id="blurringTextG_10" class="blurringTextG">
+            y</div>
+        <div id="blurringTextG_11" class="blurringTextG">
+            o</div>
+        <div id="blurringTextG_12" class="blurringTextG">
+            u</div>
+        <div id="blurringTextG_13" class="blurringTextG">
+            r</div>
+        <div id="blurringTextG_14" class="blurringTextG">
+            &nbsp;
+        </div>
+        <div id="blurringTextG_15" class="blurringTextG">
+            i</div>
+        <div id="blurringTextG_16" class="blurringTextG">
+            d</div>
+        <div id="blurringTextG_17" class="blurringTextG">
+            e</div>
+        <div id="blurringTextG_18" class="blurringTextG">
+            a</div>
+        <div id="blurringTextG_19" class="blurringTextG">
+            s</div>
+        <div id="blurringTextG_20" class="blurringTextG">
+            &nbsp;
+        </div>
+        <div id="blurringTextG_21" class="blurringTextG">
+            s</div>
+        <div id="blurringTextG_22" class="blurringTextG">
+            p</div>
+        <div id="blurringTextG_23" class="blurringTextG">
+            a</div>
+        <div id="blurringTextG_24" class="blurringTextG">
+            c</div>
+        <div id="blurringTextG_25" class="blurringTextG">
+            e</div>
+        <div id="blurringTextG_26" class="blurringTextG">
+            &nbsp;
+        </div>
+        <div id="blurringTextG_27" class="blurringTextG">
+            .</div>
+        <div id="blurringTextG_28" class="blurringTextG">
+            .</div>
+        <div id="blurringTextG_29" class="blurringTextG">
+            .</div>
+
+    </div>
+</div>
+
+{{/if}}
 
 
 <a href="http://trendsideas.com/ViewPage.aspx?pageName=Contact%20Us&region=1" target="blank">

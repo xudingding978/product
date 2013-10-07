@@ -25,7 +25,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     gender: "",
     iframeURL: "",
     iframeLoginURL: "",
-    isWaiting:"",
+    isWaiting: "",
     init: function() {
         this.newSearch();
         this.set('search_string', '');
@@ -160,6 +160,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var re = /\S+@\S+\.\S+/;
         return re.test(email);
     },
+            resetPasswordBack:function(){
+        this.set();
+            },
     signUp: function() {
 
         if (this.checkSignupInfo()) {
@@ -174,18 +177,31 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     checkSocial();
                 }
                 else if (params === 0) {
-                    document.getElementById('email').style.border = '2px solid red';
-                    that.get('controllers.applicationFeedback').statusObserver(null, "You have registered with this email using social media account.", "warnning");
-                }
+
+                    document.getElementById("email").setAttribute("class", "login-textfield error-textfield");                   
+                    
+                    $('.black-tool-tip').stop();
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#email-used-by-social').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+                 
+
+                } // EMAIL ALREADY IN USE; The use has attempted to register with an email address that has already been used via 'register with social account'
+                
                 else if (params === 2) {
-                    document.getElementById('email').style.border = '2px solid red';
-                    that.get('controllers.applicationFeedback').statusObserver(null, "Email already exists.", "warnning");
-                }
+
+                    document.getElementById("email").setAttribute("class", "login-textfield error-textfield");
+                    
+
+                    $('.black-tool-tip').stop();
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#email-in-use').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+
+                }// EMAIL ALREADY IN USE; The user as attempted to register with an email address that is already in use
             });
         }
     },
     done: function() {
-        this.set('isWaiting',true);
+     //   this.set('isWaiting', true);
         var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age')];
         var that = this;
         requiredBackEnd('site', 'create', createInfo, 'POST', function(params) {
@@ -194,9 +210,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 //             requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function(params) {
 //
 //                });
+        that.set('isWaiting', true);
             setTimeout(function() {
                 that.transitionToRoute('search');
-                that.set('isWaiting',false);
+                that.set('isWaiting', false);
                 that.set('first_name', "");
                 that.set('last_name', "");
                 that.set('email', "");
@@ -230,26 +247,42 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         for (var i = 0; i < checkList.length; i++)
         {
             var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
-            document.getElementById(checkList[i].id).style.borderBottomColor = '1px solid #e3e3e3';
+            document.getElementById(checkList[i].id).setAttribute("class", "login-textfield");
             if (checkList[i].input !== null && checkList[i].input !== "" && checkList[i].input !== undefined)
             {
                 if (checkList[i].input.length > checkList[i].lengthMax || checkList[i].input.length < checkList[i].lengthMin)
                 {
                     result = false;
-                    this.get('controllers.applicationFeedback').statusObserver(null, "Your length should be between " + checkList[i].lengthMin + " and " + checkList[i].lengthMax + ".", "warnning");
-                    document.getElementById(checkList[i].id).style.border = '2px solid red';
+           
+                    $('.black-tool-tip').stop();
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#invalid-password').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+
+                    document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
                     break;
+
                 }
-            }
+            }// INVALID PASSWORD; the user has entered a  password that does not meet the requirements (6-40 characters long)
+
+
             if (checkList[i].id === 'first_name' || checkList[i].id === 'last_name' || checkList[i].id === 'email' || checkList[i].id === 'password')
             {
                 if (checkList[i].input === null || checkList[i].input === "" || checkList[i].input === undefined) {
                     result = false;
-                    this.get('controllers.applicationFeedback').statusObserver(null, "Please fill the mandory field.", "warnning");
-                    document.getElementById(checkList[i].id).style.border = '2px solid red';
+                    
+
+                    $('.black-tool-tip').stop();
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#missing-fields').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+                    
+                    document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
                     break;
+
+
                 }
-            }
+            }//MISSING FIELDS; the user has not filled in all the mandatory fields
+
+
             if (checkList[i].input !== null && checkList[i].isEmailValid === true)
             {
                 if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
@@ -257,10 +290,17 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
                 else {
                     result = false;
-                    this.get('controllers.applicationFeedback').statusObserver(null, "Invalid Email.", "warnning");
-                    document.getElementById(checkList[i].id).style.border = '2px solid red';
+                   
+                   
+                    $('.black-tool-tip').stop();
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#invalid-user-name-register').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+
+
+
+                    document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
                     break;
-                }
+                }// INVALID user name when the user attempts to login.
             }
         }
         return result;
@@ -271,56 +311,95 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     setfemale: function() {
         this.set('gender', "female");
     },
+            
+
+            
     login: function() {
- this.set('isWaiting',true);
-console.log(this.get('isWaiting'));
-        document.getElementById('loginUsername').style.border = '';
-        document.getElementById('loginPassword').style.borderBottomColor = '1px solid #e3e3e3';
-    
+if(this.get('loginUsername')!==null && this.get('loginPassword')!==null&&this.get('loginPassword')!==""&&this.get('loginPassword')!=="")
+{
+        this.set('isWaiting', true);
+        document.getElementById("loginUsername").setAttribute("class", "login-textfield");
+        document.getElementById("loginPassword").setAttribute("class", "login-textfield");
+
         var loginInfo = [this.get('loginUsername'), this.get('loginPassword'), this.validateEmail(this.get('loginUsername'))];
         var that = this;
         requiredBackEnd('site', 'login', loginInfo, 'POST', function(params) {
             if (params === 1) {
-                document.getElementById('loginUsername').style.border = '2px solid red';
-                that.set('isWaiting',false);
-                that.get('controllers.applicationFeedback').statusObserver(null, "Invalid Username.", "warnning");
-            }
+                document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
+                that.set('isWaiting', false);
+              
+                $('.black-tool-tip').stop();
+                $('.black-tool-tip').css('display', 'none');
+                $('#invalid-user-name').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+            }// INVALID user name when the user attempts to login.
+
+
             else if (params === 0) {
-                document.getElementById('loginUsername').style.border = '2px solid red';
-                that.set('isWaiting',false);
-                that.get('controllers.applicationFeedback').statusObserver(null, "You have registered with this email using social media account.", "warnning");
-            }
+                
+                document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
+                that.set('isWaiting', false);
+              
+                $('.black-tool-tip').css('display', 'none');
+                $('#invalid-account-type').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+
+
+            } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is a social network login account
             else {
+
                 if (that.get('loginPassword') === params.PWD_HASH && that.get('loginPassword') !== undefined) {
-                   
                     localStorage.loginStatus = params.COUCHBASE_ID;
                     that.transitionToRoute('search');
                     that.set('loginUsername', "");
                     that.set('loginPassword', "");
-                    that.set('isWaiting',false);
+                    that.set('isWaiting', false);
                 }
                 else {
-                    document.getElementById('loginPassword').style.border = '2px solid red';
-                    that.set('isWaiting',false);
-                    that.get('controllers.applicationFeedback').statusObserver(null, " Invalid password.", "warnning");
+                    document.getElementById("loginPassword").setAttribute("class", "login-textfield error-textfield");
+
+                    that.set('isWaiting', false);
+                 
+                    if ($('#incorrect-password').css('display') === 'none') {
+                        
+                        $('.black-tool-tip').stop();
+                        $('.black-tool-tip').css('display', 'none');
+                        $('#incorrect-password').animate({opacity: 'toggle'});
+                    }// INCORRECT PASSWORD; User is trying to login with incorrect password
+
                 }
             }
         });
+    }
     },
     emailSend: function()
     {
+
         var signupInfo = [this.get('resetPasswordEmail')];
         var that = this;
         requiredBackEnd('site', 'resetemail', signupInfo, 'POST', function(params) {
             if (params === 1) {
-                that.get('controllers.applicationFeedback').statusObserver(null, "Invalid Username.", "warnning");
-            }
+              
+
+                $('.black-tool-tip').stop();
+                $('.black-tool-tip').css('display', 'none');
+                $('#invalid-user-name').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+
+
+            }// INVALID EMAIL; The user has forgotten their password and inputted an invalid email address
             else if (params === 0) {
-                that.get('controllers.applicationFeedback').statusObserver(null, "You have registered this email using social media account.", "warnning");
+              
+                $('.black-tool-tip').stop();
+                $('.black-tool-tip').css('display', 'none');
+                $('#invalid-account-type-reset').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
             }
             else {
                 var emailInfo = [that.get('resetPasswordEmail'), params.USER_NAME, params.PWD_HASH];
                 requiredBackEnd('emails', 'forgetpassword', emailInfo, 'POST', function(params) {
+                    if (params === 1) {
+                        $('.black-tool-tip').stop();
+                        $('.black-tool-tip').css('display', 'none');
+                        $('#new-password').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+                        /* forgotten password email sent */
+                    }
 
                 });
             }

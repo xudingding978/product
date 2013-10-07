@@ -213,7 +213,7 @@ function changeImage() {
         setTimeout(toImage1,2500);
     }
     function toImage1() {
-image.src = "../../../images/landing-trends.png";
+image.src = "../../../images/landing-page-title(LOGO).png";
         setTimeout(toImage2,2500);
     } 
     setTimeout(toImage2,2500);

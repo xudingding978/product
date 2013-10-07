@@ -200,23 +200,56 @@ $(".register-clicker").click(function() {
 window.onload = changeImage(); 
 function changeImage() {
     var image = document.getElementById('fadein-image');
+     $('#fadein-image').fadeIn("slow",function(){
+              setTimeout(function() {
+                   $('#fadein-image').fadeOut("slow",toImage2);
+            }, 1800);
+    
+        });
     function toImage2() {
         image.src = "../../../images/landing-page-title(IDEAS).png";
-        setTimeout(toImage3,2500);
+        $('#fadein-image').fadeIn("slow",function(){
+             setTimeout(function() {
+                   $('#fadein-image').fadeOut("slow",toImage3);
+            }, 1800);
+         
+      //      setTimeout(toImage3,5000);
+        });
+        
     }
      function toImage3() {
         image.src = "../../../images/landing-page-title(PRODUCTS).png";
-        setTimeout(toImage4,2500);
+       
+        $('#fadein-image').fadeIn("slow",function(){
+              setTimeout(function() {
+                   $('#fadein-image').fadeOut("slow",toImage4);
+            }, 1800);
+        
+        });
     }
      function toImage4() {
         image.src = "../../../images/landing-page-title(SERVICES).png";
-        setTimeout(toImage1,2500);
+      
+        $('#fadein-image').fadeIn("slow",function(){
+              setTimeout(function() {
+                   $('#fadein-image').fadeOut("slow",toImage1);
+            }, 1800);
+      
+        });
     }
     function toImage1() {
-image.src = "../../../images/landing-trends.png";
-        setTimeout(toImage2,2500);
+    image.src = "../../../images/landing-trends.png";
+       
+        $('#fadein-image').fadeIn("slow",function(){
+              setTimeout(function() {
+                   $('#fadein-image').fadeOut("slow",toImage2);
+            }, 1800);
+            
+          //  setTimeout(toImage2,5000);
+        });
     } 
-    setTimeout(toImage2,2500);
+  
+   //  setTimeout(toImage2,5000);
 }
  /* ideas, products, services img animation*/
 

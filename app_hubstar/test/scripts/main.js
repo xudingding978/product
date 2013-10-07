@@ -2497,17 +2497,9 @@ HubStar.CollectionController = Ember.Controller.extend({
         if (isExsinting) {
             var validID = this.checkingValidInput(title);
             var checkingCharater = this.specialCharactersChecking(validID);
-<<<<<<< HEAD
-<<<<<<< HEAD
-            console.log(validID);
-            console.log(checkingCharater);
-=======
-            //console.log(validID);
-            //console.log(checkingCharater);
->>>>>>> 64f57a55e33dfe8ca81da8e5d79cfefddc243052
-=======
 
->>>>>>> 7d116189e5ffca015f01d12281030302f1619b6d
+
+
             if (checkingCharater && validID !== null && validID !== '') {
                 collection = HubStar.Collection.createRecord({});
                 collection.set('id', validID.toLowerCase());
@@ -4142,12 +4134,11 @@ HubStar.PlatformBarController = Ember.ArrayController.extend({
     needs: ["application"],
     init: function()
     {  
-        this.setTopicModel(HubStar.Cate.find({}));
-<<<<<<< HEAD
+        this.setTopicModel(HubStar.Cate.fi
 //         this.set('userLocation',geoip_city());
-=======
+
          this.set('userLocation',geoip_city());
->>>>>>> 64f57a55e33dfe8ca81da8e5d79cfefddc243052
+
        
     },
     topicSearch: function(search_topic) {
@@ -4816,12 +4807,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     saveUpdate: function() {
         var update_profile_record = HubStar.Profile.find(this.get('model.id'));
-<<<<<<< HEAD
 
-        //   console.log(update_profile_record);
-
-=======
->>>>>>> 64f57a55e33dfe8ca81da8e5d79cfefddc243052
         update_profile_record.set('profile_editors', this.get('editors'));
         update_profile_record.set('profile_keywords', this.get('keywords'));
         update_profile_record.set('profile_regoin', this.get('region'));

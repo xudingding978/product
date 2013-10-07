@@ -196,6 +196,32 @@ $(".register-clicker").click(function() {
 
 });
 
+
+window.onload = changeImage(); 
+function changeImage() {
+    var image = document.getElementById('fadein-image');
+    function toImage2() {
+        image.src = "../../../images/landing-page-title(IDEAS).png";
+        setTimeout(toImage3,2500);
+    }
+     function toImage3() {
+        image.src = "../../../images/landing-page-title(PRODUCTS).png";
+        setTimeout(toImage4,2500);
+    }
+     function toImage4() {
+        image.src = "../../../images/landing-page-title(SERVICES).png";
+        setTimeout(toImage1,2500);
+    }
+    function toImage1() {
+image.src = "../../../images/landing-trends.png";
+        setTimeout(toImage2,2500);
+    } 
+    setTimeout(toImage2,2500);
+}
+ /* ideas, products, services img animation*/
+
+
+
 function checkSocial() {
     if ($('#social-link').css('display') === 'block') {
         $('#social-link').animate({height: 'toggle'});

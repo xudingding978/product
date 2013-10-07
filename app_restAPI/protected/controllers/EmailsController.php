@@ -350,7 +350,7 @@ class EmailsController extends Controller {
                                         <td>
                                             <br />
                                             <br />
-                                            If this was not prompt was not you, please immediately contact: <a href="mailto:support@trendsideas.com"
+                                            If this prompt was not you, please immediately contact: <a href="mailto:support@trendsideas.com"
                                                                                                        style="color: #05B1E5;">support@trendsideas.com</a>
                                         </td>
                                     </tr>

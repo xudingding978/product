@@ -160,6 +160,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var re = /\S+@\S+\.\S+/;
         return re.test(email);
     },
+            resetPasswordBack:function(){
+        this.set();
+            },
     signUp: function() {
 
         if (this.checkSignupInfo()) {

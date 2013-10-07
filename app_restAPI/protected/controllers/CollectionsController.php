@@ -100,7 +100,8 @@ class CollectionsController extends Controller {
         $request_json = file_get_contents('php://input');
         $newRecord = CJSON::decode($request_json, true);       
         $newRecord['collection']['id'] = $id;
-        $owner_id = $newRecord ['collection']['optional'];
+       
+       $owner_id = $newRecord ['collection']['optional'];
         $type = $newRecord ['collection']['type'];
         try {
             $cb = $this->couchBaseConnection();
@@ -109,8 +110,9 @@ class CollectionsController extends Controller {
               $docID = $this->getDomain() . "/profiles/" . $owner_id;                         
               $cbRecord = $cb->get($docID); // get the old profile record from the database according to the docID string
               $oldRecord = CJSON::decode($cbRecord, true);
-              $records =  $oldRecord["profile"][0]["collections"];
+              $records =  $oldRecord["profile"][0]["collections"];            
               $collection_num = $this ->getSelectedcollection($records,$id);
+             
               if ($collection_num !== -1) {
                 $oldRecord["profile"][0]["collections"] [$collection_num] = $newRecord["collection"]; 
               }

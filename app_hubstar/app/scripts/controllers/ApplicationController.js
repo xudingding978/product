@@ -175,21 +175,19 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
                 else if (params === 0) {
 
-                    document.getElementById("email").setAttribute("class", "login-textfield error-textfield");
-                    that.get('controllers.applicationFeedback').statusObserver(null, "You have registered with this email using social media account.", "warnning");
+                    document.getElementById("email").setAttribute("class", "login-textfield error-textfield");                   
                     
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
                     $('#email-used-by-social').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
-
-                   
+                 
 
                 } // EMAIL ALREADY IN USE; The use has attempted to register with an email address that has already been used via 'register with social account'
                 
                 else if (params === 2) {
 
                     document.getElementById("email").setAttribute("class", "login-textfield error-textfield");
-                    that.get('controllers.applicationFeedback').statusObserver(null, "Email already exists.", "warnning");
+                    
 
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
@@ -200,7 +198,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         }
     },
     done: function() {
-        this.set('isWaiting', true);
+     //   this.set('isWaiting', true);
         var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age')];
         var that = this;
         requiredBackEnd('site', 'create', createInfo, 'POST', function(params) {
@@ -209,6 +207,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 //             requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function(params) {
 //
 //                });
+        that.set('isWaiting', true);
             setTimeout(function() {
                 that.transitionToRoute('search');
                 that.set('isWaiting', false);
@@ -251,8 +250,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 if (checkList[i].input.length > checkList[i].lengthMax || checkList[i].input.length < checkList[i].lengthMin)
                 {
                     result = false;
-                    this.get('controllers.applicationFeedback').statusObserver(null, "Your length should be between " + checkList[i].lengthMin + " and " + checkList[i].lengthMax + ".", "warnning");
-                    
+           
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-password').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
@@ -268,7 +266,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             {
                 if (checkList[i].input === null || checkList[i].input === "" || checkList[i].input === undefined) {
                     result = false;
-                    this.get('controllers.applicationFeedback').statusObserver(null, "Please fill the mandory field.", "warnning");
+                    
 
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
@@ -289,7 +287,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
                 else {
                     result = false;
-                    this.get('controllers.applicationFeedback').statusObserver(null, "Invalid Email.", "warnning");
+                   
                    
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
@@ -310,7 +308,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     setfemale: function() {
         this.set('gender', "female");
     },
+            
+
+            
     login: function() {
+if(this.get('loginUsername')!==null && this.get('loginPassword')!==null&&this.get('loginPassword')!==""&&this.get('loginPassword')!=="")
+{
         this.set('isWaiting', true);
         document.getElementById("loginUsername").setAttribute("class", "login-textfield");
         document.getElementById("loginPassword").setAttribute("class", "login-textfield");
@@ -321,8 +324,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             if (params === 1) {
                 document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
                 that.set('isWaiting', false);
-                that.get('controllers.applicationFeedback').statusObserver(null, "Invalid Username.", "warnning");
-
+              
                 $('.black-tool-tip').stop();
                 $('.black-tool-tip').css('display', 'none');
                 $('#invalid-user-name').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
@@ -330,10 +332,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
 
             else if (params === 0) {
+                
                 document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
                 that.set('isWaiting', false);
-                that.get('controllers.applicationFeedback').statusObserver(null, "You have registered with this email using social media account.", "warnning");
-
+              
                 $('.black-tool-tip').css('display', 'none');
                 $('#invalid-account-type').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
 
@@ -352,7 +354,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     document.getElementById("loginPassword").setAttribute("class", "login-textfield error-textfield");
 
                     that.set('isWaiting', false);
-                    that.get('controllers.applicationFeedback').statusObserver(null, " Invalid password.", "warnning");
+                 
                     if ($('#incorrect-password').css('display') === 'none') {
                         
                         $('.black-tool-tip').stop();
@@ -360,11 +362,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                         $('#incorrect-password').animate({opacity: 'toggle'});
                     }// INCORRECT PASSWORD; User is trying to login with incorrect password
 
-
-
                 }
             }
         });
+    }
     },
     emailSend: function()
     {
@@ -373,7 +374,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var that = this;
         requiredBackEnd('site', 'resetemail', signupInfo, 'POST', function(params) {
             if (params === 1) {
-                that.get('controllers.applicationFeedback').statusObserver(null, "Invalid Username.", "warnning");
+              
 
                 $('.black-tool-tip').stop();
                 $('.black-tool-tip').css('display', 'none');
@@ -382,7 +383,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
             }// INVALID EMAIL; The user has forgotten their password and inputted an invalid email address
             else if (params === 0) {
-                that.get('controllers.applicationFeedback').statusObserver(null, "You have registered this email using social media account.", "warnning");
+              
+                $('.black-tool-tip').stop();
+                $('.black-tool-tip').css('display', 'none');
+                $('#invalid-account-type-reset').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
             }
             else {
                 var emailInfo = [that.get('resetPasswordEmail'), params.USER_NAME, params.PWD_HASH];

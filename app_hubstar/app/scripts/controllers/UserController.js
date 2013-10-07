@@ -112,6 +112,10 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("youtube", user.get("youtube_link"));
         this.set("location", user.get("region"));
         this.set("email", user.get("email"));
+        this.set("oldpassword", "");
+        this.set("newpassword", "");
+        this.set("repeatnew", "");
+
 
         this.set("password", user.get("password"));
 
@@ -211,6 +215,7 @@ HubStar.UserController = Ember.Controller.extend({
             $('#user-board_right_front').show();
             $('#user-board_right_back').hide();
             $('#change_profile').show();
+            this.set
             this.set('newStyleImageSource', "");
             this.set('newStyleImageName', "");
             this.set('CurrentImageSize', "");

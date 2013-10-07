@@ -508,7 +508,7 @@ module.exports = function(grunt) {
         ]);
     });
     grunt.registerTask('test', [
-        'shell',
+   //     'shell',
         'clean:server',
         'concurrent:test',
         'connect:test',

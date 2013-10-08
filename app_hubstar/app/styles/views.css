@@ -1763,3 +1763,30 @@
 }
 
 
+
+/* tool-tips for profile items 9/10/13 clint */
+
+.itemprofile .location_li:after
+{
+    background:#fff;
+    border-color:#fff;
+    color:#666;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow: 0 0 5px#888;
+    box-shadow: 0 0 5px #888;
+    text-shadow:0 0 0;
+    top:25px;
+    left:0;
+}
+
+.itemprofile .location_li:before
+{
+    border-bottom-color:#ccc!important;
+    top:13px;
+    left:15px;
+}
+
+/* tool-tips for profile items  ENDS - 9/10/13 clint */

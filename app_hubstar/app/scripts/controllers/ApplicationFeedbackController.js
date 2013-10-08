@@ -18,18 +18,14 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
                 $('.fresh-profile-pic').show().animate({
                     top: 85
                 }, 400);
-                $('.fresh-message').show().delay(5000).animate({
+                $('.fresh-message').show().delay(3000).animate({
                     top: -5
                 }, 400);
-                $('.fresh-profile-pic').show().delay(5000).animate({
+                $('.fresh-profile-pic').show().delay(3000).animate({
                     top: -30
                 }, 400);
 
 
-                /*  $('#appfeedback').fadeOut(1000, function() {
-                 
-                 that.set('feedback', false); 
-                 });*/
             }, 500);
         }
         this.set('is_remove', true);
@@ -72,7 +68,7 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
             that.set("failed", false);
             that.setFeedback(infoChecking);
         }
-        else if(status === "failed")
+        else if (status === "failed")
         {
             that.set("info", false);
             that.set("succeed", false);
@@ -80,7 +76,7 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
             that.set("failed", true);
             that.setFeedback(infoChecking);
         }
-        else if(status === "warnning")
+        else if (status === "warnning")
         {
             that.set("info", false);
             that.set("succeed", false);

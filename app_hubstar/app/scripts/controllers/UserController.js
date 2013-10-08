@@ -59,6 +59,7 @@ HubStar.UserController = Ember.Controller.extend({
     photo_url_large: "",
     photo_url: "",
     cover_url: "",
+    isCrop: false,
     isPhotoUploadMode: false,
     newStyleImageSource: '',
     newStyleImageName: '',
@@ -71,7 +72,6 @@ HubStar.UserController = Ember.Controller.extend({
     interestsActive: false,
     init: function()
     {
-        //this.setUser();
 
     },
     isUserSelfOrNot: function(currentUserID) {
@@ -90,9 +90,9 @@ HubStar.UserController = Ember.Controller.extend({
     },
     setUser: function()
     {
+
         var user = this.get('model');
         this.setIntersetsArr(user);
-//        this.set("model", user);
         this.set("user", user);
         //console.log(this.get("user"));
         this.set("collections", user.get("collections"));
@@ -101,7 +101,6 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('currentUserID', this.get('model').get('id'));
         this.set("first_name", user.get("first_name"));
         this.set("last_name", user.get("last_name"));
-
         this.set("identifier", user.get("identifier"));
         this.set("about_me", user.get("about_me"));
         this.set("facebook", user.get("facebook_link"));
@@ -219,6 +218,7 @@ HubStar.UserController = Ember.Controller.extend({
             this.set('newStyleImageSource', "");
             this.set('newStyleImageName', "");
             this.set('CurrentImageSize', "");
+            this.set('isCrop', false);
 
 
         }
@@ -227,10 +227,12 @@ HubStar.UserController = Ember.Controller.extend({
 
         if (this.get('is_Photoclick') === false) {
             this.set('is_Photoclick', true);
+
             $('#flip-front').hide();
             $('#user-photo_left').hide();
             $('#user-photo_left-back').show();
             this.setUploadImageMode(mode);
+
 
         }
 
@@ -238,12 +240,15 @@ HubStar.UserController = Ember.Controller.extend({
     userPhotoEditBackButton: function() {
         if (this.get('is_Photoclick') === true) {
             this.set('is_Photoclick', false);
+
             $('#flip-front').show();
             $('#user-photo_left').show();
             $('#user-photo_left-back').hide();
             this.set('newStyleImageSource', "");
             this.set('newStyleImageName', "");
             this.set('CurrentImageSize', "");
+
+            this.set('isCrop', false);
 
         }
     },
@@ -330,6 +335,7 @@ HubStar.UserController = Ember.Controller.extend({
             $(".Targeting_Object_front").attr("style", "display:inline-block");
             $(" #uploadArea").attr('style', "display:none");
             $(" #uploadObject").attr('style', "display:block");
+
             this.statstics();
             this.set("newTitle", "");
             this.set("newDesc", "");
@@ -401,7 +407,7 @@ HubStar.UserController = Ember.Controller.extend({
             update_user_record.set('region', this.get('location'));
             update_user_record.set('email', this.get('email'));
             update_user_record.set('password', this.get('password'));
-
+            update_user_record.set('about_me', this.get('about_me'));
             this.get('controllers.applicationFeedback').statusObserver(null, "Update successfully.");
 
             HubStar.store.save();
@@ -804,11 +810,67 @@ HubStar.UserController = Ember.Controller.extend({
                 var size = " size is " + width + "x" + height;
                 that.set('CurrentImageSize', size);
 
+                if (that.get('UploadImageMode') === "User Cover") {
+                    if (width < 800 || height < 250) {
+                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + 800 + "x" + 250, "warnning");
+                        that.set('newStyleImageSource', "");
+                        that.set('newStyleImageName', "");
+                        that.set('CurrentImageSize', "");
+                        that.set('isCrop', false);
+                    } else if (width > 2500 || height > 1500) {
+                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size smaller than  " + 2500 + "x" + 1500, "warnning");
+                        that.set('newStyleImageSource', "");
+                        that.set('newStyleImageName', "");
+                        that.set('CurrentImageSize', "");
+                        that.set('isCrop', false);
+                    }
+                    else if (width > 800 || height > 250) {
+
+                        that.set('isCrop', true);
+                    }
+                }
+
+                else if (that.get('UploadImageMode') === "User Picture") {
+                    if (width < 150 || height < 150) {
+                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + 150 + "x" + 150, "warnning");
+                        that.set('newStyleImageSource', "");
+                        that.set('newStyleImageName', "");
+                        that.set('CurrentImageSize', "");
+                        that.set('isCrop', false);
+                    }
+//                    else if (width > 1050 || height >1050) {
+//                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size smaller than  " + 1050 + "x" + 1050,"warnning");
+//                        that.set('newStyleImageSource', "");
+//                        that.set('newStyleImageName', "");
+//                        that.set('CurrentImageSize', "");
+//                         that.set('isCrop', false);
+//                    }
+                    else if (width > 150 || height > 150) {
+                        that.set('isCrop', true);
+
+                    }
+                }
+
             }
         });
+
+
+    },
+    cropButton: function()
+    {
+        this.set('isPhotoUploadMode', false);
+        this.set('isPhotoEditingMode', true);
+        var that = this;
+        Ember.run.later(function() {
+            crop(that.get('newStyleImageSource'));
+
+        }, 0);
+
     },
     savePhotoUpdate: function()
     {
+        var cropData = getResults();
+        this.set('newStyleImageSource', cropData);
         if (this.get('newStyleImageSource') !== null && this.get('newStyleImageSource') !== "")
         {
             var src = this.get('newStyleImageSource');
@@ -817,7 +879,6 @@ HubStar.UserController = Ember.Controller.extend({
                 that.set('currentWidth', width);
                 that.set('currentHeight', height);
                 var data = {"RequireIamgeType": that.get('UploadImageMode')};
-
                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
                     if ((width >= params.width) && (height >= params.height))
                     {
@@ -825,7 +886,6 @@ HubStar.UserController = Ember.Controller.extend({
                         var type = imageName[imageName.length - 1];
 
                         that.setTempImage();
-
                         $('#uploadStyleImg').attr("style", "display:block");
                         var data1 = {"newStyleImageSource": that.get('newStyleImageSource'),
                             'newStyleImageName': that.get('newStyleImageName'),
@@ -835,23 +895,27 @@ HubStar.UserController = Ember.Controller.extend({
                             $('#uploadStyleImg').attr("style", "display:none");
                             that.set('isPhotoUploadMode', false);
                             HubStar.store.save();
+                          
+
                         });
-                        that.userPhotoEditBackButton();
-                        that.userDashboardBackButton();
-//                        that.get('controllers.applicationFeedback').set('photo_url', src);
-                        that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
+                          that.userPhotoEditBackButton();
+                            that.userDashboardBackButton();
+                            that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
+
                     }
                     else if (width < params.width || height < params.height) {
                         that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + params.width + "x" + params.height, "warnning");
                         that.set('newStyleImageSource', "");
                         that.set('newStyleImageName', "");
                         that.set('CurrentImageSize', "");
+                        that.set('isCrop', false);
+
                     }
 
                 });
             });
-
         }
+
 
     },
     setUploadImageMode: function(mode)
@@ -885,7 +949,6 @@ HubStar.UserController = Ember.Controller.extend({
             this.set('cover_url', this.get('newStyleImageSource'));
             this.set('cover_url_small', this.get('newStyleImageSource'));
             this.set('newStyleImageName', 'user_cover');
-
             model.set('cover_url', this.get('newStyleImageSource'));
         }
     }

@@ -23,13 +23,20 @@ HubStar.DropdownListView = Ember.View.extend({
 
                 that.get('controller').set('projectExperienceSelection', $(this).text());
             });
+            
+             $('#profilePackgetDropdown > .ite').click(function() {
+                that.get('controller').set('projectCategoryDropdownContent', $(this).text());
+           });
+            
            $('#packgetDropdown > .ite').click(function() {
 
-                that.get('controller').set('dropdownCategory', $(this).text());
+                that.get('controller').set('packgeSelection', $(this).text());
             });
-           $('#profilePackgetDropdown > .ite').click(function() {
-                that.get('controller').set('projectCategoryDropdownContent', $(this).text());
+          
+               $('#categoryDropdown > .ite').click(function() {
+                that.get('controller').set('categorySelection', $(this).text());
             });
+            
               $('#is_actvie > .ite').click(function() {
                 that.get('controller').set('projectActiveDropdownContent', $(this).text());
             });

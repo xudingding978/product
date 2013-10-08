@@ -1,7 +1,7 @@
 
 
 {{#if controller.projectCategoryDropdown}}
-<div id="dropItem1"  {{action dropdown controller.dropdownCategory}}>
+<div id="dropItem1"  {{action dropdown controller.projectCategorySelection}}>
      {{#each controller.categorys}}
      <div  class="ite " {{action topicSelection this}}>{{topic}}</div>
     {{/each}}
@@ -48,6 +48,18 @@
     <div  class="ite ">Gold</div>
     <div  class="ite ">Silver</div>
     <div  class="ite ">Bronze</div>
+</div>
+{{/if}}
+
+{{#if controller.categoryDropdown}}
+<div id="categoryDropdown" {{action dropdown controller.categorySelection}}>
+    
+    <div  class="ite ">ssPlatinum</div>
+    <div  class="ite ">ssGold</div>
+    <div  class="ite ">ssSilver</div>
+    <div  class="ite ">ssBronze</div>
+
+
 </div>
 {{/if}}
 

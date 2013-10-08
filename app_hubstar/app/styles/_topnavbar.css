@@ -1201,3 +1201,18 @@ div#forgot-password-container{
     -moz-border-radius: 5px;
     -o-border-radius: 5px;
 }
+
+.learnmore-btn{
+    font-size: 13px;
+    color: #888;
+    margin: 15px auto;
+    opacity: .7;
+    display: block;
+    width: 120px;
+    height: 30px;
+    line-height: 29px;
+    border-radius: 20px;
+    background-color: #fff;
+}
+
+.learnmore-btn:hover{opacity: 1;}

@@ -242,7 +242,6 @@
     display: none;
     float: left;
     min-width: 170px;
-    min-height: 200px;
     margin: 15px 0px 0px 0px;
     list-style: none outside none;
     background-color: rgba(0, 0, 0,1);
@@ -308,7 +307,7 @@
     background: none repeat scroll 0% 0% rgb(45,45,45);
     border: 1px solid rgba(0,0,0,0.17);
     margin-top:20px;
-    padding:0px;
+    padding:0px 2px;
     width:150px;
     top:35px;
     left: -60px;
@@ -1043,7 +1042,6 @@ div.register-btn-small{
     -moz-border-radius: 0 0 5px 0;
     border-radius: 0 0 5px 0;
     display:inline-block;  
-    //background-color: #DEF1F7;
 
 }
 .back-btn{

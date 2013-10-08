@@ -1164,57 +1164,11 @@ HubStar.ProfileRoute = Ember.Route.extend({
         ProfileController.set('partnerTag', false);
         /*************************            partner cehcking           ***********8*/
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-            this.controllerFor('application').set('islogin', true);
-            this.controllerFor('application').set('popup', false);
-            this.controllerFor('application').set('isotherpage', true);
-            this.controllerFor('searchs').setLoginImge();
-            this.controllerFor('profile').set('switchPhoto', true);
-
-               
-              var lastPositionId= HubStar.get('lastPositionId');
-              var lastPosition=HubStar.get("scrollPartenerPosition");
-              if(model.id===lastPositionId)
-                  {
-                      this.controllerFor('profile').selectPartner(model);                       
-                     ProfileController.setProfile(lastPositionId);   
-                  }
-                else{
-                      ProfileController.setProfile(model.id);            
-                }
-                
-        },
-        events: {
-            transitionToCollectionPhoto: function(collection_id) {
-    
-                HubStar.set("scrollCollectionPosition",$(window).scrollTop());
-                var address = document.URL;
-                var user_id = address.split("#")[1].split("/")[2];
-                var profile = HubStar.Profile.find(user_id);
-                for (var i = 0; i < profile.get('collections').get("length"); i++) {
-                    var data = profile.get('collections').objectAt(i);
-                    if (data.id === collection_id) {
-                        break;
-                    }
-                }
-                this.transitionTo("profileCollection", data);
-            }
-        },
-        redirect: function() {
-            if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
-=======
->>>>>>> develop-286-New-Front-Page-UXUI
         this.controllerFor('application').set('islogin', true);
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', true);
         this.controllerFor('searchs').setLoginImge();
         this.controllerFor('profile').set('switchPhoto', true);
-<<<<<<< HEAD
-=======
->>>>>>> 62985369ab849c7b58801f431876c5c87c3b585a
->>>>>>> develop-286-New-Front-Page-UXUI
 
         if (model.get('profile_analytics_code') !== null && model.get('profile_analytics_code') !== '' && model.get('profile_analytics_code') !== undefined) {
             this.sendGAMessage(model.get('profile_analytics_code'), 'trendsideas.com');
@@ -2050,7 +2004,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     gender: "",
     iframeURL: "",
     iframeLoginURL: "",
-    isWaiting:"",
+    isWaiting: "",
     init: function() {
         this.newSearch();
         this.set('search_string', '');
@@ -2185,6 +2139,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var re = /\S+@\S+\.\S+/;
         return re.test(email);
     },
+            resetPasswordBack:function(){
+        this.set();
+            },
     signUp: function() {
 
         if (this.checkSignupInfo()) {
@@ -2199,18 +2156,31 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     checkSocial();
                 }
                 else if (params === 0) {
-                    document.getElementById('email').style.border = '2px solid red';
-                    that.get('controllers.applicationFeedback').statusObserver(null, "You have registered with this email using social media account.", "warnning");
-                }
+
+                    document.getElementById("email").setAttribute("class", "login-textfield error-textfield");                   
+                    
+                    $('.black-tool-tip').stop();
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#email-used-by-social').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+                 
+
+                } // EMAIL ALREADY IN USE; The use has attempted to register with an email address that has already been used via 'register with social account'
+                
                 else if (params === 2) {
-                    document.getElementById('email').style.border = '2px solid red';
-                    that.get('controllers.applicationFeedback').statusObserver(null, "Email already exists.", "warnning");
-                }
+
+                    document.getElementById("email").setAttribute("class", "login-textfield error-textfield");
+                    
+
+                    $('.black-tool-tip').stop();
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#email-in-use').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+
+                }// EMAIL ALREADY IN USE; The user as attempted to register with an email address that is already in use
             });
         }
     },
     done: function() {
-        this.set('isWaiting',true);
+     //   this.set('isWaiting', true);
         var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age')];
         var that = this;
         requiredBackEnd('site', 'create', createInfo, 'POST', function(params) {
@@ -2219,9 +2189,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 //             requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function(params) {
 //
 //                });
+        that.set('isWaiting', true);
             setTimeout(function() {
                 that.transitionToRoute('search');
-                that.set('isWaiting',false);
+                that.set('isWaiting', false);
                 that.set('first_name', "");
                 that.set('last_name', "");
                 that.set('email', "");
@@ -2255,26 +2226,42 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         for (var i = 0; i < checkList.length; i++)
         {
             var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
-            document.getElementById(checkList[i].id).style.borderBottomColor = '1px solid #e3e3e3';
+            document.getElementById(checkList[i].id).setAttribute("class", "login-textfield");
             if (checkList[i].input !== null && checkList[i].input !== "" && checkList[i].input !== undefined)
             {
                 if (checkList[i].input.length > checkList[i].lengthMax || checkList[i].input.length < checkList[i].lengthMin)
                 {
                     result = false;
-                    this.get('controllers.applicationFeedback').statusObserver(null, "Your length should be between " + checkList[i].lengthMin + " and " + checkList[i].lengthMax + ".", "warnning");
-                    document.getElementById(checkList[i].id).style.border = '2px solid red';
+           
+                    $('.black-tool-tip').stop();
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#invalid-password').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+
+                    document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
                     break;
+
                 }
-            }
+            }// INVALID PASSWORD; the user has entered a  password that does not meet the requirements (6-40 characters long)
+
+
             if (checkList[i].id === 'first_name' || checkList[i].id === 'last_name' || checkList[i].id === 'email' || checkList[i].id === 'password')
             {
                 if (checkList[i].input === null || checkList[i].input === "" || checkList[i].input === undefined) {
                     result = false;
-                    this.get('controllers.applicationFeedback').statusObserver(null, "Please fill the mandory field.", "warnning");
-                    document.getElementById(checkList[i].id).style.border = '2px solid red';
+                    
+
+                    $('.black-tool-tip').stop();
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#missing-fields').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+                    
+                    document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
                     break;
+
+
                 }
-            }
+            }//MISSING FIELDS; the user has not filled in all the mandatory fields
+
+
             if (checkList[i].input !== null && checkList[i].isEmailValid === true)
             {
                 if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
@@ -2282,10 +2269,17 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
                 else {
                     result = false;
-                    this.get('controllers.applicationFeedback').statusObserver(null, "Invalid Email.", "warnning");
-                    document.getElementById(checkList[i].id).style.border = '2px solid red';
+                   
+                   
+                    $('.black-tool-tip').stop();
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#invalid-user-name-register').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+
+
+
+                    document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
                     break;
-                }
+                }// INVALID user name when the user attempts to login.
             }
         }
         return result;
@@ -2296,56 +2290,95 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     setfemale: function() {
         this.set('gender', "female");
     },
+            
+
+            
     login: function() {
- this.set('isWaiting',true);
-console.log(this.get('isWaiting'));
-        document.getElementById('loginUsername').style.border = '';
-        document.getElementById('loginPassword').style.borderBottomColor = '1px solid #e3e3e3';
-    
+if(this.get('loginUsername')!==null && this.get('loginPassword')!==null&&this.get('loginPassword')!==""&&this.get('loginPassword')!=="")
+{
+        this.set('isWaiting', true);
+        document.getElementById("loginUsername").setAttribute("class", "login-textfield");
+        document.getElementById("loginPassword").setAttribute("class", "login-textfield");
+
         var loginInfo = [this.get('loginUsername'), this.get('loginPassword'), this.validateEmail(this.get('loginUsername'))];
         var that = this;
         requiredBackEnd('site', 'login', loginInfo, 'POST', function(params) {
             if (params === 1) {
-                document.getElementById('loginUsername').style.border = '2px solid red';
-                that.set('isWaiting',false);
-                that.get('controllers.applicationFeedback').statusObserver(null, "Invalid Username.", "warnning");
-            }
+                document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
+                that.set('isWaiting', false);
+              
+                $('.black-tool-tip').stop();
+                $('.black-tool-tip').css('display', 'none');
+                $('#invalid-user-name').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+            }// INVALID user name when the user attempts to login.
+
+
             else if (params === 0) {
-                document.getElementById('loginUsername').style.border = '2px solid red';
-                that.set('isWaiting',false);
-                that.get('controllers.applicationFeedback').statusObserver(null, "You have registered with this email using social media account.", "warnning");
-            }
+                
+                document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
+                that.set('isWaiting', false);
+              
+                $('.black-tool-tip').css('display', 'none');
+                $('#invalid-account-type').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+
+
+            } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is a social network login account
             else {
+
                 if (that.get('loginPassword') === params.PWD_HASH && that.get('loginPassword') !== undefined) {
-                   
                     localStorage.loginStatus = params.COUCHBASE_ID;
                     that.transitionToRoute('search');
                     that.set('loginUsername', "");
                     that.set('loginPassword', "");
-                    that.set('isWaiting',false);
+                    that.set('isWaiting', false);
                 }
                 else {
-                    document.getElementById('loginPassword').style.border = '2px solid red';
-                    that.set('isWaiting',false);
-                    that.get('controllers.applicationFeedback').statusObserver(null, " Invalid password.", "warnning");
+                    document.getElementById("loginPassword").setAttribute("class", "login-textfield error-textfield");
+
+                    that.set('isWaiting', false);
+                 
+                    if ($('#incorrect-password').css('display') === 'none') {
+                        
+                        $('.black-tool-tip').stop();
+                        $('.black-tool-tip').css('display', 'none');
+                        $('#incorrect-password').animate({opacity: 'toggle'});
+                    }// INCORRECT PASSWORD; User is trying to login with incorrect password
+
                 }
             }
         });
+    }
     },
     emailSend: function()
     {
+
         var signupInfo = [this.get('resetPasswordEmail')];
         var that = this;
         requiredBackEnd('site', 'resetemail', signupInfo, 'POST', function(params) {
             if (params === 1) {
-                that.get('controllers.applicationFeedback').statusObserver(null, "Invalid Username.", "warnning");
-            }
+              
+
+                $('.black-tool-tip').stop();
+                $('.black-tool-tip').css('display', 'none');
+                $('#invalid-user-name').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+
+
+            }// INVALID EMAIL; The user has forgotten their password and inputted an invalid email address
             else if (params === 0) {
-                that.get('controllers.applicationFeedback').statusObserver(null, "You have registered this email using social media account.", "warnning");
+              
+                $('.black-tool-tip').stop();
+                $('.black-tool-tip').css('display', 'none');
+                $('#invalid-account-type-reset').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
             }
             else {
                 var emailInfo = [that.get('resetPasswordEmail'), params.USER_NAME, params.PWD_HASH];
                 requiredBackEnd('emails', 'forgetpassword', emailInfo, 'POST', function(params) {
+                    if (params === 1) {
+                        $('.black-tool-tip').stop();
+                        $('.black-tool-tip').css('display', 'none');
+                        $('#new-password').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+                        /* forgotten password email sent */
+                    }
 
                 });
             }
@@ -5011,23 +5044,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.get('controllers.userFollowers').getProfileId(model);
         this.set('partnerTag', false);
         this.set('collectionTag', false);
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        
-=======
-        console.log("dddddfd");
->>>>>>> b644d34c98a02d3e360aabac428536d2d5da0d37
-=======
-        
->>>>>>> a2b2e3dbeb1b99e2a1fcbac658dcb20a32b13238
-=======
-
->>>>>>> 62985369ab849c7b58801f431876c5c87c3b585a
->>>>>>> develop-286-New-Front-Page-UXUI
         this.set('followerProfileTag', true);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
@@ -6138,6 +6155,10 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("youtube", user.get("youtube_link"));
         this.set("location", user.get("region"));
         this.set("email", user.get("email"));
+        this.set("oldpassword", "");
+        this.set("newpassword", "");
+        this.set("repeatnew", "");
+
 
         this.set("password", user.get("password"));
 
@@ -6237,6 +6258,7 @@ HubStar.UserController = Ember.Controller.extend({
             $('#user-board_right_front').show();
             $('#user-board_right_back').hide();
             $('#change_profile').show();
+            this.set
             this.set('newStyleImageSource', "");
             this.set('newStyleImageName', "");
             this.set('CurrentImageSize', "");
@@ -6398,14 +6420,14 @@ HubStar.UserController = Ember.Controller.extend({
                         thatthatthat.set('repeatnew', "");
                     }, 1000);
 
-                    thatthat.get('controllers.applicationFeedback').statusObserver(null, "Updated Successfully.","warnning");
+                    thatthat.get('controllers.applicationFeedback').statusObserver(null, "Updated Successfully.");
                 });
 
 
 
             }
             else {
-                that.get('controllers.applicationFeedback').statusObserver(null, "Please check your input","warnning");
+                that.get('controllers.applicationFeedback').statusObserver(null, "Please check your input", "warnning");
             }
         });
     },
@@ -6462,11 +6484,18 @@ HubStar.UserController = Ember.Controller.extend({
         for (var i = 0; i < checkList.length; i++)
         {
             var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
-            document.getElementById(checkList[i].id).style.border = '';
+//            document.getElementById(checkList[i].id).style.border = '';
+
+            if (checkList[i].id === 'email') {
+                document.getElementById(checkList[i].id).setAttribute("class", "disabled-btn");
+            }
+            else {
+                document.getElementById(checkList[i].id).setAttribute("class", "");
+            }
             if (checkList[i].input !== null && checkList[i].input.length > checkList[i].length)
             {
                 result = false;
-                document.getElementById(checkList[i].id).style.border = '2px solid red';
+                document.getElementById(checkList[i].id).setAttribute("class", "error-textfield");
                 break;
             }
 
@@ -6474,7 +6503,7 @@ HubStar.UserController = Ember.Controller.extend({
             {
                 if (checkList[i].input === null || checkList[i].input === "") {
                     result = false;
-                    document.getElementById(checkList[i].id).style.border = '2px solid red';
+                    document.getElementById(checkList[i].id).setAttribute("class", "error-textfield");
                     break;
                 }
             }
@@ -6486,7 +6515,8 @@ HubStar.UserController = Ember.Controller.extend({
                 }
                 else {
                     result = false;
-                    document.getElementById(checkList[i].id).style.border = '2px solid red';
+                    document.getElementById(checkList[i].id).setAttribute("class", "error-textfield");
+//                    document.getElementById(checkList[i].id).style.border = '2px solid red';
                     break;
                 }
             }
@@ -6537,11 +6567,11 @@ HubStar.UserController = Ember.Controller.extend({
 
         for (var i = 0; i < checkList.length; i++)
         {
-            document.getElementById(checkList[i].id).style.border = '';
+            document.getElementById(checkList[i].id).setAttribute("class", "");
             if (checkList[i].input !== null && checkList[i].input.length > checkList[i].length)
             {
                 result = false;
-                document.getElementById(checkList[i].id).style.border = '2px solid red';
+                document.getElementById(checkList[i].id).setAttribute("class", "error-textfield");
                 break;
             }
             if (checkList[i].input !== null && checkList[i].isUrlValid === true)
@@ -6551,7 +6581,7 @@ HubStar.UserController = Ember.Controller.extend({
                 }
                 else {
                     result = false;
-                    document.getElementById(checkList[i].id).style.border = '2px solid red';
+                    document.getElementById(checkList[i].id).setAttribute("class", "error-textfield");
                     break;
                 }
             }
@@ -6685,13 +6715,6 @@ HubStar.UserController = Ember.Controller.extend({
         this.get('selectedCollection').set('title', this.get('newTitle'));
         this.get('selectedCollection').set('desc', this.get('newDesc'));
         var collectionController = this.get('controllers.collection');
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-    
-=======
->>>>>>> 62985369ab849c7b58801f431876c5c87c3b585a
->>>>>>> develop-286-New-Front-Page-UXUI
         var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
         collection.set('optional', this.get('model').get('id'));
         collection.set('type', 'user');
@@ -9263,7 +9286,7 @@ $("#social-login").click(function() {
     if ($('#social-login-container').css('display') === 'block') {
         $('#social-login-container').animate({height: 'toggle'});
     }
-    /* hiding social login */
+    /* LOGIN TAB:  hiding social login */
 
     if ($('#social-login-container').css('display') === 'none') {
         $('#social-login-container').animate({height: 'toggle'});
@@ -9271,6 +9294,20 @@ $("#social-login").click(function() {
         if ($('#login-with-email-drop-down').css('display') === 'block') {
             $('#login-with-email-drop-down').animate({height: 'toggle'});
         }
+        if ($('#forgot-message-container').css('display') === 'block') {
+            $('#forgot-message-container').animate({opacity: 'toggle'});
+        }
+         if ($('#invalid-username').css('display') === 'block') {
+            $('#invalid-username').animate({opacity: 'toggle'});
+        }
+        if ($('#click-login').css('display') === 'none') {
+            $('#click-login').animate({opacity: 'toggle'});
+        }
+        if ($('#user-forgot-password-pane').css('display') === 'block') {
+            $('#user-forgot-password-pane').animate({height: 'toggle'});
+        }
+
+        /* LOGIN TAB:  showing social login */
 
     }
 });
@@ -9278,54 +9315,73 @@ $("#click-login").click(function() {
     if ($('#login-with-email-drop-down').css('display') === 'block' && $('#click-login').hasClass('active-tab')) {
         $('#click-login').removeClass('active-tab');
 
-        $('#login-with-email-drop-down').stop().animate({height: 'toggle'});
+        $('#login-with-email-drop-down').animate({height: 'toggle'});
 
         if ($('#social-login-container').css('display') === 'block') {
-            $('#social-login-container').stop().animate({height: 'toggle'});
+            $('#social-login-container').animate({height: 'toggle'});
         }
     }
-    /* closing login with email */
+    /* LOGIN TAB: closing login with email */
 
 
     if ($('#login-with-email-drop-down').css('display') === 'none') {
         $('#social-login').removeClass('social-active');
         $('#click-login').addClass('active-tab');
-        $('#login-with-email-drop-down').stop().animate({height: 'toggle'});
-
-        if ($('#social-login-container').css('display') === 'block') {
-            $('#social-login-container').stop().animate({height: 'toggle'});
-        }
-    } /* clicking register step 1 function*/
-});
-$('#loginPassword > div').click(function() {
-     if ($('#login-with-email-drop-down').css('display') === 'block' && $('#click-login').hasClass('active-tab')) {
-        $('#click-login').removeClass('active-tab');
-
-        $('#login-with-email-drop-down').stop().animate({height: 'toggle'});
-         $('#user-forgot-password-pane').animate({height: 'toggle'});
-         $('#click-login').animate({height: 'toggle'});
+        $('#login-with-email-drop-down').animate({height: 'toggle'});
 
         if ($('#social-login-container').css('display') === 'block') {
             $('#social-login-container').animate({height: 'toggle'});
-            
+        }
+    } /* LOGIN TAB: clicking login*/
+});
+$('#loginPassword > div').click(function() {
+    if ($('#login-with-email-drop-down').css('display')) {
+        $('#click-login').removeClass('active-tab');
+
+        $('#login-with-email-drop-down').animate({height: 'toggle'});
+        $('#user-forgot-password-pane').animate({height: 'toggle'});
+
+        if ($('#social-login-container').css('display') === 'block') {
+            $('#social-login-container').animate({height: 'toggle'});
+
+        }
+        if ($('#forgot-message-container').css('display') === 'block') {
+            $('#forgot-message-container').animate({opacity: 'toggle'});
+        }
+        if ($('#click-login').css('display') === 'block') {
+            $('#click-login').animate({height: 'toggle'});
+
         }
     }
 });
-
+/*  LOGIN TAB: show forget password pane */
 
 $('#user-forgot-password-pane .back-btn').click(function() {
     $('#user-forgot-password-pane').animate({height: 'toggle'});
     $('#login-with-email-drop-down').animate({height: 'toggle'});
-    
-     if ($('#social-login-container').css('display') === 'block') {
-            $('#social-login-container').animate({height: 'toggle'});
-            
-        }
-    
+
+    if ($('#social-login-container').css('display') === 'block') {
+        $('#social-login-container').animate({height: 'toggle'});
+
+    }
+
+
 });
+/* Back to login with email from forget password pane */
 
 
-/*  LOGIN TAB: showing social login section ends */
+$('#reset-btn').click(function() {
+   
+});
+/* forgot password function showing thank you message */
+
+
+$('#user-forgot-password-pane .back-btn').click(function() {
+    if ($('#forgot-message-container').css('display') === 'block') {
+        $('#forgot-message-container').animate({opacity: 'toggle'});
+    }
+});
+/* hiding thank you message when the user clicks the back btn */
 
 
 
@@ -9339,10 +9395,10 @@ $("#click-register-social").click(function() {
     if ($('#social-link').css('display') === 'block') {
         $('#social-link').animate({height: 'toggle'});
         if ($('#register-with-email-drop-down').css('display') === 'block') {
-            $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+            $('#register-with-email-drop-down').animate({height: 'toggle'});
         }
         if ($('#register-with-email-step-2').css('display') === 'block') {
-            $('#register-with-email-step-2').stop().animate({height: 'toggle'});
+            $('#register-with-email-step-2').animate({height: 'toggle'});
         }
     }
     /* hiding social login */
@@ -9351,10 +9407,10 @@ $("#click-register-social").click(function() {
         $('#social-link').animate({height: 'toggle'});
         $('#click-register-social').addClass('social-active');
         if ($('#register-with-email-drop-down').css('display') === 'block') {
-            $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+            $('#register-with-email-drop-down').animate({height: 'toggle'});
         }
         if ($('#register-with-email-step-2').css('display') === 'block') {
-            $('#register-with-email-step-2').stop().animate({height: 'toggle'});
+            $('#register-with-email-step-2').animate({height: 'toggle'});
         }
     }
     /*  REGISTER TAB: showing social login section*/
@@ -9365,8 +9421,8 @@ $("#click-register-social").click(function() {
 
 $('#register-with-email-step-2 .back-btn').click(function() {
     $('#register-with-email-step-2').removeClass('active-step');
-    $('#register-with-email-step-2').stop().animate({height: 'toggle'});
-    $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+    $('#register-with-email-step-2').animate({height: 'toggle'});
+    $('#register-with-email-drop-down').animate({height: 'toggle'});
     checkSocial();
 });
 /* going back to step 1 function*/
@@ -9378,7 +9434,7 @@ $(".register-clicker").click(function() {
         //alert('closing step2');
 
         $('#social-link').animate({height: 'toggle'});
-        $('#register-with-email-step-2').stop().animate({height: 'toggle'});
+        $('#register-with-email-step-2').animate({height: 'toggle'});
         if ($('#click-register').hasClass('active-tab')) {
             $('#click-register').removeClass('active-tab');
             /* closing step */
@@ -9395,8 +9451,8 @@ $(".register-clicker").click(function() {
     if ($('#register-with-email-drop-down').css('display') === 'block' && $('#click-register').hasClass('active-tab')) {
         //alert('closing step1');
         $('#click-register').removeClass('active-tab');
-        $('#social-link').stop().animate({height: 'toggle'});
-        $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+        $('#social-link').animate({height: 'toggle'});
+        $('#register-with-email-drop-down').animate({height: 'toggle'});
         $('#click-register-social').addClass('social-active');
     }
     /* closing register section while on step 1 function */
@@ -9406,12 +9462,38 @@ $(".register-clicker").click(function() {
         //alert('opening step 1');
         $('#click-register-social').removeClass('social-active');
         $('#click-register').addClass('active-tab');
-        $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+        $('#register-with-email-drop-down').animate({height: 'toggle'});
         checkSocial();
     }
     /* clicking register step 1 function*/
 
 });
+
+
+window.onload = changeImage(); 
+function changeImage() {
+    var image = document.getElementById('fadein-image');
+    function toImage2() {
+        image.src = "../../../images/landing-page-title(IDEAS).png";
+        setTimeout(toImage3,2500);
+    }
+     function toImage3() {
+        image.src = "../../../images/landing-page-title(PRODUCTS).png";
+        setTimeout(toImage4,2500);
+    }
+     function toImage4() {
+        image.src = "../../../images/landing-page-title(SERVICES).png";
+        setTimeout(toImage1,2500);
+    }
+    function toImage1() {
+image.src = "../../../images/landing-trends.png";
+        setTimeout(toImage2,2500);
+    } 
+    setTimeout(toImage2,2500);
+}
+ /* ideas, products, services img animation*/
+
+
 
 function checkSocial() {
     if ($('#social-link').css('display') === 'block') {
@@ -9433,8 +9515,8 @@ $('.login-select').click(function() {
 function loginPane() {
 
     if (loginState === false) {
-
         $('#login-btn').text('REGISTER');
+        $('.black-tool-tip').css('display', 'none');
         $('#click-register-social').css('display', 'none');
         $('#click-register').css('display', 'none');
         $('#social-link').css('display', 'none');
@@ -9442,6 +9524,9 @@ function loginPane() {
         $('#social-login-container').css('display', 'none');
         $('#click-login').addClass('active-tab');
         $('#social-login').removeClass('social-active');
+        $('#user-forgot-password-pane').css('display', 'none');
+        $('#forgot-message-container').css('display', 'none');
+        $('#invalid-username').css('display', 'none');
 
         $('#register-with-email-drop-down').css('display', 'none');
         $('#register-with-email-step-2').css('display', 'none');
@@ -9451,6 +9536,7 @@ function loginPane() {
     else {
 
         $('#login-btn').text('LOGIN');
+        $('.black-tool-tip').css('display', 'none');
         $('#click-register-social').css('display', 'block');
         $('#social-link').css('display', 'block');
         $('#click-register').css('display', 'block');
@@ -9458,9 +9544,11 @@ function loginPane() {
         $('#click-register').removeClass('active-tab');
         $('#register-with-email-step-2').removeClass('active-step');
         $('#user-login-pane').css('display', 'none');
+        
         loginState = false;
     }
 }
+
 
 
 

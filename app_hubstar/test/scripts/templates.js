@@ -126,24 +126,12 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
 Ember.TEMPLATES["application"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Ember.Handlebars.helpers; data = data || {};
-  var buffer = '', stack1, hashTypes, hashContexts, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
+  var buffer = '', stack1, hashTypes, hashContexts, options, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
 
 function program1(depth0,data) {
   
-  var buffer = '', stack1, hashTypes, hashContexts, options;
-  data.buffer.push("\n\n    ");
-  hashTypes = {};
-  hashContexts = {};
-  options = {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
-  data.buffer.push(escapeExpression(((stack1 = helpers.outlet),stack1 ? stack1.call(depth0, "register", options) : helperMissing.call(depth0, "outlet", "register", options))));
-  data.buffer.push("\n\n    ");
-  return buffer;
-  }
-
-function program3(depth0,data) {
-  
   var buffer = '', stack1, stack2, hashTypes, hashContexts, options;
-  data.buffer.push("\n\n    ");
+  data.buffer.push("\n    ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "HubStar.HeaderView", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -165,7 +153,7 @@ function program3(depth0,data) {
   data.buffer.push("\n\n    ");
   hashTypes = {};
   hashContexts = {};
-  stack2 = helpers.unless.call(depth0, "controller.isotherpage", {hash:{},inverse:self.noop,fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
+  stack2 = helpers.unless.call(depth0, "controller.isotherpage", {hash:{},inverse:self.noop,fn:self.program(2, program2, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
   if(stack2 || stack2 === 0) { data.buffer.push(stack2); }
   data.buffer.push("\n\n    ");
   hashTypes = {};
@@ -190,25 +178,10 @@ function program3(depth0,data) {
   data.buffer.push("\n\n    ");
   return buffer;
   }
-function program4(depth0,data) {
-  
-  var buffer = '', stack1, hashTypes, hashContexts;
-  data.buffer.push("\n    ");
-  hashTypes = {};
-  hashContexts = {};
-  stack1 = helpers['if'].call(depth0, "controller.islogin", {hash:{},inverse:self.program(7, program7, data),fn:self.program(5, program5, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n\n    ");
-  hashTypes = {};
-  hashContexts = {};
-  data.buffer.push(escapeExpression(helpers.view.call(depth0, "HubStar.MasonryView", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("\n\n    ");
-  return buffer;
-  }
-function program5(depth0,data) {
+function program2(depth0,data) {
   
   var buffer = '', stack1, hashTypes, hashContexts, options;
-  data.buffer.push("\n\n    ");
+  data.buffer.push("\n    \n\n    ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "HubStar.DiscoveryView", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -222,11 +195,15 @@ function program5(depth0,data) {
   hashContexts = {};
   options = {hash:{},contexts:[depth0],types:["STRING"],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
   data.buffer.push(escapeExpression(((stack1 = helpers.outlet),stack1 ? stack1.call(depth0, "quickstart", options) : helperMissing.call(depth0, "outlet", "quickstart", options))));
-  data.buffer.push("        \n    ");
+  data.buffer.push("      \n    \n    ");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "HubStar.MasonryView", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("\n      \n\n    ");
   return buffer;
   }
 
-function program7(depth0,data) {
+function program4(depth0,data) {
   
   var buffer = '', hashTypes, hashContexts;
   data.buffer.push("\n\n    ");
@@ -237,7 +214,7 @@ function program7(depth0,data) {
   return buffer;
   }
 
-function program9(depth0,data) {
+function program6(depth0,data) {
   
   var buffer = '', stack1, hashTypes, hashContexts, options;
   data.buffer.push("\n    ");
@@ -249,7 +226,7 @@ function program9(depth0,data) {
   return buffer;
   }
 
-function program11(depth0,data) {
+function program8(depth0,data) {
   
   var buffer = '', stack1, hashTypes, hashContexts, options;
   data.buffer.push("\n\n    ");
@@ -261,27 +238,27 @@ function program11(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("<div style=\"width: 100%;height: auto;position:relative;z-index:2;\">\n\n    ");
+  data.buffer.push("<div style=\"width: 100%;height: auto;position:relative;z-index:2;\">\n\n    \n");
   hashTypes = {};
   hashContexts = {};
-  stack1 = helpers['if'].call(depth0, "controller.register", {hash:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
+  stack1 = helpers['if'].call(depth0, "controller.islogin", {hash:{},inverse:self.program(4, program4, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n\n    ");
   hashTypes = {};
   hashContexts = {};
-  stack1 = helpers['if'].call(depth0, "controller.islogin", {hash:{},inverse:self.noop,fn:self.program(9, program9, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
+  stack1 = helpers['if'].call(depth0, "controller.islogin", {hash:{},inverse:self.noop,fn:self.program(6, program6, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n\n\n    ");
   hashTypes = {};
   hashContexts = {};
-  stack1 = helpers['if'].call(depth0, "controller.loadingTime", {hash:{},inverse:self.noop,fn:self.program(11, program11, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
+  stack1 = helpers['if'].call(depth0, "controller.loadingTime", {hash:{},inverse:self.noop,fn:self.program(8, program8, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n\n\n    ");
   hashTypes = {};
   hashContexts = {};
   options = {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
   data.buffer.push(escapeExpression(((stack1 = helpers.render),stack1 ? stack1.call(depth0, "applicationFeedback", options) : helperMissing.call(depth0, "render", "applicationFeedback", options))));
-  data.buffer.push("\n\n   <div id=\"loading\" class=\"loading-visible\" >\n        <img style=\"width: 300px;position: relative;margin: auto;left: 0;right: 0; \" src=\"../images/loading.gif\" />\n        <div id=\"blurringTextG\">\n            <div id=\"blurringTextG_1\" class=\"blurringTextG\">\n                C</div>\n            <div id=\"blurringTextG_2\" class=\"blurringTextG\">\n                r</div>\n            <div id=\"blurringTextG_3\" class=\"blurringTextG\">\n                e</div>\n            <div id=\"blurringTextG_4\" class=\"blurringTextG\">\n                a</div>\n            <div id=\"blurringTextG_5\" class=\"blurringTextG\">\n                t</div>\n            <div id=\"blurringTextG_6\" class=\"blurringTextG\">\n                i</div>\n            <div id=\"blurringTextG_7\" class=\"blurringTextG\">\n                n</div>\n            <div id=\"blurringTextG_8\" class=\"blurringTextG\">\n                g</div>\n            <div id=\"blurringTextG_9\" class=\"blurringTextG\">\n                &nbsp;\n            </div>\n            <div id=\"blurringTextG_10\" class=\"blurringTextG\">\n                y</div>\n            <div id=\"blurringTextG_11\" class=\"blurringTextG\">\n                o</div>\n            <div id=\"blurringTextG_12\" class=\"blurringTextG\">\n                u</div>\n            <div id=\"blurringTextG_13\" class=\"blurringTextG\">\n                r</div>\n            <div id=\"blurringTextG_14\" class=\"blurringTextG\">\n                &nbsp;\n            </div>\n            <div id=\"blurringTextG_15\" class=\"blurringTextG\">\n                i</div>\n            <div id=\"blurringTextG_16\" class=\"blurringTextG\">\n                d</div>\n            <div id=\"blurringTextG_17\" class=\"blurringTextG\">\n                e</div>\n            <div id=\"blurringTextG_18\" class=\"blurringTextG\">\n                a</div>\n            <div id=\"blurringTextG_19\" class=\"blurringTextG\">\n                s</div>\n            <div id=\"blurringTextG_20\" class=\"blurringTextG\">\n                &nbsp;\n            </div>\n            <div id=\"blurringTextG_21\" class=\"blurringTextG\">\n                s</div>\n            <div id=\"blurringTextG_22\" class=\"blurringTextG\">\n                p</div>\n            <div id=\"blurringTextG_23\" class=\"blurringTextG\">\n                a</div>\n            <div id=\"blurringTextG_24\" class=\"blurringTextG\">\n                c</div>\n            <div id=\"blurringTextG_25\" class=\"blurringTextG\">\n                e</div>\n            <div id=\"blurringTextG_26\" class=\"blurringTextG\">\n                &nbsp;\n            </div>\n            <div id=\"blurringTextG_27\" class=\"blurringTextG\">\n                .</div>\n            <div id=\"blurringTextG_28\" class=\"blurringTextG\">\n                .</div>\n            <div id=\"blurringTextG_29\" class=\"blurringTextG\">\n                .</div>\n        </div>\n    </div>\n    \n</div>\n<div style=\"background:#fff url('../images/bgtexture.png') repeat;width:100%;height:100%;position:fixed;z-index:1;top:0;left:0;\"></div>\n\n\n<script type=\"text/javascript\">\n\n    function DropDown(el) {\n    this.dd = el;\n            this.placeholder = this.dd.children('span');\n            this.opts = this.dd.find('ul.dropdown > li');\n            this.val = '';\n            this.index = - 1;\n            this.initEvents();\n    }\n    DropDown.prototype = {\n    initEvents: function() {\n    var obj = this;\n            obj.dd.on('click', function(event) {\n    $(this).parents('div .wrapper-dropdown-3').toggleClass('active');\n            return false;\n    });\n            obj.opts.on('click', function() {\n    var opt = $(this);\n            obj.val = opt.text();\n            obj.index = opt.index();\n            obj.placeholder.text(obj.val);\n    });\n    },\n            getValue: function() {\n    return this.val;\n    },\n            getIndex: function() {\n    return this.index;\n    }\n    };\n            $(function() {\n    var dd1 = new DropDown($('.dropdown_test_1'));\n            $(document).click(function() {\n    // all dropdowns\n    $('.wrapper-dropdown-3').removeClass('active');\n    });\n            var dd4 = new DropDown($('.dropdown_test_4'));\n            $(document).click(function() {\n    // all dropdowns\n    $('.wrapper-dropdown-3').removeClass('active');\n    });\n    });\n</script>");
+  data.buffer.push("\n\n   <div id=\"loading\" class=\"loading-visible\" >\n        <img style=\"width: 300px;position: relative;margin: auto;left: 0;right: 0; \" src=\"../images/loading.gif\" />\n        <div id=\"blurringTextG\">\n            <div id=\"blurringTextG_1\" class=\"blurringTextG\">\n                C</div>\n            <div id=\"blurringTextG_2\" class=\"blurringTextG\">\n                r</div>\n            <div id=\"blurringTextG_3\" class=\"blurringTextG\">\n                e</div>\n            <div id=\"blurringTextG_4\" class=\"blurringTextG\">\n                a</div>\n            <div id=\"blurringTextG_5\" class=\"blurringTextG\">\n                t</div>\n            <div id=\"blurringTextG_6\" class=\"blurringTextG\">\n                i</div>\n            <div id=\"blurringTextG_7\" class=\"blurringTextG\">\n                n</div>\n            <div id=\"blurringTextG_8\" class=\"blurringTextG\">\n                g</div>\n            <div id=\"blurringTextG_9\" class=\"blurringTextG\">\n                &nbsp;\n            </div>\n            <div id=\"blurringTextG_10\" class=\"blurringTextG\">\n                y</div>\n            <div id=\"blurringTextG_11\" class=\"blurringTextG\">\n                o</div>\n            <div id=\"blurringTextG_12\" class=\"blurringTextG\">\n                u</div>\n            <div id=\"blurringTextG_13\" class=\"blurringTextG\">\n                r</div>\n            <div id=\"blurringTextG_14\" class=\"blurringTextG\">\n                &nbsp;\n            </div>\n            <div id=\"blurringTextG_15\" class=\"blurringTextG\">\n                i</div>\n            <div id=\"blurringTextG_16\" class=\"blurringTextG\">\n                d</div>\n            <div id=\"blurringTextG_17\" class=\"blurringTextG\">\n                e</div>\n            <div id=\"blurringTextG_18\" class=\"blurringTextG\">\n                a</div>\n            <div id=\"blurringTextG_19\" class=\"blurringTextG\">\n                s</div>\n            <div id=\"blurringTextG_20\" class=\"blurringTextG\">\n                &nbsp;\n            </div>\n            <div id=\"blurringTextG_21\" class=\"blurringTextG\">\n                s</div>\n            <div id=\"blurringTextG_22\" class=\"blurringTextG\">\n                p</div>\n            <div id=\"blurringTextG_23\" class=\"blurringTextG\">\n                a</div>\n            <div id=\"blurringTextG_24\" class=\"blurringTextG\">\n                c</div>\n            <div id=\"blurringTextG_25\" class=\"blurringTextG\">\n                e</div>\n            <div id=\"blurringTextG_26\" class=\"blurringTextG\">\n                &nbsp;\n            </div>\n            <div id=\"blurringTextG_27\" class=\"blurringTextG\">\n                .</div>\n            <div id=\"blurringTextG_28\" class=\"blurringTextG\">\n                .</div>\n            <div id=\"blurringTextG_29\" class=\"blurringTextG\">\n                .</div>\n        </div>\n    </div>\n    \n</div>\n<div style=\"background:#fff url('../images/bgtexture.png') repeat;width:100%;height:100%;position:fixed;z-index:1;top:0;left:0;\"></div>\n\n\n<script type=\"text/javascript\">\n\n    function DropDown(el) {\n    this.dd = el;\n            this.placeholder = this.dd.children('span');\n            this.opts = this.dd.find('ul.dropdown > li');\n            this.val = '';\n            this.index = - 1;\n            this.initEvents();\n    }\n    DropDown.prototype = {\n    initEvents: function() {\n    var obj = this;\n            obj.dd.on('click', function(event) {\n    $(this).parents('div .wrapper-dropdown-3').toggleClass('active');\n            return false;\n    });\n            obj.opts.on('click', function() {\n    var opt = $(this);\n            obj.val = opt.text();\n            obj.index = opt.index();\n            obj.placeholder.text(obj.val);\n    });\n    },\n            getValue: function() {\n    return this.val;\n    },\n            getIndex: function() {\n    return this.index;\n    }\n    };\n            $(function() {\n    var dd1 = new DropDown($('.dropdown_test_1'));\n            $(document).click(function() {\n    // all dropdowns\n    $('.wrapper-dropdown-3').removeClass('active');\n    });\n            var dd4 = new DropDown($('.dropdown_test_4'));\n            $(document).click(function() {\n    // all dropdowns\n    $('.wrapper-dropdown-3').removeClass('active');\n    });\n    });\n</script>\n");
   return buffer;
   
 });
@@ -320,13 +297,13 @@ function program1(depth0,data) {
 function program2(depth0,data) {
   
   var buffer = '', hashContexts, hashTypes;
-  data.buffer.push("\n\n    <div  class=\"fresh-profile-pic\"style=\"\">\n        <img ");
+  data.buffer.push("\n\n    <div  class=\"fresh-profile-pic\"style=\"\">\n        <img src=\"../../../images/trendsideas.jpg\" style=\"height: 80px;width: 80px;z-index: 1;top: -3px;position: relative;\"/>\n        <img ");
   hashContexts = {'src': depth0};
   hashTypes = {'src': "ID"};
   data.buffer.push(escapeExpression(helpers.bindAttr.call(depth0, {hash:{
     'src': ("photo_url")
   },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(" style=\"height: 80px;width: 80px\"/>\n    </div>\n    <div class=\"fresh-message\">\n        <k class=\"icon-info-sign\"></k>\n        ");
+  data.buffer.push(" style=\"height: 80px;width: 80px;z-index: 2;position: absolute;top: -3px;left: 0;\"/>\n    </div>\n    <div class=\"fresh-message\">\n        <k class=\"icon-info-sign\"></k>\n        ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "controller.status", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -341,13 +318,13 @@ function program2(depth0,data) {
 function program4(depth0,data) {
   
   var buffer = '', hashContexts, hashTypes;
-  data.buffer.push("\n\n\n    <div class=\"fresh-profile-pic\" style=\"\">\n        <img ");
+  data.buffer.push("\n\n\n    <div class=\"fresh-profile-pic\" style=\"\">\n        <img src=\"../../../images/trendsideas.jpg\" style=\"height: 80px;width: 80px;z-index: 1;top: -3px;position: relative;\"/>\n        <img ");
   hashContexts = {'src': depth0};
   hashTypes = {'src': "ID"};
   data.buffer.push(escapeExpression(helpers.bindAttr.call(depth0, {hash:{
     'src': ("photo_url")
   },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(" style=\"height: 80px;width: 80px\"/>\n    </div>\n    <div class=\"fresh-message fresh_succeed\">\n        <k class=\"icon-ok-sign\"></k>\n        ");
+  data.buffer.push(" style=\"height: 80px;width: 80px;z-index: 2;position: absolute;top: -3px;left: 0;\"/>\n    </div>\n    <div class=\"fresh-message fresh_succeed\">\n        <k class=\"icon-ok-sign\"></k>\n        ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "controller.status", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -362,13 +339,13 @@ function program4(depth0,data) {
 function program6(depth0,data) {
   
   var buffer = '', hashContexts, hashTypes;
-  data.buffer.push("\n\n    <div class=\"fresh-profile-pic\" style=\"\">\n        <img ");
+  data.buffer.push("\n\n    <div class=\"fresh-profile-pic\" style=\"\">\n        <img src=\"../../../images/trendsideas.jpg\" style=\"height: 80px;width: 80px;z-index: 1;top: -3px;position: relative;\"/>\n        <img ");
   hashContexts = {'src': depth0};
   hashTypes = {'src': "ID"};
   data.buffer.push(escapeExpression(helpers.bindAttr.call(depth0, {hash:{
     'src': ("photo_url")
   },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(" style=\"height: 80px;width: 80px\"/>\n    </div>\n    <div class=\"fresh-message fresh_failed\">\n        <k class=\"icon-remove-sign\"></k>\n        ");
+  data.buffer.push(" style=\"height: 80px;width: 80px;z-index: 2;position: absolute;top: -3px;left: 0;\"/>\n    </div>\n    <div class=\"fresh-message fresh_failed\">\n        <k class=\"icon-remove-sign\"></k>\n        ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "controller.status", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -383,13 +360,13 @@ function program6(depth0,data) {
 function program8(depth0,data) {
   
   var buffer = '', hashContexts, hashTypes;
-  data.buffer.push("\n\n    <div class=\"fresh-profile-pic\" style=\"\">\n        <img ");
+  data.buffer.push("\n\n    <div class=\"fresh-profile-pic\" style=\"\">\n        <img src=\"../../../images/trendsideas.jpg\" style=\"height: 80px;width: 80px;z-index: 1;top: -3px;position: relative;\"/>\n        <img ");
   hashContexts = {'src': depth0};
   hashTypes = {'src': "ID"};
   data.buffer.push(escapeExpression(helpers.bindAttr.call(depth0, {hash:{
     'src': ("photo_url")
   },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(" style=\"height: 80px;width: 80px\"/>\n    </div>\n    <div class=\"fresh-message fresh_warnning\">\n        <k class=\"icon-exclamation-sign\"></k>\n        ");
+  data.buffer.push(" style=\"height: 80px;width: 80px;z-index: 2;position: absolute;top: -3px;left: 0;\"/>\n    </div>\n    <div class=\"fresh-message fresh_warnning\">\n        <k class=\"icon-exclamation-sign\"></k>\n        ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "controller.status", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -1891,35 +1868,7 @@ function program4(depth0,data) {
   return buffer;
   }
 
-<<<<<<< HEAD
   data.buffer.push("<div class=\"navbar\">\n    <div style=\"position: absolute;right: 0;z-index: 1;\">\n        <img src=\"../../../images/beta-version.png\"/>\n\n\n        <span style=\"position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;\" id=\"lastidentifie\">0.3-34</span>\n\n      </div>\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <div class=\"brand\">\n                <a href=\"/#\">\n                    <img class=\"logonew\" style=\"position: relative; top: 0; margin:0;\" src=\"../../../images/landing-trends.png\">\n                </a>\n            </div>\n\n            <!-- show if not logged into platform-->\n            ");
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 855818e119f4263491c78da58a197b81dfa7a08f
-<<<<<<< HEAD
-  data.buffer.push("<div class=\"navbar\">\n      <div style=\"position: absolute;right: 0;z-index: 1;\">\n        <img src=\"../../../images/beta-version.png\"/>\n\n\n        <span style=\"position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;\" id=\"lastidentifie\">0.3-19</span>\n\n      </div>\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <div class=\"brand\">\n                <a href=\"/#\">\n                    <img class=\"logonew\" style=\"position: relative; top: 0; margin:0;\" src=\"../../../images/landing-trends.png\">\n                </a>\n            </div>\n\n            <!-- show if not logged into platform-->\n            ");
-=======
-  data.buffer.push("<div class=\"navbar\">\n    <div style=\"position: absolute;right: 0;z-index: 1;\">\n        <img src=\"../../../images/beta-version.png\"/>\n\n        <span style=\"position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;\" id=\"lastidentifie\">0.3-20</span>\n    </div>\n\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <div class=\"brand\">\n                <a href=\"/#\">\n                    <img class=\"logonew\" style=\"position: relative; top: 0; margin:0;\" src=\"../../../images/landing-trends.png\">\n                </a>\n            </div>\n\n            <!-- show if not logged into platform-->\n            ");
->>>>>>> b644d34c98a02d3e360aabac428536d2d5da0d37
-=======
-<<<<<<< HEAD
-  data.buffer.push("<div class=\"navbar\">\n      <div style=\"position: absolute;right: 0;z-index: 1;\">\n        <img src=\"../../../images/beta-version.png\"/>\n\n\n        <span style=\"position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;\" id=\"lastidentifie\">0.3-24</span>\n\n      </div>\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <div class=\"brand\">\n                <a href=\"/#\">\n                    <img class=\"logonew\" style=\"position: relative; top: 0; margin:0;\" src=\"../../../images/landing-trends.png\">\n                </a>\n            </div>\n\n            <!-- show if not logged into platform-->\n            ");
->>>>>>> b96719151ed9a22cd0340d470f1275de26330a1c
-=======
-  data.buffer.push("<div class=\"navbar\">\n    <div style=\"position: absolute;right: 0;z-index: 1;\">\n        <img src=\"../../../images/beta-version.png\"/>\n\n        <span style=\"position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;\" id=\"lastidentifie\">0.3-21</span>\n    </div>\n\n<<<<<<< HEAD\n=======\n        <span style=\"position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;\" id=\"lastidentifie\">0.3-21</span>\n\n      </div>\n>>>>>>> develop\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <div class=\"brand\">\n                <a href=\"/#\">\n                    <img class=\"logonew\" style=\"position: relative; top: 0; margin:0;\" src=\"../../../images/landing-trends.png\">\n                </a>\n            </div>\n\n            <!-- show if not logged into platform-->\n            ");
->>>>>>> a2b2e3dbeb1b99e2a1fcbac658dcb20a32b13238
-=======
-  data.buffer.push("<div class=\"navbar\">\n      <div style=\"position: absolute;right: 0;z-index: 1;\">\n        <img src=\"../../../images/beta-version.png\"/>\n\n\n        <span style=\"position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;\" id=\"lastidentifie\">0.3-26</span>\n\n      </div>\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <div class=\"brand\">\n                <a href=\"/#\">\n                    <img class=\"logonew\" style=\"position: relative; top: 0; margin:0;\" src=\"../../../images/landing-trends.png\">\n                </a>\n            </div>\n\n            <!-- show if not logged into platform-->\n            ");
->>>>>>> 11048af4d13ae4a39db1bc1f5d02655c360879a7
->>>>>>> 855818e119f4263491c78da58a197b81dfa7a08f
-=======
-  data.buffer.push("<div class=\"navbar\">\n      <div style=\"position: absolute;right: 0;z-index: 1;\">\n        <img src=\"../../../images/beta-version.png\"/>\n\n\n        <span style=\"position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;\" id=\"lastidentifie\">0.3-34</span>\n\n      </div>\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <div class=\"brand\">\n                <a href=\"/#\">\n                    <img class=\"logonew\" style=\"position: relative; top: 0; margin:0;\" src=\"../../../images/landing-trends.png\">\n                </a>\n            </div>\n\n            <!-- show if not logged into platform-->\n            ");
->>>>>>> 62985369ab849c7b58801f431876c5c87c3b585a
->>>>>>> develop-286-New-Front-Page-UXUI
   hashTypes = {};
   hashContexts = {};
   stack1 = helpers['if'].call(depth0, "controller.islogin", {hash:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
@@ -2309,15 +2258,7 @@ function program17(depth0,data) {
   hashContexts = {};
   options = {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
   data.buffer.push(escapeExpression(((stack1 = helpers.date),stack1 ? stack1.call(depth0, "created", options) : helperMissing.call(depth0, "date", "created", options))));
-<<<<<<< HEAD
   data.buffer.push("</span>\n                                </div>\n            </div>\n            <div class=\"object-tags-box\">\n\n                <div class=\"object-tags\">\n                    <span class=\"tags-mark\" style=\"background-color: #427fed\"></span>\n                    <div class=\"tags easing\">\n\n                        <div class=\"object-tpye hint--left hint--rounded\" data-hint=\"Article\">\n                            <i class=\"icon-book\"></i>\n                        </div>                      \n                    </div>\n                </div>\n\n                <div class=\"object-tags \" style=\"display:none;\">\n                    <span class=\"tags-mark\" style=\"background-color: #76a7fa\"></span>\n                    <div class=\"tags easing tagsappear\">\n                        <div class=\"tags-new\">#");
-=======
-<<<<<<< HEAD
-  data.buffer.push("</span>\n                                </div>\n            </div>\n            <div class=\"object-tags-box\">\n\n                <div class=\"object-tags\">\n                    <span class=\"tags-mark\" style=\"background-color: #427fed\"></span>\n                    <div class=\"tags easing\">\n\n                        <div class=\"object-tpye\">\n                            <i class=\"icon-book\"></i>\n                        </div>                      \n                    </div>\n                </div>\n\n                <div class=\"object-tags \" style=\"display:none;\">\n                    <span class=\"tags-mark\" style=\"background-color: #76a7fa\"></span>\n                    <div class=\"tags easing tagsappear\">\n                        <div class=\"tags-new\">#");
-=======
-  data.buffer.push("</span>\n                                </div>\n            </div>\n\n            <div class=\"object-tags-box\">\n\n                <div class=\"object-tags\">\n                    <span class=\"tags-mark\" style=\"background-color: #427fed\"></span>\n                    <div class=\"tags easing\">\n\n                        <div class=\"object-tpye hint--left hint--rounded\" data-hint=\"Article\">\n                            <i class=\"icon-book\"></i>\n                        </div>                      \n                    </div>\n                </div>\n\n                <div class=\"object-tags \" style=\"display:none;\">\n                    <span class=\"tags-mark\" style=\"background-color: #76a7fa\"></span>\n                    <div class=\"tags easing tagsappear\">\n                        <div class=\"tags-new\">#");
->>>>>>> 62985369ab849c7b58801f431876c5c87c3b585a
->>>>>>> develop-286-New-Front-Page-UXUI
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "region", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -5367,27 +5308,7 @@ function program1(depth0,data) {
 function program3(depth0,data) {
   
   var buffer = '', hashTypes, hashContexts;
-<<<<<<< HEAD
-  data.buffer.push("\n<div class=\"box style-box t-style-box col2\" id=\"addNew\" style=\"z-index: 0\">    \n    <div id=\"uploadObject\" >\n         <div class=\"add-new-object-hoverarea easing\">\n\n            <i class=\"icon-plus-sign\"></i>\n        </div>\n        <div class=\"masonry-object t-style-box col2\">\n            <div class=\"add-new-object-content\">\n                <i class=\"icon-group\"></i>\n                <i class=\"icon-book\"></i>\n                <i class=\"icon-picture\"></i>\n                <i class=\"icon-film\"></i>");
-  hashTypes = {};
-  hashContexts = {};
-  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "controller", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("\n            </div>\n          \n        </div>\n    </div>\n    ");
-=======
-<<<<<<< HEAD
-  data.buffer.push("\n<div class=\"box style-box t-style-box col2\" id=\"addNew\" style=\"z-index: 0\">\n\n    <div id=\"uploadObject\" ");
-  hashTypes = {};
-  hashContexts = {};
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "newCollection", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(">\n         <div class=\"add-new-object-hoverarea easing\">\n\n            <i class=\"icon-plus-sign\"></i>\n        </div>\n        <div class=\"masonry-object t-style-box col2\">\n            <div class=\"add-new-object-content\">\n                <i class=\"icon-group\"></i>\n                <i class=\"icon-book\"></i>\n                <i class=\"icon-picture\"></i>\n                <i class=\"icon-film\"></i>");
-  hashTypes = {};
-  hashContexts = {};
-  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "controller", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("\n            </div>\n\n        </div>\n    </div>\n    ");
-=======
   data.buffer.push("\n<div class=\"box style-box t-style-box col2\" id=\"addNew\" style=\"z-index: 0\">    \n    <div id=\"uploadObject\" >\n         <div class=\"add-new-object-hoverarea easing\">\n\n            <i class=\"icon-plus-sign\"></i>\n        </div>\n        <div class=\"masonry-object t-style-box col2\">\n            <div class=\"add-new-object-content\">\n                <i class=\"icon-group\"></i>\n                <i class=\"icon-book\"></i>\n                <i class=\"icon-picture\"></i>\n                <i class=\"icon-film\"></i>\n            </div>\n          \n        </div>\n    </div>\n    ");
->>>>>>> 62985369ab849c7b58801f431876c5c87c3b585a
->>>>>>> develop-286-New-Front-Page-UXUI
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "HubStar.EditCollectionView", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -5529,31 +5450,31 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
 function program1(depth0,data) {
   
   
-  data.buffer.push("\n    <div id=\"loading\" class=\"loading-visible\" >\n        <img style=\"width: 300px;position: relative;margin: auto;left: 0;right: 0; \" src=\"../images/loading.gif\" />\n        <div id=\"blurringTextG\">\n            <div id=\"blurringTextG_1\" class=\"blurringTextG\">\n                C</div>\n            <div id=\"blurringTextG_2\" class=\"blurringTextG\">\n                r</div>\n            <div id=\"blurringTextG_3\" class=\"blurringTextG\">\n                e</div>\n            <div id=\"blurringTextG_4\" class=\"blurringTextG\">\n                a</div>\n            <div id=\"blurringTextG_5\" class=\"blurringTextG\">\n                t</div>\n            <div id=\"blurringTextG_6\" class=\"blurringTextG\">\n                i</div>\n            <div id=\"blurringTextG_7\" class=\"blurringTextG\">\n                n</div>\n            <div id=\"blurringTextG_8\" class=\"blurringTextG\">\n                g</div>\n            <div id=\"blurringTextG_9\" class=\"blurringTextG\">\n                &nbsp;\n            </div>\n            <div id=\"blurringTextG_10\" class=\"blurringTextG\">\n                y</div>\n            <div id=\"blurringTextG_11\" class=\"blurringTextG\">\n                o</div>\n            <div id=\"blurringTextG_12\" class=\"blurringTextG\">\n                u</div>\n            <div id=\"blurringTextG_13\" class=\"blurringTextG\">\n                r</div>\n            <div id=\"blurringTextG_14\" class=\"blurringTextG\">\n                &nbsp;\n            </div>\n            <div id=\"blurringTextG_15\" class=\"blurringTextG\">\n                i</div>\n            <div id=\"blurringTextG_16\" class=\"blurringTextG\">\n                d</div>\n            <div id=\"blurringTextG_17\" class=\"blurringTextG\">\n                e</div>\n            <div id=\"blurringTextG_18\" class=\"blurringTextG\">\n                a</div>\n            <div id=\"blurringTextG_19\" class=\"blurringTextG\">\n                s</div>\n            <div id=\"blurringTextG_20\" class=\"blurringTextG\">\n                &nbsp;\n            </div>\n            <div id=\"blurringTextG_21\" class=\"blurringTextG\">\n                s</div>\n            <div id=\"blurringTextG_22\" class=\"blurringTextG\">\n                p</div>\n            <div id=\"blurringTextG_23\" class=\"blurringTextG\">\n                a</div>\n            <div id=\"blurringTextG_24\" class=\"blurringTextG\">\n                c</div>\n            <div id=\"blurringTextG_25\" class=\"blurringTextG\">\n                e</div>\n            <div id=\"blurringTextG_26\" class=\"blurringTextG\">\n                &nbsp;\n            </div>\n            <div id=\"blurringTextG_27\" class=\"blurringTextG\">\n                .</div>\n            <div id=\"blurringTextG_28\" class=\"blurringTextG\">\n                .</div>\n            <div id=\"blurringTextG_29\" class=\"blurringTextG\">\n                .</div>\n        </div>\n    </div>\n\n    ");
+  data.buffer.push("\n<div id=\"loading\" class=\"loading-visible\" >\n\n    <div id=\"blurringTextG\">\n        <div id=\"blurringTextG_1\" class=\"blurringTextG\">\n            C</div>\n        <div id=\"blurringTextG_2\" class=\"blurringTextG\">\n            r</div>\n        <div id=\"blurringTextG_3\" class=\"blurringTextG\">\n            e</div>\n        <div id=\"blurringTextG_4\" class=\"blurringTextG\">\n            a</div>\n        <div id=\"blurringTextG_5\" class=\"blurringTextG\">\n            t</div>\n        <div id=\"blurringTextG_6\" class=\"blurringTextG\">\n            i</div>\n        <div id=\"blurringTextG_7\" class=\"blurringTextG\">\n            n</div>\n        <div id=\"blurringTextG_8\" class=\"blurringTextG\">\n            g</div>\n        <div id=\"blurringTextG_9\" class=\"blurringTextG\">\n            &nbsp;\n        </div>\n        <div id=\"blurringTextG_10\" class=\"blurringTextG\">\n            y</div>\n        <div id=\"blurringTextG_11\" class=\"blurringTextG\">\n            o</div>\n        <div id=\"blurringTextG_12\" class=\"blurringTextG\">\n            u</div>\n        <div id=\"blurringTextG_13\" class=\"blurringTextG\">\n            r</div>\n        <div id=\"blurringTextG_14\" class=\"blurringTextG\">\n            &nbsp;\n        </div>\n        <div id=\"blurringTextG_15\" class=\"blurringTextG\">\n            i</div>\n        <div id=\"blurringTextG_16\" class=\"blurringTextG\">\n            d</div>\n        <div id=\"blurringTextG_17\" class=\"blurringTextG\">\n            e</div>\n        <div id=\"blurringTextG_18\" class=\"blurringTextG\">\n            a</div>\n        <div id=\"blurringTextG_19\" class=\"blurringTextG\">\n            s</div>\n        <div id=\"blurringTextG_20\" class=\"blurringTextG\">\n            &nbsp;\n        </div>\n        <div id=\"blurringTextG_21\" class=\"blurringTextG\">\n            s</div>\n        <div id=\"blurringTextG_22\" class=\"blurringTextG\">\n            p</div>\n        <div id=\"blurringTextG_23\" class=\"blurringTextG\">\n            a</div>\n        <div id=\"blurringTextG_24\" class=\"blurringTextG\">\n            c</div>\n        <div id=\"blurringTextG_25\" class=\"blurringTextG\">\n            e</div>\n        <div id=\"blurringTextG_26\" class=\"blurringTextG\">\n            &nbsp;\n        </div>\n        <div id=\"blurringTextG_27\" class=\"blurringTextG\">\n            .</div>\n        <div id=\"blurringTextG_28\" class=\"blurringTextG\">\n            .</div>\n        <div id=\"blurringTextG_29\" class=\"blurringTextG\">\n            .</div>\n\n    </div>\n</div>\n\n");
   }
 
-  data.buffer.push("<script src=\"scripts/views/RegisterSliders.js\"></script>\n<div style=\"width:100%;height:100%;z-index: 1000;position: fixed;min-width: 1100px;min-height: 728px;\">\n    <img src=\"../../../images/landingpagebg.jpg\" style=\"width:100%; position:fixed;\"/>\n\n    <div style=\"width: 87%;margin: 40px auto;display: block;line-height: 45px;\">\n        <img class=\"logonew\" style=\"position: relative; height: 30px;display: inline-block;vertical-align: top;margin: 8px;\" src=\"../../../images/landing-trends.png\">\n        <div style=\"position:relative; float:right;color: #fff; font-size:15px;font-weight: bold;\">\n            <span style=\"letter-spacing: 1px; margin: 0 0 0 10px;cursor:pointer;\" onClick=\"loginPane();\" id=\"login-btn\" class=\"white-text-hover easing\">LOGIN</span>\n            <span>&nbsp | &nbsp</span>\n\n            <a href=\"http://trendsideas.com/ViewPage.aspx?pageName=Contact%20Us&region=1\" target=\"blank\"><span class=\"white-text-hover easing\" style=\"letter-spacing: 1px; margin: 0 0 0 10px;\">HELP</span></a>\n\n        </div>\n    </div>\n\n    <div style=\"position: absolute; vertical-align: middle; color: #fff; width: 600px; text-align: center;margin: auto;left: 0;right: 0;top: 55px;font-size: 13px; font-family: 'Montserrat', sans-serif; letter-spacing: 2px;opacity: .9;\">\n        <span>2,100,000 IDEAS</span>\n        <span>&nbsp | &nbsp</span>\n        <span>1,200,000 PRODUCTS</span>\n        <span>&nbsp | &nbsp</span>\n        <span>5,000 SERVICES</span>\n    </div>\n\n    <div id=\"profiles-main-container\" style=\"position:absolute;width: 33%;text-align: center;top: 21%;margin: auto;display: block;left: 0;right: 0;\">\n        <img style=\"position: relative;margin: 10px auto 40px -10px; min-width: 320px;width: 70%;\" src=\"../../../images/landing-trends.png\">\n\n        <div id=\"click-register-social\" class=\"register-with easing social-active\" style=\"border-radius: 5px 5px 0 0; border-bottom:1px solid #e3e3e3;\">\n            <i class=\"icon-facebook\">&nbsp</i><a style=\"color: #888\"> Register with social account</a>\n        </div>\n\n        <div id=\"social-link\" style=\"display: block; width: 300px; height: 60px; line-height: 60px; margin: 0px auto; background-color: white;padding:12px;border-bottom: 1px solid #e3e3e3;\">\n\n            <div onclick=\"Facebook(650, 400);\"class=\"social-login-iconbox\">\n                <i  class=\"icon-facebook\"></i>\n            </div>\n\n            <div onclick=\"Twitter(650, 400);\" class=\"social-login-iconbox\">\n                <i class=\"icon-twitter\"></i>\n            </div>\n\n            <div onclick=\"Google(650, 400);\" class=\"social-login-iconbox\" style=\"\">\n                <i  class=\"icon-google-plus\"></i>\n            </div>\n\n            <div onclick=\"LinkedIn(650, 400);\" class=\"social-login-iconbox\">\n                <i  class=\"icon-linkedin\"></i>\n            </div>\n\n            <div onclick=\"Sina(650, 400);\" class=\"social-login-iconbox\">\n                <i class=\"icon-weibo\"></i>\n            </div>\n\n        </div>\n\n\n        <!--This is the email register section-->\n        <div>\n            <div id=\"click-register\" class=\"register-with easing register-clicker\">\n                <i class=\"icon-envelope\">&nbsp </i><a style=\"color: #888\"> Register with Email</a>\n            </div>\n\n            <div   id=\"register-with-email-drop-down\" style=\"width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;\">\n                <div style=\"padding: 0 8px;\">\n\n                    <div style=\"border-bottom: 1px solid #e3e3e3; border-top:1px solid #e3e3e3;\">\n                        <div id=\"first_name\"class=\"login-textfield\" style=\"width: 49%;display: inline-block;vertical-align: top;height: 45px;line-height: 45px;\">\n                            ");
+  data.buffer.push("<script src=\"scripts/views/RegisterSliders.js\"></script>\n<div class=\"Register-Page\" style=\"\">\n    <img src=\"../../../images/landingpagebg.jpg\" style=\"width:100%; position:fixed;\"/>\n\n    <div style=\"width: 87%;margin: 40px auto;display: block;line-height: 45px;\">\n        <img class=\"logonew\" style=\"position: relative; height: 30px;display: inline-block;vertical-align: top;margin: 8px;\" src=\"../../../images/landing-trends.png\">\n        <div style=\"position:relative; float:right;color: #fff; font-size:15px;font-weight: bold;\">\n            <span style=\"letter-spacing: 1px; margin: 0 0 0 10px;cursor:pointer;\" onClick=\"loginPane();\" id=\"login-btn\" class=\"white-text-hover easing\">LOGIN</span>\n            <span>&nbsp | &nbsp</span>\n\n            <a href=\"http://trendsideas.com/ViewPage.aspx?pageName=Contact%20Us&region=1\" target=\"blank\"><span class=\"white-text-hover easing\" style=\"letter-spacing: 1px; margin: 0 0 0 10px;\">HELP</span></a>\n\n        </div>\n    </div>\n\n    <div style=\"position: absolute; vertical-align: middle; color: #fff; width: 600px; text-align: center;margin: auto;left: 0;right: 0;top: 55px;font-size: 13px; font-family: 'Montserrat', sans-serif; letter-spacing: 2px;opacity: .9;\">\n        <span>83,000 IDEAS</span>\n        <span>&nbsp | &nbsp</span>\n        <span>210,000 PRODUCTS</span>\n        <span>&nbsp | &nbsp</span>\n        <span>650 SERVICES</span>\n    </div>\n\n    <div id=\"profiles-main-container\" style=\"position:absolute;width: 33%;text-align: center;top: 21%;margin: auto;display: block;left: 0;right: 0;\">\n        <img id=\"fadein-image\" style=\"position: relative;margin: 10px auto 40px -10px; min-width: 320px;width: 70%;\" src=\"../../../images/landing-trends.png\">\n\n        <div id=\"click-register-social\" class=\"register-with easing social-active\" style=\"border-radius: 5px 5px 0 0; border-bottom:1px solid #e3e3e3;\">\n            <i class=\"icon-facebook\">&nbsp</i><a style=\"color: #888\"> Register with social account</a>\n        </div>\n\n        <div id=\"social-link\" class=\"social-links-container\" style=\"display: block;\">\n\n            <div onclick=\"Facebook(650, 400);\"class=\"social-login-iconbox\">\n                <i  class=\"icon-facebook\"></i>\n            </div>\n\n            <div onclick=\"Twitter(650, 400);\" class=\"social-login-iconbox\">\n                <i class=\"icon-twitter\"></i>\n            </div>\n\n            <div onclick=\"Google(650, 400);\" class=\"social-login-iconbox\" style=\"\">\n                <i  class=\"icon-google-plus\"></i>\n            </div>\n\n            <div onclick=\"LinkedIn(650, 400);\" class=\"social-login-iconbox\">\n                <i  class=\"icon-linkedin\"></i>\n            </div>\n\n            <div onclick=\"Sina(650, 400);\" class=\"social-login-iconbox\">\n                <i class=\"icon-weibo\"></i>\n            </div>\n\n        </div>\n\n\n        <!--This is the email register section-->\n        <div>\n            <div id=\"click-register\" class=\"register-with easing register-clicker\">\n                <i class=\"icon-envelope\">&nbsp </i><a style=\"color: #888\"> Register with Email</a>\n            </div>\n\n            <div   id=\"register-with-email-drop-down\" style=\"width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;\">\n                <div style=\"padding: 0 8px;position: relative;\">\n\n                    <div style=\"border-bottom: 1px solid #e3e3e3; border-top:1px solid #e3e3e3;\">\n                        <div id=\"first_name\" class=\"login-textfield\" style=\"width: 49%;display: inline-block;border: none\">\n                            ");
   hashContexts = {'valueBinding': depth0,'placeholder': depth0};
   hashTypes = {'valueBinding': "STRING",'placeholder': "STRING"};
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
     'valueBinding': ("first_name"),
     'placeholder': ("First Name")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("\n                        </div>\n\n                        <div id=\"last_name\"class=\"login-textfield\" style=\"width: 49%;display: inline-block;vertical-align: top;height: 45px;line-height: 45px;\">\n                            ");
+  data.buffer.push("\n                        </div>\n\n                        <div id=\"last_name\" class=\"login-textfield\" style=\"width: 49%;display: inline-block;border: none\">\n                            ");
   hashContexts = {'valueBinding': depth0,'placeholder': depth0};
   hashTypes = {'valueBinding': "STRING",'placeholder': "STRING"};
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
     'valueBinding': ("last_name"),
     'placeholder': ("Last Name")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("\n                        </div>\n                    </div>\n\n                    <div  id=\"email\"class=\"login-textfield\" style=\"margin: 0;width: 100%;height: 45px;line-height: 45px;border-bottom: 1px solid #e3e3e3;\">\n                        ");
+  data.buffer.push("\n                        </div>\n                    </div>\n\n                    <div  id=\"email\" class=\"login-textfield\" style=\"\">\n                        ");
   hashContexts = {'valueBinding': depth0,'placeholder': depth0};
   hashTypes = {'valueBinding': "STRING",'placeholder': "STRING"};
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
     'valueBinding': ("email"),
     'placeholder': ("Your Email")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("\n                    </div>\n\n                    <div id=\"password\"class=\"login-textfield\"  style=\"margin: 0;width: 100%;height: 45px;line-height: 45px;border-bottom: 1px solid #e3e3e3;\">\n                        ");
+  data.buffer.push("\n                    </div>\n\n                    <div id=\"password\" class=\"login-textfield\"  style=\"\">\n                        ");
   hashContexts = {'type': depth0,'valueBinding': depth0,'placeholder': depth0};
   hashTypes = {'type': "STRING",'valueBinding': "STRING",'placeholder': "STRING"};
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
@@ -5565,7 +5486,7 @@ function program1(depth0,data) {
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "signUp", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(" > Register</div>\n            </div>\n\n\n            <div id=\"register-with-email-step-2\" style=\"width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;\">\n                <div style=\"padding: 0 8px;\">\n\n                    <div  class=\"login-textfield\" style=\"margin: 0;width: 100%;height: 45px;line-height: 45px;border-bottom: 1px solid #e3e3e3;border-top:1px solid #e3e3e3;\">\n                        ");
+  data.buffer.push(" > Register</div>\n            </div>\n\n\n            <div id=\"register-with-email-step-2\" style=\"width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;\">\n                <div style=\"padding: 0 8px;position: relative;\">\n\n                    <div  class=\"login-textfield\" style=\"border-top:1px solid #e3e3e3;\">\n                        ");
   hashContexts = {'valueBinding': depth0,'placeholder': depth0};
   hashTypes = {'valueBinding': "STRING",'placeholder': "STRING"};
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
@@ -5591,14 +5512,14 @@ function program1(depth0,data) {
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "done", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(">Done</div>\n\n    </div>\n\n</div>\n<!--End of email register section-->\n\n<div id=\"user-login-pane\"  style=\"display:none;border-radius: 5px 5px 0 0;\">\n\n    <div id=\"social-login\" class=\"register-with easing\" style=\"border-radius: 5px 5px 0 0; border-bottom:1px solid #e3e3e3;\">\n        <i id=\"social-login\" class=\"icon-facebook\">&nbsp</i><a style=\"color: #888\"> Login with social account</a>\n    </div>\n    <div id=\"social-login-container\" style=\"display: none; width: 300px; height: 60px; line-height: 60px; margin: 0px auto; background-color: white;padding:12px;border-bottom: 1px solid #e3e3e3;\">\n\n        <div onclick=\"Facebook(650, 400);\" class=\"social-login-iconbox\">\n            <i  class=\"icon-facebook\"></i>\n        </div>\n\n        <div onclick=\"Twitter(650, 400);\" class=\"social-login-iconbox\">\n            <i class=\"icon-twitter\"></i>\n        </div>\n\n        <div onclick=\"Google(650, 400);\" class=\"social-login-iconbox\" style=\"\">\n            <i  class=\"icon-google-plus\"></i>\n        </div>\n\n        <div onclick=\"LinkedIn(650, 400);\" class=\"social-login-iconbox\">\n            <i class=\"icon-linkedin\"></i>\n        </div>\n\n        <div onclick=\"Sina(650, 400);\" class=\"social-login-iconbox\">\n            <i class=\"icon-weibo\"></i>\n        </div>\n\n    </div>\n\n\n    <div id=\"click-login\" class=\"register-with easing active-tab\" style=\"border-bottom: 1px solid #e3e3e3;\">\n        <i class=\"icon-envelope\">&nbsp </i><a style=\"color: #888\"> Login with Email</a>\n    </div>\n\n    <div id=\"login-with-email-drop-down\" style=\"width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;\">\n        <div style=\"padding: 0 8px;\">\n\n\n            <div id=\"loginUsername\" class=\"login-textfield\" style=\"margin: 0;width: 100%;height: 45px;line-height: 45px;border-bottom: 1px solid #e3e3e3;\">\n                ");
+  data.buffer.push(">Done</div>\n\n    </div>\n    <div id=\"missing-fields\" class=\"black-tool-tip\" style=\"display:none;\">\n        <p>Please fill the mandatory fields.</p>\n    </div>\n    <div id=\"invalid-user-name-register\" class=\"black-tool-tip\" style=\"display:none;\">\n        <p>The email address  you have entered is invalid.</p>\n    </div>\n    <div id=\"invalid-password\" class=\"black-tool-tip\" style=\"display:none;\">\n        <p>Your password length should be between 6-40 characters long.</p>\n    </div>\n    <div id=\"email-in-use\" class=\"black-tool-tip\" style=\"display:none;\">\n        <p>The email address you have entered is already in use.</p>\n    </div>\n    <div id=\"email-used-by-social\" class=\"black-tool-tip\" style=\"display:none;\">\n        <p>The email address you have entered is already in use by a social account.</p>\n    </div>\n\n</div>\n<!--End of email register section-->\n\n<div id=\"user-login-pane\"  style=\"display:none;border-radius: 5px 5px 0 0;\">\n\n    <div id=\"social-login\" class=\"register-with easing\" style=\"border-radius: 5px 5px 0 0; border-bottom:1px solid #e3e3e3;\">\n        <i id=\"social-login\" class=\"icon-facebook\">&nbsp</i><a style=\"color: #888\"> Login with social account</a>\n    </div>\n    <div id=\"social-login-container\" class=\"social-links-container\" style=\"display: none;\">\n\n        <div onclick=\"Facebook(650, 400);\" class=\"social-login-iconbox\">\n            <i  class=\"icon-facebook\"></i>\n        </div>\n\n        <div onclick=\"Twitter(650, 400);\" class=\"social-login-iconbox\">\n            <i class=\"icon-twitter\"></i>\n        </div>\n\n        <div onclick=\"Google(650, 400);\" class=\"social-login-iconbox\" >\n            <i  class=\"icon-google-plus\"></i>\n        </div>\n\n        <div onclick=\"LinkedIn(650, 400);\" class=\"social-login-iconbox\">\n            <i class=\"icon-linkedin\"></i>\n        </div>\n\n        <div onclick=\"Sina(650, 400);\" class=\"social-login-iconbox\">\n            <i class=\"icon-weibo\"></i>\n        </div>\n\n    </div>\n\n\n    <div id=\"click-login\" class=\"register-with easing active-tab\" style=\"border-bottom: 1px solid #e3e3e3;\">\n        <i class=\"icon-envelope\">&nbsp </i><a style=\"color: #888\"> Login with Email</a>\n    </div>\n\n    <div id=\"login-with-email-drop-down\" style=\"width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;\">\n        <div style=\"padding: 0 8px;position: relative;\">\n\n\n            <div id=\"loginUsername\" class=\"login-textfield\" style=\"\">\n                ");
   hashContexts = {'valueBinding': depth0,'placeholder': depth0};
   hashTypes = {'valueBinding': "STRING",'placeholder': "STRING"};
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
     'valueBinding': ("loginUsername"),
     'placeholder': ("Your Email")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("\n            </div>\n\n            <div id=\"loginPassword\"class=\"login-textfield\"  style=\"margin: 0;width: 100%;height: 45px;line-height: 45px;border-bottom: 1px solid #e3e3e3;\">\n                ");
+  data.buffer.push("\n            </div>\n\n            <div id=\"loginPassword\" class=\"login-textfield\"  style=\"\">\n                ");
   hashContexts = {'type': depth0,'valueBinding': depth0,'placeholder': depth0};
   hashTypes = {'type': "STRING",'valueBinding': "STRING",'placeholder': "STRING"};
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
@@ -5606,22 +5527,22 @@ function program1(depth0,data) {
     'valueBinding': ("loginPassword"),
     'placeholder': ("Password")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("\n                <div class=\"hint--right hint--rounded\" data-hint=\"forgot password?\" style=\"cursor:pointer;float: right;margin-top: -45px;height: 41px;color:#888;\">\n                    <i class=\"icon-question-sign\">&nbsp</i>\n                </div>\n            </div>\n        </div>\n\n        <div id=\"register-btn\" class=\"register-btn easing\" style=\"\" ");
+  data.buffer.push("\n                <div class=\"hint--right hint--rounded\" data-hint=\"forgot password?\" style=\"cursor:pointer;float: right;margin-top: -40px;height: 30px;color:#888;\">\n                    <i class=\"icon-question-sign\">&nbsp</i>\n                </div>\n            </div>\n        </div>\n\n        <div id=\"register-btn\" class=\"register-btn easing\" style=\"\" ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "login", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("> Login</div>\n    </div>\n    <div id=\"user-forgot-password-pane\" style=\"width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;\">\n        <div  id=\"email\"class=\"login-textfield\" style=\"margin: 0;width: 100%;height: 45px;line-height: 45px;border-bottom: 1px solid #e3e3e3;padding: 0 10px\">\n            ");
+  data.buffer.push("> Login</div>\n    </div>\n    <div id=\"user-forgot-password-pane\" style=\"width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;\">\n        <div  id=\"resetPasswordEmail\"class=\"login-textfield\" style=\"padding: 0 10px\">\n            ");
   hashContexts = {'valueBinding': depth0,'placeholder': depth0};
   hashTypes = {'valueBinding': "STRING",'placeholder': "STRING"};
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
     'valueBinding': ("resetPasswordEmail"),
     'placeholder': ("Your Email")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("\n        </div>\n        <div class=\"back-btn easing\" style=\"\" >Back</div>\n        <div class=\"register-btn easing register-btn-small\" ");
+  data.buffer.push("\n        </div>\n        <div class=\"back-btn easing\" style=\"\" >Back</div>\n        <div id='reset-btn' class=\"register-btn easing register-btn-small\" ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "emailSend", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(">Reset password</div>\n    </div>\n\n</div>\n\n ");
+  data.buffer.push(">Reset password</div>\n    </div>\n\n    <div class=\"black-tool-tip\"id=\"forgot-message-container\" style=\"display:none;\">\n        <p>  We've sent you an email with instructions to reset your password.</p><br/>\n        <p>Please make sure it didn't wind up in your Junk Mail. If you aren't receiving our password reset emails, see our\n            <a class=\"white-text-hover easing\" href=\"http://trendsideas.com/ViewPage.aspx?pageName=Contact%20Us&region=1\" target=\"blank\" style=\"text-decoration: underline\"><b>help documents.</b></a>\n        </p>\n    </div>\n\n\n    <div id=\"invalid-user-name\" class=\"black-tool-tip\" style=\"display:none;\">\n        <p>The email address  you have entered is invalid.</p>\n    </div>\n    <div id=\"invalid-account-type\" class=\"black-tool-tip\" style=\"display:none;\">\n        <p>You are attempting to login with a social network account, please use the \"Login with social account\" link above.</p>\n    </div>\n    <div id=\"incorrect-password\" class=\"black-tool-tip\" style=\"display:none;\">\n        <p>Incorrect password.</p>\n    </div>\n    <div id=\"invalid-account-type-reset\" class=\"black-tool-tip\" style=\"display:none;\">\n        <p>You are attempting to reset your password with a social network account, please use the \"Login with social account\" link above.</p>\n    </div>\n    <div id=\"new-password\" class=\"black-tool-tip\" style=\"display:none;\">\n        <p>  We've sent you an email with instructions to reset your password.</p><br/>\n        <p>Please make sure it didn't wind up in your Junk Mail. If you aren't receiving our password reset emails, see our\n            <a class=\"white-text-hover easing\" href=\"http://trendsideas.com/ViewPage.aspx?pageName=Contact%20Us&region=1\" target=\"blank\" style=\"text-decoration: underline\"><b>help documents.</b></a>\n        </p>\n    </div>\n\n\n\n</div>\n\n\n\n");
   hashTypes = {};
   hashContexts = {};
   stack1 = helpers['if'].call(depth0, "controller.isWaiting", {hash:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
@@ -6025,7 +5946,7 @@ function program28(depth0,data) {
 function program30(depth0,data) {
   
   var buffer = '', stack1, hashTypes, hashContexts;
-  data.buffer.push("\n                    ");
+  data.buffer.push("\n                    \n                    \n                    ");
   hashTypes = {};
   hashContexts = {};
   stack1 = helpers['if'].call(depth0, "controller.is_authentic_user", {hash:{},inverse:self.noop,fn:self.program(31, program31, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
@@ -6043,11 +5964,11 @@ function program30(depth0,data) {
 function program31(depth0,data) {
   
   var buffer = '', hashTypes, hashContexts;
-  data.buffer.push("\n\n                    <div class=\"edit-btn hint--rounded hint--bottom\" data-hint=\"Edit content\" ");
+  data.buffer.push("\n                                        <div class=\"edit-btn hint--rounded hint--bottom\" data-hint=\"Edit content\" ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "toggleEditing", "controller.about_me", "controller.aboutMe", {hash:{},contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(">\n\n                         <i class=\"icon-edit\"></i>\n                    </div>\n                    ");
+  data.buffer.push(">\n                                             <i class=\"icon-edit\"></i>\n                                        </div>\n                    ");
   return buffer;
   }
 

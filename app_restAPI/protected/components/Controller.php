@@ -148,8 +148,7 @@ class Controller extends CController {
             $size = $this->getUserInput($requireParams[4]);
             $response = $this->getSearchResults($region, $searchString, $from, $size);
             $response = $this->getReponseResult($response, $returnType);
-        }
-        elseif ($requireType == 'collection') {
+        } elseif ($requireType == 'collection') {
             $collection_id = $this->getUserInput($requireParams[1]);
             $owner_profile_id = $this->getUserInput($requireParams[2]);
             $response = $this->getCollectionReults($collection_id, $owner_profile_id);
@@ -216,23 +215,23 @@ class Controller extends CController {
                 ->default_operator('AND');
         return $should;
     }
-    
+
     protected function getsortQuestWithQueryString($sortString) {
         $should = Sherlock\Sherlock::sortBuilder()->Field()->name($sortString)
                 ->order('desc');
         return $should;
     }
-    
+
     protected function searchWithCondictions($conditions, $search_type = "should", $from = 0, $size = 50) {
         $request = $this->getElasticSearch();
         $request->from($from);
         $request->size($size);
-        $sortArray=array('couchbaseDocument.doc.created','couchbaseDocument.doc.boost');
-  
+        $sortArray = array('couchbaseDocument.doc.created', 'couchbaseDocument.doc.boost');
+
         $length = sizeof($sortArray);
         for ($i = 0; $i < $length; $i++) {
             $sort = $this->getsortQuestWithQueryString($sortArray[$i]);
-                $request->sort($sort);            
+            $request->sort($sort);
         }
         $request->sort($sortArray);
         $max = sizeof($conditions);
@@ -402,6 +401,15 @@ class Controller extends CController {
         $array = array();
         for ($int = 0; $int < sizeof($tempResponse); $int++) {
             $tempObject = $tempResponse[$int]['source']['doc'];
+            if (isset($tempResponse[$int]['source']['doc']['comments'])) {
+                error_log(var_export($tempResponse[$int]['source']['doc']['comments'], true));
+            }
+
+
+
+
+
+
             array_push($array, $tempObject);
         }
         $tempId = time();

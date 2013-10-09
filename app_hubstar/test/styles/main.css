@@ -10927,6 +10927,14 @@ textarea.add-interests{
 
 
 
+
+/*CROP FUNCTION*/
+
+.crop-canvas{height: auto;max-height: 500px;width: auto;margin: 0 auto; max-width: 850px;}
+
+
+
+
 body {
 
     font-size:15.5px;

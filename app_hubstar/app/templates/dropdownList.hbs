@@ -1,7 +1,7 @@
 
 
 {{#if controller.projectCategoryDropdown}}
-<div id="dropItem1"  {{action dropdown controller.projectCategorySelection}}>
+<div id="dropItem1"  {{action dropdown controller.dropdownCategory}}>
      {{#each controller.categorys}}
      <div  class="ite " {{action topicSelection this}}>{{topic}}</div>
     {{/each}}
@@ -43,7 +43,7 @@
 {{/if}}
 
 {{#if controller.packgetDropdown}}
-<div id="packgetDropdown" {{action dropdown controller.packgeSelection}}>
+<div id="packgetDropdown" {{action dropdown "package"}}>
      <div  class="ite ">Platinum</div>
     <div  class="ite ">Gold</div>
     <div  class="ite ">Silver</div>
@@ -52,12 +52,22 @@
 {{/if}}
 
 {{#if controller.categoryDropdown}}
-<div id="categoryDropdown" {{action dropdown controller.categorySelection}}>
+<div id="categoryDropdown" {{action dropdown "category"}}>
     
-    <div  class="ite ">ssPlatinum</div>
-    <div  class="ite ">ssGold</div>
-    <div  class="ite ">ssSilver</div>
-    <div  class="ite ">ssBronze</div>
+    <div  class="ite ">Apartment Design</div>
+    <div  class="ite ">Bathrooms</div>
+    <div  class="ite ">Civic Design</div>
+    <div  class="ite ">Educational Design</div>
+    <div  class="ite ">Home Theatre</div>
+    <div  class="ite ">Hospitality design</div>
+    <div  class="ite ">Interior living</div>
+    <div  class="ite ">Kitchen</div>
+    <div  class="ite ">New homes</div>
+    <div  class="ite ">Office Design</div>
+      <div  class="ite ">Outdoor Living</div>  
+      <div  class="ite ">Refurbishment</div>
+       <div  class="ite ">Renovation</div>
+        <div  class="ite ">Retail Design</div>
 
 
 </div>

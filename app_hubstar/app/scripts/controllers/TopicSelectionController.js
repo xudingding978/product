@@ -1,7 +1,7 @@
 HubStar.TopicSelectionController = Ember.ArrayController.extend({
         selected_topics: "",
         content: [
-            {id: "1", image: '../images/welcomepage/bedroom.jpg', topic: 'Bedroom'},
+            {id: "1", image: '../images/welcomepage/bedroom.jpg', topic: 'Bedroomaaaaaaaaa'},
             {id: "2", image: '../images/welcomepage/home-theatre.jpg', topic: 'Home Theatre'},
             {id: "3", image: '../images/welcomepage/interior-living.jpg', topic: 'Interior Living'},
             {id: "4", image: '../images/welcomepage/kitchens.jpg', topic: 'Kitchens'},
@@ -14,7 +14,7 @@ HubStar.TopicSelectionController = Ember.ArrayController.extend({
             {id: "11", image: '../images/welcomepage/hospitality-design.jpg', topic: 'Hospitality Design'},
             {id: "12", image: '../images/welcomepage/office-design.jpg', topic: 'Office Design'},
             {id: "13", image: '../images/welcomepage/refurbishment.jpg', topic: 'Refurbishment'},
-            {id: "14", image: '../images/welcomepage/retail-design.jpg', topic: 'Retail design'}
+            {id: "14", image: '../images/welcomepage/retail-design.jpg', topic: 'Retail Design'}
 
         ],
         selectTopic: function(id, topic) {

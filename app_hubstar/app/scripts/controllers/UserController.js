@@ -13,6 +13,7 @@ HubStar.UserController = Ember.Controller.extend({
     temp: [],
     followerTag: false,
     followingTag: false,
+    messageTag:false,
     newDesc: '',
     newTitle: '',
     selectedDesc: "",
@@ -666,6 +667,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('followingTag', false);
         this.set('collectionTag', true);
         this.set('followerTag', false);
+         this.set('messageTag', false);
     },
     selectFollowing: function(model) {
         this.set('profileSelectionStatus', 'Following');
@@ -673,6 +675,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('followingTag', true);
         this.set('collectionTag', false);
         this.set('followerTag', false);
+         this.set('messageTag', false);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
@@ -683,6 +686,19 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('followingTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', true);
+         this.set('messageTag', false);
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    },
+    selectMessage:function(model){
+        this.set('profileSelectionStatus', 'Messages');
+        //this.get('controllers.userFollowers').getClientId(model);
+        this.set('followingTag', false);
+        this.set('collectionTag', false);
+        this.set('followerTag', false);
+        this.set('messageTag', true);
+        console.log(this.get("messageTag"));
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);

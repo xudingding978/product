@@ -771,7 +771,7 @@ HubStar.UserController = Ember.Controller.extend({
             if (that.get('newStyleImageSource') !== null && that.get('newStyleImageSource') !== "")
             {
                 var size = " size is " + width + "x" + height;
-                that.set('CurrentImageSize', size);
+                that.set('CurrprofileStyleImageDropentImageSize', size);
 
                 if (that.get('UploadImageMode') === "User Cover") {
                     if (width < 800 || height < 250) {

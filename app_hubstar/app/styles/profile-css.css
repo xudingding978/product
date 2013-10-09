@@ -693,3 +693,9 @@ textarea.add-interests{
 
 .Followed-by:hover{opacity: 1}   
 
+
+
+
+/*CROP FUNCTION*/
+
+.crop-canvas{height: auto;max-height: 500px;width: auto;margin: 0 auto; max-width: 850px;}

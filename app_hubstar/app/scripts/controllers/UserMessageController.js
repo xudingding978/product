@@ -41,5 +41,19 @@ HubStar.UserMessageController = Ember.Controller.extend({
             }, 200);
         }
     },
+    profileStyleImageDrop: function(e, name)
+    {
+        var target = getTarget(e, "single");
+        var src = target.result;
+        var that = this;
+
+        getImageWidth(src, function(width, height) {
+            console.log(src);
+            that.set('newStyleImageSource', src);
+            that.set('newStyleImageName', name);
+            that.set('currentWidth', width);
+            that.set('currentHeight', height);
+        });
+    }
 }
 );

@@ -693,3 +693,49 @@ textarea.add-interests{
 
 .Followed-by:hover{opacity: 1}   
 
+
+
+
+
+
+
+
+
+
+/*MESSAGE CENTER STYLE FROM HERE*/
+
+.message-btn{
+    width: 50%; 
+    float: left; 
+    height:45px; 
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 45px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #f3f3f3;
+    opacity: .8;
+}
+
+.message-btn:hover{
+    opacity: 1;
+
+    -webkit-box-shadow: inset 0 -2px 0 #ddd;
+    -o-box-shadow: inset 0 -2px 0 #ddd;
+    -ms-box-shadow: inset 0 -2px 0 #ddd;
+    -moz-box-shadow: inset 0 -2px 0 #ddd;
+    box-shadow: inset 0 -2px 0 #ddd;
+    background-color: #fff;
+}
+
+.message-btn:active{
+    opacity: 1;
+    background-color: #08c;
+    color: #fff;
+
+    -webkit-box-shadow: inset 0 2px 0 #ddd;
+    -o-box-shadow: inset 0 2px 0 #ddd;
+    -ms-box-shadow: inset 0 2px 0 #ddd;
+    -moz-box-shadow: inset 0 2px 0 #ddd;
+    box-shadow: inset 0 2px 0 #ddd;
+}

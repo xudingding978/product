@@ -171,6 +171,10 @@ class UsersController extends Controller {
       public function actionUpdateStyleImage() {
         $payloads_arr = CJSON::decode(file_get_contents('php://input'));
         $photo_string = $payloads_arr['newStyleImageSource'];
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0c0823ac2e9370bb83fc782c18db1afd577e0ad8
         $photo_name = $payloads_arr['newStyleImageName'];
         $mode = $payloads_arr['mode'];
         $user_id = $payloads_arr['id'];
@@ -190,6 +194,10 @@ class UsersController extends Controller {
         $cb = $this->couchBaseConnection();
         $oldRecord = CJSON::decode($cb->get($this->getDomain() . '/users/' . $user_id));
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0c0823ac2e9370bb83fc782c18db1afd577e0ad8
         if ($mode == 'user_picture') {
 
             $oldRecord['user'][0]['photo_url_large'] = null;

@@ -233,7 +233,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                 profile_name: this.get("profile_name"),
                 profile_contact_last_name: this.get("last_name"),
                 profile_contact_first_name: this.get("first_name"),
-                profile_about_us: null,
+                profile_about_us: "<br>Welcome!<br>",
                 profile_package_name: $('#packgeSelection').text(),
                 profile_bg_url: this.get("profile_bg_url"),
                 profile_hero_url: this.get("profile_hero_url"),

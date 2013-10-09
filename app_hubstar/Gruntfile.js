@@ -45,21 +45,35 @@ module.exports = function(grunt) {
             }
         },
         shell: {// Task
-
-
             multiple: {
                 command: [
                     'git add .',
                     'git commit -a -m "ready to pull"',
                     'git checkout develop',
                     'git fetch origin',
-                    'git pull origin develop',
-                    'git push origin develop'
+                    'git pull origin develop'
+                            //         'git push origin develop'
                 ].join('&&')
+            },
+            listFolders: {// Target
+                options: {// Options
+                    stdout: true
+                },
+                command: 'ls'
             }
 
-
         },
+//        gitpull: {// Task
+//            multiple: {
+//                command: [
+//                    'git add .',
+//                    'git commit -a -m "ready to pull"',
+//                    'git checkout develop',
+//                    'git fetch origin',
+//                    'git pull origin develop'
+//                ].join('&&')
+//            }
+//        },
         replace: {
             dist: {
                 src: '<%= yeoman.app %>/templates/header.hbs',
@@ -410,8 +424,6 @@ module.exports = function(grunt) {
                             'images/defaultbg/*',
                             'images/defaultcover/*',
                             'images/defaultpic/*'
-
-
                         ]
                     }]
             },
@@ -500,6 +512,7 @@ module.exports = function(grunt) {
         ]);
     });
     grunt.registerTask('test', [
+        'shell',
         'clean:server',
         'concurrent:test',
         'connect:test',
@@ -535,7 +548,15 @@ module.exports = function(grunt) {
         'shell'
     ]);
     grunt.registerTask('gitcommit', [
-        'shell'
+        'shell:listFolders'
     ]);
+    grunt.registerTask('makePost', 'Make a new post dir.', function(n) {
+        if (n === null) {
+            grunt.log.warn('Post name must be specified, like makePost:PostNameGoesHere.');
+        }
+
+        // Run other tasks here
+        grunt.task.run('gitcommit');
+    });
 
 };

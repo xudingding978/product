@@ -921,6 +921,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             window.open(this.get('website_url'));
         }
     }
+    
+    
+    
+    
+    
 
 }
 );

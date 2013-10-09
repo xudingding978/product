@@ -279,7 +279,8 @@
     margin-top: 8px;
     margin-left: 0px;
 }
-
+#user-dd-menu li:first-child a{border-top:0 none;}
+#user-dd-menu li:last-child a{border-bottom:0 none;}
 #user-dd-menu li a {
     border-radius: 0px;
     color: white;
@@ -307,7 +308,7 @@
     background: none repeat scroll 0% 0% rgb(45,45,45);
     border: 1px solid rgba(0,0,0,0.17);
     margin-top:20px;
-    padding:0px 2px;
+    padding:3px;
     width:150px;
     top:35px;
     left: -60px;

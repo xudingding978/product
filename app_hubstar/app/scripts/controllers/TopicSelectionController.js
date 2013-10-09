@@ -1,7 +1,7 @@
 HubStar.TopicSelectionController = Ember.ArrayController.extend({
         selected_topics: "",
         content: [
-            {id: "1", image: '../images/welcomepage/bedroom.jpg', topic: 'Bedroomaaaaaaaaa'},
+            {id: "1", image: '../images/welcomepage/bedroom.jpg', topic: 'Bedrooms'},
             {id: "2", image: '../images/welcomepage/home-theatre.jpg', topic: 'Home Theatre'},
             {id: "3", image: '../images/welcomepage/interior-living.jpg', topic: 'Interior Living'},
             {id: "4", image: '../images/welcomepage/kitchens.jpg', topic: 'Kitchens'},

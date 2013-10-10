@@ -481,7 +481,9 @@ class Controller extends CController {
         $rawRequest = $header . $tempRquestIDs . $footer;
         $request = $this->getElasticSearch();
         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
-        $request->query($termQuery);
+        $request->query($termQuery)
+                      ->from(0)
+                      ->size(sizeof($id_arr));
         $response = $request->execute();
         $results = $this->getReponseResult($response, $returnType);
         return $results;

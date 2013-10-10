@@ -488,12 +488,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('uploadChecking', !this.get('uploadChecking'));
     },
     editingContactForm: function() {
-        ga(this.get('model').get('id') + '.send', {
-                'hitType': 'event',
-                'eventCategory': 'button',
-                'eventAction': 'click',
-                'eventLabel': 'Contact us'
-            });
+        this.sendEventTracking('event', 'button', 'click', 'Contact us');
         var contactController = this.get('controllers.contact');
 
         contactController.setSelectedMega(this.get('currentUserID'));
@@ -553,24 +548,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var profile_id = this.get('model').get('id');
         if (this.checkFollowStatus() === false) {
             this.get("controllers.userFollowings").followProfile(profile_id);
-//            ga(this.get('model').get('id')+'.send', 'Follow', 'button', 'click');
-            ga(this.get('model').get('id') + '.send', {
-                'hitType': 'event',
-                'eventCategory': 'button',
-                'eventAction': 'click',
-                'eventLabel': 'Follow'
-            });
+            this.sendEventTracking('event', 'button', 'click', 'Follow');
             this.set('follow_status', true);
-            //this.get('controllers.profile')
         } else {
             this.get("controllers.userFollowings").unFollowProfile(profile_id);
-//            ga(this.get('model').get('id')+'.send', 'unFollow', 'button', 'click');
-            ga(this.get('model').get('id') + '.send', {
-                'hitType': 'event',
-                'eventCategory': 'button',
-                'eventAction': 'click',
-                'eventLabel': 'unFollow'
-            });
+            this.sendEventTracking('event', 'button', 'click', 'unFollow');
             this.set('follow_status', false);
         }
 
@@ -614,12 +596,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     selectCollection: function() {
         //$(window).scrollTop(1500);
-        ga(this.get('model').get('id') + '.send', {
-                'hitType': 'event',
-                'eventCategory': 'button',
-                'eventAction': 'click',
-                'eventLabel': 'Collections'
-            });
+        this.sendEventTracking('event', 'button', 'click', 'Collections');
         this.set('partnerPage', 'Collections');
         this.set('profileSelectionStatus', 'Collections');
         this.set('partnerTag', false);
@@ -631,12 +608,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     selectPartner: function(model) {
         $(window).scrollTop(1500);
-        ga(this.get('model').get('id') + '.send', {
-                'hitType': 'event',
-                'eventCategory': 'button',
-                'eventAction': 'click',
-                'eventLabel': 'Partners'
-            });
+        this.sendEventTracking('event', 'button', 'click', 'Partners');
         HubStar.set("lastPositionId", model.id);
         this.set('profileSelectionStatus', 'Partners');
         this.get('controllers.profilePartners').getClientId(model);
@@ -650,12 +622,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     selectFollower: function(model) {
         $(window).scrollTop(1500);
-        ga(this.get('model').get('id') + '.send', {
-                'hitType': 'event',
-                'eventCategory': 'button',
-                'eventAction': 'click',
-                'eventLabel': 'Followers'
-            });
+        this.sendEventTracking('event', 'button', 'click', 'Followers');
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#follow').addClass('selected-user-stats');
         this.set('profileSelectionStatus', 'Followers');
@@ -906,6 +873,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if (this.get('website_url') !== null && this.get('website_url') !== "") {
             window.open(this.get('website_url'));
         }
+    },
+    sendEventTracking: function(hitType, category, action, label){
+        ga(this.get('model').get('id') + '.send', {
+                'hitType': hitType,
+                'eventCategory': category,
+                'eventAction': action,
+                'eventLabel': label
+            });
     }
 
 }

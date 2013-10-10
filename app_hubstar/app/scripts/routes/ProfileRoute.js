@@ -90,8 +90,6 @@ HubStar.ProfileRoute = Ember.Route.extend({
                 a.src = g;
                 m.parentNode.insertBefore(a, m)
             })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-//            window['ga-disable-UA-44590900-1'] = false;
-            console.log(profile_analytics_code);
             ga('create', profile_analytics_code, {'name': dom_url});
             ga(dom_url+'.send', 'pageview');
 

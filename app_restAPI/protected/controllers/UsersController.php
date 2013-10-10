@@ -180,13 +180,16 @@ class UsersController extends Controller {
     public function actionUpdateStyleImage() {
         $payloads_arr = CJSON::decode(file_get_contents('php://input'));
         $photo_string = $payloads_arr['newStyleImageSource'];
+
         $photo_name = $payloads_arr['newStyleImageName'];
         $mode = $payloads_arr['mode'];
         $user_id = $payloads_arr['id'];
         $type = $payloads_arr['type'];
         $photoController = new PhotosController();
         $data_arr = $photoController->convertToString64($photo_string);
+       error_log(var_export( $data_arr,true));
         $photo = imagecreatefromstring($data_arr['data']);
+          error_log(var_export( $photo,true));
         $compressed_photo = $photoController->compressPhotoData($data_arr['type'], $photo);
         $orig_size['width'] = imagesx($compressed_photo);
         $orig_size['height'] = imagesy($compressed_photo);
@@ -197,20 +200,26 @@ class UsersController extends Controller {
         $cb = $this->couchBaseConnection();
         $oldRecord = CJSON::decode($cb->get($this->getDomain() . '/users/' . $user_id));
 
+
         if ($mode == 'user_picture') {
 
             $oldRecord['user'][0]['photo_url_large'] = null;
             $oldRecord['user'][0]['photo_url_large'] = $url;
-        } else if ($mode == 'user_cover') {
+            
+        }  elseif
+            ($mode == 'user_cover') {
 
             $oldRecord['user'][0]['cover_url'] = null;
             $oldRecord['user'][0]['cover_url'] = $url;
-        }
+            error_log(var_export($url, true));
+            
+        } 
 
         if ($mode == 'user_cover') {
             $smallimage = $photoController->savePhotoInTypes($orig_size, 'user_cover_small', $photo_name, $compressed_photo, $data_arr, $user_id, null, $type);
             $oldRecord['user'][0]['cover_url_small'] = null;
             $oldRecord['user'][0]['cover_url_small'] = $smallimage;
+            error_log(var_export($smallimage, true));
         }
 
         $url = $this->getDomain() . '/users/' . $user_id;

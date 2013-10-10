@@ -567,7 +567,7 @@
 
     word-wrap: normal;
     line-height: 24px;
-    
+
     max-height:72px;
     overflow:auto;
 }
@@ -585,13 +585,13 @@
     word-wrap: normal;
     line-height: 24px;
     box-shadow: 0 0 20px 4px #000;
-    
-     height:72px;
-     overflow:hidden;
-     
-     font-size:0;
-     
-     /* may need to delete this element in the template */
+
+    height:72px;
+    overflow:hidden;
+
+    font-size:0;
+
+    /* may need to delete this element in the template */
 }
 
 .album-description-hoverarea{
@@ -653,7 +653,6 @@
 
 .masonry-object_profilepic{
     width: 150px;
-    max-height: 200px;
     margin: auto;
     right: 0;
     left: 0;
@@ -684,6 +683,8 @@
     left: 0;
     right: 0;
     text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 
@@ -788,7 +789,11 @@
     text-overflow: ellipsis;
 }
 .more_detail{
-    height: 22px;
+    color: #555;
+    width: 300px;
+    margin: 0 auto;
+    height: auto;
+    max-height: 50px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -1758,3 +1763,30 @@
 }
 
 
+
+/* tool-tips for profile items 9/10/13 clint */
+
+.itemprofile .location_li:after
+{
+    background:#fff;
+    border-color:#fff;
+    color:#666;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow: 0 0 5px#888;
+    box-shadow: 0 0 5px #888;
+    text-shadow:0 0 0;
+    top:25px;
+    left:0;
+}
+
+.itemprofile .location_li:before
+{
+    border-bottom-color:#ccc!important;
+    top:13px;
+    left:15px;
+}
+
+/* tool-tips for profile items  ENDS - 9/10/13 clint */

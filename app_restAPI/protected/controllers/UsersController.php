@@ -189,6 +189,7 @@ class UsersController extends Controller {
         $cb = $this->couchBaseConnection();
         $oldRecord = CJSON::decode($cb->get($this->getDomain() . '/users/' . $user_id));
 
+
         if ($mode == 'user_picture') {
 
             $oldRecord['user'][0]['photo_url_large'] = null;

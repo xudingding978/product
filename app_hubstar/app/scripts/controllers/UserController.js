@@ -13,7 +13,7 @@ HubStar.UserController = Ember.Controller.extend({
     temp: [],
     followerTag: false,
     followingTag: false,
-    messageTag:false,
+    messageTag: false,
     newDesc: '',
     newTitle: '',
     selectedDesc: "",
@@ -667,7 +667,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('followingTag', false);
         this.set('collectionTag', true);
         this.set('followerTag', false);
-         this.set('messageTag', false);
+        this.set('messageTag', false);
     },
     selectFollowing: function(model) {
         this.set('profileSelectionStatus', 'Following');
@@ -675,7 +675,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('followingTag', true);
         this.set('collectionTag', false);
         this.set('followerTag', false);
-         this.set('messageTag', false);
+        this.set('messageTag', false);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
@@ -686,12 +686,12 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('followingTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', true);
-         this.set('messageTag', false);
+        this.set('messageTag', false);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
     },
-    selectMessage:function(model){
+    selectMessage: function(model) {
         this.set('profileSelectionStatus', 'Messages');
         //this.get('controllers.userFollowers').getClientId(model);
         this.set('followingTag', false);
@@ -858,12 +858,11 @@ HubStar.UserController = Ember.Controller.extend({
                             $('#uploadStyleImg').attr("style", "display:none");
                             that.set('isPhotoUploadMode', false);
                             HubStar.store.save();
-                          
 
                         });
-                          that.userPhotoEditBackButton();
-                            that.userDashboardBackButton();
-                            that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
+                        that.userPhotoEditBackButton();
+                        that.userDashboardBackButton();
+                        that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
 
                     }
                     else if (width < params.width || height < params.height) {

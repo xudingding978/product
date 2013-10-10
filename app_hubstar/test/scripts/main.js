@@ -4787,15 +4787,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.get('controllers.userFollowers').getProfileId(model);
         this.set('partnerTag', false);
         this.set('collectionTag', false);
-<<<<<<< HEAD
-<<<<<<< HEAD
-        console.log("dddddfd");
-=======
-        
->>>>>>> 9fe20fad4658ebe94551d85037d43b1925d5bf62
-=======
 
->>>>>>> develop
         this.set('followerProfileTag', true);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
@@ -4803,12 +4795,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     saveUpdateAboutUs: function() {
         var update_About_record = HubStar.Profile.find(this.get('model.id'));
-<<<<<<< HEAD
 
-       update_About_record.set("profile_about_us", $('iframe').contents().find('.wysihtml5-editor').html());
-=======
         update_About_record.set("profile_about_us", $('iframe').contents().find('.wysihtml5-editor').html());
->>>>>>> develop
+
         this.get('controllers.applicationFeedback').statusObserver(null, "Update successful");
 
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_About_record);
@@ -6435,10 +6424,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.get('selectedCollection').set('title', this.get('newTitle'));
         this.get('selectedCollection').set('desc', this.get('newDesc'));
         var collectionController = this.get('controllers.collection');
-<<<<<<< HEAD
-        //console.log(this.get('selectedCollection'));
-=======
->>>>>>> develop
+
         var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
         collection.set('optional', this.get('model').get('id'));
         collection.set('type', 'user');

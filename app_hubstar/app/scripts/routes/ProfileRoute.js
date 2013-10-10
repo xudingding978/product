@@ -77,7 +77,6 @@ HubStar.ProfileRoute = Ember.Route.extend({
         });
     },
     sendGAMessage: function(profile_analytics_code, dom_url) {
-//        document.cookie = "_ga" + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         try {
             (function(i, s, o, g, r, a, m) {
                 i['GoogleAnalyticsObject'] = r;

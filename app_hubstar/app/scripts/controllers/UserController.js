@@ -830,6 +830,9 @@ HubStar.UserController = Ember.Controller.extend({
         }, 0);
 
     },
+            
+          
+            
     savePhotoUpdate: function()
     {
         var cropData = getResults();

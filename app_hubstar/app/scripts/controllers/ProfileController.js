@@ -14,8 +14,8 @@ var collection_title_record;
 var collection_desc_record;
 
 
-
-HubStar.ProfileController = Ember.ObjectController.extend({
+HubStar.ProfileController = Ember.ObjectController.extend({ 
+    
     model: null,
     aboutMe: "aboutMe",
     isAboutUs: false,
@@ -923,7 +923,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     }
     
     
-    
+ 
     
     
 

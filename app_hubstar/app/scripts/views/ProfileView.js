@@ -1,4 +1,5 @@
 HubStar.ProfileView = Ember.View.extend({
+    
     templateName: 'profile',
     didInsertElement: function() {
 

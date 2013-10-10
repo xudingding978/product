@@ -154,7 +154,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('profile_contact_number', profile.get('profile_contact_number'));
         this.set('projectCategoryDropdownContent', profile.get('profile_package_name'));
         this.set('first_name', profile.get('profile_contact_first_name'));
-        this.set('address', profile.get('profile_street_address'));
+        this.set('address', profile.get('profile_physical_address'));
         this.set('suburb', profile.get('profile_suburb'));
         this.set('last_name', profile.get('profile_contact_last_name'));
         this.set("profile_name", profile.get("profile_name"));
@@ -681,7 +681,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set('profile_analytics_code', this.get('profile_analytics_code'));
         update_profile_record.set('profile_contact_number', this.get('profile_contact_number'));
         update_profile_record.set('profile_contact_first_name', this.get('first_name'));
-        update_profile_record.set('profile_street_address', this.get('address'));
+        update_profile_record.set('profile_physical_address', this.get('address'));
         update_profile_record.set('profile_suburb', this.get('suburb'));
         update_profile_record.set('profile_contact_last_name', this.get('last_name'));
         update_profile_record.set("profile_name", this.get('profile_name'));

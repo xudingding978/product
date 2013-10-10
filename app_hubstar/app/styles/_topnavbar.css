@@ -927,12 +927,10 @@ div #login_container > div.front > .head > .panelcircle
 
 /*new login style Colin Shaw 25/9/2013*/
 .Register-Page{
-    width:100%;
-    height:100%;
-    z-index: 1000;
+    width: 100%;
+    height: 100%;
     position: fixed;
-    min-width: 1100px;
-    min-height: 728px;
+    overflow: auto;
 }
 
 .Register-Page .ember-text-field, .Register-Page .ember-text-field:focus{

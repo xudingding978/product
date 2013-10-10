@@ -736,3 +736,42 @@ textarea.add-interests{
     box-shadow: inset 0 2px 0 #ddd;
 }
 
+
+.Message-Board_comment-item{
+    position: relative;
+    width: auto;
+    display: block;
+    overflow-wrap: break-word;
+    overflow-x: hidden;
+    padding: 10px 6.5%;
+
+    border-bottom: 1px solid #eee;
+    border-top: #f3f3f3;
+}
+
+.Message-Board_comment-container > div:nth-child(odd){background-color: #fff}
+.Message-Board_comment-container > div:nth-child(even){background-color: #f4f6f8}
+
+
+.Message-Board_comment-container .profilepic-comment-container{ left: 6.5%; top: 18px;}
+.your-relpy_profilepic{
+    position: absolute;
+    right: 6.5%;
+    margin: 3px 0 0;
+}
+
+
+.your-relpy{
+    padding: 4.50px 43px 4.5px 0;
+    vertical-align: top;
+    text-align: right;
+
+    padding: 10px 43px 10px 0;
+}
+
+.your-relpy .namentime_position{margin:0 0 0 70px}
+.your-relpy .comment-content{margin-left: 40px;}
+.Message-Board_comment-item .comment-position{padding: 10px 0 10px 43px;}
+
+.Message-Board_comment-item .masonry_addcommnetbox-container{width: 430px; margin-left: 20px;}
+

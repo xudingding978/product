@@ -177,7 +177,7 @@ HubStar.UserFollowersController = Ember.Controller.extend({
         var date = new Date();
         var currentUser = localStorage.loginStatus;
         var tempComment = HubStar.Follower.createRecord({"follower_profile_pic_url": null,
-            "follower_id": currentUser, "name": null, "type": "user", "time_stamp": date, "is_delete": false});
+            "follower_id": currentUser, "name": null, "type": "user", "time_stamp": date.toString(), "is_delete": false});
         var followArray = [user_id, tempComment];
 
         var thatNew = that;

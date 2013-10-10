@@ -265,25 +265,6 @@ test("testTwoController", function() {
 //    });
 //});
 
-<<<<<<< HEAD
-describe("user collection test", function() {
-     var controller, model;
-     localStorage.loginStatus = '79151924042';
-//     controller = HubStar.UserController.create();
-     model = HubStar.User.find('79151924042');
-//     controller.set('model', model);
-
-    it ("add collection test", function() {
-        controller = HubStar.UserController.create();
-//        controller.newTitle='mocha test title';
-//        controller.newDesc='mocha test desc';
-//        controller.collections=model.collections;
-//        controller.submit();
-//        var model2=HubStar.User.find('79151924042');
-//        model2.collections.lengthshould.equal(model.collections.length+1);
-    });  
-    
-=======
 //describe("user collection test", function() {
 //     var controller, model;
 //     controller = HubStar.UserController.create();
@@ -305,47 +286,6 @@ describe("user collection test", function() {
 //    });  
 //});
 
-<<<<<<< HEAD
-describe("collectionController test", function() {
-     var controller, model;
-     controller = HubStar.CollectionController.create();
-     model = HubStar.User.find('25180585742');
-
-    it ("getCreateCollection function test", function() {
-        var newTitle='mocha test title';
-        var newDesc='mocha test desc';
-        var collections = model.get('collections');
-        var collection = controller.getCreateCollection(newTitle,newDesc,collections);        
-        collection.get('id').should.equal('mocha-test-title');
-        collection.get('title').should.equal('mocha test title');
-        collection.get('desc').should.equal('mocha test desc');
-    });  
-    
-    it ("checkingValidInput function test", function() {
-        var newTitle='mocha test title';
-        var title = controller.checkingValidInput(newTitle); 
-        title.should.equal('mocha-test-title');
-    });
-    
-    it ("checkingIdisExsinting function test", function() {
-        
-    });
-    
-    it ("specialCharactersChecking function test", function() {
-        var str = 'mocha-test-title123';
-        var str2 = 'mocha-test-title@#$';
-        controller.specialCharactersChecking(str).should.equal(true);
-        controller.specialCharactersChecking(str2).should.equal(false);
-    });
-    
-    it ("getUpdateCollection function test", function() {
-        var collection = model.get('collections').objectAt(0);
-        controller.getUpdateCollection(collection).should.equal(collection);
-    });
-    
->>>>>>> 64f57a55e33dfe8ca81da8e5d79cfefddc243052
-});
-=======
 //describe("collectionController test", function() {
 //     var controller, model;
 //     controller = HubStar.CollectionController.create();
@@ -384,7 +324,6 @@ describe("collectionController test", function() {
 //    });
 //    
 //});
->>>>>>> 7d116189e5ffca015f01d12281030302f1619b6d
 
 //describe("user profies testing", function() {
 //    var controller;

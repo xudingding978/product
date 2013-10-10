@@ -9,8 +9,7 @@ class Controller_admin extends CConsoleCommand {
 //            print_r(CJSON::encode($list_arr));
 
             if (isset($list_arr['method'])) {
-                error_log($url);
-                error_log(var_export($list_arr, true));
+//                echo "-------------------------------------in getData function in controller_admin \r\n";
                 // build the CURL object to access the API's endpoint
                 $ch = curl_init($url);
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $list_arr['method']);
@@ -36,10 +35,10 @@ class Controller_admin extends CConsoleCommand {
 
     protected function writeToLog($fileName, $content) {
         //   $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_success.log';
-     //   $handle = fopen($fileName, 'a') or die('Cannot open file:  ' . $fileName);
-   //     $output = "\n" . $content;
-    //    fwrite($handle, $output);
-     //   fclose($handle);
+        $handle = fopen($fileName, 'a') or die('Cannot open file:  ' . $fileName);
+        $output = "\n" . $content;
+        fwrite($handle, $output);
+        fclose($handle);
     }
 
     protected function couchBaseConnection($bucket) {
@@ -61,7 +60,6 @@ class Controller_admin extends CConsoleCommand {
     protected function addCouchbaseObject($id, $document_arr, $bucket_str) {
 
         $cb_obj = $this->couchBaseConnection($bucket_str);
-        error_log($id);
         return $cb_obj->add($id, CJSON::encode($document_arr));
     }
 
@@ -110,7 +108,7 @@ class Controller_admin extends CConsoleCommand {
         $myText = (string) microtime();
         $pieces = explode(" ", $myText);
         $id = $pieces[1];
-        $id = (string) rand(99999999, 999999999) . $id;
+        $id = (string)rand(99999999, 999999999) . $id;
 //        echo "111111111111111111111111111111";
         return $id;
     }

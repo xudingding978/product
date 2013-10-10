@@ -322,8 +322,7 @@ HubStar.UserController = Ember.Controller.extend({
             $(" #uploadObject").attr('style', "display:block");
             this.statstics();
 
-            this.set('newTitle','');
-            this.set('newDesc','');
+
 
         }
     },

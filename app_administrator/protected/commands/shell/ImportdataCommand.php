@@ -291,7 +291,7 @@ class ImportdataCommand extends CConsoleCommand {
         }
         
         // get current datetime
-        $accessed = date('Y-m-d H:i:s');
+        $accessed = strtotime(date('Y-m-d H:i:s'));
         
         // get keywords imfor
         $keywords = mb_check_encoding($val['keywords'], 'UTF-8') ? $val['keywords'] : utf8_encode($val['keywords']);
@@ -300,7 +300,7 @@ class ImportdataCommand extends CConsoleCommand {
             "type" => "photo",
             "accessed" => $accessed,
             "active_yn" => "y",
-            "created" => $UTC,
+            "created" => $book_date,
             "timezone" =>$timezone,
             "creator" => $book_title,
             "creator_type" => 'user',
@@ -360,7 +360,7 @@ class ImportdataCommand extends CConsoleCommand {
             "photo_brands" => null,
             "photo_products" => null,
             "photo_time_zone" =>$timezone,
-            "photo_created" => $UTC,
+            "photo_created" => $book_date,
             "photo_original_filename" => $original_size,
             "photo_original_width" => $return_original->width,
             "photo_original_height" => $return_original->height,
@@ -400,8 +400,8 @@ class ImportdataCommand extends CConsoleCommand {
         };
         $time_array = array();
         date_default_timezone_set($time_zone);
-     //   $time_string = strtotime($datetime);
-        $time_array['time']=$datetime;
+        $time_string = strtotime($datetime);
+        $time_array['utc']=$time_string;
         $time_array['timezone']=$time_zone;
         
         return $time_array;

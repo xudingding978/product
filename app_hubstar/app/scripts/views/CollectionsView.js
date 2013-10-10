@@ -4,7 +4,7 @@ HubStar.CollectionsView = Ember.View.extend({
         var userController = this.get('controller');
         userController.setSelectedCollection(id);
         this.get('controller').setCollectionAttr();
-     //   console.log(this.get('controller').get('newTitle'));
+
 
         var div_id = "#" + id;
         var div_class = "." + id + "  #uploadArea";

@@ -116,6 +116,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     init: function() {
 
         this.set('is_authentic_user', false);
+           
 
     },
     getCurrentProfile: function(id) {
@@ -154,7 +155,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('profile_contact_number', profile.get('profile_contact_number'));
         this.set('projectCategoryDropdownContent', profile.get('profile_package_name'));
         this.set('first_name', profile.get('profile_contact_first_name'));
-        this.set('address', profile.get('profile_street_address'));
+        this.set('address', profile.get('profile_physical_address'));
         this.set('suburb', profile.get('profile_suburb'));
         this.set('last_name', profile.get('profile_contact_last_name'));
         this.set("profile_name", profile.get("profile_name"));
@@ -177,6 +178,47 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         photoCreateController.setMega();
         this.initStastics(profile);
         this.followerPhoto(id);
+        
+        
+        var load=google.maps.event.addDomListener(window, 'load', initialize);
+  
+var geocoder;    
+    var map;
+  function initialize() {    
+    geocoder = new google.maps.Geocoder();    
+    var latlng = new google.maps.LatLng(39.9493, 116.3975);    
+    var myOptions = {    
+      zoom: 15,    
+      center: latlng,    
+      mapTypeId: google.maps.MapTypeId.ROADMAP    
+    }    
+  
+    var address =profile.get('profile_physical_address')+", "+ profile.get('profile_suburb')+", "+profile.get('profile_regoin')+", "+profile.get('profile_country');
+   
+    console.log(address);
+    if (geocoder) {    
+      geocoder.geocode( { 'address': address}, function(results, status) {    
+        if (status ===google.maps.GeocoderStatus.OK) {   
+          map.setCenter(results[0].geometry.location); 
+          console.log(results[0].geometry.location);
+          var marker = new google.maps.Marker({    
+              map: map,     
+              position: results[0].geometry.location   
+              
+               
+        
+          });   
+   
+        }     
+      });    
+  }    
+     map = new google.maps.Map(document.getElementById("map_canvas"), myOptions); 
+    console.log(map);
+  }   
+     
+        
+        
+        
     },
     followerPhoto: function(id)
     {
@@ -681,7 +723,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set('profile_analytics_code', this.get('profile_analytics_code'));
         update_profile_record.set('profile_contact_number', this.get('profile_contact_number'));
         update_profile_record.set('profile_contact_first_name', this.get('first_name'));
-        update_profile_record.set('profile_street_address', this.get('address'));
+        update_profile_record.set('profile_physical_address', this.get('address'));
         update_profile_record.set('profile_suburb', this.get('suburb'));
         update_profile_record.set('profile_contact_last_name', this.get('last_name'));
         update_profile_record.set("profile_name", this.get('profile_name'));

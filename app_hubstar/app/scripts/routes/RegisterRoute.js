@@ -1,24 +1,20 @@
-HubStar.ComingSoonRoute = Ember.Route.extend({
+HubStar.RegisterRoute = Ember.Route.extend({
         redirect: function() {
-
-
-
-
 
         },
         setupController: function() {
 
         },
         activate: function() {
-            this.controllerFor('application').set('comingsoon', true);
+            this.controllerFor('application').set('register', true);
         },
         deactivate: function() {
-            this.controllerFor('application').set('comingsoon', false);
+            this.controllerFor('application').set('register', false);
 
         },
         renderTemplate: function() {
-            this.render('comingSoon', {
-                outlet: 'comingsoon',
+            this.render('register', {
+                outlet: 'register',
                 into: 'application'
             });
         }

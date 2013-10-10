@@ -664,7 +664,7 @@ class Controller extends CController {
             ));
         } catch (Exception $e) {
             $message = $e->getMessage();
-            error_log($message);
+           
         }
     }
 

@@ -144,7 +144,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
             } else {
                 if (temp.indexOf(client_id) !== -1) {
 
-                    this.get('controllers.applicationFeedback').statusObserver(null, "This partner already in your list", "warnning");
+                    this.get('controllers.applicationFeedback').statusObserver(null, "This partner is already in your list", "warnning");
                 }
                 else if (this.get("clientID") === client_id) {
                     this.get('controllers.applicationFeedback').statusObserver(null, "Please do not add yourself", "warnning");

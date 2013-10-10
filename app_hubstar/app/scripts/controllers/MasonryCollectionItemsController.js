@@ -217,7 +217,6 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             }
         }
     },
-<<<<<<< HEAD
     changeCollectionArticleCover: function(id, collection_id, HubStarModel) {
         this.dropdownPhotoSetting(id);
         var Mega = HubStar.Mega.find(id);       
@@ -237,9 +236,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             }
         }
     },
-    
-=======
->>>>>>> FETCH_HEAD
+
     transitionToArticle: function(id) {
 
         this.transitionTo("article", HubStar.Article.find(id));

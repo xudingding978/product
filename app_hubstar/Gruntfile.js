@@ -212,7 +212,7 @@ module.exports = function(grunt) {
                 files: [{
                         expand: true,
                         cwd: '<%= yeoman.app %>/scripts',
-                        src: '{,*/}*.coffee',
+                 //       src: '{,*/}*.coffee',
                         dest: '.tmp/scripts',
                         ext: '.js'
                     }]
@@ -221,7 +221,7 @@ module.exports = function(grunt) {
                 files: [{
                         expand: true,
                         cwd: 'test/spec',
-                        src: '{,*/}*.coffee',
+                     //   src: '{,*/}*.coffee',
                         dest: '.tmp/spec',
                         ext: '.js'
                     }]
@@ -446,14 +446,13 @@ module.exports = function(grunt) {
         },
         concurrent: {
             server: [
-                'emberTemplates',
-                'coffee:dist',
-                'compass:server'
+                'emberTemplates'
+   
+
             ],
             test: [
-                'emberTemplates',
-                'coffee',
-                'compass'
+                'emberTemplates'
+           
             ],
             dist: [
                 'emberTemplates',
@@ -512,7 +511,7 @@ module.exports = function(grunt) {
         ]);
     });
     grunt.registerTask('test', [
-        'shell',
+   //     'shell',
         'clean:server',
         'concurrent:test',
         'connect:test',

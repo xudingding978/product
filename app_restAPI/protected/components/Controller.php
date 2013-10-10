@@ -403,6 +403,15 @@ class Controller extends CController {
         $array = array();
         for ($int = 0; $int < sizeof($tempResponse); $int++) {
             $tempObject = $tempResponse[$int]['source']['doc'];
+            if (isset($tempResponse[$int]['source']['doc']['comments'])) {
+                error_log(var_export($tempResponse[$int]['source']['doc']['comments'], true));
+            }
+
+
+
+
+
+
             array_push($array, $tempObject);
         }
         $tempId = time();

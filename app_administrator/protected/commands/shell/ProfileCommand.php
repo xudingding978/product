@@ -17,7 +17,10 @@ class ProfileCommand extends Controller_admin {
             $this->insertProfileToMSDB();
         } elseif ($action=='gj-gardner') {
             $this->importProfilesToCouchbase();
-        } else {
+        }elseif($action =='update'){
+            $this->updateCouchbasePhoto('9761376532636891');
+        } 
+        else {
             echo "please input an action!!";
         }
         
@@ -70,6 +73,40 @@ class ProfileCommand extends Controller_admin {
         }
         
         $this->writeToLog($this->error_path, $message);
+    }
+    
+    
+    
+        public function updateCouchbasePhoto($id) {
+        $ch = $this->couchBaseConnection("develop");
+        $result = $ch->get($id);
+        $result_arr = CJSON::decode($result, true);
+
+    //    $result_arr['creator_profile_pic'] = 'http://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small.jpg';
+    //    $result_arr['owner_profile_pic'] = 'http://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small.jpg';
+
+       // $result_arr['is_active'] = true;
+      //  $result_arr['is_indexed'] = true;
+     //   unset($result_arr['active_yn']);
+  //      unset($result_arr['indexed_yn']);
+        if( $result_arr["collection_id"] != null){
+             $result_arr["collection_id"]=$result_arr["collection_id"]->split(' ')->join('-');
+        }
+       
+        
+     
+      
+
+
+        print_r($result_arr);
+
+        if ($ch->set($id, CJSON::encode($result_arr))) {
+            echo $id . " update successssssssssssssssssssssssss! \r\n";
+        } else {
+            echo $id . " update failllllllllllllllllllllllllllllllllllllllllllllll! \r\n";
+        }
+
+        exit();
     }
     
     

@@ -28,48 +28,48 @@ class ProfileCommand extends Controller_admin {
         echo "totally spend: " . ($end_time - $start_time);
     }
     
-    
-    protected function categorychange(){
-
-  "query": {
-    "bool": {
-      "must": [
-        {
-          "query_string": {
-            "default_field": "couchbaseDocument.doc.type",
-            "query": "profile"
-          }
-        }
-      ],
-      "must_not": [],
-      "should": []
-    }
-  },
-  "from": 0,
-  "size": 500,
-  "sort": [],
-  "facets": {}
-
-    }
-    
-    
-    protected function modify(){
-        $cb->couchBaseConnection('temp');
-        $results -$cb->view('profile_category', arrary());
-        $profile_categories = array();
-        
-        
-        foreach($results['rows'] as $row){
-            $doc - $cb ->get($row['id']);
-            if($doc){
-                $doc -jason_decode($doc,true);
-                $profile_categories[] - array(
-                    'category' =>$doc['category']
-                );
-            }
-        }
-        $cb ->prepend($["profile_category"], null);
-    }
+//    
+//    protected function categorychange(){
+//
+//  "query": {
+//    "bool": {
+//      "must": [
+//        {
+//          "query_string": {
+//            "default_field": "couchbaseDocument.doc.type",
+//            "query": "profile"
+//          }
+//        }
+//      ],
+//      "must_not": [],
+//      "should": []
+//    }
+//  },
+//  "from": 0,
+//  "size": 500,
+//  "sort": [],
+//  "facets": {}
+//
+//    }
+//    
+//    
+//    protected function modify(){
+//        $cb->couchBaseConnection('temp');
+//        $results -$cb->view('profile_category', arrary());
+//        $profile_categories = array();
+//        
+//        
+//        foreach($results['rows'] as $row){
+//            $doc - $cb ->get($row['id']);
+//            if($doc){
+//                $doc -jason_decode($doc,true);
+//                $profile_categories[] - array(
+//                    'category' =>$doc['category']
+//                );
+//            }
+//        }
+//        $cb ->prepend($["profile_category"], null);
+//    }
 
     
     
@@ -97,7 +97,7 @@ class ProfileCommand extends Controller_admin {
                     $obj_arr = $this->createObjectArr($profiles_arr[$i]);
 
                     //create Couchbase object ready for inserting into bucket
-                    if ($this->addCouchbaseObject($couchbase_id, $obj_arr, 'production')) {
+                    if ($this->addCouchbaseObject($couchbase_id, $obj_arr, 'temp')) {
 //                        //set the API endpoint
 //                        $url = "http://develop-api.trendsideas.com/profiles";
 //                        //building an array for CURL call to endpoint
@@ -274,8 +274,8 @@ class ProfileCommand extends Controller_admin {
             $obj_arr['owner_title'] = $obj_arr['profile'][0]['profile_name'];
         }
 
-//        // get current datetime
-//        $now = strtotime(date('Y-m-d H:i:s'));
+        // get current datetime
+        $now = strtotime(date('Y-m-d H:i:s'));
 ////        if (array_key_exists('accessed', $obj_arr)) {
 //        $obj_arr['accessed'] = $now;
 ////        } else $obj_arr['accessed'] = $now;
@@ -314,7 +314,7 @@ class ProfileCommand extends Controller_admin {
         $profile_bg_url = 'http://s3.hubsrv.com/trendsideas.com/profiles/' . $profile_arr['profile_url'] . '/profile_bg.jpg';
         $profile_hero_url = 'http://s3.hubsrv.com/trendsideas.com/profiles/' . $profile_arr['profile_url'] . '/profile_hero.jpg';
         $profile_pic_url = 'http://s3.hubsrv.com/trendsideas.com/profiles/' . $profile_arr['profile_url'] . '/profile_pic.jpg';
-
+        $now = strtotime(date('Y-m-d H:i:s'));
         $names= $profile_arr['profile_contact'];
 
             $name = explode(" ", $names);
@@ -342,9 +342,11 @@ class ProfileCommand extends Controller_admin {
         $mega_arr = array(
             "id" => $profile_arr['profile_url'],
             "authority" => "*@trendsideas.com",
-            "accessed" => date('D M d Y H:i:s').' GMT'.date('O').' ('.date('T').')',
+            "accessed" =>$now,
+            "accessed_readable" => date('D M d Y H:i:s').' GMT'.date('O').' ('.date('T').')',
             "boost" => $profile_arr['boost'],
-            "created" => date('D M d Y H:i:s').' GMT'.date('O').' ('.date('T').')',
+            "created" =>$now,
+            "created_readable" => date('D M d Y H:i:s').' GMT'.date('O').' ('.date('T').')',
             "category" => $profile_arr['category'],
             "categories" => array(),
             "collection_id" => null,
@@ -380,7 +382,8 @@ class ProfileCommand extends Controller_admin {
             "timezone" => NULL,
             "topics" => NULL,
             "type" => "profile",
-            "updated" => date('D M d Y H:i:s').' GMT'.date('O').' ('.date('T').')',
+            "updated" => $now,
+            "updated_readable" => date('D M d Y H:i:s').' GMT'.date('O').' ('.date('T').')',
             "uri_url" => null,
             "view_count" => null,
             "photo" => array(),

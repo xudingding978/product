@@ -30,6 +30,9 @@ HubStar.ProfileRoute = Ember.Route.extend({
         else {
             ProfileController.setProfile(model.id);
         }
+        
+        
+        
 
     },
     events: {
@@ -69,6 +72,10 @@ HubStar.ProfileRoute = Ember.Route.extend({
         $(function() {
             $('#masonry_container').masonry('remove', $('.noStyle1'));
         });
+        
+        
+        
+        
     },
     renderTemplate: function() {
         this.render('profile', {

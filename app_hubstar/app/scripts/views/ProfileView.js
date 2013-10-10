@@ -15,5 +15,7 @@ HubStar.ProfileView = Ember.View.extend({
             $(this).addClass('selected-user-stats');
         });
     }
+     
+    
 });
 

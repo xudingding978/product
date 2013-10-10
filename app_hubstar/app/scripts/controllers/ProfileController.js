@@ -116,6 +116,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     init: function() {
 
         this.set('is_authentic_user', false);
+           
 
     },
     getCurrentProfile: function(id) {
@@ -177,6 +178,46 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         photoCreateController.setMega();
         this.initStastics(profile);
         this.followerPhoto(id);
+        
+        
+        var load=google.maps.event.addDomListener(window, 'load', initialize);
+  
+var geocoder;    
+    var map;
+  function initialize() {    
+    geocoder = new google.maps.Geocoder();    
+    var latlng = new google.maps.LatLng(39.9493, 116.3975);    
+    var myOptions = {    
+      zoom: 15,    
+      center: latlng,    
+      mapTypeId: google.maps.MapTypeId.ROADMAP    
+    }    
+  
+    var address =profile.get('profile_street_address')+profile.get('profile_regoin')+profile.get('profile_country');
+   
+   // console.log(profile.get('profile_physical_address')+profile.get('profile_regoin'));
+    if (geocoder) {    
+      geocoder.geocode( { 'address': address}, function(results, status) {    
+        if (status ===google.maps.GeocoderStatus.OK) {   
+          map.setCenter(results[0].geometry.location);    
+          var marker = new google.maps.Marker({    
+              map: map,     
+              position: results[0].geometry.location   
+              
+               
+        
+          });   
+   
+        }     
+      });    
+    }    
+     map = new google.maps.Map(document.getElementById("map_canvas"), myOptions); 
+    
+  }   
+     
+        
+        
+        
     },
     followerPhoto: function(id)
     {

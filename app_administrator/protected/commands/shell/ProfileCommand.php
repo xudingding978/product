@@ -77,9 +77,13 @@ class ProfileCommand extends Controller_admin {
 
     public function updateCouchbasePhoto() {
         require 'vendor/autoload.php';
+     //    use \Sherlock\Sherlock;
+ 
+//$sherlock = new Sherlock();
         $settings['log.enabled'] = true;
+        $settings['log.file'] = '../../newlogfile.log';
     //    $sherlock = new \Sherlock\Sherlock($settings);
-        $sherlock = new Sherlock();
+        $sherlock = new Sherlock\Sherlock($settings);
         $sherlock->addNode("http://es1.hubsrv.com", 9200);
         $request = $sherlock->search();
  //       $manualData = array("field" => "owner_id", "term" => "lockwood-nz");
@@ -88,12 +92,13 @@ class ProfileCommand extends Controller_admin {
 //        $termQuery = Sherlock::queryBuilder()->Term()->field("owner_id")
 //        ->term("lockwood-nz");
 
-error_log("222222");
+
 
         $request->index("temp")
                 ->type("couchbaseDocument")
                 ->from(0)
                 ->size(200);
+        error_log("222222");
         $request->query(Sherlock::query()->Raw($json));
      //   $request->query(Sherlock::query()->Term($manualData));
           //      ->query($termQuery);

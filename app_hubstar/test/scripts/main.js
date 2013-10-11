@@ -4363,11 +4363,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             }
         });
 
-                that.get("contentFollowerPhoto").pushObject(dataNew);
-               
-                dataNew = new Array();
-            }
-        });
     },
     labelBarRefresh: function() {
         this.set("profileSelectionStatus", "Collections");
@@ -7368,7 +7363,7 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
 
                     this.get("controllers.user").set("userFollowingStatistics", currentUser.get("followings").get("length"));
                 }
-            }           
+            }
         }
         else {
             var thisThis = this;

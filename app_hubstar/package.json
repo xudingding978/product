@@ -25,7 +25,6 @@
     "grunt-regarde": "~0.1.1",
     "grunt-mocha": "~0.3.0",
     "grunt-open": "~0.2.0",
-    "grunt-uglify": "~0.0.0",
     "grunt-svgmin": "~0.1.0",
     "grunt-concurrent": "~0.1.0",
     "matchdep": "~0.1.1",

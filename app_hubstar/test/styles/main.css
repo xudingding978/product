@@ -9045,7 +9045,7 @@ div.loading-visible{
 
     word-wrap: normal;
     line-height: 24px;
-    
+
     max-height:72px;
     overflow:auto;
 }
@@ -9063,13 +9063,13 @@ div.loading-visible{
     word-wrap: normal;
     line-height: 24px;
     box-shadow: 0 0 20px 4px #000;
-    
-     height:72px;
-     overflow:hidden;
-     
-     font-size:0;
-     
-     /* may need to delete this element in the template */
+
+    height:72px;
+    overflow:hidden;
+
+    font-size:0;
+
+    /* may need to delete this element in the template */
 }
 
 .album-description-hoverarea{
@@ -9131,7 +9131,6 @@ div.loading-visible{
 
 .masonry-object_profilepic{
     width: 150px;
-    max-height: 200px;
     margin: auto;
     right: 0;
     left: 0;
@@ -9162,6 +9161,8 @@ div.loading-visible{
     left: 0;
     right: 0;
     text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 
@@ -9266,7 +9267,11 @@ div.loading-visible{
     text-overflow: ellipsis;
 }
 .more_detail{
-    height: 22px;
+    color: #555;
+    width: 300px;
+    margin: 0 auto;
+    height: auto;
+    max-height: 50px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -10237,6 +10242,31 @@ div.loading-visible{
 
 
 
+/* tool-tips for profile items 9/10/13 clint */
+.itemprofile .location_li:after
+{
+    background:#fff;
+    border-color:#fff;
+    color:#666;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow: 0 0 5px#888;
+    box-shadow: 0 0 5px #888;
+    text-shadow:0 0 0;
+    top:25px;
+    left:0;
+    line-height:1em;
+}
+
+.itemprofile .location_li:before
+{
+    border-bottom-color:#ccc!important;
+    top:12px;
+    left:15px;
+}
+/* tool-tips for profile items  ENDS - 9/10/13 clint */
 
 textarea{
     padding: 3px 8px !important;
@@ -10887,9 +10917,16 @@ textarea.add-interests{
 
 
 
+
+
+
+/*CROP FUNCTION*/
+
+.crop-canvas{height: auto;max-height: 500px;width: auto;margin: 0 auto; max-width: 850px;}
+
 .LatestFollower{
     text-align: center;
-    width: 275px;
+    width: 300px;
     height: 35px;
     margin: 10px auto;
 
@@ -11770,7 +11807,6 @@ body{
     display: none;
     float: left;
     min-width: 170px;
-    min-height: 200px;
     margin: 15px 0px 0px 0px;
     list-style: none outside none;
     background-color: rgba(0, 0, 0,1);
@@ -11808,7 +11844,8 @@ body{
     margin-top: 8px;
     margin-left: 0px;
 }
-
+#user-dd-menu li:first-child a{border-top:0 none;}
+#user-dd-menu li:last-child a{border-bottom:0 none;}
 #user-dd-menu li a {
     border-radius: 0px;
     color: white;
@@ -11836,7 +11873,7 @@ body{
     background: none repeat scroll 0% 0% rgb(45,45,45);
     border: 1px solid rgba(0,0,0,0.17);
     margin-top:20px;
-    padding:0px;
+    padding:3px;
     width:150px;
     top:35px;
     left: -60px;
@@ -12455,12 +12492,10 @@ div #login_container > div.front > .head > .panelcircle
 
 /*new login style Colin Shaw 25/9/2013*/
 .Register-Page{
-    width:100%;
-    height:100%;
-    z-index: 1000;
+    width: 100%;
+    height: 100%;
     position: fixed;
-    min-width: 1100px;
-    min-height: 728px;
+    overflow: auto;
 }
 
 .Register-Page .ember-text-field, .Register-Page .ember-text-field:focus{
@@ -12744,6 +12779,7 @@ div#forgot-password-container{
 }
 
 .learnmore-btn:hover{opacity: 1;}
+
 * {
     box-sizing: border-box;
     -moz-box-sizing: border-box;

@@ -14,12 +14,12 @@ var collection_title_record;
 var collection_desc_record;
 
 
-HubStar.ProfileController = Ember.ObjectController.extend({ 
-    
+HubStar.ProfileController = Ember.ObjectController.extend({
     model: null,
     aboutMe: "aboutMe",
     isAboutUs: false,
     about_me: "",
+    google_map:"",
     address: "",
     suburb: "",
     boost: '',
@@ -88,11 +88,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     updateOrCreate: true,
     isPhotoUploadMode: false,
     isPhotoEditingMode: false,
-    isCrop:false,
-    isFinished:false,
-    isProfilePicture:false,
-    isProfileHero:false,
-    isProfileBackground:false,
+    isCrop: false,
+    isFinished: false,
+    isProfilePicture: false,
+    isProfileHero: false,
+    isProfileBackground: false,
     CurrentImageSize: "",
     RequiredImageSize: "",
     isAdmin: false,
@@ -116,7 +116,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     init: function() {
 
         this.set('is_authentic_user', false);
-           
+
 
     },
     getCurrentProfile: function(id) {
@@ -156,6 +156,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('projectCategoryDropdownContent', profile.get('profile_package_name'));
         this.set('first_name', profile.get('profile_contact_first_name'));
         this.set('address', profile.get('profile_physical_address'));
+       this.createGooglemap();
         this.set('suburb', profile.get('profile_suburb'));
         this.set('last_name', profile.get('profile_contact_last_name'));
         this.set("profile_name", profile.get("profile_name"));
@@ -178,48 +179,47 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         photoCreateController.setMega();
         this.initStastics(profile);
         this.followerPhoto(id);
-        
-        
-        var load=google.maps.event.addDomListener(window, 'load', initialize);
-  
-var geocoder;    
-    var map;
-  function initialize() {    
-    geocoder = new google.maps.Geocoder();    
-    var latlng = new google.maps.LatLng(39.9493, 116.3975);    
-    var myOptions = {    
-      zoom: 15,    
-      center: latlng,    
-      mapTypeId: google.maps.MapTypeId.ROADMAP    
-    }    
-  
-    var address =profile.get('profile_physical_address')+", "+ profile.get('profile_suburb')+", "+profile.get('profile_regoin')+", "+profile.get('profile_country');
-   
-    console.log(address);
-    if (geocoder) {    
-      geocoder.geocode( { 'address': address}, function(results, status) {    
-        if (status ===google.maps.GeocoderStatus.OK) {   
-          map.setCenter(results[0].geometry.location); 
-          console.log(results[0].geometry.location);
-          var marker = new google.maps.Marker({    
-              map: map,     
-              position: results[0].geometry.location   
-              
-               
-        
-          });   
-   
-        }     
-      });    
-  }    
-     map = new google.maps.Map(document.getElementById("map_canvas"), myOptions); 
-    console.log(map);
-  }   
      
         
-        
-        
+          
+//
+//        var geocoder = new google.maps.Geocoder();
+//        var address = profile.get('profile_physical_address') + ", " + profile.get('profile_suburb') + ", " + profile.get('profile_regoin') + ", " + profile.get('profile_country');
+//        if (geocoder) {
+//            geocoder.geocode({'address': address}, function(results, status) {
+//                var mapImage = "http://maps.googleapis.com/maps/api/staticmap?center=" + results[0].geometry.location.lb + "," + results[0].geometry.location.mb + "&markers=" + results[0].geometry.location.lb + "," + results[0].geometry.location.mb + "&zoom=15&size=300x250&maptype=roadmap&sensor=false";
+//                console.log(mapImage);
+//
+//            });
+//        }
+
     },
+            
+            
+            createGooglemap:function(){
+        
+          var geocoder = new google.maps.Geocoder();
+        var addressmap = this.get('model').get("profile_physical_address")+ ", " + this.get('model').get("profile_suburb") + ", " + this.get('model').get("profile_regoin") + ", " + this.get('model').get('profile_country');
+          console.log(addressmap);
+        var that = this;
+            
+            geocoder.geocode({'address': addressmap}, function(results) {
+              var imageMap =   "http://maps.googleapis.com/maps/api/staticmap?center=" + results[0].geometry.location.lb + "," + results[0].geometry.location.mb + "&markers=" + results[0].geometry.location.lb + "," + results[0].geometry.location.mb + "&zoom=15&size=300x250&maptype=roadmap&sensor=false";
+                
+                that.set('google_map',  imageMap);
+                 console.log(that.get('google_map'));
+//                    var data = {"googleMap": that.get('google_map'),
+//                           
+//                            'id': that.get('model.id')};
+//                        requiredBackEnd('profiles', 'googleMap', data, 'POST', function() {
+// 
+//                            HubStar.store.save();
+//
+//                        });
+
+            });
+        
+            },
     followerPhoto: function(id)
     {
         var dataNew = new Array();
@@ -679,7 +679,7 @@ var geocoder;
         var update_About_record = HubStar.Profile.find(this.get('model.id'));
         //update_About_record.set("profile_about_us", $('iframe').contents().find('.wysihtml5-editor').html());
         update_About_record.set("profile_about_us", editor.getValue());
-        
+
         this.get('controllers.applicationFeedback').statusObserver(null, "Update successful");
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_About_record);
         HubStar.store.save();
@@ -729,6 +729,7 @@ var geocoder;
         update_profile_record.set("profile_name", this.get('profile_name'));
         update_profile_record.set("profile_isActive", this.get("projectActiveDropdownContent"));
         update_profile_record.set("profile_isDeleted", this.get("projectDeleteDropdownContent"));
+        update_profile_record.set("profile_google_map", this.get("google_map"));
 
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
         if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
@@ -741,7 +742,7 @@ var geocoder;
     flipFrontClick: function() {
         $(".hover").addClass('flip');
         this.selectionForDashborad();
-         
+
 
     },
     selectionForDashborad: function() {
@@ -784,8 +785,8 @@ var geocoder;
                 var size = "Your image size is " + width + "x" + height;
                 that.set('CurrentImageSize', size);
 
-                 that.set('isCrop', true);
-               
+                that.set('isCrop', true);
+
             }
         });
     },
@@ -813,23 +814,23 @@ var geocoder;
         this.set('isPhotoUploadMode', false);
         this.set('isPhotoEditingMode', true);
         this.set('isFinished', false);
-         if (this.get('UploadImageMode') === "Profile Picture")
+        if (this.get('UploadImageMode') === "Profile Picture")
         {
-            this.set('isProfilePicture',true);
-             this.set('isProfileHero',false);
-              this.set('isProfileBackground',false);
-           
+            this.set('isProfilePicture', true);
+            this.set('isProfileHero', false);
+            this.set('isProfileBackground', false);
+
         } else if (this.get('UploadImageMode') === "Profile Hero")
         {
-             this.set('isProfilePicture',false);
-             this.set('isProfileHero',true);
-              this.set('isProfileBackground',false);
+            this.set('isProfilePicture', false);
+            this.set('isProfileHero', true);
+            this.set('isProfileBackground', false);
 
         } else if (this.get('UploadImageMode') === "Background")
         {
-             this.set('isProfilePicture',false);
-             this.set('isProfileHero',false);
-              this.set('isProfileBackground',true);
+            this.set('isProfilePicture', false);
+            this.set('isProfileHero', false);
+            this.set('isProfileBackground', true);
 
         }
         var that = this;
@@ -849,12 +850,12 @@ var geocoder;
             getImageWidth(src, function(width, height) {
                 that.set('currentWidth', width);
                 that.set('currentHeight', height);
-          var data = {"RequireIamgeType": that.get('UploadImageMode')};
+                var data = {"RequireIamgeType": that.get('UploadImageMode')};
                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
                     if ((width >= params.width) && (height >= params.height))
                     {
                         that.setTempImage();
-                              
+
                         $('#uploadStyleImg').attr("style", "display:block");
                         var data1 = {"newStyleImageSource": that.get('newStyleImageSource'),
                             'newStyleImageName': that.get('newStyleImageName'),
@@ -863,14 +864,14 @@ var geocoder;
                         requiredBackEnd('profiles', 'updateStyleImage', data1, 'POST', function(params) {
                             $('#uploadStyleImg').attr("style", "display:none");
                             that.set('isPhotoEditingMode', false);
-                            that.set('isPhotoUploadMode', false);          
+                            that.set('isPhotoUploadMode', false);
                             that.set('isFinished', true);
                             HubStar.store.save();
-                            
+
                         });
-                        
+
                         that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
-                       
+
                     }
 
                     else if (width < params.width || height < params.height) {
@@ -878,8 +879,8 @@ var geocoder;
                         that.set('newStyleImageSource', "");
                         that.set('newStyleImageName', "");
                         that.set('CurrentImageSize', "");
-                          that.set('isCrop', false);
-     
+                        that.set('isCrop', false);
+
                     }
 
                 });
@@ -890,26 +891,26 @@ var geocoder;
     setTempImage: function() {
         var model = this.get('model');
         var cropData = getResults();
-             this.set('newStyleImageSource', cropData);
+        this.set('newStyleImageSource', cropData);
         if (this.get('UploadImageMode') === "Profile Picture")
         {
-            this.set('isProfilePicture',true);
-             this.set('isProfileHero',false);
-              this.set('isProfileBackground',false);
+            this.set('isProfilePicture', true);
+            this.set('isProfileHero', false);
+            this.set('isProfileBackground', false);
             this.set('profile_pic_url', this.get('newStyleImageSource'));
             model.set('profile_pic_url', this.get('newStyleImageSource'));
         } else if (this.get('UploadImageMode') === "Profile Hero")
         {
-             this.set('isProfilePicture',false);
-             this.set('isProfileHero',true);
-              this.set('isProfileBackground',false);
+            this.set('isProfilePicture', false);
+            this.set('isProfileHero', true);
+            this.set('isProfileBackground', false);
             this.set('profile_hero_url', this.get('newStyleImageSource'));
             model.set('profile_hero_url', this.get('newStyleImageSource'));
         } else if (this.get('UploadImageMode') === "Background")
         {
-             this.set('isProfilePicture',false);
-             this.set('isProfileHero',false);
-              this.set('isProfileBackground',true);
+            this.set('isProfilePicture', false);
+            this.set('isProfileHero', false);
+            this.set('isProfileBackground', true);
             this.set('profile_bg_url', this.get('newStyleImageSource'));
             model.set('profile_bg_url', this.get('newStyleImageSource'));
         }
@@ -919,14 +920,14 @@ var geocoder;
         this.set('newStyleImageSource', "");
         this.set('newStyleImageName', "");
         this.set('CurrentImageSize', "");
-          this.set('isCrop', false);
-         this.changeSize();
+        this.set('isCrop', false);
+        this.changeSize();
     }, dropdown: function(checking) {
         if (checking === "package") {
             this.set('isActiveDropdown', false);
             this.set('isDeleteDropdown', false);
             this.set('isPackgetDropdown', !this.get('isPackgetDropdown'));
-            
+
         } else if (checking === "active") {
             this.set('isDeleteDropdown', false);
             this.set('isPackgetDropdown', false);
@@ -963,11 +964,11 @@ var geocoder;
             window.open(this.get('website_url'));
         }
     }
-    
-    
- 
-    
-    
+
+
+
+
+
 
 }
 );

@@ -136,6 +136,18 @@ HubStar.MegaController = Ember.ArrayController.extend({
         addCollectionController.setRelatedController('photo');
         this.set('collectable', !this.get('collectable'));
     },
+
+ keydown:function(e) {
+            var currKey = 0, e = e || event;
+            currKey = e.keyCode || e.which || e.charCode;//支持IE、FF 
+            if (currKey === 27) {
+                 window.history.back();
+                //document.getElementByIdx_xx_x("btn_selector").click();
+            }
+          
+        },
+      
+    
     closeWindow: function() {
         this.set('collectable', false);
         this.set('contact', false);

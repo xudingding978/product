@@ -244,7 +244,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
         for (var i = 0; i < checkList.length; i++)
         {
-            var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
+            var patternEmail = /^(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6}$/;
             document.getElementById(checkList[i].id).setAttribute("class", "login-textfield");
             if (checkList[i].input !== null && checkList[i].input !== "" && checkList[i].input !== undefined)
             {

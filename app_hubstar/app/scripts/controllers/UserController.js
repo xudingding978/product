@@ -218,7 +218,7 @@ HubStar.UserController = Ember.Controller.extend({
             $('#user-board_right_front').show();
             $('#user-board_right_back').hide();
             $('#change_profile').show();
-            this.set
+           
             this.set('newStyleImageSource', "");
             this.set('newStyleImageName', "");
             this.set('CurrentImageSize', "");
@@ -435,8 +435,8 @@ HubStar.UserController = Ember.Controller.extend({
         var displayName = new checkObject("displayName", this.get('display_name'), 128, null);
 
         checkList.push(displayName);
-        var email = new checkObject("email", this.get('email'), 128, true);
-        checkList.push(email);
+//        var email = new checkObject("email", this.get('email'), 128, true);
+//        checkList.push(email);
 
         var first_name = new checkObject("first_name", this.get('first_name'), 128, null);
 
@@ -450,7 +450,7 @@ HubStar.UserController = Ember.Controller.extend({
 
         for (var i = 0; i < checkList.length; i++)
         {
-            var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
+          //  var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
 //            document.getElementById(checkList[i].id).style.border = '';
 
             if (checkList[i].id === 'email') {
@@ -475,18 +475,18 @@ HubStar.UserController = Ember.Controller.extend({
                 }
             }
 
-            if (checkList[i].input !== null && checkList[i].isEmailValid === true)
-            {
-                if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
-                    result = true;
-                }
-                else {
-                    result = false;
-                    document.getElementById(checkList[i].id).setAttribute("class", "error-textfield");
-//                    document.getElementById(checkList[i].id).style.border = '2px solid red';
-                    break;
-                }
-            }
+//            if (checkList[i].input !== null && checkList[i].isEmailValid === true)
+//            {
+//                if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
+//                    result = true;
+//                }
+//                else {
+//                    result = false;
+//                    document.getElementById(checkList[i].id).setAttribute("class", "error-textfield");
+////                    document.getElementById(checkList[i].id).style.border = '2px solid red';
+//                    break;
+//                }
+//            }
         }
         return result;
     },

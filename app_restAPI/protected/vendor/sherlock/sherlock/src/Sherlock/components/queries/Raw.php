@@ -22,7 +22,8 @@ class Raw extends \Sherlock\components\BaseComponent implements \Sherlock\compon
         if (!isset($hashMap)) {
             throw new \Sherlock\common\exceptions\BadMethodCallException("Hashmap must be provided for the Raw query");
         }
-
+        error_log($hashMap);
+                    error_log('construct');
         if (is_array(($hashMap)) && count($hashMap) > 0) {
             //Raw array hash map provided
             //put it right into the params

@@ -155,10 +155,8 @@ class Controller extends CController {
             $response = $this->getCollectionReults($collection_id, $owner_profile_id);
             $response = $this->profileSetting($response, $returnType);
         } elseif ($requireType == 'partner') {
-            
             $response = $this->getPartnerResults($requireParams[1]);
             $response = $this->getReponseResult($response, $returnType);
-              
         } elseif ($requireType == 'articleRelatedImage') {
             $article_id = $this->getUserInput($requireParams[1]);
             $owner_id = $this->getUserInput($requireParams[2]);
@@ -219,23 +217,38 @@ class Controller extends CController {
         return $should;
     }
     
-//    protected function getsortQuestWithQueryString($sortString) {
-//        $should = Sherlock\Sherlock::sortBuilder()->Field()->name($sortString)
-//                ->order('desc');
-//        return $should;
-//    }
+    protected function searchWithMultiMatch($queryString, $from, $size) {
+        $request = $this->getElasticSearch();
+        $request->from($from)
+                ->size($size);
+        $termQuery = Sherlock\Sherlock::queryBuilder()->Raw('{
+                "bool": {
+                    "must": [
+                        {
+                            "multi_match": {
+                                "query": "' . $queryString . '",
+                                "fields": ["keywords^2",
+                                                "owner_title^2",
+                                                "category",
+                                                "country",
+                                                "region",
+                                                "object_title",
+                                                "object_description"]
+                                                    }
+                        }
+                    ]
+                }
+            }');
+        error_log($termQuery->toJSON());
+        $response = $request->query($termQuery)->execute();
+        error_log($response->toJSON());
+        return $response;
+    }
     
     protected function searchWithCondictions($conditions, $search_type = "should", $from = 0, $size = 50) {
         $request = $this->getElasticSearch();
         $request->from($from);
         $request->size($size);
-//        $sortArray=array('couchbaseDocument.doc.created');
-//        $length = sizeof($sortArray);
-//        for ($i = 0; $i < $length; $i++) {
-//            $sort = $this->getsortQuestWithQueryString($sortArray[$i]);
-//                $request->sort($sort);            
-//        }
-//        $request->sort($sortArray);
         $max = sizeof($conditions);
         $bool = Sherlock\Sherlock::queryBuilder()->Bool();
         for ($i = 0; $i < $max; $i++) {
@@ -386,16 +399,17 @@ class Controller extends CController {
     }
 
     protected function getSearchResultsWithAnalysis($region, $requestString, $from = 0, $size = 50) {
-        $conditions = array();
-        if ($region != null && $region != "") {
-            $requestStringOne = 'couchbaseDocument.doc.region=' . $region;
-            array_push($conditions, $requestStringOne);
-        }
-        if ($requestString != null && $requestString != "") {
-            $requestStringTwo = '_all=' . $requestString;
-            array_push($conditions, $requestStringTwo);
-        }
-        $tempResponse = $this->searchWithCondictions($conditions, 'must', $from, $size);
+        $tempResponse = $this->searchWithMultiMatch($requestString, $from, $size);
+//        $conditions = array();
+//        if ($region != null && $region != "") {
+//            $requestStringOne = 'couchbaseDocument.doc.region=' . $region;
+//            array_push($conditions, $requestStringOne);
+//        }
+//        if ($requestString != null && $requestString != "") {
+//            $requestStringTwo = '_all=' . $requestString;
+//            array_push($conditions, $requestStringTwo);
+//        }
+//        $tempResponse = $this->searchWithCondictions($conditions, 'must', $from, $size);
         $numberofresults = $tempResponse->total;
         $tempResponse = CJSON::encode($tempResponse);
         $tempResponse = CJSON::decode($tempResponse);
@@ -471,7 +485,9 @@ class Controller extends CController {
         $rawRequest = $header . $tempRquestIDs . $footer;
         $request = $this->getElasticSearch();
         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
-        $request->query($termQuery);
+        $request->query($termQuery)
+                      ->from(0)
+                      ->size(sizeof($id_arr));
         $response = $request->execute();
         $results = $this->getReponseResult($response, $returnType);
         return $results;

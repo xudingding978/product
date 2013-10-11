@@ -2755,6 +2755,8 @@ HubStar.CollectionController = Ember.Controller.extend({
             var validID = this.checkingValidInput(title);
             var checkingCharater = this.specialCharactersChecking(validID);
 
+
+
             if (checkingCharater && validID !== null && validID !== '') {
                 collection = HubStar.Collection.createRecord({});
                 collection.set('id', validID.toLowerCase());
@@ -4389,8 +4391,11 @@ HubStar.PlatformBarController = Ember.ArrayController.extend({
     needs: ["application"],
     init: function()
     {  
-        this.setTopicModel(HubStar.Cate.find({}));
+        this.setTopicModel(HubStar.Cate.fi
+
+
          this.set('userLocation',geoip_city());
+
        
     },
     topicSearch: function(search_topic) {
@@ -5079,6 +5084,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     saveUpdate: function() {
         var update_profile_record = HubStar.Profile.find(this.get('model.id'));
+
         update_profile_record.set('profile_editors', this.get('editors'));
         update_profile_record.set('profile_keywords', this.get('keywords'));
         update_profile_record.set('profile_regoin', this.get('region'));

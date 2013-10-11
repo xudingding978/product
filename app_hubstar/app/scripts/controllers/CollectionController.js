@@ -70,8 +70,12 @@ HubStar.CollectionController = Ember.Controller.extend({
 
         
         if (selectedCollection.get('desc') !== undefined) {
-            desc = selectedCollection.get('desc');
-        }
+
+            desc = selectedCollection.get("desc");
+      }
+
+
+
 
         var id = this.checkingValidInput(selectedCollection.get('id'));
         var title = selectedCollection.get("title");
@@ -79,6 +83,8 @@ HubStar.CollectionController = Ember.Controller.extend({
         selectedCollection.set("id", id);
         selectedCollection.set("title", title);
         selectedCollection.set("desc", desc);
+
+
         return selectedCollection;
     },
     getDeleteCollection: function() {

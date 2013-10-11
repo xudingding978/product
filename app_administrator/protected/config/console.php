@@ -11,7 +11,7 @@ return array(
     'components' => array(
          'db' => array(
                     'class' => 'CDbConnection',
-                    'connectionString' => 'dblib:host=192.168.2.226;dbname=Trends;port:1433;',
+                    'connectionString' => 'dblib:host=192.168.2.100;dbname=Trends;port:1433;',
                     'username' => 'sa',
                     'password' => 'Pa55word',
                    // 'tablePrefix'=>'dbo',

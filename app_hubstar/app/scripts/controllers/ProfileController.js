@@ -243,9 +243,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     submit: function() {
         var collectionController = this.get('controllers.collection');
-        //console.log(this.get('newTitle'));
         var collection = collectionController.getCreateCollection(this.get('newTitle'), this.get('newDesc'), this.get("collections"));
-        // console.log(collection);
 
         if (collection !== null && collection !== "") {
             collection.set('type', 'profile');
@@ -476,6 +474,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         $(".Targeting_Object_front").attr("style", "display:inline-block");
         $(" #uploadArea").attr('style', "display:none");
         $(" #uploadObject").attr('style', "display:block");
+
 
     },
 //    newCollection: function()

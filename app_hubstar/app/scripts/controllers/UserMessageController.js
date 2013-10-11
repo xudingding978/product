@@ -85,8 +85,8 @@ HubStar.UserMessageController = Ember.Controller.extend({
         });
 
     },
-   
     addComment: function() {
+        this.set("currentOwner", this.get('controllers.user').getCurrentUser());
         var commentContent = this.get('messageContent');
         if (commentContent) {
 
@@ -94,6 +94,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
             var commenter_id = this.get("currentUser").get('id');
             var date = new Date();
             var owner_id = this.get("currentOwner").get("id");
+            console.log(owner_id);
             var newStyleImage = "";
             var imageStyleName = "";
             if (this.get("newStyleImageSource") !== undefined || this.get("newStyleImageSource") !== null || this.get("newStyleImageSource") !== "")
@@ -129,7 +130,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
             var dataNew = new Array();
 
             requiredBackEnd('messages', 'CreateComment', tempComment, 'POST', function(params) {
-               
+
                 dataNew["message_id"] = params["message_id"];
                 dataNew["user_id"] = params["replyMessageCollection"][0]["user_id"];
                 dataNew["time_stamp"] = params["replyMessageCollection"][0]["time_stamp"];

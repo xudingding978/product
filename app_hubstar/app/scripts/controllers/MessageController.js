@@ -24,6 +24,8 @@ HubStar.MessageController = Ember.Controller.extend({
     },
     addReply: function(message_id) {
 
+        this.set("currentOwner", this.get('controllers.user').getCurrentUser());
+          this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         var replyContent = this.get('replyContent');
         if (replyContent) {
             var commenter_id = this.get("currentUser").get('id');
@@ -108,7 +110,7 @@ HubStar.MessageController = Ember.Controller.extend({
             }, 200);
         }
     },
-    close: function() {      
+    close: function() {
         this.set('replyContent', "");
         this.set('newStyleImageSource', null);
         this.set('newStyleImageName', "");

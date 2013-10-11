@@ -48,6 +48,8 @@ return CMap::mergeArray(
             // autoloading model and component classes
             'import' => array(
                 'common.components.*',
+                'common.components.auth.*',
+                'common.models.User',
                 'application.components.Controller',
                 'application.components.RestController',
                 'application.components.HttpRequest',
@@ -70,6 +72,15 @@ return CMap::mergeArray(
                         array('<controller>/update', 'pattern' => '<controller>/<id>', 'verb' => 'PUT'),
                         array('<controller>/delete', 'pattern' => '<controller>/<id>', 'verb' => 'DELETE'),
                     )
+                ),
+                            'db' => array(
+                    'class' => 'CDbConnection',
+                    'connectionString' => $params['db_live.connectionString'],
+                    'username' => $params['db_live.username'],
+                    'password' => $params['db_live.password'],
+                    'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
+                    'enableParamLogging' => YII_DEBUG,
+                    'charset' => 'utf8'
                 ),
 //        'errorHandler' => array(
 //            // use 'site/error' action to display errors

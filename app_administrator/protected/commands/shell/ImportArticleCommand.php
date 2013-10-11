@@ -88,8 +88,8 @@ class ImportArticleCommand extends CConsoleCommand {
 
         Yii::import("application.models.*");
 
-        $artical_data_arr = Article::model()->getArticalRange();
-        $this->total_amount = sizeof($artical_data_arr);
+        $artical_data_arr = Article::model()->getArticalRange();//????
+        $this->total_amount = sizeof($artical_data_arr);  //elements in the array
         echo $this->total_amount . "\r\n";
         
         $i=0;

@@ -212,7 +212,7 @@ module.exports = function(grunt) {
                 files: [{
                         expand: true,
                         cwd: '<%= yeoman.app %>/scripts',
-                        src: '{,*/}*.coffee',
+                        //       src: '{,*/}*.coffee',
                         dest: '.tmp/scripts',
                         ext: '.js'
                     }]
@@ -221,7 +221,7 @@ module.exports = function(grunt) {
                 files: [{
                         expand: true,
                         cwd: 'test/spec',
-                        src: '{,*/}*.coffee',
+                        //   src: '{,*/}*.coffee',
                         dest: '.tmp/spec',
                         ext: '.js'
                     }]
@@ -255,6 +255,7 @@ module.exports = function(grunt) {
                 src: [
                     '<%= yeoman.app %>/bower_components/javascriptHelper/browserdetecter.js',
                     '<%= yeoman.app %>/bower_components/jquery/jquery.min.js',
+                    '<%= yeoman.app %>/bower_components/jquery/jquery.min.map',
                     '<%= yeoman.app %>/bower_components/handlebars/handlebars.runtime.js',
                     '<%= yeoman.app %>/bower_components/jquery.ui/jquery-ui-1.9.2.custom.min.js',
                     '<%= yeoman.app %>/bower_components/jquery.masonry/jquery.masonry.min.js',
@@ -263,9 +264,9 @@ module.exports = function(grunt) {
                     '<%= yeoman.app %>/bower_components/ember-data-shim/ember-data.min.js',
                     '<%= yeoman.app %>/bower_components/moment/moment.min.js',
                     '<%= yeoman.app %>/bower_components/javascriptHelper/javascriptHelper.min.js',
+                    '<%= yeoman.app %>/bower_components/wysihtml5/dist/wysihtml5-0.3.0.js',
                     '<%= yeoman.app %>/bower_components/wysihtml5/parser_rules/advanced.js',
-                    '<%= yeoman.app %>/bower_components/wysihtml5/dist/wysihtml5-0.3.0.js'
-
+                    '<%= yeoman.app %>/bower_components/mousetrap.min.js'
                 ],
                 dest: '<%= yeoman.dist %>/scripts/components.js'
             },
@@ -281,7 +282,10 @@ module.exports = function(grunt) {
                     '<%= yeoman.app %>/bower_components/ember-data-shim/ember-data.min.js',
                     '<%= yeoman.app %>/bower_components/moment/moment.min.js',
                     '<%= yeoman.app %>/bower_components/javascriptHelper/javascriptHelper.test.js',
-                    '<%= yeoman.app %>/bower_components/javascriptHelper/jquery-2.0.3.min.map'
+                    '<%= yeoman.app %>/bower_components/javascriptHelper/jquery-2.0.3.min.map',
+                    '<%= yeoman.app %>/bower_components/wysihtml5/dist/wysihtml5-0.3.0.js',
+                    '<%= yeoman.app %>/bower_components/wysihtml5/parser_rules/advanced.js',
+                    '<%= yeoman.app %>/bower_components/mousetrap.min.js'
                 ],
                 dest: '<%= yeoman.test %>/scripts/components.js'
             },
@@ -443,19 +447,18 @@ module.exports = function(grunt) {
         },
         concurrent: {
             server: [
-                'emberTemplates',
-                'coffee:dist',
-                'compass:server'
+                'emberTemplates'
+
+
             ],
             test: [
-                'emberTemplates',
-                'coffee',
-                'compass'
+                'emberTemplates'
+
             ],
             dist: [
                 'emberTemplates',
-                'coffee',
-                'compass:dist',
+                //'coffee',
+                //'compass:dist',
                 'imagemin',
                 'svgmin',
                 'htmlmin'
@@ -509,7 +512,7 @@ module.exports = function(grunt) {
         ]);
     });
     grunt.registerTask('test', [
-        'shell',
+        //     'shell',
         'clean:server',
         'concurrent:test',
         'connect:test',
@@ -532,7 +535,7 @@ module.exports = function(grunt) {
         'concat',
         'concat:dist',
         'cssmin',
-        'uglify',
+        //'uglify',
         'copy:dist',
         'rev',
         'usemin',

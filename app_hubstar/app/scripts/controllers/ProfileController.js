@@ -113,6 +113,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     makeSureDelete: false,
     willDelete: false,
     profile_partner_ids: null,
+    isTracking: false,
     init: function() {
 
         this.set('is_authentic_user', false);
@@ -926,12 +927,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
     },
     sendEventTracking: function(hitType, category, action, label){
-        ga(this.get('model').get('id') + '.send', {
+        if (this.isTracking) {
+            ga(this.get('model').get('id') + '.send', {
                 'hitType': hitType,
                 'eventCategory': category,
                 'eventAction': action,
                 'eventLabel': label
             });
+        }
     }
 
 }

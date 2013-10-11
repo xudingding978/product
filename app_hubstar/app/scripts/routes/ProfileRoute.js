@@ -91,8 +91,9 @@ HubStar.ProfileRoute = Ember.Route.extend({
             })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
             ga('create', profile_analytics_code, {'name': dom_url});
             ga(dom_url+'.send', 'pageview');
-
+            this.controller.set('isTracking',true);
         } catch (err) {
+            this.controller.set('isTracking', false);
             console.log('error out');
         }
     }

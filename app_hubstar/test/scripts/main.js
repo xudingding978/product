@@ -677,6 +677,9 @@ HubStar.Subcategories = DS.Model.extend({
                 zip: DS.attr('string'),
                 address: DS.attr('string'),
                 password: DS.attr('string'),
+                oldpassword: DS.attr('string'),
+                newpassword: DS.attr('string'),
+                repeatnew: DS.attr('string'),
                 selected_topics: DS.attr('string'),
                 collections: DS.hasMany('HubStar.Collection'),
                 followers: DS.hasMany('HubStar.Follower'),
@@ -709,11 +712,15 @@ HubStar.Video = DS.Model.extend({
 (function() {
 
 HubStar.ApplicationRoute = Ember.Route.extend({
+
         setupController: function(controller, model) {
 
 
         }
+     
 
+               
+              
     });
 
 
@@ -844,37 +851,6 @@ HubStar.CollectionRoute = Ember.Route.extend({
 
         }
 
-    });
-
-
-})();
-
-(function() {
-
-HubStar.ComingSoonRoute = Ember.Route.extend({
-        redirect: function() {
-
-
-
-
-
-        },
-        setupController: function() {
-
-        },
-        activate: function() {
-            this.controllerFor('application').set('comingsoon', true);
-        },
-        deactivate: function() {
-            this.controllerFor('application').set('comingsoon', false);
-
-        },
-        renderTemplate: function() {
-            this.render('comingSoon', {
-                outlet: 'comingsoon',
-                into: 'application'
-            });
-        }
     });
 
 
@@ -1372,12 +1348,35 @@ HubStar.QuickstartRoute = Ember.Route.extend({
 
 (function() {
 
-HubStar.SearchIndexRoute = Ember.Route.extend({
+HubStar.RegisterRoute = Ember.Route.extend({
         redirect: function() {
 
+        },
+        setupController: function() {
+
+        },
+        activate: function() {
+            this.controllerFor('application').set('register', true);
+        },
+        deactivate: function() {
+            this.controllerFor('application').set('register', false);
+
+        },
+        renderTemplate: function() {
+            this.render('register', {
+                outlet: 'register',
+                into: 'application'
+            });
+        }
+    });
 
 
+})();
 
+(function() {
+
+HubStar.SearchIndexRoute = Ember.Route.extend({
+        redirect: function() {
 
         },
         activate: function() {
@@ -1830,7 +1829,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
             this.get('controllers.applicationFeedback').statusObserver(null, "Saved photo successfully.");
             this.exit();
         } else {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please choose a collection.");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please choose a collection.","warnning");
         }
 
     },
@@ -1979,8 +1978,8 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
 (function() {
 
 
- /*global HubStar */
- /*global Ember */
+/*global HubStar */
+/*global Ember */
 /*global $:false */
 
 HubStar.ApplicationController = Ember.ArrayController.extend({
@@ -1995,15 +1994,23 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     from: null,
     size: null,
     photo_url: null,
+    userName: "",
+    password: "",
+    repeat: "",
+    email: "",
+    loginUsername: "",
+    loginPassword: "",
+    resetPasswordEmail: "",
+    gender: "",
     iframeURL: "",
     iframeLoginURL: "",
+    isWaiting: "",
     init: function() {
         this.newSearch();
         this.set('search_string', '');
         var address = document.URL;
         var domain = address.split("/")[2];
-        this.set('iframeURL', "http://" + domain + "/user/create/");
-        this.set('iframeLoginURL', "http://" + domain + "/site/login/");
+
     },
     popupModal: function() {
         this.set('popup', !this.get('popup'));
@@ -2033,7 +2040,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             if (results.get('isLoaded')) {
                 for (var i = 0; i < results.get("length"); i++) {
                     var tempmega = results.objectAt(i);
-                    //console.log(tempmega.get("profile").objectAt(0));
+
                     if (tempmega.get("profile").objectAt(0) !== undefined) {
                         var isFollow = false;
                         for (var j = 0; j < tempmega.get("profile").objectAt(0).get("followers").get("length"); j++)
@@ -2125,8 +2132,258 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     changeImage: function(imageSrc)
     {
         this.set('photo_url', imageSrc);
-    }
+    },
+    validateEmail: function(email)
+    {
 
+        var re = /\S+@\S+\.\S+/;
+        return re.test(email);
+    },
+            resetPasswordBack:function(){
+        this.set();
+            },
+    signUp: function() {
+
+        if (this.checkSignupInfo()) {
+            var signupInfo = [this.get('email')];
+            var that = this;
+            requiredBackEnd('site', 'getemail', signupInfo, 'POST', function(params) {
+                if (params === 1) {
+                    $('#register-with-email-step-2').addClass('active-step');
+                    $('#click-register').addClass('active-tab');
+                    $('#register-with-email-step-2').animate({height: 'toggle'});
+                    $('#register-with-email-drop-down').animate({height: 'toggle'});
+                    checkSocial();
+                }
+                else if (params === 0) {
+
+                    document.getElementById("email").setAttribute("class", "login-textfield error-textfield");                   
+                    
+                    $('.black-tool-tip').stop();
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#email-used-by-social').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+                 
+
+                } // EMAIL ALREADY IN USE; The use has attempted to register with an email address that has already been used via 'register with social account'
+                
+                else if (params === 2) {
+
+                    document.getElementById("email").setAttribute("class", "login-textfield error-textfield");
+                    
+
+                    $('.black-tool-tip').stop();
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#email-in-use').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+
+                }// EMAIL ALREADY IN USE; The user as attempted to register with an email address that is already in use
+            });
+        }
+    },
+    done: function() {
+     //   this.set('isWaiting', true);
+        var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age')];
+        var that = this;
+        requiredBackEnd('site', 'create', createInfo, 'POST', function(params) {
+            localStorage.loginStatus = params.COUCHBASE_ID;
+//              var emailInfo = [ params.USER_NAME, params.PWD_HASH];
+//             requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function(params) {
+//
+//                });
+        that.set('isWaiting', true);
+            setTimeout(function() {
+                that.transitionToRoute('search');
+                that.set('isWaiting', false);
+                that.set('first_name', "");
+                that.set('last_name', "");
+                that.set('email', "");
+                that.set('password', "");
+                that.set('region', "");
+                that.set('gender', "");
+                that.set('age', "");
+            }, 2000);
+        });
+    },
+    checkSignupInfo: function() {
+        function checkObject(id, input, lengthMin, lengthMax, isEmailValid)
+        {
+            this.id = id;
+            this.input = input;
+            this.lengthMin = lengthMin;
+            this.lengthMax = lengthMax;
+            this.isEmailValid = isEmailValid;
+        }
+        var checkList = new Array();
+        var result;
+        var first_name = new checkObject("first_name", this.get('first_name'), 0, 128, null);
+        checkList.push(first_name);
+        var last_name = new checkObject("last_name", this.get('last_name'), 0, 128, null);
+        checkList.push(last_name);
+        var email = new checkObject("email", this.get('email'), 0, 45, true);
+        checkList.push(email);
+        var password = new checkObject("password", this.get('password'), 6, 40, null);
+        checkList.push(password);
+
+        for (var i = 0; i < checkList.length; i++)
+        {
+            var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
+            document.getElementById(checkList[i].id).setAttribute("class", "login-textfield");
+            if (checkList[i].input !== null && checkList[i].input !== "" && checkList[i].input !== undefined)
+            {
+                if (checkList[i].input.length > checkList[i].lengthMax || checkList[i].input.length < checkList[i].lengthMin)
+                {
+                    result = false;
+           
+                    $('.black-tool-tip').stop();
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#invalid-password').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+
+                    document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
+                    break;
+
+                }
+            }// INVALID PASSWORD; the user has entered a  password that does not meet the requirements (6-40 characters long)
+
+
+            if (checkList[i].id === 'first_name' || checkList[i].id === 'last_name' || checkList[i].id === 'email' || checkList[i].id === 'password')
+            {
+                if (checkList[i].input === null || checkList[i].input === "" || checkList[i].input === undefined) {
+                    result = false;
+                    
+
+                    $('.black-tool-tip').stop();
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#missing-fields').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+                    
+                    document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
+                    break;
+
+
+                }
+            }//MISSING FIELDS; the user has not filled in all the mandatory fields
+
+
+            if (checkList[i].input !== null && checkList[i].isEmailValid === true)
+            {
+                if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
+                    result = true;
+                }
+                else {
+                    result = false;
+                   
+                   
+                    $('.black-tool-tip').stop();
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#invalid-user-name-register').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+
+
+
+                    document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
+                    break;
+                }// INVALID user name when the user attempts to login.
+            }
+        }
+        return result;
+    },
+    setmale: function() {
+        this.set('gender', "male");
+    },
+    setfemale: function() {
+        this.set('gender', "female");
+    },
+            
+
+            
+    login: function() {
+if(this.get('loginUsername')!==null && this.get('loginPassword')!==null&&this.get('loginPassword')!==""&&this.get('loginPassword')!=="")
+{
+        this.set('isWaiting', true);
+        document.getElementById("loginUsername").setAttribute("class", "login-textfield");
+        document.getElementById("loginPassword").setAttribute("class", "login-textfield");
+
+        var loginInfo = [this.get('loginUsername'), this.get('loginPassword'), this.validateEmail(this.get('loginUsername'))];
+        var that = this;
+        requiredBackEnd('site', 'login', loginInfo, 'POST', function(params) {
+            if (params === 1) {
+                document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
+                that.set('isWaiting', false);
+              
+                $('.black-tool-tip').stop();
+                $('.black-tool-tip').css('display', 'none');
+                $('#invalid-user-name').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+            }// INVALID user name when the user attempts to login.
+
+
+            else if (params === 0) {
+                
+                document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
+                that.set('isWaiting', false);
+              
+                $('.black-tool-tip').css('display', 'none');
+                $('#invalid-account-type').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+
+
+            } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is a social network login account
+            else {
+
+                if (that.get('loginPassword') === params.PWD_HASH && that.get('loginPassword') !== undefined) {
+                    localStorage.loginStatus = params.COUCHBASE_ID;
+                    that.transitionToRoute('search');
+                    that.set('loginUsername', "");
+                    that.set('loginPassword', "");
+                    that.set('isWaiting', false);
+                }
+                else {
+                    document.getElementById("loginPassword").setAttribute("class", "login-textfield error-textfield");
+
+                    that.set('isWaiting', false);
+                 
+                    if ($('#incorrect-password').css('display') === 'none') {
+                        
+                        $('.black-tool-tip').stop();
+                        $('.black-tool-tip').css('display', 'none');
+                        $('#incorrect-password').animate({opacity: 'toggle'});
+                    }// INCORRECT PASSWORD; User is trying to login with incorrect password
+
+                }
+            }
+        });
+    }
+    },
+    emailSend: function()
+    {
+
+        var signupInfo = [this.get('resetPasswordEmail')];
+        var that = this;
+        requiredBackEnd('site', 'resetemail', signupInfo, 'POST', function(params) {
+            if (params === 1) {
+              
+
+                $('.black-tool-tip').stop();
+                $('.black-tool-tip').css('display', 'none');
+                $('#invalid-user-name').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+
+
+            }// INVALID EMAIL; The user has forgotten their password and inputted an invalid email address
+            else if (params === 0) {
+              
+                $('.black-tool-tip').stop();
+                $('.black-tool-tip').css('display', 'none');
+                $('#invalid-account-type-reset').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+            }
+            else {
+                var emailInfo = [that.get('resetPasswordEmail'), params.USER_NAME, params.PWD_HASH];
+                requiredBackEnd('emails', 'forgetpassword', emailInfo, 'POST', function(params) {
+                    if (params === 1) {
+                        $('.black-tool-tip').stop();
+                        $('.black-tool-tip').css('display', 'none');
+                        $('#new-password').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+                        /* forgotten password email sent */
+                    }
+
+                });
+            }
+        });
+    }
 });
 
 
@@ -4349,9 +4606,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var that = this;
         requiredBackEnd('followers', 'ReadPhoto', id, 'POST', function(params) {
             that.set("contentFollowerPhoto", []);
+<<<<<<< HEAD
+            if (params === undefined)
+            {
+
+=======
 
             if (params === undefined)
             {
+>>>>>>> develop
             }
             else
             {
@@ -4792,7 +5055,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.get('controllers.userFollowers').getProfileId(model);
         this.set('partnerTag', false);
         this.set('collectionTag', false);
+<<<<<<< HEAD
+<<<<<<< HEAD
+        console.log("dddddfd");
+=======
+        
+>>>>>>> 9fe20fad4658ebe94551d85037d43b1925d5bf62
+=======
 
+>>>>>>> develop
         this.set('followerProfileTag', true);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
@@ -4800,8 +5071,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     saveUpdateAboutUs: function() {
         var update_About_record = HubStar.Profile.find(this.get('model.id'));
+<<<<<<< HEAD
+
+       update_About_record.set("profile_about_us", $('iframe').contents().find('.wysihtml5-editor').html());
+=======
         update_About_record.set("profile_about_us", $('iframe').contents().find('.wysihtml5-editor').html());
+>>>>>>> develop
         this.get('controllers.applicationFeedback').statusObserver(null, "Update successful");
+
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_About_record);
         HubStar.store.save();
     },
@@ -4950,13 +5227,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             $('#uploadStyleImg').attr("style", "display:none");
                             that.set('isPhotoEditingMode', true);
                             that.set('isPhotoUploadMode', false);
-                            HubStar.store.save();
+                           
 //                            Ember.run.later(null, function() {
 //                                crop(that.get('newStyleImageSource'));
 //                            }, 500);
-
+                            
+                             HubStar.store.save();
                         });
-
+                         
                     }
 
                     else if (width < params.width || height < params.height) {
@@ -4964,6 +5242,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                         that.set('newStyleImageSource', "");
                         that.set('newStyleImageName', "");
                         that.set('CurrentImageSize', "");
+                        
                         $('#photoUploadbtn').removeClass();
                         $("#photoUploadbtn").toggleClass("disabled-btn");
                     }
@@ -5810,6 +6089,8 @@ HubStar.UserController = Ember.Controller.extend({
     selectedDesc: "",
     selectedTitle: "",
     display_name: "",
+    gender: "",
+    age: "",
     userTage: true,
     currentUserID: "",
     needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings', 'application', 'platformBar', 'collection', 'htmlEditor'],
@@ -5824,6 +6105,9 @@ HubStar.UserController = Ember.Controller.extend({
     location: "",
     email: "",
     password: "",
+    oldpassword: "",
+    newpassword: "",
+    repeatnew: "",
     makeSureDelete: false,
     updateOrCreate: true,
     collectionTag: true,
@@ -5838,7 +6122,7 @@ HubStar.UserController = Ember.Controller.extend({
     interest: "interest",
     is_authentic_user: false,
     aboutMe: "aboutMe",
-    // about_me:"",
+    about_me: "",
     first_name: "",
     last_name: "",
     is_Photoclick: false,
@@ -5858,7 +6142,6 @@ HubStar.UserController = Ember.Controller.extend({
     interestsActive: false,
     init: function()
     {
-        //this.setUser();
 
     },
     isUserSelfOrNot: function(currentUserID) {
@@ -5877,9 +6160,9 @@ HubStar.UserController = Ember.Controller.extend({
     },
     setUser: function()
     {
+
         var user = this.get('model');
         this.setIntersetsArr(user);
-//        this.set("model", user);
         this.set("user", user);
         //console.log(this.get("user"));
         this.set("collections", user.get("collections"));
@@ -5899,6 +6182,11 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("youtube", user.get("youtube_link"));
         this.set("location", user.get("region"));
         this.set("email", user.get("email"));
+        this.set("oldpassword", "");
+        this.set("newpassword", "");
+        this.set("repeatnew", "");
+
+
         this.set("password", user.get("password"));
 
 
@@ -5906,11 +6194,19 @@ HubStar.UserController = Ember.Controller.extend({
             this.set('cover_url', 'http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg');
         }
         else
-               {//this.set('cover_url', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_cover/user_cover');
-                   this.set("cover_url", user.get("cover_url"));
-               }
-         this.set("photo_url", user.get("photo_url"));
-          this.set("photo_url_large", user.get("photo_url_large"));
+<<<<<<< HEAD
+=======
+
+>>>>>>> FETCH_HEAD
+        {//this.set('cover_url', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_cover/user_cover');
+            this.set("cover_url", user.get("cover_url"));
+        }
+        this.set("photo_url", user.get("photo_url"));
+        this.set("photo_url_large", user.get("photo_url_large"));
+<<<<<<< HEAD
+=======
+
+>>>>>>> FETCH_HEAD
 
         this.get('controllers.applicationFeedback').set('photo_url', this.get('photo_url_large'));
         this.isUserSelfOrNot(this.get("currentUserID"));
@@ -5921,8 +6217,14 @@ HubStar.UserController = Ember.Controller.extend({
         }
 
         var collections = user.get("collections");
- 
-        if (this.get('editingInterest')===true) {
+
+<<<<<<< HEAD
+        if (this.get('editingInterest') === true) {
+=======
+
+        if (this.get('editingInterest') === true) {
+
+>>>>>>> FETCH_HEAD
             this.set('editingInterest', false);
             this.set('interestsActive', false);
             $('#show_interest').animate({top: 298, height: 150}, 400, function() {
@@ -5987,6 +6289,8 @@ HubStar.UserController = Ember.Controller.extend({
             $('#change_profile').hide();
             this.setUploadImageMode(mode);
 
+
+
         }
 
     },
@@ -5997,9 +6301,13 @@ HubStar.UserController = Ember.Controller.extend({
             $('#user-board_right_front').show();
             $('#user-board_right_back').hide();
             $('#change_profile').show();
+            this.set
             this.set('newStyleImageSource', "");
             this.set('newStyleImageName', "");
             this.set('CurrentImageSize', "");
+            $('#photoUploadbtn').removeClass();
+            $("#photoUploadbtn").toggleClass("disabled-btn");
+            $('#photoUploadbtn').attr('disabled', true);
 
 
         }
@@ -6008,10 +6316,12 @@ HubStar.UserController = Ember.Controller.extend({
 
         if (this.get('is_Photoclick') === false) {
             this.set('is_Photoclick', true);
+
             $('#flip-front').hide();
             $('#user-photo_left').hide();
             $('#user-photo_left-back').show();
             this.setUploadImageMode(mode);
+
 
         }
 
@@ -6019,12 +6329,17 @@ HubStar.UserController = Ember.Controller.extend({
     userPhotoEditBackButton: function() {
         if (this.get('is_Photoclick') === true) {
             this.set('is_Photoclick', false);
+
             $('#flip-front').show();
             $('#user-photo_left').show();
             $('#user-photo_left-back').hide();
             this.set('newStyleImageSource', "");
             this.set('newStyleImageName', "");
             this.set('CurrentImageSize', "");
+
+            $('#photoUploadbtn').removeClass();
+            $("#photoUploadbtn").toggleClass("disabled-btn");
+             $('#photoUploadbtn').attr('disabled', true);
 
         }
     },
@@ -6111,10 +6426,12 @@ HubStar.UserController = Ember.Controller.extend({
             $(".Targeting_Object_front").attr("style", "display:inline-block");
             $(" #uploadArea").attr('style', "display:none");
             $(" #uploadObject").attr('style', "display:block");
+
             this.statstics();
-            this.set("newTitle","");
-            this.set("newDesc","");
+            this.set("newTitle", "");
+            this.set("newDesc", "");
         }
+
     },
     socialLink: function(link) {
         if (link === 'facebook') {
@@ -6137,6 +6454,38 @@ HubStar.UserController = Ember.Controller.extend({
             window.open(this.get("linkedin"));
         }
     },
+    savePassword: function() {
+
+        var user = this.getCurrentUser();
+        var isSave = true;
+        var that = this;
+        var getmodelInfo = [user.get('id')];
+        requiredBackEnd('site', 'getmodel', getmodelInfo, 'POST', function(params) {
+
+            if (that.get('oldpassword') === params.PWD_HASH && that.get('newpassword') === that.get('repeatnew') && that.get('newpassword').length >= 6 && that.get('newpassword').length <= 40) {
+
+                isSave = false;
+                var thatthat = that;
+                var updateInfo = [user.get('id'), that.get('oldpassword'), that.get('newpassword'), that.get('repeatnew'), isSave];
+                requiredBackEnd('site', 'update', updateInfo, 'POST', function(params) {
+                    var thatthatthat = thatthat;
+                    setTimeout(function() {
+                        thatthatthat.set('oldpassword', "");
+                        thatthatthat.set('newpassword', "");
+                        thatthatthat.set('repeatnew', "");
+                    }, 1000);
+
+                    thatthat.get('controllers.applicationFeedback').statusObserver(null, "Updated Successfully.");
+                });
+
+
+
+            }
+            else {
+                that.get('controllers.applicationFeedback').statusObserver(null, "Please check your input", "warnning");
+            }
+        });
+    },
     saveUpdate: function() {
         var update_user_record = this.get('model');
         if (this.isInputValid())
@@ -6146,9 +6495,19 @@ HubStar.UserController = Ember.Controller.extend({
             update_user_record.set('display_name', this.get('display_name'));
             update_user_record.set('first_name', this.get('first_name'));
             update_user_record.set('last_name', this.get('last_name'));
+            update_user_record.set('about_me', this.get('about_me'));
             update_user_record.set('region', this.get('location'));
             update_user_record.set('email', this.get('email'));
             update_user_record.set('password', this.get('password'));
+<<<<<<< HEAD
+
+            this.get('controllers.applicationFeedback').statusObserver(null, "Update successfully.");
+
+            HubStar.store.save();
+        }
+        else {
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please check you have already filled the mandatory field.", "warnning");
+=======
             
             this.get('controllers.applicationFeedback').statusObserver(null, "Update successfully.");
        
@@ -6156,6 +6515,7 @@ HubStar.UserController = Ember.Controller.extend({
         }
         else {
             this.get('controllers.applicationFeedback').statusObserver(null, "Please check you have already filled the mandatory field.","warnning");
+>>>>>>> FETCH_HEAD
         }
     },
     isInputValid: function() {
@@ -6166,14 +6526,18 @@ HubStar.UserController = Ember.Controller.extend({
             this.input = input;
             this.length = length;
             this.isEmailValid = isEmailValid;
+
         }
         var checkList = new Array();
         var result;
         var displayName = new checkObject("displayName", this.get('display_name'), 128, null);
+
         checkList.push(displayName);
         var email = new checkObject("email", this.get('email'), 128, true);
         checkList.push(email);
+
         var first_name = new checkObject("first_name", this.get('first_name'), 128, null);
+
         checkList.push(first_name);
         var last_name = new checkObject("last_name", this.get('last_name'), 128, null);
         checkList.push(last_name);
@@ -6185,11 +6549,23 @@ HubStar.UserController = Ember.Controller.extend({
         for (var i = 0; i < checkList.length; i++)
         {
             var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
+<<<<<<< HEAD
+//            document.getElementById(checkList[i].id).style.border = '';
+
+            if (checkList[i].id === 'email') {
+                document.getElementById(checkList[i].id).setAttribute("class", "disabled-btn");
+            }
+            else {
+                document.getElementById(checkList[i].id).setAttribute("class", "");
+            }
+=======
+
             document.getElementById(checkList[i].id).style.border = '';
+>>>>>>> FETCH_HEAD
             if (checkList[i].input !== null && checkList[i].input.length > checkList[i].length)
             {
                 result = false;
-                document.getElementById(checkList[i].id).style.border = '2px solid red';
+                document.getElementById(checkList[i].id).setAttribute("class", "error-textfield");
                 break;
             }
 
@@ -6197,7 +6573,7 @@ HubStar.UserController = Ember.Controller.extend({
             {
                 if (checkList[i].input === null || checkList[i].input === "") {
                     result = false;
-                    document.getElementById(checkList[i].id).style.border = '2px solid red';
+                    document.getElementById(checkList[i].id).setAttribute("class", "error-textfield");
                     break;
                 }
             }
@@ -6209,7 +6585,8 @@ HubStar.UserController = Ember.Controller.extend({
                 }
                 else {
                     result = false;
-                    document.getElementById(checkList[i].id).style.border = '2px solid red';
+                    document.getElementById(checkList[i].id).setAttribute("class", "error-textfield");
+//                    document.getElementById(checkList[i].id).style.border = '2px solid red';
                     break;
                 }
             }
@@ -6230,7 +6607,11 @@ HubStar.UserController = Ember.Controller.extend({
             HubStar.store.save();
         }
         else {
+<<<<<<< HEAD
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please check you have filled right links.", "warnning");
+=======
             this.get('controllers.applicationFeedback').statusObserver(null, "Please check you have filled right links.","warnning");
+>>>>>>> FETCH_HEAD
         }
     },
     isSociallinkInputValid: function() {
@@ -6247,41 +6628,42 @@ HubStar.UserController = Ember.Controller.extend({
         var checkList = new Array();
         var facebook = new checkObject("facebook", this.get('facebook'), 128, true, "facebook");
         checkList.push(facebook);
-        var twitter = new checkObject("twitter", this.get('twitter'), 128, true,  "twitter");
+        var twitter = new checkObject("twitter", this.get('twitter'), 128, true, "twitter");
         checkList.push(twitter);
         var googleplus = new checkObject("googleplus", this.get('googleplus'), 128, true, "plus.google");
         checkList.push(googleplus);
-        var pinterest = new checkObject("pinterest", this.get('pinterest'), 128, true,  "pinterest");
+        var pinterest = new checkObject("pinterest", this.get('pinterest'), 128, true, "pinterest");
         checkList.push(pinterest);
-        var linkedin = new checkObject("linkedin", this.get('linkedin'), 128, true,"linkedin");
+        var linkedin = new checkObject("linkedin", this.get('linkedin'), 128, true, "linkedin");
         checkList.push(linkedin);
         var youtube = new checkObject("youtube", this.get('youtube'), 128, true, "youtube");
         checkList.push(youtube);
 
         for (var i = 0; i < checkList.length; i++)
         {
-            document.getElementById(checkList[i].id).style.border = '';
+            document.getElementById(checkList[i].id).setAttribute("class", "");
             if (checkList[i].input !== null && checkList[i].input.length > checkList[i].length)
             {
                 result = false;
-                document.getElementById(checkList[i].id).style.border = '2px solid red';
+                document.getElementById(checkList[i].id).setAttribute("class", "error-textfield");
                 break;
             }
             if (checkList[i].input !== null && checkList[i].isUrlValid === true)
             {
                 if (checkList[i].input.indexOf(checkList[i].shouldInclude) !== -1 || checkList[i].input === "") {
                     result = true;
-                }  
+                }
                 else {
                     result = false;
-                    document.getElementById(checkList[i].id).style.border = '2px solid red';
+                    document.getElementById(checkList[i].id).setAttribute("class", "error-textfield");
                     break;
                 }
             }
         }
         return result;
     },
-    saveLink: function(link_url, link) {//link =param; this,get('facebook')
+    saveLink: function(link_url, link) {
+
 
         var http = "http://";
         var update_user_record = this.get('model');
@@ -6407,6 +6789,10 @@ HubStar.UserController = Ember.Controller.extend({
         this.get('selectedCollection').set('title', this.get('newTitle'));
         this.get('selectedCollection').set('desc', this.get('newDesc'));
         var collectionController = this.get('controllers.collection');
+<<<<<<< HEAD
+        //console.log(this.get('selectedCollection'));
+=======
+>>>>>>> develop
         var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
         collection.set('optional', this.get('model').get('id'));
         collection.set('type', 'user');
@@ -6473,8 +6859,6 @@ HubStar.UserController = Ember.Controller.extend({
     {
         this.set("isEditingMode", !this.get("isEditingMode"));
     },
-            
-            
     setCollectionAttr: function() {
         this.set("newTitle", this.get('selectedCollection').get('title'));
         this.set("newDesc", this.get('selectedCollection').get('desc'));
@@ -6541,20 +6925,88 @@ HubStar.UserController = Ember.Controller.extend({
                 var size = " size is " + width + "x" + height;
                 that.set('CurrentImageSize', size);
 
+                if (that.get('UploadImageMode') === "User Cover") {
+                    if (width < 800 || height < 250) {
+                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + 800 + "x" + 250,"warnning");
+                        that.set('newStyleImageSource', "");
+                        that.set('newStyleImageName', "");
+                        that.set('CurrentImageSize', "");
+                    } else if (width > 2500 || height > 1500) {
+                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size smaller than  " +2500 + "x" + 1500,"warnning");
+                        that.set('newStyleImageSource', "");
+                        that.set('newStyleImageName', "");
+                        that.set('CurrentImageSize', "");
+                    }
+                    else if (width >800 || height > 250) { 
+                        console.log(width);
+                console.log(height);
+                        
+                        $('#photoUploadbtn').removeClass();
+                        $("#photoUploadbtn").toggleClass("new-btn green-btn");
+                    }
+                }
+
+                else if (that.get('UploadImageMode') === "User Picture") {
+                    if (width < 150 || height < 150) {
+                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + 150 + "x" + 150,"warnning");
+                        that.set('newStyleImageSource', "");
+                        that.set('newStyleImageName', "");
+                        that.set('CurrentImageSize', "");
+                    } else if (width > 1050 || height >1050) {
+                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size smaller than  " + 1050 + "x" + 1050,"warnning");
+                        that.set('newStyleImageSource', "");
+                        that.set('newStyleImageName', "");
+                        that.set('CurrentImageSize', "");
+                    }
+                    else if ( width > 150 ||  height > 150) {
+                        $('#photoUploadbtn').removeClass();
+                        $("#photoUploadbtn").toggleClass("new-btn green-btn");
+                         console.log(width);
+                console.log(height);
+                    }
+                }
+
+
+
+
+
+
+
             }
         });
+
+
+    },
+    cropButton: function()
+    {
+        this.set('isPhotoUploadMode', false);
+        this.set('isPhotoEditingMode', true);
+        var that = this;
+        Ember.run.later(function() {
+            crop(that.get('newStyleImageSource'));
+
+        }, 0);
+
     },
     savePhotoUpdate: function()
     {
+        var cropData = getResults();
+        this.set('newStyleImageSource', cropData);
+
+
+        //    console.log(this.get('newStyleImageSource') );
         if (this.get('newStyleImageSource') !== null && this.get('newStyleImageSource') !== "")
         {
+            //             console.log(this.get('newStyleImageSource') );
             var src = this.get('newStyleImageSource');
             var that = this;
             getImageWidth(src, function(width, height) {
                 that.set('currentWidth', width);
                 that.set('currentHeight', height);
+                console.log("source"+ width);
+                console.log("source"+height);
                 var data = {"RequireIamgeType": that.get('UploadImageMode')};
-
+                //             console.log(that.get('newStyleImageSource') );
                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
                     if ((width >= params.width) && (height >= params.height))
                     {
@@ -6563,6 +7015,7 @@ HubStar.UserController = Ember.Controller.extend({
 
                         that.setTempImage();
 
+                        //          console.log(that.get('newStyleImageSource') );
                         $('#uploadStyleImg').attr("style", "display:block");
                         var data1 = {"newStyleImageSource": that.get('newStyleImageSource'),
                             'newStyleImageName': that.get('newStyleImageName'),
@@ -6571,25 +7024,34 @@ HubStar.UserController = Ember.Controller.extend({
                         requiredBackEnd('users', 'updateStyleImage', data1, 'POST', function(params) {
                             $('#uploadStyleImg').attr("style", "display:none");
                             that.set('isPhotoUploadMode', false);
+                            //           console.log("4"+that.get('newStyleImageSource') );
                             HubStar.store.save();
+                            //           console.log("5");
                         });
                         that.userPhotoEditBackButton();
+
                         that.userDashboardBackButton();
-//                        that.get('controllers.applicationFeedback').set('photo_url', src);
+
                         that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
+
                     }
                     else if (width < params.width || height < params.height) {
-                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + params.width + "x" + params.height);
+                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + params.width + "x" + params.height, "warnning");
                         that.set('newStyleImageSource', "");
                         that.set('newStyleImageName', "");
                         that.set('CurrentImageSize', "");
+                        $('#photoUploadbtn').removeClass();
+                        $("#photoUploadbtn").toggleClass("disabled-btn");
+
                     }
+
+
+
 
                 });
             });
 
         }
-
     },
     setUploadImageMode: function(mode)
     {
@@ -6620,7 +7082,9 @@ HubStar.UserController = Ember.Controller.extend({
         } else if (this.get('UploadImageMode') === "User Cover") {
 
             this.set('cover_url', this.get('newStyleImageSource'));
+            //   console.log('cover_url'+this.get('newStyleImageSource') );
             this.set('cover_url_small', this.get('newStyleImageSource'));
+            // console.log('cover_url_small'+ this.get('newStyleImageSource') );
             this.set('newStyleImageName', 'user_cover');
 
             model.set('cover_url', this.get('newStyleImageSource'));
@@ -7710,21 +8174,6 @@ HubStar.CollectionsView = Ember.View.extend({
 
     }
 });
-
-
-})();
-
-(function() {
-
-HubStar.ComingSoonView = Ember.View.extend({
-    templateName: 'comingSoon',
-    didInsertElement: function() {
-
-
-    }
-
-});
-
 
 
 })();
@@ -8980,6 +9429,431 @@ HubStar.QuickstartView = Ember.View.extend({
 
 (function() {
 
+/* NOTE:************
+ * 
+ *   IF THIS BEHAVES ODDLY SIMPLY REMOVE/ADD "stop()" before all the animate functions EG
+ *   $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+ *   This javascript will need to be cleaned up via setting some of the elements as preset variables etc, once 100% tested.
+ */
+
+var loginState = false;
+$("#social-login").click(function() {
+
+    $('#social-login').removeClass('social-active');
+    $('#click-login').removeClass('active-tab');
+    if ($('#social-login-container').css('display') === 'block') {
+        $('#social-login-container').animate({height: 'toggle'});
+    }
+    /* LOGIN TAB:  hiding social login */
+
+    if ($('#social-login-container').css('display') === 'none') {
+        $('#social-login-container').animate({height: 'toggle'});
+        $('#social-login').addClass('social-active');
+        if ($('#login-with-email-drop-down').css('display') === 'block') {
+            $('#login-with-email-drop-down').animate({height: 'toggle'});
+        }
+        if ($('#forgot-message-container').css('display') === 'block') {
+            $('#forgot-message-container').animate({opacity: 'toggle'});
+        }
+         if ($('#invalid-username').css('display') === 'block') {
+            $('#invalid-username').animate({opacity: 'toggle'});
+        }
+        if ($('#click-login').css('display') === 'none') {
+            $('#click-login').animate({opacity: 'toggle'});
+        }
+        if ($('#user-forgot-password-pane').css('display') === 'block') {
+            $('#user-forgot-password-pane').animate({height: 'toggle'});
+        }
+
+        /* LOGIN TAB:  showing social login */
+
+    }
+});
+$("#click-login").click(function() {
+    if ($('#login-with-email-drop-down').css('display') === 'block' && $('#click-login').hasClass('active-tab')) {
+        $('#click-login').removeClass('active-tab');
+
+        $('#login-with-email-drop-down').animate({height: 'toggle'});
+
+        if ($('#social-login-container').css('display') === 'block') {
+            $('#social-login-container').animate({height: 'toggle'});
+        }
+    }
+    /* LOGIN TAB: closing login with email */
+
+
+    if ($('#login-with-email-drop-down').css('display') === 'none') {
+        $('#social-login').removeClass('social-active');
+        $('#click-login').addClass('active-tab');
+        $('#login-with-email-drop-down').animate({height: 'toggle'});
+
+        if ($('#social-login-container').css('display') === 'block') {
+            $('#social-login-container').animate({height: 'toggle'});
+        }
+    } /* LOGIN TAB: clicking login*/
+});
+$('#loginPassword > div').click(function() {
+    if ($('#login-with-email-drop-down').css('display')) {
+        $('#click-login').removeClass('active-tab');
+
+        $('#login-with-email-drop-down').animate({height: 'toggle'});
+        $('#user-forgot-password-pane').animate({height: 'toggle'});
+
+        if ($('#social-login-container').css('display') === 'block') {
+            $('#social-login-container').animate({height: 'toggle'});
+
+        }
+        if ($('#forgot-message-container').css('display') === 'block') {
+            $('#forgot-message-container').animate({opacity: 'toggle'});
+        }
+        if ($('#click-login').css('display') === 'block') {
+            $('#click-login').animate({height: 'toggle'});
+
+        }
+    }
+});
+/*  LOGIN TAB: show forget password pane */
+
+$('#user-forgot-password-pane .back-btn').click(function() {
+    $('#user-forgot-password-pane').animate({height: 'toggle'});
+    $('#login-with-email-drop-down').animate({height: 'toggle'});
+
+    if ($('#social-login-container').css('display') === 'block') {
+        $('#social-login-container').animate({height: 'toggle'});
+
+    }
+
+
+});
+/* Back to login with email from forget password pane */
+
+
+$('#reset-btn').click(function() {
+   
+});
+/* forgot password function showing thank you message */
+
+
+$('#user-forgot-password-pane .back-btn').click(function() {
+    if ($('#forgot-message-container').css('display') === 'block') {
+        $('#forgot-message-container').animate({opacity: 'toggle'});
+    }
+});
+/* hiding thank you message when the user clicks the back btn */
+
+
+
+
+
+
+$("#click-register-social").click(function() {
+
+    $('#click-register-social').removeClass('social-active');
+    $('#click-register').removeClass('active-tab');
+    if ($('#social-link').css('display') === 'block') {
+        $('#social-link').animate({height: 'toggle'});
+        if ($('#register-with-email-drop-down').css('display') === 'block') {
+            $('#register-with-email-drop-down').animate({height: 'toggle'});
+        }
+        if ($('#register-with-email-step-2').css('display') === 'block') {
+            $('#register-with-email-step-2').animate({height: 'toggle'});
+        }
+    }
+    /* hiding social login */
+
+    if ($('#social-link').css('display') === 'none') {
+        $('#social-link').animate({height: 'toggle'});
+        $('#click-register-social').addClass('social-active');
+        if ($('#register-with-email-drop-down').css('display') === 'block') {
+            $('#register-with-email-drop-down').animate({height: 'toggle'});
+        }
+        if ($('#register-with-email-step-2').css('display') === 'block') {
+            $('#register-with-email-step-2').animate({height: 'toggle'});
+        }
+    }
+    /*  REGISTER TAB: showing social login section*/
+
+});
+
+
+
+$('#register-with-email-step-2 .back-btn').click(function() {
+    $('#register-with-email-step-2').removeClass('active-step');
+    $('#register-with-email-step-2').animate({height: 'toggle'});
+    $('#register-with-email-drop-down').animate({height: 'toggle'});
+    checkSocial();
+});
+/* going back to step 1 function*/
+
+
+$(".register-clicker").click(function() {
+
+    if ($('#register-with-email-step-2').hasClass('active-step')) {
+        //alert('closing step2');
+
+        $('#social-link').animate({height: 'toggle'});
+        $('#register-with-email-step-2').animate({height: 'toggle'});
+        if ($('#click-register').hasClass('active-tab')) {
+            $('#click-register').removeClass('active-tab');
+            /* closing step */
+        }
+
+        else {
+            $('#click-register').addClass('active-tab');
+            /* opening step */
+        }
+
+    }
+    /* closing/opening register section while on step 2 function */
+
+    if ($('#register-with-email-drop-down').css('display') === 'block' && $('#click-register').hasClass('active-tab')) {
+        //alert('closing step1');
+        $('#click-register').removeClass('active-tab');
+        $('#social-link').animate({height: 'toggle'});
+        $('#register-with-email-drop-down').animate({height: 'toggle'});
+        $('#click-register-social').addClass('social-active');
+    }
+    /* closing register section while on step 1 function */
+
+
+    if ($('#register-with-email-drop-down').css('display') === 'none' && $('#register-with-email-step-2').hasClass('')) {
+        //alert('opening step 1');
+        $('#click-register-social').removeClass('social-active');
+        $('#click-register').addClass('active-tab');
+        $('#register-with-email-drop-down').animate({height: 'toggle'});
+        checkSocial();
+    }
+    /* clicking register step 1 function*/
+
+});
+
+
+window.onload = changeImage(); 
+function changeImage() {
+    var image = document.getElementById('fadein-image');
+    function toImage2() {
+        image.src = "../../../images/landing-page-title(IDEAS).png";
+        setTimeout(toImage3,2500);
+    }
+     function toImage3() {
+        image.src = "../../../images/landing-page-title(PRODUCTS).png";
+        setTimeout(toImage4,2500);
+    }
+     function toImage4() {
+        image.src = "../../../images/landing-page-title(SERVICES).png";
+        setTimeout(toImage1,2500);
+    }
+    function toImage1() {
+image.src = "../../../images/landing-trends.png";
+        setTimeout(toImage2,2500);
+    } 
+    setTimeout(toImage2,2500);
+}
+ /* ideas, products, services img animation*/
+
+
+
+function checkSocial() {
+    if ($('#social-link').css('display') === 'block') {
+        $('#social-link').animate({height: 'toggle'});
+    }
+    else {
+    }
+}
+/* close social login checker function */
+
+
+$('.login-select').click(function() {
+    $('.login-select').removeClass('login-selected');
+    $(this).addClass('login-selected');
+});
+/* select gender function */
+
+
+function loginPane() {
+
+    if (loginState === false) {
+        $('#login-btn').text('REGISTER');
+        $('.black-tool-tip').css('display', 'none');
+        $('#click-register-social').css('display', 'none');
+        $('#click-register').css('display', 'none');
+        $('#social-link').css('display', 'none');
+        $('#login-with-email-drop-down').css('display', 'block');
+        $('#social-login-container').css('display', 'none');
+        $('#click-login').addClass('active-tab');
+        $('#social-login').removeClass('social-active');
+        $('#user-forgot-password-pane').css('display', 'none');
+        $('#forgot-message-container').css('display', 'none');
+        $('#invalid-username').css('display', 'none');
+
+        $('#register-with-email-drop-down').css('display', 'none');
+        $('#register-with-email-step-2').css('display', 'none');
+        $('#user-login-pane').css('display', 'block');
+        loginState = true;
+    }
+    else {
+
+        $('#login-btn').text('LOGIN');
+        $('.black-tool-tip').css('display', 'none');
+        $('#click-register-social').css('display', 'block');
+        $('#social-link').css('display', 'block');
+        $('#click-register').css('display', 'block');
+        $('#click-register-social').addClass('social-active');
+        $('#click-register').removeClass('active-tab');
+        $('#register-with-email-step-2').removeClass('active-step');
+        $('#user-login-pane').css('display', 'none');
+        
+        loginState = false;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+function DropDown(el) {
+    this.dd = el;
+    this.placeholder = this.dd.children('span');
+    this.opts = this.dd.find('ul.dropdown > li');
+    this.val = '';
+    this.index = -1;
+    this.initEvents();
+}
+DropDown.prototype = {
+    initEvents: function() {
+        var obj = this;
+
+        obj.dd.on('click', function(event) {
+            $(this).parents('div .wrapper-dropdown-3').toggleClass('active');
+            return false;
+        });
+        obj.opts.on('click', function() {
+            var opt = $(this);
+            obj.val = opt.text();
+            obj.index = opt.index();
+            obj.placeholder.text(obj.val);
+        });
+    },
+    getValue: function() {
+        return this.val;
+    },
+    getIndex: function() {
+        return this.index;
+    }
+};
+
+$(function() {
+
+    var dd3 = new DropDown($('.dropdown_test_3'));
+    $(document).click(function() {
+        $('.wrapper-dropdown-3').removeClass('active');
+    });
+
+});
+
+function setDomain() {
+
+    var api_url = document.domain;
+    var api_domain_start_pos = api_url.indexOf('.');
+    var api_url = api_url.slice(api_domain_start_pos);
+
+    return api_url;
+}
+
+
+function Facebook(popupWidth, popupHeight) {
+
+    var left = (screen.width / 2) - (popupWidth / 2);
+    var top = (screen.height / 2) - (popupHeight / 2);
+    var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Facebook#_=_";
+    newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+    if (window.focus) {
+        newwindow.focus();
+    }
+
+
+
+}
+function Yahoo(popupWidth, popupHeight) {
+    var left = (screen.width / 2) - (popupWidth / 2);
+    var top = (screen.height / 2) - (popupHeight / 2);
+    var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Yahoo";
+    newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+    if (window.focus) {
+        newwindow.focus();
+    }
+}
+function QQ(popupWidth, popupHeight) {
+    var left = (screen.width / 2) - (popupWidth / 2);
+    var top = (screen.height / 2) - (popupHeight / 2);
+    var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=QQ";
+    newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+    if (window.focus) {
+        newwindow.focus();
+    }
+}
+function Twitter(popupWidth, popupHeight) {
+    var left = (screen.width / 2) - (popupWidth / 2);
+    var top = (screen.height / 2) - (popupHeight / 2);
+    var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Twitter";
+    newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+    if (window.focus) {
+        newwindow.focus();
+    }
+}
+function Sina(popupWidth, popupHeight) {
+    var left = (screen.width / 2) - (popupWidth / 2);
+    var top = (screen.height / 2) - (popupHeight / 2);
+    var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Sina";
+    newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+    if (window.focus) {
+        newwindow.focus();
+    }
+}
+function LinkedIn(popupWidth, popupHeight) {
+    var left = (screen.width / 2) - (popupWidth / 2);
+    var top = (screen.height / 2) - (popupHeight / 2);
+    var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=LinkedIn";
+    newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+    if (window.focus) {
+        newwindow.focus();
+    }
+}
+function Google(popupWidth, popupHeight) {
+    var left = (screen.width / 2) - (popupWidth / 2);
+    var top = (screen.height / 2) - (popupHeight / 2);
+    var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Google";
+    newwindow = window.open(api_url, 'name', 'height=' + popupHeight * 1.5 + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+    if (window.focus) {
+        newwindow.focus();
+    }
+}
+
+})();
+
+(function() {
+
+HubStar.RegisterView = Ember.View.extend({
+    templateName: 'register',
+    didInsertElement: function() {
+
+    }
+
+});
+
+
+
+})();
+
+(function() {
+
 HubStar.SearchAreaTextFieldView = Ember.TextField.extend({
 
         insertNewline: function() {
@@ -9505,8 +10379,8 @@ HubStar.Router.map(function() {
         this.resource("quickstart", {
             path: "/quickstart"
         });
-        this.resource("comingSoon", {
-            path: "/comingsoon"
+        this.resource("register", {
+            path: "/register"
         });
 
     });

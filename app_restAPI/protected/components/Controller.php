@@ -148,8 +148,7 @@ class Controller extends CController {
             $size = $this->getUserInput($requireParams[4]);
             $response = $this->getSearchResults($region, $searchString, $from, $size);
             $response = $this->getReponseResult($response, $returnType);
-        }
-        elseif ($requireType == 'collection') {
+        } elseif ($requireType == 'collection') {
             $collection_id = $this->getUserInput($requireParams[1]);
             $owner_profile_id = $this->getUserInput($requireParams[2]);
             $response = $this->getCollectionReults($collection_id, $owner_profile_id);
@@ -217,23 +216,23 @@ class Controller extends CController {
         return $should;
     }
     
-    protected function getsortQuestWithQueryString($sortString) {
-        $should = Sherlock\Sherlock::sortBuilder()->Field()->name($sortString)
-                ->order('desc');
-        return $should;
-    }
+//    protected function getsortQuestWithQueryString($sortString) {
+//        $should = Sherlock\Sherlock::sortBuilder()->Field()->name($sortString)
+//                ->order('desc');
+//        return $should;
+//    }
     
     protected function searchWithCondictions($conditions, $search_type = "should", $from = 0, $size = 50) {
         $request = $this->getElasticSearch();
         $request->from($from);
         $request->size($size);
-        $sortArray=array('couchbaseDocument.doc.created');
-        $length = sizeof($sortArray);
-        for ($i = 0; $i < $length; $i++) {
-            $sort = $this->getsortQuestWithQueryString($sortArray[$i]);
-                $request->sort($sort);            
-        }
-        $request->sort($sortArray);
+//        $sortArray=array('couchbaseDocument.doc.created');
+//        $length = sizeof($sortArray);
+//        for ($i = 0; $i < $length; $i++) {
+//            $sort = $this->getsortQuestWithQueryString($sortArray[$i]);
+//                $request->sort($sort);            
+//        }
+//        $request->sort($sortArray);
         $max = sizeof($conditions);
         $bool = Sherlock\Sherlock::queryBuilder()->Bool();
         for ($i = 0; $i < $max; $i++) {
@@ -363,7 +362,8 @@ class Controller extends CController {
         $owner_contact_cc_emails = $mega_profile["profile"][0]["owner_contact_email"];
         $owner_contact_bcc_emails = $mega_profile["profile"][0]["owner_contact_bcc_emails"];
         $profile_regoin = $mega_profile["profile"][0]["profile_regoin"];
-
+        $profile_pic_url = $mega_profile["profile"][0]["profile_pic_url"];
+   
         $results = '{"' . $returnType . '":[';
         $i = 0;
         foreach ($tempResult as $hit) {
@@ -374,6 +374,7 @@ class Controller extends CController {
             $hit['source']['doc']['owner_contact_cc_emails'] = $owner_contact_cc_emails;
             $hit['source']['doc']['owner_contact_bcc_emails'] = $owner_contact_bcc_emails;
             $hit['source']['doc']['region'] = $profile_regoin;
+            $hit['source']['doc']['owner_profile_pic'] = $profile_pic_url;
             $results .= CJSON::encode($hit['source']['doc']);
             if (++$i < count($tempResult)) {
                 $results .= ',';
@@ -381,6 +382,7 @@ class Controller extends CController {
         }
 
         $results .= ']}';
+
         return $results;
     }
 
@@ -401,6 +403,15 @@ class Controller extends CController {
         $array = array();
         for ($int = 0; $int < sizeof($tempResponse); $int++) {
             $tempObject = $tempResponse[$int]['source']['doc'];
+            if (isset($tempResponse[$int]['source']['doc']['comments'])) {
+                error_log(var_export($tempResponse[$int]['source']['doc']['comments'], true));
+            }
+
+
+
+
+
+
             array_push($array, $tempObject);
         }
         $tempId = time();
@@ -470,7 +481,9 @@ class Controller extends CController {
         $rawRequest = $header . $tempRquestIDs . $footer;
         $request = $this->getElasticSearch();
         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
-        $request->query($termQuery);
+        $request->query($termQuery)
+                      ->from(0)
+                      ->size(sizeof($id_arr));
         $response = $request->execute();
         $results = $this->getReponseResult($response, $returnType);
         return $results;

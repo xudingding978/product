@@ -212,7 +212,7 @@ module.exports = function(grunt) {
                 files: [{
                         expand: true,
                         cwd: '<%= yeoman.app %>/scripts',
-                        src: '{,*/}*.coffee',
+                 //       src: '{,*/}*.coffee',
                         dest: '.tmp/scripts',
                         ext: '.js'
                     }]
@@ -221,7 +221,7 @@ module.exports = function(grunt) {
                 files: [{
                         expand: true,
                         cwd: 'test/spec',
-                        src: '{,*/}*.coffee',
+                     //   src: '{,*/}*.coffee',
                         dest: '.tmp/spec',
                         ext: '.js'
                     }]
@@ -263,9 +263,9 @@ module.exports = function(grunt) {
                     '<%= yeoman.app %>/bower_components/ember-data-shim/ember-data.min.js',
                     '<%= yeoman.app %>/bower_components/moment/moment.min.js',
                     '<%= yeoman.app %>/bower_components/javascriptHelper/javascriptHelper.min.js',
+                    '<%= yeoman.app %>/bower_components/wysihtml5/dist/wysihtml5-0.3.0.js',
                     '<%= yeoman.app %>/bower_components/wysihtml5/parser_rules/advanced.js',
-                    '<%= yeoman.app %>/bower_components/wysihtml5/dist/wysihtml5-0.3.0.js'
-
+                    '<%= yeoman.app %>/bower_components/mousetrap.min.js'
                 ],
                 dest: '<%= yeoman.dist %>/scripts/components.js'
             },
@@ -281,7 +281,10 @@ module.exports = function(grunt) {
                     '<%= yeoman.app %>/bower_components/ember-data-shim/ember-data.min.js',
                     '<%= yeoman.app %>/bower_components/moment/moment.min.js',
                     '<%= yeoman.app %>/bower_components/javascriptHelper/javascriptHelper.test.js',
-                    '<%= yeoman.app %>/bower_components/javascriptHelper/jquery-2.0.3.min.map'
+                    '<%= yeoman.app %>/bower_components/javascriptHelper/jquery-2.0.3.min.map',
+                    '<%= yeoman.app %>/bower_components/wysihtml5/dist/wysihtml5-0.3.0.js',
+                    '<%= yeoman.app %>/bower_components/wysihtml5/parser_rules/advanced.js',
+                    '<%= yeoman.app %>/bower_components/mousetrap.min.js'
                 ],
                 dest: '<%= yeoman.test %>/scripts/components.js'
             },
@@ -443,14 +446,13 @@ module.exports = function(grunt) {
         },
         concurrent: {
             server: [
-                'emberTemplates',
-                'coffee:dist',
-                'compass:server'
+                'emberTemplates'
+   
+
             ],
             test: [
-                'emberTemplates',
-                'coffee',
-                'compass'
+                'emberTemplates'
+           
             ],
             dist: [
                 'emberTemplates',
@@ -509,7 +511,7 @@ module.exports = function(grunt) {
         ]);
     });
     grunt.registerTask('test', [
-        'shell',
+   //     'shell',
         'clean:server',
         'concurrent:test',
         'connect:test',

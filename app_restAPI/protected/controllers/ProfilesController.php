@@ -143,7 +143,7 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_name'] = $newRecord['profile_name'];
             $oldRecord['profile'][0]['profile_package_name'] = $newRecord['profile_package_name'];
             $oldRecord['profile'][0]['profile_partner_ids'] = $newRecord['profile_partner_ids'];
-            $oldRecord['profile'][0]['profile_street_address'] = $newRecord['profile_street_address'];
+            $oldRecord['profile'][0]['profile_physical_address'] = $newRecord['profile_physical_address'];
             $oldRecord['profile'][0]['profile_suburb'] = $newRecord['profile_suburb'];
             $oldRecord['profile'][0]['profile_regoin'] = $newRecord['profile_regoin'];
             $oldRecord['profile'][0]['profile_website'] = $newRecord['profile_website'];

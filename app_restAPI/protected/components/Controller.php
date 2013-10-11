@@ -242,8 +242,9 @@ class Controller extends CController {
                     ]
                 }
             }');
+        error_log($request->toJSON());
         $response = $request->query($termQuery)->execute();
-        error_log(var_export($response,true));
+        
         return $response;
     }
     

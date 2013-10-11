@@ -21,7 +21,7 @@ HubStar.UserController = Ember.Controller.extend({
     display_name: "",
     userTage: true,
     currentUserID: "",
-    needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings', 'application', 'platformBar', 'collection', 'htmlEditor'],
+    needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings', 'application', 'platformBar', 'collection', 'htmlEditor','userMessage'],
     facebook: "",
     twitter: "",
     follow_status: false,
@@ -67,8 +67,7 @@ HubStar.UserController = Ember.Controller.extend({
     isUserSelf: false,
     interestsActive: false,
     init: function()
-    {
-
+    {          
     },
     isUserSelfOrNot: function(currentUserID) {
         this.set("isUserSelf", false);
@@ -85,8 +84,7 @@ HubStar.UserController = Ember.Controller.extend({
         return user;
     },
     setUser: function()
-    {
-
+    {        
         var user = this.get('model');
         this.setIntersetsArr(user);
         this.set("user", user);
@@ -681,8 +679,8 @@ HubStar.UserController = Ember.Controller.extend({
         }, 200);
     },
     selectFollower: function(model) {
-        this.set('profileSelectionStatus', 'Followers');
-        this.get('controllers.userFollowers').getClientId(model);
+        this.set('profileSelectionStatus', 'Followers');      
+        this.get('controllers.userFollowers').getClientId(model);      
         this.set('followingTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', true);
@@ -690,15 +688,15 @@ HubStar.UserController = Ember.Controller.extend({
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
+         
     },
-    selectMessage: function(model) {
+    selectMessage: function(model) {    
         this.set('profileSelectionStatus', 'Messages');
-        //this.get('controllers.userFollowers').getClientId(model);
+        this.get('controllers.userMessage').getClientId(model.id);
         this.set('followingTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', false);
-        this.set('messageTag', true);
-        console.log(this.get("messageTag"));
+        this.set('messageTag', true);       
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);

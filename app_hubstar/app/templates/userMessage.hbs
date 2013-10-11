@@ -15,11 +15,10 @@
                 {{view Ember.TextArea valueBinding="messageContent" class="no-resize" placeholder="What's up!" }}
             </div>
 
-                <div>
-                    <img  {{bindAttr src= "newStyleImageSource"}}  style="max-width: 170px; max-height: 170px;">
-                  
-                </div>
-            
+            <div>
+                <img  {{bindAttr src= "newStyleImageSource"}}  style="max-width: 170px; max-height: 170px;">
+            </div>
+
         </div>
     </div>
 
@@ -30,141 +29,18 @@
                     {{view HubStar.SingleImageInputButtonView }}
                 </div>
         </div>
-        <div class="message-btn easing" style="">Post</div>
+        <div class="message-btn easing" style="" {{action addComment}}>Post</div>
     </div>
-
-
 
     <div class='Message-Board_comment-container'>
+        {{#each  contentMsg}}
+        
+        {{render "message" this}}
 
-        <div class="Message-Board_comment-item" style=''>
-            <div class="comment-position">
-                <a class="profilepic-comment-container" >
-                    <img class="profilepic_comment" src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg" />
-                </a>
-                <div style="">
-                    <div class="comment-namentime">
-                        <div class="namentime_position">
-                            <a class="comment-username"  >
-                                Colin Shaw
-                            </a>
-                            <div class="posttime-container">
-                                <span class="posttime">2013 Aug 16, 8:25am</span>
-                            </div>
-                        </div>
-
-                        <div class="reply-comment">
-                            <a class = "reply-comment-button" >replay</a>
-                        </div>
-                    </div>
-                    <div class="comment-content">
-                        Hi, Jase! i'm trying some colours and concept for the logo at the moment, can you please describe more about the brand, i mean about the brand image.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-        <div class="Message-Board_comment-item" style=''>
-            <div class="comment-position">
-                <a class="profilepic-comment-container" >
-                    <img class="profilepic_comment" src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg" />
-                </a>
-                <div style="">
-                    <div class="comment-namentime">
-                        <div class="namentime_position">
-                            <a class="comment-username"  >
-                                Colin Shaw
-                            </a>
-                            <div class="posttime-container">
-                                <span class="posttime">2013 Aug 16, 8:25am</span>
-                            </div>
-                        </div>
-
-                        <div class="reply-comment">
-                            <a class = "reply-comment-button" >replay</a>
-                        </div>
-                    </div>
-                    <div class="comment-content">
-                        Hi, Jase! i'm trying some colours and concept for the logo at the moment, can you please describe more about the brand, i mean about the brand image.
-                    </div>
-                </div>
-            </div>
-
-            <div class="your-relpy">
-                <a class="your-relpy_profilepic" >
-                    <img class="profilepic_comment" src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg" />
-                </a>
-                <div style="">
-                    <div class="comment-namentime">
-                        <div class="namentime_position">
-                            <a class="comment-username"  >
-                                Colin Shaw
-                            </a>
-                            <div class="posttime-container">
-                                <span class="posttime">2013 Aug 16, 8:25am</span>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="comment-content">
-                        Hi, Jase! i'm trying some colours and concept for the logo at the moment, can you please describe more about the brand, i mean about the brand image.
-                    </div>
-                </div>
-            </div>
-
-
-
-            <div class="comment-frame"  style="padding: 0 0 0 40px;border: none;">
-                <div style="margin:0 auto; padding: 0 45px 15px 0;">
-                    <a>
-                        <img class="profilepic_comment"  style="float: right; margin: 4px -45px 0 0; margin-top: 0;"{{bindAttr src="controller.currentUser.photo_url_large"}} /> 
-                    </a>
-                    <div   style="margin: 0;width: 100%; height:50px;">
-                        {{view Ember.TextArea valueBinding="about_me" class="no-resize" placeholder="What's up!" }}
-                    </div>
-                    <span class="" style="margin:7px 0;float: right;">
-                        <div  class="new-btn"{{action closeComment model.id target="view" on="click"}}>Cancel</div>
-                        <div class="new-btn green-btn" {{action addComment}}>Post</div>
-                    </span>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="Message-Board_comment-item" style=''>
-            <div class="comment-position">
-                <a class="profilepic-comment-container" >
-                    <img class="profilepic_comment" src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg" />
-                </a>
-                <div style="">
-                    <div class="comment-namentime">
-                        <div class="namentime_position">
-                            <a class="comment-username"  >
-                                Colin Shaw
-                            </a>
-                            <div class="posttime-container">
-                                <span class="posttime">2013 Aug 16, 8:25am</span>
-                            </div>
-                        </div>
-
-                        <div class="reply-comment">
-                            <a class = "reply-comment-button" >replay</a>
-                        </div>
-                    </div>
-                    <div class="comment-content">
-                        Hi, Jase! i'm trying some colours and concept for the logo at the moment, can you please describe more about the brand, i mean about the brand image.
-                    </div>
-                </div>
-            </div>
-        </div>
+        {{/each}}
 
     </div>
-
-
-
-
 </div>
+
 
 

@@ -11,6 +11,7 @@
 
 
 HubStar.UserMessageController = Ember.Controller.extend({
+    contentMsg: null,
     commenter_photo_url: null,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings'],
     init: function()
@@ -18,39 +19,149 @@ HubStar.UserMessageController = Ember.Controller.extend({
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
         if (localStorage.loginStatus) {
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
-            console.log(this.get("currentUser").get("isLoaded"));
             this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
         }
 
     },
-    addComments: function() {
+    getClientId: function(id) {
+        this.set('clientID', id);
+
+        var data = this.get('clientID');
+        var dataNew = new Array();
+        var that = this;
+        requiredBackEnd('messages', 'Read', data, 'POST', function(params) {
+
+            that.set("contentMsg", []);
+            for (var i = 0; i < params.length; i++)
+            {
+                //console.log(params[i]);
+                dataNew["message_id"] = params[i]["message_id"];
+                var length = params[i]["replyMessageCollection"].length - 1;
+                dataNew["user_id"] = params[i]["replyMessageCollection"][length]["user_id"];
+                dataNew["time_stamp"] = params[i]["replyMessageCollection"][length]["time_stamp"];
+                dataNew["msg"] = params[i]["replyMessageCollection"][length]["msg"];
+                dataNew["user_name"] = params[i]["replyMessageCollection"][length]["user_name"];
+                dataNew["photo_url_large"] = params[i]["replyMessageCollection"][length]["photo_url_large"];
+                dataNew["url"] = params[i]["replyMessageCollection"][length]["url"];
+                if (params[i]["replyMessageCollection"][length]["url"] !== null)
+                {
+                    dataNew["isUrl"] = true;
+                }
+                else
+                {
+                    dataNew["isUrl"] = false;
+                }
+
+
+                dataNew["replyMessageCollection"] = new Array();
+                for (var j = 0; j < params[i]["replyMessageCollection"].length - 1; j++)
+                {
+                    var dataReply = new Array();
+
+                    dataReply["user_id"] = params[i]["replyMessageCollection"][j]["user_id"];
+                    dataReply["time_stamp"] = params[i]["replyMessageCollection"][j]["time_stamp"];
+                    dataReply["msg"] = params[i]["replyMessageCollection"][j]["msg"];
+                    dataReply["user_name"] = params[i]["replyMessageCollection"][j]["user_name"];
+                    dataReply["photo_url_large"] = params[i]["replyMessageCollection"][j]["photo_url_large"];
+                    dataReply["url"] = params[i]["replyMessageCollection"][j]["url"];
+                    if (params[i]["replyMessageCollection"][j]["url"] !== null)
+                    {
+                        dataReply["isUrl"] = true;
+                    }
+                    else
+                    {
+                        dataReply["isUrl"] = false;
+                    }
+                    dataNew["replyMessageCollection"][j] = dataReply;
+                }
+                that.get("contentMsg").pushObject(dataNew);
+
+                dataNew = new Array();
+            }
+
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reload");
+            }, 200);
+        });
+
+    },
+   
+    addComment: function() {
         var commentContent = this.get('messageContent');
         if (commentContent) {
-           
+
 
             var commenter_id = this.get("currentUser").get('id');
             var date = new Date();
             var owner_id = this.get("currentOwner").get("id");
-            var newStyleImage = this.get("newStyleImageSource");
-            var imageStyleName = this.get('newStyleImageName');
-             var imageName = "";
-               var imageType= "";
-            if (imageStyleName!==undefined && imageStyleName !== null && imageStyleName !== "")
+            var newStyleImage = "";
+            var imageStyleName = "";
+            if (this.get("newStyleImageSource") !== undefined || this.get("newStyleImageSource") !== null || this.get("newStyleImageSource") !== "")
+            {
+                newStyleImage = this.get("newStyleImageSource");
+            }
+            else
+            {
+                newStyleImage = null;
+            }
+            if (this.get('newStyleImageName') !== undefined || this.get('newStyleImageName') !== null || this.get('newStyleImageName') !== "")
+            {
+                imageStyleName = this.get('newStyleImageName');
+
+            }
+            else
+            {
+                imageStyleName = "";
+            }
+            var imageName = "";
+            var imageType = "";
+            if (imageStyleName !== undefined && imageStyleName !== null && imageStyleName !== "")
             {
                 var imageName = imageStyleName.split('.');
                 var imageType = imageName[imageName.length - 1];
             }
             var messageID = createMessageid();
             var tempComment = [commenter_id, date.toString(), commentContent, owner_id, newStyleImage, imageType, imageStyleName, messageID];
-           
+
             tempComment = JSON.stringify(tempComment);
             var that = this;
 
-            requiredBackEnd('message', 'CreateComment', tempComment, 'POST', function(params) {
-                
+            var dataNew = new Array();
+
+            requiredBackEnd('messages', 'CreateComment', tempComment, 'POST', function(params) {
+               
+                dataNew["message_id"] = params["message_id"];
+                dataNew["user_id"] = params["replyMessageCollection"][0]["user_id"];
+                dataNew["time_stamp"] = params["replyMessageCollection"][0]["time_stamp"];
+                dataNew["msg"] = params["replyMessageCollection"][0]["msg"];
+                dataNew["user_name"] = params["replyMessageCollection"][0]["user_name"];
+                dataNew["photo_url_large"] = params["replyMessageCollection"][0]["photo_url_large"];
+                dataNew["url"] = params["replyMessageCollection"][0]["url"];
+                if (params["replyMessageCollection"][0]["url"] !== null)
+                {
+                    dataNew["isUrl"] = true;
+                }
+                else
+                {
+                    dataNew["isUrl"] = false;
+                }
+
+                that.get("contentMsg").insertAt(0, dataNew);
+
+                dataNew = new Array();
+
+
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry("reload");
+                }, 200);
+
+
+                that.set('messageContent', "");
+                that.set('newStyleImageSource', null);
+                that.set('newStyleImageName', "");
             });
-     
-            this.set('commentContent', "");
+
+
             $('#addcommetBut').attr('style', 'display:block');
             $('#commentBox').attr('style', 'display:none');
             setTimeout(function() {
@@ -65,6 +176,9 @@ HubStar.UserMessageController = Ember.Controller.extend({
         var src = target.result;
         this.set('newStyleImageSource', src);
         this.set('newStyleImageName', name);
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
     }
 }
 );

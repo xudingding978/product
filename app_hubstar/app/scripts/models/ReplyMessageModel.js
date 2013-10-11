@@ -1,0 +1,9 @@
+HubStar.ReplyMessage = DS.Model.extend({
+    user_id: DS.attr('string'),
+    time_stamp: DS.attr('string'),
+    msg: DS.attr('string'),
+    url:DS.attr('string'),
+    user_name: DS.attr('string'),
+    photo_url_large: DS.attr('string')
+});
+

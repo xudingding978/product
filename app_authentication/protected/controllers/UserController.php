@@ -53,6 +53,7 @@ class UserController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate() {
+
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
         $model = new User;
@@ -85,7 +86,6 @@ class UserController extends Controller {
                     Yii::app()->user->login($identity, 0);
 
                     if (Yii::app()->session['newUser'] == "new") {
-
                         $this->render('welcome');
                         unset(Yii::app()->session['newUser']);
                     } else {
@@ -94,6 +94,7 @@ class UserController extends Controller {
                 }
             }
         }
+        
         $this->render('create', array(
             'model' => $model,
         ));

@@ -45,9 +45,10 @@ class Controller_admin extends CConsoleCommand
 
     }
     
-        
     protected function couchBaseConnection($bucket) {
-        return new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", $bucket, true);
+        
+        //   return new Couchbase($node, $account, $password, $bucket, true);
+        return new Couchbase("cb1.hubsrv.com:8091", '', '', $bucket, true);
     }
     
     protected  function setCouchbaseObject($id, $photo_arr, $bucket) {

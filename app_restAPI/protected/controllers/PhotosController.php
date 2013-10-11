@@ -21,6 +21,34 @@ class PhotosController extends Controller {
         $result = $this->getRequestResultByID(self::JSON_RESPONSE_ROOT_SINGLE, $id);
         $this->sendResponse(null, $result);
     }
+    
+    
+     public function updateCouchbasePhotos() {
+        require 'vendor/autoload.php';
+        $settings['log.enabled'] = true;
+    //    $sherlock = new \Sherlock\Sherlock($settings);
+        $sherlock = new \Sherlock\Sherlock($settings);
+        $sherlock->addNode("http://es1.hubsrv.com", 9200);
+        $request = $sherlock->search();
+   error_log("11111");
+        $termQuery = Sherlock::queryBuilder()->Term()->field("owner_id")
+        ->term("lockwood-nz");
+
+error_log("222222");
+        $request->index("temp")
+                ->type("couchbaseDocument")
+                ->from(0)
+                ->size(200)
+                ->query($termQuery);
+        error_log("333333");
+        $response = $request->execute();
+error_log("4444444");
+        foreach ($response as $hit) {
+            echo $hit["score"] . ' - ' . $hit['id']['owner_id'] . "\r\n";
+        }
+        error_log("555555");
+     }
+    
 
     public function actionCreate() {
 

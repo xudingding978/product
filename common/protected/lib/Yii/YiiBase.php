@@ -390,11 +390,13 @@ class YiiBase
 	 */
 	public static function autoload($className)
 	{
+             error_log($className);
 		// use include so that the error PHP file may appear
 		if(isset(self::$classMap[$className]))
 			include(self::$classMap[$className]);
 		elseif(isset(self::$_coreClasses[$className]))
 			include(YII_PATH.self::$_coreClasses[$className]);
+                
 		else
 		{
 			// include class file relying on include_path
@@ -417,6 +419,7 @@ class YiiBase
 						}
 					}
 				}
+                                
 				else
 					include($className.'.php');
 			}

@@ -126,6 +126,7 @@ class Sherlock
      */
     public static function queryBuilder()
     {
+        error_log("sherlock-querybuilder");
         Analog::log("Sherlock::query()", Analog::DEBUG);
 
         return new \Sherlock\wrappers\QueryWrapper();

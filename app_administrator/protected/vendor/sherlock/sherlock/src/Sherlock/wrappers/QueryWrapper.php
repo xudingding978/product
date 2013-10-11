@@ -49,6 +49,7 @@ class QueryWrapper
 
     public function __call($name, $arguments)
     {
+        error_log("queryWrapper");
         $class = '\\Sherlock\\components\\queries\\'.$name;
 
         if (count($arguments) > 0)

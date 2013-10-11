@@ -1,7 +1,6 @@
 HubStar.CollectionsView = Ember.View.extend({
     templateName: 'collections',
     editCollectionButton: function(id, title, desc) {
-
         var userController = this.get('controller');
         userController.setSelectedCollection(id);
         this.get('controller').setCollectionAttr();

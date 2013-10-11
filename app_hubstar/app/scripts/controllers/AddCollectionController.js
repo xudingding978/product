@@ -56,7 +56,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
             this.get('controllers.applicationFeedback').statusObserver(null, "Saved photo successfully.");
             this.exit();
         } else {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please choose a collection.");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please choose a collection.","warnning");
         }
 
     },
@@ -67,7 +67,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
 
         if (commentContent) {
             var comments = this.get("commentObject").get('comments');
-            var commenter_profile_pic_url = currentUser.get('photo_url');
+            var commenter_profile_pic_url = currentUser.get('photo_url_large');
             var commenter_id = currentUser.get('id');
             var name = currentUser.get('display_name');
             var date = new Date();

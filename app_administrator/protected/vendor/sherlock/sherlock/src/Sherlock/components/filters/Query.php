@@ -24,12 +24,15 @@ class Query extends \Sherlock\components\BaseComponent implements \Sherlock\comp
         parent::__construct($hashMap);
     }
 
+
     public function toArray()
     {
-        $ret = array (
-  'query' => $this->params["query"]->toArray(),
-  '_cache' => $this->params["_cache"],
-);
+        $ret = array(
+            'fquery' => array(
+                'query'  => $this->params["query"]->toArray(),
+                '_cache' => $this->params["_cache"],
+            ),
+        );
 
         return $ret;
     }

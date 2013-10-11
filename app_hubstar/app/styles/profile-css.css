@@ -699,3 +699,23 @@ textarea.add-interests{
 /*CROP FUNCTION*/
 
 .crop-canvas{height: auto;max-height: 500px;width: auto;margin: 0 auto; max-width: 850px;}
+
+
+
+
+/*STAR RATING STYLE*/
+
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    font-size: 20px;
+}
+
+.rating > span.star {
+    content: "";
+    color: #999999;
+}
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+    content: "";
+}

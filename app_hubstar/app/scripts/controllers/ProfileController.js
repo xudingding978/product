@@ -730,7 +730,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set("profile_isActive", this.get("projectActiveDropdownContent"));
         update_profile_record.set("profile_isDeleted", this.get("projectDeleteDropdownContent"));
         update_profile_record.set("profile_google_map", this.get("google_map"));
-
+             console.log(this.get('profile_google_map'));   
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
         if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
             update_profile_record.get('stateManager').transitionTo('loaded.saved');

@@ -4,14 +4,14 @@ var multiEmail1 = true;
 var multiEmail2 = true;
 HubStar.ProfileNewController = Ember.ObjectController.extend({
     profile_name: "",
-    dropdownCategory: "category",
+    categorySelection: "category",
     packgeSelection: "package",
     profile_url: "",
     first_name: "",
     last_name: "",
     address: "",
     suburb:"",
-    projectCategoryDropdown: false,
+    categoryDropdown: false,
     packgetDropdown: false,
     contact_number: "",
     website: "",
@@ -210,7 +210,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                 boost: this.get("boost"),
                 is_active: "true",
                 is_indexed: "true",
-                category: $('#dropdownCategory').text(),
+                category: $('#categorySelection').text(),
                 created: "",
                 creator: this.get("creater"),
                 country: this.get("country"),
@@ -245,7 +245,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                 owner_contact_email: this.get("direct_enquiry_emails"),
                 owner_contact_cc_emails: this.get("secondary_email"),
                 owner_contact_bcc_emails: this.get("direct_enquiry_provide_email"),
-                profile_category: $('#dropdownCategory').text(),
+                profile_category: $('#categorySelection').text(),
                 profile_street_address: this.get("address"),
                 profile_suburb: this.get("suburb"),
                 profile_keywords: this.get("keywords"),
@@ -282,13 +282,10 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
 
         if (checking === "category") {
             this.set('packgetDropdown', false);
-            this.set('projectCategoryDropdown', !this.get('projectCategoryDropdown'));
+            this.set('categoryDropdown', !this.get('categoryDropdown'));
         } else if (checking === "package") {
-            this.set('projectCategoryDropdown', false);
+            this.set('categoryDropdown', false);
             this.set('packgetDropdown', !this.get('packgetDropdown'));
-        } else {
-
-
-        }
+        } 
     }
 });

@@ -118,6 +118,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     }
                     that.pushObject(tempmega);
                 }
+                that.set('isWaiting',false);
                 that.set('loadingTime', false);
                 this.set("from", this.get("size"));
                 var d = new Date();
@@ -160,14 +161,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var re = /\S+@\S+\.\S+/;
         return re.test(email);
     },
-            resetPasswordBack:function(){
-        this.set();
-            },
+       
     signUp: function() {
 
         if (this.checkSignupInfo()) {
-            var signupInfo = [this.get('email')];
-            var that = this;
+            var signupInfo = [this.get('email')];  
             requiredBackEnd('site', 'getemail', signupInfo, 'POST', function(params) {
                 if (params === 1) {
                     $('#register-with-email-step-2').addClass('active-step');
@@ -201,19 +199,19 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         }
     },
     done: function() {
-     //   this.set('isWaiting', true);
+        this.set('isWaiting', true);
         var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age')];
         var that = this;
         requiredBackEnd('site', 'create', createInfo, 'POST', function(params) {
             localStorage.loginStatus = params.COUCHBASE_ID;
-//              var emailInfo = [ params.USER_NAME, params.PWD_HASH];
-//             requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function(params) {
-//
-//                });
-        that.set('isWaiting', true);
+              var emailInfo = [ params.USER_NAME, params.PWD_HASH];
+             requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function(params) {
+
+                });
+       
             setTimeout(function() {
                 that.transitionToRoute('search');
-                that.set('isWaiting', false);
+              
                 that.set('first_name', "");
                 that.set('last_name', "");
                 that.set('email', "");
@@ -351,7 +349,7 @@ if(this.get('loginUsername')!==null && this.get('loginPassword')!==null&&this.ge
                     that.transitionToRoute('search');
                     that.set('loginUsername', "");
                     that.set('loginPassword', "");
-                    that.set('isWaiting', false);
+                 
                 }
                 else {
                     document.getElementById("loginPassword").setAttribute("class", "login-textfield error-textfield");

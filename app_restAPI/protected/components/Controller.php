@@ -220,7 +220,7 @@ class Controller extends CController {
     protected function searchWithMultiMatch($queryString, $from, $size) {
         $request = $this->getElasticSearch();
         $request->from($from)
-                ->filters('{"term": {
+                ->filter('{"term": {
       "couchbaseDocument.doc.region": "auckland"
                 }}')
                 ->size($size);

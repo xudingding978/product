@@ -220,6 +220,9 @@ class Controller extends CController {
     protected function searchWithMultiMatch($queryString, $from, $size) {
         $request = $this->getElasticSearch();
         $request->from($from)
+                ->filters('{"term": {
+      "couchbaseDocument.doc.region": "auckland"
+                }}')
                 ->size($size);
         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw('{
                 "bool": {
@@ -239,9 +242,8 @@ class Controller extends CController {
                     ]
                 }
             }');
-        error_log($termQuery->toJSON());
-        $response = $request->query($termQuery);
-        error_log($response->toJSON());
+        $response = $request->query($termQuery)->execute();
+        error_log(var_export($response,true));
         return $response;
     }
     

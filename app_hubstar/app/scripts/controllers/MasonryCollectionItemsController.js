@@ -238,7 +238,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                     var tempmega = results.objectAt(i);
 
                     var tempID = tempmega.get('collection_id').toLowerCase().replace(/ /g, "-");
-                    var tempCollectionID = that.get('collection_id').toLowerCase().replace(/ /g, "-");
+                    var tempCollectionID = that.get('collection_id').toLowerCase().replace(/ /g, "-");                    
 
                     if ((tempmega.get('photo').get('length') === 1) && (tempID === tempCollectionID))
                     {

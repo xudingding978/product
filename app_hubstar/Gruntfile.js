@@ -255,7 +255,6 @@ module.exports = function(grunt) {
                 src: [
                     '<%= yeoman.app %>/bower_components/javascriptHelper/browserdetecter.js',
                     '<%= yeoman.app %>/bower_components/jquery/jquery.min.js',
-                    '<%= yeoman.app %>/bower_components/jquery/jquery.min.map',
                     '<%= yeoman.app %>/bower_components/handlebars/handlebars.runtime.js',
                     '<%= yeoman.app %>/bower_components/jquery.ui/jquery-ui-1.9.2.custom.min.js',
                     '<%= yeoman.app %>/bower_components/jquery.masonry/jquery.masonry.min.js',

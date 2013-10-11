@@ -240,7 +240,7 @@ class Controller extends CController {
                 }
             }');
         error_log($termQuery->toJSON());
-        $response = $request->query($termQuery)->execute();
+        $response = $request->query($termQuery);
         error_log($response->toJSON());
         return $response;
     }

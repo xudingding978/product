@@ -2,7 +2,6 @@
 
 header("Access-Control-Allow-Origin: *");
 header('Content-type: *');
-
 header('Access-Control-Request-Method: *');
 header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET');
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
@@ -130,7 +129,7 @@ class SiteController extends Controller {
         $model->EMAIL_ADDRESS = $request_array[3];
         $model->COUCHBASE_ID = strval(rand(9999999999, 99999999999));
 
-        $cb = new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "production", true);
+        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "production", true);
         $rand_id = $model->COUCHBASE_ID;
         $temp = $this->getMega();
         $temp["id"] = $rand_id;
@@ -142,7 +141,6 @@ class SiteController extends Controller {
         $temp["user"][0]["first_name"] = $model->FIRST_NAME;
         $temp["user"][0]["last_name"] = $model->LAST_NAME;
         $temp["user"][0]["email"] = $model->EMAIL_ADDRESS;
-
         $temp['user'][0]['selected_topics'] = "";
         $temp['user'][0]['gender'] = $request_array[5];
         $temp['user'][0]['age'] = $request_array[6];
@@ -156,14 +154,17 @@ class SiteController extends Controller {
         $temp['user'][0]['youtube_link'] = null;
         $temp['user'][0]['region'] = $request_array[4];
         $temp['user'][0]['password'] = null;
+        
+        $urlController = new UrlController();
+        $link = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        $domain = $urlController->getDomain($link);
 
-
-        if ($cb->add(substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.') + 1) . "/users/" . $rand_id, CJSON::encode($temp))) {
-
+        if ($cb->add($domain . "/users/" . $rand_id, CJSON::encode($temp))) {
             if ($model->save(false)) {
+
                 $this->sendResponse(200, CJSON::encode($model));
             }
-        }
+        } 
     }
 
     public function actionGetmodel() {
@@ -305,37 +306,6 @@ class SiteController extends Controller {
         }
     }
 
-//    public function defaultLogin() {
-//
-//        $model = new LoginForm;
-//
-//        
-//        
-//        
-//        // if it is ajax validation request
-//        if (!Yii::app()->user->isGuest) {
-//            $this->redirect(Yii::app()->user->returnUrl);
-//        }
-//
-//        if (isset($_POST['ajax']) && $_POST['ajax'] === 'login-form') {
-//            echo CActiveForm::validate($model);
-//            Yii::app()->end();
-//        }
-//
-//        // collect user input data
-//        if (isset($_POST['LoginForm'])) {
-//            $model->attributes = $_POST['LoginForm'];
-//        
-//            // validate user input and redirect to the previous page if valid
-//            if ($model->validate() && $model->login())
-//            {
-//               $this->render('//user/close');
-//            }
-////                $this->render('//user/close');
-//        }
-//        // display the login form                
-//        $this->render('login', array('model' => $model));
-//    }
 
     public function actionAjax() {
         $model = new LoginForm;

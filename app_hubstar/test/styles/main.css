@@ -12672,6 +12672,18 @@ div >div.active-tab
 }
 i#forgot-password-btn{cursor:help}
 div#forgot-password-container{
+<<<<<<< HEAD
+=======
+
+    display:none;
+    background:#fff;
+    border:1px solid #ccc;
+    position:absolute;
+    bottom:52px;
+    right:-120px;
+    padding:5px;
+
+>>>>>>> FETCH_HEAD
 
     display:none;
     background:#fff;
@@ -12744,7 +12756,57 @@ div#forgot-password-container{
     background-color: #fff;
 }
 
+<<<<<<< HEAD
 .learnmore-btn:hover{opacity: 1;}
+=======
+
+}
+.login-textfield > .hint--right{background:#fff;}
+
+.login-textfield .hint--right:before
+{
+    border-right-color:#e3e3e3;
+
+}
+.login-textfield .hint--right:after
+{
+    background:#fff;
+    color:#666;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow: 0 0 5px#888;
+    box-shadow: 0 0 5px #888;
+    text-shadow:0 0 0;
+}
+
+
+.white-text-hover{
+    color: #fff;
+    opacity: .7;
+}
+
+.white-text-hover:hover{
+    opacity: 1;
+    color: #fff;
+}
+
+.black-tool-tip{
+    width: 300px;
+    color: white;
+    font-size: 13px;
+    line-height: 17px;
+    background-color: rgba(0,0,0,.5);
+    padding: 20px 35px;
+    margin: 10px auto;
+
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+>>>>>>> FETCH_HEAD
 * {
     box-sizing: border-box;
     -moz-box-sizing: border-box;

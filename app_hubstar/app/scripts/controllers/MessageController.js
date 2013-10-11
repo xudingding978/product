@@ -25,7 +25,7 @@ HubStar.MessageController = Ember.Controller.extend({
     addReply: function(message_id) {
 
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
-          this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+        this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         var replyContent = this.get('replyContent');
         if (replyContent) {
             var commenter_id = this.get("currentUser").get('id');
@@ -88,7 +88,17 @@ HubStar.MessageController = Ember.Controller.extend({
                         {
                             dataNew["isUrl"] = false;
                         }
-                        that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").insertAt(0, dataNew);
+
+                        if (that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection") !== undefined)
+                        {
+                            that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").insertAt(0, dataNew);
+                        }
+                        else
+                        {
+                           
+                            that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyMessageCollection",dataNew);
+                        }
+
 
                     }
                 }

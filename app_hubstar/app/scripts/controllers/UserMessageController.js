@@ -87,6 +87,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
     },
     addComment: function() {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
+        this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         var commentContent = this.get('messageContent');
         if (commentContent) {
 

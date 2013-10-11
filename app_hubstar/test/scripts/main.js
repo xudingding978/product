@@ -1233,7 +1233,6 @@ HubStar.ProfileRoute = Ember.Route.extend({
         });
     },
     sendGAMessage: function(profile_analytics_code, dom_url) {
-//        document.cookie = "_ga" + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         try {
             (function(i, s, o, g, r, a, m) {
                 i['GoogleAnalyticsObject'] = r;
@@ -1248,8 +1247,9 @@ HubStar.ProfileRoute = Ember.Route.extend({
             })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
             ga('create', profile_analytics_code, {'name': dom_url});
             ga(dom_url+'.send', 'pageview');
-
+            this.controller.set('isTracking',true);
         } catch (err) {
+            this.controller.set('isTracking', false);
             console.log('error out');
         }
     }
@@ -4566,6 +4566,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     makeSureDelete: false,
     willDelete: false,
     profile_partner_ids: null,
+    isTracking: false,
     init: function() {
 
         this.set('is_authentic_user', false);
@@ -5379,12 +5380,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
     },
     sendEventTracking: function(hitType, category, action, label){
-        ga(this.get('model').get('id') + '.send', {
+        if (this.isTracking) {
+            ga(this.get('model').get('id') + '.send', {
                 'hitType': hitType,
                 'eventCategory': category,
                 'eventAction': action,
                 'eventLabel': label
             });
+        }
     }
 
 }
@@ -5666,7 +5669,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                 owner_contact_cc_emails: this.get("secondary_email"),
                 owner_contact_bcc_emails: this.get("direct_enquiry_provide_email"),
                 profile_category: $('#categorySelection').text(),
-                profile_street_address: this.get("address"),
+                profile_physical_address: this.get("address"),
                 profile_suburb: this.get("suburb"),
                 profile_keywords: this.get("keywords"),
                 profile_regoin: this.get("region"),

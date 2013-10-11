@@ -77,7 +77,6 @@ HubStar.ProfileRoute = Ember.Route.extend({
         });
     },
     sendGAMessage: function(profile_analytics_code, dom_url) {
-//        document.cookie = "_ga" + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         try {
             (function(i, s, o, g, r, a, m) {
                 i['GoogleAnalyticsObject'] = r;
@@ -92,8 +91,9 @@ HubStar.ProfileRoute = Ember.Route.extend({
             })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
             ga('create', profile_analytics_code, {'name': dom_url});
             ga(dom_url+'.send', 'pageview');
-
+            this.controller.set('isTracking',true);
         } catch (err) {
+            this.controller.set('isTracking', false);
             console.log('error out');
         }
     }

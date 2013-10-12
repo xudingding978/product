@@ -431,7 +431,7 @@ HubStar.UserController = Ember.Controller.extend({
 
         }
         var checkList = new Array();
-        var result=true;
+        var result = true; 
         var displayName = new checkObject("displayName", this.get('display_name'), 128, null);
 
         checkList.push(displayName);
@@ -475,7 +475,7 @@ HubStar.UserController = Ember.Controller.extend({
                 }
             }
         }
-        console.log(result);
+       
         return result;
     },
     saveSociallinkUpdate: function() {

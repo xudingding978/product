@@ -16,7 +16,9 @@
 
                 <div class="reply-comment">
                     <a class = "reply-comment-button" >replay</a>
+                    <i class="icon-trash"  {{action removeMessage model.message_id}}></i>
                 </div>
+                
             </div>
             <div class="comment-content">
                 {{model.msg}}<br>
@@ -42,6 +44,7 @@
 
                 <div  class="new-btn"{{action close}}>Cancel</div>
                 <div class="new-btn green-btn" {{action addReply model.message_id}}>Post</div>
+            
                 <br>
                 <br>
              
@@ -65,7 +68,7 @@
             <div class="comment-namentime">
                 <div class="namentime_position">
                     <a class="comment-username"  >
-                        {{this.user_name}}
+                        {{this.user_name}}    <i class="icon-trash"></i>
                     </a>
                     <div class="posttime-container">
                         <span class="posttime">{{this.time_stamp}}</span>

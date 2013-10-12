@@ -68,12 +68,10 @@ HubStar.MessageController = Ember.Controller.extend({
 
                 for (var i = 0; i < that.get('controllers.userMessage').get("contentMsg").length; i++)
                 {
-                    console.log(that.get('controllers.userMessage').get("contentMsg"));
-                    console.log(params);
                     console.log("sssssssssssssssss");
                     if (that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id") === params["message_id"])
                     {
-
+                        dataNew["reply_id"] = params["replyMessageCollection"][0]["reply_id"];
                         dataNew["user_id"] = params["replyMessageCollection"][0]["user_id"];
                         dataNew["time_stamp"] = params["replyMessageCollection"][0]["time_stamp"];
                         dataNew["msg"] = params["replyMessageCollection"][0]["msg"];
@@ -95,8 +93,10 @@ HubStar.MessageController = Ember.Controller.extend({
                         }
                         else
                         {
-                           
-                            that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyMessageCollection",dataNew);
+                            //   that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").pushObject(dataNew);
+//                            that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyMessageCollection", null);
+  that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyMessageCollection", new Array());
+                                    that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyMessageCollection", dataNew);
                         }
 
 

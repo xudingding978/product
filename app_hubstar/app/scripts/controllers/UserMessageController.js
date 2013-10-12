@@ -37,6 +37,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 //console.log(params[i]);
                 dataNew["message_id"] = params[i]["message_id"];
                 var length = params[i]["replyMessageCollection"].length - 1;
+                dataNew["reply_id"] = params[i]["replyMessageCollection"][length]["reply_id"];
                 dataNew["user_id"] = params[i]["replyMessageCollection"][length]["user_id"];
                 dataNew["time_stamp"] = params[i]["replyMessageCollection"][length]["time_stamp"];
                 dataNew["msg"] = params[i]["replyMessageCollection"][length]["msg"];
@@ -58,6 +59,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 {
                     var dataReply = new Array();
 
+                    dataNew["reply_id"] = params[i]["replyMessageCollection"][j]["reply_id"];
                     dataReply["user_id"] = params[i]["replyMessageCollection"][j]["user_id"];
                     dataReply["time_stamp"] = params[i]["replyMessageCollection"][j]["time_stamp"];
                     dataReply["msg"] = params[i]["replyMessageCollection"][j]["msg"];
@@ -84,6 +86,62 @@ HubStar.UserMessageController = Ember.Controller.extend({
             }, 200);
         });
 
+    },
+    removeMessage: function(Message_id)
+    {
+//        var message = "Do you wish to delete this photo ?";
+//        this.set("message", message);
+//        this.set('makeSureDelete', true);
+//        this.dropdownPhotoSetting(ReplyId);
+//        if (this.get('willDelete')) {
+
+        this.set("currentOwner", this.get('controllers.user').getCurrentUser());
+        this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+//        var commentContent = this.get('messageContent');
+//               console.log(commentContent);
+        //    if (commentContent) {
+
+
+        var commenter_id = this.get("currentUser").get('id');// it is the login in user , it will use to check the right of delete
+        var owner_id = this.get("currentOwner").get("id");// it the owner of the page, it will be used to identify  delete  which user's message item
+
+        var tempComment = [commenter_id, owner_id, Message_id];
+
+        tempComment = JSON.stringify(tempComment);
+        var that = this;
+
+        requiredBackEnd('messages', 'RemoveMessage', tempComment, 'POST', function() {
+
+
+            for (var i = 0; i < that.get("contentMsg").length; i++)
+            {
+                if (that.get("contentMsg").objectAt(i).get("message_id") === Message_id)
+                {
+                    
+                    that.get("contentMsg").removeObject(that.get("contentMsg").objectAt(i));
+                      console.log("ssssssssssssssssssssssssssssssss");
+                               console.log(that.get("contentMsg"));
+                               break;
+                }
+               
+            }
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reload");
+            }, 200);
+        });
+        $('#addcommetBut').attr('style', 'display:block');
+        $('#commentBox').attr('style', 'display:none');
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+            $('.user_comment_' + localStorage.loginStatus).attr('style', 'display:block');
+        }, 200);
+        //}
+//            this.cancelDelete();
+//        } else {
+//            this.set('willDelete', true);
+//            this.set('Message_id', Message_id);
+//            this.set('ReplyId', ReplyId);
+//        }
     },
     addComment: function() {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -123,7 +181,8 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 var imageType = imageName[imageName.length - 1];
             }
             var messageID = createMessageid();
-            var tempComment = [commenter_id, date.toString(), commentContent, owner_id, newStyleImage, imageType, imageStyleName, messageID];
+            var replyID = createMessageid();
+            var tempComment = [commenter_id, date.toString(), commentContent, owner_id, newStyleImage, imageType, imageStyleName, messageID, replyID];
 
             tempComment = JSON.stringify(tempComment);
             var that = this;
@@ -133,6 +192,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
             requiredBackEnd('messages', 'CreateComment', tempComment, 'POST', function(params) {
 
                 dataNew["message_id"] = params["message_id"];
+                dataNew["reply_id"] = params["replyMessageCollection"][0]["reply_id"];
                 dataNew["user_id"] = params["replyMessageCollection"][0]["user_id"];
                 dataNew["time_stamp"] = params["replyMessageCollection"][0]["time_stamp"];
                 dataNew["msg"] = params["replyMessageCollection"][0]["msg"];

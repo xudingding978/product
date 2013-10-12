@@ -431,7 +431,7 @@ HubStar.UserController = Ember.Controller.extend({
 
         }
         var checkList = new Array();
-        var result;
+        var result=true;
         var displayName = new checkObject("displayName", this.get('display_name'), 128, null);
 
         checkList.push(displayName);
@@ -474,20 +474,8 @@ HubStar.UserController = Ember.Controller.extend({
                     break;
                 }
             }
-
-//            if (checkList[i].input !== null && checkList[i].isEmailValid === true)
-//            {
-//                if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
-//                    result = true;
-//                }
-//                else {
-//                    result = false;
-//                    document.getElementById(checkList[i].id).setAttribute("class", "error-textfield");
-////                    document.getElementById(checkList[i].id).style.border = '2px solid red';
-//                    break;
-//                }
-//            }
         }
+        console.log(result);
         return result;
     },
     saveSociallinkUpdate: function() {

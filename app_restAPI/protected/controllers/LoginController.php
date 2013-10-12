@@ -129,7 +129,7 @@ class LoginController extends Controller {
         $model->EMAIL_ADDRESS = $request_array[3];
         $model->COUCHBASE_ID = strval(rand(9999999999, 99999999999));
 
-        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "production", true);
+       $cb = $this->couchBaseConnection();
         $rand_id = $model->COUCHBASE_ID;
         $temp = $this->getMega();
         $temp["id"] = $rand_id;

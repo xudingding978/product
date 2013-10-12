@@ -330,6 +330,7 @@ class SiteController extends Controller {
         Yii::app()->user->logout();
 
         $this->redirect(Yii::app()->homeUrl);
+        echo 'aaaa';
     }
 
     public function actionSet() {

@@ -22,6 +22,69 @@ HubStar.MessageController = Ember.Controller.extend({
         }
 
     },
+    removeReply: function(reply_id)
+    {
+
+
+        this.set("currentOwner", this.get('controllers.user').getCurrentUser());
+        this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+
+        var commenter_id = this.get("currentUser").get('id');// it is the login in user , it will use to check the right of delete
+        var owner_id = this.get("currentOwner").get("id");// it the owner of the page, it will be used to identify  delete  which user's message item
+
+        var tempComment = [commenter_id, owner_id, reply_id];
+
+        tempComment = JSON.stringify(tempComment);
+        var that = this;
+console.log("ssssssssssssssssssssssssss");
+        requiredBackEnd('messages', 'RemoveReply', tempComment, 'POST', function() {
+
+console.log("rrrrrrrrrrrrrrrrrrrrrrrrrrr");
+            if (commenter_id === owner_id)
+            {
+                for (var i = 0; i <  that.get('controllers.userMessage').get("contentMsg").length; i++)
+                {
+                    for (var j = 0; j <  that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").length; j++)
+                    {
+                        if (that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("reply_id") === reply_id)
+                        {
+                            that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").removeObject(that.get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j));
+                            break;
+                        }
+                    }
+
+                }
+            }
+            else
+            {
+
+                console.log(commenter_id);
+                           console.log(owner_id);
+                for (var i = 0; i <  that.get('controllers.userMessage').get("contentMsg").length; i++)
+                {
+                    for (var j = 0; j <  that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").length; j++)
+                    {
+                        if ((that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("reply_id") === reply_id)&&(
+                            that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("user_id") ===commenter_id))    {
+                        console.log(reply_id);
+                            that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").removeObject( that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j));
+                            break;
+                        }
+                    }
+
+                }
+            }
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reload");
+            }, 200);
+        });
+        $('#addcommetBut').attr('style', 'display:block');
+        $('#commentBox').attr('style', 'display:none');
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+            $('.user_comment_' + localStorage.loginStatus).attr('style', 'display:block');
+        }, 200);
+    },
     addReply: function(message_id) {
 
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -68,7 +131,6 @@ HubStar.MessageController = Ember.Controller.extend({
 
                 for (var i = 0; i < that.get('controllers.userMessage').get("contentMsg").length; i++)
                 {
-                    console.log("sssssssssssssssss");
                     if (that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id") === params["message_id"])
                     {
                         dataNew["reply_id"] = params["replyMessageCollection"][0]["reply_id"];
@@ -95,8 +157,8 @@ HubStar.MessageController = Ember.Controller.extend({
                         {
                             //   that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").pushObject(dataNew);
 //                            that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyMessageCollection", null);
-  that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyMessageCollection", new Array());
-                                    that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyMessageCollection", dataNew);
+                            that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyMessageCollection", new Array());
+                            that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyMessageCollection", dataNew);
                         }
 
 

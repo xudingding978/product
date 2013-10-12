@@ -68,7 +68,7 @@
             <div class="comment-namentime">
                 <div class="namentime_position">
                     <a class="comment-username"  >
-                        {{this.user_name}}    <i class="icon-trash"></i>
+                        {{this.user_name}}    <i class="icon-trash"  {{action removeReply this.reply_id}}></i>
                     </a>
                     <div class="posttime-container">
                         <span class="posttime">{{this.time_stamp}}</span>

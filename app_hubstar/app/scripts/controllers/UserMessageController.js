@@ -89,18 +89,9 @@ HubStar.UserMessageController = Ember.Controller.extend({
     },
     removeMessage: function(Message_id)
     {
-//        var message = "Do you wish to delete this photo ?";
-//        this.set("message", message);
-//        this.set('makeSureDelete', true);
-//        this.dropdownPhotoSetting(ReplyId);
-//        if (this.get('willDelete')) {
 
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
-//        var commentContent = this.get('messageContent');
-//               console.log(commentContent);
-        //    if (commentContent) {
-
 
         var commenter_id = this.get("currentUser").get('id');// it is the login in user , it will use to check the right of delete
         var owner_id = this.get("currentOwner").get("id");// it the owner of the page, it will be used to identify  delete  which user's message item
@@ -112,18 +103,18 @@ HubStar.UserMessageController = Ember.Controller.extend({
 
         requiredBackEnd('messages', 'RemoveMessage', tempComment, 'POST', function() {
 
-
-            for (var i = 0; i < that.get("contentMsg").length; i++)
+            if (commenter_id === owner_id)
             {
-                if (that.get("contentMsg").objectAt(i).get("message_id") === Message_id)
+                for (var i = 0; i < that.get("contentMsg").length; i++)
                 {
-                    
-                    that.get("contentMsg").removeObject(that.get("contentMsg").objectAt(i));
-                      console.log("ssssssssssssssssssssssssssssssss");
-                               console.log(that.get("contentMsg"));
-                               break;
+                    if (that.get("contentMsg").objectAt(i).get("message_id") === Message_id)
+                    {
+
+                        that.get("contentMsg").removeObject(that.get("contentMsg").objectAt(i));
+                        break;
+                    }
+
                 }
-               
             }
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reload");
@@ -135,13 +126,6 @@ HubStar.UserMessageController = Ember.Controller.extend({
             $('#masonry_container').masonry("reload");
             $('.user_comment_' + localStorage.loginStatus).attr('style', 'display:block');
         }, 200);
-        //}
-//            this.cancelDelete();
-//        } else {
-//            this.set('willDelete', true);
-//            this.set('Message_id', Message_id);
-//            this.set('ReplyId', ReplyId);
-//        }
     },
     addComment: function() {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());

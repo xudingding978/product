@@ -128,7 +128,7 @@ class LoginController extends Controller {
         $model->PWD_HASH = $request_array[2];
         $model->EMAIL_ADDRESS = $request_array[3];
         $model->COUCHBASE_ID = strval(rand(9999999999, 99999999999));
-
+ 
        $cb = $this->couchBaseConnection();
         $rand_id = $model->COUCHBASE_ID;
         $temp = $this->getMega();

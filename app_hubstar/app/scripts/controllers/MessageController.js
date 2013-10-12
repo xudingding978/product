@@ -36,10 +36,10 @@ HubStar.MessageController = Ember.Controller.extend({
 
         tempComment = JSON.stringify(tempComment);
         var that = this;
-console.log("ssssssssssssssssssssssssss");
+
         requiredBackEnd('messages', 'RemoveReply', tempComment, 'POST', function() {
 
-console.log("rrrrrrrrrrrrrrrrrrrrrrrrrrr");
+
             if (commenter_id === owner_id)
             {
                 for (var i = 0; i <  that.get('controllers.userMessage').get("contentMsg").length; i++)
@@ -58,15 +58,13 @@ console.log("rrrrrrrrrrrrrrrrrrrrrrrrrrr");
             else
             {
 
-                console.log(commenter_id);
-                           console.log(owner_id);
                 for (var i = 0; i <  that.get('controllers.userMessage').get("contentMsg").length; i++)
                 {
                     for (var j = 0; j <  that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").length; j++)
                     {
                         if ((that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("reply_id") === reply_id)&&(
                             that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("user_id") ===commenter_id))    {
-                        console.log(reply_id);
+
                             that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").removeObject( that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j));
                             break;
                         }

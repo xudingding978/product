@@ -8367,7 +8367,7 @@ div.loading-visible{
     position: relative;
     left: 0;
     right: 0;
-    bottom: 160px;
+    top: 25%;
 }
 
 .blurringTextG{
@@ -8762,14 +8762,16 @@ div.loading-visible{
     right: 0;
     top: 0;
     /*    cursor: pointer;*/
-    z-index: 1;
+    z-index: 100;
 }
-
+.object-tags-box div{position:relative;z-index:100;}
 .object-tags{
     clear: both;
     height: 26px;
     line-height: 26px;
     word-wrap: normal;
+    position:relative;
+    z-index:2;
 }
 
 .tags-mark{
@@ -8786,7 +8788,7 @@ div.loading-visible{
     display: block;
     float: right;
     max-width: 180px;
-    overflow: hidden;
+    /*overflow: hidden; this was removed for the tool tips 3/10/13 */
     text-overflow: ellipsis;
     white-space: nowrap;
     background-color: #eee;
@@ -8807,6 +8809,27 @@ div.loading-visible{
     font-size: 12px;
     vertical-align: top;
     margin-right: -4px;
+}
+.object-tags-box .hint--top:after, .object-tags-box .hint--left:after
+{
+    background:#fff;
+    border-color:#fff;
+    color:#666;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow: 0 0 5px#888;
+    box-shadow: 0 0 5px #888;
+    text-shadow:0 0 0;
+}
+.object-tags-box .hint--left:before
+{
+    border-left-color:#ccc!important;
+}
+.object-tags-box .hint--top:before
+{
+    border-top-color:#ccc!important;
 }
 
 .hashtags{
@@ -9017,11 +9040,14 @@ div.loading-visible{
     color: white;
     text-align: center;
     top: 42%;
-    padding:10px 15px;
+    padding:0 15px;
     z-index: 2;
 
     word-wrap: normal;
     line-height: 24px;
+
+    max-height:72px;
+    overflow:auto;
 }
 
 .album-description-bg{
@@ -9032,12 +9058,18 @@ div.loading-visible{
     opacity: 0.7;
     background-color: black;
     top: 42%;
-    padding: 10px 15px;
+    padding: 0 15px;
     z-index: 1;
-
     word-wrap: normal;
     line-height: 24px;
     box-shadow: 0 0 20px 4px #000;
+
+    height:72px;
+    overflow:hidden;
+
+    font-size:0;
+
+    /* may need to delete this element in the template */
 }
 
 .album-description-hoverarea{
@@ -9099,7 +9131,6 @@ div.loading-visible{
 
 .masonry-object_profilepic{
     width: 150px;
-    max-height: 200px;
     margin: auto;
     right: 0;
     left: 0;
@@ -9130,6 +9161,8 @@ div.loading-visible{
     left: 0;
     right: 0;
     text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 
@@ -9167,6 +9200,8 @@ div.loading-visible{
     border-radius: 5px;
     overflow: hidden;
     margin-bottom:12px;
+    position:relative;
+    z-index:1;
 }
 
 .object_username{
@@ -9232,7 +9267,11 @@ div.loading-visible{
     text-overflow: ellipsis;
 }
 .more_detail{
-    height: 22px;
+    color: #555;
+    width: 300px;
+    margin: 0 auto;
+    height: auto;
+    max-height: 50px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -10203,6 +10242,31 @@ div.loading-visible{
 
 
 
+/* tool-tips for profile items 9/10/13 clint */
+.itemprofile .location_li:after
+{
+    background:#fff;
+    border-color:#fff;
+    color:#666;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow: 0 0 5px#888;
+    box-shadow: 0 0 5px #888;
+    text-shadow:0 0 0;
+    top:25px;
+    left:0;
+    line-height:1em;
+}
+
+.itemprofile .location_li:before
+{
+    border-bottom-color:#ccc!important;
+    top:12px;
+    left:15px;
+}
+/* tool-tips for profile items  ENDS - 9/10/13 clint */
 
 textarea{
     padding: 3px 8px !important;
@@ -10600,18 +10664,17 @@ input{
 
 .fresh-profile-pic{
     overflow: hidden; 
-    position: fixed;
     height: 80px;
-    width: 80px;
     background-color: #fff;
     border-radius: 50%;
     z-index: 12;
-    margin: auto;
-    left: 0;
-    right: 1000px;
-    top: -110PX;
+
+    top: -30PX;
     box-shadow: 0 0 10px #777;
     border: 3px solid #f3f3f3;
+
+    display: inline-block;
+    position: relative;
 }
 
 .fresh-message{
@@ -10622,21 +10685,22 @@ input{
     border-top: 1px solid #85aed3;
     background: #618fb9 url(../../images/alert-lines.png);
     height: 50px;
-    position: fixed;
     text-align: center;
     z-index: 11;
-
-    top: -85px;
+    top: -5px;
     box-shadow: 0px 1px 5px #555;
-    width: 1000px;
-    margin: auto;
-    display: block;
+
     border-radius: 0 3px 3px 0;
     -webkit-border-radius: 0 3px 3px 0;
     -moz-border-radius: 0 3px 3px 0;
     -o-border-radius: 0 3px 3px 0;
-    left: 0;
-    right: 0;
+
+    display: inline-block;
+    width: auto;
+    min-width: 500px;
+    position: relative;
+    vertical-align: top;
+    margin-left: -20px;
 }
 
 .fresh-message > k{
@@ -10846,10 +10910,64 @@ textarea.add-interests{
 .main_aboutus .editor-content .green-btn{color:#fff;}
 
 .main_aboutus .editor-content a{
-   display:inline-block;
-    
+    display:inline-block;
+
 }
 /* client profile content styling ENDS */
+
+
+
+
+
+
+/*CROP FUNCTION*/
+
+.crop-canvas{height: auto;max-height: 500px;width: auto;margin: 0 auto; max-width: 850px;}
+
+.LatestFollower{
+    text-align: center;
+    width: 300px;
+    height: 35px;
+    margin: 10px auto;
+
+    display: block;
+    clear: both;
+}
+
+.LatestFollower  img{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -o-border-radius: 50%;
+
+    border: 2px solid #fff;
+    margin: 0 4px;
+}
+
+.Followed-by{
+    display: block;
+    text-align: center;
+    font-size: 13px;
+    font-weight: bold;
+    color: #888;
+    position: relative;
+    width: 100%;
+    clear: both;
+    margin: 0 auto;
+    opacity: .8;
+    cursor: pointer;
+}
+
+.Followed-by:hover{opacity: 1}   
+
+
+
+
+/*CROP FUNCTION*/
+
+.crop-canvas{height: auto;max-height: 500px;width: auto;margin: 0 auto; max-width: 850px;}
 
 
 
@@ -11689,7 +11807,6 @@ body{
     display: none;
     float: left;
     min-width: 170px;
-    min-height: 200px;
     margin: 15px 0px 0px 0px;
     list-style: none outside none;
     background-color: rgba(0, 0, 0,1);
@@ -11727,7 +11844,8 @@ body{
     margin-top: 8px;
     margin-left: 0px;
 }
-
+#user-dd-menu li:first-child a{border-top:0 none;}
+#user-dd-menu li:last-child a{border-bottom:0 none;}
 #user-dd-menu li a {
     border-radius: 0px;
     color: white;
@@ -11755,7 +11873,7 @@ body{
     background: none repeat scroll 0% 0% rgb(45,45,45);
     border: 1px solid rgba(0,0,0,0.17);
     margin-top:20px;
-    padding:0px;
+    padding:3px;
     width:150px;
     top:35px;
     left: -60px;
@@ -12369,7 +12487,32 @@ div #login_container > div.front > .head > .panelcircle
 
 
 
+
+
+
 /*new login style Colin Shaw 25/9/2013*/
+.Register-Page{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    overflow: auto;
+}
+
+.Register-Page .ember-text-field, .Register-Page .ember-text-field:focus{
+    background-color: rgba(255,255,255,0);
+    box-shadow: none;
+    border: none;
+    margin: 0 0 0 0;
+}
+
+.error-textfield{
+    box-shadow: 0 0 10px rgba(255,0,0,.5);
+    -webkit-box-shadow: 0 0 10px rgba(255,0,0,.5);
+    -moz-box-shadow: 0 0 10px rgba(255,0,0,.5);
+    -o-box-shadow: 0 0 10px rgba(255,0,0,.5);
+}
+
+
 .register-with{
     width: 300px;
     height: 45px;
@@ -12388,6 +12531,24 @@ div #login_container > div.front > .head > .panelcircle
 
 .register-with:hover{opacity: 1}
 
+.social-links-container{
+    width: 300px; 
+    height: 60px; 
+    line-height: 60px; 
+    margin: 0px auto; 
+    background-color: white;
+    padding:12px;
+    border-bottom: 1px solid #e3e3e3;
+}
+
+.login-textfield{
+    margin: 0;
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    border-bottom: 1px solid #e3e3e3;
+}
+
 .login-textfield > input{
     padding: 0 10px;
     border: 0 none !important;
@@ -12397,8 +12558,21 @@ div #login_container > div.front > .head > .panelcircle
     -o-box-shadow: none !important;
 
     font-weight: bold;
-    color: #333;
+    color: #555;
     font-size: 15px;
+}
+
+.login-textfield > input::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #ccc;
+}
+.login-textfield > input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #ccc;
+}
+.login-textfield > input::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #ccc;
+}
+.login-textfield > input:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #ccc;
 }
 
 .social-login-iconbox{
@@ -12456,7 +12630,8 @@ div #login_container > div.front > .head > .panelcircle
 }
 .social-login-iconbox:active{color: #fff;background-color: #08c; }
 
-div > div > i.icon-envelope, div > div > #click-register
+div > div > i.icon-envelope, div > div > #click-register,
+div > div > i.icon-envelope, div > div > #click-login
 {
     cursor:pointer;
 
@@ -12490,7 +12665,6 @@ div.register-btn-small{
     -moz-border-radius: 0 0 5px 0;
     border-radius: 0 0 5px 0;
     display:inline-block;  
-    //background-color: #DEF1F7;
 
 }
 .back-btn{
@@ -12530,7 +12704,81 @@ div >div.active-tab
     opacity:1;
 
 }
+i#forgot-password-btn{cursor:help}
+div#forgot-password-container{
 
+    display:none;
+    background:#fff;
+    border:1px solid #ccc;
+    position:absolute;
+    bottom:52px;
+    right:-120px;
+    padding:5px;
+
+
+
+
+}
+.login-textfield > .hint--right{background:#fff;}
+
+.login-textfield .hint--right:before
+{
+    border-right-color:#e3e3e3;
+
+}
+.login-textfield .hint--right:after
+{
+    background:#fff;
+    color:#666;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow: 0 0 5px#888;
+    box-shadow: 0 0 5px #888;
+    text-shadow:0 0 0;
+}
+
+
+.white-text-hover{
+    color: #fff;
+    opacity: .7;
+}
+
+.white-text-hover:hover{
+    opacity: 1;
+    color: #fff;
+}
+
+.black-tool-tip{
+    width: 300px;
+    color: white;
+    font-size: 13px;
+    line-height: 17px;
+    background-color: rgba(0,0,0,.5);
+    padding: 20px 35px;
+    margin: 10px auto;
+
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.learnmore-btn{
+    font-size: 13px;
+    color: #888;
+    margin: 15px auto;
+    opacity: .7;
+    display: block;
+    width: 120px;
+    height: 30px;
+    line-height: 29px;
+    border-radius: 20px;
+    background-color: #fff;
+}
+
+.learnmore-btn:hover{opacity: 1;}
 
 * {
     box-sizing: border-box;

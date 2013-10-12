@@ -30,12 +30,12 @@
 
             <div class="object-tags-box">
 
-                <div class="object-tags">
+                <div class="object-tags" >
                     <span class="tags-mark" style="background-color: #427fed"></span>
                     <div class="tags easing">
                         <!--                        <div class="tags-new">New </div>-->
-                        <div class="object-tpye">
-                            <i class="icon-picture"></i>
+                        <div class="object-tpye hint--left hint--rounded" data-hint="Image">
+                            <i class="icon-picture" ></i>
                         </div>
                     </div>
                 </div>
@@ -79,8 +79,8 @@
                         <li class='ite'  {{action changeCollectionCover id controller.collection_id HubStar.Profile}}> <k class="icon-ok-sign" style="font-size: 16px;  margin: 0px 5px;"></k>Set as collection cover</li>
                         {{/if}}
                         {{#if controller.is_user_editing_mode}}
-                        <li class="ite" {{action  removeCollectedItem  controller.title id "user"}}><k class="icon-trash" style="font-size: 16px; margin: 0px 5px;"></k>Remove</li>
-                        <li class="ite" {{action changeCollectionCover id controller.title HubStar.User}}><k class="icon-camera" style="font-size: 16px; margin: 0px 5px;"></k>Set as Cover</li>
+                        <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><k class="icon-trash" style="font-size: 16px; margin: 0px 5px;"></k>Remove</li>
+                        <li class="ite" {{action changeCollectionCover id controller.collection_id HubStar.User}}><k class="icon-camera" style="font-size: 16px; margin: 0px 5px;"></k>Set as Cover</li>
                         {{/if}}
                     </ul>
 
@@ -142,7 +142,7 @@
                     <span class="tags-mark" style="background-color: #427fed"></span>
                     <div class="tags easing">
                         <div class="tags-new">New</div>
-                        <div class="object-tpye">
+                        <div class="object-tpye hint--left hint--rounded" data-hint="Video">
                             <i class="icon-film"></i>
                         </div>                      
                     </div>
@@ -257,14 +257,13 @@
                                     <span class="posttime">{{date created}}</span>
                                 </div>
             </div>
-
             <div class="object-tags-box">
 
                 <div class="object-tags">
                     <span class="tags-mark" style="background-color: #427fed"></span>
                     <div class="tags easing">
 
-                        <div class="object-tpye">
+                        <div class="object-tpye hint--left hint--rounded" data-hint="Article">
                             <i class="icon-book"></i>
                         </div>                      
                     </div>
@@ -294,7 +293,23 @@
                     <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToArticle id}} />
 
                 </a>          
+                 <span class='edit-object easing' style="position: absolute;margin: 10px; top:0;">
+                    {{#if controller.is_authentic_user}}
 
+                    
+                    <div class="new-btn blue-btn hint--right hint--rounded" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
+                         <k class="icon-cog" style="font-size: 16px; margin: 0px 5px"></k>
+                        <k class='icon-caret-down'></k>
+                    </div>
+                    <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}">                     
+                        {{#if controller.is_user_editing_mode}}
+                        <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><k class="icon-trash" style="font-size: 16px; margin: 0px 5px;"></k>Remove</li>
+                        <li class="ite" {{action changeCollectionArticleCover id controller.collection_id HubStar.User}}><k class="icon-camera" style="font-size: 16px; margin: 0px 5px;"></k>Set as Cover</li>
+                        {{/if}}
+                    </ul>
+
+                    {{/if}}
+                </span>
             </div>
 
 

@@ -39,7 +39,6 @@ class ProfilesController extends Controller {
                 ->size(100)
                 ->query($termQuery);
 
-        error_log($request->toJSON());
 
 //Execute the search and return results
         $response = $request->execute();
@@ -54,9 +53,11 @@ class ProfilesController extends Controller {
 //Iterate over the hits and print out some data
         $i = 0;
         foreach ($response as $hit) {
-            $results .= CJSON::encode($hit['source']['doc']['profile'][0]);
-            if (++$i !== count($response)) {
-                $results .= ',';
+            if(isset($hit['source']['doc']['profile'][0])) {
+                $results .= CJSON::encode($hit['source']['doc']['profile'][0]);
+                if (++$i !== count($response)) {
+                    $results .= ',';
+                }
             }
         }
         $results .= ']}';
@@ -76,10 +77,10 @@ class ProfilesController extends Controller {
             $docID = $domain . "/profiles/" . $id;
             $tempMega = $cb->get($docID);
             $mega = CJSON::decode($tempMega, true);
-            $mega['profile'][0] = $tempProfile;  
-           $mega['profile'][0]['followers']= array();
-            $mega['profile'][0]['collections']= array();
-             
+            $mega['profile'][0] = $tempProfile;
+            $mega['profile'][0]['followers'] = array();
+            $mega['profile'][0]['collections'] = array();
+
 
             if ($cb->set($docID, CJSON::encode($mega))) {
                 $this->sendResponse(204);
@@ -104,9 +105,6 @@ class ProfilesController extends Controller {
             $result .=$respone_client_data;
 
             $result .= '}';
-
-
-//       error_log(var_export($result, true));
 
             echo $this->sendResponse(200, $result);
         } catch (Exception $exc) {
@@ -145,7 +143,7 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_name'] = $newRecord['profile_name'];
             $oldRecord['profile'][0]['profile_package_name'] = $newRecord['profile_package_name'];
             $oldRecord['profile'][0]['profile_partner_ids'] = $newRecord['profile_partner_ids'];
-            $oldRecord['profile'][0]['profile_street_address'] = $newRecord['profile_street_address'];
+            $oldRecord['profile'][0]['profile_physical_address'] = $newRecord['profile_physical_address'];
             $oldRecord['profile'][0]['profile_suburb'] = $newRecord['profile_suburb'];
             $oldRecord['profile'][0]['profile_regoin'] = $newRecord['profile_regoin'];
             $oldRecord['profile'][0]['profile_website'] = $newRecord['profile_website'];
@@ -157,6 +155,7 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_pinterest_link'] = $newRecord['profile_pinterest_link'];
             $oldRecord['profile'][0]['profile_linkedin_link'] = $newRecord['profile_linkedin_link'];
             $oldRecord['profile'][0]['profile_youtube_link'] = $newRecord['profile_youtube_link'];
+            $oldRecord['profile'][0]['profile_analytics_code'] = $newRecord['profile_analytics_code'];
             
             if ($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true))) {
                 $this->sendResponse(204);
@@ -191,7 +190,7 @@ class ProfilesController extends Controller {
 
         $cb = $this->couchBaseConnection();
         $oldRecord = CJSON::decode($cb->get($this->getDomain() . '/profiles/' . $owner_id));
-        error_log(var_export($oldRecord['profile'][0], true));
+
         if ($mode == 'profile_hero') {
             $oldRecord['profile'][0]['profile_hero_url'] = null;
             $oldRecord['profile'][0]['profile_hero_url'] = $url;

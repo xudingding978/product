@@ -1,10 +1,6 @@
 HubStar.SearchIndexRoute = Ember.Route.extend({
         redirect: function() {
 
-
-
-
-
         },
         activate: function() {
 

@@ -96,6 +96,22 @@
                                             {{/if}}
 
                                         </div>
+
+
+                                        <div class="LatestFollower">
+
+                                            {{#each contentFollowerPhoto}}                                             
+                                            <a class='radius-circle' href="#/users/{{unbound this.id}}">
+                                                <div class="hint--bottom hint--rounded" data-hint="{{unbound this.name}}">
+                                                    <img {{bindAttr src= this.photo_url}}/>
+                                                </div>
+                                            </a>                                             
+                                            {{/each}}
+                                        </div>
+                                        <div class="Followed-by easing"{{action selectFollower this }}>Followed by {{controller.profileFollowerStatistics}} people.</div>
+
+
+
                                         <div style="padding: 0;border-top:1px solid #ccc;border-bottom: 1px solid #fff;font-size: 14px;width:139%;float:left;width:95%;margin:20px 2.5%;height:2px;"></div>
                                         <!--PROFILE CONTACT SECTION-->
 
@@ -123,14 +139,7 @@
                                                     <th class="Contact_2child">{{first_name}} {{last_name}}</th>
                                                     {{/if}}
                                                 </tr>
-                                                <tr>
-                                                    <th>Category:</th>
-                                                    {{#if controller.editingContact}}
-                                                    {{input type="text" class="insert-contactdetails" value=model.profile_category  }}
-                                                    {{else}}
-                                                    <th class="Contact_2child"><a >{{model.profile_category}}</a></th>
-                                                    {{/if}}
-                                                </tr>
+                                           
                                                 <tr>
                                                     <th>Address:</th>
                                                     {{#if controller.editingContact}}
@@ -140,13 +149,13 @@
                                                     {{input type="text" class="insert-contactdetails" value=country placeholder="country" }}
                                                     {{else}}
                                                     {{#if controller.address}}
-                                                    <th class="Contact_2child">{{address}},</th>
+                                                    <th class="Contact_2child">{{address}}</th>
                                                     {{/if}}
                                                     {{#if controller.suburb}}
-                                                    <th class="Contact_2child">{{suburb}},</th>
+                                                    <th class="Contact_2child">{{suburb}}</th>
                                                     {{/if}}
                                                     {{#if controller.region}}
-                                                    <th class="Contact_2child">{{region}},</th>
+                                                    <th class="Contact_2child">{{region}}</th>
                                                     {{/if}}
                                                     {{#if controller.country}}
                                                     <th class="Contact_2child">{{country}}</th>
@@ -362,9 +371,7 @@
                     <li class="easing" {{action changeSize}}><a href="#tab7" data-toggle="tab">Social Link</a></li>
                     {{#if controller.isAdmin}}
                     <li class="easing" {{action changeSize}}><a href="#tab4" data-toggle="tab">Authority Settings</a></li>
-                    {{/if}}
-                    <li class="easing" style="display: none;" ><a href="#tab5" data-toggle="tab">Profile Hero</a></li>
-                    <li class="easing" style="display: none;" ><a href="#tab6" data-toggle="tab">Profile Picture</a></li>
+                    {{/if}}   
                 </ul>
             </div>
 
@@ -505,6 +512,16 @@
                                     <div style="display: block;">
                                         <div   style="margin: 0;width: 100%;">
                                             {{view Ember.TextField valueBinding="profile_cover_text" placeholder="Small profile description"}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Gooogle Analytics Tracking ID:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div   style="margin: 0;width: 100%;">
+                                            {{view Ember.TextField valueBinding="profile_analytics_code" placeholder="UA-44575103-1"}}
                                         </div>
                                     </div>
                                 </td>
@@ -833,78 +850,104 @@
                     </div>
                     <div class="" style="margin-top: 20px;">
                         <div class="controlbtn" style="left: 300px;">
+
+                            {{#if controller.isCrop}}
+                            <span id="photoUploadbtn" class="new-btn green-btn" {{action cropButton}}>Upload</span>
+                            {{else}}
+                            <span  class="disabled-btn" >Upload</span>
+                            {{/if}} 
                             <a href="#tab1" data-toggle="tab" {{action resetNewStyleImageSource}}><span class="new-btn">Close</span></a>
 
-                            <span id="photoUploadbtn" class="disabled-btn" {{action photoUpload}}>Upload</span>
                         </div>
                     </div>
                     {{/view}}
                     {{/if}}
+                   
                     {{#if controller.isPhotoEditingMode}}
                     <div class='' style='position:relative;height: 85px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 10px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>
                         <span style="position: relative;display: inline-block;font-size: 40px;margin: 10px 0;vertical-align: top;"><k class='icon-ok-circle'></k></span>
                         <span style="position: relative;width: 87%;display: inline-block;margin: 10px 15px;">
-                            <span style='font-size: 20px;display: block;line-height: 25px;'>Congratulations! Your Photos have been uploaded!</span>
+                            <span style='font-size: 20px;display: block;line-height: 15px;'>Cropping time!</span>
                             <span style='font-size: 13px;margin: auto;  display: block;line-height: 16px;'></span>
                         </span>
                     </div>
-                    <div style="position: relative; margin: auto;height: 520px; width: 690px; overflow: hidden;line-height: 510px;">
-                        <div style="position: relative;margin:3px;text-align: center;overflow: hidden;">
-                            <img  {{bindAttr src= "newStyleImageSource"}} >
+
+                    {{#if controller.isProfilePicture}}
+                    <div id="crop-container" style="width: 820px;height: 500px;margin: 10px auto; text-align: center">          
+                        {{/if}}
+                        {{#if controller.isProfileHero}}
+                        <div id="crop-container" style="width: 830px;height: 500px;margin: 10px auto; text-align: center">
+                            {{/if}}
+                            {{#if controller.isProfileBackground}}
+                            <div id="crop-container" style="width: 850px;height: 500px;margin: 10px auto; text-align: center">
+                                {{/if}}
+                                <canvas id="panel" class="crop-canvas" style="height: 100%;width: auto;margin: 0 auto; "><img  {{bindAttr src= "newStyleImageSource"}} ></canvas>
+                            </div>
+
+
+
+                            <div class="" style="margin-top: 20px;">
+
+                                <div class="controlbtn" style="left: 34%;">
+                                    <span class="new-btn green-btn " {{action photoUpload}} ><k class='icon-save'> &nbsp;Save</span>
+                                    <a href="#tab1" data-toggle="tab"{{action resetNewStyleImageSource}}>   <span class="new-btn" >Back</span> </a>
+                                </div>
+                            </div>
+                             {{/if}}
+                            {{#if controller.isFinished}}
+                            <div class='' style='position:relative;height: 85px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 10px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>
+                                <span style="position: relative;display: inline-block;font-size: 40px;margin: 10px 0;vertical-align: top;"><k class='icon-ok-circle'></k></span>
+                                <span style="position: relative;width: 87%;display: inline-block;margin: 10px 15px;">
+                                    <span style='font-size: 20px;display: block;line-height: 15px;'>Congratulations! Your Photos have been uploaded!</span>
+                                    <span style='font-size: 13px;margin: auto;  display: block;line-height: 16px;'></span>
+                                </span>
+                            </div>
+
+                            <div style="position: relative; margin: auto;height: 520px; width: 690px; overflow: hidden;line-height: 510px;">
+                                <div style="position: relative;margin:3px;text-align: center;overflow: hidden;">
+                                    <img  {{bindAttr src= "newStyleImageSource"}} >
+                                </div>
+                            </div>
+                            <div class="" style="margin-top: 20px;">
+
+                                <div class="controlbtn" style="left: 34%;">
+
+                                    <a href="#tab1" data-toggle="tab"{{action resetNewStyleImageSource}}>   <span class="new-btn" >Finish</span> </a>
+                                </div>
+                            </div>
+                            {{/if}}
                         </div>
                     </div>
-
-                    <!--               <div class="container">
-                                <div class="contr">
-                                    <button onclick="getResults()">Crop</button>
-                                </div>
-                                <canvas id="panel" width="779" height="519"></canvas>
-                                <div id="results">
-                                    <h2>Please make selection for cropping and click 'Crop' button.</h2>
-                                    <img id="crop_result" />
-                                </div>
-                            </div>-->
-
-
-
-                    <div class="" style="margin-top: 20px;">
-                        <div class="controlbtn" style="left: 34%;">
-                            <a href="#tab1" data-toggle="tab"{{action resetNewStyleImageSource}}>   <span class="new-btn" >Finish</span> </a>
-                        </div>
-                    </div>
-                    {{/if}}
                 </div>
+
             </div>
+
+
+
         </div>
 
-    </div>
 
 
 
-</div>
+        {{#if controller.switchPhoto}}
 
 
+        {{view HubStar.MasonryCollectionView}}
+
+        {{else}}
 
 
-{{#if controller.switchPhoto}}
+        {{render masonryCollectionItems}}
 
 
-{{view HubStar.MasonryCollectionView}}
-
-{{else}}
+        {{/if}}
 
 
-{{render masonryCollectionItems}}
+        {{#if controller.makeSureDelete}}
+
+        {{view HubStar.DeleteFunctionView}}
 
 
-{{/if}}
-
-
-{{#if controller.makeSureDelete}}
-
-{{view HubStar.DeleteFunctionView}}
-
-
-{{/if}}
+        {{/if}}
 
 

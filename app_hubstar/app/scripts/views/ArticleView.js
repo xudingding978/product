@@ -45,7 +45,6 @@ HubStar.ArticleView = Ember.View.extend({
         this.set('readContent', !this.get("readContent"));
         $('#article_action').slideToggle(1000);
     },
-
     setDiscussionTag: function() {
         $('#discuss_action').slideToggle("slow");
 
@@ -78,4 +77,9 @@ HubStar.ArticleView = Ember.View.extend({
 
 
     }
+           
+//    someAction: function(e) {
+//        alert('You pressed the escape button!');
+//    }
+
 });

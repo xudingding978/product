@@ -9,7 +9,7 @@ function getRestAPIURL()
 //    console.log(api_url);
 //    return api_url;
    var api_url = document.domain;
-   console.log( document.domain);
+   
     api_url = "http://api." + api_url;
     return api_url;
 }
@@ -83,7 +83,7 @@ function getImageWidth(imgSrc, callback) {
 function requiredBackEnd(controller, method, para, ajaxType, callback) {
     {
         var tempurl = getRestAPIURL();
-        console.log('requiredBackEnd '+tempurl);
+     
         $.ajax({
             url: tempurl + '/' + controller + '/' + method,
             type: ajaxType,
@@ -94,7 +94,7 @@ function requiredBackEnd(controller, method, para, ajaxType, callback) {
             }
         });
     }
-
+ 
 
 }
 function getTarget(obj, type) {

@@ -2147,7 +2147,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
         if (this.checkSignupInfo()) {
             var signupInfo = [this.get('email')];  
-            requiredBackEnd('site', 'getemail', signupInfo, 'POST', function(params) {
+            requiredBackEnd('login', 'getemail', signupInfo, 'POST', function(params) {
                 if (params === 1) {
                     $('#register-with-email-step-2').addClass('active-step');
                     $('#click-register').addClass('active-tab');
@@ -2183,7 +2183,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('isWaiting', true);
         var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age')];
         var that = this;
-        requiredBackEnd('site', 'create', createInfo, 'POST', function(params) {
+        requiredBackEnd('login', 'create', createInfo, 'POST', function(params) {
             localStorage.loginStatus = params.COUCHBASE_ID;
               var emailInfo = [ params.USER_NAME, params.PWD_HASH];
              requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function(params) {
@@ -2225,7 +2225,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
         for (var i = 0; i < checkList.length; i++)
         {
-            var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
+            var patternEmail = /^(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6}$/;
             document.getElementById(checkList[i].id).setAttribute("class", "login-textfield");
             if (checkList[i].input !== null && checkList[i].input !== "" && checkList[i].input !== undefined)
             {
@@ -2302,7 +2302,7 @@ if(this.get('loginUsername')!==null && this.get('loginPassword')!==null&&this.ge
 
         var loginInfo = [this.get('loginUsername'), this.get('loginPassword'), this.validateEmail(this.get('loginUsername'))];
         var that = this;
-        requiredBackEnd('site', 'login', loginInfo, 'POST', function(params) {
+        requiredBackEnd('login', 'login', loginInfo, 'POST', function(params) {
             if (params === 1) {
                 document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
                 that.set('isWaiting', false);
@@ -2354,7 +2354,7 @@ if(this.get('loginUsername')!==null && this.get('loginPassword')!==null&&this.ge
 
         var signupInfo = [this.get('resetPasswordEmail')];
         var that = this;
-        requiredBackEnd('site', 'resetemail', signupInfo, 'POST', function(params) {
+        requiredBackEnd('login', 'resetemail', signupInfo, 'POST', function(params) {
             if (params === 1) {
               
 
@@ -6262,10 +6262,12 @@ HubStar.UserController = Ember.Controller.extend({
 
         if (user.get('cover_url') === null || user.get('cover_url') === "" || user.get('cover_url') === undefined) {
             this.set('cover_url', 'http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg');
+      
         }
         else
         {//this.set('cover_url', HubStar.get('photoDomain')+'/users/'+user.get('id')+'/user_cover/user_cover');
             this.set("cover_url", user.get("cover_url"));
+          
         }
         this.set("photo_url", user.get("photo_url"));
         this.set("photo_url_large", user.get("photo_url_large"));
@@ -6356,7 +6358,7 @@ HubStar.UserController = Ember.Controller.extend({
             $('#user-board_right_front').show();
             $('#user-board_right_back').hide();
             $('#change_profile').show();
-            this.set
+           
             this.set('newStyleImageSource', "");
             this.set('newStyleImageName', "");
             this.set('CurrentImageSize', "");
@@ -6573,8 +6575,8 @@ HubStar.UserController = Ember.Controller.extend({
         var displayName = new checkObject("displayName", this.get('display_name'), 128, null);
 
         checkList.push(displayName);
-        var email = new checkObject("email", this.get('email'), 128, true);
-        checkList.push(email);
+//        var email = new checkObject("email", this.get('email'), 128, true);
+//        checkList.push(email);
 
         var first_name = new checkObject("first_name", this.get('first_name'), 128, null);
 
@@ -6588,7 +6590,7 @@ HubStar.UserController = Ember.Controller.extend({
 
         for (var i = 0; i < checkList.length; i++)
         {
-            var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
+          //  var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
 //            document.getElementById(checkList[i].id).style.border = '';
 
             if (checkList[i].id === 'email') {
@@ -6613,18 +6615,18 @@ HubStar.UserController = Ember.Controller.extend({
                 }
             }
 
-            if (checkList[i].input !== null && checkList[i].isEmailValid === true)
-            {
-                if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
-                    result = true;
-                }
-                else {
-                    result = false;
-                    document.getElementById(checkList[i].id).setAttribute("class", "error-textfield");
-//                    document.getElementById(checkList[i].id).style.border = '2px solid red';
-                    break;
-                }
-            }
+//            if (checkList[i].input !== null && checkList[i].isEmailValid === true)
+//            {
+//                if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
+//                    result = true;
+//                }
+//                else {
+//                    result = false;
+//                    document.getElementById(checkList[i].id).setAttribute("class", "error-textfield");
+////                    document.getElementById(checkList[i].id).style.border = '2px solid red';
+//                    break;
+//                }
+//            }
         }
         return result;
     },

@@ -80,10 +80,11 @@ HubStar.UserMessageController = Ember.Controller.extend({
 
                 dataNew = new Array();
             }
-
+   this.transitionTo("messages");
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reload");
             }, 200);
+          
         });
 
     },
@@ -137,7 +138,6 @@ HubStar.UserMessageController = Ember.Controller.extend({
             var commenter_id = this.get("currentUser").get('id');
             var date = new Date();
             var owner_id = this.get("currentOwner").get("id");
-            console.log(owner_id);
             var newStyleImage = "";
             var imageStyleName = "";
             if (this.get("newStyleImageSource") !== undefined || this.get("newStyleImageSource") !== null || this.get("newStyleImageSource") !== "")

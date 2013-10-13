@@ -9,15 +9,11 @@
  *
  * This file holds the configuration settings of the Search Engine application.
  * */
-
-
 $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
 $result = $cb->get($_SERVER['HTTP_HOST']);
 $result_arr = CJSON::decode($result, true);
 
-
 $app_authenticationConfigDir = dirname(__FILE__);
-
 
 $root = $app_authenticationConfigDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..';
 //
@@ -69,7 +65,7 @@ return CMap::mergeArray(
                 'common.modules.*',
                 'common.modules.hybridauth.*',
                 'common.models.*',
-               // 'common.redbean.*',
+                // 'common.redbean.*',
                 'application.models.*',
                 'application.components.*',
             ),
@@ -79,7 +75,6 @@ return CMap::mergeArray(
                     'class' => 'common.modules.hybridauth.HybridauthModule',
                     'baseUrl' => 'http://' . $_SERVER['HTTP_HOST'] . '/hybridauth',
                     'withYiiUser' => false, // Set to true if using yii-user
-               
                     'providers' => $result_arr['providers'],
                 ),
             ),

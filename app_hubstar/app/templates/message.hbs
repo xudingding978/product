@@ -13,12 +13,19 @@
                         <span class="posttime">{{model.time_stamp}}</span>
                     </div>
                 </div>
-
+                {{#if model.isUserself}}
                 <div class="reply-comment">
-                    <a class = "reply-comment-button" >replay</a>
+                    <a class = "reply-comment-button" >reply</a>
                     <i class="icon-trash"  {{action removeMessage model.message_id}}></i>
                 </div>
-                
+                {{else}}
+                {{#if controller.isUserself}}
+                <div class="reply-comment">
+                    <a class = "reply-comment-button" >reply</a>
+                    <i class="icon-trash"  {{action removeMessage model.message_id}}></i>
+                </div>
+                {{/if}}
+                {{/if}}
             </div>
             <div class="comment-content">
                 {{model.msg}}<br>
@@ -44,12 +51,12 @@
 
                 <div  class="new-btn"{{action close}}>Cancel</div>
                 <div class="new-btn green-btn" {{action addReply model.message_id}}>Post</div>
-            
+
                 <br>
                 <br>
-             
-                
-                
+
+
+
                 <div  class="message-btn easing" style="border-right: 1px solid #ddd; ">
                     <k class='icon-upload'>&nbsp;Add Photo
                         <div style="opacity:0;position: relative;top: 0px;height:45px;top:-45px"> 
@@ -68,7 +75,17 @@
             <div class="comment-namentime">
                 <div class="namentime_position">
                     <a class="comment-username"  >
-                        {{this.user_name}}    <i class="icon-trash"  {{action removeReply this.reply_id}}></i>
+                        {{this.user_name}}    
+                        {{#if this.isUserself}}
+                        <i class="icon-trash"  {{action removeReply this.reply_id}}></i>
+                        {{else}}
+                        {{#if controller.isUserself}}
+                        <div class="reply-comment">
+                            <a class = "reply-comment-button" >reply</a>
+                            <i class="icon-trash"  {{action removeMessage model.message_id}}></i>
+                        </div>
+                        {{/if}}
+                        {{/if}}
                     </a>
                     <div class="posttime-container">
                         <span class="posttime">{{this.time_stamp}}</span>

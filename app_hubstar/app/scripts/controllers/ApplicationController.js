@@ -166,7 +166,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
         if (this.checkSignupInfo()) {
             var signupInfo = [this.get('email')];  
-            requiredBackEnd('site', 'getemail', signupInfo, 'POST', function(params) {
+            requiredBackEnd('login', 'getemail', signupInfo, 'POST', function(params) {
                 if (params === 1) {
                     $('#register-with-email-step-2').addClass('active-step');
                     $('#click-register').addClass('active-tab');
@@ -202,7 +202,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('isWaiting', true);
         var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age')];
         var that = this;
-        requiredBackEnd('site', 'create', createInfo, 'POST', function(params) {
+        requiredBackEnd('login', 'create', createInfo, 'POST', function(params) {
             localStorage.loginStatus = params.COUCHBASE_ID;
               var emailInfo = [ params.USER_NAME, params.PWD_HASH];
              requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function(params) {
@@ -244,7 +244,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
         for (var i = 0; i < checkList.length; i++)
         {
-            var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
+            var patternEmail = /^(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6}$/;
             document.getElementById(checkList[i].id).setAttribute("class", "login-textfield");
             if (checkList[i].input !== null && checkList[i].input !== "" && checkList[i].input !== undefined)
             {
@@ -321,7 +321,7 @@ if(this.get('loginUsername')!==null && this.get('loginPassword')!==null&&this.ge
 
         var loginInfo = [this.get('loginUsername'), this.get('loginPassword'), this.validateEmail(this.get('loginUsername'))];
         var that = this;
-        requiredBackEnd('site', 'login', loginInfo, 'POST', function(params) {
+        requiredBackEnd('login', 'login', loginInfo, 'POST', function(params) {
             if (params === 1) {
                 document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
                 that.set('isWaiting', false);
@@ -373,7 +373,7 @@ if(this.get('loginUsername')!==null && this.get('loginPassword')!==null&&this.ge
 
         var signupInfo = [this.get('resetPasswordEmail')];
         var that = this;
-        requiredBackEnd('site', 'resetemail', signupInfo, 'POST', function(params) {
+        requiredBackEnd('login', 'resetemail', signupInfo, 'POST', function(params) {
             if (params === 1) {
               
 

@@ -217,13 +217,18 @@ class Controller extends CController {
         return $should;
     }
     
-    protected function searchWithMultiMatch($queryString, $from, $size) {
+    protected function searchWithMultiMatch($queryString, $from, $size, $region) {
         $request = $this->getElasticSearch();
         $request->from($from)
-                ->filter('{"term": {
-      "couchbaseDocument.doc.region": "auckland"
-                }}')
                 ->size($size);
+        if ($region != null && $region != "") {
+            $request->filter(Sherlock\Sherlock::filterBuilder()
+                    ->Term()
+                    ->field('couchbaseDocument.doc.region')
+                    ->term($region)
+                );
+        }
+        
         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw('{
                 "bool": {
                     "must": [
@@ -242,7 +247,6 @@ class Controller extends CController {
                     ]
                 }
             }');
-        error_log($request->toJSON());
         $response = $request->query($termQuery)->execute();
         
         return $response;
@@ -402,17 +406,7 @@ class Controller extends CController {
     }
 
     protected function getSearchResultsWithAnalysis($region, $requestString, $from = 0, $size = 50) {
-        $tempResponse = $this->searchWithMultiMatch($requestString, $from, $size);
-//        $conditions = array();
-//        if ($region != null && $region != "") {
-//            $requestStringOne = 'couchbaseDocument.doc.region=' . $region;
-//            array_push($conditions, $requestStringOne);
-//        }
-//        if ($requestString != null && $requestString != "") {
-//            $requestStringTwo = '_all=' . $requestString;
-//            array_push($conditions, $requestStringTwo);
-//        }
-//        $tempResponse = $this->searchWithCondictions($conditions, 'must', $from, $size);
+        $tempResponse = $this->searchWithMultiMatch($requestString, $from, $size, $region);
         $numberofresults = $tempResponse->total;
         $tempResponse = CJSON::encode($tempResponse);
         $tempResponse = CJSON::decode($tempResponse);

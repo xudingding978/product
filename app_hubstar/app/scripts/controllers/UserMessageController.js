@@ -23,6 +23,15 @@ HubStar.UserMessageController = Ember.Controller.extend({
         }
 
     },
+    setUserMessage: function(message) {
+
+//        var model = HubStar.User.find(message);
+//          var msg = model.get("messages");
+//          this.set("contentMsg",msg);
+//                console.log(msg);
+this.getClientId(message);
+
+    },
     getClientId: function(id) {
         this.set('clientID', id);
 
@@ -87,7 +96,6 @@ HubStar.UserMessageController = Ember.Controller.extend({
                     dataNew["replyMessageCollection"][j] = dataReply;
                 }
                 that.get("contentMsg").pushObject(dataNew);
-
                 dataNew = new Array();
             }
 

@@ -46,7 +46,7 @@ HubStar.User = DS.Model.extend({
     collections: DS.hasMany('HubStar.Collection'),
     followers: DS.hasMany('HubStar.Follower'),
     followings: DS.hasMany('HubStar.Follower'),
-    messages: DS.hasMany('HubStar.Message')
+    messages: DS.hasMany('HubStar.UserMessage')
 });
 
 

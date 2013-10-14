@@ -691,12 +691,14 @@ HubStar.UserController = Ember.Controller.extend({
          
     },
     selectMessage: function(model) {    
+console.log(model.id);
         this.set('profileSelectionStatus', 'Messages');
         this.get('controllers.userMessage').getClientId(model.id);
         this.set('followingTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', false);
         this.set('messageTag', true);       
+        this.transitionToRoute('message', model);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);

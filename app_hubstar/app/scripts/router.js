@@ -24,7 +24,7 @@ HubStar.Router.map(function() {
         });
         this.resource("user", {path: '/users/:user_id'}, function() {
             this.resource("collection", {path: ':collection_id'});
-            this.resource("message", {path: '/messages'});
+            this.resource("userMessage", {path: '/messages'});
         });
         this.resource("users", function() {
             this.resource("usersIndex", {path: '/'});
@@ -34,10 +34,6 @@ HubStar.Router.map(function() {
             this.resource("searchIndex", {path: '/'});
             this.resource('search', {path: ':search_id'});
         });
-
-
-
-
         this.resource("welcome", {
             path: "/welcome"
         });

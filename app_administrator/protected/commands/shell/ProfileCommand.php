@@ -75,18 +75,13 @@ class ProfileCommand extends Controller_admin {
         $this->writeToLog($this->error_path, $message);
     }
 
-    
-    
     public function updateCouchbasePhoto() {
 
         $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
-
-
         $sherlock->addNode("es1.hubsrv.com", 9200);
         $request = $sherlock->search();
         $index = 'develop';
-        
         $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"lockwood\-nz\"")
                 ->default_field('couchbaseDocument.doc.owner_id');
         $must2 = Sherlock\Sherlock::queryBuilder()
@@ -94,17 +89,14 @@ class ProfileCommand extends Controller_admin {
                 ->default_field('couchbaseDocument.doc.type');
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)->
                 must($must2);
-  
-
         $request->index($index)->type("couchbaseDocument");
         $request->from(0)
                 ->size(500);
-         //       ->query($query);
-                error_log($request->toJSON());
-      $response = $request->query($bool);
-                            error_log($request->toJSON());
-             $response  ->execute();
-             
+        error_log($request->toJSON());
+        $response = $request->query($bool);
+        error_log($request->toJSON());
+        $response->execute();
+
 
 //raw 
 //        $termQuery = Sherlock\Sherlock::queryBuilder()->Raw('{
@@ -128,18 +120,10 @@ class ProfileCommand extends Controller_admin {
 //    }
 //  }');
 
-   //     $request->query($termQuery);
-    //    error_log($request->toJSON());
-    //    $response = $request->execute();
 
         echo "Number of Hits: " . count($response) . "\r\n";
-
-
-
-
         foreach ($response as $hit) {
             echo $hit["score"] . ' - ' . $hit['id'] . ' - ' . $hit['couchbaseDocument.owner_id'] . "\r\n";
-
             $id = $hit['id'];
             $ch = $this->couchBaseConnection("temp");
             $result = $ch->get($id);
@@ -155,28 +139,6 @@ class ProfileCommand extends Controller_admin {
                 echo $id . " update failllllllllllllllllllllllllllllllllllllllllllllll! \r\n";
             }
         }
-
-
-
-
-//    //    $photo_arr = $this->getReponseResult($response);
-//         foreach ($photo_arr as $photo) {
-//            echo $photo['id'] . ' - ' . $hit['couchbaseDocument.owner_id'].  "\r\n";
-//        }
-//
-//        for ($i = 0; $i < sizeof($photo_arr); $i++) {
-//            $id="trendsideas.com/".$photo_arr[$i];
-//            $ch = $this->couchBaseConnection("temp");
-//            $result = $ch->get($id);
-//            $result_arr = CJSON::decode($result, true);
-//    //    $result_arr['creator_profile_pic'] = 'http://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small.jpg';
-//    //    $result_arr['owner_profile_pic'] = 'http://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small.jpg';
-//
-//       // $result_arr['is_active'] = true;
-//      //  $result_arr['is_indexed'] = true;
-//     //   unset($result_arr['active_yn']);
-//  //      unset($result_arr['indexed_yn']);
-
         exit();
     }
 

@@ -44,6 +44,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 dataNew["user_name"] = params[i]["replyMessageCollection"][length]["user_name"];
                 dataNew["photo_url_large"] = params[i]["replyMessageCollection"][length]["photo_url_large"];
                 dataNew["url"] = params[i]["replyMessageCollection"][length]["url"];
+                dataNew["enableToEdit"] = params[i]["replyMessageCollection"][length]["enableToEdit"];
                 if (params[i]["replyMessageCollection"][length]["user_id"] === localStorage.loginStatus)
                 {
                     dataNew["isUserself"] = true;
@@ -70,6 +71,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
                     dataReply["user_name"] = params[i]["replyMessageCollection"][j]["user_name"];
                     dataReply["photo_url_large"] = params[i]["replyMessageCollection"][j]["photo_url_large"];
                     dataReply["url"] = params[i]["replyMessageCollection"][j]["url"];
+                    dataNew["enableToEdit"] = params[i]["replyMessageCollection"][j]["enableToEdit"];
                     if (params[i]["replyMessageCollection"][j]["url"] !== null)
                     {
                         dataReply["isUrl"] = true;
@@ -189,6 +191,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 dataNew["user_name"] = params["replyMessageCollection"][0]["user_name"];
                 dataNew["photo_url_large"] = params["replyMessageCollection"][0]["photo_url_large"];
                 dataNew["url"] = params["replyMessageCollection"][0]["url"];
+                dataNew["enableToEdit"] = false;
                 if (params["replyMessageCollection"][0]["user_id"] === localStorage.loginStatus)
                 {
                     dataNew["isUserself"] = true;

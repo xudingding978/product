@@ -14,6 +14,7 @@ HubStar.MessageController = Ember.Controller.extend({
     commenter_photo_url: null,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'userMessage'],
     isUserself: false,
+    // enableToEdit: false,
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -24,6 +25,19 @@ HubStar.MessageController = Ember.Controller.extend({
         if (this.get("currentOwner").get("id") === localStorage.loginStatus)
         {
             this.set("isUserself", true);
+        }
+    },
+    editingCommentData: function(id) {
+        for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
+        {
+
+            if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id") === id)
+            {
+                this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("enableToEdit", true);
+                break;
+            }
+
+
         }
     },
     removeReply: function(reply_id)
@@ -142,6 +156,7 @@ HubStar.MessageController = Ember.Controller.extend({
                         dataNew["user_name"] = params["replyMessageCollection"][0]["user_name"];
                         dataNew["photo_url_large"] = params["replyMessageCollection"][0]["photo_url_large"];
                         dataNew["url"] = params["replyMessageCollection"][0]["url"];
+                        dataNew["enableToEdit"] = false;
                         if (params["replyMessageCollection"][0]["user_id"] === localStorage.loginStatus)
                         {
                             dataNew["isUserself"] = true;
@@ -154,8 +169,8 @@ HubStar.MessageController = Ember.Controller.extend({
                         {
                             dataNew["isUrl"] = false;
                         }
-                        
-                           
+
+
                         if (that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection") !== undefined)
                         {
                             that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").insertAt(0, dataNew);
@@ -164,7 +179,7 @@ HubStar.MessageController = Ember.Controller.extend({
                         {
                             //   that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").pushObject(dataNew);
 //                            that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyMessageCollection", null);
-                          //  that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyMessageCollection", new Array());
+                            //  that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyMessageCollection", new Array());
                             that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyMessageCollection", dataNew);
                         }
                         dataNew["replyMessageCollection"] = new Array();

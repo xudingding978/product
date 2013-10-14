@@ -5,6 +5,7 @@ HubStar.ReplyMessage = DS.Model.extend({
     msg: DS.attr('string'),
     url:DS.attr('string'),
     user_name: DS.attr('string'),
-    photo_url_large: DS.attr('string')
+    photo_url_large: DS.attr('string'),
+    enableToEdit: DS.attr('string')
 });
 

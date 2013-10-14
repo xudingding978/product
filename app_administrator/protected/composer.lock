@@ -6,78 +6,25 @@
     "hash": "1b0efcbd8b183eda082b71cfa5cabee0",
     "packages": [
         {
-            "name": "analog/analog",
-            "version": "1.0.2-stable",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jbroadway/analog.git",
-                "reference": "1.0.2-stable"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jbroadway/analog/zipball/1.0.2-stable",
-                "reference": "1.0.2-stable",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.2",
-                "psr/log": "1.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Analog": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Johnny Broadway",
-                    "email": "johnny@johnnybroadway.com",
-                    "homepage": "http://www.johnnybroadway.com/"
-                }
-            ],
-            "description": "PHP 5.3+ micro logging class that can be extended via closures. Includes several pre-built handlers including file, mail, syslog, HTTP post, and MongoDB.",
-            "homepage": "https://github.com/jbroadway/analog",
-            "keywords": [
-                "alerts",
-                "debug",
-                "debugging",
-                "error",
-                "log",
-                "logger",
-                "logging",
-                "syslog"
-            ],
-            "time": "2013-03-01 15:39:04"
-        },
-        {
             "name": "aws/aws-sdk-php",
-            "version": "2.3.4",
+            "version": "2.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "2.3.4"
+                "reference": "71e1a049f14fc764101c7bfe51a4d0a9fcbeb924"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/2.3.4",
-                "reference": "2.3.4",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/71e1a049f14fc764101c7bfe51a4d0a9fcbeb924",
+                "reference": "71e1a049f14fc764101c7bfe51a4d0a9fcbeb924",
                 "shasum": ""
             },
             "require": {
-                "guzzle/guzzle": ">=3.6,<3.7",
+                "guzzle/guzzle": "~3.7.0",
                 "php": ">=5.3.3"
             },
-            "require": {
-                "sherlock/sherlock": "~0.1"
-            },
             "require-dev": {
-                "doctrine/cache": ">=1.0,<2.0",
-                "ext-apc": "*",
+                "doctrine/cache": "~1.0",
                 "ext-openssl": "*",
                 "monolog/monolog": "1.4.*",
                 "phpunit/phpunit": "3.7.*",
@@ -94,7 +41,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.3.x-dev"
+                    "dev-master": "2.4.x-dev"
                 }
             },
             "autoload": {
@@ -122,25 +69,25 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2013-05-30 16:30:25"
+            "time": "2013-09-12 17:31:35"
         },
         {
             "name": "guzzle/guzzle",
-            "version": "v3.6.0",
+            "version": "v3.7.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "v3.6.0"
+                "reference": "b170b028c6bb5799640e46c8803015b0f9a45ed9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/v3.6.0",
-                "reference": "v3.6.0",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/b170b028c6bb5799640e46c8803015b0f9a45ed9",
+                "reference": "b170b028c6bb5799640e46c8803015b0f9a45ed9",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
-                "php": ">=5.3.2",
+                "php": ">=5.3.3",
                 "symfony/event-dispatcher": ">=2.1"
             },
             "replace": {
@@ -179,7 +126,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.6-dev"
+                    "dev-master": "3.7-dev"
                 }
             },
             "autoload": {
@@ -214,64 +161,25 @@
                 "rest",
                 "web service"
             ],
-            "time": "2013-05-30 07:01:25"
-        },
-        {
-            "name": "psr/log",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-fig/log",
-                "reference": "1.0.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/php-fig/log/archive/1.0.0.zip",
-                "reference": "1.0.0",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Psr\\Log\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
-                }
-            ],
-            "description": "Common interface for logging libraries",
-            "keywords": [
-                "log",
-                "psr",
-                "psr-3"
-            ],
-            "time": "2012-12-21 11:40:51"
+            "time": "2013-10-02 20:47:00"
         },
         {
             "name": "sherlock/sherlock",
-            "version": "v0.1.12",
+            "version": "v0.1.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/polyfractal/sherlock.git",
-                "reference": "v0.1.12"
+                "reference": "e39915de305713b0fe346e1fee33a610d72bd844"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/polyfractal/sherlock/zipball/v0.1.12",
-                "reference": "v0.1.12",
+                "url": "https://api.github.com/repos/polyfractal/sherlock/zipball/e39915de305713b0fe346e1fee33a610d72bd844",
+                "reference": "e39915de305713b0fe346e1fee33a610d72bd844",
                 "shasum": ""
             },
             "require": {
-                "analog/analog": "1.0.2-stable",
-                "php": ">=5.3.0",
-                "symfony/event-dispatcher": ">=2.1,<3.0"
+                "php": ">=5.3.9",
+                "symfony/event-dispatcher": "~2.1"
             },
             "require-dev": {
                 "phpmd/phpmd": "1.4.*",
@@ -302,28 +210,28 @@
                 "elasticsearch",
                 "search"
             ],
-            "time": "2013-04-16 12:49:27"
+            "time": "2013-07-10 18:07:16"
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v2.3.0",
+            "version": "v2.3.6",
             "target-dir": "Symfony/Component/EventDispatcher",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/EventDispatcher.git",
-                "reference": "v2.3.0-RC1"
+                "reference": "7fc72a7a346a1887d3968cc1ce5642a15cd182e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/v2.3.0-RC1",
-                "reference": "v2.3.0-RC1",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/7fc72a7a346a1887d3968cc1ce5642a15cd182e9",
+                "reference": "7fc72a7a346a1887d3968cc1ce5642a15cd182e9",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "symfony/dependency-injection": ">=2.0,<3.0"
+                "symfony/dependency-injection": "~2.0"
             },
             "suggest": {
                 "symfony/dependency-injection": "",
@@ -356,7 +264,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "http://symfony.com",
-            "time": "2013-05-13 14:36:40"
+            "time": "2013-09-19 09:45:20"
         }
     ],
     "packages-dev": [

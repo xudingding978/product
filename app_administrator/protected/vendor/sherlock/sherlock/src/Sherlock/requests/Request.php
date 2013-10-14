@@ -35,10 +35,6 @@ class Request
      */
     protected $batch;
 
-    /**
-     * @var array
-     */
-    protected $options;
 
     /**
      * @param  \Symfony\Component\EventDispatcher\EventDispatcher $dispatcher
@@ -90,10 +86,6 @@ class Request
 
         $rolling = new RollingCurl\RollingCurl();
         $rolling->setHeaders(array('Content-Type: application/json'));
-
-        if ( ! is_null($this->options)) {
-            $rolling->setOptions($this->options);
-        }
 
         $window  = 10;
         $counter = 0;
@@ -177,18 +169,4 @@ class Request
     {
         return new Response($response);
     }
-
-    /**
-     * Set the options that should be set on the cURL request.
-     *
-     * @param  $options
-     * @return \Sherlock\requests\Request
-     */
-    public function setOptions(array $options)
-    {
-        $this->options = $options;
-
-        return $this;
-    }
-
 }

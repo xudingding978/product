@@ -20,7 +20,6 @@ use Aws\Common\Exception\RuntimeException;
 use Aws\S3\Exception\S3Exception;
 use Aws\S3\Exception\NoSuchKeyException;
 use Aws\S3\Iterator\ListObjectsIterator;
-use Guzzle\Http\QueryString;
 use Guzzle\Http\EntityBody;
 use Guzzle\Http\CachingEntityBody;
 use Guzzle\Stream\PhpStreamRequestFactory;
@@ -128,10 +127,11 @@ class StreamWrapper
      */
     public static function register(S3Client $client)
     {
-        if (!in_array('s3', stream_get_wrappers())) {
-            stream_wrapper_register('s3', __CLASS__, STREAM_IS_URL);
+        if (in_array('s3', stream_get_wrappers())) {
+            stream_wrapper_unregister('s3');
         }
 
+        stream_wrapper_register('s3', __CLASS__, STREAM_IS_URL);
         self::$client = $client;
     }
 
@@ -171,8 +171,8 @@ class StreamWrapper
         }
 
         // When using mode "x" validate if the file exists before attempting to read
-        if ($mode == 'x' && !self::$client->doesObjectExist($params['Bucket'], $params['Key'], $this->getOptions())) {
-            $errors[] = "{$path} does not exist on Amazon S3";
+        if ($mode == 'x' && self::$client->doesObjectExist($params['Bucket'], $params['Key'], $this->getOptions())) {
+            $errors[] = "{$path} already exists on Amazon S3";
         }
 
         if (!$errors) {
@@ -286,7 +286,13 @@ class StreamWrapper
      */
     public function stream_stat()
     {
-        return fstat($this->body->getStream());
+        $stat = fstat($this->body->getStream());
+        // Add the size of the underlying stream if it is known
+        if ($this->mode == 'r' && $this->body->getSize()) {
+            $stat[7] = $stat['size'] = $this->body->getSize();
+        }
+
+        return $stat;
     }
 
     /**
@@ -417,18 +423,25 @@ class StreamWrapper
         // Reset the cache
         $this->clearStatInfo();
         $params = $this->getParams($path);
-        $delim = $this->getOption('delimiter') ?: '/';
+        $delimiter = $this->getOption('delimiter');
+
+        if ($delimiter === null) {
+            $delimiter = '/';
+        }
+
         if ($params['Key']) {
-            $params['Key'] = rtrim($params['Key'], $delim) . $delim;
+            $params['Key'] = rtrim($params['Key'], $delimiter) . $delimiter;
         }
 
         $this->openedBucket = $params['Bucket'];
         $this->openedBucketPrefix = $params['Key'];
-        $this->objectIterator = self::$client->getIterator('ListObjects', array(
-            'Bucket'    => $params['Bucket'],
-            'Delimiter' => $delim,
-            'Prefix'    => $params['Key']
-        ), array(
+        $operationParams = array('Bucket' => $params['Bucket'], 'Prefix' => $params['Key']);
+
+        if ($delimiter) {
+            $operationParams['Delimiter'] = $delimiter;
+        }
+
+        $this->objectIterator = self::$client->getIterator('ListObjects', $operationParams, array(
             'return_prefixes' => true,
             'sort_results'    => true
         ));
@@ -476,10 +489,11 @@ class StreamWrapper
         if ($this->objectIterator->valid()) {
             $current = $this->objectIterator->current();
             if (isset($current['Prefix'])) {
-                // Include "directories"
-                $result = str_replace($this->openedBucketPrefix, '', $current['Prefix']);
-                $key = "s3://{$this->openedBucket}/{$current['Prefix']}";
-                $stat = $this->formatUrlStat($current['Prefix']);
+                // Include "directories". Be sure to strip a trailing "/" on prefixes.
+                $prefix = rtrim($current['Prefix'], '/');
+                $result = str_replace($this->openedBucketPrefix, '', $prefix);
+                $key = "s3://{$this->openedBucket}/{$prefix}";
+                $stat = $this->formatUrlStat($prefix);
             } else {
                 // Remove the prefix from the result to emulate other stream wrappers
                 $result = str_replace($this->openedBucketPrefix, '', $current['Key']);

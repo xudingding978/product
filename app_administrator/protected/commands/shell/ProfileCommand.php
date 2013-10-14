@@ -31,7 +31,7 @@ class ProfileCommand extends Controller_admin {
     }
 
     protected function importProfilesToCouchbase() {
-        // select data from DB table
+// select data from DB table
         $profiles_arr = $this->selectProfilesFromSQLDB(Profiles_Gj_Gardner::model());
         $message = "";
         if ($profiles_arr != null) {
@@ -76,76 +76,105 @@ class ProfileCommand extends Controller_admin {
     }
 
     public function updateCouchbasePhoto() {
-        require 'vendor/autoload.php';
-     //    use \Sherlock\Sherlock;
- 
-//$sherlock = new Sherlock();
+
         $settings['log.enabled'] = true;
-        $settings['log.file'] = '../../newlogfile.log';
-    //    $sherlock = new \Sherlock\Sherlock($settings);
-        $sherlock = new Sherlock\Sherlock($settings);
-        $sherlock->addNode("http://es1.hubsrv.com", 9200);
+        $sherlock = new \Sherlock\Sherlock($settings);
+
+
+        $sherlock->addNode("es1.hubsrv.com", 9200);
         $request = $sherlock->search();
- //       $manualData = array("field" => "owner_id", "term" => "lockwood-nz");
-        $json = '{ "term" : { "lockwood-nz" : "owner_id" } }';
-   error_log("11111");
-//        $termQuery = Sherlock::queryBuilder()->Term()->field("owner_id")
-//        ->term("lockwood-nz");
+        $index = 'develop';
+        
+        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"lockwood\-nz\"")
+                ->default_field('couchbaseDocument.doc.owner_id');
+        $must2 = Sherlock\Sherlock::queryBuilder()
+                ->QueryString()->query("photo")
+                ->default_field('couchbaseDocument.doc.type');
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)->
+                must($must2);
+  
+//        if ($noUser == true) {
+//            $must = $this->getmustQuestWithQueryString('couchbaseDocument.doc.type=user');
+//            $bool->must_not($must);
+//        }
+     //   $request->query($bool);
+//        
+//        $termQuery = Sherlock\Sherlock::queryBuilder()->QueryString()->default_field("couchbaseDocument.doc.owner_id")
+//                                             ->query("\"lockwood\-nz\"");
+//        $termQuery2 =Sherlock\Sherlock::queryBuilder()->QueryString()->default_field("couchbaseDocument.doc.type")
+//                                             ->query("photo");
+//        $bool = Sherlock\Sherlock::queryBuilder()->Bool->$query($termQuery)->
+//                $query($termQuery2);
+        $request->index($index)->type("couchbaseDocument");
+        $request->from(0)
+                ->size(500);
+         //       ->query($query);
+                error_log($request->toJSON());
+      $response = $request->query($bool);
+                            error_log($request->toJSON());
+             $response  ->execute();
+//        $termQuery = Sherlock\Sherlock::queryBuilder()->Raw('{
+//    "bool": {
+//     "must": [
+//       {
+//          "query_string": {
+//            "default_field": "couchbaseDocument.doc.owner_id",
+//            "query": "lockwood-nz"
+//          }
+//        },
+//        {
+//          "query_string": {
+//            "default_field": "couchbaseDocument.doc.type",
+//            "query": "photo"
+//          }
+//        }
+//      ],
+//      "must_not": [],
+//      "should": []
+//    }
+//  }');
+
+   //     $request->query($termQuery);
+    //    error_log($request->toJSON());
+    //    $response = $request->execute();
+
+        echo "Number of Hits: " . count($response) . "\r\n";
+        error_log("4444444");
+        $photo_arr = array();
 
 
-
-        $request->index("temp")
-                ->type("couchbaseDocument")
-                ->from(0)
-                ->size(200);
-        error_log("222222");
-        $request->query(Sherlock::query()->Raw($json));
-     //   $request->query(Sherlock::query()->Term($manualData));
-          //      ->query($termQuery);
-   //     error_log("333333");
-        $response = $request->execute();
-error_log("4444444");
         foreach ($response as $hit) {
-            echo $hit["score"] . ' - ' . $hit['id']['owner_id'] . "\r\n";
+            echo $hit["score"] . ' - ' . $hit['id'] . ' - ' . $hit['couchbaseDocument.owner_id'] . "\r\n";
+
+//            $id = $hit['id'];
+//            $ch = $this->couchBaseConnection("temp");
+//            $result = $ch->get($id);
+//            $result_arr = CJSON::decode($result, true);
+//            print_r($result_arr);
+//            if ($result_arr["collection_id"] != null) {
+//                $result_arr["collection_id"] = str_replace(" ", "-", $result_arr["collection_id"]);
+//                $result_arr["collection_id"] = strtolower($result_arr["collection_id"]);
+//            }
+//            if ($ch->set($id, CJSON::encode($result_arr))) {
+//                echo $id . " update successssssssssssssssssssssssss! \r\n";
+//            } else {
+//                echo $id . " update failllllllllllllllllllllllllllllllllllllllllllllll! \r\n";
+//            }
         }
         error_log("555555");
 
 
-        //   $request = $this->getElasticSearch();
-        // $request->from(0)
-        //          ->size(100);
-//        $termQuery = Sherlock\Sherlock::queryBuilder()->Raw('{
-//  "fields": [
-//    "_source.doc._id"
-//  ],
-//  "query": {
-//    "query_string": {
-//      "default_field": "owner_id",
-//      "query": "\"lockwood\\-nz\""
-//    }
-//  },
-//  "from": 0,
-//  "size": 500,
-//  "sort": [],
-//  "facets": {}
-//}');
-//        $photo_arr = $request->query($termQuery)->execute();
-//        //$photo_arr = $this->getReponseResult($response);
-//
-//
+
+//    //    $photo_arr = $this->getReponseResult($response);
+//         foreach ($photo_arr as $photo) {
+//            echo $photo['id'] . ' - ' . $hit['couchbaseDocument.owner_id'].  "\r\n";
+//        }
 //
 //        for ($i = 0; $i < sizeof($photo_arr); $i++) {
 //            $id="trendsideas.com/".$photo_arr[$i];
 //            $ch = $this->couchBaseConnection("temp");
 //            $result = $ch->get($id);
 //            $result_arr = CJSON::decode($result, true);
-//    
-//            
-//            
-//        $ch = $this->couchBaseConnection("production");
-//        $result = $ch->get($id);
-//        $result_arr = CJSON::decode($result, true);
-//        print_r($result_arr);
 //    //    $result_arr['creator_profile_pic'] = 'http://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small.jpg';
 //    //    $result_arr['owner_profile_pic'] = 'http://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small.jpg';
 //
@@ -153,25 +182,8 @@ error_log("4444444");
 //      //  $result_arr['is_indexed'] = true;
 //     //   unset($result_arr['active_yn']);
 //  //      unset($result_arr['indexed_yn']);
-//        if( $result_arr["collection_id"] != null){
-//             $result_arr["collection_id"]=str_replace(" ", "-", $result_arr["collection_id"]);
-//              $result_arr["collection_id"]=strtolower( $result_arr["collection_id"]);
-//        }
-//       
-//        
-//     
-//      print_r($result_arr);
-//
-//
-//
-//
-//        if ($ch->set($id, CJSON::encode($result_arr))) {
-//            echo $id . " update successssssssssssssssssssssssss! \r\n";
-//        } else {
-//            echo $id . " update failllllllllllllllllllllllllllllllllllllllllllllll! \r\n";
-//        }
-//
-//        exit();
+
+        exit();
     }
 
     private function createObjectArr($profile_arr) {
@@ -359,7 +371,7 @@ error_log("4444444");
             $obj_arr['owner_title'] = $obj_arr['profile'][0]['profile_name'];
         }
 
-        // get current datetime
+// get current datetime
         $now = strtotime(date('Y-m-d H:i:s'));
 //        if (array_key_exists('accessed', $obj_arr)) {
         $obj_arr['accessed'] = $now;

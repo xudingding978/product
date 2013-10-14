@@ -75,8 +75,9 @@ class ProfileCommand extends Controller_admin {
         $this->writeToLog($this->error_path, $message);
     }
 
+    
+    
     public function updateCouchbasePhoto() {
-
         $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode("es1.hubsrv.com", 9200);
@@ -96,8 +97,6 @@ class ProfileCommand extends Controller_admin {
         $response = $request->query($bool);
         error_log($request->toJSON());
         $response->execute();
-
-
 //raw 
 //        $termQuery = Sherlock\Sherlock::queryBuilder()->Raw('{
 //    "bool": {
@@ -119,28 +118,27 @@ class ProfileCommand extends Controller_admin {
 //      "should": []
 //    }
 //  }');
-
-
         echo "Number of Hits: " . count($response) . "\r\n";
-        foreach ($response as $hit) {
-            echo $hit["score"] . ' - ' . $hit['id'] . ' - ' . $hit['couchbaseDocument.owner_id'] . "\r\n";
-            $id = $hit['id'];
-            $ch = $this->couchBaseConnection("temp");
-            $result = $ch->get($id);
-            $result_arr = CJSON::decode($result, true);
-            print_r($result_arr);
-            if ($result_arr["collection_id"] != null) {
-                $result_arr["collection_id"] = str_replace(" ", "-", $result_arr["collection_id"]);
-                $result_arr["collection_id"] = strtolower($result_arr["collection_id"]);
-            }
-            if ($ch->set($id, CJSON::encode($result_arr))) {
-                echo $id . " update successssssssssssssssssssssssss! \r\n";
-            } else {
-                echo $id . " update failllllllllllllllllllllllllllllllllllllllllllllll! \r\n";
-            }
-        }
-        exit();
+//        foreach ($response as $hit) {
+//            echo $hit["score"] . ' - ' . $hit['id'] . ' - ' . $hit['couchbaseDocument.owner_id'] . "\r\n";
+//            $id = $hit['id'];
+//            $ch = $this->couchBaseConnection("temp");
+//            $result = $ch->get($id);
+//            $result_arr = CJSON::decode($result, true);
+//            print_r($result_arr);
+//            if ($result_arr["collection_id"] != null) {
+//                $result_arr["collection_id"] = str_replace(" ", "-", $result_arr["collection_id"]);
+//                $result_arr["collection_id"] = strtolower($result_arr["collection_id"]);
+//            }
+//            if ($ch->set($id, CJSON::encode($result_arr))) {
+//                echo $id . " update successssssssssssssssssssssssss! \r\n";
+//            } else {
+//                echo $id . " update failllllllllllllllllllllllllllllllllllllllllllllll! \r\n";
+//            }
+//        }
+//        exit();
     }
+    
 
     private function createObjectArr($profile_arr) {
         $now = strtotime(date('Y-m-d H:i:s'));

@@ -1,6 +1,0 @@
-{
-    "require": {
-        "sherlock/sherlock": "dev-master",
-        "aws/aws-sdk-php": "2.*"
-    }
-}

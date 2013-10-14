@@ -1765,7 +1765,6 @@
 
 
 /* tool-tips for profile items 9/10/13 clint */
-
 .itemprofile .location_li:after
 {
     background:#fff;
@@ -1780,13 +1779,13 @@
     text-shadow:0 0 0;
     top:25px;
     left:0;
+    line-height:1em;
 }
 
 .itemprofile .location_li:before
 {
     border-bottom-color:#ccc!important;
-    top:13px;
+    top:12px;
     left:15px;
 }
-
 /* tool-tips for profile items  ENDS - 9/10/13 clint */

@@ -1,11 +1,7 @@
  
 
 
-<div class="objectview-wrapper">
-
-
-
-
+<div class="objectview-wrapper" >
 
     <div class="objectview-left">
 
@@ -203,7 +199,7 @@
                 <div class="addcommnetbox-container" id="commentBox" style="display: none">
                     <div style="margin:0 auto; padding: 0 0 15px 38px;">
                         <a> 
-                            <img class="profilepic_comment"  style="float: left; margin: 4px 0 0 -38px; margin-top: 0;"{{bindAttr src="controller.currentUser.photo_url"}} /> 
+                            <img class="profilepic_comment"  style="float: left; margin: 4px 0 0 -38px; margin-top: 0;"{{bindAttr src="controller.currentUser.photo_url_large"}} /> 
                         </a>
 
                         {{view HubStar.SearchRequireTextFieldView valueBinding="commentContent"  id="AddRecord" class="comment-insert-field"  placeholder="" }}   

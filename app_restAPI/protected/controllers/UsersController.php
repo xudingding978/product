@@ -2,7 +2,6 @@
 
 header("Access-Control-Allow-Origin: *");
 header('Content-type: *');
-
 header('Access-Control-Request-Method: *');
 header('Access-Control-Allow-Methods: PUT, POST, OPTIONS, GET, DELETE');
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
@@ -13,6 +12,15 @@ class UsersController extends Controller {
     const JSON_RESPONSE_ROOT_PLURAL = 'users';
 
     public function actionIndex() {
+
+
+
+        $urlController = new UrlController();
+
+        $link = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        
+        $domain = $urlController->getDomain($link);
+
         $settings['log.enabled'] = true;
         // $settings['log.file'] = '/var/log/sherlock/newlogfile.log';
         $settings['log.level'] = 'debug';
@@ -60,14 +68,16 @@ class UsersController extends Controller {
 
     public function actionRead() {
         try {
-          
+
+
+
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
-            $id = $temp [sizeof($temp) - 1]; 
-         $doc_id  = $this->getDomain() . "/users/" . $id;
+            $id = $temp [sizeof($temp) - 1];
+            $doc_id = $this->getDomain() . "/users/" . $id;
 
-            $reponse = $cb->get($doc_id);    
-            $respone_user =  CJSON::decode($reponse, true);
+            $reponse = $cb->get($doc_id);
+            $respone_user = CJSON::decode($reponse, true);
             $respone_user_data = CJSON::encode($respone_user['user'][0]);
 
             $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $respone_user_data . '}';
@@ -81,13 +91,13 @@ class UsersController extends Controller {
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
         $payload_json = CJSON::encode($request_arr['user'], true);
-         $newRecord = CJSON::decode($payload_json);
+        $newRecord = CJSON::decode($payload_json);
         try {
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
             $request_arr['user']['id'] = $id;
-            $url = $this->getDomain()  . "/users/" . $id;
+            $url = $this->getDomain() . "/users/" . $id;
             $oldRecord = $cb->get($url);
             $oldRecord = CJSON::decode($oldRecord, true);
 
@@ -97,7 +107,7 @@ class UsersController extends Controller {
             $oldRecord['user'][0]['selected_topics'] = $newRecord['selected_topics'];
 
 //            $oldRecord['user'][0]['collections'] = $request_arr['user']['collections'];
-           // $oldRecord['user'][0]['photo_url'] = $request_arr['user']['photo_url'];
+            // $oldRecord['user'][0]['photo_url'] = $request_arr['user']['photo_url'];
             $oldRecord['user'][0]['description'] = $request_arr['user']['description'];
             $oldRecord['user'][0]['display_name'] = $request_arr['user']['display_name'];
             $oldRecord['user'][0]['first_name'] = $request_arr['user']['first_name'];
@@ -112,7 +122,7 @@ class UsersController extends Controller {
             $oldRecord['user'][0]['region'] = $request_arr['user']['region'];
             $oldRecord['user'][0]['email'] = $request_arr['user']['email'];
             $oldRecord['user'][0]['password'] = $request_arr['user']['password'];
-            
+
 
             if ($cb->set($url, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);
@@ -131,7 +141,7 @@ class UsersController extends Controller {
             echo $exc->getTraceAsString();
         }
     }
-   
+
     public function actionOptions() {
 
         $statusHeader = 'HTTP/1.1 ' . 200 . ' ' . $this->getStatusCodeMessage(200);
@@ -163,12 +173,11 @@ class UsersController extends Controller {
         return $data;
     }
 
-
     public function actionTest() {
         echo "test";
     }
-    
-      public function actionUpdateStyleImage() {
+
+    public function actionUpdateStyleImage() {
         $payloads_arr = CJSON::decode(file_get_contents('php://input'));
         $photo_string = $payloads_arr['newStyleImageSource'];
 
@@ -185,7 +194,7 @@ class UsersController extends Controller {
         $orig_size['width'] = imagesx($compressed_photo);
         $orig_size['height'] = imagesy($compressed_photo);
 
-        $photoController->savePhotoInTypes($orig_size, $mode.'_original', $photo_name, $compressed_photo, $data_arr, $user_id, null, $type);
+        $photoController->savePhotoInTypes($orig_size, $mode . '_original', $photo_name, $compressed_photo, $data_arr, $user_id, null, $type);
         $url = $photoController->savePhotoInTypes($orig_size, $mode, $photo_name, $compressed_photo, $data_arr, $user_id, null, $type);
 
         $cb = $this->couchBaseConnection();

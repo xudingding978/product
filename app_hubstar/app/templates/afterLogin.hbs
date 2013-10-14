@@ -37,8 +37,8 @@
 
 
                             $.ajax({
-                                type: 'POST',
-                                url: 'http://' + domain + '/site/logout',
+                                    type: 'POST',
+                                url: 'http://api.' + domain + '/logout',
                                 contentType: 'application/json; charset=uft-8',
                                 dataType: 'json',
                                 success: function() {

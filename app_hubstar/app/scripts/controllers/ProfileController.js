@@ -180,7 +180,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         photoCreateController.setMega();
         this.initStastics(profile);
         this.followerPhoto(id);
-        this.setKeywordsArray(this.get('keywords'));
+        this.setKeywordsArray(this.get('model').get('profile_keywords'));
         this.setKeywordsNum(this.get('model').get('profile_package_name'));
     },
     setKeywordsArray: function(keywords) {

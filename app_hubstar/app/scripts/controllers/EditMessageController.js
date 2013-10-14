@@ -119,10 +119,6 @@ HubStar.EditMessageController = Ember.Controller.extend({
         }
 
     },
-    updatePhotoUrl: function(id)
-    {
-        console.log(id);
-    },
     profileStyleImageDrop: function(e, name)
     {
         var target = getTarget(e, "single");

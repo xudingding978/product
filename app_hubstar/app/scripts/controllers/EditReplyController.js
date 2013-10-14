@@ -86,7 +86,6 @@ HubStar.EditReplyController = Ember.Controller.extend({
 
                     tempComment = JSON.stringify(tempComment);
                     var that = this;
-                    console.log("sssssssssssssss");
                     requiredBackEnd('messages', 'UpdateReply', tempComment, 'POST', function(params) {
 
 
@@ -122,10 +121,6 @@ HubStar.EditReplyController = Ember.Controller.extend({
                 }
             }
         }
-    },
-    updatePhotoUrl: function(id)
-    {
-        console.log(id);
     },
     profileStyleImageDrop: function(e, name)
     {

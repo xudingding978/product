@@ -124,7 +124,7 @@
                                             <div style='width: 100%;min-height: 100px;'>
                                                 <ul class="Client-Keywords-tags">    
                                                     {{#each keywords_array}}
-                                                    <li><div class="tags-before"></div><a>{{this.keyword}}</a></li>
+                                                    <li><div class="tags-before"></div><a href="#" {{action keywordSearch this.keyword}} >{{this.keyword}}</a></li>
                                                     {{/each}}
                                                 </ul>
                                             </div>                                            

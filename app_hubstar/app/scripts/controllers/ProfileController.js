@@ -986,6 +986,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 'eventLabel': label
             });
         }
+    },
+    keywordSearch: function(keyword) {
+        this.transitionToRoute('searchIndex');
+        this.get("controllers.application").set('search_string', keyword);
+        this.get("controllers.application").newSearch();
+
     }
 
 }

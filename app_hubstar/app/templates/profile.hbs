@@ -120,15 +120,14 @@
                                             <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'>
                                                 <i class='icon-bookmark' style='margin-right: 10px;'></i>Keywords
                                             </div>
-
+                                            
                                             <div style='width: 100%;min-height: 100px;'>
-                                                <ul class="Client-Keywords-tags">
-                                                    <li><div class="tags-before"></div><a>Bathroom.</a></li>
-                                                    <li><div class="tags-before"></div><a>Living room</a></li>
-                                                    <li><div class="tags-before"></div><a>Comercial Design</a></li>
-                                                    <li><div class="tags-before"></div><a>Education Design</a></li>
+                                                <ul class="Client-Keywords-tags">    
+                                                    {{#each keywords_array}}
+                                                    <li><div class="tags-before"></div><a>{{this.keyword}}</a></li>
+                                                    {{/each}}
                                                 </ul>
-                                            </div>
+                                            </div>                                            
                                         </div>
 
 
@@ -399,6 +398,7 @@
                     <li class="easing" {{action changeSize}}><a href="#tab7" data-toggle="tab">Social Link</a></li>
                     {{#if controller.isAdmin}}
                     <li class="easing" {{action changeSize}}><a href="#tab4" data-toggle="tab">Authority Settings</a></li>
+                    <li class="easing" {{action changeSize}}><a href="#tab5" data-toggle="tab">Keywords Settings</a></li>
                     {{/if}}   
                 </ul>
             </div>
@@ -837,6 +837,31 @@
                     </div>
                 </div>
 
+                <div class="tab-pane" id="tab5">
+
+                    <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">Keywords Settings  (You can add {{keywordsNum}} keywords)</div>
+
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="padding-right: 147px; font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
+                        <tbody class="profilesnew-table" style="display: table-row-group; vertical-align: middle; border-color: inherit;">
+                            {{#each keywords_array}}
+                            <tr>
+                                <td>Keywords:{{_view.contentIndex}} </td>
+                                <td>
+                                    <div style="display: block;">
+                                        {{view Ember.TextField valueBinding="keyword"   class="mustFill1" placeholder="Heritage Tiles NZ"}}
+                                    </div>
+                                    <div style="right: 0;margin: 30px auto 0;width: 150px;"><span class="new-btn green-btn" {{action deleteKeywords _view.contentIndex}}>Delete</span></div>
+                                </td>
+                            </tr>                           
+                            {{/each}}
+                        </tbody>
+                    </table>
+                    <div style="right: 0;margin: 30px auto 0;width: 150px;">
+                        <span class="new-btn green-btn" {{action addKeywords}}>Add a keyword</span>
+                        <span class="new-btn green-btn" {{action saveKeywords}}>Save</span>
+                        <span class='new-btn blue-btn flip-back' {{action flipFrontBack}}><k class='icon-group'> &nbsp;</k>Back</span>
+                    </div>
+                </div>
 
 
                 <div class="tab-pane" id="fileuploader">

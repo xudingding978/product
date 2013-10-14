@@ -17,7 +17,7 @@
                         <span class="posttime">{{model.time_stamp}}</span>
                     </div>
                 </div>
-                {{#if model.isUserself}}
+                {{#if model.isUserself}} <!--model.isUserself is used to judge whether the reply message is written by the current login user-->
                 <div class="reply-comment">
                     <a class = "reply-comment-button" >reply</a>
                     <i class="icon-trash"  {{action removeMessage model.message_id}}></i>                 
@@ -26,7 +26,7 @@
                     <i class="icon-edit" {{action editingCommentData model.message_id}}></i>
                 </div>
                 {{else}}
-                {{#if controller.isUserself}}
+                {{#if controller.isUserself}} <!--controller.isUserself is used to judge whether the reply message is written by the current login user-->
                 <div class="reply-comment">
                     <a class = "reply-comment-button" >reply</a>
                     <i class="icon-trash"  {{action removeMessage model.message_id}}></i>

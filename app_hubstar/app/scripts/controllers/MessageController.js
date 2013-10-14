@@ -42,14 +42,14 @@ HubStar.MessageController = Ember.Controller.extend({
         }
     },
     editingReplyData: function(id) {
-         for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
+        for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
         {
-            for (var j=0; j<this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").length;j++)
-            if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("reply_id") === id)
-            {
-                this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("enableToEdit", true);
-                break;
-            }
+            for (var j = 0; j < this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").length; j++)
+                if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("reply_id") === id)
+                {
+                    this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("enableToEdit", true);
+                    break;
+                }
         }
     },
     removeReply: function(reply_id)
@@ -159,7 +159,7 @@ HubStar.MessageController = Ember.Controller.extend({
                 {
                     if (that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id") === params["message_id"])
                     {
-                        
+
                         dataNew["reply_id"] = params["replyMessageCollection"][0]["reply_id"];
                         dataNew["user_id"] = params["replyMessageCollection"][0]["user_id"];
                         dataNew["time_stamp"] = params["replyMessageCollection"][0]["time_stamp"];

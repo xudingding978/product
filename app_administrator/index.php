@@ -15,10 +15,6 @@ chdir(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..');
 // register composer autoloader
 require_once dirname(__FILE__) . '/protected/vendor/autoload.php';
 
-
-        require 'Sherlock/Sherlock.php';
-        \Sherlock\Sherlock::registerAutoloader();
-
 use \Sherlock\Sherlock;
 use Aws\Common\Aws;
 use Aws\S3\S3Client;

@@ -1,3 +1,4 @@
+
 /* 
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -114,7 +115,7 @@ HubStar.MessageController = Ember.Controller.extend({
 
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
-        var replyContent = this.get('replyContent');
+        var replyContent = this.get('replyContent'); //replyContent is just the user input txt, it is not a whole reply object
         if (replyContent) {
             var commenter_id = this.get("currentUser").get('id');
             var date = new Date();
@@ -153,11 +154,12 @@ HubStar.MessageController = Ember.Controller.extend({
 
             var dataNew = new Array();
             requiredBackEnd('messages', 'CreateReply', tempComment, 'POST', function(params) {
-
+//params just one message
                 for (var i = 0; i < that.get('controllers.userMessage').get("contentMsg").length; i++)
                 {
                     if (that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id") === params["message_id"])
                     {
+                        
                         dataNew["reply_id"] = params["replyMessageCollection"][0]["reply_id"];
                         dataNew["user_id"] = params["replyMessageCollection"][0]["user_id"];
                         dataNew["time_stamp"] = params["replyMessageCollection"][0]["time_stamp"];

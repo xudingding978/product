@@ -43,7 +43,6 @@ HubStar.UserMessageController = Ember.Controller.extend({
             that.set("contentMsg", []);
             for (var i = 0; i < params.length; i++)
             {
-                //console.log(params[i]);
                 //First reply message and it is the last one of message and it contail the reply message collection
                 dataNew["message_id"] = params[i]["message_id"];
                 var length = params[i]["replyMessageCollection"].length - 1;
@@ -69,7 +68,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 }
 
 
-                dataNew["replyMessageCollection"] = new Array();  //
+                dataNew["replyMessageCollection"] = new Array();  // replyMessageCollection is used to store all the replyMessage except the last one which is the first Reply.
                 for (var j = 0; j < params[i]["replyMessageCollection"].length - 1; j++)
                 {
                     var dataReply = new Array();
@@ -93,7 +92,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
                     }
                     if (params[i]["replyMessageCollection"][j]["user_id"] === localStorage.loginStatus)
                     {
-                        dataReply["isUserself"] = true;
+                        dataReply["isUserself"] = true;  // isUserself is used to judge whether the reply message is written by the current login user
                     }
                     dataNew["replyMessageCollection"][j] = dataReply;
                 }
@@ -192,7 +191,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
             var dataNew = new Array();
 
             requiredBackEnd('messages', 'CreateComment', tempComment, 'POST', function(params) {
-
+    //params  is just one message 
                 dataNew["message_id"] = params["message_id"];
                 dataNew["reply_id"] = params["replyMessageCollection"][0]["reply_id"];
                 dataNew["user_id"] = params["replyMessageCollection"][0]["user_id"];

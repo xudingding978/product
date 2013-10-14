@@ -58,7 +58,7 @@
                     <div style="width: 120%; height: 150%; position: absolute;margin-left: -20px; margin-top: -50px;  z-index: -1;"></div>
                     {{#each controller.user.collections}}
 
-                    <li><a  href="{{unbound controller.myUserProfile}}/{{unbound id}}" > {{id}}</a></li>
+                    <li><a  href="{{unbound controller.myUserProfile}}/{{unbound id}}" > {{title}}</a></li>
 
                     {{/each}}
                 </ul>
@@ -99,7 +99,7 @@
                     var domain = address.split("/")[2];
                     $.ajax({
                         type: 'POST',
-                        url: 'http://' + domain + '/site/logout',
+                        url: 'http://api.' + domain + '/logout',
                         contentType: 'application/json; charset=uft-8',
                         dataType: 'json',
                         success: function() {

@@ -95,6 +95,16 @@ test("testTwoController", function() {
 //
 
 
+//     setTimeout(function() {
+//        $("a:contains('Logout')").click();
+//    }, 1000);
+//
+//
+//}
+//;
+
+
+
 
 //describe("Platform  bar", function() {
 //    var controller;

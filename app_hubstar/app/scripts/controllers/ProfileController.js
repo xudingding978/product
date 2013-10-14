@@ -115,6 +115,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     makeSureDelete: false,
     willDelete: false,
     profile_partner_ids: null,
+    isTracking: false,
     init: function() {
 
         this.set('is_authentic_user', false);
@@ -156,7 +157,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('profile_contact_number', profile.get('profile_contact_number'));
         this.set('projectCategoryDropdownContent', profile.get('profile_package_name'));
         this.set('first_name', profile.get('profile_contact_first_name'));
-        this.set('address', profile.get('profile_street_address'));
+        this.set('address', profile.get('profile_physical_address'));
         this.set('suburb', profile.get('profile_suburb'));
         this.set('last_name', profile.get('profile_contact_last_name'));
         this.set("profile_name", profile.get("profile_name"));
@@ -267,9 +268,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     submit: function() {
         var collectionController = this.get('controllers.collection');
-        //console.log(this.get('newTitle'));
         var collection = collectionController.getCreateCollection(this.get('newTitle'), this.get('newDesc'), this.get("collections"));
-        // console.log(collection);
 
         if (collection !== null && collection !== "") {
             collection.set('type', 'profile');
@@ -501,6 +500,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         $(" #uploadArea").attr('style', "display:none");
         $(" #uploadObject").attr('style', "display:block");
 
+
     },
 //    newCollection: function()
 //    {
@@ -515,6 +515,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('uploadChecking', !this.get('uploadChecking'));
     },
     editingContactForm: function() {
+        this.sendEventTracking('event', 'button', 'click', 'Contact us');
         var contactController = this.get('controllers.contact');
 
         contactController.setSelectedMega(this.get('currentUserID'));
@@ -574,10 +575,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var profile_id = this.get('model').get('id');
         if (this.checkFollowStatus() === false) {
             this.get("controllers.userFollowings").followProfile(profile_id);
+            this.sendEventTracking('event', 'button', 'click', 'Follow');
             this.set('follow_status', true);
-            //this.get('controllers.profile')
         } else {
             this.get("controllers.userFollowings").unFollowProfile(profile_id);
+            this.sendEventTracking('event', 'button', 'click', 'unFollow');
             this.set('follow_status', false);
         }
 
@@ -621,6 +623,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     selectCollection: function() {
         //$(window).scrollTop(1500);
+        this.sendEventTracking('event', 'button', 'click', 'Collections');
         this.set('partnerPage', 'Collections');
         this.set('profileSelectionStatus', 'Collections');
         this.set('partnerTag', false);
@@ -632,6 +635,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     selectPartner: function(model) {
         $(window).scrollTop(1500);
+        this.sendEventTracking('event', 'button', 'click', 'Partners');
         HubStar.set("lastPositionId", model.id);
         this.set('profileSelectionStatus', 'Partners');
         this.get('controllers.profilePartners').getClientId(model);
@@ -645,6 +649,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     selectFollower: function(model) {
         $(window).scrollTop(1500);
+        this.sendEventTracking('event', 'button', 'click', 'Followers');
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#follow').addClass('selected-user-stats');
         this.set('profileSelectionStatus', 'Followers');
@@ -705,7 +710,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set('profile_analytics_code', this.get('profile_analytics_code'));
         update_profile_record.set('profile_contact_number', this.get('profile_contact_number'));
         update_profile_record.set('profile_contact_first_name', this.get('first_name'));
-        update_profile_record.set('profile_street_address', this.get('address'));
+        update_profile_record.set('profile_physical_address', this.get('address'));
         update_profile_record.set('profile_suburb', this.get('suburb'));
         update_profile_record.set('profile_contact_last_name', this.get('last_name'));
         update_profile_record.set("profile_name", this.get('profile_name'));
@@ -970,6 +975,16 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     {
         if (this.get('website_url') !== null && this.get('website_url') !== "") {
             window.open(this.get('website_url'));
+        }
+    },
+    sendEventTracking: function(hitType, category, action, label){
+        if (this.isTracking) {
+            ga(this.get('model').get('id') + '.send', {
+                'hitType': hitType,
+                'eventCategory': category,
+                'eventAction': action,
+                'eventLabel': label
+            });
         }
     }
 

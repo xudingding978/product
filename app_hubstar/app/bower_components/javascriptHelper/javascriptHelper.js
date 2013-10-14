@@ -5,9 +5,9 @@
 function getRestAPIURL()
 {
     var api_url = document.domain;
-    var api_domain_start_pos = api_url.indexOf('.');
-    var api_url = api_url.slice(api_domain_start_pos);
-    api_url = "http://develop-api" + api_url;
+//    var api_domain_start_pos = api_url.indexOf('.');
+//    var api_url = api_url.slice(api_domain_start_pos);
+    api_url = "http://api." + api_url;
     return api_url;
 }
 

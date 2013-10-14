@@ -29,12 +29,12 @@ HubStar.UserMessageController = Ember.Controller.extend({
 //          var msg = model.get("messages");
 //          this.set("contentMsg",msg);
 //                console.log(msg);
-this.getClientId(message);
+        this.getClientId(message);
 
     },
     getClientId: function(id) {
         this.set('clientID', id);
-     this.set('loadingTime', true);
+        this.set('loadingTime', true);
         var data = this.get('clientID');
         var dataNew = new Array();
         var that = this;
@@ -44,6 +44,7 @@ this.getClientId(message);
             for (var i = 0; i < params.length; i++)
             {
                 //console.log(params[i]);
+                //First reply message and it is the last one of message and it contail the reply message collection
                 dataNew["message_id"] = params[i]["message_id"];
                 var length = params[i]["replyMessageCollection"].length - 1;
                 dataNew["reply_id"] = params[i]["replyMessageCollection"][length]["reply_id"];
@@ -56,7 +57,7 @@ this.getClientId(message);
                 dataNew["enableToEdit"] = params[i]["replyMessageCollection"][length]["enableToEdit"];
                 if (params[i]["replyMessageCollection"][length]["user_id"] === localStorage.loginStatus)
                 {
-                    dataNew["isUserself"] = true;
+                    dataNew["isUserself"] = true; //dataNew["isUserself"] is true , which means it is the login users is the same as the user page owner
                 }
                 if (params[i]["replyMessageCollection"][length]["url"] !== null)
                 {
@@ -68,13 +69,13 @@ this.getClientId(message);
                 }
 
 
-                dataNew["replyMessageCollection"] = new Array();
+                dataNew["replyMessageCollection"] = new Array();  //
                 for (var j = 0; j < params[i]["replyMessageCollection"].length - 1; j++)
                 {
                     var dataReply = new Array();
 
                     dataReply["reply_id"] = params[i]["replyMessageCollection"][j]["reply_id"];
-                    
+
                     dataReply["user_id"] = params[i]["replyMessageCollection"][j]["user_id"];
                     dataReply["time_stamp"] = params[i]["replyMessageCollection"][j]["time_stamp"];
                     dataReply["msg"] = params[i]["replyMessageCollection"][j]["msg"];
@@ -99,7 +100,7 @@ this.getClientId(message);
                 that.get("contentMsg").pushObject(dataNew);
                 dataNew = new Array();
             }
-  that.set('loadingTime', false);
+            that.set('loadingTime', false);
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reload");
             }, 200);

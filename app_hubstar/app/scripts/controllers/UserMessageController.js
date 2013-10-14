@@ -34,7 +34,7 @@ this.getClientId(message);
     },
     getClientId: function(id) {
         this.set('clientID', id);
-
+     this.set('loadingTime', true);
         var data = this.get('clientID');
         var dataNew = new Array();
         var that = this;
@@ -73,14 +73,15 @@ this.getClientId(message);
                 {
                     var dataReply = new Array();
 
-                    dataNew["reply_id"] = params[i]["replyMessageCollection"][j]["reply_id"];
+                    dataReply["reply_id"] = params[i]["replyMessageCollection"][j]["reply_id"];
+                    
                     dataReply["user_id"] = params[i]["replyMessageCollection"][j]["user_id"];
                     dataReply["time_stamp"] = params[i]["replyMessageCollection"][j]["time_stamp"];
                     dataReply["msg"] = params[i]["replyMessageCollection"][j]["msg"];
                     dataReply["user_name"] = params[i]["replyMessageCollection"][j]["user_name"];
                     dataReply["photo_url_large"] = params[i]["replyMessageCollection"][j]["photo_url_large"];
                     dataReply["url"] = params[i]["replyMessageCollection"][j]["url"];
-                    dataNew["enableToEdit"] = params[i]["replyMessageCollection"][j]["enableToEdit"];
+                    dataReply["enableToEdit"] = params[i]["replyMessageCollection"][j]["enableToEdit"];
                     if (params[i]["replyMessageCollection"][j]["url"] !== null)
                     {
                         dataReply["isUrl"] = true;
@@ -98,7 +99,7 @@ this.getClientId(message);
                 that.get("contentMsg").pushObject(dataNew);
                 dataNew = new Array();
             }
-
+  that.set('loadingTime', false);
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reload");
             }, 200);

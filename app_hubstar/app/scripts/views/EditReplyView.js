@@ -3,9 +3,9 @@
  * and open the template in the editor.
  */
 
-HubStar.MessageView = Ember.View.extend({
+HubStar.EditReplyView = Ember.View.extend({
 
-  templateName: 'message'
+  templateName: 'editReply'
 
     });
 

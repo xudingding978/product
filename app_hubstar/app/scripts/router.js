@@ -1,9 +1,5 @@
 var Router = Ember.Router.extend(
-
-
-
         );
-
 HubStar.Router.map(function() {
     this.resource("index", {path: '/'}, function() {
         this.resource("indexIndex", {path: '/'});
@@ -24,13 +20,14 @@ HubStar.Router.map(function() {
         });
         this.resource("user", {path: '/users/:user_id'}, function() {
             this.resource("collection", {path: ':collection_id'});
-            this.resource("userMessage", {path: '/messages'});
+            this.resource("userMessage", {path: '/messages'}, function() {
+                this.resource("userMessageIndex", {path: '/'});
+            });
         });
         this.resource("users", function() {
             this.resource("usersIndex", {path: '/'});
-
         });
-        this.resource("searchs", {path: "/search"}, function( ) {
+        this.resource("searchs", {path: "/search"}, function() {
             this.resource("searchIndex", {path: '/'});
             this.resource('search', {path: ':search_id'});
         });
@@ -43,9 +40,5 @@ HubStar.Router.map(function() {
         this.resource("comingSoon", {
             path: "/comingsoon"
         });
-
     });
-
-
-
 });

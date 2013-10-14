@@ -54,10 +54,7 @@ HubStar.EditMessageController = Ember.Controller.extend({
                 var date = new Date();
                 var newStyleImage = "";
                 var imageStyleName = "";
-//                this.set("newStyleImageSource", this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("url"));
-//                setTimeout(function() {
-//                    $('#masonry_user_container').masonry("reload");
-//                }, 200);
+
                 if (this.get("newStyleImageSource") !== undefined || this.get("newStyleImageSource") !== null || this.get("newStyleImageSource") !== "")
                 {
                     newStyleImage = this.get("newStyleImageSource");
@@ -87,7 +84,7 @@ HubStar.EditMessageController = Ember.Controller.extend({
 
                 tempComment = JSON.stringify(tempComment);
                 var that = this;
-
+           
                 requiredBackEnd('messages', 'UpdateMessage', tempComment, 'POST', function(params) {
 
 
@@ -97,11 +94,17 @@ HubStar.EditMessageController = Ember.Controller.extend({
                         {
                             that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("msg", params["msg"]);
                             that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("url", params["url"]);
-                            console.log(params["msg"]);
-                            console.log(params["url"]);
-                            console.log(params["time_stamp"]);
                             that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("time_stamp", params["time_stamp"]);
                             that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("enableToEdit", false);
+                            if (params["url"] !== null)
+                            {
+                                that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("isUrl", true);
+                            }
+                            else
+                            {
+                                 that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("isUrl", false);
+                            }
+
                         }
                     }
                     setTimeout(function() {
@@ -115,6 +118,10 @@ HubStar.EditMessageController = Ember.Controller.extend({
             }
         }
 
+    },
+    updatePhotoUrl: function(id)
+    {
+        console.log(id);
     },
     profileStyleImageDrop: function(e, name)
     {

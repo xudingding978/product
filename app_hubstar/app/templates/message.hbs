@@ -1,7 +1,8 @@
+
 <div class="Message-Board_comment-item" style=''>
     {{#unless model.enableToEdit}}
 
-    
+
     <div class="comment-position">
         <a class="profilepic-comment-container" >
             <img class="profilepic_comment" {{bindAttr src= model.photo_url_large}} />
@@ -10,7 +11,7 @@
             <div class="comment-namentime">
                 <div class="namentime_position">
                     <a class="comment-username"  >
-                        {{model.user_name}}
+                        {{model.user_name }} {{model.url}}
                     </a>
                     <div class="posttime-container">
                         <span class="posttime">{{model.time_stamp}}</span>
@@ -46,9 +47,18 @@
 
 
     </div>
+    <script>
+        $(function() {
+            var $container = $('#masonry_user_container');
+            window.setTimeout(function() {
+                $container.masonry();
+                $container.masonry('reload');
+            }, 10);
+        });
+    </script>
     {{else}}
-    
-            {{render editMessage model.message_id}}
+
+    {{render editMessage model}}
     {{/unless}}
 
     <div class="comment-frame"  style="padding: 0 0 0 40px;border: none;">
@@ -80,6 +90,7 @@
         </div>
     </div>
     {{#each  model.replyMessageCollection}} 
+    {{#unless this.enableToEdit}}
     <div class="your-relpy">
         <a class="your-relpy_profilepic" >
             <img class="profilepic_comment"  {{bindAttr src= this.photo_url_large}} />
@@ -91,11 +102,16 @@
                         {{this.user_name}}    
                         {{#if this.isUserself}}
                         <i class="icon-trash"  {{action removeReply this.reply_id}}></i>
+                        <div class='hint--left hint--rounded' data-hint='Edit Comment Info' style="position: absolute;font-size: 15px;right: 10px;margin: 1px;">
+                            <i class="icon-edit" {{action editingReplyData this.reply_id}}></i>
+                        </div>
                         {{else}}
                         {{#if controller.isUserself}}
-                        <div class="reply-comment">
-                            <a class = "reply-comment-button" >reply</a>
-                            <i class="icon-trash"  {{action removeMessage model.message_id}}></i>
+                        <div class="reply-comment">                         
+                            <i class="icon-trash"  {{action removeReply this.reply_id}}></i>
+                        </div>
+                        <div class='hint--left hint--rounded' data-hint='Edit Comment Info' style="position: absolute;font-size: 15px;right: 10px;margin: 1px;">
+                            <i class="icon-edit" {{action editingReplyData this.reply_id}}></i>
                         </div>
                         {{/if}}
                         {{/if}}
@@ -113,6 +129,18 @@
             </div>
         </div>
     </div>
+    {{else}}
 
+    {{render editReply this}}
+    {{/unless}}
     {{/each}}         
 </div>
+<script>
+        $(function() {
+            var $container = $('#masonry_user_container');
+            window.setTimeout(function() {
+                $container.masonry();
+                $container.masonry('reload');
+            }, 10);
+        });
+    </script>

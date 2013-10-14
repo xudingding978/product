@@ -40,10 +40,19 @@ HubStar.MessageController = Ember.Controller.extend({
 
         }
     },
+    editingReplyData: function(id) {
+         for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
+        {
+            for (var j=0; j<this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").length;j++)
+            if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("reply_id") === id)
+            {
+                this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("enableToEdit", true);
+                break;
+            }
+        }
+    },
     removeReply: function(reply_id)
     {
-
-
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
 

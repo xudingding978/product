@@ -37,9 +37,8 @@
                 <div class="corpbanner_mask" style="background: url('../images/bannershadow.png') repeat-x; position: absolute;bottom:0; width: 100%; height: 200px;">
                     <div class="corpbanner_content" style="position: absolute;bottom:0;margin-left: 30%;width: 70%;">
                         <div class="main_title" style="height: 100px;">
+
                             <div>
-
-
                                 {{#if controller.editing}}
                                 <div style="display: inline-block; width: 350px;">
 
@@ -62,6 +61,7 @@
                             </div>
 
 
+
                             <div class="contactmebtn hint--bottom hint--rounded easing" data-hint="Share this profile!" >
                                 <a class="contactmeicon easing" {{action dropdownPhotoSetting}}><i class="icon-share-alt easing" style="font-size: 19px;"></i></a>
                             </div>
@@ -81,6 +81,25 @@
                 <!--contact me-->
                 <div class="contactmebtn hint--bottom hint--rounded easing" data-hint="Contact us!">
                     <a class="contactmeicon easing" {{action editingContactForm }}><i class="icon-envelope easing" style="font-size: 18px;"></i></a>
+
+                            <!--STAR RATING-->
+
+                            <div class="rating">
+                                <span class="star"></span>
+                                <span class="star"></span>
+                                <span class="star"></span>
+                                <span class="star"></span>
+                                <span class="star"></span>
+                            </div>
+
+                            <!--contact me-->
+                            <div class="contactmebtn hint--left hint--rounded" data-hint="Contact us!">
+                                <a class="contactmeicon" {{action editingContactForm }}><img src="../images/mail_24dark.png"/></a>
+                            </div>
+
+                        </div>
+                    </div>
+
                 </div>
 
             </div>
@@ -216,7 +235,6 @@
 
                                 </table>
                                 {{#unless controller.editingContact}}
-
 
                                 {{else}}
                                 <div class="buttons" style="position: relative;display: block;margin: 10px auto 0;text-align: center;">
@@ -881,6 +899,7 @@
                         {{/if}} 
                         <a href="#tab1" data-toggle="tab" {{action resetNewStyleImageSource}}><span class="new-btn">Close</span></a>
 
+
                     </div>
                 </div>
                 {{/view}}
@@ -911,9 +930,11 @@
 
                         <div class="" style="margin-top: 20px;">
 
+
                             <div class="controlbtn" style="left: 34%;">
                                 <span class="new-btn green-btn " {{action photoUpload}} ><k class='icon-save'> &nbsp;Save</span>
                                 <a href="#tab1" data-toggle="tab"{{action resetNewStyleImageSource}}>   <span class="new-btn" >Back</span> </a>
+
                             </div>
                         </div>
                         {{/if}}

@@ -111,6 +111,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     projectDeleteDropdownContent: '',
     message: null,
     makeSureDelete: false,
+    popUpMap:false,
     willDelete: false,
     profile_partner_ids: null,
     isTracking: false,
@@ -158,6 +159,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('first_name', profile.get('profile_contact_first_name'));
         this.set('address', profile.get('profile_physical_address'));
        this.createGooglemap();
+       
+       console.log('bbbb');
         this.set('suburb', profile.get('profile_suburb'));
         this.set('last_name', profile.get('profile_contact_last_name'));
         this.set("profile_name", profile.get("profile_name"));
@@ -195,7 +198,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 //        }
 
     },
-            
+             
             
             createGooglemap:function(){
         
@@ -217,10 +220,17 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 //                            HubStar.store.save();
 //
 //                        });
-
+console.log('aaa');
             });
         
             },
+                    
+                    
+                    popUpGoogleMap: function(){
+                
+                this.set('popUpMap', true);
+                
+                    },
     followerPhoto: function(id)
     {
         var dataNew = new Array();
@@ -734,8 +744,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set("profile_name", this.get('profile_name'));
         update_profile_record.set("profile_isActive", this.get("projectActiveDropdownContent"));
         update_profile_record.set("profile_isDeleted", this.get("projectDeleteDropdownContent"));
-        update_profile_record.set("profile_google_map", this.get("google_map"));
-             console.log(this.get('profile_google_map'));   
+//        update_profile_record.set("profile_google_map", this.get("google_map"));
+    this.createGooglemap();
+           console.log('profile_google_map');
+             console.log(update_profile_record.get('profile_google_map'));   
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
         if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
             update_profile_record.get('stateManager').transitionTo('loaded.saved');

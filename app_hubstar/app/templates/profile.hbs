@@ -204,16 +204,63 @@
                                             </div>
                                             {{/unless}}
 
-                                        </div>
+                                        </div> 
+                                        
                                         <!--PROFILE HOURS SECTION-->
                                         
-                                            <div  style=" margin-top:20px;margin-left:10px; width: 300px;height: 250px;">
-                                                <img  {{bindAttr src="google_map"}} style="width: 100%; height:auto;">
+                                 <div class="aside-container" style="border-bottom:0 none;border-top: 1px solid #fff;">
+                                            <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-time' style='margin-right: 10px;'></i>Hours</div>
+
+                                            {{#unless controller.editingTime}}
+                                            {{#if controller.is_authentic_user}}
+                                            <div class="edit-btn easinghint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing  model.profile_name controller.timeSetting}}>
+                                                 <i class="icon-edit"></i>
                                             </div>
-                         
-                         
+                                            {{/if}}
+                                            {{/unless}}
+
+                                            {{#each controller.hours}}
+
+                                            <table id="aside_contact">
+                                                {{#unless controller.editingTime}}
+                                                <tbody style="display: inline-block; vertical-align: top;">
+                                                    <tr style="">
+                                                        <th>{{day}}</th>
+                                                        {{else}}
+                                                        {{input type="text" class="inserthours-day" value=day}}
+                                                        {{/unless}}
+
+                                                        {{#unless controller.editingTime}}
+                                                        <th class="Contact_2child">{{time}}</th>
+                                                        {{else}}
+                                                        {{input type="text" class="inserthours-time" value=time  }}
+                                                        {{/unless}}
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+
+                                            {{/each}}
+                                            {{#if controller.editingTime}}
+
+                                            <div style="width: 75px;margin: auto;">
+                                                <div class="new-btn blue-btn"{{action yes controller.timeSetting}}><i class="icon-ok icon-white"></i></div>
+                                                <div class="new-btn"{{action no controller.timeSetting}}><i class="icon-remove icon-white"></i></div>
+                                            </div>
+                                            {{/if}}
+                                        </div>
+                                       <!--PROFILE GOOGLEMAP SECTION--> 
+                                    
+                                               <div class="aside-container" style="border-bottom:0 none;border-top: 1px solid #fff;">
+                                            <div id="google-map"  style=" margin-top:20px;margin-left:10px; width: 300px;height: 250px;"  >
+                                                <img  {{bindAttr src="google_map"}} style="width: 100%; height:auto;" {{action popUpGoogleMap}}>
+                                            </div>
+                                        </div>
+                          
                                     </div>
                                 </div>
+                                
+                           
                             </td><!--LEFT COL ENDS -->
 
                             <!--RIGHT COL BEGINS -->
@@ -913,6 +960,14 @@
 
 
         {{/if}}
+        
+            {{#if controller.popUpMap}}
+
+        {{view HubStar.GoogleMapPopupView}}
+
+
+        {{/if}}
+        
 
 <script>
 //      function initialize() {

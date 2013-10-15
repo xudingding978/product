@@ -37,9 +37,8 @@
                 <div class="corpbanner_mask" style="background: url('../images/bannershadow.png') repeat-x; position: absolute;bottom:0; width: 100%; height: 200px;">
                     <div class="corpbanner_content" style="position: absolute;bottom:0;margin-left: 30%;width: 70%;">
                         <div class="main_title" style="height: 100px;">
+
                             <div>
-
-
                                 {{#if controller.editing}}
                                 <div style="display: inline-block; width: 350px;">
 
@@ -61,7 +60,19 @@
                                 {{/if}}
                             </div>
                             
-                              <div class="new-btn blue-btn"{{action rateEditing}}>Rate</div>
+                           
+
+                            <!--STAR RATING-->
+
+                            <div class="rating">
+                                <span class="star"></span>
+                                <span class="star"></span>
+                                <span class="star"></span>
+                                <span class="star"></span>
+                                <span class="star"></span>
+                            </div>
+                            
+                               <div class="new-btn blue-btn"{{action rateEditing}}>Rate</div>
                             <input class="star {split:2}" type="radio" name="test-4-rating-3" value="0.5"/>
                             <input class="star {split:2}" type="radio" name="test-4-rating-3" value="1.0"/>
                             <input class="star {split:2}" type="radio" name="test-4-rating-3" value="1.5"/>
@@ -78,7 +89,6 @@
                                 <a class="contactmeicon" {{action editingContactForm }}><img src="../images/mail_24dark.png"/></a>
                             </div>
 
-                          
 
                         </div>
                     </div>

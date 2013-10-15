@@ -657,7 +657,7 @@ textarea.add-interests{
 
 .LatestFollower{
     text-align: center;
-    width: 275px;
+    width: 300px;
     height: 35px;
     margin: 10px auto;
 
@@ -769,7 +769,12 @@ textarea.add-interests{
 
 .your-relpy .namentime_position{margin:0 0 0 70px}
 .your-relpy .comment-content{margin-left: 40px;}
-.Message-Board_comment-item .comment-position{padding: 10px 0 10px 43px;}
+.Message-Board_comment-item .comment-position{
+    padding: 10px 0 10px 43px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+    min-height: 90px;
+}
 
 .Message-Board_comment-item .masonry_addcommnetbox-container{width: 430px; margin-left: 20px;}
 

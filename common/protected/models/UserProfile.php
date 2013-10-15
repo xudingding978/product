@@ -48,7 +48,7 @@ class UserProfile extends CActiveRecord {
         return parent::model($className);
     }
     
-        /**
+      /**
      * @return CDbConnection database connection
      */
     public function getDbConnection() {

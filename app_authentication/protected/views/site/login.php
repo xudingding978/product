@@ -32,7 +32,6 @@ $this->breadcrumbs = array(
         <div class="row">
             <?php echo $form->labelEx($model, 'username', array('class' => '', 'style' => 'display:inline-block;')); ?>
             <?php echo $form->textField($model, 'username', array('class' => 'inputbox')); ?>
-
         </div>
 
         <div class="row">

@@ -102,4 +102,8 @@ class Controller extends CController {
         return (isset($codes[$status])) ? $codes[$status] : '';
     }
 
+    public function getTest() {
+        return 'test';
+    }
+
 }

@@ -1435,7 +1435,7 @@ HubStar.SearchRoute = Ember.Route.extend({
 
 HubStar.SearchsRoute = Ember.Route.extend({
         setupController: function() {
-
+            console.log('searchsRoute');
             this.controllerFor('searchs').defaultSearch();
             this.controllerFor('index').setLogin();
 
@@ -3670,9 +3670,9 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             if (results.get('isLoaded')) {
                 for (var i = 0; i < this.get("length"); i++) {
                     var tempmega = results.objectAt(i);
-                    var tempID = tempmega.get('collection_id').toLowerCase().replace(/ /g, "-");
-                    var tempCollectionID = that.get('collection_id').toLowerCase().replace(/ /g, "-");
-                    if ((tempmega.get('photo').get('length') === 1) && (tempID === tempCollectionID))
+//                    var tempID = tempmega.get('collection_id').toLowerCase().replace(/ /g, "-");
+//                    var tempCollectionID = that.get('collection_id').toLowerCase().replace(/ /g, "-");                 //there are lots of wrong collection_id for the photo data, remove the restriction first and waiting for Ray to fix all the wrong data
+                    if (tempmega.get('photo').get('length') === 1) //&& (tempID === tempCollectionID))
                     {
                         that.get("content").pushObject(tempmega);
                     }
@@ -5969,7 +5969,7 @@ HubStar.SearchsController = Ember.ArrayController.extend({
         defaultSearch: function() {
             this.set("loginInfo", localStorage.loginStatus);
             this.setLoginImge();
-            var results = HubStar.Mega.find({});
+            var results = HubStar.Mega.find({"RquireType": "defaultSearch"});
             this.set("content", results);
         },
         getResponseTime: function(start, end) {
@@ -6571,7 +6571,7 @@ HubStar.UserController = Ember.Controller.extend({
 
         }
         var checkList = new Array();
-        var result;
+        var result = true; 
         var displayName = new checkObject("displayName", this.get('display_name'), 128, null);
 
         checkList.push(displayName);
@@ -6614,20 +6614,8 @@ HubStar.UserController = Ember.Controller.extend({
                     break;
                 }
             }
-
-//            if (checkList[i].input !== null && checkList[i].isEmailValid === true)
-//            {
-//                if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
-//                    result = true;
-//                }
-//                else {
-//                    result = false;
-//                    document.getElementById(checkList[i].id).setAttribute("class", "error-textfield");
-////                    document.getElementById(checkList[i].id).style.border = '2px solid red';
-//                    break;
-//                }
-//            }
         }
+       
         return result;
     },
     saveSociallinkUpdate: function() {

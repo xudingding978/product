@@ -21,17 +21,12 @@
                 <div class="reply-comment">
 
                     <div class="show-comment_inner"  id="showMoreComment_{{unbound model.message_id}}"   {{action seeMore model.message_id target="view" on="click"}}>
-                        
                         <span class="reply-comment-button"> reply  <i class="icon-angle-down"></i></span>
                     </div>
-
-
                     <div class="show-comment_inner" id="closeComment_{{unbound model.message_id}}"   style="display: none" {{action closeMore model.message_id  target="view" on="click"}}>
-                        
                         <span class="reply-comment-button"> reply  <i class="icon-angle-up"></i></span>
                     </div>
 
-                    
                     <i class="icon-trash"  {{action removeMessage model.message_id}}></i>                 
                 </div>
                 <div class='hint--left hint--rounded' data-hint='Edit Comment Info' style="position: absolute;font-size: 15px;right: 10px;margin: 1px;">
@@ -40,19 +35,13 @@
                 {{else}}
                 {{#if controller.isUserself}} <!--controller.isUserself is used to judge whether it is the page owner who have right to delete every message-->
                 <div class="reply-comment">
-                    
                     <div class="show-comment_inner"  id="showMoreComment_{{unbound model.message_id}}"   {{action seeMore model.message_id target="view" on="click"}}>
-                        
                         <span class="reply-comment-button"> reply  <i class="icon-angle-down"></i></span>
                     </div>
-
-
                     <div class="show-comment_inner" id="closeComment_{{unbound model.message_id}}"   style="display: none" {{action closeMore model.message_id  target="view" on="click"}}>
-                        
                         <span class="reply-comment-button"> reply  <i class="icon-angle-up"></i></span>
                     </div>
-                    
-                    
+
                     <i class="icon-trash"  {{action removeMessage model.message_id}}></i>
                 </div>   
                 <div class='hint--left hint--rounded' data-hint='Edit Comment Info' style="position: absolute;font-size: 15px;right: 10px;margin: 1px;">
@@ -160,14 +149,14 @@
         {{/each}}         
     </div>
     <script>
-    $(function() {
-        var $container = $('#masonry_user_container');
-        window.setTimeout(function() {
-            $container.masonry();
-            $container.masonry('reload');
-        }, 10);
-    });
-</script>
+        $(function() {
+            var $container = $('#masonry_user_container');
+            window.setTimeout(function() {
+                $container.masonry();
+                $container.masonry('reload');
+            }, 10);
+        });
+    </script>
 </div>
 <script>
     $(function() {

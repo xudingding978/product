@@ -20,9 +20,7 @@ HubStar.Router.map(function() {
         });
         this.resource("user", {path: '/users/:user_id'}, function() {
             this.resource("collection", {path: ':collection_id'});
-            this.resource("userMessage", {path: '/messages'}, function() {
-                this.resource("userMessageIndex", {path: '/'});
-            });
+            this.resource("userMessage", {path: '/messages'});
         });
         this.resource("users", function() {
             this.resource("usersIndex", {path: '/'});

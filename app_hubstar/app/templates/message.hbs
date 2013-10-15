@@ -3,14 +3,14 @@
     {{#unless model.enableToEdit}}  <!-- enableToEdit is just whether allow to modify-->
 
 
-    <div class="comment-position">
-        <a class="profilepic-comment-container" >
+    <div class="comment-position">   
+        <a class="profilepic-comment-container"   href="#/users/{{unbound model.user_id}}">
             <img class="profilepic_comment" {{bindAttr src= model.photo_url_large}} />
         </a>
         <div style="">
             <div class="comment-namentime">
                 <div class="namentime_position">
-                    <a class="comment-username"  >
+                    <a class="comment-username"   href="#/users/{{unbound model.user_id}}">
                         {{model.user_name }} 
                     </a>
                     <div class="posttime-container">
@@ -38,7 +38,7 @@
                     <i class="icon-edit" {{action editingCommentData model.message_id}}></i>
                 </div>
                 {{else}}
-                {{#if controller.isUserself}} <!--controller.isUserself is used to judge whether the reply message is written by the current login user-->
+                {{#if controller.isUserself}} <!--controller.isUserself is used to judge whether it is the page owner who have right to delete every message-->
                 <div class="reply-comment">
                     
                     <div class="show-comment_inner"  id="showMoreComment_{{unbound model.message_id}}"   {{action seeMore model.message_id target="view" on="click"}}>
@@ -116,13 +116,13 @@
         {{#each  model.replyMessageCollection}} 
         {{#unless this.enableToEdit}}
         <div class="your-relpy">
-            <a class="your-relpy_profilepic" >
+            <a class="your-relpy_profilepic" href="#/users/{{unbound this.user_id}}">
                 <img class="profilepic_comment"  {{bindAttr src= this.photo_url_large}} />
             </a>
             <div style="">
                 <div class="comment-namentime">
                     <div class="namentime_position">
-                        <a class="comment-username"  >
+                        <a class="comment-username"  href="#/users/{{unbound this.user_id}}">
                             {{this.user_name}}    
                             {{#if this.isUserself}}
                             <i class="icon-trash"  {{action removeReply this.reply_id}}></i>

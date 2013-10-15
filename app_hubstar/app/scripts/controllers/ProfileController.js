@@ -220,7 +220,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 //                            HubStar.store.save();
 //
 //                        });
-console.log('aaa');
             });
         
             },
@@ -228,8 +227,29 @@ console.log('aaa');
                     
                     popUpGoogleMap: function(){
                 
-                this.set('popUpMap', true);
+           //    this.set('popUpMap', true);
                 
+           geocoder = new google.maps.Geocoder();          
+        var map_canvas = document.getElementById('map_canvas');
+       
+       
+      var address = this.get('model').get("profile_physical_address")+ ", " + this.get('model').get("profile_suburb") + ", " + this.get('model').get("profile_regoin") + ", " + this.get('model').get('profile_country');
+       geocoder.geocode({'address': address}, function(results) {
+              var map_options = {
+          center: results[0].geometry.location,
+          zoom: 15,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        } 
+        
+        var map = new google.maps.Map(map_canvas, map_options)
+         var marker = new google.maps.Marker({    
+              map: map,     
+              position: results[0].geometry.location,    
+               title:'Your position'  
+          });   
+    
+            });
+        
                     },
     followerPhoto: function(id)
     {

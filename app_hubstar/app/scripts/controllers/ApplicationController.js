@@ -31,7 +31,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('search_string', '');
         var address = document.URL;
         var domain = address.split("/")[2];
-console.log(this.controllerFor('user').get('model'));
     },
     popupModal: function() {
         this.set('popup', !this.get('popup'));

@@ -19,6 +19,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     model: null,
     aboutMe: "aboutMe",
     isAboutUs: false,
+    rateTime: false,
     about_me: "",
     address: "",
     suburb: "",
@@ -905,6 +906,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         return "test";
 
     },
+            rateEditing: function(){
+        console.log(this.get("rateTime"));
+         this.set("rateTime", true);
+         console.log(this.get("rateTime"));
+            },
+           
+            
     setCollectionAttr: function() {
         this.set("newTitle", this.get('selectedCollection').get('title'));
         this.set("newDesc", this.get('selectedCollection').get('desc'));

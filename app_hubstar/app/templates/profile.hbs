@@ -60,12 +60,25 @@
                                 {{/if}}
                                 {{/if}}
                             </div>
+                            
+                              <div class="new-btn blue-btn"{{action rateEditing}}>Rate</div>
+                            <input class="star {split:2}" type="radio" name="test-4-rating-3" value="0.5"/>
+                            <input class="star {split:2}" type="radio" name="test-4-rating-3" value="1.0"/>
+                            <input class="star {split:2}" type="radio" name="test-4-rating-3" value="1.5"/>
+                            <input class="star {split:2}" type="radio" name="test-4-rating-3" value="2.0"/>
+                            <input class="star {split:2}" type="radio" name="test-4-rating-3" value="2.5"/>
+                            <input class="star {split:2}" type="radio" name="test-4-rating-3" value="3.0"/>
+                            <input class="star {split:2}" type="radio" name="test-4-rating-3" value="3.5" checked="checked"/>
+                            <input class="star {split:2}" type="radio" name="test-4-rating-3" value="4.0"/>
+                            <input class="star {split:2}" type="radio" name="test-4-rating-3" value="4.5"/>
+                            <input class="star {split:2}" type="radio" name="test-4-rating-3" value="5.0"/>
 
                             <!--contact me-->
                             <div class="contactmebtn hint--left hint--rounded" data-hint="Contact us!">
                                 <a class="contactmeicon" {{action editingContactForm }}><img src="../images/mail_24dark.png"/></a>
                             </div>
 
+                          
 
                         </div>
                     </div>
@@ -139,7 +152,7 @@
                                                     <th class="Contact_2child">{{first_name}} {{last_name}}</th>
                                                     {{/if}}
                                                 </tr>
-                                           
+
                                                 <tr>
                                                     <th>Address:</th>
                                                     {{#if controller.editingContact}}
@@ -862,7 +875,7 @@
                     </div>
                     {{/view}}
                     {{/if}}
-                   
+
                     {{#if controller.isPhotoEditingMode}}
                     <div class='' style='position:relative;height: 85px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 10px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>
                         <span style="position: relative;display: inline-block;font-size: 40px;margin: 10px 0;vertical-align: top;"><k class='icon-ok-circle'></k></span>
@@ -893,7 +906,7 @@
                                     <a href="#tab1" data-toggle="tab"{{action resetNewStyleImageSource}}>   <span class="new-btn" >Back</span> </a>
                                 </div>
                             </div>
-                             {{/if}}
+                            {{/if}}
                             {{#if controller.isFinished}}
                             <div class='' style='position:relative;height: 85px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 10px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>
                                 <span style="position: relative;display: inline-block;font-size: 40px;margin: 10px 0;vertical-align: top;"><k class='icon-ok-circle'></k></span>
@@ -951,3 +964,10 @@
         {{/if}}
 
 
+
+    {{#if controller.rateTime}}
+
+        {{view HubStar.RateFunctionView}}
+
+
+        {{/if}}

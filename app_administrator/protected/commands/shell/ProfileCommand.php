@@ -21,7 +21,10 @@ class ProfileCommand extends Controller_admin {
             $this->updateCouchbasePhoto();
         } elseif ($action == 'keyword') {
             $this->updateCouchbasePofileKeywords();
-        } else {
+        } elseif ($action == 'count') {
+            $this->checkNumber();
+        } else
+{
             echo "please input an action!!";
         }
 
@@ -139,7 +142,7 @@ class ProfileCommand extends Controller_admin {
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode("es1.hubsrv.com", 9200);
         $request = $sherlock->search();
-        $index = 'develop';
+        $index = 'temp';
         $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"lockwood\-nz\"")
                 ->default_field('couchbaseDocument.doc.owner_id');
         $must2 = Sherlock\Sherlock::queryBuilder()
@@ -151,7 +154,11 @@ class ProfileCommand extends Controller_admin {
         $request->from(0)
                 ->size(500);
         $request->query($bool);
+     //   print_r($bool);
+       
         $response = $request->execute();
+        
+        echo "number of file: " .count($response);
 
         //using raw
 //        $termQuery = Sherlock\Sherlock::queryBuilder()->Raw('{
@@ -202,19 +209,19 @@ class ProfileCommand extends Controller_admin {
                 "accessed_readable has been changed from " . $record_accessed_readable . " to " . $result_arr["accessed_readable"] . "\r\n" .
                 "updated_readable has been changed from " . $record_updated_readable . " to " . $result_arr["updated_readable"] . "\r\n" .
                 "\r\n";
-                $message = $id . "|" . $result_arr["type"] . "|" . '{"owner_id":'.'"'.$result_arr["owner_id"].'"'.', "old_collection_id": ' .'"'. $record_collection_id.'"' . ', "new_collection_id": ' . '"'.$result_arr["collection_id"].'"' . "}";
+                $message = $id . "|" . $result_arr["type"] . "|" . '{"owner_id":' . '"' . $result_arr["owner_id"] . '"' . ', "old_collection_id": ' . '"' . $record_collection_id . '"' . ', "new_collection_id": ' . '"' . $result_arr["collection_id"] . '"' . "}";
             } else {
                 echo $id . " fail to set the value into couchbase document! \r\n";
-                $message=$id . " fail to set the value into couchbase document! \r\n";
+                $message = $id . " fail to set the value into couchbase document! \r\n";
             }
-             $this->writeToLog($log_path, $message);
+            $this->writeToLog($log_path, $message);
         }
 
         echo "Number of Hits: " . count($response) . "\r\n";
         exit();
     }
-    
-     public function updateCouchbasePofileKeywords(){
+
+    public function updateCouchbasePofileKeywords() {
         $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
         $log_path = "/var/log/yii/$start_time.log";
         $message = "";
@@ -231,32 +238,33 @@ class ProfileCommand extends Controller_admin {
                 ->size(10000);
         $request->query($bool);
         $response = $request->execute();
-         foreach ($response as $hit) {
-                echo $hit["score"] . ' - ' . $hit['id'] . "\r\n";
+        foreach ($response as $hit) {
+            echo $hit["score"] . ' - ' . $hit['id'] . "\r\n";
+
             $timeStamp = $this->setUTC();
             $id = $hit['id'];
             $ch = $this->couchBaseConnection("temp");
             $result = $ch->get($id);
             //   if($result!= null){
             $result_arr = CJSON::decode($result, true);
-            
+
             $record_keywords = $result_arr["keywords"];
             $record_accessed = $result_arr["accessed"];
             $record_updated = $result_arr["updated"];
             $record_accessed_readable = $result_arr["accessed_readable"];
             $record_updated_readable = $result_arr["updated_readable"];
-            
-            if ($result_arr != null && $result_arr["profile"][0]["profile_keywords"]!=null && $result_arr["profile"][0]["profile_keywords"]!="") {
-                $result_arr["keywords"] = $result_arr["profile"][0]["profile_keywords"];
+
+            if ($result_arr != null && $result_arr["profile"][0]["profile_keywords"] != null && $result_arr["profile"][0]["profile_keywords"] != "") {
+                $tempKeyword = str_replace("\n", "", $result_arr["profile"][0]["profile_keywords"]);
+                $result_arr["keywords"] = str_replace("\r", "", $tempKeyword);
                 $result_arr["accessed"] = $timeStamp;
                 $result_arr["updated"] = $timeStamp;
                 $result_arr["accessed_readable"] = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
                 $result_arr["updated_readable"] = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
-                 
-            }else{
-                $message =$id . "|" . $result_arr["type"] . "|" . "Does not have keyword in its profile";
+            } else {
+                $message = $id . "|" . $result_arr["type"] . "|" . "Does not have keyword in its profile";
             }
-    
+
             if ($ch->set($id, CJSON::encode($result_arr))) {
                 echo "Document: " . $id . "\r\n" . "keywords has been changed from " . $record_keywords . " to " . $result_arr["keywords"] . "\r\n" .
                 "accessed has been changed from " . $record_accessed . " to " . $result_arr["accessed"] . "\r\n" .
@@ -264,18 +272,63 @@ class ProfileCommand extends Controller_admin {
                 "accessed_readable has been changed from " . $record_accessed_readable . " to " . $result_arr["accessed_readable"] . "\r\n" .
                 "updated_readable has been changed from " . $record_updated_readable . " to " . $result_arr["updated_readable"] . "\r\n" .
                 "\r\n";
-                $message = $id . "|" . $result_arr["type"] . "|" . '{"old_keywords": ' . '"'.$record_keywords.'"' . '; "new_keywords": ' . '"'.$result_arr["keywords"].'"' . "}";
+                $message = $id . "|" . $result_arr["type"] . "|" . '{"old_keywords": ' . '"' . $record_keywords . '"' . '; "new_keywords": ' . '"' . $result_arr["keywords"] . '"' . "}";
             } else {
                 echo $id . " fail to set the value into couchbase document! \r\n";
-                $message=$id . " fail to set the value into couchbase document! \r\n";
+                $message = $id . " fail to set the value into couchbase document! \r\n";
             }
-             $this->writeToLog($log_path, $message);
+            $this->writeToLog($log_path, $message);
+          
         }
 
         echo "Number of Hits: " . count($response) . "\r\n";
         exit();
-     }
-
+    }
+    
+    public function checkNumber(){
+         $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = "/var/log/yii/$start_time.log";
+         $ch = $this->couchBaseConnection("production");
+            $result = $ch->get("trendsideas.com/profiles/vision-wallcoverings-nz");
+             $result_arr = CJSON::decode($result, true);
+         //    print_r($result_arr) ;
+           // print_r("partner: ".$result_arr["profile"][0]["profile_partner_ids"]." over") ;
+            $partner_str=$result_arr["profile"][0]["profile_partner_ids"];
+            print_r($partner_str) ;
+            $partner_arr=  explode(",", $partner_str);
+            print_r($partner_arr);
+         //   print_r($partner_arr);
+            echo "Number of Hits: " . count($partner_arr) . "\r\n";
+            
+             $settings['log.enabled'] = true;
+        $sherlock = new \Sherlock\Sherlock($settings);
+        $sherlock->addNode("es1.hubsrv.com", 9200);
+        $request = $sherlock->search();
+        $index = 'production';
+        foreach ($partner_arr as $id){
+            
+        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"$id\"")
+                ->default_field('couchbaseDocument.doc.id');
+     
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
+        $request->index($index)->type("couchbaseDocument");
+        $request->from(0)
+                ->size(10);
+        $request->query($bool);
+  
+        $response = $request->execute();
+     //   error_log("start:\n".$request->toJSON()."\n". $id." has ".count($response)." found \n over \n");
+        if(count($response) === 0){
+            $message= $id ." can not be found in database ----------------------------";
+         
+        }
+        else{
+             $message= $id ." is found in the database";
+        }
+           $this->writeToLog($log_path, $message);
+        }
+        echo "over";
+    }
 
     private function createObjectArr($profile_arr) {
         $now = strtotime(date('Y-m-d H:i:s'));

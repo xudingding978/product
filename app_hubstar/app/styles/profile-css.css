@@ -784,6 +784,7 @@ textarea.add-interests{
     height: 100px;
     border: 1px solid #ddd;
     border-radius: 3px;
+    background-color: #fff;
 }
 
 .reply-comment-container textarea, .reply-comment-container textarea:focus{

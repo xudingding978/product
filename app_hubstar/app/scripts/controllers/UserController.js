@@ -682,6 +682,7 @@ HubStar.UserController = Ember.Controller.extend({
         }, 200);
     },
     selectFollower: function(model) {
+
         this.set('profileSelectionStatus', 'Followers');
         //this.get('controllers.userFollowers').getClientId(model);
         this.set('followingTag', false);

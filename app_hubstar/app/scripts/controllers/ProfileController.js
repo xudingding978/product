@@ -115,6 +115,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     willDelete: false,
     profile_partner_ids: null,
     isTracking: false,
+    isStatic:true,
     init: function() {
 
         this.set('is_authentic_user', false);
@@ -227,10 +228,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                     
                     popUpGoogleMap: function(){
                 
-           //    this.set('popUpMap', true);
-                
+          //    this.set('popUpMap', true);
+                this.set('isStatic',false);
            geocoder = new google.maps.Geocoder();          
-        var map_canvas = document.getElementById('map_canvas');
+    //    var map_canvas = document.getElementById('map_canvas');
        
        
       var address = this.get('model').get("profile_physical_address")+ ", " + this.get('model').get("profile_suburb") + ", " + this.get('model').get("profile_regoin") + ", " + this.get('model').get('profile_country');
@@ -241,7 +242,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
           mapTypeId: google.maps.MapTypeId.ROADMAP
         } 
         
-        var map = new google.maps.Map(map_canvas, map_options)
+        var map = new google.maps.Map(document.getElementById('map_canvas'), map_options)
          var marker = new google.maps.Marker({    
               map: map,     
               position: results[0].geometry.location,    

@@ -129,7 +129,7 @@ HubStar.EditReplyController = Ember.Controller.extend({
         this.set('newStyleImageSource', src);
         this.set('newStyleImageName', name);
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
+            $('#masonry_user_container').masonry("reloadItems");
         }, 200);
     }
 }

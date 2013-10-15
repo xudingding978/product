@@ -5,9 +5,8 @@
 
 {{/if}}
 {{#if controller.is_authentic_user}}
-<div class="box style-box t-style-box col2" id="addNew" style="z-index: 0">
-
-    <div id="uploadObject" {{action newCollection }}>
+<div class="box style-box t-style-box col2" id="addNew" style="z-index: 0">    
+    <div id="uploadObject" >
          <div class="add-new-object-hoverarea easing">
 
             <i class="icon-plus-sign"></i>
@@ -19,7 +18,7 @@
                 <i class="icon-picture"></i>
                 <i class="icon-film"></i>
             </div>
-
+          
         </div>
     </div>
     {{view HubStar.EditCollectionView}}

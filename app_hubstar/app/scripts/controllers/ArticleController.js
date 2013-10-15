@@ -3,6 +3,9 @@ HubStar.ArticleController = Ember.Controller.extend({
     content: [],
     image_no: 1,
     selectedPhoto: null,
+    captionTitle: "",
+    readCaption: true,
+    caption: '',
     needs: ['application', 'addCollection', 'contact'],
     init: function() {
     },
@@ -19,7 +22,6 @@ HubStar.ArticleController = Ember.Controller.extend({
         if (!this.get('selectedPhoto')) {
             this.set('selectedPhoto', this.get('content').get('lastObject'));
         }
-
         var selectedIndex = this.findSelectedItemIndex();
         selectedIndex--;
         if (selectedIndex < 0) {
@@ -32,6 +34,10 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
         this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
         this.selectedImage(this.get('selectedPhoto').id);
+        this.set('captionTitle', this.get('selectedPhoto').photo_title);
+        this.set('caption', this.get('selectedPhoto').photo_caption);
+        this.set('readCaption', false);
+        this.setCaption();
     },
     nextImage: function() {
         if (!this.get('selectedPhoto')) {
@@ -49,6 +55,10 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
         this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
         this.selectedImage(this.get('selectedPhoto').id);
+        this.set('captionTitle', this.get('selectedPhoto').photo_title);
+        this.set('caption', this.get('selectedPhoto').photo_caption);
+        this.set('readCaption', false);
+        this.setCaption();
     },
     selectImage: function(e) {
         this.set('megaResouce', HubStar.Mega.find(e));
@@ -72,13 +82,12 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set('megaResouce', megaResouce);
         this.addRelatedData(megaObject);
         this.getCommentsById(megaObject.id);
-
     },
     addComment: function() {
         var commentContent = this.get('commentContent');
         if (commentContent) {
             var comments = this.get('megaResouce').get('comments');
-            var commenter_profile_pic_url = this.get("currentUser").get('photo_url');
+            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
             var commenter_id = this.get("currentUser").get('id');
             var name = this.get("currentUser").get('display_name');
             var date = new Date();
@@ -118,6 +127,9 @@ HubStar.ArticleController = Ember.Controller.extend({
 //                        }
                     }
                     that.set('selectedPhoto', that.get('content').objectAt(0));                                                  //set selectedPhoto to the first photo
+
+                    that.set('captionTitle', that.get('selectedPhoto').photo_title);
+                    that.set('caption', that.get('selectedPhoto').photo_caption);
                 }
             });
         }
@@ -158,8 +170,26 @@ HubStar.ArticleController = Ember.Controller.extend({
     },
     closeContact: function() {
         this.set('contact', false);
-    }
-    , getTest: function() {
+    },
+    setCaption: function()
+    {
+        if (this.get("readCaption"))
+        {
+            $('#caption_action').animate({
+                left: -320
+            }, 800);
+
+            this.set("readCaption", false);
+        }
+        else
+        {
+            $('#caption_action').animate({
+                left: 0
+            }, 800);
+            this.set("readCaption", true);
+        }
+    },
+    getTest: function() {
 
         return "test";
 

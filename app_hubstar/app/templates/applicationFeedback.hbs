@@ -1,11 +1,12 @@
 
 {{#if controller.feedback}}
-<div id='appfeedback' style='position:fixed; z-index: 100000;'>
+<div id='appfeedback' style='position:fixed; z-index: 100000;text-align: center;top: -80px;width: 100%;'>
 
     {{#if controller.info}}
 
     <div  class="fresh-profile-pic"style="">
-        <img {{bindAttr src= this.photo_url}} style="height: 80px;width: 80px"/>
+        <img src="../../../images/trendsideas.jpg" style="height: 80px;width: 80px;z-index: 1;top: -3px;position: relative;"/>
+        <img {{bindAttr src= this.photo_url}} style="height: 80px;width: 80px;z-index: 2;position: absolute;top: -3px;left: 0;"/>
     </div>
     <div class="fresh-message">
         <k class="icon-info-sign"></k>
@@ -21,7 +22,8 @@
 
 
     <div class="fresh-profile-pic" style="">
-        <img {{bindAttr src= this.photo_url}} style="height: 80px;width: 80px"/>
+        <img src="../../../images/trendsideas.jpg" style="height: 80px;width: 80px;z-index: 1;top: -3px;position: relative;"/>
+        <img {{bindAttr src= this.photo_url}} style="height: 80px;width: 80px;z-index: 2;position: absolute;top: -3px;left: 0;"/>
     </div>
     <div class="fresh-message fresh_succeed">
         <k class="icon-ok-sign"></k>
@@ -34,7 +36,8 @@
     {{#if controller.failed}}
 
     <div class="fresh-profile-pic" style="">
-        <img {{bindAttr src= this.photo_url}} style="height: 80px;width: 80px"/>
+        <img src="../../../images/trendsideas.jpg" style="height: 80px;width: 80px;z-index: 1;top: -3px;position: relative;"/>
+        <img {{bindAttr src= this.photo_url}} style="height: 80px;width: 80px;z-index: 2;position: absolute;top: -3px;left: 0;"/>
     </div>
     <div class="fresh-message fresh_failed">
         <k class="icon-remove-sign"></k>
@@ -48,7 +51,8 @@
     {{#if controller.warnning}}
 
     <div class="fresh-profile-pic" style="">
-        <img {{bindAttr src= this.photo_url}} style="height: 80px;width: 80px"/>
+        <img src="../../../images/trendsideas.jpg" style="height: 80px;width: 80px;z-index: 1;top: -3px;position: relative;"/>
+        <img {{bindAttr src= this.photo_url}} style="height: 80px;width: 80px;z-index: 2;position: absolute;top: -3px;left: 0;"/>
     </div>
     <div class="fresh-message fresh_warnning">
         <k class="icon-exclamation-sign"></k>

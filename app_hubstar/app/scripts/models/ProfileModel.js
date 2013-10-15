@@ -9,7 +9,7 @@ HubStar.Profile = DS.Model.extend({
     profile_pic_url: DS.attr('string'),
     profile_bg_url: DS.attr('string'),
     profile_hero_cover_url: DS.attr('string'),
-    profile_street_address: DS.attr('string'),
+    profile_physical_address: DS.attr('string'),
     profile_suburb: DS.attr('string'),
     profile_contact_number: DS.attr('string'),
     profile_contact_user: DS.attr('string'),
@@ -41,6 +41,7 @@ HubStar.Profile = DS.Model.extend({
     profile_pinterest_link: DS.attr('string'),
     profile_linkedin_link: DS.attr('string'),
     profile_youtube_link: DS.attr('string'),
+    profile_analytics_code: DS.attr('string'),
 
     owner: DS.attr('string'),
     owner_contact_email: DS.attr('string'),

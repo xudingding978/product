@@ -35,6 +35,10 @@ class Request
      */
     protected $batch;
 
+    /**
+     * @var array
+     */
+    protected $options;
 
     /**
      * @param  \Symfony\Component\EventDispatcher\EventDispatcher $dispatcher
@@ -62,10 +66,6 @@ class Request
      */
     public function execute()
     {
-        $reflector = new \ReflectionClass(get_class($this));
-        $class     = $reflector->getShortName();
-
-
         //construct a requestEvent and dispatch it with the "request.preexecute" event
         //This will, among potentially other things, populate the $node variable with
         //values from Cluster
@@ -90,6 +90,10 @@ class Request
 
         $rolling = new RollingCurl\RollingCurl();
         $rolling->setHeaders(array('Content-Type: application/json'));
+
+        if ( ! is_null($this->options)) {
+            $rolling->setOptions($this->options);
+        }
 
         $window  = 10;
         $counter = 0;
@@ -157,23 +161,34 @@ class Request
 
         $this->batch = new BatchCommand();
 
-        //This is kinda gross...
-        $returnResponse = '\Sherlock\responses\Response';
-        if ($class == 'SearchRequest') {
-            $returnResponse = '\Sherlock\responses\QueryResponse';
-        } elseif ($class == 'IndexRequest') {
-            $returnResponse = '\Sherlock\responses\IndexResponse';
-        } elseif ($class == 'IndexDocumentRequest') {
-            $returnResponse = '\Sherlock\responses\IndexResponse';
-        } elseif ($class == 'DeleteDocumentRequest') {
-            $returnResponse = '\Sherlock\responses\DeleteResponse';
-        }
-
         $finalResponse = array();
         foreach ($ret as $response) {
-            $finalResponse[] = new $returnResponse($response);
+            $finalResponse[] = $this->getReturnResponse($response);
         }
 
         return $finalResponse;
     }
+
+    /**
+     * @param $response
+     * @return \Sherlock\responses\Response
+     */
+    protected function getReturnResponse($response)
+    {
+        return new Response($response);
+    }
+
+    /**
+     * Set the options that should be set on the cURL request.
+     *
+     * @param  $options
+     * @return \Sherlock\requests\Request
+     */
+    public function setOptions(array $options)
+    {
+        $this->options = $options;
+
+        return $this;
+    }
+
 }

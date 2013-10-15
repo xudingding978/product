@@ -10,6 +10,8 @@ var mountFolder = function(connect, dir) {
 // use this if you want to match all subfolders:
 // 'test/spec/**/*.js'
 var templ;
+
+
 module.exports = function(grunt) {
 // load all grunt tasks
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
@@ -20,6 +22,7 @@ module.exports = function(grunt) {
         test: 'test'
     };
     grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'),
         yeoman: yeomanConfig,
         manifest: {
             generate: {
@@ -41,6 +44,36 @@ module.exports = function(grunt) {
                 dest: "<%= yeoman.dist %>/cache.manifest"
             }
         },
+        shell: {// Task
+            multiple: {
+                command: [
+                    'git add .',
+                    'git commit -a -m "ready to pull"',
+                    'git checkout develop',
+                    'git fetch origin',
+                    'git pull origin develop'
+                            //         'git push origin develop'
+                ].join('&&')
+            },
+            listFolders: {// Target
+                options: {// Options
+                    stdout: true
+                },
+                command: 'ls'
+            }
+
+        },
+//        gitpull: {// Task
+//            multiple: {
+//                command: [
+//                    'git add .',
+//                    'git commit -a -m "ready to pull"',
+//                    'git checkout develop',
+//                    'git fetch origin',
+//                    'git pull origin develop'
+//                ].join('&&')
+//            }
+//        },
         replace: {
             dist: {
                 src: '<%= yeoman.app %>/templates/header.hbs',
@@ -83,7 +116,7 @@ module.exports = function(grunt) {
                     '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
                     '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg,ico}'
                 ],
-                tasks: ['livereload']
+                tasks: ['livereload', 'buildTest', 'test']
             }
         },
         connect: {
@@ -163,6 +196,9 @@ module.exports = function(grunt) {
                 'test/spec/{,*/}*.js'
             ]
         },
+        qunit: {
+            all: ['test/*.html']
+        },
         mocha: {
             all: {
                 options: {
@@ -176,7 +212,7 @@ module.exports = function(grunt) {
                 files: [{
                         expand: true,
                         cwd: '<%= yeoman.app %>/scripts',
-                        src: '{,*/}*.coffee',
+                        //       src: '{,*/}*.coffee',
                         dest: '.tmp/scripts',
                         ext: '.js'
                     }]
@@ -185,7 +221,7 @@ module.exports = function(grunt) {
                 files: [{
                         expand: true,
                         cwd: 'test/spec',
-                        src: '{,*/}*.coffee',
+                        //   src: '{,*/}*.coffee',
                         dest: '.tmp/spec',
                         ext: '.js'
                     }]
@@ -226,7 +262,11 @@ module.exports = function(grunt) {
                     '<%= yeoman.app %>/bower_components/ember/ember-1.0.0-rc.6.1.min.js',
                     '<%= yeoman.app %>/bower_components/ember-data-shim/ember-data.min.js',
                     '<%= yeoman.app %>/bower_components/moment/moment.min.js',
-                    '<%= yeoman.app %>/bower_components/javascriptHelper/javascriptHelper.min.js'
+                    '<%= yeoman.app %>/bower_components/javascriptHelper/javascriptHelper.js',
+                    '<%= yeoman.app %>/bower_components/wysihtml5/dist/wysihtml5-0.3.0.js',
+                    '<%= yeoman.app %>/bower_components/wysihtml5/parser_rules/advanced.js',
+                    '<%= yeoman.app %>/bower_components/mousetrap.min.js',
+                   '<%= yeoman.app %>/bower_components/javascriptHelper/html5ImageCropper.js'
                 ],
                 dest: '<%= yeoman.dist %>/scripts/components.js'
             },
@@ -241,8 +281,12 @@ module.exports = function(grunt) {
                     '<%= yeoman.app %>/bower_components/ember/ember-1.0.0-rc.6.1.min.js',
                     '<%= yeoman.app %>/bower_components/ember-data-shim/ember-data.min.js',
                     '<%= yeoman.app %>/bower_components/moment/moment.min.js',
-                    '<%= yeoman.app %>/bower_components/javascriptHelper/javascriptHelper.js',
-                       '<%= yeoman.app %>/bower_components/javascriptHelper/jquery-2.0.3.min.map'
+                    '<%= yeoman.app %>/bower_components/javascriptHelper/javascriptHelper.test.js',
+                    '<%= yeoman.app %>/bower_components/javascriptHelper/jquery-2.0.3.min.map',
+                    '<%= yeoman.app %>/bower_components/wysihtml5/dist/wysihtml5-0.3.0.js',
+                    '<%= yeoman.app %>/bower_components/wysihtml5/parser_rules/advanced.js',
+                    '<%= yeoman.app %>/bower_components/mousetrap.min.js',
+                    '<%= yeoman.app %>/bower_components/javascriptHelper/html5ImageCropper.js'
                 ],
                 dest: '<%= yeoman.test %>/scripts/components.js'
             },
@@ -382,8 +426,6 @@ module.exports = function(grunt) {
                             'images/defaultbg/*',
                             'images/defaultcover/*',
                             'images/defaultpic/*'
-
-
                         ]
                     }]
             },
@@ -406,19 +448,18 @@ module.exports = function(grunt) {
         },
         concurrent: {
             server: [
-                'emberTemplates',
-                'coffee:dist',
-                'compass:server'
+                'emberTemplates'
+
+
             ],
             test: [
-                'emberTemplates',
-                'coffee',
-                'compass'
+                'emberTemplates'
+
             ],
             dist: [
                 'emberTemplates',
-                'coffee',
-                'compass:dist',
+                //'coffee',
+                //'compass:dist',
                 'imagemin',
                 'svgmin',
                 'htmlmin'
@@ -454,6 +495,7 @@ module.exports = function(grunt) {
             }
         }
     });
+    grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.renameTask('regarde', 'watch');
     grunt.registerTask('server', function(target) {
         if (target === 'dist') {
@@ -471,6 +513,7 @@ module.exports = function(grunt) {
         ]);
     });
     grunt.registerTask('test', [
+        //     'shell',
         'clean:server',
         'concurrent:test',
         'connect:test',
@@ -481,9 +524,8 @@ module.exports = function(grunt) {
         'concat:testtemplate',
         'concat:testcss',
         'copy:test',
-        'mocha'
-
-
+        //     'mocha'
+        'qunit'
     ]);
     grunt.registerTask('build', [
         'clean:dist',
@@ -494,17 +536,28 @@ module.exports = function(grunt) {
         'concat',
         'concat:dist',
         'cssmin',
-        'uglify',
+        //'uglify',
         'copy:dist',
         'rev',
         'usemin',
         'manifest',
         'rev:test'
-
     ]);
     grunt.registerTask('default', [
         'jshint',
         'test',
-        'build'
+        'shell'
     ]);
+    grunt.registerTask('gitcommit', [
+        'shell:listFolders'
+    ]);
+    grunt.registerTask('makePost', 'Make a new post dir.', function(n) {
+        if (n === null) {
+            grunt.log.warn('Post name must be specified, like makePost:PostNameGoesHere.');
+        }
+
+        // Run other tasks here
+        grunt.task.run('gitcommit');
+    });
+
 };

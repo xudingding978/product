@@ -319,7 +319,7 @@ class PhotosController extends Controller {
                 $new_size['height'] = intval(($photo_size['height'] * $new_size['width']) / $photo_size['width']);
                 break;
             case 'user_picture':
-                $new_size['width'] = 170;
+                $new_size['width'] = 150;
                 $new_size['height'] = intval(($photo_size['height'] * $new_size['width']) / $photo_size['width']);
                 break;
             case 'original':
@@ -345,6 +345,9 @@ class PhotosController extends Controller {
         } else if ($photo_type == "image/jpeg") {
             imagejpeg($new_photo);
         }
+            else if($photo_type== "image/gif"){
+                imagegif($new_photo);
+            }
         $contents = ob_get_contents();
         ob_end_clean();
         return $contents;
@@ -382,6 +385,9 @@ class PhotosController extends Controller {
         } elseif ($type == "image/jpeg") {
             imagejpeg($image, null, 80);
         }
+            else if($type=="image/gif"){
+            imagegif($image);
+            }
         return $image;
     }
 
@@ -397,6 +403,7 @@ class PhotosController extends Controller {
     }
 
     public function saveImageToS3($url, $data, $bucket, $type) {
+
         $arr = $this->getProviderConfigurationByName($this->getDomain(), "S3Client");
         $client = Aws\S3\S3Client::factory(
                         $arr

@@ -6987,6 +6987,8 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
 .icon-renren:before{content:"\f18b";}
 
 .plaform_bar{
+    height: 280px;
+
     position: fixed;
     left: 0px;
     top: 30%;
@@ -6998,6 +7000,7 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
     border-radius: 0 10px 10px 0;
     background-color: rgba(50,50,50,0.4);
     box-shadow: 0 0 10px #fff;
+    height:256px;
 }
 #masonry_user_container
 {
@@ -7079,6 +7082,7 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
 }
 
 #navContainer {
+    height: 280px;
     margin:0;
     padding:15px 0;
     opacity: 0;
@@ -7496,6 +7500,10 @@ div.search-loading-invisible{
     font-weight: bold;
     font-size: 13px;
     list-style: none;
+}
+
+.edit-object-ul > .ite{
+    padding:6px 15px 6px 30px;
 }
 
 .ite:hover{
@@ -8359,7 +8367,7 @@ div.loading-visible{
     position: relative;
     left: 0;
     right: 0;
-    bottom: 160px;
+    top: 25%;
 }
 
 .blurringTextG{
@@ -8503,7 +8511,8 @@ div.loading-visible{
     -o-transition: all 0.5s ease;
 }
 
-
+.hover-opacity{opacity:.6}
+.hover-opacity:hover{opacity:1}
 
 
 
@@ -8560,7 +8569,7 @@ div.loading-visible{
     -moz-box-shadow: 0 0 0 0;
     -webkit-box-shadow: 0 0 0 0;
     box-shadow:0 0 0 0;
-    
+
 }
 .panel.flip .front {
     z-index: 900;
@@ -8752,15 +8761,17 @@ div.loading-visible{
     position: absolute;
     right: 0;
     top: 0;
-/*    cursor: pointer;*/
-    z-index: 1;
+    /*    cursor: pointer;*/
+    z-index: 100;
 }
-
+.object-tags-box div{position:relative;z-index:100;}
 .object-tags{
     clear: both;
     height: 26px;
     line-height: 26px;
     word-wrap: normal;
+    position:relative;
+    z-index:2;
 }
 
 .tags-mark{
@@ -8777,7 +8788,7 @@ div.loading-visible{
     display: block;
     float: right;
     max-width: 180px;
-    overflow: hidden;
+    /*overflow: hidden; this was removed for the tool tips 3/10/13 */
     text-overflow: ellipsis;
     white-space: nowrap;
     background-color: #eee;
@@ -8798,6 +8809,27 @@ div.loading-visible{
     font-size: 12px;
     vertical-align: top;
     margin-right: -4px;
+}
+.object-tags-box .hint--top:after, .object-tags-box .hint--left:after
+{
+    background:#fff;
+    border-color:#fff;
+    color:#666;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow: 0 0 5px#888;
+    box-shadow: 0 0 5px #888;
+    text-shadow:0 0 0;
+}
+.object-tags-box .hint--left:before
+{
+    border-left-color:#ccc!important;
+}
+.object-tags-box .hint--top:before
+{
+    border-top-color:#ccc!important;
 }
 
 .hashtags{
@@ -9008,11 +9040,14 @@ div.loading-visible{
     color: white;
     text-align: center;
     top: 42%;
-    padding:10px 15px;
+    padding:0 15px;
     z-index: 2;
 
     word-wrap: normal;
     line-height: 24px;
+
+    max-height:72px;
+    overflow:auto;
 }
 
 .album-description-bg{
@@ -9023,12 +9058,18 @@ div.loading-visible{
     opacity: 0.7;
     background-color: black;
     top: 42%;
-    padding: 10px 15px;
+    padding: 0 15px;
     z-index: 1;
-
     word-wrap: normal;
     line-height: 24px;
     box-shadow: 0 0 20px 4px #000;
+
+    height:72px;
+    overflow:hidden;
+
+    font-size:0;
+
+    /* may need to delete this element in the template */
 }
 
 .album-description-hoverarea{
@@ -9090,7 +9131,6 @@ div.loading-visible{
 
 .masonry-object_profilepic{
     width: 150px;
-    max-height: 200px;
     margin: auto;
     right: 0;
     left: 0;
@@ -9121,6 +9161,8 @@ div.loading-visible{
     left: 0;
     right: 0;
     text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 
@@ -9157,6 +9199,9 @@ div.loading-visible{
     -moz-border-radius: 5px;
     border-radius: 5px;
     overflow: hidden;
+    margin-bottom:12px;
+    position:relative;
+    z-index:1;
 }
 
 .object_username{
@@ -9222,7 +9267,11 @@ div.loading-visible{
     text-overflow: ellipsis;
 }
 .more_detail{
-    height: 22px;
+    color: #555;
+    width: 300px;
+    margin: 0 auto;
+    height: auto;
+    max-height: 50px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -9241,7 +9290,7 @@ div.loading-visible{
 /* clint */
 .masonry-brick .masonry_more-btn{
     padding-bottom:12.5px;
-    
+
 }
 .masonry_more-btn:hover{
     color: #333;
@@ -9274,11 +9323,11 @@ div.loading-visible{
 }
 
 .masonry_addcommnetbox-container{
-   /* margin: 0 20px 0 20px; */
-   padding: 0 20px 8.5px 20px;
-   width:100%;
-   clear:both;
-   float:left;
+    /* margin: 0 20px 0 20px; */
+    padding: 0 20px 8.5px 20px;
+    width:100%;
+    clear:both;
+    float:left;
 
 }
 
@@ -9477,7 +9526,7 @@ div.loading-visible{
     font-size: 14px;
     font-weight: bold;
     font-family: FontAwesome, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    
+
 }
 
 
@@ -9494,6 +9543,20 @@ div.loading-visible{
     position: absolute;
     white-space: nowrap;
 }
+
+
+.caption-container{
+    background-color: rgba(0,0,0,.4);
+    padding: 20px 13px 20px 15px;
+    color: #fff;
+    position: absolute;
+    bottom: 60px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #999;
+    width: 350px;
+}
+
+
 
 
 
@@ -9521,6 +9584,13 @@ div.loading-visible{
     overflow-y: scroll;
 }
 
+.article-objectview-right{
+    width: 45%;
+}
+
+.article-objectview-left{
+    right: 45%;
+}
 
 .object-poster{
     padding: 15px;
@@ -9640,28 +9710,6 @@ div.loading-visible{
     height: 106px;
     resize: none;
     overflow: auto;
-}
-
-.collapes-container tr {
-    display: table-row;
-    vertical-align: top;
-    border-color: inherit;
-
-}
-
-.collapes-container td:nth-child(1)  {
-    color: #aaa;
-    text-align: left;
-    width: 45%;
-
-}
-
-.collapes-container td:nth-child(2)  {
-    color: #404040;
-    word-break: break-all;
-
-    display: table-cell;
-    vertical-align: inherit;
 }
 
 .sml-partner {
@@ -10187,12 +10235,38 @@ div.loading-visible{
     -moz-background-clip: padding-box;
     background-clip: padding-box;
     margin: 0;
-    
+
     text-align: left;
+    padding: 0;
 }
 
 
 
+/* tool-tips for profile items 9/10/13 clint */
+.itemprofile .location_li:after
+{
+    background:#fff;
+    border-color:#fff;
+    color:#666;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow: 0 0 5px#888;
+    box-shadow: 0 0 5px #888;
+    text-shadow:0 0 0;
+    top:25px;
+    left:0;
+    line-height:1em;
+}
+
+.itemprofile .location_li:before
+{
+    border-bottom-color:#ccc!important;
+    top:12px;
+    left:15px;
+}
+/* tool-tips for profile items  ENDS - 9/10/13 clint */
 
 textarea{
     padding: 3px 8px !important;
@@ -10590,18 +10664,17 @@ input{
 
 .fresh-profile-pic{
     overflow: hidden; 
-    position: fixed;
     height: 80px;
-    width: 80px;
     background-color: #fff;
     border-radius: 50%;
     z-index: 12;
-    margin: auto;
-    left: 0;
-    right: 1000px;
-    top: -110PX;
+
+    top: -30PX;
     box-shadow: 0 0 10px #777;
     border: 3px solid #f3f3f3;
+
+    display: inline-block;
+    position: relative;
 }
 
 .fresh-message{
@@ -10612,21 +10685,22 @@ input{
     border-top: 1px solid #85aed3;
     background: #618fb9 url(../../images/alert-lines.png);
     height: 50px;
-    position: fixed;
     text-align: center;
     z-index: 11;
-
-    top: -85px;
+    top: -5px;
     box-shadow: 0px 1px 5px #555;
-    width: 1000px;
-    margin: auto;
-    display: block;
+
     border-radius: 0 3px 3px 0;
     -webkit-border-radius: 0 3px 3px 0;
     -moz-border-radius: 0 3px 3px 0;
     -o-border-radius: 0 3px 3px 0;
-    left: 0;
-    right: 0;
+
+    display: inline-block;
+    width: auto;
+    min-width: 500px;
+    position: relative;
+    vertical-align: top;
+    margin-left: -20px;
 }
 
 .fresh-message > k{
@@ -10680,7 +10754,6 @@ input{
     margin:-160px 17.5% 0 17.5%;
     float:left;
     width:65%;
-    min-height:195px;
     padding:0 5px;
     /* padding: 20px 5px; 
      position:absolute;
@@ -10688,8 +10761,7 @@ input{
      top:-180px;
      left:17.5%; */
 }
-.premium > div > table  .profileaside > .profileaside_content .aside-profilepic div,
-.premium > div > table  .profileaside > .profileaside_content .aside-profilepic div img{width:100%;margin-bottom:1em;}
+
 
 .premium > div > table .profilemain
 {
@@ -10838,10 +10910,64 @@ textarea.add-interests{
 .main_aboutus .editor-content .green-btn{color:#fff;}
 
 .main_aboutus .editor-content a{
-   display:inline-block;
-    
+    display:inline-block;
+
 }
 /* client profile content styling ENDS */
+
+
+
+
+
+
+/*CROP FUNCTION*/
+
+.crop-canvas{height: auto;max-height: 500px;width: auto;margin: 0 auto; max-width: 850px;}
+
+.LatestFollower{
+    text-align: center;
+    width: 300px;
+    height: 35px;
+    margin: 10px auto;
+
+    display: block;
+    clear: both;
+}
+
+.LatestFollower  img{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -o-border-radius: 50%;
+
+    border: 2px solid #fff;
+    margin: 0 4px;
+}
+
+.Followed-by{
+    display: block;
+    text-align: center;
+    font-size: 13px;
+    font-weight: bold;
+    color: #888;
+    position: relative;
+    width: 100%;
+    clear: both;
+    margin: 0 auto;
+    opacity: .8;
+    cursor: pointer;
+}
+
+.Followed-by:hover{opacity: 1}   
+
+
+
+
+/*CROP FUNCTION*/
+
+.crop-canvas{height: auto;max-height: 500px;width: auto;margin: 0 auto; max-width: 850px;}
 
 
 
@@ -11681,7 +11807,6 @@ body{
     display: none;
     float: left;
     min-width: 170px;
-    min-height: 200px;
     margin: 15px 0px 0px 0px;
     list-style: none outside none;
     background-color: rgba(0, 0, 0,1);
@@ -11719,7 +11844,8 @@ body{
     margin-top: 8px;
     margin-left: 0px;
 }
-
+#user-dd-menu li:first-child a{border-top:0 none;}
+#user-dd-menu li:last-child a{border-bottom:0 none;}
 #user-dd-menu li a {
     border-radius: 0px;
     color: white;
@@ -11747,7 +11873,7 @@ body{
     background: none repeat scroll 0% 0% rgb(45,45,45);
     border: 1px solid rgba(0,0,0,0.17);
     margin-top:20px;
-    padding:0px;
+    padding:3px;
     width:150px;
     top:35px;
     left: -60px;
@@ -12260,102 +12386,400 @@ div.form .rememberMe label
 
 
 /* Login lightbox BEGINS, Clint Rex Lewis 4/9/13 */
-    div#login_lightbox{
-        position:fixed;
-        top:0;
-        left:0;
-        height:3000px;
-        width:3000px;
-        opacity:0.7;
-        background:#000;
-        z-index:1001;
-    }
-    div#login_icon > div.ui-draggable
-    {
-        position: fixed!important;
-        top: 6.5%;
-        left: 37%;
-        width:25%;
-        
-    }
-     div#login_icon > div.ember-view > div.panel
-     {
-         width:100%;
-         color:#333333;
-         float:left;
-         -moz-border-radius:3px;
-        -webkit-border-radius:3px;
-        border-radius:3px;
-        z-index:1002;
-        margin:0; 
-     }
+div#login_lightbox{
+    position:fixed;
+    top:0;
+    left:0;
+    height:3000px;
+    width:3000px;
+    opacity:0.7;
+    background:#000;
+    z-index:1001;
+}
+div#login_icon > div.ui-draggable
+{
+    position: fixed!important;
+    top: 6.5%;
+    left: 37%;
+    width:25%;
 
-     
-     div#login_container > div.front, 
-     div#login_container > div.back
-     {
-        position:absolute;
-        float:left;
-        width:100%;
-        height:auto;
-        top:0;
-        left:0;
-        -webkit-border-radius: 0;
-        -moz-border-radius: 0;
-        border-radius: 0;
-        background:#fff;
-        min-width:400px;
-        
-     }
-     div #login_container > div.front > .head, 
-     div #login_container > div.back > .head
-     {
-         float:left;
-         width:100%;
-         background:#f3f3f3;
-         position:relative;
-     }
-    div #login_container > div.front > .head > .logincopy
-     {
-         margin:20px auto;
-         width:90%;
-     }
-     div #login_container > div.front > .head > .logincopy > p
-     {
-        line-height:150%;
-        text-align:center;
-        font-size:1.1em;
-     }
-     div #login_container > div.front > .content,
-     div #login_container > div.back > .content
-     {
-         float:left;
-         width:100%;
-     }
-     .panelcircle 
-     {
-         width:40px;
-         height:40px;
-         border-radius:50px;
-         font-size:1.4em;
-         color:#fff;
-         line-height:40px;
-         text-align:center;
-         background:rgb(201,202,202)
-    }
-    div #login_container > div.front > .head > .panelcircle
-    {
-        position:relative;
-        margin:auto auto -40px auto;
-    }
-    
- /* fail safe styles for small screened devices begins */
-    #login_continer div > .head .wrapper-dropdown-3{ max-width:95%;}
-    #login_continer div > .head .wrapper-dropdown-3 > div > #dropdown-cover{max-width:30%;}
-    #login_continer div > .head .wrapper-dropdown-3 > div > div:last-child{max-width:70%;}
+}
+div#login_icon > div.ember-view > div.panel
+{
+    width:100%;
+    color:#333333;
+    float:left;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border-radius:3px;
+    z-index:1002;
+    margin:0; 
+}
+
+
+div#login_container > div.front, 
+div#login_container > div.back
+{
+    position:absolute;
+    float:left;
+    width:100%;
+    height:auto;
+    top:0;
+    left:0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    background:#fff;
+    min-width:400px;
+
+}
+div #login_container > div.front > .head, 
+div #login_container > div.back > .head
+{
+    float:left;
+    width:100%;
+    background:#f3f3f3;
+    position:relative;
+}
+div #login_container > div.front > .head > .logincopy
+{
+    margin:20px auto;
+    width:90%;
+}
+div #login_container > div.front > .head > .logincopy > p
+{
+    line-height:150%;
+    text-align:center;
+    font-size:1.1em;
+}
+div #login_container > div.front > .content,
+div #login_container > div.back > .content
+{
+    float:left;
+    width:100%;
+}
+.panelcircle 
+{
+    width:40px;
+    height:40px;
+    border-radius:50px;
+    font-size:1.4em;
+    color:#fff;
+    line-height:40px;
+    text-align:center;
+    background:rgb(201,202,202)
+}
+div #login_container > div.front > .head > .panelcircle
+{
+    position:relative;
+    margin:auto auto -40px auto;
+}
+
+/* fail safe styles for small screened devices begins */
+#login_continer div > .head .wrapper-dropdown-3{ max-width:95%;}
+#login_continer div > .head .wrapper-dropdown-3 > div > #dropdown-cover{max-width:30%;}
+#login_continer div > .head .wrapper-dropdown-3 > div > div:last-child{max-width:70%;}
 /* fail safe styles for small screened devices ends */
 
 /* Login lightbox ENDS, Clint Rex Lewis 4/9/13 */
+
+
+
+
+
+
+
+
+/*new login style Colin Shaw 25/9/2013*/
+.Register-Page{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    overflow: auto;
+}
+
+.Register-Page .ember-text-field, .Register-Page .ember-text-field:focus{
+    background-color: rgba(255,255,255,0);
+    box-shadow: none;
+    border: none;
+    margin: 0 0 0 0;
+}
+
+.error-textfield{
+    box-shadow: 0 0 10px rgba(255,0,0,.5);
+    -webkit-box-shadow: 0 0 10px rgba(255,0,0,.5);
+    -moz-box-shadow: 0 0 10px rgba(255,0,0,.5);
+    -o-box-shadow: 0 0 10px rgba(255,0,0,.5);
+}
+
+
+.register-with{
+    width: 300px;
+    height: 45px;
+    margin: 0 auto;
+    background-color: #fff;
+    text-align: center;
+    color: #888;
+    font-weight: bold; 
+    line-height: 45px; 
+    font-size: 15px;
+
+    background-clip:border-box;
+    cursor: pointer;
+    opacity: .7;
+}
+
+.register-with:hover{opacity: 1}
+
+.social-links-container{
+    width: 300px; 
+    height: 60px; 
+    line-height: 60px; 
+    margin: 0px auto; 
+    background-color: white;
+    padding:12px;
+    border-bottom: 1px solid #e3e3e3;
+}
+
+.login-textfield{
+    margin: 0;
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    border-bottom: 1px solid #e3e3e3;
+}
+
+.login-textfield > input{
+    padding: 0 10px;
+    border: 0 none !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    -o-box-shadow: none !important;
+
+    font-weight: bold;
+    color: #555;
+    font-size: 15px;
+}
+
+.login-textfield > input::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #ccc;
+}
+.login-textfield > input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #ccc;
+}
+.login-textfield > input::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #ccc;
+}
+.login-textfield > input:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #ccc;
+}
+
+.social-login-iconbox{
+    width: 35px; 
+    height: 35px; 
+    border-radius: 3px; 
+    display: inline-block;
+    vertical-align: top; 
+    background-color: #fff;
+    line-height: 36px;
+    color: #555;
+    margin: 0 3px;
+
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+}
+
+.login-select{
+    width: 49%;
+    display: inline-block;
+    vertical-align: top;
+    height: 45px;
+    line-height: 45px;
+    color: #888;
+    font-weight: bold;
+    text-align: left;
+    padding-left: 10px;
+
+    cursor: pointer;
+}
+
+.login-select:hover{
+    background-color: #f3f3f3;
+}
+
+.login-selected{
+    border-top: 1px solid rgba(0,0,0,.16);
+    border-right: 1px solid rgba(0,0,0,0.16);
+    border-bottom: 1px solid rgba(0,0,0,.05);
+    margin-bottom: -1px;
+
+    background: rgba(0,0,0,0.05);
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
+    -ms-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
+    -o-box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.16) inset;
+}/* this is the active gender class use this */
+
+
+.social-login-iconbox:hover, .social-login-iconbox:focus{
+    background-color: #f3f3f3;
+    /* just a set up class for ya colin! */
+}
+.social-login-iconbox:active{color: #fff;background-color: #08c; }
+
+div > div > i.icon-envelope, div > div > #click-register,
+div > div > i.icon-envelope, div > div > #click-login
+{
+    cursor:pointer;
+
+    -webkit-border-bottom-right-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.register-btn{
+    width: 300px;
+    height: 45px;
+    background-color: #fff;
+    text-align: center;
+    color: #888;
+    font-weight: bold; 
+    font-size: 15px;
+    line-height: 45px; 
+    -webkit-border-radius: 0 0 5px 5px;
+    -moz-border-radius: 0 0 5px 5px;
+    border-radius: 0 0 5px 5px;
+
+    cursor: pointer;
+    background-clip:border-box;
+}
+div.register-btn-small{
+    width:148px;
+    -webkit-border-radius: 0 0 5px 0;
+    -moz-border-radius: 0 0 5px 0;
+    border-radius: 0 0 5px 0;
+    display:inline-block;  
+
+}
+.back-btn{
+    width: 148px;
+    height: 45px;
+    background:#fff;
+    text-align: center;
+    color: #9c9c9c;
+    font-weight: bold; 
+    font-size: 15px;
+    line-height: 45px; 
+    -webkit-border-radius: 0 0 0 5px;
+    -moz-border-radius: 0 0 0 5px;
+    border-radius: 0 0 0 5px;
+    display:inline-block;
+
+    cursor: pointer;
+    background-clip:border-box;
+
+}
+
+.register-btn:hover, .register-btn:focus, .back-btn:hover, .back-btn:focus{background-color: #f3f3f3;}
+
+.register-btn:active, .back-btn:active{background-color: #08c;color: #fff;}
+
+.social-active{opacity:1;}
+
+
+div >div.active-tab
+{
+    -webkit-border-bottom-right-radius: 0!important;
+    -webkit-border-bottom-left-radius: 0!important;
+    -moz-border-radius-bottomright: 0!important;
+    -moz-border-radius-bottomleft: 0!important;
+    border-bottom-right-radius: 0!important;
+    border-bottom-left-radius: 0!important;
+    opacity:1;
+
+}
+i#forgot-password-btn{cursor:help}
+div#forgot-password-container{
+
+    display:none;
+    background:#fff;
+    border:1px solid #ccc;
+    position:absolute;
+    bottom:52px;
+    right:-120px;
+    padding:5px;
+
+
+
+
+}
+.login-textfield > .hint--right{background:#fff;}
+
+.login-textfield .hint--right:before
+{
+    border-right-color:#e3e3e3;
+
+}
+.login-textfield .hint--right:after
+{
+    background:#fff;
+    color:#666;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow: 0 0 5px#888;
+    box-shadow: 0 0 5px #888;
+    text-shadow:0 0 0;
+}
+
+
+.white-text-hover{
+    color: #fff;
+    opacity: .7;
+}
+
+.white-text-hover:hover{
+    opacity: 1;
+    color: #fff;
+}
+
+.black-tool-tip{
+    width: 300px;
+    color: white;
+    font-size: 13px;
+    line-height: 17px;
+    background-color: rgba(0,0,0,.5);
+    padding: 20px 35px;
+    margin: 10px auto;
+
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.learnmore-btn{
+    font-size: 13px;
+    color: #888;
+    margin: 15px auto;
+    opacity: .7;
+    display: block;
+    width: 120px;
+    height: 30px;
+    line-height: 29px;
+    border-radius: 20px;
+    background-color: #fff;
+}
+
+.learnmore-btn:hover{opacity: 1;}
+
 * {
     box-sizing: border-box;
     -moz-box-sizing: border-box;

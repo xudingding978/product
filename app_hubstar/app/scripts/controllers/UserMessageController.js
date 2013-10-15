@@ -29,9 +29,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
 //          var msg = model.get("messages");
 //          this.set("contentMsg",msg);
 //          
-// The following two line is used to change the selection with dark 
-        $('#user-stats > li').removeClass('selected-user-stats');
-        $('#message').addClass('selected-user-stats');
+
         this.getClientId(message); // It is used to get the mesage model
 
     },

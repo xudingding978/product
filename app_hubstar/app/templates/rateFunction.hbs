@@ -5,24 +5,38 @@
 
 
 <div style="z-index: 11;background-color: white; border: 1px rgba(0,0,0,.6); border-radius: 3px;box-shadow: 0 0 20px 5px #aaa;  width: 430px;height: 200px;margin: 0 auto; padding: 20px;position: fixed; top: 35%;display: block;left: 0;right: 0;">
-       
-      <div class="new-btn blue-btn"{{action rateEditing}}>Rate</div>
-                            <input class="star {split:2}" type="radio" name="test-4-rating-3" value="0.5"/>
-                            <input class="star {split:2}" type="radio" name="test-4-rating-3" value="1.0"/>
-                            <input class="star {split:2}" type="radio" name="test-4-rating-3" value="1.5"/>
-                            <input class="star {split:2}" type="radio" name="test-4-rating-3" value="2.0"/>
-                            <input class="star {split:2}" type="radio" name="test-4-rating-3" value="2.5"/>
-                            <input class="star {split:2}" type="radio" name="test-4-rating-3" value="3.0"/>
-                            <input class="star {split:2}" type="radio" name="test-4-rating-3" value="3.5" checked="checked"/>
-                            <input class="star {split:2}" type="radio" name="test-4-rating-3" value="4.0"/>
-                            <input class="star {split:2}" type="radio" name="test-4-rating-3" value="4.5"/>
-                            <input class="star {split:2}" type="radio" name="test-4-rating-3" value="5.0"/>
-
-  
-    
-    
-        <div class="new-btn red-btn" {{action evaluationSave target="view" on="click"}}>save</div>
-        <div  class="new-btn" {{action evaluationCancel target="view" on="click"}}>Cancel</div>
+<a>
+            <img class="profilepic_comment"  style="float: left; margin: 15px 10px 10px 4px; margin-top: 0;"{{bindAttr src="this.photo_url_large"}} /> 
+        </a>
+    <div class="rating" style="margin: 6px 0 0 0;">
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
     </div>
+
+    <div class="new-btn blue-btn"{{action rateEditing}}>Rate</div>
+
+
+
+
+    <div style="margin:0 auto; padding: 0 0 15px 15px;">
+        
+
+        {{view Ember.TextArea  id="" class="no-resize"  placeholder="review time" }}
+        <span class="" style="margin:45px 0;float: right;">
+            <div  class="new-btn"{{action reviewCancel}}>Cancel</div>
+            <div class="new-btn green-btn" {{action action reviewPost target="view" on="click"}}>Post</div>
+        </span>
+
+    </div>
+
+</div>
 
 

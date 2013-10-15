@@ -779,6 +779,21 @@ textarea.add-interests{
 .Message-Board_comment-item .masonry_addcommnetbox-container{width: 430px; margin-left: 20px;}
 
 
+.post-comment-container{
+    width: 430px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    background-color: #fff;
+}
+
+.post-comment-container textarea, .post-comment-container textarea:focus{
+    background-color: rgba(255,255,255,0);
+    box-shadow: none;
+    border: none;
+
+    height: 70px;
+}
+
 .reply-comment-container {
     width: 390px;
     height: 100px;
@@ -798,26 +813,26 @@ textarea.add-interests{
 .user-says-angle-before{
     width: 0px;
     height: 0px;
-    border-bottom: 15px solid transparent;
-    border-top: 0px solid transparent;
-    border-left: 9px solid #fff;
-    border-right: 2px solid transparent;
-    margin-top: 1px;	
-
+    margin-top: 3px;
+    left: 67px;
+    border-top: 15px solid transparent;
+    border-bottom: 0px solid transparent;
+    border-left: 0px solid transparent;
+    border-right: 15px solid #fff;
     position: absolute;
-    right: 70px;
     z-index: 2;
 }
 
 .user-says-angle-after{
     width: 0px;
     height: 0px;
-    border-bottom: 15px solid transparent;
-    border-top: 0px solid transparent;
-    border-left: 9px solid #ddd;
-    border-right: 0px solid transparent;	
+    margin-top: 4px;
+    left: 65px;
+    border-top: 15px solid transparent;
+    border-bottom: 0px solid transparent;
+    border-left: 0px solid transparent;
+    border-right: 15px solid #ddd;	
 
     position: absolute;
-    right: 70px;
     z-index: 1;
 }

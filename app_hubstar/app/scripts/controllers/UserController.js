@@ -670,21 +670,23 @@ HubStar.UserController = Ember.Controller.extend({
         this.transitionToRoute('userCollections');
     },
     selectFollowing: function(model) {
+
         this.set('profileSelectionStatus', 'Following');
-        //this.get('controllers.userFollowings').getClientId(model);
+        this.get('controllers.userFollowings').getClientId(model);
         this.set('followingTag', true);
         this.set('collectionTag', false);
         this.set('followerTag', false);
         this.set('messageTag', false);
-        this.transitionToRoute('following', model);
+      this.transitionToRoute('following', model);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
     },
     selectFollower: function(model) {
-
+//        $('#user-stats > li').removeClass('selected-user-stats');
+//        $('#ufollower').addClass('selected-user-stats');
         this.set('profileSelectionStatus', 'Followers');
-        //this.get('controllers.userFollowers').getClientId(model);
+        this.get('controllers.userFollowers').getClientId(model);
         this.set('followingTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', true);

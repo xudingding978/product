@@ -19,7 +19,19 @@
                 </div>
                 {{#if model.isUserself}} <!--model.isUserself is used to judge whether the reply message is written by the current login user-->
                 <div class="reply-comment">
-                    <a class = "reply-comment-button" >reply</a>
+
+                    <div class="show-comment_inner"  id="showMoreComment_{{unbound model.message_id}}"   {{action seeMore model.message_id target="view" on="click"}}>
+                        
+                        <span class="reply-comment-button"> reply  <i class="icon-angle-down"></i></span>
+                    </div>
+
+
+                    <div class="show-comment_inner" id="closeComment_{{unbound model.message_id}}"   style="display: none" {{action closeMore model.message_id  target="view" on="click"}}>
+                        
+                        <span class="reply-comment-button"> reply  <i class="icon-angle-up"></i></span>
+                    </div>
+
+                    
                     <i class="icon-trash"  {{action removeMessage model.message_id}}></i>                 
                 </div>
                 <div class='hint--left hint--rounded' data-hint='Edit Comment Info' style="position: absolute;font-size: 15px;right: 10px;margin: 1px;">
@@ -28,7 +40,19 @@
                 {{else}}
                 {{#if controller.isUserself}} <!--controller.isUserself is used to judge whether it is the page owner who have right to delete every message-->
                 <div class="reply-comment">
-                    <a class = "reply-comment-button" >reply</a>
+                    
+                    <div class="show-comment_inner"  id="showMoreComment_{{unbound model.message_id}}"   {{action seeMore model.message_id target="view" on="click"}}>
+                        
+                        <span class="reply-comment-button"> reply  <i class="icon-angle-down"></i></span>
+                    </div>
+
+
+                    <div class="show-comment_inner" id="closeComment_{{unbound model.message_id}}"   style="display: none" {{action closeMore model.message_id  target="view" on="click"}}>
+                        
+                        <span class="reply-comment-button"> reply  <i class="icon-angle-up"></i></span>
+                    </div>
+                    
+                    
                     <i class="icon-trash"  {{action removeMessage model.message_id}}></i>
                 </div>   
                 <div class='hint--left hint--rounded' data-hint='Edit Comment Info' style="position: absolute;font-size: 15px;right: 10px;margin: 1px;">
@@ -60,89 +84,97 @@
 
     {{render editMessage model}}
     {{/unless}}
-
-    <!--the following comment-frame is used to show the reply box for the second level reply-->
-    <div class="comment-frame"  style="padding: 0 0 0 40px;border: none;">
-        <div style="margin:0 auto; padding: 0 45px 15px 0;">
-            <a   href="#/users/{{unbound model.user_id}}">
-                <img class="profilepic_comment"  style="float: right; margin: 4px -45px 0 0; margin-top: 0;"{{bindAttr src="controller.commenter_photo_url"}} /> 
-            </a>
-            <div   style="margin: 0;width: 100%; height:50px;">
-                {{view Ember.TextArea valueBinding="replyContent" class="no-resize" placeholder="What's up!" }}                                          
-            </div>
-            <div>
-                <img  {{bindAttr src= "newStyleImageSource"}}  style="max-width: 170px; max-height: 170px;">
-            </div>
-
-            <span class="" style="margin:7px 0;float: right;">
-
-                <div  class="new-btn"{{action close}}>Cancel</div>
-                <div class="new-btn green-btn" {{action addReply model.message_id}}>Post</div>
-
-                <br>
-                <br>
-                <div  class="message-btn easing" style="border-right: 1px solid #ddd; ">
-                    <k class='icon-upload'>&nbsp;Add Photo
-                        <div style="opacity:0;position: relative;top: 0px;height:45px;top:-45px"> 
-                            {{view HubStar.SingleImageInputButtonView }}
-                        </div>
+    <div id="messageData_{{unbound model.message_id}}"  style="display: none">
+        <div class="comment-frame"  style="padding: 0 0 0 40px;border: none;">
+            <div style="margin:0 auto; padding: 0 45px 15px 0;">
+                <a>
+                    <img class="profilepic_comment"  style="float: right; margin: 4px -45px 0 0; margin-top: 0;"{{bindAttr src="controller.commenter_photo_url"}} /> 
+                </a>
+                <div   style="margin: 0;width: 100%; height:50px;">
+                    {{view Ember.TextArea valueBinding="replyContent" class="no-resize" placeholder="What's up!" }}                                          
                 </div>
-            </span>
+                <div>
+                    <img  {{bindAttr src= "newStyleImageSource"}}  style="max-width: 170px; max-height: 170px;">
+                </div>
+
+                <span class="" style="margin:7px 0;float: right;">
+
+                    <div  class="new-btn"{{action close}}>Cancel</div>
+                    <div class="new-btn green-btn" {{action addReply model.message_id}}>Post</div>
+
+                    <br>
+                    <br>
+                    <div  class="message-btn easing" style="border-right: 1px solid #ddd; ">
+                        <k class='icon-upload'>&nbsp;Add Photo
+                            <div style="opacity:0;position: relative;top: 0px;height:45px;top:-45px"> 
+                                {{view HubStar.SingleImageInputButtonView }}
+                            </div>
+                    </div>
+                </span>
+            </div>
         </div>
-    </div>
-     <!--output each the second level reply-->
-    {{#each  model.replyMessageCollection}} 
-    {{#unless this.enableToEdit}}
-    <div class="your-relpy">
-        <a class="your-relpy_profilepic"  href="#/users/{{unbound this.user_id}}">
-            <img class="profilepic_comment"  {{bindAttr src= this.photo_url_large}} />
-        </a>
-        <div style="">
-            <div class="comment-namentime">
-                <div class="namentime_position">
-                    <a class="comment-username"  href="#/users/{{unbound this.user_id}}">
-                        {{this.user_name}}    
-                        {{#if this.isUserself}}
-                        <i class="icon-trash"  {{action removeReply this.reply_id}}></i>
-                        <div class='hint--left hint--rounded' data-hint='Edit Comment Info' style="position: absolute;font-size: 15px;right: 10px;margin: 1px;">
-                            <i class="icon-edit" {{action editingReplyData this.reply_id}}></i>
-                        </div>
-                        {{else}}
-                        {{#if controller.isUserself}}
-                        <div class="reply-comment">                         
+        {{#each  model.replyMessageCollection}} 
+        {{#unless this.enableToEdit}}
+        <div class="your-relpy">
+            <a class="your-relpy_profilepic" href="#/users/{{unbound this.user_id}}">
+                <img class="profilepic_comment"  {{bindAttr src= this.photo_url_large}} />
+            </a>
+            <div style="">
+                <div class="comment-namentime">
+                    <div class="namentime_position">
+                        <a class="comment-username"  href="#/users/{{unbound this.user_id}}">
+                            {{this.user_name}}    
+                            {{#if this.isUserself}}
                             <i class="icon-trash"  {{action removeReply this.reply_id}}></i>
+                            <div class='hint--left hint--rounded' data-hint='Edit Comment Info' style="position: absolute;font-size: 15px;right: 10px;margin: 1px;">
+                                <i class="icon-edit" {{action editingReplyData this.reply_id}}></i>
+                            </div>
+                            {{else}}
+                            {{#if controller.isUserself}}
+                            <div class="reply-comment">                         
+                                <i class="icon-trash"  {{action removeReply this.reply_id}}></i>
+                            </div>
+                            <div class='hint--left hint--rounded' data-hint='Edit Comment Info' style="position: absolute;font-size: 15px;right: 10px;margin: 1px;">
+                                <i class="icon-edit" {{action editingReplyData this.reply_id}}></i>
+                            </div>
+                            {{/if}}
+                            {{/if}}
+                        </a>
+                        <div class="posttime-container">
+                            <span class="posttime">{{this.time_stamp}}</span>
                         </div>
-                        <div class='hint--left hint--rounded' data-hint='Edit Comment Info' style="position: absolute;font-size: 15px;right: 10px;margin: 1px;">
-                            <i class="icon-edit" {{action editingReplyData this.reply_id}}></i>
-                        </div>
-                        {{/if}}
-                        {{/if}}
-                    </a>
-                    <div class="posttime-container">
-                        <span class="posttime">{{this.time_stamp}}</span>
                     </div>
                 </div>
-            </div>
-            <div class="comment-content">
-                {{this.msg}}<br>
-                {{#if this.isUrl }}   <!-- if the isUrl is not null which mean it has the picture url, so it can show the image-->
-                <img {{bindAttr src= this.url}} style="width: 100px; height: 100px;"/>
-                {{/if}}
+                <div class="comment-content">
+                    {{this.msg}}<br>
+                    {{#if this.isUrl }}
+                    <img {{bindAttr src= this.url}} style="width: 100px; height: 100px;"/>
+                    {{/if}}
+                </div>
             </div>
         </div>
-    </div>
-    {{else}}
+        {{else}}
 
-    {{render editReply this}}
-    {{/unless}}
-    {{/each}}         
+        {{render editReply this}}
+        {{/unless}}
+        {{/each}}         
+    </div>
+    <script>
+    $(function() {
+        var $container = $('#masonry_user_container');
+        window.setTimeout(function() {
+            $container.masonry();
+            $container.masonry('reload');
+        }, 10);
+    });
+</script>
 </div>
 <script>
-        $(function() {
-            var $container = $('#masonry_user_container');
-            window.setTimeout(function() {
-                $container.masonry();
-                $container.masonry('reload');
-            }, 10);
-        });
-    </script>
+    $(function() {
+        var $container = $('#masonry_user_container');
+        window.setTimeout(function() {
+            $container.masonry();
+            $container.masonry('reload');
+        }, 10);
+    });
+</script>

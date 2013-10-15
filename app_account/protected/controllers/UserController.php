@@ -73,7 +73,7 @@ class UserController extends Controller {
      */
     public function actionCreate() {
         
-        error_log('actionCreate');
+        
         $model = new User;
 
         // Uncomment the following line if AJAX validation is needed

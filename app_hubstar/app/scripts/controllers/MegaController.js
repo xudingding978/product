@@ -136,6 +136,18 @@ HubStar.MegaController = Ember.ArrayController.extend({
         addCollectionController.setRelatedController('photo');
         this.set('collectable', !this.get('collectable'));
     },
+
+ keydown:function(e) {
+            var currKey = 0, e = e || event;
+            currKey = e.keyCode || e.which || e.charCode;//支持IE、FF 
+            if (currKey === 27) {
+                 window.history.back();
+                //document.getElementByIdx_xx_x("btn_selector").click();
+            }
+          
+        },
+      
+    
     closeWindow: function() {
         this.set('collectable', false);
         this.set('contact', false);
@@ -155,7 +167,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         var commentContent = this.get('commentContent');
         if (commentContent) {
             var comments = this.get('megaResouce').get('comments');
-            var commenter_profile_pic_url = this.get("currentUser").get('photo_url');
+            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
             var commenter_id = this.get("currentUser").get('id');
             var name = this.get("currentUser").get('display_name');
             var date = new Date();

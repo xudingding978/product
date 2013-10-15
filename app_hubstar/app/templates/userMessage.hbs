@@ -18,11 +18,11 @@
             <div  style="margin: 0;width: 100%; height:100px;">
                 {{view Ember.TextArea valueBinding="messageContent" class="no-resize" placeholder="What's up!" }}
             </div>
-
-            <div>
+            {{#if controller.isUploadPhoto}}
+            <div style='background-color: #f3f3f3;margin: auto;max-width: 300px;max-height: 300px;padding: 10px 12px;text-align: center;'>
                 <img  {{bindAttr src= "newStyleImageSource"}}  style="max-width: 170px; max-height: 170px;">
             </div>
-
+            {{/if}}
         </div>
     </div>
 
@@ -38,7 +38,7 @@
 
     <div class='Message-Board_comment-container'>
         {{#each  contentMsg}}
-        
+
         {{render "message" this}}
 
         {{/each}}

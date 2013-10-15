@@ -35,8 +35,8 @@ HubStar.Router.map(function() {
         this.resource("quickstart", {
             path: "/quickstart"
         });
-        this.resource("comingSoon", {
-            path: "/comingsoon"
+        this.resource("register", {
+            path: "/register"
         });
     });
 });

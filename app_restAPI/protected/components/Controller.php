@@ -304,11 +304,11 @@ class Controller extends CController {
         return $results;
     }
 
-    protected function RequireByIds($ids) {
+    protected function RequireByIds($ids,$size) {
 
         $request = $this->getElasticSearch();
         $request->from(0)
-                ->size(100);
+                ->size($size);
 
         $header = '{"ids": { "values": [';
         $footer = ']}}';
@@ -494,13 +494,14 @@ class Controller extends CController {
         $str_partnerIds = "";
         $domain = $this->getDomain();
         $trendsUrl = $domain . "/profiles/";
+        $size=count($partnerIds);
         for ($i = 0; $i < sizeof($partnerIds); $i++) {
             $str_partnerIds = $str_partnerIds . '"' . $trendsUrl . $partnerIds[$i] . '"';
             if ($i + 1 < sizeof($partnerIds)) {
                 $str_partnerIds.=',';
             }
         }
-        $response = $this->RequireByIds($str_partnerIds);
+        $response = $this->RequireByIds($str_partnerIds, $size);
         return $response;
     }
 

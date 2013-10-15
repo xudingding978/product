@@ -16,7 +16,11 @@ class ProfileCommand extends Controller_admin {
             //$this->insertProfileToMSDB();
         } elseif ($action == 'gj-gardner') {
             //$this->importProfilesToCouchbase();
-        } elseif ($action == 'flooring_foundation') {
+        }elseif ($action == 'count') {
+            $this->checkNumber();
+        }
+        
+        elseif ($action == 'flooring_foundation') {
 
             $this->outputData();
         } else {
@@ -307,6 +311,53 @@ class ProfileCommand extends Controller_admin {
 
         return $obj_arr;
     }
+    
+    
+    public function checkNumber(){
+         $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = "/var/log/yii/$start_time.log";
+         $ch = $this->couchBaseConnection("production");
+            $result = $ch->get("trendsideas.com/profiles/vision-wallcoverings-nz");
+             $result_arr = CJSON::decode($result, true);
+         //    print_r($result_arr) ;
+           // print_r("partner: ".$result_arr["profile"][0]["profile_partner_ids"]." over") ;
+            $partner_str=$result_arr["profile"][0]["profile_partner_ids"];
+            print_r($partner_str) ;
+            $partner_arr=  explode(",", $partner_str);
+            print_r($partner_arr);
+         //   print_r($partner_arr);
+            echo "Number of Hits: " . count($partner_arr) . "\r\n";
+            
+             $settings['log.enabled'] = true;
+        $sherlock = new \Sherlock\Sherlock($settings);
+        $sherlock->addNode("es1.hubsrv.com", 9200);
+        $request = $sherlock->search();
+        $index = 'production';
+        foreach ($partner_arr as $id){
+            
+        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"$id\"")
+                ->default_field('couchbaseDocument.doc.id');
+     
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
+        $request->index($index)->type("couchbaseDocument");
+        $request->from(0)
+                ->size(10);
+        $request->query($bool);
+  
+        $response = $request->execute();
+     //   error_log("start:\n".$request->toJSON()."\n". $id." has ".count($response)." found \n over \n");
+        if(count($response) === 0){
+            $message= $id ." can not be found in database ----------------------------";
+         
+        }
+        else{
+             $message= $id ." is found in the database";
+        }
+           $this->writeToLog($log_path, $message);
+        }
+        echo "over";
+    }
+
 
     private function createObjectArr($profile_arr) {
 //        $profile_name_lower = strtolower($profile_arr['ProfileName']);

@@ -25,7 +25,7 @@ HubStar.EditReplyController = Ember.Controller.extend({
         {
             this.set("isUserself", true);
         }
-        this.set('replyContent',HubStar.get('message'));
+        this.set('replyContent',HubStar.get('reply'));
     },
     close: function(id) {  
         this.set('replyContent', "");

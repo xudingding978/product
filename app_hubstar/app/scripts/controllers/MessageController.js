@@ -52,7 +52,7 @@ HubStar.MessageController = Ember.Controller.extend({
                     break;
                 }
         }
-        HubStar.set('message',msg);
+        HubStar.set('reply',msg);
     },
     removeReply: function(reply_id)
     {

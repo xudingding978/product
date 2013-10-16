@@ -226,6 +226,11 @@ class Controller extends CController {
                 );
         }
         
+        $sortBy = Sherlock\Sherlock::sortBuilder()
+                ->Field("created")
+                ->order("desc")
+                ->Field("_score");
+        
         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw('{
                 "bool": {
                     "must": [
@@ -233,8 +238,7 @@ class Controller extends CController {
                             "multi_match": {
                                 "query": "' . $queryString . '",
                                 "fields": ["keywords^2",
-                                                "owner_title^2",
-                                                "category",
+
                                                 "country",
                                                 "region",
                                                 "object_title",
@@ -244,6 +248,8 @@ class Controller extends CController {
                     ]
                 }
             }');
+        
+        $request->sort($sortBy);
         $response = $request->query($termQuery)->execute();
         
         return $response;

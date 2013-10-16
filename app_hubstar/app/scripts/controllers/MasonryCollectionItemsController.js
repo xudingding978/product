@@ -33,7 +33,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         var results = HubStar.Mega.find({RquireType: "personalCollection", user_id: user_id, collection_id: collection_id});
         var that = this;
 
-  
+
         results.addObserver('isLoaded', function() {
 
 
@@ -193,20 +193,28 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         });
         return is_authentic_user;
     },
-    changeCollectionCover: function(id, collection_id, HubStarModel) {
+    changeCollectionCover: function(id, collection_id, HubStarModel, article) {
+      
         this.dropdownPhotoSetting(id);
         var Mega = HubStar.Mega.find(id);
-        var coverImge = Mega.get('photo').objectAt(0).get('photo_image_original_url');
+        //var coverImge = Mega.get('photo').objectAt(0).get('photo_image_original_url');
         var address = document.URL;
         var owner_id = address.split("#")[1].split("/")[2];
+         var userOrprofile = HubStarModel.find(owner_id).get('collections');
+        if (article === "article")
+        {
+            var coverImge = Mega.get('article').objectAt(0).get('article_image_url');
+        }
+        else {
+             var coverImge = Mega.get('photo').objectAt(0).get('photo_image_original_url');
+        }
 
-        
 
         // var that = this;
         for (var i = 0; i < userOrprofile.get('content').length; i++) {
-          
+
             if (userOrprofile.objectAt(i).id === collection_id) {
-                
+
                 var currentCollection = userOrprofile.objectAt(i);
                 currentCollection.set('cover', coverImge);
                 currentCollection.set('optional', owner_id);
@@ -216,26 +224,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             }
         }
     },
-    changeCollectionArticleCover: function(id, collection_id, HubStarModel) {
-        this.dropdownPhotoSetting(id);
-        var Mega = HubStar.Mega.find(id);       
-        var coverImge = Mega.get('article').objectAt(0).get('article_image_url');
-        var address = document.URL;
-        var owner_id = address.split("#")[1].split("/")[2];
-        var userOrprofile = HubStarModel.find(owner_id).get('collections');
-        // var that = this;
-        for (var i = 0; i < userOrprofile.get('content').length; i++) {
-            if (userOrprofile.objectAt(i).id === collection_id) {
-                var currentCollection = userOrprofile.objectAt(i);
-                currentCollection.set('cover', coverImge);
-                currentCollection.set('optional', owner_id);
-                HubStar.store.save();
-                this.get('controllers.applicationFeedback').statusObserver(null, "Updated successfully.");
-                break;
-            }
-        }
-    },
-
+    
     transitionToArticle: function(id) {
 
         this.transitionTo("article", HubStar.Article.find(id));
@@ -258,9 +247,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             if (results.get('isLoaded')) {
                 for (var i = 0; i < this.get("length"); i++) {
                     var tempmega = results.objectAt(i);
-//                    var tempID = tempmega.get('collection_id').toLowerCase().replace(/ /g, "-");
-//                    var tempCollectionID = that.get('collection_id').toLowerCase().replace(/ /g, "-");                 //there are lots of wrong collection_id for the photo data, remove the restriction first and waiting for Ray to fix all the wrong data
-                    if (tempmega.get('photo').get('length') === 1) //&& (tempID === tempCollectionID))
+                    if (tempmega.get('photo').get('length') === 1&& (that.get('collection_id') === tempmega.get('collection_id')))
                     {
                         that.get("content").pushObject(tempmega);
                     }

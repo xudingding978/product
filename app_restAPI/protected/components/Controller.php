@@ -168,23 +168,31 @@ class Controller extends CController {
         } elseif ($requireType == 'personalCollection') {
             $userid = $this->getUserInput($requireParams[1]);
             $collection_id = $this->getUserInput($requireParams[2], false);
-            $conditions = array();
-            $requestStringOne = 'couchbaseDocument.doc.user.id=' . $userid;
-            array_push($conditions, $requestStringOne);
-            $requestStringTwo = 'couchbaseDocument.doc.user.collections.id=' . $collection_id;
-            array_push($conditions, $requestStringTwo);
-            $tempResult = $this->searchWithCondictions($conditions, 'must');
-            $tempResult = $this->getReponseResult($tempResult, $returnType);
-            $mega = CJSON::decode($tempResult, true);
-            if (!isset($mega['megas'][0]['user'][0]['collections'])) {
-                $collections = array();
-            } else {
-                $collections = $mega['megas'][0]['user'][0]['collections'];
-            }
-            $response = $this->getCollections($collections, $collection_id, $returnType);
+            $response = $this->searchCollectionItem($userid,$collection_id,$returnType);
+        } elseif ($requireType == 'defaultSearch') {
+            $response = $this->searchCollectionItem('21051211514','editor-picks',$returnType);          
         } else {
             $response = $this->getSearchResults("", "huang");
         }
+        return $response;
+    }
+    
+    protected function searchCollectionItem($userid,$collection_id,$returnType) {
+        $conditions = array();
+        $requestStringOne = 'couchbaseDocument.doc.user.id=' . $userid;
+        array_push($conditions, $requestStringOne);
+        $requestStringTwo = 'couchbaseDocument.doc.user.collections.id=' . $collection_id;
+        array_push($conditions, $requestStringTwo);
+        $tempResult = $this->searchWithCondictions($conditions, 'must');
+        $tempResult = $this->getReponseResult($tempResult, $returnType);
+        $mega = CJSON::decode($tempResult, true);
+        if (!isset($mega['megas'][0]['user'][0]['collections'])) {
+            $collections = array();
+        } else {
+            $collections = $mega['megas'][0]['user'][0]['collections'];
+        }
+        $response = $this->getCollections($collections, $collection_id, $returnType);
+        
         return $response;
     }
 
@@ -245,7 +253,7 @@ class Controller extends CController {
         }
         $request->query($bool);
         $response = $request->execute();
-
+        
         return $response;
     }
 
@@ -304,11 +312,11 @@ class Controller extends CController {
         return $results;
     }
 
-    protected function RequireByIds($ids) {
+    protected function RequireByIds($ids,$size) {
 
         $request = $this->getElasticSearch();
         $request->from(0)
-                ->size(100);
+                ->size($size);
 
         $header = '{"ids": { "values": [';
         $footer = ']}}';
@@ -404,12 +412,6 @@ class Controller extends CController {
             if (isset($tempResponse[$int]['source']['doc']['comments'])) {
                 error_log(var_export($tempResponse[$int]['source']['doc']['comments'], true));
             }
-
-
-
-
-
-
             array_push($array, $tempObject);
         }
         $tempId = time();
@@ -494,13 +496,14 @@ class Controller extends CController {
         $str_partnerIds = "";
         $domain = $this->getDomain();
         $trendsUrl = $domain . "/profiles/";
+        $size = count($partnerIds);
         for ($i = 0; $i < sizeof($partnerIds); $i++) {
             $str_partnerIds = $str_partnerIds . '"' . $trendsUrl . $partnerIds[$i] . '"';
             if ($i + 1 < sizeof($partnerIds)) {
                 $str_partnerIds.=',';
             }
         }
-        $response = $this->RequireByIds($str_partnerIds);
+        $response = $this->RequireByIds($str_partnerIds, $size);
         return $response;
     }
 

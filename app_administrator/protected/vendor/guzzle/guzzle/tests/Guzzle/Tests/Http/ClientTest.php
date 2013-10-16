@@ -76,24 +76,10 @@ class ClientTest extends \Guzzle\Tests\GuzzleTestCase
     public function testExpandsUriTemplatesUsingConfig()
     {
         $client = new Client('http://www.google.com/');
-        $client->setConfig(array(
-            'api' => 'v1',
-            'key' => 'value',
-            'foo' => 'bar'
-        ));
-        $this->assertEquals('Testing...api/v1/key/value', $client->expandTemplate('Testing...api/{api}/key/{key}'));
-
-        // Make sure that the client properly validates and injects config
-        $this->assertEquals('bar', $client->getConfig('foo'));
-    }
-
-    /**
-     * @expectedException \Guzzle\Common\Exception\InvalidArgumentException
-     */
-    public function testValidatesArrayForTemplateIsValid()
-    {
-        $client = new Client('http://www.google.com/');
-        $client->createRequest('GET', array('foo' => 'bar', 'baz' => 'bam'));
+        $client->setConfig(array('api' => 'v1', 'key' => 'value', 'foo' => 'bar'));
+        $ref = new \ReflectionMethod($client, 'expandTemplate');
+        $ref->setAccessible(true);
+        $this->assertEquals('Testing...api/v1/key/value', $ref->invoke($client, 'Testing...api/{api}/key/{key}'));
     }
 
     public function testClientAttachersObserversToRequests()
@@ -234,6 +220,7 @@ class ClientTest extends \Guzzle\Tests\GuzzleTestCase
 
     public function testClientAddsParamsToRequests()
     {
+        Version::$emitWarnings = false;
         $client = new Client('http://www.example.com', array(
             'api' => 'v1',
             'request.params' => array(
@@ -244,6 +231,7 @@ class ClientTest extends \Guzzle\Tests\GuzzleTestCase
         $request = $client->createRequest();
         $this->assertEquals('bar', $request->getParams()->get('foo'));
         $this->assertEquals('jar', $request->getParams()->get('baz'));
+        Version::$emitWarnings = true;
     }
 
     public function urlProvider()
@@ -352,9 +340,11 @@ class ClientTest extends \Guzzle\Tests\GuzzleTestCase
     {
         $mock = $this->getMock('Guzzle\\Http\\Curl\\CurlMulti', array('add', 'send'));
         $mock->expects($this->once())
-             ->method('add');
+            ->method('add')
+            ->will($this->returnSelf());
         $mock->expects($this->once())
-             ->method('send');
+            ->method('send')
+            ->will($this->returnSelf());
 
         $client = new Client();
         $client->setCurlMulti($mock);
@@ -459,48 +449,22 @@ class ClientTest extends \Guzzle\Tests\GuzzleTestCase
 
     public function testAllowsUriTemplateInjection()
     {
-        $client = new Client('http://test.com', array(
-            'path'  => array('foo', 'bar'),
-            'query' => 'hi there',
-        ));
-
-        $a = $client->getUriTemplate();
-        $this->assertSame($a, $client->getUriTemplate());
+        $client = new Client('http://test.com');
+        $ref = new \ReflectionMethod($client, 'getUriTemplate');
+        $ref->setAccessible(true);
+        $a = $ref->invoke($client);
+        $this->assertSame($a, $ref->invoke($client));
         $client->setUriTemplate(new UriTemplate());
-        $this->assertNotSame($a, $client->getUriTemplate());
+        $this->assertNotSame($a, $ref->invoke($client));
     }
 
     public function testAllowsCustomVariablesWhenExpandingTemplates()
     {
-        $client = new Client('http://test.com', array(
-            'test' => 'hi',
-        ));
-
-        $uri = $client->expandTemplate('http://{test}{?query*}', array(
-            'query' => array(
-                'han' => 'solo'
-            )
-        ));
-
+        $client = new Client('http://test.com', array('test' => 'hi'));
+        $ref = new \ReflectionMethod($client, 'expandTemplate');
+        $ref->setAccessible(true);
+        $uri = $ref->invoke($client, 'http://{test}{?query*}', array('query' => array('han' => 'solo')));
         $this->assertEquals('http://hi?han=solo', $uri);
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testUriArrayMustContainExactlyTwoElements()
-    {
-        $client = new Client();
-        $client->createRequest('GET', array('haha!'));
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testUriArrayMustContainAnArray()
-    {
-        $client = new Client();
-        $client->createRequest('GET', array('haha!', 'test'));
     }
 
     public function testUriArrayAllowsCustomTemplateVariables()
@@ -519,12 +483,9 @@ class ClientTest extends \Guzzle\Tests\GuzzleTestCase
 
     public function testAllowsDefaultHeaders()
     {
-        $default = array(
-            'X-Test' => 'Hi!'
-        );
-        $other = array(
-            'X-Other' => 'Foo'
-        );
+        Version::$emitWarnings = false;
+        $default = array('X-Test' => 'Hi!');
+        $other = array('X-Other' => 'Foo');
 
         $client = new Client();
         $client->setDefaultHeaders($default);
@@ -542,15 +503,7 @@ class ClientTest extends \Guzzle\Tests\GuzzleTestCase
 
         $request = $client->createRequest('GET');
         $this->assertEquals('Hi!', $request->getHeader('X-Test'));
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testValidatesDefaultHeaders()
-    {
-        $client = new Client();
-        $client->setDefaultHeaders('foo');
+        Version::$emitWarnings = true;
     }
 
     public function testDontReuseCurlMulti()
@@ -584,5 +537,56 @@ class ClientTest extends \Guzzle\Tests\GuzzleTestCase
         $client = new Client();
         $request = $client->createRequest('GET', 'http://www.foo.com');
         $this->assertContains('Guzzle/', (string) $request->getHeader('User-Agent'));
+    }
+
+    public function testCanSetDefaultRequestOptions()
+    {
+        $client = new Client();
+        $client->getConfig()->set('request.options', array(
+            'query' => array('test' => '123', 'other' => 'abc'),
+            'headers' => array('Foo' => 'Bar', 'Baz' => 'Bam')
+        ));
+        $request = $client->createRequest('GET', 'http://www.foo.com?test=hello', array('Foo' => 'Test'));
+        // Explicit options on a request should overrule default options
+        $this->assertEquals('Test', (string) $request->getHeader('Foo'));
+        $this->assertEquals('hello', $request->getQuery()->get('test'));
+        // Default options should still be set
+        $this->assertEquals('abc', $request->getQuery()->get('other'));
+        $this->assertEquals('Bam', (string) $request->getHeader('Baz'));
+    }
+
+    public function testCanSetSetOptionsOnRequests()
+    {
+        $client = new Client();
+        $request = $client->createRequest('GET', 'http://www.foo.com?test=hello', array('Foo' => 'Test'), null, array(
+            'cookies' => array('michael' => 'test')
+        ));
+        $this->assertEquals('test', $request->getCookie('michael'));
+    }
+
+    public function testHasDefaultOptionsHelperMethods()
+    {
+        $client = new Client();
+        // With path
+        $client->setDefaultOption('headers/foo', 'bar');
+        $this->assertEquals('bar', $client->getDefaultOption('headers/foo'));
+        // With simple key
+        $client->setDefaultOption('allow_redirects', false);
+        $this->assertFalse($client->getDefaultOption('allow_redirects'));
+
+        $this->assertEquals(array(
+            'headers' => array('foo' => 'bar'),
+            'allow_redirects' => false
+        ), $client->getConfig('request.options'));
+
+        $request = $client->get('/');
+        $this->assertEquals('bar', $request->getHeader('foo'));
+    }
+
+    public function testHeadCanUseOptions()
+    {
+        $client = new Client();
+        $head = $client->head('http://www.foo.com', array(), array('query' => array('foo' => 'bar')));
+        $this->assertEquals('bar', $head->getQuery()->get('foo'));
     }
 }

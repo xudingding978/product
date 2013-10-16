@@ -6,7 +6,7 @@
  */
 namespace Sherlock\components\mappings;
 
-use Analog\Analog;
+
 use Sherlock\components;
 use Sherlock\common\exceptions;
 
@@ -18,6 +18,7 @@ use Sherlock\common\exceptions;
 class Analyzer extends \Sherlock\components\BaseComponent implements \Sherlock\components\MappingInterface
 {
     protected $type;
+
 
     /**
      * @param null $type
@@ -31,11 +32,12 @@ class Analyzer extends \Sherlock\components\BaseComponent implements \Sherlock\c
             $this->type = $type;
         }
 
-        $this->params['path'] = null;
+        $this->params['path']  = null;
         $this->params['index'] = null;
 
         parent::__construct($hashMap);
     }
+
 
     /**
      * @return array
@@ -46,8 +48,7 @@ class Analyzer extends \Sherlock\components\BaseComponent implements \Sherlock\c
         $ret = array();
 
         if (!isset($this->params['path'])) {
-            Analog::error("Path must be set for Analyzer mapping");
-            throw new exceptions\RuntimeException("Path must be set for Analyzer mapping");
+                        throw new exceptions\RuntimeException("Path must be set for Analyzer mapping");
         }
 
         $ret['_analyzer']['path'] = $this->params['path'];
@@ -59,6 +60,7 @@ class Analyzer extends \Sherlock\components\BaseComponent implements \Sherlock\c
         return $ret;
 
     }
+
 
     /**
      * @return null

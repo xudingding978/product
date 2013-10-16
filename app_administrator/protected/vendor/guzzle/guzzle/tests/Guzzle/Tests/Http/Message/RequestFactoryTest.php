@@ -4,11 +4,15 @@ namespace Guzzle\Tests\Http\Message;
 
 use Guzzle\Common\Collection;
 use Guzzle\Http\Client;
+use Guzzle\Http\Message\Response;
 use Guzzle\Http\Url;
 use Guzzle\Http\EntityBody;
 use Guzzle\Http\Message\RequestFactory;
+use Guzzle\Http\Message\Request;
 use Guzzle\Http\QueryString;
 use Guzzle\Parser\Message\MessageParser;
+use Guzzle\Plugin\Log\LogPlugin;
+use Guzzle\Plugin\Mock\MockPlugin;
 
 /**
  * @group server
@@ -321,5 +325,290 @@ class HttpRequestFactoryTest extends \Guzzle\Tests\GuzzleTestCase
         $this->assertNull($cloned->getHeader('Content-Length'));
         $this->assertEquals('http://www.test.com', $cloned->getUrl());
         $this->assertSame($request->getClient(), $cloned->getClient());
+    }
+
+    public function testClonesRequestsWithMethodWithClientWithEntityEnclosingChange()
+    {
+        $f = RequestFactory::getInstance();
+        $client = new Client();
+        $request = $client->put('http://www.test.com', array('Content-Length' => 4), 'test');
+        $cloned = $f->cloneRequestWithMethod($request, 'POST');
+        $this->assertEquals('POST', $cloned->getMethod());
+        $this->assertEquals('test', (string) $cloned->getBody());
+    }
+
+    public function testCanDisableRedirects()
+    {
+        $this->getServer()->enqueue(array(
+            "HTTP/1.1 307\r\nLocation: " . $this->getServer()->getUrl() . "\r\nContent-Length: 0\r\n\r\n"
+        ));
+        $client = new Client($this->getServer()->getUrl());
+        $response = $client->get('/', array(), array('allow_redirects' => false))->send();
+        $this->assertEquals(307, $response->getStatusCode());
+    }
+
+    public function testCanAddCookies()
+    {
+        $client = new Client($this->getServer()->getUrl());
+        $request = $client->get('/', array(), array('cookies' => array('Foo' => 'Bar')));
+        $this->assertEquals('Bar', $request->getCookie('Foo'));
+    }
+
+    public function testCanAddQueryString()
+    {
+        $request = RequestFactory::getInstance()->create('GET', 'http://foo.com', array(), null, array(
+            'query' => array('Foo' => 'Bar')
+        ));
+        $this->assertEquals('Bar', $request->getQuery()->get('Foo'));
+    }
+
+    public function testCanSetDefaultQueryString()
+    {
+        $request = new Request('GET', 'http://www.foo.com?test=abc');
+        RequestFactory::getInstance()->applyOptions($request, array(
+            'query' => array('test' => '123', 'other' => 't123')
+        ), RequestFactory::OPTIONS_AS_DEFAULTS);
+        $this->assertEquals('abc', $request->getQuery()->get('test'));
+        $this->assertEquals('t123', $request->getQuery()->get('other'));
+    }
+
+    public function testCanAddBasicAuth()
+    {
+        $request = RequestFactory::getInstance()->create('GET', 'http://foo.com', array(), null, array(
+            'auth' => array('michael', 'test')
+        ));
+        $this->assertEquals('michael', $request->getUsername());
+        $this->assertEquals('test', $request->getPassword());
+    }
+
+    public function testCanAddDigestAuth()
+    {
+        $request = RequestFactory::getInstance()->create('GET', 'http://foo.com', array(), null, array(
+            'auth' => array('michael', 'test', 'digest')
+        ));
+        $this->assertEquals(CURLAUTH_DIGEST, $request->getCurlOptions()->get(CURLOPT_HTTPAUTH));
+        $this->assertEquals('michael', $request->getUsername());
+        $this->assertEquals('test', $request->getPassword());
+    }
+
+    public function testCanAddEvents()
+    {
+        $foo = null;
+        $client = new Client();
+        $client->addSubscriber(new MockPlugin(array(new Response(200))));
+        $request = $client->get($this->getServer()->getUrl(), array(), array(
+            'events' => array(
+                'request.before_send' => function () use (&$foo) { $foo = true; }
+            )
+        ));
+        $request->send();
+        $this->assertTrue($foo);
+    }
+
+    public function testCanAddEventsWithPriority()
+    {
+        $foo = null;
+        $client = new Client();
+        $client->addSubscriber(new MockPlugin(array(new Response(200))));
+        $request = $client->get($this->getServer()->getUrl(), array(), array(
+            'events' => array(
+                'request.before_send' => array(function () use (&$foo) { $foo = true; }, 100)
+            )
+        ));
+        $request->send();
+        $this->assertTrue($foo);
+    }
+
+    public function testCanAddPlugins()
+    {
+        $mock = new MockPlugin(array(new Response(200)));
+        $client = new Client();
+        $client->addSubscriber($mock);
+        $request = $client->get('/', array(), array(
+            'plugins' => array($mock)
+        ));
+        $request->send();
+    }
+
+    public function testCanDisableExceptions()
+    {
+        $client = new Client();
+        $request = $client->get('/', array(), array(
+            'plugins' => array(new MockPlugin(array(new Response(500)))),
+            'exceptions' => false
+        ));
+        $this->assertEquals(500, $request->send()->getStatusCode());
+    }
+
+    public function testCanDisableExceptionsWithErrorListener()
+    {
+        $client = new Client();
+        $client->getEventDispatcher()->addListener('request.error', function () {});
+        $request = $client->get('/', array(), array(
+                'plugins' => array(new MockPlugin(array(new Response(500)))),
+                'exceptions' => false
+            ));
+        $this->assertEquals(500, $request->send()->getStatusCode());
+    }
+
+    public function testCanChangeSaveToLocation()
+    {
+        $r = EntityBody::factory();
+        $client = new Client();
+        $request = $client->get('/', array(), array(
+            'plugins' => array(new MockPlugin(array(new Response(200, array(), 'testing')))),
+            'save_to' => $r
+        ));
+        $request->send();
+        $this->assertEquals('testing', (string) $r);
+    }
+
+    public function testCanSetProxy()
+    {
+        $client = new Client();
+        $request = $client->get('/', array(), array('proxy' => '192.168.16.121'));
+        $this->assertEquals('192.168.16.121', $request->getCurlOptions()->get(CURLOPT_PROXY));
+    }
+
+    public function testCanSetHeadersOption()
+    {
+        $client = new Client();
+        $request = $client->get('/', array(), array('headers' => array('Foo' => 'Bar')));
+        $this->assertEquals('Bar', (string) $request->getHeader('Foo'));
+    }
+
+    public function testCanSetDefaultHeadersOptions()
+    {
+        $request = new Request('GET', 'http://www.foo.com', array('Foo' => 'Bar'));
+        RequestFactory::getInstance()->applyOptions($request, array(
+            'headers' => array('Foo' => 'Baz', 'Bam' => 't123')
+        ), RequestFactory::OPTIONS_AS_DEFAULTS);
+        $this->assertEquals('Bar', (string) $request->getHeader('Foo'));
+        $this->assertEquals('t123', (string) $request->getHeader('Bam'));
+    }
+
+    public function testCanSetBodyOption()
+    {
+        $client = new Client();
+        $request = $client->put('/', array(), null, array('body' => 'test'));
+        $this->assertEquals('test', (string) $request->getBody());
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testValidatesBodyOption()
+    {
+        $client = new Client();
+        $client->get('/', array(), array('body' => 'test'));
+    }
+
+    public function testCanSetTimeoutOption()
+    {
+        $client = new Client();
+        $request = $client->get('/', array(), array('timeout' => 1.5));
+        $this->assertEquals(1500, $request->getCurlOptions()->get(CURLOPT_TIMEOUT_MS));
+    }
+
+    public function testCanSetConnectTimeoutOption()
+    {
+        $client = new Client();
+        $request = $client->get('/', array(), array('connect_timeout' => 1.5));
+        $this->assertEquals(1500, $request->getCurlOptions()->get(CURLOPT_CONNECTTIMEOUT_MS));
+    }
+
+    public function testCanSetDebug()
+    {
+        $client = new Client();
+        $request = $client->get('/', array(), array('debug' => true));
+        $match = false;
+        foreach ($request->getEventDispatcher()->getListeners('request.sent') as $l) {
+            if ($l[0] instanceof LogPlugin) {
+                $match = true;
+                break;
+            }
+        }
+        $this->assertTrue($match);
+    }
+
+    public function testCanSetVerifyToOff()
+    {
+        $client = new Client();
+        $request = $client->get('/', array(), array('verify' => false));
+        $this->assertNull($request->getCurlOptions()->get(CURLOPT_CAINFO));
+        $this->assertSame(0, $request->getCurlOptions()->get(CURLOPT_SSL_VERIFYHOST));
+        $this->assertFalse($request->getCurlOptions()->get(CURLOPT_SSL_VERIFYPEER));
+    }
+
+    public function testCanSetVerifyToOn()
+    {
+        $client = new Client();
+        $request = $client->get('/', array(), array('verify' => true));
+        $this->assertNotNull($request->getCurlOptions()->get(CURLOPT_CAINFO));
+        $this->assertSame(2, $request->getCurlOptions()->get(CURLOPT_SSL_VERIFYHOST));
+        $this->assertTrue($request->getCurlOptions()->get(CURLOPT_SSL_VERIFYPEER));
+    }
+
+    public function testCanSetVerifyToPath()
+    {
+        $client = new Client();
+        $request = $client->get('/', array(), array('verify' => '/foo.pem'));
+        $this->assertEquals('/foo.pem', $request->getCurlOptions()->get(CURLOPT_CAINFO));
+        $this->assertSame(2, $request->getCurlOptions()->get(CURLOPT_SSL_VERIFYHOST));
+        $this->assertTrue($request->getCurlOptions()->get(CURLOPT_SSL_VERIFYPEER));
+    }
+
+    public function inputValidation()
+    {
+        return array_map(function ($option) { return array($option); }, array(
+            'headers', 'query', 'cookies', 'auth', 'events', 'plugins', 'params'
+        ));
+    }
+
+    /**
+     * @dataProvider inputValidation
+     * @expectedException \Guzzle\Common\Exception\InvalidArgumentException
+     */
+    public function testValidatesInput($option)
+    {
+        $client = new Client();
+        $client->get('/', array(), array($option => 'foo'));
+    }
+
+    public function testCanAddRequestParams()
+    {
+        $client = new Client();
+        $request = $client->put('/', array(), null, array('params' => array('foo' => 'test')));
+        $this->assertEquals('test', $request->getParams()->get('foo'));
+    }
+
+    public function testCanAddSslKey()
+    {
+        $client = new Client();
+        $request = $client->get('/', array(), array('ssl_key' => '/foo.pem'));
+        $this->assertEquals('/foo.pem', $request->getCurlOptions()->get(CURLOPT_SSLKEY));
+    }
+
+    public function testCanAddSslKeyPassword()
+    {
+        $client = new Client();
+        $request = $client->get('/', array(), array('ssl_key' => array('/foo.pem', 'bar')));
+        $this->assertEquals('/foo.pem', $request->getCurlOptions()->get(CURLOPT_SSLKEY));
+        $this->assertEquals('bar', $request->getCurlOptions()->get(CURLOPT_SSLKEYPASSWD));
+    }
+
+    public function testCanAddSslCert()
+    {
+        $client = new Client();
+        $request = $client->get('/', array(), array('cert' => '/foo.pem'));
+        $this->assertEquals('/foo.pem', $request->getCurlOptions()->get(CURLOPT_SSLCERT));
+    }
+
+    public function testCanAddSslCertPassword()
+    {
+        $client = new Client();
+        $request = $client->get('/', array(), array('cert' => array('/foo.pem', 'bar')));
+        $this->assertEquals('/foo.pem', $request->getCurlOptions()->get(CURLOPT_SSLCERT));
+        $this->assertEquals('bar', $request->getCurlOptions()->get(CURLOPT_SSLCERTPASSWD));
     }
 }

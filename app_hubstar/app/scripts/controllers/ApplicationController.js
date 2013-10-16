@@ -27,7 +27,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     iframeLoginURL: "",
     isWaiting: "",
     init: function() {
-        this.newSearch();
+        this.defaultSearch();
         this.set('search_string', '');
         var address = document.URL;
         var domain = address.split("/")[2];
@@ -86,7 +86,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             }
         });
     },
-    newSearch: function() {
+    newSearch: function() {       
         this.set("content", []);
         this.set("from", 0);
         this.set("size", 20);
@@ -137,7 +137,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     defaultSearch: function() {
         this.set("loginInfo", localStorage.loginStatus);
-        var results = HubStar.Mega.find({});
+        var results = HubStar.Mega.find({"RquireType": "defaultSearch"});
         this.set("content", results);
     },
     getResponseTime: function(start, end) {

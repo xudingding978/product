@@ -44,7 +44,7 @@
             <div class="comment-content">
                 {{model.msg}}<br>
                 {{#if model.isUrl }}
-                <div style='margin: 5px auto;max-width: 300px;max-height: 300px;text-align: center;'>
+                <div style='margin: 5px auto;max-width: 300px;max-height: 300px;float: left;'>
                     <img {{bindAttr src= model.url}} style="border: 4px solid #fff;"/>
                 </div>
                 {{/if}}
@@ -95,6 +95,7 @@
 
                 <!--please disable the following div when it's got not content-->
                 <div style='width: 380px;max-height: 100px;padding: 10px 12px;text-align: center;background-color: #fff;border-radius: 0 0 3px 3px;border: 1px solid #ddd;border-top: none;'>
+                    <div class='remove-comment-photo easing' ><i class="icon-remove"></i></div>
                     <img  {{bindAttr src= "newStyleImageSource"}}  style="max-height: 80px;max-width: 300px">
                 </div>
 
@@ -135,7 +136,7 @@
                 <div class="comment-content">
                     {{this.msg}}<br>
                     {{#if this.isUrl }}   <!-- if the isUrl is not null which mean it has the picture url, so it can show the image-->
-                    <div style='margin: 5px auto;max-width: 300px;max-height: 300px;text-align: center;'>
+                    <div style='margin: 5px auto;max-width: 300px;max-height: 300px;float: right;'>
                         <img {{bindAttr src= this.url}} style="border: 4px solid #fff;"/>
                     </div>
                     {{/if}}

@@ -9,7 +9,11 @@ $config=dirname(__FILE__).'/config/console.php';
 // register composer autoloader
 require_once dirname(__FILE__) . '/vendor/autoload.php';
 
+echo "auot loader running";
+
 use \Sherlock\Sherlock;
+
+echo "Sherlock Loaded....";
 
 
 require_once($yiic);

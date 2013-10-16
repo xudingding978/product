@@ -258,9 +258,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             if (results.get('isLoaded')) {
                 for (var i = 0; i < this.get("length"); i++) {
                     var tempmega = results.objectAt(i);
-//                    var tempID = tempmega.get('collection_id').toLowerCase().replace(/ /g, "-");
-//                    var tempCollectionID = that.get('collection_id').toLowerCase().replace(/ /g, "-");                 //there are lots of wrong collection_id for the photo data, remove the restriction first and waiting for Ray to fix all the wrong data
-                    if (tempmega.get('photo').get('length') === 1) //&& (tempID === tempCollectionID))
+                    if (tempmega.get('photo').get('length') === 1&& (that.get('collection_id') === tempmega.get('collection_id')))
                     {
                         that.get("content").pushObject(tempmega);
                     }

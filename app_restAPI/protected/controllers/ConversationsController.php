@@ -7,17 +7,117 @@ header('Access-Control-Request-Method: *');
 header('Access-Control-Allow-Methods: PUT, POST, OPTIONS, GET');
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
-class MessagesController extends Controller {
+class ConversationsController extends Controller {
 
     const JSON_RESPONSE_ROOT_SINGLE = 'conversation';
     const JSON_RESPONSE_ROOT_PLURAL = 'conversations';
 
     public function actionIndex() {
-        
+        //   date_default_timezone_set('Pacific/Auckland'); 
+        // echo phpinfo();
+        date_default_timezone_set('Pacific/Auckland');
+        echo "Testing Couchbase";
+        $cb = new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "develop");
     }
 
     public function actionCreate() {
         $this->sendResponse(204);
+    }
+
+    public function actionCreateConversation() {
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $request_array = CJSON::decode($request_array);
+        $item_id = $request_array[0];
+        $time_stamp = $request_array[1];
+        $title = $request_array[2];
+        $content = $request_array[3];
+        $sender_id = $request_array[4];
+        $sender_photo_url_large = $request_array[5];
+        $conversation_id = $request_array[6];
+        $participation_id = $request_array[7];
+
+        $conversation = $this->addConversation($item_id, $time_stamp, $title, $content, $sender_id, $sender_photo_url_large, $conversation_id, $participation_id);
+
+        if ($conversation) {
+            $this->sendResponse(200, CJSON::encode($conversation));
+        } else {
+            echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+        }
+    }
+
+    public function addConversation($item_id, $time_stamp, $title, $content, $sender_id, $sender_photo_url_large, $conversation_id, $participation_id) {}
+    public function conversationss(){
+      //  try {
+
+ $id="56344323073";
+            $docIDDeep1 = $this->getDomain() . "/conversations/" . $id;
+            $cb1 = $this->couchBaseConnection();
+            $oldDeep1 = $cb1->get($docIDDeep1); // get the old user record from the database according to the docID string
+            $oldDeep1 = "testtest";
+            $cb1->set($docIDDeep1, CJSON::encode($oldDeep1));
+
+
+//            $docIDDeep = $this->getDomain() . "/conversations/" . $id;
+//            //  error_log(var_export($id, true));
+//            $cb = $this->couchBaseConnection();
+//            $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+//            $oldRecordDeep = CJSON::decode($oldDeep, true);
+//            $newMessage = array();
+//
+//            $newReply = array();
+//
+//            $newReply["reply_id"] = $reply_id;
+//            $newReply["user_id"] = $commenter_id;
+//            $newReply["time_stamp"] = $date;
+//            $newReply["msg"] = $commentContent;
+//
+//
+//
+////get the commenter's photo url and name
+//            $commenterInfo = $this->getDomain() . "/users/" . $commenter_id;
+//            $cbs = $this->couchBaseConnection();
+//            $commenterInfoDeep = $cbs->get($commenterInfo); // get the old user record from the database according to the docID string
+//            $oldcommenterInfo = CJSON::decode($commenterInfoDeep, true);
+//
+//            $newReply["user_name"] = $oldcommenterInfo['user'][0]["display_name"];
+//            $newReply["photo_url_large"] = $oldcommenterInfo['user'][0]["photo_url_large"];
+//
+//            if ($newStyleImage !== null && $photo_name !== "") {
+//                $photoController = new PhotosController(); //    this.get("controllers.PhotosController").             
+//                //error_log(var_export($newStyleImage, true));
+//                $data_arr = $photoController->convertToString64($newStyleImage);
+//                //$data_arr = $photoController->convertToString64($photo_string);      
+//                $photo = imagecreatefromstring($data_arr['data']);
+//                $compressed_photo = $photoController->compressPhotoData($imageType, $photo);
+//                $orig_size['width'] = imagesx($compressed_photo);
+//                $orig_size['height'] = imagesy($compressed_photo);
+//                $url = $photoController->saveCommentPhotoInTypes($orig_size, "user_cover_small", $photo_name, $compressed_photo, $data_arr, $id, null, $message_id);
+//
+//
+//                $newReply["url"] = $url;
+//            } else {
+//                $newReply["url"] = null;
+//            }
+////$newReplyJason= CJSON::encode($newReply);
+//            $newMessage["message_id"] = $message_id;
+//            $newMessage['replyMessageCollection'] = array();
+//            array_unshift($newMessage['replyMessageCollection'], $newReply);
+//            if (isset($oldRecordDeep['user'][0]["messages"])) {
+//                array_unshift($oldRecordDeep['user'][0]["messages"], $newMessage);
+//            } else {
+//                $oldRecordDeep['user'][0]["messages"] = array();
+//                array_unshift($oldRecordDeep['user'][0]["messages"], $newMessage);
+//            }
+//
+//            if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
+//                return $newMessage;
+//            } else {
+//                
+//            }
+//        } catch (Exception $exc) {
+//            echo $exc->getTraceAsString();
+//            echo json_decode(file_get_contents('php://input'));
+//        }
     }
 
     public function actionRemoveMessage() {
@@ -132,97 +232,6 @@ class MessagesController extends Controller {
         }
     }
 
-    public function actionCreateComment() {
-        $request_array = CJSON::decode(file_get_contents('php://input'));
-        $request_array = CJSON::decode($request_array);
-        $commenter_id = $request_array[0];
-        $date = $request_array[1];
-        $commentContent = $request_array[2];
-        $owner_id = $request_array[3];
-
-        $newStyleImage = $request_array[4];
-
-        $imageType = $request_array[5];
-        $photo_name = $request_array[6];
-
-        $message_id = $request_array[7];
-        $reply_id = $request_array[8];
-        $message_id = $message_id . $commenter_id . $owner_id;
-        $reply_id = $reply_id . $commenter_id . $owner_id;
-        $comment = $this->addComment($commenter_id, $date, $commentContent, $owner_id, $newStyleImage, $imageType, $photo_name, $message_id, $reply_id);
-
-        if ($comment) {
-            $this->sendResponse(200, CJSON::encode($comment));
-        } else {
-            echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
-        }
-    }
-
-    public function addComment($commenter_id, $date, $commentContent, $id, $newStyleImage, $imageType, $photo_name, $message_id, $reply_id) {                       //saving follower in profile
-        try {
-            $docIDDeep = $this->getDomain() . "/users/" . $id;
-            //  error_log(var_export($id, true));
-            $cb = $this->couchBaseConnection();
-            $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
-            $oldRecordDeep = CJSON::decode($oldDeep, true);
-            $newMessage = array();
-
-            $newReply = array();
-
-            $newReply["reply_id"] = $reply_id;
-            $newReply["user_id"] = $commenter_id;
-            $newReply["time_stamp"] = $date;
-            $newReply["msg"] = $commentContent;
-
-
-
-//get the commenter's photo url and name
-            $commenterInfo = $this->getDomain() . "/users/" . $commenter_id;
-            $cbs = $this->couchBaseConnection();
-            $commenterInfoDeep = $cbs->get($commenterInfo); // get the old user record from the database according to the docID string
-            $oldcommenterInfo = CJSON::decode($commenterInfoDeep, true);
-
-            $newReply["user_name"] = $oldcommenterInfo['user'][0]["display_name"];
-            $newReply["photo_url_large"] = $oldcommenterInfo['user'][0]["photo_url_large"];
-
-            if ($newStyleImage !== null && $photo_name !== "") {
-                $photoController = new PhotosController(); //    this.get("controllers.PhotosController").             
-                //error_log(var_export($newStyleImage, true));
-                $data_arr = $photoController->convertToString64($newStyleImage);
-                //$data_arr = $photoController->convertToString64($photo_string);      
-                $photo = imagecreatefromstring($data_arr['data']);
-                $compressed_photo = $photoController->compressPhotoData($imageType, $photo);
-                $orig_size['width'] = imagesx($compressed_photo);
-                $orig_size['height'] = imagesy($compressed_photo);
-                $url = $photoController->saveCommentPhotoInTypes($orig_size, "user_cover_small", $photo_name, $compressed_photo, $data_arr, $id, null, $message_id);
-
-
-                $newReply["url"] = $url;
-            } else {
-                $newReply["url"] = null;
-            }
-//$newReplyJason= CJSON::encode($newReply);
-            $newMessage["message_id"] = $message_id;
-            $newMessage['replyMessageCollection'] = array();
-            array_unshift($newMessage['replyMessageCollection'], $newReply);
-            if (isset($oldRecordDeep['user'][0]["messages"])) {
-                array_unshift($oldRecordDeep['user'][0]["messages"], $newMessage);
-            } else {
-                $oldRecordDeep['user'][0]["messages"] = array();
-                array_unshift($oldRecordDeep['user'][0]["messages"], $newMessage);
-            }
-
-            if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
-                return $newMessage;
-            } else {
-                
-            }
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-            echo json_decode(file_get_contents('php://input'));
-        }
-    }
-
     public function actionUpdateReply() {
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $request_array = CJSON::decode($request_array);
@@ -258,12 +267,12 @@ class MessagesController extends Controller {
 
             for ($i = 0; $i < sizeof($oldRecordDeep['user'][0]["messages"]); $i++) {
                 for ($j = 0; $j < sizeof($oldRecordDeep['user'][0]["messages"][$i]["replyMessageCollection"]); $j++) {
-                    
-                     $currentMessage = $oldRecordDeep['user'][0]["messages"][$i]["replyMessageCollection"][$j];
-                     
+
+                    $currentMessage = $oldRecordDeep['user'][0]["messages"][$i]["replyMessageCollection"][$j];
+
                     if ($currentMessage["reply_id"] === $message_id) {
-              
-                       $currentMessage["msg"] = $commentContent;
+
+                        $currentMessage["msg"] = $commentContent;
                         $currentMessage["time_stamp"] = $date;
                         $dataNew["time_stamp"] = $date;
                         $dataNew["msg"] = $commentContent;

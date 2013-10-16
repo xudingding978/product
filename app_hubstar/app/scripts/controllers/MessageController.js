@@ -13,6 +13,7 @@
 
 HubStar.MessageController = Ember.Controller.extend({
     commenter_photo_url: null,
+    messagecms:'',
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'userMessage'],
     isUserself: false,
     // enableToEdit: false,
@@ -28,7 +29,7 @@ HubStar.MessageController = Ember.Controller.extend({
             this.set("isUserself", true);
         }
     },
-    editingCommentData: function(id) {
+    editingCommentData: function(id , msg) {
         for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
         {
 
@@ -38,8 +39,9 @@ HubStar.MessageController = Ember.Controller.extend({
                 break;
             }
 
-
+ 
         }
+
     },
     editingReplyData: function(id) {
         for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)

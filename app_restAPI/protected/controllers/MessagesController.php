@@ -161,6 +161,25 @@ class MessagesController extends Controller {
     public function addComment($commenter_id, $date, $commentContent, $id, $newStyleImage, $imageType, $photo_name, $message_id, $reply_id) {                       //saving follower in profile
         try {
             $docIDDeep = $this->getDomain() . "/users/" . $id;
+
+
+            $docIDDeep1 = $this->getDomain() . "/conversation" ;
+            $cb1 = $this->couchBaseConnection();
+            $oldDeep1 = $cb1->get($docIDDeep1); // get the old user record from the database according to the docID string
+            $oldDeep1["conversation"] = array();
+            $oldDeep1["conversation"]["conversation_id"] = $commenter_id;
+            $oldDeep1["conversation"]["participation_id"] = $commenter_id . "," . $reply_id;
+            $oldDeep1["conversation"]["conversation_collection"] = array();
+            $oldDeep1["conversation"]["conversation_collection"]["item_id"] = $commenter_id;
+            $oldDeep1["conversation"]["conversation_collection"]["time_stamp"] = $date;
+            $oldDeep1["conversation"]["conversation_collection"]["title"] = $photo_name;
+            $oldDeep1["conversation"]["conversation_collection"]["content"] = $commentContent;
+            $oldDeep1["conversation"]["conversation_collection"]["sender_id"] = $commenter_id;
+            $oldDeep1["conversation"]["conversation_collection"]["sender_photo_url_large"] = $photo_name;
+
+            $cb1->set($docIDDeep1, CJSON::encode($oldDeep1));
+
+
             //  error_log(var_export($id, true));
             $cb = $this->couchBaseConnection();
             $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
@@ -258,12 +277,12 @@ class MessagesController extends Controller {
 
             for ($i = 0; $i < sizeof($oldRecordDeep['user'][0]["messages"]); $i++) {
                 for ($j = 0; $j < sizeof($oldRecordDeep['user'][0]["messages"][$i]["replyMessageCollection"]); $j++) {
-                    
-                     $currentMessage = $oldRecordDeep['user'][0]["messages"][$i]["replyMessageCollection"][$j];
-                     
+
+                    $currentMessage = $oldRecordDeep['user'][0]["messages"][$i]["replyMessageCollection"][$j];
+
                     if ($currentMessage["reply_id"] === $message_id) {
-              
-                       $currentMessage["msg"] = $commentContent;
+
+                        $currentMessage["msg"] = $commentContent;
                         $currentMessage["time_stamp"] = $date;
                         $dataNew["time_stamp"] = $date;
                         $dataNew["msg"] = $commentContent;

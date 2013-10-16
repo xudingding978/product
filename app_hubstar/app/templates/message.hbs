@@ -30,7 +30,7 @@
                     <i class="icon-trash"  {{action removeMessage model.message_id}}></i>                 
                 </div>
                 <div class='hint--left hint--rounded' data-hint='Edit Comment Info' style="position: absolute;font-size: 15px;right: 10px;margin: 1px;">
-                    <i class="icon-edit" {{action editingCommentData model.message_id}}></i>
+                    <i class="icon-edit" {{action editingCommentData model.message_id }}></i>
                 </div>
                 {{else}}
                 {{#if controller.isUserself}} <!--controller.isUserself is used to judge whether it is the page owner who have right to delete every message-->

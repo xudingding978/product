@@ -44,7 +44,7 @@
     },
 
     "require": {
-        "php": ">=5.3.2",
+        "php": ">=5.3.3",
         "ext-curl": "*",
         "symfony/event-dispatcher": ">=2.1"
     },
@@ -68,7 +68,7 @@
 
     "extra": {
         "branch-alias": {
-            "dev-master": "3.6-dev"
+            "dev-master": "3.7-dev"
         }
     }
 }

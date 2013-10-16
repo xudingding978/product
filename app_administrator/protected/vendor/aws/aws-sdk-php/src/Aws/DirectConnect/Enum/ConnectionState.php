@@ -27,4 +27,5 @@ class ConnectionState extends Enum
     const PENDING = 'pending';
     const AVAILABLE = 'available';
     const DELETED = 'deleted';
+    const DOWN = 'down';
 }

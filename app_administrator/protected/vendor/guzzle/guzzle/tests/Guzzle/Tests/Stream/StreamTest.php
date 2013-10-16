@@ -64,7 +64,7 @@ class StreamTest extends \Guzzle\Tests\GuzzleTestCase
         $this->assertEquals('data', (string) $stream);
         unset($stream);
 
-        $handle = fopen(__DIR__ . '/../TestData/FileBody.txt', 'w');
+        $handle = fopen(__DIR__ . '/../TestData/FileBody.txt', 'r');
         $stream = new Stream($handle);
         $this->assertEquals('', (string) $stream);
         unset($stream);
@@ -133,6 +133,17 @@ class StreamTest extends \Guzzle\Tests\GuzzleTestCase
         $stream = new Stream($handle);
         $this->assertEquals(false, $stream->getSize());
         unset($stream);
+    }
+
+    public function testEnsuresSizeIsConsistent()
+    {
+        $h = fopen('php://temp', 'r+');
+        fwrite($h, 'foo');
+        $stream = new Stream($h);
+        $this->assertEquals(3, $stream->getSize());
+        $stream->write('test');
+        $this->assertEquals(7, $stream->getSize());
+        fclose($h);
     }
 
     public function testAbstractsMetaData()

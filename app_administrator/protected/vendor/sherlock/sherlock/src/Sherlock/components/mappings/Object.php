@@ -23,6 +23,7 @@ class Object extends \Sherlock\components\BaseComponent implements \Sherlock\com
 {
     protected $type;
 
+
     public function __construct($type = null, $hashMap = null)
     {
         //if $type is set, we need to wrap the mapping property in a type
@@ -35,25 +36,25 @@ class Object extends \Sherlock\components\BaseComponent implements \Sherlock\com
         parent::__construct($hashMap);
     }
 
+
     public function toArray()
     {
         $ret = array();
         if (!isset($this->params['field'])) {
-            \Analog\Analog::log("Field name must be set for Object mapping", \Analog\Analog::ERROR);
-            throw new \Sherlock\common\exceptions\RuntimeException("Field name must be set for Object mapping");
+                        throw new \Sherlock\common\exceptions\RuntimeException("Field name must be set for Object mapping");
         }
 
         if (!isset($this->params['object'])) {
-            \Analog\Analog::log("Object parameter name must be set for Object mapping", \Analog\Analog::ERROR);
-            throw new \Sherlock\common\exceptions\RuntimeException("Object parameter must be set for Object mapping");
+                        throw new \Sherlock\common\exceptions\RuntimeException("Object parameter must be set for Object mapping");
         }
 
         $object = $this->params['object']->toArray();
 
         $extra = array();
         foreach ($this->params as $key => $value) {
-            if($key == 'field' || $key == 'object')
+            if ($key == 'field' || $key == 'object') {
                 continue;
+            }
             $extra[$key] = $value;
         }
 
@@ -64,6 +65,8 @@ class Object extends \Sherlock\components\BaseComponent implements \Sherlock\com
         return $ret;
 
     }
+
+
     public function getType()
     {
         return $this->type;

@@ -1,6 +1,151 @@
 CHANGELOG
 =========
 
+3.7.4 (2013-10-02)
+------------------
+
+* Bug fix: 0 is now an allowed value in a description parameter that has a default value (#430)
+* Bug fix: SchemaFormatter now returns an integer when formatting to a Unix timestamp
+  (see https://github.com/aws/aws-sdk-php/issues/147)
+* Bug fix: Cleaned up and fixed URL dot segment removal to properly resolve internal dots
+* Minimum PHP version is now properly specified as 5.3.3 (up from 5.3.2) (#420)
+* Updated the bundled cacert.pem (#419)
+* OauthPlugin now supports adding authentication to headers or query string (#425)
+
+3.7.3 (2013-09-08)
+------------------
+
+* Added the ability to get the exception associated with a request/command when using `MultiTransferException` and
+  `CommandTransferException`.
+* Setting `additionalParameters` of a response to false is now honored when parsing responses with a service description
+* Schemas are only injected into response models when explicitly configured.
+* No longer guessing Content-Type based on the path of a request. Content-Type is now only guessed based on the path of
+  an EntityBody.
+* Bug fix: ChunkedIterator can now properly chunk a \Traversable as well as an \Iterator.
+* Bug fix: FilterIterator now relies on `\Iterator` instead of `\Traversable`.
+* Bug fix: Gracefully handling malformed responses in RequestMediator::writeResponseBody()
+* Bug fix: Replaced call to canCache with canCacheRequest in the CallbackCanCacheStrategy of the CachePlugin
+* Bug fix: Visiting XML attributes first before visting XML children when serializing requests
+* Bug fix: Properly parsing headers that contain commas contained in quotes
+* Bug fix: mimetype guessing based on a filename is now case-insensitive
+
+3.7.2 (2013-08-02)
+------------------
+
+* Bug fix: Properly URL encoding paths when using the PHP-only version of the UriTemplate expander
+  See https://github.com/guzzle/guzzle/issues/371
+* Bug fix: Cookie domains are now matched correctly according to RFC 6265
+  See https://github.com/guzzle/guzzle/issues/377
+* Bug fix: GET parameters are now used when calculating an OAuth signature
+* Bug fix: Fixed an issue with cache revalidation where the If-None-Match header was being double quoted
+* `Guzzle\Common\AbstractHasDispatcher::dispatch()` now returns the event that was dispatched
+* `Guzzle\Http\QueryString::factory()` now guesses the most appropriate query aggregator to used based on the input.
+  See https://github.com/guzzle/guzzle/issues/379
+* Added a way to add custom domain objects to service description parsing using the `operation.parse_class` event. See
+  https://github.com/guzzle/guzzle/pull/380
+* cURL multi cleanup and optimizations
+
+3.7.1 (2013-07-05)
+------------------
+
+* Bug fix: Setting default options on a client now works
+* Bug fix: Setting options on HEAD requests now works. See #352
+* Bug fix: Moving stream factory before send event to before building the stream. See #353
+* Bug fix: Cookies no longer match on IP addresses per RFC 6265
+* Bug fix: Correctly parsing header parameters that are in `<>` and quotes
+* Added `cert` and `ssl_key` as request options
+* `Host` header can now diverge from the host part of a URL if the header is set manually
+* `Guzzle\Service\Command\LocationVisitor\Request\XmlVisitor` was rewritten to change from using SimpleXML to XMLWriter
+* OAuth parameters are only added via the plugin if they aren't already set
+* Exceptions are now thrown when a URL cannot be parsed
+* Returning `false` if `Guzzle\Http\EntityBody::getContentMd5()` fails
+* Not setting a `Content-MD5` on a command if calculating the Content-MD5 fails via the CommandContentMd5Plugin
+
+3.7.0 (2013-06-10)
+------------------
+
+* See UPGRADING.md for more information on how to upgrade.
+* Requests now support the ability to specify an array of $options when creating a request to more easily modify a
+  request. You can pass a 'request.options' configuration setting to a client to apply default request options to
+  every request created by a client (e.g. default query string variables, headers, curl options, etc).
+* Added a static facade class that allows you to use Guzzle with static methods and mount the class to `\Guzzle`.
+  See `Guzzle\Http\StaticClient::mount`.
+* Added `command.request_options` to `Guzzle\Service\Command\AbstractCommand` to pass request options to requests
+      created by a command (e.g. custom headers, query string variables, timeout settings, etc).
+* Stream size in `Guzzle\Stream\PhpStreamRequestFactory` will now be set if Content-Length is returned in the
+  headers of a response
+* Added `Guzzle\Common\Collection::setPath($path, $value)` to set a value into an array using a nested key
+  (e.g. `$collection->setPath('foo/baz/bar', 'test'); echo $collection['foo']['bar']['bar'];`)
+* ServiceBuilders now support storing and retrieving arbitrary data
+* CachePlugin can now purge all resources for a given URI
+* CachePlugin can automatically purge matching cached items when a non-idempotent request is sent to a resource
+* CachePlugin now uses the Vary header to determine if a resource is a cache hit
+* `Guzzle\Http\Message\Response` now implements `\Serializable`
+* Added `Guzzle\Cache\CacheAdapterFactory::fromCache()` to more easily create cache adapters
+* `Guzzle\Service\ClientInterface::execute()` now accepts an array, single command, or Traversable
+* Fixed a bug in `Guzzle\Http\Message\Header\Link::addLink()`
+* Better handling of calculating the size of a stream in `Guzzle\Stream\Stream` using fstat() and caching the size
+* `Guzzle\Common\Exception\ExceptionCollection` now creates a more readable exception message
+* Fixing BC break: Added back the MonologLogAdapter implementation rather than extending from PsrLog so that older
+  Symfony users can still use the old version of Monolog.
+* Fixing BC break: Added the implementation back in for `Guzzle\Http\Message\AbstractMessage::getTokenizedHeader()`.
+  Now triggering an E_USER_DEPRECATED warning when used. Use `$message->getHeader()->parseParams()`.
+* Several performance improvements to `Guzzle\Common\Collection`
+* Added an `$options` argument to the end of the following methods of `Guzzle\Http\ClientInterface`:
+  createRequest, head, delete, put, patch, post, options, prepareRequest
+* Added an `$options` argument to the end of `Guzzle\Http\Message\Request\RequestFactoryInterface::createRequest()`
+* Added an `applyOptions()` method to `Guzzle\Http\Message\Request\RequestFactoryInterface`
+* Changed `Guzzle\Http\ClientInterface::get($uri = null, $headers = null, $body = null)` to
+  `Guzzle\Http\ClientInterface::get($uri = null, $headers = null, $options = array())`. You can still pass in a
+  resource, string, or EntityBody into the $options parameter to specify the download location of the response.
+* Changed `Guzzle\Common\Collection::__construct($data)` to no longer accepts a null value for `$data` but a
+  default `array()`
+* Added `Guzzle\Stream\StreamInterface::isRepeatable`
+* Removed `Guzzle\Http\ClientInterface::setDefaultHeaders(). Use
+  $client->getConfig()->setPath('request.options/headers/{header_name}', 'value')`. or
+  $client->getConfig()->setPath('request.options/headers', array('header_name' => 'value'))`.
+* Removed `Guzzle\Http\ClientInterface::getDefaultHeaders(). Use $client->getConfig()->getPath('request.options/headers')`.
+* Removed `Guzzle\Http\ClientInterface::expandTemplate()`
+* Removed `Guzzle\Http\ClientInterface::setRequestFactory()`
+* Removed `Guzzle\Http\ClientInterface::getCurlMulti()`
+* Removed `Guzzle\Http\Message\RequestInterface::canCache`
+* Removed `Guzzle\Http\Message\RequestInterface::setIsRedirect`
+* Removed `Guzzle\Http\Message\RequestInterface::isRedirect`
+* Made `Guzzle\Http\Client::expandTemplate` and `getUriTemplate` protected methods.
+* You can now enable E_USER_DEPRECATED warnings to see if you are using a deprecated method by setting
+  `Guzzle\Common\Version::$emitWarnings` to true.
+* Marked `Guzzle\Http\Message\Request::isResponseBodyRepeatable()` as deprecated. Use
+      `$request->getResponseBody()->isRepeatable()` instead.
+* Marked `Guzzle\Http\Message\Request::canCache()` as deprecated. Use
+  `Guzzle\Plugin\Cache\DefaultCanCacheStrategy->canCacheRequest()` instead.
+* Marked `Guzzle\Http\Message\Request::canCache()` as deprecated. Use
+  `Guzzle\Plugin\Cache\DefaultCanCacheStrategy->canCacheRequest()` instead.
+* Marked `Guzzle\Http\Message\Request::setIsRedirect()` as deprecated. Use the HistoryPlugin instead.
+* Marked `Guzzle\Http\Message\Request::isRedirect()` as deprecated. Use the HistoryPlugin instead.
+* Marked `Guzzle\Cache\CacheAdapterFactory::factory()` as deprecated
+* Marked 'command.headers', 'command.response_body' and 'command.on_complete' as deprecated for AbstractCommand.
+  These will work through Guzzle 4.0
+* Marked 'request.params' for `Guzzle\Http\Client` as deprecated. Use [request.options][params].
+* Marked `Guzzle\Service\Client::enableMagicMethods()` as deprecated. Magic methods can no longer be disabled on a Guzzle\Service\Client.
+* Marked `Guzzle\Service\Client::getDefaultHeaders()` as deprecated. Use $client->getConfig()->getPath('request.options/headers')`.
+* Marked `Guzzle\Service\Client::setDefaultHeaders()` as deprecated. Use $client->getConfig()->setPath('request.options/headers/{header_name}', 'value')`.
+* Marked `Guzzle\Parser\Url\UrlParser` as deprecated. Just use PHP's `parse_url()` and percent encode your UTF-8.
+* Marked `Guzzle\Common\Collection::inject()` as deprecated.
+* Marked `Guzzle\Plugin\CurlAuth\CurlAuthPlugin` as deprecated. Use `$client->getConfig()->setPath('request.options/auth', array('user', 'pass', 'Basic|Digest');`
+* CacheKeyProviderInterface and DefaultCacheKeyProvider are no longer used. All of this logic is handled in a
+  CacheStorageInterface. These two objects and interface will be removed in a future version.
+* Always setting X-cache headers on cached responses
+* Default cache TTLs are now handled by the CacheStorageInterface of a CachePlugin
+* `CacheStorageInterface::cache($key, Response $response, $ttl = null)` has changed to `cache(RequestInterface
+  $request, Response $response);`
+* `CacheStorageInterface::fetch($key)` has changed to `fetch(RequestInterface $request);`
+* `CacheStorageInterface::delete($key)` has changed to `delete(RequestInterface $request);`
+* Added `CacheStorageInterface::purge($url)`
+* `DefaultRevalidation::__construct(CacheKeyProviderInterface $cacheKey, CacheStorageInterface $cache, CachePlugin
+  $plugin)` has changed to `DefaultRevalidation::__construct(CacheStorageInterface $cache,
+  CanCacheStrategyInterface $canCache = null)`
+* Added `RevalidationInterface::shouldRevalidate(RequestInterface $request, Response $response)`
+
 3.6.0 (2013-05-29)
 ------------------
 

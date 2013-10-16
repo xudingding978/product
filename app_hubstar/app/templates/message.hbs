@@ -24,7 +24,7 @@
                     <i class="icon-caret-up show-comment_inner" id="closeComment_{{unbound model.message_id}}"   style="display: none" {{action closeMore model.message_id  target="view" on="click"}}></i>
 
                     <i class="icon-trash"  {{action removeMessage model.message_id}}></i>                 
-                    <i class="icon-pencil" {{action editingCommentData model.message_id}}></i>
+                    <i class="icon-pencil" {{action editingCommentData model.message_id model.msg}}></i>
                 </div>
                 {{else}}
                 {{#if controller.isUserself}} 
@@ -36,7 +36,7 @@
                     <i class="icon-caret-up show-comment_inner" id="closeComment_{{unbound model.message_id}}"   style="display: none" {{action closeMore model.message_id  target="view" on="click"}}></i>
 
                     <i class="icon-trash"  {{action removeMessage model.message_id}}></i>                 
-                    <i class="icon-pencil" {{action editingCommentData model.message_id}}></i>
+                    <i class="icon-pencil" {{action editingCommentData model.message_id model.msg}}></i>
                 </div>
                 {{/if}}
                 {{/if}}
@@ -56,7 +56,7 @@
             var $container = $('#masonry_user_container');
             window.setTimeout(function() {
                 $container.masonry();
-                $container.masonry('reload');
+                $container.masonry('reloadItems');
             }, 10);
         });
     </script>
@@ -110,13 +110,13 @@
                         {{#if this.isUserself}}
                         <div  style="position: absolute;font-size: 15px;margin: 1px;">
                             <i class="icon-trash"  {{action removeReply this.reply_id}}></i>
-                            <i class="icon-pencil" {{action editingReplyData this.reply_id}}></i>
+                            <i class="icon-pencil" {{action editingReplyData this.reply_id this.msg}}></i>
                         </div>
                         {{else}}
                         {{#if controller.isUserself}}
                         <div  style="position: absolute;font-size: 15px;margin: 1px;">                        
                             <i class="icon-trash"  {{action removeReply this.reply_id}}></i>
-                            <i class="icon-pencil" {{action editingReplyData this.reply_id}}></i>
+                            <i class="icon-pencil" {{action editingReplyData this.reply_id this.msg}}></i>
                         </div>
                         {{/if}}
                         {{/if}}
@@ -146,13 +146,15 @@
 
         {{/each}}         
     </div>
-</div>
-<script>
+
+    </div>
+    <script>
     $(function() {
         var $container = $('#masonry_user_container');
         window.setTimeout(function() {
             $container.masonry();
-            $container.masonry('reload');
+            $container.masonry('reloadItems');
         }, 10);
     });
 </script>
+

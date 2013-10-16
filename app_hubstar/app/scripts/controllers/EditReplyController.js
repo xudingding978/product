@@ -12,6 +12,7 @@
 
 HubStar.EditReplyController = Ember.Controller.extend({
     commenter_photo_url: null,
+    replyContent:null,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'message', 'userMessage'],
     init: function()
     {
@@ -24,6 +25,7 @@ HubStar.EditReplyController = Ember.Controller.extend({
         {
             this.set("isUserself", true);
         }
+        this.set('replyContent',HubStar.get('reply'));
     },
     close: function(id) {  
         this.set('replyContent', "");
@@ -57,7 +59,7 @@ HubStar.EditReplyController = Ember.Controller.extend({
                     var newStyleImage = "";
                     var imageStyleName = "";
 
-                    if (this.get("newStyleImageSource") !== undefined || this.get("newStyleImageSource") !== null || this.get("newStyleImageSource") !== "")
+                    if (this.get("newStyleImageSource") !== undefined && this.get("newStyleImageSource") !== null && this.get("newStyleImageSource") !== "")
                     {
                         newStyleImage = this.get("newStyleImageSource");
                     }
@@ -65,7 +67,7 @@ HubStar.EditReplyController = Ember.Controller.extend({
                     {
                         newStyleImage = null;
                     }
-                    if (this.get('newStyleImageName') !== undefined || this.get('newStyleImageName') !== null || this.get('newStyleImageName') !== "")
+                    if (this.get('newStyleImageName') !== undefined && this.get('newStyleImageName') !== null && this.get('newStyleImageName') !== "")
                     {
                         imageStyleName = this.get('newStyleImageName');
                     }
@@ -129,7 +131,7 @@ HubStar.EditReplyController = Ember.Controller.extend({
         this.set('newStyleImageSource', src);
         this.set('newStyleImageName', name);
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
+            $('#masonry_user_container').masonry("reloadItems");
         }, 200);
     }
 }

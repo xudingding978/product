@@ -82,7 +82,7 @@ HubStar.EditMessageController = Ember.Controller.extend({
                     var imageType = imageName[imageName.length - 1];
                 }
                 var messageContent = this.get("messageContent");
-                console.log(messageContent);
+               
                 var tempComment = [owner_id, date.toString(), messageContent, newStyleImage, imageType, imageStyleName, id, replyID];
 
                 tempComment = JSON.stringify(tempComment);
@@ -110,13 +110,16 @@ HubStar.EditMessageController = Ember.Controller.extend({
 
                         }
                     }
+                    that.set('messageContent', "");
+                    that.set('newStyleImageSource', null);
+                    that.set('newStyleImageName', "");
+                   
                     setTimeout(function() {
                         $('#masonry_user_container').masonry("reloadItems");
                     }, 200);
 
-                    that.set('messageContent', "");
-                    that.set('newStyleImageSource', null);
-                    that.set('newStyleImageName', "");
+                    
+                    
                 });
             }
         }

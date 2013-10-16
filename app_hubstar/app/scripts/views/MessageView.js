@@ -34,8 +34,14 @@ HubStar.MessageView = Ember.View.extend({
         $('#messageData_' + id).stop().animate({
             maxHeight: '30px'
         }, 380, function() {
-            $('#messageData_' + id).css('overflow', 'hidden');
+            //$('#messageData_' + id).css('overflow', 'hidden');
             $('#masonry_user_container').masonry("reload");
+//            $('#messageData_' + id).mCustomScrollbar({
+//                scrollButtons: {
+//                    enable: false
+//                },
+//                theme: "dark-2"
+//            });
         });
 
 

@@ -746,9 +746,9 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('collectionTag', false);
         this.set('followerTag', false);
         this.set('messageTag', true);       
-        this.transitionToRoute('userMessage', model);
+        //this.transitionToRoute('userMessage', model);
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
+            $('#masonry_user_container').masonry("reloadItems");
         }, 200);
     },
     flickButtonClick: function()

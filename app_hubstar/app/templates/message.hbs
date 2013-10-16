@@ -70,6 +70,7 @@
 
     <!--the following comment-frame is used to show the reply box for the second level reply-->
     <div id="messageData_{{unbound model.message_id}}"  style="display: none">
+        {{#if model.replyEdit}}
         <div class="comment-frame"  style="padding: 0 0 0 40px;border: none;">
             <div style="margin:0 auto; padding: 0 45px 15px 0;">
                 <a  href="#/users/{{unbound model.user_id}}">
@@ -95,14 +96,15 @@
                 </div>
 
                 <!--please disable the following div when it's got not content-->
+                 {{#if controller.isUploadPhoto}}
                 <div style='width: 380px;max-height: 100px;padding: 10px 12px;text-align: center;background-color: #fff;border-radius: 0 0 3px 3px;border: 1px solid #ddd;border-top: none;'>
                     <div class='remove-comment-photo easing' ><i class="icon-remove"></i></div>
                     <img  {{bindAttr src= "newStyleImageSource"}}  style="max-height: 80px;max-width: 300px">
                 </div>
-
+                 {{/if}}
             </div>
         </div>
-
+        {{/if}}
         <!--output each the second level reply-->
         {{#each  model.replyMessageCollection}} 
         {{#unless this.enableToEdit}}
@@ -127,7 +129,7 @@
                         {{/if}}
                         {{/if}}
                         <a class="comment-username"  href="#/users/{{unbound this.user_id}}">
-                            {{this.user_name}}                              
+                            {{this.user_name}}    {{controller.isEdit}}                
                         </a>
                         <div class="posttime-container">
                             <span class="posttime">{{this.time_stamp}}</span>

@@ -15,6 +15,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
     commenter_photo_url: null,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings'],
     isUploadPhoto: false,
+    isEdit:true,
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -56,7 +57,8 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 dataNew["user_name"] = params[i]["replyMessageCollection"][length]["user_name"];
                 dataNew["photo_url_large"] = params[i]["replyMessageCollection"][length]["photo_url_large"];
                 dataNew["url"] = params[i]["replyMessageCollection"][length]["url"];
-                dataNew["enableToEdit"] = params[i]["replyMessageCollection"][length]["enableToEdit"];
+                dataNew["enableToEdit"] = false;
+                dataNew["replyEdit"] = true;
                 if (params[i]["replyMessageCollection"][length]["user_id"] === localStorage.loginStatus)
                 {
                     dataNew["isUserself"] = true; //dataNew["isUserself"] is true , which means it is the login users is the same as the user page owner
@@ -84,7 +86,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
                     dataReply["user_name"] = params[i]["replyMessageCollection"][j]["user_name"];
                     dataReply["photo_url_large"] = params[i]["replyMessageCollection"][j]["photo_url_large"];
                     dataReply["url"] = params[i]["replyMessageCollection"][j]["url"];
-                    dataReply["enableToEdit"] = params[i]["replyMessageCollection"][j]["enableToEdit"];
+                    dataReply["enableToEdit"] = false;
                     if (params[i]["replyMessageCollection"][j]["url"] !== null)
                     {
                         dataReply["isUrl"] = true;
@@ -104,7 +106,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
             }
             that.set('loadingTime', false);
             setTimeout(function() {
-                $('#masonry_user_container').masonry("reload");
+                $('#masonry_user_container').masonry("reloadItems");
                 $("#content_4").mCustomScrollbar({
                     scrollButtons: {
                         enable: false
@@ -209,6 +211,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 dataNew["photo_url_large"] = params["replyMessageCollection"][0]["photo_url_large"];
                 dataNew["url"] = params["replyMessageCollection"][0]["url"];
                 dataNew["enableToEdit"] = false;
+                dataNew["replyEdit"] = true;
                 if (params["replyMessageCollection"][0]["user_id"] === localStorage.loginStatus)
                 {
                     dataNew["isUserself"] = true;

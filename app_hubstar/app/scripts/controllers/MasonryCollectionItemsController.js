@@ -33,7 +33,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         var results = HubStar.Mega.find({RquireType: "personalCollection", user_id: user_id, collection_id: collection_id});
         var that = this;
 
-  
+
         results.addObserver('isLoaded', function() {
 
 
@@ -193,20 +193,28 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         });
         return is_authentic_user;
     },
-    changeCollectionCover: function(id, collection_id, HubStarModel) {
+    changeCollectionCover: function(id, collection_id, HubStarModel, article) {
+      
         this.dropdownPhotoSetting(id);
         var Mega = HubStar.Mega.find(id);
-        var coverImge = Mega.get('photo').objectAt(0).get('photo_image_original_url');
+        //var coverImge = Mega.get('photo').objectAt(0).get('photo_image_original_url');
         var address = document.URL;
         var owner_id = address.split("#")[1].split("/")[2];
+         var userOrprofile = HubStarModel.find(owner_id).get('collections');
+        if (article === "article")
+        {
+            var coverImge = Mega.get('article').objectAt(0).get('article_image_url');
+        }
+        else {
+             var coverImge = Mega.get('photo').objectAt(0).get('photo_image_original_url');
+        }
 
-        
 
         // var that = this;
         for (var i = 0; i < userOrprofile.get('content').length; i++) {
-          
+
             if (userOrprofile.objectAt(i).id === collection_id) {
-                
+
                 var currentCollection = userOrprofile.objectAt(i);
                 currentCollection.set('cover', coverImge);
                 currentCollection.set('optional', owner_id);
@@ -216,26 +224,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             }
         }
     },
-    changeCollectionArticleCover: function(id, collection_id, HubStarModel) {
-        this.dropdownPhotoSetting(id);
-        var Mega = HubStar.Mega.find(id);       
-        var coverImge = Mega.get('article').objectAt(0).get('article_image_url');
-        var address = document.URL;
-        var owner_id = address.split("#")[1].split("/")[2];
-        var userOrprofile = HubStarModel.find(owner_id).get('collections');
-        // var that = this;
-        for (var i = 0; i < userOrprofile.get('content').length; i++) {
-            if (userOrprofile.objectAt(i).id === collection_id) {
-                var currentCollection = userOrprofile.objectAt(i);
-                currentCollection.set('cover', coverImge);
-                currentCollection.set('optional', owner_id);
-                HubStar.store.save();
-                this.get('controllers.applicationFeedback').statusObserver(null, "Updated successfully.");
-                break;
-            }
-        }
-    },
-
+    
     transitionToArticle: function(id) {
 
         this.transitionTo("article", HubStar.Article.find(id));

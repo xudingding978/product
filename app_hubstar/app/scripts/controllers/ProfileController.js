@@ -19,8 +19,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     model: null,
     aboutMe: "aboutMe",
     isAboutUs: false,
-    rateTime: false,
     about_me: "",
+    rateTime:false,
     address: "",
     suburb: "",
     boost: '',
@@ -115,7 +115,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     willDelete: false,
     profile_partner_ids: null,
     isTracking: false,
-    photo_url_large:'',
     init: function() {
 
         this.set('is_authentic_user', false);
@@ -907,17 +906,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         return "test";
 
     },
-            rateEditing: function(){
+            
+        rateEditing: function(){
         
          this.set("rateTime", true);
-         var currentUser = HubStar.User.find(localStorage.loginStatus);   
-         this.set('photo_url_large', currentUser.get('photo_url_large'));
-
-            },
-                    
-                    reviewCancel:function(){
-                this.set("rateTime", false);
-                    },
+            },            
+                   
            
             
     setCollectionAttr: function() {

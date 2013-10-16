@@ -1,8 +1,13 @@
-HubStar.RateFunctionView = Ember.View.extend({
-    templateName: 'rateFunction',
+HubStar.ReviewView = Ember.View.extend({
+  
+    
+    
+    templateName: 'review',
     didInsertElement: function() {
       
   }
+          
+           
 //            
 //            
 //            evaluationCancel: function() {

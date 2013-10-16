@@ -6,11 +6,12 @@ HubStar.PlatformBarController = Ember.ArrayController.extend({
     photo_url: '',
     userLocation:"",
     myUserProfile: null,
-    needs: ["application"],
+    needs: ["application","user"],
     init: function()
     {  
         this.setTopicModel(HubStar.Cate.find({}));
          this.set('userLocation',geoip_city());
+     
        
     },
     topicSearch: function(search_topic) {

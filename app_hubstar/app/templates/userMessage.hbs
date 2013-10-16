@@ -4,41 +4,110 @@
 
 {{/if}}
 
-<div class="Message-Board box" style="position: relative; width: 545px; margin: 10px;border-radius: 5px;overflow: hidden;background-color: #fff;">
+<div class="Message-Board box" style="position: absolute; width: 545px; margin: 10px; border-radius:5px; overflow: hidden; background-color: rgb(255, 255, 255); top: 0px; left: 0px;">
     <div style="background-color: #f3f3f3; width:100%;height: 50px; border-bottom: 1px solid #ddd;padding: 0 20px;">
-        <div style="color: #555;font-size: 18px;line-height: 50px;"><i class="icon-comments-alt">&nbsp;</i>Message Board</div>
+        <div style="color: #555;font-size: 18px;line-height: 50px;float: left;"><i class="icon-envelope">&nbsp;</i>Message</div>
+        <div class='create-conversation easing'><i class='icon-plus'></i></div>
+    </div>
+
+    <div class='Message-menu-messages-container'>
+        <div class='each-conversation easing'>
+            <div style="color: #555;font-size: 20px;font-weight: bold;line-height: 50px;float: left;margin: 25px 0 0px 50px;">
+                <i class="icon-comments-alt" style='margin-right: 20px;font-size: 23px;'>&nbsp;</i>Board</div>
+        </div>
+
+        <div class='each-conversation easing'>
+            <div style="color: #555;font-size: 20px;font-weight: bold;line-height: 50px;float: left;margin: 25px 0 0px 50px;">
+                <i class="icon-bell-alt" style='margin-right: 20px;'>&nbsp;</i>Notification</div>
+        </div>
+
+        <div class='each-conversation easing'>
+
+            <div style="  padding: 15px 0 10px 95px;position: relative;">
+                <div style='position: absolute;right: 35px;top: 40px;color: #888;'><i class='icon-trash'></i></div>
+                <a class="" style="position: absolute; top: 18px;margin: 0 0 0 -55px;" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}}>
+                   <img class=""  style="border-radius: 50%; width: 40px; height: 40px; border: 1px solid #f3f3f3;" {{bindAttr src= this.commenter_photo_url}} /> 
+                </a>
+                <div style="">
+                    <div class="comment-namentime">
+                        <div class="namentime_position">
+                            <a class="comment-username" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}} >
+                               Kingsley Huang
+                        </a>
+                        <div class="posttime-container">
+                            <span class="posttime">2013 Aug 16, 8:23am</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comment-content" style=" width: 400px; height: 35px; text-overflow: ellipsis;">
+                    aldjofalkd adlsfjalkdjf alsdjflak alkdjfalk alsdkfjalksd asldkfjalksd lasdjflkas laksdjflkasjd alsdfjalksd laksdjflaksdjl alsdkjfalksd aslkdjflaks lasdkjflkas 
+                </div>
+            </div>
+        </div>
 
     </div>
 
-    <div class="" id="" style="width: 100%;padding: 0 6.5%;margin: 20px auto 0;overflow: hidden;">
+
+
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="Message-Board box" style="position: absolute; width: 545px; margin: 10px; border-radius:5px; overflow: hidden; background-color: rgb(255, 255, 255); top: 0px; left: 0px;">
+    <div style="background-color: #f3f3f3; width:100%;height: 50px; border-bottom: 1px solid #ddd;padding: 0 20px;">
+        <div style="color: #555;font-size: 18px;line-height: 50px;"><i class="icon-comments-alt">&nbsp;</i>Message Board</div>
+    </div>
+
+    <div  style="width: 100%;padding: 20px 6.5%;margin: 0 auto;overflow: hidden;border-bottom: 1px solid #ddd;">
         <div style="margin:0 auto; padding: 0 0 0 45px;">
             <a>
                 <img class="profilepic_comment"  style="float: left; margin: 4px 0 0 -45px; margin-top: 0;" {{bindAttr src= this.commenter_photo_url}} /> 
+                <div class='user-says-angle-before'></div>
+                <div class='user-says-angle-after'></div>
             </a>
-            <div  style="margin: 0;width: 100%; height:100px;">
-                {{view Ember.TextArea valueBinding="messageContent" class="no-resize" placeholder="What's up!" }}
-            </div>
 
-            <div>
-                <img  {{bindAttr src= "newStyleImageSource"}}  style="max-width: 170px; max-height: 170px;">
-            </div>
-
-        </div>
-    </div>
-
-    <div class="" style="margin: 10px auto 0; width: 100%;height: 45px;border-bottom: 1px solid #ddd;">
-        <div  class="message-btn easing" style="border-right: 1px solid #ddd; ">
-            <k class='icon-upload'>&nbsp;Add Photo
-                <div style="opacity:0;position: relative;top: 0px;height:45px;top:-45px"> 
-                    {{view HubStar.SingleImageInputButtonView }}
+            <div class="post-comment-container">
+                <div   style="margin: 0;width: 100%; height:80px;">
+                    {{view Ember.TextArea valueBinding="messageContent" class="no-resize" placeholder="What's up!" }}                                          
                 </div>
+                {{#if controller.isUploadPhoto}}
+                <div style='background-color: rgba(0,0,0,.2);max-width: 100%;max-height: 100px;padding: 10px 12px;text-align: center;'>
+                    <div class='remove-comment-photo easing' ><i class="icon-remove"></i></div>
+                    <img  {{bindAttr src= "newStyleImageSource"}}  style="max-width: 100%; max-height: 80px;;">
+                </div>
+                {{/if}}
+                <div class="" style="height: 30px;position: relative;border-top: 1px solid #ddd;top: -1px;">
+                    <div  class="message-btn easing" style=" border-right: 1px solid #ddd;"><k class='icon-picture'>&nbsp;</k>Add Photo
+                        <div style="opacity:0;position: relative;height:30px;top:-30px;overflow: hidden;"> 
+                            {{view HubStar.SingleImageInputButtonView }}
+                        </div>
+                    </div>
+                    <div class="message-btn easing" style=''{{action addComment}}><k class='icon-ok'>&nbsp;</k>Post</div>
+                </div>
+
+            </div>
+
         </div>
-        <div class="message-btn easing" style="" {{action addComment}}>Post</div>
     </div>
+
+
 
     <div class='Message-Board_comment-container'>
         {{#each  contentMsg}}
-        
+
         {{render "message" this}}
 
         {{/each}}

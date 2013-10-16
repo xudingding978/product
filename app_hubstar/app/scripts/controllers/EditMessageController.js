@@ -12,6 +12,7 @@
 
 HubStar.EditMessageController = Ember.Controller.extend({
     commenter_photo_url: null,
+    messageContent:null,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'message', 'userMessage'],
     init: function()
     {
@@ -24,6 +25,7 @@ HubStar.EditMessageController = Ember.Controller.extend({
         {
             this.set("isUserself", true);
         }
+        this.set('messageContent',HubStar.get('message'));
     },
     close: function(id) {
         this.set('messageContent', "");
@@ -55,7 +57,7 @@ HubStar.EditMessageController = Ember.Controller.extend({
                 var newStyleImage = "";
                 var imageStyleName = "";
 
-                if (this.get("newStyleImageSource") !== undefined || this.get("newStyleImageSource") !== null || this.get("newStyleImageSource") !== "")
+                if (this.get("newStyleImageSource") !== undefined && this.get("newStyleImageSource") !== null && this.get("newStyleImageSource") !== "")
                 {
                     newStyleImage = this.get("newStyleImageSource");
                 }
@@ -63,7 +65,7 @@ HubStar.EditMessageController = Ember.Controller.extend({
                 {
                     newStyleImage = null;
                 }
-                if (this.get('newStyleImageName') !== undefined || this.get('newStyleImageName') !== null || this.get('newStyleImageName') !== "")
+                if (this.get('newStyleImageName') !== undefined && this.get('newStyleImageName') !== null && this.get('newStyleImageName') !== "")
                 {
                     imageStyleName = this.get('newStyleImageName');
                 }
@@ -80,6 +82,7 @@ HubStar.EditMessageController = Ember.Controller.extend({
                     var imageType = imageName[imageName.length - 1];
                 }
                 var messageContent = this.get("messageContent");
+                console.log(messageContent);
                 var tempComment = [owner_id, date.toString(), messageContent, newStyleImage, imageType, imageStyleName, id, replyID];
 
                 tempComment = JSON.stringify(tempComment);
@@ -126,7 +129,7 @@ HubStar.EditMessageController = Ember.Controller.extend({
         this.set('newStyleImageSource', src);
         this.set('newStyleImageName', name);
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
+            $('#masonry_user_container').masonry("reloadItems");
         }, 200);
     }
 }

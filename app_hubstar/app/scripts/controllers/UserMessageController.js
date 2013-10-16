@@ -14,6 +14,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
     contentMsg: null,
     commenter_photo_url: null,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings'],
+    isUploadPhoto:false,
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -21,7 +22,6 @@ HubStar.UserMessageController = Ember.Controller.extend({
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
             this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
         }
-
     },
     setUserMessage: function(message) {
 
@@ -158,15 +158,15 @@ HubStar.UserMessageController = Ember.Controller.extend({
             var owner_id = this.get("currentOwner").get("id");
             var newStyleImage = "";
             var imageStyleName = "";
-            if (this.get("newStyleImageSource") !== undefined || this.get("newStyleImageSource") !== null || this.get("newStyleImageSource") !== "")
+            if (this.get("newStyleImageSource") !== undefined && this.get("newStyleImageSource") !== null && this.get("newStyleImageSource") !== "")
             {
-                newStyleImage = this.get("newStyleImageSource");
+                newStyleImage = this.get("newStyleImageSource");              
             }
             else
             {
                 newStyleImage = null;
             }
-            if (this.get('newStyleImageName') !== undefined || this.get('newStyleImageName') !== null || this.get('newStyleImageName') !== "")
+            if (this.get('newStyleImageName') !== undefined && this.get('newStyleImageName') !== null && this.get('newStyleImageName') !== "")
             {
                 imageStyleName = this.get('newStyleImageName');
 
@@ -216,7 +216,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 }
                 dataNew["replyMessageCollection"] = new Array();
                 that.get("contentMsg").insertAt(0, dataNew);
-
+                 that.set("isUploadPhoto",false);
                 dataNew = new Array();
 
 
@@ -234,13 +234,14 @@ HubStar.UserMessageController = Ember.Controller.extend({
             $('#addcommetBut').attr('style', 'display:block');
             $('#commentBox').attr('style', 'display:none');
             setTimeout(function() {
-                $('#masonry_container').masonry("reload");
-                $('.user_comment_' + localStorage.loginStatus).attr('style', 'display:block');
+                $('#masonry_container').masonry("reloadItems");              
             }, 200);
         }
     },
     profileStyleImageDrop: function(e, name)
     {
+        
+         this.set("isUploadPhoto",true);
         var target = getTarget(e, "single");
         var src = target.result;
         this.set('newStyleImageSource', src);

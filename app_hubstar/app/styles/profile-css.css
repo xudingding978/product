@@ -1,4 +1,5 @@
 
+
 textarea{
     padding: 3px 8px !important;
     line-height: 22px!important;
@@ -698,15 +699,26 @@ textarea.add-interests{
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 /*MESSAGE CENTER STYLE FROM HERE*/
 
 .message-btn{
     width: 50%; 
     float: left; 
-    height:45px; 
-    font-size: 15px;
+    height:30px; 
+    font-size: 12px;
     font-weight: bold;
-    line-height: 45px;
+    line-height: 30px;
     text-align: center;
     cursor: pointer;
     background-color: #f3f3f3;
@@ -762,14 +774,160 @@ textarea.add-interests{
 
 
 .your-relpy{
-    padding: 10px 77px 10px 0;
+    padding: 10px 50px 10px 0;
     vertical-align: top;
     text-align: right;
 }
 
 .your-relpy .namentime_position{margin:0 0 0 70px}
 .your-relpy .comment-content{margin-left: 40px;}
-.Message-Board_comment-item .comment-position{padding: 10px 0 10px 43px;}
+.Message-Board_comment-item .comment-position{
+    padding: 10px 0 10px 43px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+    min-height: 90px;
+}
 
 .Message-Board_comment-item .masonry_addcommnetbox-container{width: 430px; margin-left: 20px;}
 
+
+.post-comment-container{
+    width: 430px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    background-color: #fff;
+}
+
+.post-comment-container textarea, .post-comment-container textarea:focus{
+    background-color: rgba(255,255,255,0);
+    box-shadow: none;
+    border: none;
+
+    height: 70px;
+}
+
+.reply-comment-container {
+    width: 390px;
+    height: 100px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    background-color: #fff;
+}
+
+.reply-comment-container input, .reply-comment-container input:focus{
+    background-color: rgba(255,255,255,0);
+    box-shadow: none;
+    border: none;
+    height: 35px;
+}
+
+.user-says-angle-before{
+    width: 0px;
+    height: 0px;
+    margin-top: 3px;
+    left: 67px;
+    border-top: 15px solid transparent;
+    border-bottom: 0px solid transparent;
+    border-left: 0px solid transparent;
+    border-right: 15px solid #fff;
+    position: absolute;
+    z-index: 2;
+}
+
+.user-says-angle-after{
+    width: 0px;
+    height: 0px;
+    margin-top: 4px;
+    left: 65px;
+    border-top: 15px solid transparent;
+    border-bottom: 0px solid transparent;
+    border-left: 0px solid transparent;
+    border-right: 15px solid #ddd;	
+
+    position: absolute;
+    z-index: 1;
+}
+
+.user-reply-angle-before{
+    width: 0px;
+    height: 0px;
+    margin-top: 3px;
+    border-top: 15px solid transparent;
+    border-bottom: 0px solid transparent;
+    border-left: 15px solid #f3f3f3;
+    border-right: 0px solid transparent;
+    right: 74px;
+    position: absolute;
+    z-index: 2;
+}
+
+.user-reply-angle-after{
+    width: 0px;
+    height: 0px;
+    margin-top: 4px;
+    border-top: 15px solid transparent;
+    border-bottom: 0px solid transparent;
+    border-left: 15px solid #ddd;
+    border-right: 0px solid transparent;
+    right: 72px;
+
+    position: absolute;
+    z-index: 1;
+}
+
+
+.remove-comment-photo{
+    float: right;
+    position: relative;
+    background-color: #fff;
+    color: #888;
+    width: 20px;
+    height: 20px;
+    font-size: 13px;
+    top: -10px;
+    right: -12px;
+    cursor: pointer;
+
+    opacity: .6;
+}
+
+.remove-comment-photo:hover{opacity: 1;}
+
+
+
+
+
+/*message menu*/
+
+.create-conversation{
+    height: 49px;
+    width: 50px;
+    float: right;
+    opacity: .7;
+    color: #888;
+    font-size: 18px;
+    line-height: 50px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.create-conversation:hover{
+    background-color: #fff;
+    opacity: 1;
+}
+
+.each-conversation{
+    min-height: 100px; 
+    width: 100%; 
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #fff;
+    cursor: pointer;
+}
+
+.each-conversation:hover{
+    background-color: rgba(5,5,5,.1) !important;
+}
+
+
+.Message-menu-messages-container > div:nth-child(odd){background-color: #fff}
+.Message-menu-messages-container > div:nth-child(even){background-color: #f4f6f8}

@@ -10,7 +10,6 @@ DS.RESTAdapter.map('HubStar.Mega', {
 HubStar.Mega = DS.Model.extend(Ember.Copyable, {
     accessed: DS.attr('string'),
     boost: DS.attr('string'),
-    priority: DS.attr('number'),
     category: DS.attr('string'),
     categories: DS.attr('string'),
     creator_profile_pic: DS.attr('string'),

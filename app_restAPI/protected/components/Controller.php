@@ -226,10 +226,10 @@ class Controller extends CController {
                 );
         }
         
-        $sortBy = Sherlock\Sherlock::sortBuilder()
-                ->Field("created")
-                ->order("desc")
-                ->Field("_score");
+//        $sort = Sherlock\Sherlock::sortBuilder();
+//        $sort1 = $sort->Field()->name("type")->order('desc');
+//        $sort2 = $sort->Field()->name("_score");
+//                
         
         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw('{
                 "bool": {
@@ -237,19 +237,21 @@ class Controller extends CController {
                         {
                             "multi_match": {
                                 "query": "' . $queryString . '",
-                                "fields": ["keywords^2",
-
+                                "fields": [
+                                                "keywords^8",
+                                                "owner_title^2",
                                                 "country",
                                                 "region",
-                                                "object_title",
-                                                "object_description"]
+                                                "object_title^2",
+                                                "object_description^4"]
                                                     }
                         }
                     ]
                 }
             }');
         
-        $request->sort($sortBy);
+//        $request->sort($sort1, $sort2);
+//        error_log($request->toJSON());
         $response = $request->query($termQuery)->execute();
         
         return $response;

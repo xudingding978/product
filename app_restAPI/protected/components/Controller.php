@@ -494,14 +494,14 @@ class Controller extends CController {
         $str_partnerIds = "";
         $domain = $this->getDomain();
         $trendsUrl = $domain . "/profiles/";
-        $size=  count($partnerIds);
+        $size = count($partnerIds);
         for ($i = 0; $i < sizeof($partnerIds); $i++) {
             $str_partnerIds = $str_partnerIds . '"' . $trendsUrl . $partnerIds[$i] . '"';
             if ($i + 1 < sizeof($partnerIds)) {
                 $str_partnerIds.=',';
             }
         }
-        $response = $this->RequireByIds($str_partnerIds,$size);
+        $response = $this->RequireByIds($str_partnerIds, $size);
         return $response;
     }
 

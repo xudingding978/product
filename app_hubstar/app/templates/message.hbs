@@ -17,29 +17,30 @@
                         <span class="posttime">{{model.time_stamp}}</span>
                     </div>
                 </div>
-                {{#if model.isUserself}} <!--model.isUserself is used to judge whether the reply message is written by the current login user-->
                 <div class="reply-comment">
+                <i class="icon-caret-down show-comment_inner" id="showMoreComment_{{unbound model.message_id}}"   {{action seeMore model.message_id target="view" on="click"}}></i>   
+                <i class="icon-caret-up show-comment_inner" id="closeComment_{{unbound model.message_id}}"   style="display: none" {{action closeMore model.message_id  target="view" on="click"}}></i>
 
-                    <i class="icon-caret-down show-comment_inner" id="showMoreComment_{{unbound model.message_id}}"   {{action seeMore model.message_id target="view" on="click"}}></i>   
-                    <i class="icon-caret-up show-comment_inner" id="closeComment_{{unbound model.message_id}}"   style="display: none" {{action closeMore model.message_id  target="view" on="click"}}></i>
+                {{#if model.isUserself}} <!--model.isUserself is used to judge whether the reply message is written by the current login user-->
+                
 
+                    
                     <i class="icon-trash"  {{action removeMessage model.message_id}}></i>                 
                     <i class="icon-pencil" {{action editingCommentData model.message_id model.msg}}></i>
-                </div>
+               
                 {{else}}
                 {{#if controller.isUserself}} 
 
                 <!--controller.isUserself is used to judge whether it is the page owner who have right to delete every message-->
-                <div class="reply-comment">
+                
 
-                    <i class="icon-caret-down show-comment_inner" id="showMoreComment_{{unbound model.message_id}}"   {{action seeMore model.message_id target="view" on="click"}}></i>   
-                    <i class="icon-caret-up show-comment_inner" id="closeComment_{{unbound model.message_id}}"   style="display: none" {{action closeMore model.message_id  target="view" on="click"}}></i>
-
+                    
                     <i class="icon-trash"  {{action removeMessage model.message_id}}></i>                 
                     <i class="icon-pencil" {{action editingCommentData model.message_id model.msg}}></i>
+                
+                {{/if}}
+                {{/if}}
                 </div>
-                {{/if}}
-                {{/if}}
             </div>
             <div class="comment-content">
                 {{model.msg}}<br>

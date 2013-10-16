@@ -14,7 +14,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
     contentMsg: null,
     commenter_photo_url: null,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings'],
-    isUploadPhoto:false,
+    isUploadPhoto: false,
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -105,6 +105,12 @@ HubStar.UserMessageController = Ember.Controller.extend({
             that.set('loadingTime', false);
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reload");
+                $("#content_4").mCustomScrollbar({
+                    scrollButtons: {
+                        enable: false
+                    },
+                    theme: "dark-2"
+                });
             }, 200);
 
         });
@@ -144,8 +150,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
         $('#addcommetBut').attr('style', 'display:block');
         $('#commentBox').attr('style', 'display:none');
         setTimeout(function() {
-            $('#masonry_container').masonry("reload");
-            $('.user_comment_' + localStorage.loginStatus).attr('style', 'display:block');
+            $('#masonry_container').masonry("reload");          
         }, 200);
     },
     addComment: function() {
@@ -162,7 +167,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
             var imageStyleName = "";
             if (this.get("newStyleImageSource") !== undefined && this.get("newStyleImageSource") !== null && this.get("newStyleImageSource") !== "")
             {
-                newStyleImage = this.get("newStyleImageSource");              
+                newStyleImage = this.get("newStyleImageSource");
             }
             else
             {
@@ -194,7 +199,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
             var dataNew = new Array();
 
             requiredBackEnd('messages', 'CreateComment', tempComment, 'POST', function(params) {
-    //params  is just one message 
+                //params  is just one message 
                 dataNew["message_id"] = params["message_id"];
                 dataNew["reply_id"] = params["replyMessageCollection"][0]["reply_id"];
                 dataNew["user_id"] = params["replyMessageCollection"][0]["user_id"];
@@ -218,7 +223,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 }
                 dataNew["replyMessageCollection"] = new Array();
                 that.get("contentMsg").insertAt(0, dataNew);
-                 that.set("isUploadPhoto",false);
+                that.set("isUploadPhoto", false);
                 dataNew = new Array();
 
 
@@ -236,14 +241,14 @@ HubStar.UserMessageController = Ember.Controller.extend({
             $('#addcommetBut').attr('style', 'display:block');
             $('#commentBox').attr('style', 'display:none');
             setTimeout(function() {
-                $('#masonry_container').masonry("reloadItems");              
+                $('#masonry_container').masonry("reloadItems");
             }, 200);
         }
     },
     profileStyleImageDrop: function(e, name)
     {
-        
-         this.set("isUploadPhoto",true);
+
+        this.set("isUploadPhoto", true);
         var target = getTarget(e, "single");
         var src = target.result;
         this.set('newStyleImageSource', src);

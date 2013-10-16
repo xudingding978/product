@@ -956,7 +956,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
        
         var currntUrl = 'http://beta.trendsideas.com/#/profiles/' + this.get('currentUserID');
         var caption = '';
-        console.log(currntUrl);
+        
         if (this.get('profile_cover_text') !== null)
         {
             caption =this.get('profile_cover_text') ;

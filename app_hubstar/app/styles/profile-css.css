@@ -704,10 +704,10 @@ textarea.add-interests{
 .message-btn{
     width: 50%; 
     float: left; 
-    height:45px; 
-    font-size: 15px;
+    height:30px; 
+    font-size: 12px;
     font-weight: bold;
-    line-height: 45px;
+    line-height: 30px;
     text-align: center;
     cursor: pointer;
     background-color: #f3f3f3;
@@ -803,12 +803,11 @@ textarea.add-interests{
     background-color: #fff;
 }
 
-.reply-comment-container textarea, .reply-comment-container textarea:focus{
+.reply-comment-container input, .reply-comment-container input:focus{
     background-color: rgba(255,255,255,0);
     box-shadow: none;
     border: none;
-
-    height: 70px;
+    height: 35px;
 }
 
 .user-says-angle-before{
@@ -833,6 +832,33 @@ textarea.add-interests{
     border-bottom: 0px solid transparent;
     border-left: 0px solid transparent;
     border-right: 15px solid #ddd;	
+
+    position: absolute;
+    z-index: 1;
+}
+
+.user-reply-angle-before{
+    width: 0px;
+    height: 0px;
+    margin-top: 3px;
+    border-top: 15px solid transparent;
+    border-bottom: 0px solid transparent;
+    border-left: 15px solid #f3f3f3;
+    border-right: 0px solid transparent;
+    right: 74px;
+    position: absolute;
+    z-index: 2;
+}
+
+.user-reply-angle-after{
+    width: 0px;
+    height: 0px;
+    margin-top: 4px;
+    border-top: 15px solid transparent;
+    border-bottom: 0px solid transparent;
+    border-left: 15px solid #ddd;
+    border-right: 0px solid transparent;
+    right: 72px;
 
     position: absolute;
     z-index: 1;

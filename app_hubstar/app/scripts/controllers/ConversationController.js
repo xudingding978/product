@@ -10,7 +10,7 @@
  */
 
 
-HubStar.UserMessageController = Ember.Controller.extend({
+HubStar.ConversationController = Ember.Controller.extend({
     contentMsg: null,
     commenter_photo_url: null,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings'],
@@ -23,21 +23,14 @@ HubStar.UserMessageController = Ember.Controller.extend({
             this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
         }
     },
-    setUserMessage: function(message) {
-
-//        var model = HubStar.User.find(message);
-//          var msg = model.get("messages");
-//          this.set("contentMsg",msg);
-//          
-
-        this.getClientId(message); // It is used to get the mesage model      
-    },
-    getClientId: function(id) {   
+   
+    getClientId: function(id) {
         this.set('clientID', id);
         this.set('loadingTime', true);
         var data = this.get('clientID');
         var dataNew = new Array();
         var that = this;
+        console.log(id);
         requiredBackEnd('messages', 'Read', data, 'POST', function(params) {
 
             that.set("contentMsg", []);

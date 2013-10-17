@@ -9,8 +9,8 @@ function getRestAPIURL()
 //    api_url = "http://api." + api_url;
 //    console.log(api_url);
 //    return api_url;
-   var api_url = document.domain;
-   
+    var api_url = document.domain;
+
 
     api_url = "http://api." + api_url;
     return api_url;
@@ -37,6 +37,7 @@ function createMessageid() {
             dateObject.getTime().toString();
     return  result.toString();
 }
+
 function removeZero(string)
 {
 
@@ -95,7 +96,7 @@ function getImageWidth(imgSrc, callback) {
 function requiredBackEnd(controller, method, para, ajaxType, callback) {
     {
         var tempurl = getRestAPIURL();
-     
+
         $.ajax({
             url: tempurl + '/' + controller + '/' + method,
             type: ajaxType,
@@ -106,7 +107,7 @@ function requiredBackEnd(controller, method, para, ajaxType, callback) {
             }
         });
     }
- 
+
 
 }
 function getTarget(obj, type) {
@@ -125,4 +126,4 @@ function getTarget(obj, type) {
 
 
 
-    
+

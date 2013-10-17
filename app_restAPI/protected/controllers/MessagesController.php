@@ -162,24 +162,6 @@ class MessagesController extends Controller {
         try {
             $docIDDeep = $this->getDomain() . "/users/" . $id;
 
-
-            $docIDDeep1 = $this->getDomain() . "/conversation" ;
-            $cb1 = $this->couchBaseConnection();
-            $oldDeep1 = $cb1->get($docIDDeep1); // get the old user record from the database according to the docID string
-            $oldDeep1["conversation"] = array();
-            $oldDeep1["conversation"]["conversation_id"] = $commenter_id;
-            $oldDeep1["conversation"]["participation_id"] = $commenter_id . "," . $reply_id;
-            $oldDeep1["conversation"]["conversation_collection"] = array();
-            $oldDeep1["conversation"]["conversation_collection"]["item_id"] = $commenter_id;
-            $oldDeep1["conversation"]["conversation_collection"]["time_stamp"] = $date;
-            $oldDeep1["conversation"]["conversation_collection"]["title"] = $photo_name;
-            $oldDeep1["conversation"]["conversation_collection"]["content"] = $commentContent;
-            $oldDeep1["conversation"]["conversation_collection"]["sender_id"] = $commenter_id;
-            $oldDeep1["conversation"]["conversation_collection"]["sender_photo_url_large"] = $photo_name;
-
-            $cb1->set($docIDDeep1, CJSON::encode($oldDeep1));
-
-
             //  error_log(var_export($id, true));
             $cb = $this->couchBaseConnection();
             $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string

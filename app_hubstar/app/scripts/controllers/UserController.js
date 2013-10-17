@@ -23,7 +23,7 @@ HubStar.UserController = Ember.Controller.extend({
     age: "",
     userTage: true,
     currentUserID: "",
-    needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings', 'application', 'platformBar', 'collection', 'htmlEditor', 'userMessage'],
+    needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings', 'application', 'platformBar', 'collection', 'htmlEditor', 'userMessage','messageCenter'],
     facebook: "",
     twitter: "",
     follow_status: false,
@@ -748,12 +748,12 @@ HubStar.UserController = Ember.Controller.extend({
     },
     selectMessage: function(model) {
         this.set('profileSelectionStatus', 'Messages');
-        //this.get('controllers.userMessage').getClientId(model.id);
+        this.get('controllers.messageCenter').getClientId(model.id);
         this.set('followingTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', false);
-        this.set('messageTag', true);
-        this.transitionToRoute('userMessage', model);
+        this.set('messageTag', true);       
+        //this.transitionToRoute('messageCenter', model);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);

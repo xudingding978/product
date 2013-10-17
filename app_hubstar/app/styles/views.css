@@ -555,7 +555,7 @@
     height:343px;
 }
 
-.album-description{
+div.album-description{
     position: absolute;
     width: 100%;
     margin: auto;
@@ -570,8 +570,31 @@
     height:45%;
     overflow:hidden;
 }
+table.album-description, table.album-description-bg{
 
-.album-description-bg{
+    width: 100%;
+    height:100%;
+    margin: auto;
+    color: white;
+    text-align: center;
+    padding:5px;
+    z-index: 2;
+    vertical-align: middle;
+    word-wrap: normal;
+    line-height: 24px;
+    overflow:hidden;
+    position:absolute;
+    top:0;
+    left:0;
+}
+table.album-description-bg td, table.album-description td{
+
+    max-height:80%;
+}
+table.album-description-bg td > div, table.album-description td > div{float:left;width:100%;padding:2% 5px;}
+table.album-description-bg td > div{background:#000;opacity:.7;}
+
+div.album-description-bg{
     text-align: center;
     position: absolute;
     width: 100%;

@@ -47,10 +47,7 @@ HubStar.ReviewController = Ember.Controller.extend({
             this.set("review_count", this.get("controllers.profile").get('reviews').get("length"));
             var reviewContent = this.get('review_content');
         }
-        else
-        {
-            this.set("review_count", 0);
-        }
+        
         if (reviewContent) {
             var reviews = this.get("controllers.profile").get('reviews');
             var reviewUserPhoto = this.get("currentUser").get('photo_url_large');
@@ -67,6 +64,16 @@ HubStar.ReviewController = Ember.Controller.extend({
 
         reviews.store.save();
         this.set('reviewContent', "");
+         this.get("controllers.profile").set("rateTime", false);
+        
+           $(window).scrollTop(1500);
+           $('#user-stats > li').removeClass('selected-user-stats');
+        $('#reviewList').addClass('selected-user-stats');
+        
+        this.get("controllers.profile").set('partnerTag', false);
+        this.get("controllers.profile").set('collectionTag', false);
+     this.get("controllers.profile").set('followerProfileTag', false);
+         this.get("controllers.profile").set('reviewTag', true);
 
     },
     getReviewsById: function(id)

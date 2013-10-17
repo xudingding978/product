@@ -4,26 +4,26 @@
 <div class="blur_black"></div>
 
 
-<div style="z-index: 11;background-color: white; border: 1px rgba(0,0,0,.6); border-radius: 3px;box-shadow: 0 0 20px 5px #aaa;  width: 430px;height: 200px;margin: 0 auto; padding: 20px;position: fixed; top: 35%;display: block;left: 0;right: 0;">
-    <a>
+<div style="z-index: 11;background-color: white; border: 1px rgba(0,0,0,.6); border-radius: 3px;box-shadow: 0 0 20px 5px #aaa;  width: 430px;height: 200px;margin: 0 auto; padding: 20px;position: absolute; top: 15%;display: block;left: 0;right: 0;">
+    <a >
         <img class="profilepic_comment"  style="float: left; margin: 15px 10px 10px 4px; margin-top: 0;"{{bindAttr src="this.review_user_photo_url"}} /> 
     </a>
-    <div class="rating" style="margin: 6px 0 0 0;">
+    <div class="star" style="margin: 6px 0 0 0;">
         <span class="star"></span>
         <span class="star"></span>
         <span class="star"></span>
         <span class="star"></span>
         <span class="star"></span>
-        <span class="star"></span>
-        <span class="star"></span>
-        <span class="star"></span>
-        <span class="star"></span>
-        <span class="star"></span>
-        
-        
+         <input name="star1" type="radio" class="star"/>
+       <input name="star1" type="radio" class="star"/>
+       <input name="star1" type="radio" class="star"/>
+       <input name="star1" type="radio" class="star"/>
+       <input name="star1" type="radio" class="star"/>
+
+
     </div>
 
-    <div class="new-btn blue-btn"{{action rateEditing}}>Rate</div>
+    <div class="new-btn blue-btn"{{action rateStar model.id}}>Rate {{controller.review_length}}</div>
 
 
 
@@ -41,5 +41,81 @@
 
 </div>
 
+<!--{{#if controller.reviewList}}
 
-{{render "comment" this}}
+ 
+
+<div id="reviewList" style="z-index: 11; position: absolute;display: block;height: 20px;top: 20%;margin: 0 auto;width: 430px;left: 0;right: 0;text-align: center;">
+
+       <img {{bindAttr src="this.review_user_photo_url"}} style="height: 80px;width: 80px;z-index: 12;position: absolute;top: 100px;left: -80px;"/>
+    
+
+    <div class="fresh-message fresh_succeed" style="top: 130px; height: initial;">
+
+        <k class="icon-ok-sign">{{controller.review_user_name}}  </k>
+        
+        
+       
+          <div class="rating" style="margin: 6px 0 0 0;">
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+
+
+    </div>
+        
+        <div>{{review_content}} </div>
+        
+    </div>
+</div>
+
+{{/if}}-->
+
+<div style="z-index: 11; position: absolute;display: block;height: 1000px; overflow: auto; top: 25%;margin: 0 auto;width: 600px;left: 0;right: 0;text-align: center;">
+{{#each model.reviews}}
+
+
+
+<div id="reviewList"  style="width: 430px;height: 100px;position: relative; margin: 10px auto;text-align: center">
+ {{#isSingle this.review_count}}
+ <img {{bindAttr src="this.review_user_photo_url"}} id="leftOrRight" style="height: 80px;width: 80px;z-index: 12;position: absolute;top: 20px;"/>
+   {{/isSingle}}
+    <div class="fresh-message fresh_succeed" style="top: 50px; height: initial;">
+
+        <k class="icon-ok-sign">{{controller.review_user_name}}  </k>
+        
+        
+       
+          <div class="rating" style="margin: 6px 0 0 0;">
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+
+
+    </div>
+        
+        <div>{{this.review_content}}   {{this.review_count}}</div>
+        
+    </div>
+</div>
+
+
+
+{{/each}}
+
+</div>
+

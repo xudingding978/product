@@ -2,21 +2,20 @@
 HubStar.ReviewController = Ember.Controller.extend({
     rateTime: false,
     review_user_photo_url: "",
-    currentUser:"",
-    review_user_name:"",
-    review_content:"",
-    review_time_stamp:"",
-    review_star_value:"",
-    review_count:"",
-    profile:null,
-    
-    
-    needs:['profile'],
-//    commentLength: null,
-//    thisComments: null,
-//    stringFiedTime_stamp: null,
-//    mega: null,
-//    count:null,
+    currentUser: "",
+    review_user_name: "",
+    review_content: "",
+    review_time_stamp: "",
+    review_star_value: "",
+    review_length: "",
+    profile: "",
+    reviewList: false,
+    //currentUserID:"",
+    reviewDate: "",
+    review_count: null,
+    isSingle: false,
+    needs: ['profile'],
+
     init: function()
     {
 
@@ -25,56 +24,75 @@ HubStar.ReviewController = Ember.Controller.extend({
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
             var currentUser = HubStar.User.find(localStorage.loginStatus);
             this.set('review_user_photo_url', currentUser.get('photo_url_large'));
-            this.set('review_user_name', currentUser.get('first_name')+currentUser.get('last_name'));
+            this.set('review_user_name', currentUser.get('first_name') + currentUser.get('last_name'));
             this.set('review_star_value', this.get('review_star_value'));
-             this.set('review_count', this.get('review_count'));
-             
+              this.set('review_length',  this.get("controllers.profile").get('reviews').get("length"));
+
         }
+
+        this.set("profile", this.get("controllers.profile").get('currentUserID'));
+
+    },
+    rateStar: function(id) {
+        console.log(this.get("controllers.profile").get("currentUserID"));
 
     },
     reviewCancel: function() {
         this.get("controllers.profile").set("rateTime", false);
-        console.log(this.get('mega'));
-       
-    },
-    reviewPost: function() {
 
-     var reviewContent = this.get('review_content');
-         console.log(reviewContent);
+    },
+    reviewPost: function(id) {
+
+        if (this.get("controllers.profile").get('reviews') !== 0) {
+                this.set("review_count", this.get("controllers.profile").get('reviews').get("length"));
+              var reviewContent = this.get('review_content');
+              
+//               if (this.get('review_count') % 2 === 0)
+//            {
+//                this.set("isSingle", false);
+//                
+//            }
+//            else
+//            {
+//                this.set("isSingle", true);
+//            }
+            
+        }
+            
+             else
+            {
+                this.set("review_count", 0);
+            }
+
         if (reviewContent) {
-             var reviews = this.get("controllers.profile").get('model').get('reviews');
-            var reviewUserPhoto= this.get("currentUser").get('photo_url_large');
+            var reviews = this.get("controllers.profile").get('reviews');
+            var reviewUserPhoto = this.get("currentUser").get('photo_url_large');
             var reviewUserID = this.get("currentUser").get('id');
             var reviewUserName = this.get("currentUser").get('first_name') + this.get("currentUser").get('last_name');
-            var reviewDate = new Date();
-            var tempReview= HubStar.Review.createRecord({"review_user_photo_url": reviewUserPhoto,
-                "review_user_id": reviewUserID, "review_user_name": reviewUserName, "review_content": reviewContent, "review_time_stamp": reviewDate.toString()});
+            reviewDate = new Date();
+
+           
+                console.log(this.get("controllers.profile").get('reviews').get("length"));
+                var reviewCount = this.get("review_count");
+           
+   
+            var optional = this.get("controllers.profile").get("currentUserID");
+            
+             }
+            var tempReview = HubStar.Review.createRecord({"review_user_photo_url": reviewUserPhoto,
+                "review_user_id": reviewUserID, "review_user_name": reviewUserName, "review_content": reviewContent, "review_time_stamp": reviewDate.toString(), "review_count": reviewCount, "optional": optional});
             reviews.insertAt(0, tempReview);
-            console.log(reviewUserPhoto);
-            console.log(reviewUserID);
-            console.log(reviewUserName);
-            console.log(reviewDate);
+
             reviews.store.save();
             this.set('reviewContent', "");
-            
-            $('#addreviewBut').attr('style', 'display:block');
-            $('#reviewBox').attr('style', 'display:none');
-
-
-
-
-
-
-
-        }
+      
     },
-            
-            getReviewsById: function(id)
+    getReviewsById: function(id)
     {
-       // console.log(id);
+        // console.log(id);
         var profile = HubStar.Profile.find(id);
         var reviews = profile.get('reviews');
-   
+
     }
 //            
 //    linkingUser: function(id) {

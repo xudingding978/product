@@ -67,7 +67,7 @@ HubStar.CommentController = Ember.Controller.extend({
     },
     cancelDelete: function() {
         this.set('willDelete', false);
-        this.set('makeSureDelete', false);
+        this.set('makeSureDelete', false); 
         HubStar.set('data', null);
     },
     addLike: function(id)

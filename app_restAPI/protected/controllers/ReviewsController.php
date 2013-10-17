@@ -18,18 +18,18 @@ class ReviewsController extends Controller {
 
     public function actionCreate() {
         $request_json = file_get_contents('php://input');
-        $newRecord = CJSON::decode($request_json, true);
-       $typeAndID = $newRecord['review']['optional'];
-        $typeAndID = explode("/", $typeAndID);
-        $docID = $this->getDocId($typeAndID[0], $typeAndID[1]);
+        $newRecord = CJSON::decode($request_json, true); 
+        error_log(var_export($newRecord,true));
+        $id = $newRecord['review']['optional'];
+        $docID = $this->getDomain() . "/profiles/" . $id;
         $cb = $this->couchBaseConnection();
         $oldRecord_arr = $cb->get($docID);
-
+        error_log(var_export($id,true));
         $oldRecord = CJSON::decode($oldRecord_arr, true);
-        if (!isset($oldRecord['reviews'])) {
-            $oldRecord['reviews'] = array();
+        if (!isset($oldRecord['profile'][0]['reviews'])) {
+            $oldRecord['profile'][0]['reviews'] = array();
         }
-        array_unshift($oldRecord['reviews'], $newRecord['reviews']);
+        array_unshift($oldRecord['profile'][0]['reviews'], $newRecord['review']);
         if ($cb->set($docID, CJSON::encode($oldRecord))) {
             $this->sendResponse(204);
         } else {

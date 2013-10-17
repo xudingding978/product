@@ -113,3 +113,24 @@ Ember.Handlebars.registerBoundHelper('isThumbUped', function(userids, megaId) {
 Ember.Handlebars.registerBoundHelper('test', function(test) {
 });
 
+Ember. Handlebars.registerHelper('isSingle', function(number) {
+    
+    if (number === "" || number === null || number === undefined) {
+        return 0;
+    }
+    else if (number % 2 === 0)
+            {
+                //  document.getElementById('leftOrRight').style.left=440 + 'px';
+                console.log(number % 2 === 0);
+            }
+            else if (number % 2 !== 0)
+            {
+                // document.getElementById('leftOrRight').style.left=-80 + 'px';
+                console.log(number % 2 !== 0);
+            }
+            
+  });
+
+
+
+

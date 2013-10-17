@@ -80,7 +80,20 @@ class ConversationsController extends Controller {
 
             $newConversationItem["name"] = $oldcommenterInfo['user'][0]["display_name"];
             $newConversationItem["sender_photo_url_large"] = $oldcommenterInfo['user'][0]["photo_url_large"];
-
+            if (isset($oldcommenterInfo['user'][0]["conversations"]))
+            {
+                $oldcommenterInfo['user'][0]["conversations"]=$oldcommenterInfo['user'][0]["conversations"].','.$conversationID;
+            }
+            else{
+            $oldcommenterInfo['user'][0]["conversations"]=$conversationID;
+            }
+            
+            if ($cb->set($commenterInfo, CJSON::encode($oldcommenterInfo))) {
+               
+            } else {
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+            }
+            
             if ($newStyleImage !== null && $photo_name !== "") {
                 $photoController = new PhotosController(); //    this.get("controllers.PhotosController").             
                 //error_log(var_export($newStyleImage, true));

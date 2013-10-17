@@ -21,8 +21,7 @@ HubStar.NewConversationController = Ember.Controller.extend({
         if (localStorage.loginStatus) {
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
             this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
-        }
-        console.log("sssssssssssss");
+        }       
     },     
     addComment: function() {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());

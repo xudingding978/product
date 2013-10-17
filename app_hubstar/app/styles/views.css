@@ -1637,18 +1637,6 @@
     vertical-align: top
 }
 
-.reply-comment{
-    display: inline-block;
-    font-size: 11px;
-    min-height: 16px;
-    padding: 0 0 0 0;
-    position: absolute;
-    right: 0;
-    text-align: right;
-    top: 0;
-    width: 115px;
-}
-
 .comment-content{
     color: #404040;
     font-size: 13px;
@@ -1765,7 +1753,6 @@
 
 
 /* tool-tips for profile items 9/10/13 clint */
-
 .itemprofile .location_li:after
 {
     background:#fff;
@@ -1780,13 +1767,13 @@
     text-shadow:0 0 0;
     top:25px;
     left:0;
+    line-height:1em;
 }
 
 .itemprofile .location_li:before
 {
     border-bottom-color:#ccc!important;
-    top:13px;
+    top:12px;
     left:15px;
 }
-
 /* tool-tips for profile items  ENDS - 9/10/13 clint */

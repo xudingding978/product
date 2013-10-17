@@ -12,6 +12,8 @@
 
 HubStar.EditMessageController = Ember.Controller.extend({
     commenter_photo_url: null,
+    messageContent: null,
+    isUploadPhoto: false,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'message', 'userMessage'],
     init: function()
     {
@@ -24,6 +26,7 @@ HubStar.EditMessageController = Ember.Controller.extend({
         {
             this.set("isUserself", true);
         }
+        this.set('messageContent', HubStar.get('message'));
     },
     close: function(id) {
         this.set('messageContent', "");
@@ -34,6 +37,23 @@ HubStar.EditMessageController = Ember.Controller.extend({
             if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id") === id)
             {
                 this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("enableToEdit", false);
+                break;
+            }
+        }
+        this.set("isUploadPhoto", false);
+    },
+    removePic: function(id) {
+        this.set('newStyleImageSource', null);
+        this.set('newStyleImageName', "");
+
+        this.set("isUploadPhoto", false);
+    },
+    removeOriginalPic: function(id) {
+         for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
+        {
+            if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id") === id)
+            {
+                this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("url", "");
                 break;
             }
         }
@@ -55,7 +75,7 @@ HubStar.EditMessageController = Ember.Controller.extend({
                 var newStyleImage = "";
                 var imageStyleName = "";
 
-                if (this.get("newStyleImageSource") !== undefined || this.get("newStyleImageSource") !== null || this.get("newStyleImageSource") !== "")
+                if (this.get("newStyleImageSource") !== undefined && this.get("newStyleImageSource") !== null && this.get("newStyleImageSource") !== "")
                 {
                     newStyleImage = this.get("newStyleImageSource");
                 }
@@ -63,7 +83,7 @@ HubStar.EditMessageController = Ember.Controller.extend({
                 {
                     newStyleImage = null;
                 }
-                if (this.get('newStyleImageName') !== undefined || this.get('newStyleImageName') !== null || this.get('newStyleImageName') !== "")
+                if (this.get('newStyleImageName') !== undefined && this.get('newStyleImageName') !== null && this.get('newStyleImageName') !== "")
                 {
                     imageStyleName = this.get('newStyleImageName');
                 }
@@ -80,11 +100,12 @@ HubStar.EditMessageController = Ember.Controller.extend({
                     var imageType = imageName[imageName.length - 1];
                 }
                 var messageContent = this.get("messageContent");
+
                 var tempComment = [owner_id, date.toString(), messageContent, newStyleImage, imageType, imageStyleName, id, replyID];
 
                 tempComment = JSON.stringify(tempComment);
                 var that = this;
-           
+
                 requiredBackEnd('messages', 'UpdateMessage', tempComment, 'POST', function(params) {
 
 
@@ -102,18 +123,21 @@ HubStar.EditMessageController = Ember.Controller.extend({
                             }
                             else
                             {
-                                 that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("isUrl", false);
+                                that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("isUrl", false);
                             }
 
                         }
                     }
+                    that.set('messageContent', "");
+                    that.set('newStyleImageSource', null);
+                    that.set('newStyleImageName', "");
+                    that.set("isUploadPhoto", false);
                     setTimeout(function() {
                         $('#masonry_user_container').masonry("reloadItems");
                     }, 200);
 
-                    that.set('messageContent', "");
-                    that.set('newStyleImageSource', null);
-                    that.set('newStyleImageName', "");
+
+
                 });
             }
         }
@@ -121,12 +145,13 @@ HubStar.EditMessageController = Ember.Controller.extend({
     },
     profileStyleImageDrop: function(e, name)
     {
+        this.set("isUploadPhoto", true);
         var target = getTarget(e, "single");
         var src = target.result;
         this.set('newStyleImageSource', src);
         this.set('newStyleImageName', name);
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
+            $('#masonry_user_container').masonry("reloadItems");
         }, 200);
     }
 }

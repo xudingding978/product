@@ -56,8 +56,7 @@ class SiteController extends Controller {
      * Displays the login page
      */
     public function actionLogin() {
-          $this->layout = '//layouts/signup';
-          error_log($this->layout);
+          $this->layout = '//layouts/signup';     
         $this->defaultLogin();
     }
 

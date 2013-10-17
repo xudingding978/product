@@ -372,14 +372,14 @@ HubStar.UserController = Ember.Controller.extend({
         var isSave = true;
         var that = this;
         var getmodelInfo = [user.get('id')];
-        requiredBackEnd('site', 'getmodel', getmodelInfo, 'POST', function(params) {
+        requiredBackEnd('login', 'getmodel', getmodelInfo, 'POST', function(params) {
 
             if (that.get('oldpassword') === params.PWD_HASH && that.get('newpassword') === that.get('repeatnew') && that.get('newpassword').length >= 6 && that.get('newpassword').length <= 40) {
 
                 isSave = false;
                 var thatthat = that;
                 var updateInfo = [user.get('id'), that.get('oldpassword'), that.get('newpassword'), that.get('repeatnew'), isSave];
-                requiredBackEnd('site', 'update', updateInfo, 'POST', function(params) {
+                requiredBackEnd('login', 'update', updateInfo, 'POST', function(params) {
                     var thatthatthat = thatthat;
                     setTimeout(function() {
                         thatthatthat.set('oldpassword', "");

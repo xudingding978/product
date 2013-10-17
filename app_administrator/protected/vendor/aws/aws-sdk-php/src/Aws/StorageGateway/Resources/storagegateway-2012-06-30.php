@@ -72,8 +72,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'ActivateGatewayOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation activates the gateway you previously deployed on your VMware host. For more information, see Downloading and Deploying AWS Storage Gateway VM. In the activation process you specify information such as the region you want to use for storing snapshots, the time zone for scheduled snapshots and the gateway schedule window, an activation key, and a name for your gateway. The activation process also associates your gateway with your account (see UpdateGatewayInformation).',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -91,7 +89,6 @@ return array (
                 ),
                 'ActivationKey' => array(
                     'required' => true,
-                    'description' => 'Your gateway activation key. You can obtain the activation key by sending an HTTP GET request with redirects enabled to the gateway IP address (port 80). The redirect URL returned in the response provides you the activation key for your gateway in the query string parameter activationKey. It may also include other activation-related parameters, however, these are merely defaults -- the arguments you pass to the ActivateGateway API call determine the actual configuration of your gateway.',
                     'type' => 'string',
                     'location' => 'json',
                     'minLength' => 1,
@@ -106,7 +103,6 @@ return array (
                 ),
                 'GatewayTimezone' => array(
                     'required' => true,
-                    'description' => 'One of the values that indicates the time zone you want to set for the gateway. The time zone is used, for example, for scheduling snapshots and your gateway\'s maintenance schedule.',
                     'type' => 'string',
                     'location' => 'json',
                     'enum' => array(
@@ -145,14 +141,12 @@ return array (
                 ),
                 'GatewayRegion' => array(
                     'required' => true,
-                    'description' => 'One of the values that indicates the region where you want to store the snapshot backups. The gateway region specified must be the same region as the region in your Host header in the request. For more information about available regions and endpoints for AWS Storage Gateway, see Regions and Endpoints in the Amazon Web Services Glossary.',
                     'type' => 'string',
                     'location' => 'json',
                     'minLength' => 1,
                     'maxLength' => 25,
                 ),
                 'GatewayType' => array(
-                    'description' => 'One of the values that defines the type of gateway to activate. The type specified is critical to all later functions of the gateway and cannot be changed after activation. The default value is STORED.',
                     'type' => 'string',
                     'location' => 'json',
                     'enum' => array(
@@ -163,9 +157,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -176,8 +172,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'AddCacheOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation configures one or more gateway local disks as cache for a cached-volume gateway. This operation is supported only for the gateway-cached volume architecture (see Storage Gateway Concepts).',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -195,7 +189,6 @@ return array (
                 ),
                 'GatewayARN' => array(
                     'required' => true,
-                    'description' => 'The Amazon Resource Name (ARN) of the gateway. Use the ListGateways operation to return a list of gateways for your account and region.',
                     'type' => 'string',
                     'location' => 'json',
                     'minLength' => 50,
@@ -203,7 +196,6 @@ return array (
                 ),
                 'DiskIds' => array(
                     'required' => true,
-                    'description' => 'An array of strings that identify disks that are to be configured as cache. Each string in the array must be minimum length of 1 and maximum length of 300. You can get the disk IDs from the ListLocalDisks API.',
                     'type' => 'array',
                     'location' => 'json',
                     'items' => array(
@@ -216,9 +208,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -229,8 +223,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'AddUploadBufferOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation configures one or more gateway local disks as upload buffer for a specified gateway. This operation is supported for both the gateway-stored and gateway-cached volume architectures.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -255,7 +247,6 @@ return array (
                 ),
                 'DiskIds' => array(
                     'required' => true,
-                    'description' => 'An array of strings that identify disks that are to be configured as upload buffer. Each string in the array must be minimum length of 1 and maximum length of 300. You can get disk IDs from the ListLocalDisks API.',
                     'type' => 'array',
                     'location' => 'json',
                     'items' => array(
@@ -268,9 +259,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -281,8 +274,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'AddWorkingStorageOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation configures one or more gateway local disks as working storage for a gateway. This operation is supported only for the gateway-stored volume architecture.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -319,9 +310,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -332,8 +325,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'CreateCachediSCSIVolumeOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation creates a cached volume on a specified cached gateway. This operation is supported only for the gateway-cached volume architecture.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -351,7 +342,6 @@ return array (
                 ),
                 'GatewayARN' => array(
                     'required' => true,
-                    'description' => 'The Amazon Resource Name (ARN) of the gateway. Use the ListGateways operation to return a list of gateways for your account and region.',
                     'type' => 'string',
                     'location' => 'json',
                     'minLength' => 50,
@@ -359,18 +349,15 @@ return array (
                 ),
                 'VolumeSizeInBytes' => array(
                     'required' => true,
-                    'description' => 'The size of the cached volume.',
                     'type' => 'numeric',
                     'location' => 'json',
                 ),
                 'SnapshotId' => array(
-                    'description' => 'The snapshot ID (e.g., "snap-1122aabb") of the snapshot to restore as the new stored volume. Specify this field if you want to create the iSCSI cached volume from a snapshot; otherwise, do not include this field. To list snapshots for your account, use DescribeSnapshots in Amazon Elastic Compute Cloud API Reference.',
                     'type' => 'string',
                     'location' => 'json',
                 ),
                 'TargetName' => array(
                     'required' => true,
-                    'description' => 'The name of the iSCSI target used by initiators to connect to the target and as a suffix for the target ARN. For example, specifying TargetName as myvolume results in the target ARN of arn:aws:storagegateway:us-east-1:111122223333:gateway/mygateway/target/iqn.1997-05.com.amazon:myvolume. The target name must be unique across all volumes of a gateway.',
                     'type' => 'string',
                     'location' => 'json',
                     'minLength' => 1,
@@ -378,13 +365,11 @@ return array (
                 ),
                 'NetworkInterfaceId' => array(
                     'required' => true,
-                    'description' => 'The network interface of the gateway on which to expose the iSCSI target. Only IPv4 addresses are accepted. Use the DescribeGatewayInformation operation to get a list of the network interfaces available on the gateway.',
                     'type' => 'string',
                     'location' => 'json',
                 ),
                 'ClientToken' => array(
                     'required' => true,
-                    'description' => 'A unique identifying string for the cached volume.',
                     'type' => 'string',
                     'location' => 'json',
                     'minLength' => 5,
@@ -393,9 +378,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -406,8 +393,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'CreateSnapshotOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation initiates a snapshot of a volume.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -440,9 +425,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -453,8 +440,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'CreateSnapshotFromVolumeRecoveryPointOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation initiates a snapshot of a gateway from a volume recovery point. This operation is supported only for the gateway-cached volume architecture (see StorageGatewayConcepts).',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -472,7 +457,6 @@ return array (
                 ),
                 'VolumeARN' => array(
                     'required' => true,
-                    'description' => 'The Amazon Resource Name (ARN) of the volume. Use the ListVolumes operation to return a list of gateway volumes.',
                     'type' => 'string',
                     'location' => 'json',
                     'minLength' => 50,
@@ -480,7 +464,6 @@ return array (
                 ),
                 'SnapshotDescription' => array(
                     'required' => true,
-                    'description' => 'A textual description of the snapshot that appears in the Amazon EC2 console, Elastic Block Store snapshots panel in the Description field, and in the AWS Storage Gateway snapshot Details pane, Description field.',
                     'type' => 'string',
                     'location' => 'json',
                     'minLength' => 1,
@@ -489,9 +472,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -502,8 +487,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'CreateStorediSCSIVolumeOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation creates a volume on a specified gateway. This operation is supported only for the gateway-cached volume architecture.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -558,9 +541,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -571,8 +556,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'DeleteBandwidthRateLimitOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation deletes the bandwidth rate limits of a gateway. You can delete either the upload and download bandwidth rate limit, or you can delete both. If you delete only one of the limits, the other limit remains unchanged. To specify which gateway to work with, use the Amazon Resource Name (ARN) of the gateway in your request.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -608,9 +591,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -621,8 +606,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'DeleteChapCredentialsOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation deletes Challenge-Handshake Authentication Protocol (CHAP) credentials for a specified iSCSI target and initiator pair.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -655,9 +638,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -668,8 +653,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'DeleteGatewayOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation deletes a gateway. To specify which gateway to delete, use the Amazon Resource Name (ARN) of the gateway in your request. The operation deletes the gateway; however, it does not delete the gateway virtual machine (VM) from your host computer.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -695,9 +678,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -708,8 +693,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'DeleteSnapshotScheduleOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation deletes a snapshot of a volume.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -727,7 +710,6 @@ return array (
                 ),
                 'VolumeARN' => array(
                     'required' => true,
-                    'description' => 'The Amazon Resource Name (ARN) of the volume. Use the ListVolumes operation to return a list of gateway volumes.',
                     'type' => 'string',
                     'location' => 'json',
                     'minLength' => 50,
@@ -736,9 +718,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -749,8 +733,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'DeleteVolumeOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation delete the specified gateway volume that you previously created using the CreateStorediSCSIVolume API. For gateway-stored volumes, the local disk that was configured as the storage volume is not deleted. You can reuse the local disk to create another storage volume.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -776,9 +758,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -789,8 +773,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'DescribeBandwidthRateLimitOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation returns the bandwidth rate limits of a gateway. By default, these limits are not set, which means no bandwidth rate limiting is in effect.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -816,9 +798,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -829,8 +813,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'DescribeCacheOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation returns information about the cache of a gateway. This operation is supported only for the gateway-cached volume architecture.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -848,7 +830,6 @@ return array (
                 ),
                 'GatewayARN' => array(
                     'required' => true,
-                    'description' => 'The Amazon Resource Name (ARN) of the gateway. Use the ListGateways operation to return a list of gateways for your account and region.',
                     'type' => 'string',
                     'location' => 'json',
                     'minLength' => 50,
@@ -857,9 +838,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -870,8 +853,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'DescribeCachediSCSIVolumesOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation returns a description of the gateway volumes specified in the request. This operation is supported only for the gateway-cached volume architecture.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -889,7 +870,6 @@ return array (
                 ),
                 'VolumeARNs' => array(
                     'required' => true,
-                    'description' => 'An array of strings, where each string represents the Amazon Resource Name (ARN) of a cached volume. All of the specified cached volumes must be from the same gateway. Use ListVolumes to get volume ARNs of a gateway.',
                     'type' => 'array',
                     'location' => 'json',
                     'items' => array(
@@ -902,9 +882,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -915,8 +897,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'DescribeChapCredentialsOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation returns an array of Challenge-Handshake Authentication Protocol (CHAP) credentials information for a specified iSCSI target, one for each target-initiator pair.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -942,9 +922,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -955,8 +937,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'DescribeGatewayInformationOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation returns metadata about a gateway such as its name, network interfaces, configured time zone, and the state (whether the gateway is running or not). To specify which gateway to describe, use the Amazon Resource Name (ARN) of the gateway in your request.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -982,9 +962,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -995,8 +977,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'DescribeMaintenanceStartTimeOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation returns your gateway\'s weekly maintenance start time including the day and time of the week. Note that values are in terms of the gateway\'s time zone.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -1022,9 +1002,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -1035,8 +1017,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'DescribeSnapshotScheduleOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation describes the snapshot schedule for the specified gateway volume. The snapshot schedule information includes intervals at which snapshots are automatically initiated on the volume.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -1062,9 +1042,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -1075,8 +1057,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'DescribeStorediSCSIVolumesOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation returns description of the gateway volumes specified in the request. The list of gateway volumes in the request must be from one gateway. In the response Amazon Storage Gateway returns volume information sorted by volume ARNs.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -1106,9 +1086,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -1119,8 +1101,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'DescribeUploadBufferOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation returns information about the upload buffer of a gateway. This operation is supported for both the gateway-stored and gateway-cached volume architectures.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -1138,7 +1118,6 @@ return array (
                 ),
                 'GatewayARN' => array(
                     'required' => true,
-                    'description' => 'The Amazon Resource Name (ARN) of the gateway. Use the ListGateways operation to return a list of gateways for your account and region.',
                     'type' => 'string',
                     'location' => 'json',
                     'minLength' => 50,
@@ -1147,9 +1126,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -1160,8 +1141,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'DescribeWorkingStorageOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation returns information about the working storage of a gateway. This operation is supported only for the gateway-stored volume architecture.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -1187,9 +1166,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -1200,8 +1181,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'ListGatewaysOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation lists gateways owned by an AWS account in a region specified in the request. The returned list is ordered by gateway Amazon Resource Name (ARN).',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -1231,9 +1210,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -1244,8 +1225,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'ListLocalDisksOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation returns a list of the local disks of a gateway. To specify which gateway to describe you use the Amazon Resource Name (ARN) of the gateway in the body of the request.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -1271,9 +1250,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -1284,8 +1265,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'ListVolumeRecoveryPointsOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation lists the recovery points for a specified gateway. This operation is supported only for the gateway-cached volume architecture.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -1303,7 +1282,6 @@ return array (
                 ),
                 'GatewayARN' => array(
                     'required' => true,
-                    'description' => 'The Amazon Resource Name (ARN) of the gateway. Use the ListGateways operation to return a list of gateways for your account and region.',
                     'type' => 'string',
                     'location' => 'json',
                     'minLength' => 50,
@@ -1312,9 +1290,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -1325,8 +1305,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'ListVolumesOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation lists the iSCSI stored volumes of a gateway. Results are sorted by volume ARN. The response includes only the volume ARNs. If you want additional volume information, use the DescribeStorediSCSIVolumes API.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -1363,9 +1341,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -1376,8 +1356,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'ShutdownGatewayOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation shuts down a gateway. To specify which gateway to shut down, use the Amazon Resource Name (ARN) of the gateway in the body of your request.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -1403,9 +1381,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -1416,8 +1396,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'StartGatewayOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation starts a gateway that you previously shut down (see ShutdownGateway). After the gateway starts, you can then make other API calls, your applications can read from or write to the gateway\'s storage volumes and you will be able to take snapshot backups.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -1443,9 +1421,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -1456,8 +1436,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'UpdateBandwidthRateLimitOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation updates the bandwidth rate limits of a gateway. You can update both the upload and download bandwidth rate limit or specify only one of the two. If you don\'t set a bandwidth rate limit, the existing rate limit remains.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -1493,9 +1471,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -1506,8 +1486,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'UpdateChapCredentialsOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation updates the Challenge-Handshake Authentication Protocol (CHAP) credentials for a specified iSCSI target. By default, a gateway does not have CHAP enabled; however, for added security, you might use it.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -1553,9 +1531,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -1566,8 +1546,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'UpdateGatewayInformationOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation updates a gateway\'s metadata, which includes the gateway\'s name and time zone. To specify which gateway to update, use the Amazon Resource Name (ARN) of the gateway in your request.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -1636,9 +1614,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -1649,8 +1629,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'UpdateGatewaySoftwareNowOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation updates the gateway virtual machine (VM) software. The request immediately triggers the software update.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -1676,9 +1654,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -1689,8 +1669,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'UpdateMaintenanceStartTimeOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation updates a gateway\'s weekly maintenance start time information, including day and time of the week. The maintenance time is the time in your gateway\'s time zone.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -1734,9 +1712,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -1747,8 +1727,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'UpdateSnapshotScheduleOutput',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'This operation updates a snapshot schedule configured for a gateway volume.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -1793,9 +1771,11 @@ return array (
             ),
             'errorResponses' => array(
                 array(
+                    'reason' => 'An exception occured because an invalid gateway request was issued to the service. See the error and message fields for more information.',
                     'class' => 'InvalidGatewayRequestException',
                 ),
                 array(
+                    'reason' => 'An internal server error has occured during the request. See the error and message fields for more information.',
                     'class' => 'InternalServerErrorException',
                 ),
             ),
@@ -1847,12 +1827,10 @@ return array (
             'additionalProperties' => true,
             'properties' => array(
                 'VolumeARN' => array(
-                    'description' => 'The ARN of the configured volume.',
                     'type' => 'string',
                     'location' => 'json',
                 ),
                 'TargetARN' => array(
-                    'description' => 'The ARN of the volume target that includes the iSCSI name that initiators can use to connect to the target.',
                     'type' => 'string',
                     'location' => 'json',
                 ),
@@ -1877,17 +1855,14 @@ return array (
             'additionalProperties' => true,
             'properties' => array(
                 'SnapshotId' => array(
-                    'description' => 'The snapshot ID that is used to refer to the snapshot in future operations such as describing snapshots (Amazon Elastic Compute Cloud API DescribeSnapshots) or creating a volume from a snapshot (CreateStorediSCSIVolume).',
                     'type' => 'string',
                     'location' => 'json',
                 ),
                 'VolumeARN' => array(
-                    'description' => 'The ARN of the volume of which the snapshot was taken. Obtain volume ARNs from the ListVolumes operation.',
                     'type' => 'string',
                     'location' => 'json',
                 ),
                 'VolumeRecoveryPointTime' => array(
-                    'description' => 'The time of the recovery point. Data up to this recovery point are included in the snapshot.',
                     'type' => 'string',
                     'location' => 'json',
                 ),
@@ -1950,7 +1925,6 @@ return array (
             'additionalProperties' => true,
             'properties' => array(
                 'VolumeARN' => array(
-                    'description' => 'The Amazon Resource Name (ARN) of the volume of which the snapshot was taken.',
                     'type' => 'string',
                     'location' => 'json',
                 ),
@@ -1989,12 +1963,10 @@ return array (
             'additionalProperties' => true,
             'properties' => array(
                 'GatewayARN' => array(
-                    'description' => 'In response, AWS Storage Gateway returns the ARN of the activated gateway. If you don\'t remember the ARN of a gateway, you can use the List Gateways operations to return a list of gateways for your account and region.',
                     'type' => 'string',
                     'location' => 'json',
                 ),
                 'DiskIds' => array(
-                    'description' => 'An array of the gateway\'s local disk IDs that are configured as cache. Each local disk ID is specified as a string (minimum length of 1 and maximum length of 300). If no local disks are configured as cache, then the DiskIds array is empty.',
                     'type' => 'array',
                     'location' => 'json',
                     'items' => array(
@@ -2003,27 +1975,22 @@ return array (
                     ),
                 ),
                 'CacheAllocatedInBytes' => array(
-                    'description' => 'The size allocated, in bytes, for the cache. If no cache is defined for the gateway, this field returns 0.',
                     'type' => 'numeric',
                     'location' => 'json',
                 ),
                 'CacheUsedPercentage' => array(
-                    'description' => 'The percentage (0 to 100) of the cache storage in use. If no cached is defined for the gateway, this field returns 0.',
                     'type' => 'numeric',
                     'location' => 'json',
                 ),
                 'CacheDirtyPercentage' => array(
-                    'description' => 'The percentage of the cache that contains data that has not yet been persisted to Amazon S3. If no cached is defined for the gateway, this field returns 0.',
                     'type' => 'numeric',
                     'location' => 'json',
                 ),
                 'CacheHitPercentage' => array(
-                    'description' => 'The percentage (0 to 100) of data read from the storage volume that was read from cache. If no cached is defined for the gateway, this field returns 0.',
                     'type' => 'numeric',
                     'location' => 'json',
                 ),
                 'CacheMissPercentage' => array(
-                    'description' => 'TThe percentage (0 to 100) of data read from the storage volume that was not read from the cache, but was read from Amazon S3. If no cached is defined for the gateway, this field returns 0.',
                     'type' => 'numeric',
                     'location' => 'json',
                 ),
@@ -2034,40 +2001,31 @@ return array (
             'additionalProperties' => true,
             'properties' => array(
                 'CachediSCSIVolumes' => array(
-                    'description' => 'An array of CachediSCSIVolume objects where each object contains metadata about one cached volume.',
                     'type' => 'array',
                     'location' => 'json',
                     'items' => array(
                         'name' => 'CachediSCSIVolume',
-                        'description' => 'Describes a cached storage volume.',
                         'type' => 'object',
                         'properties' => array(
                             'VolumeARN' => array(
-                                'description' => 'The Amazon Resource Name (ARN) of the storage volume.',
                                 'type' => 'string',
                             ),
                             'VolumeId' => array(
-                                'description' => 'The unique identifier of the storage volume, e.g. vol-1122AABB.',
                                 'type' => 'string',
                             ),
                             'VolumeType' => array(
-                                'description' => 'A value describing the type of volume.',
                                 'type' => 'string',
                             ),
                             'VolumeStatus' => array(
-                                'description' => 'A value that indicates the state of the volume.',
                                 'type' => 'string',
                             ),
                             'VolumeSizeInBytes' => array(
-                                'description' => 'The size of the volume in bytes that was specified in the API_CreateCachediSCSIVolume operation.',
                                 'type' => 'numeric',
                             ),
                             'VolumeProgress' => array(
-                                'description' => 'The percentage complete if the volume is restoring or bootstrapping that represents the percent of data transferred. This field does not appear in the response if the stored volume is not restoring or bootstrapping.',
                                 'type' => 'numeric',
                             ),
                             'SourceSnapshotId' => array(
-                                'description' => 'If the cached volume was created from a snapshot, this field contains the snapshot ID used, e.g. snap-1122aabb. Otherwise, this field is not included.',
                                 'type' => 'string',
                             ),
                             'VolumeiSCSIAttributes' => array(
@@ -2132,22 +2090,18 @@ return array (
                     'location' => 'json',
                 ),
                 'GatewayId' => array(
-                    'description' => 'The gateway ID.',
                     'type' => 'string',
                     'location' => 'json',
                 ),
                 'GatewayTimezone' => array(
-                    'description' => 'One of the GatewayTimezone values that indicates the time zone configured for the gateway.',
                     'type' => 'string',
                     'location' => 'json',
                 ),
                 'GatewayState' => array(
-                    'description' => 'One of the GatewayState values that indicates the operating state of the gateway.',
                     'type' => 'string',
                     'location' => 'json',
                 ),
                 'GatewayNetworkInterfaces' => array(
-                    'description' => 'A NetworkInterface array that contains descriptions of the gateway network interfaces.',
                     'type' => 'array',
                     'location' => 'json',
                     'items' => array(
@@ -2167,12 +2121,10 @@ return array (
                     ),
                 ),
                 'GatewayType' => array(
-                    'description' => 'TBD',
                     'type' => 'string',
                     'location' => 'json',
                 ),
                 'NextUpdateAvailabilityDate' => array(
-                    'description' => 'The date at which an update to the gateway is available. This date is in the time zone of the gateway. If the gateway is not available for an update this field is not returned in the response.',
                     'type' => 'string',
                     'location' => 'json',
                 ),
@@ -2298,12 +2250,10 @@ return array (
             'additionalProperties' => true,
             'properties' => array(
                 'GatewayARN' => array(
-                    'description' => 'In response, AWS Storage Gateway returns the ARN of the activated gateway. If you don\'t remember the ARN of a gateway, you can use the ListGateways operations to return a list of gateways for your account and region.',
                     'type' => 'string',
                     'location' => 'json',
                 ),
                 'DiskIds' => array(
-                    'description' => 'An array of the gateway\'s local disk IDs that are configured as working storage. Each local disk ID is specified as a string (minimum length of 1 and maximum length of 300). If no local disks are configured as working storage, then the DiskIds array is empty.',
                     'type' => 'array',
                     'location' => 'json',
                     'items' => array(
@@ -2312,12 +2262,10 @@ return array (
                     ),
                 ),
                 'UploadBufferUsedInBytes' => array(
-                    'description' => 'The total upload buffer in bytes in use by the gateway. If no upload buffer is configured for the gateway, this field returns 0.',
                     'type' => 'numeric',
                     'location' => 'json',
                 ),
                 'UploadBufferAllocatedInBytes' => array(
-                    'description' => 'The total upload buffer in bytes allocated for the gateway. If no upload buffer is configured for the gateway, this field returns 0.',
                     'type' => 'numeric',
                     'location' => 'json',
                 ),
@@ -2415,33 +2363,26 @@ return array (
             'additionalProperties' => true,
             'properties' => array(
                 'GatewayARN' => array(
-                    'description' => 'The Amazon Resource Name (ARN) of the activated gateway whose local disk information is returned.',
                     'type' => 'string',
                     'location' => 'json',
                 ),
                 'VolumeRecoveryPointInfos' => array(
-                    'description' => 'An array of VolumeRecoveryPointInfo objects, where each object describes a recovery point. If no recovery points are defined for the volume, then VolumeRecoveryPointInfos is an empty array "[]"',
                     'type' => 'array',
                     'location' => 'json',
                     'items' => array(
                         'name' => 'VolumeRecoveryPointInfo',
-                        'description' => 'Lists information about the recovery points of a cached volume.',
                         'type' => 'object',
                         'properties' => array(
                             'VolumeARN' => array(
-                                'description' => 'The Amazon Resource Name (ARN) of the volume associated with the recovery point.',
                                 'type' => 'string',
                             ),
                             'VolumeSizeInBytes' => array(
-                                'description' => 'The size, in bytes, of the volume to which the recovery point is associated.',
                                 'type' => 'numeric',
                             ),
                             'VolumeUsageInBytes' => array(
-                                'description' => 'The size, in bytes, of the volume in use at the time of the recovery point.',
                                 'type' => 'numeric',
                             ),
                             'VolumeRecoveryPointTime' => array(
-                                'description' => 'The time of the recovery point. The format of the time is in the ISO8601 extended YYYY-MM-DD\'T\'HH:MM:SS\'Z\' format.',
                                 'type' => 'string',
                             ),
                         ),

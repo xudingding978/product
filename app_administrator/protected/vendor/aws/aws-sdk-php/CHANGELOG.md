@@ -1,10 +1,126 @@
 CHANGELOG
 =========
 
+2.4.6 (2013-09-12)
+------------------
+
+* Added support for modifying EC2 Reserved Instances to the Amazon EC2 client
+* Added support for VPC features to the AWS OpsWorks client
+* Updated the DynamoDB Session Handler to implement the SessionHandlerInterface of PHP 5.4 when available
+* Updated the SNS Message Validator to throw an exception, instead of an error, when the raw post data is invalid
+* Fixed an issue in the S3 signature which ensures that parameters are sorted correctly for signing
+* Fixed an issue in the S3 client where the Sydney region was not allowed as a `LocationConstraint` for the
+  `PutObject` operation
+
+2.4.5 (2013-09-04)
+------------------
+
+* Added support for replication groups to the Amazon ElastiCache client
+* Added support for using the `us-gov-west-1` region to the AWS CloudFormation client
+
+2.4.4 (2013-08-29)
+------------------
+
+* Added support for assigning a public IP address to an instance at launch to the Amazon EC2 client
+* Updated the Amazon EC2 client to use the 2013-07-15 API version
+* Updated the Amazon SWF client to sign requests with Signature V4
+* Updated the Instance Metadata client to allow for higher and more customizable connection timeouts
+* Fixed an issue with the SDK where XML map structures were not being serialized correctly in some cases
+* Fixed issue #136 where a few of the new Amazon SNS mobile push operations were not working properly
+* Fixed an issue where the AWS STS `AssumeRoleWithWebIdentity` operation was requiring credentials and a signature
+  unnecessarily
+* Fixed and issue with the `S3Client::uploadDirectory` method so that true key prefixes can be used
+* [Docs] Updated the API docs to include sample code for each operation that indicates the parameter structure
+* [Docs] Updated the API docs to include more information in the descriptions of operations and parameters
+* [Docs] Added a page about Iterators to the user guide
+
+2.4.3 (2013-08-12)
+------------------
+
+* Added support for mobile push notifications to the Amazon SNS client
+* Added support for progress reporting on snapshot restore operations to the the Amazon Redshift client
+* Updated the Amazon Elastic MapReduce client to use JSON serialization
+* Updated the Amazon Elastic MapReduce client to sign requests with Signature V4
+* Updated the SDK to throw `Aws\Common\Exception\TransferException` exceptions when a network error occurs instead of a
+  `Guzzle\Http\Exception\CurlException`. The TransferException class, however, extends from
+  `Guzzle\Http\Exception\CurlException`. You can continue to catch the Guzzle `CurlException` or catch
+  `Aws\Common\Exception\AwsExceptionInterface` to catch any exception that can be thrown by an AWS client
+* Fixed an issue with the Amazon S3 stream wrapper where trailing slashes were being added when listing directories
+
+2.4.2 (2013-07-25)
+------------------
+
+* Added support for cross-account snapshot access control to the Amazon Redshift client
+* Added support for decoding authorization messages to the AWS STS client
+* Added support for checking for required permissions via the `DryRun` parameter to the Amazon EC2 client
+* Added support for custom Amazon Machine Images (AMIs) and Chef 11 to the AWS OpsWorks client
+* Added an SDK compatibility test to allow users to quickly determine if their system meets the requirements of the SDK
+* Updated the Amazon EC2 client to use the 2013-06-15 API version
+* Fixed an unmarshalling error with the Amazon EC2 `CreateKeyPair` operation
+* Fixed an unmarshalling error with the Amazon S3 `ListMultipartUploads` operation
+* Fixed an issue with the Amazon S3 stream wrapper "x" fopen mode
+* Fixed an issue with `Aws\S3\S3Client::downloadBucket` by removing leading slashes from the passed `$keyPrefix` argument
+
+2.4.1 (2013-06-08)
+------------------
+
+* Added support for setting watermarks and max framerates to the Amazon Elastic Transcoder client
+* Added the `Aws\DynamoDb\Iterator\ItemIterator` class to make it easier to get items from the results of DynamoDB
+  operations in a simpler form
+* Added support for the `cr1.8xlarge` EC2 instance type. Use `Aws\Ec2\Enum\InstanceType::CR1_8XLARGE`
+* Added support for the suppression list SES mailbox simulator. Use `Aws\Ses\Enum\MailboxSimulator::SUPPRESSION_LIST`
+* [SDK] Fixed an issue with data formats throughout the SDK due to a regression. Dates are now sent over the wire with
+  the correct format. This issue affected the Amazon EC2, Amazon ElastiCache, AWS Elastic Beanstalk, Amazon EMR, and
+  Amazon RDS clients
+* Fixed an issue with the parameter serialization of the `ImportInstance` operation in the Amazon EC2 client
+* Fixed an issue with the Amazon S3 client where the `RoutingRules.Redirect.HostName` parameter of the
+  `PutBucketWebsite` operation was erroneously marked as required
+* Fixed an issue with the Amazon S3 client where the `DeleteObject` operation was missing parameters
+* Fixed an issue with the Amazon S3 client where the `Status` parameter of the `PutBucketVersioning` operation did not
+  properly support the "Suspended" value
+* Fixed an issue with the Amazon Glacier `UploadPartGenerator` class so that an exception is thrown if the provided body
+  to upload is less than 1 byte
+* Added MD5 validation to Amazon SQS ReceiveMessage operations
+
+2.4.0 (2013-06-18)
+------------------
+
+* [BC] Updated the Amazon CloudFront client to use the new 2013-05-12 API version which includes changes in how you
+  configure distributions. If you are not ready to upgrade to the new API, you can configure the SDK to use the previous
+  version of the API by setting the `version` option to `2012-05-05` when you instantiate the client (See
+  [`UPGRADING.md`](https://github.com/aws/aws-sdk-php/blob/master/UPGRADING.md))
+* Added abstractions for uploading a local directory to an Amazon S3 bucket (`$s3->uploadDirectory()`)
+* Added abstractions for downloading an Amazon S3 bucket to local directory (`$s3->downloadBucket()`)
+* Added an easy to way to delete objects from an Amazon S3 bucket that match a regular expression or key prefix
+* Added an easy to way to upload an object to Amazon S3 that automatically uses a multipart upload if the size of the
+  object exceeds a customizable threshold (`$s3->upload()`)
+* [SDK] Added facade classes for simple, static access to clients (e.g., `S3::putObject([...])`)
+* Added the `Aws\S3\S3Client::getObjectUrl` convenience method for getting the URL of an Amazon S3 object. This works
+  for both public and pre-signed URLs
+* Added support for using the `ap-northeast-1` region to the Amazon Redshift client
+* Added support for configuring custom SSL certificates to the Amazon CloudFront client via the `ViewerCertificate`
+  parameter
+* Added support for read replica status to the Amazon RDS client
+* Added "magic" access to iterators to make using iterators more convenient (e.g., `$s3->getListBucketsIterator()`)
+* Added the `waitUntilDBInstanceAvailable` and `waitUntilDBInstanceDeleted` waiters to the Amazon RDS client
+* Added the `createCredentials` method to the AWS STS client to make it easier to create a credentials object from the
+  results of an STS operation
+* Updated the Amazon RDS client to use the 2013-05-15 API version
+* Updated request retrying logic to automatically refresh expired credentials and retry with new ones
+* Updated the Amazon CloudFront client to sign requests with Signature V4
+* Updated the Amazon SNS client to sign requests with Signature V4, which enables larger payloads
+* Updated the S3 Stream Wrapper so that you can use stream resources in any S3 operation without having to manually
+  specify the `ContentLength` option
+* Fixed issue #94 so that the `Aws\S3\BucketStyleListener` is invoked on `command.after_prepare` and presigned URLs
+  are generated correctly from S3 commands
+* Fixed an issue so that creating presigned URLs using the Amazon S3 client now works with temporary credentials
+* Fixed an issue so that the `CORSRules.AllowedHeaders` parameter is now available when configuring CORS for Amazon S3
+* Set the Guzzle dependency to ~3.7.0
+
 2.3.4 (2013-05-30)
 ------------------
 
-* Setting the Guzzle dependency to ~3.6.0
+* Set the Guzzle dependency to ~3.6.0
 
 2.3.3 (2013-05-28)
 ------------------

@@ -569,6 +569,14 @@ div.profile-picture-active
     border-width:4px!important;
     position:absolute;
 }
+#profile-picture > img{
+    margin-left:-5px;
+    min-width:180px;
+    min-height:180px;
+    max-width:235px;
+    max-height:235px;
+}
+
 .follow-btn-active
 {
     float: right!important;

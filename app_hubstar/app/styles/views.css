@@ -561,13 +561,13 @@
     margin: auto;
     color: white;
     text-align: center;
-    top: 27.5%;
-    padding:2% 0;
+    top: 25.5%;
+    padding:2% 5px;
     z-index: 2;
     vertical-align: middle;
     word-wrap: normal;
     line-height: 24px;
-    height:41%;
+    height:45%;
     overflow:hidden;
 }
 
@@ -578,13 +578,13 @@
     margin: auto;
     opacity: 0.7;
     background-color: black;
-    top: 27.5%;
-    padding: 2% 0;
+    top: 25.5%;
+    padding: 2% 5px;
     z-index: 1;
     word-wrap: normal;
     line-height: 24px;
     box-shadow: 0 0 20px 4px #000;
-    height:41%;
+    height:45%;
     overflow:hidden;
 
     /* may need to delete this element in the template */

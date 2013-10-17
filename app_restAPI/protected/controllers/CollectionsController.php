@@ -215,8 +215,7 @@ class CollectionsController extends Controller {
                     array_unshift($responseArray,$id.' delete failed');
                 }
             }
-        }
-        
+        }        
     }
 
     public function actionTest() {

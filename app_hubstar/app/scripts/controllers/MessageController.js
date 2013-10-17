@@ -18,7 +18,8 @@ HubStar.MessageController = Ember.Controller.extend({
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'userMessage'],
 
     isUserself: false,
-    // enableToEdit: false,
+    isUploadPhoto: false,
+    
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -30,6 +31,12 @@ HubStar.MessageController = Ember.Controller.extend({
         {
             this.set("isUserself", true);
         }
+        this.set("isEdit",true);
+    },
+    setEditReply: function() {
+        console.log(this.get("isEdit"));
+        
+        this.set("isEdit",true);
     },
 
     editingCommentData: function(id,msg) {
@@ -43,23 +50,25 @@ HubStar.MessageController = Ember.Controller.extend({
             }
 
         }
-    
 
         HubStar.set('message',msg);
       
 
     },
-    editingReplyData: function(id,msg) {
+    editingReplyData: function(id, msg) {
         for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
         {
             for (var j = 0; j < this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").length; j++)
                 if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("reply_id") === id)
                 {
                     this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("enableToEdit", true);
+                    this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyEdit",false);
                     break;
                 }
         }
-        HubStar.set('reply',msg);
+       
+       
+        HubStar.set('reply', msg);
     },
     removeReply: function(reply_id)
     {
@@ -116,8 +125,8 @@ HubStar.MessageController = Ember.Controller.extend({
         $('#addcommetBut').attr('style', 'display:block');
         $('#commentBox').attr('style', 'display:none');
         setTimeout(function() {
-            $('#masonry_container').masonry("reload");
-            $('.user_comment_' + localStorage.loginStatus).attr('style', 'display:block');
+            $('#masonry_container').masonry("reloadItems");
+            
         }, 200);
     },
     addReply: function(message_id) {
@@ -205,6 +214,7 @@ HubStar.MessageController = Ember.Controller.extend({
                         dataNew["replyMessageCollection"] = new Array();
 
                     }
+                    that.set("isUploadPhoto", false);
                 }
                 dataNew = new Array();
                 setTimeout(function() {
@@ -219,8 +229,8 @@ HubStar.MessageController = Ember.Controller.extend({
             $('#addcommetBut').attr('style', 'display:block');
             $('#commentBox').attr('style', 'display:none');
             setTimeout(function() {
-                $('#masonry_container').masonry("reload");
-                $('.user_comment_' + localStorage.loginStatus).attr('style', 'display:block');
+                $('#masonry_container').masonry("reloadItems");
+                
             }, 200);
         }
     },
@@ -231,6 +241,7 @@ HubStar.MessageController = Ember.Controller.extend({
     },
     profileStyleImageDrop: function(e, name)
     {
+        this.set("isUploadPhoto", true);
         var target = getTarget(e, "single");
         var src = target.result;
         this.set('newStyleImageSource', src);

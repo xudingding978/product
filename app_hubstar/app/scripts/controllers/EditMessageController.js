@@ -13,6 +13,7 @@
 HubStar.EditMessageController = Ember.Controller.extend({
     commenter_photo_url: null,
     messageContent:null,
+    isUploadPhoto:false,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'message', 'userMessage'],
     init: function()
     {
@@ -82,7 +83,7 @@ HubStar.EditMessageController = Ember.Controller.extend({
                     var imageType = imageName[imageName.length - 1];
                 }
                 var messageContent = this.get("messageContent");
-                console.log(messageContent);
+               
                 var tempComment = [owner_id, date.toString(), messageContent, newStyleImage, imageType, imageStyleName, id, replyID];
 
                 tempComment = JSON.stringify(tempComment);
@@ -110,13 +111,16 @@ HubStar.EditMessageController = Ember.Controller.extend({
 
                         }
                     }
+                    that.set('messageContent', "");
+                    that.set('newStyleImageSource', null);
+                    that.set('newStyleImageName', "");
+                    that.set("isUploadPhoto", false);
                     setTimeout(function() {
                         $('#masonry_user_container').masonry("reloadItems");
                     }, 200);
 
-                    that.set('messageContent', "");
-                    that.set('newStyleImageSource', null);
-                    that.set('newStyleImageName', "");
+                    
+                    
                 });
             }
         }
@@ -124,6 +128,7 @@ HubStar.EditMessageController = Ember.Controller.extend({
     },
     profileStyleImageDrop: function(e, name)
     {
+         this.set("isUploadPhoto", true);
         var target = getTarget(e, "single");
         var src = target.result;
         this.set('newStyleImageSource', src);

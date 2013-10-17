@@ -14,7 +14,8 @@ HubStar.UserMessageController = Ember.Controller.extend({
     contentMsg: null,
     commenter_photo_url: null,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings'],
-    isUploadPhoto:false,
+    isUploadPhoto: false,
+    isEdit: true,
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -53,7 +54,8 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 dataNew["user_name"] = params[i]["replyMessageCollection"][length]["user_name"];
                 dataNew["photo_url_large"] = params[i]["replyMessageCollection"][length]["photo_url_large"];
                 dataNew["url"] = params[i]["replyMessageCollection"][length]["url"];
-                dataNew["enableToEdit"] = params[i]["replyMessageCollection"][length]["enableToEdit"];
+                dataNew["enableToEdit"] = false;
+                dataNew["replyEdit"] = true;
                 if (params[i]["replyMessageCollection"][length]["user_id"] === localStorage.loginStatus)
                 {
                     dataNew["isUserself"] = true; //dataNew["isUserself"] is true , which means it is the login users is the same as the user page owner
@@ -81,7 +83,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
                     dataReply["user_name"] = params[i]["replyMessageCollection"][j]["user_name"];
                     dataReply["photo_url_large"] = params[i]["replyMessageCollection"][j]["photo_url_large"];
                     dataReply["url"] = params[i]["replyMessageCollection"][j]["url"];
-                    dataReply["enableToEdit"] = params[i]["replyMessageCollection"][j]["enableToEdit"];
+                    dataReply["enableToEdit"] = false;
                     if (params[i]["replyMessageCollection"][j]["url"] !== null)
                     {
                         dataReply["isUrl"] = true;
@@ -101,7 +103,23 @@ HubStar.UserMessageController = Ember.Controller.extend({
             }
             that.set('loadingTime', false);
             setTimeout(function() {
-                $('#masonry_user_container').masonry("reload");
+                $('#masonry_user_container').masonry("reloadItems");
+                $("#content_4").mCustomScrollbar({
+                    scrollButtons: {
+                        enable: false,
+                        scrollSpeed: "auto"
+                    },
+                    advanced: {
+                        updateOnBrowserResize: true,
+                        updateOnContentResize: true,
+                        autoScrollOnFocus: false,
+                        normalizeMouseWheelDelta: false
+                    },
+                    autoHideScrollbar:true,
+                    mouseWheel: true,
+                    theme: "dark-2",
+                    set_height: 1000
+                });
             }, 200);
 
         });
@@ -142,7 +160,6 @@ HubStar.UserMessageController = Ember.Controller.extend({
         $('#commentBox').attr('style', 'display:none');
         setTimeout(function() {
             $('#masonry_container').masonry("reload");
-            $('.user_comment_' + localStorage.loginStatus).attr('style', 'display:block');
         }, 200);
     },
     addComment: function() {
@@ -159,7 +176,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
             var imageStyleName = "";
             if (this.get("newStyleImageSource") !== undefined && this.get("newStyleImageSource") !== null && this.get("newStyleImageSource") !== "")
             {
-                newStyleImage = this.get("newStyleImageSource");              
+                newStyleImage = this.get("newStyleImageSource");
             }
             else
             {
@@ -191,7 +208,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
             var dataNew = new Array();
 
             requiredBackEnd('messages', 'CreateComment', tempComment, 'POST', function(params) {
-    //params  is just one message 
+                //params  is just one message 
                 dataNew["message_id"] = params["message_id"];
                 dataNew["reply_id"] = params["replyMessageCollection"][0]["reply_id"];
                 dataNew["user_id"] = params["replyMessageCollection"][0]["user_id"];
@@ -201,6 +218,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 dataNew["photo_url_large"] = params["replyMessageCollection"][0]["photo_url_large"];
                 dataNew["url"] = params["replyMessageCollection"][0]["url"];
                 dataNew["enableToEdit"] = false;
+                dataNew["replyEdit"] = true;
                 if (params["replyMessageCollection"][0]["user_id"] === localStorage.loginStatus)
                 {
                     dataNew["isUserself"] = true;
@@ -215,7 +233,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 }
                 dataNew["replyMessageCollection"] = new Array();
                 that.get("contentMsg").insertAt(0, dataNew);
-                 that.set("isUploadPhoto",false);
+                that.set("isUploadPhoto", false);
                 dataNew = new Array();
 
 
@@ -232,14 +250,14 @@ HubStar.UserMessageController = Ember.Controller.extend({
 
          
             setTimeout(function() {
-                $('#masonry_container').masonry("reloadItems");              
+                $('#masonry_container').masonry("reloadItems");
             }, 200);
         }
     },
     profileStyleImageDrop: function(e, name)
     {
-        
-         this.set("isUploadPhoto",true);
+
+        this.set("isUploadPhoto", true);
         var target = getTarget(e, "single");
         var src = target.result;
         this.set('newStyleImageSource', src);

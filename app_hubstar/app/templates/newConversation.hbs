@@ -1,10 +1,10 @@
 <div class="Message-Board box" style="position: absolute; width: 545px; margin: 10px; border-radius:5px; overflow: hidden; background-color: rgb(255, 255, 255); top: 0px; left: 0px;">
     <div style="background-color: #f3f3f3; width:100%;height: 70px; border-bottom: 1px solid #ddd;padding: 0 20px;">
-        <div style="color: #555;font-size: 18px;line-height: 73px;font-weight: bold;float: left;">
+        <div style="color: #555;font-size: 18px;line-height: 70px;font-weight: bold;float: left;">
             <a><img class="profilepic_comment"  style="float: left; margin: 12px; box-shadow: 0 0 3px #888;border: 1px solid #f3f3f3;width: 45px;height: 45px;" {{bindAttr src= controller.commenter_photo_url}} /> </a>
-            Message Board
+            &nbsp;Message Board
         </div>
-        <div class="" style="float: right; width: 40px; height: 70px;font-size: 18px;text-align: center;line-height: 70px;color: #555;"><i class="icon-cog"></i></div>
+        <div class="create-conversation easing" style=""><i class="icon-cog"></i></div>
     </div>
 
     <div  style="width: 100%;padding: 20px 6.5%;margin: 0 auto;overflow: hidden;border-bottom: 1px solid #ddd;">
@@ -39,4 +39,96 @@
         </div>
     </div>
 
+
+    <div  id="content_4" class='Message-Board_comment-container' style=" ">
+
+        <div class="Message-Board_comment-item" style=''>
+            {{#unless model.enableToEdit}}  <!-- enableToEdit is just whether allow to modify-->
+
+
+            <div class="comment-position">   
+                <a class="profilepic-comment-container"   href="#/users/{{unbound model.user_id}}">
+                    <img class="profilepic_comment" {{bindAttr src= model.photo_url_large}} />
+                </a>
+                <div style="">
+                    <div class="comment-namentime">
+                        <div class="namentime_position">
+                            <a class="comment-username"   href="#/users/{{unbound model.user_id}}">
+                                {{model.user_name }} 
+                            </a>
+                            <div class="posttime-container">
+                                <span class="posttime">{{model.time_stamp}}</span>
+                            </div>
+                        </div>
+                        <div class="reply-comment easing">  
+                            {{#if model.isUserself}} <!--model.isUserself is used to judge whether the reply message is written by the current login user-->
+
+                            <i class="icon-trash"  {{action removeMessage model.message_id}}></i>                 
+                            <i class="icon-pencil" {{action editingCommentData model.message_id model.msg}}></i>
+
+                            {{else}}
+                            {{#if controller.isUserself}} 
+
+                            <!--controller.isUserself is used to judge whether it is the page owner who have right to delete every message-->
+
+                            <i class="icon-trash"  {{action removeMessage model.message_id}}></i>                 
+                            <i class="icon-pencil" {{action editingCommentData model.message_id model.msg}}></i>            
+                            {{/if}}
+                            {{/if}}
+
+                            <div id="showMoreComment_{{unbound model.message_id}}" style="display: inline-block"  {{action seeMore model.message_id target="view" on="click"}}>
+                                <span style="font-size: 11px;font-weight: bold">&nbsp; reply 3</span>
+                                <i class="icon-caret-down show-comment_inner" ></i>   
+                            </div>
+                            <div id="closeComment_{{unbound model.message_id}}"   style="display: none" {{action closeMore model.message_id  target="view" on="click"}}>
+                                <span style="font-size: 11px;font-weight: bold">&nbsp; reply 3</span>
+                                <i class="icon-caret-up show-comment_inner" ></i>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="comment-content">
+                        {{model.msg}}<br>
+                        {{#if model.isUrl }}
+                        <div style='margin: 5px auto;max-width: 300px;max-height: 300px;float: left;'>
+                            <img {{bindAttr src= model.url}} style="border: 4px solid #fff;"/>
+                        </div>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                $(function() {
+                    var $container = $('#masonry_user_container');
+                    window.setTimeout(function() {
+                        $container.masonry();
+                        $container.masonry('reloadItems');
+                    }, 10);
+                });
+            </script>
+
+            {{else}}
+            {{render editMessage model}}
+            {{/unless}}
+
+        </div>
+
+
+
+
+
+    </div>
+
 </div>
+
+
+<script>
+    $(function() {
+        var $container = $('#masonry_user_container');
+        window.setTimeout(function() {
+            $container.masonry();
+            $container.masonry('reloadItems');
+        }, 10);
+    });
+</script>

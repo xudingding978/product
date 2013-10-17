@@ -181,7 +181,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.initStastics(profile);
         this.followerPhoto(id);
         this.setKeywordsArray(this.get('model').get('profile_keywords'));
-        this.setKeywordsNum(this.get('model').get('profile_package_name'));
+        if (profile.get("profile_keywords_num") !==null && profile.get("profile_keywords_num") !== "undefined" && profile.get("profile_keywords_num") !== "") {
+            this.set("keywordsNum", profile.get("profile_keywords_num"));
+        } else {        
+            this.setKeywordsNum(this.get('model').get('profile_package_name'));
+        }
     },
     setKeywordsArray: function(keywords) {
         if (keywords !== undefined && keywords !== null && keywords !== '') {
@@ -194,13 +198,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     setKeywordsNum: function(profile_package_name) {
         if (profile_package_name === 'Platinum'){
-            this.set('keywordsNum', 15);
+            this.set('keywordsNum', 200);
         } else if (profile_package_name === 'Gold') {
-            this.set('keywordsNum', 9);
+            this.set('keywordsNum', 100);
         } else if (profile_package_name === 'Silver') {
-            this.set('keywordsNum', 6);
+            this.set('keywordsNum', 50);
         } else if (profile_package_name === 'Bronze') {
-            this.set('keywordsNum', 3);
+            this.set('keywordsNum', 25);
         }
     },
     followerPhoto: function(id)
@@ -675,6 +679,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var update_profile_record = HubStar.Profile.find(this.get('model.id'));
         update_profile_record.set('profile_editors', this.get('editors'));
         update_profile_record.set('profile_keywords', this.get('keywords'));
+        update_profile_record.set('profile_keywords_num', parseInt(this.get('keywordsNum')));
         update_profile_record.set('profile_regoin', this.get('region'));
         update_profile_record.set('profile_country', this.get('country'));
         update_profile_record.set('profile_boost', this.get('boost'));

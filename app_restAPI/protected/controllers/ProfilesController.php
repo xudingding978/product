@@ -141,8 +141,14 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_is_deleted'] = $newRecord['profile_is_deleted'];
             $oldRecord['profile'][0]['profile_keywords'] = $newRecord['profile_keywords'];
             $oldRecord['keywords'] = $newRecord['profile_keywords'];
+            $oldRecord['profile'][0]['profile_keywords_num'] = $newRecord['profile_keywords_num'];
+            $oldRecord['KeywordsNum'] = $newRecord['profile_keywords_num'];
+             
             $oldRecord['profile'][0]['profile_name'] = $newRecord['profile_name'];
-            $oldRecord['profile'][0]['profile_package_name'] = $newRecord['profile_package_name'];
+//            if ($oldRecord['profile'][0]['profile_package_name'] !== $newRecord['profile_package_name']){
+                $oldRecord['profile'][0]['profile_package_name'] = $newRecord['profile_package_name'];
+//                $this->setPhotoBoost();
+//            }
             $oldRecord['profile'][0]['profile_partner_ids'] = $newRecord['profile_partner_ids'];
             $oldRecord['profile'][0]['profile_physical_address'] = $newRecord['profile_physical_address'];
             $oldRecord['profile'][0]['profile_suburb'] = $newRecord['profile_suburb'];

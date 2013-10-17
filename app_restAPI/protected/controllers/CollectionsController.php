@@ -170,6 +170,7 @@ class CollectionsController extends Controller {
                 $records =  $owner["profile"][0]["collections"];
                 $collection_num = $this -> getSelectedcollection($records ,$collectionDel_id);
                 array_splice($owner["profile"][0]["collections"], $collection_num, 1);
+                $this->deletePhoto($collectionDel_id, $collectionDelProfile);
 //                for ($i = 0; $i < sizeof($owner["profile"][0]["collections"]); $i++) {
 //                    if ($owner["profile"][0]["collections"][$i]["id"] === $collectionDel_id) {
 
@@ -196,6 +197,26 @@ class CollectionsController extends Controller {
             echo $exc->getTraceAsString();
         }
 
+    }
+    
+    public function deletePhoto($collection_id, $profile_id){
+        $response = $this->getCollectionReults($collection_id, $profile_id);
+        $responseArray = array();
+        foreach ($response as $hit) {
+            $id = $hit['id'];
+            $collectionId = $hit['collection_id'];
+            $profileId = $hit['owner_id'];
+            $type = $hit['type'];
+            if ($collectionId === $collection_id && $profileId === $profile_id && $type === 'photo'){
+                $cb = $this->couchBaseConnection();
+                if ($cb->delete($id)) {
+                    array_unshift($responseArray,$id.' delete succeed');
+                } else {
+                    array_unshift($responseArray,$id.' delete failed');
+                }
+            }
+        }
+        
     }
 
     public function actionTest() {

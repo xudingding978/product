@@ -590,6 +590,7 @@ table.album-description, table.album-description-bg{
 table.album-description-bg td, table.album-description td{
 
     max-height:80%;
+    overflow:hidden;
 }
 table.album-description-bg td > div, table.album-description td > div{float:left;width:100%;padding:2% 5px;}
 table.album-description-bg td > div{background:#000;opacity:.7;}

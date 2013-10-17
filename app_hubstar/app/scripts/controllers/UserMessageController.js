@@ -15,7 +15,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
     commenter_photo_url: null,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings'],
     isUploadPhoto: false,
-    isEdit:true,
+    isEdit: true,
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -109,9 +109,19 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 $('#masonry_user_container').masonry("reloadItems");
                 $("#content_4").mCustomScrollbar({
                     scrollButtons: {
-                        enable: false
+                        enable: false,
+                        scrollSpeed: "auto"
                     },
-                    theme: "dark-2"
+                    advanced: {
+                        updateOnBrowserResize: true,
+                        updateOnContentResize: true,
+                        autoScrollOnFocus: false,
+                        normalizeMouseWheelDelta: false
+                    },
+                    autoHideScrollbar:true,
+                    mouseWheel: true,
+                    theme: "dark-2",
+                    set_height: 1000
                 });
             }, 200);
 
@@ -152,7 +162,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
         $('#addcommetBut').attr('style', 'display:block');
         $('#commentBox').attr('style', 'display:none');
         setTimeout(function() {
-            $('#masonry_container').masonry("reload");          
+            $('#masonry_container').masonry("reload");
         }, 200);
     },
     addComment: function() {

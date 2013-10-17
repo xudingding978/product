@@ -13,6 +13,7 @@
 HubStar.EditReplyController = Ember.Controller.extend({
     commenter_photo_url: null,
     replyContent: null,
+    isUploadPhoto:false,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'message', 'userMessage'],
     init: function()
     {
@@ -124,6 +125,7 @@ HubStar.EditReplyController = Ember.Controller.extend({
                         that.set('replyContent', "");
                         that.set('newStyleImageSource', null);
                         that.set('newStyleImageName', "");
+                        that.set("isUploadPhoto", true);
                         setTimeout(function() {
                             $('#masonry_user_container').masonry("reloadItems");
                         }, 200);
@@ -136,6 +138,7 @@ HubStar.EditReplyController = Ember.Controller.extend({
     },
     profileStyleImageDrop: function(e, name)
     {
+        this.set("isUploadPhoto", true);
         var target = getTarget(e, "single");
         var src = target.result;
         this.set('newStyleImageSource', src);

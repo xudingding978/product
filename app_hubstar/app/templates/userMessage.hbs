@@ -22,9 +22,9 @@
                     {{view Ember.TextArea valueBinding="messageContent" class="no-resize" placeholder="What's up!" }}                                          
                 </div>
                 {{#if controller.isUploadPhoto}}
-                <div style='background-color: rgba(0,0,0,.2);max-width: 100%;max-height: 100px;padding: 10px 12px;text-align: center;'>
+                <div style='max-width: 100%;max-height: 100px;padding: 10px 12px;text-align: center;border-top: 1px solid #ddd;'>
                     <div class='remove-comment-photo easing' ><i class="icon-remove"></i></div>
-                    <img  {{bindAttr src= "newStyleImageSource"}}  style="max-width: 100%; max-height: 80px;;">
+                    <img  {{bindAttr src= "newStyleImageSource"}}  style="max-width: 100%; max-height: 80px;">
                 </div>
                 {{/if}}
                 <div class="" style="height: 30px;position: relative;border-top: 1px solid #ddd;top: -1px;">
@@ -43,7 +43,7 @@
 
 
 
-    <div  id="content_4" class='Message-Board_comment-container' style=" height:1000px; ">
+    <div  id="content_4" class='Message-Board_comment-container' style=" ">
         {{#each  contentMsg}}
 
         {{render "message" this}}

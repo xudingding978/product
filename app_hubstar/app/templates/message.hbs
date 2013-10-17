@@ -17,29 +17,31 @@
                         <span class="posttime">{{model.time_stamp}}</span>
                     </div>
                 </div>
-                <div class="reply-comment">
-                <i class="icon-caret-down show-comment_inner" id="showMoreComment_{{unbound model.message_id}}"   {{action seeMore model.message_id target="view" on="click"}}></i>   
-                <i class="icon-caret-up show-comment_inner" id="closeComment_{{unbound model.message_id}}"   style="display: none" {{action closeMore model.message_id  target="view" on="click"}}></i>
+                <div class="reply-comment easing">  
+                    {{#if model.isUserself}} <!--model.isUserself is used to judge whether the reply message is written by the current login user-->
 
-                {{#if model.isUserself}} <!--model.isUserself is used to judge whether the reply message is written by the current login user-->
-                
-
-                    
                     <i class="icon-trash"  {{action removeMessage model.message_id}}></i>                 
                     <i class="icon-pencil" {{action editingCommentData model.message_id model.msg}}></i>
-               
-                {{else}}
-                {{#if controller.isUserself}} 
 
-                <!--controller.isUserself is used to judge whether it is the page owner who have right to delete every message-->
-                
+                    {{else}}
+                    {{#if controller.isUserself}} 
 
-                    
+                    <!--controller.isUserself is used to judge whether it is the page owner who have right to delete every message-->
+
                     <i class="icon-trash"  {{action removeMessage model.message_id}}></i>                 
-                    <i class="icon-pencil" {{action editingCommentData model.message_id model.msg}}></i>
-                
-                {{/if}}
-                {{/if}}
+                    <i class="icon-pencil" {{action editingCommentData model.message_id model.msg}}></i>            
+                    {{/if}}
+                    {{/if}}
+
+                    <div id="showMoreComment_{{unbound model.message_id}}" style="display: inline-block"  {{action seeMore model.message_id target="view" on="click"}}>
+                        <span style="font-size: 11px;font-weight: bold">&nbsp; reply 3</span>
+                        <i class="icon-caret-down show-comment_inner" ></i>   
+                    </div>
+                    <div id="closeComment_{{unbound model.message_id}}"   style="display: none" {{action closeMore model.message_id  target="view" on="click"}}>
+                        <span style="font-size: 11px;font-weight: bold">&nbsp; reply 3</span>
+                        <i class="icon-caret-up show-comment_inner" ></i>
+                    </div>
+
                 </div>
             </div>
             <div class="comment-content">
@@ -71,7 +73,7 @@
     <!--the following comment-frame is used to show the reply box for the second level reply-->
     <div id="messageData_{{unbound model.message_id}}"  style="display: none">
         {{#if model.replyEdit}}
-        <div class="comment-frame"  style="padding: 0 0 0 40px;border: none;">
+        <div class="reply-comment-frame"  style="">
             <div style="margin:0 auto; padding: 0 45px 15px 0;">
                 <a  href="#/users/{{unbound model.user_id}}">
                     <img class="profilepic_comment"  style="float: right; margin: 4px -45px 0 0; margin-top: 0;"{{bindAttr src="controller.commenter_photo_url"}} /> 
@@ -96,12 +98,12 @@
                 </div>
 
                 <!--please disable the following div when it's got not content-->
-                 {{#if controller.isUploadPhoto}}
+                {{#if controller.isUploadPhoto}}
                 <div style='width: 380px;max-height: 100px;padding: 10px 12px;text-align: center;background-color: #fff;border-radius: 0 0 3px 3px;border: 1px solid #ddd;border-top: none;'>
                     <div class='remove-comment-photo easing' ><i class="icon-remove"></i></div>
                     <img  {{bindAttr src= "newStyleImageSource"}}  style="max-height: 80px;max-width: 300px">
                 </div>
-                 {{/if}}
+                {{/if}}
             </div>
         </div>
         {{/if}}
@@ -116,13 +118,13 @@
                 <div class="comment-namentime">
                     <div class="namentime_position">
                         {{#if this.isUserself}}
-                        <div  style="position: absolute;font-size: 15px;margin: 1px;">
+                        <div class="reply-comment" style="left: 40px;right: initial;">
                             <i class="icon-trash"  {{action removeReply this.reply_id}}></i>
                             <i class="icon-pencil" {{action editingReplyData this.reply_id this.msg}}></i>
                         </div>
                         {{else}}
                         {{#if controller.isUserself}}
-                        <div  style="position: absolute;font-size: 15px;margin: 1px;">                        
+                        <div class="reply-comment" style="left: 40px;right: initial;">                        
                             <i class="icon-trash"  {{action removeReply this.reply_id}}></i>
                             <i class="icon-pencil" {{action editingReplyData this.reply_id this.msg}}></i>
                         </div>

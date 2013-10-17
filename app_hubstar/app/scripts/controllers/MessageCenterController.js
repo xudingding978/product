@@ -12,10 +12,10 @@
 
 HubStar.MessageCenterController = Ember.Controller.extend({
     commenter_photo_url: null,
-    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'userMessage','conversation'],
+    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'userMessage', 'conversation'],
     isMessageBoard: true,
     isNotification: false,
-    isNewConversation:false,
+    isNewConversation: false,
     isUserself: false,
     init: function()
     {
@@ -32,34 +32,43 @@ HubStar.MessageCenterController = Ember.Controller.extend({
     //    var model = HubStar.User.find(followers);
     //   this.getClientId(model); // It is used to get the mesage model
     // },
-    getClientId: function(id) {    
+    getClientId: function(id) {
         if (id === localStorage.loginStatus)
         {
             this.set("isUserself", true);
-             this.get('controllers.conversation').getClientId(id);        
+            this.get('controllers.conversation').getClientId(id);
         }
         else
         {
             this.set("isUserself", false);
         }
         this.selectMessage();
-        this.get('controllers.userMessage').getClientId(id);        
+        this.get('controllers.userMessage').getClientId(id);
     },
-    selectMessage: function() {       
+    selectMessage: function() {
         this.set("isMessageBoard", true);
         this.set("isNotification", false);
-        this.set("isNewConversation",false);
+        this.set("isNewConversation", false);
+        setTimeout(function() {
+            $('#masonry_container').masonry("reloadItems");
+        }, 200);
     },
     selectNotification: function() {
-        this.set("isNewConversation",false);
+        this.set("isNewConversation", false);
         this.set("isNotification", true);
         this.set("isMessageBoard", false);
+        setTimeout(function() {
+            $('#masonry_container').masonry("reloadItems");
+        }, 200);
     },
-     selectNewConversation: function() {
-        this.set("isNewConversation",true);
+    selectNewConversation: function() {
+        this.set("isNewConversation", true);
         this.set("isNotification", false);
         this.set("isMessageBoard", false);
+        setTimeout(function() {
+            $('#masonry_container').masonry("reloadItems");
+        }, 200);
     }
-    
+
 }
 );

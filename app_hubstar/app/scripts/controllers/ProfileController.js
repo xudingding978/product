@@ -228,7 +228,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                     
                     popUpGoogleMap: function(){
                 
- //           this.set('popUpMap', true);
+          this.set('popUpMap', true);
                 this.set('isStatic',false);
            geocoder = new google.maps.Geocoder();          
     //    var map_canvas = document.getElementById('map_canvas');

@@ -910,9 +910,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
     },
             
-        rateEditing: function(){
+        rateEditing: function(id){
         
          this.set("rateTime", true);
+          var mega = HubStar.Mega.find(id);
+          console.log(mega);
             },            
                    
            

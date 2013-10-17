@@ -12,7 +12,7 @@ HubStar.CommentController = Ember.Controller.extend({
 
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         }
-
+  
     },
     addComment: function() {
         var commentContent = this.get('commentContent');

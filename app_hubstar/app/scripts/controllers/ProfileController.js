@@ -50,7 +50,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     is_authentic_user: false,
     keywords: "",
     last_name: "",
-    needs: ["profilePartners", "itemProfiles", "userFollowers", 'permission', 'contact', 'photoCreate', 'application', 'applicationFeedback', 'userFollowings', 'collection', 'htmlEditor'],
+    needs: ["profilePartners", "itemProfiles", "userFollowers", 'permission', 'contact', 'photoCreate', 'application', 'applicationFeedback', 'userFollowings', 'collection', 'htmlEditor', 'review'],
     name: "",
     facebook: "",
     twitter: "",
@@ -68,6 +68,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     profile_contact_number: "",
     profile_name: "",
     partnerTag: false,
+    reviewTag:false,
     partnerPage: true,
     profileSelectionStatus: "Collections",
     profileCollectionStatistics: "",
@@ -609,6 +610,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('partnerTag', false);
         this.set('followerProfileTag', false);
         this.set('collectionTag', true);
+         this.set('reviewTag', false);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
@@ -622,6 +624,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('partnerTag', true);
         this.set('collectionTag', false);
         this.set('followerProfileTag', false);
+         this.set('reviewTag', false);
         this.get('controllers.itemProfiles').setPartnerRemove();
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
@@ -634,10 +637,24 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         $('#follow').addClass('selected-user-stats');
         this.set('profileSelectionStatus', 'Followers');
         this.get('controllers.userFollowers').getProfileId(model);
+        
         this.set('partnerTag', false);
         this.set('collectionTag', false);
-
+ this.set('reviewTag', false);
         this.set('followerProfileTag', true);
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    },
+            
+             selectReview: function(model) {
+        $(window).scrollTop(1500);
+        this.sendEventTracking('event', 'button', 'click', 'Reviews');
+        this.set('profileSelectionStatus', 'Reviews');
+        this.set('partnerTag', false);
+        this.set('collectionTag', false);
+ this.set('followerProfileTag', false);
+         this.set('reviewTag', true);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);

@@ -113,23 +113,27 @@ Ember.Handlebars.registerBoundHelper('isThumbUped', function(userids, megaId) {
 Ember.Handlebars.registerBoundHelper('test', function(test) {
 });
 
-Ember. Handlebars.registerHelper('isSingle', function(number) {
-    
+Ember.Handlebars.registerHelper('isSingle', function(number) {
+    console.log(number);
+    var isEven = false;
     if (number === "" || number === null || number === undefined) {
-        return 0;
+        isEven = false;
     }
     else if (number % 2 === 0)
-            {
-                //  document.getElementById('leftOrRight').style.left=440 + 'px';
-                console.log(number % 2 === 0);
-            }
-            else if (number % 2 !== 0)
-            {
-                // document.getElementById('leftOrRight').style.left=-80 + 'px';
-                console.log(number % 2 !== 0);
-            }
-            
-  });
+    {
+        //    document.getElementById('#leftOrRight').setAttribute("style", "left:  440px;");
+
+        isEven = false;
+    }
+    else
+    {
+        // document.getElementById('leftOrRight').style.left=-80 + 'px';
+
+        isEven = true;
+    }
+    console.log("aaaaaaaaaa" + isEven);
+    return isEven;
+});
 
 
 

@@ -26,7 +26,7 @@ HubStar.ReviewController = Ember.Controller.extend({
             this.set('review_user_photo_url', currentUser.get('photo_url_large'));
             this.set('review_user_name', currentUser.get('first_name') + currentUser.get('last_name'));
             this.set('review_star_value', this.get('review_star_value'));
-              this.set('review_length',  this.get("controllers.profile").get('reviews').get("length"));
+            this.set('review_length', this.get("controllers.profile").get('reviews').get("length"));
 
         }
 
@@ -44,48 +44,30 @@ HubStar.ReviewController = Ember.Controller.extend({
     reviewPost: function(id) {
 
         if (this.get("controllers.profile").get('reviews') !== 0) {
-                this.set("review_count", this.get("controllers.profile").get('reviews').get("length"));
-              var reviewContent = this.get('review_content');
-              
-//               if (this.get('review_count') % 2 === 0)
-//            {
-//                this.set("isSingle", false);
-//                
-//            }
-//            else
-//            {
-//                this.set("isSingle", true);
-//            }
-            
+            this.set("review_count", this.get("controllers.profile").get('reviews').get("length"));
+            var reviewContent = this.get('review_content');
         }
-            
-             else
-            {
-                this.set("review_count", 0);
-            }
-
+        else
+        {
+            this.set("review_count", 0);
+        }
         if (reviewContent) {
             var reviews = this.get("controllers.profile").get('reviews');
             var reviewUserPhoto = this.get("currentUser").get('photo_url_large');
             var reviewUserID = this.get("currentUser").get('id');
             var reviewUserName = this.get("currentUser").get('first_name') + this.get("currentUser").get('last_name');
             reviewDate = new Date();
-
-           
-                console.log(this.get("controllers.profile").get('reviews').get("length"));
-                var reviewCount = this.get("review_count");
-           
-   
+            var reviewCount = this.get("review_count");
             var optional = this.get("controllers.profile").get("currentUserID");
-            
-             }
-            var tempReview = HubStar.Review.createRecord({"review_user_photo_url": reviewUserPhoto,
-                "review_user_id": reviewUserID, "review_user_name": reviewUserName, "review_content": reviewContent, "review_time_stamp": reviewDate.toString(), "review_count": reviewCount, "optional": optional});
-            reviews.insertAt(0, tempReview);
 
-            reviews.store.save();
-            this.set('reviewContent', "");
-      
+        }
+        var tempReview = HubStar.Review.createRecord({"review_user_photo_url": reviewUserPhoto,
+            "review_user_id": reviewUserID, "review_user_name": reviewUserName, "review_content": reviewContent, "review_time_stamp": reviewDate.toString(), "review_count": reviewCount, "optional": optional});
+        reviews.insertAt(0, tempReview);
+
+        reviews.store.save();
+        this.set('reviewContent', "");
+
     },
     getReviewsById: function(id)
     {
@@ -94,6 +76,18 @@ HubStar.ReviewController = Ember.Controller.extend({
         var reviews = profile.get('reviews');
 
     }
+    
+   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 //            
 //    linkingUser: function(id) {
 //            

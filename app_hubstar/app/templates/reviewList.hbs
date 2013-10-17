@@ -1,0 +1,41 @@
+
+
+   
+    {{#each reviews}} 
+
+
+
+<div id="reviewList"  class="box" style="width: 430px;height: 100px;position: relative; margin: 10px auto;text-align: center">
+    
+ <img {{bindAttr src="this.review_user_photo_url"}} id="leftOrRight" style="height: 80px;width: 80px;z-index: 22;position: absolute;top: 20px;left: 450px;"/>
+
+    <div class="fresh-message fresh_succeed" style="top: 50px; height: initial;">
+
+        <k class="icon-ok-sign">{{controller.review_user_name}}  </k>
+        
+        
+       
+          <div class="rating" style="margin: 6px 0 0 0;">
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+
+
+    </div>
+        
+        <div>{{this.review_content}}   {{this.review_count}}</div>
+        
+    </div>
+</div>
+
+
+
+{{/each}}
+

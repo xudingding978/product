@@ -8,20 +8,60 @@
     <a >
         <img class="profilepic_comment"  style="float: left; margin: 15px 10px 10px 4px; margin-top: 0;"{{bindAttr src="this.review_user_photo_url"}} /> 
     </a>
-    <div class="star" style="margin: 6px 0 0 0;">
-        <span class="star"></span>
-        <span class="star"></span>
-        <span class="star"></span>
-        <span class="star"></span>
-        <span class="star"></span>
-         <input name="star1" type="radio" class="star"/>
-       <input name="star1" type="radio" class="star"/>
-       <input name="star1" type="radio" class="star"/>
-       <input name="star1" type="radio" class="star"/>
-       <input name="star1" type="radio" class="star"/>
+    <span class="rating">
+        <input type="radio" class="rating-input"
+            id="rating-input-1-5" name="rating-input-1">
+        <label for="rating-input-1-5" class="rating-star"></label>
+        <input type="radio" class="rating-input"
+            id="rating-input-1-4" name="rating-input-1">
+        <label for="rating-input-1-4" class="rating-star"></label>
+        <input type="radio" class="rating-input"
+            id="rating-input-1-3" name="rating-input-1">
+        <label for="rating-input-1-3" class="rating-star"></label>
+        <input type="radio" class="rating-input"
+            id="rating-input-1-2" name="rating-input-1">
+        <label for="rating-input-1-2" class="rating-star"></label>
+        <input type="radio" class="rating-input"
+            id="rating-input-1-1" name="rating-input-1">
+        <label for="rating-input-1-1" class="rating-star"></label>
+    </span>
+    
+    
+<span class="star-rating-control">
+                
+                <div role="text" aria-label="" class="star-rating star-rating-live " value="1">
+                    <a title="1">1</a>
+                </div>
+                <div role="text" aria-label="" class="star-rating  star-rating-live" value="2">
+                    <a title="2">2</a>
+                </div>
+                <div role="text" aria-label="" class="star-rating  star-rating-live" value="3">
+                    <a title="3">3</a>
+                </div>
+                <div role="text" aria-label="" class="star-rating  star-rating-live" value="4">
+                        <a title="4">4</a>
+                </div>
+                <div role="text" aria-label="" class="star-rating  star-rating-live" value="5">
+                            <a title="5">5</a>
+                </div>
+                     <div role="text" aria-label="" class="star-rating  star-rating-live" value="6">
+                    <a title="6">6</a>
+                </div>
+                <div role="text" aria-label="" class="star-rating  star-rating-live" value="7">
+                    <a title="7">7</a>
+                </div>
+                <div role="text" aria-label="" class="star-rating  star-rating-live" value="8">
+                    <a title="8">8</a>
+                </div>
+                <div role="text" aria-label="" class="star-rating  star-rating-live" value="9">
+                        <a title="9">9</a>
+                </div>
+                <div role="text" aria-label="" class="star-rating  star-rating-live" value="10">
+                            <a title="10">10</a>
+                </div>
+             <div class="rating-cancel"><a title="Cancel Rating"></a></div>
+            </span>
 
-
-    </div>
 
     <div class="new-btn blue-btn"{{action rateStar model.id}}>Rate {{controller.review_length}}</div>
 
@@ -42,46 +82,10 @@
 </div>
 
 
-
-<div style="z-index: 11; position: absolute;display: block;height: 1000px; overflow: auto; top: 25%;margin: 0 auto;width: 600px;left: 0;right: 0;text-align: center;">
-   
-    {{#each reviews}} 
-
-
-
-<div id="reviewList"  style="width: 430px;height: 100px;position: relative; margin: 10px auto;text-align: center">
+<script>
     
- <img {{bindAttr src="this.review_user_photo_url"}} id="leftOrRight" style="height: 80px;width: 80px;z-index: 12;position: absolute;top: 20px;left: 450px;"/>
+    
 
-    <div class="fresh-message fresh_succeed" style="top: 50px; height: initial;">
-
-        <k class="icon-ok-sign">{{controller.review_user_name}}  </k>
-        
-        
-       
-          <div class="rating" style="margin: 6px 0 0 0;">
-        <span class="star"></span>
-        <span class="star"></span>
-        <span class="star"></span>
-        <span class="star"></span>
-        <span class="star"></span>
-        <span class="star"></span>
-        <span class="star"></span>
-        <span class="star"></span>
-        <span class="star"></span>
-        <span class="star"></span>
-
-
-    </div>
-        
-        <div>{{this.review_content}}   {{this.review_count}}</div>
-        
-    </div>
-</div>
-
-
-
-{{/each}}
-
-</div>
+    
+</script>
 

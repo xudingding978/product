@@ -25,8 +25,7 @@ class ProfileCommand extends Controller_admin {
             $this->updateCouchbasePofileKeywords();
         } elseif ($action == 'count') {
             $this->checkNumber();
-        } else
-{
+        } else {
             echo "please input an action!!";
         }
 
@@ -156,11 +155,11 @@ class ProfileCommand extends Controller_admin {
         $request->from(0)
                 ->size(500);
         $request->query($bool);
-     //   print_r($bool);
-       
+        //   print_r($bool);
+
         $response = $request->execute();
-        
-        echo "number of file: " .count($response);
+
+        echo "number of file: " . count($response);
 
         //using raw
 //        $termQuery = Sherlock\Sherlock::queryBuilder()->Raw('{
@@ -280,104 +279,126 @@ class ProfileCommand extends Controller_admin {
                 $message = $id . " fail to set the value into couchbase document! \r\n";
             }
             $this->writeToLog($log_path, $message);
-          
         }
 
         echo "Number of Hits: " . count($response) . "\r\n";
         exit();
     }
-    
-    public function checkNumber(){
-         $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+
+    public function checkNumber() {
+        $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
         $log_path = "/var/log/yii/$start_time.log";
-         $ch = $this->couchBaseConnection("production");
-            $result = $ch->get("trendsideas.com/profiles/vision-wallcoverings-nz");
-             $result_arr = CJSON::decode($result, true);
-         //    print_r($result_arr) ;
-           // print_r("partner: ".$result_arr["profile"][0]["profile_partner_ids"]." over") ;
-            $partner_str=$result_arr["profile"][0]["profile_partner_ids"];
-            print_r($partner_str) ;
-            $partner_arr=  explode(",", $partner_str);
-            print_r($partner_arr);
-         //   print_r($partner_arr);
-            echo "Number of Hits: " . count($partner_arr) . "\r\n";
-            
-             $settings['log.enabled'] = true;
+        $ch = $this->couchBaseConnection("production");
+        $result = $ch->get("trendsideas.com/profiles/vision-wallcoverings-nz");
+        $result_arr = CJSON::decode($result, true);
+        //    print_r($result_arr) ;
+        // print_r("partner: ".$result_arr["profile"][0]["profile_partner_ids"]." over") ;
+        $partner_str = $result_arr["profile"][0]["profile_partner_ids"];
+        print_r($partner_str);
+        $partner_arr = explode(",", $partner_str);
+        print_r($partner_arr);
+        //   print_r($partner_arr);
+        echo "Number of Hits: " . count($partner_arr) . "\r\n";
+
+        $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode("es1.hubsrv.com", 9200);
         $request = $sherlock->search();
         $index = 'production';
-        foreach ($partner_arr as $id){
-            
-        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"$id\"")
-                ->default_field('couchbaseDocument.doc.id');
-     
-        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
-        $request->index($index)->type("couchbaseDocument");
-        $request->from(0)
-                ->size(10);
-        $request->query($bool);
-  
-        $response = $request->execute();
-     //   error_log("start:\n".$request->toJSON()."\n". $id." has ".count($response)." found \n over \n");
-        if(count($response) === 0){
-            $message= $id ." can not be found in database ----------------------------";
-         
-        }
-        else{
-             $message= $id ." is found in the database";
-        }
-           $this->writeToLog($log_path, $message);
-        }
-        echo "over";
-    }
-    
-    
-    public function checkNumber(){
-         $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
-        $log_path = "/var/log/yii/$start_time.log";
-         $ch = $this->couchBaseConnection("production");
-            $result = $ch->get("trendsideas.com/profiles/vision-wallcoverings-nz");
-             $result_arr = CJSON::decode($result, true);
-         //    print_r($result_arr) ;
-           // print_r("partner: ".$result_arr["profile"][0]["profile_partner_ids"]." over") ;
-            $partner_str=$result_arr["profile"][0]["profile_partner_ids"];
-            print_r($partner_str) ;
-            $partner_arr=  explode(",", $partner_str);
-            print_r($partner_arr);
-         //   print_r($partner_arr);
-            echo "Number of Hits: " . count($partner_arr) . "\r\n";
-            
-             $settings['log.enabled'] = true;
-        $sherlock = new \Sherlock\Sherlock($settings);
-        $sherlock->addNode("es1.hubsrv.com", 9200);
-        $request = $sherlock->search();
-        $index = 'production';
-        foreach ($partner_arr as $id){
-            
-        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"$id\"")
-                ->default_field('couchbaseDocument.doc.id');
-     
-        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
-        $request->index($index)->type("couchbaseDocument");
-        $request->from(0)
-                ->size(10);
-        $request->query($bool);
-  
-        $response = $request->execute();
-     //   error_log("start:\n".$request->toJSON()."\n". $id." has ".count($response)." found \n over \n");
-        if(count($response) === 0){
-            $message= $id ." can not be found in database ----------------------------";
-         
-        }
-        else{
-             $message= $id ." is found in the database";
-        }
-           $this->writeToLog($log_path, $message);
+        foreach ($partner_arr as $id) {
+
+            $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"$id\"")
+                    ->default_field('couchbaseDocument.doc.id');
+
+            $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
+            $request->index($index)->type("couchbaseDocument");
+            $request->from(0)
+                    ->size(10);
+            $request->query($bool);
+
+            $response = $request->execute();
+            //   error_log("start:\n".$request->toJSON()."\n". $id." has ".count($response)." found \n over \n");
+            if (count($response) === 0) {
+                $message = $id . " can not be found in database ----------------------------";
+            } else {
+                $message = $id . " is found in the database";
+            }
+            $this->writeToLog($log_path, $message);
         }
         echo "over";
     }
 
+    public function changeProfileData() {
+
+        $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = "/var/log/yii/$start_time.log";
+        $message = "";
+        $settings['log.enabled'] = true;
+        $sherlock = new \Sherlock\Sherlock($settings);
+        $sherlock->addNode("es1.hubsrv.com", 9200);
+        $request = $sherlock->search();
+        $index = 'temp';
+        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"profile\"")
+                ->default_field('couchbaseDocument.doc.type');
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
+        $request->index($index)->type("couchbaseDocument");
+        $request->from(0)
+                ->size(1000);
+        $request->query($bool);
+        $response = $request->execute();
+        foreach ($response as $hit) {
+            echo $hit["score"] . ' - ' . $hit['id'] . "\r\n";
+
+            $timeStamp = $this->setUTC();
+            $id = $hit['id'];
+            $ch = $this->couchBaseConnection("temp");
+            $result = $ch->get($id);
+
+            $result_arr = CJSON::decode($result, true);
+
+            $record_boost = $result_arr["boost"];
+            $record_accessed = $result_arr["accessed"];
+            $record_updated = $result_arr["updated"];
+            $record_accessed_readable = $result_arr["accessed_readable"];
+            $record_updated_readable = $result_arr["updated_readable"];
+            if ($result_arr != null && $result_arr["boost"][0]["profile_package_name"] != null && $result_arr["profile"][0]["profile_package_name"] != "") {
+
+                $tempPackage = $result_arr["profile"][0]["profile_package_name"];
+                if ($tempPackage === "Bronze") {
+                    $result_arr["boost"] = 25;
+                } elseif ($tempPackage === "Silver") {
+                    $result_arr["boost"] = 50;
+                } elseif ($tempPackage === "Gold") {
+                    $result_arr["boost"] = 100;
+                } elseif ($tempPackage === "Platinum") {
+                    $result_arr["boost"] = 200;
+                }
+                $result_arr["accessed"] = $timeStamp;
+                $result_arr["updated"] = $timeStamp;
+                $result_arr["accessed_readable"] = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+                $result_arr["updated_readable"] = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+            } else {
+                $message = $id . "|" . $result_arr["type"] . "|" . "Does not have package specified in its profile********************************************************************\n";
+            }
+
+            if ($ch->set($id, CJSON::encode($result_arr))) {
+                echo "Document: " . $id . "\r\n" . "boost has been changed from " . $record_boost . " to " . $result_arr["boost"] . "\r\n" .
+                "accessed has been changed from " . $record_accessed . " to " . $result_arr["accessed"] . "\r\n" .
+                "updated has been changed from " . $record_updated . " to " . $result_arr["updated"] . "\r\n" .
+                "accessed_readable has been changed from " . $record_accessed_readable . " to " . $result_arr["accessed_readable"] . "\r\n" .
+                "updated_readable has been changed from " . $record_updated_readable . " to " . $result_arr["updated_readable"] . "\r\n" .
+                "\r\n";
+                $message = $id . "|" . $result_arr["type"] . "|" . '{"old_boost": ' . '"' . $record_boost . '"' . '; "new_boost": ' . '"' . $result_arr["boost"] . '"' . "}";
+            } else {
+                echo $id . " fail to set the value into couchbase document! \r\n";
+                $message = $id . " fail to set the value into couchbase document! \r\n";
+            }
+            $this->writeToLog($log_path, $message);
+        }
+
+        echo "Number of Hits: " . count($response) . "\r\n";
+        exit();
+    }
 
     private function createObjectArr($profile_arr) {
         $now = strtotime(date('Y-m-d H:i:s'));

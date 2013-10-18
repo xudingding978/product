@@ -320,7 +320,7 @@ class MessagesController extends Controller {
                 }
             }
 
-            error_log(var_export($dataNew, true));
+           
             if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
                 return $dataNew;
             } else {
@@ -427,7 +427,7 @@ class MessagesController extends Controller {
                 }
             }
 
-            error_log(var_export($dataNew, true));
+           
             if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
                 return $dataNew;
             } else {

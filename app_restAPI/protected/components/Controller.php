@@ -402,7 +402,7 @@ class Controller extends CController {
         for ($int = 0; $int < sizeof($tempResponse); $int++) {
             $tempObject = $tempResponse[$int]['source']['doc'];
             if (isset($tempResponse[$int]['source']['doc']['comments'])) {
-                error_log(var_export($tempResponse[$int]['source']['doc']['comments'], true));
+
             }
 
 

@@ -1168,7 +1168,7 @@
     font-weight: bold;
     display: block;
     unicode-bidi: normal;
-    width: 178px;
+    min-width: 178px;
 }
 
 .posttime{

@@ -24,14 +24,18 @@ class ConversationsController extends Controller {
         $this->sendResponse(204);
     }
 
+    public function actionConversationRead() {
+        
+    }
+
     public function actionCreateConversation() {
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $request_array = CJSON::decode($request_array);
-        
+
         $commenter_id = $request_array[0];
         $date = $request_array[1];
         $commentContent = $request_array[2];
-        
+
 
         $newStyleImage = $request_array[3];
 
@@ -40,29 +44,29 @@ class ConversationsController extends Controller {
 
         $conversationID = $request_array[6];
         $conversationItemID = $request_array[7];
-        $conversationID = $conversationID.$commenter_id;
-        $conversationItemID = $conversationItemID.$commenter_id;
+        $conversationID = $conversationID . $commenter_id;
+        $conversationItemID = $conversationItemID . $commenter_id;
         $conversation = $this->addConversation($commenter_id, $date, $commentContent, $newStyleImage, $imageType, $photo_name, $conversationID, $conversationItemID);
-       
-        
+
+
         if ($conversation) {
             $this->sendResponse(200, CJSON::encode($conversation));
         } else {
             echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
         }
     }
-    
+
     public function addConversation($commenter_id, $date, $commentContent, $newStyleImage, $imageType, $photo_name, $conversationID, $conversationItemID) {                       //saving follower in profile
         try {
-                     
+
             $docIDDeep = $this->getDomain() . "/conversations/" . $conversationID;
 
             //  error_log(var_export($id, true));
             $cb = $this->couchBaseConnection();
             $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
             $oldRecordDeep = CJSON::decode($oldDeep, true);
-            
-          
+
+
             $newConversationItem = array();
 
             $newConversationItem["item_id"] = $conversationItemID;
@@ -80,20 +84,22 @@ class ConversationsController extends Controller {
 
             $newConversationItem["name"] = $oldcommenterInfo['user'][0]["display_name"];
             $newConversationItem["sender_photo_url_large"] = $oldcommenterInfo['user'][0]["photo_url_large"];
-            if (isset($oldcommenterInfo['user'][0]["conversations"]))
-            {
-                $oldcommenterInfo['user'][0]["conversations"]=$oldcommenterInfo['user'][0]["conversations"].','.$conversationID;
+            if (!isset($oldcommenterInfo['user'][0]["conversations"])) {
+
+                $oldcommenterInfo['user'][0]["conversations"] = array();
+                //  $oldcommenterInfo['user'][0]["conversations"].','.$conversationID;
             }
-            else{
-            $oldcommenterInfo['user'][0]["conversations"]=$conversationID;
-            }
-            
+            $conversationObject = array();
+            $conversationObject["conversationId"] = $conversationID;
+            $conversationObject["isRead"] = false;
+            array_unshift($oldRecordDeep['ConversationCollection'], $conversationObject);
+
             if ($cb->set($commenterInfo, CJSON::encode($oldcommenterInfo))) {
-               
+                
             } else {
                 echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
             }
-            
+
             if ($newStyleImage !== null && $photo_name !== "") {
                 $photoController = new PhotosController(); //    this.get("controllers.PhotosController").             
                 //error_log(var_export($newStyleImage, true));
@@ -112,10 +118,10 @@ class ConversationsController extends Controller {
             }
 
             $oldRecordDeep['conversationID'] = $conversationID;
-            $oldRecordDeep['participation_ids']=$commenter_id;
+            $oldRecordDeep['participation_ids'] = $commenter_id;
             $oldRecordDeep['ConversationCollection'] = array();
             array_unshift($oldRecordDeep['ConversationCollection'], $newConversationItem);
-            
+
 
             if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
                 return $oldRecordDeep;
@@ -127,7 +133,7 @@ class ConversationsController extends Controller {
             echo json_decode(file_get_contents('php://input'));
         }
     }
-    
-    
+
 }
+
 ?>

@@ -44,6 +44,7 @@ HubStar.MessageCenterController = Ember.Controller.extend({
         }
         this.selectMessage();
         this.get('controllers.userMessage').getClientId(id);
+           this.get('controllers.conversation').getClientId(id);
     },
     selectMessage: function() {
         this.set("isMessageBoard", true);

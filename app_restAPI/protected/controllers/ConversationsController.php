@@ -48,8 +48,8 @@ class ConversationsController extends Controller {
             $tempMega_currentUser = $cb->get($docID_currentUser);
             $mega_currentUser = CJSON::decode($tempMega_currentUser, true);
 
-
             $participation_id = explode(",", $mega_currentUser["participation_ids"]);
+
             $participationID = "";
             for ($i = 0; $i < sizeof($participation_id); $i++) {
 
@@ -65,8 +65,9 @@ class ConversationsController extends Controller {
                     }
                 }
             }
-            $mega_currentUser["participation_ids"] = $participationID;
 
+
+            $mega_currentUser["participation_ids"] = $participationID;
             $commenterInfo = $this->getDomain() . "/users/" . $owner_id;
             $cbs = $this->couchBaseConnection();
             $commenterInfoDeep = $cbs->get($commenterInfo); // get the old user record from the database according to the docID string
@@ -78,12 +79,18 @@ class ConversationsController extends Controller {
                     array_splice($oldcommenterInfo['user'][0]["conversations"], $i, 1);
                 }
             }
-            
-            if ($cb->set($docID_currentUser, CJSON::encode($mega_currentUser))) {
-                return $mega_currentUser;
+
+            if ($cb->set($commenterInfo, CJSON::encode($oldcommenterInfo))) {
+                
             } else {
                 
             }
+            if ($cb->set($docID_currentUser, CJSON::encode($mega_currentUser))) {
+                
+            } else {
+                
+            }
+            return true;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
             echo json_decode(file_get_contents('php://input'));
@@ -297,12 +304,14 @@ class ConversationsController extends Controller {
             $newConversationItem["name"] = $oldcommenterInfo['user'][0]["display_name"];
             $newConversationItem["sender_photo_url_large"] = $oldcommenterInfo['user'][0]["photo_url_large"];
             if (!isset($oldcommenterInfo['user'][0]["conversations"])) {
+
                 $oldcommenterInfo['user'][0]["conversations"] = array();
             }
             $conversationObject = array();
             $conversationObject["conversation_id"] = $conversationID;
             $conversationObject["is_read"] = false;
             array_unshift($oldcommenterInfo['user'][0]["conversations"], $conversationObject);
+
             if ($cb->set($commenterInfo, CJSON::encode($oldcommenterInfo))) {
                 
             } else {
@@ -328,7 +337,9 @@ class ConversationsController extends Controller {
 
             $oldRecordDeep['conversationID'] = $conversationID;
             $oldRecordDeep['participation_ids'] = $commenter_id;
+
             $oldRecordDeep['conversationPhoto'] = "";
+
             $oldRecordDeep['ConversationCollection'] = array();
             array_unshift($oldRecordDeep['ConversationCollection'], $newConversationItem);
 

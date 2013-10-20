@@ -96,7 +96,6 @@ function getImageWidth(imgSrc, callback) {
 function requiredBackEnd(controller, method, para, ajaxType, callback) {
     {
         var tempurl = getRestAPIURL();
-
         $.ajax({
             url: tempurl + '/' + controller + '/' + method,
             type: ajaxType,

@@ -16,10 +16,11 @@ HubStar.MessageController = Ember.Controller.extend({
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'userMessage', 'editMessage'],
     isUserself: false,
     isUploadPhoto: false,
-    
+    isReply: true,
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
+        this.set("isReply", true);
         if (localStorage.loginStatus) {
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
             this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
@@ -28,17 +29,17 @@ HubStar.MessageController = Ember.Controller.extend({
         {
             this.set("isUserself", true);
         }
-        this.set("isEdit",true);
+        this.set("isEdit", true);
     },
     setEditReply: function() {
         console.log(this.get("isEdit"));
-        
-        this.set("isEdit",true);
+
+        this.set("isEdit", true);
     },
     editingCommentData: function(id, msg) {
-        
-         
-    
+
+
+
         for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
         {
             if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id") === id)
@@ -59,12 +60,12 @@ HubStar.MessageController = Ember.Controller.extend({
                 if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("reply_id") === id)
                 {
                     this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("enableToEdit", true);
-                    this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyEdit",false);
+                    this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyEdit", false);
                     break;
                 }
         }
-       
-       
+
+
         HubStar.set('reply', msg);
     },
     removeReply: function(reply_id)
@@ -92,6 +93,13 @@ HubStar.MessageController = Ember.Controller.extend({
                         if (that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("reply_id") === reply_id)
                         {
                             that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").removeObject(that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j));
+
+                            var replyLength = that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyCount");;
+                            if (replyLength >= 1)
+                            {
+                                replyLength = replyLength - 1;
+                            }
+                            that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyCount", replyLength);
                             break;
                         }
                     }
@@ -107,7 +115,13 @@ HubStar.MessageController = Ember.Controller.extend({
                     {
                         if ((that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("reply_id") === reply_id) && (
                                 that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("user_id") === commenter_id)) {
-
+                            var replyLength = that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyCount");
+                              if (replyLength >= 1)
+                            {
+                                replyLength = replyLength - 1;
+                            }
+                            that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyCount", replyLength);
+        
                             that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").removeObject(that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j));
                             break;
                         }
@@ -123,7 +137,7 @@ HubStar.MessageController = Ember.Controller.extend({
         $('#commentBox').attr('style', 'display:none');
         setTimeout(function() {
             $('#masonry_container').masonry("reloadItems");
-            
+
         }, 200);
     },
     addReply: function(message_id) {
@@ -132,6 +146,7 @@ HubStar.MessageController = Ember.Controller.extend({
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         var replyContent = this.get('replyContent'); //replyContent is just the user input txt, it is not a whole reply object
         if (replyContent) {
+            this.set("isReply", false);
             var commenter_id = this.get("currentUser").get('id');
             var date = new Date();
             var owner_id = this.get("currentOwner").get("id");
@@ -170,6 +185,7 @@ HubStar.MessageController = Ember.Controller.extend({
             var dataNew = new Array();
             requiredBackEnd('messages', 'CreateReply', tempComment, 'POST', function(params) {
 //params just one message
+                that.set("isReply", true);
                 for (var i = 0; i < that.get('controllers.userMessage').get("contentMsg").length; i++)
                 {
                     if (that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id") === params["message_id"])
@@ -183,6 +199,11 @@ HubStar.MessageController = Ember.Controller.extend({
                         dataNew["photo_url_large"] = params["replyMessageCollection"][0]["photo_url_large"];
                         dataNew["url"] = params["replyMessageCollection"][0]["url"];
                         dataNew["enableToEdit"] = false;
+
+                        var replyLength = that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyCount")+1;
+                        that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyCount",replyLength);
+
+                        that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyCount", replyLength);
                         if (params["replyMessageCollection"][0]["user_id"] === localStorage.loginStatus)
                         {
                             dataNew["isUserself"] = true;
@@ -227,7 +248,7 @@ HubStar.MessageController = Ember.Controller.extend({
             $('#commentBox').attr('style', 'display:none');
             setTimeout(function() {
                 $('#masonry_container').masonry("reloadItems");
-                
+
             }, 200);
         }
     },

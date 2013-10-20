@@ -33,7 +33,11 @@
                             {{view HubStar.SingleImageInputButtonView }}
                         </div>
                     </div>
+                    {{#if controller.isPosting}}
                     <div class="message-btn easing" style=''{{action addComment}}><k class='icon-ok'>&nbsp;</k>Post</div>
+                    {{else}}
+                    <div class="message-btn easing" style=''><k class='icon-ok'>&nbsp;</k>Posting</div>
+                    {{/if}}
                 </div>
 
             </div>

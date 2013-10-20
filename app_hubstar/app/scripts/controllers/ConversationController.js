@@ -28,8 +28,7 @@ HubStar.ConversationController = Ember.Controller.extend({
         this.get('controllers.conversationItem').getClientId(id);
     },
     deleteConversationItem: function(id)
-    {
-        console.log("sssssssssssss");
+    {    
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
         var owner_id = this.get("currentUser").get('id');
 
@@ -37,8 +36,10 @@ HubStar.ConversationController = Ember.Controller.extend({
 
         tempComment = JSON.stringify(tempComment);
         var that = this;
-        requiredBackEnd('conversations', 'DeleteConversation', tempComment, 'POST', function(params) {           
+
+        requiredBackEnd('conversations', 'DeleteConversation', tempComment, 'POST', function(params) {         
              that.getClientId(owner_id);
+
         });
     },
     getClientId: function(id) {

@@ -36,10 +36,9 @@ HubStar.ConversationController = Ember.Controller.extend({
 
         tempComment = JSON.stringify(tempComment);
         var that = this;
-        requiredBackEnd('conversations', 'DeleteConversation', tempComment, 'POST', function(params) {
-           
-
+        requiredBackEnd('conversations', 'DeleteConversation', tempComment, 'POST', function(params) {         
              that.getClientId(owner_id);
+
         });
     },
     getClientId: function(id) {

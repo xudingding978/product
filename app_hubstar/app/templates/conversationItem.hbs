@@ -40,7 +40,7 @@
     </div>
 
 
-    <div  id="content_conversationItem" class='Message-Board_comment-container' style=" ">
+    <div  id="content_conversationItem_{{unbound controller.id}}" class='Message-Board_comment-container' style=" ">
         {{#each conversationItemContent}}
         <div class="Message-Board_comment-item" style=''>         
             <div class="comment-position">   
@@ -51,7 +51,7 @@
                     <div class="comment-namentime">
                         <div class="namentime_position">
                             <a class="comment-username"   href="#/users/{{unbound this.sender_id}}">
-                                {{this.name }} 
+                                {{this.name }}{{controller.id}}
                             </a>
                             <div class="posttime-container">
                                 <span class="posttime">{{this.time_stamp}}</span>

@@ -22,19 +22,24 @@
             </div>
         </div>
 
-
+        {{#if controller.isUploadPhoto}}
         <div style='width: 380px;max-height: 100px;padding: 10px 12px;text-align: center;background-color: #fff;border-radius: 0 0 3px 3px;border: 1px solid #ddd;border-top: none;'>
-            <div class='remove-comment-photo easing' ><i class="icon-remove"></i></div>   
-            {{#if controller.isUploadPhoto}}
+            <div class='remove-comment-photo easing' {{action removePic model.reply_id}}><i class="icon-remove"></i></div>   
+
             <img  {{bindAttr src= "newStyleImageSource"}}  style="max-width: 100%; max-height: 80px;">
-            {{else}}
-            {{#if model.isUrl }}
+        </div>
+        {{else}}
+        {{#if model.isUrl }}
+        <div style='width: 380px;max-height: 100px;padding: 10px 12px;text-align: center;background-color: #fff;border-radius: 0 0 3px 3px;border: 1px solid #ddd;border-top: none;'>
+            <div class='remove-comment-photo easing' {{action removeOriginPic model.reply_id}}><i class="icon-remove"></i></div>   
             <img {{bindAttr src= model.url}} style="max-width: 100%; max-height: 80px;"/>
-            {{/if}}
-            {{/if}}
         </div>
 
+        {{/if}}
 
+
+
+        {{/if}}
 
 
     </div>

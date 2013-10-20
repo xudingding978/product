@@ -238,8 +238,9 @@ class MessagesController extends Controller {
 
         $message_id = $request_array[6];
         $reply_id = $request_array[7];
+        $url = $request_array[8];
         $reply_id = $reply_id . $message_id . $owner_id;
-        $comment = $this->updateReply($owner_id, $date, $commentContent, $newStyleImage, $imageType, $photo_name, $message_id, $reply_id);
+        $comment = $this->updateReply($owner_id, $date, $commentContent, $newStyleImage, $imageType, $photo_name, $message_id, $reply_id,$url);
 
         if ($comment !== false) {
             $this->sendResponse(200, CJSON::encode($comment));
@@ -248,7 +249,7 @@ class MessagesController extends Controller {
         }
     }
 
-    public function updateReply($id, $date, $commentContent, $newStyleImage, $imageType, $photo_name, $message_id, $reply_id) {
+    public function updateReply($id, $date, $commentContent, $newStyleImage, $imageType, $photo_name, $message_id, $reply_id,$url) {
         try {
             $docIDDeep = $this->getDomain() . "/users/" . $id; // it is the owner id
             //  error_log(var_export($id, true));
@@ -291,8 +292,12 @@ class MessagesController extends Controller {
                                 $oldRecordDeep['user'][0]["messages"][$i]["replyMessageCollection"][$j]["url"] = $url;
                                 $dataNew["url"] = $url;
                             } else {
-
+  
                                 $dataNew["url"] = $oldRecordDeep['user'][0]["messages"][$i]["replyMessageCollection"][$j]["url"];
+                                if($url === null)
+                                {
+                                      $dataNew["url"]  = null;
+                                }
                             }
                             break;
                         } else {
@@ -346,8 +351,9 @@ class MessagesController extends Controller {
 
         $message_id = $request_array[6];
         $reply_id = $request_array[7];
+        $url= $request_array[8];
         $reply_id = $reply_id . $message_id . $owner_id;
-        $comment = $this->updateMessage($owner_id, $date, $commentContent, $newStyleImage, $imageType, $photo_name, $message_id, $reply_id);
+        $comment = $this->updateMessage($owner_id, $date, $commentContent, $newStyleImage, $imageType, $photo_name, $message_id, $reply_id,$url);
 
         if ($comment !== false) {
             $this->sendResponse(200, CJSON::encode($comment));
@@ -356,7 +362,7 @@ class MessagesController extends Controller {
         }
     }
 
-    public function updateMessage($id, $date, $commentContent, $newStyleImage, $imageType, $photo_name, $message_id, $reply_id) {
+    public function updateMessage($id, $date, $commentContent, $newStyleImage, $imageType, $photo_name, $message_id, $reply_id,$url) {
         try {
             $docIDDeep = $this->getDomain() . "/users/" . $id; // it is the owner id
             //  error_log(var_export($id, true));
@@ -399,8 +405,12 @@ class MessagesController extends Controller {
                             $oldRecordDeep['user'][0]["messages"][$i]["replyMessageCollection"][$replyLenth]["url"] = $url;
                             $dataNew["url"] = $url;
                         } else {
-
+                            
                             $dataNew["url"] = $oldRecordDeep['user'][0]["messages"][$i]["replyMessageCollection"][$replyLenth]["url"];
+                            if($url===null)
+                            {
+                                $dataNew["url"]=null;
+                            }
                         }
                         break;
                     } else {

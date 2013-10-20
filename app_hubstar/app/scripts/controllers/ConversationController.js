@@ -50,7 +50,7 @@ HubStar.ConversationController = Ember.Controller.extend({
 
         tempComment = JSON.stringify(tempComment);
         var that = this;
-        requiredBackEnd('conversations', 'ReadConversation', tempComment, 'POST', function(params) {
+        requiredBackEnd('conversations', 'readConversation', tempComment, 'POST', function(params) {
             that.set("conversationContent", []);
             for (var i = 0; i < params.length; i++)
             {

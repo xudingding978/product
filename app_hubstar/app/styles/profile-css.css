@@ -954,3 +954,19 @@ textarea.add-interests{
 
 .Message-menu-messages-container > div:nth-child(odd){background-color: #fff}
 .Message-menu-messages-container > div:nth-child(even){background-color: #f4f6f8}
+
+
+.invite-this-friend{
+    background-color: #000;
+    opacity: 0;
+
+    color: #fff;
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    line-height: 47px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.invite-friend:hover > .invite-this-friend{opacity: .3}

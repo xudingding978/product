@@ -1145,7 +1145,7 @@
     border-radius: 50%;
     width: 46px;
     height: 46px;
-    background:#efeded;
+    border: 1px solid #f3f3f3;
 }
 
 .profilepic_effect{

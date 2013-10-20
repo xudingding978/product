@@ -436,7 +436,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     deleteSelectedCollection: function()
     {
-        var message = "Do you wish to delete " + this.get("selectedCollection").get('id') + " ?";
+        var message = "You will delete every photos in this collection when you delete this collection. Are you sure to delete " + this.get("selectedCollection").get('title') + " ?";
         this.set("message", message);
         this.set('makeSureDelete', true);
         if (this.get('willDelete')) {
@@ -935,6 +935,93 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 'eventLabel': label
             });
         }
+    },
+     dropdownPhotoSetting: function() {
+      //  this.set('sharePhotoUrl', this.get('selectedPhoto').get('photo_image_thumbnail_url'));
+      //  this.set('sharePhotoName', this.get('selectedPhoto').get('photo_title'));
+        $('#dropdown_id_').toggleClass('hideClass');
+    },
+     // share to social facebook
+    fbShare: function() {
+        var that = this;
+       
+        var currntUrl = 'http://beta.trendsideas.com/#/profiles/' + this.get('currentUserID');
+        var caption = '';
+        console.log(currntUrl);
+        if (this.get('profile_cover_text') !== null)
+        {
+            caption =this.get('profile_cover_text') ;
+          
+        }
+        else
+        {
+            caption = '';
+        }
+
+        var obj = {
+            method: 'feed',
+            link: currntUrl,
+            picture:this.get('profile_pic_url'),         
+            name: this.get('profile_name'),
+            caption: 'Trends Ideas',
+            description: caption
+        };
+
+        function callback(response) {
+            if (response && response.post_id) {
+                that.get('controllers.applicationFeedback').statusObserver(null, "Shared Successfully.");
+            } else {
+                that.get('controllers.applicationFeedback').statusObserver(null, "Shared Unsuccessfully.", "failed");
+            }
+        }
+
+        FB.ui(obj, callback);
+
+        return false;
+    },
+    //share to social google plus
+    gpShare: function() {
+        var caption = '';
+         if (this.get('profile_cover_text') !== null)
+        {
+            caption =this.get('profile_cover_text') ;
+          
+        }
+        else
+        {
+            caption = '';
+        }
+
+//        var meta = document.getElementsByTagName('meta');
+//        for (var i = 0; i < meta.length; i++) {
+//            console.log(meta[i]);
+//        }
+        $("meta[property='og\\:title']").attr("content", this.get('profile_name'));
+        $("meta[property='og\\:description']").attr("content", caption);
+        $("meta[property='og\\:image']").attr("content", this.get('profile_pic_url'));
+
+
+       var currntUrl = 'http://beta.trendsideas.com/#/profiles/' + this.get('currentUserID');
+        var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
+
+        window.open(
+                url,
+                'popupwindow',
+                'scrollbars=yes,width=800,height=400'
+                ).focus();
+
+        return false;
+    },
+    //share to social twitter
+    tShare: function() {
+        var currntUrl = 'http://beta.trendsideas.com/#/profiles/' + this.get('currentUserID');
+        var url = 'https://twitter.com/share?text=' + this.get('profile_name') + '&url=' + encodeURIComponent(currntUrl);
+        window.open(
+                url,
+                'popupwindow',
+                'height=436,width=626'
+                ).focus();
+        return false;
     }
 
 }

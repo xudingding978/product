@@ -7,7 +7,7 @@
  */
 
 namespace Sherlock\tests;
-use Analog\Analog;
+
 use Sherlock\Sherlock;
 
 class QueryTest extends \PHPUnit_Framework_TestCase
@@ -16,6 +16,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      * @var \Sherlock\sherlock
      */
     protected $object;
+
 
     public function __construct()
     {
@@ -30,6 +31,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         */
     }
 
+
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
@@ -39,6 +41,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $this->object = new Sherlock();
         $this->object->addNode('localhost', '9200');
     }
+
 
     /**
      * Tears down the fixture, for example, closes a network connection.
@@ -55,6 +58,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         */
     }
 
+
     public function assertThrowsException($exception_name, $code)
     {
         $e = null;
@@ -67,6 +71,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf($exception_name, $e);
 
     }
+
 
     /**
      * @covers sherlock\Sherlock\components\queries\Bool::must
@@ -82,19 +87,32 @@ class QueryTest extends \PHPUnit_Framework_TestCase
     {
         $req = $this->object->search();
         $req->index("testqueries")->type("test");
-        $query = Sherlock::queryBuilder()->Bool()->must(array(Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"), Sherlock::queryBuilder()->Term()->field("auxillary2")->term("auxillary2")))
-                ->must_not(array(Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"), Sherlock::queryBuilder()->Term()->field("auxillary2")->term("auxillary2")))
-                ->should(array(Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"), Sherlock::queryBuilder()->Term()->field("auxillary2")->term("auxillary2")))
-                ->minimum_number_should_match(3)
-                ->boost(0.5)
-                ->disable_coord(3)
-                ;
+        $query = Sherlock::queryBuilder()->Bool()->must(
+            array(
+                Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"),
+                Sherlock::queryBuilder()->Term()->field("auxillary2")->term("auxillary2")
+            )
+        )
+            ->must_not(
+                array(
+                    Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"),
+                    Sherlock::queryBuilder()->Term()->field("auxillary2")->term("auxillary2")
+                )
+            )
+            ->should(
+                array(
+                    Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"),
+                    Sherlock::queryBuilder()->Term()->field("auxillary2")->term("auxillary2")
+                )
+            )
+            ->minimum_number_should_match(3)
+            ->boost(0.5)
+            ->disable_coord(3);
 
-        \Analog\Analog::log($query->toJSON(), \Analog\Analog::DEBUG);
 
         $req->query($query);
 
-        $data = $req->toJSON();
+        $data         = $req->toJSON();
         $expectedData = '{"query":{"bool":{"must":[{"term":{"auxillary":{"value":"auxillary"}}},{"term":{"auxillary2":{"value":"auxillary2"}}}],"must_not":[{"term":{"auxillary":{"value":"auxillary"}}},{"term":{"auxillary2":{"value":"auxillary2"}}}],"should":[{"term":{"auxillary":{"value":"auxillary"}}},{"term":{"auxillary2":{"value":"auxillary2"}}}],"minimum_number_should_match":3,"boost":0.5,"disable_coord":3}}}';
         $this->assertEquals($expectedData, $data);
 
@@ -103,27 +121,20 @@ class QueryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers sherlock\Sherlock\components\queries\Boosting::positive
-     * @covers sherlock\Sherlock\components\queries\Boosting::negative
-     * @covers sherlock\Sherlock\components\queries\Boosting::negative_boost
+     * @covers sherlock\Sherlock\components\queries\Bool::must
      * @covers sherlock\Sherlock\requests\SearchRequest::query
      * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
      */
-        public function testBoosting()
+    public function testBoolSingleMust()
     {
         $req = $this->object->search();
         $req->index("testqueries")->type("test");
-        $query = Sherlock::queryBuilder()->Boosting()->positive(Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"))
-                ->negative(Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"))
-                ->negative_boost(0.5)
-                ;
-
-        \Analog\Analog::log($query->toJSON(), \Analog\Analog::DEBUG);
-
+        $bool = Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary");
+        $query = Sherlock::queryBuilder()->Bool()->must($bool);
         $req->query($query);
 
-        $data = $req->toJSON();
-        $expectedData = '{"query":{"boosting":{"positive":{"term":{"auxillary":{"value":"auxillary"}}},"negative":{"term":{"auxillary":{"value":"auxillary"}}},"negative_boost":0.5}}}';
+        $data         = $req->toJSON();
+        $expectedData = '{"query":{"bool":{"must":[{"term":{"auxillary":{"value":"auxillary"}}}],"must_not":[],"should":[]}}}';
         $this->assertEquals($expectedData, $data);
 
         $resp = $req->execute();
@@ -131,24 +142,160 @@ class QueryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers sherlock\Sherlock\components\queries\Bool::should
+     * @covers sherlock\Sherlock\requests\SearchRequest::query
+     * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
+     */
+    public function testBoolSingleShould()
+    {
+        $req = $this->object->search();
+        $req->index("testqueries")->type("test");
+        $bool = Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary");
+        $query = Sherlock::queryBuilder()->Bool()->should($bool);
+        $req->query($query);
+
+        $data         = $req->toJSON();
+        $expectedData = '{"query":{"bool":{"must":[],"must_not":[],"should":[{"term":{"auxillary":{"value":"auxillary"}}}]}}}';
+        $this->assertEquals($expectedData, $data);
+
+        $resp = $req->execute();
+
+    }
+
+    /**
+     * @covers sherlock\Sherlock\components\queries\Bool::must_not
+     * @covers sherlock\Sherlock\requests\SearchRequest::query
+     * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
+     */
+    public function testBoolSingleMustNot()
+    {
+        $req = $this->object->search();
+        $req->index("testqueries")->type("test");
+        $bool = Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary");
+        $query = Sherlock::queryBuilder()->Bool()->must_not($bool);
+        $req->query($query);
+
+        $data         = $req->toJSON();
+        $expectedData = '{"query":{"bool":{"must":[],"must_not":[{"term":{"auxillary":{"value":"auxillary"}}}],"should":[]}}}';
+        $this->assertEquals($expectedData, $data);
+
+        $resp = $req->execute();
+
+    }
+
+    /**
+     * @covers sherlock\Sherlock\components\queries\Bool::must
+     * @covers sherlock\Sherlock\requests\SearchRequest::query
+     * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
+     */
+    public function testBoolMultipleMustInline()
+    {
+        $req = $this->object->search();
+        $req->index("testqueries")->type("test");
+        $bool = Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary");
+        $query = Sherlock::queryBuilder()->Bool()->must($bool, $bool, $bool);
+        $req->query($query);
+
+        $data         = $req->toJSON();
+        $expectedData = '{"query":{"bool":{"must":[{"term":{"auxillary":{"value":"auxillary"}}},{"term":{"auxillary":{"value":"auxillary"}}},{"term":{"auxillary":{"value":"auxillary"}}}],"must_not":[],"should":[]}}}';
+        $this->assertEquals($expectedData, $data);
+
+        $resp = $req->execute();
+
+    }
+
+    /**
+     * @covers sherlock\Sherlock\components\queries\Bool::should
+     * @covers sherlock\Sherlock\requests\SearchRequest::query
+     * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
+     */
+    public function testBoolMultipleShouldInline()
+    {
+        $req = $this->object->search();
+        $req->index("testqueries")->type("test");
+        $bool = Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary");
+        $query = Sherlock::queryBuilder()->Bool()->should($bool, $bool, $bool);
+        $req->query($query);
+
+        $data         = $req->toJSON();
+        $expectedData = '{"query":{"bool":{"must":[],"must_not":[],"should":[{"term":{"auxillary":{"value":"auxillary"}}},{"term":{"auxillary":{"value":"auxillary"}}},{"term":{"auxillary":{"value":"auxillary"}}}]}}}';
+        $this->assertEquals($expectedData, $data);
+
+        $resp = $req->execute();
+
+    }
+
+
+    /**
+     * @covers sherlock\Sherlock\components\queries\Bool::must_not
+     * @covers sherlock\Sherlock\requests\SearchRequest::query
+     * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
+     */
+    public function testBoolMultipleMustNotInline()
+    {
+        $req = $this->object->search();
+        $req->index("testqueries")->type("test");
+        $bool = Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary");
+        $query = Sherlock::queryBuilder()->Bool()->must_not($bool, $bool, $bool);
+        $req->query($query);
+
+        $data         = $req->toJSON();
+        $expectedData = '{"query":{"bool":{"must":[],"must_not":[{"term":{"auxillary":{"value":"auxillary"}}},{"term":{"auxillary":{"value":"auxillary"}}},{"term":{"auxillary":{"value":"auxillary"}}}],"should":[]}}}';
+        $this->assertEquals($expectedData, $data);
+
+        $resp = $req->execute();
+
+    }
+
+
+    /**
+     * @covers sherlock\Sherlock\components\queries\Boosting::positive
+     * @covers sherlock\Sherlock\components\queries\Boosting::negative
+     * @covers sherlock\Sherlock\components\queries\Boosting::negative_boost
+     * @covers sherlock\Sherlock\requests\SearchRequest::query
+     * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
+     */
+    public function testBoosting()
+    {
+        $req = $this->object->search();
+        $req->index("testqueries")->type("test");
+        $query = Sherlock::queryBuilder()->Boosting()->positive(
+            Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary")
+        )
+            ->negative(Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"))
+            ->negative_boost(0.5);
+
+
+        $req->query($query);
+
+        $data         = $req->toJSON();
+        $expectedData = '{"query":{"boosting":{"positive":{"term":{"auxillary":{"value":"auxillary"}}},"negative":{"term":{"auxillary":{"value":"auxillary"}}},"negative_boost":0.5}}}';
+        $this->assertEquals($expectedData, $data);
+
+        $resp = $req->execute();
+
+    }
+
+
+    /**
      * @covers sherlock\Sherlock\components\queries\ConstantScore::filter
      * @covers sherlock\Sherlock\components\queries\ConstantScore::boost
      * @covers sherlock\Sherlock\requests\SearchRequest::query
      * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
      */
-        public function testConstantScore()
+    public function testConstantScore()
     {
         $req = $this->object->search();
         $req->index("testqueries")->type("test");
-        $query = Sherlock::queryBuilder()->ConstantScore()->filter(Sherlock::filterBuilder()->Term()->field("auxillary")->term("auxillary"))
-                ->boost(0.5)
-                ;
+        $query = Sherlock::queryBuilder()->ConstantScore()->filter(
+            Sherlock::filterBuilder()->Term()->field("auxillary")->term("auxillary")
+        )
+            ->boost(0.5);
 
-        \Analog\Analog::log($query->toJSON(), \Analog\Analog::DEBUG);
 
         $req->query($query);
 
-        $data = $req->toJSON();
+        $data         = $req->toJSON();
         $expectedData = '{"query":{"constant_score":{"filter":{"term":{"auxillary":"auxillary","_cache":true}},"boost":0.5}}}';
         $this->assertEquals($expectedData, $data);
 
@@ -157,24 +304,49 @@ class QueryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers sherlock\Sherlock\components\queries\ConstantScore::filter
+     * @covers sherlock\Sherlock\requests\SearchRequest::query
+     * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
+     */
+    public function testConstantScoreNoBoost()
+    {
+        $req = $this->object->search();
+        $req->index("testqueries")->type("test");
+        $query = Sherlock::queryBuilder()->ConstantScore()->filter(
+                     Sherlock::filterBuilder()->Term()->field("auxillary")->term("auxillary")
+                 );
+
+
+        $req->query($query);
+
+        $data         = $req->toJSON();
+        $expectedData = '{"query":{"constant_score":{"filter":{"term":{"auxillary":"auxillary","_cache":true}}}}}';
+        $this->assertEquals($expectedData, $data);
+
+        $resp = $req->execute();
+
+    }
+
+
+    /**
      * @covers sherlock\Sherlock\components\queries\CustomBoostFactor::query
      * @covers sherlock\Sherlock\components\queries\CustomBoostFactor::boost_factor
      * @covers sherlock\Sherlock\requests\SearchRequest::query
      * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
      */
-        public function testCustomBoostFactor()
+    public function testCustomBoostFactor()
     {
         $req = $this->object->search();
         $req->index("testqueries")->type("test");
-        $query = Sherlock::queryBuilder()->CustomBoostFactor()->query(Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"))
-                ->boost_factor(0.5)
-                ;
+        $query = Sherlock::queryBuilder()->CustomBoostFactor()->query(
+            Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary")
+        )
+            ->boost_factor(0.5);
 
-        \Analog\Analog::log($query->toJSON(), \Analog\Analog::DEBUG);
 
         $req->query($query);
 
-        $data = $req->toJSON();
+        $data         = $req->toJSON();
         $expectedData = '{"query":{"custom_boost_factor":{"query":{"term":{"auxillary":{"value":"auxillary"}}},"boost_factor":0.5}}}';
         $this->assertEquals($expectedData, $data);
 
@@ -182,35 +354,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    /**
-     * @covers sherlock\Sherlock\components\queries\CustomFiltersScore::query
-     * @covers sherlock\Sherlock\components\queries\CustomFiltersScore::filters
-     * @covers sherlock\Sherlock\components\queries\CustomFiltersScore::score_mode
-     * @covers sherlock\Sherlock\components\queries\CustomFiltersScore::max_boost
-     * @covers sherlock\Sherlock\requests\SearchRequest::query
-     * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
-     */
-        public function testCustomFiltersScore()
-    {
-        $req = $this->object->search();
-        $req->index("testqueries")->type("test");
-        $query = Sherlock::queryBuilder()->CustomFiltersScore()->query(Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"))
-                ->filters(Sherlock::filterBuilder()->Term()->field("auxillary")->term("auxillary"))
-                ->score_mode("first")
-                ->max_boost(0.5)
-                ;
-
-        \Analog\Analog::log($query->toJSON(), \Analog\Analog::DEBUG);
-
-        $req->query($query);
-
-        $data = $req->toJSON();
-        $expectedData = '{"query":{"custom_filters_score":{"query":{"term":{"auxillary":{"value":"auxillary"}}},"filters":[{"filter":{"term":{"auxillary":"auxillary","_cache":true}}}],"score_mode":"first","max_boost":0.5}}}';
-        $this->assertEquals($expectedData, $data);
-
-        $resp = $req->execute();
-
-    }
 
     /**
      * @covers sherlock\Sherlock\components\queries\CustomScore::query
@@ -220,22 +363,59 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      * @covers sherlock\Sherlock\requests\SearchRequest::query
      * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
      */
-        public function testCustomScore()
+    public function testCustomScore()
     {
         $req = $this->object->search();
         $req->index("testqueries")->type("test");
-        $query = Sherlock::queryBuilder()->CustomScore()->query(Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"))
-                ->params(array(Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"), Sherlock::queryBuilder()->Term()->field("auxillary2")->term("auxillary2")))
-                ->script("_score")
-                ->lang("mvel")
-                ;
+        $query = Sherlock::queryBuilder()->CustomScore()->query(
+            Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary")
+        )
+            ->params(
+                array(
+                    Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"),
+                    Sherlock::queryBuilder()->Term()->field("auxillary2")->term("auxillary2")
+                )
+            )
+            ->script("_score")
+            ->lang("mvel");
 
-        \Analog\Analog::log($query->toJSON(), \Analog\Analog::DEBUG);
 
         $req->query($query);
 
-        $data = $req->toJSON();
+        $data         = $req->toJSON();
         $expectedData = '{"query":{"custom_score":{"query":{"term":{"auxillary":{"value":"auxillary"}}},"params":[{},{}],"script":"_score","lang":"mvel"}}}';
+        $this->assertEquals($expectedData, $data);
+
+        $resp = $req->execute();
+
+    }
+
+
+    /**
+     * @covers sherlock\Sherlock\components\queries\DisMax::tie_breaker
+     * @covers sherlock\Sherlock\components\queries\DisMax::boost
+     * @covers sherlock\Sherlock\components\queries\DisMax::queries
+     * @covers sherlock\Sherlock\requests\SearchRequest::query
+     * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
+     */
+    public function testDisMax()
+    {
+        $req = $this->object->search();
+        $req->index("testqueries")->type("test");
+        $query = Sherlock::queryBuilder()->DisMax()->tie_breaker(0.5)
+            ->boost(0.5)
+            ->queries(
+                array(
+                    Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"),
+                    Sherlock::queryBuilder()->Term()->field("auxillary2")->term("auxillary2")
+                )
+            );
+
+
+        $req->query($query);
+
+        $data         = $req->toJSON();
+        $expectedData = '{"query":{"dis_max":{"tie_breaker":0.5,"boost":0.5,"queries":[{"term":{"auxillary":{"value":"auxillary"}}},{"term":{"auxillary2":{"value":"auxillary2"}}}]}}}';
         $this->assertEquals($expectedData, $data);
 
         $resp = $req->execute();
@@ -249,26 +429,54 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      * @covers sherlock\Sherlock\requests\SearchRequest::query
      * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
      */
-        public function testDisMax()
+    public function testDisMaxSingleQuery()
     {
         $req = $this->object->search();
         $req->index("testqueries")->type("test");
         $query = Sherlock::queryBuilder()->DisMax()->tie_breaker(0.5)
-                ->boost(0.5)
-                ->queries(array(Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"), Sherlock::queryBuilder()->Term()->field("auxillary2")->term("auxillary2")))
-                ;
+                 ->boost(0.5)
+                 ->queries(
+                    Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary")
+                );
 
-        \Analog\Analog::log($query->toJSON(), \Analog\Analog::DEBUG);
 
         $req->query($query);
 
-        $data = $req->toJSON();
-        $expectedData = '{"query":{"dis_max":{"tie_breaker":0.5,"boost":0.5,"queries":[{"term":{"auxillary":{"value":"auxillary"}}},{"term":{"auxillary2":{"value":"auxillary2"}}}]}}}';
+        $data         = $req->toJSON();
+        $expectedData = '{"query":{"dis_max":{"tie_breaker":0.5,"boost":0.5,"queries":[{"term":{"auxillary":{"value":"auxillary"}}}]}}}';
         $this->assertEquals($expectedData, $data);
 
         $resp = $req->execute();
 
     }
+
+    /**
+     * @covers sherlock\Sherlock\components\queries\DisMax::tie_breaker
+     * @covers sherlock\Sherlock\components\queries\DisMax::boost
+     * @covers sherlock\Sherlock\components\queries\DisMax::queries
+     * @covers sherlock\Sherlock\requests\SearchRequest::query
+     * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
+     */
+    public function testDisMaxMultipleInlineQueries()
+    {
+        $req = $this->object->search();
+        $req->index("testqueries")->type("test");
+        $term = Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary");
+        $query = Sherlock::queryBuilder()->DisMax()->tie_breaker(0.5)
+                 ->boost(0.5)
+                 ->queries($term, $term, $term);
+
+
+        $req->query($query);
+
+        $data         = $req->toJSON();
+        $expectedData = '{"query":{"dis_max":{"tie_breaker":0.5,"boost":0.5,"queries":[{"term":{"auxillary":{"value":"auxillary"}}},{"term":{"auxillary":{"value":"auxillary"}}},{"term":{"auxillary":{"value":"auxillary"}}}]}}}';
+        $this->assertEquals($expectedData, $data);
+
+        $resp = $req->execute();
+
+    }
+
 
     /**
      * @covers sherlock\Sherlock\components\queries\Field::field
@@ -291,33 +499,31 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      * @covers sherlock\Sherlock\requests\SearchRequest::query
      * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
      */
-        public function testField()
+    public function testField()
     {
         $req = $this->object->search();
         $req->index("testqueries")->type("test");
         $query = Sherlock::queryBuilder()->Field()->field("testString")
-                ->query("testString")
-                ->boost(0.5)
-                ->enable_position_increments(3)
-                ->default_operator("AND")
-                ->analyzer("default")
-                ->allow_leading_wildcard(true)
-                ->lowercase_expanded_terms(3)
-                ->fuzzy_min_sim(0.5)
-                ->fuzzy_prefix_length(3)
-                ->phrase_slop(3)
-                ->analyze_wildcard(true)
-                ->auto_generate_phrase_queries(3)
-                ->rewrite("constant_score_default")
-                ->quote_analyzer("standard")
-                ->quote_field_suffix(".unstemmed")
-                ;
+            ->query("testString")
+            ->boost(0.5)
+            ->enable_position_increments(3)
+            ->default_operator("AND")
+            ->analyzer("default")
+            ->allow_leading_wildcard(true)
+            ->lowercase_expanded_terms(3)
+            ->fuzzy_min_sim(0.5)
+            ->fuzzy_prefix_length(3)
+            ->phrase_slop(3)
+            ->analyze_wildcard(true)
+            ->auto_generate_phrase_queries(3)
+            ->rewrite("constant_score_default")
+            ->quote_analyzer("standard")
+            ->quote_field_suffix(".unstemmed");
 
-        \Analog\Analog::log($query->toJSON(), \Analog\Analog::DEBUG);
 
         $req->query($query);
 
-        $data = $req->toJSON();
+        $data         = $req->toJSON();
         $expectedData = '{"query":{"field":{"testString":{"query":"testString","boost":0.5,"enable_position_increments":3,"default_operator":"AND","analyzer":"default","allow_leading_wildcard":true,"lowercase_expanded_terms":3,"fuzzy_min_sim":0.5,"fuzzy_prefix_length":3,"phrase_slop":3,"analyze_wildcard":true,"auto_generate_phrase_queries":3,"quote_analyzer":"standard","quote_field_suffix":".unstemmed"},"rewrite":"constant_score_default"}}}';
         $this->assertEquals($expectedData, $data);
 
@@ -325,31 +531,33 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 
     }
 
+
     /**
      * @covers sherlock\Sherlock\components\queries\FilteredQuery::query
      * @covers sherlock\Sherlock\components\queries\FilteredQuery::filter
      * @covers sherlock\Sherlock\requests\SearchRequest::query
      * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
      */
-        public function testFilteredQuery()
+    public function testFilteredQuery()
     {
         $req = $this->object->search();
         $req->index("testqueries")->type("test");
-        $query = Sherlock::queryBuilder()->FilteredQuery()->query(Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"))
-                ->filter(Sherlock::filterBuilder()->Term()->field("auxillary")->term("auxillary"))
-                ;
+        $query = Sherlock::queryBuilder()->FilteredQuery()->query(
+            Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary")
+        )
+            ->filter(Sherlock::filterBuilder()->Term()->field("auxillary")->term("auxillary"));
 
-        \Analog\Analog::log($query->toJSON(), \Analog\Analog::DEBUG);
 
         $req->query($query);
 
-        $data = $req->toJSON();
-        $expectedData = '{"query":{"filtered":{"query":{"term":{"auxillary":{"value":"auxillary"}}},"filter":{}}}}';
+        $data         = $req->toJSON();
+        $expectedData = '{"query":{"filtered":{"query":{"term":{"auxillary":{"value":"auxillary"}}},"filter":{"term":{"auxillary":"auxillary","_cache":true}}}}}';
         $this->assertEquals($expectedData, $data);
 
         $resp = $req->execute();
 
     }
+
 
     /**
      * @covers sherlock\Sherlock\components\queries\Fuzzy::field
@@ -361,29 +569,28 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      * @covers sherlock\Sherlock\requests\SearchRequest::query
      * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
      */
-        public function testFuzzy()
+    public function testFuzzy()
     {
         $req = $this->object->search();
         $req->index("testqueries")->type("test");
         $query = Sherlock::queryBuilder()->Fuzzy()->field("testString")
-                ->value("testString")
-                ->boost(0.5)
-                ->min_similarity(0.5)
-                ->prefix_length(3)
-                ->max_expansions(3)
-                ;
+            ->value("testString")
+            ->boost(0.5)
+            ->min_similarity(0.5)
+            ->prefix_length(3)
+            ->max_expansions(3);
 
-        \Analog\Analog::log($query->toJSON(), \Analog\Analog::DEBUG);
 
         $req->query($query);
 
-        $data = $req->toJSON();
+        $data         = $req->toJSON();
         $expectedData = '{"query":{"fuzzy":{"testString":{"value":"testString","boost":0.5,"min_similarity":0.5,"prefix_length":3,"max_expansions":3}}}}';
         $this->assertEquals($expectedData, $data);
 
         $resp = $req->execute();
 
     }
+
 
     /**
      * @covers sherlock\Sherlock\components\queries\FuzzyLikeThis::fields
@@ -397,31 +604,35 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      * @covers sherlock\Sherlock\requests\SearchRequest::query
      * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
      */
-        public function testFuzzyLikeThis()
+    public function testFuzzyLikeThis()
     {
         $req = $this->object->search();
         $req->index("testqueries")->type("test");
-        $query = Sherlock::queryBuilder()->FuzzyLikeThis()->fields(array(Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"), Sherlock::queryBuilder()->Term()->field("auxillary2")->term("auxillary2")))
-                ->like_text("testString")
-                ->max_query_terms(3)
-                ->min_similarity(0.5)
-                ->prefix_length(3)
-                ->boost(0.5)
-                ->analyzer("testString")
-                ->ignore_tf("testString")
-                ;
+        $query = Sherlock::queryBuilder()->FuzzyLikeThis()->fields(
+            array(
+                Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"),
+                Sherlock::queryBuilder()->Term()->field("auxillary2")->term("auxillary2")
+            )
+        )
+            ->like_text("testString")
+            ->max_query_terms(3)
+            ->min_similarity(0.5)
+            ->prefix_length(3)
+            ->boost(0.5)
+            ->analyzer("testString")
+            ->ignore_tf("testString");
 
-        \Analog\Analog::log($query->toJSON(), \Analog\Analog::DEBUG);
 
         $req->query($query);
 
-        $data = $req->toJSON();
+        $data         = $req->toJSON();
         $expectedData = '{"query":{"fuzzy_like_this":{"fields":[{},{}],"like_text":"testString","max_query_terms":3,"min_similarity":0.5,"prefix_length":3,"boost":0.5,"analyzer":"testString","ignore_tf":"testString"}}}';
         $this->assertEquals($expectedData, $data);
 
         $resp = $req->execute();
 
     }
+
 
     /**
      * @covers sherlock\Sherlock\components\queries\FuzzyLikeThisField::field
@@ -435,31 +646,30 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      * @covers sherlock\Sherlock\requests\SearchRequest::query
      * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
      */
-        public function testFuzzyLikeThisField()
+    public function testFuzzyLikeThisField()
     {
         $req = $this->object->search();
         $req->index("testqueries")->type("test");
         $query = Sherlock::queryBuilder()->FuzzyLikeThisField()->field("testString")
-                ->like_text("testString")
-                ->max_query_terms(3)
-                ->min_similarity(0.5)
-                ->prefix_length(3)
-                ->boost(0.5)
-                ->analyzer("testString")
-                ->ignore_tf("testString")
-                ;
+            ->like_text("testString")
+            ->max_query_terms(3)
+            ->min_similarity(0.5)
+            ->prefix_length(3)
+            ->boost(0.5)
+            ->analyzer("testString")
+            ->ignore_tf("testString");
 
-        \Analog\Analog::log($query->toJSON(), \Analog\Analog::DEBUG);
 
         $req->query($query);
 
-        $data = $req->toJSON();
+        $data         = $req->toJSON();
         $expectedData = '{"query":{"fuzzy_like_this_field":{"testString":{"like_text":"testString","max_query_terms":3,"min_similarity":0.5,"prefix_length":3,"boost":0.5,"analyzer":"testString","ignore_tf":"testString"}}}}';
         $this->assertEquals($expectedData, $data);
 
         $resp = $req->execute();
 
     }
+
 
     /**
      * @todo build proper test for HasChild
@@ -469,26 +679,25 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      * @covers sherlock\Sherlock\requests\SearchRequest::query
      * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
      */
-        public function testHasChild()
+    public function testHasChild()
     {
         $req = $this->object->search();
         $req->index("testqueries")->type("test");
         $query = Sherlock::queryBuilder()->HasChild()->type("testString")
-                ->score_type("none")
-                ->query(Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"))
-                ;
+            ->score_type("none")
+            ->query(Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"));
 
-        \Analog\Analog::log($query->toJSON(), \Analog\Analog::DEBUG);
 
         $req->query($query);
 
-        $data = $req->toJSON();
+        $data         = $req->toJSON();
         $expectedData = '{"query":{"has_child":{"type":"testString","score_type":"none","query":{"term":{"auxillary":{"value":"auxillary"}}}}}}';
         $this->assertEquals($expectedData, $data);
 
         //$resp = $req->execute();
 
     }
+
 
     /**
      * @todo build proper test for HasParent
@@ -498,20 +707,18 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      * @covers sherlock\Sherlock\requests\SearchRequest::query
      * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
      */
-        public function testHasParent()
+    public function testHasParent()
     {
         $req = $this->object->search();
         $req->index("testqueries")->type("test");
         $query = Sherlock::queryBuilder()->HasParent()->parent_type("testString")
-                ->score_type("none")
-                ->query(Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"))
-                ;
+            ->score_type("none")
+            ->query(Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"));
 
-        \Analog\Analog::log($query->toJSON(), \Analog\Analog::DEBUG);
 
         $req->query($query);
 
-        $data = $req->toJSON();
+        $data         = $req->toJSON();
         $expectedData = '{"query":{"has_parent":{"parent_type":"testString","score_type":"none","query":{"term":{"auxillary":{"value":"auxillary"}}}}}}';
         $this->assertEquals($expectedData, $data);
 
@@ -519,31 +726,36 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 
     }
 
+
     /**
      * @covers sherlock\Sherlock\components\queries\Ids::type
      * @covers sherlock\Sherlock\components\queries\Ids::values
      * @covers sherlock\Sherlock\requests\SearchRequest::query
      * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
      */
-        public function testIds()
+    public function testIds()
     {
         $req = $this->object->search();
         $req->index("testqueries")->type("test");
         $query = Sherlock::queryBuilder()->Ids()->type("testString")
-                ->values(array(Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"), Sherlock::queryBuilder()->Term()->field("auxillary2")->term("auxillary2")))
-                ;
+            ->values(
+                array(
+                    Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"),
+                    Sherlock::queryBuilder()->Term()->field("auxillary2")->term("auxillary2")
+                )
+            );
 
-        \Analog\Analog::log($query->toJSON(), \Analog\Analog::DEBUG);
 
         $req->query($query);
 
-        $data = $req->toJSON();
+        $data         = $req->toJSON();
         $expectedData = '{"query":{"ids":{"type":"testString","values":[{},{}]}}}';
         $this->assertEquals($expectedData, $data);
 
         $resp = $req->execute();
 
     }
+
 
     /**
      * @covers sherlock\Sherlock\components\queries\Indices::indices
@@ -552,26 +764,25 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      * @covers sherlock\Sherlock\requests\SearchRequest::query
      * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
      */
-        public function  testIndices()
+    public function  testIndices()
     {
         $req = $this->object->search();
         $req->index("testqueries")->type("test");
-        $query = Sherlock::queryBuilder()->Indices()->indices('test','testqueries')
-                ->query(Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"))
-                ->no_match_query(Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"))
-                ;
+        $query = Sherlock::queryBuilder()->Indices()->indices('test', 'testqueries')
+            ->query(Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"))
+            ->no_match_query(Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"));
 
-        \Analog\Analog::log($query->toJSON(), \Analog\Analog::DEBUG);
 
         $req->query($query);
 
-        $data = $req->toJSON();
+        $data         = $req->toJSON();
         $expectedData = '{"query":{"indices":{"indices":["test","testqueries"],"query":{"term":{"auxillary":{"value":"auxillary"}}},"no_match_query":{"term":{"auxillary":{"value":"auxillary"}}}}}}';
         $this->assertEquals($expectedData, $data);
 
         $resp = $req->execute();
 
     }
+
 
     /**
      * @covers sherlock\Sherlock\components\queries\Match::field
@@ -588,57 +799,120 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      * @covers sherlock\Sherlock\requests\SearchRequest::query
      * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
      */
-        public function testMatch()
+    public function testMatch()
     {
         $req = $this->object->search();
         $req->index("testqueries")->type("test");
         $query = Sherlock::queryBuilder()->Match()->field("testString")
-                ->query("testString")
-                ->boost(0.5)
-                ->operator("AND")
-                ->analyzer("default")
-                ->fuzziness(0.5)
-                ->lenient(true)
-                ->max_expansions(3)
-                ->minimum_should_match(3)
-                ->prefix_length(3)
-                ;
+            ->query("testString")
+            ->boost(0.5)
+            ->operator("AND")
+            ->analyzer("default")
+            ->fuzziness(0.5)
+            ->lenient(true)
+            ->max_expansions(3)
+            ->minimum_should_match(3)
+            ->prefix_length(3)
+            ->type("testType");
 
-        \Analog\Analog::log($query->toJSON(), \Analog\Analog::DEBUG);
 
         $req->query($query);
 
-        $data = $req->toJSON();
-        $expectedData = '{"query":{"match":{"testString":{"query":"testString","boost":0.5,"operator":"AND","analyzer":"default","fuzziness":0.5,"lenient":true,"max_expansions":3,"minimum_should_match":3,"prefix_length":3,"type":null}}}}';
+        $data         = $req->toJSON();
+        $expectedData = '{"query":{"match":{"testString":{"query":"testString","boost":0.5,"operator":"AND","analyzer":"default","fuzziness":0.5,"lenient":true,"max_expansions":3,"minimum_should_match":3,"prefix_length":3,"type":"testType"}}}}';
         $this->assertEquals($expectedData, $data);
 
         $resp = $req->execute();
 
     }
+
 
     /**
      * @covers sherlock\Sherlock\components\queries\MatchAll::boost
      * @covers sherlock\Sherlock\requests\SearchRequest::query
      * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
      */
-        public function testMatchAll()
+    public function testMatchAll()
     {
         $req = $this->object->search();
         $req->index("testqueries")->type("test");
-        $query = Sherlock::queryBuilder()->MatchAll()->boost(0.5)
-                ;
+        $query = Sherlock::queryBuilder()->MatchAll()->boost(0.5);
 
-        \Analog\Analog::log($query->toJSON(), \Analog\Analog::DEBUG);
 
         $req->query($query);
 
-        $data = $req->toJSON();
+        $data         = $req->toJSON();
         $expectedData = '{"query":{"match_all":{"boost":0.5}}}';
         $this->assertEquals($expectedData, $data);
 
         $resp = $req->execute();
 
     }
+
+
+    public function testFromField()
+    {
+        $req = $this->object->search();
+        $req->index("testqueries")->type("test")->from(5);
+        $query = Sherlock::queryBuilder()->MatchAll();
+
+
+        $req->query($query);
+
+        $data         = $req->toJSON();
+        $expectedData = '{"query":{"match_all":[]},"from":5}';
+        $this->assertEquals($expectedData, $data);
+
+        $resp = $req->execute();
+
+    }
+
+
+    public function testSizeField()
+    {
+        $req = $this->object->search();
+        $req->index("testqueries")->type("test")->size(5);
+        $query = Sherlock::queryBuilder()->MatchAll();
+
+
+        $req->query($query);
+
+        $data         = $req->toJSON();
+        $expectedData = '{"query":{"match_all":[]},"size":5}';
+        $this->assertEquals($expectedData, $data);
+
+        $resp = $req->execute();
+
+    }
+
+
+    public function testSizeFromField()
+    {
+
+        $indexName = 'testqueries';
+        $indexType = 'test';
+        $from      = 2;
+        $size      = 2;
+
+        $request = $this->object->search();
+
+        $query = Sherlock::queryBuilder()->MatchAll();
+        $request->index($indexName)->type($indexType)->query($query);
+
+        if ($from) {
+            $request->index($indexName)->type($indexType)->from($from);
+        }
+
+        if ($size) {
+            $request->index($indexName)->type($indexType)->size($size);
+        }
+
+        $data         = $request->toJSON();
+        $expectedData = '{"query":{"match_all":[]},"from":2,"size":2}';
+        $this->assertEquals($expectedData, $data);
+
+    }
+
 
     /**
      * @covers sherlock\Sherlock\components\queries\MoreLikeThis::fields
@@ -656,35 +930,44 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      * @covers sherlock\Sherlock\requests\SearchRequest::query
      * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
      */
-        public function testMoreLikeThis()
+    public function testMoreLikeThis()
     {
         $req = $this->object->search();
         $req->index("testqueries")->type("test");
-        $query = Sherlock::queryBuilder()->MoreLikeThis()->fields(array(Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"), Sherlock::queryBuilder()->Term()->field("auxillary2")->term("auxillary2")))
-                ->like_text("testString")
-                ->min_term_freq(3)
-                ->max_query_terms(3)
-                ->percent_terms_to_match(0.5)
-                ->stop_words(array(Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"), Sherlock::queryBuilder()->Term()->field("auxillary2")->term("auxillary2")))
-                ->min_doc_freq(3)
-                ->max_doc_freq(3)
-                ->min_word_len(3)
-                ->max_word_len(3)
-                ->boost_terms(3)
-                ->boost(0.5)
-                ;
+        $query = Sherlock::queryBuilder()->MoreLikeThis()->fields(
+            array(
+                Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"),
+                Sherlock::queryBuilder()->Term()->field("auxillary2")->term("auxillary2")
+            )
+        )
+            ->like_text("testString")
+            ->min_term_freq(3)
+            ->max_query_terms(3)
+            ->percent_terms_to_match(0.5)
+            ->stop_words(
+                array(
+                    Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"),
+                    Sherlock::queryBuilder()->Term()->field("auxillary2")->term("auxillary2")
+                )
+            )
+            ->min_doc_freq(3)
+            ->max_doc_freq(3)
+            ->min_word_len(3)
+            ->max_word_len(3)
+            ->boost_terms(3)
+            ->boost(0.5);
 
-        \Analog\Analog::log($query->toJSON(), \Analog\Analog::DEBUG);
 
         $req->query($query);
 
-        $data = $req->toJSON();
+        $data         = $req->toJSON();
         $expectedData = '{"query":{"more_like_this":{"fields":[{},{}],"like_text":"testString","min_term_freq":3,"max_query_terms":3,"percent_terms_to_match":0.5,"stop_words":[{},{}],"min_doc_freq":3,"max_doc_freq":3,"min_word_len":3,"max_word_len":3,"boost_terms":3,"boost":0.5}}}';
         $this->assertEquals($expectedData, $data);
 
         $resp = $req->execute();
 
     }
+
 
     /**
      * @covers sherlock\Sherlock\components\queries\MoreLikeThisField::field
@@ -702,35 +985,34 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      * @covers sherlock\Sherlock\requests\SearchRequest::query
      * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
      */
-        public function testMoreLikeThisField()
+    public function testMoreLikeThisField()
     {
         $req = $this->object->search();
         $req->index("testqueries")->type("test");
         $query = Sherlock::queryBuilder()->MoreLikeThisField()->field("testField")
-                ->like_text("testString")
-                ->min_term_freq(3)
-                ->max_query_terms(3)
-                ->percent_terms_to_match(0.5)
-                ->stop_words(array("test", "test2"))
-                ->min_doc_freq(3)
-                ->max_doc_freq(3)
-                ->min_word_len(3)
-                ->max_word_len(3)
-                ->boost_terms(3)
-                ->boost(0.5)
-                ;
+            ->like_text("testString")
+            ->min_term_freq(3)
+            ->max_query_terms(3)
+            ->percent_terms_to_match(0.5)
+            ->stop_words(array("test", "test2"))
+            ->min_doc_freq(3)
+            ->max_doc_freq(3)
+            ->min_word_len(3)
+            ->max_word_len(3)
+            ->boost_terms(3)
+            ->boost(0.5);
 
-        \Analog\Analog::log($query->toJSON(), \Analog\Analog::DEBUG);
 
         $req->query($query);
 
-        $data = $req->toJSON();
+        $data         = $req->toJSON();
         $expectedData = '{"query":{"more_like_this_field":{"testField":{"like_text":"testString","min_term_freq":3,"max_query_terms":3,"percent_terms_to_match":0.5,"stop_words":["test","test2"],"min_doc_freq":3,"max_doc_freq":3,"min_word_len":3,"max_word_len":3,"boost_terms":3,"boost":0.5}}}}';
         $this->assertEquals($expectedData, $data);
 
         $resp = $req->execute();
 
     }
+
 
     /**
      * @todo Build valid test for Nested objects
@@ -740,26 +1022,25 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      * @covers sherlock\Sherlock\requests\SearchRequest::query
      * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
      */
-        public function testNested()
+    public function testNested()
     {
         $req = $this->object->search();
         $req->index("testqueries")->type("test");
         $query = Sherlock::queryBuilder()->Nested()->path("testString")
-                ->score_mode("avg")
-                ->query(Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"))
-                ;
+            ->score_mode("avg")
+            ->query(Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"));
 
-        \Analog\Analog::log($query->toJSON(), \Analog\Analog::DEBUG);
 
         $req->query($query);
 
-        $data = $req->toJSON();
+        $data         = $req->toJSON();
         $expectedData = '{"query":{"nested":{"path":"testString","score_mode":"avg","query":{"term":{"auxillary":{"value":"auxillary"}}}}}}';
         $this->assertEquals($expectedData, $data);
 
         //$resp = $req->execute();
 
     }
+
 
     /**
      * @covers sherlock\Sherlock\components\queries\Prefix::field
@@ -771,29 +1052,28 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      * @covers sherlock\Sherlock\requests\SearchRequest::query
      * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
      */
-        public function testPrefix()
+    public function testPrefix()
     {
         $req = $this->object->search();
         $req->index("testqueries")->type("test");
         $query = Sherlock::queryBuilder()->Prefix()->field("testString")
-                ->value("testString")
-                ->boost(0.5)
-                ->analyzer("testString")
-                ->slop(3)
-                ->max_expansions(3)
-                ;
+            ->value("testString")
+            ->boost(0.5)
+            ->analyzer("testString")
+            ->slop(3)
+            ->max_expansions(3);
 
-        \Analog\Analog::log($query->toJSON(), \Analog\Analog::DEBUG);
 
         $req->query($query);
 
-        $data = $req->toJSON();
+        $data         = $req->toJSON();
         $expectedData = '{"query":{"prefix":{"testString":{"value":"testString","boost":0.5,"analyzer":"testString","slop":3,"max_expansions":3}}}}';
         $this->assertEquals($expectedData, $data);
 
         $resp = $req->execute();
 
     }
+
 
     /**
      * @covers sherlock\Sherlock\components\queries\QueryString::query
@@ -816,40 +1096,39 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      * @covers sherlock\Sherlock\requests\SearchRequest::query
      * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
      */
-        public function testQueryString()
+    public function testQueryString()
     {
         $req = $this->object->search();
         $req->index("testqueries")->type("test");
         $query = Sherlock::queryBuilder()->QueryString()->query("testString")
-                ->default_field("_all")
-                ->boost(0.5)
-                ->enable_position_increments(3)
-                ->default_operator("OR")
-                ->analyzer("default")
-                ->allow_leading_wildcard(3)
-                ->lowercase_expanded_terms(3)
-                ->fuzzy_min_sim(0.5)
-                ->fuzzy_prefix_length(3)
-                ->lenient(true)
-                ->phrase_slop(3)
-                ->analyze_wildcard(true)
-                ->auto_generate_phrase_queries(3)
-                ->rewrite("constant_score_default")
-                ->quote_analyzer("standard")
-                ->quote_field_suffix(".unstemmed")
-                ;
+            ->default_field("_all")
+            ->boost(0.5)
+            ->enable_position_increments(3)
+            ->default_operator("OR")
+            ->analyzer("default")
+            ->allow_leading_wildcard(3)
+            ->lowercase_expanded_terms(3)
+            ->fuzzy_min_sim(0.5)
+            ->fuzzy_prefix_length(3)
+            ->lenient(true)
+            ->phrase_slop(3)
+            ->analyze_wildcard(true)
+            ->auto_generate_phrase_queries(3)
+            ->rewrite("constant_score_default")
+            ->quote_analyzer("standard")
+            ->quote_field_suffix(".unstemmed");
 
-        \Analog\Analog::log($query->toJSON(), \Analog\Analog::DEBUG);
 
         $req->query($query);
 
-        $data = $req->toJSON();
+        $data         = $req->toJSON();
         $expectedData = '{"query":{"query_string":{"query":"testString","default_field":"_all","boost":0.5,"enable_position_increments":3,"default_operator":"OR","analyzer":"default","allow_leading_wildcard":3,"lowercase_expanded_terms":3,"fuzzy_min_sim":0.5,"fuzzy_prefix_length":3,"lenient":true,"phrase_slop":3,"analyze_wildcard":true,"auto_generate_phrase_queries":3,"quote_analyzer":"standard","quote_field_suffix":".unstemmed"},"rewrite":"constant_score_default"}}';
         $this->assertEquals($expectedData, $data);
 
         $resp = $req->execute();
 
     }
+
 
     /**
      * @covers sherlock\Sherlock\components\queries\QueryStringMultiField::query
@@ -874,41 +1153,46 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      * @covers sherlock\Sherlock\requests\SearchRequest::query
      * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
      */
-        public function testQueryStringMultiField()
+    public function testQueryStringMultiField()
     {
         $req = $this->object->search();
         $req->index("testqueries")->type("test");
         $query = Sherlock::queryBuilder()->QueryStringMultiField()->query("testString")
-                ->fields(array(Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"), Sherlock::queryBuilder()->Term()->field("auxillary2")->term("auxillary2")))
-                ->boost(0.5)
-                ->enable_position_increments(true)
-                ->default_operator("AND")
-                ->analyzer("default")
-                ->allow_leading_wildcard(true)
-                ->lowercase_expanded_terms(3)
-                ->fuzzy_min_sim(0.5)
-                ->fuzzy_prefix_length(3)
-                ->lenient(3)
-                ->phrase_slop(3)
-                ->analyze_wildcard(true)
-                ->auto_generate_phrase_queries(true)
-                ->rewrite("constant_score_default")
-                ->quote_analyzer("standard")
-                ->quote_field_suffix(".unstemmed")
-                ->use_dis_max(true)
-                ->tie_breaker(3);
+            ->fields(
+                array(
+                    Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"),
+                    Sherlock::queryBuilder()->Term()->field("auxillary2")->term("auxillary2")
+                )
+            )
+            ->boost(0.5)
+            ->enable_position_increments(true)
+            ->default_operator("AND")
+            ->analyzer("default")
+            ->allow_leading_wildcard(true)
+            ->lowercase_expanded_terms(3)
+            ->fuzzy_min_sim(0.5)
+            ->fuzzy_prefix_length(3)
+            ->lenient(3)
+            ->phrase_slop(3)
+            ->analyze_wildcard(true)
+            ->auto_generate_phrase_queries(true)
+            ->rewrite("constant_score_default")
+            ->quote_analyzer("standard")
+            ->quote_field_suffix(".unstemmed")
+            ->use_dis_max(true)
+            ->tie_breaker(3);
 
-        \Analog\Analog::log($query->toJSON(), \Analog\Analog::DEBUG);
 
         $req->query($query);
 
-        $data = $req->toJSON();
+        $data         = $req->toJSON();
         $expectedData = '{"query":{"query_string":{"query":"testString","fields":[{},{}],"boost":0.5,"enable_position_increments":true,"default_operator":"AND","analyzer":"default","allow_leading_wildcard":true,"lowercase_expanded_terms":3,"fuzzy_min_sim":0.5,"fuzzy_prefix_length":3,"lenient":3,"phrase_slop":3,"analyze_wildcard":true,"auto_generate_phrase_queries":true,"quote_analyzer":"standard","quote_field_suffix":".unstemmed","use_dis_max":true,"tie_breaker":3},"rewrite":"constant_score_default"}}';
         $this->assertEquals($expectedData, $data);
 
         $resp = $req->execute();
 
     }
+
 
     /**
      * @covers sherlock\Sherlock\components\queries\Range::field
@@ -920,23 +1204,21 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      * @covers sherlock\Sherlock\requests\SearchRequest::query
      * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
      */
-        public function testRange()
+    public function testRange()
     {
         $req = $this->object->search();
         $req->index("testqueries")->type("test");
         $query = Sherlock::queryBuilder()->Range()->field("testString")
-                ->from("testString")
-                ->to("testString")
-                ->include_lower(true)
-                ->include_upper(true)
-                ->boost(0.5)
-                ;
+            ->from("testString")
+            ->to("testString")
+            ->include_lower(true)
+            ->include_upper(true)
+            ->boost(0.5);
 
-        \Analog\Analog::log($query->toJSON(), \Analog\Analog::DEBUG);
 
         $req->query($query);
 
-        $data = $req->toJSON();
+        $data         = $req->toJSON();
         $expectedData = '{"query":{"range":{"testString":{"from":"testString","to":"testString","include_lower":true,"include_upper":true,"boost":0.5}}}}';
         $this->assertEquals($expectedData, $data);
 
@@ -944,31 +1226,31 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 
     }
 
+
     /**
      * @covers sherlock\Sherlock\components\queries\Term::field
      * @covers sherlock\Sherlock\components\queries\Term::term
      * @covers sherlock\Sherlock\requests\SearchRequest::query
      * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
      */
-        public function testTerm()
+    public function testTerm()
     {
         $req = $this->object->search();
         $req->index("testqueries")->type("test");
         $query = Sherlock::queryBuilder()->Term()->field("testString")
-                ->term("testString")
-                ;
+            ->term("testString");
 
-        \Analog\Analog::log($query->toJSON(), \Analog\Analog::DEBUG);
 
         $req->query($query);
 
-        $data = $req->toJSON();
+        $data         = $req->toJSON();
         $expectedData = '{"query":{"term":{"testString":{"value":"testString"}}}}';
         $this->assertEquals($expectedData, $data);
 
         $resp = $req->execute();
 
     }
+
 
     /**
      * @covers sherlock\Sherlock\components\queries\Terms::field
@@ -977,20 +1259,18 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      * @covers sherlock\Sherlock\requests\SearchRequest::query
      * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
      */
-        public function testTerms()
+    public function testTerms()
     {
         $req = $this->object->search();
         $req->index("testqueries")->type("test");
         $query = Sherlock::queryBuilder()->Terms()->field("testString")
-                ->terms('term', 'term2')
-                ->minimum_match(3)
-                ;
+            ->terms('term', 'term2')
+            ->minimum_match(3);
 
-        \Analog\Analog::log($query->toJSON(), \Analog\Analog::DEBUG);
 
         $req->query($query);
 
-        $data = $req->toJSON();
+        $data         = $req->toJSON();
         $expectedData = '{"query":{"terms":{"testString":["term","term2"],"minimum_match":3}}}';
         $this->assertEquals($expectedData, $data);
 
@@ -1000,20 +1280,19 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $req->index("testqueries")->type("test");
         $query = Sherlock::queryBuilder()->Terms()->field("testString")
             ->terms(array('term', 'term2'))
-            ->minimum_match(3)
-        ;
+            ->minimum_match(3);
 
-        \Analog\Analog::log($query->toJSON(), \Analog\Analog::DEBUG);
 
         $req->query($query);
 
-        $data = $req->toJSON();
+        $data         = $req->toJSON();
         $expectedData = '{"query":{"terms":{"testString":["term","term2"],"minimum_match":3}}}';
         $this->assertEquals($expectedData, $data);
 
         $resp = $req->execute();
 
     }
+
 
     /**
      * @todo construct proper test for TopChildren
@@ -1025,28 +1304,27 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      * @covers sherlock\Sherlock\requests\SearchRequest::query
      * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
      */
-        public function testTopChildren()
+    public function testTopChildren()
     {
         $req = $this->object->search();
         $req->index("testqueries")->type("test");
         $query = Sherlock::queryBuilder()->TopChildren()->type("testString")
-                ->query(Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"))
-                ->score("max")
-                ->factor(3)
-                ->incremental_factor(3)
-                ;
+            ->query(Sherlock::queryBuilder()->Term()->field("auxillary")->term("auxillary"))
+            ->score("max")
+            ->factor(3)
+            ->incremental_factor(3);
 
-        \Analog\Analog::log($query->toJSON(), \Analog\Analog::DEBUG);
 
         $req->query($query);
 
-        $data = $req->toJSON();
+        $data         = $req->toJSON();
         $expectedData = '{"query":{"top_children":{"type":"testString","query":{"term":{"auxillary":{"value":"auxillary"}}},"score":"max","factor":3,"incremental_factor":3}}}';
         $this->assertEquals($expectedData, $data);
 
         //$resp = $req->execute();
 
     }
+
 
     /**
      * @covers sherlock\Sherlock\components\queries\Wildcard::field
@@ -1055,26 +1333,25 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      * @covers sherlock\Sherlock\requests\SearchRequest::query
      * @covers sherlock\Sherlock\requests\SearchRequest::toJSON
      */
-        public function testWildcard()
+    public function testWildcard()
     {
         $req = $this->object->search();
         $req->index("testqueries")->type("test");
         $query = Sherlock::queryBuilder()->Wildcard()->field("testString")
-                ->value("testString")
-                ->boost(0.5)
-                ;
+            ->value("testString")
+            ->boost(0.5);
 
-        \Analog\Analog::log($query->toJSON(), \Analog\Analog::DEBUG);
 
         $req->query($query);
 
-        $data = $req->toJSON();
+        $data         = $req->toJSON();
         $expectedData = '{"query":{"wildcard":{"testString":{"value":"testString","boost":0.5}}}}';
         $this->assertEquals($expectedData, $data);
 
         $resp = $req->execute();
 
     }
+
 
     /**
      * @covers sherlock\Sherlock\components\sorts\Field::name
@@ -1100,13 +1377,45 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 
         $req->sort($sortValues);
 
-        Analog::log($req->toJSON(), \Analog\Analog::DEBUG);
-
         $data = $req->toJSON();
 
         $expectedData = '{"query":{"match_all":{"boost":0.5}},"sort":[{"sort1":{"sort_mode":null,"order":"asc","missing":null,"ignore_unmapped":null}},{"sort2":{"sort_mode":null,"order":"desc","missing":null,"ignore_unmapped":null}},{"_score":{"sort_mode":null,"order":null,"missing":null,"ignore_unmapped":null}},{"sort3":{"sort_mode":null,"order":null,"missing":"_last","ignore_unmapped":null}},{"sort3":{"sort_mode":null,"order":null,"missing":null,"ignore_unmapped":true}}]}';
         $this->assertEquals($expectedData, $data);
 
     }
+
+
+    public function testRawRequest()
+    {
+        $req = $this->object->raw();
+        $req->uri("testindex/_search")->method("post")->body('{"query":{"match_all":{"boost":0.5}}}');
+
+        $data         = $req->toJSON();
+        $expectedData = '{"query":{"match_all":{"boost":0.5}}}';
+        $this->assertEquals($expectedData, $data);
+
+        $resp = $req->execute();
+
+        print_r($resp);
+
+    }
+
+
+    public function testRawQueryBuilding()
+    {
+
+        $req = $this->object->search();
+        $req->index("test3")->type("benchmark");
+
+        $expectedData = array("query" => array("term" => array("field1" => array("value" => "town"))));
+
+        $req->query(Sherlock::queryBuilder()->Raw($expectedData['query']));
+        $data = $req->toJSON();
+
+        $expectedData = json_encode($expectedData);
+        $this->assertEquals($expectedData, $data);
+
+    }
+
 
 }

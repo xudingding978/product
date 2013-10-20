@@ -24,32 +24,36 @@ class MappingPropertyWrapper
      * @var \Sherlock\components\MappingInterface
      */
     protected $property;
-       protected $type;
+    protected $type;
+
 
     /**
      * @param  string                                             $type
+     *
      * @throws \Sherlock\common\exceptions\BadMethodCallException
      */
     public function __construct($type)
     {
         if (!isset($type)) {
-            \Analog\Analog::log("Type must be set for mapping property.", \Analog\Analog::ERROR);
-            throw new \Sherlock\common\exceptions\BadMethodCallException("Type must be set for mapping property");
+                        throw new \Sherlock\common\exceptions\BadMethodCallException("Type must be set for mapping property");
         }
 
         $this->type = $type;
 
     }
+
+
     public function __call($name, $arguments)
     {
-        $class = '\\Sherlock\\components\\mappings\\'.$name;
+        $class = '\\Sherlock\\components\\mappings\\' . $name;
 
         //Type can be passed in the with constructor, used for multi-mappings on index creation
         //Argument[0] is an optional hashmap to define properties via an array
-        if (count($arguments) > 0)
-            $this->property =  new $class($this->type, $arguments[0]);
-        else
-            $this->property =  new $class($this->type);
+        if (count($arguments) > 0) {
+            $this->property = new $class($this->type, $arguments[0]);
+        } else {
+            $this->property = new $class($this->type);
+        }
 
         return $this->property;
     }

@@ -123,6 +123,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
             }, 200);
 
         });
+        
     },
     removeMessage: function(Message_id)
     {

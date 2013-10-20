@@ -13,7 +13,7 @@
 HubStar.NewConversationController = Ember.Controller.extend({
     contentMsg: null,
     commenter_photo_url: null,
-    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings'],
+    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings','conversation'],
     isUploadPhoto:false,
     init: function()
     {
@@ -22,7 +22,8 @@ HubStar.NewConversationController = Ember.Controller.extend({
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
             this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
         }       
-    },     
+    },
+            
     addComment: function() {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
@@ -67,34 +68,9 @@ HubStar.NewConversationController = Ember.Controller.extend({
             var dataNew = new Array();
 
             requiredBackEnd('conversations', 'CreateConversation', tempComment, 'POST', function(params) {
-//    //params  is just one message 
-//                dataNew["message_id"] = params["message_id"];
-//                dataNew["reply_id"] = params["replyMessageCollection"][0]["reply_id"];
-//                dataNew["user_id"] = params["replyMessageCollection"][0]["user_id"];
-//                dataNew["time_stamp"] = params["replyMessageCollection"][0]["time_stamp"];
-//                dataNew["msg"] = params["replyMessageCollection"][0]["msg"];
-//                dataNew["user_name"] = params["replyMessageCollection"][0]["user_name"];
-//                dataNew["photo_url_large"] = params["replyMessageCollection"][0]["photo_url_large"];
-//                dataNew["url"] = params["replyMessageCollection"][0]["url"];
-//                dataNew["enableToEdit"] = false;
-//                if (params["replyMessageCollection"][0]["user_id"] === localStorage.loginStatus)
-//                {
-//                    dataNew["isUserself"] = true;
-//                }
-//                if (params["replyMessageCollection"][0]["url"] !== null)
-//                {
-//                    dataNew["isUrl"] = true;
-//                }
-//                else
-//                {
-//                    dataNew["isUrl"] = false;
-//                }
-//                dataNew["replyMessageCollection"] = new Array();
-//                that.get("contentMsg").insertAt(0, dataNew);
-//                 that.set("isUploadPhoto",false);
-//                dataNew = new Array();
-//
-//
+
+                that.get('controllers.conversation').getClientId(that.get("currentUser").get('id'));
+                that.set("isUploadPhoto",false);
                 setTimeout(function() {
                     $('#masonry_user_container').masonry("reload");
                 }, 200);

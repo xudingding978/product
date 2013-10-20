@@ -1,26 +1,31 @@
-       <div class='each-conversation easing'>
+
+<div id="conversationContent" class="">
+{{#each conversationContent}} 
+<div class='each-conversation easing' {{action selectConversation this.conversationID}}>
 
             <div style="  padding: 15px 0 10px 95px;position: relative;">
-                <div style='position: absolute;right: 35px;top: 40px;color: #888;'><i class='icon-trash'></i></div>
-                <a class="" style="position: absolute; top: 18px;margin: 0 0 0 -55px;" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}}>
+                <div style='position: absolute;right: 35px;top: 40px;color: #888;' {{action deleteConversationItem this.conversationID}}><i class='icon-trash'></i></div>
+                <a class="" style="position: absolute; top: 18px;margin: 0 0 0 -55px;" >
                    <img class=""  style="border-radius: 50%; width: 40px; height: 40px; border: 1px solid #f3f3f3;" {{bindAttr src= this.commenter_photo_url}} /> 
                 </a>
                 <div style="">
                     <div class="comment-namentime">
                         <div class="namentime_position">
-                            <a class="comment-username" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}} >
-                               Kingsley Huang
+                            <a class="comment-username"  >
+                               {{this.names}}
                         </a>
                         <div class="posttime-container">
-                            <span class="posttime">2013 Aug 16, 8:23am</span>
+                            <span class="posttime">{{this.time_stamp}}</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="comment-content" style=" width: 400px; height: 35px; text-overflow: ellipsis;">
-                    aldjofalkd adlsfjalkdjf alsdjflak alkdjfalk alsdkfjalksd asldkfjalksd lasdjflkas laksdjflkasjd alsdfjalksd laksdjflaksdjl alsdkjfalksd aslkdjflaks lasdkjflkas 
+                    {{this.msg}}
                 </div>
             </div>
         </div>
 
     </div>
+{{/each}}
+</div>

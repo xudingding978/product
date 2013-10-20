@@ -40,9 +40,51 @@
     </div>
 
 
+    <div  id="content_conversationItem" class='Message-Board_comment-container' style=" ">
+        {{#each conversationItemContent}}
+        <div class="Message-Board_comment-item" style=''>         
+            <div class="comment-position">   
+                <a class="profilepic-comment-container"   href="#/users/{{unbound this.sender_id}}">
+                    <img class="profilepic_comment" {{bindAttr src= this.sender_photo_url_large}} />
+                </a>
+                <div style="">
+                    <div class="comment-namentime">
+                        <div class="namentime_position">
+                            <a class="comment-username"   href="#/users/{{unbound this.sender_id}}">
+                                {{this.name }} 
+                            </a>
+                            <div class="posttime-container">
+                                <span class="posttime">{{this.time_stamp}}</span>
+                            </div>
+                        </div>                      
+                    </div>
+                    <div class="comment-content">
+                        {{this.msg}}<br>
+                        {{#if this.isUrl }}
+                        <div style='margin: 5px auto;max-width: 300px;max-height: 300px;float: left;'>
+                            <img {{bindAttr src= this.url}} style="border: 4px solid #fff;"/>
+                        </div>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                $(function() {
+                    var $container = $('#masonry_user_container');
+                    window.setTimeout(function() {
+                        $container.masonry();
+                        $container.masonry('reloadItems');
+                    }, 10);
+                });
+            </script>
+        </div>
+        
+        {{/each}}
+        
+        
+    </div>
 </div>
-
-
 <script>
     $(function() {
         var $container = $('#masonry_user_container');

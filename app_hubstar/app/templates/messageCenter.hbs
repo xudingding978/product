@@ -7,7 +7,7 @@
         </div>
 
         <div class='Message-menu-messages-container' >
-             <div class='each-conversation easing' {{action selectMessage}}>
+             <div class='each-conversation easing' {{action selectMessage controller.id}}>
                 <div style="color: #555;font-size: 20px;font-weight: bold;line-height: 50px;float: left;margin: 25px 0 0px 50px;">
                     <i class="icon-comments-alt" style='margin-right: 20px;font-size: 23px;' >&nbsp;</i>Board</div>
             </div>
@@ -37,4 +37,6 @@
         {{#if isNewConversation}}
         {{render newConversation}}
         {{/if}}
-    
+     {{#if isConversationItem}}
+        {{render conversationItem}}
+        {{/if}}

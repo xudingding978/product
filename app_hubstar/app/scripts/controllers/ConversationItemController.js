@@ -25,6 +25,7 @@ HubStar.ConversationItemController = Ember.Controller.extend({
         }
     },
     getClientId: function(id) {
+
         var conversationContent = this.get('controllers.conversation').get("conversationContent");
         this.set("id", id);
         for (var i = 0; i < conversationContent.length; i++)
@@ -38,7 +39,7 @@ HubStar.ConversationItemController = Ember.Controller.extend({
         this.set("conversationItemContent", this.get("conversationItem").get("ConversationCollection"));
         setTimeout(function() {
             $('#masonry_user_container').masonry("reloadItems");
-            $("#content_conversationItem").mCustomScrollbar({
+            $("#content_conversationItem_"+id).mCustomScrollbar({
                 scrollButtons: {
                     enable: false,
                     scrollSpeed: "auto"

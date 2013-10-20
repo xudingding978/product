@@ -39,13 +39,27 @@ HubStar.MessageController = Ember.Controller.extend({
     editingCommentData: function(id, msg) {
 
 
-
+        var enableEditCount = 0;
         for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
         {
-            if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id") === id)
+
+            var enableEdit = this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("enableToEdit");
+            if (enableEdit === true)
             {
-                this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("enableToEdit", true);
+                enableEditCount = 1;
                 break;
+            }
+
+        }
+        if (enableEditCount === 0)
+        {
+            for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
+            {
+                if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id") === id)
+                {
+                    this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("enableToEdit", true);
+                    break;
+                }
             }
         }
 
@@ -54,15 +68,30 @@ HubStar.MessageController = Ember.Controller.extend({
 
     },
     editingReplyData: function(id, msg) {
+        var enableEditReply = 0;
         for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
         {
             for (var j = 0; j < this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").length; j++)
-                if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("reply_id") === id)
+            {
+                var enableToReply = this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("enableToEdit");
+                if (enableToReply === true)
                 {
-                    this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("enableToEdit", true);
-                    this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyEdit", false);
-                    break;
+                    enableEditReply = 1;
                 }
+            }
+        }
+        if (enableEditReply === 0)
+        {
+            for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
+            {
+                for (var j = 0; j < this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").length; j++)
+                    if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("reply_id") === id)
+                    {
+                        this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("enableToEdit", true);
+                        this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyEdit", false);
+                        break;
+                    }
+            }
         }
 
 
@@ -94,7 +123,8 @@ HubStar.MessageController = Ember.Controller.extend({
                         {
                             that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").removeObject(that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j));
 
-                            var replyLength = that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyCount");;
+                            var replyLength = that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyCount");
+                            ;
                             if (replyLength >= 1)
                             {
                                 replyLength = replyLength - 1;
@@ -116,12 +146,12 @@ HubStar.MessageController = Ember.Controller.extend({
                         if ((that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("reply_id") === reply_id) && (
                                 that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("user_id") === commenter_id)) {
                             var replyLength = that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyCount");
-                              if (replyLength >= 1)
+                            if (replyLength >= 1)
                             {
                                 replyLength = replyLength - 1;
                             }
                             that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyCount", replyLength);
-        
+
                             that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").removeObject(that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j));
                             break;
                         }
@@ -200,8 +230,8 @@ HubStar.MessageController = Ember.Controller.extend({
                         dataNew["url"] = params["replyMessageCollection"][0]["url"];
                         dataNew["enableToEdit"] = false;
 
-                        var replyLength = that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyCount")+1;
-                        that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyCount",replyLength);
+                        var replyLength = that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyCount") + 1;
+                        that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyCount", replyLength);
 
                         that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyCount", replyLength);
                         if (params["replyMessageCollection"][0]["user_id"] === localStorage.loginStatus)

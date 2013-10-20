@@ -66,7 +66,8 @@ HubStar.EditReplyController = Ember.Controller.extend({
             for (var j = 0; j < this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").length; j++)
                 if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("reply_id") === id)
                 {
-                    this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("url", "");
+                    this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("url",null);
+                    this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("isUrl",false);
                     break;
                 }
         }
@@ -117,7 +118,8 @@ HubStar.EditReplyController = Ember.Controller.extend({
                         var imageType = imageName[imageName.length - 1];
                     }
                     var replyContent = this.get("replyContent");
-                    var tempComment = [owner_id, date.toString(), replyContent, newStyleImage, imageType, imageStyleName, id, replyID];
+                    var url =  this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("url");
+                    var tempComment = [owner_id, date.toString(), replyContent, newStyleImage, imageType, imageStyleName, id, replyID,url];
 
                     tempComment = JSON.stringify(tempComment);
                     var that = this;

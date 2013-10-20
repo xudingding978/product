@@ -53,7 +53,8 @@ HubStar.EditMessageController = Ember.Controller.extend({
         {
             if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id") === id)
             {
-                this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("url", "");
+                this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("url", null);
+                 this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("isUrl", false);
                 break;
             }
         }
@@ -100,8 +101,8 @@ HubStar.EditMessageController = Ember.Controller.extend({
                     var imageType = imageName[imageName.length - 1];
                 }
                 var messageContent = this.get("messageContent");
-
-                var tempComment = [owner_id, date.toString(), messageContent, newStyleImage, imageType, imageStyleName, id, replyID];
+               var url = this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("url");
+                var tempComment = [owner_id, date.toString(), messageContent, newStyleImage, imageType, imageStyleName, id, replyID,url];
 
                 tempComment = JSON.stringify(tempComment);
                 var that = this;

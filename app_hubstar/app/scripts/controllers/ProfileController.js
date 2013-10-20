@@ -228,7 +228,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                     
                     popUpGoogleMap: function(){
                 
-          this.set('popUpMap', true);
+      this.set('popUpMap', true);
                 this.set('isStatic',false);
            geocoder = new google.maps.Geocoder();          
     //    var map_canvas = document.getElementById('map_canvas');
@@ -242,12 +242,17 @@ HubStar.ProfileController = Ember.ObjectController.extend({
           mapTypeId: google.maps.MapTypeId.ROADMAP
         } 
         
-        var map = new google.maps.Map(document.getElementById('map_canvas'), map_options)
+           setTimeout(function() {
+              var map = new google.maps.Map(document.getElementById('map_canvas_pop'), map_options)
          var marker = new google.maps.Marker({    
               map: map,     
               position: results[0].geometry.location,    
                title:'Your position'  
           });   
+        }, 200);
+        
+        
+      
     
             });
         

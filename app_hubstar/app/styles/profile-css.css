@@ -955,11 +955,44 @@ textarea.add-interests{
 .Add-review .message-btn{
     height: 40px; 
     line-height: 40px;
-    
+
     width: 33%;
 }
 
 .no-effect, .no-effect:hover, .no-effect:focus{    
     box-shadow: none;
     border: none;
+}
+
+.review-list{
+    width: 535px; 
+    height: 80px; 
+    position: absolute; 
+    margin: 10px auto; 
+    background-color: transparent; 
+    border: 0;
+}
+
+.review-list-container > .review-list:nth-child(odd) > .review-list-profile-pic{float: left}
+.review-list-container > .review-list:nth-child(even) > .review-list-profile-pic{float: right}
+
+.review-list-profile-pic{
+    height: 80px;
+    width: 80px;
+    z-index: 22;
+    position: relative; 
+    border: 3px solid #f3f3f3; 
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 0 5px #aaa;
+}
+
+.review-list-content{
+    top: 50px; 
+    height: 70px;
+    background-color: #fff;
+    border-radius: 3px;
+    width: 490px;
+    margin: 5px auto;
+    border: 1px solid #ccc;
 }

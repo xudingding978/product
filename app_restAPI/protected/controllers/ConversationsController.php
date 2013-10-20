@@ -48,8 +48,8 @@ class ConversationsController extends Controller {
             $tempMega_currentUser = $cb->get($docID_currentUser);
             $mega_currentUser = CJSON::decode($tempMega_currentUser, true);
 
-
             $participation_id = explode(",", $mega_currentUser["participation_ids"]);
+
             $participationID = "";
             for ($i = 0; $i < sizeof($participation_id); $i++) {
 
@@ -65,8 +65,9 @@ class ConversationsController extends Controller {
                     }
                 }
             }
-            $mega_currentUser["participation_ids"] = $participationID;
 
+
+            $mega_currentUser["participation_ids"] = $participationID;
             $commenterInfo = $this->getDomain() . "/users/" . $owner_id;
             $cbs = $this->couchBaseConnection();
             $commenterInfoDeep = $cbs->get($commenterInfo); // get the old user record from the database according to the docID string
@@ -78,12 +79,18 @@ class ConversationsController extends Controller {
                     array_splice($oldcommenterInfo['user'][0]["conversations"], $i, 1);
                 }
             }
-            
-            if ($cb->set($docID_currentUser, CJSON::encode($mega_currentUser))) {
-                return $mega_currentUser;
+
+            if ($cb->set($commenterInfo, CJSON::encode($oldcommenterInfo))) {
+                
             } else {
                 
             }
+            if ($cb->set($docID_currentUser, CJSON::encode($mega_currentUser))) {
+                
+            } else {
+                
+            }
+            return true;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
             echo json_decode(file_get_contents('php://input'));
@@ -238,7 +245,6 @@ class ConversationsController extends Controller {
         $cb = $this->couchBaseConnection();
         $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
         $oldRecordDeep = CJSON::decode($oldDeep, true);
-
     }
 
     public function actionCreateConversation() {

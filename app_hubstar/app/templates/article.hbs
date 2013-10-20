@@ -81,10 +81,8 @@
                     <span class="posttime">{{date controller.megaResouce.created}}</span>
                 </div>
 
-                <div class="contactmebtn hint--rounded hint--left" data-hint="Contact us!" style="position: absolute; right: 15px; top: 23px; bottom: auto;">
-                    <a class="contactmeicon" href="#" style=" width: 35px; height: 35px;" {{action editingContactForm }} >
-                       <img src="../images/mail_24dark.png" style="vertical-align: 6px; width: 15px;"/>
-                    </a>
+                <div class="contactmebtn hint--left hint--rounded easing" data-hint="Contact us!" style="position: absolute; right: 15px; top: 23px; bottom: auto;">
+                    <a class="contactmeicon easing" {{action editingContactForm }}><i class="icon-envelope easing" style="font-size: 18px;"></i></a>
                 </div>
             </div>
             {{#if controller.contact}}

@@ -522,10 +522,19 @@ div.search-loading-invisible{
     background-color: rgba(0,0,0,0.1);
 }
 
+.edit-object-ul:before{
+    content: "";
+    position: absolute;
+    left: 65px;
+    top: -20px;
+    border-color: transparent transparent #f3f3f3 transparent;
+    border-style: solid;
+    border-width: 10px 10px 10px 10px;
+    z-index: -1;	
+}
 
-
-
-
+.edit-object > .edit-object-ul:before{left: 15px;}
+.top-controlbar > .edit-object-ul:before{left: 15px;}
 
 
 .head {

@@ -14,6 +14,7 @@ use Sherlock\components;
  * @method \Sherlock\components\filters\GeoDistance distance() distance(\string $value)
  * @method \Sherlock\components\filters\GeoDistance lat() lat(\float $value)
  * @method \Sherlock\components\filters\GeoDistance lon() lon(\float $value)
+ * @method \Sherlock\components\filters\GeoDistance field() field(\float $value) Default: pin.location
  * @method \Sherlock\components\filters\GeoDistance _cache() _cache(\bool $value) Default: false
 
  */
@@ -22,24 +23,26 @@ class GeoDistance extends \Sherlock\components\BaseComponent implements \Sherloc
     public function __construct($hashMap = null)
     {
         $this->params['_cache'] = false;
+        $this->params['field'] = 'pin.location';
 
         parent::__construct($hashMap);
     }
 
+
     public function toArray()
     {
-        $ret = array (
-  'geo_distance' =>
-  array (
-    'distance' => $this->params["distance"],
-    'pin.location' =>
-    array (
-      'lat' => $this->params["lat"],
-      'lon' => $this->params["lon"],
-    ),
-    '_cache' => $this->params["_cache"],
-  ),
-);
+        $ret = array(
+            'geo_distance' =>
+            array(
+                'distance'     => $this->params["distance"],
+                $this->params["field"] =>
+                array(
+                    'lat' => $this->params["lat"],
+                    'lon' => $this->params["lon"],
+                ),
+                '_cache'       => $this->params["_cache"],
+            ),
+        );
 
         return $ret;
     }

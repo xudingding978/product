@@ -16,7 +16,6 @@
 
 namespace Aws\S3\Integration;
 
-use Aws\DynamoDb\DynamoDbClient;
 use Aws\S3\Model\ClearBucket;
 use Guzzle\Http\EntityBody;
 
@@ -49,8 +48,9 @@ class S3_20060301_Test extends \Aws\Tests\IntegrationTestCase
         }
 
         // Wait until the bucket does not exist before starting the test
-        self::log('Waiting until the bucket does not exist');
+        self::log('Waiting until the bucket does not exist and sleeping for a few seconds');
         $client->waitUntilBucketNotExists(array('Bucket' => $bucket));
+        sleep(5);
         self::log('Beginning test');
     }
 
@@ -222,7 +222,12 @@ class S3_20060301_Test extends \Aws\Tests\IntegrationTestCase
         $pathToFile = __FILE__;
         // @begin
 
-        // Upload an object by streaming the contents of a PHP stream
+        // Upload an object by streaming the contents of a PHP stream.
+        // Note: You must supply a "ContentLength" parameter to an
+        // operation if the steam does not respond to fstat() or if the
+        // fstat() of stream does not provide a valid the 'size' attribute.
+        // For example, the "http" stream wrapper will require a ContentLength
+        // parameter because it does not respond to fstat().
         $client->putObject(array(
             'Bucket' => $bucket,
             'Key'    => 'data_from_stream.txt',
@@ -506,7 +511,79 @@ class S3_20060301_Test extends \Aws\Tests\IntegrationTestCase
 
         // Create a signed URL from a completely custom HTTP request that
         // will last for 10 minutes from the current time
-        $signedUrl = $this->client->createPresignedUrl($request, '+10 minutes');
+        $signedUrl = $client->createPresignedUrl($request, '+10 minutes');
+
+        echo file_get_contents($signedUrl);
+        // > Hello!
+
+        // @end
+        $this->assertEquals('Hello!', $this->getActualOutput());
+    }
+
+    /**
+     * Create plain and presigned URLs for an object
+     *
+     * @depends testCreatePresignedUrl
+     * @example Aws\S3\S3Client::getObjectUrl
+     */
+    public function testGetObjectUrl()
+    {
+        $this->client->waitUntilBucketExists(array('Bucket' => $this->bucket));
+        $client = $this->client;
+        $bucket = $this->bucket;
+        // @begin
+
+        // Get a plain URL for an Amazon S3 object
+        $plainUrl = $client->getObjectUrl($bucket, 'data.txt');
+        // > https://my-bucket.s3.amazonaws.com/data.txt
+
+        // Get a pre-signed URL for an Amazon S3 object
+        $signedUrl = $client->getObjectUrl($bucket, 'data.txt', '+10 minutes');
+        // > https://my-bucket.s3.amazonaws.com/data.txt?AWSAccessKeyId=[...]&Expires=[...]&Signature=[...]
+
+        // Create a vanilla Guzzle HTTP client for accessing the URLs
+        $http = new \Guzzle\Http\Client;
+
+        // Try to get the plain URL. This should result in a 403 since the object is private
+        try {
+            $response = $http->get($plainUrl)->send();
+        } catch (\Guzzle\Http\Exception\ClientErrorResponseException $e) {
+            $response = $e->getResponse();
+        }
+        echo $response->getStatusCode();
+        // > 403
+
+        // Get the contents of the object using the pre-signed URL
+        $response = $http->get($signedUrl)->send();
+        echo $response->getBody();
+        // > Hello!
+
+        // @end
+        $this->assertEquals('403Hello!', $this->getActualOutput());
+    }
+
+    /**
+     * Create presigned URLs for an object with temporary credentials
+     *
+     * @depends testGetObjectUrl
+     * @example Aws\S3\S3Client::getObjectUrl
+     */
+    public function testGetObjectUrlWithSessionCredentials()
+    {
+        $this->client->waitUntilBucketExists(array('Bucket' => $this->bucket));
+        $bucket = $this->bucket;
+        /** @var $stsClient \Aws\Sts\StsClient */
+        $stsClient = $this->getServiceBuilder()->get('sts');
+        // @begin
+
+        // Create a credentials object using temporary credentials retrieved from STS
+        $tempCredentials = $stsClient->createCredentials($stsClient->getSessionToken());
+
+        // Create an S3 client using the temporary credentials
+        $s3Client = \Aws\S3\S3Client::factory()->setCredentials($tempCredentials);
+
+        // Get a presigned URL for an Amazon S3 object
+        $signedUrl = $s3Client->getObjectUrl($bucket, 'data.txt', '+10 minutes');
 
         echo file_get_contents($signedUrl);
         // > Hello!
@@ -518,7 +595,7 @@ class S3_20060301_Test extends \Aws\Tests\IntegrationTestCase
     /**
      * Clear the contents and delete a bucket
      *
-     * @depends testCreatePresignedUrl
+     * @depends testGetObjectUrlWithSessionCredentials
      * @example Aws\S3\S3Client::clearBucket
      * @example Aws\S3\S3Client::deleteBucket
      * @example Aws\S3\S3Client::waitUntilBucketNotExists
@@ -527,6 +604,7 @@ class S3_20060301_Test extends \Aws\Tests\IntegrationTestCase
     {
         $client = $this->client;
         $bucket = $this->bucket;
+        $client->waitUntilBucketExists(array('Bucket' => $bucket));
         // @begin
 
         // Delete the objects in the bucket before attempting to delete

@@ -88,13 +88,6 @@ class HeaderTest extends \Guzzle\Tests\GuzzleTestCase
         $this->assertEquals(1, count($h));
     }
 
-    public function testCanCheckForExactHeaderValues()
-    {
-        $h = new Header('Foo', 'bar', ';');
-        $this->assertTrue($h->hasExactHeader('Foo'));
-        $this->assertFalse($h->hasExactHeader('foo'));
-    }
-
     public function testCanRemoveValues()
     {
         $h = new Header('Foo', array('Foo', 'baz', 'bar'));
@@ -135,11 +128,19 @@ class HeaderTest extends \Guzzle\Tests\GuzzleTestCase
                 $res1
             ),
             array(
-                'foo="baz"; bar=123, boo, test="123"',
+                'foo="baz"; bar=123, boo, test="123", foobar="foo;bar"',
                 array(
                     array('foo' => 'baz', 'bar' => '123'),
                     array('boo' => ''),
-                    array('test' => '123')
+                    array('test' => '123'),
+                    array('foobar' => 'foo;bar')
+                )
+            ),
+            array(
+                '<http://.../side.jpeg?test=1>; rel="side"; type="image/jpeg",<http://.../side.jpeg?test=2>; rel=side; type="image/jpeg"',
+                array(
+                    array('<http://.../side.jpeg?test=1>' => '', 'rel' => 'side', 'type' => 'image/jpeg'),
+                    array('<http://.../side.jpeg?test=2>' => '', 'rel' => 'side', 'type' => 'image/jpeg')
                 )
             )
         );

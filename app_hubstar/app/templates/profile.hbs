@@ -17,14 +17,14 @@
 
 </div>
 
-<div class="hover panel" style='z-index: 0; float: none;position: relative; width: 87%; height: auto; margin:  auto; background: #fff; box-shadow: 0px 0px 8px #555; border-radius: 3px 3px 0 0;max-width: 1260px;min-width: 1250px;'>
+<div class="hover panel" style='z-index: 0; float: none;position: relative; width: 87%; height: auto; margin:  auto; background: #fff; box-shadow: 0px 0px 8px #555; border-radius: 3px 3px 0 0;max-width: 1260px;min-width: 1250px;overflow: hidden;'>
 
     <div class="front" style="text-align: inherit; width: auto; height: auto; box-shadow: none; border: none; position: relative;">
 
         <div class="profilewrapper premium">
             <!--corpbanner-->
 
-            <div class="profilecorpbanner"    style="width: 100%; max-height: 650px; border-radius: 3px 3px 0 0; position: relative;min-height: 400px;">
+            <div class="profilecorpbanner"    style="">
                 <img {{bindAttr src= model.profile_hero_url}} style="width:100%;"/>
                 {{#if controller.is_authentic_user}}
 
@@ -37,9 +37,8 @@
                 <div class="corpbanner_mask" style="background: url('../images/bannershadow.png') repeat-x; position: absolute;bottom:0; width: 100%; height: 200px;">
                     <div class="corpbanner_content" style="position: absolute;bottom:0;margin-left: 30%;width: 70%;">
                         <div class="main_title" style="height: 100px;">
+
                             <div>
-
-
                                 {{#if controller.editing}}
                                 <div style="display: inline-block; width: 350px;">
 
@@ -216,7 +215,6 @@
 
                                 </table>
                                 {{#unless controller.editingContact}}
-
 
                                 {{else}}
                                 <div class="buttons" style="position: relative;display: block;margin: 10px auto 0;text-align: center;">
@@ -881,6 +879,7 @@
                         {{/if}} 
                         <a href="#tab1" data-toggle="tab" {{action resetNewStyleImageSource}}><span class="new-btn">Close</span></a>
 
+
                     </div>
                 </div>
                 {{/view}}
@@ -911,9 +910,11 @@
 
                         <div class="" style="margin-top: 20px;">
 
+
                             <div class="controlbtn" style="left: 34%;">
                                 <span class="new-btn green-btn " {{action photoUpload}} ><k class='icon-save'> &nbsp;Save</span>
                                 <a href="#tab1" data-toggle="tab"{{action resetNewStyleImageSource}}>   <span class="new-btn" >Back</span> </a>
+
                             </div>
                         </div>
                         {{/if}}

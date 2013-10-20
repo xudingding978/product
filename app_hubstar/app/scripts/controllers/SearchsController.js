@@ -1,5 +1,5 @@
 HubStar.SearchsController = Ember.ArrayController.extend({
-        needs: ['application', 'status'],
+        needs: ['application', 'status','platformBar'],
         loginInfo: "",
         content: [],
         search_string: "",

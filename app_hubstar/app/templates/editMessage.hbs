@@ -11,13 +11,13 @@
         </div>
         {{#if controller.isUploadPhoto}}
         <div style='max-width: 100%;max-height: 100px;padding: 10px 12px;text-align: center;border-top: 1px solid #ddd;'>
-            <div class='remove-comment-photo easing' ><i class="icon-remove"></i></div>             
+            <div class='remove-comment-photo easing' {{action removePic model.message_id}}><i class="icon-remove"></i></div>             
             <img  {{bindAttr src= "newStyleImageSource"}}  style="max-width: 100%; max-height: 80px;">
         </div>
         {{else}}
         {{#if model.isUrl }}
         <div style='max-width: 100%;max-height: 100px;padding: 10px 12px;text-align: center;border-top: 1px solid #ddd;'>
-            <div class='remove-comment-photo easing' ><i class="icon-remove"></i></div>             
+            <div class='remove-comment-photo easing'  {{action removeOriginalPic model.message_id}}><i class="icon-remove"></i></div>             
             <img {{bindAttr src= model.url}} style="max-width: 100%; max-height: 80px;"/>
         </div>
         {{/if}}
@@ -37,7 +37,7 @@
 
     </div>
 
-
+</div>
     <script>
         $(function() {
             var $container = $('#masonry_user_container');

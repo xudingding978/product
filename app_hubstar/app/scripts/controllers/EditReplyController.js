@@ -13,7 +13,7 @@
 HubStar.EditReplyController = Ember.Controller.extend({
     commenter_photo_url: null,
     replyContent: null,
-    isUploadPhoto:false,
+    isUploadPhoto: false,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'message', 'userMessage'],
     init: function()
     {
@@ -33,7 +33,7 @@ HubStar.EditReplyController = Ember.Controller.extend({
         this.set('replyContent', "");
         this.set('newStyleImageSource', null);
         this.set('newStyleImageName', "");
-     
+
 
         for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
         {
@@ -41,7 +41,33 @@ HubStar.EditReplyController = Ember.Controller.extend({
                 if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("reply_id") === id)
                 {
                     this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("enableToEdit", false);
-                    this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyEdit",true);
+                    this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyEdit", true);
+                    break;
+                }
+        }
+        this.set("isUploadPhoto", false);
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reloadItems");
+        }, 200);
+    },
+    removePic: function(id) {
+
+        this.set('newStyleImageSource', null);
+        this.set('newStyleImageName', "");
+        this.set("isUploadPhoto", false);
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reloadItems");
+        }, 200);
+    },
+    removeOriginPic: function(id) {
+
+    for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
+        {
+            for (var j = 0; j < this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").length; j++)
+                if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("reply_id") === id)
+                {
+                    this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("url",null);
+                    this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("isUrl",false);
                     break;
                 }
         }
@@ -92,7 +118,8 @@ HubStar.EditReplyController = Ember.Controller.extend({
                         var imageType = imageName[imageName.length - 1];
                     }
                     var replyContent = this.get("replyContent");
-                    var tempComment = [owner_id, date.toString(), replyContent, newStyleImage, imageType, imageStyleName, id, replyID];
+                    var url =  this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("url");
+                    var tempComment = [owner_id, date.toString(), replyContent, newStyleImage, imageType, imageStyleName, id, replyID,url];
 
                     tempComment = JSON.stringify(tempComment);
                     var that = this;
@@ -108,7 +135,7 @@ HubStar.EditReplyController = Ember.Controller.extend({
                                     that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("url", params["url"]);
                                     that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("time_stamp", params["time_stamp"]);
                                     that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("enableToEdit", false);
-                                    that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyEdit",true);
+                                    that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyEdit", true);
                                     if (params["url"] !== null)
                                     {
                                         that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("isUrl", true);

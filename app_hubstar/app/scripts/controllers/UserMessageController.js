@@ -16,6 +16,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings'],
     isUploadPhoto: false,
     isEdit: true,
+    isPosting: true,
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -23,6 +24,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
             this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
         }
+        // this.set("isPosting", true);
     },
     setUserMessage: function(message) {
 
@@ -33,7 +35,10 @@ HubStar.UserMessageController = Ember.Controller.extend({
 
         this.getClientId(message); // It is used to get the mesage model      
     },
-    getClientId: function(id) {   
+
+    getClientId: function(id) {
+        this.set("isPosting", true);
+
         this.set('clientID', id);
         this.set('loadingTime', true);
         var data = this.get('clientID');
@@ -56,7 +61,8 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 dataNew["url"] = params[i]["replyMessageCollection"][length]["url"];
                 dataNew["enableToEdit"] = false;
                 dataNew["replyEdit"] = true;
-                if (params[i]["replyMessageCollection"][length]["user_id"] === localStorage.loginStatus)
+                dataNew["replyCount"] = params[i]["replyMessageCollection"].length -1;
+                        if (params[i]["replyMessageCollection"][length]["user_id"] === localStorage.loginStatus)
                 {
                     dataNew["isUserself"] = true; //dataNew["isUserself"] is true , which means it is the login users is the same as the user page owner
                 }
@@ -84,6 +90,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
                     dataReply["photo_url_large"] = params[i]["replyMessageCollection"][j]["photo_url_large"];
                     dataReply["url"] = params[i]["replyMessageCollection"][j]["url"];
                     dataReply["enableToEdit"] = false;
+
                     if (params[i]["replyMessageCollection"][j]["url"] !== null)
                     {
                         dataReply["isUrl"] = true;
@@ -115,7 +122,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
                         autoScrollOnFocus: false,
                         normalizeMouseWheelDelta: false
                     },
-                    autoHideScrollbar:true,
+                    autoHideScrollbar: true,
                     mouseWheel: true,
                     theme: "dark-2",
                     set_height: 1000
@@ -163,13 +170,22 @@ HubStar.UserMessageController = Ember.Controller.extend({
             $('#masonry_container').masonry("reload");
         }, 200);
     },
+    removePic: function() {
+        this.set('newStyleImageSource', null);
+        this.set('newStyleImageName', "");
+        this.set("isUploadPhoto", false);
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reloadItems");
+        }, 200);
+    },
     addComment: function() {
+
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         var commentContent = this.get('messageContent');
         if (commentContent) {
 
-
+            this.set("isPosting", false);
             var commenter_id = this.get("currentUser").get('id');
             var date = new Date();
             var owner_id = this.get("currentOwner").get("id");
@@ -210,6 +226,8 @@ HubStar.UserMessageController = Ember.Controller.extend({
 
             requiredBackEnd('messages', 'CreateComment', tempComment, 'POST', function(params) {
                 //params  is just one message 
+                that.set("isPosting", true);
+                console.log(that.get("isPosting"));
                 dataNew["message_id"] = params["message_id"];
                 dataNew["reply_id"] = params["replyMessageCollection"][0]["reply_id"];
                 dataNew["user_id"] = params["replyMessageCollection"][0]["user_id"];
@@ -220,6 +238,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 dataNew["url"] = params["replyMessageCollection"][0]["url"];
                 dataNew["enableToEdit"] = false;
                 dataNew["replyEdit"] = true;
+                dataNew["replyCount"] = 0;
                 if (params["replyMessageCollection"][0]["user_id"] === localStorage.loginStatus)
                 {
                     dataNew["isUserself"] = true;
@@ -257,7 +276,6 @@ HubStar.UserMessageController = Ember.Controller.extend({
     },
     profileStyleImageDrop: function(e, name)
     {
-
         this.set("isUploadPhoto", true);
         var target = getTarget(e, "single");
         var src = target.result;

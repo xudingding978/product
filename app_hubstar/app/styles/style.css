@@ -345,6 +345,7 @@
 
 }
 
+.open > .hideClass{display: block;}
 
 .blur{
     z-index: 10;

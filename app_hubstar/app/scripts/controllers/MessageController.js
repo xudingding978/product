@@ -40,6 +40,7 @@ HubStar.MessageController = Ember.Controller.extend({
 
 
         var enableEditCount = 0;
+        var messageId = null;
         for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
         {
 
@@ -47,17 +48,32 @@ HubStar.MessageController = Ember.Controller.extend({
             if (enableEdit === true)
             {
                 enableEditCount = 1;
+                messageId = this.get('controllers.userMessage').get("contentMsg").objectAt(i);
                 break;
             }
 
         }
-        if (enableEditCount === 0)
+        if (enableEditCount === 1)
+        {
+            for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
+            {
+                if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id") === id)
+                {
+                    messageId.set("enableToEdit", false);
+                    this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("enableToEdit", true);
+
+                    break;
+                }
+            }
+        }
+        else
         {
             for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
             {
                 if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id") === id)
                 {
                     this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("enableToEdit", true);
+
                     break;
                 }
             }
@@ -69,6 +85,7 @@ HubStar.MessageController = Ember.Controller.extend({
     },
     editingReplyData: function(id, msg) {
         var enableEditReply = 0;
+        var reply_id = null;
         for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
         {
             for (var j = 0; j < this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").length; j++)
@@ -76,11 +93,27 @@ HubStar.MessageController = Ember.Controller.extend({
                 var enableToReply = this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("enableToEdit");
                 if (enableToReply === true)
                 {
+                    reply_id = this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j);
                     enableEditReply = 1;
+                    break;
                 }
             }
         }
-        if (enableEditReply === 0)
+        if (enableEditReply === 1)
+        {
+            for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
+            {
+                for (var j = 0; j < this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").length; j++)
+                    if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("reply_id") === id)
+                    {
+                        reply_id.set("enableToEdit", false);
+                        this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("enableToEdit", true);
+                        this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyEdit", false);
+                        break;
+                    }
+            }
+        }
+        else
         {
             for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
             {

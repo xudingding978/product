@@ -11,35 +11,59 @@
     {{#if isValid}}
     <img {{bindAttr src="this.review_user_photo_url"}} id="leftOrRight" style="height: 80px;width: 80px;z-index: 22;position: absolute;top: 20px;left: 450px;"/>
     {{else}}
-    <img {{bindAttr src="this.review_user_photo_url"}} id="leftOrRight" style="height: 80px;width: 80px;z-index: 22;position: absolute;top: 20px;left: 180px;"/>
+    <img {{bindAttr src="this.review_user_photo_url"}} id="leftOrRight" style="height: 80px;width: 80px;z-index: 22;position: absolute;top: 20px;left: 0px;"/>
     {{/if}}
     <div class="fresh-message fresh_succeed" style="top: 50px; height: initial;">
 
 
 
-
-        <k class="icon-ok-sign">{{controller.review_user_name}}  </k>
-
-
-
-        <div class="rating" style="margin: 6px 0 0 0;">
-            <span class="star"></span>
-            <span class="star"></span>
-            <span class="star"></span>
-            <span class="star"></span>
-            <span class="star"></span>
-            <span class="star"></span>
-            <span class="star"></span>
-            <span class="star"></span>
-            <span class="star"></span>
-            <span class="star"></span>
-
-
+        <div>
+        <k class="icon-ok-sign">{{this.review_user_name}}                     {{date this.review_time_stamp}}  </k>
         </div>
+
+
+  <span class="star-rating-control">
+
+        <div id ="1" role="text" aria-label="" class="star-rating star-rating-live " value="1" title="1">
+
+
+            <a title="1">1</a>
+        </div>
+        <div role="text" aria-label="" class="star-rating  star-rating-live" value="2" title="2">
+
+            <a title="2">2</a>
+        </div>
+        <div role="text" aria-label="" class="star-rating  star-rating-live" value="3" title="3">
+            <a title="3">3</a>
+        </div>
+        <div role="text" aria-label="" class="star-rating  star-rating-live" value="4" title="4">
+            <a title="4">4</a>
+        </div>
+        <div role="text" aria-label="" class="star-rating  star-rating-live" value="5" title="5">
+            <a title="5">5</a>
+        </div>
+        <div role="text" aria-label="" class="star-rating  star-rating-live" value="6" title="6">
+            <a title="6">6</a>
+        </div>
+        <div role="text" aria-label="" class="star-rating  star-rating-live" value="7" title="7">
+            <a title="7">7</a>
+        </div>
+        <div role="text" aria-label="" class="star-rating  star-rating-live" value="8" title="8">
+            <a title="8">8</a>
+        </div>
+        <div role="text" aria-label="" class="star-rating  star-rating-live" value="9" title="9">
+            <a title="9">9</a>
+        </div>
+        <div role="text" aria-label="" class="star-rating  star-rating-live" value="10" title="10">
+            <a title="10">10</a>
+        </div>
+
+        
+    </span>
 
         <div>{{this.review_content}}   {{this.review_count}}</div>
 
-    </div>
+    </div> 
 </div>
 <script>
     $(function() {

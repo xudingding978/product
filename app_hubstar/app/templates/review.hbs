@@ -13,16 +13,16 @@
 
     <span class="star-rating-control">
 
-        <div id ="1" role="text" aria-label="" class="star-rating star-rating-live " value="1" title="1">
+        <div id ="1" role="text" aria-label="" class="star-rating star-rating-live " value="777" title="1">
 
 
             <a title="1">1</a>
         </div>
-        <div role="text" aria-label="" class="star-rating  star-rating-live" value="2" title="2">
+        <div id ="2" role="text" aria-label="" class="star-rating  star-rating-live" value="2" title="2">
 
             <a title="2">2</a>
         </div>
-        <div role="text" aria-label="" class="star-rating  star-rating-live" value="3" title="3">
+        <div id ="3" role="text" aria-label="" class="star-rating  star-rating-live" value="3" title="3">
             <a title="3">3</a>
         </div>
         <div role="text" aria-label="" class="star-rating  star-rating-live" value="4" title="4">
@@ -51,7 +51,7 @@
         <input type="submit" value="Submit scores!" />  
  
    <div class="test Smaller">
-    <span style="color:#FF0000">Results will be displayed here</span>
+    <span style="color:#FF0000"></span>
    </div>
     </span>
     
@@ -79,6 +79,13 @@
 
 
 <script>
-
+ function DropDown(el) {
+                    this.dd = el;
+                    this.placeholder = this.dd.children('span');
+                    this.opts = this.dd.find('ul.dropdown > li');
+                    this.val = '';
+                    this.index = -1;
+                    this.initEvents();
+                }
 </script>
 

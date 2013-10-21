@@ -68,7 +68,7 @@ HubStar.CollectionController = Ember.Controller.extend({
 
         var desc = selectedCollection.get('desc');
 
-        console.log(selectedCollection.get('desc').length);
+
         if (selectedCollection.get('desc') !== undefined) {
             
 

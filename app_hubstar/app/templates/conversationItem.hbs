@@ -6,7 +6,14 @@
         </div>
         <div class="create-conversation easing" style=""><i class="icon-cog"></i></div>
     </div>
-
+    {{#if isAdded}}
+    <div style="position: relative; width: 100%;min-height: 100px;padding: 10px  15px;">
+        {{#each  contentFollowerPhoto}}
+        <div class="invite-this-friend radius-circle easing" style="opacity: .8;"><k class="icon-minus" ></k></div>
+        <img class="profilepic_comment radius-circle"  style=" box-shadow: 0 0 3px #888;border: 1px solid #f3f3f3;width: 45px;height: 45px;" {{bindAttr src= this.photo_url}} />                
+        {{/each}}
+    </div>
+    {{/if}}
     <div  style="width: 100%;padding: 20px 6.5%;margin: 0 auto;overflow: hidden;border-bottom: 1px solid #ddd;">
         <div style="margin:0 auto; padding: 0 0 0 45px;">
             <a>

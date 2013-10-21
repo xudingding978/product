@@ -43,6 +43,7 @@ HubStar.ConversationController = Ember.Controller.extend({
     },
     selectConversation: function(id) {
         this.get('controllers.messageCenter').selectConversationItem();
+
         this.get('controllers.conversationItem').getClientId(id);
     },
     deleteConversationItem: function(id)
@@ -77,7 +78,7 @@ HubStar.ConversationController = Ember.Controller.extend({
                 dataNew["participation_ids"] = params[i]["participation_ids"];
                 dataNew["names"] = "";
                 var participationIds = dataNew["participation_ids"].split(",");
-               
+
 
                 for (var k = 0; k < participationIds.length; k++)
                 {
@@ -95,12 +96,12 @@ HubStar.ConversationController = Ember.Controller.extend({
                         break
                     }
                 }
-                console.log(dataNew["names"]);
                 dataNew["conversationPhoto"] = params[i]["conversationPhoto"];
                 dataNew["ConversationCollection"] = new Array();
 
                 dataNew["msg"] = params[i]["ConversationCollection"][0]["msg"];
                 dataNew["time_stamp"] = params[i]["ConversationCollection"][0]["time_stamp"];
+
                 for (var j = 0; j < params[i]["ConversationCollection"].length; j++)
                 {
 
@@ -241,6 +242,7 @@ HubStar.ConversationController = Ember.Controller.extend({
                 {
                     dataNew["isUrl"] = false;
                 }
+                that.get("controllers.conversationItem").set("contentFollowerPhoto", that.get("controllers.newConversation").get("contentFollowerPhoto"));
                 dataNew["replyMessageCollection"] = new Array();
                 that.get("contentMsg").insertAt(0, dataNew);
                 that.set("isUploadPhoto", false);

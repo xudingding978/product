@@ -13,7 +13,7 @@
 HubStar.NewConversationController = Ember.Controller.extend({
     contentMsg: null,
     commenter_photo_url: null,
-    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'conversation', 'messageCenter', 'invitePeople'],
+    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'conversation', 'messageCenter', 'invitePeople','conversationItem'],
     isUploadPhoto: false,
     isInvitePeople: false,
     isAdded: false,
@@ -88,7 +88,8 @@ HubStar.NewConversationController = Ember.Controller.extend({
 
                 that.get('controllers.conversation').getClientId(that.get("currentUser").get('id'));
                 that.set("isUploadPhoto", false);
-
+                that.set("contentFollowerPhoto",   that.get("controllers.invitePeople").get("contentFollowerPhoto"));
+                         that.get("controllers.conversationItem").set("contentFollowerPhoto",   that.get("controllers.invitePeople").get("contentFollowerPhoto"));
                 that.set('messageContent', "");
                 that.set('newStyleImageSource', null);
                 that.set('newStyleImageName', "");

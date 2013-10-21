@@ -14,6 +14,8 @@ HubStar.ConversationItemController = Ember.Controller.extend({
     conversationItemContent: null,
     conversationItem: null,
     commenter_photo_url: null,
+    contentFollowerPhoto: null,
+    isAdded: false,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversation'],
     isUploadPhoto: false,
     init: function()
@@ -36,10 +38,23 @@ HubStar.ConversationItemController = Ember.Controller.extend({
                 break;
             }
         }
+        
+        if (this.get("contentFollowerPhoto").length === 0)
+        {
+            this.isAdded = false;
+        }
+        else
+        {
+            this.isAdded = true;
+        }
+        for (var i = 0; i < this.get("contentFollowerPhoto").length; i++)
+        {
+            this.get("contentFollowerPhoto").objectAt(i).set("isAdd", true);
+        }
         this.set("conversationItemContent", this.get("conversationItem").get("ConversationCollection"));
         setTimeout(function() {
             $('#masonry_user_container').masonry("reloadItems");
-            $("#content_conversationItem_"+id).mCustomScrollbar({
+            $("#content_conversationItem_" + id).mCustomScrollbar({
                 scrollButtons: {
                     enable: false,
                     scrollSpeed: "auto"

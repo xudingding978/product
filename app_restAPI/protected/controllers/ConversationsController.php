@@ -225,11 +225,13 @@ class ConversationsController extends Controller {
                     $mega_currentConversation = CJSON::decode($tempMega_conversation, true);
                     
                      $participationIds = explode(",", $mega_currentConversation["participation_ids"]);
-                     for($k = 0;$k<sizeof($participationIds)&&$k<3;$k++)
+                     $contentParticipation = array();
+                     for($k = 0;$k<sizeof($participationIds);$k++)
                      {
                          $docID_currentUserNew = $domain . "/users/" . $participationIds[$k];
                         $docID_currentUserNew = $cb->get($docID_currentUserNew);
                         $docID_currentUserNew = CJSON::decode($docID_currentUserNew, true);
+                        array_push($contentParticipation,$docID_currentUserNew['user'][0]["photo_url_large"]);
                          if($k===0)
                          {
                              $names = $docID_currentUserNew['user'][0]["display_name"];
@@ -262,6 +264,7 @@ class ConversationsController extends Controller {
                     }
                     array_push($readConversation, $mega_currentConversation);
                     $readConversation[$i]["names"]=$names;
+                    $readConversation[$i]["conversationPhoto"]=$contentParticipation;
                 }
             } else {
                 

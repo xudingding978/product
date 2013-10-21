@@ -39,18 +39,19 @@ HubStar.ConversationItemController = Ember.Controller.extend({
             }
         }
         
-        if (this.get("contentFollowerPhoto").length === 0)
+        if (this.get("conversationItem").get("conversationPhoto").length === 0)
         {
-            this.isAdded = false;
+            this.set("isAdded", false);
         }
         else
         {
-            this.isAdded = true;
+           this.set("isAdded", true);
         }
-        for (var i = 0; i < this.get("contentFollowerPhoto").length; i++)
-        {
-            this.get("contentFollowerPhoto").objectAt(i).set("isAdd", true);
-        }
+//        for (var i = 0; i < this.get("conversationItem").get("conversationPhoto").length; i++)
+//        {
+//            this.get("conversationItem").get("conversationPhoto").objectAt(i).set("isAdd", true);
+//        }
+        this.set("contentFollowerPhoto",this.get("conversationItem").get("conversationPhoto"));
         this.set("conversationItemContent", this.get("conversationItem").get("ConversationCollection"));
         setTimeout(function() {
             $('#masonry_user_container').masonry("reloadItems");

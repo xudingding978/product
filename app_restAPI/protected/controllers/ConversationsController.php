@@ -219,41 +219,35 @@ class ConversationsController extends Controller {
                     $currentConversationId = $mega_currentUser['user'][0]['conversations'][$i]["conversation_id"];
                     $docID_currentConversation = $domain . "/conversations/" . $currentConversationId;
 
-                    
-                    
+
+
                     $tempMega_conversation = $cb->get($docID_currentConversation);
                     $mega_currentConversation = CJSON::decode($tempMega_conversation, true);
-                    
-                     $participationIds = explode(",", $mega_currentConversation["participation_ids"]);
-                     $contentParticipation = array();
-                     for($k = 0;$k<sizeof($participationIds);$k++)
-                     {
-                         $docID_currentUserNew = $domain . "/users/" . $participationIds[$k];
+
+                    $participationIds = explode(",", $mega_currentConversation["participation_ids"]);
+                    $contentParticipation = array();
+                    for ($k = 0; $k < sizeof($participationIds); $k++) {
+                        $docID_currentUserNew = $domain . "/users/" . $participationIds[$k];
                         $docID_currentUserNew = $cb->get($docID_currentUserNew);
                         $docID_currentUserNew = CJSON::decode($docID_currentUserNew, true);
-                        array_push($contentParticipation,$docID_currentUserNew['user'][0]["photo_url_large"]);
-                         if($k===0)
-                         {
-                             $names = $docID_currentUserNew['user'][0]["display_name"];
-                         }
-                         elseif($k===1)
-                         {
-                             $names = $names.','.$docID_currentUserNew['user'][0]["display_name"];
-                         }
-                         elseif($k===2)
-                         {
-                             $names = $names.','.$docID_currentUserNew['user'][0]["display_name"];
-                             if(strlen($names)>40)
-                             {
-                                 $names = substr($names,0,40)."...";
-                             }
-                             else
-                             {
-                                 $names=$names."...";
-                             }
-                         }
-                     }
-                           
+                        $tempPhoto = array();
+                        $tempPhoto['isAdd'] = true;
+                        $tempPhoto['photo'] = $docID_currentUserNew['user'][0]["photo_url_large"];
+                        array_push($contentParticipation, $tempPhoto);
+                        if ($k === 0) {
+                            $names = $docID_currentUserNew['user'][0]["display_name"];
+                        } elseif ($k === 1) {
+                            $names = $names . ',' . $docID_currentUserNew['user'][0]["display_name"];
+                        } elseif ($k === 2) {
+                            $names = $names . ',' . $docID_currentUserNew['user'][0]["display_name"];
+                            if (strlen($names) > 40) {
+                                $names = substr($names, 0, 40) . "...";
+                            } else {
+                                $names = $names . "...";
+                            }
+                        }
+                    }
+
                     for ($j = 0; $j < sizeof($mega_currentConversation["ConversationCollection"]); $j++) {
                         $sender_id = $mega_currentConversation["ConversationCollection"][$j]["sender_id"];
                         $docID_currentUserNew = $domain . "/users/" . $sender_id;
@@ -263,13 +257,13 @@ class ConversationsController extends Controller {
                         $mega_currentConversation["ConversationCollection"][$j]["sender_photo_url_large"] = $docID_currentUserNew['user'][0]["photo_url_large"];
                     }
                     array_push($readConversation, $mega_currentConversation);
-                    $readConversation[$i]["names"]=$names;
-                    $readConversation[$i]["conversationPhoto"]=$contentParticipation;
+                    $readConversation[$i]["names"] = $names;
+                    $readConversation[$i]["conversationPhoto"] = $contentParticipation;
                 }
             } else {
                 
             }
-            
+
             return $readConversation;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -299,10 +293,10 @@ class ConversationsController extends Controller {
 
         $conversationID = $request_array[6];
         $conversationItemID = $request_array[7];
-        $participation_ids =  $request_array[8];
+        $participation_ids = $request_array[8];
         $conversationID = $conversationID . $commenter_id;
         $conversationItemID = $conversationItemID . $commenter_id;
-        $conversation = $this->addConversation($commenter_id, $date, $commentContent, $newStyleImage, $imageType, $photo_name, $conversationID, $conversationItemID,$participation_ids);
+        $conversation = $this->addConversation($commenter_id, $date, $commentContent, $newStyleImage, $imageType, $photo_name, $conversationID, $conversationItemID, $participation_ids);
 
 
         if ($conversation) {
@@ -312,7 +306,7 @@ class ConversationsController extends Controller {
         }
     }
 
-    public function addConversation($commenter_id, $date, $commentContent, $newStyleImage, $imageType, $photo_name, $conversationID, $conversationItemID,$participation_ids) {                       //saving follower in profile
+    public function addConversation($commenter_id, $date, $commentContent, $newStyleImage, $imageType, $photo_name, $conversationID, $conversationItemID, $participation_ids) {                       //saving follower in profile
         try {
 
             $docIDDeep = $this->getDomain() . "/conversations/" . $conversationID;
@@ -333,6 +327,17 @@ class ConversationsController extends Controller {
 
 
 //get the commenter's photo url and name
+            $participantions = explode(",", $participation_ids);
+            for ($i = 0; $i < sizeof($participantions); $i++) {
+                $commenterInfo = $this->getDomain() . "/users/" . $participantions[$i];
+                $cbs = $this->couchBaseConnection();
+                $commenterInfoDeep = $cbs->get($commenterInfo); // get the old user record from the database according to the docID string
+                $oldcommenterInfo = CJSON::decode($commenterInfoDeep, true);
+                $conversationObject = array();
+                $conversationObject["conversation_id"] = $conversationID;
+                $conversationObject["is_read"] = false;
+                array_unshift($oldcommenterInfo['user'][0]["conversations"], $conversationObject);
+            }
             $commenterInfo = $this->getDomain() . "/users/" . $commenter_id;
             $cbs = $this->couchBaseConnection();
             $commenterInfoDeep = $cbs->get($commenterInfo); // get the old user record from the database according to the docID string
@@ -373,15 +378,12 @@ class ConversationsController extends Controller {
             }
 
             $oldRecordDeep['conversationID'] = $conversationID;
-            if($participation_ids === null)
-            {
+            if ($participation_ids === null) {
                 $oldRecordDeep['participation_ids'] = $commenter_id;
+            } else {
+                $oldRecordDeep['participation_ids'] = $commenter_id . "," . $participation_ids;
             }
-            else
-            {
-                $oldRecordDeep['participation_ids'] = $commenter_id.",".$participation_ids;
-            }
-            
+
 
             $oldRecordDeep['conversationPhoto'] = "";
 

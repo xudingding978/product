@@ -62,14 +62,17 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
                 this.get("contentFollowerPhoto").objectAt(i).set("isAdd",!this.get("contentFollowerPhoto").objectAt(i).get("isAdd"));
             }
         }
+        
     },
     reviewPost:function(){
         this.get("controllers.newConversation").set("isAdded", true);
         this.get("controllers.newConversation").set("contentFollowerPhoto", this.get("contentFollowerPhoto"));
-        this.get("controllers.newConversation").set("isInvitePeople", false);       
+        this.get("controllers.newConversation").set("isInvitePeople", false);
+        this.set("contentFollowerPhoto",null);
     },
     reviewCancel: function() {
-        this.get("controllers.newConversation").set("isInvitePeople", false);       
+        this.get("controllers.newConversation").set("isInvitePeople", false);      
+        this.set("contentFollowerPhoto",null);
     }
 }
 );

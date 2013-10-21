@@ -961,12 +961,14 @@ textarea.add-interests{
     opacity: 0;
 
     color: #fff;
-    width: 45px;
-    height: 45px;
+    width: 20px;
+    height: 20px;
     position: absolute;
-    line-height: 47px;
-    font-size: 20px;
+    right: 0;
+    line-height: 22px;
+    font-size: 13px;
     text-align: center;
+    margin-right: -2px;
 }
 
-.invite-friend:hover > .invite-this-friend{opacity: .3}
+.invite-friend:hover > .invite-this-friend{opacity: .8}

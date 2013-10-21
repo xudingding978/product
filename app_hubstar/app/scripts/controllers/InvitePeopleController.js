@@ -11,9 +11,9 @@
 
 
 HubStar.InvitePeopleController = Ember.Controller.extend({
-    contentMsg: null,
+    contentFollowerPhoto: null,
     commenter_photo_url: null,
-    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'conversation', 'messageCenter','newConversation'],
+    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'conversation', 'messageCenter', 'newConversation'],
     isUploadPhoto: false,
     isInvitePeople: false,
     init: function()
@@ -24,21 +24,52 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
             this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
         }
     },
-    getClientId: function(id) {
-        $('#invitepeople').attr('style', 'display: block');
-        $('#invite_box').attr('style', 'display: block');
+    getClientId: function(id, conversationID) {
         this.set('clientID', id);
-        var data = this.get('clientID');
         var dataNew = new Array();
-        var tempComment = [data];
 
-        tempComment = JSON.stringify(tempComment);
         var that = this;
-//        requiredBackEnd('conversations', 'ReadConversation', tempComment, 'POST', function(params) {
-//        });
+        requiredBackEnd('followers', 'ReadPic', id, 'POST', function(params) {
+            that.set("contentFollowerPhoto", []);
+
+            if (params === undefined)
+            {
+            }
+            else
+            {
+                for (var i = 0; i < params.length; i++)
+                {
+                    dataNew["id"] = params[i]["record_id"];
+                    dataNew["name"] = params[i]["name"];
+                    dataNew["photo_url"] = params[i]["photo_url"];
+                    if (conversationID === null) {
+                        dataNew["isAdd"] = false;
+                    }
+                    else {
+                    }
+                    that.get("contentFollowerPhoto").pushObject(dataNew);
+
+                    dataNew = new Array();
+                }
+            }
+        });
+    },
+    addToList: function(id) {
+        for (var i = 0; i < this.get("contentFollowerPhoto").length; i++)
+        {
+            if (this.get("contentFollowerPhoto").objectAt(i).get("id") === id)
+            {
+                this.get("contentFollowerPhoto").objectAt(i).set("isAdd",!this.get("contentFollowerPhoto").objectAt(i).get("isAdd"));
+            }
+        }
+    },
+    reviewPost:function(){
+        this.get("controllers.newConversation").set("isAdded", true);
+        this.get("controllers.newConversation").set("contentFollowerPhoto", this.get("contentFollowerPhoto"));
+        this.get("controllers.newConversation").set("isInvitePeople", false);       
     },
     reviewCancel: function() {
-        this.get("controllers.newConversation").set("isInvitePeople",false);
+        this.get("controllers.newConversation").set("isInvitePeople", false);       
     }
 }
 );

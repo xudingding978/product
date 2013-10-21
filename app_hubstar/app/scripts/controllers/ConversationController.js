@@ -75,9 +75,30 @@ HubStar.ConversationController = Ember.Controller.extend({
                 //First reply message and it is the last one of message and it contail the reply message collection
                 dataNew["conversationID"] = params[i]["conversationID"];
                 dataNew["participation_ids"] = params[i]["participation_ids"];
+                dataNew["names"] = "";
+                var participationIds = dataNew["participation_ids"].split(",");
+               
+
+                for (var k = 0; k < participationIds.length; k++)
+                {
+                    if (k === 0)
+                    {
+                        dataNew["names"] = dataNew["names"] + participationIds[k];
+                    }
+                    else if (k === 1)
+                    {
+                        dataNew["names"] = dataNew["names"] + ',' + participationIds[k];
+                    }
+                    else if (k === 2)
+                    {
+                        dataNew["names"] = dataNew["names"] + "," + participationIds[k] + "...";
+                        break
+                    }
+                }
+                console.log(dataNew["names"]);
                 dataNew["conversationPhoto"] = params[i]["conversationPhoto"];
                 dataNew["ConversationCollection"] = new Array();
-                dataNew["names"] = "";
+
                 dataNew["msg"] = params[i]["ConversationCollection"][0]["msg"];
                 dataNew["time_stamp"] = params[i]["ConversationCollection"][0]["time_stamp"];
                 for (var j = 0; j < params[i]["ConversationCollection"].length; j++)
@@ -89,20 +110,7 @@ HubStar.ConversationController = Ember.Controller.extend({
                     conversationItem["time_stamp"] = params[i]["ConversationCollection"][j]["time_stamp"];
                     conversationItem["msg"] = params[i]["ConversationCollection"][j]["msg"];
                     conversationItem["name"] = params[i]["ConversationCollection"][j]["name"];
-                    if (j < 3) {
-                        if (params[i]["ConversationCollection"].length - 1 === j) {
-                            dataNew["names"] = dataNew["names"] + conversationItem["name"];
-                        }
-                        else {
-                            if (j < 2) {
-                                dataNew["names"] = dataNew["names"] + conversationItem["name"] + ",";
-                            }
-                            else
-                            {
-                                dataNew["names"] = dataNew["names"] + conversationItem["name"] + "...";
-                            }
-                        }
-                    }
+
                     conversationItem["sender_photo_url_large"] = params[i]["ConversationCollection"][j]["sender_photo_url_large"];
                     if (params[i]["ConversationCollection"][j]["url"] === null)
                     {

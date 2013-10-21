@@ -263,9 +263,10 @@ class ConversationsController extends Controller {
 
         $conversationID = $request_array[6];
         $conversationItemID = $request_array[7];
+        $participation_ids =  $request_array[8];
         $conversationID = $conversationID . $commenter_id;
         $conversationItemID = $conversationItemID . $commenter_id;
-        $conversation = $this->addConversation($commenter_id, $date, $commentContent, $newStyleImage, $imageType, $photo_name, $conversationID, $conversationItemID);
+        $conversation = $this->addConversation($commenter_id, $date, $commentContent, $newStyleImage, $imageType, $photo_name, $conversationID, $conversationItemID,$participation_ids);
 
 
         if ($conversation) {
@@ -275,7 +276,7 @@ class ConversationsController extends Controller {
         }
     }
 
-    public function addConversation($commenter_id, $date, $commentContent, $newStyleImage, $imageType, $photo_name, $conversationID, $conversationItemID) {                       //saving follower in profile
+    public function addConversation($commenter_id, $date, $commentContent, $newStyleImage, $imageType, $photo_name, $conversationID, $conversationItemID,$participation_ids) {                       //saving follower in profile
         try {
 
             $docIDDeep = $this->getDomain() . "/conversations/" . $conversationID;
@@ -336,7 +337,15 @@ class ConversationsController extends Controller {
             }
 
             $oldRecordDeep['conversationID'] = $conversationID;
-            $oldRecordDeep['participation_ids'] = $commenter_id;
+            if($participation_ids === null)
+            {
+                $oldRecordDeep['participation_ids'] = $commenter_id;
+            }
+            else
+            {
+                $oldRecordDeep['participation_ids'] = $commenter_id.",".$participation_ids;
+            }
+            
 
             $oldRecordDeep['conversationPhoto'] = "";
 

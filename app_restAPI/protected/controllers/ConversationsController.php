@@ -98,10 +98,11 @@ class ConversationsController extends Controller {
     }
 
     public function actionReadConversation() {
+
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $request_array = CJSON::decode($request_array);
         $conversationId = $request_array[0];
-        $conversation = $this->readConversation($conversationId);
+        $conversation = $this->readConversationItem($conversationId);
 
         if ($conversation) {
             $this->sendResponse(200, CJSON::encode($conversation));
@@ -133,6 +134,7 @@ class ConversationsController extends Controller {
     }
 
     public function addConversationItem($commenter_id, $time_stamp, $conversationtContent, $conversationItemId, $newStyleImage, $imageType, $photo_name, $conversationId) {
+
         try {
             $cb = $this->couchBaseConnection();
             $domain = $this->getDomain();
@@ -205,21 +207,21 @@ class ConversationsController extends Controller {
         }
     }
 
-    public function readConversation($conversationId) {
+    public function readConversationItem($conversationId) {
         try {
+
             $cb = $this->couchBaseConnection();
             $domain = $this->getDomain();
             $docID_currentUser = $domain . "/users/" . $conversationId;
-
+            error_log(var_export("sssssssssssss", true));
             $tempMega_currentUser = $cb->get($docID_currentUser);
             $mega_currentUser = CJSON::decode($tempMega_currentUser, true);
+
             $readConversation = array();
             if (isset($mega_currentUser['user'][0]['conversations'])) {
                 for ($i = 0; $i < sizeof($mega_currentUser['user'][0]['conversations']); $i++) {
                     $currentConversationId = $mega_currentUser['user'][0]['conversations'][$i]["conversation_id"];
                     $docID_currentConversation = $domain . "/conversations/" . $currentConversationId;
-
-
 
                     $tempMega_conversation = $cb->get($docID_currentConversation);
                     $mega_currentConversation = CJSON::decode($tempMega_conversation, true);
@@ -257,6 +259,7 @@ class ConversationsController extends Controller {
                         $mega_currentConversation["ConversationCollection"][$j]["sender_photo_url_large"] = $docID_currentUserNew['user'][0]["photo_url_large"];
                     }
                     array_push($readConversation, $mega_currentConversation);
+                    error_log(var_export($readConversation, true));
                     $readConversation[$i]["names"] = $names;
                     $readConversation[$i]["conversationPhoto"] = $contentParticipation;
                 }

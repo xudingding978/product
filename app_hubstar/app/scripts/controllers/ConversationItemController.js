@@ -51,7 +51,7 @@ HubStar.ConversationItemController = Ember.Controller.extend({
 //        {
 //            this.get("conversationItem").get("conversationPhoto").objectAt(i).set("isAdd", true);
 //        }
-        this.set("contentFollowerPhoto",this.get("conversationItem").get("conversationPhoto"));
+        this.set("contentFollowerPhoto",this.get("conversationItem").get("conversationPhoto"));       
         this.set("conversationItemContent", this.get("conversationItem").get("ConversationCollection"));
         setTimeout(function() {
             $('#masonry_user_container').masonry("reloadItems");

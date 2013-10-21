@@ -328,6 +328,7 @@ class ConversationsController extends Controller {
 
 //get the commenter's photo url and name
             $participantions = explode(",", $participation_ids);
+            error_log(var_export($participantions, true));
             for ($i = 0; $i < sizeof($participantions); $i++) {
                 $commenterInfo = $this->getDomain() . "/users/" . $participantions[$i];
                 $cbs = $this->couchBaseConnection();
@@ -336,7 +337,16 @@ class ConversationsController extends Controller {
                 $conversationObject = array();
                 $conversationObject["conversation_id"] = $conversationID;
                 $conversationObject["is_read"] = false;
+                if (!isset($oldcommenterInfo['user'][0]["conversations"])) {
+
+                    $oldcommenterInfo['user'][0]["conversations"] = array();
+                }
                 array_unshift($oldcommenterInfo['user'][0]["conversations"], $conversationObject);
+                if ($cb->set($commenterInfo, CJSON::encode($oldcommenterInfo))) {
+                    
+                } else {
+                    echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+                }
             }
             $commenterInfo = $this->getDomain() . "/users/" . $commenter_id;
             $cbs = $this->couchBaseConnection();

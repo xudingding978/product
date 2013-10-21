@@ -7,50 +7,98 @@
 
     <div id="reviewList"  class="review-list box" style="">
 
-        <div class="review-list-profile-pic" style="">
+        {{#if isValid}}
+        <div class="review-list-profile-pic" style="float:left;">
             <img {{bindAttr src="this.review_user_photo_url"}} id="leftOrRight" style=""/>
         </div>
 
-
         <div class="review-list-content" style="">
 
-
-
-
-            <k class="icon-ok-sign">{{controller.review_user_name}}  </k>
-
-
-
-            <div class="rating" style="margin: 6px 0 0 0;">
-                <span class="star"></span>
-                <span class="star"></span>
-                <span class="star"></span>
-                <span class="star"></span>
-                <span class="star"></span>
-                <span class="star"></span>
-                <span class="star"></span>
-                <span class="star"></span>
-                <span class="star"></span>
-                <span class="star"></span>
-
-
+            <div class="comment-namentime">
+                <div class="namentime_position">
+                    <a class="comment-username" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}} >
+                       asdfasdfasdfasdfasdfasdf{{controller.review_user_name}}   
+                </a>
+                <div class="posttime-container" style="display: inline-block;">
+                    <span class="posttime">21/08/2013</span>
+                </div>
             </div>
+        </div>
 
-            <div>{{this.review_content}}   {{this.review_count}}</div>
+
+        <div class="rating" style="margin: 6px 0 0 0;">
+            <span class="star"></span>
+            <span class="star"></span>
+            <span class="star"></span>
+            <span class="star"></span>
+            <span class="star"></span>
+            <span class="star"></span>
+            <span class="star"></span>
+            <span class="star"></span>
+            <span class="star"></span>
+            <span class="star"></span>
 
         </div>
+
+        <div>{{this.review_content}}   {{this.review_count}}</div>
+
     </div>
-    <script>
-        $(function() {
-            var $container = $('#masonry_user_container');
-            window.setTimeout(function() {
-                $container.masonry();
-                $container.masonry('reload');
-            }, 10);
-        });
-    </script>
+
+    {{else}}
+    <div class="review-list-profile-pic" style="float:right;">
+        <img {{bindAttr src="this.review_user_photo_url"}} id="leftOrRight" style=""/>
+    </div>
+
+    <div class="review-list-content" style="text-align: right;">
+        <div class="comment-namentime">
+            <div class="namentime_position" style="margin: 0;">
+                <div class="posttime-container" style="display: inline-block;">
+                    <span class="posttime">21/08/2013</span>
+                </div>
+                <a class="comment-username" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}} >
+                   asdfasdfasdfasdfasdfasdf{{controller.review_user_name}}   
+            </a>
+        </div>
+    </div>
 
 
-    {{/each}}
+    <div class="rating" style="margin: 6px 0 0 0;">
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+
+
+    </div>
+
+    <div>{{this.review_content}}   {{this.review_count}}</div>
+
+</div>
+
+
+
+
+{{/if}}
+
+
+</div>
+<script>
+    $(function() {
+        var $container = $('#masonry_user_container');
+        window.setTimeout(function() {
+            $container.masonry();
+            $container.masonry('reload');
+        }, 10);
+    });
+</script>
+
+
+{{/each}}
 
 </div>

@@ -971,10 +971,9 @@ textarea.add-interests{
     margin: 10px auto; 
     background-color: transparent; 
     border: 0;
+    padding: 0 5px;
 }
 
-.review-list-container > .review-list:nth-child(odd) > .review-list-profile-pic{float: left}
-.review-list-container > .review-list:nth-child(even) > .review-list-profile-pic{float: right}
 
 .review-list-profile-pic{
     height: 80px;
@@ -992,7 +991,8 @@ textarea.add-interests{
     height: 70px;
     background-color: #fff;
     border-radius: 3px;
-    width: 490px;
+    width: 450px;
     margin: 5px auto;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
+    padding: 5px 50px;
 }

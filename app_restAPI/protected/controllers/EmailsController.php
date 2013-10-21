@@ -172,23 +172,69 @@ class EmailsController extends Controller {
 
     public function getEmailForm($subject, $emailBody, $sendPersonName, $recieveProfile, $timeframe, $category, $budget, $experience, $description) {
         return '
-            <table width="100%" cellpadding="0" cellspacing="0" style="background:#E5E5E5;">
-                <tbody>
-                    <tr>
-                        <td align="center">
-                            <table cellpadding="0" cellspacing="0" border="0" style="background:#fff;">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/header.jpg"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td align="center">
-                                            &nbsp;<br />
-                                            <table cellpadding="10" cellspacing="0" width="90%" style="color:#666;font-size:13px;line-height:150%;font-family:Helvetica, Arial, San-Serif;text-align:left;background:#e5e5e5;-webkit-border-radius: 3px;-moz-border-radius: 3px;border-radius: 3px;">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title></title>
+    </head>
+    <body style="background: #E5E5E5;margin:0;padding:0;">
+        <table width="100%" cellpadding="0" cellspacing="0">
+            <tbody>
+                <tr>
+                    <td align="center">
+                        <table cellpadding="0" cellspacing="0" border="0" style="background: #fff;">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/header.jpg" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
+                                        <table cellpadding="0" cellspacing="0" border="0" width="90%" style="color: #363636;
+                                               font-family: Helvetica, Arial, San-Serif; font-size: 14px; line-height: 150%;
+                                               text-align: left;">
+                                            <tbody>
                                                 <tr>
-                                                    <td valign="top">Project Category:</td>
+                                                    <td>
+                                                        <br />
+                                                        Subject: ' . $subject . '
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        To: ' . $recieveProfile . '
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <br />
+                                                        ' . $emailBody . '
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <br />From: ' . $sendPersonName . '
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        &nbsp;<br />
+                                        <hr style="height: 1px; color: #0088CC; background: #0088CC; width: 90%; border: 0 none;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
+                                        &nbsp;<br />
+                                        <table cellpadding="10" cellspacing="0" width="90%" style="color: #666; font-size: 13px;
+                                               line-height: 150%; font-family: Helvetica, Arial, San-Serif; text-align: left;
+                                               background: #e5e5e5; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px;">
+                                            <tbody>
+                                                <tr>
+                                                    <td valign="top">
+                                                        Project Category:
+                                                    </td>
                                                     <td valign="top">
                                                         <div style="display: block;">
                                                             ' . $category . '
@@ -196,7 +242,9 @@ class EmailsController extends Controller {
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td valign="top">Project Timeframe:</td>
+                                                    <td valign="top">
+                                                        Project Timeframe:
+                                                    </td>
                                                     <td valign="top">
                                                         <div style="display: block;">
                                                             ' . $timeframe . '
@@ -204,7 +252,9 @@ class EmailsController extends Controller {
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td valign="top">Project Budget:</td>
+                                                    <td valign="top">
+                                                        Project Budget:
+                                                    </td>
                                                     <td valign="top">
                                                         <div style="display: block;">
                                                             ' . $budget . '
@@ -212,7 +262,9 @@ class EmailsController extends Controller {
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td valign="top">Project Experience:</td>
+                                                    <td valign="top">
+                                                        Project Experience:
+                                                    </td>
                                                     <td valign="top">
                                                         <div style="display: block;">
                                                             ' . $experience . '
@@ -220,70 +272,43 @@ class EmailsController extends Controller {
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td valign="top">I want help in:</td>
+                                                    <td valign="top">
+                                                        I want help in:
+                                                    </td>
                                                     <td valign="top">
                                                         <div style="display: block;">
-                                                            <ul style="padding:0;margin:0;">
+                                                            <ul style="padding: 0; margin: 0;">
                                                                 ' . $description . '
                                                             </ul>
-
                                                         </div>
                                                         <div style="display: block;">
-
                                                         </div>
                                                         <div style="display: block;">
-
                                                         </div>
                                                     </td>
                                                 </tr>
-                                </tbody>
-                            </table>
-                            &nbsp;<br />
-                            <hr style="height:1px;color:#0088CC;background:#0088CC;width:90%;border:0 none;" />
-                            &nbsp;<br />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <table cellpadding="10" cellspacing="0" border="0" width="100%" style="color:#363636;font-family:Helvetica, Arial, San-Serif;font-size:14px;line-height:150%;text-align:left;">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            Subject: ' . $subject . '
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            From: ' . $sendPersonName . '
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            To: ' . $recieveProfile . '
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            ' . $emailBody . '
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            &nbsp;<br />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/contactus-botbar.png"/>
-                            <br />&nbsp;
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            </td>
-            </tr>
+                                            </tbody>
+                                        </table>
+                                        &nbsp;<br />
+                                        <hr style="height: 1px; color: #0088CC; background: #0088CC; width: 90%; border: 0 none;" />
+                                        &nbsp;<br />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img src="http://develop.devbox.s3.amazonaws.com/email-bottom.jpg" />
+                                        <br />
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
             </tbody>
-     </table>
+        </table>
+    </body>
+</html>
 ';
     }
 

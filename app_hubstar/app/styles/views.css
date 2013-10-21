@@ -1138,7 +1138,6 @@ div.album-description-bg{
 .article-objectview-right{
     width: 45%;
 }
-
 .article-objectview-left{
     right: 45%;
 }
@@ -1190,6 +1189,8 @@ div.album-description-bg{
     position: relative;
     top: 3px;
     display: inline-block;
+    min-width: 178px;
+    max-width:80%;
 }
 
 .poster-name{
@@ -1197,7 +1198,6 @@ div.album-description-bg{
     font-weight: bold;
     display: block;
     unicode-bidi: normal;
-    width: 178px;
 }
 
 .posttime{

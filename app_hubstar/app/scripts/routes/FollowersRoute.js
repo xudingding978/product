@@ -14,9 +14,15 @@ HubStar.FollowersRoute = Ember.Route.extend({
         this.controllerFor('user').set('followerTag', true);
         this.controllerFor('user').set('followingTag', false);
         this.controllerFor('user').set('messageTag', false);
-
-//        this.controllerFor('userFollowers').setUserFollowers(model);
+        
+         $('#user-stats > li').removeClass('selected-user-stats');
+        $('#userfollower').addClass('selected-user-stats');
    this.controllerFor('userFollowers').setUserFollowers(model);
+
+//         HubStar.User.find(model);
+//         this.controllerFor('user').getClientId(model);
+//           $('#user-stats > li').removeClass('selected-user-stats');
+//        $('#ufollower').addClass('selected-user-stats');
         $(window).scrollTop(0);
     },
     model: function(params) {

@@ -628,13 +628,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     selectFollower: function(model) {
         $(window).scrollTop(1500);
         this.sendEventTracking('event', 'button', 'click', 'Followers');
-        $('#user-stats > li').removeClass('selected-user-stats');
-        $('#follow').addClass('selected-user-stats');
         this.set('profileSelectionStatus', 'Followers');
-        this.get('controllers.userFollowers').getProfileId(model);
+         //this.get('controllers.userFollowers').getProfileId(model);
+        
         this.set('partnerTag', false);
         this.set('collectionTag', false);
-
         this.set('followerProfileTag', true);
          this.transitionToRoute('profileFollowers');
         

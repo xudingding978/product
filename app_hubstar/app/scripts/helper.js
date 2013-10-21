@@ -113,3 +113,7 @@ Ember.Handlebars.registerBoundHelper('isThumbUped', function(userids, megaId) {
 Ember.Handlebars.registerBoundHelper('test', function(test) {
 });
 
+
+
+
+

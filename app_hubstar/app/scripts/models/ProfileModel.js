@@ -1,7 +1,9 @@
 
 DS.RESTAdapter.map('HubStar.Profile', {
     collections: {embedded: 'load'},
-    followers: {embedded: 'load'}
+    followers: {embedded: 'load'},
+    reviews:{embedded: 'load'}
+    
 });
 HubStar.Profile = DS.Model.extend({
     profile_category: DS.attr('string'),
@@ -48,7 +50,9 @@ HubStar.Profile = DS.Model.extend({
     owner_contact_cc_emails: DS.attr('string'),
     owner_contact_bcc_emails: DS.attr('string'),
     followers: DS.hasMany('HubStar.Follower'),
-    collections: DS.hasMany('HubStar.Collection')
+    collections: DS.hasMany('HubStar.Collection'),
+    reviews: DS.hasMany('HubStar.Review')
+    
 });
 
 

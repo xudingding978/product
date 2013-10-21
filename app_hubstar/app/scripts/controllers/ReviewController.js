@@ -1,62 +1,112 @@
 
 HubStar.ReviewController = Ember.Controller.extend({
     rateTime: false,
-    photo_url_large: "",
-    needs:['profile'],
-//    commentLength: null,
-//    thisComments: null,
-//    stringFiedTime_stamp: null,
-//    mega: null,
-//    count:null,
+    review_user_photo_url: "",
+    currentUser: "",
+    review_user_name: "",
+    review_content: "",
+    review_time_stamp: "",
+    review_star_value: "",
+    review_length: "",
+    profile: "",
+    reviewList: false,
+    //currentUserID:"",
+    reviewDate: "",
+    review_count: null,
+    isSingle: false,
+    needs: ['profile'],
+
     init: function()
     {
 
         if (localStorage.loginStatus) {
 
-            //  this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+            this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
             var currentUser = HubStar.User.find(localStorage.loginStatus);
-            this.set('photo_url_large', currentUser.get('photo_url_large'));
+            this.set('review_user_photo_url', currentUser.get('photo_url_large'));
+            this.set('review_user_name', currentUser.get('first_name') + currentUser.get('last_name'));
+           // this.set('review_star_value', $('#example-rating-1').text());
+            this.set('review_length', this.get("controllers.profile").get('reviews').get("length"));
+
         }
 
+        this.set("profile", this.get("controllers.profile").get('currentUserID'));
+
+    },
+    rateStar: function(id) {
+     //   console.log(this.get("controllers.profile").get("currentUserID"));
+//console.log(HubStar.get("review_star_value"));
     },
     reviewCancel: function() {
         this.get("controllers.profile").set("rateTime", false);
-        console.log(this.get("rateTime"));
+
     },
-    reviewPost: function() {
- console.log("gsdfgsdfgdsg");
- 
-//        var commentContent = this.get('commentContent');
-//        if (commentContent) {
-//            var comments = this.get('mega').get('comments');
-//            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
-//            var commenter_id = this.get("currentUser").get('id');
-//            var name = this.get("currentUser").get('display_name');
-//            var date = new Date();
-//            var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url,
-//                "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(), "is_delete": false, optional: this.get('mega').get('type') + '/' + this.get('mega').get('id')});
-//            comments.insertAt(0, tempComment);
-//            comments.store.save();
-//            this.set('commentContent', "");
-//            $('#addcommetBut').attr('style', 'display:block');
-//            $('#commentBox').attr('style', 'display:none');
-//            setTimeout(function() {
-//                $('#masonry_container').masonry("reload");
-//              $('.user_comment_' + localStorage.loginStatus).attr('style', 'display:block');
-//            }, 200);
-//        }
+    reviewPost: function(id) {
+
+        if (this.get("controllers.profile").get('reviews') !== 0) {
+            this.set("review_count", this.get("controllers.profile").get('reviews').get("length"));
+            var reviewContent = this.get('review_content');
+        }
+        
+        if (reviewContent) {
+            var reviews = this.get("controllers.profile").get('reviews');
+            var reviewUserPhoto = this.get("currentUser").get('photo_url_large');
+            var reviewUserID = this.get("currentUser").get('id');
+           
+            
+            var reviewStarValue=$('#example-rating-1').text();
+            
+             console.log(reviewStarValue);
+            var reviewUserName = this.get("currentUser").get('first_name') + this.get("currentUser").get('last_name');
+            var reviewDate = new Date();
+            var reviewCount = this.get("review_count");
+            var optional = this.get("controllers.profile").get("currentUserID");
+
+        }
+        var tempReview = HubStar.Review.createRecord({"review_user_photo_url": reviewUserPhoto,
+            "review_user_id": reviewUserID, "review_user_name": reviewUserName, "review_content": reviewContent, "review_time_stamp": reviewDate.toString(), "review_count": reviewCount,"review_star_value ":reviewStarValue.toString(), "optional": optional});
+        reviews.insertAt(0, tempReview);
+        console.log(tempReview);
+        reviews.store.save();
+        this.set('reviewContent', "");
+         this.get("controllers.profile").set("rateTime", false);
+        
+           $(window).scrollTop(1500);
+           $('#user-stats > li').removeClass('selected-user-stats');
+        $('#reviewList').addClass('selected-user-stats');
+        
+        this.get("controllers.profile").set('partnerTag', false);
+        this.get("controllers.profile").set('collectionTag', false);
+     this.get("controllers.profile").set('followerProfileTag', false);
+         this.get("controllers.profile").set('reviewTag', true);
+
+    },
+    getReviewsById: function(id)
+    {
+        // console.log(id);
+        var profile = HubStar.Profile.find(id);
+        var reviews = profile.get('reviews');
+
     }
+    
+    
+    
+    
+    
+    
+    
+    
 //            
 //    linkingUser: function(id) {
 //            
 //            self.location="#/users/"+id;
 //
 //    },
-//    getCommentsById: function(id)
+//    getReviewsById: function(id)
 //    {
 //        //console.log(id);
-//        var mega = HubStar.Mega.find(id);
-//        var comments = mega.get('comments');
+//        var profile = HubStar.Profile.find(id);
+//        var reviews = profile.get('reviews');
 //        this.set('mega', mega);
 //        this.set('thisComments', comments);
 //    },

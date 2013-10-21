@@ -56,7 +56,7 @@ HubStar.ReviewController = Ember.Controller.extend({
             
             var reviewStarValue=$('#example-rating-1').text();
             
-             console.log(reviewStarValue);
+            // console.log(reviewStarValue);
             var reviewUserName = this.get("currentUser").get('first_name') + this.get("currentUser").get('last_name');
             var reviewDate = new Date();
             var reviewCount = this.get("review_count");
@@ -64,7 +64,7 @@ HubStar.ReviewController = Ember.Controller.extend({
 
         }
         var tempReview = HubStar.Review.createRecord({"review_user_photo_url": reviewUserPhoto,
-            "review_user_id": reviewUserID, "review_user_name": reviewUserName, "review_content": reviewContent, "review_time_stamp": reviewDate.toString(),"review_star_rating_value ":reviewStarValue.toString(), "review_count": reviewCount, "optional": optional});
+            "review_user_id": reviewUserID, "review_user_name": reviewUserName, "review_content": reviewContent, "review_time_stamp": reviewDate.toString(),"review_count": reviewCount, "optional": optional, "review_star_rating_value": reviewStarValue});
         reviews.insertAt(0, tempReview);
         console.log(tempReview);
         reviews.store.save();

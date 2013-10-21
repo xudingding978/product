@@ -8,124 +8,44 @@
     <div id="reviewList"  class="review-list box" style="">
 
 
-        {{#if isValid}}
         <div class="review-list-profile-pic" style="float:left;">
             <img {{bindAttr src="this.review_user_photo_url"}} id="leftOrRight" style=""/>
         </div>
 
         <div class="review-list-content" style="">
-
-            <div class="comment-namentime">
-                <div class="namentime_position">
-                    <a class="comment-username" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}} >
-                      {{this.review_user_name}} 
-                </a>
-                <div class="posttime-container" style="display: inline-block;">
-                    <span class="posttime">{{date this.review_time_stamp}} </span>
+            <div style="background-color: #f3f3f3;padding: 3px 5px 0 50px;">
+                <div class="comment-namentime" style="display: inline-block;">
+                    <div class="namentime_position" style="margin: 0">
+                        <a class="comment-username" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}} >
+                           {{this.review_user_name}} 
+                    </a>
+                    <div class="posttime-container">
+                        <span class="posttime">{{date this.review_time_stamp}} </span>
+                    </div>
                 </div>
             </div>
-        </div>
 
-  <span class="star-rating-control">
-        <div id ="1" role="text" aria-label="" class="star-rating star-rating-live " >
-            
+            <div class="rating" style="font-size: 13px; float: right;position: relative;">
+                <span class="star"></span>
+                <span class="star"></span>
+                <span class="star"></span>
+                <span class="star"></span>
+                <span class="star"></span>
+                <span class="star"></span>
+                <span class="star"></span>
+                <span class="star"></span>
+                <span class="star"></span>
+                <span class="star"></span>
+            </div>
         </div>
-        <div role="text" aria-label="" class="star-rating  star-rating-live" >
+            <div style="background-color: #fff; padding: 0 0 0 50px;">
+            <div style="width: 350px;position: relative; display: inline-block;height: 20px;text-overflow: ellipsis;">{{this.review_content}}   {{this.review_count}}</div>
 
-           
-        </div>
-        <div role="text" aria-label="" class="star-rating  star-rating-live">
-            
-        </div>
-        <div role="text" aria-label="" class="star-rating  star-rating-live" >
-            
-        </div>
-        <div role="text" aria-label="" class="star-rating  star-rating-live" >
-            
-        </div>
-        <div role="text" aria-label="" class="star-rating  star-rating-live" >
-            
-
-        </div>
-        <div role="text" aria-label="" class="star-rating  star-rating-live" >
-            
-        </div>
-        <div role="text" aria-label="" class="star-rating  star-rating-live" >
-            
-        </div>
-        <div role="text" aria-label="" class="star-rating  star-rating-live" >
-            
-        </div>
-        <div role="text" aria-label="" class="star-rating  star-rating-live"">
-           
-        </div>
-  </span>
-
-
-        <div>{{this.review_content}}   {{this.review_count}}</div>
-
-
-    </div>
-
-    {{else}}
-    <div class="review-list-profile-pic" style="float:right;">
-        <img {{bindAttr src="this.review_user_photo_url"}} id="leftOrRight" style=""/>
-    </div>
-
-    <div class="review-list-content" style="text-align: right;">
-        <div class="comment-namentime">
-            <div class="namentime_position" style="margin: 0;">
-                <div class="posttime-container" style="display: inline-block;">
-                    <span class="posttime">{{date this.review_time_stamp}} </span>
-                </div>
-                <a class="comment-username" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}} >
-                  {{this.review_user_name}}   
-            </a>
+            <div style="position: relative; display: inline-block; font-size: 18px; color: #888;margin: 0 10px;"><k class="icon-caret-down"></k></div>
         </div>
     </div>
 
 
-      <div id ="1" role="text" aria-label="" class="star-rating star-rating-live " >
-            
-        </div>
-        <div role="text" aria-label="" class="star-rating  star-rating-live" >
-
-           
-        </div>
-        <div role="text" aria-label="" class="star-rating  star-rating-live">
-            
-        </div>
-        <div role="text" aria-label="" class="star-rating  star-rating-live" >
-            
-        </div>
-        <div role="text" aria-label="" class="star-rating  star-rating-live" >
-            
-        </div>
-        <div role="text" aria-label="" class="star-rating  star-rating-live" >
-            
-
-        </div>
-        <div role="text" aria-label="" class="star-rating  star-rating-live" >
-            
-        </div>
-        <div role="text" aria-label="" class="star-rating  star-rating-live" >
-            
-        </div>
-        <div role="text" aria-label="" class="star-rating  star-rating-live" >
-            
-        </div>
-        <div role="text" aria-label="" class="star-rating  star-rating-live"">
-           
-        </div>
-
-    <div>{{this.review_content}}   {{this.review_count}}</div>
-
-</div>
-
-
-
-
-{{/if}}
 
 </div>
 <script>

@@ -15,16 +15,6 @@ HubStar.ReviewView = Ember.View.extend({
             $(this).removeClass('star-rating-hover');
             $(this).addClass('star-rating-on');
             
-//    $(this).rating({
-//  callback: function(value, link){
-//      
-//      var tip = $('#hover-test');
-//              
-//                $('#hover-test').html(tip[0].data || link.title);
-//    alert(link.title);
-//  }
-//});
-
         });
         $(".rating-cancel").click(function() {
             $(".star-rating").removeClass('star-rating-on');

@@ -109,7 +109,9 @@ HubStar.MegaController = Ember.ArrayController.extend({
                         var id = this.get("content").objectAt(i).id;
                         if (HubStar.Mega.find(id).get('photo').get('length') === 1 && mega.get('id') !== id)
                         {
-                            that.get("content").pushObject(HubStar.Mega.find(id).get("photo").objectAt(0));
+                            if (HubStar.Mega.find(id).get('collection_id') === collection_id) {
+                                that.get("content").pushObject(HubStar.Mega.find(id).get("photo").objectAt(0));
+                            }
                         }
                     }
                 }

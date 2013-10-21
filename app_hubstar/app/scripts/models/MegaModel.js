@@ -4,7 +4,8 @@ DS.RESTAdapter.map('HubStar.Mega', {
     user: {embedded: 'always'},
     comments: {embedded: 'load'},
     profile: {embedded: 'load'},
-    article: {embedded: 'always'}
+    article: {embedded: 'always'},
+    keyword: {embedded: 'always'}
 });
 
 HubStar.Mega = DS.Model.extend(Ember.Copyable, {
@@ -56,6 +57,7 @@ HubStar.Mega = DS.Model.extend(Ember.Copyable, {
     profile: DS.hasMany('HubStar.Profile'),
     comments: DS.hasMany('HubStar.Comment'),
     article: DS.hasMany('HubStar.Article'),
+    keyword: DS.hasMany('HubStar.Keyword'),
     photo_album_id: function() {
         return "#album_" + this.get('id');
     }.property('id'),

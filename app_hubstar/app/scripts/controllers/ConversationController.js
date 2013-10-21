@@ -76,29 +76,11 @@ HubStar.ConversationController = Ember.Controller.extend({
                 //First reply message and it is the last one of message and it contail the reply message collection
                 dataNew["conversationID"] = params[i]["conversationID"];
                 dataNew["participation_ids"] = params[i]["participation_ids"];
-                dataNew["names"] = "";
-                var participationIds = dataNew["participation_ids"].split(",");
 
-
-                for (var k = 0; k < participationIds.length; k++)
-                {
-                    if (k === 0)
-                    {
-                        dataNew["names"] = dataNew["names"] + participationIds[k];
-                    }
-                    else if (k === 1)
-                    {
-                        dataNew["names"] = dataNew["names"] + ',' + participationIds[k];
-                    }
-                    else if (k === 2)
-                    {
-                        dataNew["names"] = dataNew["names"] + "," + participationIds[k] + "...";
-                        break
-                    }
-                }
-                dataNew["conversationPhoto"] = params[i]["conversationPhoto"];
+                dataNew["names"] = params[i]["names"];
+                dataNew["conversationPhoto"] = new Array();              
+                dataNew["conversationPhoto"] = params[i]["conversationPhoto"];             
                 dataNew["ConversationCollection"] = new Array();
-
                 dataNew["msg"] = params[i]["ConversationCollection"][0]["msg"];
                 dataNew["time_stamp"] = params[i]["ConversationCollection"][0]["time_stamp"];
 

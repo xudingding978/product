@@ -219,8 +219,41 @@ class ConversationsController extends Controller {
                     $currentConversationId = $mega_currentUser['user'][0]['conversations'][$i]["conversation_id"];
                     $docID_currentConversation = $domain . "/conversations/" . $currentConversationId;
 
+                    
+                    
                     $tempMega_conversation = $cb->get($docID_currentConversation);
                     $mega_currentConversation = CJSON::decode($tempMega_conversation, true);
+                    
+                     $participationIds = explode(",", $mega_currentConversation["participation_ids"]);
+                     $contentParticipation = array();
+                     for($k = 0;$k<sizeof($participationIds);$k++)
+                     {
+                         $docID_currentUserNew = $domain . "/users/" . $participationIds[$k];
+                        $docID_currentUserNew = $cb->get($docID_currentUserNew);
+                        $docID_currentUserNew = CJSON::decode($docID_currentUserNew, true);
+                        array_push($contentParticipation,$docID_currentUserNew['user'][0]["photo_url_large"]);
+                         if($k===0)
+                         {
+                             $names = $docID_currentUserNew['user'][0]["display_name"];
+                         }
+                         elseif($k===1)
+                         {
+                             $names = $names.','.$docID_currentUserNew['user'][0]["display_name"];
+                         }
+                         elseif($k===2)
+                         {
+                             $names = $names.','.$docID_currentUserNew['user'][0]["display_name"];
+                             if(strlen($names)>40)
+                             {
+                                 $names = substr($names,0,40)."...";
+                             }
+                             else
+                             {
+                                 $names=$names."...";
+                             }
+                         }
+                     }
+                           
                     for ($j = 0; $j < sizeof($mega_currentConversation["ConversationCollection"]); $j++) {
                         $sender_id = $mega_currentConversation["ConversationCollection"][$j]["sender_id"];
                         $docID_currentUserNew = $domain . "/users/" . $sender_id;
@@ -230,10 +263,13 @@ class ConversationsController extends Controller {
                         $mega_currentConversation["ConversationCollection"][$j]["sender_photo_url_large"] = $docID_currentUserNew['user'][0]["photo_url_large"];
                     }
                     array_push($readConversation, $mega_currentConversation);
+                    $readConversation[$i]["names"]=$names;
+                    $readConversation[$i]["conversationPhoto"]=$contentParticipation;
                 }
             } else {
                 
             }
+            
             return $readConversation;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();

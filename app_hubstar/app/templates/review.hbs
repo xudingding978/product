@@ -4,12 +4,6 @@
 <div class="blur_black"></div>
 
 
-<div style="z-index: 11;background-color: white; border: 1px rgba(0,0,0,.6); border-radius: 3px;box-shadow: 0 0 20px 5px #aaa;  width: 430px;height: 200px;margin: 0 auto; padding: 20px;position: absolute; top: 15%;display: block;left: 0;right: 0;">
-    <a >
-        <img class="profilepic_comment"  style="float: left; margin: 15px 10px 10px 4px; margin-top: 0;"{{bindAttr src="this.review_user_photo_url"}} /> 
-    </a>
-
-
     {{controller.review_length}}
 
 
@@ -21,6 +15,7 @@
         <span class="" style="margin:45px 0;float: right;">
             <div  class="new-btn"{{action reviewCancel }}>Cancel</div>
             <div class="new-btn green-btn" {{action  reviewPost model.id}}>Post </div>
+
 <div class="Add-review" style="">
     <div style="width: 100%;height: 50px; line-height: 52px;padding: 0 23px;">
         <a >
@@ -91,7 +86,7 @@
 
 
 </div>
-
+</div>
 
 <script>
 

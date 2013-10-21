@@ -12,11 +12,12 @@ HubStar.Router.map(function() {
         this.resource("files", {path: '/files/:file_id'});
         this.resource("ideabooks", {path: '/ideabooks/:ideabook_id'});
         this.resource("profile", {path: '/profiles/:profile_id'}, function() {
-            this.resource("profileFollowers", {path: '/followers'});
+
             this.resource("profileCollections", {path: '/collections'}, function() {
                 this.resource("profileCollection", {path: ':profileCollection_id'});
             });
             this.resource("partners", {path: '/partners'});
+            this.resource("profileFollowers", {path: '/followers'});
         });
         this.resource("profiles", function() {
             this.resource("profileNew", {path: '/new'});
@@ -29,7 +30,7 @@ HubStar.Router.map(function() {
             this.resource("userCollections", {path: '/collections'}, function() {
                 this.resource("collection", {path: ':collection_id'});
             });
-            this.resource("userMessage", {path: '/messages'});
+            this.resource("messageCenter", {path: '/messages'});
         });
         this.resource("users", function() {
             this.resource("usersIndex", {path: '/'});

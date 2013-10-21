@@ -16,7 +16,7 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
         // The following two line is used to change the selection with dark 
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#message').addClass('selected-user-stats');
-        this.controllerFor('messageCenter').setUserMessage(model);       
+        this.controllerFor('messageCenter').getClientId(model);       
         $(window).scrollTop(0);
     },
     model: function(params) {
@@ -26,3 +26,5 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
         return user_id;
     }
 });
+
+

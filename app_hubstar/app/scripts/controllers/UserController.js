@@ -752,10 +752,8 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('followingTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', false);
-
-
         this.set('messageTag', true);       
-        this.transitionToRoute('userMessage', model);
+       // this.transitionToRoute('userMessage', model);
 
 
         setTimeout(function() {

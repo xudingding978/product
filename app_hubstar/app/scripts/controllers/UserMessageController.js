@@ -111,7 +111,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
             that.set('loadingTime', false);
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reloadItems");
-                $("#content_4").mCustomScrollbar({
+                $("#content_message").mCustomScrollbar({
                     scrollButtons: {
                         enable: false,
                         scrollSpeed: "auto"

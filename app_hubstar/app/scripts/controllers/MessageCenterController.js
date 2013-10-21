@@ -18,6 +18,7 @@ HubStar.MessageCenterController = Ember.Controller.extend({
     isNewConversation: false,
     isConversationItem:false,
     isUserself: false,
+   
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -66,7 +67,7 @@ HubStar.MessageCenterController = Ember.Controller.extend({
         this.set("isConversationItem", false);
         this.set("isNotification", false);
         this.set("isMessageBoard", false);
-         //this.get('controllers.newConversation').getClientId(id);
+         this.get('controllers.newConversation').set("isInvitePeople",false);
         setTimeout(function() {
             $('#masonry_container').masonry("reloadItems");
         }, 200);

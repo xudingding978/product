@@ -1,3 +1,4 @@
+
 {{#if controller.isUserself}}
 <div class='Message-Board_comment-container'>
     <div class="Message-Board box" style="position: absolute; width: 545px; margin: 10px; border-radius:5px; overflow: hidden; background-color: rgb(255, 255, 255); top: 0px; left: 0px;">
@@ -7,8 +8,8 @@
         </div>
 
         <div class='Message-menu-messages-container' >
-             <div class='each-conversation easing' {{action selectMessage controller.id}}>
-                <div style="color: #555;font-size: 20px;font-weight: bold;line-height: 50px;float: left;margin: 25px 0 0px 50px;">
+            <div class='each-conversation easing' {{action selectMessage controller.id}}>
+                 <div style="color: #555;font-size: 20px;font-weight: bold;line-height: 50px;float: left;margin: 25px 0 0px 50px;">
                     <i class="icon-comments-alt" style='margin-right: 20px;font-size: 23px;' >&nbsp;</i>Board</div>
             </div>
 
@@ -22,21 +23,31 @@
         </div>
     </div>
 
-    
+
 </div>
 {{/if}}
 
-        {{#if isMessageBoard}}       
-        {{render userMessage}}      
-        {{/if}}
-        
-        {{#if isNotification}}     
-        {{render notification}}
-        {{/if}}
-        
-        {{#if isNewConversation}}
-        {{render newConversation}}
-        {{/if}}
-     {{#if isConversationItem}}
-        {{render conversationItem}}
-        {{/if}}
+{{#if isMessageBoard}}       
+{{render userMessage}}      
+{{/if}}
+
+{{#if isNotification}}     
+{{render notification}}
+{{/if}}
+
+{{#if isNewConversation}}
+{{render newConversation}}
+{{/if}}
+
+{{#if isConversationItem}}
+{{render conversationItem}}
+{{/if}}
+<script>
+    $(function() {
+        var $container = $('#masonry_user_container');
+        window.setTimeout(function() {
+            $container.masonry();
+            $container.masonry('reload');
+        }, 10);
+    });
+</script>

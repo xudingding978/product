@@ -13,8 +13,9 @@
 HubStar.NewConversationController = Ember.Controller.extend({
     contentMsg: null,
     commenter_photo_url: null,
-    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings','conversation'],
+    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings','conversation','messageCenter','invitePeople'],
     isUploadPhoto:false,
+     isInvitePeople:false,
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -71,11 +72,7 @@ HubStar.NewConversationController = Ember.Controller.extend({
 
                 that.get('controllers.conversation').getClientId(that.get("currentUser").get('id'));
                 that.set("isUploadPhoto",false);
-                setTimeout(function() {
-                    $('#masonry_user_container').masonry("reload");
-                }, 200);
-
-
+                
                 that.set('messageContent', "");
                 that.set('newStyleImageSource', null);
                 that.set('newStyleImageName', "");
@@ -87,6 +84,11 @@ HubStar.NewConversationController = Ember.Controller.extend({
                 $('#masonry_container').masonry("reloadItems");              
             }, 200);
         }
+    },
+    invitePeople:function()
+    {
+         this.set("isInvitePeople",true);     
+         this.get("controllers.invitePeople").getClientId(localStorage.loginStatus);
     },
     profileStyleImageDrop: function(e, name)
     {

@@ -19,7 +19,8 @@ class ReviewsController extends Controller {
     public function actionCreate() {
         $request_json = file_get_contents('php://input');
         $newRecord = CJSON::decode($request_json, true); 
-        error_log(var_export($newRecord,true));
+        
+        error_log(var_export($newRecord['review']['review_star_rating_value'],true));
         $id = $newRecord['review']['optional'];
         $docID = $this->getDomain() . "/profiles/" . $id;
         $cb = $this->couchBaseConnection();

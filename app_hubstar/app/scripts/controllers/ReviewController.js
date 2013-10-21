@@ -89,12 +89,7 @@ HubStar.ReviewController = Ember.Controller.extend({
 
     }
     
-    
-    
-    
-    
-    
-    
+   
     
 //            
 //    linkingUser: function(id) {

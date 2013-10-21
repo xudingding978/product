@@ -1,45 +1,52 @@
 
 
-
-{{#each reviews}} 
-
-
-
-<div id="reviewList"  class="box" style="width: 430px;height: 100px;position: relative; margin: 10px auto;text-align: center">
-
-
-    {{#if isValid}}
-    <img {{bindAttr src="this.review_user_photo_url"}} id="leftOrRight" style="height: 80px;width: 80px;z-index: 22;position: absolute;top: 20px;left: 450px;"/>
-    {{else}}
-    <img {{bindAttr src="this.review_user_photo_url"}} id="leftOrRight" style="height: 80px;width: 80px;z-index: 22;position: absolute;top: 20px;left: 180px;"/>
-    {{/if}}
-    <div class="fresh-message fresh_succeed" style="top: 50px; height: initial;">
+<div class="review-list-container">
+    {{#each reviews}} 
 
 
 
-
-        <k class="icon-ok-sign">{{controller.review_user_name}}  </k>
-
+    <div id="reviewList"  class="review-list box" style="">
 
 
-        <div class="rating" style="margin: 6px 0 0 0;">
-            <span class="star"></span>
-            <span class="star"></span>
-            <span class="star"></span>
-            <span class="star"></span>
-            <span class="star"></span>
-            <span class="star"></span>
-            <span class="star"></span>
-            <span class="star"></span>
-            <span class="star"></span>
-            <span class="star"></span>
-
-
+        <div class="review-list-profile-pic" style="float:left;">
+            <img {{bindAttr src="this.review_user_photo_url"}} id="leftOrRight" style=""/>
         </div>
 
-        <div>{{this.review_content}}   {{this.review_count}}</div>
+        <div class="review-list-content" style="">
+            <div style="background-color: #f3f3f3;padding: 3px 5px 0 50px;">
+                <div class="comment-namentime" style="display: inline-block;">
+                    <div class="namentime_position" style="margin: 0">
+                        <a class="comment-username" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}} >
+                           {{this.review_user_name}} 
+                    </a>
+                    <div class="posttime-container">
+                        <span class="posttime">{{date this.review_time_stamp}} </span>
+                    </div>
+                </div>
+            </div>
 
+            <div class="rating" style="font-size: 13px; float: right;position: relative;">
+                <span class="star"></span>
+                <span class="star"></span>
+                <span class="star"></span>
+                <span class="star"></span>
+                <span class="star"></span>
+                <span class="star"></span>
+                <span class="star"></span>
+                <span class="star"></span>
+                <span class="star"></span>
+                <span class="star"></span>
+            </div>
+        </div>
+            <div style="background-color: #fff; padding: 0 0 0 50px;">
+            <div style="width: 350px;position: relative; display: inline-block;height: 20px;text-overflow: ellipsis;">{{this.review_content}}   {{this.review_count}}</div>
+
+            <div style="position: relative; display: inline-block; font-size: 18px; color: #888;margin: 0 10px;"><k class="icon-caret-down"></k></div>
+        </div>
     </div>
+
+
+
 </div>
 <script>
     $(function() {
@@ -54,3 +61,4 @@
 
 {{/each}}
 
+</div>

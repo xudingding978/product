@@ -4,6 +4,18 @@
 <div class="blur_black"></div>
 
 
+    {{controller.review_length}}
+
+
+
+    <div style="margin:0 auto; padding: 0 0 15px 15px;">
+
+
+        {{view Ember.TextArea  id="" valueBinding="review_content"  class="no-resize"  placeholder="review time" }}
+        <span class="" style="margin:45px 0;float: right;">
+            <div  class="new-btn"{{action reviewCancel }}>Cancel</div>
+            <div class="new-btn green-btn" {{action  reviewPost model.id}}>Post </div>
+
 <div class="Add-review" style="">
     <div style="width: 100%;height: 50px; line-height: 52px;padding: 0 23px;">
         <a >
@@ -19,6 +31,42 @@
         
         <div class="new-btn blue-btn"{{action rateStar model.id}}>Rate {{controller.review_length}}</div>
 
+
+            <a title="1">1</a>
+        </div>
+        <div id ="2" role="text" aria-label="" class="star-rating  star-rating-live" value="2" title="2">
+
+            <a title="2">2</a>
+        </div>
+        <div id ="3" role="text" aria-label="" class="star-rating  star-rating-live" value="3" title="3">
+            <a title="3">3</a>
+        </div>
+        <div role="text" aria-label="" class="star-rating  star-rating-live" value="4" title="4">
+            <a title="4">4</a>
+        </div>
+        <div role="text" aria-label="" class="star-rating  star-rating-live" value="5" title="5">
+            <a title="5">5</a>
+        </div>
+        <div role="text" aria-label="" class="star-rating  star-rating-live" value="6" title="6">
+            <a title="6">6</a>
+        </div>
+        <div role="text" aria-label="" class="star-rating  star-rating-live" value="7" title="7">
+            <a title="7">7</a>
+        </div>
+        <div role="text" aria-label="" class="star-rating  star-rating-live" value="8" title="8">
+            <a title="8">8</a>
+        </div>
+        <div role="text" aria-label="" class="star-rating  star-rating-live" value="9" title="9">
+            <a title="9">9</a>
+        </div>
+        <div role="text" aria-label="" class="star-rating  star-rating-live" value="10" title="10">
+            <a title="10">10</a>
+        </div>
+
+   <div class="test Smaller">
+    <span style="color:#FF0000"></span>
+   </div>
+    </span>
 
     </div>
 
@@ -38,5 +86,5 @@
 
 
 </div>
-
+</div>
 

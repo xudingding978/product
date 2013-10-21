@@ -10,8 +10,29 @@
     </a>
 
 
+    {{controller.review_length}}
 
-    <span class="star-rating-control">
+
+
+    <div style="margin:0 auto; padding: 0 0 15px 15px;">
+
+
+        {{view Ember.TextArea  id="" valueBinding="review_content"  class="no-resize"  placeholder="review time" }}
+        <span class="" style="margin:45px 0;float: right;">
+            <div  class="new-btn"{{action reviewCancel }}>Cancel</div>
+            <div class="new-btn green-btn" {{action  reviewPost model.id}}>Post </div>
+<div class="Add-review" style="">
+    <div style="width: 100%;height: 50px; line-height: 52px;padding: 0 23px;">
+        <a >
+            <img class="profilepic_comment"  style="margin: 9px 15px 0 0;float: left;"{{bindAttr src="this.review_user_photo_url"}} /> 
+        </a>
+        <div style="font-size: 18px;font-weight: bold;color: #555;"><span>Review on</span><span>Profile name here please</span></div>
+    </div>
+
+    <div style="background-color: #f4f6f8; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; height: 50px; line-height: 50px; width: 100%">
+
+   
+         <span class="star-rating-control">
 
         <div id ="1" role="text" aria-label="" class="star-rating star-rating-live " value="777" title="1">
 
@@ -47,31 +68,25 @@
             <a title="10">10</a>
         </div>
 
-        <span id="hover-test" style="margin:0 0 0 20px;"></span>
-        <input type="submit" value="Submit scores!" />  
- 
    <div class="test Smaller">
     <span style="color:#FF0000"></span>
    </div>
     </span>
-    
- 
- 
 
+    </div>
 
-    {{controller.review_length}}
+    <div style="margin: 5px auto; padding: 0 15px;height: 200px;">
+        {{view Ember.TextArea  id="" valueBinding="review_content"  class="no-resize no-effect"  placeholder="review time" }}
+    </div>
 
-
-
-    <div style="margin:0 auto; padding: 0 0 15px 15px;">
-
-
-        {{view Ember.TextArea  id="" valueBinding="review_content"  class="no-resize"  placeholder="review time" }}
-        <span class="" style="margin:45px 0;float: right;">
-            <div  class="new-btn"{{action reviewCancel }}>Cancel</div>
-            <div class="new-btn green-btn" {{action  reviewPost model.id}}>Post </div>
-        </span>
-
+    <div class="" style="height: 41px;position: absolute;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
+        <div  class="message-btn easing"  {{action reviewCancel }}><k class="icon-remove">&nbsp;</k>Cancel</div>
+        <div  class="message-btn easing" style="border-right: 1px solid #ddd;border-left: 1px solid #ddd;"><k class='icon-picture'>&nbsp;</k>Add Photo
+            <div style="opacity:0;position: relative;height:30px;top:-35px;overflow: hidden;"> 
+                {{view HubStar.SingleImageInputButtonView }}
+            </div>
+        </div>
+        <div class="message-btn easing" {{action  reviewPost model.id}}><k class='icon-ok'>&nbsp;</k>Post</div>
     </div>
 
 
@@ -79,6 +94,7 @@
 
 
 <script>
+
  function DropDown(el) {
                     this.dd = el;
                     this.placeholder = this.dd.children('span');
@@ -87,5 +103,6 @@
                     this.index = -1;
                     this.initEvents();
                 }
+
 </script>
 

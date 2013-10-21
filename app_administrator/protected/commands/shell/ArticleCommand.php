@@ -16,6 +16,8 @@ class ArticleCommand extends Controller_admin {
             $this->updateArticles ();
         } else if ($action =="import") {                //import calls importArticleToProduction function.
             $this->importArticleToProduction();
+        }else if ($action =="body") {                //import calls importArticleToProduction function.
+            $this->reflexArticleBody();
         }
         
         echo "All finished: start from: " . "\r\n";
@@ -24,7 +26,58 @@ class ArticleCommand extends Controller_admin {
         
     }
     
-    protected function importArticleToProduction() {
+    public function findArticles($bucket){
+       
+         $settings['log.enabled'] = true;
+        $Sherlock=new \Sherlock\Sherlock($settings);
+        $Sherlock->addNode("es1.hubsrv.com",9200);
+        $article_arr=array();
+        for($i=0;$i<100;$i++){
+            $request[$i]=$Sherlock->search();
+        $must=  \Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"article\"")
+        ->default_field("couchbaseDocument.doc.type");
+        $bool=  \Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
+        $request[$i]->index($bucket)
+                ->type("couchbaseDocument")
+                ->from(150*$i)
+                ->size(150);
+         $request[$i]->query($bool);
+             $response[$i]=$request[$i]->execute();
+       //   echo "\nNumber of article: ".count( $response[$i]);
+          foreach($response[$i] as $hit){
+           //   $id_arr[$i]=$hit['id'];
+               array_push($article_arr, $hit['id']);
+          }
+        }
+           print_r($article_arr);
+        return $article_arr;
+     
+    }
+    
+     public function reflexArticleBody(){
+          $bucket="temp";
+         $article_arr=$this->findArticles($bucket);
+         foreach($article_arr as $article){
+             $cb=$this->couchBaseConnection($bucket);
+         $result=$cb->get($article);
+         $result_arr=CJSON::decode($result,TRUE);
+         
+         $result_arr['article'][0]['article_body']="<p>".$result_arr['article'][0]['article_body']."</p>";
+         $result_arr['article'][0]['article_body']=  str_replace("\n", "</p><p>", $result_arr['article'][0]['article_body']);
+         $result_arr['article'][0]['article_body']=  str_replace("\r", "</p><p>", $result_arr['article'][0]['article_body']);
+         echo "\n\nThis is the body: ".$result_arr['article'][0]['article_body'];
+         if($cb->set(CJSON::encode($result_arr))){
+             echo $article." update body successful\n";
+         }
+         else{
+             echo $article." fail to update couchbase record~~~~~~~~~~~~~~~~\n";
+         }
+         
+         }
+         
+     }
+
+        protected function importArticleToProduction() {
         $artical_data_arr = Article::model()->getAll();    //gets all from Trends.dbo.Articles and create array of queries 
         $total_amount = sizeof($artical_data_arr);    
         echo "totally: ". $total_amount . "\r\n";
@@ -127,9 +180,9 @@ class ArticleCommand extends Controller_admin {
         }
     }
     
-    protected function couchBaseConnection($bucket = "test") {
-        return new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", $bucket, true);
-    }
+//    protected function couchBaseConnection($bucket = "test") {
+//        return new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", $bucket, true);
+//    }
     
     public function structureArray($val) {
         //get id 

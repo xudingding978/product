@@ -18,7 +18,7 @@
     </div>
     {{view HubStar.EditCollectionView}}
 </div>
-<script>
+<!--<script>
 
     $(function() {
     var $container = $('#masonry_user_container');
@@ -28,7 +28,7 @@
     }, 10);
     });
 
-</script>
+</script>-->
 {{/if}}
 
 
@@ -40,7 +40,7 @@
     <div class="masonry-object Targeting_Object_front" {{bindAttr id="id"}}>
         <a class="album-description-hoverarea easing" href="" {{action transitionToCollectionPhoto id}}>
 
-           <div class="album-description">{{desc}}</div>
+           <div class="album-description">{{desc}} </div>
             <div class="album-description-bg">{{desc}}</div>
         </a>
         <div class="albumcover-container"  > 
@@ -70,15 +70,15 @@
 </div>
 
 
-<script>
+<!--<script>
 
     $(function() {
     var $container = $('#masonry_user_container');
     window.setTimeout(function() {
     $container.masonry();
     $container.masonry('reload');
-    }, 10);
+    }, 1000);
     });
 
-</script>
+</script>-->
 {{/each}}

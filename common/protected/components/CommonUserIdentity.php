@@ -31,7 +31,6 @@ class CommonUserIdentity extends CUserIdentity {
             $this->_id = $user->REC_ID;
             $this->errorCode = self::ERROR_NONE;
         } else {
-            //         $_SESSION['user_REC_ID'] = $user->REC_ID;
             $this->errorCode = self::ERROR_PASSWORD_INVALID;
         }
 

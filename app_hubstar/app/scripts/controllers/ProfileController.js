@@ -605,9 +605,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('partnerTag', false);
         this.set('followerProfileTag', false);
         this.set('collectionTag', true);
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
+   
     },
     selectPartner: function(model) {
         $(window).scrollTop(1500);
@@ -619,9 +617,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('collectionTag', false);
         this.set('followerProfileTag', false);
         this.get('controllers.itemProfiles').setPartnerRemove();
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
+//        setTimeout(function() {
+//            $('#masonry_user_container').masonry("reload");
+//        }, 200);
     },
     selectFollower: function(model) {
         $(window).scrollTop(1500);
@@ -632,11 +630,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.get('controllers.userFollowers').getProfileId(model);
         this.set('partnerTag', false);
         this.set('collectionTag', false);
-
         this.set('followerProfileTag', true);
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
+
     },
     saveUpdateAboutUs: function() {
         var update_About_record = HubStar.Profile.find(this.get('model.id'));

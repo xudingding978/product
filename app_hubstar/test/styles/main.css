@@ -7510,10 +7510,19 @@ div.search-loading-invisible{
     background-color: rgba(0,0,0,0.1);
 }
 
+.edit-object-ul:before{
+    content: "";
+    position: absolute;
+    left: 65px;
+    top: -20px;
+    border-color: transparent transparent #f3f3f3 transparent;
+    border-style: solid;
+    border-width: 10px 10px 10px 10px;
+    z-index: -1;	
+}
 
-
-
-
+.edit-object > .edit-object-ul:before{left: 15px;}
+.top-controlbar > .edit-object-ul:before{left: 15px;}
 
 
 .head {
@@ -7655,16 +7664,16 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     bottom: 30px;
     right: 30px;
     cursor: pointer;
+
+    margin: 0 10px;
 }
 
 .contactmebtn a {
-
-
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     display: inline-block;
     position: relative;
-    line-height: 53px;
+    line-height: 45px;
     background-color: #eaeaea;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#f6f6f6), to(#eaeaea));
     background-image: -webkit-linear-gradient(top, #f6f6f6, #eaeaea);
@@ -7678,6 +7687,8 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
     box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
+
+    color: #555;
 }
 
 .contactmebtn a:active {
@@ -7696,10 +7707,10 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     content: '';
     position: absolute;
     z-index: -1;
-    top: -8px;
-    right: -8px;
-    bottom: -8px;
-    left: -8px;
+    top: -5px;
+    right: -5px;
+    bottom: -5px;
+    left: -5px;
     background-color: #eaeaea;
     -moz-border-radius: 140px;
     -webkit-border-radius: 140px;
@@ -7713,7 +7724,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 }
 
 .contactmebtn a:active::before {
-    top: -9px;
+    top: -6px;
 }
 
 .contactmebtn a:hover::before {
@@ -7727,7 +7738,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 }
 
 
-.contactmebtn > .contactmeicon > i {
+.contactmebtn:hover > .contactmeicon > i {
     color: rgba(10,60,150, 0.8);
     text-shadow: 1px 4px 6px #def, 0 0 0 #000, 1px 4px 6px #def;
 
@@ -9587,7 +9598,6 @@ div.loading-visible{
 .article-objectview-right{
     width: 45%;
 }
-
 .article-objectview-left{
     right: 45%;
 }
@@ -9639,6 +9649,8 @@ div.loading-visible{
     position: relative;
     top: 3px;
     display: inline-block;
+    min-width: 178px;
+    max-width:80%;
 }
 
 .poster-name{
@@ -9646,7 +9658,6 @@ div.loading-visible{
     font-weight: bold;
     display: block;
     unicode-bidi: normal;
-    width: 178px;
 }
 
 .posttime{
@@ -10580,6 +10591,13 @@ input{
     box-shadow: 0 0 10px #bbb;
 }
 
+.profilecorpbanner{
+    width: 100%;
+    max-height: 650px;
+    border-radius: 3px 3px 0 0;
+    position: relative;
+    min-height: 400px;
+}
 
 .profilecorpbanner:hover .edit-dashboard-btn{
     opacity: 1;
@@ -10838,6 +10856,14 @@ div.profile-picture-active
     border-width:4px!important;
     position:absolute;
 }
+#profile-picture > img{
+    margin-left:-5px;
+    min-width:180px;
+    min-height:180px;
+    max-width:235px;
+    max-height:235px;
+}
+
 .follow-btn-active
 {
     float: right!important;
@@ -10968,6 +10994,26 @@ textarea.add-interests{
 /*CROP FUNCTION*/
 
 .crop-canvas{height: auto;max-height: 500px;width: auto;margin: 0 auto; max-width: 850px;}
+
+
+
+
+/*STAR RATING STYLE*/
+
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    font-size: 20px;
+}
+
+.rating > span.star {
+    content: "";
+    color: #999999;
+}
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+    content: "";
+}
 
 
 

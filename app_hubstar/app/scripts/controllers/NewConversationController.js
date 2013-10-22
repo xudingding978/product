@@ -26,6 +26,12 @@ HubStar.NewConversationController = Ember.Controller.extend({
             this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
         }
     },
+    removePic: function() {
+        this.set('newStyleImageSource', null);
+        this.set('newStyleImageName', "");
+
+        this.set("isUploadPhoto", false);
+    },
     addComment: function() {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));

@@ -28,6 +28,12 @@ HubStar.ConversationItemController = Ember.Controller.extend({
             this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
         }
     },
+    removePic: function() {
+        this.set('newStyleImageSource', null);
+        this.set('newStyleImageName', "");
+
+        this.set("isUploadPhoto", false);
+    },
     getClientId: function(id) {
 
         var conversationContent = this.get('controllers.conversation').get("conversationContent");
@@ -126,7 +132,7 @@ HubStar.ConversationItemController = Ember.Controller.extend({
                             participation_ids = participation_ids + ',' + this.get("contentFollowerPhoto").objectAt(i).get("id");
                         }
                     }
-                }               
+                }
             }
             var tempComment = [commenter_id, date.toString(), conversationtContent, conversationItemId, newStyleImage, imageType, imageStyleName, conversationId, participation_ids];
 
@@ -156,12 +162,12 @@ HubStar.ConversationItemController = Ember.Controller.extend({
                             conversationItems["isUrl"] = false;
                         }
 
-                        that.get('controllers.conversation').get("conversationContent").objectAt(i).get("ConversationCollection").insertAt(0, conversationItems);                        
+                        that.get('controllers.conversation').get("conversationContent").objectAt(i).get("ConversationCollection").insertAt(0, conversationItems);
                         if (that.get("contentFollowerPhoto") !== null) {
                             for (var j = 0; j < that.get("contentFollowerPhoto").length; j++)
                             {
                                 if (that.get("contentFollowerPhoto").objectAt(j).get("isAdd") === true)
-                                {                                  
+                                {
                                     that.get('controllers.conversation').get("conversationContent").objectAt(i).get("conversationPhoto").pushObject(that.get("contentFollowerPhoto").objectAt(j));
                                 }
                             }
@@ -189,7 +195,7 @@ HubStar.ConversationItemController = Ember.Controller.extend({
     {
         this.get("controllers.invitePeople").set("owner", "conversationItem");
         this.set("isInvitePeople", true);
-        this.get("controllers.invitePeople").getClientId(localStorage.loginStatus,id);
+        this.get("controllers.invitePeople").getClientId(localStorage.loginStatus, id);
     },
     addToList: function(id) {
         for (var i = 0; i < this.get("contentFollowerPhoto").length; i++)

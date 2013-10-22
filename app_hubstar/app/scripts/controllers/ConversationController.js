@@ -63,7 +63,7 @@ HubStar.ConversationController = Ember.Controller.extend({
         var that = this;
 
         requiredBackEnd('conversations', 'DeleteConversation', tempComment, 'POST', function(params) {
-            that.get("controllers.messageCenter").selectMessage(localStorage.loginStatus);
+            that.get("controllers.messageCenter").selectNewConversation();
             for (var i = 0; i < that.get("conversationContent").length; i++)
             {
                 if (that.get("conversationContent").objectAt(i).get("conversationID") === id)

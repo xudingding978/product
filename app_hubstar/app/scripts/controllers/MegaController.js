@@ -109,7 +109,9 @@ HubStar.MegaController = Ember.ArrayController.extend({
                         var id = this.get("content").objectAt(i).id;
                         if (HubStar.Mega.find(id).get('photo').get('length') === 1 && mega.get('id') !== id)
                         {
-                            that.get("content").pushObject(HubStar.Mega.find(id).get("photo").objectAt(0));
+                            if (HubStar.Mega.find(id).get('collection_id') === collection_id) {
+                                that.get("content").pushObject(HubStar.Mega.find(id).get("photo").objectAt(0));
+                            }
                         }
                     }
                 }
@@ -291,6 +293,18 @@ HubStar.MegaController = Ember.ArrayController.extend({
     tShare: function() {
         var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
         var url = 'https://twitter.com/share?text=' + this.get('selectedPhoto').get('photo_title') + '&url=' + encodeURIComponent(currntUrl);
+        window.open(
+                url,
+                'popupwindow',
+                'height=436,width=626'
+                ).focus();
+        return false;
+    },
+      pShare: function() {
+        var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
+        var url = 'http://www.pinterest.com/pin/create/button/?url=' +  encodeURIComponent(currntUrl)+          
+                  '&media='+ encodeURIComponent(this.get('selectedPhoto').get('photo_image_thumbnail_url'))+
+                  '&description='+encodeURIComponent(this.get('selectedPhoto').get('photo_title'));    
         window.open(
                 url,
                 'popupwindow',

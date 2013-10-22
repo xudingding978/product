@@ -130,6 +130,7 @@ HubStar.NewConversationController = Ember.Controller.extend({
                 // that.get('controllers.conversation').set("conversationPhoto", that.get("controllers.invitePeople").get("contentFollowerPhoto"));
 
                 that.set('messageContent', "");
+                that.set("contentFollowerPhoto",null);
                 that.set('newStyleImageSource', null);
                 that.set('newStyleImageName', "");
             });

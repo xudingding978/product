@@ -46,13 +46,16 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
             }
             else
             {
-                var participation_id = new Array();
-                participation_id = that.get("conversationItem").get("participation_ids").split(',');
-                console.log(participation_id);
+                console.log(conversationID);
+                if (conversationID !== undefined) {
+                    var participation_id = new Array();
+                    participation_id = that.get("conversationItem").get("participation_ids").split(',');
+                    console.log(participation_id);
+                }
                 for (var i = 0; i < params.length; i++)
                 {
 
-                    if (conversationID === null) {
+                    if (conversationID === undefined) {
                         dataNew["isAdd"] = false;
                         dataNew["id"] = params[i]["record_id"];
                         dataNew["name"] = params[i]["name"];

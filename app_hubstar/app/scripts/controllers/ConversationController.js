@@ -42,6 +42,10 @@ HubStar.ConversationController = Ember.Controller.extend({
         }, 200);
     },
     selectConversation: function(id) {
+        var idOld = this.get("selectId");
+        $('#conversation_' +idOld).removeClass('selected-conversation');
+        $('#conversation_' + id).addClass('selected-conversation');
+        this.set("selectId",id);
         this.get('controllers.messageCenter').selectConversationItem();
 
         this.get('controllers.conversationItem').getClientId(id);

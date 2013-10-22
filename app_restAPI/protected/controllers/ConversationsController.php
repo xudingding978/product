@@ -242,24 +242,26 @@ class ConversationsController extends Controller {
                     $participationIds = explode(",", $mega_currentConversation["participation_ids"]);
                     $contentParticipation = array();
                     for ($k = 0; $k < sizeof($participationIds); $k++) {
-                        $docID_currentUserNew = $domain . "/users/" . $participationIds[$k];
-                        $docID_currentUserNew = $cb->get($docID_currentUserNew);
-                        $tdocID_currentUserNew = CJSON::decode($docID_currentUserNew, true);
-                        $tempPhoto = array();
-                        $tempPhoto['isAdd'] = true;
+                        if ($participationIds[$k] !== '' && $participationIds[$k] !== null) {
+                            $docID_currentUserNew = $domain . "/users/" . $participationIds[$k];
+                            $docID_currentUserNew = $cb->get($docID_currentUserNew);
+                            $tdocID_currentUserNew = CJSON::decode($docID_currentUserNew, true);
+                            $tempPhoto = array();
+                            $tempPhoto['isAdd'] = true;
 
-                        $tempPhoto['photo_url'] = $tdocID_currentUserNew['user'][0]["photo_url_large"];
-                        array_push($contentParticipation, $tempPhoto);
-                        if ($k === 0) {
-                            $names = $tdocID_currentUserNew['user'][0]["display_name"];
-                        } elseif ($k === 1) {
-                            $names = $names . ',' . $tdocID_currentUserNew['user'][0]["display_name"];
-                        } elseif ($k === 2) {
-                            $names = $names . ',' . $tdocID_currentUserNew['user'][0]["display_name"];
-                            if (strlen($names) > 40) {
-                                $names = substr($names, 0, 40) . "...";
-                            } else {
-                                $names = $names . "...";
+                            $tempPhoto['photo_url'] = $tdocID_currentUserNew['user'][0]["photo_url_large"];
+                            array_push($contentParticipation, $tempPhoto);
+                            if ($k === 0) {
+                                $names = $tdocID_currentUserNew['user'][0]["display_name"];
+                            } elseif ($k === 1) {
+                                $names = $names . ',' . $tdocID_currentUserNew['user'][0]["display_name"];
+                            } elseif ($k === 2) {
+                                $names = $names . ',' . $tdocID_currentUserNew['user'][0]["display_name"];
+                                if (strlen($names) > 40) {
+                                    $names = substr($names, 0, 40) . "...";
+                                } else {
+                                    $names = $names . "...";
+                                }
                             }
                         }
                     }
@@ -330,7 +332,7 @@ class ConversationsController extends Controller {
             //  error_log(var_export($id, true));
             $cb = $this->couchBaseConnection();
             $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
-            $oldRecordDeep = CJSON::decode($oldDeep, true);          
+            $oldRecordDeep = CJSON::decode($oldDeep, true);
 
             $newConversationItem = array();
 
@@ -382,7 +384,7 @@ class ConversationsController extends Controller {
             $oldRecordDeep['ConversationCollection'] = array();
             array_unshift($oldRecordDeep['ConversationCollection'], $newConversationItem);
 
-            $addResult=$oldRecordDeep;
+            $addResult = $oldRecordDeep;
             //get the commenter's photo url and name
             if ($participation_ids === '' || $participation_ids === null) {
                 $participantions = explode(",", $commenter_id);
@@ -434,7 +436,7 @@ class ConversationsController extends Controller {
 
 
             if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
-                
+
                 return $addResult;
             } else {
                 

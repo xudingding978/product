@@ -170,6 +170,7 @@ HubStar.ConversationItemController = Ember.Controller.extend({
                         break;
                     }
                 }
+                //that.set("isAdded",false);
                 that.set("contentFollowerPhoto", null);
                 that.set("isUploadPhoto", false);
                 that.set('messageContent', "");

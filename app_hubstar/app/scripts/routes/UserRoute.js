@@ -14,6 +14,7 @@ HubStar.UserRoute = Ember.Route.extend({
         this.controller.set('followerTag', false);
         this.controller.set('followingTag', false);
         this.controller.set('messageTag', false);
+
 //            console.log(this.controllerFor('checkAuthorityStatus').);
         this.controllerFor('user').set("model", model);
         this.controllerFor('user').setUser();
@@ -23,6 +24,7 @@ HubStar.UserRoute = Ember.Route.extend({
         return HubStar.User.find(params.user_id);
     },
     events: {
+
         transitionToCollectionPhoto: function(collection_id) {
 
             var address = document.URL;

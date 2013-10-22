@@ -33,7 +33,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         var results = HubStar.Mega.find({RquireType: "personalCollection", user_id: user_id, collection_id: collection_id});
         var that = this;
 
-  
+
         results.addObserver('isLoaded', function() {
 
 
@@ -78,9 +78,11 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     ,
     goBack: function() {
 
-        var lastposition = HubStar.get("scrollCollectionPosition");
-        window.history.back();
 
+        var lastposition = HubStar.get("scrollCollectionPosition");
+        //   window.history.back();
+
+        this.transitionToRoute('user');
         setTimeout(function() {
 
             $(window).scrollTop(lastposition);
@@ -200,13 +202,13 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         var address = document.URL;
         var owner_id = address.split("#")[1].split("/")[2];
 
-        
+
 
         // var that = this;
         for (var i = 0; i < userOrprofile.get('content').length; i++) {
-          
+
             if (userOrprofile.objectAt(i).id === collection_id) {
-                
+
                 var currentCollection = userOrprofile.objectAt(i);
                 currentCollection.set('cover', coverImge);
                 currentCollection.set('optional', owner_id);
@@ -218,7 +220,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     },
     changeCollectionArticleCover: function(id, collection_id, HubStarModel) {
         this.dropdownPhotoSetting(id);
-        var Mega = HubStar.Mega.find(id);       
+        var Mega = HubStar.Mega.find(id);
         var coverImge = Mega.get('article').objectAt(0).get('article_image_url');
         var address = document.URL;
         var owner_id = address.split("#")[1].split("/")[2];
@@ -235,7 +237,6 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             }
         }
     },
-
     transitionToArticle: function(id) {
 
         this.transitionTo("article", HubStar.Article.find(id));

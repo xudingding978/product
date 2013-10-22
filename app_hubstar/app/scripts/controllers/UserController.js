@@ -73,6 +73,7 @@ HubStar.UserController = Ember.Controller.extend({
     interestsActive: false,
     init: function()
     {
+              
     },
     isUserSelfOrNot: function(currentUserID) {
         this.set("isUserSelf", false);
@@ -716,7 +717,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('collectionTag', true);
         this.set('followerTag', false);
         this.set('messageTag', false);
-        this.transitionToRoute('userCollections');
+        //this.transitionToRoute('userCollections');
     },
     selectFollowing: function(model) {
 

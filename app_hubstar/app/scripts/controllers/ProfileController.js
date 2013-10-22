@@ -464,9 +464,6 @@ if(this.get('newDesc').length<256){
 
         this.get('selectedCollection').set('desc', this.get('newDesc'));
 
-        this.get('selectedCollection').set('title', this.get('newTitle'));
-        this.get('selectedCollection').set('desc', this.get('newDesc'));
-
         var collectionController = this.get('controllers.collection');
         var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
         collection.set('optional', this.get('model').get('id'));
@@ -476,7 +473,8 @@ if(this.get('newDesc').length<256){
         $(".Targeting_Object_front").attr("style", "display:inline-block");
         $(" #uploadArea").attr('style', "display:none");
         $(" #uploadObject").attr('style', "display:block");
-
+    this.set('newTitle', '');
+        this.set('newDesc', '');
     }
     else
         {

@@ -13,7 +13,7 @@
 HubStar.NewConversationController = Ember.Controller.extend({
     contentMsg: null,
     commenter_photo_url: null,
-    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'conversation', 'messageCenter', 'invitePeople','conversationItem'],
+    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'conversation', 'messageCenter', 'invitePeople', 'conversationItem'],
     isUploadPhoto: false,
     isInvitePeople: false,
     isAdded: false,
@@ -62,21 +62,23 @@ HubStar.NewConversationController = Ember.Controller.extend({
             }
             var conversationID = createMessageid();
             var conversationItemID = createMessageid();
-            var participation_ids = "";
-            for (var i = 0; i < this.get("contentFollowerPhoto").length; i++)
-            {
-                if (this.get("contentFollowerPhoto").objectAt(i).get("isAdd") === true)
+            var participation_ids = '';
+            if (this.get("contentFollowerPhoto") !== null) {
+                for (var i = 0; i < this.get("contentFollowerPhoto").length; i++)
                 {
-                    if (participation_ids === "")
+                    if (this.get("contentFollowerPhoto").objectAt(i).get("isAdd") === true)
                     {
-                        participation_ids = participation_ids + this.get("contentFollowerPhoto").objectAt(i).get("id");
-                    }
-                    else
-                    {
-                        participation_ids = participation_ids + ',' + this.get("contentFollowerPhoto").objectAt(i).get("id");
+                        if (participation_ids === "")
+                        {
+                            participation_ids = participation_ids + this.get("contentFollowerPhoto").objectAt(i).get("id");
+                        }
+                        else
+                        {
+                            participation_ids = participation_ids + ',' + this.get("contentFollowerPhoto").objectAt(i).get("id");
+                        }
                     }
                 }
-            }           
+            }        
             var tempComment = [commenter_id, date.toString(), commentContent, newStyleImage, imageType, imageStyleName, conversationID, conversationItemID, participation_ids];
 
             tempComment = JSON.stringify(tempComment);
@@ -85,11 +87,48 @@ HubStar.NewConversationController = Ember.Controller.extend({
             var dataNew = new Array();
 
             requiredBackEnd('conversations', 'CreateConversation', tempComment, 'POST', function(params) {
+                dataNew["conversationID"] = params["conversationID"];
+                dataNew["participation_ids"] = params["participation_ids"];
 
-                that.get('controllers.conversation').getClientId(that.get("currentUser").get('id'));
+                dataNew["names"] = params["names"];
+
+                dataNew["ConversationCollection"] = new Array();
+                dataNew["msg"] = params["ConversationCollection"][0]["msg"];
+                dataNew["time_stamp"] = params["ConversationCollection"][0]["time_stamp"];
+                dataNew["conversationPhoto"] = new Array();
+                dataNew["conversationPhoto"] = params["conversationPhoto"];
+                console.log();
+                for (var j = 0; j < params["ConversationCollection"].length; j++)
+                {
+
+                    var conversationItem = new Array();
+                    conversationItem["item_id"] = params["ConversationCollection"][j]["item_id"];
+                    conversationItem["sender_id"] = params["ConversationCollection"][j]["sender_id"];
+                    conversationItem["time_stamp"] = params["ConversationCollection"][j]["time_stamp"];
+                    conversationItem["msg"] = params["ConversationCollection"][j]["msg"];
+                    conversationItem["name"] = params["ConversationCollection"][j]["name"];
+
+                    conversationItem["sender_photo_url_large"] = params["ConversationCollection"][j]["sender_photo_url_large"];
+                    if (params["ConversationCollection"][j]["url"] === null)
+                    {
+                        conversationItem["isUrl"] = false;
+                    }
+                    else
+                    {
+                        conversationItem["isUrl"] = true;
+                    }
+                    conversationItem["url"] = params["ConversationCollection"][j]["url"];
+
+                    dataNew["ConversationCollection"].pushObject(conversationItem);
+                }
+
+
+                that.get('controllers.conversation').get("conversationContent").insertAt(0, dataNew);
+                dataNew = new Array();
+
                 that.set("isUploadPhoto", false);
-                that.set("contentFollowerPhoto",   that.get("controllers.invitePeople").get("contentFollowerPhoto"));
-                //that.get("controllers.conversationItem").set("contentFollowerPhoto",   that.get("controllers.invitePeople").get("contentFollowerPhoto"));
+                // that.get('controllers.conversation').set("conversationPhoto", that.get("controllers.invitePeople").get("contentFollowerPhoto"));
+
                 that.set('messageContent', "");
                 that.set('newStyleImageSource', null);
                 that.set('newStyleImageName', "");
@@ -103,8 +142,8 @@ HubStar.NewConversationController = Ember.Controller.extend({
         }
     },
     invitePeople: function()
-    { 
-         this.get("controllers.invitePeople").set("owner", "newConversation");
+    {
+        this.get("controllers.invitePeople").set("owner", "newConversation");
         this.set("isInvitePeople", true);
         this.get("controllers.invitePeople").getClientId(localStorage.loginStatus);
     },

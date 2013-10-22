@@ -34,6 +34,29 @@ HubStar.ConversationItemController = Ember.Controller.extend({
 
         this.set("isUploadPhoto", false);
     },
+    getClientIdAdd: function(id) {
+         var conversationContent = this.get('controllers.conversation').get("conversationContent");
+        this.set("id", id);
+        for (var i = 0; i < conversationContent.length; i++)
+        {
+            if (conversationContent[i]["conversationID"] === id)
+            {
+                this.set("conversationItem", conversationContent[i]);
+                break;
+            }
+        }
+
+        if (this.get("conversationItem").get("conversationPhoto").length === 0)
+        {
+            this.set("isAdded", false);
+        }
+        else
+        {
+            this.set("isAdded", true);
+        }
+        this.set("contentFollowerPhotoOld", this.get("conversationItem").get("conversationPhoto"));
+        this.set("conversationItemContent", this.get("conversationItem").get("ConversationCollection"));
+    },
     getClientId: function(id) {
 
         var conversationContent = this.get('controllers.conversation').get("conversationContent");
@@ -55,10 +78,6 @@ HubStar.ConversationItemController = Ember.Controller.extend({
         {
             this.set("isAdded", true);
         }
-//        for (var i = 0; i < this.get("conversationItem").get("conversationPhoto").length; i++)
-//        {
-//            this.get("conversationItem").get("conversationPhoto").objectAt(i).set("isAdd", true);
-//        }
         this.set("contentFollowerPhotoOld", this.get("conversationItem").get("conversationPhoto"));
         this.set("conversationItemContent", this.get("conversationItem").get("ConversationCollection"));
         setTimeout(function() {
@@ -172,23 +191,19 @@ HubStar.ConversationItemController = Ember.Controller.extend({
                                 }
                             }
                         }
-                        that.getClientId(conversationId);
+                        that.getClientIdAdd(conversationId);
                         break;
                     }
                 }
-                //that.set("isAdded",false);
                 that.set("contentFollowerPhoto", null);
                 that.set("isUploadPhoto", false);
                 that.set('messageContent', "");
                 that.set('newStyleImageSource', null);
                 that.set('newStyleImageName', "");
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry("reloadItems");
+                }, 200);
             });
-
-
-
-            setTimeout(function() {
-                $('#masonry_container').masonry("reloadItems");
-            }, 200);
         }
     },
     invitePeople: function(id)
@@ -215,7 +230,7 @@ HubStar.ConversationItemController = Ember.Controller.extend({
         this.set('newStyleImageSource', src);
         this.set('newStyleImageName', name);
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
+            $('#masonry_user_container').masonry("reloadItems");
         }, 200);
     }
 }

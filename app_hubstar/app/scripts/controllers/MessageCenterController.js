@@ -51,7 +51,7 @@ HubStar.MessageCenterController = Ember.Controller.extend({
          this.get("controllers.conversation").selectConversation();
         this.get('controllers.userMessage').getClientId(id);
         setTimeout(function() {
-            $('#masonry_container').masonry("reloadItems");
+            $('#masonry_user_container').masonry("reload");
         }, 200);
     },
     selectNotification: function() {
@@ -61,7 +61,7 @@ HubStar.MessageCenterController = Ember.Controller.extend({
         this.set("isMessageBoard", false);
         this.get("controllers.conversation").selectConversation();
         setTimeout(function() {
-            $('#masonry_container').masonry("reloadItems");
+            $('#masonry_user_container').masonry("reload");
         }, 200);
     },
     selectNewConversation: function() {
@@ -72,7 +72,7 @@ HubStar.MessageCenterController = Ember.Controller.extend({
         this.get("controllers.conversation").selectConversation();
          this.get('controllers.newConversation').set("isInvitePeople",false);
         setTimeout(function() {
-            $('#masonry_container').masonry("reloadItems");
+            $('#masonry_user_container').masonry("reload");
         }, 200);
     },
      selectConversationItem: function() {
@@ -82,7 +82,7 @@ HubStar.MessageCenterController = Ember.Controller.extend({
         this.set("isMessageBoard", false);
          //this.get('controllers.newConversation').getClientId(id);
         setTimeout(function() {
-            $('#masonry_container').masonry("reloadItems");
+            $('#masonry_user_container').masonry("reload");
         }, 200);
     }
 }

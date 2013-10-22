@@ -177,8 +177,8 @@ class EmailsController extends Controller {
     <head>
         <title></title>
     </head>
-    <body style="background: #E5E5E5;margin:0;padding:0;">
-        <table width="100%" cellpadding="0" cellspacing="0">
+    <body style="background: #E5E5E5; margin: 0; padding: 0;">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
             <tbody>
                 <tr>
                     <td align="center">
@@ -186,7 +186,7 @@ class EmailsController extends Controller {
                             <tbody>
                                 <tr>
                                     <td>
-                                        <img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/header.jpg" />
+                                        <img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/header.jpg" alt="Trends" style="float:left;" />
                                     </td>
                                 </tr>
                                 <tr>
@@ -201,7 +201,6 @@ class EmailsController extends Controller {
                                                         Subject: ' . $subject . '
                                                     </td>
                                                 </tr>
-
                                                 <tr>
                                                     <td>
                                                         To: ' . $recieveProfile . '
@@ -215,7 +214,8 @@ class EmailsController extends Controller {
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <br />From: ' . $sendPersonName . '
+                                                        <br />
+                                                        From: ' . $sendPersonName . '
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -227,7 +227,7 @@ class EmailsController extends Controller {
                                 <tr>
                                     <td align="center">
                                         &nbsp;<br />
-                                        <table cellpadding="10" cellspacing="0" width="90%" style="color: #666; font-size: 13px;
+                                        <table cellpadding="10" cellspacing="0" width="90%" border="0" style="color: #666; font-size: 13px;
                                                line-height: 150%; font-family: Helvetica, Arial, San-Serif; text-align: left;
                                                background: #e5e5e5; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px;">
                                             <tbody>
@@ -281,10 +281,7 @@ class EmailsController extends Controller {
                                                                 ' . $description . '
                                                             </ul>
                                                         </div>
-                                                        <div style="display: block;">
-                                                        </div>
-                                                        <div style="display: block;">
-                                                        </div>
+
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -296,10 +293,13 @@ class EmailsController extends Controller {
                                 </tr>
                                 <tr>
                                     <td>
-                                        <img src="http://develop.devbox.s3.amazonaws.com/email-bottom.jpg" />
-                                        <br />
-                                        &nbsp;
+                                        <img src="http://develop.devbox.s3.amazonaws.com/email-bottom.jpg" style="float:left;" />
+
                                     </td>
+                                </tr>
+                                <tr>
+                                    <td><br />
+                                        &nbsp;</td>
                                 </tr>
                             </tbody>
                         </table>

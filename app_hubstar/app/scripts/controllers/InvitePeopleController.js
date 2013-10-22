@@ -28,7 +28,15 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
     getClientId: function(id, conversationID) {
         this.set('clientID', id);
         var dataNew = new Array();
-
+        var conversationContent = this.get('controllers.conversation').get("conversationContent");
+        for (var i = 0; i < conversationContent.length; i++)
+        {
+            if (conversationContent[i]["conversationID"] === conversationID)
+            {
+                this.set("conversationItem", conversationContent[i]);
+                break;
+            }
+        }
         var that = this;
         requiredBackEnd('followers', 'ReadPic', id, 'POST', function(params) {
             that.set("contentFollowerPhoto", []);
@@ -38,18 +46,43 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
             }
             else
             {
+                console.log(conversationID);
+                if (conversationID !== undefined) {
+                    var participation_id = new Array();
+                    participation_id = that.get("conversationItem").get("participation_ids").split(',');
+                    console.log(participation_id);
+                }
                 for (var i = 0; i < params.length; i++)
                 {
-                    dataNew["id"] = params[i]["record_id"];
-                    dataNew["name"] = params[i]["name"];
-                    dataNew["photo_url"] = params[i]["photo_url"];
-                    if (conversationID === null) {
+
+                    if (conversationID === undefined) {
                         dataNew["isAdd"] = false;
+                        dataNew["id"] = params[i]["record_id"];
+                        dataNew["name"] = params[i]["name"];
+                        dataNew["photo_url"] = params[i]["photo_url"];
+                        that.get("contentFollowerPhoto").pushObject(dataNew);
                     }
                     else {
-                    }
-                    that.get("contentFollowerPhoto").pushObject(dataNew);
 
+                        var flag = false;
+                        for (var j = 0; j < participation_id.length; j++)
+                        {
+                            if (participation_id[j] === params[i]["record_id"])
+                            {
+                                flag = true;
+                                console.log(participation_id[j]);
+                                break;
+                            }
+                        }
+                        if (flag !== true)
+                        {
+                            dataNew["isAdd"] = false;
+                            dataNew["id"] = params[i]["record_id"];
+                            dataNew["name"] = params[i]["name"];
+                            dataNew["photo_url"] = params[i]["photo_url"];
+                            that.get("contentFollowerPhoto").pushObject(dataNew);
+                        }
+                    }
                     dataNew = new Array();
                 }
             }
@@ -88,7 +121,7 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
         {
             this.get("controllers.conversationItem").set("isInvitePeople", false);
         }
-        
+
         this.set("contentFollowerPhoto", null);
     }
 }

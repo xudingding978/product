@@ -42,6 +42,10 @@ HubStar.ConversationController = Ember.Controller.extend({
         }, 200);
     },
     selectConversation: function(id) {
+        var idOld = this.get("selectId");
+        $('#conversation_' +idOld).removeClass('selected-conversation');
+        $('#conversation_' + id).addClass('selected-conversation');
+        this.set("selectId",id);
         this.get('controllers.messageCenter').selectConversationItem();
 
         this.get('controllers.conversationItem').getClientId(id);
@@ -57,8 +61,15 @@ HubStar.ConversationController = Ember.Controller.extend({
         var that = this;
 
         requiredBackEnd('conversations', 'DeleteConversation', tempComment, 'POST', function(params) {
-            that.getClientId(owner_id);
-
+            that.get("controllers.messageCenter").selectMessage(localStorage.loginStatus);
+            for(var i=0;i< that.get("conversationContent").length;i++)
+                {
+                    if( that.get("conversationContent").objectAt(i).get("conversationID")===id)
+                        {
+                            that.get("conversationContent").removeObject(that.get("conversationContent").objectAt(i));
+                            break;
+                        }
+                }         
         });
     },
     getClientId: function(id) {
@@ -69,6 +80,7 @@ HubStar.ConversationController = Ember.Controller.extend({
 
         tempComment = JSON.stringify(tempComment);
         var that = this;
+        this.set("conversationContent", []);
         requiredBackEnd('conversations', 'ReadConversation', tempComment, 'POST', function(params) {
             that.set("conversationContent", []);
             for (var i = 0; i < params.length; i++)
@@ -117,45 +129,45 @@ HubStar.ConversationController = Ember.Controller.extend({
 
         });
     },
-    removeMessage: function(Message_id)
-    {
-
-        this.set("currentOwner", this.get('controllers.user').getCurrentUser());
-        this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
-
-        var commenter_id = this.get("currentUser").get('id');// it is the login in user , it will use to check the right of delete
-        var owner_id = this.get("currentOwner").get("id");// it the owner of the page, it will be used to identify  delete  which user's message item
-
-        var tempComment = [commenter_id, owner_id, Message_id];
-
-        tempComment = JSON.stringify(tempComment);
-        var that = this;
-
-        requiredBackEnd('messages', 'RemoveMessage', tempComment, 'POST', function() {
-
-
-            for (var i = 0; i < that.get("contentMsg").length; i++)
-            {
-                if (that.get("contentMsg").objectAt(i).get("message_id") === Message_id)
-                {
-
-                    that.get("contentMsg").removeObject(that.get("contentMsg").objectAt(i));
-                    break;
-                }
-
-            }
-
-            setTimeout(function() {
-                $('#masonry_user_container').masonry("reloadItems");
-            }, 200);
-        });
-        $('#addcommetBut').attr('style', 'display:block');
-        $('#commentBox').attr('style', 'display:none');
-        setTimeout(function() {
-            $('#masonry_container').masonry("reload");
-            $('.user_comment_' + localStorage.loginStatus).attr('style', 'display:block');
-        }, 200);
-    },
+//    removeMessage: function(Message_id)
+//    {
+//
+//        this.set("currentOwner", this.get('controllers.user').getCurrentUser());
+//        this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+//
+//        var commenter_id = this.get("currentUser").get('id');// it is the login in user , it will use to check the right of delete
+//        var owner_id = this.get("currentOwner").get("id");// it the owner of the page, it will be used to identify  delete  which user's message item
+//
+//        var tempComment = [commenter_id, owner_id, Message_id];
+//
+//        tempComment = JSON.stringify(tempComment);
+//        var that = this;
+//
+//        requiredBackEnd('messages', 'RemoveMessage', tempComment, 'POST', function() {
+//            
+//
+//            for (var i = 0; i < that.get("contentMsg").length; i++)
+//            {
+//                if (that.get("contentMsg").objectAt(i).get("message_id") === Message_id)
+//                {
+//
+//                    that.get("contentMsg").removeObject(that.get("contentMsg").objectAt(i));
+//                    break;
+//                }
+//
+//            }
+//
+//            setTimeout(function() {
+//                $('#masonry_user_container').masonry("reloadItems");
+//            }, 200);
+//        });
+//        $('#addcommetBut').attr('style', 'display:block');
+//        $('#commentBox').attr('style', 'display:none');
+//        setTimeout(function() {
+//            $('#masonry_container').masonry("reload");
+//            $('.user_comment_' + localStorage.loginStatus).attr('style', 'display:block');
+//        }, 200);
+//    },
     addComment: function() {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));

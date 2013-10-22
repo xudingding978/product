@@ -184,11 +184,11 @@ HubStar.ConversationItemController = Ember.Controller.extend({
             }, 200);
         }
     },
-    invitePeople: function()
+    invitePeople: function(id)
     {
         this.get("controllers.invitePeople").set("owner", "conversationItem");
         this.set("isInvitePeople", true);
-        this.get("controllers.invitePeople").getClientId(localStorage.loginStatus);
+        this.get("controllers.invitePeople").getClientId(localStorage.loginStatus,id);
     },
     addToList: function(id) {
         for (var i = 0; i < this.get("contentFollowerPhoto").length; i++)

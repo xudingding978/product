@@ -110,7 +110,7 @@ class ConversationsController extends Controller {
         if ($conversation) {
             $this->sendResponse(200, CJSON::encode($conversation));
         } else {
-            echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+            $this->sendResponse(204);
         }
     }
 
@@ -133,7 +133,7 @@ class ConversationsController extends Controller {
         if ($conversation) {
             $this->sendResponse(200, CJSON::encode($conversation));
         } else {
-            echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+            echo $this->sendResponse(204);
         }
     }
 

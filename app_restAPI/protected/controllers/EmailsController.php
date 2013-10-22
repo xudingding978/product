@@ -294,7 +294,6 @@ class EmailsController extends Controller {
                                 <tr>
                                     <td>
                                         <img src="http://develop.devbox.s3.amazonaws.com/email-bottom.jpg" style="float:left;" />
-
                                     </td>
                                 </tr>
                                 <tr>

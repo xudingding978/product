@@ -1,3 +1,8 @@
+body > div.ember-view{
+    overflow:hidden;
+    max-width:100%;
+}
+
 .plaform_bar{
     height: 280px;
 

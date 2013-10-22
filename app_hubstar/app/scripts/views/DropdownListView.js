@@ -27,7 +27,11 @@ HubStar.DropdownListView = Ember.View.extend({
              $('#profilePackgetDropdown > .ite').click(function() {
                 that.get('controller').set('projectCategoryDropdownContent', $(this).text());
            });
-            
+           
+           $('#geoDropdown > .ite').click(function() {
+                HubStar.set('geoLocation', $(this).text());
+           });
+             
            $('#packgetDropdown > .ite').click(function() {
 
                 that.get('controller').set('packgeSelection', $(this).text());

@@ -82,6 +82,18 @@
 </div>
 {{/if}}
 
+{{#if controller.isGeoDropdown}}
+<div id="geoDropdown" {{action dropdown controller.applicationCategoryDropdownType}}>
+    <li class="ite easing" style="">Global</li>
+    <li class="ite easing" style="">Australia</li>
+    <li class="ite easing" style="">New Zealand</li>
+    <li class="ite easing" style="">United States</li>
+    <li class="ite easing" style="">India</li>
+    <li class="ite easing" style="">China</li>
+    <li class="ite easing" style="">Asia</li>
+</div>
+{{/if}}
+
 {{#if controller.isActiveDropdown}}
 <div id="is_actvie" {{action dropdown controller.projectActiveDropdownType}}>
      <div  class="ite ">true</div>

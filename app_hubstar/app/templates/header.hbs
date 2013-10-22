@@ -51,22 +51,15 @@
                 <i class="icon-search icon-large"></i>
             </div>
 
-            <div id="geo-filter" class="Geo-Filter easing " style="" {{action dropdownGlobal}}>
+            <div id="geo-filter" class="Geo-Filter easing " style="" {{action dropdown controller.projectCategoryDropdownType}}>
                  <i class="icon-globe icon-large">&nbsp;</i>
-                <span style="font-weight: bold;font-size: 15px;">Global</span>
+                <span style="font-weight: bold;font-size: 15px;">{{HubStar.geoLocation}}</span>
             </div>
+            {{#if controller.isGeoDropdown}}
+            {{view HubStar.DropdownListView}}
+            {{/if}}
 
-
-            <ul class="hideClass edit-object-ul " id="dropdownGlobal_id_{{unbound id}}" style="width: 150px;  padding: 0;left: 130px;top: 50px;position: relative;float: right;">
-                <li class="ite easing" style="">Global</li>
-                <li class="ite easing" style="">Australia</li>
-                <li class="ite easing" style="">New Zealand</li>
-                <li class="ite easing" style="">United States</li>
-                <li class="ite easing" style="">India</li>
-                <li class="ite easing" style="">China</li>
-                <li class="ite easing" style="">Asia</li>
-
-            </ul>
+            
 
         </div>
     </div>

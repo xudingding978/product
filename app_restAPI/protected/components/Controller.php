@@ -144,7 +144,8 @@ class Controller extends CController {
             $searchString = $this->getUserInput($requireParams[2]);
             $from = $this->getUserInput($requireParams[3]);
             $size = $this->getUserInput($requireParams[4]);
-            $response = $this->getSearchResults($region, $searchString, $from, $size);
+            $location = $this->getUserInput($requireParams[5]);
+            $response = $this->getSearchResults($region, $searchString, $from, $size, $location);
             $response = $this->getReponseResult($response, $returnType);
         } elseif ($requireType == 'collection') {
             $collection_id = $this->getUserInput($requireParams[1]);
@@ -164,7 +165,8 @@ class Controller extends CController {
             $searchString = $this->getUserInput($requireParams[2]);
             $from = $this->getUserInput($requireParams[3]);
             $size = $this->getUserInput($requireParams[4]);
-            $response = $this->getSearchResultsWithAnalysis($region, $searchString, $from, $size);
+            $location = $this->getUserInput($requireParams[5]);
+            $response = $this->getSearchResultsWithAnalysis($region, $searchString, $from, $size, $location);
         } elseif ($requireType == 'personalCollection') {
             $userid = $this->getUserInput($requireParams[1]);
             $collection_id = $this->getUserInput($requireParams[2], false);

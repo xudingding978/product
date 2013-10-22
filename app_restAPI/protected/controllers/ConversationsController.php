@@ -391,9 +391,6 @@ class ConversationsController extends Controller {
             }
 
 
-
-
-            error_log(var_export($participantions, true));
             $addResult['conversationPhoto'] = array();
             for ($i = 0; $i < sizeof($participantions); $i++) {
                 $commenterInfo = $this->getDomain() . "/users/" . $participantions[$i];

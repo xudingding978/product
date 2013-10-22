@@ -2,7 +2,7 @@
 DS.RESTAdapter.map('HubStar.Profile', {
     collections: {embedded: 'load'},
     followers: {embedded: 'load'},
-    keyword: {embedded: 'always'}
+    keywords: {embedded: 'always'}
 });
 HubStar.Profile = DS.Model.extend({
     profile_category: DS.attr('string'),
@@ -51,7 +51,7 @@ HubStar.Profile = DS.Model.extend({
     owner_contact_bcc_emails: DS.attr('string'),
     followers: DS.hasMany('HubStar.Follower'),
     collections: DS.hasMany('HubStar.Collection'),
-    keyword: DS.hasMany('HubStar.Keyword')
+    keywords: DS.hasMany('HubStar.Keyword')
 });
 
 

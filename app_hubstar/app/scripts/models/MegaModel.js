@@ -27,7 +27,7 @@ HubStar.Mega = DS.Model.extend(Ember.Copyable, {
     is_active: DS.attr('boolean'),
     is_indexed: DS.attr('boolean'),
     keywords: DS.attr('string'),
-    KeywordsNum: DS.attr('number'),
+    keywordsNum: DS.attr('number'),
     object_image_linkto: DS.attr('string'),
     object_image_url: DS.attr('string'),
     object_title: DS.attr('string'),

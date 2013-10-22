@@ -180,7 +180,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         photoCreateController.setMega();
         this.initStastics(profile);
         this.followerPhoto(id);
-        this.setKeywordsArray(this.get('model').get('profile_keywords'));
+        if (profile.get("keywords") !==null && profile.get("keywords") !== "undefined" && profile.get("keywords").get('length') > 0) {
+            this.set("keywords_array",profile.get('keywords'));
+        } else {
+            console.log(this.get('model').get('profile_keywords'));
+            this.setKeywordsArray(this.get('model').get('profile_keywords'));
+        }
         if (profile.get("profile_keywords_num") !==null && profile.get("profile_keywords_num") !== "undefined" && profile.get("profile_keywords_num") !== "") {
             this.set("keywordsNum", profile.get("profile_keywords_num"));
         } else {        
@@ -191,8 +196,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if (keywords !== undefined && keywords !== null && keywords !== '') {
             this.set('keywords_array', []);
             var keywords_array = keywords.split(",");
-            for (var i = 0; i < keywords_array.length; i++) {
-                this.get('keywords_array').pushObject({keyword: keywords_array[i]});
+            for (var i = 0; i < keywords_array.get('length'); i++) {
+                var keyword = HubStar.Keyword.createRecord({"keyword_id": i, "keyword_name": keywords_array[i], "create_date": new Date().getTime(), 
+                                                                                            "expire_date": null, "value": null, "is_delete": false});
+                this.get('keywords_array').insertAt(i,keyword);
             }
         }
     },
@@ -733,11 +740,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     saveKeywords: function() {
         var update_profile_record = HubStar.Profile.find(this.get('model.id'));
         var tempKeywords = '';
-        for (var i = 0; i < this.get('keywords_array').length; i++) {
-            tempKeywords = tempKeywords + ',' + this.get('keywords_array').objectAt(i)["keyword"].trim();
+        update_profile_record.get('keywords').clear();
+        for (var i = 0; i < this.get('keywords_array').get('length'); i++) {
+            tempKeywords = tempKeywords + ',' + this.get('keywords_array').objectAt(i).get('keyword_name').trim();
+            update_profile_record.get('keywords').insertAt(i,this.get('keywords_array').objectAt(i));
         }
         var keywords = tempKeywords.substring(1, tempKeywords.length);
         update_profile_record.set("profile_keywords", keywords);
+//        update_profile_record.set("keywords", this.get('keywords_array'));                    this set does not work, so that I can only insert object in the for loop
 
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
         if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
@@ -745,11 +755,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         this.get('controllers.applicationFeedback').statusObserver(null, "Update successful");
 
-        HubStar.store.save();
     },
     addKeywords: function() {
-        if (this.get('keywords_array').length < this.get('keywordsNum')) {
-            this.get('keywords_array').pushObject({keyword: ''});        
+        if (this.get('keywords_array').get('length') < this.get('keywordsNum')) {
+            var keyword = HubStar.Keyword.createRecord({"keyword_id": this.get('keywords_array').get('length'), "keyword_name": null, "create_date": new Date().getTime(), 
+                                                                                            "expire_date": null, "value": null, "is_delete": false});
+            this.get('keywords_array').insertAt(this.get('keywords_array').get('length'),keyword);        
         } else {
             this.get('controllers.applicationFeedback').statusObserver(null, "You can not add keywords anymore",'failed');
         }

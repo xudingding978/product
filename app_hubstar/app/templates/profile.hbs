@@ -142,7 +142,7 @@
                                             <div style='width: 100%;min-height: 100px;'>
                                                 <ul class="Client-Keywords-tags">    
                                                     {{#each keywords_array}}
-                                                    <li><div class="tags-before"></div><a href="#" {{action keywordSearch this.keyword}} >{{this.keyword}}</a></li>
+                                                    <li><div class="tags-before"></div><a href="#" {{action keywordSearch this.keyword_name}} >{{this.keyword_name}}</a></li>
                                                     {{/each}}
                                                 </ul>
                                             </div>                                            
@@ -860,12 +860,12 @@
                         <tbody class="profilesnew-table" style="display: table-row-group; vertical-align: middle; border-color: inherit;">
                             {{#each keywords_array}}
                             <tr>
-                                <td>Keywords:{{_view.contentIndex}} </td>
+                                <td>Keywords:{{keyword_id}} </td>
                                 <td>
                                     <div style="display: block;">
-                                        {{view Ember.TextField valueBinding="keyword"   class="mustFill1" placeholder="Heritage Tiles NZ"}}
+                                        {{view Ember.TextField valueBinding="keyword_name"   class="mustFill1" placeholder="Heritage Tiles NZ"}}
                                     </div>
-                                    <div style="right: 0;margin: 30px auto 0;width: 150px;"><span class="new-btn green-btn" {{action deleteKeywords _view.contentIndex}}>Delete</span></div>
+                                    <div style="right: 0;margin: 30px auto 0;width: 150px;"><span class="new-btn green-btn" {{action deleteKeywords keyword_id}}>Delete</span></div>
                                 </td>
                             </tr>                           
                             {{/each}}

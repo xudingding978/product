@@ -49,7 +49,7 @@ jQuery.fn.ratings = function(stars, initialRating) {
       //add the star to the container
       container.append(star);
       starsCollection.push(star);
-      
+      containerElement.rating = 6;
       //hook up the click event
       star.click(function() {
         //When clicked, fire the 'ratingchanged' event handler.  Pass the rating through as the data argument.

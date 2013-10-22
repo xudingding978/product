@@ -12,9 +12,9 @@
 {{/if}}
 
 
-{{#if getPhoto}}
-<div class="box col2 noStyle1" {{action checkingLoginStatus target="view" on="click"}}>
+{{#if getPhoto}}'
 
+<div class="box col2 noStyle1" {{action checkingLoginStatus target="view" on="click"}}>
     <div class="masonry-object">
         <div class="masonry-object_poster">
             <a class="profilepic-on-masonry" style="cursor: pointer">
@@ -57,7 +57,7 @@
 
 
         </div>
-        <div class="masonry-object_mainfeature">             
+        <div class="masonry-object_mainfeature">    
             <div class="mainfeature-wrapper">
                 <a class="mainfeature-container" style="cursor: pointer">
 
@@ -90,18 +90,20 @@
             </div>
 
 
-
+            
             <div class="masonry-object_text">
                 <div class="masonry-object_text-container">
-                    <p>    {{photo_title}}</p>
+                    <p>    {{{photo_title}}}</p>
 
                 </div>
 
                 <div class="more_detail" {{bindAttr id="id"}} >
                     <div class="more_text-container" >
                         <div style="display:block;">
-                            {{object_description}}
+                            {{{object_description}}}
+                           
                         </div>
+                         
                     </div>
 
                     <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more &nbsp;<i class="icon-angle-down"></i></span>
@@ -243,7 +245,7 @@
 
 {{#if getArticle}}
 <div class="box col2 noStyle1"  {{action checkingLoginStatus target="view" on="click"}}>
-
+<a href="http://google.co.nz">google.co.nz</a>
     <div class="masonry-object">
         <div class="masonry-object_poster">  
             <a style="cursor: pointer">

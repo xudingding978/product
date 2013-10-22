@@ -1,3 +1,5 @@
+
+
 body > div.ember-view{
     overflow:hidden;
     max-width:100%;
@@ -521,9 +523,16 @@ div.search-loading-invisible{
 
 .edit-object-ul > .ite{
     padding:6px 15px 6px 30px;
+    color: #888;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #ddd;
 }
 
+.edit-object-ul > li:first-child {border-radius: 3px 3px 0 0}
+.edit-object-ul > li:last-child {border-radius: 0 0 3px 3px}
+
 .ite:hover{
+    color: #555;
     background-color: rgba(0,0,0,0.1);
 }
 

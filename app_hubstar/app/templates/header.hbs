@@ -7,7 +7,7 @@
 
 
 
-      </div>
+    </div>
     <div class="navbar-inner">
         <div class="container">
             <div class="brand">
@@ -47,9 +47,26 @@
 
             <!-- user is logged in -->
 
-            <div class="smallIcon">
-                <a href="#" class="icon_c"><i class="icon-search icon-large"></i></a>
+            <div class="Geo-Filter easing" style="margin-right: 80px;">
+                <i class="icon-search icon-large"></i>
             </div>
+
+            <div id="geo-filter" class="Geo-Filter easing " style="" {{action dropdownGlobal}}>
+                 <i class="icon-globe icon-large">&nbsp;</i>
+                <span style="font-weight: bold;font-size: 15px;">Global</span>
+            </div>
+
+
+            <ul class="hideClass edit-object-ul " id="dropdownGlobal_id_{{unbound id}}" style="width: 150px;  padding: 0;left: 130px;top: 50px;position: relative;float: right;">
+                <li class="ite easing" style="">Global</li>
+                <li class="ite easing" style="">Australia</li>
+                <li class="ite easing" style="">New Zealand</li>
+                <li class="ite easing" style="">United States</li>
+                <li class="ite easing" style="">India</li>
+                <li class="ite easing" style="">China</li>
+                <li class="ite easing" style="">Asia</li>
+
+            </ul>
 
         </div>
     </div>
@@ -61,13 +78,8 @@
 <script type="text/javascript">
 
     $(document).ready(function() {
-        $('.smallIcon').attr("style", "display:none");
-        $('#main-nav span').removeClass('caret');
-
-
         // left hiding menu bar
 
-        $('.main-nav ').attr("style", "opacity:0.4;width:10px;overflow:hidden");
         // hide #back-top first
         $("#back-top").hide();
         $(window).scroll(function() {
@@ -78,11 +90,6 @@
                 $('#back-top').fadeOut();
             }
 
-            if ($(this).scrollTop() > 150) {
-                $('.smallIcon').fadeIn();
-            } else {
-                $('.smallIcon').fadeOut();
-            }
         });
         $('#back-top a').click(function() {
             $('body,html').animate({
@@ -109,62 +116,4 @@
 
 
 
-
-    function Facebook(popupWidth, popupHeight) {
-        var left = (screen.width / 2) - (popupWidth / 2);
-        var top = (screen.height / 2) - (popupHeight / 2);
-        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Facebook";
-        newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-        if (window.focus) {
-            newwindow.focus();
-        }
-
-
-    }
-    function Yahoo(popupWidth, popupHeight) {
-        var left = (screen.width / 2) - (popupWidth / 2);
-        var top = (screen.height / 2) - (popupHeight / 2);
-        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Yahoo";
-        newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-        if (window.focus) {
-            newwindow.focus();
-        }
-    }
-    function QQ(popupWidth, popupHeight) {
-        var left = (screen.width / 2) - (popupWidth / 2);
-        var top = (screen.height / 2) - (popupHeight / 2);
-        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=QQ";
-        newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-        if (window.focus) {
-            newwindow.focus();
-        }
-    }
-    function Sina(popupWidth, popupHeight) {
-        var left = (screen.width / 2) - (popupWidth / 2);
-        var top = (screen.height / 2) - (popupHeight / 2);
-
-        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Sina";
-        newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-        if (window.focus) {
-            newwindow.focus();
-        }
-    }
-    function LinkedIn(popupWidth, popupHeight) {
-        var left = (screen.width / 2) - (popupWidth / 2);
-        var top = (screen.height / 2) - (popupHeight / 2);
-        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=LinkedIn";
-        newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-        if (window.focus) {
-            newwindow.focus();
-        }
-    }
-    function Google(popupWidth, popupHeight) {
-        var left = (screen.width / 2) - (popupWidth / 2);
-        var top = (screen.height / 2) - (popupHeight / 2);
-        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Google";
-        newwindow = window.open(api_url, 'name', 'height=' + popupHeight * 1.5 + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-        if (window.focus) {
-            newwindow.focus();
-        }
-    }
 </script>

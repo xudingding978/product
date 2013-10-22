@@ -44,7 +44,7 @@ HubStar.ReviewController = Ember.Controller.extend({
     reviewPost: function(id) {
 
         if (this.get("controllers.profile").get('reviews') !== 0) {
-            this.set("review_count", this.get("controllers.profile").get('reviews').get("length"));
+            this.set("review_count", this.get("controllers.profile").get('reviews').get("length") + 1);
             var reviewContent = this.get('review_content');
         }
         
@@ -82,8 +82,12 @@ HubStar.ReviewController = Ember.Controller.extend({
          
 
         $('#masonry_user_container').masonry('reload');
+        if(this.get("controllers.profile").get('reviews').get("length") !==null)
+        
+        {
+         this.set('review_length', this.get("controllers.profile").get('reviews').get("length"));
 
-
+        }
     },
     getReviewsById: function(id)
     {

@@ -26,6 +26,7 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
         }
     },
     getClientId: function(id, conversationID) {
+        this.set('loadingTime', true);
         this.set('clientID', id);
         var dataNew = new Array();
         var conversationContent = this.get('controllers.conversation').get("conversationContent");
@@ -46,11 +47,11 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
             }
             else
             {
-                console.log(conversationID);
+                
                 if (conversationID !== undefined) {
                     var participation_id = new Array();
                     participation_id = that.get("conversationItem").get("participation_ids").split(',');
-                    console.log(participation_id);
+                    
                 }
                 for (var i = 0; i < params.length; i++)
                 {
@@ -70,7 +71,7 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
                             if (participation_id[j] === params[i]["record_id"])
                             {
                                 flag = true;
-                                console.log(participation_id[j]);
+                                
                                 break;
                             }
                         }
@@ -86,6 +87,7 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
                     dataNew = new Array();
                 }
             }
+            that.set('loadingTime', false);
         });
     },
     addToList: function(id) {

@@ -26,6 +26,12 @@ HubStar.NewConversationController = Ember.Controller.extend({
             this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
         }
     },
+    removePic: function() {
+        this.set('newStyleImageSource', null);
+        this.set('newStyleImageName', "");
+
+        this.set("isUploadPhoto", false);
+    },
     addComment: function() {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
@@ -101,7 +107,44 @@ HubStar.NewConversationController = Ember.Controller.extend({
                 dataNew["time_stamp"] = params["ConversationCollection"][0]["time_stamp"];
                 dataNew["conversationPhoto"] = new Array();
                 dataNew["conversationPhoto"] = params["conversationPhoto"];
-                console.log();
+                if (dataNew["conversationPhoto"].length === 1)
+                {
+                    dataNew["one"] = true;
+                    dataNew["two"] = false;
+                    dataNew["three"] = false;
+                    dataNew["four"] = false;
+                    dataNew["onePic"] = params["conversationPhoto"][0]["photo_url"];
+                }
+                else if (dataNew["conversationPhoto"].length === 2)
+                {
+                    dataNew["one"] = false;
+                    dataNew["two"] = true;
+                    dataNew["three"] = false;
+                    dataNew["four"] = false;
+                    dataNew["onePic"] = params["conversationPhoto"][0]["photo_url"];
+                    dataNew["twoPic"] = params["conversationPhoto"][1]["photo_url"];
+                }
+                else if (dataNew["conversationPhoto"].length === 3)
+                {
+                    dataNew["one"] = false;
+                    dataNew["two"] = false;
+                    dataNew["three"] = true;
+                    dataNew["four"] = false;
+                    dataNew["onePic"] = params["conversationPhoto"][0]["photo_url"];
+                    dataNew["twoPic"] = params["conversationPhoto"][1]["photo_url"];
+                    dataNew["threePic"] = params["conversationPhoto"][2]["photo_url"];               
+                }
+                else
+                {
+                    dataNew["one"] = false;
+                    dataNew["two"] = false;
+                    dataNew["three"] = false;
+                    dataNew["four"] = true;
+                    dataNew["onePic"] = params["conversationPhoto"][0]["photo_url"];
+                    dataNew["twoPic"] = params["conversationPhoto"][1]["photo_url"];
+                    dataNew["threePic"] = params["conversationPhoto"][2]["photo_url"];
+                    dataNew["fourPic"] = params["conversationPhoto"][3]["photo_url"];
+                }
                 for (var j = 0; j < params["ConversationCollection"].length; j++)
                 {
 
@@ -131,6 +174,8 @@ HubStar.NewConversationController = Ember.Controller.extend({
                 dataNew = new Array();
 
                 that.set("isUploadPhoto", false);
+
+                that.set("isAdded",false);
 
                 that.set('messageContent', "");
                 that.set("contentFollowerPhoto",null);

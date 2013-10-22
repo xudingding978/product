@@ -48,6 +48,7 @@ HubStar.MessageCenterController = Ember.Controller.extend({
         this.set("isNotification", false);
         this.set("isNewConversation", false);       
          this.set("isConversationItem", false);
+         this.get("controllers.conversation").selectConversation();
         this.get('controllers.userMessage').getClientId(id);
         setTimeout(function() {
             $('#masonry_container').masonry("reloadItems");
@@ -58,6 +59,7 @@ HubStar.MessageCenterController = Ember.Controller.extend({
         this.set("isConversationItem", false);
         this.set("isNotification", true);
         this.set("isMessageBoard", false);
+        this.get("controllers.conversation").selectConversation();
         setTimeout(function() {
             $('#masonry_container').masonry("reloadItems");
         }, 200);
@@ -67,6 +69,7 @@ HubStar.MessageCenterController = Ember.Controller.extend({
         this.set("isConversationItem", false);
         this.set("isNotification", false);
         this.set("isMessageBoard", false);
+        this.get("controllers.conversation").selectConversation();
          this.get('controllers.newConversation').set("isInvitePeople",false);
         setTimeout(function() {
             $('#masonry_container').masonry("reloadItems");

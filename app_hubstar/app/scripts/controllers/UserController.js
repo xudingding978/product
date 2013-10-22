@@ -159,7 +159,7 @@ HubStar.UserController = Ember.Controller.extend({
         }
         this.initStastics(user);
         this.checkAuthenticUser();
-        this.labelBarRefresh();
+   //     this.labelBarRefresh();
         this.userPhotoEditBackButton();
         this.userDashboardBackButton();
         /// this.transitionToRoute('userCollections');
@@ -726,7 +726,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('collectionTag', false);
         this.set('followerTag', false);
         this.set('messageTag', false);
-      this.transitionToRoute('following', model);
+      this.transitionToRoute('following');
         setTimeout(function() {
             $('#masonry_user_container').masonry("reloadItems");
         }, 200);
@@ -735,12 +735,11 @@ HubStar.UserController = Ember.Controller.extend({
 //        $('#user-stats > li').removeClass('selected-user-stats');
 //        $('#ufollower').addClass('selected-user-stats');
         this.set('profileSelectionStatus', 'Followers');
-   //     this.get('controllers.userFollowers').getClientId(model);
         this.set('followingTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', true);
         this.set('messageTag', false);
-        this.transitionToRoute('followers', model);
+        this.transitionToRoute('followers');
         setTimeout(function() {
             $('#masonry_user_container').masonry("reloadItems");
         }, 200);
@@ -748,13 +747,12 @@ HubStar.UserController = Ember.Controller.extend({
     },
     selectMessage: function(model) {
         this.set('profileSelectionStatus', 'Messages');
-       //.this.get('controllers.messageCenter').getClientId(model.id);
         this.set('followingTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', false);
         this.set('messageTag', true);       
 
-        this.transitionToRoute('messageCenter', model);
+        this.transitionToRoute('messageCenter');
 
 
         setTimeout(function() {

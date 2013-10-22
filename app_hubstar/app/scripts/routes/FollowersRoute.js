@@ -8,7 +8,6 @@ HubStar.FollowersRoute = Ember.Route.extend({
     setupController: function(controller, model) {
 
         this.controllerFor('user').set('profileSelectionStatus', 'Followers');
-         this.controllerFor('user').set('profileSelectionStatus', 'Followers');
         this.controllerFor('user').set('collectionTag', false);
 
         this.controllerFor('user').set('followerTag', true);
@@ -19,10 +18,6 @@ HubStar.FollowersRoute = Ember.Route.extend({
         $('#userfollower').addClass('selected-user-stats');
    this.controllerFor('userFollowers').setUserFollowers(model);
 
-//         HubStar.User.find(model);
-//         this.controllerFor('user').getClientId(model);
-//           $('#user-stats > li').removeClass('selected-user-stats');
-//        $('#ufollower').addClass('selected-user-stats');
         $(window).scrollTop(0);
     },
     model: function(params) {

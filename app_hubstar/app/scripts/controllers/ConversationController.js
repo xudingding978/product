@@ -43,12 +43,14 @@ HubStar.ConversationController = Ember.Controller.extend({
     },
     selectConversation: function(id) {
         var idOld = this.get("selectId");
-        $('#conversation_' +idOld).removeClass('selected-conversation');
+        $('#conversation_' + idOld).removeClass('selected-conversation');
         $('#conversation_' + id).addClass('selected-conversation');
-        this.set("selectId",id);
-        this.get('controllers.messageCenter').selectConversationItem();
+        this.set("selectId", id);
+        if (id !== null && id !== undefined){
+            this.get('controllers.messageCenter').selectConversationItem();
 
-        this.get('controllers.conversationItem').getClientId(id);
+            this.get('controllers.conversationItem').getClientId(id);
+        }
     },
     deleteConversationItem: function(id)
     {
@@ -61,15 +63,15 @@ HubStar.ConversationController = Ember.Controller.extend({
         var that = this;
 
         requiredBackEnd('conversations', 'DeleteConversation', tempComment, 'POST', function(params) {
-            that.get("controllers.messageCenter").selectMessage(localStorage.loginStatus);
-            for(var i=0;i< that.get("conversationContent").length;i++)
+            that.get("controllers.messageCenter").selectNewConversation();
+            for (var i = 0; i < that.get("conversationContent").length; i++)
+            {
+                if (that.get("conversationContent").objectAt(i).get("conversationID") === id)
                 {
-                    if( that.get("conversationContent").objectAt(i).get("conversationID")===id)
-                        {
-                            that.get("conversationContent").removeObject(that.get("conversationContent").objectAt(i));
-                            break;
-                        }
-                }         
+                    that.get("conversationContent").removeObject(that.get("conversationContent").objectAt(i));
+                    break;
+                }
+            }
         });
     },
     getClientId: function(id) {
@@ -77,7 +79,7 @@ HubStar.ConversationController = Ember.Controller.extend({
         var data = this.get('clientID');
         var dataNew = new Array();
         var tempComment = [data];
-
+        this.set('loadingTime', true);
         tempComment = JSON.stringify(tempComment);
         var that = this;
         this.set("conversationContent", []);
@@ -90,8 +92,46 @@ HubStar.ConversationController = Ember.Controller.extend({
                 dataNew["participation_ids"] = params[i]["participation_ids"];
 
                 dataNew["names"] = params[i]["names"];
-                dataNew["conversationPhoto"] = new Array();              
-                dataNew["conversationPhoto"]= params[i]["conversationPhoto"];             
+                dataNew["conversationPhoto"] = new Array();
+                dataNew["conversationPhoto"] = params[i]["conversationPhoto"];
+                if (dataNew["conversationPhoto"].length === 1)
+                {
+                    dataNew["one"] = true;
+                    dataNew["two"] = false;
+                    dataNew["three"] = false;
+                    dataNew["four"] = false;
+                    dataNew["onePic"] = params[i]["conversationPhoto"][0]["photo_url"];
+                }
+                else if (dataNew["conversationPhoto"].length === 2)
+                {
+                    dataNew["one"] = false;
+                    dataNew["two"] = true;
+                    dataNew["three"] = false;
+                    dataNew["four"] = false;
+                    dataNew["onePic"] = params[i]["conversationPhoto"][0]["photo_url"];
+                    dataNew["twoPic"] = params[i]["conversationPhoto"][1]["photo_url"];
+                }
+                else if (dataNew["conversationPhoto"].length === 3)
+                {
+                    dataNew["one"] = false;
+                    dataNew["two"] = false;
+                    dataNew["three"] = true;
+                    dataNew["four"] = false;
+                    dataNew["onePic"] = params[i]["conversationPhoto"][0]["photo_url"];
+                    dataNew["twoPic"] = params[i]["conversationPhoto"][1]["photo_url"];
+                    dataNew["threePic"] = params[i]["conversationPhoto"][2]["photo_url"];
+                }
+                else
+                {
+                    dataNew["one"] = false;
+                    dataNew["two"] = false;
+                    dataNew["three"] = false;
+                    dataNew["four"] = true;
+                    dataNew["onePic"] = params[i]["conversationPhoto"][0]["photo_url"];
+                    dataNew["twoPic"] = params[i]["conversationPhoto"][1]["photo_url"];
+                    dataNew["threePic"] = params[i]["conversationPhoto"][2]["photo_url"];
+                    dataNew["fourPic"] = params[i]["conversationPhoto"][3]["photo_url"];
+                }
                 dataNew["ConversationCollection"] = new Array();
                 dataNew["msg"] = params[i]["ConversationCollection"][0]["msg"];
                 dataNew["time_stamp"] = params[i]["ConversationCollection"][0]["time_stamp"];
@@ -126,134 +166,95 @@ HubStar.ConversationController = Ember.Controller.extend({
                 $('#masonry_user_container').masonry("reloadItems");
 
             }, 200);
-
+            that.set('loadingTime', false);
         });
     },
-//    removeMessage: function(Message_id)
-//    {
-//
+//    addComment: function() {
 //        this.set("currentOwner", this.get('controllers.user').getCurrentUser());
 //        this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+//        var commentContent = this.get('messageContent');
+//        if (commentContent) {
 //
-//        var commenter_id = this.get("currentUser").get('id');// it is the login in user , it will use to check the right of delete
-//        var owner_id = this.get("currentOwner").get("id");// it the owner of the page, it will be used to identify  delete  which user's message item
 //
-//        var tempComment = [commenter_id, owner_id, Message_id];
-//
-//        tempComment = JSON.stringify(tempComment);
-//        var that = this;
-//
-//        requiredBackEnd('messages', 'RemoveMessage', tempComment, 'POST', function() {
-//            
-//
-//            for (var i = 0; i < that.get("contentMsg").length; i++)
+//            var commenter_id = this.get("currentUser").get('id');
+//            var date = new Date();
+//            var owner_id = this.get("currentOwner").get("id");
+//            var newStyleImage = "";
+//            var imageStyleName = "";
+//            if (this.get("newStyleImageSource") !== undefined && this.get("newStyleImageSource") !== null && this.get("newStyleImageSource") !== "")
 //            {
-//                if (that.get("contentMsg").objectAt(i).get("message_id") === Message_id)
-//                {
-//
-//                    that.get("contentMsg").removeObject(that.get("contentMsg").objectAt(i));
-//                    break;
-//                }
+//                newStyleImage = this.get("newStyleImageSource");
+//            }
+//            else
+//            {
+//                newStyleImage = null;
+//            }
+//            if (this.get('newStyleImageName') !== undefined && this.get('newStyleImageName') !== null && this.get('newStyleImageName') !== "")
+//            {
+//                imageStyleName = this.get('newStyleImageName');
 //
 //            }
+//            else
+//            {
+//                imageStyleName = "";
+//            }
+//            var imageName = "";
+//            var imageType = "";
+//            if (imageStyleName !== undefined && imageStyleName !== null && imageStyleName !== "")
+//            {
+//                var imageName = imageStyleName.split('.');
+//                var imageType = imageName[imageName.length - 1];
+//            }
+//            var messageID = createMessageid();
+//            var replyID = createMessageid();
+//            var tempComment = [commenter_id, date.toString(), commentContent, owner_id, newStyleImage, imageType, imageStyleName, messageID, replyID];
 //
-//            setTimeout(function() {
-//                $('#masonry_user_container').masonry("reloadItems");
-//            }, 200);
-//        });
-//        $('#addcommetBut').attr('style', 'display:block');
-//        $('#commentBox').attr('style', 'display:none');
-//        setTimeout(function() {
-//            $('#masonry_container').masonry("reload");
-//            $('.user_comment_' + localStorage.loginStatus).attr('style', 'display:block');
-//        }, 200);
+//            tempComment = JSON.stringify(tempComment);
+//            var that = this;
+//
+//            var dataNew = new Array();
+//
+//            requiredBackEnd('messages', 'CreateComment', tempComment, 'POST', function(params) {
+//                //params  is just one message 
+//                dataNew["message_id"] = params["message_id"];
+//                dataNew["reply_id"] = params["replyMessageCollection"][0]["reply_id"];
+//                dataNew["user_id"] = params["replyMessageCollection"][0]["user_id"];
+//                dataNew["time_stamp"] = params["replyMessageCollection"][0]["time_stamp"];
+//                dataNew["msg"] = params["replyMessageCollection"][0]["msg"];
+//                dataNew["user_name"] = params["replyMessageCollection"][0]["user_name"];
+//                dataNew["photo_url_large"] = params["replyMessageCollection"][0]["photo_url_large"];
+//                dataNew["url"] = params["replyMessageCollection"][0]["url"];
+//                dataNew["enableToEdit"] = false;
+//                if (params["replyMessageCollection"][0]["user_id"] === localStorage.loginStatus)
+//                {
+//                    dataNew["isUserself"] = true;
+//                }
+//                if (params["replyMessageCollection"][0]["url"] !== null)
+//                {
+//                    dataNew["isUrl"] = true;
+//                }
+//                else
+//                {
+//                    dataNew["isUrl"] = false;
+//                }
+//                that.get("controllers.conversationItem").set("contentFollowerPhoto", that.get("controllers.newConversation").get("contentFollowerPhoto"));
+//                dataNew["replyMessageCollection"] = new Array();
+//                that.get("contentMsg").insertAt(0, dataNew);
+//                that.set("isUploadPhoto", false);
+//                dataNew = new Array();
+//
+//
+//                setTimeout(function() {
+//                    $('#masonry_user_container').masonry("reloadItems");
+//                }, 200);
+//
+//
+//                that.set('messageContent', "");
+//                that.set('newStyleImageSource', null);
+//                that.set('newStyleImageName', "");
+//            });
+//        }
 //    },
-    addComment: function() {
-        this.set("currentOwner", this.get('controllers.user').getCurrentUser());
-        this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
-        var commentContent = this.get('messageContent');
-        if (commentContent) {
-
-
-            var commenter_id = this.get("currentUser").get('id');
-            var date = new Date();
-            var owner_id = this.get("currentOwner").get("id");
-            var newStyleImage = "";
-            var imageStyleName = "";
-            if (this.get("newStyleImageSource") !== undefined && this.get("newStyleImageSource") !== null && this.get("newStyleImageSource") !== "")
-            {
-                newStyleImage = this.get("newStyleImageSource");
-            }
-            else
-            {
-                newStyleImage = null;
-            }
-            if (this.get('newStyleImageName') !== undefined && this.get('newStyleImageName') !== null && this.get('newStyleImageName') !== "")
-            {
-                imageStyleName = this.get('newStyleImageName');
-
-            }
-            else
-            {
-                imageStyleName = "";
-            }
-            var imageName = "";
-            var imageType = "";
-            if (imageStyleName !== undefined && imageStyleName !== null && imageStyleName !== "")
-            {
-                var imageName = imageStyleName.split('.');
-                var imageType = imageName[imageName.length - 1];
-            }
-            var messageID = createMessageid();
-            var replyID = createMessageid();
-            var tempComment = [commenter_id, date.toString(), commentContent, owner_id, newStyleImage, imageType, imageStyleName, messageID, replyID];
-
-            tempComment = JSON.stringify(tempComment);
-            var that = this;
-
-            var dataNew = new Array();
-
-            requiredBackEnd('messages', 'CreateComment', tempComment, 'POST', function(params) {
-                //params  is just one message 
-                dataNew["message_id"] = params["message_id"];
-                dataNew["reply_id"] = params["replyMessageCollection"][0]["reply_id"];
-                dataNew["user_id"] = params["replyMessageCollection"][0]["user_id"];
-                dataNew["time_stamp"] = params["replyMessageCollection"][0]["time_stamp"];
-                dataNew["msg"] = params["replyMessageCollection"][0]["msg"];
-                dataNew["user_name"] = params["replyMessageCollection"][0]["user_name"];
-                dataNew["photo_url_large"] = params["replyMessageCollection"][0]["photo_url_large"];
-                dataNew["url"] = params["replyMessageCollection"][0]["url"];
-                dataNew["enableToEdit"] = false;
-                if (params["replyMessageCollection"][0]["user_id"] === localStorage.loginStatus)
-                {
-                    dataNew["isUserself"] = true;
-                }
-                if (params["replyMessageCollection"][0]["url"] !== null)
-                {
-                    dataNew["isUrl"] = true;
-                }
-                else
-                {
-                    dataNew["isUrl"] = false;
-                }
-                that.get("controllers.conversationItem").set("contentFollowerPhoto", that.get("controllers.newConversation").get("contentFollowerPhoto"));
-                dataNew["replyMessageCollection"] = new Array();
-                that.get("contentMsg").insertAt(0, dataNew);
-                that.set("isUploadPhoto", false);
-                dataNew = new Array();
-
-
-                setTimeout(function() {
-                    $('#masonry_user_container').masonry("reloadItems");
-                }, 200);
-
-
-                that.set('messageContent', "");
-                that.set('newStyleImageSource', null);
-                that.set('newStyleImageName', "");
-            });
-        }
-    },
     profileStyleImageDrop: function(e, name)
     {
 

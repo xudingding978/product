@@ -11,7 +11,8 @@ HubStar.CollectionRoute = Ember.Route.extend({
 
             }
             this.controllerFor('user').set('switchPhoto', false);
-
+    $('#user-stats > li').removeClass('selected-user-stats');
+        $('#defualt').addClass('selected-user-stats');
             this.controllerFor('masonryCollectionItems').selectModelForUser(id);
             this.controllerFor('masonryCollectionItems').set('canEdit', true);
         },

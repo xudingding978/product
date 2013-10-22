@@ -103,7 +103,8 @@ HubStar.NewConversationController = Ember.Controller.extend({
         }
     },
     invitePeople: function()
-    {
+    { 
+         this.get("controllers.invitePeople").set("owner", "newConversation");
         this.set("isInvitePeople", true);
         this.get("controllers.invitePeople").getClientId(localStorage.loginStatus);
     },

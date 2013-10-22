@@ -13,9 +13,10 @@
 HubStar.InvitePeopleController = Ember.Controller.extend({
     contentFollowerPhoto: null,
     commenter_photo_url: null,
-    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'conversation', 'messageCenter', 'newConversation'],
+    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'conversation', 'messageCenter', 'newConversation', 'conversationItem'],
     isUploadPhoto: false,
     isInvitePeople: false,
+    owner: "newConversation",
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -59,20 +60,36 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
         {
             if (this.get("contentFollowerPhoto").objectAt(i).get("id") === id)
             {
-                this.get("contentFollowerPhoto").objectAt(i).set("isAdd",!this.get("contentFollowerPhoto").objectAt(i).get("isAdd"));
+                this.get("contentFollowerPhoto").objectAt(i).set("isAdd", !this.get("contentFollowerPhoto").objectAt(i).get("isAdd"));
             }
         }
-        
+
     },
-    reviewPost:function(){
-        this.get("controllers.newConversation").set("isAdded", true);
-        this.get("controllers.newConversation").set("contentFollowerPhoto", this.get("contentFollowerPhoto"));
-        this.get("controllers.newConversation").set("isInvitePeople", false);
-        this.set("contentFollowerPhoto",null);
+    reviewPost: function() {
+        if (this.get("owner") === "newConversation") {
+            this.get("controllers.newConversation").set("isAdded", true);
+            this.get("controllers.newConversation").set("contentFollowerPhoto", this.get("contentFollowerPhoto"));
+            this.get("controllers.newConversation").set("isInvitePeople", false);
+
+        }
+        else if (this.get("owner") === "conversationItem")
+        {
+            this.get("controllers.conversationItem").set("isAdded", true);
+            this.get("controllers.conversationItem").set("contentFollowerPhoto", this.get("contentFollowerPhoto"));
+            this.get("controllers.conversationItem").set("isInvitePeople", false);
+        }
+        this.set("contentFollowerPhoto", null);
     },
     reviewCancel: function() {
-        this.get("controllers.newConversation").set("isInvitePeople", false);      
-        this.set("contentFollowerPhoto",null);
+        if (this.get("owner") === "newConversation") {
+            this.get("controllers.newConversation").set("isInvitePeople", false);
+        }
+        else if (this.get("owner") === "conversationItem")
+        {
+            this.get("controllers.conversationItem").set("isInvitePeople", false);
+        }
+        
+        this.set("contentFollowerPhoto", null);
     }
 }
 );

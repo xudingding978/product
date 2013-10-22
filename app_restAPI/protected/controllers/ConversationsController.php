@@ -23,6 +23,10 @@ class ConversationsController extends Controller {
     public function actionCreate() {
         $this->sendResponse(204);
     }
+    
+        public function actionRead() {
+  //      $this->sendResponse(204);
+    }
 
     public function actionDeleteConversation() {
         $request_array = CJSON::decode(file_get_contents('php://input'));
@@ -122,9 +126,10 @@ class ConversationsController extends Controller {
         $imageType = $request_array[5];
         $imageStyleName = $request_array[6];
         $conversationId = $request_array[7];
+        $participantIds = $request_array[8];
         $conversationItemId = $conversationItemId . $commenter_id;
 
-        $conversation = $this->addConversationItem($commenter_id, $time_stamp, $conversationtContent, $conversationItemId, $newStyleImage, $imageType, $imageStyleName, $conversationId);
+        $conversation = $this->addConversationItem($commenter_id, $time_stamp, $conversationtContent, $conversationItemId, $newStyleImage, $imageType, $imageStyleName, $conversationId, $participantIds);
 
         if ($conversation) {
             $this->sendResponse(200, CJSON::encode($conversation));
@@ -133,7 +138,8 @@ class ConversationsController extends Controller {
         }
     }
 
-    public function addConversationItem($commenter_id, $time_stamp, $conversationtContent, $conversationItemId, $newStyleImage, $imageType, $photo_name, $conversationId) {
+
+    public function addConversationItem($commenter_id, $time_stamp, $conversationtContent, $conversationItemId, $newStyleImage, $imageType, $photo_name, $conversationId, $participantIds) {
 
         try {
             $cb = $this->couchBaseConnection();
@@ -152,6 +158,7 @@ class ConversationsController extends Controller {
             $newConversationItem["sender_id"] = $commenter_id;
             $newConversationItem["time_stamp"] = $time_stamp;
             $newConversationItem["msg"] = $conversationtContent;
+
 
             $commenterInfo = $this->getDomain() . "/users/" . $commenter_id;
             $cbs = $this->couchBaseConnection();
@@ -178,24 +185,31 @@ class ConversationsController extends Controller {
             }
 
             array_unshift($mega_currentUser['ConversationCollection'], $newConversationItem);
-//            $participation_id = explode(",", $mega_currentUser["participation_ids"]);
-//            for ($i = 0; $i < sizeof($participation_id); $i++) {
-//                if ($participation_id[$i] !== $commenter_id) {
-//                    $mega_currentUser["participation_ids"] = $mega_currentUser["participation_ids"] . ',' . $commenter_id;
-//                    if (!isset($oldcommenterInfo['user'][0]["conversations"])) {
-//                        $oldcommenterInfo['user'][0]["conversations"] = array();
-//                    }
-//                    $conversationObject = array();
-//                    $conversationObject["conversation_id"] = $conversationId;
-//                    $conversationObject["is_read"] = false;
-//                    array_unshift($oldcommenterInfo['user'][0]["conversations"], $conversationObject);
-//                    if ($cb->set($commenterInfo, CJSON::encode($oldcommenterInfo))) {
-//                        
-//                    } else {
-//                        echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
-//                    }
-//                }
-//            }
+
+            $participation_id = explode(",", $participantIds);
+            $mega_currentUser["participation_ids"] = $mega_currentUser["participation_ids"] . "," . $participantIds;
+
+            for ($i = 0; $i < sizeof($participation_id); $i++) {
+           
+                $commenterInfo = $this->getDomain() . "/users/" . $participation_id[$i];
+                $cbs = $this->couchBaseConnection();
+                $commenterInfoDeep = $cbs->get($commenterInfo); // get the old user record from the database according to the docID string
+                $oldcommenterInfo = CJSON::decode($commenterInfoDeep, true);
+
+                if (!isset($oldcommenterInfo['user'][0]["conversations"])) {
+                    $oldcommenterInfo['user'][0]["conversations"] = array();
+                }
+                $conversationObject = array();
+                $conversationObject["conversation_id"] = $conversationId;
+                $conversationObject["is_read"] = false;
+                array_unshift($oldcommenterInfo['user'][0]["conversations"], $conversationObject);
+
+                if ($cb->set($commenterInfo, CJSON::encode($oldcommenterInfo))) {
+                    
+                } else {
+                    echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+                }
+            }
             if ($cb->set($docID_currentUser, CJSON::encode($mega_currentUser))) {
                 return $newConversationItem;
             } else {
@@ -231,17 +245,18 @@ class ConversationsController extends Controller {
                     for ($k = 0; $k < sizeof($participationIds); $k++) {
                         $docID_currentUserNew = $domain . "/users/" . $participationIds[$k];
                         $docID_currentUserNew = $cb->get($docID_currentUserNew);
-                        $docID_currentUserNew = CJSON::decode($docID_currentUserNew, true);
+                        $tdocID_currentUserNew = CJSON::decode($docID_currentUserNew, true);
                         $tempPhoto = array();
                         $tempPhoto['isAdd'] = true;
-                        $tempPhoto['photo'] = $docID_currentUserNew['user'][0]["photo_url_large"];
+                                         
+                        $tempPhoto['photo_url'] = $tdocID_currentUserNew['user'][0]["photo_url_large"];
                         array_push($contentParticipation, $tempPhoto);
                         if ($k === 0) {
-                            $names = $docID_currentUserNew['user'][0]["display_name"];
+                            $names = $tdocID_currentUserNew['user'][0]["display_name"];
                         } elseif ($k === 1) {
-                            $names = $names . ',' . $docID_currentUserNew['user'][0]["display_name"];
+                            $names = $names . ',' . $tdocID_currentUserNew['user'][0]["display_name"];
                         } elseif ($k === 2) {
-                            $names = $names . ',' . $docID_currentUserNew['user'][0]["display_name"];
+                            $names = $names . ',' . $tdocID_currentUserNew['user'][0]["display_name"];
                             if (strlen($names) > 40) {
                                 $names = substr($names, 0, 40) . "...";
                             } else {

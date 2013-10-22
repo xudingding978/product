@@ -26,22 +26,20 @@
             </div>
 
             <div class="rating" style="font-size: 13px; float: right;position: relative;">
-                <span class="star"></span>
-                <span class="star"></span>
-                <span class="star"></span>
-                <span class="star"></span>
-                <span class="star"></span>
-                <span class="star"></span>
-                <span class="star"></span>
-                <span class="star"></span>
-                <span class="star"></span>
-                <span class="star"></span>
+                <span >{{this.review_star_rating_value}} </span>
+         
+
+
+
+
             </div>
         </div>
-            <div style="background-color: #fff; padding: 0 0 0 50px;">
-            <div style="width: 350px;position: relative; display: inline-block;height: 20px;text-overflow: ellipsis;">{{this.review_content}}   {{this.review_count}}</div>
+        <div  style="background-color: #fff; padding: 5px 0 0 50px;">
+            <div id="review_content_close_{{unbound this.review_count}}" style="width: 350px; height:20px; position: relative; display: inline-block; overflow: hidden; word-wrap: break-word;">{{this.review_content}}  {{this.review_count}}</div>
+            <div id="review_content_open_{{unbound this.review_count}}"  style="width: 350px; height:100px; position: relative; display:none; word-wrap: break-word; overflow: visible;">{{this.review_content}}  {{this.review_count}}</div>
 
-            <div style="position: relative; display: inline-block; font-size: 18px; color: #888;margin: 0 10px;"><k class="icon-caret-down"></k></div>
+            <span role="button"  style="position: relative;  font-size: 18px; color: #888;margin: 0 10px;"  id="down_button_{{unbound this.review_count}}" {{action 'downContent' this.review_count target='view' on="click"}}><k class="icon-caret-down"></k></span>
+            <span role="button" style="position: relative; display: none;  font-size: 18px; color: #888;margin: 0 10px;"  id="up_button_{{unbound this.review_count}}" {{action 'upContent' this.review_count target='view' on="click"}}><k class="icon-caret-up"></k></span>
         </div>
     </div>
 
@@ -56,9 +54,12 @@
             $container.masonry('reload');
         }, 10);
     });
+    
+    
 </script>
 
 
 {{/each}}
 
 </div>
+

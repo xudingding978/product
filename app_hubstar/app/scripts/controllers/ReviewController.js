@@ -6,7 +6,7 @@ HubStar.ReviewController = Ember.Controller.extend({
     review_user_name: "",
     review_content: "",
     review_time_stamp: "",
-    review_star_rating_value: "",
+    review_star_rating_value: null,
     review_length: "",
     profile: "",
     reviewList: false,
@@ -54,9 +54,9 @@ HubStar.ReviewController = Ember.Controller.extend({
             var reviewUserID = this.get("currentUser").get('id');
            
             
-            var reviewStarValue=$('#example-rating-1').text();
+            var reviewStarValue=parseInt($('#example-rating-1').text());
             
-            // console.log(reviewStarValue);
+           console.log(reviewStarValue);
             var reviewUserName = this.get("currentUser").get('first_name') + this.get("currentUser").get('last_name');
             var reviewDate = new Date();
             var reviewCount = this.get("review_count");
@@ -79,6 +79,8 @@ HubStar.ReviewController = Ember.Controller.extend({
         this.get("controllers.profile").set('collectionTag', false);
      this.get("controllers.profile").set('followerProfileTag', false);
          this.get("controllers.profile").set('reviewTag', true);
+         
+
 
     },
     getReviewsById: function(id)

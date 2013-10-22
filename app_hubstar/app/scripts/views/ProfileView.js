@@ -1,7 +1,10 @@
 HubStar.ProfileView = Ember.View.extend({
     templateName: 'profile',
     didInsertElement: function() {
-
+   $(document).ready(function() {
+   $('span.stars').stars();
+  
+});
         $(function() {
             $('#masonry_profile_container').masonry({
                 itemSelector: '.box',

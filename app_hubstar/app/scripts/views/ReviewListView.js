@@ -9,10 +9,7 @@ HubStar.ReviewListView = Ember.View.extend({
           
    $(document).ready(function() {
 
-  
    $('span.stars').stars();
-
-  
   
 });
       

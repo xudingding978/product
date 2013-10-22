@@ -44,7 +44,7 @@ HubStar.ReviewController = Ember.Controller.extend({
     reviewPost: function(id) {
 
         if (this.get("controllers.profile").get('reviews') !== 0) {
-            this.set("review_count", this.get("controllers.profile").get('reviews').get("length"));
+            this.set("review_count", this.get("controllers.profile").get('reviews').get("length")+1);
             var reviewContent = this.get('review_content');
         }
         
@@ -52,15 +52,16 @@ HubStar.ReviewController = Ember.Controller.extend({
             var reviews = this.get("controllers.profile").get('reviews');
             var reviewUserPhoto = this.get("currentUser").get('photo_url_large');
             var reviewUserID = this.get("currentUser").get('id');
-           
-            
-            var reviewStarValue=$('#example-rating-1').text();
-            
-            // console.log(reviewStarValue);
+            var reviewStarValue=$('#example-rating-1').text(); 
             var reviewUserName = this.get("currentUser").get('first_name') + this.get("currentUser").get('last_name');
             var reviewDate = new Date();
             var reviewCount = this.get("review_count");
             var optional = this.get("controllers.profile").get("currentUserID");
+      //     var averageReview=this.get("controllers.profile").get('profile_average_review')+reviewStarValue;
+            var boost=this.get("controllers.profile").get('boost');
+            console.log(boost);
+            
+        //    this.get("controllers.profile").set('profile_average_review',averageReview);
 
         }
         var tempReview = HubStar.Review.createRecord({"review_user_photo_url": reviewUserPhoto,
@@ -68,6 +69,7 @@ HubStar.ReviewController = Ember.Controller.extend({
         reviews.insertAt(0, tempReview);
         console.log(tempReview);
         reviews.store.save();
+       //   HubStar.store.save();
         this.set('reviewContent', "");
          this.get("controllers.profile").set("rateTime", false);
         
@@ -79,9 +81,10 @@ HubStar.ReviewController = Ember.Controller.extend({
         this.get("controllers.profile").set('collectionTag', false);
      this.get("controllers.profile").set('followerProfileTag', false);
          this.get("controllers.profile").set('reviewTag', true);
-         
-        $('#masonry_user_container').masonry('reload');
-       
+        
+//       setTimeout(function() {
+//            $('#masonry_user_container').masonry("reload");
+//        }, 200);
 
     },
     getReviewsById: function(id)
@@ -93,82 +96,4 @@ HubStar.ReviewController = Ember.Controller.extend({
     }
     
    
-    
-//            
-//    linkingUser: function(id) {
-//            
-//            self.location="#/users/"+id;
-//
-//    },
-//    getReviewsById: function(id)
-//    {
-//        //console.log(id);
-//        var profile = HubStar.Profile.find(id);
-//        var reviews = profile.get('reviews');
-//        this.set('mega', mega);
-//        this.set('thisComments', comments);
-//    },
-//    deleteComment: function(object) {
-//        var message = "Do you wish to delete this comment ?";
-//        this.set("message", message);
-//        this.set('makeSureDelete', true);
-//        if (this.get('willDelete')) {
-//            this.getCommentsById(this.get('content').id);
-//            var comments = this.get("thisComments");
-//            HubStar.get('data').deleteRecord();
-//            comments.store.save();
-//            this.cancelDelete();
-//        } else {
-//            this.set('willDelete', true);
-//            HubStar.set('data', object);
-//        }
-//    },
-//    cancelDelete: function() {
-//        this.set('willDelete', false);
-//        this.set('makeSureDelete', false);
-//        HubStar.set('data', null);
-//    },
-//    addLike: function(id)
-//    {
-//        var mega = HubStar.Mega.find(id); 
-//        var type = mega.get("type");
-//          var people_like = mega.get("people_like");
-//          if (people_like === null || people_like === undefined) {
-//            people_like = "";
-//        }
-//        if (localStorage.loginStatus !== null && localStorage.loginStatus !== undefined && localStorage.loginStatus !== "")
-//        {
-//            if (people_like.indexOf(localStorage.loginStatus) !== -1)
-//            {
-//                this.count = mega.get('likes_count');
-//                
-//            }
-//            else{     
-//                var likeArray = [localStorage.loginStatus,id,type];
-//                 likeArray=JSON.stringify(likeArray);
-//                 var that = this;
-//                    requiredBackEnd('megas', 'addlike', likeArray, 'POST', function(params) {
-//                        params = params+"";
-//                        var like = params.split(",");
-//                        mega.set("likes_count", like.length);
-//                        mega.set("people_like",params);
-//                        that.count = like.length;
-//                        //console.log(that.count);
-//                        //console.log("sssssssssssssssssssss");
-//                    }); 
-//            }
-//        }
-//    }, 
-//
-//    pushComment: function(comment)
-//    {
-//        var tempurl = getRestAPIURL();
-//        $.ajax({
-//            url: tempurl + '/megas/addcomment',
-//            type: 'POST',
-//            data: JSON.stringify(comment),
-//            success: function() {
-//            }
-//        });
-//    }
 });

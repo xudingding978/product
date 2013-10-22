@@ -2,10 +2,22 @@ HubStar.ReviewListView = Ember.View.extend({
     templateName: 'reviewList',
     didInsertElement: function() {
 
-   $('span.stars').each(function() {
-        $(this).html($('<span />').width(Math.max(0, (Math.min(10, parseFloat($(this).html())))) * 16));
-   });
-    },
+      
+          
+   $(document).ready(function() {
+
+  
+   $('span.stars').stars();
+
+  
+  
+});
+      
+  },
+          
+
+
+  
     
     downContent: function(event) {
 
@@ -23,8 +35,8 @@ HubStar.ReviewListView = Ember.View.extend({
 
         $(up_button).attr("style", "display:inline-block");
         $(down_button).attr("style", "display:none");
-        $(contentOpen).attr("style", "width: 350px; height:100px; position: relative; display: inline-block; word-wrap: break-word;");
-        $(contentClose).attr("style", "width: 350px; height:20px; position: relative; display: none; overflow: hidden; word-wrap: break-word;");
+        $(contentOpen).attr("style", "width: 350px; height:100px; position: relative; display: inline-block; word-wrap: break-word;" );
+        $(contentClose).attr("style", "width: 350px; height:20px; position: relative; display: none; overflow: hidden; word-wrap: break-word; ");
 //            setTimeout(function() {
 //                $('#masonry_container').masonry("reload");
 //            }, 200);

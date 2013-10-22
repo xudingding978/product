@@ -23,18 +23,15 @@
                         <span class="posttime">{{date this.review_time_stamp}} </span>
                     </div>
                 </div>
+                    
+                    
+                    <span class="stars">{{this.review_star_rating_value}}</span>
+                    
             </div>
 
-            <div class="rating" style="font-size: 13px; float: right;position: relative;">
-                <span >{{this.review_star_rating_value}} </span>
-         
 
-
-
-
-            </div>
         </div>
-        <div  style="background-color: #fff; padding: 5px 0 0 50px;">
+        <div  style="background-color: #fff; padding: 5px 0 0 50px; z-index:100;">
             <div id="review_content_close_{{unbound this.review_count}}" style="width: 350px; height:20px; position: relative; display: inline-block; overflow: hidden; word-wrap: break-word;">{{this.review_content}}  {{this.review_count}}</div>
             <div id="review_content_open_{{unbound this.review_count}}"  style="width: 350px; height:100px; position: relative; display:none; word-wrap: break-word; overflow: visible;">{{this.review_content}}  {{this.review_count}}</div>
 

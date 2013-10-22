@@ -79,6 +79,9 @@ HubStar.ReviewController = Ember.Controller.extend({
         this.get("controllers.profile").set('collectionTag', false);
      this.get("controllers.profile").set('followerProfileTag', false);
          this.get("controllers.profile").set('reviewTag', true);
+         
+        $('#masonry_user_container').masonry('reload');
+       
 
     },
     getReviewsById: function(id)

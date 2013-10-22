@@ -49,7 +49,7 @@ jQuery.fn.ratings = function(stars, initialRating) {
       //add the star to the container
       container.append(star);
       starsCollection.push(star);
-      containerElement.rating = 6;
+      
       //hook up the click event
       star.click(function() {
         //When clicked, fire the 'ratingchanged' event handler.  Pass the rating through as the data argument.
@@ -80,4 +80,22 @@ jQuery.fn.ratings = function(stars, initialRating) {
       });
     }
   });
+};
+
+
+
+jQuery.fn.stars = function() {
+    return $(this).each(function() {
+        
+        // Get the value
+        var val = parseInt($(this).text());
+        console.log($(this).text());
+         console.log(val);
+        // Make sure that the value is in 0 - 5 range, multiply to get width
+        var size = Math.max(0, (Math.min(10, val))) * 16;
+        // Create stars holder
+        var $span = $('<span />').width(size);
+        // Replace the numerical value with stars
+        $(this).html($span);
+    });
 };

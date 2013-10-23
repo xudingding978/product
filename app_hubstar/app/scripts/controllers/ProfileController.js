@@ -931,7 +931,7 @@ if(this.get('newDesc').length<256){
     },
     sendEventTracking: function(hitType, category, action, label){
         if (this.isTracking) {
-            ga(this.get('model').get('id') + '.send', {
+            ga(this.get('model').get('id').split('-').join('') + '.send', {
                 'hitType': hitType,
                 'eventCategory': category,
                 'eventAction': action,

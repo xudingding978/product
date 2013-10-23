@@ -119,6 +119,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     willDelete: false,
     profile_partner_ids: null,
     isTracking: false,
+    isInreview:false,
     init: function() {
 
         this.set('is_authentic_user', false);
@@ -185,7 +186,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         photoCreateController.setMega();
         this.initStastics(profile);
         this.followerPhoto(id);
-    },
+    },           
     followerPhoto: function(id)
     {
         var dataNew = new Array();
@@ -938,7 +939,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     rateEditing: function(id) {
 
         this.set("rateTime", true);
-        var mega = HubStar.Mega.find(id);     
+        
+        if(this.get('reviewTag')===true){
+        this.set('reviewTag', false);
+        this.set('isInreview',true);
+        }
     },
     setCollectionAttr: function() {
         this.set("newTitle", this.get('selectedCollection').get('title'));

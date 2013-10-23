@@ -25,9 +25,10 @@ HubStar.ReviewListView = Ember.View.extend({
 
 
 
-  // $('span.stars').stars();
-  
-});
+    setTimeout(function() {
+            $('#masonry_user_container').masonry("reloadItems");
+        }, 200);
+  });
       
   }
           

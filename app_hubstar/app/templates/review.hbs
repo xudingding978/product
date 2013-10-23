@@ -15,18 +15,20 @@
         <span class="" style="margin:45px 0;float: right;">
             <div  class="new-btn"{{action reviewCancel }}>Cancel</div>
             <div class="new-btn green-btn" {{action  reviewPost model.id}}>Post </div>
+            
+            </span>
 
 <div class="Add-review" style="">
     <div style="width: 100%;height: 50px; line-height: 52px;padding: 0 23px;">
         <a >
             <img class="profilepic_comment"  style="margin: 9px 15px 0 0;float: left;"{{bindAttr src="this.review_user_photo_url"}} /> 
         </a>
-        <div style="font-size: 18px;font-weight: bold;color: #555;"><span>Review on</span><span>Profile name here please</span></div>
+        <div style="font-size: 18px;font-weight: bold;color: #555;"><span>Review on</span><span>     {{this.profileName}}</span></div>
     </div>
 
     <div style="background-color: #f4f6f8; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; height: 50px; line-height: 50px; width: 100%">
 
-      <span id="example-1"></span><span id="example-rating-1"> </span><br/>
+      <span id="example-1"></span><span id="example-rating-1"> </span>
 
         
      
@@ -39,9 +41,9 @@
 
     <div class="" style="height: 41px;position: absolute;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
         <div  class="message-btn easing"  {{action reviewCancel }}><k class="icon-remove">&nbsp;</k>Cancel</div>
-        <div  class="message-btn easing" style="border-right: 1px solid #ddd;border-left: 1px solid #ddd;"><k class='icon-picture'>&nbsp;</k>Add Photo
+        <div  class="message-btn easing" style="border-right: 1px solid #ddd;border-left: 1px solid #ddd;">
             <div style="opacity:0;position: relative;height:30px;top:-35px;overflow: hidden;"> 
-                {{view HubStar.SingleImageInputButtonView }}
+                
             </div>
         </div>
         <div class="message-btn easing" {{action  reviewPost model.id}}><k class='icon-ok'>&nbsp;</k>Post</div>
@@ -51,13 +53,3 @@
 </div>
 </div>
 
-
-<script>
-    $(function() {
-        var $container = $('#masonry_user_container');
-        window.setTimeout(function() {
-            $container.masonry();
-            $container.masonry('reloadItems');
-        }, 10);
-    });
-</script>

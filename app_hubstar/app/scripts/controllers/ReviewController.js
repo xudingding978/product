@@ -15,12 +15,12 @@ HubStar.ReviewController = Ember.Controller.extend({
     reviewDate: "",
     review_id: null,
     isSingle: false,
+    profileName:"",
     needs: ['profile'],
     init: function()
     {
 
         if (localStorage.loginStatus) {
-
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
             var currentUser = HubStar.User.find(localStorage.loginStatus);
             this.set('review_user_photo_url', currentUser.get('photo_url_large'));
@@ -32,6 +32,8 @@ HubStar.ReviewController = Ember.Controller.extend({
 
         this.set("profile", this.get("controllers.profile").get('currentUserID'));
             this.set("profileReview", this.get("controllers.profile").get('reviews'));
+              this.set("profileName", this.get("controllers.profile").get('name'));
+              console.log(this.get('profileName'));
 
     },
     rateStar: function(id) {
@@ -40,12 +42,18 @@ HubStar.ReviewController = Ember.Controller.extend({
     },
     reviewCancel: function() {
         this.get("controllers.profile").set("rateTime", false);
+if(this.get("controllers.profile").get('isInreview')===true)
+{
+ this.get("controllers.profile").set('reviewTag', true);
+ this.get("controllers.profile").set('isInreview', false);
+}
 
     },
     reviewPost: function(id) {
 
+
         if (this.get("controllers.profile").get('reviews') !== 0) {
-        //    this.set("review_count", this.get("controllers.profile").get('reviews').get("length") + 1);
+         
             var reviewContent = this.get('review_content');
         }
 
@@ -58,44 +66,20 @@ HubStar.ReviewController = Ember.Controller.extend({
             var reviewDate = new Date();
             var reviewId =localStorage.loginStatus+createReviewid();
             var optional = this.get("controllers.profile").get("currentUserID");
-            var averageReview = (parseInt(this.get("controllers.profile").get('profile_average_review')) + parseInt(reviewStarValue)) / (this.get("controllers.profile").get('reviews').get("length") + 1);
-//            console.log(reviewStarValue);
-//            console.log(parseInt(this.get("controllers.profile").get('profile_average_review')));
-//            console.log(averageReview);
-//            console.log(this.get("controllers.profile").get('profile_average_review'));
-           // this.get("controllers.profile").set('profile_average_review', this.get("controllers.profile").get("currentUserID"));
-           
-           
-           
-                   //          
-//            console.log("ddddddddddddddd");
-//              console.log(this.get("controllers.profile").get('reviews').get("length"));
-//          var averageScore=0;
-//          for(var i = 0; i < this.get("controllers.profile").get('reviews').get("length");i++)
-//              {
-//                  averageScore = averageScore+parseInt(this.get("controllers.profile").get('reviews').objectAt(i).get("review_star_rating_value"));
-//                  console.log(averageScore);
-//              }
-//              averageScore = averageScore /(parseInt(this.get("controllers.profile").get('reviews').get("length"))+1);
-//               console.log("ssssssssssssssssssssssssssss");
-//        console.log(averageScore);
-
-           
-           
-            this.saveStarValue();
+             
+       
         }
         var tempReview = HubStar.Review.createRecord({"review_user_photo_url": reviewUserPhoto,
             "review_user_id": reviewUserID, "review_user_name": reviewUserName, "review_content": reviewContent, "review_time_stamp": reviewDate.toString(), "optional": optional, "review_id": reviewId, "review_star_rating_value": reviewStarValue});
         reviews.insertAt(0, tempReview);
           
-        console.log(reviews);
+      
         reviews.store.save();
-     
-        //    HubStar.store.save();
-       
+   
+  this.get("controllers.profile").set("profileReviewStatistics", this.get("controllers.profile").get('profileReviewStatistics')+ 1);
         this.set('reviewContent', "");
         this.get("controllers.profile").set("rateTime", false);
-
+      
         $(window).scrollTop(1500);
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#reviewList').addClass('selected-user-stats');
@@ -105,16 +89,14 @@ HubStar.ReviewController = Ember.Controller.extend({
         this.get("controllers.profile").set('followerProfileTag', false);
         this.get("controllers.profile").set('reviewTag', true);
 
-
-     setTimeout(function() {
+    setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
-        }, 1000);
+        }, 200);
+   
         
 
     },
-    saveStarValue: function() {
-        console.log(this.get('averageReview'));
-    },
+  
     getReviewsById: function(id)
     {
         // console.log(id);

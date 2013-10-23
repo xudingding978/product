@@ -1,8 +1,27 @@
 HubStar.ProfileView = Ember.View.extend({
     templateName: 'profile',
     didInsertElement: function() {
-   $(document).ready(function() {
-   $('span.stars').stars();
+    $(document).ready(function() {
+
+ $('span.stars').each(function() {
+        
+        // Get the value
+        var val = parseFloat($(this).text());
+        //console.log(that.get('controller').get('reviews').objectAt(0).get('review_star_rating_value'));
+        console.log('profileview');
+         console.log(val);
+        // Make sure that the value is in 0 - 5 range, multiply to get width
+        var size = Math.max(0, (Math.min(10, val))) * 16;
+        // Create stars holder
+        var $span = $('<span />').width(size);
+        // Replace the numerical value with stars
+        $(this).html($span);
+    });
+          
+
+
+
+  // $('span.stars').stars();
   
 });
         $(function() {

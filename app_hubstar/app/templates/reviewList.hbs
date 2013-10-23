@@ -25,18 +25,25 @@
                 </div>
                     
                     
-                    <span class="stars">{{this.review_star_rating_value}}</span>
+                    <span class="starsview">{{this.review_star_rating_value}}</span>
                     
             </div>
 
            
         </div>
             <div style="background-color: #fff; padding: 0 0 0 50px;">
-            <div style="width: 350px;position: relative; display: inline-block;height: 20px;text-overflow: ellipsis;">{{this.review_content}}   {{this.review_count}}</div>
+            <div style="width: 350px;position: relative; display: inline-block;height: 20px;text-overflow: ellipsis;">{{this.review_content}}  </div>
 
             <div style="position: relative; display: inline-block; font-size: 18px; color: #888;margin: 0 10px;"><k class="icon-caret-down"></k></div>
         </div>
     </div>
+
+
+
+</div>
+ 
+
+{{/each}}
 
 
 
@@ -46,12 +53,7 @@
         var $container = $('#masonry_user_container');
         window.setTimeout(function() {
             $container.masonry();
-            $container.masonry('reload');
+            $container.masonry('reloadItems');
         }, 10);
     });
 </script>
-
-
-{{/each}}
-
-</div>

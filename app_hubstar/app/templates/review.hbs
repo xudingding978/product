@@ -51,3 +51,13 @@
 </div>
 </div>
 
+
+<script>
+    $(function() {
+        var $container = $('#masonry_user_container');
+        window.setTimeout(function() {
+            $container.masonry();
+            $container.masonry('reloadItems');
+        }, 10);
+    });
+</script>

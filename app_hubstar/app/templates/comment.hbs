@@ -22,8 +22,9 @@
 
         </div>
         <div style="display: inline-block;float: right; font-size: 13px;">
-            <div id="thumbUpBtn_{{unbound model.id}}"  class="new-btn" {{action addLike model.id}}><i class="icon-thumbs-up-alt" {{action addLike model.id}}>&nbsp</i>{{model.likes_count}}</div>
-       
+            <div id="thumbUpBtn_{{unbound model.id}}" style="display:inline-block;vertical-align: top;" class="new-btn" {{action addLike model.id}}><i class="icon-thumbs-up-alt">&nbsp</i>{{model.likes_count}}</div>
+            <div id=""  class="new-btn" style="display:inline-block;vertical-align: top;" ><i class="icon-save" >&nbsp</i></div>
+            <div id=""  class="new-btn"  style="display:inline-block;vertical-align: top;"><i class="icon-share-alt" >&nbsp</i></div>
         </div>
     </div>
 
@@ -55,44 +56,44 @@
 
             <div class="comment-position">
                 <a class="profilepic-comment-container" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}}>
-                    <img class="profilepic_comment" {{bindAttr src="commenter_profile_pic_url"}} />
+                   <img class="profilepic_comment" {{bindAttr src="commenter_profile_pic_url"}} />
                 </a>
                 <div style="">
                     <div class="comment-namentime">
                         <div class="namentime_position">
                             <a class="comment-username" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}} >
-                                {{name}}  
-                            </a>
-                            <div class="posttime-container">
-                                <span class="posttime">{{date  time_stamp}}</span>
-                            </div>
+                               {{name}}  
+                        </a>
+                        <div class="posttime-container">
+                            <span class="posttime">{{date  time_stamp}}</span>
                         </div>
-                      
-                        <div class="reply-comment">
-         <!--  <a class = "reply-comment-button" herf="#/users/{{unbound commenter_id}}"{{action linkingUser commenter_id}}>replay</a>
-                    -->    </div>
                     </div>
 
-                    <div class="comment-content">
-                        {{content}} 
-
-                        <span>
-                            <span></span>
-                        </span>
-                    </div>
-
+                    <div class="reply-comment">
+                        <!--  <a class = "reply-comment-button" herf="#/users/{{unbound commenter_id}}"{{action linkingUser commenter_id}}>replay</a>
+                        -->    </div>
                 </div>
+
+                <div class="comment-content">
+                    {{content}} 
+
+                    <span>
+                        <span></span>
+                    </span>
+                </div>
+
             </div>
-
         </div>
-        {{else}}
-
-
-        {{/each}}
-
-
 
     </div>
+    {{else}}
+
+
+    {{/each}}
+
+
+
+</div>
 
 
 

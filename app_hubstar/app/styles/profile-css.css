@@ -948,7 +948,7 @@ textarea.add-interests{
 }
 
 .each-conversation:hover{
-    background-color: rgba(5,5,5,.1) !important;
+    background-color: rgba(150,150,150,.1) !important;
 }
 
 
@@ -984,3 +984,17 @@ textarea.add-interests{
 .selected-conversation{background-color: #555 !important;}
 
 .selected-conversation .comment-username, .selected-conversation .comment-content, .selected-conversation .icon-trash{color: #fff !important}
+
+
+
+
+
+.unread-style{
+    background-color: rgba(85, 170, 255,.15) !important;
+}
+
+.Notification-Board > div:nth-child(odd){background-color: #fff}
+.Notification-Board > div:nth-child(even){background-color: #f4f6f8}
+
+.Notification-Board > div:hover .reply-comment{opacity: .8}
+

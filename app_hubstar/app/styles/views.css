@@ -1779,9 +1779,9 @@ div.album-description-bg{
     -moz-border-radius: 3px;
     border-radius: 3px;
     outline: none;
-    -webkit-box-shadow: 0 3px 7px #888;
-    -moz-box-shadow: 0 3px 7px #888;
-    box-shadow: 0 3px 7px #888;
+    -webkit-box-shadow: 0 0 7px #888;
+    -moz-box-shadow: 0 0 7px #888;
+    box-shadow: 0 0 7px #888;
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding-box;
     background-clip: padding-box;

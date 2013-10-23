@@ -11,8 +11,6 @@ var HubStar = window.HubStar = Ember.Application.createWithMixins({
         requiredBackEnd('tenantConfiguration', 'doesAdDisplay', null, 'post', function(callbck) {
             HubStar.set('doesAdDisplay', callbck);
         });
-
-
         HubStar.set('photoDomain', "http://s3.hubsrv.com/trendsideas.com");
     }
 });

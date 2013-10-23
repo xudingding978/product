@@ -24,7 +24,6 @@ HubStar.Router.map(function() {
         });
         this.resource("users", function() {
             this.resource("usersIndex", {path: '/'});
-
         });
         this.resource("searchs", {path: "/search"}, function( ) {
             this.resource("searchIndex", {path: '/'});

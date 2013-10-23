@@ -198,7 +198,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             var keywords_array = keywords.split(",");
             for (var i = 0; i < keywords_array.get('length'); i++) {
                 var keyword = HubStar.Keyword.createRecord({"keyword_id": i, "keyword_name": keywords_array[i], "create_date": new Date().getTime(), 
-                                                                                            "expire_date": null, "value": null, "is_delete": false});
+                                                                                            "expire_date": null, "value": null, 'profile_id': this.get('model').get('id'), 'collection_id': null, "is_delete": false});
                 this.get('keywords_array').insertAt(i,keyword);
             }
         }
@@ -759,7 +759,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     addKeywords: function() {
         if (this.get('keywords_array').get('length') < this.get('keywordsNum')) {
             var keyword = HubStar.Keyword.createRecord({"keyword_id": this.get('keywords_array').get('length'), "keyword_name": null, "create_date": new Date().getTime(), 
-                                                                                            "expire_date": null, "value": null, "is_delete": false});
+                                                                                        "expire_date": null, "value": null, 'profile_id': this.get('model').get('id'), 'collection_id': null, "is_delete": false});
             this.get('keywords_array').insertAt(this.get('keywords_array').get('length'),keyword);        
         } else {
             this.get('controllers.applicationFeedback').statusObserver(null, "You can not add keywords anymore",'failed');

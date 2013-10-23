@@ -89,7 +89,7 @@ jQuery.fn.stars = function() {
         
         // Get the value
         var val = parseFloat($(this).text());
-        console.log($(this).text());
+        console.log($(this));
          console.log(val);
         // Make sure that the value is in 0 - 5 range, multiply to get width
         var size = Math.max(0, (Math.min(10, val))) * 16;

@@ -70,7 +70,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     partnerTag: false,
     reviewTag: false,
     partnerPage: true,
-    profile_average_review:"",
+    profile_average_review:'',
     profileSelectionStatus: "Collections",
     profileCollectionStatistics: "",
     profileReviewStatistics: "",
@@ -169,7 +169,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.updateWorkingHourData(profile.get('profile_hours'));
         this.set("collections", profile.get("collections"));
         this.set("reviews", profile.get("reviews"));
-        this.set("profile_average_review", 5);
+        this.set("profile_average_review", profile.get("profile_average_review"));
 
         var collections = profile.get("collections");
         if (this.get('controllers.profilePartners').get("partnerNew") !== undefined && this.get('controllers.profilePartners').get("partnerNew") !== null && this.get('controllers.profilePartners').get("partnerNew") !== "")

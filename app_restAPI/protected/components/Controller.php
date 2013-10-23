@@ -198,7 +198,7 @@ class Controller extends CController {
         return $response;
     }
 
-    protected function getSearchResults($region, $requestString, $from = 0, $size = 50) {
+    protected function getSearchResults($region, $requestString, $from = 0, $size = 50, $location = 'Global') {
 
         $conditions = array();
         if ($region != null && $region != "") {
@@ -208,9 +208,9 @@ class Controller extends CController {
         if ($requestString != null && $requestString != "") {
             $requestStringTwo = '_all=' . $requestString;
             array_push($conditions, $requestStringTwo);
-        }
+        }        
 
-        $results = $this->searchWithCondictions($conditions, 'must', $from, $size);
+        $results = $this->searchWithCondictions($conditions, 'must', $from, $size, $location);
 
         return $results;
     }
@@ -224,23 +224,19 @@ class Controller extends CController {
         return $should;
     }
     
-//    protected function getsortQuestWithQueryString($sortString) {
-//        $should = Sherlock\Sherlock::sortBuilder()->Field()->name($sortString)
-//                ->order('desc');
-//        return $should;
-//    }
-    
-    protected function searchWithCondictions($conditions, $search_type = "should", $from = 0, $size = 50) {
+    protected function searchWithCondictions($conditions, $search_type = "should", $from = 0, $size = 50, $location = 'Global') {
         $request = $this->getElasticSearch();
         $request->from($from);
         $request->size($size);
-//        $sortArray=array('couchbaseDocument.doc.created');
-//        $length = sizeof($sortArray);
-//        for ($i = 0; $i < $length; $i++) {
-//            $sort = $this->getsortQuestWithQueryString($sortArray[$i]);
-//                $request->sort($sort);            
-//        }
-//        $request->sort($sortArray);
+        if ($location !== 'Global' && $location !== 'undefined' && $location !== '' && $location !== null) {
+            $filter = Sherlock\Sherlock::filterBuilder()->Raw('{"query": {
+                "queryString": {
+                  "default_field": "couchbaseDocument.doc.country",
+                  "query": "'. $location .'"
+                }
+              }}');
+            $request->filter($filter);            
+        }
         $max = sizeof($conditions);
         $bool = Sherlock\Sherlock::queryBuilder()->Bool();
         for ($i = 0; $i < $max; $i++) {
@@ -252,8 +248,9 @@ class Controller extends CController {
             } else {
                 echo "no such search type, please input: must or should as a search type.";
             }
-        }
+        }        
         $request->query($bool);
+        error_log($request->toJSON());
         $response = $request->execute();
         
         return $response;
@@ -394,7 +391,7 @@ class Controller extends CController {
         return $results;
     }
 
-    protected function getSearchResultsWithAnalysis($region, $requestString, $from = 0, $size = 50) {
+    protected function getSearchResultsWithAnalysis($region, $requestString, $from = 0, $size = 50, $location = 'Global') {
         $conditions = array();
         if ($region != null && $region != "") {
             $requestStringOne = 'couchbaseDocument.doc.region=' . $region;
@@ -404,7 +401,7 @@ class Controller extends CController {
             $requestStringTwo = '_all=' . $requestString;
             array_push($conditions, $requestStringTwo);
         }
-        $tempResponse = $this->searchWithCondictions($conditions, 'must', $from, $size);
+        $tempResponse = $this->searchWithCondictions($conditions, 'must', $from, $size, $location);
         $numberofresults = $tempResponse->total;
         $tempResponse = CJSON::encode($tempResponse);
         $tempResponse = CJSON::decode($tempResponse);

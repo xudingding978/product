@@ -314,6 +314,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             
  dropdown: function(checking) {
         this.set('isGeoDropdown', !this.get('isGeoDropdown'));
+        $('#geo-filter').toggleClass('Geo-Filter-active');
     },
             
     login: function() {

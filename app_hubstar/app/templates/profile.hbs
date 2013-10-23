@@ -1,8 +1,4 @@
-{{#if controller.loadingTime}}
 
-{{render loadingSpinner}}
-
-{{/if}}
 
 <div class="profilegb" style="background: #fff url('../images/texture.png') repeat;width: 100%;height: auto; ">
 
@@ -375,7 +371,7 @@
 <!-- wrapper   end-->
 
 </div>
-
+  
 <div class="back t-style-box"  style='width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0;;'>
     <div style="position: relative; top: 0; width: 100%;height: 300px;overflow: hidden; border-radius: 3px 3px 0 0;">
         <img {{bindAttr src= model.profile_hero_url}} style="width:100%;"/>
@@ -833,7 +829,7 @@
             </div>
 
 
-
+         
             <div class="tab-pane" id="fileuploader">
 
                 {{#if controller.isPhotoUploadMode}}
@@ -891,12 +887,18 @@
                 </div>
                 {{/view}}
                 {{/if}}
+                
+                 {{#if controller.loadingTime}}
+
+            {{render loadingSpinner}}
+
+            {{/if}}
 
                 {{#if controller.isPhotoEditingMode}}
                 <div class='' style='line-height: 45px;position:relative;height: 50px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 5px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>
                     <span style="position: relative;display: inline-block;font-size: 40px;vertical-align: top;"><k class='icon-ok-circle'></k></span>
                     <span style="position: relative;width: 87%;display: inline-block;margin: 0 15px;">
-                        <span style='font-size: 20px;display: block;line-height: 15px;'>Cropping time!</span>        
+                        <span style='font-size: 20px;display: block;line-height: 15px;'>Cropping time!   ( Image Size: <p id="log"></p> ) </span>        
                     </span>
                 </div>
 
@@ -980,3 +982,8 @@
     {{/if}}
 
 
+<script>
+$( document ).on( "mousemove", function( event ) {
+  $( "#panel" ).text( "pageX: " + event.pageX + ", pageY: " + event.pageY );
+});
+</script>

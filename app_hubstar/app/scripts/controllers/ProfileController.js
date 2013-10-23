@@ -90,7 +90,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     isPhotoEditingMode: false,
     isCrop: false,
     isUpload: false,
-    loadingTime:false,
+    loadingTime: false,
     isFinished: false,
     isProfilePicture: false,
     isProfileHero: false,
@@ -116,6 +116,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     willDelete: false,
     profile_partner_ids: null,
     isTracking: false,
+    cropsize: null,
     init: function() {
 
         this.set('is_authentic_user', false);
@@ -736,6 +737,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         });
     }, profileStyleImageDrop: function(e, name)
     {
+        console.log($('#panel').text());
         var target = getTarget(e, "single");
         var src = target.result;
         var that = this;
@@ -775,63 +777,75 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     cropButton: function()
     {
+         this.set('cropsize', $('#panel').text());
+        console.log($('#panel').html());
         this.set('isPhotoUploadMode', false);
         this.set('isPhotoEditingMode', true);
         this.set('isFinished', false);
-         this.set('isUpload', false);
+        this.set('isUpload', false);
 
         if (this.get('UploadImageMode') === "Profile Picture")
         {
             this.set('isProfilePicture', true);
             this.set('isProfileHero', false);
             this.set('isProfileBackground', false);
+            console.log($('#panel').html());
 
         } else if (this.get('UploadImageMode') === "Profile Hero")
         {
             this.set('isProfilePicture', false);
             this.set('isProfileHero', true);
             this.set('isProfileBackground', false);
+            console.log($('#panel').html());
 
         } else if (this.get('UploadImageMode') === "Background")
         {
             this.set('isProfilePicture', false);
             this.set('isProfileHero', false);
             this.set('isProfileBackground', true);
+            console.log($('#panel').html());
 
         }
         var that = this;
         Ember.run.later(function() {
             crop(that.get('newStyleImageSource'));
+            console.log($('#panel').html());
 
         }, 0);
+        
+       console.log($('#panel').text());
 
     },
     photoUpload: function() {
-        this.set('loadingTime', true);
+         console.log($('#panel').text());
         if (this.get('newStyleImageSource') !== null && this.get('newStyleImageSource') !== "")
         {
+            
             var src = this.get('newStyleImageSource');
             var that = this;
-            console.log(that.get('isCrop'));
-             console.log(that.get('isUpload'));
+            //       console.log(that.get('isCrop'));
+            //      console.log(that.get('isUpload'));
+             that.set('loadingTime', true);
+               
             getImageWidth(src, function(width, height) {
                 that.set('currentWidth', width);
                 that.set('currentHeight', height);
                 var data = {"RequireIamgeType": that.get('UploadImageMode')};
+                that.set('loadingTime', true);
                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
                     if ((width >= params.width) && (height >= params.height))
                     {
 
-                        if(that.get('isUpload') === true){
-                        //    that.set('isCrop', false);
-                            that.setTempImage();    
+                        if (that.get('isUpload') === true) {
+                            //    that.set('isCrop', false);
+                            that.setTempImage();
                         }
-                        else if(that.get('isCrop') === true)
-                            {
-                          //       that.set('isUpload', false);
-                            that.setCropImage();    
-                            }
-                        
+                        else if (that.get('isCrop') === true)
+                        {
+                            //       that.set('isUpload', false);
+                            that.setCropImage();
+                        }
+
                         $('#uploadStyleImg').attr("style", "display:block");
                         var data1 = {"newStyleImageSource": that.get('newStyleImageSource'),
                             'newStyleImageName': that.get('newStyleImageName'),
@@ -844,12 +858,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             that.set('isFinished', true);
                             that.set("isCrop", false);
                             HubStar.store.save();
-                          that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
+                            that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
                         });
-
-                       
-
-                    }
+                      
+                    } 
 
                     else if (width < params.width || height < params.height) {
                         that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + params.width + "x" + params.height);
@@ -860,17 +872,20 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                         that.set('isUpload', false);
 
                     }
-
+                  
                 });
+                that.set('loadingTime', false);
+               
             });
 
         }
-         this.set('loadingTime', false);
+
     },
     setCropImage: function() {
+        console.log($('#panel').text());
 
         var cropData = getResults();
-        console.log("crop work");
+        //   console.log("crop work");
         this.set('newStyleImageSource', cropData);
         this.setTempImage();
     },

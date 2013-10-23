@@ -8,7 +8,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
             this.controllerFor('status').set('islogin', true);
             this.controllerFor('application').set('popup', false);
             this.controllerFor('application').set('isotherpage', false);
-            this.controllerFor('platformBar').init();
+//            this.controllerFor('platformBar').init();
             localStorage.checkUser = "";
             
         },
@@ -49,10 +49,10 @@ HubStar.SearchsRoute = Ember.Route.extend({
                     isFitWidth: true
                 });
             });
-            setTimeout(function() {
+    //        setTimeout(function() {
                 $(window).scrollTop(HubStar.get("setHight"));
                 HubStar.set("setHight", 0);
-            }, 100);
+    //        }, 100);
 
             localStorage.checkUser = "";
         },

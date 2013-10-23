@@ -329,6 +329,7 @@ HubStar.UserController = Ember.Controller.extend({
     {
         var collectionController = this.get('controllers.collection');
         var collection = collectionController.getCreateCollection(this.get('newTitle'), this.get('newDesc'), this.get("collections"));
+       if(this.get('newDesc').length<256){
         if (collection !== null && collection !== "") {
             collection.set('type', 'user');
             collection.set('optional', this.get('model').get('id'));
@@ -344,6 +345,9 @@ HubStar.UserController = Ember.Controller.extend({
             $('#masonry_user_container').masonry("reload");
         }, 200);
         }
+      }else{
+      this.get('controllers.applicationFeedback').statusObserver(null, "Your description should be less than 256 characters.", "warnning");
+}  
     },
     socialLink: function(link) {
         if (link === 'facebook') {
@@ -661,6 +665,7 @@ HubStar.UserController = Ember.Controller.extend({
     },
     updateCollectionInfo: function()
     {
+        if(this.get('newDesc').length<256){
         this.get('selectedCollection').set('title', this.get('newTitle'));
         this.get('selectedCollection').set('desc', this.get('newDesc'));
         var collectionController = this.get('controllers.collection');
@@ -675,9 +680,17 @@ HubStar.UserController = Ember.Controller.extend({
 
         this.set('newTitle', '');
         this.set('newDesc', '');
-
+ }
+    else
+        {
+            this.get('controllers.applicationFeedback').statusObserver(null, "Your description should be less than 256 characters.", "warnning");
+        }
 
     },
+            
+            
+            
+            
     setSelectedCollection: function(id) {
         for (var i = 0; i < this.get("collections").get("length"); i++) {
             var thisCollection = this.get("collections").objectAt(i);

@@ -436,3 +436,41 @@ div#forgot-password-container{
     color: #888;
     opacity: 1
 }
+
+
+
+.Notification-top{
+    position: absolute; 
+    width: 410px; 
+    margin: 10px; 
+    border-radius:5px; 
+    background-color: rgb(255, 255, 255); 
+    top: 45px; 
+    right: 0px;
+    box-shadow: 0 0 10px #555;
+}
+
+.Notification-top:before{
+    content: "";
+    position: absolute;
+    left: 204px;
+    top: -19px;
+    border-color: transparent transparent #f3f3f3 transparent;
+    border-style: solid;
+    border-width: 10px 10px 10px 10px;
+    z-index: 0;
+}
+
+.Notification-top:after{
+    content: "";
+    position: absolute;
+    left: 204px;
+    top: -20px;
+    border-color: transparent transparent #888 transparent;
+    border-style: solid;
+    border-width: 10px 10px 10px 10px;
+    z-index: -1;
+}
+
+.Notification-top > div:first-child{border-radius: 3px 3px 0 0}
+.Notification-top > div:last-child{border-radius: 0 0 3px 3px}

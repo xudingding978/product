@@ -9,6 +9,13 @@
 
 </div>
 
+<div class="icon-on-black hint--rounded hint--bottom" data-hint="Share this photo to other social platform." style="position:relative;margin: 0 5px;" {{action dropdownPhotoSetting}}>
+     <i class="icon-share-alt"></i><span class="pretooltip">Share</span> 
+</div>
+{{#if isNotification}}
+{{render notificationTop}}
+{{/if}}
+
 <ul id="user-dd-menu" class="hideClass edit-object-ul" style=" padding: 0; left: 55px; top: 5px;">
     <li class="ite" ><a tabindex="-1" {{bindAttr href="controller.myUserProfile"}}>
             <k class="icon-user" style="">&nbsp;&nbsp;</k>

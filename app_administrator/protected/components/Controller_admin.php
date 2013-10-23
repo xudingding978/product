@@ -149,6 +149,12 @@ class Controller_admin extends CConsoleCommand {
 
         return $time_array;
     }
+    
+    public function setUTC(){
+        date_default_timezone_set('Pacific/Auckland');
+        $timeStamp = strtotime(date('Y-m-d H:i:s'));
+        return $timeStamp;
+    }
 
     public function getCoverPage($article_id) {
         $data_arr = Article::model()->getFirstPhotoHlmID($article_id);

@@ -1,9 +1,5 @@
-/app_authentication/assets/*
+/app_hubstar/dist/*
+/app_hubstar/test/*
+
+
 /nbproject/private/
-/app_hubstar/npm-debug.log
-#/app_hubstar/dist/scripts/*
-#/app_hubstar/dist/images/*
-#/app_hubstar/dist/index.html
-#/app_hubstar/dist/*.cache.manifest
-
-

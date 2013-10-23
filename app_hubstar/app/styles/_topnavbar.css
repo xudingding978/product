@@ -1,4 +1,10 @@
-.navbar .brand {
+.search_input{width: 25%;display: inline-block}
+.search_business{width: 73.5%}
+
+
+
+
+.brand {
     display: block;
     float: left;
     padding: 10px;
@@ -10,22 +16,6 @@
     position: relative;
 }
 
-.title-strapline{
-    width: auto;
-    display: inline-block;
-    vertical-align: top;
-
-}
-
-.titleText{
-    width: auto;
-    padding: 13px;
-    margin: 0;
-}
-.navbar-inner > .container {
-    min-width:600px;
-    height:45px;
-}
 
 
 .navbar {
@@ -58,9 +48,6 @@
 
 
 
-.logonew{
-    height: 25px;
-}
 
 #user-dd-menu > li {padding:0}
 
@@ -394,3 +381,58 @@ div#forgot-password-container{
 }
 
 .learnmore-btn:hover{opacity: 1;}
+
+
+
+
+
+.crop-canvas{height: auto;max-height: 500px;width: auto;margin: 0 auto; max-width: 850px;}
+
+
+
+
+/*STAR RATING STYLE*/
+
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    font-size: 20px;
+}
+
+.rating > span.star {
+    content: "";
+    color: #999999;
+}
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+    content: "";
+}
+
+
+
+
+.Geo-Filter{
+    position: relative;
+    float: right;
+    padding: 12px;
+    color: #fff; 
+    line-height: 19px;
+
+    opacity: .7;
+    cursor:pointer
+}
+
+.Geo-Filter:hover, .Geo-Filter:active{
+    opacity: 1
+}
+
+.Geo-Filter:active{
+    background-color: #fff;
+    color: #888;
+}
+
+.Geo-Filter-active{
+    background-color: #fff;
+    color: #888;
+    opacity: 1
+}

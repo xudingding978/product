@@ -26,9 +26,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     iframeURL: "",
     iframeLoginURL: "",
     isWaiting: "",
-    isNotification:false,
+    isGeoDropdown: false,
+    applicationCategoryDropdownType: 'geoLocation',
     init: function() {
-        this.newSearch();
+        this.defaultSearch();
         this.set('search_string', '');
         var address = document.URL;
         var domain = address.split("/")[2];
@@ -59,7 +60,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
         this.set("size", 20);
         this.set("from", this.get("from") + this.get("size"));
-        var results = HubStar.Mega.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size")});
+        var results = HubStar.Mega.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": HubStar.get('geoLocation')});
         var that = this;
         results.addObserver('isLoaded', function() {
             if (results.get('isLoaded')) {
@@ -90,7 +91,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             }
         });
     },
-    newSearch: function() {
+    newSearch: function() {       
         this.set("content", []);
         this.set("from", 0);
         this.set("size", 20);
@@ -99,7 +100,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var start = d.getTime();
         var that = this;
         var statusController = this.get('controllers.status');
-        var stats = HubStar.Stat.find({"RquireType": "firstsearch", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size")});
+        var stats = HubStar.Stat.find({"RquireType": "firstsearch", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": HubStar.get('geoLocation')});
         stats.addObserver('isLoaded', function() {
             if (stats.get('isLoaded')) {
                 var stat = stats.objectAt(0);
@@ -141,7 +142,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     defaultSearch: function() {
         this.set("loginInfo", localStorage.loginStatus);
-        var results = HubStar.Mega.find({});
+        var results = HubStar.Mega.find({"RquireType": "defaultSearch"});
         this.set("content", results);
     },
     getResponseTime: function(start, end) {
@@ -295,7 +296,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
-                    $('#invalid-user-name-register').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+                    $('#invalid-user-name-register').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'}); 
 
 
 
@@ -312,6 +313,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     setfemale: function() {
         this.set('gender', "female");
     },
+            
+ dropdown: function(checking) {
+        this.set('isGeoDropdown', !this.get('isGeoDropdown'));
+        $('#geo-filter').toggleClass('Geo-Filter-active');
+    },
+            
     login: function() {
         if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginPassword') !== "" && this.get('loginPassword') !== "")
         {

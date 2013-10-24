@@ -8,14 +8,14 @@
     <div id="reviewList"  class="review-list box" style="">
 
 
-        <div class="review-list-profile-pic" style="float:left;">
+        <div class="review-list-profile-pic" style="">
             <img {{bindAttr src="this.review_user_photo_url"}} id="leftOrRight" style=""/>
         </div>
 
         <div class="review-list-content" style="">
-            <div style="background-color: #f3f3f3;padding: 3px 5px 0 50px;">
-                <div class="comment-namentime" style="display: inline-block;">
-                    <div class="namentime_position" style="margin: 0">
+            <div style="background-color: #f3f3f3;padding: 5px 5px 5px 70px;">
+                <div class="comment-namentime" style="display: block;position: relative;height: 35px;">
+                    <div class="namentime_position" style="margin: 0;float: left;">
                         <a class="comment-username" href="#/users/{{unbound this.review}}" {{action linkingUser commenter_id}} >
                            {{this.review_user_name}} 
                     </a>
@@ -23,18 +23,16 @@
                         <span class="posttime">{{date this.review_time_stamp}} </span>
                     </div>
                 </div>
-
-
-                <span class="starsview">{{this.review_star_rating_value}}</span>
+                <div style="position: absolute; right: 0; margin: 7px;"><span class="starsview" >{{this.review_star_rating_value}}</span></div>
 
             </div>
 
 
         </div>
 
-        <div  style="background-color: #fff; padding: 5px 0 0 50px; z-index:100;">
-            <div id="review_content_close_{{unbound this.review_id}}" style="width: 350px; height:20px; position: relative; display: inline-block; overflow: hidden; word-wrap: break-word;">{{this.review_content}}  </div>
-            <div id="review_content_open_{{unbound this.review_id}}"  style="width: 350px; height:100px; position: relative; display:none; word-wrap: break-word; overflow: visible;">{{this.review_content}}  </div>
+        <div  style="background-color: #fff; padding: 5px 0 0 70px; font-size: 13px;">
+            <div id="review_content_close_{{unbound this.review_id}}" style="width: 390px; height:20px; position: relative; display: inline-block; overflow: hidden; ">{{this.review_content}}  </div>
+            <div id="review_content_open_{{unbound this.review_id}}"  style="width: 420px;  position: relative; display:none;overflow: auto;margin: 30px 0 10px -30px;">{{this.review_content}}  </div>
 
 
             <span role="button"  style="position: relative;  font-size: 18px; color: #888;margin: 0 10px;"  id="down_button_{{unbound this.review_id}}" {{action 'downContent' this.review_id target='view' on="click"}}><k class="icon-caret-down"></k></span>
@@ -53,8 +51,8 @@
             $container.masonry('reloadItems');
         }, 10);
     });
-    
-    
+
+
 </script>
 
 {{/each}}

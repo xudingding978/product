@@ -1,9 +1,9 @@
 HubStar.ReviewListView = Ember.View.extend({
     templateName: 'reviewList',
     didInsertElement: function() {
-        
-        
-          $(document).ready(function() {
+
+
+        $(document).ready(function() {
             $('span.starsview').each(function() {
                 // Get the value
                 var val = parseFloat($(this).text());
@@ -18,9 +18,8 @@ HubStar.ReviewListView = Ember.View.extend({
                 $('#masonry_user_container').masonry("reloadItems");
             }, 200);
         });
-        
-    },
 
+    },
     downContent: function(event) {
 
         var id = "#" + event;
@@ -30,15 +29,15 @@ HubStar.ReviewListView = Ember.View.extend({
         var contentClose = "#review_content_close_" + event;
         var contentOpen = "#review_content_open_" + event;
 
-        $(id).animate({
-            height: '100px'
-        }, 400);
+//        $(id).animate({
+//            height: '100px'
+//        }, 400);
 
 
         $(up_button).attr("style", "display:inline-block");
         $(down_button).attr("style", "display:none");
-        $(contentOpen).attr("style", "width: 350px; height:100px; position: relative; display: inline-block; word-wrap: break-word;" );
-        $(contentClose).attr("style", "width: 350px; height:20px; position: relative; display: none; overflow: hidden; word-wrap: break-word; ");
+        $(contentOpen).attr("style", "width: 390px; height:20px; position: relative; display:none; overflow: hidden;");
+        $(contentClose).attr("style", "width: 420px; position: relative; display:inline-block;overflow: auto;margin: 30px 0 10px -30px;");
 //            setTimeout(function() {
 //                $('#masonry_container').masonry("reload");
 //            }, 200);
@@ -50,26 +49,26 @@ HubStar.ReviewListView = Ember.View.extend({
         var down_button = "#down_button_" + event;
         var contentClose = "#review_content_close_" + event;
         var contentOpen = "#review_content_open_" + event;
-        $(id).animate({
-            height: '20px'
-        }, 400);
+//        $(id).animate({
+//            height: '20px'
+//        }, 400);
         $(up_button).attr("style", "display:none");
         $(down_button).attr("style", "display:inline-block");
-        $(contentClose).attr("style", "width: 350px; height:20px; position: relative; display: inline-block; overflow: hidden; word-wrap: break-word;");
-        $(contentOpen).attr("style", "width: 350px; height:100px; position: relative; display:none; word-wrap: break-word;");
+        $(contentClose).attr("style", "width: 390px; height:20px; position: relative; display:inline-block; overflow: hidden; ");
+        $(contentOpen).attr("style", "width: 420px; position: relative; display:none;overflow: auto;margin: 30px 0 10px -30px;");
 
 //            setTimeout(function() {
 //                $('#masonry_container').masonry("reload");
 //            }, 200);
-    }, toggle:function(){
+    }, toggle: function() {
         $('#review_content_open_').slideToggle(1000);
     }
- 
-             
-            
-    });
 
-        
+
+
+});
+
+
 
 
 

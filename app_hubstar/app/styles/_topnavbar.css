@@ -394,3 +394,30 @@ div#forgot-password-container{
 }
 
 .learnmore-btn:hover{opacity: 1;}
+
+
+.Geo-Filter{
+    position: relative;
+    float: right;
+    padding: 12px;
+    color: #fff; 
+    line-height: 19px;
+
+    opacity: .7;
+    cursor:pointer
+}
+
+.Geo-Filter:hover, .Geo-Filter:active{
+    opacity: 1
+}
+
+.Geo-Filter:active{
+    background-color: #fff;
+    color: #888;
+}
+
+.Geo-Filter-active{
+    background-color: #fff;
+    color: #888;
+    opacity: 1
+}

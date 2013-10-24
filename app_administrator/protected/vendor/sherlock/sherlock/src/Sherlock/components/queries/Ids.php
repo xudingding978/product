@@ -9,29 +9,49 @@
 namespace Sherlock\components\queries;
 
 use Sherlock\components;
+use Sherlock\components\QueryInterface;
 
 /**
- * @method \Sherlock\components\queries\Ids type() type(\string $value)
- * @method \Sherlock\components\queries\Ids values() values(array $value)
-
+ * Class Ids
+ * @package Sherlock\components\queries
  */
-class Ids extends \Sherlock\components\BaseComponent implements \Sherlock\components\QueryInterface
+class Ids extends components\BaseComponent implements QueryInterface
 {
-    public function __construct($hashMap = null)
+    /**
+     * @param string $value
+     *
+     * @return $this
+     */
+    public function type($value)
     {
-
-        parent::__construct($hashMap);
+        $this->params['type'] = $value;
+        return $this;
     }
 
+    /**
+     * @param string $value
+     *
+     * @return $this
+     */
+    public function values($value)
+    {
+        $this->params['values'] = $value;
+        return $this;
+    }
+
+
+    /**
+     * @return array
+     */
     public function toArray()
     {
-        $ret = array (
-  'ids' =>
-  array (
-    'type' => $this->params["type"],
-    'values' => $this->params["values"],
-  ),
-);
+        $params = $this->convertParams(
+            array(
+                'type',
+                'values',
+            )
+        );
+        $ret = array('ids' => $params);
 
         return $ret;
     }

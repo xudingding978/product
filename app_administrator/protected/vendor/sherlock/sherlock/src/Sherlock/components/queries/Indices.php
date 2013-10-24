@@ -9,50 +9,68 @@
 namespace Sherlock\components\queries;
 
 use Sherlock\components;
+use Sherlock\components\QueryInterface;
 
 /**
- * @method \Sherlock\components\queries\Indices no_match_query() no_match_query(\sherlock\components\QueryInterface $value)
- * @method \Sherlock\components\queries\Indices query() query(\sherlock\components\QueryInterface $value)
+ * Class Indices
+ * @package Sherlock\components\queries
  */
-class Indices extends \Sherlock\components\BaseComponent implements \Sherlock\components\QueryInterface
+class Indices extends components\BaseComponent implements QueryInterface
 {
-    public function __construct($hashMap = null)
+    /**
+     * @param QueryInterface $value
+     *
+     * @return $this
+     */
+    public function no_match_query(QueryInterface $value)
     {
+        $this->params['no_match_query'] = $value->toArray();
+        return $this;
+    }
 
-        parent::__construct($hashMap);
+    /**
+     * @param QueryInterface $value
+     *
+     * @return $this
+     */
+    public function query(QueryInterface $value)
+    {
+        $this->params['query'] = $value->toArray();
+        return $this;
     }
 
     /**
      * @param  array | string $indices,...
+     *
      * @return Indices
      */
     public function indices($indices)
     {
-        $args = func_get_args();
-        \Analog\Analog::log("Indicies->Indices(".print_r($args, true).")", \Analog\Analog::DEBUG);
-
-        //single param, array of strings
-        if (count($args) == 1 && is_array($args[0]))
-            $args = $args[0];
+        $args = $this->normalizeFuncArgs(func_get_args());
 
         foreach ($args as $arg) {
-            if (is_string($arg))
+            if (is_string($arg)) {
                 $this->params['indices'][] = $arg;
+            }
         }
 
         return $this;
     }
 
+
+    /**
+     * @return array
+     */
     public function toArray()
     {
-        $ret = array (
-  'indices' =>
-  array (
-    'indices' => $this->params["indices"],
-    'query' => $this->params["query"]->toArray(),
-    'no_match_query' => $this->params["no_match_query"]->toArray(),
-  ),
-);
+        $params = $this->convertParams(
+            array(
+                'indices',
+                'query',
+                'no_match_query',
+            )
+        );
+        $ret = array('indices' => $params);
 
         return $ret;
     }

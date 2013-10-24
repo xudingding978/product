@@ -13,7 +13,7 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "guzzle/guzzle": "~3.6.0"
+        "guzzle/guzzle": "~3.7.0"
     },
     "suggest": {
         "doctrine/cache": "Adds support for caching of credentials and responses",
@@ -24,7 +24,6 @@
     },
     "require-dev": {
         "doctrine/cache": "~1.0",
-        "ext-apc": "*",
         "ext-openssl": "*",
         "monolog/monolog": "1.4.*",
         "phpunit/phpunit": "3.7.*",
@@ -38,7 +37,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.3.x-dev"
+            "dev-master": "2.4.x-dev"
         }
     }
 }

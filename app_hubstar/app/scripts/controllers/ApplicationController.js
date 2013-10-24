@@ -4,7 +4,7 @@
 /*global $:false */
 
 HubStar.ApplicationController = Ember.ArrayController.extend({
-    needs: ['status', 'applicationFeedback'],
+    needs: ['status', 'applicationFeedback','user'],
     content: [],
     loginInfo: "",
     search_area: "",
@@ -31,7 +31,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('search_string', '');
         var address = document.URL;
         var domain = address.split("/")[2];
-
     },
     popupModal: function() {
         this.set('popup', !this.get('popup'));
@@ -346,7 +345,7 @@ if(this.get('loginUsername')!==null && this.get('loginPassword')!==null&&this.ge
 
                 if (that.get('loginPassword') === params.PWD_HASH && that.get('loginPassword') !== undefined) {
                     localStorage.loginStatus = params.COUCHBASE_ID;
-                    that.transitionToRoute('search');
+                    that.transitionToRoute('search');                
                     that.set('loginUsername', "");
                     that.set('loginPassword', "");
                  

@@ -118,7 +118,7 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   data.buffer.push(escapeExpression(helpers.bindAttr.call(depth0, {hash:{
     'href': ("controller.myUserProfile")
   },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(">My Trends</a>\n                </li>\n\n                <li class=\"active\">\n                    <a tabindex=\"-1\" href=\"http://trendsideas.com/ViewPage.aspx?pageName=Contact%20Us&region=1\" target=\"blank\">Feedback & Support</a>\n                </li>                \n                <li>\n                    <a tabindex=\"-1\" href=\"#\" onclick=\"logout();\">Logout </a>\n                </li>\n            </ul>\n        </li>\n    </ul>\n</div>\n\n\n<script>\n\n                        function logout() {\n\n                            var address = document.URL;\n                            var domain = address.split(\"/\")[2];\n\n\n\n                            $.ajax({\n                                    type: 'POST',\n                                url: 'http://api.' + domain + '/logout',\n                                contentType: 'application/json; charset=uft-8',\n                                dataType: 'json',\n                                success: function() {\n\n                                }\n                            });\n\n                            localStorage.clear();\n\n\n                        }\n</script>\n");
+  data.buffer.push(">My Trends</a>\n                </li>\n\n                <li class=\"active\">\n                    <a tabindex=\"-1\" href=\"http://trendsideas.com/ViewPage.aspx?pageName=Contact%20Us&region=1\" target=\"blank\">Feedback & Support</a>\n                </li>                \n                <li>\n                    <a tabindex=\"-1\" href=\"#\" onclick=\"logout();\">Logout </a>\n                </li>\n            </ul>\n        </li>\n    </ul>\n</div>\n\n\n<script>\n\n                        function logout() {\n\n                            var address = document.URL;\n                            var domain = address.split(\"/\")[2];\n\n\n\n                            $.ajax({\n                                type: 'POST',\n                                url: 'http://' + domain + '/site/logout',\n                                contentType: 'application/json; charset=uft-8',\n                                dataType: 'json',\n                                success: function() {\n\n                                }\n                            });\n\n                            localStorage.clear();\n\n\n                        }\n</script>\n");
   return buffer;
   
 });
@@ -1884,11 +1884,7 @@ function program4(depth0,data) {
   return buffer;
   }
 
-<<<<<<< HEAD
   data.buffer.push("<div class=\"navbar\">\n    <div style=\"position: absolute;right: 0;z-index: 1;\">\n        <img src=\"../../../images/beta-version.png\"/>\n\n\n        <span style=\"position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;\" id=\"lastidentifie\">0.3-41</span>\n\n\n\n      </div>\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <div class=\"brand\">\n                <a href=\"/#\">\n                    <img class=\"logonew\" style=\"position: relative; top: 0; margin:0;\" src=\"../../../images/landing-trends.png\">\n                </a>\n            </div>\n\n            <!-- show if not logged into platform-->\n            ");
-=======
-  data.buffer.push("<div class=\"navbar\">\n    <div style=\"position: absolute;right: 0;z-index: 1;\">\n        <img src=\"../../../images/beta-version.png\"/>\n\n\n        <span style=\"position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;\" id=\"lastidentifie\">0.3-56</span>\n\n\n\n      </div>\n    <div class=\"navbar-inner\">\n        <div class=\"container\">\n            <div class=\"brand\">\n                <a href=\"/#\">\n                    <img class=\"logonew\" style=\"position: relative; top: 0; margin:0;\" src=\"../../../images/landing-trends.png\">\n                </a>\n            </div>\n\n            <!-- show if not logged into platform-->\n            ");
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   hashTypes = {};
   hashContexts = {};
   stack1 = helpers['if'].call(depth0, "controller.islogin", {hash:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
@@ -3748,7 +3744,7 @@ function program5(depth0,data) {
   hashContexts = {};
   stack1 = helpers.each.call(depth0, "controller.user.collections", {hash:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n                </ul>\n            </li>\n\n            <script>\n\n                $(\"#navContainer > ul > li >span\").hover(function() {\n                    $(\"#navContainer > ul > li\").not(this).removeClass('sidebar-hover');\n                });\n                $(\"#navContainer > ul > li> ul \").hover(function() {\n                    $(this).parent().addClass(\"sidebar-hover\");\n                });</script>\n\n\n            <li> <div class=\"hint--right hint--rounded\" data-hint=\"Feedback & Support\"><a href=\"http://trendsideas.com/ViewPage.aspx?pageName=Contact%20Us&region=1\"> <i class=\"icon-question-sign\" style=\"font-size: 20px;\"></i></a></div>   \n            </li>\n\n            <li> <div class=\"hint--right hint--rounded\" data-hint=\"Log out\"><a href=\"#\" onclick=\"logout();\"> <i class=\"icon-off\" style=\"font-size: 20px;\"></i></a></div>   \n            </li>\n        </ul>\n\n\n    </div>\n\n    <div class=\"showsidebar easing\"><k class=\"icon-circle-arrow-right\"></k></div>\n\n</div>\n\n\n\n\n<script>\n\n                function logout() {\n\n                    var address = document.URL;\n                    var domain = address.split(\"/\")[2];\n                    $.ajax({\n                        type: 'POST',\n                        url: 'http://api.' + domain + '/logout',\n                        contentType: 'application/json; charset=uft-8',\n                        dataType: 'json',\n                        success: function() {\n\n                        }\n                    });\n                    localStorage.clear();\n                }\n\n\n</script>\n");
+  data.buffer.push("\n                </ul>\n            </li>\n\n            <script>\n\n                $(\"#navContainer > ul > li >span\").hover(function() {\n                    $(\"#navContainer > ul > li\").not(this).removeClass('sidebar-hover');\n                });\n                $(\"#navContainer > ul > li> ul \").hover(function() {\n                    $(this).parent().addClass(\"sidebar-hover\");\n                });</script>\n\n\n            <li> <div class=\"hint--right hint--rounded\" data-hint=\"Feedback & Support\"><a href=\"http://trendsideas.com/ViewPage.aspx?pageName=Contact%20Us&region=1\"> <i class=\"icon-question-sign\" style=\"font-size: 20px;\"></i></a></div>   \n            </li>\n\n            <li> <div class=\"hint--right hint--rounded\" data-hint=\"Log out\"><a href=\"#\" onclick=\"logout();\"> <i class=\"icon-off\" style=\"font-size: 20px;\"></i></a></div>   \n            </li>\n        </ul>\n\n\n    </div>\n\n    <div class=\"showsidebar easing\"><k class=\"icon-circle-arrow-right\"></k></div>\n\n</div>\n\n\n\n\n<script>\n\n                function logout() {\n\n                    var address = document.URL;\n                    var domain = address.split(\"/\")[2];\n                    $.ajax({\n                        type: 'POST',\n                        url: 'http://' + domain + '/site/logout',\n                        contentType: 'application/json; charset=uft-8',\n                        dataType: 'json',\n                        success: function() {\n\n                        }\n                    });\n                    localStorage.clear();\n                }\n\n\n</script>\n");
   return buffer;
   
 });
@@ -4157,116 +4153,6 @@ function program48(depth0,data) {
   }
 
 function program50(depth0,data) {
-<<<<<<< HEAD
-=======
-  
-  var buffer = '', stack1, hashTypes, hashContexts;
-  data.buffer.push("\n                                            ");
-  hashTypes = {};
-  hashContexts = {};
-  stack1 = helpers['if'].call(depth0, "controller.is_authentic_user", {hash:{},inverse:self.noop,fn:self.program(51, program51, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n                                            ");
-  return buffer;
-  }
-function program51(depth0,data) {
-  
-  var buffer = '', hashTypes, hashContexts;
-  data.buffer.push("\n                                            <div class=\"edit-btn easinghint--rounded hint--bottom\" data-hint=\"Edit content\" ");
-  hashTypes = {};
-  hashContexts = {};
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "toggleEditing", "model.profile_name", "controller.timeSetting", {hash:{},contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(">\n                                                 <i class=\"icon-edit\"></i>\n                                            </div>\n                                            ");
-  return buffer;
-  }
-
-function program53(depth0,data) {
-  
-  var buffer = '', stack1, hashTypes, hashContexts;
-  data.buffer.push("\n\n                                            <table id=\"aside_contact\">\n                                                ");
-  hashTypes = {};
-  hashContexts = {};
-  stack1 = helpers.unless.call(depth0, "controller.editingTime", {hash:{},inverse:self.program(56, program56, data),fn:self.program(54, program54, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n\n                                                        ");
-  hashTypes = {};
-  hashContexts = {};
-  stack1 = helpers.unless.call(depth0, "controller.editingTime", {hash:{},inverse:self.program(60, program60, data),fn:self.program(58, program58, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n                                                    </tr>\n                                                </tbody>\n                                            </table>\n\n\n                                            ");
-  return buffer;
-  }
-function program54(depth0,data) {
-  
-  var buffer = '', hashTypes, hashContexts;
-  data.buffer.push("\n                                                <tbody style=\"display: inline-block; vertical-align: top;\">\n                                                    <tr style=\"\">\n                                                        <th>");
-  hashTypes = {};
-  hashContexts = {};
-  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "day", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("</th>\n                                                        ");
-  return buffer;
-  }
-
-function program56(depth0,data) {
-  
-  var buffer = '', stack1, hashContexts, hashTypes, options;
-  data.buffer.push("\n                                                        ");
-  hashContexts = {'type': depth0,'class': depth0,'value': depth0};
-  hashTypes = {'type': "STRING",'class': "STRING",'value': "ID"};
-  options = {hash:{
-    'type': ("text"),
-    'class': ("inserthours-day"),
-    'value': ("day")
-  },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
-  data.buffer.push(escapeExpression(((stack1 = helpers.input),stack1 ? stack1.call(depth0, options) : helperMissing.call(depth0, "input", options))));
-  data.buffer.push("\n                                                        ");
-  return buffer;
-  }
-
-function program58(depth0,data) {
-  
-  var buffer = '', hashTypes, hashContexts;
-  data.buffer.push("\n                                                        <th class=\"Contact_2child\">");
-  hashTypes = {};
-  hashContexts = {};
-  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "time", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("</th>\n                                                        ");
-  return buffer;
-  }
-
-function program60(depth0,data) {
-  
-  var buffer = '', stack1, hashContexts, hashTypes, options;
-  data.buffer.push("\n                                                        ");
-  hashContexts = {'type': depth0,'class': depth0,'value': depth0};
-  hashTypes = {'type': "STRING",'class': "STRING",'value': "ID"};
-  options = {hash:{
-    'type': ("text"),
-    'class': ("inserthours-time"),
-    'value': ("time")
-  },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
-  data.buffer.push(escapeExpression(((stack1 = helpers.input),stack1 ? stack1.call(depth0, options) : helperMissing.call(depth0, "input", options))));
-  data.buffer.push("\n                                                        ");
-  return buffer;
-  }
-
-function program62(depth0,data) {
-  
-  var buffer = '', hashTypes, hashContexts;
-  data.buffer.push("\n\n                                            <div style=\"width: 75px;margin: auto;\">\n                                                <div class=\"new-btn blue-btn\"");
-  hashTypes = {};
-  hashContexts = {};
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "yes", "controller.timeSetting", {hash:{},contexts:[depth0,depth0],types:["ID","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("><i class=\"icon-ok icon-white\"></i></div>\n                                                <div class=\"new-btn\"");
-  hashTypes = {};
-  hashContexts = {};
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "no", "controller.timeSetting", {hash:{},contexts:[depth0,depth0],types:["ID","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("><i class=\"icon-remove icon-white\"></i></div>\n                                            </div>\n                                            ");
-  return buffer;
-  }
-
-function program64(depth0,data) {
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   
   var buffer = '', hashTypes, hashContexts;
   data.buffer.push("\n                                                    <div style=\"height: 300px;\">\n                                                        ");
@@ -4285,21 +4171,13 @@ function program64(depth0,data) {
   return buffer;
   }
 
-<<<<<<< HEAD
 function program52(depth0,data) {
-=======
-function program66(depth0,data) {
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   
   var buffer = '', stack1, hashTypes, hashContexts;
   data.buffer.push("\n                                                ");
   hashTypes = {};
   hashContexts = {};
-<<<<<<< HEAD
   stack1 = helpers['if'].call(depth0, "controller.is_authentic_user", {hash:{},inverse:self.noop,fn:self.program(53, program53, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
-=======
-  stack1 = helpers['if'].call(depth0, "controller.is_authentic_user", {hash:{},inverse:self.noop,fn:self.program(67, program67, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n                                            </div>\n                                            <div style=\"display: block; width: 100%\" >");
   hashContexts = {'unescaped': depth0};
@@ -4311,11 +4189,7 @@ function program66(depth0,data) {
   data.buffer.push("</div>\n                                            ");
   return buffer;
   }
-<<<<<<< HEAD
 function program53(depth0,data) {
-=======
-function program67(depth0,data) {
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   
   var buffer = '', hashTypes, hashContexts;
   data.buffer.push("\n\n                                                <div class=\"edit-btn hint--rounded hint--bottom\" data-hint=\"Edit content\" ");
@@ -4326,11 +4200,7 @@ function program67(depth0,data) {
   return buffer;
   }
 
-<<<<<<< HEAD
 function program55(depth0,data) {
-=======
-function program69(depth0,data) {
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   
   var buffer = '', hashTypes, hashContexts;
   data.buffer.push("\n                                                <li class=\"location_li\">\n                                                    <a href=\"#\" target=\"_blank\" ");
@@ -4341,11 +4211,7 @@ function program69(depth0,data) {
   return buffer;
   }
 
-<<<<<<< HEAD
 function program57(depth0,data) {
-=======
-function program71(depth0,data) {
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   
   var buffer = '', hashTypes, hashContexts;
   data.buffer.push("\n                                                <li class=\"location_li\">\n                                                    <a href=\"#\" target=\"_blank\" ");
@@ -4356,11 +4222,7 @@ function program71(depth0,data) {
   return buffer;
   }
 
-<<<<<<< HEAD
 function program59(depth0,data) {
-=======
-function program73(depth0,data) {
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   
   var buffer = '', hashTypes, hashContexts;
   data.buffer.push("\n                                                <li class=\"location_li\">\n                                                    <a href=\"#\" target=\"_blank\"");
@@ -4371,11 +4233,7 @@ function program73(depth0,data) {
   return buffer;
   }
 
-<<<<<<< HEAD
 function program61(depth0,data) {
-=======
-function program75(depth0,data) {
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   
   var buffer = '', hashTypes, hashContexts;
   data.buffer.push("\n                                                <li class=\"location_li\">\n                                                    <a href=\"#\" target=\"_blank\" ");
@@ -4386,11 +4244,7 @@ function program75(depth0,data) {
   return buffer;
   }
 
-<<<<<<< HEAD
 function program63(depth0,data) {
-=======
-function program77(depth0,data) {
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   
   var buffer = '', hashTypes, hashContexts;
   data.buffer.push("\n                                                <li class=\"location_li\">\n                                                    <a href=\"#\" target=\"_blank\"");
@@ -4401,11 +4255,7 @@ function program77(depth0,data) {
   return buffer;
   }
 
-<<<<<<< HEAD
 function program65(depth0,data) {
-=======
-function program79(depth0,data) {
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   
   var buffer = '', hashTypes, hashContexts;
   data.buffer.push("\n                                                <li class=\"location_li\">\n                                                    <a href=\"#\" target=\"_blank\" ");
@@ -4416,11 +4266,7 @@ function program79(depth0,data) {
   return buffer;
   }
 
-<<<<<<< HEAD
 function program67(depth0,data) {
-=======
-function program81(depth0,data) {
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   
   var buffer = '', hashTypes, hashContexts;
   data.buffer.push("\n                    <li class=\"easing\" ");
@@ -4431,11 +4277,7 @@ function program81(depth0,data) {
   return buffer;
   }
 
-<<<<<<< HEAD
 function program69(depth0,data) {
-=======
-function program83(depth0,data) {
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   
   var buffer = '', hashTypes, hashContexts;
   data.buffer.push("\n                                    ");
@@ -4446,30 +4288,18 @@ function program83(depth0,data) {
   return buffer;
   }
 
-<<<<<<< HEAD
 function program71(depth0,data) {
-=======
-function program85(depth0,data) {
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   
   var buffer = '', stack1, hashTypes, hashContexts;
   data.buffer.push("\n                    ");
   hashTypes = {};
   hashContexts = {};
-<<<<<<< HEAD
   stack1 = helpers.view.call(depth0, "HubStar.SingleFileUploaderView", {hash:{},inverse:self.noop,fn:self.program(72, program72, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
-=======
-  stack1 = helpers.view.call(depth0, "HubStar.SingleFileUploaderView", {hash:{},inverse:self.noop,fn:self.program(86, program86, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n                    ");
   return buffer;
   }
-<<<<<<< HEAD
 function program72(depth0,data) {
-=======
-function program86(depth0,data) {
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   
   var buffer = '', stack1, hashTypes, hashContexts;
   data.buffer.push("\n                    <div style=\"position: relative; margin: 15px auto;height: 520px; width: 87%; background-color: rgba(242,240,240,0.5);border: 3px dashed #aaa;\">\n                        <div style=\"top: 190px;position: relative;margin: auto;width: 80%;font-size: 26px; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;\">\n\n\n                            <i class=\"icon-upload\" style=\"font-size: 45px;\"></i>\n                            <p style=\"font-weight: bold; margin: 10px;\">\n                                ");
@@ -4501,11 +4331,7 @@ function program86(depth0,data) {
   data.buffer.push("</div>\n                            </div>\n\n                        </div>\n                    </div>\n                    <div class=\"\" style=\"margin-top: 20px;\">\n                        <div class=\"controlbtn\" style=\"left: 300px;\">\n\n                            ");
   hashTypes = {};
   hashContexts = {};
-<<<<<<< HEAD
   stack1 = helpers['if'].call(depth0, "controller.isCrop", {hash:{},inverse:self.program(75, program75, data),fn:self.program(73, program73, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
-=======
-  stack1 = helpers['if'].call(depth0, "controller.isCrop", {hash:{},inverse:self.program(89, program89, data),fn:self.program(87, program87, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push(" \n                            <a href=\"#tab1\" data-toggle=\"tab\" ");
   hashTypes = {};
@@ -4514,11 +4340,7 @@ function program86(depth0,data) {
   data.buffer.push("><span class=\"new-btn\">Close</span></a>\n\n                        </div>\n                    </div>\n                    ");
   return buffer;
   }
-<<<<<<< HEAD
 function program73(depth0,data) {
-=======
-function program87(depth0,data) {
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   
   var buffer = '', hashTypes, hashContexts;
   data.buffer.push("\n                            <span id=\"photoUploadbtn\" class=\"new-btn green-btn\" ");
@@ -4529,49 +4351,29 @@ function program87(depth0,data) {
   return buffer;
   }
 
-<<<<<<< HEAD
 function program75(depth0,data) {
-=======
-function program89(depth0,data) {
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   
   
   data.buffer.push("\n                            <span  class=\"disabled-btn\" >Upload</span>\n                            ");
   }
 
-<<<<<<< HEAD
 function program77(depth0,data) {
-=======
-function program91(depth0,data) {
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   
   var buffer = '', stack1, hashTypes, hashContexts;
   data.buffer.push("\n                    <div class='' style='position:relative;height: 85px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 10px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>\n                        <span style=\"position: relative;display: inline-block;font-size: 40px;margin: 10px 0;vertical-align: top;\"><k class='icon-ok-circle'></k></span>\n                        <span style=\"position: relative;width: 87%;display: inline-block;margin: 10px 15px;\">\n                            <span style='font-size: 20px;display: block;line-height: 15px;'>Cropping time!</span>\n                            <span style='font-size: 13px;margin: auto;  display: block;line-height: 16px;'></span>\n                        </span>\n                    </div>\n\n                    ");
   hashTypes = {};
   hashContexts = {};
-<<<<<<< HEAD
   stack1 = helpers['if'].call(depth0, "controller.isProfilePicture", {hash:{},inverse:self.noop,fn:self.program(78, program78, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
-=======
-  stack1 = helpers['if'].call(depth0, "controller.isProfilePicture", {hash:{},inverse:self.noop,fn:self.program(92, program92, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n                        ");
   hashTypes = {};
   hashContexts = {};
-<<<<<<< HEAD
   stack1 = helpers['if'].call(depth0, "controller.isProfileHero", {hash:{},inverse:self.noop,fn:self.program(80, program80, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
-=======
-  stack1 = helpers['if'].call(depth0, "controller.isProfileHero", {hash:{},inverse:self.noop,fn:self.program(94, program94, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n                            ");
   hashTypes = {};
   hashContexts = {};
-<<<<<<< HEAD
   stack1 = helpers['if'].call(depth0, "controller.isProfileBackground", {hash:{},inverse:self.noop,fn:self.program(82, program82, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
-=======
-  stack1 = helpers['if'].call(depth0, "controller.isProfileBackground", {hash:{},inverse:self.noop,fn:self.program(96, program96, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n                                <canvas id=\"panel\" class=\"crop-canvas\" style=\"height: 100%;width: auto;margin: 0 auto; \"><img  ");
   hashContexts = {'src': depth0};
@@ -4590,41 +4392,25 @@ function program91(depth0,data) {
   data.buffer.push(">   <span class=\"new-btn\" >Back</span> </a>\n                                </div>\n                            </div>\n                             ");
   return buffer;
   }
-<<<<<<< HEAD
 function program78(depth0,data) {
-=======
-function program92(depth0,data) {
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   
   
   data.buffer.push("\n                    <div id=\"crop-container\" style=\"width: 820px;height: 500px;margin: 10px auto; text-align: center\">          \n                        ");
   }
 
-<<<<<<< HEAD
 function program80(depth0,data) {
-=======
-function program94(depth0,data) {
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   
   
   data.buffer.push("\n                        <div id=\"crop-container\" style=\"width: 830px;height: 500px;margin: 10px auto; text-align: center\">\n                            ");
   }
 
-<<<<<<< HEAD
 function program82(depth0,data) {
-=======
-function program96(depth0,data) {
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   
   
   data.buffer.push("\n                            <div id=\"crop-container\" style=\"width: 850px;height: 500px;margin: 10px auto; text-align: center\">\n                                ");
   }
 
-<<<<<<< HEAD
 function program84(depth0,data) {
-=======
-function program98(depth0,data) {
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   
   var buffer = '', hashContexts, hashTypes;
   data.buffer.push("\n                            <div class='' style='position:relative;height: 85px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 10px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>\n                                <span style=\"position: relative;display: inline-block;font-size: 40px;margin: 10px 0;vertical-align: top;\"><k class='icon-ok-circle'></k></span>\n                                <span style=\"position: relative;width: 87%;display: inline-block;margin: 10px 15px;\">\n                                    <span style='font-size: 20px;display: block;line-height: 15px;'>Congratulations! Your Photos have been uploaded!</span>\n                                    <span style='font-size: 13px;margin: auto;  display: block;line-height: 16px;'></span>\n                                </span>\n                            </div>\n\n                            <div style=\"position: relative; margin: auto;height: 520px; width: 690px; overflow: hidden;line-height: 510px;\">\n                                <div style=\"position: relative;margin:3px;text-align: center;overflow: hidden;\">\n                                    <img  ");
@@ -4641,11 +4427,7 @@ function program98(depth0,data) {
   return buffer;
   }
 
-<<<<<<< HEAD
 function program86(depth0,data) {
-=======
-function program100(depth0,data) {
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   
   var buffer = '', hashTypes, hashContexts;
   data.buffer.push("\n\n\n        ");
@@ -4656,11 +4438,7 @@ function program100(depth0,data) {
   return buffer;
   }
 
-<<<<<<< HEAD
 function program88(depth0,data) {
-=======
-function program102(depth0,data) {
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   
   var buffer = '', stack1, hashTypes, hashContexts, options;
   data.buffer.push("\n\n\n        ");
@@ -4672,11 +4450,7 @@ function program102(depth0,data) {
   return buffer;
   }
 
-<<<<<<< HEAD
 function program90(depth0,data) {
-=======
-function program104(depth0,data) {
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   
   var buffer = '', hashTypes, hashContexts;
   data.buffer.push("\n\n        ");
@@ -4776,7 +4550,6 @@ function program104(depth0,data) {
   hashTypes = {};
   hashContexts = {};
   stack1 = helpers.unless.call(depth0, "controller.editingContact", {hash:{},inverse:self.program(48, program48, data),fn:self.program(46, program46, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
-<<<<<<< HEAD
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n\n                                        </div>\n                                        <!--PROFILE HOURS SECTION-->\n                                        \n                                            <div  style=\" margin-top:20px;margin-left:10px; width: 300px;height: 250px;\">\n                                                <img  ");
   hashContexts = {'src': depth0};
@@ -4788,82 +4561,36 @@ function program104(depth0,data) {
   hashTypes = {};
   hashContexts = {};
   stack1 = helpers['if'].call(depth0, "controller.editingAbout", {hash:{},inverse:self.program(52, program52, data),fn:self.program(50, program50, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
-=======
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n\n                                        </div>\n                                        <!--PROFILE HOURS SECTION-->\n\n                                        <div class=\"aside-container\" style=\"border-bottom:0 none;border-top: 1px solid #fff;\">\n                                            <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-time' style='margin-right: 10px;'></i>Hours</div>\n\n                                            ");
-  hashTypes = {};
-  hashContexts = {};
-  stack1 = helpers.unless.call(depth0, "controller.editingTime", {hash:{},inverse:self.noop,fn:self.program(50, program50, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n\n                                            ");
-  hashTypes = {};
-  hashContexts = {};
-  stack1 = helpers.each.call(depth0, "controller.hours", {hash:{},inverse:self.noop,fn:self.program(53, program53, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n                                            ");
-  hashTypes = {};
-  hashContexts = {};
-  stack1 = helpers['if'].call(depth0, "controller.editingTime", {hash:{},inverse:self.noop,fn:self.program(62, program62, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n                                        </div>\n                                    </div>\n                                </div>\n                            </td><!--LEFT COL ENDS -->\n\n                            <!--RIGHT COL BEGINS -->\n                            <td class=\"right_col\" width=\"70%\" valign=\"top\">\n                                <!--PROFILE PAGE MAIN PART-->\n\n                                <div class=\"profilemain\" style=\"display: inline-block; width: 100%;left: 0;right: 0; background-color: white;margin: auto; min-width: 553px;\">\n\n                                    <div class=\"profile-main-content\" style=\"margin: 20px auto;width: 90%;\">\n\n                                        <div class=\"main_aboutus\" style=\"\">\n\n                                            <div class=\"editor-content\">\n                                                <div style=\"display: inline-block;\">\n                                                    <p style='display: inline-block; font-size: 18px;'>\n                                                        <i class='icon-group' style='margin-right: 10px;display: inline-block;'></i>About Us\n                                                    </p>\n\n                                                    ");
-  hashTypes = {};
-  hashContexts = {};
-  stack1 = helpers['if'].call(depth0, "controller.editingAbout", {hash:{},inverse:self.program(66, program66, data),fn:self.program(64, program64, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n                                        </div>\n\n\n\n\n                                        <div style=\"height: 40px; bottom: 0;width: 700px;position: absolute;margin-bottom: 15px;\">\n                                            <ul class=\"locationandlinks\">\n\n                                                ");
   hashTypes = {};
   hashContexts = {};
-<<<<<<< HEAD
   stack1 = helpers['if'].call(depth0, "facebook", {hash:{},inverse:self.noop,fn:self.program(55, program55, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
-=======
-  stack1 = helpers['if'].call(depth0, "facebook", {hash:{},inverse:self.noop,fn:self.program(69, program69, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n                                                ");
   hashTypes = {};
   hashContexts = {};
-<<<<<<< HEAD
   stack1 = helpers['if'].call(depth0, "twitter", {hash:{},inverse:self.noop,fn:self.program(57, program57, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
-=======
-  stack1 = helpers['if'].call(depth0, "twitter", {hash:{},inverse:self.noop,fn:self.program(71, program71, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n                                                ");
   hashTypes = {};
   hashContexts = {};
-<<<<<<< HEAD
   stack1 = helpers['if'].call(depth0, "googleplus", {hash:{},inverse:self.noop,fn:self.program(59, program59, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
-=======
-  stack1 = helpers['if'].call(depth0, "googleplus", {hash:{},inverse:self.noop,fn:self.program(73, program73, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n                                                ");
   hashTypes = {};
   hashContexts = {};
-<<<<<<< HEAD
   stack1 = helpers['if'].call(depth0, "pinterest", {hash:{},inverse:self.noop,fn:self.program(61, program61, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
-=======
-  stack1 = helpers['if'].call(depth0, "pinterest", {hash:{},inverse:self.noop,fn:self.program(75, program75, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n                                                ");
   hashTypes = {};
   hashContexts = {};
-<<<<<<< HEAD
   stack1 = helpers['if'].call(depth0, "linkedin", {hash:{},inverse:self.noop,fn:self.program(63, program63, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
-=======
-  stack1 = helpers['if'].call(depth0, "linkedin", {hash:{},inverse:self.noop,fn:self.program(77, program77, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n                                                ");
   hashTypes = {};
   hashContexts = {};
-<<<<<<< HEAD
   stack1 = helpers['if'].call(depth0, "youtube", {hash:{},inverse:self.noop,fn:self.program(65, program65, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
-=======
-  stack1 = helpers['if'].call(depth0, "youtube", {hash:{},inverse:self.noop,fn:self.program(79, program79, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n\n                                            </ul>\n                                        </div>\n\n\n\n\n\n\n\n                                    </div>\n\n\n\n\n                                </div>\n                            </td><!--RIGHT COL ENDS -->\n                        </tr>\n                    </tbody>\n                </table>\n            </div>\n        </div>\n        <!-- wrapper   end-->\n\n    </div>\n\n    <div class=\"back t-style-box\"  style='width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0;;'>\n        <div style=\"position: relative; top: 0; width: 100%;height: 300px;overflow: hidden; border-radius: 3px 3px 0 0;\">\n            <img ");
   hashContexts = {'src': depth0};
@@ -4890,11 +4617,7 @@ function program104(depth0,data) {
   data.buffer.push("><a href=\"#tab7\" data-toggle=\"tab\">Social Link</a></li>\n                    ");
   hashTypes = {};
   hashContexts = {};
-<<<<<<< HEAD
   stack1 = helpers['if'].call(depth0, "controller.isAdmin", {hash:{},inverse:self.noop,fn:self.program(67, program67, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
-=======
-  stack1 = helpers['if'].call(depth0, "controller.isAdmin", {hash:{},inverse:self.noop,fn:self.program(81, program81, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("   \n                </ul>\n            </div>\n\n            <div class=\"tab-content easing\">\n                <div class=\"tab-pane active\" id=\"tab1\">\n                    <div style=\"font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;\">Style up your profile!</div>\n\n                    <div class='styleup_section'>\n                        <a href=\"#fileuploader\" data-toggle=\"tab\" ");
   hashTypes = {};
@@ -5151,11 +4874,7 @@ function program104(depth0,data) {
   data.buffer.push("</span>\n                                        <span class=\"caret\"></span>\n                                    </div>\n                                    ");
   hashTypes = {};
   hashContexts = {};
-<<<<<<< HEAD
   stack2 = helpers['if'].call(depth0, "controller.isActiveDropdown", {hash:{},inverse:self.noop,fn:self.program(69, program69, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
-=======
-  stack2 = helpers['if'].call(depth0, "controller.isActiveDropdown", {hash:{},inverse:self.noop,fn:self.program(83, program83, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   if(stack2 || stack2 === 0) { data.buffer.push(stack2); }
   data.buffer.push("\n                                </td>\n                            </tr>\n\n                            <tr>\n                                <td>Deleted*:</td>\n\n                                <td>\n                                    <div class=\"new-btn\" style=\"display: block;\" ");
   hashTypes = {};
@@ -5168,11 +4887,7 @@ function program104(depth0,data) {
   data.buffer.push("</span>\n                                        <span class=\"caret\"></span>\n                                    </div>\n                                    ");
   hashTypes = {};
   hashContexts = {};
-<<<<<<< HEAD
   stack2 = helpers['if'].call(depth0, "controller.isDeleteDropdown", {hash:{},inverse:self.noop,fn:self.program(69, program69, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
-=======
-  stack2 = helpers['if'].call(depth0, "controller.isDeleteDropdown", {hash:{},inverse:self.noop,fn:self.program(83, program83, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   if(stack2 || stack2 === 0) { data.buffer.push(stack2); }
   data.buffer.push("\n                                </td>\n                            </tr>\n\n                            <tr>\n                                <td> Package:</td>\n                                <td>\n                                    <div class=\"new-btn\" style=\"display: block;\" ");
   hashTypes = {};
@@ -5185,11 +4900,7 @@ function program104(depth0,data) {
   data.buffer.push("</span>\n                                        <span class=\"caret\"></span>\n                                    </div>\n                                    ");
   hashTypes = {};
   hashContexts = {};
-<<<<<<< HEAD
   stack2 = helpers['if'].call(depth0, "controller.isPackgetDropdown", {hash:{},inverse:self.noop,fn:self.program(69, program69, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
-=======
-  stack2 = helpers['if'].call(depth0, "controller.isPackgetDropdown", {hash:{},inverse:self.noop,fn:self.program(83, program83, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   if(stack2 || stack2 === 0) { data.buffer.push(stack2); }
   data.buffer.push("\n                                </td>\n                            </tr>\n                            <tr>\n                                <td> Creator:</td>\n                                <td>\n                                    <div class=\"disabled-btn\" style=\"display: block; font-size: 12px;\">\n                                        <span> ");
   hashTypes = {};
@@ -5228,47 +4939,27 @@ function program104(depth0,data) {
   data.buffer.push("><k class='icon-group'> &nbsp;</k>Back</span>\n                    </div>\n                </div>\n\n\n\n                <div class=\"tab-pane\" id=\"fileuploader\">\n\n                    ");
   hashTypes = {};
   hashContexts = {};
-<<<<<<< HEAD
   stack2 = helpers['if'].call(depth0, "controller.isPhotoUploadMode", {hash:{},inverse:self.noop,fn:self.program(71, program71, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
-=======
-  stack2 = helpers['if'].call(depth0, "controller.isPhotoUploadMode", {hash:{},inverse:self.noop,fn:self.program(85, program85, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   if(stack2 || stack2 === 0) { data.buffer.push(stack2); }
   data.buffer.push("\n                   \n                    ");
   hashTypes = {};
   hashContexts = {};
-<<<<<<< HEAD
   stack2 = helpers['if'].call(depth0, "controller.isPhotoEditingMode", {hash:{},inverse:self.noop,fn:self.program(77, program77, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
-=======
-  stack2 = helpers['if'].call(depth0, "controller.isPhotoEditingMode", {hash:{},inverse:self.noop,fn:self.program(91, program91, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   if(stack2 || stack2 === 0) { data.buffer.push(stack2); }
   data.buffer.push("\n                            ");
   hashTypes = {};
   hashContexts = {};
-<<<<<<< HEAD
   stack2 = helpers['if'].call(depth0, "controller.isFinished", {hash:{},inverse:self.noop,fn:self.program(84, program84, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
-=======
-  stack2 = helpers['if'].call(depth0, "controller.isFinished", {hash:{},inverse:self.noop,fn:self.program(98, program98, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   if(stack2 || stack2 === 0) { data.buffer.push(stack2); }
   data.buffer.push("\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n\n\n\n        </div>\n\n\n\n\n        ");
   hashTypes = {};
   hashContexts = {};
-<<<<<<< HEAD
   stack2 = helpers['if'].call(depth0, "controller.switchPhoto", {hash:{},inverse:self.program(88, program88, data),fn:self.program(86, program86, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
-=======
-  stack2 = helpers['if'].call(depth0, "controller.switchPhoto", {hash:{},inverse:self.program(102, program102, data),fn:self.program(100, program100, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   if(stack2 || stack2 === 0) { data.buffer.push(stack2); }
   data.buffer.push("\n\n\n        ");
   hashTypes = {};
   hashContexts = {};
-<<<<<<< HEAD
   stack2 = helpers['if'].call(depth0, "controller.makeSureDelete", {hash:{},inverse:self.noop,fn:self.program(90, program90, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
-=======
-  stack2 = helpers['if'].call(depth0, "controller.makeSureDelete", {hash:{},inverse:self.noop,fn:self.program(104, program104, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
->>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
   if(stack2 || stack2 === 0) { data.buffer.push(stack2); }
   data.buffer.push("\n\n<script>\n//      function initialize() {\n//        var map_canvas = document.getElementById('map_canvas');\n//        var map_options = {\n//          center: new google.maps.LatLng(44.5403, -78.5463),\n//          zoom: 8,\n//          mapTypeId: google.maps.MapTypeId.ROADMAP\n//        }\n//        var map = new google.maps.Map(map_canvas, map_options);\n//      }\n//      google.maps.event.addDomListener(window, 'load', initialize);\n\n//      \n//      google.maps.event.addDomListener(window, 'load', initialize);\n//      \n//var geocoder;    \n//  var map;    \n//  function initialize() {    \n//    geocoder = new google.maps.Geocoder();    \n//    var latlng = new google.maps.LatLng(39.9493, 116.3975);    \n//    var myOptions = {    \n//      zoom: 15,    \n//      center: latlng,    \n//      mapTypeId: google.maps.MapTypeId.ROADMAP    \n//    }    \n//  \n//    var address =\"49 main highway,auckland\";\n//    \n//   \n//    \n//    if (geocoder) {    \n//      geocoder.geocode( { 'address': address}, function(results, status) {    \n//        if (status ===google.maps.GeocoderStatus.OK) {   \n//          map.setCenter(results[0].geometry.location);    \n//          var marker = new google.maps.Marker({    \n//              map: map,     \n//              position: results[0].geometry.location,    \n//               title:'位置' \n//               \n//        \n//          });   \n//   \n//        }     \n//      });    \n//    }    \n//    map = new google.maps.Map(document.getElementById(\"map_canvas\"), myOptions); \n//    \n//  }   \n//     \n  \n      \n      \n      \n    </script>\n");
   return buffer;
@@ -6394,7 +6085,7 @@ function program51(depth0,data) {
   hashContexts = {'src': depth0};
   hashTypes = {'src': "STRING"};
   data.buffer.push(escapeExpression(helpers.bindAttr.call(depth0, {hash:{
-    'src': ("controller.cover_url")
+    'src': ("controller.model.cover_url")
   },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
   data.buffer.push(" style=\"width:100%;\"/>\n\n                ");
   hashTypes = {};

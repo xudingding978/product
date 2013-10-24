@@ -282,7 +282,22 @@ class PhotosController extends Controller {
         $s3url = 'http://' . $bucket . '/' . $url;
         return $s3url;
     }
-
+    
+//      public function saveGoogleMapInTypes( $data_arr, $owner_id) {
+//
+//       
+//        //$new_photo_data = $this->createNewImage( $data_arr['type']);
+//        //$new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
+//        $bucket = 's3.hubsrv.com';
+//        $url = $this->getDomain() . '/profiles/googleMap' . "/" . $owner_id;
+//        
+//        $this->saveMapToS3($url, $data_arr, $bucket);
+//        $s3url = 'http://' . $bucket . '/' . $url;
+//        return $s3url;
+//    }
+    
+    
+    
     protected function getNewPhotoSize($photo_size, $photo_type) {
         $new_size = array();
         switch ($photo_type) {
@@ -413,6 +428,23 @@ class PhotosController extends Controller {
             ));
         }
     }
+    
+    
+//    public function saveMapToS3($url, $data, $bucket) {
+//
+//        $arr = $this->getProviderConfigurationByName($this->getDomain(), "S3Client");
+//        $client = Aws\S3\S3Client::factory(
+//                        $arr
+//        );
+//       
+//            $client->putObject(array(
+//                'Bucket' => $bucket, //"s3.hubsrv.com"
+//                'Key' => $url,
+//                'Body' => $data,             
+//                'ACL' => 'public-read'
+//            ));
+//       
+//    }
 
     public function removeS3Record($mega) {
         $bucket = 's3.hubsrv.com';

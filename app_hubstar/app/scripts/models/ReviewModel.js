@@ -7,7 +7,7 @@ HubStar.Review = DS.Model.extend({
     review_is_delete: DS.attr('boolean'),
     review_is_edit: DS.attr('boolean'),
     review_star_rating_value: DS.attr('number'),
-    review_count: DS.attr('number'),
+    review_id: DS.attr('string'),
     review_length: DS.attr('string'),
     review_star_average_value: DS.attr('string'),
     optional: DS.attr('string'),

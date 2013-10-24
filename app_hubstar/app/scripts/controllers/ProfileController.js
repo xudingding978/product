@@ -70,6 +70,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     partnerTag: false,
     reviewTag: false,
     partnerPage: true,
+    profile_average_review:'',
     profileSelectionStatus: "Collections",
     profileCollectionStatistics: "",
     profileReviewStatistics: "",
@@ -118,6 +119,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     willDelete: false,
     profile_partner_ids: null,
     isTracking: false,
+    isInreview:false,
     init: function() {
 
         this.set('is_authentic_user', false);
@@ -168,6 +170,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.updateWorkingHourData(profile.get('profile_hours'));
         this.set("collections", profile.get("collections"));
         this.set("reviews", profile.get("reviews"));
+        this.set("profile_average_review", profile.get("profile_average_review"));
 
         var collections = profile.get("collections");
         if (this.get('controllers.profilePartners').get("partnerNew") !== undefined && this.get('controllers.profilePartners').get("partnerNew") !== null && this.get('controllers.profilePartners').get("partnerNew") !== "")
@@ -183,7 +186,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         photoCreateController.setMega();
         this.initStastics(profile);
         this.followerPhoto(id);
-    },
+    },           
     followerPhoto: function(id)
     {
         var dataNew = new Array();
@@ -936,8 +939,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     rateEditing: function(id) {
 
         this.set("rateTime", true);
-        var mega = HubStar.Mega.find(id);
-        console.log(mega);
+        
+        if(this.get('reviewTag')===true){
+        this.set('reviewTag', false);
+        this.set('isInreview',true);
+        }
     },
     setCollectionAttr: function() {
         this.set("newTitle", this.get('selectedCollection').get('title'));

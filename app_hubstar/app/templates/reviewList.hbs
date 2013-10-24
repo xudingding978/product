@@ -16,27 +16,29 @@
             <div style="background-color: #f3f3f3;padding: 3px 5px 0 50px;">
                 <div class="comment-namentime" style="display: inline-block;">
                     <div class="namentime_position" style="margin: 0">
-                        <a class="comment-username" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}} >
+                        <a class="comment-username" href="#/users/{{unbound this.review}}" {{action linkingUser commenter_id}} >
                            {{this.review_user_name}} 
                     </a>
                     <div class="posttime-container">
                         <span class="posttime">{{date this.review_time_stamp}} </span>
                     </div>
                 </div>
-                    
-                    
-                    <span class="stars">{{this.review_star_rating_value}}</span>
-                    
+
+
+                <span class="starsview">{{this.review_star_rating_value}}</span>
+
             </div>
 
 
         </div>
-        <div  style="background-color: #fff; padding: 5px 0 0 50px; z-index:100;">
-            <div id="review_content_close_{{unbound this.review_count}}" style="width: 350px; height:20px; position: relative; display: inline-block; overflow: hidden; word-wrap: break-word;">{{this.review_content}}  {{this.review_count}}</div>
-            <div id="review_content_open_{{unbound this.review_count}}"  style="width: 350px; height:100px; position: relative; display:none; word-wrap: break-word; overflow: visible;">{{this.review_content}}  {{this.review_count}}</div>
 
-            <span role="button"  style="position: relative;  font-size: 18px; color: #888;margin: 0 10px;"  id="down_button_{{unbound this.review_count}}" {{action 'downContent' this.review_count target='view' on="click"}}><k class="icon-caret-down"></k></span>
-            <span role="button" style="position: relative; display: none;  font-size: 18px; color: #888;margin: 0 10px;"  id="up_button_{{unbound this.review_count}}" {{action 'upContent' this.review_count target='view' on="click"}}><k class="icon-caret-up"></k></span>
+        <div  style="background-color: #fff; padding: 5px 0 0 50px; z-index:100;">
+            <div id="review_content_close_{{unbound this.review_id}}" style="width: 350px; height:20px; position: relative; display: inline-block; overflow: hidden; word-wrap: break-word;">{{this.review_content}}  </div>
+            <div id="review_content_open_{{unbound this.review_id}}"  style="width: 350px; height:100px; position: relative; display:none; word-wrap: break-word; overflow: visible;">{{this.review_content}}  </div>
+
+
+            <span role="button"  style="position: relative;  font-size: 18px; color: #888;margin: 0 10px;"  id="down_button_{{unbound this.review_id}}" {{action 'downContent' this.review_id target='view' on="click"}}><k class="icon-caret-down"></k></span>
+            <span role="button" style="position: relative; display: none;  font-size: 18px; color: #888;margin: 0 10px;"  id="up_button_{{unbound this.review_id}}" {{action 'upContent' this.review_id target='view' on="click"}}><k class="icon-caret-up"></k></span>
         </div>
     </div>
 
@@ -48,15 +50,16 @@
         var $container = $('#masonry_user_container');
         window.setTimeout(function() {
             $container.masonry();
-            $container.masonry('reload');
+            $container.masonry('reloadItems');
         }, 10);
     });
     
     
 </script>
 
-
 {{/each}}
+
+
 
 </div>
 

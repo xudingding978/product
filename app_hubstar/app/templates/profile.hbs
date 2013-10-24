@@ -63,21 +63,8 @@
                            
 
                             <!--STAR RATING-->
-
-                            <div class="rating">
-                                <span class="star"></span>
-                                <span class="star"></span>
-                                <span class="star"></span>
-                                <span class="star"></span>
-                                <span class="star"></span>
-                                <span class="star"></span>
-                                <span class="star"></span>
-                                <span class="star"></span>
-                                <span class="star"></span>
-                                <span class="star"></span>
-                            </div>
-                            
-                               <div class="new-btn blue-btn"{{action rateEditing model.id}}>Rate</div>
+                              <div><span class="stars">{{this.profile_average_review}}</span></div>                    
+                               <div class="new-btn blue-btn"{{action rateEditing model.id}}>Review  {{this.profile_average_review}}</div>
                             
 
                             <!--contact me-->
@@ -374,16 +361,7 @@
                                 </ul>
                             </div>
 
-
-
-
-
-
-
                         </div>
-
-
-
 
                     </div>
                 </td><!--RIGHT COL ENDS -->
@@ -393,7 +371,6 @@
 </div>
 </div>
 <!-- wrapper   end-->
-
 </div>
 
 <div class="back t-style-box"  style='width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0;;'>
@@ -970,7 +947,6 @@
 
 
     </div>
-
 
 
 

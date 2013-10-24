@@ -229,7 +229,7 @@ class ConversationsController extends Controller {
             $cb = $this->couchBaseConnection();
             $domain = $this->getDomain();
             $docID_currentUser = $domain . "/users/" . $conversationId;
-            
+           // error_log(var_export("sssssssssssss", true));
             $tempMega_currentUser = $cb->get($docID_currentUser);
             $mega_currentUser = CJSON::decode($tempMega_currentUser, true);
 
@@ -278,7 +278,7 @@ class ConversationsController extends Controller {
                         $mega_currentConversation["ConversationCollection"][$j]["sender_photo_url_large"] = $docID_currentUserNew['user'][0]["photo_url_large"];
                     }
                     array_push($readConversation, $mega_currentConversation);
-                    error_log(var_export($readConversation, true));
+                    
                     $readConversation[$i]["names"] = $names;
                     $readConversation[$i]["conversationPhoto"] = $contentParticipation;
                 }
@@ -290,13 +290,7 @@ class ConversationsController extends Controller {
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
             echo json_decode(file_get_contents('php://input'));
-        }
-
-
-        //  error_log(var_export($id, true));
-        $cb = $this->couchBaseConnection();
-        $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
-        $oldRecordDeep = CJSON::decode($oldDeep, true);
+        }     
     }
 
     public function actionCreateConversation() {
@@ -378,7 +372,7 @@ class ConversationsController extends Controller {
             }
 
             $oldRecordDeep['conversationID'] = $conversationID;
-            error_log(var_export($participation_ids, true));
+           // error_log(var_export($participation_ids, true));
             if ($participation_ids === null || $participation_ids === '') {
                 $oldRecordDeep['participation_ids'] = $commenter_id;
             } else {

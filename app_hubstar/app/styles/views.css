@@ -1534,9 +1534,16 @@ div.album-description-bg{
     margin-bottom: 10px;
 }
 
+.article-text{  
+    font-size: 13px;
+    line-height: 16px;
+}
 
-.article-text{
-    font-size: 14px;
+.article-text > p{
+    font-size: 13px;
+    color: #555;
+    line-height: 16px;
+    margin-bottom: 12px;
 }
 
 

@@ -4,16 +4,14 @@
  */
 
 
-DS.RESTAdapter.map('HubStar.UserMessage', {
-
-    replyMessageCollection: {embedded: 'load'}
-});
-
-
-HubStar.UserMessage = DS.Model.extend({
-    message_id: DS.attr('string'),
-    replyMessageCollection: DS.hasMany('HubStar.Message')
-        
+HubStar.Notification = DS.Model.extend({
+    notification_id: DS.attr('string'),
+    user_id: DS.attr('string'),
+    type: DS.attr('string'),
+    time: DS.attr('string'),
+    content:DS.attr('string'),
+    action_id:DS.attr('string'),
+    isRead:false
 });
 
 

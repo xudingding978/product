@@ -292,6 +292,14 @@ class RequestTest extends \Guzzle\Tests\GuzzleTestCase
         $this->assertEquals(CURLAUTH_DIGEST, $request->getCurlOptions()->get(CURLOPT_HTTPAUTH));
     }
 
+    /**
+     * @expectedException \Guzzle\Common\Exception\InvalidArgumentException
+     */
+    public function testValidatesAuth()
+    {
+        $this->request->setAuth('foo', 'bar', 'bam');
+    }
+
     public function testGetResourceUri()
     {
         $this->assertEquals('/', $this->request->getResource());
@@ -353,41 +361,6 @@ class RequestTest extends \Guzzle\Tests\GuzzleTestCase
         unlink($file);
 
         $this->assertEquals('data', $response->getBody(true));
-    }
-
-    public function testDeterminesIfResponseBodyRepeatable()
-    {
-        // The default stream created for responses is seekable
-        $request = RequestFactory::getInstance()->create('GET', 'http://localhost:' . $this->getServer()->getPort());
-        $this->assertTrue($request->isResponseBodyRepeatable());
-
-        // This should return false because an HTTP stream is not seekable
-        $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 4\r\n\r\ndata");
-        $request->setResponseBody(EntityBody::factory(fopen($this->getServer()->getUrl(), true)));
-        $this->assertFalse($request->isResponseBodyRepeatable());
-    }
-
-    public function testDeterminesIfCanCacheRequest()
-    {
-        $this->assertTrue(RequestFactory::getInstance()->fromMessage(
-            "GET / HTTP/1.1\r\nHost: www.test.com\r\nCache-Control: no-cache, max-age=120\r\n\r\n"
-        )->canCache());
-
-        $this->assertTrue(RequestFactory::getInstance()->fromMessage(
-            "HEAD / HTTP/1.1\r\nHost: www.test.com\r\nCache-Control: no-cache, max-age=120\r\n\r\n"
-        )->canCache());
-
-        $this->assertFalse(RequestFactory::getInstance()->fromMessage(
-            "HEAD / HTTP/1.1\r\nHost: www.test.com\r\nCache-Control: no-cache, max-age=120, no-store\r\n\r\n"
-        )->canCache());
-
-        $this->assertFalse(RequestFactory::getInstance()->fromMessage(
-            "POST / HTTP/1.1\r\nHost: www.test.com\r\n\r\n"
-        )->canCache());
-
-        $this->assertFalse(RequestFactory::getInstance()->fromMessage(
-            "PUT / HTTP/1.1\r\nHost: www.test.com\r\nCache-Control: no-cache, max-age=120\r\n\r\n"
-        )->canCache());
     }
 
     public function testHoldsCookies()
@@ -456,40 +429,6 @@ class RequestTest extends \Guzzle\Tests\GuzzleTestCase
         $this->assertNotSame($h, $r->getHeader('Host'));
         $this->assertNotSame($r->getParams(), $this->request->getParams());
         $this->assertTrue($this->request->getEventDispatcher()->hasListeners('request.sent'));
-    }
-
-    public function testCatchesAllHostHeaderChanges()
-    {
-        // Tests setting using headers
-        $this->request->setHeader('Host', 'www.abc.com');
-        $this->assertEquals('www.abc.com', $this->request->getHost());
-        $this->assertEquals('www.abc.com:8124', $this->request->getHeader('Host'));
-        $this->assertEquals(8124, $this->request->getPort());
-
-        // Tests setting using setHost()
-        $this->request->setHost('abc.com');
-        $this->assertEquals('abc.com', $this->request->getHost());
-        $this->assertEquals('abc.com:8124', $this->request->getHeader('Host'));
-        $this->assertEquals(8124, $this->request->getPort());
-
-        // Tests setting with a port
-        $this->request->setHost('abc.com:8081');
-        $this->assertEquals('abc.com', $this->request->getHost());
-        $this->assertEquals('abc.com:8081', $this->request->getHeader('Host'));
-        $this->assertEquals(8081, $this->request->getPort());
-
-        // Tests setting with a port using the Host header
-        $this->request->setHeader('Host', 'solr.com:8983');
-        $this->assertEquals('solr.com', $this->request->getHost());
-        $this->assertEquals('solr.com:8983', (string) $this->request->getHeader('Host'));
-        $this->assertEquals(8983, $this->request->getPort());
-
-        // Tests setting with an inferred 443 port using the Host header
-        $this->request->setScheme('https');
-        $this->request->setHeader('Host', 'solr.com');
-        $this->assertEquals('solr.com', $this->request->getHost());
-        $this->assertEquals('solr.com:8983', (string) $this->request->getHeader('Host'));
-        $this->assertEquals(8983, $this->request->getPort());
     }
 
     public function testRecognizesBasicAuthCredentialsInUrls()
@@ -673,14 +612,6 @@ class RequestTest extends \Guzzle\Tests\GuzzleTestCase
         $this->client->get('/')->setResponseBody($name)->send();
         $this->assertEquals('test', file_get_contents($name));
         unlink($name);
-    }
-
-    public function testHasRedirectFlag()
-    {
-        $request = new Request('GET', $this->getServer()->getUrl());
-        $this->assertFalse($request->isRedirect());
-        $this->assertSame($request, $request->setIsRedirect(true));
-        $this->assertTrue($request->isRedirect());
     }
 
     public function testUsesCustomResponseBodyWhenItIsCustom()

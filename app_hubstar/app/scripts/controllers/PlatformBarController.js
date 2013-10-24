@@ -6,11 +6,12 @@ HubStar.PlatformBarController = Ember.ArrayController.extend({
     photo_url: '',
     userLocation:"",
     myUserProfile: null,
-    needs: ["application"],
+    needs: ["application","user","applicationFeedback"],
     init: function()
     {  
         this.setTopicModel(HubStar.Cate.find({}));
          this.set('userLocation',geoip_city());
+     
        
     },
     topicSearch: function(search_topic) {
@@ -30,5 +31,10 @@ HubStar.PlatformBarController = Ember.ArrayController.extend({
     changeImage: function(imageSrc)
     {
         this.set('photo_url', imageSrc);
+    },
+            
+    changeLocation: function(location) {
+        HubStar.set('geoLocation', location);
+        this.get('controllers.applicationFeedback').statusObserver(null, "You geographic location has been changed into "+location);
     }
 });

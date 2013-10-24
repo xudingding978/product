@@ -20,7 +20,6 @@ use Aws\Common\Credentials\Credentials;
 use Aws\Common\Signature\SignatureV4;
 use Aws\DynamoDb\DynamoDbClient;
 use Aws\DynamoDb\Enum\Type;
-use Guzzle\Common\Collection;
 
 class DynamoDbClientTest extends \Guzzle\Tests\GuzzleTestCase
 {

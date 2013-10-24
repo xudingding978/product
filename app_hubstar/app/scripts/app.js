@@ -9,6 +9,7 @@ var HubStar = window.HubStar = Ember.Application.createWithMixins({
         HubStar.set('isMansonryPageLoad', false);
         HubStar.set('searchStart', false);
         HubStar.set('photoDomain', "http://s3.hubsrv.com/trendsideas.com");
+        HubStar.set('geoLocation', "Global");
             }
         });
 

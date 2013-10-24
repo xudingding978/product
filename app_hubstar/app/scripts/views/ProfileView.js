@@ -11,13 +11,32 @@ HubStar.ProfileView = Ember.View.extend({
                 isFitWidth: true
             });
         });
-        $('#defualt').addClass('selected-user-stats');
-        $('#user-stats > li').click(function() {
-            $('#user-stats > li').removeClass('selected-user-stats');
-            $(this).addClass('selected-user-stats');
-        });
-        
-       
+        var address = document.URL;
+        var user_id = address.split("#")[1].split("/")[3];
+
+        if (user_id === "partners")
+        {
+            $('#partners').addClass('selected-user-stats');
+            $('#user-stats > li').click(function() {
+                $('#user-stats > li').removeClass('selected-user-stats');
+                $(this).addClass('selected-user-stats');
+            });
+        }
+        else if (user_id === "followers")
+        {
+            $('#follow').addClass('selected-user-stats');
+            $('#user-stats > li').click(function() {
+                $('#user-stats > li').removeClass('selected-user-stats');
+                $(this).addClass('selected-user-stats');
+            });
+        }
+        else {
+            $('#defualt').addClass('selected-user-stats');
+            $('#user-stats > li').click(function() {
+                $('#user-stats > li').removeClass('selected-user-stats');
+                $(this).addClass('selected-user-stats');
+            });
+        }
     }
 });
 

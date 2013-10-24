@@ -174,9 +174,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         this.isFollowed();
         this.checkAuthenticUser();
-        this.labelBarRefresh();
-
-        this.selectCollection();
+      //  this.labelBarRefresh();
+     //   this.selectCollection();
         var photoCreateController = this.get('controllers.photoCreate');
         photoCreateController.setMega();
         this.initStastics(profile);
@@ -570,6 +569,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('partnerTag', false);
         this.set('followerProfileTag', false);
         this.set('collectionTag', true);
+        this.transitionToRoute('profileCollections');
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
@@ -584,20 +584,26 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('collectionTag', false);
         this.set('followerProfileTag', false);
         this.get('controllers.itemProfiles').setPartnerRemove();
-//        setTimeout(function() {
-//            $('#masonry_user_container').masonry("reload");
-//        }, 200);
+        this.transitionToRoute('partners');
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
     },
     selectFollower: function(model) {
         $(window).scrollTop(1500);
         this.sendEventTracking('event', 'button', 'click', 'Followers');
-        $('#user-stats > li').removeClass('selected-user-stats');
-        $('#follow').addClass('selected-user-stats');
         this.set('profileSelectionStatus', 'Followers');
-        this.get('controllers.userFollowers').getProfileId(model);
+         //this.get('controllers.userFollowers').getProfileId(model);
+        
         this.set('partnerTag', false);
         this.set('collectionTag', false);
         this.set('followerProfileTag', true);
+
+         this.transitionToRoute('profileFollowers');
+        
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
 
     },
     saveUpdateAboutUs: function() {

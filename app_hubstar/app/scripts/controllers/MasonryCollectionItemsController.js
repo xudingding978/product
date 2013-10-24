@@ -77,9 +77,10 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     ,
     goBack: function() {
 
-        var lastposition = HubStar.get("scrollCollectionPosition");
-        window.history.back();
 
+        var lastposition = HubStar.get("scrollCollectionPosition");
+        //   window.history.back();
+          this.get('controllers.user').goToRouter();
         setTimeout(function() {
 
             $(window).scrollTop(lastposition);
@@ -204,7 +205,6 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         else {
             var coverImge = Mega.get('photo').objectAt(0).get('photo_image_original_url');
         }
-
 
         for (var i = 0; i < userOrprofile.get('content').length; i++) {
 

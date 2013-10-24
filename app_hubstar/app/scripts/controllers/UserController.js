@@ -13,6 +13,7 @@ HubStar.UserController = Ember.Controller.extend({
     temp: [],
     followerTag: false,
     followingTag: false,
+    messageTag: false,
     newDesc: '',
     newTitle: '',
     selectedDesc: "",
@@ -22,7 +23,7 @@ HubStar.UserController = Ember.Controller.extend({
     age: "",
     userTage: true,
     currentUserID: "",
-    needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings', 'application', 'platformBar', 'collection', 'htmlEditor'],
+    needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings', 'application', 'platformBar', 'collection', 'htmlEditor', 'userMessage', 'messageCenter'],
     facebook: "",
     twitter: "",
     follow_status: false,
@@ -41,7 +42,7 @@ HubStar.UserController = Ember.Controller.extend({
     updateOrCreate: true,
     collectionTag: true,
     selectedCollection: "",
-    profileSelectionStatus: "Collections",
+    profileSelectionStatus: "",
     selected_topics: [],
     interests: "",
     userCollectionStatistics: "",
@@ -93,7 +94,6 @@ HubStar.UserController = Ember.Controller.extend({
     },
     setUser: function()
     {
-
         var user = this.get('model');
         this.setIntersetsArr(user);
         this.set("user", user);
@@ -160,9 +160,16 @@ HubStar.UserController = Ember.Controller.extend({
         }
         this.initStastics(user);
         this.checkAuthenticUser();
-        this.labelBarRefresh();
+        //     this.labelBarRefresh();
         this.userPhotoEditBackButton();
         this.userDashboardBackButton();
+        /// this.transitionToRoute('userCollections');
+    },
+    goToRouter: function()
+    {
+        this.transitionToRoute('user');
+        $('#user-stats > li').removeClass('selected-user-stats');
+        $('#defualt').addClass('selected-user-stats');
     },
     labelBarRefresh: function() {
         this.set("profileSelectionStatus", "Collections");
@@ -455,6 +462,7 @@ HubStar.UserController = Ember.Controller.extend({
 
         for (var i = 0; i < checkList.length; i++)
         {
+
             if (checkList[i].id === 'email') {
                 document.getElementById(checkList[i].id).setAttribute("class", "disabled-btn");
             }
@@ -720,24 +728,53 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('followingTag', false);
         this.set('collectionTag', true);
         this.set('followerTag', false);
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
+
+        this.set('messageTag', false);
+        //this.transitionToRoute('userCollections');
 
     },
     selectFollowing: function(model) {
+
         this.set('profileSelectionStatus', 'Following');
-        this.get('controllers.userFollowings').getClientId(model);
+        //       this.get('controllers.userFollowings').getClientId(model);
         this.set('followingTag', true);
         this.set('collectionTag', false);
         this.set('followerTag', false);
+
+        this.set('messageTag', false);
+        this.transitionToRoute('following');
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reloadItems");
+        }, 200);
+
     },
     selectFollower: function(model) {
+//        $('#user-stats > li').removeClass('selected-user-stats');
+//        $('#ufollower').addClass('selected-user-stats');
         this.set('profileSelectionStatus', 'Followers');
-        this.get('controllers.userFollowers').getClientId(model);
         this.set('followingTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', true);
+        this.set('messageTag', false);
+        this.transitionToRoute('followers');
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reloadItems");
+        }, 200);
+
+    },
+    selectMessage: function(model) {
+        this.set('profileSelectionStatus', 'Messages');
+        this.set('followingTag', false);
+        this.set('collectionTag', false);
+        this.set('followerTag', false);
+        this.set('messageTag', true);
+
+        this.transitionToRoute('messageCenter');
+
+
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reloadItems");
+        }, 200);
     },
     flickButtonClick: function()
     {
@@ -807,7 +844,7 @@ HubStar.UserController = Ember.Controller.extend({
             if (that.get('newStyleImageSource') !== null && that.get('newStyleImageSource') !== "")
             {
                 var size = " size is " + width + "x" + height;
-                that.set('CurrentImageSize', size);
+                that.set('CurrprofileStyleImageDropentImageSize', size);
 
                 if (that.get('UploadImageMode') === "User Picture" || that.get('UploadImageMode') === "User Cover") {
                     if (width < 150 || height < 150) {

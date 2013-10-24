@@ -15,6 +15,11 @@ HubStar.UserFollowersController = Ember.Controller.extend({
     is_authentic_user: false,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings'],
     test: "test",
+    setUserFollowers: function(followers) {
+        var model = HubStar.User.find(followers);
+        this.getClientId(model); // It is used to get the mesage model
+
+    },
     getClientId: function(model) {
         //console.log(localStorage.loginStatus);
         this.set('loadingTime', true);

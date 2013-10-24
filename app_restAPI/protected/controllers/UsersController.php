@@ -186,6 +186,7 @@ class UsersController extends Controller {
         $user_id = $payloads_arr['id'];
         $type = $payloads_arr['type'];
         $photoController = new PhotosController();
+
         $data_arr = $photoController->convertToString64($photo_string);
 
         $photo = imagecreatefromstring($data_arr['data']);

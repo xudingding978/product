@@ -194,16 +194,22 @@ class UrlTest extends \Guzzle\Tests\GuzzleTestCase
     public function urlProvider()
     {
         return array(
-            array('/foo/..', ''),
-            array('//foo//..', ''),
-            array('/foo/../..', ''),
-            array('/foo/../.', ''),
-            array('/./foo/..', ''),
+            array('/foo/..', '/'),
+            array('//foo//..', '/'),
+            array('/foo/../..', '/'),
+            array('/foo/../.', '/'),
+            array('/./foo/..', '/'),
             array('/./foo', '/foo'),
             array('/./foo/', '/foo/'),
-            array('/./foo/bar/baz/pho/../..', 'foo/bar'),
+            array('/./foo/bar/baz/pho/../..', '/foo/bar'),
             array('*', '*'),
-            array('/foo', '/foo')
+            array('/foo', '/foo'),
+            array('/abc/123/../foo/', '/abc/foo/'),
+            array('/a/b/c/./../../g', '/a/g'),
+            array('/b/c/./../../g', '/g'),
+            array('/b/c/./../../g', '/g'),
+            array('/c/./../../g', '/g'),
+            array('/./../../g', '/g'),
         );
     }
 
@@ -223,5 +229,20 @@ class UrlTest extends \Guzzle\Tests\GuzzleTestCase
         $url->setHost('foo:8983');
         $this->assertEquals('foo', $url->getHost());
         $this->assertEquals(8983, $url->getPort());
+    }
+
+    /**
+     * @expectedException \Guzzle\Common\Exception\InvalidArgumentException
+     */
+    public function testValidatesUrlCanBeParsed()
+    {
+        Url::factory('foo:////');
+    }
+
+    public function testConvertsSpecialCharsInPathWhenCastingToString()
+    {
+        $url = Url::factory('http://foo.com/baz bar?a=b');
+        $url->addPath('?');
+        $this->assertEquals('http://foo.com/baz%20bar/%3F?a=b', (string) $url);
     }
 }

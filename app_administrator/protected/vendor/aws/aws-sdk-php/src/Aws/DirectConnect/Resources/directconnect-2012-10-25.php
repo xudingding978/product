@@ -72,8 +72,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'Connection',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'Creates a new network connection between the customer network and a specific AWS Direct Connect location.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -117,8 +115,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'VirtualInterface',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'Creates a new private virtual interface. A virtual interface is the VLAN that transports AWS Direct Connect traffic. A private virtual interface supports sending traffic to a single Virtual Private Cloud (VPC).',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -139,7 +135,6 @@ return array (
                     'location' => 'json',
                 ),
                 'newPrivateVirtualInterface' => array(
-                    'description' => 'Detailed information of the private virtual interface to be created.',
                     'type' => 'object',
                     'location' => 'json',
                     'properties' => array(
@@ -184,8 +179,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'VirtualInterface',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'Creates a new public virtual interface. A virtual interface is the VLAN that transports AWS Direct Connect traffic. A public virtual interface supports sending traffic to public services of AWS such as Amazon Simple Storage Service (Amazon S3).',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -206,7 +199,6 @@ return array (
                     'location' => 'json',
                 ),
                 'newPublicVirtualInterface' => array(
-                    'description' => 'Detailed information of the public virtual interface to be created.',
                     'type' => 'object',
                     'location' => 'json',
                     'properties' => array(
@@ -232,11 +224,9 @@ return array (
                             'type' => 'array',
                             'items' => array(
                                 'name' => 'RouteFilterPrefix',
-                                'description' => 'A route filter prefix that the customer can advertise through Border Gateway Protocol (BGP) over a public virtual interface.',
                                 'type' => 'object',
                                 'properties' => array(
                                     'cidr' => array(
-                                        'description' => 'CIDR notation for the advertised route. Multiple routes are separated by commas',
                                         'type' => 'string',
                                     ),
                                 ),
@@ -262,8 +252,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'Connection',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'Deletes the connection.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -302,8 +290,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'DeleteVirtualInterfaceResponse',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'Deletes a virtual interface.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -341,8 +327,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'ConnectionDetail',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'Displays details about a specific connection including the order steps for the connection and the current state of the connection order.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -381,8 +365,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'Connections',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'Displays all connections in this region.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -420,8 +402,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'OfferingDetail',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'Displays additional ordering step details for a specified offering.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -460,8 +440,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'Offerings',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'Describes one or more of the offerings that are currently available for creating new connections. The results include offerings for all regions.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -495,8 +473,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'VirtualGateways',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'Returns a list of virtual private gateways owned by the AWS account.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -530,8 +506,6 @@ return array (
             'class' => 'Aws\\Common\\Command\\JsonCommand',
             'responseClass' => 'VirtualInterfaces',
             'responseType' => 'model',
-            'responseNotes' => 'Returns a json_decoded array of the response body',
-            'summary' => 'Displays all virtual interfaces for an AWS account. Virtual interfaces deleted fewer than 15 minutes before DescribeVirtualInterfaces is called are also returned. If a virtual interface ID is included then only a single virtual interface will be returned.',
             'parameters' => array(
                 'Content-Type' => array(
                     'static' => true,
@@ -636,7 +610,6 @@ return array (
                     'location' => 'json',
                 ),
                 'customerAddress' => array(
-                    'description' => 'IP address assigned to the customer interface.',
                     'type' => 'string',
                     'location' => 'json',
                 ),
@@ -645,7 +618,6 @@ return array (
                     'location' => 'json',
                 ),
                 'customerRouterConfig' => array(
-                    'description' => 'Information for generating the customer router configuration.',
                     'type' => 'string',
                     'location' => 'json',
                 ),
@@ -658,11 +630,9 @@ return array (
                     'location' => 'json',
                     'items' => array(
                         'name' => 'RouteFilterPrefix',
-                        'description' => 'A route filter prefix that the customer can advertise through Border Gateway Protocol (BGP) over a public virtual interface.',
                         'type' => 'object',
                         'properties' => array(
                             'cidr' => array(
-                                'description' => 'CIDR notation for the advertised route. Multiple routes are separated by commas',
                                 'type' => 'string',
                             ),
                         ),
@@ -713,23 +683,18 @@ return array (
                     'location' => 'json',
                     'items' => array(
                         'name' => 'ConnectionCost',
-                        'description' => 'Cost description.',
                         'type' => 'object',
                         'properties' => array(
                             'name' => array(
-                                'description' => 'The name of the cost item.',
                                 'type' => 'string',
                             ),
                             'unit' => array(
-                                'description' => 'The unit used in cost calculation.',
                                 'type' => 'string',
                             ),
                             'currencyCode' => array(
-                                'description' => 'Currency code based on ISO 4217.',
                                 'type' => 'string',
                             ),
                             'amount' => array(
-                                'description' => 'The amount of charge per unit.',
                                 'type' => 'string',
                             ),
                         ),
@@ -740,31 +705,24 @@ return array (
                     'location' => 'json',
                     'items' => array(
                         'name' => 'ConnectionOrderStep',
-                        'description' => 'A step in the connection order process.',
                         'type' => 'object',
                         'properties' => array(
                             'number' => array(
-                                'description' => 'Number of an order step.',
                                 'type' => 'string',
                             ),
                             'name' => array(
-                                'description' => 'Name of the order step.',
                                 'type' => 'string',
                             ),
                             'description' => array(
-                                'description' => 'More detailed description of the order step.',
                                 'type' => 'string',
                             ),
                             'owner' => array(
-                                'description' => 'The entity who owns the completion of the order step.',
                                 'type' => 'string',
                             ),
                             'sla' => array(
-                                'description' => 'Time to complete the order step in minutes.',
                                 'type' => 'numeric',
                             ),
                             'stepState' => array(
-                                'description' => 'State of the connection step. Pending: This step is not yet completed. Completed: This step has been completed',
                                 'type' => 'string',
                             ),
                         ),
@@ -777,12 +735,10 @@ return array (
             'additionalProperties' => true,
             'properties' => array(
                 'connections' => array(
-                    'description' => 'A list of connections.',
                     'type' => 'array',
                     'location' => 'json',
                     'items' => array(
                         'name' => 'Connection',
-                        'description' => 'A connection represents the physical network connection between the Direct Connect location and the customer.',
                         'type' => 'object',
                         'properties' => array(
                             'connectionId' => array(
@@ -838,23 +794,18 @@ return array (
                     'location' => 'json',
                     'items' => array(
                         'name' => 'ConnectionCost',
-                        'description' => 'Cost description.',
                         'type' => 'object',
                         'properties' => array(
                             'name' => array(
-                                'description' => 'The name of the cost item.',
                                 'type' => 'string',
                             ),
                             'unit' => array(
-                                'description' => 'The unit used in cost calculation.',
                                 'type' => 'string',
                             ),
                             'currencyCode' => array(
-                                'description' => 'Currency code based on ISO 4217.',
                                 'type' => 'string',
                             ),
                             'amount' => array(
-                                'description' => 'The amount of charge per unit.',
                                 'type' => 'string',
                             ),
                         ),
@@ -865,27 +816,21 @@ return array (
                     'location' => 'json',
                     'items' => array(
                         'name' => 'OfferingOrderStep',
-                        'description' => 'A step in the offering order process.',
                         'type' => 'object',
                         'properties' => array(
                             'number' => array(
-                                'description' => 'Number of an order step.',
                                 'type' => 'string',
                             ),
                             'name' => array(
-                                'description' => 'Name of the order step.',
                                 'type' => 'string',
                             ),
                             'description' => array(
-                                'description' => 'More detailed description of the order step.',
                                 'type' => 'string',
                             ),
                             'owner' => array(
-                                'description' => 'The entity who owns the completion of the order step.',
                                 'type' => 'string',
                             ),
                             'sla' => array(
-                                'description' => 'Time to complete the order step in minutes.',
                                 'type' => 'numeric',
                             ),
                         ),
@@ -898,12 +843,10 @@ return array (
             'additionalProperties' => true,
             'properties' => array(
                 'offerings' => array(
-                    'description' => 'A list of offerings.',
                     'type' => 'array',
                     'location' => 'json',
                     'items' => array(
                         'name' => 'Offering',
-                        'description' => 'An offer to create a new connection for a specific price and terms.',
                         'type' => 'object',
                         'properties' => array(
                             'offeringId' => array(
@@ -916,7 +859,6 @@ return array (
                                 'type' => 'string',
                             ),
                             'offeringName' => array(
-                                'description' => 'Name of the offering.',
                                 'type' => 'string',
                             ),
                             'description' => array(
@@ -929,23 +871,18 @@ return array (
                                 'type' => 'array',
                                 'items' => array(
                                     'name' => 'ConnectionCost',
-                                    'description' => 'Cost description.',
                                     'type' => 'object',
                                     'properties' => array(
                                         'name' => array(
-                                            'description' => 'The name of the cost item.',
                                             'type' => 'string',
                                         ),
                                         'unit' => array(
-                                            'description' => 'The unit used in cost calculation.',
                                             'type' => 'string',
                                         ),
                                         'currencyCode' => array(
-                                            'description' => 'Currency code based on ISO 4217.',
                                             'type' => 'string',
                                         ),
                                         'amount' => array(
-                                            'description' => 'The amount of charge per unit.',
                                             'type' => 'string',
                                         ),
                                     ),
@@ -961,12 +898,10 @@ return array (
             'additionalProperties' => true,
             'properties' => array(
                 'virtualGateways' => array(
-                    'description' => 'A list of virtual gateways.',
                     'type' => 'array',
                     'location' => 'json',
                     'items' => array(
                         'name' => 'VirtualGateway',
-                        'description' => 'You can create one or more Direct Connect private virtual interfaces linking to your virtual private gateway.',
                         'type' => 'object',
                         'properties' => array(
                             'virtualGatewayId' => array(
@@ -985,12 +920,10 @@ return array (
             'additionalProperties' => true,
             'properties' => array(
                 'virtualInterfaces' => array(
-                    'description' => 'A list of virtual interfaces.',
                     'type' => 'array',
                     'location' => 'json',
                     'items' => array(
                         'name' => 'VirtualInterface',
-                        'description' => 'A virtual interface (VLAN) transmits the traffic between the Direct Connect location and the customer.',
                         'type' => 'object',
                         'properties' => array(
                             'virtualInterfaceId' => array(
@@ -1021,14 +954,12 @@ return array (
                                 'type' => 'string',
                             ),
                             'customerAddress' => array(
-                                'description' => 'IP address assigned to the customer interface.',
                                 'type' => 'string',
                             ),
                             'virtualInterfaceState' => array(
                                 'type' => 'string',
                             ),
                             'customerRouterConfig' => array(
-                                'description' => 'Information for generating the customer router configuration.',
                                 'type' => 'string',
                             ),
                             'virtualGatewayId' => array(
@@ -1038,11 +969,9 @@ return array (
                                 'type' => 'array',
                                 'items' => array(
                                     'name' => 'RouteFilterPrefix',
-                                    'description' => 'A route filter prefix that the customer can advertise through Border Gateway Protocol (BGP) over a public virtual interface.',
                                     'type' => 'object',
                                     'properties' => array(
                                         'cidr' => array(
-                                            'description' => 'CIDR notation for the advertised route. Multiple routes are separated by commas',
                                             'type' => 'string',
                                         ),
                                     ),

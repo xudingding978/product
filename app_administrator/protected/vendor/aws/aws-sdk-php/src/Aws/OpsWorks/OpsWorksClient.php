@@ -19,9 +19,10 @@ namespace Aws\OpsWorks;
 use Aws\Common\Client\AbstractClient;
 use Aws\Common\Client\ClientBuilder;
 use Aws\Common\Enum\ClientOptions as Options;
+use Aws\Common\Exception\Parser\JsonQueryExceptionParser;
 use Guzzle\Common\Collection;
 use Guzzle\Service\Resource\Model;
-use Aws\Common\Exception\Parser\JsonQueryExceptionParser;
+use Guzzle\Service\Resource\ResourceIteratorInterface;
 
 /**
  * Client to interact with AWS OpsWorks
@@ -69,6 +70,20 @@ use Aws\Common\Exception\Parser\JsonQueryExceptionParser;
  * @method Model updateLayer(array $args = array()) {@command OpsWorks UpdateLayer}
  * @method Model updateStack(array $args = array()) {@command OpsWorks UpdateStack}
  * @method Model updateUserProfile(array $args = array()) {@command OpsWorks UpdateUserProfile}
+ * @method ResourceIteratorInterface getDescribeAppsIterator(array $args = array()) The input array uses the parameters of the DescribeApps operation
+ * @method ResourceIteratorInterface getDescribeCommandsIterator(array $args = array()) The input array uses the parameters of the DescribeCommands operation
+ * @method ResourceIteratorInterface getDescribeDeploymentsIterator(array $args = array()) The input array uses the parameters of the DescribeDeployments operation
+ * @method ResourceIteratorInterface getDescribeElasticIpsIterator(array $args = array()) The input array uses the parameters of the DescribeElasticIps operation
+ * @method ResourceIteratorInterface getDescribeElasticLoadBalancersIterator(array $args = array()) The input array uses the parameters of the DescribeElasticLoadBalancers operation
+ * @method ResourceIteratorInterface getDescribeInstancesIterator(array $args = array()) The input array uses the parameters of the DescribeInstances operation
+ * @method ResourceIteratorInterface getDescribeLayersIterator(array $args = array()) The input array uses the parameters of the DescribeLayers operation
+ * @method ResourceIteratorInterface getDescribeLoadBasedAutoScalingIterator(array $args = array()) The input array uses the parameters of the DescribeLoadBasedAutoScaling operation
+ * @method ResourceIteratorInterface getDescribeRaidArraysIterator(array $args = array()) The input array uses the parameters of the DescribeRaidArrays operation
+ * @method ResourceIteratorInterface getDescribeServiceErrorsIterator(array $args = array()) The input array uses the parameters of the DescribeServiceErrors operation
+ * @method ResourceIteratorInterface getDescribeStacksIterator(array $args = array()) The input array uses the parameters of the DescribeStacks operation
+ * @method ResourceIteratorInterface getDescribeTimeBasedAutoScalingIterator(array $args = array()) The input array uses the parameters of the DescribeTimeBasedAutoScaling operation
+ * @method ResourceIteratorInterface getDescribeUserProfilesIterator(array $args = array()) The input array uses the parameters of the DescribeUserProfiles operation
+ * @method ResourceIteratorInterface getDescribeVolumesIterator(array $args = array()) The input array uses the parameters of the DescribeVolumes operation
  *
  * @link http://docs.aws.amazon.com/aws-sdk-php-2/guide/latest/service-opsworks.html User guide
  * @link http://docs.aws.amazon.com/aws-sdk-php-2/latest/class-Aws.OpsWorks.OpsWorksClient.html API docs
@@ -80,39 +95,10 @@ class OpsWorksClient extends AbstractClient
     /**
      * Factory method to create a new AWS OpsWorks client using an array of configuration options.
      *
-     * The following array keys and values are available options:
-     *
-     * - Credential options (`key`, `secret`, and optional `token` OR `credentials` is required)
-     *     - key: AWS Access Key ID
-     *     - secret: AWS secret access key
-     *     - credentials: You can optionally provide a custom `Aws\Common\Credentials\CredentialsInterface` object
-     *     - token: Custom AWS security token to use with request authentication
-     *     - token.ttd: UNIX timestamp for when the custom credentials expire
-     *     - credentials.cache.key: Optional custom cache key to use with the credentials
-     * - Region and Endpoint options (a `region` and optional `scheme` OR a `base_url` is required)
-     *     - region: Region name (e.g. 'us-east-1', 'us-west-1', 'us-west-2', 'eu-west-1', etc...)
-     *     - scheme: URI Scheme of the base URL (e.g. 'https', 'http').
-     *     - base_url: Instead of using a `region` and `scheme`, you can specify a custom base URL for the client
-     * - Generic client options
-     *     - ssl.cert: Set to true to use the bundled CA cert or pass the full path to an SSL certificate bundle. This
-     *           option should be used when you encounter curl error code 60.
-     *     - curl.CURLOPT_VERBOSE: Set to true to output curl debug information during transfers
-     *     - curl.*: Prefix any available cURL option with `curl.` to add cURL options to each request.
-     *           See: http://www.php.net/manual/en/function.curl-setopt.php
-     *     - service.description.cache.ttl: Optional TTL used for the service description cache
-     * - Signature options
-     *     - signature: You can optionally provide a custom signature implementation used to sign requests
-     *     - signature.service: Set to explicitly override the service name used in signatures
-     *     - signature.region:  Set to explicitly override the region name used in signatures
-     * - Exponential backoff options
-     *     - client.backoff.logger: `Guzzle\Common\Log\LogAdapterInterface` object used to log backoff retries. Use
-     *           'debug' to emit PHP warnings when a retry is issued.
-     *     - client.backoff.logger.template: Optional template to use for exponential backoff log messages. See
-     *           `Guzzle\Http\Plugin\ExponentialBackoffLogger` for formatting information.
-     *
      * @param array|Collection $config Client configuration data
      *
      * @return self
+     * @see \Aws\Common\Client\DefaultClient for a list of available configuration options
      */
     public static function factory($config = array())
     {

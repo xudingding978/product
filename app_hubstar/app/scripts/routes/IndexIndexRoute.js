@@ -8,7 +8,7 @@ HubStar.IndexIndexRoute = Ember.Route.extend({
             this.controllerFor('application').set('isotherpage', false);
 
             if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
-                this.controllerFor('application').newSearch();
+//                this.controllerFor('application').newSearch();
             }
 
         },

@@ -741,3 +741,9 @@ textarea.add-interests{
 .rating > span:hover ~ span:before {
     content: "";
 }
+
+
+.profilegb div.profile-wallpaper{
+    top:45px;
+    left:0;
+}

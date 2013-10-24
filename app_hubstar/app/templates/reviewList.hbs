@@ -23,15 +23,15 @@
                         <span class="posttime">{{date this.review_time_stamp}} </span>
                     </div>
                 </div>
-                    
-                    
-                    <span class="starsview">{{this.review_star_rating_value}}</span>
-                    
+
+
+                <span class="starsview">{{this.review_star_rating_value}}</span>
+
             </div>
 
-           
+
         </div>
-            <div style="background-color: #fff; padding: 0 0 0 50px;">
+        <div style="background-color: #fff; padding: 0 0 0 50px;">
             <div style="width: 350px;position: relative; display: inline-block;height: 20px;text-overflow: ellipsis;">{{this.review_content}}  </div>
 
             <div style="position: relative; display: inline-block; font-size: 18px; color: #888;margin: 0 10px;"><k class="icon-caret-down"></k></div>
@@ -41,7 +41,7 @@
 
 
 </div>
- <script>
+<script>
     $(function() {
         var $container = $('#masonry_user_container');
         window.setTimeout(function() {
@@ -50,9 +50,6 @@
         }, 10);
     });
 </script>
-    
-    
-    
 
 {{/each}}
 

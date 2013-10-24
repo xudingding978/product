@@ -18,7 +18,35 @@ class KeywordsController extends Controller {
     }
 
     public function actionCreate() {
-        $this->sendResponse(204);
+        error_log('keywords create here');
+        try {
+            $request_json = file_get_contents('php://input');
+            $request_arr = CJSON::decode($request_json, true);
+            $tempCollection = $request_arr['keyword'];
+            $profile_id = $tempCollection['profile_id'];
+            
+            $cb = $this->couchBaseConnection();
+            $domain = $this->getDomain();
+          
+                $docID = $domain . "/profiles/" . $profile_id;
+                $tempMega = $cb->get($docID);           
+                $mega = CJSON::decode($tempMega, true);
+                if (!isset($mega['profile'][0]['keywords'])) {
+                    $mega['profile'][0]['keywords'] = array();
+                }
+                array_unshift($mega['profile'][0]['keywords'], $tempCollection);
+            $mega['keyword'] = $mega['profile'][0]['keywords'];
+               
+            if ($cb->set($docID, CJSON::encode($mega))) {
+                $this->sendResponse(204);
+            } else {
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+            }
+
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+            echo json_decode(file_get_contents('php://input'));
+        }
     }
 
     public function actionRead() {
@@ -26,11 +54,49 @@ class KeywordsController extends Controller {
     }
     
     public function actionUpdate() {
-        
+        error_log('keywords upload here!!');
+        $this->sendResponse(204);
     }
 
     public function actionDelete() {
-        $this->sendResponse(204);
+        $info = CJSON::decode(file_get_contents('php://input'));
+        //$info = file_get_contents('php://input');
+         $infoDel = CJSON::decode($info, true);
+        $keyword_id = $infoDel['keyword_id'];
+        $profile_id = $infoDel['profile_id'];
+
+        try {
+            $cb = $this->couchBaseConnection();
+           
+                $docID = $this->getDomain() . "/profiles/" . $profile_id;
+                $profileOwn = $cb->get($docID);
+                $owner = CJSON::decode($profileOwn, true);
+                $records =  $owner["profile"][0]["keywords"];
+                $collection_num = $this -> getSelectedcollection($records ,$keyword_id);
+                array_splice($owner["profile"][0]["keywords"], $collection_num, 1);
+                $owner['keyword'] = $owner['profile'][0]['keywords'];
+            if ($cb->set($docID, CJSON::encode($owner))) {
+                $this->sendResponse(204);
+            } else {
+                $this->sendResponse(500, "some thing wrong");
+            }
+                
+           
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+    
+    public function getSelectedcollection($records,$id) {
+        $i = 0;
+        $collection_num=-1;
+        foreach ($records as $record_id) {
+            if ($record_id["keyword_id"] == $id) {
+                $collection_num=$i;
+            }
+            $i++;
+        }
+        return $collection_num;
     }
 
     public function actionTest() {

@@ -180,29 +180,28 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         photoCreateController.setMega();
         this.initStastics(profile);
         this.followerPhoto(id);
-        if (profile.get("keywords") !==null && profile.get("keywords") !== "undefined" && profile.get("keywords").get('length') > 0) {
+//        if (profile.get("keywords") !==null && profile.get("keywords") !== "undefined" && profile.get("keywords").get('length') > 0) {
             this.set("keywords_array",profile.get('keywords'));
-        } else {
-            console.log(this.get('model').get('profile_keywords'));
-            this.setKeywordsArray(this.get('model').get('profile_keywords'));
-        }
+//        } else {            
+//            this.setKeywordsArray(this.get('model').get('profile_keywords'));
+//        }
         if (profile.get("profile_keywords_num") !==null && profile.get("profile_keywords_num") !== "undefined" && profile.get("profile_keywords_num") !== "") {
             this.set("keywordsNum", profile.get("profile_keywords_num"));
         } else {        
             this.setKeywordsNum(this.get('model').get('profile_package_name'));
         }
     },
-    setKeywordsArray: function(keywords) {
-        if (keywords !== undefined && keywords !== null && keywords !== '') {
-            this.set('keywords_array', []);
-            var keywords_array = keywords.split(",");
-            for (var i = 0; i < keywords_array.get('length'); i++) {
-                var keyword = HubStar.Keyword.createRecord({"keyword_id": i, "keyword_name": keywords_array[i], "create_date": new Date().getTime(), 
-                                                                                            "expire_date": null, "value": null, 'profile_id': this.get('model').get('id'), 'collection_id': null, "is_delete": false});
-                this.get('keywords_array').insertAt(i,keyword);
-            }
-        }
-    },
+//    setKeywordsArray: function(keywords) {
+//        if (keywords !== undefined && keywords !== null && keywords !== '') {
+//            this.set('keywords_array', []);
+//            var keywords_array = keywords.split(",");
+//            for (var i = 0; i < keywords_array.get('length'); i++) {
+//                var keyword = HubStar.Keyword.createRecord({"keyword_id": i, "keyword_name": keywords_array[i], "create_date": new Date().getTime(), 
+//                                                                                            "expire_date": null, "value": null, 'profile_id': this.get('model').get('id'), 'collection_id': null, "is_delete": false});
+//                this.get('keywords_array').insertAt(i,keyword);
+//            }
+//        }
+//    },
     setKeywordsNum: function(profile_package_name) {
         if (profile_package_name === 'Platinum'){
             this.set('keywordsNum', 200);
@@ -738,35 +737,42 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         HubStar.store.save();
     },
     saveKeywords: function() {
-        var update_profile_record = HubStar.Profile.find(this.get('model.id'));
-        var tempKeywords = '';
-        update_profile_record.get('keywords').clear();
-        for (var i = 0; i < this.get('keywords_array').get('length'); i++) {
-            tempKeywords = tempKeywords + ',' + this.get('keywords_array').objectAt(i).get('keyword_name').trim();
-            update_profile_record.get('keywords').insertAt(i,this.get('keywords_array').objectAt(i));
-        }
-        var keywords = tempKeywords.substring(1, tempKeywords.length);
-        update_profile_record.set("profile_keywords", keywords);
+//        var update_profile_record = HubStar.Profile.find(this.get('model.id'));
+//        var tempKeywords = '';
+//        update_profile_record.get('keywords').clear();
+//        for (var i = 0; i < this.get('keywords_array').get('length'); i++) {
+//            tempKeywords = tempKeywords + ',' + this.get('keywords_array').objectAt(i).get('keyword_name').trim();
+//            update_profile_record.get('keywords').insertAt(i,this.get('keywords_array').objectAt(i));
+//            console.log(this.get('keywords_array').objectAt(i));
+//        }
+//        var keywords = tempKeywords.substring(1, tempKeywords.length);
+//        update_profile_record.set("profile_keywords", keywords);
 //        update_profile_record.set("keywords", this.get('keywords_array'));                    this set does not work, so that I can only insert object in the for loop
-
-        HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
-        if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
-            update_profile_record.get('stateManager').transitionTo('loaded.saved');
-        }
+//        console.log(this.get('keywords_array'));
+//        requiredBackEnd('keywords', 'update',  JSON.stringify(this.get('keywords_array')), 'POST', function(params) {});
+        HubStar.store.commit();
+        console.log(this.get('keywords_array').objectAt(0).get('keyword_name'));
         this.get('controllers.applicationFeedback').statusObserver(null, "Update successful");
 
     },
     addKeywords: function() {
         if (this.get('keywords_array').get('length') < this.get('keywordsNum')) {
-            var keyword = HubStar.Keyword.createRecord({"keyword_id": this.get('keywords_array').get('length'), "keyword_name": null, "create_date": new Date().getTime(), 
+            var keyword_id =new Date().getTime() + Math.random().toString().substring(2,6);
+            var keyword = HubStar.Keyword.createRecord({"keyword_id": keyword_id, "keyword_name": null, "create_date": new Date().getTime(), 
                                                                                         "expire_date": null, "value": null, 'profile_id': this.get('model').get('id'), 'collection_id': null, "is_delete": false});
-            this.get('keywords_array').insertAt(this.get('keywords_array').get('length'),keyword);        
+            HubStar.store.save();
+            this.get('keywords_array').insertAt(this.get('keywords_array').get('length'),keyword);    
         } else {
             this.get('controllers.applicationFeedback').statusObserver(null, "You can not add keywords anymore",'failed');
         }
     },
-    deleteKeywords: function(contentIndex) {
-        this.get('keywords_array').removeObject(this.get('keywords_array').objectAt(contentIndex));
+    deleteKeywords: function(keyword_id) {
+        for (var i =0; i < this.get('keywords_array').get('length'); i++) {
+            if (this.get('keywords_array').objectAt(i).get('keyword_id') === keyword_id) {
+                requiredBackEnd('keywords', 'delete', JSON.stringify(this.get('keywords_array').objectAt(i)), 'POST', function(params) {});
+                this.get('keywords_array').removeObject(this.get('keywords_array').objectAt(i));
+            }
+        }        
     },
     flipFrontClick: function() {
         $(".hover").addClass('flip');

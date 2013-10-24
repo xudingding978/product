@@ -13,10 +13,8 @@
 
 HubStar.MessageController = Ember.Controller.extend({
     commenter_photo_url: null,
-
-    messagecms:'',
+    messagecms: '',
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'userMessage'],
-
     isUserself: false,
     isUploadPhoto: false,
     isReply: true,
@@ -35,11 +33,10 @@ HubStar.MessageController = Ember.Controller.extend({
         this.set("isEdit", true);
     },
     setEditReply: function() {
-       
+
 
         this.set("isEdit", true);
     },
-
     editingCommentData: function(id, msg) {
 
 
@@ -85,8 +82,8 @@ HubStar.MessageController = Ember.Controller.extend({
             }
         }
 
-        HubStar.set('message',msg);
-      
+        HubStar.set('message', msg);
+
 
     },
     editingReplyData: function(id, msg) {
@@ -336,6 +333,49 @@ HubStar.MessageController = Ember.Controller.extend({
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
+    },
+    seeMore: function(id) {
+        $('#closeComment_' + id).attr('style', 'display:inline-block');
+        $('#showMoreComment_' + id).attr('style', 'display:none');
+        $('#messageData_' + id).attr('style', 'display: block');
+        $('#masonry_user_container').masonry("reload");
+        // $('#messageData_' + id).stop().animate({
+        //maxHeight: '750px'
+
+
+        //}, 420, function() {
+        //$('#messageData_' + id).css(');
+
+//            $('#messageData_' + id).mCustomScrollbar({
+//                scrollButtons: {
+//                    enable: false
+//                },
+//                theme: "dark-2"
+//            });
+        //});
+
+    },
+    closeMore: function(id) {
+        $('#closeComment_' + id).attr('style', 'display:none');
+        $('#showMoreComment_' + id).attr('style', 'display:inline-block');
+        $('#messageData_' + id).attr('style', 'display: none');
+        $('#masonry_user_container').masonry("reload");
+        // $('#messageData_' + id).stop().animate({
+        //   maxHeight: '30px'
+        //}, 380, function() {
+        //$('#messageData_' + id).css('overflow', 'hidden');
+        //  $('#masonry_user_container').masonry("reload");
+//            $('#messageData_' + id).mCustomScrollbar({
+//                scrollButtons: {
+//                    enable: false
+//                },
+//                theme: "dark-2"
+//            });
+        //});
+
+
+
+
     }
 }
 );

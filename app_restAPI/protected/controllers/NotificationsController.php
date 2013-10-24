@@ -48,11 +48,20 @@ class NotificationsController extends Controller {
             $cb = $this->couchBaseConnection();
             $domain = $this->getDomain();
             $docID_currentUser = $domain . "/users/" . $notificationId;
-            
+
             $tempMega_currentUser = $cb->get($docID_currentUser);
             $mega_currentUser = CJSON::decode($tempMega_currentUser, true);
             if (isset($mega_currentUser['user'][0]["notifications"])) {
                 $readNotification = $mega_currentUser['user'][0]["notifications"];
+                for ($i = 0; $i < sizeof($readNotification); $i++) {
+                    $commenterInfo = $this->getDomain() . "/users/" . $readNotification[$i] ["user_id"];
+                    $cbs = $this->couchBaseConnection();
+                    $commenterInfoDeep = $cbs->get($commenterInfo); // get the old user record from the database according to the docID string
+                    $oldcommenterInfo = CJSON::decode($commenterInfoDeep, true);
+                    $readNotification[$i]["display_name"] = $oldcommenterInfo['user'][0]["display_name"];
+                    $readNotification[$i]["photo_url_large"] = $oldcommenterInfo['user'][0]["photo_url_large"];
+                    
+                }
             } else {
                 $readNotification = array();
             }

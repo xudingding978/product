@@ -41,6 +41,30 @@ HubStar.NotificationController = Ember.Controller.extend({
             });
         }, 200);
     },
+    typeDisplay: function(type, name) {
+        var displayString = '';
+        if (type == "follow")
+        {
+            displayString = name + " has followed you";
+        }
+        else if (type == "unFollow")
+        {
+            displayString = name + " has unfollowed you";
+        }
+        else if (type == "conversation")
+        {
+            displayString = name + " has say something in this conversation";
+        }
+        else if (type == "addMessage")
+        {
+            displayString = name + " has leave a message for you";
+        }
+        else if (type == "addReply")
+        {
+            displayString = name + " has reply you in this message";
+        }
+        return displayString;
+    },
     getClientId: function(id) {
         this.set('clientID', id);
         var data = this.get('clientID');
@@ -51,13 +75,20 @@ HubStar.NotificationController = Ember.Controller.extend({
         var that = this;
         this.set("notificationContent", []);
         requiredBackEnd('notifications', 'ReadNotification', tempComment, 'POST', function(params) {
-            console.log(params);
-             console.log(params.get("length"));
             if (params !== undefined) {
                 that.set("notificationContent", []);
                 for (var i = 0; i < params.get("length"); i++)
                 {
-                    dataNew["user_id"] = params.objectAt(i);
+                    dataNew["name"] = params.objectAt(i)["display_name"];
+                    dataNew["photo_url"] = params.objectAt(i)["photo_url_large"];
+                    dataNew["user_id"] = params.objectAt(i)["user_id"];
+                    dataNew["type"] = params.objectAt(i)["type"];
+                    dataNew["typeDisplay"] = that.typeDisplay(dataNew["type"], dataNew["name"]);
+                    dataNew["time"] = params.objectAt(i)["time"];
+                    dataNew["notification_id"] = params.objectAt(i)["notification_id"];
+                    dataNew["isRead"] = params.objectAt(i)["isRead"];
+                    dataNew["content"] = params.objectAt(i)["content"];
+                    dataNew["action_id"] = params.objectAt(i)["action_id"];
                     that.get("notificationContent").pushObject(dataNew);
                     dataNew = new Array();
                 }
@@ -68,6 +99,13 @@ HubStar.NotificationController = Ember.Controller.extend({
             }, 200);
             that.set('loadingTime', false);
         });
+    },
+    markAllRead: function() {
+        //mark all read tom
+        console.log("tom, come on!");
+    },
+    go: function(user_id) {
+        console.log(user_id+"tom, come on! Finish it");
     }
 }
 );

@@ -3,122 +3,45 @@
 {{render loadingSpinner}}
 
 {{/if}}
-<div id="content_notification" class="Notification-Board box" style="position: absolute; width: 545px; margin: 10px; border-radius:5px; overflow: hidden; background-color: rgb(255, 255, 255); top: 0px; left: 0px;">
+<div class="Notification-Board box" style="position: absolute; width: 545px; margin: 10px; border-radius:5px; overflow: hidden; background-color: rgb(255, 255, 255); top: 0px; left: 0px;">
     <div style="background-color: #f3f3f3; width:100%;height: 70px; border-bottom: 1px solid #ddd;padding: 0 20px;">
         <div style="color: #555;font-size: 18px;line-height: 70px;font-weight: bold;float: left;"><i class="icon-bell-alt">&nbsp;&nbsp;&nbsp;</i>Notification</div>
-        <div class="create-conversation easing" style=""><i class="icon-th-list"></i></div>
-        <div class="create-conversation easing" style=""><i class="icon-cog"></i></div>
+        <div class="create-conversation easing" style=""{{action markAllRead}}><i class="icon-th-list"></i></div>
+        <!--<div class="create-conversation easing" style=""><i class="icon-cog"></i></div>-->
     </div>
+    <div  id="content_notification">
+        {{#each controller.notificationContent}}
+        <div class='each-conversation easing unread-style' {{action go this.user_id}}>
+            <div style="  padding: 15px 0 10px 95px;position: relative;">
+                <a class="" style="position: absolute; top: 18px;margin: 0 0 0 -55px;">
+                    <img class=""  style="border-radius: 50%; width: 40px; height: 40px; border: 1px solid #f3f3f3;" {{bindAttr src= this.photo_url}} /> 
+                </a>
+                <div style="">
+                    <div class="comment-namentime">
+                        <div class="namentime_position">
+                            <span class="comment-username" >
+                                {{this.typeDisplay}}
+                            </span>                    
+                            <div class="posttime-container">
+                                <span class="posttime">{{this.time}}</span>
+                            </div>
 
-    <div class='each-conversation easing unread-style'>
-        <div style="  padding: 15px 0 10px 95px;position: relative;">
-            <a class="" style="position: absolute; top: 18px;margin: 0 0 0 -55px;" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}}>
-               <img class=""  style="border-radius: 50%; width: 40px; height: 40px; border: 1px solid #f3f3f3;" {{bindAttr src= this.commenter_photo_url}} /> 
-            </a>
-            <div style="">
-                <div class="comment-namentime">
-                    <div class="namentime_position">
-                        <span class="comment-username" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}} >
-                              Kingsley Huang
-                    </span>
-                    <span style="display: inline-block; vertical-align: top; font-size: 13px;"> has commented</span>
-                    <span style="display: inline-block; vertical-align: top; font-size: 13px;"> on your message board.</span>
-                    <div class="posttime-container">
-                        <span class="posttime">2013 Aug 16, 8:23am</span>
+                            <div class="reply-comment easing" style="right:25px;">  
+                                <i class="icon-ok-sign"></i>                 
+                                <i class="icon-remove-sign"></i>
+                            </div>
+
+                        </div>
                     </div>
 
-                    <div class="reply-comment easing" style="right:25px;">  
-                        <i class="icon-ok-sign"></i>                 
-                        <i class="icon-remove-sign"></i>
+                    <div class="comment-content" style=" width: 387px; height: 35px; text-overflow: ellipsis;">
+                        <span style="text-overflow: ellipsis">
+                            {{this.content}}
+                        </span>
                     </div>
-
                 </div>
             </div>
-
-            <div class="comment-content" style=" width: 387px; height: 35px; text-overflow: ellipsis;">
-                <span style="text-overflow: ellipsis">aldjofalkd adlsfjalkdjf alsdjflak alkdjfalk alsdkfjalksd asldkfjalksd lasdjflkas laksdjflkasjd alsdfjalksd laksdjflaksdjl alsdkjfalksd aslkdjflaks lasdkjflkas</span>
-            </div>
         </div>
+        {{/each}}
     </div>
-</div>
-
-<div class='each-conversation easing'>
-    <div style="  padding: 15px 0 10px 95px;position: relative;">
-        <a class="" style="position: absolute; top: 18px;margin: 0 0 0 -55px;" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}}>
-           <img class=""  style="border-radius: 50%; width: 40px; height: 40px; border: 1px solid #f3f3f3;" {{bindAttr src= this.commenter_photo_url}} /> 
-        </a>
-        <div style="">
-            <div class="comment-namentime">
-                <div class="namentime_position">
-                    <span class="comment-username" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}} >
-                          Kingsley Huang
-                </span>
-                <span style="display: inline-block; vertical-align: top; font-size: 13px;"> has commented</span>
-                <span style="display: inline-block; vertical-align: top; font-size: 13px;"> on your message board.</span>
-                <div class="posttime-container">
-                    <span class="posttime">2013 Aug 16, 8:23am</span>
-                </div>
-
-                <div class="reply-comment easing" style="right:25px;">  
-                    <i class="icon-ok-sign"></i>                 
-                    <i class="icon-remove-sign"></i>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="comment-content" style=" width: 387px; height: 35px; text-overflow: ellipsis;">
-            <span style="text-overflow: ellipsis">aldjofalkd adlsfjalkdjf alsdjflak alkdjfalk alsdkfjalksd asldkfjalksd lasdjflkas laksdjflkasjd alsdfjalksd laksdjflaksdjl alsdkjfalksd aslkdjflaks lasdkjflkas</span>
-        </div>
-    </div>
-</div>
-</div>
-
-<div class='each-conversation easing'>
-    <div style="  padding: 15px 0 10px 95px;position: relative;">
-        <a class="" style="position: absolute; top: 18px;margin: 0 0 0 -55px;" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}}>
-           <img class=""  style="border-radius: 50%; width: 40px; height: 40px; border: 1px solid #f3f3f3;" {{bindAttr src= this.commenter_photo_url}} /> 
-        </a>
-        <div style="">
-            <div class="comment-namentime">
-                <div class="namentime_position">
-                    <span class="comment-username" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}} >
-                          Kingsley Huang
-                </span>
-                <span style="display: inline-block; vertical-align: top; font-size: 13px;"> has commented</span>
-                <span style="display: inline-block; vertical-align: top; font-size: 13px;"> on your message board.</span>
-                <div class="posttime-container">
-                    <span class="posttime">2013 Aug 16, 8:23am</span>
-                </div>
-
-                <div class="reply-comment easing" style="right:25px;">  
-                    <i class="icon-ok-sign"></i>                 
-                    <i class="icon-remove-sign"></i>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="comment-content" style=" width: 387px; height: 35px; text-overflow: ellipsis;">
-            <span style="text-overflow: ellipsis">aldjofalkd adlsfjalkdjf alsdjflak alkdjfalk alsdkfjalksd asldkfjalksd lasdjflkas laksdjflkasjd alsdfjalksd laksdjflaksdjl alsdkjfalksd aslkdjflaks lasdkjflkas</span>
-        </div>
-    </div>
-</div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </div>

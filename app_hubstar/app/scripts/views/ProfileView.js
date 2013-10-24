@@ -1,5 +1,7 @@
 HubStar.ProfileView = Ember.View.extend({
     templateName: 'profile',
+    
+    
     didInsertElement: function() {
 
         $(function() {
@@ -9,7 +11,6 @@ HubStar.ProfileView = Ember.View.extend({
                 isFitWidth: true
             });
         });
-
         var address = document.URL;
         var user_id = address.split("#")[1].split("/")[3];
 

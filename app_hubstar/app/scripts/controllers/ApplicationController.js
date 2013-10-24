@@ -31,9 +31,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     init: function() {
         this.defaultSearch();
         this.set('search_string', '');
-        var address = document.URL;
-        var domain = address.split("/")[2];
-
     },
     dropdownPhotoSetting: function() {
       this.set("isNotification",!this.get("isNotification"));
@@ -54,36 +51,15 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("test", !this.get("test"));
     },
     scrollDownAction: function() {
-
-
         this.set('loadingTime', true);
-
         this.set("size", 20);
         this.set("from", this.get("from") + this.get("size"));
         var results = HubStar.Mega.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": HubStar.get('geoLocation')});
         var that = this;
         results.addObserver('isLoaded', function() {
             if (results.get('isLoaded')) {
-                for (var i = 0; i < results.get("length"); i++) {
-                    var tempmega = results.objectAt(i);
-
-                    if (tempmega.get("profile").objectAt(0) !== undefined) {
-                        var isFollow = false;
-                        for (var j = 0; j < tempmega.get("profile").objectAt(0).get("followers").get("length"); j++)
-                        {
-                            if (tempmega.get("profile").objectAt(0).get("followers").objectAt(j).get("follower_id") === localStorage.loginStatus)
-                            {
-                                isFollow = true;
-                                break;
-                            }
-                        }
-                        tempmega.get("profile").objectAt(0).set("isFollowCurrentUser", isFollow);
-                    }
-                    that.pushObject(tempmega);
-                }
-                setTimeout(function() {
-                    $('#masonry_container').masonry("reload");
-                }, 2200);
+                that.setContent(results);
+                that.relayout();
                 that.set('loadingTime', false);
                 if (results.get("length") === 0) {
                     that.get('controllers.applicationFeedback').statusObserver(null, "You have reached the end of your search results.", "info"); //added user flash message
@@ -91,7 +67,26 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             }
         });
     },
-    newSearch: function() {       
+    setContent: function(results)
+    {
+        for (var i = 0; i < results.get("length"); i++) {
+            var tempmega = results.objectAt(i);
+            if (tempmega.get("profile").objectAt(0) !== undefined) {
+                var isFollow = false;
+                for (var j = 0; j < tempmega.get("profile").objectAt(0).get("followers").get("length"); j++)
+                {
+                    if (tempmega.get("profile").objectAt(0).get("followers").objectAt(j).get("follower_id") === localStorage.loginStatus)
+                    {
+                        isFollow = true;
+                        break;
+                    }
+                }
+                tempmega.get("profile").objectAt(0).set("isFollowCurrentUser", isFollow);
+            }
+            this.pushObject(tempmega);
+        }
+    },
+    newSearch: function() {
         this.set("content", []);
         this.set("from", 0);
         this.set("size", 20);
@@ -106,23 +101,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 var stat = stats.objectAt(0);
                 var megasResults = stat.get("megas");
                 HubStar.set('itemNumber', megasResults.get("length"));
-                for (var i = 0; i < megasResults.get("length"); i++) {
-                    var tempmega = megasResults.objectAt(i);
-                    //console.log(tempmega.get("profile").objectAt(0));
-                    if (tempmega.get("profile").objectAt(0) !== undefined) {
-                        var isFollow = false;
-                        for (var j = 0; j < tempmega.get("profile").objectAt(0).get("followers").get("length"); j++)
-                        {
-                            if (tempmega.get("profile").objectAt(0).get("followers").objectAt(j).get("follower_id") === localStorage.loginStatus)
-                            {
-                                isFollow = true;
-                                break;
-                            }
-                        }
-                        tempmega.get("profile").objectAt(0).set("isFollowCurrentUser", isFollow);
-                    }
-                    that.pushObject(tempmega);
-                }
+                that.setContent(megasResults);
                 that.set('isWaiting', false);
                 that.set('loadingTime', false);
                 this.set("from", this.get("size"));
@@ -133,9 +112,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 statusController.set("time", time);
                 statusController.changeDescription();
             }
-            setTimeout(function() {
-                $('#masonry_container').masonry("reload");
-            }, 1800);
+            that.relayout();
         });
 
         HubStar.set('searchStart', true);
@@ -143,7 +120,14 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     defaultSearch: function() {
         this.set("loginInfo", localStorage.loginStatus);
         var results = HubStar.Mega.find({"RquireType": "defaultSearch"});
-        this.set("content", results);
+        var that = this;
+        results.addObserver('isLoaded', function() {
+            if (results.get('isLoaded')) {
+                that.setContent(results);
+                that.relayout();
+            }
+        });
+
     },
     getResponseTime: function(start, end) {
         var totalTime = end - start;
@@ -212,10 +196,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function(params) {
 
             });
-
             setTimeout(function() {
                 that.transitionToRoute('search');
-
                 that.set('first_name', "");
                 that.set('last_name', "");
                 that.set('email', "");
@@ -272,7 +254,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 if (checkList[i].input === null || checkList[i].input === "" || checkList[i].input === undefined) {
                     result = false;
 
-
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
                     $('#missing-fields').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
@@ -292,8 +273,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
                 else {
                     result = false;
-
-
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-user-name-register').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'}); 
@@ -409,5 +388,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 });
             }
         });
+    },
+    relayout: function()
+    {
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+        }, 200);
     }
 });

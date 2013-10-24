@@ -1,4 +1,6 @@
 <?php
+ session_start();
+
 
 class Controller extends CController {
 
@@ -137,9 +139,16 @@ class Controller extends CController {
 
     protected function getRequestResult($searchString, $returnType) {
         $response = "";
+
+
+
         $requireParams = explode('&', $searchString);
         $requireType = $this->getUserInput($requireParams[0]);
         if ($requireType == 'search') {
+
+  
+
+
             $region = $this->getUserInput($requireParams[1]);
             $searchString = $this->getUserInput($requireParams[2]);
             $from = $this->getUserInput($requireParams[3]);
@@ -172,16 +181,16 @@ class Controller extends CController {
         } elseif ($requireType == 'personalCollection') {
             $userid = $this->getUserInput($requireParams[1]);
             $collection_id = $this->getUserInput($requireParams[2], false);
-            $response = $this->searchCollectionItem($userid,$collection_id,$returnType);
+            $response = $this->searchCollectionItem($userid, $collection_id, $returnType);
         } elseif ($requireType == 'defaultSearch') {
-            $response = $this->searchCollectionItem('21051211514','editor-picks',$returnType);          
+            $response = $this->searchCollectionItem('21051211514', 'editor-picks', $returnType);
         } else {
             $response = $this->getSearchResults("", "huang");
         }
         return $response;
     }
-    
-    protected function searchCollectionItem($userid,$collection_id,$returnType) {
+
+    protected function searchCollectionItem($userid, $collection_id, $returnType) {
         $conditions = array();
         $requestStringOne = 'couchbaseDocument.doc.user.id=' . $userid;
         array_push($conditions, $requestStringOne);
@@ -196,7 +205,7 @@ class Controller extends CController {
             $collections = $mega['megas'][0]['user'][0]['collections'];
         }
         $response = $this->getCollections($collections, $collection_id, $returnType);
-        
+
         return $response;
     }
 
@@ -254,7 +263,7 @@ class Controller extends CController {
         $request->query($bool);
         error_log($request->toJSON());
         $response = $request->execute();
-        
+
         return $response;
     }
 
@@ -313,7 +322,7 @@ class Controller extends CController {
         return $results;
     }
 
-    protected function RequireByIds($ids,$size) {
+    protected function RequireByIds($ids, $size) {
 
         $request = $this->getElasticSearch();
         $request->from(0)
@@ -369,7 +378,7 @@ class Controller extends CController {
         $owner_contact_bcc_emails = $mega_profile["profile"][0]["owner_contact_bcc_emails"];
         $profile_regoin = $mega_profile["profile"][0]["profile_regoin"];
         $profile_pic_url = $mega_profile["profile"][0]["profile_pic_url"];
-   
+
         $results = '{"' . $returnType . '":[';
         $i = 0;
         foreach ($tempResult as $hit) {
@@ -410,7 +419,7 @@ class Controller extends CController {
         for ($int = 0; $int < sizeof($tempResponse); $int++) {
             $tempObject = $tempResponse[$int]['source']['doc'];
             if (isset($tempResponse[$int]['source']['doc']['comments'])) {
-                error_log(var_export($tempResponse[$int]['source']['doc']['comments'], true));
+                
             }
             array_push($array, $tempObject);
         }
@@ -482,8 +491,8 @@ class Controller extends CController {
         $request = $this->getElasticSearch();
         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
         $request->query($termQuery)
-                      ->from(0)
-                      ->size(sizeof($id_arr));
+                ->from(0)
+                ->size(sizeof($id_arr));
         $response = $request->execute();
         $results = $this->getReponseResult($response, $returnType);
         return $results;

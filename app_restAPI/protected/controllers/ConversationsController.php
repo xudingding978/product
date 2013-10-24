@@ -291,13 +291,7 @@ class ConversationsController extends Controller {
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
             echo json_decode(file_get_contents('php://input'));
-        }
-
-
-        //  error_log(var_export($id, true));
-        $cb = $this->couchBaseConnection();
-        $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
-        $oldRecordDeep = CJSON::decode($oldDeep, true);
+        }     
     }
 
     public function actionCreateConversation() {

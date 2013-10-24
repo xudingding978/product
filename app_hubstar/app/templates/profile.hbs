@@ -59,13 +59,15 @@
                                 {{/if}}
                                 {{/if}}
                             </div>
-                            
-                           
+
+
 
                             <!--STAR RATING-->
-                              <div><span class="stars">{{this.profile_average_review}}</span></div>                    
-                               <div class="new-btn blue-btn"{{action rateEditing model.id}}>Review  {{this.profile_average_review}}</div>
-                            
+                            <div style="position: absolute;">
+                                <div class="radius-circle" style="display: inline-block; background-color: #fff; color: #555;width: 35px; height: 35px;line-height: 35px;text-align: center;font-weight: bold;font-size: 13px;">{{this.profile_average_review}}</div>
+                                <span class="stars" style="display: inline-block">{{this.profile_average_review}}</span>                 
+                                <div class="new-btn blue-btn"{{action rateEditing model.id}}>Review</div>
+                            </div>   
 
                             <!--contact me-->
                             <div class="contactmebtn hint--bottom hint--rounded easing" data-hint="Contact us!">
@@ -975,7 +977,7 @@
 
     {{#if controller.rateTime}}
 
-       {{render review this}}
+    {{render review this}}
 
 
-        {{/if}}
+    {{/if}}

@@ -63,10 +63,11 @@
 
 
                             <!--STAR RATING-->
-                            <div style="position: absolute;">
-                                <div class="radius-circle" style="display: inline-block; background-color: #fff; color: #555;width: 35px; height: 35px;line-height: 35px;text-align: center;font-weight: bold;font-size: 13px;">{{this.profile_average_review}}</div>
-                                <span class="stars" style="display: inline-block">{{this.profile_average_review}}</span>                 
-                                <div class="new-btn blue-btn"{{action rateEditing model.id}}>Review</div>
+                            <div style="position: absolute;width: 500px;">
+                                <span class="stars" style="float: left;margin: 5px 15px 5px 0;" >{{this.profile_average_review}}</span>   
+                                <div class="hint--right hint--rounded" data-hint="Review this profile!"  {{action rateEditing model.id}}>
+                                     <div class="contactmeicon easing" style="float: left;  width: 35px; height: 35px;line-height: 31px;text-align: center;font-weight: bold;font-size: 13px;border: 2px solid #aaa;">{{this.profile_average_review}}</div>
+                                </div>
                             </div>   
 
                             <!--contact me-->

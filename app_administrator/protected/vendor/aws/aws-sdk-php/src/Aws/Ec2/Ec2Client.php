@@ -18,10 +18,10 @@ namespace Aws\Ec2;
 
 use Aws\Common\Client\AbstractClient;
 use Aws\Common\Client\ClientBuilder;
-use Aws\Common\Credentials\Credentials;
 use Aws\Common\Enum\ClientOptions as Options;
 use Guzzle\Common\Collection;
 use Guzzle\Service\Resource\Model;
+use Guzzle\Service\Resource\ResourceIteratorInterface;
 
 /**
  * Client to interact with Amazon Elastic Compute Cloud
@@ -115,6 +115,7 @@ use Guzzle\Service\Resource\Model;
  * @method Model describeRegions(array $args = array()) {@command Ec2 DescribeRegions}
  * @method Model describeReservedInstances(array $args = array()) {@command Ec2 DescribeReservedInstances}
  * @method Model describeReservedInstancesListings(array $args = array()) {@command Ec2 DescribeReservedInstancesListings}
+ * @method Model describeReservedInstancesModifications(array $args = array()) {@command Ec2 DescribeReservedInstancesModifications}
  * @method Model describeReservedInstancesOfferings(array $args = array()) {@command Ec2 DescribeReservedInstancesOfferings}
  * @method Model describeRouteTables(array $args = array()) {@command Ec2 DescribeRouteTables}
  * @method Model describeSecurityGroups(array $args = array()) {@command Ec2 DescribeSecurityGroups}
@@ -149,6 +150,7 @@ use Guzzle\Service\Resource\Model;
  * @method Model modifyImageAttribute(array $args = array()) {@command Ec2 ModifyImageAttribute}
  * @method Model modifyInstanceAttribute(array $args = array()) {@command Ec2 ModifyInstanceAttribute}
  * @method Model modifyNetworkInterfaceAttribute(array $args = array()) {@command Ec2 ModifyNetworkInterfaceAttribute}
+ * @method Model modifyReservedInstances(array $args = array()) {@command Ec2 ModifyReservedInstances}
  * @method Model modifySnapshotAttribute(array $args = array()) {@command Ec2 ModifySnapshotAttribute}
  * @method Model modifyVolumeAttribute(array $args = array()) {@command Ec2 ModifyVolumeAttribute}
  * @method Model modifyVpcAttribute(array $args = array()) {@command Ec2 ModifyVpcAttribute}
@@ -193,52 +195,55 @@ use Guzzle\Service\Resource\Model;
  * @method waitUntilConversionTaskCancelled(array $input) Wait using the ConversionTaskCancelled waiter. The input array uses the parameters of the DescribeConversionTasks operation and waiter specific settings
  * @method waitUntilCustomerGatewayAvailable(array $input) Wait using the CustomerGatewayAvailable waiter. The input array uses the parameters of the DescribeCustomerGateways operation and waiter specific settings
  * @method waitUntilConversionTaskDeleted(array $input) Wait using the ConversionTaskDeleted waiter. The input array uses the parameters of the DescribeCustomerGateways operation and waiter specific settings
+ * @method ResourceIteratorInterface getDescribeAccountAttributesIterator(array $args = array()) The input array uses the parameters of the DescribeAccountAttributes operation
+ * @method ResourceIteratorInterface getDescribeAddressesIterator(array $args = array()) The input array uses the parameters of the DescribeAddresses operation
+ * @method ResourceIteratorInterface getDescribeAvailabilityZonesIterator(array $args = array()) The input array uses the parameters of the DescribeAvailabilityZones operation
+ * @method ResourceIteratorInterface getDescribeBundleTasksIterator(array $args = array()) The input array uses the parameters of the DescribeBundleTasks operation
+ * @method ResourceIteratorInterface getDescribeConversionTasksIterator(array $args = array()) The input array uses the parameters of the DescribeConversionTasks operation
+ * @method ResourceIteratorInterface getDescribeCustomerGatewaysIterator(array $args = array()) The input array uses the parameters of the DescribeCustomerGateways operation
+ * @method ResourceIteratorInterface getDescribeDhcpOptionsIterator(array $args = array()) The input array uses the parameters of the DescribeDhcpOptions operation
+ * @method ResourceIteratorInterface getDescribeExportTasksIterator(array $args = array()) The input array uses the parameters of the DescribeExportTasks operation
+ * @method ResourceIteratorInterface getDescribeImagesIterator(array $args = array()) The input array uses the parameters of the DescribeImages operation
+ * @method ResourceIteratorInterface getDescribeInstanceStatusIterator(array $args = array()) The input array uses the parameters of the DescribeInstanceStatus operation
+ * @method ResourceIteratorInterface getDescribeInstancesIterator(array $args = array()) The input array uses the parameters of the DescribeInstances operation
+ * @method ResourceIteratorInterface getDescribeInternetGatewaysIterator(array $args = array()) The input array uses the parameters of the DescribeInternetGateways operation
+ * @method ResourceIteratorInterface getDescribeKeyPairsIterator(array $args = array()) The input array uses the parameters of the DescribeKeyPairs operation
+ * @method ResourceIteratorInterface getDescribeLicensesIterator(array $args = array()) The input array uses the parameters of the DescribeLicenses operation
+ * @method ResourceIteratorInterface getDescribeNetworkAclsIterator(array $args = array()) The input array uses the parameters of the DescribeNetworkAcls operation
+ * @method ResourceIteratorInterface getDescribeNetworkInterfacesIterator(array $args = array()) The input array uses the parameters of the DescribeNetworkInterfaces operation
+ * @method ResourceIteratorInterface getDescribePlacementGroupsIterator(array $args = array()) The input array uses the parameters of the DescribePlacementGroups operation
+ * @method ResourceIteratorInterface getDescribeRegionsIterator(array $args = array()) The input array uses the parameters of the DescribeRegions operation
+ * @method ResourceIteratorInterface getDescribeReservedInstancesIterator(array $args = array()) The input array uses the parameters of the DescribeReservedInstances operation
+ * @method ResourceIteratorInterface getDescribeReservedInstancesListingsIterator(array $args = array()) The input array uses the parameters of the DescribeReservedInstancesListings operation
+ * @method ResourceIteratorInterface getDescribeReservedInstancesModificationsIterator(array $args = array()) The input array uses the parameters of the DescribeReservedInstancesModifications operation
+ * @method ResourceIteratorInterface getDescribeReservedInstancesOfferingsIterator(array $args = array()) The input array uses the parameters of the DescribeReservedInstancesOfferings operation
+ * @method ResourceIteratorInterface getDescribeRouteTablesIterator(array $args = array()) The input array uses the parameters of the DescribeRouteTables operation
+ * @method ResourceIteratorInterface getDescribeSecurityGroupsIterator(array $args = array()) The input array uses the parameters of the DescribeSecurityGroups operation
+ * @method ResourceIteratorInterface getDescribeSnapshotsIterator(array $args = array()) The input array uses the parameters of the DescribeSnapshots operation
+ * @method ResourceIteratorInterface getDescribeSpotInstanceRequestsIterator(array $args = array()) The input array uses the parameters of the DescribeSpotInstanceRequests operation
+ * @method ResourceIteratorInterface getDescribeSpotPriceHistoryIterator(array $args = array()) The input array uses the parameters of the DescribeSpotPriceHistory operation
+ * @method ResourceIteratorInterface getDescribeSubnetsIterator(array $args = array()) The input array uses the parameters of the DescribeSubnets operation
+ * @method ResourceIteratorInterface getDescribeTagsIterator(array $args = array()) The input array uses the parameters of the DescribeTags operation
+ * @method ResourceIteratorInterface getDescribeVolumeStatusIterator(array $args = array()) The input array uses the parameters of the DescribeVolumeStatus operation
+ * @method ResourceIteratorInterface getDescribeVolumesIterator(array $args = array()) The input array uses the parameters of the DescribeVolumes operation
+ * @method ResourceIteratorInterface getDescribeVpcsIterator(array $args = array()) The input array uses the parameters of the DescribeVpcs operation
+ * @method ResourceIteratorInterface getDescribeVpnConnectionsIterator(array $args = array()) The input array uses the parameters of the DescribeVpnConnections operation
+ * @method ResourceIteratorInterface getDescribeVpnGatewaysIterator(array $args = array()) The input array uses the parameters of the DescribeVpnGateways operation
  *
  * @link http://docs.aws.amazon.com/aws-sdk-php-2/guide/latest/service-ec2.html User guide
  * @link http://docs.aws.amazon.com/aws-sdk-php-2/latest/class-Aws.Ec2.Ec2Client.html API docs
  */
 class Ec2Client extends AbstractClient
 {
-    const LATEST_API_VERSION = '2013-02-01';
+    const LATEST_API_VERSION = '2013-08-15';
 
     /**
-     * Factory method to create a new AWS Elastic Beanstalk client using an array of configuration options:
-     *
-     * Credential options (`key`, `secret`, and optional `token` OR `credentials` is required)
-     *
-     * - key: AWS Access Key ID
-     * - secret: AWS secret access key
-     * - credentials: You can optionally provide a custom `Aws\Common\Credentials\CredentialsInterface` object
-     * - token: Custom AWS security token to use with request authentication
-     * - token.ttd: UNIX timestamp for when the custom credentials expire
-     * - credentials.cache: Used to cache credentials when using providers that require HTTP requests. Set the true
-     *   to use the default APC cache or provide a `Guzzle\Cache\CacheAdapterInterface` object.
-     * - credentials.cache.key: Optional custom cache key to use with the credentials
-     * - credentials.client: Pass this option to specify a custom `Guzzle\Http\ClientInterface` to use if your
-     *   credentials require a HTTP request (e.g. RefreshableInstanceProfileCredentials)
-     *
-     * Region and Endpoint options (a `region` and optional `scheme` OR a `base_url` is required)
-     *
-     * - region: Region name (e.g. 'us-east-1', 'us-west-1', 'us-west-2', 'eu-west-1', etc...)
-     * - scheme: URI Scheme of the base URL (e.g. 'https', 'http').
-     * - base_url: Instead of using a `region` and `scheme`, you can specify a custom base URL for the client
-     *
-     * Generic client options
-     *
-     * - ssl.certificate_authority: Set to true to use the bundled CA cert (default), system to use the certificate
-     *   bundled with your system, or pass the full path to an SSL certificate bundle. This option should be used when
-     *   you encounter curl error code 60.
-     * - curl.options: Array of cURL options to apply to every request.
-     *   See http://www.php.net/manual/en/function.curl-setopt.php for a list of available options
-     * - signature: You can optionally provide a custom signature implementation used to sign requests
-     * - client.backoff.logger: `Guzzle\Log\LogAdapterInterface` object used to log backoff retries. Use
-     *   'debug' to emit PHP warnings when a retry is issued.
-     * - client.backoff.logger.template: Optional template to use for exponential backoff log messages. See
-     *   `Guzzle\Plugin\Backoff\BackoffLogger` for formatting information.
+     * Factory method to create a new AWS Elastic Beanstalk client using an array of configuration options.
      *
      * @param array|Collection $config Client configuration data
      *
      * @return self
+     * @see \Aws\Common\Client\DefaultClient for a list of available configuration options
      */
     public static function factory($config = array())
     {

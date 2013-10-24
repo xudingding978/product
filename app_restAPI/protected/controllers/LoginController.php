@@ -1,5 +1,4 @@
 <?php
-
 header("Access-Control-Allow-Origin: *");
 header('Content-type: *');
 header('Access-Control-Request-Method: *');
@@ -109,6 +108,9 @@ class LoginController extends Controller {
 //
 //    }
 
+    public function actionRead() {
+        
+    }
 
     public function actionCreate() {
 
@@ -128,8 +130,8 @@ class LoginController extends Controller {
         $model->PWD_HASH = $request_array[2];
         $model->EMAIL_ADDRESS = $request_array[3];
         $model->COUCHBASE_ID = strval(rand(9999999999, 99999999999));
- 
-       $cb = $this->couchBaseConnection();
+
+        $cb = $this->couchBaseConnection();
         $rand_id = $model->COUCHBASE_ID;
         $temp = $this->getMega();
         $temp["id"] = $rand_id;
@@ -154,7 +156,7 @@ class LoginController extends Controller {
         $temp['user'][0]['youtube_link'] = null;
         $temp['user'][0]['region'] = $request_array[4];
         $temp['user'][0]['password'] = null;
-        
+
         $urlController = new UrlController();
         $link = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
         $domain = $urlController->getDomain($link);
@@ -164,7 +166,7 @@ class LoginController extends Controller {
 
                 $this->sendResponse(200, CJSON::encode($model));
             }
-        } 
+        }
     }
 
     public function actionGetmodel() {
@@ -276,15 +278,26 @@ class LoginController extends Controller {
     }
 
     public function actionLogin() {
+// store session data
+       Yii::app()->session['couchbase_id'] = "value";
         $request_array = CJSON::decode(file_get_contents('php://input'));
+$session->set('key', 'aaaaaaaaaaaaaaaaaaaaa');
+
+//        $identity = new UserIdentity($request_array[0], $request_array[1]);
+//        $identity->authenticate();
+//        error_log($identity->authenticate()
+//        );
+
+
+
         if ($request_array[2] === true) {
             $currentUser = User::model()
                     ->findByAttributes(array('EMAIL_ADDRESS' => $request_array[0]));
-
             if (isset($currentUser)) {
                 if ($currentUser->PWD_HASH === "blankblankblank") {
                     $this->sendResponse(200, 0);
                 } else if ($currentUser->PWD_HASH === $request_array[1]) {
+               //     $_SESSION['couchbase_id'] = $currentUser->COUCHBASE_ID;
                     $this->sendResponse(200, CJSON::encode($currentUser));
                 }
             } else {
@@ -298,6 +311,8 @@ class LoginController extends Controller {
                 if ($currentUser->PWD_HASH === "blankblankblank") {
                     $this->sendResponse(200, 0);
                 } else if ($currentUser->PWD_HASH === $request_array[1]) {
+                 //   $_SESSION['couchbase_id'] = $currentUser->COUCHBASE_ID;
+                 error_log(  Yii::app()->session['couchbase_id']);
                     $this->sendResponse(200, CJSON::encode($currentUser));
                 }
             } else {
@@ -305,7 +320,6 @@ class LoginController extends Controller {
             }
         }
     }
-
 
     public function actionAjax() {
         $model = new LoginForm;

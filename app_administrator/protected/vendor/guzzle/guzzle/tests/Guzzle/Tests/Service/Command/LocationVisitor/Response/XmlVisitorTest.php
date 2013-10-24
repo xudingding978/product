@@ -25,6 +25,22 @@ class XmlVisitorTest extends AbstractResponseVisitorTest
         $this->assertEquals(array('Bar' => 'test'), $result);
     }
 
+    public function testBeforeMethodParsesXmlWithNamespace()
+    {
+        $this->markTestSkipped("Response/XmlVisitor cannot accept 'xmlns' in response, see #368 (http://git.io/USa1mA).");
+
+        $visitor = new Visitor();
+        $command = $this->getMockBuilder('Guzzle\Service\Command\AbstractCommand')
+            ->setMethods(array('getResponse'))
+            ->getMockForAbstractClass();
+        $command->expects($this->once())
+            ->method('getResponse')
+            ->will($this->returnValue(new Response(200, null, '<foo xmlns="urn:foo"><bar:Bar xmlns:bar="urn:bar">test</bar:Bar></foo>')));
+        $result = array();
+        $visitor->before($command, $result);
+        $this->assertEquals(array('Bar' => 'test'), $result);
+    }
+
     public function testBeforeMethodParsesNestedXml()
     {
         $visitor = new Visitor();
@@ -349,5 +365,51 @@ class XmlVisitorTest extends AbstractResponseVisitorTest
                 )
             )
         ), $value);
+    }
+
+    /**
+     * @group issue-399
+     * @link  https://github.com/guzzle/guzzle/issues/399
+     */
+    public function testDiscardingUnknownProperties()
+    {
+        $visitor = new Visitor();
+        $param = new Parameter(array(
+            'name'                 => 'foo',
+            'type'                 => 'object',
+            'additionalProperties' => false,
+            'properties'           => array(
+                'bar' => array(
+                    'type' => 'string',
+                    'name' => 'bar',
+                ),
+            ),
+        ));
+        $this->value = array('foo' => array('bar' => 15, 'unknown' => 'Unknown'));
+        $visitor->visit($this->command, $this->response, $param, $this->value);
+        $this->assertEquals(array('foo' => array('bar' => 15)), $this->value);
+    }
+
+    /**
+     * @group issue-399
+     * @link  https://github.com/guzzle/guzzle/issues/399
+     */
+    public function testDiscardingUnknownPropertiesWithAliasing()
+    {
+        $visitor = new Visitor();
+        $param = new Parameter(array(
+            'name'                 => 'foo',
+            'type'                 => 'object',
+            'additionalProperties' => false,
+            'properties'           => array(
+                'bar' => array(
+                    'name'   => 'bar',
+                    'sentAs' => 'baz',
+                ),
+            ),
+        ));
+        $this->value = array('foo' => array('baz' => 15, 'unknown' => 'Unknown'));
+        $visitor->visit($this->command, $this->response, $param, $this->value);
+        $this->assertEquals(array('foo' => array('bar' => 15)), $this->value);
     }
 }

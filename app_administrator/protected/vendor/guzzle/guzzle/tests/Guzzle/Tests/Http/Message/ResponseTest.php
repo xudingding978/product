@@ -649,4 +649,32 @@ class ResponseTest extends \Guzzle\Tests\GuzzleTestCase
         $response = new Response(200, array(), '<abc');
         $response->xml();
     }
+
+    public function testResponseIsSerializable()
+    {
+        $response = new Response(200, array('Foo' => 'bar'), 'test');
+        $r = unserialize(serialize($response));
+        $this->assertEquals(200, $r->getStatusCode());
+        $this->assertEquals('bar', (string) $r->getHeader('Foo'));
+        $this->assertEquals('test', (string) $r->getBody());
+    }
+
+    /**
+     * @expectedException \Guzzle\Common\Exception\RuntimeException
+     */
+    public function testPreventsComplexExternalEntities()
+    {
+        $xml = '<?xml version="1.0"?><!DOCTYPE scan[<!ENTITY test SYSTEM "php://filter/read=convert.base64-encode/resource=ResponseTest.php">]><scan>&test;</scan>';
+        $response = new Response(200, array(), $xml);
+
+        $oldCwd = getcwd();
+        chdir(__DIR__);
+        try {
+            $response->xml();
+            chdir($oldCwd);
+        } catch (\Exception $e) {
+            chdir($oldCwd);
+            throw $e;
+        }
+    }
 }

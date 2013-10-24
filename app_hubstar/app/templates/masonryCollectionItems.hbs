@@ -92,12 +92,6 @@
                 </div>
 
                 {{/view}}
-
-
-
-
-
-
                 {{else}}
                 {{render photoCreateInfoSetting}}
                 {{/unless}}
@@ -109,17 +103,7 @@
 
         {{#each controller.content}}
         {{view HubStar.ItemView}}
-        <script>
 
-            $(function() {
-                var $container = $('#masonry_photo_collection_container');
-                window.setTimeout(function() {
-                    $container.masonry();
-                    $container.masonry('reload');
-                }, 400);
-            });
-
-        </script>
 
         {{/each}}
 
@@ -136,4 +120,3 @@
 {{view HubStar.DeleteFunctionView}}
 
 {{/if}}
-

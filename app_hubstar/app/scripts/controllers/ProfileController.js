@@ -19,7 +19,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     aboutMe: "aboutMe",
     isAboutUs: false,
     about_me: "",
-    google_map:"",
+    google_map: "",
     address: "",
     suburb: "",
     boost: '',
@@ -64,6 +64,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     profile_hero_url: "",
     profile_pic_url: "",
     profile_contact_number: "",
+    profile_google_map:"",
     profile_name: "",
     partnerTag: false,
     partnerPage: true,
@@ -111,11 +112,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     projectDeleteDropdownContent: '',
     message: null,
     makeSureDelete: false,
-    popUpMap:false,
+    popUpMap: false,
     willDelete: false,
     profile_partner_ids: null,
     isTracking: false,
-    isStatic:true,
     init: function() {
 
         this.set('is_authentic_user', false);
@@ -159,9 +159,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('projectCategoryDropdownContent', profile.get('profile_package_name'));
         this.set('first_name', profile.get('profile_contact_first_name'));
         this.set('address', profile.get('profile_physical_address'));
-       this.createGooglemap();
-       
-       console.log('bbbb');
+        console.log(profile.get('profile_google_map'));
+        if(profile.get('profile_google_map')===null || profile.get('profile_google_map')=== 'undefined' || profile.get('profile_google_map')=== ""){
+        this.createGooglemap();
+        }
+        else{
+            this.set('profile_google_map', profile.get('profile_google_map'));
+        }
+
         this.set('suburb', profile.get('profile_suburb'));
         this.set('last_name', profile.get('profile_contact_last_name'));
         this.set("profile_name", profile.get("profile_name"));
@@ -184,9 +189,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         photoCreateController.setMega();
         this.initStastics(profile);
         this.followerPhoto(id);
-     
-        
-          
+
+
+
 //
 //        var geocoder = new google.maps.Geocoder();
 //        var address = profile.get('profile_physical_address') + ", " + profile.get('profile_suburb') + ", " + profile.get('profile_regoin') + ", " + profile.get('profile_country');
@@ -199,64 +204,109 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 //        }
 
     },
-             
-            
-            createGooglemap:function(){
-        
-          var geocoder = new google.maps.Geocoder();
-        var addressmap = this.get('model').get("profile_physical_address")+ ", " + this.get('model').get("profile_suburb") + ", " + this.get('model').get("profile_regoin") + ", " + this.get('model').get('profile_country');
-          console.log(addressmap);
+    createGooglemap: function() {
+
+        var geocoder = new google.maps.Geocoder();
+        var addressmap = this.get('model').get("profile_physical_address") + ", " + this.get('model').get("profile_suburb") + ", " + this.get('model').get("profile_regoin") + ", " + this.get('model').get('profile_country');
         var that = this;
+
+        geocoder.geocode({'address': addressmap}, function(results) {
+            var imageMap = "http://maps.googleapis.com/maps/api/staticmap?center=" + results[0].geometry.location.lb + "," + results[0].geometry.location.mb + "&markers=" + results[0].geometry.location.lb + "," + results[0].geometry.location.mb + "&zoom=15&size=300x250&maptype=roadmap&sensor=false";
+
+            that.set('profile_google_map', imageMap);
+          
+            console.log(that.get('profile_google_map'));
             
-            geocoder.geocode({'address': addressmap}, function(results) {
-              var imageMap =   "http://maps.googleapis.com/maps/api/staticmap?center=" + results[0].geometry.location.lb + "," + results[0].geometry.location.mb + "&markers=" + results[0].geometry.location.lb + "," + results[0].geometry.location.mb + "&zoom=15&size=300x250&maptype=roadmap&sensor=false";
-                
-                that.set('google_map',  imageMap);
-                 console.log(that.get('google_map'));
-//                    var data = {"googleMap": that.get('google_map'),
-//                           
-//                            'id': that.get('model.id')};
-//                        requiredBackEnd('profiles', 'googleMap', data, 'POST', function() {
-// 
-//                            HubStar.store.save();
-//
-//                        });
+              requiredBackEnd('profiles', 'googleMap', [that.get('profile_google_map'), that.get('model').get('id')], 'POST', function(params) {
+                                 console.log(that.get('profile_google_map'));
+
             });
-        
-            },
-                    
-                    
-                    popUpGoogleMap: function(){
-                
-      this.set('popUpMap', true);
-                this.set('isStatic',false);
-           geocoder = new google.maps.Geocoder();          
-    //    var map_canvas = document.getElementById('map_canvas');
-       
-       
-      var address = this.get('model').get("profile_physical_address")+ ", " + this.get('model').get("profile_suburb") + ", " + this.get('model').get("profile_regoin") + ", " + this.get('model').get('profile_country');
-       geocoder.geocode({'address': address}, function(results) {
-              var map_options = {
-          center: results[0].geometry.location,
-          zoom: 15,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        } 
-        
-           setTimeout(function() {
-              var map = new google.maps.Map(document.getElementById('map_canvas_pop'), map_options)
-         var marker = new google.maps.Marker({    
-              map: map,     
-              position: results[0].geometry.location,    
-               title:'Your position'  
-          });   
-        }, 200);
-        
+        });
         
       
-    
-            });
         
-                    },
+
+    },
+    popUpGoogleMap: function() {
+
+        this.set('popUpMap', true);
+        geocoder = new google.maps.Geocoder();
+
+        var address = this.get('model').get("profile_physical_address") + ", " + this.get('model').get("profile_suburb") + ", " + this.get('model').get("profile_regoin") + ", " + this.get('model').get('profile_country');
+        geocoder.geocode({'address': address}, function(results) {
+            var map_options = {
+                center: results[0].geometry.location,
+                zoom: 15,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+
+            setTimeout(function() {
+                var map = new google.maps.Map(document.getElementById('map_canvas_pop'), map_options)
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location,
+                    title: 'Your position'
+                });
+            }, 200);
+
+        });
+        document.getElementById('google_pop').style.display = 'block';
+        document.getElementById('google_map_pop').style.display = 'block';
+    },
+    getDirection: function() {
+
+        this.set('popUpMap', true);
+        geocoder = new google.maps.Geocoder();
+
+        var address = this.get('model').get("profile_physical_address") + ", " + this.get('model').get("profile_suburb") + ", " + this.get('model').get("profile_regoin") + ", " + this.get('model').get('profile_country');
+        geocoder.geocode({'address': address}, function(results) {
+            var map_options = {
+                center: results[0].geometry.location,
+                zoom: 15,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+
+            setTimeout(function() {
+
+
+
+                var directionsService = new google.maps.DirectionsService();
+                var directionsDisplay = new google.maps.DirectionsRenderer();
+
+                var map = new google.maps.Map(document.getElementById('map_canvas_pop'), map_options)
+
+
+                directionsDisplay.setMap(map);
+                directionsDisplay.setPanel(document.getElementById('directionsPanel'));
+
+                var request = {
+                    origin: 'Wellington',
+                    destination: address,
+                    travelMode: google.maps.DirectionsTravelMode.DRIVING
+                };
+
+                directionsService.route(request, function(response, status) {
+                    if (status === google.maps.DirectionsStatus.OK) {
+                        directionsDisplay.setDirections(response);
+                    }
+                });
+
+//                var marker = new google.maps.Marker({
+//                    map: map,
+//                    position: results[0].geometry.location,
+//                    title: 'Your position'
+//                });
+            }, 200);
+
+        });
+        document.getElementById('google_pop').style.display = 'block';
+        document.getElementById('google_map_pop').style.display = 'block';
+
+
+   },
+    closePop: function() {
+        this.set('popUpMap', false);
+    },
     followerPhoto: function(id)
     {
         var dataNew = new Array();
@@ -770,10 +820,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set("profile_name", this.get('profile_name'));
         update_profile_record.set("profile_isActive", this.get("projectActiveDropdownContent"));
         update_profile_record.set("profile_isDeleted", this.get("projectDeleteDropdownContent"));
-//        update_profile_record.set("profile_google_map", this.get("google_map"));
-    this.createGooglemap();
-           console.log('profile_google_map');
-             console.log(update_profile_record.get('profile_google_map'));   
+        this.createGooglemap();
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
         if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
             update_profile_record.get('stateManager').transitionTo('loaded.saved');
@@ -1007,7 +1054,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             window.open(this.get('website_url'));
         }
     },
-    sendEventTracking: function(hitType, category, action, label){
+    sendEventTracking: function(hitType, category, action, label) {
         if (this.isTracking) {
             ga(this.get('model').get('id') + '.send', {
                 'hitType': hitType,

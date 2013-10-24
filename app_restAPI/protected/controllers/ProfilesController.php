@@ -157,7 +157,7 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_youtube_link'] = $newRecord['profile_youtube_link'];
             $oldRecord['profile'][0]['profile_analytics_code'] = $newRecord['profile_analytics_code'];
               $oldRecord['profile'][0]['profile_google_map'] = $newRecord['profile_google_map'];
-              error_log(var_export($newRecord['profile_google_map'],true));
+             
             
             if ($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true))) {
                 $this->sendResponse(204);
@@ -167,41 +167,26 @@ class ProfilesController extends Controller {
         }
     }
 
-//      public function actionGoogleMap() {
-//        $payloads_arr = CJSON::decode(file_get_contents('php://input'));
-//    
-//        $photo_string = $payloads_arr['googleMap'];
-//        $owner_id = $payloads_arr['id'];
-//        $photoController = new PhotosController();
-//       // $data_arr = $photoController->convertToString64($photo_string);
-//   
-//        $url = $photoController->saveGoogleMapInTypes($photo_string, $owner_id);
-//error_log(var_export($url,true));
-//        $cb = $this->couchBaseConnection();
-//        $oldRecord = CJSON::decode($cb->get($this->getDomain() . '/profiles/googleMap' . $owner_id));
-//error_log(var_export($oldRecord,true));
-//       
-//            $oldRecord['profile'][0]['profile_google_map'] = null;
-//            $oldRecord['profile'][0]['profile_google_map'] = $url;
-//      
-//        $url = $this->getDomain() . '/profiles/googleMap' . $owner_id;
-//
-//        $copy_of_oldRecord = unserialize(serialize($oldRecord));
-//        $tempUpdateResult = CJSON::encode($copy_of_oldRecord, true);
-//
-//        if ($cb->delete($url)) {
-//            if ($cb->set($url, $tempUpdateResult)) {
-//                $this->sendResponse(204);
-//            } else {
-//                $this->sendResponse(500, 'something wrong');
-//            }
-//        } else {
-//            $cb->set($url, $tempUpdateResult);
-//            $this->sendResponse(500, 'something wrong');
-//        }
-//    }
-    
-    
+      public function actionGoogleMap() {
+        $payloads_arr = CJSON::decode(file_get_contents('php://input'));
+      error_log(var_export($payloads_arr,true));
+     $googleMap=$payloads_arr[0];
+       $id=$payloads_arr[1];
+        $cb = $this->couchBaseConnection();
+        $docID = $this->getDomain() . '/profiles/' . $id;
+        $oldRecord = CJSON::decode($cb->get($docID));
+                error_log($googleMap);
+                error_log($oldRecord['profile'][0]['profile_google_map']);
+           $oldRecord['profile'][0]['profile_google_map'] = $googleMap;
+
+            if ($cb->set($docID, CJSON::encode($oldRecord))) {
+                $this->sendResponse(204);
+            } else {
+                $this->sendResponse(500, 'something wrong');
+            }
+        
+    }
+   
     
     public function actionDelete() {
         try {

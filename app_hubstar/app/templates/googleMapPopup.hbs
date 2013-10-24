@@ -1,11 +1,17 @@
 
-<div class="blur_black" onclick="this.parentNode.style.display = 'none'"></div>
+<div id="google_pop" class="blur_black" onclick="document.getElementById('google_pop').style.display = 'none';
+     document.getElementById('google_map_pop').style.display = 'none';
+      " style=""></div>
 
 
-<div class="aside-container" style="position:fixed; top: 20%;z-index: 10;margin: auto;left: 0;right: 0;">
-<div  id="map_canvas_pop"style="width: 800px;  height: 600px; margin: auto;left: 0;right: 0;" >
+<div  id ="google_map_pop" class="aside-container" style="position: fixed; top: 20%; z-index: 10; margin: auto; left: 0px; right: 0px; display: block;width: 830px;vertical-align: top;background-color: #fff;padding: 10px;" >
+<div  id="map_canvas_pop"style="width: 500px; height: 400px; margin: auto; left: 0px; right: 0px; position: relative; background-color: rgb(229, 227, 223); overflow: hidden; -webkit-transform: translateZ(0);display: inline-block;" >
   
 
+</div>
+    <div  id="directionsPanel" style="width: 300px; height: 200px; margin: auto; left: 0px; right: 0px; direction: ltr;display: inline-block;vertical-align: top;height: 400px;overflow: hidden;" >
   </div>
-
+    
+    <div class='new-btn' style="right: 0;"  {{action getDirection }}>Get Direction</div>
+    
     </div>

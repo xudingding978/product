@@ -991,7 +991,14 @@ textarea.add-interests{
     top: 50px; 
     background-color: #fff;
     border-radius: 3px;
-    border: 1px solid #ddd; 
+    box-shadow: 0 0 3px #aaa;
     width: 500px;
     margin: 5px 0px 5px 25px;
+    opacity: .7;
+    cursor: pointer;
+
+}
+
+.review-list-content:hover{
+    opacity: 1
 }

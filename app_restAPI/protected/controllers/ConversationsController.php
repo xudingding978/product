@@ -229,7 +229,7 @@ class ConversationsController extends Controller {
             $cb = $this->couchBaseConnection();
             $domain = $this->getDomain();
             $docID_currentUser = $domain . "/users/" . $conversationId;
-            error_log(var_export("sssssssssssss", true));
+            
             $tempMega_currentUser = $cb->get($docID_currentUser);
             $mega_currentUser = CJSON::decode($tempMega_currentUser, true);
 

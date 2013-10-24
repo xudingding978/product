@@ -228,10 +228,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                         $('#dropdown_id_' + id).toggleClass('hideClass');
 
     },
-            is_owner:function()
-    {
-        
-    },
+
     
     resetContent: function()
     {

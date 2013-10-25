@@ -159,7 +159,7 @@ HubStar.UserController = Ember.Controller.extend({
         }
         this.initStastics(user);
         this.checkAuthenticUser();
-        this.labelBarRefresh();
+     //   this.labelBarRefresh();
         this.userPhotoEditBackButton();
         this.userDashboardBackButton();
         /// this.transitionToRoute('userCollections');
@@ -721,7 +721,7 @@ HubStar.UserController = Ember.Controller.extend({
     selectFollowing: function(model) {
 
         this.set('profileSelectionStatus', 'Following');
-        this.get('controllers.userFollowings').getClientId(model);
+   //     this.get('controllers.userFollowings').getClientId(model);
         this.set('followingTag', true);
         this.set('collectionTag', false);
         this.set('followerTag', false);
@@ -735,7 +735,7 @@ HubStar.UserController = Ember.Controller.extend({
 //        $('#user-stats > li').removeClass('selected-user-stats');
 //        $('#ufollower').addClass('selected-user-stats');
         this.set('profileSelectionStatus', 'Followers');
-        this.get('controllers.userFollowers').getClientId(model);
+   //     this.get('controllers.userFollowers').getClientId(model);
         this.set('followingTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', true);

@@ -171,9 +171,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         this.isFollowed();
         this.checkAuthenticUser();
-        this.labelBarRefresh();
+    //    this.labelBarRefresh();
 
-        this.selectCollection();
+        //this.selectCollection();
         var photoCreateController = this.get('controllers.photoCreate');
         photoCreateController.setMega();
         this.initStastics(profile);

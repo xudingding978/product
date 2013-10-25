@@ -80,7 +80,13 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
 
         var lastposition = HubStar.get("scrollCollectionPosition");
         window.history.back();
-
+      
+        var address = document.URL;
+        var user_id = address.split("#")[1].split("/")[1];
+        if(user_id === "profiles")
+            {
+               // this.
+            }
         setTimeout(function() {
 
             $(window).scrollTop(lastposition);

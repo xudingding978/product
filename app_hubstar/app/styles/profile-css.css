@@ -1,4 +1,9 @@
 
+.no-effect, .no-effect:hover, .no-effect:focus{    
+    box-shadow: none;
+    border: none;
+}
+
 textarea{
     padding: 3px 8px !important;
     line-height: 22px!important;
@@ -511,8 +516,8 @@ input{
     border-bottom:1px solid #ccc;
     border-top: 1px solid #fff;
     font-size: 14px;
-    float:left;
-    width:95%;
+    width: 90%;
+    margin: 0 auto;
 }
 
 .flip .front .main_aboutus{display:none;}
@@ -702,7 +707,7 @@ textarea.add-interests{
     font-weight: bold;
     color: #888;
     position: relative;
-    width: 100%;
+    width: 90%;
     clear: both;
     margin: 0 auto;
     opacity: .8;
@@ -854,4 +859,9 @@ textarea.add-interests{
 .profilegb div.profile-wallpaper{
     top:45px;
     left:0;
+}
+
+
+.Client-dashboard-keywords{
+
 }

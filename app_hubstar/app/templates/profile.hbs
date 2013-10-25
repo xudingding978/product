@@ -845,31 +845,40 @@
                 </div>
             </div>
 
+
+
+
             <div class="tab-pane" id="tab5">
 
-                <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">Keywords Settings  (You can add {{keywordsNum}} keywords)</div>
+                <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 5px;">Keywords Settings</div>
+                <div style="font-size: 15px; font-weight: bold;color: #555; text-align: center;margin: 5px auto 20px;">You can add {{keywordsNum}} keywords to this profile.</div>
+                <div style="width: 700px; min-height: 100px; background-color: #f3f3f3; margin: 10px auto;padding: 5px 8px;position: relative;">
+                    <div style="font-size: 13px; font-weight: bold;color: #aaa;position: absolute;bottom: 5px;text-align: center;width: 684px;">Keywords in this area can be showed on the profile, drag from the pool below. (maximum 10 keywords)</div>
+                    <div class='hashtags' style="margin: 2px 3px;">{{interests}}{{#if controller.is_authentic_user}}<i class='remove-hashtages' {{action deleteTopic interests}}>x</i>{{/if}}</div>
+                </div>
 
-                <table cellpadding="0" cellspacing="0" border="0" width="100%" style="padding-right: 147px; font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
-                    <tbody class="profilesnew-table" style="display: table-row-group; vertical-align: middle; border-color: inherit;">
-                        {{#each keywords_array}}
-                        <tr>
-                            <td>Keywords:{{_view.contentIndex}} </td>
-                            <td>
-                                <div style="display: block;">
-                                    {{view Ember.TextField valueBinding="keyword"   class="mustFill1" placeholder="Heritage Tiles NZ"}}
-                                </div>
-                                <div style="right: 0;margin: 30px auto 0;width: 150px;"><span class="new-btn green-btn" {{action deleteKeywords _view.contentIndex}}>Delete</span></div>
-                            </td>
-                        </tr>                           
-                        {{/each}}
-                    </tbody>
-                </table>
+                <div style="width: 700px; border: 1px solid #ddd;margin: 0 auto;border-radius: 3px;">
+                    <div style="margin: 0 0 5px; width: 100%; min-height: 200px;padding: 5px 8px;">
+                        <div class='hashtags' style="margin: 2px 3px;">{{interests}}{{#if controller.is_authentic_user}}<i class='remove-hashtages' {{action deleteTopic interests}}>x</i>{{/if}}</div>
+                    </div>
+
+                    <div  style="margin: 0;width: 657px; height:50px;border-top: 1px dashed #aaa;overflow: hidden;">
+                        {{view Ember.TextArea valueBinding="keywords" class="no-resize no-effect"  placeholder="* Please ensure you use a commer seperated list!!! ie: bathroom, kitchen, living room"}}
+                    </div>
+
+                    <div class="new-btn" style="float: right;top: -50px;height: 51px;line-height: 50px;right: -1px;">Add</div>
+                </div>
+
+
                 <div style="right: 0;margin: 30px auto 0;width: 150px;">
-                    <span class="new-btn green-btn" {{action addKeywords}}>Add a keyword</span>
                     <span class="new-btn green-btn" {{action saveKeywords}}>Save</span>
                     <span class='new-btn blue-btn flip-back' {{action flipFrontBack}}><k class='icon-group'> &nbsp;</k>Back</span>
                 </div>
             </div>
+
+
+
+
 
 
             <div class="tab-pane" id="fileuploader">

@@ -1,4 +1,9 @@
 
+.no-effect, .no-effect:hover, .no-effect:focus{    
+    box-shadow: none;
+    border: none;
+}
+
 textarea{
     padding: 3px 8px !important;
     line-height: 22px!important;
@@ -972,10 +977,7 @@ textarea.add-interests{
     width: 33%;
 }
 
-.no-effect, .no-effect:hover, .no-effect:focus{    
-    box-shadow: none;
-    border: none;
-}
+
 
 .review-list{
     width: 535px; 

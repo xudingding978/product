@@ -49,13 +49,61 @@ class ReviewsController extends Controller {
         }
         return round($average/sizeof($reviews),1);
     }
+    
+    
+    
 
     public function actionRead() {
 
     }
 
     public function actionUpdate() {
+
+        $request_json = file_get_contents('php://input');
+        $newRecord = CJSON::decode($request_json, true);        
+       error_log(var_export($newRecord, true));
+   
+       $owner_id = $newRecord ['optional'];
+       $id = $newRecord['review_id'];
+        try {
+            $cb = $this->couchBaseConnection();
+            
+
+              $docID = $this->getDomain() . "/profiles/" . $owner_id;                         
+              $cbRecord = $cb->get($docID); // get the old profile record from the database according to the docID string
+              $oldRecord = CJSON::decode($cbRecord, true);
+              $records =  $oldRecord["profile"][0]["reviews"];            
+              $review_num = $this ->getSelectedreview($records,$id);
+              error_log(var_export($review_num, true));
+              if ($review_num !== -1) {
+                $oldRecord["profile"][0]["reviews"] [$review_num] = $newRecord; 
+               error_log(var_export($newRecord, true));
+              }
  
+        
+        if ($cb->set($docID, CJSON::encode($oldRecord))) {
+                $this->sendResponse(204);
+            } else {
+                $this->sendResponse(500, "some thing wrong");
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    
+    }
+    
+    public function getSelectedreview($records,$id) {
+        $i = 0;
+        $review_num=-1;
+        foreach ($records as $record_id) {//assign each collection in profile's collections to record_id
+
+            if ($record_id["review_id"] == $id) {
+                //$records [$collection_num] = $collection; //replace the old collection with the new record's collection
+                $review_num=$i;
+            }
+            $i++;
+        }
+        return $review_num;
     }
 
     public function actionDelete() {

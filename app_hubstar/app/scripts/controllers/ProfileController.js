@@ -70,7 +70,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     partnerTag: false,
     reviewTag: false,
     partnerPage: true,
-    profile_average_review:'',
+    profile_average_review: '',
     profileSelectionStatus: "Collections",
     profileCollectionStatistics: "",
     profileReviewStatistics: "",
@@ -121,7 +121,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     willDelete: false,
     profile_partner_ids: null,
     isTracking: false,
-    isInreview:false,
+    isInreview: false,
     cropsize: null,
     init: function() {
 
@@ -189,7 +189,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         photoCreateController.setMega();
         this.initStastics(profile);
         this.followerPhoto(id);
-    },           
+    },
     followerPhoto: function(id)
     {
         var dataNew = new Array();
@@ -745,6 +745,30 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             }
         });
     },
+    addLike: function(event)
+    {
+          var profile = this.get('model.id');
+         console.log(event);
+        var review_people_like = event.get("review_people_like");
+        
+        console.log(review_people_like);
+        if (review_people_like === null || review_people_like === undefined) {
+            review_people_like = "";
+        }
+        if (localStorage.loginStatus !== null && localStorage.loginStatus !== undefined && localStorage.loginStatus !== "")
+        {
+            if (review_people_like.indexOf(localStorage.loginStatus) !== -1)
+            {
+            }
+            else {
+                event.set('review_people_like', event.get('review_people_like')+','+localStorage.loginStatus);
+                event.set('review_like_count', event.get('review_like_count')+1);
+                
+                HubStar.store.save();
+                       
+            }
+        }
+    },
     saveLink: function(link_url, link) {
 
         var http = "http://";
@@ -809,11 +833,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 that.set('currentWidth', width);
                 that.set('currentHeight', height);
                 var data = {"RequireIamgeType": that.get('UploadImageMode')};
-               
+
                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
                     if ((width >= params.width) && (height >= params.height))
                     {
-                           
+
                         if (that.get('isUpload') === true) {
                             //    that.set('isCrop', false);
                             that.setTempImage();
@@ -822,15 +846,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                         {
                             //       that.set('isUpload', false);
                             that.setCropImage();
-                        }                 
+                        }
                         //  $('#uploadStyleImg').attr("style", "display:block");
                         var data1 = {"newStyleImageSource": that.get('newStyleImageSource'),
                             'newStyleImageName': that.get('newStyleImageName'),
                             'mode': that.get('UploadImageMode').replace(" ", "_").toLowerCase(),
                             'id': that.get('model.id')};
-                         that.set('loadingTime', true);
+                        that.set('loadingTime', true);
                         requiredBackEnd('profiles', 'updateStyleImage', data1, 'POST', function(params) {
-                     //     $('#uploadStyleImg').attr("style", "display:none");
+                            //     $('#uploadStyleImg').attr("style", "display:none");
                             that.set('isPhotoEditingMode', false);
                             that.set('isPhotoUploadMode', false);
                             that.set('isFinished', true);
@@ -844,7 +868,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
 
                     else if (width < params.width || height < params.height) {
-                        that.set('loadingTime', false);  
+                        that.set('loadingTime', false);
                         that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + params.width + "x" + params.height);
                         that.set('newStyleImageSource', "");
                         that.set('newStyleImageName', "");
@@ -927,10 +951,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     rateEditing: function(id) {
 
         this.set("rateTime", true);
-        
-        if(this.get('reviewTag')===true){
-        this.set('reviewTag', false);
-        this.set('isInreview',true);
+
+        if (this.get('reviewTag') === true) {
+            this.set('reviewTag', false);
+            this.set('isInreview', true);
         }
     },
     setCollectionAttr: function() {

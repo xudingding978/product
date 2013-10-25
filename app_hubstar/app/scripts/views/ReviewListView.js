@@ -8,7 +8,7 @@ HubStar.ReviewListView = Ember.View.extend({
                 // Get the value
                 var val = parseFloat($(this).text());
                 // Make sure that the value is in 0 - 10 range, multiply to get width
-                var size = Math.max(0, (Math.min(10, val))) * 16;
+                var size = Math.max(0, (Math.min(10, val))) * 20;
                 // Create stars holder
                 var $span = $('<span />').width(size);
                 // Replace the numerical value with stars
@@ -25,50 +25,26 @@ HubStar.ReviewListView = Ember.View.extend({
         var id = "#" + event;
         var up_button = "#up_button_" + event;
         var down_button = "#down_button_" + event;
+       //  var like = "#review_like_" + event;
 
-        var contentClose = "#review_content_close_" + event;
-        var contentOpen = "#review_content_open_" + event;
-
-//        $(id).animate({
-//            height: '100px'
-//        }, 400);
-
-
-        $(up_button).attr("style", "display:inline-block");
-        $(down_button).attr("style", "display:none");
-        $(contentOpen).attr("style", "width: 390px; height:20px; position: relative; display:none; overflow: hidden;");
-        $(contentClose).attr("style", "width: 420px; position: relative; display:inline-block;overflow: auto;margin: 30px 0 10px -30px;");
-//            setTimeout(function() {
-//                $('#masonry_container').masonry("reload");
-//            }, 200);
+        var content = "#review_content_" + event;
+        $(up_button).attr("style", "position: relative;  font-size: 18px; color: #888;margin: 0 10px; display:inline-block;");
+        $(down_button).attr("style", "position: relative; display: none;  font-size: 18px; color: #888;margin: 0 10px;");    
+        $(content).animate({width: '420px',   height:'120px', position: 'relative', display:'inline-block',overflow: 'auto'},1000);
+      // $(like).delay(2000).attr("style", "display: block;");
     },
     upContent: function(event) {
 
         var id = "#" + event;
         var up_button = "#up_button_" + event;
         var down_button = "#down_button_" + event;
-        var contentClose = "#review_content_close_" + event;
-        var contentOpen = "#review_content_open_" + event;
-//        $(id).animate({
-//            height: '20px'
-//        }, 400);
-        $(up_button).attr("style", "display:none");
-        $(down_button).attr("style", "display:inline-block");
-        $(contentClose).attr("style", "width: 390px; height:20px; position: relative; display:inline-block; overflow: hidden; ");
-        $(contentOpen).attr("style", "width: 420px; position: relative; display:none;overflow: auto;margin: 30px 0 10px -30px;");
-
-//            setTimeout(function() {
-//                $('#masonry_container').masonry("reload");
-//            }, 200);
-    }, toggle: function() {
-        $('#review_content_open_').slideToggle(1000);
+        var content = "#review_content_" + event;
+     //  var like = "#review_like_" + event;
+        $(up_button).attr("style", "position: relative;  font-size: 18px; color: #888;margin: 0 10px; display:none");
+        $(down_button).attr("style", "position: relative; display: none;  font-size: 18px; color: #888;margin: 0 10px; display:inline-block");
+        $(content).animate({width: '390px', height:'20px', position: 'relative', dispaly: 'none', overflow:'hidden'}, 1000);      
+   //     $(like).delay(2000).attr("style", "display: none;");
     }
-
-
-
 });
-
-
-
 
 

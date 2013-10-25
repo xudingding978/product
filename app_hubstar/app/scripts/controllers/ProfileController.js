@@ -64,7 +64,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     profile_hero_url: "",
     profile_pic_url: "",
     profile_contact_number: "",
-    profile_google_map:"",
+    profile_google_map: "",
     profile_name: "",
     partnerTag: false,
     partnerPage: true,
@@ -116,6 +116,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     willDelete: false,
     profile_partner_ids: null,
     isTracking: false,
+    fromAddress: '',
+    toAddress: '',
     init: function() {
 
         this.set('is_authentic_user', false);
@@ -159,14 +161,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('projectCategoryDropdownContent', profile.get('profile_package_name'));
         this.set('first_name', profile.get('profile_contact_first_name'));
         this.set('address', profile.get('profile_physical_address'));
-        console.log(profile.get('profile_google_map'));
-        if(profile.get('profile_google_map')===null || profile.get('profile_google_map')=== 'undefined' || profile.get('profile_google_map')=== ""){
-        this.createGooglemap();
+        if (profile.get('profile_google_map') === null || profile.get('profile_google_map') === 'undefined' || profile.get('profile_google_map') === "") {
+            this.createGooglemap();
         }
-        else{
+        else {
             this.set('profile_google_map', profile.get('profile_google_map'));
         }
-
+        this.set('toAddress', profile.get('profile_physical_address') + ", " + profile.get('profile_suburb') + ", " + profile.get('profile_regoin') + ", " + profile.get('profile_country'));
+        console.log(this.get('toAddress'));
         this.set('suburb', profile.get('profile_suburb'));
         this.set('last_name', profile.get('profile_contact_last_name'));
         this.set("profile_name", profile.get("profile_name"));
@@ -190,19 +192,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.initStastics(profile);
         this.followerPhoto(id);
 
-
-
-//
-//        var geocoder = new google.maps.Geocoder();
-//        var address = profile.get('profile_physical_address') + ", " + profile.get('profile_suburb') + ", " + profile.get('profile_regoin') + ", " + profile.get('profile_country');
-//        if (geocoder) {
-//            geocoder.geocode({'address': address}, function(results, status) {
-//                var mapImage = "http://maps.googleapis.com/maps/api/staticmap?center=" + results[0].geometry.location.lb + "," + results[0].geometry.location.mb + "&markers=" + results[0].geometry.location.lb + "," + results[0].geometry.location.mb + "&zoom=15&size=300x250&maptype=roadmap&sensor=false";
-//                console.log(mapImage);
-//
-//            });
-//        }
-
     },
     createGooglemap: function() {
 
@@ -214,99 +203,30 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             var imageMap = "http://maps.googleapis.com/maps/api/staticmap?center=" + results[0].geometry.location.lb + "," + results[0].geometry.location.mb + "&markers=" + results[0].geometry.location.lb + "," + results[0].geometry.location.mb + "&zoom=15&size=300x250&maptype=roadmap&sensor=false";
 
             that.set('profile_google_map', imageMap);
-          
-            console.log(that.get('profile_google_map'));
-            
-              requiredBackEnd('profiles', 'googleMap', [that.get('profile_google_map'), that.get('model').get('id')], 'POST', function(params) {
-                                 console.log(that.get('profile_google_map'));
+
+            requiredBackEnd('profiles', 'googleMap', [that.get('profile_google_map'), that.get('model').get('id')], 'POST', function(params) {
+
 
             });
         });
-        
-      
-        
+
+
+
 
     },
     popUpGoogleMap: function() {
 
         this.set('popUpMap', true);
-        geocoder = new google.maps.Geocoder();
 
-        var address = this.get('model').get("profile_physical_address") + ", " + this.get('model').get("profile_suburb") + ", " + this.get('model').get("profile_regoin") + ", " + this.get('model').get('profile_country');
-        geocoder.geocode({'address': address}, function(results) {
-            var map_options = {
-                center: results[0].geometry.location,
-                zoom: 15,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            }
 
-            setTimeout(function() {
-                var map = new google.maps.Map(document.getElementById('map_canvas_pop'), map_options)
-                var marker = new google.maps.Marker({
-                    map: map,
-                    position: results[0].geometry.location,
-                    title: 'Your position'
-                });
-            }, 200);
-
-        });
-        document.getElementById('google_pop').style.display = 'block';
-        document.getElementById('google_map_pop').style.display = 'block';
+        if (document.getElementById('google_pop') === null || document.getElementById('google_map_pop') === null) {
+        }
+        else {
+            document.getElementById('google_pop').style.display = 'block';
+            document.getElementById('google_map_pop').style.display = 'block';
+        }
     },
-    getDirection: function() {
 
-        this.set('popUpMap', true);
-        geocoder = new google.maps.Geocoder();
-
-        var address = this.get('model').get("profile_physical_address") + ", " + this.get('model').get("profile_suburb") + ", " + this.get('model').get("profile_regoin") + ", " + this.get('model').get('profile_country');
-        geocoder.geocode({'address': address}, function(results) {
-            var map_options = {
-                center: results[0].geometry.location,
-                zoom: 15,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            }
-
-            setTimeout(function() {
-
-
-
-                var directionsService = new google.maps.DirectionsService();
-                var directionsDisplay = new google.maps.DirectionsRenderer();
-
-                var map = new google.maps.Map(document.getElementById('map_canvas_pop'), map_options)
-
-
-                directionsDisplay.setMap(map);
-                directionsDisplay.setPanel(document.getElementById('directionsPanel'));
-
-                var request = {
-                    origin: 'Wellington',
-                    destination: address,
-                    travelMode: google.maps.DirectionsTravelMode.DRIVING
-                };
-
-                directionsService.route(request, function(response, status) {
-                    if (status === google.maps.DirectionsStatus.OK) {
-                        directionsDisplay.setDirections(response);
-                    }
-                });
-
-//                var marker = new google.maps.Marker({
-//                    map: map,
-//                    position: results[0].geometry.location,
-//                    title: 'Your position'
-//                });
-            }, 200);
-
-        });
-        document.getElementById('google_pop').style.display = 'block';
-        document.getElementById('google_map_pop').style.display = 'block';
-
-
-   },
-    closePop: function() {
-        this.set('popUpMap', false);
-    },
     followerPhoto: function(id)
     {
         var dataNew = new Array();

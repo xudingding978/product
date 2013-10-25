@@ -10,8 +10,18 @@
 
 </div>
     <div  id="directionsPanel" style="width: 300px; height: 200px; margin: auto; left: 0px; right: 0px; direction: ltr;display: inline-block;vertical-align: top;height: 400px;overflow: hidden;" >
+        
   </div>
-    
-    <div class='new-btn' style="right: 0;"  {{action getDirection }}>Get Direction</div>
-    
+
+<div id="directionsPanel" style="float:right;width:30%;height:100%"></div>
+<div > {{input type="text" value=fromAddress placeholder="from"}}</div>
+<div > {{input type="text" value=toAddress placeholder="to"}}</div>
+<select id="routeMode" name="routeMode">
+    <option value="DRIVING">Driving</option>
+    <option value="WALKING">Walking</option>
+    <option value="BICYCLING">Bicycling</option>
+    <option value="TRANSIT">Transit</option>
+</select>
+     <button id="routeGo">Get Direction</button>
+    <button id="routeClear">Clear </button>
     </div>

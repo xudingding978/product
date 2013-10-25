@@ -16,10 +16,29 @@
 
 
 
-<div style="width: 1000px; height: 1000px; position: absolute; top:200px; left: 200px; background-color: #fff;">
-    
-    <div></div>
-    
-    
-    
+
+<div class="" style="width: 510px;margin: 0 auto;border-radius: 3px;overflow: hidden;border: 1px solid #eee; background-color: #fff">
+    <div style="height: 50px;width: 100%;background-color: #f3f3f3;text-align: center;line-height: 50px;color: #555;border-bottom: 1px solid #ddd;">
+        <i class="icon-film" style="font-size: 18px;">&nbsp;</i>
+        <span style="font-size: 20px; font-weight: bold">Add Video</span>
+    </div>
+    <div style="margin: 20px;min-height: 400px;">
+        <div style="height: 35px; width: inherit;border-bottom: 1px solid #ddd;">
+            {{view Ember.TextField valueBinding="email" placeholder="Please insert..." class="no-effect"}}
+        </div>
+        <img style="width: 470px;margin: 15px 0;" src="http://d1c739w2xm33i4.cloudfront.net/2.2/top_image.jpg"/>
+        <div style="width: 470px; background-color: #f3f3f3;padding: 10px; font-size: 13px;">
+            <div style="font-size: 15px;font-weight: bold">Gold Digger Prank!</div>
+            <div>Gold Digger Prank!
+                So I went out to film how to pick up girls...but Roman,Dennis and I decided to do a little twist..the video speaks for it self check it :)
+            </div>
+        </div>
+
+    </div>
+    <div class="" style="height: 41px;position: relative;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
+        <div class="message-btn easing" style="height: 40px;line-height: 40px;" {{action reviewCancel }}><k class="icon-remove">&nbsp;</k>Cancel</div>
+        <div class="message-btn easing" style="height: 40px;line-height: 40px;"  {{action  reviewPost model.id}}><k class='icon-ok'>&nbsp;</k>Post</div>
+    </div>
+
 </div>
+

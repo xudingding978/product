@@ -4,7 +4,7 @@
 /*global $:false */
 
 HubStar.ApplicationController = Ember.ArrayController.extend({
-    needs: ['status', 'applicationFeedback'],
+    needs: ['status', 'applicationFeedback','notificationTop'],
     content: [],
     loginInfo: "",
     search_area: "",
@@ -29,11 +29,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     isGeoDropdown: false,
     applicationCategoryDropdownType: 'geoLocation',
     init: function() {
-        this.defaultSearch();
-        this.set('search_string', '');
+       this.defaultSearch();
+       this.set('search_string', '');
     },
     dropdownPhotoSetting: function() {
-      this.set("isNotification",!this.get("isNotification"));
+      this.set("isNotification",!this.get("isNotification"));    
     },
     popupModal: function() {
         this.set('popup', !this.get('popup'));
@@ -45,7 +45,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     grapData: function() {
         this.set("user", HubStar.User.find(localStorage.loginStatus));
+        console.log(this.get("user").get("isLoaded"));
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
+        this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
     },
     reloadPage: function() {
         this.set("test", !this.get("test"));

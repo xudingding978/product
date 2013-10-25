@@ -10,74 +10,43 @@
  */
 
 
-HubStar.NotificationController = Ember.Controller.extend({
-    notificationContent: null,
+HubStar.NotificationTopController = Ember.Controller.extend({
+    notificationTopContent: null,
     commenter_photo_url: null,
-    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem'],
+    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem', 'application', 'notification'],
     isUploadPhoto: false,
     init: function()
     {
-        this.set("currentOwner", this.get('controllers.user').getCurrentUser());
-        if (localStorage.loginStatus) {
-            this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
-            this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
-        }
-    },
-    typeDisplay: function(type, name) {
-        var displayString = '';
-        if (type === "follow")
-        {
-            displayString = " has followed you";
-        }
-        else if (type === "unFollow")
-        {
-            displayString = " has unfollowed you";
-        }
-        else if (type === "conversation")
-        {
-            displayString = " has say something in this conversation";
-        }
-        else if (type === "addMessage")
-        {
-            displayString = " has leave a message for you";
-        }
-        else if (type === "addReply")
-        {
-            displayString = " has reply you in this message";
-        }
-        return displayString;
     },
     getClientId: function(id) {
         this.set('clientID', id);
         var data = this.get('clientID');
         var dataNew = new Array();
         var tempComment = [data];
-        this.set('loadingTime', true);
         tempComment = JSON.stringify(tempComment);
         var that = this;
-        this.set("notificationContent", []);
+        this.set("notificationTopContent", []);
         requiredBackEnd('notifications', 'ReadNotification', tempComment, 'POST', function(params) {
             if (params !== undefined) {
-                that.set("notificationContent", []);
+                that.set("notificationTopContent", []);
                 for (var i = 0; i < params.get("length"); i++)
                 {
                     dataNew["name"] = params.objectAt(i)["display_name"];
                     dataNew["photo_url"] = params.objectAt(i)["photo_url_large"];
                     dataNew["user_id"] = params.objectAt(i)["user_id"];
                     dataNew["type"] = params.objectAt(i)["type"];
-                    dataNew["typeDisplay"] = that.typeDisplay(dataNew["type"]);
+                    dataNew["typeDisplay"] = that.get("controllers.notification").typeDisplay(dataNew["type"]);
                     dataNew["time"] = params.objectAt(i)["time"];
                     dataNew["notification_id"] = params.objectAt(i)["notification_id"];
                     dataNew["isRead"] = params.objectAt(i)["isRead"];
                     dataNew["content"] = params.objectAt(i)["content"];
                     dataNew["action_id"] = params.objectAt(i)["action_id"];
-                    that.get("notificationContent").pushObject(dataNew);
+                    that.get("notificationTopContent").pushObject(dataNew);
                     dataNew = new Array();
                 }
             }
             setTimeout(function() {
-                $('#masonry_user_container').masonry("reloadItems");
-                $("#content_notification").mCustomScrollbar({
+                $("#notititopbar").mCustomScrollbar({
                     scrollButtons: {
                         enable: false,
                         scrollSpeed: "auto"
@@ -91,10 +60,9 @@ HubStar.NotificationController = Ember.Controller.extend({
                     autoHideScrollbar: true,
                     mouseWheel: true,
                     theme: "dark-2",
-                    set_height: 950
+                    set_height: 500
                 });
             }, 200);
-            that.set('loadingTime', false);
         });
     },
     markAllRead: function() {
@@ -102,20 +70,34 @@ HubStar.NotificationController = Ember.Controller.extend({
         console.log("tom, come on!");
         this.set('clientID', localStorage.loginStatus);
         var data = this.get('clientID');
-        var tempComment = [data];
-        this.set('loadingTime', true);
+        var ids = "";
+        for (var j = 0; j < this.get("notificationTopContent").get("length"); j++)
+        {
+            if (j === 0)
+            {
+                ids = this.get("notificationTopContent").objectAt(j)["notification_id"];
+            }
+            else {
+                ids = ids + "," + this.get("notificationTopContent").objectAt(j)["notification_id"];
+            }
+        }
+        console.log(ids);
+        var tempComment = [data, ids];
+
         tempComment = JSON.stringify(tempComment);
         var that = this;
-        requiredBackEnd('notifications', 'MarkAllRead', tempComment, 'POST', function(params) {
-            for (var i = 0; i < that.get("notificationContent").get("length"); i++)
-            {
-                that.get("notificationContent").objectAt(i).set("isRead", true);
-            }
-            that.set('loadingTime', false);
-        });
+//        requiredBackEnd('notifications', 'MarkAllRead', tempComment, 'POST', function(params) {
+//            for (var i = 0; i < that.get("notificationContent").get("length"); i++)
+//            {
+//                that.get("notificationTopContent").objectAt(i).set("isRead", true);
+//            }
+//        });
     },
     go: function(user_id) {
         console.log(user_id + "tom, come on! Finish it");
+    },
+    reviewCancel: function() {
+        this.get("controllers.application").set("isNotification", false);
     }
 }
 );

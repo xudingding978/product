@@ -1,7 +1,5 @@
 
-<div id="google_pop" class="blur_black" onclick="document.getElementById('google_pop').style.display = 'none';
-     document.getElementById('google_map_pop').style.display = 'none';
-      " style=""></div>
+<div id="google_pop" class="blur_black" style=""></div>
 
 
 <div  id ="google_map_pop" class="aside-container" style="position: fixed; top: 20%; z-index: 10; margin: auto; left: 0px; right: 0px; display: block;width: 830px;vertical-align: top;background-color: #fff;padding: 10px;" >
@@ -9,13 +7,11 @@
   
 
 </div>
-    <div  id="directionsPanel" style="width: 300px; height: 200px; margin: auto; left: 0px; right: 0px; direction: ltr;display: inline-block;vertical-align: top;height: 400px;overflow: hidden;" >
-        
+    <div  id="directionsPanel" style="width: 300px; height: 200px; margin: auto; left: 0px; right: 0px; direction: ltr;display: inline-block;vertical-align: top;height: 400px;overflow: hidden;" >     
   </div>
 
-<div id="directionsPanel" style="float:right;width:30%;height:100%"></div>
-<div > {{input type="text" value=fromAddress placeholder="from"}}</div>
-<div > {{input type="text" value=toAddress placeholder="to"}}</div>
+<div > {{input type="text" value=fromAddress placeholder="From"}}</div>
+<div > {{input type="text" value=toAddress placeholder="To"}}</div>
 <select id="routeMode" name="routeMode">
     <option value="DRIVING">Driving</option>
     <option value="WALKING">Walking</option>
@@ -24,4 +20,19 @@
 </select>
      <button id="routeGo">Get Direction</button>
     <button id="routeClear">Clear </button>
+    <input type="button" value="Print map" onclick="printmap('google_map_pop');">
     </div>
+
+
+
+<script>
+function printmap(divName)
+  {
+      var printContents = document.getElementById(divName).innerHTML;
+     var originalContents = document.body.innerHTML;
+
+     document.body.innerHTML = printContents;
+  window.print();
+   document.body.innerHTML = originalContents;
+  }
+</script>

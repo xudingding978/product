@@ -10,7 +10,7 @@ HubStar.GoogleMapPopupView = Ember.View.extend({
             geocoder = new google.maps.Geocoder();
 
             var address = that.get('controller').get('toAddress');
-           
+
             geocoder.geocode({'address': address}, function(results) {
                 var map_options = {
                     center: results[0].geometry.location,
@@ -37,8 +37,12 @@ HubStar.GoogleMapPopupView = Ember.View.extend({
                 directionsDisplay.setDirections({routes: []});
             });
 
+            $("#google_pop").on("click", function() {
+                that.get('controller').set('popUpMap', false);
+            });
+
         });
-        
+
         var thatthat = that;
         function calcRoute() {
             var request = {

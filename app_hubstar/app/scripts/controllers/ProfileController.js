@@ -168,7 +168,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('profile_google_map', profile.get('profile_google_map'));
         }
         this.set('toAddress', profile.get('profile_physical_address') + ", " + profile.get('profile_suburb') + ", " + profile.get('profile_regoin') + ", " + profile.get('profile_country'));
-        console.log(this.get('toAddress'));
+
         this.set('suburb', profile.get('profile_suburb'));
         this.set('last_name', profile.get('profile_contact_last_name'));
         this.set("profile_name", profile.get("profile_name"));
@@ -201,32 +201,16 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
         geocoder.geocode({'address': addressmap}, function(results) {
             var imageMap = "http://maps.googleapis.com/maps/api/staticmap?center=" + results[0].geometry.location.lb + "," + results[0].geometry.location.mb + "&markers=" + results[0].geometry.location.lb + "," + results[0].geometry.location.mb + "&zoom=15&size=300x250&maptype=roadmap&sensor=false";
-
             that.set('profile_google_map', imageMap);
-
             requiredBackEnd('profiles', 'googleMap', [that.get('profile_google_map'), that.get('model').get('id')], 'POST', function(params) {
-
-
             });
         });
-
-
-
-
     },
     popUpGoogleMap: function() {
 
         this.set('popUpMap', true);
-
-
-        if (document.getElementById('google_pop') === null || document.getElementById('google_map_pop') === null) {
-        }
-        else {
-            document.getElementById('google_pop').style.display = 'block';
-            document.getElementById('google_map_pop').style.display = 'block';
-        }
+       
     },
-
     followerPhoto: function(id)
     {
         var dataNew = new Array();
@@ -741,6 +725,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set("profile_isActive", this.get("projectActiveDropdownContent"));
         update_profile_record.set("profile_isDeleted", this.get("projectDeleteDropdownContent"));
         this.createGooglemap();
+        this.set('toAddress', update_profile_record.get('profile_physical_address') + ", " + update_profile_record.get('profile_suburb') + ", " + update_profile_record.get('profile_regoin') + ", " + update_profile_record.get('profile_country'));
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
         if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
             update_profile_record.get('stateManager').transitionTo('loaded.saved');

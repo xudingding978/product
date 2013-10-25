@@ -147,10 +147,13 @@ class ProfilesController extends Controller {
 //            $oldRecord['keyword'] = $newRecord['keywords'];
             
             $oldRecord['profile'][0]['profile_name'] = $newRecord['profile_name'];
-//            if ($oldRecord['profile'][0]['profile_package_name'] !== $newRecord['profile_package_name']){
+            if ($oldRecord['profile'][0]['profile_package_name'] !== $newRecord['profile_package_name']){
                 $oldRecord['profile'][0]['profile_package_name'] = $newRecord['profile_package_name'];
-//                $this->setPhotoBoost();
-//            }
+                $boost = $this->setBoost($newRecord['profile_package_name']);
+                $oldRecord['profile'][0]['profile_boost'] = $boost;
+                $oldRecord['boost'] = $boost;
+                $this->setPhotoBoost($boost, $oldRecord['profile'][0]['id']);
+            }
             $oldRecord['profile'][0]['profile_partner_ids'] = $newRecord['profile_partner_ids'];
             $oldRecord['profile'][0]['profile_physical_address'] = $newRecord['profile_physical_address'];
             $oldRecord['profile'][0]['profile_suburb'] = $newRecord['profile_suburb'];
@@ -171,6 +174,41 @@ class ProfilesController extends Controller {
             }
         } catch (Exception $exc) {
             
+        }
+    }
+    
+    public function setBoost($package_name) {
+        if ($package_name === "Platinum") {
+            $boost = 200;
+        } else if ($package_name === "Gold") {
+            $boost = 100;
+        } else if ($package_name === "Silver") {
+            $boost = 50;
+        } else {
+            $boost = 25;
+        }
+        return $boost;
+    }
+    
+    public function setPhotoBoost($boost, $profile_id) {
+        $response = $this->getProfileReults($profile_id);
+        $responseArray = array();
+        foreach ($response as $hit) {
+            $id = $hit['id'];
+            $profileId = $hit['owner_id'];
+            if ($profileId === $profile_id){
+                $cb = $this->couchBaseConnection();
+                $docID = $this->getDomain() . $id;
+                $profileOwn = $cb->get($docID);
+                $owner = CJSON::decode($profileOwn, true);
+                $owner['boost'] = $boost;
+                
+                if ($cb->set($docID, CJSON::encode($owner))) {
+                    array_unshift($responseArray,$id.' update succeed');
+                } else {
+                    array_unshift($responseArray,$id.' delete failed');
+                }                
+            }
         }
     }
 

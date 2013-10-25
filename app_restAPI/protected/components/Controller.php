@@ -377,6 +377,20 @@ class Controller extends CController {
 
         return $response;
     }
+    
+    protected function getProfileReults($owner_profile_id) {
+
+        $request = $this->getElasticSearch();
+        $request->from(0)
+                ->size(1000);
+
+        $must = Sherlock\Sherlock::queryBuilder()
+                ->QueryString()->query('"' . $owner_profile_id . '"')
+                ->default_field('couchbaseDocument.doc.owner_id');
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
+        $response = $request->query($bool)->execute();
+        return $response;
+    }
 
     protected function profileSetting($tempResult, $returnType) {
 

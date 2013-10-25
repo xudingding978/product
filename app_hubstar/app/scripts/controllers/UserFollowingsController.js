@@ -24,6 +24,13 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
         this.getClientId(model); // It is used to get the mesage model
 
     },
+    goToUserRoute: function()
+    {
+      
+        this.get("controllers.user").selectCollection();
+        $('#user-stats > li').removeClass('selected-user-stats');
+        $('#defualt').addClass('selected-user-stats');
+    },
     getClientId: function(model) {
         //console.log(localStorage.loginStatus);
         this.set('loadingTime', true);
@@ -89,7 +96,9 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
                 }
                 dataNew = new Array();
             }
+ 
             that.set('loadingTime', false);
+            
         });
 
     },

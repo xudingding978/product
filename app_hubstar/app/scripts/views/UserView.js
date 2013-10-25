@@ -12,7 +12,7 @@ HubStar.UserView = Ember.View.extend({
         
         var address = document.URL;
         var user_id = address.split("#")[1].split("/")[3];
-
+ 
         if (user_id === "following")
         {
             $('#ufollowing').addClass('selected-user-stats');

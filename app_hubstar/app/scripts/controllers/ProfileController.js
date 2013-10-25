@@ -119,6 +119,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('is_authentic_user', false);
 
     },
+    goToProfileRoute: function()
+    {
+        this.transitionToRoute('profile');
+        $('#user-stats > li').removeClass('selected-user-stats');
+        $('#defualt').addClass('selected-user-stats');
+    },
     getCurrentProfile: function(id) {
         this.set('currentUserID', id);
         var profile = HubStar.Profile.find(id);
@@ -171,7 +177,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         this.isFollowed();
         this.checkAuthenticUser();
-    //    this.labelBarRefresh();
+        //    this.labelBarRefresh();
 
         //this.selectCollection();
         var photoCreateController = this.get('controllers.photoCreate');
@@ -636,8 +642,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('collectionTag', false);
 
         this.set('followerProfileTag', true);
-         this.transitionToRoute('profileFollowers');
-        
+        this.transitionToRoute('profileFollowers');
+
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
@@ -930,7 +936,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             window.open(this.get('website_url'));
         }
     },
-    sendEventTracking: function(hitType, category, action, label){
+    sendEventTracking: function(hitType, category, action, label) {
         if (this.isTracking) {
             ga(this.get('model').get('id') + '.send', {
                 'hitType': hitType,

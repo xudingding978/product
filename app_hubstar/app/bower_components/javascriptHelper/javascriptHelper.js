@@ -111,19 +111,20 @@ function getTarget(obj, type) {
 }
 
 function ReplaceContentInContainer(matchClass, content)
+{
+    var elems = document.getElementsByTagName('*'), i;
+    for (i in elems)
+    {
+        if ((" " + elems[i].className + " ").indexOf(" " + matchClass + " ") > -1)
         {
-        var elems = document.getElementsByTagName('*'), i;
-                for (i in elems)
-        {
-        if ((" " + elems[i].className + " ").indexOf(" " + matchClass + " ") > - 1)
-        {
-        console.log("match");
-                elems[i].style.display = 'none';
+            console.log("match");
+            elems[i].style.display = 'none';
         }
-        }
+    }
 
-  
+}
 
-        }
+
+
 
     

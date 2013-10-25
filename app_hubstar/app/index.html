@@ -80,14 +80,28 @@
         </script>
 
         <script type='text/javascript'>
-            googletag.cmd.push(function() {
-                googletag.defineSlot('/95381084/ad_300x250', [300, 250], 'div-gpt-ad-1382560236319-0').addService(googletag.pubads());
-                googletag.defineSlot('/95381084/ad_300x600', [300, 600], 'div-gpt-ad-1382560236319-1').addService(googletag.pubads());
-                googletag.defineSlot('/95381084/ad_336x280', [336, 280], 'div-gpt-ad-1382560236319-2').addService(googletag.pubads());
-                googletag.pubads().enableSingleRequest();
-                googletag.enableServices();
-            });
+
+            Ember.run.later(function() {
+                var ads = HubStar.get('ads');
+                console.log(ads);
+                
+                
+                googletag.cmd.push(function() {
+                                   for (var i = 0; i < ads.length; i++) {
+                    var ad = ads[i];
+                    console.log(ad.size[0] + " " + ad.div);
+                    googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
+                }
+//                    googletag.defineSlot('/95381084/ad_300x250', [300, 250], 'div-gpt-ad-1382560236319-0').addService(googletag.pubads());
+//                    googletag.defineSlot('/95381084/ad_300x600', [300, 600], 'div-gpt-ad-1382560236319-1').addService(googletag.pubads());
+//                    googletag.defineSlot('/95381084/ad_336x280', [336, 280], 'div-gpt-ad-1382560236319-2').addService(googletag.pubads());
+                    googletag.pubads().enableSingleRequest();
+                    googletag.enableServices();
+                });
+            }, 500);
+
         </script>
+
 
 
         <script type="text/javascript">

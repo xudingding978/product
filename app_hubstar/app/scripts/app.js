@@ -9,17 +9,13 @@ var HubStar = window.HubStar = Ember.Application.createWithMixins({
         HubStar.set('isMansonryPageLoad', false);
         HubStar.set('searchStart', false);
         requiredBackEnd('tenantConfiguration', 'doesAdDisplay', null, 'post', function(callbck) {
-            HubStar.set('doesAdDisplay', callbck);
+            var array = $.map(callbck, function(value, index) {
+                return [value];
+            });
+            HubStar.set('ads', array);
         });
-
-
-
         HubStar.set('photoDomain', "http://s3.hubsrv.com/trendsideas.com");
         HubStar.set('geoLocation', "Global");
-        
-     
-
-
     }
 });
 

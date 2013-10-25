@@ -493,11 +493,6 @@ input{
     float:left;
     width:65%;
     padding:0 5px;
-    /* padding: 20px 5px; 
-     position:absolute;
-     width:65%;
-     top:-180px;
-     left:17.5%; */
 }
 
 
@@ -510,17 +505,18 @@ input{
     margin:auto;
     min-width:553px;
 }
+
 .premium > div > table  .profileaside > .profileaside_content .aside-container{
     padding: 20px 0;
-    border-bottom: 1px solid #ccc;
+    border-bottom:1px solid #ccc;
+    border-top: 1px solid #fff;
     font-size: 14px;
-    margin: auto;
-    width: 95%;
+    float:left;
+    width:95%;
 }
-.flip .front .main_aboutus
-{
-    display:none;
-}
+
+.flip .front .main_aboutus{display:none;}
+
 /* paid profile ENDS, Clint Rex Lewis 4/9/13 */
 
 
@@ -575,6 +571,13 @@ div.profile-picture-active
     float:left!important;
     border-width:4px!important;
     position:absolute;
+}
+div#profile-picture.profile-picture-active > img{
+    min-width:50px;
+    min-height:50px;
+    max-height:53px;
+    max-width: 53px;
+    margin:-4px 0 0 -4px;
 }
 #profile-picture > img{
     margin-left:-5px;
@@ -704,6 +707,8 @@ textarea.add-interests{
     margin: 0 auto;
     opacity: .8;
     cursor: pointer;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
 }
 
 .Followed-by:hover{opacity: 1}   
@@ -845,3 +850,8 @@ textarea.add-interests{
     content: "";
 }
 
+
+.profilegb div.profile-wallpaper{
+    top:45px;
+    left:0;
+}

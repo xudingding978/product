@@ -85,7 +85,7 @@ class MegaimportController extends Controller {
                 if ($cb->add($id, CJSON::encode($request_arr))) {
                     $response = 'Successfully added doc ' . $id . ' to Couchbase';
                 } else {
-                    error_log('Error importing object ' . $request_arr['id']);
+
                 }
             } catch (Exception $exc) {
                 echo $exc->getTraceAsString();

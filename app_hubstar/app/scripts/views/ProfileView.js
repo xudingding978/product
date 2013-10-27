@@ -1,6 +1,8 @@
 HubStar.ProfileView = Ember.View.extend({
     
     templateName: 'profile',
+    
+    
     didInsertElement: function() {
 
         $(function() {
@@ -15,6 +17,8 @@ HubStar.ProfileView = Ember.View.extend({
             $('#user-stats > li').removeClass('selected-user-stats');
             $(this).addClass('selected-user-stats');
         });
+        
+       
     }
      
     

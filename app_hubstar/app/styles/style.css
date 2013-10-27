@@ -1,3 +1,10 @@
+
+
+body > div.ember-view{
+    overflow:hidden;
+    max-width:100%;
+}
+
 .plaform_bar{
     height: 280px;
 
@@ -166,7 +173,7 @@
     display:block;
 }
 
-#navContainer ul li a{
+#navContainer ul li a, .nav-geo-ul > li > div{
     text-decoration:none;
     color:white;
     font-family:Lucida Sans Unicode, Lucida Grande, sans-serif;
@@ -207,6 +214,7 @@
     z-index: 100;
 }
 
+.nav-geo-ul > li > div:hover, .nav-geo-ul > li > div.clicked, .nav-geo-ul > li > div.current,.nav-geo-ul > li > div:focus,
 #navContainer ul li a:hover, #navContainer ul li a.clicked, #navContainer ul li a.current, #navContainer ul li a:focus{
     background: -webkit-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.01));
     background: -moz-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.01));
@@ -264,6 +272,7 @@
 }
 #navContainer > ul > li> ul{}
 
+.nav-geo-ul > li > div,
 #navContainer ul ul li a{
     color: rgba(0,0,0,0.63);
     display: block;
@@ -278,6 +287,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     float:none;
+    cursor: pointer;
 }
 
 
@@ -486,6 +496,10 @@ div.search-loading-invisible{
 
 
 .dropdownViewStyle {
+
+}
+
+.Dropdownstyle1{
     overflow: visible;
     position: absolute;
     min-width: 233px;
@@ -506,6 +520,16 @@ div.search-loading-invisible{
     overflow: auto;
 }
 
+.Dropdownstyle2{
+    width: 150px;  
+    padding: 0;
+    left: 130px;
+    top: 50px;
+    position: relative;
+    float: right;
+}
+
+
 .ite{
     padding: 6px 15px;
     cursor: pointer;
@@ -516,16 +540,43 @@ div.search-loading-invisible{
 
 .edit-object-ul > .ite{
     padding:6px 15px 6px 30px;
+    color: #888;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #ddd;
 }
 
+.edit-object-ul > .ite:first-child {border-radius: 3px 3px 0 0}
+.edit-object-ul > .ite:last-child {border-radius: 0 0 3px 3px}
+
 .ite:hover{
+    color: #555;
     background-color: rgba(0,0,0,0.1);
 }
 
+.Dropdownstyle2:before{
+    content: "";
+    position: absolute;
+    left: 65px;
+    top: -20px;
+    border-color: transparent transparent #fff transparent;
+    border-style: solid;
+    border-width: 10px 10px 10px 10px;
+    z-index: 0;	
+}
 
+.Dropdownstyle2:after{
+    content: "";
+    position: absolute;
+    left: 65px;
+    top: -21px;
+    border-color: transparent transparent #888 transparent;
+    border-style: solid;
+    border-width: 10px 10px 10px 10px;
+    z-index: -1;	
+}
 
-
-
+.edit-object > .edit-object-ul:before{left: 15px;}
+.top-controlbar > .edit-object-ul:before{left: 15px;}
 
 
 .head {
@@ -667,16 +718,16 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     bottom: 30px;
     right: 30px;
     cursor: pointer;
+
+    margin: 0 10px;
 }
 
 .contactmebtn a {
-
-
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     display: inline-block;
     position: relative;
-    line-height: 53px;
+    line-height: 45px;
     background-color: #eaeaea;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#f6f6f6), to(#eaeaea));
     background-image: -webkit-linear-gradient(top, #f6f6f6, #eaeaea);
@@ -690,6 +741,8 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
     box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
+
+    color: #555;
 }
 
 .contactmebtn a:active {
@@ -708,10 +761,10 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     content: '';
     position: absolute;
     z-index: -1;
-    top: -8px;
-    right: -8px;
-    bottom: -8px;
-    left: -8px;
+    top: -5px;
+    right: -5px;
+    bottom: -5px;
+    left: -5px;
     background-color: #eaeaea;
     -moz-border-radius: 140px;
     -webkit-border-radius: 140px;
@@ -725,7 +778,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 }
 
 .contactmebtn a:active::before {
-    top: -9px;
+    top: -6px;
 }
 
 .contactmebtn a:hover::before {
@@ -739,7 +792,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 }
 
 
-.contactmebtn > .contactmeicon > i {
+.contactmebtn:hover > .contactmeicon > i {
     color: rgba(10,60,150, 0.8);
     text-shadow: 1px 4px 6px #def, 0 0 0 #000, 1px 4px 6px #def;
 

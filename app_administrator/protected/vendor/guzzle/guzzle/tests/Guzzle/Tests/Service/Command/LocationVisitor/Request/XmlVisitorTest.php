@@ -124,6 +124,24 @@ class XmlVisitorTest extends AbstractVisitorTestCase
                 array('Foo' => 'test', 'Baz' => array('Bar' => 'abc', 'Bam' => 'foo')),
                 '<Request><Foo>test</Foo><Baz Bar="abc"><Bam>foo</Bam></Baz></Request>'
             ),
+            // Check order doesn't matter
+            array(
+                array(
+                    'parameters' => array(
+                        'Foo' => array('location' => 'xml', 'type' => 'string'),
+                        'Baz' => array(
+                            'type'     => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'Bar' => array('type' => 'string', 'data' => array('xmlAttribute' => true)),
+                                'Bam' => array()
+                            )
+                        )
+                    )
+                ),
+                array('Foo' => 'test', 'Baz' => array('Bam' => 'foo', 'Bar' => 'abc')),
+                '<Request><Foo>test</Foo><Baz Bar="abc"><Bam>foo</Bam></Baz></Request>'
+            ),
             // Add values with custom namespaces
             array(
                 array(
@@ -163,7 +181,7 @@ class XmlVisitorTest extends AbstractVisitorTestCase
                 array('Wrap' => array(
                     'Foo' => 'test'
                 )),
-                '<Request><Wrap xmlns:xsi="http://foo.com" xsi:baz="test"/></Request>'
+                '<Request><Wrap xsi:baz="test" xmlns:xsi="http://foo.com"/></Request>'
             ),
             // Add nodes with custom namespace prefix
             array(
@@ -188,6 +206,21 @@ class XmlVisitorTest extends AbstractVisitorTestCase
                     'Foo' => 'test'
                 )),
                 '<Request><Wrap><xsi:Foo xmlns:xsi="http://foobar.com">test</xsi:Foo></Wrap></Request>'
+            ),
+            array(
+                array(
+                    'parameters' => array(
+                        'Foo' => array(
+                            'location' => 'xml',
+                            'type' => 'string',
+                            'data' => array(
+                                'xmlNamespace' => 'http://foo.com'
+                            )
+                        )
+                    )
+                ),
+                array('Foo' => '<h1>This is a title</h1>'),
+                '<Request><Foo xmlns="http://foo.com"><![CDATA[<h1>This is a title</h1>]]></Foo></Request>'
             ),
             // Flat array at top level
             array(
@@ -272,7 +305,7 @@ class XmlVisitorTest extends AbstractVisitorTestCase
         $command = $this->getMockBuilder('Guzzle\Service\Command\OperationCommand')
             ->setConstructorArgs(array($input, $operation))
             ->getMockForAbstractClass();
-        $command->setClient(new Client());
+        $command->setClient(new Client('http://www.test.com/some/path.php'));
         $request = $command->prepare();
         if (!empty($input)) {
             $this->assertEquals('application/xml', (string) $request->getHeader('Content-Type'));
@@ -486,7 +519,7 @@ class XmlVisitorTest extends AbstractVisitorTestCase
     {
         $operation = new Operation(array(
             'data' => array(
-                'xmlEncoding' => 'utf8'
+                'xmlEncoding' => 'UTF-8'
             ),
             'parameters' => array(
                 'Foo' => array('location' => 'xml')
@@ -498,7 +531,7 @@ class XmlVisitorTest extends AbstractVisitorTestCase
         $command->setClient(new Client());
         $request = $command->prepare();
         $this->assertEquals(
-            '<?xml version="1.0" encoding="utf8"?>' . "\n"
+            '<?xml version="1.0" encoding="UTF-8"?>' . "\n"
                 . '<Request><Foo>test</Foo></Request>' . "\n",
             (string) $request->getBody()
         );

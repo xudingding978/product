@@ -21,6 +21,10 @@ class PhotosController extends Controller {
         $result = $this->getRequestResultByID(self::JSON_RESPONSE_ROOT_SINGLE, $id);
         $this->sendResponse(null, $result);
     }
+    
+    
+ 
+    
 
     public function actionCreate() {
 
@@ -192,13 +196,21 @@ class PhotosController extends Controller {
         $result = $ch->get($id);
         $result_arr = CJSON::decode($result, true);
 
-        $result_arr['creator_profile_pic'] = 'http://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small.jpg';
-        $result_arr['owner_profile_pic'] = 'http://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small.jpg';
+    //    $result_arr['creator_profile_pic'] = 'http://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small.jpg';
+    //    $result_arr['owner_profile_pic'] = 'http://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small.jpg';
 
-        $result_arr['is_active'] = true;
-        $result_arr['is_indexed'] = true;
-        unset($result_arr['active_yn']);
-        unset($result_arr['indexed_yn']);
+       // $result_arr['is_active'] = true;
+      //  $result_arr['is_indexed'] = true;
+     //   unset($result_arr['active_yn']);
+  //      unset($result_arr['indexed_yn']);
+        if( $result_arr["collection_id"] != null){
+             $result_arr["collection_id"]=$result_arr["collection_id"]->split(' ')->join('-');
+        }
+       
+        
+     
+      
+
 
         print_r($result_arr);
 

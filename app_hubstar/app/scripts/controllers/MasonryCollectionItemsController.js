@@ -86,11 +86,11 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         if (user_id === "profiles")
         {
             // this.
-     this.get('controllers.profile').goToProfileRoute();
+            this.get('controllers.profile').goToProfileRoute();
         }
         else if (user_id === "users")
         {
-         this.get('controllers.user').goToUserRoute();
+            this.get('controllers.user').goToUserRoute();
         }
 
         setTimeout(function() {

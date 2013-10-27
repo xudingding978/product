@@ -15,6 +15,7 @@ HubStar.ProfileView = Ember.View.extend({
 
         if (user_id === "partners")
         {
+            $('#user-stats > li').removeClass('selected-user-stats');
             $('#partners').addClass('selected-user-stats');
             $('#user-stats > li').click(function() {
                 $('#user-stats > li').removeClass('selected-user-stats');
@@ -23,6 +24,7 @@ HubStar.ProfileView = Ember.View.extend({
         }
         else if (user_id === "followers")
         {
+            $('#user-stats > li').removeClass('selected-user-stats');
             $('#follow').addClass('selected-user-stats');
             $('#user-stats > li').click(function() {
                 $('#user-stats > li').removeClass('selected-user-stats');
@@ -30,7 +32,7 @@ HubStar.ProfileView = Ember.View.extend({
             });
         }
         else {
-
+            $('#user-stats > li').removeClass('selected-user-stats');
             $('#defualt').addClass('selected-user-stats');
             $('#user-stats > li').click(function() {
                 $('#user-stats > li').removeClass('selected-user-stats');

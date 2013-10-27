@@ -121,9 +121,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     goToProfileRoute: function()
     {
+     //   $('#user-stats > li').removeClass('selected-user-stats');
+      
         this.transitionToRoute('profile');
-        $('#user-stats > li').removeClass('selected-user-stats');
-        $('#defualt').addClass('selected-user-stats');
+
     },
     getCurrentProfile: function(id) {
         this.set('currentUserID', id);
@@ -177,8 +178,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         this.isFollowed();
         this.checkAuthenticUser();
-        //    this.labelBarRefresh();
-
+        this.labelBarRefresh();
+        //  this.set('profileSelectionStatus', 'Collections');
         //this.selectCollection();
         var photoCreateController = this.get('controllers.photoCreate');
         photoCreateController.setMega();
@@ -621,7 +622,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.sendEventTracking('event', 'button', 'click', 'Partners');
         HubStar.set("lastPositionId", model.id);
         this.set('profileSelectionStatus', 'Partners');
-        this.get('controllers.profilePartners').getClientId(model);
+        //   this.get('controllers.profilePartners').getClientId(model);
         this.set('partnerTag', true);
         this.set('collectionTag', false);
         this.set('followerProfileTag', false);

@@ -14,7 +14,12 @@ HubStar.ProfileRoute = Ember.Route.extend({
         this.controllerFor('application').set('isotherpage', true);
         this.controllerFor('searchs').setLoginImge();
         this.controllerFor('profile').set('switchPhoto', true);
-
+    //    $('#user-stats > li').removeClass('selected-user-stats');
+        $('#defualt').addClass('selected-user-stats');
+            $('#user-stats > li').click(function() {
+                $('#user-stats > li').removeClass('selected-user-stats');
+                $(this).addClass('selected-user-stats');
+            });
         if (model.get('profile_analytics_code') !== null && model.get('profile_analytics_code') !== '' && model.get('profile_analytics_code') !== undefined) {
             this.sendGAMessage(model.get('profile_analytics_code'), model.get('id'));
         }

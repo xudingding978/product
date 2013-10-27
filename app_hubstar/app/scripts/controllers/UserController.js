@@ -178,15 +178,8 @@ HubStar.UserController = Ember.Controller.extend({
     goToUserRoute: function()
     {
         this.transitionToRoute('user');
-        $('#user-stats > li').removeClass('selected-user-stats');
-        $('#defualt').addClass('selected-user-stats');
     },
-//    goToFollowProfileRoute: function()
-//    {
-//        this.get("controllers.profile").selectCollection();
-//        $('#user-stats > li').removeClass('selected-user-stats');
-//        $('#defualt').addClass('selected-user-stats');
-//    },
+
     initStastics: function(user) {
         if (user.get("followers") !== null) {
             this.set('userFollowerStatistics', user.get("followers").get("length"));

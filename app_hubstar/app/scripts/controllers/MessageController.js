@@ -32,7 +32,7 @@ HubStar.MessageController = Ember.Controller.extend({
         this.set("isEdit", true);
     },
     setEditReply: function() {
-        console.log(this.get("isEdit"));
+       
 
         this.set("isEdit", true);
     },

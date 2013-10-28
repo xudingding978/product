@@ -43,6 +43,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     grapData: function() {
         this.set("user", HubStar.User.find(localStorage.loginStatus));
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
+        this.set("myMessageBoard", "#/users/" + localStorage.loginStatus+"/messages");
     },
     reloadPage: function() {
         this.set("test", !this.get("test"));
@@ -82,10 +83,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             }
             this.pushObject(tempmega);
         }
-    },
-    goToMessage: function()
-    {
-        this.transitionToRoute('userMessage');
     },
     newSearch: function() {
         this.set("content", []);

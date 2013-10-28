@@ -9,14 +9,14 @@ HubStar.UserRoute = Ember.Route.extend({
         this.controller.set('switchPhoto', true);
         this.controller.set('collectionTag', true);
         //  this.controller.set('partnerTag', false);
-       
-         $('#default').toggle('selected-user-stats');
+
+        $('#default').toggle('selected-user-stats');
         this.controller.set('followerTag', false);
         this.controller.set('followingTag', false);
         this.controller.set('messageTag', false);
-//            console.log(this.controllerFor('checkAuthorityStatus').);
         this.controllerFor('user').set("model", model);
         this.controllerFor('user').setUser();
+
         $(window).scrollTop(0);
     },
     model: function(params) {

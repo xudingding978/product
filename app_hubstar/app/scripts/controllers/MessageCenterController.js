@@ -49,10 +49,16 @@ HubStar.MessageCenterController = Ember.Controller.extend({
         this.set("isNewConversation", false);       
          this.set("isConversationItem", false);
          this.get("controllers.conversation").selectConversation();
+        $('#notificationselected').removeClass('selected-conversation');
+        $('#messageBoardselected').addClass('selected-conversation');
         this.get('controllers.userMessage').getClientId(id);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
+    },
+    selectedNone:function(){
+        $('#messageBoardselected').removeClass('selected-conversation');
+        $('#notificationselected').removeClass('selected-conversation');
     },
     selectNotification: function(id) {
         this.set("isNewConversation", false);
@@ -60,6 +66,8 @@ HubStar.MessageCenterController = Ember.Controller.extend({
         this.set("isNotification", true);
         this.set("isMessageBoard", false);
         this.get("controllers.conversation").selectConversation();
+        $('#messageBoardselected').removeClass('selected-conversation');
+        $('#notificationselected').addClass('selected-conversation');
         this.get("controllers.notification").getClientId(id);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");

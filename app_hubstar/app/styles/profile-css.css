@@ -4,6 +4,7 @@
     border: none;
 }
 
+
 textarea{
     padding: 3px 8px !important;
     line-height: 22px!important;
@@ -723,8 +724,8 @@ textarea.add-interests{
 
 
 
-/*CROP FUNCTION*/
 
+<<<<<<< HEAD
 .crop-canvas{height: auto;max-height: 500px;width: auto;margin: 0 auto; max-width: 850px;}
 
 
@@ -749,6 +750,8 @@ textarea.add-interests{
 
 
 
+=======
+>>>>>>> develop-460-Message-Center-Message-Board
 
 /*MESSAGE CENTER STYLE FROM HERE*/
 
@@ -957,6 +960,7 @@ textarea.add-interests{
 
 
 
+<<<<<<< HEAD
 /*REVIEW PART STYLE*/
 
 .Add-review{
@@ -1028,3 +1032,7 @@ textarea.add-interests{
     left:0;
 }
 
+=======
+
+
+>>>>>>> develop-460-Message-Center-Message-Board

@@ -186,10 +186,8 @@ class UsersController extends Controller {
         $user_id = $payloads_arr['id'];
         $type = $payloads_arr['type'];
         $photoController = new PhotosController();
-        $data_arr = $photoController->convertToString64($photo_string);
-
-        $photo = imagecreatefromstring($data_arr['data']);
-
+        $data_arr = $photoController->convertToString64($photo_string);      
+        $photo = imagecreatefromstring($data_arr['data']);        
         $compressed_photo = $photoController->compressPhotoData($data_arr['type'], $photo);
         $orig_size['width'] = imagesx($compressed_photo);
         $orig_size['height'] = imagesy($compressed_photo);

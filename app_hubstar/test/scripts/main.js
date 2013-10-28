@@ -5124,6 +5124,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     saveUpdateAboutUs: function() {
         var update_About_record = HubStar.Profile.find(this.get('model.id'));
+
+        update_About_record.set("profile_about_us", $('iframe').contents().find('.wysihtml5-editor').html());
         //update_About_record.set("profile_about_us", $('iframe').contents().find('.wysihtml5-editor').html());
         update_About_record.set("profile_about_us", editor.getValue());
 
@@ -6930,6 +6932,10 @@ HubStar.UserController = Ember.Controller.extend({
         this.get('selectedCollection').set('title', this.get('newTitle'));
         this.get('selectedCollection').set('desc', this.get('newDesc'));
         var collectionController = this.get('controllers.collection');
+<<<<<<< HEAD
+
+=======
+>>>>>>> 57780acc398ed0f1d6acc87161f10126ff08e6aa
         var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
         collection.set('optional', this.get('model').get('id'));
         collection.set('type', 'user');

@@ -1,4 +1,5 @@
 
+
 <div id="user-header-menu" style="top: 10px">
     <ul class="loging_table moveTop nav" style='margin: 0;'>
         <li class="dropdown" style="list-style: none;">
@@ -24,30 +25,49 @@
             </ul>
         </li>
     </ul>
+
 </div>
 
+<ul id="user-dd-menu" class="hideClass edit-object-ul" style=" padding: 0; left: 55px; top: 5px;">
+    <li class="ite" ><a tabindex="-1" {{bindAttr href="controller.myUserProfile"}}>
+            <k class="icon-user" style="">&nbsp;&nbsp;</k>
+            <span>My Trends</span>
+        </a></li>
+    <li class='ite'><a tabindex="-1" href="http://trendsideas.com/ViewPage.aspx?pageName=Contact%20Us&region=1" target="blank">
+            <k class="icon-question-sign" style="">&nbsp;&nbsp;</k>
+            <span>Help</span>
+        </a></li>
+    <li class="ite"><a>
+            <k class="icon-envelope" style="">&nbsp;&nbsp;</k>
+            <span>Message</span> 
+        </a></li>
+    <li class="ite"><a tabindex="-1" href="#" onclick="logout();">
+            <k class="icon-off" style="">&nbsp;&nbsp;</k>
+            <span>Logout</span> 
+        </a></li>
+</ul>
 
 <script>
 
-                        function logout() {
+        function logout() {
 
-                            var address = document.URL;
-                            var domain = address.split("/")[2];
-
-
-
-                            $.ajax({
-                                    type: 'POST',
-                                url: 'http://api.' + domain + '/logout',
-                                contentType: 'application/json; charset=uft-8',
-                                dataType: 'json',
-                                success: function() {
-
-                                }
-                            });
-
-                            localStorage.clear();
+            var address = document.URL;
+            var domain = address.split("/")[2];
 
 
-                        }
+
+            $.ajax({
+                type: 'POST',
+                url: 'http://api.' + domain + '/logout',
+                contentType: 'application/json; charset=uft-8',
+                dataType: 'json',
+                success: function() {
+
+                }
+            });
+
+            localStorage.clear();
+
+
+        }
 </script>

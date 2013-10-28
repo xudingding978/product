@@ -6,6 +6,8 @@ HubStar.CollectionRoute = Ember.Route.extend({
             var address = document.URL;
             var id = address.split("#")[1].split("/")[3];
 
+        } else {
+            var id = model.id;
 
         }
         this.controllerFor('user').set('switchPhoto', false);
@@ -13,7 +15,10 @@ HubStar.CollectionRoute = Ember.Route.extend({
         $('#defualt').addClass('selected-user-stats');
         this.controllerFor('masonryCollectionItems').selectModelForUser(id);
         this.controllerFor('masonryCollectionItems').set('canEdit', true);
-
+        setTimeout(function() {
+            $('#masonry_photo_collection_container').masonry("reload");
+        }, 3000);
+   
 
     },
     model: function(params) {

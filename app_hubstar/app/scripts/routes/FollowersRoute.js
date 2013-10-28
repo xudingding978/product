@@ -16,7 +16,7 @@ HubStar.FollowersRoute = Ember.Route.extend({
 
         
         $('#user-stats > li').removeClass('selected-user-stats');
-        $('#userfollower').addClass('selected-user-stats');
+        $('#ufollower').addClass('selected-user-stats');
    this.controllerFor('userFollowers').setUserFollowers(model);
 
         $(window).scrollTop(0);

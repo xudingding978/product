@@ -48,24 +48,12 @@ class LoginController extends Controller {
         }
     }
 
-    public function actionTest() {
-
-
-        // renders the view file 'protected/views/site/index.php'
-        // using the default layout 'protected/views/layouts/main.php'
-        //    $this->render('test');
-    }
 
     /**
      * This is the action to handle external exceptions.
      */
     public function actionError() {
-//        if ($error == Yii::app()->errorHandler->error) {
-//            if (Yii::app()->request->isAjaxRequest)
-//                echo $error['message'];
-//            else
-//                $this->render('error', $error);
-//        }
+
     }
 
     public function actionClose() {
@@ -113,9 +101,7 @@ class LoginController extends Controller {
     }
 
     public function actionCreate() {
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
+ 
 
         $model = new User;
 
@@ -225,11 +211,10 @@ class LoginController extends Controller {
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $currentUser = User::model()
                 ->findByAttributes(array('COUCHBASE_ID' => $request_array[0]));
-//          if($currentUser->PWD_HASH===$request_array[1]&&$request_array[2]===$request_array[3])
-//          {   
+  
         $currentUser->PWD_HASH = $request_array[2];
         $currentUser->save($request_array[4]);
-//          }
+
     }
 
     public function getMega() {
@@ -281,14 +266,6 @@ class LoginController extends Controller {
 // store session data
        Yii::app()->session['couchbase_id'] = "value";
         $request_array = CJSON::decode(file_get_contents('php://input'));
-$session->set('key', 'aaaaaaaaaaaaaaaaaaaaa');
-
-//        $identity = new UserIdentity($request_array[0], $request_array[1]);
-//        $identity->authenticate();
-//        error_log($identity->authenticate()
-//        );
-
-
 
         if ($request_array[2] === true) {
             $currentUser = User::model()

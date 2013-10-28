@@ -15,6 +15,7 @@
  */
 
 return array(
+    'class' => 'Aws\Common\Aws',
     'services' => array(
 
         'default_settings' => array(
@@ -37,6 +38,13 @@ return array(
             'alias'   => 'CloudFront',
             'extends' => 'default_settings',
             'class'   => 'Aws\CloudFront\CloudFrontClient'
+        ),
+
+        'cloudfront_20120505' => array(
+            'extends' => 'cloudfront',
+            'params' => array(
+                'version' => '2012-05-05'
+            )
         ),
 
         'cloudsearch' => array(

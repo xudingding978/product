@@ -96,9 +96,12 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
                 }
                 dataNew = new Array();
             }
- 
+
+
+
             that.set('loadingTime', false);
-            
+            that.relayout();
+
         });
 
     },
@@ -134,6 +137,7 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
         //console.log(profile_id);
         //var currentUser = HubStar.User.find(localStorage.loginStatus);
         var tempUser = HubStar.Profile.find(profile_id);
+        var that = this;
         if (tempUser.get('isLoaded')) {
             //console.log(tempUser.get("isLoaded"));
             var commenter_profile_pic_url = null;
@@ -179,6 +183,7 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
                     }
                 }
             });
+            that.relayout();
         }
         else
         {
@@ -226,6 +231,7 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
 
                 }
             });
+            that.relayout();
         }
 
 
@@ -233,6 +239,7 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
     unFollowProfile: function(profile_id, type) {
         //console.log(profile_id);
         var tempUser = HubStar.Profile.find(profile_id);
+        var ThisController=this;
         if (tempUser.get('isLoaded')) {
 
             var commenter_id = localStorage.loginStatus;
@@ -326,9 +333,16 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
                         thisThis.get("controllers.user").set("userFollowingStatistics", currentUser.get("followings").get("length"));
                     }
                 }
+                ThisController.relayout();
             });
         }
 
+    },
+    relayout: function()
+    {
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 20);
     }
 
 

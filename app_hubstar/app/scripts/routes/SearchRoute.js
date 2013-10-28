@@ -7,6 +7,7 @@ HubStar.SearchRoute = Ember.Route.extend({
                     this.controllerFor('search').set('model', HubStar.Mega.find({keywords: model.result, region: model.region}));
                 }
             }
+          
         },
         model: function(params) {
 

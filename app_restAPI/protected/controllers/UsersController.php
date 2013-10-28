@@ -186,8 +186,12 @@ class UsersController extends Controller {
         $user_id = $payloads_arr['id'];
         $type = $payloads_arr['type'];
         $photoController = new PhotosController();
-        $data_arr = $photoController->convertToString64($photo_string);      
-        $photo = imagecreatefromstring($data_arr['data']);        
+
+        $data_arr = $photoController->convertToString64($photo_string);
+
+        $photo = imagecreatefromstring($data_arr['data']);
+
+
         $compressed_photo = $photoController->compressPhotoData($data_arr['type'], $photo);
         $orig_size['width'] = imagesx($compressed_photo);
         $orig_size['height'] = imagesy($compressed_photo);
@@ -209,7 +213,7 @@ class UsersController extends Controller {
 
             $oldRecord['user'][0]['cover_url'] = null;
             $oldRecord['user'][0]['cover_url'] = $url;
-            error_log(var_export($url, true));
+
             
         } 
 
@@ -217,7 +221,7 @@ class UsersController extends Controller {
             $smallimage = $photoController->savePhotoInTypes($orig_size, 'user_cover_small', $photo_name, $compressed_photo, $data_arr, $user_id, null, $type);
             $oldRecord['user'][0]['cover_url_small'] = null;
             $oldRecord['user'][0]['cover_url_small'] = $smallimage;
-            error_log(var_export($smallimage, true));
+
         }
 
         $url = $this->getDomain() . '/users/' . $user_id;

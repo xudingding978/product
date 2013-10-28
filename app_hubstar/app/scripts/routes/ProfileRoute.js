@@ -22,7 +22,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
 //                $(this).addClass('selected-user-stats');
 //            });
         if (model.get('profile_analytics_code') !== null && model.get('profile_analytics_code') !== '' && model.get('profile_analytics_code') !== undefined) {
-            this.sendGAMessage(model.get('profile_analytics_code'), model.get('id'));
+            this.sendGAMessage(model.get('profile_analytics_code'), model.get('id').split('-').join(''));
         }
 
 

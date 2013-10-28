@@ -27,6 +27,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
         var that = this;
         this.set("notificationTopContent", []);
         requiredBackEnd('notifications', 'ReadNotification', tempComment, 'POST', function(params) {
+            console.log(params);
             if (params !== undefined) {
                 that.set("notificationTopContent", []);
                 for (var i = 0; i < params.get("length"); i++)

@@ -153,7 +153,7 @@ HubStar.UserController = Ember.Controller.extend({
         }
         this.initStastics(user);
         this.checkAuthenticUser();
-         this.labelBarRefresh();
+
         this.userPhotoEditBackButton();
         this.userDashboardBackButton();
         /// this.transitionToRoute('userCollections');
@@ -164,12 +164,13 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('collectionTag', true);
         this.set('followerTag', false);
         this.set('messageTag', false);
-          $('#user-stats > li').removeClass('selected-user-stats');
-        $('#default').addClass('selected-user-stats');
-        $('#user-stats > li').click(function() {
-            $('#user-stats > li').removeClass('selected-user-stats');
-            $(this).addClass('selected-user-stats');
-        });
+                 this.labelBarRefresh();
+//          $('#user-stats > li').removeClass('selected-user-stats');
+//        $('#default').addClass('selected-user-stats');
+//        $('#user-stats > li').click(function() {
+//            $('#user-stats > li').removeClass('selected-user-stats');
+//            $(this).addClass('selected-user-stats');
+//        });
     },
     labelBarRefresh: function() {
         this.set("profileSelectionStatus", "Collections");

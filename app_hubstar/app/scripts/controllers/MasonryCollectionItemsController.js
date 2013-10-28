@@ -251,6 +251,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             }
         }
     },
+
     transitionToArticle: function(id) {
 
         this.transitionTo("article", HubStar.Article.find(id));

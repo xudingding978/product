@@ -4,7 +4,8 @@ DS.RESTAdapter.map('HubStar.User', {
     followers: {embedded: 'load'},
     followings: {embedded: 'load'},
     messages: {embedded: 'load'},
-    userConversation: {embedded: 'load'}
+    userConversation: {embedded: 'load'},
+    userNotification: {embedded: 'load'}
 });
 
 
@@ -48,7 +49,8 @@ HubStar.User = DS.Model.extend({
     followers: DS.hasMany('HubStar.Follower'),
     followings: DS.hasMany('HubStar.Follower'),
     messages: DS.hasMany('HubStar.UserMessage'),
-    userConversation: DS.hasMany('HubStar.UserConversation')
+    userConversation: DS.hasMany('HubStar.UserConversation'),
+    userNotification: DS.hasMany('HubStar.Notification')
 });
 
 

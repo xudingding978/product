@@ -915,6 +915,7 @@ HubStar.UserController = Ember.Controller.extend({
                 that.userPhotoEditBackButton();
                 that.userDashboardBackButton();
                 that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
+
                 that.set('loadingTime', false);
             });
 

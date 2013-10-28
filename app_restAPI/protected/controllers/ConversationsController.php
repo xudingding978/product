@@ -138,7 +138,6 @@ class ConversationsController extends Controller {
         }
     }
 
-
     public function addConversationItem($commenter_id, $time_stamp, $conversationtContent, $conversationItemId, $newStyleImage, $imageType, $photo_name, $conversationId, $participantIds) {
 
         try {
@@ -190,7 +189,9 @@ class ConversationsController extends Controller {
             if ($participantIds !== null && $participantIds !== '') {
                 $mega_currentUser["participation_ids"] = $mega_currentUser["participation_ids"] . "," . $participantIds;
             }
-
+            $participantions = explode(",", $mega_currentUser["participation_ids"]);
+            $this->createNotification($commenter_id, $participantions, $time_stamp, $conversationId, $conversationtContent);
+            
             for ($i = 0; $i < sizeof($participation_id); $i++) {
 
                 $commenterInfo = $this->getDomain() . "/users/" . $participation_id[$i];
@@ -229,7 +230,7 @@ class ConversationsController extends Controller {
             $cb = $this->couchBaseConnection();
             $domain = $this->getDomain();
             $docID_currentUser = $domain . "/users/" . $conversationId;
-           // error_log(var_export("sssssssssssss", true));
+           
             $tempMega_currentUser = $cb->get($docID_currentUser);
             $mega_currentUser = CJSON::decode($tempMega_currentUser, true);
 
@@ -322,6 +323,42 @@ class ConversationsController extends Controller {
         }
     }
 
+    public function createNotification($commenter_id, $participantions, $date, $conversationID, $commentContent) {
+        for ($i = 0; $i < sizeof($participantions); $i++) {
+            if ($participantions[$i] !== $commenter_id) {
+                $ownerId = $participantions[$i];
+                $notificationObject = array();
+                $timeID = date_timestamp_get(new DateTime());
+
+                $notification_id = (string) (rand(10000, 99999)) . $timeID . $commenter_id;
+
+                $notificationObject["notification_id"] = $notification_id;
+                $notificationObject["user_id"] = $commenter_id;
+                $notificationObject["time"] = $date;
+                $notificationObject["type"] = "conversation";
+                $notificationObject["content"] = $commentContent;
+                $notificationObject["action_id"] = $conversationID;
+                $notificationObject["isRead"] = false;
+
+
+                $notificationInfo = $this->getDomain() . "/users/" . $ownerId;
+                $cbs = $this->couchBaseConnection();
+                $notificationInfoDeep = $cbs->get($notificationInfo); // get the old user record from the database according to the docID string
+                $userInfo = CJSON::decode($notificationInfoDeep, true);
+
+                if (!isset($userInfo['user'][0]['notifications'])) {
+                    $userInfo['user'][0]['notifications'] = array();
+                }
+                array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
+                if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
+                    
+                } else {
+                    echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+                }
+            }
+        }
+    }
+
     public function addConversation($commenter_id, $date, $commentContent, $newStyleImage, $imageType, $photo_name, $conversationID, $conversationItemID, $participation_ids) {                       //saving follower in profile
         try {
 
@@ -372,7 +409,7 @@ class ConversationsController extends Controller {
             }
 
             $oldRecordDeep['conversationID'] = $conversationID;
-           // error_log(var_export($participation_ids, true));
+
             if ($participation_ids === null || $participation_ids === '') {
                 $oldRecordDeep['participation_ids'] = $commenter_id;
             } else {
@@ -390,6 +427,7 @@ class ConversationsController extends Controller {
                 $participantions = explode(",", $participation_ids . ',' . $commenter_id);
             }
 
+            $this->createNotification($commenter_id, $participantions, $date, $conversationID, $commentContent);
 
             $addResult['conversationPhoto'] = array();
             for ($i = 0; $i < sizeof($participantions); $i++) {

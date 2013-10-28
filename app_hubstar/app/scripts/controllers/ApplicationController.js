@@ -32,6 +32,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.defaultSearch();
         this.set('search_string', '');
     },
+    dropdownPhotoSetting: function() {
+      this.set("isNotification",!this.get("isNotification"));
+    },
     popupModal: function() {
         this.set('popup', !this.get('popup'));
     },

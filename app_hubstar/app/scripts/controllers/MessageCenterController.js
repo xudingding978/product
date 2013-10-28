@@ -12,7 +12,7 @@
 
 HubStar.MessageCenterController = Ember.Controller.extend({
     commenter_photo_url: null,
-    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'userMessage', 'conversation','newConversation'],
+    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'userMessage', 'conversation','newConversation','notification'],
     isMessageBoard: true,
     isNotification: false,
     isNewConversation: false,
@@ -54,12 +54,13 @@ HubStar.MessageCenterController = Ember.Controller.extend({
             $('#masonry_user_container').masonry("reload");
         }, 200);
     },
-    selectNotification: function() {
+    selectNotification: function(id) {
         this.set("isNewConversation", false);
         this.set("isConversationItem", false);
         this.set("isNotification", true);
         this.set("isMessageBoard", false);
         this.get("controllers.conversation").selectConversation();
+        this.get("controllers.notification").getClientId(id);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
@@ -79,8 +80,7 @@ HubStar.MessageCenterController = Ember.Controller.extend({
         this.set("isNewConversation", false);
         this.set("isConversationItem", true);
         this.set("isNotification", false);
-        this.set("isMessageBoard", false);
-         //this.get('controllers.newConversation').getClientId(id);
+        this.set("isMessageBoard", false);       
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);

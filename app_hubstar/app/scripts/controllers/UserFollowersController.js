@@ -307,13 +307,11 @@ HubStar.UserFollowersController = Ember.Controller.extend({
     },
     unFollowUser: function(user_id, that, follow_object) {
         var currentUser = localStorage.loginStatus;
-
-        var followArray = [currentUser, user_id];
-
-
+        var date = new Date();
+        var followArray = [currentUser, user_id,date.toString()];
 
         var thatNew = that;
-        var thisThis = this;
+        var thisThis = this;      
         requiredBackEnd('followers', 'deleteUserFollower', followArray, 'POST', function(params) {
             if (thatNew !== "follower" && thatNew !== "following") {
 

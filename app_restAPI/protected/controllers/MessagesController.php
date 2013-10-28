@@ -572,9 +572,9 @@ class MessagesController extends Controller {
 
             $newMessage = $currentMessage;
 
-           
+
             if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
-                $this->createNotificationReply($commenter_id, $id, $date, $message_id .','. $ownerMessage_id, $commentContent, $newMessage["replyMessageCollection"][sizeof($newMessage["replyMessageCollection"]) - 1]['user_id']);
+                $this->createNotificationReply($commenter_id, $id, $date, $message_id . ',' . $ownerMessage_id, $commentContent, $newMessage["replyMessageCollection"][sizeof($newMessage["replyMessageCollection"]) - 1]['user_id']);
                 return $newMessage;
             } else {
                 
@@ -586,9 +586,15 @@ class MessagesController extends Controller {
     }
 
     public function createNotificationReply($commenter_id, $id, $date, $message_id, $commentContent, $message_owner) {
+
         $ownerId = $id;
         $notificationObject = array();
-        $timeID = date_timestamp_get(new DateTime());
+        error_log("gggggggggggggggggggggggg");
+       
+        $date = new DateTime();
+         error_log(var_export($date, true));
+        $timeID=$date->getTimestamp();
+        
 
         $notification_id = (string) (rand(10000, 99999)) . $timeID . $commenter_id;
 
@@ -673,6 +679,7 @@ class MessagesController extends Controller {
             if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
                 
             } else {
+                error_log("ssssssssssssssssssss");
                 echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
             }
         }

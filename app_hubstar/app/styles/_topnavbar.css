@@ -440,14 +440,15 @@ div#forgot-password-container{
 
 
 .Notification-top{
-    position: absolute; 
-    width: 410px; 
-    margin: 10px; 
-    border-radius:5px; 
-    background-color: rgb(255, 255, 255); 
-    top: 45px; 
+    position: absolute;
+    width: 410px;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    top: 45px;
     right: 0px;
     box-shadow: 0 0 10px #555;
+/*    height: 560px;*/
 }
 
 .Notification-top:before{

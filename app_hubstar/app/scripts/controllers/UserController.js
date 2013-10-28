@@ -159,18 +159,13 @@ HubStar.UserController = Ember.Controller.extend({
         this.userDashboardBackButton();
         /// this.transitionToRoute('userCollections');
 
-      //  this.labelBarRefresh();
+
         this.set('profileSelectionStatus', 'Collections');
         this.set('followingTag', false);
         this.set('collectionTag', true);
         this.set('followerTag', false);
         this.set('messageTag', false);
-        $('#user-stats > li').removeClass('selected-user-stats');
-        $('#default').addClass('selected-user-stats');
-        $('#user-stats > li').click(function() {
-            $('#user-stats > li').removeClass('selected-user-stats');
-            $(this).addClass('selected-user-stats');
-        });
+        this.labelBarRefresh();
     },
     labelBarRefresh: function() {
         this.set("profileSelectionStatus", "Collections");

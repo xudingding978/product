@@ -55,6 +55,13 @@
     background-image: linear-gradient(top, #07b7ea , #02a6dc);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#07b7ea', endColorstr='#02a6dc', GradientType=0);
 }
+.navbar > #version-no
+{
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    max-width:6.5%;
+}
 
 
 

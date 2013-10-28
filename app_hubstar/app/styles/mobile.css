@@ -28,6 +28,18 @@ and (max-device-width : 1024px)  {
     }
     /* side nav styles */
 
+    
+    
+    
+    .show-interest #interest_btn{
+        opacity:1;
+    }
+    
+    .interest-insert-hint{
+        font-size:.9em!important;
+    }
+    /* misc */
+    
 } /* iPad in portrait & landscape; All iPads will be affected by this styling ENDS */
 
 
@@ -84,6 +96,8 @@ and (-webkit-min-device-pixel-ratio: 1)  {
 /****************** iPad styling ENDS ******************/
 
 
+
+
 /****************** iPhone styling BEGINS ******************/
 
 
@@ -126,6 +140,17 @@ and (max-device-width : 568px) {
         display:none;
     }
     /* side nav styles */
+
+    
+    
+    .interest-insert-hint{
+        font-size:.9em!important;
+    }
+   
+    .show-interest #interest_btn{
+        opacity:1;
+    }
+     /* misc */
 }
 
 
@@ -184,6 +209,16 @@ and (max-device-width : 480px) {
         display:none;
     }
     /* side nav styles */
+    
+    
+    .interest-insert-hint{
+        font-size:.9em!important;
+    }
+   
+    .show-interest #interest_btn{
+        opacity:1;
+    }
+     /* misc */
 }
 
 

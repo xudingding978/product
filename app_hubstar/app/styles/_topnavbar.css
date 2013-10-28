@@ -1252,9 +1252,9 @@ div#forgot-password-container{
 /* Clint Lewis's style's 29/10/13 */
 
 div#login_detail{
-    position: absolute;
-    right: 50px;
+    width:35px;
+    margin-right: 50px;
+    float:right;
     cursor: pointer;
     vertical-align: top;
-    display: inline-block;
 }

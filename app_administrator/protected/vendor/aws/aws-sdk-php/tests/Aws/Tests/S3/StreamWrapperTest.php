@@ -79,12 +79,19 @@ class StreamWrapperTest extends \Guzzle\Tests\GuzzleTestCase
 
     /**
      * @expectedException PHPUnit_Framework_Error_Warning
-     * @expectedExceptionMessage does not exist on Amazon S3
+     * @expectedExceptionMessage s3://bucket/key already exists on Amazon S3
      */
-    public function testValidatesXfileExists()
+    public function testValidatesXMode()
     {
-        $this->setMockResponse($this->client, array(new Response(404)));
+        $this->setMockResponse($this->client, array(new Response(200)));
         fopen('s3://bucket/key', 'x');
+    }
+
+    public function testSuccessfulXMode()
+    {
+        $this->setMockResponse($this->client, array(new Response(404), new Response(200)));
+        $r = fopen('s3://bucket/key', 'x');
+        fclose($r);
     }
 
     /**
@@ -415,7 +422,7 @@ class StreamWrapperTest extends \Guzzle\Tests\GuzzleTestCase
         }
 
         // This is the order that the mock responses should provide
-        $expected = array('a/', 'b/', 'c', 'd/','e', 'f', 'g/');
+        $expected = array('a', 'b', 'c', 'd', 'e', 'f', 'g');
 
         $this->assertEquals($expected, $files);
         $this->assertEquals(5, count($this->getMockedRequests()));
@@ -427,6 +434,25 @@ class StreamWrapperTest extends \Guzzle\Tests\GuzzleTestCase
         }
         $this->assertEquals($expected, $files);
         $this->assertEquals(10, count($this->getMockedRequests()));
+
+        closedir($r);
+    }
+
+    public function testCanSetDelimiterStreamContext()
+    {
+        $this->setMockResponse($this->client, array('s3/list_objects_page_5'));
+
+        $c = null;
+        $this->client->getEventDispatcher()->addListener('client.command.create', function ($e) use (&$c) {
+            $c = $e['command'];
+        });
+
+        $dir = 's3://bucket';
+        $r = opendir($dir, stream_context_create(array('s3' => array('delimiter' => ''))));
+
+        $this->assertEquals('bucket', $c['Bucket']);
+        $this->assertEquals('', $c['Delimiter']);
+        $this->assertEquals('', $c['Prefix']);
 
         closedir($r);
     }

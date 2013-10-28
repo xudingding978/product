@@ -36,10 +36,11 @@
         <div style="margin: auto 10px;width: 150px;float: right;">
 
             {{#if controller.isCrop}}
-            <span id="photoUploadbtn" class="new-btn green-btn" {{action cropButton}}><k class='icon-save '> &nbsp;</k>Upload</span>
+            <span id="photoUploadbtn" class="new-btn blue-btn" {{action cropButton}}><k class='icon-cut '> &nbsp;</k>Crop</span>
             {{else}}
-            <span  class="disabled-btn" ><k class='icon-save '> &nbsp;</k>Upload</span>
+            <span  class="disabled-btn" ><k class='icon-cut '> &nbsp;</k>Crop</span>
             {{/if}} 
+
 
             <span class='new-btn flip-back'{{action userPhotoEditBackButton }}><k class='icon-user'> &nbsp;</k>Back</span>
 
@@ -47,18 +48,16 @@
     </div>
     {{/view}}
     {{/if}}
+    {{#if controller.loadingTime}}
 
+    {{render loadingSpinner}}
+
+    {{/if}}
     {{#if controller.isPhotoEditingMode}}
     <div class='' style='position:relative;height: 85px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 10px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>
         <span style="position: relative;display: inline-block;font-size: 40px;margin: 10px 0;vertical-align: top;"><k class='icon-ok-circle'></k></span>
         <span style="position: relative;display: inline-block;margin: 15px 10px;font-size: 20px;line-height: 25px;width: 75%;">Crop your picture now!</span>
     </div>
-
-    <!--                  <div style="position: relative; margin: auto;height: 520px; width: 690px; overflow: hidden;line-height: 510px;">
-                            <div style="position: relative;margin:3px;text-align: center;overflow: hidden;">
-                               <img  {{bindAttr src= "newStyleImageSource"}} >
-                            </div>
-                        </div>-->
 
     <div id="crop-container" style="width: 300px; height: 350px;text-align: center; margin: 10px auto">
         <canvas id="panel" style="max-width: 300px; max-height: 350px;width: auto; height: auto;"><img  {{bindAttr src= "newStyleImageSource"}} ></canvas>

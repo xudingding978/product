@@ -62,6 +62,9 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
                         $(window).scrollTop(lastPosition);
                     }
                     that.set('loadingTime', false);
+                            setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
                 }
             });
         }

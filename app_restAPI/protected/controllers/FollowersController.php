@@ -452,7 +452,44 @@ class FollowersController extends Controller {
         }
         return $newRecord;
     }
+    
+   public function actionReadPic() {
+        $like_arr = CJSON::decode(file_get_contents('php://input'));
+        
+        try {
+            $cb = $this->couchBaseConnection();
+            $docID = $this->getDomain() . "/users/" . $like_arr;
+            $old = $cb->get($docID); // get the old user record from the database according to the docID string
+            $oldRecord = CJSON::decode($old, true);
+            
+            $newRecord = null;
+            if (!isset($oldRecord['user'][0]["followers"])) {
+                $oldRecord['user'][0]["followers"] = array();
+            }
+           
+          $followerLength = sizeof($oldRecord['user'][0]["followers"]);
+          
+            for ($i = 0; $i < $followerLength; $i++) {
+                $id = $oldRecord['user'][0]["followers"][$i]["follower_id"];               
+                $docIDDeep = $this->getDomain() . "/users/" . $id;
+                $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+                $oldRecordDeep = CJSON::decode($oldDeep, true);
+                $newRecord[$i]['record_id'] = $id;
+                $newRecord[$i]['name'] = $oldRecordDeep['user'][0]["display_name"];
+                $newRecord[$i]['photo_url'] = $oldRecordDeep['user'][0]["photo_url_large"];
+            }
+            
+            if ($newRecord === null) {
+                $this->sendResponse(204);
+            } else {
 
+                $this->sendResponse(200, CJSON::encode($newRecord));
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+    
     public function actionReadPhoto() {
         $like_arr = CJSON::decode(file_get_contents('php://input'));
         

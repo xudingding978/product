@@ -395,6 +395,7 @@ class YiiBase
 			include(self::$classMap[$className]);
 		elseif(isset(self::$_coreClasses[$className]))
 			include(YII_PATH.self::$_coreClasses[$className]);
+                
 		else
 		{
 			// include class file relying on include_path
@@ -417,6 +418,7 @@ class YiiBase
 						}
 					}
 				}
+                                
 				else
 					include($className.'.php');
 			}

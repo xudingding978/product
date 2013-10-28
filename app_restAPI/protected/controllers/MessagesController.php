@@ -161,6 +161,7 @@ class MessagesController extends Controller {
     public function addComment($commenter_id, $date, $commentContent, $id, $newStyleImage, $imageType, $photo_name, $message_id, $reply_id) {                       //saving follower in profile
         try {
             $docIDDeep = $this->getDomain() . "/users/" . $id;
+
             //  error_log(var_export($id, true));
             $cb = $this->couchBaseConnection();
             $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
@@ -259,12 +260,12 @@ class MessagesController extends Controller {
 
             for ($i = 0; $i < sizeof($oldRecordDeep['user'][0]["messages"]); $i++) {
                 for ($j = 0; $j < sizeof($oldRecordDeep['user'][0]["messages"][$i]["replyMessageCollection"]); $j++) {
-                    
-                     $currentMessage = $oldRecordDeep['user'][0]["messages"][$i]["replyMessageCollection"][$j];
-                     
+
+                    $currentMessage = $oldRecordDeep['user'][0]["messages"][$i]["replyMessageCollection"][$j];
+
                     if ($currentMessage["reply_id"] === $message_id) {
-              
-                       $currentMessage["msg"] = $commentContent;
+
+                        $currentMessage["msg"] = $commentContent;
                         $currentMessage["time_stamp"] = $date;
                         $dataNew["time_stamp"] = $date;
                         $dataNew["msg"] = $commentContent;
@@ -324,7 +325,7 @@ class MessagesController extends Controller {
                 }
             }
 
-            error_log(var_export($dataNew, true));
+           
             if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
                 return $dataNew;
             } else {
@@ -436,7 +437,7 @@ class MessagesController extends Controller {
                 }
             }
 
-            error_log(var_export($dataNew, true));
+           
             if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
                 return $dataNew;
             } else {

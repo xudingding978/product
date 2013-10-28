@@ -16,8 +16,11 @@ HubStar.UserFollowersController = Ember.Controller.extend({
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings'],
     test: "test",
     setUserFollowers: function(followers) {
+<<<<<<< HEAD
 //        $('#user-stats > li').removeClass('selected-user-stats');
     // $('#ufollower').addClass('selected-user-stats');
+=======
+>>>>>>> c3f287a72fa6d4201b3037a8191ac9cf1a5a68cf
         var model = HubStar.User.find(followers);
         this.getClientId(model); // It is used to get the mesage model
 
@@ -54,15 +57,10 @@ HubStar.UserFollowersController = Ember.Controller.extend({
                 dataNew["name"] = params[i]["name"];
                 dataNew["photo_url"] = params[i]["photo_url"];
                 dataNew["photo_url_large"] = params[i]["cover_url_small"];
-                //console.log(dataNew["photo_url_large"]);
-                //       dataNew["photo_url_large"] = HubStar.get('photoDomain')+'/users/'+dataNew["id"]+'/user_cover_small/user_cover';
-                //       dataNew["photo_url"] = HubStar.get('photoDomain')+'/users/'+dataNew["id"]+'/user_picture/user_picture';
-
                 dataNew["collections_size"] = params[i]["collections_size"];
                 dataNew["follower_size"] = params[i]["follower_size"];
                 dataNew["follow_status"] = params[i]["follow_status"];
                 dataNew["following_status"] = params[i]["following_status"];
-                //console.log(dataNew["follow_status"]);
                 dataNew["isUserSelf"] = false;
                 if (dataNew["id"] === localStorage.loginStatus) {
                     dataNew["isUserSelf"] = true;
@@ -70,13 +68,12 @@ HubStar.UserFollowersController = Ember.Controller.extend({
                 that.get("contentUser").pushObject(dataNew);
                 dataNew = new Array();
             }
-            //console.log(that.get("contentUser"));
             that.set('loadingTime', false);
+            that.relayout();
         });
 
     },
     getProfileId: function(model) {
-//console.log(localStorage.loginStatus);
         this.set('loadingTime', true);
         this.set("model", model);
         this.set('clientID', model.id);
@@ -94,9 +91,6 @@ HubStar.UserFollowersController = Ember.Controller.extend({
                 dataNew["name"] = params[i]["name"];
                 dataNew["photo_url"] = params[i]["photo_url"];
                 dataNew["photo_url_large"] = params[i]["cover_url_small"];
-                //console.log(dataNew["photo_url_large"]);
-                //       dataNew["photo_url_large"] = HubStar.get('photoDomain')+'/users/'+dataNew["id"]+'/user_cover_small/user_cover';
-                //       dataNew["photo_url"] = HubStar.get('photoDomain')+'/users/'+dataNew["id"]+'/user_picture/user_picture';
 
                 dataNew["collections_size"] = params[i]["collections_size"];
                 dataNew["follower_size"] = params[i]["follower_size"];
@@ -112,6 +106,7 @@ HubStar.UserFollowersController = Ember.Controller.extend({
             }
             //console.log(that.get("contentUser"));
             that.set('loadingTime', false);
+            that.relayout();
         });
 
     },
@@ -450,6 +445,15 @@ HubStar.UserFollowersController = Ember.Controller.extend({
                 }
             }
         });
+    },
+    relayout: function()
+    {
+
+
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 20);
     }
+
 }
 );

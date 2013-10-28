@@ -83,6 +83,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             this.pushObject(tempmega);
         }
     },
+    goToMessage: function()
+    {
+        this.transitionToRoute('userMessage');
+    },
     newSearch: function() {
         this.set("content", []);
         this.set("from", 0);
@@ -272,7 +276,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     result = false;
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
-                    $('#invalid-user-name-register').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'}); 
+                    $('#invalid-user-name-register').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
 
 
 
@@ -289,12 +293,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     setfemale: function() {
         this.set('gender', "female");
     },
-            
- dropdown: function(checking) {
+    dropdown: function(checking) {
         this.set('isGeoDropdown', !this.get('isGeoDropdown'));
         $('#geo-filter').toggleClass('Geo-Filter-active');
     },
-            
     login: function() {
         if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginPassword') !== "" && this.get('loginPassword') !== "")
         {

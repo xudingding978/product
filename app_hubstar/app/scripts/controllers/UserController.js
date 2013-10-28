@@ -89,6 +89,7 @@ HubStar.UserController = Ember.Controller.extend({
     },
     setUser: function()
     {
+  
         var user = this.get('model');
         this.setIntersetsArr(user);
         this.set("user", user);
@@ -706,7 +707,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('messageTag', false);
         this.transitionToRoute('following', model);
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
+            $('#masonry_user_container').masonry("reloadItems");
         }, 200);
     },
     selectFollower: function(model) {
@@ -720,7 +721,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('messageTag', false);
         this.transitionToRoute('followers', model);
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
+            $('#masonry_user_container').masonry("reloadItems");
         }, 200);
     },
     selectMessage: function(model) {

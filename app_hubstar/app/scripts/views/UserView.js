@@ -15,6 +15,7 @@ HubStar.UserView = Ember.View.extend({
 
         if (user_id === "following")
         {
+             $('#user-stats > li').removeClass('selected-user-stats');
             $('#ufollowing').addClass('selected-user-stats');
             $('#user-stats > li').click(function() {
                 $('#user-stats > li').removeClass('selected-user-stats');

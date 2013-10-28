@@ -281,7 +281,6 @@ class LoginController extends Controller {
 // store session data
        Yii::app()->session['couchbase_id'] = "value";
         $request_array = CJSON::decode(file_get_contents('php://input'));
-$session->set('key', 'aaaaaaaaaaaaaaaaaaaaa');
 
 //        $identity = new UserIdentity($request_array[0], $request_array[1]);
 //        $identity->authenticate();

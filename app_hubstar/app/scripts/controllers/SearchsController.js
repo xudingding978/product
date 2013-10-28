@@ -34,7 +34,6 @@ HubStar.SearchsController = Ember.ArrayController.extend({
 //                googletag.pubads().enableSingleRequest();
 //                googletag.enableServices();
 //            });
-
 //            for (var i = 0; i < ads.length; i++) {
 //                var ad = ads[i];
 //                googletag.cmd.push(function() {

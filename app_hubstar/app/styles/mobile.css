@@ -22,6 +22,11 @@ and (max-device-width : 1024px)  {
         min-width:100%;
         max-width:100%;
     }/* user profile page master container */
+    
+    .plaform_bar > .showsidebar{
+        opacity:.5;
+    }
+    /* side nav styles */
 
 } /* iPad in portrait & landscape; All iPads will be affected by this styling ENDS */
 
@@ -116,6 +121,11 @@ and (max-device-width : 568px) {
     .logonew{height:40px;}
     /* header styles end */
 
+
+   .plaform_bar > .showsidebar{
+        display:none;
+    }
+    /* side nav styles */
 }
 
 
@@ -169,6 +179,11 @@ and (max-device-width : 480px) {
     .navbar .brand{padding:2.5px 0;}
     .logonew{height:40px;}
     /* header styles end */
+    
+     .plaform_bar > .showsidebar{
+        display:none;
+    }
+    /* side nav styles */
 }
 
 

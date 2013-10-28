@@ -1248,3 +1248,13 @@ div#forgot-password-container{
     color: #888;
     opacity: 1
 }
+
+/* Clint Lewis's style's 29/10/13 */
+
+div#login_detail{
+    position: absolute;
+    right: 50px;
+    cursor: pointer;
+    vertical-align: top;
+    display: inline-block;
+}

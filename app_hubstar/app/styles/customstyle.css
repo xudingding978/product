@@ -34,6 +34,11 @@ body {
     height:45px;
 
 }
+.navbar .navbar-inner .container{
+    float:left;
+    width:100%;
+    position:relative;
+}
 
 
 

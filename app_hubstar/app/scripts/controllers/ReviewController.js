@@ -4,6 +4,7 @@ HubStar.ReviewController = Ember.Controller.extend({
     reviews: "",
     review_user_photo_url: "",
     currentUser: "",
+    currentOwner:"",
     review_user_name: "",
     review_content: "",
     review_time_stamp: "",
@@ -16,7 +17,8 @@ HubStar.ReviewController = Ember.Controller.extend({
     review_id: null,
     isSingle: false,
     profileName: "",
-    needs: ['profile'],
+    replyContent:"",
+    needs: ['profile', 'user'],
     init: function()
     {
 
@@ -87,6 +89,113 @@ HubStar.ReviewController = Ember.Controller.extend({
 
 
 
+    }, 
+             addReviewReply: function(review_id) {
+
+        this.set("currentOwner", this.get('controllers.user').getCurrentUser());
+      //  this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+        var replyContent = this.get('replyContent'); //replyContent is just the user input txt, it is not a whole reply object
+        if (replyContent) {
+            this.set("isReply", false);
+            var replyUserID = this.get("currentUser").get('id');
+            var replyDate = new Date();
+            var replyOwnerID = this.get("currentOwner").get("id");
+            var newStyleImage = "";
+            var imageStyleName = "";
+            if (this.get("newStyleImageSource") !== undefined && this.get("newStyleImageSource") !== null && this.get("newStyleImageSource") !== "")
+            {
+                newStyleImage = this.get("newStyleImageSource");
+            }
+            else
+            {
+                newStyleImage = null;
+            }
+            if (this.get('newStyleImageName') !== undefined && this.get('newStyleImageName') !== null && this.get('newStyleImageName') !== "")
+            {
+                imageStyleName = this.get('newStyleImageName');
+
+            }
+            else
+            {
+                imageStyleName = "";
+            }
+            var imageName = "";
+            var imageType = "";
+            if (imageStyleName !== undefined && imageStyleName !== null && imageStyleName !== "")
+            {
+                var imageName = imageStyleName.split('.');
+                var imageType = imageName[imageName.length - 1];
+            }
+            var messageID = createMessageid();
+            var tempReply = [replyUserID, replyDate.toString(), replyContent, replyOwnerID, newStyleImage, imageType, imageStyleName, messageID, review_id];
+
+            tempReply = JSON.stringify(tempReply);
+            var that = this;
+
+            var dataNew = new Array();
+            requiredBackEnd('reviews', 'CreateReviewReply', tempReply, 'POST', function(params) {
+                that.set("isReply", true);
+                for (var i = 0; i < that.get("controllers.profile").get('reviews').get("length"); i++)
+                {
+                    if (that.get("controllers.profile").get('reviews').objectAt(i).get("review_id") === params["review_id"])
+                    {
+
+                        dataNew["review_reply_id"] = params["replyReviewCollection"][0]["review_reply_id"];
+                        dataNew["review_user_id"] = params["replyReviewCollection"][0]["review_user_id"];
+                        dataNew["review_time_stamp"] = params["replyReviewCollection"][0]["review_time_stamp"];
+                        dataNew["review_msg"] = params["replyReviewCollection"][0]["review_msg"];
+                        dataNew["review_user_name"] = params["replyReviewCollection"][0]["review_user_name"];
+                        dataNew["review_photo_url_large"] = params["replyReviewCollection"][0]["review_photo_url_large"];
+                        dataNew["review_url"] = params["replyReviewCollection"][0]["review_url"];
+                        dataNew["review_enableToEdit"] = false;
+
+//                        var replyLength = that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyCount") + 1;
+//                        that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyCount", replyLength);
+
+                        if (params["replyReviewCollection"][0]["review_user_id"] === localStorage.loginStatus)
+                        {
+                            dataNew["isUserself"] = true;
+                        }
+                        if (params["replyReviewCollection"][0]["review_url"] !== null)
+                        {
+                            dataNew["isUrl"] = true;
+                        }
+                        else
+                        {
+                            dataNew["isUrl"] = false;
+                        }
+
+
+                        if (that.get("controllers.profile").get('reviews').objectAt(i).get("replyReviewCollection") !== undefined)
+                        {
+                            that.get("controllers.profile").get('reviews').objectAt(i).get("replyReviewCollection").insertAt(0, dataNew);
+                        }
+                        else
+                        {
+                           that.get("controllers.profile").get('reviews').objectAt(i).set("replyReviewCollection", dataNew);
+                        }
+                        dataNew["replyReviewCollection"] = new Array();
+
+                    }
+                    that.set("isUploadPhoto", false);
+                }
+                dataNew = new Array();
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry("reload");
+                }, 200);
+                that.set('replyContent', "");
+                that.set('newStyleImageSource', null);
+                that.set('newStyleImageName', "");
+            });
+
+
+            $('#addcommetBut').attr('style', 'display:block');
+            $('#commentBox').attr('style', 'display:none');
+            setTimeout(function() {
+                $('#masonry_container').masonry("reloadItems");
+
+            }, 200);
+        }
     }
 
 });

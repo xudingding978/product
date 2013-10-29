@@ -4,12 +4,6 @@
  */
 
 
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 HubStar.EditMessageController = Ember.Controller.extend({
     commenter_photo_url: null,
     messageContent: null,

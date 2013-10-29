@@ -641,7 +641,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('collectionTag', false);
         this.set('followerProfileTag', false);
         this.set('reviewTag', true);
-    //    this.transitionToRoute('reviews');
+       this.transitionToRoute('reviews');
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);

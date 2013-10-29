@@ -32,18 +32,24 @@ class NotificationsController extends Controller {
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $request = CJSON::decode($request_array);
         $notificationId = $request[0];
-        $this->setAllRead($notificationId);
+        $ids = $request[1];
+        $this->setAllRead($notificationId, $ids);
     }
 
-    public function setAllRead($notificationId) {
+    public function setAllRead($notificationId, $ids) {
         $cb = $this->couchBaseConnection();
         $domain = $this->getDomain();
         $docID_currentUser = $domain . "/users/" . $notificationId;
         $tempMega_currentUser = $cb->get($docID_currentUser);
         $mega_currentUser = CJSON::decode($tempMega_currentUser, true);
+        $idArray = explode(",", $ids);
         if (isset($mega_currentUser['user'][0]["notifications"])) {
             for ($i = 0; $i < sizeof($mega_currentUser['user'][0]["notifications"]); $i++) {
-                $mega_currentUser['user'][0]["notifications"][$i]["isRead"] = true;
+                for ($j = 0; $j < sizeof($idArray); $j++) {
+                    if ($mega_currentUser['user'][0]["notifications"][$i]["notification_id"] === $idArray[$j]) {
+                        $mega_currentUser['user'][0]["notifications"][$i]["isRead"] = true;
+                    }
+                }
             }
         }
         if ($cb->set($docID_currentUser, CJSON::encode($mega_currentUser))) {

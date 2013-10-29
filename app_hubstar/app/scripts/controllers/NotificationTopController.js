@@ -27,7 +27,6 @@ HubStar.NotificationTopController = Ember.Controller.extend({
         var that = this;
         this.set("notificationTopContent", []);
         requiredBackEnd('notifications', 'ReadNotification', tempComment, 'POST', function(params) {
-            console.log(params);
             if (params !== undefined) {
                 that.set("notificationTopContent", []);
                 for (var i = 0; i < params.get("length"); i++)
@@ -45,25 +44,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
                     that.get("notificationTopContent").pushObject(dataNew);
                     dataNew = new Array();
                 }
-            }
-            setTimeout(function() {
-                $("#notititopbar").mCustomScrollbar({
-                    scrollButtons: {
-                        enable: false,
-                        scrollSpeed: "auto"
-                    },
-                    advanced: {
-                        updateOnBrowserResize: true,
-                        updateOnContentResize: true,
-                        autoScrollOnFocus: false,
-                        normalizeMouseWheelDelta: false
-                    },
-                    autoHideScrollbar: true,
-                    mouseWheel: true,
-                    theme: "dark-2",
-                    set_height: 500
-                });
-            }, 200);
+            }            
         });
     },
     markAllRead: function() {
@@ -87,12 +68,12 @@ HubStar.NotificationTopController = Ember.Controller.extend({
 
         tempComment = JSON.stringify(tempComment);
         var that = this;
-//        requiredBackEnd('notifications', 'MarkAllRead', tempComment, 'POST', function(params) {
-//            for (var i = 0; i < that.get("notificationContent").get("length"); i++)
-//            {
-//                that.get("notificationTopContent").objectAt(i).set("isRead", true);
-//            }
-//        });
+        requiredBackEnd('notifications', 'MarkAllRead', tempComment, 'POST', function(params) {
+            for (var i = 0; i < that.get("notificationContent").get("length"); i++)
+            {
+                that.get("notificationTopContent").objectAt(i).set("isRead", true);
+            }
+        });
     },
     go: function(user_id) {
         console.log(user_id + "tom, come on! Finish it");

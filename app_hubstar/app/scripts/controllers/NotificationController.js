@@ -13,7 +13,7 @@
 HubStar.NotificationController = Ember.Controller.extend({
     notificationContent: null,
     commenter_photo_url: null,
-    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem'],
+    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem','notificationTop'],
     isUploadPhoto: false,
     init: function()
     {
@@ -75,24 +75,9 @@ HubStar.NotificationController = Ember.Controller.extend({
                     dataNew = new Array();
                 }
             }
+            that.get("controllers.notificationTop").set("notificationTopContent",that.get("notificationContent"));
             setTimeout(function() {
-                $('#masonry_user_container').masonry("reloadItems");
-                $("#content_notification").mCustomScrollbar({
-                    scrollButtons: {
-                        enable: false,
-                        scrollSpeed: "auto"
-                    },
-                    advanced: {
-                        updateOnBrowserResize: true,
-                        updateOnContentResize: true,
-                        autoScrollOnFocus: false,
-                        normalizeMouseWheelDelta: false
-                    },
-                    autoHideScrollbar: true,
-                    mouseWheel: true,
-                    theme: "dark-2",
-                    set_height: 950
-                });
+                $('#masonry_user_container').masonry("reloadItems");              
             }, 200);
             that.set('loadingTime', false);
         });
@@ -102,7 +87,18 @@ HubStar.NotificationController = Ember.Controller.extend({
         console.log("tom, come on!");
         this.set('clientID', localStorage.loginStatus);
         var data = this.get('clientID');
-        var tempComment = [data];
+        var ids = "";
+         for (var j = 0; j < this.get("notificationTopContent").get("length"); j++)
+        {
+            if (j === 0)
+            {
+                ids = this.get("notificationTopContent").objectAt(j)["notification_id"];
+            }
+            else {
+                ids = ids + "," + this.get("notificationTopContent").objectAt(j)["notification_id"];
+            }
+        }
+        var tempComment = [data,ids];
         this.set('loadingTime', true);
         tempComment = JSON.stringify(tempComment);
         var that = this;

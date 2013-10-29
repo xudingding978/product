@@ -589,10 +589,8 @@ class MessagesController extends Controller {
 
         $ownerId = $id;
         $notificationObject = array();
-        error_log("gggggggggggggggggggggggg");
        
         $date = new DateTime();
-         error_log(var_export($date, true));
         $timeID=$date->getTimestamp();
         
 
@@ -679,7 +677,6 @@ class MessagesController extends Controller {
             if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
                 
             } else {
-                error_log("ssssssssssssssssssss");
                 echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
             }
         }

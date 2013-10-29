@@ -39,7 +39,6 @@ HubStar.UserMessageController = Ember.Controller.extend({
         }
         this.getClientId(message); // It is used to get the mesage model      
     },
-
     getClientId: function(id) {
         this.set("isPosting", true);
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
@@ -66,8 +65,8 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 dataNew["url"] = params[i]["replyMessageCollection"][length]["url"];
                 dataNew["enableToEdit"] = false;
                 dataNew["replyEdit"] = true;
-                dataNew["replyCount"] = params[i]["replyMessageCollection"].length -1;
-                        if (params[i]["replyMessageCollection"][length]["user_id"] === localStorage.loginStatus)
+                dataNew["replyCount"] = params[i]["replyMessageCollection"].length - 1;
+                if (params[i]["replyMessageCollection"][length]["user_id"] === localStorage.loginStatus)
                 {
                     dataNew["isUserself"] = true; //dataNew["isUserself"] is true , which means it is the login users is the same as the user page owner
                 }
@@ -116,7 +115,8 @@ HubStar.UserMessageController = Ember.Controller.extend({
             that.set('loadingTime', false);
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reloadItems");
-                $("#content_message").mCustomScrollbar({
+
+                                $("#content_message").mCustomScrollbar({
                     scrollButtons: {
                         enable: false,
                         scrollSpeed: "auto"
@@ -132,10 +132,11 @@ HubStar.UserMessageController = Ember.Controller.extend({
                     theme: "dark-2",
                     set_height: 1000
                 });
+
             }, 200);
 
         });
-        
+
     },
     removeMessage: function(Message_id)
     {
@@ -231,7 +232,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
 
             requiredBackEnd('messages', 'CreateComment', tempComment, 'POST', function(params) {
                 //params  is just one message 
-                that.set("isPosting", true);               
+                that.set("isPosting", true);
                 dataNew["message_id"] = params["message_id"];
                 dataNew["reply_id"] = params["replyMessageCollection"][0]["reply_id"];
                 dataNew["user_id"] = params["replyMessageCollection"][0]["user_id"];
@@ -272,7 +273,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
             });
 
 
-         
+
             setTimeout(function() {
                 $('#masonry_container').masonry("reloadItems");
             }, 200);

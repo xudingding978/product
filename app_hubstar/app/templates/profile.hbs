@@ -226,7 +226,7 @@
                             </div>
                             <!--PROFILE HOURS SECTION-->
 
-                            <div class="aside-container" style="border-bottom:0 none;border-top: 1px solid #fff;">
+                            <div class="aside-container" style="border-top: 1px solid #fff;">
                                 <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-time' style='margin-right: 10px;'></i>Hours</div>
 
                                 {{#unless controller.editingTime}}
@@ -267,14 +267,15 @@
                                 </div>
                                 {{/if}}
                             </div>
-                            
-                            
+
+
                             <!--PROFILE GOOGLEMAP SECTION--> 
-                                   <div class="aside-container" style="border-bottom:0 none;border-top: 1px solid #fff;">
-                                            <div id="google-map"  style=" margin-top:20px;margin-left:10px; width: 300px;height: 250px;"  >
-                                                <img  {{bindAttr src="controller.profile_google_map"}} style="width: 100%; height:auto;" {{action popUpGoogleMap}}>
-                                            </div>
-                                        </div>
+                            <div class="aside-container" style="border-bottom:0 none;border-top: 1px solid #fff;">
+                                <div id="google-map"  style="width: 300px;height: 250px; border: 5px solid #fff;cursor: pointer"  >
+                                    <div class="enlarge-map easing" style=""><k class="icon-resize-full"></k></div>
+                                    <img  {{bindAttr src="controller.profile_google_map"}} style="width: 100%; height:auto;" {{action popUpGoogleMap}}>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </td><!--LEFT COL ENDS -->
@@ -379,7 +380,7 @@
 <!-- wrapper   end-->
 
 </div>
-  
+
 <div class="back t-style-box"  style='width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0;;'>
     <div style="position: relative; top: 0; width: 100%;height: 300px;overflow: hidden; border-radius: 3px 3px 0 0;">
         <img {{bindAttr src= model.profile_hero_url}} style="width:100%;"/>
@@ -837,7 +838,7 @@
             </div>
 
 
-         
+
             <div class="tab-pane" id="fileuploader">
 
                 {{#if controller.isPhotoUploadMode}}
@@ -895,22 +896,22 @@
                 </div>
                 {{/view}}
                 {{/if}}
-                
-                 {{#if controller.loadingTime}}
 
-            {{render loadingSpinner}}
+                {{#if controller.loadingTime}}
 
-            {{/if}}
+                {{render loadingSpinner}}
+
+                {{/if}}
 
                 {{#if controller.isPhotoEditingMode}}
 
-              <div class='' style='position:relative;height: 65px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 10px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>
-        <span style="position: relative;display: inline-block;font-size: 40px; vertical-align: top;"><k class='icon-ok-circle'></k></span>
-        <span style="position: relative;width: 87%;display: inline-block;margin: 0 15px;">
-            <span style='font-size: 20px;display: block;line-height: 25px;font-weight: bold'>Crop your picture now!</span>
-            <span style='font-size: 15px;display: block;line-height: 15px;'> Image Size: <span id="log"></span> </span>  
-        </span>
-    </div>
+                <div class='' style='position:relative;height: 65px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 10px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>
+                    <span style="position: relative;display: inline-block;font-size: 40px; vertical-align: top;"><k class='icon-ok-circle'></k></span>
+                    <span style="position: relative;width: 87%;display: inline-block;margin: 0 15px;">
+                        <span style='font-size: 20px;display: block;line-height: 25px;font-weight: bold'>Crop your picture now!</span>
+                        <span style='font-size: 15px;display: block;line-height: 15px;'> Image Size: <span id="log"></span> </span>  
+                    </span>
+                </div>
 
                 {{#if controller.isProfilePicture}}
                 <div id="crop-container" style="width: 820px;height: 500px;margin: 10px auto; text-align: center">          
@@ -994,17 +995,17 @@
 
     {{/if}}
 
-    
-         {{#if controller.popUpMap}}
 
-        {{view  HubStar.GoogleMapPopupView}}
+    {{#if controller.popUpMap}}
+
+    {{view  HubStar.GoogleMapPopupView}}
 
 
-        {{/if}}
-    
+    {{/if}}
 
-<script>
-$( document ).on( "mousemove", function( event ) {
-  $( "#panel" ).text( "pageX: " + event.pageX + ", pageY: " + event.pageY );
-});
-</script>
+
+    <script>
+        $(document).on("mousemove", function(event) {
+            $("#panel").text("pageX: " + event.pageX + ", pageY: " + event.pageY);
+        });
+    </script>

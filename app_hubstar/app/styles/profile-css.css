@@ -1,5 +1,10 @@
 
 
+.no-effect, .no-effect:hover, .no-effect:focus{    
+    box-shadow: none !important;
+    border: none !important;
+}
+
 textarea{
     padding: 3px 8px !important;
     line-height: 22px!important;
@@ -23,6 +28,14 @@ input{
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
     border-radius: 50%;
+}
+
+.radius-rounded-corner{
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
 }
 
 .nav-tabs a {
@@ -959,3 +972,12 @@ textarea.add-interests{
     left:0;
 }
 
+
+
+/*MAP SECTION*/
+
+.enlarge-map{width: 45px;height: 45px;line-height: 45px; background-color: #fff; color: #555;opacity: 0;position: absolute;right: 13px;text-align: center;font-size: 15px;}
+
+#google-map:hover > .enlarge-map{
+    opacity: .8;
+}

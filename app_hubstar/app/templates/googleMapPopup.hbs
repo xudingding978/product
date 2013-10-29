@@ -2,37 +2,54 @@
 <div id="google_pop" class="blur_black" style=""></div>
 
 
-<div  id ="google_map_pop" class="aside-container" style="position: fixed; top: 20%; z-index: 10; margin: auto; left: 0px; right: 0px; display: block;width: 830px;vertical-align: top;background-color: #fff;padding: 10px;" >
-<div  id="map_canvas_pop"style="width: 500px; height: 400px; margin: auto; left: 0px; right: 0px; position: relative; background-color: rgb(229, 227, 223); overflow: hidden; -webkit-transform: translateZ(0);display: inline-block;" >
-  
+<div  id ="google_map_pop" class="aside-container radius-rounded-corner box" style="position: fixed; top: 15%; z-index: 10; margin: auto; left: 0px; right: 0px; width: 800px;height: 565px;background-color: #fff;overflow: hidden;border: 0;" >
+    <div  id="map_canvas_pop"style="width: 800px; height: 423px; background-color: rgb(229, 227, 223); -webkit-transform: translateZ(0); position: relative; overflow: hidden;border-bottom: 1px solid #ddd; " >
+
+
+    </div>
+    <div  id="directionsPanel" style="width: 300px; height: 200px; margin: auto; left: 0px; right: 0px; direction: ltr;display:none;vertical-align: top;height: 400px;overflow: hidden;" >     
+    </div>
+
+    <div style="margin: 15px 0 5px;">
+        <div style="margin: 10px auto;border-bottom: 1px solid #ddd; width: 87%;"> {{input type="text" value=fromAddress placeholder="From" class="no-effect"}}</div>
+        <div style="margin: 10px auto; width: 87%"> {{input type="text" value=toAddress placeholder="To" class="no-effect"}}</div>
+    </div>
+    <!--    <select id="routeMode" name="routeMode">
+            <option value="DRIVING">Driving</option>
+            <option value="WALKING">Walking</option>
+            <option value="BICYCLING">Bicycling</option>
+            <option value="TRANSIT">Transit</option>
+        </select>
+        <button id="routeGo">Get Direction</button>
+        <button id="routeClear">Clear </button>
+        <input type="button" value="Print map" onclick="printmap('google_map_pop');">-->
+
+    <div class="" style="height: 45px;position: relative;border-top: 1px solid #ddd;top: -1px;">
+        <div class="message-btn easing" style='width: 33%;height: 45px;line-height: 45px;' value="Print map" onclick="printmap('google_map_pop');"><k class='icon-print'>&nbsp;</k>Print Map</div>
+
+        <select  id="routeMode" name="routeMode" class="message-btn easing" style="border: none; border-right: 1px solid #ddd;border-left: 1px solid #ddd; width: 34%;height: 45px;line-height: 45px;border-radius: 0;">   
+            <option value="DRIVING">Driving</option>
+            <option value="WALKING">Walking</option>
+            <option value="BICYCLING">Bicycling</option>
+            <option value="TRANSIT">Transit</option>
+        </select>
+
+        <div  id="routeGo" class="message-btn easing" style='width: 33%;height: 45px;line-height: 45px;'>Get Direction <k class='icon-long-arrow-right'>&nbsp;</k></div>
+
+    </div>
 
 </div>
-    <div  id="directionsPanel" style="width: 300px; height: 200px; margin: auto; left: 0px; right: 0px; direction: ltr;display: inline-block;vertical-align: top;height: 400px;overflow: hidden;" >     
-  </div>
-
-<div > {{input type="text" value=fromAddress placeholder="From"}}</div>
-<div > {{input type="text" value=toAddress placeholder="To"}}</div>
-<select id="routeMode" name="routeMode">
-    <option value="DRIVING">Driving</option>
-    <option value="WALKING">Walking</option>
-    <option value="BICYCLING">Bicycling</option>
-    <option value="TRANSIT">Transit</option>
-</select>
-     <button id="routeGo">Get Direction</button>
-    <button id="routeClear">Clear </button>
-    <input type="button" value="Print map" onclick="printmap('google_map_pop');">
-    </div>
 
 
 
 <script>
-function printmap(divName)
-  {
-      var printContents = document.getElementById(divName).innerHTML;
-     var originalContents = document.body.innerHTML;
+            function printmap(divName)
+            {
+                var printContents = document.getElementById(divName).innerHTML;
+                var originalContents = document.body.innerHTML;
 
-     document.body.innerHTML = printContents;
-  window.print();
-   document.body.innerHTML = originalContents;
-  }
+                document.body.innerHTML = printContents;
+                window.print();
+                document.body.innerHTML = originalContents;
+            }
 </script>

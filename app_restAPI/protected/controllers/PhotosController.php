@@ -10,7 +10,7 @@ class PhotosController extends Controller {
     const JSON_RESPONSE_ROOT_PLURAL = 'photos';
 
     public function __construct() {
-
+        
     }
 
     public function actionIndex() {
@@ -225,7 +225,7 @@ class PhotosController extends Controller {
 
     public function actionDelete() {
         try {
-
+            
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -240,6 +240,8 @@ class PhotosController extends Controller {
 
     public function getInputData($inputDataType, $inputData) {
         $tempInput = "";
+        
+        
         if ($inputDataType == "image/jpeg") {
             $tempInput = str_replace('data:image/jpeg;base64,', '', $inputData);
         } elseif ($inputDataType == "application/pdf") {
@@ -261,8 +263,8 @@ class PhotosController extends Controller {
         $data_arr = $this->convertToString64($photo_string);
         $photo = imagecreatefromstring($data_arr['data']);
         $compressed_photo = $this->compressPhotoData($data_arr['type'], $photo);
-        $orig_size['width'] =intval(imagesx($compressed_photo));
-        $orig_size['height'] =intval(imagesy($compressed_photo));
+        $orig_size['width'] = intval(imagesx($compressed_photo));
+        $orig_size['height'] = intval(imagesy($compressed_photo));
         $thumbnailUrl = $this->savePhotoInTypes($orig_size, "thumbnail", $photo_name, $photo, $data_arr, $owner_id);
         $heroUrl = $this->savePhotoInTypes($orig_size, "hero", $photo_name, $photo, $data_arr, $owner_id);
         $previewUrl = $this->savePhotoInTypes($orig_size, "preview", $photo_name, $photo, $data_arr, $owner_id);
@@ -284,7 +286,7 @@ class PhotosController extends Controller {
         $new_photo_data = $this->createNewImage($orig_size, $new_size, $compressed_photo, $data_arr['type']);
         //$new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
         $bucket = 's3.hubsrv.com';
-        if ($optional == null || $optional =='undefined' || $optional =="") {
+        if ($optional == null || $optional == 'undefined' || $optional == "") {
             $url = $this->getDomain() . '/users' . "/" . $owner_id . "/" . $photo_type . "/" . $photo_name;
         } else {
             $new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
@@ -294,22 +296,27 @@ class PhotosController extends Controller {
         $s3url = 'http://' . $bucket . '/' . $url;
         return $s3url;
     }
-    
-//      public function saveGoogleMapInTypes( $data_arr, $owner_id) {
-//
-//       
-//        //$new_photo_data = $this->createNewImage( $data_arr['type']);
-//        //$new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
-//        $bucket = 's3.hubsrv.com';
-//        $url = $this->getDomain() . '/profiles/googleMap' . "/" . $owner_id;
-//        
-//        $this->saveMapToS3($url, $data_arr, $bucket);
-//        $s3url = 'http://' . $bucket . '/' . $url;
-//        return $s3url;
-//    }
-    
-    
-    
+
+    public function saveCommentPhotoInTypes($orig_size , $photo_type , $photo_name , $compressed_photo , $data_arr, $owner_id, $type = null, $message_id) {
+                                                                        
+        $new_size = $this->getNewPhotoSize($orig_size, $photo_type);
+        $new_photo_data = $this->createNewImage($orig_size, $new_size, $compressed_photo, $data_arr['type']);
+        //$new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
+        $bucket = 's3.hubsrv.com';
+        
+        error_log(var_export($owner_id, true));
+        error_log(var_export($message_id, true));
+        error_log(var_export($photo_type, true));
+        error_log(var_export($photo_name, true));
+        
+        
+            $url = $this->getDomain(). '/users' . "/" . $owner_id . "/" ."message/".$message_id."/".$photo_type . "/" . $photo_name;
+            
+        $this->saveImageToS3($url, $new_photo_data, $bucket, $type);
+        $s3url = 'http://' . $bucket . '/' . $url;
+        return $s3url;
+    }
+
     protected function getNewPhotoSize($photo_size, $photo_type) {
         $new_size = array();
         switch ($photo_type) {
@@ -359,10 +366,9 @@ class PhotosController extends Controller {
             imagepng($new_photo);
         } else if ($photo_type == "image/jpeg") {
             imagejpeg($new_photo);
+        } else if ($photo_type == "image/gif") {
+            imagegif($new_photo);
         }
-            else if($photo_type== "image/gif"){
-                imagegif($new_photo);
-            }
         $contents = ob_get_contents();
         ob_end_clean();
         return $contents;
@@ -383,11 +389,14 @@ class PhotosController extends Controller {
         }
     }
 
-    public function convertToString64($image_string) {
+    public function convertToString64($image_string) {             
         $matchs = array();
+        
         preg_match_all('/\:(.*?)\;/', $image_string, $matchs);
+        
         $image_type = $matchs[1][0];
-        $input_image_string = $this->getInputData($image_type, $image_string);
+       
+        $input_image_string = $this->getInputData($image_type, $image_string);      
         $image_data['type'] = $image_type;
         $image_data['data'] = $input_image_string;
         return $image_data;
@@ -399,10 +408,9 @@ class PhotosController extends Controller {
             imagepng($image);
         } elseif ($type == "image/jpeg") {
             imagejpeg($image, null, 80);
-        }
-            else if($type=="image/gif"){
+        } else if ($type == "image/gif") {
             imagegif($image);
-            }
+        }
         return $image;
     }
 
@@ -423,19 +431,19 @@ class PhotosController extends Controller {
         $client = Aws\S3\S3Client::factory(
                         $arr
         );
-        if ($type == null || $type =='undefined' || $type =="") {
+        if ($type == null || $type == 'undefined' || $type == "") {
             $client->putObject(array(
                 'Bucket' => $bucket, //"s3.hubsrv.com"
                 'Key' => $url,
-                'Body' => $data,             
+                'Body' => $data,
                 'ACL' => 'public-read'
             ));
         } else {
             $client->putObject(array(
                 'Bucket' => $bucket, //"s3.hubsrv.com"
                 'Key' => $url,
-                'Body' => $data,             
-                'ContentType'=>$type,
+                'Body' => $data,
+                'ContentType' => $type,
                 'ACL' => 'public-read'
             ));
         }

@@ -34,6 +34,12 @@ class NotificationsController extends Controller {
         $notificationId = $request[0];
         $ids = $request[1];
         $this->setAllRead($notificationId, $ids);
+        $notification = $this->actionReadNotification($notificationId);
+        if ($notification) {
+            $this->sendResponse(200, CJSON::encode($notification));
+        } else {
+            $this->sendResponse(204);
+        }
     }
 
     public function setAllRead($notificationId, $ids) {

@@ -266,9 +266,13 @@ module.exports = function(grunt) {
                     '<%= yeoman.app %>/bower_components/javascriptHelper/html5ImageCropper.js',
                      '<%= yeoman.app %>/bower_components/wysihtml5/parser_rules/advanced.js',
                     '<%= yeoman.app %>/bower_components/wysihtml5/dist/wysihtml5-0.3.0.js',
-
+<<<<<<< HEAD
+                    '<%= yeoman.app %>/bower_components/wysihtml5/parser_rules/advanced.js',
+                    '<%= yeoman.app %>/bower_components/mousetrap.min.js',
+                   '<%= yeoman.app %>/bower_components/javascriptHelper/html5ImageCropper.js',
+=======
                     '<%= yeoman.app %>/bower_components/mousetrap.min.js',                  
-
+>>>>>>> 05260ad97506587af8b5a3703761b9c7a6e26cac
                    '<%= yeoman.app %>/bower_components/custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js'
                 ],
                 dest: '<%= yeoman.dist %>/scripts/components.js'
@@ -288,10 +292,15 @@ module.exports = function(grunt) {
                     '<%= yeoman.app %>/bower_components/javascriptHelper/html5ImageCropper.js',
                      '<%= yeoman.app %>/bower_components/wysihtml5/parser_rules/advanced.js',
                     '<%= yeoman.app %>/bower_components/wysihtml5/dist/wysihtml5-0.3.0.js',
-
+<<<<<<< HEAD
+                    '<%= yeoman.app %>/bower_components/wysihtml5/parser_rules/advanced.js',
+                    '<%= yeoman.app %>/bower_components/mousetrap.min.js',
+                    '<%= yeoman.app %>/bower_components/javascriptHelper/html5ImageCropper.js',
+                    '<%= yeoman.app %>/bower_components/custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js'
+=======
                     '<%= yeoman.app %>/bower_components/mousetrap.min.js',                  
                    '<%= yeoman.app %>/bower_components/custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js'
-
+>>>>>>> 05260ad97506587af8b5a3703761b9c7a6e26cac
                 ],
                 dest: '<%= yeoman.test %>/scripts/components.js'
             },

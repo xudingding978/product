@@ -482,7 +482,7 @@ div#appfeedback .fresh-message k.icon-ok-sign{
 
     display: inline-block;
     width: auto;
-    min-width: 530px;
+    min-width:600px;
     position: relative;
     vertical-align: top;
     margin-left: -20px;

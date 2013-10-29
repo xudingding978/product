@@ -1,7 +1,7 @@
 var Router = Ember.Router.extend(
 
-        
-);
+
+        );
 
 
 HubStar.Router.map(function() {
@@ -36,7 +36,14 @@ HubStar.Router.map(function() {
             this.resource("userCollections", {path: '/collections'}, function() {
                 this.resource("collection", {path: ':collection_id'});
             });
-            this.resource("messageCenter", {path: '/messages'});
+            this.resource("messageCenter", {path: '/messagecenter'}, function() {
+                //  this.resource("messageCenter.index", {path: '/messages'});
+                this.resource("messages", {path: '/messages'});
+                this.resource("notifications", {path: '/notifications'});
+                this.resource("conversations", {path: '/conversations'}, function() {
+                    this.resource("conversation", {path: ':conversation_id'});
+                });
+            });
         });
         this.resource("users", function() {
             this.resource("usersIndex", {path: '/'});

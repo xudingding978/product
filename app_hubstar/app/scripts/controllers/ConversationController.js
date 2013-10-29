@@ -46,6 +46,7 @@ HubStar.ConversationController = Ember.Controller.extend({
         this.get("controllers.messageCenter").selectedNone();
         $('#conversation_' + idOld).removeClass('selected-conversation');
         $('#conversation_' + id).addClass('selected-conversation');
+        // HubStar.set('itemNumber', megasResults.get("length"));
         this.set("selectId", id);
         if (id !== null && id !== undefined) {
             this.get('controllers.messageCenter').selectConversationItem();

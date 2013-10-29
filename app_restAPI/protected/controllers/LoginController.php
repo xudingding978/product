@@ -48,7 +48,6 @@ class LoginController extends Controller {
         }
     }
 
-
     /**
      * This is the action to handle external exceptions.
      */
@@ -83,25 +82,12 @@ class LoginController extends Controller {
         $this->render('contact', array('model' => $model));
     }
 
-//    public function actionLogin() {
-//          
-//        $this->layout = '//layouts/signup';
-//        
-//        $this->defaultLogin();
-//    }
-//    public function actionLogin() {
-//        $model = new LoginForm;
-//        $this->render('login', array('model' => $model));
-//
-//
-//    }
 
     public function actionRead() {
         
     }
 
     public function actionCreate() {
- 
 
         $model = new User;
 
@@ -211,7 +197,7 @@ class LoginController extends Controller {
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $currentUser = User::model()
                 ->findByAttributes(array('COUCHBASE_ID' => $request_array[0]));
-  
+
         $currentUser->PWD_HASH = $request_array[2];
         $currentUser->save($request_array[4]);
 
@@ -263,9 +249,10 @@ class LoginController extends Controller {
     }
 
     public function actionLogin() {
-// store session data
+
        Yii::app()->session['couchbase_id'] = "value";
         $request_array = CJSON::decode(file_get_contents('php://input'));
+
 
         if ($request_array[2] === true) {
             $currentUser = User::model()
@@ -288,7 +275,7 @@ class LoginController extends Controller {
                 if ($currentUser->PWD_HASH === "blankblankblank") {
                     $this->sendResponse(200, 0);
                 } else if ($currentUser->PWD_HASH === $request_array[1]) {
-                 //   $_SESSION['couchbase_id'] = $currentUser->COUCHBASE_ID;
+                
                  error_log(  Yii::app()->session['couchbase_id']);
                     $this->sendResponse(200, CJSON::encode($currentUser));
                 }

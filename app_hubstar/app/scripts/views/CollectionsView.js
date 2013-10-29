@@ -5,6 +5,7 @@ HubStar.CollectionsView = Ember.View.extend({
         userController.setSelectedCollection(id);
         this.get('controller').setCollectionAttr();
         var div_id = "#" + id;
+        
         var div_class = "." + id + "  #uploadArea";
         $(".Targeting_Object_front").attr("style", "display:inline-block");
         $(" #uploadArea").attr('style', "display:none");
@@ -32,7 +33,6 @@ HubStar.CollectionsView = Ember.View.extend({
             columnWidth: 185,
             isFitWidth: true
         });
-
 
     }
 });

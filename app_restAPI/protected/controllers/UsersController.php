@@ -191,6 +191,10 @@ class UsersController extends Controller {
 
         $photo = imagecreatefromstring($data_arr['data']);
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 05260ad97506587af8b5a3703761b9c7a6e26cac
         $compressed_photo = $photoController->compressPhotoData($data_arr['type'], $photo);
         $orig_size['width'] = imagesx($compressed_photo);
         $orig_size['height'] = imagesy($compressed_photo);

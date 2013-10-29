@@ -151,6 +151,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
             var target = getTarget(e, "pural");
             var src = target.result;
             var mega = this.createNewMega(this.get("profileMega"), testID);
+           // console.log(testID);
             var keywords = this.get("profileMega").get("profile_keywords");
             var file = HubStar.Photo.createRecord({
                 "id": testID,

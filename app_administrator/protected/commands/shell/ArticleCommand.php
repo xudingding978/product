@@ -21,7 +21,7 @@ class ArticleCommand extends Controller_admin {
         }else if ($action == "dis") {                //import calls importArticleToProduction function.
             $this->display();
         } 
-        else if ($action == "body") {                //import calls importArticleToProduction function.
+        else if ($action == "body") {                //linebreaks to <p>.
             $this->reflexArticleBody();
         }
 

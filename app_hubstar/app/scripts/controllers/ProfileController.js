@@ -66,6 +66,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     profile_contact_number: "",
     profile_name: "",
     partnerTag: false,
+    videoTag: false,
     partnerPage: true,
     profileSelectionStatus: "Collections",
     profileCollectionStatistics: "",
@@ -570,6 +571,20 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('partnerTag', false);
         this.set('followerProfileTag', false);
         this.set('collectionTag', true);
+        this.set('videoTag', false);
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    },
+    selectVideo: function() {
+
+        this.sendEventTracking('event', 'button', 'click', 'Video');
+        this.set('profileSelectionStatus', 'Videos');
+        this.set('partnerTag', false);
+        this.set('collectionTag', false);
+        this.set('followerProfileTag', false);
+        this.set('videoTag', true);
+
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
@@ -583,10 +598,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('partnerTag', true);
         this.set('collectionTag', false);
         this.set('followerProfileTag', false);
+        this.set('videoTag', false);
         this.get('controllers.itemProfiles').setPartnerRemove();
-//        setTimeout(function() {
-//            $('#masonry_user_container').masonry("reload");
-//        }, 200);
     },
     selectFollower: function(model) {
         $(window).scrollTop(1500);
@@ -598,7 +611,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('partnerTag', false);
         this.set('collectionTag', false);
         this.set('followerProfileTag', true);
-
+        this.set('videoTag', false);
     },
     saveUpdateAboutUs: function() {
         var update_About_record = HubStar.Profile.find(this.get('model.id'));
@@ -778,11 +791,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 that.set('currentWidth', width);
                 that.set('currentHeight', height);
                 var data = {"RequireIamgeType": that.get('UploadImageMode')};
-               
+
                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
                     if ((width >= params.width) && (height >= params.height))
                     {
-                           
+
                         if (that.get('isUpload') === true) {
                             //    that.set('isCrop', false);
                             that.setTempImage();
@@ -793,15 +806,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             that.setCropImage();
                         }
 
-                         
+
                         //  $('#uploadStyleImg').attr("style", "display:block");
                         var data1 = {"newStyleImageSource": that.get('newStyleImageSource'),
                             'newStyleImageName': that.get('newStyleImageName'),
                             'mode': that.get('UploadImageMode').replace(" ", "_").toLowerCase(),
                             'id': that.get('model.id')};
-                         that.set('loadingTime', true);
+                        that.set('loadingTime', true);
                         requiredBackEnd('profiles', 'updateStyleImage', data1, 'POST', function(params) {
-                     //     $('#uploadStyleImg').attr("style", "display:none");
+                            //     $('#uploadStyleImg').attr("style", "display:none");
                             that.set('isPhotoEditingMode', false);
                             that.set('isPhotoUploadMode', false);
                             that.set('isFinished', true);
@@ -815,14 +828,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
 
                     else if (width < params.width || height < params.height) {
-                        that.set('loadingTime', false);  
+                        that.set('loadingTime', false);
                         that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + params.width + "x" + params.height);
                         that.set('newStyleImageSource', "");
                         that.set('newStyleImageName', "");
                         that.set('CurrentImageSize', "");
                         that.set('isCrop', false);
                         that.set('isUpload', false);
-                        
+
                     }
 
                 });

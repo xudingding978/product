@@ -1,0 +1,34 @@
+
+
+<div class="box style-box t-style-box col2" id="addNewVideo" style="z-index: 0">    
+    
+    <div id="uploadVideoObject" >
+        <div class="add-new-object-hoverarea easing">
+            <i class="icon-plus-sign"></i>
+        </div>
+        <div class="masonry-object t-style-box col2">
+            <div class="add-new-object-content">
+                <i class="icon-group"></i>
+                <i class="icon-book"></i>
+                <i class="icon-picture"></i>
+                <i class="icon-film"></i>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="box col2 noStyle1">
+    <div class="masonry-object">  
+        <div>this is video div{{controller}}</div>
+    </div>
+</div>
+
+
+
+{{#if controller.makeSureDelete}}
+
+{{view HubStar.DeleteFunctionView}}
+
+{{/if}}

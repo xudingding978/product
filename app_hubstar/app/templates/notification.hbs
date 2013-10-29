@@ -40,8 +40,8 @@
             </div>
 
             <div class="reply-comment easing" style="right:25px;position: relative;float: right;top: -60px;">  
-                <i class="icon-ok-sign"></i>                 
-                <i class="icon-remove-sign"></i>
+                <i class="icon-ok-sign" ></i>                 
+                <i class="icon-remove-sign"{{action deleteNotification this.notification_id}}></i>
             </div>
         </div>
 
@@ -73,8 +73,8 @@
             </div>
 
             <div class="reply-comment easing" style="right:25px;position: relative;float: right;top: -60px;">  
-                <i class="icon-ok-sign"></i>                 
-                <i class="icon-remove-sign"></i>
+                <i class="icon-ok-sign" {{action markRead this.notification_id}}></i>                 
+                <i class="icon-remove-sign"{{action deleteNotification this.notification_id}}></i>
             </div>
         </div>
         {{/if}}

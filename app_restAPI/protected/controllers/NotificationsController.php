@@ -28,6 +28,14 @@ class NotificationsController extends Controller {
         //      $this->sendResponse(204);
     }
 
+    public function actionMarkRead() {
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $request = CJSON::decode($request_array);
+        $notificationId = $request[1];
+        $ownerId = $request[0];
+        $this->setRead($ownerId, $notificationId);
+    }
+
     public function actionMarkAllRead() {
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $request = CJSON::decode($request_array);
@@ -55,6 +63,26 @@ class NotificationsController extends Controller {
                     if ($mega_currentUser['user'][0]["notifications"][$i]["notification_id"] === $idArray[$j]) {
                         $mega_currentUser['user'][0]["notifications"][$i]["isRead"] = true;
                     }
+                }
+            }
+        }
+        if ($cb->set($docID_currentUser, CJSON::encode($mega_currentUser))) {
+            
+        } else {
+            
+        }
+    }
+
+    public function setRead($ownerId, $notificationId) {
+        $cb = $this->couchBaseConnection();
+        $domain = $this->getDomain();
+        $docID_currentUser = $domain . "/users/" . $ownerId;
+        $tempMega_currentUser = $cb->get($docID_currentUser);
+        $mega_currentUser = CJSON::decode($tempMega_currentUser, true);
+        if (isset($mega_currentUser['user'][0]["notifications"])) {
+            for ($i = 0; $i < sizeof($mega_currentUser['user'][0]["notifications"]); $i++) {
+                if ($mega_currentUser['user'][0]["notifications"][$i]["notification_id"] === $notificationId) {
+                    $mega_currentUser['user'][0]["notifications"][$i]["isRead"] = true;
                 }
             }
         }

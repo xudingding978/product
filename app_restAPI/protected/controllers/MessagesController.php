@@ -590,8 +590,7 @@ class MessagesController extends Controller {
         $ownerId = $id;
         $notificationObject = array();
        
-        $date = new DateTime();
-        $timeID=$date->getTimestamp();
+        $timeID = date_timestamp_get(new DateTime());
         
 
         $notification_id = (string) (rand(10000, 99999)) . $timeID . $commenter_id;

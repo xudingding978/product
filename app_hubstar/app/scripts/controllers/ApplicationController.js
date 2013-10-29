@@ -34,6 +34,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     dropdownPhotoSetting: function() {
         this.set("isNotification", !this.get("isNotification"));
+        this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
     },
     popupModal: function() {
         this.set('popup', !this.get('popup'));
@@ -47,7 +48,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var u = HubStar.User.find(localStorage.loginStatus);
         this.set("user", u);
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
-        this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
+        
     },
     reloadPage: function() {
         this.set("test", !this.get("test"));

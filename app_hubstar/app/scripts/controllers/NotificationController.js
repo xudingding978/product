@@ -13,7 +13,7 @@
 HubStar.NotificationController = Ember.Controller.extend({
     notificationContent: null,
     commenter_photo_url: null,
-    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem','notificationTop'],
+    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem', 'notificationTop'],
     isUploadPhoto: false,
     init: function()
     {
@@ -75,18 +75,58 @@ HubStar.NotificationController = Ember.Controller.extend({
                     dataNew = new Array();
                 }
             }
-            that.get("controllers.notificationTop").set("notificationTopContent",that.get("notificationContent"));
+            that.get("controllers.notificationTop").set("notificationTopContent", that.get("notificationContent"));
             setTimeout(function() {
-                $('#masonry_user_container').masonry("reloadItems");              
+                $('#masonry_user_container').masonry("reloadItems");
             }, 200);
             that.set('loadingTime', false);
         });
     },
-    markAllRead: function() {    
+    markRead: function(id) {
+        var dataNew = new Array();
+        var tempComment = [localStorage.loginStatus, id];
+        tempComment = JSON.stringify(tempComment);
+        var that = this;
+        requiredBackEnd('notifications', 'MarkRead', tempComment, 'POST', function() {
+            for (var i = 0; i < that.get("notificationContent").length; i++)
+            {
+                if (that.get("notificationContent").objectAt(i).get("notification_id") === id)
+                {
+                    that.get("notificationContent").objectAt(i).set("isRead", true);
+                }
+            }
+            that.get("controllers.notificationTop").set("notificationTopContent", that.get("notificationContent"));
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reloadItems");
+            }, 200);
+            that.set('loadingTime', false);
+        });
+    },
+    deleteNotification: function(id) {
+        var dataNew = new Array();
+        var tempComment = [localStorage.loginStatus, id];
+        tempComment = JSON.stringify(tempComment);
+        var that = this;
+        requiredBackEnd('notifications', 'DeleteNotification', tempComment, 'POST', function() {
+//            for (var i = 0; i < that.get("notificationContent").length; i++)
+//            {
+//                if (that.get("notificationContent").objectAt(i).get("notification_id") === id)
+//                {
+//                    that.get("notificationContent").objectAt(i).set("isRead", true);
+//                }
+//            }
+//            that.get("controllers.notificationTop").set("notificationTopContent", that.get("notificationContent"));
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reloadItems");
+            }, 200);
+            that.set('loadingTime', false);
+        });
+    },
+    markAllRead: function() {
         this.set('clientID', localStorage.loginStatus);
         var data = this.get('clientID');
         var ids = "";
-         for (var j = 0; j < this.get("notificationContent").get("length"); j++)
+        for (var j = 0; j < this.get("notificationContent").get("length"); j++)
         {
             if (j === 0)
             {
@@ -96,13 +136,13 @@ HubStar.NotificationController = Ember.Controller.extend({
                 ids = ids + "," + this.get("notificationContent").objectAt(j)["notification_id"];
             }
         }
-        var tempComment = [data,ids];
+        var tempComment = [data, ids];
         this.set('loadingTime', true);
         tempComment = JSON.stringify(tempComment);
         var that = this;
-         var dataNew = new Array();
+        var dataNew = new Array();
         requiredBackEnd('notifications', 'MarkAllRead', tempComment, 'POST', function(params) {
-             if (params !== undefined) {
+            if (params !== undefined) {
                 that.set("notificationContent", []);
                 for (var i = 0; i < params.get("length"); i++)
                 {
@@ -120,9 +160,9 @@ HubStar.NotificationController = Ember.Controller.extend({
                     dataNew = new Array();
                 }
             }
-            that.get("controllers.notificationTop").set("notificationTopContent",that.get("notificationContent"));
+            that.get("controllers.notificationTop").set("notificationTopContent", that.get("notificationContent"));
             setTimeout(function() {
-                $('#masonry_user_container').masonry("reloadItems");              
+                $('#masonry_user_container').masonry("reloadItems");
             }, 200);
             that.set('loadingTime', false);
         });

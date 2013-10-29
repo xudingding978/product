@@ -71,7 +71,7 @@
                 </div>
             </div>
             <div class="reply-comment easing" style="right:25px;position: relative;float: right;top: -60px;font-size: 10px;">  
-                <i class="icon-ok-sign"></i>                 
+                <i class="icon-ok-sign" {{action markRead this.notification_id}}></i>                 
                 <i class="icon-remove-sign"></i>
             </div>
         </div>
@@ -98,7 +98,7 @@
             autoHideScrollbar: true,
             mouseWheel: true,
             theme: "dark-2",
-            set_height: 200
+            set_height: 370
         });
     });
 </script>

@@ -49,6 +49,8 @@ class PhotosController extends Controller {
             }
 
             $image_info = $this->getImageInfo($url);
+            error_log(var_export($image_info,true));
+            
             $name = $this->renamingImage($image_info, $url);
             if (strpos($url, 'original')) {
                 $response = $this->getWatermarkImageSource($url, $image_info);

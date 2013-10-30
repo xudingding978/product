@@ -7,20 +7,23 @@
     </div>
     <div style="margin: 20px;min-height: 400px;">
         <div style="height: 35px; width: inherit;border-bottom: 1px solid #ddd;">
-            {{view Ember.TextField valueBinding="email" placeholder="Please insert..." class="no-effect"}}
+            {{view Ember.TextField valueBinding="videoUrl" placeholder="Please insert YOUTUBE link or share url." class="no-effect"}}
+            <div {{action getVideoFromYoutube}}>button</div>
         </div>
-        <img style="width: 470px;margin: 15px 0;" src="http://d1c739w2xm33i4.cloudfront.net/2.2/top_image.jpg"/>
+
+        <img style="width: 470px;margin: 15px 0;" {{bindAttr src="videoImg"}}/>
+
         <div style="width: 470px; background-color: #f3f3f3;padding: 10px; font-size: 13px;">
-            <div style="font-size: 15px;font-weight: bold">Gold Digger Prank!</div>
-            <div>Gold Digger Prank! {{controller}}
-                So I went out to film how to pick up girls...but Roman,Dennis and I decided to do a little twist..the video speaks for it self check it :)
+            <div style="font-size: 15px;font-weight: bold">{{videoTitle}}</div>
+            <div>{{videoTitle}}
+                {{videoDesc}}
             </div>
         </div>
 
     </div>
     <div class="" style="height: 41px;position: relative;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
         <div class="message-btn easing" style="height: 40px;line-height: 40px;border-right: 1px solid #ddd;" {{action canel}}><k class="icon-remove">&nbsp;</k>Cancel</div>
-        <div class="message-btn easing" style="height: 40px;line-height: 40px;" ><k class='icon-ok'>&nbsp;</k>Post</div>
+        <div class="message-btn easing" style="height: 40px;line-height: 40px;"{{action videoCreate}} ><k class='icon-ok'>&nbsp;</k>Post</div>
     </div>
 
 </div>

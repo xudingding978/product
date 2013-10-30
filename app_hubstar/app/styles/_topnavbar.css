@@ -62,6 +62,7 @@
     height: 25px;
 }
 
+#user-dd-menu > li {padding:0}
 
 
 * {

@@ -1173,7 +1173,7 @@ div.album-description-bg{
     border-radius: 50%;
     width: 46px;
     height: 46px;
-    background:#efeded;
+    border: 1px solid #f3f3f3;
 }
 
 .profilepic_effect{
@@ -1534,9 +1534,16 @@ div.album-description-bg{
     margin-bottom: 10px;
 }
 
+.article-text{  
+    font-size: 13px;
+    line-height: 16px;
+}
 
-.article-text{
-    font-size: 14px;
+.article-text > p{
+    font-size: 13px;
+    color: #555;
+    line-height: 16px;
+    margin-bottom: 12px;
 }
 
 
@@ -1664,18 +1671,6 @@ div.album-description-bg{
     font-size: 11px;
     margin-top: 2px;
     vertical-align: top
-}
-
-.reply-comment{
-    display: inline-block;
-    font-size: 11px;
-    min-height: 16px;
-    padding: 0 0 0 0;
-    position: absolute;
-    right: 0;
-    text-align: right;
-    top: 0;
-    width: 115px;
 }
 
 .comment-content{

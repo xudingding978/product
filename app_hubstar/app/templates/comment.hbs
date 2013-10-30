@@ -1,11 +1,6 @@
 
 
 
-
-
-
-
-
 <div class="masonry-object_interact" >
     <div class="masonry_show-comment">
         <div class="show-comment_container" >
@@ -20,17 +15,24 @@
                 <span class="comment-amount text-anchor easing"> comments  <i class="icon-angle-up"></i></span>
             </div>
 
+
         </div>
-        <div style="display: inline-block;float: right; font-size: 13px;">
+
+        {{#if controller.collectable}}
+
+        {{render addCollection}}
+        <!--<div style="position:fixed; background-color: red; width: 100px;height: 100px;top:100px">asdfasdfasdfasdfasdfsd</div>-->
+        {{/if}}
+
+        <div style="display: inline-block;float: right; font-size: 13px;" >
             <div id="thumbUpBtn_{{unbound model.id}}" style="display:inline-block;vertical-align: top;" class="new-btn" {{action addLike model.id}}><i class="icon-thumbs-up-alt">&nbsp</i>{{model.likes_count}}</div>
-            <div id=""  class="new-btn" style="display:inline-block;vertical-align: top;" ><i class="icon-save" >&nbsp</i></div>
+            <div id="saveBtn_{{unbound model.id}}"  style="display:inline-block;vertical-align: top;" class="new-btn" {{action switchCollection model}}><i class="icon-save" >&nbsp</i></div>
             <div id=""  class="new-btn"  style="display:inline-block;vertical-align: top;"><i class="icon-share-alt" >&nbsp</i></div>
         </div>
     </div>
-
     <div class="masonry_addcommnetbox-container" {{action openComment model.id target="view" on="click"}} id="comment_{{unbound model.id}}">
         <div class="addcommnetbox">
-            Add comments 
+            Add comments
         </div>
     </div>
 

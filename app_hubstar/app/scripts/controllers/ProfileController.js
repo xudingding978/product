@@ -88,11 +88,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     updateOrCreate: true,
     isPhotoUploadMode: false,
     isPhotoEditingMode: false,
-    isCrop:false,
-    isFinished:false,
-    isProfilePicture:false,
-    isProfileHero:false,
-    isProfileBackground:false,
+    isCrop: false,
+
+    isUpload: false,
+    loadingTime: false,
+
+    isFinished: false,
+    isProfilePicture: false,
+    isProfileHero: false,
+    isProfileBackground: false,
     CurrentImageSize: "",
     RequiredImageSize: "",
     isAdmin: false,
@@ -114,10 +118,19 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     willDelete: false,
     profile_partner_ids: null,
     isTracking: false,
+    cropsize: null,
     init: function() {
 
         this.set('is_authentic_user', false);
 
+    },
+    goToProfileRoute: function(id)
+    {
+     //   $('#user-stats > li').removeClass('selected-user-stats');
+//this.setProfile(id);
+      this.transitionToRoute('profile');
+//       $('#user-stats > li').removeClass('selected-user-stats');
+//        $('#defualt').addClass('selected-user-stats');
     },
     getCurrentProfile: function(id) {
         this.set('currentUserID', id);
@@ -171,9 +184,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         this.isFollowed();
         this.checkAuthenticUser();
-        this.labelBarRefresh();
+      this.labelBarRefresh();
 
-        this.selectCollection();
+        //  this.set('profileSelectionStatus', 'Collections');
+        //this.selectCollection();
         var photoCreateController = this.get('controllers.photoCreate');
         photoCreateController.setMega();
         this.initStastics(profile);
@@ -245,57 +259,25 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     submit: function() {
         var collectionController = this.get('controllers.collection');
         var collection = collectionController.getCreateCollection(this.get('newTitle'), this.get('newDesc'), this.get("collections"));
-if(this.get('newDesc').length<256){
-        if (collection !== null && collection !== "") {
-            collection.set('type', 'profile');
-            collection.set('optional', this.get('model').get('id'));
-            this.get("collections").insertAt(0, collection);
-            HubStar.store.commit();
-            $(".Targeting_Object_front").attr("style", "display:inline-block");
-            $(" #uploadArea").attr('style', "display:none");
-            $(" #uploadObject").attr('style', "display:block");
-            this.statstics();
-            this.set("newTitle", "");
-            this.set("newDesc", "");
+        if (this.get('newDesc').length < 256) {
+            if (collection !== null && collection !== "") {
+                collection.set('type', 'profile');
+                collection.set('optional', this.get('model').get('id'));
+                this.get("collections").insertAt(0, collection);
+                HubStar.store.commit();
+                $(".Targeting_Object_front").attr("style", "display:inline-block");
+                $(" #uploadArea").attr('style', "display:none");
+                $(" #uploadObject").attr('style', "display:block");
+                this.statstics();
+                this.set("newTitle", "");
+                this.set("newDesc", "");
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry("reload");
+                }, 200);
+            }
+        } else {
+            this.get('controllers.applicationFeedback').statusObserver(null, "Your description should be less than 256 characters.", "warnning");
         }
-}else{
-      this.get('controllers.applicationFeedback').statusObserver(null, "Your description should be less than 256 characters.", "warnning");
-}
-
-//        var desc = this.checkingValidInput(this.selectedCollection.get('desc'));
-//        var id = this.checkingValidInput(this.selectedCollection.get('title'));
-//        var isExsinting = this.checkingIdisExsinting(desc, id, "create");
-//        var profile_id = this.get('model').get('id');
-//
-//        if (isExsinting) {
-//            var validID = this.checkingValidInput(id);
-//            var checkingCharater = this.specialCharactersChecking(validID);
-//            if (checkingCharater) {
-//                this.selectedCollection.set('id', validID.toLowerCase());
-//                this.selectedCollection.set('title', this.selectedCollection.get('title'));
-//                this.selectedCollection.set('optional', profile_id);
-//                this.selectedCollection.set('cover', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png");
-//                if (this.selectedCollection.get('desc') !== null && this.selectedCollection.get('desc') !== "") {
-//                    this.selectedCollection.set('desc', desc);
-//                } else {
-//                    this.selectedCollection.set('desc', "Add a short description to your Collection");
-//                }
-//                this.get("collections").insertAt(0, this.selectedCollection);
-//                this.statstics();
-//                HubStar.store.commit();
-//                $(".Targeting_Object_front").attr("style", "display:inline-block");
-//                $(" #uploadArea").attr('style', "display:none");
-//                $(" #uploadObject").attr('style', "display:block");
-//            } else {
-//                this.get('controllers.applicationFeedback').statusObserver(null, "invalide characters...");
-//            }
-//
-//
-//        }
-//        else {
-//            isExsinting = true;
-//        }
-
     },
     checkingIdisExsinting: function(desc, id, postOrPut) {
         var isExsinting = true;
@@ -459,36 +441,28 @@ if(this.get('newDesc').length<256){
         this.set('makeSureDelete', false);
     },
     updateCollectionInfo: function() {
-if(this.get('newDesc').length<256){
-        this.get('selectedCollection').set('title', this.get('newTitle'));
+        if (this.get('newDesc').length < 256) {
+            this.get('selectedCollection').set('title', this.get('newTitle'));
 
-        this.get('selectedCollection').set('desc', this.get('newDesc'));
+            this.get('selectedCollection').set('desc', this.get('newDesc'));
 
-        var collectionController = this.get('controllers.collection');
-        var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
-        collection.set('optional', this.get('model').get('id'));
-        collection.set('type', 'profile');
-        this.set('selectedCollection', collection);
-        this.get("selectedCollection").store.save();
-        $(".Targeting_Object_front").attr("style", "display:inline-block");
-        $(" #uploadArea").attr('style', "display:none");
-        $(" #uploadObject").attr('style', "display:block");
-    this.set('newTitle', '');
-        this.set('newDesc', '');
-    }
-    else
+            var collectionController = this.get('controllers.collection');
+            var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
+            collection.set('optional', this.get('model').get('id'));
+            collection.set('type', 'profile');
+            this.set('selectedCollection', collection);
+            this.get("selectedCollection").store.save();
+            $(".Targeting_Object_front").attr("style", "display:inline-block");
+            $(" #uploadArea").attr('style', "display:none");
+            $(" #uploadObject").attr('style', "display:block");
+            this.set('newTitle', '');
+            this.set('newDesc', '');
+        }
+        else
         {
             this.get('controllers.applicationFeedback').statusObserver(null, "Your description should be less than 256 characters.", "warnning");
         }
     },
-//    newCollection: function()
-//    {
-//
-//        var collection = HubStar.Collection.createRecord({"id": null, "title": null, "desc": null, "collection_ids": null, "createdAt": new Date(),
-//            'cover': 'https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png', "optional": this.get('model').get('id'), 'type': 'profile'
-//        });
-//        this.set("selectedCollection", collection);
-//    },
     toggleUpload: function() {
         $('.corpbanner_mask').toggleClass('hideClass');
         this.set('uploadChecking', !this.get('uploadChecking'));
@@ -601,13 +575,17 @@ if(this.get('newDesc').length<256){
         return isFollow;
     },
     selectCollection: function() {
-        //$(window).scrollTop(1500);
+
+     $('#user-stats > li').removeClass('selected-user-stats');
+        $('#defualt').addClass('selected-user-stats');
+
         this.sendEventTracking('event', 'button', 'click', 'Collections');
         this.set('partnerPage', 'Collections');
         this.set('profileSelectionStatus', 'Collections');
         this.set('partnerTag', false);
         this.set('followerProfileTag', false);
         this.set('collectionTag', true);
+        this.transitionToRoute('profileCollections');
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
@@ -617,14 +595,17 @@ if(this.get('newDesc').length<256){
         this.sendEventTracking('event', 'button', 'click', 'Partners');
         HubStar.set("lastPositionId", model.id);
         this.set('profileSelectionStatus', 'Partners');
-        this.get('controllers.profilePartners').getClientId(model);
+        //   this.get('controllers.profilePartners').getClientId(model);
         this.set('partnerTag', true);
         this.set('collectionTag', false);
         this.set('followerProfileTag', false);
         this.get('controllers.itemProfiles').setPartnerRemove();
+
+        this.transitionToRoute('partners');
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
+
     },
     selectFollower: function(model) {
         $(window).scrollTop(1500);
@@ -635,17 +616,20 @@ if(this.get('newDesc').length<256){
         this.get('controllers.userFollowers').getProfileId(model);
         this.set('partnerTag', false);
         this.set('collectionTag', false);
-
         this.set('followerProfileTag', true);
+
+        this.transitionToRoute('profileFollowers');
+
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
+
     },
     saveUpdateAboutUs: function() {
         var update_About_record = HubStar.Profile.find(this.get('model.id'));
         //update_About_record.set("profile_about_us", $('iframe').contents().find('.wysihtml5-editor').html());
         update_About_record.set("profile_about_us", editor.getValue());
-        
+
         this.get('controllers.applicationFeedback').statusObserver(null, "Update successful");
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_About_record);
         HubStar.store.save();
@@ -672,7 +656,6 @@ if(this.get('newDesc').length<256){
         if (this.get('controllers.profilePartners').get("partnerNew") !== undefined && this.get('controllers.profilePartners').get("partnerNew") !== null && this.get('controllers.profilePartners').get("partnerNew") !== "")
         {
             if (update_profile_record.get('profile_partner_ids').length !== this.get('controllers.profilePartners').get("partnerNew").length) {
-                //console.log("partner");
                 update_profile_record.set('profile_partner_ids', this.get('controllers.profilePartners').get("partnerNew"));
                 this.get('controllers.profilePartners').set("partnerNew", "");
             }
@@ -707,7 +690,7 @@ if(this.get('newDesc').length<256){
     flipFrontClick: function() {
         $(".hover").addClass('flip');
         this.selectionForDashborad();
-         
+
 
     },
     selectionForDashborad: function() {
@@ -750,8 +733,8 @@ if(this.get('newDesc').length<256){
                 var size = "Your image size is " + width + "x" + height;
                 that.set('CurrentImageSize', size);
 
-                 that.set('isCrop', true);
-               
+                that.set('isCrop', true);
+                that.set('isUpload', true);
             }
         });
     },
@@ -776,26 +759,31 @@ if(this.get('newDesc').length<256){
     },
     cropButton: function()
     {
+        this.set('cropsize', $('#panel').text());
         this.set('isPhotoUploadMode', false);
         this.set('isPhotoEditingMode', true);
         this.set('isFinished', false);
-         if (this.get('UploadImageMode') === "Profile Picture")
+
+        this.set('isUpload', false);
+
+        if (this.get('UploadImageMode') === "Profile Picture")
         {
-            this.set('isProfilePicture',true);
-             this.set('isProfileHero',false);
-              this.set('isProfileBackground',false);
-           
+            this.set('isProfilePicture', true);
+            this.set('isProfileHero', false);
+            this.set('isProfileBackground', false);
+
+
         } else if (this.get('UploadImageMode') === "Profile Hero")
         {
-             this.set('isProfilePicture',false);
-             this.set('isProfileHero',true);
-              this.set('isProfileBackground',false);
+            this.set('isProfilePicture', false);
+            this.set('isProfileHero', true);
+            this.set('isProfileBackground', false);
 
         } else if (this.get('UploadImageMode') === "Background")
         {
-             this.set('isProfilePicture',false);
-             this.set('isProfileHero',false);
-              this.set('isProfileBackground',true);
+            this.set('isProfilePicture', false);
+            this.set('isProfileHero', false);
+            this.set('isProfileBackground', true);
 
         }
         var that = this;
@@ -804,95 +792,126 @@ if(this.get('newDesc').length<256){
 
         }, 0);
 
+
     },
     photoUpload: function() {
-//        var cropData = getResults();
-//        this.set('newStyleImageSource', cropData);
         if (this.get('newStyleImageSource') !== null && this.get('newStyleImageSource') !== "")
         {
+
             var src = this.get('newStyleImageSource');
             var that = this;
+            that.set('loadingTime', true);
+
             getImageWidth(src, function(width, height) {
                 that.set('currentWidth', width);
                 that.set('currentHeight', height);
-          var data = {"RequireIamgeType": that.get('UploadImageMode')};
+                var data = {"RequireIamgeType": that.get('UploadImageMode')};
+
+               
                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
                     if ((width >= params.width) && (height >= params.height))
                     {
-                        that.setTempImage();
-                              
-                        $('#uploadStyleImg').attr("style", "display:block");
+                           
+                        if (that.get('isUpload') === true) {
+                            //    that.set('isCrop', false);
+                            that.setTempImage();
+                        }
+                        else if (that.get('isCrop') === true)
+                        {
+                            //       that.set('isUpload', false);
+                            that.setCropImage();
+                        }
+
                         var data1 = {"newStyleImageSource": that.get('newStyleImageSource'),
                             'newStyleImageName': that.get('newStyleImageName'),
                             'mode': that.get('UploadImageMode').replace(" ", "_").toLowerCase(),
                             'id': that.get('model.id')};
+                         that.set('loadingTime', true);
                         requiredBackEnd('profiles', 'updateStyleImage', data1, 'POST', function(params) {
-                            $('#uploadStyleImg').attr("style", "display:none");
+                     //     $('#uploadStyleImg').attr("style", "display:none");
                             that.set('isPhotoEditingMode', false);
-                            that.set('isPhotoUploadMode', false);          
+                            that.set('isPhotoUploadMode', false);
                             that.set('isFinished', true);
+                            that.set("isCrop", false);
                             HubStar.store.save();
-                            
+
+                            that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
+                            that.set('loadingTime', false);
                         });
-                        
-                        that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
-                       
+
                     }
 
+
                     else if (width < params.width || height < params.height) {
+                        that.set('loadingTime', false);  
                         that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + params.width + "x" + params.height);
                         that.set('newStyleImageSource', "");
                         that.set('newStyleImageName', "");
                         that.set('CurrentImageSize', "");
-                          that.set('isCrop', false);
-     
+                        that.set('isCrop', false);
+
+
+                        that.set('isUpload', false);
+
                     }
 
                 });
+
+
             });
 
         }
+
+    },
+    setCropImage: function() {
+        var cropData = getResults();
+        this.set('newStyleImageSource', cropData);
+        this.setTempImage();
     },
     setTempImage: function() {
         var model = this.get('model');
-        var cropData = getResults();
-             this.set('newStyleImageSource', cropData);
+
         if (this.get('UploadImageMode') === "Profile Picture")
         {
-            this.set('isProfilePicture',true);
-             this.set('isProfileHero',false);
-              this.set('isProfileBackground',false);
+            this.set('isProfilePicture', true);
+            this.set('isProfileHero', false);
+            this.set('isProfileBackground', false);
             this.set('profile_pic_url', this.get('newStyleImageSource'));
             model.set('profile_pic_url', this.get('newStyleImageSource'));
         } else if (this.get('UploadImageMode') === "Profile Hero")
         {
-             this.set('isProfilePicture',false);
-             this.set('isProfileHero',true);
-              this.set('isProfileBackground',false);
+            this.set('isProfilePicture', false);
+            this.set('isProfileHero', true);
+            this.set('isProfileBackground', false);
             this.set('profile_hero_url', this.get('newStyleImageSource'));
             model.set('profile_hero_url', this.get('newStyleImageSource'));
         } else if (this.get('UploadImageMode') === "Background")
         {
-             this.set('isProfilePicture',false);
-             this.set('isProfileHero',false);
-              this.set('isProfileBackground',true);
+            this.set('isProfilePicture', false);
+            this.set('isProfileHero', false);
+            this.set('isProfileBackground', true);
             this.set('profile_bg_url', this.get('newStyleImageSource'));
             model.set('profile_bg_url', this.get('newStyleImageSource'));
         }
+
+
     },
     resetNewStyleImageSource: function()
     {
         this.set('newStyleImageSource', "");
         this.set('newStyleImageName', "");
         this.set('CurrentImageSize', "");
-          this.set('isCrop', false);
-         this.changeSize();
+        this.set('isCrop', false);
+
+        this.set('isUpload', false);
+
+        this.changeSize();
     }, dropdown: function(checking) {
         if (checking === "package") {
             this.set('isActiveDropdown', false);
             this.set('isDeleteDropdown', false);
             this.set('isPackgetDropdown', !this.get('isPackgetDropdown'));
-            
+
         } else if (checking === "active") {
             this.set('isDeleteDropdown', false);
             this.set('isPackgetDropdown', false);
@@ -912,13 +931,10 @@ if(this.get('newDesc').length<256){
         this.set("newTitle", this.get('selectedCollection').get('title'));
         this.set("newDesc", this.get('selectedCollection').get('desc'));
         collection_title_record = this.get('selectedCollection').get('title');
-
         collection_desc_record = this.get('selectedCollection').get('desc');
-        //       console.log(this.get(desc));
     },
     getCollectionAttr: function() {
         this.get('selectedCollection').set('title', collection_title_record);
-
         this.get('selectedCollection').set('desc', collection_desc_record);
         this.set("newTitle", collection_title_record);
         this.set("newDesc", collection_desc_record);
@@ -929,7 +945,7 @@ if(this.get('newDesc').length<256){
             window.open(this.get('website_url'));
         }
     },
-    sendEventTracking: function(hitType, category, action, label){
+    sendEventTracking: function(hitType, category, action, label) {
         if (this.isTracking) {
             ga(this.get('model').get('id').split('-').join('') + '.send', {
                 'hitType': hitType,
@@ -939,22 +955,21 @@ if(this.get('newDesc').length<256){
             });
         }
     },
-     dropdownPhotoSetting: function() {
-      //  this.set('sharePhotoUrl', this.get('selectedPhoto').get('photo_image_thumbnail_url'));
-      //  this.set('sharePhotoName', this.get('selectedPhoto').get('photo_title'));
+    dropdownPhotoSetting: function() {
+        //  this.set('sharePhotoUrl', this.get('selectedPhoto').get('photo_image_thumbnail_url'));
+        //  this.set('sharePhotoName', this.get('selectedPhoto').get('photo_title'));
         $('#dropdown_id_').toggleClass('hideClass');
     },
-     // share to social facebook
+    // share to social facebook
     fbShare: function() {
         var that = this;
-       
+
         var currntUrl = 'http://beta.trendsideas.com/#/profiles/' + this.get('currentUserID');
         var caption = '';
-        console.log(currntUrl);
         if (this.get('profile_cover_text') !== null)
         {
-            caption =this.get('profile_cover_text') ;
-          
+            caption = this.get('profile_cover_text');
+
         }
         else
         {
@@ -964,7 +979,7 @@ if(this.get('newDesc').length<256){
         var obj = {
             method: 'feed',
             link: currntUrl,
-            picture:this.get('profile_pic_url'),         
+            picture: this.get('profile_pic_url'),
             name: this.get('profile_name'),
             caption: 'Trends Ideas',
             description: caption
@@ -985,10 +1000,10 @@ if(this.get('newDesc').length<256){
     //share to social google plus
     gpShare: function() {
         var caption = '';
-         if (this.get('profile_cover_text') !== null)
+        if (this.get('profile_cover_text') !== null)
         {
-            caption =this.get('profile_cover_text') ;
-          
+            caption = this.get('profile_cover_text');
+
         }
         else
         {
@@ -997,14 +1012,13 @@ if(this.get('newDesc').length<256){
 
 //        var meta = document.getElementsByTagName('meta');
 //        for (var i = 0; i < meta.length; i++) {
-//            console.log(meta[i]);
 //        }
         $("meta[property='og\\:title']").attr("content", this.get('profile_name'));
         $("meta[property='og\\:description']").attr("content", caption);
         $("meta[property='og\\:image']").attr("content", this.get('profile_pic_url'));
 
 
-       var currntUrl = 'http://beta.trendsideas.com/#/profiles/' + this.get('currentUserID');
+        var currntUrl = 'http://beta.trendsideas.com/#/profiles/' + this.get('currentUserID');
         var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
 
         window.open(

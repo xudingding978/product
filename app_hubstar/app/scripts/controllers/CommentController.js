@@ -4,17 +4,31 @@ HubStar.CommentController = Ember.Controller.extend({
     thisComments: null,
     stringFiedTime_stamp: null,
     mega: null,
-    count:null,
+    count: null,
+    
+    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission'],
     init: function()
     {
-        
+
         if (localStorage.loginStatus) {
 
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         }
 
     },
-    addComment: function() {
+    switchCollection: function(model) {
+
+        var photoObj = model.get("photo").objectAt(0);
+        var addCollectionController = this.get('controllers.addCollection');
+        var selectid = model.id;
+        addCollectionController.setImageID(selectid);
+        var tempUrl = photoObj.get('photo_image_thumbnail_url');
+        addCollectionController.setThumbnailUrl(tempUrl);
+        addCollectionController.setUser();
+        addCollectionController.setRelatedController('comment');
+        this.set('collectable', !this.get('collectable'));
+    },
+    addComment: function() {       
         var commentContent = this.get('commentContent');
         if (commentContent) {
             var comments = this.get('mega').get('comments');
@@ -31,14 +45,13 @@ HubStar.CommentController = Ember.Controller.extend({
             $('#commentBox').attr('style', 'display:none');
             setTimeout(function() {
                 $('#masonry_container').masonry("reload");
-              $('.user_comment_' + localStorage.loginStatus).attr('style', 'display:block');
+                $('.user_comment_' + localStorage.loginStatus).attr('style', 'display:block');
             }, 200);
         }
     },
-            
     linkingUser: function(id) {
-            
-            self.location="#/users/"+id;
+
+        self.location = "#/users/" + id;
 
     },
     getCommentsById: function(id)
@@ -71,10 +84,10 @@ HubStar.CommentController = Ember.Controller.extend({
     },
     addLike: function(id)
     {
-        var mega = HubStar.Mega.find(id); 
+        var mega = HubStar.Mega.find(id);
         var type = mega.get("type");
-          var people_like = mega.get("people_like");
-          if (people_like === null || people_like === undefined) {
+        var people_like = mega.get("people_like");
+        if (people_like === null || people_like === undefined) {
             people_like = "";
         }
         if (localStorage.loginStatus !== null && localStorage.loginStatus !== undefined && localStorage.loginStatus !== "")
@@ -82,25 +95,24 @@ HubStar.CommentController = Ember.Controller.extend({
             if (people_like.indexOf(localStorage.loginStatus) !== -1)
             {
                 this.count = mega.get('likes_count');
-                
+
             }
-            else{     
-                var likeArray = [localStorage.loginStatus,id,type];
-                 likeArray=JSON.stringify(likeArray);
-                 var that = this;
-                    requiredBackEnd('megas', 'addlike', likeArray, 'POST', function(params) {
-                        params = params+"";
-                        var like = params.split(",");
-                        mega.set("likes_count", like.length);
-                        mega.set("people_like",params);
-                        that.count = like.length;
-                        //console.log(that.count);
-                        //console.log("sssssssssssssssssssss");
-                    }); 
+            else {
+                var likeArray = [localStorage.loginStatus, id, type];
+                likeArray = JSON.stringify(likeArray);
+                var that = this;
+                requiredBackEnd('megas', 'addlike', likeArray, 'POST', function(params) {
+                    params = params + "";
+                    var like = params.split(",");
+                    mega.set("likes_count", like.length);
+                    mega.set("people_like", params);
+                    that.count = like.length;
+                    //console.log(that.count);
+                    //console.log("sssssssssssssssssssss");
+                });
             }
         }
-    }, 
-
+    },
     pushComment: function(comment)
     {
         var tempurl = getRestAPIURL();
@@ -113,3 +125,4 @@ HubStar.CommentController = Ember.Controller.extend({
         });
     }
 });
+

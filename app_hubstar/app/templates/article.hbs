@@ -191,8 +191,11 @@
                         <div class="object-save" style=""></div>
                     </div>
                     <div class="addcommnetbox" role="button" {{action openComment target="view" on="click"}} id="addcommetBut" >
-                        add comment...
+                        add comment...{{controller}}
                     </div >
+                    
+                    
+                    {{#if controller.islogin}}
                     <div class="addcommnetbox-container" id="commentBox" style="display: none">
                         <div style="margin:0 auto; padding: 0 0 15px 38px;">
                             <a> 
@@ -205,9 +208,11 @@
                                 <div class="new-btn green-btn" {{action addComment}}>Post</div>
                             </span>
 
-
                         </div>
                     </div>
+                    {{/if}}
+                    
+                    
                     {{#each controller.megaResouce.comments}}
                     <div class="comment-item">
 

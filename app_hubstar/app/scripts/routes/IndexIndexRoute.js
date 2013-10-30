@@ -26,14 +26,14 @@ HubStar.IndexIndexRoute = Ember.Route.extend({
         redirect: function() {
 
 
-            if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
-                this.transitionTo('indexIndex');
-
-            } else {
+//            if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
+//                this.transitionTo('indexIndex');
+//
+//            } else {
 
                 this.transitionTo('searchIndex');
 
-            }
+//            }
 
         },
         model: function() {

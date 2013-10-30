@@ -26,15 +26,16 @@ HubStar.ReviewController = Ember.Controller.extend({
             this.set('review_user_photo_url', currentUser.get('photo_url_large'));
             this.set('review_user_name', currentUser.get('first_name') + currentUser.get('last_name'));
             // this.set('review_star_value', $('#example-rating-1').text());
-            this.set('review_length', this.get("controllers.profile").get('reviews').get("length"));
+          //  this.set('review_length', this.get("controllers.profile").get('reviews').get("length"));
 
         }
+        
 
         this.set("profile", this.get("controllers.profile").get('currentUserID'));
         this.set("profileReview", this.get("controllers.profile").get('reviews'));
-        this.set("profileName", this.get("controllers.profile").get('name'));
+        this.set("profileName", this.get("controllers.profile").get('profile_name'));
         console.log(this.get('profileName'));
-
+       
     },
     reviewCancel: function() {
         this.get("controllers.profile").set("rateTime", false);
@@ -56,7 +57,8 @@ HubStar.ReviewController = Ember.Controller.extend({
             var reviewUserID = this.get("currentUser").get('id');
 
             var reviewStarValue = $('#example-rating-1').text();
-
+           var reviewStarValueLength = reviewStarValue * 20;
+           console.log(reviewStarValueLength);
             var reviewUserName = this.get("currentUser").get('first_name') + this.get("currentUser").get('last_name');
             var reviewDate = new Date();
             var reviewId = localStorage.loginStatus + createReviewid();
@@ -64,10 +66,10 @@ HubStar.ReviewController = Ember.Controller.extend({
 
         }
         var tempReview = HubStar.Review.createRecord({"review_user_photo_url": reviewUserPhoto,
-            "review_user_id": reviewUserID, "review_user_name": reviewUserName, "review_content": reviewContent, "review_time_stamp": reviewDate.toString(), "optional": optional, "review_id": reviewId, "review_star_rating_value": reviewStarValue});
+            "review_user_id": reviewUserID, "review_user_name": reviewUserName, "review_content": reviewContent, "review_time_stamp": reviewDate.toString(), "optional": optional, "review_id": reviewId, "review_star_rating_value": reviewStarValue,  "review_length": reviewStarValueLength});
         reviews.insertAt(0, tempReview);
         reviews.store.save();
-
+ console.log(tempReview);
         this.get("controllers.profile").set("profileReviewStatistics", this.get("controllers.profile").get('profileReviewStatistics') + 1);
         this.set('reviewContent', "");
         this.get("controllers.profile").set("rateTime", false);

@@ -1,7 +1,7 @@
 var Router = Ember.Router.extend(
 
-        
-);
+
+        );
 
 
 HubStar.Router.map(function() {
@@ -22,7 +22,7 @@ HubStar.Router.map(function() {
                 this.resource("profileCollection", {path: ':profileCollection_id'});
             });
             this.resource("partners", {path: '/partners'});
-             this.resource("reviews", {path: '/reviews'});
+            this.resource("reviews", {path: '/reviews'});
 
         });
         this.resource("profiles", function() {
